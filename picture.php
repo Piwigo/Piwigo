@@ -243,7 +243,7 @@ if ( $page['num'] >= 1 )
   $cat_directory = $array_cat_directories[$row['storage_category_id']];
 
   $file = substr( $row['file'], 0, strrpos ( $row['file'], '.' ) );
-  $lien_thumbnail = $cat_directory.'/thumbnail/';
+  $lien_thumbnail = $cat_directory.'thumbnail/';
   $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
 
   $prev_title = $lang['previous_image'].' : ';
