@@ -92,8 +92,6 @@ if ( isset( $_POST['submit'] ) )
     $query.= ' FROM '.USER_ACCESS_TABLE;
     $query.= ' WHERE cat_id = '.$_GET['cat_id'];
     mysql_query( $query );
-    // resynchronize all users
-    synchronize_all_users();
   }
 
   // checking users favorites
@@ -114,6 +112,14 @@ $query.= ' WHERE a.id = '.$_GET['cat_id'];
 $query.= ' AND a.site_id = b.id';
 $query.= ';';
 $category = mysql_fetch_array( mysql_query( $query ) );
+// nullable fields
+foreach (array('comment','dir') as $nullable)
+{
+  if (!isset($category[$nullable]))
+  {
+    $category[$nullable] = '';
+  }
+}
 
 // Navigation path
 $current_category = get_cat_info($_GET['cat_id']);
@@ -127,7 +133,6 @@ $access = ($category['status']=='public')?'ACCESS_FREE':'ACCESS_RESTRICTED';
 $lock = ($category['visible']=='true')?'UNLOCKED':'LOCKED';
 
 //----------------------------------------------------- template initialization
-
 $template->assign_vars(array( 
   'CATEGORIES_NAV'=>$navigation,
   'CAT_NAME'=>$category['name'],
@@ -142,10 +147,10 @@ $template->assign_vars(array(
   'L_EDIT_NAME'=>$lang['description'],
   'L_STORAGE'=>$lang['storage'],
   'L_EDIT_COMMENT'=>$lang['comment'],
-  'L_EDIT_STATUS'=>$lang['conf_general_access'],
+  'L_EDIT_STATUS'=>$lang['conf_access'],
   'L_EDIT_STATUS_INFO'=>$lang['cat_access_info'],
-  'L_ACCESS_FREE'=>$lang['conf_general_access_1'],
-  'L_ACCESS_RESTRICTED'=>$lang['conf_general_access_2'],
+  'L_ACCESS_FREE'=>$lang['free'],
+  'L_ACCESS_RESTRICTED'=>$lang['restricted'],
   'L_EDIT_LOCK'=>$lang['cat_lock'],
   'L_EDIT_LOCK_INFO'=>$lang['cat_lock_info'],
   'L_YES'=>$lang['yes'],
