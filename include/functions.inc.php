@@ -24,11 +24,11 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include( PREFIX_INCLUDE.'./include/functions_user.inc.php' );
-include( PREFIX_INCLUDE.'./include/functions_session.inc.php' );
-include( PREFIX_INCLUDE.'./include/functions_category.inc.php' );
-include( PREFIX_INCLUDE.'./include/functions_xml.inc.php' );
-include( PREFIX_INCLUDE.'./include/functions_group.inc.php' );
+include( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
+include( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
+include( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
+include( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
+include( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
 
 //----------------------------------------------------------- generic functions
 

@@ -35,6 +35,7 @@ $handle = $vtp->Open( './template/'.$user['template'].'/admin.vtp' );
 // language
 $tpl = array( 'title_default','charset','install_warning' );
 templatize_array( $tpl, 'lang', $handle );
+$vtp->setGlobalVar( $handle, 'style', './template/'.$user['template'].'/'.$user['template'].'-admin.css');
 //-------------------------------------------------- install.php still exists ?
 if ( is_file( './install.php' ) )
 {

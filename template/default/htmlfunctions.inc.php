@@ -27,23 +27,27 @@
 
 function get_icon( $date_comparaison )
 {
-  global $user, $conf;
+  global $user, $conf, $lang;
   $difference = time() - $date_comparaison;
   $jours = 24*60*60;
   $output = '';
+  $title = $lang['recent_image'].'&nbsp;';
   if ( $difference < $user['long_period'] * $jours )
   {
     $icon_url = './template/'.$user['template'].'/theme/';
     if ( $difference < $user['short_period'] * $jours )
     {
       $icon_url.= 'new_short.gif';
+	  $title .= $user['short_period'];
     }
     else
     {
       $icon_url.= 'new_long.gif';
+	  $title .= $user['long_period'];
     }
+	$title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
-    $output = '<img src="'.$icon_url.'" style="border:0;';
+    $output = '<img title="'.$title.'" src="'.$icon_url.'" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="" />';
   }
   return $output;
@@ -105,7 +109,7 @@ function create_navigation_bar( $url, $nb_element, $start,
 
 function get_frame_start()
 {
-  return '<table style="width:';
+  return '<table style="padding:0px;border-collapse:collapse; width:';
 }
 
 function get_frame_begin()
@@ -117,13 +121,13 @@ function get_frame_begin()
   $size_03 = getimagesize( $path.'03.gif' );
   return ';">
             <tr>
-              <td><img src="'.$path.'01.gif" style="width:'.$size_01[0].'px;display:box;" alt="" /></td>
-              <td><img src="'.$path.'02.gif" style="display:box;width:100%;height:'.$size_02[1].'px;" alt="" /></td>
-              <td><img src="'.$path.'03.gif" style="display:box;width:'.$size_03[0].'px;" alt="" /></td>
+              <td><img src="'.$path.'01.gif" style="margin:auto;width:'.$size_01[0].'px;display:box;" alt="" /></td>
+              <td><img src="'.$path.'02.gif" style="margin:auto;display:box;width:100%;height:'.$size_02[1].'px;" alt="" /></td>
+              <td><img src="'.$path.'03.gif" style="margin:auto;display:box;width:'.$size_03[0].'px;" alt="" /></td>
             </tr>
             <tr>
-              <td style="background:url('.$path.'04.gif);"></td>
-              <td style="background:url('.$path.'05.gif);width:100%;">';
+              <td style="margin:autox;background:url('.$path.'04.gif);"></td>
+              <td style="margin:auto;background:url('.$path.'05.gif);width:100%;">';
 }
         
 function get_frame_end()
@@ -133,12 +137,12 @@ function get_frame_end()
   $size_08 = getimagesize( $path.'08.gif' );
   return '
               </td>
-              <td style="background:url('.$path.'06.gif);"></td>
+              <td style="margin:auto;background:url('.$path.'06.gif);"></td>
             </tr>
-            <tr>
-              <td><img src="'.$path.'07.gif" alt="" /></td>
-              <td><img src="'.$path.'08.gif" style="width:100%;height:'.$size_08[1].'px;" alt="" /></td>
-              <td><img src="'.$path.'09.gif" alt="" /></td>
+            <tr >
+              <td><img src="'.$path.'07.gif" style="margin:auto;" alt="" /></td>
+              <td><img src="'.$path.'08.gif" style="margin:auto;width:100%;height:'.$size_08[1].'px;" alt="" /></td>
+              <td><img src="'.$path.'09.gif" style="margin:auto;" alt="" /></td>
             </tr>   
           </table>';
 }
@@ -153,81 +157,6 @@ function initialize_template()
 	'T_END' =>  get_frame_end()
 	)
 	);
-
-
-  global $vtp, $handle;
-  if (isset($handle))
-  {
-  $vtp->setGlobalVar( $handle, 'frame_start', get_frame_start() );
-  $vtp->setGlobalVar( $handle, 'frame_begin', get_frame_begin() );
-  $vtp->setGlobalVar( $handle, 'frame_end',   get_frame_end() );
-  }
-}
-
-function display_category( $category, $indent )
-{
-  global $user,$lang,$template, $vtp, $handle;
-  
-  $style='';
-  $url = './category.php?cat='.$category['id'];
-  $url.= '&amp;expand='.$category['expand_string'];
-  $name = $category['name'];
-  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
-  if ( $category['id_uppercat'] == '' )
-  {
-    $style = 'font-weight:bold;';
-  }
-  
-  $template->assign_block_vars('category', array(
-    'LINK_NAME' => $name,
-	'INDENT' => $indent,
-	'NB_SUBCATS'=>$category['nb_sub_categories'],
-	'TOTAL_CAT'=>$category['nb_images'],
-	'CAT_ICON'=>get_icon($category['date_last']),
-	
-	'T_NAME'=>$style,
-    'U_LINK' => add_session_id($url)));
-
-  if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
-  {
-  	$template->assign_block_vars('category.bulletnolink', array('BULLET_IMAGE' =>  $user['lien_collapsed']));
-  }
-  else
-  {
-	$url = './category.php';
-  	if (isset($page['cat']))
-	{
-	  $url .='?cat='.$page['cat'];
-      $url.= '&amp;expand='.$category['expand_string'];
-	}
-	else if ($category['expand_string']<>'')
-	{
-	  $url.= '?expand='.$category['expand_string'];
-	}
-	
-	if ( $category['expanded'] )
-    {
-      $img=$user['lien_expanded'];
-    }
-    else
-    {
-      $img=$user['lien_collapsed'];
-    }
-	
-    $template->assign_block_vars('category.bulletlink', array(
-      'BULLET_IMAGE' =>  $img,
-	  'U_BULLET_LINK'=>  add_session_id($url)		
-	));
-  }
-
-  // recursive call
-  if ( $category['expanded'] )
-  {
-    foreach ( $category['subcats'] as $subcat ) {
-	  $template->assign_block_vars('category.subcat', array());
-      display_category( $subcat, $indent.str_repeat( '&nbsp', 2 ));
-    }
-  }
 }
 
 function make_jumpbox($value, $selected, $usekeys=false)

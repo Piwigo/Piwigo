@@ -129,6 +129,6 @@ if ($user['status'] == 'admin') $isadmin =true;
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 init_userprefs($user);
-$user['lien_expanded']='./template/'.$user['template'].'/theme/expanded..gif';
+$user['lien_expanded']='./template/'.$user['template'].'/theme/expanded.gif';
 $user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
 ?>

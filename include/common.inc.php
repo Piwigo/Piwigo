@@ -119,7 +119,7 @@ if( !defined("PHPWG_INSTALLED") )
   exit;
 }
 
-
+define( 'PREFIX_INCLUDE', '' );// en attendant la migration complète
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');

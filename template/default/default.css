@@ -1,41 +1,156 @@
+/* Main styles */
+
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size:10px;
+  background-color:#000000;
+  color:#E0E0E0;
+  margin:5px;
+}
+
 a {
   text-decoration:none;
-  color:#E0E0E0;
+  color:#FFFFFF;
 }
 a:hover {
   text-decoration:underline;
-  color:#E0E0E0;
+  color:#FFFFAA;
 }
 
-a.back,body {
+/* Navigation styles */
+
+.titreMenu,.titrePage
+{
+  padding-right: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  height: 25px;
+  line-height: 25px;
+  font-size:12px;
   color:#E0E0E0;
+  background-image: url(theme/tableh1_bg.gif);
+  font-weight:600;
+  text-align:center;
 }
-body {
-  font-family:arial, sans-serif;
-  font-size:12px;
-  background-color:#444444;
-  margin:5px;
+
+.titrePage 
+{
+  text-align:left;
+  font-size:16px;
+  margin-bottom:5px;
 }
-table, input {
-  font-family:arial, sans-serif;
-  font-size:12px;
+
+.titreImg{
+  text-align:center;
+  font-size:16px;
+  color:#FFF48E;
+  font-weight:600;
 }
+
+.menu 
+{
+  margin:10px 5px 10px 5px;
+  white-space:nowrap;
+  font-size:11px;
+}
+
+ /* Image related styles */
+ 
 .imgLink {
-  border:1px solid #E0E0E0;
+	border-style: solid;
+	border-width:2px;
+	border-color: #A0A0A0;
+	margin: 2px;
 }
+
 .imgLink:hover {
   text-decoration:none;
 }
-.titrePage,.titreMenu,.menu,.info,.commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
-  color:lightgray;
+
+.image {
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+	text-align:center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	white-space: nowrap;
+	padding: 0px;
+	display: table;
 }
-.titreMenu, .menu, .info {
+
+.commentImage {
+  font-weight:bold;
+  text-align:center;
+  font-size:17px;
+  color:#F0F0F0;
+  margin-bottom: 10px;
+}
+
+/* Table styles */
+
+.main {
+	background-color:#444444;
+	border: 1px solid #E0E0E0; 
+	width:100%;
+	padding-bottom:30px;
+}
+
+.table1, .home
+{
+  border: 1px solid #000000;
+  background-color:#555555;
+}
+
+.home
+{
+  text-align:center;
+  width:100%;
+}
+  
+.table2 {
+	background: #797979;
+	border: 1px solid #000000; 
+	margin: 0px 10px 10px 10px;
+}
+
+td{
+  padding:0px;
+}
+
+/* Thumbnails styles */
+
+.thumbnail {
+	font-size:11px;
+	text-align:center;
+	display:inline-table;
+	vertical-align: baseline;
+}
+
+table.thumbnail {
+  border-collapse:separate;
+}
+
+/* Other styles */
+a.back {
+  color:#E0E0E0;
+}
+
+input {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size:11px;
+}
+
+.info,.commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+  color:#E0E0E0;
+  background-color:#444444;
+}
+.info {
   margin-bottom:5px;
   white-space:nowrap;
-}
-.menu, .titrePage, .info {
-  margin-left:2px;
-  margin-right:2px;
+  margin-left:5px;
+  margin-right:5px;
+  text-align:right;
 }
 .menuInfoCat {
   font-family:sans-serif;
@@ -47,19 +162,7 @@ table, input {
   font-family:sans-serif;
   font-size:11px;
 }
-.titreMenu {
-  font-weight:600;
-  text-align:center;
-}
-.info {
-  text-align:right;
-}
-.titrePage {
-  white-space:nowrap;
-  font-weight:500;
-  font-size:18px;
-  text-align:center;
-}
+
 .comments, .infoCat, .navigationBar {
   margin-top:10px;
   margin-bottom:10px;
@@ -74,37 +177,22 @@ table, input {
 .infoCat {
   text-align:left;
 }
-.thumbnail {
-  font-size:11px;
-  text-align:center;
-}
+
 .copyright {
-  font-size:11px;
+  font-size:10px;
   text-align:center;
-  font-family:sans-serif;
-  letter-spacing:0.3mm;
+  letter-spacing:-1px;
 }
-.commentImage {
-  font-weight:bold;
-  text-align:center;
-  font-size:17px;
-}
+
 .bouton {
-  background:lightgray;
+  background:#E0E0E0;
 }
 textarea,input {
   color:black;
 }
-table {
-  border-collapse:collapse;
-}
-table.thumbnail {
-  border-collapse:separate;
-}
-td {
-  font-family:sans-serif;
-  padding:0px;
-}
+
+
+
 .errors {
   text-align:left;
   margin-top:5px;
@@ -114,6 +202,7 @@ td {
   border:1px solid black;
   color:white;
 }
+
 div.information {
   text-align:center;
   border:2px solid #E0E0E0;
@@ -206,3 +295,4 @@ div.information {
         text-align:center;
         color:red;
       }
+	  

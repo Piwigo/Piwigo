@@ -10,3 +10,5 @@
 <link rel="stylesheet" href="{T_STYLE}" type="text/css" />
 </head>
 <body>
+<table class="main">
+<tr><td>

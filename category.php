@@ -48,7 +48,74 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
+
 //-------------------------------------------------------------- initialization
+function display_category( $category, $indent )
+{
+  global $user,$lang,$template, $handle;
+  
+  $style='';
+  $url = './category.php?cat='.$category['id'];
+  $url.= '&amp;expand='.$category['expand_string'];
+  $name = $category['name'];
+  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
+  if ( $category['id_uppercat'] == '' )
+  {
+    $style = 'font-weight:bold;';
+  }
+  
+  $template->assign_block_vars('category', array(
+    'LINK_NAME' => $name,
+	'INDENT' => $indent,
+	'NB_SUBCATS'=>$category['nb_sub_categories'],
+	'TOTAL_CAT'=>$category['nb_images'],
+	'CAT_ICON'=>get_icon($category['date_last']),
+	
+	'T_NAME'=>$style,
+    'U_LINK' => add_session_id($url)));
+
+  if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
+  {
+  	$template->assign_block_vars('category.bulletnolink', array('BULLET_IMAGE' =>  $user['lien_collapsed']));
+  }
+  else
+  {
+	$url = './category.php';
+  	if (isset($page['cat']))
+	{
+	  $url .='?cat='.$page['cat'];
+      $url.= '&amp;expand='.$category['expand_string'];
+	}
+	else if ($category['expand_string']<>'')
+	{
+	  $url.= '?expand='.$category['expand_string'];
+	}
+	
+	if ( $category['expanded'] )
+    {
+      $img=$user['lien_expanded'];
+    }
+    else
+    {
+      $img=$user['lien_collapsed'];
+    }
+	
+    $template->assign_block_vars('category.bulletlink', array(
+      'BULLET_IMAGE' =>  $img,
+	  'U_BULLET_LINK'=>  add_session_id($url)		
+	));
+  }
+
+  // recursive call
+  if ( $category['expanded'] )
+  {
+    foreach ( $category['subcats'] as $subcat ) {
+	  $template->assign_block_vars('category.subcat', array());
+      display_category( $subcat, $indent.str_repeat( '&nbsp', 2 ));
+    }
+  }
+}
+
 // detection of the start picture to display
 if ( !isset( $_GET['start'] )
      or !is_numeric( $_GET['start'] )
@@ -118,7 +185,6 @@ $title = $page['title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('category'=>'category.tpl') );
-initialize_template();
 
 //-------------------------------------------------------------- category title
 $cat_title = $lang['no_category'];
@@ -126,7 +192,7 @@ if ( isset ( $page['cat'] ) )
 {
   if ( is_numeric( $page['cat'] ) )
   {
-    $cat_title = get_cat_display_name( $page['cat_name'], '<br />',
+    $cat_title = get_cat_display_name( $page['cat_name'], ' &gt; ',
                                     'font-style:italic;' );
   }
   else
@@ -144,12 +210,7 @@ $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
   'TITLE' => $cat_title,
   'USERNAME' => $user['username'],
-  
-  'S_TOP'=>$conf['top_number'],
-  'S_SHORT_PERIOD'=>$user['short_period'],
-  'S_LONG_PERIOD'=>$user['long_period'],
-  'S_WEBMASTER'=>$conf['webmaster'],
-  'S_MAIL'=>$conf['mail_webmaster'],
+  'TOP_VISITED'=>$conf['top_number'],
 
   'L_CATEGORIES' => $lang['categories'],
   'L_HINT_CATEGORY' => $lang['hint_category'],
@@ -167,20 +228,30 @@ $template->assign_vars(array(
   'L_UPLOAD' => $lang['upload_picture'],
   'L_COMMENT' => $lang['comments'],
   'L_NB_IMG' => $lang['nb_image_category'],
-  'L_USER' => $lang['connected_user'],
-  'L_RECENT_IMAGE' => $lang['recent_image'],
-  'L_DAYS' => $lang['days'],
-  'L_SEND_MAIL' => $lang['send_mail'],
-  'L_TITLE_MAIL' => $lang['title_send_mail'],
+  'L_IDENTIFY' => $lang['ident_title'],
+  'L_SUBMIT' => $lang['menu_login'],
+  'L_USERNAME' => $lang['login'],
+  'L_PASSWORD' => $lang['password'],
+  'L_HELLO' => $lang['hello'],
+  'L_LOGOUT' => $lang['logout'],
+  'L_ADMIN' => $lang['admin'],
+  'L_ADMIN_HINT' => $lang['hint_admin'],
+  'L_PROFILE' => $lang['customize'],
+  'L_PROFILE_HINT' => $lang['hint_customize'],
+  
+  'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
   
   'T_COLLAPSED' => $user['lien_collapsed'],
   'T_SHORT'=>get_icon( time() ),
   'T_LONG'=>get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) ),
 
-  'U_HOME' => add_session_id( 'category.php' ),
-  'U_FAVORITE' => add_session_id( './category.php?cat=fav&amp;expand='.$page['expand'] ),
-  'U_MOST_VISITED'=>add_session_id( './category.php?cat=most_visited&amp;expand='.$page['expand'] ),
-  'U_RECENT'=>add_session_id( './category.php?cat=recent&amp;expand='.$page['expand'] )
+  'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
+  'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav&amp;expand='.$page['expand'] ),
+  'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited&amp;expand='.$page['expand'] ),
+  'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent&amp;expand='.$page['expand'] ),
+  'U_LOGOUT' => add_session_id( PHPWG_ROOT_PATH.'category.php?act=logout' ),
+  'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
+  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
   )
 );
 
@@ -201,35 +272,19 @@ if ( !$user['is_the_guest'] )
   $template->assign_block_vars('username', array());
 }
 //--------------------------------------------------------------------- summary
-$sum_title = '';
-$sum_name='';
-$sum_url = '';
+
 if ( !$user['is_the_guest'] )
 {
-  $sum_name=replace_space($lang['logout']);
-  $sum_url = 'category.php?act=logout';
+  $template->assign_block_vars('logout',array());
+  // administration link
+  if ( $user['status'] == 'admin' )
+  {
+    $template->assign_block_vars('logout.admin', array());
+  }
 }
 else
 {
-  $sum_title =  $lang['hint_login'];
-  $sum_name=replace_space( $lang['menu_login']);
-  $sum_url = 'identification.php';
-}
-$template->assign_block_vars('summary', array(
-  'TITLE'=>$sum_title,
-  'NAME'=>$sum_name,
-  'U_SUMMARY'=>add_session_id( $sum_url ),
-  )
-);
-
-// customization link
-if ( !$user['is_the_guest'] )
-{
-  $template->assign_block_vars('summary', array(
-  'TITLE'=>$lang['hint_customize'],
-  'NAME'=>$lang['customize'],
-  'U_SUMMARY'=>add_session_id('profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] )),
-  ));
+  $template->assign_block_vars('login',array());
 }
 
 // search link
@@ -252,16 +307,6 @@ $template->assign_block_vars('summary', array(
 'NAME'=>$lang['about'],
 'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
 ));
-
-// administration link
-if ( $user['status'] == 'admin' )
-{
-  $template->assign_block_vars('summary', array(
-    'TITLE'=>$lang['hint_admin'],
-    'NAME'=>$lang['admin'],
-    'U_SUMMARY'=>add_session_id( 'admin.php' )
-    ));
-}
 
 //------------------------------------------------------------------ thumbnails
 if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )

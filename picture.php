@@ -203,13 +203,14 @@ if ( isset( $_GET['slideshow'] ) && $next)
 }
 
 $title_img = $picture['current']['name'];
+$title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
-  $title_img = get_cat_display_name( $page['cat_name'], " - ","font-style:italic;" );
+  $title_img = replace_space(get_cat_display_name( $page['cat_name'], " &gt; ","font-style:italic;" ));
   $n = $page['num'] + 1;
-  $title_img = replace_space( $title_img." - " ).$n.'/';
-  $title_img.= $page['cat_nb_images']."<br />";
-  $title_img.= $picture['current']['name'];
+  $title_nb = "Photo".' '.$n.'/';
+  $title_nb.= $page['cat_nb_images'];
+  //$title_img.= $picture['current']['name'];
 }
 else if ( $page['cat'] == 'search' )
 {
@@ -237,7 +238,9 @@ $template->set_filenames(array('picture'=>'picture.tpl'));
 initialize_template();
 
 $template->assign_vars(array(
-  'TITLE' => $title_img,
+  'CATEGORY' => $title_img,
+  'PHOTO' => $title_nb,
+  'TITLE' => $picture['current']['name'],
   'PREV_TITLE_IMG' => $picture['prev']['name'],
   'NEXT_TITLE_IMG' => $picture['next']['name'],
   'PREV_IMG' => $picture['prev']['thumbnail'],

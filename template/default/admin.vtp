@@ -1,165 +1,10 @@
-<html>
-  <head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={#charset}" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
     <title>{#title_default}</title>
-    <style>
-      a {
-        text-decoration:none;
-        color:#006699;
-      }
-      a:hover {
-        text-decoration:underline;
-      }
-      body,table,input,form,select,textarea {
-        font-family:arial,verdana,sans-serif;
-        font-size:12px;
-      }
-      .miniature {
-        border:solid 1px black;
-      }
-      body {
-        background-color:#E5E5E5;
-      }
-      .titretable1 {
-        color:black;
-        background-color:#D3DCE3;
-        text-align:center;
-        border:2px solid #006699;
-        font-weight:bold;
-        border-bottom:0px;
-      }
-      .grostitre {
-        text-align:center;
-        margin:10px 50px 10px 50px;
-        font-size:20px;
-        width:300px;
-      }
-      .plan {
-        margin:10px 10px 10px 2px;
-        white-space:nowrap;
-      }
-      .table1 {
-        border-collapse:collapse;
-        background-color:#FFFFFF;
-      }
-      .contenucellule {
-        background-color:#EEEEEE;
-        border:2px solid #006699;
-      }
-      .style1 {
-        margin-top:20px;
-      }
-      th {
-        font-weight:bold;
-        background-color:#D3DCE3;
-      }
-      td.row1 {
-        background-color:#E6E4E4;
-      }
-      td.row2,td.throw2 {
-        background-color:#E8E8E8;
-      }
-      td.throw2 {
-        text-align:center;
-        font-weight:bold;
-      }
-      td.row3 {
-        background-color:#eeeeee;
-      }
-      td.row4 {
-        background-color:#cccccc;
-      }
-      .summary {
-        text-align:center;
-        font-weight:bold;
-      }
-      .retrait {
-        margin:10px;
-        margin-left:30px;
-        margin-top:2px;
-      }
-      input,textarea {
-        border-width:1;
-        border-color:#000000;
-        background:#ffffff;
-        color: #000000;
-      }
-      .erreur {
-        color:red;
-        text-align:center;
-      }
-      .errors {
-        text-align:left;
-        margin:25px;
-        background-color:#ffe1e1;
-        border:1px solid red;
-        color:black;
-      }
-      .errors_title {
-        margin:5px;
-        font-weight:bold;
-        font-size:120%;
-        text-align:center;
-        color:red;
-      }
-      .info {
-        color:darkblue;
-        text-align:center;
-      }
-      div.key {
-        margin-left : 10px;
-      }
-      td.choice {
-        text-align : center;
-      }
-      div.install_warning {
-        text-align:center;
-        color:red;
-        margin:20px;
-        font-weight:bold;
-      }
-<!-- comments CSS style -->
-      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
-        color:black;
-        font-family:arial,sans-Serif;
-        font-size:12px;
-      }
-      .commentsTitle,.commentsAuthor {
-        text-align:center;
-        font-weight:bold;
-      }
-      .commentsInfos {
-        text-align:right;
-        margin:3px 3px 3px 10px;
-        font-size:11px;
-      }
-      .commentsContent {
-        margin:10px;
-      }
-      .commentsTitle {
-        margin-top:15px;
-      }
-      .commentsAuthor {
-        margin:5px;
-      }
-      .commentsNavigationBar {
-        margin:10px;
-      }
-      .tableComment {
-        width:100%;
-        border:2px solid #006699;
-        margin:10px;
-      }
-      .cellAuthor {
-        border-right:1px solid #006699;
-        width:100px;
-      }
-      .cellInfo {
-        border-bottom:1px solid #006699;
-      }
-      .imgLink {
-        border:1px solid black;
-      }
-    </style>
+	<link rel="stylesheet" href="{#style}" type="text/css" />
     <script language="javascript">
       function SelectAll( formulaire )
       {
@@ -189,7 +34,7 @@
         }
       }
     </script>
-    <meta http-equiv="Content-Type" content="text/html; charset={#charset}">
+
   </head>
   <body>
     <!--VTP_install_warning--><div class="install_warning">{#install_warning}</div><!--/VTP_install_warning-->

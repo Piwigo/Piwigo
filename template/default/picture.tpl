@@ -17,30 +17,29 @@
     <!-- END stop_slideshow -->
     <table style="width:100%;height:100%;">
       <tr align="center" valign="middle">
-        <td style="width:30%;">
-		<!-- BEGIN previous -->
-		  <a href="{U_PREV_IMG}" title="{L_PREV_IMG}{PREV_TITLE_IMG}"><img src="{PREV_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{PREV_TITLE_IMG}"/></a></td>
-		<!-- END previous -->
-        <td style="width:40%;">{T_START}1%{T_BEGIN}
-        <div class="titrePage">{TITLE}</div>
-        {T_END} </td>
-        <td style="width:30%;">
-		<!-- BEGIN next -->
-		  <a href="{U_NEXT_IMG}" title="{L_NEXT_IMG}{NEXT_TITLE_IMG}"><img src="{NEXT_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{NEXT_TITLE_IMG}"/></a></td>
-		<!-- END next -->
-	    </td>
-      </tr>
-      <tr align="center" valign="middle">
         <td colspan="3" style="width:100%;"> 
-          {T_START}1%{T_BEGIN}
+		<div class="table2">
+		<div class="titrePage">{CATEGORY}</div>
+		<div class="titreImg">{PHOTO}</div>
+		  <div class="image">
           <a href="{U_HOME}">
-            <img class="imgLink" style="margin:10px;width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;border:1px solid" src="{SRC_IMG}" alt="{ALT_IMG}"/>
+            <img class="imgLink" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
           </a>
+		  </div>
+		  <div class="commentImage">{TITLE}</div>
           <div class="commentImage">{COMMENT_IMG}</div>
+		  </div>
           <table style="width:100%;">   
-            <tr>
-              <td align="center">
-                <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
+            <tr align="center" valign="middle">
+			  <td style="width:30%;">
+				<!-- BEGIN previous -->
+				<a href="{U_PREV_IMG}" title="{L_PREV_IMG}{PREV_TITLE_IMG}">
+				<img style="border:none;" class="imgLink" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
+				  <img src="{PREV_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{PREV_TITLE_IMG}"/></a>
+				<!-- END previous -->
+			  </td>
+			  <td style="width:40%;">
+			  <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
                   <!-- BEGIN info_line -->
                   <tr>
                      <td class="menu" style="font-weight:bold;">{info_line.INFO} : </td>
@@ -48,8 +47,14 @@
                   </tr>
                   <!-- END info_line -->
                 </table>
-              </td>
-            </tr>
+			  </td>
+			  <td style="width:30%;">
+				<!-- BEGIN next -->
+				  <a href="{U_NEXT_IMG}" title="{L_NEXT_IMG}{NEXT_TITLE_IMG}"><img src="{NEXT_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{NEXT_TITLE_IMG}"/>
+				  <img style="border:none;" class="imgLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" /></a>
+				<!-- END next -->
+			  </td>
+			</tr>
           </table>
           <!-- BEGIN favorite -->
           <div class="menu" style="text-align:center;margin:5px;">
@@ -63,7 +68,6 @@
             [ <a href="{U_ADMIN}">{L_ADMIN}</a> ]
           </div>
           <!-- END modification -->
-          {T_END}
           <div style="text-align:center;">{L_BACK}</div>
         </td>
         <td>&nbsp;</td>

@@ -34,7 +34,7 @@
 		  <tr> 
 			<td align="right"><span class="gentbl">{L_PASSWORD}:</span></td>
 			<td> 
-			  <input class="login" type="password" name="pass" size="25" maxlength="25" />
+			  <input class="login" type="password" name="password" size="25" maxlength="25" />
 			</td>
 		  </tr>
 		  <tr align="center"> 

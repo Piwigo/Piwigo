@@ -38,7 +38,7 @@ if ( isset( $_POST['login'] ) )
   $query.= ' FROM '.USERS_TABLE;
   $query.= " WHERE username = '".$_POST['username']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
-  if( $row['password'] == md5( $_POST['pass'] ) )
+  if( $row['password'] == md5( $_POST['password'] ) )
   {
     $session_id = session_create( $_POST['username'] );
     $url = 'category.php?id='.$session_id;
