@@ -65,7 +65,7 @@ function update_metadata($files)
 
   if (!defined('CURRENT_DATE'))
   {
-    define('CURRENT_DATE', "'".date('Y-m-d')."'");
+    define('CURRENT_DATE', date('Y-m-d'));
   }
 
   $inserts = array();
@@ -109,7 +109,7 @@ function update_metadata($files)
       }
     }
 
-    $insert['date_metadata_update'] = CURRENT_DATE;
+    $insert['date_metadata_update'] = "'".CURRENT_DATE."'";
 
     array_push($inserts, $insert);
   }
