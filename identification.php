@@ -24,9 +24,9 @@ $errors = array();
 if ( isset( $_POST['login'] ) )
 {
   // retrieving the encrypted password of the login submitted
-  $query = 'select password';
-  $query.= ' from '.PREFIX_TABLE.'users';
-  $query.= " where username = '".$_POST['login']."';";
+  $query = 'SELECT password';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= " WHERE username = '".$_POST['login']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   if( $row['password'] == md5( $_POST['pass'] ) )
   {
@@ -61,7 +61,7 @@ $vtp->setGlobalVar( $handle, 'mail_webmaster',   $conf['mail_webmaster'] );
 $vtp->setGlobalVar( $handle, 'user_template',    $user['template'] );
 initialize_template();
 //-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
+if ( sizeof( $errors ) != 0 )
 {
   $vtp->addSession( $handle, 'errors' );
   foreach ( $errors as $error ) {
