@@ -20,9 +20,9 @@ include( 'functions_category.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
-// The function get_boolean transforms a string to a boolean value. If the
-// string is "false" (case insensitive), then the boolean value false is
-// returned. In any other case, true is returned.
+// get_boolean transforms a string to a boolean value. If the string is
+// "false" (case insensitive), then the boolean value false is returned. In
+// any other case, true is returned.
 function get_boolean( $string )
 {
   $boolean = true;
@@ -33,8 +33,8 @@ function get_boolean( $string )
   return $boolean;
 }
 
-// The function array_remove removes a value from the given array if the value
-// existed in this array.
+// array_remove removes a value from the given array if the value existed in
+// this array.
 function array_remove( $array, $value )
 {
   $i = 0;
@@ -81,21 +81,21 @@ function replace_space( $string )
                 
   $start = 0;
   $end = 0;
-  $start = strpos ( $remaining, "<" );
-  $end = strpos ( $remaining, ">" );
+  $start = strpos ( $remaining, '<' );
+  $end   = strpos ( $remaining, '>' );
   while ( is_numeric( $start ) and is_numeric( $end ) )
   {
     $treatment = substr ( $remaining, 0, $start );
-    $treatment = str_replace( " ", "&nbsp;", $treatment );
-    $treatment = str_replace( "-", "&minus;", $treatment );
+    $treatment = str_replace( ' ', '&nbsp;', $treatment );
+    $treatment = str_replace( '-', '&minus;', $treatment );
     $return_string.= $treatment.substr ( $remaining, $start,
                                          $end - $start + 1 );
     $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
-    $start = strpos ( $remaining, "<" );
-    $end = strpos ( $remaining, ">" );
+    $start = strpos ( $remaining, '<' );
+    $end   = strpos ( $remaining, '>' );
   }
-  $treatment = str_replace( " ", "&nbsp;", $remaining );
-  $treatment = str_replace( "-", "&minus;", $treatment );
+  $treatment = str_replace( ' ', '&nbsp;', $remaining );
+  $treatment = str_replace( '-', '&minus;', $treatment );
   $return_string.= $treatment;
                 
   return $return_string;
@@ -218,7 +218,7 @@ function get_themes( $theme_dir )
 }
 
 // - The replace_search function replaces a $search string by the search in
-// another color
+//   another color
 // - The function does not replace characters in HTML tags
 function replace_search( $string, $search )
 {
@@ -229,21 +229,21 @@ function replace_search( $string, $search )
 
   $start = 0;
   $end = 0;
-  $start = strpos ( $remaining, "<" );
-  $end = strpos ( $remaining, ">" );
+  $start = strpos ( $remaining, '<' );
+  $end   = strpos ( $remaining, '>' );
   while ( is_numeric( $start ) and is_numeric( $end ) )
   {
     $treatment = substr ( $remaining, 0, $start );
-    $treatment = eregi_replace( $search, "<span style=\"".$style_search."\">".
-                                $search."</span>", $treatment );
+    $treatment = str_replace( $search, '<span style="'.$style_search.'">'.
+                              $search.'</span>', $treatment );
     $return_string.= $treatment.substr ( $remaining, $start,
                                          $end - $start + 1 );
     $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
-    $start = strpos ( $remaining, "<" );
-    $end = strpos ( $remaining, ">" );
+    $start = strpos ( $remaining, '<' );
+    $end   = strpos ( $remaining, '>' );
   }
-  $treatment = eregi_replace( $search, "<span style=\"".$style_search."\">".
-                              $search."</span>", $remaining );
+  $treatment = str_replace( $search, '<span style="'.$style_search.'">'.
+                            $search.'</span>', $remaining );
   $return_string.= $treatment;
                 
   return $return_string;
