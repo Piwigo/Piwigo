@@ -40,7 +40,7 @@ if (isset($_POST['date_creation']) and !empty($_POST['date_creation']))
     array_push($errors, $lang['err_date']);
   }
 }
-if (isset($_POST['submit']))
+if (isset($_POST['submit']) and count($errors) == 0)
 {
   $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
   if ($_POST['name'] == '')
@@ -61,7 +61,7 @@ if (isset($_POST['submit']))
     $query.= "'".htmlentities($_POST['comment'],ENT_QUOTES)."'";
 
   $query.= ', date_creation = ';
-  if (check_date_format($_POST['date_creation']))
+  if (!empty($_POST['date_creation']))
     $query.= "'".date_convert($_POST['date_creation'])."'";
   else if ($_POST['date_creation'] == '')
     $query.= 'NULL';
