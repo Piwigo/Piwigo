@@ -37,4 +37,5 @@ $lang['lang'] = array(
   'sv'=>'Swedish'
   );
 
+$lang['charset'] = 'iso-8859-1';
 ?>

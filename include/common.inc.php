@@ -112,7 +112,7 @@ $user = array();
 $lang = array();
 
 
-include(PHPWG_ROOT_PATH .'config.php');
+include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if( !defined("PHPWG_INSTALLED") )
 {
   header( 'Location: install.php' );
@@ -121,18 +121,18 @@ if( !defined("PHPWG_INSTALLED") )
 
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
+include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 include(PHPWG_ROOT_PATH . 'include/vtemplate.class.php');
-include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 
 //
 // Database connection
 //
 
-mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
+mysql_connect( $dbhost, $dbuser, $dbpasswd )
 or die ( "Could not connect to server" );
-mysql_select_db( $cfgBase )
+mysql_select_db( $dbname )
 or die ( "Could not connect to database" );
 	
 //
@@ -210,3 +210,4 @@ if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 define('PREFIX_TABLE', $table_prefix);
 ?>
+

@@ -25,9 +25,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$user['lien_expanded']='./template/'.$user['template'].'/theme/expanded.gif';
-$user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
-
 function get_icon( $date_comparaison )
 {
   global $user, $conf;
@@ -263,3 +260,4 @@ function make_radio($name, $value, $selected, $usekeys=false)
   return $boxstring;
 }
 ?>
+

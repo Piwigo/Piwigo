@@ -299,10 +299,13 @@ $lang['help_access_title'] = 'Access authorization';
 $lang['help_access'][0] = 'PhpWebGallery is able to forbid access to categories. Categories can be "public" or "private". In order to forbid access to a category :';
 $lang['help_access'][1] = '1. Modify category informations (from the "categories" section in tha admin panel) and make it "private".';
 $lang['help_access'][2] = '2. On the page of permissions (for a group or a user) the private category will be shown and you\'ll be able to authorize access or not.';
-$lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
+if (isset($conf))
+  $lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
 $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
 $lang['permuser_only_private'] = 'Only private categories are shown';
 $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
 $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
 $lang['cat_unknown_id'] = 'This category is unknown in the database';
+$lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
+
  ?>

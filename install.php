@@ -25,52 +25,168 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//-------------------------------------------------------------------- includes
-define( 'PREFIX_INCLUDE', '' );
-include( './include/vtemplate.class.php' );
-include( './include/functions.inc.php' );
+//----------------------------------------------------------- include
+define('PHPWG_ROOT_PATH','./');
 
-$config_file = './config.php';
-//----------------------------------------------------- template initialization
-$vtp = new VTemplate;
-$handle = $vtp->Open( './template/default/install.vtp' );
-$vtp->setGlobalVar( $handle, 'release', '1.4' );
-//-------------------------------------------------------------------- language
-if ( isset( $_GET['language'] ) )
+// Guess an initial language ... 
+function guess_lang()
 {
-  $isadmin = true;
-  $lang = array();
-  include( './language/'.$_GET['language'].'.php' );
-  $tpl = array( 'step1_err_copy', 'step1_err_copy_2', 'step1_err_copy_next',
-                'errors_title', 'step1_title','step1_host','step1_host_info',
-                'step1_user','step1_user_info','step1_pass','step1_pass_info',
-                'step1_database','step1_database_info','step1_prefix',
-                'step1_prefix_info','submit','infos_title','step2_title',
-                'conf_general_webmaster','conf_general_webmaster_info',
-                'step2_pwd','step2_pwd_info','step2_pwd_conf',
-                'step2_pwd_conf_info','conf_general_mail',
-                'conf_general_mail_info','install_end_title',
-                'install_end_message','install_help');
-  templatize_array( $tpl, 'lang', $handle );
-  $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
-}
-//---------------------- Step 1 : connection informations, write of config file
-if ( isset($_GET['step']) && $_GET['step'] == 1 )
-{
-  $errors = array();
-  $infos  = array();
-  // creation of ./include/mysql.inc.php : file containing database
-  // connection informations
-  if ( isset( $_POST['cfgBase'] )
-       and isset( $_POST['cfgUser'] )
-       and isset( $_POST['cfgPassword'] )
-       and isset( $_POST['cfgHote'] ) )
+  global $_SERVER;
+  $languages = array();
+  $i = 0;
+  if ( $opendir = opendir ( PHPWG_ROOT_PATH.'language/' ) )
   {
-    if ( @mysql_connect( $_POST['cfgHote'],
-                         $_POST['cfgUser'],
-                         $_POST['cfgPassword'] ) )
+    while ( $file = readdir ( $opendir ) )
     {
-      if ( @mysql_select_db($_POST['cfgBase'] ) )
+      if ( is_dir ( PHPWG_ROOT_PATH.'language/'.$file )&& !substr_count($file,'.'))
+      {
+        $languages[$i++] =$file;
+      }
+    }
+  }
+
+  if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+  {
+  	$accept_lang_ary = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	for ($i = 0; $i < sizeof($accept_lang_ary); $i++)
+	{
+	  for ($j=0; $j<sizeof($languages); $j++)
+	  {
+	  	if (preg_match('#' . substr($languages[$j],0,2) . '#i', substr(trim($accept_lang_ary[$i]),0,2)))
+		{
+		  if (file_exists(PHPWG_ROOT_PATH . 'language/' . $languages[$j].'/install.lang.php'))
+		  {
+		  	return $languages[$j];
+		  }
+		}
+	  }
+	}
+  }
+  return 'en_EN';
+}
+
+set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
+//
+// addslashes to vars if magic_quotes_gpc is off this is a security
+// precaution to prevent someone trying to break out of a SQL statement.
+//
+if( !get_magic_quotes_gpc() )
+{
+  if( is_array($_POST) )
+  {
+    while( list($k, $v) = each($_POST) )
+    {
+      if( is_array($_POST[$k]) )
+      {
+        while( list($k2, $v2) = each($_POST[$k]) )
+        {
+          $_POST[$k][$k2] = addslashes($v2);
+        }
+        @reset($_POST[$k]);
+      }
+      else
+      {
+        $_POST[$k] = addslashes($v);
+      }
+    }
+    @reset($_POST);
+  }
+
+  if( is_array($_COOKIE) )
+  {
+    while( list($k, $v) = each($_COOKIE) )
+    {
+      if( is_array($_COOKIE[$k]) )
+      {
+        while( list($k2, $v2) = each($_COOKIE[$k]) )
+        {
+          $_COOKIE[$k][$k2] = addslashes($v2);
+        }
+        @reset($_COOKIE[$k]);
+      }
+      else
+      {
+        $_COOKIE[$k] = addslashes($v);
+      }
+    }
+    @reset($_COOKIE);
+  }
+}
+
+//----------------------------------------------------- variable initialization
+$install_style = 'default';
+$release_version = '1.4';
+if ( isset( $_POST['language'] ))
+{
+  $language = strip_tags($_POST['language']);
+}
+else 
+{
+  $language = guess_lang();
+}
+
+if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/install.lang.php')) )
+{
+  $language = 'en_EN';
+}
+include( './language/'.$language.'/install.lang.php' );
+include( './language/'.$language.'/admin.lang.php' );
+$mapping_lang = $language;
+if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/lang.lang.php')) )
+{
+  $mapping_lang = 'en_EN';
+}
+include_once(PHPWG_ROOT_PATH . 'language/' . $mapping_lang . '/lang.lang.php');
+
+// Obtain various vars
+$dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
+$dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
+$dbpasswd = (!empty($_POST['dbpasswd'])) ? $_POST['dbpasswd'] : '';
+$dbname = (!empty($_POST['dbname'])) ? $_POST['dbname'] : '';
+
+$table_prefix = (!empty($_POST['prefix'])) ? $_POST['prefix'] : 'phpwg_';
+
+$admin_name = (!empty($_POST['admin_name'])) ? $_POST['admin_name'] : '';
+$admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
+$admin_pass2 = (!empty($_POST['admin_pass2'])) ? $_POST['admin_pass2'] : '';
+$admin_mail = (!empty($_POST['admin_mail'])) ? $_POST['admin_mail'] : '';
+
+$lang_options = $lang['lang'];
+@asort($lang_options);
+@reset($lang_options);
+
+$infos = array();
+$errors = array();
+
+// Open config.php ... if it exists
+$config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
+if (@file_exists($config_file))
+{
+	include($config_file);
+}
+
+// Is phpBB already installed? Yes? Redirect to the index
+if (defined("PHPWG_INSTALLED"))
+{  
+  header( 'Location: index.php' );
+  exit;
+}
+
+include(PHPWG_ROOT_PATH . 'include/constants.php');
+include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
+include(PHPWG_ROOT_PATH . 'include/template.php');
+//----------------------------------------------------- template initialization
+$template=setup_style($install_style);
+$template->set_filenames( array('install'=>'install.tpl') );
+$step = 1;
+//----------------------------------------------------- form analyze
+if ( isset( $_POST['install'] ))
+{
+    if ( @mysql_connect( $_POST['dbhost'],
+                         $_POST['dbuser'],
+                         $_POST['dbpasswd'] ) )
+    {
+      if ( @mysql_select_db($_POST['dbname'] ) )
       {
         array_push( $infos, $lang['step1_confirmation'] );
       }
@@ -84,233 +200,168 @@ if ( isset($_GET['step']) && $_GET['step'] == 1 )
       array_push( $errors, $lang['step1_err_server'] );
     }
 	
-    if ( count( $errors ) == 0 )
+	$webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
+    if ( empty($webmaster))
+      array_push( $errors, $lang['step2_err_login1'] );
+    else if ( preg_match( '/[\'"]/', $webmaster ) )
+      array_push( $errors, $lang['step2_err_login3'] );
+	if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
+  	  array_push( $errors, $lang['step2_err_pass'] );
+	if ( empty($admin_mail))
+	  array_push( $errors, $lang['reg_err_mail_address'] );
+	else 
+	{
+	  $error_mail_address = validate_mail_address($admin_mail);
+	  if (!empty($error_mail_address)) array_push( $errors, $error_mail_address );
+	}
+	  
+	if ( count( $errors ) == 0 )
     {
+	  $step = 2;
       $file_content = "<?php";
-      $file_content.= "\n\$cfgBase = '".     $_POST['cfgBase']."';";
-      $file_content.= "\n\$cfgUser = '".     $_POST['cfgUser']."';";
-      $file_content.= "\n\$cfgPassword = '". $_POST['cfgPassword']."';";
-      $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
+      $file_content.= "\n\$dbname = '".     $dbname."';";
+      $file_content.= "\n\$dbuser = '".     $dbuser."';";
+      $file_content.= "\n\$dbpasswd = '". $dbpasswd."';";
+      $file_content.= "\n\$dbhost = '".     $dbhost."';";
 	  $file_content.= "\n";
-      $file_content.= "\n\$table_prefix = '".$_POST['prefixeTable']."';";
+      $file_content.= "\n\$table_prefix = '".$table_prefix."';";
 	  $file_content.= "\n";
 	  $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
-      $file_content.= "\n?>";
-      // writting the configuration file
-      if ( $fp = @fopen( $config_file, 'a+' ) )
+      $file_content.= "\n?".">";
+	  
+	  @umask(0111);
+      // writing the configuration file
+      if ( !($fp = @fopen( $config_file, 'w' )))
       {
-	  	ftruncate($fp, 0);
-        fwrite( $fp, $file_content ); 
-        fclose( $fp );
-      }
-      $cfgHote     = '';
-      $cfgUser     = '';
-      $cfgPassword = '';
-      $cfgBase     = '';
-      if ( is_file( $config_file ) ) include( $config_file );
-      $file_OK = false;
-      if ( @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) )
-      {
-        if ( @mysql_select_db( $cfgBase ) ) $file_OK = true;
-      }
-      if ( !$file_OK )
-      {
-        $vtp->addSession( $handle, 'error_copy' );
-        $html_content = htmlentities( $file_content, ENT_QUOTES );
+		$html_content = htmlentities( $file_content, ENT_QUOTES );
         $html_content = nl2br( $html_content );
-        $vtp->setVar( $handle, 'error_copy.file_content', $html_content );
-        $vtp->closeSession( $handle, 'error_copy' );
+		$template->assign_block_vars('error_copy',array('FILE_CONTENT'=>$html_content));
       }
-      else
-      {
-        $url = 'install.php?step=2&language='.$_GET['language'];
-        header( 'Request-URI: '.$url );  
-        header( 'Content-Location: '.$url);  
-        header( 'Location: '.$url );
-        exit();
-      }
-    }
-  }
-  // errors display
-  if ( sizeof( $errors ) != 0 )
-  {
-    $vtp->addSession( $handle, 'errors' );
-    foreach ( $errors as $error ) {
-      $vtp->addSession( $handle, 'error' );
-      $vtp->setVar( $handle, 'error.content', $error );
-      $vtp->closeSession( $handle, 'error' );
-    }
-    $vtp->closeSession( $handle, 'errors' );
-  }
-  // infos display
-  if ( sizeof( $infos ) != 0 )
-  {
-    $vtp->addSession( $handle, 'infos' );
-    foreach ( $infos as $info ) {
-      $vtp->addSession( $handle, 'info' );
-      $vtp->setVar( $handle, 'info.content', $info );
-      $vtp->closeSession( $handle, 'info' );
-    }
-    $vtp->closeSession( $handle, 'infos' );
-  }
-  // form display (if necessary)
-  if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
-  {
-    $vtp->addSession( $handle, 'step1' );
+	  @fputs($fp, $file_content, strlen($file_content));
+  	  @fclose($fp);
 
-    // host
-    if ( !isset( $_POST['cfgHote'] ) )
-      $vtp->setVar( $handle, 'step1.f_host', 'localhost' );
-    else
-      $vtp->setVar( $handle, 'step1.f_host', $_POST['cfgHote'] );
-    // user
-	if ( isset( $_POST['cfgUser'] ) )
-	    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
-    // base
-	if ( isset( $_POST['cfgBase'] ) )
-	    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
-    // prefixeTable
-    if ( !isset( $_POST['prefixeTable'] ) )
-      $vtp->setVar( $handle, 'step1.f_prefixeTable', 'phpwebgallery_' );
-    else
-      $vtp->setVar( $handle, 'step1.f_prefixeTable', $_POST['prefixeTable'] );
-
-    $vtp->closeSession( $handle, 'step1' );
-  }
-}
-//------------------------------------- Step 2 : creation of tables in database
-else if (  isset($_GET['step']) && $_GET['step'] == 2 )
-{
-  $errors = array();
-  $infos  = array();
-
-  include( $config_file );
-  mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
-    or die ( "Can't connect to database host" );
-  mysql_select_db( $cfgBase )
-    or die ( "Connection to host succeeded, but database selection failed" );
-		
-  if ( !isset( $_POST['submit'] ) )
-  {
-    // tables creation, based on phpwebgallery_structure.sql
-    $sql_lines = file( './admin/phpwebgallery_structure.sql' );
-    $query = '';
-    foreach ( $sql_lines as $sql_line ) {
-      $sql_line = trim( $sql_line );
-      if ( preg_match( '/(^--|^$)/', $sql_line ) ) continue;
-      $query.= ' '.$sql_line;
-      // if we reached the end of query, we execute it and reinitialize the
-      // variable "query"
-      if ( preg_match( '/;$/', $sql_line ) )
-      {
-        $query = trim( $query );
-        $query = str_replace( 'phpwebgallery_', $table_prefix, $query );
-        // we don't execute "DROP TABLE" queries
-        if ( !preg_match( '/^DROP TABLE/i', $query ) )
-          mysql_query( $query );
-        $query = '';
-      }
-    }
-  }
-
-  if ( isset( $_POST['submit'] ) )
-  {
-    // webmaster login must be
-    // 1. non empty
-    // 2. without characters ' or "
-    $webmaster = preg_replace( '/\s{2,}/', ' ', $_POST['webmaster'] );
-    $webmaster = trim( $webmaster );
-    if ( $webmaster == '' )
-      array_push( $errors, $lang['step2_err_login1'] );
-    if ( preg_match( '/[\'"]/', $webmaster ) )
-      array_push( $errors, $lang['step2_err_login3'] );
-    // the webmaster string must be the same as its confirmation
-    if ( $_POST['pwdWebmaster'] != $_POST['pwdWebmasterConf'] )
-      array_push( $errors, $lang['step2_err_pass'] );
-    // mail address must have this format : name@server.com
-    $error_mail_address = validate_mail_address( $_POST['mail_webmaster'] );
-    if ( $error_mail_address != '' )
-      array_push( $errors, $error_mail_address );
-    if ( $_POST['mail_webmaster'] == '' )
-      array_push( $errors, $lang['reg_err_mail_address'] );
-
-    // if no error found till here : insertion of data in tables
-    if ( count( $errors ) == 0 )
-    {
-      $query = 'DELETE FROM '.$table_prefix.'config';
+      // tables creation, based on phpwebgallery_structure.sql
+	  $sql_lines = file( './admin/phpwebgallery_structure.sql' );
+	  $query = '';
+	  foreach ( $sql_lines as $sql_line ) 
+	  {
+	    $sql_line = trim( $sql_line );
+		if ( preg_match( '/(^--|^$)/', $sql_line ) ) continue;
+		$query.= ' '.$sql_line;
+		// if we reached the end of query, we execute it and reinitialize the
+		// variable "query"
+		if ( preg_match( '/;$/', $sql_line ) )
+		{
+		  $query = trim( $query );
+		  $query = str_replace( 'phpwebgallery_', $table_prefix, $query );
+		  // we don't execute "DROP TABLE" queries
+		  if ( !preg_match( '/^DROP TABLE/i', $query ) ) mysql_query( $query );
+		  $query = '';
+		}
+  	  }
+	  
+	  // We fill the tables with basic informations
+      $query = 'DELETE FROM '.CONFIG_TABLE;
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$table_prefix.'config';
+      $query = 'INSERT INTO '.CONFIG_TABLE;
       $query.= ' (webmaster,mail_webmaster) VALUES ';
-      $query.= " ('".$webmaster."','".$_POST['mail_webmaster']."')";
-      $query.= ';';
+      $query.= " ('".$admin_name."','".$admin_mail."');";
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$table_prefix.'sites';
-      $query.= " (id,galleries_url) VALUES (1, './galleries/')";
-      $query.= ';';
+      $query = 'INSERT INTO '.SITES_TABLE;
+      $query.= " (id,galleries_url) VALUES (1, './galleries/');";
       mysql_query( $query );
 
       // webmaster admin user
-      $query = 'INSERT INTO '.$table_prefix.'users';
+      $query = 'INSERT INTO '.USERS_TABLE;
       $query.= ' (id,username,password,status,language,mail_address) VALUES ';
-      $query.= "(1,'".$webmaster."','".md5( $_POST['pwdWebmaster'] )."'";
-      $query.= ",'admin','".$_GET['language']."'";
-      $query.= ",'".$_POST['mail_webmaster']."')";
-      $query.= ';';
+      $query.= "(1,'".$admin_name."','".md5( $admin_pass1 )."'";
+      $query.= ",'admin','".$language."'";
+      $query.= ",'".$admin_mail."');";
       mysql_query($query);
 
       // guest user
-      $query = 'INSERT INTO '.$table_prefix.'users';
+      $query = 'INSERT INTO '.USERS_TABLE;
       $query.= '(id,username,password,status,language) VALUES ';
-      $query.= "(2,'guest','','guest','".$_GET['language']."')";
+      $query.= "(2,'guest','','guest','".$language."')";
       $query.= ';';
       mysql_query( $query );
     }
-  }
+}
 
-  // errors display
-  if ( sizeof( $errors ) != 0 )
+$template->assign_vars(array(
+  'RELEASE'=>$release_version,
+  
+  'L_BASE_TITLE'=>$lang['Initial_config'],
+  'L_LANG_TITLE'=>$lang['Default_lang'],
+  'L_DB_TITLE'=>$lang['step1_title'],
+  'L_DB_HOST'=>$lang['step1_host'],
+  'L_DB_HOST_INFO'=>$lang['step1_host_info'],
+  'L_DB_USER'=>$lang['step1_user'],
+  'L_DB_USER_INFO'=>$lang['step1_user_info'],
+  'L_DB_PASS'=>$lang['step1_pass'],
+  'L_DB_PASS_INFO'=>$lang['step1_pass_info'],
+  'L_DB_NAME'=>$lang['step1_database'],
+  'L_DB_NAME_INFO'=>$lang['step1_database_info'],
+  'L_DB_PREFIX'=>$lang['step1_prefix'],
+  'L_DB_PREFIX_INFO'=>$lang['step1_prefix_info'],
+  'L_ADMIN_TITLE'=>$lang['step2_title'],
+  'L_ADMIN'=>$lang['conf_general_webmaster'],
+  'L_ADMIN_INFO'=>$lang['conf_general_webmaster_info'],
+  'L_ADMIN_PASSWORD'=>$lang['step2_pwd'],
+  'L_ADMIN_PASSWORD_INFO'=>$lang['step2_pwd_info'],
+  'L_ADMIN_CONFIRM_PASSWORD'=>$lang['step2_pwd_conf'],
+  'L_ADMIN_CONFIRM_PASSWORD_INFO'=>$lang['step2_pwd_conf_info'],
+  'L_ADMIN_EMAIL'=>$lang['conf_general_mail'],
+  'L_ADMIN_EMAIL_INFO'=>$lang['conf_general_mail_info'],
+  'L_SUBMIT'=>$lang['Start_Install'],
+  'L_HELP'=>$lang['install_help'],
+  'L_ERR_COPY'=>$lang['step1_err_copy'],
+  'L_END_TITLE'=>$lang['install_end_title'],
+  'L_END_MESSAGE'=>$lang['install_end_message'],
+  
+  'F_ACTION'=>add_session_id( 'install.php' ),
+  'F_DB_HOST'=>$dbhost,
+  'F_DB_USER'=>$dbuser,
+  'F_DB_NAME'=>$dbname,
+  'F_DB_PREFIX'=>$table_prefix,
+  'F_ADMIN'=>$admin_name,
+  'F_ADMIN_EMAIL'=>$admin_mail,
+  'F_LANG_SELECT'=>make_jumpbox($lang_options, $language, true),
+  
+  'T_CONTENT_ENCODING' => $lang['charset'],
+  'T_STYLE' =>  './template/'.$install_style.'/'.$install_style.'-admin.css')
+	);
+	
+//-------------------------------------------------------- errors & infos display
+if ( sizeof( $errors ) != 0 )
+{
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
-    $vtp->addSession( $handle, 'errors' );
-    foreach ( $errors as $error ) {
-      $vtp->addSession( $handle, 'error' );
-      $vtp->setVar( $handle, 'error.content', $error );
-      $vtp->closeSession( $handle, 'error' );
-      }
-    $vtp->closeSession( $handle, 'errors' );
-  }
-
-  if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
-  {
-    $vtp->addSession( $handle, 'step2' );
-	if ( isset( $_POST['webmaster'] ))
-    $vtp->setVar( $handle, 'step2.f_webmaster', $_POST['webmaster'] );
-	if ( isset( $_POST['mail_webmaster'] ))
-    $vtp->setVar( $handle, 'step2.f_mail_webmaster', $_POST['mail_webmaster']);
-    $vtp->closeSession( $handle, 'step2' );
-  }
-
-  // end of installation message
-  if ( isset( $_POST['submit'] ) and count( $errors ) == 0 )
-  {
-    $vtp->addSession( $handle, 'install_end' );
-    $vtp->closeSession( $handle, 'install_end' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
 }
-//---------------------------------------------------- Step 0 : language choice
+
+if ( sizeof( $infos ) != 0 )
+{
+  $template->assign_block_vars('infos',array());
+  for ( $i = 0; $i < sizeof( $infos ); $i++ )
+  {
+    $template->assign_block_vars('infos.info',array('INFO'=>$infos[$i]));
+  }
+}
+
+if ($step ==1)
+{
+  $template->assign_block_vars('install',array());
+}
 else
 {
-  $vtp->addSession( $handle, 'step0' );
-  $languages = get_languages( './language/' );
-  foreach ( $languages as $language ) {
-    $vtp->addSession( $handle, 'language' );
-    $vtp->setVar( $handle, 'language.name', $language );
-    $vtp->closeSession( $handle, 'language' );
-  }
-  $vtp->closeSession( $handle, 'step0' );
+  $template->assign_block_vars('install_end',array());
 }
+
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('install');
 ?>
