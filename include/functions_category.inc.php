@@ -588,7 +588,6 @@ SELECT DISTINCT(id) AS id
   FROM '.CATEGORIES_TABLE.'
   WHERE '.implode(' OR ', $search_cat_clauses).'
 ;';
-            echo '<pre>'.$query.'</pre>';
             $result = mysql_query($query);
             $cat_ids = array();
             while ($row = mysql_fetch_array($result))
