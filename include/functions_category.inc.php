@@ -493,9 +493,9 @@ function initialize_category( $calling_page = 'category' )
       {
         $page['title'] = $lang['favorites'];
 
-        $page['where'] = ', '.PREFIX_TABLE.'favorites';
+        $page['where'] = ', '.PREFIX_TABLE.'favorites AS fav';
         $page['where'].= ' WHERE user_id = '.$user['id'];
-        $page['where'].= ' AND image_id = id';
+        $page['where'].= ' AND fav.image_id = id';
       
         $query = 'SELECT COUNT(*) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'favorites';

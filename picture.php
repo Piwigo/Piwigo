@@ -40,9 +40,13 @@ $cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
 $query = 'SELECT id,date_available,comment,hit,keywords';
 $query.= ',author,name,file,date_creation,filesize,width,height';
-$query.= ',storage_category_id,category_id';
+$query.= ',storage_category_id';
+if ( is_numeric( $page['cat'] ) )
+{
+  $query.= ',category_id';
+}
 $query.= ' FROM '.PREFIX_TABLE.'images';
-$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id = ic.image_id';
 $query.= $page['where'];
 $query.= ' AND id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
@@ -64,9 +68,9 @@ $page['category_id']    = $row['category_id'];
 $page['keywords']       = $row['keywords'];
 $page['storage_category_id'] = $row['storage_category_id'];
 // retrieving the number of the picture in its category (in order)
-$query = 'SELECT id';
+$query = 'SELECT DISTINCT(id)';
 $query.= ' FROM '.PREFIX_TABLE.'images';
-$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id = ic.image_id';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 $query.= ';';
@@ -128,7 +132,8 @@ if ( isset( $_GET['add_fav'] ) )
     }
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category  AS ic';
+    $query.= ' ON id = ic.image_id';
     $query.= $page['where'];
     $query.= $conf['order_by'];
     $query.= ' LIMIT '.$page['num'].',1';
@@ -211,9 +216,9 @@ else
 if ( $page['num'] >= 1 )
 {
   $prev = $page['num'] - 1;
-  $query = 'SELECT id,name,file,tn_ext,storage_category_id';
+  $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$prev.',1';
@@ -457,7 +462,7 @@ if ( $page['cat'] == 'fav' )
   $vtp->closeSession( $handle, 'favorite' );
 }
 //------------------------------------ admin link for information modifications
-if ( $user['status'] == "admin" and is_numeric( $page['cat'] ) )
+if ( $user['status'] == 'admin' )
 {
   $vtp->addSession( $handle, 'modification' );
   $url = './admin/admin.php?page=picture_modify&amp;cat_id='.$page['cat'];
@@ -469,9 +474,9 @@ if ( $user['status'] == "admin" and is_numeric( $page['cat'] ) )
 if ( $page['num'] < $page['cat_nb_images']-1 )
 {
   $next = $page['num'] + 1;
-  $query = 'SELECT id,name,file,tn_ext,storage_category_id';
+  $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$next.',1';

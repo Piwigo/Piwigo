@@ -233,10 +233,10 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 {
   $array_cat_directories = array();
   
-  $query = 'SELECT id,file,date_available,tn_ext,name,filesize';
-  $query.= ',storage_category_id,category_id';
-  $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query = 'SELECT distinct(id),file,date_available,tn_ext,name,filesize';
+  $query.= ',storage_category_id';
+  $query.= ' FROM '.PREFIX_TABLE.'images AS i';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
@@ -251,6 +251,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   $line_number = 1;
   while ( $row = mysql_fetch_array( $result ) )
   {
+    // retrieving the storage dir of the picture
     if ( $array_cat_directories[$row['storage_category_id']] == '' )
     {
       $array_cat_directories[$row['storage_category_id']] =
