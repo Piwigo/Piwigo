@@ -63,7 +63,8 @@ function check_restrictions( $category_id )
  *  - equals 'search' (when the result of a search is displayed)
  *  - equals 'most_visited'
  *  - equals 'best_rated'
- *  - equals 'recent'
+ *  - equals 'recent_pics'
+ *  - equals 'recent_cats'
  *  _ equals 'calendar'
  *
  * The function fills the global var $page['cat'] and returns nothing
@@ -97,6 +98,7 @@ function check_cat_id( $cat )
          or $cat == 'most_visited'
          or $cat == 'best_rated'
          or $cat == 'recent_pics'
+         or $cat == 'recent_cats'
          or $cat == 'calendar' )
     {
       $page['cat'] = $cat;
@@ -432,6 +434,7 @@ function initialize_category( $calling_page = 'category' )
       if ( $page['cat'] == 'search'
            or $page['cat'] == 'most_visited'
            or $page['cat'] == 'recent_pics'
+           or $page['cat'] == 'recent_cats'
            or $page['cat'] == 'best_rated'
            or $page['cat'] == 'calendar' )
       {
@@ -526,6 +529,12 @@ function initialize_category( $calling_page = 'category' )
         $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';
+      }
+      // categories containing recent pictures
+      else if ( $page['cat'] == 'recent_cats' )
+      {
+        $page['title'] = $lang['recent_cats_cat_title'];
+        $page['cat_nb_images'] = 0;
       }
       // most visited pictures
       else if ( $page['cat'] == 'most_visited' )
