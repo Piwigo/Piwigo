@@ -141,33 +141,30 @@ foreach ( $conf['last_days'] as $option ) {
   $vtp->closeSession( $handle, 'last_day_option' );
 }
 $vtp->setVar( $handle, 'back_url', add_session_id( './category.php' ) );
-if ( isset( $_GET['last_days'] ) )
+// 1. retrieving picture ids which have comments recently added
+$date = date( 'Y-m-d', time() - ( MAX_DAYS*24*60*60 ) );
+list($year,$month,$day) = explode( '-', $date);
+$maxtime = mktime( 0,0,0,$month,$day,$year );
+$query = 'SELECT DISTINCT(ic.image_id) as image_id';
+$query.= ' FROM '.PREFIX_TABLE.'comments AS c';
+$query.=     ', '.PREFIX_TABLE.'image_category AS ic';
+$query.= ' WHERE c.image_id = ic.image_id';
+$query.= ' AND date > '.$maxtime;
+// we must not show pictures of a forbidden category
+$restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
+if ( count( $restricted_cats ) > 0 )
 {
-  // 1. retrieving picture ids which have comments recently added
-  $date = date( 'Y-m-d', time() - ( MAX_DAYS*24*60*60 ) );
-  list($year,$month,$day) = explode( '-', $date);
-  $maxtime = mktime( 0,0,0,$month,$day,$year );
-  $query = 'SELECT DISTINCT(ic.image_id) as image_id';
-  $query.= ' FROM '.PREFIX_TABLE.'comments AS c';
-  $query.=     ', '.PREFIX_TABLE.'image_category AS ic';
-  $query.= ' WHERE c.image_id = ic.image_id';
-  $query.= ' AND date > '.$maxtime;
-  // we must not show pictures of a forbidden category
-  $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
-  if ( count( $restricted_cats ) > 0 )
-  {
-    $query.= ' AND category_id NOT IN (';
-    foreach ( $restricted_cats as $i => $restricted_cat ) {
-      if ( $i > 0 ) $query.= ',';
-      $query.= $restricted_cat;
-    }
-    $query.= ')';
+  $query.= ' AND category_id NOT IN (';
+  foreach ( $restricted_cats as $i => $restricted_cat ) {
+    if ( $i > 0 ) $query.= ',';
+    $query.= $restricted_cat;
   }
-  $query.= ' ORDER BY ic.image_id DESC';
-  $query.= ';';
-  $result = mysql_query( $query );
-  display_pictures( $result, $maxtime, $restricted_cats );
+  $query.= ')';
 }
+$query.= ' ORDER BY ic.image_id DESC';
+$query.= ';';
+$result = mysql_query( $query );
+display_pictures( $result, $maxtime, $restricted_cats );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
