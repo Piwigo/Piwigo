@@ -400,6 +400,7 @@ function notify( $type, $infos = '' )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $to = $row['mail_address'];
+    $isadmin = false;
     include( PREFIX_INCLUDE.'./language/'.$row['language'].'.php' );
     $content = $lang['mail_hello']."\n\n";
     switch ( $type )
