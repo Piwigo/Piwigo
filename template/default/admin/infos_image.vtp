@@ -27,14 +27,16 @@
     </tr>
     <tr>
       <td>
-        <div style="margin-left:50px;">{#infoimage_keywords}</div>
+        <div style="margin-left:50px;">{#infoimage_keywords} {#infoimage_keyword_separation}</div>
       </td>
       <td style="text-align:center;">
-        <input type="text" name="keywords_cat" value="" size="12" maxlength="255" />
+        <input type="text" name="keywords_cat" value="" maxlength="255" />
       </td>
       <td style="text-align:left;">
-        <input type="checkbox" name="use_common_keywords" value="1" />
-        {#infoimage_useforall}
+        <input type="radio" name="common_keywords" value="add" />
+        {#infoimage_addtoall}
+        <input type="radio" name="common_keywords" value="remove" />
+        {#infoimage_removefromall}
       </td>
     </tr>
   </table>

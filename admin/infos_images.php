@@ -172,26 +172,52 @@ if ( isset( $page['cat'] ) )
       echo $lang['err_date'];
     }
   }
-  if ( $_POST['use_common_keywords'] == 1 )
+  if ( isset( $_POST['common_keywords'] ) and $_POST['keywords_cat'] != '' )
   {
-    $keywords = get_keywords( $_POST['keywords_cat'] );
-    $query = 'UPDATE '.PREFIX_TABLE.'images';
-    if ( count( $keywords ) == 0 )
-    {
-      $query.= ' SET keywords = NULL';
-    }
-    else
-    {
-      $query.= ' SET keywords = "';
-      foreach ( $keywords as $i => $keyword ) {
-        if ( $i > 0 ) $query.= ',';
-        $query.= $keyword;
-      }
-      $query.= '"';
-    }
+    $query = 'SELECT id,keywords';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
     $query.= ' WHERE cat_id = '.$page['cat'];
     $query.= ';';
-    mysql_query( $query );
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      $specific_keywords = explode( ',', $row['keywords'] );
+      $common_keywords   = get_keywords( $_POST['keywords_cat'] );
+      // first possiblity : adding the given keywords to all the pictures
+      if ( $_POST['common_keywords'] == 'add' )
+      {
+        $keywords = array_merge( $specific_keywords, $common_keywords );
+        $keywords = array_unique( $keywords );
+      }
+      // second possiblity : removing the given keywords from all pictures
+      // (without deleting the other specific keywords
+      if ( $_POST['common_keywords'] == 'remove' )
+      {
+        $keywords = array_diff( $specific_keywords, $common_keywords );
+      }
+      // cleaning the keywords array, sometimes, an empty value still remain
+      $keywords = array_remove( $keywords, '' );
+      // updating the picture with new keywords array
+      $query = 'UPDATE '.PREFIX_TABLE.'images';
+      $query.= ' SET keywords = ';
+      if ( count( $keywords ) == 0 )
+      {
+        $query.= 'NULL';
+      }
+      else
+      {
+        $query.= '"';
+        $i = 0;
+        foreach ( $keywords as $keyword ) {
+          if ( $i++ > 0 ) $query.= ',';
+          $query.= $keyword;
+        }
+        $query.= '"';
+      }
+      $query.= ' WHERE id = '.$row['id'];
+      $query.= ';';
+      mysql_query( $query );
+    }
   }
 //--------------------------------------------------------- form initialization
   $page['nb_image_page'] = 5;
@@ -224,7 +250,9 @@ if ( isset( $page['cat'] ) )
   $tpl = array( 'infoimage_general','author','infoimage_useforall','submit',
                 'infoimage_creation_date','infoimage_detailed','thumbnail',
                 'infoimage_title','infoimage_comment',
-                'infoimage_creation_date','infoimage_keywords' );
+                'infoimage_creation_date','infoimage_keywords',
+                'infoimage_addtoall','infoimage_removefromall',
+                'infoimage_keyword_separation' );
   templatize_array( $tpl, 'lang', $sub );
 //------------------------------------------------------------------------ form
   $url = './admin.php?page=infos_images&amp;cat_id='.$page['cat'];
