@@ -86,6 +86,21 @@ function insert_local_category( $cat_id )
         {
           $output.= '<span style="color:red;">"'.$file.'" : ';
           $output.= $lang['update_wrong_dirname'].'</span><br />';
+          // if the category even exists (from a previous release of
+          // PhpWebGallery), we keep it in our $subdirs array
+          $query = 'SELECT id';
+          $query.= ' FROM '.PREFIX_TABLE.'categories';
+          $query.= ' WHERE site_id = '.$site_id;
+          $query.= " AND dir = '".$file."'";
+          $query.= ' AND id_uppercat';
+          if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
+          else                          $query.= ' = '.$cat_id;
+          $query.= ';';
+          $result = mysql_query( $query );
+          if ( mysql_num_rows( $result ) != 0 )
+          {
+            array_push( $subdirs, $file );
+          }
         }
       }
     }
