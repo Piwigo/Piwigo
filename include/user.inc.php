@@ -16,6 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+
 // retrieving user informations
 // $infos array is used to know the fields to retrieve in the table "users"
 // Each field becomes an information of the array $user.
@@ -24,7 +25,7 @@
 $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'nb_line_page', 'status', 'language', 'maxwidth',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
-                'long_period', 'template' );
+                'long_period', 'template', 'forbidden_categories' );
 
 $query_user  = 'SELECT ';
 foreach ( $infos as $i => $info ) {
@@ -102,12 +103,21 @@ $row = mysql_fetch_array( mysql_query( $query_user ) );
 // affectation of each value retrieved in the users table into a variable
 // of the array $user.
 foreach ( $infos as $info ) {
-  $user[$info] = $row[$info];
   // If the field is true or false, the variable is transformed into a
   // boolean value.
   if ( $row[$info] == 'true' or $row[$info] == 'false' )
   {
     $user[$info] = get_boolean( $row[$info] );
+  }
+  else if ( $info == 'forbidden_categories' )
+  {
+    $user[$info] = $row[$info];
+    $user['restrictions'] = explode( ',', $row[$info] );
+    if ( $user['restrictions'][0] == '' ) $user['restrictions'] = array();
+  }
+  else
+  {
+    $user[$info] = $row[$info];    
   }
 }
 ?>
