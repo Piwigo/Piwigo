@@ -47,11 +47,13 @@ $template->assign_vars(array(
   ));
 
 //---------------------------------------------------------------- log  history
-$query = "SELECT DISTINCT COUNT(*) as p, 
-  MONTH(date) as m,
-  YEAR(date) as y
-  FROM phpwg_history 
-  GROUP BY DATE_FORMAT(date,'%Y-%m') DESC;";
+$query = '
+SELECT DISTINCT COUNT(*) as p,
+       MONTH(date) as m,
+       YEAR(date) as y
+  FROM '.HISTORY_TABLE.' 
+  GROUP BY DATE_FORMAT(date,\'%Y-%m\') DESC
+;';
 $result = pwg_query( $query );
 $i=0;
 while ( $row = mysql_fetch_array( $result ) )
@@ -60,19 +62,23 @@ while ( $row = mysql_fetch_array( $result ) )
   if ($row['m'] <10) {$current_month.='0';}
   $current_month .= $row['m'];
   // Number of pictures seen
-  $query = "SELECT COUNT(*) as p,
-    FILE as f
-    FROM phpwg_history 
-    WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
-	AND FILE = 'picture'
-	GROUP BY FILE;";
+  $query = '
+SELECT COUNT(*) as p,
+       FILE as f
+  FROM '.HISTORY_TABLE.' 
+  WHERE DATE_FORMAT(date,\'%Y-%m\') = \''.$current_month.'\'
+    AND FILE = \'picture\'
+  GROUP BY FILE
+;';
   $pictures = mysql_fetch_array(pwg_query( $query ));
   
   // Number of different visitors
-  $query = "SELECT COUNT(*) as p, login
-    FROM phpwg_history 
-    WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
-	GROUP BY login, IP;";
+  $query = '
+SELECT COUNT(*) as p, login
+  FROM '.HISTORY_TABLE.' 
+  WHERE DATE_FORMAT(date,\'%Y-%m\') = \''.$current_month.'\'
+  GROUP BY login, IP
+;';
   $user_results = pwg_query( $query );
   $nb_visitors = 0;
   $auth_users = array();
