@@ -321,7 +321,7 @@ DELETE FROM '.IMAGES_TABLE.'
 //     - all the links to any group
 //     - all the favorites linked to this user
 //     - all sessions linked to this user
-//     - all categories informations linked to this user
+//     - calculated permissions linked to the user
 function delete_user($user_id)
 {
   // destruction of the access linked to the user
@@ -348,6 +348,13 @@ DELETE FROM '.FAVORITES_TABLE.'
   // destruction of the sessions linked with the user
   $query = '
 DELETE FROM '.SESSIONS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
+  // deletion of calculated permissions linked to the user
+  $query = '
+DELETE FROM '.USER_FORBIDDEN_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
   pwg_query($query);

@@ -128,7 +128,8 @@ if (!defined('IN_ADMIN') or !IN_ADMIN)
       or !is_bool($user['need_update'])
       or $user['need_update'] == true)
   {
-    $user['forbidden_categories'] = calculate_permissions($user['id']);
+    $user['forbidden_categories'] = calculate_permissions($user['id'],
+                                                          $user['status']);
   }
 }
 

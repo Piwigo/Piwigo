@@ -267,9 +267,10 @@ DELETE FROM '.FAVORITES_TABLE.'
  * belongs to minus the categories directly authorized to the user
  *
  * @param int user_id
+ * @param string user_status
  * @return string forbidden_categories
  */
-function calculate_permissions($user_id)
+function calculate_permissions($user_id, $user_status)
 {
   $private_array = array();
   $authorized_array = array();
@@ -283,6 +284,23 @@ SELECT id
   while ($row = mysql_fetch_array($result))
   {
     array_push($private_array, $row['id']);
+  }
+
+  // if user is not an admin, locked categories can be considered as private$
+  if ($user_status != 'admin')
+  {
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE visible = \'false\'
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push($private_array, $row['id']);
+    }
+
+    $private_array = array_unique($private_array);
   }
   
   // retrieve category ids directly authorized to the user
