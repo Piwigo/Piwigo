@@ -78,6 +78,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $query.= ' FROM '.PREFIX_TABLE.'comments';
     $query.= ' WHERE image_id = '.$row['image_id'];
     $query.= ' AND date > '.$maxtime;
+    if ( $validation_box ) $query.= " AND validated = 'false'";
     $query.= ' ORDER BY date DESC';
     $query.= ';';
     $subresult = mysql_query( $query );
