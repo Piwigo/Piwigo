@@ -541,6 +541,6 @@ Once this file deleted , follow this instructions :
   $lang['permuser_only_private'] = 'Only private categories are shown';
   $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
   $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
-
+  $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
 }
 ?>
