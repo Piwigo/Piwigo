@@ -195,7 +195,6 @@ if ( isset( $_POST['submit'] ) )
     }
     $query.= ')';
     $query.= ';';
-    echo $query;
     mysql_query( $query );
 
     $query = 'UPDATE '.PREFIX_TABLE.'users';

@@ -83,7 +83,6 @@ if ( isset( $_POST['submit'] ) )
   }
   $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
-  echo $query;
   mysql_query( $query );
 
   $query = 'SELECT id';

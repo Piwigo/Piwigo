@@ -40,7 +40,6 @@ if ( isset( $_POST['submit'] ) )
     }
     $query.= " ('".$_POST['virtual_name']."',".$_POST['associate'].")";
     $query.= ';';
-    echo $query;
     mysql_query( $query );
   }
   else
