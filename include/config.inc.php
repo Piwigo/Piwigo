@@ -142,4 +142,8 @@ $conf['session_length'] = 3600;
 // 62^10 = 839,299,365,868,340,224
 //
 $conf['session_id_size'] = 10;
+
+// info_nb_elements_page : number of elements to display per page on
+// admin/infos_images
+$conf['info_nb_elements_page'] = 5;
 ?>
