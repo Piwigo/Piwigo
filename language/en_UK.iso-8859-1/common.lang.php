@@ -274,5 +274,7 @@ $lang['search_name'] = 'name';
 $lang['search_comment'] = 'comment';
 $lang['search_keywords'] = 'keywords';
 $lang['search_author'] = 'author';
+$lang['search_date_available'] = 'availability date';
+$lang['search_date_creation'] = 'creation date';
 $lang['search_one_clause_at_least'] = 'search at least on one search clause';
 ?>
