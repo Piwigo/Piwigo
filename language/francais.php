@@ -511,7 +511,7 @@ if ( $isadmin )
   $lang['cat_total'] = 'total';
   // start version 1.3
   $lang['cat_permission'] = 'permissions';
-  $lang['cat_update'] = 'mis à jour';
+  $lang['cat_update'] = 'mettre à jour';
   $lang['cat_add'] = 'Ajouter une catégorie virtuelle';
   $lang['cat_parent'] = 'catégorie parente';
   $lang['cat_error_name'] = 'Le nom d\'une catégorie ne doit pas être nul';
