@@ -76,6 +76,7 @@ $lang['password'] = 'Password';
 $lang['customize'] = 'Customize';
 $lang['new'] = 'New';
 $lang['identification'] = 'Identification';
+$lang['remember_me'] = 'Auto login';
 
 //Calendar
 $lang['calendar'] = 'calendar';
@@ -292,5 +293,5 @@ $lang['standard_deviation'] = 'STD';
 $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
 $lang['picture_high'] = 'Click on the picture to see it in high definition';
-$lang['remember_me'] = 'remember me';
+
 ?>

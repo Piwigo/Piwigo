@@ -71,6 +71,7 @@ $lang['logout'] = 'Se déconnecter';
 $lang['customize'] = 'Personnalisation';
 $lang['new'] = 'Nouveau';
 $lang['identification'] = 'Identification';
+$lang['remember_me'] = 'Connexion auto';
 
 // Navigation
 $lang['special_categories'] = 'Special';

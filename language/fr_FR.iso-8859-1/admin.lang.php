@@ -175,14 +175,12 @@ $lang['conf_upload_maxheight_thumbnail_error'] = 'La hauteur maximum des miniatu
 
 // Configuration -> session
 $lang['conf_session_title'] = 'Configuration des sessions';
-$lang['conf_cookies'] = 'Autoriser les cookies';
-$lang['conf_cookies_info'] = 'Les utilisateurs ne seront plus obligés de s\'identifier à chaque visite. Méthode moins sécurisée';
-$lang['conf_session_size'] = 'Taille de l\'identifiant';
-$lang['conf_session_size_info'] = '- plus votre identifiant de session est grand, plus la sécurité est bonne<br />- mettez une valeur entre 4 et 50';
-$lang['conf_session_size_error'] = 'La taille de l\'identifiant de session doit être un entier supérieur ou égal à 4 et inférieur à 50';
-$lang['conf_session_time'] = 'Durée de validité';
-$lang['conf_session_time_info'] = '- plus votre durée de validité de la session est petite, plus la sécurité est bonne<br />- elle doit supérieur à 5 et inférieur à 60, en minutes';
-$lang['conf_session_time_error'] = 'La durée de la session doit être comprise entre 5 et 60 minutes';
+$lang['conf_auth_method'] = 'Méthode d\'authentification';
+$lang['conf_auth_method_info'] = 'La méthode d\'authentification par défaut peut être URI (identifiant visible dans l\'adresse) ou par cookie';
+$lang['URI'] = 'URI';
+$lang['cookie'] = 'cookie';
+$lang['conf_authorize_remembering'] = 'Authorize remembering';
+$lang['conf_authorize_remembering_info'] = 'Permits user to log for a long time. It creates a cookie on client side, with duration set in include/config.inc.php (1 year per default)';
 
 // Configuration -> metadata
 $lang['conf_metadata_title'] = 'Configuration des métadonnées des images';
