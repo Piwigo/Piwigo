@@ -54,7 +54,7 @@ $conf['file_ext']           = array('jpg','JPG','png','PNG','gif','GIF'
                                     ,'mpg','zip','avi','mp3','ogg');
 // $conf['picture_ext'] must bea subset of $conf['file_ext']
 $conf['picture_ext']        = array('jpg','JPG','png','PNG','gif','GIF');
-$conf['top_number']         = 10;
+$conf['top_number']         = 10; // used for "best rated" and "most visited"
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 $conf['max_LOV_categories'] = 50;
 
@@ -90,4 +90,5 @@ $conf['show_exif_fields'] = array('Make',
 // $conf['show_exif_fields'] = array('CameraMake','CameraModel','DateTime');
 
 $conf['calendar_datefield'] = 'date_creation';
+$conf['rate'] = true;
 ?>

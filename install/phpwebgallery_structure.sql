@@ -137,9 +137,22 @@ CREATE TABLE phpwebgallery_images (
   storage_category_id smallint(5) unsigned default NULL,
   representative_ext varchar(4) default NULL,
   date_metadata_update date default NULL,
+  average_rate float(5,2) unsigned default NULL,
   PRIMARY KEY  (id),
   KEY images_i2 (date_available),
   KEY images_i1 (storage_category_id)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'phpwebgallery_rate'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_rate;
+CREATE TABLE phpwebgallery_rate (
+  user_id smallint(5) unsigned NOT NULL default '0',
+  element_id mediumint(8) unsigned NOT NULL default '0',
+  rate tinyint(2) unsigned NOT NULL default '0',
+  PRIMARY KEY  (user_id,element_id)
 ) TYPE=MyISAM;
 
 --

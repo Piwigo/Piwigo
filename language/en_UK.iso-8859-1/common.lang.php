@@ -231,8 +231,8 @@ $lang['category_representative'] = 'representative';
 $lang['special_categories'] = 'specials';
 $lang['most_visited_cat_hint'] = 'displays most visited pictures';
 $lang['most_visited_cat'] = 'most visited';
-$lang['best_rated_cat_hint'] = 'displays pictures best rated';
 $lang['best_rated_cat'] = 'best rated';
+$lang['best_rated_cat_hint'] = 'displays best rated items';
 $lang['recent_pics_cat_hint'] = 'Displays most recent pictures';
 $lang['recent_pics_cat'] = 'Last pictures';
 $lang['recent_cats_cat_hint'] = 'Displays recently updated categories';
@@ -279,4 +279,12 @@ $lang['hello'] = 'Hello';
 
 $lang['picture_show_metadata'] = 'Show file metadata ?';
 $lang['picture_hide_metadata'] = 'Hide file metadata';
+$lang['to_rate'] = 'Rate';
+$lang['update_rate'] = 'Update your rating';
+$lang['element_rate'] = 'rate';
+$lang['already_rated'] = 'You\'ve already rated this item';
+$lang['never_rated'] = 'You\'ve never rated this item';
+$lang['no_rate'] = 'no rate';
+$lang['rates'] = 'rates';
+$lang['standard_deviation'] = 'STD';
 ?>

@@ -25,7 +25,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
+$rate_items = array(0,1,2,3,4,5);
+//--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );    
 //-------------------------------------------------- access authorization check
@@ -191,16 +192,9 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
-  $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
-  $picture[$i]['url'].= '&amp;cat='.$page['cat'];
-  if ( $page['cat'] == 'search' )
-  {
-    $picture[$i]['url'].= '&amp;search='.$_GET['search'];
-  }
-  if (isset($_GET['show_metadata']))
-  {
-    $picture[$i]['url'].= '&amp;show_metadata=1';
-  }
+  $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php';
+  $picture[$i]['url'].= get_query_string_diff(array('image_id','add_fav'));
+  $picture[$i]['url'].= '&amp;image_id='.$row['id'];
 }
 
 $url_home = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
@@ -213,7 +207,41 @@ if ( $page['cat'] == 'search' )
 $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
 $url_admin.= '&amp;cat_id='.$page['cat'];
 $url_admin.= '&amp;image_id='.$_GET['image_id'];
-  
+//----------------------------------------------------------- rate registration
+if (isset($_GET['rate'])
+    and $conf['rate']
+    and !$user['is_the_guest']
+    and in_array($_GET['rate'], $rate_items))
+{
+  $query = '
+DELETE
+  FROM '.RATE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND element_id = '.$_GET['image_id'].'
+;';
+  mysql_query($query);
+  $query = '
+INSERT INTO '.RATE_TABLE.'
+  (user_id,element_id,rate)
+  VALUES
+  ('.$user['id'].','.$_GET['image_id'].','.$_GET['rate'].')
+;';
+  mysql_query($query);
+
+  // update of images.average_rate field
+  $query = '
+SELECT ROUND(AVG(rate),2) AS average_rate
+  FROM '.RATE_TABLE.'
+  WHERE element_id = '.$_GET['image_id'].'
+;';
+  $row = mysql_fetch_array(mysql_query($query));
+  $query = '
+UPDATE '.IMAGES_TABLE.'
+  SET average_rate = '.$row['average_rate'].'
+  WHERE id = '.$_GET['image_id'].'
+;';
+  mysql_query($query);
+}
 //--------------------------------------------------------- favorite management
 if ( isset( $_GET['add_fav'] ) )
 {
@@ -536,7 +564,7 @@ $template->assign_block_vars('info_line', array(
 // filesize
 if (empty($picture['current']['filesize']))
 {
-  if (!$picture[$i]['is_picture'])
+  if (!$picture['current']['is_picture'])
   {
     $filesize = floor(filesize($picture['current']['download'])/1024);
   }
@@ -572,10 +600,43 @@ if ( !empty($picture['current']['keywords']))
     ));
 }
 // number of visits
-$template->assign_block_vars('info_line', array(
+$template->assign_block_vars(
+  'info_line',
+  array(
     'INFO'=>$lang['visited'],
     'VALUE'=>$picture['current']['hit'].' '.$lang['times']
     ));
+// rate results
+if ($conf['rate'])
+{
+  $query = '
+SELECT COUNT(rate) AS count
+     , ROUND(AVG(rate),2) AS average
+     , ROUND(STD(rate),2) AS STD
+  FROM '.RATE_TABLE.'
+  WHERE element_id = '.$picture['current']['id'].'
+;';
+  $row = mysql_fetch_array(mysql_query($query));
+  if ($row['count'] == 0)
+  {
+    $value = $lang['no_rate'];
+  }
+  else
+  {
+    $value = $row['average'];
+    $value.= ' (';
+    $value.= $row['count'].' '.$lang['rates'];
+    $value.= ', '.$lang['standard_deviation'].' : '.$row['STD'];
+    $value.= ')';
+  }
+  
+  $template->assign_block_vars(
+    'info_line',
+    array(
+      'INFO'  => $lang['element_rate'],
+      'VALUE' => $value
+      ));
+}
 //-------------------------------------------------------------------- metadata
 if ($conf['show_exif'] or $conf['show_iptc'])
 {
@@ -596,26 +657,7 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
 if ($metadata_showable and isset($_GET['show_metadata']))
 {
   $url = PHPWG_ROOT_PATH.'picture.php';
-  
-  $str = $_SERVER['QUERY_STRING'];
-  parse_str($str, $get_vars);
-  $is_first = true;
-  foreach ($get_vars as $key => $value)
-  {
-    if ($key != 'show_metadata')
-    {
-      if ($is_first)
-      {
-        $url.= '?';
-        $is_first = false;
-      }
-      else
-      {
-        $url.= '&amp;';
-      }
-      $url.= $key.'='.$value;
-    }
-  }
+  $url.= get_query_string_diff(array('show_metadata','add_fav'));
   
   $template->assign_block_vars('hide_metadata', array('URL' => $url));
   
@@ -708,6 +750,57 @@ if ($metadata_showable and isset($_GET['show_metadata']))
     }
   }
 }
+//------------------------------------------------------------------- rate form
+if ($conf['rate'])
+{
+  $query = '
+SELECT rate
+  FROM '.RATE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND element_id = '.$_GET['image_id'].'
+;';
+  $result = mysql_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    $row = mysql_fetch_array($result);
+    $sentence = $lang['already_rated'];
+    $sentence.= ' ('.$row['rate'].'). ';
+    $sentence.= $lang['update_rate'];
+  }
+  else
+  {
+    $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
+  }
+  $template->assign_block_vars(
+    'rate',
+    array('SENTENCE' => $sentence)
+    );
+  
+  
+  foreach ($rate_items as $num => $mark)
+  {
+    if ($num > 0)
+    {
+      $separator = '|';
+    }
+    else
+    {
+      $separator = '';
+    }
+
+    $url = PHPWG_ROOT_PATH.'picture.php';
+    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= '&amp;rate='.$mark;
+    
+    $template->assign_block_vars(
+      'rate.rate_option',
+      array(
+        'OPTION' => $mark,
+        'URL' => $url,
+        'SEPARATOR' => $separator
+        ));
+  }
+}
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )
 {
@@ -719,29 +812,33 @@ if ( !$user['is_the_guest'] )
   $row = mysql_fetch_array( $result );
   if (!$row['nb_fav'])
   {
-    $url = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
-    $url.='&amp;add_fav=1';
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&amp;search='.$_GET['search'];
-    }
-	$template->assign_block_vars('favorite', array(
-      'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',
-	  'FAVORITE_HINT' =>$lang['add_favorites_hint'],
-	  'FAVORITE_ALT' =>'[ '.$lang['add_favorites_alt'].' ]',
-      'U_FAVORITE'=> add_session_id( $url )
-    ));
+    $url = PHPWG_ROOT_PATH.'picture.php';
+    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= '&amp;add_fav=1';
+
+    $template->assign_block_vars(
+      'favorite',
+      array(
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',
+        'FAVORITE_HINT' =>$lang['add_favorites_hint'],
+        'FAVORITE_ALT' =>'[ '.$lang['add_favorites_alt'].' ]',
+        'U_FAVORITE' => $url
+        ));
   }
   else
   {
-    $url = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
+    $url = PHPWG_ROOT_PATH.'picture.php';
+    $url.= get_query_string_diff(array('rate','add_fav'));
     $url.= '&amp;add_fav=0';
-	$template->assign_block_vars('favorite', array(
-      'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.gif',
-	  'FAVORITE_HINT' =>$lang['del_favorites_hint'],
-	  'FAVORITE_ALT' =>'[ '.$lang['del_favorites_alt'].' ]',
-      'U_FAVORITE'=> add_session_id( $url )
-    ));
+    
+    $template->assign_block_vars(
+      'favorite',
+      array(
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.gif',
+        'FAVORITE_HINT' =>$lang['del_favorites_hint'],
+        'FAVORITE_ALT' =>'[ '.$lang['del_favorites_alt'].' ]',
+        'U_FAVORITE'=> $url
+        ));
   }
 }
 //------------------------------------ admin link for information modifications
@@ -761,12 +858,10 @@ if ( $conf['show_comments'] )
   $row = mysql_fetch_array( mysql_query( $query ) );
   
   // navigation bar creation
-  $url = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
-  if ( $page['cat'] == 'search' )
-  {
-    $url.= '&amp;search='.$_GET['search'];
-  }
-  if( !isset( $_GET['start'] )
+  $url = PHPWG_ROOT_PATH.'picture.php';
+  $url.= get_query_string_diff(array('rate','add_fav'));
+
+  if (!isset( $_GET['start'] )
       or !is_numeric( $_GET['start'] )
       or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
   {

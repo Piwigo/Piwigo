@@ -505,4 +505,38 @@ function redirect( $url )
 
   exit();
 }
+
+/**
+ * returns $_SERVER['QUERY_STRING'] whitout keys given in parameters
+ *
+ * @param array $rejects
+ * @returns string
+ */
+function get_query_string_diff($rejects = array())
+{
+  $query_string = '';
+  
+  $str = $_SERVER['QUERY_STRING'];
+  parse_str($str, $vars);
+  
+  $is_first = true;
+  foreach ($vars as $key => $value)
+  {
+    if (!in_array($key, $rejects))
+    {
+      if ($is_first)
+      {
+        $query_string.= '?';
+        $is_first = false;
+      }
+      else
+      {
+        $query_string.= '&amp;';
+      }
+      $query_string.= $key.'='.$value;
+    }
+  }
+
+  return $query_string;
+}
 ?>

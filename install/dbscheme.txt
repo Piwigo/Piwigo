@@ -8,6 +8,7 @@ table:groups
 table:history
 table:image_category
 table:images
+table:rate
 table:sessions
 table:sites
 table:user_access
@@ -68,6 +69,10 @@ column:keywords                  table:images         type:varchar              
 column:storage_category_id       table:images         type:smallint                 nullable:N length:5   signed:N
 column:representative_ext        table:images         type:varchar                  nullable:N length:4   binary:N
 column:date_metadata_update      table:images         type:date                     nullable:N
+column:average_rate              table:images         type:float                    nullable:N length:5,2 signed:N
+column:user_id                   table:rate           type:smallint                 nullable:Y length:5   signed:N
+column:element_id                table:rate           type:mediumint                nullable:Y length:8   signed:N
+column:rate                      table:rate           type:tinyint                  nullable:Y length:2   signed:N
 column:id                        table:sessions       type:varchar                  nullable:Y length:255 binary:Y
 column:user_id                   table:sessions       type:smallint                 nullable:Y length:5   signed:N
 column:expiration                table:sessions       type:int                      nullable:Y length:10  signed:N
@@ -114,6 +119,8 @@ PK:groups_pk         table:groups         column:id
 PK:image_category_pk table:image_category column:image_id
 PK:image_category_pk table:image_category column:category_id
 PK:images_pk         table:images         column:id
+PK:rate_pk           table:rate           column:user_id
+PK:rate_pk           table:rate           column:element_id
 PK:sessions_pk       table:sessions       column:id
 PK:sites_pk          table:sites          column:id
 PK:user_access_pk    table:user_access    column:user_id

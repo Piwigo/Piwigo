@@ -93,6 +93,16 @@
             <!-- END line -->
           </table>
           <!-- END metadata -->
+
+          <!-- BEGIN rate -->
+          <div>
+            {rate.SENTENCE} :
+            <!-- BEGIN rate_option -->
+            {rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}">{rate.rate_option.OPTION}</a>
+            <!-- END rate_option -->
+          </div>
+          <!-- END rate -->
+ 
           <!-- BEGIN modification -->
           <div class="menu" style="text-align:center;margin:5px;">
             [ <a href="{U_ADMIN}">{L_ADMIN}</a> ]

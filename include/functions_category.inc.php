@@ -724,6 +724,44 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
           $page['where'].= ' AND '.$forbidden;
         }
       }
+      else if ($page['cat'] == 'best_rated')
+      {
+        $page['title'] = $conf['top_number'].' '.$lang['best_rated_cat'];
+
+        $page['where'] = ' WHERE average_rate IS NOT NULL';
+        
+        if (isset($forbidden))
+        {
+          $page['where'] = ' AND '.$forbidden;
+        }
+
+        $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
+
+        // $page['cat_nb_images'] equals $conf['top_number'] unless there
+        // are less rated items
+        $query ='
+SELECT COUNT(1) AS count
+  FROM '.IMAGES_TABLE.'
+  '.$page['where'].'
+;';
+        $row = mysql_fetch_array(mysql_query($query));
+        if ($row['count'] < $conf['top_number'])
+        {
+          $page['cat_nb_images'] = $row['count'];
+        }
+        else
+        {
+          $page['cat_nb_images'] = $conf['top_number'];
+        }
+        unset($query);
+          
+
+        if (isset($page['start'])
+            and ($page['start']+$user['nb_image_page']>=$conf['top_number']))
+        {
+          $page['nb_image_page'] = $conf['top_number'] - $page['start'];
+        }
+      }
 
       if (isset($query))
       {
