@@ -110,7 +110,11 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $navbar.= '&nbsp;<a href="';
       $navbar.= add_session_id($url.'&amp;start=0');
-      $navbar.= '" class="'.$link_class.'">1</a>&nbsp;...';
+      $navbar.= '" class="'.$link_class.'">1</a>';
+      if ($cur_page > $pages_around + 2)
+      {
+        $navbar.= ' ...';
+      }
     }
     
     // inspired from punbb source code
@@ -139,7 +143,11 @@ function create_navigation_bar($url, $nb_element, $start,
     if ($cur_page < ($maximum - $pages_around))
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
-      $navbar.= '&nbsp;...&nbsp;<a href="';
+      if ($cur_page < ($maximum - $pages_around - 1))
+      {
+        $navbar.= ' ...';
+      }
+      $navbar.= ' <a href="';
       $navbar.= add_session_id($url.'&amp;start='.$temp_start);
       $navbar.= '" class="'.$link_class.'">'.$maximum.'</a>';
     }
