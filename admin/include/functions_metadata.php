@@ -66,7 +66,12 @@ function get_sync_iptc_data($file)
 function update_metadata($files)
 {
   global $conf;
-  
+
+  if (!defined('CURRENT_DATE'))
+  {
+    define('CURRENT_DATE', "'".date('Y-m-d')."'");
+  }
+
   $inserts = array();
 
   foreach ($files as $id => $file)
@@ -251,6 +256,7 @@ function get_filelist($category_id = '', $recursive = false, $only_new = false)
   $query = '
 SELECT id, dir
   FROM '.CATEGORIES_TABLE.'
+  WHERE dir IS NOT NULL
 ;';
   $result = mysql_query($query);
   $cat_dirs = array();
@@ -265,19 +271,21 @@ SELECT id, dir
   
   $query = '
 SELECT id, uppercats
-  FROM '.CATEGORIES_TABLE;
+  FROM '.CATEGORIES_TABLE.'
+  WHERE site_id = 1
+    AND dir IS NOT NULL';
   if (is_numeric($category_id))
   {
     if ($recursive)
     {
       $query.= '
-  WHERE uppercats REGEXP \'(^|,)'.$category_id.'(,|$)\'
+    AND uppercats REGEXP \'(^|,)'.$category_id.'(,|$)\'
 ';
     }
     else
     {
       $query.= '
-  WHERE id = '.$category_id.'
+    AND id = '.$category_id.'
 ';
     }
   }
