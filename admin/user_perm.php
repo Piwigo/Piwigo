@@ -52,6 +52,7 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   check_favorites( $_GET['user_id'] );
+  synchronize_user( $_GET['user_id'] );
   $vtp->addSession( $sub, 'confirmation' );
   $url = './admin.php?page=user_list';
   $vtp->setVar( $sub, 'confirmation.back_url', add_session_id( $url ) );
