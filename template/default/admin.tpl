@@ -60,7 +60,7 @@
 	<td style="padding:10px;width:99%;" valign="top">
 <div class="home">
   <div class="titrePage">{PAGE_TITLE}</div>
-  {ADMIN_CONTENT}
+  <div align="center">{ADMIN_CONTENT}</div>
 </div>
 	</td>
   </tr>

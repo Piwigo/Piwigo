@@ -221,7 +221,7 @@ form{
   margin-top:10px;
 }
 
-input,select {
+input,select,textarea {
  text-indent:2px;
  background-color:#505050;
  border: 1px solid #797979;
@@ -262,13 +262,11 @@ color : #FFF48E;
 
 /* Other styles */
 .info {
-  color:#E0E0E0;
-  background-color:#444444;
-  margin-bottom:5px;
+  color:#FFF48E;
+  margin:5px 0px 5px 0px
   white-space:nowrap;
-  margin-left:5px;
-  margin-right:5px;
-  text-align:right;
+  text-align:center;
+  font-size:16px;
 }
 .menuInfoCat {
   font-family:sans-serif;
@@ -308,24 +306,4 @@ div.information {
   border:2px solid #E0E0E0;
   margin:10px;
   padding:5px;
-}
-
-.tableComment,.cellAuthor,.cellInfo {
-  border-color:#E0E0E0;
-  border-style:solid;
-}
-.tableComment {
-  width:100%;
-  border-width:2px;
-  text-align:left;
-  padding: 10px;
-}
-.cellAuthor {
-  border-width:0px;
-  border-right-width:1px;
-  width:20%;
-}
-.cellInfo {
-  border-width:0px;
-  border-bottom-width:1px;
 }

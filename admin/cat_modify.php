@@ -25,47 +25,46 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once( './admin/include/isadmin.inc.php' );
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_modify.vtp' );
-$tpl = array( 'remote_site','editcat_confirm','editcat_back','editcat_title1',
-              'editcat_name','editcat_comment','editcat_status',
-              'editcat_visible','editcat_visible_info', 'submit',
-              'editcat_uploadable','cat_virtual','cat_parent' );
-templatize_array( $tpl, 'lang', $sub );
-//---------------------------------------------------------------- verification
-if ( !is_numeric( $_GET['cat'] ) )
+if( !defined("PHPWG_ROOT_PATH") )
 {
-  $_GET['cat'] = '-1';
+	die ("Hacking attempt!");
 }
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+//---------------------------------------------------------------- verification
+if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
+{
+  $_GET['cat_id'] = '-1';
+}
+
+$template->set_filenames( array('categories'=>'admin/cat_modify.tpl') );
+
 //--------------------------------------------------------- form criteria check
 if ( isset( $_POST['submit'] ) )
 {
   // if new status is different from previous one, deletion of all related
   // links for access rights
   $query = 'SELECT status';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id = '.$_GET['cat'];
+  $query.= ' FROM '.CATEGORIES_TABLE;
+  $query.= ' WHERE id = '.$_GET['cat_id'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-
+  $query = 'UPDATE '.CATEGORIES_TABLE;
   $query.= ' SET name = ';
-  if ( $_POST['name'] == '' )
+  if ( empty($_POST['name']))
     $query.= 'NULL';
   else
     $query.= "'".htmlentities( $_POST['name'], ENT_QUOTES)."'";
 
   $query.= ', comment = ';
-  if ( $_POST['comment'] == '' )
+  if ( empty($_POST['comment']))
     $query.= 'NULL';
   else
     $query.= "'".htmlentities( $_POST['comment'], ENT_QUOTES )."'";
 
   $query.= ", status = '".$_POST['status']."'";
   $query.= ", visible = '".$_POST['visible']."'";
-
   if ( isset( $_POST['uploadable'] ) )
     $query.= ", uploadable = '".$_POST['uploadable']."'";
 
@@ -77,7 +76,7 @@ if ( isset( $_POST['submit'] ) )
     else
       $query.= $_POST['associate'];
   }
-  $query.= ' WHERE id = '.$_GET['cat'];
+  $query.= ' WHERE id = '.$_GET['cat_id'];
   $query.= ';';
   mysql_query( $query );
 
@@ -85,13 +84,13 @@ if ( isset( $_POST['submit'] ) )
   {
     // deletion of all access for groups concerning this category
     $query = 'DELETE';
-    $query.= ' FROM '.PREFIX_TABLE.'group_access';
-    $query.= ' WHERE cat_id = '.$_GET['cat'];
+    $query.= ' FROM '.GROUP_ACCESS_TABLE;
+    $query.= ' WHERE cat_id = '.$_GET['cat_id'];
     mysql_query( $query );
     // deletion of all access for users concerning this category
     $query = 'DELETE';
-    $query.= ' FROM '.PREFIX_TABLE.'user_access';
-    $query.= ' WHERE cat_id = '.$_GET['cat'];
+    $query.= ' FROM '.USER_ACCESS_TABLE;
+    $query.= ' WHERE cat_id = '.$_GET['cat_id'];
     mysql_query( $query );
     // resynchronize all users
     synchronize_all_users();
@@ -106,116 +105,67 @@ if ( isset( $_POST['submit'] ) )
   {
     check_favorites( $row['id'] );
   }
-
-  $vtp->addSession( $sub, 'confirmation' );
-  $url = add_session_id( './admin.php?page=cat_list' );
-  $vtp->setVar( $sub, 'confirmation.back_url', $url );
-  $vtp->closeSession( $sub, 'confirmation' );
+  $template->assign_block_vars('confirmation' ,array());
 }
-//------------------------------------------------------------------------ form
-$form_action = './admin.php?page=cat_modify&amp;cat='.$_GET['cat'];
-$vtp->setVar( $sub, 'form_action', add_session_id( $form_action ) );
 
-$query = 'SELECT a.id,name,dir,status,comment,uploadable';
-$query.= ',id_uppercat,site_id,galleries_url,visible';
-$query.= ' FROM '.PREFIX_TABLE.'categories as a, '.PREFIX_TABLE.'sites as b';
-$query.= ' WHERE a.id = '.$_GET['cat'];
+$query = 'SELECT a.*, b.*';
+$query.= ' FROM '.CATEGORIES_TABLE.' as a, '.SITES_TABLE.' as b';
+$query.= ' WHERE a.id = '.$_GET['cat_id'];
 $query.= ' AND a.site_id = b.id';
 $query.= ';';
-$row = mysql_fetch_array( mysql_query( $query ) );
+$category = mysql_fetch_array( mysql_query( $query ) );
 
-if ( !isset( $row['dir'] ) ) $row['dir'] = '';
-if ( !isset( $row['id_uppercat'] ) ) $row['id_uppercat'] = '';
+// Navigation path
+$current_category = get_cat_info($_GET['cat_id']);
+$url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
+$navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
+$navigation.= $lang['gallery_index'].'</a>-&gt;';
+$navigation.= get_cat_display_name($current_category['name'], '-&gt;', $url);
 
-$result = get_cat_info( $row['id'] );
-// cat name
-$cat_name = get_cat_display_name( $result['name'], ' - ' );
-$vtp->setVar( $sub, 'cat:name', $cat_name );
-// cat dir
-if ( $row['dir'] != '' )
+$form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
+$access = ($category['status']=='public')?'ACCESS_FREE':'ACCESS_RESTRICTED'; 
+$lock = ($category['visible']=='true')?'UNLOCKED':'LOCKED';
+
+//----------------------------------------------------- template initialization
+
+$template->assign_vars(array( 
+  'CATEGORIES_NAV'=>$navigation,
+  'CAT_NAME'=>$category['name'],
+  'CAT_COMMENT'=>$category['comment'],
+  'CATEGORY_DIR'=>$category['dir'],
+  'SITE_URL'=>$category['galleries_url'],
+  
+  $access=>'checked="checked"',
+  $lock=>'checked="checked"',
+  
+  'L_EDIT_CONFIRM'=>$lang['editcat_confirm'],
+  'L_EDIT_NAME'=>$lang['description'],
+  'L_STORAGE'=>$lang['storage'],
+  'L_EDIT_COMMENT'=>$lang['comment'],
+  'L_EDIT_STATUS'=>$lang['conf_general_access'],
+  'L_EDIT_STATUS_INFO'=>$lang['cat_access_info'],
+  'L_ACCESS_FREE'=>$lang['conf_general_access_1'],
+  'L_ACCESS_RESTRICTED'=>$lang['conf_general_access_2'],
+  'L_EDIT_LOCK'=>$lang['cat_lock'],
+  'L_EDIT_LOCK_INFO'=>$lang['cat_lock_info'],
+  'L_YES'=>$lang['yes'],
+  'L_NO'=>$lang['no'],
+  'L_SUBMIT'=>$lang['submit'],
+   
+  'F_ACTION'=>add_session_id($form_action)
+  ));
+  
+if ( !empty($category['dir']))
 {
-  $vtp->addSession( $sub, 'storage' );
-  $vtp->setVar( $sub, 'storage.dir', $row['dir'] );
-  $vtp->closeSession( $sub, 'storage' );
+  $template->assign_block_vars('storage' ,array());
 }
-else
+
+if ( $category['site_id'] != 1 )
 {
-  $vtp->addSession( $sub, 'virtual' );
-  $vtp->closeSession( $sub, 'virtual' );
+  $template->assign_block_vars('storage' ,array());
 }
-// remote site ?
-if ( $row['site_id'] != 1 )
-{
-  $vtp->addSession( $sub, 'server' );
-  $vtp->setVar( $sub, 'server.url', $row['galleries_url'] );
-  $vtp->closeSession( $sub, 'server' );
-}
-$vtp->setVar( $sub, 'name',    $row['name'] );
-if ( !isset( $row['comment'] ) ) $row['comment'] = '';
-$vtp->setVar( $sub, 'comment', $row['comment'] );
-// status : public, private...
-$options = get_enums( PREFIX_TABLE.'categories', 'status' );
-foreach ( $options as $option  ) {
-  $vtp->addSession( $sub, 'status_option' );
-  $vtp->setVar( $sub, 'status_option.option', $lang[$option] );
-  $vtp->setVar( $sub, 'status_option.value', $option );
-  if ( $option == $row['status'] )
-  {
-    $vtp->setVar( $sub, 'status_option.checked', ' checked="checked"' );  
-  }
-  $vtp->closeSession( $sub, 'status_option' );
-}
-// visible : true or false
-$vtp->addSession( $sub, 'visible_option' );
-$vtp->setVar( $sub, 'visible_option.value', 'true' );
-$vtp->setVar( $sub, 'visible_option.option', $lang['yes'] );
-$checked = '';
-if ( $row['visible'] == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'visible_option.checked', $checked );
-$vtp->closeSession( $sub, 'visible_option' );
-$vtp->addSession( $sub, 'visible_option' );
-$vtp->setVar( $sub, 'visible_option.value', 'false' );
-$vtp->setVar( $sub, 'visible_option.option', $lang['no'] );
-$checked = '';
-if ( $row['visible'] == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'visible_option.checked', $checked );
-$vtp->closeSession( $sub, 'visible_option' );
-// uploadable : true or false
-// a category can be uploadable if :
-//  1. upload is authorized
-//  2. category is not virtual
-//  3. category is on the main site
-if ( $conf['upload_available'] and $row['dir'] != '' and $row['site_id'] == 1 )
-{
-  $vtp->addSession( $sub, 'uploadable' );
-  $vtp->addSession( $sub, 'uploadable_option' );
-  $vtp->setVar( $sub, 'uploadable_option.value', 'true' );
-  $vtp->setVar( $sub, 'uploadable_option.option', $lang['yes'] );
-  $checked = '';
-  if ( $row['uploadable'] == 'true' )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $sub, 'uploadable_option.checked', $checked );
-  $vtp->closeSession( $sub, 'uploadable_option' );
-  $vtp->addSession( $sub, 'uploadable_option' );
-  $vtp->setVar( $sub, 'uploadable_option.value', 'false' );
-  $vtp->setVar( $sub, 'uploadable_option.option', $lang['no'] );
-  $checked = '';
-  if ( $row['uploadable'] == 'false' )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $sub, 'uploadable_option.checked', $checked );
-  $vtp->closeSession( $sub, 'uploadable_option' );
-  $vtp->closeSession( $sub, 'uploadable' );
-}
+
+/*
 // can the parent category be changed ? (is the category virtual ?)
 if ( $row['dir'] == '' )
 {
@@ -223,7 +173,7 @@ if ( $row['dir'] == '' )
   // We only show a List Of Values if the number of categories is less than
   // $conf['max_LOV_categories']
   $query = 'SELECT COUNT(id) AS nb_total_categories';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ';';
   $countrow = mysql_fetch_array( mysql_query( $query ) );
   if ( $countrow['nb_total_categories'] < $conf['max_LOV_categories'] )
@@ -248,6 +198,7 @@ if ( $row['dir'] == '' )
   }
   $vtp->closeSession( $sub, 'parent' );
 }
+*/
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'categories');
 ?>

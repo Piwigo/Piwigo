@@ -220,7 +220,7 @@ if ( sizeof( $errors ) != 0 )
 while (list ($id,$category) = each($categories))
 {
 
-  if ($category['status'] == 'private')
+  if ($category['visible'] == 'false')
   {
     $category_image = '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder_lock.gif" 
 	  width="46" height="25" alt="'.$lang['cat_private'].'" title="'.$lang['cat_private'].'"/>';
@@ -255,10 +255,10 @@ while (list ($id,$category) = each($categories))
 	'U_CATEGORY'=>add_session_id( $simple_url.'parent_id='.$category['id']),
 	'U_MOVE_UP'=>add_session_id( $url.'up='.$category['id'] ),
 	'U_MOVE_DOWN'=>add_session_id( $url.'down='.$category['id'] ),
-	'U_CAT_EDIT'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$row['id'] ),
+	'U_CAT_EDIT'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$category['id'] ),
 	'U_CAT_DELETE'=>add_session_id( $url.'delete='.$category['id'] ),
-	'U_INFO_IMG'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id='.$row['id'] ),
-	'U_CAT_UPDATE'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=update&amp;update='.$row['id'] )
+	'U_INFO_IMG'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id='.$category['id'] ),
+	'U_CAT_UPDATE'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=update&amp;update='.$category['id'] )
 	));
 	
   if ( !empty($category['dir']))
@@ -269,7 +269,7 @@ while (list ($id,$category) = each($categories))
   {
 	$template->assign_block_vars('category.virtual' ,array());
   }
-  $url = add_session_id( './admin.php?page=cat_modify&amp;cat='.$row['id'] );
+  $url = add_session_id( PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat='.$row['id'] );
   if ( $category['nb_images'] > 0 )
   {
     $template->assign_block_vars('category.image_info' ,array());

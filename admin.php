@@ -111,6 +111,8 @@ switch ( $_GET['page'] )
    $title = $lang['title_categories'];    $page_valide = true; break;
  case 'cat_modify':
    $title = $lang['title_edit_cat'];      $page_valide = true; break;
+ case 'admin_upload':
+   $title = $lang['upload'];      $page_valide = true; break;
  case 'infos_images':
    $title = $lang['title_info_images'];   $page_valide = true; break;
  case 'waiting':
@@ -202,6 +204,7 @@ $template->assign_vars(array(
   'U_USERS'=>add_session_id($link_start.'user_search' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
+  'U_UPLOAD'=>add_session_id($link_start.'admin_upload' ),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
   'U_CAT_UPDATE'=>add_session_id($link_start.'update&amp;update=cats' ),

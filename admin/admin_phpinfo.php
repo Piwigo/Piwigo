@@ -67,7 +67,7 @@ switch ($layout)
     $output = preg_replace('#(\w),(\w)#', '\1, \2', $output);
     $output = preg_replace('#border="0" cellpadding="3" width="600"#', 'border="0" cellspacing="1" cellpadding="4" width="95%"', $output);
     $output = preg_replace('#<tr class="v"><td>(.*?<a .*?</a>)(.*?)</td></tr>#s', '<tr class="throw"><td><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td>\2</td><td>\1</td></tr></table></td></tr>', $output);
-    $output = preg_replace('#<td>#', '<td style="{background-color: #9999cc;}">', $output);
+    $output = preg_replace('#<td>#', '<td style="background-color: #444444;text-align:center;">', $output);
 	$output = preg_replace('#<th>#', '<th class="throw">', $output);
     $output = preg_replace('#class="e"#', 'class="row1" nowrap="nowrap"', $output);
     $output = preg_replace('#class="v"#', 'class="row2"', $output);

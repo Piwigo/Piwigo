@@ -40,7 +40,6 @@ $lang['categories'] = 'Categories';
 $lang['thumbnail'] = 'Thumbnail';
 $lang['thumbnails'] = 'Thumbnails';
 $lang['search'] = 'Search';
-$lang['submit'] = 'Submit';
 $lang['comment'] = 'Comment';
 $lang['comments'] = 'Comments';
 $lang['picture'] = 'Picture';
@@ -48,6 +47,12 @@ $lang['pictures'] = 'Pictures';
 $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['date'] = 'Date';
+$lang['description'] = 'Description';
+
+// Form words 
+$lang['submit'] = 'Submit';
+$lang['delete'] = 'Delete';
+$lang['reset'] = 'Reset';
 
 // Identification
 $lang['login'] = 'Login';
@@ -55,7 +60,6 @@ $lang['logout'] = 'Logout';
 $lang['password'] = 'Password';
 $lang['customize'] = 'Customize';
 $lang['new'] = 'New';
-$lang['delete'] = 'Delete';
 $lang['identification'] = 'Identification';
 
 //Calendar
@@ -111,7 +115,6 @@ $lang['total'] = 'images';
 $lang['upload_picture'] = 'Upload a picture';
 $lang['registration_date'] = 'registered on';
 $lang['creation_date'] = 'created on';
-$lang['comment'] = 'comment';
 $lang['author'] = 'author';
 $lang['size'] = 'size';
 $lang['filesize'] = 'filesize';
@@ -185,8 +188,6 @@ $lang['upload_advise_filetype'] = 'the picture must be to the fileformat jpg, gi
 $lang['upload_err_username'] = 'the username must be given';
 $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
-// new or modified in release 1.3
-$lang['charset'] = 'iso-8859-1';
 
 $lang['guest'] = 'guest';
 $lang['mail_address'] = 'mail address';

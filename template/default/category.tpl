@@ -99,7 +99,7 @@
 			  <div class="navigationBar">{cat_infos.navigation.NAV_BAR}</div>
 			  <!-- END navigation -->
 			  <!-- BEGIN comment -->
-			  <div class="comments">{cat_infos.comment.COMMENTS}</div>
+			  <div class="info">{cat_infos.comment.COMMENTS}</div>
 			  <!-- END comment -->
 			  <div class="infoCat">
 			  {L_NB_IMG} "{TITLE}" : {cat_infos.NB_IMG_CAT}

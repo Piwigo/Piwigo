@@ -488,7 +488,7 @@ if ( isset ( $page['cat'] ) )
   // category comment
   if ( isset( $page['comment'] ) and $page['comment'] != '' )
   {
-    $template->assign_block_vars('cat_infos.navigation',array('COMMENTS' => $page['cat_comment']));
+    $template->assign_block_vars('cat_infos.comment',array('COMMENTS' => $page['comment']));
   }
 }
 //------------------------------------------------------------ log informations
