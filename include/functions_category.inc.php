@@ -665,7 +665,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         // $page['cat_nb_images'] equals $conf['top_number'] unless there
         // are less rated items
         $query ='
-SELECT COUNT(1) AS count
+SELECT COUNT(DISTINCT(id)) AS count
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   '.$page['where'].'
