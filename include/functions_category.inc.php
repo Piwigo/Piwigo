@@ -540,7 +540,8 @@ function initialize_category( $calling_page = 'category' )
         $page['where'] = ' WHERE category_id != -1'.$where_append;
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
         $page['cat_nb_images'] = $conf['top_number'];
-        if ( isset($page['start']) &&  ($page['start']+ $user['nb_image_page'] >= $conf['top_number'] ))
+        if ( isset( $page['start'] )
+             and ($page['start']+$user['nb_image_page']>=$conf['top_number']))
         {
           $page['nb_image_page'] = $conf['top_number'] - $page['start'];
         }
