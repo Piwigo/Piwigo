@@ -81,11 +81,6 @@ $conf['top_number'] = 15;
 // anti-flood_time : number of seconds between 2 comments : 0 to disable
 $conf['anti-flood_time'] = 60;
 
-// max_LOV_categories : maximum number of categories to display in a list of
-// value. Over this limit, a textfield is displayed, asking for a category
-// identifier
-$conf['max_LOV_categories'] = 50;
-
 // show_iptc_mapping : is used for showing IPTC metadata on picture.php
 // page. For each key of the array, you need to have the same key in the
 // $lang array. For example, if my first key is 'iptc_keywords' (associated

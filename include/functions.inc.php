@@ -34,44 +34,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
-/**
- * possible values of an "enum" field
- *
- * get_enums returns an array containing the possible values of a enum field
- * in a table of the database.
- *
- * @param string table in the database
- * @param string field name in this table
- * @uses str_replace
- * @uses explode
- * @uses sizeof
- * @uses substr
- */
-function get_enums( $table, $field )
-{
-  // retrieving the properties of the table. Each line represents a field :
-  // columns are 'Field', 'Type'
-  $result=pwg_query("desc $table");
-  while ( $row = mysql_fetch_array( $result ) ) 
-  {
-    // we are only interested in the the field given in parameter for the
-    // function
-    if ( $row['Field']==$field )
-    {
-      // retrieving possible values of the enum field
-      // enum('blue','green','black')
-      $option = explode( ',', substr($row['Type'], 5, -1 ) );
-      for ( $i = 0; $i < sizeof( $option ); $i++ )
-      {
-        // deletion of quotation marks
-        $option[$i] = str_replace( "'", '',$option[$i] );
-      }                 
-    }
-  }
-  mysql_free_result( $result );
-  return $option;
-}
-
 // get_boolean transforms a string to a boolean value. If the string is
 // "false" (case insensitive), then the boolean value false is returned. In
 // any other case, true is returned.
