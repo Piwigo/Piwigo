@@ -16,11 +16,11 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include( 'functions_user.inc.php' );
-include( 'functions_session.inc.php' );
-include( 'functions_category.inc.php' );
-include( 'functions_xml.inc.php' );
-include( 'functions_group.inc.php' );
+include( PREFIX_INCLUDE.'./include/functions_user.inc.php' );
+include( PREFIX_INCLUDE.'./include/functions_session.inc.php' );
+include( PREFIX_INCLUDE.'./include/functions_category.inc.php' );
+include( PREFIX_INCLUDE.'./include/functions_xml.inc.php' );
+include( PREFIX_INCLUDE.'./include/functions_group.inc.php' );
 
 //----------------------------------------------------------- generic functions
 

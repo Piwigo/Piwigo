@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 //-------------------------------------------------------------------- includes
+define( PREFIX_INCLUDE, '.' );
 include( '../include/vtemplate.class.php' );
 include( '../include/functions.inc.php' );
 //----------------------------------------------------- template initialization
