@@ -307,3 +307,7 @@ div.information {
   margin:10px;
   padding:5px;
 }
+
+span.selected {
+  font-weight:bold;
+}
