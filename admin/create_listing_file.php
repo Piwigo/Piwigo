@@ -9,8 +9,7 @@
  *                                                                         *
  ***************************************************************************/
 
-$prefix_thumbnail = 'TN-';
-	
+$conf['prefix_thumbnail'] = 'TN-';
 $conf['picture_ext'] = array ( 'jpg', 'gif', 'png', 'JPG', 'GIF', 'PNG' );
 
 $listing = '';
@@ -20,24 +19,76 @@ $local_folder = substr( $_SERVER['PHP_SELF'], 0, $end );
 $url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
 
 $listing.= '<url>'.$url.'</url>';
-	
+
+/**
+ * returns an array with all picture files according to $conf['picture_ext']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_picture_files( $dir )
+{
+  global $conf;
+
+  $pictures = array();
+  if ( $opendir = opendir( $dir ) )
+  {
+    while ( $file = readdir( $opendir ) )
+    {
+      if ( in_array( get_extension( $file ), $conf['picture_ext'] ) )
+      {
+        array_push( $pictures, $file );
+      }
+    }
+  }
+  return $pictures;
+}
+
+/**
+ * returns an array with all thumbnails according to $conf['picture_ext']
+ * and $conf['prefix_thumbnail']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_thumb_files( $dir )
+{
+  global $conf;
+
+  $prefix_length = strlen( $conf['prefix_thumbnail'] );
+  
+  $thumbnails = array();
+  if ( $opendir = @opendir( $dir ) )
+  {
+    while ( $file = readdir( $opendir ) )
+    {
+      if ( in_array( get_extension( $file ), $conf['picture_ext'] )
+           and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'] )
+      {
+        array_push( $thumbnails, $file );
+      }
+    }
+  }
+  return $thumbnails;
+}
+
 // get_dirs retourne un tableau contenant tous les sous-répertoires d'un
 // répertoire
-function get_dirs( $rep, $indent, $level )
+function get_dirs( $basedir, $indent, $level )
 {
-  $sub_rep = array();
-  $i = 0;
+  $fs_dirs = array();
   $dirs = "";
-  if ( $opendir = opendir ( $rep ) )
+
+  if ( $opendir = opendir( $basedir ) )
   {
-    while ( $file = readdir ( $opendir ) )
+    while ( $file = readdir( $opendir ) )
     {
-      if ( $file != "."
-           and $file != ".."
-           and is_dir ( $rep."/".$file )
-           and $file != "thumbnail" )
+      if ( $file != '.'
+           and $file != '..'
+           and is_dir ( $basedir.'/'.$file )
+           and $file != 'thumbnail' )
       {
-        $sub_rep[$i++] = $file;
+        array_push( $fs_dirs, $file );
         if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
         {
           echo '<span style="color:red;">"'.$file.'" : ';
@@ -49,11 +100,10 @@ function get_dirs( $rep, $indent, $level )
     }
   }
   // write of the dirs
-  for ( $i = 0; $i < sizeof( $sub_rep ); $i++ )
-  {
-    $dirs.= "\n".$indent.'<dir'.$level.' name="'.$sub_rep[$i].'">';
-    $dirs.= get_pictures( $rep.'/'.$sub_rep[$i], $indent.'  ' );
-    $dirs.= get_dirs( $rep.'/'.$sub_rep[$i], $indent.'  ', $level + 1 );
+  foreach ( $fs_dirs as $fs_dir ) {
+    $dirs.= "\n".$indent.'<dir'.$level.' name="'.$fs_dir.'">';
+    $dirs.= get_pictures( $basedir.'/'.$fs_dir, $indent.'  ' );
+    $dirs.= get_dirs( $basedir.'/'.$fs_dir, $indent.'  ', $level + 1 );
     $dirs.= "\n".$indent.'</dir'.$level.'>';
   }
   return $dirs;		
@@ -73,101 +123,60 @@ function get_filename_wo_extension( $filename )
   return substr( $filename, 0, strrpos( $filename, '.' ) );
 }
 
-function is_image( $filename )
+function get_pictures( $dir, $indent )
 {
   global $conf;
+  
+  // fs means filesystem : $fs_pictures contains pictures in the filesystem
+  // found in $dir, $fs_thumbnails contains thumbnails...
+  $fs_pictures   = get_picture_files( $dir );
+  $fs_thumbnails = get_thumb_files( $dir.'/thumbnail' );
 
-  if ( !is_dir( $filename )
-       and in_array( get_extension( $filename ), $conf['picture_ext'] ) )
-  {
-    return true;
-  }
-  return false;
-}
+  $root = "\n".$indent.'<root>';
 
-function TN_exists( $dir, $file )
-{
-  global $conf, $prefix_thumbnail;
-
-  $titre = get_filename_wo_extension( $file );
-
-  for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
-  {
-    $base_tn_name = $dir.'/thumbnail/'.$prefix_thumbnail.$titre.'.';
-    $ext = $conf['picture_ext'][$i];
-    if ( is_file( $base_tn_name.$ext ) )
-    {
-      return $ext;
+  foreach ( $fs_pictures as $fs_picture ) {
+    $file_wo_ext = get_filename_wo_extension( $fs_picture );
+    $tn_ext = '';
+    foreach ( $conf['picture_ext'] as $ext ) {
+      $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
+      if ( !in_array( $test, $fs_thumbnails ) ) continue;
+      else { $tn_ext = $ext; break; }
     }
-  }
-  echo 'The thumbnail is missing for '.$dir.'/'.$file;
-  echo '-> '.$dir.'/thumbnail/'.$prefix_thumbnail.$titre.'.xxx';
-  echo ' ("xxx" can be : ';
-  for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
-  {
-    if ( $i > 0 )
+    // if we found a thumnbnail corresponding to our picture...
+    if ( $tn_ext != '' )
     {
-      echo ', ';
-    }
-    echo '"'.$conf['picture_ext'][$i].'"';
-  }
-  echo ')<br />';
-  return false;
-}
+      list( $width,$height ) = @getimagesize( $dir.'/'.$fs_picture );
 
-function get_pictures( $rep, $indent )
-{
-  $pictures = array();		
-
-  $tn_ext = '';
-  $root = '';
-  if ( $opendir = opendir ( $rep ) )
-  {
-    while ( $file = readdir ( $opendir ) )
-    {
-      if ( is_image( $file ) and $tn_ext = TN_exists( $rep, $file ) )
-      {
-        $picture = array();
-
-        $picture['file']     = $file;
-        $picture['tn_ext']   = $tn_ext;
-        $picture['date']     = date('Y-m-d',filemtime( $rep.'/'.$file ) );
-        $picture['filesize'] = floor( filesize( $rep."/".$file ) / 1024 );
-        $image_size = @getimagesize( $rep."/".$file );
-        $picture['width']    = $image_size[0];
-        $picture['height']   = $image_size[1];
-
-        array_push( $pictures, $picture );
-
-        if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
-        {
-          echo '<span style="color:red;">"'.$file.'" : ';
-          echo 'The name of the picture should be composed of ';
-          echo 'letters, figures, "-", "_" or "." ONLY';
-          echo '</span><br />';
-        }
-      }
-    }
-  }
-  // write of the node <root> with all the pictures at the root of the
-  // directory
-  $root.= "\n".$indent."<root>";
-  if ( sizeof( $pictures ) > 0 )
-  {
-    for( $i = 0; $i < sizeof( $pictures ); $i++ )
-    {
       $root.= "\n".$indent.'  ';
       $root.= '<picture';
-      $root.= ' file="'.     $pictures[$i]['file'].     '"';
-      $root.= ' tn_ext="'.   $pictures[$i]['tn_ext'].   '"';
-      $root.= ' date="'.     $pictures[$i]['date'].     '"';
-      $root.= ' filesize="'. $pictures[$i]['filesize']. '"';
-      $root.= ' width="'.    $pictures[$i]['width'].    '"';
-      $root.= ' height="'.   $pictures[$i]['height'].   '"';
+      $root.= ' file="'.    $fs_picture.'"';
+      $root.= ' tn_ext="'.  $tn_ext.'"';
+      $root.= ' filesize="'.floor(filesize($dir.'/'.$fs_picture)/1024).'"';
+      $root.= ' width="'.   $width.'"';
+      $root.= ' height="'.  $height.'"';
       $root.= ' />';
+      
+      if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $fs_picture ) )
+      {
+        echo '<span style="color:red;">"'.$fs_picture.'" : ';
+        echo 'The name of the picture should be composed of ';
+        echo 'letters, figures, "-", "_" or "." ONLY';
+        echo '</span><br />';
+      }
+    }
+    else
+    {
+      echo 'The thumbnail is missing for '.$dir.'/'.$fs_picture;
+      echo '-> '.$dir.'/thumbnail/';
+      echo $conf['prefix_thumbnail'].$file_wo_ext.'.xxx';
+      echo ' ("xxx" can be : ';
+      echo implode( ', ', $conf['picture_ext'] );
+      echo ')<br />';
     }
   }
+
   $root.= "\n".$indent.'</root>';
+
   return $root;
 }
 
@@ -177,11 +186,10 @@ if ( $fp = @fopen("./listing.xml","w") )
 {
   fwrite( $fp, $listing );
   fclose( $fp );
+  echo "listing.xml created";
 }
 else
 {
   echo "I can't write the file listing.xml";
 }
-
-echo "listing.xml created";
 ?>
