@@ -29,18 +29,16 @@ include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 $template->set_filenames( array('help'=>'admin/help.tpl') );
 
 //----------------------------------------------------- help categories display
-$categories = array( 'images','thumbnails','database','remote','upload',
-                     'virtual','groups','access','infos' );
-foreach ( $categories as $category ) {
-  $template->assign_block_vars('cat', array('NAME'=>$lang['help_'.$category.'_title']));
-  if ( $category == 'images' )
+$categories = array('images','thumbnails','database','access','groups',
+                    'remote','upload','virtual','infos');
+foreach ($categories as $category)
+{
+  $template->assign_block_vars(
+    'cat',
+    array('NAME'=>$lang['help_'.$category.'_title']));
+  
+  foreach ($lang['help_'.$category] as $item)
   {
-    $template->assign_block_vars('cat.illustration', array(
-	  'SRC_IMG'=>PHPWG_ROOT_PATH.'admin/images/admin.png',
-	  'CAPTION'=>$lang['help_images_intro']
-	  ));
-  }
-  foreach ( $lang['help_'.$category] as $item ) {
     $template->assign_block_vars('cat.item', array('CONTENT'=>$item));
   }
 }

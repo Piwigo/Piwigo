@@ -14,7 +14,7 @@
       <!-- END illustration -->
       <ul style="text-align:left; margin-right:10px;">
         <!-- BEGIN item -->
-        <li>{cat.item.CONTENT}</li>
+        <li style="margin-bottom:5px;">{cat.item.CONTENT}</li>
         <!-- END item -->
       </ul>
     </td>
