@@ -158,7 +158,16 @@ function register_user( $login, $password, $password_conf,
       $query = 'INSERT INTO '.PREFIX_TABLE.'user_category';
       $query.= ' (user_id,category_id,date_last,nb_sub_categories) VALUES';
       $query.= ' ('.$user_id.','.$row['category_id'];
-      $query.= ",'".$row['date_last']."',".$row['nb_sub_categories'].')';
+      $query.= ",";
+      if (!isset($row['date_last']) or $row['date_last'] == '')
+      {
+        $query.= 'NULL';
+      }
+      else
+      {
+        $query.= "'".$row['date_last']."'";
+      }
+      $query.= ",".$row['nb_sub_categories'].')';
       $query.= ';';
       mysql_query ( $query );
     }
