@@ -1,0 +1,134 @@
+table      categories
+table      comments
+table      config
+table      favorites
+table      group_access
+table      groups
+table      history
+table      image_category
+table      images
+table      sessions
+table      sites
+table      user_access
+table      user_category
+table      user_group
+table      users
+table      waiting
+column     id                             categories           smallint(5) unsigned
+column     date_last                      categories           date
+column     nb_images                      categories           mediumint(8) unsigned
+column     name                           categories           varchar(255)
+column     id_uppercat                    categories           smallint(5) unsigned
+column     comment                        categories           text
+column     dir                            categories           varchar(255)
+column     rank                           categories           tinyint(3) unsigned
+column     status                         categories           enum('public','private')
+column     site_id                        categories           tinyint(4) unsigned
+column     visible                        categories           enum('true','false')
+column     uploadable                     categories           enum('true','false')
+column     representative_picture_id      categories           mediumint(8) unsigned
+column     uppercats                      categories           varchar(255)
+column     id                             comments             int(11) unsigned
+column     image_id                       comments             mediumint(8) unsigned
+column     date                           comments             int(11) unsigned
+column     author                         comments             varchar(255)
+column     content                        comments             longtext
+column     validated                      comments             enum('true','false')
+column     param                          config               varchar(40)
+column     value                          config               varchar(255)
+column     comment                        config               varchar(255)
+column     user_id                        favorites            smallint(5) unsigned
+column     image_id                       favorites            mediumint(8) unsigned
+column     group_id                       group_access         smallint(5) unsigned
+column     cat_id                         group_access         smallint(5) unsigned
+column     id                             groups               smallint(5) unsigned
+column     name                           groups               varchar(255)
+column     date                           history              int(11)
+column     login                          history              varchar(15)
+column     IP                             history              varchar(50)
+column     category                       history              varchar(150)
+column     file                           history              varchar(50)
+column     picture                        history              varchar(150)
+column     image_id                       image_category       mediumint(8) unsigned
+column     category_id                    image_category       smallint(5) unsigned
+column     id                             images               mediumint(8) unsigned
+column     file                           images               varchar(255)
+column     date_available                 images               date
+column     date_creation                  images               date
+column     tn_ext                         images               char(3)
+column     name                           images               varchar(255)
+column     comment                        images               text
+column     author                         images               varchar(255)
+column     hit                            images               int(10) unsigned
+column     filesize                       images               mediumint(9) unsigned
+column     width                          images               smallint(9) unsigned
+column     height                         images               smallint(9) unsigned
+column     keywords                       images               varchar(255)
+column     storage_category_id            images               smallint(5) unsigned
+column     id                             sessions             varchar(255) binary
+column     user_id                        sessions             smallint(5) unsigned
+column     expiration                     sessions             int(10) unsigned
+column     ip                             sessions             varchar(255)
+column     id                             sites                tinyint(4)
+column     galleries_url                  sites                varchar(255)
+column     user_id                        user_access          smallint(5) unsigned
+column     cat_id                         user_access          smallint(5) unsigned
+column     user_id                        user_category        smallint(5) unsigned
+column     category_id                    user_category        smallint(5) unsigned
+column     date_last                      user_category        date
+column     nb_sub_categories              user_category        smallint(5) unsigned
+column     user_id                        user_group           smallint(5) unsigned
+column     group_id                       user_group           smallint(5) unsigned
+column     id                             users                smallint(5) unsigned
+column     username                       users                varchar(20) binary
+column     password                       users                varchar(255)
+column     mail_address                   users                varchar(255)
+column     nb_image_line                  users                tinyint(1) unsigned
+column     nb_line_page                   users                tinyint(3) unsigned
+column     status                         users                enum('admin','guest')
+column     language                       users                varchar(50)
+column     maxwidth                       users                smallint(6)
+column     maxheight                      users                smallint(6)
+column     expand                         users                enum('true','false')
+column     show_nb_comments               users                enum('true','false')
+column     short_period                   users                tinyint(3) unsigned
+column     long_period                    users                tinyint(3) unsigned
+column     template                       users                varchar(255)
+column     forbidden_categories           users                text
+column     id                             waiting              int(10) unsigned
+column     storage_category_id            waiting              smallint(5) unsigned
+column     file                           waiting              varchar(255)
+column     username                       waiting              varchar(255)
+column     mail_address                   waiting              varchar(255)
+column     date                           waiting              int(10) unsigned
+column     tn_ext                         waiting              char(3)
+column     validated                      waiting              enum('true','false')
+column     infos                          waiting              text
+pk         id                             categories     
+pk         id                             comments       
+pk         param                          config         
+pk         user_id                        favorites      
+pk         image_id                       favorites      
+pk         group_id                       group_access   
+pk         cat_id                         group_access   
+pk         id                             groups         
+pk         image_id                       image_category 
+pk         category_id                    image_category 
+pk         id                             images         
+pk         id                             sessions       
+pk         id                             sites          
+pk         user_id                        user_access    
+pk         cat_id                         user_access    
+pk         user_id                        user_category  
+pk         category_id                    user_category  
+pk         group_id                       user_group     
+pk         user_id                        user_group     
+pk         id                             users          
+pk         id                             waiting        
+index      categories_i1                  categories           id
+index      categories_i2                  categories           id_uppercat
+index      image_category_i1              image_category       image_id
+index      image_category_i2              image_category       category_id
+index      storage_category_id            images               storage_category_id
+index      sites_ui1                      sites                galleries_url
+index      users_ui1                      users                username
