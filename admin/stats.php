@@ -151,7 +151,9 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
 //------------------------------------------------------------ pages seen graph
 foreach ( $days as $day ) {
   $vtp->addSession( $sub, 'pages_day' );
-  $width = floor( ( $day['nb_pages_seen'] * $max_pixels ) / $max_pages_seen );
+  if ( $max_pages_seen > 0 )
+    $width = floor( ( $day['nb_pages_seen']*$max_pixels ) / $max_pages_seen );
+  else $width = 0;
   $vtp->setVar( $sub, 'pages_day.date', $day['date'] );
   $vtp->setVar( $sub, 'pages_day.width', $width );
   $vtp->setVar( $sub, 'pages_day.nb_pages', $day['nb_pages_seen'] );
@@ -160,7 +162,9 @@ foreach ( $days as $day ) {
 //-------------------------------------------------------------- visitors grpah
 foreach ( $days as $day ) {
   $vtp->addSession( $sub, 'visitors_day' );
-  $width = floor( ( $day['nb_visitors'] * $max_pixels ) / $max_nb_visitors );
+  if ( $max_nb_visitors > 0 )
+    $width = floor( ( $day['nb_visitors'] * $max_pixels ) / $max_nb_visitors );
+  else $width = 0;
   $vtp->setVar( $sub, 'visitors_day.date', $day['date'] );
   $vtp->setVar( $sub, 'visitors_day.width', $width );
   $vtp->setVar( $sub, 'visitors_day.nb_visitors', $day['nb_visitors'] );
