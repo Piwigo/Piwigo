@@ -42,7 +42,7 @@ $conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
 
 // $conf['version'] is used to verify the compatibility of the generated
 // listing.xml file and the PhpWebGallery version you're running
-$conf['version'] = '1.4.0RC3';
+$conf['version'] = '%PWGVERSION%';
 
 // $conf['use_exif'] set to true if you want to use Exif Date as "creation
 // date" for the element, otherwise, set to false
