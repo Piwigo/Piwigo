@@ -85,7 +85,10 @@
 					   title="{thumbnails.line.thumbnail.IMAGE_TITLE}"
 					   class="thumbLink" />
 				  <br />
-				  {thumbnails.line.thumbnail.IMAGE_NAME}</a>
+				  <!-- BEGIN bullet -->
+				  <img src="./template/default/theme/collapsed.gif" style="border:none;" alt="&gt;" />
+				  <!-- END bullet -->
+				  <span class="{thumbnails.line.thumbnail.IMAGE_STYLE}">{thumbnails.line.thumbnail.IMAGE_NAME}</span></a>
 				  {thumbnails.line.thumbnail.IMAGE_TS}
 				  <!-- BEGIN nb_comments -->
 				  <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
