@@ -96,7 +96,7 @@ function check_cat_id( $cat )
          or $cat == 'search'
          or $cat == 'most_visited'
          or $cat == 'best_rated'
-         or $cat == 'recent'
+         or $cat == 'recent_pics'
          or $cat == 'calendar' )
     {
       $page['cat'] = $cat;
@@ -431,7 +431,7 @@ function initialize_category( $calling_page = 'category' )
     {
       if ( $page['cat'] == 'search'
            or $page['cat'] == 'most_visited'
-           or $page['cat'] == 'recent'
+           or $page['cat'] == 'recent_pics'
            or $page['cat'] == 'best_rated'
            or $page['cat'] == 'calendar' )
       {
@@ -510,9 +510,9 @@ function initialize_category( $calling_page = 'category' )
         $query.= ';';
       }
       // pictures within the short period
-      else if ( $page['cat'] == 'recent' )
+      else if ( $page['cat'] == 'recent_pics' )
       {
-        $page['title'] = $lang['recent_cat_title'];
+        $page['title'] = $lang['recent_pics_cat_title'];
         // We must find the date corresponding to :
         // today - $conf['periode_courte']
         $date = time() - 60*60*24*$user['short_period'];
