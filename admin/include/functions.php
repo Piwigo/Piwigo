@@ -524,10 +524,10 @@ function get_plain_structure( $use_name = false )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $plain_structure[$row['id']]['id'] = $row['id'];
+    if ( !isset( $row['id_uppercat'] ) ) $row['id_uppercat'] = 'NULL';
     $plain_structure[$row['id']]['id_uppercat'] = $row['id_uppercat'];
     if ( $use_name ) $plain_structure[$row['id']]['name'] = $row['name'];
     // subcats list
-    if ( $row['id_uppercat'] == '' ) $row['id_uppercat'] = 'NULL';
     if ( $row['id_uppercat'] != $id_uppercat )
     {
       $page['subcats'][$id_uppercat] = $subcats;
