@@ -45,7 +45,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
       $array_cat_names[$subrow['cat_id']] =
         get_cat_display_name( $cat_result['name'], ' &gt; ', '' );
     }
-    $cat_directory = $array_cat_directories[$row['cat_id']];
+
     $file = get_filename_wo_extension( $subrow['file'] );
     // name of the picture
     $name = $array_cat_names[$subrow['cat_id']].' &gt; ';
