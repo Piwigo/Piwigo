@@ -33,7 +33,7 @@
 
 // years of image availability
 $query = '
-SELECT YEAR(date_available) AS year, COUNT(id) AS count
+SELECT YEAR('.$conf['calendar_datefield'].') AS year, COUNT(id) AS count
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND id = image_id
@@ -84,12 +84,13 @@ if (isset($page['calendar_year']))
   // creation of hash associating the number of the month in the year with
   // the number of picture for this month : $calendar_months
   $query = '
-SELECT DISTINCT(MONTH(date_available)) AS month, COUNT(id) AS count
+SELECT DISTINCT(MONTH('.$conf['calendar_datefield'].')) AS month
+     , COUNT(id) AS count
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND id = image_id
-    AND YEAR(date_available) = '.$page['calendar_year'].'
-  GROUP BY MONTH(date_available)
+    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
+  GROUP BY MONTH('.$conf['calendar_datefield'].')
 ;';
   $result = mysql_query($query);
   $calendar_months = array();
@@ -155,12 +156,12 @@ elseif (!isset($page['calendar_day']))
   // creation of hash associating the number of the day in the month with
   // the number of picture for this day : $calendar_days
   $query = '
-SELECT DISTINCT(date_available) AS day, COUNT(id) AS count
+SELECT DISTINCT('.$conf['calendar_datefield'].') AS day, COUNT(id) AS count
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND id = image_id
-    AND YEAR(date_available) = '.$page['calendar_year'].'
-    AND MONTH(date_available) = '.$page['calendar_month'].'
+    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
+    AND MONTH('.$conf['calendar_datefield'].') = '.$page['calendar_month'].'
   GROUP BY day
 ;';
   $result = mysql_query($query);
@@ -183,7 +184,7 @@ elseif (isset($page['calendar_day']))
 SELECT category_id AS category, COUNT(id) AS count
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND date_available = \''.$page['calendar_date'].'\'
+    AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'
     AND id = image_id
   GROUP BY category_id
 ;';
@@ -218,10 +219,10 @@ if (!isset($page['calendar_year']))
   foreach ($calendar_years as $calendar_year => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,date_available,storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND YEAR(date_available) = '.$calendar_year.'
+    AND YEAR('.$conf['calendar_datefield'].') = '.$calendar_year.'
     AND id = image_id
   ORDER BY RAND()
   LIMIT 0,1
@@ -276,11 +277,11 @@ elseif (!isset($page['calendar_month']))
   foreach ($calendar_months as $calendar_month => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,date_available,storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND YEAR(date_available) = '.$page['calendar_year'].'
-    AND MONTH(date_available) = '.$calendar_month.'
+    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
+    AND MONTH('.$conf['calendar_datefield'].') = '.$calendar_month.'
     AND id = image_id
   ORDER BY RAND()
   LIMIT 0,1
@@ -343,10 +344,10 @@ elseif (!isset($page['calendar_day']))
   foreach ($calendar_days as $calendar_day => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,date_available,storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND date_available = \''.$calendar_day.'\'
+    AND '.$conf['calendar_datefield'].' = \''.$calendar_day.'\'
     AND id = image_id
   ORDER BY RAND()
   LIMIT 0,1
@@ -417,10 +418,10 @@ elseif (isset($page['calendar_day']))
     $name.= ' ('.$nb_pics.')';
     
     $query = '
-SELECT file,tn_ext,date_available,storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND date_available = \''.$page['calendar_date'].'\'';
+    AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'';
     if ($calendar_category != 0)
     {
       $query.= '
@@ -451,7 +452,7 @@ SELECT file,tn_ext,date_available,storage_category_id
     $thumbnail_title = $lang['calendar_picture_hint'].$name;
 
     $url_link = PHPWG_ROOT_PATH.'category.php?cat=search';
-    $url_link.= '&amp;search=date_available:'.$_GET['day'];
+    $url_link.= '&amp;search='.$conf['calendar_datefield'].':'.$_GET['day'];
     if ($calendar_category != 0)
     {
       $url_link.= ';cat:'.$calendar_category.'|AND';

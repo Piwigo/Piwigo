@@ -686,13 +686,11 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
           $page['title'] .= $page['calendar_year'];
           $page['title'] .= ')';
         }
+        
+        $page['where'] = 'WHERE '.$conf['calendar_datefield'].' IS NOT NULL';
         if (isset($forbidden))
         {
-          $page['where'] = 'WHERE '.$forbidden;
-        }
-        else
-        {
-          $page['where'] = 'WHERE 1=1';
+          $page['where'].= ' AND '.$forbidden;
         }
       }
 
