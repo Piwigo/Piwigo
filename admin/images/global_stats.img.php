@@ -37,7 +37,7 @@ $legend = $lang['stats_global_graph_title'];
 $imageHeight = 256;
 $imageWidth = 320;
 $sql = "SELECT DISTINCT COUNT(*), MONTH(date) 
-  FROM phpwg_history 
+  FROM ".HISTORY_TABLE." 
   WHERE (date > DATE_SUB(CURRENT_DATE(), INTERVAL 12 MONTH)) 
   GROUP BY DATE_FORMAT(date,'%Y-%m') DESC;";
 
