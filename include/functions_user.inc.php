@@ -38,7 +38,7 @@ function validate_mail_address( $mail_address )
 function register_user(
   $login, $password, $password_conf, $mail_address, $status = 'guest' )
 {
-  global $prefixeTable, $lang;
+  global $lang;
 
   $error = array();
   $i = 0;
@@ -66,7 +66,7 @@ function register_user(
   else
   {
     $query = 'select id';
-    $query.= ' from '.$prefixeTable.'users';
+    $query.= ' from '.PREFIX_TABLE.'users';
     $query.= " where username = '".$login."';";
     $result = mysql_query( $query );
     if ( mysql_num_rows( $result ) > 0 )
@@ -106,11 +106,11 @@ function register_user(
       }
       $query.= $infos[$i];
     }
-    $query.= ' from '.$prefixeTable.'users';
+    $query.= ' from '.PREFIX_TABLE.'users';
     $query.= " where username = 'guest';";
     $row = mysql_fetch_array( mysql_query( $query ) );
     // 2. adding new user
-    $query = 'insert into '.$prefixeTable.'users';
+    $query = 'insert into '.PREFIX_TABLE.'users';
     $query.= ' (';
     $query.= ' username,password,mail_address,status';
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
@@ -145,20 +145,20 @@ function register_user(
     mysql_query( $query );
     // 3. retrieving the id of the newly created user
     $query = 'select id';
-    $query.= ' from '.$prefixeTable.'users';
+    $query.= ' from '.PREFIX_TABLE.'users';
     $query.= " where username = '".$login."';";
     $row = mysql_fetch_array( mysql_query( $query ) );
     $user_id = $row['id'];
     // 4. adding restrictions to the new user, the same as the user "guest"
     $query = 'select cat_id';
-    $query.= ' from '.$prefixeTable.'restrictions as r';
-    $query.=      ','.$prefixeTable.'users as u ';
+    $query.= ' from '.PREFIX_TABLE.'restrictions as r';
+    $query.=      ','.PREFIX_TABLE.'users as u ';
     $query.= ' where u.id = r.user_id';
     $query.= " and u.username = 'guest';";
     $result = mysql_query( $query );
     while( $row = mysql_fetch_array( $result ) )
     {
-      $query = 'insert into '.$prefixeTable.'restrictions';
+      $query = 'insert into '.PREFIX_TABLE.'restrictions';
       $query.= ' (user_id,cat_id) values';
       $query.= ' ('.$user_id.','.$row['cat_id'].');';
       mysql_query ( $query );
@@ -170,8 +170,6 @@ function register_user(
 function update_user( $user_id, $mail_address, $status,
                       $use_new_password = false, $password = '' )
 {
-  global $prefixeTable;
-
   $error = array();
   $i = 0;
   
@@ -183,7 +181,7 @@ function update_user( $user_id, $mail_address, $status,
 
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'update '.$prefixeTable.'users';
+    $query = 'update '.PREFIX_TABLE.'users';
     $query.= " set status = '".$status."'";
     if ( $use_new_password )
     {
@@ -224,12 +222,11 @@ function check_login_authorization()
 // are added to the restricted one in the array.
 function get_restrictions( $user_id, $user_status, $check_invisible )
 {
-  global $prefixeTable;
-                
   // 1. getting the ids of the restricted categories
-  $query = "select cat_id";
-  $query.= " from $prefixeTable"."restrictions";
-  $query.= " where user_id = $user_id;";
+  $query = 'select cat_id';
+  $query.= ' from '.PREFIX_TABLE.'restrictions';
+  $query.= ' where user_id = '.$user_id;
+  $query.= ';';
   $result = mysql_query( $query );
   $i = 0;
   $restriction = array();
@@ -243,7 +240,7 @@ function get_restrictions( $user_id, $user_status, $check_invisible )
     if ( $user_status != "admin" )
     {
       $query = 'select id';
-      $query.= ' from '.$prefixeTable.'categories';
+      $query.= ' from '.PREFIX_TABLE.'categories';
       $query.= " where status='invisible';";
       $result = mysql_query( $query );
       while ( $row = mysql_fetch_array( $result ) )
@@ -260,8 +257,6 @@ function get_restrictions( $user_id, $user_status, $check_invisible )
 // sub-categories and invisible categories
 function get_all_restrictions( $user_id, $user_status )
 {
-  global $prefixeTable;
-                
   $restricted_cat = get_restrictions( $user_id, $user_status, true );
   $i = sizeof( $restricted_cat );
   for ( $k = 0; $k < sizeof( $restricted_cat ); $k++ )
@@ -281,16 +276,17 @@ function get_all_restrictions( $user_id, $user_status )
 //      - 2 : if an uppercat category is not allowed
 function is_user_allowed( $category_id, $restrictions )
 {
-  global $user,$prefixeTable;
+  global $user;
                 
   $lowest_category_id = $category_id;
                 
   $is_root = false;
   while ( !$is_root and !in_array( $category_id, $restrictions ) )
   {
-    $query = "select id_uppercat";
-    $query.= " from $prefixeTable"."categories";
-    $query.= " where id = $category_id;";
+    $query = 'select id_uppercat';
+    $query.= ' from '.PREFIX_TABLE.'categories';
+    $query.= ' where id = '.$category_id;
+    $query.= ';';
     $row = mysql_fetch_array( mysql_query( $query ) );
     if ( $row['id_uppercat'] == "" )
     {

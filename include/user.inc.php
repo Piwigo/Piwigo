@@ -37,16 +37,17 @@ for ( $i = 0; $i < sizeof( $infos ); $i++ )
   }
   $query_user.= $infos[$i];
 }
-$query_user.= ' from '.$prefixeTable.'users';
+$query_user.= ' from '.PREFIX_TABLE.'users';
 $query_done = false;
 $user['is_the_guest'] = false;
 if ( isset( $_GET['id'] )
      && ereg( "^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $_GET['id'] ) )
 {
   $page['session_id'] = $_GET['id'];
-  $query = "select user_id, expiration, ip ";
-  $query.= "from $prefixeTable"."sessions ";
-  $query.= "where id = '".$_GET['id']."';";
+  $query = 'select user_id,expiration,ip';
+  $query.= ' from '.PREFIX_TABLE.'sessions';
+  $query.= " where id = '".$_GET['id']."'";
+  $query.= ';';
   $result = mysql_query( $query );
   if ( mysql_num_rows( $result ) > 0 )
   {
@@ -55,13 +56,14 @@ if ( isset( $_GET['id'] )
     {
       // deletion of the session from the database,
       // because it is out-of-date
-      $delete_query = "delete from ".$prefixeTable."sessions";
-      $delete_query.= " where id = ".$page['session_id'].";";
+      $delete_query = 'delete from '.PREFIX_TABLE.'sessions';
+      $delete_query.= " where id = '".$page['session_id']."'";
+      $delete_query.= ';';
       mysql_query( $delete_query );
     }
     else
     {
-      if ( $REMOTE_ADDR == $row['ip'] )
+      if ( $_SERVER['REMOTE_ADDR'] == $row['ip'] )
       {
         $query_user .= ' where id = '.$row['user_id'];
         $query_done = true;
@@ -83,8 +85,8 @@ $row = mysql_fetch_array( mysql_query( $query_user ) );
 for ( $i = 0; $i < sizeof( $infos ); $i++ )
 {
   $user[$infos[$i]] = $row[$infos[$i]];
-  // If the field is true or false, the variable is transformed into a boolean
-  // value.
+  // If the field is true or false, the variable is transformed into a
+  // boolean value.
   if ( $row[$infos[$i]] == 'true' || $row[$infos[$i]] == 'false' )
   {
     $user[$infos[$i]] = get_boolean( $row[$infos[$i]] );

@@ -16,14 +16,13 @@
  ***************************************************************************/
 function get_subcats_id( $cat_id )
 {
-  global $prefixeTable;
-                
   $restricted_cat = array();
   $i = 0;
                 
-  $query = "select id";
-  $query.= " from $prefixeTable"."categories";
-  $query.= " where id_uppercat = $cat_id;";
+  $query = 'select id';
+  $query.= ' from '.PREFIX_TABLE.'categories';
+  $query.= ' where id_uppercat = '.$cat_id;
+  $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
@@ -40,7 +39,7 @@ function get_subcats_id( $cat_id )
 
 function check_restrictions( $category_id )
 {
-  global $user,$lang,$prefixeTable;
+  global $user,$lang;
 
   if ( is_user_allowed( $category_id, $user['restrictions'] ) > 0 )
   {
@@ -57,13 +56,17 @@ function check_restrictions( $category_id )
 //  - $cat equals 'search' (when the result of a search is displayed)
 function check_cat_id( $cat )
 {
-  global $page,$prefixeTable;
+  global $page;
+
   unset( $page['cat'] );
   if ( isset( $cat ) )
   {
     if ( is_numeric( $cat ) )
     {
-      $query = "select id from $prefixeTable"."categories where id = $cat;";
+      $query = 'select id';
+      $query.= ' from '.PREFIX_TABLE.'categories';
+      $query.= ' where id = '.$cat;
+      $query. ';';
       $result = mysql_query( $query );
       if ( mysql_num_rows( $result ) != 0 )
       {
@@ -80,10 +83,10 @@ function check_cat_id( $cat )
 
 function display_cat( $id_uppercat, $indent, $restriction, $tab_expand )
 {
-  global $prefixeTable,$user,$lang,$conf,$page,$vtp,$handle;
+  global $user,$lang,$conf,$page,$vtp,$handle;
   
   $query = 'select name,id,date_dernier,nb_images,dir';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id_uppercat';
   if ( $id_uppercat == "" )
   {
@@ -201,10 +204,10 @@ function display_cat( $id_uppercat, $indent, $restriction, $tab_expand )
         
 function get_nb_subcats( $id )
 {
-  global $prefixeTable,$user;
+  global $user;
                 
   $query = 'select count(*) as count';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id_uppercat = '.$id;
   for ( $i = 0; $i < sizeof( $user['restrictions'] ); $i++ )
   {
@@ -218,12 +221,10 @@ function get_nb_subcats( $id )
         
 function get_total_image( $id, $restriction )
 {
-  global $prefixeTable;
-                
   $total = 0;
                 
   $query = 'select id,nb_images';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id_uppercat';
   if ( !is_numeric( $id ) )
   {
@@ -259,14 +260,12 @@ function get_total_image( $id, $restriction )
 // $cat['site_id']
 function get_cat_info( $id )
 {
-  global $prefixeTable;
-                
   $cat = array();
   $cat['name'] = array();
                 
   $query = 'select nb_images,id_uppercat,comment,site_id,galleries_url,dir';
-  $query.= ' from '.$prefixeTable.'categories as a';
-  $query.= ', '.$prefixeTable.'sites as b';
+  $query.= ' from '.PREFIX_TABLE.'categories as a';
+  $query.= ', '.PREFIX_TABLE.'sites as b';
   $query.= ' where a.id = '.$id;
   $query.= ' and a.site_id = b.id;';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -284,7 +283,7 @@ function get_cat_info( $id )
   while ( !$is_root )
   {
     $query = 'select name,dir,id_uppercat';
-    $query.= ' from '.$prefixeTable.'categories';
+    $query.= ' from '.PREFIX_TABLE.'categories';
     $query.= ' where id = '.$row['id_uppercat'].';';
     $row = mysql_fetch_array( mysql_query( $query ) );
     $cat['dir'] = $row['dir']."/".$cat['dir'];
@@ -359,7 +358,7 @@ function get_cat_display_name( $array_cat_names, $separation, $style )
 // 4. creation of the navigation bar
 function initialize_category( $calling_page = 'category' )
 {
-  global $prefixeTable,$page,$lang,$user,$conf;
+  global $page,$lang,$user,$conf;
   
   if ( isset( $page['cat'] ) )
   {
@@ -397,7 +396,7 @@ function initialize_category( $calling_page = 'category' )
         $page['where'].= " or comment like '%".$_GET['search']."%' )";
 
         $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.$prefixeTable.'images';
+        $query.= ' from '.PREFIX_TABLE.'images';
         $query.= $page['where'];
         $query.= ';';
 
@@ -408,12 +407,12 @@ function initialize_category( $calling_page = 'category' )
       {
         $page['title'] = $lang['favorites'];
 
-        $page['where'] = ', '.$prefixeTable.'favorites';
+        $page['where'] = ', '.PREFIX_TABLE.'favorites';
         $page['where'].= ' where user_id = '.$user['id'];
         $page['where'].= ' and image_id = id';
       
         $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.$prefixeTable.'favorites';
+        $query.= ' from '.PREFIX_TABLE.'favorites';
         $query.= ' where user_id = '.$user['id'];
         $query.= ';';
       }
@@ -428,7 +427,7 @@ function initialize_category( $calling_page = 'category' )
         $page['where'].= date( 'Y-m-d', $date )."'";
 
         $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.$prefixeTable.'images';
+        $query.= ' from '.PREFIX_TABLE.'images';
         $query.= $page['where'];
         $query.= ';';
       }

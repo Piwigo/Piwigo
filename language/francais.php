@@ -203,6 +203,11 @@ $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur vali
 //----------------------------------administration
 if ( $isadmin )
 {
+// start version 1.3
+  // general for admin section
+  $lang['remote_site'] = 'Site distant';
+// end version 1.3
+ 
   // page admin
 // start version 1.3
 //  $lang['title_add'] = 'Ajouter/Modifier un utilisateur';
@@ -291,7 +296,9 @@ if ( $isadmin )
   $lang['conf_comments_comments_number'] = 'nombre de commentaires par page';
   $lang['conf_comments_comments_number_info'] = 'nombre de commentaire à afficher sur chaque page. Le nombre de commentaires pour une image reste illimité. Entrer un nombre entre 5 et 50.';
   $lang['conf_err_comment_number'] = 'le nombre de commentaires par page doit être compris entre 5 et 50 inclus.';
-  $lang['conf_remote_site_title'] = 'Site distant';
+// start version 1.3
+  // $lang['conf_remote_site_title'] = 'Site distant';
+// end version 1.3
   $lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';
   $lang['conf_upload_title'] = 'Configurer l\'upload des utilisateurs';
   $lang['conf_upload_available'] = 'autoriser l\'ajout d\'images';
@@ -505,7 +512,9 @@ if ( $isadmin )
   $lang['help_database_title'] = 'Remplissage de la base de données';
   $lang['help_database'][0] = 'Une fois les fichiers placés correctement et les miniatures placées ou créées, cliquez sur "MaJ base d\'images" dans le menu de la zone d\'administration.';
 
-  $lang['help_remote_title'] = 'Site distant';
+// start version 1.3
+  // $lang['help_remote_title'] = 'Site distant';
+// end version 1.3
   $lang['help_remote'][0] = 'PhpWebGallery offre la possibilité d\'utiliser plusieurs serveurs pour stocker les images qui composeront votre galerie. Cela peut être utile si votre galerie est installée sur une espace limité et que vous avez une grande quantité d\'images à montrer. Suivez la procédure suivante :';
   $lang['help_remote'][1] = '1. éditez le fichier "create_listing_file.php" (vous le trouverez dans le répertoire "admin"), en modifiant la ligne "$prefixe_thumbnail = "TN-";" si le préfixe pour vos miniatures n\'est pas "TN-".';
   $lang['help_remote'][2] = '2. placez le fichier "create_listing_file.php" modifié sur votre site distant, dans le répertoire racine de vos répertoires d\'images (comme le répertoire "galleries" du présent site) par ftp.';

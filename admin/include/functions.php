@@ -19,9 +19,7 @@ $tab_ext_create_TN = array ( 'jpg', 'png' );
 
 function is_image( $filename, $create_thumbnail = false )
 {
-  global $tab_ext_create_TN, $conf;
-
-  $is_image = false;
+  global $conf;
 
   if ( is_file ( $filename ) )
   {
@@ -34,7 +32,7 @@ function is_image( $filename, $create_thumbnail = false )
       if ( in_array( get_extension( $filename ), $conf['picture_ext'] )
            and ( $size[2] == 1 or $size[2] == 2 or $size[2] == 3 ) )
       {
-        $is_image = true;
+        return true;
       }
     }
     else
@@ -42,11 +40,11 @@ function is_image( $filename, $create_thumbnail = false )
       if ( in_array( get_extension( $filename ), $tab_ext_create_TN )
            and ( $size[2] == 2 or $size[2] == 3 ) )
       {
-        $is_image = true;
+        return true;
       }
     }
   }
-  return $is_image;
+  return false;
 }
 	
 function TN_exists( $dir, $file )

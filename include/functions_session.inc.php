@@ -36,10 +36,10 @@ function generate_key()
     {
       $key .= chr( mt_rand( 65, 90 ) );
     }
-    elseif ( $c == 1 )
-      {
-        $key .= chr( mt_rand( 97, 122 ) );
-      }
+    else if ( $c == 1 )
+    {
+      $key .= chr( mt_rand( 97, 122 ) );
+    }
     else
     {
       $key .= mt_rand( 0, 9 );
@@ -50,14 +50,14 @@ function generate_key()
         
 function session_create( $username )
 {
-  global $conf,$prefixeTable,$REMOTE_ADDR;
+  global $conf;
   // 1. searching an unused sesison key
   $id_found = false;
   while ( !$id_found )
   {
     $generated_id = generate_key();
     $query = 'select id';
-    $query.= ' from '.$prefixeTable.'sessions';
+    $query.= ' from '.PREFIX_TABLE.'sessions';
     $query.= " where id = '".$generated_id."';";
     $result = mysql_query( $query );
     if ( mysql_num_rows( $result ) == 0 )
@@ -67,16 +67,16 @@ function session_create( $username )
   }
   // 2. retrieving id of the username given in parameter
   $query = 'select id';
-  $query.= ' from '.$prefixeTable.'users';
+  $query.= ' from '.PREFIX_TABLE.'users';
   $query.= " where username = '".$username."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   $user_id = $row['id'];
   // 3. inserting session in database
-  $expiration = $conf['session_time']*60+time();
-  $query = 'insert into '.$prefixeTable.'sessions';
+  $expiration = $conf['session_time'] * 60 + time();
+  $query = 'insert into '.PREFIX_TABLE.'sessions';
   $query.= ' (id,user_id,expiration,ip) values';
   $query.= "('".$generated_id."','".$user_id;
-  $query.= "','".$expiration."','".$REMOTE_ADDR."');";
+  $query.= "','".$expiration."','".$_SERVER['REMOTE_ADDR']."');";
   mysql_query( $query );
                 
   return $generated_id;

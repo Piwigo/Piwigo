@@ -20,10 +20,9 @@ $page = array();
 $user = array();
 $lang = array();
 
-include_once( PREFIXE_INCLUDE.'./include/mysql.inc.php' );
 include_once( PREFIXE_INCLUDE.'./include/functions.inc.php' );
 include_once( PREFIXE_INCLUDE.'./include/vtemplate.class.php' );
-//
+
 // How to change the order of display for images in a category ?
 //
 // You have to modify $conf['order_by'].
@@ -46,6 +45,8 @@ $conf['nb_row_page']        = array ('2','3','4','5','6','7','10','20','1000');
 $conf['version']            = '1.3';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
+$conf['picture_ext']        = array ( 'jpg','JPG','gif','GIF','png','PNG' );
+$conf['document_ext']       = array( 'doc','pdf','zip' );
 
 database_connection();
 // rertieving the configuration informations for site
@@ -73,7 +74,7 @@ for ( $i = 0; $i < sizeof( $infos ); $i++ )
   }
   $query.= $infos[$i];
 }
-$query .= ' from '.$prefixeTable.'config;';
+$query .= ' from '.PREFIX_TABLE.'config;';
 
 $row = mysql_fetch_array( mysql_query( $query ) );
 

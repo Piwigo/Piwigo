@@ -17,6 +17,7 @@
 include( 'functions_user.inc.php' );
 include( 'functions_session.inc.php' );
 include( 'functions_category.inc.php' );
+include( 'functions_xml.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
@@ -128,6 +129,20 @@ function replace_space( $string )
   return $return_string;
 }
 
+// get_extension returns the part of the string after the last "."
+function get_extension( $filename )
+{
+  return substr( strrchr( $filename, '.' ), 1, strlen ( $filename ) );
+}
+
+// get_filename_wo_extension returns the part of the string before the last
+// ".".
+// get_filename_wo_extension( 'test.tar.gz' ) -> 'test.tar'
+function get_filename_wo_extension( $filename )
+{
+  return substr( $filename, 0, strrpos( $filename, '.' ) );
+}
+
 // get_dirs retourne un tableau contenant tous les sous-répertoires d'un
 // répertoire
 function get_dirs( $rep )
@@ -202,7 +217,6 @@ function get_picture_size( $original_width, $original_height,
   $picture_size[1] = $height;
   return $picture_size;
 }
-
 //-------------------------------------------- PhpWebGallery specific functions
 
 // get_languages retourne un tableau contenant tous les languages
@@ -278,20 +292,31 @@ function replace_search( $string, $search )
 
 function database_connection()
 {
-  global $cfgHote,$cfgUser,$cfgPassword,$cfgBase;
+  // $cfgHote,$cfgUser,$cfgPassword,$cfgBase;
+
+  $xml_content = getXmlCode( PREFIXE_INCLUDE.'./include/database_config.xml' );
+  $mysql_conf = getChild( $xml_content, 'mysql' );
+
+  $cfgHote     = getAttribute( $mysql_conf, 'host' );
+  $cfgUser     = getAttribute( $mysql_conf, 'user' );
+  $cfgPassword = getAttribute( $mysql_conf, 'password' );
+  $cfgBase     = getAttribute( $mysql_conf, 'base' );
+
   @mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Could not connect to server" );
   @mysql_select_db( $cfgBase )
     or die ( "Could not connect to database" );
+
+  define( PREFIX_TABLE, getAttribute( $mysql_conf, 'tablePrefix' ) );
 }
 
 function pwg_log( $file, $category, $picture = '' )
 {
-  global $conf, $user, $prefixeTable;
+  global $conf, $user;
 
   if ( $conf['log'] )
   {
-    $query = 'insert into '.$prefixeTable.'history';
+    $query = 'insert into '.PREFIX_TABLE.'history';
     $query.= ' (date,login,IP,file,category,picture) values';
     $query.= " (".time().", '".$user['pseudo']."'";
     $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
