@@ -65,7 +65,7 @@
               <table>
                 <!--VTP_linked_category-->
                 <tr>
-                  <td><!--VTP_checkbox--><input type="checkbox" name="dissociate-{#id}" value="1" /><!--/VTP_checkbox--><a href="{#url}">{#name}</a> [ <a href="{#infos_images_link}">{#cat_image_info}</a> ] {#private} {#invisible}
+                  <td><!--VTP_checkbox--><input type="checkbox" name="dissociate-{#id}" value="1" /><!--/VTP_checkbox--><a href="{#url}">{#name}</a> [ <a href="{#infos_images_link}">{#cat_image_info}</a> ] {#private} {#invisible} [ <input type="checkbox" name="representative-{#id}" value="1"{#representative_checked} /> {#category_representative} ]
                 </tr>
                 <!--/VTP_linked_category-->
                 <!--VTP_dissociate-->

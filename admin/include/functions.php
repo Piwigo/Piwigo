@@ -291,7 +291,8 @@ function check_favorites( $user_id )
 }
 
 // update_category updates calculated informations about a category :
-// date_last and nb_images
+// date_last and nb_images. It also verifies that the representative picture
+// is really linked to the category.
 function update_category( $id = 'all' )
 {
   if ( $id == 'all' )
@@ -333,6 +334,32 @@ function update_category( $id = 'all' )
     $query.= ' WHERE id = '.$id;
     $query.= ';';
     mysql_query( $query );
+    // updating the representative_picture_id : if the representative
+    // picture of the category is not any more linked to the category, we
+    // have to set representative_picture_id to NULL
+    $query = 'SELECT representative_picture_id';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$id;
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    // if the category has no representative picture (ie
+    // representative_picture_id == NULL) we don't update anything
+    if ( $row['representative_picture_id'] != '' )
+    {
+      $query = 'SELECT image_id';
+      $query.= ' FROM '.PREFIX_TABLE.'image_category';
+      $query.= ' WHERE category_id = '.$id;
+      $query.= ' AND image_id = '.$row['representative_picture_id'];
+      $query.= ';';
+      $result = mysql_query( $query );
+      if ( mysql_num_rows( $result ) == 0 )
+      {
+        $query = 'UPDATE '.PREFIX_TABLE.'categories';
+        $query.= ' SET representative_picture_id = NULL';
+        $query.= ' WHERE id = '.$id;
+        $query.= ';';
+        mysql_query( $query );
+      }
+    }
   }
 }
 

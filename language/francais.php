@@ -33,6 +33,7 @@ $lang['errors_title'] = 'Erreurs';
 $lang['infos_title'] = 'Informations';
 $lang['default'] = 'défaut';
 $lang['comments'] = 'commentaires';
+$lang['category_representative'] = 'représentant';
 // end version 1.3
 
 // page diapo

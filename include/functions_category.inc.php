@@ -288,7 +288,7 @@ function get_cat_info( $id )
   $cat = array();
                 
   $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
-  $query.= ',date_last,uploadable,status,visible';
+  $query.= ',date_last,uploadable,status,visible,representative_picture_id';
   $query.= ' FROM '.PREFIX_TABLE.'categories AS a';
   $query.= ', '.PREFIX_TABLE.'sites AS b';
   $query.= ' WHERE a.id = '.$id;
@@ -303,6 +303,7 @@ function get_cat_info( $id )
   $cat['uploadable']  = get_boolean( $row['uploadable'] );
   $cat['status']      = $row['status'];
   $cat['visible']     = get_boolean( $row['visible'] );
+  $cat['representative_picture_id'] = $row['representative_picture_id'];
 
   $cat['name'] = array();
 

@@ -73,6 +73,39 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' WHERE id = '.$_GET['image_id'];
   $query.= ';';
   mysql_query( $query );
+  // make the picture representative of a category ?
+  $query = 'SELECT DISTINCT(category_id) as category_id';
+  $query.= ',representative_picture_id';
+  $query.= ' FROM '.PREFIX_TABLE.'image_category AS ic';
+  $query.= ', '.PREFIX_TABLE.'categories AS c';
+  $query.= ' WHERE c.id = ic.category_id';
+  $query.= ' AND image_id = '.$_GET['image_id'];
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    // if the user ask the picture to be the representative picture of its
+    // category, the category is updated in the database (without wondering
+    // if this picture was already the representative one)
+    if ( $_POST['representative-'.$row['category_id']] == 1 )
+    {
+      $query = 'UPDATE '.PREFIX_TABLE.'categories';
+      $query.= ' SET representative_picture_id = '.$_GET['image_id'];
+      $query.= ' WHERE id = '.$row['category_id'];
+      $query.= ';';
+      mysql_query( $query );
+    }
+    // if the user ask this picture to be not any more the representative,
+    // we have to set the representative_picture_id of this category to NULL
+    else if ( $row['representative_picture_id'] == $_GET['image_id'] )
+    {
+      $query = 'UPDATE '.PREFIX_TABLE.'categories';
+      $query.= ' SET representative_picture_id = NULL';
+      $query.= ' WHERE id = '.$row['category_id'];
+      $query.= ';';
+      mysql_query( $query );
+    }
+  }
   // associate with a new category ?
   if ( $_POST['associate'] != '-1' )
   {
@@ -111,7 +144,7 @@ $tpl = array( 'submit','errors_title','picmod_update','picmod_back',
               'default','file','size','filesize','registration_date',
               'author','creation_date','keywords','comment', 'upload_name',
               'dissociate','categories','infoimage_associate',
-              'cat_image_info' );
+              'cat_image_info','category_representative' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //-------------------------------------------------------------- errors display
@@ -205,9 +238,16 @@ if ( !$result['visible'] )
   $invisible_string.= $lang['cat_invisible'].'</span>';
   $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
 }
+$vtp->setVar( $sub, 'linked_category.id', $row['storage_category_id'] );
+if ( $result['representative_picture_id'] == $_GET['image_id'] )
+{
+  $vtp->setVar( $sub, 'linked_category.representative_checked',
+                ' checked="checked"' );
+}
 $vtp->closeSession( $sub, 'linked_category' );
 // retrieving all the linked categories
 $query = 'SELECT DISTINCT(category_id) as category_id,status,visible';
+$query.= ',representative_picture_id';
 $query.= ' FROM '.PREFIX_TABLE.'image_category';
 $query.= ','.PREFIX_TABLE.'categories';
 $query.= ' WHERE image_id = '.$_GET['image_id'];
@@ -218,6 +258,7 @@ $result = mysql_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'linked_category' );
+  $vtp->setVar( $sub, 'linked_category.id', $row['category_id'] );
 
   $vtp->addSession( $sub, 'checkbox' );
   $vtp->setVar( $sub, 'checkbox.id', $row['category_id'] );
@@ -249,6 +290,12 @@ while ( $row = mysql_fetch_array( $result ) )
     $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
   }
 
+  if ( $row['representative_picture_id'] == $_GET['image_id'] )
+  {
+    $vtp->setVar( $sub, 'linked_category.representative_checked',
+                  ' checked="checked"' );
+  }
+  
   $vtp->closeSession( $sub, 'linked_category' );
 }
 // if there are linked category other than the storage category, we show
