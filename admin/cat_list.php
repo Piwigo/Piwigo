@@ -18,18 +18,70 @@
  *                                                                         *
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
+//------------------------------------------------ expand categories management
+// creation of the array containing the cat ids to expand
+// $page['tab_expand'] contains an array with the category ids
+// $page['expand'] contains the string to display in URL with comma
+
+// if there is less than $conf['max_LOV_categories'] categories, they are
+// all expande
+$query = 'SELECT COUNT(id) AS nb_total_categories';
+$query.= ' FROM '.PREFIX_TABLE.'categories';
+$query.= ';';
+$row = mysql_fetch_array( mysql_query( $query ) );
+if ( $row['nb_total_categories'] < $conf['max_LOV_categories']
+     or $_GET['expand'] == 'all' )
+{
+  $page['tab_expand'] = array();
+  $page['expand'] = 'all';
+}
+else
+{
+  $page['tab_expand'] = array();
+  if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
+  {
+    $tab_expand = explode( ',', $_GET['expand'] );
+    foreach ( $tab_expand as $id ) {
+      if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
+    }
+  }
+  $page['tab_expand'] = array_unique( $page['tab_expand'] );
+  $page['expand'] = implode( ',', $page['tab_expand'] );
+}
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat_list.vtp' );
 $tpl = array( 'cat_edit','cat_up','cat_down','cat_image_info',
               'cat_permission','cat_update','cat_add','cat_parent','submit',
-              'cat_virtual','delete','cat_first','cat_last' );
+              'cat_virtual','delete','cat_first','cat_last','errors_title' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- adding a virtual category
 $errors = array();
 if ( isset( $_POST['submit'] ) )
 {
-  if ( !preg_match( '/^\s*$/', $_POST['virtual_name'] ) )
+  // is the given category name only containing blank spaces ?
+  if ( preg_match( '/^\s*$/', $_POST['virtual_name'] ) )
+    array_push( $errors, $lang['cat_error_name'] );
+  // does the uppercat id exists in the database ?
+  if ( $_POST['associate'] == '' )
+  {
+    $_POST['associate'] = -1;
+  }
+  else if ( !is_numeric( $_POST['associate'] ) )
+  {
+    array_push( $errors, $lang['cat_unknown_id'] );
+  }
+  else
+  {
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$_POST['associate'];
+    $query.= ';';
+    if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
+      array_push( $errors, $lang['cat_unknown_id'] );
+  }
+  
+  if ( count( $errors ) == 0 )
   {
     // we have then to add the virtual category
     $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
@@ -41,10 +93,7 @@ if ( isset( $_POST['submit'] ) )
     $query.= " ('".$_POST['virtual_name']."',".$_POST['associate'].")";
     $query.= ';';
     mysql_query( $query );
-  }
-  else
-  {
-    array_push( $errors, $lang['cat_error_name'] );
+    synchronize_all_users();
   }
 }
 //---------------------------------------------------------------  rank updates
@@ -171,6 +220,7 @@ if ( isset( $_GET['first'] ) and is_numeric( $_GET['first'] ) )
 if ( isset( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
   delete_category( $_GET['delete'] );
+  synchronize_all_users();
 }
 //------------------------------------------------------------------ reordering
 function ordering( $id_uppercat )
@@ -260,11 +310,36 @@ function display_cat_manager( $id_uppercat, $indent,
     $subcat_visible = true;
 
     $vtp->addSession( $sub, 'cat' );
+    // is the category expanded or not ?
+    if ( $page['expand'] == 'all' )
+    {
+      $vtp->addSession( $sub, 'bullet_wo_link' );
+      $vtp->closeSession( $sub, 'bullet_wo_link' );
+    }
+    else if ( in_array( $row['id'], $page['tab_expand'] ) )
+    {
+      $vtp->addSession( $sub, 'bullet_expanded' );
+      $tab_expand = array_diff( $page['tab_expand'], array( $row['id'] ) );
+      $expand = implode( ',', $tab_expand );
+      $url = './admin.php?page=cat_list&amp;expand='.$expand;
+      $vtp->setVar( $sub, 'bullet_expanded.link', add_session_id( $url ) );
+      $vtp->closeSession( $sub, 'bullet_expanded' );
+    }
+    else
+    {
+      $vtp->addSession( $sub, 'bullet_collapsed' );
+      $tab_expand = array_merge( $page['tab_expand'], array( $row['id'] ) );
+      $expand = implode( ',', $tab_expand );
+      $url = './admin.php?page=cat_list&amp;expand='.$expand;
+      $vtp->setVar( $sub, 'bullet_collapsed.link', add_session_id( $url ) );
+      $vtp->closeSession( $sub, 'bullet_collapsed' );
+    }
+    
     $vtp->setVar( $sub, 'cat.td', $td );
     $vtp->setVar( $sub, 'cat.class', $class );
     $vtp->setVar( $sub, 'cat.indent', $indent );
     $vtp->setVar( $sub, 'cat.name', $row['name'] );
-    $vtp->setVar( $sub, 'cat.id', $row['id'] );
+
     if ( $row['dir'] != '' )
     {
       $vtp->addSession( $sub, 'storage' );
@@ -280,7 +355,8 @@ function display_cat_manager( $id_uppercat, $indent,
       $vtp->closeSession( $sub, 'virtual' );
       // category can be deleted
       $vtp->addSession( $sub, 'delete' );
-      $url = './admin.php?page=cat_list&amp;delete='.$row['id'];
+      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
+      $url.= '&amp;delete='.$row['id'];
       $vtp->setVar( $sub, 'delete.delete_url', add_session_id( $url ) );
       $vtp->closeSession( $sub, 'delete' );
     }
@@ -299,41 +375,40 @@ function display_cat_manager( $id_uppercat, $indent,
     if ( $row['rank'] != $min_rank )
     {
       $vtp->addSession( $sub, 'up' );
-      $vtp->setVar( $sub, 'up.id', $row['id'] );
-      $url = add_session_id( './admin.php?page=cat_list&amp;up='.$row['id'] );
-      $vtp->setVar( $sub, 'up.up_url', $url );
+      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
+      $url.= '&amp;up='.$row['id'];
+      $vtp->setVar( $sub, 'up.up_url', add_session_id( $url ) );
       $vtp->closeSession( $sub, 'up' );
     }
     else if ( $min_rank != $max_rank )
     {
       $vtp->addSession( $sub, 'no_up' );
-      $vtp->setVar( $sub, 'no_up.id', $row['id'] );
-      $url = add_session_id( './admin.php?page=cat_list&amp;last='.$row['id']);
-      $vtp->setVar( $sub, 'no_up.last_url', $url );
+      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
+      $url.= '&amp;last='.$row['id'];
+      $vtp->setVar( $sub, 'no_up.last_url', add_session_id( $url ) );
       $vtp->closeSession( $sub, 'no_up' );
     }
     if ( $row['rank'] != $max_rank )
     {
       $vtp->addSession( $sub, 'down' );
-      $vtp->setVar( $sub, 'down.id', $row['id'] );
-      $url = add_session_id( './admin.php?page=cat_list&amp;down='.$row['id']);
-      $vtp->setVar( $sub, 'down.down_url', $url );
+      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
+      $url.= '&amp;down='.$row['id'];
+      $vtp->setVar( $sub, 'down.down_url', add_session_id( $url ) );
       $vtp->closeSession( $sub, 'down' );
     }
     else if ( $min_rank != $max_rank )
     {
       $vtp->addSession( $sub, 'no_down' );
-      $vtp->setVar( $sub, 'no_down.id', $row['id'] );
-      $url = add_session_id('./admin.php?page=cat_list&amp;first='.$row['id']);
-      $vtp->setVar( $sub, 'no_down.first_url', $url );
+      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
+      $url.= '&amp;first='.$row['id'];
+      $vtp->setVar( $sub, 'no_down.first_url', add_session_id( $url ) );
       $vtp->closeSession( $sub, 'no_down' );
     }
     if ( $row['nb_images'] > 0 )
     {
       $vtp->addSession( $sub, 'image_info' );
-      $url = add_session_id( './admin.php?page=infos_images&amp;cat_id='
-                             .$row['id'] );
-      $vtp->setVar( $sub, 'image_info.image_info_url', $url );
+      $url = './admin.php?page=infos_images&amp;cat_id='.$row['id'];
+      $vtp->setVar( $sub, 'image_info.image_info_url', add_session_id($url) );
       $vtp->closeSession( $sub, 'image_info' );
     }
     else
@@ -371,19 +446,39 @@ function display_cat_manager( $id_uppercat, $indent,
 
     $vtp->closeSession( $sub, 'cat' );
 
-    display_cat_manager( $row['id'], $indent.str_repeat( '&nbsp', 4 ),
-                         $subcat_visible, $level + 1 );
+    if ( in_array( $row['id'], $page['tab_expand'] )
+         or $page['expand'] == 'all')
+      display_cat_manager( $row['id'], $indent.str_repeat( '&nbsp', 4 ),
+                           $subcat_visible, $level + 1 );
   }
 }
 display_cat_manager( 'NULL', str_repeat( '&nbsp', 4 ), true, 0 );
 // add a virtual category ?
-$vtp->addSession( $sub, 'associate_cat' );
-$vtp->setVar( $sub, 'associate_cat.value', '-1' );
-$vtp->setVar( $sub, 'associate_cat.content', '' );
-$vtp->closeSession( $sub, 'associate_cat' );
-$page['plain_structure'] = get_plain_structure();
-$structure = create_structure( '', array() );
-display_categories( $structure, '&nbsp;' );
+// We only show a List Of Values if the number of categories is less than
+// $conf['max_LOV_categories']
+$query = 'SELECT COUNT(id) AS nb_total_categories';
+$query.= ' FROM '.PREFIX_TABLE.'categories';
+$query.= ';';
+$row = mysql_fetch_array( mysql_query( $query ) );
+if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+{
+  $vtp->addSession( $sub, 'associate_LOV' );
+  $vtp->addSession( $sub, 'associate_cat' );
+  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
+  $vtp->setVar( $sub, 'associate_cat.content', '' );
+  $vtp->closeSession( $sub, 'associate_cat' );
+  $page['plain_structure'] = get_plain_structure( true );
+  $structure = create_structure( '', array() );
+  display_categories( $structure, '&nbsp;' );
+  $vtp->closeSession( $sub, 'associate_LOV' );
+}
+// else, we only display a small text field, we suppose the administrator
+// knows the id of its category
+else
+{
+  $vtp->addSession( $sub, 'associate_text' );
+  $vtp->closeSession( $sub, 'associate_text' );
+}
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>
