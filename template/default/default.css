@@ -206,3 +206,15 @@ div.information {
         text-align:center;
         color:red;
       }
+.thumbnail {
+  font-size:11px;
+  text-align:center;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+table.thumbnail {
+  border-collapse:separate;
+  display:inline-table;
+}
+
