@@ -279,7 +279,7 @@ function check_favorites( $user_id )
     {
       array_push( $picture_cat, $picture_row['category_id'] );
     }
-    if ( count( array_diff( $picture_cat, $restricted_cat ) ) > 0 )
+    if ( count( array_diff( $picture_cat, $restricted_cat ) ) == 0 )
     {
       $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
       $query.= ' WHERE image_id = '.$row['image_id'];
