@@ -224,6 +224,7 @@ $lang['connected_user'] = 'connected user';
 $lang['title_comments'] = 'Users comments';
 $lang['stats_last_days'] = 'last days';
 $lang['hint_comments'] = 'See last users comments';
+$lang['menu_login'] = 'login';
 
 //-------------------------------------------------------------- administration
 if ( $isadmin )

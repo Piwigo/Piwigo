@@ -36,6 +36,7 @@ $lang['comments'] = 'commentaires';
 $lang['category_representative'] = 'représentant';
 $lang['title_comments'] = 'Commentaires des visiteurs';
 $lang['stats_last_days'] = 'derniers jours';
+$lang['menu_login'] = 'se connecter';
 // end version 1.3
 
 // page diapo
@@ -47,7 +48,7 @@ $lang['total_images'] = 'total';
 $lang['title_menu'] = 'Sommaire';
 $lang['change_login'] = 'changer de login';
 $lang['hint_login'] = 's&#039;identifier permet de personnaliser l&#039;apparence du site';
-$lang['logout'] = 'logout';
+$lang['logout'] = 'se déconnecter';
 $lang['customize'] = 'personnalisation';
 $lang['hint_customize'] = 'personnaliser votre affichage';
 $lang['hint_search'] = 'lancer une recherche';
