@@ -279,7 +279,7 @@ if ( isset( $page['cat'] ) )
     $thumbnail_url.= 'thumbnail/';
     $thumbnail_url.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
     $vtp->setVar( $sub, 'picture.thumbnail_url', $thumbnail_url );
-    $url = '../picture.php?cat='.$_GET['cat_id'].'&amp;image_id='.$row['id'];
+    $url = './admin.php?page=picture_modify&amp;image_id='.$row['id'];
     $vtp->setVar( $sub, 'picture.url', add_session_id( $url ) );
     $vtp->closeSession( $sub, 'picture' );
   }
