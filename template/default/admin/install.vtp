@@ -196,6 +196,53 @@
   </table>
 </form>
 <!--/VTP_step1-->
+
+<!--VTP_step2-->
+<form method="post" action="install.php?step=2&amp;language={#language}">
+  <table width=100%>
+    <tr>
+      <th colspan="3">{#step2_title}</th>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>{#conf_general_webmaster}</td>
+      <td align="center"><input type="text" name="webmaster" value="{#f_webmaster}" /></td>
+      <td class="row2">{#conf_general_webmaster_info}</td>
+    </tr>
+    <tr>
+      <td>{#step2_pwd}</td>
+      <td align="center"><input type="password" name="pwdWebmaster" value="" /></td>
+      <td class="row2">{#step2_pwd_info}</td>
+    </tr>
+    <tr>
+      <td>{#step2_pwd_conf}</td>
+      <td align="center"><input type="password" name="pwdWebmasterConf" value="" /></td>
+      <td class="row2">{#step2_pwd_conf_info}</td>
+    </tr>
+    <tr>
+      <td>{#conf_general_mail}</td>
+      <td align="center"><input type="text" name="mail_webmaster" value="{#f_mail_webmaster}" /></td>
+      <td class="row2">{#conf_general_mail_info}</td>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</th>
+    </tr>
+    <tr>
+      <td colspan="3" align="center">
+        <input type="submit" name="submit" value="{#submit}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<!--/VTP_step2-->
+
+<!--VTP_install_end-->
+<div class="infos_title">{#install_end_title}</div>
+<div style="padding:5px;">{#install_end_message}</div>
+<!--/VTP_install_end-->
+
               </td>
             </tr>
           </table>

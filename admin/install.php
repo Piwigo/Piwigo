@@ -34,7 +34,12 @@ if ( isset( $_GET['language'] ) )
                 'errors_title', 'step1_title','step1_host','step1_host_info',
                 'step1_user','step1_user_info','step1_pass','step1_pass_info',
                 'step1_database','step1_database_info','step1_prefix',
-                'step1_prefix_info','submit','infos_title' );
+                'step1_prefix_info','submit','infos_title','step2_title',
+                'conf_general_webmaster','conf_general_webmaster_info',
+                'step2_pwd','step2_pwd_info','step2_pwd_conf',
+                'step2_pwd_conf_info','conf_general_mail',
+                'conf_general_mail_info','install_end_title',
+                'install_end_message');
   templatize_array( $tpl, 'lang', $handle );
   $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
 }
@@ -77,7 +82,7 @@ if ( $_GET['step'] == 1 )
       $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
       $file_content.= "\n\$prefix_table = '".$_POST['prefix_table']."';";
       $file_content.= "\n?>";
-      // writting the configuraiton file
+      // writting the configuration file
       if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
       {
         fwrite( $fp, $file_content ); 
@@ -137,35 +142,31 @@ if ( $_GET['step'] == 1 )
   if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
   {
     $vtp->addSession( $handle, 'step1' );
+
     // host
     if ( !isset( $_POST['cfgHote'] ) )
-    {
       $vtp->setVar( $handle, 'step1.f_host', 'localhost' );
-    }
     else
-    {
       $vtp->setVar( $handle, 'step1.f_host', $_POST['cfgHote'] );
-    }
     // user
     $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
     // base
     $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
     // prefix_table
     if ( !isset( $_POST['prefix_table'] ) )
-    {
       $vtp->setVar( $handle, 'step1.f_prefix_table', 'phpwebgallery_' );
-    }
     else
-    {
       $vtp->setVar( $handle, 'step1.f_prefix_table', $_POST['prefix_table'] );
-    }
-    
+
     $vtp->closeSession( $handle, 'step1' );
   }
 }
 //------------------------------------- Step 2 : creation of tables in database
 else if ( $_GET['step'] == 2 )
 {
+  $errors = array();
+  $infos  = array();
+
   include( '../include/mysql.inc.php' );
   mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Can't connect to database host" );
@@ -175,140 +176,107 @@ else if ( $_GET['step'] == 2 )
   if ( !isset( $_POST['submit'] ) )
   {
     // tables creation, based on phpwebgallery_structure.sql
+    $sql_lines = file( './phpwebgallery_structure.sql' );
+    $query = '';
+    foreach ( $sql_lines as $sql_line ) {
+      $sql_line = trim( $sql_line );
+      if ( preg_match( '/(^--|^$)/', $sql_line ) ) continue;
+      $query.= ' '.$sql_line;
+      // if we reached the end of query, we execute it and reinitialize the
+      // variable "query"
+      if ( preg_match( '/;$/', $sql_line ) )
+      {
+        $query = trim( $query );
+        $query = str_replace( 'phpwebgallery_', $prefix_table, $query );
+        // we don't execute "DROP TABLE" queries
+        if ( !preg_match( '/^DROP TABLE/i', $query ) )
+          mysql_query( $query );
+        $query = '';
+      }
+    }
   }
 
   if ( isset( $_POST['submit'] ) )
   {
-    $configuration = false;
-    $erreur = "";
-    $nb_erreur = 0;
-    // le pseudo du webmaster ne doit pas
-    // 1. être vide
-    // 2. commencer ou se terminer par un espace
-    // 3. comporter les caractères ' ou "
-    // Notes sur le pseudo du webmaster :
-    // - lorsque l'on trouve plusieurs occurences
-    // consécutives du caractère espace, on réduit à une seule occurence
-    if ( $_POST['webmaster'] == "" )
-    {
-      $erreur .= "<li>".$lang['step2_err_login1']."</li>";
-      $nb_erreur++;
-    }
-    $webmaster = ereg_replace( "[ ]{2,}", " ", $_POST['webmaster'] );
-    if ( ereg( "^.* $", $webmaster ) or ereg( "^ .*$", $webmaster) )
-    {
-      $erreur .= "<li>".$lang['step2_err_login2']."</li>";
-      $nb_erreur++;
-    }
-    if ( ereg( "'",$webmaster ) or ereg( "\"",$webmaster ) )
-    {
-      $erreur .= "<li>".$lang['step2_err_login3']."</li>";
-      $nb_erreur++;
-    }
-    // on vérifie que le password rentré correspond bien à la confirmation faite par l'utilisateur
+    // webmaster login must be
+    // 1. non empty
+    // 2. without characters ' or "
+    $webmaster = preg_replace( '/\s{2,}/', ' ', $_POST['webmaster'] );
+    $webmaster = trim( $webmaster );
+    if ( $webmaster == '' )
+      array_push( $errors, $lang['step2_err_login1'] );
+    if ( preg_match( '/[\'"]/', $webmaster ) )
+      array_push( $errors, $lang['step2_err_login3'] );
+    // the webmaster string must be the same as its confirmation
     if ( $_POST['pwdWebmaster'] != $_POST['pwdWebmasterConf'] )
+      array_push( $errors, $lang['step2_err_pass'] );
+    // mail address must have this format : name@server.com
+    $error_mail_address = validate_mail_address( $_POST['mail_webmaster'] );
+    if ( $error_mail_address != '' )
+      array_push( $errors, $error_mail_address );
+    if ( $_POST['mail_webmaster'] == '' )
+      array_push( $errors, $lang['reg_err_mail_address'] );
+
+    // if no error found till here : insertion of data in tables
+    if ( count( $errors ) == 0 )
     {
-      $erreur .= "<li>".$lang['step2_err_pass']."</li>";
-      $nb_erreur++;
-    }
-    // le mail doit être conforme à qqch du type : nom@serveur.com
-    if( !ereg("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)", $_POST['mail_webmaster'] ) )
-    {
-      $erreur .= "<li>".$lang['step2_err_mail']."</li>";
-      $nb_erreur++;
-    }
-    // on met à jour les paramètres de l'application dans le cas où il n'y aucune erreur
-    if ( $nb_erreur == 0 )
-    {
-      mysql_query( "delete from PREFIX_TABLE"."config" );
-      $query = "insert into PREFIX_TABLE"."config (webmaster,mail_webmaster) values ('$webmaster','".$_POST['mail_webmaster']."')";
+      $query = 'DELETE FROM '.$prefix_table.'config';
+      mysql_query( $query );
+
+      $query = 'INSERT INTO '.$prefix_table.'config';
+      $query.= ' (webmaster,mail_webmaster) VALUES ';
+      $query.= " ('".$webmaster."','".$_POST['mail_webmaster']."')";
+      $query.= ';';
+      mysql_query( $query );
+
+      $query = 'INSERT INTO '.$prefix_table.'sites';
+      $query.= " (id,galleries_url) VALUES (1, './galleries/')";
+      $query.= ';';
+      mysql_query( $query );
+
+      // webmaster admin user
+      $query = 'INSERT INTO '.$prefix_table.'users';
+      $query.= ' (id,username,password,status,language) VALUES ';
+      $query.= "(1,'".$webmaster."','".md5( $_POST['pwdWebmaster'] )."'";
+      $query.= ",'admin','".$_GET['language']."')";
+      $query.= ';';
       mysql_query($query);
-      $query = "insert into PREFIX_TABLE"."sites values (1, './galleries/');";
-      mysql_query($query);
-      $query = "insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('$webmaster','".md5( $pwdWebmaster )."','admin','".$_GET['language']."')";
-      mysql_query($query);
-      mysql_query("insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('visiteur','".md5( "" )."','visiteur','".$_GET['language']."')");
-      $configuration = true;
+
+      // guest user
+      $query = 'INSERT INTO '.$prefix_table.'users';
+      $query.= '(id,username,password,status,language) VALUES ';
+      $query.= "(2,'guest','','guest','francais')";
+      $query.= ';';
+      mysql_query( $query );
     }
   }
-		
-  echo header_install();
-  if ( $configuration )
+
+  // errors display
+  if ( sizeof( $errors ) != 0 )
   {
-    echo"
-						<table width=\"100%\">
-							<tr>
-								<th>".$lang['install_end_title']."</th>
-							</tr>
-							<tr>
-								<td>&nbsp;</th>
-							</tr>
-							<tr>
-								<td>".$lang['install_end_message']."</td>
-							</tr>
-						</table>";
+    $vtp->addSession( $handle, 'errors' );
+    foreach ( $errors as $error ) {
+      $vtp->addSession( $handle, 'error' );
+      $vtp->setVar( $handle, 'error.content', $error );
+      $vtp->closeSession( $handle, 'error' );
+      }
+    $vtp->closeSession( $handle, 'errors' );
   }
-  else
+
+  if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
   {
-    if ( $nb_erreur > 0 )
-    {
-      echo"
-						<table width=100%>
-							<tr>
-								<th>".$lang['install_message']."</th>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td>$erreur</td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-						</table>";
-    }
-    echo"
-					<form method=\"post\" action=\"install.php?step=2&amp;language=".$_GET['language']."\">
-						<table width=100%>
-							<tr>
-								<th colspan=\"3\">".$lang['step2_title']."</th>
-							</tr>
-							<tr>
-								<td colspan=\"3\">&nbsp;</td>
-							</tr>
-							<tr>
-								<td>".$lang['conf_general_webmaster']."</td>
-								<td align=\"center\"><input type='text' name='webmaster' value=\"".$_POST['webmaster']."\"></td>
-								<td class=\"row2\">".$lang['conf_general_webmaster_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step2_pwd']."</td>
-								<td align=center><input type='password' name='pwdWebmaster' value=''></td>
-								<td class=\"row2\">".$lang['step2_pwd_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step2_pwd_conf']."</td>
-								<td align=center><input type='password' name='pwdWebmasterConf' value=''></td>
-								<td class=\"row2\">".$lang['step2_pwd_conf_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['conf_general_mail']."</td>
-								<td align=center><input type='text' name='mail_webmaster' value=\"".$_POST['mail_webmaster']."\"></td>
-								<td class=\"row2\">".$lang['conf_general_mail_info']."</td>
-							</tr>
-							<tr>
-								<td colspan=\"3\">&nbsp;</th>
-							</tr>
-							<tr>
-								<td colspan=3 align=center>
-									<input type='submit' name='submit' value='".$lang['submit']."'>
-								</td>
-							</tr>
-						</table>
-					</form>";
+    $vtp->addSession( $handle, 'step2' );
+    $vtp->setVar( $handle, 'step2.f_webmaster', $_POST['webmaster'] );
+    $vtp->setVar( $handle, 'step2.f_mail_webmaster', $_POST['mail_webmaster']);
+    $vtp->closeSession( $handle, 'step2' );
   }
-  echo footer_install();
+
+  // end of installation message
+  if ( isset( $_POST['submit'] ) and count( $errors ) == 0 )
+  {
+    $vtp->addSession( $handle, 'install_end' );
+    $vtp->closeSession( $handle, 'install_end' );
+  }
 }
 //---------------------------------------------------- Step 0 : language choice
 else
