@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_perm.vtp' );
 $error = array();

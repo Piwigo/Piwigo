@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 //-------------------------------------------------------------- initialization
 check_cat_id( $_GET['cat_id'] );

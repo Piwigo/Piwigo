@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
 function insert_local_category( $cat_id )
 {

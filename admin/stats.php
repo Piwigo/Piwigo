@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 $max_pixels = 500;
 //------------------------------------------------------------ comment deletion
 if ( isset( $_GET['del'] ) and is_numeric( $_GET['del'] ) )

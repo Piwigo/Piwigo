@@ -16,19 +16,19 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-define( PREFIX_INCLUDE, '.' );
+define( PREFIX_INCLUDE, '' );
 
-include_once( '../include/config.inc.php' );
-include_once( '../include/user.inc.php' );
-include( './include/functions.php' );
+include_once( './include/config.inc.php' );
+include_once( './include/user.inc.php' );
+include( './admin/include/functions.php' );
 
 $isadmin = true;
-include_once( '../language/'.$user['language'].'.php' );
+include_once( './language/'.$user['language'].'.php' );
 
 if ( $user['status'] != 'admin' )
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-  echo '<a href="../identification.php">'.$lang['ident_title'].'</a></div>';
+  echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
   exit();
 }
 ?>

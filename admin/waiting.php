@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //--------------------------------------------------------------------- updates
 if ( isset( $_POST['submit'] ) )
 {

@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------- categories structure initialization
 $page['plain_structure'] = get_plain_structure();
 //--------------------------------------------------------- update informations

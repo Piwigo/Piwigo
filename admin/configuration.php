@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 	
 $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A", 
                 "Â" => "A", "Ã" => "A", "Ä" => "A", "Å" => "A", 

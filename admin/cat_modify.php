@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_modify.vtp' );
 $tpl = array( 'remote_site','editcat_confirm','editcat_back','editcat_title1',

@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( './template/'.$user['template'].'/admin/group_list.vtp' );
 $tpl = array( 'group_add','add','listuser_permission','delete',

@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 $page['plain_structure'] = get_plain_structure();
 //------------------------------------------------------------------- functions
 function display_pictures( $mysql_result, $maxtime, $validation_box = false )

@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
 // get_subdirs returns an array containing all sub directory names,
 // excepting : '.', '..' and 'thumbnail'.
