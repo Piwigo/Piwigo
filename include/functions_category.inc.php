@@ -511,38 +511,15 @@ function initialize_category( $calling_page = 'category' )
           if ($search['fields']['cat']['mode'] == 'sub_inc')
           {
             // searching all the categories id of sub-categories
-            $search_cat_clauses = array();
-            foreach ($search['fields']['cat']['words'] as $cat_id)
-            {
-              $local_clause = 'uppercats REGEXP \'(^|,)'.$cat_id.'(,|$)\'';
-              array_push($search_cat_clauses, $local_clause);
-            }
-            array_walk($search_cat_clauses,
-                       create_function('&$s', '$s = "(".$s.")";'));
-            
-            $query = '
-SELECT DISTINCT(id) AS id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE '.implode(' OR ', $search_cat_clauses).'
-;';
-            $result = pwg_query($query);
-            $cat_ids = array();
-            while ($row = mysql_fetch_array($result))
-            {
-              array_push($cat_ids, $row['id']);
-            }
-            $local_clause = 'category_id IN (';
-            $local_clause.= implode(',',$cat_ids);
-            $local_clause.= ')';
-            array_push($clauses, $local_clause);
+            $cat_ids = get_subcat_ids($search['fields']['cat']['words']);
           }
           else
           {
-            $local_clause = 'category_id IN (';
-            $local_clause.= implode(',',$search['fields']['cat']['words']);
-            $local_clause.= ')';
-            array_push($clauses, $local_clause);
+            $cat_ids = $search['fields']['cat']['words'];
           }
+          
+          $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
+          array_push($clauses, $local_clause);
         }
 
         // adds brackets around where clauses
@@ -685,6 +662,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         $query ='
 SELECT COUNT(1) AS count
   FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   '.$page['where'].'
 ;';
         $row = mysql_fetch_array(pwg_query($query));
