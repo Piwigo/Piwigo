@@ -104,9 +104,8 @@
           </table>
           <!--VTP_favorite-->
           <div class="menu" style="text-align:center;margin:5px;">
-            <a href="{#link}" title="{#title}">
-              <img src="{#src}" style="border:none;margin-left:5px;" alt="{#alt}"/>
-            </a>
+            <a href="{#link}" title="{#title}"><img src="{#src}" style="border:none;margin-left:5px;" alt=""/></a>
+            <a href="{#link}">{#alt}</a>
           </div>
           <!--/VTP_favorite-->
           <!--VTP_modification-->
