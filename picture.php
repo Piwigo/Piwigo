@@ -492,7 +492,14 @@ $vtp->setVar( $handle, 'info_line.name', $lang['visited'].' : ' );
 $vtp->setVar( $handle, 'info_line.content', $page['hit'].' '.$lang['times'] );
 $vtp->closeSession( $handle, 'info_line' );
 //------------------------------------------------------- favorite manipulation
-if ( $page['cat'] != 'fav' and !$user['is_the_guest'] )
+if ( !$user['is_the_guest'] )
+{
+  // verify if the picture is already in the favorite of the user
+  $query = 'SELECT COUNT(*) AS nb_fav FROM '.PREFIX_TABLE.'favorites WHERE image_id = '.$page['id'];
+  $query.= ' AND user_id = '.$user['id'].';';
+  $result = mysql_query( $query );
+  $row = mysql_fetch_array( $result );
+  if (!$row['nb_fav'])
 {
   $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
   if (isset($_GET['expand']))
@@ -510,7 +517,7 @@ if ( $page['cat'] != 'fav' and !$user['is_the_guest'] )
   $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['add_favorites_alt'].' ]' );
   $vtp->closeSession( $handle, 'favorite' );
 }
-if ( $page['cat'] == 'fav' )
+else
 {
   $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
   $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=0';
@@ -521,6 +528,7 @@ if ( $page['cat'] == 'fav' )
                 './template/'.$user['template'].'/theme/del_favorite.gif' );
   $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['del_favorites_alt'].' ]' );
   $vtp->closeSession( $handle, 'favorite' );
+}
 }
 //------------------------------------ admin link for information modifications
 if ( $user['status'] == 'admin' )
