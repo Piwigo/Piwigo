@@ -59,7 +59,7 @@ $email = empty($_POST['login'])?$_POST['login']:'';
 // Start output of page
 //
 $title= $lang['register_page_title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
 initialize_template();
@@ -89,5 +89,5 @@ if ( sizeof( $errors ) != 0 )
 }
 
 $template->pparse('register');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

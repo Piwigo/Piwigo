@@ -132,20 +132,6 @@ if ( $page['cat_site_id'] != 1
   exit();
 }
 }
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
-$title= $lang['upload_title'];
-include('include/page_header.php');
-$handle = $vtp->Open( './template/'.$user['template'].'/upload.vtp' );
-initialize_template();
-
-$tpl = array( 'upload_title', 'upload_username', 'mail_address', 'submit',
-              'upload_successful', 'search_return_main_page','upload_author',
-              'upload_name','upload_creation_date','upload_comment',
-              'mandatory' );
-templatize_array( $tpl, 'lang', $handle );
 
 $error = array();
 $page['upload_successful'] = false;
@@ -163,7 +149,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     array_push( $error, $lang['upload_file_exists'] );
   }
   // test de la présence des champs obligatoires
-  if ( $_FILES['picture']['name'] == '' )
+  if ( empty($_FILES['picture']['name']))
   {
     array_push( $error, $lang['upload_filenotfound'] );
   }
@@ -172,13 +158,13 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, $lang['reg_err_mail_address'] );
   }
-  if ( $_POST['username'] == '' )
+  if ( empty($_POST['username']) )
   {
     array_push( $error, $lang['upload_err_username'] );
   }
   
   $date_creation = '';
-  if ( $_POST['date_creation'] != '' )
+  if ( !empty($_POST['date_creation']) )
   {
     list( $day,$month,$year ) = explode( '/', $_POST['date_creation'] );
     // int checkdate ( int month, int day, int year)
@@ -205,9 +191,6 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
   if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )
   {
-    // reload language file with administration labels
-    $isadmin = true;
-    include( './language/'.$user['language'].'.php' );
     array_push( $error, $lang['update_wrong_dirname'] );
   }
   
@@ -224,7 +207,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'insert into '.PREFIX_TABLE.'waiting';
+    $query = 'insert into '.WAITING_TABLE;
     $query.= ' (storage_category_id,file,username,mail_address,date,infos)';
     $query.= ' values ';
     $query.= '('.$page['cat'].",'".$_FILES['picture']['name']."'";
@@ -240,12 +223,13 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     }
   }
 }
+
 //------------------------------------------------------------ thumbnail upload
 if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
 {
   // upload of the thumbnail
   $query = 'select file';
-  $query.= ' from '.PREFIX_TABLE.'waiting';
+  $query.= ' from '.WAITING_TABLE;
   $query.= ' where id = '.$_GET['waiting_id'];
   $query.= ';';
   $result= mysql_query( $query );
@@ -263,7 +247,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   }
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'update '.PREFIX_TABLE.'waiting';
+    $query = 'update '.WAITING_TABLE;
     $query.= " set tn_ext = '".$extension."'";
     $query.= ' where id = '.$_GET['waiting_id'];
     $query.= ';';
@@ -272,129 +256,128 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   }
 }
 
+//
+// Start output of page
+//
+$title= $lang['upload_title'];
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->set_filenames(array('upload'=>'upload.tpl'));
+initialize_template();
+
+$u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'].'&amp;expand='.$_GET['expand'];
+if ( isset( $page['waiting_id'] ) )
+{
+$u_form.= '&amp;waiting_id='.$page['waiting_id'];
+}
+
+if ( isset( $page['waiting_id'] ) )
+{
+  $advise_title=$lang['upload_advise_thumbnail'].$_FILES['picture']['name'];
+}
+else
+{
+  $advise_title = $lang['upload_advise'];
+  $advise_title.= get_cat_display_name( $page['cat_name'], ' - ', 'font-style:italic;' );
+}
+
+$username = !empty($_POST['username'])?$_POST['username']:$user['username'];
+$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:$user['mail_address'];
+$name = !empty($_POST['name'])?$_POST['name']:'';
+$author = !empty($_POST['author'])?$_POST['author']:'';
+$date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';
+$comment = !empty($_POST['comment'])?$_POST['comment']:'';
+
+$template->assign_vars(array(
+  'ADVISE_TITLE' => $advise_title,
+  'NAME' => $username,
+  'EMAIL' => $mail_address,
+  'NAME_IMG' => $name,
+  'AUTHOR_IMG' => $author,
+  'DATE_IMG' => $date_creation,
+  'COMMENT_IMG' => $comment,
+
+  'L_TITLE' => $lang['upload_title'],
+  'L_USERNAME' => $lang['upload_username'],
+  'L_EMAIL' =>  $lang['mail_address'], 
+  'L_NAME_IMG' =>  $lang['upload_name'], 
+  'L_SUBMIT' =>  $lang['submit'],
+  'L_AUTHOR' =>  $lang['upload_author'], 
+  'L_CREATION_DATE' =>  $lang['upload_creation_date'], 
+  'L_COMMENT' =>  $lang['upload_comment'],
+  'L_RETURN' =>  $lang['search_return_main_page'],
+  'L_UPLOAD_DONE' =>  $lang['upload_successful'],
+  'L_MANDATORY' =>  $lang['mandatory'],
+	
+  'F_ACTION' => add_session_id( $u_form ),
+
+  'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
+  ));
+  
 if ( !$page['upload_successful'] )
 {
-  $vtp->addSession( $handle, 'upload_not_successful' );
+  $template->assign_block_vars('upload_not_successful',array());
 //-------------------------------------------------------------- errors display
-  if ( sizeof( $error ) != 0 )
+if ( sizeof( $error ) != 0 )
+{
+  $template->assign_block_vars('upload_not_successful.errors',array());
+  for ( $i = 0; $i < sizeof( $error ); $i++ )
   {
-    $vtp->addSession( $handle, 'errors' );
-    for ( $i = 0; $i < sizeof( $error ); $i++ )
-    {
-      $vtp->addSession( $handle, 'li' );
-      $vtp->setVar( $handle, 'li.li', $error[$i] );
-      $vtp->closeSession( $handle, 'li' );
-    }
-    $vtp->closeSession( $handle, 'errors' );
+    $template->assign_block_vars('upload_not_successful.errors.error',array('ERROR'=>$error[$i]));
   }
-//----------------------------------------------------------------- form action
-  $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$_GET['expand'];
-  if ( isset( $page['waiting_id'] ) )
-  {
-    $url.= '&amp;waiting_id='.$page['waiting_id'];
-  }
-  $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
+}
+
 //--------------------------------------------------------------------- advises
-  if ( $conf['upload_maxfilesize'] != '' )
+  if ( !empty($conf['upload_maxfilesize']) )
   {
-    $vtp->addSession( $handle, 'advise' );
     $content = $lang['upload_advise_filesize'];
     $content.= $conf['upload_maxfilesize'].' KB';
-    $vtp->setVar( $handle, 'advise.content', $content );
-    $vtp->closeSession( $handle, 'advise' );
+    $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
   }
+
   if ( isset( $page['waiting_id'] ) )
   {
-    $advise_title=$lang['upload_advise_thumbnail'].$_FILES['picture']['name'];
-    $vtp->setGlobalVar( $handle, 'advise_title', $advise_title );
-
     if ( $conf['upload_maxwidth_thumbnail'] != '' )
     {
-      $vtp->addSession( $handle, 'advise' );
-      $content = $lang['upload_advise_width'];
+	  $content = $lang['upload_advise_width'];
       $content.= $conf['upload_maxwidth_thumbnail'].' px';
-      $vtp->setVar( $handle, 'advise.content', $content );
-      $vtp->closeSession( $handle, 'advise' );
+	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
     if ( $conf['upload_maxheight_thumbnail'] != '' )
     {
-      $vtp->addSession( $handle, 'advise' );
       $content = $lang['upload_advise_height'];
       $content.= $conf['upload_maxheight_thumbnail'].' px';
-      $vtp->setVar( $handle, 'advise.content', $content );
-      $vtp->closeSession( $handle, 'advise' );
+	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
   }
   else
   {
-    $advise_title = $lang['upload_advise'];
-    $advise_title.= get_cat_display_name( $page['cat_name'], ' - ',
-                                          'font-style:italic;' );
-    $vtp->setGlobalVar( $handle, 'advise_title', $advise_title );
-
     if ( $conf['upload_maxwidth'] != '' )
     {
-      $vtp->addSession( $handle, 'advise' );
       $content = $lang['upload_advise_width'];
       $content.= $conf['upload_maxwidth'].' px';
-      $vtp->setVar( $handle, 'advise.content', $content );
-      $vtp->closeSession( $handle, 'advise' );
+	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
     if ( $conf['upload_maxheight'] != '' )
     {
-      $vtp->addSession( $handle, 'advise' );
       $content = $lang['upload_advise_height'];
       $content.= $conf['upload_maxheight'].' px';
-      $vtp->setVar( $handle, 'advise.content', $content );
-      $vtp->closeSession( $handle, 'advise' );
+	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
   }
-  $vtp->addSession( $handle, 'advise' );
-  $content = $lang['upload_advise_filetype'];
-  $vtp->setVar( $handle, 'advise.content', $content );
-  $vtp->closeSession( $handle, 'advise' );
+  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$lang['upload_advise_filetype']));
+  
 //----------------------------------------- optionnal username and mail address
   if ( !isset( $page['waiting_id'] ) )
   {
-    $vtp->addSession( $handle, 'fields' );
-    // username
-    if ( isset( $_POST['username'] ) ) $username = $_POST['username'];
-    else                               $username = $user['username'];
-    $vtp->setVar( $handle, 'fields.username',  $username );
-    // mail address
-    if ( isset( $_POST['mail_address'] ) )$mail_address=$_POST['mail_address'];
-    else                                  $mail_address=$user['mail_address'];
-    $vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
-    // name of the picture
-	if (isset($_POST['name']))
-    $vtp->setVar( $handle, 'fields.name', $_POST['name'] );
-    // author
-	if (isset($_POST['author']))
-    $vtp->setVar( $handle, 'fields.author', $_POST['author'] );
-    // date of creation
-	if (isset($_POST['date_creation']))
-    $vtp->setVar( $handle, 'fields.date_creation', $_POST['date_creation'] );
-    // comment
-	if (isset($_POST['comment']))
-    $vtp->setVar( $handle, 'fields.comment', $_POST['comment'] );
-
-    $vtp->closeSession( $handle, 'fields' );
-
-    $vtp->addSession( $handle, 'note' );
-    $vtp->closeSession( $handle, 'note' );
+    $template->assign_block_vars('upload_not_successful.fields',array());
+	$template->assign_block_vars('note',array());
   }
-  $vtp->closeSession( $handle, 'upload_not_successful' );
 }
 else
 {
-  $vtp->addSession( $handle, 'upload_successful' );
-  $vtp->closeSession( $handle, 'upload_successful' );
+  $template->assign_block_vars('upload_successful',array());
 }
-//----------------------------------------------------- return to main page url
-$url = './category.php?cat='.$page['cat'].'&amp;expand='.$_GET['expand'];
-$vtp->setGlobalVar( $handle, 'return_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
-include('include/page_tail.php');
+$template->pparse('upload');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

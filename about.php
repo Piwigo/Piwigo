@@ -33,7 +33,7 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // Start output of page
 //
 $title= $lang['about_page_title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('about'=>'about.tpl'));
 initialize_template();
@@ -47,5 +47,5 @@ $template->assign_vars(array(
 	);
 
 $template->pparse('about');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

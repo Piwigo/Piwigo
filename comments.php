@@ -42,7 +42,7 @@ $array_cat_site_id     = array();
 // Start output of page
 //
 $title= $lang['title_comments'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('comments'=>'comments.tpl') );
 initialize_template();
@@ -167,5 +167,5 @@ while ( $row = mysql_fetch_array( $result ) )
   }
 //----------------------------------------------------------- html code display
 $template->pparse('comments');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

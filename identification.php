@@ -57,7 +57,7 @@ if ( isset( $_POST['login'] ) )
 // Start output of page
 //
 $title = $lang['ident_page_title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );
 initialize_template();
@@ -95,5 +95,5 @@ if ( $conf['access'] == 'free' )
 }
 //----------------------------------------------------------- html code display
 $template->pparse('identification');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

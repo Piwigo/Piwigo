@@ -131,7 +131,7 @@ if ( isset( $_POST['submit'] ) )
 // Start output of page
 //
 $title = $lang['customize_page_title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('profile'=>'profile.tpl'));
 initialize_template();
@@ -223,29 +223,7 @@ $template->assign_block_vars('radio',array(
   'F_OPTIONS'=>make_radio('show_nb_comments', array(true=>$lang['yes'], false=>$lang['no']), $user['show_nb_comments'], true)
   ));
 
-//--------------------------------------------------------------- create cookie
-if ( $conf['authorize_cookies'] )
-{
-  $vtp->addSession( $handle, 'cookie' );
-  $options = array(
-    array( 'message' => '1 '.$lang['customize_day'],
-           'value' => time() + 24*60*60 ),
-    array( 'message' => '1 '.$lang['customize_week'],
-           'value' => time() + 7*24*60*60 ),
-    array( 'message' => '1 '.$lang['customize_month'],
-           'value' => time() + 30*24*60*60 ),
-    array( 'message' => '1 '.$lang['customize_year'],
-           'value' => time() + 365*24*60*60 )
-    );
-  foreach ( $options as $option ) {
-    $vtp->addSession( $handle, 'expiration_option' );
-    $vtp->setVar( $handle, 'expiration_option.option', $option['message'] );
-    $vtp->setVar( $handle, 'expiration_option.value', $option['value'] );
-    $vtp->closeSession( $handle, 'expiration_option' );
-  }
-  $vtp->closeSession( $handle, 'cookie' );
-}
 //----------------------------------------------------------- html code display
 $template->pparse('profile');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

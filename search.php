@@ -66,7 +66,7 @@ if ( isset( $_POST['search'] ) )
 // Start output of page
 //
 $title= $lang['search_title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
 initialize_template();
@@ -100,5 +100,5 @@ if ( sizeof( $error ) != 0 )
 pwg_log( 'search', $title );
 mysql_close();
 $template->pparse('search');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

@@ -115,7 +115,7 @@ $page['structure'] = update_structure( $page['structure'] );
 // Start output of page
 //
 $title = $page['title'];
-include('include/page_header.php');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('category'=>'category.tpl') );
 initialize_template();
@@ -482,5 +482,5 @@ pwg_log( 'category', $page['title'] );
 mysql_close();
 
 $template->pparse('category');
-include('include/page_tail.php');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
