@@ -269,4 +269,35 @@ function get_html_menu_category($category)
 
   return $menu;
 }
+
+/**
+ * returns HTMLized comment contents retrieved from database
+ *
+ * newlines becomes br tags, _word_ becomes underline, /word/ becomes
+ * italic, *word* becomes bolded
+ *
+ * @param string content
+ * @return string
+ */
+function parse_comment_content($content)
+{
+  $content = nl2br($content);
+  
+  // replace _word_ by an underlined word
+  $pattern = '/_([^\s]*)_/';
+  $replacement = '<span style="text-decoration:underline;">\1</span>';
+  $content = preg_replace($pattern, $replacement, $content);
+  
+  // replace *word* by a bolded word
+  $pattern = '/\*([^\s]*)\*/';
+  $replacement = '<span style="font-weight:bold;">\1</span>';
+  $content = preg_replace($pattern, $replacement, $content);
+  
+  // replace /word/ by an italic word
+  $pattern = '/\/([^\s]*)\//';
+  $replacement = '<span style="font-style:italic;">\1</span>';
+  $content = preg_replace($pattern, $replacement, $content);
+
+  return $content;
+}
 ?>

@@ -181,16 +181,9 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['download'] = $cat_directory.$row['file'];
   }
 
-  if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-  {
-    $picture[$i]['thumbnail'] = $cat_directory.'thumbnail/';
-    $picture[$i]['thumbnail'].= $conf['prefix_thumbnail'].$file_wo_ext;
-    $picture[$i]['thumbnail'].= '.'.$row['tn_ext'];
-  }
-  else
-  {
-    $picture[$i]['thumbnail'] = $icon;
-  }
+  $picture[$i]['thumbnail'] = get_thumbnail_src($row['file'],
+                                                $row['storage_category_id'],
+                                                @$row['tn_ext']);
   
   if ( !empty( $row['name'] ) )
   {
@@ -961,46 +954,40 @@ if ( $conf['show_comments'] )
                 
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $content = nl2br( $row['content'] );
-
-    // replace _word_ by an underlined word
-    $pattern = '/_([^\s]*)_/';
-    $replacement = '<span style="text-decoration:underline;">\1</span>';
-    $content = preg_replace( $pattern, $replacement, $content );
-
-    // replace *word* by a bolded word
-    $pattern = '/\*([^\s]*)\*/';
-    $replacement = '<span style="font-weight:bold;">\1</span>';
-    $content = preg_replace( $pattern, $replacement, $content );
-
-    // replace /word/ by an italic word
-    $pattern = '/\/([^\s]*)\//';
-    $replacement = '<span style="font-style:italic;">\1</span>';
-    $content = preg_replace( $pattern, $replacement, $content );
-	
-    $template->assign_block_vars('comments.comment', array(
-    'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
-    'COMMENT_DATE'=>format_date( $row['date'], 'mysql_datetime', true ),
-	'COMMENT'=>$content
+    $template->assign_block_vars(
+      'comments.comment',
+      array(
+        'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
+        'COMMENT_DATE'=>format_date($row['date'], 'mysql_datetime', true),
+	'COMMENT'=>parse_comment_content($row['content'])
 	));
 	
     if ( $user['status'] == 'admin' )
     {
-	  $template->assign_block_vars('comments.comment.delete', array('U_COMMENT_DELETE'=>add_session_id( $url.'&amp;del='.$row['id'] )));
+      $template->assign_block_vars(
+        'comments.comment.delete',
+        array('U_COMMENT_DELETE'=>add_session_id( $url.'&amp;del='.$row['id'])
+          ));
     }
   }
 
-  if ( !$user['is_the_guest']||( $user['is_the_guest'] and $conf['comments_forall'] ) )
+  if (!$user['is_the_guest']
+      or ($user['is_the_guest'] and $conf['comments_forall']))
   {
     $template->assign_block_vars('comments.add_comment', array());
     // display author field if the user is not logged in
-    if ( !$user['is_the_guest'] )
+    if (!$user['is_the_guest'])
     {
-      $template->assign_block_vars('comments.add_comment.author_known', array('KNOWN_AUTHOR'=>$user['username']));
-	}
+      $template->assign_block_vars(
+        'comments.add_comment.author_known',
+        array('KNOWN_AUTHOR'=>$user['username'])
+        );
+    }
     else
     {
-      $template->assign_block_vars('comments.add_comment.author_field', array());
+      $template->assign_block_vars(
+        'comments.add_comment.author_field', array()
+        );
     }
   }
 }

@@ -229,20 +229,9 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(mysql_query($query));
     
-    $file = get_filename_wo_extension($row['file']);
-    
-    // creating links for thumbnail and associated category
-    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-    {
-      $thumbnail_link = get_complete_dir($row['storage_category_id']);
-      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-      $thumbnail_link.= $file.'.'.$row['tn_ext'];
-    }
-    else
-    {
-      $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
-      $thumbnail_link.= strtolower(get_extension($row['file'])).'.png';
-    }
+    $thumbnail_src = get_thumbnail_src($row['file'],
+                                       $row['storage_category_id'],
+                                       @$row['tn_ext']);
     
     $name = $calendar_year.' ('.$nb_pics.')';
 
@@ -254,7 +243,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
-        'IMAGE'=>$thumbnail_link,
+        'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
         'IMAGE_NAME'=>$name,
@@ -288,21 +277,10 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(mysql_query($query));
     
-    $file = get_filename_wo_extension($row['file']);
-
-    // creating links for thumbnail and associated category
-    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-    {
-      $thumbnail_link = get_complete_dir($row['storage_category_id']);
-      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-      $thumbnail_link.= $file.'.'.$row['tn_ext'];
-    }
-    else
-    {
-      $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
-      $thumbnail_link.= strtolower(get_extension($row['file'])).'.png';
-    }
-      
+    $thumbnail_src = get_thumbnail_src($row['file'],
+                                       $row['storage_category_id'],
+                                       @$row['tn_ext']);
+    
     $name = $lang['month'][$calendar_month];
     $name.= ' '.$page['calendar_year'];
     $name.= ' ('.$nb_pics.')';
@@ -321,7 +299,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
-        'IMAGE'=>$thumbnail_link,
+        'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
         'IMAGE_NAME'=>$name,
@@ -354,20 +332,9 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(mysql_query($query));
     
-    $file = get_filename_wo_extension($row['file']);
-    
-    // creating links for thumbnail and associated category
-    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-    {
-      $thumbnail_link = get_complete_dir($row['storage_category_id']);
-      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-      $thumbnail_link.= $file.'.'.$row['tn_ext'];
-    }
-    else
-    {
-      $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
-      $thumbnail_link.= strtolower(get_extension($row['file'])).'.png';
-    }
+    $thumbnail_src = get_thumbnail_src($row['file'],
+                                       $row['storage_category_id'],
+                                       @$row['tn_ext']);
 
     list($year,$month,$day) = explode('-', $calendar_day);
     $unixdate = mktime(0,0,0,$month,$day,$year);
@@ -383,7 +350,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
-        'IMAGE'=>$thumbnail_link,
+        'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
         'IMAGE_NAME'=>$name,
@@ -434,20 +401,9 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(mysql_query($query));
     
-    $file = get_filename_wo_extension($row['file']);
-    
-    // creating links for thumbnail and associated category
-    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-    {
-      $thumbnail_link = get_complete_dir($row['storage_category_id']);
-      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-      $thumbnail_link.= $file.'.'.$row['tn_ext'];
-    }
-    else
-    {
-      $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
-      $thumbnail_link.= strtolower(get_extension($row['file'])).'.png';
-    }
+    $thumbnail_src = get_thumbnail_src($row['file'],
+                                       $row['storage_category_id'],
+                                       @$row['tn_ext']);
     
     $thumbnail_title = $lang['calendar_picture_hint'].$name;
 
@@ -461,7 +417,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
-        'IMAGE'=>$thumbnail_link,
+        'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
         'IMAGE_NAME'=>$name,

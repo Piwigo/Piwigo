@@ -345,7 +345,7 @@ function get_cat_info( $id )
 // get_complete_dir(22) returns "./galleries/pets/rex/1_year_old/"
 function get_complete_dir( $category_id )
 {
-  return get_site_url( $category_id ).get_local_dir( $category_id );
+  return get_site_url($category_id).get_local_dir($category_id);
 }
 
 // get_local_dir returns an array with complete path without the site url
@@ -383,7 +383,8 @@ function get_local_dir( $category_id )
   {
     $database_dirs[$row['id']] = $row['dir'];
   }
-  foreach ( $upper_array as $id ) {
+  foreach ($upper_array as $id)
+  {
     $local_dir.= $database_dirs[$id].'/';
   }
 
@@ -392,16 +393,17 @@ function get_local_dir( $category_id )
 
 // retrieving the site url : "http://domain.com/gallery/" or
 // simply "./galleries/"
-function get_site_url( $category_id )
+function get_site_url($category_id)
 {
   global $page;
 
-  $query = 'SELECT galleries_url';
-  $query.= ' FROM '.SITES_TABLE.' AS s,'.CATEGORIES_TABLE.' AS c';
-  $query.= ' WHERE s.id = c.site_id';
-  $query.= ' AND c.id = '.$category_id;
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $query = '
+SELECT galleries_url
+  FROM '.SITES_TABLE.' AS s,'.CATEGORIES_TABLE.' AS c
+  WHERE s.id = c.site_id
+    AND c.id = '.$category_id.'
+;';
+  $row = mysql_fetch_array(mysql_query($query));
   return $row['galleries_url'];
 }
 

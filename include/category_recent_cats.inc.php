@@ -77,27 +77,16 @@ SELECT id,file,tn_ext,storage_category_id
 ;';
   $subrow = mysql_fetch_array( mysql_query( $query ) );
 
-  $file = get_filename_wo_extension( $subrow['file'] );
-    
-  // creating links for thumbnail and associated category
-  if (isset($subrow['tn_ext']) and $subrow['tn_ext'] != '')
-  {
-    $thumbnail_link = get_complete_dir($subrow['storage_category_id']);
-    $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-    $thumbnail_link.= $file.'.'.$subrow['tn_ext'];
-  }
-  else
-  {
-    $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
-    $thumbnail_link.= strtolower(get_extension($subrow['file'])).'.png';
-  }
+  $thumbnail_src = get_thumbnail_src($subrow['file'],
+                                     $subrow['storage_category_id'],
+                                     @$subrow['tn_ext']);
   
   $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['category_id'];
   
   $template->assign_block_vars(
     'thumbnails.line.thumbnail',
     array(
-      'IMAGE'                   => $thumbnail_link,
+      'IMAGE'                   => $thumbnail_src,
       'IMAGE_ALT'               => $subrow['file'],
       'IMAGE_TITLE'             => $lang['hint_category'],
       'IMAGE_NAME'              => '['.$name.']',

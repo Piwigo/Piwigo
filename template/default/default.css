@@ -420,3 +420,8 @@ li.remoteError {
 div.remoteLocal {
   text-align:center;
 }
+
+/* for debugging purpose */
+pre {
+  text-align:left;
+}

@@ -187,17 +187,6 @@ SELECT *
 ;';
 $row = mysql_fetch_array(mysql_query($query));
 
-// some fields are nullable in the images table
-$nullables = array('name','author','keywords','date_creation','comment',
-                   'width','height');
-foreach ($nullables as $field)
-{
-  if (!isset($row[$field]))
-  {
-    $row[$field] = '';
-  }
-}
-
 if (empty($row['name']))
 {
   $title = str_replace('_', ' ',get_filename_wo_extension($row['file']));
@@ -210,25 +199,14 @@ else
 $current_category = get_cat_info($row['storage_category_id']);
 $dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
 
-// thumbnail url
-if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-{
-  $thumbnail_url = get_complete_dir($row['storage_category_id']);
-  $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
-  $thumbnail_url.= get_filename_wo_extension($row['file']);
-  $thumbnail_url.= '.'.$row['tn_ext'];
-}
-else
-{
-  $thumbnail_url = PHPWG_ROOT_PATH;
-  $thumbnail_url = 'template/'.$user['template'].'/mimetypes/';
-  $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
-}
+$thumbnail_url = get_thumbnail_src($row['file'],
+                                   $row['storage_category_id'],
+                                   @$row['tn_ext']);
 
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];
 $date = isset($_POST['date_creation']) && empty($errors)
-          ?$_POST['date_creation']:date_convert_back($row['date_creation']);
+          ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
 
 // retrieving all the linked categories
 $query = '
@@ -257,14 +235,14 @@ $template->assign_vars(array(
   'URL_IMG'=>add_session_id($url_img),
   'DEFAULT_NAME_IMG'=>str_replace('_',' ',get_filename_wo_extension($row['file'])),
   'FILE_IMG'=>$row['file'],
-  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:$row['name'],
-  'SIZE_IMG'=>$row['width'].' * '.$row['height'],
-  'FILESIZE_IMG'=>$row['filesize'].' KB',
+  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:@$row['name'],
+  'SIZE_IMG'=>@$row['width'].' * '.@$row['height'],
+  'FILESIZE_IMG'=>@$row['filesize'].' KB',
   'REGISTRATION_DATE_IMG'=> format_date($row['date_available']),
-  'AUTHOR_IMG'=>isset($_POST['author'])?$_POST['author']:$row['author'],
+  'AUTHOR_IMG'=>isset($_POST['author'])?$_POST['author']:@$row['author'],
   'CREATION_DATE_IMG'=>$date,
-  'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:$row['keywords'],
-  'COMMENT_IMG'=>isset($_POST['comment'])?$_POST['comment']:$row['comment'],
+  'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:@$row['keywords'],
+  'COMMENT_IMG'=>isset($_POST['comment'])?$_POST['comment']:@$row['comment'],
   'ASSOCIATED_CATEGORIES'=>$categories,
   
   'L_UPLOAD_NAME'=>$lang['upload_name'],

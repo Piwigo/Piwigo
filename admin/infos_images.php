@@ -319,40 +319,9 @@ SELECT *
   $result = mysql_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    if (!isset($array_cat_directories[$row['storage_category_id']]))
-    {
-      $array_cat_directories[$row['storage_category_id']] =
-        get_complete_dir($row['storage_category_id']);
-    }
-
-    // thumbnail url
-    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-    {
-      $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
-      $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
-      $thumbnail_url.= get_filename_wo_extension($row['file']);
-      $thumbnail_url.= '.'.$row['tn_ext'];
-    }
-    else
-    {
-      $thumbnail_url = PHPWG_ROOT_PATH;
-      $thumbnail_url = 'template/'.$user['template'].'/mimetypes/';
-      $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
-    }
-
-    // some fields are nullable in the images table
-    $nullables = array('name','author','keywords','date_creation','comment');
-    foreach ($nullables as $field)
-    {
-      if (isset($row[$field]))
-      {
-        $$field = $row[$field];
-      }
-      else
-      {
-        $$field = '';
-      }
-    }
+    $thumbnail_url = get_thumbnail_src($row['file'],
+                                       $row['storage_category_id'],
+                                       @$row['tn_ext']);
 
     $template->assign_block_vars(
       'picture',
@@ -362,11 +331,11 @@ SELECT *
         'TN_URL_IMG'=>$thumbnail_url,
         'FILENAME_IMG'=>$row['file'],
         'DEFAULTNAME_IMG'=>get_filename_wo_extension($row['file']),
-        'NAME_IMG'=>$name,
-        'DATE_IMG'=>date_convert_back($date_creation),
-        'AUTHOR_IMG'=>$author,
-        'KEYWORDS_IMG'=>$keywords,
-        'COMMENT_IMG'=>$comment
+        'NAME_IMG'=>@$row['name'],
+        'DATE_IMG'=>date_convert_back(@$row['date_creation']),
+        'AUTHOR_IMG'=>@$row['author'],
+        'KEYWORDS_IMG'=>@$row['keywords'],
+        'COMMENT_IMG'=>@$row['comment']
        ));
   }
   

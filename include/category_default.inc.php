@@ -61,15 +61,6 @@ if ( mysql_num_rows($result) > 0 )
 
 while ($row = mysql_fetch_array($result))
 {
-  // retrieving the storage dir of the picture
-  if (!isset($array_cat_directories[$row['storage_category_id']]))
-  {
-    $array_cat_directories[$row['storage_category_id']] =
-      get_complete_dir($row['storage_category_id']);
-  }
-  $cat_directory = $array_cat_directories[$row['storage_category_id']];
-
-  $file = get_filename_wo_extension($row['file']);
   // name of the picture
   if (isset($row['name']) and $row['name'] != '')
   {
@@ -77,7 +68,7 @@ while ($row = mysql_fetch_array($result))
   }
   else
   {
-    $name = str_replace('_', ' ', $file);
+    $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
   }
   if ($page['cat'] == 'best_rated')
   {
@@ -88,19 +79,10 @@ while ($row = mysql_fetch_array($result))
   {
     $name = replace_search($name, $_GET['search']);
   }
-  // thumbnail url
-  if (isset($row['tn_ext']) and $row['tn_ext'] != '')
-  {
-    $thumbnail_url = $cat_directory;
-    $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
-    $thumbnail_url.= $file.'.'.$row['tn_ext'];
-  }
-  else
-  {
-    $thumbnail_url = PHPWG_ROOT_PATH;
-    $thumbnail_url.= 'template/'.$user['template'].'/mimetypes/';
-    $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
-  }
+  
+  $thumbnail_url = get_thumbnail_src($row['file'],
+                                     $row['storage_category_id'],
+                                     @$row['tn_ext']);
   
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
