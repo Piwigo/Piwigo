@@ -89,6 +89,6 @@ $conf['show_exif_fields'] = array('Make',
 // for PHP version newer than 4.1.2 :
 // $conf['show_exif_fields'] = array('CameraMake','CameraModel','DateTime');
 
-$conf['calendar_datefield'] = 'date_creation';
+$conf['calendar_datefield'] = 'date_available';
 $conf['rate'] = true;
 ?>

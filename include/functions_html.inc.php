@@ -86,7 +86,7 @@ function create_navigation_bar( $url, $nb_element, $start,
       $temp_start = ( $i - 1 ) * $nb_element_page;
       if ( $temp_start == $start )
       {
-        $navigation_bar.= ' <span style="font-weight:bold;">'.$i.'</span> ';
+        $navigation_bar.= ' <span class="pageNumberSelected">'.$i.'</span> ';
       }
       else
       {

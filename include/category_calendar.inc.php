@@ -61,7 +61,7 @@ foreach ($calendar_years as $calendar_year => $nb_picture_year)
   if (isset($page['calendar_year'])
       and $calendar_year == $page['calendar_year'])
   {
-    $years_nav_bar.= ' <span class="selected">'.$calendar_year.'</span>';
+    $years_nav_bar.= ' <span class="dateSelected">'.$calendar_year.'</span>';
   }
   else
   {
@@ -114,7 +114,7 @@ SELECT DISTINCT(MONTH('.$conf['calendar_datefield'].')) AS month
     if (isset($page['calendar_month'])
         and $calendar_month == $page['calendar_month'])
     {
-      $months_nav_bar.= ' <span class="selected">';
+      $months_nav_bar.= ' <span class="dateSelected">';
       $months_nav_bar.= $lang['month'][(int)$calendar_month];
       $months_nav_bar.= '</span>';
     }

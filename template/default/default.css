@@ -304,8 +304,20 @@ div.information {
   padding:5px;
 }
 
-span.selected {
-  font-weight:bold;
+span.dateSelected, span.pageNumberSelected {
+  text-decoration:underline;
+}
+
+/**
+ * in calendar category, year or month currently focused
+ */
+span.dateSelected {
+}
+
+/**
+ * in navigation bar, page number currently focused
+ */
+span.pageNumberSelected {
 }
 
 span.thumb_picture {
