@@ -151,7 +151,7 @@ $template->assign_vars(array(
   'L_EDIT_STATUS_INFO'=>$lang['cat_access_info'],
   'L_ACCESS_FREE'=>$lang['free'],
   'L_ACCESS_RESTRICTED'=>$lang['restricted'],
-  'L_EDIT_LOCK'=>$lang['cat_lock'],
+  'L_EDIT_LOCK'=>$lang['lock'],
   'L_EDIT_LOCK_INFO'=>$lang['cat_lock_info'],
   'L_YES'=>$lang['yes'],
   'L_NO'=>$lang['no'],

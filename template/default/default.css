@@ -50,8 +50,9 @@ body {
 h1 {
 	font:			bold 18pt 'Trebuchet MS', Verdana, sans-serif;
 	text-decoration:none; 
-	line-height:	120%; 
+	line-height:	120%;
 }
+
 h2 {
 	font:			bold 12pt Arial, Helvetica, sans-serif;
 	text-decoration:none; 
@@ -350,8 +351,9 @@ color : #FFF48E;
 }
 
 div.information {
-  text-align:center;
-  border:2px solid #E0E0E0;
+  text-align:left;
+  font-size:14px;
+  font-weight:bold;
   margin:10px;
   padding:5px;
 }

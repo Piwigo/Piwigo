@@ -182,11 +182,6 @@ $template->assign_vars(
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
     
-    'U_UPLOAD'=>add_session_id($base_url.'upload'),
-    'U_VISIBLE'=>add_session_id($base_url.'visible'),
-    'U_COMMENTS'=>add_session_id($base_url.'comments'),
-    'U_STATUS'=>add_session_id($base_url.'status'),
-    
     'F_ACTION'=>add_session_id($base_url.$page['section'])
    )
  );
@@ -227,10 +222,10 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_TITLE' => $lang['cat_options_upload_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_upload_true'],
-        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_upload_false'],
-        'L_CAT_OPTIONS_INFO' => $lang['cat_options_upload_info'],
+        'L_CAT_TITLE' => $lang['cat_upload_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
+        'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_upload_info'],
         )
       );
     $template->assign_block_vars('upload', array());
@@ -250,10 +245,10 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_TITLE' => $lang['cat_options_comments_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_comments_true'],
-        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_comments_false'],
-        'L_CAT_OPTIONS_INFO' => $lang['cat_options_comments_info'],
+        'L_CAT_TITLE' => $lang['cat_comments_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
+        'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_comments_info'],
         )
       );
     $template->assign_block_vars('comments', array());
@@ -273,10 +268,10 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_TITLE' => $lang['cat_options_visible_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_visible_true'],
-        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_visible_false'],
-        'L_CAT_OPTIONS_INFO' => $lang['cat_options_visible_info'],
+        'L_CAT_TITLE' => $lang['cat_lock_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['lock'],
+        'L_CAT_OPTIONS_FALSE' => $lang['unlock'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_lock_info'],
         )
       );
     $template->assign_block_vars('visible', array());
@@ -296,10 +291,10 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_TITLE' => $lang['cat_options_status_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_status_true'],
-        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_status_false'],
-        'L_CAT_OPTIONS_INFO' => $lang['cat_options_status_info'],
+        'L_CAT_TITLE' => $lang['cat_status_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['cat_public'],
+        'L_CAT_OPTIONS_FALSE' => $lang['cat_private'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_status_info'],
         )
       );
     $template->assign_block_vars('status', array());

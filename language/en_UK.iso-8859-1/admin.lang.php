@@ -45,6 +45,10 @@ $lang['free'] = 'Free';
 $lang['restricted'] = 'Restricted';
 $lang['metadata']='Metadata';
 $lang['visitors'] = 'Visitors';
+$lang['lock'] = 'Lock';
+$lang['unlock'] = 'Unlock';
+$lang['up'] = 'Move up';
+$lang['down'] = 'Move down';
 
 // Specific words
 $lang['phpinfos'] = 'PHP Information';
@@ -77,8 +81,6 @@ $lang['remote_site_local_new'] = '(new site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Categories
-$lang['cat_up'] = 'Move up';
-$lang['cat_down'] = 'Move down';
 $lang['cat_add'] = 'Add a virtual category';
 $lang['cat_virtual'] = 'Virtual category';
 $lang['cat_public'] = 'Public category';
@@ -87,13 +89,19 @@ $lang['cat_image_info'] = 'Images info';
 $lang['editcat_status'] = 'Status';
 $lang['editcat_confirm'] = 'Category informations updated successfully.';
 $lang['editcat_perm'] = 'To set permissions for this category, click';
-$lang['cat_upload'] = 'Select uploadable categories';
-$lang['cat_upload_info'] = 'Only non virtual categories are shown.';
-$lang['cat_lock'] = 'Lock';
-$lang['cat_lock_info'] = 'This category will temporary been disabled for maintenance.';
 $lang['cat_access_info'] = 'Permission management.';
 $lang['cat_virtual_added'] = 'Virtual category added';
 $lang['cat_virtual_deleted'] = 'Virtual category deleted';
+$lang['cat_upload_title'] = 'Select uploadable categories';
+$lang['cat_upload_info'] = 'Only non virtual and non remote categories are shown.';
+$lang['cat_lock_title'] = 'Lock categories';
+$lang['cat_lock_info'] = 'Selected categories will temporary been disabled for maintenance.';
+$lang['cat_comments_title'] = 'Authorize users to add comments on selected categories';
+$lang['cat_comments_info'] = 'By inheritance, an element is commentable if it belongs at least to one commentable category.';
+$lang['cat_status_title'] = 'Manage authorizations for selected categories';
+$lang['cat_status_info'] = 'Selected categories are private : you will need to authorize users and/or groups to access to them.
+<br />If you make a category private, all its child categories becomes private.
+<br />It you make a category public, all its parent categories becomes public';
 
 // Titles
 $lang['admin_panel'] = 'Administration Panel';
@@ -324,26 +332,4 @@ $lang['cat_list_update_metadata'] = 'Synchronize<br />metadata';
 $lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
 $lang['cat_list_virtual_category_added'] = 'virtual category added';
 $lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
-
-$lang['cat_options_menu'] = 'Options';
-$lang['cat_options_upload_menu'] = 'Upload';
-$lang['cat_options_upload_title'] = 'upload authorization settings for categories';
-$lang['cat_options_visible_menu'] = 'Lock';
-$lang['cat_options_visible_title'] = 'temporary lock categories';
-$lang['cat_options_comments_menu'] = 'Comments';
-$lang['cat_options_comments_title'] = 'authorize comments for categories';
-$lang['cat_options_status_menu'] = 'Access';
-$lang['cat_options_status_title'] = 'make your category private or public';
-$lang['cat_options_upload_true'] = 'upload authorized';
-$lang['cat_options_upload_false'] = 'upload forbidden';
-$lang['cat_options_upload_info'] = '(multi)select categories to make them uploadable or not. Upload is not applicable to virtual categories and to categories from a remote site.';
-$lang['cat_options_comments_true'] = 'comments authorized';
-$lang['cat_options_comments_false'] = 'comments forbidden';
-$lang['cat_options_comments_info'] = '(multi)select categories to make them commentable or not. By inheritance, an element is commentable if it belongs at least to one commentable category.';
-$lang['cat_options_visible_true'] = 'unlocked';
-$lang['cat_options_visible_false'] = 'locked';
-$lang['cat_options_visible_info'] = '(multi)select categories to lock or unlock them. If you lock category,  all its child categories becomes locked. It you unlock a category, all its parent categories becomes unlocked';
-$lang['cat_options_status_true'] = 'public';
-$lang['cat_options_status_false'] = 'private';
-$lang['cat_options_status_info'] = '(multi)select categories to make them public or private. If you make a category private, all its child categories becomes private. It you make a category public, all its parent categories becomes public';
 ?>
