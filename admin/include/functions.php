@@ -666,12 +666,13 @@ function update_user_category( $categories )
       $query.= ')';
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
-      $last_date = $row['last_date'];
 
       // insert a new line in database
       if ( $value_num++ > 0 ) $values.= ', ';
       else                    $values.= ' ';
-      $values.= '('.$user_id.",".$category['id'].",'".$last_date."'";
+      $values.= '('.$user_id.",".$category['id'];
+      if ( isset( $row['last_date'] ) ) $values.= ",'".$row['last_date']."'";
+      else                              $values.= ',NULL';
       $values.= ','.$user_nb_subcats.')';
     }
     update_uppercats( $category['id'] );
