@@ -320,7 +320,10 @@ function check_favorites( $user_id )
   $row = mysql_fetch_array( mysql_query( $query ) );
   $status = $row['status'];
   // retrieving all the restricted categories for this user
-  $restricted_cat = explode( ',', $row['forbidden_categories'] );
+  if ( isset( $row['forbidden_categories'] ) )
+    $restricted_cat = explode( ',', $row['forbidden_categories'] );
+  else
+    $restricted_cat = array();
   // retrieving all the favorites for this user and comparing their
   // categories to the restricted categories
   $query = 'SELECT image_id';

@@ -237,6 +237,8 @@ function count_user_total_images()
   
   $row = mysql_fetch_array( mysql_query( $query ) );
 
+  if ( !isset( $row['total'] ) ) $row['total'] = 0;
+
   return $row['total'];
 }
 

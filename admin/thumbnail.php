@@ -358,7 +358,7 @@ if ( isset( $_GET['dir'] ) )
     $url = './admin.php?page=thumbnail&amp;dir='.$_GET['dir'];
     $vtp->setVar( $sub, 'params.action', add_session_id( $url ) );
     // GD version selected...
-    if ( $_POST['gd'] == 1 )
+    if ( isset( $_POST['gd'] ) and $_POST['gd'] == 1 )
     {
       $vtp->setVar( $sub, 'params.gd1_checked', ' checked="checked"' );
     }
@@ -386,10 +386,12 @@ if ( isset( $_GET['dir'] ) )
     }
     // options for the number of picture to miniaturize : "n"
     $options = array( 5,10,20,40 );
+    if ( isset( $_POST['n'] ) ) $n = $_POST['n'];
+    else                        $n = 5;
     foreach ( $options as $option ) {
       $vtp->addSession( $sub, 'n_option' );
       $vtp->setVar( $sub, 'n_option.option', $option );
-      if ( $option == $_POST['n'] )
+      if ( $option == $n )
       {
         $vtp->setVar( $sub, 'n_option.selected', ' selected="selected"' );
       }

@@ -118,7 +118,7 @@ $result = get_cat_info( $row['id'] );
 $cat_name = get_cat_display_name( $result['name'], ' - ', '' );
 $vtp->setVar( $sub, 'cat:name', $cat_name );
 // cat dir
-if ( $row['dir'] != '' )
+if ( isset( $row['dir'] ) and $row['dir'] != '' )
 {
   $vtp->addSession( $sub, 'storage' );
   $vtp->setVar( $sub, 'storage.dir', $row['dir'] );
@@ -137,6 +137,7 @@ if ( $row['site_id'] != 1 )
   $vtp->closeSession( $sub, 'server' );
 }
 $vtp->setVar( $sub, 'name',    $row['name'] );
+if ( !isset( $row['comment'] ) ) $row['comment'] = '';
 $vtp->setVar( $sub, 'comment', $row['comment'] );
 // status : public, private...
 $options = get_enums( PREFIX_TABLE.'categories', 'status' );

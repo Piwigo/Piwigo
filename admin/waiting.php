@@ -116,7 +116,7 @@ while ( $row = mysql_fetch_array( $result ) )
   // file name
   $vtp->setVar( $sub, 'picture.file', $row['file'] );
   // is there an existing associated thumnail ?
-  if ( $row['tn_ext'] != '' )
+  if ( isset( $row['tn_ext'] ) and $row['tn_ext'] != '' )
   {
     $vtp->addSession( $sub, 'thumbnail' );
     $thumbnail = $conf['prefix_thumbnail'];
