@@ -2,7 +2,9 @@
       <tr>
         <td valign="top" style="width:1%;padding:10px;">
           {#frame_start}100%{#frame_begin}
-            <div class="titreMenu">{#categories}</div>
+            <div class="titreMenu">
+              <a href="{#home_url}">{#categories}</a>
+            </div>
             <div class="menu">
               <!--VTP_category-->{#indent}<!--VTP_bullet_w_link--><a href="{#bullet_link}"><img src="{#bullet_url}" style="border:none;" alt="&gt;" /></a><!--/VTP_bullet_w_link--><!--VTP_bullet_wo_link--><img src="{#bullet_url}" style="border:none;" alt="&gt;" /><!--/VTP_bullet_wo_link-->&nbsp;<a href="{#link_url}"><span title="{#hint_category}" style="{#name_style}">{#link_name}</span>&nbsp;<span class="menuInfoCat">[&nbsp;<!--VTP_subcat--><span title="{#nb_subcats} {#sub-cat}">{#nb_subcats}</span>&nbsp;-&nbsp;<!--/VTP_subcat--><span title="{#total_cat} {#images_available}">{#total_cat}</span>&nbsp;]</span></a>{#cat_icon}<br />
               <!--/VTP_category-->

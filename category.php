@@ -135,6 +135,7 @@ $nb_total_pictures = count_user_total_images();
 $vtp->setGlobalVar( $handle, 'nb_total_pictures',$nb_total_pictures );
 
 //------------------------------------------------------------- categories menu
+$vtp->setVar( $handle, 'home_url', add_session_id( 'category.php' ) );
 // normal categories
 foreach ( $page['structure'] as $category ) {
   // display category is a function relative to the template
