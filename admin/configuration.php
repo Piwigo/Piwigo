@@ -3,7 +3,6 @@
  *                             configuration.php                           *
  *                            -------------------                          *
  *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
- *   website              : http://www.phpwebgallery.net                   *
  *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
  *                                                                         *
  *   $Id$
