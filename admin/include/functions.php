@@ -54,6 +54,7 @@ function is_image( $filename, $create_thumbnail = false )
   return false;
 }
 	
+
 function TN_exists( $dir, $file )
 {
   global $conf;
@@ -67,8 +68,9 @@ function TN_exists( $dir, $file )
     }
   }
   return false;
-}	
+}
 	
+
 // The function delete_site deletes a site
 // and call the function delete_category for each primary category of the site
 function delete_site( $id )
@@ -91,6 +93,7 @@ function delete_site( $id )
   mysql_query( $query );
 }
 	
+
 // The function delete_category deletes the category identified by the $id
 // It also deletes (in the database) :
 //    - all the images of the images (thanks to delete_image, see further)
@@ -144,6 +147,7 @@ function delete_category( $id )
   mysql_query( $query );
 }
 	
+
 // The function delete_image deletes the image identified by the $id
 // It also deletes (in the database) :
 //    - all the comments related to the image
@@ -178,13 +182,14 @@ function delete_image( $id )
   mysql_query( $query );
   $count_deleted++;
 }
-	
+
 // The delete_user function delete a user identified by the $user_id
 // It also deletes :
 //     - all the access linked to this user
 //     - all the links to any group
 //     - all the favorites linked to this user
 //     - all sessions linked to this user
+//     - all categories informations linked to this user
 function delete_user( $user_id )
 {
   // destruction of the access linked to the user
@@ -210,7 +215,13 @@ function delete_user( $user_id )
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   mysql_query( $query );
-		
+
+  // destruction of the categories informations linked with the user
+  $query = 'DELETE FROM '.PREFIX_TABLE.'user_category';
+  $query.= ' WHERE user_id = '.$user_id;
+  $query.= ';';
+  mysql_query( $query );
+
   // destruction of the user
   $query = 'DELETE FROM '.PREFIX_TABLE.'users';
   $query.= ' WHERE id = '.$user_id;
@@ -230,7 +241,10 @@ function delete_group( $group_id )
   $query.= ';';
   mysql_query( $query );
 
-  // destruction of the group links for this group
+  // synchronize all users linked to the group
+  synchronize_group( $group_id );
+
+  // destruction of the users links for this group
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ';';
@@ -431,5 +445,486 @@ function display_categories( $categories, $indent,
                           $selected, $forbidden );
     }
   }
+}
+
+/**
+ * Complete plain structure of the gallery
+ *
+ * Returns the plain structure (one level array) of the gallery. In the
+ * returned array, each element is an array with jeys 'id' and
+ * 'id_uppercat'. The function also fills the array $page['subcats'] which
+ * associate (category_id => array of sub-categories id).
+ *
+ * @param bool $use_name
+ * @return array
+ */
+function get_plain_structure( $use_name = false )
+{
+  global $page;
+
+  $plain_structure = array();
+
+  $query = 'SELECT id,id_uppercat';
+  if ( $use_name ) $query.= ',name';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' ORDER BY id_uppercat ASC, rank ASC';
+  $query.= ';';
+
+  $subcats = array();
+  $id_uppercat = 'NULL';
+
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $plain_structure[$row['id']]['id'] = $row['id'];
+    $plain_structure[$row['id']]['id_uppercat'] = $row['id_uppercat'];
+    if ( $use_name ) $plain_structure[$row['id']]['name'] = $row['name'];
+    // subcats list
+    if ( $row['id_uppercat'] == '' ) $row['id_uppercat'] = 'NULL';
+    if ( $row['id_uppercat'] != $id_uppercat )
+    {
+      $page['subcats'][$id_uppercat] = $subcats;
+
+      $subcats = array();
+      $id_uppercat = $row['id_uppercat'];
+    }
+    array_push( $subcats, $row['id'] );
+  }
+  mysql_free_result( $result );
+  
+  $page['subcats'][$id_uppercat] = $subcats;
+
+  return $plain_structure;
+}
+
+/**
+ * get N levels array representing structure under the given category
+ *
+ * create_structure returns the N levels array representing structure under
+ * the given gategory id. It also updates the
+ * $page['plain_structure'][id]['all_subcats_id'] and
+ * $page['plain_structure'][id]['direct_subcats_ids'] for each sub category.
+ *
+ * @param int $id_uppercat
+ * @return array
+ */
+function create_structure( $id_uppercat )
+{
+  global $page;
+
+  $structure = array();
+  $ids = get_subcats_ids( $id_uppercat );
+  foreach ( $ids as $id ) {
+    $category = $page['plain_structure'][$id];
+
+    $category['subcats'] = create_structure( $id );
+
+    $page['plain_structure'][$id]['all_subcats_ids'] =
+      get_all_subcats_ids( $id );
+
+    $page['plain_structure'][$id]['direct_subcats_ids'] =
+      get_subcats_ids( $id );
+
+    array_push( $structure, $category );
+  }
+  return $structure;
+}
+
+/**
+ * returns direct sub-categories ids
+ *
+ * Returns an array containing all the direct sub-categories ids of the
+ * given category. It uses the $page['subcats'] global array.
+ *
+ * @param int $id_uppercat
+ * @return array
+ */
+function get_subcats_ids( $id_uppercat )
+{
+  global $page;
+
+  if ( $id_uppercat == '' ) $id_uppercat = 'NULL';
+
+  if ( isset( $page['subcats'][$id_uppercat] ) )
+    return $page['subcats'][$id_uppercat];
+  else
+    return array();
+}
+
+/**
+ * returns all sub-categories ids, not only direct ones
+ *
+ * Returns an array containing all the sub-categories ids of the given
+ * category, not only direct ones. This function is recursive.
+ *
+ * @param int $category_id
+ * @return array
+ */
+function get_all_subcats_ids( $category_id )
+{
+  $ids = array();
+  
+  $subcats = get_subcats_ids( $category_id );
+  $ids = array_merge( $ids, $subcats );
+  foreach ( $subcats as $subcat ) {
+    // recursive call
+    $sub_subcats = get_all_subcats_ids( $subcat );
+    $ids = array_merge( $ids, $sub_subcats );
+  }
+  return array_unique( $ids );
+}
+
+/**
+ * prepares the query to update the table user_category
+ *
+ * Prepares the query (global variable $values) to update table
+ * user_category : for a couple (user,category) the number of sub-categories
+ * and the last date of the category (all sub-categories taken into
+ * account). It also calls function update_uppercats for each category. The
+ * function is recursive.
+ *
+ * @param array $categories
+ * @return void
+ */
+function update_user_category( $categories )
+{
+  global $page,$user_restrictions,$value_num,$values;
+
+  foreach ( $categories as $category ) {
+    // recursive call
+    update_user_category( $category['subcats'] );
+    // 1. update the table user_category
+    foreach ( $user_restrictions as $user_id => $restrictions ) {
+      // if the category is forbidden to this user, go to next user
+      if ( in_array( $category['id'], $restrictions ) ) continue;
+
+      // how many sub_categories for this user ?
+      $user_subcats = array_diff(
+        $page['plain_structure'][$category['id']]['direct_subcats_ids'],
+        $restrictions );
+      $user_nb_subcats = count( array_unique( $user_subcats ) );
+      // last date of the category
+      $user_all_subcats = array_unique( array_diff(
+        $page['plain_structure'][$category['id']]['all_subcats_ids'],
+        $restrictions ) );
+            
+      $query = 'SELECT MAX(date_last) AS last_date';
+      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query.= ' WHERE id IN ('.$category['id'];
+      if ( count( $user_all_subcats ) > 0 )
+        $query.= ','.implode( ',', $user_all_subcats );
+      $query.= ')';
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+      $last_date = $row['last_date'];
+
+      // insert a new line in database
+      if ( $value_num++ > 0 ) $values.= ', ';
+      else                    $values.= ' ';
+      $values.= '('.$user_id.",".$category['id'].",'".$last_date."'";
+      $values.= ','.$user_nb_subcats.')';
+    }
+    update_uppercats( $category['id'] );
+  }
+}
+
+/**
+ * updates the column categories.uppercats
+ *
+ * @param int $category_id
+ * @return void
+ */
+function update_uppercats( $category_id )
+{
+  global $page;
+
+  $final_id = $category_id;
+  $uppercats = array();
+
+  array_push( $uppercats, $category_id );
+  $uppercat = $page['plain_structure'][$category_id]['id_uppercat'];
+
+  while ( $uppercat != '' )
+  {
+    array_push( $uppercats, $uppercat );
+    $category_id = $page['plain_structure'][$category_id]['id_uppercat'];
+    $uppercat = $page['plain_structure'][$category_id]['id_uppercat'];
+  }
+
+  $string_uppercats = implode( ',', array_reverse( $uppercats ) );
+  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query.= ' SET uppercats = '."'".$string_uppercats."'";
+  $query.= ' WHERE id = '.$final_id;
+  $query.= ';';
+  mysql_query( $query );
+}
+
+/**
+ * returns an array with the ids of the restricted categories for the user
+ *
+ * Returns an array with the ids of the restricted categories for the
+ * user. If the $check_invisible parameter is set to true, invisible
+ * categorie are added to the restricted one in the array.
+ *
+ * @param int $user_id
+ * @param string $user_status
+ * @param bool $check_invisible
+ * @param bool $use_groups
+ * @return array
+ */
+function get_user_restrictions( $user_id, $user_status,
+                                $check_invisible, $use_groups = true )
+{
+  // 1. retrieving ids of private categories
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= " WHERE status = 'private'";
+  $query.= ';';
+  $result = mysql_query( $query );
+  $privates = array();
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $privates, $row['id'] );
+  }
+  // 2. retrieving all authorized categories for the user
+  $authorized = array();
+  // 2.1. retrieving authorized categories thanks to personnal user
+  //      authorization
+  $query = 'SELECT cat_id';
+  $query.= ' FROM '.PREFIX_TABLE.'user_access';
+  $query.= ' WHERE user_id = '.$user_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $authorized, $row['cat_id'] );
+  }
+  // 2.2. retrieving authorized categories thanks to group authorization to
+  //      which the user is a member
+  if ( $use_groups )
+  {
+    $query = 'SELECT ga.cat_id';
+    $query.= ' FROM '.PREFIX_TABLE.'user_group as ug';
+    $query.= ', '.PREFIX_TABLE.'group_access as ga';
+    $query.= ' WHERE ug.group_id = ga.group_id';
+    $query.= ' AND ug.user_id = '.$user_id;
+    $query.= ';';
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      array_push( $authorized, $row['cat_id'] );
+    }
+    $authorized = array_unique( $authorized );
+  }
+
+  $forbidden = array();
+  foreach ( $privates as $private ) {
+    if ( !in_array( $private, $authorized ) )
+    {
+      array_push( $forbidden, $private );
+    }
+  }
+
+  if ( $check_invisible )
+  {
+    // 3. adding to the restricted categories, the invisible ones
+    if ( $user_status != 'admin' )
+    {
+      $query = 'SELECT id';
+      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query.= " WHERE visible = 'false';";
+      $result = mysql_query( $query );
+      while ( $row = mysql_fetch_array( $result ) )
+      {
+        array_push( $forbidden, $row['id'] );
+      }
+    }
+  }
+  return array_unique( $forbidden );
+}
+
+/**
+ * finalizes operation for user_category table update
+ *
+ * This function is called by synchronization_*. It creates the
+ * $page['plain_structure'] and $page['structure'], get the SQL query to
+ * update user_category, clean user_category, and finally update the
+ * table. The users updates depends on the global array $user_restrictions.
+ *
+ * @return void
+ */
+function synchronize()
+{
+  global $user_restrictions,$page,$values;
+
+  if ( !isset( $page['plain_structure'] ) )
+    $page['plain_structure'] = get_plain_structure();
+  if ( !isset( $page['structure'] ) )
+    $page['structure']       = create_structure( '' );
+  
+  update_user_category( $page['structure'] );
+
+  // cleaning user_category table for users to update
+  foreach( $user_restrictions as $user_id => $restrictions ) {
+    $query = 'DELETE';
+    $query.= ' FROM '.PREFIX_TABLE.'user_category';
+    $query.= ' WHERE user_id = '.$user_id;
+    $query.= ';';
+    mysql_query( $query );
+  }
+
+  $query = 'INSERT INTO '.PREFIX_TABLE.'user_category';
+  $query.= ' (user_id,category_id,date_last,nb_sub_categories) VALUES ';
+  $query.= $values;
+  $query.= ';';
+  mysql_query( $query );
+}
+
+/**
+ * synchronizes all users calculated informations
+ *
+ * fills global array $user_restrictions with all users and related
+ * restrictions before calling synchronize.
+ *
+ * @return void
+ */
+function synchronize_all_users()
+{
+  global $user_restrictions;
+  
+  $user_restrictions = array();
+  
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $user_restrictions[$row['id']] = update_user_restrictions( $row['id'] );
+  }
+  synchronize();
+}
+
+/**
+ * synchronizes 1 user calculated informations
+ *
+ * fills global array $user_restrictions with the user id and its related
+ * restrictions before calling synchronize.
+ *
+ * @param int $user_id
+ * @return void
+ */
+function synchronize_user( $user_id )
+{
+  global $user_restrictions;
+
+  $user_restrictions = array();
+  $user_restrictions[$user_id] = update_user_restrictions( $user_id );
+  synchronize();
+}
+
+/**
+ * synchronizes all users (belonging to the group) calculated informations
+ *
+ * fills global array $user_restrictions with all users and related
+ * restrictions before calling synchronize.
+ *
+ * @return void
+ */
+function synchronize_group( $group_id )
+{
+  global $user_restrictions;
+
+  $user_restrictions = array();
+  
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ', '.PREFIX_TABLE.'user_group';
+  $query.= ' WHERE group_id = '.$group_id;
+  $query.= ' AND id = user_id';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $user_restrictions[$row['id']] = update_user_restrictions( $row['id'] );
+  }
+  synchronize();
+}
+
+/**
+ * updates the calculated data users.forbidden_categories, it includes
+ * sub-categories of the direct forbidden categories
+ *
+ * @param nt $user_id
+ * @return array
+ */
+function update_user_restrictions( $user_id )
+{
+  $restrictions = get_user_all_restrictions( $user_id );
+
+  // update the users.forbidden_categories in database
+  $query = 'UPDATE '.PREFIX_TABLE.'users';
+  $query.= ' SET forbidden_categories = ';
+  if ( count( $restrictions ) > 0 )
+    $query.= "'".implode( ',', $restrictions )."'";
+  else
+    $query.= 'NULL';
+  $queries .= ' WHERE id = '.$row['id'];
+  $query.= ';';
+  mysql_query( $query );
+
+  return $restrictions;
+}
+
+/**
+ * returns all the restricted categories ids including sub-categories
+ *
+ * @param int $user_id
+ * @return array
+ */
+function get_user_all_restrictions( $user_id )
+{
+  global $page;
+  
+  $query = 'SELECT status';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' WHERE id = '.$user_id;
+  $query.= ';';
+  $row = mysql_fetch_array( mysql_query( $query ) );
+  
+  $base_restrictions=get_user_restrictions($user_id,$row['status'],true,true);
+
+  $restrictions = array();
+  foreach ( $base_restrictions as $category_id ) {
+    $restrictions =
+      array_merge( $restrictions,
+                   $page['plain_structure'][$category_id]['all_subcats_ids'] );
+  }
+
+  return array_unique( $restrictions );
+}
+
+// The function is_user_allowed returns :
+//      - 0 : if the category is allowed with this $restrictions array
+//      - 1 : if this category is not allowed
+//      - 2 : if an uppercat category is not allowed
+// Note : the restrictions array must represent ONLY direct forbidden
+// categories, not all forbidden categories
+function is_user_allowed( $category_id, $restrictions )
+{
+  if ( in_array( $category_id, $restrictions ) ) return 1;
+
+  $query = 'SELECT uppercats';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id = '.$category_id;
+  $query.= ';';
+  $row = mysql_fetch_array( mysql_query( $query ) );
+  $uppercats = explode( ',', $row['uppercats'] );
+  foreach ( $uppercats as $category_id ) {
+    if ( in_array( $category_id, $restrictions ) ) return 2;
+  }
+
+  // no restriction found : the user is allowed to access this category
+  return 0;
 }
 ?>
