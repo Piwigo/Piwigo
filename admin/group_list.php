@@ -37,10 +37,10 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
   {
     $vtp->addSession( $sub, 'deletion' );
     $vtp->setVar( $sub, 'deletion.name', $row['name'] );
-    $yes_url = './admin.php?page=group&amp;delete='.$_GET['delete'];
+    $yes_url = './admin.php?page=group_list&amp;delete='.$_GET['delete'];
     $yes_url.= '&amp;confirm=1';
     $vtp->setVar( $sub, 'deletion.yes_url', add_session_id( $yes_url ) );
-    $no_url = './admin.php?page=group';
+    $no_url = './admin.php?page=group_list';
     $vtp->setVar( $sub, 'deletion.no_url', add_session_id( $no_url ) );
     $vtp->closeSession( $sub, 'deletion' );
   }
@@ -124,7 +124,7 @@ while ( $row = mysql_fetch_array( $result ) )
   $vtp->setVar( $sub, 'group.name', $row['name'] );
   $url = './admin.php?page=group_perm&amp;group_id='.$row['id'];
   $vtp->setVar( $sub, 'group.permission_url', add_session_id( $url ) );
-  $url = './admin.php?page=group&amp;delete='.$row['id'];
+  $url = './admin.php?page=group_list&amp;delete='.$row['id'];
   $vtp->setVar( $sub, 'group.deletion_url', add_session_id( $url ) );
   $vtp->closeSession( $sub, 'group' );
 }
