@@ -30,6 +30,7 @@ $lang['close'] = 'fermer';
 $lang['open'] = 'ouvrir';
 $lang['keywords'] = 'mots-clefs';
 $lang['errors_title'] = 'Erreurs';
+$lang['infos_title'] = 'Informations';
 $lang['default'] = 'défaut';
 // end version 1.3
 
@@ -659,7 +660,10 @@ if ( $isadmin )
   $lang['step1_confirmation'] = 'Les paramètres rentrés sont corrects';
   $lang['step1_err_db'] = 'La connexion au serveur est OK, mais impossible de se connecter à cette base de données';
   $lang['step1_err_server'] = 'Impossible de se connecter au serveur';
-  $lang['step1_err_copy'] = 'Copiez le texte entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets)';
+// start version 1.3
+  // $lang['step1_err_copy'] = 'Copiez le texte entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets)';
+  $lang['step1_err_copy'] = 'Copiez le texte en bleu entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
+// end version 1.3
   $lang['step1_err_copy_2'] = 'La configuration du reste de l\'application est maintenant possible';
   $lang['step1_err_copy_next'] = 'prochaine étape';
   $lang['step1_title'] = 'Etape 1 sur 2';
