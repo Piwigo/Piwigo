@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 if( !defined("PHPWG_ROOT_PATH") )
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 //--------------------------------------------------------------------- updates
@@ -49,8 +49,6 @@ if ( isset( $_POST['submit'] ) )
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
         pwg_query( $query );
-        // linking logically the picture to its storage category
-        $query = 'INSERT INTO';
       }
       else
       {
@@ -62,13 +60,13 @@ if ( isset( $_POST['submit'] ) )
         pwg_query( $query );
         // deletion of the associated files
         $dir = get_complete_dir( $row['storage_category_id'] );
-        unlink( '.'.$dir.$row['file'] );
-        if ( $row['tn_ext'] != '' )
+        unlink( $dir.$row['file'] );
+        if (isset($row['tn_ext']) and $row['tn_ext'] != '' )
         {
           $thumbnail = $conf['prefix_thumbnail'];
           $thumbnail.= get_filename_wo_extension( $row['file'] );
           $thumbnail.= '.'.$row['tn_ext'];
-          $url = PHPWG_ROOT_PATH.$dir.'thumbnail/'.$thumbnail;
+          $url = $dir.'thumbnail/'.$thumbnail;
           unlink( $url );
         }
       }
