@@ -466,66 +466,59 @@ SELECT category_id, COUNT(image_id) AS count, max(date_available) AS date_last
   GROUP BY category_id
 ;';
   $result = pwg_query( $query );
+  $datas = array();
   while ( $row = mysql_fetch_array( $result ) )
   {
     array_push($cat_ids, $row['category_id']);
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET date_last = \''.$row['date_last'].'\'
-    , nb_images = '.$row['count'].'
-  WHERE id = '.$row['category_id'].'
-;';
-    pwg_query($query);
+    array_push($datas, array('id' => $row['category_id'],
+                             'date_last' => $row['date_last'],
+                             'count' => $row['count']));
   }
+  $fields = array('primary' => array('id'),
+                  'update'  => array('date_last', 'count'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
   if (count($cat_ids) > 0)
   {
+    // find all categories where the setted representative is not possible
     $query = '
-SELECT id, representative_picture_id
-  FROM '.CATEGORIES_TABLE.'
+SELECT id
+  FROM '.CATEGORIES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.'
+    ON id = category_id AND representative_picture_id = image_id
   WHERE representative_picture_id IS NOT NULL
     AND id IN ('.implode(',', $cat_ids).')
+    AND category_id IS NULL
 ;';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
+      // set a new representative element for this category
       $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$row['id'].'
-    AND image_id = '.$row['representative_picture_id'].'
-;';
-      $sub_result = pwg_query($query);
-      if (mysql_num_rows($sub_result) == 0)
-      {
-        // set a new representative element for this category
-        $query = '
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$row['id'].'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-        $sub_sub_result = pwg_query($query);
-        if (mysql_num_rows($sub_sub_result) > 0)
-        {
-          list($representative) = mysql_fetch_array(pwg_query($query));
-          $query = '
+      $sub_result = pwg_query($query);
+      if (mysql_num_rows($sub_result) > 0)
+      {
+        list($representative) = mysql_fetch_array($sub_result);
+        $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = '.$representative.'
   WHERE id = '.$row['id'].'
 ;';
-          pwg_query($query);
-        }
-        else
-        {
-          $query = '
+        pwg_query($query);
+      }
+      else
+      {
+        $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = NULL
   WHERE id = '.$row['id'].'
 ;';
-          pwg_query($query);
-        }
+        pwg_query($query);
       }
     }
   }
@@ -790,18 +783,18 @@ function my_error($header, $echo = true)
  * inserts multiple lines in a table
  *
  * @param string table_name
- * @param array dbields
+ * @param array dbfields
  * @param array inserts
  * @return void
  */
-function mass_inserts($table_name, $dbfields, $inserts)
+function mass_inserts($table_name, $dbfields, $datas)
 {
   // inserts all found categories
   $query = '
 INSERT INTO '.$table_name.'
   ('.implode(',', $dbfields).')
    VALUES';
-  foreach ($inserts as $insert_id => $insert)
+  foreach ($datas as $insert_id => $insert)
   {
     $query.= '
   ';
@@ -831,5 +824,171 @@ INSERT INTO '.$table_name.'
   $query.= '
 ;';
   pwg_query($query);
+}
+
+/**
+ * updates multiple lines in a table
+ *
+ * @param string table_name
+ * @param array dbfields
+ * @param array datas
+ * @return void
+ */
+function mass_updates($tablename, $dbfields, $datas)
+{
+  // depending on the MySQL version, we use the multi table update or N
+  // update queries
+  $query = 'SELECT VERSION() AS version;';
+  $row = mysql_fetch_array(pwg_query($query));
+  if (version_compare($row['version'],'4.0.4') < 0)
+  {
+    // MySQL is prior to version 4.0.4, multi table update feature is not
+    // available
+    echo 'MySQL is prior to version 4.0.4, multi table update feature is not available<br />';
+    foreach ($datas as $data)
+    {
+      $query = '
+UPDATE '.$tablename.'
+  SET ';
+      foreach ($dbfields['update'] as $num => $key)
+      {
+        if ($num >= 1)
+        {
+          $query.= ",\n      ";
+        }
+        $query.= $key.' = ';
+        if (isset($data[$key]))
+        {
+          $query.= '\''.$data[$key].'\'';
+        }
+        else
+        {
+          $query.= 'NULL';
+        }
+      }
+      $query.= '
+  WHERE ';
+      foreach ($dbfields['primary'] as $num => $key)
+      {
+        if ($num > 1)
+        {
+          $query.= ' AND ';
+        }
+        $query.= $key.' = \''.$data[$key].'\'';
+      }
+      $query.= '
+;';
+      pwg_query($query);
+    }
+  }
+  else
+  {
+    // creation of the temporary table
+    $query = '
+DESCRIBE '.$tablename.'
+;';
+    $result = pwg_query($query);
+    $columns = array();
+    $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
+    while ($row = mysql_fetch_array($result))
+    {
+      if (in_array($row['Field'], $all_fields))
+      {
+        $column = $row['Field'];
+        $column.= ' '.$row['Type'];
+        if (!isset($row['Null']) or $row['Null'] == '')
+        {
+          $column.= ' NOT NULL';
+        }
+        if (isset($row['Default']))
+        {
+          $column.= " default '".$row['Default']."'";
+        }
+        array_push($columns, $column);
+      }
+    }
+    $query = '
+CREATE TEMPORARY TABLE '.$tablename.'_temporary
+(
+'.implode(",\n", $columns).',
+PRIMARY KEY (id)
+)
+;';
+    pwg_query($query);
+    mass_inserts($tablename, $all_fields, $datas);
+    // update of images table by joining with temporary table
+    $query = '
+UPDATE '.$tablename.' AS t1, '.$tablename.'_temporary AS t2
+  SET '.implode("\n    , ",
+                array_map(
+                  create_function('$s', 'return "t1.$s = t2.$s";')
+                  , $dbfields['update'])).'
+  WHERE '.implode("\n    AND ",
+                array_map(
+                  create_function('$s', 'return "t1.$s = t2.$s";')
+                  , $dbfields['primary'])).'
+;';
+    pwg_query($query);
+    $query = '
+DROP TABLE '.$tablename.'_temporary
+;';
+    pwg_query($query);
+  }
+}
+
+/**
+ * updates the global_rank of categories under the given id_uppercat
+ *
+ * @param int id_uppercat
+ * @return void
+ */
+function update_global_rank($id_uppercat = 'all')
+{
+  $query = '
+SELECT id,rank
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $result = pwg_query($query);
+  $ranks_array = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $ranks_array[$row['id']] = $row['rank'];
+  }
+
+  // which categories to update ?
+  $uppercats_array = array();
+
+  $query = '
+SELECT id,uppercats
+  FROM '.CATEGORIES_TABLE;
+  if (is_numeric($id_uppercat))
+  {
+    $query.= '
+  WHERE uppercats REGEXP \'(^|,)'.$id_uppercat.'(,|$)\'
+    AND id != '.$id_uppercat.'
+';
+  }
+  $query.= '
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $uppercats_array[$row['id']] =  $row['uppercats'];
+  }
+  
+  $datas = array();
+  foreach ($uppercats_array as $id => $uppercats)
+  {
+    $data = array();
+    $data['id'] = $id;
+    $global_rank = preg_replace('/(\d+)/e',
+                                "\$ranks_array['$1']",
+                                str_replace(',', '.', $uppercats));
+    $data['global_rank'] = $global_rank;
+    array_push($datas, $data);
+  }
+
+  $fields = array('primary' => array('id'), 'update' => array('global_rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
 ?>

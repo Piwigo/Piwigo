@@ -42,8 +42,7 @@ define('CURRENT_DATE', date('Y-m-d'));
  * the purpose of this function is to give a rank for all categories
  * (insides its sub-category), even the newer that have none at te
  * beginning. For this, ordering function selects all categories ordered by
- * rank ASC then name ASC for each uppercat. It also updates the global rank
- * which is able to order any two categorie in the whole tree
+ * rank ASC then name ASC for each uppercat.
  *
  * @returns void
  */
@@ -58,6 +57,7 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
   ORDER BY id_uppercat,rank,name
 ;';
   $result = pwg_query($query);
+  $datas = array();
   while ($row = mysql_fetch_array($result))
   {
     if ($row['id_uppercat'] != $current_uppercat)
@@ -65,42 +65,12 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
       $current_rank = 0;
       $current_uppercat = $row['id_uppercat'];
     }
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.++$current_rank.'
-  WHERE id = '.$row['id'].'
-;';
-    pwg_query($query);
+    $data = array('id' => $row['id'], 'rank' => ++$current_rank);
+    array_push($datas, $data);
   }
-  // global rank update
-  $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET global_rank = rank
-  WHERE id_uppercat IS NULL
-;';
-  pwg_query($query);
 
-  $query = '
-SELECT DISTINCT(id_uppercat)
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat IS NOT NULL
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $query = '
-SELECT global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$row['id_uppercat'].'
-;';
-    list($uppercat_global_rank) = mysql_fetch_array(pwg_query($query));
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET global_rank = CONCAT(\''.$uppercat_global_rank.'\', \'.\', rank)
-  WHERE id_uppercat = '.$row['id_uppercat'].'
-;';
-    pwg_query($query);
-  }
+  $fields = array('primary' => array('id'), 'update' => array('rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
 
 function insert_local_category($id_uppercat)
@@ -650,6 +620,7 @@ else if (isset($_POST['submit'])
   echo get_elapsed_time($start,get_moment()).' for update_category(all)<br />';
   $start = get_moment();
   ordering();
+  update_global_rank();
   echo get_elapsed_time($start, get_moment()).' for ordering categories<br />';
 }
 // +-----------------------------------------------------------------------+

@@ -68,18 +68,18 @@ function update_metadata($files)
     define('CURRENT_DATE', date('Y-m-d'));
   }
 
-  $inserts = array();
+  $datas = array();
 
   foreach ($files as $id => $file)
   {
-    $insert = array();
-    $insert['id'] = $id;
-    $insert['filesize'] = floor(filesize($file)/1024);
+    $data = array();
+    $data['id'] = $id;
+    $data['filesize'] = floor(filesize($file)/1024);
   
     if ($image_size = @getimagesize($file))
     {
-      $insert['width'] = $image_size[0];
-      $insert['height'] = $image_size[1];
+      $data['width'] = $image_size[0];
+      $data['height'] = $image_size[1];
     }
   
     if ($conf['use_exif'])
@@ -88,11 +88,8 @@ function update_metadata($files)
       {
         if (isset($exif['DateTime']))
         {
-          preg_match('/^(\d{4}).(\d{2}).(\d{2})/'
-                     ,$exif['DateTime']
-                     ,$matches);
-          $insert['date_creation'] =
-            "'".$matches[1].'-'.$matches[2].'-'.$matches[3]."'";
+          preg_match('/^(\d{4}).(\d{2}).(\d{2})/',$exif['DateTime'],$matches);
+          $data['date_creation'] = $matches[1].'-'.$matches[2].'-'.$matches[3];
         }
       }
     }
@@ -104,135 +101,23 @@ function update_metadata($files)
       {
         foreach (array_keys($iptc) as $key)
         {
-          $insert[$key] = "'".addslashes($iptc[$key])."'";
+          $data[$key] = "'".addslashes($iptc[$key])."'";
         }
       }
     }
 
-    $insert['date_metadata_update'] = "'".CURRENT_DATE."'";
+    $data['date_metadata_update'] = CURRENT_DATE;
 
-    array_push($inserts, $insert);
+    array_push($datas, $data);
   }
   
-  if (count($inserts) > 0)
+  if (count($datas) > 0)
   {
-    $dbfields = array(
-      'id','filesize','width','height','name','author','comment'
-      ,'date_creation','keywords','date_metadata_update'
-      );
-
-    // depending on the MySQL version, we use the multi table update or N
-    // update queries
-    $query = 'SELECT VERSION() AS version;';
-    $row = mysql_fetch_array(pwg_query($query));
-    if (version_compare($row['version'],'4.0.4') < 0)
-    {
-      // MySQL is prior to version 4.0.4, multi table update feature is not
-      // available
-      echo 'MySQL is prior to version 4.0.4, multi table update feature is not available<br />';
-      foreach ($inserts as $insert)
-      {
-        $query = '
-UPDATE '.IMAGES_TABLE.'
-  SET ';
-        foreach (array_diff(array_keys($insert),array('id')) as $num => $key)
-        {
-          if ($num > 1)
-          {
-            $query.= ', ';
-          }
-          $query.= $key.' = '.$insert[$key];
-        }
-        $query.= '
-  WHERE id = '.$insert['id'].'
-;';
-        // echo '<pre>'.$query.'</pre>';
-        pwg_query($query);
-      }
-    }
-    else
-    {
-      // creation of the temporary table
-      $query = '
-DESCRIBE '.IMAGES_TABLE.'
-;';
-      $result = pwg_query($query);
-      $columns = array();
-      while ($row = mysql_fetch_array($result))
-      {
-        if (in_array($row['Field'], $dbfields))
-        {
-          $column = $row['Field'];
-          $column.= ' '.$row['Type'];
-          if (!isset($row['Null']) or $row['Null'] == '')
-          {
-            $column.= ' NOT NULL';
-          }
-          if (isset($row['Default']))
-          {
-            $column.= " default '".$row['Default']."'";
-          }
-          array_push($columns, $column);
-        }
-      }
-      $query = '
-CREATE TEMPORARY TABLE '.IMAGE_METADATA_TABLE.'
-(
-'.implode(",\n", $columns).',
-PRIMARY KEY (id)
-)
-;';
-      // echo '<pre>'.$query.'</pre>';
-      pwg_query($query);
-      // inserts all found pictures
-      $query = '
-INSERT INTO '.IMAGE_METADATA_TABLE.'
-  ('.implode(',', $dbfields).')
-   VALUES
-   ';
-      foreach ($inserts as $insert_id => $insert)
-      {
-        $query.= '
-';
-        if ($insert_id > 0)
-        {
-          $query.= ',';
-        }
-        $query.= '(';
-        foreach ($dbfields as $field_id => $dbfield)
-        {
-          if ($field_id > 0)
-          {
-            $query.= ',';
-          }
-          
-          if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
-          {
-            $query.= 'NULL';
-          }
-          else
-          {
-            $query.= $insert[$dbfield];
-          }
-        }
-        $query.=')';
-      }
-      $query.= '
-;';
-      // echo '<pre>'.$query.'</pre>';
-      pwg_query($query);
-      // update of images table by joining with temporary table
-      $query = '
-UPDATE '.IMAGES_TABLE.' AS images, '.IMAGE_METADATA_TABLE.' as metadata
-  SET '.implode("\n    , ",
-                array_map(
-                  create_function('$s', 'return "images.$s = metadata.$s";')
-                  , array_diff($dbfields, array('id')))).'
-  WHERE images.id = metadata.id
-;';
-      echo '<pre>'.$query.'</pre>';
-      pwg_query($query);
-    }
+    $fields = array('primary' => array('id'),
+                    'update'  => array('filesize','width','height','name',
+                                       'author','comment','date_creation',
+                                       'keywords','date_metadata_update'));
+    mass_updates(IMAGES_TABLE, $fields, $datas);
   }
 }
 
