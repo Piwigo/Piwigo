@@ -36,7 +36,9 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 // print '<pre>';
 // print_r($_POST);
 // print '</pre>';
-if (isset($_POST['falsify']) and count($_POST['cat_true']) > 0)
+if (isset($_POST['falsify'])
+    and isset($_POST['cat_true'])
+    and count($_POST['cat_true']) > 0)
 {
   switch ($_GET['section'])
   {
@@ -86,7 +88,9 @@ UPDATE '.CATEGORIES_TABLE.'
     }
   }
 }
-else if (isset($_POST['trueify']) and count($_POST['cat_false']) > 0)
+else if (isset($_POST['trueify'])
+         and isset($_POST['cat_false'])
+         and count($_POST['cat_false']) > 0)
 {
   switch ($_GET['section'])
   {
