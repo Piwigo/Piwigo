@@ -285,7 +285,7 @@ $lang['upload_err_username'] = 'Navnet ditt må skrives inn';
 $lang['upload_username'] = 'Brukernavn';
 $lang['upload_successful'] = 'Bilde ble lagt inn OK! , en administrator vil godkjenne bilde så snart som mulig';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO_8859-1';
+$lang['charset'] = 'iso-8859-1';
 $lang['no'] = 'nei';
 $lang['yes'] = 'ja';
 $lang['guest'] = 'gjest';
