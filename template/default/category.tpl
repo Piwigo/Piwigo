@@ -27,6 +27,7 @@
 		    <ul class="menu">
 		      <li><a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}">{TOP_VISITED}&nbsp;{L_MOST_VISITED}</span></a></li>
 		      <li><a href="{U_RECENT_PICS}"><span title="{L_RECENT_PICS_HINT}">{L_RECENT_PICS}</span></a> {T_SHORT}</li>
+		      <li><a href="{U_RECENT_CATS}"><span title="{L_RECENT_CATS_HINT}">{L_RECENT_CATS}</span></a></li>
 		      <li><a href="{U_CALENDAR}"><span title="{L_CALENDAR_HINT}">{L_CALENDAR}</span></a></li>
 		    </ul>
 		  </ul>
