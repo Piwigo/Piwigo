@@ -21,7 +21,7 @@ include_once( './include/init.inc.php' );
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
-if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
+if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
@@ -432,7 +432,7 @@ if ( $page['cat'] == 'fav' )
   $vtp->closeSession( $handle, 'favorite' );
 }
 //------------------------------------ admin link for information modifications
-if ( $user['status'] == "admin" && is_numeric( $page['cat'] ) )
+if ( $user['status'] == "admin" and is_numeric( $page['cat'] ) )
 {
   $vtp->addSession( $handle, 'modification' );
   $url = './admin/admin.php?page=infos_images&amp;cat_id='.$page['cat'];
@@ -511,7 +511,7 @@ if ( $conf['show_comments'] )
 {
   $vtp->addSession( $handle, 'comments' );
   // comment registeration
-  if ( isset( $_POST['content'] ) && $_POST['content'] != '' )
+  if ( isset( $_POST['content'] ) and $_POST['content'] != '' )
   {
     $author = $user['username'];
     if ( $_POST['author'] != '' )
@@ -539,8 +539,8 @@ if ( $conf['show_comments'] )
   }
   // comment deletion
   if ( isset( $_GET['del'] )
-       && is_numeric( $_GET['del'] )
-       && $user['status'] == 'admin' )
+       and is_numeric( $_GET['del'] )
+       and $user['status'] == 'admin' )
   {
     $query = 'DELETE FROM '.PREFIX_TABLE.'comments';
     $query.= ' WHERE id = '.$_GET['del'].';';
