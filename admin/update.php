@@ -25,504 +25,445 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if( !defined("PHPWG_ROOT_PATH") )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
+  die ('Hacking attempt!');
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 define('CURRENT_DATE', date('Y-m-d'));
+$error_labels = array('PWG-UPDATE-1' => $lang['update_wrong_dirname_short'],
+                      'PWG-UPDATE-2' => $lang['update_missing_tn_short']);
+$errors = array();
+$infos = array();
 // +-----------------------------------------------------------------------+
-// |                              functions                                |
+// |                      directories / categories                         |
 // +-----------------------------------------------------------------------+
-
-function insert_local_category($id_uppercat)
+if (isset($_POST['submit'])
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
-  global $conf, $page, $user, $lang, $counts;
- 
-  $uppercats = '';
-  $output = '';
+  $counts['new_categories'] = 0;
+  $counts['del_categories'] = 0;
+  $counts['del_elements'] = 0;
+  $counts['new_elements'] = 0;
 
-  // 0. retrieving informations on the category to display
-  $cat_directory = PHPWG_ROOT_PATH.'galleries';
-  if (is_numeric($id_uppercat))
+  // shall we simulate only
+  if (isset($_POST['simulate']) and $_POST['simulate'] == 1)
   {
-    $query = '
-SELECT id,name,uppercats,dir,visible,status
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$id_uppercat.'
-;';
-    $row = mysql_fetch_array(pwg_query($query));
-    $parent = array('id' => $row['id'],
-                    'name' => $row['name'],
-                    'dir' => $row['dir'],
-                    'uppercats' => $row['uppercats'],
-                    'visible' => $row['visible'],
-                    'status' => $row['status']);
-
-    $upper_array = explode( ',', $parent['uppercats']);
-
-    $local_dir = '';
-
-    $database_dirs = array();
-    $query = '
-SELECT id,dir
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.$parent['uppercats'].')
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $database_dirs[$row['id']] = $row['dir'];
-    }
-    foreach ($upper_array as $id)
-    {
-      $local_dir.= $database_dirs[$id].'/';
-    }
-
-    $cat_directory.= '/'.$local_dir;
-
-    // 1. display the category name to update
-    $output = '<ul class="menu">';
-    $output.= '<li><strong>'.$parent['name'].'</strong>';
-    $output.= ' [ '.$parent['dir'].' ]';
-    $output.= '</li>';
-
-    // 2. we search pictures of the category only if the update is for all
-    //    or a cat_id is specified
-    if ($_POST['sync'] == 'files')
-    {
-      $output.= insert_local_element($cat_directory, $id_uppercat);
-    }
+    $simulate = true;
   }
+  else
+  {
+    $simulate = false;
+  }
+  
+  $start = get_moment();
+  // which categories to update ?
+  $cat_ids = array();
 
-  $fs_subdirs = get_category_directories($cat_directory);
-
-  $sub_category_dirs = array();
   $query = '
-SELECT id,dir
+SELECT id, uppercats, global_rank, status, visible
   FROM '.CATEGORIES_TABLE.'
-  WHERE site_id = 1
+  WHERE dir IS NOT NULL
+    AND site_id = 1';
+  if (isset($_POST['cat']) and is_numeric($_POST['cat']))
+  {
+    if (isset($_POST['subcats-included']) and $_POST['subcats-included'] == 1)
+    {
+      $query.= '
+    AND uppercats REGEXP \'(^|,)'.$_POST['cat'].'(,|$)\'
 ';
-  if (!is_numeric($id_uppercat))
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$id_uppercat;
-  }
-  $query.= '
-    AND dir IS NOT NULL'; // virtual categories not taken
-  $query.= '
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $sub_category_dirs[$row['id']] = $row['dir'];
-  }
-  
-  // 3. we have to remove the categories of the database not present anymore
-  $to_delete_categories = array();
-  foreach ($sub_category_dirs as $id => $dir)
-  {
-    if (!in_array($dir, $fs_subdirs))
-    {
-      array_push($to_delete_categories,$id);
-    }
-  }
-  if (count($to_delete_categories) > 0)
-  {
-    delete_categories($to_delete_categories);
-  }
-
-  // array of new categories to insert
-  $inserts = array();
-
-  // calculate default value at category creation
-  $create_values = array();
-  if (isset($parent))
-  {
-    // at creation, must a category be visible or not ? Warning : if
-    // the parent category is invisible, the category is automatically
-    // create invisible. (invisible = locked)
-    if ('false' == $parent['visible'])
-    {
-      $create_values{'visible'} = 'false';
-    }
-    else
-    {
-      $create_values{'visible'} = $conf['newcat_default_visible'];
-    }
-    // at creation, must a category be public or private ? Warning :
-    // if the parent category is private, the category is
-    // automatically create private.
-    if ('private' == $parent['status'])
-    {
-      $create_values{'status'} = 'private';
-    }
-    else
-    {
-      $create_values{'status'} = $conf['newcat_default_status'];
-    }
-  }
-  else
-  {
-    $create_values{'visible'} = $conf['newcat_default_visible'];
-    $create_values{'status'} = $conf['newcat_default_status'];
-  }
-  
-  foreach ($fs_subdirs as $fs_subdir)
-  {
-    // 5. Is the category already existing ? we create a subcat if not
-    //    existing
-    $category_id = array_search($fs_subdir, $sub_category_dirs);
-    if (!is_numeric($category_id))
-    {
-      $insert = array();
-      
-      if (preg_match('/^[a-zA-Z0-9-_.]+$/', $fs_subdir))
-      {
-        $name = str_replace('_', ' ', $fs_subdir);
-
-        $insert{'dir'} = $fs_subdir;
-        $insert{'name'} = $name;
-        $insert{'site_id'} = 1;
-        $insert{'uppercats'} = 'undef';
-        $insert{'commentable'} = $conf['newcat_default_commentable'];
-        $insert{'uploadable'} = $conf['newcat_default_uploadable'];
-        $insert{'status'} = $create_values{'status'};
-        $insert{'visible'} = $create_values{'visible'};
-
-        if (isset($parent))
-        {
-          $insert{'id_uppercat'} = $parent['id'];
-        }
-        
-        array_push($inserts, $insert);
-      }
-      else
-      {
-        $output.= '<span class="update_category_error">"'.$fs_subdir.'" : ';
-        $output.= $lang['update_wrong_dirname'].'</span><br />';
-      }
-    }
-  }
-
-  // we have to create the category
-  if (count($inserts) > 0)
-  {
-    $dbfields = array(
-      'dir','name','site_id','id_uppercat','uppercats','commentable',
-      'uploadable','visible','status'
-      );
-    mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
-    
-    $counts['new_categories']+= count($inserts);
-    // updating uppercats field
-    $query = '
-UPDATE '.CATEGORIES_TABLE;
-    if (isset($parent))
-    {
-      $query.= "
-  SET uppercats = CONCAT('".$parent['uppercats']."',',',id)
-  WHERE id_uppercat = ".$parent['id'];
     }
     else
     {
       $query.= '
-  SET uppercats = id
-  WHERE id_uppercat IS NULL';
+    AND id = '.$_POST['cat'].'
+';
     }
-    $query.= '
+  }
+  $query.= '
 ;';
-    pwg_query($query);
+  $result = pwg_query($query);
+
+  $db_categories = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $db_categories[$row['id']] = $row;
   }
 
-  // Recursive call on the sub-categories (not virtual ones)
-  if (!isset($_POST['cat'])
-      or (isset($_POST['subcats-included'])
-          and $_POST['subcats-included'] == 1))
+  // get categort full directories in an array for comparison with file
+  // system directory tree
+  $db_fulldirs = get_fulldirs(array_keys($db_categories));
+  
+  // what is the base directory to search file system sub-directories ?
+  if (isset($_POST['cat']) and is_numeric($_POST['cat']))
+  {
+    $basedir = $db_fulldirs[$_POST['cat']];
+  }
+  else
   {
     $query = '
-SELECT id
+SELECT galleries_url
+  FROM '.SITES_TABLE.'
+  WHERE id = 1
+;';
+    list($galleries_url) = mysql_fetch_array(pwg_query($query));
+    $basedir = preg_replace('#/*$#', '', $galleries_url);
+  }
+
+  // we need to have fulldirs as keys to make efficient comparison
+  $db_fulldirs = array_flip($db_fulldirs);
+
+  // finding next rank for each id_uppercat
+  $query = '
+SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE site_id = 1
-';
-    if (!is_numeric($id_uppercat))
-    {
-      $query.= '    AND id_uppercat IS NULL';
-    }
-    else
-    {
-      $query.= '    AND id_uppercat = '.$id_uppercat;
-    }
-    $query.= '
-    AND dir IS NOT NULL'; // virtual categories not taken
-    $query.= '
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $output.= insert_local_category($row['id']);
-    }
-  }
-
-  if (is_numeric($id_uppercat))
-  {
-    $output.= '</ul>';
-  }
-  return $output;
-}
-
-function insert_local_element($dir, $category_id)
-{
-  global $lang,$conf,$counts;
-
-  $output = '';
-
-  // fs means FileSystem : $fs_files contains files in the filesystem found
-  // in $dir that can be managed by PhpWebGallery (see get_pwg_files
-  // function), $fs_thumbnails contains thumbnails, $fs_representatives
-  // contains potentially representative pictures for non picture files
-  $fs_files = get_pwg_files($dir);
-  $fs_thumbnails = get_thumb_files($dir);
-  $fs_representatives = get_representative_files($dir);
-
-  // element deletion
-  $to_delete_elements = array();
-  // deletion of element if the correspond file doesn't exist anymore
-  $query = '
-SELECT id,file
-  FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id = '.$category_id.'
+  GROUP BY id_uppercat
 ;';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    if (!in_array($row['file'], $fs_files))
+    // for the id_uppercat NULL, we write 'NULL' and not the empty string
+    if (!isset($row['id_uppercat']) or $row['id_uppercat'] == '')
     {
-      $output.= $row['file'];
-      $output.= ' <span style="font-weight:bold;">';
-      $output.= $lang['update_disappeared'].'</span><br />';
-      array_push($to_delete_elements, $row['id']);
+      $row['id_uppercat'] = 'NULL';
     }
-  }
-  // in picture case, we also delete the element if the thumbnail doesn't
-  // existe anymore
-  $query = '
-SELECT id,file,tn_ext
-  FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id = '.$category_id.'
-    AND ('.implode(' OR ',
-                   array_map(
-                     create_function('$s', 'return "file LIKE \'%".$s."\'";')
-                     , $conf['picture_ext'])).')
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $thumbnail = $conf['prefix_thumbnail'];
-    $thumbnail.= get_filename_wo_extension($row['file']);
-    $thumbnail.= '.'.$row['tn_ext'];
-    if (!in_array($thumbnail, $fs_thumbnails))
-    {
-      $output.= $row['file'];
-      $output.= ' : <span style="font-weight:bold;">';
-      $output.= $lang['update_disappeared_tn'].'</span><br />';
-      array_push($to_delete_elements, $row['id']);
-    }
-  }
-
-  $to_delete_elements = array_unique($to_delete_elements);
-  if (count($to_delete_elements) > 0)
-  {
-    delete_elements($to_delete_elements);
+    $next_rank[$row['id_uppercat']] = $row['next_rank'];
   }
   
-  $registered_elements = array();
+  // next category id available
   $query = '
-SELECT file FROM '.IMAGES_TABLE.'
-   WHERE storage_category_id = '.$category_id.'
+SELECT MAX(id)+1 AS next_id
+  FROM '.CATEGORIES_TABLE.'
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($registered_elements, $row['file']);
-  }
+  list($next_id) = mysql_fetch_array(pwg_query($query));
 
-  // unvalidated pictures are picture uploaded by users, but not validated
-  // by an admin (so not registered truly visible yet)
-  $unvalidated_pictures  = array();
+  // retrieve file system sub-directories fulldirs
+  $fs_fulldirs = get_fs_directories($basedir);
   
-  $query = '
-SELECT file
-  FROM '.WAITING_TABLE.'
-  WHERE storage_category_id = '.$category_id.'
-    AND validated = \'false\'
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($unvalidated_pictures, $row['file']);
-  }
-
-  // we only search among the picture present in the filesystem and not
-  // present in the database yet. If we know that this picture is known as
-  // an uploaded one but not validated, it's not tested neither
-  $unregistered_elements = array_diff($fs_files
-                                      ,$registered_elements
-                                      ,$unvalidated_pictures);
-
   $inserts = array();
-  
-  foreach ($unregistered_elements as $unregistered_element)
+  // new categories are the directories not present yet in the database
+  foreach (array_diff($fs_fulldirs, array_keys($db_fulldirs)) as $fulldir)
   {
-    if (preg_match('/^[a-zA-Z0-9-_.]+$/', $unregistered_element))
+    $dir = basename($fulldir);
+    if (preg_match('/^[a-zA-Z0-9-_.]+$/', $dir))
     {
-      $file_wo_ext = get_filename_wo_extension($unregistered_element);
-      $tn_ext = '';
-      foreach ($conf['picture_ext'] as $ext)
-      {
-        $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
-        if (!in_array($test, $fs_thumbnails))
-        {
-          continue;
-        }
-        else
-        {
-          $tn_ext = $ext;
-          break;
-        }
-      }
+      $insert = array();
+      
+      $insert{'id'} = $next_id++;
+      $insert{'dir'} = $dir;
+      $insert{'name'} = str_replace('_', ' ', $dir);
+      $insert{'site_id'} = 1;
+      $insert{'commentable'} = $conf['newcat_default_commentable'];
+      $insert{'uploadable'} = $conf['newcat_default_uploadable'];
+      $insert{'status'} = $conf{'newcat_default_status'};
+      $insert{'visible'} = $conf{'newcat_default_visible'};
 
-      // 2 cases : the element is a picture or not. Indeed, for a picture
-      // thumbnail is mandatory and for non picture element, thumbnail and
-      // representative is optionnal
-      if (in_array(get_extension($unregistered_element), $conf['picture_ext']))
+      if (isset($db_fulldirs[dirname($fulldir)]))
       {
-        // if we found a thumnbnail corresponding to our picture...
-        if ($tn_ext != '')
-        {
-          $insert = array();
-          $insert['file'] = $unregistered_element;
-          $insert['storage_category_id'] = $category_id;
-          $insert['date_available'] = CURRENT_DATE;
-          $insert['tn_ext'] = $tn_ext;
-          $insert['path'] = $dir.$unregistered_element;
+        $parent = $db_fulldirs[dirname($fulldir)];
 
-          $counts['new_elements']++;
-          array_push($inserts, $insert);
-        }
-        else
+        $insert{'id_uppercat'} = $parent;
+        $insert{'uppercats'} =
+          $db_categories[$parent]['uppercats'].','.$insert{'id'};
+        $insert{'rank'} = $next_rank[$parent]++;
+        $insert{'global_rank'} =
+          $db_categories[$parent]['global_rank'].'.'.$insert{'rank'};
+        if ('private' == $db_categories[$parent]['status'])
         {
-          $output.= '<span class="update_error_element">';
-          $output.= $lang['update_missing_tn'].' : '.$unregistered_element;
-          $output.= ' (<span style="font-weight:bold;">';
-          $output.= $conf['prefix_thumbnail'];
-          $output.= get_filename_wo_extension($unregistered_element);
-          $output.= '.XXX</span>';
-          $output.= ', XXX = ';
-          $output.= implode(', ', $conf['picture_ext']);
-          $output.= ')</span><br />';
+          $insert{'status'} = 'private';
+        }
+        if ('false' == $db_categories[$parent]['visible'])
+        {
+          $insert{'visible'} = 'false';
         }
       }
       else
       {
-        $representative_ext = '';
-        foreach ($conf['picture_ext'] as $ext)
-        {
-          $candidate = $file_wo_ext.'.'.$ext;
-          if (!in_array($candidate, $fs_representatives))
-          {
-            continue;
-          }
-          else
-          {
-            $representative_ext = $ext;
-            break;
-          }
-        }
-
-        $insert = array();
-        $insert['file'] = $unregistered_element;
-        $insert['path'] = $dir.$unregistered_element;
-        $insert['storage_category_id'] = $category_id;
-        $insert['date_available'] = CURRENT_DATE;
-        if ( $tn_ext != '' )
-        {
-          $insert['tn_ext'] = $tn_ext;
-        }
-        if ( $representative_ext != '' )
-        {
-          $insert['representative_ext'] = $representative_ext;
-        }
-
-        $counts['new_elements']++;
-        array_push($inserts, $insert);
+        $insert{'uppercats'} = $insert{'id'};
+        $insert{'rank'} = $next_rank['NULL']++;
+        $insert{'global_rank'} = $insert{'rank'};
       }
+
+      array_push($inserts, $insert);
+      array_push($infos, array('path' => $fulldir,
+                               'info' => $lang['update_research_added']));
+
+      // add the new category to $db_categories and $db_fulldirs array
+      $db_categories[$insert{'id'}] =
+        array(
+          'id' => $insert{'id'},
+          'status' => $insert{'status'},
+          'visible' => $insert{'visible'},
+          'uppercats' => $insert{'uppercats'},
+          'global_rank' => $insert{'global_rank'}
+          );
+      $db_fulldirs[$fulldir] = $insert{'id'};
+      $next_rank[$insert{'id'}] = 1;
     }
     else
     {
-      $output.= '<span class="update_error_element">"';
-      $output.= $unregistered_element.'" : ';
-      $output.= $lang['update_wrong_dirname'].'</span><br />';
+      array_push($errors, array('path' => $fulldir, 'type' => 'PWG-UPDATE-1'));
     }
   }
-  
+
   if (count($inserts) > 0)
   {
-    // inserts all found pictures
-    $dbfields = array(
-      'file','storage_category_id','date_available','tn_ext'
-      ,'representative_ext','path'
-      );
-    mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
+    if (!$simulate)
+    {
+      $dbfields = array(
+        'id','dir','name','site_id','id_uppercat','uppercats','commentable',
+        'uploadable','visible','status','rank','global_rank'
+        );
+      mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
+    }
+    
+    $counts['new_categories'] = count($inserts);
+  }
 
-    // what are the ids of the pictures in the $category_id ?
-    $ids = array();
+  // to delete categories
+  $to_delete = array();
+  foreach (array_diff(array_keys($db_fulldirs), $fs_fulldirs) as $fulldir)
+  {
+    array_push($to_delete, $db_fulldirs[$fulldir]);
+    unset($db_fulldirs[$fulldir]);
+    array_push($infos, array('path' => $fulldir,
+                             'info' => $lang['update_research_deleted']));
+  }
+  if (count($to_delete) > 0)
+  {
+    if (!$simulate)
+    {
+      delete_categories($to_delete);
+    }
+    $counts['del_categories'] = count($to_delete);
+  }
+  
+  echo get_elapsed_time($start, get_moment());
+  echo ' for new method scanning directories<br />';
+}
+// +-----------------------------------------------------------------------+
+// |                           files / elements                            |
+// +-----------------------------------------------------------------------+
+if (isset($_POST['submit']) and $_POST['sync'] == 'files')
+{  
+  $start_files = get_moment();
+  $start= $start_files;
 
+  $fs = get_fs($basedir);
+  
+  echo get_elapsed_time($start, get_moment());
+  echo ' for get_fs<br />';
+  
+  $cat_ids = array_diff(array_keys($db_categories), $to_delete);
+
+  $db_elements = array();
+  $db_unvalidated = array();
+  
+  if (count($cat_ids) > 0)
+  {
     $query = '
-SELECT id
+SELECT id, path
   FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id = '.$category_id.'
+  WHERE storage_category_id IN (
+'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
-      array_push($ids, $row['id']);
+      $db_elements[$row['id']] = $row['path'];
     }
 
-    // recreation of the links between this storage category pictures and
-    // its storage category
+    // searching the unvalidated waiting elements (they must not be taken into
+    // account)
     $query = '
-DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$category_id.'
-    AND image_id IN ('.implode(',', $ids).')
+SELECT file,storage_category_id
+  FROM '.WAITING_TABLE.'
+  WHERE storage_category_id IN (
+'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+    AND validated = \'false\'
 ;';
-    pwg_query($query);
-
-    foreach ($ids as $num => $image_id)
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
     {
-      $ids[$num] =  '('.$category_id.','.$image_id.')';
+      array_push(
+        $db_unvalidated,
+        array_search($row['storage_category_id'],
+                     $db_fulldirs).'/'.$row['file']
+        );
     }
-    $query = '
-INSERT INTO '.IMAGE_CATEGORY_TABLE.'
-  (category_id,image_id) VALUES
-  '.implode(',', $ids).'
-;';
-    pwg_query($query);
-
-    set_random_representant(array($category_id));
   }
-  return $output;
+
+  // next element id available
+  $query = '
+SELECT MAX(id)+1 AS next_element_id
+  FROM '.IMAGES_TABLE.'
+;';
+  list($next_element_id) = mysql_fetch_array(pwg_query($query));
+
+  $start = get_moment();
+
+  // because isset is one hundred time faster than in_array
+  $fs['thumbnails'] = array_flip($fs['thumbnails']);
+  $fs['representatives'] = array_flip($fs['representatives']);
+  
+  $inserts = array();
+  $insert_links = array();
+  
+  foreach (array_diff($fs['elements'], $db_elements, $db_unvalidated) as $path)
+  {
+    $insert = array();
+    // storage category must exist
+    $dirname = dirname($path);
+    if (!isset($db_fulldirs[$dirname]))
+    {
+      continue;
+    }
+    $filename = basename($path);
+    if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
+    {
+      array_push($errors, array('path' => $path, 'type' => 'PWG-UPDATE-1'));
+      continue;
+    }
+
+    // searching the thumbnail
+    $filename_wo_ext = get_filename_wo_extension($filename);
+    $tn_ext = '';
+    $base_test = $dirname.'/thumbnail/';
+    $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
+    foreach ($conf['picture_ext'] as $ext)
+    {
+      $test = $base_test.$ext;
+      if (isset($fs['thumbnails'][$test]))
+      {
+        $tn_ext = $ext;
+        break;
+      }
+      else
+      {
+        continue;
+      }
+    }
+
+    // 2 cases : the element is a picture or not. Indeed, for a picture
+    // thumbnail is mandatory and for non picture element, thumbnail and
+    // representative are optionnal
+    if (in_array(get_extension($filename), $conf['picture_ext']))
+    {
+      // if we found a thumnbnail corresponding to our picture...
+      if ($tn_ext != '')
+      {
+        $insert{'id'} = $next_element_id++;
+        $insert{'file'} = $filename;
+        $insert{'storage_category_id'} = $db_fulldirs[$dirname];
+        $insert{'date_available'} = CURRENT_DATE;
+        $insert{'tn_ext'} = $tn_ext;
+        $insert{'path'} = $path;
+
+        array_push($inserts, $insert);
+        array_push($insert_links,
+                   array('image_id' => $insert{'id'},
+                         'category_id' => $insert{'storage_category_id'}));
+        array_push($infos, array('path' => $insert{'path'},
+                                 'info' => $lang['update_research_added']));
+      }
+      else
+      {
+        array_push($errors, array('path' => $path, 'type' => 'PWG-UPDATE-2'));
+      }
+    }
+    else
+    {
+      // searching a representative
+      $representative_ext = '';
+      $base_test = $dirname.'/pwg_representative/'.$filename_wo_ext.'.';
+      foreach ($conf['picture_ext'] as $ext)
+      {
+        $test = $base_test.$ext;
+        if (isset($fs['representatives'][$test]))
+        {
+          $representative_ext = $ext;
+          break;
+        }
+        else
+        {
+          continue;
+        }
+      }
+
+      $insert{'id'} = $next_element_id++;
+      $insert{'file'} = $filename;
+      $insert{'storage_category_id'} = $db_fulldirs[$dirname];
+      $insert{'date_available'} = CURRENT_DATE;
+      $insert{'path'} = $path;
+        
+      if ($tn_ext != '')
+      {
+        $insert{'tn_ext'} = $tn_ext;
+      }
+      if ($representative_ext != '')
+      {
+        $insert{'representative_ext'} = $representative_ext;
+      }
+      
+      array_push($inserts, $insert);
+      array_push($insert_links,
+                 array('image_id' => $insert{'id'},
+                       'category_id' => $insert{'storage_category_id'}));
+      array_push($infos, array('path' => $insert{'path'},
+                               'info' => $lang['update_research_added']));
+    }
+  }
+
+  if (count($inserts) > 0)
+  {
+    if (!$simulate)
+    {
+      // inserts all new elements
+      $dbfields = array(
+        'id','file','storage_category_id','date_available','tn_ext'
+        ,'representative_ext','path'
+        );
+      mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
+
+      // insert all links between new elements and their storage category
+      $dbfields = array('image_id','category_id');
+      mass_inserts(IMAGE_CATEGORY_TABLE, $dbfields, $insert_links);
+    }
+    $counts['new_elements'] = count($inserts);
+  }
+
+  // delete elements that are in database but not in the filesystem
+  $to_delete_elements = array();
+  foreach (array_diff($db_elements, $fs['elements']) as $path)
+  {
+    array_push($to_delete_elements, array_search($path, $db_elements));
+    array_push($infos, array('path' => $path,
+                             'info' => $lang['update_research_deleted']));
+  }
+  if (count($to_delete_elements) > 0)
+  {
+    if (!$simulate)
+    {
+      delete_elements($to_delete_elements);
+    }
+    $counts['del_elements'] = count($to_delete_elements);
+  }
+  
+  echo get_elapsed_time($start_files, get_moment());
+  echo ' for new method scanning files<br />';
 }
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('update'=>'admin/update.tpl'));
 
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=update';
+$result_title = '';
+if (isset($simulate) and $simulate)
+{
+  $result_title.= $lang['update_simulation_title'].' ';
+}
+$result_title.= $lang['update_part_research'];
 
 $template->assign_vars(
   array(
@@ -535,17 +476,21 @@ $template->assign_vars(
     'L_UPDATE_SYNC_METADATA_NEW'=>$lang['update_sync_metadata_new'],
     'L_UPDATE_SYNC_METADATA_ALL'=>$lang['update_sync_metadata_all'],
     'L_UPDATE_CATS_SUBSET'=>$lang['update_cats_subset'],
-    'L_RESULT_UPDATE'=>$lang['update_part_research'],
+    'L_RESULT_UPDATE'=>$result_title,
     'L_NB_NEW_ELEMENTS'=>$lang['update_nb_new_elements'],
     'L_NB_NEW_CATEGORIES'=>$lang['update_nb_new_categories'],
     'L_NB_DEL_ELEMENTS'=>$lang['update_nb_del_elements'],
     'L_NB_DEL_CATEGORIES'=>$lang['update_nb_del_categories'],
+    'L_UPDATE_NB_ERRORS'=>$lang['update_nb_errors'],
     'L_SEARCH_SUBCATS_INCLUDED'=>$lang['search_subcats_included'],
-    
-    'U_SYNC_DIRS'=>add_session_id($base_url.'&amp;update=dirs'),
-    'U_SYNC_ALL'=>add_session_id($base_url.'&amp;update=all'),
-    'U_SYNC_METADATA_NEW'=>add_session_id($base_url.'&amp;metadata=all:new'),
-    'U_SYNC_METADATA_ALL'=>add_session_id($base_url.'&amp;metadata=all')
+    'L_UPDATE_WRONG_DIRNAME_INFO'=>$lang['update_wrong_dirname_info'],
+    'L_UPDATE_MISSING_TN_INFO'=>$lang['update_missing_tn_info'],
+    'PICTURE_EXT_LIST'=>implode(',', $conf['picture_ext']),
+    'L_UPDATE_ERROR_LIST_TITLE'=>$lang['update_error_list_title'],
+    'L_UPDATE_ERRORS_CAPTION'=>$lang['update_errors_caption'],
+    'L_UPDATE_DISPLAY_INFO'=>$lang['update_display_info'],
+    'L_UPDATE_SIMULATE'=>$lang['update_simulate'],
+    'L_UPDATE_INFOS_TITLE'=>$lang['update_infos_title']
     ));
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
@@ -570,42 +515,57 @@ SELECT id,name,uppercats,global_rank
 else if (isset($_POST['submit'])
          and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
-  $counts = array(
-    'new_elements' => 0,
-    'new_categories' => 0,
-    'del_elements' => 0,
-    'del_categories' => 0
-    );
-
-  if (isset($_POST['cat']))
-  {
-    $opts['category_id'] = $_POST['cat'];
-  }
-  else
-  {
-    $opts['category_id'] = 'NULL';
-  }
-  
-  $start = get_moment();
-  $categories = insert_local_category($opts['category_id']);
-  echo get_elapsed_time($start,get_moment()).' for scanning directories<br />';
-  
   $template->assign_block_vars(
     'update',
     array(
-      'CATEGORIES'=>$categories,
       'NB_NEW_CATEGORIES'=>$counts['new_categories'],
       'NB_DEL_CATEGORIES'=>$counts['del_categories'],
       'NB_NEW_ELEMENTS'=>$counts['new_elements'],
-      'NB_DEL_ELEMENTS'=>$counts['del_elements']
+      'NB_DEL_ELEMENTS'=>$counts['del_elements'],
+      'NB_ERRORS'=>count($errors),
       ));
-  $start = get_moment();
-  update_category('all');
-  echo get_elapsed_time($start,get_moment()).' for update_category(all)<br />';
-  $start = get_moment();
-  ordering();
-  update_global_rank();
-  echo get_elapsed_time($start, get_moment()).' for ordering categories<br />';
+  
+  if (count($errors) > 0)
+  {
+    $template->assign_block_vars('update.errors', array());
+    foreach ($errors as $error)
+    {
+      $template->assign_block_vars(
+        'update.errors.error',
+        array(
+          'ELEMENT' => $error['path'],
+          'LABEL' => $error['type'].' ('.$error_labels[$error['type']].')'
+          ));
+    }
+  }
+  if (count($infos) > 0
+      and isset($_POST['display_info'])
+      and $_POST['display_info'] == 1)
+  {
+    $template->assign_block_vars('update.infos', array());
+    foreach ($infos as $info)
+    {
+      $template->assign_block_vars(
+        'update.infos.info',
+        array(
+          'ELEMENT' => $info['path'],
+          'LABEL' => $info['info']
+          ));
+    }
+  }
+
+  if (!$simulate)
+  {
+    $start = get_moment();
+    update_category('all');
+    echo get_elapsed_time($start,get_moment());
+    echo ' for update_category(all)<br />';
+    $start = get_moment();
+    ordering();
+    update_global_rank();
+    echo get_elapsed_time($start, get_moment());
+    echo ' for ordering categories<br />';
+  }
 }
 // +-----------------------------------------------------------------------+
 // |                          synchronize metadata                         |

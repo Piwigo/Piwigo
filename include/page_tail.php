@@ -26,26 +26,27 @@
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('tail'=>'footer.tpl'));
 
-//------------------------------------------------------------- generation time
-
-$time = get_elapsed_time( $t2, get_moment() );
-
 $template->assign_vars(
   array(
-    'TIME' =>  $time,
     'VERSION' => PHPWG_VERSION,
     'MAIL'=>$conf['mail_webmaster'],
     
     'L_GEN_TIME' => $lang['generation_time'],
+    'L_SQL_QUERIES_IN' => $lang['sql_queries_in'],
     'L_SEND_MAIL' => $lang['send_mail'],
     'L_TITLE_MAIL' => $lang['title_send_mail'],
     'L_WEBMASTER'=>$lang['webmaster'],
-    
     ));
-    
+//------------------------------------------------------------- generation time
 if ($conf['show_gt'])
 {
-  $template->assign_block_vars('debug', array());
+  $time = get_elapsed_time( $t2, get_moment() );
+  
+  $template->assign_block_vars(
+    'debug',
+    array('TIME' => $time,
+          'NB_QUERIES' => $count_queries,
+          'SQL_TIME' => number_format($queries_time, 3, '.', ' ').' s'));
 }
 
 //

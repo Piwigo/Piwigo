@@ -1,6 +1,6 @@
  <div class="copyright">
  <!-- BEGIN debug -->
- {L_GEN_TIME} {TIME} -
+ {L_GEN_TIME} {debug.TIME} ({debug.NB_QUERIES} {L_SQL_QUERIES_IN} {debug.SQL_TIME}) -
  <!-- END debug -->
 
  <!-- Please, do not remove this copyright. If you really want to,

@@ -461,24 +461,23 @@ function pwg_write_debug()
 
 function pwg_query($query)
 {
-  global $conf;
+  global $conf,$count_queries,$queries_time;
   
   $start = get_moment();
   $result = mysql_query($query);
-
+  
+  $time = get_moment() - $start;
+  $count_queries++;
+  $queries_time+= $time;
+  
   if ($conf['show_queries'])
   {
-    global $count_queries,$queries_time;
-   
-    $time = get_moment() - $start;
-    $count_queries++;
-    
     $output = '';
     $output.= '<pre>['.$count_queries.'] '."\n".$query;
-    $queries_time+= $time;
     $output.= "\n".'(this query time : '.number_format( $time, 3, '.', ' ').' s)</b>';
     $output.= "\n".'(total SQL time  : '.number_format( $queries_time, 3, '.', ' ').' s)';
     $output.= '</pre>';
+    
     echo $output;
   }
   

@@ -69,7 +69,14 @@ while ($row = mysql_fetch_array($result))
 SELECT path, tn_ext
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGES_TABLE.' AS i
     ON i.id = c.representative_picture_id
-  WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
+  WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'';
+  // we must not show pictures of a forbidden category
+  if ($user['forbidden_categories'] != '')
+  {
+    $query.= '
+    AND c.id NOT IN ('.$user['forbidden_categories'].')';
+  }
+  $query.= '
   ORDER BY RAND()
   LIMIT 0,1
 ;';

@@ -264,11 +264,14 @@ $lang['tn_dirs_alone'] = 'pictures without thumbnail';
 
 // Update
 $lang['update_missing_tn'] = 'the thumbnail is missing for';
+$lang['update_missing_tn_short'] = 'missing thumbnail';
+$lang['update_missing_tn_info'] = 'a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with "'.$conf['prefix_thumbnail'].'" and the extension must be among the following list :';
 $lang['update_disappeared_tn'] = 'the thumbnail disapeared';
 $lang['update_disappeared'] = 'doesn\'t exist';
 $lang['update_part_deletion'] = 'Deletion of images that have no thumbnail or that doesn\'t exist';
 $lang['update_part_research'] = 'Search for new images in the directories';
 $lang['update_research_added'] = 'added';
+$lang['update_research_deleted'] = 'deleted';
 $lang['update_research_tn_ext'] = 'thumbnail in';
 $lang['update_nb_new_elements'] = 'elements added in the database';
 $lang['update_nb_del_elements'] = 'elements deleted in the database';
@@ -282,6 +285,13 @@ $lang['update_sync_metadata'] = 'synchronize files metadata with database elemen
 $lang['update_sync_metadata_new'] = 'only never synchronized elements';
 $lang['update_sync_metadata_all'] = 'even already synchronized elements';
 $lang['update_cats_subset'] = 'reduce to single existing categories';
+$lang['update_nb_errors'] = 'errors during synchronization';
+$lang['update_error_list_title'] = 'Error list';
+$lang['update_errors_caption'] = 'Errors caption';
+$lang['update_display_info'] = 'display maximum informations (added categories and elements, deleted categories and elements)';
+$lang['update_simulate'] = 'only perform a simulation (no change in database will be made)';
+$lang['update_infos_title'] = 'Detailed informations';
+$lang['update_simulation_title'] = '[Simulation]';
 
 // History
 $lang['stats_title'] = 'Last year statistics';

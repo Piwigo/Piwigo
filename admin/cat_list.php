@@ -43,10 +43,10 @@ $navigation = $lang['home'];
 // request to delete a virtual category
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
-  $to_delete_categories = array();
-  array_push($to_delete_categories,$_GET['delete']);
-  delete_categories($to_delete_categories);
+  delete_categories(array($_GET['delete']));
   array_push($infos, $lang['cat_virtual_deleted']);
+  ordering();
+  update_global_rank();
 }
 // request to add a virtual category
 else if (isset($_POST['submit']))
@@ -76,15 +76,27 @@ SELECT id,uppercats,global_rank,visible,status
                       'global_rank' => $row['global_rank']);
     }
 
+    // what will be the inserted id ?
+    $query = '
+SELECT MAX(id)+1
+  FROM '.CATEGORIES_TABLE.'
+;';
+    list($next_id) = mysql_fetch_array(pwg_query($query));
+    
     $insert = array();
+    $insert{'id'} = $next_id++;
     $insert{'name'} = $_POST['virtual_name'];
     $insert{'rank'} = $_POST['rank'];
     $insert{'commentable'} = $conf['newcat_default_commentable'];
-    $insert{'uploadable'} = $conf['newcat_default_uploadable'];
+
+    // a virtual category can't be uploadable
+    $insert{'uploadable'} = 'false';
     
     if (isset($parent))
     {
       $insert{'id_uppercat'} = $parent{'id'};
+      $insert{'uppercats'}   = $parent{'uppercats'}.','.$insert{'id'};
+      $insert{'global_rank'} = $parent{'global_rank'}.'.'.$insert{'rank'};
       // at creation, must a category be visible or not ? Warning : if
       // the parent category is invisible, the category is automatically
       // create invisible. (invisible = locked)
@@ -112,40 +124,18 @@ SELECT id,uppercats,global_rank,visible,status
     {
       $insert{'visible'} = $conf['newcat_default_visible'];
       $insert{'status'} = $conf['newcat_default_status'];
+      $insert{'uppercats'} = $insert{'id'};
+      $insert{'global_rank'} = $insert{'rank'};
     }
 
     $inserts = array($insert);
     
     // we have then to add the virtual category
-    $dbfields = array('site_id','name','id_uppercat','rank','commentable',
-                      'uploadable','visible','status');
+    $dbfields = array('id','site_id','name','id_uppercat','rank',
+                      'commentable','uploadable','visible','status',
+                      'uppercats','global_rank');
     mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
-    
-    // And last we update the uppercats
-    $query = '
-SELECT MAX(id)
-  FROM '.CATEGORIES_TABLE.'
-;';
-    $my_id = array_pop(mysql_fetch_array(pwg_query($query)));
 
-    $query = '
-UPDATE '.CATEGORIES_TABLE;
-    if (isset($parent))
-    {
-      $query.= "
-  SET uppercats = CONCAT('".$parent['uppercats']."',',',id)
-    , global_rank = CONCAT('".$parent['global_rank']."','.',rank)";
-    }
-    else
-    {
-      $query.= '
-  SET uppercats = id
-    , global_rank = id';
-    }
-    $query.= '
-  WHERE id = '.$my_id.'
-;';
-    pwg_query($query);
     array_push($infos, $lang['cat_virtual_added']);
   }
 }

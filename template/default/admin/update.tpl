@@ -7,6 +7,8 @@
       <ul class="menu">
         <li><input type="radio" name="sync" value="dirs" checked="checked" /> {L_UPDATE_SYNC_DIRS}</li>
         <li><input type="radio" name="sync" value="files" /> {L_UPDATE_SYNC_ALL}</li>
+        <li><input type="checkbox" name="display_info" value="1" /> {L_UPDATE_DISPLAY_INFO}</li>
+        <li><input type="checkbox" name="simulate" value="1" checked="checked" /> {L_UPDATE_SIMULATE}</li>
       </ul>
     </li>
     <li>
@@ -17,15 +19,15 @@
       </ul>
     </li>
     <li>
-      {L_UPDATE_CATS_SUBSET}
+      {L_UPDATE_CATS_SUBSET}<br />
+      <select style="width:500px" name="cat" size="10">
+        <!-- BEGIN category_option -->
+        <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
+        <!-- END category_option -->
+      </select>
+      <input type="checkbox" name="subcats-included" value="1" checked="checked" /> {L_SEARCH_SUBCATS_INCLUDED}
     </li>
   </ul>
-  <select style="width:500px" name="cat" size="10">
-    <!-- BEGIN category_option -->
-    <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
-    <!-- END category_option -->
-  </select>
-  <input type="checkbox" name="subcats-included" value="1" checked="checked" /> {L_SEARCH_SUBCATS_INCLUDED}
   <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" class="bouton" /></p>
 </form>
 <!-- END introduction -->
@@ -36,6 +38,27 @@
   <li class="update_summary_new">{update.NB_NEW_ELEMENTS} {L_NB_NEW_ELEMENTS}</li>
   <li class="update_summary_del">{update.NB_DEL_CATEGORIES} {L_NB_DEL_CATEGORIES}</li>
   <li class="update_summary_del">{update.NB_DEL_ELEMENTS} {L_NB_DEL_ELEMENTS}</li>
+  <li class="update_summary_err">{update.NB_ERRORS} {L_UPDATE_NB_ERRORS}</li>
 </ul>
-{update.CATEGORIES}
+<!-- BEGIN errors -->
+<div class="admin">{L_UPDATE_ERROR_LIST_TITLE}</div>
+<ul style="text-align:left;">
+  <!-- BEGIN error -->
+  <li>[{update.errors.error.ELEMENT}] {update.errors.error.LABEL}</li>
+  <!-- END error -->
+</ul>
+<div class="admin">{L_UPDATE_ERRORS_CAPTION}</div>
+<ul style="text-align:left;">
+  <li><strong>PWG-UPDATE-1</strong> : {L_UPDATE_WRONG_DIRNAME_INFO}</li>
+  <li><strong>PWG-UPDATE-2</strong> : {L_UPDATE_MISSING_TN_INFO} {{PICTURE_EXT_LIST}}</li>
+</ul>
+<!-- END errors -->
+<!-- BEGIN infos -->
+<div class="admin">{L_UPDATE_INFOS_TITLE}</div>
+<ul style="text-align:left;"> 
+  <!-- BEGIN info --> 
+  <li>[{update.infos.info.ELEMENT}] {update.infos.info.LABEL}</li>
+  <!-- END info --> 
+</ul>
+<!-- END infos -->
 <!-- END update -->
