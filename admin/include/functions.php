@@ -53,7 +53,58 @@ function is_image( $filename, $create_thumbnail = false )
   }
   return false;
 }
-	
+
+/**
+ * returns an array with all picture files according to $conf['picture_ext']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_picture_files( $dir )
+{
+  global $conf;
+
+  $pictures = array();
+  if ( $opendir = opendir( $dir ) )
+  {
+    while ( $file = readdir( $opendir ) )
+    {
+      if ( in_array( get_extension( $file ), $conf['picture_ext'] ) )
+      {
+        array_push( $pictures, $file );
+      }
+    }
+  }
+  return $pictures;
+}
+
+/**
+ * returns an array with all thumbnails according to $conf['picture_ext']
+ * and $conf['prefix_thumbnail']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_thumb_files( $dir )
+{
+  global $conf;
+
+  $prefix_length = strlen( $conf['prefix_thumbnail'] );
+  
+  $thumbnails = array();
+  if ( $opendir = @opendir( $dir ) )
+  {
+    while ( $file = readdir( $opendir ) )
+    {
+      if ( in_array( get_extension( $file ), $conf['picture_ext'] )
+           and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'] )
+      {
+        array_push( $thumbnails, $file );
+      }
+    }
+  }
+  return $thumbnails;
+}
 
 function TN_exists( $dir, $file )
 {
