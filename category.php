@@ -216,7 +216,7 @@ if ( $user['status'] == 'admin' )
 {
   $vtp->addSession( $handle, 'summary' );
   $vtp->setVar( $handle, 'summary.url',
-                add_session_id( './admin/admin.php' ) );
+                add_session_id( './admin.php' ) );
   $vtp->setVar( $handle, 'summary.title', $lang['hint_admin'] );
   $vtp->setVar( $handle, 'summary.name', replace_space( $lang['admin'] ) );
   $vtp->closeSession( $handle, 'summary' );

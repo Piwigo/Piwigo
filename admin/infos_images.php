@@ -272,10 +272,6 @@ if ( isset( $page['cat'] ) )
         get_complete_dir( $row['storage_category_id'] );
     }
     $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
-    if ( preg_match( '/^\.\/galleries/', $thumbnail_url ) )
-    {
-      $thumbnail_url = '.'.$thumbnail_url;
-    }
     $thumbnail_url.= 'thumbnail/';
     $thumbnail_url.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
     $vtp->setVar( $sub, 'picture.thumbnail_url', $thumbnail_url );

@@ -22,12 +22,12 @@ include_once( './admin/include/isadmin.inc.php' );
 function insert_local_category( $cat_id )
 {
   global $conf, $page, $user, $lang;
-		
+
   $site_id = 1;
-		
+
   // 0. retrieving informations on the category to display
-  $cat_directory = '../galleries';
-		
+  $cat_directory = './galleries';
+
   if ( is_numeric( $cat_id ) )
   {
     $cat_directory.= '/'.get_local_dir( $cat_id );
@@ -64,7 +64,7 @@ function insert_local_category( $cat_id )
   while ( $row = mysql_fetch_array( $result ) )
   {
     // retrieving the directory
-    $rep = '../galleries/'.get_local_dir( $row['id'] );
+    $rep = './galleries/'.get_local_dir( $row['id'] );
     // is the directory present ?
     if ( !is_dir( $rep ) ) delete_category( $row['id'] );
   }
@@ -588,7 +588,7 @@ if ( !isset( $_GET['update'] )
   $vtp->setVar( $sub, 'introduction.all:url', $url );
   $vtp->closeSession( $sub, 'introduction' );
 }
-//------------------------------------------------- local update : ../galleries
+//-------------------------------------------------- local update : ./galleries
 else
 {
   $count_new = 0;

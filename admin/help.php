@@ -29,7 +29,7 @@ foreach ( $categories as $category ) {
   if ( $category == 'images' )
   {
     $vtp->addSession( $sub, 'illustration' );
-    $vtp->setVar( $sub, 'illustration.pic_src', './images/admin.png' );
+    $vtp->setVar( $sub, 'illustration.pic_src', './admin/images/admin.png' );
     $vtp->setVar( $sub, 'illustration.pic_alt', '' );
     $vtp->setVar( $sub, 'illustration.caption', $lang['help_images_intro'] );
     $vtp->closeSession( $sub, 'illustration' );

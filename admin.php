@@ -18,10 +18,10 @@
  ***************************************************************************/
 
 //----------------------------------------------------------- personnal include
-include_once( './include/isadmin.inc.php' );
+include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
-$handle = $vtp->Open( '../template/'.$user['template'].'/admin/admin.vtp' );
+$handle = $vtp->Open( './template/'.$user['template'].'/admin.vtp' );
 // language
 $tpl = array( 'title_default','charset','install_warning' );
 templatize_array( $tpl, 'lang', $handle );
@@ -117,9 +117,9 @@ switch ( $_GET['page'] )
    {
      $title.= ' '.$lang['title_thumbnails_2'].' <span style="color:#006699;">';
      // $_GET['dir'] contains :
-     // ../galleries/vieux_lyon ou
-     // ../galleries/vieux_lyon/visite ou
-     // ../galleries/vieux_lyon/visite/truc ...
+     // ./galleries/vieux_lyon ou
+     // ./galleries/vieux_lyon/visite ou
+     // ./galleries/vieux_lyon/visite/truc ...
      $dir = explode( "/", $_GET['dir'] );
      $title.= $dir[2];
      for ( $i = 3; $i < sizeof( $dir ) - 1; $i++ )
@@ -237,13 +237,13 @@ $vtp->closeSession( $handle, 'summary' );
 // back to thumbnails page
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link', add_session_id( '../category.php' ) );
+$vtp->setVar( $handle, 'summary.link', add_session_id( './category.php' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_back'] );
 $vtp->closeSession( $handle, 'summary' );
 //------------------------------------------------------------- content display
 if ( $page_valide )
 {
-  include ( $_GET['page'].'.php' );
+  include ( './admin/'.$_GET['page'].'.php' );
 }
 else
 {

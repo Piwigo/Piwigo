@@ -421,7 +421,7 @@ if ( isset( $_GET['dir'] ) )
 else
 {
   $vtp->addSession( $sub, 'directory_list' );
-  get_displayed_dirs( '../galleries', 60 );
+  get_displayed_dirs( './galleries', 60 );
   $vtp->closeSession( $sub, 'directory_list' );
 }
 //----------------------------------------------------------- sending html code

@@ -589,7 +589,7 @@ $vtp->addSession( $sub, 'param_line' );
 $vtp->setVar( $sub, 'param_line.name', $lang['customize_language'] );
 $vtp->addSession( $sub, 'select' );
 $vtp->setVar( $sub, 'select.name', 'language' );
-$option = get_languages( '../language/' );
+$option = get_languages( './language/' );
 for ( $i = 0; $i < sizeof( $option ); $i++ )
 {
   $vtp->addSession( $sub, 'option' );

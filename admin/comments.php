@@ -60,17 +60,12 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $name.= ' [ '.$subrow['file'].' ]';
     $vtp->setVar( $sub, 'picture.title', $name );
     // source of the thumbnail picture
-    $src = '';
-    if ( $array_cat_site_id[$subrow['cat_id']] == 1 )
-    {
-      $src.= '.';
-    }
-    $src.= $array_cat_directories[$subrow['cat_id']];
+    $src = $array_cat_directories[$subrow['cat_id']];
     $src.= 'thumbnail/'.$conf['prefix_thumbnail'];
     $src.= $file.'.'.$subrow['tn_ext'];
     $vtp->setVar( $sub, 'picture.thumb_src', $src );
     // link to the full size picture
-    $url = '../picture.php?cat='.$subrow['cat_id'];
+    $url = './picture.php?cat='.$subrow['cat_id'];
     $url.= '&amp;image_id='.$row['image_id'];
     $vtp->setVar( $sub, 'picture.thumb_url', add_session_id( $url ) );
     // 3. for each picture, retrieving all comments
