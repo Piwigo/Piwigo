@@ -79,12 +79,13 @@ $row = mysql_fetch_array( mysql_query( $query ) );
 // affectation of each field of the table "config" to an information of the
 // array $conf.
 foreach ( $infos as $info ) {
-  $conf[$info] = $row[$info];
+  if ( isset( $row[$info] ) ) $conf[$info] = $row[$info];
+  else                        $conf[$info] = '';
   // If the field is true or false, the variable is transformed into a boolean
   // value.
-  if ( $row[$info] == 'true' or $row[$info] == 'false' )
+  if ( $conf[$info] == 'true' or $conf[$info] == 'false' )
   {
-    $conf[$info] = get_boolean( $row[$info] );
+    $conf[$info] = get_boolean( $conf[$info] );
   }
 }
 ?>
