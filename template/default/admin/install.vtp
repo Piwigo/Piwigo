@@ -246,6 +246,7 @@
               </td>
             </tr>
           </table>
+          <div style="text-align:center;margin:20px;">{#install_help}</div>
         </td>
       </tr>
     </table>

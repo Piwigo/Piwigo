@@ -110,6 +110,12 @@
       td.choice {
         text-align : center;
       }
+      div.install_warning {
+        text-align:center;
+        color:red;
+        margin:20px;
+        font-weight:bold;
+      }
 <!-- comments CSS style -->
       .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
         color:black;
@@ -185,6 +191,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset={#charset}">
   </head>
   <body>
+    <!--VTP_install_warning--><div class="install_warning">{#install_warning}</div><!--/VTP_install_warning-->
     <table>
       <tr>
         <td width="1%" valign="top">

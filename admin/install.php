@@ -40,7 +40,7 @@ if ( isset( $_GET['language'] ) )
                 'step2_pwd','step2_pwd_info','step2_pwd_conf',
                 'step2_pwd_conf_info','conf_general_mail',
                 'conf_general_mail_info','install_end_title',
-                'install_end_message');
+                'install_end_message','install_help');
   templatize_array( $tpl, 'lang', $handle );
   $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
 }
