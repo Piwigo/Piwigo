@@ -77,3 +77,17 @@ border-color:#006699;
 {
 color:#000000;
 }
+.errors {
+  text-align:left;
+  margin:25px;
+  background-color:#ffe1e1;
+  border:1px solid red;
+  color:black;
+}
+.errors_title {
+  margin:5px;
+  font-weight:bold;
+  font-size:120%;
+  text-align:center;
+  color:red;
+}
