@@ -204,6 +204,8 @@ $lang['no_category'] = 'Home';
 $lang['page_number'] = 'page number';
 $lang['previous_page'] = 'Previous';
 $lang['next_page'] = 'Next';
+$lang['first_page'] = 'First';
+$lang['last_page'] = 'Last';
 $lang['recent_image'] = 'Image within the';
 $lang['days'] = 'days';
 

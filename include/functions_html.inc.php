@@ -54,22 +54,44 @@ function get_icon( $date )
   return $output;
 }
 
-function create_navigation_bar( $url, $nb_element, $start,
-                                $nb_element_page, $link_class )
+function create_navigation_bar($url, $nb_element, $start,
+                               $nb_element_page, $link_class)
 {
-  global $lang;
-  $navigation_bar = "";
-  // 0. détection de la page en cours
-  if( !isset( $start )
-      || !is_numeric( $start )
-      || ( is_numeric( $start ) && $start < 0 ) )
+  global $lang, $conf;
+
+  $pages_around = $conf['paginate_pages_around'];
+  
+  $navigation_bar = '';
+  
+  // current page detection
+  if (!isset($start)
+      or !is_numeric($start)
+      or (is_numeric($start) and $start < 0))
   {
     $start = 0;
   }
-  // on n'affiche la bare de navigation que si on plus de 1 page
-  if ( $nb_element > $nb_element_page )
+  
+  // navigation bar useful only if more than one page to display !
+  if ($nb_element > $nb_element_page)
   {
-    // 1.une page précédente ?
+    // searching the current page
+    $cur_page = ceil($start / $nb_element_page) + 1;
+    $maximum = ceil($nb_element / $nb_element_page);
+
+    // link to first page ?
+    if ($cur_page != 1)
+    {
+      $navigation_bar.= '<a href="';
+      $navigation_bar.= add_session_id($url.'&amp;start=0');
+      $navigation_bar.= '" class="'.$link_class.'">'.$lang['first_page'];
+      $navigation_bar.= '</a>';
+    }
+    else
+    {
+      $navigation_bar.= $lang['first_page'];
+    }
+    $navigation_bar.= ' | ';
+    // link on previous page ?
     if ( $start != 0 )
     {
       $previous = $start - $nb_element_page;
@@ -77,32 +99,78 @@ function create_navigation_bar( $url, $nb_element, $start,
       $navigation_bar.= add_session_id( $url.'&amp;start='.$previous );
       $navigation_bar.= '" class="'.$link_class.'">'.$lang['previous_page'];
       $navigation_bar.= '</a>';
-      $navigation_bar.= ' | ';
     }
-    // 2.liste des numéros de page
-    $maximum = ceil ( $nb_element / $nb_element_page );
-    for ( $i = 1; $i <= $maximum; $i++ )
+    else
     {
-      $temp_start = ( $i - 1 ) * $nb_element_page;
-      if ( $temp_start == $start )
+      $navigation_bar.= $lang['previous_page'];
+    }
+    $navigation_bar.= ' | ';
+
+    if ($cur_page > $pages_around + 1)
+    {
+      $navigation_bar.= '&nbsp;<a href="';
+      $navigation_bar.= add_session_id($url.'&amp;start=0');
+      $navigation_bar.= '" class="'.$link_class.'">1</a>&nbsp;...';
+    }
+    
+    // inspired from punbb source code
+    for ($i = $cur_page - $pages_around, $stop = $cur_page + $pages_around + 1;
+         $i < $stop;
+         $i++)
+    {
+      if ($i < 1 or $i > $maximum)
       {
-        $navigation_bar.= ' <span class="pageNumberSelected">'.$i.'</span> ';
+        continue;
+      }
+      else if ($i != $cur_page)
+      {
+        $temp_start = ($i - 1) * $nb_element_page;
+        $navigation_bar.= '&nbsp;<a href="';
+        $navigation_bar.= add_session_id($url.'&amp;start='.$temp_start);
+        $navigation_bar.= '" class="'.$link_class.'">'.$i.'</a>';
       }
       else
       {
-        $navigation_bar.= ' <a href="';
-        $navigation_bar.= add_session_id( $url.'&amp;start='.$temp_start );
-        $navigation_bar.= '" class="'.$link_class.'">'.$i.'</a> ';
+        $navigation_bar.= '&nbsp;<span class="pageNumberSelected">';
+        $navigation_bar.= $i.'</span>';
       }
     }
-    // 3.une page suivante ?
+
+    if ($cur_page < ($maximum - $pages_around))
+    {
+      $temp_start = ($maximum - 1) * $nb_element_page;
+      $navigation_bar.= '&nbsp;...&nbsp;<a href="';
+      $navigation_bar.= add_session_id($url.'&amp;start='.$temp_start);
+      $navigation_bar.= '" class="'.$link_class.'">'.$maximum.'</a>';
+    }
+    
+    $navigation_bar.= ' | ';
+    // link on next page ?
     if ( $nb_element > $nb_element_page
          && $start + $nb_element_page < $nb_element )
     {
       $next = $start + $nb_element_page;
-      $navigation_bar.= ' | <a href="';
+      $navigation_bar.= '<a href="';
       $navigation_bar.= add_session_id( $url.'&amp;start='.$next );
       $navigation_bar.= '" class="'.$link_class.'">'.$lang['next_page'].'</a>';
+    }
+    else
+    {
+      $navigation_bar.= $lang['next_page'];
+    }
+    // link to last page ?
+    if ($cur_page != $maximum)
+    {
+      $temp_start = ($maximum - 1) * $nb_element_page;
+      $navigation_bar.= ' | ';
+      $navigation_bar.= '<a href="';
+      $navigation_bar.= add_session_id($url.'&amp;start='.$temp_start);
+      $navigation_bar.= '" class="'.$link_class.'">'.$lang['last_page'];
+      $navigation_bar.= '</a>';
+    }
+    else
+    {
+      $navigation_bar.= $lang['last_page'];
     }
   }
   return $navigation_bar;
