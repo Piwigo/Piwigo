@@ -11,7 +11,7 @@
 DROP TABLE IF EXISTS phpwebgallery_categories;
 CREATE TABLE phpwebgallery_categories (
   id smallint(5) unsigned NOT NULL auto_increment,
-  date_last date NOT NULL default '0000-00-00',
+  date_last date default NULL,
   nb_images mediumint(8) unsigned NOT NULL default '0',
   name varchar(255) NOT NULL default '',
   id_uppercat smallint(5) unsigned default NULL,
