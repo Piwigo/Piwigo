@@ -27,7 +27,7 @@
 
 if( !defined("PHPWG_ROOT_PATH") )
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
@@ -425,8 +425,8 @@ SELECT file
         $representative_ext = '';
         foreach ($conf['picture_ext'] as $ext)
         {
-          $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
-          if (!in_array($test, $fs_thumbnails))
+          $candidate = $file_wo_ext.'.'.$ext;
+          if (!in_array($candidate, $fs_representatives))
           {
             continue;
           }
