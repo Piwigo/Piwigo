@@ -346,7 +346,11 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_uploadable'] = $result['uploadable'];
       $page['cat_commentable'] = $result['commentable'];
       $page['uppercats']      = $result['uppercats'];
-      $page['title'] = get_cat_display_name( $page['cat_name'],' - ','',false);
+      $page['title'] =
+        get_cat_display_name($page['cat_name'],
+                             ' &gt; ',
+                             'category.php?cat=',
+                             false);
       $page['where'] = ' WHERE category_id = '.$page['cat'];
     }
     else
