@@ -53,6 +53,8 @@ if ( isset( $_POST['submit'] ) )
     $query.= ' FROM '.PREFIX_TABLE.'user_access';
     $query.= ' WHERE cat_id = '.$_GET['cat'];
     mysql_query( $query );
+    // resynchronize all users
+    synchronize_all_users();
   }
   
   $query = 'UPDATE '.PREFIX_TABLE.'categories';
