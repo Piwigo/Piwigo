@@ -17,31 +17,11 @@
  *                                                                         *
  ***************************************************************************/
 
-function get_subcats_id( $cat_id )
-{
-  $restricted_cats = array();
-                
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id_uppercat = '.$cat_id;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    array_push( $restricted_cats, $row['id'] );
-    $sub_restricted_cats = get_subcats_id( $row['id'] );
-    foreach ( $sub_restricted_cats as $sub_restricted_cat ) {
-      array_push( $restricted_cats, $sub_restricted_cat );
-    }
-  }
-  return $restricted_cats;
-}
-
 function check_restrictions( $category_id )
 {
   global $user,$lang;
 
-  if ( is_user_allowed( $category_id, $user['restrictions'] ) > 0 )
+  if ( in_array( $category_id, $user['restrictions'] ) )
   {
     echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
     echo '<a href="'.add_session_id( './category.php' ).'">';
@@ -49,7 +29,7 @@ function check_restrictions( $category_id )
     exit();
   }
 }
-        
+
 // the check_cat_id function check whether the $cat is a right parameter :
 //  - $cat is numeric and corresponds to a category in the database
 //  - $cat equals 'fav' (for favorites)
@@ -61,19 +41,16 @@ function check_cat_id( $cat )
   unset( $page['cat'] );
   if ( isset( $cat ) )
   {
-    if ( isset( $page['plain_structure'] ) )
+    if ( isset( $page['plain_structure'][$cat] ) )
     {
-      if ( isset( $page['plain_structure'][$cat] ) )
-      {
-        $page['cat'] = $cat;
-      }
+      $page['cat'] = $cat;
     }
     else if ( is_numeric( $cat ) )
     {
       $query = 'SELECT id';
       $query.= ' FROM '.PREFIX_TABLE.'categories';
       $query.= ' WHERE id = '.$cat;
-      $query. ';';
+      $query.= ';';
       $result = mysql_query( $query );
       if ( mysql_num_rows( $result ) != 0 )
       {
@@ -91,17 +68,38 @@ function check_cat_id( $cat )
   }
 }
 
-function get_plain_structure()
+function get_user_plain_structure()
 {
-  $infos = array( 'name','id','date_last','nb_images','dir','id_uppercat',
-                  'rank','site_id');
+  global $page,$user;
+  
+  $infos = array( 'name','id','uc.date_last','nb_images','dir','id_uppercat',
+                  'rank','site_id','nb_sub_categories','uppercats');
   
   $query = 'SELECT ';
   foreach ( $infos as $i => $info ) {
     if ( $i > 0 ) $query.= ',';
     $query.= $info;
   }
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.PREFIX_TABLE.'categories AS c';
+//  $query.= ' ,'.PREFIX_TABLE.'user_category AS uc';
+  $query.= ' INNER JOIN '.PREFIX_TABLE.'user_category AS uc';
+  $query.= ' ON c.id = uc.category_id';
+  $query.= ' WHERE user_id = '.$user['id'];
+  if ( $page['expand'] != 'all' )
+  {
+    $query.= ' AND (id_uppercat is NULL';
+    if ( count( $page['tab_expand'] ) > 0 )
+    {
+      $query.= ' OR id_uppercat IN ('.$page['expand'].')';
+    }
+    $query.= ')';
+  }
+  if ( $user['forbidden_categories'] != '' )
+  {
+    $query.= ' AND id NOT IN ';
+    $query.= '('.$user['forbidden_categories'].')';
+  }
+//  $query.= ' AND c.id = uc.category_id';
   $query.= ' ORDER BY id_uppercat ASC, rank ASC';
   $query.= ';';
 
@@ -124,27 +122,24 @@ function get_plain_structure()
   return $plain_structure;
 }
 
-function create_structure( $id_uppercat, $restrictions )
+function create_user_structure( $id_uppercat )
 {
   global $page;
 
   if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_plain_structure();
+    $page['plain_structure'] = get_user_plain_structure();
 
   $structure = array();
-  $ids = get_subcat_ids( $id_uppercat );
+  $ids = get_user_subcat_ids( $id_uppercat );
   foreach ( $ids as $id ) {
-    if ( !in_array( $id, $restrictions ) )
-    {
-      $category = $page['plain_structure'][$id];
-      $category['subcats'] = create_structure( $id, $restrictions );
-      array_push( $structure, $category );
-    }
+    $category = $page['plain_structure'][$id];
+    $category['subcats'] = create_user_structure( $id );
+    array_push( $structure, $category );
   }
   return $structure;
 }
 
-function get_subcat_ids( $id_uppercat )
+function get_user_subcat_ids( $id_uppercat )
 {
   global $page;
 
@@ -157,31 +152,14 @@ function get_subcat_ids( $id_uppercat )
 }
 
 // update_structure updates or add informations about each node of the
-// structure : the last date, should the category be expanded in the menu ?,
-// the associated expand string "48,14,54"
+// structure :
 //
-// 1. last date
-// for each category of the structure, we have to find the most recent
-// subcat so that the parent cat has the same last_date info.
-// For example : we have :
-// > pets       (2003.02.15)
-//    > dogs    (2003.06.14)
-//       > rex  (2003.06.18)
-//       > toby (2003.06.13)
-//    > kitten  (2003.07.05)
-// We finally want to have :
-// > pets       (2003.07.05) <- changed to pets > kitten last date
-//    > dogs    (2003.06.18) <- changed to pets > dogs > rex last date
-//       > rex  (2003.06.18)
-//       > toby (2003.06.13)
-//    > kitten  (2003.07.05)
-//
-// 2. should the category be expanded in the menu ?
+// 1. should the category be expanded in the menu ?
 // If the category has to be expanded (ie its id is in the
 // $page['tab_expand'] or all the categories must be expanded by default),
 // $category['expanded'] is set to true.
 //
-// 3. associated expand string
+// 2. associated expand string
 // in the menu, there is a expand string (used in the URL) to tell which
 // categories must be expanded in the menu if this category is chosen
 function update_structure( $categories )
@@ -191,9 +169,6 @@ function update_structure( $categories )
   $updated_categories = array();
 
   foreach ( $categories as $category ) {
-    // update the last date of the category
-    $last_date = search_last_date( $category );
-    $category['date_last'] = $last_date;
     // update the "expanded" key
     if ( $user['expand']
          or $page['expand'] == 'all'
@@ -205,7 +180,7 @@ function update_structure( $categories )
     {
       $category['expanded'] = false;
     }
-    // update the  "expand_string" key
+    // update the "expand_string" key
     if ( $page['expand'] == 'all' )
     {
       $category['expand_string'] = 'all';
@@ -219,7 +194,7 @@ function update_structure( $categories )
         // the $category['id']
         $tab_expand = array_diff( $page['tab_expand'],array($category['id']) );
       }
-      else if ( count( $category['subcats'] ) > 0 )
+      else if ( $category['nb_sub_categories'] > 0 )
       {
         // we have this time to add the $category['id']...
         $tab_expand = array_merge($page['tab_expand'],array($category['id']));
@@ -235,24 +210,6 @@ function update_structure( $categories )
   return $updated_categories;
 }
 
-// search_last_date searchs the last date for a given category. If we take
-// back the example given for update_last_dates, we should have :
-// search_last_date( pets )        --> 2003.07.05
-// search_last_date( pets > dogs ) --> 2003.06.18
-// and so on
-function search_last_date( $category )
-{
-  $date_last = $category['date_last'];
-  foreach ( $category['subcats'] as $subcat ) {
-    $subcat_date_last = search_last_date( $subcat );
-    if ( $subcat_date_last > $date_last )
-    {
-      $date_last = $subcat_date_last;
-    }
-  }
-  return $date_last;
-}
-
 // count_images returns the number of pictures contained in the given
 // category represented by an array, in this array, we have (among other
 // things) :
@@ -262,12 +219,28 @@ function search_last_date( $category )
 // pictures contained in the given given category
 function count_images( $categories )
 {
+  return count_user_total_images();
   $total = 0;
   foreach ( $categories as $category ) {
     $total+= $category['nb_images'];
     $total+= count_images( $category['subcats'] );
   }
   return $total;
+}
+
+function count_user_total_images()
+{
+  global $user;
+
+  $query = 'SELECT SUM(nb_images) AS total';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  if ( count( $user['restrictions'] ) > 0 )
+    $query.= ' WHERE id NOT IN ('.$user['forbidden_categories'].')';
+  $query.= ';';
+  
+  $row = mysql_fetch_array( mysql_query( $query ) );
+
+  return $row['total'];
 }
 
 // variables :
@@ -289,6 +262,7 @@ function get_cat_info( $id )
                 
   $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
   $query.= ',date_last,uploadable,status,visible,representative_picture_id';
+  $query.= ',uppercats';
   $query.= ' FROM '.PREFIX_TABLE.'categories AS a';
   $query.= ', '.PREFIX_TABLE.'sites AS b';
   $query.= ' WHERE a.id = '.$id;
@@ -303,19 +277,22 @@ function get_cat_info( $id )
   $cat['uploadable']  = get_boolean( $row['uploadable'] );
   $cat['status']      = $row['status'];
   $cat['visible']     = get_boolean( $row['visible'] );
+  $cat['uppercats']   = $row['uppercats'];
   $cat['representative_picture_id'] = $row['representative_picture_id'];
 
   $cat['name'] = array();
 
-  if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_plain_structure();
-
-  array_push( $cat['name'], $page['plain_structure'][$id]['name'] );
-  while ( $page['plain_structure'][$id]['id_uppercat'] != '' )
+  $query = 'SELECT name';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id IN ('.$cat['uppercats'].')';
+  $query.= ' ORDER BY id ASC';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while( $row = mysql_fetch_array( $result ) )
   {
-    $id = $page['plain_structure'][$id]['id_uppercat'];
-    array_push( $cat['name'], $page['plain_structure'][$id]['name'] );
+    array_push( $cat['name'], $row['name'] );
   }
+  
   return $cat;
 }
 
@@ -337,17 +314,35 @@ function get_local_dir( $category_id )
 {
   global $page;
 
-  if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_plain_structure();
-  
-  // creating the local path : "root_cat/sub_cat/sub_sub_cat/"
-  $dir = $page['plain_structure'][$category_id]['dir'].'/';
-  while ( $page['plain_structure'][$category_id]['id_uppercat'] != '' )
+  $uppercats = '';
+  $local_dir = '';
+
+  if ( isset( $page['plain_structure'][$category_id]['uppercats'] ) )
   {
-    $category_id = $page['plain_structure'][$category_id]['id_uppercat'];
-    $dir = $page['plain_structure'][$category_id]['dir'].'/'.$dir;
+    $uppercats = $page['plain_structure'][$category_id]['uppercats'];
   }
-  return $dir;
+  else
+  {
+    $query = 'SELECT uppercats';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$category_id;
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $uppercats = $row['uppercats'];
+  }
+
+  $query = 'SELECT dir';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id IN ('.$uppercats.')';
+  $query.= ' ORDER BY id ASC';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while( $row = mysql_fetch_array( $result ) )
+  {
+    $local_dir.= $row['dir'].'/';
+  }
+
+  return $local_dir;
 }
 
 // retrieving the site url : "http://domain.com/gallery/" or
@@ -356,12 +351,10 @@ function get_site_url( $category_id )
 {
   global $page;
 
-  if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_plain_structure();
-
   $query = 'SELECT galleries_url';
-  $query.= ' FROM '.PREFIX_TABLE.'sites';
-  $query.= ' WHERE id = '.$page['plain_structure'][$category_id]['site_id'];
+  $query.= ' FROM '.PREFIX_TABLE.'sites AS s,'.PREFIX_TABLE.'categories AS c';
+  $query.= ' WHERE s.id = c.site_id';
+  $query.= ' AND c.id = '.$category_id;
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   return $row['galleries_url'];
@@ -374,33 +367,19 @@ function get_site_url( $category_id )
 //   - $separation : the string between each category name " - " for example
 //   - $style : the style of the span tag for the lowest category,
 //     "font-style:italic;" for example
-function get_cat_display_name( $array_cat_names, $separation, $style )
+function get_cat_display_name( $array_cat_names, $separation,
+                               $style, $replace_space = true )
 {
-  $output = "";
-  for ( $i = sizeof( $array_cat_names ) - 1; $i >= 0; $i-- )
-  {
-    if ( $i != sizeof( $array_cat_names ) - 1 )
-    {
-      $output.= $separation;
-    }
-    if ( $i != 0 )
-    {
-      $output.= $array_cat_names[$i];
-    }
+  $output = '';
+  foreach ( $array_cat_names as $i => $name ) {
+    if ( $i > 0 ) $output.= $separation;
+    if ( $i < count( $array_cat_names ) - 1 or $style == '')
+      $output.= $name;
     else
-    {
-      if ( $style != "" )
-      {
-        $output.= '<span style="'.$style.'">';
-      }
-      $output.= $array_cat_names[$i];
-      if ( $style != "" )
-      {
-        $output.= "</span>";
-      }
-    }
+      $output.= '<span style="'.$style.'">'.$name.'</span>';
   }
-  return replace_space( $output );
+  if ( $replace_space ) return replace_space( $output );
+  else                  return $output;
 }
 
 // initialize_category initializes ;-) the variables in relation
@@ -418,6 +397,7 @@ function get_cat_display_name( $array_cat_names, $separation, $style )
 // 4. creation of the navigation bar
 function initialize_category( $calling_page = 'category' )
 {
+  pwg_debug( 'start initialize_category' );
   global $page,$lang,$user,$conf;
 
   if ( isset( $page['cat'] ) )
@@ -437,7 +417,8 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_nb_images']  = $result['nb_images'];
       $page['cat_site_id']    = $result['site_id'];
       $page['cat_uploadable'] = $result['uploadable'];
-      $page['title'] = get_cat_display_name( $page['cat_name'], ' - ', '' );
+      $page['uppercats']      = $result['uppercats'];
+      $page['title'] = get_cat_display_name( $page['cat_name'],' - ','',false);
       $page['where'] = ' WHERE category_id = '.$page['cat'];
     }
     else
@@ -446,15 +427,10 @@ function initialize_category( $calling_page = 'category' )
            or $page['cat'] == 'recent' or $page['cat'] == 'best_rated' )
       {
         // we must not show pictures of a forbidden category
-        $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
-        if ( count( $restricted_cats ) > 0 )
+        if ( $user['forbidden_categories'] != '' )
         {
-          $where_append.= ' AND category_id NOT IN (';
-          foreach ( $restricted_cats as $i => $restricted_cat ) {
-            if ( $i > 0 ) $where_append.= ',';
-            $where_append.= $restricted_cat;
-          }
-          $where_append.= ')';
+          $query.= ' AND category_id NOT IN ';
+          $query.= '('.$user['forbidden_categories'].')';
         }
       }
       // search result
@@ -573,6 +549,7 @@ function initialize_category( $calling_page = 'category' )
   {
     $page['title'] = $lang['diapo_default_page_title'];
   }
+  pwg_debug( 'end initialize_category' );
 }
 
 // get_non_empty_subcat_ids returns an array with sub-categories id
@@ -604,8 +581,9 @@ function get_non_empty_subcat_ids( $id_uppercat )
   if ( !is_numeric( $id_uppercat ) ) $query.= 'is NULL';
   else                               $query.= '= '.$id_uppercat;
   // we must not show pictures of a forbidden category
-  foreach ( $user['restrictions'] as $restricted_cat ) {
-    $query.= ' AND id != '.$restricted_cat;
+  if ( $user['forbidden_categories'] != '' )
+  {
+    $query.= ' AND id NOT IN ('.$user['forbidden_categories'].')';
   }
   $query.= ' ORDER BY rank';
   $query.= ';';
@@ -635,8 +613,9 @@ function get_first_non_empty_cat_id( $id_uppercat )
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE id_uppercat = '.$id_uppercat;
   // we must not show pictures of a forbidden category
-  foreach ( $user['restrictions'] as $restricted_cat ) {
-    $query.= ' AND id != '.$restricted_cat;
+  if ( $user['forbidden_categories'] != '' )
+  {
+    $query.= ' AND id NOT IN ('.$user['forbidden_categories'].')';
   }
   $query.= ' ORDER BY RAND()';
   $query.= ';';
