@@ -11,7 +11,7 @@
 <!--VTP_deletion-->
 <table style="width:100%;">
   <tr>
-    <th colspan="2">{#group_confirm} "{#name}" ?</th>
+    <th colspan="2">{#group_confirm} "{#name}"</th>
   </tr>
   <tr>
     <td align="center"><a href="{#yes_url}">{#yes}</a></td>
