@@ -265,7 +265,7 @@ $lang['tn_dirs_alone'] = 'pictures without thumbnail';
 // Update
 $lang['update_missing_tn'] = 'the thumbnail is missing for';
 $lang['update_missing_tn_short'] = 'missing thumbnail';
-$lang['update_missing_tn_info'] = 'a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with "'.$conf['prefix_thumbnail'].'" and the extension must be among the following list :';
+$lang['update_missing_tn_info'] = 'a picture filetype requires a thumbnail. The thumbnail must be present in the sub-directory "thumbnail" of the category directory. The thumbnail filename must start with the configured thumbnail prefix and the extension must be among the following list :';
 $lang['update_disappeared_tn'] = 'the thumbnail disapeared';
 $lang['update_disappeared'] = 'doesn\'t exist';
 $lang['update_part_deletion'] = 'Deletion of images that have no thumbnail or that doesn\'t exist';

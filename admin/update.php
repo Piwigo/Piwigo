@@ -115,6 +115,8 @@ SELECT galleries_url
   $db_fulldirs = array_flip($db_fulldirs);
 
   // finding next rank for each id_uppercat
+  $next_rank['NULL'] = 1;
+  
   $query = '
 SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
@@ -133,7 +135,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   
   // next category id available
   $query = '
-SELECT MAX(id)+1 AS next_id
+SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
   FROM '.CATEGORIES_TABLE.'
 ;';
   list($next_id) = mysql_fetch_array(pwg_query($query));
@@ -296,7 +298,7 @@ SELECT file,storage_category_id
 
   // next element id available
   $query = '
-SELECT MAX(id)+1 AS next_element_id
+SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
   FROM '.IMAGES_TABLE.'
 ;';
   list($next_element_id) = mysql_fetch_array(pwg_query($query));

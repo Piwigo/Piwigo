@@ -40,7 +40,13 @@ $template->assign_vars(
 //------------------------------------------------------------- generation time
 if ($conf['show_gt'])
 {
-  $time = get_elapsed_time( $t2, get_moment() );
+  $time = get_elapsed_time($t2, get_moment());
+
+  if (!isset($count_queries))
+  {
+    $count_queries = 0;
+    $queries_time = 0;
+  }
   
   $template->assign_block_vars(
     'debug',
