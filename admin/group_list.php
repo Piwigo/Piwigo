@@ -33,7 +33,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   // confirm group deletion ?
-  if ( $_GET['confirm'] != 1 )
+  if ( !isset( $_GET['confirm'] ) or $_GET['confirm'] != 1 )
   {
     $vtp->addSession( $sub, 'deletion' );
     $vtp->setVar( $sub, 'deletion.name', $row['name'] );
