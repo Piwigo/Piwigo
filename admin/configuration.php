@@ -162,8 +162,6 @@ switch ($page['section'])
 {
   case 'general' :
   {
-    $access_free = ($conf['access']=='free')?'checked="checked"':'';
-    $access_restricted = ($conf['access']=='restricted')?'checked="checked"':'';
     $history_yes = ($conf['log']=='true')?'checked="checked"':'';
     $history_no  = ($conf['log']=='false')?'checked="checked"':'';
     $notif_yes = ($conf['mail_notification']=='true')?'checked="checked"':'';
@@ -177,10 +175,6 @@ switch ($page['section'])
         'L_CONF_MAIL_INFO'=>$lang['conf_mail_webmaster_info'],
         'L_CONF_TN_PREFIX'=>$lang['conf_prefix'],
         'L_CONF_TN_PREFIX_INFO'=>$lang['conf_prefix_info'],
-        'L_CONF_ACCESS'=>$lang['conf_access'],
-        'L_CONF_ACCESS_INFO'=>$lang['conf_access_info'],
-        'L_CONF_ACCESS_FREE'=>$lang['free'],
-        'L_CONF_ACCESS_RESTRICTED'=>$lang['restricted'],
         'L_CONF_HISTORY'=>$lang['history'],
         'L_CONF_HISTORY_INFO'=>$lang['conf_log_info'],
         'L_CONF_NOTIFICATION'=>$lang['conf_notification'],
@@ -188,8 +182,6 @@ switch ($page['section'])
           
         'ADMIN_MAIL'=>$conf['mail_webmaster'],
         'THUMBNAIL_PREFIX'=>$conf['prefix_thumbnail'],
-        'ACCESS_FREE'=>$access_free,
-        'ACCESS_RESTRICTED'=>$access_restricted,
         'HISTORY_YES'=>$history_yes,
         'HISTORY_NO'=>$history_no,
         'NOTIFICATION_YES'=>$notif_yes,

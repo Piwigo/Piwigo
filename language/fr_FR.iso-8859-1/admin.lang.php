@@ -41,8 +41,6 @@ $lang['update'] = 'Synchroniser';
 $lang['edit'] = 'Editer';
 $lang['authorized'] = 'Autorisé';
 $lang['forbidden'] = 'Interdit';
-$lang['free'] = 'Libre';
-$lang['restricted'] = 'Restreint';
 $lang['public'] = 'Publique';
 $lang['private'] = 'Privée';
 $lang['metadata']='Métadonnées';
@@ -153,8 +151,6 @@ $lang['conf_prefix'] = 'Préfixe thumbnail';
 $lang['conf_prefix_info'] = 'Les noms des fichiers miniatures en sont préfixé. Laissez vide en cas de doute.';
 $lang['conf_prefix_thumbnail_error'] = 'Le préfixe doit être uniquement composé des caractères suivant : a-z, "-" ou "_"';
 $lang['conf_access'] = 'Type d\'acces';
-$lang['conf_access_info'] = '- libre : n\'importe qui peut accéder à vos photos, tous les visiteurs peuvent se créer un compte pour pouvoir personnaliser l\'affichage<br />
-- restreint : l\'administrateur s\'occupe de créer des comptes, seuls les personnes membres peuvent accéder au site';
 $lang['conf_log_info'] = 'historiser les visites sur le site ? Les visites seront visibles dans l\'historique de l\'administration';
 $lang['conf_notification'] = 'Notification par mail';
 $lang['conf_notification_info'] = 'Notification automatique par mail des administrateurs (seuls les administrateurs) lors de l\'ajout d\'un commentaire, ou lors de l\'ajout d\'une image.';

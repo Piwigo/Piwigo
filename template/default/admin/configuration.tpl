@@ -28,11 +28,6 @@
 	<td class="row1"><input type="text" size="10" maxlength="10" name="prefix_thumbnail" value="{general.THUMBNAIL_PREFIX}" /></td>
   </tr>
   <tr>
-  <td><strong>{general.L_CONF_ACCESS}&nbsp;:</strong><br /><span class="small">{general.L_CONF_ACCESS_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="access" value="free" {general.ACCESS_FREE} />{general.L_CONF_ACCESS_FREE}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="access" value="restricted" {general.ACCESS_RESTRICTED} />{general.L_CONF_ACCESS_RESTRICTED}</td>
-  </tr>
-  <tr>
     <td><strong>{general.L_CONF_HISTORY}&nbsp;:</strong><br /><span class="small">{general.L_CONF_HISTORY_INFO}</span></td>
 	<td class="row1"><input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{L_NO}</td>

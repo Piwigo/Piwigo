@@ -95,12 +95,8 @@ if ( sizeof( $errors ) != 0 )
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
 }
-
 //-------------------------------------------------------------- visit as guest
-if ( $conf['access'] == 'free' )
-{
-  $template->assign_block_vars('free_access',array());
-}
+$template->assign_block_vars('free_access',array());
 //----------------------------------------------------------- html code display
 $template->pparse('identification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

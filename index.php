@@ -25,16 +25,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-if ( $conf['access'] == 'restricted' )
-{
-  if ( isset( $_COOKIE['id'] ) ) $url = 'category';
-  else                           $url = 'identification';
-}
-else                             $url = 'category';
-// redirection
-$url.= '.php';
-redirect( $url );
+redirect('category.php');
 ?>

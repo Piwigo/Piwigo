@@ -158,16 +158,13 @@ function update_user( $user_id, $mail_address, $status,
 
 function check_login_authorization($guest_allowed = true)
 {
-  global $user,$lang,$conf,$page;
+  global $user,$lang;
 
-  if ( $user['is_the_guest'])
-  {
-  if ( $conf['access'] == 'restricted' || !$guest_allowed )
+  if ($user['is_the_guest'] and !$guest_allowed)
   {
     echo '<div style="text-align:center;">'.$lang['only_members'].'<br />';
     echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
     exit();
-  }
   }
 }
 
