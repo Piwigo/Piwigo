@@ -561,6 +561,8 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
       // favorites displaying
       else if ( $page['cat'] == 'fav' )
       {
+        check_user_favorites();
+        
         $page['title'] = $lang['favorites'];
 
         $page['where'] = ', '.FAVORITES_TABLE.' AS fav';

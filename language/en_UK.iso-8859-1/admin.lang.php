@@ -87,6 +87,7 @@ $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Categories
 $lang['cat_security'] = 'Public / Private';
+$lang['cat_options'] = 'Category options';
 $lang['cat_add'] = 'Add a virtual category';
 $lang['cat_virtual'] = 'Virtual category';
 $lang['cat_public'] = 'Public category';
@@ -95,7 +96,7 @@ $lang['cat_image_info'] = 'Images info';
 $lang['editcat_status'] = 'Status';
 $lang['editcat_confirm'] = 'Category informations updated successfully.';
 $lang['editcat_perm'] = 'To set permissions for this category, click';
-$lang['editcat_lock_info'] = 'The category and its sub-categories will temporary been disabled for maintenance.'
+$lang['editcat_lock_info'] = 'The category and its sub-categories will temporary been disabled for maintenance.';
 $lang['editcat_uploadable'] = 'Authorize upload';
 $lang['editcat_uploadable_info'] = 'Authorize users to upload files';
 $lang['editcat_commentable_info'] = 'Authorize users to comment elements of this category';

@@ -60,8 +60,6 @@ if (isset($page['cat']))
       }
     }
 
-    $associate = false;
-    
     $query = 'SELECT id,file FROM '.IMAGES_TABLE;
     $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
@@ -111,18 +109,21 @@ if (isset($page['cat']))
         pwg_query($query);
       }
       // add link to another category
-      if (isset($_POST['check-'.$row['id']]) and count($errors) == 0)
+      if (isset($_POST['check-'.$row['id']])
+          and isset($_POST['associate'])
+          and $_POST['associate'] != '')
       {
         $query = 'INSERT INTO '.IMAGE_CATEGORY_TABLE;
         $query.= ' (image_id,category_id) VALUES';
         $query.= ' ('.$row['id'].','.$_POST['associate'].')';
         $query.= ';';
         pwg_query($query);
-        $associate = true;
       }
     }
-    if (isset($_POST['associate'])) update_category($_POST['associate']);
-    if ($associate) synchronize_all_users();
+    if (isset($_POST['associate']) and $_POST['associate'] != '')
+    {
+      update_category(array($_POST['associate']));
+    }
 // +-----------------------------------------------------------------------+
 // |                        update general options                         |
 // +-----------------------------------------------------------------------+
@@ -336,27 +337,14 @@ SELECT *
   }
   
   // Virtualy associate a picture to a category
-  //
-  // We only show a List Of Values if the number of categories is less than
-  // $conf['max_LOV_categories']
-  $query = 'SELECT COUNT(id) AS nb_total_categories';
-  $query.= ' FROM '.CATEGORIES_TABLE.';';
-  $row = mysql_fetch_array(pwg_query($query));
-  if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
-  {
-    /*$vtp->addSession($sub, 'associate_LOV');
-    $page['plain_structure'] = get_plain_structure(true);
-    $structure = create_structure('', array());
-    display_categories($structure, '&nbsp;');
-    $vtp->closeSession($sub, 'associate_LOV');*/
-  }
-  // else, we only display a small text field, we suppose the administrator
-  // knows the id of its category
-  else
-  {
-    //$vtp->addSession($sub, 'associate_text');
-    //$vtp->closeSession($sub, 'associate_text');
-  }
+  $query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+;';
+  display_select_cat_wrapper($query,
+                             array(),
+                             'associate_option',
+                             true);
 }
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'infos_images');

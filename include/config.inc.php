@@ -190,7 +190,7 @@ $conf['newcat_default_status'] = 'public';
 // to the sub level
 $conf['level_separator'] = ' / ';
 
-// paginate_pages_around : on paginate navigation bar, on many pages display
-// before and after the current page ?
+// paginate_pages_around : on paginate navigation bar, how many pages
+// display before and after the current page ?
 $conf['paginate_pages_around'] = 2;
 ?>

@@ -170,8 +170,7 @@ DROP TABLE IF EXISTS phpwebgallery_sessions;
 CREATE TABLE phpwebgallery_sessions (
   id varchar(255) binary NOT NULL default '',
   user_id smallint(5) unsigned NOT NULL default '0',
-  expiration int(10) unsigned NOT NULL default '0',
-  ip varchar(255) NOT NULL default '',
+  expiration datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 

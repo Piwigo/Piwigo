@@ -158,11 +158,12 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $navbar.= $lang['next_page'];
     }
+    
+    $navbar.= ' | ';
     // link to last page ?
     if ($cur_page != $maximum)
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
-      $navbar.= ' | ';
       $navbar.= '<a href="';
       $navbar.= add_session_id($url.'&amp;start='.$temp_start);
       $navbar.= '" class="'.$link_class.'">'.$lang['last_page'];

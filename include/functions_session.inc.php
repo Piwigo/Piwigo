@@ -86,16 +86,16 @@ SELECT id
     }
   }
   // 3. inserting session in database
-  $expiration = $session_length + time();
   $query = '
 INSERT INTO '.SESSIONS_TABLE.'
-  (id,user_id,expiration,ip)
+  (id,user_id,expiration)
   VALUES
-  (\''.$generated_id.'\','.$userid.','.$expiration.',
-   \''.$_SERVER['REMOTE_ADDR'].'\')
+  (\''.$generated_id.'\','.$userid.',
+   ADDDATE(NOW(), INTERVAL '.$session_length.' SECOND))
 ;';
   pwg_query($query);
 
+  $expiration = $session_length + time();
   setcookie('id', $generated_id, $expiration, cookie_path());
                 
   return $generated_id;

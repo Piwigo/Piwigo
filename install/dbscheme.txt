@@ -78,8 +78,7 @@ column:element_id                table:rate           type:mediumint            
 column:rate                      table:rate           type:tinyint                  nullable:N length:2   signed:N
 column:id                        table:sessions       type:varchar                  nullable:N length:255 binary:Y
 column:user_id                   table:sessions       type:smallint                 nullable:N length:5   signed:N
-column:expiration                table:sessions       type:int                      nullable:N length:10  signed:N
-column:ip                        table:sessions       type:varchar                  nullable:N length:255 binary:N
+column:expiration                table:sessions       type:datetime                 nullable:N
 column:id                        table:sites          type:tinyint                  nullable:N length:4   signed:Y
 column:galleries_url             table:sites          type:varchar                  nullable:N length:255 binary:N
 column:user_id                   table:user_access    type:smallint                 nullable:N length:5   signed:N
@@ -119,7 +118,6 @@ PK:favorites_pk      table:favorites      column:image_id
 PK:group_access_pk   table:group_access   column:group_id
 PK:group_access_pk   table:group_access   column:cat_id
 PK:groups_pk         table:groups         column:id
-PK:history_pk        table:history        column:date
 PK:image_category_pk table:image_category column:image_id
 PK:image_category_pk table:image_category column:category_id
 PK:images_pk         table:images         column:id
@@ -135,6 +133,7 @@ PK:users_pk          table:users          column:id
 PK:waiting_pk        table:waiting        column:id
 
 index:categories_i2     table:categories     column:id_uppercat
+index:history_i1        table:history        column:date
 index:image_category_i1 table:image_category column:image_id
 index:image_category_i2 table:image_category column:category_id
 index:images_i2         table:images         column:date_available

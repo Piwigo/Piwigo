@@ -391,55 +391,6 @@ function delete_group( $group_id )
   pwg_query( $query );
 }
 
-// The check_favorites function deletes all the favorites of a user if he is
-// not allowed to see them (the category or an upper category is restricted
-// or invisible)
-function check_favorites( $user_id )
-{
-  $query = 'SELECT status,forbidden_categories';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= ' WHERE id = '.$user_id;
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
-  $status = $row['status'];
-  // retrieving all the restricted categories for this user
-  if ( isset( $row['forbidden_categories'] ) )
-    $restricted_cat = explode( ',', $row['forbidden_categories'] );
-  else
-    $restricted_cat = array();
-  // retrieving all the favorites for this user and comparing their
-  // categories to the restricted categories
-  $query = 'SELECT image_id FROM '.FAVORITES_TABLE;
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  $result = pwg_query ( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    // for each picture, we have to check all the categories it belongs
-    // to. Indeed if a picture belongs to category_1 and category_2 and that
-    // category_2 is not restricted to the user, he can have the picture as
-    // favorite.
-    $query = 'SELECT DISTINCT(category_id) as category_id';
-    $query.= ' FROM '.PREFIX_TABLE.'image_category';
-    $query.= ' WHERE image_id = '.$row['image_id'];
-    $query.= ';';
-    $picture_result = pwg_query( $query );
-    $picture_cat = array();
-    while ( $picture_row = mysql_fetch_array( $picture_result ) )
-    {
-      array_push( $picture_cat, $picture_row['category_id'] );
-    }
-    if ( count( array_diff( $picture_cat, $restricted_cat ) ) == 0 )
-    {
-      $query = 'DELETE FROM '.FAVORITES_TABLE;
-      $query.= ' WHERE image_id = '.$row['image_id'];
-      $query.= ' AND user_id = '.$user_id;
-      $query.= ';';
-      pwg_query( $query );
-    }
-  }
-}
-
 /**
  * updates calculated informations about a set of categories : date_last and
  * nb_images. It also verifies that the representative picture is really
@@ -479,7 +430,7 @@ SELECT id
     else
     {
       $query.= '
-  WHERE id IN ('.implode(',', $ids).')';
+  WHERE id IN ('.wordwrap(implode(', ', $ids), 80, "\n").')';
     }
   }
   $query.= '
@@ -502,7 +453,7 @@ SELECT category_id,
        COUNT(image_id) AS nb_images,
        MAX(date_available) AS date_last
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
-  WHERE category_id IN ('.implode(',', $cat_ids).')
+  WHERE category_id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
   GROUP BY category_id
 ;';
   $result = pwg_query($query);
@@ -542,7 +493,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.'
     ON id = category_id AND representative_picture_id = image_id
   WHERE representative_picture_id IS NOT NULL
-    AND id IN ('.implode(',', $cat_ids).')
+    AND id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
     AND category_id IS NULL
 ;';
     $result = pwg_query($query);

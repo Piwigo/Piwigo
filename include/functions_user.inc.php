@@ -237,4 +237,43 @@ function getuserdata($user)
   $result = pwg_query($sql);
   return ( $row = mysql_fetch_array($result) ) ? $row : false;
 }
+
+/*
+ * deletes favorites of the current user if he's not allowed to see them
+ *
+ * @return void
+ */
+function check_user_favorites()
+{
+  global $user;
+
+  if ($user['forbidden_categories'] == '')
+  {
+    return;
+  }
+  
+  $query = '
+SELECT f.image_id
+  FROM '.FAVORITES_TABLE.' AS f INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
+    ON f.image_id = ic.image_id
+  WHERE f.user_id = '.$user['id'].'
+    AND ic.category_id IN ('.$user['forbidden_categories'].')
+;';
+  $result = pwg_query($query);
+  $elements = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($elements, $row['image_id']);
+  }
+
+  if (count($elements) > 0)
+  {
+    $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE image_id IN ('.implode(',', $elements).')
+    AND user_id = '.$user['id'].'
+;';
+    pwg_query($query);
+  }
+}
 ?>

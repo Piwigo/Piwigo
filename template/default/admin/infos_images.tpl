@@ -78,15 +78,13 @@
     <!-- END picture -->
     <tr>
       <td colspan="7">
-        <img src="./template/default/admin/images/arrow_select.gif" alt="&lt;" />
+        <img src="./template/default/admin/images/arrow_select.gif" alt="&uarr;" />
         {L_INFOS_ASSOCIATE}
-        <!-- BEGIN associate_LOV -->
-        <select name="associate">
-          <!-- BEGIN associate_cat -->
-          <option value="{#value}">{#content}</option>
-          <!-- END associate_cat -->
+        <select style="width:400px" name="associate" size="1">
+          <!-- BEGIN associate_option -->
+          <option {associate_option.SELECTED} value="{associate_option.VALUE}">{associate_option.OPTION}</option>
+          <!-- END category_option -->
         </select>
-        <!-- END associate_LOV -->
       </td>
     </tr>
     <tr>

@@ -327,9 +327,18 @@ if (isset($_GET['parent_id']))
   $form_action.= '&amp;parent_id='.$_GET['parent_id'];
 }
 
+if (count($categories) > 0)
+{
+  $next_rank = max(array_keys($categories)) + 1;
+}
+else
+{
+  $next_rank = 1;
+}
+
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
-  'NEXT_RANK'=>max(array_keys($categories))+1,
+  'NEXT_RANK'=>$next_rank,
   'F_ACTION'=>$form_action,
   
   'L_ADD_VIRTUAL'=>$lang['cat_add'],
@@ -367,21 +376,26 @@ if (count($infos) != 0)
 // |                          Categories display                           |
 // +-----------------------------------------------------------------------+
 $ranks = array();
-foreach ($categories as $category)
-{
-  $ranks[$category['id']] = $category['rank'];
-}
 
-$query = '
+if (count($categories) > 0)
+{
+  foreach ($categories as $category)
+  {
+    $ranks[$category['id']] = $category['rank'];
+  }
+
+  $query = '
 SELECT id_uppercat, COUNT(*) AS nb_subcats
   FROM '. CATEGORIES_TABLE.'
   WHERE id_uppercat IN ('.implode(',', array_keys($ranks)).')
   GROUP BY id_uppercat
 ;';
-$result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
-{
-  $categories[$ranks[$row['id_uppercat']]]['nb_subcats'] = $row['nb_subcats'];
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $categories[$ranks[$row['id_uppercat']]]['nb_subcats']
+      = $row['nb_subcats'];
+  }
 }
 
 foreach ($categories as $category)

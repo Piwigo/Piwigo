@@ -59,7 +59,7 @@ if (isset($session_id)
 {
   $page['session_id'] = $session_id;
   $query = '
-SELECT user_id,expiration,ip
+SELECT user_id,expiration,NOW() AS now
   FROM '.SESSIONS_TABLE.'
   WHERE id = \''.$page['session_id'].'\'
 ;';
@@ -67,22 +67,15 @@ SELECT user_id,expiration,ip
   if (mysql_num_rows($result) > 0)
   {
     $row = mysql_fetch_array($result);
-    if (!$user['has_cookie'])
+    if (strnatcmp($row['expiration'], $row['now']) < 0)
     {
-      if ($row['expiration'] < time())
-      {
-        // deletion of the session from the database,
-        // because it is out-of-date
-        $delete_query = 'DELETE FROM '.SESSIONS_TABLE;
-        $delete_query.= " WHERE id = '".$page['session_id']."'";
-        $delete_query.= ';';
-        pwg_query($delete_query);
-      }
-      else if ($_SERVER['REMOTE_ADDR'] == $row['ip'])
-      {
-        $query_user .= ' WHERE id = '.$row['user_id'];
-        $query_done = true;
-      }
+      // deletion of the session from the database, because it is
+      // out-of-date
+      $delete_query = '
+DELETE FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$page['session_id'].'\'
+;';
+      pwg_query($delete_query);
     }
     else
     {
