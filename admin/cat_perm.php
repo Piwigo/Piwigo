@@ -83,6 +83,8 @@ if ( isset( $_POST['submit'] ) )
     }
     check_favorites( $row['id'] );
   }
+  // resynchronize all users
+  synchronize_all_users();
 }
 //---------------------------------------------------------------------- groups
 $query = 'SELECT id,name';
