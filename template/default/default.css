@@ -1,11 +1,14 @@
 a {
   text-decoration:none;
+  color:#E0E0E0;
 }
 a:hover {
   text-decoration:underline;
+  color:#E0E0E0;
 }
+
 a.back,body {
-  color:lightgray;
+  color:#E0E0E0;
 }
 body {
   font-family:arial, sans-serif;
@@ -18,12 +21,12 @@ table, input {
   font-size:12px;
 }
 .imgLink {
-  border:1px solid lightgray;
+  border:1px solid #E0E0E0;
 }
 .imgLink:hover {
   text-decoration:none;
 }
-.titrePage,.titreMenu,.menu,.info,a,.commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+.titrePage,.titreMenu,.menu,.info,.commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
   color:lightgray;
 }
 .titreMenu, .menu, .info {
@@ -102,7 +105,7 @@ table.thumbnail {
 }
 td {
   font-family:sans-serif;
-  padding:0;
+  padding:0px;
 }
 .errors {
   text-align:left;
@@ -115,11 +118,12 @@ td {
 }
 div.information {
   text-align:center;
-  border:2px solid lightgray;
+  border:2px solid #E0E0E0;
   margin:10px;
   padding:5px;
 }
 .commentsAuthor, .commentsTitle, .commentsInfos, .commentsContent, .commentsNavigationBar {
+	
   font-family:arial, sans-Serif;
   font-size:12px;
 }
@@ -145,7 +149,7 @@ div.information {
   margin:10px;
 }
 .tableComment,.cellAuthor,.cellInfo {
-  border-color:lightgray;
+  border-color:#E0E0E0;
   border-style:solid;
 }
 .tableComment {
@@ -164,3 +168,43 @@ div.information {
   border-bottom-width:1px;
 }
 
+      .miniature {
+        border:solid 1px black;
+      }
+	        .titretable1 {
+        color:black;
+        background-color:#D3DCE3;
+        text-align:center;
+        border:2px solid #006699;
+        font-weight:bold;
+        border-bottom:0px;
+      }
+      .grostitre {
+        text-align:center;
+        margin:10px 50px 10px 50px;
+        font-size:20px;
+        width:300px;
+      }
+      .plan {
+        margin:10px 10px 10px 2px;
+        white-space:nowrap;
+      }
+	        .cat_plan {
+        font-weight:bold;
+      }
+      .retrait {
+        margin:10px;
+        margin-left:30px;
+        margin-top:2px;
+      }
+	        .erreur {
+        color:red;
+        text-align:center;
+      }
+      .errors_title {
+        margin:5px;
+        font-weight:bold;
+        font-size:120%;
+        text-align:center;
+        color:red;
+      }

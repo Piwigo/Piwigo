@@ -24,7 +24,7 @@
 <form action="{#action}" method="post">
 <!--/VTP_start_form-->
 <!--VTP_picture-->
-<div style="border:2px solid #D3DCE3;margin:2px;">
+<div style="border:2px solid #D3DCE3;margin:3px;">
   <table style="width:100%;">
     <tr>
      <td valign="top" width="1px">
