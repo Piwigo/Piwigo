@@ -320,6 +320,7 @@ elseif (!isset($page['calendar_day']))
   {
     $query = '
 SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
+       , DAYOFWEEK(\''.$calendar_day.'\') AS dow
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].' = \''.$calendar_day.'\'
@@ -331,8 +332,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
     $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
     list($year,$month,$day) = explode('-', $calendar_day);
-    $unixdate = mktime(0,0,0,$month,$day,$year);
-    $name = $lang['day'][date("w", $unixdate)];
+    $name = $lang['day'][$row['dow']-1];
     $name.= ' '.$day;
     $name.= ' ('.$nb_pics.')';
       
