@@ -283,6 +283,8 @@ function display_cat_manager( $id_uppercat, $indent,
   $query.= ';';
   $result = mysql_query( $query );
   $row    = mysql_fetch_array( $result );
+  if ( !isset( $row['min'] ) ) $row['min'] = 0;
+  if ( !isset( $row['max'] ) ) $row['max'] = 0;
   $min_rank = $row['min'];
   $max_rank = $row['max'];
 		
@@ -308,6 +310,7 @@ function display_cat_manager( $id_uppercat, $indent,
   while ( $row = mysql_fetch_array( $result ) )
   {
     $subcat_visible = true;
+    if ( !isset( $row['dir'] ) ) $row['dir'] = '';
 
     $vtp->addSession( $sub, 'cat' );
     // is the category expanded or not ?
