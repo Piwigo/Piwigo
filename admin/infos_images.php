@@ -31,7 +31,7 @@ if ( isset( $page['cat'] ) )
 //--------------------------------------------------- update individual options
   if ( isset( $_POST['submit'] ) )
   {
-    if ( isset( $_POST['associate'] ) )
+    if ( isset( $_POST['associate'] ) and $_POST['associate'] != '' )
     {
       // does the uppercat id exists in the database ?
       if ( !is_numeric( $_POST['associate'] ) )
