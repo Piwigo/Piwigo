@@ -37,10 +37,10 @@
 <div class="menu">
 <ul class="menu">
   <li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
-  <li><a class="adminMenu" href="{U_UPLOAD}">{L_UPLOAD}</a></li>
-  <li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
-  <li><a class="adminMenu" href="{U_VISIBLE}">{L_VISIBLE}</a></li>
-  <li><a class="adminMenu" href="{U_STATUS}">{L_STATUS}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_UPLOAD}">{L_CAT_UPLOAD}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_COMMENTS}">{L_CAT_COMMENTS}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_VISIBLE}">{L_CAT_VISIBLE}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_STATUS}">{L_CAT_STATUS}</a></li>
 </ul>
 </div>
 <div class="titreMenu">{L_IMAGES}</div>
