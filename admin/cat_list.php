@@ -30,7 +30,7 @@ $query.= ' FROM '.PREFIX_TABLE.'categories';
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
 if ( $row['nb_total_categories'] < $conf['max_LOV_categories']
-     or $_GET['expand'] == 'all' )
+     or ( isset( $_GET['expand'] ) and $_GET['expand'] == 'all' ) )
 {
   $page['tab_expand'] = array();
   $page['expand'] = 'all';

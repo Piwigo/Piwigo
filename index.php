@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
-define( PREFIX_INCLUDE, '' );
+define( 'PREFIX_INCLUDE', '' );
 include_once( './include/functions.inc.php' );
 database_connection();
 // retrieving configuration informations
