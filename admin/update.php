@@ -320,7 +320,7 @@ function insert_local_image( $dir, $category_id )
     }
     else
     {
-      $output.= '<span style="color:red;">"'.$file.'" : ';
+      $output.= '<span style="color:red;">"'.$unregistered_picture.'" : ';
       $output.= $lang['update_wrong_dirname'].'</span><br />';
     }
   }
