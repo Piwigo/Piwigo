@@ -583,21 +583,26 @@ $template->assign_block_vars('info_line', array(
 	  'VALUE'=>$filesize.' KB'
 	  ));
 // keywords
-if ( !empty($picture['current']['keywords']))
+if (!empty($picture['current']['keywords']))
 {
-  $keywords = explode( ',', $picture['current']['keywords'] );
+  $keywords = explode(',', $picture['current']['keywords']);
   $content = '';
-  $url = PHPWG_ROOT_PATH.'category.php?cat=search';
-  $url.= '&amp;mode=OR&amp;search=';
-  foreach ( $keywords as $i => $keyword ) {
-    $local_url = add_session_id( $url.$keyword );
-    if ( $i > 0 ) $content.= ',';
+  $url = PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:';
+  foreach ($keywords as $i => $keyword)
+  {
+    $local_url = add_session_id($url.$keyword);
+    if ($i > 0)
+    {
+      $content.= ',';
+    }
     $content.= '<a href="'.$local_url.'">'.$keyword.'</a>';
   }
-  $template->assign_block_vars('info_line', array(
-    'INFO'=>$lang['keywords'],
-    'VALUE'=>$content
-    ));
+  $template->assign_block_vars(
+    'info_line',
+    array(
+      'INFO'=>$lang['keywords'],
+      'VALUE'=>$content
+      ));
 }
 // number of visits
 $template->assign_block_vars(
