@@ -49,7 +49,7 @@ SELECT id
 }
 
 $login = !empty($_POST['login'])?$_POST['login']:'';
-$email = !empty($_POST['login'])?$_POST['login']:'';
+$email = !empty($_POST['mail_address'])?$_POST['mail_address']:'';
 
 //----------------------------------------------------- template initialization
 //
@@ -70,7 +70,7 @@ $template->assign_vars(array(
   
   'F_ACTION' => add_session_id('register.php'),
   'F_LOGIN' => $login,
-  'F_MAIL' => $email
+  'F_EMAIL' => $email
   ));
 
 //-------------------------------------------------------------- errors display
