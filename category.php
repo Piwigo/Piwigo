@@ -102,15 +102,15 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('category'=>'category.tpl') );
 //-------------------------------------------------------------- category title
-if (!isset($page['cat']))
-{
-  $template_title = $lang['no_category'];
-}
-else
+if (isset($page['cat']) and is_numeric($page['cat']))
 {
   $template_title = get_cat_display_name($page['cat_name'],
                                          'category.php?cat=',
                                          false);
+}
+else
+{
+  $template_title = $page['title'];
 }
 
 if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
