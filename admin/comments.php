@@ -90,7 +90,26 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
       $vtp->setVar( $sub, 'comment.author', $author );
       $displayed_date = format_date( $subrow['date'], 'unix', true );
       $vtp->setVar( $sub, 'comment.date', $displayed_date );
-      $vtp->setVar( $sub, 'comment.content', nl2br( $subrow['content'] ) );
+
+      $content = nl2br( $subrow['content'] );
+      
+      // replace _word_ by an underlined word
+      $pattern = '/_([^\s]*)_/';
+      $replacement = '<span style="text-decoration:underline;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+      
+      // replace *word* by a bolded word
+      $pattern = '/\*([^\s]*)\*/';
+      $replacement = '<span style="font-weight:bold;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+
+      // replace /word/ by an italic word
+      $pattern = '/\/([^\s]*)\//';
+      $replacement = '<span style="font-style:italic;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+
+      $vtp->setVar( $sub, 'comment.content', $content );
+
       $vtp->addSession( $sub, 'delete' );
       $url = './admin.php?page=comments';
       if ( isset( $_GET['last_days'] ) ) $url.= '&amp;last_days='.MAX_DAYS;

@@ -683,7 +683,24 @@ if ( $conf['show_comments'] )
     $vtp->setVar( $handle, 'comment.author', $author );
     $vtp->setVar( $handle, 'comment.date',
                   format_date( $row['date'], 'unix', true ) );
-    $vtp->setVar( $handle, 'comment.content', nl2br( $row['content'] ) );
+    $content = nl2br( $row['content'] );
+
+    // replace _word_ by an underlined word
+    $pattern = '/_([^\s]*)_/';
+    $replacement = '<span style="text-decoration:underline;">\1</span>';
+    $content = preg_replace( $pattern, $replacement, $content );
+
+    // replace *word* by a bolded word
+    $pattern = '/\*([^\s]*)\*/';
+    $replacement = '<span style="font-weight:bold;">\1</span>';
+    $content = preg_replace( $pattern, $replacement, $content );
+
+    // replace /word/ by an italic word
+    $pattern = '/\/([^\s]*)\//';
+    $replacement = '<span style="font-style:italic;">\1</span>';
+    $content = preg_replace( $pattern, $replacement, $content );
+    
+    $vtp->setVar( $handle, 'comment.content', $content );
     if ( $user['status'] == 'admin' )
     {
       $vtp->addSession( $handle, 'delete' );

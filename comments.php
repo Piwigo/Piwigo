@@ -108,7 +108,25 @@ function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
       $vtp->setVar( $handle, 'comment.author', $author );
       $displayed_date = format_date( $subrow['date'], 'unix', true );
       $vtp->setVar( $handle, 'comment.date', $displayed_date );
-      $vtp->setVar( $handle, 'comment.content', nl2br( $subrow['content'] ) );
+
+      $content = nl2br( $subrow['content'] );
+      
+      // replace _word_ by an underlined word
+      $pattern = '/_([^\s]*)_/';
+      $replacement = '<span style="text-decoration:underline;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+      
+      // replace *word* by a bolded word
+      $pattern = '/\*([^\s]*)\*/';
+      $replacement = '<span style="font-weight:bold;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+
+      // replace /word/ by an italic word
+      $pattern = '/\/([^\s]*)\//';
+      $replacement = '<span style="font-style:italic;">\1</span>';
+      $content = preg_replace( $pattern, $replacement, $content );
+      
+      $vtp->setVar( $handle, 'comment.content', $content );
       $vtp->closeSession( $handle, 'comment' );
     }
     $vtp->closeSession( $handle, 'picture' );
