@@ -25,7 +25,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
+//--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
@@ -42,6 +42,7 @@ if ( isset( $_POST['login'] ) )
   {
     $session_id = session_create( $_POST['username'] );
     $url = 'category.php?id='.$session_id;
+    redirect( $url );
     header( 'Request-URI: '.$url );
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );
@@ -61,22 +62,22 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );
 
-$template->assign_vars(array(
-  'MAIL_ADMIN' => $conf['mail_webmaster'],
-
-  'L_TITLE' => $lang['ident_title'],
-  'L_USERNAME' => $lang['login'],
-  'L_PASSWORD' => $lang['password'],
-  'L_LOGIN' => $lang['submit'],
-  'L_GUEST' => $lang['ident_guest_visit'],
-  'L_REGISTER' => $lang['ident_register'],
-  'L_FORGET' => $lang['ident_forgotten_password'], 
-  
-  'T_STYLE' => $user['template'],
-  
-  'F_LOGIN_ACTION' => add_session_id('identification.php')
-  ));
-
+$template->assign_vars(
+  array(
+    'MAIL_ADMIN' => $conf['mail_webmaster'],
+    
+    'L_TITLE' => $lang['ident_title'],
+    'L_USERNAME' => $lang['login'],
+    'L_PASSWORD' => $lang['password'],
+    'L_LOGIN' => $lang['submit'],
+    'L_GUEST' => $lang['ident_guest_visit'],
+    'L_REGISTER' => $lang['ident_register'],
+    'L_FORGET' => $lang['ident_forgotten_password'], 
+    
+    'T_STYLE' => $user['template'],
+    
+    'F_LOGIN_ACTION' => add_session_id('identification.php')
+    ));
 //-------------------------------------------------------------- errors display
 if ( sizeof( $errors ) != 0 )
 {

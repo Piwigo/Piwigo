@@ -69,40 +69,45 @@ while ( $row['id'] != $_GET['image_id'] )
   $row = mysql_fetch_array( $result );
 }
 
-//---------------------------------------- prev, current & next picture management
-$picture=array();
-$picture['prev']['name']='';
-$picture['next']['name']='';
-$picture['prev']['thumbnail']='';
-$picture['next']['thumbnail']='';
-$picture['prev']['url']='';
-$picture['next']['url']='';
+//------------------------------------- prev, current & next picture management
+$picture = array();
+$picture['prev']['name'] = '';
+$picture['next']['name'] = '';
+$picture['prev']['thumbnail'] = '';
+$picture['next']['thumbnail'] = '';
+$picture['prev']['url'] = '';
+$picture['next']['url'] = '';
 
 $next = $page['num'] + 1;
 $prev = $page['num'] - 1;
 
-if ( $page['num'] == $page['cat_nb_images']-1)
+if ( $page['num'] == $page['cat_nb_images'] - 1 )
 {
   $next = 0;
 }
 
-$query = 'SELECT * FROM '.IMAGES_TABLE;
+$query = 'SELECT *';
+$query.= ' FROM '.IMAGES_TABLE;
 $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
 $query.= ' ON id=ic.image_id';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 
-if ($prev <0)
+if ( $prev < 0 )
+{
   $query.= ' LIMIT 0,2';
+}
 else
+{
   $query.= ' LIMIT '.$prev.',3';
-  
+}
 $query.= ';';
 
 $result = mysql_query( $query );
-$nb_row = mysql_num_rows($result);
+$nb_row = mysql_num_rows( $result );
 $index = array('prev','current','next');
-for ($i=0; $i<$nb_row;$i++)
+
+for ( $i = 0; $i < $nb_row; $i++ )
 {
   $j=($prev<0)?$index[$i+1]:$index[$i];
   $row = mysql_fetch_array($result);
@@ -115,24 +120,28 @@ for ($i=0; $i<$nb_row;$i++)
   }
   $cat_directory = $array_cat_directories[$row['storage_category_id']];
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
+
   $picture[$j]['src'] = $cat_directory.$row['file'];
+
   $picture[$j]['thumbnail'] = $cat_directory.'thumbnail/';
-  $picture[$j]['thumbnail'].= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
+  $picture[$j]['thumbnail'].= $conf['prefix_thumbnail'].$file;
+  $picture[$j]['thumbnail'].= '.'.$row['tn_ext'];
   
-  if (!empty($row['name']))
+  if ( !empty( $row['name'] ) )
   {
     $picture[$j]['name'] = $row['name'];
   }
   else
   {
-    $picture[$j]['name'] = str_replace( "_", " ",$file);
+    $picture[$j]['name'] = str_replace( '_', ' ', $file );
   }
 
   $picture[$j]['url'] = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
   $picture[$j]['url'].= '&amp;cat='.$page['cat'];
   if ( $page['cat'] == 'search' )
   {
-    $picture[$j]['url'].= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
+    $picture[$j]['url'].= '&amp;search='.$_GET['search'];
+    $picture[$j]['url'].= '&amp;mode='.$_GET['mode'];
   }
 }
 
@@ -143,122 +152,140 @@ if ( $page['cat'] == 'search' )
   $url_home.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
 }
 
-$url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify&amp;cat_id='.$page['cat'];
+$url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
+$url_admin.= '&amp;cat_id='.$page['cat'];
 $url_admin.= '&amp;image_id='.$_GET['image_id'];
   
 //--------------------------------------------------------- favorite management
 if ( isset( $_GET['add_fav'] ) )
 {
-  $query = 'DELETE FROM '.FAVORITES_TABLE.' WHERE user_id = '.$user['id'];
-  $query.= ' AND image_id = '.$picture['current']['id'].';';
+  $query = 'DELETE FROM '.FAVORITES_TABLE;
+  $query.= ' WHERE user_id = '.$user['id'];
+  $query.= ' AND image_id = '.$picture['current']['id'];
+  $query.= ';';
   $result = mysql_query( $query );
   
   if ( $_GET['add_fav'] == 1 )
   {
-    $query = 'INSERT INTO '.FAVORITES_TABLE.' (image_id,user_id) VALUES';
-    $query.= ' ('.$picture['current']['id'].','.$user['id'].');';
-	$result = mysql_query( $query );
+    $query = 'INSERT INTO '.FAVORITES_TABLE;
+    $query.= ' (image_id,user_id) VALUES';
+    $query.= ' ('.$picture['current']['id'].','.$user['id'].')';
+    $query.= ';';
+    $result = mysql_query( $query );
   }
-  if ( !$_GET['add_fav'] && $page['cat']=='fav')
+  if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
   {
-    if ( $prev < 0 && $nb_row==1 )
+    if ( $prev < 0 and $nb_row == 1 )
     {
-      // there is no favorite picture anymore
-      // we redirect the user to the category page
+      // there is no favorite picture anymore we redirect the user to the
+      // category page
       $url = add_session_id( $url_home );
       header( 'Request-URI: '.$url );
       header( 'Content-Location: '.$url );  
       header( 'Location: '.$url );
       exit();
     }
-	else if ( $prev < 0 )
-	{
-	  $url = add_session_id( str_replace('&amp;','&',$picture['next']['url']), true);
-	}
-	else
-	{
-	  $url = add_session_id( str_replace('&amp;','&',$picture['prev']['url']), true);
-	}
-	header( 'Request-URI: '.$url );
-	header( 'Content-Location: '.$url );  
-	header( 'Location: '.$url );
-	exit();
+    else if ( $prev < 0 )
+    {
+      $url = str_replace( '&amp;', '&', $picture['next']['url'] );
+      $url = add_session_id( $url, true);
+    }
+    else
+    {
+      $url = str_replace('&amp;', '&', $picture['prev']['url'] );
+      $url = add_session_id( $url, true);
+    }
+    header( 'Request-URI: '.$url );
+    header( 'Content-Location: '.$url );  
+    header( 'Location: '.$url );
+    exit();
   }
 }
 
-//---------------------------------------------------------  comment registeration
-  if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
+//------------------------------------------------------  comment registeration
+if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
+{
+  $register_comment = true;
+  $author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
+  // if a guest try to use the name of an already existing user, he must be
+  // rejected
+  if ( $author != $user['username'] )
   {
-    $register_comment = true;
-	$author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
-    // if a guest try to use the name of an already existing user, he must
-    // be rejected
-    if ( $author != $user['username'] )
+    $query = 'SELECT COUNT(*) AS user_exists';
+    $query.= ' FROM '.USERS_TABLE;
+    $query.= " WHERE username = '".$author."'";
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    if ( $row['user_exists'] == 1 )
     {
-      $query = 'SELECT COUNT(*) AS user_exists';
-      $query.= ' FROM '.USERS_TABLE;
-      $query.= " WHERE username = '".$author."'";
-      $query.= ';';
-      $row = mysql_fetch_array( mysql_query( $query ) );
-      if ( $row['user_exists'] == 1 )
-      {
-	    $template->assign_block_vars('information', array('INFORMATION'=>$lang['comment_user_exists']));
-        $register_comment = false;
-      }
+      $template->assign_block_vars(
+        'information',
+        array('INFORMATION'=>$lang['comment_user_exists']));
+      $register_comment = false;
     }
-
-    if ( $register_comment )
+  }
+  
+  if ( $register_comment )
+  {
+    // anti-flood system
+    $reference_date = time() - $conf['anti-flood_time'];
+    $query = 'SELECT id FROM '.COMMENTS_TABLE;
+    $query.= ' WHERE date > '.$reference_date;
+    $query.= " AND author = '".$author."'";
+    $query.= ';';
+    if ( mysql_num_rows( mysql_query( $query ) ) == 0
+         or $conf['anti-flood_time'] == 0 )
     {
-      // anti-flood system
-      $reference_date = time() - $conf['anti-flood_time'];
-      $query = 'SELECT id FROM '.COMMENTS_TABLE;
-      $query.= ' WHERE date > '.$reference_date;
-      $query.= " AND author = '".$author."'";
-      $query.= ';';
-      if ( mysql_num_rows( mysql_query( $query ) ) == 0
-           || $conf['anti-flood_time'] == 0 )
-      {
-        $query = 'INSERT INTO '.COMMENTS_TABLE;
-        $query.= ' (author,date,image_id,content,validated) VALUES (';
-		$query.= "'".$author."'";
-        $query.= ','.time().','.$_GET['image_id'];
-        $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
-        if ( !$conf['comments_validation'] || $user['status'] == 'admin' )
-          $query.= ",'true'";
-        else
-          $query.= ",'false'";
-        $query.= ');';
-        mysql_query( $query );
-        // information message
-        $message = $lang['comment_added'];
-        if ( $conf['comments_validation'] and $user['status'] != 'admin' )
-        {
-          $message.= '<br />'.$lang['comment_to_validate'];
-        }
-        $template->assign_block_vars('information', array('INFORMATION'=>$message));
-        // notification to the administrators
-        if ( $conf['mail_notification'] )
-        {
-          $cat_name = get_cat_display_name( $page['cat_name'], ' > ', '' );
-          $cat_name = strip_tags( $cat_name );
-          notify( 'comment', $cat_name.' > '.$picture['current']['name']);
-        }
+      $query = 'INSERT INTO '.COMMENTS_TABLE;
+      $query.= ' (author,date,image_id,content,validated) VALUES (';
+      $query.= "'".$author."'";
+      $query.= ','.time().','.$_GET['image_id'];
+      $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
+      if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
+      {        
+        $query.= ",'true'";
       }
       else
       {
-        // information message
-        $template->assign_block_vars('information', array('INFORMATION'=>$lang['comment_anti-flood']));
+        $query.= ",'false'";
+      }
+      $query.= ');';
+      mysql_query( $query );
+      // information message
+      $message = $lang['comment_added'];
+      if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+      {
+        $message.= '<br />'.$lang['comment_to_validate'];
+      }
+      $template->assign_block_vars('information',
+                                   array('INFORMATION'=>$message));
+      // notification to the administrators
+      if ( $conf['mail_notification'] )
+      {
+        $cat_name = get_cat_display_name( $page['cat_name'], ' > ', '' );
+        $cat_name = strip_tags( $cat_name );
+        notify( 'comment', $cat_name.' > '.$picture['current']['name']);
       }
     }
+    else
+    {
+      // information message
+      $template->assign_block_vars(
+        'information',
+        array('INFORMATION'=>$lang['comment_anti-flood']));
+    }
   }
-  // comment deletion
-  if ( isset( $_GET['del'] )
-       && is_numeric( $_GET['del'] )
-       && $user['status'] == 'admin' )
-  {
-    $query = 'DELETE FROM '.COMMENTS_TABLE.' WHERE id = '.$_GET['del'].';';
-    mysql_query( $query );
-  }
+}
+// comment deletion
+if ( isset( $_GET['del'] )
+     and is_numeric( $_GET['del'] )
+     and $user['status'] == 'admin' )
+{
+  $query = 'DELETE FROM '.COMMENTS_TABLE;
+  $query.= ' WHERE id = '.$_GET['del'];
+  $query.= ';';
+  mysql_query( $query );
+}
 
 //
 // Start output of page
@@ -266,10 +293,10 @@ if ( isset( $_GET['add_fav'] ) )
 
 $title =  $picture['current']['name'];
 $refresh = 0;
-if ( isset( $_GET['slideshow'] ) && $next) 
+if ( isset( $_GET['slideshow'] ) and $next )
 {
-	$refresh= $_GET['slideshow'];
-	$url_link = $picture['next']['url'];
+  $refresh= $_GET['slideshow'];
+  $url_link = $picture['next']['url'];
 }
 
 $title_img = $picture['current']['name'];
