@@ -363,9 +363,9 @@ else if ( $page['cat'] == 'search' )
 }
 
 // calculation of width and height
-if ( empty($picture['current']['width']))
+if (empty($picture['current']['width']))
 {
-  $taille_image = @getimagesize( $lien_image );
+  $taille_image = @getimagesize($picture['current']['src']);
   $original_width = $taille_image[0];
   $original_height = $taille_image[1];
 }
@@ -528,18 +528,25 @@ $template->assign_block_vars('info_line', array(
 	  'VALUE'=>$picture['current']['file'] 
 	  ));
 // filesize
-if ( empty($picture['current']['filesize']))
+if (empty($picture['current']['filesize']))
 {
-  $poids = floor ( filesize( $picture['current']['url'] ) / 1024 );
+  if (!$picture[$i]['is_picture'])
+  {
+    $filesize = floor(filesize($picture['current']['download'])/1024);
+  }
+  else
+  {
+    $filesize = floor(filesize($picture['current']['src'])/1024);
+  }
 }
 else
 {
-  $poids = $picture['current']['filesize'];
+  $filesize = $picture['current']['filesize'];
 }
 
 $template->assign_block_vars('info_line', array(
 	  'INFO'=>$lang['filesize'],
-	  'VALUE'=>$poids.' KB'
+	  'VALUE'=>$filesize.' KB'
 	  ));
 // keywords
 if ( !empty($picture['current']['keywords']))
