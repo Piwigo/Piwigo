@@ -25,9 +25,9 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if( !defined("PHPWG_ROOT_PATH") )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-	die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 // determine the initial instant to indicate the generation time of this page
 $t1 = explode( ' ', microtime() );
@@ -114,9 +114,9 @@ $lang = array();
 
 
 include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
-if( !defined("PHPWG_INSTALLED") )
+if (!defined('PHPWG_INSTALLED'))
 {
-  header( 'Location: install.php' );
+  header('Location: install.php');
   exit;
 }
 
@@ -125,44 +125,12 @@ include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
-//
 // Database connection
-//
-
 mysql_connect( $dbhost, $dbuser, $dbpasswd )
 or die ( "Could not connect to database server" );
 mysql_select_db( $dbname )
 or die ( "Could not connect to database" );
 	
-//
-// Obtain and encode users IP
-//
-if ( getenv( 'HTTP_X_FORWARDED_FOR' ) != '' )
-{
-  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? 
-    $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
-
-  if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/",
-                  getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
-  {
-    $private_ip = array( '/^0\./'
-                         ,'/^127\.0\.0\.1/'
-                         ,'/^192\.168\..*/'
-                         ,'/^172\.16\..*/'
-                         ,'/^10.\.*/'
-                         ,'/^224.\.*/'
-                         ,'/^240.\.*/'
-      );
-    $client_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
-  }
-}
-else
-{
-  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? 
-    $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
-}
-$user_ip = encode_ip($client_ip);
-
 //
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available
@@ -171,7 +139,7 @@ $query = '
 SELECT param,value
  FROM '.CONFIG_TABLE.'
 ;';
-if( !( $result = pwg_query( $query ) ) )
+if (!($result = pwg_query($query)))
 {
   die("Could not query config information");
 }
@@ -194,14 +162,12 @@ while ( $row =mysql_fetch_array( $result ) )
   }
 }
 
-//---------------
-// A partir d'ici il faudra dispatcher le code dans d'autres fichiers
-//---------------
-
-include(PHPWG_ROOT_PATH . 'include/user.inc.php');
+include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
 // displaying the username in the language of the connected user, instead of
 // "guest" as you can find in the database
-if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];
-define('PREFIX_TABLE', $table_prefix);
+if ($user['is_the_guest'])
+{
+  $user['username'] = $lang['guest'];
+}
 ?>

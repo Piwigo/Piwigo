@@ -127,13 +127,32 @@ if ($user['restrictions'][0] == '')
   $user['restrictions'] = array();
 }
 
-$isadmin = false;
-if ($user['status'] == 'admin')
-{
-  $isadmin = true;
-}
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
-init_userprefs($user);
+if (empty($user['language'])
+    or !file_exists(PHPWG_ROOT_PATH.'language/'.
+                    $user['language'].'/common.lang.php'))
+{
+  $user['language'] = $conf['default_language'];
+}
+include_once(PHPWG_ROOT_PATH.'language/'.$user['language'].'/common.lang.php');
+
+// only if we are in the administration section
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  $langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
+  if (!file_exists($langdir.'/admin.lang.php'))
+  {
+    $langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+  }
+  include_once($langdir.'/admin.lang.php');
+  include_once($langdir.'/faq.lang.php');
+}
+
+if (empty($user['template']))
+{
+  $user['template'] = $conf['default_template'];
+}
+$template = setup_style($user['template']);
 ?>

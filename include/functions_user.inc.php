@@ -171,62 +171,12 @@ function check_login_authorization($guest_allowed = true)
   }
 }
 
-//
-// Initialise user settings on page load
-function init_userprefs($userdata)
-{
-  global $conf, $template, $lang, $lang_info;
-  
-  $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_language'];
-
-  if (!empty($userdata['template']) and !$userdata['is_the_guest'])
-  {
-    $template = $userdata['template'];
-  }
-  else
-  {
-    $template = $conf['default_template'];
-  }
-
-  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php')) )
-  {
-    $language = $conf['default_language'];
-  }
-  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php');
-  
-  
-  if ($userdata['status'] == 'admin')
-  {
-    if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language. '/admin.lang.php')) )
-    {
-      $language = $conf['default_language'];
-    }
-  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
-  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/faq.lang.php');
-  }
-
-  $template = setup_style($template);
-  return;
-}
-
 function setup_style($style)
 {
   $template_path = 'template/' ;
   $template_name = $style ;
   $template = new Template(PHPWG_ROOT_PATH . $template_path . $template_name);
   return $template;
-}
-
-function encode_ip($dotquad_ip)
-{
-  $ip_sep = explode('.', $dotquad_ip);
-  return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
-}
-
-function decode_ip($int_ip)
-{
-  $hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
-  return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
 }
 
 function getuserdata($user)

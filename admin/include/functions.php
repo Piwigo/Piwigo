@@ -330,37 +330,42 @@ DELETE FROM '.IMAGES_TABLE.'
 //     - all the favorites linked to this user
 //     - all sessions linked to this user
 //     - all categories informations linked to this user
-function delete_user( $user_id )
+function delete_user($user_id)
 {
   // destruction of the access linked to the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
+  $query = '
+DELETE FROM '.USER_ACCESS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
 
   // destruction of the group links for this user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
+  $query = '
+DELETE FROM '.USER_GROUP_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
 
   // destruction of the favorites associated with the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
+  $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
 
   // destruction of the sessions linked with the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
+  $query = '
+DELETE FROM '.SESSIONS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
 
   // destruction of the user
-  $query = 'DELETE FROM '.USERS_TABLE;
-  $query.= ' WHERE id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
+  $query = '
+DELETE FROM '.USERS_TABLE.'
+  WHERE id = '.$user_id.'
+;';
+  pwg_query($query);
 }
 
 // delete_group deletes a group identified by its $group_id.

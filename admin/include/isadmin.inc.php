@@ -27,8 +27,7 @@
 
 include( PHPWG_ROOT_PATH.'admin/include/functions.php' );
 
-$isadmin = true;
-if ( $user['status'] != 'admin' )
+if ($user['status'] != 'admin')
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
   echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">'.$lang['ident_title'].'</a></div>';
