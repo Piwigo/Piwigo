@@ -29,6 +29,15 @@
 </ul>
 <!-- END infos -->
 <!-- END update -->
+
+<!-- BEGIN metadata_result -->
+<div class="admin">{L_RESULT_METADATA}</div>
+<ul style="text-align:left;">
+  <li>{metadata_result.NB_ELEMENTS} {L_ELEMENTS_METADATA_SYNC}</li>
+  <li>{L_USED_METADATA} : {METADATA_LIST}</li>
+</ul>
+<!-- END metadata_result -->
+
 <!-- BEGIN introduction -->
 <div class="admin">{L_UPDATE_TITLE}</div>
 <form action="{F_ACTION}" method="post">
@@ -43,7 +52,7 @@
       </ul>
     </li>
     <li>
-      {L_UPDATE_SYNC_METADATA}
+      {L_UPDATE_SYNC_METADATA}. {L_USED_METADATA} : {METADATA_LIST}.
       <ul class="menu">
         <li><input type="radio" name="sync" value="metadata_new" /> {L_UPDATE_SYNC_METADATA_NEW}</li>
         <li><input type="radio" name="sync" value="metadata_all" /> {L_UPDATE_SYNC_METADATA_ALL}</li>

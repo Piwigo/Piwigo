@@ -121,7 +121,7 @@ $lang['admin_panel'] = 'Administration Panel';
 $lang['default_message'] = 'PhpWebGallery Administration Control Panel';
 $lang['title_liste_users'] = 'Users list';
 $lang['title_history'] = 'History';
-$lang['title_update'] = 'Database update';
+$lang['title_update'] = 'Database synchronization with files';
 $lang['title_configuration'] = 'PhpWebGallery configuration';
 $lang['title_instructions'] = 'Instructions';
 $lang['title_categories'] = 'Categories management';
@@ -303,6 +303,12 @@ $lang['update_simulation_title'] = '[Simulation]';
 $lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 $lang['update_wrong_dirname_short'] = 'wrong filename';
 $lang['update_wrong_dirname_info'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
+$lang['update_result_metadata'] = 'Metadata synchronization results';
+$lang['update_elements_metadata_sync'] = 'elements informations synchronized with files metadata';
+$lang['update_used_metadata'] = 'Used metadata';
+$lang['metadata_basic'] = 'basic';
+$lang['metadata_exif'] = 'EXIF';
+$lang['metadata_iptc'] = 'IPTC';
 
 // History
 $lang['stats_title'] = 'Last year statistics';

@@ -466,6 +466,23 @@ if (isset($simulate) and $simulate)
 }
 $result_title.= $lang['update_part_research'];
 
+// used_metadata string is displayed to inform admin which metadata will be
+// used from files for synchronization
+$used_metadata = $lang['metadata_basic'].' (filesize, width, height)';
+
+if ($conf['use_exif'])
+{
+  $used_metadata.= ', '.$lang['metadata_exif'].' (date_creation)';
+}
+
+if ($conf['use_iptc'])
+{
+  $used_metadata.= ', '.$lang['metadata_iptc'];
+  $used_metadata.= '(';
+  $used_metadata.= implode(', ', array_keys($conf['use_iptc_mapping']));
+  $used_metadata.= ')';
+}
+
 $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],
@@ -492,7 +509,11 @@ $template->assign_vars(
     'L_UPDATE_ERRORS_CAPTION'=>$lang['update_errors_caption'],
     'L_UPDATE_DISPLAY_INFO'=>$lang['update_display_info'],
     'L_UPDATE_SIMULATE'=>$lang['update_simulate'],
-    'L_UPDATE_INFOS_TITLE'=>$lang['update_infos_title']
+    'L_UPDATE_INFOS_TITLE'=>$lang['update_infos_title'],
+    'L_RESULT_METADATA'=>$lang['update_result_metadata'],
+    'L_ELEMENTS_METADATA_SYNC'=>$lang['update_elements_metadata_sync'],
+    'L_USED_METADATA'=>$lang['update_used_metadata'],
+    'METADATA_LIST' => $used_metadata
     ));
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
@@ -659,6 +680,12 @@ else if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync']))
   echo '<!-- metadata update : ';
   echo get_elapsed_time($start, get_moment());
   echo ' -->'."\n";
+  
+  $template->assign_block_vars(
+    'metadata_result',
+    array(
+      'NB_ELEMENTS' => count($files),
+      ));
 }
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
