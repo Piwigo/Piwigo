@@ -23,9 +23,8 @@ include_once( './include/isadmin.inc.php' );
 $vtp = new VTemplate;
 $handle = $vtp->Open( '../template/'.$user['template'].'/admin/admin.vtp' );
 // language
-$tpl = array( 'menu_title','title_default','charset','install_warning' );
+$tpl = array( 'title_default','charset','install_warning' );
 templatize_array( $tpl, 'lang', $handle );
-$vtp->setGlobalVar( $handle, 'user_template', $user['template'] );
 //-------------------------------------------------- install.php still exists ?
 if ( is_file( './install.php' ) )
 {
@@ -155,27 +154,27 @@ $vtp->setVar( $handle, 'summary.name', $lang['menu_config'] );
 $vtp->closeSession( $handle, 'summary' );
 // users
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'user_list' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_users'] );
 $vtp->closeSession( $handle, 'summary' );
 // groups
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'group_list' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_groups'] );
 $vtp->closeSession( $handle, 'summary' );
 // categories
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',add_session_id( $link_start.'cat_list'));
 $vtp->setVar( $handle, 'summary.name', $lang['menu_categories'] );
 $vtp->closeSession( $handle, 'summary' );
 // waiting
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'waiting' ) );
 $query = 'SELECT id';
@@ -192,7 +191,7 @@ $vtp->setVar( $handle, 'summary.name', $lang['menu_waiting'].$nb_waiting );
 $vtp->closeSession( $handle, 'summary' );
 // comments
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'comments' ) );
 $query = 'SELECT id';
@@ -209,35 +208,35 @@ $vtp->setVar( $handle, 'summary.name', $lang['menu_comments'].$nb_waiting );
 $vtp->closeSession( $handle, 'summary' );
 // update
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'update' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_update'] );
 $vtp->closeSession( $handle, 'summary' );
 // thumbnails
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'thumbnail' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_thumbnails'] );
 $vtp->closeSession( $handle, 'summary' );
 // history
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'stats' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_history'] );
 $vtp->closeSession( $handle, 'summary' );
 // instructions
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'help' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_instructions'] );
 $vtp->closeSession( $handle, 'summary' );
 // back to thumbnails page
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.indent', '| ' );
 $vtp->setVar( $handle, 'summary.link', add_session_id( '../category.php' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_back'] );
 $vtp->closeSession( $handle, 'summary' );

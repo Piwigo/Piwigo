@@ -68,7 +68,8 @@
       td.row4 {
         background-color:#cccccc;
       }
-      .cat_plan {
+      .summary {
+        text-align:center;
         font-weight:bold;
       }
       .retrait {
@@ -192,24 +193,15 @@
   </head>
   <body>
     <!--VTP_install_warning--><div class="install_warning">{#install_warning}</div><!--/VTP_install_warning-->
-    <table>
+    <table width="100%">
       <tr>
-        <td width="1%" valign="top">
-          <table class="table1">
-            <tr>
-              <td class="titretable1">{#menu_title}</td>
-            </tr>
-            <tr>
-              <td class="contenucellule">
-                <div class="plan">
-                  <!--VTP_summary-->
-                  {#indent}<img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt; "><a href="{#link}" class="cat_plan">{#name}</a><br />
-                  <!--/VTP_summary-->
-                </div>
-              </td>
-            </tr>
-          </table>
+        <td class="summary">
+          <!--VTP_summary-->
+          {#indent}<a href="{#link}">{#name}</a>
+          <!--/VTP_summary-->
         </td>
+      </tr>
+      <tr>
         <td align="center" valign="top">
           <div class="grostitre">{#title}</div>
           <br />
