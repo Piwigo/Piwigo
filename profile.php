@@ -53,19 +53,19 @@ if ( isset( $_POST['submit'] ) )
        and ( !preg_match( $int_pattern, $_POST['maxwidth'] )
              or $_POST['maxwidth'] < 50 ) )
   {
-    array_push( $errors, $lang['err_maxwidth'] );
+    array_push( $errors, $lang['maxwidth_error'] );
   }
   if ( $_POST['maxheight']
        and ( !preg_match( $int_pattern, $_POST['maxheight'] )
              or $_POST['maxheight'] < 50 ) )
   {
-    array_push( $errors, $lang['err_maxheight'] );
+    array_push( $errors, $lang['maxheight_error'] );
   }
   // periods must be integer values, they represents number of days
   if (!preg_match($int_pattern, $_POST['recent_period'])
       or $_POST['recent_period'] <= 0)
   {
-    array_push( $errors, $lang['err_periods'] );
+    array_push( $errors, $lang['periods_error'] );
   }
   $mail_error = validate_mail_address( $_POST['mail_address'] );
   if ( $mail_error != '' ) array_push( $errors, $mail_error );
@@ -138,13 +138,13 @@ $template->assign_vars(array(
   'L_NEW' =>  $lang['new'],
   'L_CONFIRM' =>  $lang['reg_confirm'],
   'L_COOKIE' =>  $lang['create_cookie'],
-  'L_LANG_SELECT'=>$lang['customize_language'],
-  'L_NB_IMAGE_LINE'=>$lang['customize_nb_image_per_row'],
-  'L_NB_ROW_PAGE'=>$lang['customize_nb_row_per_page'],
-  'L_STYLE_SELECT'=>$lang['customize_theme'],
-  'L_RECENT_PERIOD'=>$lang['customize_recent_period'],
-  'L_EXPAND_TREE'=>$lang['customize_expand'],
-  'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],
+  'L_LANG_SELECT'=>$lang['language'],
+  'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
+  'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
+  'L_STYLE_SELECT'=>$lang['theme'],
+  'L_RECENT_PERIOD'=>$lang['recent_period'],
+  'L_EXPAND_TREE'=>$lang['auto_expand'],
+  'L_NB_COMMENTS'=>$lang['show_nb_comments'],
   'L_YES'=>$lang['yes'],
   'L_NO'=>$lang['no'],
   'L_SUBMIT'=>$lang['submit'],

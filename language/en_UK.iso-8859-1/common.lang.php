@@ -55,6 +55,7 @@ $lang['keywords'] = 'Keywords';
 $lang['default'] = 'Default';
 $lang['send_mail'] = 'Contact';
 $lang['webmaster'] = 'Webmaster';
+$lang['language']='Language';
 
 //Properties
 $lang['registration_date'] = 'Registered on';
@@ -64,6 +65,9 @@ $lang['creation_date'] = 'Created on';
 $lang['submit'] = 'Submit';
 $lang['delete'] = 'Delete';
 $lang['reset'] = 'Reset';
+
+// Navigation
+$lang['return_main_page'] = 'Back to the index page';
 
 // Identification
 $lang['login'] = 'Login';
@@ -96,6 +100,23 @@ $lang['day'][3] = 'Wednesday';
 $lang['day'][4] = 'Thursday';
 $lang['day'][5] = 'Friday';
 $lang['day'][6] = 'Saturday';
+
+// Customization
+$lang['customize_page_title'] = 'Customization';
+$lang['customize_title'] = 'Customization';
+$lang['nb_image_per_row'] = 'Number of images per row';
+$lang['nb_row_per_page'] = 'Number of rows per page';
+$lang['maxwidth'] = 'Maximum width of the pictures';
+$lang['maxheight'] = 'Maximum height of the pictures';
+$lang['maxwidth_error'] = 'Maximum width must be a number superior to 50';
+$lang['maxheight_error'] = 'Maximum height must be a number superior to 50';
+$lang['theme'] = 'Interface theme';
+$lang['auto_expand'] = 'Expand all categories';
+$lang['show_nb_comments'] = 'Show number of comments';
+$lang['recent_period'] = 'Recent period';
+$lang['periods_error'] = 'Recent period must be a positive integer value';
+$lang['create_cookie'] = 'Create a cookie';
+
 
 // search
 $lang['search_title'] = 'Search';
@@ -169,15 +190,7 @@ $lang['ident_title'] = 'Identification';
 $lang['ident_register'] = 'Register';
 $lang['ident_forgotten_password'] = 'Forget your password ?';
 $lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
-$lang['customize_page_title'] = 'Customization';
-$lang['customize_title'] = 'Customization';
-$lang['customize_nb_image_per_row'] = 'number of images per row';
-$lang['customize_nb_row_per_page'] = 'number of rows per page';
-$lang['customize_language'] = 'language';
-$lang['maxwidth'] = 'maximum width of the pictures';
-$lang['maxheight'] = 'maximum height of the pictures';
-$lang['err_maxwidth'] = 'maximum width must be a number superior to 50';
-$lang['err_maxheight'] = 'maximum height must be a number superior to 50';
+
 $lang['previous_image'] = 'Previous';
 $lang['next_image'] = 'Next';
 $lang['back'] = 'Click on the image to go back to the thumbnails page';
@@ -241,17 +254,6 @@ $lang['recent_cats_cat_hint'] = 'Displays recently updated categories';
 $lang['recent_cats_cat'] = 'Last categories';
 $lang['visited'] = 'visited';
 $lang['times'] = 'times';
-$lang['customize_theme'] = 'interface theme';
-$lang['customize_expand'] = 'expand all categories';
-$lang['customize_show_nb_comments'] = 'show number of comments';
-$lang['customize_recent_period'] = 'recent period';
-$lang['customize_template'] = 'template';
-$lang['err_periods'] = 'recent period must be a positive integer value';
-$lang['create_cookie'] = 'create a cookie';
-$lang['customize_day'] = 'day';
-$lang['customize_week'] = 'week';
-$lang['customize_month'] = 'month';
-$lang['customize_year'] = 'year';
 $lang['slideshow'] = 'slideshow';
 $lang['period_seconds'] = 'seconds per picture';
 $lang['slideshow_stop'] = 'stop the slideshow';

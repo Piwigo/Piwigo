@@ -10,49 +10,211 @@
 <!-- BEGIN confirmation -->
 <div class="info">{L_CONFIRM}</div>
 <!-- END confirmation -->
-
 <form method="post" action="{F_ACTION}">
-
-<p class="confMenu">
-  <!-- BEGIN confmenu_item -->
-  <a class="{confmenu_item.CLASS}" href="{confmenu_item.URL}">{confmenu_item.NAME}</a>
-  <!-- END confmenu_item -->
-</p>
-
 <table width="100%" align="center">
-  <!-- BEGIN line -->
+<!-- BEGIN general -->
+  <tr class="admin">
+    <th colspan="2">{general.L_CONF_TITLE}</th>
+  </tr>
   <tr>
-    <td width="50%">
-      <span class="confLineName">{line.NAME} :</span>
-      <br />
-      <span class="confLineInfo">{line.INFO}</span>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="70%"><strong>{general.L_CONF_MAIL}&nbsp;:</strong><br /><span class="small">{general.L_CONF_MAIL_INFO}</span></td>
+	<td class="row1"><input type="text" size="25" maxlength="100" name="mail_webmaster" value="{general.ADMIN_MAIL}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{general.L_CONF_TN_PREFIX}&nbsp;:</strong><br /><span class="small">{general.L_CONF_TN_PREFIX_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="4" name="prefix_thumbnail" value="{general.THUMBNAIL_PREFIX}" /></td>
+  </tr>
+  <tr>
+  <td><strong>{general.L_CONF_ACCESS}&nbsp;:</strong><br /><span class="small">{general.L_CONF_ACCESS_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="access" value="free" {general.ACCESS_FREE} />{general.L_CONF_ACCESS_FREE}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="access" value="restricted" {general.ACCESS_RESTRICTED} />{general.L_CONF_ACCESS_RESTRICTED}</td>
+  </tr>
+  <tr>
+    <td><strong>{general.L_CONF_HISTORY}&nbsp;:</strong><br /><span class="small">{general.L_CONF_HISTORY_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{general.L_CONF_NOTIFICATION}&nbsp;:</strong><br /><span class="small">{general.L_CONF_NOTIFICATION_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="mail_notification" value="true" {general.NOTIFICATION_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="mail_notification" value="false" {general.NOTIFICATION_NO} />{L_NO}</td>
+  </tr>
+<!-- END general -->
+<!-- BEGIN comments -->
+  <tr class="admin">
+    <th colspan="2">{comments.L_CONF_TITLE}</th>
+  </tr>
+    <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="70%"><strong>{comments.L_CONF_SHOW_COMMENTS}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_SHOW_COMMENTS_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="show_comments" value="true" {comments.SHOW_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="show_comments" value="false" {comments.SHOW_COMMENTS_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{comments.L_CONF_COMMENTS_ALL}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_COMMENTS_ALL_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="comments_forall" value="true" {comments.COMMENTS_ALL_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="comments_forall" value="false" {comments.COMMENTS_ALL_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{comments.L_CONF_NB_COMMENTS_PAGE}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_NB_COMMENTS_PAGE_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="4" name="nb_comment_page" value="{comments.NB_COMMENTS_PAGE}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{comments.L_CONF_VALIDATE}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_VALIDATE_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="comments_validation" value="true" {comments.VALIDATE_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="comments_validation" value="false" {comments.VALIDATE_NO} />{L_NO}</td>
+  </tr>
+<!-- END comments -->
+<!-- BEGIN default -->
+  <tr class="admin">
+    <th colspan="2">{default.L_CONF_TITLE}</th>
+  </tr>
+    <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="70%"><strong>{default.L_CONF_LANG}&nbsp;:</strong><br /><span class="small">{default.L_CONF_LANG_INFO}</span></td>
+	<td class="row1">{default.CONF_LANG_SELECT}</td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_NB_IMAGE_LINE}&nbsp;:</strong><br /><span class="small">{default.L_NB_IMAGE_LINE_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="2" name="nb_image_line" value="{default.NB_IMAGE_LINE}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_NB_ROW_PAGE}&nbsp;:</strong><br /><span class="small">{default.L_NB_ROW_PAGE_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="2" name="nb_line_page" value="{default.NB_ROW_PAGE}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_CONF_STYLE}&nbsp;:</strong><br /><span class="small">{default.L_CONF_STYLE_INFO}</span></td>
+	<td class="row1">{default.CONF_STYLE_SELECT}</td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_CONF_RECENT}&nbsp;:</strong><br /><span class="small">{default.L_CONF_RECENT_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="2" name="recent_period" value="{default.CONF_RECENT}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_CONF_EXPAND}&nbsp;:</strong><br /><span class="small">{default.L_CONF_EXPAND_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="auto_expand" value="true" {default.EXPAND_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="auto_expand" value="false" {default.EXPAND_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{default.L_NB_COMMENTS}&nbsp;:</strong><br /><span class="small">{default.L_NB_COMMENTS_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="show_nb_comments" value="true" {default.SHOW_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="show_nb_comments" value="false" {default.SHOW_COMMENTS_NO} />{L_NO}</td>
+  </tr>
+<!-- END default -->
+<!-- BEGIN upload -->
+  <tr class="admin">
+    <th colspan="2">{upload.L_CONF_TITLE}</th>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="70%"><strong>{upload.L_CONF_UPLOAD}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_UPLOAD_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="upload_available" value="true" {upload.UPLOAD_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="upload_available" value="false" {upload.UPLOAD_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{upload.L_CONF_MAXSIZE}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXSIZE_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxfilesize" value="{upload.UPLOAD_MAXSIZE}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{upload.L_CONF_MAXWIDTH}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXWIDTH_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxwidth" value="{upload.UPLOAD_MAXWIDTH}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{upload.L_CONF_MAXHEIGHT}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXHEIGHT_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxheight" value="{upload.UPLOAD_MAXHEIGHT}" /></td>
+  </tr>
+    <tr>
+    <td><strong>{upload.L_CONF_TN_MAXWIDTH}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_TN_MAXWIDTH_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxwidth_thumbnail" value="{upload.TN_UPLOAD_MAXWIDTH}" /></td>
+  </tr>
+  <tr>
+    <td><strong>{upload.L_CONF_TN_MAXHEIGHT}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_TN_MAXHEIGHT_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxheight_thumbnail" value="{upload.TN_UPLOAD_MAXHEIGHT}" /></td>
+  </tr>
+<!-- END upload -->
+<!-- BEGIN session -->
+  <tr class="admin">
+    <th colspan="2">{session.L_CONF_TITLE}</th>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+    <tr>
+    <td width="70%"><strong>{session.L_CONF_COOKIE}&nbsp;:</strong><br /><span class="small">{session.L_CONF_COOKIE_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="authorize_cookies" value="true" {session.COOKIE_YES} />{L_YES}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="authorize_cookies" value="false" {session.COOKIE_NO} />{L_NO}</td>
+  </tr>
+  <tr>
+    <td><strong>{session.L_SESSION_LENGTH}&nbsp;:</strong><br /><span class="small">{session.L_SESSION_LENGTH_INFO}</span></td>
+	<td class="row1"><input type="text" size="4" maxlength="6" name="session_time" value="{session.SESSION_LENGTH}" /></td>
+  </tr>
+    <tr>
+    <td><strong>{session.L_SESSION_ID_SIZE}&nbsp;:</strong><br /><span class="small">{session.L_SESSION_ID_SIZE_INFO}</span></td>
+	<td class="row1"><input type="text" size="2" maxlength="3" name="session_id_size" value="{session.SESSION_ID_SIZE}" /></td>
+  </tr>
+<!-- END session -->
+<!-- BEGIN metadata -->
+  <tr class="admin">
+    <th colspan="2">{metadata.L_CONF_TITLE}</th>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="70%">
+      <strong>{metadata.L_CONF_EXIF}&nbsp;:</strong>
+      <br /><span class="small">{metadata.L_CONF_EXIF_INFO}</span>
     </td>
-    <td class="confLineField">
-
-      <!-- BEGIN textfield -->
-      <input type="text" size="{line.textfield.SIZE}" maxlength="{line.textfield.SIZE}" name="{line.textfield.NAME}" value="{line.textfield.VALUE}" />
-      <!-- END textfield -->
-
-      <!-- BEGIN radio -->
-      <input type="radio" class="radio" name="{line.radio.NAME}" value="{line.radio.VALUE}" {line.radio.CHECKED} />{line.radio.OPTION}
-      <!-- END radio -->
-
-      <!-- BEGIN select -->
-      <select name="{line.select.NAME}">
-        <!-- BEGIN select_option -->
-        <option value="{line.select.select_option.VALUE}" {line.select.select_option.SELECTED}>{line.select.select_option.OPTION}</option>
-        <!-- END select_option -->
-      </select>
-      <!-- END select -->
-
+    <td class="row1">
+      <input type="radio" class="radio" name="use_exif" value="true" {metadata.USE_EXIF_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="use_exif" value="false" {metadata.USE_EXIF_NO} />{L_NO}
     </td>
   </tr>
-  <!-- END line -->
   <tr>
-    <td colspan="2" align="center">
-      <input type="submit" name="submit" class="bouton" value="{L_SUBMIT}" />
+    <td>
+      <strong>{metadata.L_CONF_IPTC}&nbsp;:</strong>
+      <br /><span class="small">{metadata.L_CONF_IPTC_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="use_iptc" value="true" {metadata.USE_IPTC_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="use_iptc" value="false" {metadata.USE_IPTC_NO} />{L_NO}
     </td>
   </tr>
-</table>
-
+  <tr>
+    <td>
+      <strong>{metadata.L_CONF_SHOW_EXIF}&nbsp;:</strong>
+      <br /><span class="small">{metadata.L_CONF_SHOW_EXIF_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="show_exif" value="true" {metadata.SHOW_EXIF_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="show_exif" value="false" {metadata.SHOW_EXIF_NO} />{L_NO}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>{metadata.L_CONF_SHOW_IPTC}&nbsp;:</strong>
+      <br /><span class="small">{metadata.L_CONF_SHOW_IPTC_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="show_iptc" value="true" {metadata.SHOW_IPTC_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="show_iptc" value="false" {metadata.SHOW_IPTC_NO} />{L_NO}
+    </td>
+  </tr>
+<!-- END metadata -->
+    <tr>
+      <td colspan="2" align="center">
+        <input type="submit" name="submit" class="bouton" value="{L_SUBMIT}">
+		<input type="submit" name="reset" class="bouton" value="{L_RESET}">
+      </td>
+    </tr>
+  </table>
 </form>

@@ -24,12 +24,16 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 $max_pixels = 500;
 //------------------------------------------------------------ comment deletion
 if ( isset( $_GET['del'] ) and is_numeric( $_GET['del'] ) )
 {
-  $query = 'DELETE FROM '.PREFIX_TABLE.'comments';
+  $query = 'DELETE FROM '.COMMENTS_TABLE;
   $query.= ' WHERE id = '.$_GET['del'];
   $query.= ';';
   mysql_query( $query );
@@ -37,58 +41,52 @@ if ( isset( $_GET['del'] ) and is_numeric( $_GET['del'] ) )
 //--------------------------------------------------------- history table empty
 if ( isset( $_GET['act'] ) and $_GET['act'] == 'empty' )
 {
-  $query = 'DELETE FROM '.PREFIX_TABLE.'history';
-  $query.= ';';
+  $query = 'DELETE FROM '.HISTORY_TABLE.';';
   mysql_query( $query );
 }
+
+// empty link
+$url_empty = PHPWG_ROOT_PATH.'admin.php?page=stats';
+if (isset($_GET['last_days']))
+  	$url_empty .='&amp;last_days='.$_GET['last_days'];
+$url_empty.= '&amp;act=empty';
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/stats.vtp' );
-$tpl = array( 'stats_last_days','date','login',
-              'IP','file','picture','category','stats_pages_seen',
-              'stats_visitors','stats_empty', 'stats_pages_seen_graph_title',
-              'stats_visitors_graph_title');
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//--------------------------------------------------- number of days to display
+$template->set_filenames( array('stats'=>'admin/stats.tpl') );
+
 if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
 else                               define( 'MAX_DAYS', 0 );
 
 foreach ( $conf['last_days'] as $option ) {
-  $vtp->addSession( $sub, 'last_day_option' );
-  $vtp->setVar( $sub, 'last_day_option.option', $option );
-  $url = './admin.php?page=stats';
-  if (isset($_GET['expand']))
-	  $url .='&amp;expand='.$_GET['expand'];
-  $url.= '&amp;last_days='.($option - 1);
-  $vtp->setVar( $sub, 'last_day_option.link', add_session_id( $url ) );
-  if ( $option == MAX_DAYS + 1 )
-  {
-    $vtp->setVar( $sub, 'last_day_option.style', 'font-weight:bold;');
-  }
-  $vtp->closeSession( $sub, 'last_day_option' );
-}
-//---------------------------------------------------------------- log  history
-// empty link
-$url = './admin.php?page=stats';
-if (isset($_GET['last_days']))
-  	$url .='&amp;last_days='.$_GET['last_days'];
-// expand array management
-$expand_days = array();
-if (isset($_GET['expand']))
-{
-	$url.= '&amp;expand='.$_GET['expand'];
-	$expand_days = explode( ',', $_GET['expand'] );
-}
-$url.= '&amp;act=empty';
-$vtp->setVar( $sub, 'emply_url', add_session_id( $url ) );
-$page['expand_days'] = array();
-foreach ( $expand_days as $expand_day ) {
-  if ( is_numeric( $expand_day ) )
-  {
-    array_push( $page['expand_days'], $expand_day );
-  }
+  $url = $_SERVER['PHP_SELF'].'?last_days='.($option - 1);
+  $url.= '&amp;page=stats';
+  $template->assign_block_vars(
+    'last_day_option',
+    array(
+      'OPTION'=>$option,
+      'T_STYLE'=>(( $option == MAX_DAYS + 1 )?'text-decoration:underline;':''),
+      'U_OPTION'=>add_session_id( $url )
+      )
+    );
 }
 
+$template->assign_vars(array(
+  'L_STAT_LASTDAYS'=>$lang['stats_last_days'],
+  'L_STAT_DATE'=>$lang['date'],
+  'L_STAT_LOGIN'=>$lang['login'],
+  'L_STAT_IP'=>$lang['IP'],
+  'L_STAT_FILE'=>$lang['file'],
+  'L_STAT_CATEGORY'=>$lang['category'],
+  'L_STAT_PICTURE'=>$lang['picture'],
+  'L_STAT_EMPTY'=>$lang['stats_empty'],
+  'L_STAT_SEEN'=>$lang['stats_pages_seen'],
+  'L_STAT_VISITOR'=>$lang['stats_visitors'],
+  
+  'STAT_EMPTY_URL'=>$url_empty
+  ));
+
+$tpl = array( 'stats_pages_seen_graph_title', 'stats_visitors_graph_title');
+
+//---------------------------------------------------------------- log  history
 $days = array();
 $max_nb_visitors = 0;
 $max_pages_seen = 0;
@@ -98,7 +96,9 @@ $endtime   = mktime( 23,59,59,date('n'),date('j'),date('Y') );
 for ( $i = 0; $i <= MAX_DAYS; $i++ )
 {
   $day = array();
-  $vtp->addSession( $sub, 'day' );
+  $template->assign_block_vars('day',array(
+    ));
+  
   // link to open the day to see details
   $local_expand = $page['expand_days'];
   if ( in_array( $i, $page['expand_days'] ) )
@@ -168,30 +168,30 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
   $starttime-= 24*60*60;
   $endtime  -= 24*60*60;
   $vtp->closeSession( $sub, 'day' );
-  array_push( $days, $day );
+  array_push( $days, $day );*/
 }
 //------------------------------------------------------------ pages seen graph
 foreach ( $days as $day ) {
-  $vtp->addSession( $sub, 'pages_day' );
+  /*$vtp->addSession( $sub, 'pages_day' );
   if ( $max_pages_seen > 0 )
     $width = floor( ( $day['nb_pages_seen']*$max_pixels ) / $max_pages_seen );
   else $width = 0;
   $vtp->setVar( $sub, 'pages_day.date', $day['date'] );
   $vtp->setVar( $sub, 'pages_day.width', $width );
   $vtp->setVar( $sub, 'pages_day.nb_pages', $day['nb_pages_seen'] );
-  $vtp->closeSession( $sub, 'pages_day' );
+  $vtp->closeSession( $sub, 'pages_day' );*/
 }
 //-------------------------------------------------------------- visitors grpah
 foreach ( $days as $day ) {
-  $vtp->addSession( $sub, 'visitors_day' );
+  /*$vtp->addSession( $sub, 'visitors_day' );
   if ( $max_nb_visitors > 0 )
     $width = floor( ( $day['nb_visitors'] * $max_pixels ) / $max_nb_visitors );
   else $width = 0;
   $vtp->setVar( $sub, 'visitors_day.date', $day['date'] );
   $vtp->setVar( $sub, 'visitors_day.width', $width );
   $vtp->setVar( $sub, 'visitors_day.nb_visitors', $day['nb_visitors'] );
-  $vtp->closeSession( $sub, 'visitors_day' );
+  $vtp->closeSession( $sub, 'visitors_day' );*/
 }
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>

@@ -16,11 +16,20 @@
 <div class="menu">
 <ul class="menu">
   <li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG}">{L_CONFIG}</a></li>
-  <li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
-  <!--<li><a class="adminMenu" href="{U_CONFIG}">{L_DEFAULT}</a></li>-->
   <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
   <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
+  </ul>
+</div>
+<div class="titreMenu">{L_CONFIGURATION}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_CONFIG_GENERAL}">{L_CONFIG_GENERAL}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_COMMENTS}">{L_CONFIG_COMMENTS}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_DISPLAY}">{L_CONFIG_DISPLAY}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_UPLOAD}">{L_CONFIG_UPLOAD}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_SESSION}">{L_CONFIG_SESSION}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_METADATA}">{L_CONFIG_METADATA}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG_SITES}">{L_CONFIG_SITES}</a></li>
   </ul>
 </div>
 <div class="titreMenu">{L_CATEGORIES}</div>

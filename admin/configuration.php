@@ -25,11 +25,12 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
+if( !defined("PHPWG_ROOT_PATH") )
 {
-  die ("Hacking attempt!");
+	die ("Hacking attempt!");
 }
-include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //-------------------------------------------------------- sections definitions
 if (!isset($_GET['section']))
 {
@@ -40,72 +41,6 @@ else
   $page['section'] = $_GET['section'];
 }
 
-// templates for fields definitions
-$true_false = array('type' => 'radio',
-                    'options' => array('true' => $lang['yes'],
-                                       'false' => $lang['no']));
-$textfield = array('type' => 'textfield');
-
-$nb_image_row = array();
-foreach ($conf['nb_image_row'] as $value)
-{
-  $nb_image_row[$value] = $value;
-}
-
-$nb_row_page = array();
-foreach ($conf['nb_row_page'] as $value)
-{
-  $nb_row_page[$value] = $value;
-}
-
-$sections = array(
-  'general' => array(
-    'mail_webmaster' => $textfield,
-    'prefix_thumbnail' => $textfield,
-    'access' => array('type' => 'radio',
-                      'options' => array(
-                        'free' => $lang['conf_general_access_1'],
-                        'restricted' => $lang['conf_general_access_2'])),
-    'log' => $true_false,
-    'mail_notification' => $true_false,
-   ),
-  'comments' => array(
-    'show_comments' => $true_false,
-    'comments_forall' => $true_false,
-    'nb_comment_page' => array('type' => 'textfield','size' => 2),
-    'comments_validation' => $true_false
-   ),
-  'default' => array(
-    'default_language' => array('type' => 'select',
-                                'options' => get_languages()),
-    'nb_image_line' => array('type' => 'radio','options' => $nb_image_row),
-    'nb_line_page' => array('type' => 'radio','options' => $nb_row_page),
-    'default_template' => array('type' => 'select',
-                                'options' => get_templates()),
-    'recent_period' => array('type' => 'textfield','size' => 3),
-    'auto_expand' => $true_false,
-    'show_nb_comments' => $true_false
-   ),
-  'upload' => array(
-    'upload_available' => $true_false,
-    'upload_maxfilesize' => array('type' => 'textfield','size' => 4),
-    'upload_maxwidth' => array('type' => 'textfield','size' => 4),
-    'upload_maxheight' => array('type' => 'textfield','size' => 4),
-    'upload_maxwidth_thumbnail' => array('type' => 'textfield','size' => 4),
-    'upload_maxheight_thumbnail' => array('type' => 'textfield','size' => 4)
-   ),
-  'session' => array(
-    'authorize_cookies' => $true_false,
-    'session_time' => array('type' => 'textfield','size' => 2),
-    'session_id_size' => array('type' => 'textfield','size' => 2)
-   ),
-  'metadata' => array(
-    'use_exif' => $true_false,
-    'use_iptc' => $true_false,
-    'show_exif' => $true_false,
-    'show_iptc' => $true_false
-   )
- );
 //------------------------------------------------------ $conf reinitialization
 $result = mysql_query('SELECT param,value FROM '.CONFIG_TABLE);
 while ($row = mysql_fetch_array($result))
@@ -113,19 +48,15 @@ while ($row = mysql_fetch_array($result))
   $conf[$row['param']] = $row['value'];
   // if the parameter is present in $_POST array (if a form is submited), we
   // override it with the submited value
-  if (isset($_POST[$row['param']]))
+  if (isset($_POST[$row['param']]) && !isset($_POST['reset']))
   {
     $conf[$row['param']] = $_POST[$row['param']];
   }
-}
+}					   
 //------------------------------ verification and registration of modifications
 $errors = array();
 if (isset($_POST['submit']))
 {
-//   echo '<pre>';
-//   print_r($_POST);
-//   echo '</pre>';
-  
   $int_pattern = '/^\d+$/';
   switch ($page['section'])
   {
@@ -134,13 +65,13 @@ if (isset($_POST['submit']))
       // thumbnail prefix must only contain simple ASCII characters
       if (!preg_match('/^[\w-]*$/', $_POST['prefix_thumbnail']))
       {
-        array_push($errors, $lang['conf_general_prefix_thumbnail_error']);
+        array_push($errors, $lang['conf_prefix_thumbnail_error']);
       }
       // mail must be formatted as follows : name@server.com
       $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
       if (!preg_match($pattern, $_POST['mail_webmaster']))
       {
-        array_push($errors, $lang['conf_general_mail_webmaster_error']);
+        array_push($errors, $lang['conf_mail_webmaster_error']);
       }
       break;
     }
@@ -152,7 +83,7 @@ if (isset($_POST['submit']))
            or $_POST['nb_comment_page'] < 5
            or $_POST['nb_comment_page'] > 50)
       {
-        array_push($errors, $lang['conf_comments_nb_comment_page_error']);
+        array_push($errors, $lang['conf_nb_comment_page_error']);
       }
       break;
     }
@@ -162,7 +93,7 @@ if (isset($_POST['submit']))
       if (!preg_match($int_pattern, $_POST['recent_period'])
           or $_POST['recent_period'] <= 0)
       {
-        array_push($errors, $lang['conf_default_recent_period_error']);
+        array_push($errors, $lang['periods_error']);
       }
       break;
     }
@@ -173,7 +104,7 @@ if (isset($_POST['submit']))
           or $_POST['upload_maxfilesize'] < 10
           or $_POST['upload_maxfilesize'] > 1000)
       {
-        array_push($errors, $lang['conf_upload_upload_maxfilesize_error']);
+        array_push($errors, $lang['conf_upload_maxfilesize_error']);
       }
       
       foreach (array('upload_maxwidth',
@@ -185,7 +116,7 @@ if (isset($_POST['submit']))
         if (!preg_match($int_pattern, $_POST[$field])
           or $_POST[$field] < 10)
         {
-          array_push($errors, $lang['conf_upload_'.$field.'_error']);
+          array_push($errors, $lang['conf_'.$field.'_error']);
         }
       }
       break;
@@ -197,14 +128,14 @@ if (isset($_POST['submit']))
           or $_POST['session_id_size'] < 4
           or $_POST['session_id_size'] > 50)
       {
-        array_push($errors, $lang['conf_session_session_id_size_error']);
+        array_push($errors, $lang['conf_session_size_error']);
       }
       // session_time must be an integer between 5 and 60, in minutes
       if (!preg_match($int_pattern, $_POST['session_time'])
           or $_POST['session_time'] < 5
           or $_POST['session_time'] > 60)
       {
-        array_push($errors, $lang['conf_session_session_time_error']);
+        array_push($errors, $lang['conf_session_time_error']);
       }
       break;
     }
@@ -218,140 +149,227 @@ if (isset($_POST['submit']))
     {
       if (isset($_POST[$row['param']]))
       {
-        $query = '
-UPDATE '.CONFIG_TABLE.'
-  SET value = \''. str_replace("\'", "''", $_POST[$row['param']]).'\'
-  WHERE param = \''.$row['param'].'\'
-;';
+        $query = 'UPDATE '.CONFIG_TABLE.
+		  ' SET value = \''. str_replace("\'", "''", $_POST[$row['param']]).
+		  '\' WHERE param = \''.$row['param'].'\';';
         mysql_query($query);
       }
     }
   }
 }
+
 //----------------------------------------------------- template initialization
-$template->set_filenames(array('config'=>'admin/configuration.tpl'));
+$template->set_filenames( array('config'=>'admin/configuration.tpl') );
 
-$action = PHPWG_ROOT_PATH.'admin.php?page=configuration';
-$action.= '&amp;section='.$page['section'];
-
-$template->assign_vars(
-  array(
-    'L_CONFIRM'=>$lang['conf_confirmation'],
-    'L_SUBMIT'=>$lang['submit'],
-    'F_ACTION'=>add_session_id($action)
-   )
- );
-
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=configuration&amp;section=';
-foreach (array_keys($sections) as $section)
-{
-  if ($section == $page['section'])
-  {
-    $class = 'opened';
-  }
-  else
-  {
-    $class = '';
-  }
+$template->assign_vars(array(  
+  'L_CONFIRM'=>$lang['conf_confirmation'],
+  'L_YES'=>$lang['yes'],
+  'L_NO'=>$lang['no'],
+  'L_SUBMIT'=>$lang['submit'],
+  'L_RESET'=>$lang['reset'],
   
-  $template->assign_block_vars(
-    'confmenu_item',
-    array(
-      'CLASS' => $class,
-      'URL' => add_session_id($base_url.$section),
-      'NAME' => $lang['conf_'.$section.'_title']
-     ));
-}
+  'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=configuration&amp;section='.$page['section'])
+  ));
 
-$fields = $sections[$page['section']];
-foreach ($fields as $field_name => $field)
-{
-  $template->assign_block_vars(
-    'line',
-    array(
-      'NAME' => $lang['conf_'.$page['section'].'_'.$field_name],
-      'INFO' => $lang['conf_'.$page['section'].'_'.$field_name.'_info']
-     ));
-  if ($field['type'] == 'textfield')
+switch ($page['section'])
   {
-    if (isset($field['size']))
+    case 'general' :
     {
-      $size = $field['size'];
-    }
-    else
+      $access_free = ($conf['access']=='free')?'checked="checked"':'';
+	  $access_restricted = ($conf['access']=='restricted')?'checked="checked"':'';
+      $history_yes = ($conf['log']=='true')?'checked="checked"':'';
+	  $history_no  = ($conf['log']=='false')?'checked="checked"':'';
+	  $notif_yes = ($conf['mail_notification']=='true')?'checked="checked"':'';
+	  $notif_no = ($conf['mail_notification']=='false')?'checked="checked"':'';
+
+	  $template->assign_block_vars('general',array(
+	    'L_CONF_TITLE'=>$lang['conf_general_title'],
+		'L_CONF_MAIL'=>$lang['conf_mail_webmaster'],
+		'L_CONF_MAIL_INFO'=>$lang['conf_mail_webmaster_info'],
+		'L_CONF_TN_PREFIX'=>$lang['conf_prefix'],
+		'L_CONF_TN_PREFIX_INFO'=>$lang['conf_prefix_info'],
+		'L_CONF_ACCESS'=>$lang['conf_access'],
+		'L_CONF_ACCESS_INFO'=>$lang['conf_access_info'],
+		'L_CONF_ACCESS_FREE'=>$lang['free'],
+		'L_CONF_ACCESS_RESTRICTED'=>$lang['restricted'],
+		'L_CONF_HISTORY'=>$lang['history'],
+		'L_CONF_HISTORY_INFO'=>$lang['conf_log_info'],
+		'L_CONF_NOTIFICATION'=>$lang['conf_notification'],
+		'L_CONF_NOTIFICATION_INFO'=>$lang['conf_notification_info'],
+		
+		'ADMIN_MAIL'=>$conf['mail_webmaster'],
+		'THUMBNAIL_PREFIX'=>$conf['prefix_thumbnail'],
+		'ACCESS_FREE'=>$access_free,
+		'ACCESS_RESTRICTED'=>$access_restricted,
+		'HISTORY_YES'=>$history_yes,
+		'HISTORY_NO'=>$history_no,
+		'NOTIFICATION_YES'=>$notif_yes,
+		'NOTIFICATION_NO'=>$notif_no
+	  ));
+	  break;
+	}
+	case 'comments' :
     {
-      $size = '';
-    }
-    
-    $template->assign_block_vars(
-      'line.textfield',
-      array(
-        'NAME' => $field_name,
-        'VALUE' => $conf[$field_name],
-        'SIZE' => $size
-       ));
+	  $show_yes = ($conf['show_comments']=='true')?'checked="checked"':'';
+	  $show_no = ($conf['show_comments']=='false')?'checked="checked"':'';
+      $all_yes = ($conf['comments_forall']=='true')?'checked="checked"':'';
+	  $all_no  = ($conf['comments_forall']=='false')?'checked="checked"':'';
+	  $validate_yes = ($conf['comments_validation']=='true')?'checked="checked"':'';
+	  $validate_no = ($conf['comments_validation']=='false')?'checked="checked"':'';
+
+	  $template->assign_block_vars('comments',array(
+	    'L_CONF_TITLE'=>$lang['conf_comments_title'],
+		'L_CONF_SHOW_COMMENTS'=>$lang['conf_show_comments'],
+		'L_CONF_SHOW_COMMENTS_INFO'=>$lang['conf_show_comments_info'],
+		'L_CONF_COMMENTS_ALL'=>$lang['conf_comments_forall'],
+		'L_CONF_COMMENTS_ALL_INFO'=>$lang['conf_comments_forall_info'],
+		'L_CONF_NB_COMMENTS_PAGE'=>$lang['conf_nb_comment_page'],
+		'L_CONF_NB_COMMENTS_PAGE_INFO'=>$lang['conf_nb_comment_page'],
+		'L_CONF_VALIDATE'=>$lang['conf_comments_validation'],
+		'L_CONF_VALIDATE_INFO'=>$lang['conf_comments_validation_info'],
+				
+		'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
+		'SHOW_COMMENTS_YES'=>$show_yes,
+		'SHOW_COMMENTS_NO'=>$show_no,
+		'COMMENTS_ALL_YES'=>$all_yes,
+		'COMMENTS_ALL_NO'=>$all_no,
+		'VALIDATE_YES'=>$validate_yes,
+		'VALIDATE_NO'=>$validate_no
+	  ));
+	  break;
+	}
+	case 'default' :
+    {
+	  $show_yes = ($conf['show_nb_comments']=='true')?'checked="checked"':'';
+	  $show_no = ($conf['show_nb_comments']=='false')?'checked="checked"':'';
+      $expand_yes = ($conf['auto_expand']=='true')?'checked="checked"':'';
+	  $expand_no  = ($conf['auto_expand']=='false')?'checked="checked"':'';
+
+	  $template->assign_block_vars('default',array(
+	    'L_CONF_TITLE'=>$lang['conf_default_title'],
+		'L_CONF_LANG'=>$lang['language'],
+		'L_CONF_LANG_INFO'=>$lang['conf_default_language_info'],
+		'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
+		'L_NB_IMAGE_LINE_INFO'=>$lang['conf_nb_image_line_info'],
+		'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
+		'L_NB_ROW_PAGE_INFO'=>$lang['conf_nb_line_page_info'],
+		'L_CONF_STYLE'=>$lang['theme'],
+		'L_CONF_STYLE_INFO'=>$lang['conf_default_theme_info'],
+		'L_CONF_RECENT'=>$lang['recent_period'],
+		'L_CONF_RECENT_INFO'=>$lang['conf_recent_period_info'],
+		'L_CONF_EXPAND'=>$lang['auto_expand'],
+		'L_CONF_EXPAND_INFO'=>$lang['conf_default_expand_info'],
+		'L_NB_COMMENTS'=>$lang['show_nb_comments'],
+		'L_NB_COMMENTS_INFO'=>$lang['conf_show_nb_comments_info'],
+  
+		'CONF_LANG_SELECT'=>language_select($conf['default_language'], 'default_language'),
+		'NB_IMAGE_LINE'=>$conf['nb_image_line'],
+		'NB_ROW_PAGE'=>$conf['nb_line_page'],
+		'CONF_STYLE_SELECT'=>style_select($conf['default_template'], 'default_template'),
+		'CONF_RECENT'=>$conf['recent_period'],
+		'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
+		'EXPAND_YES'=>$expand_yes,
+		'EXPAND_NO'=>$expand_no,
+		'SHOW_COMMENTS_YES'=>$show_yes,
+		'SHOW_COMMENTS_NO'=>$show_no
+	  ));
+	  break;
+	}
+	case 'upload' :
+    {
+	  $upload_yes = ($conf['upload_available']=='true')?'checked="checked"':'';
+	  $upload_no = ($conf['upload_available']=='false')?'checked="checked"':'';
+	  
+	  $template->assign_block_vars('upload',array(
+	    'L_CONF_TITLE'=>$lang['conf_upload_title'],
+		'L_CONF_UPLOAD'=>$lang['conf_authorize_upload'],
+		'L_CONF_UPLOAD_INFO'=>$lang['conf_authorize_upload_info'],
+		'L_CONF_MAXSIZE'=>$lang['conf_upload_maxfilesize'],
+		'L_CONF_MAXSIZE_INFO'=>$lang['conf_upload_maxfilesize_info'],
+		'L_CONF_MAXWIDTH'=>$lang['conf_upload_maxwidth'],
+		'L_CONF_MAXWIDTH_INFO'=>$lang['conf_upload_maxwidth_info'],
+		'L_CONF_MAXHEIGHT'=>$lang['conf_upload_maxheight'],
+		'L_CONF_MAXHEIGHT_INFO'=>$lang['conf_upload_maxheight_info'],
+		'L_CONF_TN_MAXWIDTH'=>$lang['conf_upload_tn_maxwidth'],
+		'L_CONF_TN_MAXWIDTH_INFO'=>$lang['conf_upload_tn_maxwidth_info'],
+		'L_CONF_TN_MAXHEIGHT'=>$lang['conf_upload_tn_maxheight'],
+		'L_CONF_TN_MAXHEIGHT_INFO'=>$lang['conf_upload_tn_maxheight_info'],
+				
+		'UPLOAD_MAXSIZE'=>$conf['upload_maxfilesize'],
+		'UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth'],
+		'UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight'],
+		'TN_UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth_thumbnail'],
+		'TN_UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight_thumbnail'],
+		'UPLOAD_YES'=>$upload_yes,
+		'UPLOAD_NO'=>$upload_no
+	  ));
+	  break;
+	}
+	case 'session' :
+    {
+	  $cookie_yes = ($conf['upload_available']=='true')?'checked="checked"':'';
+	  $cookie_no = ($conf['upload_available']=='false')?'checked="checked"':'';
+	  
+	  $template->assign_block_vars('session',array(
+	    'L_CONF_TITLE'=>$lang['conf_session_title'],
+		'L_CONF_COOKIE'=>$lang['conf_cookies'],
+		'L_CONF_COOKIE_INFO'=>$lang['conf_cookies_info'],
+		'L_SESSION_LENGTH'=>$lang['conf_session_time'],
+		'L_SESSION_LENGTH_INFO'=>$lang['conf_session_time_info'],
+		'L_SESSION_ID_SIZE'=>$lang['conf_session_size'],
+		'L_SESSION_ID_SIZE_INFO'=>$lang['conf_session_size_info'],
+
+		'SESSION_LENGTH'=>$conf['session_time'],
+		'SESSION_ID_SIZE'=>$conf['session_id_size'],
+		'COOKIE_YES'=>$cookie_yes,
+		'COOKIE_NO'=>$cookie_no
+	  ));
+	  break;
+	}
+	case 'metadata' :
+    {
+	  $exif_yes = ($conf['use_exif']=='true')?'checked="checked"':'';
+	  $exif_no = ($conf['use_exif']=='false')?'checked="checked"':'';
+	  $iptc_yes = ($conf['use_iptc']=='true')?'checked="checked"':'';
+	  $iptc_no = ($conf['use_iptc']=='false')?'checked="checked"':'';
+	  $show_exif_yes = ($conf['show_exif']=='true')?'checked="checked"':'';
+	  $show_exif_no = ($conf['show_exif']=='false')?'checked="checked"':'';
+	  $show_iptc_yes = ($conf['show_iptc']=='true')?'checked="checked"':'';
+	  $show_iptc_no = ($conf['show_iptc']=='false')?'checked="checked"':'';
+	  
+	  $template->assign_block_vars('metadata',array(
+	    'L_CONF_TITLE'=>$lang['conf_metadata_title'],
+		'L_CONF_EXIF'=>$lang['conf_use_exif'],
+		'L_CONF_EXIF_INFO'=>$lang['conf_use_exif_info'],
+		'L_CONF_IPTC'=>$lang['conf_use_iptc'],
+		'L_CONF_IPTC_INFO'=>$lang['conf_use_iptc_info'],
+		'L_CONF_SHOW_EXIF'=>$lang['conf_show_exif'],
+		'L_CONF_SHOW_EXIF_INFO'=>$lang['conf_show_exif_info'],
+		'L_CONF_SHOW_IPTC'=>$lang['conf_show_iptc'],
+		'L_CONF_SHOW_IPTC_INFO'=>$lang['conf_show_iptc_info'],
+
+		'USE_EXIF_YES'=>$exif_yes,
+		'USE_EXIF_NO'=>$exif_no,
+		'USE_IPTC_YES'=>$iptc_yes,
+		'USE_IPTC_NO'=>$iptc_no,
+		'SHOW_EXIF_YES'=>$show_exif_yes,
+		'SHOW_EXIF_NO'=>$show_exif_no,
+		'SHOW_IPTC_YES'=>$show_iptc_yes,
+		'SHOW_IPTC_NO'=>$show_iptc_no
+	  ));
+	  break;
+	}
   }
-  else if ($field['type'] == 'radio')
-  {
-    foreach ($field['options'] as $option_value => $option)
-    {
-      if ($conf[$field_name] == $option_value)
-      {
-        $checked = 'checked="checked"';
-      }
-      else
-      {
-        $checked = '';
-      }
-      
-      $template->assign_block_vars(
-        'line.radio',
-        array(
-          'NAME' => $field_name,
-          'VALUE' => $option_value,
-          'CHECKED' => $checked,
-          'OPTION' => $option
-         ));
-    }
-  }
-  else if ($field['type'] == 'select')
-  {
-    $template->assign_block_vars(
-      'line.select',
-      array(
-        'NAME' => $field_name
-       ));
-    foreach ($field['options'] as $option_value => $option)
-    {
-      if ($conf[$field_name] == $option_value)
-      {
-        $selected = 'selected="selected"';
-      }
-      else
-      {
-        $selected = '';
-      }
-      
-      $template->assign_block_vars(
-        'line.select.select_option',
-        array(
-          'VALUE' => $option_value,
-          'SELECTED' => $selected,
-          'OPTION' => $option
-         ));
-    }
-  }
-}
 //-------------------------------------------------------------- errors display
-if (count($errors) != 0)
+if ( sizeof( $errors ) != 0 )
 {
   $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
 }
-else if (isset($_POST['submit']))
+elseif ( isset( $_POST['submit'] ) )
 {
   $template->assign_block_vars('confirmation' ,array());
 }

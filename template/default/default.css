@@ -350,45 +350,6 @@ span.update_error_element, span.update_category_error {
   color:#ffe1e1;
 }
 
-.confMenu {
-  background-color:#444444;
-  text-align:center;
-}
-
-.confMenu a {
-  padding:2px;
-  border:1px solid gray;
-  background-color:#505050;
-  color:#fff48e;
-  color:lightgray;
-}
-
-.confMenu a:hover {
-  color:orange;
-  text-decoration:none;
-}
-
-.confMenu a.opened {
-  background-color:gray;
-  color:white;
-  text-decoration:none;
-}
-
-span.confLineName {
-  font-weight:bold;
-}
-
-span.confLineInfo {
-  font-size:80%;
-}
-
-td.confLineField {
-  text-align:left;
-  padding:5px 0px 5px 0px;
-  height:20px;
-  background-color:#505050;
-}
-
 div.remoteOutput {
   background-color:#444444;
   border:1px solid black;
