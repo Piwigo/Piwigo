@@ -24,6 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 // How to change the order of display for images in a category ?
 //
 // You have to modify $conf['order_by'].
@@ -44,7 +45,7 @@ $conf['nb_image_row']       = array(4,5,6,7,8);
 $conf['nb_row_page']        = array(2,3,4,5,6,7,10,20,1000);
 $conf['slideshow_period']   = array(2,5,10);
 $conf['last_days']          = array(1,2,3,10,30,365);
-$conf['version']            = '1.4 - devel';
+$conf['version']            = 'BSF';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
 $conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
