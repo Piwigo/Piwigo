@@ -164,6 +164,15 @@ foreach (array('prev', 'current', 'next') as $i)
   if ($picture[$i]['is_picture'])
   {
     $picture[$i]['src'] = $cat_directory.$row['file'];
+    // if we are working on the "current" element, we search if there is a
+    // high quality picture
+    if ($i == 'current')
+    {
+      if (@fopen($cat_directory.'high/'.$row['file'], 'r'))
+      {
+        $picture[$i]['high'] = $cat_directory.'high/'.$row['file'];
+      }
+    }
   }
 
   // if picture is not a file, we need the download link
@@ -209,7 +218,8 @@ $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
 $url_admin.= '&amp;cat_id='.$page['cat'];
 $url_admin.= '&amp;image_id='.$_GET['image_id'];
 
-$url_slide = $picture['current']['url'].'&amp;slideshow='.$conf['slideshow_period'];
+$url_slide = $picture['current']['url'];
+$url_slide.= '&amp;slideshow='.$conf['slideshow_period'];
 //----------------------------------------------------------- rate registration
 if (isset($_GET['rate'])
     and $conf['rate']
@@ -386,7 +396,7 @@ $title_img = $picture['current']['name'];
 $title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
-  $title_img = replace_space(get_cat_display_name( $page['cat_name'], " &gt; "));
+  $title_img = replace_space(get_cat_display_name($page['cat_name'],' &gt; '));
   $n = $page['num'] + 1;
   $title_nb = $n.'/'.$page['cat_nb_images'];
 }
@@ -456,6 +466,8 @@ $template->assign_vars(array(
   'L_DOWNLOAD' => $lang['download'],
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
   'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
+  'L_PICTURE_HIGH' => $lang['picture_high'],
+  'L_PICTURE_HIGH_ALT' => $lang['picture_high_alt'],
   
   'U_HOME' => add_session_id($url_home),
   'U_METADATA' => add_session_id($url_metadata),
@@ -464,21 +476,27 @@ $template->assign_vars(array(
   'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
   )
 );
-//-------------------------------------------------------- upper menu management
+//------------------------------------------------------- upper menu management
 // download link if file is not a picture
 if (!$picture['current']['is_picture'])
 {
-  $template->assign_block_vars('download', array(
-        'U_DOWNLOAD' => $picture['current']['download']
-      ));
+  $template->assign_block_vars(
+    'download',
+    array('U_DOWNLOAD' => $picture['current']['download']));
 }
 else
 {
-  $template->assign_block_vars('ecard', array(
-        'U_ECARD' => $picture['current']['url']
-      ));
+  $template->assign_block_vars(
+    'ecard',
+    array('U_ECARD' => $picture['current']['url']));
 }
-
+// display a high quality link if present
+if (isset($picture['current']['high']))
+{
+  $template->assign_block_vars(
+    'high',
+    array('U_HIGH' => $picture['current']['high']));
+}
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )
 {

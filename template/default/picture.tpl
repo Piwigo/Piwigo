@@ -23,6 +23,13 @@
 	<img src="template/default/theme/metadata.gif" alt="{L_PICTURE_METADATA}" />
   </a>
 </div>
+<!-- BEGIN high -->
+<div class="imgMenu" id="left">
+  <a href="{high.U_HIGH}" title="{L_PICTURE_HIGH}">
+        <img src="template/default/theme/high.gif" alt="{L_PICTURE_HIGH_ALT}" />
+  </a>
+</div>
+<!-- END high -->
 <!-- BEGIN favorite -->
 <div class="imgMenu" id="right">
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">

@@ -293,4 +293,6 @@ $lang['rates'] = 'rates';
 $lang['standard_deviation'] = 'STD';
 $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
+$lang['picture_high'] = 'See high quality picture';
+$lang['picture_high_alt'] = 'high';
 ?>
