@@ -124,10 +124,15 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title = $lang['customize_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/profile.vtp' );
 initialize_template();
-$tpl = array( 'customize_page_title','customize_title','password','new',
+$tpl = array( 'customize_title','password','new',
               'reg_confirm','submit','create_cookie' );
 templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
@@ -368,4 +373,5 @@ if ( $conf['authorize_cookies'] )
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

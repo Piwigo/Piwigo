@@ -109,13 +109,7 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
-}
-else
-{
-  $access_forbidden = true;
-}
-if ( $access_forbidden == true
-     or $page['cat_site_id'] != 1
+if ( $page['cat_site_id'] != 1
      or !$conf['upload_available']
      or !$page['cat_uploadable'] )
 {
@@ -124,8 +118,13 @@ if ( $access_forbidden == true
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
+}
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['upload_title'];
+include('include/page_header.php');
 $handle = $vtp->Open( './template/'.$user['template'].'/upload.vtp' );
 initialize_template();
 
@@ -347,12 +346,16 @@ if ( !$page['upload_successful'] )
     else                                  $mail_address=$user['mail_address'];
     $vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
     // name of the picture
+	if (isset($_POST['name']))
     $vtp->setVar( $handle, 'fields.name', $_POST['name'] );
     // author
+	if (isset($_POST['author']))
     $vtp->setVar( $handle, 'fields.author', $_POST['author'] );
     // date of creation
+	if (isset($_POST['date_creation']))
     $vtp->setVar( $handle, 'fields.date_creation', $_POST['date_creation'] );
     // comment
+	if (isset($_POST['comment']))
     $vtp->setVar( $handle, 'fields.comment', $_POST['comment'] );
 
     $vtp->closeSession( $handle, 'fields' );
@@ -373,4 +376,5 @@ $vtp->setGlobalVar( $handle, 'return_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

@@ -1,11 +1,3 @@
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset={#charset}" />
-    {#style}
-    <title>{#title}</title>
-  </head>
-  <body>
-    {#header}
     <table style="width:100%;">
       <tr>
         <td valign="top" style="width:1%;padding:10px;">
@@ -16,11 +8,11 @@
               <!--/VTP_category-->
               <div class="totalImages">[&nbsp;{#nb_total_pictures}&nbsp;{#total}&nbsp;]</div>
               <!--VTP_favorites-->
-              <br />&nbsp;<img src="{#lien_collapsed}" al="&gt;" />&nbsp;<a href="{#url}"><span title="{#favorite_cat_hint}" style="font-weight:bold;">{#favorite_cat}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{#nb_favorites}&nbsp;]</span>
+              <br />&nbsp;<img src="{#lien_collapsed}" alt="&gt;" />&nbsp;<a href="{#url}"><span title="{#favorite_cat_hint}" style="font-weight:bold;">{#favorite_cat}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{#nb_favorites}&nbsp;]</span>
               <!--/VTP_favorites-->
-              <br />&nbsp;<img src="{#lien_collapsed}" al="&gt;" />&nbsp;<span style="font-weight:bold;">{#stats}</span></a>
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{#lien_collapsed}" al="&gt;" />&nbsp;<a href="{#most_visited_url}"><span title="{#most_visited_cat_hint}" style="font-weight:bold;">{#top_number}&nbsp;{#most_visited_cat}</span></a>
-              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{#lien_collapsed}" al="&gt;" />&nbsp;<a href="{#recent_url}"><span title="{#recent_cat_hint}" style="font-weight:bold;">{#recent_cat}</span></a> {#icon_short}
+              <br />&nbsp;<img src="{#lien_collapsed}" alt="&gt;" />&nbsp;<span style="font-weight:bold;">{#stats}</span>
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{#lien_collapsed}" alt="&gt;" />&nbsp;<a href="{#most_visited_url}"><span title="{#most_visited_cat_hint}" style="font-weight:bold;">{#top_number}&nbsp;{#most_visited_cat}</span></a>
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{#lien_collapsed}" alt="&gt;" />&nbsp;<a href="{#recent_url}"><span title="{#recent_cat_hint}" style="font-weight:bold;">{#recent_cat}</span></a> {#icon_short}
             </div>
           {#frame_end}
           <div style="margin-bottom:5px;">&nbsp;</div>
@@ -102,11 +94,3 @@
         </td>
       </tr>
     </table>
-    <div class="copyright">{#generation_time} {#time}</div>
-    <!-- Please, do not remove this copyright. If you really want to,
-         contact me pierrick@z0rglub.com to find a solution on how
-         to show the origin of the script...-->
-    <div class="copyright">Powered by <a href="{#site_url}" class="back">PhpWebGallery</a> {#version}</div>
-    {#footer}
-  </body>
-</html>

@@ -17,10 +17,10 @@
  *                                                                         *
  ***************************************************************************/
 
-include( PREFIX_INCLUDE.'./template/'.$user['template'].'/theme/conf.php' );
+//include( PREFIX_INCLUDE.'./template/'.$user['template'].'/theme/conf.php' );
 $user['lien_expanded']='./template/'.$user['template'].'/theme/expanded.gif';
 $user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
-include_once( PREFIX_INCLUDE.'./template/'.$user['template'].'/style.inc.php');
+//include_once( PREFIX_INCLUDE.'./template/'.$user['template'].'/style.inc.php');
 
 function get_icon( $date_comparaison )
 {
@@ -160,15 +160,15 @@ function initialize_template()
 {
   global $vtp, $handle, $user, $lang;
 
-  $vtp->setGlobalVar( $handle, 'charset', $lang['charset'] );
-  $vtp->setGlobalVar( $handle, 'style', $user['style'] );
+ // $vtp->setGlobalVar( $handle, 'charset', $lang['charset'] );
+  //$vtp->setGlobalVar( $handle, 'style', $user['style'] );
   $vtp->setGlobalVar( $handle, 'frame_start', get_frame_start() );
   $vtp->setGlobalVar( $handle, 'frame_begin', get_frame_begin() );
   $vtp->setGlobalVar( $handle, 'frame_end',   get_frame_end() );
-  $vtp->setVarF( $handle, 'header',
-                 './template/'.$user['template'].'/header.htm' );
-  $vtp->setVarF( $handle, 'footer',
-                 './template/'.$user['template'].'/footer.htm' );
+ //$vtp->setVarF( $handle, 'header',
+ //                './template/'.$user['template'].'/header.htm' );
+  //$vtp->setVarF( $handle, 'footer',
+   //              './template/'.$user['template'].'/footer.htm' );
 }
 
 function display_category( $category, $indent, $handle )

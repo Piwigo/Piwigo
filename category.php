@@ -16,10 +16,6 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-// determine the initial instant to indicate the generation time of this page
-$t1 = explode( ' ', microtime() );
-$t2 = explode( '.', $t1[0] );
-$t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
 //---------------------------------------------------------------------- logout
@@ -102,26 +98,33 @@ if ( isset( $_GET['num'] )
 $page['plain_structure'] = get_user_plain_structure();
 $page['structure'] = create_user_structure( '' );
 $page['structure'] = update_structure( $page['structure'] );
+
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+
+//
+// Start output of page
+//
+$title = $page['title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/category.vtp' );
 initialize_template();
 $tpl = array(
   'categories','hint_category','sub-cat','images_available','total',
   'title_menu','nb_image_category','send_mail','title_send_mail',
-  'generation_time','connected_user','recent_image','days','generation_time',
+  'connected_user','recent_image','days',
   'favorite_cat_hint','favorite_cat','stats','most_visited_cat_hint',
   'most_visited_cat','recent_cat','recent_cat_hint','upload_picture',
   'comments' );
 templatize_array( $tpl, 'lang', $handle );
 
-$tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
+$tpl = array( 'mail_webmaster','webmaster','top_number');
 templatize_array( $tpl, 'conf', $handle );
 
 $tpl = array( 'short_period','long_period','lien_collapsed', 'username' );
 templatize_array( $tpl, 'user', $handle );
 
-$tpl = array( 'title','navigation_bar','cat_comment','cat_nb_images' );
+$tpl = array( 'navigation_bar','cat_comment','cat_nb_images' );
 templatize_array( $tpl, 'page', $handle );
 
 // special global template vars
@@ -404,7 +407,7 @@ elseif ( ( isset( $page['cat'] )
     $thumbnail_title = $lang['hint_category'];
 
     $url_link = './category.php?cat='.$subcat_id;
-    if ( !in_array( $page['cat'], $page['tab_expand'] ) )
+    if ( isset($page['cat'])&& !in_array( $page['cat'], $page['tab_expand'] ) )
     {
       array_push( $page['tab_expand'], $page['cat'] );
       $page['expand'] = implode( ',', $page['tab_expand'] );
@@ -487,10 +490,9 @@ if ( isset ( $page['cat'] ) )
 //------------------------------------------------------------ log informations
 pwg_log( 'category', $page['title'] );
 mysql_close();
-//------------------------------------------------------------- generation time
-$time = get_elapsed_time( $t2, get_moment() );
-$vtp->setGlobalVar( $handle, 'time', $time );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+
+include('include/page_tail.php');
 ?>

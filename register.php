@@ -42,11 +42,14 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['register_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/register.vtp' );
 // language
-$vtp->setGlobalVar( $handle, 'register_page_title',
-                    $lang['register_page_title'] );
 $vtp->setGlobalVar( $handle, 'register_title',   $lang['register_title'] );
 $vtp->setGlobalVar( $handle, 'ident_guest_visit',$lang['ident_guest_visit'] );
 $vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
@@ -102,4 +105,5 @@ $vtp->closeSession( $handle, 'line' );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

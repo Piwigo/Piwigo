@@ -46,7 +46,7 @@ function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
     $subrow = mysql_fetch_array( mysql_query( $query ) );
     $category_id = $subrow['category_id'];
 
-    if ( $array_cat_directories[$category_id] == '' )
+    if ( !isset($array_cat_directories[$category_id]))
     {
       $array_cat_directories[$category_id] =
         get_complete_dir( $category_id );
@@ -133,12 +133,16 @@ function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['title_comments'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/comments.vtp' );
 initialize_template();
 $tpl = array( 'title_comments','stats_last_days','search_return_main_page' );
 templatize_array( $tpl, 'lang', $handle );
-$vtp->setGlobalVar( $handle, 'text_color', $user['couleur_text'] );
 //--------------------------------------------------- number of days to display
 if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
 else                               define( 'MAX_DAYS', 0 );
@@ -182,4 +186,5 @@ display_pictures( $result, $maxtime, $user['restrictions'] );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

@@ -53,10 +53,14 @@ if ( isset( $_POST['search'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['search_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/search.vtp' );
 initialize_template();
-
 $tpl = array( 'search_title','search_return_main_page','submit',
               'search_comments' );
 templatize_array( $tpl, 'lang', $handle );
@@ -93,7 +97,7 @@ $vtp->addSession( $handle, 'radio' );
 $vtp->setVar( $handle, 'radio.name', 'mode' );
 $vtp->setVar( $handle, 'radio.value', 'OR' );
 $vtp->setVar( $handle, 'radio.option', $lang['search_mode_or'] );
-if (isset($_POST['mode']) && ($_POST['mode'] == 'OR' or $_POST['mode'] == '' ))
+if (!isset($_POST['mode']) || $_POST['mode'] == 'OR' )
 {
   $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
 }
@@ -117,6 +121,7 @@ $vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
-pwg_log( 'search', $page['title'] );
+pwg_log( 'search', $title );
 mysql_close();
+include('include/page_tail.php');
 ?>

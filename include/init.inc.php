@@ -16,6 +16,11 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+// determine the initial instant to indicate the generation time of this page
+$t1 = explode( ' ', microtime() );
+$t2 = explode( '.', $t1[0] );
+$t2 = $t1[1].'.'.$t2[1];
+
 define( 'PREFIX_INCLUDE', '' );
 
 include_once( './include/config.inc.php' );

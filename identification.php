@@ -43,10 +43,14 @@ if ( isset( $_POST['login'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title = $lang['ident_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/default/identification.vtp' );
 // language
-$vtp->setGlobalVar( $handle, 'ident_page_title', $lang['ident_page_title'] );
 $vtp->setGlobalVar( $handle, 'ident_title',      $lang['ident_title'] );
 $vtp->setGlobalVar( $handle, 'login',            $lang['login'] );
 $vtp->setGlobalVar( $handle, 'password',         $lang['password'] );
@@ -109,4 +113,5 @@ if ( $conf['access'] == 'free' )
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

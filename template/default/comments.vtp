@@ -1,52 +1,3 @@
-<html>
-  <head>
-    {#style}
-    <title>{#title_comments}</title>
-    <meta http-equiv="Content-Type" content="text/html; {#charset}">
-    <!-- Specific style to comments.php-->
-    <style type="text/css">
-      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
-        color:{#text_color};
-        font-family:arial,sans-Serif;
-        font-size:12px;
-      }
-      .commentsTitle,.commentsAuthor {
-        text-align:center;
-        font-weight:bold;
-      }
-      .commentsInfos {
-        margin:3px 3px 3px 10px;
-        font-size:11px;
-        text-align:right;
-      }
-      .commentsContent {
-        margin:10px;
-      }
-      .commentsTitle {
-        margin-top:15px;
-      }
-      .commentsAuthor {
-        margin:5px;
-      }
-      .commentsNavigationBar {
-        margin:10px;
-      }
-      .tableComment {
-        width:100%;
-        border:2px solid {#text_color};
-        margin:10px;
-      }
-      .cellAuthor {
-        border-right:1px solid {#text_color};
-        width:100px;
-      }
-      .cellInfo {
-        border-bottom:1px solid {#text_color};
-      }
-    </style>
-  </head>
-  <body>
-    {#header}
     <table style="width:100%;">
       <tr align="center" valign="middle">
         <td>
@@ -114,6 +65,3 @@
         </td>
       </tr>
     </table>
-    {#footer}
-  </body>
-</html>
