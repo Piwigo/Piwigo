@@ -27,7 +27,7 @@
 
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'incelude/common.inc.php' );
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //-------------------------------------------------- access authorization check
 if ( $conf['access'] == "restricted" )
 {
@@ -50,6 +50,10 @@ if ( isset( $_POST['submit'] ) )
     exit();
   }
 }
+
+$login = empty($_POST['login'])?$_POST['login']:'';
+$email = empty($_POST['login'])?$_POST['login']:'';
+
 //----------------------------------------------------- template initialization
 //
 // Start output of page
@@ -57,62 +61,33 @@ if ( isset( $_POST['submit'] ) )
 $title= $lang['register_page_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/register.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'register_title',   $lang['register_title'] );
-$vtp->setGlobalVar( $handle, 'ident_guest_visit',$lang['ident_guest_visit'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
+$template->set_filenames( array('register'=>'register.tpl') );
 initialize_template();
-//----------------------------------------------------------------- form action
-$vtp->setGlobalVar( $handle, 'form_action', './register.php' );
+
+$template->assign_vars(array(
+  'L_TITLE' => $lang['register_title'],
+  'L_GUEST' => $lang['ident_guest_visit'],
+  'L_SUBMIT' => $lang['submit'],
+  'L_USERNAME' => $lang['login'],
+  'L_PASSWORD' => $lang['password'],
+  'L_CONFIRM_PASSWORD' => $lang['reg_confirm'],
+  'L_EMAIL' => $lang['mail_address'],
+  
+  'F_ACTION' => add_session_id('register.php'),
+  'F_LOGIN' => $login,
+  'F_MAIL' => $email
+  ));
+
 //-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
+if ( sizeof( $errors ) != 0 )
 {
-  $vtp->addSession( $handle, 'errors' );
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
-    $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error[$i] );
-    $vtp->closeSession( $handle, 'li' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
-  $vtp->closeSession( $handle, 'errors' );
 }
-//----------------------------------------------------------------------- login
-$vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['login'] );
-$vtp->addSession( $handle, 'text' );
-$vtp->setVar( $handle, 'text.name', 'login' );
-if (isset( $_POST['login']))
-	$vtp->setVar( $handle, 'text.value', $_POST['login'] );
-$vtp->closeSession( $handle, 'text' );
-$vtp->closeSession( $handle, 'line' );
-//-------------------------------------------------------------------- password
-$vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['password'] );
-$vtp->addSession( $handle, 'password' );
-$vtp->setVar( $handle, 'password.name', 'password' );
-$vtp->setVar( $handle, 'password.value', '' );
-$vtp->closeSession( $handle, 'password' );
-$vtp->closeSession( $handle, 'line' );
-//------------------------------------------------------- password confirmation
-$vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['reg_confirm'] );
-$vtp->addSession( $handle, 'password' );
-$vtp->setVar( $handle, 'password.name', 'password_conf' );
-$vtp->setVar( $handle, 'password.value', '' );
-$vtp->closeSession( $handle, 'password' );
-$vtp->closeSession( $handle, 'line' );
-//---------------------------------------------------------------- mail address
-$vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
-$vtp->addSession( $handle, 'text' );
-$vtp->setVar( $handle, 'text.name', 'mail_address' );
-if (isset( $_POST['mail_address']))
-	$vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
-$vtp->closeSession( $handle, 'text' );
-$vtp->closeSession( $handle, 'line' );
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+
+$template->pparse('register');
 include('include/page_tail.php');
 ?>

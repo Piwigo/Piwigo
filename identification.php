@@ -36,11 +36,11 @@ if ( isset( $_POST['login'] ) )
   // retrieving the encrypted password of the login submitted
   $query = 'SELECT password';
   $query.= ' FROM '.USERS_TABLE;
-  $query.= " WHERE username = '".$_POST['login']."';";
+  $query.= " WHERE username = '".$_POST['username']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   if( $row['password'] == md5( $_POST['pass'] ) )
   {
-    $session_id = session_create( $_POST['login'] );
+    $session_id = session_create( $_POST['username'] );
     $url = 'category.php?id='.$session_id;
     header( 'Request-URI: '.$url );
     header( 'Content-Location: '.$url );  
@@ -59,69 +59,41 @@ if ( isset( $_POST['login'] ) )
 $title = $lang['ident_page_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/default/identification.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'ident_title',      $lang['ident_title'] );
-$vtp->setGlobalVar( $handle, 'login',            $lang['login'] );
-$vtp->setGlobalVar( $handle, 'password',         $lang['password'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-$vtp->setGlobalVar( $handle, 'ident_guest_visit',$lang['ident_guest_visit'] );
-$vtp->setGlobalVar( $handle, 'ident_register',   $lang['ident_register'] );
-$vtp->setGlobalVar( $handle, 'ident_forgotten_password',
-                    $lang['ident_forgotten_password'] );
-// conf
-$vtp->setGlobalVar( $handle, 'mail_webmaster',   $conf['mail_webmaster'] );
-// user
-$vtp->setGlobalVar( $handle, 'user_template',    $user['template'] );
+$template->set_filenames( array('identification'=>'identification.tpl') );
 initialize_template();
+
+$template->assign_vars(array(
+  'MAIL_ADMIN' => $conf['mail_webmaster'],
+
+  'L_TITLE' => $lang['ident_title'],
+  'L_USERNAME' => $lang['login'],
+  'L_PASSWORD' => $lang['password'],
+  'L_LOGIN' => $lang['submit'],
+  'L_GUEST' => $lang['ident_guest_visit'],
+  'L_REGISTER' => $lang['ident_register'],
+  'L_FORGET' => $lang['ident_forgotten_password'], 
+  
+  'T_STYLE' => $user['template'],
+  
+  'F_LOGIN_ACTION' => add_session_id('identification.php')
+  ));
+
 //-------------------------------------------------------------- errors display
 if ( sizeof( $errors ) != 0 )
 {
-  $vtp->addSession( $handle, 'errors' );
-  foreach ( $errors as $error ) {
-    $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error );
-    $vtp->closeSession( $handle, 'li' );
-  }
-  $vtp->closeSession( $handle, 'errors' );
-}
-//------------------------------------------------------------------ users list
-// retrieving all the users login
-$query = 'select username from '.USERS_TABLE.';';
-$result = mysql_query( $query );
-if ( mysql_num_rows ( $result ) < $conf['max_user_listbox'] )
-{
-  $vtp->addSession( $handle, 'select_field' );
-  while ( $row = mysql_fetch_array( $result ) )
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
-    if ( $row['username'] != 'guest' )
-    {
-      $vtp->addSession( $handle, 'option' );
-      $vtp->setVar( $handle, 'option.option', $row['username'] );
-      $vtp->closeSession( $handle, 'option' );
-    }
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
-  $vtp->closeSession( $handle, 'select_field' );
 }
-else
-{
-  $vtp->addSession( $handle, 'text_field' );
-  $vtp->closeSession( $handle, 'text_field' );
-}
+
 //-------------------------------------------------------------- visit as guest
 if ( $conf['access'] == 'free' )
 {
-  $vtp->addSession( $handle, 'guest_visit' );
-  $vtp->closeSession( $handle, 'guest_visit' );
-}
-//---------------------------------------------------------------- registration
-if ( $conf['access'] == 'free' )
-{
-  $vtp->addSession( $handle, 'register' );
-  $vtp->closeSession( $handle, 'register' );
+  $template->assign_block_vars('free_access',array());
 }
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('identification');
 include('include/page_tail.php');
 ?>
