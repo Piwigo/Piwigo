@@ -97,7 +97,8 @@ while ($row = mysql_fetch_array($result))
   }
   else
   {
-    $thumbnail_url = './template/'.$user['template'].'/mimetypes/';
+    $thumbnail_url = PHPWG_ROOT_PATH;
+    $thumbnail_url.= 'template/'.$user['template'].'/mimetypes/';
     $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
   }
   
