@@ -30,14 +30,21 @@ define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //----------------------------------------------------------- user registration
 $errors = array();
-if ( isset( $_POST['submit'] ) )
+if (isset($_POST['submit']))
 {
-  $errors = register_user( $_POST['login'], $_POST['password'],
-                          $_POST['password_conf'], $_POST['mail_address'] );
-  if ( sizeof( $errors ) == 0 )
+  $errors = register_user($_POST['login'], $_POST['password'],
+                          $_POST['password_conf'], $_POST['mail_address']);
+  if (count($errors) == 0)
   {
+    $query = '
+SELECT id
+  FROM '.USERS_TABLE.'
+  WHERE username = \''.$_POST['login'].'\'
+;';
+    list($user_id) = mysql_fetch_array(pwg_query($query));
+    $session_id = session_create($user_id, $conf['session_length']);
     $url = 'category.php?id='.$session_id;
-    redirect( $url );
+    redirect($url);
   }
 }
 

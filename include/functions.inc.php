@@ -85,6 +85,31 @@ function get_boolean( $string )
   return $boolean;
 }
 
+/**
+ * returns boolean string 'true' or 'false' if the given var is boolean
+ *
+ * @param mixed $var
+ * @return mixed
+ */
+function boolean_to_string($var)
+{
+  if (is_bool($var))
+  {
+    if ($var)
+    {
+      return 'true';
+    }
+    else
+    {
+      return 'false';
+    }
+  }
+  else
+  {
+    return $var;
+  }
+}
+
 // array_remove removes a value from the given array if the value existed in
 // this array.
 function array_remove( $array, $value )
@@ -512,7 +537,7 @@ function redirect( $url )
 
   // $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
-  $refresh = 1;
+  $refresh = 2;
   $url_link = $url;
   $title = 'redirection';
   include( PHPWG_ROOT_PATH.'include/page_header.php' );

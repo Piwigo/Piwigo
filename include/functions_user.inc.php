@@ -45,79 +45,106 @@ function validate_mail_address( $mail_address )
   }
 }
 
-function register_user( $login, $password, $password_conf,
-                        $mail_address, $status = 'guest' )
+function register_user($login, $password, $password_conf,
+                       $mail_address, $status = 'guest')
 {
-  global $lang;
+  global $lang, $conf;
 
-  $error = array();
-  $i = 0;
+  $errors = array();
   // login must not
   //      1. be empty
   //      2. start ou end with space character
   //      3. include ' or " characters
   //      4. be already used
-  if ( $login == '' )            $error[$i++] = $lang['reg_err_login1'];
-  if ( ereg( "^.* $", $login) )  $error[$i++] = $lang['reg_err_login2'];
-  if ( ereg( "^ .*$", $login ) ) $error[$i++] = $lang['reg_err_login3'];
+  if ($login == '')
+  {
+    array_push($errors, $lang['reg_err_login1']);
+  }
+  if (ereg("^.* $", $login))
+  {
+    array_push($errors, $lang['reg_err_login2']);
+  }
+  if (ereg("^ .*$", $login))
+  {
+    array_push($errors, $lang['reg_err_login3']);
+  }
 
-  if ( ereg( "'", $login ) or ereg( "\"", $login ) )
-    $error[$i++] = $lang['reg_err_login4'];
+  if (ereg("'", $login) or ereg("\"", $login))
+  {
+    array_push($errors, $lang['reg_err_login4']);
+  }
   else
   {
-    $query = 'SELECT id';
-    $query.= ' FROM '.USERS_TABLE;
-    $query.= " WHERE username = '".$login."'";
-    $query.= ';';
-    $result = pwg_query( $query );
-    if ( mysql_num_rows($result) > 0 ) $error[$i++] = $lang['reg_err_login5'];
+    $query = '
+SELECT id
+  FROM '.USERS_TABLE.'
+  WHERE username = \''.$login.'\'
+;';
+    $result = pwg_query($query);
+    if (mysql_num_rows($result) > 0)
+    {
+      array_push($errors, $lang['reg_err_login5']);
+    }
   }
   // given password must be the same as the confirmation
-  if ( $password != $password_conf ) $error[$i++] = $lang['reg_err_pass'];
+  if ($password != $password_conf)
+  {
+    array_push($errors, $lang['reg_err_pass']);
+  }
 
-  $error_mail_address = validate_mail_address( $mail_address );
-  if ( $error_mail_address != '' ) $error[$i++] = $error_mail_address;
+  $error_mail_address = validate_mail_address($mail_address);
+  if ($error_mail_address != '')
+  {
+    array_push($errors, $error_mail_address);
+  }
 
   // if no error until here, registration of the user
-  if ( sizeof( $error ) == 0 )
+  if (count($errors) == 0)
   {
-    // 1. retrieving default values, the ones of the user "guest"
-    $infos = array( 'nb_image_line', 'nb_line_page', 'language',
-                    'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
-                    'recent_period', 'template', 'forbidden_categories' );
-    $query = 'SELECT ';
-    for ( $i = 0; $i < sizeof( $infos ); $i++ )
+    $insert = array();
+    $insert['username'] = $login;
+    $insert['password'] = md5($password);
+    $insert['status'] = $status;
+    $insert['template'] = $conf['default_template'];
+    $insert['nb_image_line'] = $conf['nb_image_line'];
+    $insert['nb_line_page'] = $conf['nb_line_page'];
+    $insert['language'] = $conf['default_language'];
+    $insert['recent_period'] = $conf['recent_period'];
+    $insert['expand'] = boolean_to_string($conf['auto_expand']);
+    $insert['show_nb_comments'] = boolean_to_string($conf['show_nb_comments']);
+    if ( $mail_address != '' )
     {
-      if ( $i > 0 ) $query.= ',';
-      $query.= $infos[$i];
+      $insert['mail_address'] = $mail_address;
     }
-    $query.= ' FROM '.USERS_TABLE;
-    $query.= " WHERE username = 'guest'";
-    $query.= ';';
-    $row = mysql_fetch_array( pwg_query( $query ) );
-    // 2. adding new user
-    $query = 'INSERT INTO '.USERS_TABLE;
-    $query.= ' (';
-    $query.= ' username,password,mail_address,status';
-    for ( $i = 0; $i < sizeof( $infos ); $i++ )
+    if ($conf['default_maxwidth'] != '')
     {
-      $query.= ','.$infos[$i];
+      $insert['maxwidth'] = $conf['default_maxwidth'];
     }
-    $query.= ') values (';
-    $query.= " '".$login."'";
-    $query.= ",'".md5( $password )."'";
-    if ( $mail_address != '' ) $query.= ",'".$mail_address."'";
-    else                       $query.= ',NULL';
-    $query.= ",'".$status."'";
-    foreach ( $infos as $info ) {
-      $query.= ',';
-      if ( !isset( $row[$info] ) ) $query.= 'NULL';
-      else                         $query.= "'".$row[$info]."'";
+    if ($conf['default_maxheight'] != '')
+    {
+      $insert['maxheight'] = $conf['default_maxheight'];
     }
-    $query.= ');';
-    pwg_query( $query );
+
+    $query = '
+INSERT INTO '.USERS_TABLE.'
+  ('.implode(',', array_keys($insert)).')
+  VALUES
+  (';
+    $is_first = true;
+    foreach (array_keys($insert) as $field)
+    {
+      if (!$is_first)
+      {
+        $query.= ',';
+      }
+      $query.= "'".$insert[$field]."'";
+      $is_first = false;
+    }
+    $query.= ')
+;';
+    pwg_query($query);
   }
-  return $error;
+  return $errors;
 }
 
 function update_user( $user_id, $mail_address, $status,
