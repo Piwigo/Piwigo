@@ -379,7 +379,7 @@ function remote_images()
   global $conf, $lang, $vtp, $sub;
 
   // 1. is there a file listing.xml ?
-  if ( !( $xml_content = getXmlCode( 'listing.xml' ) ) )
+  if ( !( $xml_content = getXmlCode( './admin/listing.xml' ) ) )
   {
     return false;
   }
@@ -707,7 +707,7 @@ else
   $vtp->closeSession( $sub, 'local_update' );
 }
 //------------------------------------------------- remote update : listing.xml
-if ( @is_file( './listing.xml' ) )
+if ( @is_file( './admin/listing.xml' ) )
 {
   $count_new = 0;
   $count_deleted = 0;
