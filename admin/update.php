@@ -19,126 +19,125 @@
 
 include_once( './include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
-function insert_local_category( $cat_id )
+function insert_local_category( $id_uppercat )
 {
   global $conf, $page, $user, $lang;
-		
+ 
   $uppercats = '';
 		
   // 0. retrieving informations on the category to display
   $cat_directory = '../galleries';
 		
-  if ( is_numeric( $cat_id ) )
+  if ( is_numeric( $id_uppercat ) )
   {
-    $cat_directory.= '/'.get_local_dir( $cat_id );
-    $result = get_cat_info( $cat_id );
-    $uppercats = $result['uppercats'];
+    $query = 'SELECT name,uppercats,dir';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$id_uppercat;
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $uppercats = $row['uppercats'];
+    $name      = $row['name'];
+    $dir       = $row['dir'];
+
+    $upper_array = explode( ',', $uppercats );
+
+    $local_dir = '';
+
+    $database_dirs = array();
+    $query = 'SELECT id,dir';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id IN ('.$uppercats.')';
+    $query.= ';';
+    $result = mysql_query( $query );
+    while( $row = mysql_fetch_array( $result ) )
+    {
+      $database_dirs[$row['id']] = $row['dir'];
+    }
+    foreach ( $upper_array as $id ) {
+      $local_dir.= $database_dirs[$id].'/';
+    }
+
+    $cat_directory.= '/'.$local_dir;
+
     // 1. display the category name to update
     $src = '../template/'.$user['template'].'/admin/images/puce.gif';
     $output = '<img src="'.$src.'" alt="&gt;" />';
-    $output.= '<span style="font-weight:bold;">';
-    $output.= $result['name'][count($result['name'])-1];
-    $output.= '</span>';
-    $output.= ' [ '.$result['dir'].' ]';
+    $output.= '<span style="font-weight:bold;">'.$name.'</span>';
+    $output.= ' [ '.$dir.' ]';
     $output.= '<div class="retrait">';
 
     // 2. we search pictures of the category only if the update is for all
     //    or a cat_id is specified
     if ( isset( $page['cat'] ) or $_GET['update'] == 'all' )
     {
-      $output.= insert_local_image( $cat_directory, $cat_id );
+      $output.= insert_local_image( $cat_directory, $id_uppercat );
     }
   }
 
-  // 3. we have to remove the categories of the database not present anymore
-  $query = 'SELECT id';
+  $sub_dirs = get_category_directories( $cat_directory );
+
+  $sub_category_dirs = array();
+  $query = 'SELECT id,dir';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE site_id = 1';
-  if ( !is_numeric( $cat_id ) ) $query.= ' AND id_uppercat IS NULL';
-  else                          $query.= ' AND id_uppercat = '.$cat_id;
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    // retrieving the directory
-    $rep = '../galleries/'.get_local_dir( $row['id'] );
-    // is the directory present ?
-    if ( !is_dir( $rep ) ) delete_category( $row['id'] );
+    $id = intval($row['id']);
+    $sub_category_dirs[$id] = $row['dir'];
   }
-  // 4. retrieving the sub-directories
-  $subdirs = array();
-  $dirs = '';
-  if ( $opendir = opendir( $cat_directory ) )
-  {
-    while ( $file = readdir( $opendir ) )
-    {
-      if ( $file != '.'
-           and $file != '..'
-           and is_dir( $cat_directory.'/'.$file )
-           and $file != 'thumbnail' )
-      {
-        if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
-          array_push( $subdirs, $file );
-        else
-        {
-          $output.= '<span style="color:red;">"'.$file.'" : ';
-          $output.= $lang['update_wrong_dirname'].'</span><br />';
-          // if the category even exists (from a previous release of
-          // PhpWebGallery), we keep it in our $subdirs array
-          $query = 'SELECT id';
-          $query.= ' FROM '.PREFIX_TABLE.'categories';
-          $query.= ' WHERE site_id = 1';
-          $query.= " AND dir = '".$file."'";
-          $query.= ' AND id_uppercat';
-          if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
-          else                          $query.= ' = '.$cat_id;
-          $query.= ';';
-          $result = mysql_query( $query );
-          if ( mysql_num_rows( $result ) != 0 )
-          {
-            array_push( $subdirs, $file );
-          }
-        }
-      }
-    }
+  
+  // 3. we have to remove the categories of the database not present anymore
+  foreach ( $sub_category_dirs as $id => $dir ) {
+    if ( !in_array( $dir, $sub_dirs ) ) delete_category( $id );
   }
-  foreach ( $subdirs as $subdir ) {
+
+  foreach ( $sub_dirs as $sub_dir ) {
     // 5. Is the category already existing ? we create a subcat if not
     //    existing
-    $category_id = '';
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE site_id = 1';
-    $query.= " AND dir = '".$subdir."'";
-    $query.= ' AND id_uppercat';
-    if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
-    else                          $query.= ' = '.$cat_id;
-    $query.= ';';
-    $result = mysql_query( $query );
-    if ( mysql_num_rows( $result ) == 0 )
+    $category_id = array_search( $sub_dir, $sub_category_dirs );
+    if ( !is_numeric( $category_id ) )
     {
-      $name = str_replace( '_', ' ', $subdir );
-      // we have to create the category
-      $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-      $query.= ' (dir,name,site_id,id_uppercat) VALUES';
-      $query.= " ('".$subdir."','".$name."',1";
-      if ( !is_numeric( $cat_id ) ) $query.= ',NULL';
-      else                          $query.= ",'".$cat_id."'";
-      $query.= ');';
-      mysql_query( $query );
-      $category_id = mysql_insert_id();
-    }
-    else
-    {
-      // we get the already registered id
-      $row = mysql_fetch_array( $result );
-      $category_id = $row['id'];
+      if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $sub_dir ) )
+      {
+        $name = str_replace( '_', ' ', $sub_dir );
+        // we have to create the category
+        $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
+        $query.= ' (dir,name,site_id,id_uppercat,uppercats) VALUES';
+        $query.= " ('".$sub_dir."','".$name."',1";
+        if ( !is_numeric( $id_uppercat ) ) $query.= ',NULL';
+        else                               $query.= ','.$id_uppercat;
+        $query.= ",'undef'";
+        $query.= ');';
+        mysql_query( $query );
+        $category_id = mysql_insert_id();
+        // updating uppercats field
+        $query = 'UPDATE '.PREFIX_TABLE.'categories';
+        $query.= " SET uppercats = '".$uppercats;
+        if ( $uppercats != '' ) $query.= ',';
+        $query.= $category_id;
+        $query.= "'";
+        $query.= ';';
+        mysql_query( $query );
+      }
+      else
+      {
+        $output.= '<span style="color:red;">"'.$sub_dir.'" : ';
+        $output.= $lang['update_wrong_dirname'].'</span><br />';
+      }
     }
     // 6. recursive call
-    $output.= insert_local_category( $category_id );
+    if ( is_numeric( $category_id ) )
+    {
+      $output.= insert_local_category( $category_id );
+    }
   }
 		
-  if ( is_numeric( $cat_id ) )
+  if ( is_numeric( $id_uppercat ) )
   {
     $output.= '</div>';
   }
@@ -584,6 +583,7 @@ if ( !isset( $_GET['update'] )
 //------------------------------------------------- local update : ../galleries
 else
 {
+  $start = get_moment();
   $count_new = 0;
   $count_deleted = 0;
   $vtp->addSession( $sub, 'local_update' );
@@ -595,6 +595,8 @@ else
   {
     $categories = insert_local_category( 'NULL' );
   }
+  $end = get_moment();
+  echo get_elapsed_time( $start, $end ).' for update <br />';
   $vtp->setVar( $sub, 'local_update.categories', $categories );
   $vtp->setVar( $sub, 'local_update.count_new', $count_new );
   $vtp->setVar( $sub, 'local_update.count_deleted', $count_deleted );
