@@ -23,7 +23,9 @@ $t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
 //---------------------------------------------------------------------- logout
-if ( isset( $_GET['act'] ) && $_GET['act'] == 'logout' && isset( $_COOKIE['id'] ) )
+if ( isset( $_GET['act'] )
+     and $_GET['act'] == 'logout'
+     and isset( $_COOKIE['id'] ) )
 {
   // cookie deletion if exists
   setcookie( 'id', '', 0, cookie_path() );
@@ -34,10 +36,9 @@ if ( isset( $_GET['act'] ) && $_GET['act'] == 'logout' && isset( $_COOKIE['id'] 
   exit();
 }
 //-------------------------------------------------- access authorization check
-if ( isset( $_GET['cat'] )) 
-	check_cat_id( $_GET['cat'] );
+if ( isset( $_GET['cat'] ) ) check_cat_id( $_GET['cat'] );
 check_login_authorization();
-if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
+if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
@@ -77,7 +78,8 @@ $page['expand'] = implode( ',', $page['tab_expand'] );
 // in case of expanding all authorized cats
 // The $page['expand'] equals 'all' and
 // $page['tab_expand'] contains all the authorized cat ids
-if ( $user['expand'] || (isset($_GET['expand']) && $_GET['expand'] == 'all' ))
+if ( $user['expand']
+     or ( isset( $_GET['expand'] ) and $_GET['expand'] == 'all' ) )
 {
   $page['tab_expand'] = array();
   $page['expand'] = 'all';
@@ -86,7 +88,9 @@ if ( $user['expand'] || (isset($_GET['expand']) && $_GET['expand'] == 'all' ))
 // of the picture to show. This picture must be in the thumbnails page.
 // We have to find the right $page['start'] that show the num picture
 // in this category
-if ( isset($_GET['num']) && is_numeric( $_GET['num'] ) && $_GET['num'] >= 0 )
+if ( isset( $_GET['num'] )
+     and is_numeric( $_GET['num'] )
+     and $_GET['num'] >= 0 )
 {
   $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
   $page['start']*= $user['nb_image_page'];
@@ -357,8 +361,8 @@ elseif ( ( isset( $page['cat'] )
   $vtp->addSession( $handle, 'line' );
 
   $subcats=array();
-  if (isset ($page['cat'] ))
-	$subcats = get_non_empty_subcat_ids( $page['cat'] );
+  if (isset($page['cat'])) $subcats = get_non_empty_subcat_ids( $page['cat'] );
+  else                     $subcats = get_non_empty_subcat_ids( '' );
   $cell_number = 1;
   $i = 0;
   foreach ( $subcats as $subcat_id => $non_empty_id ) {
@@ -462,16 +466,16 @@ if ( isset ( $page['cat'] ) )
     $vtp->setVar( $handle, 'cat_infos.cat_name',
                   get_cat_display_name( $page['cat_name'], ' - ',
                                         'font-style:italic;' ) );
-	// upload a picture in the category
-  	if ( $page['cat_site_id'] == 1
-       and $conf['upload_available']
-       and $page['cat_uploadable'] )
-  	{
-    	$vtp->addSession( $handle, 'upload' );
-	    $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-    	$vtp->setVar( $handle, 'upload.url', add_session_id( $url ) );
-	    $vtp->closeSession( $handle, 'upload' );
-  	}
+    // upload a picture in the category
+    if ( $page['cat_site_id'] == 1
+         and $conf['upload_available']
+         and $page['cat_uploadable'] )
+    {
+      $vtp->addSession( $handle, 'upload' );
+      $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
+      $vtp->setVar( $handle, 'upload.url', add_session_id( $url ) );
+      $vtp->closeSession( $handle, 'upload' );
+    }
   }
   else
   {
