@@ -20,110 +20,107 @@
 include_once( './include/isadmin.inc.php' );
 include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
 //-------------------------------------------------------------- initialization
+$page['nb_image_page'] = 5;
+
 check_cat_id( $_GET['cat_id'] );
 if ( isset( $page['cat'] ) )
 {
 //--------------------------------------------------- update individual options
-  $query = 'SELECT id,file';
-  $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
-  $query.= ' WHERE category_id = '.$page['cat'];
-  $query.= ';';
-  $result = mysql_query( $query );
-  $i = 1;
-  while ( $row = mysql_fetch_array( $result ) )
+  if ( isset( $_POST['submit'] ) )
   {
-    $name          = 'name-'.$row['id'];
-    $author        = 'author-'.$row['id'];
-    $comment       = 'comment-'.$row['id'];
-    $date_creation = 'date_creation-'.$row['id'];
-    $keywords      = 'keywords-'.$row['id'];
-    if ( isset( $_POST[$name] ) )
+    $errors = array();
+    if ( isset( $_POST['associate'] ) )
     {
-      $query = 'UPDATE '.PREFIX_TABLE.'images';
-
-      $query.= ' SET name = ';
-      if ( $_POST[$name] == '' )
-        $query.= 'NULL';
-      else
-        $query.= "'".htmlentities( $_POST[$name], ENT_QUOTES )."'";
-
-      $query.= ', author = ';
-      if ( $_POST[$author] == '' )
-        $query.= 'NULL';
-      else
-        $query.= "'".htmlentities($_POST[$author],ENT_QUOTES)."'";
-
-      $query.= ', comment = ';
-      if ( $_POST[$comment] == '' )
-        $query.= 'NULL';
-      else
-        $query.= "'".htmlentities($_POST[$comment],ENT_QUOTES)."'";
-
-      $query.= ', date_creation = ';
-      if ( check_date_format( $_POST[$date_creation] ) )
-        $query.= "'".date_convert( $_POST[$date_creation] )."'";
-      else if ( $_POST[$date_creation] == '' )
-        $query.= 'NULL';
-
-      $query.= ', keywords = ';
-      $keywords_array = get_keywords( $_POST[$keywords] );
-      if ( count( $keywords_array ) == 0 )
-        $query.= 'NULL';
+      // does the uppercat id exists in the database ?
+      if ( !is_numeric( $_POST['associate'] ) )
+      {
+        array_push( $errors, $lang['cat_unknown_id'] );
+      }
       else
       {
-        $query.= "'";
-        foreach ( $keywords_array as $i => $keyword ) {
-          if ( $i > 0 ) $query.= ',';
-          $query.= $keyword;
-        }
-        $query.= "'";
+        $query = 'SELECT id';
+        $query.= ' FROM '.PREFIX_TABLE.'categories';
+        $query.= ' WHERE id = '.$_POST['associate'];
+        $query.= ';';
+        if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
+          array_push( $errors, $lang['cat_unknown_id'] );
       }
+    }
 
-      $query.= ' WHERE id = '.$row['id'];
-      $query.= ';';
-      mysql_query( $query );
-    }
-    // add link to another category
-    if ( $_POST['check-'.$row['id']] == 1 )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
-      $query.= ' (image_id,category_id) VALUES';
-      $query.= ' ('.$row['id'].','.$_POST['associate'].')';
-      $query.= ';';
-      mysql_query( $query );
-    }
-  }
-  update_category( $_POST['associate'] );
-//------------------------------------------------------ update general options
-  if ( $_POST['use_common_author'] == 1 )
-  {
-    $query = 'SELECT image_id';
-    $query.= ' FROM '.PREFIX_TABLE.'image_category';
+    $query = 'SELECT id,file';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
+    $query.= ';';
     $result = mysql_query( $query );
+    $i = 1;
     while ( $row = mysql_fetch_array( $result ) )
     {
-      $query = 'UPDATE '.PREFIX_TABLE.'images';
-      if ( $_POST['author_cat'] == '' )
+      $name          = 'name-'.$row['id'];
+      $author        = 'author-'.$row['id'];
+      $comment       = 'comment-'.$row['id'];
+      $date_creation = 'date_creation-'.$row['id'];
+      $keywords      = 'keywords-'.$row['id'];
+      if ( isset( $_POST[$name] ) )
       {
-        $query.= ' SET author = NULL';
+        $query = 'UPDATE '.PREFIX_TABLE.'images';
+
+        $query.= ' SET name = ';
+        if ( $_POST[$name] == '' )
+          $query.= 'NULL';
+        else
+          $query.= "'".htmlentities( $_POST[$name], ENT_QUOTES )."'";
+
+        $query.= ', author = ';
+        if ( $_POST[$author] == '' )
+          $query.= 'NULL';
+        else
+          $query.= "'".htmlentities($_POST[$author],ENT_QUOTES)."'";
+
+        $query.= ', comment = ';
+        if ( $_POST[$comment] == '' )
+          $query.= 'NULL';
+        else
+          $query.= "'".htmlentities($_POST[$comment],ENT_QUOTES)."'";
+
+        $query.= ', date_creation = ';
+        if ( check_date_format( $_POST[$date_creation] ) )
+          $query.= "'".date_convert( $_POST[$date_creation] )."'";
+        else if ( $_POST[$date_creation] == '' )
+          $query.= 'NULL';
+
+        $query.= ', keywords = ';
+        $keywords_array = get_keywords( $_POST[$keywords] );
+        if ( count( $keywords_array ) == 0 )
+          $query.= 'NULL';
+        else
+        {
+          $query.= "'";
+          foreach ( $keywords_array as $i => $keyword ) {
+            if ( $i > 0 ) $query.= ',';
+            $query.= $keyword;
+          }
+          $query.= "'";
+        }
+
+        $query.= ' WHERE id = '.$row['id'];
+        $query.= ';';
+        mysql_query( $query );
       }
-      else
+      // add link to another category
+      if ( $_POST['check-'.$row['id']] == 1 and count( $errors ) == 0 )
       {
-        $query.= ' SET author = ';
-        $query.= "'".htmlentities( $_POST['author_cat'], ENT_QUOTES )."'";
+        $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+        $query.= ' (image_id,category_id) VALUES';
+        $query.= ' ('.$row['id'].','.$_POST['associate'].')';
+        $query.= ';';
+        mysql_query( $query );
       }
-      $query.= ' WHERE id = '.$row['image_id'];
-      $query.= ';';
-      mysql_query( $query );
     }
-  }
-  if ( $_POST['use_common_date_creation'] == 1 )
-  {
-    if ( check_date_format( $_POST['date_creation_cat'] ) )
+    update_category( $_POST['associate'] );
+//------------------------------------------------------ update general options
+    if ( $_POST['use_common_author'] == 1 )
     {
-      $date = date_convert( $_POST['date_creation_cat'] );
       $query = 'SELECT image_id';
       $query.= ' FROM '.PREFIX_TABLE.'image_category';
       $query.= ' WHERE category_id = '.$page['cat'];
@@ -131,75 +128,100 @@ if ( isset( $page['cat'] ) )
       while ( $row = mysql_fetch_array( $result ) )
       {
         $query = 'UPDATE '.PREFIX_TABLE.'images';
-        if ( $_POST['date_creation_cat'] == '' )
+        if ( $_POST['author_cat'] == '' )
         {
-          $query.= ' SET date_creation = NULL';
+          $query.= ' SET author = NULL';
         }
         else
         {
-          $query.= " SET date_creation = '".$date."'";
+          $query.= ' SET author = ';
+          $query.= "'".htmlentities( $_POST['author_cat'], ENT_QUOTES )."'";
         }
         $query.= ' WHERE id = '.$row['image_id'];
         $query.= ';';
         mysql_query( $query );
       }
     }
-    else
+    if ( $_POST['use_common_date_creation'] == 1 )
     {
-      echo $lang['err_date'];
-    }
-  }
-  if ( isset( $_POST['common_keywords'] ) and $_POST['keywords_cat'] != '' )
-  {
-    $query = 'SELECT id,keywords';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
-    $query.= ' WHERE category_id = '.$page['cat'];
-    $query.= ';';
-    $result = mysql_query( $query );
-    while ( $row = mysql_fetch_array( $result ) )
-    {
-      $specific_keywords = explode( ',', $row['keywords'] );
-      $common_keywords   = get_keywords( $_POST['keywords_cat'] );
-      // first possiblity : adding the given keywords to all the pictures
-      if ( $_POST['common_keywords'] == 'add' )
+      if ( check_date_format( $_POST['date_creation_cat'] ) )
       {
-        $keywords = array_merge( $specific_keywords, $common_keywords );
-        $keywords = array_unique( $keywords );
-      }
-      // second possiblity : removing the given keywords from all pictures
-      // (without deleting the other specific keywords
-      if ( $_POST['common_keywords'] == 'remove' )
-      {
-        $keywords = array_diff( $specific_keywords, $common_keywords );
-      }
-      // cleaning the keywords array, sometimes, an empty value still remain
-      $keywords = array_remove( $keywords, '' );
-      // updating the picture with new keywords array
-      $query = 'UPDATE '.PREFIX_TABLE.'images';
-      $query.= ' SET keywords = ';
-      if ( count( $keywords ) == 0 )
-      {
-        $query.= 'NULL';
+        $date = date_convert( $_POST['date_creation_cat'] );
+        $query = 'SELECT image_id';
+        $query.= ' FROM '.PREFIX_TABLE.'image_category';
+        $query.= ' WHERE category_id = '.$page['cat'];
+        $result = mysql_query( $query );
+        while ( $row = mysql_fetch_array( $result ) )
+        {
+          $query = 'UPDATE '.PREFIX_TABLE.'images';
+          if ( $_POST['date_creation_cat'] == '' )
+          {
+            $query.= ' SET date_creation = NULL';
+          }
+          else
+          {
+            $query.= " SET date_creation = '".$date."'";
+          }
+          $query.= ' WHERE id = '.$row['image_id'];
+          $query.= ';';
+          mysql_query( $query );
+        }
       }
       else
       {
-        $query.= '"';
-        $i = 0;
-        foreach ( $keywords as $keyword ) {
-          if ( $i++ > 0 ) $query.= ',';
-          $query.= $keyword;
-        }
-        $query.= '"';
+        array_push( $errors, $lang['err_date'] );
       }
-      $query.= ' WHERE id = '.$row['id'];
+    }
+    if ( isset( $_POST['common_keywords'] ) and $_POST['keywords_cat'] != '' )
+    {
+      $query = 'SELECT id,keywords';
+      $query.= ' FROM '.PREFIX_TABLE.'images';
+      $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+      $query.= ' WHERE category_id = '.$page['cat'];
       $query.= ';';
-      mysql_query( $query );
+      $result = mysql_query( $query );
+      while ( $row = mysql_fetch_array( $result ) )
+      {
+        $specific_keywords = explode( ',', $row['keywords'] );
+        $common_keywords   = get_keywords( $_POST['keywords_cat'] );
+        // first possiblity : adding the given keywords to all the pictures
+        if ( $_POST['common_keywords'] == 'add' )
+        {
+          $keywords = array_merge( $specific_keywords, $common_keywords );
+          $keywords = array_unique( $keywords );
+        }
+        // second possiblity : removing the given keywords from all pictures
+        // (without deleting the other specific keywords
+        if ( $_POST['common_keywords'] == 'remove' )
+        {
+          $keywords = array_diff( $specific_keywords, $common_keywords );
+        }
+        // cleaning the keywords array, sometimes, an empty value still remain
+        $keywords = array_remove( $keywords, '' );
+        // updating the picture with new keywords array
+        $query = 'UPDATE '.PREFIX_TABLE.'images';
+        $query.= ' SET keywords = ';
+        if ( count( $keywords ) == 0 )
+        {
+          $query.= 'NULL';
+        }
+        else
+        {
+          $query.= '"';
+          $i = 0;
+          foreach ( $keywords as $keyword ) {
+            if ( $i++ > 0 ) $query.= ',';
+            $query.= $keyword;
+          }
+          $query.= '"';
+        }
+        $query.= ' WHERE id = '.$row['id'];
+        $query.= ';';
+        mysql_query( $query );
+      }
     }
   }
 //--------------------------------------------------------- form initialization
-  $page['nb_image_page'] = 5;
-
   if( !isset( $_GET['start'] )
       or !is_numeric( $_GET['start'] )
       or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
@@ -217,7 +239,6 @@ if ( isset( $page['cat'] ) )
       floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
   }
   // retrieving category information
-  $page['plain_structure'] = get_plain_structure();
   $result = get_cat_info( $page['cat'] );
   $cat['name'] = $result['name'];
   $cat['nb_images'] = $result['nb_images'];
@@ -228,9 +249,21 @@ if ( isset( $page['cat'] ) )
                 'infoimage_title','infoimage_comment',
                 'infoimage_creation_date','keywords',
                 'infoimage_addtoall','infoimage_removefromall',
-                'infoimage_keyword_separation','infoimage_associate' );
+                'infoimage_keyword_separation','infoimage_associate',
+                'errors_title' );
   templatize_array( $tpl, 'lang', $sub );
   $vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
+//-------------------------------------------------------------- errors display
+if ( count( $errors ) != 0 )
+{
+  $vtp->addSession( $sub, 'errors' );
+  foreach ( $errors as $error ) {
+    $vtp->addSession( $sub, 'li' );
+    $vtp->setVar( $sub, 'li.content', $error );
+    $vtp->closeSession( $sub, 'li' );
+  }
+  $vtp->closeSession( $sub, 'errors' );
+}
 //------------------------------------------------------------------------ form
   $url = './admin.php?page=infos_images&amp;cat_id='.$page['cat'];
   $url.= '&amp;start='.$page['start'];
@@ -283,8 +316,29 @@ if ( isset( $page['cat'] ) )
     $vtp->setVar( $sub, 'picture.url', add_session_id( $url ) );
     $vtp->closeSession( $sub, 'picture' );
   }
-  $structure = create_structure( '', array() );
-  display_categories( $structure, '&nbsp;' );
+  // Virtualy associate a picture to a category
+  //
+  // We only show a List Of Values if the number of categories is less than
+  // $conf['max_LOV_categories']
+  $query = 'SELECT COUNT(id) AS nb_total_categories';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ';';
+  $row = mysql_fetch_array( mysql_query( $query ) );
+  if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+  {
+    $vtp->addSession( $sub, 'associate_LOV' );
+    $page['plain_structure'] = get_plain_structure( true );
+    $structure = create_structure( '', array() );
+    display_categories( $structure, '&nbsp;' );
+    $vtp->closeSession( $sub, 'associate_LOV' );
+  }
+  // else, we only display a small text field, we suppose the administrator
+  // knows the id of its category
+  else
+  {
+    $vtp->addSession( $sub, 'associate_text' );
+    $vtp->closeSession( $sub, 'associate_text' );
+  }
 }
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
