@@ -217,7 +217,7 @@ $lang['search_title'] = 'Recherche';
 $lang['invalid_search'] = 'Les mots recherchés doivent comporter plus de 3 caractères et ne doivent pas inclure de caractères de ponctuation';
 $lang['search_mode_or'] = 'au moins un mot';
 $lang['search_mode_and'] = 'tous les mots';
-$lang['search_comments'] = 'espacer les différents mots avec un espace';
+$lang['search_comments'] = 'séparer les différents mots avec un espace';
 // end version 1.3
 $lang['search_field_search'] = 'Rechercher';
 $lang['search_return_main_page'] = 'Retour à la page des miniatures';
@@ -412,6 +412,8 @@ if ( $isadmin )
   $lang['conf_default_long_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée avec une marque verte. La période longue doit être plus grande que la période courte.';
   $lang['conf_default_expand_info'] = 'développer toutes les catégories par défaut dans le menu ?';
   $lang['conf_default_show_nb_comments_info'] = 'montrer le nombre de commentaires pour chaque image sur la page des miniatures';
+  $lang['conf_default_maxwidth_info'] = 'Largeur maximum affichable pour les images : les images ne seront redimensionnées que pour l\'affichage, les fichiers images resteront intacts. Laisser vide si vous ne souhaitez pas mettre de limite.';
+  $lang['conf_default_maxheight_info'] = 'idem mais pour la hauteur des images';
   // end version 1.3
   
   $lang['conf_session_title'] = 'Configuration des sessions';
