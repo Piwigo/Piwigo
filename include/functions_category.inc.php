@@ -256,7 +256,18 @@ function count_user_total_images()
   if ( count( $user['restrictions'] ) > 0 )
     $query.= ' WHERE id NOT IN ('.$user['forbidden_categories'].')';
   $query.= ';';
-  
+ 
+//   $query = '
+// SELECT COUNT(DISTINCT(image_id)) as total
+//   FROM '.PREFIX_TABLE.'image_category';
+//   if (count($user['restrictions']) > 0)
+//   {
+//     $query.= '
+//   WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
+//   }
+//   $query = '
+// ;';
+ 
   $row = mysql_fetch_array( mysql_query( $query ) );
 
   if ( !isset( $row['total'] ) ) $row['total'] = 0;
