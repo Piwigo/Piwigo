@@ -70,6 +70,8 @@ while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'category' );
   $vtp->setVar( $sub, 'category.id', $row['id'] );
+  $url = './admin.php?page=cat_perm&amp;cat_id='.$row['id'];
+  $vtp->setVar( $sub, 'category.cat_perm_link', add_session_id( $url ) );
   // Is the group allowed to access this category
   $is_group_allowed = is_group_allowed( $row['id'], $restrictions );
   if ( $is_group_allowed == 0 )
