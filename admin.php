@@ -41,10 +41,10 @@ switch ( $_GET['page'] )
  case 'user_list':
    $title = $lang['title_liste_users'];   $page_valide = true; break;
  case 'profile':
-   $title = $lang['title_modify'];
+   $title = $lang['title_user_modify'];
 	 $page_valide = true; 
 	 break;
- case 'user_search':
+ case 'user_perm':
    $title = $lang['title_user_perm'].' '.$username;
    $page_valide = true; break;
  case 'group_list' :
@@ -203,28 +203,31 @@ $template->assign_vars(array(
   'L_CAT_VISIBLE'=>$lang['lock'],
   'L_CAT_STATUS'=>$lang['cat_security'],
 
+  'U_HISTORY'=>add_session_id($link_start.'stats' ),
+  'U_FAQ'=>add_session_id($link_start.'help' ),
+  'U_SITES'=>add_session_id($link_start.'remote_site'),
+  'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
   'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
   'U_CONFIG_UPLOAD'=>add_session_id($conf_link.'upload' ),
   'U_CONFIG_SESSION'=>add_session_id($conf_link.'session' ),
   'U_CONFIG_METADATA'=>add_session_id($conf_link.'metadata' ),
-  'U_SITES'=>add_session_id($link_start.'remote_site'),
-  'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
-  'U_USERS'=>add_session_id($link_start.'profile' ),
-  'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
   'U_CAT_UPLOAD'=>add_session_id($opt_link.'upload'),
   'U_CAT_COMMENTS'=>add_session_id($opt_link.'comments'),
   'U_CAT_VISIBLE'=>add_session_id($opt_link.'visible'),
   'U_CAT_STATUS'=>add_session_id($opt_link.'status'),
+  'U_CAT_OPTIONS'=>add_session_id($link_start.'cat_options'),
+  'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
-  'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
-  'U_HISTORY'=>add_session_id($link_start.'stats' ),
-  'U_FAQ'=>add_session_id($link_start.'help' ),
-  'U_CAT_OPTIONS'=>add_session_id($link_start.'cat_options'),
+  'U_USERS'=>add_session_id($link_start.'profile' ),
+  'U_GROUPS'=>add_session_id($link_start.'group_list' ),
+  'U_USERS_AUTH'=>add_session_id($link_start.'user_perm' ),
+  'U_GROUPS_AUTH'=>add_session_id($link_start.'group_perm'),
+  'U_CAT_AUTH'=>add_session_id($link_start.'cat_perm' ),
   'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
   ));
 

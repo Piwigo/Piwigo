@@ -71,17 +71,17 @@ $lang['remote_site_update'] = 'update';
 $lang['remote_site_update_hint'] = 'read remote listing.xml and updates database';
 $lang['remote_site_clean'] = 'clean';
 $lang['remote_site_clean_hint'] = 'remove remote listing.xml file';
-$lang['remote_site_delete'] = 'delete';
+$lang['remote_site_delete'] = 'Détruire';
 $lang['remote_site_delete_hint'] = 'delete this site and all its attached elements';
 $lang['remote_site_file_not_found'] = 'file create_listing_file.php on remote site was not found';
-$lang['remote_site_error'] = 'an error happened';
+$lang['remote_site_error'] = 'Une erreur est intervenue';
 $lang['remote_site_listing_not_found'] = 'remote listing file was not found';
 $lang['remote_site_removed'] = 'was removed on remote site';
 $lang['remote_site_removed_title'] = 'Removed elements';
-$lang['remote_site_created'] = 'created';
-$lang['remote_site_deleted'] = 'deleted';
+$lang['remote_site_created'] = 'Créé';
+$lang['remote_site_deleted'] = 'Détruit';
 $lang['remote_site_local_found'] = 'A local listing.xml file has been found for ';
-$lang['remote_site_local_new'] = '(new site)';
+$lang['remote_site_local_new'] = '(nouveau site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Category words
@@ -229,7 +229,8 @@ $lang['infoimage_associated'] = 'Associé';
 $lang['infoimage_dissociated'] = 'Non associé';
 $lang['storage_category'] = 'Repertoire de stockage';
 $lang['represents'] = 'Représente';
-$lang['doesnt_represent'] = 'doesn\'t represent';
+$lang['doesnt_represent'] = 'Autres catégories';
+$lang['cat_unknown_id'] = 'Cette catégorie n\'existe pas dans la base de données';
 
 // Thumbnails
 $lang['tn_width'] = 'largeur';
@@ -291,11 +292,12 @@ $lang['update_cats_subset'] = 'Limiter la synchronisation aux catégories suivant
 $lang['stats_title'] = 'Historique de l\'année écoulée';
 $lang['stats_month_title'] = 'Historique mois par mois';
 $lang['stats_pages_seen'] = 'Pages vues';
-$lang['stats_empty'] = 'vider l\'historique';
 $lang['stats_global_graph_title'] = 'Nombre de pages vues par mois';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
 // Users
+$lang['title_user_modify'] = 'Modifier un utilisateur';
+$lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
 $lang['user_err_modify'] = 'Cet utilisateur ne peut pas être modifé ou supprimé';
 $lang['user_err_unknown'] = 'Cet utilisateur n\'existe pas dans la base de données';
 $lang['user_management'] = 'Champs spéciaux pour l\'administrateur';
@@ -304,6 +306,9 @@ $lang['user_status_admin'] = 'Administrateur';
 $lang['user_status_guest'] = 'Utilisateur';
 $lang['user_delete'] = 'Supprimer l\'utilisateur';
 $lang['user_delete_hint'] = 'Cliquez ici pour supprimer définitivement l\'utilisateur. Attention cette opération ne pourra être rétablie.';
+$lang['permuser_info'] = 'Seules les catégories déclarées en privée sont affichées. Cliquez ici pour y accéder : ';
+$lang['permuser_info_link'] = 'Sécurité des catégories';
+$lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
 
 // Groups
 $lang['group_list_title'] = 'Liste des groupes existants';
@@ -316,29 +321,9 @@ $lang['group_deny_user'] = 'Supprimer la sélection';
 $lang['group_add_user']= 'Ajouter le membre';
 
 
-// To be done
 
-
-$lang['permuser_info_message'] = 'Permissions enregistrées';
-$lang['permuser_title'] = 'Restrictions pour l\'utilisateur';
-$lang['permuser_warning'] = 'Attention : un "<span style="font-weight:bold;">accès interdit</span>" à la racine d\'une catégorie empêche l\'accès à toute la catégorie';
-$lang['permuser_parent_forbidden'] = 'catégorie parente interdite';
-
-
-
-
-$lang['title_add'] = 'Ajouter un utilisateur';
-$lang['title_modify'] = 'Modifier un utilisateur';
-
-$lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
 $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
 $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
 $lang['title_picmod'] = 'Modifier les informations d\'une image';
 $lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
-$lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
-
-$lang['comments_last_title'] = 'Derniers commentaires';
-$lang['comments_non_validated_title'] = 'Commentaires non validés';
-$lang['cat_unknown_id'] = 'Cette catégorie n\'existe pas dans la base de données';
-$lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';
 ?>

@@ -61,9 +61,9 @@
 <div class="titreMenu">{L_AUTH}</div>
 <div class="menu">
 <ul class="menu">
-  <li><a class="adminMenu" href="{U_AUTH}">{L_AUTH}</a></li>
   <li><a class="adminMenu" href="{U_USERS_AUTH}">{L_USERS}</a></li>
   <li><a class="adminMenu" href="{U_GROUPS_AUTH}">{L_GROUPS}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_AUTH}">{L_CATEGORIES}</a></li
 </ul>
 </div>
       </div>

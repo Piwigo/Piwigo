@@ -761,9 +761,12 @@ function display_select_cat_wrapper($query, $selecteds, $blockname,
 {
   $result = pwg_query($query);
   $categories = array();
+  if (!empty($result))
+  {
   while ($row = mysql_fetch_array($result))
   {
     array_push($categories, $row);
+  }
   }
   usort($categories, 'global_rank_compare');
   display_select_categories($categories, $selecteds, $blockname, $fullname);

@@ -24,6 +24,7 @@
   </div>
 </div>
 <div style="clear:both;"></div>
+<input type="hidden" name="{HIDDEN_NAME}" value="{HIDDEN_VALUE}" />
 <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
 </form>
 <div class="information">{L_CAT_OPTIONS_INFO}</div>

@@ -222,7 +222,6 @@ function style_select($default_style, $select_name = "style")
  * returns only the categories name without links.
  *
  * @param array cat_informations
- * @param string separator
  * @param string url
  * @param boolean replace_space
  * @return string

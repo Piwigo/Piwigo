@@ -228,6 +228,8 @@ $lang['infoimage_dissociated'] = 'dissociated from';
 $lang['storage_category'] = 'storage category';
 $lang['represents'] = 'represents';
 $lang['doesnt_represent'] = 'doesn\'t represent';
+$lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
+$lang['cat_unknown_id'] = 'This category is unknown in the database';
 
 // Thumbnails
 $lang['tn_width'] = 'width';
@@ -285,11 +287,12 @@ $lang['update_cats_subset'] = 'reduce to single existing categories';
 $lang['stats_title'] = 'Last year statistics';
 $lang['stats_month_title'] = 'Monthly statistics';
 $lang['stats_pages_seen'] = 'Pages seen';
-$lang['stats_empty'] = 'empty history';
 $lang['stats_global_graph_title'] = 'Pages seen by month';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
 // Users
+$lang['title_user_modify'] = 'Modify a user';
+$lang['title_user_perm'] = 'Modify permission for user';
 $lang['user_err_modify'] = 'This user can\'t be modified or deleted';
 $lang['user_err_unknown'] = 'This user doesn\'t exist in the database';
 $lang['user_management'] = 'Special field for administrators';
@@ -298,7 +301,7 @@ $lang['user_status_admin'] = 'Administrator';
 $lang['user_status_guest'] = 'User';
 $lang['user_delete'] = 'Delete user';
 $lang['user_delete_hint'] = 'Click here to delete this user. Warning! This operation cannot be undone!';
-
+$lang['permuser_only_private'] = 'Only private categories are shown';
 
 // Groups
 $lang['group_confirm_delete']= 'Confirm group deletion';
@@ -311,39 +314,7 @@ $lang['group_deny_user'] = 'Deny selected';
 $lang['group_add_user']= 'Add user';
 
 
-
-$lang['permuser_info_message'] = 'Permissions registered';
-$lang['permuser_title'] = 'Restrictions for user';
-$lang['permuser_warning'] = 'Warning : a "<span style="font-weight:bold;">forbidden access</span>" to the root of a category prevent from accessing the whole category';
-
-$lang['permuser_parent_forbidden'] = 'parent category forbidden';
-$lang['listuser_confirm'] = 'Do you really want to delete this user';
-$lang['listuser_info_deletion'] = 'was removed from database';
-$lang['listuser_user_group'] = 'Users group';
-$lang['listuser_modify'] = 'modify';
-$lang['listuser_modify_hint'] = 'modify informations of';
-$lang['listuser_permission'] = 'Permissions';
-$lang['listuser_permission_hint'] = 'modify permissions of';
-
-
-$lang['title_add'] = 'Add a user';
-$lang['title_modify'] = 'Modify a user';
-$lang['title_user_perm'] = 'Modify permission for user';
 $lang['title_cat_perm'] = 'Modify permissions for category';
 $lang['title_group_perm'] = 'Modify permissions for group';
 $lang['title_picmod'] = 'Modify informations about a picture';
-
-$lang['stats_pages_seen'] = 'pages seen';
-$lang['stats_visitors'] = 'guests';
-$lang['stats_empty'] = 'empty history';
-$lang['stats_pages_seen_graph_title'] = 'Number of pages seen by day';
-$lang['stats_visitors_graph_title'] = 'Number of guests by day';
-$lang['comments_last_title'] = 'Last comments';
-$lang['comments_non_validated_title'] = 'Comments waiting for validation';
-
-$lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
-$lang['permuser_only_private'] = 'Only private categories are shown';
-$lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
-$lang['cat_unknown_id'] = 'This category is unknown in the database';
-$lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
 ?>
