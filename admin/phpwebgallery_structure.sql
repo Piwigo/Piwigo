@@ -1,6 +1,6 @@
 -- MySQL dump 8.21
 --
--- Host: localhost    Database: perfs_test
+-- Host: localhost    Database: pwg-1_3
 ---------------------------------------------------------
 -- Server version	3.23.49-log
 
@@ -25,7 +25,6 @@ CREATE TABLE phpwebgallery_categories (
   representative_picture_id mediumint(8) unsigned default NULL,
   uppercats varchar(255) NOT NULL default '',
   PRIMARY KEY  (id),
-  KEY id (id),
   KEY id_uppercat (id_uppercat)
 ) TYPE=MyISAM;
 
