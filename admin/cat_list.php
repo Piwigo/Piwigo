@@ -78,7 +78,7 @@ SELECT id,uppercats,global_rank,visible,status
 
     // what will be the inserted id ?
     $query = '
-SELECT MAX(id)+1
+SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1)
   FROM '.CATEGORIES_TABLE.'
 ;';
     list($next_id) = mysql_fetch_array(pwg_query($query));
