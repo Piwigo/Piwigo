@@ -46,7 +46,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
   $to_delete_categories = array();
   array_push($to_delete_categories,$_GET['delete']);
   delete_categories($to_delete_categories);
-  array_push($infos, $lang['cat_list_virtual_category_deleted']);
+  array_push($infos, $lang['cat_virtual_deleted']);
 }
 // request to add a virtual category
 else if (isset($_POST['submit']))
@@ -100,7 +100,7 @@ UPDATE '.CATEGORIES_TABLE.'
   WHERE id = '.$my_id.'
 ;';
     pwg_query($query);
-    array_push($infos, $lang['cat_list_virtual_category_added']);
+    array_push($infos, $lang['cat_virtual_added']);
   }
 }
 // +-----------------------------------------------------------------------+

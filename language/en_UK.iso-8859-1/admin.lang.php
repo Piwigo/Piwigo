@@ -76,7 +76,7 @@ $lang['remote_site_local_found'] = 'A local listing.xml file has been found for 
 $lang['remote_site_local_new'] = '(new site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
-// Categorie words
+// Categories
 $lang['cat_up'] = 'Move up';
 $lang['cat_down'] = 'Move down';
 $lang['cat_add'] = 'Add a virtual category';
@@ -92,6 +92,8 @@ $lang['cat_upload_info'] = 'Only non virtual categories are shown.';
 $lang['cat_lock'] = 'Lock';
 $lang['cat_lock_info'] = 'This category will temporary been disabled for maintenance.';
 $lang['cat_access_info'] = 'Permission management.';
+$lang['cat_virtual_added'] = 'Virtual category added';
+$lang['cat_virtual_deleted'] = 'Virtual category deleted';
 
 // Titles
 $lang['admin_panel'] = 'Administration Panel';

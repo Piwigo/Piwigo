@@ -93,6 +93,25 @@ $lang['cat_upload_info'] = 'Seules les catégories non virtuelles sont repertorié
 $lang['cat_lock'] = 'Verrouiller';
 $lang['cat_lock_info'] = 'Cela rendra la catégorie temporairement invisible pour les utilisateurs (maintenance)';
 $lang['cat_access_info'] = 'Permet de gérer l\'accès à cette catégorie.';
+$lang['cat_virtual_added'] = 'Catégorie virtuelle créée';
+$lang['cat_virtual_deleted'] = 'Catégorie virtuelle détruite';
+$lang['cat_options_menu'] = 'Options';
+$lang['cat_options_menu_upload'] = 'upload';
+$lang['cat_options_menu_visible'] = 'lock';
+$lang['cat_options_menu_comments'] = 'comments';
+$lang['cat_options_menu_status'] = 'access';
+$lang['cat_options_upload_true'] = 'authorize upload';
+$lang['cat_options_upload_false'] = 'forbid upload';
+$lang['cat_options_upload_info'] = '(multi)select categories to make them uploadable or not. Upload is not applicable to virtual categories and to categories from a remote site.';
+$lang['cat_options_comments_true'] = 'authorize comments';
+$lang['cat_options_comments_false'] = 'forbid comments';
+$lang['cat_options_comments_info'] = '(multi)select categories to make them commentable or not. By inheritance, an element is commentable if it belongs at least to one commentable category.';
+$lang['cat_options_visible_true'] = 'unlock';
+$lang['cat_options_visible_false'] = 'lock temporary';
+$lang['cat_options_visible_info'] = '(multi)select categories to lock or unlock them. If you lock category,  all its child categories becomes locked. It you unlock a category, all its parent categories becomes unlocked';
+$lang['cat_options_status_true'] = 'public';
+$lang['cat_options_status_false'] = 'private';
+$lang['cat_options_status_info'] = '(multi)select categories to make them public or private. If you make a category private, all its child categories becomes private. It you make a category public, all its parent categories becomes public';
 
 //Titles
 $lang['admin_panel'] = 'Panneau d\'administration';
