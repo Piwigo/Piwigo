@@ -225,7 +225,7 @@ $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['about_title'] = 'About...';
 $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Information about PhpWebGallery</div>
 <ul>
-  <li>This website uses the version '.PHPWG_VERSION.' of <a href="htt://www.phpwebgallery.net" style="text-decoration:underline">PhpWebGallery</a>. PhpWebGallery is a web application giving you the possibility to create an online images gallery easily.</li>
+  <li>PhpWebGallery is a web application giving you the possibility to create an online images gallery easily.</li>
   <li>Technicaly, PhpWebGallery is fully developped with PHP (the elePHPant) with a MySQL database (the SQuirreL).</li>
   <li>If you have any suggestions or comments, please visit <a href="http://www.phpwebgallery.net" style="text-decoration:underline">PhpWebGallery</a> official site, and its dedicated <a href="http://forum.phpwebgallery.net" style="text-decoration:underline">forum</a>.</li>
 </ul>';
