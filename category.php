@@ -39,11 +39,14 @@ if ( isset( $_GET['act'] )
   redirect( $url );
 }
 //-------------------------------------------------- access authorization check
-if ( isset( $_GET['cat'] ) ) check_cat_id( $_GET['cat'] );
-check_login_authorization();
-if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+if (isset($_GET['cat']))
 {
-  check_restrictions( $page['cat'] );
+  check_cat_id($_GET['cat']);
+}
+check_login_authorization();
+if (isset($page['cat']) and is_numeric($page['cat']))
+{
+  check_restrictions($page['cat']);
 }
 //-------------------------------------------------------------- initialization
 // detection of the start picture to display
@@ -90,14 +93,6 @@ if ( $user['expand'] )
 {
   $page['tab_expand'] = array();
 }
-
-// creating the structure of the categories (useful for displaying the menu)
-// creating the plain structure : array of all the available categories and
-// their relative informations, see the definition of the function
-// get_user_plain_structure for further details.
-$page['plain_structure'] = get_user_plain_structure();
-$page['structure'] = create_user_structure( '' );
-$page['structure'] = update_structure( $page['structure'] );
 //----------------------------------------------------- template initialization
 //
 // Start output of page
@@ -106,7 +101,6 @@ $title = $page['title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('category'=>'category.tpl') );
-
 //-------------------------------------------------------------- category title
 if ( !isset( $page['title'] ) )
 {
@@ -120,18 +114,12 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
 
 $icon_recent = get_icon(date('Y-m-d'));
 
-$page['menu'] = '';
-foreach ($page['structure'] as $category)
-{
-  $page['menu'].= get_html_menu_category($category);
-}
-
 $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
   'TITLE' => $template_title,
   'USERNAME' => $user['username'],
   'TOP_NUMBER'=>$conf['top_number'],
-  'MENU_CATEGORIES_CONTENT'=>$page['menu'],
+  'MENU_CATEGORIES_CONTENT'=>get_categories_menu(),
 
   'L_CATEGORIES' => $lang['categories'],
   'L_HINT_CATEGORY' => $lang['hint_category'],

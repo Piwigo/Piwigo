@@ -31,6 +31,7 @@ column:uploadable                table:categories     type:enum('true','false') 
 column:representative_picture_id table:categories     type:mediumint                nullable:Y length:8   signed:N
 column:uppercats                 table:categories     type:varchar                  nullable:N length:255 binary:N
 column:commentable               table:categories     type:enum('true','false')     nullable:N
+column:global_rank               table:categories     type:varchar                  nullable:Y length:255 binary:N
 column:id                        table:comments       type:int                      nullable:N length:11  signed:N
 column:image_id                  table:comments       type:mediumint                nullable:N length:8   signed:N
 column:date                      table:comments       type:datetime                 nullable:N

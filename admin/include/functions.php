@@ -580,27 +580,6 @@ function get_keywords( $keywords_string )
   return array_unique( $keywords );
 }
 
-function display_categories( $categories, $indent,
-                             $selected = -1, $forbidden = -1 )
-{
-  global $vtp,$sub;
-
-  foreach ( $categories as $category ) {
-    if ( $category['id'] != $forbidden )
-    {
-      $vtp->addSession( $sub, 'associate_cat' );
-      $vtp->setVar( $sub, 'associate_cat.value',   $category['id'] );
-      $content = $indent.'- '.$category['name'];
-      $vtp->setVar( $sub, 'associate_cat.content', $content );
-      if ( $category['id'] == $selected )
-        $vtp->setVar( $sub, 'associate_cat.selected', ' selected="selected"' );
-      $vtp->closeSession( $sub, 'associate_cat' );
-      display_categories( $category['subcats'], $indent.str_repeat('&nbsp;',3),
-                          $selected, $forbidden );
-    }
-  }
-}
-
 /**
  * returns an array with the ids of the restricted categories for the user
  *

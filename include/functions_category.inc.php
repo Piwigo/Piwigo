@@ -116,15 +116,14 @@ function check_cat_id( $cat )
   }
 }
 
-function get_user_plain_structure()
+function get_categories_menu()
 {
   global $page,$user;
   
-  $infos = array('name','id','date_last','nb_images','dir','id_uppercat',
-                  'rank','site_id','uppercats');
+  $infos = array('');
   
   $query = '
-SELECT '.implode(',', $infos).'
+SELECT name,id,date_last,nb_images,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE 1 = 1'; // stupid but permit using AND after it !
   if (!$user['expand'])
@@ -143,125 +142,17 @@ SELECT '.implode(',', $infos).'
     AND id NOT IN ('.$user['forbidden_categories'].')';
   }
   $query.= '
-  ORDER BY id_uppercat ASC, rank ASC
 ;';
 
-  $plain_structure = array();
   $result = pwg_query($query);
+  $cats = array();
   while ($row = mysql_fetch_array($result))
   {
-    $category = array();
-    foreach ($infos as $info)
-    {
-      if ($info == 'uc.date_last')
-      {
-        if (empty($row['date_last']))
-        {
-          $category['date_last'] = 0;
-        }
-        else
-        {
-          list($year,$month,$day) = explode('-', $row['date_last']);
-          $category['date_last'] = mktime(0,0,0,$month,$day,$year);
-        }
-      }
-      else if (isset($row[$info]))
-      {
-        $category[$info] = $row[$info];
-      }
-      else
-      {
-        $category[$info] = '';
-      }
-    }
-    $plain_structure[$row['id']] = $category;
+    array_push($cats, $row);
   }
+  usort($cats, 'global_rank_compare');
 
-  return $plain_structure;
-}
-
-function create_user_structure( $id_uppercat )
-{
-  global $page;
-
-  if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_user_plain_structure();
-
-  $structure = array();
-  $ids = get_user_subcat_ids( $id_uppercat );
-  foreach ( $ids as $id ) {
-    $category = $page['plain_structure'][$id];
-    $category['subcats'] = create_user_structure( $id );
-    array_push( $structure, $category );
-  }
-  return $structure;
-}
-
-function get_user_subcat_ids( $id_uppercat )
-{
-  global $page;
-
-  $ids = array();
-  foreach ( $page['plain_structure'] as $id => $category ) {
-    if ( $category['id_uppercat'] == $id_uppercat ) array_push( $ids, $id );
-    else if ( count( $ids ) > 0 )                   return $ids;
-  }
-  return $ids;
-}
-
-// update_structure updates or add informations about each node of the
-// structure :
-//
-// 1. should the category be expanded in the menu ?
-// If the category has to be expanded (ie its id is in the
-// $page['tab_expand'] or all the categories must be expanded by default),
-// $category['expanded'] is set to true.
-//
-// 2. associated expand string
-// in the menu, there is a expand string (used in the URL) to tell which
-// categories must be expanded in the menu if this category is chosen
-function update_structure( $categories )
-{
-  global $page, $user;
-
-  $updated_categories = array();
-
-  foreach ( $categories as $category ) {
-    // update the "expanded" key
-    if ( $user['expand']
-         or in_array( $category['id'], $page['tab_expand'] ) )
-    {
-      $category['expanded'] = true;
-    }
-    else
-    {
-      $category['expanded'] = false;
-    }
-    // recursive call
-    $category['subcats'] = update_structure( $category['subcats'] );
-    // adding the updated category
-    array_push( $updated_categories, $category );
-  }
-
-  return $updated_categories;
-}
-
-// count_images returns the number of pictures contained in the given
-// category represented by an array, in this array, we have (among other
-// things) :
-// $category['nb_images'] -> number of pictures in this category
-// $category['subcats'] -> array of sub-categories
-// count_images goes to the deepest sub-category to find the total number of
-// pictures contained in the given given category
-function count_images( $categories )
-{
-  return count_user_total_images();
-  $total = 0;
-  foreach ( $categories as $category ) {
-    $total+= $category['nb_images'];
-    $total+= count_images( $category['subcats'] );
-  }
-  return $total;
+  return get_html_menu_category($cats);
 }
 
 function count_user_total_images()
@@ -829,47 +720,54 @@ SELECT COUNT(1) AS count
 }
 
 function display_select_categories($categories,
-                                   $indent,
                                    $selecteds,
                                    $blockname,
-                                   $CSS_classes)
+                                   $fullname = true)
 {
-  global $template,$user;
+  global $template;
 
   foreach ($categories as $category)
   {
-    if (!in_array($category['id'], $user['restrictions']))
+    $selected = '';
+    if (in_array($category['id'], $selecteds))
     {
-      $selected = '';
-      if (in_array($category['id'], $selecteds))
-      {
-        $selected = ' selected="selected"';
-      }
-
-      $class = '';
-      foreach (array_keys($CSS_classes) as $CSS_class)
-      {
-        if (in_array($category['id'], $CSS_classes[$CSS_class]))
-        {
-          $class = $CSS_class;
-        }
-      }
-
-      $template->assign_block_vars(
-        $blockname,
-        array('SELECTED'=>$selected,
-              'VALUE'=>$category['id'],
-              'CLASS'=>$class,
-              'OPTION'=>$indent.'- '.$category['name']
-              ));
-      
-      display_select_categories($category['subcats'],
-                                $indent.str_repeat('&nbsp;',3),
-                                $selecteds,
-                                $blockname,
-                                $CSS_classes);
+      $selected = ' selected="selected"';
     }
+
+    if ($fullname)
+    {
+      $option = get_cat_display_name_cache($category['uppercats'],
+                                           ' &rarr; ',
+                                           '',
+                                           false);
+    }
+    else
+    {
+      $option = str_repeat('&nbsp;',
+                           (3 * substr_count($category['global_rank'], '.')));
+      $option.= '- '.$category['name'];
+    }
+    
+    $template->assign_block_vars(
+      $blockname,
+      array('SELECTED'=>$selected,
+            'VALUE'=>$category['id'],
+            'OPTION'=>$option
+        ));
   }
+}
+
+function display_select_cat_wrapper($query, $selecteds, $blockname,
+                                    $fullname = true)
+{
+  $result = pwg_query($query);
+  $categories = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($categories, $row);
+  }
+  usort($categories, 'global_rank_compare');
+  display_select_categories($categories, $selecteds, $blockname, $fullname);
 }
 
 /**
@@ -903,5 +801,10 @@ SELECT DISTINCT(id)
     array_push($subcats, $row['id']);
   }
   return $subcats;
+}
+
+function global_rank_compare($a, $b)
+{
+  return strnatcasecmp($a['global_rank'], $b['global_rank']);
 }
 ?>

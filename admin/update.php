@@ -37,12 +37,13 @@ define('CURRENT_DATE', date('Y-m-d'));
 // +-----------------------------------------------------------------------+
 
 /**
- * order categories (update categories.rank database field)
+ * order categories (update categories.rank and global_rank database fields)
  *
  * the purpose of this function is to give a rank for all categories
  * (insides its sub-category), even the newer that have none at te
  * beginning. For this, ordering function selects all categories ordered by
- * rank ASC then name ASC for each uppercat.
+ * rank ASC then name ASC for each uppercat. It also updates the global rank
+ * which is able to order any two categorie in the whole tree
  *
  * @returns void
  */
@@ -68,6 +69,35 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
 UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.++$current_rank.'
   WHERE id = '.$row['id'].'
+;';
+    pwg_query($query);
+  }
+  // global rank update
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET global_rank = rank
+  WHERE id_uppercat IS NULL
+;';
+  pwg_query($query);
+
+  $query = '
+SELECT DISTINCT(id_uppercat)
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat IS NOT NULL
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $query = '
+SELECT global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$row['id_uppercat'].'
+;';
+    list($uppercat_global_rank) = mysql_fetch_array(pwg_query($query));
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET global_rank = CONCAT(\''.$uppercat_global_rank.'\', \'.\', rank)
+  WHERE id_uppercat = '.$row['id_uppercat'].'
 ;';
     pwg_query($query);
   }
@@ -571,23 +601,14 @@ if (!isset($_POST['submit']))
   $template->assign_block_vars('introduction', array());
 
   $query = '
-SELECT id
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE site_id != 1
+  WHERE site_id = 1
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($user['restrictions'], $row['id']);
-  }
-  $user['forbidden_categories'] = implode(',', $user['restrictions']);
-  $user['expand'] = true;
-  $structure = create_user_structure('');
-  display_select_categories($structure,
-                            '&nbsp;',
-                            array(),
-                            'introduction.category_option',
-                            array());
+  display_select_cat_wrapper($query,
+                             array(),
+                             'introduction.category_option',
+                             false);
 }
 // +-----------------------------------------------------------------------+
 // |                          synchronize files                            |

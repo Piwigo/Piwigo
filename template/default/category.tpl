@@ -7,9 +7,7 @@
           <a href="{U_HOME}">{L_CATEGORIES}</a>
         </div>
         <div class="menu">
-          <ul class="menu">
             {MENU_CATEGORIES_CONTENT}
-          </ul>
         <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
 		</div>
 		<div class="titreMenu">{L_SPECIAL_CATEGORIES}</div>

@@ -166,6 +166,7 @@ if ( mysql_num_rows( $result ) > 0 )
 
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
+$opt_link = $link_start.'cat_options&amp;section=';
 //----------------------------------------------------- template initialization
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('admin'=>'admin.tpl') );
@@ -189,7 +190,6 @@ $template->assign_vars(array(
   'L_SITES'=>$lang['remote_sites'],
   'L_CATEGORIES'=>$lang['categories'],
   'L_MANAGE'=>$lang['manage'],
-  'L_UPLOAD'=>$lang['upload'],
   'L_IMAGES'=>$lang['pictures'],
   'L_WAITING'=>$lang['waiting'].$nb_waiting,
   'L_COMMENTS'=>$lang['comments'].$nb_comments,
@@ -199,8 +199,11 @@ $template->assign_vars(array(
   'L_GROUPS'=>$lang['groups'],
   'L_AUTH'=>$lang['permissions'],
   'L_UPDATE'=>$lang['update'],
-  'L_CAT_OPTIONS'=>$lang['cat_options_menu'],
-  
+  'L_UPLOAD'=>$lang['cat_options_upload_menu'],
+  'L_COMMENTS'=>$lang['cat_options_comments_menu'],
+  'L_VISIBLE'=>$lang['cat_options_visible_menu'],
+  'L_STATUS'=>$lang['cat_options_status_menu'],
+
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
   'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
@@ -212,7 +215,10 @@ $template->assign_vars(array(
   'U_USERS'=>add_session_id($link_start.'user_search' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
-  'U_UPLOAD'=>add_session_id($link_start.'admin_upload' ),
+  'U_UPLOAD'=>add_session_id($opt_link.'upload'),
+  'U_COMMENTS'=>add_session_id($opt_link.'comments'),
+  'U_VISIBLE'=>add_session_id($opt_link.'visible'),
+  'U_STATUS'=>add_session_id($opt_link.'status'),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
   'U_CAT_UPDATE'=>add_session_id($link_start.'update'),

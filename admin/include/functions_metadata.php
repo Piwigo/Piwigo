@@ -40,7 +40,7 @@ function get_sync_iptc_data($file)
   {
     if (in_array($pwg_key, $datefields))
     {
-      if ( preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
+      if (preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
         $iptc[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }

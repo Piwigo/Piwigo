@@ -36,7 +36,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 // print '<pre>';
 // print_r($_POST);
 // print '</pre>';
-if (isset($_POST['submit']) and count($_POST['cat']) > 0)
+if (isset($_POST['falsify']) and count($_POST['cat_true']) > 0)
 {
   switch ($_GET['section'])
   {
@@ -44,8 +44,8 @@ if (isset($_POST['submit']) and count($_POST['cat']) > 0)
     {
       $query = '
 UPDATE '.CATEGORIES_TABLE.'
-  SET uploadable = \''.$_POST['option'].'\'
-  WHERE id IN ('.implode(',', $_POST['cat']).')
+  SET uploadable = \'false\'
+  WHERE id IN ('.implode(',', $_POST['cat_true']).')
 ;';
       pwg_query($query);
       break;
@@ -54,8 +54,8 @@ UPDATE '.CATEGORIES_TABLE.'
     {
       $query = '
 UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \''.$_POST['option'].'\'
-  WHERE id IN ('.implode(',', $_POST['cat']).')
+  SET commentable = \'false\'
+  WHERE id IN ('.implode(',', $_POST['cat_true']).')
 ;';
       pwg_query($query);
       break;
@@ -63,79 +63,101 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'visible' :
     {
       // locking a category   => all its child categories become locked
-      if ($_POST['option'] == 'false')
-      {
-        $subcats = get_subcat_ids($_POST['cat']);
-        $query = '
+      $subcats = get_subcat_ids($_POST['cat_true']);
+      $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET visible = \'false\'
   WHERE id IN ('.implode(',', $subcats).')
 ;';
-        pwg_query($query);
-      }
-      // unlocking a category => all its parent categories become unlocked
-      if ($_POST['option'] == 'true')
-      {
-        $uppercats = array();
-        $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['cat']).')
-;';
-        $result = pwg_query($query);
-        while ($row = mysql_fetch_array($result))
-        {
-          $uppercats = array_merge($uppercats,
-                                   explode(',', $row['uppercats']));
-        }
-        $uppercats = array_unique($uppercats);
-
-        $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET visible = \'true\'
-  WHERE id IN ('.implode(',', $uppercats).')
-;';
-        pwg_query($query);
-      }
+      pwg_query($query);
       break;
     }
     case 'status' :
     {
       // make a category private => all its child categories become private
-      if ($_POST['option'] == 'false')
-      {
-        $subcats = get_subcat_ids($_POST['cat']);
-        $query = '
+      $subcats = get_subcat_ids($_POST['cat_true']);
+      $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'private\'
   WHERE id IN ('.implode(',', $subcats).')
 ;';
-        pwg_query($query);
-      }
-      // make public a category => all its parent categories become public
-      if ($_POST['option'] == 'true')
-      {
-        $uppercats = array();
-        $query = '
+      pwg_query($query);
+      break;
+    }
+  }
+}
+else if (isset($_POST['trueify']) and count($_POST['cat_false']) > 0)
+{
+  switch ($_GET['section'])
+  {
+    case 'upload' :
+    {
+      $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET uploadable = \'true\'
+  WHERE id IN ('.implode(',', $_POST['cat_false']).')
+;';
+      pwg_query($query);
+      break;
+    }
+    case 'comments' :
+    {
+      $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET commentable = \'true\'
+  WHERE id IN ('.implode(',', $_POST['cat_false']).')
+;';
+      pwg_query($query);
+      break;
+    }
+    case 'visible' :
+    {
+      // unlocking a category => all its parent categories become unlocked
+      $uppercats = array();
+      $query = '
 SELECT uppercats
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['cat']).')
+  WHERE id IN ('.implode(',', $_POST['cat_false']).')
 ;';
-        $result = pwg_query($query);
-        while ($row = mysql_fetch_array($result))
-        {
-          $uppercats = array_merge($uppercats,
-                                   explode(',', $row['uppercats']));
-        }
-        $uppercats = array_unique($uppercats);
-
-        $query = '
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_array($result))
+      {
+        $uppercats = array_merge($uppercats,
+                                 explode(',', $row['uppercats']));
+      }
+      $uppercats = array_unique($uppercats);
+      
+      $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET visible = \'true\'
+  WHERE id IN ('.implode(',', $uppercats).')
+;';
+      pwg_query($query);
+      break;
+    }
+    case 'status' :
+    {
+      // make public a category => all its parent categories become public
+      $uppercats = array();
+      $query = '
+SELECT uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $_POST['cat_false']).')
+;';
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_array($result))
+      {
+        $uppercats = array_merge($uppercats,
+                                 explode(',', $row['uppercats']));
+      }
+      $uppercats = array_unique($uppercats);
+      
+      $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'public\'
   WHERE id IN ('.implode(',', $uppercats).')
 ;';
-        pwg_query($query);
-      }
+      pwg_query($query);
       break;
     }
   }
@@ -159,22 +181,6 @@ $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
-    'L_CAT_OPTIONS_MENU_UPLOAD'=>$lang['cat_options_menu_upload'],
-    'L_CAT_OPTIONS_MENU_VISIBLE'=>$lang['cat_options_menu_visible'],
-    'L_CAT_OPTIONS_MENU_COMMENTS'=>$lang['cat_options_menu_comments'],
-    'L_CAT_OPTIONS_MENU_STATUS'=>$lang['cat_options_menu_status'],
-    'L_CAT_OPTIONS_UPLOAD_INFO'=>$lang['cat_options_upload_info'],
-    'L_CAT_OPTIONS_UPLOAD_TRUE'=>$lang['cat_options_upload_true'],
-    'L_CAT_OPTIONS_UPLOAD_FALSE'=>$lang['cat_options_upload_false'],
-    'L_CAT_OPTIONS_COMMENTS_INFO'=>$lang['cat_options_comments_info'],
-    'L_CAT_OPTIONS_COMMENTS_TRUE'=>$lang['cat_options_comments_true'],
-    'L_CAT_OPTIONS_COMMENTS_FALSE'=>$lang['cat_options_comments_false'],
-    'L_CAT_OPTIONS_VISIBLE_INFO'=>$lang['cat_options_visible_info'],
-    'L_CAT_OPTIONS_VISIBLE_TRUE'=>$lang['cat_options_visible_true'],
-    'L_CAT_OPTIONS_VISIBLE_FALSE'=>$lang['cat_options_visible_false'],
-    'L_CAT_OPTIONS_STATUS_INFO'=>$lang['cat_options_status_info'],
-    'L_CAT_OPTIONS_STATUS_TRUE'=>$lang['cat_options_status_true'],
-    'L_CAT_OPTIONS_STATUS_FALSE'=>$lang['cat_options_status_false'],
     
     'U_UPLOAD'=>add_session_id($base_url.'upload'),
     'U_VISIBLE'=>add_session_id($base_url.'visible'),
@@ -205,127 +211,103 @@ switch ($page['section'])
 {
   case 'upload' :
   {
-    $query = '
-SELECT id
+    $query_true = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE uploadable = \'true\'
     AND dir IS NOT NULL
     AND site_id = 1
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_true, $row['id']);
-    }
-    $query = '
-SELECT id
+    $query_false = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE uploadable = \'false\'
     AND dir IS NOT NULL
     AND site_id = 1
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_false, $row['id']);
-    }
-    
+    $template->assign_vars(
+      array(
+        'L_TITLE' => $lang['cat_options_upload_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_upload_true'],
+        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_upload_false'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_options_upload_info'],
+        )
+      );
     $template->assign_block_vars('upload', array());
-
     break;
   }
   case 'comments' :
   {
-    $query = '
-SELECT id
+    $query_true = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE commentable = \'true\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_true, $row['id']);
-    }
-    $query = '
-SELECT id
+    $query_false = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE commentable = \'false\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_false, $row['id']);
-    }
-    
+    $template->assign_vars(
+      array(
+        'L_TITLE' => $lang['cat_options_comments_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_comments_true'],
+        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_comments_false'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_options_comments_info'],
+        )
+      );
     $template->assign_block_vars('comments', array());
-    
     break;
   }
   case 'visible' :
   {
-    $query = '
-SELECT id
+    $query_true = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE visible = \'true\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_true, $row['id']);
-    }
-    $query = '
-SELECT id
+    $query_false = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE visible = \'false\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_false, $row['id']);
-    }
-    
+    $template->assign_vars(
+      array(
+        'L_TITLE' => $lang['cat_options_visible_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_visible_true'],
+        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_visible_false'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_options_visible_info'],
+        )
+      );
     $template->assign_block_vars('visible', array());
-    
     break;
   }
   case 'status' :
   {
-    $query = '
-SELECT id
+    $query_true = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'public\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_true, $row['id']);
-    }
-    $query = '
-SELECT id
+    $query_false = '
+SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($cats_false, $row['id']);
-    }
-    
+    $template->assign_vars(
+      array(
+        'L_TITLE' => $lang['cat_options_status_title'],
+        'L_CAT_OPTIONS_TRUE' => $lang['cat_options_status_true'],
+        'L_CAT_OPTIONS_FALSE' => $lang['cat_options_status_false'],
+        'L_CAT_OPTIONS_INFO' => $lang['cat_options_status_info'],
+        )
+      );
     $template->assign_block_vars('status', array());
-    
     break;
   }
 }
-$CSS_classes = array('optionTrue'=>$cats_true,
-                     'optionFalse'=>$cats_false);
-  
-$user['expand'] = true;
-$structure = create_user_structure('');
-display_select_categories($structure,
-                          '&nbsp;',
-                          array(),
-                          'category_option',
-                          $CSS_classes);
+display_select_cat_wrapper($query_true,array(),'category_option_true');
+display_select_cat_wrapper($query_false,array(),'category_option_false');
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

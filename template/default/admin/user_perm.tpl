@@ -12,12 +12,14 @@
 <form action="{F_AUTH_ACTION}" method="POST">
   <ul class="menu">
     <!-- BEGIN category -->
-        <li> <a href="{permission.category.CAT_URL}">{permission.category.CAT_NAME}</a>
+        <li>
+        <input type="radio" name="{permission.category.CAT_ID}" value="0" {permission.category.AUTH_YES}/>{L_AUTHORIZED}
+        <input type="radio" name="{permission.category.CAT_ID}" value="1" {permission.category.AUTH_NO}/>{L_FORBIDDEN}
+        : 
+         <a href="{permission.category.CAT_URL}">{permission.category.CAT_NAME}</a>
         <!-- BEGIN parent_forbidden -->
         {L_PARENT_FORBIDDEN}&nbsp;-&nbsp;
         <!-- END parent_forbidden -->
-        <input type="radio" name="{permission.category.CAT_ID}" value="0" {permission.category.AUTH_YES}/>{L_AUTHORIZED}
-        <input type="radio" name="{permission.category.CAT_ID}" value="1" {permission.category.AUTH_NO}/>{L_FORBIDDEN}
 		</li>
     <!-- END category -->
 	</ul>

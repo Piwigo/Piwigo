@@ -211,7 +211,7 @@ function get_cat_display_name($cat_informations,
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
-                                    $separator, 
+                                    $separator,
                                     $url = 'category.php?cat=',
                                     $replace_space = true)
 {
@@ -271,72 +271,76 @@ SELECT id,name
  *
  * HTML code generated uses logical list tags ul and each category is an
  * item li. The paramter given is the category informations as an array,
- * used keys are : id, name, dir, nb_images, date_last, subcats (sub-array)
+ * used keys are : id, name, nb_images, date_last
  *
- * @param array category
+ * @param array categories
  * @return string
  */
-function get_html_menu_category($category)
+function get_html_menu_category($categories)
 {
   global $page, $lang;
 
+  $ref_level = 0;
   $menu = '
+             <ul class="menu">';
+  
+  foreach ($categories as $category)
+  {
+    $level = substr_count($category['global_rank'], '.');
+    if ($level > $ref_level)
+    {
+      $menu.= '
+             <ul class="menu">';
+    }
+    else if ($level < $ref_level)
+    {
+      $menu.= '
+             </ul>';
+    }
+    $ref_level = $level;
+    
+    $menu.= '
 
            <li>';
   
-  $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
+    $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
 
-  $class = '';
-  if (isset($page['cat'])
-      and is_numeric($page['cat'])
-      and $category['id'] == $page['cat'])
-  {
-    $class = 'menuCategorySelected';
-  }
-  else
-  {
-    $class = 'menuCategoryNotSelected';
-  }
-  
-  $name = $category['name'];
-  if (empty($name))
-  {
-    $name = str_replace('_', ' ', $category['dir']);
-  }
+    $class = '';
+    if (isset($page['cat'])
+        and is_numeric($page['cat'])
+        and $category['id'] == $page['cat'])
+    {
+      $class = 'menuCategorySelected';
+    }
+    else
+    {
+      $class = 'menuCategoryNotSelected';
+    }
 
-  $menu.= '
+    $menu.= '
            <a href="'.$url.'"
               title="'.$lang['hint_category'].'"
               class="'.$class.'">
-             '.$name.'
+             '.$category['name'].'
            </a>';
 
-  if ($category['nb_images'] > 0)
-  {
-    $menu.= '
+    if ($category['nb_images'] > 0)
+    {
+      $menu.= '
              <span class="menuInfoCat"
                    title="'.$category['nb_images'].'
                           '.$lang['images_available'].'">
              ['.$category['nb_images'].']
              </span>
              '.get_icon($category['date_last']);
+    }
+
+    $menu.= '</li>';
   }
   
-  // recursive call
-  if ($category['expanded'] and count($category['subcats']) > 0)
-  {
-    $menu.= '
-             <ul class="menu">';
-    foreach ($category['subcats'] as $subcat)
-    {
-      $menu.= get_html_menu_category($subcat);
-    }
-    $menu.= '
+  $menu.= '
              </ul>';
-  }
-
-  $menu.= '</li>';
-
+  
   return $menu;
 }
 

@@ -338,22 +338,22 @@ foreach ($datefields as $datefield)
   display_3dates($datefield);
 }
 //------------------------------------------------------------- categories form
-// this is a trick : normally, get_user_plain_structure is used to create
-// the categories structure for menu (in category.php) display, but here, we
-// want all categories to be shown...
-$user['expand'] = true;
-$structure = create_user_structure('');
-
+$query = '
+SELECT name,id,date_last,nb_images,global_rank,uppercats
+  FROM '.CATEGORIES_TABLE;
+  if ($user['forbidden_categories'] != '')
+  {
+    $query.= '
+  WHERE id NOT IN ('.$user['forbidden_categories'].')';
+  }
+$query.= '
+;';
 $selecteds = array();
 if (isset($_POST['submit']))
 {
   $selecteds = $_POST['cat'];
 }
-display_select_categories($structure,
-                          '&nbsp;',
-                          $selecteds,
-                          'category_option',
-                          array());
+display_select_cat_wrapper($query, $selecteds, 'category_option', false);
 
 $categories_selected = '';
 if (isset($_POST['categories-check']))
