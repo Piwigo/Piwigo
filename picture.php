@@ -43,7 +43,8 @@ if ( is_numeric( $page['cat'] ) )
   $query.= ',category_id';
 }
 $query.= ' FROM '.PREFIX_TABLE.'images';
-$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id = ic.image_id';
+$query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
+$query.= ' ON id = ic.image_id';
 $query.= $page['where'];
 $query.= ' AND id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
@@ -77,7 +78,8 @@ $page['storage_category_id'] = $row['storage_category_id'];
 // retrieving the number of the picture in its category (in order)
 $query = 'SELECT DISTINCT(id)';
 $query.= ' FROM '.PREFIX_TABLE.'images';
-$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id = ic.image_id';
+$query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
+$query.= ' ON id = ic.image_id';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 $query.= ';';
@@ -139,7 +141,7 @@ if ( isset( $_GET['add_fav'] ) )
     }
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
+    $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
     $query.= ' ON id = ic.image_id';
     $query.= $page['where'];
     $query.= $conf['order_by'];
@@ -168,7 +170,8 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   $next = $page['num'] + 1;
   $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
+  $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
+  $query.= ' ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$next.',1';
@@ -276,7 +279,8 @@ if ( $page['num'] >= 1 )
   $prev = $page['num'] - 1;
   $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
+  $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
+  $query.= ' ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$prev.',1';

@@ -49,7 +49,7 @@ if ( isset( $page['cat'] ) )
 
     $query = 'SELECT id,file';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
     $query.= ';';
     $result = mysql_query( $query );
@@ -176,7 +176,7 @@ if ( isset( $page['cat'] ) )
     {
       $query = 'SELECT id,keywords';
       $query.= ' FROM '.PREFIX_TABLE.'images';
-      $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+      $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
       $query.= ' WHERE category_id = '.$page['cat'];
       $query.= ';';
       $result = mysql_query( $query );
@@ -279,7 +279,7 @@ if ( count( $errors ) != 0 )
   $query = 'SELECT id,file,comment,author,tn_ext,name,date_creation,keywords';
   $query.= ',storage_category_id,category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
   $query.= ' WHERE category_id = '.$page['cat'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];

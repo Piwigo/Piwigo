@@ -494,7 +494,7 @@ function initialize_category( $calling_page = 'category' )
 
         $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
-        $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
+        $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
         $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';
@@ -528,7 +528,7 @@ function initialize_category( $calling_page = 'category' )
 
         $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
-        $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
+        $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
         $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';
