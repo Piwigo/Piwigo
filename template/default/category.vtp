@@ -48,9 +48,9 @@
                       <img src="{#src}"
                            alt="{#alt}"
                            title="{#title}"
-                           class="imgLink"/><br />
-                      {#name}
-                      </a>
+                           class="imgLink"/></a>
+                      <br />
+                      <a href="{#url}" class="back">{#name}</a>
                       {#icon}
                       <!--VTP_nb_comments-->
                       <br />{#nb} {#comments}
