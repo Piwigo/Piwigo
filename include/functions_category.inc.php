@@ -259,7 +259,7 @@ function get_cat_info( $id )
   global $page;
 
   $cat = array();
-                
+
   $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
   $query.= ',date_last,uploadable,status,visible,representative_picture_id';
   $query.= ',uppercats';
@@ -331,15 +331,20 @@ function get_local_dir( $category_id )
     $uppercats = $row['uppercats'];
   }
 
-  $query = 'SELECT dir';
+  $upper_array = explode( ',', $uppercats );
+
+  $database_dirs = array();
+  $query = 'SELECT id,dir';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE id IN ('.$uppercats.')';
-  $query.= ' ORDER BY id ASC';
   $query.= ';';
   $result = mysql_query( $query );
   while( $row = mysql_fetch_array( $result ) )
   {
-    $local_dir.= $row['dir'].'/';
+    $database_dirs[$row['id']] = $row['dir'];
+  }
+  foreach ( $upper_array as $id ) {
+    $local_dir.= $database_dirs[$id].'/';
   }
 
   return $local_dir;
