@@ -23,7 +23,7 @@
   </tr>
   <!-- END textfield -->
   <tr>
-   <td colspan="3" style="text-align:center;">* {L_COMMENTS}</td>
+   <td colspan="3" style="text-align:center;">* {L_SEARCH_COMMENTS}</td>
   </tr>
   <!-- BEGIN datefield -->
   <tr>
