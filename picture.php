@@ -35,7 +35,7 @@ $query.= ';';
 initialize_category( 'picture' );
 $cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
-$query = 'SELECT id,date_available,comment,hit';
+$query = 'SELECT id,date_available,comment,hit,keywords';
 $query.= ',author,name,file,date_creation,filesize,width,height,cat_id';
 $query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= $page['where'];
@@ -56,6 +56,7 @@ $page['filesize']       = $row['filesize'];
 $page['width']          = $row['width'];
 $page['height']         = $row['height'];
 $page['cat_id']         = $row['cat_id'];
+$page['keywords']       = $row['keywords'];
 // retrieving the number of the picture in its category (in order)
 $query = 'SELECT id';
 $query.= ' FROM '.PREFIX_TABLE.'images';
@@ -397,6 +398,23 @@ $vtp->addSession( $handle, 'info_line' );
 $vtp->setVar( $handle, 'info_line.name', $lang['filesize'].' : ' );
 $vtp->setVar( $handle, 'info_line.content', $poids.' KB' );
 $vtp->closeSession( $handle, 'info_line' );
+// keywords
+if ( $page['keywords'] != '' )
+{
+  $vtp->addSession( $handle, 'info_line' );
+  $vtp->setVar( $handle, 'info_line.name', $lang['keywords'].' : ' );
+  $keywords = explode( ',', $page['keywords'] );
+  $content = '';
+  $url = './category.php?cat=search&amp;expand='.$_GET['expand'];
+  $url.= '&amp;mode=OR&amp;search=';
+  foreach ( $keywords as $i => $keyword ) {
+    $local_url = add_session_id( $url.$keyword );
+    if ( $i > 0 ) $content.= ',';
+    $content.= '<a href="'.$local_url.'">'.$keyword.'</a>';
+  }
+  $vtp->setVar( $handle, 'info_line.content', $content );
+  $vtp->closeSession( $handle, 'info_line' );
+}
 // number of visits
 $vtp->addSession( $handle, 'info_line' );
 $vtp->setVar( $handle, 'info_line.name', $lang['visited'].' : ' );
