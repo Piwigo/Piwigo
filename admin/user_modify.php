@@ -103,6 +103,8 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' ('.$_GET['user_id'].','.$_POST['associate'].')';
   $query.= ';';
   mysql_query( $query );
+  // synchronize category informations for this user
+  synchronize_user( $_GET['user_id'] );
 }
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
