@@ -50,28 +50,11 @@ CREATE TABLE phpwebgallery_comments (
 
 DROP TABLE IF EXISTS phpwebgallery_config;
 CREATE TABLE phpwebgallery_config (
-  prefix_thumbnail varchar(10) default 'TN-',
-  webmaster varchar(255) NOT NULL default '',
-  mail_webmaster varchar(255) NOT NULL default '',
-  access enum('free','restricted') default 'free',
-  session_id_size tinyint(3) unsigned NOT NULL default '4',
-  session_keyword varchar(255) default NULL,
-  session_time tinyint(3) unsigned NOT NULL default '30',
-  max_user_listbox tinyint(3) unsigned NOT NULL default '10',
-  show_comments enum('true','false') NOT NULL default 'true',
-  nb_comment_page tinyint(4) NOT NULL default '10',
-  upload_available enum('true','false') NOT NULL default 'false',
-  upload_maxfilesize smallint(5) unsigned NOT NULL default '150',
-  upload_maxwidth smallint(5) unsigned NOT NULL default '800',
-  upload_maxheight smallint(5) unsigned NOT NULL default '600',
-  upload_maxwidth_thumbnail smallint(5) unsigned NOT NULL default '150',
-  upload_maxheight_thumbnail smallint(5) unsigned NOT NULL default '100',
-  log enum('true','false') NOT NULL default 'false',
-  comments_validation enum('true','false') NOT NULL default 'false',
-  comments_forall enum('true','false') NOT NULL default 'false',
-  authorize_cookies enum('true','false') NOT NULL default 'false',
-  mail_notification enum('true','false') NOT NULL default 'false'
-) TYPE=MyISAM;
+  param varchar(40) NOT NULL default '',
+  value varchar(255) default NULL,
+  comment varchar(255) default NULL,
+  PRIMARY KEY  (param)
+) TYPE=MyISAM COMMENT='configuration table';
 
 --
 -- Table structure for table 'phpwebgallery_favorites'
