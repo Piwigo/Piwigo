@@ -144,12 +144,20 @@ function style_select($default_style, $select_name = "style")
   return $style_selected;
 }
 
-// The function get_cat_display_name returns a string containing the list
-// of upper categories to the root category from the lowest category shown
-// example : "anniversaires - fete mere 2002 - animaux - erika"
-// You can give this parameters :
-//   - $style : the style of the span tag for the lowest category,
-//     "font-style:italic;" for example
+/**
+ * returns the list of categories as a HTML string
+ *
+ * categories string returned contains categories as given in the input
+ * array $cat_informations. $cat_informations array must be an association
+ * of {category_id => category_name}. If url input parameter is empty,
+ * returns only the categories name without links.
+ *
+ * @param array cat_informations
+ * @param string separator
+ * @param string url
+ * @param boolean replace_space
+ * @return string
+ */
 function get_cat_display_name($cat_informations,
                               $separator, 
                               $url = 'category.php?cat=',
