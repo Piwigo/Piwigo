@@ -46,7 +46,7 @@ CREATE TABLE phpwebgallery_comments (
 
 DROP TABLE IF EXISTS phpwebgallery_config;
 CREATE TABLE phpwebgallery_config (
-  prefix_thumbnail varchar(10) NOT NULL default 'TN-',
+  prefix_thumbnail varchar(10) default 'TN-',
   webmaster varchar(255) NOT NULL default '',
   mail_webmaster varchar(255) NOT NULL default '',
   access enum('free','restricted') default 'free',
