@@ -423,4 +423,47 @@ function notify( $type, $infos = '' )
     @mail( $to, $subject, $content, $headers, $options );
   }
 }
+
+function pwg_write_debug()
+{
+  global $debug;
+  
+  $fp = @fopen( './log/debug.log', 'a+' );
+  fwrite( $fp, "\n\n" );
+  fwrite( $fp, $debug );
+  fclose( $fp );
+}
+
+function pwg_query( $query )
+{
+  global $count_queries,$queries_time;
+
+  $start = get_moment();
+  $output = '';
+  
+  $count_queries++;
+  $output.= '<br /><br />['.$count_queries.'] '.$query;
+  $result = mysql_query( $query );
+  $time = get_moment() - $start;
+  $queries_time+= $time;
+  $output.= '<b>('.number_format( $time, 3, '.', ' ').' s)</b>';
+  $output.= '('.number_format( $queries_time, 3, '.', ' ').' s)';
+
+  // echo $output;
+  
+  return $result;
+}
+
+function pwg_debug( $string )
+{
+  global $debug,$t2,$count_queries;
+
+  $now = explode( ' ', microtime() );
+  $now2 = explode( '.', $now[0] );
+  $now2 = $now[1].'.'.$now2[1];
+  $time = number_format( $now2 - $t2, 3, '.', ' ').' s';
+  $debug.= '['.$time.', ';
+  $debug.= $count_queries.' queries] : '.$string;
+  $debug.= "\n";
+}
 ?>
