@@ -7,7 +7,7 @@
           contact me pierrick@phpwebgallery.net to find a solution on how
           to show the origin of the script...-->
 
-      Powered by <a href="{U_SITE}" class="back">PhpWebGallery</a>
+      Powered by <a href="http://www.phpwebgallery.net" class="back">PhpWebGallery</a>
       {VERSION} :: 
 
       {L_SEND_MAIL}

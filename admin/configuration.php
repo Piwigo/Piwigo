@@ -99,7 +99,8 @@ $result = mysql_query('SELECT param,value FROM '.CONFIG_TABLE);
 while ($row = mysql_fetch_array($result))
 {
   $conf[$row['param']] = $row['value'];
-
+  // if the parameter is present in $_POST array (if a form is submited), we
+  // override it with the submited value
   if (isset($_POST[$row['param']]))
   {
     $conf[$row['param']] = $_POST[$row['param']];

@@ -41,7 +41,6 @@ $template->assign_vars(
     'L_TITLE_MAIL' => $lang['title_send_mail'],
     'L_WEBMASTER'=>$lang['webmaster'],
     
-    'U_SITE' => $conf['site_url']
     ));
     
 if (DEBUG)
