@@ -603,7 +603,8 @@ SELECT id
   display_select_categories($structure,
                             '&nbsp;',
                             array(),
-                            'introduction.category_option');
+                            'introduction.category_option',
+                            array());
 }
 // +-----------------------------------------------------------------------+
 // |                          synchronize files                            |

@@ -38,6 +38,7 @@
 <ul class="menu">
   <li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
   <li><a class="adminMenu" href="{U_UPLOAD}">{L_UPLOAD}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_OPTIONS}">{L_CAT_OPTIONS}</a></li>
 </ul>
 </div>
 <div class="titreMenu">{L_IMAGES}</div>

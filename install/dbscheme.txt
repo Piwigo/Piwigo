@@ -25,11 +25,12 @@ column:comment                   table:categories     type:text                 
 column:dir                       table:categories     type:varchar                  nullable:Y length:255 binary:N
 column:rank                      table:categories     type:tinyint                  nullable:Y length:3   signed:N
 column:status                    table:categories     type:enum('public','private') nullable:N
-column:site_id                   table:categories     type:tinyint                  nullable:N length:4   signed:N
+column:site_id                   table:categories     type:tinyint                  nullable:Y length:4   signed:N
 column:visible                   table:categories     type:enum('true','false')     nullable:N
 column:uploadable                table:categories     type:enum('true','false')     nullable:N
 column:representative_picture_id table:categories     type:mediumint                nullable:Y length:8   signed:N
 column:uppercats                 table:categories     type:varchar                  nullable:N length:255 binary:N
+column:commentable               table:categories     type:enum('true','false')     nullable:N
 column:id                        table:comments       type:int                      nullable:N length:11  signed:N
 column:image_id                  table:comments       type:mediumint                nullable:N length:8   signed:N
 column:date                      table:comments       type:datetime                 nullable:N
@@ -45,7 +46,7 @@ column:group_id                  table:group_access   type:smallint             
 column:cat_id                    table:group_access   type:smallint                 nullable:N length:5   signed:N
 column:id                        table:groups         type:smallint                 nullable:N length:5   signed:N
 column:name                      table:groups         type:varchar                  nullable:N length:255 binary:N
-column:date                      table:history        type:int                      nullable:N length:11  signed:Y
+column:date                      table:history        type:datetime                 nullable:N
 column:login                     table:history        type:varchar                  nullable:Y length:15  binary:N
 column:IP                        table:history        type:varchar                  nullable:N length:50  binary:N
 column:category                  table:history        type:varchar                  nullable:Y length:150 binary:N
@@ -116,6 +117,7 @@ PK:favorites_pk      table:favorites      column:image_id
 PK:group_access_pk   table:group_access   column:group_id
 PK:group_access_pk   table:group_access   column:cat_id
 PK:groups_pk         table:groups         column:id
+PK:history_pk        table:history        column:date
 PK:image_category_pk table:image_category column:image_id
 PK:image_category_pk table:image_category column:category_id
 PK:images_pk         table:images         column:id
@@ -135,5 +137,7 @@ index:image_category_i1 table:image_category column:image_id
 index:image_category_i2 table:image_category column:category_id
 index:images_i2         table:images         column:date_available
 index:images_i1         table:images         column:storage_category_id
+index:images_i3         table:images         column:average_rate
+index:images_i4         table:images         column:hit
 index:sites_ui1         table:sites          column:galleries_url
 index:users_ui1         table:users          column:username

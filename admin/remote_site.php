@@ -485,8 +485,6 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('remote_site'=>'admin/remote_site.tpl'));
 
-$action = PHPWG_ROOT_PATH.'admin.php?page=remote_site';
-
 $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],

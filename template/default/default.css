@@ -425,3 +425,35 @@ div.remoteLocal {
 pre {
   text-align:left;
 }
+
+.confMenu {
+  background-color:#444444;
+  text-align:center;
+}
+
+.confMenu a {
+  padding:2px;
+  border:1px solid gray;
+  background-color:#505050;
+  color:#fff48e;
+  color:lightgray;
+}
+
+.confMenu a:hover {
+  color:orange;
+  text-decoration:none;
+}
+
+.confMenu a.opened {
+  background-color:gray;
+  color:white;
+  text-decoration:none;
+}
+
+.optionTrue {
+  color:lightgreen;
+}
+
+.optionFalse {
+  color:#ffe1e1;
+}

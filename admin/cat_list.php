@@ -40,7 +40,7 @@ $navigation = $lang['gallery_index'];
 // +-----------------------------------------------------------------------+
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
-// request to add a virtual category
+// request to delete a virtual category
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
   $to_delete_categories = array();
@@ -48,7 +48,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
   delete_categories($to_delete_categories);
   array_push($infos, $lang['cat_list_virtual_category_deleted']);
 }
-// request to delete a virtual category
+// request to add a virtual category
 else if (isset($_POST['submit']))
 {
   // is the given category name only containing blank spaces ?
@@ -75,9 +75,9 @@ SELECT uppercats
     // we have then to add the virtual category
     $query = '
 INSERT INTO '.CATEGORIES_TABLE.'
-  (name,id_uppercat,rank)
+  (name,id_uppercat,rank,site_id)
   VALUES
-  (\''.$_POST['virtual_name'].'\','.$parent_id.','.$_POST['rank'].')
+  (\''.$_POST['virtual_name'].'\','.$parent_id.','.$_POST['rank'].',NULL)
 ;';
     pwg_query($query);
 	

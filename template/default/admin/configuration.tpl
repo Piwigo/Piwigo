@@ -51,12 +51,7 @@
     <td colspan="2">&nbsp;</td>
   </tr>
   <tr>
-    <td width="70%"><strong>{comments.L_CONF_SHOW_COMMENTS}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_SHOW_COMMENTS_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="show_comments" value="true" {comments.SHOW_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="show_comments" value="false" {comments.SHOW_COMMENTS_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{comments.L_CONF_COMMENTS_ALL}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_COMMENTS_ALL_INFO}</span></td>
+    <td width="70%"><strong>{comments.L_CONF_COMMENTS_ALL}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_COMMENTS_ALL_INFO}</span></td>
 	<td class="row1"><input type="radio" class="radio" name="comments_forall" value="true" {comments.COMMENTS_ALL_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="comments_forall" value="false" {comments.COMMENTS_ALL_NO} />{L_NO}</td>
   </tr>
@@ -116,12 +111,7 @@
     <td colspan="2">&nbsp;</td>
   </tr>
   <tr>
-    <td width="70%"><strong>{upload.L_CONF_UPLOAD}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_UPLOAD_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="upload_available" value="true" {upload.UPLOAD_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="upload_available" value="false" {upload.UPLOAD_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{upload.L_CONF_MAXSIZE}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXSIZE_INFO}</span></td>
+    <td width="70%"><strong>{upload.L_CONF_MAXSIZE}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXSIZE_INFO}</span></td>
 	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxfilesize" value="{upload.UPLOAD_MAXSIZE}" /></td>
   </tr>
   <tr>

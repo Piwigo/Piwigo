@@ -135,8 +135,6 @@ $lang['conf_notification_info'] = 'Notification automatique par mail des adminis
 
 // Configuration -> comments
 $lang['conf_comments_title'] = 'Configuration des commentaires';
-$lang['conf_show_comments'] = 'Commentaires utilisateurs';
-$lang['conf_show_comments_info'] = 'Afficher les commentaires utilisateurs sous chaque images ?';
 $lang['conf_comments_forall'] = 'Autoriser pour tous ?';
 $lang['conf_comments_forall_info'] = 'Même les invités non enregistrés peuvent déposer les messages';
 $lang['conf_nb_comment_page'] = 'Nombre de commentaires par page';
@@ -159,8 +157,6 @@ $lang['conf_default_maxheight_info'] = 'Idem mais pour la hauteur des images';
 
 // Configuration -> upload
 $lang['conf_upload_title'] = 'Configuration de l\'envoi d\'images par les utilisateurs';
-$lang['conf_authorize_upload'] = 'Autoriser l\'ajout d\'images';
-$lang['conf_authorize_upload_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';
 $lang['conf_upload_maxfilesize'] = 'Poids maximum';
 $lang['conf_upload_maxfilesize_info'] = 'Poids maximum autorisé pour les images uploadées. Celui-ci doit être un entier compris entre 10 et 1000, en Ko.';
 $lang['conf_upload_maxfilesize_error'] = 'Le poids maximum pour les images uploadés doit être un entier compris entre 10 et 1000.';

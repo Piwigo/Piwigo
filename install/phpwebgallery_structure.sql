@@ -19,11 +19,12 @@ CREATE TABLE phpwebgallery_categories (
   dir varchar(255) default NULL,
   rank tinyint(3) unsigned default NULL,
   status enum('public','private') NOT NULL default 'public',
-  site_id tinyint(4) unsigned NOT NULL default '1',
+  site_id tinyint(4) unsigned default '1',
   visible enum('true','false') NOT NULL default 'true',
   uploadable enum('true','false') NOT NULL default 'false',
   representative_picture_id mediumint(8) unsigned default NULL,
   uppercats varchar(255) NOT NULL default '',
+  commentable enum('true','false') NOT NULL default 'true',
   PRIMARY KEY  (id),
   KEY categories_i2 (id_uppercat)
 ) TYPE=MyISAM;
@@ -100,7 +101,7 @@ CREATE TABLE phpwebgallery_history (
   category varchar(150) default NULL,
   file varchar(50) default NULL,
   picture varchar(150) default NULL,
-  PRIMARY KEY `date` (`date`)
+  PRIMARY KEY  (date)
 ) TYPE=MyISAM;
 
 --
@@ -141,7 +142,9 @@ CREATE TABLE phpwebgallery_images (
   average_rate float(5,2) unsigned default NULL,
   PRIMARY KEY  (id),
   KEY images_i2 (date_available),
-  KEY images_i1 (storage_category_id)
+  KEY images_i1 (storage_category_id),
+  KEY images_i3 (average_rate),
+  KEY images_i4 (hit)
 ) TYPE=MyISAM;
 
 --

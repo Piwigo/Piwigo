@@ -352,7 +352,8 @@ if (isset($_POST['submit']))
 display_select_categories($structure,
                           '&nbsp;',
                           $selecteds,
-                          'category_option');
+                          'category_option',
+                          array());
 
 $categories_selected = '';
 if (isset($_POST['categories-check']))

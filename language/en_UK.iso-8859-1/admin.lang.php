@@ -108,6 +108,7 @@ $lang['title_thumbnails'] = 'Thumbnail creation';
 $lang['title_thumbnails_2'] = 'for';
 $lang['title_default'] = 'PhpWebGallery administration';
 $lang['title_waiting'] = 'Pictures waiting for validation';
+$lang['title_cat_options'] = 'Categories options';
 
 //Error messages
 $lang['cat_error_name'] = 'The name of a category mustn\'t be empty';
@@ -133,8 +134,6 @@ $lang['conf_notification_info'] = 'Automated mail notification for adminsitrator
 
 // Configuration -> comments
 $lang['conf_comments_title'] = 'Users comments';
-$lang['conf_show_comments'] = 'Show users comments';
-$lang['conf_show_comments_info'] = 'Display the users comments under each picture ?';
 $lang['conf_comments_forall'] = 'Comments for all ?';
 $lang['conf_comments_forall_info'] = 'Even guest not registered can post comments';
 $lang['conf_nb_comment_page'] = 'Number of comments per page';
@@ -155,8 +154,6 @@ $lang['conf_show_nb_comments_info'] = 'show the number of comments for each pict
 
 // Configuration -> upload
 $lang['conf_upload_title'] = 'Users upload';
-$lang['conf_authorize_upload'] = 'Authorize upload of pictures';
-$lang['conf_authorize_upload_info'] = '';
 $lang['conf_upload_maxfilesize'] = 'Maximum filesize';
 $lang['conf_upload_maxfilesize_info'] = 'Maximum filesize for the uploaded pictures. Must be a number between 10 and 1000 KB.';
 $lang['conf_upload_maxfilesize_error'] = 'Maximum filesize for the uploaded pictures must be a number between 10 and 1000 KB.';
@@ -325,4 +322,16 @@ $lang['cat_list_update_metadata'] = 'Synchronize<br />metadata';
 $lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
 $lang['cat_list_virtual_category_added'] = 'virtual category added';
 $lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
+
+$lang['cat_options_menu'] = 'Options';
+$lang['cat_options_menu_upload'] = 'upload';
+$lang['cat_options_menu_visible'] = 'lock';
+$lang['cat_options_menu_comments'] = 'comments';
+$lang['cat_options_menu_status'] = 'access';
+$lang['cat_options_upload_true'] = 'authorize upload';
+$lang['cat_options_upload_false'] = 'forbid upload';
+$lang['cat_options_upload_info'] = '(multi)select categories to make them uploadable or not. Upload is not applicable to virtual categories and to categories from a remote site.';
+$lang['cat_options_comments_true'] = 'authorize comments';
+$lang['cat_options_comments_false'] = 'forbid comments';
+$lang['cat_options_comments_info'] = '(multi)select categories to make them commentable or not. By inheritance, an element is commentable if it belongs at least to one commentable category.';
 ?>

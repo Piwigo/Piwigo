@@ -132,6 +132,12 @@ switch ( $_GET['page'] )
    $page_valide = true;
    break;
  }
+ case 'cat_options' :
+ {
+   $title = $lang['title_cat_options'];
+   $page_valide = true;
+   break;
+ }
  default:
    $title = $lang['title_default']; break;
 }
@@ -159,6 +165,7 @@ if ( mysql_num_rows( $result ) > 0 )
 }
 
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
+$conf_link = $link_start.'configuration&amp;section=';
 //----------------------------------------------------- template initialization
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('admin'=>'admin.tpl') );
@@ -192,13 +199,14 @@ $template->assign_vars(array(
   'L_GROUPS'=>$lang['groups'],
   'L_AUTH'=>$lang['permissions'],
   'L_UPDATE'=>$lang['update'],
+  'L_CAT_OPTIONS'=>$lang['cat_options_menu'],
   
-  'U_CONFIG_GENERAL'=>add_session_id($link_start.'configuration&amp;section=general' ),
-  'U_CONFIG_COMMENTS'=>add_session_id($link_start.'configuration&amp;section=comments' ),
-  'U_CONFIG_DISPLAY'=>add_session_id($link_start.'configuration&amp;section=default' ),
-  'U_CONFIG_UPLOAD'=>add_session_id($link_start.'configuration&amp;section=upload' ),
-  'U_CONFIG_SESSION'=>add_session_id($link_start.'configuration&amp;section=session' ),
-  'U_CONFIG_METADATA'=>add_session_id($link_start.'configuration&amp;section=metadata' ),
+  'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
+  'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
+  'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
+  'U_CONFIG_UPLOAD'=>add_session_id($conf_link.'upload' ),
+  'U_CONFIG_SESSION'=>add_session_id($conf_link.'session' ),
+  'U_CONFIG_METADATA'=>add_session_id($conf_link.'metadata' ),
   'U_SITES'=>add_session_id($link_start.'remote_site'),
   'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
   'U_USERS'=>add_session_id($link_start.'user_search' ),
@@ -211,6 +219,7 @@ $template->assign_vars(array(
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_HISTORY'=>add_session_id($link_start.'stats' ),
   'U_FAQ'=>add_session_id($link_start.'help' ),
+  'U_CAT_OPTIONS'=>add_session_id($link_start.'cat_options'),
   'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
   ));
 

@@ -199,8 +199,6 @@ switch ($page['section'])
   }
   case 'comments' :
   {
-    $show_yes = ($conf['show_comments']=='true')?'checked="checked"':'';
-    $show_no = ($conf['show_comments']=='false')?'checked="checked"':'';
     $all_yes = ($conf['comments_forall']=='true')?'checked="checked"':'';
     $all_no  = ($conf['comments_forall']=='false')?'checked="checked"':'';
     $validate_yes = ($conf['comments_validation']=='true')?'checked="checked"':'';
@@ -210,8 +208,6 @@ switch ($page['section'])
       'comments',
       array(
         'L_CONF_TITLE'=>$lang['conf_comments_title'],
-        'L_CONF_SHOW_COMMENTS'=>$lang['conf_show_comments'],
-        'L_CONF_SHOW_COMMENTS_INFO'=>$lang['conf_show_comments_info'],
         'L_CONF_COMMENTS_ALL'=>$lang['conf_comments_forall'],
         'L_CONF_COMMENTS_ALL_INFO'=>$lang['conf_comments_forall_info'],
         'L_CONF_NB_COMMENTS_PAGE'=>$lang['conf_nb_comment_page'],
@@ -220,8 +216,6 @@ switch ($page['section'])
         'L_CONF_VALIDATE_INFO'=>$lang['conf_comments_validation_info'],
           
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
-        'SHOW_COMMENTS_YES'=>$show_yes,
-        'SHOW_COMMENTS_NO'=>$show_no,
         'COMMENTS_ALL_YES'=>$all_yes,
         'COMMENTS_ALL_NO'=>$all_no,
         'VALIDATE_YES'=>$validate_yes,
@@ -270,15 +264,10 @@ switch ($page['section'])
   }
   case 'upload' :
   {
-    $upload_yes = ($conf['upload_available']=='true')?'checked="checked"':'';
-    $upload_no = ($conf['upload_available']=='false')?'checked="checked"':'';
-      
     $template->assign_block_vars(
       'upload',
       array(
         'L_CONF_TITLE'=>$lang['conf_upload_title'],
-        'L_CONF_UPLOAD'=>$lang['conf_authorize_upload'],
-        'L_CONF_UPLOAD_INFO'=>$lang['conf_authorize_upload_info'],
         'L_CONF_MAXSIZE'=>$lang['conf_upload_maxfilesize'],
         'L_CONF_MAXSIZE_INFO'=>$lang['conf_upload_maxfilesize_info'],
         'L_CONF_MAXWIDTH'=>$lang['conf_upload_maxwidth'],
@@ -295,8 +284,6 @@ switch ($page['section'])
         'UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight'],
         'TN_UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth_thumbnail'],
         'TN_UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight_thumbnail'],
-        'UPLOAD_YES'=>$upload_yes,
-        'UPLOAD_NO'=>$upload_no
         ));
     break;
   }

@@ -295,10 +295,10 @@ else
 if ( isset ( $page['cat'] ) )
 {
   // upload a picture in the category
-  if ( is_numeric( $page['cat'] )
-       and $page['cat_site_id'] == 1
-       and $conf['upload_available']
-       and $page['cat_uploadable'] )
+  if (is_numeric($page['cat'])
+      and $page['cat_site_id'] == 1
+      and $page['cat_dir'] != ''
+      and $page['cat_uploadable'])
   {
     $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
     $template->assign_block_vars(

@@ -167,4 +167,19 @@ $conf['show_queries'] = false;
 
 // show_gt : display generation time at the bottom of each page
 $conf['show_gt'] = true;
+
+// Default options for new categories.
+//
+// Some options for categories (commentable, uploadable, status, visible)
+// must be set directly in the database by changing the corresponding
+// default values of the column. Examples :
+//
+// ALTER TABLE phpwebgallery_categories ALTER visible SET DEFAULT 'true';
+// ALTER TABLE phpwebgallery_categories ALTER status SET DEFAULT 'private';
+// ALTER TABLE phpwebgallery_categories ALTER uploadable SET DEFAULT 'true';
+// ALTER TABLE phpwebgallery_categories ALTER commentable SET DEFAULT 'false';
+//
+// MySQL default values are used when inserting a row and that no value is
+// given for the column. In PhpWebGallery, the above columns are not valued
+// during categories insertion, so default values are important.
 ?>

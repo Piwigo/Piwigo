@@ -120,7 +120,9 @@ while ($row = mysql_fetch_array($result))
       )
     );
     
-  if ($conf['show_comments'] and $user['show_nb_comments'])
+  if ($user['show_nb_comments']
+      and is_numeric($page['cat'])
+      and $page['cat_commentable'])
   {
     $query = '
 SELECT COUNT(*) AS nb_comments

@@ -753,6 +753,7 @@ $query.= '
 ;';
 $result = pwg_query($query);
 $categories = '';
+$page['show_comments'] = false;
 while ($row = mysql_fetch_array($result))
 {
   if ($categories != '')
@@ -761,6 +762,12 @@ while ($row = mysql_fetch_array($result))
   }
   $cat_info = get_cat_info($row['category_id']);
   $categories .= get_cat_display_name($cat_info['name'], ' &gt;');
+  // the picture is commentable if it belongs at least to one category which
+  // is commentable
+  if ($cat_info['commentable'])
+  {
+    $page['show_comments'] = true;
+  }
 }
 $template->assign_block_vars(
   'info_line',
@@ -920,7 +927,7 @@ SELECT rate
 }
 
 //---------------------------------------------------- users's comments display
-if ( $conf['show_comments'] )
+if ($page['show_comments'])
 {
   // number of comment for this picture
   $query = 'SELECT COUNT(*) AS nb_comments';

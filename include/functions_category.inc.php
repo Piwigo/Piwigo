@@ -308,7 +308,7 @@ function get_cat_info( $id )
 {
   $infos = array( 'nb_images','id_uppercat','comment','site_id','galleries_url'
                   ,'dir','date_last','uploadable','status','visible'
-                  ,'representative_picture_id','uppercats' );
+                  ,'representative_picture_id','uppercats','commentable' );
 
   $query = 'SELECT '.implode( ',', $infos );
   $query.= ' FROM '.CATEGORIES_TABLE.' AS a';
@@ -454,6 +454,7 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_nb_images']  = $result['nb_images'];
       $page['cat_site_id']    = $result['site_id'];
       $page['cat_uploadable'] = $result['uploadable'];
+      $page['cat_commentable'] = $result['commentable'];
       $page['uppercats']      = $result['uppercats'];
       $page['title'] = get_cat_display_name( $page['cat_name'],' - ','',false);
       $page['where'] = ' WHERE category_id = '.$page['cat'];
@@ -911,7 +912,8 @@ function get_first_non_empty_cat_id( $id_uppercat )
 function display_select_categories($categories,
                                    $indent,
                                    $selecteds,
-                                   $blockname)
+                                   $blockname,
+                                   $CSS_classes)
 {
   global $template,$user;
 
@@ -925,17 +927,28 @@ function display_select_categories($categories,
         $selected = ' selected="selected"';
       }
 
+      $class = '';
+      foreach (array_keys($CSS_classes) as $CSS_class)
+      {
+        if (in_array($category['id'], $CSS_classes[$CSS_class]))
+        {
+          $class = $CSS_class;
+        }
+      }
+
       $template->assign_block_vars(
         $blockname,
         array('SELECTED'=>$selected,
               'VALUE'=>$category['id'],
+              'CLASS'=>$class,
               'OPTION'=>$indent.'- '.$category['name']
               ));
       
       display_select_categories($category['subcats'],
                                 $indent.str_repeat('&nbsp;',3),
                                 $selecteds,
-                                $blockname);
+                                $blockname,
+                                $CSS_classes);
     }
   }
 }
