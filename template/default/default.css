@@ -93,9 +93,7 @@ table, input {
   background:lightgray;
 }
 textarea,input {
-  border-color:gray;
-  background-color:lightgray;
-  color:#000000;
+  color:black;
 }
 table {
   border-collapse:collapse;
