@@ -169,15 +169,10 @@ $query.=     ', '.PREFIX_TABLE.'image_category AS ic';
 $query.= ' WHERE c.image_id = ic.image_id';
 $query.= ' AND date > '.$maxtime;
 // we must not show pictures of a forbidden category
-$restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
-if ( count( $restricted_cats ) > 0 )
+if ( $user['forbidden_categories'] != '' )
 {
-  $query.= ' AND category_id NOT IN (';
-  foreach ( $restricted_cats as $i => $restricted_cat ) {
-    if ( $i > 0 ) $query.= ',';
-    $query.= $restricted_cat;
-  }
-  $query.= ')';
+  $query.= ' AND category_id NOT IN ';
+  $query.= '('.$user['forbidden_categories'].')';
 }
 $query.= ' ORDER BY ic.image_id DESC';
 $query.= ';';
