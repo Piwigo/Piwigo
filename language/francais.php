@@ -543,5 +543,7 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
   $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';
   $lang['install_help'] = 'Besoin d\'aide ? Posez votre question sur le <a href="http://forum.phpwebgallery.net">forum de PhpWebGallery</a>.';
   $lang['install_warning'] = 'Le fichier "admin/install.php" est encore présent sur votre serveur. Merci de le supprimer. Il pourrait être utilisé par un tiers à des fins malveillantes.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'Cette catégorie n\'existe pas dans la base de données';
 }
 ?>
