@@ -1,4 +1,7 @@
 <form action="{#action}" method="post">
+  <!--VTP_confirmation-->
+  <div class="info">{#waiting_update}</div>
+  <!--/VTP_confirmation-->
   <table style="width:100%;">
     <tr>
       <th style="width:20%;">{#category}</th>

@@ -68,8 +68,14 @@ if ( isset( $_POST['submit'] ) )
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( '../template/'.$user['template'].'/admin/waiting.vtp' );
 $tpl = array( 'category','date','author','thumbnail','file','delete',
-              'submit' );
+              'submit','waiting_update' );
 templatize_array( $tpl, 'lang', $sub );
+//-------------------------------------------------------- confirmation message
+if ( isset( $_POST['submit'] ) )
+{
+  $vtp->addSession( $sub, 'confirmation' );
+  $vtp->closeSession( $sub, 'confirmation' );
+}
 //---------------------------------------------------------------- form display
 $cat_names = array();
 $query = 'SELECT id,storage_category_id,file,username,mail_address';

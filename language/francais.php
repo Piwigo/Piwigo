@@ -309,6 +309,9 @@ if ( $isadmin )
   
   $lang['title_waiting'] = 'Images en attente de validation';
   $lang['menu_waiting'] = 'En attente';
+// start version 1.3
+  $lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
+// end version 1.3
 		
   $lang['default_message'] = 'Zone d\'administration de PhpWebGallery';
 		
