@@ -609,20 +609,13 @@ function get_thumbnail_src($path, $tn_ext = '')
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
-function my_error($header, $echo = true)
+function my_error($header)
 {
   $error = '<pre>';
   $error.= $header;
   $error.= '[mysql error '.mysql_errno().'] ';
   $error.= mysql_error();
   $error.= '</pre>';
-  if ($echo)
-  {
-    echo $error;
-  }
-  else
-  {
-    return $error;
-  }
+  die ($error);
 }
 ?>
