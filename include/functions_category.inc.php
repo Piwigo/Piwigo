@@ -555,39 +555,56 @@ function initialize_category( $calling_page = 'category' )
       {
         $page['cat_nb_images'] = 0;
         $page['title'] = $lang['calendar'];
-        if ( isset( $_GET['year'] )
-             and preg_match( '/^\d+$/', $_GET['year'] ) )
+        if (isset($_GET['year'])
+            and preg_match('/^\d+$/', $_GET['year']))
         {
           $page['calendar_year'] = (int)$_GET['year'];
         }
-        if ( isset( $_GET['month'] )
-             and preg_match( '/^(\d+)\.(\d{2})$/', $_GET['month'], $matches ) )
+        if (isset($_GET['month'])
+            and preg_match('/^(\d+)\.(\d{2})$/', $_GET['month'], $matches))
         {
           $page['calendar_year'] = (int)$matches[1];
           $page['calendar_month'] = (int)$matches[2];
         }
-        if ( isset( $page['calendar_year'] )
-             or isset( $page['calendar_month'] ) )
+        if (isset($_GET['day'])
+            and preg_match('/^(\d+)\.(\d{2})\.(\d{2})$/',
+                           $_GET['day'],
+                           $matches))
+        {
+          $page['calendar_year'] = (int)$matches[1];
+          $page['calendar_month'] = (int)$matches[2];
+          $page['calendar_day'] = (int)$matches[3];
+        }
+        if (isset($page['calendar_year']))
         {
           $page['title'] .= ' (';
-          if ( isset( $page['calendar_month'] ) )
+          if (isset($page['calendar_day']))
+          {
+            $unixdate = mktime(0,0,0,
+                               $page['calendar_month'],
+                               $page['calendar_day'],
+                               $page['calendar_year']);
+            $page['title'].= $lang['day'][date("w", $unixdate)];
+            $page['title'].= ' '.$page['calendar_day'].', ';
+          }
+          if (isset($page['calendar_month']))
           {
             $page['title'] .= $lang['month'][$page['calendar_month']].' ';
           }
           $page['title'] .= $page['calendar_year'];
           $page['title'] .= ')';
         }
-        if ( isset( $forbidden ) )
+        if (isset($forbidden))
         {
-          $page['where'] = ' WHERE '.$forbidden;
+          $page['where'] = 'WHERE '.$forbidden;
         }
         else
         {
-          $page['where'] = ' WHERE 1=1';
+          $page['where'] = 'WHERE 1=1';
         }
       }
 
-      if ( isset($query))
+      if (isset($query))
       {
         $result = mysql_query( $query );
         $row = mysql_fetch_array( $result );
