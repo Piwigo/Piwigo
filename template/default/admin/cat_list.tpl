@@ -7,12 +7,19 @@
 </ul>
 </div>
 <!-- END errors -->
+<!-- BEGIN infos -->
+<div class="info">
+  <!-- BEGIN info -->
+  <li>{infos.info.INFO}</li>
+  <!-- END info -->
+</div>
+<!-- END infos -->
 <div class="admin">{CATEGORIES_NAV}</div>
 <table style="width:100%;">
 <!-- BEGIN category -->
 <tr>
-  <td style="width:1px;padding:5px;">{category.CATEGORY_IMG}</td>
-  <td style="width:50%;text-align:left;"><a class="titreImg" href="{category.U_CATEGORY}">{category.CATEGORY_NAME}</a>
+  <td style="width:1px;padding:5px;"><img src="{category.CATEGORY_IMG_SRC}" alt="{category.CATEGORY_IMG_ALT}" title="{category.CATEGORY_IMG_TITLE}" /></td>
+  <td style="width:40%;text-align:left;"><a class="titreImg" href="{category.U_CATEGORY}">{category.CATEGORY_NAME}</a>
     <br />
 	<!-- BEGIN storage -->
     {L_STORAGE} : {category.CATEGORY_DIR} - 
@@ -35,7 +42,20 @@
     <!-- END no_image_info -->
   </td>
   <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
+    <!-- BEGIN update -->
     <a href="{category.U_CAT_UPDATE}">{L_UPDATE}</a>
+    <!-- END update -->
+    <!-- BEGIN no_update -->
+    <span style="color:darkgray;">{L_UPDATE}</span>
+    <!-- END no_update -->
+  </td>
+  <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
+    <!-- BEGIN metadata -->
+    <a href="{category.U_CAT_METADATA}">{L_UPDATE_METADATA}</a>
+    <!-- END metadata -->
+    <!-- BEGIN no_metadata -->
+    <span style="color:darkgray;">{L_UPDATE_METADATA}</span>
+    <!-- END no_metadata -->
   </td>
   <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
     <!-- BEGIN virtual -->
