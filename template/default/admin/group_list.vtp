@@ -7,6 +7,7 @@
   </ul>
 </div>
 <!--/VTP_errors-->
+
 <!--VTP_deletion-->
 <table style="width:100%;">
   <tr>
@@ -18,9 +19,18 @@
   </tr>
 </table>
 <!--/VTP_deletion-->
+
 <!--VTP_confirmation-->
 <div class="{#class}">{#info}</div>
 <!--/VTP_confirmation-->
+
+<form method="post" action="{#form_action}">
+  <div style="text-align:center;margin:10px;">
+    {#group_add} <input type="text" name="name" />
+    <input type="submit" value="{#add}" name="submit" />
+  </div>
+</form>
+
 <!--VTP_groups-->
 <table width="100%">
   <tr>
@@ -41,9 +51,3 @@
   <!--/VTP_group-->
 </table>
 <!--/VTP_groups-->
-<form method="post" action="{#form_action}">
-  <div style="text-align:center;margin:10px;">
-    {#group_add} <input type="text" name="name" />
-    <input type="submit" value="{#add}" name="submit" />
-  </div>
-</form>
