@@ -156,7 +156,7 @@ if ( !$user['is_the_guest'] )
 else
 {
   $vtp->setVar( $handle, 'summary.title', $lang['hint_login'] );
-  $vtp->setVar( $handle, 'summary.name',  replace_space( $lang['login'] ) );
+  $vtp->setVar( $handle, 'summary.name',  replace_space( $lang['menu_login']));
 }
 $vtp->closeSession( $handle, 'summary' );
 // links for registered users
