@@ -4,7 +4,7 @@
  *                            -------------------                          *
  *   application   : PhpWebGallery 1.3.1 <http://phpwebgallery.net>        *
  *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
- *   translation   : Eelko Pel <http://www.epel.nl>                        *
+ *   translation   : Eelko Pel <http://www.epel.nl> Rev 1.3.2-3            *
  *                                                                         *
  *   $Id$
  ***************************************************************************/
@@ -47,9 +47,9 @@ $lang['categories'] = 'De '.$lang['lang_category_smv'];
 $lang['hint_category'] = 'laat '.$lang['lang_picture_smv'].' zien in de root van deze '.$lang['lang_category_sev'];
 $lang['total_images'] = 'totaal';
 $lang['title_menu'] = 'Menu';
-$lang['change_login'] = 'Verander login';
+$lang['change_login'] = 'Verander gebruiker';
 $lang['login'] = 'Gebruiker';
-$lang['hint_login'] = 'aanloggen maakt het mogelijk om instellingen te wijzigen';
+$lang['hint_login'] = 'inloggen maakt het mogelijk om instellingen te wijzigen';
 $lang['logout'] = 'Afmelden';
 $lang['customize'] = 'Persoonlijke instellingen';
 $lang['hint_customize'] = 'het uiterlijk van gallery aanpassen';
@@ -93,8 +93,8 @@ $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Inform
   <li>Als u opmerkingen heeft of sugesties, bezoek dan officiële <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> website en het daarvoor bestemde <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a>.</li>
 </ul>';
 $lang['about_return'] = 'Terug';
-$lang['ident_page_title'] = 'Aanloggen';
-$lang['ident_title'] = 'Aanloggen';
+$lang['ident_page_title'] = 'Aanmelden';
+$lang['ident_title'] = 'Aanmelden';
 $lang['ident_register'] = 'Registreer een nieuwe gebruiker';
 $lang['ident_forgotten_password'] = 'Je wachtwoord vergeten ?';
 $lang['ident_guest_visit'] = 'Ga door als gast';
@@ -148,7 +148,7 @@ $lang['reg_err_login4'] = 'De usernaam mag geen " en \' karakters bevatten';
 $lang['reg_err_login5'] = 'Deze usernaam is al in gebruik';
 $lang['reg_err_pass'] = 'Geef uw opnieuw uw wachtwoord a.u.b.';
 $lang['reg_confirm'] = 'Nogmaals het nieuwe wachtwoord';
-$lang['reg_err_mail_address'] = 'het e-mail adres moet er minimaal uitzien als xxx@yyy.eee (voorbeeld : login@domein.nl)';
+$lang['reg_err_mail_address'] = 'Het e-mail adres moet er minimaal uitzien als xxx@yyy.eee (voorbeeld : login@domein.nl)';
 $lang['search_title'] = 'Zoeken';
 $lang['invalid_search'] = 'Gebruik minimaal 3 karakters om op te zoeken';
 $lang['search_field_search'] = 'Zoeken';
@@ -176,7 +176,7 @@ $lang['mail_address'] = 'E-mail adres';
 $lang['public'] = 'publiek';
 $lang['private'] = 'privé';
 $lang['add'] = 'ok';
-$lang['dissociate'] = 'ontkoppel';
+$lang['dissociate'] = 'Verwijder groep';
 $lang['mandatory'] = 'verplicht';
 $lang['err_date'] = 'foutieve datum';
 $lang['picture'] = $lang['lang_picture_bev'];
@@ -184,7 +184,7 @@ $lang['IP'] = 'IP';
 $lang['close'] = 'sluit';
 $lang['open'] = 'open';
 $lang['keywords'] = 'Sleutelwoorden';
-$lang['errors_title'] = 'Fouten';
+$lang['errors_title'] = 'Fout:';
 $lang['infos_title'] = 'Informatie';
 $lang['default'] = 'Standaard';
 $lang['comments'] = 'Opmerkingen';
@@ -201,7 +201,7 @@ $lang['visited'] = 'Bekeken';
 $lang['times'] = 'maal';
 $lang['customize_theme'] = 'Opmaakthema';
 $lang['customize_expand'] = 'Toon alle '.$lang['lang_category_smv'];
-$lang['customize_show_nb_comments'] = 'Toon opmerkingen';
+$lang['customize_show_nb_comments'] = 'Toon aantal opmerkingen';
 $lang['customize_short_period'] = 'Korte periode';
 $lang['customize_long_period'] = 'Lange periode';
 $lang['customize_template'] = 'Sjabloon';
@@ -236,7 +236,7 @@ $lang['connected_user'] = 'Aangemeld als';
 $lang['title_comments'] = 'Opmerkingen';
 $lang['stats_last_days'] = 'dagen terug';
 $lang['hint_comments'] = 'Toon de laatste opmerkingen';
-$lang['menu_login'] = 'Aanloggen';
+$lang['menu_login'] = 'Inloggen';
 //-------------------------------------------------------------- administration
 if ( $isadmin )
 {
@@ -275,7 +275,7 @@ if ( $isadmin )
   $lang['conf_general_webmaster'] = 'Beheerders account';
   $lang['conf_general_webmaster_info'] = 'Is zichtbaar voor de bezoekers en is nodig voor het beheer';
   $lang['conf_general_mail'] = 'Beheerder e-mailadres';
-  $lang['conf_general_mail_info'] = 'Boezoekers kunnen hier een e-mail bericht aan sturen';
+  $lang['conf_general_mail_info'] = 'Bezoekers kunnen hier een e-mail bericht aan sturen';
   $lang['conf_general_prefix'] = 'Indexfoto voorvoegsel';
   $lang['conf_general_prefix_info'] = 'Indexfoto\'s gebruiken dit voorvoegsel in de naam, standaard is dit TN-, bij twijfel hier niets invullen';
   $lang['conf_general_access'] = 'Toegangs type';
@@ -283,7 +283,7 @@ if ( $isadmin )
   $lang['conf_general_access_2'] = 'beperkt';
   $lang['conf_general_access_info'] = '- Vrij: de website is vrij toegangkelijk, iedereen kan een account aanmaken. De rechten kunnen later wel door de beheerder worden aangepast<br />- Beperkt: het album is alleen toegangkelijk middels een door de beheerder aangemaakt account';
   $lang['conf_general_max_user_listbox'] = 'Maximale lijst met users';
-  $lang['conf_general_max_user_listbox_info'] = '- Dit is een getal van 0 t/m 255 en geeft aan hoeveel users er in de lijst zichtbaar zijn van het aanloggen<br />- Bij 0 word er geen lijst getoond';
+  $lang['conf_general_max_user_listbox_info'] = '- Dit is een getal van 0 t/m 255 en geeft aan hoeveel users er in de lijst zichtbaar zijn van het aanmelden<br />- Bij 0 word er geen lijst getoond';
   $lang['conf_comments'] = 'opmerkingen';
   $lang['conf_comments_title'] = 'Configuratie van '.$lang['conf_comments'];
   $lang['conf_comments_show_comments'] = 'Opmerkingen';
@@ -294,20 +294,20 @@ if ( $isadmin )
   $lang['conf_remote_site_delete_info'] = 'Het verwijderen van een remote server, heeft als consequentie dat alle afbeeldingen en categoriën uit de database wordne verwijderd';
   $lang['conf_upload_title'] = 'Configuratie van user upload';
   $lang['conf_upload_available'] = 'Sta het uploaden van bestanden toe';
-  $lang['conf_upload_maxfilesize'] = 'maximale bestandsgrootte';
-  $lang['conf_upload_maxfilesize_info'] = 'De maximale bestandsgrootte moet een getal zijn tussen 10 en 1000 KB.';
+  $lang['conf_upload_maxfilesize'] = 'Maximale bestandsgrootte';
+  $lang['conf_upload_maxfilesize_info'] = 'In KB een getal tussen 10 en 1000.';
   $lang['conf_err_upload_maxfilesize'] = $lang['conf_upload_maxfilesize_info'];
   $lang['conf_upload_maxwidth'] = 'Maximale breedte';
-  $lang['conf_upload_maxwidth_info'] = 'De maximale breedte moet voor bestanden minimaal 10 pixels zijn';
+  $lang['conf_upload_maxwidth_info'] = 'In pixels met een minimale grootte van 10';
   $lang['conf_err_upload_maxwidth'] = $lang['conf_upload_maxwidth_info'];
   $lang['conf_upload_maxheight'] = 'Maximale hoogte';
-  $lang['conf_upload_maxheight_info'] = 'De maximale hoogte moet voor bestanden minimaal 10 pixels zijn';
+  $lang['conf_upload_maxheight_info'] = 'In pixels met een minimale grootte van 10';
   $lang['conf_err_upload_maxwidth'] = $lang['conf_upload_maxheight_info'];
   $lang['conf_upload_maxwidth_thumbnail'] = 'Maximale breedte van de indexfoto';
-  $lang['conf_upload_maxwidth_thumbnail_info'] = 'Maximum width authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
+  $lang['conf_upload_maxwidth_thumbnail_info'] = 'In pixels met een minimale grootte van 10';
   $lang['conf_err_upload_maxwidth_thumbnail'] = $lang['conf_upload_maxwidth_thumbnail_info'];
   $lang['conf_upload_maxheight_thumbnail'] = 'Maximale hoogte van de indexfoto';
-  $lang['conf_upload_maxheight_thumbnail_info'] = 'Maximum height authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
+  $lang['conf_upload_maxheight_thumbnail_info'] = 'In pixels met een minimale grootte van 10';
   $lang['conf_err_upload_maxheight_thumbnail'] = $lang['conf_upload_maxheight_thumbnail_info'];
   $lang['conf_default_title'] = 'Standaard instellingen voor gasten, deze worden overruled door de persoonlijke instellingen';
   $lang['conf_default_language_info'] = 'Standaard taal';
@@ -320,7 +320,7 @@ if ( $isadmin )
   $lang['conf_session_key'] = 'keyword';
   $lang['conf_session_key_info'] = '- the session keyword improve the encoding of the session identifier<br />- enter any sentence shorter than 255 caracters';
   $lang['conf_session_delete'] = 'Verwijder verlopen sessies';
-  $lang['conf_session_delete_info'] = 'het is aan te raden pm de verlopen sessies te verwijderen, omdat deze in de database achterblijven (voor de beveiliging maakt het niet uit)';
+  $lang['conf_session_delete_info'] = 'het is aan te raden om de verlopen sessies te verwijderen, omdat deze in de database achterblijven (voor de beveiliging maakt het niet uit)';
   $lang['user_err_modify'] = 'Deze gebruiker kan niet worden gewijzigd of verwijderd';
   $lang['user_err_unknown'] = 'Deze gebruiker bestaat niet in de database';
   $lang['adduser_info_message'] = 'De infromatie is in de database verwerkt voor user: ';
@@ -459,19 +459,19 @@ if ( $isadmin )
   $lang['step2_err_login3'] = 'de usernaam mag geen \' of " karakters bevatten';
   $lang['step2_err_pass'] = 'voer nogmaals het wachtwoord in';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
-  $lang['install_end_title'] = 'De installatie is klaar';
-  $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
-For security reason, please delete file "install.php" in the directory "admin"<br />
-Once this file deleted , follow this instructions :
+  $lang['install_end_title'] = 'De installatie is nu klaar';
+  $lang['install_end_message'] = 'De configuratie van PhpWebGallery is klaar<br /><br />
+Om veiligheidsredenen is het verstandig het bestand "install.php" in de directory "admin" te verwijderen<br />
+Als dit is uitgevoerd, kunt u de volgende acties uitvoeren :
 <ul>
-  <li>go to the identification page : [ <a href="../identification.php">identification</a> ] and use the login/password given for webmaster</li>
-  <li>this login will enable you to access to the [ <a href="admin.php">administration panel</a> ] and to the instructions in order to place pictures in your directories</li>
+  <li>Ga dan via het menu naar '.$lang['ident_page_title'].' : [ <a href="../identification.php">'.$lang['ident_page_title'].'</a> ] en gebruik hier dan de gebruiker die u net heeft aangemaakt</li>
+  <li>Deze gebruiker geeft u dan toegang tot de [ <a href="admin.php">beheer module</a> ] en naar de verdere instructies</li>
 </ul>';
   $lang['step2_title'] = 'Stap 2/2';
-  $lang['step2_pwd'] = 'beheerders wachtwoord';
-  $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
-  $lang['step2_pwd_conf'] = 'bevestig wachtwoord';
-  $lang['step2_pwd_conf_info'] = 'verificatie';
+  $lang['step2_pwd'] = 'Beheerders wachtwoord';
+  $lang['step2_pwd_info'] = 'Hou dit geheim, dit account geeft toegang tot de beheer module';
+  $lang['step2_pwd_conf'] = 'Bevestig wachtwoord';
+  $lang['step2_pwd_conf_info'] = 'Nogmaals ter controle';
   // new or modified in release 1.3
   $lang['remote_site'] = 'Andere website';
   $lang['title_add'] = 'Nieuwe gebruiker';
@@ -495,13 +495,13 @@ Once this file deleted , follow this instructions :
   $lang['conf_default_nb_row_per_page_info'] = 'Aantal regels met indexfoto\'s';
   $lang['conf_default_short_period_info'] = 'Dit is de korte periode waarin de '.$lang['lang_picture_smv'].' de status van pas geplaatst hebben (met rood gemarkeerd). Deze moet minimaal een waarde 1 hebben';
   $lang['conf_default_long_period_info'] = 'Dit is de lange periode waarin de '.$lang['lang_picture_smv'].' de status van pas geplaatst hebben (met groen gemarkeerd). Deze moet minimaal een hogere waarde hebben dan de korte periode';
-  $lang['conf_default_expand_info'] = 'expand all categories by default in the menu ?';
-  $lang['conf_default_show_nb_comments_info'] = 'show the number of comments for each picture on the thumbnails page';
-  $lang['conf_default_maxwidth_info'] = 'Maximum width for display pictures : picture will have a new width only for display, picture files won\'t be changed. Let empty if you don\'t wish to have a limit.';
-  $lang['conf_default_maxheight_info'] = 'Just as the maximum width, but for the height';
+  $lang['conf_default_expand_info'] = 'Laat standaard in het menu alle '.$lang['lang_category_smv'].' zien ?';
+  $lang['conf_default_show_nb_comments_info'] = 'Toon het aantal opmerkingen onder afbeelding op de indexpagina';
+  $lang['conf_default_maxwidth_info'] = 'De afbeelding wordt getoond in een venster dat niet breeder is dan deze waarde in pixels.';
+  $lang['conf_default_maxheight_info'] = 'De afbeelding wordt getoond in een venster dat niet hoger is dan deze waarde in pixels';
   $lang['conf_session_cookie'] = 'authorize cookies';
   $lang['conf_session_cookie_info'] = 'users won\'t have to log on each visit any more. Less secure.';
-  $lang['adduser_associate'] = 'Koppel aan groep';
+  $lang['adduser_associate'] = 'Beschikbare groep(en)';
   $lang['group_add'] = 'Toevoegen van groep';
   $lang['group_add_error1'] = 'The name of a group must not contain " or \'';
   $lang['group_add_error2'] = 'Deze naam wordt al gebruikt voor een andere groep';
@@ -553,9 +553,9 @@ Once this file deleted , follow this instructions :
   $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
   $lang['permuser_only_private'] = 'Alleen privé '.$lang['lang_category_smv'].' zijn zichtbaar';
   $lang['waiting_update'] = 'Gevalideerde foto\'s en afbeeldingen worden pas getoond nadat de database is ververst';
-  $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
-  $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
-  $lang['install_warning'] = 'The file "admin/install.php" is still present. Please remove it from your server. It is not secure to keep it.';
+  $lang['conf_upload_available_info'] = 'Sta het uploaden van bestanden toe, dit moet wel per '.$lang['lang_category_sev'].' worden ingesteld, standaard staat deze optie uit.';
+  $lang['install_help'] = 'Hulp nodig ? Stel je vraag op het <a href="http://forum.phpwebgallery.net">PhpWebGallery forum</a>. (Engels of Frans)';
+  $lang['install_warning'] = 'Het bestand "admin/install.php" is nog niet verwijderd. Zolang deze na de installatie nog aanwezig is, is phpweggallery niet veilig.';
     // new or modified in release 1.3.1
   $lang['cat_unknown_id'] = 'Deze '.$lang['lang_category_sev'].' is niet in de database bekend';
 }
