@@ -18,10 +18,7 @@
 			<!-- END bulletnolink -->
 			&nbsp;<a href="{category.U_LINK}"><span title='{L_HINT_CATEGORY}' style="{category.T_NAME}">{category.LINK_NAME}</span></a>
 			&nbsp;<span class="menuInfoCat">[
-			<!-- BEGIN subcat -->
-			<span title="{category.NB_SUBCATS} {L_SUBCAT}">{category.NB_SUBCATS}</span>&nbsp;-
-			<!-- END subcat -->
-			<span title="{category.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.TOTAL_CAT}</span>&nbsp;]</span>{category.CAT_ICON}<br />
+			<span title="{category.NB_SUBCATS} {L_SUBCAT}">{category.NB_SUBCATS}</span> - <span title="{category.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.TOTAL_CAT}</span>&nbsp;]</span>{category.CAT_ICON}<br />
 		  <!-- END category -->
 
 		  <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
