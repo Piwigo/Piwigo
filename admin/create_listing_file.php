@@ -38,6 +38,13 @@ function get_dirs( $rep, $indent, $level )
            and $file != "thumbnail" )
       {
         $sub_rep[$i++] = $file;
+        if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
+        {
+          echo '<span style="color:red;">"'.$file.'" : ';
+          echo 'The name of the directory should be composed of ';
+          echo 'letters, figures, "-", "_" or "." ONLY';
+          echo '</span><br />';
+        }
       }
     }
   }
