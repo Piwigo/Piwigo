@@ -116,7 +116,7 @@ function language_select($default, $select_name = "language")
   $available_lang = get_languages();
 
   $lang_select = '<select name="' . $select_name . '" onchange="this.form.submit()">';
-  foreach ($available_lang as $displayname => $code)
+  foreach ($available_lang as $code => $displayname)
   {
     $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
     $lang_select .= '<option value="' . $code . '"' . $selected . '>' . ucwords($displayname) . '</option>';

@@ -16,6 +16,7 @@
 <div class="menu">
 <ul class="menu">
   <li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
+  <li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
   <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
   <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
   </ul>
@@ -29,8 +30,7 @@
   <li><a class="adminMenu" href="{U_CONFIG_UPLOAD}">{L_CONFIG_UPLOAD}</a></li>
   <li><a class="adminMenu" href="{U_CONFIG_SESSION}">{L_CONFIG_SESSION}</a></li>
   <li><a class="adminMenu" href="{U_CONFIG_METADATA}">{L_CONFIG_METADATA}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_SITES}">{L_CONFIG_SITES}</a></li>
-  </ul>
+</ul>
 </div>
 <div class="titreMenu">{L_CATEGORIES}</div>
 <div class="menu">

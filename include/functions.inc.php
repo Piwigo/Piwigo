@@ -277,7 +277,7 @@ function get_languages()
     if (is_dir($path) and !is_link($path) and file_exists($path.'/iso.txt'))
     {
       list($language_name) = @file($path.'/iso.txt');
-      $languages[$language_name] = $file;
+      $languages[$file] = $language_name;
     }
   }
   closedir($dir);
