@@ -245,11 +245,17 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
-        'IMAGE_NAME'=>$name,
           
         'U_IMG_LINK'=>add_session_id($url_link)
        )
      );
+
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.category_name',
+      array(
+        'NAME' => $name
+        )
+      );
 
     // create a new line ?
     if (++$row_number == $user['nb_image_line'])
@@ -299,11 +305,17 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
-        'IMAGE_NAME'=>$name,
           
         'U_IMG_LINK'=>add_session_id($url_link)
        )
      );
+
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.category_name',
+      array(
+        'NAME' => $name
+        )
+      );
 
     // create a new line ?
     if (++$row_number == $user['nb_image_line'])
@@ -347,11 +359,17 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
-        'IMAGE_NAME'=>$name,
           
         'U_IMG_LINK'=>add_session_id($url_link)
          )
        );
+
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.category_name',
+      array(
+        'NAME' => $name
+        )
+      );
 
     // create a new line ?
     if (++$row_number == $user['nb_image_line'])
@@ -415,12 +433,17 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE'=>$thumbnail_src,
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
-        'IMAGE_NAME'=>$name,
           
         'U_IMG_LINK'=>add_session_id($url_link)
          )
        );
-    $template->assign_block_vars('thumbnails.line.thumbnail.bullet',array());
+
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.category_name',
+      array(
+        'NAME' => $name
+        )
+      );
     
     // create a new line ?
     if (++$row_number == $user['nb_image_line'])

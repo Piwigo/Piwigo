@@ -1,3 +1,11 @@
+2005-03-31 Pierrick LE GALL <pierrick at phpwebgallery dot net>
+
+	* apply category name and element name separation in calendar
+	special category
+
+	* change method of counting total number of viewable pictures :
+	pictures linked to more than one category are not counted twice.
+	
 2005-03-26 Pierrick LE GALL <pierrick at phpwebgallery dot net>
 
 	* "add to caddie" link is visible only when categories contains
