@@ -107,10 +107,9 @@ function insert_local_category( $id_uppercat )
     {
       if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $sub_dir ) )
       {
-        $value = '';
         $name = str_replace( '_', ' ', $sub_dir );
 
-        $value.= "('".$sub_dir."','".$name."',1";
+        $value = "('".$sub_dir."','".$name."',1";
         if ( !is_numeric( $id_uppercat ) ) $value.= ',NULL';
         else                               $value.= ','.$id_uppercat;
         $value.= ",'undef'";
@@ -166,11 +165,17 @@ function insert_local_category( $id_uppercat )
   return $output;
 }
 
-function insert_local_image( $rep, $category_id )
+function insert_local_image( $dir, $category_id )
 {
   global $lang,$conf,$count_new;
 
   $output = '';
+
+  // fs means filesystem : $fs_pictures contains pictures in the filesystem
+  // found in $dir, $fs_thumbnails contains thumbnails...
+  $fs_pictures   = get_picture_files( $dir );
+  $fs_thumbnails = get_thumb_files( $dir.'thumbnail' );
+
   // we have to delete all the images from the database that :
   //     - are not in the directory anymore
   //     - don't have the associated thumbnail available anymore
@@ -181,163 +186,187 @@ function insert_local_image( $rep, $category_id )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $lien_image = $rep.'/'.$row['file'];
-    $lien_thumbnail = $rep.'/thumbnail/'.$conf['prefix_thumbnail'];
-    $lien_thumbnail.= get_filename_wo_extension( $row['file'] );
-    $lien_thumbnail.= '.'.$row['tn_ext'];
-		
-    if ( !is_file ( $lien_image ) or !is_file ( $lien_thumbnail ) )
+    $pic_to_delete = false;
+    if ( !in_array( $row['file'], $fs_pictures ) )
     {
-      if ( !is_file ( $lien_image ) )
-      {
-        $output.= $row['file'];
-        $output.= ' <span style="font-weight:bold;">';
-        $output.= $lang['update_disappeared'].'</span><br />';
-      }
-      if ( !is_file ( $lien_thumbnail ) )
-      {
-        $output.= $row['file'];
-        $output.= ' : <span style="font-weight:bold;">';
-        $output.= $lang['update_disappeared_tn'].'</span><br />';
-      }
-      // suppression de la base :
-      delete_image( $row['id'] );
+      $output.= $row['file'];
+      $output.= ' <span style="font-weight:bold;">';
+      $output.= $lang['update_disappeared'].'</span><br />';
+      $pic_to_delete = true;
     }
-  }
-		
-  // searching the new images in the directory
-  $pictures = array();		
-  $tn_ext = '';
-  if ( $opendir = opendir( $rep ) )
-  {
-    while ( $file = readdir( $opendir ) )
-    {
-      if ( is_file( $rep.'/'.$file ) and is_image( $rep.'/'.$file ) )
-      {
-        // is the picture waiting for validation by an administrator ?
-        $query = 'SELECT id,validated,infos';
-        $query.= ' FROM '.PREFIX_TABLE.'waiting';
-        $query.= ' WHERE storage_category_id = '.$category_id;
-        $query.= " AND file = '".$file."'";
-        $query.= ';';
-        $result = mysql_query( $query );
-        $waiting = mysql_fetch_array( $result );
-        if (mysql_num_rows( $result ) == 0 or $waiting['validated'] == 'true')
-        {
-          if ( $tn_ext = TN_exists( $rep, $file ) )
-          {
-            // is the picture already in the database ?
-            $query = 'SELECT id';
-            $query.= ' FROM '.PREFIX_TABLE.'images';
-            $query.= ' WHERE storage_category_id = '.$category_id;
-            $query.= " AND file = '".$file."'";
-            $query.= ';';
-            $result = mysql_query( $query );
-            if ( mysql_num_rows( $result ) == 0 )
-            {
-              // the name of the file must not use acentuated characters or
-              // blank space..
-              if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
-              {
-                $picture = array();
-                $picture['file']     = $file;
-                $picture['tn_ext']   = $tn_ext;
-                $picture['date'] = date( 'Y-m-d', filemtime($rep.'/'.$file) );
-                $picture['filesize'] = floor( filesize($rep.'/'.$file) / 1024);
-                $image_size = @getimagesize( $rep.'/'.$file );
-                $picture['width']    = $image_size[0];
-                $picture['height']   = $image_size[1];
-                if ( $waiting['validated'] == 'true' )
-                {
-                  // retrieving infos from the XML description of
-                  // $waiting['infos']
-                  $infos = nl2br( $waiting['infos'] );
-                  $picture['author']        = getAttribute( $infos, 'author' );
-                  $picture['comment']       = getAttribute( $infos, 'comment');
-                  $unixtime = getAttribute( $infos, 'date_creation' );
-                  $picture['date_creation'] = '';
-                  if ( $unixtime != '' )
-                    $picture['date_creation'] = date( 'Y-m-d', $unixtime );
-                  $picture['name']          = getAttribute( $infos, 'name' );
-                  // deleting the waiting element
-                  $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
-                  $query.= ' WHERE id = '.$waiting['id'];
-                  $query.= ';';
-                  mysql_query( $query );
-                }
-                array_push( $pictures, $picture );
-              }
-              else
-              {
-                $output.= '<span style="color:red;">"'.$file.'" : ';
-                $output.= $lang['update_wrong_dirname'].'</span><br />';
-              }
 
-            }
-          }
-          else
-          {
-            $output.= '<span style="color:red;">';
-            $output.= $lang['update_missing_tn'].' : '.$file;
-            $output.= ' (<span style="font-weight:bold;">';
-            $output.= $conf['prefix_thumbnail'];
-            $output.= get_filename_wo_extension( $file ).'.XXX</span>';
-            $output.= ', XXX = ';
-            $output.= implode( ', ', $conf['picture_ext'] );
-            $output.= ')</span><br />';
-          }
+    $thumbnail = $conf['prefix_thumbnail'];
+    $thumbnail.= get_filename_wo_extension( $row['file'] );
+    $thumbnail.= '.'.$row['tn_ext'];
+    if ( !in_array( $thumbnail, $fs_thumbnails ) )
+    {
+      $output.= $row['file'];
+      $output.= ' : <span style="font-weight:bold;">';
+      $output.= $lang['update_disappeared_tn'].'</span><br />';
+      $pic_to_delete = true;
+    }
+
+    if ( $pic_to_delete ) delete_image( $row['id'] );
+  }
+
+  $registered_pictures = array();
+  $query = 'SELECT file';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' WHERE storage_category_id = '.$category_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $registered_pictures, $row['file'] );
+  }
+
+  // validated pictures are picture uploaded by users, validated by an admin
+  // and not registered (visible) yet
+  $validated_pictures    = array();
+  $unvalidated_pictures  = array();
+  
+  $query = 'SELECT file,infos,validated';
+  $query.= ' FROM '.PREFIX_TABLE.'waiting';
+  $query.= ' WHERE storage_category_id = '.$category_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    if ( $row['validated'] == 'true' )
+      $validated_pictures[$row['file']] = $row['infos'];
+    else
+      array_push( $unvalidated_pictures, $row['file'] );
+  }
+
+  // we only search among the picture present in the filesystem and not
+  // present in the database yet. If we know that this picture is known as
+  // an uploaded one but not validated, it's not tested neither
+  $unregistered_pictures = array_diff( $fs_pictures
+                                       ,$registered_pictures
+                                       ,$unvalidated_pictures );
+
+  $inserts = array();
+  
+  foreach ( $unregistered_pictures as $unregistered_picture ) {
+    if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $unregistered_picture ) )
+    {
+      $file_wo_ext = get_filename_wo_extension( $unregistered_picture );
+      $tn_ext = '';
+      foreach ( $conf['picture_ext'] as $ext ) {
+        $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
+        if ( !in_array( $test, $fs_thumbnails ) ) continue;
+        else { $tn_ext = $ext; break; }
+      }
+      // if we found a thumnbnail corresponding to our picture...
+      if ( $tn_ext != '' )
+      {
+        $image_size = @getimagesize( $dir.$unregistered_picture );
+        // (file, storage_category_id, date_available, tn_ext, filesize,
+        // width, height, name, author, comment, date_creation)'
+        $value = '(';
+        $value.= "'".$unregistered_picture."'";
+        $value.= ','.$category_id;
+        $value.= ",'".date( 'Y-m-d' )."'";
+        $value.= ",'".$tn_ext."'";
+        $value.= ','.floor( filesize( $dir.$unregistered_picture) / 1024 );
+        $value.= ','.$image_size[0];
+        $value.= ','.$image_size[1];
+        if ( isset( $validated_pictures[$unregistered_picture] ) )
+        {
+          // retrieving infos from the XML description from waiting table
+          $infos = nl2br( $validated_pictures[$unregistered_picture] );
+
+          $unixtime = getAttribute( $infos, 'date_creation' );
+          if ($unixtime != '') $date_creation ="'".date('Y-m-d',$unixtime)."'";
+          else                 $date_creation = 'NULL';
+          
+          $value.= ",'".getAttribute( $infos, 'name' )."'";
+          $value.= ",'".getAttribute( $infos, 'author' )."'";
+          $value.= ",'".getAttribute( $infos, 'comment')."'";
+          $value.= ','.$date_creation;
+
+          // deleting the waiting element
+          $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
+          $query.= " WHERE file = '".$unregistered_picture."'";
+          $query.= ' AND storage_category_id = '.$category_id;
+          $query.= ';';
+          mysql_query( $query );
         }
+        else
+        {
+          $value.= ",'','','',NULL";
+        }
+        $value.= ')';
+        
+        $count_new++;
+        $output.= $unregistered_picture;
+        $output.= ' <span style="font-weight:bold;">';
+        $output.= $lang['update_research_added'].'</span>';
+        $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')';
+        $output.= '<br />';
+        array_push( $inserts, $value );
+      }
+      else
+      {
+        $output.= '<span style="color:red;">';
+        $output.= $lang['update_missing_tn'].' : '.$unregistered_picture;
+        $output.= ' (<span style="font-weight:bold;">';
+        $output.= $conf['prefix_thumbnail'];
+        $output.= get_filename_wo_extension( $unregistered_picture );
+        $output.= '.XXX</span>';
+        $output.= ', XXX = ';
+        $output.= implode( ', ', $conf['picture_ext'] );
+        $output.= ')</span><br />';
       }
     }
+    else
+    {
+      $output.= '<span style="color:red;">"'.$file.'" : ';
+      $output.= $lang['update_wrong_dirname'].'</span><br />';
+    }
   }
-  // inserting the pictures found in the directory
-  foreach ( $pictures as $picture ) {
-	$name = '';
-	$author = ''; 
-	$comment = ''; 
-  	if (isset ($picture['name'])) $name = $picture['name']; 
-	if (isset ($picture['author'])) $author = $picture['author']; 
-	if (isset ($picture['comment'])) $comment = $picture['comment']; 
-  
+
+  if ( count( $inserts ) > 0 )
+  {
+    // inserts all found pictures
     $query = 'INSERT INTO '.PREFIX_TABLE.'images';
     $query.= ' (file,storage_category_id,date_available,tn_ext';
     $query.= ',filesize,width,height';
     $query.= ',name,author,comment,date_creation)';
     $query.= ' VALUES ';
-    $query.= "('".$picture['file']."','".$category_id."'";
-    $query.= ",'".$picture['date']."','".$picture['tn_ext']."'";
-    $query.= ",'".$picture['filesize']."','".$picture['width']."'";
-    $query.= ",'".$picture['height']."','$name', '$author', '$comment'";
-    if ( isset ($picture['date_creation']))
-    {
-      $query.= ",'".$picture['date_creation']."'";
-    }
-    else
-    {
-      $query.= ',NULL';
-    }
-    $query.= ');';
-    mysql_query( $query );
-    $count_new++;
-    // retrieving the id of newly inserted picture
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE storage_category_id = '.$category_id;
-    $query.= " AND file = '".$picture['file']."'";
-    $query.= ';';
-    list( $image_id ) = mysql_fetch_array( mysql_query( $query ) );
-    // adding the link between this picture and its storage category
-    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
-    $query.= ' (image_id,category_id) VALUES ';
-    $query.= ' ('.$image_id.','.$category_id.')';
+    $query.= implode( ',', $inserts );
     $query.= ';';
     mysql_query( $query );
 
-    $output.= $picture['file'];
-    $output.= ' <span style="font-weight:bold;">';
-    $output.= $lang['update_research_added'].'</span>';
-    $output.= ' ('.$lang['update_research_tn_ext'].' '.$picture['tn_ext'].')';
-    $output.= '<br />';
+    // what are the ids of the pictures in the $category_id ?
+    $ids = array();
+
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' WHERE storage_category_id = '.$category_id;
+    $query.= ';';
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      array_push( $ids, $row['id'] );
+    }
+
+    // recreation of the links between this storage category pictures and
+    // its storage category
+    $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE category_id = '.$category_id;
+    $query.= ' AND image_id IN ('.implode( ',', $ids ).')';
+    $query.= ';';
+    mysql_query( $query );
+
+    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+    $query.= '(category_id,image_id) VALUES ';
+    foreach ( $ids as $num => $image_id ) {
+      if ( $num > 0 ) $query.= ',';
+      $query.= '('.$category_id.','.$image_id.')';
+    }
+    $query.= ';';
+    mysql_query( $query );
   }
   return $output;
 }
