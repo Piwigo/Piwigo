@@ -638,7 +638,7 @@ if ($picture['current']['is_picture'])
   if ($original_width != $picture_size[0]
       or $original_height != $picture_size[1])
   {
-    $content = '[ <a href="'.$picture['current']['url'].'" ';
+    $content = '[ <a href="'.$picture['current']['src'].'" ';
     $content.= ' title="'.$lang['true_size'].'">';
     $content.= $original_width.'*'.$original_height.'</a> ]';
   }
