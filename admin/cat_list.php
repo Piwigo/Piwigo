@@ -236,8 +236,8 @@ while (list ($id,$category) = each($categories))
     $query = 'SELECT COUNT(id) as sub_cats FROM ' . CATEGORIES_TABLE . ' WHERE id_uppercat = '.$category['id'];
     $result = mysql_fetch_array(mysql_query( $query ));
 	$category_image = ($result['sub_cats']) ? 
-	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_subfolder.gif" width="46" height="25" alt="" />' : 
-	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder.gif" width="46" height="25" alt="" />';
+	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_subfolder.gif" alt="" />' : 
+	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder.gif" alt="" />';
   }
   
   if ( !isset( $category['dir'] ) ) $category['dir'] = '';
