@@ -65,10 +65,10 @@
       </td>
       <td style="text-align:center;"><a name="{#link}" href="{#url}"><img src="{#thumbnail_url}" alt="" class="miniature" title="{#filename}" /></td>
       <td style="text-align:center;">{#default_name}<br /><input type="text" name="name-{#id}" value="{#name}" maxlength="255"/></td>
-      <td style="text-align:center;"><input type="text" name="author-{#id}" value="{#author}" maxlength="255"/></td>
-      <td style="text-align:center;"><textarea name="comment-{#id}" rows="3" cols="40" style="overflow:auto">{#comment}</textarea></td>
-      <td style="text-align:center;"><input type="text" name="date_creation-{#id}" value="{#date_creation}" maxlength="10" size="12" /></td>
-      <td style="text-align:center;"><input type="text" name="keywords-{#id}" value="{#keywords}" maxlength="255" /></td>
+      <td style="text-align:center;"><input type="text" name="author-{#id}" value="{#author}" maxlength="255" size="12" /></td>
+      <td style="text-align:center;"><textarea name="comment-{#id}" rows="5" cols="30" style="overflow:auto">{#comment}</textarea></td>
+      <td style="text-align:center;"><input type="text" name="date_creation-{#id}" value="{#date_creation}" maxlength="10" size="10" /></td>
+      <td style="text-align:center;"><input type="text" name="keywords-{#id}" value="{#keywords}" length="255" /></td>
     </tr>
     <!--/VTP_picture-->
     <tr>
