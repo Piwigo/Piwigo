@@ -102,7 +102,7 @@ CREATE TABLE phpwebgallery_history (
   category varchar(150) default NULL,
   file varchar(50) default NULL,
   picture varchar(150) default NULL,
-  KEY  (date)
+  KEY history_i1 (date)
 ) TYPE=MyISAM;
 
 --
