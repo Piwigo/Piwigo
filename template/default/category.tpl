@@ -93,6 +93,7 @@
 			</table>
 			<!-- END thumbnails -->
 		<br />
+		<div class="navigationBar"><a href="{U_CADDIE}">add to caddie</a></div>
 			<!-- BEGIN cat_infos -->
 			  <!-- BEGIN navigation -->
 			  <div class="navigationBar">{cat_infos.navigation.NAV_BAR}</div>

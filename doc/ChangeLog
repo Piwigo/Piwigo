@@ -1,0 +1,5 @@
+2005-03-25 Pierrick LE GALL <pierrick at phpwebgallery dot net>
+	
+	* new feature : caddie. The purpose is batch management,
+	especially concerning elements to categories associations.This is
+	the very first release, needs many improvements.

@@ -149,6 +149,12 @@ switch ( $_GET['page'] )
    $page_valide = true;
    break;
  }
+ case 'element_set_global' :
+ {
+   $title = 'batch management';
+   $page_valide = true;
+   break;
+ }
  default:
    $title = $lang['title_default']; break;
 }
@@ -234,6 +240,7 @@ $template->assign_vars(array(
   'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
+  'U_SET'=>add_session_id($link_start.'element_set_global'),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_USERS'=>add_session_id($link_start.'profile' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),

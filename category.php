@@ -75,6 +75,39 @@ if ( isset( $_GET['num'] )
 
 initialize_category();
 
+// caddie filling :-)
+if (isset($_GET['caddie']))
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  // You can't add in caddie elements that are already in !
+  
+  $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  '.$page['where'].'
+;';
+  $ids = array_from_query($query, 'id');
+
+  $query = '
+SELECT element_id
+  FROM '.CADDIE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+  $in_caddie = array_from_query($query, 'element_id');
+
+  $caddiables = array_diff($ids, $in_caddie);
+
+  $datas = array();
+
+  foreach ($caddiables as $caddiable)
+  {
+    array_push($datas, array('element_id' => $caddiable,
+                             'user_id' => $user['id']));
+  }
+  mass_inserts(CADDIE_TABLE, array('element_id','user_id'), $datas);
+}
+
 // creation of the array containing the cat ids to expand in the menu
 // $page['tab_expand'] contains an array with the category ids
 // $page['expand'] contains the string to display in URL with comma
@@ -157,7 +190,8 @@ $template->assign_vars(array(
   'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
-  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
+  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] )),
+  'U_CADDIE'=>add_session_id(PHPWG_ROOT_PATH.'category.php'.get_query_string_diff(array('caddie')).'&amp;caddie=1')
   )
 );
 //---------------------------------------------------------- special categories

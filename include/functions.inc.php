@@ -618,4 +618,25 @@ function my_error($header)
   $error.= '</pre>';
   die ($error);
 }
+
+/**
+ * creates an array based on a query, this function is a very common pattern
+ * used here
+ *
+ * @param string $query
+ * @param string $fieldname
+ * @return array
+ */
+function array_from_query($query, $fieldname)
+{
+  $array = array();
+  
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($array, $row[$fieldname]);
+  }
+
+  return $array;
+}
 ?>

@@ -49,6 +49,7 @@
   <li><a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a></li>
   <li><a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a></li>
   <li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
+  <li><a class="adminMenu" href="{U_SET}">Caddie</a></li>
 </ul>
 </div>
 <div class="titreMenu">{L_IDENTIFY}</div>

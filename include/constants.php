@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '1.4.0RC3');
+define('PHPWG_VERSION', '1.4.0');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
@@ -58,4 +58,5 @@ define('WAITING_TABLE', $prefixeTable.'waiting');
 define('IMAGE_METADATA_TABLE', $prefixeTable.'image_metadata');
 define('RATE_TABLE', $prefixeTable.'rate');
 define('USER_FORBIDDEN_TABLE', $prefixeTable.'user_forbidden');
+define('CADDIE_TABLE', $prefixeTable.'caddie');
 ?>
