@@ -318,6 +318,9 @@ function add_style( $string, $search, $style )
 // another style for the given $string.
 function replace_search( $string, $search )
 {
+  // FIXME : with new advanced search, this function needs a rewrite
+  return $string;
+  
   $words = explode( ',', $search );
   $style = 'background-color:white;color:red;';
   foreach ( $words as $word ) {
