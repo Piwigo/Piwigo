@@ -46,11 +46,13 @@
 		<!-- END login -->
 		<!-- BEGIN logout -->
 		<p>{L_HELLO}&nbsp;{USERNAME}&nbsp;!</p>
-		&nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a><br />
-		&nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a><br />
+		<ul class="menu">
+		  <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>
+		  <li><a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a></li>
 		<!-- BEGIN admin -->
-	    &nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a><br />
+	      <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
 		<!-- END admin -->
+		</ul>
 		<!-- END logout -->
 		</div>
       </div>

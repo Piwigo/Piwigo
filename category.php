@@ -154,8 +154,6 @@ $template->assign_vars(array(
   'L_PROFILE_HINT' => $lang['hint_customize'],
   
   'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
-  
-  'T_COLLAPSED' => $user['lien_collapsed'],
   'T_RECENT' => $icon_recent,
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
