@@ -366,7 +366,7 @@ SELECT user_id, group_id, name
         'U_MOD'=>add_session_id($profile_url.$item['id']),
         'U_PERM'=>add_session_id($perm_url.$item['id']),
         'USERNAME'=>$item['username'],
-        'STATUS'=>$item['status'],
+        'STATUS'=>$lang['user_status_'.$item['status']],
         'EMAIL'=>isset($item['mail_address']) ? $item['mail_address'] : '',
         'GROUPS'=>$groups
         ));
