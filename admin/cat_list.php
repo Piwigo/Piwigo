@@ -208,7 +208,7 @@ UPDATE '.CATEGORIES_TABLE.'
     array_push($categories, $current);
     array_shift($categories);
   }
-  update_global_rank($_GET['parent_id']);
+  update_global_rank(@$_GET['parent_id']);
 }
 else if (isset($_GET['down']) and is_numeric($_GET['down']))
 {
@@ -268,7 +268,7 @@ UPDATE '.CATEGORIES_TABLE.'
     array_unshift($categories, $current);
     array_pop($categories);
   }
-  update_global_rank($_GET['parent_id']);
+  update_global_rank(@$_GET['parent_id']);
 }
 reset($categories);
 // +-----------------------------------------------------------------------+
