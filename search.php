@@ -23,19 +23,31 @@ check_login_authorization();
 $error = array();
 if ( isset( $_POST['search'] ) )
 {
-  $i = 0;
-  if ( strlen( $_POST['search'] ) > 2 )
+  $redirect = true;
+  $search = array();
+  $words = preg_split( '/\s+/', $_POST['search'] );
+  foreach ( $words as $i => $word ) {
+    if ( strlen( $word ) > 2 and !preg_match( '/[,;:\']/', $word ) )
+    {
+      array_push( $search, $word );
+    }
+    else
+    {
+      $redirect = false;
+      array_push( $error, $lang['invalid_search'] );
+      break;
+    }
+  }
+  $search = array_unique( $search );
+  $search = implode( ',', $search );
+  if ( $redirect )
   {
-    $url = add_session_id( 'category.php?cat=search&search='.
-                           $_POST['search'], true );
+    $url = 'category.php?cat=search&search='.$search.'&mode='.$_POST['mode'];
+    $url = add_session_id( $url, true );
     header( 'Request-URI: '.$url );
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );
     exit();
-  }
-  else
-  {
-    $error[$i++] = $lang['invalid_search'];
   }
 }
 //----------------------------------------------------- template initialization
@@ -67,7 +79,8 @@ if ( sizeof( $error ) != 0 )
   }
   $vtp->closeSession( $handle, 'errors' );
 }
-//---------------------------------------------------------------- search field
+//------------------------------------------------------------------------ form
+// search field
 $vtp->addSession( $handle, 'line' );
 $vtp->setVar( $handle, 'line.name', $lang['search_field_search'] );
 $vtp->addSession( $handle, 'text' );
@@ -76,12 +89,40 @@ $vtp->setVar( $handle, 'text.name', 'search' );
 $vtp->setVar( $handle, 'text.value', $_POST['search'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
+// mode of search : match all words or at least one of this words
+$vtp->addSession( $handle, 'line' );
+$vtp->addSession( $handle, 'group' );
+
+$vtp->addSession( $handle, 'radio' );
+$vtp->setVar( $handle, 'radio.name', 'mode' );
+$vtp->setVar( $handle, 'radio.value', 'OR' );
+$vtp->setVar( $handle, 'radio.option', $lang['search_mode_or'] );
+if ( $_POST['mode'] == 'OR' or $_POST['mode'] == '' )
+{
+  $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
+}
+$vtp->closeSession( $handle, 'radio' );
+
+$vtp->addSession( $handle, 'radio' );
+$vtp->setVar( $handle, 'radio.name', 'mode' );
+$vtp->setVar( $handle, 'radio.value', 'AND' );
+$vtp->setVar( $handle, 'radio.option', $lang['search_mode_and'] );
+if ( $_POST['mode'] == 'AND' )
+{
+  $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
+}
+$vtp->closeSession( $handle, 'radio' );
+
+$vtp->closeSession( $handle, 'group' );
+$vtp->closeSession( $handle, 'line' );
 //---------------------------------------------------- return to main page link
 $vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
+pwg_log( 'category', $page['title'] );
+mysql_close();
 $query = 'insert into '.PREFIX_TABLE.'history';
 $query.= '(date,login,IP,page) values';
 $query.= "('".time()."', '".$user['pseudo']."','".$_SERVER['REMOTE_ADDR']."'";

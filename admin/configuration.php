@@ -242,7 +242,7 @@ if ( $_GET['valider'] == 1 )
         $query.= "'".$_POST[$default_user_infos[$i]]."'";
       }
     }
-    $query.= " where pseudo = 'visiteur';";
+    $query.= " where username = 'guest';";
     mysql_query( $query );
   }
 //--------------------------------------------------------- data initialization
@@ -795,18 +795,18 @@ $vtp->closeSession( $sub, 'line' );
 // maxwidth for thumbnail
 $vtp->addSession( $sub, 'line' );
 $vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_maxwidth_thumbnail'] );
+$vtp->setVar( $sub, 'param_line.name',$lang['conf_upload_maxwidth_thumbnail']);
 $vtp->addSession( $sub, 'text' );
 $vtp->setVar( $sub, 'text.name', 'upload_maxwidth_thumbnail' );
 $vtp->setVar( $sub, 'text.value', $upload_maxwidth_thumbnail );
 $vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_maxwidth_thumbnail_info'] );
+$vtp->setVar($sub,'param_line.def',$lang['conf_upload_maxwidth_thumbnail_info']);
 $vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
 // maxheight for thumbnail
 $vtp->addSession( $sub, 'line' );
 $vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_maxheight_thumbnail'] );
+$vtp->setVar( $sub,'param_line.name',$lang['conf_upload_maxheight_thumbnail']);
 $vtp->addSession( $sub, 'text' );
 $vtp->setVar( $sub, 'text.name', 'upload_maxheight_thumbnail' );
 $vtp->setVar( $sub, 'text.value', $upload_maxheight_thumbnail );

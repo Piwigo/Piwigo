@@ -132,7 +132,7 @@ if ( isset( $_GET['add_fav'] ) )
     $redirect.= '&expand='.$_GET['expand'];
     if ( $page['cat'] == 'search' )
     {
-      $redirect.= '&search='.$_GET['search'];
+      $redirect.= '&search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
     $url = add_session_id( $redirect, true );
     header( 'Request-URI: '.$url );
@@ -211,7 +211,7 @@ if ( $page['num'] >= 1 )
   $url_link.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
-    $url_link.= '&amp;search='.$_GET['search'];
+    $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   // sending vars for display
   $vtp->addSession( $handle, 'previous' );
@@ -285,7 +285,7 @@ $url_link = './category.php?cat='.$page['cat'].'&amp;';
 $url_link.= 'num='.$page['num'].'&amp;expand='.$_GET['expand'];
 if ( $page['cat'] == 'search' )
 {
-  $url_link.= "&amp;search=".$_GET['search'];
+  $url_link.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
 }
 $vtp->setGlobalVar( $handle, 'picture_link', add_session_id( $url_link ) );
 $vtp->setGlobalVar( $handle, 'picture_width', $final_width );
@@ -385,7 +385,7 @@ if ( $page['cat'] != 'fav' && !$user['is_the_guest'] )
   $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=1';
   if ( $page['cat'] == 'search' )
   {
-    $url.= '&amp;search='.$_GET['search'];
+    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   $vtp->addSession( $handle, 'favorite' );
   $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
@@ -458,7 +458,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   $url_link.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
-    $url_link.= "&amp;search=".$_GET['search'];
+    $url_link.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   // sending vars for display
   $vtp->addSession( $handle,   'next' );
@@ -511,7 +511,7 @@ if ( $conf['show_comments'] )
   $url.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
-    $url.= '&amp;search='.$_GET['search'];
+    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   if( !isset( $_GET['start'] )
       || !is_numeric( $_GET['start'] )

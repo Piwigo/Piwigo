@@ -47,6 +47,11 @@
                       <!--VTP_text-->
                       <input type="text" name="{#name}" size="{#size}" value="{#value}" />
                       <!--/VTP_text-->
+                      <!--VTP_group-->
+                        <!--VTP_radio-->
+                        <input type="radio" name="{#name}" value="{#value}"{#checked}/>{#option}
+                        <!--/VTP_radio-->
+                      <!--/VTP_group-->
                     </td>
                   </tr>
                   <!--/VTP_line-->

@@ -132,7 +132,7 @@ if ( isset( $_POST['submit'] ) )
     $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
     if ( $page['cat'] == 'search' )
     {
-      $url.= '&search='.$_GET['search'];
+      $url.= '&search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
     $url = add_session_id( $url, true );
     header( 'Request-URI: '.$url );  
@@ -152,7 +152,7 @@ templatize_array( $tpl, 'lang', $handle );
 $url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
 if ( $page['cat'] == 'search' )
 {
-  $url.= '&amp;search='.$_GET['search'];
+  $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
 }
 $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
 //-------------------------------------------------------------- errors display

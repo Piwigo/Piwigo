@@ -170,7 +170,7 @@ if ( !$user['is_the_guest'] )
   $url.= '&amp;expand='.$page['expand'];
   if ( $page['cat'] == 'search' )
   {
-    $url.= '&amp;search='.$_GET['search'];
+    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   $vtp->setVar( $handle, 'summary.url', add_session_id( $url ) );
   $vtp->setVar( $handle, 'summary.title', $lang['hint_customize'] );
@@ -243,12 +243,15 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
   $query.= ';';
+  echo $query;
   $result = mysql_query( $query );
 
   $vtp->addSession( $handle, 'thumbnails' );
   $vtp->addSession( $handle, 'line' );
   // iteration counter to use a new <tr> every "$nb_image_line" pictures
-  $i = 1;
+  $cell_number = 1;
+  // iteration counter to be sure not to create too much lines in the table
+  $line_number = 1;
   while ( $row = mysql_fetch_array( $result ) )
   {
     if ( !is_numeric( $page['cat'] ) )
@@ -294,11 +297,11 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     $url_link.= '&amp;image_id='.$row['id'].'&amp;expand='.$page['expand'];
     if ( $page['cat'] == 'search' )
     {
-      $url_link.= '&amp;search='.$_GET['search'];
+      $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
     // date of availability for creation icon
-    $date = explode( '-', $row['date_available'] );
-    $date = mktime( 0, 0, 0, $date[1], $date[2], $date[0] );
+    list( $year,$month,$day ) = explode( '-', $row['date_available'] );
+    $date = mktime( 0, 0, 0, $month, $day, $year );
     // sending vars to display
     $vtp->addSession( $handle, 'thumbnail' );
     $vtp->setVar( $handle, 'thumbnail.url', add_session_id( $url_link ) );
@@ -322,20 +325,19 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     
     $vtp->closeSession( $handle, 'thumbnail' );
     
-    if ( $i == $user['nb_image_line'] )
+    if ( $cell_number++ == $user['nb_image_line'] )
     {
+      // creating a new line
       $vtp->closeSession( $handle, 'line' );
-      $vtp->addSession( $handle, 'line' );
-      $i = 1;
+      // the number of the next cell is 1
+      $cell_number = 1;
+      // we only create a new line if it does not exceed the maximum line
+      // per page for the logged user
+      if ( $line_number++ < $user['nb_line_page'] )
+      {
+        $vtp->addSession( $handle, 'line' );
+      }
     }
-    else
-    {
-      $i++;
-    }
-  }
-  if ( $i < $user['nb_image_line'] )
-  {
-    $vtp->closeSession( $handle, 'line' );
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }
@@ -347,8 +349,8 @@ elseif ( isset( $page['cat'] )
   $vtp->addSession( $handle, 'line' );
 
   $subcats = get_non_empty_sub_cat_ids( $page['cat'] );
-  $i = 1;
-  foreach ( $subcats as $subcat) {
+  $cell_number = 1;
+  foreach ( $subcats as $id => $subcat ) {
     $result = get_cat_info( $subcat['non_empty_cat'] );
     $cat_directory = $result['dir'];
 
@@ -373,8 +375,7 @@ elseif ( isset( $page['cat'] )
     $image_result = mysql_query( $query );
     $image_row = mysql_fetch_array( $image_result );
 
-    $file = substr ( $image_row['file'], 0,
-                     strrpos ( $image_row['file'], '.' ) );
+    $file = get_filename_wo_extension( $image_row['file'] );
 
     // creating links for thumbnail and associated category
     $lien_image = $cat_directory;
@@ -383,15 +384,17 @@ elseif ( isset( $page['cat'] )
     $lien_thumbnail.= $file.'.'.$image_row['tn_ext'];
     $lien_image.= $image_row['file'];
 
-    $thumbnail_title = '';
+    $thumbnail_title = $lang['hint_category'];
 
     $url_link = './category.php?cat='.$subcat['id'];
     if ( !in_array( $page['cat'], $page['tab_expand'] ) )
     {
-      $page['tab_expand'][sizeof( $page['tab_expand'] )] = $page['cat'];
+      array_push( $page['tab_expand'], $page['cat'] );
       $page['expand'] = implode( ',', $page['tab_expand'] );
     }
     $url_link.= '&amp;expand='.$page['expand'];
+    list( $year,$month,$day ) = explode( '-', $subcat['date_dernier'] );
+    $date = mktime( 0, 0, 0, $month, $day, $year );
 
     // sending vars to display
     $vtp->addSession( $handle, 'thumbnail' );
@@ -400,23 +403,23 @@ elseif ( isset( $page['cat'] )
     $vtp->setVar( $handle, 'thumbnail.alt', $image_row['file'] );
     $vtp->setVar( $handle, 'thumbnail.title', $thumbnail_title );
     $vtp->setVar( $handle, 'thumbnail.name', $name );
-
-    list( $year,$month,$day ) = explode( '-', $subcat['date_dernier'] );
-    $date = mktime( 0, 0, 0, $month, $day, $year );
     $vtp->setVar( $handle, 'thumbnail.icon', get_icon( $date ) );
-
     $vtp->closeSession( $handle, 'thumbnail' );
 
-    if ( $i == $user['nb_image_line'] )
+    if ( $cell_number++ == $user['nb_image_line'] )
     {
       $vtp->closeSession( $handle, 'line' );
-      $vtp->addSession( $handle, 'line' );
-      $i = 1;
+      $cell_number = 1;
+      // we open a new line if the subcat was not the last one
+      if ( $id < count( $subcats ) - 1 )
+      {
+        $vtp->addSession( $handle, 'line' );
+      }
     }
-    else
-    {
-      $i++;
-    }
+  }
+  if ( $id < count( $subcats ) - 1 )
+  {
+    $vtp->closeSession( $handle, 'line' );
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }

@@ -169,7 +169,7 @@ function get_dirs( $rep )
   {
     while ( $file = readdir ( $opendir ) )
     {
-      if ( $file != "." and $file != ".." and is_dir ( $rep.$file ) )
+      if ( $file != '.' and $file != '..' and is_dir ( $rep.$file ) )
       {
         array_push( $sub_rep, $file );
       }
@@ -274,14 +274,14 @@ function get_themes( $theme_dir )
   return $themes;
 }
 
-// - The replace_search function replaces a $search string by the search in
-//   another color
+// - add_style replaces the 
+//         $search  into <span style="$style">$search</span>
+// in the given $string.
 // - The function does not replace characters in HTML tags
-function replace_search( $string, $search )
+function add_style( $string, $search, $style )
 {
   //return $string;
-  $style_search = "background-color:white;color:red;";
-  $return_string = "";
+  $return_string = '';
   $remaining = $string;
 
   $start = 0;
@@ -291,19 +291,30 @@ function replace_search( $string, $search )
   while ( is_numeric( $start ) and is_numeric( $end ) )
   {
     $treatment = substr ( $remaining, 0, $start );
-    $treatment = str_replace( $search, '<span style="'.$style_search.'">'.
+    $treatment = str_replace( $search, '<span style="'.$style.'">'.
                               $search.'</span>', $treatment );
-    $return_string.= $treatment.substr ( $remaining, $start,
-                                         $end - $start + 1 );
+    $return_string.= $treatment.substr( $remaining, $start, $end-$start+1 );
     $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
     $start = strpos ( $remaining, '<' );
     $end   = strpos ( $remaining, '>' );
   }
-  $treatment = str_replace( $search, '<span style="'.$style_search.'">'.
+  $treatment = str_replace( $search, '<span style="'.$style.'">'.
                             $search.'</span>', $remaining );
   $return_string.= $treatment;
                 
   return $return_string;
+}
+
+// replace_search replaces a searched words array string by the search in
+// another style for the given $string.
+function replace_search( $string, $search )
+{
+  $words = explode( ',', $search );
+  $style = 'background-color:white;color:red;';
+  foreach ( $words as $word ) {
+    $string = add_style( $string, $word, $style );
+  }
+  return $string;
 }
 
 function database_connection()

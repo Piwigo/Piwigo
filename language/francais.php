@@ -180,7 +180,11 @@ $lang['reg_err_mail_address'] = 'l\'adresse mail doit être de la forme xxx@yyy.e
 
 // page search
 $lang['search_title'] = 'Recherche';
-$lang['invalid_search'] = 'La recherche doit porter sur 3 caractères ou plus';
+// start version 1.3
+$lang['invalid_search'] = 'Les mots recherchés doivent comporter plus de 3 caractères et ne doivent pas inclure de caractères de ponctuation';
+$lang['search_mode_or'] = 'au moins un mot';
+$lang['search_mode_and'] = 'tous les mots';
+// end version 1.3
 $lang['search_field_search'] = 'Rechercher';
 $lang['search_return_main_page'] = 'Retour à la page des miniatures';
 	

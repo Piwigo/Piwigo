@@ -37,9 +37,8 @@ include_once( PREFIXE_INCLUDE.'./include/vtemplate.class.php' );
 // 2. $conf['order_by'] = " order by file asc";
 //    will only order pictures by file ascending
 //    without taking into account the date_available
-$conf['order_by'] = ' order by date_available desc, file asc';
+$conf['order_by'] = ' ORDER BY date_available DESC, file ASC';
 
-$conf['repertoire_image']   = './images/';
 $conf['nb_image_row']       = array('4','5','6','7','8');
 $conf['nb_row_page']        = array('2','3','4','5','6','7','10','20','1000');
 $conf['version']            = '1.3';
