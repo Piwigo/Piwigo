@@ -180,7 +180,7 @@ $template->assign_block_vars(
   array(
     'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=most_visited'),
     'TITLE' => $lang['most_visited_cat_hint'],
-    'NAME' => $conf['top_number'].' '.$lang['most_visited_cat']
+    'NAME' => $lang['most_visited_cat']
     ));
 // best rated
 $template->assign_block_vars(
@@ -188,7 +188,7 @@ $template->assign_block_vars(
   array(
     'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=best_rated'),
     'TITLE' => $lang['best_rated_cat_hint'],
-    'NAME' => $conf['top_number'].' '.$lang['best_rated_cat']
+    'NAME' => $lang['best_rated_cat']
     ));
 // random
 $template->assign_block_vars(
