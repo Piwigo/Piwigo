@@ -198,7 +198,6 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
                                $conf['upload_maxwidth'],
                                $conf['upload_maxheight']  );
-    $upload_type = $result['type'];
     for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
     {
       array_push( $error, $result['error'][$j] );
@@ -240,7 +239,6 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $result = validate_upload( $path, $conf['upload_maxfilesize'],
                              $conf['upload_maxwidth_thumbnail'],
                              $conf['upload_maxheight_thumbnail']  );
-  $upload_type = $result['type'];
   for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
   {
     array_push( $error, $result['error'][$j] );
