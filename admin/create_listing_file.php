@@ -37,16 +37,98 @@ $conf['prefix_thumbnail'] = 'TN-';
 $conf['file_ext'] = array('jpg','JPG','png','PNG','gif','GIF','mpg','zip',
                           'avi','mp3','ogg');
 
-// $conf['picture_ext'] must bea subset of $conf['file_ext']
+// $conf['picture_ext'] must be a subset of $conf['file_ext']
 $conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
 
 // $conf['version'] is used to verify the compatibility of the generated
 // listing.xml file and the PhpWebGallery version you're running
 $conf['version'] = 'BSF';
 
+// $conf['use_exif'] set to true if you want to use Exif Date as "creation
+// date" for the element, otherwise, set to false
+$conf['use_exif'] = true;
+
+// $conf['use_iptc'] set to true if you want to use IPTC informations of the
+// element according to get_sync_iptc_data function mapping, otherwise, set
+// to false
+$conf['use_iptc'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
+
+/**
+ * returns informations from IPTC metadata, mapping is done at the beginning
+ * of the function
+ *
+ * @param string $filename
+ * @return array
+ */
+function get_iptc_data($filename, $map)
+{
+  $result = array();
+  
+  // Read IPTC data
+  $iptc = array();
+  
+  $imginfo = array();
+  getimagesize($filename, $imginfo);
+  
+  if (isset($imginfo['APP13']))
+  {
+    $iptc = iptcparse($imginfo['APP13']);
+    if (is_array($iptc))
+    {
+      $rmap = array_flip($map);
+      foreach (array_keys($rmap) as $iptc_key)
+      {
+        if (isset($iptc[$iptc_key][0]) and $value = $iptc[$iptc_key][0])
+        {
+          // strip leading zeros (weird Kodak Scanner software)
+          while ($value[0] == chr(0))
+          {
+            $value = substr($value, 1);
+          }
+          // remove binary nulls
+          $value = str_replace(chr(0x00), ' ', $value);
+          
+          foreach (array_keys($map, $iptc_key) as $pwg_key)
+          {
+            $result[$pwg_key] = $value;
+          }
+        }
+      }
+    }
+  }
+  return $result;
+}
+
+function get_sync_iptc_data($file)
+{
+  $map = array(
+    'keywords'        => '2#025',
+    'date_creation'   => '2#055',
+    'author'          => '2#122',
+    'name'            => '2#085',
+    'comment'         => '2#120'
+    );
+  $datefields = array('date_creation', 'date_available');
+  
+  $iptc = get_iptc_data($file, $map);
+
+  foreach ($iptc as $pwg_key => $value)
+  {
+    if (in_array($pwg_key, $datefields))
+    {
+      if ( preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
+      {
+        $iptc[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
+      }
+    }
+  }
+
+  return $iptc;
+}
 
 /**
  * returns a float value coresponding to the number of seconds since the
@@ -264,6 +346,33 @@ function get_pictures($dir, $indent)
           $element['width'] = $image_size[0];
           $element['height'] = $image_size[1];
         }
+
+        if ($conf['use_exif'])
+        {
+          if ($exif = @read_exif_data($dir.'/'.$fs_file))
+          {
+            if (isset($exif['DateTime']))
+            {
+              preg_match('/^(\d{4}):(\d{2}):(\d{2})/'
+                         ,$exif['DateTime']
+                         ,$matches);
+              $element['date_creation'] =
+                $matches[1].'-'.$matches[2].'-'.$matches[3];
+            }
+          }
+        }
+
+        if ($conf['use_iptc'])
+        {
+          $iptc = get_sync_iptc_data($dir.'/'.$fs_file);
+          if (count($iptc) > 0)
+          {
+            foreach (array_keys($iptc) as $key)
+            {
+              $element[$key] = addslashes($iptc[$key]);
+            }
+          }
+        }
         
         array_push($elements, $element);
       }
@@ -299,7 +408,8 @@ function get_pictures($dir, $indent)
 
   $xml = "\n".$indent.'<root>';
   $attributes = array('file','tn_ext','representative_ext','filesize',
-                      'width','height');
+                      'width','height','date_creation','author','keywords',
+                      'name','comment');
   foreach ($elements as $element)
   {
     $xml.= "\n".$indent.'  ';

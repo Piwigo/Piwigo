@@ -413,7 +413,12 @@ SELECT file
                              'representative_ext',
                              'filesize',
                              'width',
-                             'height');
+                             'height',
+                             'date_creation',
+                             'author',
+                             'keywords',
+                             'name',
+                             'comment');
       foreach ($optional_atts as $att)
       {
         if (getAttribute($xml_element, $att) != '')
@@ -428,7 +433,8 @@ SELECT file
   if (count($inserts) > 0)
   {
     $dbfields = array('file','storage_category_id','date_available','tn_ext',
-                      'filesize','width','height');
+                      'filesize','width','height','date_creation','author',
+                      'keywords','name','comment');
     mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
     $counts{'new_elements'}+= count($inserts);
 
