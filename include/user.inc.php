@@ -120,12 +120,16 @@ if ($user['is_the_guest'])
 }
 
 // if no information were found about user in user_forbidden table OR the
-// forbidden categories must be updated
-if (!isset($user['need_update'])
-    or !is_bool($user['need_update'])
-    or $user['need_update'] == true)
+// forbidden categories must be updated : only if current user is in public
+// part
+if (!defined('IN_ADMIN') or !IN_ADMIN)
 {
-  $user['forbidden_categories'] = calculate_permissions($user['id']);
+  if (!isset($user['need_update'])
+      or !is_bool($user['need_update'])
+      or $user['need_update'] == true)
+  {
+    $user['forbidden_categories'] = calculate_permissions($user['id']);
+  }
 }
 
 // forbidden_categories is a must be empty, at least

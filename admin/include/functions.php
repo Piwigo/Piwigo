@@ -199,12 +199,17 @@ function delete_categories($ids)
   {
     return;
   }
+
+  // add sub-category ids to the given ids : if a category is deleted, all
+  // sub-categories must be so
+  $ids = get_subcat_ids($ids);
   
   // destruction of all the related elements
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id IN ('.implode(',', $ids).')
+  WHERE storage_category_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   $result = pwg_query($query);
   $element_ids = array();
@@ -217,43 +222,30 @@ SELECT id
   // destruction of the links between images and this category
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.implode(',', $ids).')
+  WHERE category_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
 
   // destruction of the access linked to the category
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $ids).')
+  WHERE cat_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
   $query = '
 DELETE FROM '.GROUP_ACCESS_TABLE.'
-  WHERE cat_id IN ('.implode(',', $ids).')
+  WHERE cat_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
-
-  // destruction of the sub-categories
-  $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat IN ('.implode(',', $ids).')
-;';
-  $result = pwg_query($query);
-  $subcat_ids = array();
-  while($row = mysql_fetch_array($result))
-  {
-    array_push($subcat_ids, $row['id']);
-  }
-  if (count($subcat_ids) > 0)
-  {
-    delete_categories($subcat_ids);
-  }
 
   // destruction of the category
   $query = '
 DELETE FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $ids).')
+  WHERE id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
 
@@ -763,6 +755,46 @@ function get_category_directories( $basedir )
   return $sub_dirs;
 }
 
+/**
+ * returns an array containing sub-directories which can be a category,
+ * recursive by default
+ *
+ * directories nammed "thumbnail", "pwg_high" or "pwg_representative" are
+ * omitted
+ *
+ * @param string $basedir
+ * @return array
+ */
+function get_fs_directories($path, $recursive = true)
+{
+  $dirs = array();
+  
+  if (is_dir($path))
+  {
+    if ($contents = opendir($path))
+    {
+      while (($node = readdir($contents)) !== false)
+      {
+        if (is_dir($path.'/'.$node)
+            and $node != '.'
+            and $node != '..'
+            and $node != 'thumbnail'
+            and $node != 'pwg_high'
+            and $node != 'pwg_representative')
+        {
+          array_push($dirs, $path.'/'.$node);
+          if ($recursive)
+          {
+            $dirs = array_merge($dirs, get_fs_directories($path.'/'.$node));
+          }
+        }
+      }
+    }
+  }
+
+  return $dirs;
+}
+
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
 function my_error($header, $echo = true)
@@ -1008,20 +1040,7 @@ function set_cat_visible($categories, $value)
   // unlocking a category => all its parent categories become unlocked
   if ($value == 'true')
   {
-    $uppercats = array();
-    $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $categories).')
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $uppercats = array_merge($uppercats,
-                               explode(',', $row['uppercats']));
-    }
-    $uppercats = array_unique($uppercats);
-      
+    $uppercats = get_uppercat_ids($categories);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET visible = \'true\'
@@ -1059,20 +1078,7 @@ function set_cat_status($categories, $value)
   // make public a category => all its parent categories become public
   if ($value == 'public')
   {
-    $uppercats = array();
-    $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $categories).')
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $uppercats = array_merge($uppercats,
-                               explode(',', $row['uppercats']));
-    }
-    $uppercats = array_unique($uppercats);
-      
+    $uppercats = get_uppercat_ids($categories);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'public\'
@@ -1091,6 +1097,37 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
     pwg_query($query);
   }
+}
+
+/**
+ * returns all uppercats category ids of the given category ids
+ *
+ * @param array cat_ids
+ * @return array
+ */
+function get_uppercat_ids($cat_ids)
+{
+  if (!is_array($cat_ids) or count($cat_ids) < 1)
+  {
+    return array();
+  }
+  
+  $uppercats = array();
+
+  $query = '
+SELECT uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $cat_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $uppercats = array_merge($uppercats,
+                             explode(',', $row['uppercats']));
+  }
+  $uppercats = array_unique($uppercats);
+
+  return $uppercats;
 }
 
 /**
@@ -1156,5 +1193,156 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
 
   $fields = array('primary' => array('id'), 'update' => array('rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
+}
+
+/**
+ * returns the fulldir for each given category id
+ *
+ * @param array cat_ids
+ * @return array
+ */
+function get_fulldirs($cat_ids)
+{
+  if (count($cat_ids) == 0)
+  {
+    return array();
+  }
+  
+  // caching directories of existing categories
+  $query = '
+SELECT id, dir
+  FROM '.CATEGORIES_TABLE.'
+  WHERE dir IS NOT NULL
+;';
+  $result = pwg_query($query);
+  $cat_dirs = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $cat_dirs[$row['id']] = $row['dir'];
+  }
+
+  // filling $uppercats_array : to each category id the uppercats list is
+  // associated
+  $uppercats_array = array();
+  
+  $query = '
+SELECT id, uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN (
+'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $uppercats_array[$row['id']] = $row['uppercats'];
+  }
+  
+  $query = '
+SELECT galleries_url
+  FROM '.SITES_TABLE.'
+  WHERE id = 1
+';
+  $row = mysql_fetch_array(pwg_query($query));
+  $basedir = $row['galleries_url'];
+  
+  // filling $cat_fulldirs
+  $cat_fulldirs = array();
+  foreach ($uppercats_array as $cat_id => $uppercats)
+  {
+    $uppercats = str_replace(',', '/', $uppercats);
+    $cat_fulldirs[$cat_id] = $basedir.preg_replace('/(\d+)/e',
+                                                   "\$cat_dirs['$1']",
+                                                   $uppercats);
+  }
+
+  return $cat_fulldirs;
+}
+
+/**
+ * returns an array with all file system files according to
+ * $conf['file_ext']
+ *
+ * @param string $path
+ * @param bool recursive
+ * @return array
+ */
+function get_fs($path, $recursive = true)
+{
+  global $conf;
+
+  // because isset is faster than in_array...
+  if (!isset($conf['flip_picture_ext']))
+  {
+    $conf['flip_picture_ext'] = array_flip($conf['picture_ext']);
+  }
+  if (!isset($conf['flip_file_ext']))
+  {
+    $conf['flip_file_ext'] = array_flip($conf['file_ext']);
+  }
+
+  $fs['elements'] = array();
+  $fs['thumbnails'] = array();
+  $fs['representatives'] = array();
+  $subdirs = array();
+
+  if (is_dir($path))
+  {
+    if ($contents = opendir($path))
+    {
+      while (($node = readdir($contents)) !== false)
+      {
+        if (is_file($path.'/'.$node))
+        {
+          $extension = get_extension($node);
+          
+//          if (in_array($extension, $conf['picture_ext']))
+          if (isset($conf['flip_picture_ext'][$extension]))
+          {
+            if (basename($path) == 'thumbnail')
+            {
+              array_push($fs['thumbnails'], $path.'/'.$node);
+            }
+            else if (basename($path) == 'pwg_representative')
+            {
+              array_push($fs['representatives'], $path.'/'.$node);
+            }
+            else
+            {
+              array_push($fs['elements'], $path.'/'.$node);
+            }
+          }
+//          else if (in_array($extension, $conf['file_ext']))
+          else if (isset($conf['flip_file_ext'][$extension]))
+          {
+            array_push($fs['elements'], $path.'/'.$node);
+          }
+        }
+        else if (is_dir($path.'/'.$node)
+                 and $node != '.'
+                 and $node != '..'
+                 and $node != 'pwg_high'
+                 and $recursive)
+        {
+          array_push($subdirs, $node);
+        }
+      }
+    }
+    closedir($contents);
+
+    foreach ($subdirs as $subdir)
+    {
+      $tmp_fs = get_fs($path.'/'.$subdir);
+
+      $fs['elements']        = array_merge($fs['elements'],
+                                           $tmp_fs['elements']);
+      
+      $fs['thumbnails']      = array_merge($fs['thumbnails'],
+                                           $tmp_fs['thumbnails']);
+      
+      $fs['representatives'] = array_merge($fs['representatives'],
+                                           $tmp_fs['representatives']);
+    }
+  }
+  return $fs;
 }
 ?>

@@ -714,7 +714,7 @@ SELECT COUNT(1) AS count
   }
   else
   {
-    $page['title'] = $lang['diapo_default_page_title'];
+    $page['title'] = $lang['no_category'];
   }
   pwg_debug( 'end initialize_category' );
 }
@@ -763,10 +763,10 @@ function display_select_cat_wrapper($query, $selecteds, $blockname,
   $categories = array();
   if (!empty($result))
   {
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($categories, $row);
-  }
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push($categories, $row);
+    }
   }
   usort($categories, 'global_rank_compare');
   display_select_categories($categories, $selecteds, $blockname, $fullname);

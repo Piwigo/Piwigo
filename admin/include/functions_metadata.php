@@ -132,26 +132,11 @@ function update_metadata($files)
  */
 function get_filelist($category_id = '', $recursive = false, $only_new = false)
 {
-  $files = array();
-
-  $query = '
-SELECT id, dir
-  FROM '.CATEGORIES_TABLE.'
-  WHERE dir IS NOT NULL
-;';
-  $result = pwg_query($query);
-  $cat_dirs = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    $cat_dirs[$row['id']] = $row['dir'];
-  }
-
-  // filling $uppercats_array : to each category id the uppercats list is
-  // associated
-  $uppercats_array = array();
+  // filling $cat_ids : all categories required
+  $cat_ids = array();
   
   $query = '
-SELECT id, uppercats
+SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE site_id = 1
     AND dir IS NOT NULL';
@@ -175,37 +160,20 @@ SELECT id, uppercats
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $uppercats_array[$row['id']] =  $row['uppercats'];
+    array_push($cat_ids, $row['id']);
   }
 
-  if (count($uppercats_array) == 0)
+  if (count($cat_ids) == 0)
   {
     return array();
   }
 
-  $query = '
-SELECT galleries_url
-  FROM '.SITES_TABLE.'
-  WHERE id = 1
-';
-  $row = mysql_fetch_array(pwg_query($query));
-  $basedir = $row['galleries_url'];
-  
-  // filling $cat_fulldirs
-  $cat_fulldirs = array();
-  foreach ($uppercats_array as $cat_id => $uppercats)
-  {
-    $uppercats = str_replace(',', '/', $uppercats);
-    $cat_fulldirs[$cat_id] = $basedir.preg_replace('/(\d+)/e',
-                                                   "\$cat_dirs['$1']",
-                                                   $uppercats);
-  }
+  $files = array();
 
   $query = '
-SELECT id, file, storage_category_id
+SELECT id, path
   FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id IN ('.implode(','
-                                          ,array_keys($uppercats_array)).')';
+  WHERE storage_category_id IN ('.implode(',', $cat_ids).')';
   if ($only_new)
   {
     $query.= '
@@ -217,8 +185,7 @@ SELECT id, file, storage_category_id
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $files[$row['id']]
-      = $cat_fulldirs[$row['storage_category_id']].'/'.$row['file'];
+    $files[$row['id']] = $row['path'];
   }
   
   return $files;

@@ -44,7 +44,7 @@ $template->assign_vars(array(
   'L_UPDATE_USERNAME'=>$lang['Look_up_user'],
   'L_CLOSE_WINDOW'=>$lang['Close'],
 
-  'F_SEARCH_ACTION' => add_session_id($PHP_SELF),
+  'F_SEARCH_ACTION' => add_session_id($_SERVER['PHP_SELF']),
   ));
 
 //----------------------------------------------------------------- form action

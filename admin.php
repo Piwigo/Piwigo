@@ -246,4 +246,12 @@ else
 }
 $template->pparse('admin');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
+// +-----------------------------------------------------------------------+
+// |                     order permission refreshment                      |
+// +-----------------------------------------------------------------------+
+$query = '
+UPDATE '.USER_FORBIDDEN_TABLE.'
+  SET need_update = \'true\'
+;';
+pwg_query($query);
 ?>
