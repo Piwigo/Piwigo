@@ -30,6 +30,7 @@ if ( isset( $_GET['language'] ) )
 {
   $isadmin = true;
   $lang = array();
+  error_reporting( E_ALL ^ E_NOTICE );
   include( '../language/'.$_GET['language'].'.php' );
   $tpl = array( 'step1_err_copy', 'step1_err_copy_2', 'step1_err_copy_next',
                 'errors_title', 'step1_title','step1_host','step1_host_info',
