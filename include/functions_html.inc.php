@@ -150,24 +150,42 @@ function style_select($default_style, $select_name = "style")
 // You can give this parameters :
 //   - $style : the style of the span tag for the lowest category,
 //     "font-style:italic;" for example
-function get_cat_display_name( $cat_informations, $separator, 
-  $url = 'category.php?cat=', $replace_space = true)
+function get_cat_display_name($cat_informations,
+                              $separator, 
+                              $url = 'category.php?cat=',
+                              $replace_space = true)
 {
   $output = '';
-  $i=0;
-  while ( list ($id, $name) = each($cat_informations)) 
+  $is_first = true;
+  foreach ($cat_informations as $id => $name)
   {
-    if ( $i )  $output.= $separator;
-	$i++;
-	if (empty($style) && empty($url) || ($i == count( $cat_informations))) 
-	  $output.= $name;
-    elseif (!empty($url))
-      $output.= '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">'.$name."</a>";
-	else
-      $output.= '<span style="'.$style.'">'.$name.'</span>';
+    if ($is_first)
+    {
+      $is_first = false;
+    }
+    else
+    {
+      $output.= $separator;
+    }
+
+    if ($url == '')
+    {
+      $output.= $name;
+    }
+    else
+    {
+      $output.= '
+<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">'.$name.'</a>';
+    }
   }
-  if ( $replace_space ) return replace_space( $output );
-  else                  return $output;
+  if ($replace_space)
+  {
+    return replace_space($output);
+  }
+  else
+  {
+    return $output;
+  }
 }
 
 /**
