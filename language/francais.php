@@ -478,6 +478,7 @@ if ( $isadmin )
   $lang['permuser_forbidden'] = 'interdit';
   $lang['permuser_parent_forbidden'] = 'catégorie parente interdite';
 // start version 1.3
+  $lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
 // $lang['permuser_cat_title'] = 'Modifier les permissions pour ';
 // end version 1.3
 		

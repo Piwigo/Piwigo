@@ -587,5 +587,6 @@ Once this file deleted , follow this instructions :
   $lang['help_access'][2] = '2. On the page of permissions (for a group or a user) the private category will be shown and you\'ll be able to authorize access or not.';
   $lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
   $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
+  $lang['permuser_only_private'] = 'Only private categories are shown';
 }
 ?>

@@ -1,6 +1,9 @@
 <!--VTP_confirmation-->
 <div class="info">{#permuser_info_message} [ <a href="{#back_url}">{#adduser_info_back}</a> ]</div>
 <!--/VTP_confirmation-->
+
+<div class="info">{#permuser_only_private}</div>
+
 <form action="{#action}" method="post">
   <table style="width:100%;">
     <!--VTP_category-->
