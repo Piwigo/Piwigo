@@ -410,7 +410,8 @@ function initialize_category( $calling_page = 'category' )
           $tokens = explode(',', $tokens[0]);
           foreach ($tokens as $token)
           {
-            array_push($search['fields'][$field_name]['words'], $token);
+            array_push($search['fields'][$field_name]['words'],
+                       htmlentities($token));
           }
         }
         
