@@ -25,37 +25,38 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if( !defined("PHPWG_ROOT_PATH") )
+if(!defined("PHPWG_ROOT_PATH"))
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
 }
-include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-//-------------------------------------------------------------- initialization
-$page['nb_image_page'] = 5;
-
-check_cat_id( $_GET['cat_id'] );
-
+include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+// +-----------------------------------------------------------------------+
+// |                             initialization                            |
+// +-----------------------------------------------------------------------+
+check_cat_id($_GET['cat_id']);
 $errors = array();
 
-if ( isset( $page['cat'] ) )
+if (isset($page['cat']))
 {
-//--------------------------------------------------- update individual options
-  if ( isset( $_POST['submit'] ) )
+// +-----------------------------------------------------------------------+
+// |                       update individual options                       |
+// +-----------------------------------------------------------------------+
+  if (isset($_POST['submit']))
   {
-    if ( isset( $_POST['associate'] ) and $_POST['associate'] != '' )
+    if (isset($_POST['associate']) and $_POST['associate'] != '')
     {
       // does the uppercat id exists in the database ?
-      if ( !is_numeric( $_POST['associate'] ) )
+      if (!is_numeric($_POST['associate']))
       {
-        array_push( $errors, $lang['cat_unknown_id'] );
+        array_push($errors, $lang['cat_unknown_id']);
       }
       else
       {
         $query = 'SELECT id FROM '.CATEGORIES_TABLE;
         $query.= ' WHERE id = '.$_POST['associate'];
         $query.= ';';
-        if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
-          array_push( $errors, $lang['cat_unknown_id'] );
+        if (mysql_num_rows(mysql_query($query)) == 0)
+          array_push($errors, $lang['cat_unknown_id']);
       }
     }
 
@@ -65,98 +66,100 @@ if ( isset( $page['cat'] ) )
     $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
     $query.= ';';
-    $result = mysql_query( $query );
-    while ( $row = mysql_fetch_array( $result ) )
+    $result = mysql_query($query);
+    while ($row = mysql_fetch_array($result))
     {
       $name          = 'name-'.$row['id'];
       $author        = 'author-'.$row['id'];
       $comment       = 'comment-'.$row['id'];
       $date_creation = 'date_creation-'.$row['id'];
       $keywords      = 'keywords-'.$row['id'];
-      if ( isset( $_POST[$name] ) )
+      if (isset($_POST[$name]))
       {
         $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
-        if ( $_POST[$name] == '' )
+        if ($_POST[$name] == '')
           $query.= 'NULL';
         else
-          $query.= "'".htmlentities( $_POST[$name], ENT_QUOTES )."'";
+          $query.= "'".htmlentities($_POST[$name], ENT_QUOTES)."'";
 
         $query.= ', author = ';
-        if ( $_POST[$author] == '' )
+        if ($_POST[$author] == '')
           $query.= 'NULL';
         else
           $query.= "'".htmlentities($_POST[$author],ENT_QUOTES)."'";
 
         $query.= ', comment = ';
-        if ( $_POST[$comment] == '' )
+        if ($_POST[$comment] == '')
           $query.= 'NULL';
         else
           $query.= "'".htmlentities($_POST[$comment],ENT_QUOTES)."'";
 
         $query.= ', date_creation = ';
-        if ( check_date_format( $_POST[$date_creation] ) )
-          $query.= "'".date_convert( $_POST[$date_creation] )."'";
-        else if ( $_POST[$date_creation] == '' )
+        if (check_date_format($_POST[$date_creation]))
+          $query.= "'".date_convert($_POST[$date_creation])."'";
+        else if ($_POST[$date_creation] == '')
           $query.= 'NULL';
 
         $query.= ', keywords = ';
 
-        $keywords_array = get_keywords( $_POST[$keywords] );
-        if ( count( $keywords_array ) == 0 ) $query.= 'NULL';
-        else $query.= "'".implode( ',', $keywords_array )."'";
+        $keywords_array = get_keywords($_POST[$keywords]);
+        if (count($keywords_array) == 0) $query.= 'NULL';
+        else $query.= "'".implode(',', $keywords_array)."'";
 
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query( $query );
+        mysql_query($query);
       }
       // add link to another category
-      if ( isset( $_POST['check-'.$row['id']] ) and count( $errors ) == 0 )
+      if (isset($_POST['check-'.$row['id']]) and count($errors) == 0)
       {
         $query = 'INSERT INTO '.IMAGE_CATEGORY_TABLE;
         $query.= ' (image_id,category_id) VALUES';
         $query.= ' ('.$row['id'].','.$_POST['associate'].')';
         $query.= ';';
-        mysql_query( $query );
+        mysql_query($query);
         $associate = true;
       }
     }
-    if ( isset( $_POST['associate'] )) update_category( $_POST['associate'] );
-    if ( $associate ) synchronize_all_users();
-//------------------------------------------------------ update general options
-    if ( isset( $_POST['use_common_author'] ) )
+    if (isset($_POST['associate'])) update_category($_POST['associate']);
+    if ($associate) synchronize_all_users();
+// +-----------------------------------------------------------------------+
+// |                        update general options                         |
+// +-----------------------------------------------------------------------+
+    if (isset($_POST['use_common_author']))
     {
       $query = 'SELECT image_id FROM '.IMAGE_CATEGORY_TABLE;
       $query.= ' WHERE category_id = '.$page['cat'];
-      $result = mysql_query( $query );
-      while ( $row = mysql_fetch_array( $result ) )
+      $result = mysql_query($query);
+      while ($row = mysql_fetch_array($result))
       {
         $query = 'UPDATE '.IMAGES_TABLE;
-        if ( $_POST['author_cat'] == '' )
+        if ($_POST['author_cat'] == '')
         {
           $query.= ' SET author = NULL';
         }
         else
         {
           $query.= ' SET author = ';
-          $query.= "'".htmlentities( $_POST['author_cat'], ENT_QUOTES )."'";
+          $query.= "'".htmlentities($_POST['author_cat'], ENT_QUOTES)."'";
         }
         $query.= ' WHERE id = '.$row['image_id'];
         $query.= ';';
-        mysql_query( $query );
+        mysql_query($query);
       }
     }
-    if ( isset( $_POST['use_common_date_creation'] ) )
+    if (isset($_POST['use_common_date_creation']))
     {
-      if ( check_date_format( $_POST['date_creation_cat'] ) )
+      if (check_date_format($_POST['date_creation_cat']))
       {
-        $date = date_convert( $_POST['date_creation_cat'] );
+        $date = date_convert($_POST['date_creation_cat']);
         $query = 'SELECT image_id FROM '.IMAGE_CATEGORY_TABLE;
         $query.= ' WHERE category_id = '.$page['cat'];
-        $result = mysql_query( $query );
-        while ( $row = mysql_fetch_array( $result ) )
+        $result = mysql_query($query);
+        while ($row = mysql_fetch_array($result))
         {
           $query = 'UPDATE '.IMAGES_TABLE;
-          if ( $_POST['date_creation_cat'] == '' )
+          if ($_POST['date_creation_cat'] == '')
           {
             $query.= ' SET date_creation = NULL';
           }
@@ -166,44 +169,44 @@ if ( isset( $page['cat'] ) )
           }
           $query.= ' WHERE id = '.$row['image_id'];
           $query.= ';';
-          mysql_query( $query );
+          mysql_query($query);
         }
       }
       else
       {
-        array_push( $errors, $lang['err_date'] );
+        array_push($errors, $lang['err_date']);
       }
     }
-    if ( isset( $_POST['common_keywords'] ) and $_POST['keywords_cat'] != '' )
+    if (isset($_POST['common_keywords']) and $_POST['keywords_cat'] != '')
     {
       $query = 'SELECT id,keywords FROM '.IMAGES_TABLE;
       $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
       $query.= ' WHERE category_id = '.$page['cat'];
       $query.= ';';
-      $result = mysql_query( $query );
-      while ( $row = mysql_fetch_array( $result ) )
+      $result = mysql_query($query);
+      while ($row = mysql_fetch_array($result))
       {
-        if ( !isset( $row['keywords'] ) ) $specific_keywords = array();
-        else $specific_keywords = explode( ',', $row['keywords'] );
+        if (!isset($row['keywords'])) $specific_keywords = array();
+        else $specific_keywords = explode(',', $row['keywords']);
         
-        $common_keywords   = get_keywords( $_POST['keywords_cat'] );
+        $common_keywords   = get_keywords($_POST['keywords_cat']);
         // first possiblity : adding the given keywords to all the pictures
-        if ( $_POST['common_keywords'] == 'add' )
+        if ($_POST['common_keywords'] == 'add')
         {
-          $keywords = array_merge( $specific_keywords, $common_keywords );
-          $keywords = array_unique( $keywords );
+          $keywords = array_merge($specific_keywords, $common_keywords);
+          $keywords = array_unique($keywords);
         }
         // second possiblity : removing the given keywords from all pictures
         // (without deleting the other specific keywords
-        if ( $_POST['common_keywords'] == 'remove' )
+        if ($_POST['common_keywords'] == 'remove')
         {
-          $keywords = array_diff( $specific_keywords, $common_keywords );
+          $keywords = array_diff($specific_keywords, $common_keywords);
         }
         // cleaning the keywords array, sometimes, an empty value still remain
-        $keywords = array_remove( $keywords, '' );
+        $keywords = array_remove($keywords, '');
         // updating the picture with new keywords array
         $query = 'UPDATE '.IMAGES_TABLE.' SET keywords = ';
-        if ( count( $keywords ) == 0 )
+        if (count($keywords) == 0)
         {
           $query.= 'NULL';
         }
@@ -211,22 +214,24 @@ if ( isset( $page['cat'] ) )
         {
           $query.= '"';
           $i = 0;
-          foreach ( $keywords as $keyword ) {
-            if ( $i++ > 0 ) $query.= ',';
+          foreach ($keywords as $keyword) {
+            if ($i++ > 0) $query.= ',';
             $query.= $keyword;
           }
           $query.= '"';
         }
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query( $query );
+        mysql_query($query);
       }
     }
   }
-//--------------------------------------------------------- form initialization
-  if( !isset( $_GET['start'] )
-      || !is_numeric( $_GET['start'] )
-      || ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
+// +-----------------------------------------------------------------------+
+// |                           form initialization                         |
+// +-----------------------------------------------------------------------+
+  if (!isset($_GET['start'])
+      or !is_numeric($_GET['start'])
+      or (is_numeric($_GET['start']) and $_GET['start'] < 0))
   {
     $page['start'] = 0;
   }
@@ -235,10 +240,10 @@ if ( isset( $page['cat'] ) )
     $page['start'] = $_GET['start'];
   }
 
-  if ( isset($_GET['num']) and is_numeric($_GET['num']) and $_GET['num'] >= 0 )
+  if (isset($_GET['num']) and is_numeric($_GET['num']) and $_GET['num'] >= 0)
   {
-    $page['start'] =
-      floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
+    $max = $conf['info_nb_elements_page'];
+    $page['start'] = floor($_GET['num'] / $max) * $max;
   }
   // Navigation path
   $current_category = get_cat_info($_GET['cat_id']);
@@ -246,81 +251,110 @@ if ( isset( $page['cat'] ) )
   $category_path = get_cat_display_name($current_category['name'], '-&gt;', $url);
   
   $form_action = PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id='.$_GET['cat_id'];
-  if( $page['start'])
+  if($page['start'])
   {
     $form_action.= '&amp;start='.$_GET['start'];
   }
   
-  $nav_bar = create_navigation_bar(
-    $form_action, $current_category['nb_images'],$page['start'], $page['nb_image_page'], '' );
-	
-//----------------------------------------------------- template initialization
-$template->set_filenames( array('infos_images'=>'admin/infos_images.tpl') );
-$template->assign_vars(array(
-  'CATEGORY'=>$category_path,
-  'NAV_BAR'=>$nav_bar,
-  
-  'L_INFOS_TITLE'=>$lang['infoimage_general'],
-  'L_AUTHOR'=>$lang['author'],
-  'L_INFOS_OVERALL_USE'=>$lang['infoimage_useforall'],
-  'L_INFOS_CREATION_DATE'=>$lang['infoimage_creation_date'],
-  'L_KEYWORD'=>$lang['keywords'],
-  'L_KEYWORD_SEPARATION'=>$lang['infoimage_keyword_separation'],
-  'L_INFOS_ADDTOALL'=>$lang['infoimage_addtoall'],
-  'L_INFOS_REMOVEFROMALL'=>$lang['infoimage_removefromall'],
-  'L_INFOS_DETAIL'=>$lang['infoimage_detailed'],
-  'L_THUMBNAIL'=>$lang['thumbnail'],
-  'L_INFOS_IMG'=>$lang['infoimage_title'],
-  'L_INFOS_COMMENT'=>$lang['comment'],
-  'L_INFOS_ASSOCIATE'=>$lang['infoimage_associate'],
-  'L_SUBMIT'=>$lang['submit'],
-  
-  'F_ACTION'=>add_session_id($form_action)
-  ));
-  
-//-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
-{
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  $nav_bar = create_navigation_bar($form_action,
+                                   $current_category['nb_images'],
+                                   $page['start'],
+                                   $conf['info_nb_elements_page'],
+                                   '');
+// +-----------------------------------------------------------------------+
+// |                         template initialization                       |
+// +-----------------------------------------------------------------------+
+  $template->set_filenames(array('infos_images'=>'admin/infos_images.tpl'));
+  $template->assign_vars(
+    array(
+      'CATEGORY'=>$category_path,
+      'NAV_BAR'=>$nav_bar,
+      
+      'L_INFOS_TITLE'=>$lang['infoimage_general'],
+      'L_AUTHOR'=>$lang['author'],
+      'L_INFOS_OVERALL_USE'=>$lang['infoimage_useforall'],
+      'L_INFOS_CREATION_DATE'=>$lang['infoimage_creation_date'],
+      'L_KEYWORD'=>$lang['keywords'],
+      'L_KEYWORD_SEPARATION'=>$lang['infoimage_keyword_separation'],
+      'L_INFOS_ADDTOALL'=>$lang['infoimage_addtoall'],
+      'L_INFOS_REMOVEFROMALL'=>$lang['infoimage_removefromall'],
+      'L_INFOS_DETAIL'=>$lang['infoimage_detailed'],
+      'L_THUMBNAIL'=>$lang['thumbnail'],
+      'L_INFOS_IMG'=>$lang['infoimage_title'],
+      'L_INFOS_COMMENT'=>$lang['comment'],
+      'L_INFOS_ASSOCIATE'=>$lang['infoimage_associate'],
+      'L_SUBMIT'=>$lang['submit'],
+      
+      'F_ACTION'=>add_session_id($form_action)
+      ));
+// +-----------------------------------------------------------------------+
+// |                            errors display                             |
+// +-----------------------------------------------------------------------+
+  if (count($errors) != 0)
   {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
+    $template->assign_block_vars('errors',array());
+    foreach ($errors as $error)
+    {
+      $template->assign_block_vars('errors.error',array('ERROR'=>$error));
+    }
   }
-}
-//------------------------------------------------------------------------ form
-
+// +-----------------------------------------------------------------------+
+// |                                 form                                  |
+// +-----------------------------------------------------------------------+
   $array_cat_directories = array();
- 
-  $query = 'SELECT * FROM '.IMAGES_TABLE;
-  $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
-  $query.= ' WHERE category_id = '.$page['cat'];
-  $query.= $conf['order_by'];
-  $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+
+  $pic_mod_base_url = PHPWG_ROOT_PATH.'admin.php';
+  $pic_mod_base_url = '?page=picture_modify&amp;image_id=';
+  
+  $query = '
+SELECT *
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE category_id = '.$page['cat'].'
+  '.$conf['order_by'].'
+  LIMIT '.$page['start'].','.$conf['info_nb_elements_page'].'
+;';
+  $result = mysql_query($query);
+  while ($row = mysql_fetch_array($result))
   {
-	if ( !isset( $array_cat_directories[$row['storage_category_id']] ) )
+    if (!isset($array_cat_directories[$row['storage_category_id']]))
     {
       $array_cat_directories[$row['storage_category_id']] =
-        get_complete_dir( $row['storage_category_id'] );
+        get_complete_dir($row['storage_category_id']);
     }
     $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
     $thumbnail_url.= 'thumbnail/';
-    $thumbnail_url.= $conf['prefix_thumbnail'].get_filename_wo_extension( $row['file'] ).".".$row['tn_ext'];
-	
-    $template->assign_block_vars('picture' ,array(
-	  'ID_IMG'=>$row['id'],
-	  'URL_IMG'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=picture_modify&amp;image_id='.$row['id'] ),
-	  'TN_URL_IMG'=>$thumbnail_url,
-	  'FILENAME_IMG'=>$row['file'],
-	  'DEFAULTNAME_IMG'=>get_filename_wo_extension( $row['file'] ),
-	  'NAME_IMG'=>$row['name'],
-	  'AUTHOR_IMG'=>$row['author'],
-	  'DATE_IMG'=>date_convert_back( $row['date_creation'] ),
-	  'KEYWORDS_IMG'=>$row['keywords'],
-	  'COMMENT_IMG'=>$row['comment']
-	  ));
+    $thumbnail_url.= $conf['prefix_thumbnail'];
+    $thumbnail_url.= get_filename_wo_extension($row['file']);
+    $thumbnail_url.= '.'.$row['tn_ext'];
+
+    // some fields are nullable in the images table
+    $nullables = array('name','author','keywords','date_creation','comment');
+    foreach ($nullables as $field)
+    {
+      if (isset($row[$field]))
+      {
+        $$field = $row[$field];
+      }
+      else
+      {
+        $$field = '';
+      }
+    }
+
+    $template->assign_block_vars(
+      'picture',
+      array(
+        'ID_IMG'=>$row['id'],
+        'URL_IMG'=>add_session_id($pic_mod_base_url.$row['id']),
+        'TN_URL_IMG'=>$thumbnail_url,
+        'FILENAME_IMG'=>$row['file'],
+        'DEFAULTNAME_IMG'=>get_filename_wo_extension($row['file']),
+        'NAME_IMG'=>$name,
+        'DATE_IMG'=>date_convert_back($date_creation),
+        'AUTHOR_IMG'=>$author,
+        'KEYWORDS_IMG'=>$keywords,
+        'COMMENT_IMG'=>$comment
+       ));
   }
   
   // Virtualy associate a picture to a category
@@ -329,21 +363,21 @@ if ( sizeof( $errors ) != 0 )
   // $conf['max_LOV_categories']
   $query = 'SELECT COUNT(id) AS nb_total_categories';
   $query.= ' FROM '.CATEGORIES_TABLE.';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+  $row = mysql_fetch_array(mysql_query($query));
+  if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
   {
-    /*$vtp->addSession( $sub, 'associate_LOV' );
-    $page['plain_structure'] = get_plain_structure( true );
-    $structure = create_structure( '', array() );
-    display_categories( $structure, '&nbsp;' );
-    $vtp->closeSession( $sub, 'associate_LOV' );*/
+    /*$vtp->addSession($sub, 'associate_LOV');
+    $page['plain_structure'] = get_plain_structure(true);
+    $structure = create_structure('', array());
+    display_categories($structure, '&nbsp;');
+    $vtp->closeSession($sub, 'associate_LOV');*/
   }
   // else, we only display a small text field, we suppose the administrator
   // knows the id of its category
   else
   {
-    //$vtp->addSession( $sub, 'associate_text' );
-    //$vtp->closeSession( $sub, 'associate_text' );
+    //$vtp->addSession($sub, 'associate_text');
+    //$vtp->closeSession($sub, 'associate_text');
   }
 }
 //----------------------------------------------------------- sending html code
