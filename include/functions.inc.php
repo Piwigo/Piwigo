@@ -408,7 +408,7 @@ function notify( $type, $infos = '' )
 {
   global $conf;
 
-  $headers = 'From: '.$conf['webmaster'].' <'.$conf['mail_webmaster'].'>'."\n";
+  $headers = 'From: <'.$conf['mail_webmaster'].'>'."\n";
   $headers.= 'Reply-To: '.$conf['mail_webmaster']."\n";
   $headers.= 'X-Mailer: PhpWebGallery, PHP '.phpversion();
 
@@ -439,7 +439,7 @@ function notify( $type, $infos = '' )
     $infos = str_replace( '&nbsp;',  ' ', $infos );
     $infos = str_replace( '&minus;', '-', $infos );
     $content.= "\n\n".$infos;
-    $content.= "\n\n-- \nPhpWebGallery ".$conf['version'];
+    $content.= "\n\n-- \nPhpWebGallery ".PHPWG_VERSION;
     $content = wordwrap( $content, 72 );
     @mail( $to, $subject, $content, $headers, $options );
   }
