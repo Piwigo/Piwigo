@@ -807,11 +807,6 @@ function synchronize()
 {
   global $user_restrictions,$page,$values;
 
-  if ( !isset( $page['plain_structure'] ) )
-    $page['plain_structure'] = get_plain_structure();
-  if ( !isset( $page['structure'] ) )
-    $page['structure']       = create_structure( '' );
-  
   update_user_category( $page['structure'] );
 
   // cleaning user_category table for users to update
@@ -840,7 +835,10 @@ function synchronize()
  */
 function synchronize_all_users()
 {
-  global $user_restrictions;
+  global $user_restrictions,$page;
+
+  $page['plain_structure'] = get_plain_structure();
+  $page['structure']       = create_structure( '' );
   
   $user_restrictions = array();
   
@@ -866,8 +864,11 @@ function synchronize_all_users()
  */
 function synchronize_user( $user_id )
 {
-  global $user_restrictions;
+  global $user_restrictions,$page;
 
+  $page['plain_structure'] = get_plain_structure();
+  $page['structure']       = create_structure( '' );
+  
   $user_restrictions = array();
   $user_restrictions[$user_id] = update_user_restrictions( $user_id );
   synchronize();
@@ -883,8 +884,11 @@ function synchronize_user( $user_id )
  */
 function synchronize_group( $group_id )
 {
-  global $user_restrictions;
+  global $user_restrictions,$page;
 
+  $page['plain_structure'] = get_plain_structure();
+  $page['structure']       = create_structure( '' );
+  
   $user_restrictions = array();
   
   $query = 'SELECT id';
@@ -919,7 +923,7 @@ function update_user_restrictions( $user_id )
     $query.= "'".implode( ',', $restrictions )."'";
   else
     $query.= 'NULL';
-  $query .= ' WHERE id = $user_id';
+  $query .= ' WHERE id = '.$user_id;
   $query.= ';';
   mysql_query( $query );
 
@@ -944,8 +948,9 @@ function get_user_all_restrictions( $user_id )
   
   $base_restrictions=get_user_restrictions($user_id,$row['status'],true,true);
 
-  $restrictions = array();
+  $restrictions = $base_restrictions;
   foreach ( $base_restrictions as $category_id ) {
+    echo $category_id.' is forbidden to user '.$user_id.'<br />';
     $restrictions =
       array_merge( $restrictions,
                    $page['plain_structure'][$category_id]['all_subcats_ids'] );
