@@ -306,41 +306,47 @@ function count_user_total_images()
  */
 function get_cat_info( $id )
 {
-  $infos = array( 'nb_images','id_uppercat','comment','site_id','galleries_url'
-                  ,'dir','date_last','uploadable','status','visible'
-                  ,'representative_picture_id','uppercats','commentable' );
-
-  $query = 'SELECT '.implode( ',', $infos );
-  $query.= ' FROM '.CATEGORIES_TABLE.' AS a';
-  $query.= ', '.SITES_TABLE.' AS b';
-  $query.= ' WHERE a.id = '.$id;
-  $query.= ' AND a.site_id = b.id';
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
+  $infos = array('nb_images','id_uppercat','comment','site_id'
+                 ,'dir','date_last','uploadable','status','visible'
+                 ,'representative_picture_id','uppercats','commentable');
+  
+  $query = '
+SELECT '.implode(',', $infos).'
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$id.'
+;';
+  $row = mysql_fetch_array(pwg_query($query));
 
   $cat = array();
-  // affectation of each field of the table "config" to an information of the
-  // array $cat.
-  foreach ( $infos as $info ) {
-    if ( isset( $row[$info] ) ) $cat[$info] = $row[$info];
-    else                        $cat[$info] = '';
+  foreach ($infos as $info)
+  {
+    if (isset($row[$info]))
+    {
+      $cat[$info] = $row[$info];
+    }
+    else
+    {
+      $cat[$info] = '';
+    }
     // If the field is true or false, the variable is transformed into a
     // boolean value.
-    if ( $cat[$info] == 'true' or $cat[$info] == 'false' )
+    if ($cat[$info] == 'true' or $cat[$info] == 'false')
     {
       $cat[$info] = get_boolean( $cat[$info] );
     }
   }
-  $cat['comment'] = nl2br( $cat['comment'] );
+  $cat['comment'] = nl2br($cat['comment']);
 
   $cat['name'] = array();
 
-  $query = 'SELECT name,id FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE id IN ('.$cat['uppercats'].')';
-  $query.= ' ORDER BY id ASC';
-  $query.= ';';
-  $result = pwg_query( $query );
-  while( $row = mysql_fetch_array( $result ) )
+  $query = '
+SELECT name,id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.$cat['uppercats'].')
+  ORDER BY id ASC
+;';
+  $result = pwg_query($query);
+  while($row = mysql_fetch_array($result))
   {
     $cat['name'][$row['id']] = $row['name'];
   }
@@ -951,5 +957,38 @@ function display_select_categories($categories,
                                 $CSS_classes);
     }
   }
+}
+
+/**
+ * returns all subcategory identifiers of given category ids
+ *
+ * @param array ids
+ * @return array
+ */
+function get_subcat_ids($ids)
+{
+  $query = '
+SELECT DISTINCT(id)
+  FROM '.CATEGORIES_TABLE.'
+  WHERE ';
+  foreach ($ids as $num => $category_id)
+  {
+    if ($num > 0)
+    {
+      $query.= '
+    OR ';
+    }
+    $query.= 'uppercats REGEXP \'(^|,)'.$category_id.'(,|$)\'';
+  }
+  $query.= '
+;';
+  $result = pwg_query($query);
+
+  $subcats = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($subcats, $row['id']);
+  }
+  return $subcats;
 }
 ?>
