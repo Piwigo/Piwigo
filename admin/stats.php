@@ -89,12 +89,14 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
   {
     $vtp->addSession( $sub, 'expanded' );
     $vtp->closeSession( $sub, 'expanded' );
+    $vtp->setVar( $sub, 'day.open_or_close', $lang['close'] );
     $local_expand = array_remove( $local_expand, $i );
   }
   else
   {
     $vtp->addSession( $sub, 'collapsed' );
     $vtp->closeSession( $sub, 'collapsed' );
+    $vtp->setVar( $sub, 'day.open_or_close', $lang['open'] );
     array_push( $local_expand, $i );
   }
   $url = './admin.php?page=stats&amp;last_days='.$_GET['last_days'];

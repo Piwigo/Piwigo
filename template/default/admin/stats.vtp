@@ -65,6 +65,7 @@
     <td colspan="6">
       <a href="{#url}"><!--VTP_collapsed--><img src="../template/{#user_template}/admin/images/collapsed.gif" style="border:none;" /><!--/VTP_collapsed--><!--VTP_expanded--><img src="../template/{#user_template}/admin/images/expanded.gif" style="border:none;" /><!--/VTP_expanded--></a>
       <span style="font-weight:bold;">{#name}</span> [ {#nb_pages} {#stats_pages_seen} - {#nb_visitors} {#stats_visitors} ]
+      [ <a href="{#url}">{#open_or_close}</a> ]
     </td>
   </tr>
   <!--VTP_line-->
