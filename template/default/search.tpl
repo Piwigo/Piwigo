@@ -17,7 +17,7 @@
   <tr> 
     <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b><br /><span class="small">{L_SEARCH_KEYWORDS_HINT}</span></td>
     <td colspan="2" valign="top">
-	  <input type="text" style="width: 300px" name="search_keywords" size="30" />
+	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
 	  <br />
 	  <input type="radio" name="mode" value="AND" checked="checked" /> {L_SEARCH_ALL_TERMS}<br />
 	  <input type="radio" name="mode" value="OR" /> {L_SEARCH_ANY_TERMS}
@@ -34,11 +34,12 @@
     <td colspan="2" valign="middle">
 	<table><tr><td>
 	  {L_SEARCH_DATE_FROM} :</td><td>
-	  {S_CALENDAR_DAY}{S_CALENDAR_MONTH}{S_CALENDAR_YEAR}&nbsp;
+	  {S_CALENDAR_DAY}&nbsp;{S_CALENDAR_MONTH}&nbsp;<input name="start_year" type="text" size="4" maxlength="4">&nbsp;
 	  <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{L_TODAY}</a>
 	  </tr><tr><td>
-	  {L_SEARCH_DURATION} : </td><td>
-	  <input name="duration_day" type="post" maxlength="5" size="3" value="{DURATION_DAY}" />&nbsp;{L_DAYS}
+	  {L_SEARCH_DATE_TO} :</td><td>
+	  {E_CALENDAR_DAY}&nbsp;{E_CALENDAR_MONTH}&nbsp;<input name="end_year" type="text" size="4" maxlength="4">&nbsp;
+	  <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{L_TODAY}</a>
 	  </td></tr></table>
 	</td>
   </tr>
@@ -63,8 +64,8 @@
    <tr> 
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_DATE_TYPE} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="date_type" value="date_creation" />{L_SEARCH_CREATION}<br />
-	  <input type="radio" name="date_type" value="date_available" checked="checked" />{L_SEARCH_AVAILABILITY}
+	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{L_SEARCH_CREATION}<br />
+	  <input type="radio" name="date_type" value="date_available" />{L_SEARCH_AVAILABILITY}
 	</td>
 	<td><b>{L_RESULT_SORT} : </b></td>
     <td nowrap="nowrap">

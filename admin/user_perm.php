@@ -86,7 +86,7 @@ function username_search($search_match)
     'L_UPDATE_USERNAME' => $lang['Select_username'], 
     'L_SELECT' => $lang['Select'], 
     'L_SEARCH' => $lang['Search'], 
-    'L_SEARCH_EXPLAIN' => $lang['Search_author_explain'], 
+    'L_SEARCH_EXPLAIN' => $lang['search_explain'], 
     'L_CLOSE_WINDOW' => $lang['Close_window'], 
 
     'S_USERNAME_OPTIONS' => $username_list, 

@@ -35,11 +35,11 @@ $errors = array();
 $search = array();
 if (isset($_POST['submit']))
 {
-  if ($_POST['search_keywords'] &&
-   !preg_match('/^\s*$/', $_POST['search_keywords']))
+  if ($_POST['search_allwords'] &&
+   !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
     $local_search = array();
-	$search_keywords = $_POST['search_keywords'];
+	$search_keywords = $_POST['search_allwords'];
 	$drop_char_match =   array('-', '^', '$', ';', '#', '&', '(', ')', '<', '>',
 	  '`', '\'', '"', '|', ',', '@', '_', '?', '%', '~', '.', '[', ']', '{', '}', 
 	  ':', '\\', '/', '=', '\'', '!', '*');
@@ -51,9 +51,9 @@ if (isset($_POST['submit']))
 	// Split words
 	$words = preg_split('#\s+#', $search_keywords);
     $words = array_unique($words);
-	$search['fields']['keywords'] = array();
-	$search['fields']['keywords']['words'] =$words;
-	$search['fields']['keywords']['mode']= $_POST['mode'];
+	$search['fields']['allwords'] = array();
+	$search['fields']['allwords']['words'] =$words;
+	$search['fields']['allwords']['mode']= $_POST['mode'];
   }
   
   if ($_POST['search_author'])
@@ -82,9 +82,10 @@ if (isset($_POST['submit']))
   
   // duration
   $search_duration = 0;
-  if ( !empty($date) && !empty( $_POST['duration_day']) )
+  if ( !empty($date) && !empty( $_POST['end_year']) )
   {
-	$search['fields'][$type_date]['mode'] =  $_POST['duration_day'];
+	$end_date = $_POST['end_year'].'.'.$_POST['end_month'].'.'.$_POST['end_day'];
+	$search['fields'][$type_date]['mode'] =  $end_date;
   }
  }
   // search string (for URL) creation
@@ -139,16 +140,22 @@ for ($i=1; $i <= 12; $i++)
 }
 $start_month .= '</select>';
 
-// year list
-$start_year = '<select name="start_year">';
-$start_year .= '<option value="0"> ---- </option>';
-$begin_year = date('Y', time())-10;
-for ($i = $begin_year; $i <= date('Y', time()); $i++)
+// day list
+$end_day = '<select name="end_day">';
+for ($i=0; $i <= 31; $i++)
 {
-	$start_year .= '<option value="' . $i . '">' . $i . '</option>';
+	$end_day .= '<option value="' . $i . '" >' . ( ($i == 0) ? ' -- ' : str_pad($i, 2, '0', STR_PAD_LEFT) ) . '</option>';
 }
-$start_year .= '</select>';
+$end_day .= '</select>';
 
+// month list
+$end_month = '<select name="end_month">';
+$end_month .= '<option value="0"> ------------ </option>';
+for ($i=1; $i <= 12; $i++)
+{
+	$end_month .= '<option value="' . $i . '">' . $lang['month'][$i] . '</option>';
+}
+$end_month .= '</select>';
 
 //
 // Start output of page
@@ -178,7 +185,7 @@ $template->assign_vars(array(
   'L_SEARCH_DATE_HINT' => $lang['search_date_hint'],
   'L_TODAY' => $lang['today'],
   'L_SEARCH_DATE_FROM'=>$lang['search_date_from'],
-  'L_SEARCH_DURATION'=>$lang['search_duration'],
+  'L_SEARCH_DATE_TO'=>$lang['search_date_to'],
   'L_DAYS'=>$lang['days'],
   'L_MONTH'=>$lang['w_month'],
   'L_SEARCH_DATE_TYPE'=>$lang['search_date_type'],
@@ -191,7 +198,8 @@ $template->assign_vars(array(
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
-  'S_CALENDAR_YEAR' => $start_year,
+  'E_CALENDAR_MONTH' => $end_month,
+	'E_CALENDAR_DAY' => $end_day,
   'S_CALENDAR_MONTH' => $start_month,
   'S_CALENDAR_DAY' => $start_day,
   'S_SEARCH_ACTION' => add_session_id( 'search.php' ),   

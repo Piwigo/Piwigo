@@ -39,7 +39,7 @@ $template->assign_vars(array(
   
   'L_SEARCH_USERNAME'=>$lang['Find_username'],
   'L_SEARCH'=>$lang['search'],
-  'L_SEARCH_EXPLAIN'=>$lang['Search_author_explain'],
+  'L_SEARCH_EXPLAIN'=>$lang['search_explain'],
   'L_SELECT'=>$lang['Select'],
   'L_UPDATE_USERNAME'=>$lang['Look_up_user'],
   'L_CLOSE_WINDOW'=>$lang['Close'],

@@ -143,8 +143,8 @@ $lang['maxheight_error'] = 'La hauteur maximum des images doit être un entier su
 // search
 $lang['search_title'] = 'Rechercher';
 $lang['search_options'] = 'Options de recherche';
-$lang['search_keywords'] = 'Recherche par mots-clés';
-$lang['search_keywords_hint'] = 'Vous pouvez utiliser <u>AND</u> pour déterminer les mots qui doivent être présents dans les résultats, <u>OR</u> pour déterminer les mots qui peuvent être présents dans les résultats et <u>NOT</u> pour déterminer les mots qui ne devraient pas être présents dans les résultats. Utilisez * comme un joker pour des recherches partielles';
+$lang['search_keywords'] = 'Recherche par mots';
+$lang['search_keywords_hint'] = 'Effectuez une recherche sur tous les champs des images présentes dans la galerie. Utilisez * comme un joker pour des recherches partielles';
 $lang['search_mode_or'] = 'Rechercher n\'importe quel de ces termes';
 $lang['search_mode_and'] = 'Rechercher tous les termes';
 $lang['search_author'] = 'Recherche par auteur';
@@ -153,9 +153,11 @@ $lang['search_subcats_included'] = 'Rechercher dans les sous-catégories';
 $lang['search_categories_hint'] = 'Sélectionnez le ou les catégorie(s) pour lesquelles vous souhaitez faire votre rechercher.';
 $lang['search_explain'] = 'Utilisez * comme un joker pour des recherches partielles';
 $lang['search_date'] = 'Rechercher par date';
-$lang['search_date_hint'] = 'Sélectionnez une date de début et une période pour vos recherches';
-$lang['search_date_from'] = 'A partir du';
-$lang['search_duration'] = 'Sur une période de';
+$lang['search_date_hint'] = 'Sélectionnez une date et une date de fin pour vos recherches.<br />
+Ne remplissez que la date de fin pour faire une recherche de type "avant".<br />
+L\'année doit être rentrée dans le dernier champ sous la forme 0000 (par exemple 2004).';
+$lang['search_date_from'] = 'Date';
+$lang['search_date_to'] = 'Date de fin';
 $lang['search_date_type'] = 'Type de date';
 $lang['search_date_available'] = 'Mise à disposition';
 $lang['search_date_creation'] = 'Création';
@@ -166,8 +168,6 @@ $lang['search_one_clause_at_least'] = 'Recherche vide. Aucun critère n\'a été re
 $lang['search_result'] = 'Résultats de la recherche';
 $lang['invalid_search'] = 'Les mots recherchés doivent comporter plus de 3 caractères et ne doivent pas inclure de caractères de ponctuation';
 
-$lang['search_field_search'] = 'Rechercher';
-$lang['Search_author_explain'] = 'Utilisez * comme un joker pour des recherches partielles';
 $lang['Look_up_user'] = 'Rechercher l\'utilisateur';
 $lang['Find_username'] = 'Trouver un nom d\'utilisateur';
 $lang['No_match'] = 'Aucun enregistrement trouvé.';

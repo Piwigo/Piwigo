@@ -141,8 +141,8 @@ $lang['create_cookie'] = 'Create a cookie';
 // search
 $lang['search_title'] = 'Search';
 $lang['search_options'] = 'Search Options';
-$lang['search_keywords'] = 'Search for Keywords';
-$lang['search_keywords_hint'] = 'Use + for words which must be found, - for words which must not be found and | for words which may or may not be found. Use * as a wildcard for partial matches';
+$lang['search_keywords'] = 'Search for words';
+$lang['search_keywords_hint'] = 'Search for entered words in all the attributes related to the pictures displayed in the gallery. Use * as a wildcard for partial matches';
 $lang['search_mode_or'] = 'Search for any terms';
 $lang['search_mode_and'] = 'Search for all terms ';
 $lang['search_author'] = 'Search for Author';
@@ -151,9 +151,11 @@ $lang['search_subcats_included'] = 'Search in subcategroies';
 $lang['search_categories_hint'] = 'Select the category or categories you wish to search in. For speed all subcategories can be searched by selecting the parent and setting enable search subcategories below.';
 $lang['search_explain'] = 'Use * as a wildcard for partial matches';
 $lang['search_date'] = 'Search by Date';
-$lang['search_date_hint'] = 'Select a date and a duration for your query. The date is inclusive.';
-$lang['search_date_from'] = 'From';
-$lang['search_duration'] = 'During';
+$lang['search_date_hint'] = 'Select a date and/or an ending date for your query.<br /> 
+Leave date empty if you want to make a "before" query.<br />
+The year must be entered in the last field in the following format : 0000 (i.e. 2004)';
+$lang['search_date_from'] = 'Date';
+$lang['search_date_to'] = 'End-Date';
 $lang['search_date_type'] = 'Kind of date';
 $lang['search_date_available'] = 'Availability';
 $lang['search_date_creation'] = 'Creation';
@@ -163,7 +165,6 @@ $lang['search_descending'] = 'Descending';
 $lang['search_one_clause_at_least'] = 'Empty query. No criteria has been entered.';
 $lang['search_result'] = 'Search results';
 
-$lang['Search_author_explain'] = 'Use * as a wildcard for partial matches';
 $lang['Look_up_user'] = 'Seek user';
 $lang['Find_username'] = 'Find a username';
 $lang['No_match'] = 'No match';
