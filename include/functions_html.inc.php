@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                         htmlfunctions.inc.php                         |
+// |                         functions_html.inc.php                        |
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
 // | branch        : BSF (Best So Far)                                     |
