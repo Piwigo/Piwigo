@@ -56,7 +56,7 @@ follow the directory tree of a very small gallery (but using many features)
 |   +-- category-2
 |       |-- piglet.gif
 |       |-- pwg_representative
-|       |   +-- video.avi
+|       |   +-- video.jpg
 |       |-- thumbnail
 |       |   +-- TN-piglet.jpg
 |       +-- video.avi

@@ -56,7 +56,7 @@ array(
 |   +-- categorie-2
 |       |-- porcinet.gif
 |       |-- pwg_representative
-|       |   +-- video.avi
+|       |   +-- video.jpg
 |       |-- thumbnail
 |       |   +-- TN-porcinet.jpg
 |       +-- video.avi
