@@ -87,12 +87,12 @@ function get_user_plain_structure()
   $query.= ' INNER JOIN '.USER_CATEGORY_TABLE.' AS uc';
   $query.= ' ON c.id = uc.category_id';
   $query.= ' WHERE user_id = '.$user['id'];
-  if ( $page['expand'] != 'all' )
+  if ( !$user['expand'] )
   {
     $query.= ' AND (id_uppercat is NULL';
     if ( count( $page['tab_expand'] ) > 0 )
     {
-      $query.= ' OR id_uppercat IN ('.$page['expand'].')';
+      $query.= ' OR id_uppercat IN ('.implode(',',$page['tab_expand']).')';
     }
     $query.= ')';
   }
@@ -174,7 +174,6 @@ function update_structure( $categories )
   foreach ( $categories as $category ) {
     // update the "expanded" key
     if ( $user['expand']
-         or $page['expand'] == 'all'
          or in_array( $category['id'], $page['tab_expand'] ) )
     {
       $category['expanded'] = true;
@@ -182,27 +181,6 @@ function update_structure( $categories )
     else
     {
       $category['expanded'] = false;
-    }
-    // update the "expand_string" key
-    if ( $page['expand'] == 'all' )
-    {
-      $category['expand_string'] = 'all';
-    }
-    else
-    {
-      $tab_expand = $page['tab_expand'];
-      if ( in_array( $category['id'], $page['tab_expand'] ) )
-      {
-        // the expand string corresponds to the $page['tab_expand'] without
-        // the $category['id']
-        $tab_expand = array_diff( $page['tab_expand'],array($category['id']) );
-      }
-      else if ( $category['nb_sub_categories'] > 0 )
-      {
-        // we have this time to add the $category['id']...
-        $tab_expand = array_merge($page['tab_expand'],array($category['id']));
-      }
-      $category['expand_string'] = implode( ',', $tab_expand );
     }
     // recursive call
     $category['subcats'] = update_structure( $category['subcats'] );
