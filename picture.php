@@ -148,7 +148,7 @@ foreach (array('prev', 'current', 'next') as $i)
   $icon = PHPWG_ROOT_PATH.'template/'.$user['template'].'/mimetypes/';
   $icon.= strtolower(get_extension($row['file'])).'.png';
 
-  if (isset($row['representative_ext']) and $row['representative_ext'] =! '')
+  if (isset($row['representative_ext']) and $row['representative_ext'] != '')
   {
     $picture[$i]['src'] = $cat_directory.'/pwg_representative/';
     $picture[$i]['src'].= $file_wo_ext.'.'.$row['representative_ext'];
