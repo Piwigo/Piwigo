@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <td>
-        <div style="margin-left:50px;">{#infoimage_keywords} {#infoimage_keyword_separation}</div>
+        <div style="margin-left:50px;">{#keywords} {#infoimage_keyword_separation}</div>
       </td>
       <td style="text-align:center;">
         <input type="text" name="keywords_cat" value="" maxlength="255" />
@@ -53,7 +53,7 @@
       <td class="row2" style="text-align:center;">{#author}</td>
       <td class="row2" style="text-align:center;">{#infoimage_comment}</td>
       <td class="row2" style="text-align:center;">{#infoimage_creation_date}</td>
-      <td class="row2" style="text-align:center;">{#infoimage_keywords}</td>
+      <td class="row2" style="text-align:center;">{#keywords}</td>
     </tr>
     <!--VTP_picture-->
     <tr>

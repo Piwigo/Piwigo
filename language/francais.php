@@ -28,6 +28,7 @@ $lang['picture'] = 'image';
 $lang['IP'] = 'IP';
 $lang['close'] = 'fermer';
 $lang['open'] = 'ouvrir';
+$lang['keywords'] = 'mots-clefs';
 // end version 1.3
 
 // page diapo
@@ -507,7 +508,6 @@ if ( $isadmin )
   // page info images
 // start version 1.3
   // $lang['infoimage_err_date'] = 'date erronée';
-  $lang['infoimage_keywords'] = 'mots-clefs';
   $lang['infoimage_keyword_separation'] = '(séparer avec des ",")';
   $lang['infoimage_addtoall'] = 'ajouter à tous';
   $lang['infoimage_removefromall'] = 'retirer à tous';

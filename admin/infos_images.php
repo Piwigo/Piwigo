@@ -250,7 +250,7 @@ if ( isset( $page['cat'] ) )
   $tpl = array( 'infoimage_general','author','infoimage_useforall','submit',
                 'infoimage_creation_date','infoimage_detailed','thumbnail',
                 'infoimage_title','infoimage_comment',
-                'infoimage_creation_date','infoimage_keywords',
+                'infoimage_creation_date','keywords',
                 'infoimage_addtoall','infoimage_removefromall',
                 'infoimage_keyword_separation' );
   templatize_array( $tpl, 'lang', $sub );
