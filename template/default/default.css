@@ -78,6 +78,10 @@ a.thumbLink:hover { text-decoration:none;}
 
 /* Navigation styles */
 
+.small{
+  font-size:10px;
+}
+
 .titreMenu,.titrePage
 {
   padding-right: 10px;
@@ -322,21 +326,12 @@ color : #FFF48E;
   text-align:center;
   font-size:16px;
 }
-.menuInfoCat {
-  font-family:sans-serif;
-  font-size:11px;
-}
+
 .totalImages {
   text-align:center;
   margin-top:5px;
   font-family:sans-serif;
   font-size:11px;
-}
-
-.infoCat {
-  margin-top:10px;
-  margin-bottom:10px;
-  text-align:left;
 }
 
 .copyright {
@@ -424,36 +419,4 @@ div.remoteLocal {
 /* for debugging purpose */
 pre {
   text-align:left;
-}
-
-.confMenu {
-  background-color:#444444;
-  text-align:center;
-}
-
-.confMenu a {
-  padding:2px;
-  border:1px solid gray;
-  background-color:#505050;
-  color:#fff48e;
-  color:lightgray;
-}
-
-.confMenu a:hover {
-  color:orange;
-  text-decoration:none;
-}
-
-.confMenu a.opened {
-  background-color:gray;
-  color:white;
-  text-decoration:none;
-}
-
-.optionTrue {
-  color:lightgreen;
-}
-
-.optionFalse {
-  color:#ffe1e1;
 }

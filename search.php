@@ -25,178 +25,73 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//------------------------------------------------------------------- functions
-// date_display displays 3 select input fields. The first one is the
-// day of the month, from 0 to 31. The second is the month of the year,
-// from 01 to 12. The last one is the year. The years displayed are the
-// ones given by get_available_years (see function description in
-// ./include/functions.inc.php).
-function display_date($fieldname, $datefield)
-{
-  global $template;
-
-  // years
-  for ($i = 1990; $i < 2006; $i++)
-  {
-    $selected = '';
-    $key = $datefield.':year';
-    if (isset($_POST[$key]) and $i == $_POST[$key])
-    {
-      $selected = ' selected="selected"';
-    }
-    
-    $template->assign_block_vars(
-      $fieldname.'year_option',
-      array('OPTION'=>$i,
-            'SELECTED'=>$selected
-        ));
-  }
-  // months of year
-  for ($i = 1; $i <= 12; $i++)
-  {
-    $selected = '';
-    $key = $datefield.':month';
-    if (isset($_POST[$key]) and $i == $_POST[$key])
-    {
-      $selected = ' selected="selected"';
-    }
-
-    $template->assign_block_vars(
-      $fieldname.'month_option',
-      array('OPTION'=>sprintf('%02s', $i),
-            'SELECTED'=>$selected
-        ));
-  }
-  // days of the month
-  for ($i = 1; $i <= 31; $i++)
-  {
-    $selected = '';
-    $key = $datefield.':day';
-    if (isset($_POST[$key]) and $i == $_POST[$key])
-    {
-      $selected = ' selected="selected"';
-    }
-
-    $template->assign_block_vars(
-      $fieldname.'day_option',
-      array('OPTION'=>sprintf('%02s', $i),
-            'SELECTED'=>$selected
-        ));
-  }
-}
-
-function display_3dates($fieldname)
-{
-  display_date('datefield.', $fieldname);
-  display_date('datefield.after_', $fieldname.'-after');
-  display_date('datefield.before_', $fieldname.'-before');
-}
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //-------------------------------------------------- access authorization check
 check_login_authorization();
-//----------------------------------------------------------------- form fields
-$textfields = array('file', 'name', 'comment', 'keywords', 'author');
-$datefields = array('date_available', 'date_creation');
 //------------------------------------------------------------------ form check
 $errors = array();
 $search = array();
-$search['fields'] = array();
 if (isset($_POST['submit']))
 {
-  $search['mode'] = $_POST['mode'];
-
-  foreach ($textfields as $textfield)
+  if ($_POST['search_keywords'] &&
+   !preg_match('/^\s*$/', $_POST['search_keywords']))
   {
-    if (isset($_POST[$textfield.'-content'])
-        and !preg_match('/^\s*$/', $_POST[$textfield.'-content']))
-    {
-      $local_search = array();
-      $words = preg_split('/\s+/', $_POST[$textfield.'-content']);
-      foreach ($words as $i => $word)
-      {
-        if (strlen($word) > 2 and !preg_match('/[,;:\']/', $word))
-        {
-          array_push($local_search, $word);
-        }
-        else
-        {
-          array_push($errors, $lang['invalid_search']);
-        }
-      }
-      $local_search = array_unique($local_search);
-      $search['fields'][$textfield] = array();
-      $search['fields'][$textfield]['words'] = $local_search;
-      if (count($local_search) > 1)
-      {
-        $search['fields'][$textfield]['mode'] = $_POST[$textfield.'-mode'];
-      }
-    }
+    $local_search = array();
+	$search_keywords = $_POST['search_keywords'];
+	$drop_char_match =   array('-', '^', '$', ';', '#', '&', '(', ')', '<', '>',
+	  '`', '\'', '"', '|', ',', '@', '_', '?', '%', '~', '.', '[', ']', '{', '}', 
+	  ':', '\\', '/', '=', '\'', '!', '*');
+	$drop_char_replace = array(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+	  '',  '',   ' ', ' ', ' ', ' ', '',  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
+	  , ' ', '' ,  ' ', ' ', ' ',  ' ', ' ');
+	$search_keywords = str_replace($drop_char_match, $drop_char_replace, $search_keywords);
+	
+	// Split words
+	$words = preg_split('#\s+#', $search_keywords);
+    $words = array_unique($words);
+	$search['fields']['keywords'] = array();
+	$search['fields']['keywords']['words'] =$words;
+	$search['fields']['keywords']['mode']= $_POST['mode'];
   }
-  foreach ($datefields as $datefield)
+  
+  if ($_POST['search_author'])
   {
-    $suffixes = array('','-after','-before');
-    foreach ($suffixes as $suffix)
-    {
-      $field = $datefield.$suffix;
-      if (isset($_POST[$field.'-check']))
-      {
-        $year = $_POST[$field.':year'];
-        $month = $_POST[$field.':month'];
-        $day = $_POST[$field.':day'];
-        $date = $year.'.'.$month.'.'.$day;
-        if (!checkdate($month, $day, $year))
-        {
-          array_push($errors, $date.$lang['search_wrong_date']);
-        }
-        $search['fields'][$field] = array();
-        $search['fields'][$field]['words'] = array($date);
-        if ($suffix == '-after' or $suffix == '-before')
-        {
-          if (isset($_POST[$field.'-included']))
-          {
-            $search['fields'][$field]['mode'] = 'inc';
-          }
-        }
-      }
-    }
-    if ($search['mode'] == 'AND')
-    {
-      // before date must be superior to after date
-      if (isset($search['fields'][$datefield.'-before'])
-          and isset($search['fields'][$datefield.'-after']))
-      {
-        $after = $search['fields'][$datefield.'-after']['words'][0];
-        $before = $search['fields'][$datefield.'-before']['words'][0];
-        if ($after >= $before)
-        {
-          array_push($errors, $lang['search_wrong_date_order']);
-        }
-      }
-      // having "search is" and ("search is after" or "search is before") is
-      // not coherent
-      if (isset($search['fields'][$datefield])
-          and (isset($search['fields'][$datefield.'-before'])
-               or isset($search['fields'][$datefield.'-after'])))
-      {
-        array_push($errors, $lang['search_incoherent_date_search']);
-      }
-    }
+    $search['fields']['author'] = array();
+    $search['fields']['author']['words'] = array($_POST['search_author']);
   }
-  if (isset($_POST['categories-check']))
+  
+  if (isset($_POST['cat']))
   {
-    $field = 'cat';
-    $search['fields'][$field] = array();
-    $search['fields'][$field]['words'] = $_POST['cat'];
+    $search['fields']['cat'] = array();
+    $search['fields']['cat']['words'] = $_POST['cat'];
     if (isset($_POST['subcats-included']))
     {
-      $search['fields'][$field]['mode'] = 'sub_inc';
+      $search['fields']['cat']['mode'] = 'sub_inc';
     }
   }
+  
+  if (!empty($_POST['start_year']))
+ {
+  $type_date = $_POST['date_type'];
+
+  // start event
+  $date = $_POST['start_year'].'.'.$_POST['start_month'].'.'.$_POST['start_day'];
+  $search['fields'][$type_date]['words'] = array($date);
+  
+  // duration
+  $search_duration = 0;
+  if ( !empty($date) && !empty( $_POST['duration_day']) )
+  {
+	$search['fields'][$type_date]['mode'] =  $_POST['duration_day'];
+  }
+ }
   // search string (for URL) creation
   $search_string = '';
   $tokens = array();
+  if (!empty($search))
+  {
   foreach (array_keys($search['fields']) as $field)
   {
     $token = $field.':';
@@ -210,10 +105,10 @@ if (isset($_POST['submit']))
   $search_string.= implode(';', $tokens);
   if (count($tokens) > 1)
   {
-    $search_string.= '|'.$search['mode'];
+    $search_string.= '|AND';
   }
-  
-  if (count($tokens) == 0)
+  }
+  else
   {
     array_push($errors, $lang['search_one_clause_at_least']);
   }
@@ -225,7 +120,36 @@ if (isset($_POST['submit']) and count($errors) == 0)
   $url = add_session_id($url, true);
   redirect($url);
 }
+
 //----------------------------------------------------- template initialization
+// day list
+$start_day = '<select name="start_day">';
+for ($i=0; $i <= 31; $i++)
+{
+	$start_day .= '<option value="' . $i . '" >' . ( ($i == 0) ? ' -- ' : str_pad($i, 2, '0', STR_PAD_LEFT) ) . '</option>';
+}
+$start_day .= '</select>';
+
+// month list
+$start_month = '<select name="start_month">';
+$start_month .= '<option value="0"> ------------ </option>';
+for ($i=1; $i <= 12; $i++)
+{
+	$start_month .= '<option value="' . $i . '">' . $lang['month'][$i] . '</option>';
+}
+$start_month .= '</select>';
+
+// year list
+$start_year = '<select name="start_year">';
+$start_year .= '<option value="0"> ---- </option>';
+$begin_year = date('Y', time())-10;
+for ($i = $begin_year; $i <= date('Y', time()); $i++)
+{
+	$start_year .= '<option value="' . $i . '">' . $i . '</option>';
+}
+$start_year .= '</select>';
+
+
 //
 // Start output of page
 //
@@ -234,109 +158,47 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
 $template->assign_vars(array(
-  'L_TITLE' => $lang['search_title'],
-  'L_SEARCH_COMMENTS' => $lang['search_comments'],
+  'L_SEARCH_TITLE' => $lang['search_title'],
+  'L_SEARCH_OPTIONS' => $lang['search_options'],
   'L_RETURN' => $lang['home'],
   'L_SUBMIT' => $lang['submit'],
-  'L_SEARCH_OR'=>$lang['search_mode_or'],
-  'L_SEARCH_AND'=>$lang['search_mode_and'],
-  'L_SEARCH_OR_CLAUSES'=>$lang['search_or_clauses'],
-  'L_SEARCH_AND_CLAUSES'=>$lang['search_and_clauses'],
-  'L_SEARCH_CATEGORIES'=>$lang['categories'],
-  'L_SEARCH_SUBCATS_INCLUDED'=>$lang['search_subcats_included'],
-  'L_SEARCH_DATE_INCLUDED'=> $lang['search_date_included'],
-  'L_SEARCH_DATE_IS'=>$lang['search_date_is'],
-  'L_SEARCH_DATE_IS_AFTER'=>$lang['search_date_is_after'],
-  'L_SEARCH_DATE_IS_BEFORE'=>$lang['search_date_is_before'],
+  'L_RESET' => $lang['reset'],
+  'L_SEARCH_KEYWORDS'=>$lang['search_keywords'],
+  'L_SEARCH_KEYWORDS_HINT'=>$lang['search_keywords_hint'],
+  'L_SEARCH_ANY_TERMS'=>$lang['search_mode_or'],
+  'L_SEARCH_ALL_TERMS'=>$lang['search_mode_and'],
+  'L_SEARCH_AUTHOR'=>$lang['search_author'],
+  'L_SEARCH_AUTHOR_HINT'=>$lang['search_explain'],
+  'L_SEARCH_CATEGORIES'=>$lang['search_categories'],
+  'L_SEARCH_CATEGORIES_HINT'=>$lang['search_categories_hint'],
+  'L_SEARCH_SUBFORUMS'=>$lang['search_subcats_included'],
+  'L_YES' => $lang['yes'],
+  'L_NO' => $lang['no'],
+  'L_SEARCH_DATE' => $lang['search_date'],
+  'L_SEARCH_DATE_HINT' => $lang['search_date_hint'],
+  'L_TODAY' => $lang['today'],
+  'L_SEARCH_DATE_FROM'=>$lang['search_date_from'],
+  'L_SEARCH_DURATION'=>$lang['search_duration'],
+  'L_DAYS'=>$lang['days'],
+  'L_MONTH'=>$lang['w_month'],
+  'L_SEARCH_DATE_TYPE'=>$lang['search_date_type'],
+  'L_SEARCH_CREATION'=>$lang['search_date_creation'],
+  'L_SEARCH_AVAILABILITY'=>$lang['search_date_available'],
+  'L_RESULT_SORT'=>$lang['search_sort'],
+  'L_SORT_ASCENDING'=>$lang['search_ascending'],
+  'L_SORT_DESCENDING'=>$lang['search_descending'],
   
-  'F_ACTION' => add_session_id( 'search.php' ),
-    
+  'TODAY_DAY' => date('d', time()),
+  'TODAY_MONTH' => date('m', time()),
+  'TODAY_YEAR' => date('Y', time()),
+  'S_CALENDAR_YEAR' => $start_year,
+  'S_CALENDAR_MONTH' => $start_month,
+  'S_CALENDAR_DAY' => $start_day,
+  'S_SEARCH_ACTION' => add_session_id( 'search.php' ),   
   'U_HOME' => add_session_id( 'category.php' )
   )
 );
 
-//------------------------------------------------------------ text fields form
-foreach ($textfields as $textfield)
-{
-  if (isset($_POST[$textfield.'-mode']))
-  {
-    if ($_POST[$textfield.'-mode'] == 'AND')
-    {
-      $and_checked = 'checked="checked"';
-      $or_checked  = '';
-    }
-    else
-    {
-      $or_checked  = 'checked="checked"';
-      $and_checked = '';
-    }
-  }
-  else
-  {
-    $or_checked  = 'checked="checked"';
-    $and_checked = '';
-  }
-
-  $value = '';
-  if (isset($_POST[$textfield.'-content']))
-  {
-    $value = $_POST[$textfield.'-content'];
-  }
-  
-  $template->assign_block_vars(
-    'textfield',
-    array('NAME'=>$lang['search_'.$textfield],
-          'L_NAME'=>$textfield,
-          'VALUE'=>$value,
-          'OR_CHECKED'=>$or_checked,
-          'AND_CHECKED'=>$and_checked
-          ));
-}
-//------------------------------------------------------------- date field form
-foreach ($datefields as $datefield)
-{
-  $checked = '';
-  if (isset($_POST[$datefield.'-check']))
-  {
-    $checked = ' checked="checked"';
-  }
-
-  $after_checked = '';
-  if (isset($_POST[$datefield.'-after-check']))
-  {
-    $after_checked = ' checked="checked"';
-  }
-
-  $before_checked = '';
-  if (isset($_POST[$datefield.'-before-check']))
-  {
-    $before_checked = ' checked="checked"';
-  }
-
-  $after_included_check = '';
-  if (isset($_POST[$datefield.'-after-included']))
-  {
-    $after_included_check = ' checked="checked"';
-  }
-
-  $before_included_check = '';
-  if (isset($_POST[$datefield.'-before-included']))
-  {
-    $before_included_check = ' checked="checked"';
-  }
-  
-  $template->assign_block_vars(
-    'datefield',
-    array('NAME'=>$datefield,
-          'L_NAME'=>$lang['search_'.$datefield],
-          'CHECKED'=>$checked,
-          'AFTER_CHECKED'=>$after_checked,
-          'BEFORE_CHECKED'=>$before_checked,
-          'AFTER_INCLUDED_CHECKED'=>$after_included_check,
-          'BEFORE_INCLUDED_CHECKED'=>$before_included_check
-          ));
-  display_3dates($datefield);
-}
 //------------------------------------------------------------- categories form
 $query = '
 SELECT name,id,date_last,nb_images,global_rank,uppercats
@@ -348,57 +210,10 @@ SELECT name,id,date_last,nb_images,global_rank,uppercats
   }
 $query.= '
 ;';
+
 $selecteds = array();
-if (isset($_POST['submit']))
-{
-  $selecteds = $_POST['cat'];
-}
 display_select_cat_wrapper($query, $selecteds, 'category_option', false);
 
-$categories_selected = '';
-if (isset($_POST['categories-check']))
-{
-  $categories_selected = 'checked="checked"';
-}
-
-$categories_subcats_selected = '';
-if (isset($_POST['subcats-included']))
-{
-  $categories_subcats_selected = 'checked="checked"';
-}
-
-$template->assign_vars(
-  array(
-    'CATEGORIES_SELECTED'=>$categories_selected,
-    'CATEGORIES_SUBCATS_SELECTED'=>$categories_subcats_selected
-    )
-  );
-//---------------------------------------------------------------------- OR/AND
-if (isset($_POST['mode']))
-{
-  if ($_POST['mode'] == 'AND')
-  {
-    $and_checked = 'checked="checked"';
-    $or_checked  = '';
-  }
-  else
-  {
-    $or_checked  = 'checked="checked"';
-    $and_checked = '';
-  }
-}
-else
-{
-  $or_checked  = 'checked="checked"';
-  $and_checked = '';
-}
-
-$template->assign_vars(
-  array(
-    'OR_CHECKED'=>$or_checked,
-    'AND_CHECKED'=>$and_checked
-    )
-  );
 //-------------------------------------------------------------- errors display
 if (sizeof($errors) != 0)
 {

@@ -46,7 +46,7 @@ SELECT DISTINCT(id),path,file,date_available,category_id
   '.$conf['order_by'].'
   LIMIT '.$page['start'].','.$page['nb_image_page'].'
 ;';
-// echo '<pre>'.$query.'</pre>';
+//echo '<pre>'.$query.'</pre>';
 $result = pwg_query($query);
 
 // template thumbnail initialization

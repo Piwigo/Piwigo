@@ -119,6 +119,7 @@ $lang['day'][6] = 'Saturday';
 $lang['w_month'] = 'Month';
 $lang['w_day'] = 'Day';
 $lang['days'] = 'days';
+$lang['today']='Today';
 
 // Customization
 $lang['customize_page_title'] = 'Customization';
@@ -139,28 +140,29 @@ $lang['create_cookie'] = 'Create a cookie';
 
 // search
 $lang['search_title'] = 'Search';
-$lang['search_wrong_date'] = ' : this date is not valid';
-$lang['search_wrong_date_order'] = 'the period end must be after the period start';
-$lang['search_incoherent_date_search'] = 'when choosing to match all the clauses, you can\'t search "date is" and "date is after" or "date is before"';
-$lang['search_or_clauses'] = 'at least one search clause';
-$lang['search_and_clauses'] = 'all search clauses';
-$lang['search_subcats_included'] = 'include sub-categories';
-$lang['search_date_included'] = 'included';
-$lang['search_date_is'] = 'is';
-$lang['search_date_is_after'] = 'is after';
-$lang['search_date_is_before'] = 'is before';
-$lang['search_file'] = 'file';
-$lang['search_name'] = 'name';
-$lang['search_comment'] = 'comment';
-$lang['search_keywords'] = 'keywords';
-$lang['search_author'] = 'author';
-$lang['search_date_available'] = 'availability date';
-$lang['search_date_creation'] = 'creation date';
-$lang['search_one_clause_at_least'] = 'search at least on one search clause';
-$lang['search_mode_or'] = 'at least one word';
-$lang['search_mode_and'] = 'all the words';
-$lang['search_comments'] = 'separate different words with spaces';
-$lang['invalid_search'] = 'search must be done on 3 caracters or more';
+$lang['search_options'] = 'Search Options';
+$lang['search_keywords'] = 'Search for Keywords';
+$lang['search_keywords_hint'] = 'Use + for words which must be found, - for words which must not be found and | for words which may or may not be found. Use * as a wildcard for partial matches';
+$lang['search_mode_or'] = 'Search for any terms';
+$lang['search_mode_and'] = 'Search for all terms ';
+$lang['search_author'] = 'Search for Author';
+$lang['search_categories'] = 'Search in Categories';
+$lang['search_subcats_included'] = 'Search in subcategroies';
+$lang['search_categories_hint'] = 'Select the category or categories you wish to search in. For speed all subcategories can be searched by selecting the parent and setting enable search subcategories below.';
+$lang['search_explain'] = 'Use * as a wildcard for partial matches';
+$lang['search_date'] = 'Search by Date';
+$lang['search_date_hint'] = 'Select a date and a duration for your query. The date is inclusive.';
+$lang['search_date_from'] = 'From';
+$lang['search_duration'] = 'During';
+$lang['search_date_type'] = 'Kind of date';
+$lang['search_date_available'] = 'Availability';
+$lang['search_date_creation'] = 'Creation';
+$lang['search_sort'] = 'Sort results by';
+$lang['search_ascending'] = 'Ascending';
+$lang['search_descending'] = 'Descending';
+$lang['search_one_clause_at_least'] = 'Empty query. No criteria has been entered.';
+$lang['search_result'] = 'Search results';
+
 $lang['Search_author_explain'] = 'Use * as a wildcard for partial matches';
 $lang['Look_up_user'] = 'Seek user';
 $lang['Find_username'] = 'Find a username';
@@ -195,7 +197,6 @@ $lang['total'] = 'images';
 $lang['upload_picture'] = 'Upload a picture';
 $lang['generation_time'] = 'Page generated in';
 $lang['favorites'] = 'Favorites';
-$lang['search_result'] = 'Search results';
 $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['about_title'] = 'About...';
 $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Information about PhpWebGallery</div>
