@@ -99,7 +99,8 @@ $tpl = array(
   'title_menu','nb_image_category','send_mail','title_send_mail',
   'generation_time','connected_user','recent_image','days','generation_time',
   'favorite_cat_hint','favorite_cat','stats','most_visited_cat_hint',
-  'most_visited_cat','recent_cat','recent_cat_hint','upload_picture' );
+  'most_visited_cat','recent_cat','recent_cat_hint','upload_picture',
+  'comments' );
 templatize_array( $tpl, 'lang', $handle );
 
 $tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
