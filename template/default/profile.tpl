@@ -13,7 +13,7 @@
 <form method="post" name="post" action="{add_user.F_ACTION}">
   {L_USERNAME} <input type="text" name="login" maxlength="50" size="20" />
   {L_PASSWORD} <input type="text" name="password" />
-  <input type="submit" name="submit_add" value="add" class="bouton" />
+  <input type="submit" name="submit_add" value="{L_SUBMIT}" class="bouton" />
 </form>
 <!-- END add_user -->
 
