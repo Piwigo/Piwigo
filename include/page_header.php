@@ -44,7 +44,7 @@ $template->assign_vars(
     ));
 
 // refresh
-if ( isset( $refresh ) and is_int($refresh) and isset( $url_link ) )
+if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) )
 {
   $template->assign_vars(
     array(
