@@ -50,12 +50,7 @@ $vtp->setGlobalVar( $handle, 'register_page_title',
 $vtp->setGlobalVar( $handle, 'register_title',   $lang['register_title'] );
 $vtp->setGlobalVar( $handle, 'ident_guest_visit',$lang['ident_guest_visit'] );
 $vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-// user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
+initialize_template();
 //----------------------------------------------------------------- form action
 $vtp->setGlobalVar( $handle, 'form_action', './register.php' );
 //-------------------------------------------------------------- errors display
@@ -96,7 +91,7 @@ $vtp->closeSession( $handle, 'password' );
 $vtp->closeSession( $handle, 'line' );
 //---------------------------------------------------------------- mail address
 $vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['reg_mail_address'] );
+$vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.name', 'mail_address' );
 $vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
