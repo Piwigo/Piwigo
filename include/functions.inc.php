@@ -392,7 +392,9 @@ function format_date($date, $type = 'us', $show_time = false)
   // before 1970, Microsoft Windows can't mktime
   if ($year >= 1970 or substr(PHP_OS, 0, 3) != 'WIN')
   {
-    $formated_date.= $lang['day'][date('w', mktime(0,0,0,$month,$day,$year))];
+    // we ask midday because Windows think it's prior to midnight with a
+    // zero and refuse to work
+    $formated_date.= $lang['day'][date('w', mktime(12,0,0,$month,$day,$year))];
   }
   $formated_date.= ' '.$day;
   $formated_date.= ' '.$lang['month'][(int)$month];
