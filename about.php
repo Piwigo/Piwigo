@@ -39,7 +39,7 @@ $template->set_filenames(array('about'=>'about.tpl'));
 $template->assign_vars(array(
 	'PAGE_TITLE' => $title,
 	'L_ABOUT' => $lang['about_message'],
-	'L_RETURN' =>  $lang['about_return'], 
+	'L_RETURN' =>  $lang['return_main_page'], 
 	'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
 	)
 	);

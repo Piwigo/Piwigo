@@ -64,11 +64,9 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   check_favorites( $_GET['user_id'] );
-  synchronize_user( $_GET['user_id'] );
 }
 
 $user_id = (!empty($userdata['id']))?$userdata['id']:'';
-  
 $template->set_filenames( array('user'=>'admin/user_perm.tpl') );
 $template->assign_vars(array(
   'L_SELECT_USERNAME'=>$lang['Select_username'],
@@ -76,8 +74,8 @@ $template->assign_vars(array(
   'L_FIND_USERNAME'=>$lang['Find_username'],
   'L_AUTH_USER'=>$lang['permuser_only_private'],
   'L_SUBMIT'=>$lang['submit'],
-  'L_AUTHORIZED'=>$lang['permuser_authorized'],
-  'L_FORBIDDEN'=>$lang['permuser_forbidden'],
+  'L_AUTHORIZED'=>$lang['authorized'],
+  'L_FORBIDDEN'=>$lang['forbidden'],
   'L_PARENT_FORBIDDEN'=>$lang['permuser_parent_forbidden'],
 
   'F_SEARCH_USER_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_search'),

@@ -2,7 +2,7 @@
 <div class="information">{information.INFORMATION}</div>
 <!-- END information -->
 <div class="titrePage">
-  <div id="gauche">{CATEGORY}</div>
+  <div id="gauche"><a href="{U_HOME}">{L_HOME}</a> > {CATEGORY}</div>
   <div id="centre" class="nameImage">{TITLE}</div>
   <div id="droite">{PHOTO}</div>
 </div>
@@ -23,13 +23,6 @@
 	<img src="template/default/theme/metadata.gif" alt="{L_PICTURE_METADATA}" />
   </a>
 </div>
-<!-- BEGIN high -->
-<div class="imgMenu" id="left">
-  <a href="{high.U_HIGH}" title="{L_PICTURE_HIGH}">
-        <img src="template/default/theme/high.gif" alt="{L_PICTURE_HIGH_ALT}" />
-  </a>
-</div>
-<!-- END high -->
 <!-- BEGIN favorite -->
 <div class="imgMenu" id="right">
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">
@@ -59,10 +52,14 @@
 </div>
 <!-- END admin -->
 </div>
-
-<a href="{U_HOME}">
+<!-- BEGIN high -->
+<a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=yes,status=yes,resizable=yes,width={high.WIDTH_IMG},height={high.HEIGHT_IMG}')">
+<!-- END high -->
   <img class="image" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
+<!-- BEGIN high -->
 </a>
+<div style="text-align:center;font-weight:bold;">{L_PICTURE_HIGH}</div>
+<!-- END high -->
 <!-- BEGIN legend -->
 <div class="commentImage">{legend.COMMENT_IMG}</div>
 <!-- END legend -->
@@ -126,9 +123,7 @@
             <!-- END rate_option -->
           </div>
           <!-- END rate -->
- 
-
-          <div style="text-align:center;">{L_BACK}</div>
+         
 <table class="tablecompact">
       <!-- BEGIN comments -->
       <tr align="center" valign="middle">

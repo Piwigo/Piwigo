@@ -33,7 +33,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'en';
 
 // Main words 
-$lang['gallery_index'] = 'Gallery index';
+$lang['gallery_index'] = 'Home';
 $lang['category'] = 'Category';
 $lang['categories'] = 'Categories';
 $lang['thumbnail'] = 'Thumbnail';
@@ -184,7 +184,6 @@ $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Inform
   <li>Technicaly, PhpWebGallery is fully developped with PHP (the elePHPant) with a MySQL database (the SQuirreL).</li>
   <li>If you have any suggestions or comments, please visit <a href="http://www.phpwebgallery.net" style="text-decoration:underline">PhpWebGallery</a> official site, and its dedicated <a href="http://forum.phpwebgallery.net" style="text-decoration:underline">forum</a>.</li>
 </ul>';
-$lang['about_return'] = 'Back';
 $lang['ident_page_title'] = 'Identification';
 $lang['ident_title'] = 'Identification';
 $lang['ident_register'] = 'Register';
@@ -193,7 +192,6 @@ $lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
 
 $lang['previous_image'] = 'Previous';
 $lang['next_image'] = 'Next';
-$lang['back'] = 'Click on the image to go back to the thumbnails page';
 $lang['info_image_title'] = 'Image information';
 $lang['link_info_image'] = 'Modify information';
 $lang['true_size'] = 'Real size';
@@ -293,6 +291,5 @@ $lang['rates'] = 'rates';
 $lang['standard_deviation'] = 'STD';
 $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
-$lang['picture_high'] = 'See high quality picture';
-$lang['picture_high_alt'] = 'high';
+$lang['picture_high'] = 'Click on the picture to see it in high definition';
 ?>

@@ -450,12 +450,11 @@ $template->assign_vars(array(
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
 
+  'L_HOME' => $lang['gallery_index'],
   'L_SLIDESHOW' => $lang['slideshow'],
-  'L_TIME' => $lang['period_seconds'],
   'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
   'L_PREV_IMG' =>$lang['previous_image'].' : ',
   'L_ADMIN' =>$lang['link_info_image'],
-  'L_BACK' =>$lang['back'],
   'L_COMMENT_TITLE' =>$lang['comments_title'],
   'L_ADD_COMMENT' =>$lang['comments_add'],
   'L_DELETE_COMMENT' =>$lang['comments_del'],
@@ -467,7 +466,6 @@ $template->assign_vars(array(
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
   'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
   'L_PICTURE_HIGH' => $lang['picture_high'],
-  'L_PICTURE_HIGH_ALT' => $lang['picture_high_alt'],
   
   'U_HOME' => add_session_id($url_home),
   'U_METADATA' => add_session_id($url_metadata),
@@ -493,9 +491,16 @@ else
 // display a high quality link if present
 if (isset($picture['current']['high']))
 {
-  $template->assign_block_vars(
-    'high',
-    array('U_HIGH' => $picture['current']['high']));
+  $full_size = @getimagesize($picture['current']['high']);
+  $full_width = $full_size[0];
+  $full_height = $full_size[1];
+  $uuid = uniqid(rand());
+  $template->assign_block_vars('high', array(
+    'U_HIGH' => $picture['current']['high'],
+	'UUID'=>$uuid,
+	'WIDTH_IMG'=>($full_width + 16),
+	'HEIGHT_IMG'=>($full_height + 16)
+	));
 }
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )

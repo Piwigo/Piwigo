@@ -30,14 +30,14 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 
-$url_img_monthly_report = PHPWG_ROOT_PATH.'/admin/images/monthly_visits.img.php';
+$url_img_global_report = PHPWG_ROOT_PATH.'admin/images/global_stats.img.php';
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('stats'=>'admin/stats.tpl') );
 
 $template->assign_vars(array(
   'L_STAT_TITLE'=>$lang['stats_last_days'],
   'L_STAT_MONTHLY_ALT'=>$lang['stats_pages_seen_graph_title'],
-  'IMG_MONTHLY_REPORT'=>add_session_id($url_img_monthly_report)
+  'IMG_MONTHLY_REPORT'=>add_session_id($url_img_global_report)
   ));
 
 //---------------------------------------------------------------- log  history

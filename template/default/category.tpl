@@ -1,4 +1,4 @@
-<div align="center" style="padding:10px;"><img src="template/default/images/logo.jpg" width="360" height="100"></div>
+<div style="padding:3px;"><img src="template/default/images/logo.jpg"></div>
 <table style="width:100%;">
   <tr>
     <td valign="top" style="padding:10px;width:1%;">
@@ -61,7 +61,7 @@
 	  <div class="home">
 			<div class="titrePage">{TITLE}</div>
 			<!-- BEGIN calendar -->
-                          <div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
+               <div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
 			  <div class="navigationBar">{calendar.MONTHS_NAV_BAR}</div>
 			<!-- END calendar -->
 			<!-- BEGIN thumbnails -->
@@ -76,9 +76,6 @@
 					   title="{thumbnails.line.thumbnail.IMAGE_TITLE}"
 					   class="thumbLink" />
 				  <br />
-				  <!-- BEGIN bullet -->
-				  <img src="./template/default/theme/collapsed.gif" style="border:none;" alt="&gt;" />
-				  <!-- END bullet -->
 				  <span class="{thumbnails.line.thumbnail.IMAGE_STYLE}">{thumbnails.line.thumbnail.IMAGE_NAME}</span></a>
 				  {thumbnails.line.thumbnail.IMAGE_TS}
 				  <!-- BEGIN nb_comments -->

@@ -2,14 +2,14 @@
 #gauche,#droite
 {
   float:left;
-  width:18%;
+  width:30%;
   text-align:left;
 }
 
 #centre
 {
   float:left;
-  width:64%;
+  width:40%;
   text-align:center;
 }
 
@@ -187,6 +187,7 @@ ul.menu {
 {
   border: 1px solid #000000;
   background-color:#555555;
+  display:block;
 }
 
 .home

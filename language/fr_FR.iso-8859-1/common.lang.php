@@ -33,7 +33,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
 
 // Main words 
-$lang['gallery_index'] = 'Racine de la galerie';
+$lang['gallery_index'] = 'Accueil';
 $lang['category'] = 'Catégorie';
 $lang['categories'] = 'Catégories';
 $lang['thumbnail'] = 'Miniature';
@@ -199,7 +199,6 @@ $lang['ident_guest_visit'] = 'Parcourir la galerie en tant que visiteur';
 		
 $lang['previous_image'] = 'Précédent';
 $lang['next_image'] = 'Suivant';
-$lang['back'] = 'Cliquez sur l\'image pour revenir à la page des miniatures';
 $lang['info_image_title'] = 'Informations';
 $lang['link_info_image'] = 'Modifier les informations de cette image';
 $lang['true_size'] = 'Taille réelle';
@@ -312,4 +311,5 @@ $lang['never_rated'] = 'Vous n\'avez jamais voté pour cette image';
 $lang['no_rate'] = 'Aucun vote';
 $lang['rates'] = 'Votes';
 $lang['standard_deviation'] = 'STD';
+$lang['picture_high'] = 'Cliquez sur l\'image pour la voir en haute résolution';
 ?>

@@ -42,27 +42,9 @@ switch ( $_GET['page'] )
  case 'user_modify':
    $title = $lang['title_modify'];        $page_valide = true; break;
  case 'user_search':
-  /* if ( !is_numeric( $_GET['user_id'] ) ) $_GET['user_id'] = -1;
-   $query = 'SELECT status,username';
-   $query.= ' FROM '.USERS_TABLE;
-   $query.= ' WHERE id = '.$_GET['user_id'];
-   $query.= ';';
-   $result = mysql_query( $query );
-   if ( mysql_num_rows( $result ) > 0 )
-   {
-     $row = mysql_fetch_array( $result );
-     $page['user_status']   = $row['status'];
-     if ( $row['username'] == 'guest' ) $row['username'] = $lang['guest'];
-     $page['user_username'] = $row['username'];
-     $page_valide = true;
-     $title = $lang['title_user_perm'].' "'.$page['user_username'].'"';
-   }
-   else
-   {
-     $page_valide = false;
-   }*/
-   $title = $lang['title_user_perm'];
-   //.' '.$_POST['username'];
+   $username='';
+   if (isset($_POST['username'])) $username=$_POST['username'];
+   $title = $lang['title_user_perm'].' '.$username;
    $page_valide = true; break;
  case 'group_list' :
    $title = $lang['title_groups'];        $page_valide = true; break;

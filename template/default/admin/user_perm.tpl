@@ -8,11 +8,11 @@
 </form>
 <!-- END search -->
 <!-- BEGIN permission -->
-<div class="admin">{L_AUTH_USER}</div>
+<div class="admin">{L_AUTH_USER} {USERNAME}</div>
 <form action="{F_AUTH_ACTION}" method="POST">
   <ul class="menu">
     <!-- BEGIN category -->
-        <li> <a href="{permission.category.CAT_URL}"><span style="color:{#color}">{permission.category.CAT_NAME}</span></a>
+        <li> <a href="{permission.category.CAT_URL}">{permission.category.CAT_NAME}</a>
         <!-- BEGIN parent_forbidden -->
         {L_PARENT_FORBIDDEN}&nbsp;-&nbsp;
         <!-- END parent_forbidden -->

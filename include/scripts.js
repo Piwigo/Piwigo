@@ -26,3 +26,7 @@ for( i=0; i<len; i++)
 }
 }
 
+function phpWGOpenWindow(theURL,winName,features) 
+{
+  window.open(theURL,winName,features);
+}
