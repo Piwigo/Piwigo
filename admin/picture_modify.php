@@ -95,7 +95,8 @@ if ( isset( $_POST['submit'] ) )
     }
     // if the user ask this picture to be not any more the representative,
     // we have to set the representative_picture_id of this category to NULL
-    else if ( $row['representative_picture_id'] == $_GET['image_id'] )
+    else if ( isset( $row['representative_picture_id'] )
+              and $row['representative_picture_id'] == $_GET['image_id'] )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'categories';
       $query.= ' SET representative_picture_id = NULL';
@@ -186,12 +187,19 @@ if ( count( $errors ) != 0 )
 $action = './admin.php?'.$_SERVER['QUERY_STRING'];
 $vtp->setVar( $sub, 'form_action', $action );
 // retrieving direct information about picture
-$query = 'SELECT file,date_available,date_creation,tn_ext,name,filesize';
-$query.= ',width,height,author,comment,keywords,storage_category_id';
+$infos = array( 'file','date_available','date_creation','tn_ext','name'
+                ,'filesize','width','height','author','comment','keywords'
+                ,'storage_category_id' );
+$query = 'SELECT '. implode( ',', $infos );
 $query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= ' WHERE id = '.$_GET['image_id'];
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
+
+foreach ( $infos as $info ) {
+  if ( !isset( $row[$info] ) ) $row[$info] = '';
+}
+
 // picture title
 if ( $row['name'] == '' )
 {
@@ -314,7 +322,8 @@ while ( $row = mysql_fetch_array( $result ) )
     $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
   }
 
-  if ( $row['representative_picture_id'] == $_GET['image_id'] )
+  if ( isset( $row['representative_picture_id'] )
+       and $row['representative_picture_id'] == $_GET['image_id'] )
   {
     $vtp->setVar( $sub, 'linked_category.representative_checked',
                   ' checked="checked"' );

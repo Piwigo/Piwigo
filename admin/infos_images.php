@@ -179,7 +179,9 @@ if ( isset( $page['cat'] ) )
       $result = mysql_query( $query );
       while ( $row = mysql_fetch_array( $result ) )
       {
-        $specific_keywords = explode( ',', $row['keywords'] );
+        if ( !isset( $row['keywords'] ) ) $specific_keywords = array();
+        else $specific_keywords = explode( ',', $row['keywords'] );
+        
         $common_keywords   = get_keywords( $_POST['keywords_cat'] );
         // first possiblity : adding the given keywords to all the pictures
         if ( $_POST['common_keywords'] == 'add' )

@@ -36,7 +36,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $subresult = mysql_query( $query );
     $subrow = mysql_fetch_array( $subresult );
 
-    if ( $array_cat_directories[$subrow['cat_id']] == '' )
+    if ( !isset( $array_cat_directories[$subrow['cat_id']] ) )
     {
       $array_cat_directories[$subrow['cat_id']] =
         get_complete_dir( $subrow['cat_id'] );

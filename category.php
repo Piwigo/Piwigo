@@ -285,8 +285,8 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 
     $file = get_filename_wo_extension( $row['file'] );
     // name of the picture
-    if ( $row['name'] != '' ) $name = $row['name'];
-    else                      $name = str_replace( '_', ' ', $file );
+    if ( isset( $row['name'] ) and $row['name'] != '' ) $name = $row['name'];
+    else $name = str_replace( '_', ' ', $file );
 
     if ( $page['cat'] == 'search' )
     {

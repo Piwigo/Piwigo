@@ -404,7 +404,7 @@ function update_category( $id = 'all' )
     $row = mysql_fetch_array( mysql_query( $query ) );
     // if the category has no representative picture (ie
     // representative_picture_id == NULL) we don't update anything
-    if ( $row['representative_picture_id'] != '' )
+    if ( isset( $row['representative_picture_id'] ) )
     {
       $query = 'SELECT image_id';
       $query.= ' FROM '.PREFIX_TABLE.'image_category';
@@ -691,7 +691,7 @@ function update_uppercats( $category_id )
   array_push( $uppercats, $category_id );
   $uppercat = $page['plain_structure'][$category_id]['id_uppercat'];
 
-  while ( $uppercat != '' )
+  while ( $uppercat != 'NULL' )
   {
     array_push( $uppercats, $uppercat );
     $category_id = $page['plain_structure'][$category_id]['id_uppercat'];
