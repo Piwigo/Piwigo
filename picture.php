@@ -896,7 +896,7 @@ if ( isset( $_GET['slideshow'] ) )
 }
 
 //------------------------------------------------------------------- rate form
-if ($conf['rate'])
+if ($conf['rate'] and !$user['is_the_guest'])
 {
   $query = '
 SELECT rate
@@ -946,7 +946,6 @@ SELECT rate
         ));
   }
 }
-
 //---------------------------------------------------- users's comments display
 if ($page['show_comments'])
 {
