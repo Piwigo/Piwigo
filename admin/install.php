@@ -73,7 +73,9 @@ if ( isset($_GET['step']) && $_GET['step'] == 1 )
     {
       array_push( $errors, $lang['step1_err_server'] );
     }
-			
+
+    $config_file = '../include/mysql.inc.php';
+    
     if ( count( $errors ) == 0 )
     {
       $file_content = "<?php";
@@ -84,7 +86,7 @@ if ( isset($_GET['step']) && $_GET['step'] == 1 )
       $file_content.= "\n\$prefixeTable = '".$_POST['prefixeTable']."';";
       $file_content.= "\n?>";
       // writting the configuration file
-      if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
+      if ( $fp = @fopen( $config_file, 'a+' ) )
       {
         fwrite( $fp, $file_content ); 
         fclose( $fp );
@@ -93,7 +95,7 @@ if ( isset($_GET['step']) && $_GET['step'] == 1 )
       $cfgUser     = '';
       $cfgPassword = '';
       $cfgBase     = '';
-      include( '../include/mysql.inc.php' );
+      if ( is_file( $config_file ) ) include( $config_file );
       $file_OK = false;
       if ( @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) )
       {
@@ -239,9 +241,10 @@ else if (  isset($_GET['step']) && $_GET['step'] == 2 )
 
       // webmaster admin user
       $query = 'INSERT INTO '.$prefixeTable.'users';
-      $query.= ' (id,username,password,status,language) VALUES ';
+      $query.= ' (id,username,password,status,language,mail_address) VALUES ';
       $query.= "(1,'".$webmaster."','".md5( $_POST['pwdWebmaster'] )."'";
-      $query.= ",'admin','".$_GET['language']."')";
+      $query.= ",'admin','".$_GET['language']."'";
+      $query.= ",'".$_POST['mail_webmaster']."')";
       $query.= ';';
       mysql_query($query);
 
