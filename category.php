@@ -347,17 +347,28 @@ elseif ( ( isset( $page['cat'] )
   $cell_number = 1;
   $i = 0;
   foreach ( $subcats as $subcat_id => $non_empty_id ) {
-    $subcat_infos  = get_cat_info( $subcat_id );
-
-    $name ='[ <span style="font-weight:bold;">';
-    $name.= $subcat_infos['name'][0];
+    $name = '<img src="'.$user['lien_collapsed'].'" style="border:none;"';
+    $name.= ' alt="&gt;"/> ';
+    $name.= '[ <span style="font-weight:bold;">';
+    $name.= $page['plain_structure'][$subcat_id]['name'];
     $name.= '</span> ]';
 
+    // searching the representative picture of the category
+    $query = 'SELECT representative_picture_id';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$non_empty_id;
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    
     $query = 'SELECT file,tn_ext,storage_category_id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
     $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= ' WHERE category_id = '.$non_empty_id;
-    $query.= ' ORDER BY RAND()';
+    // if the category has a representative picture, this is its thumbnail
+    // tha will be displayed !
+    if ( $row['representative_picture_id'] != '' )
+      $query.= ' AND id = '.$row['representative_picture_id'];
+    else
+      $query.= ' ORDER BY RAND()';
     $query.= ' LIMIT 0,1';
     $query.= ';';
     $image_result = mysql_query( $query );
@@ -383,8 +394,7 @@ elseif ( ( isset( $page['cat'] )
     if ( $page['expand'] != '' ) $url_link.= ',';
     $url_link.= $subcat_id;
 
-    list( $year,$month,$day ) = explode( '-', $subcat_infos['date_last'] );
-    $date = mktime( 0, 0, 0, $month, $day, $year );
+    $date = $page['plain_structure'][$subcat_id]['date_last'];
 
     // sending vars to display
     $vtp->addSession( $handle, 'thumbnail' );
