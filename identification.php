@@ -49,7 +49,7 @@ if ( isset( $_POST['login'] ) )
 $title = $lang['ident_page_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/default/identification.vtp' );
+$handle = $vtp->Open( './template/'.$user['template'].'/identification.vtp' );
 // language
 $vtp->setGlobalVar( $handle, 'ident_title',      $lang['ident_title'] );
 $vtp->setGlobalVar( $handle, 'login',            $lang['login'] );
