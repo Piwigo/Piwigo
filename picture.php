@@ -54,13 +54,13 @@ if ( 0 )
 }
 
 // retrieving the number of the picture in its category (in order)
-$query = 'SELECT DISTINCT(id)';
-$query.= ' FROM '.IMAGES_TABLE;
-$query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-$query.= ' ON id = ic.image_id';
-$query.= $page['where'];
-$query.= $conf['order_by'];
-$query.= ';';
+$query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  '.$page['where'].'
+  '.$conf['order_by'].'
+;';
 $result = mysql_query( $query );
 $page['num'] = 0;
 $row = mysql_fetch_array( $result );
@@ -87,12 +87,13 @@ if ( $page['num'] == $page['cat_nb_images'] - 1 )
   $next = 0;
 }
 
-$query = 'SELECT *';
-$query.= ' FROM '.IMAGES_TABLE;
-$query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-$query.= ' ON id=ic.image_id';
-$query.= $page['where'];
-$query.= $conf['order_by'];
+$query = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
+  '.$page['where'].'
+  '.$conf['order_by'].'
+  ';
 
 if ( $prev < 0 )
 {
@@ -142,7 +143,6 @@ for ( $i = 0; $i < $nb_row; $i++ )
   if ( $page['cat'] == 'search' )
   {
     $picture[$j]['url'].= '&amp;search='.$_GET['search'];
-    $picture[$j]['url'].= '&amp;mode='.$_GET['mode'];
   }
 }
 
@@ -150,7 +150,7 @@ $url_home = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
 $url_home.= 'num='.$page['num']; 
 if ( $page['cat'] == 'search' )
 {
-  $url_home.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
+  $url_home.= "&amp;search=".$_GET['search'];
 }
 
 $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
@@ -530,7 +530,7 @@ if ( $conf['show_comments'] )
   $url = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
   if ( $page['cat'] == 'search' )
   {
-    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+    $url.= '&amp;search='.$_GET['search'];
   }
   if( !isset( $_GET['start'] )
       or !is_numeric( $_GET['start'] )
