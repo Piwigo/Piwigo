@@ -24,6 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );    
@@ -224,7 +225,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
     // anti-flood system
     $reference_date = time() - $conf['anti-flood_time'];
     $query = 'SELECT id FROM '.COMMENTS_TABLE;
-    $query.= ' WHERE date > '.$reference_date;
+    $query.= ' WHERE date > FROM_UNIXTIME('.$reference_date.')';
     $query.= " AND author = '".$author."'";
     $query.= ';';
     if ( mysql_num_rows( mysql_query( $query ) ) == 0
@@ -233,7 +234,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       $query = 'INSERT INTO '.COMMENTS_TABLE;
       $query.= ' (author,date,image_id,content,validated) VALUES (';
       $query.= "'".$author."'";
-      $query.= ','.time().','.$_GET['image_id'];
+      $query.= ',NOW(),'.$_GET['image_id'];
       $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
       if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
       {        
@@ -577,7 +578,7 @@ if ( $conf['show_comments'] )
 	
     $template->assign_block_vars('comments.comment', array(
     'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
-    'COMMENT_DATE'=>format_date( $row['date'], 'unix', true ),
+    'COMMENT_DATE'=>format_date( $row['date'], 'mysql_datetime', true ),
 	'COMMENT'=>$content
 	));
 	

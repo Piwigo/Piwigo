@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS phpwebgallery_comments;
 CREATE TABLE phpwebgallery_comments (
   id int(11) unsigned NOT NULL auto_increment,
   image_id mediumint(8) unsigned NOT NULL default '0',
-  date int(11) unsigned NOT NULL default '0',
+  date datetime NOT NULL default '0000-00-00 00:00:00',
   author varchar(255) default NULL,
   content longtext,
   validated enum('true','false') NOT NULL default 'false',

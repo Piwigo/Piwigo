@@ -374,6 +374,12 @@ function format_date( $date, $type = 'us', $show_time = false )
   case 'unix' :
     $unixdate = $date;
     break;
+  case 'mysql_datetime' :
+    preg_match( '/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/',
+                $date, $matches );
+    $unixdate = mktime($matches[4],$matches[5],$matches[6],
+                       $matches[2],$matches[3],$matches[1]);
+    break;
   }
   $formated_date = $lang['day'][date( "w", $unixdate )];
   $formated_date.= date( " j ", $unixdate );

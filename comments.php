@@ -91,13 +91,16 @@ $template->assign_vars(array(
 );
 
 foreach ( $conf['last_days'] as $option ) {
-  $url = $PHP_SELF.'?last_days='.($option - 1);
+  $url = $_SERVER['PHP_SELF'].'?last_days='.($option - 1);
   if (defined('IN_ADMIN')) $url.= '&amp;page=comments';
-  $template->assign_block_vars('last_day_option', array (
-    'OPTION'=>$option,
-	'T_STYLE'=>(( $option == MAX_DAYS + 1 )?'text-decoration:underline;':''),
-	'U_OPTION'=>add_session_id( $url )
-	));
+  $template->assign_block_vars(
+    'last_day_option',
+    array(
+      'OPTION'=>$option,
+      'T_STYLE'=>(( $option == MAX_DAYS + 1 )?'text-decoration:underline;':''),
+      'U_OPTION'=>add_session_id( $url )
+      )
+    );
 }
 
 // 1. retrieving picture ids which have comments recently added
@@ -109,7 +112,7 @@ $query.= '(ic.category_id) as category_id';
 $query.= ' FROM '.COMMENTS_TABLE.' AS c';
 $query.= ', '.IMAGE_CATEGORY_TABLE.' AS ic';
 $query.= ' WHERE c.image_id = ic.image_id';
-$query.= ' AND date > '.$maxtime;
+$query.= ' AND date > FROM_UNIXTIME('.$maxtime.')';
 if ( $user['status'] != 'admin' )
 {
   $query.= " AND validated = 'true'";
@@ -173,7 +176,7 @@ while ( $row = mysql_fetch_array( $result ) )
     // for each picture, retrieving all comments
     $query = 'SELECT * FROM '.COMMENTS_TABLE;
     $query.= ' WHERE image_id = '.$row['image_id'];
-    $query.= ' AND date > '.$maxtime;
+    $query.= ' AND date > FROM_UNIXTIME('.$maxtime.')';
 	if ( $user['status'] != 'admin' )
     {
       $query.= " AND validated = 'true'";
@@ -201,18 +204,20 @@ while ( $row = mysql_fetch_array( $result ) )
       $pattern = '/\/([^\s]*)\//';
       $replacement = '<span style="font-style:italic;">\1</span>';
       $content = preg_replace( $pattern, $replacement, $content );
-      $template->assign_block_vars('picture.comment',array(
-	    'COMMENT_AUTHOR'=>$author,
-		'COMMENT_DATE'=>format_date( $subrow['date'], 'unix', true ),
-		'COMMENT'=>$content,
-		));
-		if ( $user['status'] == 'admin' )
-		{
-		  $template->assign_block_vars('picture.comment.validation', array(
-		    'ID'=> $subrow['id'],
-			'CHECKED'=>($subrow['validated']=='false')?'checked="checked"': ''
-			));
-		}
+      $template->assign_block_vars(
+        'picture.comment',array(
+          'COMMENT_AUTHOR'=>$author,
+          'COMMENT_DATE'=>format_date( $subrow['date'],'mysql_datetime',true ),
+          'COMMENT'=>$content,
+          ));
+      if ( $user['status'] == 'admin' )
+      {
+        $template->assign_block_vars(
+          'picture.comment.validation', array(
+            'ID'=> $subrow['id'],
+            'CHECKED'=>($subrow['validated']=='false')?'checked="checked"': ''
+            ));
+      }
     }
   }
 //----------------------------------------------------------- html code display
