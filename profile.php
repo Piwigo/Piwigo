@@ -109,7 +109,7 @@ if ( isset( $_POST['submit'] ) )
     }
     // redirection
     $url = 'category.php';
-    if ( isset( $_POST['create_cookie'] ) ) $url = add_session_id( $url,true );
+    if ( !isset($_POST['create_cookie']) ) $url = add_session_id( $url,true );
     header( 'Request-URI: '.$url );  
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );
