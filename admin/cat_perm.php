@@ -151,7 +151,7 @@ while ( $row = mysql_fetch_array( $result ) )
 
   // for color of user : (red means access forbidden, green authorized) we
   // ask all forbidden categories, including the groups rights
-  $restrictions = get_restrictions( $row['id'], $row['status'], false );
+  $restrictions = get_user_restrictions( $row['id'], $row['status'], false );
   $is_user_allowed = is_user_allowed( $page['cat'], $restrictions );
   if ( $is_user_allowed == 0 )
   {
@@ -163,7 +163,7 @@ while ( $row = mysql_fetch_array( $result ) )
   }
   // for permission update button, we only ask forbidden categories for the
   // user, not taking into account the groups the user belongs to
-  $restrictions = get_restrictions( $row['id'], $row['status'], false, false );
+  $restrictions = get_user_restrictions($row['id'],$row['status'],false,false);
   $is_user_allowed = is_user_allowed( $page['cat'], $restrictions );
   if ( $is_user_allowed == 2 )
   {
