@@ -927,4 +927,31 @@ function is_user_allowed( $category_id, $restrictions )
   // no restriction found : the user is allowed to access this category
   return 0;
 }
+
+/**
+ * returns an array containing sub-directories which can be a category
+ *
+ * directories nammed "thumbnail" are omitted
+ *
+ * @param string $basedir
+ * @return array
+ */
+function get_category_directories( $basedir )
+{
+  $sub_dirs = array();
+
+  if ( $opendir = opendir( $basedir ) )
+  {
+    while ( $file = readdir( $opendir ) )
+    {
+      if ( $file != '.' and $file != '..'
+           and is_dir( $basedir.'/'.$file )
+           and $file != 'thumbnail' )
+      {
+        array_push( $sub_dirs, $file );
+      }
+    }
+  }
+  return $sub_dirs;
+}
 ?>
