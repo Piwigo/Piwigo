@@ -34,7 +34,7 @@ CREATE TABLE phpwebgallery_comments (
   id int(11) unsigned NOT NULL auto_increment,
   image_id mediumint(8) unsigned NOT NULL default '0',
   date int(11) unsigned NOT NULL default '0',
-  author varchar(255) NOT NULL default '',
+  author varchar(255) default NULL,
   content longtext,
   validated enum('true','false') NOT NULL default 'false',
   PRIMARY KEY  (id)
