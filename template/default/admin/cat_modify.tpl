@@ -41,6 +41,9 @@
         <textarea name="comment" rows="3" cols="50" >{CAT_COMMENT}</textarea>
       </td>
     </tr>
+	<tr class="admin">
+	  <th colspan="2">{L_EDIT_CAT_OPTIONS}</th>
+	</tr>
     <tr>
       <td><strong>{L_EDIT_STATUS}&nbsp;:</strong><br /><span class="small">{L_EDIT_STATUS_INFO}</span></td>
       <td class="row1">
@@ -71,23 +74,6 @@
       </td>
     </tr>
     <!-- END upload -->
-    <!-- BEGIN parent -->
-    <tr>
-      <td>{#cat_parent}</td>
-      <td class="row1">
-        <!-- BEGIN associate_LOV -->
-        <select name="associate">
-          <!-- BEGIN associate_cat -->
-          <option value="{#value}">{#content}</option>
-          <!-- END associate_cat -->
-        </select>
-        <!-- END associate_LOV -->
-        <!-- BEGIN associate_text -->
-        <input type="text" name="associate" value="{#value}" />
-        <!-- END associate_text -->
-      </td>
-    </tr>
-    <!-- END parent -->
     <tr>
       <td colspan="2">&nbsp;</td>
     </tr>

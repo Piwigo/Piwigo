@@ -201,7 +201,7 @@ $template->assign_vars(array(
   'L_CAT_UPLOAD'=>$lang['upload'],
   'L_CAT_COMMENTS'=>$lang['comments'],
   'L_CAT_VISIBLE'=>$lang['lock'],
-  'L_CAT_STATUS'=>$lang['admin_menu_cat_status'],
+  'L_CAT_STATUS'=>$lang['cat_security'],
 
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),

@@ -86,6 +86,7 @@ $lang['remote_site_local_new'] = '(new site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Categories
+$lang['cat_security'] = 'Public / Private';
 $lang['cat_add'] = 'Add a virtual category';
 $lang['cat_virtual'] = 'Virtual category';
 $lang['cat_public'] = 'Public category';
@@ -94,12 +95,11 @@ $lang['cat_image_info'] = 'Images info';
 $lang['editcat_status'] = 'Status';
 $lang['editcat_confirm'] = 'Category informations updated successfully.';
 $lang['editcat_perm'] = 'To set permissions for this category, click';
+$lang['editcat_lock_info'] = 'The category and its sub-categories will temporary been disabled for maintenance.'
 $lang['editcat_uploadable'] = 'Authorize upload';
 $lang['editcat_uploadable_info'] = 'Authorize users to upload files';
-$lang['editcat_commentable'] = 'Users comments';
 $lang['editcat_commentable_info'] = 'Authorize users to comment elements of this category';
 $lang['cat_access_info'] = 'Permission management. If you make a category private, all its child categories becomes private. If you make a category public, all its parent categories becomes public';
-$lang['editcat_visible_info'] = 'Lock temporary for maintenance. If you lock a category, all its child categories become locked. If you unlock a category, all its parent categories become unlocked.';
 $lang['cat_virtual_added'] = 'Virtual category added';
 $lang['cat_virtual_deleted'] = 'Virtual category deleted';
 $lang['cat_upload_title'] = 'Select uploadable categories';
@@ -114,6 +114,7 @@ $lang['cat_status_title'] = 'Manage authorizations for selected categories';
 $lang['cat_status_info'] = 'Selected categories are private : you will need to authorize users and/or groups to access to them.
 <br />If you make a category private, all its child categories becomes private.
 <br />If you make a category public, all its parent categories becomes public';
+$lang['cat_representant'] = 'Random representant';
 
 // Titles
 $lang['admin_panel'] = 'Administration Panel';
@@ -134,7 +135,7 @@ $lang['title_cat_options'] = 'Categories options';
 $lang['title_groups'] = 'Groups management';
 
 //Error messages
-$lang['cat_error_name'] = 'The name of a category mustn\'t be empty';
+$lang['cat_error_name'] = 'The name of a category should not be empty';
 
 //Configuration
 $lang['conf_confirmation'] = 'Information data registered in database';
@@ -222,6 +223,11 @@ $lang['infoimage_keyword_separation'] = '(separate with coma ",")';
 $lang['infoimage_addtoall'] = 'add to all';
 $lang['infoimage_removefromall'] = 'remove from all';
 $lang['infoimage_associate'] = 'Associate to the category';
+$lang['infoimage_associated'] = 'virtually associated to';
+$lang['infoimage_dissociated'] = 'dissociated from';
+$lang['storage_category'] = 'storage category';
+$lang['represents'] = 'represents';
+$lang['doesnt_represent'] = 'doesn\'t represent';
 
 // Thumbnails
 $lang['tn_width'] = 'width';
@@ -341,15 +347,7 @@ $lang['waiting_update'] = 'Validated pictures will be displayed only once pictur
 $lang['cat_unknown_id'] = 'This category is unknown in the database';
 $lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
 
-$lang['cat_list_update_metadata'] = 'Synchronize<br />metadata';
-$lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
-$lang['cat_list_virtual_category_added'] = 'virtual category added';
-$lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
-$lang['set_random_representant'] = 'set new random representant';
-$lang['cat_associated'] = 'virtually associated to';
-$lang['cat_dissociated'] = 'dissociated from';
-$lang['storage_category'] = 'storage category';
-$lang['represents'] = 'represents';
-$lang['doesnt_represent'] = 'doesn\'t represent';
-$lang['admin_menu_cat_status'] = 'Public / Private';
+
+
+
 ?>

@@ -33,6 +33,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'en';
 
 // Main words 
+$lang['no_category'] = 'Home';
 $lang['category'] = 'Category';
 $lang['categories'] = 'Categories';
 $lang['thumbnail'] = 'Thumbnail';
@@ -83,6 +84,11 @@ $lang['about'] = 'about';
 $lang['hint_about'] = 'more informations on PhpWebGallery...';
 $lang['admin'] = 'Administration';
 $lang['hint_admin'] = 'available for administrators only';
+$lang['page_number'] = 'page number';
+$lang['previous_page'] = 'Previous';
+$lang['next_page'] = 'Next';
+$lang['first_page'] = 'First';
+$lang['last_page'] = 'Last';
 
 // Identification
 $lang['login'] = 'Login';
@@ -200,12 +206,7 @@ $lang['hint_login'] = 'identification enables site\'s appareance customization';
 $lang['hint_customize'] = 'customize the appareance of the gallery';
 $lang['hint_search'] = 'search';
 
-$lang['no_category'] = 'Home';
-$lang['page_number'] = 'page number';
-$lang['previous_page'] = 'Previous';
-$lang['next_page'] = 'Next';
-$lang['first_page'] = 'First';
-$lang['last_page'] = 'Last';
+
 $lang['recent_image'] = 'Image within the';
 $lang['days'] = 'days';
 

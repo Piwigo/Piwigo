@@ -43,13 +43,18 @@ $lang['authorized'] = 'Autorisé';
 $lang['forbidden'] = 'Interdit';
 $lang['free'] = 'Libre';
 $lang['restricted'] = 'Restreint';
+$lang['public'] = 'Publique';
+$lang['private'] = 'Privée';
 $lang['metadata']='Métadonnées';
 $lang['visitors'] = 'Visiteurs';
 $lang['storage'] = 'Répertoire';
+$lang['locked'] = 'Verrouillée';
+$lang['unlocked'] = 'Déverrouillée';
 $lang['lock'] = 'Verrouiller';
 $lang['unlock'] = 'Déverrouiller';
 $lang['up'] = 'Monter';
 $lang['down'] = 'Descendre';
+$lang['path'] = 'Chemin d\'accès';
 
 // Specific words
 $lang['phpinfos'] = 'Informations PHP';
@@ -82,6 +87,8 @@ $lang['remote_site_local_new'] = '(new site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Category words
+$lang['cat_security'] = 'Sécurité';
+$lang['cat_options'] = 'Options de la catégorie';
 $lang['cat_add'] = 'Ajouter une catégorie virtuelle';
 $lang['cat_virtual'] = 'Catégorie virtuelle';
 $lang['cat_public'] = 'Catégorie publique';
@@ -90,19 +97,25 @@ $lang['cat_image_info'] = 'Infos images';
 $lang['editcat_status'] = 'Statut';
 $lang['editcat_confirm'] = 'Les informations associées à cette catégorie ont été mises à jour.';
 $lang['editcat_perm'] = 'Pour accéder aux permissions associées, cliquez';
+$lang['editcat_lock_info'] = 'Verrouiller temporairement une catégorie (maintenance). Elle devient alors invisible pour les utilisateurs.';
+$lang['editcat_uploadable'] = 'Autoriser l\'ajout d\'images';
+$lang['editcat_uploadable_info'] = 'Les utilisateurs pourront ajouter des images.';
+$lang['editcat_commentable_info'] = 'Autoriser les utilisateurs à poster des commentaires.';
 $lang['cat_access_info'] = 'Permet de gérer l\'accès à cette catégorie.';
 $lang['cat_virtual_added'] = 'Catégorie virtuelle créée';
 $lang['cat_virtual_deleted'] = 'Catégorie virtuelle détruite';
 $lang['cat_upload_title'] = 'Sélectionner les catégories pour lesquelles l\'ajout d\'image est autorisé';
 $lang['cat_upload_info'] = 'Seules les catégories non virtuelles et non distantes sont repertoriées.';
 $lang['cat_lock_title'] = 'Verrouiller les catégories';
-$lang['cat_lock_info'] = 'Cela rendra la catégorie temporairement invisible pour les utilisateurs (maintenance)';
+$lang['cat_lock_info'] = 'Verrouiller temporairement une catégorie (maintenance). Elle devient alors invisible pour les utilisateurs.
+<br />Toutes les sous-catégories seront aussi verrouillées ou toutes les catégories mères seront déverouillées selon votre action.';
 $lang['cat_comments_title'] = 'Autoriser les utilisateurs à poster des commentaires';
 $lang['cat_comments_info'] = 'Par héritage, il est possible de poster des commentaires dans une sous-catégorie si cela est autorisé pour au moins une catégorie mère.';
 $lang['cat_status_title'] = 'Gestion des autorisations';
 $lang['cat_status_info'] = 'Les catégories sélectionnées sont privées : vous devrez permettre à vos utilisateurs et / ou groupes d\'y accéder.
 <br />Si une catégorie est déclarée privée, alors toutes ses sous catégories deviennent privées.
 <br />Si une catégorie est déclarée publique, alors toutes les catégories mères deviennent publiques.';
+$lang['cat_representant'] = 'Représentant au hasard';
 
 //Titles
 $lang['admin_panel'] = 'Panneau d\'administration';
@@ -213,6 +226,11 @@ $lang['infoimage_keyword_separation'] = '(séparer avec des ",")';
 $lang['infoimage_addtoall'] = 'ajouter à tous';
 $lang['infoimage_removefromall'] = 'retirer à tous';
 $lang['infoimage_associate'] = 'Associer à la catégorie';
+$lang['infoimage_associated'] = 'Associé';
+$lang['infoimage_dissociated'] = 'Non associé';
+$lang['storage_category'] = 'Repertoire de stockage';
+$lang['represents'] = 'Représente';
+$lang['doesnt_represent'] = 'doesn\'t represent';
 
 // Thumbnails
 $lang['tn_width'] = 'largeur';

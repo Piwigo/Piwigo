@@ -33,6 +33,7 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
 
 // Main words 
+$lang['no_category'] = 'Accueil';
 $lang['category'] = 'Catégorie';
 $lang['categories'] = 'Catégories';
 $lang['thumbnail'] = 'Miniature';
@@ -53,6 +54,7 @@ $lang['file'] = 'Fichier';
 $lang['keywords'] = 'Mots-clefs';
 $lang['default'] = 'Défaut';
 $lang['webmaster'] = 'Webmaster';
+$lang['language'] = 'Langue';
 
 // Properties
 $lang['registration_date'] = 'Enregistré le';
@@ -92,6 +94,11 @@ $lang['about'] = 'A propos';
 $lang['hint_about'] = 'Quelques informations sur PhpWebGallery...';
 $lang['admin'] = 'Administration';
 $lang['hint_admin'] = 'Partie accessible uniquement aux administrateurs';
+$lang['page_number'] = 'numéro de page';
+$lang['previous_page'] = 'Précédente';
+$lang['next_page'] = 'Suivante';
+$lang['first_page'] = '<<';
+$lang['last_page'] = '>>';
 
 //Calendar
 $lang['calendar'] = 'Calendrier';
@@ -132,7 +139,6 @@ $lang['new_password_hint'] = 'Vous avez seulement besoin de fournir un mot de pa
 $lang['confirm_password_hint'] = 'Vous avez seulement besoin de confirmer votre mot de passe si vous l\'avez changé ci-dessus';
 $lang['nb_image_per_row'] = 'Nombre d\'images par ligne';
 $lang['nb_row_per_page'] = 'Nombre de lignes par page';
-$lang['language'] = 'Langue';
 $lang['maxwidth'] = 'Largeur maximum des images';
 $lang['maxheight'] = 'Hauteur maximum des images';
 $lang['auto_expand'] = 'Développer toutes les catégories';
@@ -204,10 +210,7 @@ $lang['hint_customize'] = 'personnaliser votre affichage';
 $lang['hint_search'] = 'lancer une recherche';
 
 
-$lang['no_category'] = 'Accueil';
-$lang['page_number'] = 'numéro de page';
-$lang['previous_page'] = 'Précédente';
-$lang['next_page'] = 'Suivante';
+
 $lang['nb_image_category'] = 'nombre d\'images dans la catégorie';
 $lang['recent_image'] = 'Image datant de moins de';
 $lang['send_mail'] = 'Contacter l\'adminstrateur';
