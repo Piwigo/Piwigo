@@ -41,7 +41,7 @@ array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
        'show_comments','nb_comment_page','upload_available',
        'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
        'upload_maxwidth_thumbnail','upload_maxheight_thumbnail','log',
-       'comments_validation','comments_forall' );
+       'comments_validation','comments_forall','authorize_cookies' );
 $default_user_infos =
 array( 'nb_image_line','nb_line_page','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
@@ -850,6 +850,37 @@ $vtp->closeSession( $sub, 'line' );
 $vtp->addSession( $sub, 'line' );
 $vtp->addSession( $sub, 'space_line' );
 $vtp->closeSession( $sub, 'space_line' );
+$vtp->closeSession( $sub, 'line' );
+// authorize cookies ?
+$vtp->addSession( $sub, 'line' );
+$vtp->addSession( $sub, 'param_line' );
+$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_cookie'] );
+$vtp->addSession( $sub, 'group' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'authorize_cookies' );
+$vtp->setVar( $sub, 'radio.value', 'true' );
+$checked = '';
+if ( $authorize_cookies == 'true' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'authorize_cookies' );
+$vtp->setVar( $sub, 'radio.value', 'false' );
+$checked = '';
+if ( $authorize_cookies == 'false' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->setVar( $sub, 'radio.option', $lang['no'] );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->closeSession( $sub, 'group' );
+$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_cookie_info'] );
+$vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
 // session size
 $vtp->addSession( $sub, 'line' );

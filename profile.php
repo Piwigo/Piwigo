@@ -103,13 +103,18 @@ if ( isset( $_POST['submit'] ) )
       $query.= ';';
       mysql_query( $query );
     }
+    if ( $_POST['create_cookie'] == 1 )
+    {
+      setcookie( 'id',$page['session_id'],$_POST['cookie_expiration'],
+                 cookie_path() );
+    }
     // redirection
     $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
     if ( $page['cat'] == 'search' )
     {
       $url.= '&search='.$_GET['search'].'&mode='.$_GET['mode'];
     }
-    $url = add_session_id( $url, true );
+    if ( $_POST['create_cookie'] != 1 ) $url = add_session_id( $url, true );
     header( 'Request-URI: '.$url );  
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );
@@ -121,7 +126,7 @@ $vtp = new VTemplate;
 $handle = $vtp->Open( './template/'.$user['template'].'/profile.vtp' );
 initialize_template();
 $tpl = array( 'customize_page_title','customize_title','password','new',
-              'reg_confirm','submit' );
+              'reg_confirm','submit','create_cookie' );
 templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
 $url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
@@ -339,6 +344,28 @@ if ( in_array( 'show_nb_comments', $infos ) )
   $vtp->closeSession( $handle, 'radio' );
   $vtp->closeSession( $handle, 'group' );
   $vtp->closeSession( $handle, 'line' );
+}
+//--------------------------------------------------------------- create cookie
+if ( $conf['authorize_cookies'] )
+{
+  $vtp->addSession( $handle, 'cookie' );
+  $options = array(
+    array( 'message' => '1 '.$lang['customize_day'],
+           'value' => time() + 24*60*60 ),
+    array( 'message' => '1 '.$lang['customize_week'],
+           'value' => time() + 7*24*60*60 ),
+    array( 'message' => '1 '.$lang['customize_month'],
+           'value' => time() + 30*24*60*60 ),
+    array( 'message' => '1 '.$lang['customize_year'],
+           'value' => time() + 365*24*60*60 )
+    );
+  foreach ( $options as $option ) {
+    $vtp->addSession( $handle, 'expiration_option' );
+    $vtp->setVar( $handle, 'expiration_option.option', $option['message'] );
+    $vtp->setVar( $handle, 'expiration_option.value', $option['value'] );
+    $vtp->closeSession( $handle, 'expiration_option' );
+  }
+  $vtp->closeSession( $handle, 'cookie' );
 }
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );

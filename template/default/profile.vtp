@@ -58,13 +58,28 @@
                         <td colspan="2">&nbsp;</td>
                       </tr>
                       <tr>
-                        <td class="menu">{#new} {#password}<input type="checkbox" name="use_new_pwd" value="1" /></td>
+                        <td class="menu">{#new} {#password} <input type="checkbox" name="use_new_pwd" value="1" /></td>
                         <td class="menu"><input type="password" name="password" value="" /></td>
                       </tr>
                       <tr>
                         <td class="menu">{#reg_confirm}</td>
                         <td class="menu"><input type="password" name="passwordConf" value="" /></td>
                       </tr>
+                      <!--VTP_cookie-->
+                      <tr>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="menu">{#create_cookie} <input type="checkbox" name="create_cookie" value="1" /></td>
+                        <td class="menu">
+                          <select name="cookie_expiration">
+                          <!--VTP_expiration_option-->
+                            <option value="{#value}">{#option}</option>
+                          <!--/VTP_expiration_option-->
+                          </select>
+                        </td>
+                      </tr>
+                      <!--/VTP_cookie-->
                       <tr>
                         <td colspan="2">&nbsp;</td>
                       </tr>

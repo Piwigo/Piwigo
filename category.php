@@ -20,6 +20,17 @@ $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
+//---------------------------------------------------------------------- logout
+if ( $_GET['act'] == 'logout' and isset( $_COOKIE['id'] ) )
+{
+  // cookie deletion if exists
+  setcookie( 'id', '', 0, cookie_path() );
+  $url = 'category.php';
+  header( 'Request-URI: '.$url );  
+  header( 'Content-Location: '.$url );  
+  header( 'Location: '.$url );
+  exit();
+}
 //-------------------------------------------------- access authorization check
 // creating the plain structure : array of all the available categories and
 // their relative informations, see the definition of the function
@@ -150,7 +161,7 @@ if ( !$user['is_the_guest'] )
 {
   // logout link
   $vtp->addSession( $handle, 'summary' );
-  $vtp->setVar( $handle, 'summary.url', './category.php?cat='.$page['cat'] );
+  $vtp->setVar( $handle, 'summary.url', './category.php?act=logout' );
   $vtp->setVar( $handle, 'summary.title', '' );
   $vtp->setVar( $handle, 'summary.name', replace_space( $lang['logout'] ) );
   $vtp->closeSession( $handle, 'summary' );

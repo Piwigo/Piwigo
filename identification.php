@@ -18,10 +18,9 @@
 //----------------------------------------------------------- personnal include
 include_once( "./include/init.inc.php" );
 //-------------------------------------------------------------- identification
-$error = array();
+$errors = array();
 if ( isset( $_POST['login'] ) )
 {
-  $i = 0;
   // retrieving the encrypted password of the login submitted
   $query = 'select password';
   $query.= ' from '.PREFIX_TABLE.'users';
@@ -38,7 +37,7 @@ if ( isset( $_POST['login'] ) )
   }
   else
   {
-    $error[$i++] = $lang['invalid_pwd'];
+    array_push( $errors, $lang['invalid_pwd'] );
   }
 }
 //----------------------------------------------------- template initialization
@@ -63,10 +62,9 @@ initialize_template();
 if ( sizeof( $error ) != 0 )
 {
   $vtp->addSession( $handle, 'errors' );
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
-  {
+  foreach ( $errors as $error ) {
     $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error[$i] );
+    $vtp->setVar( $handle, 'li.li', $error );
     $vtp->closeSession( $handle, 'li' );
   }
   $vtp->closeSession( $handle, 'errors' );

@@ -62,7 +62,7 @@ $infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
                 'upload_maxheight', 'upload_maxwidth_thumbnail',
                 'upload_maxheight_thumbnail','log','comments_validation',
-                'comments_forall' );
+                'comments_forall','authorize_cookies' );
 
 $query  = 'SELECT ';
 foreach ( $infos as $i => $info ) {

@@ -32,34 +32,59 @@ foreach ( $infos as $i => $info ) {
 $query_user.= ' FROM '.PREFIX_TABLE.'users';
 $query_done = false;
 $user['is_the_guest'] = false;
-if ( isset( $_GET['id'] )
-     && ereg( "^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $_GET['id'] ) )
+
+// cookie deletion if administrator don't authorize them anymore
+if ( !$conf['authorize_cookies'] and isset( $_COOKIE['id'] ) )
 {
-  $page['session_id'] = $_GET['id'];
+  setcookie( 'id', '', 0, cookie_path() );
+  $url = 'category.php';
+  header( 'Request-URI: '.$url );  
+  header( 'Content-Location: '.$url );  
+  header( 'Location: '.$url );
+  exit();
+}
+
+$user['has_cookie'] = false;
+if     ( isset( $_GET['id']    ) ) $session_id = $_GET['id'];
+elseif ( isset( $_COOKIE['id'] ) )
+{
+  $session_id = $_COOKIE['id'];
+  $user['has_cookie'] = true;
+}
+
+if ( isset( $session_id )
+     and ereg( "^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $session_id ) )
+{
+  $page['session_id'] = $session_id;
   $query = 'SELECT user_id,expiration,ip';
   $query.= ' FROM '.PREFIX_TABLE.'sessions';
-  $query.= " WHERE id = '".$_GET['id']."'";
+  $query.= " WHERE id = '".$page['session_id']."'";
   $query.= ';';
   $result = mysql_query( $query );
   if ( mysql_num_rows( $result ) > 0 )
   {
     $row = mysql_fetch_array( $result );
-    if ( $row['expiration'] < time() )
+    if ( !$user['has_cookie'] )
     {
-      // deletion of the session from the database,
-      // because it is out-of-date
-      $delete_query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
-      $delete_query.= " WHERE id = '".$page['session_id']."'";
-      $delete_query.= ';';
-      mysql_query( $delete_query );
-    }
-    else
-    {
+      if ( $row['expiration'] < time() )
+      {
+        // deletion of the session from the database,
+        // because it is out-of-date
+        $delete_query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
+        $delete_query.= " WHERE id = '".$page['session_id']."'";
+        $delete_query.= ';';
+        mysql_query( $delete_query );
+      }
       if ( $_SERVER['REMOTE_ADDR'] == $row['ip'] )
       {
         $query_user .= ' WHERE id = '.$row['user_id'];
         $query_done = true;
       }
+    }
+    else
+    {
+      $query_user .= ' WHERE id = '.$row['user_id'];
+      $query_done = true;
     }
   }
 }

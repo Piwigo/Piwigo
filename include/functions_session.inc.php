@@ -14,17 +14,22 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+
+// The function generate_key creates a string with pseudo random characters.
+// the size of the string depends on the $conf['session_id_size'].
+// Characters used are a-z A-Z and numerical values. Examples :
+//                    "Er4Tgh6", "Rrp08P", "54gj"
+// input  : none (using global variable)
+// output : $key
 function generate_key()
 {
   global $conf;
+
   $md5 = md5( substr( microtime(), 2, 6 ).$conf['session_keyword'] );
   $init = '';
   for ( $i = 0; $i < strlen( $md5 ); $i++ )
   {
-    if ( is_numeric( $md5[$i] ) )
-    {
-      $init.= $md5[$i];
-    }
+    if ( is_numeric( $md5[$i] ) ) $init.= $md5[$i];
   }
   $init = substr( $init, 0, 8 );
   mt_srand( $init );
@@ -32,26 +37,19 @@ function generate_key()
   for ( $i = 0; $i < $conf['session_id_size']; $i++ )
   {
     $c = mt_rand( 0, 2 );
-    if ( $c == 0 )
-    {
-      $key .= chr( mt_rand( 65, 90 ) );
-    }
-    else if ( $c == 1 )
-    {
-      $key .= chr( mt_rand( 97, 122 ) );
-    }
-    else
-    {
-      $key .= mt_rand( 0, 9 );
-    }
+    if ( $c == 0 )      $key .= chr( mt_rand( 65, 90 ) );
+    else if ( $c == 1 ) $key .= chr( mt_rand( 97, 122 ) );
+    else                $key .= mt_rand( 0, 9 );
   }
   return $key;
 }
-        
+
+// The function create_session finds a non-already-used session key and
+// returns it once found for the given user.
 function session_create( $username )
 {
   global $conf;
-  // 1. searching an unused sesison key
+  // 1. searching an unused session key
   $id_found = false;
   while ( !$id_found )
   {
@@ -89,6 +87,9 @@ function session_create( $username )
 function add_session_id( $url, $redirect = false )
 {
   global $page, $user;
+
+  if ( $user['has_cookie'] ) return $url;
+
   $amp = '&amp;';
   if ( $redirect )
   {
@@ -109,5 +110,14 @@ function add_session_id( $url, $redirect = false )
   {
     return $url;
   }
+}
+
+// cookie_path returns the path to use for the PhpWebGallery cookie.
+// If PhpWebGallery is installed on :
+// http://domain.org/meeting/gallery/category.php
+// cookie_path will return : "/meeting/gallery"
+function cookie_path()
+{
+  return substr($_SERVER['PHP_SELF'],0,strrpos( $_SERVER['PHP_SELF'],'/'));
 }
 ?>

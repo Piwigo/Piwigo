@@ -136,6 +136,11 @@ $lang['customize_long_period'] = 'période longue';
 $lang['customize_template'] = 'template';
 $lang['err_periods'] = 'les périodes doivent être des entiers';
 $lang['err_periods_2'] = 'les périodes doivent être supérieures à 0, la période longue doit être plus grande que la période courte';
+$lang['create_cookie'] = 'créer un cookie';
+$lang['customize_day'] = 'jour';
+$lang['customize_week'] = 'semaine';
+$lang['customize_month'] = 'mois';
+$lang['customize_year'] = 'an';
 // end version 1.3
 $lang['maxwidth'] = 'largeur maximum des images';
 $lang['maxheight'] = 'hauteur maximum des images';
@@ -399,6 +404,10 @@ if ( $isadmin )
   $lang['conf_session_key_info'] = '- le mot-clef de session permet d\'améliorer le cryptage des identifiants de session.<br />- mettez n\'importe quelle chaîne de moins de 255 caractères.';
   $lang['conf_session_delete'] = 'supprimer les sessions périmées';
   $lang['conf_session_delete_info'] = 'il est recommandé de vider sa table de sessions car les sessions périmées restent enregistrées (mais ça ne pose pas de problème de sécurité)';
+  // start version 1.3
+  $lang['conf_session_cookie'] = 'autoriser les cookies';
+  $lang['conf_session_cookie_info'] = 'les utilisateurs ne seront plus obligés de s\'identifier à chaque visite.';
+  // end version 1.3
 		
   // page user, clés générales
   $lang['user_err_modify'] = 'Cet utilisateur ne peut pas être modifé ou supprimé';
