@@ -52,6 +52,7 @@ $lang['unlock'] = 'Unlock';
 $lang['up'] = 'Move up';
 $lang['down'] = 'Move down';
 $lang['path'] = 'path';
+$lang['no_write_access'] = 'no write access';
 
 // Specific words
 $lang['phpinfos'] = 'PHP Information';
@@ -263,6 +264,7 @@ $lang['tn_params_format_info'] = 'only jpeg file format is supported for thumbna
 $lang['tn_alone_title'] = 'pictures without thumbnail (jpeg and png only)';
 $lang['tn_dirs_title'] = 'Directories list';
 $lang['tn_dirs_alone'] = 'pictures without thumbnail';
+$lang['tn_no_missing'] = 'No missing thumbnail';
 
 // Waiting files 
 $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';

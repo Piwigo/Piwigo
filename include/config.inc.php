@@ -183,10 +183,17 @@ $conf['newcat_default_visible'] = 'true';
 $conf['newcat_default_status'] = 'public';
 
 // level_separator : character string used for separating a category level
-// to the sub level
+// to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',
+// ' &gt;'
 $conf['level_separator'] = ' / ';
 
 // paginate_pages_around : on paginate navigation bar, how many pages
 // display before and after the current page ?
 $conf['paginate_pages_around'] = 2;
+
+// tn_width : default width for thumbnails creation
+$conf['tn_width'] = 128;
+
+// tn_height : default height for thumbnails creation
+$conf['tn_height'] = 96;
 ?>

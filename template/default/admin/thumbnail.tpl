@@ -1,15 +1,3 @@
-<!-- BEGIN directory_list -->
-<div class="admin">{L_THUMBNAIL_TITLE}</div>
-<ul class="menu">
-  <!-- BEGIN directory -->
-  <li>[<a href="{directory_list.directory.URL}">{directory_list.directory.DIRECTORY}</a>] {directory_list.directory.NB_MISSING} {L_MISSING_THUMBNAILS}</li>
-  <!-- END directory -->
-</ul>
-<!-- END directory_list -->
-<!-- BEGIN warning -->
-<div style="text-align:center;font-weight:bold;margin:10px;"> [ 0 {L_UNLINK} ]</div>
-<!-- END warning -->
-
 <!-- BEGIN errors -->
 <div class="errors">
 <ul>
@@ -24,37 +12,25 @@
 <div class="admin">{L_RESULTS}</div>
 <table style="width:100%;">
   <tr class="throw">
-    <th>&nbsp;</td>
-    <th>{L_TN_PICTURE}</td>
-    <th>{L_FILESIZE}</td>
-    <th>{L_WIDTH}</td>
-    <th>{L_HEIGHT}</td>
-    <th>{L_GENERATED}</th>
+    <th>{L_PATH}</td>
     <th>{L_THUMBNAIL}</td>
+    <th>{L_GENERATED}</th>
     <th>{L_FILESIZE}</td>
     <th>{L_WIDTH}</td>
     <th>{L_HEIGHT}</td>
   </tr>
   <!-- BEGIN picture -->
   <tr class="{results.picture.T_CLASS}">
-    <td>{results.picture.NB_IMG}</td>
-    <td>{results.picture.FILE_IMG}</td>
-    <td style="text-align:right;">{results.picture.FILESIZE_IMG}</td>
-    <td style="text-align:right;">{results.picture.WIDTH_IMG}</td>
-    <td style="text-align:right;">{results.picture.HEIGHT_IMG}</td>
-    <th>
-      <div style="text-align:right;margin-right:5px;color:{results.picture.T_COLOR};">{results.picture.GEN_TIME}</div>
-    </th>
+    <td>{results.picture.PATH}</td>
     <td><img src="{results.picture.TN_FILE_IMG}" /></td>
+    <td style="text-align:right;" class="{results.picture.T_CLASS}">{results.picture.GEN_TIME}</td>
     <td style="text-align:right;">{results.picture.TN_FILESIZE_IMG}</td>
     <td style="text-align:right;">{results.picture.TN_WIDTH_IMG}</td>
     <td style="text-align:right;">{results.picture.TN_HEIGHT_IMG}</td>
   </tr>
   <!-- END picture -->
-  <tr>
-    <td colspan="10">&nbsp;</td>
-  </tr>
 </table>
+
 <table class="table2">
   <tr class="throw">
     <th colspan="2">{L_TN_STATS}</td>
@@ -69,11 +45,11 @@
   </tr>
   <tr>
     <td>{L_TN_MAX}</td>
-    <td style="text-align:right;color:red;">{results.TN_MAX}</td>
+    <td style="text-align:right;" class="worst_gen_time">{results.TN_MAX}</td>
   </tr>
   <tr>
     <td>{L_TN_MIN}</td>
-    <td style="text-align:right;color:#33FF00;">{results.TN_MIN}</td>
+    <td style="text-align:right;" class="best_gen_time">{results.TN_MIN}</td>
   </tr>
   <tr>
     <td>{L_TN_AVERAGE}</td>
@@ -115,12 +91,10 @@
     <tr>
       <td><div class="key">{L_CREATE}</div></td>
       <td class="choice">
-        <select name="n">
-          <option selected>5</option>
-          <option>10</option>
-          <option>20</option>
-          <option>40</option>
-        </select>
+        <input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5
+        <input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10
+        <input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20
+        <input type="radio" name="n" value="all" {params.n_all_CHECKED} /> all
       </td>
       <td>{L_CREATE_INFO}</td>
     </tr>
@@ -138,12 +112,16 @@
 </form>
 <!-- END params -->
 
+<!-- BEGIN warning -->
+<div style="text-align:center;font-weight:bold;margin:10px;"> [ {L_UNLINK} ]</div>
+<!-- END warning -->
+
 <!-- BEGIN remainings -->
 <div class="admin">{remainings.TOTAL_IMG} {L_REMAINING}</div>
 <table style="width:100%;">
   <tr class="throw">
     <th>&nbsp;</td>
-    <th style="width:60%;">{L_TN_PICTURE}</td>
+    <th style="width:60%;">{L_PATH}</td>
     <th>{L_FILESIZE}</td>
     <th>{L_WIDTH}</td>
     <th>{L_HEIGHT}</td>
@@ -151,7 +129,7 @@
   <!-- BEGIN remaining -->
   <tr class="{remainings.remaining.T_CLASS}">
     <td>{remainings.remaining.NB_IMG}</td>
-    <td><div style="margin-left:10px;">{remainings.remaining.FILE_TN}</div></td>
+    <td><div style="margin-left:10px;">{remainings.remaining.PATH}</div></td>
     <td><div style="margin-left:10px;">{remainings.remaining.FILESIZE_IMG}</div></td>
     <td><div style="margin-left:10px;">{remainings.remaining.WIDTH_IMG}</div></td>
     <td><div style="margin-left:10px;">{remainings.remaining.HEIGHT_IMG}</div></td>

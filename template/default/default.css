@@ -18,8 +18,14 @@ input,select,textarea { color:#FFFFCC;} /* Forms font color */
 .commentDate { color:#999999;} /* Comments date */
 .throw { color:#FFFFCC;} /* First line of tables */
 .bouton, .errors { color:#FFFFFF;} /* Buttons & errors */
-.update_summary_new { color:#9cb4ce;} /* Update results (admin side only) */
-.update_summary_del { color:#ffe1e1;} /* Update results (admin side only) */
+
+/* Update results (admin side only) */
+.update_summary_new, .best_gen_time
+{ color:#9cb4ce;}
+
+/* Update results (admin side only) */
+.update_summary_del,.worst_gen_time
+{ color:#ffe1e1;}
 
 /* ANCHORS */
 

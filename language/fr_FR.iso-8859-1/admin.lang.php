@@ -53,6 +53,7 @@ $lang['unlock'] = 'Déverrouiller';
 $lang['up'] = 'Monter';
 $lang['down'] = 'Descendre';
 $lang['path'] = 'Chemin d\'accès';
+$lang['no_write_access'] = 'pas d\'accès en écriture';
 
 // Specific words
 $lang['phpinfos'] = 'Informations PHP';
@@ -269,6 +270,7 @@ $lang['tn_params_format_info'] = 'seul le format jpeg est supporté pour la créat
 $lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)';
 $lang['tn_dirs_title'] = 'Liste des répertoires';
 $lang['tn_dirs_alone'] = 'images sans miniatures';
+$lang['tn_no_missing'] = 'Aucune miniature ne manque';
 
 // Waiting files 
 $lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
