@@ -1,0 +1,39 @@
+<form action="{#action}" method="post">
+  <table style="width:100%;">
+    <tr>
+      <th style="width:20%;">{#category}</th>
+      <th style="width:20%;">{#date}</th>
+      <th style="width:20%;">{#file}</th>
+      <th style="width:20%;">{#thumbnail}</th>
+      <th style="width:20%;">{#author}</th>
+      <th style="width:1px;">&nbsp;</th>
+    </tr>
+    <!--VTP_picture-->
+    <tr>
+      <td class="{#class}" style="white-space:nowrap;">{#cat_name}</td>
+      <td class="{#class}" style="white-space:nowrap;">{#date}</td>
+      <td class="{#class}" style="white-space:nowrap;">
+        <a target="_blank" href="{#preview_url}">{#file}</a>
+      </td>
+      <td class="{#class}" style="white-space:nowrap;">
+        <!--VTP_thumbnail-->
+        <a target="_blank" href="{#preview_url}">{#file}</a>
+        <!--/VTP_thumbnail-->
+        <!--VTP_no_thumbnail-->
+        &nbsp;
+        <!--/VTP_no_thumbnail-->
+      </td>
+      <td class="{#class}" style="white-space:nowrap;">
+        <a href="mailto:{#mail_address}">{#username}</a>
+      </td>
+      <td class="{#class}" style="white-space:nowrap;">
+        <input type="radio" name="validate-{#id}" value="true" />{#submit}
+        <input type="radio" name="validate-{#id}" value="false" />{#delete}
+      </td>
+    </tr>
+    <!--/VTP_picture-->
+    <tr>
+      <td colspan="5" align="center"><input type="submit" name="submit" value="{#submit}" style="margin:5px;" /></td>
+    </tr>
+  </table>
+</form>

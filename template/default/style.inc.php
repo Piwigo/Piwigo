@@ -137,4 +137,9 @@ $user['style'].= '
         border:1px solid black;
         color:white;
       }
+      div.information {
+        text-align:center;
+        border:2px solid '.$user['couleur_text_fond'].';
+        margin:10px;padding:5px;
+      }
     </style>';

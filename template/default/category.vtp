@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset={#charset}" />
     {#style}
     <title>{#title}</title>
   </head>
@@ -11,7 +12,7 @@
           {#frame_start}100%{#frame_begin}
             <div class="titreMenu">{#categories}</div>
             <div class="menu">
-              <!--VTP_category-->{#indent}<!--VTP_bullet_w_link--><a href="{#bullet_link}"><img src="{#bullet_url}" style="border:none;" alt="{#bullet_alt}" /></a><!--/VTP_bullet_w_link--><!--VTP_bullet_wo_link--><img src="{#bullet_url}" style="border:none;" alt="{#bullet_alt}" /><!--/VTP_bullet_wo_link-->&nbsp;<a href="{#link_url}"><span title="{#hint_category}" style="{#name_style}">{#link_name}</span>&nbsp;<span class="menuInfoCat">[&nbsp;<!--VTP_subcat--><span title="{#nb_subcats} {#sub-cat}">{#nb_subcats}</span>&nbsp;-&nbsp;<!--/VTP_subcat--><span title="{#total_cat} {#images_available}">{#total_cat}</span>&nbsp;]</span></a>{#cat_icon}<br />
+              <!--VTP_category-->{#indent}<!--VTP_bullet_w_link--><a href="{#bullet_link}"><img src="{#bullet_url}" style="border:none;" alt="&gt;" /></a><!--/VTP_bullet_w_link--><!--VTP_bullet_wo_link--><img src="{#bullet_url}" style="border:none;" alt="&gt;" /><!--/VTP_bullet_wo_link-->&nbsp;<a href="{#link_url}"><span title="{#hint_category}" style="{#name_style}">{#link_name}</span>&nbsp;<span class="menuInfoCat">[&nbsp;<!--VTP_subcat--><span title="{#nb_subcats} {#sub-cat}">{#nb_subcats}</span>&nbsp;-&nbsp;<!--/VTP_subcat--><span title="{#total_cat} {#images_available}">{#total_cat}</span>&nbsp;]</span></a>{#cat_icon}<br />
               <!--/VTP_category-->
               <div class="totalImages">[&nbsp;{#nb_total_pictures}&nbsp;{#total}&nbsp;]</div>
               <!--VTP_favorites-->
@@ -77,7 +78,7 @@
                   <div class="infoCat">
                   {#nb_image_category} "{#cat_name}" : {#cat_nb_images}
                   <!--VTP_upload-->
-                  <br /><a href="{#url}" class="back">{#upload_name}</a>
+                  <br /><a href="{#url}" class="back">{#upload_picture}</a>
                   <!--/VTP_upload-->
                   </div>
                 <!--/VTP_cat_infos-->

@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *            htmlfunctions.inc.php is a part of PhpWebGallery             *
+ *                           htmlfunctions.inc.php                         *
  *                            -------------------                          *
- *   last update          : Wednesday, 25 December 2002                    *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************
 
@@ -15,6 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+include( PREFIX_INCLUDE.'./template/'.$user['template'].'/theme/conf.php' );
+$user['lien_expanded']='./template/'.$user['template'].'/theme/expanded.gif';
+$user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
+include_once( PREFIX_INCLUDE.'./template/'.$user['template'].'/style.inc.php');
+
 function get_icon( $date_comparaison )
 {
   global $user, $conf;
@@ -23,7 +28,7 @@ function get_icon( $date_comparaison )
   $output = '';
   if ( $difference < $user['long_period'] * $jours )
   {
-    $icon_url = './theme/'.$user['theme'].'/';
+    $icon_url = './template/'.$user['template'].'/theme/';
     if ( $difference < $user['short_period'] * $jours )
     {
       $icon_url.= 'new_short.gif';
@@ -97,7 +102,7 @@ function get_frame_start()
 {
   return '<table style="width:';
 }
-
+/*
 function get_frame_begin()
 {
   return ';">
@@ -112,11 +117,12 @@ function get_frame_end()
             </tr>   
           </table>';
 }
-/*
+*/
+
 function get_frame_begin()
 {
   global $user;
-  $path = './theme/'.$user['theme'].'/';
+  $path = './template/'.$user['template'].'/theme/';
   $size_01 = getimagesize( $path.'01.gif' );
   $size_02 = getimagesize( $path.'02.gif' );
   $size_03 = getimagesize( $path.'03.gif' );
@@ -134,7 +140,7 @@ function get_frame_begin()
 function get_frame_end()
 {
   global $user;
-  $path = './theme/'.$user['theme'].'/';
+  $path = './template/'.$user['template'].'/theme/';
   $size_08 = getimagesize( $path.'08.gif' );
   return '
               </td>
@@ -147,11 +153,12 @@ function get_frame_end()
             </tr>   
           </table>';
 }
-*/
+
 function initialize_template()
 {
-  global $vtp, $handle, $user;
+  global $vtp, $handle, $user, $lang;
 
+  $vtp->setGlobalVar( $handle, 'charset', $lang['charset'] );
   $vtp->setGlobalVar( $handle, 'style', $user['style'] );
   $vtp->setGlobalVar( $handle, 'frame_start', get_frame_start() );
   $vtp->setGlobalVar( $handle, 'frame_begin', get_frame_begin() );
@@ -160,5 +167,73 @@ function initialize_template()
                  './template/'.$user['template'].'/header.htm' );
   $vtp->setVarF( $handle, 'footer',
                  './template/'.$user['template'].'/footer.htm' );
+}
+
+function display_category( $category, $indent, $handle )
+{
+  global $user,$lang,$vtp;
+
+  $vtp->addSession( $handle, 'category' );
+  $vtp->setVar( $handle, 'category.indent', $indent );
+
+  if ( $user['expand'] or count( $category['subcats'] ) == 0 )
+  {
+    $vtp->addSession( $handle, 'bullet_wo_link' );
+    $vtp->setVar( $handle, 'bullet_wo_link.bullet_url',
+                  $user['lien_collapsed'] );
+    $vtp->closeSession( $handle, 'bullet_wo_link' );
+  }
+  else
+  {
+    $vtp->addSession( $handle, 'bullet_w_link' );
+    $url = './category.php?cat='.$page['cat'];
+    $url.= '&amp;expand='.$category['expand_string'];
+    if ( $page['cat'] == 'search' )
+    {
+      $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+    }
+    $vtp->setVar( $handle, 'bullet_w_link.bullet_link', add_session_id($url) );
+    if ( $category['expanded'] )
+    {
+      $vtp->setVar( $handle, 'bullet_w_link.bullet_url',
+                    $user['lien_expanded'] );
+    }
+    else
+    {
+      $vtp->setVar( $handle, 'bullet_w_link.bullet_url',
+                    $user['lien_collapsed'] );
+    }
+    $vtp->closeSession( $handle, 'bullet_w_link' );
+  }
+
+  $url = './category.php?cat='.$category['id'];
+  $url.= '&amp;expand='.$category['expand_string'];
+  $vtp->setVar( $handle, 'category.link_url', add_session_id( $url ) );
+
+  $name = $category['name'];
+  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
+  $vtp->setVar( $handle, 'category.link_name', $name );
+
+  if ( $category['id_uppercat'] == '' )
+  {
+    $vtp->setVar( $handle, 'category.name_style', 'font-weight:bold;' );
+  }
+  if ( count( $category['subcats'] ) > 0 )
+  {
+    $vtp->addSession( $handle, 'subcat' );
+    $vtp->setVar( $handle, 'subcat.nb_subcats', count($category['subcats']) );
+    $vtp->closeSession( $handle, 'subcat' );
+  }
+  $vtp->setVar( $handle, 'category.total_cat', $category['nb_images'] );
+  $vtp->setVar( $handle, 'category.cat_icon',get_icon($category['date_last']));
+  $vtp->closeSession( $handle, 'category' );
+
+  // recursive call
+  if ( $category['expanded'] )
+  {
+    foreach ( $category['subcats'] as $subcat ) {
+      display_category( $subcat, $indent.str_repeat( '&nbsp', 2 ), $handle );
+    }
+  }
 }
 ?>

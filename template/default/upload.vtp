@@ -4,6 +4,7 @@
     <title>{#upload_title}</title>
   </head>
   <body>
+    {#header}
     <table style="width:100%;height:100%">
       <tr align="center" valign="middle">
         <td>
@@ -44,16 +45,46 @@
                   </td>
                 </tr>
                 <!--VTP_fields-->
+                <!-- username -->
                 <tr>
-                  <td class="menu">{#upload_username}</td>
+                  <td class="menu">{#upload_username} <span style="color:red;">*</span></td>
                   <td align="center" style="padding:10px;">
-                    <input name="username" type="text" value="{#user_login}" />
+                    <input name="username" type="text" value="{#username}" />
                   </td>
                 </tr>
+                <!-- mail address -->
                 <tr>
-                  <td class="menu">{#mail_address}</td>
+                  <td class="menu">{#mail_address} <span style="color:red;">*</span></td>
                   <td align="center" style="padding:10px;">
                     <input name="mail_address" type="text" value="{#user_mail_address}" />
+                  </td>
+                </tr>
+                <!-- name of the picture -->
+                <tr>
+                  <td class="menu">{#upload_name}</td>
+                  <td align="center" style="padding:10px;">
+                    <input name="name" type="text" value="{#name}" />
+                  </td>
+                </tr>
+                <!-- author -->
+                <tr>
+                  <td class="menu">{#upload_author}</td>
+                  <td align="center" style="padding:10px;">
+                    <input name="author" type="text" value="{#author}" />
+                  </td>
+                </tr>
+                <!-- date of creation -->
+                <tr>
+                  <td class="menu">{#upload_creation_date}</td>
+                  <td align="center" style="padding:10px;">
+                    <input name="date_creation" type="text" value="{#date_creation}" />
+                  </td>
+                </tr>
+                <!-- comment -->
+                <tr>
+                  <td class="menu">{#upload_comment}</td>
+                  <td align="center" style="padding:10px;">
+                   <textarea name="comment" rows="3" cols="40" style="overflow:auto">{#comment}</textarea>
                   </td>
                 </tr>
                 <!--/VTP_fields-->
@@ -71,9 +102,13 @@
             <div style="text-align:center;">
               <a href="{#return_url}">[ {#search_return_main_page} ]</a>
             </div>
+            <!--VTP_note-->
+            <div style="text-align:left;"><span style="color:red;">*</span> : {#mandatory}</div>
+            <!--/VTP_note-->
           {#frame_end}
         </td>
       </tr>
     </table>
+    {#footer}
   </body>
 </html>

@@ -1,0 +1,125 @@
+<style>
+      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+        color:{#text_color};
+        font-family:arial,sans-Serif;
+        font-size:12px;
+      }
+      .commentsTitle,.commentsAuthor {
+        text-align:center;
+        font-weight:bold;
+      }
+      .commentsInfos {
+        text-align:right;
+        margin:3px 3px 3px 10px;
+        font-size:11px;
+      }
+      .commentsContent {
+        margin:10px;
+      }
+      .commentsTitle {
+        margin-top:15px;
+      }
+      .commentsAuthor {
+        margin:5px;
+      }
+      .commentsNavigationBar {
+        margin:10px;
+      }
+      .tableComment {
+        width:100%;
+        border:2px solid #006699;
+        margin:10px;
+      }
+      .cellAuthor {
+        border-right:1px solid #006699;
+        width:100px;
+      }
+      .cellInfo {
+        border-bottom:1px solid #006699;
+      }
+      .imgLink {
+        border:1px solid black;
+      }
+</style>
+<div style="text-align:center;margin-top:5px;">
+  <!--VTP_last_day_option-->
+  <a href="{#link}" style="{#style}">{#option}</a>{#separation}
+  <!--/VTP_last_day_option-->
+  {#stats_last_days}
+</div>
+
+<table width="100%">
+  <tr>
+    <th width="1%">{#date}</th>
+    <th>{#login}</th>
+    <th>{#IP}</th>
+    <th>{#file}</th>
+    <th>{#category}</th>
+    <th>{#picture}</th>
+  </tr>
+  <tr>
+    <td colspan="6" style="text-align:center;"><a href="{#emply_url}">{#stats_empty}</a></td>
+  </tr>
+  <!--VTP_day-->
+  <tr>
+    <td colspan="6">
+      <a href="{#url}"><!--VTP_collapsed--><img src="./images/collapsed.gif" style="border:none;" /><!--/VTP_collapsed--><!--VTP_expanded--><img src="./images/expanded.gif" style="border:none;" /><!--/VTP_expanded--></a>
+      <span style="font-weight:bold;">{#name}</span> [ {#nb_pages} {#stats_pages_seen} - {#nb_visitors} {#stats_visitors} ]
+    </td>
+  </tr>
+  <!--VTP_line-->
+  <tr>
+    <td>{#date}</td>
+    <td style="text-align:center;">{#login}</td>
+    <td>{#IP}</td>
+    <td>{#file}</td>
+    <td>{#category}</td>
+    <td>{#picture}</td>
+  </tr>
+  <!--/VTP_line-->
+  <!--/VTP_day-->
+</table>
+
+<!-- Graph with the number of pages seen per day -->
+<table style="margin:auto;margin-top:10px;margin-bottom:10px;border:1px solid black;">
+<tr>
+  <td colspan="3" style="text-align:center;font-weight:bold">{#stats_pages_seen_graph_title}</td>
+</tr>
+<!--VTP_pages_day-->
+<tr>
+  <td>{#date}</td>
+  <td>
+    <table style="border-collapse:collapse;">
+      <tr>
+        <td style="padding:0;"><img src="./images/stat_left.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./images/stat_middle.gif" width="{#width}" height="12" /></td>
+        <td style="padding:0;"><img src="./images/stat_right.gif" width="4" height="12" /></td>
+      </tr>
+    </table>
+  </td>
+  <td align="center">[ {#nb_pages} ]</td>
+</tr>
+<!--/VTP_pages_day-->
+</table>
+
+<!-- Graph with the number of visitors per day -->
+<table style="margin:auto;margin-top:10px;margin-bottom:10px;border:1px solid black;">
+<tr>
+  <td colspan="3" style="text-align:center;font-weight:bold">{#stats_visitors_graph_title}</td>
+</tr>
+<!--VTP_visitors_day-->
+<tr>
+  <td>{#date}</td>
+  <td>
+    <table style="border-collapse:collapse;">
+      <tr>
+        <td style="padding:0;"><img src="./images/stat_left.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./images/stat_middle.gif" width="{#width}" height="12" /></td>
+        <td style="padding:0;"><img src="./images/stat_right.gif" width="4" height="12" /></td>
+      </tr>
+    </table>
+  </td>
+  <td align="center">[ {#nb_visitors} ]</td>
+</tr>
+<!--/VTP_visitors_day-->
+</table>

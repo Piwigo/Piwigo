@@ -1,5 +1,9 @@
 <html>
   <head>
+    <!--VTP_refresh-->
+    <meta http-equiv="refresh" content="{#time};url={#url}">
+    <!--/VTP_refresh-->
+    <meta http-equiv="Content-Type" content="text/html;charset={#charset}">
     {#style}
     <!-- Specific style to picture.php-->
     <style type="text/css">
@@ -41,10 +45,27 @@
         border-bottom:1px solid {#text_color};
       }
     </style>
-    <title>{#page_title}</title>        
+    <title>{#page_title}</title>
   </head>
   <body>
     {#header}
+    <!--VTP_information-->
+    <div class="information">{#content}</div>
+    <!--/VTP_information-->
+    <!--VTP_start_slideshow-->
+    <div style="text-align:center;margin-bottom:5px;">
+      [ {#slideshow} :
+      <!--VTP_second-->
+      <a href="{#url}" class="back" style="font-weight:bold;">{#option}</a>
+      <!--/VTP_second-->
+      {#period_seconds} ]
+    </div>
+    <!--/VTP_start_slideshow-->
+    <!--VTP_stop_slideshow-->
+    <div style="text-align:center;margin-bottom:5px;">
+      [ <a href="{#url}" class="back" style="font-weight:bold;">{#slideshow_stop}</a> ]
+    </div>
+    <!--/VTP_stop_slideshow-->
     <table style="width:100%;height:100%;">
       <tr align="center" valign="middle">
         <td>
@@ -126,7 +147,7 @@
                       </td>
                       <td align="right" class="cellInfo">
                         <div class="commentsInfos">
-                          {#date}<!--VTP_delete--><a href="{#link}" title="{#comments_del}"><img src="./theme/{#user_theme}/delete.gif" style="border:none;margin-left:5px;" alt="[{#delete}]"/></a><!--/VTP_delete-->
+                          {#date}<!--VTP_delete--><a href="{#link}" title="{#comments_del}"><img src="./template/{#user_template}/theme/delete.gif" style="border:none;margin-left:5px;" alt="[{#delete}]"/></a><!--/VTP_delete-->
                         </div>
                       </td>
                     </tr>

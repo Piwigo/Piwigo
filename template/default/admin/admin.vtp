@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{#page_title}</title>
+    <title>{#title_default}</title>
     <style>
       a {
         text-decoration:none;
@@ -55,8 +55,12 @@
       td.row1 {
         background-color:#E6E4E4;
       }
-      td.row2 {
+      td.row2,td.throw2 {
         background-color:#E8E8E8;
+      }
+      td.throw2 {
+        text-align:center;
+        font-weight:bold;
       }
       td.row3 {
         background-color:#eeeeee;
@@ -94,6 +98,12 @@
         color:darkblue;
         text-align:center;
       }
+      div.key {
+        margin-left : 10px;
+      }
+      td.choice {
+        text-align : center;
+      }
     </style>
     <script language="javascript">
       function SelectAll( formulaire )
@@ -124,6 +134,7 @@
         }
       }
     </script>
+    <meta http-equiv="Content-Type" content="text/html; {#charset}">
   </head>
   <body>
     <table>
