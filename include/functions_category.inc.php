@@ -59,11 +59,12 @@ function check_restrictions( $category_id )
  * The argument is a right parameter if corresponds to one of these :
  *
  *  - is numeric and corresponds to a category in the database
- *  - is equals 'fav' (for favorites)
- *  - is equals 'search' (when the result of a search is displayed)
- *  - is equals 'most_visited'
- *  - is equals 'best_rated'
- *  - is equals 'recent'
+ *  - equals 'fav' (for favorites)
+ *  - equals 'search' (when the result of a search is displayed)
+ *  - equals 'most_visited'
+ *  - equals 'best_rated'
+ *  - equals 'recent'
+ *  _ equals 'calendar'
  *
  * The function fills the global var $page['cat'] and returns nothing
  *
@@ -95,7 +96,8 @@ function check_cat_id( $cat )
          or $cat == 'search'
          or $cat == 'most_visited'
          or $cat == 'best_rated'
-         or $cat == 'recent' )
+         or $cat == 'recent'
+         or $cat == 'calendar' )
     {
       $page['cat'] = $cat;
     }
@@ -427,8 +429,11 @@ function initialize_category( $calling_page = 'category' )
     }
     else
     {
-      if ( $page['cat'] == 'search' or $page['cat'] == 'most_visited'
-           or $page['cat'] == 'recent' or $page['cat'] == 'best_rated' )
+      if ( $page['cat'] == 'search'
+           or $page['cat'] == 'most_visited'
+           or $page['cat'] == 'recent'
+           or $page['cat'] == 'best_rated'
+           or $page['cat'] == 'calendar' )
       {
         // we must not show pictures of a forbidden category
         if ( $user['forbidden_categories'] != '' )
@@ -535,6 +540,41 @@ function initialize_category( $calling_page = 'category' )
              and ($page['start']+$user['nb_image_page']>=$conf['top_number']))
         {
           $page['nb_image_page'] = $conf['top_number'] - $page['start'];
+        }
+      }
+      else if ( $page['cat'] == 'calendar' )
+      {
+        $page['cat_nb_images'] = 0;
+        $page['title'] = $lang['calendar'];
+        if ( isset( $_GET['year'] )
+             and preg_match( '/^\d+$/', $_GET['year'] ) )
+        {
+          $page['calendar_year'] = (int)$_GET['year'];
+        }
+        if ( isset( $_GET['month'] )
+             and preg_match( '/^(\d+)\.(\d{2})$/', $_GET['month'], $matches ) )
+        {
+          $page['calendar_year'] = (int)$matches[1];
+          $page['calendar_month'] = (int)$matches[2];
+        }
+        if ( isset( $page['calendar_year'] )
+             or isset( $page['calendar_month'] ) )
+        {
+          $page['title'] .= ' (';
+          if ( isset( $page['calendar_month'] ) )
+          {
+            $page['title'] .= $lang['month'][$page['calendar_month']].' ';
+          }
+          $page['title'] .= $page['calendar_year'];
+          $page['title'] .= ')';
+        }
+        if ( isset( $forbidden ) )
+        {
+          $page['where'] = ' WHERE '.$forbidden;
+        }
+        else
+        {
+          $page['where'] = ' WHERE 1=1';
         }
       }
 
