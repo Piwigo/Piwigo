@@ -105,7 +105,7 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
   $result = get_cat_info( $page['cat'] );
-  $page['cat_dir']        = $result['dir'];
+  $page['cat_dir']        = get_complete_dir( $page['cat'] );
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
