@@ -378,6 +378,10 @@ elseif ( ( isset( $page['cat'] )
       $page['expand'] = implode( ',', $page['tab_expand'] );
     }
     $url_link.= '&amp;expand='.$page['expand'];
+    // we add the category to explore in the expand list
+    if ( $page['expand'] != '' ) $url_link.= ',';
+    $url_link.= $subcat_id;
+
     list( $year,$month,$day ) = explode( '-', $subcat_infos['date_last'] );
     $date = mktime( 0, 0, 0, $month, $day, $year );
 
