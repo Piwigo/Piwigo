@@ -260,4 +260,3 @@ function make_radio($name, $value, $selected, $usekeys=false)
   return $boxstring;
 }
 ?>
-

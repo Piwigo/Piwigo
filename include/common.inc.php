@@ -210,4 +210,3 @@ if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 define('PREFIX_TABLE', $table_prefix);
 ?>
-
