@@ -84,6 +84,7 @@ $template->assign_vars(array(
   'L_FILE'=>$lang['file'],
   'L_CATEGORY'=>$lang['category'],
   'L_SUBMIT'=>$lang['submit'],
+  'L_RESET'=>$lang['reset'],
   'L_DELETE'=>$lang['delete'],
   
   'F_ACTION'=>add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))

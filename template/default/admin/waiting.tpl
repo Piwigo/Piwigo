@@ -35,6 +35,7 @@
     <tr>
       <td colspan="6" align="center">
 	  <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
+          <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
 	  </td>
     </tr>
   </table>
