@@ -1,0 +1,84 @@
+<html>
+  <head>
+    {#page_style}
+    <title>{#customize_page_title}</title>
+    </head>
+  <body>
+    <table style="width:100%;height:100%">
+      <tr align="center" valign="middle">
+        <td>
+          {#frame_start}1px{#frame_begin}
+            <div class="titrePage">{#customize_title}</div>
+          {#frame_end}
+          <div style="margin-bottom:20px"></div>
+          {#frame_start}50%{#frame_begin}
+            <form method="post" action="{#form_action}">
+              <table style="width:100%;margin-top:10px;margin-bottom:10px;">
+                <tr align="center" valign="middle">
+                  <td>
+                    <table width="80%">
+                      <!--VTP_errors-->
+                      <tr>
+                        <td colspan="2">
+                          <div class="errors">
+                            <ul>
+                              <!--VTP_li-->
+                              <li>{#li}</li>
+                              <!--/VTP_li-->
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                      <!--/VTP_errors-->
+                      <!--VTP_line-->
+                      <tr>
+                        <td class="menu">{#name}</td>
+                        <td class="menu">
+                          <!--VTP_select-->
+                          <select name="{#name}">
+                            <!--VTP_option-->
+                            <option{#selected}>{#option}</option>
+                            <!--/VTP_option-->
+                          </select>
+                          <!--/VTP_select-->
+                          <!--VTP_text-->
+                          <input type="text" name="{#name}" value="{#value}" />
+                          <!--/VTP_text-->
+                          <!--VTP_group-->
+                            <!--VTP_radio-->
+                            <input type="radio" name="{#name}" value="{#value}"{#checked}/>{#option}
+                            <!--/VTP_radio-->
+                          <!--/VTP_group-->
+                        </td>
+                      </tr>
+                      <!--/VTP_line-->
+                      <tr>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td class="menu">{#new} {#password}<input type="checkbox" name="use_new_pwd" value="1" /></td>
+                        <td class="menu"><input type="password" name="password" value="" /></td>
+                      </tr>
+                      <tr>
+                        <td class="menu">{#reg_confirm}</td>
+                        <td class="menu"><input type="password" name="passwordConf" value="" /></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center">
+                          <input type="submit" name="submit" value="{#submit}" style="margin:5px;"/>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          {#frame_end}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

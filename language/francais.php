@@ -1,0 +1,556 @@
+<?php
+$lang['only_members'] = 'Seuls les membres du site peuvent accéder à cette page';
+$lang['invalid_pwd'] = 'le mot de passe rentré n\'est pas valide';
+$lang['access_forbiden'] = 'Vous n\'êtes pas autorisé à aller dans cette section';
+$lang['submit'] = 'Valider';
+$lang['login'] = 'login';
+$lang['password'] = 'mot de passe';
+$lang['new'] = 'nouveau';
+$lang['delete'] = 'supprimer';
+$lang['category'] = 'catégorie';
+$lang['thumbnail'] = 'miniature';
+$lang['date'] = 'date';
+// start version 1.3
+$lang['no'] = 'non';
+$lang['yes'] = 'oui';
+$lang['guest'] = 'visiteur';
+// end version 1.3
+
+// page diapo
+$lang['diapo_default_page_title'] = 'Aucune catégorie séléctionnée';
+$lang['thumbnails'] = 'Miniatures';
+$lang['categories'] = 'Rubriques';
+$lang['hint_category'] = 'affiche les images à la racine de cette catégorie';
+$lang['total_images'] = 'total';
+$lang['title_menu'] = 'Sommaire';
+$lang['change_login'] = 'changer de login';
+$lang['hint_login'] = 's&#039;identifier permet de personnaliser l&#039;apparence du site';
+$lang['logout'] = 'logout';
+$lang['customize'] = 'personnalisation';
+$lang['hint_customize'] = 'personnaliser votre affichage';
+$lang['hint_search'] = 'lancer une recherche';
+$lang['search'] = 'rechercher';
+$lang['favorite_cat'] = 'favoris';
+$lang['favorite_cat_hint'] = 'afficher vos favoris';
+$lang['about'] = 'à propos';
+$lang['hint_about'] = 'des infos sur PhpWebGallery...';
+$lang['admin'] = 'admin';
+$lang['hint_admin'] = 'accessible uniquement aux administrateurs';
+$lang['no_category'] = 'Aucune rubrique n\'est selectionnée,<br />veuillez en choisir une dans le menu.';
+$lang['page_number'] = 'numéro de page';
+$lang['previous_page'] = 'Précédente';
+$lang['next_page'] = 'Suivante';
+$lang['nb_image_category'] = 'nombre d\'images dans la catégorie';
+// start version 1.3
+//$lang['connected_user_female'] = 'utilisatrice connectée';
+// end version 1.3
+$lang['connected_user_male'] = 'utilisateur connecté';
+$lang['recent_image'] = 'image datant de moins de';
+$lang['days'] = 'jours';
+$lang['send_mail'] = 'Une remarque : mailez moi';
+$lang['title_send_mail'] = '[phpwebgallery] une remarque sur ton site';
+$lang['sub-cat'] = 'sous-catégories';
+$lang['images_available'] = 'images dans cette catégorie';
+$lang['total'] = 'images';
+$lang['upload_picture'] = 'Ajouter une image';
+
+// page diapo et photo
+$lang['registration_date'] = 'enregistré le';
+$lang['creation_date'] = 'créé le';
+$lang['comment'] = 'commentaire';
+$lang['author'] = 'auteur';
+$lang['size'] = 'dimensions';
+$lang['filesize'] = 'poids';
+$lang['file'] = 'fichier';
+$lang['generation_time'] = 'Page générée en';
+$lang['favorites'] = 'Favoris';
+$lang['search_result'] = 'Résultats de la recherche';
+// start version 1.3
+$lang['stats'] = 'statistiques';
+$lang['most_visited_cat_hint'] = 'affiche les images les plus visitées';
+$lang['most_visited_cat'] = 'plus vues';
+$lang['best_rated_cat_hint'] = 'affiche les images les mieux notées';
+$lang['best_rated_cat'] = 'mieux notées';
+$lang['recent_cat_hint'] = 'affiche les images les plus récentes';
+$lang['recent_cat'] = 'plus récentes';
+$lang['recent_cat_title'] = 'Images récentes';
+$lang['visited'] = 'visité';
+$lang['times'] = 'fois';
+// end version 1.3
+	
+// page a_propos
+$lang['about_page_title'] = 'A propos de PhpWebGallery';
+$lang['about_title'] = 'A propos...';
+// start version 1.3
+$lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Informations sur le PhpWebGallery</div>
+<ul>
+  <li>Ce site utilise la version '.$conf['version'].' de <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a>. PhpWebGallery est une application web permettant de créer simplement une galerie d\'images en ligne.</li>
+  <li>D\'un point de vue technique, PhpWebGallery est entièrement développé en PHP (l\'elePHPant) avec une base de données MySQL(le mySQreuiL).</li>
+  <li>Si vous avez des suggestions ou des commentaires, n\'hésitez pas à visiter le site de <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> et son <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a>.</li>
+</ul>';
+// end version 1.3
+$lang['about_return'] = 'Retour';
+	
+// page identification
+$lang['ident_page_title'] = 'Identification';
+$lang['ident_title'] = 'Identification';
+// start version 1.3
+//$lang['actual_user'] = 'Vous êtes actuellement : ';
+// end version 1.3
+$lang['ident_register'] = 'S\'enregistrer';
+$lang['ident_forgotten_password'] = 'Mot de passe oublié ?';
+$lang['ident_guest_visit'] = 'Parcourir la galerie en tant que visiteur';
+	
+// page profile
+$lang['customize_page_title'] = 'Personnalisation';
+$lang['customize_title'] = 'Personnalisation';
+$lang['customize_nb_image_per_row'] = 'nombre d\'images par ligne';
+$lang['customize_nb_row_per_page'] = 'nombre de lignes par page';
+// start version 1.3
+// $lang['customize_color'] = 'couleur interface';
+$lang['customize_theme'] = 'theme de l\'interface';
+// end version 1.3
+$lang['customize_language'] = 'langue';
+// start version 1.3
+// $lang['sex'] = 'sexe';
+// $lang['male'] = 'masculin';
+// $lang['female'] = 'féminin';
+$lang['customize_expand'] = 'développer toutes les catégories';
+$lang['customize_show_nb_comments'] = 'montrer le nombre de commentaires';
+$lang['customize_short_period'] = 'période courte';
+$lang['customize_long_period'] = 'période longue';
+$lang['customize_template'] = 'template';
+$lang['err_periods'] = 'les périodes doivent être des entiers';
+$lang['err_periods_2'] = 'les périodes doivent être supérieures à 0, la période longue doit être plus grande que la période courte';
+// end version 1.3
+$lang['maxwidth'] = 'largeur maximum des images';
+$lang['maxheight'] = 'hauteur maximum des images';
+$lang['err_maxwidth'] = 'la largeur maximum des images doit être un entier supérieur à 50';
+$lang['err_maxheight'] = 'la hauteur maximum des images doit être un entier supérieur à 50';
+	
+// page photo
+$lang['previous_image'] = 'Précédent';
+$lang['next_image'] = 'Suivant';
+$lang['back'] = 'Cliquez sur l\'image pour revenir à la page des miniatures';
+$lang['info_image_title'] = 'Informations';
+$lang['link_info_image'] = 'Modifier les informations de cette image';
+$lang['true_size'] = 'Taille réelle';
+$lang['comments_title'] = 'Commentaires des visiteurs du site';
+$lang['comments_del'] = 'supprimer ce message';
+$lang['comments_add'] = 'Ajouter un commentaire';
+$lang['month'][1] = 'Janvier';
+$lang['month'][2] = 'Février';
+$lang['month'][3] = 'Mars';
+$lang['month'][4] = 'Avril';
+$lang['month'][5] = 'Mai';
+$lang['month'][6] = 'Juin';
+$lang['month'][7] = 'Juillet';
+$lang['month'][8] = 'Août';
+$lang['month'][9] = 'Septembre';
+$lang['month'][10] = 'Octobre';
+$lang['month'][11] = 'Novembre';
+$lang['month'][12] = 'Décembre';
+$lang['day'][0] = 'Dimanche';
+$lang['day'][1] = 'Lundi';
+$lang['day'][2] = 'Mardi';
+$lang['day'][3] = 'Mercredi';
+$lang['day'][4] = 'Jeudi';
+$lang['day'][5] = 'Vendredi';
+$lang['day'][6] = 'Samedi';
+$lang['add_favorites_alt'] = 'Ajouter aux favoris';
+$lang['add_favorites_hint'] = 'ajouter cette image à vos favoris';
+$lang['del_favorites_alt'] = 'Retirer des favoris';
+$lang['del_favorites_hint'] = 'supprimer cette image de vos favoris';
+	
+// page register
+$lang['register_page_title'] = 'Enregistrement';
+$lang['register_title'] = 'Enregistrement';
+$lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
+$lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
+$lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
+$lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
+$lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
+$lang['reg_err_pass'] = 'veuillez retaper le mot de passe';
+$lang['reg_confirm'] = 'confirmer';
+$lang['reg_mail_address'] = 'adresse mail';
+$lang['reg_err_mail_address'] = 'l\'adresse mail doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)';
+
+// page search
+$lang['search_title'] = 'Recherche';
+$lang['invalid_search'] = 'La recherche doit porter sur 3 caractères ou plus';
+$lang['search_field_search'] = 'Rechercher';
+$lang['search_return_main_page'] = 'Retour à la page des miniatures';
+	
+// page upload
+$lang['upload_forbidden'] = 'On ne peut pas ajouter d\'image dans cette catégorie';
+$lang['upload_file_exists'] = 'Une image du même nom existe déjà';
+$lang['upload_filenotfound'] = 'vous devez choisir un fichier image pour la photo';
+$lang['upload_cannot_upload'] = 'impossible d\'uploader la photo sur le serveur';
+$lang['upload_title'] = 'Ajouter une image';
+$lang['upload_advise'] = 'Choisissez une image à placer dans la catégorie : ';
+$lang['upload_advise_thumbnail'] = 'Optionnel, mais recommandé : Choisissez la miniature à associer à ';
+$lang['upload_advise_filesize'] = 'le poids de l\'image ne doit pas dépasser : ';
+$lang['upload_advise_width'] = 'la largeur de l\'image ne doit pas dépasser : ';
+$lang['upload_advise_height'] = 'la hauteur de l\'image ne doit pas dépasser : ';
+$lang['upload_advise_filetype'] = 'l\'image doit être au format jpg, gif ou png';
+$lang['upload_err_username'] = 'le nom de l\'utilisateur doit être renseigné';
+$lang['upload_username'] = 'Nom d\'utilisateur';
+$lang['upload_successful'] = 'Image uploadée avec succès, un administrateur validera celle-ci dès que possible.';
+
+//----------------------------------administration
+if ( $isadmin )
+{
+  // page admin
+  $lang['title_add'] = 'Ajouter/Modifier un utilisateur';
+  $lang['title_liste_users'] = 'Liste des utilisateurs';
+  $lang['title_history'] = 'Historique';
+  $lang['title_update'] = 'Mise à jour de la base de données';
+  $lang['title_configuration'] = 'Configuration de PhpWebGallery';
+  $lang['title_instructions'] = 'Instructions';
+  $lang['title_permissions'] = 'Modifier les permissions pour un utilisateur';
+  $lang['title_categories'] = 'Gestion des catégories';
+  $lang['title_edit_cat'] = 'Editer une catégorie';
+  $lang['title_info_images'] = 'Modifier les informations sur les images d\'une catégorie';
+  $lang['title_thumbnails'] = 'Création des miniatures';
+  $lang['title_thumbnails_2'] = 'pour';
+  $lang['title_default'] = 'Administration de PhpWebGallery';
+		
+  $lang['menu_title'] = 'Administration';
+  $lang['menu_config'] = 'Configuration';
+  $lang['menu_users'] = 'Utilisateurs';
+  $lang['menu_add_user'] = 'ajout';
+  $lang['menu_list_user'] = 'liste';
+  $lang['menu_categories'] = 'Catégories';
+  $lang['menu_update'] = 'MaJ base d\'images';
+  $lang['menu_thumbnails'] = 'Miniatures';
+  $lang['menu_history'] = 'Historique';
+  $lang['menu_instructions'] = 'Instructions';
+  $lang['menu_back'] = 'Page diapo';
+
+  $lang['title_waiting'] = 'Images en attente de validation';
+  $lang['menu_waiting'] = 'En attente';
+		
+  $lang['default_message'] = 'Zone d\'administration de PhpWebGallery';
+		
+  // page de configuration
+  $lang['conf_err_prefixe'] = 'le préfixe des thumbnails ne doit pas comporter d\'accent';
+  $lang['conf_err_mail'] = 'mail refusé, il doit être de la forme nom@serveur.com';
+  // start version 1.3
+//   $lang['conf_err_periods'] = 'les périodes doivent être des entiers';
+//   $lang['conf_err_periods_2'] = 'les périodes doivent être supérieures à 0, la période longue doit être plus grande que la période courte';
+  // end version 1.3
+  $lang['conf_err_sid_size'] = 'la taille de l\'identifiant de session doit être un entier supérieur ou égal à 4 et inférieur à 50';
+  $lang['conf_err_sid_time'] = 'la durée de la session doit être comprise entre 5 et 60 minutes';
+  $lang['conf_err_max_user_listbox'] = 'le nombre max utilisateur listbox doit être un entier compris entre 0 et 255';
+  // start version 1.3
+//  $lang['conf_err_message'] = 'Vous avez commis des erreurs au nombre de ';
+  // end version 1.3
+  $lang['conf_confirmation'] = 'Informations enregistrées dans la base de données';
+  // start version 1.3
+//   $lang['no'] = 'non';
+//   $lang['yes'] = 'oui';
+  // end version 1.3
+  $lang['conf_general_title'] = 'Configuration générale';
+  $lang['conf_general_webmaster'] = 'pseudo webmaster';
+  $lang['conf_general_webmaster_info'] = 'Il apparaîtra à tous vos visiteurs. Il vous sert pour administrer le site';
+  $lang['conf_general_mail'] = 'mail webmaster';
+  $lang['conf_general_mail_info'] = 'Les visiteurs pourront vous contacter par ce mail';
+  $lang['conf_general_prefix'] = 'préfixe thumbnail';
+  $lang['conf_general_prefix_info'] = 'Les noms des fichiers miniatures en sont préfixé. Laissez vide en cas de doute.';
+  // start version 1.3
+//  $lang['conf_general_short_period'] = 'période courte';
+//  $lang['conf_general_short_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée avec une marque rouge. La période courte fait au minimum 1 jour.';
+//  $lang['conf_general_long_period'] = 'période longue';
+//  $lang['conf_general_long_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée avec une marque verte. La période longue doit être plus grande que la période courte.';
+  // end version 1.3
+  $lang['conf_general_access'] = 'type d\'acces';
+  $lang['conf_general_access_1'] = 'libre';
+  $lang['conf_general_access_2'] = 'restreint';
+  $lang['conf_general_access_info'] = '- libre : n\'importe qui peut accéder à vos photos, tous les visiteurs peuvent se créer un compte pour pouvoir personnaliser l\'affichage<br />- restreint : l\'administrateur s\'occupe de créer des comptes, seuls les personnes membres peuvent accéder au site';
+  $lang['conf_general_max_user_listbox'] = 'nombre max utilisateur listbox';
+  $lang['conf_general_max_user_listbox_info'] = '- c\'est le nombre maximum d\'utilisateurs pour lequel on affiche une liste déroulante sur la page d\'identification<br />- mettez un nombre entier entre 0 et 255, 0 signifiant que vous ne voulez jamais qu\'on affiche de liste déroulante';
+  // start version 1.3
+//  $lang['conf_general_default_page'] = 'page par défaut';
+//  $lang['conf_general_default_page_1'] = 'diapo';
+//  $lang['conf_general_default_page_2'] = 'identification';
+//  $lang['conf_general_default_page_info'] = 'page sur laquelle les utilisateurs sont redirigés s\'ils vont à la racine du site.';
+//  $lang['conf_general_expand'] = 'développer toutes les catégories';
+//  $lang['conf_general_expand_info'] = 'développer toutes les catégories par défaut dans le menu ?';
+  // end version 1.3
+  $lang['conf_comments'] = 'commentaires utilisateurs';
+  $lang['conf_comments_title'] = 'Configuration des '.$lang['conf_comments'];
+  $lang['conf_comments_show_comments'] = $lang['conf_comments'];
+  $lang['conf_comments_show_comments_info'] = 'afficher les commentaires utilisateurs sous chaque images ?';
+  $lang['conf_comments_comments_number'] = 'nombre de commentaires par page';
+  $lang['conf_comments_comments_number_info'] = 'nombre de commentaire à afficher sur chaque page. Le nombre de commentaires pour une image reste illimité. Entrer un nombre entre 5 et 50.';
+  $lang['conf_err_comment_number'] = 'le nombre de commentaires par page doit être compris entre 5 et 50 inclus.';
+  $lang['conf_remote_site_title'] = 'Site distant';
+  $lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';
+  $lang['conf_upload_title'] = 'Configurer l\'upload des utilisateurs';
+  $lang['conf_upload_available'] = 'autoriser l\'ajout d\'images';
+  $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant).';
+  $lang['conf_upload_maxfilesize'] = 'poids maximum';
+  $lang['conf_upload_maxfilesize_info'] = 'Poids maximum autorisé pour les images uploadées. Celui-ci doit être un entier compris entre 10 et 1000, en Ko.';
+  $lang['conf_err_upload_maxfilesize'] = 'Le poids maximum pour les images uploadés doit être un entier compris entre 10 et 1000.';
+  $lang['conf_upload_maxwidth'] = 'largeur maximum';
+  $lang['conf_upload_maxwidth_info'] = 'Largeur maximum autorisée pour les images. Celle-ci doit être un entier supérieur à 10, en pixels.';
+  $lang['conf_err_upload_maxwidth'] = 'la largeur maximum des images uploadées doit être un entier supérieur à 10.';
+  $lang['conf_upload_maxheight'] = 'hauteur maximum';
+  $lang['conf_upload_maxheight_info'] = 'Hauteur maximum autorisée pour les images. Celle-ci doit être un entier supérieur à 10, en pixels.';
+  $lang['conf_err_upload_maxwidth'] = 'la hauteur maximum des images uploadées doit être un entier supérieur à 10.';
+  $lang['conf_upload_maxwidth_thumbnail'] = 'largeur maximum miniatures.';
+  $lang['conf_upload_maxwidth_thumbnail_info'] = 'Largeur maximum autorisée pour les miniatures. Celle-ci doit être un entier supérieur à 10, en pixels.';
+  $lang['conf_err_upload_maxwidth_thumbnail'] = 'la largeur maximum des miniatures uploadées doit être un entier supérieur à 10.';
+  $lang['conf_upload_maxheight_thumbnail'] = 'hauteur maximum miniatures';
+  $lang['conf_upload_maxheight_thumbnail_info'] = 'Hauteur maximum autorisée pour les miniatures. Celle-ci doit être un entier supérieur à 10, en pixels.';
+  $lang['conf_err_upload_maxheight_thumbnail'] = 'la hauteur maximum des miniatures uploadées doit être un entier supérieur à 10.';
+		
+  $lang['conf_default_title'] = 'Affichage par défaut pour les visiteurs non enregistrés et les nouveaux comptes';
+  // start version 1.3
+//  $lang['conf_default_language'] = 'langue par défaut';
+  // end version 1.3
+  $lang['conf_default_language_info'] = 'langue par défaut';
+  // start version 1.3
+//  $lang['conf_default_image_per_row'] = 'nombre d\'images par ligne';
+//  $lang['conf_default_image_per_row_info'] = 'nombre d\'images par ligne par défaut';
+//  $lang['conf_default_row_per_page'] = 'nombre de lignes par page';
+//  $lang['conf_default_row_per_page_info'] = 'nombre de lignes par page par défaut';
+  $lang['conf_default_nb_image_per_row_info'] = 'nombre d\'images par ligne par défaut';
+  $lang['conf_default_nb_row_per_page_info'] = 'nombre de lignes par page par défaut';
+//  $lang['conf_default_theme'] = 'thème';
+  // end version 1.3
+  $lang['conf_default_theme_info'] = 'thème par défaut';
+  // start version 1.3
+  $lang['conf_default_short_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée avec une marque rouge. La période courte fait au minimum 1 jour.';
+  $lang['conf_default_long_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée avec une marque verte. La période longue doit être plus grande que la période courte.';
+  $lang['conf_default_expand_info'] = 'développer toutes les catégories par défaut dans le menu ?';
+  $lang['conf_default_show_nb_comments_info'] = 'montrer le nombre de commentaires pour chaque image sur la page des miniatures';
+  // end version 1.3
+  
+  $lang['conf_session_title'] = 'Configuration des sessions';
+  $lang['conf_session_size'] = 'taille de l\'identifiant';
+  $lang['conf_session_size_info'] = '- plus votre identifiant de session est grand, plus la sécurité est bonne<br />- mettez une valeur entre 4 et 50';
+  $lang['conf_session_time'] = 'durée de validité';
+  $lang['conf_session_time_info'] = '- plus votre durée de validité de la session est petite, plus la sécurité est bonne<br />- elle doit supérieur à 5 et inférieur à 60, en minutes';
+  $lang['conf_session_key'] = 'mot-clef';
+  $lang['conf_session_key_info'] = '- le mot-clef de session permet d\'améliorer le cryptage des identifiants de session.<br />- mettez n\'importe quelle chaîne de moins de 255 caractères.';
+  $lang['conf_session_delete'] = 'supprimer les sessions périmées';
+  $lang['conf_session_delete_info'] = 'il est recommandé de vider sa table de sessions car les sessions périmées restent enregistrées (mais ça ne pose pas de problème de sécurité)';
+		
+  // page user, clés générales
+  $lang['user_err_modify'] = 'Cet utilisateur ne peut pas être modifé ou supprimé';
+  $lang['user_err_unknown'] = 'Cet utilisateur n\'existe pas dans la base de données';
+		
+  // page d\'ajout/modification d\'utilisateur
+		
+  $lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
+  $lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
+  $lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
+  $lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
+  $lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
+
+  $lang['adduser_err_message'] = 'Vous avez commis des erreurs au nombre de ';
+  $lang['adduser_info_message'] = 'Informations enregistrées dans la base de données concernant ';
+  $lang['adduser_info_password_updated'] = '(mot de passe modifié)';
+  $lang['adduser_info_back'] = 'retour liste utilisateurs';
+		
+  $lang['adduser_fill_form'] = 'Veuillez remplir les champs suivants';
+  $lang['adduser_login'] = 'pseudo';
+  $lang['adduser_unmodify'] = 'non modifiable';
+  $lang['adduser_status'] = 'status';
+  $lang['adduser_status_admin'] = 'admin';
+  $lang['adduser_status_member'] = 'membre';
+  $lang['adduser_status_guest'] = 'visiteur';
+		
+  // page permissions
+  $lang['permuser_info_message'] = 'Permissions enregistrées';
+  $lang['permuser_title'] = 'Restrictions pour l\'utilisateur';
+  $lang['permuser_warning'] = 'Attention : un "<span style="font-weight:bold;">accès interdit</span>" à la racine d\'une catégorie empêche l\'accès à toute la catégorie';
+  $lang['permuser_authorized'] = 'autorisé';
+  $lang['permuser_forbidden'] = 'interdit';
+  $lang['permuser_parent_forbidden'] = 'catégorie parente interdite';
+  $lang['permuser_cat_title'] = 'Modifier les permissions pour ';
+		
+  // page liste utilisateurs
+  $lang['listuser_confirm'] = 'Etes-vous sûr de vouloir supprimer l\'utilisateur';
+  // start version 1.3
+//   $lang['listuser_yes'] = 'oui';
+//   $lang['listuser_no'] = 'non';
+  // end version 1.3
+  $lang['listuser_info_deletion'] = 'a été supprimé de la base de données';
+  $lang['listuser_user_group'] = 'Utilisateurs';
+  $lang['listuser_modify'] = 'modifier';
+  $lang['listuser_modify_hint'] = 'modifier les infos de';
+  $lang['listuser_permission'] = 'permissions';
+  $lang['listuser_permission_hint'] = 'modifier les permissions de';
+  $lang['listuser_delete'] = 'supprimer';
+  $lang['listuser_delete_hint'] = 'supprimer';
+  $lang['listuser_button_all'] = 'tous';
+  $lang['listuser_button_invert'] = 'inverser';
+  $lang['listuser_button_create_address'] = 'générer adresse mail';
+		
+  // page catégories
+  $lang['cat_invisible'] = 'invisible';
+  $lang['cat_edit'] = 'Editer';
+  $lang['cat_up'] = 'Monter';
+  $lang['cat_down'] = 'Descendre';
+  $lang['cat_image_info'] = 'infos images';
+  $lang['cat_total'] = 'total';
+  // start version 1.3
+  $lang['cat_permission'] = 'permissions';
+  $lang['cat_update'] = 'mis à jour';
+  // end version 1.3
+
+  // page édition d\'une catégorie
+  $lang['editcat_confirm'] = 'Informations enregistrées dans la base de données';
+  $lang['editcat_back'] = 'catégories';
+  $lang['editcat_title1'] = 'Options pour la';
+  $lang['editcat_name'] = 'Nom';
+  $lang['editcat_comment'] = 'Commentaire';
+  $lang['editcat_status'] = 'Status';
+  $lang['editcat_status_info'] = '(invisible sauf pour les administrateurs)';
+		
+  // page info images
+  $lang['infoimage_err_date'] = 'date erronée';
+  $lang['infoimage_general'] = 'Options générale pour la catégorie';
+  $lang['infoimage_useforall'] = 'utiliser pour toutes les images ?';
+  $lang['infoimage_creation_date'] = 'date de création';
+  $lang['infoimage_detailed'] = 'Options pour chaque image / photo';
+  $lang['infoimage_title'] = 'titre';
+  $lang['infoimage_comment'] = 'commentaire';
+		
+  // page de mise à jour de la base de données
+  $lang['update_missing_tn'] = 'il manque la miniature pour';
+  $lang['update_disappeared_tn'] = 'la miniature a disparu';
+  $lang['update_disappeared'] = 'a disparu';
+  $lang['update_part_deletion'] = 'Suppression des images de la base qui n\'ont pas de thumbnail ou qui n\'existent pas';
+  $lang['update_deletion_conclusion'] = 'images supprimées de la base de données';
+  $lang['update_part_research'] = 'Recherche des nouvelles images dans les répertoires';
+  $lang['update_research_added'] = 'ajouté';
+  $lang['update_research_tn_ext'] = 'miniature en';
+  $lang['update_research_conclusion'] = 'images ajoutées à la base de données';
+  $lang['update_default_title'] = 'Choisir une option';
+  $lang['update_only_cat'] = 'mettre à jour les catégories, mais pas les images';
+  $lang['update_all'] = 'mettre tout à jour';
+		
+  // page de génération miniatures
+  $lang['tn_width'] = 'largeur';
+  $lang['tn_height'] = 'hauteur';
+		
+  $lang['tn_no_support'] = 'Image inexistante ou aucun support';
+  $lang['tn_format'] = 'pour le format';
+  $lang['tn_thisformat'] = 'pour ce format de fichier';
+  $lang['tn_err_width'] = 'la largeur doit être un entier supérieur à';
+  $lang['tn_err_height'] = 'la hauteur doit être un entier supérieur à';
+  $lang['tn_err_GD'] = 'il faut choisir une version de GD';
+		
+  $lang['tn_results_title'] = 'Résultats de la miniaturisation';
+  $lang['tn_picture'] = 'image';
+  $lang['tn_filesize'] = 'poids';
+  $lang['tn_results_gen_time'] = 'généré en';
+		
+  $lang['tn_stats'] = 'Statistiques générales';
+  $lang['tn_stats_nb'] = 'nombre d\'images miniaturisées';
+  $lang['tn_stats_total'] = 'temps total';
+  $lang['tn_stats_max'] = 'temps max';
+  $lang['tn_stats_min'] = 'temps min';
+  $lang['tn_stats_mean'] = 'temps moyen';
+		
+  $lang['tn_err'] = 'Vous avez commis des erreurs';
+		
+  $lang['tn_params_title'] = 'Paramètres de miniaturisation';
+  $lang['tn_params_GD'] = 'version de GD';
+  $lang['tn_params_GD_info'] = '- GD est la bibliothèque de manipulation graphique pour PHP<br />- cochez la version de GD installée sur le serveur. Si vous choisissez l\'une et que vous obtenez ensuite des messages d\'erreur, choisissez l\'autre version. Si aucune version ne marche, cela signifie que GD n\'est pas installé sur le serveur.';
+  $lang['tn_params_width_info'] = 'largeur maximum que peut prendre les miniatures';
+  $lang['tn_params_height_info'] = 'hauteur maximum que peut prendre les miniatures';
+  $lang['tn_params_create'] = 'en créer';
+  $lang['tn_params_create_info'] = 'N\'essayez pas de lancer directement un grand nombre de miniaturisation.<br />En effet la miniaturisation est coûteuse en ressources processeur pour le serveur. Si vous êtes chez un hébergeur gratuit, une trop forte occupation processeur peut amener l\'hébergeur à supprimer votre compte.';
+  $lang['tn_params_format'] = 'format';
+  $lang['tn_params_format_info'] = 'seul le format jpeg est supporté pour la création des miniatures';
+		
+  $lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)';
+		
+  $lang['tn_dirs_title'] = 'Liste des répertoires';
+  $lang['tn_dirs_alone'] = 'images sans miniatures';
+		
+  // help page
+  $lang['help_images_title'] = 'Ajout d\'images';
+  $lang['help_images_intro'] = 'Voici comment il faut placer les images dans vos répertoires';
+  $lang['help_images'][0] = 'dans le répertoire "galleries" placer des repertoires qui vont représenter vos futures catégories';
+  $lang['help_images'][1] = 'dans chacun de ces répertoires, vous avez le droit de créer autant de niveau de sous-répertoire que vous le souhaitez';//modifié
+  $lang['help_images'][2] = 'vous avez le droit à un nombre illimité de catégories et de sous catégories pour chaque catégorie';	
+  $lang['help_images'][3] = 'les fichiers images doivent être au format jpg (extension jpg ou JPG), gif (GIF ou gif) ou encore png (PNG ou png)';
+  $lang['help_images'][4] = 'Evitez d\'utiliser des espaces " " ou des tirets "-" dans les noms de fichiers ou de catégorie, je conseille d\'utiliser le caractère underscore "_" qui est géré par l\'application et donnera des résultats plus appréciables';
+		
+  $lang['help_thumbnails_title'] = 'Miniatures';
+  $lang['help_thumbnails'][0] = 'dans chaque répertoire contenant des images à afficher sur le site, il y a un sous-répertoire nommé "thumbnail", s\'il n\'existe pas, créez-le pour placer vos miniatures dedans';
+  $lang['help_thumbnails'][1] = 'les miniatures n\'ont pas besoin d\'avoir la même extension que les images associées (une image en .jpg peut avoir sa miniature en .GIF par exemple)';
+  $lang['help_thumbnails'][2] = 'la miniature associée à une image doit être préfixée par le préfixe donné sur la page de configuration générale (image.jpg -> TN_image.GIF par exemple).';
+  $lang['help_thumbnails'][3] = 'il est conseillé d\'utiliser le module pour windows téléchargeable sur le site de PhpWebGallery pour la création des miniatures.';
+  $lang['help_thumbnails'][4] = 'vous pouvez utilisez la gestion de création de miniatures, intégrée à PhpWebGallery, mais ce n\'est pas conseillé, car la qualité des miniatures sera moindre qu\'avec un véritable outil de manipulation d\'images et que cela consommera des ressources sur le serveur, ce qui peut se révéler gênant pour un hébergement gratuit.';
+  $lang['help_thumbnails'][5] = 'si vous choisissez d\'utiliser votre hébergeur pour créer les miniatures, il faut avant cela passer le répertoire "galleries" en 775 ainsi que tous ses sous-répertoires.';
+		
+  $lang['help_database_title'] = 'Remplissage de la base de données';
+  $lang['help_database'][0] = 'Une fois les fichiers placés correctement et les miniatures placées ou créées, cliquez sur "MaJ base d\'images" dans le menu de la zone d\'administration.';
+
+  $lang['help_remote_title'] = 'Site distant';
+  $lang['help_remote'][0] = 'PhpWebGallery offre la possibilité d\'utiliser plusieurs serveurs pour stocker les images qui composeront votre galerie. Cela peut être utile si votre galerie est installée sur une espace limité et que vous avez une grande quantité d\'images à montrer. Suivez la procédure suivante :';
+  $lang['help_remote'][1] = '1. éditez le fichier "create_listing_file.php" (vous le trouverez dans le répertoire "admin"), en modifiant la ligne "$prefixe_thumbnail = "TN-";" si le préfixe pour vos miniatures n\'est pas "TN-".';
+  $lang['help_remote'][2] = '2. placez le fichier "create_listing_file.php" modifié sur votre site distant, dans le répertoire racine de vos répertoires d\'images (comme le répertoire "galleries" du présent site) par ftp.';
+  $lang['help_remote'][3] = '3. lancez le script en allant à l\'url http://domaineDistant/repGalerie/create_listing_file.php, un fichier listing.xml vient de se créer.';
+  $lang['help_remote'][4] = '4. récupérez le fichier listing.xml de votre site distant pour le placer dans le répertoire "admin" du présent site.';
+  $lang['help_remote'][5] = '5. lancez une mise à jour de la base d\'images par l\'interface d\'administration, une fois le fichier listing.xml utilisé, supprimez le du répertoire "admin".';
+  $lang['help_remote'][6] = 'Vous pouvez mettre à jour le contenu d\'un site distant en refaisant la manipulation décrite. Vous pouvez également supprimer un site distant en choisissant l\'option dans la section configuration du panneau d\'administration.';
+  $lang['help_upload_title'] = 'Ajout d\'images par les utilisateurs';
+  $lang['help_upload'][0] = 'PhpWebGallery offre la possibilité aux visiteurs d\'uploader des images. Pour cela :';
+  $lang['help_upload'][1] = '1. autorisez l\'option dans la zone configuration du panneau d\'administration';
+  $lang['help_upload'][2] = '2. autorisez les droits en écriture sur les répertoires d\'images';
+  $lang['help_upload'][3] = 'Les images uploadées par les visiteurs ne sont pas directement visibles sur le site, elles doivent être validées par un administrateur. Pour cela, un administrateur doit se rendre sur la page "en attente" du panneau d\'administration, valider ou refuser les images proposée, puis lancer une mise à jour de la base d\'images.';
+		
+  $lang['help_infos_title'] = 'Informations complémentaires';
+  $lang['help_infos'][0] = 'Le webmaster a la possiblité d\'interdire certaines rubrique ou sous-rubriques à certains utilisateurs. Pour cela, allez voir la liste des utilisateurs, puis cliquez sur "permissions" pour l\'un d\'entre eux';
+  $lang['help_infos'][1] = 'Dès que vous avez créé votre galerie, allez dans la gestion des utilisateurs et modifiez les permissions pour l\'utilisateur visiteur. En effet, tous les utilisateurs qui s\'enregistrent eux-même auront par défaut les mêmes permissions que l\'utilisateur "visiteur".';
+  $lang['help_infos'][2] = 'Pour n\'importe quelle question, n\'hésitez pas à consulter le forum ou à y poser une question, sur le site';
+		
+  // installation
+  $lang['install_message'] = 'Message';
+		
+  $lang['step1_confirmation'] = 'Les paramètres rentrés sont corrects';
+  $lang['step1_err_db'] = 'La connexion au serveur est OK, mais impossible de se connecter à cette base de données';
+  $lang['step1_err_server'] = 'Impossible de se connecter au serveur';
+  $lang['step1_err_copy'] = 'Copiez le texte entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets)';
+  $lang['step1_err_copy_2'] = 'La configuration du reste de l\'application est maintenant possible';
+  $lang['step1_err_copy_next'] = 'prochaine étape';
+  $lang['step1_title'] = 'Etape 1 sur 2';
+  $lang['step1_host'] = 'Hôte MySQL';
+  $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
+  $lang['step1_user'] = 'Utilisateur';
+  $lang['step1_user_info'] = 'nom d\'utilisateur pour votre hébergeur';
+  $lang['step1_pass'] = 'Password';
+  $lang['step1_pass_info'] = 'celui fourni par votre hébergeur';
+  $lang['step1_database'] = 'Nom de la base';
+  $lang['step1_database_info'] = 'celui fourni par votre hébergeur';
+  $lang['step1_prefix'] = 'Préfixe des noms de table';
+  $lang['step1_prefix_info'] = 'le nom des tables apparaîtra avec ce préfixe (permet de mieux gérer sa base de données)';
+		
+  $lang['step2_err_login1'] = 'veuillez rentrer un pseudo pour le webmaster';
+  $lang['step2_err_login2'] = 'le pseudo du webmaster ne doit pas se terminer ou commencer par un espace';
+  $lang['step2_err_login3'] = 'le pseudo du webmaster ne doit pas comporter les caractère " et \'';
+  $lang['step2_err_pass'] = 'veuillez retaper votre mot de passe';
+  $lang['step2_err_mail'] = $lang['conf_err_mail'];
+		
+  $lang['install_end_title'] = 'Installation terminée';
+  $lang['install_end_message'] = 'La configuration de l\'application s\'est correctement déroulée, place à la prochaine étape<br /><br />
+Par mesure de sécurité, merci de supprimer le fichier "install.php" du repertoire "admin"<br />
+Un fois ce fichier supprimé, veuillez suivre ces indications :
+<ul>
+  <li>allez sur la page d\'identification : [ <a href="../identification.php">identification</a> ] et connectez-vous avec le pseudo donné pour le webmaster</li>
+  <li>celui-ci vous permet d\'accéder à la [ <a href="admin.php">partie administration</a> ] et aux instructions pour placer les images dans les répertoires.</li>
+</ul>';
+  $lang['step2_title'] = 'Etape 2 sur 2';
+  $lang['step2_pwd'] = 'password webmaster';
+  $lang['step2_pwd_info'] = 'Il doit rester confidentiel, il permet d\'accéder au panneau d\'administration.';
+  $lang['step2_pwd_conf'] = 'confirmer password';
+  $lang['step2_pwd_conf_info'] = 'Vérification';
+}
+?>

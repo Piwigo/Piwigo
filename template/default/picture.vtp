@@ -1,0 +1,166 @@
+<html>
+  <head>
+    {#page_style}
+    <!-- Specific style to picture.php-->
+    <style type="text/css">
+      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+        color:{#text_color};
+        font-family:arial,sans-Serif;
+        font-size:12px;
+      }
+      .commentsTitle,.commentsAuthor {
+        text-align:center;
+        font-weight:bold;
+      }
+      .commentsInfos {
+        margin:3px 3px 3px 10px;
+        font-size:11px;
+      }
+      .commentsContent {
+        margin:10px;
+      }
+      .commentsTitle {
+        margin-top:15px;
+      }
+      .commentsAuthor {
+        margin:5px;
+      }
+      .commentsNavigationBar {
+        margin:10px;
+      }
+      .tableComment {
+        width:90%;
+        border:2px solid {#text_color};
+        margin:10px;
+      }
+      .cellAuthor {
+        border-right:1px solid {#text_color};
+        width:100px;
+      }
+      .cellInfo {
+        border-bottom:1px solid {#text_color};
+      }
+    </style>
+    <title>{#page_title}</title>        
+  </head>
+  <body>
+    <table style="width:100%;height:100%;">
+      <tr align="center" valign="middle">
+        <td>
+          <!--VTP_previous-->
+          <a href="{#url}" title="{#title}">
+            <img src="{#src}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{#alt}"/>
+          </a>
+          <!--/VTP_previous-->
+          <!--VTP_previous_empty-->
+          &nbsp;
+          <!--/VTP_previous_empty-->
+        </td>
+        <td style="width:100%;">
+          {#frame_start}1%{#frame_begin}
+          <div class="titrePage">{#title}</div>
+          {#frame_end}
+          <div style="margin-bottom:5px">&nbsp;</div>
+          {#frame_start}1%{#frame_begin}
+          <a href="{#picture_link}">
+            <img style="margin:10px;width:{#picture_width}px;height:{#picture_height}px;border:1px solid {#picture_border_color}" src="{#picture_src}" alt="{#picture_alt}"/>
+          </a>
+          <div class="commentImage">{#picture_comment}</div>
+          <table style="width:100%;">   
+            <tr>
+              <td align="center">
+                <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
+                  <!--VTP_info_line-->
+                  <tr>
+                     <td class="menu" style="font-weight:bold;">{#name}</td>
+                     <td class="menu" style="text-align:right;">{#content}</td>
+                  </tr>
+                  <!--/VTP_info_line-->
+                </table>
+              </td>
+            </tr>
+          </table>
+          <!--VTP_favorite-->
+          <div class="menu" style="text-align:center;margin:5px;">
+            <a href="{#link}" title="{#title}">
+              <img src="{#src}" style="border:none;margin-left:5px;" alt="{#alt}"/>
+            </a>
+          </div>
+          <!--/VTP_favorite-->
+          <!--VTP_modification-->
+          <div class="menu" style="text-align:center;margin:5px;">
+            [ <a href="{#link}">{#name}</a> ]
+          </div>
+          <!--/VTP_modification-->
+          {#frame_end}
+          <div style="text-align:center;">{#back}</div>
+        </td>
+        <td>
+          <!--VTP_next-->
+          <a href="{#url}" title="{#title}">
+            <img src="{#src}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{#alt}"/>
+          </a>
+          <!--/VTP_next-->
+          <!--VTP_next_empty-->
+          &nbsp;
+          <!--/VTP_next_empty-->
+        </td>
+      </tr>
+      <!--VTP_comments-->
+      <tr align="center" valign="middle">
+        <td colspan="3">
+          {#frame_start}90%{#frame_begin}
+            <table style="width:100%;">
+              <tr align="center">
+                <td>
+                  <div class="commentsTitle">
+                    [{#nb_comments}] {#comments_title}
+                  </div>
+                  <div class="commentsNavigationBar">{#navigation_bar}</div>
+                  <!--VTP_comment-->
+                  <table class="tableComment">
+                    <tr>
+                      <td rowspan="2" valign="top" class="cellAuthor">
+                        <div class="commentsAuthor">{#author}</div>
+                      </td>
+                      <td align="right" class="cellInfo">
+                        <div class="commentsInfos">
+                          {#date}<!--VTP_delete--><a href="{#link}" title="{#comments_del}"><img src="./theme/{#user_theme}/delete.gif" style="border:none;margin-left:5px;" alt="[{#delete}]"/></a><!--/VTP_delete-->
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="commentsContent">{#content}</div>
+                      </td>
+                    </tr>
+                  </table>
+                  <!--/VTP_comment-->
+                  <div class="commentsNavigationBar">{#navigation_bar}</div>
+                </td>
+              </tr>
+            </table>
+            <form method="post" action="{#form_action}">
+              <table style="width:100%;">
+                <tr align="center">
+                  <td>
+                    <div class="commentsTitle">{#comments_add}</div>
+                    <!--VTP_author_field-->
+                    <div class="menu">{#author} : <input type="text" name="author" style="margin-top:5px;"/></div>
+                    <!--/VTP_author_field-->
+                    <!--VTP_author_known-->
+                    <input type="hidden" name="author" value="{#value}" />
+                    <!--/VTP_author_known-->
+                    <textarea name="content" rows="10" cols="50" style="overflow:auto;width:450px;margin:10px;"></textarea><br />
+                    <input type="submit" value="{#submit}" style="margin:10px;"/>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          {#frame_end}
+        </td>
+      </tr>
+      <!--/VTP_comments-->
+    </table>
+  </body>
+</html>

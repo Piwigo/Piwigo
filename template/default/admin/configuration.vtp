@@ -1,0 +1,87 @@
+<!--VTP_errors-->
+<div class="errors">
+  <ul>
+    <!--VTP_li-->
+    <li>{#li}</li>
+    <!--/VTP_li-->
+  </ul>
+</div>
+<!--/VTP_errors-->
+<!--VTP_confirmation-->
+  <div class="info">{#conf_confirmation}</div>
+<!--/VTP_confirmation-->
+<form method="post" action="{#form_action}">
+  <table width="100%">
+    <!--VTP_line-->
+    <!--VTP_param_line-->
+    <tr>
+      <td>{#name}</td>
+      <td align="center">
+        <!--VTP_select-->
+        <select name="{#name}">
+          <!--VTP_option-->
+          <option{#selected}>{#option}</option>
+          <!--/VTP_option-->
+        </select>
+        <!--/VTP_select-->
+        <!--VTP_hidden-->
+        {#text}<input type="hidden" name="{#name}" value="{#value}" />
+        <!--/VTP_hidden-->
+        <!--VTP_text-->
+        <input type="text" name="{#name}" value="{#value}" />
+        <!--/VTP_text-->
+        <!--VTP_group-->
+          <!--VTP_radio-->
+          <input type="radio" name="{#name}" value="{#value}"{#checked}/>{#option}
+          <!--/VTP_radio-->
+        <!--/VTP_group-->
+        <!--VTP_check-->
+          <!--VTP_box-->
+          <input type="checkbox" name="{#name}" value="{#value}"{#checked}/>{#option}
+          <!--/VTP_box-->
+        <!--/VTP_check-->
+      </td>
+      <td width="50%" class="row2">{#def}</td>
+    </tr>
+    <!--/VTP_param_line-->
+    <!--VTP_title_line-->
+    <tr>
+      <th colspan="3" align="center">{#title}</th>
+    </tr>
+    <!--/VTP_title_line-->
+    <!--VTP_space_line-->
+    <tr>
+      <td colspan="3"><div style="margin-bottom:0px">&nbsp;</div></td>
+    </tr>
+    <!--/VTP_space_line-->
+    <!--/VTP_line-->
+    <!--VTP_remote_sites-->
+    <tr>
+      <th colspan="3" align="center">{#conf_remote_site_title}</th>
+    </tr>
+    <tr>
+      <td colspan=3><div style='margin-bottom:0px'>&nbsp;</div></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td align="center">{#delete}</td>
+      <td>&nbsp;</td>
+    </tr>
+    <!--VTP_site-->
+    <tr>
+      <td>{#url}</td>
+      <td align="center"><input type="checkbox" name="delete_site_{#id}" value="1" /></td>
+      <!--VTP_rowspan--><td class="row2" rowspan="{#nb_sites}">{#conf_remote_site_delete_info}</td><!--/VTP_rowspan-->
+    </tr>
+    <!--/VTP_site-->
+    <tr>
+      <td colspan=3><div style='margin-bottom:0px'>&nbsp;</div></td>
+    </tr>
+    <!--/VTP_remote_sites-->
+    <tr>
+      <td colspan="3" align="center">
+        <input type="submit" value="{#submit}">
+      </td>
+    </tr>
+  </table>
+</form>

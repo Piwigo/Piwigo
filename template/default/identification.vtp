@@ -1,0 +1,75 @@
+<html>
+  <head>
+    {#page_style}
+    <title>{#ident_page_title}</title>
+  </head>
+  <body>
+    <table style="width:100%;height:100%">
+      <tr align="center" valign="middle">
+        <td>
+          {#frame_start}1px{#frame_begin}
+            <div class="titrePage">{#ident_title}</div>
+          {#frame_end}
+          <div style="margin-bottom:5px;">&nbsp;</div>
+          {#frame_start}50%{#frame_begin}
+            <div style="margin-left:auto;margin-right:auto;text-align:center;">
+              <form method="post" action="./identification.php">
+                <table style="width:80%;margin-left:auto;margin-right:auto;">
+                  <!--VTP_errors-->
+                  <tr>
+                    <td colspan="3">
+                      <div class="errors">
+                        <ul>
+                          <!--VTP_li-->
+                          <li>{#li}</li>
+                          <!--/VTP_li-->
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <!--/VTP_errors-->
+                  <tr>
+                    <td class="menu" align="center">{#login}</td>
+                    <td class="menu" align="center">{#password}</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <!--VTP_select_field-->
+                      <select name="login">
+                        <!--VTP_option-->
+                        <option>{#option}</option>
+                        <!--/VTP_option-->
+                      </select>
+                      <!--/VTP_select_field-->
+                      <!--VTP_text_field-->
+                      <input type="text" name="login" value="" />
+                      <!--/VTP_text_field-->
+                    </td>
+                    <td align="center"><input type="password" name="pass"/></td>
+                    <td align="center"><input type="submit" name="submit" value="{#submit}" class="bouton"/></td>
+                  </tr>
+                </table>
+              </form>
+              <table style="width:80%;margin-left:auto;margin-right:auto;">
+                <tr>
+                  <td colspan="3" align="center">
+                    <!--VTP_guest_visit-->
+                      <a href="./category.php">[ {#ident_guest_visit} ]</a>
+                    <!--/VTP_guest_visit-->
+                    <div  style="margin-top:10px;text-align:left;">
+                      <!--VTP_register-->
+                        <a href="register.php"><img src="./theme/{#user_theme}/register.gif" style="border:0;" alt="{#ident_register}"/>&nbsp;{#ident_register}</a><br />
+                      <!--/VTP_register-->
+                      <a href="mailto:{#mail_webmaster}?subject=[PhpWebGallery] {#ident_forgotten_password}"><img src="./theme/{#user_theme}/lost.gif" style="border:0;" alt=""/>&nbsp;{#ident_forgotten_password}</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          {#frame_end}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

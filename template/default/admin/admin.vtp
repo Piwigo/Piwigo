@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>{#page_title}</title>
+    <style>
+      a {
+        text-decoration:none;
+        color:#006699;
+      }
+      a:hover {
+        text-decoration:underline;
+      }
+      body,table,input,form,select,textarea {
+        font-family:arial,verdana,sans-serif;
+        font-size:12px;
+      }
+      .miniature {
+        border:solid 1px black;
+      }
+      body {
+        background-color:#E5E5E5;
+      }
+      .titretable1 {
+        color:black;
+        background-color:#D3DCE3;
+        text-align:center;
+        border:2px solid #006699;
+        font-weight:bold;
+        border-bottom:0px;
+      }
+      .grostitre {
+        text-align:center;
+        margin:10px 50px 10px 50px;
+        font-size:20px;
+        width:300px;
+      }
+      .plan {
+        margin:10px 10px 10px 2px;
+        white-space:nowrap;
+      }
+      .table1 {
+        border-collapse:collapse;
+        background-color:#FFFFFF;
+      }
+      .contenucellule {
+        background-color:#EEEEEE;
+        border:2px solid #006699;
+      }
+      .style1 {
+        margin-top:20px;
+      }
+      th {
+        font-weight:bold;
+        background-color:#D3DCE3;
+      }
+      td.row1 {
+        background-color:#E6E4E4;
+      }
+      td.row2 {
+        background-color:#E8E8E8;
+      }
+      td.row3 {
+        background-color:#eeeeee;
+      }
+      td.row4 {
+        background-color:#cccccc;
+      }
+      .cat_plan {
+        font-weight:bold;
+      }
+      .retrait {
+        margin:10px;
+        margin-left:30px;
+        margin-top:2px;
+      }
+      input,textarea {
+        border-width:1;
+        border-color:#000000;
+        background:#ffffff;
+        color: #000000;
+      }
+      .erreur {
+        color:red;
+        text-align:center;
+      }
+      .errors {
+        text-align:left;
+        margin:25px;
+        background-color:red;
+        font-weight:bold;
+        border:1px solid black;
+        color:white;
+      }
+      .info {
+        color:darkblue;
+        text-align:center;
+      }
+    </style>
+    <script language="javascript">
+      function SelectAll( formulaire )
+      {
+        len = formulaire.elements.length;
+        var i=0;
+        for( i = 0; i < len; i++)
+        {
+          if ( formulaire.elements[i].type=='checkbox'
+               && formulaire.elements[i].name != 'copie')
+          {
+            formulaire.elements[i].checked = true;
+          }
+        }
+      }
+
+      function Inverser( formulaire )
+      {
+        len = formulaire.elements.length;
+        var i=0;
+        for( i=0; i<len; i++)
+        {
+          if ( formulaire.elements[i].type=='checkbox'
+               && formulaire.elements[i].name != 'copie')
+          {
+            formulaire.elements[i].checked = !formulaire.elements[i].checked;
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td width="1%" valign="top">
+          <table class="table1">
+            <tr>
+              <td class="titretable1">{#menu_title}</td>
+            </tr>
+            <tr>
+              <td class="contenucellule">
+                <div class="plan">
+                  <!--VTP_summary-->
+                  {#indent}<img src="./images/puce.gif"><a href="{#link}" class="cat_plan">{#name}</a><br />
+                  <!--/VTP_summary-->
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td align="center" valign="top">
+          <div class="grostitre">{#title}</div>
+          <br />
+          <center>
+            <table width="95%" class="table1">
+              <tr>
+                <td class="contenucellule">
+                  {#sub}
+                </td>
+              </tr>
+            </table>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

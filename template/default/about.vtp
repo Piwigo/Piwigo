@@ -1,0 +1,29 @@
+<html>
+  <head>
+    {#page_style}
+    <title>{#about_page_title}</title>
+  </head>
+  <body>
+    <table style="width:100%;height:100%">
+      <tr align="center" valign="middle">
+        <td>
+          {#frame_start}1px{#frame_begin}
+            <div class="titrePage">{#about_title}</div>
+          {#frame_end}
+          <div style="margin-bottom:5px;">&nbsp;</div>
+          {#frame_start}50%{#frame_begin}
+            <div class="menu" style="white-space:normal;margin:10px;">
+              {#about_message}
+            </div>
+          {#frame_end}
+          <div style="text-align:center;margin:5px;">
+            <a onclick="history.back()" style="font-style:italic;font-family:verdana,arial,sans-serif;font-size:12px;">{#about_return}</a>
+          </div>
+          <div style="text-align:center;margin:5px;">
+            <img src="./images/php_sqreuil_artistes.gif" alt="php logo" />
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

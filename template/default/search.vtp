@@ -1,0 +1,71 @@
+<html>
+  <head>
+    {#page_style}
+    <title>{#search_page_title}</title>
+  </head>
+  <body>
+    <table style="width:100%;height:100%">
+      <tr align="center" valign="middle">
+        <td>
+          {#frame_start}1px{#frame_begin}
+            <div class="titrePage">{#search_title}</div>
+          {#frame_end}
+          <div style="margin-bottom:5px;">&nbsp;</div>
+          {#frame_start}50%{#frame_begin}
+            <div style="margin-left:auto;margin-right:auto;text-align:center;">
+              <form method="post" action="{#form_action}">
+                <table style="width:80%;margin-left:auto;margin-right:auto;">
+                  <!--VTP_errors-->
+                  <tr>
+                    <td colspan="2">
+                      <div class="errors">
+                        <ul>
+                          <!--VTP_li-->
+                          <li>{#li}</li>
+                          <!--/VTP_li-->
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <!--/VTP_errors-->
+                  <tr>
+                    <td colspan="2">
+                      <div style="margin-bottom:10px;">&nbsp;</div>
+                    </td>
+                  </tr>
+                  <!--VTP_line-->
+                  <tr>
+                    <td class="menu">{#name}</td>
+                    <td class="menu">
+                      <!--VTP_select-->
+                      <select name="{#name}">
+                        <!--VTP_option-->
+                        <option{#selected}>{#option}</option>
+                        <!--/VTP_option-->
+                      </select>
+                      <!--/VTP_select-->
+                      <!--VTP_text-->
+                      <input type="text" name="{#name}" size="{#size}" value="{#value}" />
+                      <!--/VTP_text-->
+                    </td>
+                  </tr>
+                  <!--/VTP_line-->
+                  <tr>
+                    <td align="center" colspan="2">
+                      <input type="submit" name="submit" value="{#submit}" class="bouton" style="margin:10px;" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" colspan="2">
+                      <a href="{#back_url}">[ {#search_return_main_page} ]</a>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          {#frame_end}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

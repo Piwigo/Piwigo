@@ -1,0 +1,58 @@
+<table style="width:100%;">
+<!--VTP_cat-->
+<tr>
+  <{#td} style="width:40%;text-align:left;">
+    {#indent}<img src="./images/puce.gif" alt="&gt;" />
+    &nbsp;{#name} [ dir : {#dir} ]
+    <span style="color:red;font-weight:normal;"> {#invisible}</span>
+  </{#td}>
+  <{#td} style="text-align:center;">
+    <div style="margin-left:3px;margin-right:3px;">{#nb_picture}</div>
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <a href="{#edit_url}">{#cat_edit}</a>
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <!--VTP_up-->
+    <a href="{#up_url}">{#cat_up}</a>
+    <!--/VTP_up-->
+    <!--VTP_no_up-->
+    <span style="color:darkgray;">{#cat_up}</span>
+    <!--/VTP_no_up-->
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <!--VTP_down-->
+    <a href="{#down_url}">{#cat_down}</a>
+    <!--/VTP_down-->
+    <!--VTP_no_down-->
+    <span style="color:darkgray;">{#cat_down}</span>
+    <!--/VTP_no_down-->
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <!--VTP_image_info-->
+    <a href="{#image_info_url}">{#cat_image_info}</a>
+    <!--/VTP_image_info-->
+    <!--VTP_no_image_info-->
+    <span style="color:darkgray;">{#cat_image_info}</span>
+    <!--/VTP_no_image_info-->
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <a href="{#permission_url}">{#cat_permission}</a>
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <!--VTP_update-->
+    <a href="{#update_url}">{#cat_update}</a>
+    <!--/VTP_update-->
+    <!--VTP_no_update-->
+    <span style="color:darkgray;">{#cat_update}</span>
+    <!--/VTP_no_update-->
+  </{#td}>
+<tr>
+<!--/VTP_cat-->
+</table>
