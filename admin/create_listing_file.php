@@ -19,7 +19,7 @@ $end = strrpos( $_SERVER['PHP_SELF'], '/' ) + 1;
 $local_folder = substr( $_SERVER['PHP_SELF'], 0, $end );
 $url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
 
-$listing.= "<url>$url</url>";
+$listing.= '<url>'.$url.'</url>';
 	
 // get_dirs retourne un tableau contenant tous les sous-répertoires d'un
 // répertoire
@@ -138,6 +138,14 @@ function get_pictures( $rep, $indent )
         $picture['height']   = $image_size[1];
 
         array_push( $pictures, $picture );
+
+        if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
+        {
+          echo '<span style="color:red;">"'.$file.'" : ';
+          echo 'The name of the picture should be composed of ';
+          echo 'letters, figures, "-", "_" or "." ONLY';
+          echo '</span><br />';
+        }
       }
     }
   }
