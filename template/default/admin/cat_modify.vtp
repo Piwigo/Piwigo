@@ -5,7 +5,15 @@
 <form action="{#form_action}" method="post">
   <table style="width:100%;">
     <tr>
-      <th colspan="2">{#editcat_title1} "{#cat:name}" [ {#cat:dir} ]</th>
+      <th colspan="2">{#editcat_title1} "{#cat:name}" [
+        <!--VTP_storage-->
+        dir : {#dir}
+        <!--/VTP_storage-->
+        <!--VTP_virtual-->
+        <span style="color:blue;">{#cat_virtual}</span>
+        <!--/VTP_virtual-->
+        ]
+      </th>
     </tr>
     <!--VTP_server-->
     <tr>
@@ -52,6 +60,18 @@
       </td>
     </tr>
     <!--/VTP_uploadable-->
+    <!--VTP_parent-->
+    <tr>
+      <td>{#cat_parent}</td>
+      <td class="row2">
+        <select name="associate">
+          <!--VTP_associate_cat-->
+          <option value="{#value}"{#selected}>{#content}</option>
+          <!--/VTP_associate_cat-->
+        </select>
+      </td>
+    </tr>
+    <!--/VTP_parent-->
     <tr>
       <td colspan="2">&nbsp;</td>
     </tr>

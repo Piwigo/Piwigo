@@ -23,7 +23,7 @@ $sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat_modify.vtp' );
 $tpl = array( 'remote_site','editcat_confirm','editcat_back','editcat_title1',
               'editcat_name','editcat_comment','editcat_status',
               'editcat_visible','editcat_visible_info', 'submit',
-              'editcat_uploadable' );
+              'editcat_uploadable','cat_virtual','cat_parent' );
 templatize_array( $tpl, 'lang', $sub );
 //---------------------------------------------------------------- verification
 if ( !is_numeric( $_GET['cat'] ) )
@@ -71,9 +71,19 @@ if ( isset( $_POST['submit'] ) )
 
   $query.= ", status = '".$_POST['status']."'";
   $query.= ", visible = '".$_POST['visible']."'";
-  $query.= ", uploadable = '".$_POST['uploadable']."'";
+
+  if ( isset( $_POST['uploadable'] ) )
+    $query.= ", uploadable = '".$_POST['uploadable']."'";
+
+  if ( isset( $_POST['associate'] ) )
+  {
+    $query.= ', id_uppercat = ';
+    if ( $_POST['associate'] == -1 ) $query.= 'NULL';
+    else                             $query.= $_POST['associate'];
+  }
   $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
+  echo $query;
   mysql_query( $query );
 
   $query = 'SELECT id';
@@ -106,7 +116,17 @@ $result = get_cat_info( $row['id'] );
 $cat_name = get_cat_display_name( $result['name'], ' - ', '' );
 $vtp->setVar( $sub, 'cat:name', $cat_name );
 // cat dir
-$vtp->setVar( $sub, 'cat:dir', $row['dir'] );
+if ( $row['dir'] != '' )
+{
+  $vtp->addSession( $sub, 'storage' );
+  $vtp->setVar( $sub, 'storage.dir', $row['dir'] );
+  $vtp->closeSession( $sub, 'storage' );
+}
+else
+{
+  $vtp->addSession( $sub, 'virtual' );
+  $vtp->closeSession( $sub, 'virtual' );
+}
 // remote site ?
 if ( $row['site_id'] != 1 )
 {
@@ -150,7 +170,11 @@ if ( $row['visible'] == 'false' )
 $vtp->setVar( $sub, 'visible_option.checked', $checked );
 $vtp->closeSession( $sub, 'visible_option' );
 // uploadable : true or false
-if ( $conf['upload_available'] )
+// a category can be uploadable if :
+//  1. upload is authorized
+//  2. category is not virtual
+//  3. category is on the main site
+if ( $conf['upload_available'] and $row['dir'] != '' and $row['site_id'] == 1 )
 {
   $vtp->addSession( $sub, 'uploadable' );
   $vtp->addSession( $sub, 'uploadable_option' );
@@ -174,6 +198,18 @@ if ( $conf['upload_available'] )
   $vtp->setVar( $sub, 'uploadable_option.checked', $checked );
   $vtp->closeSession( $sub, 'uploadable_option' );
   $vtp->closeSession( $sub, 'uploadable' );
+}
+// can the parent category be changed ? (is the category virtual ?)
+if ( $row['dir'] == '' )
+{
+  $vtp->addSession( $sub, 'parent' );
+  $vtp->addSession( $sub, 'associate_cat' );
+  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
+  $vtp->setVar( $sub, 'associate_cat.content', '' );
+  $vtp->closeSession( $sub, 'associate_cat' );
+  $structure = create_structure( '', array() );
+  display_categories( $structure, '&nbsp;', $row['id_uppercat'], $row['id'] );
+  $vtp->closeSession( $sub, 'parent' );
 }
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );

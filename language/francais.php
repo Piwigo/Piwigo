@@ -492,12 +492,18 @@ if ( $isadmin )
   // start version 1.3
   $lang['cat_permission'] = 'permissions';
   $lang['cat_update'] = 'mis à jour';
+  $lang['cat_add'] = 'Ajouter une catégorie virtuelle';
+  $lang['cat_parent'] = 'catégorie parente';
+  $lang['cat_error_name'] = 'Le nom d\'une catégorie ne doit pas être nul';
+  $lang['cat_virtual'] = 'virtuelle';
+  $lang['cat_first'] = 'Premier';
+  $lang['cat_last'] = 'Dernier';
   // end version 1.3
 
   // page édition d\'une catégorie
   $lang['editcat_confirm'] = 'Informations enregistrées dans la base de données';
   $lang['editcat_back'] = 'catégories';
-  $lang['editcat_title1'] = 'Options pour la';
+  $lang['editcat_title1'] = 'Options pour la catégorie';
   $lang['editcat_name'] = 'Nom';
   $lang['editcat_comment'] = 'Commentaire';
   $lang['editcat_status'] = 'Status';

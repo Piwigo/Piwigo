@@ -1,35 +1,66 @@
+<!--VTP_errors-->
+<div class="errors">
+  <div class="errors_title">{#errors_title}</div>
+  <ul>
+    <!--VTP_li-->
+    <li>{#content}</li>
+    <!--/VTP_li-->
+  </ul>
+</div>
+<!--/VTP_errors-->
 <table style="width:100%;">
+<tr>
+  <td colspan="8" style="text-align:center;padding-top:10px;padding-bottom:10px;">
+  <form action="" method="post">
+    {#cat_add} <input type="text" name="virtual_name" />
+    {#cat_parent}
+    <select name="associate">
+      <!--VTP_associate_cat-->
+      <option value="{#value}">{#content}</option>
+      <!--/VTP_associate_cat-->
+    </select>
+   <input type="submit" value="{#submit}" name="submit" />
+  </form>
+  </td>
+</tr>
 <!--VTP_cat-->
 <tr>
-  <{#td} style="width:40%;text-align:left;">
+  <{#td} style="width:50%;text-align:left;">
     {#indent}<img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
-    &nbsp;{#name} [ dir : {#dir} ]
+    &nbsp;{#name} [
+    <!--VTP_storage-->
+    dir : {#dir}
+    <!--/VTP_storage-->
+    <!--VTP_virtual-->
+    <span style="color:blue;">{#cat_virtual}</span>
+    <!--/VTP_virtual-->
+    ]
     <span style="color:red;font-weight:normal;"> {#invisible} <span style="font-weight:bold;">{#private}</span></span>
   </{#td}>
-  <{#td} style="text-align:center;">
+  <{#td} class="{#class}"
+         style="width:1px;white-space:nowrap;text-align:center;">
+    <!--VTP_up-->
+    <a href="{#up_url}"><img src="../template/{#user_template}/admin/images/arrow_up.gif" alt="{#cat_up}" title="{#cat_up}" style="border:none;" /></a>
+    <!--/VTP_up-->
+    <!--VTP_no_up-->
+    <a href="{#last_url}"><img src="../template/{#user_template}/admin/images/arrow_last.gif" alt="{#cat_last}" title="{#cat_last}" style="border:none;" /></a>
+    <!--/VTP_no_up-->
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:1px;white-space:nowrap;text-align:center;">
+    <!--VTP_down-->
+    <a href="{#down_url}"><img src="../template/{#user_template}/admin/images/arrow_down.gif" alt="{#cat_down}" title="{#cat_down}" style="border:none;" /></a>
+    <!--/VTP_down-->
+    <!--VTP_no_down-->
+    <a href="{#first_url}"><img src="../template/{#user_template}/admin/images/arrow_first.gif" alt="{#cat_first}" title="{#cat_first}" style="border:none;" /></a>
+    <!--/VTP_no_down-->
+  </{#td}>
+  <{#td} class="{#class}" style="width:1px;text-align:center;">
     <div style="margin-left:3px;margin-right:3px;">{#nb_picture}</div>
   </{#td}>
   <{#td} class="{#class}"
          style="width:10%;white-space:nowrap;text-align:center;">
     <a href="{#edit_url}">{#cat_edit}</a>
-  </{#td}>
-  <{#td} class="{#class}"
-         style="width:10%;white-space:nowrap;text-align:center;">
-    <!--VTP_up-->
-    <a href="{#up_url}">{#cat_up}</a>
-    <!--/VTP_up-->
-    <!--VTP_no_up-->
-    <span style="color:darkgray;">{#cat_up}</span>
-    <!--/VTP_no_up-->
-  </{#td}>
-  <{#td} class="{#class}"
-         style="width:10%;white-space:nowrap;text-align:center;">
-    <!--VTP_down-->
-    <a href="{#down_url}">{#cat_down}</a>
-    <!--/VTP_down-->
-    <!--VTP_no_down-->
-    <span style="color:darkgray;">{#cat_down}</span>
-    <!--/VTP_no_down-->
   </{#td}>
   <{#td} class="{#class}"
          style="width:10%;white-space:nowrap;text-align:center;">
@@ -57,6 +88,15 @@
     <!--VTP_no_update-->
     <span style="color:darkgray;">{#cat_update}</span>
     <!--/VTP_no_update-->
+  </{#td}>
+  <{#td} class="{#class}"
+         style="width:10%;white-space:nowrap;text-align:center;">
+    <!--VTP_delete-->
+    <a href="{#delete_url}">{#delete}</a>
+    <!--/VTP_delete-->
+    <!--VTP_no_delete-->
+    <span style="color:darkgray;">{#delete}</span>
+    <!--/VTP_no_delete-->
   </{#td}>
 <tr>
 <!--/VTP_cat-->
