@@ -30,22 +30,23 @@ $template->set_filenames(array('tail'=>'footer.tpl'));
 
 $time = get_elapsed_time( $t2, get_moment() );
 
-$template->assign_vars(array(
-  'TIME' =>  $time,
-  'VERSION' => $conf['version'],
-  'WEBMASTER'=>$conf['webmaster'],
-  'MAIL'=>$conf['mail_webmaster'],
-  
-  'L_GEN_TIME' => $lang['generation_time'],
-  'L_SEND_MAIL' => $lang['send_mail'],
-  'L_TITLE_MAIL' => $lang['title_send_mail'],
-	
-  'U_SITE' => add_session_id( $conf['site_url'] )
-  ));
-	
+$template->assign_vars(
+  array(
+    'TIME' =>  $time,
+    'VERSION' => $conf['version'],
+    'WEBMASTER'=>$conf['webmaster'],
+    'MAIL'=>$conf['mail_webmaster'],
+    
+    'L_GEN_TIME' => $lang['generation_time'],
+    'L_SEND_MAIL' => $lang['send_mail'],
+    'L_TITLE_MAIL' => $lang['title_send_mail'],
+    
+    'U_SITE' => $conf['site_url']
+    ));
+    
 if (DEBUG)
 {
-	$template->assign_block_vars('debug', array());
+  $template->assign_block_vars('debug', array());
 }
 
 //
