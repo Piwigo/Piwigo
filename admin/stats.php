@@ -105,65 +105,6 @@ $nb_visitors = mysql_num_rows( $result );
 $days = array();
 $max_nb_visitors = 0;
 $max_pages_seen = 0;
-
-$starttime = mktime(  0, 0, 0,date('n'),date('j'),date('Y') );
-$endtime   = mktime( 23,59,59,date('n'),date('j'),date('Y') );
-//for ( $i = 0; $i <= MAX_DAYS; $i++ )
-{
-  /*
-  // log lines for this day
-  $query = 'SELECT date,login,IP,category,file,picture';
-  $query.= ' FROM '.PREFIX_TABLE.'history';
-  $query.= ' WHERE date > '.$starttime;
-  $query.= ' AND date < '.$endtime;
-  $query.= ' ORDER BY date DESC';
-  $query.= ';';
-  $result = pwg_query( $query );
-  $nb_pages_seen = mysql_num_rows( $result );
-  $day['nb_pages_seen'] = $nb_pages_seen;
-  if ( $nb_pages_seen > $max_pages_seen ) $max_pages_seen = $nb_pages_seen;
-  $vtp->setVar( $sub, 'day.nb_pages', $nb_pages_seen );
-  if ( in_array( $i, $page['expand_days'] ) )
-  {
-    while ( $row = mysql_fetch_array( $result ) )
-    {
-      $vtp->addSession( $sub, 'line' );
-      $vtp->setVar( $sub, 'line.date', date( 'G:i:s', $row['date'] ) );
-      $vtp->setVar( $sub, 'line.login', $row['login'] );
-      $vtp->setVar( $sub, 'line.IP', $row['IP'] );
-      $vtp->setVar( $sub, 'line.category', $row['category'] );
-      $vtp->setVar( $sub, 'line.file', $row['file'] );
-      $vtp->setVar( $sub, 'line.picture', $row['picture'] );
-      $vtp->closeSession( $sub, 'line' );
-    }
-  }
-  $starttime-= 24*60*60;
-  $endtime  -= 24*60*60;
-  $vtp->closeSession( $sub, 'day' );
-  array_push( $days, $day );*/
-}
-//------------------------------------------------------------ pages seen graph
-foreach ( $days as $day ) {
-  /*$vtp->addSession( $sub, 'pages_day' );
-  if ( $max_pages_seen > 0 )
-    $width = floor( ( $day['nb_pages_seen']*$max_pixels ) / $max_pages_seen );
-  else $width = 0;
-  $vtp->setVar( $sub, 'pages_day.date', $day['date'] );
-  $vtp->setVar( $sub, 'pages_day.width', $width );
-  $vtp->setVar( $sub, 'pages_day.nb_pages', $day['nb_pages_seen'] );
-  $vtp->closeSession( $sub, 'pages_day' );*/
-}
-//-------------------------------------------------------------- visitors grpah
-foreach ( $days as $day ) {
-  /*$vtp->addSession( $sub, 'visitors_day' );
-  if ( $max_nb_visitors > 0 )
-    $width = floor( ( $day['nb_visitors'] * $max_pixels ) / $max_nb_visitors );
-  else $width = 0;
-  $vtp->setVar( $sub, 'visitors_day.date', $day['date'] );
-  $vtp->setVar( $sub, 'visitors_day.width', $width );
-  $vtp->setVar( $sub, 'visitors_day.nb_visitors', $day['nb_visitors'] );
-  $vtp->closeSession( $sub, 'visitors_day' );*/
-}
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>
