@@ -16,10 +16,9 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-
 //------------------------------------------------------------------ constantes
-define( ATT_REG, '\w+' );
-define( VAL_REG, '[^"]*' );
+define( 'ATT_REG', '\w+' );
+define( 'VAL_REG', '[^"]*' );
 //------------------------------------------------------------------- functions
 // getContent returns the content of a tag
 //
