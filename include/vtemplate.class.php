@@ -141,7 +141,7 @@ if ( !isset( $DEFINE_VTEMPLATE ) )
       $regle = "|".VARTAG."(.*)}|sU"; 
       preg_match_all ($regle,$this->source,$var1);
       // Création du tableau de variable  à partir de la liste parsée.
-      $this->varlist=@array_merge($var[1],$var1[1]);
+      $this->varlist=@array_merge((array)$var[1],(array)$var1[1]);
       return 1;
     }
 
