@@ -40,7 +40,7 @@ if ( $user['is_the_guest'] )
 //------------------------------------------------------ update & customization
 $infos = array( 'nb_image_line', 'nb_line_page', 'language',
                 'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
-                'short_period', 'long_period', 'template', 'mail_address' );
+                'recent_period', 'template', 'mail_address' );
 // mise à jour dans la base de données des valeurs
 // des paramètres pour l'utilisateur courant
 //    - on teste si chacune des variables est passée en argument à la page
@@ -62,19 +62,10 @@ if ( isset( $_POST['submit'] ) )
     array_push( $errors, $lang['err_maxheight'] );
   }
   // periods must be integer values, they represents number of days
-  if ( !preg_match( $int_pattern, $_POST['short_period'] )
-       or !preg_match( $int_pattern, $_POST['long_period'] ) )
+  if (!preg_match($int_pattern, $_POST['recent_period'])
+      or $_POST['recent_period'] <= 0)
   {
     array_push( $errors, $lang['err_periods'] );
-  }
-  else
-  {
-    // long period must be longer than short period
-    if ( $_POST['long_period'] <= $_POST['short_period']
-         or $_POST['short_period'] <= 0 )
-    {
-      array_push( $errors, $lang['err_periods_2'] );
-    }
   }
   $mail_error = validate_mail_address( $_POST['mail_address'] );
   if ( $mail_error != '' ) array_push( $errors, $mail_error );
@@ -137,24 +128,21 @@ $template->assign_vars(array(
   'NB_IMAGE_LINE'=>$user['nb_image_line'],
   'NB_ROW_PAGE'=>$user['nb_line_page'],
   'STYLE_SELECT'=>style_select($user['template'], 'template'),
-  'SHORT_PERIOD'=>$user['short_period'],
-  'LONG_PERIOD'=>$user['long_period'],
+  'RECENT_PERIOD'=>$user['recent_period'],
   
   $expand=>'checked="checked"',
   $nb_comments=>'checked="checked"',
   
-   'L_TITLE' => $lang['customize_title'],
+  'L_TITLE' => $lang['customize_title'],
   'L_PASSWORD' => $lang['password'],
-  'L_NEW' =>  $lang['new'], 
-  'L_CONFIRM' =>  $lang['reg_confirm'], 
+  'L_NEW' =>  $lang['new'],
+  'L_CONFIRM' =>  $lang['reg_confirm'],
   'L_COOKIE' =>  $lang['create_cookie'],
-  'L_CONFIRM'=>$lang['conf_confirmation'],
   'L_LANG_SELECT'=>$lang['customize_language'],
   'L_NB_IMAGE_LINE'=>$lang['customize_nb_image_per_row'],
   'L_NB_ROW_PAGE'=>$lang['customize_nb_row_per_page'],
   'L_STYLE_SELECT'=>$lang['customize_theme'],
-  'L_SHORT_PERIOD'=>$lang['customize_short_period'],
-  'L_LONG_PERIOD'=>$lang['customize_long_period'],
+  'L_RECENT_PERIOD'=>$lang['customize_recent_period'],
   'L_EXPAND_TREE'=>$lang['customize_expand'],
   'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],
   'L_YES'=>$lang['yes'],

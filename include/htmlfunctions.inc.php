@@ -36,19 +36,11 @@ function get_icon( $date )
   $day_in_seconds = 24*60*60;
   $output = '';
   $title = $lang['recent_image'].'&nbsp;';
-  if ( $diff < $user['long_period'] * $day_in_seconds )
+  if ( $diff < $user['recent_period'] * $day_in_seconds )
   {
     $icon_url = './template/'.$user['template'].'/theme/';
-    if ( $diff < $user['short_period'] * $day_in_seconds )
-    {
-      $icon_url.= 'new_short.gif';
-      $title .= $user['short_period'];
-    }
-    else
-    {
-      $icon_url.= 'new_long.gif';
-      $title .= $user['long_period'];
-    }
+    $icon_url.= 'recent.gif';
+    $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
     $output = '<img title="'.$title.'" src="'.$icon_url.'" style="border:0;';

@@ -84,8 +84,7 @@ function register_user( $login, $password, $password_conf,
     // 1. retrieving default values, the ones of the user "guest"
     $infos = array( 'nb_image_line', 'nb_line_page', 'language',
                     'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
-                    'short_period', 'long_period', 'template',
-                    'forbidden_categories' );
+                    'recent_period', 'template', 'forbidden_categories' );
     $query = 'SELECT ';
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
     {

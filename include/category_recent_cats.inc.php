@@ -38,7 +38,7 @@ $query = '
 SELECT id AS category_id
   FROM '.CATEGORIES_TABLE.'
   WHERE date_last > SUBDATE(CURRENT_DATE
-                            ,INTERVAL '.$user['short_period'].' DAY)';
+                            ,INTERVAL '.$user['recent_period'].' DAY)';
 if ( $user['forbidden_categories'] != '' )
 {
   $query.= '
@@ -70,7 +70,7 @@ SELECT id,file,tn_ext,storage_category_id
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$row['category_id'].'
     AND date_available > SUBDATE(CURRENT_DATE
-                                 ,INTERVAL '.$user['short_period'].' DAY)
+                                 ,INTERVAL '.$user['recent_period'].' DAY)
     AND id = image_id
   ORDER BY RAND()
   LIMIT 0,1

@@ -90,19 +90,10 @@ if ( isset( $_POST['submit'] ) )
     array_push( $error, $lang['conf_err_mail'] );
   }
   // periods must be integer values, they represents number of days
-  if ( !preg_match( $int_pattern, $_POST['short_period'] )
-       or !preg_match( $int_pattern, $_POST['long_period'] ) )
+  if (!preg_match($int_pattern, $_POST['recent_period'])
+      or $_POST['recent_period'] <= 0)
   {
     array_push( $error, $lang['err_periods'] );
-  }
-  else
-  {
-    // long period must be longer than short period
-    if ( $_POST['long_period'] <= $_POST['short_period']
-         or $_POST['short_period'] <= 0 )
-    {
-      array_push( $error, $lang['err_periods_2'] );
-    }
   }
   // session_id size must be an integer between 4 and 50
   if ( !preg_match( $int_pattern, $_POST['session_id_size'] )
@@ -216,8 +207,7 @@ $template->assign_vars(array(
   'NB_IMAGE_LINE'=>$conf['nb_image_line'],
   'NB_ROW_PAGE'=>$conf['nb_line_page'],
   'STYLE_SELECT'=>style_select($conf['default_style'], 'default_style'),
-  'SHORT_PERIOD'=>$conf['short_period'],
-  'LONG_PERIOD'=>$conf['long_period'],
+  'RECENT_PERIOD'=>$conf['recent_period'],
   'UPLOAD_MAXSIZE'=>$conf['upload_maxfilesize'],
   'UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth'],
   'UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight'],
@@ -271,10 +261,8 @@ $template->assign_vars(array(
   'L_NB_ROW_PAGE_INFO'=>$lang['conf_default_nb_row_per_page_info'],
   'L_STYLE_SELECT'=>$lang['customize_theme'],
   'L_STYLE_SELECT_INFO'=>$lang['conf_default_theme_info'],
-  'L_SHORT_PERIOD'=>$lang['customize_short_period'],
-  'L_SHORT_PERIOD_INFO'=>$lang['conf_default_short_period_info'],
-  'L_LONG_PERIOD'=>$lang['customize_long_period'],
-  'L_LONG_PERIOD_INFO'=>$lang['conf_default_long_period_info'],
+  'L_RECENT_PERIOD'=>$lang['customize_recent_period'],
+  'L_RECENT_PERIOD_INFO'=>$lang['conf_default_recent_period_info'],
   'L_EXPAND_TREE'=>$lang['customize_expand'],
   'L_EXPAND_TREE_INFO'=>$lang['conf_default_expand_info'],
   'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],

@@ -160,7 +160,7 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
-$icon_short = get_icon( date( 'Y-m-d' ) );
+$icon_recent = get_icon(date('Y-m-d'));
 
 $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
@@ -201,8 +201,7 @@ $template->assign_vars(array(
   'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
   
   'T_COLLAPSED' => $user['lien_collapsed'],
-  'T_SHORT' => $icon_short,
-  'T_LONG'=>get_icon(date( 'Y-m-d',time()-($user['short_period']*24*60*60+1))),
+  'T_RECENT' => $icon_recent,
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
   'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),

@@ -32,8 +32,8 @@
 //            status --> $user['status']
 $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'nb_line_page', 'status', 'language', 'maxwidth',
-                'maxheight', 'expand', 'show_nb_comments', 'short_period',
-                'long_period', 'template', 'forbidden_categories' );
+                'maxheight', 'expand', 'show_nb_comments', 'recent_period',
+                'template', 'forbidden_categories' );
 
 $query_user = 'SELECT '.implode( ',', $infos );
 $query_user.= ' FROM '.USERS_TABLE;

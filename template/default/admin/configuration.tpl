@@ -99,12 +99,8 @@
 	<td class="row1">{STYLE_SELECT}</td>
   </tr>
   <tr>
-    <td><strong>{L_SHORT_PERIOD}&nbsp;:</strong><br /><span class="small">{L_SHORT_PERIOD_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="2" name="short_period" value="{SHORT_PERIOD}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{L_LONG_PERIOD}&nbsp;:</strong><br /><span class="small">{L_LONG_PERIOD_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="2" name="long_period" value="{LONG_PERIOD}" /></td>
+    <td><strong>{L_RECENT_PERIOD}&nbsp;:</strong><br /><span class="small">{L_RECENT_PERIOD_INFO}</span></td>
+	<td class="row1"><input type="text" size="3" maxlength="2" name="recent_period" value="{RECENT_PERIOD}" /></td>
   </tr>
   <tr>
     <td><strong>{L_EXPAND_TREE}&nbsp;:</strong><br /><span class="small">{L_EXPAND_TREE_INFO}</span></td>

@@ -27,12 +27,8 @@
 	<td>{LANG_SELECT}</td>
   </tr>
    <tr>
-    <td>{L_SHORT_PERIOD}</td>
-	<td><input type="text" size="3" maxlength="2" name="short_period" value="{SHORT_PERIOD}" /></td>
-  </tr>
-  <tr>
-    <td>{L_LONG_PERIOD}</td>
-	<td><input type="text" size="3" maxlength="2" name="long_period" value="{LONG_PERIOD}" /></td>
+    <td>{L_RECENT_PERIOD}</td>
+	<td><input type="text" size="3" maxlength="2" name="recent_period" value="{RECENT_PERIOD}" /></td>
   </tr>
   <tr>
     <td>{L_EXPAND_TREE}</td>
@@ -46,8 +42,8 @@
   </tr>
   <!-- BEGIN text -->
   <tr>
-	<td class="menu">{text.F_LABEL}</td>
-	<td class="menu">
+	<td>{text.F_LABEL}</td>
+	<td>
 	  <input type="text" name="{text.F_NAME}" value="{text.F_VALUE}" />
 	</td>
   </tr>
@@ -56,12 +52,12 @@
 	<td colspan="2">&nbsp;</td>
   </tr>
   <tr>
-	<td class="menu">{L_NEW} {L_PASSWORD} <input type="checkbox" name="use_new_pwd" value="1" /></td>
-	<td class="menu"><input type="password" name="password" value="" /></td>
+	<td>{L_NEW} {L_PASSWORD} <input type="checkbox" name="use_new_pwd" value="1" /></td>
+	<td><input type="password" name="password" value="" /></td>
   </tr>
   <tr>
-	<td class="menu">{L_CONFIRM}</td>
-	<td class="menu"><input type="password" name="passwordConf" value="" /></td>
+	<td>{L_CONFIRM}</td>
+	<td><input type="password" name="passwordConf" value="" /></td>
   </tr>
   <tr>
 	<td colspan="2">&nbsp;</td>
