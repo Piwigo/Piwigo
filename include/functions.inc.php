@@ -68,10 +68,7 @@ function array_remove( $array, $value )
 {
   $output = array();
   foreach ( $array as $v ) {
-    if ( $v != $value )
-    {
-      array_push( $output, $v );
-    }
+    if ( $v != $value ) array_push( $output, $v );
   }
   return $output;
 }
