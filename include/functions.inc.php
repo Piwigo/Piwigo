@@ -157,23 +157,27 @@ function get_filename_wo_extension( $filename )
   return substr( $filename, 0, strrpos( $filename, '.' ) );
 }
 
-// get_dirs retourne un tableau contenant tous les sous-répertoires d'un
-// répertoire
-function get_dirs( $rep )
+/**
+ * returns an array contening sub-directories
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_dirs( $directory )
 {
-  $sub_rep = array();
+  $sub_dirs = array();
 
-  if ( $opendir = opendir ( $rep ) )
+  if ( $opendir = opendir( $directory ) )
   {
     while ( $file = readdir ( $opendir ) )
     {
-      if ( $file != '.' and $file != '..' and is_dir ( $rep.$file ) )
+      if ( $file != '.' and $file != '..' and is_dir ( $directory.'/'.$file ) )
       {
-        array_push( $sub_rep, $file );
+        array_push( $sub_dirs, $file );
       }
     }
   }
-  return $sub_rep;
+  return $sub_dirs;
 }
 
 // The get_picture_size function return an array containing :
@@ -254,22 +258,6 @@ function get_languages( $rep_language )
     }
   }
   return $languages;
-}
-
-// get_themes retourne un tableau contenant tous les "template - couleur"
-function get_themes( $theme_dir )
-{
-  $themes = array();
-  $main_themes = get_dirs( $theme_dir );
-  for ( $i = 0; $i < sizeof( $main_themes ); $i++ )
-  {
-    $colors = get_dirs( $theme_dir.$main_themes[$i].'/' );
-    for ( $j = 0; $j < sizeof( $colors ); $j++ )
-    {
-      array_push( $themes, $main_themes[$i].' - '.$colors[$j] );
-    }
-  }
-  return $themes;
 }
 
 // - add_style replaces the 
