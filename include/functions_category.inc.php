@@ -66,7 +66,7 @@ function check_restrictions( $category_id )
  *  - equals 'recent_pics'
  *  - equals 'recent_cats'
  *  - equals 'calendar'
- *  - equals 'random'
+ *  - equals 'list'
  *
  * The function fills the global var $page['cat'] and returns nothing
  *
@@ -99,14 +99,19 @@ function check_cat_id( $cat )
          or $cat == 'best_rated'
          or $cat == 'recent_pics'
          or $cat == 'recent_cats'
-         or $cat == 'calendar'
-         or $cat == 'random' )
+         or $cat == 'calendar' )
     {
       $page['cat'] = $cat;
     }
     if ($cat == 'search' and isset($_GET['search']))
     {
       $page['cat'] = $cat;
+    }
+    if ($cat == 'list'
+        and isset($_GET['list'])
+        and preg_match('/^\d+(,\d+)*$/', $_GET['list']))
+    {
+      $page['cat'] = 'list';
     }
   }
 }
@@ -434,7 +439,7 @@ SELECT galleries_url
 //       - most visited pictures
 //       - best rated pictures
 //       - recent pictures
-//       - random pictures
+//       - defined list (used for random)
 // 3. determination of the title of the page
 // 4. creation of the navigation bar
 function initialize_category( $calling_page = 'category' )
@@ -467,12 +472,13 @@ function initialize_category( $calling_page = 'category' )
     }
     else
     {
-      if ( $page['cat'] == 'search'
-           or $page['cat'] == 'most_visited'
-           or $page['cat'] == 'recent_pics'
-           or $page['cat'] == 'recent_cats'
-           or $page['cat'] == 'best_rated'
-           or $page['cat'] == 'calendar' )
+      if ($page['cat'] == 'search'
+          or $page['cat'] == 'most_visited'
+          or $page['cat'] == 'recent_pics'
+          or $page['cat'] == 'recent_cats'
+          or $page['cat'] == 'best_rated'
+          or $page['cat'] == 'calendar'
+          or $page['cat'] == 'list')
       {
         // we must not show pictures of a forbidden category
         if ( $user['forbidden_categories'] != '' )
@@ -788,23 +794,17 @@ SELECT COUNT(1) AS count
           $page['nb_image_page'] = $conf['top_number'] - $page['start'];
         }
       }
-      else if ($page['cat'] == 'random')
+      else if ($page['cat'] == 'list')
       {
         $page['title'] = $lang['random_cat'];
           
+        $page['where'] = 'WHERE 1=1';
         if (isset($forbidden))
         {
-          $page['where'] = 'WHERE '.$forbidden;
+          $page['where'].= ' AND '.$forbidden;
         }
-        else
-        {
-          $page['where'] = 'WHERE 1=1';
-        }
-
-        $conf['order_by'] = ' ORDER BY RAND()';
-
-        $page['cat_nb_images'] = $conf['top_number'];
-        $page['nb_image_page'] = $page['cat_nb_images'];
+        $page['where'].= ' AND image_id IN ('.$_GET['list'].')';
+        $page['cat_nb_images'] = count(explode(',', $_GET['list']));
       }
 
       if (isset($query))

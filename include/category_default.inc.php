@@ -105,6 +105,10 @@ while ($row = mysql_fetch_array($result))
   {
     $url_link.= '&amp;search='.$_GET['search'];
   }
+  else if ($page['cat'] == 'list')
+  {
+    $url_link.= '&amp;list='.$_GET['list'];
+  }
     
   $template->assign_block_vars(
     'thumbnails.line.thumbnail',

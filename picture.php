@@ -209,6 +209,10 @@ if ( $page['cat'] == 'search' )
 {
   $url_up.= "&amp;search=".$_GET['search'];
 }
+if ( $page['cat'] == 'list' )
+{
+  $url_up.= "&amp;list=".$_GET['list'];
+}
 
 $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
 $url_admin.= '&amp;cat_id='.$page['cat'];

@@ -197,7 +197,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=random'),
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'random.php'),
     'TITLE' => $lang['random_cat_hint'],
     'NAME' => $lang['random_cat']
     ));
@@ -274,7 +274,7 @@ if (isset($page['cat'])
                            ,'most_visited'
                            ,'recent_pics'
                            ,'best_rated'
-                           ,'random'
+                           ,'list'
                        ))))
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
