@@ -1,26 +1,23 @@
-<div align="center" style="padding:10px;"><img src="template/default/images/logo.jpg" width="360" height="100">
-</div>
+<div align="center" style="padding:10px;"><img src="template/default/images/logo.jpg" width="360" height="100"></div>
 <table style="width:100%;">
   <tr>
-	<td valign="top" style="padding:10px;width:1%;">
-	<div class="table1">
-		<div class="titreMenu">
-		  <a href="{U_HOME}">{L_CATEGORIES}</a>
-		</div>
-		<div class="menu">
-		  <!-- BEGIN category -->
-		  {category.INDENT}
-			 <!-- BEGIN bulletlink -->
-				<a href="{category.bulletlink.U_BULLET_LINK}"><img src="{category.bulletlink.BULLET_IMAGE}" style="border:none;" alt="" /></a>
-			 <!-- END bulletlink -->
-			 <!-- BEGIN bulletnolink -->
-				<img src="{category.bulletnolink.BULLET_IMAGE}" style="border:none;" alt="" />
-			<!-- END bulletnolink -->
-			&nbsp;<a href="{category.U_LINK}"><span title='{L_HINT_CATEGORY}' style="{category.T_NAME}">{category.LINK_NAME}</span></a>
-			&nbsp;<span class="menuInfoCat">[
-			<span title="{category.NB_SUBCATS} {L_SUBCAT}">{category.NB_SUBCATS}</span> - <span title="{category.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.TOTAL_CAT}</span>&nbsp;]</span>{category.CAT_ICON}<br />
-		  <!-- END category -->
-		  <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
+    <td valign="top" style="padding:10px;width:1%;">
+      <div class="table1">
+        <div class="titreMenu">
+          <a href="{U_HOME}">{L_CATEGORIES}</a>
+        </div>
+        <div class="menu">
+          <!-- BEGIN category -->
+            {category.INDENT}
+            <img src="{category.BULLET_IMAGE}" style="border:none;" alt="" />
+            <a href="{category.U_LINK}"><span title='{L_HINT_CATEGORY}' style="{category.T_NAME}">{category.LINK_NAME}</span></a>
+            <!-- BEGIN infocat -->
+            <span class="menuInfoCat">[<span title="{category.infocat.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.infocat.TOTAL_CAT}</span>]</span>
+	    {category.infocat.CAT_ICON}
+            <!-- END infocat -->
+            <br />
+          <!-- END category -->
+        <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
 		  <br />
 		  <ul class="menu">
 		    <!-- BEGIN favorites -->
