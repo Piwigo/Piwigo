@@ -18,19 +18,19 @@
  ***************************************************************************/
 
 //-------------------------------------------------------------------- includes
-define( PREFIX_INCLUDE, '.' );
-include( '../include/vtemplate.class.php' );
-include( '../include/functions.inc.php' );
+define( "PREFIX_INCLUDE", '' );
+include( './include/vtemplate.class.php' );
+include( './include/functions.inc.php' );
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
-$handle = $vtp->Open( '../template/default/admin/install.vtp' );
+$handle = $vtp->Open( './template/default/install.vtp' );
 $vtp->setGlobalVar( $handle, 'release', '1.3' );
 //-------------------------------------------------------------------- language
 if ( isset( $_GET['language'] ) )
 {
   $isadmin = true;
   $lang = array();
-  include( '../language/'.$_GET['language'].'.php' );
+  include( './language/'.$_GET['language'].'.php' );
   $tpl = array( 'step1_err_copy', 'step1_err_copy_2', 'step1_err_copy_next',
                 'errors_title', 'step1_title','step1_host','step1_host_info',
                 'step1_user','step1_user_info','step1_pass','step1_pass_info',
@@ -84,7 +84,7 @@ if ( $_GET['step'] == 1 )
       $file_content.= "\n\$prefixeTable = '".$_POST['prefixeTable']."';";
       $file_content.= "\n?>";
       // writting the configuration file
-      if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
+      if ( $fp = @fopen( './include/mysql.inc.php', 'a+' ) )
       {
         fwrite( $fp, $file_content ); 
         fclose( $fp );
@@ -93,7 +93,7 @@ if ( $_GET['step'] == 1 )
       $cfgUser     = '';
       $cfgPassword = '';
       $cfgBase     = '';
-      include( '../include/mysql.inc.php' );
+      include( './include/mysql.inc.php' );
       $file_OK = false;
       if ( @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) )
       {
@@ -168,7 +168,7 @@ else if ( $_GET['step'] == 2 )
   $errors = array();
   $infos  = array();
 
-  include( '../include/mysql.inc.php' );
+  include( './include/mysql.inc.php' );
   mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Can't connect to database host" );
   mysql_select_db( $cfgBase )
@@ -177,7 +177,7 @@ else if ( $_GET['step'] == 2 )
   if ( !isset( $_POST['submit'] ) )
   {
     // tables creation, based on phpwebgallery_structure.sql
-    $sql_lines = file( './phpwebgallery_structure.sql' );
+    $sql_lines = file( './admin/phpwebgallery_structure.sql' );
     $query = '';
     foreach ( $sql_lines as $sql_line ) {
       $sql_line = trim( $sql_line );
@@ -283,7 +283,7 @@ else if ( $_GET['step'] == 2 )
 else
 {
   $vtp->addSession( $handle, 'step0' );
-  $languages = get_languages( '../language/' );
+  $languages = get_languages( './language/' );
   foreach ( $languages as $language ) {
     $vtp->addSession( $handle, 'language' );
     $vtp->setVar( $handle, 'language.name', $language );
