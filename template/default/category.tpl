@@ -1,7 +1,7 @@
 <div style="padding:3px;"><img src="template/default/images/logo.jpg"></div>
 <table style="width:100%;">
   <tr>
-    <td valign="top" style="padding:10px;width:1%;">
+    <td valign="top" style="padding:0px 10px 0px 10px;width:1%;">
       <div class="table1">
         <div class="titreMenu">
           <a href="{U_HOME}">{L_CATEGORIES}</a>
@@ -11,15 +11,14 @@
             {MENU_CATEGORIES_CONTENT}
           </ul>
         <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
-		  <br />
-		  <ul class="menu">
-		    <li><span style="font-weight:bold;">{L_SPECIAL_CATEGORIES}</span></li>
+		</div>
+		<div class="titreMenu">{L_SPECIAL_CATEGORIES}</div>
+		<div class="menu">
 		    <ul class="menu">
                       <!-- BEGIN special_cat -->
                       <li><a href="{special_cat.URL}" title="{special_cat.TITLE}">{special_cat.NAME}</a></li>
                       <!-- END special_cat -->
 		    </ul>
-		  </ul>
 		</div>
 		<div class="titreMenu">{L_SUMMARY}</div>
 		<div class="menu">
@@ -58,7 +57,7 @@
 		</div>
       </div>
 	</td>
-	<td style="padding:10px;width:99%;" valign="top">
+	<td style="padding:0px 10px 0px 10px; width:99%;" valign="top">
 	  <div class="home">
 			<div class="titrePage">{TITLE}</div>
 			<!-- BEGIN calendar -->

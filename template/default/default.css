@@ -1,4 +1,14 @@
-/*POSITION*/
+/* BACKGROUND */
+body { background-color:#000000;}
+.main, .throw, .admin {	background-color:#3F3F3F;}
+.row1,input,select,textarea, .table1, .home { background-color:#5F5F5F;}
+.table2, .commentTitle { background-color: #797979;}
+.errors { background-color:red;}
+
+.titreMenu,.titrePage,.imgMenu a:hover { background-image: url(theme/tableh1_bg.gif);}
+.bouton, .imgMenu a, #imgBarMenu { background-image: url(theme/button_bg.gif);}
+
+/* POSITION */
 #gauche,#droite
 {
   float:left;
@@ -33,7 +43,6 @@
 body {
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size:12px;
-  background-color:#000000;
   color:#E0E0E0;
   margin:5px;
 }
@@ -60,7 +69,6 @@ a.thumbLink:hover { text-decoration:none;}
 /* LAYOUT STYLE */
 
 .main {
-	background-color:#444444;
 	border: 1px solid #E0E0E0; 
 	width:100%;
 	padding-bottom:30px;
@@ -80,7 +88,6 @@ a.thumbLink:hover { text-decoration:none;}
   line-height: 25px;
   font-size:12px;
   color:#E0E0E0;
-  background-image: url(theme/tableh1_bg.gif);
   font-weight:600;
   text-align:center;
 }
@@ -90,7 +97,6 @@ a.thumbLink:hover { text-decoration:none;}
   font-family: 'Trebuchet MS', Verdana, sans-serif;
   text-align:left;
   font-size:16px;
-  /*margin-bottom:5px;*/
 }
 
 .menu {
@@ -133,7 +139,6 @@ ul.menu {
   width:100%;
   display:block;
   height:25px;
-  background-image: url(theme/button_bg.gif);
   border-bottom: 1px solid #000000;
 }
   
@@ -154,7 +159,6 @@ ul.menu {
 .imgMenu a
 {
   display:block;
-  background-image: url(theme/button_bg.gif);
   height: 25px;
   border-bottom: 1px solid #000000;
   border-left: 1px solid #838383;
@@ -163,7 +167,6 @@ ul.menu {
 
 .imgMenu a:hover
 {
-  background-image:url(theme/tableh1_bg.gif);
   border-bottom: 1px solid #3F3F3F;
   border-left: 1px solid #3F3F3F;
   border-right: 1px solid #3F3F3F;
@@ -186,7 +189,6 @@ ul.menu {
 .table1, .home
 {
   border: 1px solid #000000;
-  background-color:#555555;
   display:block;
 }
 
@@ -197,7 +199,6 @@ ul.menu {
 }
   
 .table2 {
-	background-color: #797979;
 	border: 1px solid #000000; 
 	margin:	0px 10px 0px 0px;
 	padding:0px;
@@ -214,13 +215,8 @@ ul.menu {
   height:20px;
 } 
 
-.row1 {
-  background-color:#505050;
-}
-
 .throw {
   color:#FFFFCC;
-  background-color:#3F3F3F;
   text-align:center;
   font-weight:bold;
   border-top: 1px solid #000000; 
@@ -257,7 +253,6 @@ table.thumbnail {
 .commentTitle {
   font-family: Arial, Helvetica, sans-serif;
   font-size:12px;
-  background-color:#797979;
   font-weight:bold;
   padding: 15px 5px 10px 5px;
 }
@@ -281,7 +276,6 @@ form{
 }
 
 .bouton {
-  background-image: url(theme/button_bg.gif);
   border: 1px solid #404750;
   color:#FFFFFF;
   padding-left: 3px;
@@ -293,7 +287,6 @@ form{
 
 input,select,textarea {
  text-indent:2px;
- background-color:#505050;
  border: 1px solid #797979;
  padding: 0;
  color:#FFFFCC;
@@ -315,25 +308,16 @@ margin:10px 50px 10px 50px;
 
 .admin {
 font-weight:bold;
-background-color:#444444;
 margin:0px 0px 12px 0px;
 text-align: center;
 padding:0px;
 color : #FFF48E;
 }
 
-.adminMain
-{
-  border: 1px solid #000000;
-  background-color:#656565;
-  width:95%;
-  color:#FFFFFF;
-}
-
 /* Other styles */
 .info {
   color:#FFF48E;
-  margin:5px 0px 5px 0px
+  margin:5px 0px 5px 0px;
   white-space:nowrap;
   text-align:center;
   font-size:16px;
@@ -365,7 +349,6 @@ color : #FFF48E;
   text-align:left;
   margin-top:5px;
   margin-bottom:5px;
-  background-color:red;
   font-weight:bold;
   border:1px solid black;
   color:white;
