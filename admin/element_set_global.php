@@ -91,16 +91,26 @@ SELECT element_id
   if ($_POST['associate'] != 0)
   {
     $datas = array();
+
+    $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$_POST['associate'].'
+;';
+    $associated = array_from_query($query, 'image_id');
+
+    $associable = array_diff($collection, $associated);
     
-    foreach ($collection as $item)
+    foreach ($associable as $item)
     {
       array_push($datas,
                  array('category_id'=>$_POST['associate'],
                        'image_id'=>$item));
     }
   
-    // TODO : inserting an existing PK will fail
-    mass_inserts(IMAGE_CATEGORY_TABLE, array('image_id', 'category_id'), $datas);
+    mass_inserts(IMAGE_CATEGORY_TABLE,
+                 array('image_id', 'category_id'),
+                 $datas);
     update_category(array($_POST['associate']));
   }
 

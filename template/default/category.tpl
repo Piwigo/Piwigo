@@ -80,8 +80,15 @@
 					   alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
 					   title="{thumbnails.line.thumbnail.IMAGE_TITLE}"
 					   class="thumbLink" />
+                                  <!-- BEGIN element_name -->
 				  <br />
-				  <span class="{thumbnails.line.thumbnail.IMAGE_STYLE}">{thumbnails.line.thumbnail.IMAGE_NAME}</span></a>
+				  <span class="thumb_picture">{thumbnails.line.thumbnail.element_name.NAME}</span>
+                                  <!-- END element_name -->
+                                  <!-- BEGIN category_name -->
+                                  <br />
+                                  <span class="thumb_category">[{thumbnails.line.thumbnail.category_name.NAME}]</span>
+                                  <!-- END ategory_name -->
+                                  </a>
 				  {thumbnails.line.thumbnail.IMAGE_TS}
 				  <!-- BEGIN nb_comments -->
 				  <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
@@ -92,8 +99,10 @@
 			  <!-- END line -->
 			</table>
 			<!-- END thumbnails -->
+                <!-- BEGIN caddie -->
 		<br />
 		<div class="navigationBar"><a href="{U_CADDIE}">add to caddie</a></div>
+                <!-- END caddie -->
 			<!-- BEGIN cat_infos -->
 			  <!-- BEGIN navigation -->
 			  <div class="navigationBar">{cat_infos.navigation.NAV_BAR}</div>

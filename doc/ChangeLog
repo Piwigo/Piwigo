@@ -1,3 +1,14 @@
+2005-03-26 Pierrick LE GALL <pierrick at phpwebgallery dot net>
+
+	* "add to caddie" link is visible only when categories contains
+	elements. Only admin users can see this link
+
+	* elements batch management : impossible to create a link between
+	category and element that already exists
+
+	* logical separation of category name under thumbnail and element
+	name
+
 2005-03-25 Pierrick LE GALL <pierrick at phpwebgallery dot net>
 
 	* application version is defined at build or release

@@ -106,11 +106,16 @@ while ($row = mysql_fetch_array($result))
       'IMAGE'              => $thumbnail_url,
       'IMAGE_ALT'          => $row['file'],
       'IMAGE_TITLE'        => $thumbnail_title,
-      'IMAGE_NAME'         => $name,
       'IMAGE_TS'           => get_icon($row['date_available']),
-      'IMAGE_STYLE'        => 'thumb_picture',
       
       'U_IMG_LINK'         => add_session_id($url_link)
+      )
+    );
+  
+  $template->assign_block_vars(
+    'thumbnails.line.thumbnail.element_name',
+    array(
+      'NAME' => $name
       )
     );
     

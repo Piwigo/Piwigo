@@ -310,6 +310,11 @@ if (isset($page['cat'])
                        ))))
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
+
+  if ('admin' == $user['status'])
+  {
+    $template->assign_block_vars('caddie', array());
+  }
 }
 elseif (isset($page['cat']) and $page['cat'] == 'calendar')
 {

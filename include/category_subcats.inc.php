@@ -100,14 +100,18 @@ SELECT path, tn_ext
       'IMAGE'                 => $thumbnail_link,
       'IMAGE_ALT'             => $row['name'],
       'IMAGE_TITLE'           => $thumbnail_title,
-      'IMAGE_NAME'            => '['.$row['name'].']',
       'IMAGE_TS'              => get_icon(@$row['date_last']),
-      'IMAGE_STYLE'           => 'thumb_category',
         
       'U_IMG_LINK'            => add_session_id($url_link)
      )
    );
-  $template->assign_block_vars('thumbnails.line.thumbnail.bullet',array());
+
+  $template->assign_block_vars(
+    'thumbnails.line.thumbnail.category_name',
+    array(
+      'NAME' => $row['name']
+      )
+    );
 
   // create a new line ?
   if (++$row_number == $user['nb_image_line'])
