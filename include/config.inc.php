@@ -53,7 +53,7 @@ database_connection();
 // Each field becomes an information of the array $conf.
 // Example :
 //            prefixe_thumbnail --> $conf['prefixe_thumbnail']
-$infos = array( 'prefixe_thumbnail', 'webmaster', 'mail_webmaster', 'acces',
+$infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'session_id_size', 'session_keyword', 'session_time',
                 'max_user_listbox', 'show_comments', 'nb_comment_page',
                 'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
@@ -61,32 +61,24 @@ $infos = array( 'prefixe_thumbnail', 'webmaster', 'mail_webmaster', 'acces',
                 'upload_maxheight_thumbnail' );
 
 $query  = 'SELECT';
-for ( $i = 0; $i < sizeof( $infos ); $i++ )
-{
-  if ( $i > 0 )
-  {
-    $query.= ',';
-  }
-  else
-  {
-    $query.= ' ';
-  }
-  $query.= $infos[$i];
+foreach ( $infos as $i => $info ) {
+  if ( $i > 0 ) $query.= ',';
+  else          $query.= ' ';
+  $query.= $info;
 }
-$query .= ' FROM '.PREFIX_TABLE.'config;';
+$query.= ' FROM '.PREFIX_TABLE.'config;';
 
 $row = mysql_fetch_array( mysql_query( $query ) );
 
 // affectation of each field of the table "config" to an information of the
 // array $conf.
-for ( $i = 0; $i < sizeof( $infos ); $i++ )
-{
-  $conf[$infos[$i]] = $row[$infos[$i]];
+foreach ( $infos as $info ) {
+  $conf[$info] = $row[$info];
   // If the field is true or false, the variable is transformed into a boolean
   // value.
-  if ( $row[$infos[$i]] == 'true' || $row[$infos[$i]] == 'false' )
+  if ( $row[$info] == 'true' or $row[$info] == 'false' )
   {
-    $conf[$infos[$i]] = get_boolean( $row[$infos[$i]] );
+    $conf[$info] = get_boolean( $row[$info] );
   }
 }
 $conf['log']        = false;

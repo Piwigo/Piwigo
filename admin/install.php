@@ -334,7 +334,7 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
     $query = "CREATE TABLE ".PREFIX_TABLE."config (
 			  periode_courte smallint(5) unsigned NOT NULL default '7',
 			  periode_longue smallint(5) unsigned NOT NULL default '14',
-			  prefixe_thumbnail varchar(10) NOT NULL default 'TN-',
+			  prefix_thumbnail varchar(10) NOT NULL default 'TN-',
 			  webmaster varchar(255) NOT NULL default '',
 			  mail_webmaster varchar(255) NOT NULL default '',
 			  acces enum('libre','restreint') NOT NULL default 'libre',

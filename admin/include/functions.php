@@ -53,7 +53,7 @@ function TN_exists( $dir, $file )
 
   $filename = get_filename_wo_extension( $file );
   foreach ( $conf['picture_ext'] as $ext ) {
-    $test = $dir.'/thumbnail/'.$conf['prefixe_thumbnail'].$filename.'.'.$ext;
+    $test = $dir.'/thumbnail/'.$conf['prefix_thumbnail'].$filename.'.'.$ext;
     if ( is_file ( $test ) )
     {
       return $ext;

@@ -161,7 +161,7 @@ function insert_local_image( $rep, $category_id )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $lien_image = $rep.'/'.$row['file'];
-    $lien_thumbnail = $rep.'/thumbnail/'.$conf['prefixe_thumbnail'];
+    $lien_thumbnail = $rep.'/thumbnail/'.$conf['prefix_thumbnail'];
     $lien_thumbnail.= get_filename_wo_extension( $row['file'] );
     $lien_thumbnail.= '.'.$row['tn_ext'];
 		
@@ -229,7 +229,7 @@ function insert_local_image( $rep, $category_id )
             $output.= '<span style="color:red;">';
             $output.= $lang['update_missing_tn'].' : '.$file;
             $output.= ' (<span style="font-weight:bold;">';
-            $output.= $conf['prefixe_thumbnail'];
+            $output.= $conf['prefix_thumbnail'];
             $output.= get_filename_wo_extension( $file ).'.XXX</span>';
             $output.= ', XXX = ';
             $output.= implode( ', ', $conf['picture_ext'] );

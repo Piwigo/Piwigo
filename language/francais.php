@@ -184,6 +184,7 @@ $lang['search_title'] = 'Recherche';
 $lang['invalid_search'] = 'Les mots recherchés doivent comporter plus de 3 caractères et ne doivent pas inclure de caractères de ponctuation';
 $lang['search_mode_or'] = 'au moins un mot';
 $lang['search_mode_and'] = 'tous les mots';
+$lang['search_comments'] = 'espacer les différents mots avec un espace';
 // end version 1.3
 $lang['search_field_search'] = 'Rechercher';
 $lang['search_return_main_page'] = 'Retour à la page des miniatures';

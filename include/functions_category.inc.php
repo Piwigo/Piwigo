@@ -405,6 +405,10 @@ function initialize_category( $calling_page = 'category' )
         $words = explode( ',', $_GET['search'] );
         $sql_search = array();
         foreach ( $words as $i => $word ) {
+          // if the user searchs any of the words, the where statement must
+          // be :
+          // field1 LIKE '%$word1%' OR field2 LIKE '%$word1%' ...
+          // OR field1 LIKE '%$word2%' OR field2 LIKE '%$word2%' ...
           if ( $_GET['mode'] == 'OR' )
           {
             if ( $i != 0 ) $page['where'].= ' OR';
@@ -413,6 +417,9 @@ function initialize_category( $calling_page = 'category' )
               $page['where'].= ' '.$field." LIKE '%".$word."%'";
             }
           }
+          // if the user searchs all the words :
+          // ( field1 LIKE '%$word1%' OR field2 LIKE '%$word1%' )
+          // AND ( field1 LIKE '%$word2%' OR field2 LIKE '%$word2%' )
           else if ( $_GET['mode'] == 'AND' )
           {
             if ( $i != 0 ) $page['where'].= ' AND';

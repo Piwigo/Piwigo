@@ -39,7 +39,7 @@
 					if ( $row['tn_ext'] != "" )
 					{
 						$file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
-						unlink( ".".$cat['dir']."thumbnail/".$conf['prefixe_thumbnail'].$file.".".$row['tn_ext'] );
+						unlink( ".".$cat['dir']."thumbnail/".$conf['prefix_thumbnail'].$file.".".$row['tn_ext'] );
 					}
 				}
 			}
@@ -89,7 +89,7 @@
 		if ( $row['tn_ext'] != "" )
 		{
 			$file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
-			echo "<a target=\"_blank\" href=\"".$cat_names[$row['cat_id']]['dir']."thumbnail/".$conf['prefixe_thumbnail'].$file.".".$row['tn_ext']."\">".$conf['prefixe_thumbnail'].$file.".".$row['tn_ext'];
+			echo "<a target=\"_blank\" href=\"".$cat_names[$row['cat_id']]['dir']."thumbnail/".$conf['prefix_thumbnail'].$file.".".$row['tn_ext']."\">".$conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
 		}
 		else
 		{

@@ -52,19 +52,12 @@ if ( isset( $_POST['search'] ) )
 }
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
-$handle = $vtp->Open( './template/default/search.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'search_page_title',$lang['search_title'] );
-$vtp->setGlobalVar( $handle, 'search_title',     $lang['search_title'] );
-$vtp->setGlobalVar( $handle, 'search_return_main_page',
-                    $lang['search_return_main_page'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-// user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
+$handle = $vtp->Open( './template/'.$user['template'].'/search.vtp' );
+initialize_template();
+
+$tpl = array( 'search_title','search_return_main_page','submit',
+              'search_comments' );
+templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
 $vtp->setGlobalVar( $handle, 'form_action', add_session_id( './search.php' ) );
 //-------------------------------------------------------------- errors display
@@ -82,7 +75,7 @@ if ( sizeof( $error ) != 0 )
 //------------------------------------------------------------------------ form
 // search field
 $vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['search_field_search'] );
+$vtp->setVar( $handle, 'line.name', $lang['search_field_search'].' *' );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.size', '40' );
 $vtp->setVar( $handle, 'text.name', 'search' );

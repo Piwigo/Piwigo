@@ -1,9 +1,10 @@
 <html>
   <head>
-    {#page_style}
+    {#style}
     <title>{#about_page_title}</title>
   </head>
   <body>
+    {#header}
     <table style="width:100%;height:100%">
       <tr align="center" valign="middle">
         <td>
@@ -17,7 +18,7 @@
             </div>
           {#frame_end}
           <div style="text-align:center;margin:5px;">
-            <a onclick="history.back()" style="font-style:italic;font-family:verdana,arial,sans-serif;font-size:12px;">{#about_return}</a>
+            <a href="{#back_url}">{#about_return}</a>
           </div>
           <div style="text-align:center;margin:5px;">
             <img src="./images/php_sqreuil_artistes.gif" alt="php logo" />
@@ -25,5 +26,6 @@
         </td>
       </tr>
     </table>
+    {#footer}
   </body>
 </html>

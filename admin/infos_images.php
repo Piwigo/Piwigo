@@ -219,7 +219,7 @@ if ( isset( $page['cat'] ) )
       $thumbnail_url = $cat['dir'];
     }
     $thumbnail_url.= 'thumbnail/';
-    $thumbnail_url.= $conf['prefixe_thumbnail'].$file.".".$row['tn_ext'];
+    $thumbnail_url.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
     $vtp->setVar( $sub, 'picture.thumbnail_url', $thumbnail_url );
     $vtp->closeSession( $sub, 'picture' );
   }

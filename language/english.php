@@ -435,7 +435,7 @@
 		
 		$lang['help_remote_title'] = "Remote site";
 		$lang['help_remote'][0] = "PhpWebGallery offers the possibility to use several servers to store the images which will compose your gallery. It can be useful if your gallery is installed on one limited space and that you have a big quantity of images to be shown. Please , follow this procedure : ";
-		$lang['help_remote'][1] = "1. edit file \"create_listing_file.php\" (you will find it in the directory \"admin\"), by modifying the line \"$prefixe_thumbnail = \"TN-\";\" if the prefix for your thumbnails is not \"TN-\".";
+		$lang['help_remote'][1] = "1. edit file \"create_listing_file.php\" (you will find it in the directory \"admin\"), by modifying the line \"$prefix_thumbnail = \"TN-\";\" if the prefix for your thumbnails is not \"TN-\".";
 		$lang['help_remote'][2] = "2. place file \"create_listing_file.php\" modified on your distant website, in the root directory of your directories of images  (as the directory \"galleries\" of this website) by ftp.";
 		$lang['help_remote'][3] = "3. launch script using the url http://domaineDistant/repGalerie/create_listing_file.php, a file listing.xml has just been created.";
 		$lang['help_remote'][4] = "4. get back file listing.xml from your distant website to place it in directory \"admin\" of this website.";

@@ -33,23 +33,22 @@ function validate_upload( $temp_name, $my_max_file_size,
 		
   $result = array();
   $result['error'] = array();
-  $i = 0;
   //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
   if ( $extension != 'gif' and $extension != 'jpg' and $extension != 'png' )
   {
-    $result['error'][$i++] = $lang['upload_advise_filetype'];
+    array_push( $result['error'], $lang['upload_advise_filetype'] );
     return $result;
   }
   if ( !isset( $_FILES['picture'] ) )
   {
     // do we even have a file?
-    $result['error'][$i++] = "You did not upload anything!";
+    array_push( $result['error'], "You did not upload anything!" );
   }
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
-    $result['error'][$i++] =
-      $lang['upload_advise_width'].$my_max_file_size.' KB';
+    array_push( $result['error'],
+                $lang['upload_advise_width'].$my_max_file_size.' KB' );
   }
   else
   {
@@ -57,7 +56,7 @@ function validate_upload( $temp_name, $my_max_file_size,
     // upload de la photo sous un nom temporaire
     if ( !move_uploaded_file( $_FILES['picture']['tmp_name'], $temp_name ) )
     {
-      $result['error'][$i++] = $lang['upload_cannot_upload'];
+      array_push( $result['error'], $lang['upload_cannot_upload'] );
     }
     else
     {
@@ -66,34 +65,26 @@ function validate_upload( $temp_name, $my_max_file_size,
            and $image_max_width != ""
            and $size[0] > $image_max_width )
       {
-        $result['error'][$i++] =
-          $lang['upload_advise_width'].$image_max_width." px";
+        array_push( $result['error'],
+                    $lang['upload_advise_width'].$image_max_width.' px' );
       }
       if ( isset( $image_max_height )
            and $image_max_height != ""
            and $size[1] > $image_max_height )
       {
-        $result['error'][$i++] =
-          $lang['upload_advise_height'].$image_max_height." px";
+        array_push( $result['error'],
+                    $lang['upload_advise_height'].$image_max_height.' px' );
       }
       // $size[2] == 1 means GIF
       // $size[2] == 2 means JPG
       // $size[2] == 3 means PNG
-      if ( $size[2] != 1 and $size[2] != 2 and $size[2] != 3 )
+      switch ( $size[2] )
       {
-        $result['error'][$i++] = $lang['upload_advise_filetype'];
-      }
-      else
-      {
-        switch ( $size[2] )
-        {
-        case 1 :
-          $result['type'] = 'gif'; break;
-        case 2 :
-          $result['type'] = 'jpg'; break;
-        case 3 :
-          $result['type'] = 'png'; break;
-        }
+      case 1 : $result['type'] = 'gif'; break;
+      case 2 : $result['type'] = 'jpg'; break;
+      case 3 : $result['type'] = 'png'; break;
+      default :
+        array_push( $result['error'], $lang['upload_advise_filetype'] );  
       }
     }
   }
@@ -126,7 +117,7 @@ if ( $access_forbidden == true
      or $conf['upload_available'] == 'false' )
 {
   echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
-  echo '<a href="'.add_session_id_to_url( './diapo.php' ).'">';
+  echo '<a href="'.add_session_id_to_url( './category.php' ).'">';
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }

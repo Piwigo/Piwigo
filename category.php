@@ -186,7 +186,7 @@ $vtp->closeSession( $handle, 'summary' );
 // about link
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.url',
-              add_session_id( './about.php?expand='.$page['expand'] ) );
+              add_session_id( './about.php?'.$_SERVER['QUERY_STRING'] ) );
 $vtp->setVar( $handle, 'summary.title', $lang['hint_about'] );
 $vtp->setVar( $handle, 'summary.name', replace_space( $lang['about'] ) );
 $vtp->closeSession( $handle, 'summary' );

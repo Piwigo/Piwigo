@@ -36,7 +36,7 @@ $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A",
                 "ý" => "y", "ÿ" => "y");
 //------------------------------ verification and registration of modifications
 $conf_infos =
-array( 'prefixe_thumbnail','webmaster','mail_webmaster','acces',
+array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
        'session_id_size','session_time','session_keyword','max_user_listbox',
        'show_comments','nb_comment_page','upload_available',
        'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
@@ -46,126 +46,123 @@ array( 'nb_image_line','nb_line_page','theme','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
        'template' );
 $error = array();
-$i = 0;
-if ( $_GET['valider'] == 1 )
+if ( isset( $_POST['submit'] ) )
 {
   //purge de la table des session si demandé
   if ( $_POST['empty_session_table'] == 1 )
   {
-    $query = 'delete from '.PREFIX_TABLE.'sessions';
-    $query.= ' where expiration < '.time().';';
+    $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
+    $query.= ' WHERE expiration < '.time().';';
     mysql_query( $query );
   }
   // deletion of site as asked
-  $query = 'select id';
-  $query.= ' from '.PREFIX_TABLE.'sites';
-  $query.= " where galleries_url <> './galleries/';";
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'sites';
+  $query.= " WHERE galleries_url <> './galleries/';";
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $site = 'delete_site_'.$row['id'];
-    if ( $_POST[$site] == 1 )
-    {
-      delete_site( $row['id'] );
-    }
+    if ( $_POST[$site] == 1 ) delete_site( $row['id'] );
   }
-  // le préfixe des thumbnails ne doit pas comporter d'accent
-  $ancien_prefixe = $_POST['prefixe_thumbnail'];
-  $prefixe = strtr( $_POST['prefixe_thumbnail'], $Caracs );
-  if ( $ancien_prefixe != $prefixe )
+  // thumbnail prefix must not contain accentuated characters
+  $old_prefix = $_POST['prefix_thumbnail'];
+  $prefix = strtr( $_POST['prefix_thumbnail'], $Caracs );
+  if ( $old_prefix != $prefix )
   {
-    $error[$i++] = $lang['conf_err_prefixe'];
+    array_push( $error, $lang['conf_err_prefixe'] );
   }
-  // le mail doit être conforme à qqch du type : nom@serveur.com
-  if ( !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
-              $_POST['mail_webmaster'] ) )
+  // mail mail must be formatted as follows : name@server.com
+  $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
+  if ( !preg_match( $pattern, $_POST['mail_webmaster'] ) )
   {
-    $error[$i++] = $lang['conf_err_mail'];
+    array_push( $error, $lang['conf_err_mail'] );
   }
-  // les période doivent être des entiers, il représentent des nombres de jours
-  if ( !ereg( "^[0-9]*$", $_POST['short_period'] )
-       || !ereg("^[0-9]*$", $_POST['long_period'] ) )
+  // periods must be integer values, they represents number of days
+  if ( !is_int( $_POST['short_period'] )
+       or !is_int( $_POST['long_period'] ) )
   {
-    $error[$i++] = $lang['err_periods'];
+    array_push( $error, $lang['err_periods'] );
   }
   else
   {
-    // la période longue doit être supérieure à la période courte
+    // long period must be longer than short period
     if ( $_POST['long_period'] <= $_POST['short_period']
-         || $_POST['short_period'] <= 0 )
+         or $_POST['short_period'] <= 0 )
     {
-      $error[$i++] = $lang['err_periods_2'];
+      array_push( $error, $lang['err_periods_2'] );
     }
   }
-  //la taille de l'id de session doit être un entier entre 4 et 50
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['session_id_size'] )
-       || $_POST['session_id_size'] < 4
-       || $_POST['session_id_size'] > 50 )
+  // session_id size must be an integer between 4 and 50
+  if ( !is_int( $_POST['session_id_size'] )
+       or $_POST['session_id_size'] < 4
+       or $_POST['session_id_size'] > 50 )
   {
-    $error[$i++] = $lang['conf_err_sid_size'];
+    array_push( $error, $lang['conf_err_sid_size'] );
   }
-  // la durée de la session doit être un entier
-  // supérieur à 5 et inférieur à 60 minutes
-  if ( !ereg( "^[1-9][0-9]?$", $_POST['session_time'] )
-       || $_POST['session_time'] < 5
-       || $_POST['session_time'] > 60 )
+  // session_time must be an integer between 5 and 60, in minutes
+  if ( !is_int( $_POST['session_time'] )
+       or $_POST['session_time'] < 5
+       or $_POST['session_time'] > 60 )
   {
-    $error[$i++] = $lang['conf_err_sid_time'];
+    array_push( $error, $lang['conf_err_sid_time'] );
   }
-  // max_user_listbox doit être un entier compris entre 0 et 255 inclus
-  if ( !ereg( "^[0-9]{0,3}$", $_POST['max_user_listbox'] )
-       || $_POST['max_user_listbox'] < 0
-       || $_POST['max_user_listbox'] > 255 )
+  // max_user_listbox must be an integer between 0 and 255 included
+  if ( !is_int( $_POST['max_user_listbox'] )
+       or $_POST['max_user_listbox'] < 0
+       or $_POST['max_user_listbox'] > 255 )
   {
-    $error[$i++] = $lang['conf_err_max_user_listbox'];
+    array_push( $error, $lang['conf_err_max_user_listbox'] );
   }
-  // le nombre de commentaires par page doit être compris entre 5 en 50 inclus
-  if ( !ereg( "^[1-9][0-9]?$", $_POST['nb_comment_page'] )
-       || $_POST['nb_comment_page'] < 5
-       || $_POST['nb_comment_page'] > 50 )
+  // the number of comments per page must be an integer between 5 and 50
+  // included
+  if ( !is_int( $_POST['nb_comment_page'] )
+       or $_POST['nb_comment_page'] < 5
+       or $_POST['nb_comment_page'] > 50 )
   {
-    $error[$i++] = $lang['conf_err_comment_number'];
+    array_push( $error, $lang['conf_err_comment_number'] );
   }
-  // le poids maximum des fichiers uploadé doit être un entier,
-  // compris entre 10 et 1000
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['upload_maxfilesize'] )
-       || $_POST['upload_maxfilesize'] < 10
-       || $_POST['upload_maxfilesize'] > 1000 )
+  // the maximum upload filesize must be an integer between 10 and 1000
+  if ( !is_int( $_POST['upload_maxfilesize'] )
+       or $_POST['upload_maxfilesize'] < 10
+       or $_POST['upload_maxfilesize'] > 1000 )
   {
-    $error[$i++] = $lang['conf_err_upload_maxfilesize'];
+    array_push( $error, $lang['conf_err_upload_maxfilesize'] );
   }
-  // la largeur maximum des images uploadées doit être un entier,
-  // supérieur à 10
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['upload_maxwidth'] )
-       || $_POST['upload_maxwidth'] < 10 )
+  // the maximum width of uploaded pictures must be an integer superior to
+  // 10
+  if ( !is_int( $_POST['upload_maxwidth'] )
+       or $_POST['upload_maxwidth'] < 10 )
   {
-    $error[$i++] = $lang['conf_err_upload_maxwidth'];
+    array_push( $error, $lang['conf_err_upload_maxwidth'] );
   }
-  // la hauteur maximum des images uploadées doit être un entier,
-  // supérieur à 10
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['upload_maxheight'] )
-       || $_POST['upload_maxheight'] < 10 )
+  // the maximum height  of uploaded pictures must be an integer superior to
+  // 10
+  if ( !is_int( $_POST['upload_maxheight'] )
+       or $_POST['upload_maxheight'] < 10 )
   {
-    $error[$i++] = $lang['conf_err_upload_maxheight'];
+    array_push( $error, $lang['conf_err_upload_maxheight'] );
   }
-  // la largeur maximum des miniatures uploadées doit être un entier,
-  // supérieur à 10
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['upload_maxwidth_thumbnail'] )
-       || $_POST['upload_maxwidth_thumbnail'] < 10 )
+  // the maximum width of uploaded thumbnails must be an integer superior to
+  // 10
+  if ( !is_int( $_POST['upload_maxwidth_thumbnail'] )
+       or $_POST['upload_maxwidth_thumbnail'] < 10 )
   {
-    $error[$i++] = $lang['conf_err_upload_maxwidth_thumbnail'];
+    array_push( $error, $lang['conf_err_upload_maxwidth_thumbnail'] );
   }
-  // la hauteur maximum des miniatures uploadées doit être un entier,
-  // supérieur à 10
-  if ( !ereg( "^[1-9][0-9]*$", $_POST['upload_maxheight_thumbnail'] )
-       || $_POST['upload_maxheight_thumbnail'] < 10 )
+  // the maximum width of uploaded thumbnails must be an integer superior to
+  // 10
+  if ( !is_int( $_POST['upload_maxheight_thumbnail'] )
+       or $_POST['upload_maxheight_thumbnail'] < 10 )
   {
-    $error[$i++] = $lang['conf_err_upload_maxheight_thumbnail'];
+    array_push( $error, $lang['conf_err_upload_maxheight_thumbnail'] );
   }
+  $test = '';
+  if ( is_int( $test ) ) echo 'salut'; exit();
   if ( $_POST['maxwidth'] != '' )
   {
     if ( !ereg( "^[0-9]{2,}$", $_POST['maxwidth'] )
-         || $_POST['maxwidth'] < 50 )
+         or $_POST['maxwidth'] < 50 )
     {
       $error[$i++] = $lang['err_maxwidth'];
     }
@@ -173,7 +170,7 @@ if ( $_GET['valider'] == 1 )
   if ( $_POST['maxheight'] != '' )
   {
     if ( !ereg( "^[0-9]{2,}$", $_POST['maxheight'] )
-         || $_POST['maxheight'] < 50 )
+         or $_POST['maxheight'] < 50 )
     {
       $error[$i++] = $lang['err_maxheight'];
     }
@@ -185,31 +182,17 @@ if ( $_GET['valider'] == 1 )
     mysql_query( 'delete from '.PREFIX_TABLE.'config;' );
     $query = 'insert into '.PREFIX_TABLE.'config';
     $query.= ' (';
-    for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
-    {
-      if ( $i > 0 )
-      {
-        $query.= ',';
-      }
-      $query.= $conf_infos[$i];
+    foreach ( $conf_infos as $i => $conf_info ) {
+      if ( $i > 0 ) $query.= ',';
+      $query.= $conf_info;
     }
     $query.= ')';
     $query.= ' values';
     $query.= ' (';
-    for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
-    {
-      if ( $i > 0 )
-      {
-        $query.= ',';
-      }
-      if ( $_POST[$conf_infos[$i]] == '' )
-      {
-        $query.= 'NULL';
-      }
-      else
-      {
-        $query.= "'".$_POST[$conf_infos[$i]]."'";
-      }
+    foreach ( $conf_infos as $i => $conf_info ) {
+      if ( $i > 0 ) $query.= ',';
+      if ( $_POST[$conf_info] == '' ) $query.= 'NULL';
+      else                            $query.= "'".$_POST[$conf_info]."'";
     }
     $query.= ')';
     $query.= ';';
@@ -219,88 +202,61 @@ if ( $_GET['valider'] == 1 )
     $tab_theme = explode( ' - ', $_POST['theme'] );
     $_POST['theme'] = $tab_theme[0].'/'.$tab_theme[1];
 
-    $query = 'update '.PREFIX_TABLE.'users';
-    $query.= ' set';
-    for ( $i = 0; $i < sizeof( $default_user_infos ); $i++ )
-    {
-      if ( $i > 0 )
-      {
-        $query.= ',';
-      }
-      else
-      {
-        $query.= ' ';
-      }
-      $query.= $default_user_infos[$i];
+    $query = 'UPDATE '.PREFIX_TABLE.'users';
+    $query.= ' SET';
+    foreach ( $default_user_infos as $i => $default_user_info ) {
+      if ( $i > 0 ) $query.= ',';
+      else          $query.= ' ';
+      $query.= $default_user_info;
       $query.= ' = ';
-      if ( $_POST[$default_user_infos[$i]] == '' )
+      if ( $_POST[$default_user_info] == '' )
       {
         $query.= 'NULL';
       }
       else
       {
-        $query.= "'".$_POST[$default_user_infos[$i]]."'";
+        $query.= "'".$_POST[$default_user_info]."'";
       }
     }
-    $query.= " where username = 'guest';";
+    $query.= " WHERE username = 'guest'";
+    $query.= ';';
     mysql_query( $query );
   }
 //--------------------------------------------------------- data initialization
-  for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
-  {
-    $$conf_infos[$i] = $_POST[$conf_infos[$i]];
+  foreach ( $conf_infos as $conf_info ) {
+    $$conf_info = $_POST[$conf_info];
   }
-  for ( $i = 0; $i < sizeof( $default_user_infos ); $i++ )
-  {
-    $$default_user_infos[$i] = $_POST[$default_user_infos[$i]];
+  foreach ( $default_user_infos as $default_user_info ) {
+    $$default_user_info = $_POST[$default_user_info];
   }
 }
 else
 {
 //--------------------------------------------------------- data initialization
-  $query  = 'select';
-  for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
-  {
-    if ( $i > 0 )
-    {
-      $query.= ',';
-    }
-    else
-    {
-      $query.= ' ';
-    }
-    $query.= $conf_infos[$i];
+  $query  = 'SELECT';
+  foreach ( $conf_infos as $i => $conf_info ) {
+    if ( $i > 0 ) $query.= ',';
+    else          $query.= ' ';
+    $query.= $conf_info;
   }
-  $query .= ' from '.PREFIX_TABLE.'config;';
-
+  $query .= ' FROM '.PREFIX_TABLE.'config;';
   $row = mysql_fetch_array( mysql_query( $query ) );
+  foreach ( $conf_infos as $conf_info ) {
+    $$conf_info = $row[$conf_info];
+  }
 
-  for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
-  {
-    $$conf_infos[$i] = $row[$conf_infos[$i]];
+  $query  = 'SELECT';
+  foreach ( $default_user_infos as $i => $default_user_info ) {
+    if ( $i > 0 ) $query.= ',';
+    else          $query.= ' ';
+    $query.= $default_user_info;
   }
-  $query  = 'select';
-  for ( $i = 0; $i < sizeof( $default_user_infos ); $i++ )
-  {
-    if ( $i > 0 )
-    {
-      $query.= ',';
-    }
-    else
-    {
-      $query.= ' ';
-    }
-    $query.= $default_user_infos[$i];
-  }
-  $query .= ' from '.PREFIX_TABLE.'users';
-  $query.= " where username = 'guest'";
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= " WHERE username = 'guest'";
   $query.= ';';
-
   $row = mysql_fetch_array( mysql_query( $query ) );
-
-  for ( $i = 0; $i < sizeof( $default_user_infos ); $i++ )
-  {
-    $$default_user_infos[$i] = $row[$default_user_infos[$i]];
+  foreach ( $default_user_infos as $default_user_info ) {
+    $$default_user_info = $row[$default_user_info];
   }
 }
 //----------------------------------------------------- template initialization
@@ -326,13 +282,13 @@ if ( sizeof( $error ) != 0 )
   $vtp->closeSession( $sub, 'errors' );
 }
 //-------------------------------------------------------- confirmation display
-if ( sizeof( $error ) == 0 && $_GET['valider'] == 1 )
+if ( count( $error ) == 0 and isset( $_POST['submit'] ) )
 {
   $vtp->addSession( $sub, 'confirmation' );
   $vtp->closeSession( $sub, 'confirmation' );
 }
 //----------------------------------------------------------------- form action
-$form_action = add_session_id( './admin.php?page=configuration&valider=1' );
+$form_action = add_session_id( './admin.php?page=configuration' );
 $vtp->setVar( $sub, 'form_action', $form_action );
 //------------------------------------------------------- general configuration
 $vtp->addSession( $sub, 'line' );
@@ -385,22 +341,23 @@ $vtp->addSession( $sub, 'param_line' );
 $vtp->setVar( $sub, 'param_line.name', $lang['conf_general_access'] );
 $vtp->addSession( $sub, 'group' );
 $vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'acces' );
-$vtp->setVar( $sub, 'radio.value', 'libre' );
+$vtp->setVar( $sub, 'radio.name', 'access' );
+$vtp->setVar( $sub, 'radio.value', 'free' );
 $vtp->setVar( $sub, 'radio.option', $lang['conf_general_access_1'] );
 $checked = '';
-if ( $acces == 'libre' )
+echo $access.'<br />';
+if ( $access == 'free' )
 {
   $checked = ' checked="checked"';
 }
 $vtp->setVar( $sub, 'radio.checked', $checked );
 $vtp->closeSession( $sub, 'radio' );
 $vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'acces' );
-$vtp->setVar( $sub, 'radio.value', 'restreint' );
+$vtp->setVar( $sub, 'radio.name', 'access' );
+$vtp->setVar( $sub, 'radio.value', 'restricted' );
 $vtp->setVar( $sub, 'radio.option', $lang['conf_general_access_2'] );
 $checked = '';
-if ( $acces == 'restreint' )
+if ( $access == 'restricted' )
 {
   $checked = ' checked="checked"';
 }

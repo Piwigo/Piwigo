@@ -1,5 +1,5 @@
 <?php
-$prefixe_thumbnail = 'TN-';
+$prefix_thumbnail = 'TN-';
 	
 $conf['picture_ext'] = array ( 'jpg', 'gif', 'png', 'JPG', 'GIF', 'PNG' );
 
@@ -70,13 +70,13 @@ function is_image( $filename )
 
 function TN_exists( $dir, $file )
 {
-  global $conf, $prefixe_thumbnail;
+  global $conf, $prefix_thumbnail;
 
   $titre = get_filename_wo_extension( $file );
 
   for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
   {
-    $base_tn_name = $dir.'/thumbnail/'.$prefixe_thumbnail.$titre.'.';
+    $base_tn_name = $dir.'/thumbnail/'.$prefix_thumbnail.$titre.'.';
     $ext = $conf['picture_ext'][$i];
     if ( is_file( $base_tn_name.$ext ) )
     {
@@ -84,7 +84,7 @@ function TN_exists( $dir, $file )
     }
   }
   echo 'The thumbnail is missing for '.$dir.'/'.$file;
-  echo '-> '.$dir.'/thumbnail/'.$prefixe_thumbnail.$titre.'.xxx';
+  echo '-> '.$dir.'/thumbnail/'.$prefix_thumbnail.$titre.'.xxx';
   echo ' ("xxx" can be : ';
   for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
   {

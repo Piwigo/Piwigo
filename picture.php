@@ -193,7 +193,7 @@ if ( $page['num'] >= 1 )
                 
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], '.' ) );
   $lien_thumbnail = $cat_directory.'/thumbnail/';
-  $lien_thumbnail.= $conf['prefixe_thumbnail'].$file.".".$row['tn_ext'];
+  $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
                 
   $prev_title = $lang['previous_image'].' : ';
   $alt_thumbnaill = '';
@@ -442,7 +442,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
 
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $lien_thumbnail = $cat_directory."thumbnail/";
-  $lien_thumbnail.= $conf['prefixe_thumbnail'].$file.".".$row['tn_ext'];
+  $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
   
   if ( $row['name'] != "" )
   {

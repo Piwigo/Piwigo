@@ -159,7 +159,7 @@ function RatioResizeImg( $image, $newWidth, $newHeight, $path, $extension)
       umask(0000);
       mkdir( $path."thumbnail", 0777 );
     }
-    $dest_file  = $path."thumbnail/".$conf['prefixe_thumbnail'].substr ( $image, 0, strrpos ( $image, ".") ).".".$extension;
+    $dest_file  = $path."thumbnail/".$conf['prefix_thumbnail'].substr ( $image, 0, strrpos ( $image, ".") ).".".$extension;
 			
     // création et sauvegarde de l'image finale
     imagejpeg($destImage, $dest_file);
@@ -177,7 +177,7 @@ function RatioResizeImg( $image, $newWidth, $newHeight, $path, $extension)
                         'width' => $taille_image[0],
                         'height' => $taille_image[1],
                         'size' => $size,
-                        'tn_name' => $conf['prefixe_thumbnail'].substr ( $image, 0, strrpos ( $image, ".") ).".".$extension,
+                        'tn_name' => $conf['prefix_thumbnail'].substr ( $image, 0, strrpos ( $image, ".") ).".".$extension,
                         'tn_width' => $tn_taille_image[0],
                         'tn_height' => $tn_taille_image[1],
                         'tn_size' => $tn_size

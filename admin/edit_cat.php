@@ -1,6 +1,6 @@
 <?php
 /***************************************************************************
- *                              edit_cat.php is                            *
+ *                               edit_cat.php                              *
  *                            -------------------                          *
  *   application          : PhpWebGallery 1.3                              *
  *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
@@ -91,7 +91,7 @@ foreach ( $options as $option  ) {
   $vtp->setVar( $sub, 'status_option.option', $option );
   if ( $option == $row['status'] )
   {
-    $vtp->setVar( $sub, 'status_option.selected', ' selected="selected"' );  
+    $vtp->setVar( $sub, 'status_option.checked', ' checked="checked"' );  
   }
   $vtp->closeSession( $sub, 'status_option' );
 }

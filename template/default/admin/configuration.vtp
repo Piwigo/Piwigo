@@ -80,7 +80,7 @@
     <!--/VTP_remote_sites-->
     <tr>
       <td colspan="3" align="center">
-        <input type="submit" value="{#submit}">
+        <input type="submit" name="submit" value="{#submit}">
       </td>
     </tr>
   </table>
