@@ -60,6 +60,7 @@ if ( isset( $_POST['submit'] ) )
     mysql_query( $query );
   }
   // deletion of site as asked
+  $site_deleted = false;
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'sites';
   $query.= " WHERE galleries_url <> './galleries/';";
@@ -70,11 +71,16 @@ if ( isset( $_POST['submit'] ) )
     if ( $_POST[$site] == 1 )
     {
       delete_site( $row['id'] );
-      // if any picture of this site were linked to another categories, we
-      // have to update the informations of those categories. To make it
-      // simple, we just update all the categories
-      update_category( 'all' );
+      $site_deleted = true;
     }
+  }
+  // if any picture of this site were linked to another categories, we have
+  // to update the informations of those categories. To make it simple, we
+  // just update all the categories
+  if ( $site_deleted )
+  {
+    update_category( 'all' );
+    synchronize_all_users();
   }
   // thumbnail prefix must not contain accentuated characters
   $old_prefix = $_POST['prefix_thumbnail'];
