@@ -30,17 +30,12 @@
 //
 $template->set_filenames(array('header'=>'header.tpl'));
 
-$charset = empty($lang_info['charset'][$lang_info['current_code']])?
-  $lang_info['default']['charset']:$lang_info['charset'][$lang_info['current_code']];
-$dir = empty($lang_info['direction'][$lang_info['current_code']])?
-  $lang_info['default']['direction']:$lang_info['direction'][$lang_info['current_code']];
-
 $css = PHPWG_ROOT_PATH.'template/'.$user['template'].'/'.$user['template'].'.css';
 $template->assign_vars(array(
-  'CONTENT_ENCODING' => $charset,
+  'CONTENT_ENCODING' => $lang_info['charset'],
   'PAGE_TITLE' => $title,
-  'LANG'=>substr($lang_info['current_code'],0,2),
-  'DIR'=>$dir,
+  'LANG'=>$lang_info['code'],
+  'DIR'=>$lang_info['direction'],
   
   'T_STYLE' => $css
   ));

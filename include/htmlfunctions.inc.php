@@ -112,17 +112,17 @@ function create_navigation_bar( $url, $nb_element, $start,
 //
 function language_select($default, $select_name = "language")
 {
-  global $lang_info;
+
   $dir = opendir(PHPWG_ROOT_PATH . 'language');
   $available_lang= array();
 
   while ( $file = readdir($dir) )
   {
-    if (is_dir ( realpath(PHPWG_ROOT_PATH.'language/'.$file) ) 
-	  && !is_link(realpath(PHPWG_ROOT_PATH  . 'language/' . $file))
-	  && isset($lang_info['language'][$file]))
+    $path= realpath(PHPWG_ROOT_PATH . 'language/'.$file);
+    if (is_dir ($path) && !is_link($path) && file_exists($path . '/iso.txt'))
     {
-      $available_lang[$file] = $lang_info['language'][$file];
+	  list($displayname) = @file($path . '/iso.txt');
+	  $available_lang[$displayname] = $file;
     }
   }
   closedir($dir);
@@ -130,7 +130,7 @@ function language_select($default, $select_name = "language")
   @reset($available_lang);
 
   $lang_select = '<select name="' . $select_name . '" onchange="this.form.submit()">';
-  while ( list($code, $displayname) = @each($available_lang) )
+  foreach ($available_lang as $displayname => $code)
   {
     $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
     $lang_select .= '<option value="' . $code . '"' . $selected . '>' . ucwords($displayname) . '</option>';

@@ -230,8 +230,7 @@ function check_login_authorization()
 function init_userprefs($userdata)
 {
   global $conf, $template, $lang, $lang_info;
-  include_once(PHPWG_ROOT_PATH . 'language/infos.lang.php');
-  
+    
   $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_lang'];
   $style = (!empty($userdata['template'])&& !$userdata['is_the_guest'] )?$userdata['template']:$conf['default_style'];
  
@@ -251,7 +250,6 @@ function init_userprefs($userdata)
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
   }
   
-  $lang_info['current_code']=$language;
   $template= setup_style($style);
   return;
 }
