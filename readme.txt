@@ -1,4 +1,4 @@
-                  PhpWebGallery version 1.3 beta (14/09/2003)
+                    PhpWebGallery version 1.3 (12/10/2003)
                           http://phpwebgallery.net
                        http://forum.phpwebgallery.net
 
