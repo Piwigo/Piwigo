@@ -415,7 +415,7 @@ function format_date($date, $type = 'us', $show_time = false)
   }
   $formated_date = '';
   // before 1970, Microsoft Windows can't mktime
-  if ($year >= 1970 or substr(PHP_OS, 0, 3) != 'WIN')
+  if ($year >= 1970)
   {
     // we ask midday because Windows think it's prior to midnight with a
     // zero and refuse to work

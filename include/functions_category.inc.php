@@ -647,11 +647,14 @@ SELECT COUNT(DISTINCT(id)) AS count
           $page['title'] .= ' (';
           if (isset($page['calendar_day']))
           {
-            $unixdate = mktime(0,0,0,
-                               $page['calendar_month'],
-                               $page['calendar_day'],
-                               $page['calendar_year']);
-            $page['title'].= $lang['day'][date("w", $unixdate)];
+            if ($page['calendar_year'] >= 1970)
+            {
+              $unixdate = mktime(0,0,0,
+                                 $page['calendar_month'],
+                                 $page['calendar_day'],
+                                 $page['calendar_year']);
+              $page['title'].= $lang['day'][date("w", $unixdate)];
+            }
             $page['title'].= ' '.$page['calendar_day'].', ';
           }
           if (isset($page['calendar_month']))
