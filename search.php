@@ -235,14 +235,14 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('search'=>'search.tpl') );
 $template->assign_vars(array(
   'L_TITLE' => $lang['search_title'],
-  'L_COMMENTS' => $lang['search_comments'],
-  'L_RETURN' => $lang['search_return_main_page'],
+  'L_COMMENTS' => $lang['comments'],
+  'L_RETURN' => $lang['gallery_index'],
   'L_SUBMIT' => $lang['submit'],
   'L_SEARCH_OR'=>$lang['search_mode_or'],
   'L_SEARCH_AND'=>$lang['search_mode_and'],
   'L_SEARCH_OR_CLAUSES'=>$lang['search_or_clauses'],
   'L_SEARCH_AND_CLAUSES'=>$lang['search_and_clauses'],
-  'L_SEARCH_CATEGORIES'=>$lang['search_categories'],
+  'L_SEARCH_CATEGORIES'=>$lang['categories'],
   'L_SEARCH_SUBCATS_INCLUDED'=>$lang['search_subcats_included'],
   'L_SEARCH_DATE_INCLUDED'=> $lang['search_date_included'],
   'L_SEARCH_DATE_IS'=>$lang['search_date_is'],
@@ -365,9 +365,8 @@ function display_search_categories($categories, $indent, $selecteds)
     }
   }
 }
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-$page['plain_structure'] = get_plain_structure(true);
-$structure = create_structure('');
+$page['plain_structure'] = get_user_plain_structure(true);
+$structure = create_user_structure('');
 
 $selecteds = array();
 if (isset($_POST['submit']))

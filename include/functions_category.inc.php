@@ -122,7 +122,7 @@ function get_user_plain_structure()
   if ( !$user['expand'] )
   {
     $query.= ' AND (id_uppercat is NULL';
-    if ( count( $page['tab_expand'] ) > 0 )
+    if ( isset ($page['tab_expand']) && count( $page['tab_expand'] ) > 0 )
     {
       $query.= ' OR id_uppercat IN ('.implode(',',$page['tab_expand']).')';
     }
