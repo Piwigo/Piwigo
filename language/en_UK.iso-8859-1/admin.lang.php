@@ -216,7 +216,33 @@ $lang['help_access'][2] = '2. On the page of permissions (for a group or a user)
 if (isset($conf))
   $lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
 
+// Image informations
+$lang['infoimage_general'] = 'General options for the category';
+$lang['infoimage_useforall'] = 'use for all pictures ?';
+$lang['infoimage_creation_date'] = 'Creation date';
+$lang['infoimage_detailed'] = 'Option for each picture';
+$lang['infoimage_title'] = 'Title';
+$lang['infoimage_keyword_separation'] = '(separate with coma ",")';
+$lang['infoimage_addtoall'] = 'add to all';
+$lang['infoimage_removefromall'] = 'remove from all';
+$lang['infoimage_associate'] = 'Associate to the category';
 
+// Update
+$lang['update_missing_tn'] = 'the thumbnail is missing for';
+$lang['update_disappeared_tn'] = 'the thumbnail disapeared';
+$lang['update_disappeared'] = 'doesn\'t exist';
+$lang['update_part_deletion'] = 'Deletion of images that have no thumbnail or that doesn\'t exist';
+$lang['update_part_research'] = 'Search for new images in the directories';
+$lang['update_research_added'] = 'added';
+$lang['update_research_tn_ext'] = 'thumbnail in';
+$lang['update_nb_new_elements'] = 'elements added in the database';
+$lang['update_nb_del_elements'] = 'elements deleted in the database';
+$lang['update_nb_new_categories'] = 'categories added in the database';
+$lang['update_nb_del_categories'] = 'categories deleted in the database';
+$lang['update_default_title'] = 'Choose an option';
+$lang['update_only_cat'] = 'update categories, not pictures';
+$lang['update_all'] = 'update all';
+$lang['update_sync_metadata_question'] = 'Do you want to synchronize new elements informations with files metadata ?';
 
 $lang['menu_add_user'] = 'add';
 $lang['menu_list_user'] = 'list';
@@ -248,30 +274,6 @@ $lang['listuser_button_all'] = 'all';
 $lang['listuser_button_invert'] = 'invert';
 $lang['listuser_button_create_address'] = 'create mail address';
 
-
-
-
-$lang['infoimage_general'] = 'General options for the category';
-$lang['infoimage_useforall'] = 'use for all pictures ?';
-$lang['infoimage_creation_date'] = 'creation date';
-$lang['infoimage_detailed'] = 'Option for each picture';
-$lang['infoimage_title'] = 'title';
-$lang['infoimage_comment'] = 'comment';
-$lang['update_missing_tn'] = 'the thumbnail is missing for';
-$lang['update_disappeared_tn'] = 'the thumbnail disapeared';
-$lang['update_disappeared'] = 'doesn\'t exist';
-$lang['update_part_deletion'] = 'Deletion of images that have no thumbnail or that doesn\'t exist';
-$lang['update_part_research'] = 'Search for new images in the directories';
-$lang['update_research_added'] = 'added';
-$lang['update_research_tn_ext'] = 'thumbnail in';
-$lang['update_nb_new_elements'] = 'elements added in the database';
-$lang['update_nb_del_elements'] = 'elements deleted in the database';
-$lang['update_nb_new_categories'] = 'categories added in the database';
-$lang['update_nb_del_categories'] = 'categories deleted in the database';
-$lang['update_default_title'] = 'Choose an option';
-$lang['update_only_cat'] = 'update categories, not pictures';
-$lang['update_all'] = 'update all';
-$lang['update_sync_metadata_question'] = 'Do you want to synchronize new elements informations with files metadata ?';
 $lang['tn_width'] = 'width';
 $lang['tn_height'] = 'height';
 $lang['tn_no_support'] = 'Picture unreachable or no support';
@@ -317,10 +319,6 @@ $lang['group_add_error2'] = 'This name is already used by another group';
 $lang['group_confirm'] = 'Are you sure you want to remove this group ?';
 $lang['group_list_title'] = 'List of existing groups';
 $lang['group_err_unknown'] = 'This group doesn\'t exist in the database';
-$lang['infoimage_keyword_separation'] = '(separate with coma ",")';
-$lang['infoimage_addtoall'] = 'add to all';
-$lang['infoimage_removefromall'] = 'remove from all';
-$lang['infoimage_associate'] = 'Associate to the category';
 $lang['stats_pages_seen'] = 'pages seen';
 $lang['stats_visitors'] = 'guests';
 $lang['stats_empty'] = 'empty history';
