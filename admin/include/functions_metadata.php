@@ -101,7 +101,7 @@ function update_metadata($files)
       {
         foreach (array_keys($iptc) as $key)
         {
-          $data[$key] = "'".addslashes($iptc[$key])."'";
+          $data[$key] = addslashes($iptc[$key]);
         }
       }
     }
