@@ -110,6 +110,48 @@
       td.choice {
         text-align : center;
       }
+<!-- comments CSS style -->
+      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+        color:black;
+        font-family:arial,sans-Serif;
+        font-size:12px;
+      }
+      .commentsTitle,.commentsAuthor {
+        text-align:center;
+        font-weight:bold;
+      }
+      .commentsInfos {
+        text-align:right;
+        margin:3px 3px 3px 10px;
+        font-size:11px;
+      }
+      .commentsContent {
+        margin:10px;
+      }
+      .commentsTitle {
+        margin-top:15px;
+      }
+      .commentsAuthor {
+        margin:5px;
+      }
+      .commentsNavigationBar {
+        margin:10px;
+      }
+      .tableComment {
+        width:100%;
+        border:2px solid #006699;
+        margin:10px;
+      }
+      .cellAuthor {
+        border-right:1px solid #006699;
+        width:100px;
+      }
+      .cellInfo {
+        border-bottom:1px solid #006699;
+      }
+      .imgLink {
+        border:1px solid black;
+      }
     </style>
     <script language="javascript">
       function SelectAll( formulaire )
