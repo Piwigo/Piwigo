@@ -784,4 +784,51 @@ function my_error($header, $echo = true)
     return $error;
   }
 }
+
+/**
+ * inserts multiple lines in a table
+ *
+ * @param string table_name
+ * @param array dbields
+ * @param array inserts
+ * @return void
+ */
+function mass_inserts($table_name, $dbfields, $inserts)
+{
+  // inserts all found categories
+  $query = '
+INSERT INTO '.$table_name.'
+  ('.implode(',', $dbfields).')
+   VALUES';
+  foreach ($inserts as $insert_id => $insert)
+  {
+    $query.= '
+  ';
+    if ($insert_id > 0)
+    {
+      $query.= ',';
+    }
+    $query.= '(';
+    foreach ($dbfields as $field_id => $dbfield)
+    {
+      if ($field_id > 0)
+      {
+        $query.= ',';
+      }
+      
+      if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
+      {
+        $query.= 'NULL';
+      }
+      else
+      {
+        $query.= "'".$insert[$dbfield]."'";
+      }
+    }
+    $query.=')';
+  }
+  $query.= '
+;';
+  pwg_query($query);
+}
 ?>

@@ -38,7 +38,7 @@
 $array_cat_directories = array();
   
 $query = '
-SELECT DISTINCT(id),file,date_available,category_id
+SELECT DISTINCT(id),path,file,date_available,category_id
        ,tn_ext,name,filesize,storage_category_id,average_rate
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
@@ -80,9 +80,7 @@ while ($row = mysql_fetch_array($result))
     $name = replace_search($name, $_GET['search']);
   }
   
-  $thumbnail_url = get_thumbnail_src($row['file'],
-                                     $row['storage_category_id'],
-                                     @$row['tn_ext']);
+  $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];

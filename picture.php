@@ -142,12 +142,7 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['is_picture'] = true;
   }
   
-  if ( !isset($array_cat_directories[$row['storage_category_id']]))
-  {
-    $array_cat_directories[$row['storage_category_id']] =
-      get_complete_dir( $row['storage_category_id'] );
-  }
-  $cat_directory = $array_cat_directories[$row['storage_category_id']];
+  $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
   $icon = './template/'.$user['template'].'/mimetypes/';
@@ -165,7 +160,7 @@ foreach (array('prev', 'current', 'next') as $i)
   // special case for picture files
   if ($picture[$i]['is_picture'])
   {
-    $picture[$i]['src'] = $cat_directory.$row['file'];
+    $picture[$i]['src'] = $row['path'];
     // if we are working on the "current" element, we search if there is a
     // high quality picture
     // FIXME : with remote pictures, this "remote fopen" takes long...
@@ -181,12 +176,10 @@ foreach (array('prev', 'current', 'next') as $i)
   // if picture is not a file, we need the download link
   if (!$picture[$i]['is_picture'])
   {
-    $picture[$i]['download'] = $cat_directory.$row['file'];
+    $picture[$i]['download'] = $row['path'];
   }
 
-  $picture[$i]['thumbnail'] = get_thumbnail_src($row['file'],
-                                                $row['storage_category_id'],
-                                                @$row['tn_ext']);
+  $picture[$i]['thumbnail'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
   if ( !empty( $row['name'] ) )
   {

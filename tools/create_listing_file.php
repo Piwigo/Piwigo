@@ -310,7 +310,7 @@ function get_filename_wo_extension($filename)
 
 function get_pictures($dir, $indent)
 {
-  global $conf;
+  global $conf, $page;
   
   // fs means FileSystem : $fs_files contains files in the filesystem found
   // in $dir that can be managed by PhpWebGallery (see get_pwg_files
@@ -321,11 +321,15 @@ function get_pictures($dir, $indent)
   $fs_representatives = get_representative_files($dir);
 
   $elements = array();
+
+  $print_dir = preg_replace('/^\.\//', '', $dir);
+  $print_dir = preg_replace('/\/*$/', '/', $print_dir);
   
   foreach ($fs_files as $fs_file)
   {
     $element = array();
     $element['file'] = $fs_file;
+    $element['path'] = $page['url'].$print_dir.$fs_file;
     $element['filesize'] = floor(filesize($dir.'/'.$fs_file) / 1024);
     
     $file_wo_ext = get_filename_wo_extension($fs_file);
@@ -420,7 +424,7 @@ function get_pictures($dir, $indent)
   $xml = "\n".$indent.'<root>';
   $attributes = array('file','tn_ext','representative_ext','filesize',
                       'width','height','date_creation','author','keywords',
-                      'name','comment');
+                      'name','comment','path');
   foreach ($elements as $element)
   {
     $xml.= "\n".$indent.'  ';
@@ -463,9 +467,9 @@ switch ($page['action'])
     
     $end = strrpos($_SERVER['PHP_SELF'], '/') + 1;
     $local_folder = substr($_SERVER['PHP_SELF'], 0, $end);
-    $url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
+    $page['url'] = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
     
-    $listing.= ' url="'.$url.'"';
+    $listing.= ' url="'.$page['url'].'"';
     $listing.= '/>'."\n";
     
     $listing.= get_dirs('.', '', 0);

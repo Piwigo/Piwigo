@@ -71,6 +71,7 @@ column:storage_category_id       table:images         type:smallint             
 column:representative_ext        table:images         type:varchar                  nullable:Y length:4   binary:N
 column:date_metadata_update      table:images         type:date                     nullable:Y
 column:average_rate              table:images         type:float                    nullable:Y length:5,2 signed:N
+column:path                      table:images         type:varchar                  nullable:N length:255 binary:N
 column:user_id                   table:rate           type:smallint                 nullable:N length:5   signed:N
 column:element_id                table:rate           type:mediumint                nullable:N length:8   signed:N
 column:rate                      table:rate           type:tinyint                  nullable:N length:2   signed:N

@@ -140,7 +140,7 @@ while ($row = mysql_fetch_array($result))
   // for each picture, getting informations for displaying thumbnail and
   // link to the full size picture
   $query = '
-SELECT name,file,storage_category_id as cat_id,tn_ext
+SELECT name,file,storage_category_id as cat_id,tn_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$row['image_id'].'
 ;';
@@ -166,9 +166,7 @@ SELECT name,file,storage_category_id as cat_id,tn_ext
   }
   $name.= ' [ '.$subrow['file'].' ]';
   // source of the thumbnail picture
-  $thumbnail_src = get_thumbnail_src($subrow['file'],
-                                     $subrow['cat_id'],
-                                     @$subrow['tn_ext']);
+  $thumbnail_src = get_thumbnail_src($subrow['path'], @$subrow['tn_ext']);
   // link to the full size picture
   $url = PHPWG_ROOT_PATH.'picture.php?cat='.$category_id;
   $url.= '&amp;image_id='.$row['image_id'];

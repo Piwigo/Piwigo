@@ -31,7 +31,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
-define('CURRENT_DATE', "'".date('Y-m-d')."'");
+define('CURRENT_DATE', date('Y-m-d'));
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
 // +-----------------------------------------------------------------------+
@@ -407,10 +407,11 @@ SELECT file
         if ($tn_ext != '')
         {
           $insert = array();
-          $insert['file'] = "'".$unregistered_element."'";
+          $insert['file'] = $unregistered_element;
           $insert['storage_category_id'] = $category_id;
           $insert['date_available'] = CURRENT_DATE;
-          $insert['tn_ext'] = "'".$tn_ext."'";
+          $insert['tn_ext'] = $tn_ext;
+          $insert['path'] = $dir.$unregistered_element;
 
           $counts['new_elements']++;
           array_push($inserts, $insert);
@@ -446,16 +447,17 @@ SELECT file
         }
 
         $insert = array();
-        $insert['file'] = "'".$unregistered_element."'";
+        $insert['file'] = $unregistered_element;
+        $insert['path'] = $dir.$unregistered_element;
         $insert['storage_category_id'] = $category_id;
         $insert['date_available'] = CURRENT_DATE;
         if ( $tn_ext != '' )
         {
-          $insert['tn_ext'] = "'".$tn_ext."'";
+          $insert['tn_ext'] = $tn_ext;
         }
         if ( $representative_ext != '' )
         {
-          $insert['representative_ext'] = "'".$representative_ext."'";
+          $insert['representative_ext'] = $representative_ext;
         }
 
         $counts['new_elements']++;
@@ -475,44 +477,9 @@ SELECT file
     // inserts all found pictures
     $dbfields = array(
       'file','storage_category_id','date_available','tn_ext'
-      ,'representative_ext'
+      ,'representative_ext','path'
       );
-    $query = '
-INSERT INTO '.IMAGES_TABLE.'
-  ('.implode(',', $dbfields).')
-   VALUES
-   ';
-    foreach ($inserts as $insert_id => $insert)
-    {
-      $query.= '
-';
-      if ($insert_id > 0)
-      {
-        $query.= ',';
-      }
-      $query.= '(';
-      foreach ($dbfields as $field_id => $dbfield)
-      {
-        if ($field_id > 0)
-        {
-          $query.= ',';
-        }
-        
-        if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
-        {
-          $query.= 'NULL';
-        }
-        else
-        {
-          $query.= $insert[$dbfield];
-        }
-      }
-      $query.=')';
-    }
-    $query.= '
-;';
-
-    pwg_query($query);
+    mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
 
     // what are the ids of the pictures in the $category_id ?
     $ids = array();

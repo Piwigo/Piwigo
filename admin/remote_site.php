@@ -112,53 +112,6 @@ SELECT id,dir
 }
 
 /**
- * inserts multiple lines in a table
- *
- * @param string table_name
- * @param array dbields
- * @param array inserts
- * @return void
- */
-function mass_inserts($table_name, $dbfields, $inserts)
-{
-  // inserts all found categories
-  $query = '
-INSERT INTO '.$table_name.'
-  ('.implode(',', $dbfields).')
-   VALUES';
-  foreach ($inserts as $insert_id => $insert)
-  {
-    $query.= '
-  ';
-    if ($insert_id > 0)
-    {
-      $query.= ',';
-    }
-    $query.= '(';
-    foreach ($dbfields as $field_id => $dbfield)
-    {
-      if ($field_id > 0)
-      {
-        $query.= ',';
-      }
-      
-      if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
-      {
-        $query.= 'NULL';
-      }
-      else
-      {
-        $query.= "'".$insert[$dbfield]."'";
-      }
-    }
-    $query.=')';
-  }
-  $query.= '
-;';
-  pwg_query($query);
-}
-
-/**
  * read $listing_file and update a remote site according to its id
  *
  * @param string listing_file
@@ -418,7 +371,8 @@ SELECT file
                              'author',
                              'keywords',
                              'name',
-                             'comment');
+                             'comment',
+                             'path');
       foreach ($optional_atts as $att)
       {
         if (getAttribute($xml_element, $att) != '')
@@ -434,7 +388,7 @@ SELECT file
   {
     $dbfields = array('file','storage_category_id','date_available','tn_ext',
                       'filesize','width','height','date_creation','author',
-                      'keywords','name','comment');
+                      'keywords','name','comment','path');
     mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
     $counts{'new_elements'}+= count($inserts);
 

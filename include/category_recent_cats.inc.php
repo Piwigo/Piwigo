@@ -66,7 +66,7 @@ while ( $row = mysql_fetch_array( $result ) )
   $name = get_cat_display_name($cat_infos['name'],'<br />','',false);
   
   $query = '
-SELECT id,file,tn_ext,storage_category_id
+SELECT path,file,tn_ext
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$row['category_id'].'
     AND date_available > SUBDATE(CURRENT_DATE
@@ -75,11 +75,9 @@ SELECT id,file,tn_ext,storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-  $subrow = mysql_fetch_array( pwg_query( $query ) );
+  $subrow = mysql_fetch_array(pwg_query($query));
 
-  $thumbnail_src = get_thumbnail_src($subrow['file'],
-                                     $subrow['storage_category_id'],
-                                     @$subrow['tn_ext']);
+  $thumbnail_src = get_thumbnail_src($subrow['path'], @$subrow['tn_ext']);
   
   $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['category_id'];
   

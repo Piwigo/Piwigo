@@ -199,9 +199,7 @@ else
 $current_category = get_cat_info($row['storage_category_id']);
 $dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
 
-$thumbnail_url = get_thumbnail_src($row['file'],
-                                   $row['storage_category_id'],
-                                   @$row['tn_ext']);
+$thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];

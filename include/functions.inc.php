@@ -570,47 +570,32 @@ function get_templates()
  * returns thumbnail filepath (or distant URL if thumbnail is remote) for a
  * given element
  *
- * this function could have taken only the element id as parameter but to
- * optimize database access we directly ask file, storage category
- * identifier and extension since when this function is called,
- * PhpWebGallery should have all these infos. No need to retrieve them
- * another time in the database.
- *
  * the returned string can represente the filepath of the thumbnail or the
  * filepath to the corresponding icon for non picture elements
  *
- * complete directories are cached to be used more than once during a page
- * generation (many thumbnails of the same category on the same page)
- *
- * @param string file
- * @param int storage_category_id
+ * @param string path
  * @param string tn_ext
  * @return string
  */
-function get_thumbnail_src($file, $storage_category_id, $tn_ext = '')
+function get_thumbnail_src($path, $tn_ext = '')
 {
-  global $conf, $user, $array_cat_directories;
-  
-  if (!isset($array_cat_directories[$storage_category_id]))
-  {
-    $array_cat_directories[$storage_category_id] =
-      get_complete_dir($storage_category_id);
-  }
-  
+  global $conf, $user;
+
   if ($tn_ext != '')
   {
-    $src = $array_cat_directories[$storage_category_id];
-    $src.= 'thumbnail/'.$conf['prefix_thumbnail'];
-    $src.= get_filename_wo_extension($file);
+    $src = substr_replace(get_filename_wo_extension($path),
+                          '/thumbnail/'.$conf['prefix_thumbnail'],
+                          strrpos($path,'/'),
+                          1);
     $src.= '.'.$tn_ext;
   }
   else
   {
     $src = PHPWG_ROOT_PATH;
     $src.= 'template/'.$user['template'].'/mimetypes/';
-    $src.= strtolower(get_extension($file)).'.png';
+    $src.= strtolower(get_extension($path)).'.png';
   }
-
+  
   return $src;
 }
 ?>

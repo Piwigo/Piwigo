@@ -319,9 +319,7 @@ SELECT *
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $thumbnail_url = get_thumbnail_src($row['file'],
-                                       $row['storage_category_id'],
-                                       @$row['tn_ext']);
+    $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
     $template->assign_block_vars(
       'picture',

@@ -219,7 +219,7 @@ if (!isset($page['calendar_year']))
   foreach ($calendar_years as $calendar_year => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND YEAR('.$conf['calendar_datefield'].') = '.$calendar_year.'
@@ -229,9 +229,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(pwg_query($query));
     
-    $thumbnail_src = get_thumbnail_src($row['file'],
-                                       $row['storage_category_id'],
-                                       @$row['tn_ext']);
+    $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
     
     $name = $calendar_year.' ('.$nb_pics.')';
 
@@ -266,7 +264,7 @@ elseif (!isset($page['calendar_month']))
   foreach ($calendar_months as $calendar_month => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
@@ -277,9 +275,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(pwg_query($query));
     
-    $thumbnail_src = get_thumbnail_src($row['file'],
-                                       $row['storage_category_id'],
-                                       @$row['tn_ext']);
+    $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
     
     $name = $lang['month'][$calendar_month];
     $name.= ' '.$page['calendar_year'];
@@ -322,7 +318,7 @@ elseif (!isset($page['calendar_day']))
   foreach ($calendar_days as $calendar_day => $nb_pics)
   {
     $query = '
-SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].' = \''.$calendar_day.'\'
@@ -332,9 +328,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(pwg_query($query));
     
-    $thumbnail_src = get_thumbnail_src($row['file'],
-                                       $row['storage_category_id'],
-                                       @$row['tn_ext']);
+    $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
     list($year,$month,$day) = explode('-', $calendar_day);
     $unixdate = mktime(0,0,0,$month,$day,$year);
@@ -385,7 +379,7 @@ elseif (isset($page['calendar_day']))
     $name.= ' ('.$nb_pics.')';
     
     $query = '
-SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
+SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'';
@@ -401,9 +395,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
 ;';
     $row = mysql_fetch_array(pwg_query($query));
     
-    $thumbnail_src = get_thumbnail_src($row['file'],
-                                       $row['storage_category_id'],
-                                       @$row['tn_ext']);
+    $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
     
     $thumbnail_title = $lang['calendar_picture_hint'].$name;
 

@@ -64,7 +64,7 @@ SELECT representative_picture_id
   $row = mysql_fetch_array(pwg_query($query));
     
   $query = '
-SELECT file,tn_ext,storage_category_id
+SELECT file,path,tn_ext
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$non_empty_id.'
     AND id = image_id';
@@ -86,8 +86,7 @@ SELECT file,tn_ext,storage_category_id
   $image_result = pwg_query($query);
   $image_row    = mysql_fetch_array($image_result);
 
-  $thumbnail_link = get_thumbnail_src($image_row['file'],
-                                      $image_row['storage_category_id'],
+  $thumbnail_link = get_thumbnail_src($image_row['path'],
                                       @$image_row['tn_ext']);
 
   $thumbnail_title = $lang['hint_category'];
