@@ -140,7 +140,7 @@
         }
       }
     </script>
-    <meta http-equiv="Content-Type" content="text/html; {#charset}">
+    <meta http-equiv="Content-Type" content="text/html; charset={#charset}">
   </head>
   <body>
     <table>
