@@ -26,8 +26,8 @@
 // +-----------------------------------------------------------------------+
 
 //----------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
@@ -54,7 +54,7 @@ switch ( $_GET['page'] )
  case 'user_perm':
    if ( !is_numeric( $_GET['user_id'] ) ) $_GET['user_id'] = -1;
    $query = 'SELECT status,username';
-   $query.= ' FROM '.PREFIX_TABLE.'users';
+   $query.= ' FROM '.USERS_TABLE;
    $query.= ' WHERE id = '.$_GET['user_id'];
    $query.= ';';
    $result = mysql_query( $query );

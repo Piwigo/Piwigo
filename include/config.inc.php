@@ -54,7 +54,7 @@ $conf['top_number']         = 10;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 $conf['max_LOV_categories'] = 50;
 
-$conf['default_lang'] = 'francais';
+$conf['default_lang'] = 'fr_FR';
 $conf['default_style'] = 'default';
 
 ?>

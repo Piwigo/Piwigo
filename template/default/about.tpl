@@ -1,15 +1,15 @@
     <table style="width:100%;height:100%">
       <tr align="center" valign="middle">
         <td>
-          {F_START}1px{F_BEGIN}
+          {T_START}1px{T_BEGIN}
             <div class="titrePage">{PAGE_TITLE}</div>
-          {F_END}
+          {T_END}
           <div style="margin-bottom:5px;">&nbsp;</div>
-          {F_START}50%{F_BEGIN}
+          {T_START}50%{T_BEGIN}
             <div class="menu" style="white-space:normal;margin:10px;">
               {L_ABOUT}
             </div>
-          {F_END}
+          {T_END}
           <div style="text-align:center;margin:5px;">
             <a href="{U_RETURN}">{L_RETURN}</a>
           </div>

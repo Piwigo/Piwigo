@@ -232,4 +232,34 @@ function display_category( $category, $indent )
     }
   }
 }
+
+function make_jumpbox($value, $selected, $usekeys=false)
+{
+  $boxstring = '';
+  $nb = sizeof( $value);
+  $keys = ($usekeys?array_keys($value):$value);
+  $value = ($usekeys?array_values($value):$value);
+  for ( $i = 0; $i < $nb; $i++ )
+  {
+    $boxstring .= '<option value="'.$keys[$i].'"';
+    if ($selected == $keys[$i]) $boxstring .=' selected="selected"';
+    $boxstring .='>'.$value[$i].'</option>';
+  }
+  return $boxstring;
+}
+
+function make_radio($name, $value, $selected, $usekeys=false)
+{
+  $boxstring = '';
+  $nb = sizeof( $value);
+  $keys = ($usekeys?array_keys($value):$value);
+  $value = ($usekeys?array_values($value):$value);
+  for ( $i = 0; $i < $nb; $i++ )
+  {
+    $boxstring .= '<input type="radio" name="'.$name.'" value="'.$keys[$i].'"';
+    if ($selected == $keys[$i]) $boxstring .=' checked';
+    $boxstring .='/>'.$value[$i];
+  }
+  return $boxstring;
+}
 ?>

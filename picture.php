@@ -25,8 +25,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 //----------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );    
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );    
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
@@ -576,7 +576,7 @@ if ( $conf['show_comments'] )
     if ( isset( $author ) and $author != $user['username'] )
     {
       $query = 'SELECT COUNT(*) AS user_exists';
-      $query.= ' FROM '.PREFIX_TABLE.'users';
+      $query.= ' FROM '.USERS_TABLE;
       $query.= " WHERE username = '".$author."'";
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );

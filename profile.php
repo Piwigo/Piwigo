@@ -27,8 +27,8 @@
 
 // customize appearance of the site for a user
 //----------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //-------------------------------------------------- access authorization check
 check_login_authorization();
 if ( $user['is_the_guest'] )
@@ -85,7 +85,7 @@ if ( isset( $_POST['submit'] ) )
   
   if ( count( $errors ) == 0 )
   {
-    $query = 'UPDATE '.PREFIX_TABLE.'users';
+    $query = 'UPDATE '.USERS_TABLE;
     $query.= ' SET ';
     foreach ( $infos as $i => $info ) {
       if ( $i > 0 ) $query.= ',';
@@ -100,7 +100,7 @@ if ( isset( $_POST['submit'] ) )
 
     if ( isset( $_POST['use_new_pwd'] ) )
     {
-      $query = 'UPDATE '.PREFIX_TABLE.'users';
+      $query = 'UPDATE '.USERS_TABLE;
       $query.= " SET password = '".md5( $_POST['password'] )."'";
       $query.= ' WHERE id = '.$user['id'];
       $query.= ';';
@@ -111,7 +111,7 @@ if ( isset( $_POST['submit'] ) )
       setcookie( 'id',$page['session_id'],$_POST['cookie_expiration'],
                  cookie_path() );
       // update the expiration date of the session
-      $query = 'UPDATE '.PREFIX_TABLE.'sessions';
+      $query = 'UPDATE '.SESSIONS_TABLE;
       $query.= ' SET expiration = '.$_POST['cookie_expiration'];
       $query.= " WHERE id = '".$page['session_id']."'";
       $query.= ';';
@@ -133,224 +133,96 @@ if ( isset( $_POST['submit'] ) )
 $title = $lang['customize_page_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/profile.vtp' );
+$template->set_filenames(array('profile'=>'profile.tpl'));
 initialize_template();
-$tpl = array( 'customize_title','password','new',
-              'reg_confirm','submit','create_cookie' );
-templatize_array( $tpl, 'lang', $handle );
-//----------------------------------------------------------------- form action
-$url = './profile.php';
-$vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
+
+$template->assign_vars(array(
+  'L_TITLE' => $lang['customize_title'],
+  'L_PASSWORD' => $lang['password'],
+  'L_NEW' =>  $lang['new'], 
+  'L_CONFIRM' =>  $lang['reg_confirm'], 
+  'L_SUBMIT' =>  $lang['submit'], 
+  'L_COOKIE' =>  $lang['create_cookie'],
+	
+  'F_ACTION' => add_session_id( './profile.php' ),
+
+  'U_RETURN' => add_session_id('./category.php?'.$_SERVER['QUERY_STRING'])
+  ));
+	
 //-------------------------------------------------------------- errors display
-if ( count( $errors ) != 0 )
+if ( sizeof( $errors ) != 0 )
 {
-  $vtp->addSession( $handle, 'errors' );
-  foreach ( $errors as $error ) {
-    $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error );
-    $vtp->closeSession( $handle, 'li' );
-  }
-  $vtp->closeSession( $handle, 'errors' );
-}
-//---------------------------------------------------- number of images per row
-if ( in_array( 'nb_image_line', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_nb_image_per_row'] );
-  $vtp->addSession( $handle, 'select' );
-  $vtp->setVar( $handle, 'select.name', 'nb_image_line' );
-  for ( $i = 0; $i < sizeof( $conf['nb_image_row'] ); $i++ )
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
-    $vtp->addSession( $handle, 'option' );
-    $vtp->setVar( $handle, 'option.option', $conf['nb_image_row'][$i] );
-    if ( $conf['nb_image_row'][$i] == $user['nb_image_line'] )
-    {
-      $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
-    }
-    $vtp->closeSession( $handle, 'option' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
-  $vtp->closeSession( $handle, 'select' );
-  $vtp->closeSession( $handle, 'line' );
 }
-//------------------------------------------------------ number of row per page
-if ( in_array( 'nb_line_page', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_nb_row_per_page'] );
-  $vtp->addSession( $handle, 'select' );
-  $vtp->setVar( $handle, 'select.name', 'nb_line_page' );
-  for ( $i = 0; $i < sizeof( $conf['nb_row_page'] ); $i++ )
-  {
-    $vtp->addSession( $handle, 'option' );
-    $vtp->setVar( $handle, 'option.option', $conf['nb_row_page'][$i] );
-    if ( $conf['nb_row_page'][$i] == $user['nb_line_page'] )
-    {
-      $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
-    }
-    $vtp->closeSession( $handle, 'option' );
-  }
-  $vtp->closeSession( $handle, 'select' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//-------------------------------------------------------------------- template
-if ( in_array( 'template', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_template'] );
-  $vtp->addSession( $handle, 'select' );
-  $vtp->setVar( $handle, 'select.name', 'template' );
-  $option = get_dirs( './template' );
-  for ( $i = 0; $i < sizeof( $option ); $i++ )
-  {
-    $vtp->addSession( $handle, 'option' );
-    $vtp->setVar( $handle, 'option.option', $option[$i] );
-    if ( $option[$i] == $user['template'] )
-    {
-      $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
-    }
-    $vtp->closeSession( $handle, 'option' );
-  }
-  $vtp->closeSession( $handle, 'select' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//-------------------------------------------------------------------- language
-if ( in_array( 'language', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_language'] );
-  $vtp->addSession( $handle, 'select' );
-  $vtp->setVar( $handle, 'select.name', 'language' );
-  $option = get_languages( './language/' );
-  for ( $i = 0; $i < sizeof( $option ); $i++ )
-  {
-    $vtp->addSession( $handle, 'option' );
-    $vtp->setVar( $handle, 'option.option', $option[$i] );
-    if( $option[$i] == $user['language'] )
-    {
-      $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
-    }
-    $vtp->closeSession( $handle, 'option' );
-  }
-  $vtp->closeSession( $handle, 'select' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//---------------------------------------------------------------- short period
-if ( in_array( 'short_period', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_short_period'] );
-  $vtp->addSession( $handle, 'text' );
-  $vtp->setVar( $handle, 'text.name', 'short_period' );
-  $vtp->setVar( $handle, 'text.value', $user['short_period'] );
-  $vtp->closeSession( $handle, 'text' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//----------------------------------------------------------------- long period
-if ( in_array( 'long_period', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_long_period'] );
-  $vtp->addSession( $handle, 'text' );
-  $vtp->setVar( $handle, 'text.name', 'long_period' );
-  $vtp->setVar( $handle, 'text.value', $user['long_period'] );
-  $vtp->closeSession( $handle, 'text' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//--------------------------------------------------------- max displayed width
-if ( in_array( 'maxwidth', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['maxwidth'] );
-  $vtp->addSession( $handle, 'text' );
-  $vtp->setVar( $handle, 'text.name', 'maxwidth' );
-  $vtp->setVar( $handle, 'text.value', $user['maxwidth'] );
-  $vtp->closeSession( $handle, 'text' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//-------------------------------------------------------- max displayed height
-if ( in_array( 'maxheight', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['maxheight'] );
-  $vtp->addSession( $handle, 'text' );
-  $vtp->setVar( $handle, 'text.name', 'maxheight' );
-  $vtp->setVar( $handle, 'text.value', $user['maxheight'] );
-  $vtp->closeSession( $handle, 'text' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//---------------------------------------------------------------- mail address
-if ( in_array( 'mail_address', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
-  $vtp->addSession( $handle, 'text' );
-  $vtp->setVar( $handle, 'text.name', 'mail_address' );
-  $vtp->setVar( $handle, 'text.value', $user['mail_address'] );
-  $vtp->closeSession( $handle, 'text' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//----------------------------------------------------- expand all categories ?
-if ( in_array( 'expand', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_expand'] );
-  $vtp->addSession( $handle, 'group' );
-  $vtp->addSession( $handle, 'radio' );
-  $vtp->setVar( $handle, 'radio.name', 'expand' );
-  $vtp->setVar( $handle, 'radio.value', 'true' );
-  $checked = '';
-  if ( $user['expand'] )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $handle, 'radio.checked', $checked );
-  $vtp->setVar( $handle, 'radio.option', $lang['yes'] );
-  $vtp->closeSession( $handle, 'radio' );
-  $vtp->addSession( $handle, 'radio' );
-  $vtp->setVar( $handle, 'radio.name', 'expand' );
-  $vtp->setVar( $handle, 'radio.value', 'false' );
-  $checked = '';
-  if ( !$user['expand'] )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $handle, 'radio.checked', $checked );
-  $vtp->setVar( $handle, 'radio.option', $lang['no'] );
-  $vtp->closeSession( $handle, 'radio' );
-  $vtp->closeSession( $handle, 'group' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//---------------------------------- show number of comments on thumbnails page
-if ( in_array( 'show_nb_comments', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_show_nb_comments'] );
-  $vtp->addSession( $handle, 'group' );
-  $vtp->addSession( $handle, 'radio' );
-  $vtp->setVar( $handle, 'radio.name', 'show_nb_comments' );
-  $vtp->setVar( $handle, 'radio.value', 'true' );
-  $checked = '';
-  if ( $user['show_nb_comments'] )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $handle, 'radio.checked', $checked );
-  $vtp->setVar( $handle, 'radio.option', $lang['yes'] );
-  $vtp->closeSession( $handle, 'radio' );
-  $vtp->addSession( $handle, 'radio' );
-  $vtp->setVar( $handle, 'radio.name', 'show_nb_comments' );
-  $vtp->setVar( $handle, 'radio.value', 'false' );
-  $checked = '';
-  if ( !$user['show_nb_comments'] )
-  {
-    $checked = ' checked="checked"';
-  }
-  $vtp->setVar( $handle, 'radio.checked', $checked );
-  $vtp->setVar( $handle, 'radio.option', $lang['no'] );
-  $vtp->closeSession( $handle, 'radio' );
-  $vtp->closeSession( $handle, 'group' );
-  $vtp->closeSession( $handle, 'line' );
-}
+
+$template->assign_block_vars('select',array(
+  'F_LABEL'=>$lang['customize_nb_image_per_row'],
+  'F_NAME'=>'nb_image_line',
+  'F_OPTIONS'=>make_jumpbox($conf['nb_image_row'], $user['nb_image_line'])
+  ));
+
+$template->assign_block_vars('select',array(
+  'F_LABEL'=>$lang['customize_nb_row_per_page'],
+  'F_NAME'=>'nb_line_page',
+  'F_OPTIONS'=>make_jumpbox($conf['nb_row_page'], $user['nb_line_page'])
+  ));
+
+$template->assign_block_vars('select',array(
+  'F_LABEL'=>$lang['customize_template'],
+  'F_NAME'=>'template',
+  'F_OPTIONS'=>make_jumpbox(get_dirs( './template' ), $user['template'])
+  ));
+
+$template->assign_block_vars('select',array(
+  'F_LABEL'=>$lang['customize_language'],
+  'F_NAME'=>'language',
+  'F_OPTIONS'=>make_jumpbox($lang['lang'], $user['language'], true)
+  ));
+
+$template->assign_block_vars('text',array(
+  'F_LABEL'=>$lang['customize_short_period'],
+  'F_NAME'=>'short_period',
+  'F_VALUE'=>$user['short_period']
+  ));
+
+$template->assign_block_vars('text',array(
+  'F_LABEL'=>$lang['customize_long_period'],
+  'F_NAME'=>'long_period',
+  'F_VALUE'=>$user['long_period']
+  ));
+
+$template->assign_block_vars('text',array(
+  'F_LABEL'=>$lang['maxwidth'],
+  'F_NAME'=>'maxwidth',
+  'F_VALUE'=>$user['maxwidth']
+  ));
+
+$template->assign_block_vars('text',array(
+  'F_LABEL'=>$lang['maxheight'],
+  'F_NAME'=>'maxheight',
+  'F_VALUE'=>$user['maxheight']
+  ));
+
+$template->assign_block_vars('text',array(
+  'F_LABEL'=>$lang['mail_address'],
+  'F_NAME'=>'mail_address',
+  'F_VALUE'=>$user['mail_address']
+  ));
+
+$template->assign_block_vars('radio',array(
+  'F_LABEL'=>$lang['customize_expand'],
+  'F_OPTIONS'=>make_radio('expand', array(true=>$lang['yes'], false=>$lang['no']), $user['expand'], true)
+  ));
+
+$template->assign_block_vars('radio',array(
+  'F_LABEL'=>$lang['customize_show_nb_comments'],
+  'F_OPTIONS'=>make_radio('show_nb_comments', array(true=>$lang['yes'], false=>$lang['no']), $user['show_nb_comments'], true)
+  ));
+
 //--------------------------------------------------------------- create cookie
 if ( $conf['authorize_cookies'] )
 {
@@ -374,7 +246,6 @@ if ( $conf['authorize_cookies'] )
   $vtp->closeSession( $handle, 'cookie' );
 }
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('profile');
 include('include/page_tail.php');
 ?>

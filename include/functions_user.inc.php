@@ -66,7 +66,7 @@ function register_user( $login, $password, $password_conf,
   else
   {
     $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'users';
+    $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = '".$login."'";
     $query.= ';';
     $result = mysql_query( $query );
@@ -92,12 +92,12 @@ function register_user( $login, $password, $password_conf,
       if ( $i > 0 ) $query.= ',';
       $query.= $infos[$i];
     }
-    $query.= ' FROM '.PREFIX_TABLE.'users';
+    $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = 'guest'";
     $query.= ';';
     $row = mysql_fetch_array( mysql_query( $query ) );
     // 2. adding new user
-    $query = 'INSERT INTO '.PREFIX_TABLE.'users';
+    $query = 'INSERT INTO '.USERS_TABLE;
     $query.= ' (';
     $query.= ' username,password,mail_address,status';
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
@@ -119,7 +119,7 @@ function register_user( $login, $password, $password_conf,
     mysql_query( $query );
     // 3. retrieving the id of the newly created user
     $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'users';
+    $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = '".$login."';";
     $row = mysql_fetch_array( mysql_query( $query ) );
     $user_id = $row['id'];
@@ -188,7 +188,7 @@ function update_user( $user_id, $mail_address, $status,
 
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'UPDATE '.PREFIX_TABLE.'users';
+    $query = 'UPDATE '.USERS_TABLE;
     $query.= " SET status = '".$status."'";
     if ( $use_new_password )
     {
@@ -223,5 +223,70 @@ function check_login_authorization()
     exit();
   }
   }
+}
+
+//
+// Initialise user settings on page load
+function init_userprefs($userdata)
+{
+  global $conf, $template, $lang, $lang_mapping;
+  $style = $conf['default_style'];
+  if ( !$userdata['is_the_guest'] )
+  {
+    if ( !empty($userdata['language']))
+    {
+      $conf['default_lang'] = $userdata['language'];
+    }
+    if ( !empty($userdata['template']))
+    {
+      $style = $userdata['template'];
+    }
+  }
+
+  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/common.lang.php')) )
+  {
+    $conf['default_lang'] = 'en_EN';
+  }
+  include_once(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/common.lang.php');
+  
+  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/lang.lang.php')) )
+  {
+    $conf['default_lang'] = 'en_EN';
+  }
+  include_once(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/lang.lang.php');
+  
+  if ($userdata['status'] == 'admin')
+  {
+    $admin_lang = $userdata['language'];
+    if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/admin.lang.php')) )
+    {
+      $admin_lang = 'en_EN';
+    }
+	include_once(PHPWG_ROOT_PATH . 'language/' . $admin_lang . '/admin.lang.php');
+  }
+
+  $template= setup_style($style);
+  return;
+}
+
+function setup_style($style)
+{
+	$template_path = 'template/' ;
+	$template_name = $style ;
+
+	$template = new Template(PHPWG_ROOT_PATH . $template_path . $template_name);
+	return $template;
+}
+
+function encode_ip($dotquad_ip)
+{
+	$ip_sep = explode('.', $dotquad_ip);
+	return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
+}
+
+function decode_ip($int_ip)
+{
+	$hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
+	return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
 }
 ?>

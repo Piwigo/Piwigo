@@ -61,7 +61,7 @@ else if ( isset( $_POST['submit_add_user'] ) )
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
   $query = 'SELECT username';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$_GET['delete'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -85,7 +85,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
          and $row['username'] != $conf['webmaster'] )
     {
       $query = 'SELECT COUNT(*) AS nb_result';
-      $query.= ' FROM '.PREFIX_TABLE.'users';
+      $query.= ' FROM '.USERS_TABLE;
       $query.= ' WHERE id = '.$_GET['delete'];
       $query.= ';';
       $row2 = mysql_fetch_array( mysql_query( $query ) );
@@ -131,7 +131,7 @@ else
   $vtp->setVar( $sub, 'users.form_action', $action );
 
   $query = 'SELECT id,username,status,mail_address';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ' ORDER BY status ASC, username ASC';
   $query.= ';';
   $result = mysql_query( $query );
@@ -233,7 +233,7 @@ else
   {
     $mails = array();
     $query = 'SELECT id,mail_address';
-    $query.= ' FROM '.PREFIX_TABLE.'users';
+    $query.= ' FROM '.USERS_TABLE;
     $query.= ';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )

@@ -1,9 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                               about.php                               |
+// |                           index.lang.php                           |
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
-// | branch        : BSF (Best So Far)                                     |
+// | branch        : 1.4                                                   |
 // +-----------------------------------------------------------------------+
 // | file          : $RCSfile$
 // | last update   : $Date$
@@ -25,27 +25,16 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//----------------------------------------------------------- include
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-//----------------------------------------------------- template initialization
-//
-// Start output of page
-//
-$title= $lang['about_page_title'];
-include('include/page_header.php');
+$lang['lang'] = array(
+  'fr_FR'=>'French',
+  'en_EN'=>'English',
+  'es_ES'=>'Spanish',
+  'de_DE'=>'German',
+  'ca'=>'Catalan',
+  'no'=>'Norsk',
+  'hu'=>'Hungarian',
+  'ja'=>'Japanese',
+  'sv'=>'Swedish'
+  );
 
-$template->set_filenames(array('about'=>'about.tpl'));
-initialize_template();
-
-$template->assign_vars(array(
-	'PAGE_TITLE' => $title,
-	'L_ABOUT' => $lang['about_message'],
-	'L_RETURN' =>  $lang['about_return'], 
-	'U_RETURN' => add_session_id('./category.php?'.$_SERVER['QUERY_STRING'])
-	)
-	);
-
-$template->pparse('about');
-include('include/page_tail.php');
 ?>

@@ -28,8 +28,6 @@
 include( './admin/include/functions.php' );
 
 $isadmin = true;
-include_once( './language/'.$user['language'].'/lang_admin.php' );
-
 if ( $user['status'] != 'admin' )
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';

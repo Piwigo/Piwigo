@@ -41,7 +41,7 @@ $display_form = true;
 // id in $_GET['user_id']
 $query = 'select';
 $query.= ' username,status,mail_address';
-$query.= ' from '.PREFIX_TABLE.'users';
+$query.= ' from '.USERS_TABLE;
 $query.= ' where id = '.$_GET['user_id'];
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );

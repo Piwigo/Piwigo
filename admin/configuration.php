@@ -217,7 +217,7 @@ if ( isset( $_POST['submit'] ) )
     $query.= ';';
     mysql_query( $query );
 
-    $query = 'UPDATE '.PREFIX_TABLE.'users';
+    $query = 'UPDATE '.USERS_TABLE;
     $query.= ' SET';
     foreach ( $default_user_infos as $i => $default_user_info ) {
       if ( $i > 0 ) $query.= ',';
@@ -257,7 +257,7 @@ else
   }
 
   $query  = 'SELECT '.implode( ',', $default_user_infos );
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= " WHERE username = 'guest'";
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );

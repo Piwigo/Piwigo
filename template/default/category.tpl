@@ -96,8 +96,10 @@
 		  <td align="right">
 			{T_START}1%{T_BEGIN}
 			  <div class="info">
+				<!-- BEGIN username -->
 				{L_USER}&nbsp;{USERNAME}<br />
-				{L_RECENT_IMG}&nbsp;{S_SHORT_PERIOD}&nbsp;{L_DAYS}
+				<!-- END username -->
+				{L_RECENT_IMAGE}&nbsp;{S_SHORT_PERIOD}&nbsp;{L_DAYS}
 				  {T_SHORT}<br />
 				{L_RECENT_IMAGE}&nbsp;{S_LONG_PERIOD}&nbsp;{L_DAYS}
 				  {T_LONG}<br />

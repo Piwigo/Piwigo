@@ -26,8 +26,8 @@
 // +-----------------------------------------------------------------------+
 
 //----------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'incelude/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'incelude/common.inc.php' );
 //-------------------------------------------------- access authorization check
 if ( $conf['access'] == "restricted" )
 {

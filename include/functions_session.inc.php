@@ -75,7 +75,7 @@ function session_create( $username )
   }
   // 2. retrieving id of the username given in parameter
   $query = 'select id';
-  $query.= ' from '.PREFIX_TABLE.'users';
+  $query.= ' from '.USERS_TABLE;
   $query.= " where username = '".$username."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   $user_id = $row['id'];

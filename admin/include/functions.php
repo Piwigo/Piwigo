@@ -282,7 +282,7 @@ function delete_user( $user_id )
   mysql_query( $query );
 
   // destruction of the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'users';
+  $query = 'DELETE FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
   mysql_query( $query );
@@ -322,7 +322,7 @@ function delete_group( $group_id )
 function check_favorites( $user_id )
 {
   $query = 'SELECT status,forbidden_categories';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -852,7 +852,7 @@ function synchronize_all_users()
   $user_restrictions = array();
   
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -901,7 +901,7 @@ function synchronize_group( $group_id )
   $user_restrictions = array();
   
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ', '.PREFIX_TABLE.'user_group';
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ' AND id = user_id';
@@ -926,7 +926,7 @@ function update_user_restrictions( $user_id )
   $restrictions = get_user_all_restrictions( $user_id );
 
   // update the users.forbidden_categories in database
-  $query = 'UPDATE '.PREFIX_TABLE.'users';
+  $query = 'UPDATE '.USERS_TABLE;
   $query.= ' SET forbidden_categories = ';
   if ( count( $restrictions ) > 0 )
     $query.= "'".implode( ',', $restrictions )."'";
@@ -950,7 +950,7 @@ function get_user_all_restrictions( $user_id )
   global $page;
   
   $query = 'SELECT status';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );

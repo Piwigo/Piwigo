@@ -24,8 +24,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 //------------------------------------------------------------------- functions
 // The validate_upload function checks if the image of the given path is valid.

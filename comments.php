@@ -26,8 +26,8 @@
 // +-----------------------------------------------------------------------+
 
 //----------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 //--------------------------------------------------- number of days to display
 if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );

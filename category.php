@@ -26,8 +26,8 @@
 // +-----------------------------------------------------------------------+
 
 //--------------------------------------------------------------------- include
-$phpwg_root_path = './';
-include_once( $phpwg_root_path.'include/common.inc.php' );
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //---------------------------------------------------------------------- logout
 if ( isset( $_GET['act'] )
      and $_GET['act'] == 'logout'
@@ -189,7 +189,7 @@ foreach ( $page['structure'] as $category ) {
   display_category( $category, '&nbsp;');
 }
 
-// favorites management
+// authentification mode management
 if ( !$user['is_the_guest'] )
 {
   // searching the number of favorite picture
@@ -198,6 +198,7 @@ if ( !$user['is_the_guest'] )
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
   $template->assign_block_vars('favorites', array ('NB_FAV'=>$row['count']) );
+  $template->assign_block_vars('username', array());
 }
 //--------------------------------------------------------------------- summary
 $sum_title = '';

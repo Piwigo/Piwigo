@@ -75,7 +75,7 @@ if ( isset( $_POST['submit'] ) )
   $query.= ';';
   mysql_query( $query );
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -137,7 +137,7 @@ if ( mysql_num_rows( $result ) > 0 )
 }
 //----------------------------------------------------------------------- users
 $query = 'SELECT id,username,status';
-$query.= ' FROM '.PREFIX_TABLE.'users';
+$query.= ' FROM '.USERS_TABLE;
 // only the webmaster can modify webmaster's permissions
 if ( $user['username'] != $conf['webmaster'] )
 {

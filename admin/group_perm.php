@@ -61,7 +61,7 @@ if ( isset( $_POST['submit'] ) )
   }
   // checking users favorites
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )

@@ -24,9 +24,11 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-
-// determine the initial instant to indicate the generation time of this
-// page
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+// determine the initial instant to indicate the generation time of this page
 $t1 = explode( ' ', microtime() );
 $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
@@ -109,17 +111,20 @@ $page = array();
 $user = array();
 $lang = array();
 
+
+include(PHPWG_ROOT_PATH .'config.php');
 if( !defined("PHPWG_INSTALLED") )
 {
   header( 'Location: install.php' );
   exit;
 }
 
-include( $phpwg_root_path.'include/constants.php' );
-include( $phpwg_root_path.'include/functions.inc.php' );
-include( $phpwg_root_path.'include/template.php' );
-include( $phpwg_root_path.'include/vtemplate.class.php' );
-include( $phpwg_root_path.'include/config.inc.php' );
+
+include(PHPWG_ROOT_PATH . 'include/constants.php');
+include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
+include(PHPWG_ROOT_PATH . 'include/template.php');
+include(PHPWG_ROOT_PATH . 'include/vtemplate.class.php');
+include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 
 //
 // Database connection
@@ -197,7 +202,7 @@ foreach ( $infos as $info ) {
 // A partir d'ici il faudra dispatcher le code dans d'autres fichiers
 //---------------
 
-include($phpwg_root_path . 'include/user.inc.php');
+include(PHPWG_ROOT_PATH . 'include/user.inc.php');
 
 // displaying the username in the language of the connected user, instead of
 // "guest" as you can find in the database
