@@ -1,10 +1,10 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                           fr_FR/common.lang.php                           |
+// | PhpWebGallery - a PHP based picture gallery                           |
+// | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
+// | Copyright (C) 2003-2004 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | application   : PhpWebGallery <http://phpwebgallery.net>              |
-// | branch        : 1.4                                                   |
-// +-----------------------------------------------------------------------+
+// | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
 // | last update   : $Date$
 // | last modifier : $Author$
