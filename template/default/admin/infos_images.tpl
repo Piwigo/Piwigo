@@ -83,7 +83,7 @@
         <select style="width:400px" name="associate" size="1">
           <!-- BEGIN associate_option -->
           <option {associate_option.SELECTED} value="{associate_option.VALUE}">{associate_option.OPTION}</option>
-          <!-- END category_option -->
+          <!-- END associate_option -->
         </select>
       </td>
     </tr>

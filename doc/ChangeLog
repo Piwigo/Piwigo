@@ -1,4 +1,8 @@
 2005-03-25 Pierrick LE GALL <pierrick at phpwebgallery dot net>
+
+	* typo fixed : wrong block name closed in template
+
+2005-03-25 Pierrick LE GALL <pierrick at phpwebgallery dot net>
 	
 	* new feature : caddie. The purpose is batch management,
 	especially concerning elements to categories associations.This is
