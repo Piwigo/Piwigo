@@ -23,6 +23,7 @@ $tpl = array( 'listuser_confirm','listuser_modify_hint','listuser_modify',
               'listuser_button_all','listuser_button_invert',
               'listuser_button_create_address' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
 //--------------------------------------------------------------- delete a user
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
