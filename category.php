@@ -34,11 +34,6 @@ if ( $_GET['act'] == 'logout' and isset( $_COOKIE['id'] ) )
   exit();
 }
 //-------------------------------------------------- access authorization check
-// creating the plain structure : array of all the available categories and
-// their relative informations, see the definition of the function
-// get_plain_structure for further details.
-$page['plain_structure'] = get_plain_structure();
-
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
 if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
@@ -46,6 +41,16 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   check_restrictions( $page['cat'] );
 }
 //-------------------------------------------------------------- initialization
+// detection of the start picture to display
+if ( !isset( $_GET['start'] )
+     or !is_numeric( $_GET['start'] )
+     or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
+  $page['start'] = 0;
+else
+  $page['start'] = $_GET['start'];
+
+initialize_category();
+
 // creation of the array containing the cat ids to expand in the menu
 // $page['tab_expand'] contains an array with the category ids
 // $page['expand'] contains the string to display in URL with comma
@@ -56,19 +61,18 @@ if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
   foreach ( $tab_expand as $id ) {
     if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
   }
-  if ( is_numeric( $page['cat'] ) )
-  {
-    // the category displayed (in the URL cat=23) must be seen in the menu ->
-    // parent categories must be expanded
-    $parent = $page['plain_structure'][$page['cat']]['id_uppercat'];
-    while ( $parent != '' )
-    {
-      array_push( $page['tab_expand'], $parent );
-      $parent = $page['plain_structure'][$parent]['id_uppercat'];
-    }
-  }
-  $page['expand'] = implode( ',', $page['tab_expand'] );
 }
+if ( is_numeric( $page['cat'] ) )
+{
+  // the category displayed (in the URL cat=23) must be seen in the menu ->
+  // parent categories must be expanded
+  $uppercats = explode( ',', $page['uppercats'] );
+  foreach ( $uppercats as $uppercat ) {
+    array_push( $page['tab_expand'], $uppercat );
+  }
+}
+$page['tab_expand'] = array_unique( $page['tab_expand'] );
+$page['expand'] = implode( ',', $page['tab_expand'] );
 // in case of expanding all authorized cats
 // The $page['expand'] equals 'all' and
 // $page['tab_expand'] contains all the authorized cat ids
@@ -76,17 +80,6 @@ if ( $user['expand'] or $_GET['expand'] == 'all' )
 {
   $page['tab_expand'] = array();
   $page['expand'] = 'all';
-}
-// detection of the start picture to display
-if ( !isset( $_GET['start'] )
-     or !is_numeric( $_GET['start'] )
-     or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
-{
-  $page['start'] = 0;
-}
-else
-{
-  $page['start'] = $_GET['start'];
 }
 // Sometimes, a "num" is provided in the URL. It is the number
 // of the picture to show. This picture must be in the thumbnails page.
@@ -98,9 +91,12 @@ if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
   $page['start']*= $user['nb_image_page'];
 }
 // creating the structure of the categories (useful for displaying the menu)
-$page['structure'] = create_structure( '', $user['restrictions'] );
+// creating the plain structure : array of all the available categories and
+// their relative informations, see the definition of the function
+// get_user_plain_structure for further details.
+$page['plain_structure'] = get_user_plain_structure();
+$page['structure'] = create_user_structure( '' );
 $page['structure'] = update_structure( $page['structure'] );
-initialize_category();
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
 $handle = $vtp->Open( './template/'.$user['template'].'/category.vtp' );
@@ -127,8 +123,9 @@ templatize_array( $tpl, 'page', $handle );
 $vtp->setGlobalVar( $handle, 'icon_short', get_icon( time() ) );
 $icon_long = get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) );
 $vtp->setGlobalVar( $handle, 'icon_long', $icon_long );
-$nb_total_pictures = count_images( $page['structure'] );
+$nb_total_pictures = count_user_total_images();
 $vtp->setGlobalVar( $handle, 'nb_total_pictures',$nb_total_pictures );
+
 //------------------------------------------------------------- categories menu
 // normal categories
 foreach ( $page['structure'] as $category ) {
@@ -254,7 +251,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   $query = 'SELECT distinct(id),file,date_available,tn_ext,name,filesize';
   $query.= ',storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images AS i';
-  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
+  $query.=' INNER JOIN '.PREFIX_TABLE.'image_category AS ic ON id=ic.image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
@@ -350,7 +347,8 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 //-------------------------------------------------------------- empty category
 elseif ( ( isset( $page['cat'] )
            and is_numeric( $page['cat'] )
-           and $page['cat_nb_images'] == 0 )
+           and $page['cat_nb_images'] == 0
+           and $page['plain_structure'][$page['cat']]['nb_sub_categories'] > 0)
          or $_GET['cat'] == '' )
 {
   $vtp->addSession( $handle, 'thumbnails' );
@@ -370,12 +368,13 @@ elseif ( ( isset( $page['cat'] )
     $query = 'SELECT representative_picture_id';
     $query.= ' FROM '.PREFIX_TABLE.'categories';
     $query.= ' WHERE id = '.$non_empty_id;
+    $query.= ';';
     $row = mysql_fetch_array( mysql_query( $query ) );
     
     $query = 'SELECT file,tn_ext,storage_category_id';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' FROM '.PREFIX_TABLE.'images, '.PREFIX_TABLE.'image_category';
     $query.= ' WHERE category_id = '.$non_empty_id;
+    $query.= ' AND id = image_id';
     // if the category has a representative picture, this is its thumbnail
     // tha will be displayed !
     if ( $row['representative_picture_id'] != '' )
