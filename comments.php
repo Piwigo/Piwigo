@@ -53,7 +53,7 @@ if (isset($_POST['delete']) and count($_POST['comment_id']) > 0)
 DELETE FROM '.COMMENTS_TABLE.'
   WHERE id IN ('.implode(',', $_POST['comment_id']).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 }
 // comments validation
 if (isset($_POST['validate']) and count($_POST['comment_id']) > 0)
@@ -63,7 +63,7 @@ UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
   WHERE id IN ('.implode(',', $_POST['comment_id']).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 }
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
@@ -128,7 +128,7 @@ if ($user['status'] != 'admin')
 $query.= '
   ORDER BY ic.image_id DESC
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 if ($user['status'] == 'admin')
 {
   $template->assign_block_vars('validation', array());
@@ -144,7 +144,7 @@ SELECT name,file,storage_category_id as cat_id,tn_ext
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$row['image_id'].'
 ;';
-  $subresult = mysql_query($query);
+  $subresult = pwg_query($query);
   $subrow = mysql_fetch_array($subresult);
 
   if (!isset($array_cat_names[$subrow['cat_id']]))
@@ -195,7 +195,7 @@ SELECT *
   $query.= '
   ORDER BY date DESC
 ;';
-  $handleresult = mysql_query($query);
+  $handleresult = pwg_query($query);
   while ($subrow = mysql_fetch_array($handleresult))
   {
     $author = $subrow['author'];

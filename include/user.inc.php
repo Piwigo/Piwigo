@@ -63,7 +63,7 @@ SELECT user_id,expiration,ip
   FROM '.SESSIONS_TABLE.'
   WHERE id = \''.$page['session_id'].'\'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   if (mysql_num_rows($result) > 0)
   {
     $row = mysql_fetch_array($result);
@@ -76,7 +76,7 @@ SELECT user_id,expiration,ip
         $delete_query = 'DELETE FROM '.SESSIONS_TABLE;
         $delete_query.= " WHERE id = '".$page['session_id']."'";
         $delete_query.= ';';
-        mysql_query($delete_query);
+        pwg_query($delete_query);
       }
       else if ($_SERVER['REMOTE_ADDR'] == $row['ip'])
       {
@@ -97,7 +97,7 @@ if (!$query_done)
   $user['is_the_guest'] = true;
 }
 $query_user .= ';';
-$row = mysql_fetch_array(mysql_query($query_user));
+$row = mysql_fetch_array(pwg_query($query_user));
 
 // affectation of each value retrieved in the users table into a variable
 // of the array $user.

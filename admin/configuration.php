@@ -41,7 +41,7 @@ else
   $page['section'] = $_GET['section'];
 }
 //------------------------------------------------------ $conf reinitialization
-$result = mysql_query('SELECT param,value FROM '.CONFIG_TABLE);
+$result = pwg_query('SELECT param,value FROM '.CONFIG_TABLE);
 while ($row = mysql_fetch_array($result))
 {
   $conf[$row['param']] = $row['value'];
@@ -125,7 +125,7 @@ if (isset($_POST['submit']))
   // updating configuration if no error found
   if (count($errors) == 0)
   {
-    $result = mysql_query('SELECT * FROM '.CONFIG_TABLE);
+    $result = pwg_query('SELECT * FROM '.CONFIG_TABLE);
     while ($row = mysql_fetch_array($result))
     {
       if (isset($_POST[$row['param']]))
@@ -135,7 +135,7 @@ UPDATE '.CONFIG_TABLE.'
   SET value = \''. str_replace("\'", "''", $_POST[$row['param']]).'\'
   WHERE param = \''.$row['param'].'\'
 ;';
-        mysql_query($query);
+        pwg_query($query);
       }
     }
   }

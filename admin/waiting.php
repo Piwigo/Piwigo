@@ -34,7 +34,7 @@ if ( isset( $_POST['submit'] ) )
 {
   $query = 'SELECT * FROM '.WAITING_TABLE;
   $query.= " WHERE validated = 'false';";
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $key = 'validate-'.$row['id'];
@@ -48,7 +48,7 @@ if ( isset( $_POST['submit'] ) )
         $query.= " SET validated = 'true'";
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query( $query );
+        pwg_query( $query );
         // linking logically the picture to its storage category
         $query = 'INSERT INTO';
       }
@@ -59,7 +59,7 @@ if ( isset( $_POST['submit'] ) )
         $query = 'DELETE FROM '.WAITING_TABLE;
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query( $query );
+        pwg_query( $query );
         // deletion of the associated files
         $dir = get_complete_dir( $row['storage_category_id'] );
         unlink( '.'.$dir.$row['file'] );
@@ -102,7 +102,7 @@ $query = 'SELECT * FROM '.WAITING_TABLE;
 $query.= " WHERE validated = 'false'";
 $query.= ' ORDER BY storage_category_id';
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $i = 0;
 while ( $row = mysql_fetch_array( $result ) )
 {

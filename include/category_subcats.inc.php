@@ -50,7 +50,7 @@ if (count($subcats) > 0)
   // current row displayed
   $row_number = 0;
 }
-  
+
 foreach ($subcats as $subcat_id => $non_empty_id) 
 {
   $name = $page['plain_structure'][$subcat_id]['name'];
@@ -61,7 +61,7 @@ SELECT representative_picture_id
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$non_empty_id.'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
     
   $query = '
 SELECT file,tn_ext,storage_category_id
@@ -83,7 +83,7 @@ SELECT file,tn_ext,storage_category_id
   }
   $query.= '
 ;';
-  $image_result = mysql_query($query);
+  $image_result = pwg_query($query);
   $image_row    = mysql_fetch_array($image_result);
 
   $thumbnail_link = get_thumbnail_src($image_row['file'],

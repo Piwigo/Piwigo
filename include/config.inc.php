@@ -121,7 +121,7 @@ $conf['show_exif_fields'] = array('Make',
 
 // calendar_datefield : date field of table "images" used for calendar
 // catgory
-$conf['calendar_datefield'] = 'date_available';
+$conf['calendar_datefield'] = 'date_creation';
 
 // rate : enable feature for rating elements
 $conf['rate'] = true;

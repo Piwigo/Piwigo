@@ -72,7 +72,7 @@ $myBarGraph->SetBarSpacing(5);     // The default is 10. This changes the space 
 
 
 // Add Values to the bargraph..
-$result = mysql_query($sql)
+$result = pwg_query($sql)
 or die(mysql_errno().": ".mysql_error()."<BR>".$sql);
 
 //$monthes =array_fill(1,12,0);

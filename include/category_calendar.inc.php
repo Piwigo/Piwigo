@@ -39,7 +39,7 @@ SELECT YEAR('.$conf['calendar_datefield'].') AS year, COUNT(id) AS count
     AND id = image_id
   GROUP BY year
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 $calendar_years = array();
 while ($row = mysql_fetch_array($result))
 {
@@ -92,7 +92,7 @@ SELECT DISTINCT(MONTH('.$conf['calendar_datefield'].')) AS month
     AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
   GROUP BY MONTH('.$conf['calendar_datefield'].')
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $calendar_months = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -164,7 +164,7 @@ SELECT DISTINCT('.$conf['calendar_datefield'].') AS day, COUNT(id) AS count
     AND MONTH('.$conf['calendar_datefield'].') = '.$page['calendar_month'].'
   GROUP BY day
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $calendar_days = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -188,7 +188,7 @@ SELECT category_id AS category, COUNT(id) AS count
     AND id = image_id
   GROUP BY category_id
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $calendar_categories = array();
   // special category 0 : gathering all available categories (0 cannot be a
   // oregular category identifier)
@@ -227,7 +227,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     
     $thumbnail_src = get_thumbnail_src($row['file'],
                                        $row['storage_category_id'],
@@ -275,7 +275,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     
     $thumbnail_src = get_thumbnail_src($row['file'],
                                        $row['storage_category_id'],
@@ -330,7 +330,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     
     $thumbnail_src = get_thumbnail_src($row['file'],
                                        $row['storage_category_id'],
@@ -399,7 +399,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     
     $thumbnail_src = get_thumbnail_src($row['file'],
                                        $row['storage_category_id'],

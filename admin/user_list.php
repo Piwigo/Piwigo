@@ -67,7 +67,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
   $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$_GET['delete'];
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   // confirm user deletion ?
   if ( !isset( $_GET['confirm'] ) )
   {
@@ -91,7 +91,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
       $query.= ' FROM '.USERS_TABLE;
       $query.= ' WHERE id = '.$_GET['delete'];
       $query.= ';';
-      $row2 = mysql_fetch_array( mysql_query( $query ) );
+      $row2 = mysql_fetch_array( pwg_query( $query ) );
       if ( $row2['nb_result'] > 0 )
       {
         delete_user( $_GET['delete'] );
@@ -137,7 +137,7 @@ else
   $query.= ' FROM '.USERS_TABLE;
   $query.= ' ORDER BY status ASC, username ASC';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
 
   $current_status = '';
   while ( $row = mysql_fetch_array( $result ) )
@@ -238,7 +238,7 @@ else
     $query = 'SELECT id,mail_address';
     $query.= ' FROM '.USERS_TABLE;
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
       if ( isset( $_POST['mail-'.$row['id']] ) )

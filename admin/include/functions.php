@@ -167,7 +167,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE site_id = '.$id.'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $category_ids = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -180,7 +180,7 @@ SELECT id
 DELETE FROM '.SITES_TABLE.'
   WHERE id = '.$id.'
 ;';
-  mysql_query($query);
+  pwg_query($query);
 }
 	
 
@@ -205,7 +205,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id IN ('.implode(',', $ids).')
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $element_ids = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -218,19 +218,19 @@ SELECT id
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id IN ('.implode(',', $ids).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // destruction of the access linked to the category
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
   WHERE cat_id IN ('.implode(',', $ids).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
   $query = '
 DELETE FROM '.GROUP_ACCESS_TABLE.'
   WHERE cat_id IN ('.implode(',', $ids).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // destruction of the sub-categories
   $query = '
@@ -238,7 +238,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat IN ('.implode(',', $ids).')
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $subcat_ids = array();
   while($row = mysql_fetch_array($result))
   {
@@ -254,7 +254,7 @@ SELECT id
 DELETE FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $ids).')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   if (isset($counts['del_categories']))
   {
@@ -282,7 +282,7 @@ DELETE FROM '.COMMENTS_TABLE.'
   WHERE image_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // destruction of the links between images and this category
   $query = '
@@ -290,7 +290,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // destruction of the favorites associated with the picture
   $query = '
@@ -298,7 +298,7 @@ DELETE FROM '.FAVORITES_TABLE.'
   WHERE image_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // destruction of the rates associated to this element
   $query = '
@@ -306,7 +306,7 @@ DELETE FROM '.RATE_TABLE.'
   WHERE element_id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 		
   // destruction of the image
   $query = '
@@ -314,7 +314,7 @@ DELETE FROM '.IMAGES_TABLE.'
   WHERE id IN (
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   if (isset($counts['del_elements']))
   {
@@ -335,31 +335,31 @@ function delete_user( $user_id )
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // destruction of the group links for this user
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // destruction of the favorites associated with the user
   $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // destruction of the sessions linked with the user
   $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // destruction of the user
   $query = 'DELETE FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 }
 
 // delete_group deletes a group identified by its $group_id.
@@ -372,7 +372,7 @@ function delete_group( $group_id )
   $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // synchronize all users linked to the group
   synchronize_group( $group_id );
@@ -381,13 +381,13 @@ function delete_group( $group_id )
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   // destruction of the group
   $query = 'DELETE FROM '.PREFIX_TABLE.'groups';
   $query.= ' WHERE id = '.$group_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 }
 
 // The check_favorites function deletes all the favorites of a user if he is
@@ -399,7 +399,7 @@ function check_favorites( $user_id )
   $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   $status = $row['status'];
   // retrieving all the restricted categories for this user
   if ( isset( $row['forbidden_categories'] ) )
@@ -412,7 +412,7 @@ function check_favorites( $user_id )
   $query.= ' FROM '.PREFIX_TABLE.'favorites';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  $result = mysql_query ( $query );
+  $result = pwg_query ( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     // for each picture, we have to check all the categories it belongs
@@ -423,7 +423,7 @@ function check_favorites( $user_id )
     $query.= ' FROM '.PREFIX_TABLE.'image_category';
     $query.= ' WHERE image_id = '.$row['image_id'];
     $query.= ';';
-    $picture_result = mysql_query( $query );
+    $picture_result = pwg_query( $query );
     $picture_cat = array();
     while ( $picture_row = mysql_fetch_array( $picture_result ) )
     {
@@ -435,7 +435,7 @@ function check_favorites( $user_id )
       $query.= ' WHERE image_id = '.$row['image_id'];
       $query.= ' AND user_id = '.$user_id;
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
   }
 }
@@ -464,7 +464,7 @@ SELECT category_id, COUNT(image_id) AS count, max(date_available) AS date_last
   $query.= '
   GROUP BY category_id
 ;';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     array_push($cat_ids, $row['category_id']);
@@ -474,7 +474,7 @@ UPDATE '.CATEGORIES_TABLE.'
     , nb_images = '.$row['count'].'
   WHERE id = '.$row['category_id'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
 
   if (count($cat_ids) > 0)
@@ -485,7 +485,7 @@ SELECT id, representative_picture_id
   WHERE representative_picture_id IS NOT NULL
     AND id IN ('.implode(',', $cat_ids).')
 ;';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
       $query = '
@@ -494,7 +494,7 @@ SELECT image_id
   WHERE category_id = '.$row['id'].'
     AND image_id = '.$row['representative_picture_id'].'
 ;';
-      $result = mysql_query( $query );
+      $result = pwg_query( $query );
       if (mysql_num_rows($result) == 0)
       {
         $query = '
@@ -502,7 +502,7 @@ UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = NULL
   WHERE id = '.$row['id'].'
 ;';
-        mysql_query( $query );
+        pwg_query( $query );
       }
     }
   }
@@ -598,7 +598,7 @@ function get_user_restrictions( $user_id, $user_status,
   $query = 'SELECT id FROM '.CATEGORIES_TABLE;
   $query.= " WHERE status = 'private'";
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   $privates = array();
   while ( $row = mysql_fetch_array( $result ) )
   {
@@ -611,7 +611,7 @@ function get_user_restrictions( $user_id, $user_status,
   $query = 'SELECT cat_id FROM '.USER_ACCESS_TABLE;
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     array_push( $authorized, $row['cat_id'] );
@@ -626,7 +626,7 @@ function get_user_restrictions( $user_id, $user_status,
     $query.= ' WHERE ug.group_id = ga.group_id';
     $query.= ' AND ug.user_id = '.$user_id;
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
       array_push( $authorized, $row['cat_id'] );
@@ -649,7 +649,7 @@ function get_user_restrictions( $user_id, $user_status,
     {
       $query = 'SELECT id FROM '.CATEGORIES_TABLE;
       $query.= " WHERE visible = 'false';";
-      $result = mysql_query( $query );
+      $result = pwg_query( $query );
       while ( $row = mysql_fetch_array( $result ) )
       {
         array_push( $forbidden, $row['id'] );
@@ -679,7 +679,7 @@ function update_user_restrictions( $user_id )
     $query.= 'NULL';
   $query .= ' WHERE id = '.$user_id;
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   return $restrictions;
 }
@@ -698,7 +698,7 @@ function get_user_all_restrictions( $user_id )
   $query.= ' FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   
   $base_restrictions=get_user_restrictions($user_id,$row['status'],true,true);
 
@@ -727,7 +727,7 @@ function is_user_allowed( $category_id, $restrictions )
   $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id = '.$category_id;
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   $uppercats = explode( ',', $row['uppercats'] );
   foreach ( $uppercats as $category_id ) {
     if ( in_array( $category_id, $restrictions ) ) return 2;

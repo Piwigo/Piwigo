@@ -74,7 +74,7 @@ if ( !empty($search_match) )
     FROM " . USERS_TABLE . " 
     WHERE username LIKE '" . str_replace("\'", "''", $username_search) . "' 
     ORDER BY username";
-  if ( !($result = mysql_query($sql)) )
+  if ( !($result = pwg_query($sql)) )
   {
     die('Could not obtain search results');
   }

@@ -44,7 +44,7 @@ $query.= ' username,status,mail_address';
 $query.= ' from '.USERS_TABLE;
 $query.= ' where id = '.$_GET['user_id'];
 $query.= ';';
-$row = mysql_fetch_array( mysql_query( $query ) );
+$row = mysql_fetch_array( pwg_query( $query ) );
 $page['username'] = $row['username'];
 $page['status'] = $row['status'];
 if ( !isset( $row['mail_address'] ) ) $row['mail_address'] = '';
@@ -90,7 +90,7 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' FROM '.PREFIX_TABLE.'groups';
   $query.= ' ORDER BY id ASC';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $dissociate = 'dissociate-'.$row['id'];
@@ -100,7 +100,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' WHERE user_id = '.$_GET['user_id'];
       $query.= ' AND group_id ='.$row['id'];
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
   }
   // create a new association between the user and a group
@@ -108,7 +108,7 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' (user_id,group_id) VALUES';
   $query.= ' ('.$_GET['user_id'].','.$_POST['associate'].')';
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   // synchronize category informations for this user
   synchronize_user( $_GET['user_id'] );
 }
@@ -179,7 +179,7 @@ if ( $display_form )
   $query.= ' WHERE group_id = id';
   $query.= ' AND user_id = '.$_GET['user_id'];
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   $user_groups = array();
   if ( mysql_num_rows( $result ) > 0 )
   {
@@ -204,7 +204,7 @@ if ( $display_form )
   $query.= ' FROM '.PREFIX_TABLE.'groups';
   $query.= ' ORDER BY id ASC';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     if ( !in_array( $row['id'], $user_groups ) )

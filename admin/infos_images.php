@@ -55,7 +55,7 @@ if (isset($page['cat']))
         $query = 'SELECT id FROM '.CATEGORIES_TABLE;
         $query.= ' WHERE id = '.$_POST['associate'];
         $query.= ';';
-        if (mysql_num_rows(mysql_query($query)) == 0)
+        if (mysql_num_rows(pwg_query($query)) == 0)
           array_push($errors, $lang['cat_unknown_id']);
       }
     }
@@ -66,7 +66,7 @@ if (isset($page['cat']))
     $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
     $query.= ';';
-    $result = mysql_query($query);
+    $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
       $name          = 'name-'.$row['id'];
@@ -108,7 +108,7 @@ if (isset($page['cat']))
 
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query($query);
+        pwg_query($query);
       }
       // add link to another category
       if (isset($_POST['check-'.$row['id']]) and count($errors) == 0)
@@ -117,7 +117,7 @@ if (isset($page['cat']))
         $query.= ' (image_id,category_id) VALUES';
         $query.= ' ('.$row['id'].','.$_POST['associate'].')';
         $query.= ';';
-        mysql_query($query);
+        pwg_query($query);
         $associate = true;
       }
     }
@@ -130,7 +130,7 @@ if (isset($page['cat']))
     {
       $query = 'SELECT image_id FROM '.IMAGE_CATEGORY_TABLE;
       $query.= ' WHERE category_id = '.$page['cat'];
-      $result = mysql_query($query);
+      $result = pwg_query($query);
       while ($row = mysql_fetch_array($result))
       {
         $query = 'UPDATE '.IMAGES_TABLE;
@@ -145,7 +145,7 @@ if (isset($page['cat']))
         }
         $query.= ' WHERE id = '.$row['image_id'];
         $query.= ';';
-        mysql_query($query);
+        pwg_query($query);
       }
     }
     if (isset($_POST['use_common_date_creation']))
@@ -155,7 +155,7 @@ if (isset($page['cat']))
         $date = date_convert($_POST['date_creation_cat']);
         $query = 'SELECT image_id FROM '.IMAGE_CATEGORY_TABLE;
         $query.= ' WHERE category_id = '.$page['cat'];
-        $result = mysql_query($query);
+        $result = pwg_query($query);
         while ($row = mysql_fetch_array($result))
         {
           $query = 'UPDATE '.IMAGES_TABLE;
@@ -169,7 +169,7 @@ if (isset($page['cat']))
           }
           $query.= ' WHERE id = '.$row['image_id'];
           $query.= ';';
-          mysql_query($query);
+          pwg_query($query);
         }
       }
       else
@@ -183,7 +183,7 @@ if (isset($page['cat']))
       $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
       $query.= ' WHERE category_id = '.$page['cat'];
       $query.= ';';
-      $result = mysql_query($query);
+      $result = pwg_query($query);
       while ($row = mysql_fetch_array($result))
       {
         if (!isset($row['keywords'])) $specific_keywords = array();
@@ -222,7 +222,7 @@ if (isset($page['cat']))
         }
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
-        mysql_query($query);
+        pwg_query($query);
       }
     }
   }
@@ -316,7 +316,7 @@ SELECT *
   '.$conf['order_by'].'
   LIMIT '.$page['start'].','.$conf['info_nb_elements_page'].'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $thumbnail_url = get_thumbnail_src($row['file'],
@@ -345,7 +345,7 @@ SELECT *
   // $conf['max_LOV_categories']
   $query = 'SELECT COUNT(id) AS nb_total_categories';
   $query.= ' FROM '.CATEGORIES_TABLE.';';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
   {
     /*$vtp->addSession($sub, 'associate_LOV');

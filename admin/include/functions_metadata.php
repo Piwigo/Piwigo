@@ -128,7 +128,7 @@ function update_metadata($files)
     // depending on the MySQL version, we use the multi table update or N
     // update queries
     $query = 'SELECT VERSION() AS version;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     if (version_compare($row['version'],'4.0.4') < 0)
     {
       // MySQL is prior to version 4.0.4, multi table update feature is not
@@ -151,7 +151,7 @@ UPDATE '.IMAGES_TABLE.'
   WHERE id = '.$insert['id'].'
 ;';
         // echo '<pre>'.$query.'</pre>';
-        mysql_query($query);
+        pwg_query($query);
       }
     }
     else
@@ -160,7 +160,7 @@ UPDATE '.IMAGES_TABLE.'
       $query = '
 DESCRIBE '.IMAGES_TABLE.'
 ;';
-      $result = mysql_query($query);
+      $result = pwg_query($query);
       $columns = array();
       while ($row = mysql_fetch_array($result))
       {
@@ -187,7 +187,7 @@ PRIMARY KEY (id)
 )
 ;';
       // echo '<pre>'.$query.'</pre>';
-      mysql_query($query);
+      pwg_query($query);
       // inserts all found pictures
       $query = '
 INSERT INTO '.IMAGE_METADATA_TABLE.'
@@ -224,7 +224,7 @@ INSERT INTO '.IMAGE_METADATA_TABLE.'
       $query.= '
 ;';
       // echo '<pre>'.$query.'</pre>';
-      mysql_query($query);
+      pwg_query($query);
       // update of images table by joining with temporary table
       $query = '
 UPDATE '.IMAGES_TABLE.' AS images, '.IMAGE_METADATA_TABLE.' as metadata
@@ -235,7 +235,7 @@ UPDATE '.IMAGES_TABLE.' AS images, '.IMAGE_METADATA_TABLE.' as metadata
   WHERE images.id = metadata.id
 ;';
       echo '<pre>'.$query.'</pre>';
-      mysql_query($query);
+      pwg_query($query);
     }
   }
 }
@@ -258,7 +258,7 @@ SELECT id, dir
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NOT NULL
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $cat_dirs = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -291,7 +291,7 @@ SELECT id, uppercats
   }
   $query.= '
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $uppercats_array[$row['id']] =  $row['uppercats'];
@@ -302,7 +302,7 @@ SELECT galleries_url
   FROM '.SITES_TABLE.'
   WHERE id = 1
 ';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   $basedir = $row['galleries_url'];
   
   // filling $cat_fulldirs
@@ -328,7 +328,7 @@ SELECT id, file, storage_category_id
   }
   $query.= '
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $files[$row['id']]

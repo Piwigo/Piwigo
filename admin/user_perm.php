@@ -121,13 +121,13 @@ if ( isset( $_POST['submit'] ) )
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
   $query.= ' WHERE user_id = '.$_GET['user_id'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   // selecting all private categories
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= " WHERE status = 'private'";
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $radioname = 'access-'.$row['id'];
@@ -137,7 +137,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' (user_id,cat_id) VALUES';
       $query.= ' ('.$_GET['user_id'].','.$row['id'].')';
       $query.= ';';
-      mysql_query ( $query );
+      pwg_query ( $query );
     }
   }
   check_favorites( $_GET['user_id'] );
@@ -157,7 +157,7 @@ $vtp->setVar( $sub, 'action', add_session_id( $action ) );
 $query = 'SELECT id,name';
 $query.= ' FROM '.PREFIX_TABLE.'groups';
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $groups = array();
 while ( $row = mysql_fetch_array( $result ) )
 {
@@ -168,7 +168,7 @@ $query = 'SELECT ug.group_id as groupid';
 $query.= ' FROM '.PREFIX_TABLE.'user_group as ug';
 $query.= ' WHERE user_id = '.$_GET['user_id'];
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $usergroups = array();
 while ( $row = mysql_fetch_array( $result ) )
 {
@@ -179,7 +179,7 @@ $query = 'SELECT id';
 $query.= ' FROM '.PREFIX_TABLE.'categories';
 $query.= " WHERE status = 'private'";
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'category' );
@@ -197,7 +197,7 @@ while ( $row = mysql_fetch_array( $result ) )
   $query.= ' AND ug.user_id = '.$_GET['user_id'];
   $query.= ' AND cat_id = '.$row['id'];
   $query.= ';';
-  $subresult = mysql_query( $query );
+  $subresult = pwg_query( $query );
   $authorized_groups = array();
   while ( $subrow = mysql_fetch_array( $subresult ) )
   {

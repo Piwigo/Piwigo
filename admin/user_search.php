@@ -45,12 +45,12 @@ if ( isset( $_POST['submit'] ) )
   $query = 'DELETE FROM '.USER_ACCESS_TABLE;
   $query.= ' WHERE user_id = '.$_GET['user_id'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   // selecting all private categories
   $query = 'SELECT id FROM '.CATEGORIES_TABLE;
   $query.= " WHERE status = 'private'";
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $radioname = $row['id'];
@@ -60,7 +60,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' (user_id,cat_id) VALUES';
       $query.= ' ('.$_GET['user_id'].','.$row['id'].')';
       $query.= ';';
-      mysql_query ( $query );
+      pwg_query ( $query );
     }
   }
   check_favorites( $_GET['user_id'] );
@@ -96,7 +96,7 @@ else
   // only private categories are listed
   $query = 'SELECT id FROM '.CATEGORIES_TABLE;
   $query.= " WHERE status = 'private';";
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $is_user_allowed = is_user_allowed( $row['id'], $restrictions );

@@ -88,7 +88,7 @@ function check_cat_id( $cat )
     {
       $query = 'SELECT id';
       $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id = '.$cat.';';
-      $result = mysql_query( $query );
+      $result = pwg_query( $query );
       if ( mysql_num_rows( $result ) != 0 )
       {
         $page['cat'] = $cat;
@@ -139,7 +139,7 @@ function get_user_plain_structure()
   $query.= ';';
 
   $plain_structure = array();
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $category = array();
@@ -270,7 +270,7 @@ function count_user_total_images()
 //   $query = '
 // ;';
  
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
 
   if ( !isset( $row['total'] ) ) $row['total'] = 0;
 
@@ -306,7 +306,7 @@ function get_cat_info( $id )
   $query.= ' WHERE a.id = '.$id;
   $query.= ' AND a.site_id = b.id';
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
 
   $cat = array();
   // affectation of each field of the table "config" to an information of the
@@ -329,7 +329,7 @@ function get_cat_info( $id )
   $query.= ' WHERE id IN ('.$cat['uppercats'].')';
   $query.= ' ORDER BY id ASC';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while( $row = mysql_fetch_array( $result ) )
   {
     $cat['name'][$row['id']] = $row['name'];
@@ -368,7 +368,7 @@ function get_local_dir( $category_id )
     $query = 'SELECT uppercats';
     $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id = '.$category_id;
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
+    $row = mysql_fetch_array( pwg_query( $query ) );
     $uppercats = $row['uppercats'];
   }
 
@@ -378,7 +378,7 @@ function get_local_dir( $category_id )
   $query = 'SELECT id,dir';
   $query.= ' FROM '.CATEGORIES_TABLE.' WHERE id IN ('.$uppercats.')';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while( $row = mysql_fetch_array( $result ) )
   {
     $database_dirs[$row['id']] = $row['dir'];
@@ -403,7 +403,7 @@ SELECT galleries_url
   WHERE s.id = c.site_id
     AND c.id = '.$category_id.'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   return $row['galleries_url'];
 }
 
@@ -593,7 +593,7 @@ SELECT DISTINCT(id) AS id
   FROM '.CATEGORIES_TABLE.'
   WHERE '.implode(' OR ', $search_cat_clauses).'
 ;';
-            $result = mysql_query($query);
+            $result = pwg_query($query);
             $cat_ids = array();
             while ($row = mysql_fetch_array($result))
             {
@@ -668,9 +668,13 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
       else if ( $page['cat'] == 'most_visited' )
       {
         $page['title'] = $conf['top_number'].' '.$lang['most_visited_cat'];
-        
-        if ( isset( $forbidden ) ) $page['where'] = ' WHERE '.$forbidden;
-        else                       $page['where'] = '';
+
+        $page['where'] = 'WHERE hit > 0';
+        if (isset($forbidden))
+        {
+          $page['where'] = "\n".'    AND '.$forbidden;
+        }
+
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
         $page['cat_nb_images'] = $conf['top_number'];
         if ( isset( $page['start'] )
@@ -749,7 +753,7 @@ SELECT COUNT(1) AS count
   FROM '.IMAGES_TABLE.'
   '.$page['where'].'
 ;';
-        $row = mysql_fetch_array(mysql_query($query));
+        $row = mysql_fetch_array(pwg_query($query));
         if ($row['count'] < $conf['top_number'])
         {
           $page['cat_nb_images'] = $row['count'];
@@ -788,7 +792,7 @@ SELECT COUNT(1) AS count
 
       if (isset($query))
       {
-        $result = mysql_query( $query );
+        $result = pwg_query( $query );
         $row = mysql_fetch_array( $result );
         $page['cat_nb_images'] = $row['nb_total_images'];
       }
@@ -843,7 +847,7 @@ function get_non_empty_subcat_ids( $id_uppercat )
   $query.= ' ORDER BY rank';
   $query.= ';';
 
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     // only categories with findable picture in any of its subcats is
@@ -874,7 +878,7 @@ function get_first_non_empty_cat_id( $id_uppercat )
   }
   $query.= ' ORDER BY RAND()';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     if ( $row['nb_images'] > 0 )
@@ -882,7 +886,7 @@ function get_first_non_empty_cat_id( $id_uppercat )
       return $row['id'];
     }
   }
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     // recursive call

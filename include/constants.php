@@ -32,8 +32,8 @@ define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
 // Debug Level
-define('DEBUG', 1); // Debugging on
-//define('DEBUG', 0); // Debugging off 
+//define('DEBUG', 1); // Debugging on
+define('DEBUG', 0); // Debugging off 
  
 // User level
 define('ANONYMOUS', 2);

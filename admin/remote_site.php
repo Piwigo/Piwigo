@@ -102,7 +102,7 @@ SELECT id,dir
   $query.= '
     AND dir IS NOT NULL
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $database_dirs[$row['id']] = $row['dir'];
@@ -155,7 +155,7 @@ INSERT INTO '.$table_name.'
   }
   $query.= '
 ;';
-  mysql_query($query);
+  pwg_query($query);
 }
 
 /**
@@ -233,7 +233,7 @@ SELECT name,uppercats,dir
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$id_uppercat.'
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     
     $uppercats = $row['uppercats'];
     $name = $row['name'];
@@ -324,7 +324,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
 
   // Recursive call on the sub-categories (not virtual ones)
@@ -367,7 +367,7 @@ SELECT id,file
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$category_id.'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   $to_delete = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -390,7 +390,7 @@ SELECT file
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$category_id.'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     array_push($database_elements, $row['file']);
@@ -446,7 +446,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$category_id.'
 ;';
-    $result = mysql_query($query);
+    $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
       array_push($ids, $row['id']);
@@ -459,7 +459,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
     AND image_id IN ('.implode(',', $ids).')
 ;';
-    mysql_query($query);
+    pwg_query($query);
 
     $query = '
 INSERT INTO '.IMAGE_CATEGORY_TABLE.'
@@ -477,7 +477,7 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
     }
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
 }
 // +-----------------------------------------------------------------------+
@@ -536,7 +536,7 @@ SELECT COUNT(id) AS count
   FROM '.SITES_TABLE.'
   WHERE galleries_url = \''.$page['galleries_url'].'\'
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     if ($row['count'] > 0)
     {
       array_push($errors, $lang['remote_site_already_exists']);
@@ -570,7 +570,7 @@ INSERT INTO '.SITES_TABLE.'
   VALUES
   (\''.$page['galleries_url'].'\')
 ;';
-    mysql_query($query);
+    pwg_query($query);
 
     $template->assign_block_vars(
       'confirmation',
@@ -596,7 +596,7 @@ SELECT galleries_url
   FROM '.SITES_TABLE.'
   WHERE id = '.$page['site'].'
 ;';
-    list($galleries_url) = mysql_fetch_array(mysql_query($query));
+    list($galleries_url) = mysql_fetch_array(pwg_query($query));
   }
 
   switch($_GET['action'])
@@ -646,7 +646,7 @@ SELECT id
   FROM '.SITES_TABLE.'
   WHERE galleries_url = \''.addslashes($url).'\'
 ;';
-      $result = mysql_query($query);
+      $result = pwg_query($query);
       if (mysql_num_rows($result) == 0)
       {
         // we have to register this site in the database
@@ -656,7 +656,7 @@ INSERT INTO '.SITES_TABLE.'
   VALUES
   (\''.$url.'\')
 ;';
-        mysql_query($query);
+        pwg_query($query);
         $site_id = mysql_insert_id();
       }
       else
@@ -698,7 +698,7 @@ SELECT COUNT(*)
   FROM '.SITES_TABLE.'
   WHERE galleries_url = \''.addslashes($url).'\'
 ;';
-    list($count) = mysql_fetch_array(mysql_query($query));
+    list($count) = mysql_fetch_array(pwg_query($query));
     if ($count == 0)
     {
       $template->assign_block_vars('local.new_site', array());
@@ -715,7 +715,7 @@ SELECT id, galleries_url
   FROM '.SITES_TABLE.'
   WHERE id != 1
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 while ($row = mysql_fetch_array($result))
 {
   $base_url = PHPWG_ROOT_PATH.'admin.php';

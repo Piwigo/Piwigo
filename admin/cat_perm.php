@@ -51,11 +51,11 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' FROM '.PREFIX_TABLE.'group_access';
   $query.= ' WHERE cat_id = '.$page['cat'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'groups';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $radioname = 'groupaccess-'.$row['id'];
@@ -65,7 +65,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' (cat_id,group_id) VALUES';
       $query.= ' ('.$page['cat'].','.$row['id'].')';
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
   }
   // users access update
@@ -73,11 +73,11 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' FROM '.PREFIX_TABLE.'user_access';
   $query.= ' WHERE cat_id = '.$page['cat'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   $query = 'SELECT id';
   $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $radioname = 'useraccess-'.$row['id'];
@@ -87,7 +87,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' (cat_id,user_id) VALUES';
       $query.= ' ('.$page['cat'].','.$row['id'].')';
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
     check_favorites( $row['id'] );
   }
@@ -98,7 +98,7 @@ if ( isset( $_POST['submit'] ) )
 $query = 'SELECT id,name';
 $query.= ' FROM '.PREFIX_TABLE.'groups';
 $query. ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 if ( mysql_num_rows( $result ) > 0 )
 {
   $vtp->addSession( $sub, 'groups' );
@@ -107,7 +107,7 @@ if ( mysql_num_rows( $result ) > 0 )
   $query.= ' FROM '.PREFIX_TABLE.'group_access';
   $query.= ' WHERE cat_id = '.$_GET['cat_id'];
   $query.= ';';
-  $subresult = mysql_query( $query );
+  $subresult = pwg_query( $query );
   $authorized_groups = array();
   while ( $subrow = mysql_fetch_array( $subresult ) )
   {
@@ -144,7 +144,7 @@ if ( $user['username'] != $conf['webmaster'] )
   $query.= " WHERE username != '".$conf['webmaster']."'";
 }
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'user' );
@@ -195,7 +195,7 @@ while ( $row = mysql_fetch_array( $result ) )
   $query.= ' WHERE ug.group_id = g.id';
   $query.= ' AND ug.user_id = '.$row['id'];
   $query.= ';';
-  $subresult = mysql_query( $query );
+  $subresult = pwg_query( $query );
   if ( mysql_num_rows( $subresult ) > 0 )
   {
     $vtp->addSession( $sub, 'usergroups' );

@@ -40,13 +40,13 @@ if ( isset( $_POST['submit'] ) )
   $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
   $query.= ' WHERE group_id = '.$_GET['group_id'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
   // selecting all private categories
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= " WHERE status = 'private'";
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $radioname = 'access-'.$row['id'];
@@ -56,14 +56,14 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' (group_id,cat_id) VALUES';
       $query.= ' ('.$_GET['group_id'].','.$row['id'].')';
       $query.= ';';
-      mysql_query ( $query );
+      pwg_query ( $query );
     }
   }
   // checking users favorites
   $query = 'SELECT id';
   $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     check_favorites( $row['id'] );
@@ -85,7 +85,7 @@ $query = 'SELECT id';
 $query.= ' FROM '.PREFIX_TABLE.'categories';
 $query.= " WHERE status = 'private'";
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'category' );

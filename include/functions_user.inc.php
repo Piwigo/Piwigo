@@ -69,7 +69,7 @@ function register_user( $login, $password, $password_conf,
     $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = '".$login."'";
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     if ( mysql_num_rows($result) > 0 ) $error[$i++] = $lang['reg_err_login5'];
   }
   // given password must be the same as the confirmation
@@ -94,7 +94,7 @@ function register_user( $login, $password, $password_conf,
     $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = 'guest'";
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
+    $row = mysql_fetch_array( pwg_query( $query ) );
     // 2. adding new user
     $query = 'INSERT INTO '.USERS_TABLE;
     $query.= ' (';
@@ -115,12 +115,12 @@ function register_user( $login, $password, $password_conf,
       else                         $query.= "'".$row[$info]."'";
     }
     $query.= ');';
-    mysql_query( $query );
+    pwg_query( $query );
     // 3. retrieving the id of the newly created user
     $query = 'SELECT id';
     $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = '".$login."';";
-    $row = mysql_fetch_array( mysql_query( $query ) );
+    $row = mysql_fetch_array( pwg_query( $query ) );
     $user_id = $row['id'];
     // 4. adding access to the new user, the same as the user "guest"
     $query = 'SELECT cat_id';
@@ -128,13 +128,13 @@ function register_user( $login, $password, $password_conf,
     $query.=      ','.PREFIX_TABLE.'users as u ';
     $query.= ' where u.id = ua.user_id';
     $query.= " and u.username = 'guest';";
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     while( $row = mysql_fetch_array( $result ) )
     {
       $query = 'INSERT INTO '.PREFIX_TABLE.'user_access';
       $query.= ' (user_id,cat_id) VALUES';
       $query.= ' ('.$user_id.','.$row['cat_id'].');';
-      mysql_query ( $query );
+      pwg_query ( $query );
     }
     // 5. associate new user to the same groups that the guest
     $query = 'SELECT group_id';
@@ -143,14 +143,14 @@ function register_user( $login, $password, $password_conf,
     $query.= " WHERE u.username = 'guest'";
     $query.= ' AND ug.user_id = u.id';
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     while( $row = mysql_fetch_array( $result ) )
     {
       $query = 'INSERT INTO '.PREFIX_TABLE.'user_group';
       $query.= ' (user_id,group_id) VALUES';
       $query.= ' ('.$user_id.','.$row['group_id'].')';
       $query.= ';';
-      mysql_query ( $query );
+      pwg_query ( $query );
     }
   }
   return $error;
@@ -187,7 +187,7 @@ function update_user( $user_id, $mail_address, $status,
     }
     $query.= ' WHERE id = '.$user_id;
     $query.= ';';
-    mysql_query( $query );
+    pwg_query( $query );
   }
   return $error;
 }
@@ -270,7 +270,7 @@ function getuserdata($user)
   $sql = "SELECT * FROM " . USERS_TABLE;
   $sql.= " WHERE ";
   $sql .= ( ( is_integer($user) ) ? "id = $user" : "username = '" .  str_replace("\'", "''", $user) . "'" ) . " AND id <> " . ANONYMOUS;
-  $result = mysql_query($sql);
+  $result = pwg_query($sql);
   return ( $row = mysql_fetch_array($result) ) ? $row : false;
 }
 ?>

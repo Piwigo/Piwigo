@@ -171,7 +171,7 @@ $query = '
 SELECT param,value
  FROM '.CONFIG_TABLE.'
 ;';
-if( !( $result = mysql_query( $query ) ) )
+if( !( $result = pwg_query( $query ) ) )
 {
   die("Could not query config information");
 }

@@ -53,7 +53,7 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
   FROM '.CATEGORIES_TABLE.'
   ORDER BY id_uppercat,rank,name
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     if ($row['id_uppercat'] != $current_uppercat)
@@ -66,7 +66,7 @@ UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.++$current_rank.'
   WHERE id = '.$row['id'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
 }
 
@@ -84,7 +84,7 @@ function insert_local_category($id_uppercat)
     $query = 'SELECT name,uppercats,dir FROM '.CATEGORIES_TABLE;
     $query.= ' WHERE id = '.$id_uppercat;
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query));
+    $row = mysql_fetch_array( pwg_query( $query));
     $uppercats = $row['uppercats'];
     $name      = $row['name'];
     $dir       = $row['dir'];
@@ -98,7 +98,7 @@ function insert_local_category($id_uppercat)
 SELECT id,dir FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.$uppercats.')
 ;';
-    $result = mysql_query( $query);
+    $result = pwg_query( $query);
     while ($row = mysql_fetch_array($result))
     {
       $database_dirs[$row['id']] = $row['dir'];
@@ -143,7 +143,7 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
     AND dir IS NOT NULL'; // virtual categories not taken
   $query.= '
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $sub_category_dirs[$row['id']] = $row['dir'];
@@ -208,7 +208,7 @@ INSERT INTO '.CATEGORIES_TABLE.'
     $query.= implode(',', $inserts);
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
 
     $counts['new_categories']+= count($inserts);
     // updating uppercats field
@@ -235,7 +235,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
 
   // Recursive call on the sub-categories (not virtual ones)
@@ -256,7 +256,7 @@ SELECT id
     AND dir IS NOT NULL'; // virtual categories not taken
   $query.= '
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $output.= insert_local_category($row['id']);
@@ -291,7 +291,7 @@ SELECT id,file
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$category_id.'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     if (!in_array($row['file'], $fs_files))
@@ -313,7 +313,7 @@ SELECT id,file,tn_ext
                      create_function('$s', 'return "file LIKE \'%".$s."\'";')
                      , $conf['picture_ext'])).')
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     $thumbnail = $conf['prefix_thumbnail'];
@@ -339,7 +339,7 @@ SELECT id,file,tn_ext
 SELECT file FROM '.IMAGES_TABLE.'
    WHERE storage_category_id = '.$category_id.'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     array_push($registered_elements, $row['file']);
@@ -355,7 +355,7 @@ SELECT file
   WHERE storage_category_id = '.$category_id.'
     AND validated = \'false\'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     array_push($unvalidated_pictures, $row['file']);
@@ -504,7 +504,7 @@ INSERT INTO '.IMAGES_TABLE.'
     $query.= '
 ;';
 
-    mysql_query($query);
+    pwg_query($query);
 
     // what are the ids of the pictures in the $category_id ?
     $ids = array();
@@ -514,7 +514,7 @@ SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$category_id.'
 ;';
-    $result = mysql_query($query);
+    $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
       array_push($ids, $row['id']);
@@ -527,7 +527,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$category_id.'
     AND image_id IN ('.implode(',', $ids).')
 ;';
-    mysql_query($query);
+    pwg_query($query);
 
     foreach ($ids as $num => $image_id)
     {
@@ -538,7 +538,7 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
   (category_id,image_id) VALUES
   '.implode(',', $ids).'
 ;';
-    mysql_query($query);
+    pwg_query($query);
   }
   return $output;
 }

@@ -37,10 +37,12 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   check_restrictions( $page['cat'] );
 }
 //---------------------------------------- incrementation of the number of hits
-$query = 'UPDATE '.IMAGES_TABLE.' SET hit=hit+1';
-$query.= ' WHERE id='.$_GET['image_id'];
-$query.= ';';
-@mysql_query( $query );
+$query = '
+UPDATE '.IMAGES_TABLE.'
+  SET hit = hit+1
+  WHERE id = '.$_GET['image_id'].'
+;';
+@pwg_query( $query );
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
 // retrieving the number of the picture in its category (in order)
@@ -51,7 +53,7 @@ SELECT DISTINCT(id)
   '.$page['where'].'
   '.$conf['order_by'].'
 ;';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $page['num'] = 0;
 $belongs = false;
 while ($row = mysql_fetch_array($result))
@@ -111,7 +113,7 @@ else
 }
 $query.= ';';
 
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $indexes = array('prev', 'current', 'next');
 
 foreach (array('prev', 'current', 'next') as $i)
@@ -225,14 +227,14 @@ DELETE
   WHERE user_id = '.$user['id'].'
     AND element_id = '.$_GET['image_id'].'
 ;';
-  mysql_query($query);
+  pwg_query($query);
   $query = '
 INSERT INTO '.RATE_TABLE.'
   (user_id,element_id,rate)
   VALUES
   ('.$user['id'].','.$_GET['image_id'].','.$_GET['rate'].')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   // update of images.average_rate field
   $query = '
@@ -240,13 +242,13 @@ SELECT ROUND(AVG(rate),2) AS average_rate
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$_GET['image_id'].'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   $query = '
 UPDATE '.IMAGES_TABLE.'
   SET average_rate = '.$row['average_rate'].'
   WHERE id = '.$_GET['image_id'].'
 ;';
-  mysql_query($query);
+  pwg_query($query);
 }
 //--------------------------------------------------------- favorite management
 if ( isset( $_GET['add_fav'] ) )
@@ -255,7 +257,7 @@ if ( isset( $_GET['add_fav'] ) )
   $query.= ' WHERE user_id = '.$user['id'];
   $query.= ' AND image_id = '.$picture['current']['id'];
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   
   if ( $_GET['add_fav'] == 1 )
   {
@@ -263,7 +265,7 @@ if ( isset( $_GET['add_fav'] ) )
     $query.= ' (image_id,user_id) VALUES';
     $query.= ' ('.$picture['current']['id'].','.$user['id'].')';
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
   }
   if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
   {
@@ -301,7 +303,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
     $query.= ' FROM '.USERS_TABLE;
     $query.= " WHERE username = '".$author."'";
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
+    $row = mysql_fetch_array( pwg_query( $query ) );
     if ( $row['user_exists'] == 1 )
     {
       $template->assign_block_vars(
@@ -319,7 +321,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
     $query.= ' WHERE date > FROM_UNIXTIME('.$reference_date.')';
     $query.= " AND author = '".$author."'";
     $query.= ';';
-    if ( mysql_num_rows( mysql_query( $query ) ) == 0
+    if ( mysql_num_rows( pwg_query( $query ) ) == 0
          or $conf['anti-flood_time'] == 0 )
     {
       $query = 'INSERT INTO '.COMMENTS_TABLE;
@@ -336,7 +338,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
         $query.= ",'false'";
       }
       $query.= ');';
-      mysql_query( $query );
+      pwg_query( $query );
       // information message
       $message = $lang['comment_added'];
       if ( $conf['comments_validation'] and $user['status'] != 'admin' )
@@ -370,7 +372,7 @@ if ( isset( $_GET['del'] )
   $query = 'DELETE FROM '.COMMENTS_TABLE;
   $query.= ' WHERE id = '.$_GET['del'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 }
 
 //
@@ -502,7 +504,7 @@ if ( !$user['is_the_guest'] )
   $query = 'SELECT COUNT(*) AS nb_fav';
   $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$_GET['image_id'];
   $query.= ' AND user_id = '.$user['id'].';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   $row = mysql_fetch_array( $result );
   if (!$row['nb_fav'])
   {
@@ -712,7 +714,7 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   if ($row['count'] == 0)
   {
     $value = $lang['no_rate'];
@@ -745,7 +747,7 @@ if ($user['forbidden_categories'] != '')
 }
 $query.= '
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 $categories = '';
 while ($row = mysql_fetch_array($result))
 {
@@ -870,7 +872,7 @@ SELECT rate
   WHERE user_id = '.$user['id'].'
     AND element_id = '.$_GET['image_id'].'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   if (mysql_num_rows($result) > 0)
   {
     $row = mysql_fetch_array($result);
@@ -921,7 +923,7 @@ if ( $conf['show_comments'] )
   $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
   $query.= " AND validated = 'true'";
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   
   // navigation bar creation
   $url = PHPWG_ROOT_PATH.'picture.php';
@@ -950,7 +952,7 @@ if ( $conf['show_comments'] )
   $query.= " AND validated = 'true'";
   $query.= ' ORDER BY date ASC';
   $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
                 
   while ( $row = mysql_fetch_array( $result ) )
   {

@@ -48,7 +48,7 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id = '.$_GET['cat_id'];
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   
   $query = 'UPDATE '.CATEGORIES_TABLE;
   $query.= ' SET name = ';
@@ -78,7 +78,7 @@ if ( isset( $_POST['submit'] ) )
   }
   $query.= ' WHERE id = '.$_GET['cat_id'];
   $query.= ';';
-  mysql_query( $query );
+  pwg_query( $query );
 
   if ( $_POST['status'] != $row['status'] )
   {
@@ -86,19 +86,19 @@ if ( isset( $_POST['submit'] ) )
     $query = 'DELETE';
     $query.= ' FROM '.GROUP_ACCESS_TABLE;
     $query.= ' WHERE cat_id = '.$_GET['cat_id'];
-    mysql_query( $query );
+    pwg_query( $query );
     // deletion of all access for users concerning this category
     $query = 'DELETE';
     $query.= ' FROM '.USER_ACCESS_TABLE;
     $query.= ' WHERE cat_id = '.$_GET['cat_id'];
-    mysql_query( $query );
+    pwg_query( $query );
   }
 
   // checking users favorites
   $query = 'SELECT id';
   $query.= ' FROM '.USERS_TABLE;
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     check_favorites( $row['id'] );
@@ -111,7 +111,7 @@ $query.= ' FROM '.CATEGORIES_TABLE.' as a, '.SITES_TABLE.' as b';
 $query.= ' WHERE a.id = '.$_GET['cat_id'];
 $query.= ' AND a.site_id = b.id';
 $query.= ';';
-$category = mysql_fetch_array( mysql_query( $query ) );
+$category = mysql_fetch_array( pwg_query( $query ) );
 // nullable fields
 foreach (array('comment','dir') as $nullable)
 {
@@ -180,7 +180,7 @@ if ( $row['dir'] == '' )
   $query = 'SELECT COUNT(id) AS nb_total_categories';
   $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ';';
-  $countrow = mysql_fetch_array( mysql_query( $query ) );
+  $countrow = mysql_fetch_array( pwg_query( $query ) );
   if ( $countrow['nb_total_categories'] < $conf['max_LOV_categories'] )
   {
     $vtp->addSession( $sub, 'associate_LOV' );

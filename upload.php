@@ -106,7 +106,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   }
   else
   {
-  	@chmod( $temp_name, 0644);
+    @chmod( $temp_name, 0644);
   }
   return $result;
 }	
@@ -212,7 +212,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ",'".htmlspecialchars( $_POST['username'], ENT_QUOTES)."'";
     $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';
-    mysql_query( $query );
+    pwg_query( $query );
     $page['waiting_id'] = mysql_insert_id();
     // mail notification for administrators
     if ( $conf['mail_notification'] )
@@ -230,7 +230,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $query.= ' from '.WAITING_TABLE;
   $query.= ' where id = '.$_GET['waiting_id'];
   $query.= ';';
-  $result= mysql_query( $query );
+  $result= pwg_query( $query );
   $row = mysql_fetch_array( $result );
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
@@ -249,7 +249,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
     $query.= " set tn_ext = '".$extension."'";
     $query.= ' where id = '.$_GET['waiting_id'];
     $query.= ';';
-    mysql_query( $query );
+    pwg_query( $query );
     $page['upload_successful'] = true;
   }
 }

@@ -39,7 +39,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
   $query.= ' FROM '.PREFIX_TABLE.'groups';
   $query.= ' WHERE id = '.$_GET['delete'];
   $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
+  $row = mysql_fetch_array( pwg_query( $query ) );
   // confirm group deletion ?
   if ( !isset( $_GET['confirm'] ) or $_GET['confirm'] != 1 )
   {
@@ -60,7 +60,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
     $query.= ' FROM '.PREFIX_TABLE.'groups';
     $query.= ' WHERE id = '.$_GET['delete'];
     $query.= ';';
-    $row2 = mysql_fetch_array( mysql_query( $query ) );
+    $row2 = mysql_fetch_array( pwg_query( $query ) );
     if ( $row2['nb_result'] > 0 )
     {
       delete_group( $_GET['delete'] );
@@ -91,7 +91,7 @@ if ( isset( $_POST['submit'] ) )
     $query.= ' FROM '.PREFIX_TABLE.'groups';
     $query.= " WHERE name = '".$_POST['name']."'";
     $query.= ';';
-    $result = mysql_query( $query );
+    $result = pwg_query( $query );
     if ( mysql_num_rows( $result ) > 0 )
     {
       array_push( $error, $lang['group_add_error2'] );
@@ -103,7 +103,7 @@ if ( isset( $_POST['submit'] ) )
     $query = ' INSERT INTO '.PREFIX_TABLE.'groups';
     $query.= " (name) VALUES ('".$_POST['name']."')";
     $query.= ';';
-    mysql_query( $query );
+    pwg_query( $query );
   }
 }
 //-------------------------------------------------------------- errors display
@@ -125,7 +125,7 @@ $query = 'SELECT id,name';
 $query.= ' FROM '.PREFIX_TABLE.'groups';
 $query.= ' ORDER BY id ASC';
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
 {
   $vtp->addSession( $sub, 'group' );

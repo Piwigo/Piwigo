@@ -53,7 +53,7 @@ switch ( $_GET['page'] )
    $query = 'SELECT name FROM '.GROUPS_TABLE;
    $query.= ' WHERE id = '.$_GET['group_id'];
    $query.= ';';
-   $result = mysql_query( $query );
+   $result = pwg_query( $query );
    if ( mysql_num_rows( $result ) > 0 )
    {
      $row = mysql_fetch_array( $result );
@@ -141,7 +141,7 @@ if ( $title == '' ) $title = $lang['title_default'];
 $query = 'SELECT id FROM '.WAITING_TABLE;
 $query.= " WHERE validated='false'";
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $nb_waiting = '';
 if ( mysql_num_rows( $result ) > 0 )
 {
@@ -151,7 +151,7 @@ if ( mysql_num_rows( $result ) > 0 )
 $query = 'SELECT id FROM '.COMMENTS_TABLE;
 $query.= " WHERE validated='false'";
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $nb_comments = '';
 if ( mysql_num_rows( $result ) > 0 )
 {

@@ -50,7 +50,7 @@ if (isset($_POST['submit']) || isset($_POST['delete']))
    if ($i+1<$nb) $query.=',';
  } 
  $query.=');';
- mysql_query ($query);
+ pwg_query ($query);
 }
 
 // Cache management
@@ -58,7 +58,7 @@ $query = 'SELECT id, name, uploadable FROM '.CATEGORIES_TABLE;
 $query.= ' WHERE dir IS NOT NULL';
 $query.= ' ORDER BY name ASC';
 $query.= ';';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 while ( $row = mysql_fetch_assoc( $result ) )
 {
   if ($row['uploadable'] == 'false')

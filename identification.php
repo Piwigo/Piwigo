@@ -39,7 +39,7 @@ SELECT id, password
   FROM '.USERS_TABLE.'
   WHERE username = \''.$_POST['username'].'\'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
+  $row = mysql_fetch_array(pwg_query($query));
   if ($row['password'] == md5($_POST['password']))
   {
     $session_length = $conf['session_length'];

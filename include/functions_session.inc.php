@@ -79,7 +79,7 @@ SELECT id
   FROM '.SESSIONS_TABLE.'
   WHERE id = \''.$generated_id.'\'
 ;';
-    $result = mysql_query($query);
+    $result = pwg_query($query);
     if (mysql_num_rows($result) == 0)
     {
       $id_found = true;
@@ -94,7 +94,7 @@ INSERT INTO '.SESSIONS_TABLE.'
   (\''.$generated_id.'\','.$userid.','.$expiration.',
    \''.$_SERVER['REMOTE_ADDR'].'\')
 ;';
-  mysql_query($query);
+  pwg_query($query);
 
   setcookie('id', $generated_id, $expiration, cookie_path());
                 

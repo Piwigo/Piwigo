@@ -47,7 +47,7 @@ SELECT DISTINCT(id),file,date_available,category_id
   LIMIT '.$page['start'].','.$page['nb_image_page'].'
 ;';
 // echo '<pre>'.$query.'</pre>';
-$result = mysql_query($query);
+$result = pwg_query($query);
 
 // template thumbnail initialization
 if ( mysql_num_rows($result) > 0 )
@@ -128,7 +128,7 @@ SELECT COUNT(*) AS nb_comments
   WHERE image_id = '.$row['id'].'
     AND validated = \'true\'
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_comments',
       array('NB_COMMENTS'=>$row['nb_comments']));

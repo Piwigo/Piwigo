@@ -46,7 +46,7 @@ if ( $user['forbidden_categories'] != '' )
 }
 $query.= '
 ;';
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 
 // template thumbnail initialization
 if (mysql_num_rows($result) > 0)
@@ -75,7 +75,7 @@ SELECT id,file,tn_ext,storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-  $subrow = mysql_fetch_array( mysql_query( $query ) );
+  $subrow = mysql_fetch_array( pwg_query( $query ) );
 
   $thumbnail_src = get_thumbnail_src($subrow['file'],
                                      $subrow['storage_category_id'],

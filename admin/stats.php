@@ -52,7 +52,7 @@ $query = "SELECT DISTINCT COUNT(*) as p,
   YEAR(date) as y
   FROM phpwg_history 
   GROUP BY DATE_FORMAT(date,'%Y-%m') DESC;";
-$result = mysql_query( $query );
+$result = pwg_query( $query );
 $i=0;
 while ( $row = mysql_fetch_array( $result ) )
 {
@@ -66,14 +66,14 @@ while ( $row = mysql_fetch_array( $result ) )
     WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
 	AND FILE = 'picture'
 	GROUP BY FILE;";
-  $pictures = mysql_fetch_array(mysql_query( $query ));
+  $pictures = mysql_fetch_array(pwg_query( $query ));
   
   // Number of different visitors
   $query = "SELECT COUNT(*) as p, login
     FROM phpwg_history 
     WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
 	GROUP BY login, IP;";
-  $user_results = mysql_query( $query );
+  $user_results = pwg_query( $query );
   $nb_visitors = 0;
   $auth_users = array();
   while ( $user_array = mysql_fetch_array( $user_results ) )
@@ -112,7 +112,7 @@ $endtime   = mktime( 23,59,59,date('n'),date('j'),date('Y') );
   $query.= ' AND date < '.$endtime;
   $query.= ' ORDER BY date DESC';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   $nb_pages_seen = mysql_num_rows( $result );
   $day['nb_pages_seen'] = $nb_pages_seen;
   if ( $nb_pages_seen > $max_pages_seen ) $max_pages_seen = $nb_pages_seen;

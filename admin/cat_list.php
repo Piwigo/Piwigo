@@ -69,7 +69,7 @@ SELECT uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$parent_id.'
 ;';
-      $parent_uppercats = array_pop(mysql_fetch_array(mysql_query($query)));
+      $parent_uppercats = array_pop(mysql_fetch_array(pwg_query($query)));
     }
 	
     // we have then to add the virtual category
@@ -79,14 +79,14 @@ INSERT INTO '.CATEGORIES_TABLE.'
   VALUES
   (\''.$_POST['virtual_name'].'\','.$parent_id.','.$_POST['rank'].')
 ;';
-    mysql_query($query);
+    pwg_query($query);
 	
     // And last we update the uppercats
     $query = '
 SELECT MAX(id)
   FROM '.CATEGORIES_TABLE.'
 ;';
-    $my_id = array_pop(mysql_fetch_array(mysql_query($query)));
+    $my_id = array_pop(mysql_fetch_array(pwg_query($query)));
 
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -99,7 +99,7 @@ UPDATE '.CATEGORIES_TABLE.'
     $query.= '\'
   WHERE id = '.$my_id.'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     array_push($infos, $lang['cat_list_virtual_category_added']);
   }
 }
@@ -122,7 +122,7 @@ else
 $query.= '
   ORDER BY rank ASC
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 while ($row = mysql_fetch_assoc($result))
 {
   $categories[$row['rank']] = $row;
@@ -169,13 +169,13 @@ UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.($current_rank-1).'
   WHERE id = '.$_GET['up'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.$current_rank.'
   WHERE id = '.$categories[($current_rank-1)]['id'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     // 3. Updating the cache array
     $categories[$current_rank] = $categories[($current_rank-1)];
     $categories[($current_rank-1)] = $current;
@@ -188,7 +188,7 @@ UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.(count($categories) + 1).'
   WHERE id = '.$_GET['up'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET rank = rank-1
@@ -203,7 +203,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
     // 3. Updating the cache array
     array_push($categories, $current);
     array_shift($categories);
@@ -228,13 +228,13 @@ UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.($current_rank+1).'
   WHERE id = '.$_GET['down'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET rank = '.$current_rank.'
   WHERE id = '.$categories[($current_rank+1)]['id'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     // 3. Updating the cache array
     $categories[$current_rank]=$categories[($current_rank+1)];
     $categories[($current_rank+1)] = $current;
@@ -247,7 +247,7 @@ UPDATE '.CATEGORIES_TABLE.'
   SET rank = 0
   WHERE id = '.$_GET['down'].'
 ;';
-    mysql_query($query);
+    pwg_query($query);
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET rank = rank+1
@@ -262,7 +262,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     $query.= '
 ;';
-    mysql_query($query);
+    pwg_query($query);
     // 3. Updating the cache array
     array_unshift($categories, $current);
     array_pop($categories);
@@ -350,7 +350,7 @@ SELECT COUNT(id) AS nb_sub_cats
   FROM '. CATEGORIES_TABLE.'
   WHERE id_uppercat = '.$category['id'].'
 ;';
-    $row = mysql_fetch_array(mysql_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
 
     if ($row['nb_sub_cats'] > 0)
     {

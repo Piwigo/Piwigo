@@ -82,7 +82,7 @@ if (isset($_POST['submit']))
 
   $query.= ' WHERE id = '.$_GET['image_id'];
   $query.= ';';
-  mysql_query($query);
+  pwg_query($query);
   // make the picture representative of a category ?
   $query = '
 SELECT DISTINCT(category_id) as category_id,representative_picture_id
@@ -90,7 +90,7 @@ SELECT DISTINCT(category_id) as category_id,representative_picture_id
   WHERE c.id = ic.category_id
     AND image_id = '.$_GET['image_id'].'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     // if the user ask the picture to be the representative picture of its
@@ -102,7 +102,7 @@ SELECT DISTINCT(category_id) as category_id,representative_picture_id
       $query.= ' SET representative_picture_id = '.$_GET['image_id'];
       $query.= ' WHERE id = '.$row['category_id'];
       $query.= ';';
-      mysql_query($query);
+      pwg_query($query);
     }
     // if the user ask this picture to be not any more the representative,
     // we have to set the representative_picture_id of this category to NULL
@@ -114,7 +114,7 @@ UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = NULL
   WHERE id = '.$row['category_id'].'
 ;';
-      mysql_query($query);
+      pwg_query($query);
     }
   }
   $associate_or_dissociate = false;
@@ -133,7 +133,7 @@ SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$_POST['associate'].'
 ;';
-      if (mysql_num_rows(mysql_query($query)) == 0)
+      if (mysql_num_rows(pwg_query($query)) == 0)
         array_push($errors, $lang['cat_unknown_id']);
     }
   }
@@ -147,7 +147,7 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
   VALUES
   ('.$_POST['associate'].','.$_GET['image_id'].')
 ;';
-    mysql_query($query);
+    pwg_query($query);
     $associate_or_dissociate = true;
     update_category($_POST['associate']);
   }
@@ -158,7 +158,7 @@ SELECT DISTINCT(category_id) as category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
     if (isset($_POST['dissociate-'.$row['category_id']]))
@@ -168,7 +168,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
   AND category_id = '.$row['category_id'].'
 ;';
-      mysql_query($query);
+      pwg_query($query);
       $associate_or_dissociate = true;
       update_category($row['category_id']);
     }
@@ -185,7 +185,7 @@ SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$_GET['image_id'].'
 ;';
-$row = mysql_fetch_array(mysql_query($query));
+$row = mysql_fetch_array(pwg_query($query));
 
 if (empty($row['name']))
 {
@@ -216,7 +216,7 @@ SELECT DISTINCT(category_id) AS category_id,status,visible
   WHERE image_id = '.$_GET['image_id'].'
     AND category_id = id
 ;';
-$result = mysql_query($query);
+$result = pwg_query($query);
 $categories = '';
 while ($cat_row = mysql_fetch_array($result))
 {
@@ -286,7 +286,7 @@ if (mysql_num_rows($result) > 0)
 // $conf['max_LOV_categories']
 $query = 'SELECT COUNT(id) AS nb_total_categories';
 $query.= ' FROM '.CATEGORIES_TABLE.';';
-$row = mysql_fetch_array(mysql_query($query));
+$row = mysql_fetch_array(pwg_query($query));
 if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
 {
   $template->assign_block_vars('associate_LOV',array());

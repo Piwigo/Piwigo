@@ -87,7 +87,7 @@ if ( isset( $_POST['submit'] ) )
     }
     $query.= ' WHERE id = '.$user['id'];
     $query.= ';';
-    mysql_query( $query );
+    pwg_query( $query );
 
     if ( isset( $_POST['use_new_pwd'] ) )
     {
@@ -95,7 +95,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= " SET password = '".md5( $_POST['password'] )."'";
       $query.= ' WHERE id = '.$user['id'];
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
     if ( isset( $_POST['create_cookie'] ) )
     {
@@ -106,7 +106,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ' SET expiration = '.$_POST['cookie_expiration'];
       $query.= " WHERE id = '".$page['session_id']."'";
       $query.= ';';
-      mysql_query( $query );
+      pwg_query( $query );
     }
     // redirection
     $url = 'category.php';

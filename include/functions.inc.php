@@ -51,7 +51,7 @@ function get_enums( $table, $field )
 {
   // retrieving the properties of the table. Each line represents a field :
   // columns are 'Field', 'Type'
-  $result=mysql_query("desc $table");
+  $result=pwg_query("desc $table");
   while ( $row = mysql_fetch_array( $result ) ) 
   {
     // we are only interested in the the field given in parameter for the
@@ -350,7 +350,7 @@ function pwg_log( $file, $category, $picture = '' )
     $query.= " (NOW(), '".$user['username']."'";
     $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
     $query.= ",'".$file."','".$category."','".$picture."');";
-    mysql_query( $query );
+    pwg_query( $query );
   }
 }
 
@@ -408,7 +408,7 @@ function notify( $type, $infos = '' )
   $query.= " WHERE status = 'admin'";
   $query.= ' AND mail_address IS NOT NULL';
   $query.= ';';
-  $result = mysql_query( $query );
+  $result = pwg_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     $to = $row['mail_address'];
@@ -444,22 +444,26 @@ function pwg_write_debug()
   fclose( $fp );
 }
 
-function pwg_query( $query )
+function pwg_query($query)
 {
-  global $count_queries,$queries_time;
-
   $start = get_moment();
-  $output = '';
-  
-  $count_queries++;
-  $output.= '<br /><br />['.$count_queries.'] '.$query;
-  $result = mysql_query( $query );
-  $time = get_moment() - $start;
-  $queries_time+= $time;
-  $output.= '<b>('.number_format( $time, 3, '.', ' ').' s)</b>';
-  $output.= '('.number_format( $queries_time, 3, '.', ' ').' s)';
+  $result = mysql_query($query);
 
-  // echo $output;
+  if (DEBUG)
+  {
+    global $count_queries,$queries_time;
+   
+    $time = get_moment() - $start;
+    $count_queries++;
+    
+    $output = '';
+    $output.= '<pre>['.$count_queries.'] '."\n".$query;
+    $queries_time+= $time;
+    $output.= "\n".'(this query time : '.number_format( $time, 3, '.', ' ').' s)</b>';
+    $output.= "\n".'(total SQL time  : '.number_format( $queries_time, 3, '.', ' ').' s)';
+    $output.= '</pre>';
+    echo $output;
+  }
   
   return $result;
 }
