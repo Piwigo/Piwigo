@@ -48,7 +48,7 @@ preg_match_all('#<body[^>]*>(.*)</body>#siU', $phpinfo, $output);
 switch ($layout)
 {
   case 'old':
-    $output = preg_replace('#<table#', '<table class="table1"', $output[1][0]);
+    $output = preg_replace('#<table#', '<table class="table2"', $output[1][0]);
     $output = preg_replace('# bgcolor="\#(\w){6}"#', '', $output);
     $output = preg_replace('#(\w),(\w)#', '\1, \2', $output);
     $output = preg_replace('#border="0" cellpadding="3" cellspacing="1" width="600"#', 'border="0" cellspacing="1" cellpadding="4" width="95%"', $output);
@@ -63,13 +63,13 @@ switch ($layout)
     $output = preg_replace('#<h2 align="center">#i', '<h2>', $output);
     break;
   case 'new':
-    $output = preg_replace('#<table#', '<table class="table1" align="center"', $output[1][0]);
+    $output = preg_replace('#<table#', '<table class="table2"', $output[1][0]);
     $output = preg_replace('#(\w),(\w)#', '\1, \2', $output);
-    $output = preg_replace('#border="0" cellpadding="3" width="600"#', 'border="0" cellspacing="1" cellpadding="4" width="95%"', $output);
+    $output = preg_replace('#border="0" cellpadding="3" width="600"#', 'border="0" cellspacing="1" cellpadding="2" width="95%"', $output);
     $output = preg_replace('#<tr class="v"><td>(.*?<a .*?</a>)(.*?)</td></tr>#s', '<tr class="throw"><td><table width="100%" cellspacing="0" cellpadding="0" border="0"><tr><td>\2</td><td>\1</td></tr></table></td></tr>', $output);
     $output = preg_replace('#<td>#', '<td style="background-color: #444444;text-align:center;">', $output);
 	$output = preg_replace('#<th>#', '<th class="throw">', $output);
-    $output = preg_replace('#class="e"#', 'class="row1" nowrap="nowrap"', $output);
+    $output = preg_replace('#class="e"#', 'class="row1"', $output);
     $output = preg_replace('#class="v"#', 'class="row2"', $output);
     $output = preg_replace('# class="h"#', '', $output);
     $output = preg_replace('#<hr />#', '', $output);
