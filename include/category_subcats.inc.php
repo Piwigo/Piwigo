@@ -89,9 +89,17 @@ SELECT file,tn_ext,storage_category_id
   $file = get_filename_wo_extension($image_row['file']);
 
   // creating links for thumbnail and associated category
-  $thumbnail_link = get_complete_dir($image_row['storage_category_id']);
-  $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
-  $thumbnail_link.= $file.'.'.$image_row['tn_ext'];
+  if (isset($image_row['tn_ext']) and $image_row['tn_ext'] != '')
+  {
+    $thumbnail_link = get_complete_dir($image_row['storage_category_id']);
+    $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
+    $thumbnail_link.= $file.'.'.$image_row['tn_ext'];
+  }
+  else
+  {
+    $thumbnail_link = './template/'.$user['template'].'/mimetypes/';
+    $thumbnail_link.= strtolower(get_extension($image_row['file'])).'.png';
+  }
 
   $thumbnail_title = $lang['hint_category'];
 

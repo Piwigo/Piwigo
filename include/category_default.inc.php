@@ -85,9 +85,18 @@ while ($row = mysql_fetch_array($result))
     $name = replace_search($name, $_GET['search']);
   }
   // thumbnail url
-  $thumbnail_url = $cat_directory;
-  $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
-  $thumbnail_url.= $file.'.'.$row['tn_ext'];
+  if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+  {
+    $thumbnail_url = $cat_directory;
+    $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
+    $thumbnail_url.= $file.'.'.$row['tn_ext'];
+  }
+  else
+  {
+    $thumbnail_url = './template/'.$user['template'].'/mimetypes/';
+    $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
+  }
+  
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
   if ($row['filesize'] == '')
