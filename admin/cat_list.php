@@ -63,7 +63,8 @@ if ( isset( $_POST['submit'] ) )
   if ( preg_match( '/^\s*$/', $_POST['virtual_name'] ) )
     array_push( $errors, $lang['cat_error_name'] );
   // does the uppercat id exists in the database ?
-  if ( $_POST['associate'] == '' )
+  if ( $_POST['associate'] == ''
+       or $_POST['associate'] == '-1' )
   {
     $_POST['associate'] = -1;
   }
