@@ -37,8 +37,6 @@ $lang['page_number'] = 'page number';
 $lang['previous_page'] = 'Previous';
 $lang['next_page'] = 'Next';
 $lang['nb_image_category'] = 'number of images in this category';
-$lang['connected_user_female'] = 'connected user';
-$lang['connected_user_male'] = 'connected user';
 $lang['recent_image'] = 'image within the';
 $lang['days'] = 'days';
 $lang['send_mail'] = 'Any comment? Send me an e-mail';
@@ -74,21 +72,16 @@ $lang['about_return'] = 'Back';
 // identification page
 $lang['ident_page_title'] = 'Identification';
 $lang['ident_title'] = 'Identification';
-$lang['actual_user'] = 'User currently registered as: ';
 $lang['ident_register'] = 'Register';
 $lang['ident_forgotten_password'] = 'Forget your password ?';
 $lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
 
-// page personnalisation
+// profile page
 $lang['customize_page_title'] = 'Customization';
 $lang['customize_title'] = 'Customization';
 $lang['customize_nb_image_per_row'] = 'number of images per row';
 $lang['customize_nb_row_per_page'] = 'number of rows per page';
-$lang['customize_color'] = 'site color';
 $lang['customize_language'] = 'language';
-$lang['sex'] = 'sex';
-$lang['male'] = 'male';
-$lang['female'] = 'female';
 $lang['maxwidth'] = 'maximum width of the pictures';
 $lang['maxheight'] = 'maximum height of the pictures';
 $lang['err_maxwidth'] = 'maximum width must be a number superior to 50';
@@ -138,7 +131,6 @@ $lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
 $lang['reg_err_login5'] = 'this login is already used';
 $lang['reg_err_pass'] = 'please enter your password again';
 $lang['reg_confirm'] = 'confirm';
-$lang['reg_mail_address'] = 'mail address';
 $lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 	
 // page search
@@ -163,17 +155,82 @@ $lang['upload_err_username'] = 'the username must be given';
 $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
 
+// new in release 1.3
+$lang['charset'] = 'ISO_8859-1';
+$lang['no'] = 'no';
+$lang['yes'] = 'yes';
+$lang['guest'] = 'guest';
+$lang['mail_address'] = 'mail address';
+$lang['public'] = 'public';
+$lang['private'] = 'private';
+$lang['add'] = 'add';
+$lang['dissociate'] = 'dissociate';
+$lang['mandatory'] = 'obligatory';
+$lang['err_date'] = 'wrong date';
+$lang['picture'] = 'picture';
+$lang['IP'] = 'IP';
+$lang['close'] = 'close';
+$lang['open'] = 'open';
+$lang['keywords'] = 'keywords';
+$lang['errors_title'] = 'Errors';
+$lang['infos_title'] = 'Informations';
+$lang['default'] = 'default';
+$lang['comments'] = 'comments';
+$lang['category_representative'] = 'representative';
+$lang['stats'] = 'statistics';
+$lang['most_visited_cat_hint'] = 'displays most visited pictures';
+$lang['most_visited_cat'] = 'most visited';
+$lang['best_rated_cat_hint'] = 'displays pictures best rated';
+$lang['best_rated_cat'] = 'best rated';
+$lang['recent_cat_hint'] = 'displays most recent pictures';
+$lang['recent_cat'] = 'most recent';
+$lang['recent_cat_title'] = 'Recent pictures';
+$lang['visited'] = 'visited';
+$lang['times'] = 'times';
+$lang['customize_theme'] = 'interface theme';
+$lang['customize_expand'] = 'expand all categories';
+$lang['customize_show_nb_comments'] = 'show number of comments';
+$lang['customize_short_period'] = 'short period';
+$lang['customize_long_period'] = 'long period';
+$lang['customize_template'] = 'template';
+$lang['err_periods'] = 'periods must be integer values';
+$lang['err_periods_2'] = 'periods must be superior to 0. The long period must be grater than the short period.';
+$lang['create_cookie'] = 'create a cookie';
+$lang['customize_day'] = 'day';
+$lang['customize_week'] = 'week';
+$lang['customize_month'] = 'month';
+$lang['customize_year'] = 'year';
+$lang['slideshow'] = 'slideshow';
+$lang['period_seconds'] = 'seconds per picture';
+$lang['slideshow_stop'] = 'stop the slideshow';
+$lang['comment_added'] = 'Your comment has been registered';
+$lang['comment_to_validate'] = 'An administrator must authorize your comment before it is visible.';
+$lang['comment_anti-flood'] = 'Anti-flood system : please wait for a moment before trying to post another comment';
+$lang['comment_user_exists'] = 'This login is already used by another user';
+$lang['invalid_search'] = 'Searched words must be grater than 3 characters and must not contain punctuation mark';
+$lang['search_mode_or'] = 'at least one word';
+$lang['search_mode_and'] = 'all the words';
+$lang['search_comments'] = 'separate different words with spaces';
+$lang['upload_name'] = 'Name of the picture';
+$lang['upload_author'] = 'Author (eg "Pierrick LE GALL")';
+$lang['upload_creation_date'] = 'Creation date (DD/MM/YYYY)';
+$lang['upload_comment'] = 'Comment';
+$lang['mail_hello'] = 'Hi,';
+$lang['mail_new_upload_subject'] = 'New picture on the website';
+$lang['mail_new_upload_content'] = 'A new picture has been uploaded on the gallery. It is waiting for your validation. Let\'s meet in the administration panel to authorize or refuse this picture.';
+$lang['mail_new_comment_subject'] = 'New comment on website';
+$lang['mail_new_comment_content'] = 'A new comment has been registered on the gallery. If you chose to validate each comment, you first have to validate this comment in the administration panel to make it visible in the gallery.'."\n\n".'You can see last comments in the administration panel';
+$lang['connected_user'] = 'connected user';
+
 //-------------------------------------------------------------- administration
 if ( $isadmin )
 {
   // page admin
-  $lang['title_add'] = 'Add/Modify a user';
   $lang['title_liste_users'] = 'Users list';
   $lang['title_history'] = 'History';
   $lang['title_update'] = 'Database update';
   $lang['title_configuration'] = 'PhpWebGallery configuration';
   $lang['title_instructions'] = 'Instructions';
-  $lang['title_permissions'] = 'Modify an user permission';
   $lang['title_categories'] = 'Categories management';
   $lang['title_edit_cat'] = 'Edit a category';
   $lang['title_info_images'] = 'Modify category\'s image information';
@@ -201,16 +258,10 @@ if ( $isadmin )
   // page de configuration  
   $lang['conf_err_prefixe'] = 'thumbnail\'s prefix mustn\'t contain any accentued character';
   $lang['conf_err_mail'] = 'e-mail address refused, it must be like name@server.com';
-  $lang['conf_err_periods'] = 'periods must be integer values';
-  $lang['conf_err_periods_2'] = 'periods must be superior to 0, the long period must be superior to the short one';
   $lang['conf_err_sid_size'] = 'the session identifier size must be an integer value between 4 and 50';
   $lang['conf_err_sid_time'] = 'the session time must be an integer value between 5 and 60';
   $lang['conf_err_max_user_listbox'] = 'the max user listbox number must be an integer value between 0 and 255';
-  $lang['conf_err_message'] = 'The number of mistakes you have done is ';
   $lang['conf_confirmation'] = 'Information data registered in database';
-		
-  $lang['no'] = 'no';
-  $lang['yes'] = 'yes';
 		
   $lang['conf_general_title'] = 'Main configuration';
   $lang['conf_general_webmaster'] = 'webmaster login';
@@ -219,24 +270,12 @@ if ( $isadmin )
   $lang['conf_general_mail_info'] = 'Visitors will be able to contact by this mail';
   $lang['conf_general_prefix'] = 'thumbnail prefix';
   $lang['conf_general_prefix_info'] = 'Thumbnails use this prefix. Do not fill if your not sure.';
-  $lang['conf_general_short_period'] = 'short period';
-  $lang['conf_general_short_period_info'] = 'By days. Period within a picture is shown with a red mark. The short period must be superior to 1 day.';
-  $lang['conf_general_long_period'] = 'long period';
-  $lang['conf_general_long_period_info'] = 'By days. Period within a picture is shown with a green mark. The long period must be superior to the short period.';
   $lang['conf_general_access'] = 'access type';
   $lang['conf_general_access_1'] = 'free';
   $lang['conf_general_access_2'] = 'restricted';
   $lang['conf_general_access_info'] = '- free : anyone can enter the site, any visitor can create an account in order to customize the appareance of the website<br />- restricted : the webmaster create accounts. Only registered users can enter the site';
   $lang['conf_general_max_user_listbox'] = 'max listbox users number';
   $lang['conf_general_max_user_listbox_info'] = '- this is the number maximum of users for which PhpWebGallery display a listbox instead of a simple text box on the identification page<br />- enter a number between 0 and 255, 0 means that you want to display the listbox';
-  $lang['conf_general_default_page'] = 'default page';
-  $lang['conf_general_default_page_1'] = 'thumbnails';
-  $lang['conf_general_default_page_2'] = 'identification';
-  $lang['conf_general_default_page_info'] = 'page on which users are redirected when they go to the root of the site';
-  $lang['conf_general_expand'] = 'expand all categories';
-  $lang['conf_general_expand_1'] = 'no';
-  $lang['conf_general_expand_2'] = 'yes';
-  $lang['conf_general_expand_info'] = 'expand all categories by default in the menu ?';
   $lang['conf_comments'] = 'users comments';
   $lang['conf_comments_title'] = 'Configuration of '.$lang['conf_comments'];
   $lang['conf_comments_show_comments'] = $lang['conf_comments'];
@@ -244,7 +283,6 @@ if ( $isadmin )
   $lang['conf_comments_comments_number'] = 'number of comments per page';
   $lang['conf_comments_comments_number_info'] = 'number of comments to display on each page. This number is unlimited for a picture. Enter a number between 5 and 50.';
   $lang['conf_err_comment_number'] = 'The number of comments a page must be between 5 and 50 included.';
-  $lang['conf_remote_site_title'] = 'Remote server';
   $lang['conf_remote_site_delete_info'] = 'Deleting a remote server will delete all the image and the categories in relation with this server.';
   $lang['conf_upload_title'] = 'Configuration of the users upload';
   $lang['conf_upload_available'] = 'authorized the upload of pictures';
@@ -266,13 +304,7 @@ if ( $isadmin )
   $lang['conf_err_upload_maxheight_thumbnail'] = 'Maximum height authorized for the uploaded thumbnails must be a number superior to 10 pixels.';
 		
   $lang['conf_default_title'] = 'Default display properties for unregistered visitors and new accounts';
-  $lang['conf_default_language'] = 'default language';
   $lang['conf_default_language_info'] = 'default language';
-  $lang['conf_default_image_per_row'] = 'number of images per row';
-  $lang['conf_default_image_per_row_info'] = 'default number of images per row';
-  $lang['conf_default_row_per_page'] = 'number of row per page';
-  $lang['conf_default_row_per_page_info'] = 'default number of row per page';
-  $lang['conf_default_theme'] = 'theme';
   $lang['conf_default_theme_info'] = 'default theme';
 		
   $lang['conf_session_title'] = 'Sessions configuration';
@@ -290,17 +322,14 @@ if ( $isadmin )
   $lang['user_err_unknown'] = 'This user doesn\'t exist in the database';
 		
   // page d\'ajout/modification d\'utilisateur
-  $lang['adduser_err_message'] = 'The number of mistakes you have done is ';
   $lang['adduser_info_message'] = 'Informations registered in the database for user ';
   $lang['adduser_info_password_updated'] = '(password updated)';
   $lang['adduser_info_back'] = 'back to the users list';
 		
   $lang['adduser_fill_form'] = 'Please fill the following form';
-  $lang['adduser_login'] = 'login';
   $lang['adduser_unmodify'] = 'unmodifiable';
   $lang['adduser_status'] = 'status';
   $lang['adduser_status_admin'] = 'admin';
-  $lang['adduser_status_member'] = 'member';
   $lang['adduser_status_guest'] = 'guest';
 		
   // page permissions
@@ -310,12 +339,9 @@ if ( $isadmin )
   $lang['permuser_authorized'] = 'authorized';
   $lang['permuser_forbidden'] = 'forbidden';
   $lang['permuser_parent_forbidden'] = 'parent category forbidden';
-  $lang['permuser_cat_title'] = 'Modify permissions for ';
-		
+
   // page list users
   $lang['listuser_confirm'] = 'Do you really want to delete this user';
-  $lang['listuser_yes'] = 'yes';
-  $lang['listuser_no'] = 'no';
   $lang['listuser_info_deletion'] = 'was removed from database';
   $lang['listuser_user_group'] = 'Users group';
   $lang['listuser_modify'] = 'modify';
@@ -343,10 +369,8 @@ if ( $isadmin )
   $lang['editcat_name'] = 'Name';
   $lang['editcat_comment'] = 'Comment';
   $lang['editcat_status'] = 'Status';
-  $lang['editcat_status_info'] = '(invisible except for the administrators)';
 		
   // page info images
-  $lang['infoimage_err_date'] = 'wrong date';
   $lang['infoimage_general'] = 'General options for the category';
   $lang['infoimage_useforall'] = 'use for all pictures ?';
   $lang['infoimage_creation_date'] = 'creation date';
@@ -377,11 +401,9 @@ if ( $isadmin )
   $lang['tn_thisformat'] = 'for this file format';
   $lang['tn_err_width'] = 'width must be a number superior to';
   $lang['tn_err_height'] = 'height must be a number superior to';
-  $lang['tn_err_GD'] = 'you must choose a version of GD library';
 		
   $lang['tn_results_title'] = 'Results of miniaturization';
   $lang['tn_picture'] = 'picture';
-  $lang['tn_filesize'] = 'filesize';
   $lang['tn_results_gen_time'] = 'generated in';
 		
   $lang['tn_stats'] = 'General statistics';
@@ -429,9 +451,7 @@ if ( $isadmin )
   $lang['help_database'][0] = 'once pictures files and thumbnails correctly placed in the directories, clic on "database update" in the menu of the administration panel.';
 		
   $lang['help_infos_title'] = 'Miscellanous informations';
-  $lang['help_infos'][0] = 'The webmaster has the possibility to forbid the access to galleries for a identified user. In ordre to do this, go in the user list, then clic on "permissions" for any user.';
   $lang['help_infos'][1] = 'As soon as you created your gallery, go in the user list and modify permissions for user "visiteur". Indeed, every new registered users will have by default the same permissions as "visiteur" user.';
-  $lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The forum (message board) is available on the presentation site of PhpWebGallery.';
 		
   $lang['help_remote_title'] = 'Remote site';
   $lang['help_remote'][0] = 'PhpWebGallery offers the possibility to use several servers to store the images which will compose your gallery. It can be useful if your gallery is installed on one limited space and that you have a big quantity of images to be shown. Please , follow this procedure : ';
@@ -446,7 +466,6 @@ if ( $isadmin )
   $lang['help_upload'][0] = 'PhpWebGallery offers the possibility for users to upload images. in order to do it :';
   $lang['help_upload'][1] = '1. authorize the option in the configuration zone of the administration panel';
   $lang['help_upload'][2] = '2. authorize the rights in writing in the images directories';
-  $lang['help_upload'][3] = 'Uploaded images by the users are not directly visible on the website, they must be validated by an administrator.  For that purpose, an administrator must go on the page "en attente" of the administration panel, to validate or to refuse the images proposed, then launch an update of the images data.';
 	
   // installation
   $lang['install_message'] = 'Message';
@@ -454,7 +473,6 @@ if ( $isadmin )
   $lang['step1_confirmation'] = 'Parameters are correct';
   $lang['step1_err_db'] = 'Connection to server succeed, but it was impossible to connect to database';
   $lang['step1_err_server'] = 'Can\'t connect to server';
-  $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue)';
   $lang['step1_err_copy_2'] = 'The next step of the installation is now possible';
   $lang['step1_err_copy_next'] = 'next step';
   $lang['step1_title'] = 'Step 1/2';
@@ -468,9 +486,8 @@ if ( $isadmin )
   $lang['step1_database_info'] = 'also given by your host provider';
   $lang['step1_prefix'] = 'Database table prefix';
   $lang['step1_prefix_info'] = 'database tables names will be prefixed with it (enables you to manage better your tables)';
-		
+
   $lang['step2_err_login1'] = 'enter a login for webmaster';
-  $lang['step2_err_login2'] = 'webmaster login can\'t start or end with a space character';
   $lang['step2_err_login3'] = 'webmaster login can\'t contain characters \' or "';
   $lang['step2_err_pass'] = 'please enter your password again';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
@@ -488,5 +505,87 @@ Once this file deleted , follow this instructions :
   $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
   $lang['step2_pwd_conf'] = 'confirm password';
   $lang['step2_pwd_conf_info'] = 'verification';
+
+  // new in release 1.3
+  $lang['remote_site'] = 'Remote site';
+  $lang['title_add'] = 'Add a user';
+  $lang['title_modify'] = 'Modify a user';
+  $lang['title_groups'] = 'Groups management';
+  $lang['title_user_perm'] = 'Modify permission for user';
+  $lang['title_cat_perm'] = 'Modify permissions for category';
+  $lang['title_group_perm'] = 'Modify permissions for group';
+  $lang['title_comments'] = 'Users comments';
+  $lang['title_picmod'] = 'Modify informations about a picture';
+  $lang['menu_groups'] = 'Groups';
+  $lang['menu_comments'] = 'Comments';
+  $lang['conf_general_log'] = 'history';
+  $lang['conf_general_log_info'] = 'Keep an history of visits on your website ? Visits will be shown in the history section of the administration panel';
+  $lang['conf_general_mail_notification'] = 'Mail notification';
+  $lang['conf_general_mail_notification_info'] = 'Automated mail notification for adminsitrators (and only for them) when a user add a comment or upload a picture.';
+  $lang['conf_comments_validation'] = 'validation';
+  $lang['conf_comments_validation_info'] = 'An administrator validate users posted comments before the becom visible on the site';
+  $lang['conf_comments_forall'] = 'for all ?';
+  $lang['conf_comments_forall_info'] = 'Even guest not registered can post comments';
+  $lang['conf_default_nb_image_per_row_info'] = 'number of pictures for each row by default';
+  $lang['conf_default_nb_row_per_page_info'] = 'number of rows by page by default';
+  $lang['conf_default_short_period_info'] = 'By days. Period within a picture is shown with a red mark. The short period must be superior to 1 day.';
+  $lang['conf_default_long_period_info'] = 'By days. Period within a picture is shown with a green mark. The long period must be superior to the short period.';
+  $lang['conf_default_expand_info'] = 'expand all categories by default in the menu ?';
+  $lang['conf_default_show_nb_comments_info'] = 'show the number of comments for each picture on the thumbnails page';
+  $lang['conf_default_maxwidth_info'] = 'Maximum width for display pictures : picture will have a new width only for display, picture files won\'t be changed. Let empty if you don\'t wish to have a limit.';
+  $lang['conf_default_maxheight_info'] = 'Just as the maximum width, but for the height';
+  $lang['conf_session_cookie'] = 'authorize cookies';
+  $lang['conf_session_cookie_info'] = 'users won\'t have to log on each visit any more. Less secure.';
+  $lang['adduser_associate'] = 'Associate to group';
+  $lang['group_add'] = 'Add a group';
+  $lang['group_add_error1'] = 'The name of a group must not contain " or \'';
+  $lang['group_add_error2'] = 'This name is already used by another group';
+  $lang['group_confirm'] = 'Are you sure you want to remove this group ?';
+  $lang['group_list_title'] = 'List of existing groups';
+  $lang['group_err_unknown'] = 'This group doesn\'t exist in the database';
+  $lang['cat_permission'] = 'permissions';
+  $lang['cat_update'] = 'update';
+  $lang['cat_add'] = 'Add a virtual category';
+  $lang['cat_parent'] = 'parent category';
+  $lang['cat_error_name'] = 'The name of a category mustn\'t be empty';
+  $lang['cat_virtual'] = 'virtual';
+  $lang['cat_first'] = 'Move first';
+  $lang['cat_last'] = 'Move last';
+  $lang['editcat_visible_info'] = '(invisible but for administrators)';
+  $lang['editcat_visible'] = 'Visible';
+  $lang['editcat_uploadable'] = 'Upload available';
+  $lang['infoimage_keyword_separation'] = '(separate with coma ",")';
+  $lang['infoimage_addtoall'] = 'add to all';
+  $lang['infoimage_removefromall'] = 'remove from all';
+  $lang['infoimage_associate'] = 'Associate to the category';
+  $lang['update_wrong_dirname'] = 'The name of the directory must be composed of letters, figures, "-", "_" or "."';
+  $lang['stats_last_days'] = 'last days';
+  $lang['stats_pages_seen'] = 'pages seen';
+  $lang['stats_visitors'] = 'guests';
+  $lang['stats_empty'] = 'empty history';
+  $lang['stats_pages_seen_graph_title'] = 'Number of pages seen by day';
+  $lang['stats_visitors_graph_title'] = 'Number of guests by day';
+  $lang['comments_last_title'] = 'Last comments';
+  $lang['comments_non_validated_title'] = 'Comments waiting for validation';
+  $lang['help_database'][1] = 'In order to avoid the update of too many pictures in a single update, I advise to start by updating only categories, then on the categories section of the administration panel, update each category thanks to the link "update"';
+  $lang['help_upload'][3] = 'The category must have upload available itself for upload.';
+  $lang['help_upload'][4] = 'Uploaded images by the users are not directly visible on the website, they must be validated by an administrator.  For that purpose, an administrator must go on the page "en attente" of the administration panel, to validate or to refuse the images proposed, then launch an update of the images data.';
+  $lang['help_virtual_title'] = 'Links between pictures and categories and virtual categories';
+  $lang['help_virtual'][0] = 'PhpWebGallery is able to dissociate categories where pictures are stored and categories where pictures are shown.';
+  $lang['help_virtual'][1] = 'By default, pictures are shown only in their real categories : the ones corresponding to directories on the web server.';
+  $lang['help_virtual'][2] = 'To link a picture to a category, you just have to make the association on the page of picture informations or on the informations of all pictures of a category.';
+  $lang['help_virtual'][3] = 'Using this principle, it is possible to create virtual categories in PhpWebGallery : no real directory coresponds to this category. You just have to create this category on the section "categories" of the admin panel.';
+  $lang['help_groups_title'] = 'Users Groups';
+  $lang['help_groups'][0] = 'PhpWebGallery is able to manage groups of users. It can be very useful to have common permission access for private categories.';
+  $lang['help_groups'][1] = '1. Create the group "family" on the section "Groups" of admin panel.';
+  $lang['help_groups'][2] = '2. On the section "Users", edit on of them and associate him to the group "family".';
+  $lang['help_groups'][3] = '3. By modifying the permissions for a category or for a group, you\'ll see that all categories accessible for a group are accessible for its members.';
+  $lang['help_groups'][4] = 'A user can belong to several groups. The authorization is stronger than prohibition : if a user "jack" belongs to the group "family" and "friends", and that only group "family" can see category "Christmas 2003", "jack" will be able to see "Christmas 2003".';
+  $lang['help_access_title'] = 'Access authorization';
+  $lang['help_access'][0] = 'PhpWebGallery is able to forbid access to categories. Categories can be "public" or "private". In order to forbid access to a category :';
+  $lang['help_access'][1] = '1. Modify category informations (from the "categories" section in tha admin panel) and make it "private".';
+  $lang['help_access'][2] = '2. On the page of permissions (for a group or a user) the private category will be shown and you\'ll be able to authorize access or not.';
+  $lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
+  $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
 }
 ?>
