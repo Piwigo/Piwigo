@@ -228,7 +228,7 @@ CREATE TABLE phpwebgallery_users (
 DROP TABLE IF EXISTS phpwebgallery_waiting;
 CREATE TABLE phpwebgallery_waiting (
   id int(10) unsigned NOT NULL auto_increment,
-  cat_id smallint(5) unsigned NOT NULL default '0',
+  category_id smallint(5) unsigned NOT NULL default '0',
   file varchar(255) NOT NULL default '',
   username varchar(255) NOT NULL default '',
   mail_address varchar(255) NOT NULL default '',
