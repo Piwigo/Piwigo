@@ -16,97 +16,97 @@ table:user_group
 table:users
 table:waiting
 
-column:id                        table:categories     type:smallint                 nullable:Y length:5   signed:N
-column:date_last                 table:categories     type:date                     nullable:N
-column:nb_images                 table:categories     type:mediumint                nullable:Y length:8   signed:N
-column:name                      table:categories     type:varchar                  nullable:Y length:255 binary:N
-column:id_uppercat               table:categories     type:smallint                 nullable:N length:5   signed:N
-column:comment                   table:categories     type:text                     nullable:N
-column:dir                       table:categories     type:varchar                  nullable:N length:255 binary:N
-column:rank                      table:categories     type:tinyint                  nullable:N length:3   signed:N
-column:status                    table:categories     type:enum('public','private') nullable:Y
-column:site_id                   table:categories     type:tinyint                  nullable:Y length:4   signed:N
-column:visible                   table:categories     type:enum('true','false')     nullable:Y
-column:uploadable                table:categories     type:enum('true','false')     nullable:Y
-column:representative_picture_id table:categories     type:mediumint                nullable:N length:8   signed:N
-column:uppercats                 table:categories     type:varchar                  nullable:Y length:255 binary:N
-column:id                        table:comments       type:int                      nullable:Y length:11  signed:N
-column:image_id                  table:comments       type:mediumint                nullable:Y length:8   signed:N
-column:date                      table:comments       type:datetime                 nullable:Y
-column:author                    table:comments       type:varchar                  nullable:N length:255 binary:N
-column:content                   table:comments       type:longtext                 nullable:N
-column:validated                 table:comments       type:enum('true','false')     nullable:Y
-column:param                     table:config         type:varchar                  nullable:Y length:40  binary:N
-column:value                     table:config         type:varchar                  nullable:N length:255 binary:N
-column:comment                   table:config         type:varchar                  nullable:N length:255 binary:N
-column:user_id                   table:favorites      type:smallint                 nullable:Y length:5   signed:N
-column:image_id                  table:favorites      type:mediumint                nullable:Y length:8   signed:N
-column:group_id                  table:group_access   type:smallint                 nullable:Y length:5   signed:N
-column:cat_id                    table:group_access   type:smallint                 nullable:Y length:5   signed:N
-column:id                        table:groups         type:smallint                 nullable:Y length:5   signed:N
-column:name                      table:groups         type:varchar                  nullable:Y length:255 binary:N
-column:date                      table:history        type:int                      nullable:Y length:11  signed:Y
-column:login                     table:history        type:varchar                  nullable:N length:15  binary:N
-column:IP                        table:history        type:varchar                  nullable:Y length:50  binary:N
-column:category                  table:history        type:varchar                  nullable:N length:150 binary:N
-column:file                      table:history        type:varchar                  nullable:N length:50  binary:N
-column:picture                   table:history        type:varchar                  nullable:N length:150 binary:N
-column:image_id                  table:image_category type:mediumint                nullable:Y length:8   signed:N
-column:category_id               table:image_category type:smallint                 nullable:Y length:5   signed:N
-column:id                        table:images         type:mediumint                nullable:Y length:8   signed:N
-column:file                      table:images         type:varchar                  nullable:Y length:255 binary:N
-column:date_available            table:images         type:date                     nullable:Y
-column:date_creation             table:images         type:date                     nullable:N
-column:tn_ext                    table:images         type:varchar                  nullable:N length:4   binary:N
-column:name                      table:images         type:varchar                  nullable:N length:255 binary:N
-column:comment                   table:images         type:text                     nullable:N
-column:author                    table:images         type:varchar                  nullable:N length:255 binary:N
-column:hit                       table:images         type:int                      nullable:Y length:10  signed:N
-column:filesize                  table:images         type:mediumint                nullable:N length:9   signed:N
-column:width                     table:images         type:smallint                 nullable:N length:9   signed:N
-column:height                    table:images         type:smallint                 nullable:N length:9   signed:N
-column:keywords                  table:images         type:varchar                  nullable:N length:255 binary:N
-column:storage_category_id       table:images         type:smallint                 nullable:N length:5   signed:N
-column:representative_ext        table:images         type:varchar                  nullable:N length:4   binary:N
-column:date_metadata_update      table:images         type:date                     nullable:N
-column:average_rate              table:images         type:float                    nullable:N length:5,2 signed:N
-column:user_id                   table:rate           type:smallint                 nullable:Y length:5   signed:N
-column:element_id                table:rate           type:mediumint                nullable:Y length:8   signed:N
-column:rate                      table:rate           type:tinyint                  nullable:Y length:2   signed:N
-column:id                        table:sessions       type:varchar                  nullable:Y length:255 binary:Y
-column:user_id                   table:sessions       type:smallint                 nullable:Y length:5   signed:N
-column:expiration                table:sessions       type:int                      nullable:Y length:10  signed:N
-column:ip                        table:sessions       type:varchar                  nullable:Y length:255 binary:N
-column:id                        table:sites          type:tinyint                  nullable:Y length:4   signed:Y
-column:galleries_url             table:sites          type:varchar                  nullable:Y length:255 binary:N
-column:user_id                   table:user_access    type:smallint                 nullable:Y length:5   signed:N
-column:cat_id                    table:user_access    type:smallint                 nullable:Y length:5   signed:N
-column:user_id                   table:user_group     type:smallint                 nullable:Y length:5   signed:N
-column:group_id                  table:user_group     type:smallint                 nullable:Y length:5   signed:N
-column:id                        table:users          type:smallint                 nullable:Y length:5   signed:N
-column:username                  table:users          type:varchar                  nullable:Y length:20  binary:Y
-column:password                  table:users          type:varchar                  nullable:Y length:255 binary:N
-column:mail_address              table:users          type:varchar                  nullable:N length:255 binary:N
-column:nb_image_line             table:users          type:tinyint                  nullable:Y length:1   signed:N
-column:nb_line_page              table:users          type:tinyint                  nullable:Y length:3   signed:N
-column:status                    table:users          type:enum('admin','guest')    nullable:Y
-column:language                  table:users          type:varchar                  nullable:Y length:50  binary:N
-column:maxwidth                  table:users          type:smallint                 nullable:N length:6   signed:Y
-column:maxheight                 table:users          type:smallint                 nullable:N length:6   signed:Y
-column:expand                    table:users          type:enum('true','false')     nullable:Y
-column:show_nb_comments          table:users          type:enum('true','false')     nullable:Y
-column:recent_period             table:users          type:tinyint                  nullable:Y length:3   signed:N
-column:template                  table:users          type:varchar                  nullable:Y length:255 binary:N
-column:forbidden_categories      table:users          type:text                     nullable:N
-column:id                        table:waiting        type:int                      nullable:Y length:10  signed:N
-column:storage_category_id       table:waiting        type:smallint                 nullable:Y length:5   signed:N
-column:file                      table:waiting        type:varchar                  nullable:Y length:255 binary:N
-column:username                  table:waiting        type:varchar                  nullable:Y length:255 binary:N
-column:mail_address              table:waiting        type:varchar                  nullable:Y length:255 binary:N
-column:date                      table:waiting        type:int                      nullable:Y length:10  signed:N
-column:tn_ext                    table:waiting        type:char                     nullable:N length:3   binary:N
-column:validated                 table:waiting        type:enum('true','false')     nullable:Y
-column:infos                     table:waiting        type:text                     nullable:N
+column:id                        table:categories     type:smallint                 nullable:N length:5   signed:N
+column:date_last                 table:categories     type:date                     nullable:Y
+column:nb_images                 table:categories     type:mediumint                nullable:N length:8   signed:N
+column:name                      table:categories     type:varchar                  nullable:N length:255 binary:N
+column:id_uppercat               table:categories     type:smallint                 nullable:Y length:5   signed:N
+column:comment                   table:categories     type:text                     nullable:Y
+column:dir                       table:categories     type:varchar                  nullable:Y length:255 binary:N
+column:rank                      table:categories     type:tinyint                  nullable:Y length:3   signed:N
+column:status                    table:categories     type:enum('public','private') nullable:N
+column:site_id                   table:categories     type:tinyint                  nullable:N length:4   signed:N
+column:visible                   table:categories     type:enum('true','false')     nullable:N
+column:uploadable                table:categories     type:enum('true','false')     nullable:N
+column:representative_picture_id table:categories     type:mediumint                nullable:Y length:8   signed:N
+column:uppercats                 table:categories     type:varchar                  nullable:N length:255 binary:N
+column:id                        table:comments       type:int                      nullable:N length:11  signed:N
+column:image_id                  table:comments       type:mediumint                nullable:N length:8   signed:N
+column:date                      table:comments       type:datetime                 nullable:N
+column:author                    table:comments       type:varchar                  nullable:Y length:255 binary:N
+column:content                   table:comments       type:longtext                 nullable:Y
+column:validated                 table:comments       type:enum('true','false')     nullable:N
+column:param                     table:config         type:varchar                  nullable:N length:40  binary:N
+column:value                     table:config         type:varchar                  nullable:Y length:255 binary:N
+column:comment                   table:config         type:varchar                  nullable:Y length:255 binary:N
+column:user_id                   table:favorites      type:smallint                 nullable:N length:5   signed:N
+column:image_id                  table:favorites      type:mediumint                nullable:N length:8   signed:N
+column:group_id                  table:group_access   type:smallint                 nullable:N length:5   signed:N
+column:cat_id                    table:group_access   type:smallint                 nullable:N length:5   signed:N
+column:id                        table:groups         type:smallint                 nullable:N length:5   signed:N
+column:name                      table:groups         type:varchar                  nullable:N length:255 binary:N
+column:date                      table:history        type:int                      nullable:N length:11  signed:Y
+column:login                     table:history        type:varchar                  nullable:Y length:15  binary:N
+column:IP                        table:history        type:varchar                  nullable:N length:50  binary:N
+column:category                  table:history        type:varchar                  nullable:Y length:150 binary:N
+column:file                      table:history        type:varchar                  nullable:Y length:50  binary:N
+column:picture                   table:history        type:varchar                  nullable:Y length:150 binary:N
+column:image_id                  table:image_category type:mediumint                nullable:N length:8   signed:N
+column:category_id               table:image_category type:smallint                 nullable:N length:5   signed:N
+column:id                        table:images         type:mediumint                nullable:N length:8   signed:N
+column:file                      table:images         type:varchar                  nullable:N length:255 binary:N
+column:date_available            table:images         type:date                     nullable:N
+column:date_creation             table:images         type:date                     nullable:Y
+column:tn_ext                    table:images         type:varchar                  nullable:Y length:4   binary:N
+column:name                      table:images         type:varchar                  nullable:Y length:255 binary:N
+column:comment                   table:images         type:text                     nullable:Y
+column:author                    table:images         type:varchar                  nullable:Y length:255 binary:N
+column:hit                       table:images         type:int                      nullable:N length:10  signed:N
+column:filesize                  table:images         type:mediumint                nullable:Y length:9   signed:N
+column:width                     table:images         type:smallint                 nullable:Y length:9   signed:N
+column:height                    table:images         type:smallint                 nullable:Y length:9   signed:N
+column:keywords                  table:images         type:varchar                  nullable:Y length:255 binary:N
+column:storage_category_id       table:images         type:smallint                 nullable:Y length:5   signed:N
+column:representative_ext        table:images         type:varchar                  nullable:Y length:4   binary:N
+column:date_metadata_update      table:images         type:date                     nullable:Y
+column:average_rate              table:images         type:float                    nullable:Y length:5,2 signed:N
+column:user_id                   table:rate           type:smallint                 nullable:N length:5   signed:N
+column:element_id                table:rate           type:mediumint                nullable:N length:8   signed:N
+column:rate                      table:rate           type:tinyint                  nullable:N length:2   signed:N
+column:id                        table:sessions       type:varchar                  nullable:N length:255 binary:Y
+column:user_id                   table:sessions       type:smallint                 nullable:N length:5   signed:N
+column:expiration                table:sessions       type:int                      nullable:N length:10  signed:N
+column:ip                        table:sessions       type:varchar                  nullable:N length:255 binary:N
+column:id                        table:sites          type:tinyint                  nullable:N length:4   signed:Y
+column:galleries_url             table:sites          type:varchar                  nullable:N length:255 binary:N
+column:user_id                   table:user_access    type:smallint                 nullable:N length:5   signed:N
+column:cat_id                    table:user_access    type:smallint                 nullable:N length:5   signed:N
+column:user_id                   table:user_group     type:smallint                 nullable:N length:5   signed:N
+column:group_id                  table:user_group     type:smallint                 nullable:N length:5   signed:N
+column:id                        table:users          type:smallint                 nullable:N length:5   signed:N
+column:username                  table:users          type:varchar                  nullable:N length:20  binary:Y
+column:password                  table:users          type:varchar                  nullable:N length:255 binary:N
+column:mail_address              table:users          type:varchar                  nullable:Y length:255 binary:N
+column:nb_image_line             table:users          type:tinyint                  nullable:N length:1   signed:N
+column:nb_line_page              table:users          type:tinyint                  nullable:N length:3   signed:N
+column:status                    table:users          type:enum('admin','guest')    nullable:N
+column:language                  table:users          type:varchar                  nullable:N length:50  binary:N
+column:maxwidth                  table:users          type:smallint                 nullable:Y length:6   signed:Y
+column:maxheight                 table:users          type:smallint                 nullable:Y length:6   signed:Y
+column:expand                    table:users          type:enum('true','false')     nullable:N
+column:show_nb_comments          table:users          type:enum('true','false')     nullable:N
+column:recent_period             table:users          type:tinyint                  nullable:N length:3   signed:N
+column:template                  table:users          type:varchar                  nullable:N length:255 binary:N
+column:forbidden_categories      table:users          type:text                     nullable:Y
+column:id                        table:waiting        type:int                      nullable:N length:10  signed:N
+column:storage_category_id       table:waiting        type:smallint                 nullable:N length:5   signed:N
+column:file                      table:waiting        type:varchar                  nullable:N length:255 binary:N
+column:username                  table:waiting        type:varchar                  nullable:N length:255 binary:N
+column:mail_address              table:waiting        type:varchar                  nullable:N length:255 binary:N
+column:date                      table:waiting        type:int                      nullable:N length:10  signed:N
+column:tn_ext                    table:waiting        type:char                     nullable:Y length:3   binary:N
+column:validated                 table:waiting        type:enum('true','false')     nullable:N
+column:infos                     table:waiting        type:text                     nullable:Y
 
 PK:categories_pk     table:categories     column:id
 PK:comments_pk       table:comments       column:id
