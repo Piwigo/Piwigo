@@ -102,21 +102,22 @@ $row = mysql_fetch_array( mysql_query( $query_user ) );
 // affectation of each value retrieved in the users table into a variable
 // of the array $user.
 foreach ( $infos as $info ) {
-  // If the field is true or false, the variable is transformed into a
-  // boolean value.
-  if ( $row[$info] == 'true' or $row[$info] == 'false' )
+  if ( isset( $row[$info] ) )
   {
-    $user[$info] = get_boolean( $row[$info] );
-  }
-  else if ( $info == 'forbidden_categories' )
-  {
-    $user[$info] = $row[$info];
-    $user['restrictions'] = explode( ',', $row[$info] );
-    if ( $user['restrictions'][0] == '' ) $user['restrictions'] = array();
+    // If the field is true or false, the variable is transformed into a
+    // boolean value.
+    if ( $row[$info] == 'true' or $row[$info] == 'false' )
+      $user[$info] = get_boolean( $row[$info] );
+    else
+      $user[$info] = $row[$info];    
   }
   else
   {
-    $user[$info] = $row[$info];    
+    $user[$info] = '';
   }
 }
+
+// special for $user['restrictions'] array
+$user['restrictions'] = explode( ',', $user['forbidden_categories'] );
+if ( $user['restrictions'][0] == '' ) $user['restrictions'] = array();
 ?>
