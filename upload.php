@@ -167,7 +167,8 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, $lang['upload_err_username'] );
   }
-
+  
+  $date_creation = '';
   if ( $_POST['date_creation'] != '' )
   {
     list( $day,$month,$year ) = explode( '/', $_POST['date_creation'] );
@@ -192,6 +193,14 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   $xml_infos.= ' date_creation="'.$date_creation.'"';
   $xml_infos.= ' name="'.htmlspecialchars( $_POST['name'], ENT_QUOTES).'"';
   $xml_infos.= ' />';
+
+  if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )
+  {
+    // reload language file with administration labels
+    $isadmin = true;
+    include( './language/'.$user['language'].'.php' );
+    array_push( $error, $lang['update_wrong_dirname'] );
+  }
   
   if ( sizeof( $error ) == 0 )
   {
