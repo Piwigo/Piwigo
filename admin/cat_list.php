@@ -132,7 +132,7 @@ while ($row = mysql_fetch_assoc($result))
 // +-----------------------------------------------------------------------+
 if (isset($_GET['parent_id']))
 {
-  $separator = ' -&gt; ';
+  $separator = ' <span style="font-size:15px">&rarr;</span> ';
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
   
   $navigation = '<a class="" href="'.add_session_id($base_url).'">';

@@ -990,4 +990,106 @@ SELECT id,uppercats
   $fields = array('primary' => array('id'), 'update' => array('global_rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
+
+/**
+ * change the visible property on a set of categories
+ *
+ * @param array categories
+ * @param string value
+ * @return void
+ */
+function set_cat_visible($categories, $value)
+{
+  if (!in_array($value, array('true', 'false')))
+  {
+    return false;
+  }
+
+  // unlocking a category => all its parent categories become unlocked
+  if ($value == 'true')
+  {
+    $uppercats = array();
+    $query = '
+SELECT uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $categories).')
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $uppercats = array_merge($uppercats,
+                               explode(',', $row['uppercats']));
+    }
+    $uppercats = array_unique($uppercats);
+      
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET visible = \'true\'
+  WHERE id IN ('.implode(',', $uppercats).')
+;';
+    pwg_query($query);
+  }
+  // locking a category   => all its child categories become locked
+  if ($value == 'false')
+  {
+    $subcats = get_subcat_ids($categories);
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET visible = \'false\'
+  WHERE id IN ('.implode(',', $subcats).')
+;';
+    pwg_query($query);
+  }
+}
+
+/**
+ * change the status property on a set of categories : private or public
+ *
+ * @param array categories
+ * @param string value
+ * @return void
+ */
+function set_cat_status($categories, $value)
+{
+  if (!in_array($value, array('public', 'private')))
+  {
+    return false;
+  }
+
+  // make public a category => all its parent categories become public
+  if ($value == 'public')
+  {
+    $uppercats = array();
+    $query = '
+SELECT uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $categories).')
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $uppercats = array_merge($uppercats,
+                               explode(',', $row['uppercats']));
+    }
+    $uppercats = array_unique($uppercats);
+      
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET status = \'public\'
+  WHERE id IN ('.implode(',', $uppercats).')
+;';
+    pwg_query($query);
+  }
+  // make a category private => all its child categories become private
+  if ($value == 'private')
+  {
+    $subcats = get_subcat_ids($categories);
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET status = \'private\'
+  WHERE id IN ('.implode(',', $subcats).')
+;';
+    pwg_query($query);
+  }
+}
 ?>

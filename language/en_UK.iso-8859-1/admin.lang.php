@@ -43,8 +43,12 @@ $lang['authorized'] = 'Authorized';
 $lang['forbidden'] = 'Forbidden';
 $lang['free'] = 'Free';
 $lang['restricted'] = 'Restricted';
+$lang['public'] = 'public';
+$lang['private'] = 'private';
 $lang['metadata']='Metadata';
 $lang['visitors'] = 'Visitors';
+$lang['locked'] = 'Locked';
+$lang['unlocked'] = 'Unlocked';
 $lang['lock'] = 'Lock';
 $lang['unlock'] = 'Unlock';
 $lang['up'] = 'Move up';
@@ -89,19 +93,26 @@ $lang['cat_image_info'] = 'Images info';
 $lang['editcat_status'] = 'Status';
 $lang['editcat_confirm'] = 'Category informations updated successfully.';
 $lang['editcat_perm'] = 'To set permissions for this category, click';
-$lang['cat_access_info'] = 'Permission management.';
+$lang['editcat_uploadable'] = 'Authorize upload';
+$lang['editcat_uploadable_info'] = 'Authorize users to upload files';
+$lang['editcat_commentable'] = 'Users comments';
+$lang['editcat_commentable_info'] = 'Authorize users to comment elements of this category';
+$lang['cat_access_info'] = 'Permission management. If you make a category private, all its child categories becomes private. If you make a category public, all its parent categories becomes public';
+$lang['editcat_visible_info'] = 'Lock temporary for maintenance. If you lock a category, all its child categories become locked. If you unlock a category, all its parent categories become unlocked.';
 $lang['cat_virtual_added'] = 'Virtual category added';
 $lang['cat_virtual_deleted'] = 'Virtual category deleted';
 $lang['cat_upload_title'] = 'Select uploadable categories';
 $lang['cat_upload_info'] = 'Only non virtual and non remote categories are shown.';
 $lang['cat_lock_title'] = 'Lock categories';
-$lang['cat_lock_info'] = 'Selected categories will temporary been disabled for maintenance.';
+$lang['cat_lock_info'] = 'Selected categories will temporary been disabled for maintenance.
+<br />If you lock a category, all its child categories become locked.
+<br />If you unlock a category, all its parent categories become unlocked.';
 $lang['cat_comments_title'] = 'Authorize users to add comments on selected categories';
 $lang['cat_comments_info'] = 'By inheritance, an element is commentable if it belongs at least to one commentable category.';
 $lang['cat_status_title'] = 'Manage authorizations for selected categories';
 $lang['cat_status_info'] = 'Selected categories are private : you will need to authorize users and/or groups to access to them.
 <br />If you make a category private, all its child categories becomes private.
-<br />It you make a category public, all its parent categories becomes public';
+<br />If you make a category public, all its parent categories becomes public';
 
 // Titles
 $lang['admin_panel'] = 'Administration Panel';

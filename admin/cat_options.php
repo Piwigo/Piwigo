@@ -64,26 +64,12 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'visible' :
     {
-      // locking a category   => all its child categories become locked
-      $subcats = get_subcat_ids($_POST['cat_true']);
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET visible = \'false\'
-  WHERE id IN ('.implode(',', $subcats).')
-;';
-      pwg_query($query);
+      set_cat_visible($_POST['cat_true'], 'false');
       break;
     }
     case 'status' :
     {
-      // make a category private => all its child categories become private
-      $subcats = get_subcat_ids($_POST['cat_true']);
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET status = \'private\'
-  WHERE id IN ('.implode(',', $subcats).')
-;';
-      pwg_query($query);
+      set_cat_status($_POST['cat_true'], 'private');
       break;
     }
   }
@@ -116,52 +102,12 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'visible' :
     {
-      // unlocking a category => all its parent categories become unlocked
-      $uppercats = array();
-      $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['cat_false']).')
-;';
-      $result = pwg_query($query);
-      while ($row = mysql_fetch_array($result))
-      {
-        $uppercats = array_merge($uppercats,
-                                 explode(',', $row['uppercats']));
-      }
-      $uppercats = array_unique($uppercats);
-      
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET visible = \'true\'
-  WHERE id IN ('.implode(',', $uppercats).')
-;';
-      pwg_query($query);
+      set_cat_visible($_POST['cat_false'], 'true');
       break;
     }
     case 'status' :
     {
-      // make public a category => all its parent categories become public
-      $uppercats = array();
-      $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['cat_false']).')
-;';
-      $result = pwg_query($query);
-      while ($row = mysql_fetch_array($result))
-      {
-        $uppercats = array_merge($uppercats,
-                                 explode(',', $row['uppercats']));
-      }
-      $uppercats = array_unique($uppercats);
-      
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET status = \'public\'
-  WHERE id IN ('.implode(',', $uppercats).')
-;';
-      pwg_query($query);
+      set_cat_status($_POST['cat_false'], 'public');
       break;
     }
   }
@@ -273,8 +219,8 @@ SELECT id,name,uppercats,global_rank
     $template->assign_vars(
       array(
         'L_CAT_TITLE' => $lang['cat_lock_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['lock'],
-        'L_CAT_OPTIONS_FALSE' => $lang['unlock'],
+        'L_CAT_OPTIONS_TRUE' => $lang['unlocked'],
+        'L_CAT_OPTIONS_FALSE' => $lang['locked'],
         'L_CAT_OPTIONS_INFO' => $lang['cat_lock_info'],
         )
       );

@@ -7,8 +7,8 @@
 <table style="width:100%;">
     <!-- BEGIN server -->
     <tr>
-      <td style="width:50%;">{L_REMOTE_SITE}</td>
-      <td class="row1">{SITE_URL}</td>
+      <td style="width:50%;"><strong>{L_REMOTE_SITE}</strong></td>
+      <td class="row1">{server.SITE_URL}</td>
     </tr>
     <!-- END server -->
     <tr>
@@ -32,17 +32,33 @@
     <tr>
       <td><strong>{L_EDIT_STATUS}&nbsp;:</strong><br /><span class="small">{L_EDIT_STATUS_INFO}</span></td>
       <td class="row1">
-	  <input type="radio" class="radio" name="status" value="public" {ACCESS_FREE} />{L_ACCESS_FREE}&nbsp;&nbsp;
-	  <input type="radio" class="radio" name="status" value="private" {ACCESS_RESTRICTED} />{L_ACCESS_RESTRICTED}
+	  <input type="radio" class="radio" name="status" value="public" {STATUS_PUBLIC} />{L_STATUS_PUBLIC}&nbsp;&nbsp;
+	  <input type="radio" class="radio" name="status" value="private" {STATUS_PRIVATE} />{L_STATUS_PRIVATE}
       </td>
     </tr>
-	<tr>
+    <tr>
       <td><strong>{L_EDIT_LOCK}&nbsp;:</strong><br /><span class="small">{L_EDIT_LOCK_INFO}</span></td>
       <td class="row1">
 	  <input type="radio" class="radio" name="visible" value="false" {LOCKED} />{L_YES}&nbsp;&nbsp;
 	  <input type="radio" class="radio" name="visible" value="true" {UNLOCKED} />{L_NO}
       </td>
     </tr>
+    <tr>
+      <td><strong>{L_EDIT_COMMENTABLE}&nbsp;:</strong><br /><span class="small">{L_EDIT_COMMENTABLE_INFO}</span></td>
+      <td class="row1">
+          <input type="radio" class="radio" name="commentable" value="false" {COMMENTABLE_TRUE} />{L_YES}&nbsp;&nbsp;
+          <input type="radio" class="radio" name="commentable" value="true" {COMMENTABLE_FALSE} />{L_NO}
+      </td>
+    </tr>
+    <!-- BEGIN upload -->
+    <tr>
+      <td><strong>{L_EDIT_UPLOADABLE}&nbsp;:</strong><br /><span class="small">{L_EDIT_UPLOADABLE_INFO}</span></td>
+      <td class="row1">
+          <input type="radio" class="radio" name="uploadable" value="true" {UPLOADABLE_TRUE} />{L_YES}&nbsp;&nbsp;
+          <input type="radio" class="radio" name="uploadable" value="false" {UPLOADABLE_FALSE} />{L_NO}
+      </td>
+    </tr>
+    <!-- END upload -->
     <!-- BEGIN parent -->
     <tr>
       <td>{#cat_parent}</td>
