@@ -150,27 +150,19 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('category'=>'category.tpl') );
 
 //-------------------------------------------------------------- category title
-$cat_title = $lang['no_category'];
-if ( isset ( $page['cat'] ) )
+if ( !isset( $page['title'] ) )
 {
-  if ( is_numeric( $page['cat'] ) )
-  {
-    $cat_title = get_cat_display_name( $page['cat_name'], ' - ');
-  }
-  else
-  {
-    if ( $page['cat'] == 'search' )
-    {
-      $page['title'].= ' : <span style="font-style:italic;">';
-      $page['title'].= $_GET['search']."</span>";
-    }
-    $page['title'] = replace_space( $page['title'] );
-  }
+  $page['title'] = $lang['no_category'];
+}
+$template_title = $page['title'];
+if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
+{
+  $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
 $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
-  'TITLE' => $cat_title,
+  'TITLE' => $template_title,
   'USERNAME' => $user['username'],
   'TOP_VISITED'=>$conf['top_number'],
 
@@ -181,15 +173,16 @@ $template->assign_vars(array(
   'L_TOTAL' => $lang['total'],
   'L_FAVORITE_HINT' => $lang['favorite_cat_hint'],
   'L_FAVORITE' => $lang['favorite_cat'],
-  'L_STATS' => $lang['stats'],
+  'L_SPECIAL_CATEGORIES' => $lang['special_categories'],
   'L_MOST_VISITED_HINT' => $lang['most_visited_cat_hint'],
   'L_MOST_VISITED' => $lang['most_visited_cat'],
   'L_RECENT_HINT' => $lang['recent_cat_hint'],
   'L_RECENT' => $lang['recent_cat'],
+  'L_CALENDAR' => $lang['calendar'],
+  'L_CALENDAR_HINT' => $lang['calendar_hint'],
   'L_SUMMARY' => $lang['title_menu'],
   'L_UPLOAD' => $lang['upload_picture'],
   'L_COMMENT' => $lang['comments'],
-  'L_NB_IMG' => $lang['nb_image_category'],
   'L_IDENTIFY' => $lang['ident_title'],
   'L_SUBMIT' => $lang['menu_login'],
   'L_USERNAME' => $lang['login'],
@@ -211,6 +204,7 @@ $template->assign_vars(array(
   'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
   'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
   'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent' ),
+  'U_CALENDAR'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=calendar' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
@@ -292,6 +286,10 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
   // iteration counter to be sure not to create too much lines in the table
   $line_number = 0;
 
+  $row_number  = 1;
+  $line_opened = false;
+  $displayed_pics = 0;
+  
   while ( $row = mysql_fetch_array( $result ) )
   {
     // retrieving the storage dir of the picture
@@ -332,35 +330,281 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
     // date of availability for creation icon
     list( $year,$month,$day ) = explode( '-', $row['date_available'] );
     $date = mktime( 0, 0, 0, $month, $day, $year );
-    
-	// sending vars to display
-	if (!$cell_number && ( $line_number< $user['nb_line_page']))
+
+    // create a new line ?
+    if ( (!$line_opened or $row_number++ == $user['nb_image_line'] )
+         and $displayed_pics++ < mysql_num_rows( $result ) )
     {
       $template->assign_block_vars('thumbnails.line', array());
-      $cell_number = 0;
-	  $line_number++;
+      $row_number = 1;
+      $line_opened = true;
     }
-	if ( $cell_number++ == $user['nb_image_line'] -1) $cell_number = 0;
-	
-	$template->assign_block_vars('thumbnails.line.thumbnail', array(
-	  'IMAGE'=>$thumbnail_url,
-	  'IMAGE_ALT'=>$row['file'],
-	  'IMAGE_TITLE'=>$thumbnail_title,
-	  'IMAGE_NAME'=>$name,
-	  'IMAGE_TS'=>get_icon( $date ),
-
-	  'U_IMG_LINK'=>add_session_id( $url_link )
-	  ));
-	  
-    if ( $conf['show_comments'] && $user['show_nb_comments'] )
+    
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail',
+      array(
+        'IMAGE'=>$thumbnail_url,
+        'IMAGE_ALT'=>$row['file'],
+        'IMAGE_TITLE'=>$thumbnail_title,
+        'IMAGE_NAME'=>$name,
+        'IMAGE_TS'=>get_icon( $date ),
+        
+        'U_IMG_LINK'=>add_session_id( $url_link )
+        ));
+    
+    if ( $conf['show_comments'] and $user['show_nb_comments'] )
     {
       $query = 'SELECT COUNT(*) AS nb_comments';
       $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$row['id'];
       $query.= " AND validated = 'true'";
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
-      $template->assign_block_vars( 'thumbnails.line.thumbnail.nb_comments', 
-	    array('NB_COMMENTS'=>$row['nb_comments']) );
+      $template->assign_block_vars(
+        'thumbnails.line.thumbnail.nb_comments',
+        array('NB_COMMENTS'=>$row['nb_comments']) );
+    }
+  }
+}
+//-------------------------------------------------------------------- calendar
+elseif ( isset( $page['cat'] ) and $page['cat'] == 'calendar' )
+{
+  // years of image availability
+  $query = 'SELECT DISTINCT(YEAR(date_available)) AS year';
+  $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+  $query.= $page['where'];
+  $query.= ' AND id = image_id';
+  $query.= ' ORDER BY year';
+  $query.= ';';
+  $result = mysql_query( $query );
+  $calendar_years = array();
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $calendar_years, $row['year'] );
+  }
+
+  if ( !isset( $page['calendar_year'] )
+       or !in_array( $page['calendar_year'], $calendar_years ) )
+  {
+    $page['calendar_year'] = max( $calendar_years );
+  }
+
+  // years navigation bar creation
+  $years_nav_bar = '';
+  foreach ( $calendar_years as $calendar_year ) {
+    if ( $calendar_year == $page['calendar_year'] )
+    {
+      $years_nav_bar.= ' <span class="selected">';
+      $years_nav_bar.= $calendar_year;
+      $years_nav_bar.= '</span>';
+    }
+    else
+    {
+      $url = PHPWG_ROOT_PATH.'category.php?cat=calendar';
+      $url.= '&amp;year='.$calendar_year;
+      $years_nav_bar.= ' ';
+      $years_nav_bar.= '<a href="'.add_session_id( $url ).'">';
+      $years_nav_bar.= $calendar_year;
+      $years_nav_bar.= '</a>';
+    }
+  }
+  $template->assign_block_vars(
+    'calendar',
+    array( 'YEARS_NAV_BAR' => $years_nav_bar )
+    );
+  
+  $query = 'SELECT DISTINCT(MONTH(date_available)) AS month';
+  $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+  $query.= $page['where'];
+  $query.= ' AND id = image_id';
+  $query.= ' AND YEAR(date_available) = '.$page['calendar_year'];
+  $query.= ' ORDER BY month';
+  $query.= ';';
+  $result = mysql_query( $query );
+  $calendar_months = array();
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $calendar_months, $row['month'] );
+  }
+
+  // months navigation bar creation
+  $months_nav_bar = '';
+  foreach ( $calendar_months as $calendar_month ) {
+    if ( isset( $page['calendar_month'] )
+         and $calendar_month == $page['calendar_month'] )
+    {
+      $months_nav_bar.= ' <span class="selected">';
+      $months_nav_bar.= $lang['month'][(int)$calendar_month];
+      $months_nav_bar.= '</span>';
+    }
+    else
+    {
+      $url = PHPWG_ROOT_PATH.'category.php?cat=calendar&amp;month=';
+      $url.= $page['calendar_year'].'.';
+      if ( $calendar_month < 10 )
+      {
+        // adding leading zero
+        $url.= '0';
+      }
+      $url.= $calendar_month;
+      $months_nav_bar.= ' ';
+      $months_nav_bar.= '<a href="'.add_session_id( $url ).'">';
+      $months_nav_bar.= $lang['month'][(int)$calendar_month];
+      $months_nav_bar.= '</a>';
+    }
+  }
+  $template->assign_block_vars(
+    'calendar',
+    array( 'MONTHS_NAV_BAR' => $months_nav_bar )
+    );
+
+  $row_number  = 1;
+  $line_opened = false;
+  $displayed_pics = 0;
+  $template->assign_block_vars('thumbnails', array());
+  
+  if ( !isset( $page['calendar_month'] ) )
+  {
+    // for each month of this year, display a random picture
+    foreach ( $calendar_months as $calendar_month ) {
+      $query = 'SELECT COUNT(id) AS nb_picture_month';
+      $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+      $query.= $page['where'];
+      $query.= ' AND YEAR(date_available) = '.$page['calendar_year'];
+      $query.= ' AND MONTH(date_available) = '.$calendar_month;
+      $query.= ' AND id = image_id';
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+      $nb_picture_month = $row['nb_picture_month'];
+
+      $query = 'SELECT file,tn_ext,date_available,storage_category_id';
+      $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+      $query.= $page['where'];
+      $query.= ' AND YEAR(date_available) = '.$page['calendar_year'];
+      $query.= ' AND MONTH(date_available) = '.$calendar_month;
+      $query.= ' AND id = image_id';
+      $query.= ' ORDER BY RAND()';
+      $query.= ' LIMIT 0,1';
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+      
+      $file = get_filename_wo_extension( $row['file'] );
+      
+      // creating links for thumbnail and associated category
+      $thumbnail_link = get_complete_dir( $row['storage_category_id'] );
+      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
+      $thumbnail_link.= $file.'.'.$row['tn_ext'];
+      
+      $name = $lang['month'][$calendar_month];
+      $name.= ' '.$page['calendar_year'];
+      $name.= ' ['.$nb_picture_month.']';
+
+      $thumbnail_title = $lang['calendar_picture_hint'].$name;
+      
+      $url_link = PHPWG_ROOT_PATH.'category.php?cat=calendar';
+      $url_link.= '&amp;month='.$page['calendar_year'].'.';
+      if ( $calendar_month < 10 )
+      {
+        // adding leading zero
+        $url_link.= '0';
+      }
+      $url_link.= $calendar_month;
+      
+      // create a new line ?
+      if ( ( !$line_opened or $row_number++ == $user['nb_image_line'] )
+           and $displayed_pics++ < count( $calendar_months ) )
+      {
+        $template->assign_block_vars('thumbnails.line', array());
+        $row_number = 1;
+        $line_opened = true;
+      }
+
+      $template->assign_block_vars(
+        'thumbnails.line.thumbnail',
+        array(
+          'IMAGE'=>$thumbnail_link,
+          'IMAGE_ALT'=>$row['file'],
+          'IMAGE_TITLE'=>$thumbnail_title,
+          'IMAGE_NAME'=>$name,
+          
+          'U_IMG_LINK'=>add_session_id( $url_link )
+          )
+        );
+    }
+  }
+  else
+  {
+    $query = 'SELECT DISTINCT(date_available) AS day';
+    $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+    $query.= $page['where'];
+    $query.= ' AND id = image_id';
+    $query.= ' AND YEAR(date_available) = '.$page['calendar_year'];
+    $query.= ' AND MONTH(date_available) = '.$page['calendar_month'];
+    $query.= ' ORDER BY day';
+    $query.= ';';
+    $result = mysql_query( $query );
+    $calendar_days = array();
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      array_push( $calendar_days, $row['day'] );
+    }
+    // for each month of this year, display a random picture
+    foreach ( $calendar_days as $calendar_day ) {
+      $query = 'SELECT COUNT(id) AS nb_picture_day';
+      $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+      $query.= $page['where'];
+      $query.= " AND date_available = '".$calendar_day."'";
+      $query.= ' AND id = image_id';
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+      $nb_picture_day = $row['nb_picture_day'];
+      
+      $query = 'SELECT file,tn_ext,date_available,storage_category_id';
+      $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+      $query.= $page['where'];
+      $query.= " AND date_available = '".$calendar_day."'";
+      $query.= ' AND id = image_id';
+      $query.= ' ORDER BY RAND()';
+      $query.= ' LIMIT 0,1';
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+
+      $file = get_filename_wo_extension( $row['file'] );
+      
+      // creating links for thumbnail and associated category
+      $thumbnail_link = get_complete_dir( $row['storage_category_id'] );
+      $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
+      $thumbnail_link.= $file.'.'.$row['tn_ext'];
+
+      list($year,$month,$day) = explode( '-', $calendar_day );
+      $unixdate = mktime(0,0,0,$month,$day,$year);
+      $name = $lang['day'][date( "w", $unixdate )];
+      $name.= ' '.$day;
+      $name.= ' ['.$nb_picture_day.']';
+      
+      $thumbnail_title = $lang['calendar_picture_hint'].$name;
+
+      $url_link = PHPWG_ROOT_PATH.'category.php?cat=search';
+      
+      // create a new line ?
+      if ( ( !$line_opened or $row_number++ == $user['nb_image_line'] )
+           and $displayed_pics++ < count( $calendar_months ) )
+      {
+        $template->assign_block_vars('thumbnails.line', array());
+        $row_number = 1;
+        $line_opened = true;
+      }
+
+      $template->assign_block_vars(
+        'thumbnails.line.thumbnail',
+        array(
+          'IMAGE'=>$thumbnail_link,
+          'IMAGE_ALT'=>$row['file'],
+          'IMAGE_TITLE'=>$thumbnail_title,
+          'IMAGE_NAME'=>$name,
+          
+          'U_IMG_LINK'=>add_session_id( $url_link )
+          )
+        );
     }
   }
 }
@@ -418,47 +662,68 @@ else
     $date = $page['plain_structure'][$subcat_id]['date_last'];
 
     // sending vars to display
-	if (!$cell_number && $i < count( $subcats ))
+    if (!$cell_number && $i < count( $subcats ))
     {
       $template->assign_block_vars('thumbnails.line', array());
       $cell_number = 0;
-	  $i++;
+      $i++;
     }
-	if ( $cell_number++ == $user['nb_image_line'] -1) $cell_number = 0;
-	
-	$template->assign_block_vars('thumbnails.line.thumbnail', array(
-	  'IMAGE'=>$thumbnail_link,
-	  'IMAGE_ALT'=>$image_row['file'],
-	  'IMAGE_TITLE'=>$thumbnail_title,
-	  'IMAGE_NAME'=>$name,
-	  'IMAGE_TS'=>get_icon( $date ),
-
-	  'U_IMG_LINK'=>add_session_id( $url_link )
-	  ));  
+    if ( $cell_number++ == $user['nb_image_line'] -1 )
+    {
+      $cell_number = 0;
+    }
+    
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail',
+      array(
+        'IMAGE'=>$thumbnail_link,
+        'IMAGE_ALT'=>$image_row['file'],
+        'IMAGE_TITLE'=>$thumbnail_title,
+        'IMAGE_NAME'=>$name,
+        'IMAGE_TS'=>get_icon( $date ),
+        
+        'U_IMG_LINK'=>add_session_id( $url_link )
+        )
+      );
   }
 }
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {
   // upload a picture in the category
-  if ( is_numeric( $page['cat']) && $page['cat_site_id'] == 1
-       && $conf['upload_available'] && $page['cat_uploadable'] )
+  if ( is_numeric( $page['cat'] )
+       and $page['cat_site_id'] == 1
+       and $conf['upload_available']
+       and $page['cat_uploadable'] )
   {
     $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
-	$template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
+    $template->assign_block_vars(
+      'upload',
+      array('U_UPLOAD'=>add_session_id( $url ))
+      );
+  }
+
+  if ( $page['navigation_bar'] != ''
+       or ( isset( $page['comment'] ) and $page['comment'] != '' ) )
+  {
+    $template->assign_block_vars('cat_infos',array());
   }
   
-  $template->assign_block_vars('cat_infos',array('NB_IMG_CAT' => $page['cat_nb_images']));
-
   // navigation bar
   if ( $page['navigation_bar'] != '' )
   { 
-    $template->assign_block_vars('cat_infos.navigation',array('NAV_BAR' => $page['navigation_bar']));
+    $template->assign_block_vars(
+      'cat_infos.navigation',
+      array('NAV_BAR' => $page['navigation_bar'])
+      );
   }
   // category comment
   if ( isset( $page['comment'] ) and $page['comment'] != '' )
   {
-    $template->assign_block_vars('cat_infos.comment',array('COMMENTS' => $page['comment']));
+    $template->assign_block_vars(
+      'cat_infos.comment',
+      array('COMMENTS' => $page['comment'])
+      );
   }
 }
 //------------------------------------------------------------ log informations
