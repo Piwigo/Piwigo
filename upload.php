@@ -94,6 +94,10 @@ function validate_upload( $temp_name, $my_max_file_size,
     // destruction de l'image avec le nom temporaire
     @unlink( $temp_name );
   }
+  else
+  {
+  	@chmod( $temp_name, 0644);
+  }
   return $result;
 }	
 //----------------------------------------------------------- personnal include
