@@ -333,14 +333,20 @@ function pwg_log( $file, $category, $picture = '' )
 {
   global $conf, $user;
 
-  if ( $conf['log'] )
+  if ($conf['log'])
   {
-    $query = 'insert into '.HISTORY_TABLE;
-    $query.= ' (date,login,IP,file,category,picture) values';
-    $query.= " (NOW(), '".$user['username']."'";
-    $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
-    $query.= ",'".$file."','".$category."','".$picture."');";
-    pwg_query( $query );
+    $query = '
+INSERT INTO '.HISTORY_TABLE.'
+  (date,login,IP,file,category,picture)
+  VALUES
+  (NOW(),
+  \''.(($user['id'] == 2) ? 'guest' : $user['username']).'\',
+  \''.$_SERVER['REMOTE_ADDR'].'\',
+  \''.$file.'\',
+  \''.$category.'\',
+  \''.$picture.'\')
+;';
+    pwg_query($query);
   }
 }
 
