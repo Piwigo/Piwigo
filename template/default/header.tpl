@@ -13,6 +13,4 @@
  </head>
 
  <body>
-  <table class="main">
-   <tr>
-    <td>
+ <div class="main">

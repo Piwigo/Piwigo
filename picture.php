@@ -193,7 +193,8 @@ foreach (array('prev', 'current', 'next') as $i)
   }
 
   $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php';
-  $picture[$i]['url'].= get_query_string_diff(array('image_id','add_fav'));
+  $picture[$i]['url'].= get_query_string_diff(array('image_id','add_fav',
+                          'slideshow'));
   $picture[$i]['url'].= '&amp;image_id='.$row['id'];
 }
 
@@ -207,6 +208,8 @@ if ( $page['cat'] == 'search' )
 $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
 $url_admin.= '&amp;cat_id='.$page['cat'];
 $url_admin.= '&amp;image_id='.$_GET['image_id'];
+
+$url_slide = $picture['current']['url'].'&amp;slideshow='.$conf['slideshow_period'];
 //----------------------------------------------------------- rate registration
 if (isset($_GET['rate'])
     and $conf['rate']
@@ -373,7 +376,7 @@ if ( isset( $_GET['del'] )
 
 $title =  $picture['current']['name'];
 $refresh = 0;
-if ( isset( $_GET['slideshow'] ) and $next )
+if ( isset( $_GET['slideshow'] ) and $has_next )
 {
   $refresh= $_GET['slideshow'];
   $url_link = $picture['next']['url'].'&amp;slideshow='.$refresh;
@@ -385,9 +388,7 @@ if (is_numeric( $page['cat'] ))
 {
   $title_img = replace_space(get_cat_display_name( $page['cat_name'], " &gt; "));
   $n = $page['num'] + 1;
-  $title_nb = "Photo".' '.$n.'/';
-  $title_nb.= $page['cat_nb_images'];
-  //$title_img.= $picture['current']['name'];
+  $title_nb = $n.'/'.$page['cat_nb_images'];
 }
 else if ( $page['cat'] == 'search' )
 {
@@ -409,6 +410,23 @@ else
 
 $picture_size = get_picture_size( $original_width, $original_height,
 				  $user['maxwidth'], $user['maxheight'] );
+
+// metadata
+if ($conf['show_exif'] or $conf['show_iptc'])
+{
+  $metadata_showable = true;
+}
+else
+{
+  $metadata_showable = false;
+}
+
+$url_metadata = PHPWG_ROOT_PATH.'picture.php';
+$url_metadata .=  get_query_string_diff(array('add_fav', 'slideshow', 'show_metadata'));
+if ($metadata_showable and !isset($_GET['show_metadata']))
+{
+  $url_metadata.= '&amp;show_metadata=1';
+}
 				  
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
@@ -437,38 +455,77 @@ $template->assign_vars(array(
   'L_COMMENT' =>$lang['comment'],
   'L_DOWNLOAD' => $lang['download'],
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
-  'L_PICTURE_SHOW_METADATA' => $lang['picture_show_metadata'],
-  'L_PICTURE_HIDE_METADATA' => $lang['picture_hide_metadata'],
-  
-  'T_DEL_IMG' =>PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/delete.gif',
+  'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
   
   'U_HOME' => add_session_id($url_home),
+  'U_METADATA' => add_session_id($url_metadata),
   'U_ADMIN' => add_session_id($url_admin),
+  'U_SLIDESHOW'=> add_session_id($url_slide),
   'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
   )
 );
-
-//-------------------------------------------------------- slideshow management
-if ( isset( $_GET['slideshow'] ) )
+//-------------------------------------------------------- upper menu management
+// download link if file is not a picture
+if (!$picture['current']['is_picture'])
 {
-  if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'][0];
-	
-  $template->assign_block_vars('stop_slideshow', array(
-  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'] )
-  ));
+  $template->assign_block_vars('download', array(
+        'U_DOWNLOAD' => $picture['current']['download']
+      ));
 }
 else
 {
-  $template->assign_block_vars('start_slideshow', array());
-  foreach ( $conf['slideshow_period'] as $option ) 
-  {
-    $template->assign_block_vars('start_slideshow.second', array(
-	  'SLIDESHOW_SPEED'=>$option,
-	  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'].'&amp;slideshow='.$option)
-	  ));
-  }
+  $template->assign_block_vars('ecard', array(
+        'U_ECARD' => $picture['current']['url']
+      ));
 }
 
+//------------------------------------------------------- favorite manipulation
+if ( !$user['is_the_guest'] )
+{
+  // verify if the picture is already in the favorite of the user
+  $query = 'SELECT COUNT(*) AS nb_fav';
+  $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$_GET['image_id'];
+  $query.= ' AND user_id = '.$user['id'].';';
+  $result = mysql_query( $query );
+  $row = mysql_fetch_array( $result );
+  if (!$row['nb_fav'])
+  {
+    $url = PHPWG_ROOT_PATH.'picture.php';
+    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= '&amp;add_fav=1';
+
+    $template->assign_block_vars(
+      'favorite',
+      array(
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',
+        'FAVORITE_HINT' =>$lang['add_favorites_hint'],
+        'FAVORITE_ALT' =>$lang['add_favorites_alt'],
+        'U_FAVORITE' => $url
+        ));
+  }
+  else
+  {
+    $url = PHPWG_ROOT_PATH.'picture.php';
+    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= '&amp;add_fav=0';
+    
+    $template->assign_block_vars(
+      'favorite',
+      array(
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.gif',
+        'FAVORITE_HINT' =>$lang['del_favorites_hint'],
+        'FAVORITE_ALT' =>$lang['del_favorites_alt'],
+        'U_FAVORITE'=> $url
+        ));
+  }
+}
+//------------------------------------ admin link for information modifications
+if ( $user['status'] == 'admin' )
+{
+  $template->assign_block_vars('admin', array());
+}
+
+//-------------------------------------------------------- navigation management
 if ($has_prev)
 {
   $template->assign_block_vars(
@@ -502,15 +559,7 @@ if (isset($picture['current']['comment'])
         'COMMENT_IMG' => $picture['current']['comment']
       ));
 }
-// download link if file is not a picture
-if (!$picture['current']['is_picture'])
-{
-  $template->assign_block_vars(
-    'download',
-    array(
-        'U_DOWNLOAD' => $picture['current']['download']
-      ));
-}
+
 
 // author
 if ( !empty($picture['current']['author']) )
@@ -642,34 +691,13 @@ SELECT COUNT(rate) AS count
       'VALUE' => $value
       ));
 }
-//-------------------------------------------------------------------- metadata
-if ($conf['show_exif'] or $conf['show_iptc'])
-{
-  $metadata_showable = true;
-}
-else
-{
-  $metadata_showable = false;
-}
 
-if ($metadata_showable and !isset($_GET['show_metadata']))
-{
-  $url = PHPWG_ROOT_PATH.'picture.php?'.$_SERVER['QUERY_STRING'];
-  $url.= '&amp;show_metadata=1';
-  $template->assign_block_vars('show_metadata', array('URL' => $url));
-}
+//metadata
 
 if ($metadata_showable and isset($_GET['show_metadata']))
 {
-  $url = PHPWG_ROOT_PATH.'picture.php';
-  $url.= get_query_string_diff(array('show_metadata','add_fav'));
-  
-  $template->assign_block_vars('hide_metadata', array('URL' => $url));
-  
   include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
-  
   $template->assign_block_vars('metadata', array());
-  
   if ($conf['show_exif'])
   {
     if ($exif = @read_exif_data($picture['current']['src']))
@@ -678,7 +706,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
         'metadata.headline',
         array('TITLE' => 'EXIF Metadata')
         );
-      
+
       foreach ($conf['show_exif_fields'] as $field)
       {
         if (strpos($field, ';') === false)
@@ -723,7 +751,6 @@ if ($metadata_showable and isset($_GET['show_metadata']))
       }
     }
   }
-
   if ($conf['show_iptc'])
   {
     $iptc = get_iptc_data($picture['current']['src'],
@@ -755,6 +782,16 @@ if ($metadata_showable and isset($_GET['show_metadata']))
     }
   }
 }
+//slideshow end
+if ( isset( $_GET['slideshow'] ) )
+{
+  if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'];
+	
+  $template->assign_block_vars('stop_slideshow', array(
+  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'] )
+  ));
+}
+
 //------------------------------------------------------------------- rate form
 if ($conf['rate'])
 {
@@ -805,51 +842,6 @@ SELECT rate
         'SEPARATOR' => $separator
         ));
   }
-}
-//------------------------------------------------------- favorite manipulation
-if ( !$user['is_the_guest'] )
-{
-  // verify if the picture is already in the favorite of the user
-  $query = 'SELECT COUNT(*) AS nb_fav';
-  $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$_GET['image_id'];
-  $query.= ' AND user_id = '.$user['id'].';';
-  $result = mysql_query( $query );
-  $row = mysql_fetch_array( $result );
-  if (!$row['nb_fav'])
-  {
-    $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('rate','add_fav'));
-    $url.= '&amp;add_fav=1';
-
-    $template->assign_block_vars(
-      'favorite',
-      array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',
-        'FAVORITE_HINT' =>$lang['add_favorites_hint'],
-        'FAVORITE_ALT' =>'[ '.$lang['add_favorites_alt'].' ]',
-        'U_FAVORITE' => $url
-        ));
-  }
-  else
-  {
-    $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('rate','add_fav'));
-    $url.= '&amp;add_fav=0';
-    
-    $template->assign_block_vars(
-      'favorite',
-      array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.gif',
-        'FAVORITE_HINT' =>$lang['del_favorites_hint'],
-        'FAVORITE_ALT' =>'[ '.$lang['del_favorites_alt'].' ]',
-        'U_FAVORITE'=> $url
-        ));
-  }
-}
-//------------------------------------ admin link for information modifications
-if ( $user['status'] == 'admin' )
-{
-  $template->assign_block_vars('modification', array());
 }
 
 //---------------------------------------------------- users's comments display

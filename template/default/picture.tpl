@@ -1,84 +1,101 @@
-    <!-- BEGIN information -->
-    <div class="information">{information.INFORMATION}</div>
-    <!-- END information -->
-    <!-- BEGIN start_slideshow -->
-    <div style="text-align:center;margin-bottom:5px;">
-      [ {L_SLIDESHOW} :
-      <!-- BEGIN second -->
-      <a href="{start_slideshow.second.U_SLIDESHOW}" class="back" style="font-weight:bold;">{start_slideshow.second.SLIDESHOW_SPEED}</a>
-      <!-- END second -->
-      {L_TIME} ]
-    </div>
-    <!-- END start_slideshow -->
-    <!-- BEGIN stop_slideshow -->
-    <div style="text-align:center;margin-bottom:5px;">
-      [ <a href="{stop_slideshow.U_SLIDESHOW}" class="back" style="font-weight:bold;">{L_STOP_SLIDESHOW}</a> ]
-    </div>
-    <!-- END stop_slideshow -->
-    <table style="width:100%;height:100%;">
-      <tr align="center" valign="middle">
-        <td colspan="3" style="width:100%;"> 
-		<div class="table2">
-		<div class="titrePage">{CATEGORY}</div>
-		<div class="titreImg">{PHOTO}</div>
-          <a href="{U_HOME}">
-            <img class="image" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
-          </a>
-		  <div class="nameImage">{TITLE}</div>
-          <!-- BEGIN download -->
-          <div class="download">[ <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD_HINT}">{L_DOWNLOAD}</a> ]</div>
-          <!-- END download -->
-		  <!-- BEGIN legend -->
-          <div class="commentImage">{legend.COMMENT_IMG}</div>
-		  <!-- END legend -->
-		  </div>
-          <table style="width:100%;">   
-            <tr align="center" valign="middle">
-			  <td style="width:30%;">
-				<!-- BEGIN previous -->
-				<a class="none" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
-				<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
-				  <img src="{previous.IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{previous.TITLE_IMG}"/>
-				  </a>
-				<!-- END previous -->
-			  </td>
-			  <td style="width:40%;">
-			  <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
-                  <!-- BEGIN info_line -->
-                  <tr>
-                     <td class="menu" style="font-weight:bold;">{info_line.INFO} : </td>
-                     <td class="menu" style="text-align:right;">{info_line.VALUE}</td>
-                  </tr>
-                  <!-- END info_line -->
-                </table>
-			  </td>
-			  <td style="width:30%;">
-				<!-- BEGIN next -->
-				  <a  class="none" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
-				  <img class="thumbLink" src="{next.IMG}" style="margin-right:10px;margin-left:5px;" alt="{next.TITLE_IMG}"/>
-				  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" />
-				  </a>
-				<!-- END next -->
-			  </td>
-			</tr>
-          </table>
-          <!-- BEGIN favorite -->
-          <div class="menu" style="text-align:center;margin:5px;">
-          <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">
-  			<img src="{favorite.FAVORITE_IMG}" style="border:none;margin-left:5px;" alt="" />{favorite.FAVORITE_ALT}
-		  </a>
-          </div>
-          <!-- END favorite -->
+<!-- BEGIN information -->
+<div class="information">{information.INFORMATION}</div>
+<!-- END information -->
+<div class="titrePage">
+  <div id="gauche">{CATEGORY}</div>
+  <div id="centre" class="nameImage">{TITLE}</div>
+  <div id="droite">{PHOTO}</div>
+</div>
 
-          <!-- BEGIN show_metadata -->
-            [ <a href="{show_metadata.URL}">{L_PICTURE_SHOW_METADATA}</a> ]
-          <!-- END show_metadata -->
+<div id="imgBarMenu">
+<div class="imgMenu" id="left">
+  <a href="{U_HOME}" title="{L_HOME}">
+	<img src="template/default/theme/categories.gif" alt="{L_HOME}" />
+  </a>
+</div>
+<div class="imgMenu" id="left">
+  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}">
+	<img src="template/default/theme/slideshow.gif" alt="{L_SLIDESHOW}" />
+  </a>
+</div>
+<div class="imgMenu" id="left">
+  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}">
+	<img src="template/default/theme/metadata.gif" alt="{L_PICTURE_METADATA}" />
+  </a>
+</div>
+<!-- BEGIN favorite -->
+<div class="imgMenu" id="right">
+  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">
+	<img src="{favorite.FAVORITE_IMG}" alt="{favorite.FAVORITE_ALT}" />
+  </a>
+</div>
+<!-- END favorite -->
+<!-- BEGIN download -->
+<div class="imgMenu" id="right">
+  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}">
+	<img src="template/default/theme/download.gif" alt="{L_DOWNLOAD}" />
+  </a>
+</div>
+<!-- END download -->
+<!-- BEGIN ecard -->
+<div class="imgMenu" id="right">
+  <a href="{ecard.U_ECARD}" title="{L_DOWNLOAD}">
+	<img src="template/default/theme/eCard.gif" alt="{L_DOWNLOAD}" />
+  </a>
+</div>
+<!-- END ecard -->
+<!-- BEGIN admin -->
+<div class="imgMenu" id="right">
+  <a href="{U_ADMIN}" title="{L_ADMIN}">
+	<img src="template/default/theme/properties.gif" alt="{L_ADMIN}" />
+  </a>
+</div>
+<!-- END admin -->
+</div>
 
-          <!-- BEGIN hide_metadata -->          
-            [ <a href="{hide_metadata.URL}">{L_PICTURE_HIDE_METADATA}</a> ]
-          <!-- END hide_metadata -->
+<a href="{U_HOME}">
+  <img class="image" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
+</a>
+<!-- BEGIN legend -->
+<div class="commentImage">{legend.COMMENT_IMG}</div>
+<!-- END legend -->
 
-          <!-- BEGIN metadata -->
+<!-- BEGIN stop_slideshow -->
+<div style="text-align:center;margin-bottom:5px;">
+  [ <a href="{stop_slideshow.U_SLIDESHOW}" class="back" style="font-weight:bold;">{L_STOP_SLIDESHOW}</a> ]
+</div>
+<!-- END stop_slideshow -->
+
+<div id="gauche">
+&nbsp;
+  <!-- BEGIN previous -->
+	<a class="none" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
+	<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
+	  <img src="{previous.IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{previous.TITLE_IMG}"/>
+	  </a>
+  <!-- END previous -->
+</div>
+<div id="centre">
+  <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
+	  <!-- BEGIN info_line -->
+	  <tr>
+		 <td class="menu" style="font-weight:bold;">{info_line.INFO} : </td>
+		 <td class="menu" style="text-align:right;">{info_line.VALUE}</td>
+	  </tr>
+	  <!-- END info_line -->
+  </table>
+</div>
+<div id="droite">
+  <!-- BEGIN next -->
+  <a  class="none" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
+	  <img class="thumbLink" src="{next.IMG}" style="margin-right:10px;margin-left:5px;" alt="{next.TITLE_IMG}"/>
+	  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" />
+	  </a>
+  <!-- END next -->
+  &nbsp;
+</div>
+<div style="clear:both"></div>
+         <!-- BEGIN metadata -->
           <table class="metadata">
             <!-- BEGIN headline -->
             <tr>
@@ -103,15 +120,9 @@
           </div>
           <!-- END rate -->
  
-          <!-- BEGIN modification -->
-          <div class="menu" style="text-align:center;margin:5px;">
-            [ <a href="{U_ADMIN}">{L_ADMIN}</a> ]
-          </div>
-          <!-- END modification -->
+
           <div style="text-align:center;">{L_BACK}</div>
-        </td>
-        <td>&nbsp;</td>
-      </tr>
+<table class="tablecompact">
       <!-- BEGIN comments -->
       <tr align="center" valign="middle">
         <td colspan="3" class="table2">
@@ -128,7 +139,7 @@
 					  <td colspan="2" class="commentDate">
 					  {comments.comment.COMMENT_DATE}
 					<!-- BEGIN delete -->
-					  <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}"><img src="{T_DEL_IMG}" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/></a>
+					  <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}"><img src="template/default/theme/delete.gif" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/></a>
 					<!-- END delete -->
 					  </td>
 					</tr>

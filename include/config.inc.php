@@ -43,7 +43,7 @@ $conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
 
 $conf['nb_image_row']       = array(4,5,6,7,8);
 $conf['nb_row_page']        = array(2,3,4,5,6,7,10,20,1000);
-$conf['slideshow_period']   = array(2,5,10);
+$conf['slideshow_period']   = 4;
 $conf['last_days']          = array(1,2,3,10,30,365);
 
 // $conf['file_ext'] lists all extensions (case insensitive) allowed for
