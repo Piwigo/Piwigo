@@ -41,37 +41,17 @@ $query.= ';';
 @mysql_query( $query );
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
-//------------------------------------- main picture information initialization
-$infos = array( 'id','date_available','comment','hit','keywords','author'
-                ,'name','file','date_creation','filesize','width','height'
-                ,'storage_category_id' );
 
-$query = 'SELECT '.implode( ',', $infos );
-if ( is_numeric( $page['cat'] ) ) $query.= ',category_id';
-$query.= ' FROM '.IMAGES_TABLE;
-$query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-$query.= ' ON id = ic.image_id';
-$query.= $page['where'];
-$query.= ' AND id = '.$_GET['image_id'];
-$query.= $conf['order_by'];
-$query.= ';';
-$result = mysql_query( $query );
 // if this image_id doesn't correspond to this category, an error message is
 // displayed, and execution is stopped
-if ( mysql_num_rows( $result ) == 0 )
+if ( 0 )
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
   echo '<a href="'.add_session_id( './category.php' ).'">';
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
-$row = mysql_fetch_array( $result );
 
-foreach ( $infos as $info ) {
-  if ( isset( $row[$info] ) ) $page[$info] = $row[$info];
-  else                        $page[$info] = '';
-}
-if ( is_numeric( $page['cat'] ) ) $page['category_id'] = $row['category_id'];
 // retrieving the number of the picture in its category (in order)
 $query = 'SELECT DISTINCT(id)';
 $query.= ' FROM '.IMAGES_TABLE;
@@ -83,287 +63,161 @@ $query.= ';';
 $result = mysql_query( $query );
 $page['num'] = 0;
 $row = mysql_fetch_array( $result );
-while ( $row['id'] != $page['id'] )
+while ( $row['id'] != $_GET['image_id'] )
 {
   $page['num']++;
   $row = mysql_fetch_array( $result );
 }
-//--------------------------------------------------------- favorite management
-if ( isset( $_GET['add_fav'] ) )
+
+//---------------------------------------- prev, current & next picture management
+$picture=array();
+$picture['prev']['name']='';
+$picture['next']['name']='';
+$picture['prev']['thumbnail']='';
+$picture['next']['thumbnail']='';
+$picture['prev']['url']='';
+$picture['next']['url']='';
+
+$next = $page['num'] + 1;
+$prev = $page['num'] - 1;
+
+if ( $page['num'] == $page['cat_nb_images']-1)
 {
-  if ( $_GET['add_fav'] == 1 )
-  {
-    // verify if the picture is already in the favorite of the user
-    $query = 'SELECT COUNT(*) AS nb_fav';
-    $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$page['id'];
-    $query.= ' AND user_id = '.$user['id'];
-    $query.= ';';
-    $result = mysql_query( $query );
-    $row = mysql_fetch_array( $result );
-    if ( $row['nb_fav'] == 0 )
-    {
-      $query = 'INSERT INTO '.FAVORITES_TABLE.' (image_id,user_id) VALUES';
-      $query.= ' ('.$page['id'].','.$user['id'].')';
-      $query.= ';';
-      $result = mysql_query( $query );
-    }
-  }
-  if ( $_GET['add_fav'] == 0 )
-  {
-    $query = 'DELETE FROM '.FAVORITES_TABLE.' WHERE user_id = '.$user['id'];
-    $query.= ' AND image_id = '.$page['id'];
-    $query.= ';';
-    $result = mysql_query( $query );
-    
-    $page['cat_nb_images'] = $page['cat_nb_images'] - 1;
-    if ( $page['cat_nb_images'] <= 0 )
-    {
-      // there is no favorite picture anymore
-      // we redirect the user to the category page
-      $url = add_session_id( 'category.php' );
-      header( 'Request-URI: '.$url );
-      header( 'Content-Location: '.$url );  
-      header( 'Location: '.$url );
-      exit();
-    }
-    // redirection of the user to the picture.php page
-    // with the right picture
-    $page['num'] = $page['num'] - 1;
-    if ( $page['num'] == -1 )
-    {
-      $page['num'] = 0;
-    }
-    $query = 'SELECT id';
-	$query.= ' FROM '.IMAGES_TABLE;
-	$query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-    $query.= ' ON id = ic.image_id';
-    $query.= $page['where'];
-    $query.= $conf['order_by'];
-    $query.= ' LIMIT '.$page['num'].',1';
-    $query.= ';';
-    $result = mysql_query( $query );
-    $row = mysql_fetch_array( $result );
-    $redirect = './picture.php?image_id='.$row['id'].'&cat='.$page['cat'];
-    $redirect.= '&expand='.$_GET['expand'];
-    if ( $page['cat'] == 'search' )
-    {
-      $redirect.= '&search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-    }
-    $url = add_session_id( $redirect, true );
-    header( 'Request-URI: '.$url );
-    header( 'Content-Location: '.$url );  
-    header( 'Location: '.$url );
-    exit();
-  }
+  $next = 0;
 }
 
-//---------------------------------------------- next picture thumbnail display
-$next = 0;
-if ( $page['num'] < $page['cat_nb_images']-1 )
-{
-  $next = $page['num'] + 1;
-  $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
-  $query.= ' FROM '.IMAGES_TABLE;
-  $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-  $query.= ' ON id=ic.image_id';
-  $query.= $page['where'];
-  $query.= $conf['order_by'];
-  $query.= ' LIMIT '.$next.',1';
-  $query.= ';';
-  $result = mysql_query( $query );
-  $row = mysql_fetch_array( $result );
+$query = 'SELECT * FROM '.IMAGES_TABLE;
+$query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
+$query.= ' ON id=ic.image_id';
+$query.= $page['where'];
+$query.= $conf['order_by'];
 
+if ($prev <0)
+  $query.= ' LIMIT 0,2';
+else
+  $query.= ' LIMIT '.$prev.',3';
+  
+$query.= ';';
+
+$result = mysql_query( $query );
+$nb_row = mysql_num_rows($result);
+$index = array('prev','current','next');
+for ($i=0; $i<$nb_row;$i++)
+{
+  $j=($prev<0)?$index[$i+1]:$index[$i];
+  $row = mysql_fetch_array($result);
+  $picture[$j] = $row;
+  
   if ( !isset($array_cat_directories[$row['storage_category_id']]))
   {
     $array_cat_directories[$row['storage_category_id']] =
       get_complete_dir( $row['storage_category_id'] );
   }
   $cat_directory = $array_cat_directories[$row['storage_category_id']];
-
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
-  $next_lien_thumbnail = $cat_directory.'thumbnail/';
-  $next_lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
+  $picture[$j]['src'] = $cat_directory.$row['file'];
+  $picture[$j]['thumbnail'] = $cat_directory.'thumbnail/';
+  $picture[$j]['thumbnail'].= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
   
-  if ( isset( $row['name'] ) and $row['name'] != '' )
+  if (!empty($row['name']))
   {
-    $next_alt_thumbnail = $row['name'];
+    $picture[$j]['name'] = $row['name'];
   }
   else
   {
-    $next_alt_thumbnail = $file;
+    $picture[$j]['name'] = str_replace( "_", " ",$file);
   }
-  $next_title = $lang['next_image']." : ".$next_alt_thumbnail;
 
-  $next_url_link = './picture.php?image_id='.$row['id'];
-  $next_url_link.= '&amp;cat='.$page['cat'];
+  $picture[$j]['url'] = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
+  $picture[$j]['url'].= '&amp;cat='.$page['cat'];
   if ( isset( $_GET['expand'] ) )
-    $next_url_link.= '&amp;expand='.$_GET['expand'];
+    $picture[$j]['url'].= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
-    $next_url_link.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
+    $picture[$j]['url'].= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
 }
-//----------------------------------------------------- template initialization
+
+$url_home = './category.php?cat='.$page['cat'].'&amp;';
+$url_home.= 'num='.$page['num']; 
+if (isset($_GET['expand']))
+	$url_home.='&amp;expand='.$_GET['expand'];
+if ( $page['cat'] == 'search' )
+{
+  $url_home.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
+}
+
+$url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify&amp;cat_id='.$page['cat'];
+$url_admin.= '&amp;image_id='.$_GET['image_id'];
+  
+//--------------------------------------------------------- favorite management
+if ( isset( $_GET['add_fav'] ) )
+{
+  $query = 'DELETE FROM '.FAVORITES_TABLE.' WHERE user_id = '.$user['id'];
+  $query.= ' AND image_id = '.$picture['current']['id'].';';
+  $result = mysql_query( $query );
+  
+  if ( $_GET['add_fav'] == 1 )
+  {
+    $query = 'INSERT INTO '.FAVORITES_TABLE.' (image_id,user_id) VALUES';
+    $query.= ' ('.$picture['current']['id'].','.$user['id'].');';
+	$result = mysql_query( $query );
+  }
+  if ( !$_GET['add_fav'] && $page['cat']=='fav')
+  {
+    if ( $prev < 0 && $nb_row==1 )
+    {
+      // there is no favorite picture anymore
+      // we redirect the user to the category page
+      $url = add_session_id( $url_home );
+      header( 'Request-URI: '.$url );
+      header( 'Content-Location: '.$url );  
+      header( 'Location: '.$url );
+      exit();
+    }
+	else if ( $prev < 0 )
+	{
+	  $url = add_session_id( str_replace('&amp;','&',$picture['next']['url']), true);
+	}
+	else
+	{
+	  $url = add_session_id( str_replace('&amp;','&',$picture['prev']['url']), true);
+	}
+	header( 'Request-URI: '.$url );
+	header( 'Content-Location: '.$url );  
+	header( 'Location: '.$url );
+	exit();
+  }
+}
+
 //
 // Start output of page
 //
-//------------------------------------------------------------------ page title
-$title = $page['name']; 
-if ( $title == '')
-{
-  $title = str_replace("_"," ",get_filename_wo_extension($page['file']));
-}
+
+$title =  $picture['current']['name'];
 $refresh = 0;
-if ( isset( $_GET['slideshow'] ) && isset($next_url_link)) 
+if ( isset( $_GET['slideshow'] ) && $next) 
 {
 	$refresh= $_GET['slideshow'];
-	$url_link = $next_url_link;
+	$url_link = $picture['next']['url'];
 }
-include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/picture.vtp' );
-initialize_template();
-
-$tpl = array( 'back','submit','comments_title','comments_del','delete',
-              'comments_add','author','slideshow','slideshow_stop',
-              'period_seconds' );
-templatize_array( $tpl, 'lang', $handle );
-//-------------------------------------------------------- slideshow management
-if ( isset( $_GET['slideshow'] ) )
+$title_img = $picture['current']['name'];
+if (is_numeric( $page['cat'] )) 
 {
-  if ( !is_numeric( $_GET['slideshow'] ) )
-    $_GET['slideshow'] = $conf['slideshow_period'][0];
-  $vtp->addSession( $handle, 'stop_slideshow' );
-  $url = './picture.php';
-  $url.= '?image_id='.$page['id'];
-  $url.= '&amp;cat='.$page['cat'];
-  $url.= '&amp;expand='.$_GET['expand'];
-  if ( $page['cat'] == 'search' )
-  {
-    $url.= '&amp;search='.$_GET['search'];
-    $url.= '&amp;mode='.$_GET['mode'];
-  }
-  $vtp->setVar( $handle, 'stop_slideshow.url', add_session_id( $url ) );
-  $vtp->closeSession( $handle, 'stop_slideshow' );
+  $title_img = get_cat_display_name( $page['cat_name'], " - ","font-style:italic;" );
+  $n = $page['num'] + 1;
+  $title_img = replace_space( $title_img." - " ).$n.'/';
+  $title_img.= $page['cat_nb_images']."<br />";
+  $title_img.= $picture['current']['name'];
 }
-else
+else if ( $page['cat'] == 'search' )
 {
-  $vtp->addSession( $handle, 'start_slideshow' );
-  foreach ( $conf['slideshow_period'] as $option ) {
-    $vtp->addSession( $handle, 'second' );
-    $vtp->setVar( $handle, 'second.option', $option );
-    $url = './picture.php';
-    $url.= '?image_id='.$page['id'];
-    $url.= '&amp;cat='.$page['cat'];
-	if (isset($_GET['expand']))
-	    $url.= '&amp;expand='.$_GET['expand'];
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&amp;search='.$_GET['search'];
-      $url.= '&amp;mode='.$_GET['mode'];
-    }
-    $url.= '&amp;slideshow='.$option;
-    $vtp->setVar( $handle, 'second.url', add_session_id( $url ) );
-    $vtp->closeSession( $handle, 'second' );
-  }
-  $vtp->closeSession( $handle, 'start_slideshow' );
+  $title_img = replace_search( $title_img, $_GET['search'] );
 }
-
-//-------------------------------------------------- previous picture thumbnail
-if ( $page['num'] >= 1 )
-{
-  $prev = $page['num'] - 1;
-  $query = 'SELECT DISTINCT(id),name,file,tn_ext,storage_category_id';
-  $query.= ' FROM '.IMAGES_TABLE;
-  $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-  $query.= ' ON id=ic.image_id';
-  $query.= $page['where'];
-  $query.= $conf['order_by'];
-  $query.= ' LIMIT '.$prev.',1';
-  $query.= ';';
-  $result = mysql_query( $query );
-  $row = mysql_fetch_array( $result );
-
-  if ( !isset($array_cat_directories[$row['storage_category_id']]) )
-  {
-    $array_cat_directories[$row['storage_category_id']] =
-      get_complete_dir( $row['storage_category_id'] );
-  }
-  $cat_directory = $array_cat_directories[$row['storage_category_id']];
-
-  $file = substr( $row['file'], 0, strrpos ( $row['file'], '.' ) );
-  $lien_thumbnail = $cat_directory.'thumbnail/';
-  $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
-
-  $prev_title = $lang['previous_image'].' : ';
-
-  if ( isset( $row['name'] ) and $row['name'] != '' )
-    $alt_thumbnail = $row['name'];
-  else
-    $alt_thumbnail = $file;
-
-  $prev_title.= $alt_thumbnail;
-  
-  $url_link = './picture.php?image_id='.$row['id'].'&amp;cat='.$page['cat'];
-  if ( isset( $_GET['expand'] ) ) $url_link.= '&amp;expand='.$_GET['expand'];
-  if ( $page['cat'] == 'search' )
-  {
-    $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-  }
-  // sending vars for display
-  $vtp->addSession( $handle, 'previous' );
-  $vtp->setGlobalVar( $handle, 'previous.url', add_session_id( $url_link ) );
-  $vtp->setGlobalVar( $handle, 'previous.title', $prev_title );
-  $vtp->setGlobalVar( $handle, 'previous.src', $lien_thumbnail );
-  $vtp->setGlobalVar( $handle, 'previous.alt', $alt_thumbnail );
-  $vtp->closeSession( $handle, 'previous' );
-}
-else
-{
-  $vtp->addSession( $handle, 'previous_empty' );
-  $vtp->closeSession( $handle, 'previous_empty' );
-}
-//-------------------------------------------------------- main picture display
-if ( is_numeric( $page['cat'] ) )
-{
-  $intitule_cat = get_cat_display_name( $page['cat_name'], " - ",
-                                        "font-style:italic;" );
-}
-else
-{
-  $intitule_cat = $page['title'];
-}
-
-if ( !isset($array_cat_directories[$page['storage_category_id']]) )
-{
-  $array_cat_directories[$page['storage_category_id']] =
-    get_complete_dir( $page['storage_category_id'] );
-}
-$cat_directory = $array_cat_directories[$page['storage_category_id']];
-
-$n = $page['num'] + 1;
-$intitule_titre = replace_space( $intitule_cat." - " ).$n.'/';
-$intitule_titre.= $page['cat_nb_images']."<br />";
-if ( $page['name'] != "" )
-{
-  $intitule_file = $page['name'];
-}
-else
-{
-  $intitule_file = str_replace( "_", " ",
-                                substr( $page['file'], 0,
-                                        strrpos ( $page['file'], ".") ) );
-}
-if ( $page['cat'] == 'search' )
-{
-  $intitule_file = replace_search( $intitule_file, $_GET['search'] );
-}
-$vtp->setGlobalVar( $handle, 'title', $intitule_titre.$intitule_file );
-
-$lien_image = $cat_directory.$page['file'];
 
 // calculation of width and height
-if ( $page['width'] == "" )
+if ( empty($picture['current']['width']))
 {
   $taille_image = @getimagesize( $lien_image );
   $original_width = $taille_image[0];
@@ -371,113 +225,135 @@ if ( $page['width'] == "" )
 }
 else
 {
-  $original_width = $page['width'];
-  $original_height = $page['height'];
+  $original_width = $picture['current']['width'];
+  $original_height = $picture['current']['height'];
 }
 
 $picture_size = get_picture_size( $original_width, $original_height,
 				  $user['maxwidth'], $user['maxheight'] );
-$final_width  = $picture_size[0];
-$final_height = $picture_size[1];
-        
-$url_link = './category.php?cat='.$page['cat'].'&amp;';
-$url_link.= 'num='.$page['num']; 
-if (isset($_GET['expand']))
-	$url_link.='&amp;expand='.$_GET['expand'];
-if ( $page['cat'] == 'search' )
-{
-  $url_link.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
-}
-$vtp->setGlobalVar( $handle, 'picture_link', add_session_id( $url_link ) );
-$vtp->setGlobalVar( $handle, 'picture_width', $final_width );
-$vtp->setGlobalVar( $handle, 'picture_height', $final_height );
-$vtp->setGlobalVar( $handle, 'picture_src', $lien_image );
-$vtp->setGlobalVar( $handle, 'picture_alt', $page['file'] );
+				  
+include('include/page_header.php');
+$template->set_filenames(array('picture'=>'picture.tpl'));
+initialize_template();
 
-if ( $page['comment'] != '' )
+$template->assign_vars(array(
+  'TITLE' => $title_img,
+  'PREV_TITLE_IMG' => $picture['prev']['name'],
+  'NEXT_TITLE_IMG' => $picture['next']['name'],
+  'PREV_IMG' => $picture['prev']['thumbnail'],
+  'NEXT_IMG' => $picture['next']['thumbnail'],
+  'SRC_IMG' => $picture['current']['src'],
+  'ALT_IMG' => $picture['current']['file'],
+  'WIDTH_IMG' => $picture_size[0],
+  'HEIGHT_IMG' => $picture_size[1],
+  'COMMENT_IMG' => $picture['current']['comment'],
+
+  'L_SLIDESHOW' => $lang['slideshow'],
+  'L_TIME' => $lang['period_seconds'],
+  'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
+  'L_PREV_IMG' =>$lang['previous_image'].' : ',
+  'L_ADMIN' =>$lang['link_info_image'],
+  'L_BACK' =>$lang['back'],
+  'L_COMMENT_TITLE' =>$lang['comments_title'],
+  'L_ADD_COMMENT' =>$lang['comments_add'],
+  'L_DELETE_COMMENT' =>$lang['comments_del'],
+  'L_DELETE' =>$lang['delete'],
+  'L_SUBMIT' =>$lang['submit'],
+  'L_AUTHOR' =>$lang['author'],
+  
+  'T_DEL_IMG' =>'./template/'.$user['template'].'/theme/delete.gif',
+  
+  'U_PREV_IMG' => add_session_id($picture['prev']['url']),
+  'U_NEXT_IMG' => add_session_id($picture['next']['url']),
+  'U_HOME' => add_session_id($url_home),
+  'U_ADMIN' => add_session_id($url_admin),
+  'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
+  )
+);
+
+//-------------------------------------------------------- slideshow management
+if ( isset( $_GET['slideshow'] ) )
 {
-  if ( $page['cat'] == 'search' )
+  if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'][0];
+	
+  $template->assign_block_vars('stop_slideshow', array(
+  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'] )
+  ));
+}
+else
+{
+  $template->assign_block_vars('start_slideshow', array());
+  foreach ( $conf['slideshow_period'] as $option ) 
   {
-    $picture_comment = replace_search( $page['comment'], $_GET['search'] );
-    $vtp->setGlobalVar( $handle, 'picture_comment', $picture_comment );
-  }
-  else
-  {
-    $vtp->setGlobalVar( $handle, 'picture_comment', $page['comment'] );
+    $template->assign_block_vars('start_slideshow.second', array(
+	  'SLIDESHOW_SPEED'=>$option,
+	  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'].'&amp;slideshow='.$option)
+	  ));
   }
 }
+
+if ($prev>=0) $template->assign_block_vars('previous', array());
+if ($next) $template->assign_block_vars('next', array());
+
 //--------------------------------------------------------- picture information
 // author
-if ( $page['author'] != "" )
+if ( !empty($picture['current']['author']) )
 {
-  $vtp->addSession( $handle, 'info_line' );
-  $vtp->setVar( $handle, 'info_line.name', $lang['author'].' : ' );
-  $vtp->setVar( $handle, 'info_line.content', $page['author'] );
-  $vtp->closeSession( $handle, 'info_line' );
+  $template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['author'],
+	  'VALUE'=>$picture['current']['author']
+	  ));
 }
 // creation date
-if ( $page['date_creation'] != "" )
+if ( !empty($picture['current']['date_creation']) )
 {
-  $vtp->addSession( $handle, 'info_line' );
-  $vtp->setVar( $handle, 'info_line.name', $lang['creation_date'].' : ' );
-  $vtp->setVar( $handle, 'info_line.content',
-                format_date( $page['date_creation'] ) );
-  $vtp->closeSession( $handle, 'info_line' );
+  $template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['creation_date'],
+	  'VALUE'=>format_date( $picture['current']['date_creation'] ) 
+	  ));
 }
 // date of availability
-$vtp->addSession( $handle, 'info_line' );
-$vtp->setVar( $handle, 'info_line.name', $lang['registration_date'].' : ' );
-list( $year,$month,$day ) = explode( '-', $page['date_available'] );
-$vtp->setVar( $handle, 'info_line.content',
-              format_date( $page['date_available'] ) );
-$vtp->closeSession( $handle, 'info_line' );
+$template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['registration_date'],
+	  'VALUE'=>format_date( $picture['current']['date_available'] ) 
+	  ));
 // size in pixels
-$vtp->addSession( $handle, 'info_line' );
-$vtp->setVar( $handle, 'info_line.name', $lang['size'].' : ' );
-if ( $original_width != $final_width or $original_height != $final_height )
+if ( $original_width != $picture_size[0] or $original_height != $picture_size[1] )
 {
-  $content = '[ <a href="'.$lien_image.'" title="'.$lang['true_size'].'">';
+  $content = '[ <a href="'.$picture['current']['url'].'" title="'.$lang['true_size'].'">';
   $content.= $original_width.'*'.$original_height.'</a> ]';
-  $vtp->setVar( $handle, 'info_line.content', $content );
 }
 else
 {
   $content = $original_width.'*'.$original_height;
-  $vtp->setVar( $handle, 'info_line.content', $content );
 }
-$vtp->closeSession( $handle, 'info_line' );
+$template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['size'],
+	  'VALUE'=>$content 
+	  ));
 // file
-$vtp->addSession( $handle, 'info_line' );
-$vtp->setVar( $handle, 'info_line.name', $lang['file'].' : ' );
-if ( $page['cat'] == 'search' )
-{
-  $content = replace_search( $page['file'], $_GET['search'] );
-  $vtp->setVar( $handle, 'info_line.content', $content );
-}
-else
-{
-  $vtp->setVar( $handle, 'info_line.content', $page['file'] );
-}
-$vtp->closeSession( $handle, 'info_line' );
+$template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['file'],
+	  'VALUE'=>$picture['current']['file'] 
+	  ));
 // filesize
-if ( $page['filesize'] == "" )
+if ( empty($picture['current']['filesize']))
 {
-  $poids = floor ( filesize( $lien_image ) / 1024 );
+  $poids = floor ( filesize( $picture['current']['url'] ) / 1024 );
 }
 else
 {
-  $poids = $page['filesize'];
+  $poids = $picture['current']['filesize'];
 }
-$vtp->addSession( $handle, 'info_line' );
-$vtp->setVar( $handle, 'info_line.name', $lang['filesize'].' : ' );
-$vtp->setVar( $handle, 'info_line.content', $poids.' KB' );
-$vtp->closeSession( $handle, 'info_line' );
+
+$template->assign_block_vars('info_line', array(
+	  'INFO'=>$lang['filesize'],
+	  'VALUE'=>$poids.' KB'
+	  ));
 // keywords
-if ( $page['keywords'] != '' )
+if ( !empty($picture['current']['keywords']))
 {
-  $vtp->addSession( $handle, 'info_line' );
-  $vtp->setVar( $handle, 'info_line.name', $lang['keywords'].' : ' );
-  $keywords = explode( ',', $page['keywords'] );
+  $keywords = explode( ',', $picture['current']['keywords'] );
   $content = '';
   $url = './category.php?cat=search';
   if ( isset( $_GET['expand'] ) ) $url.= '&amp;expand='.$_GET['expand'];
@@ -487,26 +363,29 @@ if ( $page['keywords'] != '' )
     if ( $i > 0 ) $content.= ',';
     $content.= '<a href="'.$local_url.'">'.$keyword.'</a>';
   }
-  $vtp->setVar( $handle, 'info_line.content', $content );
-  $vtp->closeSession( $handle, 'info_line' );
+  $template->assign_block_vars('info_line', array(
+    'INFO'=>$lang['keywords'],
+    'VALUE'=>$content
+    ));
 }
 // number of visits
-$vtp->addSession( $handle, 'info_line' );
-$vtp->setVar( $handle, 'info_line.name', $lang['visited'].' : ' );
-$vtp->setVar( $handle, 'info_line.content', $page['hit'].' '.$lang['times'] );
-$vtp->closeSession( $handle, 'info_line' );
+$template->assign_block_vars('info_line', array(
+    'INFO'=>$lang['visited'],
+    'VALUE'=>$picture['current']['hit'].' '.$lang['times']
+    ));
+
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )
 {
   // verify if the picture is already in the favorite of the user
   $query = 'SELECT COUNT(*) AS nb_fav';
-  $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$page['id'];
+  $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$_GET['image_id'];
   $query.= ' AND user_id = '.$user['id'].';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
   if (!$row['nb_fav'])
   {
-    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
+    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
     if (isset($_GET['expand']))
       $url.= '&amp;expand='.$_GET['expand'];
     $url.='&amp;add_fav=1';
@@ -514,66 +393,42 @@ if ( !$user['is_the_guest'] )
     {
       $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
-    $vtp->addSession( $handle, 'favorite' );
-    $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
-    $vtp->setVar( $handle, 'favorite.title', $lang['add_favorites_hint'] );
-    $vtp->setVar( $handle, 'favorite.src',
-                  './template/'.$user['template'].'/theme/favorite.gif' );
-    $vtp->setVar($handle,'favorite.alt','[ '.$lang['add_favorites_alt'].' ]');
-    $vtp->closeSession( $handle, 'favorite' );
+	$template->assign_block_vars('favorite', array(
+      'FAVORITE_IMG' => './template/'.$user['template'].'/theme/favorite.gif',
+	  'FAVORITE_HINT' =>$lang['add_favorites_hint'],
+	  'FAVORITE_ALT' =>'[ '.$lang['add_favorites_alt'].' ]',
+      'U_FAVORITE'=> add_session_id( $url )
+    ));
   }
   else
   {
-    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
+    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
     $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=0';
-    $vtp->addSession( $handle, 'favorite' );
-    $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
-    $vtp->setVar( $handle, 'favorite.title', $lang['del_favorites_hint'] );
-    $vtp->setVar( $handle, 'favorite.src',
-                  './template/'.$user['template'].'/theme/del_favorite.gif' );
-    $vtp->setVar($handle,'favorite.alt','[ '.$lang['del_favorites_alt'].' ]');
-    $vtp->closeSession( $handle, 'favorite' );
+	$template->assign_block_vars('favorite', array(
+      'FAVORITE_IMG' => './template/'.$user['template'].'/theme/del_favorite.gif',
+	  'FAVORITE_HINT' =>$lang['del_favorites_hint'],
+	  'FAVORITE_ALT' =>'[ '.$lang['del_favorites_alt'].' ]',
+      'U_FAVORITE'=> add_session_id( $url )
+    ));
   }
 }
 //------------------------------------ admin link for information modifications
 if ( $user['status'] == 'admin' )
 {
-  $vtp->addSession( $handle, 'modification' );
-  $url = './admin/admin.php?page=picture_modify&amp;cat_id='.$page['cat'];
-  $url.= '&amp;image_id='.$page['id'];
-  $vtp->setVar( $handle, 'modification.link', add_session_id( $url ) );
-  $vtp->setVar( $handle, 'modification.name', $lang['link_info_image'] );
+  $template->assign_block_vars('modification', array());
 }
 
-if ( $next )
-{
-  // sending vars for display
-  $vtp->addSession( $handle,   'next' );
-  $vtp->setGlobalVar( $handle, 'next.url', add_session_id( $next_url_link ) );
-  $vtp->setGlobalVar( $handle, 'next.title', $next_title );
-  $vtp->setGlobalVar( $handle, 'next.src', $next_lien_thumbnail );
-  $vtp->setGlobalVar( $handle, 'next.alt', $next_alt_thumbnail );
-  $vtp->closeSession( $handle, 'next' );
-}
-else
-{
-  $vtp->addSession( $handle, 'next_empty' );
-  $vtp->closeSession( $handle, 'next_empty' );
-}
 //---------------------------------------------------- users's comments display
 if ( $conf['show_comments'] )
 {
-  $vtp->addSession( $handle, 'comments' );
   // comment registeration
-  if ( isset( $_POST['content'] ) and $_POST['content'] != '' )
+  if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
   {
     $register_comment = true;
-
-    if ( !$user['is_the_guest'] ) $author = $user['username'];
-    if ( $_POST['author'] != '' ) $author = $_POST['author'];
+	$author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
     // if a guest try to use the name of an already existing user, he must
     // be rejected
-    if ( isset( $author ) and $author != $user['username'] )
+    if ( $author != $user['username'] )
     {
       $query = 'SELECT COUNT(*) AS user_exists';
       $query.= ' FROM '.USERS_TABLE;
@@ -582,10 +437,7 @@ if ( $conf['show_comments'] )
       $row = mysql_fetch_array( mysql_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {
-        $vtp->addSession( $handle, 'information' );
-        $message = $lang['comment_user_exists'];
-        $vtp->setVar( $handle, 'information.content', $message );
-        $vtp->closeSession( $handle, 'information' );
+	    $template->assign_block_vars('information', array('INFORMATION'=>$lang['comment_user_exists']));
         $register_comment = false;
       }
     }
@@ -599,67 +451,58 @@ if ( $conf['show_comments'] )
       $query.= " AND author = '".$author."'";
       $query.= ';';
       if ( mysql_num_rows( mysql_query( $query ) ) == 0
-           or $conf['anti-flood_time'] == 0 )
+           || $conf['anti-flood_time'] == 0 )
       {
         $query = 'INSERT INTO '.COMMENTS_TABLE;
-        $query.= ' (author,date,image_id,content,validated) VALUES';
-        $query.= ' (';
-        if ( !isset( $author ) ) $query.= 'NULL';
-        else                     $query.= "'".$author."'";
-        $query.= ','.time().','.$page['id'];
+        $query.= ' (author,date,image_id,content,validated) VALUES (';
+		$query.= "'".$author."'";
+        $query.= ','.time().','.$_GET['image_id'];
         $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
-        if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
+        if ( !$conf['comments_validation'] || $user['status'] == 'admin' )
           $query.= ",'true'";
         else
           $query.= ",'false'";
         $query.= ');';
         mysql_query( $query );
         // information message
-        $vtp->addSession( $handle, 'information' );
         $message = $lang['comment_added'];
         if ( $conf['comments_validation'] and $user['status'] != 'admin' )
         {
           $message.= '<br />'.$lang['comment_to_validate'];
         }
-        $vtp->setVar( $handle, 'information.content', $message );
-        $vtp->closeSession( $handle, 'information' );
+        $template->assign_block_vars('information', array('INFORMATION'=>$message));
         // notification to the administrators
         if ( $conf['mail_notification'] )
         {
           $cat_name = get_cat_display_name( $page['cat_name'], ' > ', '' );
           $cat_name = strip_tags( $cat_name );
-          if ( $page['name'] == '' ) $picture = $page['file'];
-          else                       $picture = $page['name'];
-          notify( 'comment', $cat_name.' > '.$picture );
+          notify( 'comment', $cat_name.' > '.$picture['current']['name']);
         }
       }
       else
       {
         // information message
-        $vtp->addSession( $handle, 'information' );
-        $message = $lang['comment_anti-flood'];
-        $vtp->setVar( $handle, 'information.content', $message );
-        $vtp->closeSession( $handle, 'information' );
+        $template->assign_block_vars('information', array('INFORMATION'=>$lang['comment_anti-flood']));
       }
     }
   }
   // comment deletion
   if ( isset( $_GET['del'] )
-       and is_numeric( $_GET['del'] )
-       and $user['status'] == 'admin' )
+       && is_numeric( $_GET['del'] )
+       && $user['status'] == 'admin' )
   {
     $query = 'DELETE FROM '.COMMENTS_TABLE.' WHERE id = '.$_GET['del'].';';
     mysql_query( $query );
   }
   // number of comment for this picture
   $query = 'SELECT COUNT(*) AS nb_comments';
-  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$page['id'];
+  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
   $query.= " AND validated = 'true'";
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  $page['nb_comments'] = $row['nb_comments'];
+  
   // navigation bar creation
-  $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
+  $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$_GET['image_id'];
   if (isset($_GET['expand']))
   	$url.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
@@ -676,16 +519,16 @@ if ( $conf['show_comments'] )
   {
     $page['start'] = $_GET['start'];
   }
-  $page['navigation_bar'] = create_navigation_bar( $url, $page['nb_comments'],
+  $page['navigation_bar'] = create_navigation_bar( $url, $row['nb_comments'],
                                                    $page['start'],
                                                    $conf['nb_comment_page'],
                                                    '' );
-  // sending vars for display
-  $vtp->setGlobalVar( $handle, 'navigation_bar', $page['navigation_bar'] );
-  $vtp->setGlobalVar( $handle, 'nb_comments', $page['nb_comments'] );
+  $template->assign_block_vars('comments', array(
+    'NB_COMMENT'=>$row['nb_comments'],
+    'NAV_BAR'=>$page['navigation_bar']));
 
   $query = 'SELECT id,author,date,image_id,content';
-  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$page['id'];
+  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
   $query.= " AND validated = 'true'";
   $query.= ' ORDER BY date ASC';
   $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
@@ -693,12 +536,6 @@ if ( $conf['show_comments'] )
                 
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $vtp->addSession( $handle, 'comment' );
-    $author = $row['author'];
-    if ( $row['author'] == '' ) $author = $lang['guest'];
-    $vtp->setVar( $handle, 'comment.author', $author );
-    $vtp->setVar( $handle, 'comment.date',
-                  format_date( $row['date'], 'unix', true ) );
     $content = nl2br( $row['content'] );
 
     // replace _word_ by an underlined word
@@ -715,48 +552,37 @@ if ( $conf['show_comments'] )
     $pattern = '/\/([^\s]*)\//';
     $replacement = '<span style="font-style:italic;">\1</span>';
     $content = preg_replace( $pattern, $replacement, $content );
-    
-    $vtp->setVar( $handle, 'comment.content', $content );
+	
+    $template->assign_block_vars('comments.comment', array(
+    'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
+    'COMMENT_DATE'=>format_date( $row['date'], 'unix', true ),
+	'COMMENT'=>$content
+	));
+	
     if ( $user['status'] == 'admin' )
     {
-      $vtp->addSession( $handle, 'delete' );
-      $vtp->setVar( $handle, 'delete.link',
-                    add_session_id( $url.'&amp;del='.$row['id'] ) );
-      $vtp->closeSession( $handle, 'delete' );
+	  $template->assign_block_vars('comments.comment.delete', array('U_COMMENT_DELETE'=>add_session_id( $url.'&amp;del='.$row['id'] )));
     }
-    $vtp->closeSession( $handle, 'comment' );
   }
 
-  if ( !$user['is_the_guest']
-       or ( $user['is_the_guest'] and $conf['comments_forall'] ) )
+  if ( !$user['is_the_guest']||( $user['is_the_guest'] and $conf['comments_forall'] ) )
   {
-    $vtp->addSession( $handle, 'add_comment' );
-    // form action
-    $action = str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] );
-    $vtp->setGlobalVar( $handle, 'form_action', $action );
+    $template->assign_block_vars('comments.add_comment', array());
     // display author field if the user is not logged in
     if ( !$user['is_the_guest'] )
     {
-      $vtp->addSession( $handle, 'author_known' );
-	  if (isset($user['pseudo']))
-	      $vtp->setVar( $handle, 'author_known.value', $user['pseudo'] );
-      $vtp->closeSession( $handle, 'author_known' );
-    }
+      $template->assign_block_vars('comments.add_comment.author_known', array('KNOWN_AUTHOR'=>$user['username']));
+	}
     else
     {
-      $vtp->addSession( $handle, 'author_field' );
-      $vtp->closeSession( $handle, 'author_field' );
+      $template->assign_block_vars('comments.add_comment.author_field', array());
     }
-    $vtp->closeSession( $handle, 'add_comment' );
   }
-  $vtp->closeSession( $handle, 'comments' );
 }
 //------------------------------------------------------------ log informations
-pwg_log( 'picture', $intitule_cat, $page['file'] );
+pwg_log( 'picture', $title_img, $picture['current']['file'] );
 mysql_close();
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
 
+$template->pparse('picture');
 include('include/page_tail.php');
 ?>
