@@ -160,6 +160,8 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
+$icon_short = get_icon( date( 'Y-m-d' ) );
+
 $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
   'TITLE' => $template_title,
@@ -178,6 +180,8 @@ $template->assign_vars(array(
   'L_MOST_VISITED' => $lang['most_visited_cat'],
   'L_RECENT_PICS_HINT' => $lang['recent_pics_cat_hint'],
   'L_RECENT_PICS' => $lang['recent_pics_cat'],
+  'L_RECENT_CATS_HINT' => $lang['recent_cats_cat_hint'],
+  'L_RECENT_CATS' => $lang['recent_cats_cat'],
   'L_CALENDAR' => $lang['calendar'],
   'L_CALENDAR_HINT' => $lang['calendar_hint'],
   'L_SUMMARY' => $lang['title_menu'],
@@ -197,13 +201,14 @@ $template->assign_vars(array(
   'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
   
   'T_COLLAPSED' => $user['lien_collapsed'],
-  'T_SHORT'=>get_icon( time() ),
-  'T_LONG'=>get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) ),
+  'T_SHORT' => $icon_short,
+  'T_LONG'=>get_icon(date( 'Y-m-d',time()-($user['short_period']*24*60*60+1))),
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
   'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
   'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
   'U_RECENT_PICS'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent_pics' ),
+  'U_RECENT_CATS'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent_cats' ),
   'U_CALENDAR'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=calendar' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
@@ -327,10 +332,6 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
     {
       $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
-    // date of availability for creation icon
-    list( $year,$month,$day ) = explode( '-', $row['date_available'] );
-    $date = mktime( 0, 0, 0, $month, $day, $year );
-
     // create a new line ?
     if ( (!$line_opened or $row_number++ == $user['nb_image_line'] )
          and $displayed_pics++ < mysql_num_rows( $result ) )
@@ -347,7 +348,7 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
         'IMAGE_NAME'=>$name,
-        'IMAGE_TS'=>get_icon( $date ),
+        'IMAGE_TS'=>get_icon( $row['date_available'] ),
         
         'U_IMG_LINK'=>add_session_id( $url_link )
         ));
@@ -587,7 +588,7 @@ elseif ( isset( $page['cat'] ) and $page['cat'] == 'calendar' )
       
       // create a new line ?
       if ( ( !$line_opened or $row_number++ == $user['nb_image_line'] )
-           and $displayed_pics++ < count( $calendar_months ) )
+           and $displayed_pics++ <= count( $calendar_months ) )
       {
         $template->assign_block_vars('thumbnails.line', array());
         $row_number = 1;
@@ -606,6 +607,78 @@ elseif ( isset( $page['cat'] ) and $page['cat'] == 'calendar' )
           )
         );
     }
+  }
+}
+//------------------------------------------------- recently updated categories
+elseif ( isset( $page['cat'] ) and $page['cat'] == 'recent_cats' )
+{
+  // retrieving categories recently update, ie containing pictures added
+  // recently. The calculated table field categories.date_last will be
+  // easier to use
+  $query = 'SELECT id AS category_id';
+  $query.= ' FROM '.CATEGORIES_TABLE;
+  $query.= ' WHERE date_last > ';
+  $query.= '   SUBDATE(CURRENT_DATE,INTERVAL '.$user['short_period'].' DAY)';
+  if ( $user['forbidden_categories'] != '' )
+  {
+    $query.= ' AND id NOT IN ('.$user['forbidden_categories'].')';
+  }
+  $query.= ';';
+  $result = mysql_query( $query );
+
+  $row_number  = 1;
+  $line_opened = false;
+  $displayed_pics = 0;
+  $cat_nb_images = mysql_num_rows( $result );
+  $template->assign_block_vars('thumbnails', array());
+  
+  // for each category, we have to search a recent picture to display and
+  // the name to display
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $cat_infos = get_cat_info( $row['category_id'] );
+    $name = '['.get_cat_display_name($cat_infos['name'],'<br />','',false).']';
+    
+    $query = 'SELECT id,file,tn_ext,storage_category_id';
+    $query.= ' FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE;
+    $query.= ' WHERE category_id = '.$row['category_id'];
+    $query.= ' AND date_available > ';
+    $query.= '   SUBDATE(CURRENT_DATE,INTERVAL '.$user['short_period'].' DAY)';
+    $query.= ' AND id = image_id';
+    $query.= ' ORDER BY RAND()';
+    $query.= ' LIMIT 0,1';
+    $query.= ';';
+    $subrow = mysql_fetch_array( mysql_query( $query ) );
+
+    $file = get_filename_wo_extension( $subrow['file'] );
+    
+    // creating links for thumbnail and associated category
+    $thumbnail_link = get_complete_dir( $subrow['storage_category_id'] );
+    $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
+    $thumbnail_link.= $file.'.'.$subrow['tn_ext'];
+    
+    $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['category_id'];
+    
+    // create a new line ?
+    if ( ( !$line_opened or $row_number++ == $user['nb_image_line'] )
+         and $displayed_pics++ < $cat_nb_images )
+    {
+      $template->assign_block_vars('thumbnails.line', array());
+      $row_number = 1;
+      $line_opened = true;
+    }
+    
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail',
+      array(
+        'IMAGE' => $thumbnail_link,
+        'IMAGE_ALT' => $subrow['file'],
+        'IMAGE_TITLE' => $lang['hint_category'],
+        'IMAGE_NAME' => $name,
+        
+        'U_IMG_LINK'=>add_session_id( $url_link )
+        )
+      );    
   }
 }
 //-------------------------------------------------------------- empty category
