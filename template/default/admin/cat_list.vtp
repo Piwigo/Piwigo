@@ -26,6 +26,7 @@
 <!--VTP_cat-->
 <tr>
   <{#td} style="width:50%;text-align:left;">
+    <a name="{#id}"></a>
     {#indent}<img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
     &nbsp;{#name} [
     <!--VTP_storage-->
@@ -40,19 +41,19 @@
   <{#td} class="{#class}"
          style="width:1px;white-space:nowrap;text-align:center;">
     <!--VTP_up-->
-    <a href="{#up_url}"><img src="../template/{#user_template}/admin/images/arrow_up.gif" alt="{#cat_up}" title="{#cat_up}" style="border:none;" /></a>
+    <a href="{#up_url}#{#id}"><img src="../template/{#user_template}/admin/images/arrow_up.gif" alt="{#cat_up}" title="{#cat_up}" style="border:none;" /></a>
     <!--/VTP_up-->
     <!--VTP_no_up-->
-    <a href="{#last_url}"><img src="../template/{#user_template}/admin/images/arrow_last.gif" alt="{#cat_last}" title="{#cat_last}" style="border:none;" /></a>
+    <a href="{#last_url}#{#id}"><img src="../template/{#user_template}/admin/images/arrow_last.gif" alt="{#cat_last}" title="{#cat_last}" style="border:none;" /></a>
     <!--/VTP_no_up-->
   </{#td}>
   <{#td} class="{#class}"
          style="width:1px;white-space:nowrap;text-align:center;">
     <!--VTP_down-->
-    <a href="{#down_url}"><img src="../template/{#user_template}/admin/images/arrow_down.gif" alt="{#cat_down}" title="{#cat_down}" style="border:none;" /></a>
+    <a href="{#down_url}#{#id}"><img src="../template/{#user_template}/admin/images/arrow_down.gif" alt="{#cat_down}" title="{#cat_down}" style="border:none;" /></a>
     <!--/VTP_down-->
     <!--VTP_no_down-->
-    <a href="{#first_url}"><img src="../template/{#user_template}/admin/images/arrow_first.gif" alt="{#cat_first}" title="{#cat_first}" style="border:none;" /></a>
+    <a href="{#first_url}#{#id}"><img src="../template/{#user_template}/admin/images/arrow_first.gif" alt="{#cat_first}" title="{#cat_first}" style="border:none;" /></a>
     <!--/VTP_no_down-->
   </{#td}>
   <{#td} class="{#class}" style="width:1px;text-align:center;">

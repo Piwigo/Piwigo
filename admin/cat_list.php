@@ -264,6 +264,7 @@ function display_cat_manager( $id_uppercat, $indent,
     $vtp->setVar( $sub, 'cat.class', $class );
     $vtp->setVar( $sub, 'cat.indent', $indent );
     $vtp->setVar( $sub, 'cat.name', $row['name'] );
+    $vtp->setVar( $sub, 'cat.id', $row['id'] );
     if ( $row['dir'] != '' )
     {
       $vtp->addSession( $sub, 'storage' );
@@ -298,6 +299,7 @@ function display_cat_manager( $id_uppercat, $indent,
     if ( $row['rank'] != $min_rank )
     {
       $vtp->addSession( $sub, 'up' );
+      $vtp->setVar( $sub, 'up.id', $row['id'] );
       $url = add_session_id( './admin.php?page=cat_list&amp;up='.$row['id'] );
       $vtp->setVar( $sub, 'up.up_url', $url );
       $vtp->closeSession( $sub, 'up' );
@@ -305,6 +307,7 @@ function display_cat_manager( $id_uppercat, $indent,
     else if ( $min_rank != $max_rank )
     {
       $vtp->addSession( $sub, 'no_up' );
+      $vtp->setVar( $sub, 'no_up.id', $row['id'] );
       $url = add_session_id( './admin.php?page=cat_list&amp;last='.$row['id']);
       $vtp->setVar( $sub, 'no_up.last_url', $url );
       $vtp->closeSession( $sub, 'no_up' );
@@ -312,6 +315,7 @@ function display_cat_manager( $id_uppercat, $indent,
     if ( $row['rank'] != $max_rank )
     {
       $vtp->addSession( $sub, 'down' );
+      $vtp->setVar( $sub, 'down.id', $row['id'] );
       $url = add_session_id( './admin.php?page=cat_list&amp;down='.$row['id']);
       $vtp->setVar( $sub, 'down.down_url', $url );
       $vtp->closeSession( $sub, 'down' );
@@ -319,6 +323,7 @@ function display_cat_manager( $id_uppercat, $indent,
     else if ( $min_rank != $max_rank )
     {
       $vtp->addSession( $sub, 'no_down' );
+      $vtp->setVar( $sub, 'no_down.id', $row['id'] );
       $url = add_session_id('./admin.php?page=cat_list&amp;first='.$row['id']);
       $vtp->setVar( $sub, 'no_down.first_url', $url );
       $vtp->closeSession( $sub, 'no_down' );
