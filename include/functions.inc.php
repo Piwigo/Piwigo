@@ -360,33 +360,46 @@ function pwg_log( $file, $category, $picture = '' )
 // output is internationalized.
 //
 // format_date( "2003-09-15", 'us', true ) -> "Monday 15 September 2003 21:52"
-function format_date( $date, $type = 'us', $show_time = false )
+function format_date($date, $type = 'us', $show_time = false)
 {
   global $lang;
 
+  list($year,$month,$day,$hour,$minute,$second) = array(0,0,0,0,0,0);
+  
   switch ( $type )
   {
-  case 'us' :
-    list( $year,$month,$day ) = explode( '-', $date );
-    $unixdate = mktime(0,0,0,$month,$day,$year);
-    break;
-  case 'unix' :
-    $unixdate = $date;
-    break;
-  case 'mysql_datetime' :
-    preg_match( '/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/',
-                $date, $matches );
-    $unixdate = mktime($matches[4],$matches[5],$matches[6],
-                       $matches[2],$matches[3],$matches[1]);
-    break;
+    case 'us' :
+    {
+      list($year,$month,$day) = explode('-', $date);
+      break;
+    }
+    case 'unix' :
+    {
+      list($year,$month,$day,$hour,$minute,$second) =
+        explode('.', date('Y.n.j.G.i', $date));
+      break;
+    }
+    case 'mysql_datetime' :
+    {
+      preg_match('/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/',
+                 $date, $out);
+      list($year,$month,$day,$hour,$minute,$second) =
+        array($out[1],$out[2],$out[3],$out[4],$out[5],$out[6]);
+      break;
+    }
   }
-  $formated_date = $lang['day'][date( "w", $unixdate )];
-  $formated_date.= date( " j ", $unixdate );
-  $formated_date.= $lang['month'][date( "n", $unixdate )];
-  $formated_date.= date( ' Y', $unixdate );
-  if ( $show_time )
+  $formated_date = '';
+  // before 1970, Microsoft Windows can't mktime
+  if ($year >= 1970 or substr(PHP_OS, 0, 3) != 'WIN')
   {
-    $formated_date.= date( ' G:i', $unixdate );
+    $formated_date.= $lang['day'][date('w', mktime(0,0,0,$month,$day,$year))];
+  }
+  $formated_date.= ' '.$day;
+  $formated_date.= ' '.$lang['month'][(int)$month];
+  $formated_date.= ' '.$year;
+  if ($show_time)
+  {
+    $formated_date.= ' '.$hour.':'.$minute;
   }
 
   return $formated_date;
