@@ -12,7 +12,7 @@
 
       {L_SEND_MAIL}
       <a href="mailto:{MAIL}?subject={L_TITLE_MAIL}">
-       <span style="font-weight:bold;">{WEBMASTER}</span>
+       <span style="font-weight:bold;">{L_WEBMASTER}</span>
       </a>
 
      </div>

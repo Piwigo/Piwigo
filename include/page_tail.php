@@ -34,12 +34,12 @@ $template->assign_vars(
   array(
     'TIME' =>  $time,
     'VERSION' => $conf['version'],
-    'WEBMASTER'=>$conf['webmaster'],
     'MAIL'=>$conf['mail_webmaster'],
     
     'L_GEN_TIME' => $lang['generation_time'],
     'L_SEND_MAIL' => $lang['send_mail'],
     'L_TITLE_MAIL' => $lang['title_send_mail'],
+    'L_WEBMASTER'=>$lang['webmaster'],
     
     'U_SITE' => $conf['site_url']
     ));

@@ -1,13 +1,11 @@
 -- initial configuration for PhpWebGallery
 
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('prefix_thumbnail','TN-','thumbnails filename prefix');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('webmaster','','webmaster login');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('mail_webmaster','','webmaster mail');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_lang','en_UK.iso-8859-1','Default gallery language');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_style','default','Default gallery style');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_language','en_UK.iso-8859-1','Default gallery language');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_template','default','Default gallery style');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('access','free','access type to your gallery (free|restricted)');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_id_size','4','length of session identifiers');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_keyword','','improves the encoding of the session identifier');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_time','30','number of minutes for validity of sessions');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_comments','true','display the users comments');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');

@@ -113,22 +113,7 @@ function create_navigation_bar( $url, $nb_element, $start,
 //
 function language_select($default, $select_name = "language")
 {
-
-  $dir = opendir(PHPWG_ROOT_PATH . 'language');
-  $available_lang= array();
-
-  while ( $file = readdir($dir) )
-  {
-    $path= realpath(PHPWG_ROOT_PATH . 'language/'.$file);
-    if (is_dir ($path) && !is_link($path) && file_exists($path . '/iso.txt'))
-    {
-	  list($displayname) = @file($path . '/iso.txt');
-	  $available_lang[$displayname] = $file;
-    }
-  }
-  closedir($dir);
-  @asort($available_lang);
-  @reset($available_lang);
+  $available_lang = get_languages();
 
   $lang_select = '<select name="' . $select_name . '" onchange="this.form.submit()">';
   foreach ($available_lang as $displayname => $code)
@@ -146,19 +131,14 @@ function language_select($default, $select_name = "language")
 //
 function style_select($default_style, $select_name = "style")
 {
-  $dir = opendir(PHPWG_ROOT_PATH . 'template');
-  $style_select = '<select name="' . $select_name . '">';
-  while ( $file = readdir($dir) )
+  $templates = get_templates();
+
+  foreach ($templates as $template)
   {
-    if (is_dir ( realpath(PHPWG_ROOT_PATH.'template/'.$file) ) 
-	  && !is_link(realpath(PHPWG_ROOT_PATH  . 'template/' . $file))
-	  && !strstr($file,'.'))
-    {
-      $selected = ( $file == $default_style ) ? ' selected="selected"' : '';
-	  $style_select .= '<option value="' . $file . '"' . $selected . '>' . $file . '</option>';
-    }
+    $selected = ( $template == $default_style ) ? ' selected="selected"' : '';
+    $style_select.= '<option value="'.$template.'"'.$selected.'>';
+    $style_select.= $template.'</option>';
   }
-  closedir($dir);
   return $style_select;
 }
 

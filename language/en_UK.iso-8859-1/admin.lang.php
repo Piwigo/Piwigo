@@ -82,87 +82,131 @@ $lang['title_default'] = 'PhpWebGallery administration';
 $lang['title_waiting'] = 'Pictures waiting for validation';
 
 //Error messages
-$lang['conf_err_prefixe'] = 'thumbnail\'s prefix mustn\'t contain any accentued character';
-$lang['conf_err_mail'] = 'e-mail address refused, it must be like name@server.com';
-$lang['conf_err_sid_size'] = 'the session identifier size must be an integer value between 4 and 50';
-$lang['conf_err_sid_time'] = 'the session time must be an integer value between 5 and 60';
-$lang['conf_err_max_user_listbox'] = 'the max user listbox number must be an integer value between 0 and 255';
 $lang['cat_error_name'] = 'The name of a category mustn\'t be empty';
 
 //Configuration
 $lang['conf_confirmation'] = 'Information data registered in database';
-$lang['conf_general_title'] = 'Main configuration';
-$lang['conf_general_webmaster'] = 'Webmaster login';
-$lang['conf_general_webmaster_info'] = 'It will be shown to the visitors. It is necessary for website administration';
-$lang['conf_general_mail'] = 'Webmaster mail adress';
-$lang['conf_general_mail_info'] = 'Visitors will be able to contact by this mail';
-$lang['conf_general_prefix'] = 'Thumbnail prefix';
-$lang['conf_general_prefix_info'] = 'Thumbnails use this prefix. Do not fill if your not sure.';
+
+// Configuration -> general
+$lang['conf_general_title'] = 'Main';
+
+$lang['conf_general_mail_webmaster'] = 'Webmaster mail adress';
+$lang['conf_general_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
+$lang['conf_general_mail_webmaster_error'] = 'e-mail address refused, it must be like name@server.com';
+
+$lang['conf_general_prefix_thumbnail'] = 'Thumbnail prefix';
+$lang['conf_general_prefix_thumbnail_info'] = 'Thumbnails use this prefix. Do not fill if your not sure.';
+$lang['conf_general_prefix_thumbnail_error'] = 'thumbnail\'s prefix must only contain characters among : a to z (case insensitive), "-" or "_"';
+
 $lang['conf_general_access'] = 'Access type';
+$lang['conf_general_access_info'] = '- free : anyone can enter the site, any visitor can create an account in order to customize the appareance of the website<br />- restricted : the webmaster create accounts. Only registered users can enter the site';
 $lang['conf_general_access_1'] = 'Free';
 $lang['conf_general_access_2'] = 'Restricted';
-$lang['conf_general_access_info'] = '- free : anyone can enter the site, any visitor can create an account in order to customize the appareance of the website<br />- restricted : the webmaster create accounts. Only registered users can enter the site';
-$lang['conf_comments'] = 'Users comments';
-$lang['conf_comments_title'] = 'Configuration of users comments';
-$lang['conf_comments_show_comments'] = $lang['conf_comments'];
-$lang['conf_comments_show_comments_info'] = 'display the users comments under each picture ?';
-$lang['conf_comments_comments_number'] = 'Number of comments per page';
-$lang['conf_comments_comments_number_info'] = 'number of comments to display on each page. This number is unlimited for a picture. Enter a number between 5 and 50.';
-$lang['conf_err_comment_number'] = 'The number of comments a page must be between 5 and 50 included.';
-$lang['conf_remote_site_delete_info'] = 'Deleting a remote server will delete all the image and the categories in relation with this server.';
-$lang['conf_upload_title'] = 'Configuration of the users upload';
-$lang['conf_upload_available'] = 'authorized the upload of pictures';
-$lang['conf_upload_available_info'] = '';
-$lang['conf_upload_maxfilesize'] = 'maximum filesize';
-$lang['conf_upload_maxfilesize_info'] = 'Maximum filesize for the uploaded pictures. Must be a number between 10 and 1000 KB.';
-$lang['conf_err_upload_maxfilesize'] = 'Maximum filesize for the uploaded pictures must be a number between 10 and 1000 KB.';
-$lang['conf_upload_maxwidth'] = 'maximum width';
-$lang['conf_upload_maxwidth_info'] = 'Maximum width authorized for the uploaded images. Must be a number superior to 10 pixels';
-$lang['conf_err_upload_maxwidth'] = 'maximum width authorized for the uploaded images must be a number superior to 10 pixels.';
-$lang['conf_upload_maxheight'] = 'maximum height';
-$lang['conf_upload_maxheight_info'] = 'Maximum height authorized for the uploaded images. Must be a number superior to 10 pixels';
-$lang['conf_err_upload_maxwidth'] = 'maximum height authorized for the uploaded images must be a number superior to 10 pixels.';
-$lang['conf_upload_maxwidth_thumbnail'] = 'thumbnails maximum width';
-$lang['conf_upload_maxwidth_thumbnail_info'] = 'Maximum width authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
-$lang['conf_err_upload_maxwidth_thumbnail'] = 'Maximum width authorized for the uploaded thumbnails must be a number superior to 10 pixels.';
-$lang['conf_upload_maxheight_thumbnail'] = 'thumbnails maximum height';
-$lang['conf_upload_maxheight_thumbnail_info'] = 'Maximum height authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
-$lang['conf_err_upload_maxheight_thumbnail'] = 'Maximum height authorized for the uploaded thumbnails must be a number superior to 10 pixels.';
-$lang['conf_default_title'] = 'Default display properties for unregistered visitors and new accounts';
-$lang['conf_default_language_info'] = 'Default language';
-$lang['conf_default_theme_info'] = 'Default theme';
-$lang['conf_session_title'] = 'Sessions configuration';
-$lang['conf_session_size'] = 'identifier size';
-$lang['conf_session_size_info'] = '- the longer your identifier is, the more secure your site is<br />- enter a number between 4 and 50';
-$lang['conf_session_time'] = 'validity period';
-$lang['conf_session_time_info'] = '- the shorter the validity period is, the more secure your site is<br />- enter a number between 5 and 60, in minutes';
-$lang['conf_session_key'] = 'keyword';
-$lang['conf_session_key_info'] = '- the session keyword improve the encoding of the session identifier<br />- enter any sentence shorter than 255 caracters';
+
+$lang['conf_general_log'] = $lang['history'];
 $lang['conf_general_log_info'] = 'Keep an history of visits on your website ? Visits will be shown in the history section of the administration panel';
+
 $lang['conf_general_mail_notification'] = 'Mail notification';
 $lang['conf_general_mail_notification_info'] = 'Automated mail notification for adminsitrators (and only for them) when a user add a comment or upload a picture.';
-$lang['conf_comments_validation'] = 'validation';
-$lang['conf_comments_validation_info'] = 'An administrator validate users posted comments before the becom visible on the site';
-$lang['conf_comments_forall'] = 'for all ?';
-$lang['conf_comments_forall_info'] = 'Even guest not registered can post comments';
-$lang['conf_default_nb_image_per_row_info'] = 'number of pictures for each row by default';
-$lang['conf_default_nb_row_per_page_info'] = 'number of rows by page by default';
-$lang['conf_default_recent_period_info'] = 'By days. Period within a picture is shown as new. The short period must be superior to 1 day.';
-$lang['conf_default_expand_info'] = 'expand all categories by default in the menu ?';
+
+// Configuration -> comments
+$lang['conf_comments_title'] = 'Users comments';
+
+$lang['conf_comments_show_comments'] = 'Show users comments';
+$lang['conf_comments_show_comments_info'] = 'display the users comments under each picture ?';
+
+$lang['conf_comments_nb_comment_page'] = 'Number of comments per page';
+$lang['conf_comments_nb_comment_page_info'] = 'number of comments to display on each page. This number is unlimited for a picture. Enter a number between 5 and 50.';
+$lang['conf_comments_nb_comment_page_error'] = 'The number of comments a page must be between 5 and 50 included.';
+
+$lang['conf_comments_comments_validation'] = 'validation';
+$lang['conf_comments_comments_validation_info'] = 'An administrator validate users posted comments before the becom visible on the site';
+
+$lang['conf_comments_comments_forall'] = 'for all ?';
+$lang['conf_comments_comments_forall_info'] = 'Even guest not registered can post comments';
+
+// Configuration -> upload
+$lang['conf_upload_title'] = 'Users upload';
+
+$lang['conf_upload_upload_available'] = 'authorized the upload of pictures';
+$lang['conf_upload_upload_available_info'] = '';
+
+$lang['conf_upload_upload_maxfilesize'] = 'maximum filesize';
+$lang['conf_upload_upload_maxfilesize_info'] = 'Maximum filesize for the uploaded pictures. Must be a number between 10 and 1000 KB.';
+$lang['conf_upload_upload_maxfilesize_error'] = 'Maximum filesize for the uploaded pictures must be a number between 10 and 1000 KB.';
+
+$lang['conf_upload_upload_maxwidth'] = 'maximum width';
+$lang['conf_upload_upload_maxwidth_info'] = 'Maximum width authorized for the uploaded images. Must be a number superior to 10 pixels';
+$lang['conf_upload_upload_maxwidth_error'] = 'maximum width authorized for the uploaded images must be a number superior to 10 pixels.';
+
+$lang['conf_upload_upload_maxheight'] = 'maximum height';
+$lang['conf_upload_upload_maxheight_info'] = 'Maximum height authorized for the uploaded images. Must be a number superior to 10 pixels';
+$lang['conf_upload_upload_maxheight_error'] = 'maximum height authorized for the uploaded images must be a number superior to 10 pixels.';
+
+$lang['conf_upload_upload_maxwidth_thumbnail'] = 'thumbnails maximum width';
+$lang['conf_upload_upload_maxwidth_thumbnail_info'] = 'Maximum width authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
+$lang['conf_upload_upload_maxwidth_thumbnail_error'] = 'Maximum width authorized for the uploaded thumbnails must be a number superior to 10 pixels.';
+
+$lang['conf_upload_upload_maxheight_thumbnail'] = 'thumbnails maximum height';
+$lang['conf_upload_upload_maxheight_thumbnail_info'] = 'Maximum height authorized for the uploaded thumbnails. Must be a number superior to 10 pixels';
+$lang['conf_upload_upload_maxheight_thumbnail_error'] = 'Maximum height authorized for the uploaded thumbnails must be a number superior to 10 pixels.';
+
+// Configuration -> default
+$lang['conf_default_title'] = 'Default display';
+
+$lang['conf_default_default_language'] = $lang['customize_language'];
+$lang['conf_default_default_language_info'] = 'Default language';
+
+$lang['conf_default_default_template'] = $lang['customize_theme'];
+$lang['conf_default_default_template_info'] = 'Default theme';
+
+$lang['conf_default_nb_image_line'] = $lang['customize_nb_image_per_row'];
+$lang['conf_default_nb_image_line_info'] = 'number of pictures for each row by default';
+
+$lang['conf_default_nb_line_page'] = $lang['customize_nb_row_per_page'];
+$lang['conf_default_nb_line_page_info'] = 'number of rows by page by default';
+
+$lang['conf_default_recent_period'] = $lang['customize_recent_period'];
+$lang['conf_default_recent_period_info'] = 'By days. Period within a picture is shown as new. Must be superior to 1 day.';
+$lang['conf_default_recent_period_error'] = 'The recent period must be an integer value, superior to 1.';
+
+$lang['conf_default_auto_expand'] = $lang['customize_expand'];
+$lang['conf_default_auto_expand_info'] = 'expand all categories by default in the menu ?';
+
+$lang['conf_default_show_nb_comments'] = $lang['customize_show_nb_comments'];
 $lang['conf_default_show_nb_comments_info'] = 'show the number of comments for each picture on the thumbnails page';
-$lang['conf_default_maxwidth_info'] = 'Maximum width for display pictures : picture will have a new width only for display, picture files won\'t be changed. Let empty if you don\'t wish to have a limit.';
-$lang['conf_default_maxheight_info'] = 'Just as the maximum width, but for the height';
-$lang['conf_session_cookie'] = 'Authorize cookies';
-$lang['conf_session_cookie_info'] = 'users won\'t have to log on each visit any more. Less secure.';
-$lang['conf_metadata_title'] = 'Files metadata';
-$lang['conf_use_exif'] = 'Use EXIF';
-$lang['conf_use_exif_info'] = 'Use EXIF data during metadata synchronization into PhpWebGallery database';
-$lang['conf_use_iptc'] = 'Use IPTC';
-$lang['conf_use_iptc_info'] = 'Use IPTC data during metadata synchronization into PhpWebGallery database';
-$lang['conf_show_exif'] = 'Show EXIF';
-$lang['conf_show_exif_info'] = 'Give the possibility to show EXIF metadata on visualisation page. See include/config.inc.php for available EXIF fields';
-$lang['conf_show_iptc'] = 'Show IPTC';
-$lang['conf_show_iptc_info'] = 'Give the possibility to show IPTC metadata on visualisation page. See include/config.inc.php for available IPTC fields';
+
+// Configuration -> session
+$lang['conf_session_title'] = 'Sessions';
+
+$lang['conf_session_session_id_size'] = 'identifier size';
+$lang['conf_session_session_id_size_info'] = '- the longer your identifier is, the more secure your site is<br />- enter a number between 4 and 50';
+$lang['conf_session_session_id_size_error'] = 'the session identifier size must be an integer value between 4 and 50';
+
+$lang['conf_session_session_time'] = 'validity period';
+$lang['conf_session_session_time_info'] = '- the shorter the validity period is, the more secure your site is<br />- enter a number between 5 and 60, in minutes';
+$lang['conf_session_session_time_error'] = 'the session time must be an integer value between 5 and 60';
+
+$lang['conf_session_authorize_cookies'] = 'Authorize cookies';
+$lang['conf_session_authorize_cookies_info'] = 'users won\'t have to log on each visit any more. Less secure.';
+
+// Configuration -> metadata
+$lang['conf_metadata_title'] = 'Metadata';
+
+$lang['conf_metadata_use_exif'] = 'Use EXIF';
+$lang['conf_metadata_use_exif_info'] = 'Use EXIF data during metadata synchronization into PhpWebGallery database';
+
+$lang['conf_metadata_use_iptc'] = 'Use IPTC';
+$lang['conf_metadata_use_iptc_info'] = 'Use IPTC data during metadata synchronization into PhpWebGallery database';
+
+$lang['conf_metadata_show_exif'] = 'Show EXIF';
+$lang['conf_metadata_show_exif_info'] = 'Give the possibility to show EXIF metadata on visualisation page. See include/config.inc.php for available EXIF fields';
+
+$lang['conf_metadata_show_iptc'] = 'Show IPTC';
+$lang['conf_metadata_show_iptc_info'] = 'Give the possibility to show IPTC metadata on visualisation page. See include/config.inc.php for available IPTC fields';
+
+// Configuration -> remote
+$lang['conf_remote_site_delete_info'] = 'Deleting a remote server will delete all the image and the categories in relation with this server.';
 
 //FAQ
 $lang['help_images_title'] = 'Adding pictures';

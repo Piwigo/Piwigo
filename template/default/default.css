@@ -19,8 +19,6 @@ h2 {
 	line-height:	120%; 
 }
 
-.small{ font-size:80%;}
-
 /* ANCHORS */
 
 a { text-decoration:none; color:#FFFFFF;}
@@ -146,16 +144,6 @@ ul.menu {
   border-collapse:collapse;
 }
 
-.row1,.row2 {
-  text-align:left;
-  padding:5px 0px 5px 0px;
-  height:20px;
-} 
-
-.row1 {
-  background-color:#505050;
-}
-
 .throw {
   color:#FFFFCC;
   background-color:#3F3F3F;
@@ -257,7 +245,7 @@ background-color:#444444;
 margin:0px 0px 12px 0px;
 text-align: center;
 padding:0px;
-color : #FFF48E; 
+color : #FFF48E;
 }
 
 .adminMain
@@ -338,4 +326,43 @@ span.update_error_element, span.update_category_error {
 
 .update_summary_del {
   color:#ffe1e1;
+}
+
+.confMenu {
+  background-color:#444444;
+  text-align:center;
+}
+
+.confMenu a {
+  padding:2px;
+  border:1px solid gray;
+  background-color:#505050;
+  color:#fff48e;
+  color:lightgray;
+}
+
+.confMenu a:hover {
+  color:orange;
+  text-decoration:none;
+}
+
+.confMenu a.opened {
+  background-color:gray;
+  color:white;
+  text-decoration:none;
+}
+
+span.confLineName {
+  font-weight:bold;
+}
+
+span.confLineInfo {
+  font-size:80%;
+}
+
+td.confLineField {
+  text-align:left;
+  padding:5px 0px 5px 0px;
+  height:20px;
+  background-color:#505050;
 }

@@ -130,7 +130,7 @@ include(PHPWG_ROOT_PATH . 'include/template.php');
 //
 
 mysql_connect( $dbhost, $dbuser, $dbpasswd )
-or die ( "Could not connect to server" );
+or die ( "Could not connect to database server" );
 mysql_select_db( $dbname )
 or die ( "Could not connect to database" );
 	

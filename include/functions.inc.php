@@ -179,22 +179,25 @@ function get_filename_wo_extension( $filename )
 }
 
 /**
- * returns an array contening sub-directories
+ * returns an array contening sub-directories, excluding "CVS"
  *
  * @param string $dir
  * @return array
  */
-function get_dirs( $directory )
+function get_dirs($directory)
 {
   $sub_dirs = array();
 
-  if ( $opendir = opendir( $directory ) )
+  if ($opendir = opendir($directory))
   {
-    while ( $file = readdir ( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( $file != '.' and $file != '..' and is_dir ( $directory.'/'.$file ) )
+      if ($file != '.'
+          and $file != '..'
+          and is_dir($directory.'/'.$file)
+          and $file != 'CVS')
       {
-        array_push( $sub_dirs, $file );
+        array_push($sub_dirs, $file);
       }
     }
   }
@@ -258,23 +261,29 @@ function get_picture_size( $original_width, $original_height,
 }
 //-------------------------------------------- PhpWebGallery specific functions
 
-// get_languages retourne un tableau contenant tous les languages
-// disponibles pour PhpWebGallery
-function get_languages( $rep_language )
+/**
+ * returns an array with a list of {language_code => language_name}
+ *
+ * @returns array
+ */
+function get_languages()
 {
-  global $lang;
+  $dir = opendir(PHPWG_ROOT_PATH.'language');
   $languages = array();
-  $i = 0;
-  if ( $opendir = opendir ( $rep_language ) )
+
+  while ($file = readdir($dir))
   {
-    while ( $file = readdir ( $opendir ) )
+    $path = realpath(PHPWG_ROOT_PATH.'language/'.$file);
+    if (is_dir($path) and !is_link($path) and file_exists($path.'/iso.txt'))
     {
-      if ( is_dir ( $rep_language.$file )&& !substr_count($file,'.') && isset($lang['lang'][$file]))
-      {
-        $languages[$i++] =$lang['lang'][$file];
-      }
+      list($language_name) = @file($path.'/iso.txt');
+      $languages[$file] = $language_name;
     }
   }
+  closedir($dir);
+  @asort($languages);
+  @reset($languages);
+
   return $languages;
 }
 
@@ -538,5 +547,13 @@ function get_query_string_diff($rejects = array())
   }
 
   return $query_string;
+}
+
+/**
+ * returns available templates
+ */
+function get_templates()
+{
+  return get_dirs(PHPWG_ROOT_PATH.'template');
 }
 ?>
