@@ -32,7 +32,10 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 define('CURRENT_DATE', "'".date('Y-m-d')."'");
-//------------------------------------------------------------------- functions
+// +-----------------------------------------------------------------------+
+// |                              functions                                |
+// +-----------------------------------------------------------------------+
+
 /**
  * order categories (update categories.rank database field)
  *
@@ -118,7 +121,7 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
 
     // 2. we search pictures of the category only if the update is for all
     //    or a cat_id is specified
-    if (isset($page['cat']) or $_GET['update'] == 'all')
+    if ($_POST['sync'] == 'files')
     {
       $output.= insert_local_element($cat_directory, $id_uppercat);
     }
@@ -239,27 +242,32 @@ UPDATE '.CATEGORIES_TABLE.'
   }
 
   // Recursive call on the sub-categories (not virtual ones)
-  $query = '
+  if (!isset($_POST['cat'])
+      or (isset($_POST['subcats-included'])
+          and $_POST['subcats-included'] == 1))
+  {
+    $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE site_id = 1
 ';
-  if (!is_numeric($id_uppercat))
-  {
-    $query.= '    AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= '    AND id_uppercat = '.$id_uppercat;
-  }
-  $query.= '
+    if (!is_numeric($id_uppercat))
+    {
+      $query.= '    AND id_uppercat IS NULL';
+    }
+    else
+    {
+      $query.= '    AND id_uppercat = '.$id_uppercat;
+    }
+    $query.= '
     AND dir IS NOT NULL'; // virtual categories not taken
-  $query.= '
+    $query.= '
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $output.= insert_local_category($row['id']);
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $output.= insert_local_category($row['id']);
+    }
   }
 
   if (is_numeric($id_uppercat))
@@ -542,50 +550,87 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
   }
   return $output;
 }
-//----------------------------------------------------- template initialization
+// +-----------------------------------------------------------------------+
+// |                        template initialization                        |
+// +-----------------------------------------------------------------------+
 $template->set_filenames(array('update'=>'admin/update.tpl'));
 
-$template->assign_vars(array(
-  'L_UPDATE_TITLE'=>$lang['update_default_title'],
-  'L_CAT_UPDATE'=>$lang['update_only_cat'],
-  'L_ALL_UPDATE'=>$lang['update_all'],
-  'L_RESULT_UPDATE'=>$lang['update_part_research'],
-  'L_NB_NEW_ELEMENTS'=>$lang['update_nb_new_elements'],
-  'L_NB_NEW_CATEGORIES'=>$lang['update_nb_new_categories'],
-  'L_NB_DEL_ELEMENTS'=>$lang['update_nb_del_elements'],
-  'L_NB_DEL_CATEGORIES'=>$lang['update_nb_del_categories'],
-  'L_UPDATE_SYNC_METADATA_QUESTION'=>$lang['update_sync_metadata_question'],
-  
-  'U_CAT_UPDATE'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=cats'),
-  'U_ALL_UPDATE'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=all')
- ));
-//-------------------------------------------- introduction : choices of update
-// Display choice if "update" var is not specified
-if (!isset($_GET['update']))
+$base_url = PHPWG_ROOT_PATH.'admin.php?page=update';
+
+$template->assign_vars(
+  array(
+    'L_SUBMIT'=>$lang['submit'],
+    'L_UPDATE_TITLE'=>$lang['update_default_title'],
+    'L_UPDATE_SYNC_FILES'=>$lang['update_sync_files'],
+    'L_UPDATE_SYNC_DIRS'=>$lang['update_sync_dirs'],
+    'L_UPDATE_SYNC_ALL'=>$lang['update_sync_all'],
+    'L_UPDATE_SYNC_METADATA'=>$lang['update_sync_metadata'],
+    'L_UPDATE_SYNC_METADATA_NEW'=>$lang['update_sync_metadata_new'],
+    'L_UPDATE_SYNC_METADATA_ALL'=>$lang['update_sync_metadata_all'],
+    'L_UPDATE_CATS_SUBSET'=>$lang['update_cats_subset'],
+    'L_RESULT_UPDATE'=>$lang['update_part_research'],
+    'L_NB_NEW_ELEMENTS'=>$lang['update_nb_new_elements'],
+    'L_NB_NEW_CATEGORIES'=>$lang['update_nb_new_categories'],
+    'L_NB_DEL_ELEMENTS'=>$lang['update_nb_del_elements'],
+    'L_NB_DEL_CATEGORIES'=>$lang['update_nb_del_categories'],
+    'L_SEARCH_SUBCATS_INCLUDED'=>$lang['search_subcats_included'],
+    
+    'U_SYNC_DIRS'=>add_session_id($base_url.'&amp;update=dirs'),
+    'U_SYNC_ALL'=>add_session_id($base_url.'&amp;update=all'),
+    'U_SYNC_METADATA_NEW'=>add_session_id($base_url.'&amp;metadata=all:new'),
+    'U_SYNC_METADATA_ALL'=>add_session_id($base_url.'&amp;metadata=all')
+    ));
+// +-----------------------------------------------------------------------+
+// |                        introduction : choices                         |
+// +-----------------------------------------------------------------------+
+if (!isset($_POST['submit']))
 {
- $template->assign_block_vars('introduction',array());
+  $template->assign_block_vars('introduction', array());
+
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE site_id != 1
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($user['restrictions'], $row['id']);
+  }
+  $user['forbidden_categories'] = implode(',', $user['restrictions']);
+  $user['expand'] = true;
+  $structure = create_user_structure('');
+  display_select_categories($structure,
+                            '&nbsp;',
+                            array(),
+                            'introduction.category_option');
 }
-//-------------------------------------------------- local update : ./galleries
-else if (!isset($_GET['metadata']))
+// +-----------------------------------------------------------------------+
+// |                          synchronize files                            |
+// +-----------------------------------------------------------------------+
+else if (isset($_POST['submit'])
+         and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
-  check_cat_id($_GET['update']);
-  $start = get_moment();
   $counts = array(
     'new_elements' => 0,
     'new_categories' => 0,
     'del_elements' => 0,
     'del_categories' => 0
     );
-  
-  if (isset($page['cat']))
+
+  if (isset($_POST['cat']))
   {
-    $categories = insert_local_category($page['cat']);
+    $opts['category_id'] = $_POST['cat'];
   }
   else
   {
-    $categories = insert_local_category('NULL');
+    $opts['category_id'] = 'NULL';
   }
+  
+  $start = get_moment();
+  $categories = insert_local_category($opts['category_id']);
   echo get_elapsed_time($start,get_moment()).' for scanning directories<br />';
+  
   $template->assign_block_vars(
     'update',
     array(
@@ -595,26 +640,6 @@ else if (!isset($_GET['metadata']))
       'NB_NEW_ELEMENTS'=>$counts['new_elements'],
       'NB_DEL_ELEMENTS'=>$counts['del_elements']
       ));
-  if ($counts['new_elements'] > 0)
-  {
-    $url = PHPWG_ROOT_PATH.'admin.php?page=update&amp;metadata=1';
-    if (isset($page['cat']))
-    {
-      $url.= '&amp;update='.$page['cat'];
-    }
-    $template->assign_block_vars(
-      'update.sync_metadata',
-      array(
-        'U_URL' => add_session_id($url)
-        ));
-  }
-}
-//---------------------------------------- update informations about categories
-if (!isset($_GET['metadata'])
-    and (isset($_GET['update'])
-         or isset($page['cat'])
-         or @is_file('./listing.xml') && DEBUG))
-{
   $start = get_moment();
   update_category('all');
   echo get_elapsed_time($start,get_moment()).' for update_category(all)<br />';
@@ -622,29 +647,44 @@ if (!isset($_GET['metadata'])
   ordering();
   echo get_elapsed_time($start, get_moment()).' for ordering categories<br />';
 }
-//---------------------------------------------------- metadata synchronization
-if (isset($_GET['metadata']))
+// +-----------------------------------------------------------------------+
+// |                          synchronize metadata                         |
+// +-----------------------------------------------------------------------+
+else if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync']))
 {
-  if (isset($_GET['update']))
+  // sync only never synchronized files ?
+  if ($_POST['sync'] == 'metadata_new')
   {
-    check_cat_id($_GET['update']);
-  }
-
-  $start = get_moment();
-  if (isset($page['cat']))
-  {
-    $files = get_filelist($page['cat'],true,true);
+    $opts['only_new'] = true;
   }
   else
   {
-    $files = get_filelist('',true,true);
+    $opts['only_new'] = false;
   }
+  $opts['category_id'] = '';
+  $opts['recursive'] = true;
+  
+  if (isset($_POST['cat']))
+  {
+    $opts['category_id'] = $_POST['cat'];
+    // recursive ?
+    if (!isset($_POST['subcats-included']) or $_POST['subcats-included'] != 1)
+    {
+      $opts['recursive'] = false;
+    }
+  }
+  $start = get_moment();
+  $files = get_filelist($opts['category_id'],
+                        $opts['recursive'],
+                        $opts['only_new']);
   echo get_elapsed_time($start, get_moment()).' for get_filelist<br />';
   
   $start = get_moment();
   update_metadata($files);
   echo get_elapsed_time($start, get_moment()).' for metadata update<br />';
 }
-//----------------------------------------------------------- sending html code
+// +-----------------------------------------------------------------------+
+// |                          sending html code                            |
+// +-----------------------------------------------------------------------+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'update');
 ?>

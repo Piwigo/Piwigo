@@ -270,16 +270,6 @@ UPDATE '.CATEGORIES_TABLE.'
 }
 reset($categories);
 // +-----------------------------------------------------------------------+
-// |                           metadata update                             |
-// +-----------------------------------------------------------------------+
-if (isset($_GET['metadata']) and is_numeric($_GET['metadata']))
-{
-  $files = get_filelist($_GET['metadata'], true, false);
-  update_metadata($files);
-  array_push($infos,
-             count($files).' '.$lang['cat_list_update_metadata_confirmation']);
-}
-// +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('categories'=>'admin/cat_list.tpl'));
@@ -297,7 +287,6 @@ $template->assign_vars(array(
   'L_EDIT'=>$lang['edit'],
   'L_INFO_IMG'=>$lang['cat_image_info'],
   'L_DELETE'=>$lang['delete'],
-  'L_UPDATE_METADATA'=>$lang['cat_list_update_metadata']
  ));
   
 $tpl = array('cat_first','cat_last');
@@ -396,13 +385,7 @@ SELECT COUNT(id) AS nb_sub_cats
       'U_CAT_DELETE'=>add_session_id($self_url.'&amp;delete='.$category['id']),
       
       'U_INFO_IMG'
-      => add_session_id($base_url.'infos_images&amp;cat_id='.$category['id']),
-      
-      'U_CAT_UPDATE'=>
-      add_session_id($base_url.'update&amp;update='.$category['id']),
-      
-      'U_CAT_METADATA'=>
-      add_session_id($cat_list_url.'&amp;metadata='.$category['id'])
+      => add_session_id($base_url.'infos_images&amp;cat_id='.$category['id'])
       ));
   
   if (!empty($category['dir']))
@@ -412,17 +395,6 @@ SELECT COUNT(id) AS nb_sub_cats
   else
   {
     $template->assign_block_vars('category.virtual' ,array());
-  }
-
-  if ($category['site_id'] == 1 and !empty($category['dir']))
-  {
-    $template->assign_block_vars('category.update' ,array());
-    $template->assign_block_vars('category.metadata' ,array());
-  }
-  else
-  {
-    $template->assign_block_vars('category.no_update' ,array());
-    $template->assign_block_vars('category.no_metadata' ,array());
   }
   
   if ($category['nb_images'] > 0)

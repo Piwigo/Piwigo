@@ -216,9 +216,13 @@ $lang['update_nb_del_elements'] = 'elements deleted in the database';
 $lang['update_nb_new_categories'] = 'categories added in the database';
 $lang['update_nb_del_categories'] = 'categories deleted in the database';
 $lang['update_default_title'] = 'Choose an option';
-$lang['update_only_cat'] = 'update categories, not pictures';
-$lang['update_all'] = 'update all';
-$lang['update_sync_metadata_question'] = 'Do you want to synchronize new elements informations with files metadata ?';
+$lang['update_sync_files'] = 'synchronize files structure with database';
+$lang['update_sync_dirs'] = 'only directories';
+$lang['update_sync_all'] = 'directories + files';
+$lang['update_sync_metadata'] = 'synchronize files metadata with database elements informations';
+$lang['update_sync_metadata_new'] = 'only never synchronized elements';
+$lang['update_sync_metadata_all'] = 'even already synchronized elements';
+$lang['update_cats_subset'] = 'reduce to single existing categories';
 
 // History
 $lang['stats_title'] = 'Last year statistics';

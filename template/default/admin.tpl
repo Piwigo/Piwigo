@@ -19,7 +19,8 @@
   <li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
   <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
   <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
-  </ul>
+  <li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
+</ul>
 </div>
 <div class="titreMenu">{L_CONFIGURATION}</div>
 <div class="menu">
@@ -37,7 +38,6 @@
 <ul class="menu">
   <li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
   <li><a class="adminMenu" href="{U_UPLOAD}">{L_UPLOAD}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
 </ul>
 </div>
 <div class="titreMenu">{L_IMAGES}</div>
@@ -46,8 +46,7 @@
   <li><a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a></li>
   <li><a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a></li>
   <li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
-  <li><a class="adminMenu" href="{U_IMG_UPDATE}">{L_UPDATE}</a></li>
-  </ul>
+</ul>
 </div>
 <div class="titreMenu">{L_IDENTIFY}</div>
 <div class="menu">

@@ -31,9 +31,8 @@ define('PHPWG_VERSION', 'BSF');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
-// Debug Level
-//define('DEBUG', 1); // Debugging on
-define('DEBUG', 0); // Debugging off 
+// Debug Level : 1 = on, 0 = off
+define('DEBUG', 0);
  
 // User level
 define('ANONYMOUS', 2);

@@ -115,49 +115,59 @@ function get_user_plain_structure()
 {
   global $page,$user;
   
-  $infos = array( 'name','id','date_last','nb_images','dir','id_uppercat',
+  $infos = array('name','id','date_last','nb_images','dir','id_uppercat',
                   'rank','site_id','uppercats');
   
-  $query = 'SELECT '.implode( ',', $infos );
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE 1 = 1'; // stupid but permit using AND after it !
-  if ( !$user['expand'] )
+  $query = '
+SELECT '.implode(',', $infos).'
+  FROM '.CATEGORIES_TABLE.'
+  WHERE 1 = 1'; // stupid but permit using AND after it !
+  if (!$user['expand'])
   {
-    $query.= ' AND (id_uppercat is NULL';
-    if ( isset ($page['tab_expand']) && count( $page['tab_expand'] ) > 0 )
+    $query.= '
+    AND (id_uppercat is NULL';
+    if (isset ($page['tab_expand']) and count($page['tab_expand']) > 0)
     {
       $query.= ' OR id_uppercat IN ('.implode(',',$page['tab_expand']).')';
     }
     $query.= ')';
   }
-  if ( $user['forbidden_categories'] != '' )
+  if ($user['forbidden_categories'] != '')
   {
-    $query.= ' AND id NOT IN ';
-    $query.= '('.$user['forbidden_categories'].')';
+    $query.= '
+    AND id NOT IN ('.$user['forbidden_categories'].')';
   }
-  $query.= ' ORDER BY id_uppercat ASC, rank ASC';
-  $query.= ';';
+  $query.= '
+  ORDER BY id_uppercat ASC, rank ASC
+;';
 
   $plain_structure = array();
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
   {
     $category = array();
-    foreach ( $infos as $info ) {
-      if ( $info == 'uc.date_last')
+    foreach ($infos as $info)
+    {
+      if ($info == 'uc.date_last')
       {
-        if ( empty( $row['date_last'] ) )
+        if (empty($row['date_last']))
         {
           $category['date_last'] = 0;
         }
         else
         {
-          list($year,$month,$day) = explode( '-', $row['date_last'] );
+          list($year,$month,$day) = explode('-', $row['date_last']);
           $category['date_last'] = mktime(0,0,0,$month,$day,$year);
         }
       }
-      else if ( isset( $row[$info] ) ) $category[$info] = $row[$info];
-      else                             $category[$info] = '';
+      else if (isset($row[$info]))
+      {
+        $category[$info] = $row[$info];
+      }
+      else
+      {
+        $category[$info] = '';
+      }
     }
     $plain_structure[$row['id']] = $category;
   }
@@ -896,5 +906,37 @@ function get_first_non_empty_cat_id( $id_uppercat )
     }
   }
   return false;
+}
+
+function display_select_categories($categories,
+                                   $indent,
+                                   $selecteds,
+                                   $blockname)
+{
+  global $template,$user;
+
+  foreach ($categories as $category)
+  {
+    if (!in_array($category['id'], $user['restrictions']))
+    {
+      $selected = '';
+      if (in_array($category['id'], $selecteds))
+      {
+        $selected = ' selected="selected"';
+      }
+
+      $template->assign_block_vars(
+        $blockname,
+        array('SELECTED'=>$selected,
+              'VALUE'=>$category['id'],
+              'OPTION'=>$indent.'- '.$category['name']
+              ));
+      
+      display_select_categories($category['subcats'],
+                                $indent.str_repeat('&nbsp;',3),
+                                $selecteds,
+                                $blockname);
+    }
+  }
 }
 ?>

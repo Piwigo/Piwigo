@@ -192,7 +192,7 @@ $template->assign_vars(array(
   'L_GROUPS'=>$lang['groups'],
   'L_AUTH'=>$lang['permissions'],
   'L_UPDATE'=>$lang['update'],
-    
+  
   'U_CONFIG_GENERAL'=>add_session_id($link_start.'configuration&amp;section=general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($link_start.'configuration&amp;section=comments' ),
   'U_CONFIG_DISPLAY'=>add_session_id($link_start.'configuration&amp;section=default' ),
@@ -207,8 +207,7 @@ $template->assign_vars(array(
   'U_UPLOAD'=>add_session_id($link_start.'admin_upload' ),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
-  'U_CAT_UPDATE'=>add_session_id($link_start.'update&amp;update=cats' ),
-  'U_IMG_UPDATE'=>add_session_id($link_start.'update&amp;update=all' ),
+  'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_HISTORY'=>add_session_id($link_start.'stats' ),
   'U_FAQ'=>add_session_id($link_start.'help' ),

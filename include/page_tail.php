@@ -43,7 +43,8 @@ $template->assign_vars(
     
     ));
     
-if (DEBUG)
+//if (DEBUG)
+if (true)
 {
   $template->assign_block_vars('debug', array());
 }

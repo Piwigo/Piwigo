@@ -242,7 +242,7 @@ class Template {
       {
         die("Template->make_filename(): Error - file $filename does not exist");
       }
-      
+
       return $filename;
     }
   

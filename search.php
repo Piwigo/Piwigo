@@ -338,38 +338,10 @@ foreach ($datefields as $datefield)
   display_3dates($datefield);
 }
 //------------------------------------------------------------- categories form
-function display_search_categories($categories, $indent, $selecteds)
-{
-  global $template,$user;
-
-  foreach ( $categories as $category )
-  {
-    if (!in_array($category['id'], $user['restrictions']))
-    {
-      $selected = '';
-      if (in_array($category['id'], $selecteds))
-      {
-        $selected = ' selected="selected"';
-      }
-
-      $template->assign_block_vars(
-        'category_option',
-        array('SELECTED'=>$selected,
-              'VALUE'=>$category['id'],
-              'OPTION'=>$indent.'- '.$category['name']
-              ));
-      
-      display_search_categories( $category['subcats'],
-                                 $indent.str_repeat('&nbsp;',3),
-                                 $selecteds );
-    }
-  }
-}
 // this is a trick : normally, get_user_plain_structure is used to create
 // the categories structure for menu (in category.php) display, but here, we
 // want all categories to be shown...
 $user['expand'] = true;
-$page['plain_structure'] = get_user_plain_structure(true);
 $structure = create_user_structure('');
 
 $selecteds = array();
@@ -377,7 +349,10 @@ if (isset($_POST['submit']))
 {
   $selecteds = $_POST['cat'];
 }
-display_search_categories( $structure, '&nbsp;', $selecteds );
+display_select_categories($structure,
+                          '&nbsp;',
+                          $selecteds,
+                          'category_option');
 
 $categories_selected = '';
 if (isset($_POST['categories-check']))

@@ -7,6 +7,7 @@
 </ul>
 </div>
 <!-- END errors -->
+
 <form action="{F_ACTION}" method="POST">
 <div class="admin">{L_INFOS_TITLE} &quot;{CATEGORY}&quot;</div>
   <table width="100%">
@@ -76,7 +77,7 @@
     </tr>
     <!-- END picture -->
     <tr>
-      <td colspan="6">
+      <td colspan="7">
         <img src="./template/default/admin/images/arrow_select.gif" alt="&lt;" />
         {L_INFOS_ASSOCIATE}
         <!-- BEGIN associate_LOV -->
@@ -89,7 +90,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="6" style="text-align:center;">
+      <td colspan="7" style="text-align:center;">
         <input type="submit" value="{L_SUBMIT}" name="submit" class="bouton" />
       </td>
     </tr>
