@@ -36,7 +36,6 @@ $query.= ';';
 @mysql_query( $query );
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
-$cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
 $query = 'SELECT id,date_available,comment,hit,keywords';
 $query.= ',author,name,file,date_creation,filesize,width,height';
@@ -52,6 +51,15 @@ $query.= ' AND id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
 $query.= ';';
 $result = mysql_query( $query );
+// if this image_id doesn't correspond to this category, an error message is
+// displayed, and execution is stopped
+if ( mysql_num_rows( $result ) == 0 )
+{
+  echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
+  echo '<a href="'.add_session_id( './category.php' ).'">';
+  echo $lang['thumbnails'].'</a></div>';
+  exit();
+}
 $row = mysql_fetch_array( $result );
 $page['id']             = $row['id'];
 $page['file']           = $row['file'];
