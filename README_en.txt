@@ -2,9 +2,9 @@
                           http://phpwebgallery.net
                        http://forum.phpwebgallery.net
 
--------------------------------------------------------------------------------
---               Installation instructions for PhpWebGallery                 --
--------------------------------------------------------------------------------
++-----------------------------------------------------------------------------+
+|                        Installation instructions                            |
++-----------------------------------------------------------------------------+
 
 1. extract files from the downloaded file (using tar or unzip command, or
    softwares like powerarchiver or winzip)
@@ -16,9 +16,9 @@
 
 4. follow the instructions of installation
 
--------------------------------------------------------------------------------
---                               Newsletter                                  --
--------------------------------------------------------------------------------
++-----------------------------------------------------------------------------+
+|                               Newsletter                                    |
++-----------------------------------------------------------------------------+
 
 It is *highly* recommended to subscribe to PhpWebGallery newsletter. This is
 extremely low-traffic, but will provide you with announcements of new
