@@ -1,0 +1,254 @@
+<html>
+  <head>
+    <title>PhpWebGallery {#release}</title>
+    <style>
+      a {
+        text-decoration : none;
+        color : #006699;
+      }
+      a:hover {
+        text-decoration : underline;
+      }
+      body,table,input,form,select,textarea {
+        font-family : Arial, Verdana, Sans-Serif;
+        font-size : 12px;
+      }
+      .miniature {
+        border : solid 1px black;
+      }
+      body {
+        background-color :  #E5E5E5;
+      }
+      .titretable1 {
+        color : black;
+        background-color : #D3DCE3;
+        text-align : center;
+        border : 2px solid #006699;
+      }
+      .grostitre {
+        text-align : center;
+        font-size : 20px;
+        margin-bottom : 20px;
+      }
+      .plan {
+        margin : 10px 10px 10px 2px;
+        white-space : nowrap;
+      }
+      .table1 {
+        border-collapse:collapse;
+        background-color:#FFFFFF;
+        width:700px;
+        margin:auto;
+      }
+      .contenucellule {
+        background-color : #EEEEEE;
+        border : 2px solid #006699;
+      }
+      .style1 {
+        margin-top : 20px;
+      }
+      th {
+        font-weight : bold;
+        background-color : #D3DCE3;
+      }
+      td.row1 {
+        background-color : #DDDDDD;
+      }
+      td.row2 {
+        background-color : #E8E8E8;
+      }
+      .cat_plan {
+        font-weight : bold;
+      }
+      .retrait {
+        margin : 10px;
+        margin-left : 30px;
+        margin-top : 2px;
+      }
+      input,textarea {
+        border-width : 1;
+        border-color : #000000;
+        background : #ffffff;
+        color: #000000;
+      }
+      .errors,.infos {
+        margin:10px;
+      }
+      .errors {
+        border:1px solid red;
+        background-color:#ffe1e1;
+      }
+      .infos {
+        background-color:#eff4fa;
+        border:1px solid #9cb4ce;
+      }
+      .errors_title,.infos_title {
+        margin:5px;
+        font-weight:bold;
+        font-size:120%;
+        text-align:center;
+      }
+      .errors_title {
+        color:red;
+      }
+      .infos_title {
+        color:#9cb4ce;
+      }
+    </style>
+  </head>
+  <body>
+    <table style="width:100%;height:100%">
+      <tr align="center" valign="middle">
+        <td>
+	  <div class="grostitre">PhpWebGallery {#release}</div>
+          <table class="table1">
+            <tr>
+              <td class="contenucellule">
+<!--VTP_errors-->
+<div class="errors">
+  <div class="errors_title">{#errors_title}</div>
+  <ul>
+    <!--VTP_error-->
+    <li>{#content}</li>
+    <!--/VTP_error-->
+  </ul>
+</div>
+<!--/VTP_errors-->
+
+<!--VTP_infos-->
+<div class="infos">
+  <div class="infos_title">{#infos_title}</div>
+  <ul>
+    <!--VTP_info-->
+    <li>{#content}</li>
+    <!--/VTP_info-->
+  </ul>
+</div>
+<!--/VTP_infos-->
+
+<!--VTP_error_copy-->
+{#step1_err_copy} :
+<br />-----------------------------------------------------<br />
+<div style="color:blue;">{#file_content}</div>
+-----------------------------------------------------<br />
+<div style="text-align:center;">{#step1_err_copy_2}<br />
+<a href="./install.php?step=2&amp;language={#language}">{#step1_err_copy_next}</a></div>
+<!--/VTP_error_copy-->
+
+<!--VTP_step0-->
+<form method="get" action="install.php">
+  <input type="hidden" name="step" value="1" />
+  <table width="100%">
+    <tr>
+      <td align="center">
+        <select name="language">
+          <!--VTP_language-->
+          <option>{#name}</option>
+          <!--/VTP_language-->
+        </select>
+        <input name="submit" type="submit" value="Submit" />
+      </td>
+    </tr>
+  </table>
+</form>
+<!--/VTP_step0-->
+
+<!--VTP_step1-->
+<form method="post" action="install.php?step=1&amp;language={#language}">
+  <table width="100%">
+    <tr>
+      <th colspan="3">{#step1_title}</th>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>{#step1_host}</td>
+      <td align=center><input type="text" name="cfgHote" value="{#f_host}" /></td>
+      <td class="row2">{#step1_host_info}</td>
+    </tr>
+    <tr>
+      <td>{#step1_user}</td>
+      <td align=center><input type="text" name="cfgUser" value="{#f_user}" /></td>
+      <td class="row2">{#step1_user_info}</td>
+    </tr>
+    <tr>
+      <td>{#step1_pass}</td>
+      <td align=center><input type="password" name="cfgPassword" value="" /></td>
+      <td class="row2">{#step1_pass_info}</td>
+    </tr>
+    <tr>
+      <td>{#step1_database}</td>
+      <td align=center><input type="text" name="cfgBase" value="{#f_base}" /></td>
+      <td class="row2">{#step1_database_info}</td>
+    </tr>
+    <tr>
+      <td>{#step1_prefix}</td>
+      <td align=center><input type="text" name="prefixeTable" value="{#f_prefixeTable}" /></td>
+      <td class="row2">{#step1_prefix_info}</td>
+    </tr>
+    <tr>
+     <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3" align="center"><input type="submit" name="submit" value="{#submit}" /></td>
+    </tr>
+  </table>
+</form>
+<!--/VTP_step1-->
+
+<!--VTP_step2-->
+<form method="post" action="install.php?step=2&amp;language={#language}">
+  <table width=100%>
+    <tr>
+      <th colspan="3">{#step2_title}</th>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>{#conf_general_webmaster}</td>
+      <td align="center"><input type="text" name="webmaster" value="{#f_webmaster}" /></td>
+      <td class="row2">{#conf_general_webmaster_info}</td>
+    </tr>
+    <tr>
+      <td>{#step2_pwd}</td>
+      <td align="center"><input type="password" name="pwdWebmaster" value="" /></td>
+      <td class="row2">{#step2_pwd_info}</td>
+    </tr>
+    <tr>
+      <td>{#step2_pwd_conf}</td>
+      <td align="center"><input type="password" name="pwdWebmasterConf" value="" /></td>
+      <td class="row2">{#step2_pwd_conf_info}</td>
+    </tr>
+    <tr>
+      <td>{#conf_general_mail}</td>
+      <td align="center"><input type="text" name="mail_webmaster" value="{#f_mail_webmaster}" /></td>
+      <td class="row2">{#conf_general_mail_info}</td>
+    </tr>
+    <tr>
+      <td colspan="3">&nbsp;</th>
+    </tr>
+    <tr>
+      <td colspan="3" align="center">
+        <input type="submit" name="submit" value="{#submit}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<!--/VTP_step2-->
+
+<!--VTP_install_end-->
+<div class="infos_title">{#install_end_title}</div>
+<div style="padding:5px;">{#install_end_message}</div>
+<!--/VTP_install_end-->
+
+              </td>
+            </tr>
+          </table>
+          <div style="text-align:center;margin:20px;">{#install_help}</div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
