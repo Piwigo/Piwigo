@@ -38,7 +38,8 @@ function is_image( $filename, $create_thumbnail = false )
 {
   global $conf, $tab_ext_create_TN;
 
-  if ( is_file( $filename ) )
+  if (is_file($filename)
+      and in_array(get_extension($filename), $conf['picture_ext']))
   {
     $size = getimagesize( $filename );
     // $size[2] == 1 means GIF
