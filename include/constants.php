@@ -51,7 +51,6 @@ define('IMAGES_TABLE', $table_prefix.'images');
 define('SESSIONS_TABLE', $table_prefix.'sessions');
 define('SITES_TABLE', $table_prefix.'sites');
 define('USER_ACCESS_TABLE', $table_prefix.'user_access');
-define('USER_CATEGORY_TABLE', $table_prefix.'user_category');
 define('USER_GROUP_TABLE', $table_prefix.'user_group');
 define('USERS_TABLE', $table_prefix.'users');
 define('WAITING_TABLE', $table_prefix.'waiting');

@@ -176,19 +176,6 @@ CREATE TABLE phpwebgallery_user_access (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table 'phpwebgallery_user_category'
---
-
-DROP TABLE IF EXISTS phpwebgallery_user_category;
-CREATE TABLE phpwebgallery_user_category (
-  user_id smallint(5) unsigned NOT NULL default '0',
-  category_id smallint(5) unsigned NOT NULL default '0',
-  date_last date default NULL,
-  nb_sub_categories smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (user_id,category_id)
-) TYPE=MyISAM;
-
---
 -- Table structure for table 'phpwebgallery_user_group'
 --
 

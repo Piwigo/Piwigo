@@ -25,6 +25,21 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/**
+ * Provides functions to handle categories.
+ *
+ * 
+ */
+
+/**
+ * Is the category accessible to the connected user ?
+ *
+ * Note : if the user is not authorized to see this category, page creation
+ * ends (exit command in this function)
+ *
+ * @param int category id to verify
+ * @return void
+ */
 function check_restrictions( $category_id )
 {
   global $user,$lang;
@@ -38,10 +53,23 @@ function check_restrictions( $category_id )
   }
 }
 
-// the check_cat_id function check whether the $cat is a right parameter :
-//  - $cat is numeric and corresponds to a category in the database
-//  - $cat equals 'fav' (for favorites)
-//  - $cat equals 'search' (when the result of a search is displayed)
+/**
+ * Checks whether the argument is a right parameter category id
+ *
+ * The argument is a right parameter if corresponds to one of these :
+ *
+ *  - is numeric and corresponds to a category in the database
+ *  - is equals 'fav' (for favorites)
+ *  - is equals 'search' (when the result of a search is displayed)
+ *  - is equals 'most_visited'
+ *  - is equals 'best_rated'
+ *  - is equals 'recent'
+ *
+ * The function fills the global var $page['cat'] and returns nothing
+ *
+ * @param mixed category id or special category name
+ * @return void
+ */
 function check_cat_id( $cat )
 {
   global $page;
@@ -78,15 +106,12 @@ function get_user_plain_structure()
 {
   global $page,$user;
   
-  $infos = array( 'name','id','uc.date_last','nb_images','dir','id_uppercat',
-                  'rank','site_id','nb_sub_categories','uppercats');
+  $infos = array( 'name','id','date_last','nb_images','dir','id_uppercat',
+                  'rank','site_id','uppercats');
   
   $query = 'SELECT '.implode( ',', $infos );
-  $query.= ' FROM '.CATEGORIES_TABLE.' AS c';
-//  $query.= ' ,'.PREFIX_TABLE.'user_category AS uc';
-  $query.= ' INNER JOIN '.USER_CATEGORY_TABLE.' AS uc';
-  $query.= ' ON c.id = uc.category_id';
-  $query.= ' WHERE user_id = '.$user['id'];
+  $query.= ' FROM '.CATEGORIES_TABLE;
+  $query.= ' WHERE 1 = 1'; // stupid but permit using AND after it !
   if ( !$user['expand'] )
   {
     $query.= ' AND (id_uppercat is NULL';
@@ -101,7 +126,6 @@ function get_user_plain_structure()
     $query.= ' AND id NOT IN ';
     $query.= '('.$user['forbidden_categories'].')';
   }
-//  $query.= ' AND c.id = uc.category_id';
   $query.= ' ORDER BY id_uppercat ASC, rank ASC';
   $query.= ';';
 
@@ -113,15 +137,15 @@ function get_user_plain_structure()
     foreach ( $infos as $info ) {
       if ( $info == 'uc.date_last')
       {
-	    if (empty($row['date_last'])) 
-		{
-		  $category['date_last']= 0;
-		}
-		else
-		{
+        if ( empty( $row['date_last'] ) )
+        {
+          $category['date_last'] = 0;
+        }
+        else
+        {
           list($year,$month,$day) = explode( '-', $row['date_last'] );
           $category['date_last'] = mktime(0,0,0,$month,$day,$year);
-		}
+        }
       }
       else if ( isset( $row[$info] ) ) $category[$info] = $row[$info];
       else                             $category[$info] = '';
@@ -233,17 +257,23 @@ function count_user_total_images()
   return $row['total'];
 }
 
-// variables :
-// $cat['comment']
-// $cat['dir']
-// $cat['dir']
-// $cat['name'] is an array :
-//      - $cat['name'][0] is the lowest cat name
-//      and
-//      - $cat['name'][n] is the most uppercat name findable
-// $cat['nb_images']
-// $cat['id_uppercat']
-// $cat['site_id']
+/**
+ * Retrieve informations about a category in the database
+ *
+ * Returns an array with following keys :
+ *
+ *  - comment
+ *  - dir : directory, might be empty for virtual categories
+ *  - name : an array with indexes from 0 (lowest cat name) to n (most
+ *           uppercat name findable)
+ *  - nb_images
+ *  - id_uppercat
+ *  - site_id
+ *  - 
+ *
+ * @param int category id
+ * @return array
+ */
 function get_cat_info( $id )
 {
   $infos = array( 'nb_images','id_uppercat','comment','site_id','galleries_url'

@@ -11,7 +11,6 @@ table:images
 table:sessions
 table:sites
 table:user_access
-table:user_category
 table:user_group
 table:users
 table:waiting
@@ -75,10 +74,6 @@ column:id                        table:sites          type:tinyint              
 column:galleries_url             table:sites          type:varchar                  nullable:Y length:255 binary:N
 column:user_id                   table:user_access    type:smallint                 nullable:Y length:5   signed:N
 column:cat_id                    table:user_access    type:smallint                 nullable:Y length:5   signed:N
-column:user_id                   table:user_category  type:smallint                 nullable:Y length:5   signed:N
-column:category_id               table:user_category  type:smallint                 nullable:Y length:5   signed:N
-column:date_last                 table:user_category  type:date                     nullable:N
-column:nb_sub_categories         table:user_category  type:smallint                 nullable:Y length:5   signed:N
 column:user_id                   table:user_group     type:smallint                 nullable:Y length:5   signed:N
 column:group_id                  table:user_group     type:smallint                 nullable:Y length:5   signed:N
 column:id                        table:users          type:smallint                 nullable:Y length:5   signed:N
@@ -122,8 +117,6 @@ PK:sessions_pk       table:sessions       column:id
 PK:sites_pk          table:sites          column:id
 PK:user_access_pk    table:user_access    column:user_id
 PK:user_access_pk    table:user_access    column:cat_id
-PK:user_category_pk  table:user_category  column:user_id
-PK:user_category_pk  table:user_category  column:category_id
 PK:user_group_pk     table:user_group     column:group_id
 PK:user_group_pk     table:user_group     column:user_id
 PK:users_pk          table:users          column:id

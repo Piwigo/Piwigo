@@ -153,23 +153,6 @@ function register_user( $login, $password, $password_conf,
       $query.= ';';
       mysql_query ( $query );
     }
-    // 6. has the same categories informations than guest
-    $query = 'SELECT category_id,date_last,nb_sub_categories';
-    $query.= ' FROM '.PREFIX_TABLE.'user_category AS uc';
-    $query.= ',     '.PREFIX_TABLE.'users         AS u';
-    $query.= " WHERE u.username = 'guest'";
-    $query.= ' AND uc.user_id = u.id';
-    $query.= ';';
-    $result = mysql_query( $query );
-    while( $row = mysql_fetch_array( $result ) )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'user_category';
-      $query.= ' (user_id,category_id,date_last,nb_sub_categories) VALUES';
-      $query.= ' ('.$user_id.','.$row['category_id'];
-      $query.= ",'".$row['date_last']."',".$row['nb_sub_categories'].')';
-      $query.= ';';
-      mysql_query ( $query );
-    }
   }
   return $error;
 }

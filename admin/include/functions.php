@@ -275,12 +275,6 @@ function delete_user( $user_id )
   $query.= ';';
   mysql_query( $query );
 
-  // destruction of the categories informations linked with the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'user_category';
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  mysql_query( $query );
-
   // destruction of the user
   $query = 'DELETE FROM '.USERS_TABLE;
   $query.= ' WHERE id = '.$user_id;
@@ -631,61 +625,6 @@ function get_all_subcats_ids( $category_id )
 }
 
 /**
- * prepares the query to update the table user_category
- *
- * Prepares the query (global variable $values) to update table
- * user_category : for a couple (user,category) the number of sub-categories
- * and the last date of the category (all sub-categories taken into
- * account). It also calls function update_uppercats for each category. The
- * function is recursive.
- *
- * @param array $categories
- * @return void
- */
-function update_user_category( $categories )
-{
-  global $page,$user_restrictions,$value_num,$values;
-
-  foreach ( $categories as $category ) {
-    // recursive call
-    update_user_category( $category['subcats'] );
-    // 1. update the table user_category
-    foreach ( $user_restrictions as $user_id => $restrictions ) {
-      // if the category is forbidden to this user, go to next user
-      if ( in_array( $category['id'], $restrictions ) ) continue;
-
-      // how many sub_categories for this user ?
-      $user_subcats = array_diff(
-        $page['plain_structure'][$category['id']]['direct_subcats_ids'],
-        $restrictions );
-      $user_nb_subcats = count( array_unique( $user_subcats ) );
-      // last date of the category
-      $user_all_subcats = array_unique( array_diff(
-        $page['plain_structure'][$category['id']]['all_subcats_ids'],
-        $restrictions ) );
-            
-      $query = 'SELECT MAX(date_last) AS last_date';
-      $query.= ' FROM '.CATEGORIES_TABLE;
-      $query.= ' WHERE id IN ('.$category['id'];
-      if ( count( $user_all_subcats ) > 0 )
-        $query.= ','.implode( ',', $user_all_subcats );
-      $query.= ')';
-      $query.= ';';
-      $row = mysql_fetch_array( mysql_query( $query ) );
-
-      // insert a new line in database
-      if ( $value_num++ > 0 ) $values.= ', ';
-      else                    $values.= ' ';
-      $values.= '('.$user_id.",".$category['id'];
-      if ( isset( $row['last_date'] ) ) $values.= ",'".$row['last_date']."'";
-      else                              $values.= ',NULL';
-      $values.= ','.$user_nb_subcats.')';
-    }
-    update_uppercats( $category['id'] );
-  }
-}
-
-/**
  * updates the column categories.uppercats
  *
  * @param int $category_id
@@ -795,118 +734,6 @@ function get_user_restrictions( $user_id, $user_status,
     }
   }
   return array_unique( $forbidden );
-}
-
-/**
- * finalizes operation for user_category table update
- *
- * This function is called by synchronization_*. It creates the
- * $page['plain_structure'] and $page['structure'], get the SQL query to
- * update user_category, clean user_category, and finally update the
- * table. The users updates depends on the global array $user_restrictions.
- *
- * @return void
- */
-function synchronize()
-{
-  global $user_restrictions,$page,$values;
-
-  update_user_category( $page['structure'] );
-
-  // cleaning user_category table for users to update
-  foreach( $user_restrictions as $user_id => $restrictions ) {
-    $query = 'DELETE';
-    $query.= ' FROM '.USER_CATEGORY_TABLE;
-    $query.= ' WHERE user_id = '.$user_id;
-    $query.= ';';
-    mysql_query( $query );
-  }
-
-  $query = 'INSERT INTO '.USER_CATEGORY_TABLE;
-  $query.= ' (user_id,category_id,date_last,nb_sub_categories) VALUES ';
-  $query.= $values;
-  $query.= ';';
-  mysql_query( $query );
-}
-
-/**
- * synchronizes all users calculated informations
- *
- * fills global array $user_restrictions with all users and related
- * restrictions before calling synchronize.
- *
- * @return void
- */
-function synchronize_all_users()
-{
-  global $user_restrictions,$page;
-
-  $page['plain_structure'] = get_plain_structure();
-  $page['structure']       = create_structure( '' );
-  
-  $user_restrictions = array();
-  
-  $query = 'SELECT id';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $user_restrictions[$row['id']] = update_user_restrictions( $row['id'] );
-  }
-  synchronize();
-}
-
-/**
- * synchronizes 1 user calculated informations
- *
- * fills global array $user_restrictions with the user id and its related
- * restrictions before calling synchronize.
- *
- * @param int $user_id
- * @return void
- */
-function synchronize_user( $user_id )
-{
-  global $user_restrictions,$page;
-
-  $page['plain_structure'] = get_plain_structure();
-  $page['structure']       = create_structure( '' );
-  
-  $user_restrictions = array();
-  $user_restrictions[$user_id] = update_user_restrictions( $user_id );
-  synchronize();
-}
-
-/**
- * synchronizes all users (belonging to the group) calculated informations
- *
- * fills global array $user_restrictions with all users and related
- * restrictions before calling synchronize.
- *
- * @return void
- */
-function synchronize_group( $group_id )
-{
-  global $user_restrictions,$page;
-
-  $page['plain_structure'] = get_plain_structure();
-  $page['structure']       = create_structure( '' );
-  
-  $user_restrictions = array();
-  
-  $query = 'SELECT id';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= ', '.USER_GROUP_TABLE;
-  $query.= ' WHERE group_id = '.$group_id;
-  $query.= ' AND id = user_id';
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $user_restrictions[$row['id']] = update_user_restrictions( $row['id'] );
-  }
-  synchronize();
 }
 
 /**

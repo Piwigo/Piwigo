@@ -763,11 +763,6 @@ if ( isset( $_GET['update'] )
   ordering('NULL');
   $end = get_moment();
   echo get_elapsed_time( $start, $end ).' for update_category( all )<br />';
-
-  $start = get_moment();
-  synchronize_all_users();
-  $end = get_moment();
-  echo get_elapsed_time( $start, $end ).' for synchronize_all_users<br />';
 }
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'update');
