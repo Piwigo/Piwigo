@@ -123,8 +123,13 @@ $lang['today']='Aujourd\'hui';
 
 
 // Customization
-$lang['customize_page_title'] = 'Personnalisation';
+$lang['customize_page_title'] = 'Personnalisation de votre galerie';
 $lang['customize_title'] = 'Personnalisation';
+$lang['preferences'] = 'Préférences';
+$lang['password_hint'] = 'Vous devez confirmer votre mot de passe si vous souhaitez modifier votre adresse e-mail';
+$lang['new_password'] = 'Nouveau mot de passe';
+$lang['new_password_hint'] = 'Vous avez seulement besoin de fournir un mot de passe si vous voulez le changer';
+$lang['confirm_password_hint'] = 'Vous avez seulement besoin de confirmer votre mot de passe si vous l\'avez changé ci-dessus';
 $lang['nb_image_per_row'] = 'Nombre d\'images par ligne';
 $lang['nb_row_per_page'] = 'Nombre de lignes par page';
 $lang['language'] = 'Langue';
@@ -133,12 +138,23 @@ $lang['maxheight'] = 'Hauteur maximum des images';
 $lang['auto_expand'] = 'Développer toutes les catégories';
 $lang['show_nb_comments'] = 'Montrer le nombre de commentaires';
 $lang['recent_period'] = 'Durée de nouveauté';
-$lang['create_cookie'] = 'Créer un cookie';
 $lang['theme'] = 'Thème de l\'interface';
-$lang['mail_address'] = 'Adresse mail';
+$lang['mail_address'] = 'Adresse e-mail';
 $lang['periods_error'] = 'La période doit être entière.';
 $lang['maxwidth_error'] = 'La largeur maximum des images doit être un entier supérieur à 50';
 $lang['maxheight_error'] = 'La hauteur maximum des images doit être un entier supérieur à 50';
+
+// Register
+$lang['register_page_title'] = 'Enregistrement';
+$lang['register_title'] = 'Enregistrement';
+$lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
+$lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
+$lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
+$lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
+$lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
+$lang['reg_err_pass'] = 'veuillez retaper le mot de passe';
+$lang['reg_confirm'] = 'Confirmer le mot de passe';
+$lang['reg_err_mail_address'] = 'l\'adresse mail doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)';
 
 // search
 $lang['search_title'] = 'Rechercher';
@@ -224,16 +240,7 @@ $lang['add_favorites_alt'] = 'Ajouter aux favoris';
 $lang['add_favorites_hint'] = 'ajouter cette image à vos favoris';
 $lang['del_favorites_alt'] = 'Retirer des favoris';
 $lang['del_favorites_hint'] = 'supprimer cette image de vos favoris';
-$lang['register_page_title'] = 'Enregistrement';
-$lang['register_title'] = 'Enregistrement';
-$lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
-$lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
-$lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
-$lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
-$lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
-$lang['reg_err_pass'] = 'veuillez retaper le mot de passe';
-$lang['reg_confirm'] = 'confirmer';
-$lang['reg_err_mail_address'] = 'l\'adresse mail doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)';
+
 $lang['upload_forbidden'] = 'On ne peut pas ajouter d\'image dans cette catégorie';
 $lang['upload_file_exists'] = 'Une image du même nom existe déjà';
 $lang['upload_filenotfound'] = 'vous devez choisir un fichier image pour la photo';

@@ -546,7 +546,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
 
         $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.IMAGES_TABLE;
-        $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
+        $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.'AS ic';
         $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';

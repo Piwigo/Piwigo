@@ -1,5 +1,4 @@
 <div class="titrePage">{L_SEARCH_TITLE}</div>
-<br />
 <form method="post" name="post" action="{S_SEARCH_ACTION}">
 <!-- BEGIN errors -->
 <div class="errors">

@@ -122,8 +122,14 @@ $lang['days'] = 'days';
 $lang['today']='Today';
 
 // Customization
-$lang['customize_page_title'] = 'Customization';
+$lang['customize_page_title'] = 'Your Gallery Customization ';
 $lang['customize_title'] = 'Customization';
+$lang['preferences'] = 'Preferences';
+$lang['mail_address'] = 'E-mail address';
+$lang['password_hint'] = 'You only have to give your password if you wish to change your e-mail';
+$lang['new_password'] = 'New password';
+$lang['new_password_hint'] = 'You only have to give a password if you wish to change it.';
+$lang['confirm_password_hint'] = 'You only have to confirm your new password if you wish to change it.';
 $lang['nb_image_per_row'] = 'Number of images per row';
 $lang['nb_row_per_page'] = 'Number of rows per page';
 $lang['maxwidth'] = 'Maximum width of the pictures';
@@ -135,8 +141,18 @@ $lang['auto_expand'] = 'Expand all categories';
 $lang['show_nb_comments'] = 'Show number of comments';
 $lang['recent_period'] = 'Recent period';
 $lang['periods_error'] = 'Recent period must be a positive integer value';
-$lang['create_cookie'] = 'Create a cookie';
 
+// Registration
+$lang['register_page_title'] = 'Registration';
+$lang['register_title'] = 'Registration';
+$lang['reg_err_login1'] = 'Please, enter a login';
+$lang['reg_err_login2'] = 'login mustn\'t end with a space character';
+$lang['reg_err_login3'] = 'login mustn\'t start with a space character';
+$lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
+$lang['reg_err_login5'] = 'this login is already used';
+$lang['reg_err_pass'] = 'please enter your password again';
+$lang['reg_confirm'] = 'Confirm password';
+$lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 
 // search
 $lang['search_title'] = 'Search';
@@ -225,16 +241,7 @@ $lang['add_favorites_alt'] = 'Add to favorites';
 $lang['add_favorites_hint'] = 'Add this picture to your favorites';
 $lang['del_favorites_alt'] = 'Delete from favorites';
 $lang['del_favorites_hint'] = 'Delete this picture from your favorites';
-$lang['register_page_title'] = 'Registration';
-$lang['register_title'] = 'Registration';
-$lang['reg_err_login1'] = 'Please, enter a login';
-$lang['reg_err_login2'] = 'login mustn\'t end with a space character';
-$lang['reg_err_login3'] = 'login mustn\'t start with a space character';
-$lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
-$lang['reg_err_login5'] = 'this login is already used';
-$lang['reg_err_pass'] = 'please enter your password again';
-$lang['reg_confirm'] = 'confirm';
-$lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
+
 $lang['upload_forbidden'] = 'You can\'t upload pictures in this category';
 $lang['upload_file_exists'] = 'A picture\'s name already used';
 $lang['upload_filenotfound'] = 'You must choose a picture fileformat for the image';
@@ -251,7 +258,6 @@ $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
 
 $lang['guest'] = 'guest';
-$lang['mail_address'] = 'mail address';
 $lang['add'] = 'add';
 $lang['dissociate'] = 'dissociate';
 $lang['mandatory'] = 'obligatory';

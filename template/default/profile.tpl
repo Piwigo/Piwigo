@@ -10,6 +10,32 @@
   </div>
 <!-- END errors -->
 <table width="70%" align="center">
+  <tr class="admin">
+    <th colspan="2">{L_REGISTRATION_INFO}</th>
+  </tr>
+	<tr>
+	  <td width="50%">{L_USERNAME}</td>
+	  <td><input type="text" name="username" value="{USERNAME}" /></td>
+  </tr>
+	<tr>
+	  <td>{L_EMAIL}</td>
+	  <td><input type="text" name="mail_address" value="{EMAIL}" /></td>
+  </tr>
+  <tr>
+	<td>{L_CURRENT_PASSWORD} : <br /><span class="small">{L_CURRENT_PASSWORD_HINT}</span></td>
+	<td><input type="password" name="password" value="" /></td>
+  </tr>
+	<tr>
+	<td>{L_NEW_PASSWORD} : <br /><span class="small">{L_NEW_PASSWORD_HINT}</span></td>
+	<td><input type="password" name="use_new_pwd" value="" /></td>
+  </tr>
+  <tr>
+	<td>{L_CONFIRM_PASSWORD} : <br /><span class="small">{L_CONFIRM_PASSWORD_HINT}</span></td>
+	<td><input type="password" name="passwordConf" value="" /></td>
+  </tr>
+  <tr class="admin">
+    <th colspan="2">{L_PREFERENCES}</th>
+  </tr>
   <tr>
     <td width="60%">{L_NB_IMAGE_LINE}</td>
 	<td width="40%"><input type="text" size="3" maxlength="2" name="nb_image_line" value="{NB_IMAGE_LINE}" /></td>
@@ -40,32 +66,22 @@
 	<td><input type="radio" class="radio" name="show_nb_comments" value="true" {NB_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO} />{L_NO}</td>
   </tr>
-  <!-- BEGIN text -->
-  <tr>
-	<td>{text.F_LABEL}</td>
-	<td>
-	  <input type="text" name="{text.F_NAME}" value="{text.F_VALUE}" />
+	<tr>
+    <td>{L_MAXWIDTH}</td>
+	<td><input type="text" size="4" maxlength="4" name="maxwidth" value="{MAXWIDTH}" />
 	</td>
   </tr>
-  <!-- END text -->
-  <tr>
-	<td colspan="2">&nbsp;</td>
+	<tr>
+    <td>{L_MAXHEIGHT}</td>
+	<td><input type="text" size="4" maxlength="4" name="maxheight" value="{MAXHEIGHT}" />
+	</td>
   </tr>
-  <tr>
-	<td>{L_NEW} {L_PASSWORD} <input type="checkbox" name="use_new_pwd" value="1" /></td>
-	<td><input type="password" name="password" value="" /></td>
-  </tr>
-  <tr>
-	<td>{L_CONFIRM}</td>
-	<td><input type="password" name="passwordConf" value="" /></td>
-  </tr>
-  <tr>
-	<td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
 	<td colspan="2" align="center">
 	  <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
 	</td>
   </tr>
 </table>
 </form>
+<div style="text-align:center;margin:5px;">
+<a href="{U_RETURN}" title="{L_RETURN_HINT}">[{L_RETURN}]</a>
+</div>

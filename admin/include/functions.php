@@ -409,8 +409,7 @@ function check_favorites( $user_id )
     $restricted_cat = array();
   // retrieving all the favorites for this user and comparing their
   // categories to the restricted categories
-  $query = 'SELECT image_id';
-  $query.= ' FROM '.PREFIX_TABLE.'favorites';
+  $query = 'SELECT image_id FROM '.FAVORITES_TABLE;
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   $result = pwg_query ( $query );
@@ -432,7 +431,7 @@ function check_favorites( $user_id )
     }
     if ( count( array_diff( $picture_cat, $restricted_cat ) ) == 0 )
     {
-      $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
+      $query = 'DELETE FROM '.FAVORITES_TABLE;
       $query.= ' WHERE image_id = '.$row['image_id'];
       $query.= ' AND user_id = '.$user_id;
       $query.= ';';

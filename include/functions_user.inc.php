@@ -116,42 +116,6 @@ function register_user( $login, $password, $password_conf,
     }
     $query.= ');';
     pwg_query( $query );
-    // 3. retrieving the id of the newly created user
-    $query = 'SELECT id';
-    $query.= ' FROM '.USERS_TABLE;
-    $query.= " WHERE username = '".$login."';";
-    $row = mysql_fetch_array( pwg_query( $query ) );
-    $user_id = $row['id'];
-    // 4. adding access to the new user, the same as the user "guest"
-    $query = 'SELECT cat_id';
-    $query.= ' FROM '.PREFIX_TABLE.'user_access as ua';
-    $query.=      ','.PREFIX_TABLE.'users as u ';
-    $query.= ' where u.id = ua.user_id';
-    $query.= " and u.username = 'guest';";
-    $result = pwg_query( $query );
-    while( $row = mysql_fetch_array( $result ) )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'user_access';
-      $query.= ' (user_id,cat_id) VALUES';
-      $query.= ' ('.$user_id.','.$row['cat_id'].');';
-      pwg_query ( $query );
-    }
-    // 5. associate new user to the same groups that the guest
-    $query = 'SELECT group_id';
-    $query.= ' FROM '.PREFIX_TABLE.'user_group AS ug';
-    $query.= ',     '.PREFIX_TABLE.'users      AS u';
-    $query.= " WHERE u.username = 'guest'";
-    $query.= ' AND ug.user_id = u.id';
-    $query.= ';';
-    $result = pwg_query( $query );
-    while( $row = mysql_fetch_array( $result ) )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'user_group';
-      $query.= ' (user_id,group_id) VALUES';
-      $query.= ' ('.$user_id.','.$row['group_id'].')';
-      $query.= ';';
-      pwg_query ( $query );
-    }
   }
   return $error;
 }

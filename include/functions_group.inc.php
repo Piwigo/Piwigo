@@ -30,8 +30,7 @@
 function get_group_restrictions( $group_id )
 {
   // 1. retrieving ids of private categories
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query = 'SELECT id FROM '.CATEGORIES_TABLE;
   $query.= " WHERE status = 'private'";
   $query.= ';';
   $result = pwg_query( $query );
@@ -42,8 +41,7 @@ function get_group_restrictions( $group_id )
   }
   // 2. retrieving all authorized categories for the group
   $authorized = array();
-  $query = 'SELECT cat_id';
-  $query.= ' FROM '.PREFIX_TABLE.'group_access';
+  $query = 'SELECT cat_id FROM '.GROUP_ACCESS_TABLE;
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ';';
   $result = pwg_query( $query );
@@ -88,8 +86,7 @@ function is_group_allowed( $category_id, $restrictions )
   $is_root = false;
   while ( !$is_root and !in_array( $category_id, $restrictions ) )
   {
-    $query = 'SELECT id_uppercat';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query = 'SELECT id_uppercat FROM '.CATEGORIES_TABLE;
     $query.= ' WHERE id = '.$category_id;
     $query.= ';';
     $row = mysql_fetch_array( pwg_query( $query ) );
