@@ -271,7 +271,7 @@ class Template {
       // Check if it's an absolute or relative path.
       if (substr($filename, 0, 1) != '/')
       {
-        $filename = realpath($this->root . '/' . $filename);
+        $filename = $this->root.'/'.$filename;
       }
       
       if (!file_exists($filename))

@@ -260,7 +260,7 @@ function get_languages()
 
   while ($file = readdir($dir))
   {
-    $path = realpath(PHPWG_ROOT_PATH.'language/'.$file);
+    $path = PHPWG_ROOT_PATH.'language/'.$file;
     if (is_dir($path) and !is_link($path) and file_exists($path.'/iso.txt'))
     {
       list($language_name) = @file($path.'/iso.txt');

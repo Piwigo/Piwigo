@@ -199,7 +199,7 @@ else
   $language = guess_lang();
 }
 
-if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/install.lang.php')) )
+if (!file_exists(PHPWG_ROOT_PATH.'language/'.$language.'/install.lang.php'))
 {
   $language = 'en_UK.iso-8859-1';
 }
