@@ -177,7 +177,7 @@ if ( $user['forbidden_categories'] != '' )
 $query.= ' ORDER BY ic.image_id DESC';
 $query.= ';';
 $result = mysql_query( $query );
-display_pictures( $result, $maxtime, $restricted_cats );
+display_pictures( $result, $maxtime, $user['restrictions'] );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
