@@ -16,16 +16,14 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-define( PREFIX_INCLUDE, '' );
+define( 'PREFIX_INCLUDE', '' );
 
 include_once( './include/config.inc.php' );
 include_once( './include/user.inc.php' );
 
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
-// retrieving the restrictions for this user
-$user['restrictions'] = get_restrictions( $user['id'], $user['status'], true );
-        
+
 $isadmin = false;
 include_once( './language/'.$user['language'].'.php' );
 // displaying the username in the language of the connected user, instead of
