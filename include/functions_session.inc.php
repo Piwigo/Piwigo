@@ -62,11 +62,10 @@ function generate_key($size)
  * - return session identifier
  *
  * @param int userid
- * @param string method : cookie or URI
  * @param int session_lentgh : in seconds
  * @return string
  */
-function session_create($userid, $method, $session_length)
+function session_create($userid, $session_length)
 {
   global $conf;
 
@@ -74,7 +73,7 @@ function session_create($userid, $method, $session_length)
   $id_found = false;
   while (!$id_found)
   {
-    $generated_id = generate_key($conf['session_id_size_'.$method]);
+    $generated_id = generate_key($conf['session_id_size']);
     $query = '
 SELECT id
   FROM '.SESSIONS_TABLE.'
@@ -97,10 +96,7 @@ INSERT INTO '.SESSIONS_TABLE.'
 ;';
   mysql_query($query);
 
-  if ($method == 'cookie')
-  {
-    setcookie('id', $generated_id, $session_length+time(), cookie_path());
-  }
+  setcookie('id', $generated_id, $expiration, cookie_path());
                 
   return $generated_id;
 }

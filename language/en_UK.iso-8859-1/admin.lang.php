@@ -174,10 +174,6 @@ $lang['conf_upload_maxheight_thumbnail_error'] = 'Maximum height authorized for 
 
 // Configuration -> session
 $lang['conf_session_title'] = 'Sessions';
-$lang['conf_auth_method'] = 'Authentication method';
-$lang['conf_auth_method_info'] = 'The default authentication method can be URI (session identifier in the gallery links) or cookie (no session identifier in links but needs cookies to be authorized by web browser)';
-$lang['URI'] = 'URI';
-$lang['cookie'] = 'cookie';
 $lang['conf_authorize_remembering'] = 'Authorize remembering';
 $lang['conf_authorize_remembering_info'] = 'Permits user to log for a long time. It creates a cookie on client side, with duration set in include/config.inc.php (1 year per default)';
 

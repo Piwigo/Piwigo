@@ -40,7 +40,9 @@
 		<input type="text" name="username" size="15" value="" /><br />
 		{L_PASSWORD}<br />
 		<input type="password" name="password" size="15"><br />
+                <!-- BEGIN remember_me -->
                 <input type="checkbox" name="remember_me" value="1" /> {L_REMEMBER_ME}<br />
+                <!-- END remember_me -->
 		<input type="submit" name="login" value="{L_SUBMIT}" class="bouton" />
 		</form>
 		<!-- END login -->

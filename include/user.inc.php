@@ -39,25 +39,15 @@ $query_user = 'SELECT * FROM '.USERS_TABLE;
 $query_done = false;
 $user['is_the_guest'] = false;
 
-// cookie deletion if administrator don't authorize them anymore
-if (!$conf['authorize_remembering'] and isset($_COOKIE['id']))
-{
-  setcookie('id', '', 0, cookie_path());
-  $url = 'category.php';
-  redirect($url);
-}
-
-if (isset($_GET['id']))
-{
-  $session_id = $_GET['id'];
-  $user['has_cookie'] = false;
-  $session_id_size = $conf['session_id_size_URI'];
-}
-elseif (isset($_COOKIE['id']))
+if (isset($_COOKIE['id']))
 {
   $session_id = $_COOKIE['id'];
   $user['has_cookie'] = true;
-  $session_id_size = $conf['session_id_size_cookie'];
+}
+else if (isset($_GET['id']))
+{
+  $session_id = $_GET['id'];
+  $user['has_cookie'] = false;
 }
 else
 {
@@ -65,7 +55,7 @@ else
 }
 
 if (isset($session_id)
-     and ereg("^[0-9a-zA-Z]{".$session_id_size."}$", $session_id))
+    and ereg("^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $session_id))
 {
   $page['session_id'] = $session_id;
   $query = '

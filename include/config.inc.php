@@ -96,9 +96,11 @@ $conf['remember_me_length'] = 31536000;
 // time of validity for normal session, in seconds.
 $conf['session_length'] = 3600;
 
-// session id length when session id in URI
-$conf['session_id_size_URI'] = 4;
-
-// session id length when session id in cookie
-$conf['session_id_size_cookie'] = 50;
+// session id size. A session identifier is compound of alphanumeric
+// characters and is case sensitive. Each character is among 62
+// possibilities. The number of possible sessions is
+// 62^$conf['session_id_size'].
+// 62^5  =             916,132,832
+// 62^10 = 839,299,365,868,340,224
+$conf['session_id_size'] = 10;
 ?>

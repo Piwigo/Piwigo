@@ -154,8 +154,6 @@ $template->assign_vars(
     'L_NO'=>$lang['no'],
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
-    'L_URI'=>$lang['URI'],
-    'L_COOKIE'=>$lang['cookie'],
     
     'F_ACTION'=>add_session_id($action)
     ));
@@ -304,9 +302,6 @@ switch ($page['section'])
   }
   case 'session' :
   {
-    $auth_method_URI = ($conf['auth_method']=='URI')?'checked="checked"':'';
-    $auth_method_cookie =
-      ($conf['auth_method']=='cookie')?'checked="checked"':'';
     $authorize_remembering_yes =
       ($conf['authorize_remembering']=='true')?'checked="checked"':'';
     $authorize_remembering_no =
@@ -316,14 +311,10 @@ switch ($page['section'])
       'session',
       array(
         'L_CONF_TITLE'=>$lang['conf_session_title'],
-        'L_CONF_AUTH_METHOD'=>$lang['conf_auth_method'],
-        'L_CONF_AUTH_METHOD_INFO'=>$lang['conf_auth_method_info'],
         'L_CONF_AUTHORIZE_REMEMBERING'=>$lang['conf_authorize_remembering'],
         'L_CONF_AUTHORIZE_REMEMBERING_INFO' =>
         $lang['conf_authorize_remembering_info'],
 
-        'AUTH_METHOD_URI'=>$auth_method_URI,
-        'AUTH_METHOD_COOKIE'=>$auth_method_cookie,
         'AUTHORIZE_REMEMBERING_YES'=>$authorize_remembering_yes,
         'AUTHORIZE_REMEMBERING_NO'=>$authorize_remembering_no
         ));

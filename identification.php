@@ -42,29 +42,15 @@ SELECT id, password
   $row = mysql_fetch_array(mysql_query($query));
   if ($row['password'] == md5($_POST['password']))
   {
-    if ($conf['auth_method'] == 'cookie'
-        or isset($_POST['remember_me']) and $_POST['remember_me'] == 1)
+    $session_length = $conf['session_length'];
+    if ($conf['authorize_remembering']
+        and isset($_POST['remember_me'])
+        and $_POST['remember_me'] == 1)
     {
-      if ($conf['auth_method'] == 'cookie')
-      {
-        $cookie_length = $conf['session_length'];
-      }
-      else if ($_POST['remember_me'] == 1)
-      {
-        $cookie_length = $conf['remember_me_length'];
-      }
-      session_create($row['id'],
-                     'cookie',
-                     $cookie_length);
-      redirect('category.php');
+      $session_length = $conf['remember_me_length'];
     }
-    else if ($conf['auth_method'] == 'URI')
-    {
-      $session_id = session_create($row['id'],
-                                   'URI',
-                                   $conf['session_length']);
-      redirect('category.php?id='.$session_id);
-    }
+    $session_id = session_create($row['id'], $session_length);
+    redirect('category.php?id='.$session_id);
   }
   else
   {
@@ -97,6 +83,11 @@ $template->assign_vars(
     
     'F_LOGIN_ACTION' => add_session_id('identification.php')
     ));
+
+if ($conf['authorize_remembering'])
+{
+  $template->assign_block_vars('remember_me',array());
+}
 //-------------------------------------------------------------- errors display
 if ( sizeof( $errors ) != 0 )
 {

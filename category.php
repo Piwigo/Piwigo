@@ -239,6 +239,10 @@ if ( !$user['is_the_guest'] )
 else
 {
   $template->assign_block_vars('login',array());
+  if ($conf['authorize_remembering'])
+  {
+    $template->assign_block_vars('login.remember_me',array());
+  }
 }
 
 // search link
