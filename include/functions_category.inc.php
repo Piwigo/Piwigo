@@ -128,6 +128,9 @@ function create_structure( $id_uppercat, $restrictions )
 {
   global $page;
 
+  if ( !isset( $page['plain_structure'] ) )
+    $page['plain_structure'] = get_plain_structure();
+
   $structure = array();
   $ids = get_subcat_ids( $id_uppercat );
   foreach ( $ids as $id ) {
@@ -302,6 +305,10 @@ function get_cat_info( $id )
   $cat['visible']     = get_boolean( $row['visible'] );
 
   $cat['name'] = array();
+
+  if ( !isset( $page['plain_structure'] ) )
+    $page['plain_structure'] = get_plain_structure();
+
   array_push( $cat['name'], $page['plain_structure'][$id]['name'] );
   while ( $page['plain_structure'][$id]['id_uppercat'] != '' )
   {
@@ -329,6 +336,9 @@ function get_local_dir( $category_id )
 {
   global $page;
 
+  if ( !isset( $page['plain_structure'] ) )
+    $page['plain_structure'] = get_plain_structure();
+  
   // creating the local path : "root_cat/sub_cat/sub_sub_cat/"
   $dir = $page['plain_structure'][$category_id]['dir'].'/';
   while ( $page['plain_structure'][$category_id]['id_uppercat'] != '' )
@@ -344,6 +354,9 @@ function get_local_dir( $category_id )
 function get_site_url( $category_id )
 {
   global $page;
+
+  if ( !isset( $page['plain_structure'] ) )
+    $page['plain_structure'] = get_plain_structure();
 
   $query = 'SELECT galleries_url';
   $query.= ' FROM '.PREFIX_TABLE.'sites';
@@ -433,8 +446,14 @@ function initialize_category( $calling_page = 'category' )
       {
         // we must not show pictures of a forbidden category
         $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
-        foreach ( $restricted_cats as $restricted_cat ) {
-          $where_append.= ' AND category_id != '.$restricted_cat;
+        if ( count( $restricted_cats ) > 0 )
+        {
+          $where_append.= ' AND category_id NOT IN (';
+          foreach ( $restricted_cats as $i => $restricted_cat ) {
+            if ( $i > 0 ) $where_append.= ',';
+            $where_append.= $restricted_cat;
+          }
+          $where_append.= ')';
         }
       }
       // search result
@@ -481,8 +500,10 @@ function initialize_category( $calling_page = 'category' )
         $page['where'].= ' )';
         $page['where'].= $where_append;
 
-        $query = 'SELECT COUNT(*) AS nb_total_images';
+        $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
+        $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
+        $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';
 
@@ -513,8 +534,10 @@ function initialize_category( $calling_page = 'category' )
         $page['where'].= date( 'Y-m-d', $date )."'";
         $page['where'].= $where_append;
 
-        $query = 'SELECT COUNT(*) AS nb_total_images';
+        $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
+        $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
+        $query.= ' ON id = ic.image_id';
         $query.= $page['where'];
         $query.= ';';
       }
@@ -530,9 +553,10 @@ function initialize_category( $calling_page = 'category' )
           $page['nb_image_page'] = $conf['top_number'] - $page['start'];
         }
       }
-      
+
       if ( $query != '' )
       {
+        echo $query;
         $result = mysql_query( $query );
         $row = mysql_fetch_array( $result );
         $page['cat_nb_images'] = $row['nb_total_images'];
