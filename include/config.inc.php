@@ -57,4 +57,3 @@ $conf['max_LOV_categories'] = 50;
 $conf['default_style'] = 'default';
 
 ?>
-

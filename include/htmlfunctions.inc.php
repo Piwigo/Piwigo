@@ -187,4 +187,3 @@ function get_cat_display_name( $cat_informations, $separator,
   else                  return $output;
 }
 ?>
-

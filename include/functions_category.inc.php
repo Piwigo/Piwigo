@@ -616,4 +616,3 @@ function get_first_non_empty_cat_id( $id_uppercat )
   return false;
 }
 ?>
-
