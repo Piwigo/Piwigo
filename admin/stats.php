@@ -136,7 +136,7 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
     while ( $row = mysql_fetch_array( $result ) )
     {
       $vtp->addSession( $sub, 'line' );
-      $vtp->setVar( $sub, 'line.date', date( 'G:i', $row['date'] ) );
+      $vtp->setVar( $sub, 'line.date', date( 'G:i:s', $row['date'] ) );
       $vtp->setVar( $sub, 'line.login', $row['login'] );
       $vtp->setVar( $sub, 'line.IP', $row['IP'] );
       $vtp->setVar( $sub, 'line.category', $row['category'] );
