@@ -25,55 +25,56 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if( !defined("PHPWG_ROOT_PATH") )
+if(!defined("PHPWG_ROOT_PATH"))
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
 }
-include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-
+include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 //--------------------------------------------------------- update informations
 $errors = array();
 // first, we verify whether there is a mistake on the given creation date
-if ( isset( $_POST['date_creation'] ) and !empty($_POST['date_creation']))
+if (isset($_POST['date_creation']) and !empty($_POST['date_creation']))
 {
-  if ( !check_date_format( $_POST['date_creation'] ) )
-    array_push( $errors, $lang['err_date'] );
+  if (!check_date_format($_POST['date_creation']))
+  {
+    array_push($errors, $lang['err_date']);
+  }
 }
-if ( isset( $_POST['submit'] ) )
+if (isset($_POST['submit']))
 {
   $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
-  if ( $_POST['name'] == '' )
+  if ($_POST['name'] == '')
     $query.= 'NULL';
   else
-    $query.= "'".htmlentities( $_POST['name'], ENT_QUOTES )."'";
+    $query.= "'".htmlentities($_POST['name'], ENT_QUOTES)."'";
   
   $query.= ', author = ';
-  if ( $_POST['author'] == '' )
+  if ($_POST['author'] == '')
     $query.= 'NULL';
   else
     $query.= "'".htmlentities($_POST['author'],ENT_QUOTES)."'";
 
   $query.= ', comment = ';
-  if ( $_POST['comment'] == '' )
+  if ($_POST['comment'] == '')
     $query.= 'NULL';
   else
     $query.= "'".htmlentities($_POST['comment'],ENT_QUOTES)."'";
 
   $query.= ', date_creation = ';
-  if ( check_date_format( $_POST['date_creation'] ) )
-    $query.= "'".date_convert( $_POST['date_creation'] )."'";
-  else if ( $_POST['date_creation'] == '' )
+  if (check_date_format($_POST['date_creation']))
+    $query.= "'".date_convert($_POST['date_creation'])."'";
+  else if ($_POST['date_creation'] == '')
     $query.= 'NULL';
 
   $query.= ', keywords = ';
-  $keywords_array = get_keywords( $_POST['keywords'] );
-  if ( count( $keywords_array ) == 0 )
+  $keywords_array = get_keywords($_POST['keywords']);
+  if (count($keywords_array) == 0)
     $query.= 'NULL';
   else
   {
     $query.= "'";
-    foreach ( $keywords_array as $i => $keyword ) {
-      if ( $i > 0 ) $query.= ',';
+    foreach ($keywords_array as $i => $keyword) {
+      if ($i > 0) $query.= ',';
       $query.= $keyword;
     }
     $query.= "'";
@@ -81,109 +82,135 @@ if ( isset( $_POST['submit'] ) )
 
   $query.= ' WHERE id = '.$_GET['image_id'];
   $query.= ';';
-  mysql_query( $query );
+  mysql_query($query);
   // make the picture representative of a category ?
-  $query = 'SELECT DISTINCT(category_id) as category_id';
-  $query.= ',representative_picture_id';
-  $query.= ' FROM '.IMAGE_CATEGORY_TABLE.' AS ic';
-  $query.= ', '.CATEGORIES_TABLE.' AS c';
-  $query.= ' WHERE c.id = ic.category_id';
-  $query.= ' AND image_id = '.$_GET['image_id'];
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+  $query = '
+SELECT DISTINCT(category_id) as category_id,representative_picture_id
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic, '.CATEGORIES_TABLE.' AS c
+  WHERE c.id = ic.category_id
+    AND image_id = '.$_GET['image_id'].'
+;';
+  $result = mysql_query($query);
+  while ($row = mysql_fetch_array($result))
   {
     // if the user ask the picture to be the representative picture of its
     // category, the category is updated in the database (without wondering
     // if this picture was already the representative one)
-    if ( isset($_POST['representative-'.$row['category_id']]) )
+    if (isset($_POST['representative-'.$row['category_id']]))
     {
       $query = 'UPDATE '.CATEGORIES_TABLE;
       $query.= ' SET representative_picture_id = '.$_GET['image_id'];
       $query.= ' WHERE id = '.$row['category_id'];
       $query.= ';';
-      mysql_query( $query );
+      mysql_query($query);
     }
     // if the user ask this picture to be not any more the representative,
     // we have to set the representative_picture_id of this category to NULL
-    else if ( isset( $row['representative_picture_id'] )
-              and $row['representative_picture_id'] == $_GET['image_id'] )
+    else if (isset($row['representative_picture_id'])
+             and $row['representative_picture_id'] == $_GET['image_id'])
     {
-      $query = 'UPDATE '.CATEGORIES_TABLE;
-      $query.= ' SET representative_picture_id = NULL';
-      $query.= ' WHERE id = '.$row['category_id'];
-      $query.= ';';
-      mysql_query( $query );
+      $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id = '.$row['category_id'].'
+;';
+      mysql_query($query);
     }
   }
   $associate_or_dissociate = false;
   // associate with a new category ?
-  if ( $_POST['associate'] != '-1' and $_POST['associate'] != '' )
+  if ($_POST['associate'] != '-1' and $_POST['associate'] != '')
   {
     // does the uppercat id exists in the database ?
-    if ( !is_numeric( $_POST['associate'] ) )
+    if (!is_numeric($_POST['associate']))
     {
-      array_push( $errors, $lang['cat_unknown_id'] );
+      array_push($errors, $lang['cat_unknown_id']);
     }
     else
     {
-      $query = 'SELECT id FROM '.CATEGORIES_TABLE;
-      $query.= ' WHERE id = '.$_POST['associate'];
-      $query.= ';';
-      if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
-        array_push( $errors, $lang['cat_unknown_id'] );
+      $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_POST['associate'].'
+;';
+      if (mysql_num_rows(mysql_query($query)) == 0)
+        array_push($errors, $lang['cat_unknown_id']);
     }
   }
-  if ( $_POST['associate'] != '-1'
+  if ($_POST['associate'] != '-1'
        and $_POST['associate'] != ''
-       and count( $errors ) == 0 )
+       and count($errors) == 0)
   {
-    $query = 'INSERT INTO '.IMAGE_CATEGORY_TABLE;
-    $query.= ' (category_id,image_id) VALUES ';
-    $query.= '('.$_POST['associate'].','.$_GET['image_id'].')';
-    $query.= ';';
-    mysql_query( $query);
+    $query = '
+INSERT INTO '.IMAGE_CATEGORY_TABLE.'
+  (category_id,image_id)
+  VALUES
+  ('.$_POST['associate'].','.$_GET['image_id'].')
+;';
+    mysql_query($query);
     $associate_or_dissociate = true;
-    update_category( $_POST['associate'] );
+    update_category($_POST['associate']);
   }
   // dissociate any category ?
   // retrieving all the linked categories
-  $query = 'SELECT DISTINCT(category_id) as category_id FROM '.IMAGE_CATEGORY_TABLE;
-  $query.= ' WHERE image_id = '.$_GET['image_id'];
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+  $query = '
+SELECT DISTINCT(category_id) as category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+  $result = mysql_query($query);
+  while ($row = mysql_fetch_array($result))
   {
-    if ( isset($_POST['dissociate-'.$row['category_id']]) )
+    if (isset($_POST['dissociate-'.$row['category_id']]))
     {
-      $query = 'DELETE FROM '.IMAGE_CATEGORY_TABLE;
-      $query.= ' WHERE image_id = '.$_GET['image_id'];
-      $query.= ' AND category_id = '.$row['category_id'];
-      $query.= ';';
-      mysql_query( $query );
+      $query = '
+DELETE FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+  AND category_id = '.$row['category_id'].'
+;';
+      mysql_query($query);
       $associate_or_dissociate = true;
-      update_category( $row['category_id'] );
+      update_category($row['category_id']);
     }
   }
-  if ( $associate_or_dissociate )
+  if ($associate_or_dissociate)
   {
     synchronize_all_users();
   }
 }
 
 // retrieving direct information about picture
-$query = 'SELECT * FROM '.IMAGES_TABLE;
-$query.= ' WHERE id = '.$_GET['image_id'];
-$query.= ';';
-$row = mysql_fetch_array( mysql_query( $query ) );
+$query = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$_GET['image_id'].'
+;';
+$row = mysql_fetch_array(mysql_query($query));
 
-$title = empty($row['name'])?str_replace( '_',' ',get_filename_wo_extension($row['file']) ):$row['name'];
+// some fields are nullable in the images table
+$nullables = array('name','author','keywords','date_creation','comment');
+foreach ($nullables as $field)
+{
+  if (!isset($row[$field]))
+  {
+    $row[$field] = '';
+  }
+}
+
+if (empty($row['name']))
+{
+  $title = str_replace('_', ' ',get_filename_wo_extension($row['file']));
+}
+else
+{
+  $title = $row['name'];
+}
 // Navigation path
 $current_category = get_cat_info($row['storage_category_id']);
 $dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
 
-$thumbnail_url = get_complete_dir( $row['storage_category_id'] );
-$file_wo_ext = get_filename_wo_extension( $row['file'] );
+$thumbnail_url = get_complete_dir($row['storage_category_id']);
+$file_wo_ext = get_filename_wo_extension($row['file']);
 $thumbnail_url.= '/thumbnail/';
 $thumbnail_url.= $conf['prefix_thumbnail'].$file_wo_ext.'.'.$row['tn_ext'];
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
@@ -192,31 +219,33 @@ $date = isset($_POST['date_creation']) && empty($errors)
           ?$_POST['date_creation']:date_convert_back($row['date_creation']);
 
 // retrieving all the linked categories
-$query = 'SELECT DISTINCT(category_id) as category_id,status,visible';
-$query.= ',representative_picture_id';
-$query.= ' FROM '.IMAGE_CATEGORY_TABLE.','.CATEGORIES_TABLE;
-$query.= ' WHERE image_id = '.$_GET['image_id'];
-$query.= ' AND category_id = id;';
-$result = mysql_query( $query );
+$query = '
+SELECT DISTINCT(category_id) AS category_id,status,visible
+       ,representative_picture_id
+  FROM '.IMAGE_CATEGORY_TABLE.','.CATEGORIES_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+    AND category_id = id
+;';
+$result = mysql_query($query);
 $categories = '';
-while ( $cat_row = mysql_fetch_array( $result ) )
+while ($cat_row = mysql_fetch_array($result))
 {
-  $cat_infos = get_cat_info( $cat_row['category_id'] );
-  $cat_name = get_cat_display_name( $cat_infos['name'], ' &gt; ', '' );
+  $cat_infos = get_cat_info($cat_row['category_id']);
+  $cat_name = get_cat_display_name($cat_infos['name'], ' &gt; ', '');
   $categories.='<option value="'.$cat_row['category_id'].'">'.$cat_name.'</option>';
 }
 
 //----------------------------------------------------- template initialization
-$template->set_filenames( array('picture_modify'=>'admin/picture_modify.tpl') );
+$template->set_filenames(array('picture_modify'=>'admin/picture_modify.tpl'));
 $template->assign_vars(array(
   'TITLE_IMG'=>$title,
   'DIR_IMG'=>$dir_path,
   'FILE_IMG'=>$row['file'],
   'TN_URL_IMG'=>$thumbnail_url,
-  'URL_IMG'=>add_session_id( $url_img ),
-  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:$row['name'],
-  'DEFAULT_NAME_IMG'=>str_replace( '_',' ',get_filename_wo_extension($row['file']) ),
+  'URL_IMG'=>add_session_id($url_img),
+  'DEFAULT_NAME_IMG'=>str_replace('_',' ',get_filename_wo_extension($row['file'])),
   'FILE_IMG'=>$row['file'],
+  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:$row['name'],
   'SIZE_IMG'=>$row['width'].' * '.$row['height'],
   'FILESIZE_IMG'=>$row['filesize'].' KB',
   'REGISTRATION_DATE_IMG'=> format_date($row['date_available']),
@@ -242,13 +271,13 @@ $template->assign_vars(array(
   'L_SUBMIT'=>$lang['submit'],
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
-  ));
+ ));
   
 //-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
+if (sizeof($errors) != 0)
 {
   $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  for ($i = 0; $i < sizeof($errors); $i++)
   {
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
@@ -256,10 +285,10 @@ if ( sizeof( $errors ) != 0 )
 
 // if there are linked category other than the storage category, we show
 // propose the dissociate text
-if ( mysql_num_rows( $result ) > 0 )
+if (mysql_num_rows($result) > 0)
 {
-  //$vtp->addSession( $sub, 'dissociate' );
-  //$vtp->closeSession( $sub, 'dissociate' );
+  //$vtp->addSession($sub, 'dissociate');
+  //$vtp->closeSession($sub, 'dissociate');
 }
 // associate to another category ?
 //
@@ -267,21 +296,21 @@ if ( mysql_num_rows( $result ) > 0 )
 // $conf['max_LOV_categories']
 $query = 'SELECT COUNT(id) AS nb_total_categories';
 $query.= ' FROM '.CATEGORIES_TABLE.';';
-$row = mysql_fetch_array( mysql_query( $query ) );
-if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+$row = mysql_fetch_array(mysql_query($query));
+if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
 {
   $template->assign_block_vars('associate_LOV',array());
   $template->assign_block_vars('associate_LOV.associate_cat',array(
 	));
-  /*$vtp->addSession( $sub, 'associate_LOV' );
-  $vtp->addSession( $sub, 'associate_cat' );
-  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
-  $vtp->setVar( $sub, 'associate_cat.content', '' );
-  $vtp->closeSession( $sub, 'associate_cat' );
-  $page['plain_structure'] = get_plain_structure( true );
-  $structure = create_structure( '', array() );
-  display_categories( $structure, '&nbsp;' );
-  $vtp->closeSession( $sub, 'associate_LOV' );*/
+  /*$vtp->addSession($sub, 'associate_LOV');
+  $vtp->addSession($sub, 'associate_cat');
+  $vtp->setVar($sub, 'associate_cat.value', '-1');
+  $vtp->setVar($sub, 'associate_cat.content', '');
+  $vtp->closeSession($sub, 'associate_cat');
+  $page['plain_structure'] = get_plain_structure(true);
+  $structure = create_structure('', array());
+  display_categories($structure, '&nbsp;');
+  $vtp->closeSession($sub, 'associate_LOV');*/
 }
 
 //----------------------------------------------------------- sending html code
