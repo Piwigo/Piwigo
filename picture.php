@@ -540,46 +540,72 @@ if ( $conf['show_comments'] )
   // comment registeration
   if ( isset( $_POST['content'] ) and $_POST['content'] != '' )
   {
-    $author = $user['username'];
-    if ( $_POST['author'] != '' ) $author = $_POST['author'];
+    $register_comment = true;
 
-    // anti-flood system
-    $reference_date = time() - $conf['anti-flood_time'];
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'comments';
-    $query.= ' WHERE date > '.$reference_date;
-    $query.= " AND author = '".$author."'";
-    $query.= ';';
-    if ( mysql_num_rows( mysql_query( $query ) ) == 0
-         or $conf['anti-flood_time'] == 0 )
+    if ( !$user['is_the_guest'] ) $author = $user['username'];
+    if ( $_POST['author'] != '' ) $author = $_POST['author'];
+    // if a guest try to use the name of an already existing user, he must
+    // be rejected
+    if ( isset( $author ) and $author != $user['username'] )
     {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
-      $query.= ' (author,date,image_id,content,validated) VALUES';
-      $query.= " ('".$author."',".time().",".$page['id'];
-      $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
-      if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
-        $query.= ",'true'";
-      else
-        $query.= ",'false'";
-      $query.= ');';
-      mysql_query( $query );
-      // information message
-      $vtp->addSession( $handle, 'information' );
-      $message = $lang['comment_added'];
-      if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+      $query = 'SELECT COUNT(*) AS user_exists';
+      $query.= ' FROM '.PREFIX_TABLE.'users';
+      $query.= " WHERE username = '".$author."'";
+      $query.= ';';
+      $row = mysql_fetch_array( mysql_query( $query ) );
+      if ( $row['user_exists'] == 1 )
       {
-        $message.= '<br />'.$lang['comment_to_validate'];
+        $vtp->addSession( $handle, 'information' );
+        $message = $lang['comment_user_exists'];
+        $vtp->setVar( $handle, 'information.content', $message );
+        $vtp->closeSession( $handle, 'information' );
+        $register_comment = false;
       }
-      $vtp->setVar( $handle, 'information.content', $message );
-      $vtp->closeSession( $handle, 'information' );
     }
-    else
+
+    if ( $register_comment )
     {
-      // information message
-      $vtp->addSession( $handle, 'information' );
-      $message = $lang['comment_anti-flood'];
-      $vtp->setVar( $handle, 'information.content', $message );
-      $vtp->closeSession( $handle, 'information' );
+      // anti-flood system
+      $reference_date = time() - $conf['anti-flood_time'];
+      $query = 'SELECT id';
+      $query.= ' FROM '.PREFIX_TABLE.'comments';
+      $query.= ' WHERE date > '.$reference_date;
+      $query.= " AND author = '".$author."'";
+      $query.= ';';
+      if ( mysql_num_rows( mysql_query( $query ) ) == 0
+           or $conf['anti-flood_time'] == 0 )
+      {
+        $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
+        $query.= ' (author,date,image_id,content,validated) VALUES';
+        $query.= ' (';
+        if ( !isset( $author ) ) $query.= 'NULL';
+        else                     $query.= "'".$author."'";
+        $query.= ','.time().','.$page['id'];
+        $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
+        if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
+          $query.= ",'true'";
+        else
+          $query.= ",'false'";
+        $query.= ');';
+        mysql_query( $query );
+        // information message
+        $vtp->addSession( $handle, 'information' );
+        $message = $lang['comment_added'];
+        if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+        {
+          $message.= '<br />'.$lang['comment_to_validate'];
+        }
+        $vtp->setVar( $handle, 'information.content', $message );
+        $vtp->closeSession( $handle, 'information' );
+      }
+      else
+      {
+        // information message
+        $vtp->addSession( $handle, 'information' );
+        $message = $lang['comment_anti-flood'];
+        $vtp->setVar( $handle, 'information.content', $message );
+        $vtp->closeSession( $handle, 'information' );
+      }
     }
   }
   // comment deletion
@@ -635,7 +661,9 @@ if ( $conf['show_comments'] )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $vtp->addSession( $handle, 'comment' );
-    $vtp->setVar( $handle, 'comment.author', $row['author'] );
+    $author = $row['author'];
+    if ( $row['author'] == '' ) $author = $lang['guest'];
+    $vtp->setVar( $handle, 'comment.author', $author );
     $vtp->setVar( $handle, 'comment.date',
                   format_date( $row['date'], 'unix', true ) );
     $vtp->setVar( $handle, 'comment.content', nl2br( $row['content'] ) );

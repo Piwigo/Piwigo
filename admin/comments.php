@@ -84,7 +84,9 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     while ( $subrow = mysql_fetch_array( $subresult ) )
     {
       $vtp->addSession( $sub, 'comment' );
-      $vtp->setVar( $sub, 'comment.author', $subrow['author'] );
+      $author = $subrow['author'];
+      if ( $subrow['author'] == '' ) $author = $lang['guest'];
+      $vtp->setVar( $sub, 'comment.author', $author );
       $displayed_date = format_date( $subrow['date'], 'unix', true );
       $vtp->setVar( $sub, 'comment.date', $displayed_date );
       $vtp->setVar( $sub, 'comment.content', nl2br( $subrow['content'] ) );
