@@ -142,6 +142,12 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
 
   // retrieve file system sub-directories fulldirs
   $fs_fulldirs = get_fs_directories($basedir);
+  // get_fs_directories doesn't include the base directory, so if it's a
+  // category directory, we need to include it in our array
+  if (isset($_POST['cat']))
+  {
+    array_push($fs_fulldirs, $basedir);
+  }
   
   $inserts = array();
   // new categories are the directories not present yet in the database
