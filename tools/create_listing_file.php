@@ -127,6 +127,15 @@ function get_sync_iptc_data($file)
     }
   }
 
+  if (isset($iptc['keywords']))
+  {
+    // keywords separator is the comma, nothing else. Allowed characters in
+    // keywords : [A-Za-z0-9], "-" and "_". All other characters will be
+    // considered as separators
+    $iptc['keywords'] = preg_replace('/[^\w-]+/', ',', $iptc['keywords']);
+    $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
+  }
+
   return $iptc;
 }
 
