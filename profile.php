@@ -67,19 +67,12 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   $mail_error = validate_mail_address( $_POST['mail_address'] );
-  if ( $mail_error != '' )
-  {
-    array_push( $errors, $mail_error );
-  }
-  if ( $_POST['use_new_pwd'] == 1 )
-  {
-    // password must be the same as its confirmation
-    if ( $_POST['password'] != $_POST['passwordConf'] )
-    {
-      array_push( $errors, $lang['reg_err_pass'] );
-    }
-  }
-
+  if ( $mail_error != '' ) array_push( $errors, $mail_error );
+  // password must be the same as its confirmation
+  if ( isset( $_POST['use_new_pwd'] )
+       and $_POST['password'] != $_POST['passwordConf'] )
+    array_push( $errors, $lang['reg_err_pass'] );
+  
   if ( count( $errors ) == 0 )
   {
     $query = 'UPDATE '.PREFIX_TABLE.'users';
@@ -95,7 +88,7 @@ if ( isset( $_POST['submit'] ) )
     $query.= ';';
     mysql_query( $query );
 
-    if ( $_POST['use_new_pwd'] == 1 )
+    if ( isset( $_POST['use_new_pwd'] ) )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'users';
       $query.= " SET password = '".md5( $_POST['password'] )."'";
@@ -103,7 +96,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ';';
       mysql_query( $query );
     }
-    if ( $_POST['create_cookie'] == 1 )
+    if ( isset( $_POST['create_cookie'] ) )
     {
       setcookie( 'id',$page['session_id'],$_POST['cookie_expiration'],
                  cookie_path() );
@@ -116,7 +109,7 @@ if ( isset( $_POST['submit'] ) )
     }
     // redirection
     $url = 'category.php';
-    if ( $_POST['create_cookie'] != 1 ) $url = add_session_id( $url, true );
+    if ( isset( $_POST['create_cookie'] ) ) $url = add_session_id( $url,true );
     header( 'Request-URI: '.$url );  
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );

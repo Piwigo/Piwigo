@@ -180,7 +180,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   $next_lien_thumbnail = $cat_directory.'thumbnail/';
   $next_lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
   
-  if ( $row['name'] != "" )
+  if ( isset( $row['name'] ) and $row['name'] != '' )
   {
     $next_alt_thumbnail = $row['name'];
   }
@@ -190,8 +190,10 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   }
   $next_title = $lang['next_image']." : ".$next_alt_thumbnail;
 
-  $next_url_link = './picture.php?image_id='.$row['id'].'&amp;cat='.$page['cat'];
-  $next_url_link.= '&amp;expand='.$_GET['expand'];
+  $next_url_link = './picture.php?image_id='.$row['id'];
+  $next_url_link.= '&amp;cat='.$page['cat'];
+  if ( isset( $_GET['expand'] ) )
+    $next_url_link.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
     $next_url_link.= "&amp;search=".$_GET['search'].'&amp;mode='.$_GET['mode'];
@@ -290,13 +292,16 @@ if ( $page['num'] >= 1 )
   $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
 
   $prev_title = $lang['previous_image'].' : ';
-  $alt_thumbnaill = '';
-  if ( $row['name'] != '' ) $alt_thumbnail = $row['name'];
-  else                      $alt_thumbnail = $file;
+
+  if ( isset( $row['name'] ) and $row['name'] != '' )
+    $alt_thumbnail = $row['name'];
+  else
+    $alt_thumbnail = $file;
+
   $prev_title.= $alt_thumbnail;
   
   $url_link = './picture.php?image_id='.$row['id'].'&amp;cat='.$page['cat'];
-  $url_link.= '&amp;expand='.$_GET['expand'];
+  if ( isset( $_GET['expand'] ) ) $url_link.= '&amp;expand='.$_GET['expand'];
   if ( $page['cat'] == 'search' )
   {
     $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
@@ -470,7 +475,8 @@ if ( $page['keywords'] != '' )
   $vtp->setVar( $handle, 'info_line.name', $lang['keywords'].' : ' );
   $keywords = explode( ',', $page['keywords'] );
   $content = '';
-  $url = './category.php?cat=search&amp;expand='.$_GET['expand'];
+  $url = './category.php?cat=search';
+  if ( isset( $_GET['expand'] ) ) $url.= '&amp;expand='.$_GET['expand'];
   $url.= '&amp;mode=OR&amp;search=';
   foreach ( $keywords as $i => $keyword ) {
     $local_url = add_session_id( $url.$keyword );
@@ -489,40 +495,42 @@ $vtp->closeSession( $handle, 'info_line' );
 if ( !$user['is_the_guest'] )
 {
   // verify if the picture is already in the favorite of the user
-  $query = 'SELECT COUNT(*) AS nb_fav FROM '.PREFIX_TABLE.'favorites WHERE image_id = '.$page['id'];
+  $query = 'SELECT COUNT(*) AS nb_fav';
+  $query.= ' FROM '.PREFIX_TABLE.'favorites';
+  $query.= ' WHERE image_id = '.$page['id'];
   $query.= ' AND user_id = '.$user['id'].';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
   if (!$row['nb_fav'])
-{
-  $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
-  if (isset($_GET['expand']))
-	  $url.= '&amp;expand='.$_GET['expand'];
-  $url.='&amp;add_fav=1';
-  if ( $page['cat'] == 'search' )
   {
-    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
+    if (isset($_GET['expand']))
+      $url.= '&amp;expand='.$_GET['expand'];
+    $url.='&amp;add_fav=1';
+    if ( $page['cat'] == 'search' )
+    {
+      $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+    }
+    $vtp->addSession( $handle, 'favorite' );
+    $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
+    $vtp->setVar( $handle, 'favorite.title', $lang['add_favorites_hint'] );
+    $vtp->setVar( $handle, 'favorite.src',
+                  './template/'.$user['template'].'/theme/favorite.gif' );
+    $vtp->setVar($handle,'favorite.alt','[ '.$lang['add_favorites_alt'].' ]');
+    $vtp->closeSession( $handle, 'favorite' );
   }
-  $vtp->addSession( $handle, 'favorite' );
-  $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
-  $vtp->setVar( $handle, 'favorite.title', $lang['add_favorites_hint'] );
-  $vtp->setVar( $handle, 'favorite.src',
-                './template/'.$user['template'].'/theme/favorite.gif' );
-  $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['add_favorites_alt'].' ]' );
-  $vtp->closeSession( $handle, 'favorite' );
-}
-else
-{
-  $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
-  $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=0';
-  $vtp->addSession( $handle, 'favorite' );
-  $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
-  $vtp->setVar( $handle, 'favorite.title', $lang['del_favorites_hint'] );
-  $vtp->setVar( $handle, 'favorite.src',
-                './template/'.$user['template'].'/theme/del_favorite.gif' );
-  $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['del_favorites_alt'].' ]' );
-  $vtp->closeSession( $handle, 'favorite' );
-}
+  else
+  {
+    $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
+    $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=0';
+    $vtp->addSession( $handle, 'favorite' );
+    $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
+    $vtp->setVar( $handle, 'favorite.title', $lang['del_favorites_hint'] );
+    $vtp->setVar( $handle, 'favorite.src',
+                  './template/'.$user['template'].'/theme/del_favorite.gif' );
+    $vtp->setVar($handle,'favorite.alt','[ '.$lang['del_favorites_alt'].' ]');
+    $vtp->closeSession( $handle, 'favorite' );
+  }
 }
 //------------------------------------ admin link for information modifications
 if ( $user['status'] == 'admin' )
