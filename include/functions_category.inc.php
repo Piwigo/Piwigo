@@ -287,17 +287,26 @@ function get_cat_info( $id )
   }
   $cat['comment'] = nl2br( $cat['comment'] );
 
-  $cat['name'] = array();
+  // first, we retrieve the names of upper categories in the default order
+  // (not the correct one automatically)
+  $buffers_name = array();
 
-  $query = 'SELECT name';
+  $query = 'SELECT id, name';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE id IN ('.$cat['uppercats'].')';
-  $query.= ' ORDER BY id ASC';
   $query.= ';';
   $result = mysql_query( $query );
   while( $row = mysql_fetch_array( $result ) )
   {
-    array_push( $cat['name'], $row['name'] );
+    $buffer_names[$row['id']] = $row['name'];
+  }
+
+  // then we reorder the names with the order given in the
+  // categories.uppercats database field
+  $cat['name'] = array();
+  
+  foreach ( explode( ',', $cat['uppercats'] ) as $id_uppercat ) {
+    array_push( $cat['name'], $buffer_names[$id_uppercat] );
   }
   
   return $cat;
