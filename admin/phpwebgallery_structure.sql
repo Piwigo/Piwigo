@@ -1,6 +1,6 @@
 -- MySQL dump 8.21
 --
--- Host: localhost    Database: devel
+-- Host: localhost    Database: pwg-bsf
 ---------------------------------------------------------
 -- Server version	3.23.49-log
 
@@ -23,7 +23,10 @@ CREATE TABLE phpwebgallery_categories (
   visible enum('true','false') NOT NULL default 'true',
   uploadable enum('true','false') NOT NULL default 'false',
   representative_picture_id mediumint(8) unsigned default NULL,
-  PRIMARY KEY  (id)
+  uppercats varchar(255) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY categories_i1 (id),
+  KEY categories_i2 (id_uppercat)
 ) TYPE=MyISAM;
 
 --
@@ -78,7 +81,7 @@ DROP TABLE IF EXISTS phpwebgallery_favorites;
 CREATE TABLE phpwebgallery_favorites (
   user_id smallint(5) unsigned NOT NULL default '0',
   image_id mediumint(8) unsigned NOT NULL default '0',
-  KEY user_id (user_id,image_id)
+  PRIMARY KEY  (user_id,image_id)
 ) TYPE=MyISAM;
 
 --
@@ -125,7 +128,9 @@ DROP TABLE IF EXISTS phpwebgallery_image_category;
 CREATE TABLE phpwebgallery_image_category (
   image_id mediumint(8) unsigned NOT NULL default '0',
   category_id smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (image_id,category_id)
+  PRIMARY KEY  (image_id,category_id),
+  KEY image_category_i1 (image_id),
+  KEY image_category_i2 (category_id)
 ) TYPE=MyISAM;
 
 --
@@ -174,7 +179,7 @@ CREATE TABLE phpwebgallery_sites (
   id tinyint(4) NOT NULL auto_increment,
   galleries_url varchar(255) NOT NULL default '',
   PRIMARY KEY  (id),
-  UNIQUE KEY galleries_url (galleries_url)
+  UNIQUE KEY sites_ui1 (galleries_url)
 ) TYPE=MyISAM;
 
 --
@@ -186,6 +191,19 @@ CREATE TABLE phpwebgallery_user_access (
   user_id smallint(5) unsigned NOT NULL default '0',
   cat_id smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (user_id,cat_id)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table 'phpwebgallery_user_category'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_user_category;
+CREATE TABLE phpwebgallery_user_category (
+  user_id smallint(5) unsigned NOT NULL default '0',
+  category_id smallint(5) unsigned NOT NULL default '0',
+  date_last date default NULL,
+  nb_sub_categories smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (user_id,category_id)
 ) TYPE=MyISAM;
 
 --
@@ -220,8 +238,9 @@ CREATE TABLE phpwebgallery_users (
   short_period tinyint(3) unsigned NOT NULL default '7',
   long_period tinyint(3) unsigned NOT NULL default '14',
   template varchar(255) NOT NULL default 'default',
+  forbidden_categories text,
   PRIMARY KEY  (id),
-  UNIQUE KEY username (username)
+  UNIQUE KEY users_ui1 (username)
 ) TYPE=MyISAM;
 
 --
