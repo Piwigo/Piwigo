@@ -348,7 +348,6 @@ function initialize_category( $calling_page = 'category' )
       $page['uppercats']      = $result['uppercats'];
       $page['title'] =
         get_cat_display_name($page['cat_name'],
-                             ' &gt; ',
                              'category.php?cat=',
                              false);
       $page['where'] = ' WHERE category_id = '.$page['cat'];
@@ -758,7 +757,6 @@ function display_select_categories($categories,
     if ($fullname)
     {
       $option = get_cat_display_name_cache($category['uppercats'],
-                                           ' &rarr; ',
                                            '',
                                            false);
     }

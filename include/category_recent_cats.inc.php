@@ -59,6 +59,8 @@ if (mysql_num_rows($result) > 0)
   $row_number = 0;
 }
 
+$old_level_separator = $conf['level_separator'];
+$conf['level_separator'] = '<br />';
 // for each category, we have to search a recent picture to display and
 // the name to display
 while ( $row = mysql_fetch_array( $result ) )
@@ -90,4 +92,5 @@ while ( $row = mysql_fetch_array( $result ) )
     $row_number = 0;
   }
 }
+$conf['level_separator'] = $old_level_separator;
 ?>

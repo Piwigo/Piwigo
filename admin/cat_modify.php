@@ -103,11 +103,10 @@ foreach (array('comment','dir','site_id') as $nullable)
 // Navigation path
 $url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
 $navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
-$navigation.= $lang['home'].'</a> <span style="font-size:15px">&rarr;</span>';
+$navigation.= $lang['home'].'</a>'.$conf['level_separator'];
 
 $navigation.= get_cat_display_name_cache(
   $category['uppercats'],
-  ' <span style="font-size:15px">&rarr;</span>',
   $url);
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];

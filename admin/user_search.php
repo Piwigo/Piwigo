@@ -102,14 +102,16 @@ else
     $is_user_allowed = is_user_allowed( $row['id'], $restrictions );
     $url = PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat_id='.$row['id'];
     $cat_infos = get_cat_info( $row['id'] );
-    $template->assign_block_vars('permission.category',array(
-      'CAT_NAME'=> get_cat_display_name($cat_infos['name'],' &gt; ', 'font-weight:bold;' ),
-	  'CAT_ID'=>$row['id'],
-	  'AUTH_YES'=>!$is_user_allowed?'checked="checked"':'',
-	  'AUTH_NO' =>$is_user_allowed?'checked="checked"':'',
-	  'CAT_URL'=>add_session_id($url)
-	));
-
+    $template->assign_block_vars(
+      'permission.category',
+      array(
+        'CAT_NAME'=> get_cat_display_name($cat_infos['name']),
+        'CAT_ID'=>$row['id'],
+        'AUTH_YES'=>!$is_user_allowed?'checked="checked"':'',
+        'AUTH_NO' =>$is_user_allowed?'checked="checked"':'',
+        'CAT_URL'=>add_session_id($url)
+        ));
+    
     // any subcat forbidden for this user ?
     if ( $is_user_allowed == 2 )
     {

@@ -152,7 +152,7 @@ SELECT name,file,storage_category_id as cat_id,tn_ext,path
   {
     $cat_result = get_cat_info($subrow['cat_id']);
     $array_cat_names[$subrow['cat_id']] =
-      get_cat_display_name($cat_result['name'], ' &gt; ', '');
+      get_cat_display_name($cat_result['name'], '');
   }
   
   // name of the picture

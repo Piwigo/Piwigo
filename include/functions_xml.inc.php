@@ -51,6 +51,7 @@ function getContent( $element )
 // attribute $attribute for the tag $element.
 function getAttribute( $element, $attribute )
 {
+//  echo htmlentities($element).'<br /><br />';
   $regex = '/^<\w+[^>]*'.$attribute.'\s*=\s*"('.VAL_REG.')"/i';
   if ( preg_match( $regex, $element, $out ) ) return $out[1];
   else return '';

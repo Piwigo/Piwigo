@@ -162,10 +162,10 @@ $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];
 $date = isset($_POST['date_creation']) && empty($errors)
 ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
-          
+
+$url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
 $storage_category = get_cat_display_name_cache($row['uppercats'],
-                                               ' &rarr; ',
-                                               '',
+                                               $url,
                                                false);
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('picture_modify'=>'admin/picture_modify.tpl'));

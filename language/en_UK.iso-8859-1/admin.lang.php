@@ -351,4 +351,5 @@ $lang['cat_dissociated'] = 'dissociated from';
 $lang['storage_category'] = 'storage category';
 $lang['represents'] = 'represents';
 $lang['doesnt_represent'] = 'doesn\'t represent';
+$lang['admin_menu_cat_status'] = 'Public / Private';
 ?>

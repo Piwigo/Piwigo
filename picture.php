@@ -348,7 +348,12 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       // notification to the administrators
       if ( $conf['mail_notification'] )
       {
-        $cat_name = get_cat_display_name( $page['cat_name'], ' > ', '' );
+        // locally, we change the $conf['level_separator']
+        $conf_separator = $conf['level_separator'];
+        $conf['level_separator'] = ' > ';
+        $cat_name = get_cat_display_name($page['cat_name'], '');
+        $conf['level_separator'] = $conf_separator;
+        
         $cat_name = strip_tags( $cat_name );
         notify( 'comment', $cat_name.' > '.$picture['current']['name']);
       }
@@ -389,7 +394,7 @@ $title_img = $picture['current']['name'];
 $title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
-  $title_img = replace_space(get_cat_display_name($page['cat_name'],' &gt; '));
+  $title_img = replace_space(get_cat_display_name($page['cat_name']));
   $n = $page['num'] + 1;
   $title_nb = $n.'/'.$page['cat_nb_images'];
 }
@@ -442,6 +447,8 @@ $template->assign_vars(array(
   'ALT_IMG' => $picture['current']['file'],
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
+
+  'LEVEL_SEPARATOR' => $conf['level_separator'],
 
   'L_HOME' => $lang['home'],
   'L_SLIDESHOW' => $lang['slideshow'],
@@ -768,13 +775,12 @@ foreach ($cat_array as $category)
   
   if (count($cat_array) > 3)
   {
-    $cat_output .= get_cat_display_name_cache($category['uppercats'],
-                                              ' &rarr; ');
+    $cat_output .= get_cat_display_name_cache($category['uppercats']);
   }
   else
   {
     $cat_info = get_cat_info($category['category_id']);
-    $cat_output .= get_cat_display_name($cat_info['name'], ' &rarr; ');
+    $cat_output .= get_cat_display_name($cat_info['name']);
   }
   // the picture is commentable if it belongs at least to one category which
   // is commentable

@@ -2,7 +2,7 @@
 <div class="information">{information.INFORMATION}</div>
 <!-- END information -->
 <div class="titrePage">
-  <div id="gauche"><a href="{U_HOME}">{L_HOME}</a> &gt; {CATEGORY}</div>
+  <div id="gauche"><a href="{U_HOME}">{L_HOME}</a>{LEVEL_SEPARATOR}{CATEGORY}</div>
   <div id="centre" class="nameImage">{TITLE}</div>
   <div id="droite">{PHOTO}</div>
 </div>

@@ -176,7 +176,7 @@ function update_remote_site($listing_file, $site_id)
  */
 function insert_remote_category($xml_content, $site_id, $id_uppercat, $level)
 {
-  global $counts, $removes;
+  global $counts, $removes, $conf;
   
   $uppercats = '';
   // 0. retrieving informations on the category to display
@@ -184,15 +184,18 @@ function insert_remote_category($xml_content, $site_id, $id_uppercat, $level)
   if (is_numeric($id_uppercat))
   {
     $query = '
-SELECT name,uppercats,dir
+SELECT id,name,uppercats,dir,status,visible
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$id_uppercat.'
 ;';
     $row = mysql_fetch_array(pwg_query($query));
+    $parent = array('id' => $row['id'],
+                    'name' => $row['name'],
+                    'dir' => $row['dir'],
+                    'uppercats' => $row['uppercats'],
+                    'visible' => $row['visible'],
+                    'status' => $row['status']);
     
-    $uppercats = $row['uppercats'];
-    $name = $row['name'];
-
     insert_remote_element($xml_content, $id_uppercat);
   }
 
@@ -224,6 +227,39 @@ SELECT name,uppercats,dir
   // array of new categories to insert
   $inserts = array();
   
+  // calculate default value at category creation
+  $create_values = array();
+  if (isset($parent))
+  {
+    // at creation, must a category be visible or not ? Warning : if
+    // the parent category is invisible, the category is automatically
+    // create invisible. (invisible = locked)
+    if ('false' == $parent['visible'])
+    {
+      $create_values{'visible'} = 'false';
+    }
+    else
+    {
+      $create_values{'visible'} = $conf['newcat_default_visible'];
+    }
+    // at creation, must a category be public or private ? Warning :
+    // if the parent category is private, the category is
+    // automatically create private.
+    if ('private' == $parent['status'])
+    {
+      $create_values{'status'} = 'private';
+    }
+    else
+    {
+      $create_values{'status'} = $conf['newcat_default_status'];
+    }
+  }
+  else
+  {
+    $create_values{'visible'} = $conf['newcat_default_visible'];
+    $create_values{'status'} = $conf['newcat_default_status'];
+  }
+
   foreach ($xml_dirs as $xml_dir)
   {
     // 5. Is the category already existing ? we create a subcat if not
@@ -239,9 +275,13 @@ SELECT name,uppercats,dir
       $insert{'name'} = $name;
       $insert{'site_id'} = $site_id;
       $insert{'uppercats'} = 'undef';
-      if (is_numeric($id_uppercat))
+      $insert{'commentable'} = $conf['newcat_default_commentable'];
+      $insert{'uploadable'} = 'false';
+      $insert{'status'} = $create_values{'status'};
+      $insert{'visible'} = $create_values{'visible'};
+      if (isset($parent))
       {
-        $insert{'id_uppercat'} = $id_uppercat;
+        $insert{'id_uppercat'} = $parent['id'];
       }
       array_push($inserts, $insert);
     }
@@ -251,31 +291,25 @@ SELECT name,uppercats,dir
   if (count($inserts) > 0)
   {
     // inserts all found categories
-    $dbfields = array('dir','name','site_id','uppercats','id_uppercat');
+    $dbfields = array('dir','name','site_id','uppercats','id_uppercat',
+                      'commentable','uploadable','status','visible');
     mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
     $counts{'new_categories'}+= count($inserts);
     
     // updating uppercats field
     $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET uppercats = ';
-    if ($uppercats != '')
+UPDATE '.CATEGORIES_TABLE;
+    if (isset($parent))
     {
-      $query.= "CONCAT('".$uppercats."',',',id)";
+      $query.= "
+  SET uppercats = CONCAT('".$parent['uppercats']."',',',id)
+  WHERE id_uppercat = ".$id_uppercat;
     }
     else
     {
-      $query.= 'id';
-    }
-    $query.= '
-  WHERE id_uppercat ';
-    if (!is_numeric($id_uppercat))
-    {
-      $query.= 'IS NULL';
-    }
-    else
-    {
-      $query.= '= '.$id_uppercat;
+      $query.= '
+  SET uppercats = id
+  WHERE id_uppercat IS NULL';
     }
     $query.= '
 ;';

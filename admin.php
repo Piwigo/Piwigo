@@ -30,7 +30,6 @@ define('PHPWG_ROOT_PATH','./');
 define('IN_ADMIN', true);
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
@@ -85,7 +84,7 @@ switch ( $_GET['page'] )
      if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
      {
        $result = get_cat_info( $page['cat'] );
-       $name = get_cat_display_name( $result['name'],' &gt; ', '' );
+       $name = get_cat_display_name($result['name'], '');
        $title.= ' "'.$name.'"';
      }
    }
@@ -202,7 +201,7 @@ $template->assign_vars(array(
   'L_CAT_UPLOAD'=>$lang['upload'],
   'L_CAT_COMMENTS'=>$lang['comments'],
   'L_CAT_VISIBLE'=>$lang['lock'],
-  'L_CAT_STATUS'=>$lang['permissions'],
+  'L_CAT_STATUS'=>$lang['admin_menu_cat_status'],
 
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),

@@ -113,7 +113,7 @@ while ( $row = mysql_fetch_array( $result ) )
     $cat_names[$row['storage_category_id']]['dir'] =
       PHPWG_ROOT_PATH.get_complete_dir( $row['storage_category_id'] );
     $cat_names[$row['storage_category_id']]['display_name'] =
-      get_cat_display_name( $cat['name'], ' &gt; ', 'font-weight:bold;' );
+      get_cat_display_name($cat['name']);
   }
   $preview_url = PHPWG_ROOT_PATH.$cat_names[$row['storage_category_id']]['dir'].$row['file'];
   $class='row1';

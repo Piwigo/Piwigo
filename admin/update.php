@@ -47,24 +47,30 @@ function insert_local_category($id_uppercat)
   $cat_directory = PHPWG_ROOT_PATH.'galleries';
   if (is_numeric($id_uppercat))
   {
-    $query = 'SELECT name,uppercats,dir FROM '.CATEGORIES_TABLE;
-    $query.= ' WHERE id = '.$id_uppercat;
-    $query.= ';';
-    $row = mysql_fetch_array( pwg_query( $query));
-    $uppercats = $row['uppercats'];
-    $name      = $row['name'];
-    $dir       = $row['dir'];
+    $query = '
+SELECT id,name,uppercats,dir,visible,status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$id_uppercat.'
+;';
+    $row = mysql_fetch_array(pwg_query($query));
+    $parent = array('id' => $row['id'],
+                    'name' => $row['name'],
+                    'dir' => $row['dir'],
+                    'uppercats' => $row['uppercats'],
+                    'visible' => $row['visible'],
+                    'status' => $row['status']);
 
-    $upper_array = explode( ',', $uppercats);
+    $upper_array = explode( ',', $parent['uppercats']);
 
     $local_dir = '';
 
     $database_dirs = array();
     $query = '
-SELECT id,dir FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.$uppercats.')
+SELECT id,dir
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.$parent['uppercats'].')
 ;';
-    $result = pwg_query( $query);
+    $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
       $database_dirs[$row['id']] = $row['dir'];
@@ -78,8 +84,8 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
 
     // 1. display the category name to update
     $output = '<ul class="menu">';
-    $output.= '<li><strong>'.$name.'</strong>';
-    $output.= ' [ '.$dir.' ]';
+    $output.= '<li><strong>'.$parent['name'].'</strong>';
+    $output.= ' [ '.$parent['dir'].' ]';
     $output.= '</li>';
 
     // 2. we search pictures of the category only if the update is for all
@@ -94,7 +100,8 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
 
   $sub_category_dirs = array();
   $query = '
-SELECT id,dir FROM '.CATEGORIES_TABLE.'
+SELECT id,dir
+  FROM '.CATEGORIES_TABLE.'
   WHERE site_id = 1
 ';
   if (!is_numeric($id_uppercat))
@@ -131,6 +138,39 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
 
   // array of new categories to insert
   $inserts = array();
+
+  // calculate default value at category creation
+  $create_values = array();
+  if (isset($parent))
+  {
+    // at creation, must a category be visible or not ? Warning : if
+    // the parent category is invisible, the category is automatically
+    // create invisible. (invisible = locked)
+    if ('false' == $parent['visible'])
+    {
+      $create_values{'visible'} = 'false';
+    }
+    else
+    {
+      $create_values{'visible'} = $conf['newcat_default_visible'];
+    }
+    // at creation, must a category be public or private ? Warning :
+    // if the parent category is private, the category is
+    // automatically create private.
+    if ('private' == $parent['status'])
+    {
+      $create_values{'status'} = 'private';
+    }
+    else
+    {
+      $create_values{'status'} = $conf['newcat_default_status'];
+    }
+  }
+  else
+  {
+    $create_values{'visible'} = $conf['newcat_default_visible'];
+    $create_values{'status'} = $conf['newcat_default_status'];
+  }
   
   foreach ($fs_subdirs as $fs_subdir)
   {
@@ -139,22 +179,27 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
     $category_id = array_search($fs_subdir, $sub_category_dirs);
     if (!is_numeric($category_id))
     {
+      $insert = array();
+      
       if (preg_match('/^[a-zA-Z0-9-_.]+$/', $fs_subdir))
       {
         $name = str_replace('_', ' ', $fs_subdir);
 
-        $value = "('".$fs_subdir."','".$name."',1";
-        if (!is_numeric($id_uppercat))
+        $insert{'dir'} = $fs_subdir;
+        $insert{'name'} = $name;
+        $insert{'site_id'} = 1;
+        $insert{'uppercats'} = 'undef';
+        $insert{'commentable'} = $conf['newcat_default_commentable'];
+        $insert{'uploadable'} = $conf['newcat_default_uploadable'];
+        $insert{'status'} = $create_values{'status'};
+        $insert{'visible'} = $create_values{'visible'};
+
+        if (isset($parent))
         {
-          $value.= ',NULL';
+          $insert{'id_uppercat'} = $parent['id'];
         }
-        else
-        {
-          $value.= ','.$id_uppercat;
-        }
-        $value.= ",'undef'";
-        $value.= ')';
-        array_push($inserts, $value);
+        
+        array_push($inserts, $insert);
       }
       else
       {
@@ -167,37 +212,27 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
   // we have to create the category
   if (count($inserts) > 0)
   {
-    $query = '
-INSERT INTO '.CATEGORIES_TABLE.'
-  (dir,name,site_id,id_uppercat,uppercats) VALUES
-';
-    $query.= implode(',', $inserts);
-    $query.= '
-;';
-    pwg_query($query);
-
+    $dbfields = array(
+      'dir','name','site_id','id_uppercat','uppercats','commentable',
+      'uploadable','visible','status'
+      );
+    mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
+    
     $counts['new_categories']+= count($inserts);
     // updating uppercats field
     $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET uppercats = ';
-    if ($uppercats != '')
+UPDATE '.CATEGORIES_TABLE;
+    if (isset($parent))
     {
-      $query.= "CONCAT('".$uppercats."',',',id)";
+      $query.= "
+  SET uppercats = CONCAT('".$parent['uppercats']."',',',id)
+  WHERE id_uppercat = ".$parent['id'];
     }
     else
     {
-      $query.= 'id';
-    }
-    $query.= '
-  WHERE id_uppercat ';
-    if (!is_numeric($id_uppercat))
-    {
-      $query.= 'IS NULL';
-    }
-    else
-    {
-      $query.= '= '.$id_uppercat;
+      $query.= '
+  SET uppercats = id
+  WHERE id_uppercat IS NULL';
     }
     $query.= '
 ;';

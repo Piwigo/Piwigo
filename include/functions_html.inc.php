@@ -159,10 +159,11 @@ function style_select($default_style, $select_name = "style")
  * @return string
  */
 function get_cat_display_name($cat_informations,
-                              $separator, 
                               $url = 'category.php?cat=',
                               $replace_space = true)
 {
+  global $conf;
+  
   $output = '';
   $is_first = true;
   foreach ($cat_informations as $id => $name)
@@ -173,7 +174,7 @@ function get_cat_display_name($cat_informations,
     }
     else
     {
-      $output.= $separator;
+      $output.= $conf['level_separator'];
     }
 
     if ($url == '')
@@ -205,17 +206,15 @@ function get_cat_display_name($cat_informations,
  * the categories name without links.
  *
  * @param string uppercats
- * @param string separator
  * @param string url
  * @param boolean replace_space
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
-                                    $separator,
                                     $url = 'category.php?cat=',
                                     $replace_space = true)
 {
-  global $cat_names;
+  global $cat_names, $conf;
 
   if (!isset($cat_names))
   {
@@ -242,7 +241,7 @@ SELECT id,name
     }
     else
     {
-      $output.= $separator;
+      $output.= $conf['level_separator'];
     }
 
     if ($url == '')

@@ -59,58 +59,88 @@ else if (isset($_POST['submit']))
 	
   if (!count($errors))
   {
-    $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL'; 
-    // As we don't create a virtual category every day, let's do (far) too
-    // much queries
+    $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL';
+    
+    if ($parent_id != 'NULL')
+    {
+      $query = '
+SELECT id,uppercats,global_rank,visible,status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$parent_id.'
+;';
+      $row = mysql_fetch_array(pwg_query($query));
+      $parent = array('id' => $row['id'],
+                      'uppercats' => $row['uppercats'],
+                      'visible' => $row['visible'],
+                      'status' => $row['status'],
+                      'global_rank' => $row['global_rank']);
+    }
+
+    $insert = array();
+    $insert{'name'} = $_POST['virtual_name'];
+    $insert{'rank'} = $_POST['rank'];
+    $insert{'commentable'} = $conf['newcat_default_commentable'];
+    $insert{'uploadable'} = $conf['newcat_default_uploadable'];
+    
+    if (isset($parent))
+    {
+      $insert{'id_uppercat'} = $parent{'id'};
+      // at creation, must a category be visible or not ? Warning : if
+      // the parent category is invisible, the category is automatically
+      // create invisible. (invisible = locked)
+      if ('false' == $parent['visible'])
+      {
+        $insert{'visible'} = 'false';
+      }
+      else
+      {
+        $insert{'visible'} = $conf['newcat_default_visible'];
+      }
+      // at creation, must a category be public or private ? Warning :
+      // if the parent category is private, the category is
+      // automatically create private.
+      if ('private' == $parent['status'])
+      {
+        $insert{'status'} = 'private';
+      }
+      else
+      {
+        $insert{'status'} = $conf['newcat_default_status'];
+      }
+    }
+    else
+    {
+      $insert{'visible'} = $conf['newcat_default_visible'];
+      $insert{'status'} = $conf['newcat_default_status'];
+    }
+
+    $inserts = array($insert);
     
     // we have then to add the virtual category
-    $query = '
-INSERT INTO '.CATEGORIES_TABLE.'
-  (name,id_uppercat,rank,site_id)
-  VALUES
-  (\''.$_POST['virtual_name'].'\','.$parent_id.','.$_POST['rank'].',NULL)
-;';
-    pwg_query($query);
-	
+    $dbfields = array('site_id','name','id_uppercat','rank','commentable',
+                      'uploadable','visible','status');
+    mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
+    
     // And last we update the uppercats
     $query = '
 SELECT MAX(id)
   FROM '.CATEGORIES_TABLE.'
 ;';
     $my_id = array_pop(mysql_fetch_array(pwg_query($query)));
-    
-    if ($parent_id != 'NULL')
-    {
-      $query = '
-SELECT uppercats, global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$parent_id.'
-;';
-      $result = pwg_query($query);
-      $row = mysql_fetch_array($result);
-      
-      $parent_uppercats = $row['uppercats'];
-      $parent_global_rank = $row['global_rank'];
-    }
 
     $query = '
-UPDATE '.CATEGORIES_TABLE.'
-';
-    if (!empty($parent_uppercats))
+UPDATE '.CATEGORIES_TABLE;
+    if (isset($parent))
     {
-      $query.= "  SET uppercats = CONCAT('".$parent_uppercats."',',',id)";
+      $query.= "
+  SET uppercats = CONCAT('".$parent['uppercats']."',',',id)
+    , global_rank = CONCAT('".$parent['global_rank']."','.',rank)";
     }
     else
     {
-      $query.= '  SET uppercats = id';
-    }
-    if (!empty($parent_global_rank))
-    {
-      $query.= "  , global_rank = CONCAT('".$parent_global_rank."','.',rank)";
-    }
-    else
-    {
-      $query.= '  , uppercats = id';
+      $query.= '
+  SET uppercats = id
+    , global_rank = id';
     }
     $query.= '
   WHERE id = '.$my_id.'
@@ -142,23 +172,22 @@ $result = pwg_query($query);
 while ($row = mysql_fetch_assoc($result))
 {
   $categories[$row['rank']] = $row;
+  $categories[$row['rank']]['nb_subcats'] = 0;
 }
 // +-----------------------------------------------------------------------+
 // |                            Navigation path                            |
 // +-----------------------------------------------------------------------+
 if (isset($_GET['parent_id']))
 {
-  $separator = ' <span style="font-size:15px">&rarr;</span> ';
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
   
   $navigation = '<a class="" href="'.add_session_id($base_url).'">';
   $navigation.= $lang['home'];
   $navigation.= '</a>';
-  $navigation.= $separator;
+  $navigation.= $conf['level_separator'];
 
   $current_category = get_cat_info($_GET['parent_id']);
   $navigation.= get_cat_display_name($current_category['name'],
-                                     $separator,
                                      $base_url.'&amp;parent_id=',
                                      false);
 }
@@ -337,7 +366,25 @@ if (count($infos) != 0)
 // +-----------------------------------------------------------------------+
 // |                          Categories display                           |
 // +-----------------------------------------------------------------------+
-while (list($id,$category) = each($categories))
+$ranks = array();
+foreach ($categories as $category)
+{
+  $ranks[$category['id']] = $category['rank'];
+}
+
+$query = '
+SELECT id_uppercat, COUNT(*) AS nb_subcats
+  FROM '. CATEGORIES_TABLE.'
+  WHERE id_uppercat IN ('.implode(',', array_keys($ranks)).')
+  GROUP BY id_uppercat
+;';
+$result = pwg_query($query);
+while ($row = mysql_fetch_array($result))
+{
+  $categories[$ranks[$row['id_uppercat']]]['nb_subcats'] = $row['nb_subcats'];
+}
+
+foreach ($categories as $category)
 {
   $images_folder = PHPWG_ROOT_PATH.'template/';
   $images_folder.= $user['template'].'/admin/images';
@@ -356,17 +403,7 @@ while (list($id,$category) = each($categories))
   }
   else
   {
-    // (Gweltas) May be should we have to introduce a computed field in the
-    // table to avoid this query -> (z0rglub) no because the number of
-    // sub-categories depends on permissions
-    $query = '
-SELECT COUNT(id) AS nb_sub_cats
-  FROM '. CATEGORIES_TABLE.'
-  WHERE id_uppercat = '.$category['id'].'
-;';
-    $row = mysql_fetch_array(pwg_query($query));
-
-    if ($row['nb_sub_cats'] > 0)
+    if ($category['nb_subcats'] > 0)
     {
       $image_src = $images_folder.'/icon_subfolder.gif';
     }

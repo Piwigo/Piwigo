@@ -132,7 +132,7 @@ function clean_iptc_value($value)
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
   
-  return $value;
+  return htmlentities($value);
 }
 
 function get_sync_iptc_data($file)

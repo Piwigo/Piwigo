@@ -788,7 +788,7 @@ function is_user_allowed( $category_id, $restrictions )
 function get_category_directories( $basedir )
 {
   $sub_dirs = array();
-
+  
   if ( $opendir = opendir( $basedir ) )
   {
     while ( $file = readdir( $opendir ) )

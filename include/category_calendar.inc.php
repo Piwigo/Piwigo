@@ -363,6 +363,8 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
 }
 elseif (isset($page['calendar_day']))
 {
+  $old_level_separator = $conf['level_separator'];
+  $conf['level_separator'] = '<br />';
   // for each category of this day, display a random picture
   foreach ($calendar_categories as $calendar_category => $nb_pics)
   {
@@ -373,7 +375,8 @@ elseif (isset($page['calendar_day']))
     else
     {
       $cat_infos = get_cat_info( $calendar_category );
-      $name = get_cat_display_name($cat_infos['name'],'<br />','',false);
+      
+      $name = get_cat_display_name($cat_infos['name'],'',false);
       $name = '['.$name.']';
     }
     $name.= ' ('.$nb_pics.')';
@@ -426,5 +429,6 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
       $row_number = 0;
     }
   }
+  $conf['level_separator'] = $old_level_separator;
 }
 ?>

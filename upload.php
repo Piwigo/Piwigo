@@ -274,7 +274,7 @@ if ( isset( $page['waiting_id'] ) )
 else
 {
   $advise_title = $lang['upload_advise'];
-  $advise_title.= get_cat_display_name( $page['cat_name'], ' - ' );
+  $advise_title.= get_cat_display_name($page['cat_name']);
 }
 
 $username = !empty($_POST['username'])?$_POST['username']:$user['username'];

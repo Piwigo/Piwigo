@@ -248,9 +248,7 @@ if (isset($page['cat']))
   // Navigation path
   $current_category = get_cat_info($_GET['cat_id']);
   $url = PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id=';
-  $category_path = get_cat_display_name($current_category['name'],
-                                        '-&gt;',
-                                        $url);
+  $category_path = get_cat_display_name($current_category['name'], $url);
   
   $form_action = PHPWG_ROOT_PATH.'admin.php';
   $form_action.= '?page=infos_images&amp;cat_id='.$_GET['cat_id'];

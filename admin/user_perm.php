@@ -220,8 +220,7 @@ while ( $row = mysql_fetch_array( $result ) )
   }
   // category name
   $cat_infos = get_cat_info( $row['id'] );
-  $name = get_cat_display_name( $cat_infos['name'],' &gt; ',
-                                'font-weight:bold;' );
+  $name = get_cat_display_name($cat_infos['name']);
   $vtp->setVar( $sub, 'category.name', $name );
   // usergroups
   if ( count( $usergroups ) > 0 )
