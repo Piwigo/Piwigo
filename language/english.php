@@ -447,13 +447,6 @@ if ( $isadmin )
   $lang['step2_err_pass'] = 'please enter your password again';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
   $lang['install_end_title'] = 'Installation finished';
-  $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
-For security reason, please delete file "install.php" in the directory "admin"<br />
-Once this file deleted , follow this instructions :
-<ul>
-  <li>go to the identification page : [ <a href="../identification.php">identification</a> ] and use the login/password given for webmaster</li>
-  <li>this login will enable you to access to the [ <a href="admin.php">administration panel</a> ] and to the instructions in order to place pictures in your directories</li>
-</ul>';
   $lang['step2_title'] = 'Step 2/2';
   $lang['step2_pwd'] = 'webmaster password';
   $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
@@ -542,6 +535,14 @@ Once this file deleted , follow this instructions :
   $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
   $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
   $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
-  $lang['install_warning'] = 'The file "admin/install.php" is still present. Please remove it from your server. It is not secure to keep it.';
+  // new or modified in release 1.4
+  $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
+For security reason, please delete file "install.php"<br />
+Once this file deleted , follow this instructions :
+<ul>
+  <li>go to the identification page : [ <a href="../identification.php">identification</a> ] and use the login/password given for webmaster</li>
+  <li>this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories</li>
+</ul>';
+  $lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
 }
 ?>

@@ -446,13 +446,6 @@ if ( $isadmin )
   $lang['step2_err_pass'] = 'veuillez retaper votre mot de passe';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
   $lang['install_end_title'] = 'Installation terminée';
-  $lang['install_end_message'] = 'La configuration de l\'application s\'est correctement déroulée, place à la prochaine étape<br /><br />
-Par mesure de sécurité, merci de supprimer le fichier "install.php" du repertoire "admin"<br />
-Un fois ce fichier supprimé, veuillez suivre ces indications :
-<ul>
-  <li>allez sur la page d\'identification : [ <a href="../identification.php">identification</a> ] et connectez-vous avec le pseudo donné pour le webmaster</li>
-  <li>celui-ci vous permet d\'accéder à la [ <a href="admin.php">partie administration</a> ] et aux instructions pour placer les images dans les répertoires.</li>
-</ul>';
   $lang['step2_title'] = 'Etape 2 sur 2';
   $lang['step2_pwd'] = 'password webmaster';
   $lang['step2_pwd_info'] = 'Il doit rester confidentiel, il permet d\'accéder au panneau d\'administration.';
@@ -542,6 +535,14 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
   $lang['step1_err_copy'] = 'Copiez le texte en bleu entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
   $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';
   $lang['install_help'] = 'Besoin d\'aide ? Posez votre question sur le <a href="http://forum.phpwebgallery.net">forum de PhpWebGallery</a>.';
-  $lang['install_warning'] = 'Le fichier "admin/install.php" est encore présent sur votre serveur. Merci de le supprimer. Il pourrait être utilisé par un tiers à des fins malveillantes.';
+  // new or modified in release 1.4
+  $lang['install_end_message'] = 'La configuration de l\'application s\'est correctement déroulée, place à la prochaine étape<br /><br />
+Par mesure de sécurité, merci de supprimer le fichier "install.php"<br />
+Un fois ce fichier supprimé, veuillez suivre ces indications :
+<ul>
+  <li>allez sur la page d\'identification : [ <a href="../identification.php">identification</a> ] et connectez-vous avec le pseudo donné pour le webmaster</li>
+  <li>celui-ci vous permet d\'accéder à la partie administration et aux instructions pour placer les images dans les répertoires.</li>
+</ul>';
+  $lang['install_warning'] = 'Le fichier "install.php" est encore présent sur votre serveur. Merci de le supprimer. Il pourrait être utilisé par un tiers à des fins malveillantes.';
 }
 ?>
