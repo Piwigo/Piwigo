@@ -79,8 +79,6 @@ $template->assign_vars(
     'L_FORGET' => $lang['ident_forgotten_password'],
     'L_REMEMBER_ME'=>$lang['remember_me'],
     
-    'T_STYLE' => $user['template'],
-    
     'F_LOGIN_ACTION' => add_session_id('identification.php')
     ));
 

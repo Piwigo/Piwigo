@@ -34,10 +34,18 @@ include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 $error = array();
 if ( isset( $_POST['delete'] ) && isset( $_POST['confirm_delete'] )  )
 {
+  // destruction of the access linked to the group
+  $query = 'DELETE FROM '.GROUP_ACCESS_TABLE;
+  $query.= ' WHERE group_id = '.$_POST['group_id'];
+  $query.= ';';
+  pwg_query( $query );
+	
+	// destruction of the users links for this group
   $query = 'DELETE FROM ' . USER_GROUP_TABLE; 
   $query.= ' WHERE group_id = '.$_POST['group_id'];
 	pwg_query( $query );
 	
+	// destruction of the group
 	$query = 'DELETE FROM ' . GROUPS_TABLE; 
   $query.= ' WHERE id = '.$_POST['group_id'];
 	$query.= ';';

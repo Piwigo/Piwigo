@@ -211,6 +211,37 @@ $lang['infoimage_addtoall'] = 'add to all';
 $lang['infoimage_removefromall'] = 'remove from all';
 $lang['infoimage_associate'] = 'Associate to the category';
 
+// Thumbnails
+$lang['tn_width'] = 'width';
+$lang['tn_height'] = 'height';
+$lang['tn_no_support'] = 'Picture unreachable or no support';
+$lang['tn_format'] = 'for the file format';
+$lang['tn_thisformat'] = 'for this file format';
+$lang['tn_err_width'] = 'width must be a number superior to';
+$lang['tn_err_height'] = 'height must be a number superior to';
+$lang['tn_results_title'] = 'Results of miniaturization';
+$lang['tn_picture'] = 'picture';
+$lang['tn_results_gen_time'] = 'generated in';
+$lang['tn_stats'] = 'General statistics';
+$lang['tn_stats_nb'] = 'number of miniaturized pictures';
+$lang['tn_stats_total'] = 'total time';
+$lang['tn_stats_max'] = 'max time';
+$lang['tn_stats_min'] = 'min time';
+$lang['tn_stats_mean'] = 'average time';
+$lang['tn_err'] = 'You made mistakes';
+$lang['tn_params_title'] = 'Miniaturization parameters';
+$lang['tn_params_GD'] = 'GD version';
+$lang['tn_params_GD_info'] = '- GD is the picture manipulating library for PHP<br />-choose the version installed on your server. If you choose the wrong, you\'ll just have errors messages, come back with your browser and choose the other version. If no version works, it means your server doesn\'t support GD.';
+$lang['tn_params_width_info'] = 'maximum width that thumbnails can take';
+$lang['tn_params_height_info'] = 'maximum height that thumbnails can take';
+$lang['tn_params_create'] = 'create';
+$lang['tn_params_create_info'] = 'Do not try to miniaturize too many pictures in the same time.<br />Indeed, miniaturization uses a lot of CPU. If you installed PhpWebGallery on a free provider, a too high CPU load can sometime lead to the deletion of your website.';
+$lang['tn_params_format'] = 'file format';
+$lang['tn_params_format_info'] = 'only jpeg file format is supported for thumbnail creation';
+$lang['tn_alone_title'] = 'pictures without thumbnail (jpeg and png only)';
+$lang['tn_dirs_title'] = 'Directories list';
+$lang['tn_dirs_alone'] = 'pictures without thumbnail';
+
 // Update
 $lang['update_missing_tn'] = 'the thumbnail is missing for';
 $lang['update_disappeared_tn'] = 'the thumbnail disapeared';
@@ -241,6 +272,15 @@ $lang['stats_global_graph_title'] = 'Pages seen by month';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
 // Users
+$lang['user_err_modify'] = 'This user can\'t be modified or deleted';
+$lang['user_err_unknown'] = 'This user doesn\'t exist in the database';
+$lang['user_management'] = 'Special field for administrators';
+$lang['user_status'] = 'User status';
+$lang['user_status_admin'] = 'Administrator';
+$lang['user_status_guest'] = 'User';
+$lang['user_delete'] = 'Delete user';
+$lang['user_delete_hint'] = 'Click here to delete this user. Warning! This operation cannot be undone!';
+
 
 // Groups
 $lang['group_confirm_delete']= 'Confirm group deletion';
@@ -252,18 +292,8 @@ $lang['group_edit'] = 'Manage users of the group';
 $lang['group_deny_user'] = 'Deny selected';
 $lang['group_add_user']= 'Add user';
 
-$lang['menu_add_user'] = 'add';
-$lang['menu_list_user'] = 'list';
-$lang['user_err_modify'] = 'This user can\'t be modified or deleted';
-$lang['user_err_unknown'] = 'This user doesn\'t exist in the database';
-$lang['adduser_info_message'] = 'Informations registered in the database for user ';
-$lang['adduser_info_password_updated'] = '(password updated)';
-$lang['adduser_info_back'] = 'back to the users list';
-$lang['adduser_fill_form'] = 'Please fill the following form';
-$lang['adduser_unmodify'] = 'unmodifiable';
-$lang['adduser_status'] = 'status';
-$lang['adduser_status_admin'] = 'admin';
-$lang['adduser_status_guest'] = 'guest';
+
+
 $lang['permuser_info_message'] = 'Permissions registered';
 $lang['permuser_title'] = 'Restrictions for user';
 $lang['permuser_warning'] = 'Warning : a "<span style="font-weight:bold;">forbidden access</span>" to the root of a category prevent from accessing the whole category';
@@ -276,41 +306,6 @@ $lang['listuser_modify'] = 'modify';
 $lang['listuser_modify_hint'] = 'modify informations of';
 $lang['listuser_permission'] = 'Permissions';
 $lang['listuser_permission_hint'] = 'modify permissions of';
-$lang['listuser_delete'] = 'delete';
-$lang['listuser_delete_hint'] = 'delete user';
-$lang['listuser_button_all'] = 'all';
-$lang['listuser_button_invert'] = 'invert';
-$lang['listuser_button_create_address'] = 'create mail address';
-
-$lang['tn_width'] = 'width';
-$lang['tn_height'] = 'height';
-$lang['tn_no_support'] = 'Picture unreachable or no support';
-$lang['tn_format'] = 'for the file format';
-$lang['tn_thisformat'] = 'for this file format';
-$lang['tn_err_width'] = 'width must be a number superior to';
-$lang['tn_err_height'] = 'height must be a number superior to';
-$lang['tn_results_title'] = 'Results of miniaturization';
-$lang['tn_picture'] = 'picture';
-$lang['tn_results_gen_time'] = 'generated in';
-$lang['tn_stats'] = 'General statistics';
-$lang['tn_stats_nb'] = 'number of miniaturized pictures';
-$lang['tn_stats_total'] = 'total time';
-$lang['tn_stats_max'] = 'max time';
-$lang['tn_stats_min'] = 'min time';
-$lang['tn_stats_mean'] = 'average time';
-$lang['tn_err'] = 'You made mistakes';
-$lang['tn_params_title'] = 'Miniaturization parameters';
-$lang['tn_params_GD'] = 'GD version';
-$lang['tn_params_GD_info'] = '- GD is the picture manipulating library for PHP<br />-choose the version installed on your server. If you choose the wrong, you\'ll just have errors messages, come back with your browser and choose the other version. If no version works, it means your server doesn\'t support GD.';
-$lang['tn_params_width_info'] = 'maximum width that thumbnails can take';
-$lang['tn_params_height_info'] = 'maximum height that thumbnails can take';
-$lang['tn_params_create'] = 'create';
-$lang['tn_params_create_info'] = 'Do not try to miniaturize too many pictures in the same time.<br />Indeed, miniaturization uses a lot of CPU. If you installed PhpWebGallery on a free provider, a too high CPU load can sometime lead to the deletion of your website.';
-$lang['tn_params_format'] = 'file format';
-$lang['tn_params_format_info'] = 'only jpeg file format is supported for thumbnail creation';
-$lang['tn_alone_title'] = 'pictures without thumbnail (jpeg and png only)';
-$lang['tn_dirs_title'] = 'Directories list';
-$lang['tn_dirs_alone'] = 'pictures without thumbnail';
 
 
 $lang['title_add'] = 'Add a user';

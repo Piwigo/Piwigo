@@ -28,21 +28,14 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-//-------------------------------------------------- access authorization check
-if ( $conf['access'] == "restricted" )
-{
-  echo $lang['only_members'];
-  exit();
-}
 //----------------------------------------------------------- user registration
-$error = array();
+$errors = array();
 if ( isset( $_POST['submit'] ) )
 {
-  $error = register_user( $_POST['login'], $_POST['password'],
+  $errors = register_user( $_POST['login'], $_POST['password'],
                           $_POST['password_conf'], $_POST['mail_address'] );
-  if ( sizeof( $error ) == 0 )
+  if ( sizeof( $errors ) == 0 )
   {
-    $session_id = session_create( $_POST['login'] );
     $url = 'category.php?id='.$session_id;
     redirect( $url );
   }
@@ -74,10 +67,10 @@ $template->assign_vars(array(
   ));
 
 //-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
+if ( sizeof( $errors ) != 0 )
 {
   $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
   {
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }

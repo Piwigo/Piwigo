@@ -32,6 +32,11 @@
 		<div class="titreMenu">{L_IDENTIFY}</div>
 		 <div class="menu">
 		 <!-- BEGIN login -->
+		<ul class="menu">
+		  <li><a href="{U_REGISTER}">{L_REGISTER}</a></li>
+			<li><a href="{F_IDENTIFY}">{L_LOGIN}</a></li>
+		</ul>
+		<hr />
 		<form method="post" action="{F_IDENTIFY}">
 		<input type="hidden" name="redirect" value="{U_REDIRECT}">
 		{L_USERNAME}<br />

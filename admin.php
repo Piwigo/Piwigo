@@ -34,16 +34,18 @@ include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
+$username='';
+if (isset($_POST['username'])) $username=$_POST['username'];
 if (isset( $_GET['page'] ))
 switch ( $_GET['page'] )
 {
  case 'user_list':
    $title = $lang['title_liste_users'];   $page_valide = true; break;
- case 'user_modify':
-   $title = $lang['title_modify'];        $page_valide = true; break;
+ case 'profile':
+   $title = $lang['title_modify'];
+	 $page_valide = true; 
+	 break;
  case 'user_search':
-   $username='';
-   if (isset($_POST['username'])) $username=$_POST['username'];
    $title = $lang['title_user_perm'].' '.$username;
    $page_valide = true; break;
  case 'group_list' :
@@ -93,8 +95,6 @@ switch ( $_GET['page'] )
    $title = $lang['title_categories'];    $page_valide = true; break;
  case 'cat_modify':
    $title = $lang['title_edit_cat'];      $page_valide = true; break;
- case 'admin_upload':
-   $title = $lang['upload'];      $page_valide = true; break;
  case 'infos_images':
    $title = $lang['title_info_images'];   $page_valide = true; break;
  case 'waiting':
@@ -212,7 +212,7 @@ $template->assign_vars(array(
   'U_CONFIG_METADATA'=>add_session_id($conf_link.'metadata' ),
   'U_SITES'=>add_session_id($link_start.'remote_site'),
   'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
-  'U_USERS'=>add_session_id($link_start.'user_search' ),
+  'U_USERS'=>add_session_id($link_start.'profile' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
   'U_CAT_UPLOAD'=>add_session_id($opt_link.'upload'),
@@ -235,6 +235,7 @@ $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 if ( $page_valide )
 {
   if ($_GET['page']=='comments') include ( PHPWG_ROOT_PATH.'comments.php');
+	elseif ($_GET['page']=='profile') include ( PHPWG_ROOT_PATH.'profile.php');
   else include ( PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php' );
 }
 else

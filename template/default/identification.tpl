@@ -49,9 +49,9 @@
   <td colspan="3" align="center">
 	<!-- BEGIN free_access -->
 	  <p><a href="./category.php">[ {L_GUEST} ]</a></p>
-	  <a href="register.php"><img src="./template/{T_STYLE}/theme/register.gif" style="border:0;" alt=""/>&nbsp;{L_REGISTER}</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+	  <a href="register.php"><img src="template/default/theme/register.gif" style="border:0;" alt=""/>&nbsp;{L_REGISTER}</a>&nbsp;&nbsp;-&nbsp;&nbsp;
 	<!-- END free_access -->
-	  <a href="mailto:{MAIL_ADMIN}?subject=[PhpWebGallery] {L_FORGET}"><img src="./template/{T_STYLE}/theme/lost.gif" style="border:0;" alt=""/>&nbsp;{L_FORGET}</a>
+	  <a href="mailto:{MAIL_ADMIN}?subject=[PhpWebGallery] {L_FORGET}"><img src="template/default/theme/lost.gif" style="border:0;" alt=""/>&nbsp;{L_FORGET}</a>
   </td>
 </tr>
 </table>

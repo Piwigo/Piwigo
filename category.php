@@ -135,6 +135,8 @@ $template->assign_vars(array(
   'L_USERNAME' => $lang['login'],
   'L_PASSWORD' => $lang['password'],
   'L_HELLO' => $lang['hello'],
+	'L_REGISTER' => $lang['ident_register'],
+	'L_LOGIN' => $lang['menu_login'],
   'L_LOGOUT' => $lang['logout'],
   'L_ADMIN' => $lang['admin'],
   'L_ADMIN_HINT' => $lang['hint_admin'],
@@ -146,6 +148,7 @@ $template->assign_vars(array(
   'T_RECENT' => $icon_recent,
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
+	'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))

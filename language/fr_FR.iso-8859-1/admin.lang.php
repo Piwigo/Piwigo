@@ -140,7 +140,8 @@ $lang['conf_prefix'] = 'Préfixe thumbnail';
 $lang['conf_prefix_info'] = 'Les noms des fichiers miniatures en sont préfixé. Laissez vide en cas de doute.';
 $lang['conf_prefix_thumbnail_error'] = 'Le préfixe doit être uniquement composé des caractères suivant : a-z, "-" ou "_"';
 $lang['conf_access'] = 'Type d\'acces';
-$lang['conf_access_info'] = '- libre : n\'importe qui peut accéder à vos photos, tous les visiteurs peuvent se créer un compte pour pouvoir personnaliser l\'affichage<br />- restreint : l\'administrateur s\'occupe de créer des comptes, seuls les personnes membres peuvent accéder au site';
+$lang['conf_access_info'] = '- libre : n\'importe qui peut accéder à vos photos, tous les visiteurs peuvent se créer un compte pour pouvoir personnaliser l\'affichage<br />
+- restreint : l\'administrateur s\'occupe de créer des comptes, seuls les personnes membres peuvent accéder au site';
 $lang['conf_log_info'] = 'historiser les visites sur le site ? Les visites seront visibles dans l\'historique de l\'administration';
 $lang['conf_notification'] = 'Notification par mail';
 $lang['conf_notification_info'] = 'Notification automatique par mail des administrateurs (seuls les administrateurs) lors de l\'ajout d\'un commentaire, ou lors de l\'ajout d\'une image.';
@@ -164,7 +165,8 @@ $lang['conf_nb_line_page_info'] = 'Nombre de lignes par page par défaut';
 $lang['conf_recent_period_info'] = 'En nombre de jours. Période pendant laquelle l\'image est notée comme récente. La durée doit au moins être d\'un jour.';
 $lang['conf_default_expand_info'] = 'Développer toutes les catégories par défaut dans le menu ?';
 $lang['conf_show_nb_comments_info'] = 'Montrer le nombre de commentaires pour chaque image sur la page des miniatures';
-$lang['conf_default_maxwidth_info'] = 'Largeur maximum affichable pour les images : les images ne seront redimensionnées que pour l\'affichage, les fichiers images resteront intacts. Laisser vide si vous ne souhaitez pas mettre de limite.';
+$lang['conf_default_maxwidth_info'] = 'Largeur maximum affichable pour les images : les images ne seront redimensionnées que pour l\'affichage, les fichiers images resteront intacts. 
+Laisser vide si vous ne souhaitez pas mettre de limite.';
 $lang['conf_default_maxheight_info'] = 'Idem mais pour la hauteur des images';
 
 // Configuration -> upload
@@ -212,7 +214,42 @@ $lang['infoimage_addtoall'] = 'ajouter à tous';
 $lang['infoimage_removefromall'] = 'retirer à tous';
 $lang['infoimage_associate'] = 'Associer à la catégorie';
 
-//Update
+// Thumbnails
+$lang['tn_width'] = 'largeur';
+$lang['tn_height'] = 'hauteur';
+$lang['tn_no_support'] = 'Image inexistante ou aucun support';
+$lang['tn_format'] = 'pour le format';
+$lang['tn_thisformat'] = 'pour ce format de fichier';
+$lang['tn_err_width'] = 'la largeur doit être un entier supérieur à';
+$lang['tn_err_height'] = 'la hauteur doit être un entier supérieur à';
+$lang['tn_results_title'] = 'Résultats de la miniaturisation';
+$lang['tn_picture'] = 'image';
+$lang['tn_results_gen_time'] = 'généré en';
+$lang['tn_stats'] = 'Statistiques générales';
+$lang['tn_stats_nb'] = 'nombre d\'images miniaturisées';
+$lang['tn_stats_total'] = 'temps total';
+$lang['tn_stats_max'] = 'temps max';
+$lang['tn_stats_min'] = 'temps min';
+$lang['tn_stats_mean'] = 'temps moyen';
+$lang['tn_err'] = 'Vous avez commis des erreurs';
+$lang['tn_params_title'] = 'Paramètres de miniaturisation';
+$lang['tn_params_GD'] = 'version de GD';
+$lang['tn_params_GD_info'] = '- GD est la bibliothèque de manipulation graphique pour PHP<br />
+- cochez la version de GD installée sur le serveur. Si vous choisissez l\'une et que vous obtenez ensuite des messages d\'erreur, choisissez l\'autre version. 
+Si aucune version ne marche, cela signifie que GD n\'est pas installé sur le serveur.';
+$lang['tn_params_width_info'] = 'largeur maximum que peut prendre les miniatures';
+$lang['tn_params_height_info'] = 'hauteur maximum que peut prendre les miniatures';
+$lang['tn_params_create'] = 'en créer';
+$lang['tn_params_create_info'] = 'N\'essayez pas de lancer directement un grand nombre de miniaturisation.<br />
+En effet la miniaturisation est coûteuse en ressources processeur pour le serveur. 
+Si vous êtes chez un hébergeur gratuit, une trop forte occupation processeur peut amener l\'hébergeur à supprimer votre compte.';
+$lang['tn_params_format'] = 'format';
+$lang['tn_params_format_info'] = 'seul le format jpeg est supporté pour la création des miniatures';
+$lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)';
+$lang['tn_dirs_title'] = 'Liste des répertoires';
+$lang['tn_dirs_alone'] = 'images sans miniatures';
+
+// Update
 $lang['update_missing_tn'] = 'Il manque la miniature pour';
 $lang['update_disappeared_tn'] = 'La miniature n\'existe pas';
 $lang['update_disappeared'] = 'n\'existe pas';
@@ -242,7 +279,14 @@ $lang['stats_global_graph_title'] = 'Nombre de pages vues par mois';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
 // Users
-
+$lang['user_err_modify'] = 'Cet utilisateur ne peut pas être modifé ou supprimé';
+$lang['user_err_unknown'] = 'Cet utilisateur n\'existe pas dans la base de données';
+$lang['user_management'] = 'Champs spéciaux pour l\'administrateur';
+$lang['user_status'] = 'Statut de l\'utilisateur';
+$lang['user_status_admin'] = 'Administrateur';
+$lang['user_status_guest'] = 'Utilisateur';
+$lang['user_delete'] = 'Supprimer l\'utilisateur';
+$lang['user_delete_hint'] = 'Cliquez ici pour supprimer définitivement l\'utilisateur. Attention cette opération ne pourra être rétablie.';
 
 // Groups
 $lang['group_list_title'] = 'Liste des groupes existants';
@@ -256,66 +300,15 @@ $lang['group_add_user']= 'Ajouter le membre';
 
 
 // To be done
-$lang['menu_add_user'] = 'ajout';
-$lang['menu_list_user'] = 'liste';
 
-$lang['user_err_modify'] = 'Cet utilisateur ne peut pas être modifé ou supprimé';
-$lang['user_err_unknown'] = 'Cet utilisateur n\'existe pas dans la base de données';
-$lang['adduser_info_message'] = 'Informations enregistrées dans la base de données concernant ';
-$lang['adduser_info_password_updated'] = '(mot de passe modifié)';
-$lang['adduser_info_back'] = 'retour liste utilisateurs';
-$lang['adduser_fill_form'] = 'Veuillez remplir les champs suivants';
-$lang['adduser_unmodify'] = 'non modifiable';
-$lang['adduser_status'] = 'statut';
-$lang['adduser_status_admin'] = 'admin';
-$lang['adduser_status_guest'] = 'visiteur';
+
 $lang['permuser_info_message'] = 'Permissions enregistrées';
 $lang['permuser_title'] = 'Restrictions pour l\'utilisateur';
 $lang['permuser_warning'] = 'Attention : un "<span style="font-weight:bold;">accès interdit</span>" à la racine d\'une catégorie empêche l\'accès à toute la catégorie';
 $lang['permuser_parent_forbidden'] = 'catégorie parente interdite';
-$lang['listuser_confirm'] = 'Etes-vous sûr de vouloir supprimer l\'utilisateur';
-$lang['listuser_info_deletion'] = 'a été supprimé de la base de données';
-$lang['listuser_modify'] = 'modifier';
-$lang['listuser_modify_hint'] = 'modifier les infos de';
-$lang['listuser_permission'] = 'permissions';
-$lang['listuser_permission_hint'] = 'modifier les permissions de';
-$lang['listuser_delete'] = 'supprimer';
-$lang['listuser_delete_hint'] = 'supprimer';
-$lang['listuser_button_all'] = 'tous';
-$lang['listuser_button_invert'] = 'inverser';
-$lang['listuser_button_create_address'] = 'générer adresse mail';
 
 
 
-$lang['tn_width'] = 'largeur';
-$lang['tn_height'] = 'hauteur';
-$lang['tn_no_support'] = 'Image inexistante ou aucun support';
-$lang['tn_format'] = 'pour le format';
-$lang['tn_thisformat'] = 'pour ce format de fichier';
-$lang['tn_err_width'] = 'la largeur doit être un entier supérieur à';
-$lang['tn_err_height'] = 'la hauteur doit être un entier supérieur à';
-$lang['tn_results_title'] = 'Résultats de la miniaturisation';
-$lang['tn_picture'] = 'image';
-$lang['tn_results_gen_time'] = 'généré en';
-$lang['tn_stats'] = 'Statistiques générales';
-$lang['tn_stats_nb'] = 'nombre d\'images miniaturisées';
-$lang['tn_stats_total'] = 'temps total';
-$lang['tn_stats_max'] = 'temps max';
-$lang['tn_stats_min'] = 'temps min';
-$lang['tn_stats_mean'] = 'temps moyen';
-$lang['tn_err'] = 'Vous avez commis des erreurs';
-$lang['tn_params_title'] = 'Paramètres de miniaturisation';
-$lang['tn_params_GD'] = 'version de GD';
-$lang['tn_params_GD_info'] = '- GD est la bibliothèque de manipulation graphique pour PHP<br />- cochez la version de GD installée sur le serveur. Si vous choisissez l\'une et que vous obtenez ensuite des messages d\'erreur, choisissez l\'autre version. Si aucune version ne marche, cela signifie que GD n\'est pas installé sur le serveur.';
-$lang['tn_params_width_info'] = 'largeur maximum que peut prendre les miniatures';
-$lang['tn_params_height_info'] = 'hauteur maximum que peut prendre les miniatures';
-$lang['tn_params_create'] = 'en créer';
-$lang['tn_params_create_info'] = 'N\'essayez pas de lancer directement un grand nombre de miniaturisation.<br />En effet la miniaturisation est coûteuse en ressources processeur pour le serveur. Si vous êtes chez un hébergeur gratuit, une trop forte occupation processeur peut amener l\'hébergeur à supprimer votre compte.';
-$lang['tn_params_format'] = 'format';
-$lang['tn_params_format_info'] = 'seul le format jpeg est supporté pour la création des miniatures';
-$lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)';
-$lang['tn_dirs_title'] = 'Liste des répertoires';
-$lang['tn_dirs_alone'] = 'images sans miniatures';
 
 $lang['title_add'] = 'Ajouter un utilisateur';
 $lang['title_modify'] = 'Modifier un utilisateur';

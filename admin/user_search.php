@@ -78,8 +78,8 @@ $template->assign_vars(array(
   'L_FORBIDDEN'=>$lang['forbidden'],
   'L_PARENT_FORBIDDEN'=>$lang['permuser_parent_forbidden'],
 
-  'F_SEARCH_USER_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_search'),
-  'F_AUTH_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_search&amp;user_id='.$user_id),
+  'F_SEARCH_USER_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'),
+  'F_AUTH_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile&amp;user_id='.$user_id),
   'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
   ));
 
