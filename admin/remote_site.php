@@ -135,6 +135,8 @@ function update_remote_site($listing_file, $site_id)
     $xml_content = getXmlCode($listing_file);
     insert_remote_category($xml_content, $site_id, 'NULL', 0);
     update_category();
+    ordering();
+    update_global_rank();
         
     $template->assign_block_vars(
       'update',

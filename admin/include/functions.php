@@ -1164,4 +1164,41 @@ SELECT image_id
                   'update' => array('representative_picture_id'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
+
+/**
+ * order categories (update categories.rank and global_rank database fields)
+ *
+ * the purpose of this function is to give a rank for all categories
+ * (insides its sub-category), even the newer that have none at te
+ * beginning. For this, ordering function selects all categories ordered by
+ * rank ASC then name ASC for each uppercat.
+ *
+ * @returns void
+ */
+function ordering()
+{
+  $current_rank = 0;
+  $current_uppercat = '';
+		
+  $query = '
+SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
+  FROM '.CATEGORIES_TABLE.'
+  ORDER BY id_uppercat,rank,name
+;';
+  $result = pwg_query($query);
+  $datas = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    if ($row['id_uppercat'] != $current_uppercat)
+    {
+      $current_rank = 0;
+      $current_uppercat = $row['id_uppercat'];
+    }
+    $data = array('id' => $row['id'], 'rank' => ++$current_rank);
+    array_push($datas, $data);
+  }
+
+  $fields = array('primary' => array('id'), 'update' => array('rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+}
 ?>
