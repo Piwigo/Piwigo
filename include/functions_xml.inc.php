@@ -115,6 +115,8 @@ function getXmlCode( $filename )
   {
     return false;
   }
+
+  $xml_content = '';
   while ( !feof( $file ) )
   {
     $xml_content .= fgets( $file, 1024 );
