@@ -126,9 +126,9 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
 // Database connection
-mysql_connect( $dbhost, $dbuser, $dbpasswd )
+mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
 or die ( "Could not connect to database server" );
-mysql_select_db( $dbname )
+mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 	
 //

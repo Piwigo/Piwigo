@@ -251,12 +251,12 @@ if ( isset( $_POST['install'] ))
   {
     $step = 2;
     $file_content = "<?php";
-    $file_content.= "\n\$dbname = '".     $dbname."';";
-    $file_content.= "\n\$dbuser = '".     $dbuser."';";
-    $file_content.= "\n\$dbpasswd = '". $dbpasswd."';";
-    $file_content.= "\n\$dbhost = '".     $dbhost."';";
+    $file_content.= "\n\$cfgBase = '".     $dbname."';";
+    $file_content.= "\n\$cfgUser = '".     $dbuser."';";
+    $file_content.= "\n\$cfgPassword = '". $dbpasswd."';";
+    $file_content.= "\n\$cfgHote = '".     $dbhost."';";
     $file_content.= "\n";
-    $file_content.= "\n\$table_prefix = '".$table_prefix."';";
+    $file_content.= "\n\$prefixeTable = '".$table_prefix."';";
     $file_content.= "\n";
     $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
     $file_content.= "\n?".">";

@@ -33,14 +33,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include(PHPWG_ROOT_PATH.'include/template.php');
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
-define('PREFIX_TABLE', $table_prefix);
+define('PREFIX_TABLE', $prefixeTable);
 
 $conf['show_queries'] = false;
 
 // Database connection
-mysql_connect( $dbhost, $dbuser, $dbpasswd )
+mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
 or die ( "Could not connect to database server" );
-mysql_select_db( $dbname )
+mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 // +-----------------------------------------------------------------------+
 // |                            tricky output                              |
