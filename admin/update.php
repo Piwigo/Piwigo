@@ -479,6 +479,7 @@ function insert_remote_image( $xml_dir, $category_id )
       $query.= ",'".$height."'";
       $query.= ')';
       $query.= ';';
+      mysql_query( $query );
       // retrieving the id of newly inserted picture
       $query = 'SELECT id';
       $query.= ' FROM '.PREFIX_TABLE.'images';
