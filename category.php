@@ -52,9 +52,9 @@ if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
 if ( $user['expand'] == 'true' or $_GET['expand'] == 'all' )
 {
   $page['tab_expand'] = array();
-  $query = 'select id';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where id_uppercat is null;';
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id_uppercat IS NULL;';
   $result = mysql_query( $query );
   $i = 0;
   while ( $row = mysql_fetch_array( $result ) )
@@ -123,9 +123,9 @@ if ( !$user['is_the_guest'] )
   $url = add_session_id('./category.php?cat=fav&amp;expand='.$page['expand'] );
   $vtp->setVar( $handle, 'favorites.url', $url );
   // searching the number of favorite picture
-  $query = 'select count(*) as count';
-  $query.= ' from '.PREFIX_TABLE.'favorites';
-  $query.= ' where user_id = '.$user['id'].';';
+  $query = 'SELECT COUNT(*) AS count';
+  $query.= ' FROM '.PREFIX_TABLE.'favorites';
+  $query.= ' WHERE user_id = '.$user['id'].';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
   $vtp->setVar( $handle, 'favorites.nb_favorites', $row['count'] );
@@ -237,19 +237,17 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     $array_cat_directories = array();
   }
   
-  $query = 'select id,file,date_available,comment,';
-  $query.= ' author,tn_ext,name,filesize,width,height,cat_id';
-  $query.= ' from '.PREFIX_TABLE.'images';
+  $query = 'SELECT id,file,date_available,tn_ext,name,filesize,cat_id';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= $page['where'];
   $query.= $conf['order_by'];
-  $query.= ' limit '.$page['start'].','.$page['nb_image_page'];
+  $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
   $query.= ';';
   $result = mysql_query( $query );
 
   $vtp->addSession( $handle, 'thumbnails' );
   $vtp->addSession( $handle, 'line' );
-  // compteur d'itération pour aller à la ligne
-  // toutes les "$nb_image_ligne" images
+  // iteration counter to use a new <tr> every "$nb_image_line" pictures
   $i = 1;
   while ( $row = mysql_fetch_array( $result ) )
   {
@@ -262,8 +260,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
       }
       $cat_directory = $array_cat_directories[$row['cat_id']];
     }
-    // filename without extension
-    $file = substr ( $row['file'], 0, strrpos ( $row['file'], '.' ) );
+    $file = get_filename_wo_extension( $row['file'] );
     // name of the picture
     if ( $row['name'] != '' )
     {
@@ -282,30 +279,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     $thumbnail_url.= 'thumbnail/'.$conf['prefixe_thumbnail'];
     $thumbnail_url.= $file.'.'.$row['tn_ext'];
     // message in title for the thumbnail
-    $tab_date = explode( '-', $row['date_available'] );
-    $thumbnail_title = $lang['registration_date'];
-    $thumbnail_title.= ' '.$tab_date[2].'/'.$tab_date[1].'/'.$tab_date[0];
-    if ( $row['comment'] != '' )
-    {             
-      $thumbnail_title .= "\n".$lang['comment'].' : '.$row['comment'];
-    }             
-    if ( $row['author'] != '' )
-    {             
-      $thumbnail_title .= "\n".$lang['author'].' : '.$row['author'];
-    }
-    if ( $row['width'] == '' )
-    {
-      $taille_image = @getimagesize( $lien_image );
-      $width = $taille_image[0];
-      $height = $taille_image[1];
-    }
-    else
-    {
-      $width = $row['width'];
-      $height = $row['height'];
-    }
-    $thumbnail_title .= "\n".$lang['size'].' : '.$width.'*'.$height;
-    $thumbnail_title .= "\n".$lang['file'].' : '.$row['file'];
+    $thumbnail_title = $row['file'];
     if ( $row['filesize'] == '' )
     {
       $poids = floor( filesize( $lien_image ) / 1024 );
@@ -314,7 +288,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     {
       $poids = $row['filesize'];
     }
-    $thumbnail_title .= "\n".$lang['filesize'].' : '.$poids.' KB';
+    $thumbnail_title .= ' : '.$poids.' KB';
     // url link on picture.php page
     $url_link = './picture.php?cat='.$page['cat'];
     $url_link.= '&amp;image_id='.$row['id'].'&amp;expand='.$page['expand'];
@@ -337,9 +311,9 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     if ( $conf['show_comments'] and $user['show_nb_comments'] )
     {
       $vtp->addSession( $handle, 'nb_comments' );
-      $query = 'select count(*) as nb_comments';
-      $query.= ' from '.PREFIX_TABLE.'comments';
-      $query.= ' where image_id = '.$row['id'];
+      $query = 'SELECT COUNT(*) AS nb_comments';
+      $query.= ' FROM '.PREFIX_TABLE.'comments';
+      $query.= ' WHERE image_id = '.$row['id'];
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
       $vtp->setVar( $handle, 'nb_comments.nb', $row['nb_comments'] );
@@ -370,36 +344,31 @@ elseif ( isset( $page['cat'] )
          and $page['cat_nb_images'] == 0 )
 {
   $vtp->addSession( $handle, 'thumbnails' );
-  
-  $query = 'select id,name,dir,date_dernier';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where id_uppercat = '.$page['cat'];
-  $query.= ' order by rank;';
-  $cat_result = mysql_query( $query );
-  $i = 1;
   $vtp->addSession( $handle, 'line' );
-  while ( $cat_row = mysql_fetch_array( $cat_result ) )
-  {
-    $result = get_cat_info( $cat_row['id'] );
+
+  $subcats = get_non_empty_sub_cat_ids( $page['cat'] );
+  $i = 1;
+  foreach ( $subcats as $subcat) {
+    $result = get_cat_info( $subcat['non_empty_cat'] );
     $cat_directory = $result['dir'];
 
     $name = '[ <span style="font-weight:bold;">';
-    if ( $cat_row['name'] != '' )
+    if ( $subcat['name'] != '' )
     {
-      $name.= $cat_row['name'];
+      $name.= $subcat['name'];
     }
     else
     {
-      $name.= $cat_row['dir'];
+      $name.= $subcat['dir'];
     }
     $name.= '</span> ]';
     $name = replace_space( $name );
     
-    $query = 'select file,tn_ext';
-    $query.= ' from '.PREFIX_TABLE.'images';
-    $query.= ' where cat_id = '.$cat_row['id'];
-    $query.= ' order by rand()';
-    $query.= ' limit 0,1';
+    $query = 'SELECT file,tn_ext';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' WHERE cat_id = '.$subcat['non_empty_cat'];
+    $query.= ' ORDER BY RAND()';
+    $query.= ' LIMIT 0,1';
     $query.= ';';
     $image_result = mysql_query( $query );
     $image_row = mysql_fetch_array( $image_result );
@@ -416,7 +385,7 @@ elseif ( isset( $page['cat'] )
 
     $thumbnail_title = '';
 
-    $url_link = './category.php?cat='.$cat_row['id'];
+    $url_link = './category.php?cat='.$subcat['id'];
     if ( !in_array( $page['cat'], $page['tab_expand'] ) )
     {
       $page['tab_expand'][sizeof( $page['tab_expand'] )] = $page['cat'];
@@ -432,8 +401,8 @@ elseif ( isset( $page['cat'] )
     $vtp->setVar( $handle, 'thumbnail.title', $thumbnail_title );
     $vtp->setVar( $handle, 'thumbnail.name', $name );
 
-    $date = explode( '-', $cat_row['date_dernier'] );
-    $date = mktime( 0, 0, 0, $date[1], $date[2], $date[0] );
+    list( $year,$month,$day ) = explode( '-', $subcat['date_dernier'] );
+    $date = mktime( 0, 0, 0, $month, $day, $year );
     $vtp->setVar( $handle, 'thumbnail.icon', get_icon( $date ) );
 
     $vtp->closeSession( $handle, 'thumbnail' );

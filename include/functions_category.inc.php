@@ -377,7 +377,7 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_nb_images'] = $result['nb_images'];
       $page['cat_site_id']   = $result['site_id'];
       $page['title'] = get_cat_display_name( $page['cat_name'], ' - ', '' );
-      $page['where'] = ' where cat_id = '.$page['cat'];
+      $page['where'] = ' WHERE cat_id = '.$page['cat'];
     }
     else
     {
@@ -391,12 +391,12 @@ function initialize_category( $calling_page = 'category' )
           $page['title'].= ' : <span style="font-style:italic;">';
           $page['title'].= $_GET['search']."</span>";
         }
-        $page['where'] = " where ( file like '%".$_GET['search']."%'";
-        $page['where'].= " or name like '%".$_GET['search']."%'";
-        $page['where'].= " or comment like '%".$_GET['search']."%' )";
+        $page['where'] = " WHERE ( file LIKE '%".$_GET['search']."%'";
+        $page['where'].= " OR name LIKE '%".$_GET['search']."%'";
+        $page['where'].= " OR comment LIKE '%".$_GET['search']."%' )";
 
-        $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.PREFIX_TABLE.'images';
+        $query = 'SELECT COUNT(*) AS nb_total_images';
+        $query.= ' FROM '.PREFIX_TABLE.'images';
         $query.= $page['where'];
         $query.= ';';
 
@@ -408,12 +408,12 @@ function initialize_category( $calling_page = 'category' )
         $page['title'] = $lang['favorites'];
 
         $page['where'] = ', '.PREFIX_TABLE.'favorites';
-        $page['where'].= ' where user_id = '.$user['id'];
-        $page['where'].= ' and image_id = id';
+        $page['where'].= ' WHERE user_id = '.$user['id'];
+        $page['where'].= ' AND image_id = id';
       
-        $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.PREFIX_TABLE.'favorites';
-        $query.= ' where user_id = '.$user['id'];
+        $query = 'SELECT COUNT(*) AS nb_total_images';
+        $query.= ' FROM '.PREFIX_TABLE.'favorites';
+        $query.= ' WHERE user_id = '.$user['id'];
         $query.= ';';
       }
       // pictures within the short period
@@ -423,11 +423,11 @@ function initialize_category( $calling_page = 'category' )
         // We must find the date corresponding to :
         // today - $conf['periode_courte']
         $date = time() - 60*60*24*$user['short_period'];
-        $page['where'] = " where date_available > '";
+        $page['where'] = " WHERE date_available > '";
         $page['where'].= date( 'Y-m-d', $date )."'";
 
-        $query = 'select count(*) as nb_total_images';
-        $query.= ' from '.PREFIX_TABLE.'images';
+        $query = 'SELECT COUNT(*) AS nb_total_images';
+        $query.= ' FROM '.PREFIX_TABLE.'images';
         $query.= $page['where'];
         $query.= ';';
       }
@@ -435,8 +435,8 @@ function initialize_category( $calling_page = 'category' )
       else if ( $page['cat'] == 'most_visited' )
       {
         $page['title'] = $conf['top_number'].' '.$lang['most_visited_cat'];
-        $page['where'] = ' where cat_id != -1';
-        $conf['order_by'] = ' order by hit desc, file asc';
+        $page['where'] = ' WHERE cat_id != -1';
+        $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
         $page['cat_nb_images'] = $conf['top_number'];
         if ( $page['start'] + $user['nb_image_page'] >= $conf['top_number'] )
         {
@@ -455,13 +455,9 @@ function initialize_category( $calling_page = 'category' )
            or $page['cat'] == 'recent' or $page['cat'] == 'best_rated' )
       {
         // we must not show pictures of a forbidden category
-        $restricted_cat = get_all_restrictions( $user['id'], $user['status'] );
-        if ( sizeof( $restricted_cat ) > 0 )
-        {
-          for ( $i = 0; $i < sizeof( $restricted_cat ); $i++ )
-          {
-            $page['where'].= ' and cat_id != '.$restricted_cat[$i];
-          }
+        $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
+        foreach ( $restricted_cats as $restricted_cat ) {
+          $page['where'].= ' AND cat_id != '.$restricted_cat;
         }
       }
     }
@@ -476,5 +472,110 @@ function initialize_category( $calling_page = 'category' )
   {
     $page['title'] = $lang['diapo_default_page_title'];
   }
+}
+
+// get_non_empty_sub_cat_ids returns an array composing of the infos of the
+// direct sub-categories of the given uppercat id. Each of these infos is
+// associated to the first found non empty category id. eg :
+//
+// - catname [cat_id]
+// - cat1 [1] -> given uppercat
+//   - cat1.1 [2] (empty)
+//     - cat1.1.1 [5] (empty)
+//     - cat1.1.2 [6]
+//   - cat1.2 [3]
+//   - cat1.3 [4]
+//
+// get_non_empty_sub_cat_ids will return :
+//   $cats[0]['id']            = 2;
+//   $cats[0]['name']          = '';
+//   $cats[0]['dir']           = 'cat1';
+//   $cats[0]['date_dernier']  = '2003-05-17';
+//   $cats[0]['non_empty_cat'] = 6;
+//
+//   $cats[1]['id']            = 3;
+//   $cats[1]['non_empty_cat'] = 3;
+//
+//   $cats[1]['id']            = 4;
+//   $cats[1]['non_empty_cat'] = 4;
+function get_non_empty_sub_cat_ids( $id_uppercat )
+{
+  global $user;
+
+  $cats = array();
+
+  $query = 'SELECT id,name,dir,date_dernier,nb_images';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id_uppercat = '.$id_uppercat;
+  // we must not show pictures of a forbidden category
+  $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
+  foreach ( $restricted_cats as $restricted_cat ) {
+    $query.= ' AND id != '.$restricted_cat;
+  }
+  $query.= ' ORDER BY rank';
+  $query.= ';';
+
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    if ( $row['nb_images'] == 0 )
+    {
+      $non_empty_cat = get_first_non_empty_cat_id( $row['id'] );
+    }
+    else
+    {
+      $non_empty_cat = $row['id'];
+    }
+    // only categories with findable picture in any of its subcats is
+    // represented.
+    if ( $non_empty_cat != false )
+    {
+      $temp_cat = array(
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'dir' => $row['dir'],
+        'date_dernier' => $row['date_dernier'],
+        'non_empty_cat' => $non_empty_cat );
+      array_push( $cats, $temp_cat );
+    }
+  }
+  return $cats;
+}
+
+// get_first_non_empty_cat_id returns the id of the first non empty
+// sub-category to the given uppercat. If no picture is found in any
+// subcategory, false is returned.
+function get_first_non_empty_cat_id( $id_uppercat )
+{
+  global $user;
+
+  $query = 'SELECT id,nb_images';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id_uppercat = '.$id_uppercat;
+  // we must not show pictures of a forbidden category
+  $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
+  foreach ( $restricted_cats as $restricted_cat ) {
+    $query.= ' AND id != '.$restricted_cat;
+  }
+  $query.= ' ORDER BY RAND()';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    if ( $row['nb_images'] > 0 )
+    {
+      return $row['id'];
+    }
+  }
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    // recursive call
+    if ( $subcat = get_first_non_empty_cat_id( $row['id'] ) )
+    {
+      return $subcat;
+    }
+  }
+  return false;
 }
 ?>

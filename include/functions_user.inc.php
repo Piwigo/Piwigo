@@ -224,29 +224,29 @@ function check_login_authorization()
 function get_restrictions( $user_id, $user_status, $check_invisible )
 {
   // 1. getting the ids of the restricted categories
-  $query = 'select cat_id';
-  $query.= ' from '.PREFIX_TABLE.'restrictions';
-  $query.= ' where user_id = '.$user_id;
+  $query = 'SELECT cat_id';
+  $query.= ' FROM '.PREFIX_TABLE.'restrictions';
+  $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   $result = mysql_query( $query );
-  $i = 0;
+
   $restriction = array();
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $restriction[$i++] = $row['cat_id'];
+    array_push( $restriction, $row['cat_id'] );
   }
   if ( $check_invisible )
   {
     // 2. adding to the restricted categories, the invisible ones
-    if ( $user_status != "admin" )
+    if ( $user_status != 'admin' )
     {
-      $query = 'select id';
-      $query.= ' from '.PREFIX_TABLE.'categories';
-      $query.= " where status='invisible';";
+      $query = 'SELECT id';
+      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query.= " WHERE status = 'invisible';";
       $result = mysql_query( $query );
       while ( $row = mysql_fetch_array( $result ) )
       {
-        $restriction[$i++] = $row['id'];
+        array_push( $restriction, $row['id'] );
       }
     }
   }
