@@ -76,7 +76,7 @@ h2 /* H2 tag style (admin side only) */
   font-weight:bold;
 }
 
-.menu .thumbnail, .totalImages { font-size:11px;}
+.menu, .thumbnail, .totalImages { font-size:11px;}
 .small{ font-size:10px;}
 .menuCategorySelected, .throw, .admin, .errors { font-weight:bold;}
 .menuCategoryNotSelected, .dateSelected, .pageNumberSelected, .thumb_picture, .thumb_category  { font-weight:normal;}
