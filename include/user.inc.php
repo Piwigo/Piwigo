@@ -77,7 +77,7 @@ if ( isset( $session_id )
         $delete_query.= ';';
         mysql_query( $delete_query );
       }
-      if ( $_SERVER['REMOTE_ADDR'] == $row['ip'] )
+      else if ( $_SERVER['REMOTE_ADDR'] == $row['ip'] )
       {
         $query_user .= ' WHERE id = '.$row['user_id'];
         $query_done = true;
