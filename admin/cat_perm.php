@@ -120,6 +120,8 @@ if ( mysql_num_rows( $result ) > 0 )
     }
     $vtp->setVar( $sub, 'group.groupname', $row['name'] );
     $vtp->setVar( $sub, 'group.id', $row['id'] );
+    $url = './admin.php?page=group_perm&amp;group_id='.$row['id'];
+    $vtp->setVar( $sub, 'group.group_perm_link', add_session_id( $url ) );
     $vtp->closeSession( $sub, 'group' );
   }
   $vtp->closeSession( $sub, 'groups' );
