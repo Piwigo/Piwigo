@@ -318,7 +318,7 @@ function replace_search( $string, $search )
 function database_connection()
 {
   include( PREFIX_INCLUDE.'./include/mysql.inc.php' );
-  define( PREFIX_TABLE, $prefixeTable );
+  define( "PREFIX_TABLE", $prefixeTable );
 
   @mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Could not connect to server" );

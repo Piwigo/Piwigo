@@ -42,8 +42,8 @@ $tpl = array( 'stats_last_days','date','login',
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- number of days to display
-if ( isset( $_GET['last_days'] ) ) define( MAX_DAYS, $_GET['last_days'] );
-else                               define( MAX_DAYS, 0 );
+if ( isset( $_GET['last_days'] ) ) define( "MAX_DAYS", $_GET['last_days'] );
+else                               define( "MAX_DAYS", 0 );
 
 foreach ( $conf['last_days'] as $option ) {
   $vtp->addSession( $sub, 'last_day_option' );

@@ -16,7 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-define( PREFIX_INCLUDE, '' );
+define( "PREFIX_INCLUDE", '' );
 
 include_once( './include/config.inc.php' );
 include_once( './include/user.inc.php' );
