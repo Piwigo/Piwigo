@@ -33,7 +33,7 @@ $time = get_elapsed_time( $t2, get_moment() );
 $template->assign_vars(
   array(
     'TIME' =>  $time,
-    'VERSION' => $conf['version'],
+    'VERSION' => PHPWG_VERSION,
     'MAIL'=>$conf['mail_webmaster'],
     
     'L_GEN_TIME' => $lang['generation_time'],

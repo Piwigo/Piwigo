@@ -133,13 +133,15 @@ function style_select($default_style, $select_name = "style")
 {
   $templates = get_templates();
 
+  $style_selected = '<select name="' . $select_name . '" >';
   foreach ($templates as $template)
   {
     $selected = ( $template == $default_style ) ? ' selected="selected"' : '';
-    $style_select.= '<option value="'.$template.'"'.$selected.'>';
-    $style_select.= $template.'</option>';
+    $style_selected.= '<option value="'.$template.'"'.$selected.'>';
+    $style_selected.= $template.'</option>';
   }
-  return $style_select;
+  $style_selected .= '</select>';
+  return $style_selected;
 }
 
 // The function get_cat_display_name returns a string containing the list

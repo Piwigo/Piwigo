@@ -32,17 +32,20 @@ $lang['step1_title'] = 'Database configuration';
 $lang['step2_title'] = 'Admin configuration';
 $lang['Start_Install'] = 'Start Install';
 $lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
+$lang['mail_webmaster'] = 'Webmaster mail adress';
+$lang['mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
+$lang['reg_err_mail_address'] = 'e-mail address refused, it must be like name@server.com';
 
 $lang['install_webmaster'] = 'webmaster login';
 $lang['install_webmaster_info'] = 'It will be shown to the visitors. It is necessary for website administration';
-$lang['install_mail_webmaster'] = $lang['conf_general_mail_webmaster'];
-$lang['install_mail_webmaster_info'] = $lang['conf_general_mail_webmaster_info'];
 
 $lang['step1_confirmation'] = 'Parameters are correct';
 $lang['step1_err_db'] = 'Connection to server succeed, but it was impossible to connect to database';
 $lang['step1_err_server'] = 'Can\'t connect to server';
 $lang['step1_err_copy_2'] = 'The next step of the installation is now possible';
 $lang['step1_err_copy_next'] = 'next step';
+$lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
+
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
 $lang['step1_user'] = 'user';

@@ -257,7 +257,7 @@ $lang['help_access_title'] = 'Access authorization';
 $lang['help_access'][0] = 'PhpWebGallery is able to forbid access to categories. Categories can be "public" or "private". In order to forbid access to a category :';
 $lang['help_access'][1] = '1. Modify category informations (from the "categories" section in tha admin panel) and make it "private".';
 $lang['help_access'][2] = '2. On the page of permissions (for a group or a user) the private category will be shown and you\'ll be able to authorize access or not.';
-$lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="http://forum.phpwebgallery.net" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
+$lang['help_infos'][2] = 'If you have any question, do not hesitate to take a look at the forum or ask a question there. The <a href="'.PHPWG_FORUM_URL.'" style="text-decoration:underline">forum</a> (message board) is available on the presentation site of PhpWebGallery.';
 
 // Image informations
 $lang['infoimage_general'] = 'General options for the category';

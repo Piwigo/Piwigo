@@ -277,7 +277,7 @@ function get_languages()
     if (is_dir($path) and !is_link($path) and file_exists($path.'/iso.txt'))
     {
       list($language_name) = @file($path.'/iso.txt');
-      $languages[$file] = $language_name;
+      $languages[$language_name] = $file;
     }
   }
   closedir($dir);
@@ -351,16 +351,6 @@ function pwg_log( $file, $category, $picture = '' )
     $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
     $query.= ",'".$file."','".$category."','".$picture."');";
     mysql_query( $query );
-  }
-}
-
-function templatize_array( $array, $global_array_name, $handle )
-{
-  global $vtp, $lang, $page, $user, $conf;
-
-  foreach ( $array as $value ) {
-  if (isset(${$global_array_name}[$value]))
-    $vtp->setGlobalVar( $handle, $value, ${$global_array_name}[$value] );
   }
 }
 

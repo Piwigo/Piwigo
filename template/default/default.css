@@ -144,6 +144,16 @@ ul.menu {
   border-collapse:collapse;
 }
 
+.row1,.row2 {
+  text-align:left;
+  padding:5px 0px 5px 0px;
+  height:20px;
+} 
+
+.row1 {
+  background-color:#505050;
+}
+
 .throw {
   color:#FFFFCC;
   background-color:#3F3F3F;
