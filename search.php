@@ -68,69 +68,37 @@ if ( isset( $_POST['search'] ) )
 $title= $lang['search_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/search.vtp' );
+$template->set_filenames( array('search'=>'search.tpl') );
 initialize_template();
-$tpl = array( 'search_title','search_return_main_page','submit',
-              'search_comments' );
-templatize_array( $tpl, 'lang', $handle );
-//----------------------------------------------------------------- form action
-$vtp->setGlobalVar( $handle, 'form_action', add_session_id( './search.php' ) );
+
+$template->assign_vars(array(
+  'L_TITLE' => $lang['search_title'],
+  'L_COMMENTS' => $lang['search_comments'],
+  'L_RETURN' => $lang['search_return_main_page'],
+  'L_SUBMIT' => $lang['submit'],
+  'L_SEARCH'=>$lang['search_field_search'].' *',
+  'L_SEARCH_OR'=>$lang['search_mode_or'],
+  'L_SEARCH_AND'=>$lang['search_mode_and'],
+  
+  'F_ACTION' => add_session_id( 'search.php' ),
+  'F_TEXT_VALUE' => isset($_POST['search'])?$_POST['search']:'',
+    
+  'U_HOME' => add_session_id( 'category.php' )
+  )
+);
+
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
 {
-  $vtp->addSession( $handle, 'errors' );
+  $template->assign_block_vars('errors',array());
   for ( $i = 0; $i < sizeof( $error ); $i++ )
   {
-    $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error[$i] );
-    $vtp->closeSession( $handle, 'li' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error[$i]));
   }
-  $vtp->closeSession( $handle, 'errors' );
 }
-//------------------------------------------------------------------------ form
-// search field
-$vtp->addSession( $handle, 'line' );
-$vtp->setVar( $handle, 'line.name', $lang['search_field_search'].' *' );
-$vtp->addSession( $handle, 'text' );
-$vtp->setVar( $handle, 'text.size', '40' );
-$vtp->setVar( $handle, 'text.name', 'search' );
-if (isset($_POST['search']))
-$vtp->setVar( $handle, 'text.value', $_POST['search'] );
-$vtp->closeSession( $handle, 'text' );
-$vtp->closeSession( $handle, 'line' );
-// mode of search : match all words or at least one of this words
-$vtp->addSession( $handle, 'line' );
-$vtp->addSession( $handle, 'group' );
-
-$vtp->addSession( $handle, 'radio' );
-$vtp->setVar( $handle, 'radio.name', 'mode' );
-$vtp->setVar( $handle, 'radio.value', 'OR' );
-$vtp->setVar( $handle, 'radio.option', $lang['search_mode_or'] );
-if (!isset($_POST['mode']) || $_POST['mode'] == 'OR' )
-{
-  $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
-}
-$vtp->closeSession( $handle, 'radio' );
-
-$vtp->addSession( $handle, 'radio' );
-$vtp->setVar( $handle, 'radio.name', 'mode' );
-$vtp->setVar( $handle, 'radio.value', 'AND' );
-$vtp->setVar( $handle, 'radio.option', $lang['search_mode_and'] );
-if ( isset($_POST['mode']) && $_POST['mode'] == 'AND' )
-{
-  $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
-}
-$vtp->closeSession( $handle, 'radio' );
-
-$vtp->closeSession( $handle, 'group' );
-$vtp->closeSession( $handle, 'line' );
-//---------------------------------------------------- return to main page link
-$vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
 //------------------------------------------------------------ log informations
 pwg_log( 'search', $title );
 mysql_close();
+$template->pparse('search');
 include('include/page_tail.php');
 ?>

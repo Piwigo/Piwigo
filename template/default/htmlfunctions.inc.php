@@ -143,9 +143,9 @@ function initialize_template()
   global $template, $user, $lang;
   
   $template->assign_vars(array(
-	'F_START' => get_frame_start(),
-	'F_BEGIN' => get_frame_begin(),
-	'F_END' =>  get_frame_end()
+	'T_START' => get_frame_start(),
+	'T_BEGIN' => get_frame_begin(),
+	'T_END' =>  get_frame_end()
 	)
 	);
 

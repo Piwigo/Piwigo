@@ -1,7 +1,7 @@
 <table style="width:100%;">
   <tr>
 	<td valign="top" style="width:1%;padding:10px;">
-	  {F_START}100%{F_BEGIN}
+	  {T_START}100%{T_BEGIN}
 		<div class="titreMenu">
 		  <a href="{U_HOME}">{L_CATEGORIES}</a>
 		</div>
@@ -30,9 +30,9 @@
 		  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}" style="font-weight:bold;">{S_TOP}&nbsp;{L_MOST_VISITED}</span></a>
 		  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<a href="{U_RECENT}"><span title="{L_RECENT_HINT}" style="font-weight:bold;">{L_RECENT}</span></a> {T_SHORT}
 		</div>
-	  {F_END}
+	  {T_END}
 	  <div style="margin-bottom:5px;">&nbsp;</div>
-	  {F_START}100%{F_BEGIN}
+	  {T_START}100%{T_BEGIN}
 		<div class="titreMenu">{L_SUMMARY}</div>
 		<div class="menu">
 		  <!-- BEGIN summary -->
@@ -42,15 +42,15 @@
 		  <br />&nbsp;<img src="{T_COLLAPSED}" alt=''/>&nbsp;<a href="{upload.U_UPLOAD}">{L_UPLOAD}</a>
 		  <!-- END upload -->
 		</div>
-	  {F_END}
+	  {T_END}
 	</td>
 	<td style="padding:5px;width:99%;" valign="top">
 	  <table style="width:100%;">
 		<tr>
 		  <td align="center">
-			{F_START}1%{F_BEGIN}
+			{T_START}1%{T_BEGIN}
 			  <div class="titrePage">{TITLE}</div>
-			{F_END}
+			{T_END}
 			<div style="margin-bottom:5px;">&nbsp;</div>
 			<!-- BEGIN thumbnails -->
 			<table class="thumbnail">
@@ -94,7 +94,7 @@
 		</tr>
 		<tr>
 		  <td align="right">
-			{F_START}1%{F_BEGIN}
+			{T_START}1%{T_BEGIN}
 			  <div class="info">
 				{L_USER}&nbsp;{USERNAME}<br />
 				{L_RECENT_IMG}&nbsp;{S_SHORT_PERIOD}&nbsp;{L_DAYS}
@@ -103,7 +103,7 @@
 				  {T_LONG}<br />
 				{L_SEND_MAIL}&nbsp;<a href="mailto:{S_MAIL}?subject={L_TITLE_MAIL}"><span style="font-weight:bold;">{S_WEBMASTER}</span></a>
 			  </div>
-			{F_END}
+			{T_END}
 		  </td>
 		</tr>
 	  </table>
