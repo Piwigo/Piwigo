@@ -83,7 +83,6 @@ if ( isset( $_POST['submit'] ) )
     }
     check_favorites( $row['id'] );
   }
-  // echo "<div class=\"info\">".$lang['permuser_info_message']." [ <a href=\"".add_session_id_to_url( "./admin.php?page=cat" )."\">".$lang['editcat_back']."</a> ]</div>";
 }
 //---------------------------------------------------------------------- groups
 $query = 'SELECT id,name';
