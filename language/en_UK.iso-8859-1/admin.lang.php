@@ -132,6 +132,7 @@ $lang['title_default'] = 'PhpWebGallery administration';
 $lang['title_waiting'] = 'Pictures waiting for validation';
 $lang['title_cat_options'] = 'Categories options';
 $lang['title_groups'] = 'Groups management';
+$lang['title_cat_perm'] = 'Modify permissions for category';
 
 //Error messages
 $lang['cat_error_name'] = 'The name of a category should not be empty';
@@ -214,6 +215,7 @@ $lang['conf_show_iptc_info'] = 'Give the possibility to show IPTC metadata on vi
 $lang['conf_remote_site_delete_info'] = 'Deleting a remote server will delete all the image and the categories in relation with this server.';
 
 // Image informations
+$lang['title_picmod'] = 'Modify informations about a picture';
 $lang['infoimage_general'] = 'General options for the category';
 $lang['infoimage_useforall'] = 'use for all pictures ?';
 $lang['infoimage_creation_date'] = 'Creation date';
@@ -228,8 +230,8 @@ $lang['infoimage_dissociated'] = 'dissociated from';
 $lang['storage_category'] = 'storage category';
 $lang['represents'] = 'represents';
 $lang['doesnt_represent'] = 'doesn\'t represent';
-$lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
 $lang['cat_unknown_id'] = 'This category is unknown in the database';
+$lang['dissociate'] = 'dissociate';
 
 // Thumbnails
 $lang['tn_width'] = 'width';
@@ -261,6 +263,9 @@ $lang['tn_params_format_info'] = 'only jpeg file format is supported for thumbna
 $lang['tn_alone_title'] = 'pictures without thumbnail (jpeg and png only)';
 $lang['tn_dirs_title'] = 'Directories list';
 $lang['tn_dirs_alone'] = 'pictures without thumbnail';
+
+// Waiting files 
+$lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
 
 // Update
 $lang['update_missing_tn'] = 'the thumbnail is missing for';
@@ -326,9 +331,5 @@ $lang['group_list_title'] = 'List of existing groups';
 $lang['group_edit'] = 'Manage users of the group';
 $lang['group_deny_user'] = 'Deny selected';
 $lang['group_add_user']= 'Add user';
-
-
-$lang['title_cat_perm'] = 'Modify permissions for category';
 $lang['title_group_perm'] = 'Modify permissions for group';
-$lang['title_picmod'] = 'Modify informations about a picture';
 ?>

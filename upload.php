@@ -298,7 +298,7 @@ $template->assign_vars(array(
   'L_SUBMIT' =>  $lang['submit'],
   'L_AUTHOR' =>  $lang['upload_author'], 
   'L_CREATION_DATE' =>  $lang['upload_creation_date'], 
-  'L_COMMENT' =>  $lang['upload_comment'],
+  'L_COMMENT' =>  $lang['comment'],
   'L_RETURN' =>  $lang['home'],
   'L_RETURN_HINT' =>  $lang['home_hint'],
   'L_UPLOAD_DONE' =>  $lang['upload_successful'],

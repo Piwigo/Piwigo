@@ -135,28 +135,25 @@ $groups_display .= '</select>';
 $action = PHPWG_ROOT_PATH.'admin.php?page=group_list';
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('groups'=>'admin/group_list.tpl') );
-$tpl = array( 'group_add','add','listuser_permission','delete',
-              'group_confirm','yes','no','group_list_title' );
-
 $template->assign_vars(array(
   'S_GROUP_SELECT'=>$groups_display,
 	
   'L_GROUP_SELECT'=>$lang['group_list_title'],
-	'L_GROUP_CONFIRM'=>$lang['group_confirm_delete'],
-	'L_LOOK_UP'=>$lang['edit'],
-	'L_GROUP_DELETE'=>$lang['delete'],
+  'L_GROUP_CONFIRM'=>$lang['group_confirm_delete'],
+  'L_LOOK_UP'=>$lang['edit'],
+  'L_GROUP_DELETE'=>$lang['delete'],
   'L_CREATE_NEW_GROUP'=>$lang['group_add'],
   'L_GROUP_EDIT'=>$lang['group_edit'],
-	'L_USER_NAME'=>$lang['login'],
-	'L_USER_EMAIL'=>$lang['mail_address'],
-	'L_USER_SELECT'=>$lang['Select'],
-	'L_DENY_SELECTED'=>$lang['group_deny_user'],
-	'L_ADD_MEMBER'=>$lang['group_add_user'],
+  'L_USER_NAME'=>$lang['login'],
+  'L_USER_EMAIL'=>$lang['mail_address'],
+  'L_USER_SELECT'=>$lang['Select'],
+  'L_DENY_SELECTED'=>$lang['group_deny_user'],
+  'L_ADD_MEMBER'=>$lang['group_add_user'],
   'L_FIND_USERNAME'=>$lang['Find_username'],
 	
-	'S_GROUP_ACTION'=>add_session_id($action),
-	'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
-	));
+  'S_GROUP_ACTION'=>add_session_id($action),
+  'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
+  ));
 
 if ($groups_nb) 
 {
@@ -167,32 +164,32 @@ if ($groups_nb)
 if ( isset( $_POST['edit']) || isset( $_POST['add']) || isset( $_POST['deny_user'] ))
 {
   // Retrieving the group name
-	$query = 'SELECT id, name FROM '.GROUPS_TABLE;
+  $query = 'SELECT id, name FROM '.GROUPS_TABLE;
   $query.= " WHERE id = '".$_POST['group_id']."'";
   $query.= ';';
   $result = mysql_fetch_array(pwg_query( $query ));
   $template->assign_block_vars('edit_group',array(
 	  'GROUP_NAME'=>$result['name'],
-		'GROUP_ID'=>$result['id']
+	  'GROUP_ID'=>$result['id']
 		));
 		
   // Retrieving all the users
-	$query = 'SELECT id, username, mail_address';
-	$query.= ' FROM ('.USERS_TABLE.' as u';
-	$query.= ' LEFT JOIN '.USER_GROUP_TABLE.' as ug ON ug.user_id=u.id)';
+  $query = 'SELECT id, username, mail_address';
+  $query.= ' FROM ('.USERS_TABLE.' as u';
+  $query.= ' LEFT JOIN '.USER_GROUP_TABLE.' as ug ON ug.user_id=u.id)';
   $query.= " WHERE ug.group_id = '".$_POST['group_id']."';";
-	$result = pwg_query( $query );
-	$i=0;
-	while ( $row = mysql_fetch_array( $result ) )
-	{
-	  $class = ($i % 2)? 'row1':'row2'; $i++;
-	  $template->assign_block_vars('edit_group.user',array(
-		  'ID'=>$row['id'],
-			'NAME'=>$row['username'],
-			'EMAIL'=>$row['mail_address'],
-			'T_CLASS'=>$class
-		));
-	}
+  $result = pwg_query( $query );
+  $i=0;
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $class = ($i % 2)? 'row1':'row2'; $i++;
+	$template->assign_block_vars('edit_group.user',array(
+		'ID'=>$row['id'],
+		'NAME'=>$row['username'],
+		'EMAIL'=>$row['mail_address'],
+		'T_CLASS'=>$class
+	));
+  }
 }
 
 //----------------------------------------------------------- sending html code

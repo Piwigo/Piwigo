@@ -63,7 +63,6 @@
 <ul class="menu">
   <li><a class="adminMenu" href="{U_USERS_AUTH}">{L_USERS}</a></li>
   <li><a class="adminMenu" href="{U_GROUPS_AUTH}">{L_GROUPS}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_AUTH}">{L_CATEGORIES}</a></li
 </ul>
 </div>
       </div>
@@ -71,7 +70,7 @@
 	<td style="padding:10px;width:99%;" valign="top">
 <div class="home">
   <div class="titrePage">{PAGE_TITLE}</div>
-  <div align="center">{ADMIN_CONTENT}</div>
+  <div align="center">{ADMIN_CONTENT}{ADMIN_CONTENT_2}</div>
 </div>
 	</td>
   </tr>

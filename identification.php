@@ -61,7 +61,7 @@ SELECT id, password
 //
 // Start output of page
 //
-$title = $lang['ident_page_title'];
+$title = $lang['identification'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );
@@ -70,7 +70,7 @@ $template->assign_vars(
   array(
     'MAIL_ADMIN' => $conf['mail_webmaster'],
     
-    'L_TITLE' => $lang['ident_title'],
+    'L_TITLE' => $lang['identification'],
     'L_USERNAME' => $lang['login'],
     'L_PASSWORD' => $lang['password'],
     'L_LOGIN' => $lang['submit'],

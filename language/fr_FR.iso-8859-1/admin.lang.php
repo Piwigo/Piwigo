@@ -85,6 +85,7 @@ $lang['remote_site_local_new'] = '(nouveau site)';
 $lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Category words
+$lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
 $lang['cat_security'] = 'Sécurité';
 $lang['cat_options'] = 'Options de la catégorie';
 $lang['cat_add'] = 'Ajouter une catégorie virtuelle';
@@ -216,6 +217,7 @@ $lang['conf_show_iptc'] = 'Montrer les IPTC';
 $lang['conf_show_iptc_info'] = 'Affiche les métadonnées IPTC';
 
 // Image informations
+$lang['title_picmod'] = 'Modifier les informations d\'une image';
 $lang['infoimage_general'] = 'Options générale pour la catégorie';
 $lang['infoimage_useforall'] = 'utiliser pour toutes les images ?';
 $lang['infoimage_creation_date'] = 'Date de création';
@@ -231,6 +233,7 @@ $lang['storage_category'] = 'Repertoire de stockage';
 $lang['represents'] = 'Représente';
 $lang['doesnt_represent'] = 'Autres catégories';
 $lang['cat_unknown_id'] = 'Cette catégorie n\'existe pas dans la base de données';
+$lang['dissociate'] = 'dissocier';
 
 // Thumbnails
 $lang['tn_width'] = 'largeur';
@@ -266,6 +269,9 @@ $lang['tn_params_format_info'] = 'seul le format jpeg est supporté pour la créat
 $lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)';
 $lang['tn_dirs_title'] = 'Liste des répertoires';
 $lang['tn_dirs_alone'] = 'images sans miniatures';
+
+// Waiting files 
+$lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
 
 // Update
 $lang['update_missing_tn'] = 'Il manque la miniature pour';
@@ -333,11 +339,5 @@ $lang['group_add_error2'] = 'Ce nom de groupe est déjà utilisé.';
 $lang['group_edit'] = 'Edition des utilisateurs appartenant au groupe';
 $lang['group_deny_user'] = 'Supprimer la sélection';
 $lang['group_add_user']= 'Ajouter le membre';
-
-
-
-$lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
 $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
-$lang['title_picmod'] = 'Modifier les informations d\'une image';
-$lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
 ?>

@@ -66,9 +66,16 @@ $lang['creation_date'] = 'Created on';
 $lang['submit'] = 'Submit';
 $lang['delete'] = 'Delete';
 $lang['reset'] = 'Reset';
+$lang['Close'] = 'Close the window';
+$lang['Select'] = 'Select';
+
+// Error management
+$lang['mandatory'] = 'obligatory';
+$lang['err_date'] = 'wrong date';
 
 // Navigation
 $lang['home'] = 'Home';
+$lang['title_menu'] = 'Menu';
 $lang['home_hint'] = 'Back to the home page';
 $lang['special_categories'] = 'Specials';
 $lang['favorite_cat'] = 'my favorites';
@@ -77,6 +84,7 @@ $lang['most_visited_cat'] = 'most visited';
 $lang['most_visited_cat_hint'] = 'displays most visited pictures';
 $lang['best_rated_cat'] = 'best rated';
 $lang['best_rated_cat_hint'] = 'displays best rated items';
+$lang['recent_image'] = 'Image within the';
 $lang['recent_pics_cat'] = 'Last pictures';
 $lang['recent_pics_cat_hint'] = 'Displays most recent pictures';
 $lang['recent_cats_cat'] = 'Last categories';
@@ -90,6 +98,13 @@ $lang['previous_page'] = 'Previous';
 $lang['next_page'] = 'Next';
 $lang['first_page'] = 'First';
 $lang['last_page'] = 'Last';
+$lang['hint_category'] = 'shows images at the root of this categry';
+$lang['hint_customize'] = 'customize the appareance of the gallery';
+$lang['hint_search'] = 'search';
+$lang['upload_picture'] = 'Upload a picture';
+$lang['favorites'] = 'Favorites';
+$lang['random_cat'] = 'random pictures';
+$lang['random_cat_hint'] = 'Displays a set of random pictures';
 
 // Identification
 $lang['login'] = 'Login';
@@ -99,6 +114,24 @@ $lang['customize'] = 'Customize';
 $lang['new'] = 'New';
 $lang['identification'] = 'Identification';
 $lang['remember_me'] = 'Auto login';
+$lang['only_members'] = 'Only members can access this page';
+$lang['invalid_pwd'] = 'Invalid password!';
+$lang['access_forbiden'] = 'You are not authorized to access this page';
+$lang['ident_register'] = 'Register';
+$lang['ident_forgotten_password'] = 'Forget your password ?';
+$lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
+
+// Registration
+$lang['register_page_title'] = 'Registration';
+$lang['register_title'] = 'Registration';
+$lang['reg_err_login1'] = 'Please, enter a login';
+$lang['reg_err_login2'] = 'login mustn\'t end with a space character';
+$lang['reg_err_login3'] = 'login mustn\'t start with a space character';
+$lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
+$lang['reg_err_login5'] = 'this login is already used';
+$lang['reg_err_pass'] = 'please enter your password again';
+$lang['reg_confirm'] = 'Confirm password';
+$lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 
 //Calendar
 $lang['calendar'] = 'calendar';
@@ -149,18 +182,6 @@ $lang['show_nb_comments'] = 'Show number of comments';
 $lang['recent_period'] = 'Recent period';
 $lang['periods_error'] = 'Recent period must be a positive integer value';
 
-// Registration
-$lang['register_page_title'] = 'Registration';
-$lang['register_title'] = 'Registration';
-$lang['reg_err_login1'] = 'Please, enter a login';
-$lang['reg_err_login2'] = 'login mustn\'t end with a space character';
-$lang['reg_err_login3'] = 'login mustn\'t start with a space character';
-$lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
-$lang['reg_err_login5'] = 'this login is already used';
-$lang['reg_err_pass'] = 'please enter your password again';
-$lang['reg_confirm'] = 'Confirm password';
-$lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
-
 // search
 $lang['search_title'] = 'Search';
 $lang['search_options'] = 'Search Options';
@@ -187,41 +208,17 @@ $lang['search_ascending'] = 'Ascending';
 $lang['search_descending'] = 'Descending';
 $lang['search_one_clause_at_least'] = 'Empty query. No criteria has been entered.';
 $lang['search_result'] = 'Search results';
-
-// Admin messages
-$lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please, come back later or loggin as an administrator to enter the gallery : <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
-$lang['sql_queries_in'] = 'SQL queries in';
-
 $lang['Look_up_user'] = 'Seek user';
 $lang['Find_username'] = 'Find a username';
 $lang['No_match'] = 'No match';
 $lang['Select_username'] = 'Select a username';
-$lang['Close'] = 'Close the window';
-$lang['Select'] = 'Select';
 
-$lang['only_members'] = 'Only members can access this page';
-$lang['invalid_pwd'] = 'Invalid password!';
-$lang['access_forbiden'] = 'You are not authorized to access this page';
-$lang['diapo_default_page_title'] = 'No category selected';
-$lang['hint_category'] = 'shows images at the root of this categry';
-$lang['total_images'] = 'total';
-$lang['title_menu'] = 'Menu';
-$lang['change_login'] = 'change login';
-$lang['hint_login'] = 'identification enables site\'s appareance customization';
-$lang['hint_customize'] = 'customize the appareance of the gallery';
-$lang['hint_search'] = 'search';
-
-
-$lang['recent_image'] = 'Image within the';
-$lang['days'] = 'days';
-
-$lang['title_send_mail'] = 'A comment on your site';
+// Category
 $lang['sub-cat'] = 'subcategories';
 $lang['images_available'] = 'images in this category';
 $lang['total'] = 'images';
-$lang['upload_picture'] = 'Upload a picture';
-$lang['generation_time'] = 'Page generated in';
-$lang['favorites'] = 'Favorites';
+
+// About
 $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['about_title'] = 'About...';
 $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Information about PhpWebGallery</div>
@@ -230,26 +227,41 @@ $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Inform
   <li>Technicaly, PhpWebGallery is fully developped with PHP (the elePHPant) with a MySQL database (the SQuirreL).</li>
   <li>If you have any suggestions or comments, please visit <a href="http://www.phpwebgallery.net" style="text-decoration:underline">PhpWebGallery</a> official site, and its dedicated <a href="http://forum.phpwebgallery.net" style="text-decoration:underline">forum</a>.</li>
 </ul>';
-$lang['ident_page_title'] = 'Identification';
-$lang['ident_title'] = 'Identification';
-$lang['ident_register'] = 'Register';
-$lang['ident_forgotten_password'] = 'Forget your password ?';
-$lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
 
-$lang['previous_image'] = 'Previous';
-$lang['next_image'] = 'Next';
-$lang['info_image_title'] = 'Image information';
+// Picture
+$lang['add_favorites_alt'] = 'Add to favorites';
+$lang['add_favorites_hint'] = 'Add this picture to your favorites';
+$lang['del_favorites_alt'] = 'Delete from favorites';
+$lang['del_favorites_hint'] = 'Delete this picture from your favorites';
 $lang['link_info_image'] = 'Modify information';
 $lang['true_size'] = 'Real size';
 $lang['comments_title'] = 'Comments from the users of the site';
 $lang['comments_del'] = 'delete this comment';
 $lang['comments_add'] = 'Add a comment';
+$lang['slideshow'] = 'slideshow';
+$lang['period_seconds'] = 'seconds per picture';
+$lang['slideshow_stop'] = 'stop the slideshow';
+$lang['download'] = 'download';
+$lang['download_hint'] = 'download this file';
+$lang['comment_added'] = 'Your comment has been registered';
+$lang['comment_to_validate'] = 'An administrator must authorize your comment before it is visible.';
+$lang['comment_anti-flood'] = 'Anti-flood system : please wait for a moment before trying to post another comment';
+$lang['comment_user_exists'] = 'This login is already used by another user';
+$lang['picture_show_metadata'] = 'Show file metadata';
+$lang['picture_hide_metadata'] = 'Hide file metadata';
+$lang['to_rate'] = 'Rate';
+$lang['update_rate'] = 'Update your rating';
+$lang['element_rate'] = 'rate';
+$lang['already_rated'] = 'You\'ve already rated this item';
+$lang['never_rated'] = 'You\'ve never rated this item';
+$lang['no_rate'] = 'no rate';
+$lang['rates'] = 'rates';
+$lang['standard_deviation'] = 'STD';
+$lang['picture_high'] = 'Click on the picture to see it in high definition';
+$lang['visited'] = 'visited';
+$lang['times'] = 'times';
 
-$lang['add_favorites_alt'] = 'Add to favorites';
-$lang['add_favorites_hint'] = 'Add this picture to your favorites';
-$lang['del_favorites_alt'] = 'Delete from favorites';
-$lang['del_favorites_hint'] = 'Delete this picture from your favorites';
-
+// Upload
 $lang['upload_forbidden'] = 'You can\'t upload pictures in this category';
 $lang['upload_file_exists'] = 'A picture\'s name already used';
 $lang['upload_filenotfound'] = 'You must choose a picture fileformat for the image';
@@ -264,60 +276,30 @@ $lang['upload_advise_filetype'] = 'the picture must be to the fileformat jpg, gi
 $lang['upload_err_username'] = 'the username must be given';
 $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
-
-$lang['guest'] = 'guest';
-$lang['add'] = 'add';
-$lang['dissociate'] = 'dissociate';
-$lang['mandatory'] = 'obligatory';
-$lang['err_date'] = 'wrong date';
-$lang['IP'] = 'IP';
-
-$lang['errors_title'] = 'Errors';
-$lang['infos_title'] = 'Informations';
-$lang['category_representative'] = 'representative';
-
-
-$lang['visited'] = 'visited';
-$lang['times'] = 'times';
-$lang['slideshow'] = 'slideshow';
-$lang['period_seconds'] = 'seconds per picture';
-$lang['slideshow_stop'] = 'stop the slideshow';
-$lang['download'] = 'download';
-$lang['download_hint'] = 'download this file';
-$lang['comment_added'] = 'Your comment has been registered';
-$lang['comment_to_validate'] = 'An administrator must authorize your comment before it is visible.';
-$lang['comment_anti-flood'] = 'Anti-flood system : please wait for a moment before trying to post another comment';
-$lang['comment_user_exists'] = 'This login is already used by another user';
-$lang['invalid_search'] = 'Searched words must be grater than 3 characters and must not contain punctuation mark';
 $lang['upload_name'] = 'Name of the picture';
 $lang['upload_author'] = 'Author (eg "Pierrick LE GALL")';
 $lang['upload_creation_date'] = 'Creation date (DD/MM/YYYY)';
-$lang['upload_comment'] = 'Comment';
+
+// Admin messages
+$lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please, come back later or loggin as an administrator to enter the gallery : <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
+$lang['sql_queries_in'] = 'SQL queries in';
+$lang['title_send_mail'] = 'A comment on your site';
+$lang['generation_time'] = 'Page generated in';
 $lang['mail_hello'] = 'Hi,';
 $lang['mail_new_upload_subject'] = 'New picture on the website';
 $lang['mail_new_upload_content'] = 'A new picture has been uploaded on the gallery. It is waiting for your validation. Let\'s meet in the administration panel to authorize or refuse this picture.';
 $lang['mail_new_comment_subject'] = 'New comment on website';
 $lang['mail_new_comment_content'] = 'A new comment has been registered on the gallery. If you chose to validate each comment, you first have to validate this comment in the administration panel to make it visible in the gallery.'."\n\n".'You can see last comments in the administration panel';
-$lang['connected_user'] = 'connected user';
-$lang['title_comments'] = 'Users comments';
+
+
+
+// NOT YET VALIDATED
+$lang['guest'] = 'guest';
+$lang['add'] = 'add';
+
 $lang['stats_last_days'] = 'last days';
 $lang['hint_comments'] = 'See last users comments';
 $lang['menu_login'] = 'login';
 $lang['hello'] = 'Hello';
-
-$lang['picture_show_metadata'] = 'Show file metadata ?';
-$lang['picture_hide_metadata'] = 'Hide file metadata';
-$lang['to_rate'] = 'Rate';
-$lang['update_rate'] = 'Update your rating';
-$lang['element_rate'] = 'rate';
-$lang['already_rated'] = 'You\'ve already rated this item';
-$lang['never_rated'] = 'You\'ve never rated this item';
-$lang['no_rate'] = 'no rate';
-$lang['rates'] = 'rates';
-$lang['standard_deviation'] = 'STD';
-$lang['random_cat'] = 'random pictures';
-$lang['random_cat_hint'] = 'Displays a set of random pictures';
-$lang['picture_high'] = 'Click on the picture to see it in high definition';
-
 
 ?>

@@ -136,7 +136,7 @@ $template->assign_vars(array(
   'L_SUMMARY' => $lang['title_menu'],
   'L_UPLOAD' => $lang['upload_picture'],
   'L_COMMENT' => $lang['comments'],
-  'L_IDENTIFY' => $lang['ident_title'],
+  'L_IDENTIFY' => $lang['identification'],
   'L_SUBMIT' => $lang['menu_login'],
   'L_USERNAME' => $lang['login'],
   'L_PASSWORD' => $lang['password'],

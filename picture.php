@@ -145,7 +145,7 @@ foreach (array('prev', 'current', 'next') as $i)
   $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
-  $icon = './template/'.$user['template'].'/mimetypes/';
+  $icon = PHPWG_ROOT_PATH.'template/'.$user['template'].'/mimetypes/';
   $icon.= strtolower(get_extension($row['file'])).'.png';
 
   if (isset($row['representative_ext']) and $row['representative_ext'] =! '')
@@ -453,7 +453,8 @@ $template->assign_vars(array(
   'L_HOME' => $lang['home'],
   'L_SLIDESHOW' => $lang['slideshow'],
   'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
-  'L_PREV_IMG' =>$lang['previous_image'].' : ',
+  'L_PREV_IMG' =>$lang['previous_page'].' : ',
+  'L_NEXT_IMG' =>$lang['next_page'].' : ',
   'L_ADMIN' =>$lang['link_info_image'],
   'L_COMMENT_TITLE' =>$lang['comments_title'],
   'L_ADD_COMMENT' =>$lang['comments_add'],
