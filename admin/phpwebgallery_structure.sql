@@ -13,10 +13,10 @@ CREATE TABLE phpwebgallery_categories (
   id smallint(5) unsigned NOT NULL auto_increment,
   date_last date NOT NULL default '0000-00-00',
   nb_images mediumint(8) unsigned NOT NULL default '0',
-  name varchar(255) default NULL,
+  name varchar(255) NOT NULL default '',
   id_uppercat smallint(5) unsigned default NULL,
   comment text,
-  dir varchar(255) NOT NULL default '',
+  dir varchar(255) default NULL,
   rank tinyint(3) unsigned default NULL,
   status enum('public','private') NOT NULL default 'public',
   site_id tinyint(4) unsigned NOT NULL default '1',
@@ -116,6 +116,17 @@ CREATE TABLE phpwebgallery_history (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'phpwebgallery_image_category'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_image_category;
+CREATE TABLE phpwebgallery_image_category (
+  image_id mediumint(8) unsigned NOT NULL default '0',
+  category_id smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (image_id,category_id)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'phpwebgallery_images'
 --
 
@@ -123,7 +134,6 @@ DROP TABLE IF EXISTS phpwebgallery_images;
 CREATE TABLE phpwebgallery_images (
   id mediumint(8) unsigned NOT NULL auto_increment,
   file varchar(255) NOT NULL default '',
-  cat_id smallint(5) unsigned NOT NULL default '0',
   date_available date NOT NULL default '0000-00-00',
   date_creation date default NULL,
   tn_ext char(3) NOT NULL default 'jpg',
@@ -135,8 +145,8 @@ CREATE TABLE phpwebgallery_images (
   width smallint(9) unsigned default NULL,
   height smallint(9) unsigned default NULL,
   keywords varchar(255) default NULL,
-  PRIMARY KEY  (id),
-  KEY cat_id (cat_id)
+  storage_category_id smallint(5) unsigned default NULL,
+  PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
 --
