@@ -89,10 +89,16 @@
       .errors {
         text-align:left;
         margin:25px;
-        background-color:red;
+        background-color:#ffe1e1;
+        border:1px solid red;
+        color:black;
+      }
+      .errors_title {
+        margin:5px;
         font-weight:bold;
-        border:1px solid black;
-        color:white;
+        font-size:120%;
+        text-align:center;
+        color:red;
       }
       .info {
         color:darkblue;
