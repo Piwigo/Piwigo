@@ -30,141 +30,180 @@
 // |                           initialization                              |
 // +-----------------------------------------------------------------------+
 $userdata = array();
-if ( defined('IN_ADMIN') && isset( $_POST['submituser'] ) )
+if (defined('IN_ADMIN') and isset($_POST['submituser']))
 {
   $userdata = getuserdata($_POST['username']);
 }
-elseif (defined('IN_ADMIN') && isset( $_POST['submit'] ))
+elseif (defined('IN_ADMIN') and isset($_POST['submit']))
 {
   $userdata = getuserdata(intval($_POST['userid']));
 }
-elseif (!defined('IN_ADMIN'))
+elseif (!defined('IN_ADMIN') or !IN_ADMIN)
 {
   define('PHPWG_ROOT_PATH','./');
   include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
   check_login_authorization(false);
-  $userdata=$user;
+  $userdata = $user;
 }
 //------------------------------------------------------ update & customization
-$infos = array( 'nb_image_line', 'nb_line_page', 'language',
-                'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
-                'recent_period', 'template', 'mail_address');
-// mise à jour dans la base de données des valeurs
-// des paramètres pour l'utilisateur courant
-//    - on teste si chacune des variables est passée en argument à la page
-//    - ce qui signifie que l'on doit venir de la page de personnalisation
+$infos = array('nb_image_line', 'nb_line_page', 'language',
+               'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
+               'recent_period', 'template', 'mail_address');
+
 $errors = array();
-if ( isset( $_POST['submit'] ) )
+if (isset($_POST['submit']))
 {
   $int_pattern = '/^\d+$/';
-  if ( $_POST['maxwidth'] != ''
-       and ( !preg_match( $int_pattern, $_POST['maxwidth'] )
-             or $_POST['maxwidth'] < 50 ) )
+  
+  if ($_POST['maxwidth'] != ''
+      and (!preg_match($int_pattern, $_POST['maxwidth'])
+           or $_POST['maxwidth'] < 50))
   {
-    array_push( $errors, $lang['maxwidth_error'] );
+    array_push($errors, $lang['maxwidth_error']);
   }
-  if ( $_POST['maxheight']
-       and ( !preg_match( $int_pattern, $_POST['maxheight'] )
-             or $_POST['maxheight'] < 50 ) )
+  if ($_POST['maxheight']
+       and (!preg_match($int_pattern, $_POST['maxheight'])
+             or $_POST['maxheight'] < 50))
   {
-    array_push( $errors, $lang['maxheight_error'] );
+    array_push($errors, $lang['maxheight_error']);
   }
   // periods must be integer values, they represents number of days
   if (!preg_match($int_pattern, $_POST['recent_period'])
       or $_POST['recent_period'] <= 0)
   {
-    array_push( $errors, $lang['periods_error'] );
+    array_push($errors, $lang['periods_error']);
+  }
+
+  // if mail_address has changed
+  if (!isset($userdata['mail_address']))
+  {
+    $userdata['mail_address'] = '';
   }
   
-  if ( $_POST['mail_address']!= $userdata['mail_address'])
+  if ($_POST['mail_address'] != @$userdata['mail_address'])
   {
-     if ($user['status'] == 'admin')
-     {
-      $mail_error = validate_mail_address( $_POST['mail_address'] );
-      if ( !empty($mail_error)) array_push( $errors, $mail_error );
-     }
-     elseif (!empty($_POST['password']))
-      array_push( $errors, $lang['reg_err_pass'] );
-    else
+    if ($user['status'] == 'admin')
     {
-    // retrieving the encrypted password of the login submitted
-    $query = 'SELECT password FROM '.USERS_TABLE.'
-              WHERE username = \''.$userdata['username'].'\';';
-    $row = mysql_fetch_array(pwg_query($query));
-    if ($row['password'] == md5($_POST['password']))
+      $mail_error = validate_mail_address($_POST['mail_address']);
+      if (!empty($mail_error))
+      {
+        array_push($errors, $mail_error);
+      }
+    }
+    else if (!empty($_POST['password']))
     {
-      $mail_error = validate_mail_address( $_POST['mail_address'] );
-      if ( !empty($mail_error)) array_push( $errors, $mail_error );
+      array_push($errors, $lang['reg_err_pass']);
     }
     else
-      array_push( $errors, $lang['reg_err_pass'] );
-      
+    {
+      // retrieving the encrypted password of the login submitted
+      $query = '
+SELECT password
+  FROM '.USERS_TABLE.'
+  WHERE id = \''.$userdata['id'].'\'
+;';
+      $row = mysql_fetch_array(pwg_query($query));
+      if ($row['password'] == md5($_POST['password']))
+      {
+        $mail_error = validate_mail_address($_POST['mail_address']);
+        if (!empty($mail_error))
+        {
+          array_push($errors, $mail_error);
+        }
+      }
+      else
+      {
+        array_push($errors, $lang['reg_err_pass']);
+      }
     }
   }
   
   // password must be the same as its confirmation
-  if ( !empty( $_POST['use_new_pwd'] )
-       and $_POST['use_new_pwd'] != $_POST['passwordConf'] )
-    array_push( $errors, $lang['reg_err_pass'] );
-    
+  if (!empty($_POST['use_new_pwd'])
+      and $_POST['use_new_pwd'] != $_POST['passwordConf'])
+  {
+    array_push($errors, $lang['reg_err_pass']);
+  }
+  
   // We check if we are in the admin level
-  if (isset ($_POST['user_delete']))
+  if (isset($_POST['user_delete']))
   {
     if ($_POST['userid'] > 2) // gallery founder + guest
     {
       delete_user($_POST['userid']);
     }
     else
-      array_push( $errors, $lang['user_err_modify'] );
+    {
+      array_push($errors, $lang['user_err_modify']);
+    }
   }
 	
-	// We check if we are in the admin level
-  if (isset ($_POST['status']) && $_POST['status'] <> $userdata['status'])
+  // We check if we are in the admin level
+  if (isset($_POST['status']) and $_POST['status'] <> $userdata['status'])
   {
-	  if ($_POST['userid'] > 2) // gallery founder + guest
+    if ($_POST['userid'] > 2) // gallery founder + guest
     {
       array_push($infos, 'status');
     }
     else
-      array_push( $errors, $lang['user_err_modify'] );
+    {
+      array_push($errors, $lang['user_err_modify']);
+    }
   }
-	
-  if ( count( $errors ) == 0 )
+  
+  if (count($errors) == 0)
   {
-    $query = 'UPDATE '.USERS_TABLE;
-    $query.= ' SET ';
-    foreach ( $infos as $i => $info ) {
-      if ( $i > 0 ) $query.= ',';
+    $query = '
+UPDATE '.USERS_TABLE.'
+  SET ';
+    $is_first = true;
+    foreach ($infos as $i => $info)
+    {
+      if (!$is_first)
+      {
+        $query.= '
+    , ';
+      }
+      $is_first = false;
+      
       $query.= $info;
       $query.= ' = ';
-      if ( $_POST[$info] == '' ) $query.= 'NULL';
-      else                       $query.= "'".$_POST[$info]."'";
+      if ($_POST[$info] == '')
+      {
+        $query.= 'NULL';
+      }
+      else
+      {
+        $query.= "'".$_POST[$info]."'";
+      }
     }
-    $query.= ' WHERE id = '.$_POST['userid'];
-    $query.= ';';
-    pwg_query( $query );
+    $query.= '
+  WHERE id = '.$_POST['userid'].'
+;';
+    pwg_query($query);
 
-    if ( !empty( $_POST['use_new_pwd'] ) )
+    if (!empty($_POST['use_new_pwd']))
     {
-      $query = 'UPDATE '.USERS_TABLE;
-      $query.= " SET password = '".md5( $_POST['use_new_pwd'] )."'";
-      $query.= ' WHERE id = '.$_POST['userid'];
-      $query.= ';';
-      pwg_query( $query );
+      $query = '
+UPDATE '.USERS_TABLE.'
+  SET password = \''.md5($_POST['use_new_pwd']).'\'
+  WHERE id = '.$_POST['userid'].'
+;';
+      pwg_query($query);
     }
     
     // redirection
-    if (!defined('IN_ADMIN'))
+    if (!defined('IN_ADMIN') or !IN_ADMIN)
     {
-      redirect(add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING']));
+      $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
+      redirect(add_session_id($url));
     }
-		else
-		{
+    else
+    {
       redirect(add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'));
     }
   }
 }
-
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
@@ -180,107 +219,129 @@ else
   $url_action .='admin.php?page=profile';
 }
 //----------------------------------------------------- template initialization
-
 $template->set_filenames(array('profile_body'=>'profile.tpl'));
-if ( defined('IN_ADMIN') && empty($userdata))
+
+if (defined('IN_ADMIN') and IN_ADMIN and empty($userdata))
 {
   $template->assign_block_vars('select_user',array());
-  $template->assign_vars(array(
-    'L_SELECT_USERNAME'=>$lang['Select_username'],
-    'L_LOOKUP_USER'=>$lang['Look_up_user'],
-    'L_FIND_USERNAME'=>$lang['Find_username'],
-    'L_AUTH_USER'=>$lang['permuser_only_private'],
-    'L_SUBMIT'=>$lang['submit'],
 
-    'F_SEARCH_USER_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'),
-    'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
-    ));
+  $admin_profile = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile');
+  
+  $template->assign_vars(
+    array(
+      'L_SELECT_USERNAME'=>$lang['Select_username'],
+      'L_LOOKUP_USER'=>$lang['Look_up_user'],
+      'L_FIND_USERNAME'=>$lang['Find_username'],
+      'L_AUTH_USER'=>$lang['permuser_only_private'],
+      'L_SUBMIT'=>$lang['submit'],
+      
+      'F_SEARCH_USER_ACTION' => $admin_profile,
+      'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
+      ));
 }
 else
 {
-$expand = ($userdata['expand']=='true')?'EXPAND_TREE_YES':'EXPAND_TREE_NO';
-$nb_comments = ($userdata['show_nb_comments']=='true')?'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+  $expand =
+    ($userdata['expand']=='true')?
+    'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+  
+  $nb_comments =
+    ($userdata['show_nb_comments']=='true')?
+    'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+  
+  $template->assign_block_vars('modify',array());
+  $template->assign_vars(
+    array(
+      'USERNAME'=>$userdata['username'],
+      'USERID'=>$userdata['id'],
+      'EMAIL'=>@$userdata['mail_address'],
+      'LANG_SELECT'=>language_select($userdata['language'], 'language'),
+      'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
+      'NB_ROW_PAGE'=>$userdata['nb_line_page'],
+      'STYLE_SELECT'=>style_select($userdata['template'], 'template'),
+      'RECENT_PERIOD'=>$userdata['recent_period'],
+      'MAXWIDTH'=>@$userdata['maxwidth'],
+      'MAXHEIGHT'=>@$userdata['maxheight'],
+  
+      $expand=>'checked="checked"',
+      $nb_comments=>'checked="checked"',
+      
+      'L_TITLE' => $lang['customize_title'],
+      'L_REGISTRATION_INFO' => $lang['register_title'],
+      'L_PREFERENCES' => $lang['preferences'],
+      'L_USERNAME' => $lang['login'],
+      'L_EMAIL' => $lang['mail_address'],
+      'L_CURRENT_PASSWORD' => $lang['password'],
+      'L_CURRENT_PASSWORD_HINT' => $lang['password_hint'],
+      'L_NEW_PASSWORD' =>  $lang['new_password'],
+      'L_NEW_PASSWORD_HINT' => $lang['new_password_hint'],
+      'L_CONFIRM_PASSWORD' =>  $lang['reg_confirm'],
+      'L_CONFIRM_PASSWORD_HINT' => $lang['confirm_password_hint'],
+      'L_LANG_SELECT'=>$lang['language'],
+      'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
+      'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
+      'L_STYLE_SELECT'=>$lang['theme'],
+      'L_RECENT_PERIOD'=>$lang['recent_period'],
+      'L_EXPAND_TREE'=>$lang['auto_expand'],
+      'L_NB_COMMENTS'=>$lang['show_nb_comments'],
+      'L_MAXWIDTH'=>$lang['maxwidth'],
+      'L_MAXHEIGHT'=>$lang['maxheight'],
+      'L_YES'=>$lang['yes'],
+      'L_NO'=>$lang['no'],
+      'L_SUBMIT'=>$lang['submit'],
+      'L_RETURN' =>  $lang['home'],
+      'L_RETURN_HINT' =>  $lang['home_hint'],  
+      
+      'F_ACTION'=>add_session_id($url_action),
+      ));
 
-$template->assign_block_vars('modify',array());
-$template->assign_vars(array(
-  'USERNAME'=>$userdata['username'],
-  'USERID'=>$userdata['id'],
-  'EMAIL'=>$userdata['mail_address'],
-  'LANG_SELECT'=>language_select($userdata['language'], 'language'),
-  'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
-  'NB_ROW_PAGE'=>$userdata['nb_line_page'],
-  'STYLE_SELECT'=>style_select($userdata['template'], 'template'),
-  'RECENT_PERIOD'=>$userdata['recent_period'],
-  'MAXWIDTH'=>$userdata['maxwidth'],
-  'MAXHEIGHT'=>$userdata['maxheight'],
-  
-  $expand=>'checked="checked"',
-  $nb_comments=>'checked="checked"',
-  
-  'L_TITLE' => $lang['customize_title'],
-  'L_REGISTRATION_INFO' => $lang['register_title'],
-  'L_PREFERENCES' => $lang['preferences'],
-  'L_USERNAME' => $lang['login'],
-  'L_EMAIL' => $lang['mail_address'],
-  'L_CURRENT_PASSWORD' => $lang['password'],
-  'L_CURRENT_PASSWORD_HINT' => $lang['password_hint'],
-  'L_NEW_PASSWORD' =>  $lang['new_password'],
-  'L_NEW_PASSWORD_HINT' => $lang['new_password_hint'],
-  'L_CONFIRM_PASSWORD' =>  $lang['reg_confirm'],
-  'L_CONFIRM_PASSWORD_HINT' => $lang['confirm_password_hint'],
-  'L_LANG_SELECT'=>$lang['language'],
-  'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
-  'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
-  'L_STYLE_SELECT'=>$lang['theme'],
-  'L_RECENT_PERIOD'=>$lang['recent_period'],
-  'L_EXPAND_TREE'=>$lang['auto_expand'],
-  'L_NB_COMMENTS'=>$lang['show_nb_comments'],
-  'L_MAXWIDTH'=>$lang['maxwidth'],
-  'L_MAXHEIGHT'=>$lang['maxheight'],
-  'L_YES'=>$lang['yes'],
-  'L_NO'=>$lang['no'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_RETURN' =>  $lang['home'],
-  'L_RETURN_HINT' =>  $lang['home_hint'],  
-  
-  'F_ACTION'=>add_session_id($url_action),
-  
-  'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
-  ));
-  
-//-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
-{
-  $template->assign_block_vars('modify.errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  if (!defined('IN_ADMIN') or !IN_ADMIN)
   {
-    $template->assign_block_vars('modify.errors.error',array('ERROR'=>$errors[$i]));
+    $url_return = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
+    $template->assign_vars(array('U_RETURN' => add_session_id($url_return)));
   }
-}
+//-------------------------------------------------------------- errors display
+  if (count($errors) != 0)
+  {
+    $template->assign_block_vars('modify.errors',array());
+    foreach ($errors as $error)
+    {
+      $template->assign_block_vars('modify.errors.error',
+                                   array('ERROR'=>$error));
+    }
+  }
 //------------------------------------------------------------- user management
-if (defined('IN_ADMIN'))
-{
-  $status_select = '<select name="status">';
-  $status_select .='<option value = "guest" ';
-  if ($userdata['status'] == 'guest') $status_select .= 'selected="selected"';
-  $status_select .='>'.$lang['user_status_guest'] .'</option>';
-  $status_select .='<option value = "admin" ';
-  if ($userdata['status'] == 'admin') $status_select .= 'selected="selected"';
-  $status_select .='>'.$lang['user_status_admin'] .'</option>';
-  $status_select .='</select>';
-  $template->assign_block_vars('modify.admin',array(
-    'L_ADMIN_USER'=>$lang['user_management'],
-    'L_STATUS'=>$lang['user_status'],
-    'L_DELETE'=>$lang['user_delete'],
-    'L_DELETE_HINT'=>$lang['user_delete_hint'],
-    'STATUS'=>$status_select
-  ));
-}
+  if (defined('IN_ADMIN') and IN_ADMIN)
+  {
+    $status_select = '<select name="status">';
+    $status_select .='<option value = "guest" ';
+    if ($userdata['status'] == 'guest')
+    {
+      $status_select .= 'selected="selected"';
+    }
+    $status_select .='>'.$lang['user_status_guest'] .'</option>';
+    $status_select .='<option value = "admin" ';
+    if ($userdata['status'] == 'admin')
+    {
+      $status_select .= 'selected="selected"';
+    }
+    $status_select .='>'.$lang['user_status_admin'] .'</option>';
+    $status_select .='</select>';
+    $template->assign_block_vars(
+      'modify.admin',
+      array(
+        'L_ADMIN_USER'=>$lang['user_management'],
+        'L_STATUS'=>$lang['user_status'],
+        'L_DELETE'=>$lang['user_delete'],
+        'L_DELETE_HINT'=>$lang['user_delete_hint'],
+        'STATUS'=>$status_select
+        ));
+  }
 }
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
-if (defined('IN_ADMIN'))
+if (defined('IN_ADMIN') and IN_ADMIN)
 {
   $template->assign_var_from_handle('ADMIN_CONTENT', 'profile_body');
 }
