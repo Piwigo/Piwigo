@@ -803,6 +803,11 @@ if ($metadata_showable and isset($_GET['show_metadata']))
   $template->assign_block_vars('metadata', array());
   if ($conf['show_exif'])
   {
+    if (!function_exists('read_exif_data'))
+    {
+      die('Exif extension not available, admin should disable exif display');
+    }
+    
     if ($exif = @read_exif_data($picture['current']['src']))
     {
       $template->assign_block_vars(

@@ -84,6 +84,11 @@ function update_metadata($files)
   
     if ($conf['use_exif'])
     {
+      if (!function_exists('read_exif_data'))
+      {
+        die('Exif extension not available, admin should disable exif use');
+      }
+      
       if ($exif = @read_exif_data($file))
       {
         if (isset($exif['DateTime']))
