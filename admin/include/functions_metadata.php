@@ -29,13 +29,9 @@ include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 
 function get_sync_iptc_data($file)
 {
-  $map = array(
-    'keywords'        => '2#025',
-    'date_creation'   => '2#055',
-    'author'          => '2#122',
-    'name'            => '2#085',
-    'comment'         => '2#120'
-    );
+  global $conf;
+  
+  $map = $conf['use_iptc_mapping'];
   $datefields = array('date_creation', 'date_available');
   
   $iptc = get_iptc_data($file, $map);
