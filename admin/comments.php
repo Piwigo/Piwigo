@@ -49,7 +49,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $file = get_filename_wo_extension( $subrow['file'] );
     // name of the picture
     $name = $array_cat_names[$subrow['cat_id']].' &gt; ';
-    if ( $subrow['name'] != '' )
+    if ( isset( $subrow['name'] ) and $subrow['name'] != '' )
     {
       $name.= $subrow['name'];
     }
