@@ -51,6 +51,16 @@ if ( isset( $_POST['submit'] ) )
       mysql_query ( $query );
     }
   }
+  // checking users favorites
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    check_favorites( $row['id'] );
+  }
+  // confirmation display
   $vtp->addSession( $sub, 'confirmation' );
   $url = './admin.php?page=group_list';
   $vtp->setVar( $sub, 'confirmation.back_url', add_session_id( $url ) );
