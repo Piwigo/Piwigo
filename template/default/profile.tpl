@@ -1,3 +1,22 @@
+<!-- BEGIN errors -->
+<div class="errors">
+  <ul>
+    <!-- BEGIN error -->
+    <li>{errors.error.ERROR}</li>
+    <!-- END error -->
+  </ul>
+</div>
+<!-- END errors -->
+
+<!-- BEGIN add_user -->
+<div class="admin">{L_GROUP_ADD_USER}</div>
+<form method="post" name="post" action="{add_user.F_ACTION}">
+  {L_USERNAME} <input type="text" name="login" maxlength="50" size="20" />
+  {L_PASSWORD} <input type="text" name="password" />
+  <input type="submit" name="submit_add" value="add" class="bouton" />
+</form>
+<!-- END add_user -->
+
 <!-- BEGIN select_user -->
 <div class="admin">{L_SELECT_USERNAME}</div>
 <form method="post" name="post" action="{F_SEARCH_USER_ACTION}">
@@ -50,15 +69,6 @@
 <!-- BEGIN profile -->
 <div class="titrePage">{L_TITLE}</div>
 <!-- END profile -->
-<!-- BEGIN errors -->
-<div class="errors">
-	<ul>
-	  <!-- BEGIN error -->
-	  <li>{modify.errors.error.ERROR}</li>
-	  <!-- END error -->
-	</ul>
-</div>
-<!-- END errors -->
 <form method="post" action="{F_ACTION}">
 <table width="70%" align="center">
   <tr class="admin">

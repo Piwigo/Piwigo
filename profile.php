@@ -208,6 +208,11 @@ UPDATE '.USERS_TABLE.'
     }
   }
 }
+else if (defined('IN_ADMIN') and IN_ADMIN and isset($_POST['submit_add']))
+{
+  $errors = register_user($_POST['login'], $_POST['password'],
+                          $_POST['password'], '');
+}
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
@@ -227,9 +232,10 @@ $template->set_filenames(array('profile_body'=>'profile.tpl'));
 
 if (defined('IN_ADMIN') and IN_ADMIN and empty($userdata))
 {
-  $template->assign_block_vars('select_user',array());
-
   $admin_profile = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile');
+  
+  $template->assign_block_vars('add_user', array('F_ACTION'=>$admin_profile));
+  $template->assign_block_vars('select_user',array());
 
   $conf['users_page'] = 20;
   $start = isset($_GET['start']) ? $_GET['start'] : 0;
@@ -253,9 +259,11 @@ SELECT COUNT(*) AS counter
       'L_LOOKUP_USER'=>$lang['Look_up_user'],
       'L_FIND_USERNAME'=>$lang['Find_username'],
       'L_AUTH_USER'=>$lang['permuser_only_private'],
+      'L_GROUP_ADD_USER' => $lang['group_add_user'],
       'L_SUBMIT'=>$lang['submit'],
       'L_STATUS'=>$lang['user_status'],
       'L_USERNAME' => $lang['login'],
+      'L_PASSWORD' => $lang['password'],
       'L_EMAIL' => $lang['mail_address'],
       'L_ORDER_BY' => $lang['order_by'],
       'L_ACTIONS' => $lang['actions'],
@@ -426,16 +434,6 @@ else
     $url_return = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
     $template->assign_vars(array('U_RETURN' => add_session_id($url_return)));
   }
-//-------------------------------------------------------------- errors display
-  if (count($errors) != 0)
-  {
-    $template->assign_block_vars('modify.errors',array());
-    foreach ($errors as $error)
-    {
-      $template->assign_block_vars('modify.errors.error',
-                                   array('ERROR'=>$error));
-    }
-  }
 //------------------------------------------------------------- user management
   if (defined('IN_ADMIN') and IN_ADMIN)
   {
@@ -462,6 +460,17 @@ else
         'L_DELETE_HINT'=>$lang['user_delete_hint'],
         'STATUS'=>$status_select
         ));
+  }
+}
+// +-----------------------------------------------------------------------+
+// |                             errors display                            |
+// +-----------------------------------------------------------------------+
+if (count($errors) != 0)
+{
+  $template->assign_block_vars('errors',array());
+  foreach ($errors as $error)
+  {
+    $template->assign_block_vars('errors.error', array('ERROR'=>$error));
   }
 }
 // +-----------------------------------------------------------------------+
