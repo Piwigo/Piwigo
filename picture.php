@@ -267,7 +267,7 @@ if ( isset( $_GET['add_fav'] ) )
   }
   if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
   {
-    if (!$has_prev and $mysql_num_rows == 1)
+    if (!$has_prev and !$has_next)
     {
       // there is no favorite picture anymore we redirect the user to the
       // category page
