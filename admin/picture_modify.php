@@ -25,20 +25,23 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once( './admin/include/isadmin.inc.php' );
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
 //--------------------------------------------------------- update informations
 $errors = array();
 // first, we verify whether there is a mistake on the given creation date
-if ( isset( $_POST['creation_date'] ) and $_POST['creation_date'] != '' )
+if ( isset( $_POST['date_creation'] ) and !empty($_POST['date_creation']))
 {
-  if ( !check_date_format( $_POST['creation_date'] ) )
+  if ( !check_date_format( $_POST['date_creation'] ) )
     array_push( $errors, $lang['err_date'] );
 }
 if ( isset( $_POST['submit'] ) )
 {
-  $query = 'UPDATE '.PREFIX_TABLE.'images';
-  
-  $query.= ' SET name = ';
+  $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
   if ( $_POST['name'] == '' )
     $query.= 'NULL';
   else
@@ -57,9 +60,9 @@ if ( isset( $_POST['submit'] ) )
     $query.= "'".htmlentities($_POST['comment'],ENT_QUOTES)."'";
 
   $query.= ', date_creation = ';
-  if ( check_date_format( $_POST['creation_date'] ) )
-    $query.= "'".date_convert( $_POST['creation_date'] )."'";
-  else if ( $_POST['creation_date'] == '' )
+  if ( check_date_format( $_POST['date_creation'] ) )
+    $query.= "'".date_convert( $_POST['date_creation'] )."'";
+  else if ( $_POST['date_creation'] == '' )
     $query.= 'NULL';
 
   $query.= ', keywords = ';
@@ -82,8 +85,8 @@ if ( isset( $_POST['submit'] ) )
   // make the picture representative of a category ?
   $query = 'SELECT DISTINCT(category_id) as category_id';
   $query.= ',representative_picture_id';
-  $query.= ' FROM '.PREFIX_TABLE.'image_category AS ic';
-  $query.= ', '.PREFIX_TABLE.'categories AS c';
+  $query.= ' FROM '.IMAGE_CATEGORY_TABLE.' AS ic';
+  $query.= ', '.CATEGORIES_TABLE.' AS c';
   $query.= ' WHERE c.id = ic.category_id';
   $query.= ' AND image_id = '.$_GET['image_id'];
   $query.= ';';
@@ -95,7 +98,7 @@ if ( isset( $_POST['submit'] ) )
     // if this picture was already the representative one)
     if ( isset($_POST['representative-'.$row['category_id']]) )
     {
-      $query = 'UPDATE '.PREFIX_TABLE.'categories';
+      $query = 'UPDATE '.CATEGORIES_TABLE;
       $query.= ' SET representative_picture_id = '.$_GET['image_id'];
       $query.= ' WHERE id = '.$row['category_id'];
       $query.= ';';
@@ -106,7 +109,7 @@ if ( isset( $_POST['submit'] ) )
     else if ( isset( $row['representative_picture_id'] )
               and $row['representative_picture_id'] == $_GET['image_id'] )
     {
-      $query = 'UPDATE '.PREFIX_TABLE.'categories';
+      $query = 'UPDATE '.CATEGORIES_TABLE;
       $query.= ' SET representative_picture_id = NULL';
       $query.= ' WHERE id = '.$row['category_id'];
       $query.= ';';
@@ -124,8 +127,7 @@ if ( isset( $_POST['submit'] ) )
     }
     else
     {
-      $query = 'SELECT id';
-      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query = 'SELECT id FROM '.CATEGORIES_TABLE;
       $query.= ' WHERE id = '.$_POST['associate'];
       $query.= ';';
       if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
@@ -136,7 +138,7 @@ if ( isset( $_POST['submit'] ) )
        and $_POST['associate'] != ''
        and count( $errors ) == 0 )
   {
-    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+    $query = 'INSERT INTO '.IMAGE_CATEGORY_TABLE;
     $query.= ' (category_id,image_id) VALUES ';
     $query.= '('.$_POST['associate'].','.$_GET['image_id'].')';
     $query.= ';';
@@ -146,8 +148,7 @@ if ( isset( $_POST['submit'] ) )
   }
   // dissociate any category ?
   // retrieving all the linked categories
-  $query = 'SELECT DISTINCT(category_id) as category_id';
-  $query.= ' FROM '.PREFIX_TABLE.'image_category';
+  $query = 'SELECT DISTINCT(category_id) as category_id FROM '.IMAGE_CATEGORY_TABLE;
   $query.= ' WHERE image_id = '.$_GET['image_id'];
   $query.= ';';
   $result = mysql_query( $query );
@@ -155,7 +156,7 @@ if ( isset( $_POST['submit'] ) )
   {
     if ( isset($_POST['dissociate-'.$row['category_id']]) )
     {
-      $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+      $query = 'DELETE FROM '.IMAGE_CATEGORY_TABLE;
       $query.= ' WHERE image_id = '.$_GET['image_id'];
       $query.= ' AND category_id = '.$row['category_id'];
       $query.= ';';
@@ -169,194 +170,110 @@ if ( isset( $_POST['submit'] ) )
     synchronize_all_users();
   }
 }
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open(
-  './template/'.$user['template'].'/admin/picture_modify.vtp' );
 
-$tpl = array( 'submit','errors_title','picmod_update','picmod_back',
-              'default','file','size','filesize','registration_date',
-              'author','creation_date','keywords','comment', 'upload_name',
-              'dissociate','categories','infoimage_associate',
-              'cat_image_info','category_representative' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//-------------------------------------------------------------- errors display
-if ( count( $errors ) != 0 )
-{
-  $vtp->addSession( $sub, 'errors' );
-  foreach ( $errors as $error ) {
-    $vtp->addSession( $sub, 'li' );
-    $vtp->setVar( $sub, 'li.content', $error );
-    $vtp->closeSession( $sub, 'li' );
-  }
-  $vtp->closeSession( $sub, 'errors' );
-}
-//-------------------------------------------- displaying informations and form
-$action = './admin.php?'.$_SERVER['QUERY_STRING'];
-$vtp->setVar( $sub, 'form_action', $action );
 // retrieving direct information about picture
-$infos = array( 'file','date_available','date_creation','tn_ext','name'
-                ,'filesize','width','height','author','comment','keywords'
-                ,'storage_category_id' );
-$query = 'SELECT '. implode( ',', $infos );
-$query.= ' FROM '.PREFIX_TABLE.'images';
+$query = 'SELECT * FROM '.IMAGES_TABLE;
 $query.= ' WHERE id = '.$_GET['image_id'];
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
 
-foreach ( $infos as $info ) {
-  if ( !isset( $row[$info] ) ) $row[$info] = '';
-}
+$title = empty($row['name'])?str_replace( '_',' ',get_filename_wo_extension($row['file']) ):$row['name'];
+// Navigation path
+$current_category = get_cat_info($row['storage_category_id']);
+$dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
 
-// picture title
-if ( $row['name'] == '' )
-{
-  $title = str_replace( '_',' ',get_filename_wo_extension($row['file']) );
-}
-else
-{
-  $title = $row['name'];
-}
-$vtp->setVar( $sub, 'title', $title );
-$vtp->setVar( $sub, 'f_file', $row['file'] );
-$vtp->setVar( $sub, 'f_size', $row['width'].' * '.$row['height'] );
-$vtp->setVar( $sub, 'f_filesize', $row['filesize'].' KB' );
-$vtp->setVar( $sub, 'f_registration_date',format_date($row['date_available']));
-$default_name = str_replace( '_',' ',get_filename_wo_extension($row['file']) );
-$vtp->setVar( $sub, 'default_name', $default_name );
-// if this form is displayed after an unsucceeded submit, we have to display
-// the values filled by the user (wright or wrong).
-if ( count( $errors ) > 0 )
-{
-  $name            = $_POST['name'];
-  $author          = $_POST['author'];
-  $creation_date   = $_POST['creation_date'];
-  $keywords        = $_POST['keywords'];
-  $comment         = $_POST['comment'];
-}
-else
-{
-  $name            = $row['name'];
-  $author          = $row['author'];
-  $creation_date   = date_convert_back( $row['date_creation'] );
-  $keywords        = $row['keywords'];
-  $comment         = $row['comment'];
-}
-$vtp->setVar( $sub, 'f_name',            $name );
-$vtp->setVar( $sub, 'f_author',          $author );
-$vtp->setVar( $sub, 'f_creation_date',   $creation_date );
-$vtp->setVar( $sub, 'f_keywords',        $keywords );
-$vtp->setVar( $sub, 'f_comment',         $comment );
-// retrieving directory where picture is stored (for displaying the
-// thumbnail)
 $thumbnail_url = get_complete_dir( $row['storage_category_id'] );
-$result = get_cat_info( $row['storage_category_id'] );
-$cat_name = get_cat_display_name( $result['name'], ' &gt; ', '' );
-$vtp->setVar( $sub, 'dir', $cat_name );
-if ( $result['site_id'] == 1 ) $thumbnail_url = '.'.$thumbnail_url;
 $file_wo_ext = get_filename_wo_extension( $row['file'] );
 $thumbnail_url.= '/thumbnail/';
 $thumbnail_url.= $conf['prefix_thumbnail'].$file_wo_ext.'.'.$row['tn_ext'];
-$vtp->setVar( $sub, 'thumbnail_url', $thumbnail_url );
-// storage category is linked by default
-$vtp->addSession( $sub, 'linked_category' );
-$vtp->setVar( $sub, 'linked_category.name', $cat_name );
-$url = '../picture.php?image_id='.$_GET['image_id'];
-$url.= '&amp;cat='.$row['storage_category_id'];
-$vtp->setVar( $sub, 'linked_category.url',add_session_id( $url));
-$url = './admin.php?page=infos_images&amp;cat_id='.$row['storage_category_id'];
-$vtp->setVar( $sub, 'linked_category.infos_images_link',add_session_id( $url));
-if ( $result['status'] == 'private' )
-{
-  $private_string = '<span style="color:red;font-weight:bold;">';
-  $private_string.= $lang['private'].'</span>';
-  $vtp->setVar( $sub, 'linked_category.private', $private_string );
-}
-if ( !$result['visible'] )
-{
-  $invisible_string = '<span style="color:red;">';
-  $invisible_string.= $lang['cat_invisible'].'</span>';
-  $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
-}
-$vtp->setVar( $sub, 'linked_category.id', $row['storage_category_id'] );
-if ( $result['representative_picture_id'] == $_GET['image_id'] )
-{
-  $vtp->setVar( $sub, 'linked_category.representative_checked',
-                ' checked="checked"' );
-}
-$vtp->closeSession( $sub, 'linked_category' );
+$url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
+$url_img .= '&amp;cat='.$row['storage_category_id'];
+$date = isset($_POST['date_creation']) && empty($errors)
+          ?$_POST['date_creation']:date_convert_back($row['date_creation']);
+
 // retrieving all the linked categories
 $query = 'SELECT DISTINCT(category_id) as category_id,status,visible';
 $query.= ',representative_picture_id';
-$query.= ' FROM '.PREFIX_TABLE.'image_category';
-$query.= ','.PREFIX_TABLE.'categories';
+$query.= ' FROM '.IMAGE_CATEGORY_TABLE.','.CATEGORIES_TABLE;
 $query.= ' WHERE image_id = '.$_GET['image_id'];
-$query.= ' AND category_id != '.$row['storage_category_id'];
-$query.= ' AND category_id = id';
-$query.= ';';
+$query.= ' AND category_id = id;';
 $result = mysql_query( $query );
-while ( $row = mysql_fetch_array( $result ) )
+$categories = '';
+while ( $cat_row = mysql_fetch_array( $result ) )
 {
-  $vtp->addSession( $sub, 'linked_category' );
-  $vtp->setVar( $sub, 'linked_category.id', $row['category_id'] );
-
-  $vtp->addSession( $sub, 'checkbox' );
-  $vtp->setVar( $sub, 'checkbox.id', $row['category_id'] );
-  $vtp->closeSession( $sub, 'checkbox' );
-
-  $cat_infos = get_cat_info( $row['category_id'] );
+  $cat_infos = get_cat_info( $cat_row['category_id'] );
   $cat_name = get_cat_display_name( $cat_infos['name'], ' &gt; ', '' );
-  $vtp->setVar( $sub, 'linked_category.name', $cat_name );
-
-  $url = '../picture.php?image_id='.$_GET['image_id'];
-  $url.= '&amp;cat='.$row['category_id'];
-  $vtp->setVar( $sub, 'linked_category.url',add_session_id( $url));
-
-  $url = './admin.php?page=infos_images&amp;cat_id='.$row['category_id'];
-  $vtp->setVar( $sub, 'linked_category.infos_images_link',
-                add_session_id( $url));
-
-  if ( $row['status'] == 'private' )
-  {
-    $private_string = '<span style="color:red;font-weight:bold;">';
-    $private_string.= $lang['private'].'</span>';
-    $vtp->setVar( $sub, 'linked_category.private', $private_string );
-  }
-
-  if ( !get_boolean( $row['visible'] ) )
-  {
-    $invisible_string = '<span style="color:red;">';
-    $invisible_string.= $lang['cat_invisible'].'</span>';
-    $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
-  }
-
-  if ( isset( $row['representative_picture_id'] )
-       and $row['representative_picture_id'] == $_GET['image_id'] )
-  {
-    $vtp->setVar( $sub, 'linked_category.representative_checked',
-                  ' checked="checked"' );
-  }
-  
-  $vtp->closeSession( $sub, 'linked_category' );
+  $categories.='<option value="'.$cat_row['category_id'].'">'.$cat_name.'</option>';
 }
+
+//----------------------------------------------------- template initialization
+$template->set_filenames( array('picture_modify'=>'admin/picture_modify.tpl') );
+$template->assign_vars(array(
+  'TITLE_IMG'=>$title,
+  'DIR_IMG'=>$dir_path,
+  'FILE_IMG'=>$row['file'],
+  'TN_URL_IMG'=>$thumbnail_url,
+  'URL_IMG'=>add_session_id( $url_img ),
+  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:$row['name'],
+  'DEFAULT_NAME_IMG'=>str_replace( '_',' ',get_filename_wo_extension($row['file']) ),
+  'FILE_IMG'=>$row['file'],
+  'SIZE_IMG'=>$row['width'].' * '.$row['height'],
+  'FILESIZE_IMG'=>$row['filesize'].' KB',
+  'REGISTRATION_DATE_IMG'=> format_date($row['date_available']),
+  'AUTHOR_IMG'=>isset($_POST['author'])?$_POST['author']:$row['author'],
+  'CREATION_DATE_IMG'=>$date,
+  'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:$row['keywords'],
+  'COMMENT_IMG'=>isset($_POST['comment'])?$_POST['comment']:$row['comment'],
+  'ASSOCIATED_CATEGORIES'=>$categories,
+  
+  'L_UPLOAD_NAME'=>$lang['upload_name'],
+  'L_DEFAULT'=>$lang['default'],
+  'L_FILE'=>$lang['file'],
+  'L_SIZE'=>$lang['size'],
+  'L_FILESIZE'=>$lang['filesize'],
+  'L_REGISTRATION_DATE'=>$lang['registration_date'],
+  'L_AUTHOR'=>$lang['author'],
+  'L_CREATION_DATE'=>$lang['creation_date'],
+  'L_KEYWORDS'=>$lang['keywords'],
+  'L_COMMENT'=>$lang['comment'],
+  'L_CATEGORIES'=>$lang['categories'],
+  'L_DISSOCIATE'=>$lang['dissociate'],
+  'L_INFOIMAGE_ASSOCIATE'=>$lang['infoimage_associate'],
+  'L_SUBMIT'=>$lang['submit'],
+  
+  'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
+  ));
+  
+//-------------------------------------------------------------- errors display
+if ( sizeof( $errors ) != 0 )
+{
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  {
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
+  }
+}
+
 // if there are linked category other than the storage category, we show
 // propose the dissociate text
 if ( mysql_num_rows( $result ) > 0 )
 {
-  $vtp->addSession( $sub, 'dissociate' );
-  $vtp->closeSession( $sub, 'dissociate' );
+  //$vtp->addSession( $sub, 'dissociate' );
+  //$vtp->closeSession( $sub, 'dissociate' );
 }
 // associate to another category ?
 //
 // We only show a List Of Values if the number of categories is less than
 // $conf['max_LOV_categories']
 $query = 'SELECT COUNT(id) AS nb_total_categories';
-$query.= ' FROM '.PREFIX_TABLE.'categories';
-$query.= ';';
+$query.= ' FROM '.CATEGORIES_TABLE.';';
 $row = mysql_fetch_array( mysql_query( $query ) );
 if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
 {
-  $vtp->addSession( $sub, 'associate_LOV' );
+  $template->assign_block_vars('associate_LOV',array());
+  $template->assign_block_vars('associate_LOV.associate_cat',array(
+	));
+  /*$vtp->addSession( $sub, 'associate_LOV' );
   $vtp->addSession( $sub, 'associate_cat' );
   $vtp->setVar( $sub, 'associate_cat.value', '-1' );
   $vtp->setVar( $sub, 'associate_cat.content', '' );
@@ -364,15 +281,9 @@ if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
   $page['plain_structure'] = get_plain_structure( true );
   $structure = create_structure( '', array() );
   display_categories( $structure, '&nbsp;' );
-  $vtp->closeSession( $sub, 'associate_LOV' );
+  $vtp->closeSession( $sub, 'associate_LOV' );*/
 }
-// else, we only display a small text field, we suppose the administrator
-// knows the id of its category
-else
-{
-  $vtp->addSession( $sub, 'associate_text' );
-  $vtp->closeSession( $sub, 'associate_text' );
-}
+
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');
 ?>

@@ -290,11 +290,7 @@ if ( sizeof( $errors ) != 0 )
 //------------------------------------------------------------------------ form
 
   $array_cat_directories = array();
-
-  $infos = array( 'id','file','comment','author','tn_ext','name'
-                  ,'date_creation','keywords','storage_category_id'
-                  ,'category_id' );
-  
+ 
   $query = 'SELECT * FROM '.IMAGES_TABLE;
   $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
   $query.= ' WHERE category_id = '.$page['cat'];
@@ -304,7 +300,6 @@ if ( sizeof( $errors ) != 0 )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    foreach ($infos as $info) { if (!isset($row[$info])) $row[$info] = ''; }
 	if ( !isset( $array_cat_directories[$row['storage_category_id']] ) )
     {
       $array_cat_directories[$row['storage_category_id']] =

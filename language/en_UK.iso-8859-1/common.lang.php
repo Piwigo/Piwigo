@@ -33,7 +33,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'en';
 
 // Main words 
-
 $lang['gallery_index'] = 'Gallery index';
 $lang['category'] = 'Category';
 $lang['categories'] = 'Categories';
@@ -48,6 +47,16 @@ $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['date'] = 'Date';
 $lang['description'] = 'Description';
+$lang['author'] = 'Author';
+$lang['size'] = 'Size';
+$lang['filesize'] = 'Filesize';
+$lang['file'] = 'File';
+$lang['keywords'] = 'Keywords';
+$lang['default'] = 'Default';
+
+//Properties
+$lang['registration_date'] = 'Registered on';
+$lang['creation_date'] = 'Created on';
 
 // Form words 
 $lang['submit'] = 'Submit';
@@ -110,7 +119,7 @@ $lang['search_mode_or'] = 'at least one word';
 $lang['search_mode_and'] = 'all the words';
 $lang['search_comments'] = 'separate different words with spaces';
 $lang['invalid_search'] = 'search must be done on 3 caracters or more';
-$lang['Search_author_explain'] = 'Use * comme un joker pour des recherches partielles';
+$lang['Search_author_explain'] = 'Use * as a wildcard for partial matches';
 
 $lang['only_members'] = 'Only members can access this page';
 $lang['invalid_pwd'] = 'Invalid password!';
@@ -141,12 +150,6 @@ $lang['sub-cat'] = 'subcategories';
 $lang['images_available'] = 'images in this category';
 $lang['total'] = 'images';
 $lang['upload_picture'] = 'Upload a picture';
-$lang['registration_date'] = 'registered on';
-$lang['creation_date'] = 'created on';
-$lang['author'] = 'author';
-$lang['size'] = 'size';
-$lang['filesize'] = 'filesize';
-$lang['file'] = 'file';
 $lang['generation_time'] = 'Page generated in';
 $lang['favorites'] = 'Favorites';
 $lang['search_result'] = 'Search results';
@@ -219,14 +222,12 @@ $lang['add'] = 'add';
 $lang['dissociate'] = 'dissociate';
 $lang['mandatory'] = 'obligatory';
 $lang['err_date'] = 'wrong date';
-$lang['picture'] = 'picture';
 $lang['IP'] = 'IP';
 $lang['close'] = 'close';
 $lang['open'] = 'open';
-$lang['keywords'] = 'keywords';
+
 $lang['errors_title'] = 'Errors';
 $lang['infos_title'] = 'Informations';
-$lang['default'] = 'default';
 $lang['category_representative'] = 'representative';
 $lang['special_categories'] = 'specials';
 $lang['most_visited_cat_hint'] = 'displays most visited pictures';
