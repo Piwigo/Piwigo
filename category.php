@@ -276,13 +276,9 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     // message in title for the thumbnail
     $thumbnail_title = $row['file'];
     if ( $row['filesize'] == '' )
-    {
-      $poids = floor( filesize( $lien_image ) / 1024 );
-    }
+      $poids = floor( filesize( $cat_directory.$row['file'] ) / 1024 );
     else
-    {
       $poids = $row['filesize'];
-    }
     $thumbnail_title .= ' : '.$poids.' KB';
     // url link on picture.php page
     $url_link = './picture.php?cat='.$page['cat'];
