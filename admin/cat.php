@@ -1,11 +1,10 @@
 <?php
 /***************************************************************************
- *                    this file is a part of PhpWebGallery                 *
+ *                                  cat.php                                *
  *                            -------------------                          *
- *   version : 1.3                                                         *
- *   url     : http://phpwebgallery.net                                    *
- *   help    : http://forum.phpwebgallery.net                              *
- *   author  : Pierrick LE GALL                                            *
+ *   application          : PhpWebGallery 1.3                              *
+ *   website              : http://www.phpwebgallery.net                   *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -32,7 +31,7 @@ if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ) )
   // 1. searching level (id_uppercat)
   //    and rank of the category to move
   $query = 'select id_uppercat,rank';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id = '.$_GET['up'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -41,7 +40,7 @@ if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ) )
   // 2. searching the id and the rank of the category
   //    just above at the same level
   $query = 'select id,rank';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where rank < '.$rank;
   if ( $level == '' )
   {
@@ -58,12 +57,12 @@ if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ) )
   $new_rank     = $row['rank'];
   $replaced_cat = $row['id'];
   // 3. exchanging ranks between the two categories
-  $query = 'update '.$prefixeTable.'categories';
+  $query = 'update '.PREFIX_TABLE.'categories';
   $query.= ' set rank = '.$new_rank;
   $query.= ' where id = '.$_GET['up'];
   $query.= ';';
   mysql_query( $query );
-  $query = 'update '.$prefixeTable.'categories';
+  $query = 'update '.PREFIX_TABLE.'categories';
   $query.= ' set rank = '.$rank;
   $query.= ' where id = '.$replaced_cat;
   $query.= ';';
@@ -74,7 +73,7 @@ if ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
   // 1. searching level (id_uppercat)
   //    and rank of the category to move
   $query = 'select id_uppercat,rank';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id = '.$_GET['down'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -83,7 +82,7 @@ if ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
   // 2. searching the id and the rank of the category
   //    just below at the same level
   $query = 'select id,rank';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where rank > '.$rank;
   if ( $level == '' )
   {
@@ -100,12 +99,12 @@ if ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
   $new_rank     = $row['rank'];
   $replaced_cat = $row['id'];
   // 3. exchanging ranks between the two categories
-  $query = 'update '.$prefixeTable.'categories';
+  $query = 'update '.PREFIX_TABLE.'categories';
   $query.= ' set rank = '.$new_rank;
   $query.= ' where id = '.$_GET['down'];
   $query.= ';';
   mysql_query( $query );
-  $query = 'update '.$prefixeTable.'categories';
+  $query = 'update '.PREFIX_TABLE.'categories';
   $query.= ' set rank = '.$rank;
   $query.= ' where id = '.$replaced_cat;
   $query.= ';';
@@ -114,12 +113,10 @@ if ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
 //------------------------------------------------------------------ reordering
 function ordering( $id_uppercat )
 {
-  global $prefixeTable;
-		
   $rank = 1;
 		
   $query = 'select id';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
     $query.= ' where id_uppercat is NULL';
@@ -133,7 +130,7 @@ function ordering( $id_uppercat )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $query = 'update '.$prefixeTable.'categories';
+    $query = 'update '.PREFIX_TABLE.'categories';
     $query.= ' set rank = '.$rank;
     $query.= ' where id = '.$row['id'];
     $query.= ';';
@@ -148,11 +145,11 @@ ordering( 'NULL' );
 function display_cat_manager( $id_uppercat, $indent,
                               $uppercat_visible, $level )
 {
-  global $prefixeTable,$lang,$conf,$sub,$vtp;
+  global $lang,$conf,$sub,$vtp;
 		
   // searching the min_rank and the max_rank of the category
   $query = 'select min(rank) as min, max(rank) as max';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
     $query.= ' where id_uppercat is NULL';
@@ -180,7 +177,7 @@ function display_cat_manager( $id_uppercat, $indent,
   }
 		
   $query = 'select id,name,dir,nb_images,status,rank,site_id';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
     $query.= ' where id_uppercat is NULL';

@@ -4,7 +4,7 @@ include_once( './include/functions.inc.php' );
 database_connection();
 // récupération des informations de configuration du site
 $query  = 'select acces ';
-$query .= 'from '.$prefixeTable.'config;';
+$query .= 'from '.PREFIX_TABLE.'config;';
 $row = mysql_fetch_array( mysql_query( $query ) );
 $url = 'category';
 if ( $row['acces'] == 'restreint' )

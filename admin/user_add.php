@@ -63,7 +63,7 @@ if ( !isset( $_POST['status'] ) )
 {
   $_POST['status'] = 'guest';
 }
-$option = get_enums( $prefixeTable.'users', 'status' );
+$option = get_enums( PREFIX_TABLE.'users', 'status' );
 for ( $i = 0; $i < sizeof( $option ); $i++ )
 {
   $vtp->addSession( $sub, 'status_option' );

@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *             upload.php is a part of PhpWebGallery                       *
+ *                                 upload.php                              *
  *                            -------------------                          *
- *   last update          : Sunday, October 27, 2002                       *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -14,10 +14,9 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-function get_extension( $filename )
-{
-  return substr ( strrchr( $filename, "." ), 1, strlen ( $filename ) );
-}
+
+//------------------------------------------------------------------- functions
+
 // The validate_upload function checks if the image of the given path is valid.
 // A picture is valid when :
 //     - width, height and filesize are not higher than the maximum
@@ -37,7 +36,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   $i = 0;
   //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
-  if ( $extension != 'gif' && $extension != 'jpg' && $extension != 'png' )
+  if ( $extension != 'gif' and $extension != 'jpg' and $extension != 'png' )
   {
     $result['error'][$i++] = $lang['upload_advise_filetype'];
     return $result;
@@ -49,7 +48,8 @@ function validate_upload( $temp_name, $my_max_file_size,
   }
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
-    $result['error'][$i++] = $lang['upload_advise_width'].$my_max_file_size." KB";
+    $result['error'][$i++] =
+      $lang['upload_advise_width'].$my_max_file_size.' KB';
   }
   else
   {
@@ -63,21 +63,23 @@ function validate_upload( $temp_name, $my_max_file_size,
     {
       $size = getimagesize( $temp_name );
       if ( isset( $image_max_width )
-           && $image_max_width != ""
-           && $size[0] > $image_max_width )
+           and $image_max_width != ""
+           and $size[0] > $image_max_width )
       {
-        $result['error'][$i++] = $lang['upload_advise_width'].$image_max_width." px";
+        $result['error'][$i++] =
+          $lang['upload_advise_width'].$image_max_width." px";
       }
       if ( isset( $image_max_height )
-           && $image_max_height != ""
-           && $size[1] > $image_max_height )
+           and $image_max_height != ""
+           and $size[1] > $image_max_height )
       {
-        $result['error'][$i++] = $lang['upload_advise_height'].$image_max_height." px";
+        $result['error'][$i++] =
+          $lang['upload_advise_height'].$image_max_height." px";
       }
       // $size[2] == 1 means GIF
       // $size[2] == 2 means JPG
       // $size[2] == 3 means PNG
-      if ( $size[2] != 1 && $size[2] != 2 && $size[2] != 3 )
+      if ( $size[2] != 1 and $size[2] != 2 and $size[2] != 3 )
       {
         $result['error'][$i++] = $lang['upload_advise_filetype'];
       }
@@ -86,20 +88,11 @@ function validate_upload( $temp_name, $my_max_file_size,
         switch ( $size[2] )
         {
         case 1 :
-        {
-          $result['type'] = 'gif';
-          break;
-        }
+          $result['type'] = 'gif'; break;
         case 2 :
-        {
-          $result['type'] = 'jpg';
-          break;
-        }
+          $result['type'] = 'jpg'; break;
         case 3 :
-        {
-          $result['type'] = 'png';
-          break;
-        }
+          $result['type'] = 'png'; break;
         }
       }
     }
@@ -116,7 +109,7 @@ include_once( './include/init.inc.php' );
 //-------------------------------------------------- access authorization check
 check_login_authorization();
 check_cat_id( $_GET['cat'] );
-if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
+if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
   $result = get_cat_info( $page['cat'] );
@@ -129,33 +122,26 @@ else
   $access_forbidden = true;
 }
 if ( $access_forbidden == true
-     || $page['cat_site_id'] != 1
-     || $conf['upload_available'] == 'false' )
+     or $page['cat_site_id'] != 1
+     or $conf['upload_available'] == 'false' )
 {
-  echo"<div style=\"text-align:center;\">".$lang['upload_forbidden']."<br />";
-  echo "<a href=\"".add_session_id_to_url( "./diapo.php" )."\">".$lang['thumbnails']."</a></div>";
+  echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
+  echo '<a href="'.add_session_id_to_url( './diapo.php' ).'">';
+  echo $lang['thumbnails'].'</a></div>';
   exit();
 }
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
-$handle = $vtp->Open( './template/default/upload.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'upload_page_title',$lang['upload_title'] );
-$vtp->setGlobalVar( $handle, 'upload_title',     $lang['upload_title'] );
-$vtp->setGlobalVar( $handle, 'upload_username',  $lang['upload_username'] );
-$vtp->setGlobalVar( $handle, 'reg_mail_address', $lang['reg_mail_address'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-$vtp->setGlobalVar( $handle, 'upload_successful',$lang['upload_successful'] );
-$vtp->setGlobalVar( $handle, 'search_return_main_page',
-                    $lang['search_return_main_page'] );
+$handle = $vtp->Open( './template/'.$user['template'].'/upload.vtp' );
+initialize_template();
+
+$tpl = array( 'upload_title', 'upload_username', 'mail_address', 'submit',
+              'upload_successful', 'search_return_main_page' );
+templatize_array( $tpl, 'lang', $sub );
 // user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-$vtp->setGlobalVar( $handle, 'user_login',       $user['pseudo'] );
+$vtp->setGlobalVar( $handle, 'style',            $user['style'] );
+$vtp->setGlobalVar( $handle, 'user_login',       $user['username'] );
 $vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
 
 $error = array();
 $i = 0;
@@ -166,7 +152,7 @@ if ( isset( $_GET['waiting_id'] ) )
 }
 //-------------------------------------------------------------- picture upload
 // vérification de la présence et de la validité des champs.
-if ( isset( $_POST['submit'] ) && !isset( $_GET['waiting_id'] ) )
+if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 {
   $path = $page['cat_dir'].$_FILES['picture']['name'];
   if ( @is_file( $path ) )
@@ -202,7 +188,7 @@ if ( isset( $_POST['submit'] ) && !isset( $_GET['waiting_id'] ) )
 
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'insert into '.$prefixeTable.'waiting';
+    $query = 'insert into '.PREFIX_TABLE.'waiting';
     $query.= ' (cat_id,file,username,mail_address,date) values';
     $query.= " (".$page['cat'].",'".$_FILES['picture']['name']."'";
     $query.= ",'".htmlspecialchars( $_POST['username'], ENT_QUOTES)."'";
@@ -213,11 +199,11 @@ if ( isset( $_POST['submit'] ) && !isset( $_GET['waiting_id'] ) )
   }
 }
 //------------------------------------------------------------ thumbnail upload
-if ( isset( $_POST['submit'] ) && isset( $_GET['waiting_id'] ) )
+if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
 {
   // upload of the thumbnail
   $query = 'select file';
-  $query.= ' from '.$prefixeTable.'waiting';
+  $query.= ' from '.PREFIX_TABLE.'waiting';
   $query.= ' where id = '.$_GET['waiting_id'];
   $query.= ';';
   $result= mysql_query( $query );
@@ -236,7 +222,7 @@ if ( isset( $_POST['submit'] ) && isset( $_GET['waiting_id'] ) )
   }
   if ( sizeof( $error ) == 0 )
   {
-    $query = 'update '.$prefixeTable.'waiting';
+    $query = 'update '.PREFIX_TABLE.'waiting';
     $query.= " set tn_ext = '".$extension."'";
     $query.= ' where id = '.$_GET['waiting_id'];
     $query.= ';';

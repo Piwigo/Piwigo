@@ -24,7 +24,7 @@ if ( isset( $_POST['login'] ) )
   $i = 0;
   // retrieving the encrypted password of the login submitted
   $query = 'select password';
-  $query.= ' from '.$prefixeTable.'users';
+  $query.= ' from '.PREFIX_TABLE.'users';
   $query.= " where username = '".$_POST['login']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   if( $row['password'] == md5( $_POST['pass'] ) )
@@ -77,7 +77,7 @@ if ( sizeof( $error ) != 0 )
 }
 //------------------------------------------------------------------ users list
 // retrieving all the users login
-$query = 'select username from '.$prefixeTable.'users;';
+$query = 'select username from '.PREFIX_TABLE.'users;';
 $result = mysql_query( $query );
 if ( mysql_num_rows ( $result ) < $conf['max_user_listbox'] )
 {
@@ -114,7 +114,7 @@ if ( $conf['acces'] == "libre" )
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
-$query = 'insert into '.$prefixeTable.'history';
+$query = 'insert into '.PREFIX_TABLE.'history';
 $query.= '(date,login,IP,page) values';
 $query.= "('".time()."', '".$user['pseudo'];
 $query.= "','$REMOTE_ADDR','identification');";

@@ -3,6 +3,7 @@
  *                             configuration.php                           *
  *                            -------------------                          *
  *   application          : PhpWebGallery 1.3                              *
+ *   website              : http://www.phpwebgallery.net                   *
  *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
@@ -34,17 +35,16 @@ $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A",
                 "ù" => "u", "ú" => "u", "û" => "u", "ü" => "u", 
                 "ý" => "y", "ÿ" => "y");
 //------------------------------ verification and registration of modifications
-$conf_infos = array( 'prefixe_thumbnail', 'webmaster', 'mail_webmaster',
-                     'acces', 'session_id_size', 'session_time',
-                     'session_keyword', 'max_user_listbox', 'show_comments',
-                     'nb_comment_page', 'upload_available',
-                     'upload_maxfilesize', 'upload_maxwidth',
-                     'upload_maxheight', 'upload_maxwidth_thumbnail',
-                     'upload_maxheight_thumbnail' );
-$default_user_infos = array( 'nb_image_line', 'nb_line_page', 'theme',
-                             'language', 'maxwidth', 'maxheight', 'expand',
-                             'show_nb_comments', 'short_period', 'long_period',
-                             'template' );
+$conf_infos =
+array( 'prefixe_thumbnail','webmaster','mail_webmaster','acces',
+       'session_id_size','session_time','session_keyword','max_user_listbox',
+       'show_comments','nb_comment_page','upload_available',
+       'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
+       'upload_maxwidth_thumbnail','upload_maxheight_thumbnail' );
+$default_user_infos =
+array( 'nb_image_line','nb_line_page','theme','language','maxwidth',
+       'maxheight','expand','show_nb_comments','short_period','long_period',
+       'template' );
 $error = array();
 $i = 0;
 if ( $_GET['valider'] == 1 )
@@ -52,13 +52,13 @@ if ( $_GET['valider'] == 1 )
   //purge de la table des session si demandé
   if ( $_POST['empty_session_table'] == 1 )
   {
-    $query = 'delete from '.$prefixeTable.'sessions';
+    $query = 'delete from '.PREFIX_TABLE.'sessions';
     $query.= ' where expiration < '.time().';';
     mysql_query( $query );
   }
   // deletion of site as asked
   $query = 'select id';
-  $query.= ' from '.$prefixeTable.'sites';
+  $query.= ' from '.PREFIX_TABLE.'sites';
   $query.= " where galleries_url <> './galleries/';";
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -182,8 +182,8 @@ if ( $_GET['valider'] == 1 )
   // dans le cas où il n'y aucune erreurs
   if ( sizeof( $error ) == 0 )
   {
-    mysql_query( 'delete from '.$prefixeTable.'config;' );
-    $query = 'insert into '.$prefixeTable.'config';
+    mysql_query( 'delete from '.PREFIX_TABLE.'config;' );
+    $query = 'insert into '.PREFIX_TABLE.'config';
     $query.= ' (';
     for ( $i = 0; $i < sizeof( $conf_infos ); $i++ )
     {
@@ -219,7 +219,7 @@ if ( $_GET['valider'] == 1 )
     $tab_theme = explode( ' - ', $_POST['theme'] );
     $_POST['theme'] = $tab_theme[0].'/'.$tab_theme[1];
 
-    $query = 'update '.$prefixeTable.'users';
+    $query = 'update '.PREFIX_TABLE.'users';
     $query.= ' set';
     for ( $i = 0; $i < sizeof( $default_user_infos ); $i++ )
     {
@@ -271,7 +271,7 @@ else
     }
     $query.= $conf_infos[$i];
   }
-  $query .= ' from '.$prefixeTable.'config;';
+  $query .= ' from '.PREFIX_TABLE.'config;';
 
   $row = mysql_fetch_array( mysql_query( $query ) );
 
@@ -292,7 +292,7 @@ else
     }
     $query.= $default_user_infos[$i];
   }
-  $query .= ' from '.$prefixeTable.'users';
+  $query .= ' from '.PREFIX_TABLE.'users';
   $query.= " where username = 'guest'";
   $query.= ';';
 
@@ -308,8 +308,7 @@ $sub = $vtp->Open( '../template/'.$user['template'].
                    '/admin/configuration.vtp' );
 // language
 $vtp->setGlobalVar( $sub, 'conf_confirmation',  $lang['conf_confirmation'] );
-$vtp->setGlobalVar( $sub, 'conf_remote_site_title',
-                    $lang['conf_remote_site_title'] );
+$vtp->setGlobalVar( $sub, 'remote_site',        $lang['remote_site'] );
 $vtp->setGlobalVar( $sub, 'delete',             $lang['delete'] );
 $vtp->setGlobalVar( $sub, 'conf_remote_site_delete_info',
                     $lang['conf_remote_site_delete_info'] );
@@ -885,7 +884,7 @@ $vtp->closeSession( $sub, 'space_line' );
 $vtp->closeSession( $sub, 'line' );
 //------------------------------------------------ remote sites administration 
 $query = 'select id,galleries_url';
-$query.= ' from '.$prefixeTable.'sites';
+$query.= ' from '.PREFIX_TABLE.'sites';
 $query.= " where galleries_url <> './galleries/';";
 $result = mysql_query( $query );
 if ( mysql_num_rows( $result ) > 0 )

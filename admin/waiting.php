@@ -19,7 +19,7 @@
 	if ( isset( $HTTP_POST_VARS['submit'] ) )
 	{
 		$query = "select id,cat_id,file,tn_ext";
-		$query.= " from $prefixeTable"."waiting";
+		$query.= " from PREFIX_TABLE"."waiting";
 		$query.= ";";
 		$result = mysql_query( $query );
 		while ( $row = mysql_fetch_array( $result ) )
@@ -27,7 +27,7 @@
 			$key = "validate-".$row['id'];
 			if ( isset( $HTTP_POST_VARS[$key] ) )
 			{
-				$query = "delete from $prefixeTable"."waiting";
+				$query = "delete from PREFIX_TABLE"."waiting";
 				$query.= " where id = ".$row['id'];
 				$query.= ";";
 				mysql_query( $query );
@@ -59,7 +59,7 @@
 					<th style=\"width:1px;\">&nbsp;</th>
 				</tr>";
 	$query = "select id,cat_id,file,username,mail_address,date,tn_ext";
-	$query.= " from $prefixeTable"."waiting";
+	$query.= " from PREFIX_TABLE"."waiting";
 	$query.= " order by cat_id";
 	$query.= ";";
 	$result = mysql_query( $query );

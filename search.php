@@ -82,7 +82,7 @@ $vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
-$query = 'insert into '.$prefixeTable.'history';
+$query = 'insert into '.PREFIX_TABLE.'history';
 $query.= '(date,login,IP,page) values';
 $query.= "('".time()."', '".$user['pseudo']."','".$_SERVER['REMOTE_ADDR']."'";
 $query.= ",'search');";

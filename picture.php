@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *                 picture.php is a part of PhpWebGallery                  *
+ *                                picture.php                              *
  *                            -------------------                          *
- *   last update          : Tuesday, July 16, 2002                         *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -28,7 +28,7 @@ if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
   check_restrictions( $page['cat'] );
 }
 //---------------------------------------- incrementation of the number of hits
-$query = 'update '.$prefixeTable.'images';
+$query = 'update '.PREFIX_TABLE.'images';
 $query.= ' set hit=hit+1';
 $query.= ' where id='.$_GET['image_id'];
 $query.= ';';
@@ -39,7 +39,7 @@ $cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
 $query = 'select id,date_available,comment,hit';
 $query.= ',author,name,file,date_creation,filesize,width,height,cat_id';
-$query.= ' from '.$prefixeTable.'images';
+$query.= ' from '.PREFIX_TABLE.'images';
 $query.= $page['where'];
 $query.= ' and id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
@@ -60,7 +60,7 @@ $page['height']         = $row['height'];
 $page['cat_id']         = $row['cat_id'];
 // retrieving the number of the picture in its category (in order)
 $query = 'select id';
-$query.= ' from '.$prefixeTable.'images';
+$query.= ' from '.PREFIX_TABLE.'images';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 $query.= ';';
@@ -79,7 +79,7 @@ if ( isset( $_GET['add_fav'] ) )
   {
     // verify if the picture is already in the favorite of the user
     $query = 'select count(*) as nb_fav';
-    $query.= ' from '.$prefixeTable.'favorites';
+    $query.= ' from '.PREFIX_TABLE.'favorites';
     $query.= ' where image_id = '.$page['id'];
     $query.= ' and user_id = '.$user['id'];
     $query.= ';';
@@ -87,7 +87,7 @@ if ( isset( $_GET['add_fav'] ) )
     $row = mysql_fetch_array( $result );
     if ( $row['nb_fav'] == 0 )
     {
-      $query = 'insert into '.$prefixeTable.'favorites';
+      $query = 'insert into '.PREFIX_TABLE.'favorites';
       $query.= ' (image_id,user_id) values';
       $query.= ' ('.$page['id'].','.$user['id'].')';
       $query.= ';';
@@ -96,7 +96,7 @@ if ( isset( $_GET['add_fav'] ) )
   }
   if ( $_GET['add_fav'] == 0 )
   {
-    $query = 'delete from '.$prefixeTable.'favorites';
+    $query = 'delete from '.PREFIX_TABLE.'favorites';
     $query.= ' where user_id = '.$user['id'];
     $query.= ' and image_id = '.$page['id'];
     $query.= ';';
@@ -121,7 +121,7 @@ if ( isset( $_GET['add_fav'] ) )
       $page['num'] = 0;
     }
     $query = 'select id';
-    $query.= ' from '.$prefixeTable.'images';
+    $query.= ' from '.PREFIX_TABLE.'images';
     $query.= $page['where'];
     $query.= $conf['order_by'];
     $query.= ' limit '.$page['num'].',1';
@@ -173,7 +173,7 @@ if ( $page['num'] >= 1 )
 {
   $prev = $page['num'] - 1;
   $query = 'select id,name,file,tn_ext,cat_id';
-  $query.= ' from '.$prefixeTable.'images';
+  $query.= ' from '.PREFIX_TABLE.'images';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' limit '.$prev.',1';
@@ -421,12 +421,12 @@ if ( $user['status'] == "admin" && is_numeric( $page['cat'] ) )
 if ( $page['num'] < $page['cat_nb_images']-1 )
 {
   $next = $page['num'] + 1;
-  $query = "select id,name,file,tn_ext,cat_id";
-  $query.= " from $prefixeTable"."images";
+  $query = 'SELECT id,name,file,tn_ext,cat_id';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= $page['where'];
   $query.= $conf['order_by'];
-  $query.= " limit $next,1";
-  $query.= ";";
+  $query.= ' LIMIT '.$next.',1';
+  $query.= ';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
                 
@@ -485,7 +485,7 @@ if ( $conf['show_comments'] )
     {
       $author = $_POST['author'];
     }
-    $query = 'insert into '.$prefixeTable.'comments';
+    $query = 'insert into '.PREFIX_TABLE.'comments';
     $query.= ' (author,date,image_id,content) values';
     $query.= " ('".$author."',".time().",".$page['id'];
     $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."');";
@@ -496,13 +496,13 @@ if ( $conf['show_comments'] )
        && is_numeric( $_GET['del'] )
        && $user['status'] == 'admin' )
   {
-    $query = 'delete from '.$prefixeTable.'comments';
+    $query = 'delete from '.PREFIX_TABLE.'comments';
     $query.= ' where id = '.$_GET['del'].';';
     mysql_query( $query );
   }
   // number of comment for this picture
   $query = 'select count(*) as nb_comments';
-  $query.= ' from '.$prefixeTable.'comments';
+  $query.= ' from '.PREFIX_TABLE.'comments';
   $query.= ' where image_id = '.$page['id'].';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $page['nb_comments'] = $row['nb_comments'];
@@ -532,7 +532,7 @@ if ( $conf['show_comments'] )
   $vtp->setGlobalVar( $handle, 'nb_comments', $page['nb_comments'] );
 
   $query = 'select id,author,date,image_id,content';
-  $query.= ' from '.$prefixeTable.'comments';
+  $query.= ' from '.PREFIX_TABLE.'comments';
   $query.= ' where image_id = '.$page['id'];
   $query.= ' order by date asc';
   $query.= ' limit '.$page['start'].', '.$conf['nb_comment_page'].';';
@@ -581,7 +581,7 @@ mysql_close();
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
-$query = 'insert into '.$prefixeTable.'history';
+$query = 'insert into '.PREFIX_TABLE.'history';
 $query.= ' (date,login,IP,page,titre,categorie) values';
 $query.= " (".time().", '".$user['pseudo']."','".$_SERVER['REMOTE_ADDR']."'";
 $query.= ",'picture','".$page['file']."','".$intitule_cat."');";

@@ -53,7 +53,7 @@ if ( $user['expand'] == 'true' or $_GET['expand'] == 'all' )
 {
   $page['tab_expand'] = array();
   $query = 'select id';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id_uppercat is null;';
   $result = mysql_query( $query );
   $i = 0;
@@ -125,7 +125,7 @@ if ( !$user['is_the_guest'] )
   $vtp->setVar( $handle, 'favorites.url', $url );
   // searching the number of favorite picture
   $query = 'select count(*) as count';
-  $query.= ' from '.$prefixeTable.'favorites';
+  $query.= ' from '.PREFIX_TABLE.'favorites';
   $query.= ' where user_id = '.$user['id'].';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
@@ -240,7 +240,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   
   $query = 'select id,file,date_available,comment,';
   $query.= ' author,tn_ext,name,filesize,width,height,cat_id';
-  $query.= ' from '.$prefixeTable.'images';
+  $query.= ' from '.PREFIX_TABLE.'images';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' limit '.$page['start'].','.$page['nb_image_page'];
@@ -339,7 +339,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     {
       $vtp->addSession( $handle, 'nb_comments' );
       $query = 'select count(*) as nb_comments';
-      $query.= ' from '.$prefixeTable.'comments';
+      $query.= ' from '.PREFIX_TABLE.'comments';
       $query.= ' where image_id = '.$row['id'];
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
@@ -373,7 +373,7 @@ elseif ( isset( $page['cat'] )
   $vtp->addSession( $handle, 'thumbnails' );
   
   $query = 'select id,name,dir,date_dernier';
-  $query.= ' from '.$prefixeTable.'categories';
+  $query.= ' from '.PREFIX_TABLE.'categories';
   $query.= ' where id_uppercat = '.$page['cat'];
   $query.= ' order by rank;';
   $cat_result = mysql_query( $query );
@@ -397,7 +397,7 @@ elseif ( isset( $page['cat'] )
     $name = replace_space( $name );
     
     $query = 'select file,tn_ext';
-    $query.= ' from '.$prefixeTable.'images';
+    $query.= ' from '.PREFIX_TABLE.'images';
     $query.= ' where cat_id = '.$cat_row['id'];
     $query.= ' order by rand()';
     $query.= ' limit 0,1';

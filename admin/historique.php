@@ -18,7 +18,7 @@
 	
 	if ( $HTTP_GET_VARS['empty'] == 1 )
 	{
-		mysql_query( "delete from $prefixeTable"."history;" );
+		mysql_query( "delete from PREFIX_TABLE"."history;" );
 	}
 	define (NB_JOUR_HISTO,"7");
 	$tMois  = array("janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
@@ -28,7 +28,7 @@
 	// il faut trouver le unix date de la veille à 00h00 :
 	// time (); nous donne le nombre de secondes actuelle
 	$date_ref = time() - (7*24*60*60);
-	$result = mysql_query( "select date,login,IP,categorie,page,titre,commentaire from $prefixeTable"."history where date > '$date_ref' order by date desc;");
+	$result = mysql_query( "select date,login,IP,categorie,page,titre,commentaire from PREFIX_TABLE"."history where date > '$date_ref' order by date desc;");
 	echo"<div style=\"text-align:center;\"><a href=\"".add_session_id_to_url( "./admin.php?page=historique&amp;empty=1" )."\">empty / vider</a></div>";
 	echo"<div style=\"color:green;text-align:center;margin:10px\">";
 	// affichage de la date du jour
@@ -71,7 +71,7 @@
 									</tr>";
 					// 2. affichage de tous les évènements pour le jour donné
 					// entre la veille à 23h59m59s et le jour même 23h59m59s
-					$result = mysql_query("select date,login,IP,categorie,page,titre,commentaire from $prefixeTable"."history where date > '$debut' and date < '$fin' order by date desc;");
+					$result = mysql_query("select date,login,IP,categorie,page,titre,commentaire from PREFIX_TABLE"."history where date > '$debut' and date < '$fin' order by date desc;");
 					$fin = $debut;
 					// on recule le début d'une journée complète
 					$debut = $debut - 24*60*60;

@@ -41,7 +41,7 @@ $vtp->setGlobalVar( $sub, 'listuser_button_create_address',
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
   $query = 'select username';
-  $query.= ' from '.$prefixeTable.'users';
+  $query.= ' from '.PREFIX_TABLE.'users';
   $query.= ' where id = '.$_GET['delete'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
@@ -65,7 +65,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
          and $row['username'] != $conf['webmaster'] )
     {
       $query = 'select count(*) as nb_result';
-      $query.= ' from '.$prefixeTable.'users';
+      $query.= ' from '.PREFIX_TABLE.'users';
       $query.= ' where id = '.$_GET['delete'];
       $query.= ';';
       $row2 = mysql_fetch_array( mysql_query( $query ) );
@@ -103,7 +103,7 @@ else
   $vtp->setVar( $sub, 'users.form_action', $action );
 
   $query = 'select id,username,status,mail_address';
-  $query.= ' from '.$prefixeTable.'users';
+  $query.= ' from '.PREFIX_TABLE.'users';
   $query.= ' order by status asc, username asc';
   $query.= ';';
   $result = mysql_query( $query );
@@ -217,7 +217,7 @@ else
     $i = 0;
     $query = 'select';
     $query.= ' id,mail_address';
-    $query.= ' from '.$prefixeTable.'users';
+    $query.= ' from '.PREFIX_TABLE.'users';
     $query.= ';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )

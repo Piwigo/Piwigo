@@ -92,7 +92,7 @@ if ( isset( $_POST['submit'] ) )
     $tab_theme = explode( ' - ', $_POST['theme'] );
     $_POST['theme'] = $tab_theme[0].'/'.$tab_theme[1];
 
-    $query = 'update '.$prefixeTable.'users';
+    $query = 'update '.PREFIX_TABLE.'users';
     $query.= ' set';
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
     {
@@ -121,7 +121,7 @@ if ( isset( $_POST['submit'] ) )
 
     if ( $_POST['use_new_pwd'] == 1 )
     {
-      $query = 'update '.$prefixeTable.'users';
+      $query = 'update '.PREFIX_TABLE.'users';
       $query.= " set password = '".md5( $_POST['password'] )."'";
       $query.= ' where id = '.$user['id'];
       $query.= ';';

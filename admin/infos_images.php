@@ -53,7 +53,7 @@
 		//------------------------------------------------------------mises à jour
 		// 1. options individuelles
 		$query = "select id,file ";
-		$query.= "from $prefixeTable"."images ";
+		$query.= "from PREFIX_TABLE"."images ";
 		$query.= "where cat_id = ".$page['cat']." ";
 		$result = mysql_query( $query );
 		$i = 1;
@@ -65,7 +65,7 @@
 			$date_creation = "date_creation-".$row['id'];
 			if ( isset( $HTTP_POST_VARS[$name] ) )
 			{
-				$query = "update $prefixeTable"."images ";
+				$query = "update PREFIX_TABLE"."images ";
 				if ( $HTTP_POST_VARS[$name] == "" )
 				{
 					$query.= "set name = NULL ";
@@ -106,7 +106,7 @@
 		// 2. options générales
 		if ( $HTTP_POST_VARS['use_common_author'] == 1 )
 		{
-			$query = "update $prefixeTable"."images ";
+			$query = "update PREFIX_TABLE"."images ";
 			if ( $HTTP_POST_VARS['author_cat'] == "" )
 			{
 				$query.= "set author = NULL ";
@@ -125,7 +125,7 @@
 			if ( check_date_format( $HTTP_POST_VARS['date_creation_cat'] ) )
 			{
 				$date = date_convert( $HTTP_POST_VARS['date_creation_cat'] );
-				$query = "update $prefixeTable"."images ";
+				$query = "update PREFIX_TABLE"."images ";
 				if ( $HTTP_POST_VARS['date_creation_cat'] == "" )
 				{
 					$query.= "set date_creation = NULL ";
@@ -200,7 +200,7 @@
 					<td class=\"row2\" style=\"text-align:center;\">".$lang['infoimage_creation_date']."</td>
 				</tr>";
 		$query = "select id,file,comment,author,tn_ext,name,date_creation";
-		$query.= " from $prefixeTable"."images";
+		$query.= " from PREFIX_TABLE"."images";
 		$query.= " where cat_id = ".$page['cat'];
 		$query.= $conf['order_by'];
 		$query.= " limit ".$page['start'].",".$page['nb_image_page'];

@@ -18,7 +18,7 @@
 	
 	if ( $HTTP_GET_VARS['valider'] == 1 )
 	{
-		$query = "update $prefixeTable"."categories ";
+		$query = "update PREFIX_TABLE"."categories ";
 		if ( $HTTP_POST_VARS['name'] == "" )
 		{
 			$query.= "set name = NULL, ";
@@ -39,7 +39,7 @@
 		$query.= "where id = '".$HTTP_GET_VARS['cat']."';";
 		mysql_query( $query );
 		
-		$result = mysql_query( "select id from $prefixeTable"."users where pseudo != '".$conf['webmaster']."';" );
+		$result = mysql_query( "select id from PREFIX_TABLE"."users where pseudo != '".$conf['webmaster']."';" );
 		while ( $row = mysql_fetch_array ( $result ) )
 		{
 			check_favorites( $row['id'] );
@@ -52,7 +52,7 @@
 	<form action=\"".add_session_id_to_url( "./admin.php?page=edit_cat&amp;cat=".$HTTP_GET_VARS['cat']."&amp;valider=1" )."\" method=\"post\">
 		<table style=\"width:100%;\">";
 	$query = "select a.id,name,dir,status,comment,id_uppercat,site_id,galleries_url";
-	$query.= " from $prefixeTable"."categories as a, $prefixeTable"."sites as b";
+	$query.= " from PREFIX_TABLE"."categories as a, PREFIX_TABLE"."sites as b";
 	$query.= " where a.id = ".$HTTP_GET_VARS['cat'];
 	$query.= " and a.site_id = b.id;";
 	$row = mysql_fetch_array( mysql_query( $query ) );
@@ -86,7 +86,7 @@
 	// on récupère toutes les status possibles dans la base 
 	// par l'intermédiaire de la fonction get_enums trouvable 
 	// dans le fichier config.php
-	$option = get_enums( $prefixeTable."categories", "status" );
+	$option = get_enums( PREFIX_TABLE."categories", "status" );
 	for ( $i = 0; $i < sizeof( $option ); $i++ )
 	{
 		if ( $option[$i] == $row['status'] )

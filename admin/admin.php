@@ -35,7 +35,7 @@ switch ( $_GET['page'] )
    $titre = $lang['title_modify'];        $page_valide = true; break;
  case 'historique':
    $titre = $lang['title_history'];       $page_valide = true; break;
- case 'miseajour':
+ case 'update':
    $titre = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
    $titre = $lang['title_configuration']; $page_valide = true; break;
@@ -115,7 +115,7 @@ $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'waiting' ) );
-$query = 'select id from '.$prefixeTable.'waiting;';
+$query = 'select id from '.PREFIX_TABLE.'waiting;';
 $result = mysql_query( $query );
 $nb_waiting = '';
 if ( mysql_num_rows( $result ) > 0 )
@@ -128,7 +128,7 @@ $vtp->closeSession( $handle, 'summary' );
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'miseajour' ) );
+              add_session_id( $link_start.'update' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_update'] );
 $vtp->closeSession( $handle, 'summary' );
 // thumbnails

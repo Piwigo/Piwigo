@@ -1,128 +1,162 @@
 <?php
-	$prefixe_thumbnail = "TN-";
+$prefixe_thumbnail = 'TN-';
 	
-	
-	$tab_ext = array ( 'jpg', 'JPG','gif','GIF','png','PNG' );
+$conf['picture_ext'] = array ( 'jpg', 'gif', 'png', 'JPG', 'GIF', 'PNG' );
 
-	$listing = "";
-	
-	$local_folder = substr( $PHP_SELF, 0, strrpos( $PHP_SELF, "/" ) + 1 );
-	$url = "http://".$HTTP_HOST.$local_folder;
-	$listing.= "<url>$url</url>";
-	
-	// get_dirs retourne un tableau contenant tous les sous-répertoires d'un répertoire
-	function get_dirs( $rep, $indent, $level )
-	{
-		$sub_rep = array();
-		$i = 0;
-		$dirs = "";
-		if ( $opendir = opendir ( $rep ) )
-		{
-			while ( $file = readdir ( $opendir ) )
-			{
-				if ( $file != "." && $file != ".." && is_dir ( $rep."/".$file ) && $file != "thumbnail" )
-				{
-					$sub_rep[$i++] = $file;
-				}
-			}
-		}
-		// write of the dirs
-		for ( $i = 0; $i < sizeof( $sub_rep ); $i++ )
-		{
-			$dirs.= "\n".$indent."<dir".$level.">";
-			$dirs.= "\n".$indent."\t<name>".$sub_rep[$i]."</name>";
-			$dirs.= get_pictures( $rep."/".$sub_rep[$i], $indent."\t" );
-			$dirs.= get_dirs( $rep."/".$sub_rep[$i], $indent."\t", $level + 1 );
-			$dirs.= "\n".$indent."</dir".$level.">";
-		}
-		return $dirs;		
-	}
-	
-	function is_image ( $filename )
-	{
-		global $tab_ext;
-		if ( in_array ( substr ( strrchr($filename,"."), 1, strlen ( $filename ) ), $tab_ext ) )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	function TN_exist ( $dir, $file )
-	{
-		global $tab_ext, $prefixe_thumbnail;
-		
-		$titre = substr ( $file, 0, -4 );
-		for ( $i = 0; $i < sizeof ( $tab_ext ); $i++ )
-		{
-			$test = $dir."/thumbnail/".$prefixe_thumbnail.$titre.".".$tab_ext[$i];
-			if ( is_file ( $test ) )
-			{
-				return $tab_ext[$i];
-			}
-		}
-		return false;
-	}
+$listing = '';
 
-	function get_pictures( $rep, $indent )
-	{
-		$pictures = array();		
-		$i = 0;
-		$tn_ext = "";
-		$root = "";
-		if ( $opendir = opendir ( $rep ) )
-		{
-			while ( $file = readdir ( $opendir ) )
-			{
-				if ( is_image( $file ) && $tn_ext = TN_exist( $rep, $file ) )
-				{
-					$pictures[$i] = array();
-					$pictures[$i]['file'] = $file;
-					$pictures[$i]['tn_ext'] = $tn_ext;
-					$pictures[$i]['date'] = date( "Y-m-d", filemtime ( $rep."/".$file ) );
-					$pictures[$i]['filesize'] = floor ( filesize( $rep."/".$file ) / 1024 );
-					$image_size = @getimagesize( $rep."/".$file );
-					$pictures[$i]['width'] = $image_size[0];
-					$pictures[$i]['height'] = $image_size[1];
-					$i++;
-				}
-			}
-		}
-		// write of the node <root> with all the pictures at the root of the directory
-		$root.= "\n".$indent."<root>";
-		if ( sizeof( $pictures ) > 0 )
-		{
-			for( $i = 0; $i < sizeof( $pictures ); $i++ )
-			{
-				$root.= "\n".$indent."\t<picture>";
-				$root.= "\n".$indent."\t\t<file>".$pictures[$i]['file']."</file>";
-				$root.= "\n".$indent."\t\t<tn_ext>".$pictures[$i]['tn_ext']."</tn_ext>";
-				$root.= "\n".$indent."\t\t<date>".$pictures[$i]['date']."</date>";
-				$root.= "\n".$indent."\t\t<filesize>".$pictures[$i]['filesize']."</filesize>";
-				$root.= "\n".$indent."\t\t<width>".$pictures[$i]['width']."</width>";
-				$root.= "\n".$indent."\t\t<height>".$pictures[$i]['height']."</height>";
-				$root.= "\n".$indent."\t</picture>";
-			}
-		}
-		$root.= "\n".$indent."</root>";
-		return $root;
-	}
+$end = strrpos( $_SERVER['PHP_SELF'], '/' ) + 1;
+$local_folder = substr( $_SERVER['PHP_SELF'], 0, $end );
+$url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
 
-	$listing.= get_dirs( ".", "", 0 );
+$listing.= "<url>$url</url>";
+	
+// get_dirs retourne un tableau contenant tous les sous-répertoires d'un
+// répertoire
+function get_dirs( $rep, $indent, $level )
+{
+  $sub_rep = array();
+  $i = 0;
+  $dirs = "";
+  if ( $opendir = opendir ( $rep ) )
+  {
+    while ( $file = readdir ( $opendir ) )
+    {
+      if ( $file != "."
+           and $file != ".."
+           and is_dir ( $rep."/".$file )
+           and $file != "thumbnail" )
+      {
+        $sub_rep[$i++] = $file;
+      }
+    }
+  }
+  // write of the dirs
+  for ( $i = 0; $i < sizeof( $sub_rep ); $i++ )
+  {
+    $dirs.= "\n".$indent.'<dir'.$level.' name="'.$sub_rep[$i].'">';
+    $dirs.= get_pictures( $rep.'/'.$sub_rep[$i], $indent.'  ' );
+    $dirs.= get_dirs( $rep.'/'.$sub_rep[$i], $indent.'  ', $level + 1 );
+    $dirs.= "\n".$indent.'</dir'.$level.'>';
+  }
+  return $dirs;		
+}
 
-	if ( $fp = @fopen("./listing.xml","w") )
-	{
-		fwrite( $fp, $listing );
-		fclose( $fp );
-	}
-	else
-	{
-		echo "impossible de créer ou d'écrire dans le fichier listing.xml";
-	}
+// get_extension returns the part of the string after the last "."
+function get_extension( $filename )
+{
+  return substr( strrchr( $filename, '.' ), 1, strlen ( $filename ) );
+}
 
-	//echo str_replace( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", nl2br( htmlspecialchars( $listing, ENT_QUOTES ) ) );
-	echo "listing.xml created";
+// get_filename_wo_extension returns the part of the string before the last
+// ".".
+// get_filename_wo_extension( 'test.tar.gz' ) -> 'test.tar'
+function get_filename_wo_extension( $filename )
+{
+  return substr( $filename, 0, strrpos( $filename, '.' ) );
+}
+
+function is_image( $filename )
+{
+  global $conf;
+
+  if ( !is_dir( $filename )
+       and in_array( get_extension( $filename ), $conf['picture_ext'] ) )
+  {
+    return true;
+  }
+  return false;
+}
+
+function TN_exists( $dir, $file )
+{
+  global $conf, $prefixe_thumbnail;
+
+  $titre = get_filename_wo_extension( $file );
+
+  for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
+  {
+    $base_tn_name = $dir.'/thumbnail/'.$prefixe_thumbnail.$titre.'.';
+    $ext = $conf['picture_ext'][$i];
+    if ( is_file( $base_tn_name.$ext ) )
+    {
+      return $ext;
+    }
+  }
+  echo 'The thumbnail is missing for '.$dir.'/'.$file;
+  echo '-> '.$dir.'/thumbnail/'.$prefixe_thumbnail.$titre.'.xxx';
+  echo ' ("xxx" can be : ';
+  for ( $i = 0; $i < sizeof ( $conf['picture_ext'] ); $i++ )
+  {
+    if ( $i > 0 )
+    {
+      echo ', ';
+    }
+    echo '"'.$conf['picture_ext'][$i].'"';
+  }
+  echo ')<br />';
+  return false;
+}
+
+function get_pictures( $rep, $indent )
+{
+  $pictures = array();		
+
+  $tn_ext = '';
+  $root = '';
+  if ( $opendir = opendir ( $rep ) )
+  {
+    while ( $file = readdir ( $opendir ) )
+    {
+      if ( is_image( $file ) and $tn_ext = TN_exists( $rep, $file ) )
+      {
+        $picture = array();
+
+        $picture['file']     = $file;
+        $picture['tn_ext']   = $tn_ext;
+        $picture['date']     = date('Y-m-d',filemtime( $rep.'/'.$file ) );
+        $picture['filesize'] = floor( filesize( $rep."/".$file ) / 1024 );
+        $image_size = @getimagesize( $rep."/".$file );
+        $picture['width']    = $image_size[0];
+        $picture['height']   = $image_size[1];
+
+        array_push( $pictures, $picture );
+      }
+    }
+  }
+  // write of the node <root> with all the pictures at the root of the
+  // directory
+  $root.= "\n".$indent."<root>";
+  if ( sizeof( $pictures ) > 0 )
+  {
+    for( $i = 0; $i < sizeof( $pictures ); $i++ )
+    {
+      $root.= "\n".$indent.'  ';
+      $root.= '<picture';
+      $root.= ' file="'.     $pictures[$i]['file'].     '"';
+      $root.= ' tn_ext="'.   $pictures[$i]['tn_ext'].   '"';
+      $root.= ' date="'.     $pictures[$i]['date'].     '"';
+      $root.= ' filesize="'. $pictures[$i]['filesize']. '"';
+      $root.= ' width="'.    $pictures[$i]['width'].    '"';
+      $root.= ' height="'.   $pictures[$i]['height'].   '"';
+      $root.= ' />';
+    }
+  }
+  $root.= "\n".$indent.'</root>';
+  return $root;
+}
+
+$listing.= get_dirs( '.', '', 0 );
+
+if ( $fp = @fopen("./listing.xml","w") )
+{
+  fwrite( $fp, $listing );
+  fclose( $fp );
+}
+else
+{
+  echo "I can't write the file listing.xml";
+}
+
+echo "listing.xml created";
 ?>

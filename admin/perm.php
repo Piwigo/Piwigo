@@ -18,7 +18,7 @@
 	//---------------------------------------------------données de l'utilisateur
 	if ( isset( $HTTP_GET_VARS['user_id'] ) )
 	{
-		$query = "select id,pseudo,status from $prefixeTable"."users where id = '".$HTTP_GET_VARS['user_id']."';";
+		$query = "select id,pseudo,status from PREFIX_TABLE"."users where id = '".$HTTP_GET_VARS['user_id']."';";
 		$result = mysql_query( $query );
 		$row = mysql_fetch_array( $result );
 		$page['pseudo'] = $row['pseudo'];
@@ -51,14 +51,14 @@
 	{
 		if ( isset( $HTTP_GET_VARS['user_id'] ) )
 		{
-			mysql_query ( "delete from $prefixeTable"."restrictions where user_id = ".$HTTP_GET_VARS['user_id'].";" );
-			$result = mysql_query ( "select id from $prefixeTable"."categories;" );
+			mysql_query ( "delete from PREFIX_TABLE"."restrictions where user_id = ".$HTTP_GET_VARS['user_id'].";" );
+			$result = mysql_query ( "select id from PREFIX_TABLE"."categories;" );
 			while ( $row = mysql_fetch_array ( $result ) )
 			{
 				$nom_select = "acces-".$row['id'];
 				if ( $HTTP_POST_VARS[$nom_select] == 1 )
 				{
-					mysql_query ( "insert into $prefixeTable"."restrictions (user_id,cat_id) values ('".$HTTP_GET_VARS['user_id']."','".$row['id']."');" );
+					mysql_query ( "insert into PREFIX_TABLE"."restrictions (user_id,cat_id) values ('".$HTTP_GET_VARS['user_id']."','".$row['id']."');" );
 				}
 			}
 			check_favorites( $HTTP_GET_VARS['user_id'] );
@@ -66,14 +66,14 @@
 		}
 		else if ( isset( $HTTP_GET_VARS['cat_id'] ) )
 		{
-			mysql_query ( "delete from $prefixeTable"."restrictions where cat_id = '".$page['cat']."';" );
-			$result = mysql_query( "select id from $prefixeTable"."users where pseudo != '".$conf['webmaster']."';" );
+			mysql_query ( "delete from PREFIX_TABLE"."restrictions where cat_id = '".$page['cat']."';" );
+			$result = mysql_query( "select id from PREFIX_TABLE"."users where pseudo != '".$conf['webmaster']."';" );
 			while ( $row = mysql_fetch_array ( $result ) )
 			{
 				$nom_select = "acces-".$row['id'];
 				if ( $HTTP_POST_VARS[$nom_select] == 1 )
 				{
-					mysql_query ( "insert into $prefixeTable"."restrictions (user_id,cat_id) values ('".$row['id']."','".$page['cat']."');" );
+					mysql_query ( "insert into PREFIX_TABLE"."restrictions (user_id,cat_id) values ('".$row['id']."','".$page['cat']."');" );
 				}
 				check_favorites( $row['id'] );
 			}
@@ -83,7 +83,7 @@
 	//--------------------------------------------------------------- formulaire
 	function display_cat_manager( $id_uppercat, $indent, $uppercat_authorized, $level, $restriction )
 	{
-		global $prefixeTable,$lang,$conf;
+		global PREFIX_TABLE,$lang,$conf;
 		
 		$output = "";
 		
@@ -121,7 +121,7 @@
 		}
 		
 		$query = "select id,name,dir,rank";
-		$query.= " from $prefixeTable"."categories";
+		$query.= " from PREFIX_TABLE"."categories";
 		if ( !is_numeric( $id_uppercat ) )
 		{
 			$query.= " where id_uppercat is NULL";
@@ -214,7 +214,7 @@
 			<form action=\"".add_session_id_to_url( "./admin.php?page=perm&amp;cat_id=".$page['cat'] )."\" method=\"post\">
 				<table style=\"width:100%;\">";
 			
-			$result = mysql_query( "select id,pseudo,status from $prefixeTable"."users where pseudo != '".$conf['webmaster']."';" );
+			$result = mysql_query( "select id,pseudo,status from PREFIX_TABLE"."users where pseudo != '".$conf['webmaster']."';" );
 			$i = 0;
 			while ( $row = mysql_fetch_array( $result ) )
 			{

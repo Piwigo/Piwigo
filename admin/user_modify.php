@@ -30,7 +30,7 @@ $display_form = true;
 // id in $_GET['user_id']
 $query = 'select';
 $query.= ' username,status,mail_address';
-$query.= ' from '.$prefixeTable.'users';
+$query.= ' from '.PREFIX_TABLE.'users';
 $query.= ' where id = '.$_GET['user_id'];
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
@@ -107,7 +107,7 @@ if ( $display_form )
   {
     $_POST['status'] = 'guest';
   }
-  $option = get_enums( $prefixeTable.'users', 'status' );
+  $option = get_enums( PREFIX_TABLE.'users', 'status' );
   for ( $i = 0; $i < sizeof( $option ); $i++ )
   {
     $vtp->addSession( $sub, 'status_option' );
