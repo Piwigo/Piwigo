@@ -43,7 +43,7 @@ SELECT c.id AS category_id,uppercats,representative_picture_id,path,file,tn_ext
 if ( $user['forbidden_categories'] != '' )
 {
   $query.= '
-    AND id NOT IN ('.$user['forbidden_categories'].')';
+    AND c.id NOT IN ('.$user['forbidden_categories'].')';
 }
 $query.= '
 ;';
