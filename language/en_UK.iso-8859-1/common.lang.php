@@ -43,6 +43,7 @@ $lang['comment'] = 'Comment';
 $lang['comments'] = 'Comments';
 $lang['picture'] = 'Picture';
 $lang['pictures'] = 'Pictures';
+$lang['name'] = 'Name';
 $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['date'] = 'Date';

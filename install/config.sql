@@ -4,6 +4,8 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('prefix_thumbnail
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('mail_webmaster','','webmaster mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_language','en_UK.iso-8859-1','Default gallery language');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_template','default','Default gallery style');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_maxwidth','','maximum width authorized for displaying images');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_maxheight','','maximum height authorized for the displaying images');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('access','free','access type to your gallery (free|restricted)');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('upload_maxfilesize','150','maximum filesize for the uploaded pictures');

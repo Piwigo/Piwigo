@@ -102,6 +102,16 @@
 	<td class="row1"><input type="radio" class="radio" name="show_nb_comments" value="true" {default.SHOW_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="show_nb_comments" value="false" {default.SHOW_COMMENTS_NO} />{L_NO}</td>
   </tr>
+  <tr>
+    <td><strong>{default.L_MAXWIDTH}&nbsp;:</strong></td>
+	<td><input type="text" size="4" maxlength="4" name="default_maxwidth" value="{default.MAXWIDTH}" />
+	</td>
+  </tr>
+	<tr>
+    <td><strong>{default.L_MAXHEIGHT}&nbsp;:</strong></td>
+	<td><input type="text" size="4" maxlength="4" name="default_maxheight" value="{default.MAXHEIGHT}" />
+	</td>
+  </tr>
 <!-- END default -->
 <!-- BEGIN upload -->
   <tr class="admin">

@@ -283,7 +283,7 @@ if (isset($page['cat']))
       'L_INFOS_DETAIL'=>$lang['infoimage_detailed'],
       'L_THUMBNAIL'=>$lang['thumbnail'],
       'L_INFOS_IMG'=>$lang['infoimage_title'],
-      'L_INFOS_COMMENT'=>$lang['comment'],
+      'L_INFOS_COMMENT'=>$lang['description'],
       'L_INFOS_ASSOCIATE'=>$lang['infoimage_associate'],
       'L_SUBMIT'=>$lang['submit'],
       

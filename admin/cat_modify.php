@@ -142,10 +142,10 @@ $template->assign_vars(array(
   $uploadable=>'checked="checked"',
   
   'L_EDIT_CONFIRM'=>$lang['editcat_confirm'],
-  'L_EDIT_NAME'=>$lang['description'],
+  'L_EDIT_NAME'=>$lang['name'],
   'L_STORAGE'=>$lang['storage'],
   'L_REMOTE_SITE'=>$lang['remote_site'],
-  'L_EDIT_COMMENT'=>$lang['comment'],
+  'L_EDIT_COMMENT'=>$lang['description'],
   'L_EDIT_CAT_OPTIONS'=>$lang['cat_options'],
   'L_EDIT_STATUS'=>$lang['conf_access'],
   'L_EDIT_STATUS_INFO'=>$lang['cat_access_info'],

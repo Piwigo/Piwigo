@@ -196,7 +196,7 @@ $template->assign_vars(array(
   'L_AUTHOR'=>$lang['author'],
   'L_CREATION_DATE'=>$lang['creation_date'],
   'L_KEYWORDS'=>$lang['keywords'],
-  'L_COMMENT'=>$lang['comment'],
+  'L_COMMENT'=>$lang['description'],
   'L_CATEGORIES'=>$lang['categories'],
   'L_DISSOCIATE'=>$lang['dissociate'],
   'L_INFOIMAGE_ASSOCIATE'=>$lang['infoimage_associate'],

@@ -248,6 +248,8 @@ switch ($page['section'])
         'L_CONF_EXPAND_INFO'=>$lang['conf_default_expand_info'],
         'L_NB_COMMENTS'=>$lang['show_nb_comments'],
         'L_NB_COMMENTS_INFO'=>$lang['conf_show_nb_comments_info'],
+        'L_MAXWIDTH'=>$lang['maxwidth'],
+        'L_MAXHEIGHT'=>$lang['maxheight'],
   
         'CONF_LANG_SELECT'=>language_select($conf['default_language'], 'default_language'),
         'NB_IMAGE_LINE'=>$conf['nb_image_line'],
