@@ -9,8 +9,8 @@
 
 <div id="imgBarMenu">
 <div class="imgMenu" id="left">
-  <a href="{U_HOME}" title="{L_HOME}">
-	<img src="template/default/theme/categories.gif" alt="{L_HOME}" />
+  <a href="{U_UP}" title="{L_UP_HINT}">
+	<img src="template/default/theme/categories.gif" alt="{L_UP_ALT}" />
   </a>
 </div>
 <div class="imgMenu" id="left">

@@ -168,6 +168,7 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['src'] = $cat_directory.$row['file'];
     // if we are working on the "current" element, we search if there is a
     // high quality picture
+    // FIXME : with remote pictures, this "remote fopen" takes long...
     if ($i == 'current')
     {
       if (@fopen($cat_directory.'pwg_high/'.$row['file'], 'r'))
@@ -202,11 +203,11 @@ foreach (array('prev', 'current', 'next') as $i)
   $picture[$i]['url'].= '&amp;image_id='.$row['id'];
 }
 
-$url_home = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
-$url_home.= 'num='.$page['num']; 
+$url_up = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
+$url_up.= 'num='.$page['num']; 
 if ( $page['cat'] == 'search' )
 {
-  $url_home.= "&amp;search=".$_GET['search'];
+  $url_up.= "&amp;search=".$_GET['search'];
 }
 
 $url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
@@ -273,8 +274,8 @@ if ( isset( $_GET['add_fav'] ) )
     {
       // there is no favorite picture anymore we redirect the user to the
       // category page
-      $url = add_session_id( $url_home );
-      redirect( $url );
+      $url = add_session_id($url_up);
+      redirect($url);
     }
     else if (!$has_prev)
     {
@@ -461,8 +462,11 @@ $template->assign_vars(array(
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
   'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
   'L_PICTURE_HIGH' => $lang['picture_high'],
+  'L_UP_HINT' => $lang['up_hint'],
+  'L_UP_ALT' => $lang['up_alt'],
   
-  'U_HOME' => add_session_id($url_home),
+  'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
+  'U_UP' => add_session_id($url_up),
   'U_METADATA' => add_session_id($url_metadata),
   'U_ADMIN' => add_session_id($url_admin),
   'U_SLIDESHOW'=> add_session_id($url_slide),
