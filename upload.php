@@ -202,7 +202,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
   $path = $page['cat_dir'].'thumbnail/';
-  $path.= $conf['prefixe_thumbnail'].$file.'.'.$extension;
+  $path.= $conf['prefix_thumbnail'].$file.'.'.$extension;
   $result = validate_upload( $path, $conf['upload_maxfilesize'],
                              $conf['upload_maxwidth_thumbnail'],
                              $conf['upload_maxheight_thumbnail']  );

@@ -52,7 +52,7 @@ database_connection();
 // $infos array is used to know the fields to retrieve in the table "config"
 // Each field becomes an information of the array $conf.
 // Example :
-//            prefixe_thumbnail --> $conf['prefixe_thumbnail']
+//            prefix_thumbnail --> $conf['prefix_thumbnail']
 $infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'session_id_size', 'session_keyword', 'session_time',
                 'max_user_listbox', 'show_comments', 'nb_comment_page',

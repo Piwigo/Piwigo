@@ -279,7 +279,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     }
     // thumbnail url
     $thumbnail_url = $cat_directory;
-    $thumbnail_url.= 'thumbnail/'.$conf['prefixe_thumbnail'];
+    $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
     $thumbnail_url.= $file.'.'.$row['tn_ext'];
     // message in title for the thumbnail
     $thumbnail_title = $row['file'];
@@ -380,7 +380,7 @@ elseif ( isset( $page['cat'] )
     // creating links for thumbnail and associated category
     $lien_image = $cat_directory;
     $lien_thumbnail = $lien_image;
-    $lien_thumbnail.= 'thumbnail/'.$conf['prefixe_thumbnail'];
+    $lien_thumbnail.= 'thumbnail/'.$conf['prefix_thumbnail'];
     $lien_thumbnail.= $file.'.'.$image_row['tn_ext'];
     $lien_image.= $image_row['file'];
 

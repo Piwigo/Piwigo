@@ -521,7 +521,7 @@ if ( $isadmin )
   // $lang['help_remote_title'] = 'Site distant';
 // end version 1.3
   $lang['help_remote'][0] = 'PhpWebGallery offre la possibilité d\'utiliser plusieurs serveurs pour stocker les images qui composeront votre galerie. Cela peut être utile si votre galerie est installée sur une espace limité et que vous avez une grande quantité d\'images à montrer. Suivez la procédure suivante :';
-  $lang['help_remote'][1] = '1. éditez le fichier "create_listing_file.php" (vous le trouverez dans le répertoire "admin"), en modifiant la ligne "$prefixe_thumbnail = "TN-";" si le préfixe pour vos miniatures n\'est pas "TN-".';
+  $lang['help_remote'][1] = '1. éditez le fichier "create_listing_file.php" (vous le trouverez dans le répertoire "admin"), en modifiant la ligne "$prefix_thumbnail = "TN-";" si le préfixe pour vos miniatures n\'est pas "TN-".';
   $lang['help_remote'][2] = '2. placez le fichier "create_listing_file.php" modifié sur votre site distant, dans le répertoire racine de vos répertoires d\'images (comme le répertoire "galleries" du présent site) par ftp.';
   $lang['help_remote'][3] = '3. lancez le script en allant à l\'url http://domaineDistant/repGalerie/create_listing_file.php, un fichier listing.xml vient de se créer.';
   $lang['help_remote'][4] = '4. récupérez le fichier listing.xml de votre site distant pour le placer dans le répertoire "admin" du présent site.';
