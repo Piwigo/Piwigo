@@ -1,9 +1,11 @@
 <?php
 /***************************************************************************
- *                 style.php is a part of PhpWebGallery                    *
+ *                               style.inc.php                             *
  *                            -------------------                          *
- *   last update          : Friday, November 1, 2002                       *
- *   email                : pierrick@z0rglub.com                           *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
  *                                                                         *
  ***************************************************************************/
 

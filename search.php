@@ -1,9 +1,11 @@
 <?php
 /***************************************************************************
- *                  search.php is a part of PhpWebGallery                  *
+ *                                 search.php                              *
  *                            -------------------                          *
- *   last update          : Wednesday, July 25, 2002                       *
- *   email                : pierrick@z0rglub.com                           *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
  *                                                                         *
  ***************************************************************************/
 

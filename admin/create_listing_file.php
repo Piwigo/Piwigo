@@ -1,4 +1,14 @@
 <?php
+/***************************************************************************
+ *                          create_listing_file.php                        *
+ *                            -------------------                          *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
+ *                                                                         *
+ ***************************************************************************/
+
 $prefix_thumbnail = 'TN-';
 	
 $conf['picture_ext'] = array ( 'jpg', 'gif', 'png', 'JPG', 'GIF', 'PNG' );

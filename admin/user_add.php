@@ -2,8 +2,10 @@
 /***************************************************************************
  *                               user_add.php                              *
  *                            -------------------                          *
- *   application          : PhpWebGallery 1.3                              *
- *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
  *                                                                         *
  ***************************************************************************/
 

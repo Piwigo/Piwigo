@@ -1,9 +1,11 @@
 <?php
 /***************************************************************************
- *                 register.php is a part of PhpWebGallery                 *
+ *                                register.php                             *
  *                            -------------------                          *
- *   last update          : Saturday, December 28, 2002                    *
- *   email                : pierrick@z0rglub.com                           *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
  *                                                                         *
  ***************************************************************************/
 

@@ -1,4 +1,14 @@
 <?php
+/***************************************************************************
+ *                                  index.php                              *
+ *                            -------------------                          *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
+ *                                                                         *
+ ***************************************************************************/
+
 define( PREFIX_INCLUDE, '' );
 include_once( './include/functions.inc.php' );
 database_connection();
