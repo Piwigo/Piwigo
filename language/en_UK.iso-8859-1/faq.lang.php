@@ -259,9 +259,9 @@ administration panel, Categories, Manage.'
 $lang['help_infos_title'] = 'Miscellanous informations';
 $lang['help_infos'] =
 array(
-  'As soon as you created your gallery, go in the user list and modify
-permissions for user "guest". Indeed, every new registered user will have by
-default the same permissions as "guest" user.',
+  'As soon as you created your gallery, modify default display properties in
+administration panel, Configuration, Default. Indeed, every new registered
+user will have by default the same display properties.',
   
   'If you have any question, do not hesitate to take a look at the forum or ask
 a question there. The <a href="http://forum.phpwebgallery.net"

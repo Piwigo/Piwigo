@@ -62,10 +62,10 @@
   <!-- BEGIN site -->
   <tr>
     <td>{site.NAME}</td>
-    <td><a href="{site.U_GENERATE}" title="{L_REMOTE_SITE_GENERATE_HINT}">{L_REMOTE_SITE_GENERATE}</a></td>
-    <td><a href="{site.U_UPDATE}" title="{L_REMOTE_SITE_UPDATE_HINT}">{L_REMOTE_SITE_UPDATE}</a></td>
-    <td><a href="{site.U_CLEAN}" title="{L_REMOTE_SITE_CLEAN_HINT}">{L_REMOTE_SITE_CLEAN}</a></td>
-    <td><a href="{site.U_DELETE}" title="{L_REMOTE_SITE_DELETE_HINT}">{L_REMOTE_SITE_DELETE}</a></td>
+    <td>[<a href="{site.U_GENERATE}" title="{L_REMOTE_SITE_GENERATE_HINT}">{L_REMOTE_SITE_GENERATE}</a>]</td>
+    <td>[<a href="{site.U_UPDATE}" title="{L_REMOTE_SITE_UPDATE_HINT}">{L_REMOTE_SITE_UPDATE}</a>]</td>
+    <td>[<a href="{site.U_CLEAN}" title="{L_REMOTE_SITE_CLEAN_HINT}">{L_REMOTE_SITE_CLEAN}</a>]</td>
+    <td>[<a href="{site.U_DELETE}" title="{L_REMOTE_SITE_DELETE_HINT}">{L_REMOTE_SITE_DELETE}</a>]</td>
   </tr>
   <!-- END site -->
 </table>
