@@ -24,7 +24,7 @@ h2 {
 /* ANCHORS */
 
 a { text-decoration:none; color:#FFFFFF;}
-a:hover { text-decoration:underline; color:#FFF48E;}
+a:hover { text-decoration:none; color:#FFF48E;}
 a.none:hover { text-decoration:none;}
 a.image:hover { text-decoration:none;}
 a.thumbLink:hover { text-decoration:none;}
