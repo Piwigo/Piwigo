@@ -9,9 +9,33 @@
   </tr>
 </table>
 <!--/VTP_deletion-->
+
 <!--VTP_confirmation-->
 <div class="{#class}">{#info}</div>
 <!--/VTP_confirmation-->
+
+<!--VTP_errors-->
+<div class="errors">
+  <div class="errors_title">{#errors_title}</div>
+  <ul>
+    <!--VTP_li-->
+    <li>{#li}</li>
+    <!--/VTP_li-->
+  </ul>
+</div>
+<!--/VTP_errors-->
+
+<!--VTP_add_user-->
+<form method="post" action="{#form_action}">
+  <div style="text-align:center;margin:10px;">
+    <span style="font-weight:bold;">{#title_add}</span> -&gt;
+    {#login} : <input type="text" name="username" value="{#f_username}" />
+    {#password} : <input type="text" name="password" value="{#f_password}" />
+    <input type="submit" value="{#add}" name="submit" />
+  </div>
+</form>
+<!--/VTP_add_user-->
+
 <!--VTP_users-->
 <form method="post" action="{#form_action}" name="{#form_name}">
 <table width="100%">
