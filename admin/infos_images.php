@@ -248,9 +248,12 @@ if (isset($page['cat']))
   // Navigation path
   $current_category = get_cat_info($_GET['cat_id']);
   $url = PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id=';
-  $category_path = get_cat_display_name($current_category['name'], '-&gt;', $url);
+  $category_path = get_cat_display_name($current_category['name'],
+                                        '-&gt;',
+                                        $url);
   
-  $form_action = PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id='.$_GET['cat_id'];
+  $form_action = PHPWG_ROOT_PATH.'admin.php';
+  $form_action.= '?page=infos_images&amp;cat_id='.$_GET['cat_id'];
   if($page['start'])
   {
     $form_action.= '&amp;start='.$_GET['start'];
@@ -321,11 +324,21 @@ SELECT *
       $array_cat_directories[$row['storage_category_id']] =
         get_complete_dir($row['storage_category_id']);
     }
-    $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
-    $thumbnail_url.= 'thumbnail/';
-    $thumbnail_url.= $conf['prefix_thumbnail'];
-    $thumbnail_url.= get_filename_wo_extension($row['file']);
-    $thumbnail_url.= '.'.$row['tn_ext'];
+
+    // thumbnail url
+    if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+    {
+      $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
+      $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
+      $thumbnail_url.= get_filename_wo_extension($row['file']);
+      $thumbnail_url.= '.'.$row['tn_ext'];
+    }
+    else
+    {
+      $thumbnail_url = PHPWG_ROOT_PATH;
+      $thumbnail_url = 'template/'.$user['template'].'/mimetypes/';
+      $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
+    }
 
     // some fields are nullable in the images table
     $nullables = array('name','author','keywords','date_creation','comment');

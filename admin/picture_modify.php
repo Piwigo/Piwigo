@@ -188,7 +188,8 @@ SELECT *
 $row = mysql_fetch_array(mysql_query($query));
 
 // some fields are nullable in the images table
-$nullables = array('name','author','keywords','date_creation','comment');
+$nullables = array('name','author','keywords','date_creation','comment',
+                   'width','height');
 foreach ($nullables as $field)
 {
   if (!isset($row[$field]))
@@ -209,10 +210,21 @@ else
 $current_category = get_cat_info($row['storage_category_id']);
 $dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
 
-$thumbnail_url = get_complete_dir($row['storage_category_id']);
-$file_wo_ext = get_filename_wo_extension($row['file']);
-$thumbnail_url.= '/thumbnail/';
-$thumbnail_url.= $conf['prefix_thumbnail'].$file_wo_ext.'.'.$row['tn_ext'];
+// thumbnail url
+if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+{
+  $thumbnail_url = get_complete_dir($row['storage_category_id']);
+  $thumbnail_url.= 'thumbnail/'.$conf['prefix_thumbnail'];
+  $thumbnail_url.= get_filename_wo_extension($row['file']);
+  $thumbnail_url.= '.'.$row['tn_ext'];
+}
+else
+{
+  $thumbnail_url = PHPWG_ROOT_PATH;
+  $thumbnail_url = 'template/'.$user['template'].'/mimetypes/';
+  $thumbnail_url.= strtolower(get_extension($row['file'])).'.png';
+}
+
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];
 $date = isset($_POST['date_creation']) && empty($errors)
