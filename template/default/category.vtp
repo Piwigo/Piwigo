@@ -31,7 +31,7 @@
               &nbsp;<img src="{#lien_collapsed}" alt="&gt;"/>&nbsp;<a href="{#url}" title="{#title}">{#name}</a><br />
               <!--/VTP_summary-->
               <!--VTP_upload-->
-              <br />&nbsp;<img src="{#lien_collapsed}" alt="&gt;"/>&nbsp;<a href="{#url}" class="back">{#upload_picture}</a>
+              <br />&nbsp;<img src="{#lien_collapsed}" alt="&gt;"/>&nbsp;<a href="{#url}">{#upload_picture}</a>
               <!--/VTP_upload-->
             </div>
           {#frame_end}
