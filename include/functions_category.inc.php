@@ -1,6 +1,6 @@
 <?php
 /***************************************************************************
- *                         functions_category.inc.php                        *
+ *                         functions_category.inc.php                      *
  *                            --------------------                         *
  *   application          : PhpWebGallery 1.3                              *
  *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
@@ -131,7 +131,7 @@ function display_cat( $id_uppercat, $indent, $restriction, $tab_expand )
       {
         $url.= "&amp;search=".$_GET['search'];
       }
-      $lien_cat = add_session_id_to_url( $url );
+      $lien_cat = add_session_id( $url );
       if ( $row['name'] == "" )
       {
         $name = str_replace( "_", " ", $row['dir'] );

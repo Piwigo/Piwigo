@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *                   user.inc.php is a part of PhpWebGallery               *
- *                            -------------------                          *
- *   last update          : Saturday, October 26, 2002                     *
- *   email                : pierrick@z0rglub.com                           *
+ *                               user.inc.php                              *
+ *                            ------------------                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************
 
@@ -19,7 +19,7 @@
 // Each field becomes an information of the array $user.
 // Example :
 //            status --> $user['status']
-$infos = array( 'id', 'pseudo', 'mail_address', 'nb_image_line',
+$infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'nb_line_page', 'status', 'theme', 'language', 'maxwidth',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
                 'long_period', 'template' );
@@ -71,7 +71,7 @@ if ( isset( $_GET['id'] )
 }
 if ( !$query_done )
 {
-  $query_user .= " where pseudo = 'visiteur'";
+  $query_user .= ' where id = 2';
   $user['is_the_guest'] = true;
 }
 $query_user .= ';';

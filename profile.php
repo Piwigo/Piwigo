@@ -152,12 +152,8 @@ $vtp->setGlobalVar( $handle, 'password',         $lang['password'] );
 $vtp->setGlobalVar( $handle, 'new',              $lang['new'] );
 $vtp->setGlobalVar( $handle, 'reg_confirm',      $lang['reg_confirm'] );
 $vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-// user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
+
+initialize_template();
 //----------------------------------------------------------------- form action
 $url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
 if ( $page['cat'] == 'search' )
@@ -328,7 +324,7 @@ if ( in_array( 'maxheight', $infos ) )
 if ( in_array( 'mail_address', $infos ) )
 {
   $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['reg_mail_address'] );
+  $vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
   $vtp->addSession( $handle, 'text' );
   $vtp->setVar( $handle, 'text.name', 'mail_address' );
   $vtp->setVar( $handle, 'text.value', $user['mail_address'] );

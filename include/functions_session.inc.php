@@ -48,10 +48,10 @@ function generate_key()
   return $key;
 }
         
-function session_create( $pseudo )
+function session_create( $username )
 {
   global $conf,$prefixeTable,$REMOTE_ADDR;
-  // 1. trouver une clé de session inexistante
+  // 1. searching an unused sesison key
   $id_found = false;
   while ( !$id_found )
   {
@@ -65,14 +65,13 @@ function session_create( $pseudo )
       $id_found = true;
     }
   }
-  // 2. récupération de l'id de l'utilisateur dont le pseudo
-  //    est passé en paramètre
+  // 2. retrieving id of the username given in parameter
   $query = 'select id';
   $query.= ' from '.$prefixeTable.'users';
-  $query.= " where pseudo = '".$pseudo."';";
+  $query.= " where username = '".$username."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   $user_id = $row['id'];
-  // 3. insertion de la session dans la base de donnée
+  // 3. inserting session in database
   $expiration = $conf['session_time']*60+time();
   $query = 'insert into '.$prefixeTable.'sessions';
   $query.= ' (id,user_id,expiration,ip) values';
@@ -82,49 +81,28 @@ function session_create( $pseudo )
                 
   return $generated_id;
 }
-        
-function add_session_id_to_url( $url, $redirect = false )
-{
-  global $page, $user;
-  $amp = "&amp;";
-  if ( $redirect )
-  {
-    $amp = "&";
-  }
-  if ( !$user['is_the_guest'] )
-  {
-    if ( ereg( "\.php\?",$url ) )
-    {
-      return $url.$amp."id=".$page['session_id'];
-    }
-    else
-    {
-      return $url."?id=".$page['session_id'];
-    }
-  }
-  else
-  {
-    return $url;
-  }
-}
 
+// add_session_id adds the id of the session to the string given in
+// parameter as $url. If the session id is the first parameter to the url,
+// it is preceded by a '?', else it is preceded by a '&amp;'. If the
+// parameter $redirect is set to true, '&' is used instead of '&'.
 function add_session_id( $url, $redirect = false )
 {
   global $page, $user;
-  $amp = "&amp;";
+  $amp = '&amp;';
   if ( $redirect )
   {
-    $amp = "&";
+    $amp = '&';
   }
   if ( !$user['is_the_guest'] )
   {
-    if ( ereg( "\.php\?",$url ) )
+    if ( preg_match( '/\.php\?/',$url ) )
     {
-      return $url.$amp."id=".$page['session_id'];
+      return $url.$amp.'id='.$page['session_id'];
     }
     else
     {
-      return $url."?id=".$page['session_id'];
+      return $url.'?id='.$page['session_id'];
     }
   }
   else

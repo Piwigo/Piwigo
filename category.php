@@ -96,16 +96,17 @@ $tpl = array( 'categories','hint_category','sub-cat','images_available',
               'favorite_cat_hint','favorite_cat','stats',
               'most_visited_cat_hint','most_visited_cat','recent_cat',
               'recent_cat_hint' );
-templatize_array( $tpl, 'lang' );
+templatize_array( $tpl, 'lang', $handle );
 
 $tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
-templatize_array( $tpl, 'conf' );
+templatize_array( $tpl, 'conf', $handle );
 
-$tpl = array( 'short_period','long_period','style','lien_collapsed','pseudo' );
-templatize_array( $tpl, 'user' );
+$tpl = array( 'short_period','long_period','style','lien_collapsed',
+              'username' );
+templatize_array( $tpl, 'user', $handle );
 
 $tpl = array( 'title','navigation_bar','cat_comment','cat_nb_images' );
-templatize_array( $tpl, 'page' );
+templatize_array( $tpl, 'page', $handle );
 
 // special global template vars
 $vtp->setGlobalVar( $handle, 'icon_short', get_icon( time() ) );

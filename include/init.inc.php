@@ -29,9 +29,11 @@ $user['restrictions'] = get_restrictions( $user['id'], $user['status'], true );
         
 $isadmin = false;
 include_once( './language/'.$user['language'].'.php' );
+// displaying the username in the language of the connected user, instead of
+// "guest" as you can find in the database
 if ( $user['is_the_guest'] )
 {
-  $user['pseudo'] = $lang['guest'];
+  $user['username'] = $lang['guest'];
 }
 include_once( './template/'.$user['template'].'/style.inc.php' );
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );

@@ -14,6 +14,7 @@ $lang['date'] = 'date';
 $lang['no'] = 'non';
 $lang['yes'] = 'oui';
 $lang['guest'] = 'visiteur';
+$lang['mail_address'] = 'adresse mail';
 // end version 1.3
 
 // page diapo
@@ -172,7 +173,9 @@ $lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'
 $lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
 $lang['reg_err_pass'] = 'veuillez retaper le mot de passe';
 $lang['reg_confirm'] = 'confirmer';
-$lang['reg_mail_address'] = 'adresse mail';
+// start version 1.3
+// $lang['reg_mail_address'] = 'adresse mail';
+// end version 1.3
 $lang['reg_err_mail_address'] = 'l\'adresse mail doit être de la forme xxx@yyy.eee (exemple : jack@altern.org)';
 
 // page search
@@ -201,7 +204,11 @@ $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur vali
 if ( $isadmin )
 {
   // page admin
-  $lang['title_add'] = 'Ajouter/Modifier un utilisateur';
+// start version 1.3
+//  $lang['title_add'] = 'Ajouter/Modifier un utilisateur';
+  $lang['title_add'] = 'Ajouter un utilisateur';
+  $lang['title_modify'] = 'Modifier un utilisateur';
+// end version 1.3
   $lang['title_liste_users'] = 'Liste des utilisateurs';
   $lang['title_history'] = 'Historique';
   $lang['title_update'] = 'Mise à jour de la base de données';
@@ -342,24 +349,29 @@ if ( $isadmin )
   $lang['user_err_unknown'] = 'Cet utilisateur n\'existe pas dans la base de données';
 		
   // page d\'ajout/modification d\'utilisateur
-		
-  $lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
-  $lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
-  $lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
-  $lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
-  $lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
+// start version 1.3		
+//   $lang['reg_err_login1'] = 'veuillez rentrer un pseudo';
+//   $lang['reg_err_login2'] = 'le pseudo ne doit pas se terminer par un espace';
+//   $lang['reg_err_login3'] = 'le pseudo ne doit pas commencer par un espace';
+//   $lang['reg_err_login4'] = 'le pseudo ne doit pas comporter les caractère " et \'';
+//   $lang['reg_err_login5'] = 'ce pseudo est déjà utilisé';
 
-  $lang['adduser_err_message'] = 'Vous avez commis des erreurs au nombre de ';
+//   $lang['adduser_err_message'] = 'Vous avez commis des erreurs au nombre de ';
+// end version 1.3
   $lang['adduser_info_message'] = 'Informations enregistrées dans la base de données concernant ';
   $lang['adduser_info_password_updated'] = '(mot de passe modifié)';
   $lang['adduser_info_back'] = 'retour liste utilisateurs';
 		
   $lang['adduser_fill_form'] = 'Veuillez remplir les champs suivants';
-  $lang['adduser_login'] = 'pseudo';
+// start version 1.3
+//  $lang['adduser_login'] = 'pseudo';
+// end version 1.3
   $lang['adduser_unmodify'] = 'non modifiable';
   $lang['adduser_status'] = 'status';
   $lang['adduser_status_admin'] = 'admin';
-  $lang['adduser_status_member'] = 'membre';
+// start version 1.3
+//  $lang['adduser_status_member'] = 'membre';
+// end version 1.3
   $lang['adduser_status_guest'] = 'visiteur';
 		
   // page permissions

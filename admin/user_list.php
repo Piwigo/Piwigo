@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *                 liste_users.php is a part of PhpWebGallery              *
+ *                               user_list.php                             *
  *                            -------------------                          *
- *   last update          : Tuesday, July 16, 2002                         *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -38,9 +38,9 @@ $vtp->setGlobalVar( $sub, 'listuser_button_invert',
 $vtp->setGlobalVar( $sub, 'listuser_button_create_address',
                     $lang['listuser_button_create_address'] );
 //--------------------------------------------------------------- delete a user
-if ( isset ( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
+if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
-  $query = 'select pseudo';
+  $query = 'select username';
   $query.= ' from '.$prefixeTable.'users';
   $query.= ' where id = '.$_GET['delete'];
   $query.= ';';
@@ -49,7 +49,7 @@ if ( isset ( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
   if ( $_GET['confirm'] != 1 )
   {
     $vtp->addSession( $sub, 'deletion' );
-    $vtp->setVar( $sub, 'deletion.login', $row['pseudo'] );
+    $vtp->setVar( $sub, 'deletion.login', $row['username'] );
     $yes_url = './admin.php?page=user_list&amp;delete='.$_GET['delete'];
     $yes_url.= '&amp;confirm=1';
     $vtp->setVar( $sub, 'deletion.yes_url', add_session_id( $yes_url ) );
@@ -61,7 +61,8 @@ if ( isset ( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
   else
   {
     $vtp->addSession( $sub, 'confirmation' );
-    if ( $row['pseudo'] != 'visiteur' && $row['pseudo'] != $conf['webmaster'] )
+    if ( $row['username'] != 'guest'
+         and $row['username'] != $conf['webmaster'] )
     {
       $query = 'select count(*) as nb_result';
       $query.= ' from '.$prefixeTable.'users';
@@ -72,7 +73,7 @@ if ( isset ( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
       {
         delete_user( $_GET['delete'] );
         $vtp->setVar( $sub, 'confirmation.class', 'info' );
-        $info = '"'.$row['pseudo'].'" '.$lang['listuser_info_deletion'];
+        $info = '"'.$row['username'].'" '.$lang['listuser_info_deletion'];
         $vtp->setVar( $sub, 'confirmation.info', $info );
       }
       else
@@ -101,9 +102,9 @@ else
   }
   $vtp->setVar( $sub, 'users.form_action', $action );
 
-  $query = 'select id,pseudo,status,mail_address';
+  $query = 'select id,username,status,mail_address';
   $query.= ' from '.$prefixeTable.'users';
-  $query.= ' order by status asc, pseudo asc';
+  $query.= ' order by status asc, username asc';
   $query.= ';';
   $result = mysql_query( $query );
 
@@ -126,7 +127,7 @@ else
         $title.= $lang['adduser_status_admin'];
         break;
       }
-      case 'visiteur' :
+      case 'guest' :
       {
         $title.= $lang['adduser_status_guest'];
         break;
@@ -137,26 +138,33 @@ else
     }
     $vtp->addSession( $sub, 'user' );
     // checkbox for mail management if the user has a mail address
-    if ( $row['mail_address'] != '' && $row['pseudo'] != 'visiteur' )
+    if ( $row['mail_address'] != '' and $row['username'] != 'guest' )
     {
       $vtp->addSession( $sub, 'checkbox' );
       $vtp->setVar( $sub, 'checkbox.name', 'mail-'.$row['id'] );
       $vtp->closeSession( $sub, 'checkbox' );
     }
     // use a special color for the login of the user ?
-    if ( $row['pseudo'] == $conf['webmaster'] )
+    if ( $row['username'] == $conf['webmaster'] )
     {
       $vtp->setVar( $sub, 'user.color', 'red' );
     }
-    if ( $row['pseudo'] == "visiteur" )
+    if ( $row['username'] == 'guest' )
     {
       $vtp->setVar( $sub, 'user.color', 'green' );
     }
-    $vtp->setVar( $sub, 'user.login', $row['pseudo'] );
+    if ( $row['username'] == 'guest' )
+    {
+      $vtp->setVar( $sub, 'user.login', $lang['guest'] );
+    }
+    else
+    {
+      $vtp->setVar( $sub, 'user.login', $row['username'] );
+    }
     // modify or not modify ?
-    if ( $row['pseudo'] == "visiteur"
-         || ( $row['pseudo'] == $conf['webmaster']
-              && $user['pseudo'] != $conf['webmaster'] ) )
+    if ( $row['username'] == 'guest'
+         or ( $row['username'] == $conf['webmaster']
+              and $user['username'] != $conf['webmaster'] ) )
     {
       $vtp->addSession( $sub, 'not_modify' );
       $vtp->closeSession( $sub, 'not_modify' );
@@ -164,14 +172,14 @@ else
     else
     {
       $vtp->addSession( $sub, 'modify' );
-      $url = './admin.php?page=user_add&amp;mode=modif&amp;user_id=';
+      $url = './admin.php?page=user_modify&amp;user_id=';
       $url.= $row['id'];
       $vtp->setVar( $sub, 'modify.url', add_session_id( $url ) );
-      $vtp->setVar( $sub, 'modify.login', $row['pseudo'] );
+      $vtp->setVar( $sub, 'modify.login', $row['username'] );
       $vtp->closeSession( $sub, 'modify' );
     }
     // manage permission or not ?
-    if ( $row['pseudo'] == $conf['webmaster'] )
+    if ( $row['username'] == $conf['webmaster'] )
     {
       $vtp->addSession( $sub, 'not_permission' );
       $vtp->closeSession( $sub, 'not_permission' );
@@ -181,11 +189,12 @@ else
       $vtp->addSession( $sub, 'permission' );
       $url = './admin.php?page=perm&amp;user_id='.$row['id'];
       $vtp->setVar( $sub, 'permission.url', add_session_id( $url ) );
-      $vtp->setVar( $sub, 'permission.login', $row['pseudo'] );
+      $vtp->setVar( $sub, 'permission.login', $row['username'] );
       $vtp->closeSession( $sub, 'permission' );
     }
     // is the user deletable or not ?
-    if ( $row['pseudo'] == 'visiteur' || $row['pseudo'] == $conf['webmaster'] )
+    if ( $row['username'] == 'guest'
+         or $row['username'] == $conf['webmaster'] )
     {
       $vtp->addSession( $sub, 'not_delete' );
       $vtp->closeSession( $sub, 'not_delete' );
@@ -195,7 +204,7 @@ else
       $vtp->addSession( $sub, 'delete' );
       $url = './admin.php?page=user_list&amp;delete='.$row['id'];
       $vtp->setVar( $sub, 'delete.url', add_session_id( $url ) );
-      $vtp->setVar( $sub, 'delete.login', $row['pseudo'] );
+      $vtp->setVar( $sub, 'delete.login', $row['username'] );
       $vtp->closeSession( $sub, 'delete' );
     }
     $vtp->closeSession( $sub, 'user' );

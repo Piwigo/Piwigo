@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *             identification.php is a part of PhpWebGallery               *
- *                            -------------------                          *
- *   last update          : Thursday, December 26, 2002                    *
- *   email                : pierrick@z0rglub.com                           *
+ *                            identification.php                           *
+ *                            ------------------                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -25,15 +25,15 @@ if ( isset( $_POST['login'] ) )
   // retrieving the encrypted password of the login submitted
   $query = 'select password';
   $query.= ' from '.$prefixeTable.'users';
-  $query.= " where pseudo = '".$_POST['login']."';";
+  $query.= " where username = '".$_POST['login']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   if( $row['password'] == md5( $_POST['pass'] ) )
   {
     $session_id = session_create( $_POST['login'] );
     $url = 'category.php?id='.$session_id;
-    header( "Request-URI: $url" );
-    header( "Content-Location: $url" );  
-    header( "Location: $url" );
+    header( 'Request-URI: '.$url );
+    header( 'Content-Location: '.$url );  
+    header( 'Location: '.$url );
     exit();
   }
   else
@@ -77,17 +77,17 @@ if ( sizeof( $error ) != 0 )
 }
 //------------------------------------------------------------------ users list
 // retrieving all the users login
-$query = 'select pseudo from '.$prefixeTable.'users;';
+$query = 'select username from '.$prefixeTable.'users;';
 $result = mysql_query( $query );
 if ( mysql_num_rows ( $result ) < $conf['max_user_listbox'] )
 {
   $vtp->addSession( $handle, 'select_field' );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    if ( $row['pseudo'] != 'visiteur' )
+    if ( $row['username'] != 'guest' )
     {
       $vtp->addSession( $handle, 'option' );
-      $vtp->setVar( $handle, 'option.option', $row['pseudo'] );
+      $vtp->setVar( $handle, 'option.option', $row['username'] );
       $vtp->closeSession( $handle, 'option' );
     }
   }

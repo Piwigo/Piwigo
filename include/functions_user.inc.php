@@ -14,34 +14,39 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+
+// validate_mail_address verifies whether the given mail address has the
+// right format. ie someone@domain.com "someone" can contain ".", "-" or
+// even "_". Exactly as "domain". The extension doesn't have to be
+// "com". The mail address can also be empty.
+// If the mail address doesn't correspond, an error message is returned.
 function validate_mail_address( $mail_address )
 {
   global $lang;
 
-  $output = '';
-  // le mail doit être conforme à qqch du type : nom@serveur.com
-  if ( $mail_address != ''
-       and !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
-                 $mail_address ) )
+  if ( $mail_address == '' )
   {
-    $output = $lang['reg_err_mail_address'];
+    return '';
   }
-
-  return $output;
+  $regex = '/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*\.[a-z]+$/';
+  if ( !preg_match( $regex, $mail_address ) )
+  {
+    return $lang['reg_err_mail_address'];
+  }
 }
 
-function register_user( $login, $password, $password_conf,
-                        $mail_address, $status = 'visiteur' )
+function register_user(
+  $login, $password, $password_conf, $mail_address, $status = 'guest' )
 {
-  global $prefixeTable;
+  global $prefixeTable, $lang;
 
   $error = array();
   $i = 0;
-  // le login ne doit pas
-  //      1. être vide
-  //      2. commencer ou se terminer par un espace
-  //      3. comporter les caractères ' ou "
-  //      4. être déjà utilisé
+  // login must not
+  //      1. be empty
+  //      2. start ou end with space character
+  //      3. include ' or " characters
+  //      4. be already used
   if ( $login == '' )
   {
     $error[$i++] = $lang['reg_err_login1'];
@@ -62,15 +67,14 @@ function register_user( $login, $password, $password_conf,
   {
     $query = 'select id';
     $query.= ' from '.$prefixeTable.'users';
-    $query.= " where pseudo = '".$login."';";
+    $query.= " where username = '".$login."';";
     $result = mysql_query( $query );
     if ( mysql_num_rows( $result ) > 0 )
     {
       $error[$i++] = $lang['reg_err_login5'];
     }
   }
-  // on vérifie que le password rentré correspond bien
-  // à la confirmation faite par l'utilisateur
+  // given password must be the same as the confirmation
   if ( $password != $password_conf )
   {
     $error[$i++] = $lang['reg_err_pass'];
@@ -81,12 +85,11 @@ function register_user( $login, $password, $password_conf,
   {
     $error[$i++] = $error_mail_address;
   }
-  
-  // on enregistre le nouvel utilisateur si aucune
-  //erreur détectée dans les paramètres
+
+  // if no error until here, registration of the user
   if ( sizeof( $error ) == 0 )
   {
-    // 1.récupération des valeurs par défaut de l'application
+    // 1. retrieving default values, the ones of the user "guest"
     $infos = array( 'nb_image_line', 'nb_line_page', 'theme', 'language',
                     'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
                     'short_period', 'long_period', 'template' );
@@ -104,17 +107,17 @@ function register_user( $login, $password, $password_conf,
       $query.= $infos[$i];
     }
     $query.= ' from '.$prefixeTable.'users';
-    $query.= " where pseudo = 'visiteur';";
+    $query.= " where username = 'guest';";
     $row = mysql_fetch_array( mysql_query( $query ) );
-    // 2.ajout du nouvel utilisateur
+    // 2. adding new user
     $query = 'insert into '.$prefixeTable.'users';
     $query.= ' (';
-    $query.= ' pseudo,password,mail_address,status';
+    $query.= ' username,password,mail_address,status';
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
     {
       $query.= ','.$infos[$i];
     }
-    $query.= ' values (';
+    $query.= ') values (';
     $query.= " '".$login."'";
     $query.= ",'".md5( $password )."'";
     if ( $mail_address != '' )
@@ -128,23 +131,30 @@ function register_user( $login, $password, $password_conf,
     $query.= ",'".$status."'";
     for ( $i = 0; $i < sizeof( $infos ); $i++ )
     {
-      $query.= ','.$row[$infos[$i]];
+      $query.= ',';
+      if ( $row[$infos[$i]] == '' )
+      {
+        $query.= 'NULL';
+      }
+      else
+      {
+        $query.= "'".$row[$infos[$i]]."'";
+      }
     }
     $query.= ');';
     mysql_query( $query );
-    // 3. récupérer l'identifiant de l'utilisateur nouvellement créé
+    // 3. retrieving the id of the newly created user
     $query = 'select id';
     $query.= ' from '.$prefixeTable.'users';
-    $query.= " where pseudo = '".$login."';";
+    $query.= " where username = '".$login."';";
     $row = mysql_fetch_array( mysql_query( $query ) );
     $user_id = $row['id'];
-    // 4.ajouter les restrictions au nouvel utilisateur,
-    //   les mêmes que celles de l'utilisateur par défaut
+    // 4. adding restrictions to the new user, the same as the user "guest"
     $query = 'select cat_id';
     $query.= ' from '.$prefixeTable.'restrictions as r';
     $query.=      ','.$prefixeTable.'users as u ';
     $query.= ' where u.id = r.user_id';
-    $query.= " and u.pseudo = 'visiteur';";
+    $query.= " and u.username = 'guest';";
     $result = mysql_query( $query );
     while( $row = mysql_fetch_array( $result ) )
     {
@@ -190,6 +200,7 @@ function update_user( $user_id, $mail_address, $status,
     }
     $query.= ' where id = '.$user_id;
     $query.= ';';
+    echo $query;
     mysql_query( $query );
   }
   return $error;

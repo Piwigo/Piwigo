@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *                   admin.php is a part of PhpWebGallery                  *
+ *                                 admin.php                               *
  *                            -------------------                          *
- *   last update          : Tuesday, July 16, 2002                         *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -27,68 +27,31 @@ $vtp->setGlobalVar( $handle, 'menu_title',  $lang['menu_title'] );
 $page_valide = false;
 switch ( $_GET['page'] )
 {
- case 'ajout':
- {
-   $titre = $lang['title_add'];
-   $page_valide = true;
-   break;
- }
+ case 'user_add':
+   $titre = $lang['title_add'];           $page_valide = true; break;
  case 'user_list':
- {
-   $titre = $lang['title_liste_users'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_liste_users'];   $page_valide = true; break;
+ case 'user_modify':
+   $titre = $lang['title_modify'];        $page_valide = true; break;
  case 'historique':
- {
-   $titre = $lang['title_history'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_history'];       $page_valide = true; break;
  case 'miseajour':
- {
-   $titre = $lang['title_update'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
- {
-   $titre = $lang['title_configuration'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_configuration']; $page_valide = true; break;
  case 'manuel':
- {
-   $titre = $lang['title_instructions'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_instructions'];  $page_valide = true; break;
  case 'perm':
- {
-   $titre = $lang['title_permissions'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_permissions'];   $page_valide = true; break;
  case 'cat':
- {
-   $titre = $lang['title_categories'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_categories'];    $page_valide = true; break;
  case 'edit_cat':
- {
-   $titre = $lang['title_edit_cat'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_edit_cat'];      $page_valide = true; break;
  case 'infos_images':
- {
-   $titre = $lang['title_info_images'];
-   $page_valide = true;
-   break;
- }
+   $titre = $lang['title_info_images'];   $page_valide = true; break;
+ case 'waiting':
+   $titre = $lang['title_waiting'];       $page_valide = true; break;
  case 'thumbnail':
- {
    $titre = $lang['title_thumbnails'];
    if ( isset( $_GET['dir'] ) )
    {
@@ -107,20 +70,10 @@ switch ( $_GET['page'] )
    }
    $page_valide = true;
    break;
- }
- case 'waiting':
- {
-   $titre = $lang['title_waiting'];
-   $page_valide = true;
-   break;
- }
  default:
- {
-   $titre = $lang['title_default'];
-   break;
- }
+   $titre = $lang['title_default']; break;
 }
-$vtp->setGlobalVar( $handle, 'title',       $titre );
+$vtp->setGlobalVar( $handle, 'title', $titre );
 //--------------------------------------------------------------------- summary
 $link_start = './admin.php?page=';
 // configuration
@@ -147,7 +100,8 @@ $vtp->closeSession( $handle, 'summary' );
 // user add
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '&nbsp;&nbsp;' );
-$vtp->setVar( $handle, 'summary.link', add_session_id( $link_start.'ajout' ) );
+$vtp->setVar(
+  $handle, 'summary.link', add_session_id( $link_start.'user_add' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_add_user'] );
 $vtp->closeSession( $handle, 'summary' );
 // categories
@@ -211,10 +165,9 @@ if ( $page_valide )
 }
 else
 {
-  $vtp->setVar( $handle, 'sub',
-                '<div style="text-align:center">'.
-                $lang['default_message'].
-                '</div>' );
+  $vtp->setVar(
+    $handle, 'sub',
+    '<div style="text-align:center">'.$lang['default_message'].'</div>' );
 }
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );

@@ -1,9 +1,9 @@
 <?
 /***************************************************************************
- *               configuration.php is a part of PhpWebGallery              *
+ *                             configuration.php                           *
  *                            -------------------                          *
- *   last update          : Tuesday, July 16, 2002                         *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -293,7 +293,8 @@ else
     $query.= $default_user_infos[$i];
   }
   $query .= ' from '.$prefixeTable.'users';
-  $query.= " where pseudo ='visiteur';";
+  $query.= " where username = 'guest'";
+  $query.= ';';
 
   $row = mysql_fetch_array( mysql_query( $query ) );
 

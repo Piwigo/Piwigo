@@ -87,7 +87,7 @@
               <td align="right">
                 {#frame_start}1%{#frame_begin}
                   <div class="info">
-                    {#connected_user}&nbsp;{#pseudo}<br />
+                    {#connected_user}&nbsp;{#username}<br />
                     {#recent_image}&nbsp;{#short_period}&nbsp;{#days}
                       {#icon_short}<br />
                     {#recent_image}&nbsp;{#long_period}&nbsp;{#days}
