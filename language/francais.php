@@ -542,5 +542,6 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
   $lang['step1_err_copy'] = 'Copiez le texte en bleu entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
   $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';
   $lang['install_help'] = 'Besoin d\'aide ? Posez votre question sur le <a href="http://forum.phpwebgallery.net">forum de PhpWebGallery</a>.';
+  $lang['install_warning'] = 'Le fichier "admin/install.php" est encore présent sur votre serveur. Merci de le supprimer. Il pourrait être utilisé par un tiers à des fins malveillantes.';
 }
 ?>

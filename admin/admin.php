@@ -23,9 +23,15 @@ include_once( './include/isadmin.inc.php' );
 $vtp = new VTemplate;
 $handle = $vtp->Open( '../template/'.$user['template'].'/admin/admin.vtp' );
 // language
-$tpl = array( 'menu_title', 'title_default', 'charset' );
+$tpl = array( 'menu_title','title_default','charset','install_warning' );
 templatize_array( $tpl, 'lang', $handle );
 $vtp->setGlobalVar( $handle, 'user_template', $user['template'] );
+//-------------------------------------------------- install.php still exists ?
+if ( is_file( './install.php' ) )
+{
+  $vtp->addSession( $handle, 'install_warning' );
+  $vtp->closeSession( $handle, 'install_warning' );
+}
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
