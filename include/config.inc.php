@@ -22,7 +22,6 @@ $lang = array();
 
 include_once( PREFIX_INCLUDE.'./include/functions.inc.php' );
 include_once( PREFIX_INCLUDE.'./include/vtemplate.class.php' );
-
 // How to change the order of display for images in a category ?
 //
 // You have to modify $conf['order_by'].
@@ -39,8 +38,10 @@ include_once( PREFIX_INCLUDE.'./include/vtemplate.class.php' );
 //    without taking into account the date_available
 $conf['order_by'] = ' ORDER BY date_available DESC, file ASC';
 
-$conf['nb_image_row']       = array('4','5','6','7','8');
-$conf['nb_row_page']        = array('2','3','4','5','6','7','10','20','1000');
+$conf['nb_image_row']       = array(4,5,6,7,8);
+$conf['nb_row_page']        = array(2,3,4,5,6,7,10,20,1000);
+$conf['slideshow_period']   = array(2,5,10);
+$conf['last_days']          = array(1,2,3,10,30,365);
 $conf['version']            = '1.3';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
@@ -58,12 +59,11 @@ $infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'max_user_listbox', 'show_comments', 'nb_comment_page',
                 'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
                 'upload_maxheight', 'upload_maxwidth_thumbnail',
-                'upload_maxheight_thumbnail' );
+                'upload_maxheight_thumbnail','log','comments_validation' );
 
-$query  = 'SELECT';
+$query  = 'SELECT ';
 foreach ( $infos as $i => $info ) {
   if ( $i > 0 ) $query.= ',';
-  else          $query.= ' ';
   $query.= $info;
 }
 $query.= ' FROM '.PREFIX_TABLE.'config;';
@@ -81,6 +81,5 @@ foreach ( $infos as $info ) {
     $conf[$info] = get_boolean( $row[$info] );
   }
 }
-$conf['log']        = false;
 $conf['top_number'] = 20;
 ?>

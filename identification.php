@@ -57,12 +57,8 @@ $vtp->setGlobalVar( $handle, 'ident_forgotten_password',
 // conf
 $vtp->setGlobalVar( $handle, 'mail_webmaster',   $conf['mail_webmaster'] );
 // user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-$vtp->setGlobalVar( $handle, 'user_theme',       $user['theme'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
+$vtp->setGlobalVar( $handle, 'user_template',    $user['template'] );
+initialize_template();
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
 {

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 //------------------------------------------------------------------- functions
-
 // The validate_upload function checks if the image of the given path is valid.
 // A picture is valid when :
 //     - width, height and filesize are not higher than the maximum
@@ -114,10 +113,10 @@ else
 }
 if ( $access_forbidden == true
      or $page['cat_site_id'] != 1
-     or $conf['upload_available'] == 'false' )
+     or !$conf['upload_available'] )
 {
   echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
-  echo '<a href="'.add_session_id_to_url( './category.php' ).'">';
+  echo '<a href="'.add_session_id( './category.php' ).'">';
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
@@ -127,44 +126,66 @@ $handle = $vtp->Open( './template/'.$user['template'].'/upload.vtp' );
 initialize_template();
 
 $tpl = array( 'upload_title', 'upload_username', 'mail_address', 'submit',
-              'upload_successful', 'search_return_main_page' );
-templatize_array( $tpl, 'lang', $sub );
-// user
-$vtp->setGlobalVar( $handle, 'style',            $user['style'] );
-$vtp->setGlobalVar( $handle, 'user_login',       $user['username'] );
-$vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
+              'upload_successful', 'search_return_main_page','upload_author',
+              'upload_name','upload_creation_date','upload_comment',
+              'mandatory' );
+templatize_array( $tpl, 'lang', $handle );
 
 $error = array();
-$i = 0;
 $page['upload_successful'] = false;
 if ( isset( $_GET['waiting_id'] ) )
 {
   $page['waiting_id'] = $_GET['waiting_id'];
 }
 //-------------------------------------------------------------- picture upload
-// vérification de la présence et de la validité des champs.
+// verfying fields
 if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 {
   $path = $page['cat_dir'].$_FILES['picture']['name'];
   if ( @is_file( $path ) )
   {
-    $error[$i++] = $lang['upload_file_exists'];
+    array_push( $error, $lang['upload_file_exists'] );
   }
   // test de la présence des champs obligatoires
-  if ( $_FILES['picture']['name'] == "" )
+  if ( $_FILES['picture']['name'] == '' )
   {
-    $error[$i++] = $lang['upload_filenotfound'];
+    array_push( $error, $lang['upload_filenotfound'] );
   }
   if ( !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
              $_POST['mail_address'] ) )
   {
-    $error[$i++] = $lang['reg_err_mail_address'];
+    array_push( $error, $lang['reg_err_mail_address'] );
   }
   if ( $_POST['username'] == '' )
   {
-    $error[$i++] = $lang['upload_err_username'];
+    array_push( $error, $lang['upload_err_username'] );
   }
 
+  if ( $_POST['date_creation'] != '' )
+  {
+    list( $day,$month,$year ) = explode( '/', $_POST['date_creation'] );
+    // int checkdate ( int month, int day, int year)
+    if ( checkdate( $month, $day, $year ) )
+    {
+      // int mktime ( int hour, int minute, int second,
+      //              int month, int day, int year [, int is_dst])
+      $date_creation = mktime( 0, 0, 0, $month, $day, $year );
+    }
+    else
+    {
+      array_push( $error, $lang['err_date'] );
+    }
+  }
+  // creation of the "infos" field :
+  // <infos author="Pierrick LE GALL" comment="my comment"
+  //        date_creation="1056891767" name="" />
+  $xml_infos = '<infos';
+  $xml_infos.= ' author="'.htmlspecialchars($_POST['author'],ENT_QUOTES).'"';
+  $xml_infos.= ' comment="'.htmlspecialchars($_POST['comment'],ENT_QUOTES).'"';
+  $xml_infos.= ' date_creation="'.$date_creation.'"';
+  $xml_infos.= ' name="'.htmlspecialchars( $_POST['name'], ENT_QUOTES).'"';
+  $xml_infos.= ' />';
+  
   if ( sizeof( $error ) == 0 )
   {
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
@@ -173,17 +194,17 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $upload_type = $result['type'];
     for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
     {
-      $error[$i++] = $result['error'][$j];
+      array_push( $error, $result['error'][$j] );
     }
   }
 
   if ( sizeof( $error ) == 0 )
   {
     $query = 'insert into '.PREFIX_TABLE.'waiting';
-    $query.= ' (cat_id,file,username,mail_address,date) values';
+    $query.= ' (cat_id,file,username,mail_address,date,infos) values';
     $query.= " (".$page['cat'].",'".$_FILES['picture']['name']."'";
     $query.= ",'".htmlspecialchars( $_POST['username'], ENT_QUOTES)."'";
-    $query.= ",'".$_POST['mail_address']."',".time().")";
+    $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';
     mysql_query( $query );
     $page['waiting_id'] = mysql_insert_id();
@@ -209,7 +230,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $upload_type = $result['type'];
   for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
   {
-    $error[$i++] = $result['error'][$j];
+    array_push( $error, $result['error'][$j] );
   }
   if ( sizeof( $error ) == 0 )
   {
@@ -243,7 +264,7 @@ if ( !$page['upload_successful'] )
   {
     $url.= '&amp;waiting_id='.$page['waiting_id'];
   }
-  $vtp->setGlobalVar( $handle, 'form_action', $url );
+  $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
 //--------------------------------------------------------------------- advises
   if ( $conf['upload_maxfilesize'] != '' )
   {
@@ -307,7 +328,27 @@ if ( !$page['upload_successful'] )
   if ( !isset( $page['waiting_id'] ) )
   {
     $vtp->addSession( $handle, 'fields' );
+    // username
+    if ( isset( $_POST['username'] ) ) $username = $_POST['username'];
+    else                               $username = $user['username'];
+    $vtp->setVar( $handle, 'fields.username',  $username );
+    // mail address
+    if ( isset( $_POST['mail_address'] ) )$mail_address=$_POST['mail_address'];
+    else                                  $mail_address=$user['mail_address'];
+    $vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
+    // name of the picture
+    $vtp->setVar( $handle, 'fields.name', $_POST['name'] );
+    // author
+    $vtp->setVar( $handle, 'fields.author', $_POST['author'] );
+    // date of creation
+    $vtp->setVar( $handle, 'fields.date_creation', $_POST['date_creation'] );
+    // comment
+    $vtp->setVar( $handle, 'fields.comment', $_POST['comment'] );
+
     $vtp->closeSession( $handle, 'fields' );
+
+    $vtp->addSession( $handle, 'note' );
+    $vtp->closeSession( $handle, 'note' );
   }
   $vtp->closeSession( $handle, 'upload_not_successful' );
 }

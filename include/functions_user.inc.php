@@ -313,7 +313,7 @@ function get_all_restrictions( $user_id, $user_status )
 function is_user_allowed( $category_id, $restrictions )
 {
   $lowest_category_id = $category_id;
-                
+
   $is_root = false;
   while ( !$is_root and !in_array( $category_id, $restrictions ) )
   {
@@ -322,21 +322,12 @@ function is_user_allowed( $category_id, $restrictions )
     $query.= ' WHERE id = '.$category_id;
     $query.= ';';
     $row = mysql_fetch_array( mysql_query( $query ) );
-    if ( $row['id_uppercat'] == '' )
-    {
-      $is_root = true;
-    }
+    if ( $row['id_uppercat'] == '' ) $is_root = true;
     $category_id = $row['id_uppercat'];
   }
-                
-  if ( in_array( $lowest_category_id, $restrictions ) )
-  {
-    return 1;
-  }
-  if ( in_array( $category_id, $restrictions ) )
-  {
-    return 2;
-  }
+
+  if ( in_array( $lowest_category_id, $restrictions ) ) return 1;
+  if ( in_array( $category_id,        $restrictions ) ) return 2;
   // this user is allowed to go in this category
   return 0;
 }

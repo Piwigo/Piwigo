@@ -20,22 +20,14 @@
 // Example :
 //            status --> $user['status']
 $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
-                'nb_line_page', 'status', 'theme', 'language', 'maxwidth',
+                'nb_line_page', 'status', 'language', 'maxwidth',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
                 'long_period', 'template' );
 
-$query_user  = 'SELECT';
-for ( $i = 0; $i < sizeof( $infos ); $i++ )
-{
-  if ( $i > 0 )
-  {
-    $query_user.= ',';
-  }
-  else
-  {
-    $query_user.= ' ';
-  }
-  $query_user.= $infos[$i];
+$query_user  = 'SELECT ';
+foreach ( $infos as $i => $info ) {
+  if ( $i > 0 ) $query_user.= ',';
+  $query_user.= $info;
 }
 $query_user.= ' FROM '.PREFIX_TABLE.'users';
 $query_done = false;

@@ -28,111 +28,86 @@ if ( $user['is_the_guest'] )
 //-------------------------------------------------------------- initialization
 check_cat_id( $_GET['cat'] );
 //------------------------------------------------------ update & customization
-$infos = array( 'nb_image_line', 'nb_line_page', 'theme', 'language',
+$infos = array( 'nb_image_line', 'nb_line_page', 'language',
                 'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
                 'short_period', 'long_period', 'template', 'mail_address' );
 // mise à jour dans la base de données des valeurs
 // des paramètres pour l'utilisateur courant
 //    - on teste si chacune des variables est passée en argument à la page
 //    - ce qui signifie que l'on doit venir de la page de personnalisation
-$error = array();
+$errors = array();
 if ( isset( $_POST['submit'] ) )
 {
-  $i = 0;
-  if ( $_POST['maxwidth'] != '' )
+  $int_pattern = '/^\d+$/';
+  if ( $_POST['maxwidth'] != ''
+       and ( !preg_match( $int_pattern, $_POST['maxwidth'] )
+             or $_POST['maxwidth'] < 50 ) )
   {
-    if ( !ereg( "^[0-9]{2,}$", $_POST['maxwidth'] )
-         || $_POST['maxwidth'] < 50 )
-    {
-      $error[$i++] = $lang['err_maxwidth'];
-    }
+    array_push( $errors, $lang['err_maxwidth'] );
   }
-  if ( $_POST['maxheight'] != '' )
+  if ( $_POST['maxheight']
+       and ( !preg_match( $int_pattern, $_POST['maxheight'] )
+             or $_POST['maxheight'] < 50 ) )
   {
-    if ( !ereg( "^[0-9]{2,}$", $_POST['maxheight'] )
-         || $_POST['maxheight'] < 50 )
-    {
-      $error[$i++] = $lang['err_maxheight'];
-    }
+    array_push( $errors, $lang['err_maxheight'] );
   }
-  // les période doivent être des entiers, il représentent des nombres de jours
-  if ( !ereg( "^[0-9]*$", $_POST['short_period'] )
-       || !ereg("^[0-9]*$", $_POST['long_period'] ) )
+  // periods must be integer values, they represents number of days
+  if ( !preg_match( $int_pattern, $_POST['short_period'] )
+       or !preg_match( $int_pattern, $_POST['long_period'] ) )
   {
-    $error[$i++] = $lang['err_periods'];
+    array_push( $errors, $lang['err_periods'] );
   }
   else
   {
-    // la période longue doit être supérieure à la période courte
+    // long period must be longer than short period
     if ( $_POST['long_period'] <= $_POST['short_period']
-         || $_POST['short_period'] <= 0 )
+         or $_POST['short_period'] <= 0 )
     {
-      $error[$i++] = $lang['err_periods_2'];
+      array_push( $errors, $lang['err_periods_2'] );
     }
   }
-  // le mail doit être conforme à qqch du type : nom@serveur.com
-  if( $_POST['mail_address'] != ""
-      && !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
-                $_POST['mail_address'] ) )
+  $mail_error = validate_mail_address( $_POST['mail_address'] );
+  if ( $mail_error != '' )
   {
-    $error[$i++] = $lang['reg_err_mail_address'];
+    array_push( $errors, $mail_error );
   }
   if ( $_POST['use_new_pwd'] == 1 )
   {
-    // on vérifie que le password rentré correspond bien
-    // à la confirmation faite par l'utilisateur
+    // password must be the same as its confirmation
     if ( $_POST['password'] != $_POST['passwordConf'] )
     {
-      $error[$i++] = $lang['reg_err_pass'];
+      array_push( $errors, $lang['reg_err_pass'] );
     }
   }
 
-  if ( sizeof( $error ) == 0 )
+  if ( count( $errors ) == 0 )
   {
-    $tab_theme = explode( ' - ', $_POST['theme'] );
-    $_POST['theme'] = $tab_theme[0].'/'.$tab_theme[1];
-
-    $query = 'update '.PREFIX_TABLE.'users';
-    $query.= ' set';
-    for ( $i = 0; $i < sizeof( $infos ); $i++ )
-    {
-      if ( $i > 0 )
-      {
-        $query.= ',';
-      }
-      else
-      {
-        $query.= ' ';
-      }
-      $query.= $infos[$i];
+    $query = 'UPDATE '.PREFIX_TABLE.'users';
+    $query.= ' SET ';
+    foreach ( $infos as $i => $info ) {
+      if ( $i > 0 ) $query.= ',';
+      $query.= $info;
       $query.= ' = ';
-      if ( $_POST[$infos[$i]] == '' )
-      {
-        $query.= 'NULL';
-      }
-      else
-      {
-        $query.= "'".$_POST[$infos[$i]]."'";
-      }
+      if ( $_POST[$info] == '' ) $query.= 'NULL';
+      else                       $query.= "'".$_POST[$info]."'";
     }
-    $query.= ' where id = '.$user['id'];
+    $query.= ' WHERE id = '.$user['id'];
     $query.= ';';
     mysql_query( $query );
 
     if ( $_POST['use_new_pwd'] == 1 )
     {
-      $query = 'update '.PREFIX_TABLE.'users';
-      $query.= " set password = '".md5( $_POST['password'] )."'";
-      $query.= ' where id = '.$user['id'];
+      $query = 'UPDATE '.PREFIX_TABLE.'users';
+      $query.= " SET password = '".md5( $_POST['password'] )."'";
+      $query.= ' WHERE id = '.$user['id'];
       $query.= ';';
       mysql_query( $query );
-      echo '<br />'.$query;
     }
     // redirection
     $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
     if ( $page['cat'] == 'search' )
     {
-      $url.= '&search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+      $url.= '&search='.$_GET['search'].'&mode='.$_GET['mode'];
     }
     $url = add_session_id( $url, true );
     header( 'Request-URI: '.$url );  
@@ -156,13 +131,12 @@ if ( $page['cat'] == 'search' )
 }
 $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
 //-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
+if ( count( $errors ) != 0 )
 {
   $vtp->addSession( $handle, 'errors' );
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
-  {
+  foreach ( $errors as $error ) {
     $vtp->addSession( $handle, 'li' );
-    $vtp->setVar( $handle, 'li.li', $error[$i] );
+    $vtp->setVar( $handle, 'li.li', $error );
     $vtp->closeSession( $handle, 'li' );
   }
   $vtp->closeSession( $handle, 'errors' );
@@ -220,27 +194,6 @@ if ( in_array( 'template', $infos ) )
     $vtp->addSession( $handle, 'option' );
     $vtp->setVar( $handle, 'option.option', $option[$i] );
     if ( $option[$i] == $user['template'] )
-    {
-      $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
-    }
-    $vtp->closeSession( $handle, 'option' );
-  }
-  $vtp->closeSession( $handle, 'select' );
-  $vtp->closeSession( $handle, 'line' );
-}
-//----------------------------------------------------------------------- theme
-if ( in_array( 'theme', $infos ) )
-{
-  $vtp->addSession( $handle, 'line' );
-  $vtp->setVar( $handle, 'line.name', $lang['customize_theme'] );
-  $vtp->addSession( $handle, 'select' );
-  $vtp->setVar( $handle, 'select.name', 'theme' );
-  $option = get_themes( './theme/' );
-  for ( $i = 0; $i < sizeof( $option ); $i++ )
-  {
-    $vtp->addSession( $handle, 'option' );
-    $vtp->setVar( $handle, 'option.option', $option[$i] );
-    if ( $option[$i] == str_replace( '/', ' - ', $user['theme'] ) )
     {
       $vtp->setVar( $handle, 'option.selected', ' selected="selected"' );
     }

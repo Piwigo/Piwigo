@@ -16,8 +16,6 @@
  ***************************************************************************/
 
 // this page shows the image full size
-// (or resized to the max size the user has chosen)
-// and two thumbnail : previous and next picture of your gallery
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );       
 //-------------------------------------------------- access authorization check
@@ -147,9 +145,50 @@ $handle = $vtp->Open( './template/'.$user['template'].'/picture.vtp' );
 initialize_template();
 
 $tpl = array( 'back','submit','comments_title','comments_del','delete',
-              'comments_add','author' );
+              'comments_add','author','slideshow','slideshow_stop',
+              'period_seconds' );
 templatize_array( $tpl, 'lang', $handle );
+$vtp->setGlobalVar( $handle, 'user_template', $user['template'] );
 $vtp->setGlobalVar( $handle, 'text_color', $user['couleur_text'] );
+//-------------------------------------------------------- slideshow management
+if ( isset( $_GET['slideshow'] ) )
+{
+  if ( !is_numeric( $_GET['slideshow'] ) )
+    $_GET['slideshow'] = $conf['slideshow_period'][0];
+  $vtp->addSession( $handle, 'stop_slideshow' );
+  $url = './picture.php';
+  $url.= '?image_id='.$page['id'];
+  $url.= '&amp;cat='.$page['cat'];
+  $url.= '&amp;expand='.$_GET['expand'];
+  if ( $page['cat'] == 'search' )
+  {
+    $url.= '&amp;search='.$_GET['search'];
+    $url.= '&amp;mode='.$_GET['mode'];
+  }
+  $vtp->setVar( $handle, 'stop_slideshow.url', add_session_id( $url ) );
+  $vtp->closeSession( $handle, 'stop_slideshow' );
+}
+else
+{
+  $vtp->addSession( $handle, 'start_slideshow' );
+  foreach ( $conf['slideshow_period'] as $option ) {
+    $vtp->addSession( $handle, 'second' );
+    $vtp->setVar( $handle, 'second.option', $option );
+    $url = './picture.php';
+    $url.= '?image_id='.$page['id'];
+    $url.= '&amp;cat='.$page['cat'];
+    $url.= '&amp;expand='.$_GET['expand'];
+    if ( $page['cat'] == 'search' )
+    {
+      $url.= '&amp;search='.$_GET['search'];
+      $url.= '&amp;mode='.$_GET['mode'];
+    }
+    $url.= '&amp;slideshow='.$option;
+    $vtp->setVar( $handle, 'second.url', add_session_id( $url ) );
+    $vtp->closeSession( $handle, 'second' );
+  }
+  $vtp->closeSession( $handle, 'start_slideshow' );
+}
 //------------------------------------------------------------------ page title
 if ( $page['name'] != '' )
 {
@@ -376,7 +415,7 @@ if ( $page['cat'] != 'fav' and !$user['is_the_guest'] )
   $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
   $vtp->setVar( $handle, 'favorite.title', $lang['add_favorites_hint'] );
   $vtp->setVar( $handle, 'favorite.src',
-                './theme/'.$user['theme'].'/favorite.gif' );
+                './template/'.$user['template'].'/theme/favorite.gif' );
   $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['add_favorites_alt'].' ]' );
   $vtp->closeSession( $handle, 'favorite' );
 }
@@ -388,7 +427,7 @@ if ( $page['cat'] == 'fav' )
   $vtp->setVar( $handle, 'favorite.link', add_session_id( $url ) );
   $vtp->setVar( $handle, 'favorite.title', $lang['del_favorites_hint'] );
   $vtp->setVar( $handle, 'favorite.src',
-                './theme/'.$user['theme'].'/del_favorite.gif' );
+                './template/'.$user['template'].'/theme/del_favorite.gif' );
   $vtp->setVar( $handle, 'favorite.alt','[ '.$lang['del_favorites_alt'].' ]' );
   $vtp->closeSession( $handle, 'favorite' );
 }
@@ -452,6 +491,15 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   $vtp->setGlobalVar( $handle, 'next.src', $lien_thumbnail );
   $vtp->setGlobalVar( $handle, 'next.alt', $alt_thumbnail );
   $vtp->closeSession( $handle, 'next' );
+  // slideshow
+  if ( isset( $_GET['slideshow'] ) )
+  {
+    $vtp->addSession( $handle, 'refresh' );
+    $vtp->setVar( $handle, 'refresh.time', 2 );
+    $url = $url_link.'&amp;slideshow='.$_GET['slideshow'];
+    $vtp->setVar( $handle, 'refresh.url', add_session_id( $url ) );
+    $vtp->closeSession( $handle, 'refresh' );
+  }
 }
 else
 {
@@ -471,10 +519,23 @@ if ( $conf['show_comments'] )
       $author = $_POST['author'];
     }
     $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
-    $query.= ' (author,date,image_id,content) VALUES';
+    $query.= ' (author,date,image_id,content,validated) VALUES';
     $query.= " ('".$author."',".time().",".$page['id'];
-    $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."');";
+    $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
+    if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
+      $query.= ",'true'";
+    else
+      $query.= ",'false'";
+    $query.= ');';
     mysql_query( $query );
+    $vtp->addSession( $handle, 'information' );
+    $message = $lang['comment_added'];
+    if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+    {
+      $message.= '<br />'.$lang['comment_to_validate'];
+    }
+    $vtp->setVar( $handle, 'information.content', $message );
+    $vtp->closeSession( $handle, 'information' );
   }
   // comment deletion
   if ( isset( $_GET['del'] )
@@ -488,7 +549,9 @@ if ( $conf['show_comments'] )
   // number of comment for this picture
   $query = 'SELECT COUNT(*) AS nb_comments';
   $query.= ' FROM '.PREFIX_TABLE.'comments';
-  $query.= ' WHERE image_id = '.$page['id'].';';
+  $query.= ' WHERE image_id = '.$page['id'];
+  $query.= " AND validated = 'true'";
+  $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $page['nb_comments'] = $row['nb_comments'];
   // navigation bar creation
@@ -519,6 +582,7 @@ if ( $conf['show_comments'] )
   $query = 'SELECT id,author,date,image_id,content';
   $query.= ' FROM '.PREFIX_TABLE.'comments';
   $query.= ' WHERE image_id = '.$page['id'];
+  $query.= " AND validated = 'true'";
   $query.= ' ORDER BY date ASC';
   $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
   $result = mysql_query( $query );
@@ -530,7 +594,7 @@ if ( $conf['show_comments'] )
     $displayed_date = $lang['day'][date( "w", $row['date'] )];
     $displayed_date.= date( " j ", $row['date'] );
     $displayed_date.= $lang['month'][date( "n", $row['date'] )];
-    $displayed_date.= date( " Y G:i", $row['date'] );
+    $displayed_date.= date( ' Y G:i', $row['date'] );
     $vtp->setVar( $handle, 'comment.date', $displayed_date );
     $vtp->setVar( $handle, 'comment.content', nl2br( $row['content'] ) );
     if ( $user['status'] == 'admin' )

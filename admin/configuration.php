@@ -40,9 +40,10 @@ array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
        'session_id_size','session_time','session_keyword','max_user_listbox',
        'show_comments','nb_comment_page','upload_available',
        'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
-       'upload_maxwidth_thumbnail','upload_maxheight_thumbnail' );
+       'upload_maxwidth_thumbnail','upload_maxheight_thumbnail','log',
+       'comments_validation' );
 $default_user_infos =
-array( 'nb_image_line','nb_line_page','theme','language','maxwidth',
+array( 'nb_image_line','nb_line_page','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
        'template' );
 $error = array();
@@ -73,7 +74,7 @@ if ( isset( $_POST['submit'] ) )
   {
     array_push( $error, $lang['conf_err_prefixe'] );
   }
-  // mail mail must be formatted as follows : name@server.com
+  // mail must be formatted as follows : name@server.com
   $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
   if ( !preg_match( $pattern, $_POST['mail_webmaster'] ) )
   {
@@ -193,9 +194,6 @@ if ( isset( $_POST['submit'] ) )
     $query.= ';';
     echo $query;
     mysql_query( $query );
-
-    $tab_theme = explode( ' - ', $_POST['theme'] );
-    $_POST['theme'] = $tab_theme[0].'/'.$tab_theme[1];
 
     $query = 'UPDATE '.PREFIX_TABLE.'users';
     $query.= ' SET';
@@ -371,6 +369,38 @@ $vtp->setVar( $sub, 'param_line.def',
               $lang['conf_general_max_user_listbox_info'] );
 $vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
+// activate log
+$vtp->addSession( $sub, 'line' );
+$vtp->addSession( $sub, 'param_line' );
+$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_log'] );
+$vtp->addSession( $sub, 'group' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'log' );
+$vtp->setVar( $sub, 'radio.value', 'true' );
+$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
+$checked = '';
+if ( $log == 'true' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'log' );
+$vtp->setVar( $sub, 'radio.value', 'false' );
+$vtp->setVar( $sub, 'radio.option', $lang['no'] );
+$checked = '';
+if ( $log == 'false' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->closeSession( $sub, 'group' );
+$vtp->setVar( $sub, 'param_line.def',
+              $lang['conf_general_log_info'] );
+$vtp->closeSession( $sub, 'param_line' );
+$vtp->closeSession( $sub, 'line' );
 
 $vtp->addSession( $sub, 'line' );
 $vtp->addSession( $sub, 'space_line' );
@@ -430,6 +460,38 @@ $vtp->setVar( $sub, 'text.value', $nb_comment_page );
 $vtp->closeSession( $sub, 'text' );
 $vtp->setVar( $sub, 'param_line.def',
               $lang['conf_comments_comments_number_info'] );
+$vtp->closeSession( $sub, 'param_line' );
+$vtp->closeSession( $sub, 'line' );
+// coments validation
+$vtp->addSession( $sub, 'line' );
+$vtp->addSession( $sub, 'param_line' );
+$vtp->setVar( $sub, 'param_line.name', $lang['conf_comments_validation'] );
+$vtp->addSession( $sub, 'group' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'comments_validation' );
+$vtp->setVar( $sub, 'radio.value', 'true' );
+$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
+$checked = '';
+if ( $comments_validation == 'true' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'comments_validation' );
+$vtp->setVar( $sub, 'radio.value', 'false' );
+$vtp->setVar( $sub, 'radio.option', $lang['no'] );
+$checked = '';
+if ( $comments_validation == 'false' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->closeSession( $sub, 'group' );
+$vtp->setVar( $sub, 'param_line.def',
+              $lang['conf_comments_validation_info'] );
 $vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
 
@@ -514,7 +576,7 @@ $vtp->closeSession( $sub, 'line' );
 // template
 $vtp->addSession( $sub, 'line' );
 $vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_template'] );
+$vtp->setVar( $sub, 'param_line.name', $lang['customize_theme'] );
 $vtp->addSession( $sub, 'select' );
 $vtp->setVar( $sub, 'select.name', 'template' );
 $option = get_dirs( '../template/' );
@@ -523,27 +585,6 @@ for ( $i = 0; $i < sizeof( $option ); $i++ )
   $vtp->addSession( $sub, 'option' );
   $vtp->setVar( $sub, 'option.option', $option[$i] );
   if ( $option[$i] == $template )
-  {
-    $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
-  }
-  $vtp->closeSession( $sub, 'option' );
-}
-$vtp->closeSession( $sub, 'select' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_template_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// theme
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_theme'] );
-$vtp->addSession( $sub, 'select' );
-$vtp->setVar( $sub, 'select.name', 'theme' );
-$option = get_themes( '../theme/' );
-for ( $i = 0; $i < sizeof( $option ); $i++ )
-{
-  $vtp->addSession( $sub, 'option' );
-  $vtp->setVar( $sub, 'option.option', $option[$i] );
-  if ( $option[$i] == str_replace( "/", " - ", $theme ) )
   {
     $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
   }

@@ -20,7 +20,13 @@ $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
+$output.= 'after init.inc.php : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //-------------------------------------------------- access authorization check
+// creating the plain structure : array of all the available categories and
+// their relative informations, see the definition of the function
+// get_plain_structure for further details.
+$page['plain_structure'] = get_plain_structure();
+
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
 if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
@@ -34,33 +40,18 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 $page['tab_expand'] = array();
 if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
 {
-  $j = 0;
-  $tab_expand = explode( ",", $_GET['expand'] );
-  $size = sizeof( $tab_expand );
-  for ( $i = 0; $i < $size; $i++ )
-  {
-    if ( is_numeric( $tab_expand[$i] ) )
-    {
-      $page['tab_expand'][$j++] = $tab_expand[$i];
-    }
+  $tab_expand = explode( ',', $_GET['expand'] );
+  foreach ( $tab_expand as $id ) {
+    if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
   }
   $page['expand'] = implode( ',', $page['tab_expand'] );
 }
 // in case of expanding all authorized cats
 // The $page['expand'] equals 'all' and
 // $page['tab_expand'] contains all the authorized cat ids
-if ( $user['expand'] == 'true' or $_GET['expand'] == 'all' )
+if ( $user['expand'] or $_GET['expand'] == 'all' )
 {
   $page['tab_expand'] = array();
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id_uppercat IS NULL;';
-  $result = mysql_query( $query );
-  $i = 0;
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $page['tab_expand'][$i++] = $row['id'];
-  }
   $page['expand'] = 'all';
 }
 // detection of the start picture to display
@@ -83,23 +74,28 @@ if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
   $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
   $page['start']*= $user['nb_image_page'];
 }
+// creating the structure of the categories (useful for displaying the menu)
+$page['structure'] = create_structure( '', $user['restrictions'] );
+$page['structure'] = update_structure( $page['structure'] );
 initialize_category();
+$output.= 'before template init : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
 $handle = $vtp->Open( './template/'.$user['template'].'/category.vtp' );
 initialize_template();
-
-$tpl = array( 'categories','hint_category','sub-cat','images_available',
-              'total','title_menu','nb_image_category','send_mail',
-              'title_send_mail','generation_time','upload_name',
-              'connected_user','recent_image','days','generation_time',
-              'favorite_cat_hint','favorite_cat','stats',
-              'most_visited_cat_hint','most_visited_cat','recent_cat',
-              'recent_cat_hint' );
+$output.= 'before lang array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
+$tpl = array(
+  'categories','hint_category','sub-cat','images_available','total',
+  'title_menu','nb_image_category','send_mail','title_send_mail',
+  'generation_time','connected_user','recent_image','days','generation_time',
+  'favorite_cat_hint','favorite_cat','stats','most_visited_cat_hint',
+  'most_visited_cat','recent_cat','recent_cat_hint','upload_picture' );
 templatize_array( $tpl, 'lang', $handle );
+$output.= 'after lang array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 
 $tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
 templatize_array( $tpl, 'conf', $handle );
+$output.= 'after conf array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 
 $tpl = array( 'short_period','long_period','lien_collapsed', 'username' );
 templatize_array( $tpl, 'user', $handle );
@@ -111,17 +107,22 @@ templatize_array( $tpl, 'page', $handle );
 $vtp->setGlobalVar( $handle, 'icon_short', get_icon( time() ) );
 $icon_long = get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) );
 $vtp->setGlobalVar( $handle, 'icon_long', $icon_long );
-$nb_total_pictures = get_total_image( "", $user['restrictions'] );
+$nb_total_pictures = count_images( $page['structure'] );
 $vtp->setGlobalVar( $handle, 'nb_total_pictures',$nb_total_pictures );
 //------------------------------------------------------------- categories menu
+$output.= 'before menu : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 // normal categories
-display_cat( '', '&nbsp;', $user['restrictions'], $page['tab_expand'] );
+foreach ( $page['structure'] as $category ) {
+  // display category is a function relative to the template
+  display_category( $category, '&nbsp;', $handle );
+}
+$output.= 'after menu : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 // favorites cat
 if ( !$user['is_the_guest'] )
 {
   $vtp->addSession( $handle, 'favorites' );
-  $url = add_session_id('./category.php?cat=fav&amp;expand='.$page['expand'] );
-  $vtp->setVar( $handle, 'favorites.url', $url );
+  $url = './category.php?cat=fav&amp;expand='.$page['expand'];
+  $vtp->setVar( $handle, 'favorites.url', add_session_id( $url ) );
   // searching the number of favorite picture
   $query = 'SELECT COUNT(*) AS count';
   $query.= ' FROM '.PREFIX_TABLE.'favorites';
@@ -132,27 +133,23 @@ if ( !$user['is_the_guest'] )
   $vtp->closeSession( $handle, 'favorites' );
 }
 // most visited pictures category
-$url = add_session_id( './category.php?cat=most_visited'.
-                       '&amp;expand='.$page['expand'] );
-$vtp->setGlobalVar( $handle, 'most_visited_url', $url );
+$url = './category.php?cat=most_visited&amp;expand='.$page['expand'];
+$vtp->setGlobalVar( $handle, 'most_visited_url', add_session_id( $url ) );
 // recent pictures
-$url = add_session_id( './category.php?cat=recent'.
-                       '&amp;expand='.$page['expand'] );
-$vtp->setGlobalVar( $handle, 'recent_url', $url );
+$url = './category.php?cat=recent&amp;expand='.$page['expand'];
+$vtp->setGlobalVar( $handle, 'recent_url', add_session_id( $url ) );
 //--------------------------------------------------------------------- summary
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.url', './identification.php' );
 if ( !$user['is_the_guest'] )
 {
   $vtp->setVar( $handle, 'summary.title', '' );
-  $vtp->setVar( $handle, 'summary.name',
-                replace_space( $lang['change_login'] ) );
+  $vtp->setVar( $handle, 'summary.name',replace_space($lang['change_login']));
 }
 else
 {
   $vtp->setVar( $handle, 'summary.title', $lang['hint_login'] );
-  $vtp->setVar( $handle, 'summary.name',
-                replace_space( $lang['login'] ) );
+  $vtp->setVar( $handle, 'summary.name',  replace_space( $lang['login'] ) );
 }
 $vtp->closeSession( $handle, 'summary' );
 // links for registered users
@@ -185,8 +182,8 @@ $vtp->setVar( $handle, 'summary.name', replace_space( $lang['search'] ) );
 $vtp->closeSession( $handle, 'summary' );
 // about link
 $vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.url',
-              add_session_id( './about.php?'.$_SERVER['QUERY_STRING'] ) );
+$vtp->setVar( $handle, 'summary.url', './about.php?'.
+              str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) );
 $vtp->setVar( $handle, 'summary.title', $lang['hint_about'] );
 $vtp->setVar( $handle, 'summary.name', replace_space( $lang['about'] ) );
 $vtp->closeSession( $handle, 'summary' );
@@ -226,6 +223,7 @@ else
                       replace_space( $lang['no_category'] ) );
 }
 //------------------------------------------------------------------ thumbnails
+$output.= 'before thumbs : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 {
   if ( is_numeric( $page['cat'] ) )
@@ -317,6 +315,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
       $query = 'SELECT COUNT(*) AS nb_comments';
       $query.= ' FROM '.PREFIX_TABLE.'comments';
       $query.= ' WHERE image_id = '.$row['id'];
+      $query.= " AND validated = 'true'";
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
       $vtp->setVar( $handle, 'nb_comments.nb', $row['nb_comments'] );
@@ -341,65 +340,58 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }
-elseif ( isset( $page['cat'] )
-         and is_numeric( $page['cat'] )
-         and $page['cat_nb_images'] == 0 )
+//-------------------------------------------------------------- empty category
+elseif ( ( isset( $page['cat'] )
+           and is_numeric( $page['cat'] )
+           and $page['cat_nb_images'] == 0 )
+         or $_GET['cat'] == '' )
 {
   $vtp->addSession( $handle, 'thumbnails' );
   $vtp->addSession( $handle, 'line' );
 
-  $subcats = get_non_empty_sub_cat_ids( $page['cat'] );
+  $subcats = get_non_empty_subcat_ids( $page['cat'] );
   $cell_number = 1;
-  foreach ( $subcats as $id => $subcat ) {
-    $result = get_cat_info( $subcat['non_empty_cat'] );
-    $cat_directory = $result['dir'];
+  $i = 0;
+  foreach ( $subcats as $subcat_id => $non_empty_id ) {
+    $subcat_infos    = get_cat_info( $subcat_id );
+    $non_empty_infos = get_cat_info( $non_empty_id );
 
-    $name = '[ <span style="font-weight:bold;">';
-    if ( $subcat['name'] != '' )
-    {
-      $name.= $subcat['name'];
-    }
-    else
-    {
-      $name.= $subcat['dir'];
-    }
+    $name ='[ <span style="font-weight:bold;">';
+    $name.= $subcat_infos['name'][0];
     $name.= '</span> ]';
-    $name = replace_space( $name );
     
     $query = 'SELECT file,tn_ext';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE cat_id = '.$subcat['non_empty_cat'];
+    $query.= ' WHERE cat_id = '.$non_empty_id;
     $query.= ' ORDER BY RAND()';
     $query.= ' LIMIT 0,1';
     $query.= ';';
     $image_result = mysql_query( $query );
-    $image_row = mysql_fetch_array( $image_result );
+    $image_row    = mysql_fetch_array( $image_result );
 
     $file = get_filename_wo_extension( $image_row['file'] );
 
     // creating links for thumbnail and associated category
-    $lien_image = $cat_directory;
-    $lien_thumbnail = $lien_image;
-    $lien_thumbnail.= 'thumbnail/'.$conf['prefix_thumbnail'];
-    $lien_thumbnail.= $file.'.'.$image_row['tn_ext'];
-    $lien_image.= $image_row['file'];
+    $thumbnail_link = $non_empty_infos['dir'];
+    $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
+    $thumbnail_link.= $file.'.'.$image_row['tn_ext'];
 
     $thumbnail_title = $lang['hint_category'];
 
-    $url_link = './category.php?cat='.$subcat['id'];
+    $url_link = './category.php?cat='.$subcat_id;
     if ( !in_array( $page['cat'], $page['tab_expand'] ) )
     {
       array_push( $page['tab_expand'], $page['cat'] );
       $page['expand'] = implode( ',', $page['tab_expand'] );
     }
     $url_link.= '&amp;expand='.$page['expand'];
-    list( $year,$month,$day ) = explode( '-', $subcat['date_dernier'] );
+    list( $year,$month,$day ) = explode( '-', $subcat_infos['date_last'] );
     $date = mktime( 0, 0, 0, $month, $day, $year );
 
     // sending vars to display
     $vtp->addSession( $handle, 'thumbnail' );
     $vtp->setVar( $handle, 'thumbnail.url', add_session_id( $url_link ) );
-    $vtp->setVar( $handle, 'thumbnail.src', $lien_thumbnail );
+    $vtp->setVar( $handle, 'thumbnail.src', $thumbnail_link );
     $vtp->setVar( $handle, 'thumbnail.alt', $image_row['file'] );
     $vtp->setVar( $handle, 'thumbnail.title', $thumbnail_title );
     $vtp->setVar( $handle, 'thumbnail.name', $name );
@@ -411,18 +403,19 @@ elseif ( isset( $page['cat'] )
       $vtp->closeSession( $handle, 'line' );
       $cell_number = 1;
       // we open a new line if the subcat was not the last one
-      if ( $id < count( $subcats ) - 1 )
+      if ( $i++ < count( $subcats ) - 1 )
       {
         $vtp->addSession( $handle, 'line' );
       }
     }
   }
-  if ( $id < count( $subcats ) - 1 )
+  if ( $i < count( $subcats ) - 1 )
   {
     $vtp->closeSession( $handle, 'line' );
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }
+$output.= 'after thumbs : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {
@@ -469,5 +462,6 @@ $time = get_elapsed_time( $t2, get_moment() );
 $vtp->setGlobalVar( $handle, 'time', $time );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
+echo $output;
 echo $code;
 ?>

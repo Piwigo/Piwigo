@@ -1,4 +1,7 @@
 <?php
+// start version 1.3
+$lang['charset'] = 'Shift_JIS';//'ISO_8859-1';
+// end version 1.3
 $lang['only_members'] = 'Seuls les membres du site peuvent accéder à cette page';
 $lang['invalid_pwd'] = 'le mot de passe rentré n\'est pas valide';
 $lang['access_forbiden'] = 'Vous n\'êtes pas autorisé à aller dans cette section';
@@ -19,6 +22,12 @@ $lang['public'] = 'publique';
 $lang['private'] = 'privée';
 $lang['add'] = 'ajouter';
 $lang['dissociate'] = 'dissocier';
+$lang['mandatory'] = 'obligatoire';
+$lang['err_date'] = 'date erronée';
+$lang['picture'] = 'image';
+$lang['IP'] = 'IP';
+$lang['close'] = 'fermer';
+$lang['open'] = 'ouvrir';
 // end version 1.3
 
 // page diapo
@@ -132,8 +141,8 @@ $lang['maxwidth'] = 'largeur maximum des images';
 $lang['maxheight'] = 'hauteur maximum des images';
 $lang['err_maxwidth'] = 'la largeur maximum des images doit être un entier supérieur à 50';
 $lang['err_maxheight'] = 'la hauteur maximum des images doit être un entier supérieur à 50';
-	
-// page photo
+
+// picture.php
 $lang['previous_image'] = 'Précédent';
 $lang['next_image'] = 'Suivant';
 $lang['back'] = 'Cliquez sur l\'image pour revenir à la page des miniatures';
@@ -166,7 +175,14 @@ $lang['add_favorites_alt'] = 'Ajouter aux favoris';
 $lang['add_favorites_hint'] = 'ajouter cette image à vos favoris';
 $lang['del_favorites_alt'] = 'Retirer des favoris';
 $lang['del_favorites_hint'] = 'supprimer cette image de vos favoris';
-	
+// start version 1.3
+$lang['slideshow'] = 'diaporama';
+$lang['period_seconds'] = 'secondes par image';
+$lang['slideshow_stop'] = 'stopper le diaporama';
+$lang['comment_added'] = 'Votre commentaire a été enregistré';
+$lang['comment_to_validate'] = 'Un administrateur doit valider votre commentaire pour qu\'il soit visible';
+// end version 1.3
+
 // page register
 $lang['register_page_title'] = 'Enregistrement';
 $lang['register_title'] = 'Enregistrement';
@@ -208,6 +224,12 @@ $lang['upload_advise_filetype'] = 'l\'image doit être au format jpg, gif ou png'
 $lang['upload_err_username'] = 'le nom de l\'utilisateur doit être renseigné';
 $lang['upload_username'] = 'Nom d\'utilisateur';
 $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur validera celle-ci dès que possible.';
+// start version 1.3
+$lang['upload_name'] = 'Nom de l\'image';
+$lang['upload_author'] = 'Auteur (eg "Pierrick LE GALL")';
+$lang['upload_creation_date'] = 'Date de création (JJ/MM/AAAA)';
+$lang['upload_comment'] = 'Commentaire';
+// end version 1.3
 
 //----------------------------------administration
 if ( $isadmin )
@@ -234,6 +256,7 @@ if ( $isadmin )
   $lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
   $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
   $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
+  $lang['title_comments'] = 'Commentaires des visiteurs';
 // end version 1.3
   $lang['title_categories'] = 'Gestion des catégories';
   $lang['title_edit_cat'] = 'Editer une catégorie';
@@ -255,6 +278,7 @@ if ( $isadmin )
   $lang['menu_back'] = 'Page diapo';
 // start version 1.3
   $lang['menu_groups'] = 'Groupes';
+  $lang['menu_comments'] = 'Commentaires';
 // end version 1.3
   
   $lang['title_waiting'] = 'Images en attente de validation';
@@ -306,6 +330,8 @@ if ( $isadmin )
 //  $lang['conf_general_default_page_info'] = 'page sur laquelle les utilisateurs sont redirigés s\'ils vont à la racine du site.';
 //  $lang['conf_general_expand'] = 'développer toutes les catégories';
 //  $lang['conf_general_expand_info'] = 'développer toutes les catégories par défaut dans le menu ?';
+  $lang['conf_general_log'] = 'historique';
+  $lang['conf_general_log_info'] = 'historiser les visites sur le site ? Les visites seront visibles dans l\'historique de l\'administration';
   // end version 1.3
   $lang['conf_comments'] = 'commentaires utilisateurs';
   $lang['conf_comments_title'] = 'Configuration des '.$lang['conf_comments'];
@@ -315,6 +341,8 @@ if ( $isadmin )
   $lang['conf_comments_comments_number_info'] = 'nombre de commentaire à afficher sur chaque page. Le nombre de commentaires pour une image reste illimité. Entrer un nombre entre 5 et 50.';
   $lang['conf_err_comment_number'] = 'le nombre de commentaires par page doit être compris entre 5 et 50 inclus.';
 // start version 1.3
+  $lang['conf_comments_validation'] = 'validation';
+  $lang['conf_comments_validation_info'] = 'L\'administrateur valide les commentaires avant qu\'ils apparaissent sur le site';
   // $lang['conf_remote_site_title'] = 'Site distant';
 // end version 1.3
   $lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';
@@ -336,7 +364,7 @@ if ( $isadmin )
   $lang['conf_upload_maxheight_thumbnail'] = 'hauteur maximum miniatures';
   $lang['conf_upload_maxheight_thumbnail_info'] = 'Hauteur maximum autorisée pour les miniatures. Celle-ci doit être un entier supérieur à 10, en pixels.';
   $lang['conf_err_upload_maxheight_thumbnail'] = 'la hauteur maximum des miniatures uploadées doit être un entier supérieur à 10.';
-		
+
   $lang['conf_default_title'] = 'Affichage par défaut pour les visiteurs non enregistrés et les nouveaux comptes';
   // start version 1.3
 //  $lang['conf_default_language'] = 'langue par défaut';
@@ -462,7 +490,9 @@ if ( $isadmin )
   $lang['editcat_visible'] = 'Visible';
 // end version 1.3
   // page info images
-  $lang['infoimage_err_date'] = 'date erronée';
+// start version 1.3
+  // $lang['infoimage_err_date'] = 'date erronée';
+// end version 1.3
   $lang['infoimage_general'] = 'Options générale pour la catégorie';
   $lang['infoimage_useforall'] = 'utiliser pour toutes les images ?';
   $lang['infoimage_creation_date'] = 'date de création';
@@ -493,11 +523,15 @@ if ( $isadmin )
   $lang['tn_thisformat'] = 'pour ce format de fichier';
   $lang['tn_err_width'] = 'la largeur doit être un entier supérieur à';
   $lang['tn_err_height'] = 'la hauteur doit être un entier supérieur à';
-  $lang['tn_err_GD'] = 'il faut choisir une version de GD';
+// start version 1.3
+  // $lang['tn_err_GD'] = 'il faut choisir une version de GD';
+// end version 1.3
 		
   $lang['tn_results_title'] = 'Résultats de la miniaturisation';
   $lang['tn_picture'] = 'image';
-  $lang['tn_filesize'] = 'poids';
+// start version 1.3
+  // $lang['tn_filesize'] = 'poids';
+// end version 1.3
   $lang['tn_results_gen_time'] = 'généré en';
 		
   $lang['tn_stats'] = 'Statistiques générales';
@@ -523,7 +557,19 @@ if ( $isadmin )
 		
   $lang['tn_dirs_title'] = 'Liste des répertoires';
   $lang['tn_dirs_alone'] = 'images sans miniatures';
-		
+
+// start version 1.3
+  $lang['stats_last_days'] = 'derniers jours';
+  $lang['stats_pages_seen'] = 'pages vues';
+  $lang['stats_visitors'] = 'visiteurs';
+  $lang['stats_empty'] = 'vider l\'historique';
+  $lang['stats_pages_seen_graph_title'] = 'Nombre de pages vues par jour';
+  $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
+
+  $lang['comments_last_title'] = 'Derniers commentaires';
+  $lang['comments_non_validated_title'] = 'Commentaires non validés';
+// end version 1.3
+  
   // help page
   $lang['help_images_title'] = 'Ajout d\'images';
   $lang['help_images_intro'] = 'Voici comment il faut placer les images dans vos répertoires';
@@ -544,9 +590,7 @@ if ( $isadmin )
   $lang['help_database_title'] = 'Remplissage de la base de données';
   $lang['help_database'][0] = 'Une fois les fichiers placés correctement et les miniatures placées ou créées, cliquez sur "MaJ base d\'images" dans le menu de la zone d\'administration.';
 
-// start version 1.3
-  // $lang['help_remote_title'] = 'Site distant';
-// end version 1.3
+  $lang['help_remote_title'] = 'Site distant';
   $lang['help_remote'][0] = 'PhpWebGallery offre la possibilité d\'utiliser plusieurs serveurs pour stocker les images qui composeront votre galerie. Cela peut être utile si votre galerie est installée sur une espace limité et que vous avez une grande quantité d\'images à montrer. Suivez la procédure suivante :';
   $lang['help_remote'][1] = '1. éditez le fichier "create_listing_file.php" (vous le trouverez dans le répertoire "admin"), en modifiant la ligne "$prefix_thumbnail = "TN-";" si le préfixe pour vos miniatures n\'est pas "TN-".';
   $lang['help_remote'][2] = '2. placez le fichier "create_listing_file.php" modifié sur votre site distant, dans le répertoire racine de vos répertoires d\'images (comme le répertoire "galleries" du présent site) par ftp.';

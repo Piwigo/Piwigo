@@ -18,7 +18,7 @@
 include_once( './include/isadmin.inc.php' );
 include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
 //------------------------------------------------------------------- functions
-function check_date_format ( $date )
+function check_date_format( $date )
 {
   // date arrives at this format : DD/MM/YYYY
   // checkdate ( int month, int day, int year)
@@ -144,7 +144,7 @@ if ( isset( $page['cat'] ) )
     }
     else
     {
-      echo $lang['infoimage_err_date'];
+      echo $lang['err_date'];
     }
   }
 //--------------------------------------------------------- form initialization
@@ -221,6 +221,8 @@ if ( isset( $page['cat'] ) )
     $thumbnail_url.= 'thumbnail/';
     $thumbnail_url.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
     $vtp->setVar( $sub, 'picture.thumbnail_url', $thumbnail_url );
+    $url = '../picture.php?cat='.$_GET['cat_id'].'&amp;image_id='.$row['id'];
+    $vtp->setVar( $sub, 'picture.url', add_session_id( $url ) );
     $vtp->closeSession( $sub, 'picture' );
   }
 }

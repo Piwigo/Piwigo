@@ -21,8 +21,8 @@ include_once( './include/isadmin.inc.php' );
 $vtp = new VTemplate;
 $handle = $vtp->Open( '../template/'.$user['template'].'/admin/admin.vtp' );
 // language
-$vtp->setGlobalVar( $handle, 'page_title',  $lang['title_default'] );
-$vtp->setGlobalVar( $handle, 'menu_title',  $lang['menu_title'] );
+$tpl = array( 'menu_title', 'title_default', 'charset' );
+templatize_array( $tpl, 'lang', $handle );
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
@@ -75,13 +75,13 @@ switch ( $_GET['page'] )
      $page_valide = false;
    }
    break;
- case 'historique':
+ case 'stats':
    $title = $lang['title_history'];       $page_valide = true; break;
  case 'update':
    $title = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
    $title = $lang['title_configuration']; $page_valide = true; break;
- case 'manuel':
+ case 'help':
    $title = $lang['title_instructions'];  $page_valide = true; break;
  case 'cat_perm':
    $title = $lang['title_cat_perm'];
@@ -122,6 +122,10 @@ switch ( $_GET['page'] )
      }
      $title.= "</span>";
    }
+   $page_valide = true;
+   break;
+ case 'comments' :
+   $title = $lang['title_comments'];
    $page_valide = true;
    break;
  default:
@@ -177,7 +181,10 @@ $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'waiting' ) );
-$query = 'select id from '.PREFIX_TABLE.'waiting;';
+$query = 'SELECT id';
+$query.= ' FROM '.PREFIX_TABLE.'waiting';
+$query.= " WHERE validated='false'";
+$query.= ';';
 $result = mysql_query( $query );
 $nb_waiting = '';
 if ( mysql_num_rows( $result ) > 0 )
@@ -185,6 +192,23 @@ if ( mysql_num_rows( $result ) > 0 )
   $nb_waiting =  ' [ '.mysql_num_rows( $result ).' ]';
 }
 $vtp->setVar( $handle, 'summary.name', $lang['menu_waiting'].$nb_waiting );
+$vtp->closeSession( $handle, 'summary' );
+// comments
+$vtp->addSession( $handle, 'summary' );
+$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.link',
+              add_session_id( $link_start.'comments' ) );
+$query = 'SELECT id';
+$query.= ' FROM '.PREFIX_TABLE.'comments';
+$query.= " WHERE validated='false'";
+$query.= ';';
+$result = mysql_query( $query );
+$nb_waiting = '';
+if ( mysql_num_rows( $result ) > 0 )
+{
+  $nb_waiting =  ' [ '.mysql_num_rows( $result ).' ]';
+}
+$vtp->setVar( $handle, 'summary.name', $lang['menu_comments'].$nb_waiting );
 $vtp->closeSession( $handle, 'summary' );
 // update
 $vtp->addSession( $handle, 'summary' );
@@ -204,14 +228,14 @@ $vtp->closeSession( $handle, 'summary' );
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'historique' ) );
+              add_session_id( $link_start.'stats' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_history'] );
 $vtp->closeSession( $handle, 'summary' );
 // instructions
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'manuel' ) );
+              add_session_id( $link_start.'help' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_instructions'] );
 $vtp->closeSession( $handle, 'summary' );
 // back to thumbnails page

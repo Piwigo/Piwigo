@@ -187,20 +187,21 @@ function insert_local_image( $rep, $category_id )
   // searching the new images in the directory
   $pictures = array();		
   $tn_ext = '';
-  if ( $opendir = opendir ( $rep ) )
+  if ( $opendir = opendir( $rep ) )
   {
-    while ( $file = readdir ( $opendir ) )
+    while ( $file = readdir( $opendir ) )
     {
       if ( is_file( $rep.'/'.$file ) and is_image( $rep.'/'.$file ) )
       {
         // is the picture waiting for validation by an administrator ?
-        $query = 'SELECT id';
+        $query = 'SELECT id,validated,infos';
         $query.= ' FROM '.PREFIX_TABLE.'waiting';
         $query.= ' WHERE cat_id = '.$category_id;
         $query.= " AND file = '".$file."'";
         $query.= ';';
         $result = mysql_query( $query );
-        if ( mysql_num_rows( $result ) == 0 )
+        $waiting = mysql_fetch_array( $result );
+        if (mysql_num_rows( $result ) == 0 or $waiting['validated'] == 'true')
         {
           if ( $tn_ext = TN_exists( $rep, $file ) )
           {
@@ -214,13 +215,33 @@ function insert_local_image( $rep, $category_id )
             if ( mysql_num_rows( $result ) == 0 )
             {
               $picture = array();
-              $picture['file'] = $file;
-              $picture['tn_ext'] = $tn_ext;
+              $picture['file']     = $file;
+              $picture['tn_ext']   = $tn_ext;
               $picture['date'] = date( 'Y-m-d', filemtime ( $rep.'/'.$file ) );
               $picture['filesize'] = floor( filesize( $rep.'/'.$file ) / 1024);
               $image_size = @getimagesize( $rep.'/'.$file );
-              $picture['width'] = $image_size[0];
-              $picture['height'] = $image_size[1];
+              $picture['width']    = $image_size[0];
+              $picture['height']   = $image_size[1];
+              if ( $waiting['validated'] == 'true' )
+              {
+                // retrieving infos from the XML description of
+                // $waiting['infos']
+                $infos = nl2br( $waiting['infos'] );
+                $picture['author']        = getAttribute( $infos, 'author' );
+                $picture['comment']       = getAttribute( $infos, 'comment' );
+                $unixtime = getAttribute( $infos, 'date_creation' );
+                $picture['date_creation'] = '';
+                if ( $unixtime != '' )
+                {
+                  $picture['date_creation'] = date( 'Y-m-d', $unixtime );
+                }
+                $picture['name']          = getAttribute( $infos, 'name' );
+                // deleting the waiting element
+                $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
+                $query.= ' WHERE id = '.$waiting['id'];
+                $query.= ';';
+                mysql_query( $query );
+              }
               array_push( $pictures, $picture );
             }
           }
@@ -242,13 +263,23 @@ function insert_local_image( $rep, $category_id )
   // inserting the pictures found in the directory
   foreach ( $pictures as $picture ) {
     $query = 'INSERT INTO '.PREFIX_TABLE.'images';
-    $query.= ' (file,cat_id,date_available,tn_ext,filesize,width,height)';
+    $query.= ' (file,cat_id,date_available,tn_ext,filesize,width,height';
+    $query.= ',name,author,comment,date_creation)';
     $query.= ' VALUES ';
     $query.= "('".$picture['file']."','".$category_id."'";
     $query.= ",'".$picture['date']."','".$picture['tn_ext']."'";
     $query.= ",'".$picture['filesize']."','".$picture['width']."'";
-    $query.= ",'".$picture['height']."')";
-    $query.= ';';
+    $query.= ",'".$picture['height']."','".$picture['name']."'";
+    $query.= ",'".$picture['author']."','".$picture['comment']."'";
+    if ( $picture['date_creation'] != '' )
+    {
+      $query.= ",'".$picture['date_creation']."'";
+    }
+    else
+    {
+      $query.= ',NULL';
+    }
+    $query.= ');';
     mysql_query( $query );
     $count_new++;
     
@@ -283,7 +314,7 @@ function update_cat_info( $category_id )
   $nb_images = $row['nb_images'];
 		
   $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= " SET date_dernier = '".$date_last."'";
+  $query.= " SET date_last = '".$date_last."'";
   $query.= ', nb_images = '.$nb_images;
   $query.= ' where id = '.$category_id;
   $query.= ';';

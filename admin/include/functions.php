@@ -17,11 +17,16 @@
 
 $tab_ext_create_TN = array ( 'jpg', 'png', 'JPG', 'PNG' );
 
+// is_image returns true if the given $filename (including the path) is a
+// picture according to its format and its extension.
+// As GD library can only generate pictures from jpeg and png files, if you
+// ask if the filename is an image for thumbnail creation (second parameter
+// set to true), the only authorized formats are jpeg and png.
 function is_image( $filename, $create_thumbnail = false )
 {
   global $conf, $tab_ext_create_TN;
 
-  if ( is_file ( $filename ) )
+  if ( is_file( $filename ) )
   {
     $size = getimagesize( $filename );
     // $size[2] == 1 means GIF

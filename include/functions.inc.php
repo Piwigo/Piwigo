@@ -66,16 +66,14 @@ function get_boolean( $string )
 // this array.
 function array_remove( $array, $value )
 {
-  $i = 0;
   $output = array();
-  foreach ( $array as $v )
+  foreach ( $array as $v ) {
+    if ( $v != $value )
     {
-      if ( $v != $value )
-      {
-        $output[$i++] = $v;
-      }
+      array_push( $output, $v );
     }
-  return implode( ',', $output );
+  }
+  return $output;
 }
 
 // The function get_moment returns a float value coresponding to the number
@@ -320,15 +318,6 @@ function replace_search( $string, $search )
 
 function database_connection()
 {
-//   $xml_content = getXmlCode( PREFIXE_INCLUDE.'./include/database_config.xml' );
-//   $mysql_conf = getChild( $xml_content, 'mysql' );
-
-//   $cfgHote     = getAttribute( $mysql_conf, 'host' );
-//   $cfgUser     = getAttribute( $mysql_conf, 'user' );
-//   $cfgPassword = getAttribute( $mysql_conf, 'password' );
-//   $cfgBase     = getAttribute( $mysql_conf, 'base' );
-//   define( PREFIX_TABLE, getAttribute( $mysql_conf, 'tablePrefix' ) );
-
   include( PREFIX_INCLUDE.'./include/mysql.inc.php' );
   define( PREFIX_TABLE, $prefix_table );
 
@@ -346,7 +335,7 @@ function pwg_log( $file, $category, $picture = '' )
   {
     $query = 'insert into '.PREFIX_TABLE.'history';
     $query.= ' (date,login,IP,file,category,picture) values';
-    $query.= " (".time().", '".$user['pseudo']."'";
+    $query.= " (".time().", '".$user['username']."'";
     $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
     $query.= ",'".$file."','".$category."','".$picture."');";
     mysql_query( $query );
@@ -357,10 +346,8 @@ function templatize_array( $array, $global_array_name, $handle )
 {
   global $vtp, $lang, $page, $user, $conf;
 
-  for( $i = 0; $i < sizeof( $array ); $i++ )
-  {
-    $vtp->setGlobalVar( $handle, $array[$i],
-                        ${$global_array_name}[$array[$i]] );
+  foreach ( $array as $value ) {
+    $vtp->setGlobalVar( $handle, $value, ${$global_array_name}[$value] );
   }
 }
 ?>

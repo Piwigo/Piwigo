@@ -18,10 +18,7 @@ define( PREFIX_INCLUDE, '' );
 
 include_once( './include/config.inc.php' );
 include_once( './include/user.inc.php' );
-        
-include( './theme/'.$user['theme'].'/conf.php' );
-$user['lien_expanded']  = './theme/'.$user['theme'].'/expanded.gif';
-$user['lien_collapsed'] = './theme/'.$user['theme'].'/collapsed.gif';
+
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 // retrieving the restrictions for this user
@@ -35,6 +32,5 @@ if ( $user['is_the_guest'] )
 {
   $user['username'] = $lang['guest'];
 }
-include_once( './template/'.$user['template'].'/style.inc.php' );
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 ?>
