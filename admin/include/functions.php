@@ -313,14 +313,14 @@ function delete_group( $group_id )
 // or invisible)
 function check_favorites( $user_id )
 {
-  $query = 'SELECT status';
+  $query = 'SELECT status,forbidden_categories';
   $query.= ' FROM '.PREFIX_TABLE.'users';
   $query.= ' WHERE id = '.$user_id;
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $status = $row['status'];
   // retrieving all the restricted categories for this user
-  $restricted_cat = get_all_restrictions( $user_id, $status );
+  $restricted_cat = explode( ',', $row['forbidden_categories'] );
   // retrieving all the favorites for this user and comparing their
   // categories to the restricted categories
   $query = 'SELECT image_id';
