@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '1.4.0RC1');
+define('PHPWG_VERSION', '1.4.0RC2');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
