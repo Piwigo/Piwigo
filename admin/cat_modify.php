@@ -40,22 +40,6 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
-
-  if ( $_POST['status'] != $row['status'] )
-  {
-    // deletion of all access for groups concerning this category
-    $query = 'DELETE';
-    $query.= ' FROM '.PREFIX_TABLE.'group_access';
-    $query.= ' WHERE cat_id = '.$_GET['cat'];
-    mysql_query( $query );
-    // deletion of all access for users concerning this category
-    $query = 'DELETE';
-    $query.= ' FROM '.PREFIX_TABLE.'user_access';
-    $query.= ' WHERE cat_id = '.$_GET['cat'];
-    mysql_query( $query );
-    // resynchronize all users
-    synchronize_all_users();
-  }
   
   $query = 'UPDATE '.PREFIX_TABLE.'categories';
 
@@ -86,6 +70,22 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
   mysql_query( $query );
+
+  if ( $_POST['status'] != $row['status'] )
+  {
+    // deletion of all access for groups concerning this category
+    $query = 'DELETE';
+    $query.= ' FROM '.PREFIX_TABLE.'group_access';
+    $query.= ' WHERE cat_id = '.$_GET['cat'];
+    mysql_query( $query );
+    // deletion of all access for users concerning this category
+    $query = 'DELETE';
+    $query.= ' FROM '.PREFIX_TABLE.'user_access';
+    $query.= ' WHERE cat_id = '.$_GET['cat'];
+    mysql_query( $query );
+    // resynchronize all users
+    synchronize_all_users();
+  }
 
   // checking users favorites
   $query = 'SELECT id';
