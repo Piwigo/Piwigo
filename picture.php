@@ -416,8 +416,8 @@ else
   $original_height = $picture['current']['height'];
 }
 
-$picture_size = get_picture_size( $original_width, $original_height,
-				  $user['maxwidth'], $user['maxheight'] );
+$picture_size = get_picture_size($original_width, $original_height,
+                                 @$user['maxwidth'], @$user['maxheight']);
 
 // metadata
 if ($conf['show_exif'] or $conf['show_iptc'])

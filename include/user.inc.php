@@ -25,19 +25,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// retrieving user informations
-// $infos array is used to know the fields to retrieve in the table "users"
-// Each field becomes an information of the array $user.
-// Example :
-//            status --> $user['status']
-$infos = array('id','username','mail_address','nb_image_line','nb_line_page',
-               'status','language','maxwidth','maxheight','expand',
-               'show_nb_comments','recent_period','template',
-               'forbidden_categories');
-
-$query_user = 'SELECT * FROM '.USERS_TABLE;
-$query_done = false;
-$user['is_the_guest'] = false;
+// retrieving connected user informations
 
 if (isset($_COOKIE['id']))
 {
@@ -79,35 +67,57 @@ DELETE FROM '.SESSIONS_TABLE.'
     }
     else
     {
-      $query_user .= ' WHERE id = '.$row['user_id'];
-      $query_done = true;
+      $user['id'] = $row['user_id'];
+      $user['is_the_guest'] = false;
     }
   }
 }
-if (!$query_done)
+if (!isset($user['id']))
 {
-  $query_user .= ' WHERE id = 2';
+  $user['id'] = 2;
   $user['is_the_guest'] = true;
 }
-$query_user .= ';';
-$row = mysql_fetch_array(pwg_query($query_user));
 
-// affectation of each value retrieved in the users table into a variable
-// of the array $user.
-foreach ($infos as $info) {
-  if (isset($row[$info]))
+$query = '
+SELECT u.*, uf.*
+  FROM '.USERS_TABLE.' AS u LEFT JOIN '.USER_FORBIDDEN_TABLE.' AS uf
+    ON id = user_id
+  WHERE u.id = '.$user['id'].'
+;';
+$row = mysql_fetch_array(pwg_query($query));
+
+// affectation of each value retrieved in the users table into a variable of
+// the array $user.
+foreach ($row as $key => $value)
+{
+  if (!is_numeric($key))
   {
     // If the field is true or false, the variable is transformed into a
     // boolean value.
-    if ($row[$info] == 'true' or $row[$info] == 'false')
-      $user[$info] = get_boolean($row[$info]);
+    if ($value == 'true' or $value == 'false')
+    {
+      $user[$key] = get_boolean($value);
+    }
     else
-      $user[$info] = $row[$info];    
+    {
+      $user[$key] = $value;
+    }
   }
-  else
-  {
-    $user[$info] = '';
-  }
+}
+
+// if no information were found about user in user_forbidden table OR the
+// forbidden categories must be updated
+if (!isset($user['need_update'])
+    or !is_bool($user['need_update'])
+    or $user['need_update'] == true)
+{
+  $user['forbidden_categories'] = calculate_permissions($user['id']);
+}
+
+// forbidden_categories is a must be empty, at least
+if (!isset($user['forbidden_categories']))
+{
+  $user['forbidden_categories'] = '';
 }
 
 // special for $user['restrictions'] array
@@ -120,9 +130,10 @@ if ($user['restrictions'][0] == '')
 $isadmin = false;
 if ($user['status'] == 'admin')
 {
-  $isadmin =true;
+  $isadmin = true;
 }
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
+
 init_userprefs($user);
 ?>

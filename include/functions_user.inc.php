@@ -276,4 +276,81 @@ DELETE FROM '.FAVORITES_TABLE.'
     pwg_query($query);
   }
 }
+
+/**
+ * update table user_forbidden for the given user
+ *
+ * table user_forbidden contains calculated data. Calculation is based on
+ * private categories minus categories authorized to the groups the user
+ * belongs to minus the categories directly authorized to the user
+ *
+ * @param int user_id
+ * @return string forbidden_categories
+ */
+function calculate_permissions($user_id)
+{
+  $private_array = array();
+  $authorized_array = array();
+
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE status = \'private\'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($private_array, $row['id']);
+  }
+  
+  // retrieve category ids directly authorized to the user
+  $query = '
+SELECT cat_id
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($authorized_array, $row['cat_id']);
+  }
+
+  // retrieve category ids authorized to the groups the user belongs to
+  $query = '
+SELECT cat_id
+  FROM '.USER_GROUP_TABLE.' AS ug INNER JOIN '.GROUP_ACCESS_TABLE.' AS ga
+    ON ug.group_id = ga.group_id
+  WHERE ug.user_id = '.$user_id.'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($authorized_array, $row['cat_id']);
+  }
+
+  // uniquify ids : some private categories might be authorized for the
+  // groups and for the user
+  $authorized_array = array_unique($authorized_array);
+
+  // only unauthorized private categories are forbidden
+  $forbidden_array = array_diff($private_array, $authorized_array);
+
+  $query = '
+DELETE FROM '.USER_FORBIDDEN_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
+  $forbidden_categories = implode(',', $forbidden_array);
+  
+  $query = '
+INSERT INTO '.USER_FORBIDDEN_TABLE.'
+  (user_id,need_update,forbidden_categories)
+  VALUES
+  ('.$user_id.',\'false\',\''.$forbidden_categories.'\')
+;';
+  pwg_query($query);
+  
+  return $forbidden_categories;
+}
 ?>

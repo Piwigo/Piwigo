@@ -198,6 +198,18 @@ CREATE TABLE phpwebgallery_user_access (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'phpwebgallery_user_forbidden'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_user_forbidden;
+CREATE TABLE phpwebgallery_user_forbidden (
+  user_id smallint(5) unsigned NOT NULL default '0',
+  need_update enum('true','false') NOT NULL default 'true',
+  forbidden_categories text,
+  PRIMARY KEY  (user_id)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'phpwebgallery_user_group'
 --
 
@@ -228,7 +240,6 @@ CREATE TABLE phpwebgallery_users (
   show_nb_comments enum('true','false') NOT NULL default 'false',
   recent_period tinyint(3) unsigned NOT NULL default '7',
   template varchar(255) NOT NULL default 'default',
-  forbidden_categories text,
   PRIMARY KEY  (id),
   UNIQUE KEY users_ui1 (username)
 ) TYPE=MyISAM;

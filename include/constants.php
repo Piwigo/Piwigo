@@ -57,4 +57,5 @@ define('USERS_TABLE', $table_prefix.'users');
 define('WAITING_TABLE', $table_prefix.'waiting');
 define('IMAGE_METADATA_TABLE', $table_prefix.'image_metadata');
 define('RATE_TABLE', $table_prefix.'rate');
+define('USER_FORBIDDEN_TABLE', $table_prefix.'user_forbidden');
 ?>

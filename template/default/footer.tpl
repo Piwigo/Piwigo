@@ -1,6 +1,6 @@
  <div class="copyright">
  <!-- BEGIN debug -->
- {L_GEN_TIME} {TIME} ::
+ {L_GEN_TIME} {TIME} -
  <!-- END debug -->
 
  <!-- Please, do not remove this copyright. If you really want to,
@@ -8,7 +8,7 @@
 	  to show the origin of the script...-->
 
   Powered by <a href="http://www.phpwebgallery.net" class="back">PhpWebGallery</a>
-  {VERSION} :: 
+  {VERSION} - 
 
   {L_SEND_MAIL}
   <a href="mailto:{MAIL}?subject={L_TITLE_MAIL}">
