@@ -5,6 +5,46 @@
   <input type="submit" name="submituser" value="{L_LOOKUP_USER}" class="bouton" /> 
   <input type="submit" name="usersubmit" value="{L_FIND_USERNAME}" class="bouton" onClick="window.open('{U_SEARCH_USER}', '_phpwgsearch', 'HEIGHT=250,resizable=yes,WIDTH=400');return false;" />
 </form>
+
+<div class="admin">{L_USERS_LIST}</div>
+<form method="get" action="{F_ORDER_ACTION}">
+<input type="hidden" name="page" value="profile" />
+<div style="text-align:center">
+  {L_ORDER_BY}
+  <select name="order_by">
+    <!-- BEGIN order_by -->
+    <option value="{select_user.order_by.VALUE}" {select_user.order_by.SELECTED} >{select_user.order_by.CONTENT}</option>
+    <!-- END order_by -->
+  </select>
+  <select name="direction">
+    <!-- BEGIN direction -->
+    <option value="{select_user.direction.VALUE}" {select_user.direction.SELECTED} >{select_user.direction.CONTENT}</option>
+    <!-- END direction -->
+  </select>
+  <input type="submit" value="{L_SUBMIT}" class="bouton" />
+</div>
+</form>
+
+<table style="width:100%;" >
+  <tr class="throw">
+    <th style="width:20%;">{L_USERNAME}</th>
+    <th style="width:20%;">{L_STATUS}</th>
+    <th style="width:30%;">{L_EMAIL}</th>
+    <th style="width:30%;">{L_GROUPS}</th>
+    <th style="width:1%;">{L_ACTIONS}</th>
+  </tr>
+  <!-- BEGIN user -->
+  <tr>
+    <td><a href="{select_user.user.U_MOD}">{select_user.user.USERNAME}</a></td>
+    <td>{select_user.user.STATUS}</td>
+    <td>{select_user.user.EMAIL}</td>
+    <td>{select_user.user.GROUPS}</td>
+<!-- [<a href="{select_user.user.U_MOD}">{L_MODIFY}</a>] -->
+    <td>[<a href="{select_user.user.U_PERM}">{L_PERMISSIONS}</a>]</td>
+  </tr>
+  <!-- END user -->
+</table>
+<div class="navigationBar">{NAVBAR}</div>
 <!-- END select_user -->
 <!-- BEGIN modify -->
 <!-- BEGIN profile -->
@@ -109,6 +149,7 @@
 <tr>
 	<td colspan="2" align="center">
 	  <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
+          <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
 	</td>
   </tr>
 </table>

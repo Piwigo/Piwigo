@@ -323,6 +323,11 @@ $lang['user_delete'] = 'Delete user';
 $lang['user_delete_hint'] = 'Click here to delete this user. Warning! This operation cannot be undone!';
 $lang['permuser_only_private'] = 'Only private categories are shown';
 $lang['permuser_info'] = 'Only private categories are listed. Private/Public category status can be set in screen "Categories &gt; Public / Private"';
+$lang['order_by'] = 'order by';
+$lang['registration_date'] = 'registration date';
+$lang['ascending'] = 'ascending';
+$lang['descending'] = 'descending';
+$lang['actions'] = 'actions';
 
 // Groups
 $lang['group_confirm_delete']= 'Confirm group deletion';

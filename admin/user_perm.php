@@ -36,6 +36,10 @@ if (isset($_POST['submituser']))
 {
   $userdata = getuserdata($_POST['username']);
 }
+else if (isset($_GET['user_id']))
+{
+  $userdata = getuserdata(intval($_GET['user_id']));
+}
 else if (isset($_POST['falsify'])
          and isset($_POST['cat_true'])
          and count($_POST['cat_true']) > 0)

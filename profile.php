@@ -34,6 +34,10 @@ if (defined('IN_ADMIN') and isset($_POST['submituser']))
 {
   $userdata = getuserdata($_POST['username']);
 }
+else if (defined('IN_ADMIN') and IN_ADMIN and isset($_GET['user_id']))
+{
+  $userdata = getuserdata(intval($_GET['user_id']));
+}
 elseif (defined('IN_ADMIN') and isset($_POST['submit']))
 {
   $userdata = getuserdata(intval($_POST['userid']));
@@ -226,6 +230,22 @@ if (defined('IN_ADMIN') and IN_ADMIN and empty($userdata))
   $template->assign_block_vars('select_user',array());
 
   $admin_profile = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile');
+
+  $conf['users_page'] = 20;
+  $start = isset($_GET['start']) ? $_GET['start'] : 0;
+
+  $query = '
+SELECT COUNT(*) AS counter
+  FROM '.USERS_TABLE.'
+  WHERE id != 2
+;';
+  list($counter) = mysql_fetch_row(pwg_query($query));
+  $url = PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start'));
+  $navbar = create_navigation_bar($url,
+                                  $counter,
+                                  $start,
+                                  $conf['users_page'],
+                                  '');
   
   $template->assign_vars(
     array(
@@ -234,10 +254,115 @@ if (defined('IN_ADMIN') and IN_ADMIN and empty($userdata))
       'L_FIND_USERNAME'=>$lang['Find_username'],
       'L_AUTH_USER'=>$lang['permuser_only_private'],
       'L_SUBMIT'=>$lang['submit'],
-      
+      'L_STATUS'=>$lang['user_status'],
+      'L_USERNAME' => $lang['login'],
+      'L_EMAIL' => $lang['mail_address'],
+      'L_ORDER_BY' => $lang['order_by'],
+      'L_ACTIONS' => $lang['actions'],
+      'L_PERMISSIONS' => $lang['permissions'],
+      'L_USERS_LIST' => $lang['title_liste_users'],
+
+      'NAVBAR'=>$navbar,
       'F_SEARCH_USER_ACTION' => $admin_profile,
+      'F_ORDER_ACTION' => $admin_profile,
       'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
       ));
+
+  $order_by_items = array('id' => $lang['registration_date'],
+                          'username' => $lang['login']);
+  foreach ($order_by_items as $item => $label)
+  {
+    $selected = (isset($_GET['order_by']) and $_GET['order_by'] == $item) ?
+      'selected="selected"' : '';
+    $template->assign_block_vars(
+      'select_user.order_by',
+      array(
+        'VALUE' => $item,
+        'CONTENT' => $label,
+        'SELECTED' => $selected
+        ));
+  }
+
+  $direction_items = array('asc' => $lang['ascending'],
+                           'desc' => $lang['descending']);
+  foreach ($direction_items as $item => $label)
+  {
+    $selected = (isset($_GET['direction']) and $_GET['direction'] == $item) ?
+      'selected="selected"' : '';
+    $template->assign_block_vars(
+      'select_user.direction',
+      array(
+        'VALUE' => $item,
+        'CONTENT' => $label,
+        'SELECTED' => $selected
+        ));
+  }
+
+  $profile_url = PHPWG_ROOT_PATH.'admin.php?page=profile&amp;user_id=';
+  $perm_url = PHPWG_ROOT_PATH.'admin.php?page=user_perm&amp;user_id=';
+
+  $users = array();
+  $user_ids = array();
+  $groups_content = array();
+
+  $order_by = 'id';
+  if (isset($_GET['order_by'])
+      and in_array($_GET['order_by'], array_keys($order_by_items)))
+  {
+    $order_by = $_GET['order_by'];
+  }
+
+  $direction = 'ASC';
+  if (isset($_GET['direction'])
+      and in_array($_GET['direction'], array_keys($direction_items)))
+  {
+    $direction = strtoupper($_GET['direction']);
+  }
+  
+  $query = '
+SELECT id, username, mail_address, status
+  FROM '.USERS_TABLE.'
+  WHERE id != 2
+  ORDER BY '.$order_by.' '.$direction.'
+  LIMIT '.$start.', '.$conf['users_page'].'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($users, $row);
+    array_push($user_ids, $row['id']);
+    $user_groups[$row['id']] = array();
+  }
+
+  $query = '
+SELECT user_id, group_id, name
+  FROM '.USER_GROUP_TABLE.' INNER JOIN '.GROUPS_TABLE.' ON group_id = id
+  WHERE user_id IN ('.implode(',', $user_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $groups_content[$row['group_id']] = $row['name'];
+    array_push($user_groups[$row['user_id']], $row['group_id']);
+  }
+
+  foreach ($users as $item)
+  {
+    $groups = preg_replace('/(\d+)/e',
+                           "\$groups_content['$1']",
+                           implode(', ', $user_groups[$item['id']]));
+    
+    $template->assign_block_vars(
+      'select_user.user',
+      array(
+        'U_MOD'=>add_session_id($profile_url.$item['id']),
+        'U_PERM'=>add_session_id($perm_url.$item['id']),
+        'USERNAME'=>$item['username'],
+        'STATUS'=>$item['status'],
+        'EMAIL'=>isset($item['mail_address']) ? $item['mail_address'] : '',
+        'GROUPS'=>$groups
+        ));
+  }
 }
 else
 {
@@ -289,6 +414,7 @@ else
       'L_YES'=>$lang['yes'],
       'L_NO'=>$lang['no'],
       'L_SUBMIT'=>$lang['submit'],
+      'L_RESET'=>$lang['reset'],
       'L_RETURN' =>  $lang['home'],
       'L_RETURN_HINT' =>  $lang['home_hint'],  
       

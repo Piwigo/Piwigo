@@ -331,6 +331,11 @@ $lang['user_delete'] = 'Supprimer l\'utilisateur';
 $lang['user_delete_hint'] = 'Cliquez ici pour supprimer définitivement l\'utilisateur. Attention cette opération ne pourra être rétablie.';
 $lang['permuser_info'] = 'Seules les catégories déclarées en privée sont affichées. Le status privé/public des catégories est configurable dans l\'écran "Catégories &gt; Sécurité" de l\'administration.';
 $lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
+$lang['order_by'] = 'classer par';
+$lang['registration_date'] = 'date d\'enregistrement';
+$lang['ascending'] = 'croissant';
+$lang['descending'] = 'décroissant';
+$lang['actions'] = 'actions';
 
 // Groups
 $lang['group_list_title'] = 'Liste des groupes existants';
