@@ -86,10 +86,11 @@ if (isset($page['calendar_year']))
   $query = '
 SELECT DISTINCT(MONTH('.$conf['calendar_datefield'].')) AS month
      , COUNT(id) AS count
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND id = image_id
-    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
+    AND '.$conf['calendar_datefield'].'
+      BETWEEN \''.$page['calendar_year'].'-1-1\'
+      AND \''.$page['calendar_year'].'-12-31\'
   GROUP BY MONTH('.$conf['calendar_datefield'].')
 ;';
   $result = pwg_query($query);
@@ -157,11 +158,11 @@ elseif (!isset($page['calendar_day']))
   // the number of picture for this day : $calendar_days
   $query = '
 SELECT DISTINCT('.$conf['calendar_datefield'].') AS day, COUNT(id) AS count
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND id = image_id
-    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
-    AND MONTH('.$conf['calendar_datefield'].') = '.$page['calendar_month'].'
+    AND '.$conf['calendar_datefield'].'
+      BETWEEN \''.$page['calendar_year'].'-'.$page['calendar_month'].'-1\'
+      AND \''.$page['calendar_year'].'-'.$page['calendar_month'].'-31\'
   GROUP BY day
 ;';
   $result = pwg_query($query);
@@ -182,10 +183,9 @@ elseif (isset($page['calendar_day']))
   
   $query = '
 SELECT category_id AS category, COUNT(id) AS count
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'
-    AND id = image_id
   GROUP BY category_id
 ;';
   $result = pwg_query($query);
@@ -220,10 +220,11 @@ if (!isset($page['calendar_year']))
   {
     $query = '
 SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND YEAR('.$conf['calendar_datefield'].') = '.$calendar_year.'
-    AND id = image_id
+    AND '.$conf['calendar_datefield'].'
+      BETWEEN \''.$calendar_year.'-1-1\'
+      AND \''.$calendar_year.'-12-31\'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -265,11 +266,11 @@ elseif (!isset($page['calendar_month']))
   {
     $query = '
 SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND YEAR('.$conf['calendar_datefield'].') = '.$page['calendar_year'].'
-    AND MONTH('.$conf['calendar_datefield'].') = '.$calendar_month.'
-    AND id = image_id
+    AND '.$conf['calendar_datefield'].'
+      BETWEEN \''.$page['calendar_year'].'-'.$calendar_month.'-1\'
+      AND \''.$page['calendar_year'].'-'.$calendar_month.'-31\'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -319,10 +320,9 @@ elseif (!isset($page['calendar_day']))
   {
     $query = '
 SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].' = \''.$calendar_day.'\'
-    AND id = image_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';

@@ -140,5 +140,6 @@ index:images_i2         table:images         column:date_available
 index:images_i1         table:images         column:storage_category_id
 index:images_i3         table:images         column:average_rate
 index:images_i4         table:images         column:hit
+index:images_i5         table:images         column:date_creation
 index:sites_ui1         table:sites          column:galleries_url
 index:users_ui1         table:users          column:username
