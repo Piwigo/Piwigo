@@ -53,6 +53,17 @@ $conf['use_exif'] = true;
 // to false
 $conf['use_iptc'] = false;
 
+// use_iptc_mapping : in which IPTC fields will PhpWebGallery find image
+// information ? This setting is used during metadata synchronisation. It
+// associates a phpwebgallery_images column name to a IPTC key
+$conf['use_iptc_mapping'] = array(
+  'keywords'        => '2#025',
+  'date_creation'   => '2#055',
+  'author'          => '2#122',
+  'name'            => '2#005',
+  'comment'         => '2#120'
+  );
+
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
@@ -82,16 +93,18 @@ function get_iptc_data($filename, $map)
       $rmap = array_flip($map);
       foreach (array_keys($rmap) as $iptc_key)
       {
-        if (isset($iptc[$iptc_key][0]) and $value = $iptc[$iptc_key][0])
+        if (isset($iptc[$iptc_key][0]))
         {
-          // strip leading zeros (weird Kodak Scanner software)
-          while ($value[0] == chr(0))
+          if ($iptc_key == '2#025')
           {
-            $value = substr($value, 1);
+            $value = implode(',',
+                             array_map('clean_iptc_value',$iptc[$iptc_key]));
           }
-          // remove binary nulls
-          $value = str_replace(chr(0x00), ' ', $value);
-          
+          else
+          {
+            $value = clean_iptc_value($iptc[$iptc_key][0]);
+          }
+
           foreach (array_keys($map, $iptc_key) as $pwg_key)
           {
             $result[$pwg_key] = $value;
@@ -103,15 +116,30 @@ function get_iptc_data($filename, $map)
   return $result;
 }
 
+/**
+ * return a cleaned IPTC value
+ *
+ * @param string value
+ * @return string
+ */
+function clean_iptc_value($value)
+{
+  // strip leading zeros (weird Kodak Scanner software)
+  while ($value[0] == chr(0))
+  {
+    $value = substr($value, 1);
+  }
+  // remove binary nulls
+  $value = str_replace(chr(0x00), ' ', $value);
+  
+  return $value;
+}
+
 function get_sync_iptc_data($file)
 {
-  $map = array(
-    'keywords'        => '2#025',
-    'date_creation'   => '2#055',
-    'author'          => '2#122',
-    'name'            => '2#085',
-    'comment'         => '2#120'
-    );
+  global $conf;
+
+  $map = $conf['use_iptc_mapping'];
   $datefields = array('date_creation', 'date_available');
   
   $iptc = get_iptc_data($file, $map);
