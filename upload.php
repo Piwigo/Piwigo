@@ -260,9 +260,8 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
 $title= $lang['upload_title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('upload'=>'upload.tpl'));
-initialize_template();
 
-$u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'].'&amp;expand='.$_GET['expand'];
+$u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
 if ( isset( $page['waiting_id'] ) )
 {
 $u_form.= '&amp;waiting_id='.$page['waiting_id'];

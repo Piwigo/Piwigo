@@ -25,6 +25,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 define('CURRENT_DATE', "'".date('Y-m-d')."'");
