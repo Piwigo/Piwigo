@@ -370,7 +370,7 @@ elseif (isset($page['calendar_day']))
   {
     if ($calendar_category == 0)
     {
-      $name = '[all]';
+      $name = '['.$lang['all_categories'].']';
     }
     else
     {

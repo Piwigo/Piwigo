@@ -58,6 +58,7 @@ $lang['webmaster'] = 'Webmaster';
 $lang['language'] = 'Langue';
 $lang['send_mail'] = 'Contact';
 $lang['powered_by'] = 'Propulsé par';
+$lang['all_categories'] = 'toutes catégories';
 
 // Properties
 $lang['registration_date'] = 'Enregistré le';
