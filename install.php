@@ -65,6 +65,27 @@ function guess_lang()
   return 'en_EN';
 }
 
+function execute_sqlfile( $filepath, $replaced, $replacing )
+{
+  $sql_lines = file( $filepath );
+  $query = '';
+  foreach ( $sql_lines as $sql_line ) {
+    $sql_line = trim( $sql_line );
+    if ( preg_match( '/(^--|^$)/', $sql_line ) ) continue;
+    $query.= ' '.$sql_line;
+    // if we reached the end of query, we execute it and reinitialize the
+    // variable "query"
+    if ( preg_match( '/;$/', $sql_line ) )
+    {
+      $query = trim( $query );
+      $query = str_replace( $replaced, $replacing, $query );
+      // we don't execute "DROP TABLE" queries
+      if ( !preg_match( '/^DROP TABLE/i', $query ) ) mysql_query( $query );
+      $query = '';
+    }
+  }
+}
+
 set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 //
 // addslashes to vars if magic_quotes_gpc is off this is a security
@@ -182,112 +203,106 @@ $step = 1;
 //----------------------------------------------------- form analyze
 if ( isset( $_POST['install'] ))
 {
-    if ( @mysql_connect( $_POST['dbhost'],
-                         $_POST['dbuser'],
-                         $_POST['dbpasswd'] ) )
+  if ( @mysql_connect( $_POST['dbhost'],
+                       $_POST['dbuser'],
+                       $_POST['dbpasswd'] ) )
+  {
+    if ( @mysql_select_db($_POST['dbname'] ) )
     {
-      if ( @mysql_select_db($_POST['dbname'] ) )
-      {
-        array_push( $infos, $lang['step1_confirmation'] );
-      }
-      else
-      {
-        array_push( $errors, $lang['step1_err_db'] );
-      }
+      array_push( $infos, $lang['step1_confirmation'] );
     }
     else
     {
-      array_push( $errors, $lang['step1_err_server'] );
+      array_push( $errors, $lang['step1_err_db'] );
     }
-	
-	$webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
-    if ( empty($webmaster))
-      array_push( $errors, $lang['step2_err_login1'] );
-    else if ( preg_match( '/[\'"]/', $webmaster ) )
-      array_push( $errors, $lang['step2_err_login3'] );
-	if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
-  	  array_push( $errors, $lang['step2_err_pass'] );
-	if ( empty($admin_mail))
-	  array_push( $errors, $lang['reg_err_mail_address'] );
-	else 
-	{
-	  $error_mail_address = validate_mail_address($admin_mail);
-	  if (!empty($error_mail_address)) array_push( $errors, $error_mail_address );
-	}
-	  
-	if ( count( $errors ) == 0 )
+  }
+  else
+  {
+    array_push( $errors, $lang['step1_err_server'] );
+  }
+  
+  $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
+  if ( empty($webmaster))
+    array_push( $errors, $lang['step2_err_login1'] );
+  else if ( preg_match( '/[\'"]/', $webmaster ) )
+    array_push( $errors, $lang['step2_err_login3'] );
+  if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
+    array_push( $errors, $lang['step2_err_pass'] );
+  if ( empty($admin_mail))
+    array_push( $errors, $lang['reg_err_mail_address'] );
+  else 
+  {
+    $error_mail_address = validate_mail_address($admin_mail);
+    if (!empty($error_mail_address))
+      array_push( $errors, $error_mail_address );
+  }
+  
+  if ( count( $errors ) == 0 )
+  {
+    $step = 2;
+    $file_content = "<?php";
+    $file_content.= "\n\$dbname = '".     $dbname."';";
+    $file_content.= "\n\$dbuser = '".     $dbuser."';";
+    $file_content.= "\n\$dbpasswd = '". $dbpasswd."';";
+    $file_content.= "\n\$dbhost = '".     $dbhost."';";
+    $file_content.= "\n";
+    $file_content.= "\n\$table_prefix = '".$table_prefix."';";
+    $file_content.= "\n";
+    $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
+    $file_content.= "\n?".">";
+    
+    @umask(0111);
+    // writing the configuration file
+    if ( !($fp = @fopen( $config_file, 'w' )))
     {
-	  $step = 2;
-      $file_content = "<?php";
-      $file_content.= "\n\$dbname = '".     $dbname."';";
-      $file_content.= "\n\$dbuser = '".     $dbuser."';";
-      $file_content.= "\n\$dbpasswd = '". $dbpasswd."';";
-      $file_content.= "\n\$dbhost = '".     $dbhost."';";
-	  $file_content.= "\n";
-      $file_content.= "\n\$table_prefix = '".$table_prefix."';";
-	  $file_content.= "\n";
-	  $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
-      $file_content.= "\n?".">";
-	  
-	  @umask(0111);
-      // writing the configuration file
-      if ( !($fp = @fopen( $config_file, 'w' )))
-      {
-		$html_content = htmlentities( $file_content, ENT_QUOTES );
-        $html_content = nl2br( $html_content );
-		$template->assign_block_vars('error_copy',array('FILE_CONTENT'=>$html_content));
-      }
-	  @fputs($fp, $file_content, strlen($file_content));
-  	  @fclose($fp);
-
-      // tables creation, based on phpwebgallery_structure.sql
-	  $sql_lines = file( './admin/phpwebgallery_structure.sql' );
-	  $query = '';
-	  foreach ( $sql_lines as $sql_line ) 
-	  {
-	    $sql_line = trim( $sql_line );
-		if ( preg_match( '/(^--|^$)/', $sql_line ) ) continue;
-		$query.= ' '.$sql_line;
-		// if we reached the end of query, we execute it and reinitialize the
-		// variable "query"
-		if ( preg_match( '/;$/', $sql_line ) )
-		{
-		  $query = trim( $query );
-		  $query = str_replace( 'phpwebgallery_', $table_prefix, $query );
-		  // we don't execute "DROP TABLE" queries
-		  if ( !preg_match( '/^DROP TABLE/i', $query ) ) mysql_query( $query );
-		  $query = '';
-		}
-  	  }
-	  
-	  // We fill the tables with basic informations
-      $query = 'DELETE FROM '.CONFIG_TABLE;
-      mysql_query( $query );
-
-      $query = 'INSERT INTO '.CONFIG_TABLE;
-      $query.= ' (webmaster,mail_webmaster) VALUES ';
-      $query.= " ('".$admin_name."','".$admin_mail."');";
-      mysql_query( $query );
-
-      $query = 'INSERT INTO '.SITES_TABLE;
-      $query.= " (id,galleries_url) VALUES (1, './galleries/');";
-      mysql_query( $query );
-
-      // webmaster admin user
-      $query = 'INSERT INTO '.USERS_TABLE;
-      $query.= ' (id,username,password,status,language,mail_address) VALUES ';
-      $query.= "(1,'".$admin_name."','".md5( $admin_pass1 )."'";
-      $query.= ",'admin','".$language."'";
-      $query.= ",'".$admin_mail."');";
-      mysql_query($query);
-
-      // guest user
-      $query = 'INSERT INTO '.USERS_TABLE;
-      $query.= '(id,username,password,status,language) VALUES ';
-      $query.= "(2,'guest','','guest','".$language."')";
-      $query.= ';';
-      mysql_query( $query );
+      $html_content = htmlentities( $file_content, ENT_QUOTES );
+      $html_content = nl2br( $html_content );
+      $template->assign_block_vars('error_copy',
+                                   array('FILE_CONTENT'=>$html_content));
     }
+    @fputs($fp, $file_content, strlen($file_content));
+    @fclose($fp);
+    
+    // tables creation, based on phpwebgallery_structure.sql
+    execute_sqlfile( './install/phpwebgallery_structure.sql'
+                     , 'phpwebgallery_'
+                     , $table_prefix );
+    // We fill the tables with basic informations
+    execute_sqlfile( './install/config.sql'
+                     , 'phpwebgallery_'
+                     , $table_prefix );
+
+    $query = 'UPDATE '.CONFIG_TABLE;
+    $query.= " SET value = '".$admin_name."'";
+    $query.= " WHERE param = 'webmaster'";
+    $query.= ';';
+    mysql_query( $query );
+
+    $query = 'UPDATE '.CONFIG_TABLE;
+    $query.= " SET value = '".$admin_mail."'";
+    $query.= " WHERE param = 'mail_webmaster'";
+    $query.= ';';
+    mysql_query( $query );
+    
+    $query = 'INSERT INTO '.SITES_TABLE;
+    $query.= " (id,galleries_url) VALUES (1, './galleries/');";
+    mysql_query( $query );
+    
+    // webmaster admin user
+    $query = 'INSERT INTO '.USERS_TABLE;
+    $query.= ' (id,username,password,status,language,mail_address) VALUES ';
+    $query.= "(1,'".$admin_name."','".md5( $admin_pass1 )."'";
+    $query.= ",'admin','".$language."'";
+    $query.= ",'".$admin_mail."');";
+    mysql_query($query);
+    
+    // guest user
+    $query = 'INSERT INTO '.USERS_TABLE;
+    $query.= '(id,username,password,status,language) VALUES ';
+    $query.= "(2,'guest','','guest','".$language."')";
+    $query.= ';';
+    mysql_query( $query );
+  }
 }
 
 $template->assign_vars(array(
