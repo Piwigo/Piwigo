@@ -58,7 +58,7 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   // confirm user deletion ?
-  if ( $_GET['confirm'] != 1 )
+  if ( !isset( $_GET['confirm'] ) )
   {
     $vtp->addSession( $sub, 'deletion' );
     $vtp->setVar( $sub, 'deletion.login', $row['username'] );
@@ -109,7 +109,8 @@ else
   $vtp->addSession( $sub, 'add_user' );
   $action = './admin.php?'.$_SERVER['QUERY_STRING'];
   $vtp->setVar( $sub, 'add_user.form_action', $action );
-  $vtp->setVar( $sub, 'add_user.f_username', $_POST['username'] );
+  if (isset( $_POST['username']))
+	  $vtp->setVar( $sub, 'add_user.f_username', $_POST['username'] );
   $vtp->closeSession( $sub, 'add_user' );
   
   $vtp->addSession( $sub, 'users' );
@@ -149,7 +150,7 @@ else
     }
     $vtp->addSession( $sub, 'user' );
     // checkbox for mail management if the user has a mail address
-    if ( $row['mail_address'] != '' and $row['username'] != 'guest' )
+    if ( isset( $row['mail_address'] ) and $row['username'] != 'guest' )
     {
       $vtp->addSession( $sub, 'checkbox' );
       $vtp->setVar( $sub, 'checkbox.name', 'mail-'.$row['id'] );
@@ -229,7 +230,7 @@ else
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
-      if ( $_POST['mail-'.$row['id']] == 1 )
+      if ( isset( $_POST['mail-'.$row['id']] ) )
         array_push( $mails, $row['mail_address'] );
     }
     $mail_destination = '';

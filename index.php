@@ -17,14 +17,10 @@
  *                                                                         *
  ***************************************************************************/
 
-define( "PREFIX_INCLUDE", '' );
-include_once( './include/functions.inc.php' );
-database_connection();
-// retrieving configuration informations
-$query = 'SELECT access';
-$query.= ' FROM '.PREFIX_TABLE.'config;';
-$row = mysql_fetch_array( mysql_query( $query ) );
-if ( $row['access'] == 'restricted' )
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
+if ( $conf['access'] == 'restricted' )
 {
   if ( isset( $_COOKIE['id'] ) ) $url = 'category';
   else                           $url = 'identification';

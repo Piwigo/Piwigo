@@ -1,11 +1,3 @@
-<html>
-  <head>
-    {#style}
-    <title>{#register_page_title}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset={#charset}">
-  </head>
-  <body>
-    {#header}
     <table style="width:100%;height:100%">
       <tr align="center" valign="middle">
         <td>
@@ -69,6 +61,3 @@
         </td>
       </tr>
     </table>
-    {#footer}
-  </body>
-</html>

@@ -17,8 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 
-//----------------------------------------------------------- personnal include
-include_once( './include/init.inc.php' );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
 //-------------------------------------------------- access authorization check
 if ( $conf['access'] == "restricted" )
 {
@@ -42,11 +43,14 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['register_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/register.vtp' );
 // language
-$vtp->setGlobalVar( $handle, 'register_page_title',
-                    $lang['register_page_title'] );
 $vtp->setGlobalVar( $handle, 'register_title',   $lang['register_title'] );
 $vtp->setGlobalVar( $handle, 'ident_guest_visit',$lang['ident_guest_visit'] );
 $vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
@@ -70,7 +74,8 @@ $vtp->addSession( $handle, 'line' );
 $vtp->setVar( $handle, 'line.name', $lang['login'] );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.name', 'login' );
-$vtp->setVar( $handle, 'text.value', $_POST['login'] );
+if (isset( $_POST['login']))
+	$vtp->setVar( $handle, 'text.value', $_POST['login'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
 //-------------------------------------------------------------------- password
@@ -94,10 +99,12 @@ $vtp->addSession( $handle, 'line' );
 $vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.name', 'mail_address' );
-$vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
+if (isset( $_POST['mail_address']))
+	$vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

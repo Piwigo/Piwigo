@@ -1,3 +1,13 @@
+<!--VTP_errors-->
+<div class="errors">
+  <div class="errors_title">{#errors_title}</div>
+  <ul>
+    <!--VTP_li-->
+    <li>{#content}</li>
+    <!--/VTP_li-->
+  </ul>
+</div>
+<!--/VTP_errors-->
 <form method="post" action="{#form_action}">
   <table width="100%">
     <tr>
@@ -75,13 +85,18 @@
       <td colspan="6">
         <img src="./template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" />
         {#infoimage_associate}
+        <!--VTP_associate_LOV-->
         <select name="associate">
           <!--VTP_associate_cat-->
           <option value="{#value}">{#content}</option>
           <!--/VTP_associate_cat-->
         </select>
-    </td>
-  </tr>
+        <!--/VTP_associate_LOV-->
+        <!--VTP_associate_text-->
+        <input type="text" name="associate" />
+        <!--/VTP_associate_text-->
+      </td>
+    </tr>
     <tr>
       <td colspan="6" style="text-align:center;">
         <input type="submit" value="{#submit}" name="submit" />

@@ -60,6 +60,8 @@ if ( isset( $_POST['submit'] ) )
   {
     check_favorites( $row['id'] );
   }
+  // synchronization of calculated data
+  synchronize_group( $_GET['group_id'] );
   // confirmation display
   $vtp->addSession( $sub, 'confirmation' );
   $url = './admin.php?page=group_list';

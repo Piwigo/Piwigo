@@ -17,6 +17,10 @@
  *                                                                         *
  ***************************************************************************/
 
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
+
 //------------------------------------------------------------------- functions
 // The validate_upload function checks if the image of the given path is valid.
 // A picture is valid when :
@@ -94,10 +98,13 @@ function validate_upload( $temp_name, $my_max_file_size,
     // destruction de l'image avec le nom temporaire
     @unlink( $temp_name );
   }
+  else
+  {
+  	@chmod( $temp_name, 0644);
+  }
   return $result;
 }	
-//----------------------------------------------------------- personnal include
-include_once( './include/init.inc.php' );
+
 //-------------------------------------------------- access authorization check
 check_login_authorization();
 check_cat_id( $_GET['cat'] );
@@ -109,13 +116,7 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
-}
-else
-{
-  $access_forbidden = true;
-}
-if ( $access_forbidden == true
-     or $page['cat_site_id'] != 1
+if ( $page['cat_site_id'] != 1
      or !$conf['upload_available']
      or !$page['cat_uploadable'] )
 {
@@ -124,8 +125,13 @@ if ( $access_forbidden == true
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
+}
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['upload_title'];
+include('include/page_header.php');
 $handle = $vtp->Open( './template/'.$user['template'].'/upload.vtp' );
 initialize_template();
 
@@ -164,7 +170,8 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, $lang['upload_err_username'] );
   }
-
+  
+  $date_creation = '';
   if ( $_POST['date_creation'] != '' )
   {
     list( $day,$month,$year ) = explode( '/', $_POST['date_creation'] );
@@ -189,13 +196,20 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   $xml_infos.= ' date_creation="'.$date_creation.'"';
   $xml_infos.= ' name="'.htmlspecialchars( $_POST['name'], ENT_QUOTES).'"';
   $xml_infos.= ' />';
+
+  if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )
+  {
+    // reload language file with administration labels
+    $isadmin = true;
+    include( './language/'.$user['language'].'.php' );
+    array_push( $error, $lang['update_wrong_dirname'] );
+  }
   
   if ( sizeof( $error ) == 0 )
   {
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
                                $conf['upload_maxwidth'],
                                $conf['upload_maxheight']  );
-    $upload_type = $result['type'];
     for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
     {
       array_push( $error, $result['error'][$j] );
@@ -237,7 +251,6 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $result = validate_upload( $path, $conf['upload_maxfilesize'],
                              $conf['upload_maxwidth_thumbnail'],
                              $conf['upload_maxheight_thumbnail']  );
-  $upload_type = $result['type'];
   for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
   {
     array_push( $error, $result['error'][$j] );
@@ -347,12 +360,16 @@ if ( !$page['upload_successful'] )
     else                                  $mail_address=$user['mail_address'];
     $vtp->setGlobalVar( $handle, 'user_mail_address',$user['mail_address'] );
     // name of the picture
+	if (isset($_POST['name']))
     $vtp->setVar( $handle, 'fields.name', $_POST['name'] );
     // author
+	if (isset($_POST['author']))
     $vtp->setVar( $handle, 'fields.author', $_POST['author'] );
     // date of creation
+	if (isset($_POST['date_creation']))
     $vtp->setVar( $handle, 'fields.date_creation', $_POST['date_creation'] );
     // comment
+	if (isset($_POST['comment']))
     $vtp->setVar( $handle, 'fields.comment', $_POST['comment'] );
 
     $vtp->closeSession( $handle, 'fields' );
@@ -373,4 +390,5 @@ $vtp->setGlobalVar( $handle, 'return_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

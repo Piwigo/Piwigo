@@ -2,7 +2,7 @@
 /***************************************************************************
  *                              config.inc.php                             *
  *                            -------------------                          *
- *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   application   : PhpWebGallery 1.4 <http://phpwebgallery.net>          *
  *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
  *                                                                         *
  *   $Id$
@@ -16,14 +16,6 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-unset( $conf, $page, $user, $lang );
-$conf = array();
-$page = array();
-$user = array();
-$lang = array();
-
-include_once( PREFIX_INCLUDE.'./include/functions.inc.php' );
-include_once( PREFIX_INCLUDE.'./include/vtemplate.class.php' );
 // How to change the order of display for images in a category ?
 //
 // You have to modify $conf['order_by'].
@@ -44,46 +36,13 @@ $conf['nb_image_row']       = array(4,5,6,7,8);
 $conf['nb_row_page']        = array(2,3,4,5,6,7,10,20,1000);
 $conf['slideshow_period']   = array(2,5,10);
 $conf['last_days']          = array(1,2,3,10,30,365);
-$conf['version']            = 'devel';
+$conf['version']            = '1.4 - devel';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
 $conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
 $conf['document_ext']       = array('doc','pdf','zip');
 $conf['top_number']         = 10;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
+$conf['max_LOV_categories'] = 50;
 
-database_connection();
-// rertieving the configuration informations for site
-// $infos array is used to know the fields to retrieve in the table "config"
-// Each field becomes an information of the array $conf.
-// Example :
-//            prefix_thumbnail --> $conf['prefix_thumbnail']
-$infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
-                'session_id_size', 'session_keyword', 'session_time',
-                'max_user_listbox', 'show_comments', 'nb_comment_page',
-                'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
-                'upload_maxheight', 'upload_maxwidth_thumbnail',
-                'upload_maxheight_thumbnail','log','comments_validation',
-                'comments_forall','authorize_cookies','mail_notification' );
-
-$query  = 'SELECT ';
-foreach ( $infos as $i => $info ) {
-  if ( $i > 0 ) $query.= ',';
-  $query.= $info;
-}
-$query.= ' FROM '.PREFIX_TABLE.'config;';
-
-$row = mysql_fetch_array( mysql_query( $query ) );
-
-// affectation of each field of the table "config" to an information of the
-// array $conf.
-foreach ( $infos as $info ) {
-  $conf[$info] = $row[$info];
-  // If the field is true or false, the variable is transformed into a boolean
-  // value.
-  if ( $row[$info] == 'true' or $row[$info] == 'false' )
-  {
-    $conf[$info] = get_boolean( $row[$info] );
-  }
-}
 ?>

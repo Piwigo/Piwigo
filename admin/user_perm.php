@@ -52,13 +52,14 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   check_favorites( $_GET['user_id'] );
+  synchronize_user( $_GET['user_id'] );
   $vtp->addSession( $sub, 'confirmation' );
   $url = './admin.php?page=user_list';
   $vtp->setVar( $sub, 'confirmation.back_url', add_session_id( $url ) );
   $vtp->closeSession( $sub, 'confirmation' );
 }
 //---------------------------------------------------------------- form display
-$restrictions = get_restrictions( $_GET['user_id'], $page['user_status'],
+$restrictions = get_user_restrictions( $_GET['user_id'], $page['user_status'],
                                   false, false );
 $action = './admin.php?page=user_perm&amp;user_id='.$_GET['user_id'];
 $vtp->setVar( $sub, 'action', add_session_id( $action ) );

@@ -2,7 +2,7 @@
 /***************************************************************************
  *                                update.php                               *
  *                            ------------------                           *
- *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   application   : PhpWebGallery 1.4 <http://phpwebgallery.net>          *
  *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
  *                                                                         *
  *   $Id$
@@ -19,142 +19,162 @@
 
 include_once( './admin/include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
-function insert_local_category( $cat_id )
+function insert_local_category( $id_uppercat )
 {
   global $conf, $page, $user, $lang;
-
-  $site_id = 1;
+ 
+  $uppercats = '';
+  $output = '';
 
   // 0. retrieving informations on the category to display
   $cat_directory = './galleries';
-
-  if ( is_numeric( $cat_id ) )
+  if ( is_numeric( $id_uppercat ) )
   {
-    $cat_directory.= '/'.get_local_dir( $cat_id );
-    $result = get_cat_info( $cat_id );
+    $query = 'SELECT name,uppercats,dir';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$id_uppercat;
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $uppercats = $row['uppercats'];
+    $name      = $row['name'];
+    $dir       = $row['dir'];
+
+    $upper_array = explode( ',', $uppercats );
+
+    $local_dir = '';
+
+    $database_dirs = array();
+    $query = 'SELECT id,dir';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id IN ('.$uppercats.')';
+    $query.= ';';
+    $result = mysql_query( $query );
+    while( $row = mysql_fetch_array( $result ) )
+    {
+      $database_dirs[$row['id']] = $row['dir'];
+    }
+    foreach ( $upper_array as $id ) {
+      $local_dir.= $database_dirs[$id].'/';
+    }
+
+    $cat_directory.= '/'.$local_dir;
+
     // 1. display the category name to update
     $src = './template/'.$user['template'].'/admin/images/puce.gif';
     $output = '<img src="'.$src.'" alt="&gt;" />';
-    $output.= '<span style="font-weight:bold;">'.$result['name'][0].'</span>';
-    $output.= ' [ '.$result['dir'].' ]';
+    $output.= '<span style="font-weight:bold;">'.$name.'</span>';
+    $output.= ' [ '.$dir.' ]';
     $output.= '<div class="retrait">';
 
     // 2. we search pictures of the category only if the update is for all
     //    or a cat_id is specified
     if ( isset( $page['cat'] ) or $_GET['update'] == 'all' )
     {
-      $output.= insert_local_image( $cat_directory, $cat_id );
+      $output.= insert_local_image( $cat_directory, $id_uppercat );
     }
   }
 
-  // 3. we have to remove the categories of the database not present anymore
-  $query = 'SELECT id';
+  $sub_dirs = get_category_directories( $cat_directory );
+
+  $sub_category_dirs = array();
+  $query = 'SELECT id,dir';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE site_id = '.$site_id;
-  if ( !is_numeric( $cat_id ) )
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$cat_id;
-  }
+  $query.= ' WHERE site_id = 1';
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    // retrieving the directory
-    $rep = './galleries/'.get_local_dir( $row['id'] );
-    // is the directory present ?
-    if ( !is_dir( $rep ) ) delete_category( $row['id'] );
+    $sub_category_dirs[$row['id']] = $row['dir'];
   }
-  // 4. retrieving the sub-directories
-  $subdirs = array();
-  $dirs = '';
-  if ( $opendir = opendir( $cat_directory ) )
-  {
-    while ( $file = readdir( $opendir ) )
+  
+  // 3. we have to remove the categories of the database not present anymore
+  foreach ( $sub_category_dirs as $id => $dir ) {
+    if ( !in_array( $dir, $sub_dirs ) ) delete_category( $id );
+  }
+
+  // array of new categories to insert
+  $inserts = array();
+  
+  foreach ( $sub_dirs as $sub_dir ) {
+    // 5. Is the category already existing ? we create a subcat if not
+    //    existing
+    $category_id = array_search( $sub_dir, $sub_category_dirs );
+    if ( !is_numeric( $category_id ) )
     {
-      if ( $file != '.'
-           and $file != '..'
-           and is_dir ( $cat_directory.'/'.$file )
-           and $file != 'thumbnail' )
+      if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $sub_dir ) )
       {
-        if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
-          array_push( $subdirs, $file );
-        else
-        {
-          $output.= '<span style="color:red;">"'.$file.'" : ';
-          $output.= $lang['update_wrong_dirname'].'</span><br />';
-          // if the category even exists (from a previous release of
-          // PhpWebGallery), we keep it in our $subdirs array
-          $query = 'SELECT id';
-          $query.= ' FROM '.PREFIX_TABLE.'categories';
-          $query.= ' WHERE site_id = '.$site_id;
-          $query.= " AND dir = '".$file."'";
-          $query.= ' AND id_uppercat';
-          if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
-          else                          $query.= ' = '.$cat_id;
-          $query.= ';';
-          $result = mysql_query( $query );
-          if ( mysql_num_rows( $result ) != 0 )
-          {
-            array_push( $subdirs, $file );
-          }
-        }
+        $name = str_replace( '_', ' ', $sub_dir );
+
+        $value = "('".$sub_dir."','".$name."',1";
+        if ( !is_numeric( $id_uppercat ) ) $value.= ',NULL';
+        else                               $value.= ','.$id_uppercat;
+        $value.= ",'undef'";
+        $value.= ')';
+        array_push( $inserts, $value );
+      }
+      else
+      {
+        $output.= '<span style="color:red;">"'.$sub_dir.'" : ';
+        $output.= $lang['update_wrong_dirname'].'</span><br />';
       }
     }
   }
-  foreach ( $subdirs as $subdir ) {
-    // 5. Is the category already existing ? we create a subcat if not
-    //    existing
-    $category_id = '';
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE site_id = '.$site_id;
-    $query.= " AND dir = '".$subdir."'";
-    $query.= ' AND id_uppercat';
-    if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
-    else                          $query.= ' = '.$cat_id;
+
+  // we have to create the category
+  if ( count( $inserts ) > 0 )
+  {
+    $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
+    $query.= ' (dir,name,site_id,id_uppercat,uppercats) VALUES ';
+    $query.= implode( ',', $inserts );
     $query.= ';';
-    $result = mysql_query( $query );
-    if ( mysql_num_rows( $result ) == 0 )
-    {
-      $name = str_replace( '_', ' ', $subdir );
-      // we have to create the category
-      $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-      $query.= ' (dir,name,site_id,id_uppercat) VALUES';
-      $query.= " ('".$subdir."','".$name."','".$site_id."'";
-      if ( !is_numeric( $cat_id ) ) $query.= ',NULL';
-      else                          $query.= ",'".$cat_id."'";
-      $query.= ');';
-      mysql_query( $query );
-      $category_id = mysql_insert_id();
-      // regeneration of the plain_structure to integrate the new category
-      $page['plain_structure'] = get_plain_structure();
-    }
-    else
-    {
-      // we get the already registered id
-      $row = mysql_fetch_array( $result );
-      $category_id = $row['id'];
-    }
-    // 6. recursive call
-    $output.= insert_local_category( $category_id );
+    mysql_query( $query );
+    // updating uppercats field
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= ' SET uppercats = ';
+    if ( $uppercats != '' ) $query.= "CONCAT('".$uppercats."',',',id)";
+    else                    $query.= 'id';
+    $query.= ' WHERE id_uppercat ';
+    if (!is_numeric($id_uppercat)) $query.= 'IS NULL';
+    else                           $query.= '= '.$id_uppercat;
+    $query.= ';';
+    mysql_query( $query );
   }
-		
-  if ( is_numeric( $cat_id ) )
+
+  // Recursive call on the sub-categories (not virtual ones)
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE site_id = 1';
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $output.= insert_local_category( $row['id'] );
+  }
+
+  if ( is_numeric( $id_uppercat ) )
   {
     $output.= '</div>';
   }
   return $output;
 }
-	
-function insert_local_image( $rep, $category_id )
+
+function insert_local_image( $dir, $category_id )
 {
   global $lang,$conf,$count_new;
 
   $output = '';
+
+  // fs means filesystem : $fs_pictures contains pictures in the filesystem
+  // found in $dir, $fs_thumbnails contains thumbnails...
+  $fs_pictures   = get_picture_files( $dir );
+  $fs_thumbnails = get_thumb_files( $dir.'thumbnail' );
+
   // we have to delete all the images from the database that :
   //     - are not in the directory anymore
   //     - don't have the associated thumbnail available anymore
@@ -165,157 +185,187 @@ function insert_local_image( $rep, $category_id )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $lien_image = $rep.'/'.$row['file'];
-    $lien_thumbnail = $rep.'/thumbnail/'.$conf['prefix_thumbnail'];
-    $lien_thumbnail.= get_filename_wo_extension( $row['file'] );
-    $lien_thumbnail.= '.'.$row['tn_ext'];
-		
-    if ( !is_file ( $lien_image ) or !is_file ( $lien_thumbnail ) )
+    $pic_to_delete = false;
+    if ( !in_array( $row['file'], $fs_pictures ) )
     {
-      if ( !is_file ( $lien_image ) )
-      {
-        $output.= $row['file'];
-        $output.= ' <span style="font-weight:bold;">';
-        $output.= $lang['update_disappeared'].'</span><br />';
-      }
-      if ( !is_file ( $lien_thumbnail ) )
-      {
-        $output.= $row['file'];
-        $output.= ' : <span style="font-weight:bold;">';
-        $output.= $lang['update_disappeared_tn'].'</span><br />';
-      }
-      // suppression de la base :
-      delete_image( $row['id'] );
+      $output.= $row['file'];
+      $output.= ' <span style="font-weight:bold;">';
+      $output.= $lang['update_disappeared'].'</span><br />';
+      $pic_to_delete = true;
     }
-  }
-		
-  // searching the new images in the directory
-  $pictures = array();		
-  $tn_ext = '';
-  if ( $opendir = opendir( $rep ) )
-  {
-    while ( $file = readdir( $opendir ) )
-    {
-      if ( is_file( $rep.'/'.$file ) and is_image( $rep.'/'.$file ) )
-      {
-        // is the picture waiting for validation by an administrator ?
-        $query = 'SELECT id,validated,infos';
-        $query.= ' FROM '.PREFIX_TABLE.'waiting';
-        $query.= ' WHERE storage_category_id = '.$category_id;
-        $query.= " AND file = '".$file."'";
-        $query.= ';';
-        $result = mysql_query( $query );
-        $waiting = mysql_fetch_array( $result );
-        if (mysql_num_rows( $result ) == 0 or $waiting['validated'] == 'true')
-        {
-          if ( $tn_ext = TN_exists( $rep, $file ) )
-          {
-            // is the picture already in the database ?
-            $query = 'SELECT id';
-            $query.= ' FROM '.PREFIX_TABLE.'images';
-            $query.= ' WHERE storage_category_id = '.$category_id;
-            $query.= " AND file = '".$file."'";
-            $query.= ';';
-            $result = mysql_query( $query );
-            if ( mysql_num_rows( $result ) == 0 )
-            {
-              // the name of the file must not use acentuated characters or
-              // blank space..
-              if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
-              {
-                $picture = array();
-                $picture['file']     = $file;
-                $picture['tn_ext']   = $tn_ext;
-                $picture['date'] = date( 'Y-m-d', filemtime($rep.'/'.$file) );
-                $picture['filesize'] = floor( filesize($rep.'/'.$file) / 1024);
-                $image_size = @getimagesize( $rep.'/'.$file );
-                $picture['width']    = $image_size[0];
-                $picture['height']   = $image_size[1];
-                if ( $waiting['validated'] == 'true' )
-                {
-                  // retrieving infos from the XML description of
-                  // $waiting['infos']
-                  $infos = nl2br( $waiting['infos'] );
-                  $picture['author']        = getAttribute( $infos, 'author' );
-                  $picture['comment']       = getAttribute( $infos, 'comment');
-                  $unixtime = getAttribute( $infos, 'date_creation' );
-                  $picture['date_creation'] = '';
-                  if ( $unixtime != '' )
-                    $picture['date_creation'] = date( 'Y-m-d', $unixtime );
-                  $picture['name']          = getAttribute( $infos, 'name' );
-                  // deleting the waiting element
-                  $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
-                  $query.= ' WHERE id = '.$waiting['id'];
-                  $query.= ';';
-                  mysql_query( $query );
-                }
-                array_push( $pictures, $picture );
-              }
-              else
-              {
-                $output.= '<span style="color:red;">"'.$file.'" : ';
-                $output.= $lang['update_wrong_dirname'].'</span><br />';
-              }
 
-            }
-          }
-          else
-          {
-            $output.= '<span style="color:red;">';
-            $output.= $lang['update_missing_tn'].' : '.$file;
-            $output.= ' (<span style="font-weight:bold;">';
-            $output.= $conf['prefix_thumbnail'];
-            $output.= get_filename_wo_extension( $file ).'.XXX</span>';
-            $output.= ', XXX = ';
-            $output.= implode( ', ', $conf['picture_ext'] );
-            $output.= ')</span><br />';
-          }
+    $thumbnail = $conf['prefix_thumbnail'];
+    $thumbnail.= get_filename_wo_extension( $row['file'] );
+    $thumbnail.= '.'.$row['tn_ext'];
+    if ( !in_array( $thumbnail, $fs_thumbnails ) )
+    {
+      $output.= $row['file'];
+      $output.= ' : <span style="font-weight:bold;">';
+      $output.= $lang['update_disappeared_tn'].'</span><br />';
+      $pic_to_delete = true;
+    }
+
+    if ( $pic_to_delete ) delete_image( $row['id'] );
+  }
+
+  $registered_pictures = array();
+  $query = 'SELECT file';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' WHERE storage_category_id = '.$category_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $registered_pictures, $row['file'] );
+  }
+
+  // validated pictures are picture uploaded by users, validated by an admin
+  // and not registered (visible) yet
+  $validated_pictures    = array();
+  $unvalidated_pictures  = array();
+  
+  $query = 'SELECT file,infos,validated';
+  $query.= ' FROM '.PREFIX_TABLE.'waiting';
+  $query.= ' WHERE storage_category_id = '.$category_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    if ( $row['validated'] == 'true' )
+      $validated_pictures[$row['file']] = $row['infos'];
+    else
+      array_push( $unvalidated_pictures, $row['file'] );
+  }
+
+  // we only search among the picture present in the filesystem and not
+  // present in the database yet. If we know that this picture is known as
+  // an uploaded one but not validated, it's not tested neither
+  $unregistered_pictures = array_diff( $fs_pictures
+                                       ,$registered_pictures
+                                       ,$unvalidated_pictures );
+
+  $inserts = array();
+  
+  foreach ( $unregistered_pictures as $unregistered_picture ) {
+    if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $unregistered_picture ) )
+    {
+      $file_wo_ext = get_filename_wo_extension( $unregistered_picture );
+      $tn_ext = '';
+      foreach ( $conf['picture_ext'] as $ext ) {
+        $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
+        if ( !in_array( $test, $fs_thumbnails ) ) continue;
+        else { $tn_ext = $ext; break; }
+      }
+      // if we found a thumnbnail corresponding to our picture...
+      if ( $tn_ext != '' )
+      {
+        $image_size = @getimagesize( $dir.$unregistered_picture );
+        // (file, storage_category_id, date_available, tn_ext, filesize,
+        // width, height, name, author, comment, date_creation)'
+        $value = '(';
+        $value.= "'".$unregistered_picture."'";
+        $value.= ','.$category_id;
+        $value.= ",'".date( 'Y-m-d' )."'";
+        $value.= ",'".$tn_ext."'";
+        $value.= ','.floor( filesize( $dir.$unregistered_picture) / 1024 );
+        $value.= ','.$image_size[0];
+        $value.= ','.$image_size[1];
+        if ( isset( $validated_pictures[$unregistered_picture] ) )
+        {
+          // retrieving infos from the XML description from waiting table
+          $infos = nl2br( $validated_pictures[$unregistered_picture] );
+
+          $unixtime = getAttribute( $infos, 'date_creation' );
+          if ($unixtime != '') $date_creation ="'".date('Y-m-d',$unixtime)."'";
+          else                 $date_creation = 'NULL';
+          
+          $value.= ",'".getAttribute( $infos, 'name' )."'";
+          $value.= ",'".getAttribute( $infos, 'author' )."'";
+          $value.= ",'".getAttribute( $infos, 'comment')."'";
+          $value.= ','.$date_creation;
+
+          // deleting the waiting element
+          $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
+          $query.= " WHERE file = '".$unregistered_picture."'";
+          $query.= ' AND storage_category_id = '.$category_id;
+          $query.= ';';
+          mysql_query( $query );
         }
+        else
+        {
+          $value.= ",'','','',NULL";
+        }
+        $value.= ')';
+        
+        $count_new++;
+        $output.= $unregistered_picture;
+        $output.= ' <span style="font-weight:bold;">';
+        $output.= $lang['update_research_added'].'</span>';
+        $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')';
+        $output.= '<br />';
+        array_push( $inserts, $value );
+      }
+      else
+      {
+        $output.= '<span style="color:red;">';
+        $output.= $lang['update_missing_tn'].' : '.$unregistered_picture;
+        $output.= ' (<span style="font-weight:bold;">';
+        $output.= $conf['prefix_thumbnail'];
+        $output.= get_filename_wo_extension( $unregistered_picture );
+        $output.= '.XXX</span>';
+        $output.= ', XXX = ';
+        $output.= implode( ', ', $conf['picture_ext'] );
+        $output.= ')</span><br />';
       }
     }
+    else
+    {
+      $output.= '<span style="color:red;">"'.$unregistered_picture.'" : ';
+      $output.= $lang['update_wrong_dirname'].'</span><br />';
+    }
   }
-  // inserting the pictures found in the directory
-  foreach ( $pictures as $picture ) {
+
+  if ( count( $inserts ) > 0 )
+  {
+    // inserts all found pictures
     $query = 'INSERT INTO '.PREFIX_TABLE.'images';
     $query.= ' (file,storage_category_id,date_available,tn_ext';
     $query.= ',filesize,width,height';
     $query.= ',name,author,comment,date_creation)';
     $query.= ' VALUES ';
-    $query.= "('".$picture['file']."','".$category_id."'";
-    $query.= ",'".$picture['date']."','".$picture['tn_ext']."'";
-    $query.= ",'".$picture['filesize']."','".$picture['width']."'";
-    $query.= ",'".$picture['height']."','".$picture['name']."'";
-    $query.= ",'".$picture['author']."','".$picture['comment']."'";
-    if ( $picture['date_creation'] != '' )
-    {
-      $query.= ",'".$picture['date_creation']."'";
-    }
-    else
-    {
-      $query.= ',NULL';
-    }
-    $query.= ');';
-    mysql_query( $query );
-    $count_new++;
-    // retrieving the id of newly inserted picture
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE storage_category_id = '.$category_id;
-    $query.= " AND file = '".$picture['file']."'";
-    $query.= ';';
-    list( $image_id ) = mysql_fetch_array( mysql_query( $query ) );
-    // adding the link between this picture and its storage category
-    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
-    $query.= ' (image_id,category_id) VALUES ';
-    $query.= ' ('.$image_id.','.$category_id.')';
+    $query.= implode( ',', $inserts );
     $query.= ';';
     mysql_query( $query );
 
-    $output.= $picture['file'];
-    $output.= ' <span style="font-weight:bold;">';
-    $output.= $lang['update_research_added'].'</span>';
-    $output.= ' ('.$lang['update_research_tn_ext'].' '.$picture['tn_ext'].')';
-    $output.= '<br />';
+    // what are the ids of the pictures in the $category_id ?
+    $ids = array();
+
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' WHERE storage_category_id = '.$category_id;
+    $query.= ';';
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      array_push( $ids, $row['id'] );
+    }
+
+    // recreation of the links between this storage category pictures and
+    // its storage category
+    $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE category_id = '.$category_id;
+    $query.= ' AND image_id IN ('.implode( ',', $ids ).')';
+    $query.= ';';
+    mysql_query( $query );
+
+    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+    $query.= '(category_id,image_id) VALUES ';
+    foreach ( $ids as $num => $image_id ) {
+      if ( $num > 0 ) $query.= ',';
+      $query.= '('.$category_id.','.$image_id.')';
+    }
+    $query.= ';';
+    mysql_query( $query );
   }
   return $output;
 }
@@ -367,96 +417,131 @@ function remote_images()
 // insert the contained categories if the are not in the database yet. The
 // function also deletes the categories that are in the database and not in
 // the xml_file.
-function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
+function insert_remote_category( $xml_content, $site_id, $id_uppercat, $level )
 {
-  global $conf,$user;
-
+  global $conf, $page, $user, $lang;
+ 
+  $uppercats = '';
   $output = '';
-  $categories = array();
-  $list_dirs = getChildren( $xml_dir, 'dir'.$level );
-  for ( $i = 0; $i < sizeof( $list_dirs ); $i++ )
+  // 0. retrieving informations on the category to display
+  $cat_directory = '../galleries';
+		
+  if ( is_numeric( $id_uppercat ) )
   {
-    // is the category already existing ?
-    $category_id = '';
-    $dir = getAttribute( $list_dirs[$i], 'name' );
-    $categories[$i] = $dir;
+    $query = 'SELECT name,uppercats,dir';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' WHERE id = '.$id_uppercat;
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $uppercats = $row['uppercats'];
+    $name      = $row['name'];
 
+    // 1. display the category name to update
     $src = './template/'.$user['template'].'/admin/images/puce.gif';
-    $output.= '<img src="'.$src.'" alt="&gt;" />';
-    $output.= '<span style="font-weight:bold;">'.$dir.'</span>';
+    $output = '<img src="'.$src.'" alt="&gt;" />';
+    $output.= '<span style="font-weight:bold;">'.$name.'</span>';
+    $output.= ' [ '.$row['dir'].' ]';
     $output.= '<div class="retrait">';
 
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE site_id = '.$site_id;
-    $query.= " AND dir = '".$dir."'";
-    if ( $id_uppercat == 'NULL' )
-    {
-      $query.= ' AND id_uppercat IS NULL';
-    }
-    else
-    {
-      $query.= ' AND id_uppercat = '.$id_uppercat;
-    }
-    $query.= ';';
-    $result = mysql_query( $query );
-    if ( mysql_num_rows( $result ) == 0 )
-    {
-      $name = str_replace( '_', ' ', $dir );
-      // we have to create the category
-      $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-      $query.= ' (name,dir,site_id,id_uppercat) VALUES ';
-      $query.= "('".$name."','".$dir."',".$site_id;
-      if ( !is_numeric( $id_uppercat ) )
-      {
-        $query.= ',NULL';
-      }
-      else
-      {
-        $query.= ','.$id_uppercat;
-      }
-      $query.= ');';
-      mysql_query( $query );
-      $category_id = mysql_insert_id();
-    }
-    else
-    {
-      // we get the already registered id
-      $row = mysql_fetch_array( $result );
-      $category_id = $row['id'];
-    }
-    $output.= insert_remote_image( $list_dirs[$i], $category_id );
-    $output.= insert_remote_category( $list_dirs[$i], $site_id,
-                                      $category_id, $level+1 );
-    $output.= '</div>';
+    // 2. we search pictures of the category only if the update is for all
+    //    or a cat_id is specified
+    $output.= insert_remote_image( $xml_content, $id_uppercat );
   }
-  // we have to remove the categories of the database not present in the xml
-  // file (ie deleted from the picture storage server)
-  $query = 'SELECT dir,id';
+
+  // $xml_dirs contains dir names contained in the xml file for this
+  // id_uppercat
+  $xml_dirs = array();
+  $temp_dirs = getChildren( $xml_content, 'dir'.$level );
+  foreach ( $temp_dirs as $temp_dir ) {
+    array_push( $xml_dirs, getAttribute( $temp_dir, 'name' ) );
+  }
+
+  // $database_dirs contains dir names contained in the database for this
+  // id_uppercat and site_id
+  $database_dirs = array();
+  $query = 'SELECT id,dir';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE site_id = '.$site_id;
-  if ( !is_numeric( $id_uppercat ) )
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$id_uppercat;
-  }
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    // is the category in the xml file ?
-    if ( !in_array( $row['dir'], $categories ) )
+    $database_dirs[$row['id']] = $row['dir'];
+  }
+  
+  // 3. we have to remove the categories of the database not present anymore
+  foreach ( $database_dirs as $id => $dir ) {
+    if ( !in_array( $dir, $xml_dirs ) ) delete_category( $id );
+  }
+
+  // array of new categories to insert
+  $inserts = array();
+  
+  foreach ( $xml_dirs as $xml_dir ) {
+    // 5. Is the category already existing ? we create a subcat if not
+    //    existing
+    $category_id = array_search( $xml_dir, $database_dirs );
+    if ( !is_numeric( $category_id ) )
     {
-      delete_category( $row['id'] );
+      $name = str_replace( '_', ' ', $xml_dir );
+
+      $value = "('".$xml_dir."','".$name."',".$site_id;
+      if ( !is_numeric( $id_uppercat ) ) $value.= ',NULL';
+      else                               $value.= ','.$id_uppercat;
+      $value.= ",'undef'";
+      $value.= ')';
+      array_push( $inserts, $value );
     }
   }
 
+  // we have to create the category
+  if ( count( $inserts ) > 0 )
+  {
+    $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
+    $query.= ' (dir,name,site_id,id_uppercat,uppercats) VALUES ';
+    $query.= implode( ',', $inserts );
+    $query.= ';';
+    mysql_query( $query );
+    // updating uppercats field
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= ' SET uppercats = ';
+    if ( $uppercats != '' ) $query.= "CONCAT('".$uppercats."',',',id)";
+    else                    $query.= 'id';
+    $query.= ' WHERE id_uppercat ';
+    if (!is_numeric($id_uppercat)) $query.= 'IS NULL';
+    else                           $query.= '= '.$id_uppercat;
+    $query.= ';';
+    mysql_query( $query );
+  }
+
+  // Recursive call on the sub-categories (not virtual ones)
+  $query = 'SELECT id,dir';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE site_id = '.$site_id;
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $database_dirs[$row['dir']] = $row['id'];
+  }
+  foreach ( $temp_dirs as $temp_dir ) {
+    $dir = getAttribute( $temp_dir, 'name' );
+    $id_uppercat = $database_dirs[$dir];
+    $output.= insert_remote_category( $temp_dir, $site_id,
+                                      $id_uppercat,$level+1 );
+  }
+
+  if ( is_numeric( $id_uppercat ) ) $output.= '</div>';
+
   return $output;
 }
-	
+
 // insert_remote_image searchs the "root" node of the xml_dir given and
 // insert the contained pictures if the are not in the database yet.
 function insert_remote_image( $xml_dir, $category_id )
@@ -465,88 +550,15 @@ function insert_remote_image( $xml_dir, $category_id )
 
   $output = '';
   $root = getChild( $xml_dir, 'root' );
-  $pictures = array();
+
+  $fs_pictures = array();
   $xml_pictures = getChildren( $root, 'picture' );
-  for ( $j = 0; $j < sizeof( $xml_pictures ); $j++ )
-  {
-    //<picture file="albatros.jpg" tn_ext="png" date="2002-04-14"
-    //  filesize="35" width="640" height="480" />
-    $file     = getAttribute( $xml_pictures[$j], 'file' );
-    $tn_ext   = getAttribute( $xml_pictures[$j], 'tn_ext' );
-    $date     = getAttribute( $xml_pictures[$j], 'date' ); 
-    $filesize = getAttribute( $xml_pictures[$j], 'filesize' );
-    $width    = getAttribute( $xml_pictures[$j], 'width' );
-    $height   = getAttribute( $xml_pictures[$j], 'height' );
-			
-    $pictures[$j] = $file;
-			
-    // is the picture already existing in the database ?
-    $query = 'SELECT id,tn_ext';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE storage_category_id = '.$category_id;
-    $query.= " AND file = '".$file."'";
-    $query.= ';';
-    $result = mysql_query( $query );
-    $query = '';
-    if ( mysql_num_rows( $result ) == 0 )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'images';
-      $query.= ' (file,storage_category_id,date_available,tn_ext';
-      $query.= ',filesize,width,height)';
-      $query.= ' VALUES (';
-      $query.= "'".$file."'";
-      $query.= ",'".$category_id."'";
-      $query.= ",'".$date."'";
-      $query.= ",'".$tn_ext."'";
-      $query.= ",'".$filesize."'";
-      $query.= ",'".$width."'";
-      $query.= ",'".$height."'";
-      $query.= ')';
-      $query.= ';';
-      mysql_query( $query );
-      // retrieving the id of newly inserted picture
-      $query = 'SELECT id';
-      $query.= ' FROM '.PREFIX_TABLE.'images';
-      $query.= ' WHERE storage_category_id = '.$category_id;
-      $query.= " AND file = '".$file."'";
-      $query.= ';';
-      list( $image_id ) = mysql_fetch_array( mysql_query( $query ) );
-      // adding the link between this picture and its storage category
-      $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
-      $query.= ' (image_id,category_id) VALUES ';
-      $query.= ' ('.$image_id.','.$category_id.')';
-      $query.= ';';
-      mysql_query( $query );
-
-      $output.= $file;
-      $output.= ' <span style="font-weight:bold;">';
-      $output.= $lang['update_research_added'].'</span>';
-      $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')<br />';
-
-      $count_new++;
-    }
-    else
-    {
-      // is the tn_ext the same in the xml file and in the database ?
-      $row = mysql_fetch_array( $result );
-      if ( $row['tn_ext'] != $tn_ext )
-      {
-        $query = 'UPDATE '.PREFIX_TABLE.'images';
-        $query.= ' SET';
-        $query.= " tn_ext = '".$tn_ext."'";
-        $query.= ' WHERE storage_category_id = '.$category_id;
-        $query.= " AND file = '".$file."'";
-        $query.= ';';
-      }
-    }
-    // execution of the query
-    if ( $query != '' )
-    {
-      mysql_query( $query );
-    }
+  foreach ( $xml_pictures as $xml_picture ) {
+    array_push( $fs_pictures, getAttribute( $xml_picture, 'file' ) );
   }
-  // we have to remove the pictures of the database not present in the xml file
-  // (ie deleted from the picture storage server)
+  
+  // we have to delete all the images from the database that are not in the
+  // directory anymore (not in the XML anymore)
   $query = 'SELECT id,file';
   $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= ' WHERE storage_category_id = '.$category_id;
@@ -554,12 +566,101 @@ function insert_remote_image( $xml_dir, $category_id )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    // is the file in the xml file ?
-    if ( !in_array( $row['file'], $pictures ) )
+    if ( !in_array( $row['file'], $fs_pictures ) )
     {
+      $output.= $row['file'];
+      $output.= ' <span style="font-weight:bold;">';
+      $output.= $lang['update_disappeared'].'</span><br />';
       delete_image( $row['id'] );
     }
   }
+
+  $database_pictures = array();
+  $query = 'SELECT file';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' WHERE storage_category_id = '.$category_id;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push( $database_pictures, $row['file'] );
+  }
+
+  $inserts = array();
+  $xml_pictures = getChildren( $root, 'picture' );
+  foreach ( $xml_pictures as $xml_picture ) {
+    // <picture file="albatros.jpg" tn_ext="png" filesize="35" width="640"
+    // height="480" />
+    $file = getAttribute( $xml_picture, 'file' );
+
+    // is the picture already existing in the database ?
+    if ( !in_array( $file, $database_pictures ) )
+    {
+      $tn_ext = getAttribute( $xml_picture, 'tn_ext' );
+      // (file, storage_category_id, date_available, tn_ext, filesize,
+      // width, height)
+      $value = '(';
+      $value.= "'".$file."'";
+      $value.= ','.$category_id;
+      $value.= ",'".date( 'Y-m-d' )."'";
+      $value.= ",'".$tn_ext."'";
+      $value.= ','.getAttribute( $xml_picture, 'filesize' );
+      $value.= ','.getAttribute( $xml_picture, 'width' );
+      $value.= ','.getAttribute( $xml_picture, 'height' );
+      $value.= ')';
+
+      $count_new++;
+      $output.= $file;
+      $output.= ' <span style="font-weight:bold;">';
+      $output.= $lang['update_research_added'].'</span>';
+      $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')';
+      $output.= '<br />';
+      array_push( $inserts, $value );
+    }
+  }
+
+  if ( count( $inserts ) > 0 )
+  {
+    // inserts all found pictures
+    $query = 'INSERT INTO '.PREFIX_TABLE.'images';
+    $query.= ' (file,storage_category_id,date_available,tn_ext';
+    $query.= ',filesize,width,height)';
+    $query.= ' VALUES ';
+    $query.= implode( ',', $inserts );
+    $query.= ';';
+    mysql_query( $query );
+
+    // what are the ids of the pictures in the $category_id ?
+    $ids = array();
+
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' WHERE storage_category_id = '.$category_id;
+    $query.= ';';
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      array_push( $ids, $row['id'] );
+    }
+
+    // recreation of the links between this storage category pictures and
+    // its storage category
+    $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE category_id = '.$category_id;
+    $query.= ' AND image_id IN ('.implode( ',', $ids ).')';
+    $query.= ';';
+    mysql_query( $query );
+
+    $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+    $query.= '(category_id,image_id) VALUES ';
+    foreach ( $ids as $num => $image_id ) {
+      if ( $num > 0 ) $query.= ',';
+      $query.= '('.$category_id.','.$image_id.')';
+    }
+    $query.= ';';
+    mysql_query( $query );
+  }
+
   return $output;
 }
 //----------------------------------------------------- template initialization
@@ -569,15 +670,9 @@ $tpl = array( 'update_default_title', 'update_only_cat', 'update_all',
               'remote_site', 'update_part_research' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//-------------------------------------------------------- categories structure
-$page['plain_structure'] = get_plain_structure();
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
-check_cat_id( $_GET['update'] );
-if ( !isset( $_GET['update'] )
-     and !( isset( $page['cat'] )
-            or $_GET['update'] == 'cats'
-            or $_GET['update'] == 'all' ) )
+if (!isset( $_GET['update'] ))
 {
   $vtp->addSession( $sub, 'introduction' );
   // only update the categories, not the pictures.
@@ -591,6 +686,8 @@ if ( !isset( $_GET['update'] )
 //-------------------------------------------------- local update : ./galleries
 else
 {
+  check_cat_id( $_GET['update'] );
+  $start = get_moment();
   $count_new = 0;
   $count_deleted = 0;
   $vtp->addSession( $sub, 'local_update' );
@@ -602,6 +699,8 @@ else
   {
     $categories = insert_local_category( 'NULL' );
   }
+  $end = get_moment();
+  echo get_elapsed_time( $start, $end ).' for update <br />';
   $vtp->setVar( $sub, 'local_update.categories', $categories );
   $vtp->setVar( $sub, 'local_update.count_new', $count_new );
   $vtp->setVar( $sub, 'local_update.count_deleted', $count_deleted );
@@ -613,15 +712,32 @@ if ( @is_file( './listing.xml' ) )
   $count_new = 0;
   $count_deleted = 0;
   $vtp->addSession( $sub, 'remote_update' );
-
+  
+  $start = get_moment();
   remote_images();
+  $end = get_moment();
+  echo get_elapsed_time( $start, $end ).' for remote_images<br />';
+  
   $vtp->setVar( $sub, 'remote_update.count_new', $count_new );
   $vtp->setVar( $sub, 'remote_update.count_deleted', $count_deleted );
 
   $vtp->closeSession( $sub, 'remote_update' );
 }
 //---------------------------------------- update informations about categories
-update_category( 'all' );
+if ( isset( $_GET['update'] )
+     or isset( $page['cat'] )
+     or @is_file( './listing.xml' ) )
+{
+  $start = get_moment();
+  update_category( 'all' );
+  $end = get_moment();
+  echo get_elapsed_time( $start, $end ).' for update_category( all )<br />';
+
+  $start = get_moment();
+  synchronize_all_users();
+  $end = get_moment();
+  echo get_elapsed_time( $start, $end ).' for synchronize_all_users<br />';
+}
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>

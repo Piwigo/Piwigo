@@ -18,13 +18,15 @@
  ***************************************************************************/
 
 //-------------------------------------------------------------------- includes
-define( "PREFIX_INCLUDE", '' );
+define( 'PREFIX_INCLUDE', '' );
 include( './include/vtemplate.class.php' );
 include( './include/functions.inc.php' );
+
+$config_file = './config.php';
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
 $handle = $vtp->Open( './template/default/install.vtp' );
-$vtp->setGlobalVar( $handle, 'release', '1.3' );
+$vtp->setGlobalVar( $handle, 'release', '1.4' );
 //-------------------------------------------------------------------- language
 if ( isset( $_GET['language'] ) )
 {
@@ -45,7 +47,7 @@ if ( isset( $_GET['language'] ) )
   $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
 }
 //---------------------- Step 1 : connection informations, write of config file
-if ( $_GET['step'] == 1 )
+if ( isset($_GET['step']) && $_GET['step'] == 1 )
 {
   $errors = array();
   $infos  = array();
@@ -73,7 +75,7 @@ if ( $_GET['step'] == 1 )
     {
       array_push( $errors, $lang['step1_err_server'] );
     }
-			
+	
     if ( count( $errors ) == 0 )
     {
       $file_content = "<?php";
@@ -81,11 +83,15 @@ if ( $_GET['step'] == 1 )
       $file_content.= "\n\$cfgUser = '".     $_POST['cfgUser']."';";
       $file_content.= "\n\$cfgPassword = '". $_POST['cfgPassword']."';";
       $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
-      $file_content.= "\n\$prefixeTable = '".$_POST['prefixeTable']."';";
+	  $file_content.= "\n";
+      $file_content.= "\n\$table_prefix = '".$_POST['prefixeTable']."';";
+	  $file_content.= "\n";
+	  $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
       $file_content.= "\n?>";
       // writting the configuration file
-      if ( $fp = @fopen( './include/mysql.inc.php', 'a+' ) )
+      if ( $fp = @fopen( $config_file, 'a+' ) )
       {
+	  	ftruncate($fp, 0);
         fwrite( $fp, $file_content ); 
         fclose( $fp );
       }
@@ -93,7 +99,7 @@ if ( $_GET['step'] == 1 )
       $cfgUser     = '';
       $cfgPassword = '';
       $cfgBase     = '';
-      include( './include/mysql.inc.php' );
+      if ( is_file( $config_file ) ) include( $config_file );
       $file_OK = false;
       if ( @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) )
       {
@@ -150,9 +156,11 @@ if ( $_GET['step'] == 1 )
     else
       $vtp->setVar( $handle, 'step1.f_host', $_POST['cfgHote'] );
     // user
-    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
+	if ( isset( $_POST['cfgUser'] ) )
+	    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
     // base
-    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
+	if ( isset( $_POST['cfgBase'] ) )
+	    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
     // prefixeTable
     if ( !isset( $_POST['prefixeTable'] ) )
       $vtp->setVar( $handle, 'step1.f_prefixeTable', 'phpwebgallery_' );
@@ -163,12 +171,12 @@ if ( $_GET['step'] == 1 )
   }
 }
 //------------------------------------- Step 2 : creation of tables in database
-else if ( $_GET['step'] == 2 )
+else if (  isset($_GET['step']) && $_GET['step'] == 2 )
 {
   $errors = array();
   $infos  = array();
 
-  include( './include/mysql.inc.php' );
+  include( $config_file );
   mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Can't connect to database host" );
   mysql_select_db( $cfgBase )
@@ -188,7 +196,7 @@ else if ( $_GET['step'] == 2 )
       if ( preg_match( '/;$/', $sql_line ) )
       {
         $query = trim( $query );
-        $query = str_replace( 'phpwebgallery_', $prefixeTable, $query );
+        $query = str_replace( 'phpwebgallery_', $table_prefix, $query );
         // we don't execute "DROP TABLE" queries
         if ( !preg_match( '/^DROP TABLE/i', $query ) )
           mysql_query( $query );
@@ -221,30 +229,31 @@ else if ( $_GET['step'] == 2 )
     // if no error found till here : insertion of data in tables
     if ( count( $errors ) == 0 )
     {
-      $query = 'DELETE FROM '.$prefixeTable.'config';
+      $query = 'DELETE FROM '.$table_prefix.'config';
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$prefixeTable.'config';
+      $query = 'INSERT INTO '.$table_prefix.'config';
       $query.= ' (webmaster,mail_webmaster) VALUES ';
       $query.= " ('".$webmaster."','".$_POST['mail_webmaster']."')";
       $query.= ';';
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$prefixeTable.'sites';
+      $query = 'INSERT INTO '.$table_prefix.'sites';
       $query.= " (id,galleries_url) VALUES (1, './galleries/')";
       $query.= ';';
       mysql_query( $query );
 
       // webmaster admin user
-      $query = 'INSERT INTO '.$prefixeTable.'users';
-      $query.= ' (id,username,password,status,language) VALUES ';
+      $query = 'INSERT INTO '.$table_prefix.'users';
+      $query.= ' (id,username,password,status,language,mail_address) VALUES ';
       $query.= "(1,'".$webmaster."','".md5( $_POST['pwdWebmaster'] )."'";
-      $query.= ",'admin','".$_GET['language']."')";
+      $query.= ",'admin','".$_GET['language']."'";
+      $query.= ",'".$_POST['mail_webmaster']."')";
       $query.= ';';
       mysql_query($query);
 
       // guest user
-      $query = 'INSERT INTO '.$prefixeTable.'users';
+      $query = 'INSERT INTO '.$table_prefix.'users';
       $query.= '(id,username,password,status,language) VALUES ';
       $query.= "(2,'guest','','guest','".$_GET['language']."')";
       $query.= ';';
@@ -267,7 +276,9 @@ else if ( $_GET['step'] == 2 )
   if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
   {
     $vtp->addSession( $handle, 'step2' );
+	if ( isset( $_POST['webmaster'] ))
     $vtp->setVar( $handle, 'step2.f_webmaster', $_POST['webmaster'] );
+	if ( isset( $_POST['mail_webmaster'] ))
     $vtp->setVar( $handle, 'step2.f_mail_webmaster', $_POST['mail_webmaster']);
     $vtp->closeSession( $handle, 'step2' );
   }

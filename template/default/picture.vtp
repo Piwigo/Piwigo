@@ -1,54 +1,3 @@
-<html>
-  <head>
-    <!--VTP_refresh-->
-    <meta http-equiv="refresh" content="{#time};url={#url}">
-    <!--/VTP_refresh-->
-    <meta http-equiv="Content-Type" content="text/html;charset={#charset}">
-    {#style}
-    <!-- Specific style to picture.php-->
-    <style type="text/css">
-      .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
-        color:{#text_color};
-        font-family:arial,sans-Serif;
-        font-size:12px;
-      }
-      .commentsTitle,.commentsAuthor {
-        text-align:center;
-        font-weight:bold;
-      }
-      .commentsInfos {
-        margin:3px 3px 3px 10px;
-        font-size:11px;
-      }
-      .commentsContent {
-        margin:10px;
-      }
-      .commentsTitle {
-        margin-top:15px;
-      }
-      .commentsAuthor {
-        margin:5px;
-      }
-      .commentsNavigationBar {
-        margin:10px;
-      }
-      .tableComment {
-        width:90%;
-        border:2px solid {#text_color};
-        margin:10px;
-      }
-      .cellAuthor {
-        border-right:1px solid {#text_color};
-        width:100px;
-      }
-      .cellInfo {
-        border-bottom:1px solid {#text_color};
-      }
-    </style>
-    <title>{#page_title}</title>
-  </head>
-  <body>
-    {#header}
     <!--VTP_information-->
     <div class="information">{#content}</div>
     <!--/VTP_information-->
@@ -85,7 +34,7 @@
           <div style="margin-bottom:5px">&nbsp;</div>
           {#frame_start}1%{#frame_begin}
           <a href="{#picture_link}">
-            <img style="margin:10px;width:{#picture_width}px;height:{#picture_height}px;border:1px solid {#picture_border_color}" src="{#picture_src}" alt="{#picture_alt}"/>
+            <img class="imgLink" style="margin:10px;width:{#picture_width}px;height:{#picture_height}px;border:1px solid" src="{#picture_src}" alt="{#picture_alt}"/>
           </a>
           <div class="commentImage">{#picture_comment}</div>
           <table style="width:100%;">   
@@ -185,6 +134,3 @@
       </tr>
       <!--/VTP_comments-->
     </table>
-    {#footer}
-  </body>
-</html>

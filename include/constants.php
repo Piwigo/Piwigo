@@ -18,8 +18,22 @@
  ***************************************************************************/
 
 define( 'PREFIX_INCLUDE', '' );
+ 
+// Debug Level
+define('DEBUG', 1); // Debugging on
+//define('DEBUG', 0); // Debugging off 
+ 
+// Error codes
+define('GENERAL_MESSAGE', 200);
+define('GENERAL_ERROR', 202);
+define('CRITICAL_MESSAGE', 203);
+define('CRITICAL_ERROR', 204); 
+
+// xml tags 
+define( 'ATT_REG', '\w+' );
+define( 'VAL_REG', '[^"]*' );
   
-  // Table names
+// Table names
 define('CATEGORIES_TABLE', $table_prefix.'categories');
 define('COMMENTS_TABLE', $table_prefix.'comments');
 define('CONFIG_TABLE', $table_prefix.'config');

@@ -17,7 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 
-//----------------------------------------------------------- personnal include
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
 include_once( './admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
@@ -34,6 +36,7 @@ if ( is_file( './install.php' ) )
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
+if (isset( $_GET['page'] ))
 switch ( $_GET['page'] )
 {
  case 'user_list':

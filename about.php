@@ -17,14 +17,20 @@
  *                                                                         *
  ***************************************************************************/
 
-//----------------------------------------------------------- personnal include
-include_once( './include/init.inc.php' );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['about_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/about.vtp' );
 initialize_template();
 
-$tpl = array('about_page_title','about_title','about_message','about_return');
+$tpl = array('about_title','about_message','about_return');
 templatize_array( $tpl, 'lang', $handle );
 $vtp->setVar( $handle, 'user_template', $user['template'] );
 
@@ -33,4 +39,5 @@ $vtp->setVar( $handle, 'back_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

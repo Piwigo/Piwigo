@@ -76,10 +76,16 @@
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                   <td>{#infoimage_associate}
+                    <!--VTP_associate_LOV-->
                     <select name="associate">
                       <!--VTP_associate_cat-->
                       <option value="{#value}">{#content}</option>
                       <!--/VTP_associate_cat-->
+                    </select>
+                    <!--/VTP_associate_LOV-->
+                    <!--VTP_associate_text-->
+                    <input type="text" name="associate" />
+                    <!--/VTP_associate_text-->
                     </select>
                   </td>
                 </tr>

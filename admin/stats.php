@@ -42,13 +42,15 @@ $tpl = array( 'stats_last_days','date','login',
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- number of days to display
-if ( isset( $_GET['last_days'] ) ) define( "MAX_DAYS", $_GET['last_days'] );
-else                               define( "MAX_DAYS", 0 );
+if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
+else                               define( 'MAX_DAYS', 0 );
 
 foreach ( $conf['last_days'] as $option ) {
   $vtp->addSession( $sub, 'last_day_option' );
   $vtp->setVar( $sub, 'last_day_option.option', $option );
-  $url = './admin.php?page=stats&amp;expand='.$_GET['expand'];
+  $url = './admin.php?page=stats';
+  if (isset($_GET['expand']))
+	  $url .='&amp;expand='.$_GET['expand'];
   $url.= '&amp;last_days='.($option - 1);
   $vtp->setVar( $sub, 'last_day_option.link', add_session_id( $url ) );
   if ( $option == MAX_DAYS + 1 )
@@ -59,12 +61,18 @@ foreach ( $conf['last_days'] as $option ) {
 }
 //---------------------------------------------------------------- log  history
 // empty link
-$url = './admin.php?page=stats&amp;last_days='.$_GET['last_days'];
-$url.= '&amp;expand='.$_GET['expand'];
+$url = './admin.php?page=stats';
+if (isset($_GET['last_days']))
+  	$url .='&amp;last_days='.$_GET['last_days'];
+// expand array management
+$expand_days = array();
+if (isset($_GET['expand']))
+{
+	$url.= '&amp;expand='.$_GET['expand'];
+	$expand_days = explode( ',', $_GET['expand'] );
+}
 $url.= '&amp;act=empty';
 $vtp->setVar( $sub, 'emply_url', add_session_id( $url ) );
-// expand array management
-$expand_days = explode( ',', $_GET['expand'] );
 $page['expand_days'] = array();
 foreach ( $expand_days as $expand_day ) {
   if ( is_numeric( $expand_day ) )
@@ -99,7 +107,9 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
     $vtp->setVar( $sub, 'day.open_or_close', $lang['open'] );
     array_push( $local_expand, $i );
   }
-  $url = './admin.php?page=stats&amp;last_days='.$_GET['last_days'];
+  $url = './admin.php?page=stats';
+  if (isset($_GET['last_days']))
+  	$url.= '&amp;last_days='.$_GET['last_days'];
   $url.= '&amp;expand='.implode( ',', $local_expand );
   $vtp->setVar( $sub, 'day.url', add_session_id( $url ) );
   // date displayed like this (in English ) :

@@ -17,7 +17,10 @@
  *                                                                         *
  ***************************************************************************/
 
-include_once( './include/init.inc.php' );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
+
 //------------------------------------------------------------------- functions
 function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
 {
@@ -46,7 +49,7 @@ function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
     $subrow = mysql_fetch_array( mysql_query( $query ) );
     $category_id = $subrow['category_id'];
 
-    if ( $array_cat_directories[$category_id] == '' )
+    if ( !isset($array_cat_directories[$category_id]))
     {
       $array_cat_directories[$category_id] =
         get_complete_dir( $category_id );
@@ -133,15 +136,19 @@ function display_pictures( $mysql_result, $maxtime, $forbidden_cat_ids )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['title_comments'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/comments.vtp' );
 initialize_template();
 $tpl = array( 'title_comments','stats_last_days','search_return_main_page' );
 templatize_array( $tpl, 'lang', $handle );
-$vtp->setGlobalVar( $handle, 'text_color', $user['couleur_text'] );
 //--------------------------------------------------- number of days to display
-if ( isset( $_GET['last_days'] ) ) define( "MAX_DAYS", $_GET['last_days'] );
-else                               define( "MAX_DAYS", 0 );
+if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
+else                               define( 'MAX_DAYS', 0 );
 //----------------------------------------- non specific section initialization
 $array_cat_directories = array();
 $array_cat_names       = array();
@@ -168,22 +175,19 @@ $query.= ' FROM '.PREFIX_TABLE.'comments AS c';
 $query.=     ', '.PREFIX_TABLE.'image_category AS ic';
 $query.= ' WHERE c.image_id = ic.image_id';
 $query.= ' AND date > '.$maxtime;
+$query.= " AND validated = 'true'";
 // we must not show pictures of a forbidden category
-$restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
-if ( count( $restricted_cats ) > 0 )
+if ( $user['forbidden_categories'] != '' )
 {
-  $query.= ' AND category_id NOT IN (';
-  foreach ( $restricted_cats as $i => $restricted_cat ) {
-    if ( $i > 0 ) $query.= ',';
-    $query.= $restricted_cat;
-  }
-  $query.= ')';
+  $query.= ' AND category_id NOT IN ';
+  $query.= '('.$user['forbidden_categories'].')';
 }
 $query.= ' ORDER BY ic.image_id DESC';
 $query.= ';';
 $result = mysql_query( $query );
-display_pictures( $result, $maxtime, $restricted_cats );
+display_pictures( $result, $maxtime, $user['restrictions'] );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

@@ -60,6 +60,7 @@ if ( isset( $_POST['submit'] ) )
     mysql_query( $query );
   }
   // deletion of site as asked
+  $site_deleted = false;
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'sites';
   $query.= " WHERE galleries_url <> './galleries/';";
@@ -70,11 +71,16 @@ if ( isset( $_POST['submit'] ) )
     if ( $_POST[$site] == 1 )
     {
       delete_site( $row['id'] );
-      // if any picture of this site were linked to another categories, we
-      // have to update the informations of those categories. To make it
-      // simple, we just update all the categories
-      update_category( 'all' );
+      $site_deleted = true;
     }
+  }
+  // if any picture of this site were linked to another categories, we have
+  // to update the informations of those categories. To make it simple, we
+  // just update all the categories
+  if ( $site_deleted )
+  {
+    update_category( 'all' );
+    synchronize_all_users();
   }
   // thumbnail prefix must not contain accentuated characters
   $old_prefix = $_POST['prefix_thumbnail'];
@@ -234,30 +240,22 @@ if ( isset( $_POST['submit'] ) )
 else
 {
 //--------------------------------------------------------- data initialization
-  $query  = 'SELECT';
-  foreach ( $conf_infos as $i => $conf_info ) {
-    if ( $i > 0 ) $query.= ',';
-    else          $query.= ' ';
-    $query.= $conf_info;
-  }
+  $query  = 'SELECT '.implode( ',', $conf_infos );
   $query .= ' FROM '.PREFIX_TABLE.'config;';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $conf_infos as $conf_info ) {
-    $$conf_info = $row[$conf_info];
+  foreach ( $conf_infos as $info ) {
+    if ( isset( $row[$info] ) ) $$info = $row[$info];
+    else                        $$info = '';
   }
 
-  $query  = 'SELECT';
-  foreach ( $default_user_infos as $i => $default_user_info ) {
-    if ( $i > 0 ) $query.= ',';
-    else          $query.= ' ';
-    $query.= $default_user_info;
-  }
+  $query  = 'SELECT '.implode( ',', $default_user_infos );
   $query.= ' FROM '.PREFIX_TABLE.'users';
   $query.= " WHERE username = 'guest'";
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $default_user_infos as $default_user_info ) {
-    $$default_user_info = $row[$default_user_info];
+  foreach ( $default_user_infos as $info ) {
+    if ( isset( $row[$info] ) ) $$info = $row[$info];
+    else                        $$info = '';
   }
 }
 //----------------------------------------------------- template initialization
@@ -653,6 +651,7 @@ $vtp->setVar( $sub, 'param_line.name', $lang['customize_theme'] );
 $vtp->addSession( $sub, 'select' );
 $vtp->setVar( $sub, 'select.name', 'template' );
 $option = get_dirs( './template/' );
+
 for ( $i = 0; $i < sizeof( $option ); $i++ )
 {
   $vtp->addSession( $sub, 'option' );

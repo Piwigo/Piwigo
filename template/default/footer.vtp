@@ -1,0 +1,8 @@
+    <div class="copyright">{#generation_time} {#time}</div>
+    <!-- Please, do not remove this copyright. If you really want to,
+         contact me pierrick@z0rglub.com to find a solution on how
+         to show the origin of the script...-->
+    <div class="copyright">Powered by <a href="{#site_url}" class="back">PhpWebGallery</a> {#version}</div>
+    {#footer}
+  </body>
+</html>

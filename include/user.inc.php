@@ -16,6 +16,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+
 // retrieving user informations
 // $infos array is used to know the fields to retrieve in the table "users"
 // Each field becomes an information of the array $user.
@@ -24,14 +25,10 @@
 $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'nb_line_page', 'status', 'language', 'maxwidth',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
-                'long_period', 'template' );
+                'long_period', 'template', 'forbidden_categories' );
 
-$query_user  = 'SELECT ';
-foreach ( $infos as $i => $info ) {
-  if ( $i > 0 ) $query_user.= ',';
-  $query_user.= $info;
-}
-$query_user.= ' FROM '.PREFIX_TABLE.'users';
+$query_user = 'SELECT '.implode( ',', $infos );
+$query_user.= ' FROM '.USERS_TABLE;
 $query_done = false;
 $user['is_the_guest'] = false;
 
@@ -59,7 +56,7 @@ if ( isset( $session_id )
 {
   $page['session_id'] = $session_id;
   $query = 'SELECT user_id,expiration,ip';
-  $query.= ' FROM '.PREFIX_TABLE.'sessions';
+  $query.= ' FROM '.SESSIONS_TABLE;
   $query.= " WHERE id = '".$page['session_id']."'";
   $query.= ';';
   $result = mysql_query( $query );
@@ -72,7 +69,7 @@ if ( isset( $session_id )
       {
         // deletion of the session from the database,
         // because it is out-of-date
-        $delete_query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
+        $delete_query = 'DELETE FROM '.SESSIONS_TABLE;
         $delete_query.= " WHERE id = '".$page['session_id']."'";
         $delete_query.= ';';
         mysql_query( $delete_query );
@@ -96,18 +93,27 @@ if ( !$query_done )
   $user['is_the_guest'] = true;
 }
 $query_user .= ';';
-
 $row = mysql_fetch_array( mysql_query( $query_user ) );
 
 // affectation of each value retrieved in the users table into a variable
 // of the array $user.
 foreach ( $infos as $info ) {
-  $user[$info] = $row[$info];
-  // If the field is true or false, the variable is transformed into a
-  // boolean value.
-  if ( $row[$info] == 'true' or $row[$info] == 'false' )
+  if ( isset( $row[$info] ) )
   {
-    $user[$info] = get_boolean( $row[$info] );
+    // If the field is true or false, the variable is transformed into a
+    // boolean value.
+    if ( $row[$info] == 'true' or $row[$info] == 'false' )
+      $user[$info] = get_boolean( $row[$info] );
+    else
+      $user[$info] = $row[$info];    
+  }
+  else
+  {
+    $user[$info] = '';
   }
 }
+
+// special for $user['restrictions'] array
+$user['restrictions'] = explode( ',', $user['forbidden_categories'] );
+if ( $user['restrictions'][0] == '' ) $user['restrictions'] = array();
 ?>

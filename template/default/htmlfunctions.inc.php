@@ -17,10 +17,10 @@
  *                                                                         *
  ***************************************************************************/
 
-include( PREFIX_INCLUDE.'./template/'.$user['template'].'/theme/conf.php' );
+//include( PREFIX_INCLUDE.'./template/'.$user['template'].'/theme/conf.php' );
 $user['lien_expanded']='./template/'.$user['template'].'/theme/expanded.gif';
 $user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
-include_once( PREFIX_INCLUDE.'./template/'.$user['template'].'/style.inc.php');
+//include_once( PREFIX_INCLUDE.'./template/'.$user['template'].'/style.inc.php');
 
 function get_icon( $date_comparaison )
 {
@@ -160,15 +160,15 @@ function initialize_template()
 {
   global $vtp, $handle, $user, $lang;
 
-  $vtp->setGlobalVar( $handle, 'charset', $lang['charset'] );
-  $vtp->setGlobalVar( $handle, 'style', $user['style'] );
+ // $vtp->setGlobalVar( $handle, 'charset', $lang['charset'] );
+  //$vtp->setGlobalVar( $handle, 'style', $user['style'] );
   $vtp->setGlobalVar( $handle, 'frame_start', get_frame_start() );
   $vtp->setGlobalVar( $handle, 'frame_begin', get_frame_begin() );
   $vtp->setGlobalVar( $handle, 'frame_end',   get_frame_end() );
-  $vtp->setVarF( $handle, 'header',
-                 './template/'.$user['template'].'/header.htm' );
-  $vtp->setVarF( $handle, 'footer',
-                 './template/'.$user['template'].'/footer.htm' );
+ //$vtp->setVarF( $handle, 'header',
+ //                './template/'.$user['template'].'/header.htm' );
+  //$vtp->setVarF( $handle, 'footer',
+   //              './template/'.$user['template'].'/footer.htm' );
 }
 
 function display_category( $category, $indent, $handle )
@@ -177,8 +177,7 @@ function display_category( $category, $indent, $handle )
 
   $vtp->addSession( $handle, 'category' );
   $vtp->setVar( $handle, 'category.indent', $indent );
-
-  if ( $user['expand'] or count( $category['subcats'] ) == 0 )
+  if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
   {
     $vtp->addSession( $handle, 'bullet_wo_link' );
     $vtp->setVar( $handle, 'bullet_wo_link.bullet_url',
@@ -188,12 +187,16 @@ function display_category( $category, $indent, $handle )
   else
   {
     $vtp->addSession( $handle, 'bullet_w_link' );
-    $url = './category.php?cat='.$page['cat'];
+    $url = './category.php';
+	if (isset($page['cat']))
+	{
+	$url .='?cat='.$page['cat'];
     $url.= '&amp;expand='.$category['expand_string'];
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-    }
+	}
+	else if ($category['expand_string']<>'')
+	{
+		$url.= '?expand='.$category['expand_string'];
+	}
     $vtp->setVar( $handle, 'bullet_w_link.bullet_link', add_session_id($url) );
     if ( $category['expanded'] )
     {
@@ -220,10 +223,10 @@ function display_category( $category, $indent, $handle )
   {
     $vtp->setVar( $handle, 'category.name_style', 'font-weight:bold;' );
   }
-  if ( count( $category['subcats'] ) > 0 )
+  if ( $category['nb_sub_categories'] > 0 )
   {
     $vtp->addSession( $handle, 'subcat' );
-    $vtp->setVar( $handle, 'subcat.nb_subcats', count($category['subcats']) );
+    $vtp->setVar( $handle,'subcat.nb_subcats',$category['nb_sub_categories'] );
     $vtp->closeSession( $handle, 'subcat' );
   }
   $vtp->setVar( $handle, 'category.total_cat', $category['nb_images'] );

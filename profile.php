@@ -17,8 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 // customize appearance of the site for a user
-//----------------------------------------------------------- personnal include
-include_once( './include/init.inc.php' );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
 //-------------------------------------------------- access authorization check
 check_login_authorization();
 if ( $user['is_the_guest'] )
@@ -27,8 +28,6 @@ if ( $user['is_the_guest'] )
   echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
   exit();
 }
-//-------------------------------------------------------------- initialization
-check_cat_id( $_GET['cat'] );
 //------------------------------------------------------ update & customization
 $infos = array( 'nb_image_line', 'nb_line_page', 'language',
                 'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
@@ -69,19 +68,12 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   $mail_error = validate_mail_address( $_POST['mail_address'] );
-  if ( $mail_error != '' )
-  {
-    array_push( $errors, $mail_error );
-  }
-  if ( $_POST['use_new_pwd'] == 1 )
-  {
-    // password must be the same as its confirmation
-    if ( $_POST['password'] != $_POST['passwordConf'] )
-    {
-      array_push( $errors, $lang['reg_err_pass'] );
-    }
-  }
-
+  if ( $mail_error != '' ) array_push( $errors, $mail_error );
+  // password must be the same as its confirmation
+  if ( isset( $_POST['use_new_pwd'] )
+       and $_POST['password'] != $_POST['passwordConf'] )
+    array_push( $errors, $lang['reg_err_pass'] );
+  
   if ( count( $errors ) == 0 )
   {
     $query = 'UPDATE '.PREFIX_TABLE.'users';
@@ -97,7 +89,7 @@ if ( isset( $_POST['submit'] ) )
     $query.= ';';
     mysql_query( $query );
 
-    if ( $_POST['use_new_pwd'] == 1 )
+    if ( isset( $_POST['use_new_pwd'] ) )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'users';
       $query.= " SET password = '".md5( $_POST['password'] )."'";
@@ -105,7 +97,7 @@ if ( isset( $_POST['submit'] ) )
       $query.= ';';
       mysql_query( $query );
     }
-    if ( $_POST['create_cookie'] == 1 )
+    if ( isset( $_POST['create_cookie'] ) )
     {
       setcookie( 'id',$page['session_id'],$_POST['cookie_expiration'],
                  cookie_path() );
@@ -117,12 +109,8 @@ if ( isset( $_POST['submit'] ) )
       mysql_query( $query );
     }
     // redirection
-    $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&search='.$_GET['search'].'&mode='.$_GET['mode'];
-    }
-    if ( $_POST['create_cookie'] != 1 ) $url = add_session_id( $url, true );
+    $url = 'category.php';
+    if ( !isset($_POST['create_cookie']) ) $url = add_session_id( $url,true );
     header( 'Request-URI: '.$url );  
     header( 'Content-Location: '.$url );  
     header( 'Location: '.$url );
@@ -130,18 +118,19 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title = $lang['customize_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/profile.vtp' );
 initialize_template();
-$tpl = array( 'customize_page_title','customize_title','password','new',
+$tpl = array( 'customize_title','password','new',
               'reg_confirm','submit','create_cookie' );
 templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
-$url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-if ( $page['cat'] == 'search' )
-{
-  $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-}
+$url = './profile.php';
 $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
 //-------------------------------------------------------------- errors display
 if ( count( $errors ) != 0 )
@@ -201,7 +190,7 @@ if ( in_array( 'template', $infos ) )
   $vtp->setVar( $handle, 'line.name', $lang['customize_template'] );
   $vtp->addSession( $handle, 'select' );
   $vtp->setVar( $handle, 'select.name', 'template' );
-  $option = get_dirs( './template/' );
+  $option = get_dirs( './template' );
   for ( $i = 0; $i < sizeof( $option ); $i++ )
   {
     $vtp->addSession( $handle, 'option' );
@@ -378,4 +367,5 @@ if ( $conf['authorize_cookies'] )
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

@@ -17,8 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 
-//----------------------------------------------------------- personnal include
-include_once( './include/init.inc.php' );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
 //-------------------------------------------------- access authorization check
 check_login_authorization();
 //----------------------------------------------------------------- redirection
@@ -53,10 +54,14 @@ if ( isset( $_POST['search'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title= $lang['search_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/'.$user['template'].'/search.vtp' );
 initialize_template();
-
 $tpl = array( 'search_title','search_return_main_page','submit',
               'search_comments' );
 templatize_array( $tpl, 'lang', $handle );
@@ -81,6 +86,7 @@ $vtp->setVar( $handle, 'line.name', $lang['search_field_search'].' *' );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.size', '40' );
 $vtp->setVar( $handle, 'text.name', 'search' );
+if (isset($_POST['search']))
 $vtp->setVar( $handle, 'text.value', $_POST['search'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
@@ -92,7 +98,7 @@ $vtp->addSession( $handle, 'radio' );
 $vtp->setVar( $handle, 'radio.name', 'mode' );
 $vtp->setVar( $handle, 'radio.value', 'OR' );
 $vtp->setVar( $handle, 'radio.option', $lang['search_mode_or'] );
-if ( $_POST['mode'] == 'OR' or $_POST['mode'] == '' )
+if (!isset($_POST['mode']) || $_POST['mode'] == 'OR' )
 {
   $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
 }
@@ -102,7 +108,7 @@ $vtp->addSession( $handle, 'radio' );
 $vtp->setVar( $handle, 'radio.name', 'mode' );
 $vtp->setVar( $handle, 'radio.value', 'AND' );
 $vtp->setVar( $handle, 'radio.option', $lang['search_mode_and'] );
-if ( $_POST['mode'] == 'AND' )
+if ( isset($_POST['mode']) && $_POST['mode'] == 'AND' )
 {
   $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
 }
@@ -116,6 +122,7 @@ $vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
 $code = $vtp->Display( $handle, 0 );
 echo $code;
 //------------------------------------------------------------ log informations
-pwg_log( 'search', $page['title'] );
+pwg_log( 'search', $title );
 mysql_close();
+include('include/page_tail.php');
 ?>

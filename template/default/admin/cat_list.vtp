@@ -8,26 +8,32 @@
   </ul>
 </div>
 <!--/VTP_errors-->
-<table style="width:100%;">
-<tr>
-  <td colspan="8" style="text-align:center;padding-top:10px;padding-bottom:10px;">
+<div style="text-align:center;padding-top:10px;padding-bottom:5px;">
   <form action="" method="post">
     {#cat_add} <input type="text" name="virtual_name" />
     {#cat_parent}
+    <!--VTP_associate_LOV-->
     <select name="associate">
       <!--VTP_associate_cat-->
       <option value="{#value}">{#content}</option>
       <!--/VTP_associate_cat-->
     </select>
+    <!--/VTP_associate_LOV-->
+    <!--VTP_associate_text-->
+      <input type="text" name="associate" />
+    <!--/VTP_associate_text-->
    <input type="submit" value="{#submit}" name="submit" />
   </form>
-  </td>
-</tr>
+</div>
+<table style="width:100%;">
 <!--VTP_cat-->
 <tr>
   <{#td} style="width:50%;text-align:left;">
     <a name="{#id}"></a>
-    {#indent}<img src="./template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
+    {#indent}
+    <!--VTP_bullet_collapsed--><a href="{#link}"><img src="../template/{#user_template}/admin/images/collapsed.gif" style="border:none;" alt="&gt;" /></a><!--/VTP_bullet_collapsed-->
+    <!--VTP_bullet_expanded--><a href="{#link}"><img src="../template/{#user_template}/admin/images/expanded.gif" style="border:none;" alt="&gt;" /></a><!--/VTP_bullet_expanded-->
+    <!--VTP_bullet_wo_link--><img src="../template/{#user_template}/admin/images/collapsed.gif" style="border:none;" alt="&gt;" /><!--/VTP_bullet_wo_link-->
     &nbsp;{#name} [
     <!--VTP_storage-->
     dir : {#dir}

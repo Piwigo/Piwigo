@@ -36,7 +36,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $subresult = mysql_query( $query );
     $subrow = mysql_fetch_array( $subresult );
 
-    if ( $array_cat_directories[$subrow['cat_id']] == '' )
+    if ( !isset( $array_cat_directories[$subrow['cat_id']] ) )
     {
       $array_cat_directories[$subrow['cat_id']] =
         get_complete_dir( $subrow['cat_id'] );
@@ -49,7 +49,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $file = get_filename_wo_extension( $subrow['file'] );
     // name of the picture
     $name = $array_cat_names[$subrow['cat_id']].' &gt; ';
-    if ( $subrow['name'] != '' )
+    if ( isset( $subrow['name'] ) and $subrow['name'] != '' )
     {
       $name.= $subrow['name'];
     }
@@ -159,8 +159,8 @@ $tpl = array( 'stats_last_days','delete','close','submit','open' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- number of days to display
-if ( isset( $_GET['last_days'] ) ) define( "MAX_DAYS", $_GET['last_days'] );
-else                               define( "MAX_DAYS", 0 );
+if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
+else                               define( 'MAX_DAYS', 0 );
 //----------------------------------------- non specific section initialization
 $array_cat_directories = array();
 $array_cat_names       = array();

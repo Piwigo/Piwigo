@@ -39,6 +39,7 @@ $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
 $page['username'] = $row['username'];
 $page['status'] = $row['status'];
+if ( !isset( $row['mail_address'] ) ) $row['mail_address'] = '';
 $page['mail_address'] = $row['mail_address'];
 // user is not modifiable if :
 //   1. the selected user is the user "guest"
@@ -62,10 +63,7 @@ if ( sizeof( $error ) == 0 and isset( $_POST['submit'] ) )
 {
   // shall we use a new password and overwrite the old one ?
   $use_new_password = false;
-  if ( $_POST['use_new_pwd'] == 1)
-  {
-    $use_new_password = true;
-  }
+  if ( isset( $_POST['use_new_pwd'] ) ) $use_new_password = true;
   // if we try to update the webmaster infos, we have to set the status to
   // 'admin'
   if ( $row['username'] == $conf['webmaster'] )
@@ -88,7 +86,7 @@ if ( isset( $_POST['submit'] ) )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $dissociate = 'dissociate-'.$row['id'];
-    if ( $_POST[$dissociate] == 1 )
+    if ( isset( $_POST[$dissociate] ) )
     {
       $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
       $query.= ' WHERE user_id = '.$_GET['user_id'];
@@ -103,6 +101,8 @@ if ( isset( $_POST['submit'] ) )
   $query.= ' ('.$_GET['user_id'].','.$_POST['associate'].')';
   $query.= ';';
   mysql_query( $query );
+  // synchronize category informations for this user
+  synchronize_user( $_GET['user_id'] );
 }
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
@@ -124,7 +124,7 @@ if ( sizeof( $error ) == 0 and isset( $_POST['submit'] ) )
   $url = add_session_id( './admin.php?page=user_list' );
   $vtp->setVar( $sub, 'confirmation.url', $url );
   $vtp->closeSession( $sub, 'confirmation' );
-  if ( $use_new_pwd )
+  if ( $use_new_password )
   {
     $vtp->addSession( $sub, 'password_updated' );
     $vtp->closeSession( $sub, 'password_updated' );

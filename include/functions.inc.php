@@ -1,20 +1,21 @@
 <?php
-// +-----------------------------------------------------------------------+
-// |                           functions.inc.php                           |
-// +-----------------------------------------------------------------------+
-// | application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          |
-// | author        : Pierrick LE GALL <pierrick@z0rglub.com>               |
-// +-----------------------------------------------------------------------+
-// | file          : $RCSfile$
-// | tag           : $Name$
-// | last update   : $Date$
-// | revision      : $Revision$
-// +-----------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or modify  |
-// | it under the terms of the GNU General Public License as published by  |
-// | the Free Software Foundation;                                         |
-// +-----------------------------------------------------------------------+
+/***************************************************************************
+ *                             functions.inc.php                           *
+ *                            -------------------                          *
+ *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
+ *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *                                                                         *
+ *   $Id$
+ *                                                                         *
+ ***************************************************************************
 
+ ***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation;                                         *
+ *                                                                         *
+ ***************************************************************************/
 include( PREFIX_INCLUDE.'./include/functions_user.inc.php' );
 include( PREFIX_INCLUDE.'./include/functions_session.inc.php' );
 include( PREFIX_INCLUDE.'./include/functions_category.inc.php' );
@@ -166,23 +167,27 @@ function get_filename_wo_extension( $filename )
   return substr( $filename, 0, strrpos( $filename, '.' ) );
 }
 
-// get_dirs retourne un tableau contenant tous les sous-répertoires d'un
-// répertoire
-function get_dirs( $rep )
+/**
+ * returns an array contening sub-directories
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_dirs( $directory )
 {
-  $sub_rep = array();
+  $sub_dirs = array();
 
-  if ( $opendir = opendir ( $rep ) )
+  if ( $opendir = opendir( $directory ) )
   {
     while ( $file = readdir ( $opendir ) )
     {
-      if ( $file != '.' and $file != '..' and is_dir ( $rep.$file ) )
+      if ( $file != '.' and $file != '..' and is_dir ( $directory.'/'.$file ) )
       {
-        array_push( $sub_rep, $file );
+        array_push( $sub_dirs, $file );
       }
     }
   }
-  return $sub_rep;
+  return $sub_dirs;
 }
 
 // The get_picture_size function return an array containing :
@@ -265,22 +270,6 @@ function get_languages( $rep_language )
   return $languages;
 }
 
-// get_themes retourne un tableau contenant tous les "template - couleur"
-function get_themes( $theme_dir )
-{
-  $themes = array();
-  $main_themes = get_dirs( $theme_dir );
-  for ( $i = 0; $i < sizeof( $main_themes ); $i++ )
-  {
-    $colors = get_dirs( $theme_dir.$main_themes[$i].'/' );
-    for ( $j = 0; $j < sizeof( $colors ); $j++ )
-    {
-      array_push( $themes, $main_themes[$i].' - '.$colors[$j] );
-    }
-  }
-  return $themes;
-}
-
 // - add_style replaces the 
 //         $search  into <span style="$style">$search</span>
 // in the given $string.
@@ -324,17 +313,6 @@ function replace_search( $string, $search )
   return $string;
 }
 
-function database_connection()
-{
-  include( PREFIX_INCLUDE.'./include/mysql.inc.php' );
-  define( "PREFIX_TABLE", $prefixeTable );
-
-  @mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
-    or die ( "Could not connect to server" );
-  @mysql_select_db( $cfgBase )
-    or die ( "Could not connect to database" );
-}
-
 function pwg_log( $file, $category, $picture = '' )
 {
   global $conf, $user;
@@ -355,6 +333,7 @@ function templatize_array( $array, $global_array_name, $handle )
   global $vtp, $lang, $page, $user, $conf;
 
   foreach ( $array as $value ) {
+  if (isset(${$global_array_name}[$value]))
     $vtp->setGlobalVar( $handle, $value, ${$global_array_name}[$value] );
   }
 }
@@ -431,5 +410,48 @@ function notify( $type, $infos = '' )
     $content = wordwrap( $content, 72 );
     @mail( $to, $subject, $content, $headers, $options );
   }
+}
+
+function pwg_write_debug()
+{
+  global $debug;
+  
+  $fp = @fopen( './log/debug.log', 'a+' );
+  fwrite( $fp, "\n\n" );
+  fwrite( $fp, $debug );
+  fclose( $fp );
+}
+
+function pwg_query( $query )
+{
+  global $count_queries,$queries_time;
+
+  $start = get_moment();
+  $output = '';
+  
+  $count_queries++;
+  $output.= '<br /><br />['.$count_queries.'] '.$query;
+  $result = mysql_query( $query );
+  $time = get_moment() - $start;
+  $queries_time+= $time;
+  $output.= '<b>('.number_format( $time, 3, '.', ' ').' s)</b>';
+  $output.= '('.number_format( $queries_time, 3, '.', ' ').' s)';
+
+  // echo $output;
+  
+  return $result;
+}
+
+function pwg_debug( $string )
+{
+  global $debug,$t2,$count_queries;
+
+  $now = explode( ' ', microtime() );
+  $now2 = explode( '.', $now[0] );
+  $now2 = $now[1].'.'.$now2[1];
+  $time = number_format( $now2 - $t2, 3, '.', ' ').' s';
+  $debug.= '['.$time.', ';
+  $debug.= $count_queries.' queries] : '.$string;
+  $debug.= "\n";
 }
 ?>

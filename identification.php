@@ -17,15 +17,17 @@
  *                                                                         *
  ***************************************************************************/
 
-//----------------------------------------------------------- personnal include
-include_once( "./include/init.inc.php" );
+//----------------------------------------------------------- include
+$phpwg_root_path = './';
+include_once( $phpwg_root_path.'common.php' );
+
 //-------------------------------------------------------------- identification
 $errors = array();
 if ( isset( $_POST['login'] ) )
 {
   // retrieving the encrypted password of the login submitted
   $query = 'SELECT password';
-  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' FROM '.USERS_TABLE;
   $query.= " WHERE username = '".$_POST['login']."';";
   $row = mysql_fetch_array( mysql_query( $query ) );
   if( $row['password'] == md5( $_POST['pass'] ) )
@@ -43,10 +45,14 @@ if ( isset( $_POST['login'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$vtp = new VTemplate;
+//
+// Start output of page
+//
+$title = $lang['ident_page_title'];
+include('include/page_header.php');
+
 $handle = $vtp->Open( './template/default/identification.vtp' );
 // language
-$vtp->setGlobalVar( $handle, 'ident_page_title', $lang['ident_page_title'] );
 $vtp->setGlobalVar( $handle, 'ident_title',      $lang['ident_title'] );
 $vtp->setGlobalVar( $handle, 'login',            $lang['login'] );
 $vtp->setGlobalVar( $handle, 'password',         $lang['password'] );
@@ -73,7 +79,7 @@ if ( sizeof( $errors ) != 0 )
 }
 //------------------------------------------------------------------ users list
 // retrieving all the users login
-$query = 'select username from '.PREFIX_TABLE.'users;';
+$query = 'select username from '.USERS_TABLE.';';
 $result = mysql_query( $query );
 if ( mysql_num_rows ( $result ) < $conf['max_user_listbox'] )
 {
@@ -109,4 +115,5 @@ if ( $conf['access'] == 'free' )
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
+include('include/page_tail.php');
 ?>

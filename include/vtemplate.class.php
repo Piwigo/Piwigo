@@ -15,7 +15,6 @@
  *
  *			  
  *****************************************************************/ 
-
 // to make it work on nexen.net
 set_magic_quotes_runtime(0);
 

@@ -18,8 +18,6 @@
  ***************************************************************************/
 
 include_once( './admin/include/isadmin.inc.php' );
-//----------------------------------------- categories structure initialization
-$page['plain_structure'] = get_plain_structure();
 //--------------------------------------------------------- update informations
 $errors = array();
 // first, we verify whether there is a mistake on the given creation date
@@ -87,7 +85,7 @@ if ( isset( $_POST['submit'] ) )
     // if the user ask the picture to be the representative picture of its
     // category, the category is updated in the database (without wondering
     // if this picture was already the representative one)
-    if ( $_POST['representative-'.$row['category_id']] == 1 )
+    if ( isset($_POST['representative-'.$row['category_id']]) )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'categories';
       $query.= ' SET representative_picture_id = '.$_GET['image_id'];
@@ -97,7 +95,8 @@ if ( isset( $_POST['submit'] ) )
     }
     // if the user ask this picture to be not any more the representative,
     // we have to set the representative_picture_id of this category to NULL
-    else if ( $row['representative_picture_id'] == $_GET['image_id'] )
+    else if ( isset( $row['representative_picture_id'] )
+              and $row['representative_picture_id'] == $_GET['image_id'] )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'categories';
       $query.= ' SET representative_picture_id = NULL';
@@ -106,14 +105,35 @@ if ( isset( $_POST['submit'] ) )
       mysql_query( $query );
     }
   }
+  $associate_or_dissociate = false;
   // associate with a new category ?
-  if ( $_POST['associate'] != '-1' )
+  if ( $_POST['associate'] != '-1' and $_POST['associate'] != '' )
+  {
+    // does the uppercat id exists in the database ?
+    if ( !is_numeric( $_POST['associate'] ) )
+    {
+      array_push( $errors, $lang['cat_unknown_id'] );
+    }
+    else
+    {
+      $query = 'SELECT id';
+      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query.= ' WHERE id = '.$_POST['associate'];
+      $query.= ';';
+      if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
+        array_push( $errors, $lang['cat_unknown_id'] );
+    }
+  }
+  if ( $_POST['associate'] != '-1'
+       and $_POST['associate'] != ''
+       and count( $errors ) == 0 )
   {
     $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
     $query.= ' (category_id,image_id) VALUES ';
     $query.= '('.$_POST['associate'].','.$_GET['image_id'].')';
     $query.= ';';
     mysql_query( $query);
+    $associate_or_dissociate = true;
     update_category( $_POST['associate'] );
   }
   // dissociate any category ?
@@ -125,15 +145,20 @@ if ( isset( $_POST['submit'] ) )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    if ( $_POST['dissociate-'.$row['category_id']] == 1 )
+    if ( isset($_POST['dissociate-'.$row['category_id']]) )
     {
       $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
       $query.= ' WHERE image_id = '.$_GET['image_id'];
       $query.= ' AND category_id = '.$row['category_id'];
       $query.= ';';
       mysql_query( $query );
+      $associate_or_dissociate = true;
       update_category( $row['category_id'] );
     }
+  }
+  if ( $associate_or_dissociate )
+  {
+    synchronize_all_users();
   }
 }
 //----------------------------------------------------- template initialization
@@ -162,12 +187,19 @@ if ( count( $errors ) != 0 )
 $action = './admin.php?'.$_SERVER['QUERY_STRING'];
 $vtp->setVar( $sub, 'form_action', $action );
 // retrieving direct information about picture
-$query = 'SELECT file,date_available,date_creation,tn_ext,name,filesize';
-$query.= ',width,height,author,comment,keywords,storage_category_id';
+$infos = array( 'file','date_available','date_creation','tn_ext','name'
+                ,'filesize','width','height','author','comment','keywords'
+                ,'storage_category_id' );
+$query = 'SELECT '. implode( ',', $infos );
 $query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= ' WHERE id = '.$_GET['image_id'];
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
+
+foreach ( $infos as $info ) {
+  if ( !isset( $row[$info] ) ) $row[$info] = '';
+}
+
 // picture title
 if ( $row['name'] == '' )
 {
@@ -290,7 +322,8 @@ while ( $row = mysql_fetch_array( $result ) )
     $vtp->setVar( $sub, 'linked_category.invisible', $invisible_string );
   }
 
-  if ( $row['representative_picture_id'] == $_GET['image_id'] )
+  if ( isset( $row['representative_picture_id'] )
+       and $row['representative_picture_id'] == $_GET['image_id'] )
   {
     $vtp->setVar( $sub, 'linked_category.representative_checked',
                   ' checked="checked"' );
@@ -306,12 +339,32 @@ if ( mysql_num_rows( $result ) > 0 )
   $vtp->closeSession( $sub, 'dissociate' );
 }
 // associate to another category ?
-$vtp->addSession( $sub, 'associate_cat' );
-$vtp->setVar( $sub, 'associate_cat.value', '-1' );
-$vtp->setVar( $sub, 'associate_cat.content', '' );
-$vtp->closeSession( $sub, 'associate_cat' );
-$structure = create_structure( '', array() );
-display_categories( $structure, '&nbsp;' );
+//
+// We only show a List Of Values if the number of categories is less than
+// $conf['max_LOV_categories']
+$query = 'SELECT COUNT(id) AS nb_total_categories';
+$query.= ' FROM '.PREFIX_TABLE.'categories';
+$query.= ';';
+$row = mysql_fetch_array( mysql_query( $query ) );
+if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+{
+  $vtp->addSession( $sub, 'associate_LOV' );
+  $vtp->addSession( $sub, 'associate_cat' );
+  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
+  $vtp->setVar( $sub, 'associate_cat.content', '' );
+  $vtp->closeSession( $sub, 'associate_cat' );
+  $page['plain_structure'] = get_plain_structure( true );
+  $structure = create_structure( '', array() );
+  display_categories( $structure, '&nbsp;' );
+  $vtp->closeSession( $sub, 'associate_LOV' );
+}
+// else, we only display a small text field, we suppose the administrator
+// knows the id of its category
+else
+{
+  $vtp->addSession( $sub, 'associate_text' );
+  $vtp->closeSession( $sub, 'associate_text' );
+}
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>

@@ -1,9 +1,16 @@
 <?php
 /***************************************************************************
- *                                english.php                              *
+ *                                magyar.php                               *
  *                            -------------------                          *
  *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
- *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
+ *   author        : Béla Márkus <mbl@freemail.hu>                         *
+ *   version       : 1.00                                                  *
+ *   date          : 25/10/2003                                            *
+ *                                                                         *
+ *   notes         : Hungarian language file                               *
+ *                 :                                                       *
+ *                 : Only messages are relevant to users are translated;   *
+ *                 : administrator texts are kept English for the moment   *
  *                                                                         *
  *   $Id$
  *                                                                         *
@@ -17,213 +24,213 @@
  *                                                                         *
  ***************************************************************************/
 
-$lang['only_members'] = 'Only members can access this page';
-$lang['invalid_pwd'] = 'Invalid password!';
-$lang['access_forbiden'] = 'You are not authorized to access this page';
-$lang['submit'] = 'Submit';
-$lang['login'] = 'login';
-$lang['password'] = 'password';
-$lang['new'] = 'new';
-$lang['delete'] = 'delete';
-$lang['category'] = 'category';
-$lang['thumbnail'] = 'thumbnail';
-$lang['date'] = 'date';
-$lang['diapo_default_page_title'] = 'No category selected';
-$lang['thumbnails'] = 'Thumbnails';
-$lang['categories'] = 'Categories';
-$lang['hint_category'] = 'shows images at the root of this categry';
-$lang['total_images'] = 'total';
-$lang['title_menu'] = 'Menu';
-$lang['change_login'] = 'change login';
-$lang['login'] = 'login';
-$lang['hint_login'] = 'identification enables site\'s appareance customization';
-$lang['logout'] = 'logout';
-$lang['customize'] = 'customize';
-$lang['hint_customize'] = 'customize the appareance of the gallery';
-$lang['hint_search'] = 'search';
-$lang['search'] = 'search';
-$lang['favorite_cat'] = 'favorites';
-$lang['favorite_cat_hint'] = 'display your favorites';
-$lang['about'] = 'about';
-$lang['hint_about'] = 'more informations on PhpWebGallery...';
-$lang['admin'] = 'admin';
-$lang['hint_admin'] = 'available for administrators only';
-$lang['no_category'] = 'No category selected<br />please select it in the menu';
-$lang['page_number'] = 'page number';
-$lang['previous_page'] = 'Previous';
-$lang['next_page'] = 'Next';
-$lang['nb_image_category'] = 'number of images in this category';
-$lang['recent_image'] = 'image within the';
-$lang['days'] = 'days';
-$lang['send_mail'] = 'Any comment? Send me an e-mail';
+$lang['only_members'] = 'Az oldal csak regisztrált tagok számára érhetõ el';
+$lang['invalid_pwd'] = 'Érvénytelen jelszó!';
+$lang['access_forbiden'] = 'Nem vagy jogosult ennek az oldalna a megtekintésére';
+$lang['submit'] = 'Küldés';
+$lang['login'] = 'bejelentkezés';
+$lang['password'] = 'jelszó';
+$lang['new'] = 'új';
+$lang['delete'] = 'töröl';
+$lang['category'] = 'kategória';
+$lang['thumbnail'] = 'bélyegkép';
+$lang['date'] = 'dátum';
+$lang['diapo_default_page_title'] = 'Nincs kiválasztott kategória';
+$lang['thumbnails'] = 'Bélyegképek';
+$lang['categories'] = 'Kategóriák';
+$lang['hint_category'] = 'a kategória gyökerében lévõ képek megtekintése';
+$lang['total_images'] = 'összes';
+$lang['title_menu'] = 'Menü';
+$lang['change_login'] = 'belépés más néven';
+$lang['login'] = 'bejelentkezés';
+$lang['hint_login'] = 'bejelentkezés után testreszabhatod a program megjelenését';
+$lang['logout'] = 'kilépés';
+$lang['customize'] = 'testreszabás';
+$lang['hint_customize'] = 'a képtár megjelenésének testreszabása';
+$lang['hint_search'] = 'keresés';
+$lang['search'] = 'keresés';
+$lang['favorite_cat'] = 'kedvencek';
+$lang['favorite_cat_hint'] = 'kedvencek listázása';
+$lang['about'] = 'a programról';
+$lang['hint_about'] = 'további információk a PhpWebGallery-rõl';
+$lang['admin'] = 'rendszergazda';
+$lang['hint_admin'] = 'csak rendszergazdák számára érhetõ el';
+$lang['no_category'] = 'Nincs kiválasztott kategória<br />válassz ki egyet a menüben';
+$lang['page_number'] = 'oldal';
+$lang['previous_page'] = 'Elõzõ';
+$lang['next_page'] = 'Következõ';
+$lang['nb_image_category'] = 'Képek száma ebben a kategóriában';
+$lang['recent_image'] = '';
+$lang['days'] = 'napnál frissebb kép';
+$lang['send_mail'] = 'Véleményed van? Küldj email-t';
 $lang['title_send_mail'] = 'A comment on your site';
-$lang['sub-cat'] = 'subcategories';
-$lang['images_available'] = 'images in this category';
-$lang['total'] = 'images';
-$lang['upload_picture'] = 'Upload a picture';
-$lang['registration_date'] = 'registered on';
-$lang['creation_date'] = 'created on';
-$lang['comment'] = 'comment';
-$lang['author'] = 'author';
-$lang['size'] = 'size';
-$lang['filesize'] = 'filesize';
-$lang['file'] = 'file';
-$lang['generation_time'] = 'Page generated in';
-$lang['favorites'] = 'Favorites';
-$lang['search_result'] = 'Search results';
-$lang['about_page_title'] = 'About PhpWebGallery';
-$lang['about_title'] = 'About...';
-$lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Information about PhpWebGallery</div>
+$lang['sub-cat'] = 'alkategóriák';
+$lang['images_available'] = 'kép ebben a kategóriában';
+$lang['total'] = 'kép';
+$lang['upload_picture'] = 'Kép feltöltés';
+$lang['registration_date'] = 'regisztrálva';
+$lang['creation_date'] = 'létrehozva';
+$lang['comment'] = 'megjegyzés';
+$lang['author'] = 'szerzõ';
+$lang['size'] = 'méret';
+$lang['filesize'] = 'hossz';
+$lang['file'] = 'fájl';
+$lang['generation_time'] = 'Lap létrehozás ideje';
+$lang['favorites'] = 'Kedvencek';
+$lang['search_result'] = 'A keresés eredménye';
+$lang['about_page_title'] = 'A PhpWebGallery-ról';
+$lang['about_title'] = 'A programról';
+$lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Információ a PhpWebGallery-rõl</div>
 <ul>
-  <li>This website uses <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> release '.$conf['version'].'. PhpWebGallery is a web application giving you the possibility to create an online images gallery easily.</li>
-  <li>Technicaly, PhpWebGallery is fully developped with PHP (the elePHPant) with a MySQL database (the SQuirreL).</li>
-  <li>If you have any suggestions or comments, please visit <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> official site, and its dedicated <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a>.</li>
+  <li>Ez az oldal a <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> '.$conf['version'].'-as verziót használja. A PhpWebGallery egy olyan web-es alkalmazás, mely on-line képtárak egyszerû létrehozását teszi lehetõvé.</li>
+  <li>A PhpWebGallery teljesen PHP-ben (az elePHPant) íródott és a MySQL (SQuirreL) adatbázis kezelõt használja.</li>
+  <li>Ha bármilyen javaslatod vagy megjegyzésed van, látogasd meg a <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> címet, és a hozzá tartozó <a href="'.$conf['forum_url'].'" style="text-decoration:underline">fórum</a>-ot.</li>
 </ul>';
-$lang['about_return'] = 'Back';
-$lang['ident_page_title'] = 'Identification';
-$lang['ident_title'] = 'Identification';
-$lang['ident_register'] = 'Register';
-$lang['ident_forgotten_password'] = 'Forget your password ?';
-$lang['ident_guest_visit'] = 'Go through the gallery as a visitor';
-$lang['customize_page_title'] = 'Customization';
-$lang['customize_title'] = 'Customization';
-$lang['customize_nb_image_per_row'] = 'number of images per row';
-$lang['customize_nb_row_per_page'] = 'number of rows per page';
-$lang['customize_language'] = 'language';
-$lang['maxwidth'] = 'maximum width of the pictures';
-$lang['maxheight'] = 'maximum height of the pictures';
-$lang['err_maxwidth'] = 'maximum width must be a number superior to 50';
-$lang['err_maxheight'] = 'maximum height must be a number superior to 50';
-$lang['previous_image'] = 'Previous';
-$lang['next_image'] = 'Next';
-$lang['back'] = 'Click on the image to go back to the thumbnails page';
-$lang['info_image_title'] = 'Image information';
-$lang['link_info_image'] = 'Modify information';
-$lang['true_size'] = 'Real size';
-$lang['comments_title'] = 'Comments from the users of the site';
-$lang['comments_del'] = 'delete this comment';
-$lang['comments_add'] = 'Add a comment';
-$lang['month'][1] = 'January';
-$lang['month'][2] = 'February';
-$lang['month'][3] = 'March';
-$lang['month'][4] = 'April';
-$lang['month'][5] = 'May';
-$lang['month'][6] = 'June';
-$lang['month'][7] = 'July';
-$lang['month'][8] = 'August';
-$lang['month'][9] = 'September';
-$lang['month'][10] = 'October';
+$lang['about_return'] = 'Vissza';
+$lang['ident_page_title'] = 'Azonosítás';
+$lang['ident_title'] = 'Azonosítás';
+$lang['ident_register'] = 'Regisztrálás';
+$lang['ident_forgotten_password'] = 'Elfelejtetted a jelszót ?';
+$lang['ident_guest_visit'] = 'A képtár megtekintése vendégként';
+$lang['customize_page_title'] = 'Testreszabás';
+$lang['customize_title'] = 'Testreszabás';
+$lang['customize_nb_image_per_row'] = 'kép soronként';
+$lang['customize_nb_row_per_page'] = 'sor oldalanként';
+$lang['customize_language'] = 'nyelv';
+$lang['maxwidth'] = 'legnagyobb kép szélesség';
+$lang['maxheight'] = 'legnagyobb kép magasság';
+$lang['err_maxwidth'] = 'a legnagyobb szélességnek 50-nél többnek kell lennie';
+$lang['err_maxheight'] = 'a legnagyobb magasságnak 50-nél többnek kell lennie';
+$lang['previous_image'] = 'Elõzõ';
+$lang['next_image'] = 'Következõ';
+$lang['back'] = 'Kattints a képre, ha vissza akarsz térni a bélyegképekhez';
+$lang['info_image_title'] = 'Kép információ';
+$lang['link_info_image'] = 'Információ módosítása';
+$lang['true_size'] = 'Valódi méret';
+$lang['comments_title'] = 'megjegyzés a látogatóktól';
+$lang['comments_del'] = 'megjegyzés törlése';
+$lang['comments_add'] = 'Megjegyzés hozzáadása';
+$lang['month'][1] = 'Január';
+$lang['month'][2] = 'Február';
+$lang['month'][3] = 'Március';
+$lang['month'][4] = 'Április';
+$lang['month'][5] = 'Május';
+$lang['month'][6] = 'Június';
+$lang['month'][7] = 'Július';
+$lang['month'][8] = 'Augusztus';
+$lang['month'][9] = 'Szeptember';
+$lang['month'][10] = 'Október';
 $lang['month'][11] = 'November';
 $lang['month'][12] = 'December';
-$lang['day'][0] = 'Sunday';
-$lang['day'][1] = 'Monday';
-$lang['day'][2] = 'Tuesday';
-$lang['day'][3] = 'Wednesday';
-$lang['day'][4] = 'Thursday';
-$lang['day'][5] = 'Friday';
-$lang['day'][6] = 'Saturday';
-$lang['add_favorites_alt'] = 'Add to favorites';
-$lang['add_favorites_hint'] = 'Add this picture to your favorites';
-$lang['del_favorites_alt'] = 'Delete from favorites';
-$lang['del_favorites_hint'] = 'Delete this picture from your favorites';
-$lang['register_page_title'] = 'Registration';
-$lang['register_title'] = 'Registration';
-$lang['reg_err_login1'] = 'Please, enter a login';
-$lang['reg_err_login2'] = 'login mustn\'t end with a space character';
-$lang['reg_err_login3'] = 'login mustn\'t start with a space character';
-$lang['reg_err_login4'] = 'login mustn\'t contain characters " and \'';
-$lang['reg_err_login5'] = 'this login is already used';
-$lang['reg_err_pass'] = 'please enter your password again';
-$lang['reg_confirm'] = 'confirm';
-$lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
-$lang['search_title'] = 'Search';
-$lang['invalid_search'] = 'search must be done on 3 caracters or more';
-$lang['search_field_search'] = 'Search';
-$lang['search_return_main_page'] = 'Return to thumbnails page';
-$lang['upload_forbidden'] = 'You can\'t upload pictures in this category';
-$lang['upload_file_exists'] = 'A picture\'s name already used';
-$lang['upload_filenotfound'] = 'You must choose a picture fileformat for the image';
-$lang['upload_cannot_upload'] = 'can\'t upload the picture on the server';
-$lang['upload_title'] = 'Upload a picture';
-$lang['upload_advise'] = 'Choose an image to place in the category : ';
-$lang['upload_advise_thumbnail'] = 'Optional, but recommended : choose a thumbnail to associate to ';
-$lang['upload_advise_filesize'] = 'the filesize of the picture must not exceed : ';
-$lang['upload_advise_width'] = 'the width of the picture must not exceed : ';
-$lang['upload_advise_height'] = 'the height of the picture must not exceed : ';
-$lang['upload_advise_filetype'] = 'the picture must be to the fileformat jpg, gif or png';
-$lang['upload_err_username'] = 'the username must be given';
-$lang['upload_username'] = 'Username';
-$lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
+$lang['day'][0] = 'Vasárnap';
+$lang['day'][1] = 'Hétfõ';
+$lang['day'][2] = 'Kedd';
+$lang['day'][3] = 'Szerda';
+$lang['day'][4] = 'Csütörtök';
+$lang['day'][5] = 'Péntek';
+$lang['day'][6] = 'Szombat';
+$lang['add_favorites_alt'] = 'Hozzáadás a kedvencekhez';
+$lang['add_favorites_hint'] = 'Ennek a képnek a hozzáadása a kedvencekhez';
+$lang['del_favorites_alt'] = 'Törlés a kedvencekbõl';
+$lang['del_favorites_hint'] = 'Ennek a képnek a törlése a kedvencek közül';
+$lang['register_page_title'] = 'Regisztrálás';
+$lang['register_title'] = 'Regisztrálás';
+$lang['reg_err_login1'] = 'Jelentkezz be';
+$lang['reg_err_login2'] = 'a név nem végzõdhet szóközzel';
+$lang['reg_err_login3'] = 'a név nem kezdõdhet szóközzel';
+$lang['reg_err_login4'] = 'a név nem tartalmazhat " és \' karaktereket';
+$lang['reg_err_login5'] = 'ez a név már foglalt';
+$lang['reg_err_pass'] = 'ismételd meg a jelszót';
+$lang['reg_confirm'] = 'megerõsítés';
+$lang['reg_err_mail_address'] = 'a levelezési cím xxx@yyy.eee formájú legyen(example : jack@altern.org)';
+$lang['search_title'] = 'Keresés';
+$lang['invalid_search'] = 'keresésnél legalább 3 karaktert kell megadni';
+$lang['search_field_search'] = 'Keresés';
+$lang['search_return_main_page'] = 'Visszatérés a bélyegképekhez';
+$lang['upload_forbidden'] = 'Nem tölthetõ fel kép ebbe a kategóriába';
+$lang['upload_file_exists'] = 'Ilyen néven már van kép';
+$lang['upload_filenotfound'] = 'Meg kell adni a fájl formátumot';
+$lang['upload_cannot_upload'] = 'nem tölthetõ fel a kép a szerverre';
+$lang['upload_title'] = 'Kép feltöltése';
+$lang['upload_advise'] = 'Válaszd ki a feltöltendõ képet ebbe a kategóriába: ';
+$lang['upload_advise_thumbnail'] = 'Nem kötelezõ, de javasolt : válaszd ki a bélyegképet ';
+$lang['upload_advise_filesize'] = 'a file legnagyobb megengedett mérete : ';
+$lang['upload_advise_width'] = 'a kép legnagyobb megengedett szélessége : ';
+$lang['upload_advise_height'] = 'a kép legnagyobb megengedett magassága : ';
+$lang['upload_advise_filetype'] = 'a képnek jpg, gif vagy png formátumúnak kell lennie';
+$lang['upload_err_username'] = 'meg kell adni a felhasználói nevet';
+$lang['upload_username'] = 'Felhasználói név';
+$lang['upload_successful'] = 'A kép feltöltésre került; a rendszergazda hamarosan engedélyezni fogja';
 // new or modified in release 1.3
-$lang['charset'] = 'iso-8859-1';
-$lang['no'] = 'no';
-$lang['yes'] = 'yes';
-$lang['guest'] = 'guest';
-$lang['mail_address'] = 'mail address';
-$lang['public'] = 'public';
-$lang['private'] = 'private';
-$lang['add'] = 'add';
-$lang['dissociate'] = 'dissociate';
-$lang['mandatory'] = 'obligatory';
-$lang['err_date'] = 'wrong date';
-$lang['picture'] = 'picture';
+$lang['charset'] = 'iso-8859-2';
+$lang['no'] = 'nem';
+$lang['yes'] = 'igen';
+$lang['guest'] = 'vendég';
+$lang['mail_address'] = 'email cím';
+$lang['public'] = 'nyílvános';
+$lang['private'] = 'privát';
+$lang['add'] = 'hozzáadás';
+$lang['dissociate'] = 'szétválasztás';
+$lang['mandatory'] = 'kötelezõ';
+$lang['err_date'] = 'hibás dátum';
+$lang['picture'] = 'kép';
 $lang['IP'] = 'IP';
-$lang['close'] = 'close';
-$lang['open'] = 'open';
-$lang['keywords'] = 'keywords';
-$lang['errors_title'] = 'Errors';
-$lang['infos_title'] = 'Informations';
-$lang['default'] = 'default';
-$lang['comments'] = 'comments';
+$lang['close'] = 'bezárás';
+$lang['open'] = 'megnyitás';
+$lang['keywords'] = 'kulcsszavak';
+$lang['errors_title'] = 'Hiba';
+$lang['infos_title'] = 'Információk';
+$lang['default'] = 'alapértelmezett';
+$lang['comments'] = 'megjegyzés';
 $lang['category_representative'] = 'representative';
-$lang['stats'] = 'statistics';
-$lang['most_visited_cat_hint'] = 'displays most visited pictures';
-$lang['most_visited_cat'] = 'most visited';
-$lang['best_rated_cat_hint'] = 'displays pictures best rated';
-$lang['best_rated_cat'] = 'best rated';
-$lang['recent_cat_hint'] = 'displays most recent pictures';
-$lang['recent_cat'] = 'most recent';
-$lang['recent_cat_title'] = 'Recent pictures';
-$lang['visited'] = 'visited';
-$lang['times'] = 'times';
-$lang['customize_theme'] = 'interface theme';
-$lang['customize_expand'] = 'expand all categories';
-$lang['customize_show_nb_comments'] = 'show number of comments';
-$lang['customize_short_period'] = 'short period';
-$lang['customize_long_period'] = 'long period';
-$lang['customize_template'] = 'template';
-$lang['err_periods'] = 'periods must be integer values';
-$lang['err_periods_2'] = 'periods must be superior to 0. The long period must be grater than the short period.';
-$lang['create_cookie'] = 'create a cookie';
-$lang['customize_day'] = 'day';
-$lang['customize_week'] = 'week';
-$lang['customize_month'] = 'month';
-$lang['customize_year'] = 'year';
-$lang['slideshow'] = 'slideshow';
-$lang['period_seconds'] = 'seconds per picture';
-$lang['slideshow_stop'] = 'stop the slideshow';
-$lang['comment_added'] = 'Your comment has been registered';
-$lang['comment_to_validate'] = 'An administrator must authorize your comment before it is visible.';
-$lang['comment_anti-flood'] = 'Anti-flood system : please wait for a moment before trying to post another comment';
-$lang['comment_user_exists'] = 'This login is already used by another user';
-$lang['invalid_search'] = 'Searched words must be grater than 3 characters and must not contain punctuation mark';
-$lang['search_mode_or'] = 'at least one word';
-$lang['search_mode_and'] = 'all the words';
-$lang['search_comments'] = 'separate different words with spaces';
-$lang['upload_name'] = 'Name of the picture';
-$lang['upload_author'] = 'Author (eg "Pierrick LE GALL")';
-$lang['upload_creation_date'] = 'Creation date (DD/MM/YYYY)';
-$lang['upload_comment'] = 'Comment';
-$lang['mail_hello'] = 'Hi,';
-$lang['mail_new_upload_subject'] = 'New picture on the website';
-$lang['mail_new_upload_content'] = 'A new picture has been uploaded on the gallery. It is waiting for your validation. Let\'s meet in the administration panel to authorize or refuse this picture.';
-$lang['mail_new_comment_subject'] = 'New comment on website';
-$lang['mail_new_comment_content'] = 'A new comment has been registered on the gallery. If you chose to validate each comment, you first have to validate this comment in the administration panel to make it visible in the gallery.'."\n\n".'You can see last comments in the administration panel';
-$lang['connected_user'] = 'connected user';
-$lang['title_comments'] = 'Users comments';
-$lang['stats_last_days'] = 'last days';
-$lang['hint_comments'] = 'See last users comments';
-$lang['menu_login'] = 'login';
+$lang['stats'] = 'statisztikák';
+$lang['most_visited_cat_hint'] = 'legtöbbet nézett képek';
+$lang['most_visited_cat'] = 'legtöbbet nézett';
+$lang['best_rated_cat_hint'] = 'legjobbnak minõsített képek listázása';
+$lang['best_rated_cat'] = 'legjobbnak minõsített';
+$lang['recent_cat_hint'] = 'legújabb képek listázása';
+$lang['recent_cat'] = 'legújabbak';
+$lang['recent_cat_title'] = 'Legújabb képek';
+$lang['visited'] = 'megtekintve';
+$lang['times'] = 'alkalommal';
+$lang['customize_theme'] = 'téma';
+$lang['customize_expand'] = 'valamennyi kategória kibontása';
+$lang['customize_show_nb_comments'] = 'megjegyzés szám';
+$lang['customize_short_period'] = 'rövid periódus';
+$lang['customize_long_period'] = 'hosszú periódus';
+$lang['customize_template'] = 'téma';
+$lang['err_periods'] = 'a periódusnak egész számnak kell lennie';
+$lang['err_periods_2'] = 'a periódusnak nullánál nagyobbnak kell lennie. A hosszú periódusnak a rövidnél nagyobbnak kell lennie.';
+$lang['create_cookie'] = 'süti létrehozása';
+$lang['customize_day'] = 'nap';
+$lang['customize_week'] = 'hét';
+$lang['customize_month'] = 'hónap';
+$lang['customize_year'] = 'év';
+$lang['slideshow'] = 'diavetítés';
+$lang['period_seconds'] = 'másodperc képenként';
+$lang['slideshow_stop'] = 'diavetítés leállítása';
+$lang['comment_added'] = 'A megjegyzésed rögzítve lett';
+$lang['comment_to_validate'] = 'A rendszergazdának engedélyeznie kell, mielõtt megjelenik';
+$lang['comment_anti-flood'] = 'Várj egy kicsit az újabb megjegyzés beírásával';
+$lang['comment_user_exists'] = 'Ezt a nevet már valaki használja';
+$lang['invalid_search'] = 'A keresett szavaknak 3 karakternél hosszabbnak kell lenniük és nem tartalmazhatnak írásjeleket';
+$lang['search_mode_or'] = 'legalább egy szó';
+$lang['search_mode_and'] = 'összes szó';
+$lang['search_comments'] = 'válaszd el a szavakat szóközzel';
+$lang['upload_name'] = 'Kép neve';
+$lang['upload_author'] = 'Szerzõ (pl. "Pierrick LE GALL")';
+$lang['upload_creation_date'] = 'Létrehozás dátuma (NN/HH/ÉÉÉÉ)';
+$lang['upload_comment'] = 'Megjegyzés';
+$lang['mail_hello'] = 'Szia,';
+$lang['mail_new_upload_subject'] = 'Új kép van az oldalon.';
+$lang['mail_new_upload_content'] = 'Új kép került feltöltésre és a jóváhagyásodra vár. Engedélyezheted vagy törölheted a rendszergazdai menüben.';
+$lang['mail_new_comment_subject'] = 'Új megjegyzés van az oldalon.';
+$lang['mail_new_comment_content'] = 'Új megjegyzés került rögzítésre. Ahhoz, hogy látható legyen, elõször engedélyezned kell a rendszergazdai menüben';
+$lang['connected_user'] = 'felhasználó';
+$lang['title_comments'] = 'A felhasználók megjegyzései';
+$lang['stats_last_days'] = 'napon';
+$lang['hint_comments'] = 'Legutóbbi megjegyzések';
+$lang['menu_login'] = 'belépés';
 //-------------------------------------------------------------- administration
 if ( $isadmin )
 {
@@ -447,6 +454,13 @@ if ( $isadmin )
   $lang['step2_err_pass'] = 'please enter your password again';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
   $lang['install_end_title'] = 'Installation finished';
+  $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
+For security reason, please delete file "install.php" in the directory "admin"<br />
+Once this file deleted , follow this instructions :
+<ul>
+  <li>go to the identification page : [ <a href="../identification.php">identification</a> ] and use the login/password given for webmaster</li>
+  <li>this login will enable you to access to the [ <a href="admin.php">administration panel</a> ] and to the instructions in order to place pictures in your directories</li>
+</ul>';
   $lang['step2_title'] = 'Step 2/2';
   $lang['step2_pwd'] = 'webmaster password';
   $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
@@ -535,18 +549,8 @@ if ( $isadmin )
   $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
   $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
   $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
+  $lang['install_warning'] = 'The file "admin/install.php" is still present. Please remove it from your server. It is not secure to keep it.';
   // new or modified in release 1.3.1
   $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
-
-  // new or modified in release 1.4
-  $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
-For security reason, please delete file "install.php"<br />
-Once this file deleted , follow this instructions :
-<ul>
-  <li>go to the identification page : [ <a href="../identification.php">identification</a> ] and use the login/password given for webmaster</li>
-  <li>this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories</li>
-</ul>';
-  $lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
-
 ?>

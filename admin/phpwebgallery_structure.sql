@@ -1,6 +1,6 @@
 -- MySQL dump 8.21
 --
--- Host: localhost    Database: devel
+-- Host: localhost    Database: perfs_test
 ---------------------------------------------------------
 -- Server version	3.23.49-log
 
@@ -23,7 +23,10 @@ CREATE TABLE phpwebgallery_categories (
   visible enum('true','false') NOT NULL default 'true',
   uploadable enum('true','false') NOT NULL default 'false',
   representative_picture_id mediumint(8) unsigned default NULL,
-  PRIMARY KEY  (id)
+  uppercats varchar(255) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY id (id),
+  KEY id_uppercat (id_uppercat)
 ) TYPE=MyISAM;
 
 --
@@ -125,7 +128,9 @@ DROP TABLE IF EXISTS phpwebgallery_image_category;
 CREATE TABLE phpwebgallery_image_category (
   image_id mediumint(8) unsigned NOT NULL default '0',
   category_id smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (image_id,category_id)
+  PRIMARY KEY  (image_id,category_id),
+  KEY category_id (category_id),
+  KEY image_id (image_id)
 ) TYPE=MyISAM;
 
 --
@@ -189,6 +194,19 @@ CREATE TABLE phpwebgallery_user_access (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'phpwebgallery_user_category'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_user_category;
+CREATE TABLE phpwebgallery_user_category (
+  user_id smallint(5) unsigned NOT NULL default '0',
+  category_id smallint(5) unsigned NOT NULL default '0',
+  date_last date default NULL,
+  nb_sub_categories smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (user_id,category_id)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'phpwebgallery_user_group'
 --
 
@@ -220,6 +238,7 @@ CREATE TABLE phpwebgallery_users (
   short_period tinyint(3) unsigned NOT NULL default '7',
   long_period tinyint(3) unsigned NOT NULL default '14',
   template varchar(255) NOT NULL default 'default',
+  forbidden_categories text,
   PRIMARY KEY  (id),
   UNIQUE KEY username (username)
 ) TYPE=MyISAM;
