@@ -63,7 +63,9 @@ CREATE TABLE phpwebgallery_config (
   upload_maxwidth_thumbnail smallint(5) unsigned NOT NULL default '150',
   upload_maxheight_thumbnail smallint(5) unsigned NOT NULL default '100',
   log enum('true','false') NOT NULL default 'false',
-  comments_validation enum('true','false') NOT NULL default 'false'
+  comments_validation enum('true','false') NOT NULL default 'false',
+  comments_forall enum('true','false') NOT NULL default 'false',
+  authorize_cookies enum('true','false') NOT NULL default 'false'
 ) TYPE=MyISAM;
 
 --
