@@ -64,8 +64,10 @@ if ( isset( $_POST['submit'] ) )
   if ( isset( $_POST['associate'] ) )
   {
     $query.= ', id_uppercat = ';
-    if ( $_POST['associate'] == -1 ) $query.= 'NULL';
-    else                             $query.= $_POST['associate'];
+    if ( $_POST['associate'] == -1 or $_POST['associate'] == '' )
+      $query.= 'NULL';
+    else
+      $query.= $_POST['associate'];
   }
   $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
@@ -113,12 +115,16 @@ $query.= ' WHERE a.id = '.$_GET['cat'];
 $query.= ' AND a.site_id = b.id';
 $query.= ';';
 $row = mysql_fetch_array( mysql_query( $query ) );
+
+if ( !isset( $row['dir'] ) ) $row['dir'] = '';
+if ( !isset( $row['id_uppercat'] ) ) $row['id_uppercat'] = '';
+
 $result = get_cat_info( $row['id'] );
 // cat name
 $cat_name = get_cat_display_name( $result['name'], ' - ', '' );
 $vtp->setVar( $sub, 'cat:name', $cat_name );
 // cat dir
-if ( isset( $row['dir'] ) and $row['dir'] != '' )
+if ( $row['dir'] != '' )
 {
   $vtp->addSession( $sub, 'storage' );
   $vtp->setVar( $sub, 'storage.dir', $row['dir'] );
@@ -206,12 +212,32 @@ if ( $conf['upload_available'] and $row['dir'] != '' and $row['site_id'] == 1 )
 if ( $row['dir'] == '' )
 {
   $vtp->addSession( $sub, 'parent' );
-  $vtp->addSession( $sub, 'associate_cat' );
-  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
-  $vtp->setVar( $sub, 'associate_cat.content', '' );
-  $vtp->closeSession( $sub, 'associate_cat' );
-  $structure = create_structure( '', array() );
-  display_categories( $structure, '&nbsp;', $row['id_uppercat'], $row['id'] );
+  // We only show a List Of Values if the number of categories is less than
+  // $conf['max_LOV_categories']
+  $query = 'SELECT COUNT(id) AS nb_total_categories';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ';';
+  $countrow = mysql_fetch_array( mysql_query( $query ) );
+  if ( $countrow['nb_total_categories'] < $conf['max_LOV_categories'] )
+  {
+    $vtp->addSession( $sub, 'associate_LOV' );
+    $vtp->addSession( $sub, 'associate_cat' );
+    $vtp->setVar( $sub, 'associate_cat.value', '-1' );
+    $vtp->setVar( $sub, 'associate_cat.content', '' );
+    $vtp->closeSession( $sub, 'associate_cat' );
+    $page['plain_structure'] = get_plain_structure( true );
+    $structure = create_structure( '', array() );
+    display_categories( $structure, '&nbsp;', $row['id_uppercat'],$row['id'] );
+    $vtp->closeSession( $sub, 'associate_LOV' );
+  }
+  // else, we only display a small text field, we suppose the administrator
+  // knows the id of its category
+  else
+  {
+    $vtp->addSession( $sub, 'associate_text' );
+    $vtp->setVar( $sub, 'associate_text.value', $row['id_uppercat'] );
+    $vtp->closeSession( $sub, 'associate_text' );
+  }
   $vtp->closeSession( $sub, 'parent' );
 }
 //----------------------------------------------------------- sending html code
