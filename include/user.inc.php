@@ -35,8 +35,7 @@ $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'maxheight', 'expand', 'show_nb_comments', 'recent_period',
                 'template', 'forbidden_categories' );
 
-$query_user = 'SELECT '.implode( ',', $infos );
-$query_user.= ' FROM '.USERS_TABLE;
+$query_user = 'SELECT * FROM '.USERS_TABLE;
 $query_done = false;
 $user['is_the_guest'] = false;
 

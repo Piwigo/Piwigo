@@ -3,7 +3,7 @@
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('prefix_thumbnail','TN-','thumbnails filename prefix');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('webmaster','','webmaster login');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('mail_webmaster','','webmaster mail');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_lang','en_EN','Default gallery language');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_lang','en_UK.iso-8859-1','Default gallery language');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_style','default','Default gallery style');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('access','free','access type to your gallery (free|restricted)');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_id_size','4','length of session identifiers');

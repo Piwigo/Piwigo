@@ -31,6 +31,7 @@ define('PHPWG_ROOT_PATH','./');
 // Guess an initial language ... 
 function guess_lang()
 {
+  return 'en_UK.iso-8859-1';
   global $_SERVER;
   $languages = array();
   $i = 0;
@@ -255,11 +256,11 @@ if ( isset( $_POST['install'] ))
     @fclose($fp);
     
     // tables creation, based on phpwebgallery_structure.sql
-    execute_sqlfile( './install/phpwebgallery_structure.sql'
+    execute_sqlfile( PHPWG_ROOT_PATH.'install/phpwebgallery_structure.sql'
                      , 'phpwebgallery_'
                      , $table_prefix );
     // We fill the tables with basic informations
-    execute_sqlfile( './install/config.sql'
+    execute_sqlfile( PHPWG_ROOT_PATH.'install/config.sql'
                      , 'phpwebgallery_'
                      , $table_prefix );
 
@@ -282,7 +283,7 @@ if ( isset( $_POST['install'] ))
     mysql_query( $query );
     
     $query = 'INSERT INTO '.SITES_TABLE;
-    $query.= " (id,galleries_url) VALUES (1, './galleries/');";
+    $query.= " (id,galleries_url) VALUES (1, ".PHPWG_ROOT_PATH."'galleries/');";
     mysql_query( $query );
     
     // webmaster admin user

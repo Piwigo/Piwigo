@@ -25,6 +25,9 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+// Default Language
+define('DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
+
 // Debug Level
 define('DEBUG', 1); // Debugging on
 //define('DEBUG', 0); // Debugging off 
