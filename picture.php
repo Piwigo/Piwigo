@@ -287,7 +287,7 @@ $vtp->setGlobalVar( $handle, 'title', $intitule_titre.$intitule_file );
 
 $lien_image = $cat_directory.$page['file'];
 
-// calcul de la largeur et de la hauteur
+// calculation of width and height
 if ( $page['width'] == "" )
 {
   $taille_image = @getimagesize( $lien_image );
@@ -514,28 +514,46 @@ if ( $conf['show_comments'] )
   if ( isset( $_POST['content'] ) and $_POST['content'] != '' )
   {
     $author = $user['username'];
-    if ( $_POST['author'] != '' )
+    if ( $_POST['author'] != '' ) $author = $_POST['author'];
+
+    // anti-flood system
+    $reference_date = time() - $conf['anti-flood_time'];
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'comments';
+    $query.= ' WHERE date > '.$reference_date;
+    $query.= " AND author = '".$author."'";
+    $query.= ';';
+    if ( mysql_num_rows( mysql_query( $query ) ) == 0
+         or $conf['anti-flood_time'] == 0 )
     {
-      $author = $_POST['author'];
+      $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
+      $query.= ' (author,date,image_id,content,validated) VALUES';
+      $query.= " ('".$author."',".time().",".$page['id'];
+      $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
+      if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
+        $query.= ",'true'";
+      else
+        $query.= ",'false'";
+      $query.= ');';
+      mysql_query( $query );
+      // information message
+      $vtp->addSession( $handle, 'information' );
+      $message = $lang['comment_added'];
+      if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+      {
+        $message.= '<br />'.$lang['comment_to_validate'];
+      }
+      $vtp->setVar( $handle, 'information.content', $message );
+      $vtp->closeSession( $handle, 'information' );
     }
-    $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
-    $query.= ' (author,date,image_id,content,validated) VALUES';
-    $query.= " ('".$author."',".time().",".$page['id'];
-    $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
-    if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
-      $query.= ",'true'";
     else
-      $query.= ",'false'";
-    $query.= ');';
-    mysql_query( $query );
-    $vtp->addSession( $handle, 'information' );
-    $message = $lang['comment_added'];
-    if ( $conf['comments_validation'] and $user['status'] != 'admin' )
     {
-      $message.= '<br />'.$lang['comment_to_validate'];
+      // information message
+      $vtp->addSession( $handle, 'information' );
+      $message = $lang['comment_anti-flood'];
+      $vtp->setVar( $handle, 'information.content', $message );
+      $vtp->closeSession( $handle, 'information' );
     }
-    $vtp->setVar( $handle, 'information.content', $message );
-    $vtp->closeSession( $handle, 'information' );
   }
   // comment deletion
   if ( isset( $_GET['del'] )
