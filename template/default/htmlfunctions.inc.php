@@ -177,7 +177,6 @@ function display_category( $category, $indent, $handle )
 
   $vtp->addSession( $handle, 'category' );
   $vtp->setVar( $handle, 'category.indent', $indent );
-
   if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
   {
     $vtp->addSession( $handle, 'bullet_wo_link' );
@@ -193,10 +192,10 @@ function display_category( $category, $indent, $handle )
 	{
 	$url .='?cat='.$page['cat'];
     $url.= '&amp;expand='.$category['expand_string'];
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-    }
+	}
+	else if ($category['expand_string']<>'')
+	{
+		$url.= '?expand='.$category['expand_string'];
 	}
     $vtp->setVar( $handle, 'bullet_w_link.bullet_link', add_session_id($url) );
     if ( $category['expanded'] )

@@ -71,7 +71,8 @@ $page['date_creation']  = $row['date_creation'];
 $page['filesize']       = $row['filesize'];
 $page['width']          = $row['width'];
 $page['height']         = $row['height'];
-$page['category_id']    = $row['category_id'];
+if (is_numeric( $page['cat'] ))
+	$page['category_id']    = $row['category_id'];
 $page['keywords']       = $row['keywords'];
 $page['storage_category_id'] = $row['storage_category_id'];
 // retrieving the number of the picture in its category (in order)
@@ -492,7 +493,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
 
-  if ( $array_cat_directories[$row['storage_category_id']] == '' )
+  if ( !isset($array_cat_directories[$row['storage_category_id']]))
   {
     $array_cat_directories[$row['storage_category_id']] =
       get_complete_dir( $row['storage_category_id'] );

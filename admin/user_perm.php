@@ -59,7 +59,7 @@ if ( isset( $_POST['submit'] ) )
   $vtp->closeSession( $sub, 'confirmation' );
 }
 //---------------------------------------------------------------- form display
-$restrictions = get_restrictions( $_GET['user_id'], $page['user_status'],
+$restrictions = get_user_restrictions( $_GET['user_id'], $page['user_status'],
                                   false, false );
 $action = './admin.php?page=user_perm&amp;user_id='.$_GET['user_id'];
 $vtp->setVar( $sub, 'action', add_session_id( $action ) );

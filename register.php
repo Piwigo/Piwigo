@@ -70,7 +70,8 @@ $vtp->addSession( $handle, 'line' );
 $vtp->setVar( $handle, 'line.name', $lang['login'] );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.name', 'login' );
-$vtp->setVar( $handle, 'text.value', $_POST['login'] );
+if (isset( $_POST['login']))
+	$vtp->setVar( $handle, 'text.value', $_POST['login'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
 //-------------------------------------------------------------------- password
@@ -94,7 +95,8 @@ $vtp->addSession( $handle, 'line' );
 $vtp->setVar( $handle, 'line.name', $lang['mail_address'] );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.name', 'mail_address' );
-$vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
+if (isset( $_POST['mail_address']))
+	$vtp->setVar( $handle, 'text.value', $_POST['mail_address'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
 //----------------------------------------------------------- html code display

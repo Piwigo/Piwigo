@@ -109,7 +109,8 @@ else
   $vtp->addSession( $sub, 'add_user' );
   $action = './admin.php?'.$_SERVER['QUERY_STRING'];
   $vtp->setVar( $sub, 'add_user.form_action', $action );
-  $vtp->setVar( $sub, 'add_user.f_username', $_POST['username'] );
+  if (isset( $_POST['username']))
+	  $vtp->setVar( $sub, 'add_user.f_username', $_POST['username'] );
   $vtp->closeSession( $sub, 'add_user' );
   
   $vtp->addSession( $sub, 'users' );

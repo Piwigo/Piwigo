@@ -253,9 +253,8 @@ function get_displayed_dirs( $dir, $indent )
     }
     $vtp->closeSession( $sub, 'dir' );
     // recursive call
-    $dirs.= get_displayed_dirs( $dir.'/'.$sub_dir,
-                                $indent+30 );
-    
+    get_displayed_dirs( $dir.'/'.$sub_dir,
+                                $indent+30 );    
   }
 }
 //----------------------------------------------------- template initialization
