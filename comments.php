@@ -168,6 +168,7 @@ $query.= ' FROM '.PREFIX_TABLE.'comments AS c';
 $query.=     ', '.PREFIX_TABLE.'image_category AS ic';
 $query.= ' WHERE c.image_id = ic.image_id';
 $query.= ' AND date > '.$maxtime;
+$query.= " AND validated = 'true'";
 // we must not show pictures of a forbidden category
 if ( $user['forbidden_categories'] != '' )
 {
