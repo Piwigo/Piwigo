@@ -68,7 +68,7 @@
 &nbsp;
   <!-- BEGIN previous -->
 	<a class="none" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
-	<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
+	<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.gif" alt="" />
 	  <img src="{previous.IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{previous.TITLE_IMG}"/>
 	  </a>
   <!-- END previous -->
@@ -87,7 +87,7 @@
   <!-- BEGIN next -->
   <a  class="none" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
 	  <img class="thumbLink" src="{next.IMG}" style="margin-right:10px;margin-left:5px;" alt="{next.TITLE_IMG}"/>
-	  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" />
+	  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.gif" alt="" />
 	  </a>
   <!-- END next -->
   &nbsp;
