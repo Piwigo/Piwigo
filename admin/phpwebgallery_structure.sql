@@ -148,7 +148,8 @@ CREATE TABLE phpwebgallery_images (
   height smallint(9) unsigned default NULL,
   keywords varchar(255) default NULL,
   storage_category_id smallint(5) unsigned default NULL,
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+  KEY storage_category_id (storage_category_id)
 ) TYPE=MyISAM;
 
 --
@@ -220,7 +221,7 @@ CREATE TABLE phpwebgallery_users (
   long_period tinyint(3) unsigned NOT NULL default '14',
   template varchar(255) NOT NULL default 'default',
   PRIMARY KEY  (id),
-  UNIQUE KEY pseudo (username)
+  UNIQUE KEY username (username)
 ) TYPE=MyISAM;
 
 --
