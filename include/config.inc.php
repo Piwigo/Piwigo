@@ -49,7 +49,7 @@ $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
 $conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
 $conf['document_ext']       = array('doc','pdf','zip');
-$conf['top_number']         = 5;
+$conf['top_number']         = 10;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 
 database_connection();
