@@ -147,7 +147,7 @@ $lang['upload_err_username'] = 'le nom de l\'utilisateur doit être renseigné';
 $lang['upload_username'] = 'Nom d\'utilisateur';
 $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur validera celle-ci dès que possible.';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO_8859-1';
+$lang['charset'] = 'ISO-8859-1';
 $lang['no'] = 'non';
 $lang['yes'] = 'oui';
 $lang['guest'] = 'visiteur';
@@ -215,6 +215,7 @@ $lang['mail_new_upload_subject'] = 'Nouvelle image sur le site';
 $lang['mail_new_upload_content'] = 'Une nouvelle image a été placée sur la galerie. Elle est en attente de validation. RDV dans la section d\'administration pour valider ou supprimer cette image.';
 $lang['mail_new_comment_subject'] = 'Nouveau commentaire sur le site';
 $lang['mail_new_comment_content'] = 'Un nouveau commentaire a été posté sur la galerie. Si vous avez activé la validation des commentaires, il faut d\'abord valider le commentaire dans la zone d\'administration pour le voir apparaître.'."\n\n".'Vous avez accès aux derniers commentaires dans la zone d\'administration.';
+if (isset($conf))
 $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Informations sur le PhpWebGallery</div>
 <ul>
   <li>Ce site utilise la version '.$conf['version'].' de <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a>. PhpWebGallery est une application web permettant de créer simplement une galerie d\'images en ligne.</li>
@@ -538,6 +539,7 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
   $lang['help_access'][1] = '1. Editez la catégorie (depuis la page des catégories dans la zone d\'administration) et rendez la "privée".';
   $lang['help_access'][2] = '2. Sur les pages des permissions (d\'un groupe, d\'utilisateur) la catégorie apparaîtra et vous pourrez autoriser l\'accès ou non.';
   $lang['help_infos'][2] = 'Pour n\'importe quelle question, n\'hésitez pas à consulter le forum ou à y poser une question, sur le site';
+if (isset($conf))
   $lang['help_infos'][2] = 'Pour n\'importe quelle question, n\'hésitez pas à consulter le <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> ou à y poser une question, sur le site';
   $lang['step1_err_copy'] = 'Copiez le texte en bleu entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
   $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';

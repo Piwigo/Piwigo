@@ -106,7 +106,7 @@ $user['style'] = '<style type="text/css">
         color: #000000;
       }
       body {';
-$image = './theme/'.$user['theme'].'/background.gif';
+$image = './theme/'.$user['template'].'/background.gif';
 if ( @is_file( $image ) )
 {
   $user['style'].= '

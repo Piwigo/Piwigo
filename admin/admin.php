@@ -35,6 +35,7 @@ if ( is_file( './install.php' ) )
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
+if (isset( $_GET['page'] ))
 switch ( $_GET['page'] )
 {
  case 'user_list':

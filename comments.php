@@ -140,8 +140,8 @@ $tpl = array( 'title_comments','stats_last_days','search_return_main_page' );
 templatize_array( $tpl, 'lang', $handle );
 $vtp->setGlobalVar( $handle, 'text_color', $user['couleur_text'] );
 //--------------------------------------------------- number of days to display
-if ( isset( $_GET['last_days'] ) ) define( MAX_DAYS, $_GET['last_days'] );
-else                               define( MAX_DAYS, 0 );
+if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
+else                               define( 'MAX_DAYS', 0 );
 //----------------------------------------- non specific section initialization
 $array_cat_directories = array();
 $array_cat_names       = array();

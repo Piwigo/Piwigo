@@ -29,7 +29,7 @@ $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
 
 $query_user  = 'SELECT ';
 foreach ( $infos as $i => $info ) {
-  if ( $i > 0 ) $query_user.= ',';
+  if ( $i > 0 ) $query_user.= ', ';
   $query_user.= $info;
 }
 $query_user.= ' FROM '.PREFIX_TABLE.'users';
@@ -97,7 +97,6 @@ if ( !$query_done )
   $user['is_the_guest'] = true;
 }
 $query_user .= ';';
-
 $row = mysql_fetch_array( mysql_query( $query_user ) );
 
 // affectation of each value retrieved in the users table into a variable

@@ -306,7 +306,7 @@ function replace_search( $string, $search )
 function database_connection()
 {
   include( PREFIX_INCLUDE.'./include/mysql.inc.php' );
-  define( PREFIX_TABLE, $prefixeTable );
+  define( 'PREFIX_TABLE', $prefixeTable );
 
   @mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Could not connect to server" );
@@ -334,6 +334,7 @@ function templatize_array( $array, $global_array_name, $handle )
   global $vtp, $lang, $page, $user, $conf;
 
   foreach ( $array as $value ) {
+  if (isset(${$global_array_name}[$value]))
     $vtp->setGlobalVar( $handle, $value, ${$global_array_name}[$value] );
   }
 }

@@ -23,7 +23,7 @@ $t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
 //---------------------------------------------------------------------- logout
-if ( $_GET['act'] == 'logout' and isset( $_COOKIE['id'] ) )
+if ( isset( $_GET['act'] ) && $_GET['act'] == 'logout' && isset( $_COOKIE['id'] ) )
 {
   // cookie deletion if exists
   setcookie( 'id', '', 0, cookie_path() );
@@ -34,9 +34,10 @@ if ( $_GET['act'] == 'logout' and isset( $_COOKIE['id'] ) )
   exit();
 }
 //-------------------------------------------------- access authorization check
-check_cat_id( $_GET['cat'] );
+if ( isset( $_GET['act'] )) 
+	check_cat_id( $_GET['cat'] );
 check_login_authorization();
-if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
@@ -62,7 +63,7 @@ if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
     if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
   }
 }
-if ( is_numeric( $page['cat'] ) )
+if ( isset($page['cat']) && is_numeric( $page['cat'] ) )
 {
   // the category displayed (in the URL cat=23) must be seen in the menu ->
   // parent categories must be expanded
@@ -76,7 +77,7 @@ $page['expand'] = implode( ',', $page['tab_expand'] );
 // in case of expanding all authorized cats
 // The $page['expand'] equals 'all' and
 // $page['tab_expand'] contains all the authorized cat ids
-if ( $user['expand'] or $_GET['expand'] == 'all' )
+if ( $user['expand'] || (isset($_GET['expand']) && $_GET['expand'] == 'all' ))
 {
   $page['tab_expand'] = array();
   $page['expand'] = 'all';
@@ -85,7 +86,7 @@ if ( $user['expand'] or $_GET['expand'] == 'all' )
 // of the picture to show. This picture must be in the thumbnails page.
 // We have to find the right $page['start'] that show the num picture
 // in this category
-if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
+if ( isset($_GET['num']) && is_numeric( $_GET['num'] ) && $_GET['num'] >= 0 )
 {
   $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
   $page['start']*= $user['nb_image_page'];
@@ -178,9 +179,10 @@ if ( !$user['is_the_guest'] )
   $vtp->closeSession( $handle, 'summary' );
   // customization link
   $vtp->addSession( $handle, 'summary' );
-  $url = './profile.php?cat='.$page['cat'];
-  $url.= '&amp;expand='.$page['expand'];
-  if ( $page['cat'] == 'search' )
+  $url = './profile.php';
+  if (isset($page['cat']) && isset($page['expand']))
+  	$url.='?cat='.$page['cat'].'&amp;expand='.$page['expand'];
+  if ( isset($page['cat']) && $page['cat'] == 'search' )
   {
     $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
@@ -349,12 +351,14 @@ elseif ( ( isset( $page['cat'] )
            and is_numeric( $page['cat'] )
            and $page['cat_nb_images'] == 0
            and $page['plain_structure'][$page['cat']]['nb_sub_categories'] > 0)
-         or $_GET['cat'] == '' )
+         or (!isset($_GET['cat'])))
 {
   $vtp->addSession( $handle, 'thumbnails' );
   $vtp->addSession( $handle, 'line' );
 
-  $subcats = get_non_empty_subcat_ids( $page['cat'] );
+  $subcats=array();
+  if (isset ($page['cat'] ))
+	$subcats = get_non_empty_subcat_ids( $page['cat'] );
   $cell_number = 1;
   $i = 0;
   foreach ( $subcats as $subcat_id => $non_empty_id ) {

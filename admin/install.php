@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 //-------------------------------------------------------------------- includes
-define( PREFIX_INCLUDE, '.' );
+define( 'PREFIX_INCLUDE', '.' );
 include( '../include/vtemplate.class.php' );
 include( '../include/functions.inc.php' );
 //----------------------------------------------------- template initialization
@@ -45,7 +45,7 @@ if ( isset( $_GET['language'] ) )
   $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
 }
 //---------------------- Step 1 : connection informations, write of config file
-if ( $_GET['step'] == 1 )
+if ( isset($_GET['step']) && $_GET['step'] == 1 )
 {
   $errors = array();
   $infos  = array();
@@ -150,9 +150,11 @@ if ( $_GET['step'] == 1 )
     else
       $vtp->setVar( $handle, 'step1.f_host', $_POST['cfgHote'] );
     // user
-    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
+	if ( isset( $_POST['cfgUser'] ) )
+	    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
     // base
-    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
+	if ( isset( $_POST['cfgBase'] ) )
+	    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
     // prefixeTable
     if ( !isset( $_POST['prefixeTable'] ) )
       $vtp->setVar( $handle, 'step1.f_prefixeTable', 'phpwebgallery_' );
@@ -163,7 +165,7 @@ if ( $_GET['step'] == 1 )
   }
 }
 //------------------------------------- Step 2 : creation of tables in database
-else if ( $_GET['step'] == 2 )
+else if (  isset($_GET['step']) && $_GET['step'] == 2 )
 {
   $errors = array();
   $infos  = array();
@@ -267,7 +269,9 @@ else if ( $_GET['step'] == 2 )
   if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
   {
     $vtp->addSession( $handle, 'step2' );
+	if ( isset( $_POST['webmaster'] ))
     $vtp->setVar( $handle, 'step2.f_webmaster', $_POST['webmaster'] );
+	if ( isset( $_POST['mail_webmaster'] ))
     $vtp->setVar( $handle, 'step2.f_mail_webmaster', $_POST['mail_webmaster']);
     $vtp->closeSession( $handle, 'step2' );
   }
