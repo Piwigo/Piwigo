@@ -107,8 +107,11 @@ function get_user_plain_structure()
     foreach ( $infos as $info ) {
       if ( $info == 'uc.date_last' )
       {
-        list($year,$month,$day) = explode( '-', $row['date_last'] );
-        $category['date_last'] = mktime(0,0,0,$month,$day,$year);
+        if ( isset( $row['date_last'] ) and $row['date_last'] != '' )
+        {
+          list($year,$month,$day) = explode( '-', $row['date_last'] );
+          $category['date_last'] = mktime(0,0,0,$month,$day,$year);
+        }
       }
       else if ( isset( $row[$info] ) ) $category[$info] = $row[$info];
       else                             $category[$info] = '';

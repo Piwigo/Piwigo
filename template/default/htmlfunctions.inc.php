@@ -25,6 +25,12 @@ $user['lien_collapsed']='./template/'.$user['template'].'/theme/collapsed.gif';
 function get_icon( $date_comparaison )
 {
   global $user, $conf;
+
+  if ( !is_numeric( $date_comparaison ) )
+  {
+    return '';
+  }
+  
   $difference = time() - $date_comparaison;
   $jours = 24*60*60;
   $output = '';
@@ -230,7 +236,10 @@ function display_category( $category, $indent, $handle )
     $vtp->closeSession( $handle, 'subcat' );
   }
   $vtp->setVar( $handle, 'category.total_cat', $category['nb_images'] );
-  $vtp->setVar( $handle, 'category.cat_icon',get_icon($category['date_last']));
+  if ( isset( $category['date_last'] ) )
+  {
+    $vtp->setVar($handle,'category.cat_icon',get_icon($category['date_last']));
+  }
   $vtp->closeSession( $handle, 'category' );
 
   // recursive call
