@@ -16,6 +16,9 @@
  *			  
  *****************************************************************/ 
 
+// to make it work on nexen.net
+set_magic_quotes_runtime(0);
+
 if ( !isset( $DEFINE_VTEMPLATE ) )
 {
   define("ALL",1);
