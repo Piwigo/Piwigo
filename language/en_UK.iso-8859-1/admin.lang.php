@@ -344,4 +344,5 @@ $lang['cat_list_update_metadata'] = 'Synchronize<br />metadata';
 $lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
 $lang['cat_list_virtual_category_added'] = 'virtual category added';
 $lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
+$lang['set_random_representant'] = 'set new random representant';
 ?>

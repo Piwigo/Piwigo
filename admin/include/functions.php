@@ -453,7 +453,9 @@ function update_category($id = 'all')
   $cat_ids = array();
   
   $query = '
-SELECT category_id, COUNT(image_id) AS count, max(date_available) AS date_last
+SELECT category_id,
+       COUNT(image_id) AS nb_images,
+       MAX(date_available) AS date_last
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
   if (is_numeric($id))
@@ -471,10 +473,10 @@ SELECT category_id, COUNT(image_id) AS count, max(date_available) AS date_last
     array_push($cat_ids, $row['category_id']);
     array_push($datas, array('id' => $row['category_id'],
                              'date_last' => $row['date_last'],
-                             'count' => $row['count']));
+                             'nb_images' => $row['nb_images']));
   }
   $fields = array('primary' => array('id'),
-                  'update'  => array('date_last', 'count'));
+                  'update'  => array('date_last', 'nb_images'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
   if (count($cat_ids) > 0)
@@ -839,11 +841,10 @@ function mass_updates($tablename, $dbfields, $datas)
   // update queries
   $query = 'SELECT VERSION() AS version;';
   $row = mysql_fetch_array(pwg_query($query));
-  if (version_compare($row['version'],'4.0.4') < 0)
+  if (count($datas) < 10 or version_compare($row['version'],'4.0.4') < 0)
   {
     // MySQL is prior to version 4.0.4, multi table update feature is not
     // available
-    echo 'MySQL is prior to version 4.0.4, multi table update feature is not available<br />';
     foreach ($datas as $data)
     {
       $query = '
@@ -914,7 +915,7 @@ PRIMARY KEY (id)
 )
 ;';
     pwg_query($query);
-    mass_inserts($tablename, $all_fields, $datas);
+    mass_inserts($tablename.'_temporary', $all_fields, $datas);
     // update of images table by joining with temporary table
     $query = '
 UPDATE '.$tablename.' AS t1, '.$tablename.'_temporary AS t2
@@ -1091,5 +1092,33 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
     pwg_query($query);
   }
+}
+
+/**
+ * set a new random representant to the categories
+ *
+ * @param array categories
+ */
+function set_random_representant($categories)
+{
+  $datas = array();
+  foreach ($categories as $category_id)
+  {
+    $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$category_id.'
+  ORDER BY RAND()
+  LIMIT 0,1
+;';
+    list($representative) = mysql_fetch_array(pwg_query($query));
+    $data = array('id' => $category_id,
+                  'representative_picture_id' => $representative);
+    array_push($datas, $data);
+  }
+
+  $fields = array('primary' => array('id'),
+                  'update' => array('representative_picture_id'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
 ?>

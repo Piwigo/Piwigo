@@ -5,6 +5,14 @@
 <div class="admin">{CATEGORIES_NAV}</div>
 <form action="{F_ACTION}" method="POST">
 <table style="width:100%;">
+    <!-- BEGIN representant -->
+    <tr>
+      <td style="width:50%;" align="center">
+        <a href="{representant.URL}"><img src="{representant.SRC}" alt="" class="miniature" /></a>
+      </td>
+      <td class="row1"><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" class="bouton" /></td>
+    </tr>
+    <!-- END representant -->
     <!-- BEGIN server -->
     <tr>
       <td style="width:50%;"><strong>{L_REMOTE_SITE}</strong></td>

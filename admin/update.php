@@ -515,21 +515,7 @@ INSERT INTO '.IMAGE_CATEGORY_TABLE.'
 ;';
     pwg_query($query);
 
-    // set a new representative element for this category
-    $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$category_id.'
-  ORDER BY RAND()
-  LIMIT 0,1
-;';
-    list($representative) = mysql_fetch_array(pwg_query($query));
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = '.$representative.'
-  WHERE id = '.$category_id.'
-;';
-    pwg_query($query);
+    set_random_representant(array($category_id));
   }
   return $output;
 }

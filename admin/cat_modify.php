@@ -80,6 +80,10 @@ if ( isset( $_POST['submit'] ) )
 
   $template->assign_block_vars('confirmation' ,array());
 }
+else if (isset($_POST['set_random_representant']))
+{
+  set_random_representant(array($_GET['cat_id']));
+}
 
 $query = '
 SELECT *
@@ -157,10 +161,27 @@ $template->assign_vars(array(
   'L_YES'=>$lang['yes'],
   'L_NO'=>$lang['no'],
   'L_SUBMIT'=>$lang['submit'],
+  'L_SET_RANDOM_REPRESENTANT'=>$lang['set_random_representant'],
    
   'F_ACTION'=>add_session_id($form_action)
   ));
-  
+
+if ($category['nb_images'] > 0)
+{
+  $query = '
+SELECT tn_ext,path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$category['representative_picture_id'].'
+;';
+  $row = mysql_fetch_array(pwg_query($query));
+  $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+  $url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
+  $url.= '&amp;image_id='.$category['representative_picture_id'];
+  $template->assign_block_vars('representant',
+                               array('SRC' => $src,
+                                     'URL' => $url));
+}
+
 if (!empty($category['dir']))
 {
   $template->assign_block_vars('storage' ,array());
