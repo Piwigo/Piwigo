@@ -178,7 +178,7 @@ function display_category( $category, $indent, $handle )
   $vtp->addSession( $handle, 'category' );
   $vtp->setVar( $handle, 'category.indent', $indent );
 
-  if ( $user['expand'] or count( $category['subcats'] ) == 0 )
+  if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
   {
     $vtp->addSession( $handle, 'bullet_wo_link' );
     $vtp->setVar( $handle, 'bullet_wo_link.bullet_url',
@@ -220,10 +220,10 @@ function display_category( $category, $indent, $handle )
   {
     $vtp->setVar( $handle, 'category.name_style', 'font-weight:bold;' );
   }
-  if ( count( $category['subcats'] ) > 0 )
+  if ( $category['nb_sub_categories'] > 0 )
   {
     $vtp->addSession( $handle, 'subcat' );
-    $vtp->setVar( $handle, 'subcat.nb_subcats', count($category['subcats']) );
+    $vtp->setVar( $handle,'subcat.nb_subcats',$category['nb_sub_categories'] );
     $vtp->closeSession( $handle, 'subcat' );
   }
   $vtp->setVar( $handle, 'category.total_cat', $category['nb_images'] );
