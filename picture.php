@@ -96,9 +96,9 @@ else
 }
 
 $query = '
-SELECT *
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
+SELECT DISTINCT(i.id), i.*
+  FROM '.IMAGES_TABLE.' AS i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
   '.$page['where'].'
   '.$conf['order_by'].'
   ';
