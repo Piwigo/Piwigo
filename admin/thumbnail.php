@@ -35,8 +35,12 @@ function get_subdirs( $dir )
   {
     while ( $file = readdir( $opendir ) )
     {
-      if ( $file != 'thumbnail' and $file != '.'
-           and $file != '..' and is_dir( $dir.'/'.$file ) )
+      if ($file != 'thumbnail'
+          and $file != 'pwg_representative'
+          and $file != 'pwg_high'
+          and $file != '.'
+          and $file != '..'
+          and is_dir($dir.'/'.$file))
       {
         array_push( $sub_dirs, $file );
       }
