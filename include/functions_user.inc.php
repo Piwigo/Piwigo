@@ -212,10 +212,18 @@ function check_login_authorization()
 function init_userprefs($userdata)
 {
   global $conf, $template, $lang, $lang_info;
-    
+  
   $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_language'];
-  $style = (!empty($userdata['template'])&& !$userdata['is_the_guest'] )?$userdata['template']:$conf['default_template'];
- 
+
+  if (!empty($userdata['template']) and !$userdata['is_the_guest'])
+  {
+    $template = $userdata['template'];
+  }
+  else
+  {
+    $template = $conf['default_template'];
+  }
+
   if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php')) )
   {
     $language = DEFAULT_LANGUAGE;
@@ -231,8 +239,8 @@ function init_userprefs($userdata)
     }
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
   }
-  
-  $template= setup_style($style);
+
+  $template = setup_style($template);
   return;
 }
 
