@@ -44,7 +44,6 @@ function insert_local_category( $cat_id )
     if ( isset( $page['cat'] ) or $_GET['update'] == 'all' )
     {
       $output.= insert_local_image( $cat_directory, $cat_id );
-      update_category( $cat_id );
     }
   }
 
@@ -403,7 +402,6 @@ function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
       $category_id = $row['id'];
     }
     $output.= insert_remote_image( $list_dirs[$i], $category_id );
-    update_category( $category_id );
     $output.= insert_remote_category( $list_dirs[$i], $site_id,
                                       $category_id, $level+1 );
     $output.= '</div>';
@@ -598,6 +596,8 @@ if ( @is_file( './listing.xml' ) )
 
   $vtp->closeSession( $sub, 'remote_update' );
 }
+//---------------------------------------- update informations about categories
+update_category( 'all' );
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>

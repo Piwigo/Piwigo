@@ -68,7 +68,14 @@ if ( isset( $_POST['submit'] ) )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $site = 'delete_site_'.$row['id'];
-    if ( $_POST[$site] == 1 ) delete_site( $row['id'] );
+    if ( $_POST[$site] == 1 )
+    {
+      delete_site( $row['id'] );
+      // if any picture of this site were linked to another categories, we
+      // have to update the informations of those categories. To make it
+      // simple, we just update all the categories
+      update_category( 'all' );
+    }
   }
   // thumbnail prefix must not contain accentuated characters
   $old_prefix = $_POST['prefix_thumbnail'];
