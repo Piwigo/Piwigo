@@ -193,6 +193,11 @@ DELETE FROM '.SITES_TABLE.'
 function delete_categories($ids)
 {
   global $counts;
+
+  if (count($ids) == 0)
+  {
+    return;
+  }
   
   // destruction of all the related elements
   $query = '
@@ -206,10 +211,7 @@ SELECT id
   {
     array_push($element_ids, $row['id']);
   }
-  if (count($element_ids) > 0)
-  {
-    delete_elements($element_ids);
-  }
+  delete_elements($element_ids);
 
   // destruction of the links between images and this category
   $query = '
@@ -268,6 +270,11 @@ DELETE FROM '.CATEGORIES_TABLE.'
 function delete_elements($ids)
 {
   global $counts;
+
+  if (count($ids) == 0)
+  {
+    return;
+  }
   
   // destruction of the comments on the image
   $query = '
