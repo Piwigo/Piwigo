@@ -184,7 +184,7 @@
     </tr>
     <tr>
       <td>{#step1_prefix}</td>
-      <td align=center><input type="text" name="prefix_table" value="{#f_prefix_table}" /></td>
+      <td align=center><input type="text" name="prefixeTable" value="{#f_prefixeTable}" /></td>
       <td class="row2">{#step1_prefix_info}</td>
     </tr>
     <tr>

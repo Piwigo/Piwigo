@@ -81,7 +81,7 @@ if ( $_GET['step'] == 1 )
       $file_content.= "\n\$cfgUser = '".     $_POST['cfgUser']."';";
       $file_content.= "\n\$cfgPassword = '". $_POST['cfgPassword']."';";
       $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
-      $file_content.= "\n\$prefixeTable = '".$_POST['prefix_table']."';";
+      $file_content.= "\n\$prefixeTable = '".$_POST['prefixeTable']."';";
       $file_content.= "\n?>";
       // writting the configuration file
       if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
@@ -153,11 +153,11 @@ if ( $_GET['step'] == 1 )
     $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
     // base
     $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
-    // prefix_table
-    if ( !isset( $_POST['prefix_table'] ) )
-      $vtp->setVar( $handle, 'step1.f_prefix_table', 'phpwebgallery_' );
+    // prefixeTable
+    if ( !isset( $_POST['prefixeTable'] ) )
+      $vtp->setVar( $handle, 'step1.f_prefixeTable', 'phpwebgallery_' );
     else
-      $vtp->setVar( $handle, 'step1.f_prefix_table', $_POST['prefix_table'] );
+      $vtp->setVar( $handle, 'step1.f_prefixeTable', $_POST['prefixeTable'] );
 
     $vtp->closeSession( $handle, 'step1' );
   }
@@ -188,7 +188,7 @@ else if ( $_GET['step'] == 2 )
       if ( preg_match( '/;$/', $sql_line ) )
       {
         $query = trim( $query );
-        $query = str_replace( 'phpwebgallery_', $prefix_table, $query );
+        $query = str_replace( 'phpwebgallery_', $prefixeTable, $query );
         // we don't execute "DROP TABLE" queries
         if ( !preg_match( '/^DROP TABLE/i', $query ) )
           mysql_query( $query );
@@ -221,22 +221,22 @@ else if ( $_GET['step'] == 2 )
     // if no error found till here : insertion of data in tables
     if ( count( $errors ) == 0 )
     {
-      $query = 'DELETE FROM '.$prefix_table.'config';
+      $query = 'DELETE FROM '.$prefixeTable.'config';
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$prefix_table.'config';
+      $query = 'INSERT INTO '.$prefixeTable.'config';
       $query.= ' (webmaster,mail_webmaster) VALUES ';
       $query.= " ('".$webmaster."','".$_POST['mail_webmaster']."')";
       $query.= ';';
       mysql_query( $query );
 
-      $query = 'INSERT INTO '.$prefix_table.'sites';
+      $query = 'INSERT INTO '.$prefixeTable.'sites';
       $query.= " (id,galleries_url) VALUES (1, './galleries/')";
       $query.= ';';
       mysql_query( $query );
 
       // webmaster admin user
-      $query = 'INSERT INTO '.$prefix_table.'users';
+      $query = 'INSERT INTO '.$prefixeTable.'users';
       $query.= ' (id,username,password,status,language) VALUES ';
       $query.= "(1,'".$webmaster."','".md5( $_POST['pwdWebmaster'] )."'";
       $query.= ",'admin','".$_GET['language']."')";
@@ -244,7 +244,7 @@ else if ( $_GET['step'] == 2 )
       mysql_query($query);
 
       // guest user
-      $query = 'INSERT INTO '.$prefix_table.'users';
+      $query = 'INSERT INTO '.$prefixeTable.'users';
       $query.= '(id,username,password,status,language) VALUES ';
       $query.= "(2,'guest','','guest','francais')";
       $query.= ';';
