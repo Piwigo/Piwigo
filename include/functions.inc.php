@@ -493,7 +493,7 @@ function redirect( $url )
 
   // $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
-  $refresh = 5;
+  $refresh = 1;
   $url_link = $url;
   $title = 'redirection';
   include( PHPWG_ROOT_PATH.'include/page_header.php' );
