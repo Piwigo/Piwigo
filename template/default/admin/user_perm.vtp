@@ -10,7 +10,7 @@
         <!--VTP_usergroups-->
         [
         <!--VTP_usergroup-->
-        <span style="color:{#color};">{#name}</span>{#separation}
+        <a href="{#url}" style="color:{#color};">{#name}</a>{#separation}
         <!--/VTP_usergroup-->
         ]
         <!--/VTP_usergroups-->

@@ -137,6 +137,8 @@ while ( $row = mysql_fetch_array( $result ) )
     foreach ( $usergroups as $i => $usergroup ) {
       $vtp->addSession( $sub, 'usergroup' );
       $vtp->setVar( $sub, 'usergroup.name', $groups[$usergroup] );
+      $url = './admin.php?page=group_perm&amp;group_id='.$usergroup;
+      $vtp->setVar( $sub, 'usergroup.url', add_session_id( $url ) );
       if ( in_array( $usergroup, $authorized_groups ) )
       {
         $vtp->setVar( $sub, 'usergroup.color', 'green' );
