@@ -31,8 +31,6 @@ $page_valide = false;
 $title = '';
 switch ( $_GET['page'] )
 {
- case 'user_add':
-   $title = $lang['title_add'];           $page_valide = true; break;
  case 'user_list':
    $title = $lang['title_liste_users'];   $page_valide = true; break;
  case 'user_modify':
@@ -113,7 +111,7 @@ switch ( $_GET['page'] )
    if ( isset( $_GET['dir'] ) )
    {
      $title.= ' '.$lang['title_thumbnails_2'].' <span style="color:#006699;">';
-     // $_GET['dir'] contient :
+     // $_GET['dir'] contains :
      // ../galleries/vieux_lyon ou
      // ../galleries/vieux_lyon/visite ou
      // ../galleries/vieux_lyon/visite/truc ...
@@ -155,20 +153,6 @@ $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
               add_session_id( $link_start.'user_list' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_users'] );
-$vtp->closeSession( $handle, 'summary' );
-// user list
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '&nbsp;&nbsp;' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'user_list' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_list_user'] );
-$vtp->closeSession( $handle, 'summary' );
-// user add
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '&nbsp;&nbsp;' );
-$vtp->setVar(
-  $handle, 'summary.link', add_session_id( $link_start.'user_add' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_add_user'] );
 $vtp->closeSession( $handle, 'summary' );
 // groups
 $vtp->addSession( $handle, 'summary' );
