@@ -218,7 +218,8 @@ if ( $page['name'] != '' )
 }
 else
 {
-  $vtp->setGlobalVar( $handle, 'page_title', $page['file'] );
+  $page_title = str_replace("_"," ",get_filename_wo_extension($page['file']));
+  $vtp->setGlobalVar( $handle, 'page_title', $page_title );
 }
 //-------------------------------------------------- previous picture thumbnail
 if ( $page['num'] >= 1 )
