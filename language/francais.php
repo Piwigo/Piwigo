@@ -406,7 +406,7 @@ if ( $isadmin )
   $lang['conf_session_delete_info'] = 'il est recommandé de vider sa table de sessions car les sessions périmées restent enregistrées (mais ça ne pose pas de problème de sécurité)';
   // start version 1.3
   $lang['conf_session_cookie'] = 'autoriser les cookies';
-  $lang['conf_session_cookie_info'] = 'les utilisateurs ne seront plus obligés de s\'identifier à chaque visite.';
+  $lang['conf_session_cookie_info'] = 'les utilisateurs ne seront plus obligés de s\'identifier à chaque visite. Méthode moins sécurisée';
   // end version 1.3
 		
   // page user, clés générales
