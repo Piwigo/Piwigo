@@ -1,9 +1,9 @@
 <?php
 /***************************************************************************
- *                    profile.php is a part of PhpWebGallery               *
+ *                                profile.php                              *
  *                            -------------------                          *
- *   last update          : Tuesday, July 16, 2002                         *
- *   email                : pierrick@z0rglub.com                           *
+ *   application          : PhpWebGallery 1.3                              *
+ *   author               : Pierrick LE GALL <pierrick@z0rglub.com>        *
  *                                                                         *
  ***************************************************************************/
 
@@ -144,16 +144,10 @@ if ( isset( $_POST['submit'] ) )
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
 $handle = $vtp->Open( './template/'.$user['template'].'/profile.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'customize_page_title',
-                    $lang['customize_page_title'] );
-$vtp->setGlobalVar( $handle, 'customize_title',  $lang['customize_title'] );
-$vtp->setGlobalVar( $handle, 'password',         $lang['password'] );
-$vtp->setGlobalVar( $handle, 'new',              $lang['new'] );
-$vtp->setGlobalVar( $handle, 'reg_confirm',      $lang['reg_confirm'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-
 initialize_template();
+$tpl = array( 'customize_page_title','customize_title','password','new',
+              'reg_confirm','submit' );
+templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
 $url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
 if ( $page['cat'] == 'search' )

@@ -207,6 +207,7 @@ function update_user( $user_id, $mail_address, $status,
 function check_login_authorization()
 {
   global $user,$lang,$conf,$page;
+
   if ( $user['is_the_guest']
        and ( $conf['acces'] == 'restreint' or $page['cat'] == 'fav' ) )
   {

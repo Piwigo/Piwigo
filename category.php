@@ -101,8 +101,7 @@ templatize_array( $tpl, 'lang', $handle );
 $tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
 templatize_array( $tpl, 'conf', $handle );
 
-$tpl = array( 'short_period','long_period','style','lien_collapsed',
-              'username' );
+$tpl = array( 'short_period','long_period','lien_collapsed', 'username' );
 templatize_array( $tpl, 'user', $handle );
 
 $tpl = array( 'title','navigation_bar','cat_comment','cat_nb_images' );
@@ -465,8 +464,9 @@ if ( isset ( $page['cat'] ) )
   // category comment
   if ( isset( $page['comment'] ) and $page['comment'] != '' )
   {
-    $vtp->addSession( $handle, 'cat_comment' );
-    $vtp->closeSession( $handle, 'cat_navigation' );
+    $vtp->addSession( $handle, 'comment' );
+    $vtp->setVar( $handle, 'comment.cat_comment', $page['comment'] );
+    $vtp->closeSession( $handle, 'comment' );
   }
   // total number of pictures in the category
   if ( is_numeric( $page['cat'] ) )

@@ -38,30 +38,6 @@ function get_icon( $date_comparaison )
   }
   return $output;
 }
-/*
-function affiche_icone_recent( $date_comparaison )
-{
-  global $user, $conf;
-  $difference = time() - $date_comparaison;
-  $jours = 24*60*60;
-  $output = '';
-  if ( $difference < $conf['periode_longue'] * $jours )
-  {
-    $icon_url = './theme/'.$user['theme'].'/';
-    if ( $difference < $conf['periode_courte'] * $jours )
-    {
-      $icon_url.= 'new_long.gif';
-    }
-    else
-    {
-      $icon_url.= 'new_short.gif';
-    }
-    $size = getimagesize( $icon_url );
-    $output = '<img src="'.$icon_url.'" style="border:0;height:'.$size[1].'px;width:'.$size[0].'px" alt="" />';
-  }
-  return $output;
-}
-*/
 
 function create_navigation_bar( $url, $nb_element, $start,
                                 $nb_element_page, $link_class )
@@ -121,12 +97,12 @@ function get_frame_start()
 {
   return '<table style="width:';
 }
-/*
+
 function get_frame_begin()
 {
   return ';">
             <tr>
-              <td style="border:2px solid lightgreen;width:100%;padding:5px;background-color:black;">';
+              <td style="border:1px dashed gray;width:100%;padding:5px;background-color:white;">';
 }
 
 function get_frame_end()
@@ -136,7 +112,7 @@ function get_frame_end()
             </tr>   
           </table>';
 }
-*/        
+/*
 function get_frame_begin()
 {
   global $user;
@@ -171,11 +147,12 @@ function get_frame_end()
             </tr>   
           </table>';
 }
-
+*/
 function initialize_template()
 {
   global $vtp, $handle, $user;
 
+  $vtp->setGlobalVar( $handle, 'style', $user['style'] );
   $vtp->setGlobalVar( $handle, 'frame_start', get_frame_start() );
   $vtp->setGlobalVar( $handle, 'frame_begin', get_frame_begin() );
   $vtp->setGlobalVar( $handle, 'frame_end',   get_frame_end() );

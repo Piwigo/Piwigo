@@ -37,16 +37,16 @@ include_once( PREFIXE_INCLUDE.'./include/vtemplate.class.php' );
 // 2. $conf['order_by'] = " order by file asc";
 //    will only order pictures by file ascending
 //    without taking into account the date_available
-$conf['order_by'] = " order by date_available desc, file asc";
+$conf['order_by'] = ' order by date_available desc, file asc';
 
 $conf['repertoire_image']   = './images/';
-$conf['nb_image_row']       = array ('4','5','6','7','8');
-$conf['nb_row_page']        = array ('2','3','4','5','6','7','10','20','1000');
+$conf['nb_image_row']       = array('4','5','6','7','8');
+$conf['nb_row_page']        = array('2','3','4','5','6','7','10','20','1000');
 $conf['version']            = '1.3';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
-$conf['picture_ext']        = array ( 'jpg','JPG','gif','GIF','png','PNG' );
-$conf['document_ext']       = array( 'doc','pdf','zip' );
+$conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
+$conf['document_ext']       = array('doc','pdf','zip');
 
 database_connection();
 // rertieving the configuration informations for site
@@ -61,7 +61,7 @@ $infos = array( 'prefixe_thumbnail', 'webmaster', 'mail_webmaster', 'acces',
                 'upload_maxheight', 'upload_maxwidth_thumbnail',
                 'upload_maxheight_thumbnail' );
 
-$query  = 'select';
+$query  = 'SELECT';
 for ( $i = 0; $i < sizeof( $infos ); $i++ )
 {
   if ( $i > 0 )
@@ -74,7 +74,7 @@ for ( $i = 0; $i < sizeof( $infos ); $i++ )
   }
   $query.= $infos[$i];
 }
-$query .= ' from '.PREFIX_TABLE.'config;';
+$query .= ' FROM '.PREFIX_TABLE.'config;';
 
 $row = mysql_fetch_array( mysql_query( $query ) );
 
@@ -90,6 +90,6 @@ for ( $i = 0; $i < sizeof( $infos ); $i++ )
     $conf[$infos[$i]] = get_boolean( $row[$infos[$i]] );
   }
 }
-$conf['log']                        = false;
-$conf['top_number']                 = 10;
+$conf['log']        = false;
+$conf['top_number'] = 20;
 ?>

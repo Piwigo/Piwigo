@@ -15,11 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
-$tab_ext_create_TN = array ( 'jpg', 'png' );
+$tab_ext_create_TN = array ( 'jpg', 'png', 'JPG', 'PNG' );
 
 function is_image( $filename, $create_thumbnail = false )
 {
-  global $conf;
+  global $conf, $tab_ext_create_TN;
 
   if ( is_file ( $filename ) )
   {

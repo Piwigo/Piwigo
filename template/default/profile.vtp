@@ -1,9 +1,10 @@
 <html>
   <head>
-    {#page_style}
+    {#style}
     <title>{#customize_page_title}</title>
-    </head>
+  </head>
   <body>
+    {#header}
     <table style="width:100%;height:100%">
       <tr align="center" valign="middle">
         <td>
@@ -80,5 +81,6 @@
         </td>
       </tr>
     </table>
+    {#footer}
   </body>
 </html>

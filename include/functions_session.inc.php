@@ -18,17 +18,17 @@ function generate_key()
 {
   global $conf;
   $md5 = md5( substr( microtime(), 2, 6 ).$conf['session_keyword'] );
-  $init = "";
+  $init = '';
   for ( $i = 0; $i < strlen( $md5 ); $i++ )
   {
     if ( is_numeric( $md5[$i] ) )
     {
-      $init.= "$md5[$i]";
+      $init.= $md5[$i];
     }
   }
   $init = substr( $init, 0, 8 );
   mt_srand( $init );
-  $key = "";
+  $key = '';
   for ( $i = 0; $i < $conf['session_id_size']; $i++ )
   {
     $c = mt_rand( 0, 2 );
