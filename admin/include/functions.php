@@ -504,15 +504,24 @@ SELECT category_id,
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id IN ('.implode(',', $cat_ids).')
   GROUP BY category_id
-';
+;';
   $result = pwg_query($query);
   $datas = array();
+  $query_ids = array();
   while ( $row = mysql_fetch_array( $result ) )
   {
+    array_push($query_ids, $row['category_id']);
     array_push($datas, array('id' => $row['category_id'],
                              'date_last' => $row['date_last'],
                              'nb_images' => $row['nb_images']));
   }
+  // if all links between a category and elements have disappeared, no line
+  // is returned but the update must be done !
+  foreach (array_diff($cat_ids, $query_ids) as $id)
+  {
+    array_push($datas, array('id' => $id, 'nb_images' => 0));
+  }
+  
   $fields = array('primary' => array('id'),
                   'update'  => array('date_last', 'nb_images'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
