@@ -59,8 +59,8 @@ SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
     }
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
- SET rank = '.++$current_rank.'
- WHERE id = '.$row['id'].'
+  SET rank = '.++$current_rank.'
+  WHERE id = '.$row['id'].'
 ;';
     mysql_query($query);
   }
