@@ -4,7 +4,7 @@
  *                            -------------------                          *
  *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
  *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
- *   translation   : Xolda <xolda@hotmail.com>
+ *   translation   : Xolda <xolda@hotmail.com>                             *
  *                                                                         *
  *   $Id$
  *                                                                         *
@@ -119,7 +119,7 @@ $lang['month'][12] = 'Diciembre';
 $lang['day'][0] = 'Domingo';
 $lang['day'][1] = 'Lunes';
 $lang['day'][2] = 'Martes';
-$lang['day'][3] = 'Miercoles';
+$lang['day'][3] = 'Miércoles';
 $lang['day'][4] = 'Jueves';
 $lang['day'][5] = 'Viernes';
 $lang['day'][6] = 'Sábado';
@@ -148,7 +148,7 @@ $lang['upload_cannot_upload'] = 'no se puede subir la imagen al servidor';
 $lang['upload_title'] = 'Subir una imagen';
 $lang['upload_advise'] = 'Escoja una imagen para ponerla en la categoría: ';
 $lang['upload_advise_thumbnail'] = 'Opcional, pero recomendable: escoja una miniatura para asociarla a ';
-$lang['upload_advise_filesize'] = 'el tamaño del archivo la imagen no debe sobrepasar: ';
+$lang['upload_advise_filesize'] = 'el tamaño del archivo de la imagen no debe sobrepasar: ';
 $lang['upload_advise_width'] = 'la anchura de la imagen no debe sobrepasar: ';
 $lang['upload_advise_height'] = 'la altura de la imagen no debe sobrepasar: ';
 $lang['upload_advise_filetype'] = 'la imagen debe estar en formato JPG, GIF ó PNG';
@@ -210,7 +210,7 @@ $lang['comment_user_exists'] = 'El nombre de usuario ya esta en uso';
 $lang['invalid_search'] = 'Las palabras buscadas deben ser de más de 3 carácteres y no deben contener signos de puntuación';
 $lang['search_mode_or'] = 'al menos una palabra';
 $lang['search_mode_and'] = 'todas las palabras';
-$lang['search_comments'] = 'separa las diferentes palabras con espacios';
+$lang['search_comments'] = 'separar las diferentes palabras con espacios';
 $lang['upload_name'] = 'Nombre de la imagen';
 $lang['upload_author'] = 'Autor (ej "Pierrick LE GALL")';
 $lang['upload_creation_date'] = 'Fecha de creación (DD/MM/AAAA)';
@@ -267,11 +267,11 @@ if ( $isadmin )
   $lang['conf_general_prefix'] = 'prefijo de las miniaturas';
   $lang['conf_general_prefix_info'] = 'Las miniaturas usarán este prefijo. Dejar en blanco en caso de duda.';
   $lang['conf_general_access'] = 'tipo de acceso';
-  $lang['conf_general_access_1'] = 'gratuito';
+  $lang['conf_general_access_1'] = 'libre';
   $lang['conf_general_access_2'] = 'restringido';
-  $lang['conf_general_access_info'] = '- gratuito : cualquiera puede entrar en el site y crear una cuenta para personalizar la apariencia del sitio web<br />- restringido : el webmaster crea las cuentas. Sólo los usuarios registrados pueden entrar al sitio web';
+  $lang['conf_general_access_info'] = '- libre: cualquiera puede entrar en el site y crear una cuenta para personalizar la apariencia del sitio web<br />- restringido: el webmaster crea las cuentas. Sólo los usuarios registrados pueden entrar al sitio web';
   $lang['conf_general_max_user_listbox'] = 'máximo número de usuarios en la lista';
-  $lang['conf_general_max_user_listbox_info'] = '- teste es el número máx. de usuarios que PhpWebGallery mostrará en la lista en lugar de una simple caja de texto en la página de identificación<br />- introduzca un número entre 0 y 255, 0 hará que se muestre la lista';
+  $lang['conf_general_max_user_listbox_info'] = '- este es el número máx. de usuarios que PhpWebGallery mostrará en la lista en lugar de una simple caja de texto en la página de identificación<br />- introduzca un número entre 0 y 255, 0 hará que se muestre la lista';
   $lang['conf_comments'] = 'comentarios de los usuarios';
   $lang['conf_comments_title'] = 'Configuración de los '.$lang['conf_comments'];
   $lang['conf_comments_show_comments'] = $lang['conf_comments'];
@@ -279,7 +279,7 @@ if ( $isadmin )
   $lang['conf_comments_comments_number'] = 'número de comentarios por página';
   $lang['conf_comments_comments_number_info'] = 'número de comentarios a mostrar en cada página. Este número es ilimitado para cada imagen. Introduzca un número entre 5 y 50.';
   $lang['conf_err_comment_number'] = 'El número de comentarios por página debe estar entre 5 y 50 (inclusive).';
-  $lang['conf_remote_site_delete_info'] = 'Si elimina un servidor remoto, borrará todas las imágenes y categorías relacionadas con en el servidor.';
+  $lang['conf_remote_site_delete_info'] = 'Si elimina un servidor remoto, borrará todas las imágenes y categorías relacionadas con el servidor.';
   $lang['conf_upload_title'] = 'Configuración de los envíos de los usuarios';
   $lang['conf_upload_available'] = 'autorizada la subida de imágenes';
   $lang['conf_upload_maxfilesize'] = 'tamaño máximo del archivo';
@@ -386,7 +386,7 @@ if ( $isadmin )
   $lang['tn_err'] = 'Ha cometido errores';
   $lang['tn_params_title'] = 'Parámetros de la miniaturización';
   $lang['tn_params_GD'] = 'Versión de GD';
-  $lang['tn_params_GD_info'] = '- GD es la librería de manipulación de miniaturas para PHP<br />-escoja la versión instalada en su servidor. Si escoge una incorrecta, obtendrá mensajes de error, vuelva atrás con su navegador y escoje otra versión. Si no funciona, es que su servidor no soporta GD.';
+  $lang['tn_params_GD_info'] = '- GD es la librería de manipulación de miniaturas para PHP<br />-escoja la versión instalada en su servidor. Si escoge una incorrecta, obtendrá mensajes de error, vuelva atrás con su navegador y escoja otra versión. Si no funciona, es que su servidor no soporta GD.';
   $lang['tn_params_width_info'] = 'máxima anchura de las miniaturas';
   $lang['tn_params_height_info'] = 'máxima altura de las miniaturas';
   $lang['tn_params_create'] = 'crear';
@@ -420,7 +420,7 @@ if ( $isadmin )
   $lang['help_remote'][2] = '2. Ponga el archivo "create_listing_file.php" modificado en su website remoto, en el directorio raíz de sus directorios de imágenes (como el directorio "galleries" de este website), a través de ftp.';
   $lang['help_remote'][3] = '3. Ejecute el script usando la url http://DominioRemoto/Galería/create_listing_file.php, y se creará el archivo listing.xml.';
   $lang['help_remote'][4] = '4. Recupere el fichero listing.xml de su website remoto y póngalo en el directorio "admin" de este website.';
-  $lang['help_remote'][5] = '5. Por favor , realice una actualización de los datos de las imágenes mediante el interface de administración, y una vez usado el fichero listing.xml, bórrelo del directorio "admin".';
+  $lang['help_remote'][5] = '5. Por favor, realice una actualización de los datos de las imágenes mediante el interface de administración, y una vez usado el fichero listing.xml, bórrelo del directorio "admin".';
   $lang['help_remote'][6] = 'Puede actualizar los contenidos del site remoto repitiendo los pasos descritos. También puede eliminar el site remoto escogiendo la opción en la sección de configuración del panel de administración.';
   $lang['help_upload_title'] = 'Imágenes añadidas por los usuarios';
   $lang['help_upload'][0] = 'PhpWebGallery ofrece la posibilidad a los usuarios de subir imágenes. Para hacerlo:';
@@ -452,8 +452,8 @@ if ( $isadmin )
 Por razones de seguridad, por favor borre el fichero "install.php" del directorio "admin"<br />
 Una vez borrado, siga estas instrucciones:
 <ul>
-  <li>vaya a la página de identificación: [ <a href="../identification.php">identification</a> ] e introduzca el usuario/contraseña asignados al webmaster</li>
-  <li>Esta identificación le dará acceso al [ <a href="admin.php">administration panel</a> ] y a las instrucciones necesarias para poner imágenes en sus directorios</li>
+  <li>vaya a la página de identificación: [ <a href="../identification.php">identificación</a> ] e introduzca el usuario/contraseña asignados al webmaster</li>
+  <li>Esta identificación le dará acceso al [ <a href="admin.php">panel de administración</a> ] y a las instrucciones necesarias para poner imágenes en sus directorios</li>
 </ul>';
   $lang['step2_title'] = 'Paso 2/2';
   $lang['step2_pwd'] = 'contraseña del webmaster';
@@ -482,7 +482,7 @@ Una vez borrado, siga estas instrucciones:
   $lang['conf_default_nb_image_per_row_info'] = 'número de imágenes por fila por defecto';
   $lang['conf_default_nb_row_per_page_info'] = 'número de filas por página por defecto';
   $lang['conf_default_short_period_info'] = 'Por días. Período durante el cual una imagen se muestra con la marca roja. El período corto debe ser superior a 1 día.';
-  $lang['conf_default_long_period_info'] = 'Por días. Período durante el cual una imagen se muestra con la marca verde.  El período largo debe ser superior al período corto.';
+  $lang['conf_default_long_period_info'] = 'Por días. Período durante el cual una imagen se muestra con la marca verde. El período largo debe ser superior al período corto.';
   $lang['conf_default_expand_info'] = '¿expandir todas las categorías por defecto en el menú?';
   $lang['conf_default_show_nb_comments_info'] = 'mostrar el número de comentarios para cada imagen en la página de miniaturas';
   $lang['conf_default_maxwidth_info'] = 'Máxima anchura para la visualización de imágenes: la imagen tendrá una nueva anchura sólo para la visualización, los archivos de imagen no se cambiarán. Déjelo vacío si no quiere poner límite.';
@@ -509,7 +509,7 @@ Una vez borrado, siga estas instrucciones:
   $lang['editcat_uploadable'] = 'Subida disponible';
   $lang['infoimage_keyword_separation'] = '(separar con coma ",")';
   $lang['infoimage_addtoall'] = 'añadir a todas';
-  $lang['infoimage_removefromall'] = 'borra de todas';
+  $lang['infoimage_removefromall'] = 'borrar de todas';
   $lang['infoimage_associate'] = 'Asociar a la categoría';
   $lang['update_wrong_dirname'] = 'El nombre de los directorios y de los archivos debe estar compuesto de letras, cifras,  "-", "_" o "."';
   $lang['stats_pages_seen'] = 'páginas visitadas';
@@ -520,9 +520,9 @@ Una vez borrado, siga estas instrucciones:
   $lang['comments_last_title'] = 'Últimos comentarios';
   $lang['comments_non_validated_title'] = 'Comentarios en espera de validación';
   $lang['help_database'][1] = 'Para evitar la actualización de demasiadas imágenes en una actualización simple, le recomendamos que empiece actualizando sólo las categorías, y entonces en la sección de categorías del panel de administración, actualice cada categoría desde el enlace "actualizar"';
-  $lang['help_upload'][3] = 'La categoría debe tener habilitado subir para poder hacerlo.';
+  $lang['help_upload'][3] = 'La categoría debe tener habilitado "subir" para poder hacerlo.';
   $lang['help_upload'][4] = 'Las imágenes subidas por los usuarios no están directamente visibles en el sitio web, deben ser validadas por el administrador. Para ello, un administrador debe entrar en la página "en attente" del panel de administración, para validar o rechazar las imágenes propuestas, y entonces realizar una actualización de los datos de las imágenes.';
-  $lang['help_virtual_title'] = 'Enlaces entre las imágenes y las categoría y las categorías virtuales';
+  $lang['help_virtual_title'] = 'Enlaces entre las imágenes y las categorías y las categorías virtuales';
   $lang['help_virtual'][0] = 'PhpWebGallery es capaz de diferenciar las categorías donde las imágenes están guardadas y las categorías donde las imágenes se muestran.';
   $lang['help_virtual'][1] = 'Por defecto, las imágenes sólo se muestran en sus categorías reales: las que se correspondan a los directorios en el servidor web.';
   $lang['help_virtual'][2] = 'Para enlazar una imagen a una categoría, sólo tiene que hacer la asociación en la página de información de la imagen o en las informaciones de todas las imágenes de una categoría.';
@@ -538,10 +538,10 @@ Una vez borrado, siga estas instrucciones:
   $lang['help_access'][1] = '1. Modifique las informaciones de la categoría (desde la sección de "categorías" en el panel de administración) y hágala "privada".';
   $lang['help_access'][2] = '2. En la página de permisos (para un grupo o un usuario) la categoría privada se mostrará y podrá autorizar el acceso o no.';
   $lang['help_infos'][2] = 'Si tiene alguna pregunta, no dude en entrar al foro o realice una consulta desde allí. El <a href="'.$conf['forum_url'].'" style="text-decoration:underline">foro</a> (tablón de mensajes) está disponible en el site de presentación de PhpWebGallery.';
-  $lang['step1_err_copy'] = 'Copie el texto entre paréntesis y péguelo en el archivo "include/mysql.inc.php"(Atención: mysql.inc.php sólo debe contener lo que está en azul, sin ningun salto de línea ni espacio)';
+  $lang['step1_err_copy'] = 'Copie el texto entre paréntesis y péguelo en el archivo "include/mysql.inc.php"(Atención: mysql.inc.php sólo debe contener lo que está en azul, sin ningún salto de línea ni espacio)';
   $lang['permuser_only_private'] = 'Sólo se muestran las categorías privadas';
   $lang['waiting_update'] = 'Las imágenes validadas serán mostradas cuando se actualice la base de datos de las imágenes';
-  $lang['conf_upload_available_info'] = 'Authorizando la subida de imágenes por los usuarios en las categorías del sitio web (no en un servidor remoto). Este es un parámetro general, es necesario autorizar la subida categoría por categoría, ya que por defecto no se pueden subir imágenes en las categorías.';
+  $lang['conf_upload_available_info'] = 'Autorizando la subida de imágenes por los usuarios en las categorías del sitio web (no en un servidor remoto). Este es un parámetro general, es necesario autorizar la subida categoría por categoría, ya que por defecto no se pueden subir imágenes en las categorías.';
   $lang['install_help'] = '¿Necesita ayuda? Realice su consulta en el <a href="http://forum.phpwebgallery.net">Tablón de mensajes de PhpWebGallery</a>.';
   $lang['install_warning'] = 'El archivo "admin/install.php" aún está presente. Por favor, elimínelo de su servidor. No es seguro mantenerlo.';
 }
