@@ -561,7 +561,7 @@ if ( $isadmin )
   $lang['update_only_cat'] = 'mettre à jour les catégories, mais pas les images';
   $lang['update_all'] = 'mettre tout à jour';
 // start version 1.3
-  $lang['update_wrong_dirname'] = 'le nom du répertoire ne doit être composé que de lettres, de chiffres et "-", "_" ou ".".';
+  $lang['update_wrong_dirname'] = 'le nom des fichiers et répertoires ne doivent être composé que de lettres, de chiffres et "-", "_" ou ".".';
 // end version 1.3
 		
   // page de génération miniatures

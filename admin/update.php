@@ -219,35 +219,44 @@ function insert_local_image( $rep, $category_id )
             $result = mysql_query( $query );
             if ( mysql_num_rows( $result ) == 0 )
             {
-              $picture = array();
-              $picture['file']     = $file;
-              $picture['tn_ext']   = $tn_ext;
-              $picture['date'] = date( 'Y-m-d', filemtime ( $rep.'/'.$file ) );
-              $picture['filesize'] = floor( filesize( $rep.'/'.$file ) / 1024);
-              $image_size = @getimagesize( $rep.'/'.$file );
-              $picture['width']    = $image_size[0];
-              $picture['height']   = $image_size[1];
-              if ( $waiting['validated'] == 'true' )
+              // the name of the file must not use acentuated characters or
+              // blank space..
+              if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
               {
-                // retrieving infos from the XML description of
-                // $waiting['infos']
-                $infos = nl2br( $waiting['infos'] );
-                $picture['author']        = getAttribute( $infos, 'author' );
-                $picture['comment']       = getAttribute( $infos, 'comment' );
-                $unixtime = getAttribute( $infos, 'date_creation' );
-                $picture['date_creation'] = '';
-                if ( $unixtime != '' )
+                $picture = array();
+                $picture['file']     = $file;
+                $picture['tn_ext']   = $tn_ext;
+                $picture['date'] = date( 'Y-m-d', filemtime($rep.'/'.$file) );
+                $picture['filesize'] = floor( filesize($rep.'/'.$file) / 1024);
+                $image_size = @getimagesize( $rep.'/'.$file );
+                $picture['width']    = $image_size[0];
+                $picture['height']   = $image_size[1];
+                if ( $waiting['validated'] == 'true' )
                 {
-                  $picture['date_creation'] = date( 'Y-m-d', $unixtime );
+                  // retrieving infos from the XML description of
+                  // $waiting['infos']
+                  $infos = nl2br( $waiting['infos'] );
+                  $picture['author']        = getAttribute( $infos, 'author' );
+                  $picture['comment']       = getAttribute( $infos, 'comment');
+                  $unixtime = getAttribute( $infos, 'date_creation' );
+                  $picture['date_creation'] = '';
+                  if ( $unixtime != '' )
+                    $picture['date_creation'] = date( 'Y-m-d', $unixtime );
+                  $picture['name']          = getAttribute( $infos, 'name' );
+                  // deleting the waiting element
+                  $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
+                  $query.= ' WHERE id = '.$waiting['id'];
+                  $query.= ';';
+                  mysql_query( $query );
                 }
-                $picture['name']          = getAttribute( $infos, 'name' );
-                // deleting the waiting element
-                $query = 'DELETE FROM '.PREFIX_TABLE.'waiting';
-                $query.= ' WHERE id = '.$waiting['id'];
-                $query.= ';';
-                mysql_query( $query );
+                array_push( $pictures, $picture );
               }
-              array_push( $pictures, $picture );
+              else
+              {
+                $output.= '<span style="color:red;">"'.$file.'" : ';
+                $output.= $lang['update_wrong_dirname'].'</span><br />';
+              }
+
             }
           }
           else

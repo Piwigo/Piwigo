@@ -558,7 +558,7 @@ Once this file deleted , follow this instructions :
   $lang['infoimage_addtoall'] = 'add to all';
   $lang['infoimage_removefromall'] = 'remove from all';
   $lang['infoimage_associate'] = 'Associate to the category';
-  $lang['update_wrong_dirname'] = 'The name of the directory must be composed of letters, figures, "-", "_" or "."';
+  $lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
   $lang['stats_last_days'] = 'last days';
   $lang['stats_pages_seen'] = 'pages seen';
   $lang['stats_visitors'] = 'guests';
