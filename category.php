@@ -68,52 +68,25 @@ function display_category( $category, $indent )
       'T_NAME' => $style,
       'LINK_NAME' => $name,
       'INDENT' => $indent,
-      'NB_SUBCATS'=>$category['nb_sub_categories'],
-      'TOTAL_CAT'=>$category['nb_images'],
-      'CAT_ICON'=>get_icon($category['date_last']),
-      
-      'U_LINK' => add_session_id($url))
+      'U_LINK' => add_session_id($url),
+      'BULLET_IMAGE' => $user['lien_collapsed'])
     );
   
-  if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
+  if ( $category['nb_images'] >  0 )
   {
     $template->assign_block_vars(
-      'category.bulletnolink',
-      array('BULLET_IMAGE' => $user['lien_collapsed'])
-      );
-  }
-  else
-  {
-    $url = PHPWG_ROOT_PATH.'category.php';
-    if (isset($page['cat']))
-    {
-      $url .='?cat='.$page['cat'];
-    }
-    
-    if ( $category['expanded'] )
-    {
-      $img=$user['lien_expanded'];
-    }
-    else
-    {
-      $img=$user['lien_collapsed'];
-    }
-    
-    $template->assign_block_vars(
-      'category.bulletlink',
+      'category.infocat',
       array(
-        'BULLET_IMAGE' =>  $img,
-        'U_BULLET_LINK'=>  add_session_id($url))
-      );
+        'TOTAL_CAT'=>$category['nb_images'],
+        'CAT_ICON'=>get_icon($category['date_last'])
+        ));
   }
   
   // recursive call
   if ( $category['expanded'] )
   {
-    foreach ( $category['subcats'] as $subcat ) 
-	{
-      $template->assign_block_vars('category.subcat', array());
-	  display_category( $subcat, $indent.str_repeat( '&nbsp;', 2 ));
+    foreach ( $category['subcats'] as $subcat ) {
+      display_category( $subcat, $indent.str_repeat( '&nbsp;', 2 ));
     }
   }
 }
