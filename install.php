@@ -265,20 +265,14 @@ if ( isset( $_POST['install'] ))
                      , $table_prefix );
 
     $query = 'UPDATE '.CONFIG_TABLE;
-    $query.= " SET value = '".$admin_name."'";
-    $query.= " WHERE param = 'webmaster'";
-    $query.= ';';
-    mysql_query( $query );
-
-    $query = 'UPDATE '.CONFIG_TABLE;
     $query.= " SET value = '".$admin_mail."'";
     $query.= " WHERE param = 'mail_webmaster'";
     $query.= ';';
     mysql_query( $query );
 	
-	$query = 'UPDATE '.CONFIG_TABLE;
+    $query = 'UPDATE '.CONFIG_TABLE;
     $query.= " SET value = '".$language."'";
-    $query.= " WHERE param = 'default_lang'";
+    $query.= " WHERE param = 'default_language'";
     $query.= ';';
     mysql_query( $query );
     
