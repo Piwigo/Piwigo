@@ -554,5 +554,7 @@ Aus Gr&uuml;nden der Sicherheit solltest Du die Datei "install.php" im Verzeichn
   $lang['conf_upload_available_info'] = 'Gestatte den Bild-Upload f&uuml;r die Benutzer auf der &Uuml;bersichtsseite eines Ordners. (nicht m&ouml;glich bei einem Remote Server) Diese Einstellung ist notwendig, da standardm&auml;ssig in jedem Ordner diese Funktion deaktiviert ist.';
   $lang['install_help'] = 'Brauchst Du Hilfe? Stelle deine Frage im <a href="http://forum.phpwebgallery.net">PhpWebGallery Message Board</a>.';
   $lang['install_warning'] = 'Die Datei "admin/install.php" ist noch auf dem Server vorhanden. Bitte l&ouml;sche diese Datei, da ein weiterer Aufruf eine neue Installation ausl&ouml;st.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

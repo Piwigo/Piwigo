@@ -674,5 +674,7 @@ Once this file deleted , follow this instructions :
   $lang['conf_upload_available_info'] = 'Godkjenne brukerenes opplasting av bilder(ikke på en fjernserver). Dette er et generelt valg, det er fremdeles nødvendig å godkjenne opplasting for hvert enkelt album. Som forhåndsvalg er ingen album åpnet for opplasting av bilder.';
   $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
   $lang['install_warning'] = 'The file "admin/install.php" is still present. Please remove it from your server. It is not secure to keep it.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

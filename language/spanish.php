@@ -544,5 +544,7 @@ Una vez borrado, siga estas instrucciones:
   $lang['conf_upload_available_info'] = 'Autorizando la subida de imágenes por los usuarios en las categorías del sitio web (no en un servidor remoto). Este es un parámetro general, es necesario autorizar la subida categoría por categoría, ya que por defecto no se pueden subir imágenes en las categorías.';
   $lang['install_help'] = '¿Necesita ayuda? Realice su consulta en el <a href="http://forum.phpwebgallery.net">Tablón de mensajes de PhpWebGallery</a>.';
   $lang['install_warning'] = 'El archivo "admin/install.php" aún está presente. Por favor, elimínelo de su servidor. No es seguro mantenerlo.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

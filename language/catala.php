@@ -544,5 +544,7 @@ Un cop esborrat, segueixi aquestes instruccions:
   $lang['conf_upload_available_info'] = 'Autoritzant la pujada d\'imatges pels usuaris a les categories del lloc web (no a un servidor remot). Aquest és un paràmetre general, és necessari autoritzar la pujada categoria per categoria, ja que per defecte no es poden pujar imatges a les categories.';
   $lang['install_help'] = 'Necessita ajuda? Realitzi la seva consulta al <a href="http://forum.phpwebgallery.net">Taulell de missatges de PhpWebGallery</a>.';
   $lang['install_warning'] = 'L\'arxiu "admin/install.php" encara està present. Si us plau, elimini\'l del seu servidor. No és segur mantenir-lo.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

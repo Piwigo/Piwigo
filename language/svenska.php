@@ -544,5 +544,7 @@ Såfort filen är bortagen, följ dessa instruktioner :
   $lang['conf_upload_available_info'] = 'Godkännandet av uppladdade bilder från användare i kategorier på webbsidan (ej en fjärrserver). Detta är en generell parameter, det är nödvändigt att godkänna kategori för kategori, standard, så är ingen kategori "uppladdningsbar".';
   $lang['install_help'] = 'Behöver du hjälp ? Ställ frågor på <a href="http://forum.phpwebgallery.net">PhpWebGallery\'s anslagstavla</a>.';
   $lang['install_warning'] = 'Filen "admin/install.php" finns fortfarande kvar. Var vänlig och tabort den från din server. Det är inte säkert att behålla den.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

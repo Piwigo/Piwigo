@@ -550,5 +550,7 @@ Once this file deleted , follow this instructions :
   $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
   $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
   $lang['install_warning'] = 'The file "admin/install.php" is still present. Please remove it from your server. It is not secure to keep it.';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>

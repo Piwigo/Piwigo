@@ -549,5 +549,7 @@ if ( $isadmin )
   $lang['conf_upload_available_info'] = 'ウェブサイトのカテゴリにユーザが写真をアップロードする場合、許可が必要(リモートサーバでは無く)。これは全体に関係するパラメータです。デフォルトではアップロード可能なカテゴリはありませんので、カテゴリ毎にアップロードを許可する必要があります。';
   $lang['install_help'] = 'ヘルプが必要ですか? <a href="http://forum.phpwebgallery.net">PhpWebGalleryメッセージボード</a>で質問してください。';
   $lang['install_warning'] = '"admin/install.php"が存在しています。セキュリティ上安全ではありませんのでサーバより削除してください。';
+  // new or modified in release 1.3.1
+  $lang['cat_unknown_id'] = 'This category is unknown in the database';
 }
 ?>
