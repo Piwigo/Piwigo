@@ -571,10 +571,42 @@ function initialize_category( $calling_page = 'category' )
 
         if (isset($search['fields']['cat']))
         {
-          $local_clause = 'category_id IN (';
-          $local_clause.= implode(',',$search['fields']['cat']['words']);
-          $local_clause.= ')';
-          array_push($clauses, $local_clause);
+          if ($search['fields']['cat']['mode'] == 'sub_inc')
+          {
+            // searching all the categories id of sub-categories
+            $search_cat_clauses = array();
+            foreach ($search['fields']['cat']['words'] as $cat_id)
+            {
+              $local_clause = 'uppercats REGEXP \'(^|,)'.$cat_id.'(,|$)\'';
+              array_push($search_cat_clauses, $local_clause);
+            }
+            array_walk($search_cat_clauses,
+                       create_function('&$s', '$s = "(".$s.")";'));
+            
+            $query = '
+SELECT DISTINCT(id) AS id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE '.implode(' OR ', $search_cat_clauses).'
+;';
+            echo '<pre>'.$query.'</pre>';
+            $result = mysql_query($query);
+            $cat_ids = array();
+            while ($row = mysql_fetch_array($result))
+            {
+              array_push($cat_ids, $row['id']);
+            }
+            $local_clause = 'category_id IN (';
+            $local_clause.= implode(',',$cat_ids);
+            $local_clause.= ')';
+            array_push($clauses, $local_clause);
+          }
+          else
+          {
+            $local_clause = 'category_id IN (';
+            $local_clause.= implode(',',$search['fields']['cat']['words']);
+            $local_clause.= ')';
+            array_push($clauses, $local_clause);
+          }
         }
 
         // adds brackets around where clauses
