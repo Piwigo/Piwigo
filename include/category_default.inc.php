@@ -99,7 +99,7 @@ while ($row = mysql_fetch_array($result))
   
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
-  if ($row['filesize'] == '')
+  if (!isset($row['filesize']) or $row['filesize'] == '')
   {
     $filesize = floor(filesize($cat_directory.$row['file']) / 1024);
   }
