@@ -23,7 +23,7 @@ $tpl = array( );
 templatize_array( $tpl, 'lang', $sub );
 //----------------------------------------------------- help categories display
 $categories = array( 'images','thumbnails','database','remote','upload',
-                     'infos' );
+                     'virtual','groups','access','infos' );
 foreach ( $categories as $category ) {
   $vtp->addSession( $sub, 'cat' );
   if ( $category == 'images' )
