@@ -154,6 +154,9 @@ $lang['conf_access'] = 'Type d\'acces';
 $lang['conf_log_info'] = 'historiser les visites sur le site ? Les visites seront visibles dans l\'historique de l\'administration';
 $lang['conf_notification'] = 'Notification par mail';
 $lang['conf_notification_info'] = 'Notification automatique par mail des administrateurs (seuls les administrateurs) lors de l\'ajout d\'un commentaire, ou lors de l\'ajout d\'une image.';
+$lang['conf_gallery_locked'] = 'Verrouiller la galerie';
+$lang['conf_gallery_locked_info'] = 'Verrouiller toute la galerie pour maintenance. 
+Attention à ne pas vous déconnecter : seul l\'administrateur sera capable d\'y accéder.';
 
 // Configuration -> comments
 $lang['conf_comments_title'] = 'Configuration des commentaires';

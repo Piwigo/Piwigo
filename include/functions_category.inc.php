@@ -348,7 +348,7 @@ function initialize_category( $calling_page = 'category' )
       $page['uppercats']      = $result['uppercats'];
       $page['title'] =
         get_cat_display_name($page['cat_name'],
-                             'category.php?cat=',
+                             '',
                              false);
       $page['where'] = ' WHERE category_id = '.$page['cat'];
     }
