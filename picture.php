@@ -194,7 +194,7 @@ foreach (array('prev', 'current', 'next') as $i)
 
   $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php';
   $picture[$i]['url'].= get_query_string_diff(array('image_id','add_fav',
-                          'slideshow'));
+                                                    'slideshow','rate'));
   $picture[$i]['url'].= '&amp;image_id='.$row['id'];
 }
 
