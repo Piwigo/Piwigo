@@ -197,6 +197,76 @@ function get_cat_display_name($cat_informations,
 }
 
 /**
+ * returns the list of categories as a HTML string, with cache of names
+ *
+ * categories string returned contains categories as given in the input
+ * array $cat_informations. $uppercats is the list of category ids to
+ * display in the right order. If url input parameter is empty, returns only
+ * the categories name without links.
+ *
+ * @param string uppercats
+ * @param string separator
+ * @param string url
+ * @param boolean replace_space
+ * @return string
+ */
+function get_cat_display_name_cache($uppercats,
+                                    $separator, 
+                                    $url = 'category.php?cat=',
+                                    $replace_space = true)
+{
+  global $cat_names;
+
+  if (!isset($cat_names))
+  {
+    $query = '
+SELECT id,name
+  FROM '.CATEGORIES_TABLE.'
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $cat_names[$row['id']] = $row['name'];
+    }
+  }
+  
+  $output = '';
+  $is_first = true;
+  foreach (explode(',', $uppercats) as $category_id)
+  {
+    $name = $cat_names[$category_id];
+    
+    if ($is_first)
+    {
+      $is_first = false;
+    }
+    else
+    {
+      $output.= $separator;
+    }
+
+    if ($url == '')
+    {
+      $output.= $name;
+    }
+    else
+    {
+      $output.= '
+<a class=""
+   href="'.add_session_id(PHPWG_ROOT_PATH.$url.$category_id).'">'.$name.'</a>';
+    }
+  }
+  if ($replace_space)
+  {
+    return replace_space($output);
+  }
+  else
+  {
+    return $output;
+  }
+}
+
+/**
  * returns the HTML code for a category item in the menu (for category.php)
  *
  * HTML code generated uses logical list tags ul and each category is an

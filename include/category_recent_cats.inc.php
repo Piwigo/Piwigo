@@ -35,8 +35,9 @@
 // recently. The calculated table field categories.date_last will be
 // easier to use
 $query = '
-SELECT id AS category_id
-  FROM '.CATEGORIES_TABLE.'
+SELECT c.id AS category_id,uppercats,representative_picture_id,path,file,tn_ext
+  FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGES_TABLE.' AS i
+    ON i.id = c.representative_picture_id
   WHERE date_last > SUBDATE(CURRENT_DATE
                             ,INTERVAL '.$user['recent_period'].' DAY)';
 if ( $user['forbidden_categories'] != '' )
@@ -62,22 +63,9 @@ if (mysql_num_rows($result) > 0)
 // the name to display
 while ( $row = mysql_fetch_array( $result ) )
 {
-  $cat_infos = get_cat_info( $row['category_id'] );
-  $name = get_cat_display_name($cat_infos['name'],'<br />','',false);
-  
-  $query = '
-SELECT path,file,tn_ext
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$row['category_id'].'
-    AND date_available > SUBDATE(CURRENT_DATE
-                                 ,INTERVAL '.$user['recent_period'].' DAY)
-    AND id = image_id
-  ORDER BY RAND()
-  LIMIT 0,1
-;';
-  $subrow = mysql_fetch_array(pwg_query($query));
+  $name = get_cat_display_name_cache($row['uppercats'], '<br />', '', false);
 
-  $thumbnail_src = get_thumbnail_src($subrow['path'], @$subrow['tn_ext']);
+  $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
   $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['category_id'];
   
@@ -85,12 +73,12 @@ SELECT path,file,tn_ext
     'thumbnails.line.thumbnail',
     array(
       'IMAGE'                   => $thumbnail_src,
-      'IMAGE_ALT'               => $subrow['file'],
+      'IMAGE_ALT'               => $row['file'],
       'IMAGE_TITLE'             => $lang['hint_category'],
       'IMAGE_NAME'              => '['.$name.']',
       'IMAGE_STYLE'             => 'thumb_category',
         
-      'U_IMG_LINK'              => add_session_id( $url_link )
+      'U_IMG_LINK'              => add_session_id($url_link)
       )
     );
   $template->assign_block_vars('thumbnails.line.thumbnail.bullet',array());

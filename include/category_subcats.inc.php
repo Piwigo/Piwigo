@@ -31,18 +31,30 @@
  * 
  */
 
-$subcats = array();
-if (isset($page['cat']))
+$query = '
+SELECT id, name, date_last
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat ';
+if (!isset($page['cat']) or !is_numeric($page['cat']))
 {
-  $subcats = get_non_empty_subcat_ids($page['cat']);
+  $query.= 'is NULL';
 }
 else
 {
-  $subcats = get_non_empty_subcat_ids('');
+  $query.= '= '.$page['cat'];
 }
+// we must not show pictures of a forbidden category
+if ($user['forbidden_categories'] != '')
+{
+  $query.= ' AND id NOT IN ('.$user['forbidden_categories'].')';
+}
+$query.= '
+  ORDER BY rank
+;';
+$result = pwg_query($query);
 
 // template thumbnail initialization
-if (count($subcats) > 0)
+if (mysql_num_rows($result) > 0)
 {
   $template->assign_block_vars('thumbnails', array());
   // first line
@@ -51,58 +63,38 @@ if (count($subcats) > 0)
   $row_number = 0;
 }
 
-foreach ($subcats as $subcat_id => $non_empty_id) 
+while ($row = mysql_fetch_array($result))
 {
-  $name = $page['plain_structure'][$subcat_id]['name'];
-
-  // searching the representative picture of the category
   $query = '
-SELECT representative_picture_id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$non_empty_id.'
-;';
-  $row = mysql_fetch_array(pwg_query($query));
-    
-  $query = '
-SELECT file,path,tn_ext
-  FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$non_empty_id.'
-    AND id = image_id';
-  // if the category has a representative picture, this is its thumbnail
-  // that will be displayed !
-  if (isset($row['representative_picture_id']))
-  {   
-    $query.= '
-    AND id = '.$row['representative_picture_id'];
-  }
-  else
-  {
-    $query.= '
+SELECT path, tn_ext
+  FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGES_TABLE.' AS i
+    ON i.id = c.representative_picture_id
+  WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
   ORDER BY RAND()
-  LIMIT 0,1';
-  }
-  $query.= '
+  LIMIT 0,1
 ;';
-  $image_result = pwg_query($query);
-  $image_row    = mysql_fetch_array($image_result);
+  $element_result = pwg_query($query);
+  if (mysql_num_rows($element_result) == 0)
+  {
+    continue;
+  }
+  $element_row = mysql_fetch_array($element_result);
 
-  $thumbnail_link = get_thumbnail_src($image_row['path'],
-                                      @$image_row['tn_ext']);
+  $thumbnail_link = get_thumbnail_src($element_row['path'],
+                                      @$element_row['tn_ext']);
 
   $thumbnail_title = $lang['hint_category'];
 
-  $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$subcat_id;
-
-  $date = $page['plain_structure'][$subcat_id]['date_last'];
+  $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['id'];
 
   $template->assign_block_vars(
     'thumbnails.line.thumbnail',
     array(
       'IMAGE'                 => $thumbnail_link,
-      'IMAGE_ALT'             => $image_row['file'],
+      'IMAGE_ALT'             => $row['name'],
       'IMAGE_TITLE'           => $thumbnail_title,
-      'IMAGE_NAME'            => '['.$name.']',
-      'IMAGE_TS'              => get_icon($date),
+      'IMAGE_NAME'            => '['.$row['name'].']',
+      'IMAGE_TS'              => get_icon(@$row['date_last']),
       'IMAGE_STYLE'           => 'thumb_category',
         
       'U_IMG_LINK'            => add_session_id($url_link)

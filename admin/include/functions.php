@@ -486,8 +486,8 @@ SELECT id, representative_picture_id
   WHERE representative_picture_id IS NOT NULL
     AND id IN ('.implode(',', $cat_ids).')
 ;';
-    $result = pwg_query( $query );
-    while ( $row = mysql_fetch_array( $result ) )
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
     {
       $query = '
 SELECT image_id
@@ -495,15 +495,37 @@ SELECT image_id
   WHERE category_id = '.$row['id'].'
     AND image_id = '.$row['representative_picture_id'].'
 ;';
-      $result = pwg_query( $query );
-      if (mysql_num_rows($result) == 0)
+      $sub_result = pwg_query($query);
+      if (mysql_num_rows($sub_result) == 0)
       {
+        // set a new representative element for this category
         $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$row['id'].'
+  ORDER BY RAND()
+  LIMIT 0,1
+;';
+        $sub_sub_result = pwg_query($query);
+        if (mysql_num_rows($sub_sub_result) > 0)
+        {
+          list($representative) = mysql_fetch_array(pwg_query($query));
+          $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = '.$representative.'
+  WHERE id = '.$row['id'].'
+;';
+          pwg_query($query);
+        }
+        else
+        {
+          $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = NULL
   WHERE id = '.$row['id'].'
 ;';
-        pwg_query( $query );
+          pwg_query($query);
+        }
       }
     }
   }
