@@ -62,7 +62,7 @@
   [ <a href="{stop_slideshow.U_SLIDESHOW}" class="back" style="font-weight:bold;">{L_STOP_SLIDESHOW}</a> ]
 </div>
 <!-- END stop_slideshow -->
-
+<div style="clear:both;"></div>
 <div id="gauche">
 &nbsp;
   <!-- BEGIN previous -->
@@ -91,9 +91,9 @@
   <!-- END next -->
   &nbsp;
 </div>
-<div style="clear:both"></div>
+<div style="clear:both;"></div>
          <!-- BEGIN metadata -->
-          <table class="metadata">
+          <table class="tablecompact">
             <!-- BEGIN headline -->
             <tr>
               <th colspan="2">{metadata.headline.TITLE}</th>
