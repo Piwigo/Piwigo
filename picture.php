@@ -723,7 +723,7 @@ if ( !$user['is_the_guest'] )
     $url.='&amp;add_fav=1';
     if ( $page['cat'] == 'search' )
     {
-      $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+      $url.= '&amp;search='.$_GET['search'];
     }
 	$template->assign_block_vars('favorite', array(
       'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',

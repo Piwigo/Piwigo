@@ -413,7 +413,7 @@ function notify( $type, $infos = '' )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $to = $row['mail_address'];
-    include( PHPWG_ROOT_PATH.'language/'.$row['language'].'.php' );
+    include( PHPWG_ROOT_PATH.'language/'.$row['language'].'/common.lang.php' );
     $content = $lang['mail_hello']."\n\n";
     switch ( $type )
     {

@@ -607,7 +607,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
       // pictures within the short period
       else if ( $page['cat'] == 'recent_pics' )
       {
-        $page['title'] = $lang['recent_pics_cat_title'];
+        $page['title'] = $lang['recent_pics_cat'];
         // We must find the date corresponding to :
         // today - $conf['periode_courte']
         $date = time() - 60*60*24*$user['recent_period'];
@@ -625,7 +625,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
       // categories containing recent pictures
       else if ( $page['cat'] == 'recent_cats' )
       {
-        $page['title'] = $lang['recent_cats_cat_title'];
+        $page['title'] = $lang['recent_cats_cat'];
         $page['cat_nb_images'] = 0;
       }
       // most visited pictures

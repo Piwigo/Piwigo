@@ -25,8 +25,11 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once( './admin/include/isadmin.inc.php' );
-include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //-------------------------------------------------------------- initialization
 $page['nb_image_page'] = 5;
 

@@ -251,7 +251,7 @@ function get_html_menu_category($category)
              <ul class="menu">';
     foreach ($category['subcats'] as $subcat)
     {
-      $menu.= get_html_menu_category($subcat, &$menu);
+      $menu.= get_html_menu_category($subcat);
     }
     $menu.= '
              </ul>';

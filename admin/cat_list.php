@@ -38,8 +38,9 @@ $navigation=$lang['gallery_index'];
 //---------------------------------------------------  virtual categories
 if ( isset( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
 {
-  delete_category( $_GET['delete'] );
-  synchronize_all_users();
+  $to_delete_categories = array();
+  array_push($to_delete_categories,$_GET['delete']);
+  delete_categories( $to_delete_categories );
 }
 elseif ( isset( $_POST['submit'] ) )
 {
@@ -49,14 +50,32 @@ elseif ( isset( $_POST['submit'] ) )
 	
   if ( !count( $errors ))
   {
-    // we have then to add the virtual category
-	$parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL'; 
+    $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL'; 
+    // As we don't create a virtual category every day, let's do (far) too much queries
+    if ($parent_id!='NULL')
+    {
+	  $query = 'SELECT uppercats FROM '.CATEGORIES_TABLE;
+      $query.= ' WHERE id="'.$parent_id.'";';
+	  $parent_uppercats = array_pop(mysql_fetch_array( mysql_query( $query )));
+	}
+	
+	// we have then to add the virtual category
     $query = 'INSERT INTO '.CATEGORIES_TABLE;
     $query.= ' (name,id_uppercat,rank) VALUES ';
-    $query.= " ('".$_POST['virtual_name']."',".$parent_id.",".$_POST['rank'].")";
-    $query.= ';';
-    mysql_query( $query );
-    synchronize_all_users();
+    $query.= " ('".$_POST['virtual_name']."',".$parent_id.",".$_POST['rank'].");";
+	mysql_query( $query );
+	
+	// And last we update the uppercats
+	$query = 'SELECT MAX(id) FROM '.CATEGORIES_TABLE.';';
+	$my_id = array_pop(mysql_fetch_array( mysql_query( $query )));
+	$query = 'UPDATE '.CATEGORIES_TABLE.' SET uppercats = "';
+	if (!empty($parent_uppercats))
+    {
+      $query.= $parent_uppercats.',';
+    }
+	$query.= $my_id;
+	$query.= '" WHERE id = '.$my_id.';';
+	mysql_query( $query );    
   }
 }
 
@@ -223,12 +242,12 @@ while (list ($id,$category) = each($categories))
   if ($category['visible'] == 'false')
   {
     $category_image = '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder_lock.gif" 
-	  width="46" height="25" alt="'.$lang['cat_private'].'" title="'.$lang['cat_private'].'"/>';
+	  alt="'.$lang['cat_private'].'" title="'.$lang['cat_private'].'"/>';
   }
   elseif (empty($category['dir']))
   {
     $category_image = '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder_link.gif"
-	  width="46" height="25" alt="'.$lang['cat_virtual'].'" title="'.$lang['cat_virtual'].'"/>';
+	  alt="'.$lang['cat_virtual'].'" title="'.$lang['cat_virtual'].'"/>';
   }
   else
   {

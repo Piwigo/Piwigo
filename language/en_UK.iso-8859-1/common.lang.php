@@ -63,6 +63,9 @@ $lang['new'] = 'New';
 $lang['identification'] = 'Identification';
 
 //Calendar
+$lang['calendar'] = 'calendar';
+$lang['calendar_hint'] = 'displays each day with pictures, month per month';
+$lang['calendar_picture_hint'] = 'displays pictures added on ';
 $lang['month'][1] = 'January';
 $lang['month'][2] = 'February';
 $lang['month'][3] = 'March';
@@ -207,12 +210,10 @@ $lang['most_visited_cat_hint'] = 'displays most visited pictures';
 $lang['most_visited_cat'] = 'most visited';
 $lang['best_rated_cat_hint'] = 'displays pictures best rated';
 $lang['best_rated_cat'] = 'best rated';
-$lang['recent_pics_cat_hint'] = 'displays most recent pictures';
-$lang['recent_pics_cat'] = 'recent pictures';
-$lang['recent_pics_cat_title'] = 'Recent pictures';
-$lang['recent_cats_cat_hint'] = 'displays recently updated categories';
-$lang['recent_cats_cat'] = 'updated categories';
-$lang['recent_cats_cat_title'] = 'Recently updated categories';
+$lang['recent_pics_cat_hint'] = 'Displays most recent pictures';
+$lang['recent_pics_cat'] = 'Last pictures';
+$lang['recent_cats_cat_hint'] = 'Displays recently updated categories';
+$lang['recent_cats_cat'] = 'Last categories';
 $lang['visited'] = 'visited';
 $lang['times'] = 'times';
 $lang['customize_theme'] = 'interface theme';
@@ -255,9 +256,6 @@ $lang['hint_comments'] = 'See last users comments';
 $lang['menu_login'] = 'login';
 $lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 $lang['hello'] = 'Hello';
-$lang['calendar'] = 'calendar';
-$lang['calendar_hint'] = 'displays each day with pictures, month per month';
-$lang['calendar_picture_hint'] = 'displays pictures added on ';
 
 // search
 $lang['search_wrong_date'] = ' : this date is not valid';
