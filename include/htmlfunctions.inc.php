@@ -107,38 +107,6 @@ function create_navigation_bar( $url, $nb_element, $start,
   return $navigation_bar;
 }
 
-
-
-function make_jumpbox($value, $selected, $usekeys=false)
-{
-  $boxstring = '';
-  $nb = sizeof( $value);
-  $keys = ($usekeys?array_keys($value):$value);
-  $value = ($usekeys?array_values($value):$value);
-  for ( $i = 0; $i < $nb; $i++ )
-  {
-    $boxstring .= '<option value="'.$keys[$i].'"';
-    if ($selected == $keys[$i]) $boxstring .=' selected="selected"';
-    $boxstring .='>'.$value[$i].'</option>';
-  }
-  return $boxstring;
-}
-
-function make_radio($name, $value, $selected, $usekeys=false)
-{
-  $boxstring = '';
-  $nb = sizeof( $value);
-  $keys = ($usekeys?array_keys($value):$value);
-  $value = ($usekeys?array_values($value):$value);
-  for ( $i = 0; $i < $nb; $i++ )
-  {
-    $boxstring .= '<input type="radio" name="'.$name.'" value="'.$keys[$i].'"';
-    if ($selected == $keys[$i]) $boxstring .=' checked';
-    $boxstring .='/>'.$value[$i];
-  }
-  return $boxstring;
-}
-
 //
 // Pick a language, any language ...
 //
@@ -192,4 +160,31 @@ function style_select($default_style, $select_name = "style")
   closedir($dir);
   return $style_select;
 }
+
+// The function get_cat_display_name returns a string containing the list
+// of upper categories to the root category from the lowest category shown
+// example : "anniversaires - fete mere 2002 - animaux - erika"
+// You can give this parameters :
+//   - $style : the style of the span tag for the lowest category,
+//     "font-style:italic;" for example
+function get_cat_display_name( $cat_informations, $separator, 
+  $url = 'category.php?cat=', $replace_space = true)
+{
+  $output = '';
+  $i=0;
+  while ( list ($id, $name) = each($cat_informations)) 
+  {
+    if ( $i )  $output.= $separator;
+	$i++;
+	if (empty($style) && empty($url) || ($i == count( $cat_informations))) 
+	  $output.= $name;
+    elseif (!empty($url))
+      $output.= '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">'.$name."</a>";
+	else
+      $output.= '<span style="'.$style.'">'.$name.'</span>';
+  }
+  if ( $replace_space ) return replace_space( $output );
+  else                  return $output;
+}
 ?>
+

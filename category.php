@@ -67,9 +67,7 @@ function display_category( $category, $indent )
   $name = $category['name'];
   if (empty($name)) $name = str_replace( '_', ' ', $category['dir'] );
   
-  $template->assign_block_vars(
-    'category',
-    array(
+  $template->assign_block_vars('category', array(
       'T_NAME' => $style,
       'LINK_NAME' => $name,
       'INDENT' => $indent,
@@ -187,8 +185,7 @@ if ( isset ( $page['cat'] ) )
 {
   if ( is_numeric( $page['cat'] ) )
   {
-    $cat_title = get_cat_display_name( $page['cat_name'], ' &gt; ',
-                                    'font-style:italic;' );
+    $cat_title = get_cat_display_name( $page['cat_name'], ' - ');
   }
   else
   {
@@ -356,7 +353,7 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
       $poids = $row['filesize'];
     $thumbnail_title .= ' : '.$poids.' KB';
     // url link on picture.php page
-    $url_link = './picture.php?cat='.$page['cat'];
+    $url_link = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'];
     $url_link.= '&amp;image_id='.$row['id'];
     if ( $page['cat'] == 'search' )
     {
@@ -473,28 +470,15 @@ else
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {
-  $cat_name='';
-  // total number of pictures in the category
-  if ( is_numeric( $page['cat'] ) )
+  // upload a picture in the category
+  if ( is_numeric( $page['cat']) && $page['cat_site_id'] == 1
+       && $conf['upload_available'] && $page['cat_uploadable'] )
   {
-    $cat_name=get_cat_display_name( $page['cat_name'],' - ','font-style:italic;' );
-    // upload a picture in the category
-    if ( $page['cat_site_id'] == 1
-         and $conf['upload_available']
-         and $page['cat_uploadable'] )
-    {
-      $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
-	  $template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
-    }
+    $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
+	$template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
   }
-  else
-  {
-    $cat_name= $page['title'];
-  }
-  $template->assign_block_vars('cat_infos',array(
-    'CAT_NAME'=>$cat_name,
-    'NB_IMG_CAT' => $page['cat_nb_images']
-	));
+  
+  $template->assign_block_vars('cat_infos',array('NB_IMG_CAT' => $page['cat_nb_images']));
 
   // navigation bar
   if ( $page['navigation_bar'] != '' )

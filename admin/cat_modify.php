@@ -129,7 +129,7 @@ if ( !isset( $row['id_uppercat'] ) ) $row['id_uppercat'] = '';
 
 $result = get_cat_info( $row['id'] );
 // cat name
-$cat_name = get_cat_display_name( $result['name'], ' - ', '' );
+$cat_name = get_cat_display_name( $result['name'], ' - ' );
 $vtp->setVar( $sub, 'cat:name', $cat_name );
 // cat dir
 if ( $row['dir'] != '' )

@@ -27,6 +27,35 @@
 
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
+function ordering( $id_uppercat )
+{
+  $rank = 1;
+		
+  $query = 'SELECT id';
+  $query.= ' FROM '.CATEGORIES_TABLE;
+  if ( !is_numeric( $id_uppercat ) )
+  {
+    $query.= ' WHERE id_uppercat IS NULL';
+  }
+  else
+  {
+    $query.= ' WHERE id_uppercat = '.$id_uppercat;
+  }
+  $query.= ' ORDER BY rank ASC, dir ASC';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.$rank;
+    $query.= ' WHERE id = '.$row['id'];
+    $query.= ';';
+    mysql_query( $query );
+    $rank++;
+    ordering( $row['id'] );
+  }
+}
+
 function insert_local_category( $id_uppercat )
 {
   global $conf, $page, $user, $lang;
@@ -677,7 +706,6 @@ $template->assign_vars(array(
   'U_ALL_UPDATE'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=all' )
   ));
   
-$tpl = array('remote_site');
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
 if (!isset( $_GET['update'] ))
@@ -732,6 +760,7 @@ if ( isset( $_GET['update'] )
 {
   $start = get_moment();
   update_category( 'all' );
+  ordering('NULL');
   $end = get_moment();
   echo get_elapsed_time( $start, $end ).' for update_category( all )<br />';
 

@@ -1,21 +1,67 @@
 <!-- BEGIN install_warning -->
   <p class="install_warning">{L_INSTALL_WARNING}</div>
 <!-- END install_warning -->
-<div class="adminMenu">
-  <a class="adminMenu" href="{U_CONFIG}">{L_CONFIG}</a>&nbsp;|&nbsp;
-  <a class="adminMenu" href="{U_USERS}">{L_USERS}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_GROUPS}">{L_GROUPS}</a>&nbsp;|&nbsp;
-  <a class="adminMenu" href="{U_CATEGORIES}">{L_CATEGORIES}</a>&nbsp;|&nbsp;
-  <a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_UPDATE}">{L_UPDATE}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a>&nbsp;|&nbsp; 
-  <a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a>&nbsp;|&nbsp;
-  <a class="adminMenu" href="{U_RETURN}">{L_RETURN}</a> 
+<table style="width:100%;">
+  <tr>
+	<td valign="top" style="padding:10px;width:1%;">
+	<div class="table1">
+
+<div class="titreMenu">{L_LINKS}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_RETURN}">{L_GALLERY_INDEX}</a></li>
+  </ul>
 </div>
-<div align="center">
-<div class="adminMain">
+<div class="titreMenu">{L_GENERAL}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG}">{L_CONFIG}</a></li>
+  <li><a class="adminMenu" href="{U_CONFIG}">{L_SITES}</a></li>
+  <!--<li><a class="adminMenu" href="{U_CONFIG}">{L_DEFAULT}</a></li>-->
+  <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
+  <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
+  </ul>
+</div>
+<div class="titreMenu">{L_CATEGORIES}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
+  <li><a class="adminMenu" href="{U_UPLOAD}">{L_UPLOAD}</a></li>
+  <li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
+</ul>
+</div>
+<div class="titreMenu">{L_IMAGES}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a></li>
+  <li><a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a></li>
+  <li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
+  <li><a class="adminMenu" href="{U_IMG_UPDATE}">{L_UPDATE}</a></li>
+  </ul>
+</div>
+<div class="titreMenu">{L_IDENTIFY}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_USERS}">{L_USERS}</a></li>
+  <li><a class="adminMenu" href="{U_GROUPS}">{L_GROUPS}</a></li>
+</ul>
+</div>
+<div class="titreMenu">{L_AUTH}</div>
+<div class="menu">
+<ul class="menu">
+  <li><a class="adminMenu" href="{U_AUTH}">{L_AUTH}</a></li>
+  <li><a class="adminMenu" href="{U_USERS_AUTH}">{L_USERS}</a></li>
+  <li><a class="adminMenu" href="{U_GROUPS_AUTH}">{L_GROUPS}</a></li>
+</ul>
+</div>
+      </div>
+	</td>
+	<td style="padding:10px;width:99%;" valign="top">
+<div class="home">
   <div class="titrePage">{PAGE_TITLE}</div>
   {ADMIN_CONTENT}
-</div></div>
+</div>
+	</td>
+  </tr>
+</table>

@@ -276,7 +276,7 @@ $title_img = $picture['current']['name'];
 $title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
-  $title_img = replace_space(get_cat_display_name( $page['cat_name'], " &gt; ","font-style:italic;" ));
+  $title_img = replace_space(get_cat_display_name( $page['cat_name'], " &gt; "));
   $n = $page['num'] + 1;
   $title_nb = "Photo".' '.$n.'/';
   $title_nb.= $page['cat_nb_images'];

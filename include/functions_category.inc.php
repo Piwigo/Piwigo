@@ -111,10 +111,17 @@ function get_user_plain_structure()
   {
     $category = array();
     foreach ( $infos as $info ) {
-      if ( $info == 'uc.date_last' )
+      if ( $info == 'uc.date_last')
       {
-        list($year,$month,$day) = explode( '-', $row['date_last'] );
-        $category['date_last'] = mktime(0,0,0,$month,$day,$year);
+	    if (empty($row['date_last'])) 
+		{
+		  $category['date_last']= 0;
+		}
+		else
+		{
+          list($year,$month,$day) = explode( '-', $row['date_last'] );
+          $category['date_last'] = mktime(0,0,0,$month,$day,$year);
+		}
       }
       else if ( isset( $row[$info] ) ) $category[$info] = $row[$info];
       else                             $category[$info] = '';
@@ -239,8 +246,6 @@ function count_user_total_images()
 // $cat['site_id']
 function get_cat_info( $id )
 {
-  global $page;
-
   $infos = array( 'nb_images','id_uppercat','comment','site_id','galleries_url'
                   ,'dir','date_last','uploadable','status','visible'
                   ,'representative_picture_id','uppercats' );
@@ -270,14 +275,14 @@ function get_cat_info( $id )
 
   $cat['name'] = array();
 
-  $query = 'SELECT name FROM '.CATEGORIES_TABLE;
+  $query = 'SELECT name,id FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id IN ('.$cat['uppercats'].')';
   $query.= ' ORDER BY id ASC';
   $query.= ';';
   $result = mysql_query( $query );
   while( $row = mysql_fetch_array( $result ) )
   {
-    array_push( $cat['name'], $row['name'] );
+    $cat['name'][$row['id']] = $row['name'];
   }
   
   return $cat;
@@ -348,28 +353,6 @@ function get_site_url( $category_id )
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   return $row['galleries_url'];
-}
-
-// The function get_cat_display_name returns a string containing the list
-// of upper categories to the root category from the lowest category shown
-// example : "anniversaires - fete mere 2002 - animaux - erika"
-// You can give two parameters :
-//   - $separation : the string between each category name " - " for example
-//   - $style : the style of the span tag for the lowest category,
-//     "font-style:italic;" for example
-function get_cat_display_name( $array_cat_names, $separation,
-                               $style, $replace_space = true )
-{
-  $output = '';
-  foreach ( $array_cat_names as $i => $name ) {
-    if ( $i > 0 ) $output.= $separation;
-    if ( $i < count( $array_cat_names ) - 1 or $style == '')
-      $output.= $name;
-    else
-      $output.= '<span style="'.$style.'">'.$name.'</span>';
-  }
-  if ( $replace_space ) return replace_space( $output );
-  else                  return $output;
 }
 
 // initialize_category initializes ;-) the variables in relation
@@ -633,3 +616,4 @@ function get_first_non_empty_cat_id( $id_uppercat )
   return false;
 }
 ?>
+

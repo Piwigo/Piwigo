@@ -1,25 +1,36 @@
-/* Main styles */
+/* MAIN STYLES */
 
 body {
   font-family: Verdana, Geneva, Arial, sans-serif;
-  font-size:10px;
+  font-size:12px;
   background-color:#000000;
   color:#E0E0E0;
   margin:5px;
 }
 
-a {
-  text-decoration:none;
-  color:#FFFFFF;
+h1 {
+	font:			bold 18pt 'Trebuchet MS', Verdana, sans-serif;
+	text-decoration:none; 
+	line-height:	120%; 
 }
-a:hover {
-  text-decoration:underline;
-  color:#FFF48E;
+h2 {
+	font:			bold 12pt Arial, Helvetica, sans-serif;
+	text-decoration:none; 
+	line-height:	120%; 
 }
 
-a.none:hover {
-  text-decoration:none;
-}
+.small{ font-size:80%;}
+
+/* ANCHORS */
+
+a { text-decoration:none; color:#FFFFFF;}
+a:hover { text-decoration:underline; color:#FFF48E;}
+a.none:hover { text-decoration:none;}
+a.image:hover { text-decoration:none;}
+a.thumbLink:hover { text-decoration:none;}
+/*a.adminMenu:hover{ color : #C6B78E; }
+a.adminMenu{ color : #FFF48E; }*/
+
 /* Navigation styles */
 
 .titreMenu,.titrePage
@@ -77,10 +88,6 @@ ul.menu {
 .image {
 	border : 3px solid #FFFFFF;
 	margin : 10px 4px 10px 4px;
-}
-
-a.image:hover {
-  text-decoration:none;
 }
 
 .commentImage {
@@ -144,7 +151,6 @@ a.image:hover {
 .throw {
   color:#FFFFCC;
   background-color:#3F3F3F;
-  width:100%;
   text-align:center;
   font-weight:bold;
   border-top: 1px solid #000000; 
@@ -177,10 +183,6 @@ table.thumbnail {
 	margin: 2px;
 }
 
-a.thumbLink:hover {
-  text-decoration:none;
-}
-
 /* Comment styles */
 .commentTitle {
   font-family: Arial, Helvetica, sans-serif;
@@ -203,6 +205,11 @@ a.thumbLink:hover {
 }
 /* Form styles */
 
+form{
+  text-align:left;
+  padding:10px;
+}
+
 .bouton {
   background-image: url(theme/button_bg.gif);
   border: 1px solid #404750;
@@ -215,12 +222,16 @@ a.thumbLink:hover {
 }
 
 input,select {
+ text-indent:2px;
  background-color:#505050;
  border: 1px solid #797979;
  padding: 0;
  color:#FFFFCC;
 }
 
+.radio{
+  border:0;
+}
 /* Admin styles */
 
 .adminMenu {
@@ -230,14 +241,6 @@ input,select {
 
 div.adminMenu{
 margin:10px 50px 10px 50px; 
-}
-
-a.adminMenu:hover{
-  color : #C6B78E; 
-}
-
-a.adminMenu{
-  color : #FFF48E; 
 }
 
 .admin {

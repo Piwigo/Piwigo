@@ -24,442 +24,262 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
 
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_list.vtp' );
-$tpl = array( 'cat_edit','cat_up','cat_down','cat_image_info',
-              'cat_permission','cat_update','cat_add','cat_parent','submit',
-              'cat_virtual','delete','cat_first','cat_last','errors_title' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//--------------------------------------------------- adding a virtual category
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
 $errors = array();
-if ( isset( $_POST['submit'] ) )
+$categories=array();
+$navigation=$lang['gallery_index'];
+
+//---------------------------------------------------  virtual categories
+if ( isset( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) )
+{
+  delete_category( $_GET['delete'] );
+  synchronize_all_users();
+}
+elseif ( isset( $_POST['submit'] ) )
 {
   // is the given category name only containing blank spaces ?
   if ( preg_match( '/^\s*$/', $_POST['virtual_name'] ) )
     array_push( $errors, $lang['cat_error_name'] );
-  // does the uppercat id exists in the database ?
-  if ( $_POST['associate'] == '' )
-  {
-    $_POST['associate'] = -1;
-  }
-  else if ( !is_numeric( $_POST['associate'] ) )
-  {
-    array_push( $errors, $lang['cat_unknown_id'] );
-  }
-  else
-  {
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE id = '.$_POST['associate'];
-    $query.= ';';
-    if ( mysql_num_rows( mysql_query( $query ) ) == 0 )
-      array_push( $errors, $lang['cat_unknown_id'] );
-  }
-  
-  if ( count( $errors ) == 0 )
+	
+  if ( !count( $errors ))
   {
     // we have then to add the virtual category
-    $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-    $query.= ' (name,id_uppercat) VALUES ';
-    if ( $_POST['associate'] == -1 )
-    {
-      $_POST['associate'] = 'NULL';
-    }
-    $query.= " ('".$_POST['virtual_name']."',".$_POST['associate'].")";
+	$parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL'; 
+    $query = 'INSERT INTO '.CATEGORIES_TABLE;
+    $query.= ' (name,id_uppercat,rank) VALUES ';
+    $query.= " ('".$_POST['virtual_name']."',".$parent_id.",".$_POST['rank'].")";
     $query.= ';';
     mysql_query( $query );
     synchronize_all_users();
   }
 }
-//---------------------------------------------------------------  rank updates
-if ( isset( $_GET['up'] ) and is_numeric( $_GET['up'] ) )
-{
-  // 1. searching level (id_uppercat)
-  //    and rank of the category to move
-  $query = 'SELECT id_uppercat,rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id = '.$_GET['up'];
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $level = $row['id_uppercat'];
-  $rank  = $row['rank'];
-  // 2. searching the id and the rank of the category
-  //    just above at the same level
-  $query = 'SELECT id,rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE rank < '.$rank;
-  if ( $level == '' )
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$level;
-  }
-  $query.= ' ORDER BY rank DESC';
-  $query.= ' LIMIT 0,1';
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $new_rank     = $row['rank'];
-  $replaced_cat = $row['id'];
-  // 3. exchanging ranks between the two categories
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = '.$new_rank;
-  $query.= ' WHERE id = '.$_GET['up'];
-  $query.= ';';
-  mysql_query( $query );
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = '.$rank;
-  $query.= ' WHERE id = '.$replaced_cat;
-  $query.= ';';
-  mysql_query( $query );
-}
-if ( isset( $_GET['down'] ) and is_numeric( $_GET['down'] ) )
-{
-  // 1. searching level (id_uppercat)
-  //    and rank of the category to move
-  $query = 'SELECT id_uppercat,rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id = '.$_GET['down'];
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $level = $row['id_uppercat'];
-  $rank  = $row['rank'];
-  // 2. searching the id and the rank of the category
-  //    just below at the same level
-  $query = 'SELECT id,rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE rank > '.$rank;
-  if ( $level == '' )
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$level;
-  }
-  $query.= ' ORDER BY rank ASC';
-  $query.= ' LIMIT 0,1';
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $new_rank     = $row['rank'];
-  $replaced_cat = $row['id'];
-  // 3. exchanging ranks between the two categories
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = '.$new_rank;
-  $query.= ' WHERE id = '.$_GET['down'];
-  $query.= ';';
-  mysql_query( $query );
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = '.$rank;
-  $query.= ' WHERE id = '.$replaced_cat;
-  $query.= ';';
-  mysql_query( $query );
-}
-if ( isset( $_GET['last'] ) and is_numeric( $_GET['last'] ) )
-{
-  // 1. searching level (id_uppercat) of the category to move
-  $query = 'SELECT id_uppercat,rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id = '.$_GET['last'];
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $level = $row['id_uppercat'];
-  // 2. searching the highest rank of the categories of the same parent
-  $query = 'SELECT MAX(rank) AS max_rank';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE id_uppercat';
-  if ( $level == '' ) $query.= ' IS NULL';
-  else                $query.= ' = '.$level;
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $max_rank = $row['max_rank'];
-  // 3. updating the rank of our category to be after the previous max rank
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = '.($max_rank + 1);
-  $query.= ' WHERE id = '.$_GET['last'];
-  $query.= ';';
-  mysql_query( $query );
-}
-if ( isset( $_GET['first'] ) and is_numeric( $_GET['first'] ) )
-{
-  // to place our category as first, we simply say that is rank is 0, then
-  // reordering will move category ranks correctly (first rank should be 1
-  // and not 0)
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
-  $query.= ' SET rank = 0';
-  $query.= ' WHERE id = '.$_GET['first'];
-  $query.= ';';
-  mysql_query( $query );
-}
-if ( isset( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
-{
-  delete_category( $_GET['delete'] );
-  synchronize_all_users();
-}
-//------------------------------------------------------------------ reordering
-function ordering( $id_uppercat )
-{
-  $rank = 1;
-		
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  if ( !is_numeric( $id_uppercat ) )
-  {
-    $query.= ' WHERE id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' WHERE id_uppercat = '.$id_uppercat;
-  }
-  $query.= ' ORDER BY rank ASC, dir ASC';
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $query = 'UPDATE '.PREFIX_TABLE.'categories';
-    $query.= ' SET rank = '.$rank;
-    $query.= ' WHERE id = '.$row['id'];
-    $query.= ';';
-    mysql_query( $query );
-    $rank++;
-    ordering( $row['id'] );
-  }
-}
-ordering( 'NULL' );
-//-------------------------------------------------------------- errors display
-if ( count( $errors ) != 0 )
-{
-  $vtp->addSession( $sub, 'errors' );
-  foreach ( $errors as $error ) {
-    $vtp->addSession( $sub, 'li' );
-    $vtp->setVar( $sub, 'li.content', $error );
-    $vtp->closeSession( $sub, 'li' );
-  }
-  $vtp->closeSession( $sub, 'errors' );
-}
-//---------------------------------------------------------------- page display
-function display_cat_manager( $id_uppercat, $indent,
-                              $uppercat_visible, $level )
-{
-  global $lang,$conf,$sub,$vtp,$page;
-		
-  // searching the min_rank and the max_rank of the category
-  $query = 'SELECT MIN(rank) AS min, MAX(rank) AS max';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  if ( !is_numeric( $id_uppercat ) )
-  {
-    $query.= ' WHERE id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' WHERE id_uppercat = '.$id_uppercat;
-  }
-  $query.= ';';
-  $result = mysql_query( $query );
-  $row    = mysql_fetch_array( $result );
-  if ( !isset( $row['min'] ) ) $row['min'] = 0;
-  if ( !isset( $row['max'] ) ) $row['max'] = 0;
-  $min_rank = $row['min'];
-  $max_rank = $row['max'];
-		
-  // will we use <th> or <td> lines ?
-  $td    = 'td';
-  $class = '';
-  if ( $level > 0 ) $class = 'row'.$level;
-  else              $td = 'th';
-		
-  $query = 'SELECT id,name,dir,nb_images,status,rank,site_id,visible';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
-  if ( !is_numeric( $id_uppercat ) )
-  {
-    $query.= ' WHERE id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' WHERE id_uppercat = '.$id_uppercat;
-  }
-  $query.= ' ORDER BY rank ASC';
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $subcat_visible = true;
-    if ( !isset( $row['dir'] ) ) $row['dir'] = '';
 
-    $vtp->addSession( $sub, 'cat' );
-    // is the category expanded or not ?
-    if ( isset($page['expand']) && $page['expand'] == 'all' )
-    {
-      $vtp->addSession( $sub, 'bullet_wo_link' );
-      $vtp->closeSession( $sub, 'bullet_wo_link' );
-    }
-    else if ( isset($page['tab_expand']) && in_array( $row['id'], $page['tab_expand'] ) )
-    {
-      $vtp->addSession( $sub, 'bullet_expanded' );
-      $tab_expand = array_diff( $page['tab_expand'], array( $row['id'] ) );
-      $expand = implode( ',', $tab_expand );
-      $url = './admin.php?page=cat_list&amp;expand='.$expand;
-      $vtp->setVar( $sub, 'bullet_expanded.link', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'bullet_expanded' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'bullet_collapsed' );
-      $tab_expand = array_merge( $page['tab_expand'], array( $row['id'] ) );
-      $expand = implode( ',', $tab_expand );
-      $url = './admin.php?page=cat_list&amp;expand='.$expand;
-      $vtp->setVar( $sub, 'bullet_collapsed.link', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'bullet_collapsed' );
-    }
-    
-    $vtp->setVar( $sub, 'cat.td', $td );
-    $vtp->setVar( $sub, 'cat.class', $class );
-    $vtp->setVar( $sub, 'cat.indent', $indent );
-    $vtp->setVar( $sub, 'cat.name', $row['name'] );
+// Cache management
 
-    if ( $row['dir'] != '' )
-    {
-      $vtp->addSession( $sub, 'storage' );
-      $vtp->setVar( $sub, 'storage.dir', $row['dir'] );
-      $vtp->closeSession( $sub, 'storage' );
-      // category can't be deleted
-      $vtp->addSession( $sub, 'no_delete' );
-      $vtp->closeSession( $sub, 'no_delete' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'virtual' );
-      $vtp->closeSession( $sub, 'virtual' );
-      // category can be deleted
-      $vtp->addSession( $sub, 'delete' );
-      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
-      $url.= '&amp;delete='.$row['id'];
-      $vtp->setVar( $sub, 'delete.delete_url', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'delete' );
-    }
-    if ( $row['visible'] == 'false' or !$uppercat_visible )
-    {
-      $subcat_visible = false;
-      $vtp->setVar( $sub, 'cat.invisible', $lang['cat_invisible'] );
-    }
-    if ( $row['status'] == 'private' )
-    {
-      $vtp->setVar( $sub, 'cat.private', $lang['private'] );
-    }
-    $vtp->setVar( $sub, 'cat.nb_picture', $row['nb_images'] );
-    $url = add_session_id( './admin.php?page=cat_modify&amp;cat='.$row['id'] );
-    $vtp->setVar( $sub, 'cat.edit_url', $url );
-    if ( $row['rank'] != $min_rank )
-    {
-      $vtp->addSession( $sub, 'up' );
-      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
-      $url.= '&amp;up='.$row['id'];
-      $vtp->setVar( $sub, 'up.up_url', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'up' );
-    }
-    else if ( $min_rank != $max_rank )
-    {
-      $vtp->addSession( $sub, 'no_up' );
-      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
-      $url.= '&amp;last='.$row['id'];
-      $vtp->setVar( $sub, 'no_up.last_url', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'no_up' );
-    }
-    if ( $row['rank'] != $max_rank )
-    {
-      $vtp->addSession( $sub, 'down' );
-      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
-      $url.= '&amp;down='.$row['id'];
-      $vtp->setVar( $sub, 'down.down_url', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'down' );
-    }
-    else if ( $min_rank != $max_rank )
-    {
-      $vtp->addSession( $sub, 'no_down' );
-      $url = './admin.php?page=cat_list&amp;expand='.$page['expand'];
-      $url.= '&amp;first='.$row['id'];
-      $vtp->setVar( $sub, 'no_down.first_url', add_session_id( $url ) );
-      $vtp->closeSession( $sub, 'no_down' );
-    }
-    if ( $row['nb_images'] > 0 )
-    {
-      $vtp->addSession( $sub, 'image_info' );
-      $url = './admin.php?page=infos_images&amp;cat_id='.$row['id'];
-      $vtp->setVar( $sub, 'image_info.image_info_url', add_session_id($url) );
-      $vtp->closeSession( $sub, 'image_info' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'no_image_info' );
-      $vtp->closeSession( $sub, 'no_image_info' );
-    }
-    if ( $row['status'] == 'private' )
-    {
-      $vtp->addSession( $sub, 'permission' );
-      $url=add_session_id('./admin.php?page=cat_perm&amp;cat_id='.$row['id']);
-      $vtp->setVar( $sub, 'permission.url', $url );
-      $vtp->closeSession( $sub, 'permission' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'no_permission' );
-      $vtp->closeSession( $sub, 'no_permission' );
-    }
-    // you can individually update a category only if it is on the main site
-    // and if it's not a virtual category (a category is virtual if there is
-    // no directory associated)
-    if ( $row['site_id'] == 1 and $row['dir'] != '' )
-    {
-      $vtp->addSession( $sub, 'update' );
-      $url = add_session_id('./admin.php?page=update&amp;update='.$row['id']);
-      $vtp->setVar( $sub, 'update.update_url', $url );
-      $vtp->closeSession( $sub, 'update' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'no_update' );
-      $vtp->closeSession( $sub, 'no_update' );
-    }
-
-    $vtp->closeSession( $sub, 'cat' );
-
-    if ( in_array( $row['id'], $page['tab_expand'] )
-         or $page['expand'] == 'all')
-      display_cat_manager( $row['id'], $indent.str_repeat( '&nbsp', 4 ),
-                           $subcat_visible, $level + 1 );
-  }
-}
-display_cat_manager( 'NULL', str_repeat( '&nbsp', 4 ), true, 0 );
-// add a virtual category ?
-// We only show a List Of Values if the number of categories is less than
-// $conf['max_LOV_categories']
-$query = 'SELECT COUNT(id) AS nb_total_categories';
-$query.= ' FROM '.PREFIX_TABLE.'categories';
-$query.= ';';
-$row = mysql_fetch_array( mysql_query( $query ) );
-if ( $row['nb_total_categories'] < $conf['max_LOV_categories'] )
+$query = 'SELECT * FROM '.CATEGORIES_TABLE;
+if ( !isset($_GET['parent_id']))
 {
-  $vtp->addSession( $sub, 'associate_LOV' );
-  $vtp->addSession( $sub, 'associate_cat' );
-  $vtp->setVar( $sub, 'associate_cat.value', '-1' );
-  $vtp->setVar( $sub, 'associate_cat.content', '' );
-  $vtp->closeSession( $sub, 'associate_cat' );
-  $page['plain_structure'] = get_plain_structure( true );
-  $structure = create_structure( '', array() );
-  display_categories( $structure, '&nbsp;' );
-  $vtp->closeSession( $sub, 'associate_LOV' );
+  $query.= ' WHERE id_uppercat IS NULL';
 }
-// else, we only display a small text field, we suppose the administrator
-// knows the id of its category
 else
 {
-  $vtp->addSession( $sub, 'associate_text' );
-  $vtp->closeSession( $sub, 'associate_text' );
+  $query.= ' WHERE id_uppercat = '.$_GET['parent_id'];
 }
+$query.= ' ORDER BY rank ASC';
+$query.= ';';
+$result = mysql_query( $query );
+while ( $row = mysql_fetch_assoc( $result ) )
+{
+  $categories[$row['rank']]=$row;
+}
+
+// Navigation path
+if (isset($_GET['parent_id']))
+{
+  $current_category = get_cat_info($_GET['parent_id']);
+  $url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
+  $navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
+  $navigation.= $lang['gallery_index'].'</a>-&gt;';
+  $navigation.= get_cat_display_name($current_category['name'], '-&gt;', $url);
+}
+
+//---------------------------------------------------------------  rank updates
+$current_rank=0;
+if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ))
+{
+  // 1. searching the id of the category just above at the same level
+  while (list ($id,$current) = each($categories))
+  {
+    if ($current['id'] == $_GET['up'])
+	{
+	  $current_rank = $current['rank'];
+	  break;
+    }
+  }
+  if ($current_rank>1)
+  {
+    // 2. Exchanging ranks between the two categories
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.($current_rank-1);
+    $query.= ' WHERE id = '.$_GET['up'];
+    $query.= ';';
+    mysql_query( $query );
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.$current_rank;
+    $query.= ' WHERE id = '.$categories[($current_rank-1)]['id'];
+    $query.= ';';
+    mysql_query( $query );
+	// 3. Updating the cache array
+	$categories[$current_rank]=$categories[($current_rank-1)];
+	$categories[($current_rank-1)] = $current;
+  }
+  else
+  {
+    // 2. Updating the rank of our category to be after the previous max rank
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.(count($categories) + 1);
+    $query.= ' WHERE id = '.$_GET['up'];
+    $query.= ';';
+    mysql_query( $query );
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = rank-1';
+	$query.= ' WHERE id_uppercat ';
+	$query.= empty($_GET['parent_id'])?'IS NULL':('= '.$_GET['parent_id']);
+	$query.= ';';
+    mysql_query( $query );
+	// 3. Updating the cache array
+	array_push($categories, $current);
+	array_shift($categories);
+  }
+}
+elseif ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
+{
+  // 1. searching the id of the category just above at the same level
+  while (list ($id,$current) = each($categories))
+  {
+    if ($current['id'] == $_GET['down'])
+	{
+	  $current_rank = $current['rank'];
+	  break;
+	}
+  }
+  if ($current_rank < count($categories))
+  {
+    // 2. Exchanging ranks between the two categories
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.($current_rank+1);
+    $query.= ' WHERE id = '.$_GET['down'];
+    $query.= ';';
+    mysql_query( $query );
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = '.$current_rank;
+    $query.= ' WHERE id = '.$categories[($current_rank+1)]['id'];
+    $query.= ';';
+    mysql_query( $query );
+	// 3. Updating the cache array
+	$categories[$current_rank]=$categories[($current_rank+1)];
+	$categories[($current_rank+1)] = $current;
+  }
+  else 
+  {
+    // 2. updating the rank of our category to be the first one
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = 0';
+    $query.= ' WHERE id = '.$_GET['down'];
+    $query.= ';';
+    mysql_query( $query );
+    $query = 'UPDATE '.CATEGORIES_TABLE;
+    $query.= ' SET rank = (rank+1)';
+	$query.= ' WHERE id_uppercat ';
+	$query.= empty($_GET['parent_id'])?'IS NULL':('= '.$_GET['parent_id']);
+	$query.= ';';
+    mysql_query( $query );
+	// 3. Updating the cache array
+	array_unshift($categories, $current);
+	array_pop($categories);
+  }
+}
+reset($categories);
+
+//----------------------------------------------------- template initialization
+$template->set_filenames( array('categories'=>'admin/cat_list.tpl') );
+
+$template->assign_vars(array(
+  'CATEGORIES_NAV'=>$navigation,
+  'NEXT_RANK'=>count($categories)+1,
+  
+  'L_ADD_VIRTUAL'=>$lang['cat_add'],
+  'L_SUBMIT'=>$lang['submit'],
+  'L_STORAGE'=>$lang['storage'],
+  'L_NB_IMG'=>$lang['pictures'],
+  'L_MOVE_UP'=>$lang['cat_up'],
+  'L_MOVE_DOWN'=>$lang['cat_down'],
+  'L_EDIT'=>$lang['edit'],
+  'L_INFO_IMG'=>$lang['cat_image_info'],
+  'L_DELETE'=>$lang['delete']
+  ));
+  
+$tpl = array( 'cat_first','cat_last');
+			  
+//-------------------------------------------------------------- errors display
+if ( sizeof( $errors ) != 0 )
+{
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  {
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
+  }
+}
+//----------------------------------------------------------- Categories display
+while (list ($id,$category) = each($categories))
+{
+
+  if ($category['status'] == 'private')
+  {
+    $category_image = '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder_lock.gif" 
+	  width="46" height="25" alt="'.$lang['cat_private'].'" title="'.$lang['cat_private'].'"/>';
+  }
+  elseif (empty($category['dir']))
+  {
+    $category_image = '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder_link.gif"
+	  width="46" height="25" alt="'.$lang['cat_virtual'].'" title="'.$lang['cat_virtual'].'"/>';
+  }
+  else
+  {
+	// May be should we have to introduce a computed field in the table to avoid this query
+    $query = 'SELECT COUNT(id) as sub_cats FROM ' . CATEGORIES_TABLE . ' WHERE id_uppercat = '.$category['id'];
+    $result = mysql_fetch_array(mysql_query( $query ));
+	$category_image = ($result['sub_cats']) ? 
+	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_subfolder.gif" width="46" height="25" alt="" />' : 
+	  '<img src="'.PHPWG_ROOT_PATH.'template/'.$user['template'].'/admin/images/icon_folder.gif" width="46" height="25" alt="" />';
+  }
+  
+  if ( !isset( $category['dir'] ) ) $category['dir'] = '';
+  $simple_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;';
+  $url = $simple_url;
+  if (isset($_GET['parent_id']))
+    $url = $simple_url.'parent_id='.$_GET['parent_id'].'&amp;';
+
+  $template->assign_block_vars('category' ,array(
+    'CATEGORY_IMG'=>$category_image,
+    'CATEGORY_NAME'=>$category['name'],
+	'CATEGORY_DIR'=>$category['dir'],
+	'CATEGORY_NB_IMG'=>$category['nb_images'],
+	
+	'U_CATEGORY'=>add_session_id( $simple_url.'parent_id='.$category['id']),
+	'U_MOVE_UP'=>add_session_id( $url.'up='.$category['id'] ),
+	'U_MOVE_DOWN'=>add_session_id( $url.'down='.$category['id'] ),
+	'U_CAT_EDIT'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$row['id'] ),
+	'U_CAT_DELETE'=>add_session_id( $url.'delete='.$category['id'] ),
+	'U_INFO_IMG'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=infos_images&amp;cat_id='.$row['id'] ),
+	'U_CAT_UPDATE'=>add_session_id( PHPWG_ROOT_PATH.'admin.php?page=update&amp;update='.$row['id'] )
+	));
+	
+  if ( !empty($category['dir']))
+  {
+    $template->assign_block_vars('category.storage' ,array());
+  }
+  else
+  {
+	$template->assign_block_vars('category.virtual' ,array());
+  }
+  $url = add_session_id( './admin.php?page=cat_modify&amp;cat='.$row['id'] );
+  if ( $category['nb_images'] > 0 )
+  {
+    $template->assign_block_vars('category.image_info' ,array());
+  }
+  else
+  {
+    $template->assign_block_vars('category.no_image_info' ,array()); 
+  }
+}
+
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'categories');
 ?>

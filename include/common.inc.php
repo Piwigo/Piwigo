@@ -120,7 +120,6 @@ if( !defined("PHPWG_INSTALLED") )
   exit;
 }
 
-define( 'PREFIX_INCLUDE', '' );// en attendant la migration complète
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
@@ -140,7 +139,8 @@ or die ( "Could not connect to database" );
 //
 if ( getenv( 'HTTP_X_FORWARDED_FOR' ) != '' )
 {
-  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? 
+    $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
 
   if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/",
                   getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
@@ -158,13 +158,14 @@ if ( getenv( 'HTTP_X_FORWARDED_FOR' ) != '' )
 }
 else
 {
-  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? 
+    $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
 }
 $user_ip = encode_ip($client_ip);
 
 //
-// Setup forum wide options, if this fails then we output a CRITICAL_ERROR
-// since basic forum information is not available
+// Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
+// since basic gallery information is not available
 //
 $query = 'SELECT param,value';
 $query.= ' FROM '.CONFIG_TABLE;

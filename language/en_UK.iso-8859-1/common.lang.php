@@ -25,31 +25,64 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+// Main words 
+
+$lang['gallery_index'] = 'Gallery index';
+$lang['category'] = 'Category';
+$lang['categories'] = 'Categories';
+$lang['thumbnail'] = 'Thumbnail';
+$lang['thumbnails'] = 'Thumbnails';
+$lang['search'] = 'Search';
+$lang['submit'] = 'Submit';
+$lang['comment'] = 'Comment';
+$lang['comments'] = 'Comments';
+$lang['picture'] = 'Picture';
+$lang['pictures'] = 'Pictures';
+$lang['no'] = 'No';
+$lang['yes'] = 'Yes';
+$lang['date'] = 'Date';
+
+// Identification
+$lang['login'] = 'Login';
+$lang['logout'] = 'Logout';
+$lang['password'] = 'Password';
+$lang['customize'] = 'Customize';
+$lang['new'] = 'New';
+$lang['delete'] = 'Delete';
+$lang['identification'] = 'Identification';
+
+//Calendar
+$lang['month'][1] = 'January';
+$lang['month'][2] = 'February';
+$lang['month'][3] = 'March';
+$lang['month'][4] = 'April';
+$lang['month'][5] = 'May';
+$lang['month'][6] = 'June';
+$lang['month'][7] = 'July';
+$lang['month'][8] = 'August';
+$lang['month'][9] = 'September';
+$lang['month'][10] = 'October';
+$lang['month'][11] = 'November';
+$lang['month'][12] = 'December';
+$lang['day'][0] = 'Sunday';
+$lang['day'][1] = 'Monday';
+$lang['day'][2] = 'Tuesday';
+$lang['day'][3] = 'Wednesday';
+$lang['day'][4] = 'Thursday';
+$lang['day'][5] = 'Friday';
+$lang['day'][6] = 'Saturday';
+
 $lang['only_members'] = 'Only members can access this page';
 $lang['invalid_pwd'] = 'Invalid password!';
 $lang['access_forbiden'] = 'You are not authorized to access this page';
-$lang['submit'] = 'Submit';
-$lang['login'] = 'login';
-$lang['password'] = 'password';
-$lang['new'] = 'new';
-$lang['delete'] = 'delete';
-$lang['category'] = 'category';
-$lang['thumbnail'] = 'thumbnail';
-$lang['date'] = 'date';
 $lang['diapo_default_page_title'] = 'No category selected';
-$lang['thumbnails'] = 'Thumbnails';
-$lang['categories'] = 'Categories';
 $lang['hint_category'] = 'shows images at the root of this categry';
 $lang['total_images'] = 'total';
 $lang['title_menu'] = 'Menu';
 $lang['change_login'] = 'change login';
-$lang['login'] = 'login';
 $lang['hint_login'] = 'identification enables site\'s appareance customization';
-$lang['logout'] = 'Logout';
-$lang['customize'] = 'customize';
 $lang['hint_customize'] = 'customize the appareance of the gallery';
 $lang['hint_search'] = 'search';
-$lang['search'] = 'search';
 $lang['favorite_cat'] = 'favorites';
 $lang['favorite_cat_hint'] = 'display your favorites';
 $lang['about'] = 'about';
@@ -111,25 +144,7 @@ $lang['true_size'] = 'Real size';
 $lang['comments_title'] = 'Comments from the users of the site';
 $lang['comments_del'] = 'delete this comment';
 $lang['comments_add'] = 'Add a comment';
-$lang['month'][1] = 'January';
-$lang['month'][2] = 'February';
-$lang['month'][3] = 'March';
-$lang['month'][4] = 'April';
-$lang['month'][5] = 'May';
-$lang['month'][6] = 'June';
-$lang['month'][7] = 'July';
-$lang['month'][8] = 'August';
-$lang['month'][9] = 'September';
-$lang['month'][10] = 'October';
-$lang['month'][11] = 'November';
-$lang['month'][12] = 'December';
-$lang['day'][0] = 'Sunday';
-$lang['day'][1] = 'Monday';
-$lang['day'][2] = 'Tuesday';
-$lang['day'][3] = 'Wednesday';
-$lang['day'][4] = 'Thursday';
-$lang['day'][5] = 'Friday';
-$lang['day'][6] = 'Saturday';
+
 $lang['add_favorites_alt'] = 'Add to favorites';
 $lang['add_favorites_hint'] = 'Add this picture to your favorites';
 $lang['del_favorites_alt'] = 'Delete from favorites';
@@ -164,12 +179,9 @@ $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
 // new or modified in release 1.3
 $lang['charset'] = 'iso-8859-1';
-$lang['no'] = 'no';
-$lang['yes'] = 'yes';
+
 $lang['guest'] = 'guest';
 $lang['mail_address'] = 'mail address';
-$lang['public'] = 'public';
-$lang['private'] = 'private';
 $lang['add'] = 'add';
 $lang['dissociate'] = 'dissociate';
 $lang['mandatory'] = 'obligatory';
@@ -182,7 +194,6 @@ $lang['keywords'] = 'keywords';
 $lang['errors_title'] = 'Errors';
 $lang['infos_title'] = 'Informations';
 $lang['default'] = 'default';
-$lang['comments'] = 'comments';
 $lang['category_representative'] = 'representative';
 $lang['stats'] = 'statistics';
 $lang['most_visited_cat_hint'] = 'displays most visited pictures';

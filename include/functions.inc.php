@@ -24,11 +24,12 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
-include( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
-include( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
-include( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
-include( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/htmlfunctions.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
@@ -396,7 +397,7 @@ function notify( $type, $infos = '' )
   while ( $row = mysql_fetch_array( $result ) )
   {
     $to = $row['mail_address'];
-    include( PREFIX_INCLUDE.'./language/'.$row['language'].'.php' );
+    include( PHPWG_ROOT_PATH.'language/'.$row['language'].'.php' );
     $content = $lang['mail_hello']."\n\n";
     switch ( $type )
     {

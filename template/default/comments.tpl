@@ -49,7 +49,9 @@
 <!-- END picture -->
 </table>
 <!-- BEGIN validation -->
+<div align="center">
 <input type="submit" name="validate" class="bouton" value="{L_VALIDATE}" />
 <input type="submit" name="delete" class="bouton" value="{L_DELETE}" />
+</div>
 </form>
 <!-- END validation -->

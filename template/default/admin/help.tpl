@@ -12,7 +12,7 @@
       <div style="text-align:center;margin:auto;margin-bottom:10px;"><img src="{cat.illustration.SRC_IMG}" style="border:1px solid black;" alt=""/></div>
       {cat.illustration.CAPTION}
       <!-- END illustration -->
-      <ul style="margin-right:10px;">
+      <ul style="text-align:left; margin-right:10px;">
         <!-- BEGIN item -->
         <li>{cat.item.CONTENT}</li>
         <!-- END item -->

@@ -102,7 +102,7 @@
 			  <div class="comments">{cat_infos.comment.COMMENTS}</div>
 			  <!-- END comment -->
 			  <div class="infoCat">
-			  {L_NB_IMG} "{cat_infos.CAT_NAME}" : {cat_infos.NB_IMG_CAT}
+			  {L_NB_IMG} "{TITLE}" : {cat_infos.NB_IMG_CAT}
 			  </div>
 			<!-- END cat_infos -->
       </div>

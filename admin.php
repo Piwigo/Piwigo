@@ -89,6 +89,8 @@ switch ( $_GET['page'] )
    $title = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
    $title = $lang['title_configuration']; $page_valide = true; break;
+ case 'admin_phpinfo':
+   $title = $lang['phpinfos']; $page_valide = true; break;
  case 'help':
    $title = $lang['title_instructions'];  $page_valide = true; break;
  case 'cat_perm':
@@ -172,25 +174,38 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('admin'=>'admin.tpl') );
 
 $template->assign_vars(array(
-  'L_CONFIG'=>$lang['menu_config'],
-  'L_USERS'=>$lang['menu_users'],
-  'L_GROUPS'=>$lang['menu_groups'],
-  'L_CATEGORIES'=>$lang['menu_categories'],
-  'L_WAITING'=>$lang['menu_waiting'].$nb_waiting,
-  'L_COMMENTS'=>$lang['menu_comments'].$nb_comments,
-  'L_UPDATE'=>$lang['menu_update'],
-  'L_THUMBNAILS'=>$lang['menu_thumbnails'],
-  'L_HISTORY'=>$lang['menu_history'],
-  'L_FAQ'=>$lang['menu_instructions'],
-  'L_RETURN'=>$lang['menu_back'],
-  
+  'L_TITLE'=>$lang['admin_panel'],
+  'L_LINKS'=>$lang['links'],
+  'L_GALLERY_INDEX'=>$lang['gallery_index'],
+  'L_GENERAL'=>$lang['general'],
+  'L_CONFIG'=>$lang['config'],
+  'L_SITES'=>$lang['remote_site'],
+  'L_DEFAULT'=>$lang['gallery_default'],
+  'L_PHPINFO'=>$lang['phpinfos'],
+  'L_HISTORY'=>$lang['history'],
+  'L_FAQ'=>$lang['instructions'],
+  'L_CATEGORIES'=>$lang['categories'],
+  'L_MANAGE'=>$lang['manage'],
+  'L_UPLOAD'=>$lang['upload'],
+  'L_IMAGES'=>$lang['pictures'],
+  'L_WAITING'=>$lang['waiting'].$nb_waiting,
+  'L_COMMENTS'=>$lang['comments'].$nb_comments,
+  'L_THUMBNAILS'=>$lang['thumbnails'],
+  'L_IDENTIFY'=>$lang['identification'],
+  'L_USERS'=>$lang['users'],
+  'L_GROUPS'=>$lang['groups'],
+  'L_AUTH'=>$lang['permissions'],
+  'L_UPDATE'=>$lang['update'],
+    
   'U_CONFIG'=>add_session_id($link_start.'configuration' ),
+  'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
   'U_USERS'=>add_session_id($link_start.'user_search' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
-  'U_UPDATE'=>add_session_id($link_start.'update' ),
+  'U_CAT_UPDATE'=>add_session_id($link_start.'update&amp;update=cats' ),
+  'U_IMG_UPDATE'=>add_session_id($link_start.'update&amp;update=all' ),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_HISTORY'=>add_session_id($link_start.'stats' ),
   'U_FAQ'=>add_session_id($link_start.'help' ),

@@ -249,8 +249,8 @@ $template->assign_vars(array(
   'L_ACCESS_INFO'=>$lang['conf_general_access_info'],
   'L_ACCESS_FREE'=>$lang['conf_general_access_1'],
   'L_ACCESS_RESTRICTED'=>$lang['conf_general_access_2'],
-  'L_HISTORY'=>$lang['conf_general_log'],
-  'L_HISTORY_INFO'=>$lang['conf_general_log_info'],
+  'L_CONF_HISTORY'=>$lang['history'],
+  'L_CONF_HISTORY_INFO'=>$lang['conf_general_log_info'],
   'L_MAIL_NOTIFICATION'=>$lang['conf_general_mail_notification'],
   'L_MAIL_NOTIFICATION_INFO'=>$lang['conf_general_mail_notification_info'],
   'L_CONF_COMMENTS'=>$lang['conf_comments_title'],
@@ -279,8 +279,8 @@ $template->assign_vars(array(
   'L_EXPAND_TREE_INFO'=>$lang['conf_default_expand_info'],
   'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],
   'L_NB_COMMENTS_INFO'=>$lang['conf_default_show_nb_comments_info'],
-  'L_UPLOAD'=>$lang['conf_upload_available'],
-  'L_UPLOAD_INFO'=>$lang['conf_upload_available_info'],
+  'L_AUTH_UPLOAD'=>$lang['conf_upload_available'],
+  'L_AUTH_UPLOAD_INFO'=>$lang['conf_upload_available_info'],
   'L_CONF_UPLOAD'=>$lang['conf_upload_title'],
   'L_UPLOAD_MAXSIZE'=>$lang['conf_upload_maxfilesize'],
   'L_UPLOAD_MAXSIZE_INFO'=>$lang['conf_upload_maxfilesize_info'],
@@ -305,9 +305,6 @@ $template->assign_vars(array(
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=configuration')
   ));
-
-$tpl = array( 'conf_confirmation','remote_site','delete',
-              'conf_remote_site_delete_info','submit','errors_title' );
 
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )

@@ -136,7 +136,7 @@ function delete_site( $id )
 {
   // destruction of the categories of the site
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE site_id = '.$id;
   $query.= ';';
   $result = mysql_query( $query );
@@ -190,7 +190,7 @@ function delete_category( $id )
 
   // destruction of the sub-categories
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id_uppercat = '.$id;
   $query.= ';';
   $result = mysql_query( $query );
@@ -200,7 +200,7 @@ function delete_category( $id )
   }
 
   // destruction of the category
-  $query = 'DELETE FROM '.PREFIX_TABLE.'categories';
+  $query = 'DELETE FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id = '.$id;
   $query.= ';';
   mysql_query( $query );
@@ -373,9 +373,7 @@ function update_category( $id = 'all' )
 {
   if ( $id == 'all' )
   {
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ';';
+    $query = 'SELECT id FROM '.CATEGORIES_TABLE.';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
@@ -399,7 +397,7 @@ function update_category( $id = 'all' )
     $query.= ';';
     list( $date_available ) = mysql_fetch_array( mysql_query( $query ) );
     
-    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query = 'UPDATE '.CATEGORIES_TABLE;
     $query.= " SET date_last = '".$date_available."'";
     $query.= ', nb_images = '.$nb_images;
     $query.= ' WHERE id = '.$id;
@@ -410,7 +408,7 @@ function update_category( $id = 'all' )
     // picture of the category is not any more linked to the category, we
     // have to set representative_picture_id to NULL
     $query = 'SELECT representative_picture_id';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ' FROM '.CATEGORIES_TABLE;
     $query.= ' WHERE id = '.$id;
     $row = mysql_fetch_array( mysql_query( $query ) );
     // if the category has no representative picture (ie
@@ -425,7 +423,7 @@ function update_category( $id = 'all' )
       $result = mysql_query( $query );
       if ( mysql_num_rows( $result ) == 0 )
       {
-        $query = 'UPDATE '.PREFIX_TABLE.'categories';
+        $query = 'UPDATE '.CATEGORIES_TABLE;
         $query.= ' SET representative_picture_id = NULL';
         $query.= ' WHERE id = '.$id;
         $query.= ';';
@@ -524,7 +522,7 @@ function get_plain_structure( $use_name = false )
 
   $query = 'SELECT id,id_uppercat';
   if ( $use_name ) $query.= ',name';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' ORDER BY id_uppercat ASC, rank ASC';
   $query.= ';';
 
@@ -711,7 +709,7 @@ function update_uppercats( $category_id )
   }
 
   $string_uppercats = implode( ',', array_reverse( $uppercats ) );
-  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query = 'UPDATE '.CATEGORIES_TABLE;
   $query.= ' SET uppercats = '."'".$string_uppercats."'";
   $query.= ' WHERE id = '.$final_id;
   $query.= ';';

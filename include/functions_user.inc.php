@@ -260,7 +260,6 @@ function setup_style($style)
 {
   $template_path = 'template/' ;
   $template_name = $style ;
-  include_once( PHPWG_ROOT_PATH . $template_path . $template_name.'/htmlfunctions.inc.php' );
   $template = new Template(PHPWG_ROOT_PATH . $template_path . $template_name);
   return $template;
 }
