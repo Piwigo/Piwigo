@@ -125,7 +125,6 @@ pk         group_id                       user_group
 pk         user_id                        user_group     
 pk         id                             users          
 pk         id                             waiting        
-index      categories_i1                  categories           id
 index      categories_i2                  categories           id_uppercat
 index      image_category_i1              image_category       image_id
 index      image_category_i2              image_category       category_id

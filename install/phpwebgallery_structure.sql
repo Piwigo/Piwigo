@@ -25,7 +25,6 @@ CREATE TABLE phpwebgallery_categories (
   representative_picture_id mediumint(8) unsigned default NULL,
   uppercats varchar(255) NOT NULL default '',
   PRIMARY KEY  (id),
-  KEY categories_i1 (id),
   KEY categories_i2 (id_uppercat)
 ) TYPE=MyISAM;
 
