@@ -50,21 +50,21 @@ switch ( $_GET['page'] )
  case 'group_list' :
    $title = $lang['title_groups'];        $page_valide = true; break;
  case 'group_perm' :
-   if ( !is_numeric( $_GET['group_id'] ) ) $_GET['group_id'] = -1;
+   /*if ( !is_numeric( $_GET['group_id'] ) ) $_GET['group_id'] = -1;
    $query = 'SELECT name FROM '.GROUPS_TABLE;
    $query.= ' WHERE id = '.$_GET['group_id'];
    $query.= ';';
    $result = pwg_query( $query );
    if ( mysql_num_rows( $result ) > 0 )
    {
-     $row = mysql_fetch_array( $result );
-     $title = $lang['title_group_perm'].' "'.$row['name'].'"';
+     $row = mysql_fetch_array( $result );*/
+     $title = $lang['title_group_perm'];//.' "'.$row['name'].'"';
      $page_valide = true;
-   }
+   /*}
    else
    {
      $page_valide = false;
-   }
+   }*/
    break;
  case 'stats':
    $title = $lang['title_history'];       $page_valide = true; break;

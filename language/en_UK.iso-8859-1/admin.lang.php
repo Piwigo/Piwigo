@@ -292,6 +292,9 @@ $lang['update_display_info'] = 'display maximum informations (added categories a
 $lang['update_simulate'] = 'only perform a simulation (no change in database will be made)';
 $lang['update_infos_title'] = 'Detailed informations';
 $lang['update_simulation_title'] = '[Simulation]';
+$lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
+$lang['update_wrong_dirname_short'] = 'wrong filename';
+$lang['update_wrong_dirname_info'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 
 // History
 $lang['stats_title'] = 'Last year statistics';

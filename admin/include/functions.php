@@ -360,34 +360,6 @@ DELETE FROM '.USERS_TABLE.'
   pwg_query($query);
 }
 
-// delete_group deletes a group identified by its $group_id.
-// It also deletes :
-//     - all the access linked to this group
-//     - all the links between this group and any user
-function delete_group( $group_id )
-{
-  // destruction of the access linked to the group
-  $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
-  $query.= ' WHERE group_id = '.$group_id;
-  $query.= ';';
-  pwg_query( $query );
-
-  // synchronize all users linked to the group
-  synchronize_group( $group_id );
-
-  // destruction of the users links for this group
-  $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
-  $query.= ' WHERE group_id = '.$group_id;
-  $query.= ';';
-  pwg_query( $query );
-
-  // destruction of the group
-  $query = 'DELETE FROM '.PREFIX_TABLE.'groups';
-  $query.= ' WHERE id = '.$group_id;
-  $query.= ';';
-  pwg_query( $query );
-}
-
 /**
  * updates calculated informations about a set of categories : date_last and
  * nb_images. It also verifies that the representative picture is really

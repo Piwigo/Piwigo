@@ -188,6 +188,10 @@ $lang['search_descending'] = 'Descending';
 $lang['search_one_clause_at_least'] = 'Empty query. No criteria has been entered.';
 $lang['search_result'] = 'Search results';
 
+// Admin messages
+$lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please, come back later or loggin as an administrator to enter the gallery : <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
+$lang['sql_queries_in'] = 'SQL queries in';
+
 $lang['Look_up_user'] = 'Seek user';
 $lang['Find_username'] = 'Find a username';
 $lang['No_match'] = 'No match';
@@ -299,9 +303,6 @@ $lang['title_comments'] = 'Users comments';
 $lang['stats_last_days'] = 'last days';
 $lang['hint_comments'] = 'See last users comments';
 $lang['menu_login'] = 'login';
-$lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
-$lang['update_wrong_dirname_short'] = 'wrong filename';
-$lang['update_wrong_dirname_info'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 $lang['hello'] = 'Hello';
 
 $lang['picture_show_metadata'] = 'Show file metadata ?';
@@ -318,6 +319,5 @@ $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
 $lang['picture_high'] = 'Click on the picture to see it in high definition';
 
-$lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please, come back later or loggin as an administrator to enter the gallery : <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
-$lang['sql_queries_in'] = ' SQL queries in';
+
 ?>

@@ -129,7 +129,6 @@ $lang['w_day']='Jour';;
 $lang['days']='Jours';
 $lang['today']='Aujourd\'hui';
 
-
 // Customization
 $lang['customize_page_title'] = 'Personnalisation de votre galerie';
 $lang['customize_title'] = 'Personnalisation';
@@ -190,6 +189,11 @@ $lang['search_descending'] = 'Décroissant';
 $lang['search_one_clause_at_least'] = 'Recherche vide. Aucun critère n\'a été renseigné.';
 $lang['search_result'] = 'Résultats de la recherche';
 $lang['invalid_search'] = 'Les mots recherchés doivent comporter plus de 3 caractères et ne doivent pas inclure de caractères de ponctuation';
+
+// Admin messages
+$lang['gallery_locked_message'] = 'Cette galerie est actuellement inaccessible pour cause de maintenance.
+Revenez plus tard ou connectez vous en tant qu\'administrateur: <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
+$lang['sql_queries_in'] = 'requêtes SQL en';
 
 $lang['Look_up_user'] = 'Rechercher l\'utilisateur';
 $lang['Find_username'] = 'Trouver un nom d\'utilisateur';

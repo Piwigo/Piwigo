@@ -37,13 +37,6 @@
   </a>
 </div>
 <!-- END download -->
-<!-- BEGIN ecard -->
-<div class="imgMenu" id="right">
-  <a href="{ecard.U_ECARD}" title="{L_DOWNLOAD}">
-	<img src="template/default/theme/eCard.gif" alt="{L_DOWNLOAD}" />
-  </a>
-</div>
-<!-- END ecard -->
 <!-- BEGIN admin -->
 <div class="imgMenu" id="right">
   <a href="{U_ADMIN}" title="{L_ADMIN}">

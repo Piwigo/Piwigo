@@ -269,11 +269,16 @@ $lang['tn_dirs_alone'] = 'images sans miniatures';
 
 // Update
 $lang['update_missing_tn'] = 'Il manque la miniature pour';
+$lang['update_missing_tn_short'] = 'Miniature manquante';
+$lang['update_missing_tn_info'] = 'Une image nécessite une miniature. 
+Celle ci doit être présente dans le répertoire "thumbnail" du repertoire de la catégorie.
+Le nom de la miniature doit commencer par le préfixe défini par la configuration de la galerie et doit être du type :';
 $lang['update_disappeared_tn'] = 'La miniature n\'existe pas';
 $lang['update_disappeared'] = 'n\'existe pas';
 $lang['update_part_deletion'] = 'Suppression des images de la base qui n\'ont pas de thumbnail ou qui n\'existent pas';
 $lang['update_part_research'] = 'Recherche des nouvelles images dans les répertoires';
 $lang['update_research_added'] = 'ajouté';
+$lang['update_research_deleted'] = 'détruit';
 $lang['update_research_tn_ext'] = 'miniature en';
 $lang['update_default_title'] = 'Type de mise à jour';
 $lang['update_nb_new_elements'] = 'élément(s) ajouté(s)';
@@ -287,6 +292,16 @@ $lang['update_sync_metadata'] = 'Synchroniser les méta-donnnées';
 $lang['update_sync_metadata_new'] = 'Seulement sur les nouveaux éléments';
 $lang['update_sync_metadata_all'] = 'Sur tous les éléments';
 $lang['update_cats_subset'] = 'Limiter la synchronisation aux catégories suivantes';
+$lang['update_nb_errors'] = 'erreurs durant la synchronisation';
+$lang['update_error_list_title'] = 'Liste d\'erreurs';
+$lang['update_errors_caption'] = 'Explications';
+$lang['update_display_info'] = 'Afficher des informations détaillées';
+$lang['update_simulate'] = 'Simuler (aucune opération ne sera sauvegardée)';
+$lang['update_infos_title'] = 'Informations détaillées';
+$lang['update_simulation_title'] = '[Simulation]';
+$lang['update_wrong_dirname'] = 'Le nom du répertoire peut être composé de lettres et des signes "-", "_" or "."';
+$lang['update_wrong_dirname_short'] = 'Nom incorrect';
+$lang['update_wrong_dirname_info'] = 'Le nom du répertoire peut être composé de lettres et des signes "-", "_" or "."';
 
 // History
 $lang['stats_title'] = 'Historique de l\'année écoulée';
