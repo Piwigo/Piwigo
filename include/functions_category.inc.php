@@ -114,10 +114,8 @@ function get_user_plain_structure()
         list($year,$month,$day) = explode( '-', $row['date_last'] );
         $category['date_last'] = mktime(0,0,0,$month,$day,$year);
       }
-	  else
-	  {
-	  	$category[$info] = $row[$info];
-	  }
+      else if ( isset( $row[$info] ) ) $category[$info] = $row[$info];
+      else                             $category[$info] = '';
     }
     $plain_structure[$row['id']] = $category;
   }
@@ -261,27 +259,32 @@ function get_cat_info( $id )
 {
   global $page;
 
-  $cat = array();
+  $infos = array( 'nb_images','id_uppercat','comment','site_id','galleries_url'
+                  ,'dir','date_last','uploadable','status','visible'
+                  ,'representative_picture_id','uppercats' );
 
-  $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
-  $query.= ',date_last,uploadable,status,visible,representative_picture_id';
-  $query.= ',uppercats';
+  $query = 'SELECT '.implode( ',', $infos );
   $query.= ' FROM '.PREFIX_TABLE.'categories AS a';
   $query.= ', '.PREFIX_TABLE.'sites AS b';
   $query.= ' WHERE a.id = '.$id;
-  $query.= ' AND a.site_id = b.id;';
+  $query.= ' AND a.site_id = b.id';
+  $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  $cat['site_id']     = $row['site_id'];
-  $cat['id_uppercat'] = $row['id_uppercat'];
-  $cat['comment']     = nl2br( $row['comment'] );
-  $cat['nb_images']   = $row['nb_images'];
-  $cat['dir']         = $row['dir'];
-  $cat['date_last']   = $row['date_last'];
-  $cat['uploadable']  = get_boolean( $row['uploadable'] );
-  $cat['status']      = $row['status'];
-  $cat['visible']     = get_boolean( $row['visible'] );
-  $cat['uppercats']   = $row['uppercats'];
-  $cat['representative_picture_id'] = $row['representative_picture_id'];
+
+  $cat = array();
+  // affectation of each field of the table "config" to an information of the
+  // array $cat.
+  foreach ( $infos as $info ) {
+    if ( isset( $row[$info] ) ) $cat[$info] = $row[$info];
+    else                        $cat[$info] = '';
+    // If the field is true or false, the variable is transformed into a
+    // boolean value.
+    if ( $cat[$info] == 'true' or $cat[$info] == 'false' )
+    {
+      $cat[$info] = get_boolean( $cat[$info] );
+    }
+  }
+  $cat['comment'] = nl2br( $cat['comment'] );
 
   $cat['name'] = array();
 
