@@ -21,7 +21,7 @@ include_once( './include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
 function insert_local_category( $cat_id )
 {
-  global $conf, $page, $user;
+  global $conf, $page, $user, $lang;
 		
   $site_id = 1;
 		
@@ -70,52 +70,54 @@ function insert_local_category( $cat_id )
     if ( !is_dir( $rep ) ) delete_category( $row['id'] );
   }
   // 4. retrieving the sub-directories
-  $sub_rep = array();
-  $i = 0;
+  $subdirs = array();
   $dirs = '';
-  if ( $opendir = opendir ( $cat_directory ) )
+  if ( $opendir = opendir( $cat_directory ) )
   {
-    while ( $file = readdir ( $opendir ) )
+    while ( $file = readdir( $opendir ) )
     {
       if ( $file != '.'
            and $file != '..'
            and is_dir ( $cat_directory.'/'.$file )
            and $file != 'thumbnail' )
       {
-        $sub_rep[$i++] = $file;
+        if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
+          array_push( $subdirs, $file );
+        else
+        {
+          $output.= '<span style="color:red;">"'.$file.'" : ';
+          $output.= $lang['update_wrong_dirname'].'</span><br />';
+        }
       }
     }
   }
-  for ( $i = 0; $i < sizeof( $sub_rep ); $i++ )
-  {
+  foreach ( $subdirs as $subdir ) {
     // 5. Is the category already existing ? we create a subcat if not
     //    existing
     $category_id = '';
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'categories';
     $query.= ' WHERE site_id = '.$site_id;
-    $query.= " AND dir = '".$sub_rep[$i]."'";
-    if ( !is_numeric( $cat_id ) )
-    {
-      $query.= ' AND id_uppercat IS NULL';
-    }
-    else
-    {
-      $query.= ' AND id_uppercat = '.$cat_id;
-    }
+    $query.= " AND dir = '".$subdir."'";
+    $query.= ' AND id_uppercat';
+    if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
+    else                          $query.= ' = '.$cat_id;
     $query.= ';';
     $result = mysql_query( $query );
     if ( mysql_num_rows( $result ) == 0 )
     {
+      $name = str_replace( '_', ' ', $subdir );
       // we have to create the category
       $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-      $query.= ' (dir,site_id,id_uppercat) VALUES';
-      $query.= " ('".$sub_rep[$i]."','".$site_id."'";
+      $query.= ' (dir,name,site_id,id_uppercat) VALUES';
+      $query.= " ('".$subdir."','".$name."','".$site_id."'";
       if ( !is_numeric( $cat_id ) ) $query.= ',NULL';
       else                          $query.= ",'".$cat_id."'";
       $query.= ');';
       mysql_query( $query );
       $category_id = mysql_insert_id();
+      // regeneration of the plain_structure to integrate the new category
+      $page['plain_structure'] = get_plain_structure();
     }
     else
     {
