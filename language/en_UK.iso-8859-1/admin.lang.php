@@ -159,6 +159,10 @@ $lang['conf_use_exif'] = 'Use EXIF';
 $lang['conf_use_exif_info'] = 'Use EXIF data during metadata synchronization into PhpWebGallery database';
 $lang['conf_use_iptc'] = 'Use IPTC';
 $lang['conf_use_iptc_info'] = 'Use IPTC data during metadata synchronization into PhpWebGallery database';
+$lang['conf_show_exif'] = 'Show EXIF';
+$lang['conf_show_exif_info'] = 'Give the possibility to show EXIF metadata on visualisation page. See include/config.inc.php for available EXIF fields';
+$lang['conf_show_iptc'] = 'Show IPTC';
+$lang['conf_show_iptc_info'] = 'Give the possibility to show IPTC metadata on visualisation page. See include/config.inc.php for available IPTC fields';
 
 //FAQ
 $lang['help_images_title'] = 'Adding pictures';

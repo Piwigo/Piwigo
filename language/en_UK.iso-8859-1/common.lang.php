@@ -279,4 +279,7 @@ $lang['search_author'] = 'author';
 $lang['search_date_available'] = 'availability date';
 $lang['search_date_creation'] = 'creation date';
 $lang['search_one_clause_at_least'] = 'search at least on one search clause';
+
+$lang['picture_show_metadata'] = 'Show file metadata ?';
+$lang['picture_hide_metadata'] = 'Hide file metadata';
 ?>

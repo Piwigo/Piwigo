@@ -58,4 +58,34 @@ $conf['top_number']         = 10;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 $conf['max_LOV_categories'] = 50;
 
+// $conf['show_iptc_mapping'] is used for showing IPTC metadata on
+// picture.php page. For each key of the array, you need to have the same
+// key in the $lang array. For example, if my first key is 'iptc_keywords'
+// (associated to '2#025') then you need to have $lang['iptc_keywords'] set
+// in language/$user['language']/common.lang.php. If you don't have the lang
+// var set, the key will be simply displayed
+//
+// To know how to associated iptc_field with their meaning, use
+// tools/metadata.php
+$conf['show_iptc_mapping'] = array(
+  'iptc_keywords'        => '2#025',
+  'iptc_caption_writer'  => '2#122',
+  'iptc_byline_title'    => '2#085',
+  'iptc_caption'         => '2#120'
+  );
+
+// in EXIF fields, you can choose to display fields in sub-arrays, for
+// example ['COMPUTED']['ApertureFNumber']. for this, add
+// 'COMPUTED;ApertureFNumber' in $conf['show_exif_fields']
+//
+// The key displayed in picture.php will be $lang['exif_field_Make'] for
+// example and if it exists. For compound fields, only take into account the
+// last part : for key 'COMPUTED;ApertureFNumber', you need
+// $lang['exif_field_ApertureFNumber']
+$conf['show_exif_fields'] = array('Make',
+                                  'Model',
+                                  'DateTime',
+                                  'COMPUTED;ApertureFNumber');
+// for PHP version newer than 4.1.2 :
+// $conf['show_exif_fields'] = array('CameraMake','CameraModel','DateTime');
 ?>

@@ -25,17 +25,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/**
- * returns informations from IPTC metadata, mapping is done at the beginning
- * of the function
- *
- * @param string $filename
- * @return array
- */
-function get_iptc_data($filename)
+include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
+
+function get_sync_iptc_data($file)
 {
-  global $getimagesize_time;
-    
   $map = array(
     'keywords'        => '2#025',
     'date_creation'   => '2#055',
@@ -45,61 +38,25 @@ function get_iptc_data($filename)
     );
   $datefields = array('date_creation', 'date_available');
   
-  $result = array();
-  
-  // Read IPTC data
-  $iptc = array();
-  
-  $start = get_moment();
-  getimagesize($filename, &$imginfo);
-  $getimagesize_time+= get_moment() - $start;
-  
-  if (is_array($imginfo) and isset($imginfo['APP13']))
+  $iptc = get_iptc_data($file, $map);
+
+  foreach ($iptc as $pwg_key => $value)
   {
-    $iptc = iptcparse($imginfo['APP13']);
-    if (is_array($iptc))
+    if (in_array($pwg_key, $datefields))
     {
-      $rmap = array_flip($map);
-      foreach (array_keys($rmap) as $iptc_key)
+      if ( preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
-        if (isset($iptc[$iptc_key][0]) and $value = $iptc[$iptc_key][0])
-        {
-          // strip leading zeros (weird Kodak Scanner software)
-          while ($value[0] == chr(0))
-          {
-            $value = substr($value, 1);
-          }
-          // remove binary nulls
-          $value = str_replace(chr(0x00), ' ', $value);
-          
-          foreach (array_keys($map, $iptc_key) as $pwg_key)
-          {
-            if (in_array($pwg_key, $datefields))
-            {
-              if ( preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
-              {
-                $value = $matches[1].'-'.$matches[2].'-'.$matches[3];
-              }
-              else
-              {
-                continue;
-              }
-            }
-            $result[$pwg_key] = $value;
-          }
-        }
+        $iptc[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }
     }
   }
-  return $result;
+
+  return $iptc;
 }
 
 function update_metadata($files)
 {
   global $conf;
-
-//   $conf['use_iptc'] = true;
-//   $conf['use_exif'] = true;
   
   $inserts = array();
 
@@ -132,10 +89,13 @@ function update_metadata($files)
 
     if ($conf['use_iptc'])
     {
-      $iptc = get_iptc_data($file);
-      foreach (array_keys($iptc) as $key)
+      $iptc = get_sync_iptc_data($file);
+      if (count($iptc) > 0)
       {
-        $insert[$key] = "'".addslashes($iptc[$key])."'";
+        foreach (array_keys($iptc) as $key)
+        {
+          $insert[$key] = "'".addslashes($iptc[$key])."'";
+        }
       }
     }
 

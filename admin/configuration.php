@@ -210,6 +210,8 @@ $upload = ($conf['upload_available']=='true')?'UPLOAD_YES':'UPLOAD_NO';
 $cookie = ($conf['authorize_cookies']=='true')?'COOKIE_YES':'COOKIE_NO';
 $use_exif = ($conf['use_exif']=='true')?'USE_EXIF_YES':'USE_EXIF_NO';
 $use_iptc = ($conf['use_iptc']=='true')?'USE_IPTC_YES':'USE_IPTC_NO';
+$show_exif = ($conf['show_exif']=='true')?'SHOW_EXIF_YES':'SHOW_EXIF_NO';
+$show_iptc = ($conf['show_iptc']=='true')?'SHOW_IPTC_YES':'SHOW_IPTC_NO';
 
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('config'=>'admin/configuration.tpl') );
@@ -244,6 +246,8 @@ $template->assign_vars(array(
   $cookie=>'checked="checked"',
   $use_exif=>'checked="checked"',
   $use_iptc=>'checked="checked"',
+  $show_exif=>'checked="checked"',
+  $show_iptc=>'checked="checked"',
   
   'L_CONFIRM'=>$lang['conf_confirmation'],
   'L_CONF_GENERAL'=>$lang['conf_general_title'],
@@ -313,6 +317,10 @@ $template->assign_vars(array(
   'L_USE_EXIF_INFO'=>$lang['conf_use_exif_info'],
   'L_USE_IPTC'=>$lang['conf_use_iptc'],
   'L_USE_IPTC_INFO'=>$lang['conf_use_iptc_info'],
+  'L_SHOW_EXIF'=>$lang['conf_show_exif'],
+  'L_SHOW_EXIF_INFO'=>$lang['conf_show_exif_info'],
+  'L_SHOW_IPTC'=>$lang['conf_show_iptc'],
+  'L_SHOW_IPTC_INFO'=>$lang['conf_show_iptc_info'],
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=configuration')
                          ));

@@ -197,6 +197,26 @@
       <input type="radio" class="radio" name="use_iptc" value="false" {USE_IPTC_NO} />{L_NO}
     </td>
   </tr>
+  <tr>
+    <td>
+      <strong>{L_SHOW_EXIF}&nbsp;:</strong>
+      <br /><span class="small">{L_SHOW_EXIF_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="show_exif" value="true" {SHOW_EXIF_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="show_exif" value="false" {SHOW_EXIF_NO} />{L_NO}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>{L_SHOW_IPTC}&nbsp;:</strong>
+      <br /><span class="small">{L_SHOW_IPTC_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="show_iptc" value="true" {SHOW_IPTC_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="show_iptc" value="false" {SHOW_IPTC_NO} />{L_NO}
+    </td>
+  </tr>
     <!-- BEGIN remote_sites -->
     <tr>
       <th colspan="2" align="center">{#remote_site}</th>

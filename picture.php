@@ -197,6 +197,10 @@ foreach (array('prev', 'current', 'next') as $i)
   {
     $picture[$i]['url'].= '&amp;search='.$_GET['search'];
   }
+  if (isset($_GET['show_metadata']))
+  {
+    $picture[$i]['url'].= '&amp;show_metadata=1';
+  }
 }
 
 $url_home = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
@@ -405,6 +409,8 @@ $template->assign_vars(array(
   'L_COMMENT' =>$lang['comment'],
   'L_DOWNLOAD' => $lang['download'],
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
+  'L_PICTURE_SHOW_METADATA' => $lang['picture_show_metadata'],
+  'L_PICTURE_HIDE_METADATA' => $lang['picture_hide_metadata'],
   
   'T_DEL_IMG' =>PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/delete.gif',
   
@@ -570,7 +576,138 @@ $template->assign_block_vars('info_line', array(
     'INFO'=>$lang['visited'],
     'VALUE'=>$picture['current']['hit'].' '.$lang['times']
     ));
+//-------------------------------------------------------------------- metadata
+if ($conf['show_exif'] or $conf['show_iptc'])
+{
+  $metadata_showable = true;
+}
+else
+{
+  $metadata_showable = false;
+}
 
+if ($metadata_showable and !isset($_GET['show_metadata']))
+{
+  $url = PHPWG_ROOT_PATH.'picture.php?'.$_SERVER['QUERY_STRING'];
+  $url.= '&amp;show_metadata=1';
+  $template->assign_block_vars('show_metadata', array('URL' => $url));
+}
+
+if ($metadata_showable and isset($_GET['show_metadata']))
+{
+  $url = PHPWG_ROOT_PATH.'picture.php';
+  
+  $str = $_SERVER['QUERY_STRING'];
+  parse_str($str, $get_vars);
+  $is_first = true;
+  foreach ($get_vars as $key => $value)
+  {
+    if ($key != 'show_metadata')
+    {
+      if ($is_first)
+      {
+        $url.= '?';
+        $is_first = false;
+      }
+      else
+      {
+        $url.= '&amp;';
+      }
+      $url.= $key.'='.$value;
+    }
+  }
+  
+  $template->assign_block_vars('hide_metadata', array('URL' => $url));
+  
+  include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
+  
+  $template->assign_block_vars('metadata', array());
+  
+  if ($conf['show_exif'])
+  {
+    if ($exif = @read_exif_data($picture['current']['src']))
+    {
+      $template->assign_block_vars(
+        'metadata.headline',
+        array('TITLE' => 'EXIF Metadata')
+        );
+      
+      foreach ($conf['show_exif_fields'] as $field)
+      {
+        if (strpos($field, ';') === false)
+        {
+          if (isset($exif[$field]))
+          {
+            $key = $field;
+            if (isset($lang['exif_field_'.$field]))
+            {
+              $key = $lang['exif_field_'.$field];
+            }
+            
+            $template->assign_block_vars(
+              'metadata.line',
+              array(
+                'KEY' => $key,
+                'VALUE' => $exif[$field]
+                )
+              );
+          }
+        }
+        else
+        {
+          $tokens = explode(';', $field);
+          if (isset($exif[$tokens[0]][$tokens[1]]))
+          {
+            $key = $tokens[1];
+            if (isset($lang['exif_field_'.$tokens[1]]))
+            {
+              $key = $lang['exif_field_'.$tokens[1]];
+            }
+            
+            $template->assign_block_vars(
+              'metadata.line',
+              array(
+                'KEY' => $key,
+                'VALUE' => $exif[$tokens[0]][$tokens[1]]
+                )
+              );
+          }
+        }
+      }
+    }
+  }
+
+  if ($conf['show_iptc'])
+  {
+    $iptc = get_iptc_data($picture['current']['src'],
+                          $conf['show_iptc_mapping']);
+
+    if (count($iptc) > 0)
+    {
+      $template->assign_block_vars(
+        'metadata.headline',
+        array('TITLE' => 'IPTC Metadata')
+        );
+    }
+    
+    foreach ($iptc as $field => $value)
+    {
+      $key = $field;
+      if (isset($lang[$field]))
+      {
+        $key = $lang[$field];
+      }
+      
+      $template->assign_block_vars(
+        'metadata.line',
+        array(
+          'KEY' => $key,
+          'VALUE' => $value
+          )
+        );
+    }
+  }
+}
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )
 {

@@ -69,6 +69,30 @@
 		  </a>
           </div>
           <!-- END favorite -->
+
+          <!-- BEGIN show_metadata -->
+            [ <a href="{show_metadata.URL}">{L_PICTURE_SHOW_METADATA}</a> ]
+          <!-- END show_metadata -->
+
+          <!-- BEGIN hide_metadata -->          
+            [ <a href="{hide_metadata.URL}">{L_PICTURE_HIDE_METADATA}</a> ]
+          <!-- END hide_metadata -->
+
+          <!-- BEGIN metadata -->
+          <table class="metadata">
+            <!-- BEGIN headline -->
+            <tr>
+              <th colspan="2">{metadata.headline.TITLE}</th>
+            </tr>
+            <!-- END headline -->
+            <!-- BEGIN line -->
+            <tr>
+              <td>{metadata.line.KEY}</td>
+              <td>{metadata.line.VALUE}</td>
+            </tr>
+            <!-- END line -->
+          </table>
+          <!-- END metadata -->
           <!-- BEGIN modification -->
           <div class="menu" style="text-align:center;margin:5px;">
             [ <a href="{U_ADMIN}">{L_ADMIN}</a> ]
