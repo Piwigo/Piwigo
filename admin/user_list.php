@@ -23,9 +23,32 @@ $tpl = array( 'listuser_confirm','listuser_modify_hint','listuser_modify',
               'listuser_permission','listuser_permission_hint',
               'listuser_delete_hint','listuser_delete','yes','no',
               'listuser_button_all','listuser_button_invert',
-              'listuser_button_create_address' );
+              'listuser_button_create_address','title_add','login','password',
+              'add','errors_title' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
+//------------------------------------------------------------------ add a user
+$errors = array();
+if ( isset( $_POST['submit'] ) )
+{
+  $errors = register_user(
+    $_POST['username'], $_POST['password'], $_POST['password'], '', 'guest' );
+}
+//-------------------------------------------------------------- errors display
+if ( sizeof( $errors ) != 0 )
+{
+  $vtp->addSession( $sub, 'errors' );
+  foreach ( $errors as $error ) {
+    $vtp->addSession( $sub, 'li' );
+    $vtp->setVar( $sub, 'li.li', $error );
+    $vtp->closeSession( $sub, 'li' );
+  }
+  $vtp->closeSession( $sub, 'errors' );
+}
+else
+{
+  $_POST = array();
+}
 //--------------------------------------------------------------- delete a user
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
@@ -82,6 +105,13 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 //------------------------------------------------------------------ users list
 else
 {
+  // add a user
+  $vtp->addSession( $sub, 'add_user' );
+  $action = './admin.php?'.$_SERVER['QUERY_STRING'];
+  $vtp->setVar( $sub, 'add_user.form_action', $action );
+  $vtp->setVar( $sub, 'add_user.f_username', $_POST['username'] );
+  $vtp->closeSession( $sub, 'add_user' );
+  
   $vtp->addSession( $sub, 'users' );
 
   $action = './admin.php?'.$_SERVER['QUERY_STRING'];
