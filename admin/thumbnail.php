@@ -24,7 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
 // get_subdirs returns an array containing all sub directory names,
 // excepting : '.', '..' and 'thumbnail'.
@@ -211,228 +211,196 @@ function RatioResizeImg( $filename, $newWidth, $newHeight, $path, $tn_ext )
   }
 }
 
-// array_max returns the highest value of the given array
-function array_max( $array )
-{
-  sort( $array, SORT_NUMERIC );
-  return array_pop( $array );
-}
-
-// array_min returns the lowest value of the given array
-function array_min( $array )
-{
-  sort( $array, SORT_NUMERIC );
-  return array_shift( $array );
-}
-
-// array_avg returns the average value of the array
-function array_avg( $array )
-{
-  return array_sum( $array ) / sizeof( $array );
-}
-	
 // get_displayed_dirs builds the tree of dirs under "galleries". If a
 // directory contains pictures without thumbnails, the become linked to the
 // page of thumbnails creation.
 function get_displayed_dirs( $dir, $indent )
 {
-  global $conf,$lang,$vtp,$sub;
+  global $lang;
 		
   $sub_dirs = get_subdirs( $dir );
+  $output = '';
+  if (!empty($sub_dirs))
+  {
+  $output.='<ul class="menu">';
   // write of the dirs
   foreach ( $sub_dirs as $sub_dir ) {
+    $output.='<li>';
     $pictures = get_images_without_thumbnail( $dir.'/'.$sub_dir );
-    $vtp->addSession( $sub, 'dir' );
-    $vtp->setVar( $sub, 'dir.indent', $indent );
     if ( count( $pictures ) > 0 )
     {
-      $vtp->addSession( $sub, 'linked' );
-      $url = './admin.php?page=thumbnail&amp;dir='.$dir."/".$sub_dir;
-      $vtp->setVar( $sub, 'linked.url', add_session_id( $url ) );
-      $vtp->setVar( $sub, 'linked.name', $sub_dir );
-      $vtp->setVar( $sub, 'linked.nb_pic', count( $pictures ) );
-      $vtp->closeSession( $sub, 'linked' );
+	  $url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$dir.'/'.$sub_dir);
+      $output.='<a class="adminMenu" href="'.$url.'">'.$sub_dir.'</a> [ '.count( $pictures ).' ';
+	  $output.=$lang['thumbnail'].' ]';
     }
     else
     {
-      $vtp->addSession( $sub, 'unlinked' );
-      $vtp->setVar( $sub, 'unlinked.name', $sub_dir );
-      $vtp->closeSession( $sub, 'unlinked' );
+      $output.=$sub_dir;
     }
-    $vtp->closeSession( $sub, 'dir' );
     // recursive call
-    get_displayed_dirs( $dir.'/'.$sub_dir,
-                                $indent+30 );    
+    $output.=get_displayed_dirs( $dir.'/'.$sub_dir,
+                                $indent+30 ); 
+	$output.='</li>';   
   }
+  $output.='</ul>';
+  }
+  return $output;
 }
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/thumbnail.vtp' );
-$tpl = array(
-  'tn_dirs_title','tn_dirs_alone','tn_params_title','tn_params_GD',
-  'tn_params_GD_info','tn_width','tn_params_width_info','tn_height',
-  'tn_params_height_info','tn_params_create','tn_params_create_info',
-  'tn_params_format','tn_params_format_info','submit','tn_alone_title',
-  'filesize','tn_picture','tn_results_title','thumbnail',
-  'tn_results_gen_time','tn_stats','tn_stats_nb','tn_stats_total',
-  'tn_stats_max','tn_stats_min','tn_stats_mean' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//----------------------------------------------------- miniaturization results
-if ( isset( $_GET['dir'] ) )
+
+$errors = array();
+$pictures = array();
+$stats = array();
+
+if ( isset( $_GET['dir'] ) &&  isset( $_POST['submit'] ))
 {
   $pictures = get_images_without_thumbnail( $_GET['dir'] );
-  if ( count( $pictures ) == 0 )
+  // checking criteria
+  if ( !ereg( "^[0-9]{2,3}$", $_POST['width'] ) or $_POST['width'] < 10 )
   {
-    $vtp->addSession( $sub, 'warning' );
-    $vtp->closeSession( $sub, 'warning' );
+    array_push( $errors, $lang['tn_err_width'].' 10' );
   }
-  elseif ( isset( $_POST['submit'] ) )
+  if ( !ereg( "^[0-9]{2,3}$", $_POST['height'] ) or $_POST['height'] < 10 )
   {
-    // checking criteria
-    $errors = array();
-    if ( !ereg( "^[0-9]{2,3}$", $_POST['width'] ) or $_POST['width'] < 10 )
-    {
-      array_push( $errors, $lang['tn_err_width'].' 10' );
-    }
-    if ( !ereg( "^[0-9]{2,3}$", $_POST['height'] ) or $_POST['height'] < 10 )
-    {
-      array_push( $errors, $lang['tn_err_height'].' 10' );
-    }
-    // picture miniaturization
-    if ( count( $errors ) == 0 )
-    {
-      $vtp->addSession( $sub, 'results' );
-      $stats = scandir( $_GET['dir'], $_POST['width'], $_POST['height'] );
-      $times = array();
-      foreach ( $stats as $stat ) {
-        array_push( $times, $stat['time'] );
-      }
-      $max = array_max( $times );
-      $min = array_min( $times );
-      foreach ( $stats as $i => $stat ) {
-        $vtp->addSession( $sub, 'picture' );
-        if ( $i % 2 == 1 )
-        {
-          $vtp->setVar( $sub, 'picture.class', 'row2' );
-        }
-        $vtp->setVar( $sub, 'picture.num',            ($i+1) );
-        $vtp->setVar( $sub, 'picture.file',           $stat['file'] );
-        $vtp->setVar( $sub, 'picture.filesize',       $stat['size'] );
-        $vtp->setVar( $sub, 'picture.width',          $stat['width'] );
-        $vtp->setVar( $sub, 'picture.height',         $stat['height'] );
-        $vtp->setVar( $sub, 'picture.thumb_file',     $stat['tn_file'] );
-        $vtp->setVar( $sub, 'picture.thumb_filesize', $stat['tn_size'] );
-        $vtp->setVar( $sub, 'picture.thumb_width',    $stat['tn_width'] );
-        $vtp->setVar( $sub, 'picture.thumb_height',   $stat['tn_height'] );
-        $vtp->setVar( $sub, 'picture.time',
-                      number_format( $stat['time'], 2, '.', ' ').' ms' );
-        if ( $stat['time'] == $max )
-        {
-          $vtp->setVar( $sub, 'picture.color', 'red' );
-        }
-        else if ( $stat['time'] == $min )
-        {
-          $vtp->setVar( $sub, 'picture.color', 'green' );
-        }
-        $vtp->closeSession( $sub, 'picture' );
-      }
-      // general statistics
-      $vtp->setVar( $sub, 'results.stats_nb', count( $stats ) );
-      $vtp->setVar( $sub, 'results.stats_total',
-                    number_format( array_sum( $times ), 2, '.', ' ').' ms' );
-      $vtp->setVar( $sub, 'results.stats_max',
-                    number_format( $max, 2, '.', ' ').' ms' );
-      $vtp->setVar( $sub, 'results.stats_min',
-                    number_format( $min, 2, '.', ' ').' ms' );
-      $vtp->setVar( $sub, 'results.stats_mean',
-                    number_format( array_avg( $times ), 2, '.', ' ').' ms' );
-      $vtp->closeSession( $sub, 'results' );
-    }
-    else
-    {
-      $vtp->addSession( $sub, 'errors' );
-      foreach ( $errors as $error ) {
-        $vtp->addSession( $sub, 'li' );
-        $vtp->setVar( $sub, 'li.li', $error );
-        $vtp->closeSession( $sub, 'li' );
-      }
-      $vtp->closeSession( $sub, 'errors' );
+    array_push( $errors, $lang['tn_err_height'].' 10' );
+  }
+  
+  // picture miniaturization
+  if ( count( $errors ) == 0 )
+  {
+    $stats = scandir( $_GET['dir'], $_POST['width'], $_POST['height'] );
+  }
+}
+		
+//----------------------------------------------------- template initialization
+$template->set_filenames( array('thumbnail'=>'admin/thumbnail.tpl') );
+
+$template->assign_vars(array(
+  'L_THUMBNAIL_TITLE'=>$lang['tn_dirs_title'],
+  'L_UNLINK'=>$lang['tn_dirs_alone'],
+  'L_RESULTS'=>$lang['tn_results_title'],
+  'L_TN_PICTURE'=>$lang['tn_picture'],
+  'L_FILESIZE'=>$lang['filesize'],
+  'L_WIDTH'=>$lang['tn_width'],
+  'L_HEIGHT'=>$lang['tn_height'],
+  'L_GENERATED'=>$lang['tn_results_gen_time'],
+  'L_THUMBNAIL'=>$lang['thumbnail'],
+  'L_PARAMS'=>$lang['tn_params_title'],
+  'L_GD'=>$lang['tn_params_GD'],
+  'L_GD_INFO'=>$lang['tn_params_GD_info'],
+  'L_WIDTH_INFO'=>$lang['tn_params_width_info'],
+  'L_HEIGHT_INFO'=>$lang['tn_params_height_info'],
+  'L_CREATE'=>$lang['tn_params_create'],
+  'L_CREATE_INFO'=>$lang['tn_params_create_info'],
+  'L_FORMAT'=>$lang['tn_params_format'],
+  'L_FORMAT_INFO'=>$lang['tn_params_format_info'],
+  'L_SUBMIT'=>$lang['submit'],
+  'L_REMAINING'=>$lang['tn_alone_title'],
+  'L_TN_STATS'=>$lang['tn_stats'],
+  'L_TN_NB_STATS'=>$lang['tn_stats_nb'],
+  'L_TN_TOTAL'=>$lang['tn_stats_total'],
+  'L_TN_MAX'=>$lang['tn_stats_max'],
+  'L_TN_MIN'=>$lang['tn_stats_min'],
+  'L_TN_AVERAGE'=>$lang['tn_stats_mean'],
+  
+  'T_STYLE'=>$user['template']
+  ));
+
+//----------------------------------------------------- miniaturization results
+if ( sizeof( $errors ) != 0 )
+{
+  $template->assign_block_vars('errors',array());
+  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  {
+    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
+  }
+}
+else if ( isset( $_GET['dir'] ) &&  isset( $_POST['submit'] ) && !empty($stats))
+{
+  $times = array();
+  foreach ( $stats as $stat ) {
+	array_push( $times, $stat['time'] );
+  }
+  $sum=array_sum( $times );
+  $average = $sum/sizeof($times);
+  sort( $times, SORT_NUMERIC );
+  $max = array_pop($times);
+  $min = array_shift( $times);
+  
+  $template->assign_block_vars('results',array(
+    'TN_NB'=>count( $stats ),
+	'TN_TOTAL'=>number_format( $sum, 2, '.', ' ').' ms',
+	'TN_MAX'=>number_format( $max, 2, '.', ' ').' ms',
+	'TN_MIN'=>number_format( $min, 2, '.', ' ').' ms',
+	'TN_AVERAGE'=>number_format( $average, 2, '.', ' ').' ms'
+	));
+  if ( !count( $pictures ) )
+  {
+    $template->assign_block_vars('warning',array());
+  }
+
+  foreach ( $stats as $i => $stat ) 
+  {
+	$class = ($i % 2)? 'row1':'row2';
+    $color='';
+	if ($stat['time']==$max) $color = 'red';
+	elseif ($stat['time']==$min) $color = '#33FF00';
+	$template->assign_block_vars('results.picture',array(
+	  'NB_IMG'=>($i+1),
+	  'FILE_IMG'=>$stat['file'],
+	  'FILESIZE_IMG'=>$stat['size'],
+	  'WIDTH_IMG'=>$stat['width'],
+	  'HEIGHT_IMG'=>$stat['height'],
+	  'TN_FILE_IMG'=>$stat['tn_file'],
+	  'TN_FILESIZE_IMG'=>$stat['tn_size'],
+	  'TN_WIDTH_IMG'=>$stat['tn_width'],
+	  'TN_HEIGHT_IMG'=>$stat['tn_height'],
+	  'GEN_TIME'=>number_format( $stat['time'], 2, '.', ' ').' ms',
+	  
+	  'T_COLOR'=>$color,
+	  'T_CLASS'=>$class
+	  ));
     }
   }
 //-------------------------------------------------- miniaturization parameters
-  if ( sizeof( $pictures ) != 0 )
-  {
-    $vtp->addSession( $sub, 'params' );
-    $url = './admin.php?page=thumbnail&amp;dir='.$_GET['dir'];
-    $vtp->setVar( $sub, 'params.action', add_session_id( $url ) );
-    // GD version selected...
-    if ( isset( $_POST['gd'] ) and $_POST['gd'] == 1 )
-    {
-      $vtp->setVar( $sub, 'params.gd1_checked', ' checked="checked"' );
-    }
-    else
-    {
-      $vtp->setVar( $sub, 'params.gd2_checked', ' checked="checked"' );
-    }
-    // width values
-    if ( isset( $_POST['width'] ) )
-    {
-      $vtp->setVar( $sub, 'params.width_value', $_POST['width'] );
-    }
-    else
-    {
-      $vtp->setVar( $sub, 'params.width_value', '128' );
-    }
-    // height value
-    if ( isset( $_POST['height'] ) )
-    {
-      $vtp->setVar( $sub, 'params.height_value', $_POST['height'] );
-    }
-    else
-    {
-      $vtp->setVar( $sub, 'params.height_value', '96' );
-    }
-    // options for the number of picture to miniaturize : "n"
-    $options = array( 5,10,20,40 );
-    if ( isset( $_POST['n'] ) ) $n = $_POST['n'];
-    else                        $n = 5;
-    foreach ( $options as $option ) {
-      $vtp->addSession( $sub, 'n_option' );
-      $vtp->setVar( $sub, 'n_option.option', $option );
-      if ( $option == $n )
-      {
-        $vtp->setVar( $sub, 'n_option.selected', ' selected="selected"' );
-      }
-      $vtp->closeSession( $sub, 'n_option' );
-    }
-    $vtp->closeSession( $sub, 'params' );
+if ( isset( $_GET['dir'] ) && !sizeof( $pictures ))
+{
+    $form_url = PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$_GET['dir'];
+    $gd = !empty( $_POST['gd'] )?$_POST['gd']:2;
+	$width = !empty( $_POST['width'] )?$_POST['width']:128;
+	$height = !empty( $_POST['height'] )?$_POST['height']:96;
+	$gdlabel = 'GD'.$gd.'_CHECKED';
+
+    $template->assign_block_vars('params',array(
+	  'F_ACTION'=>add_session_id($form_url),
+	  $gdlabel=>'checked="checked"',
+	  'WIDTH_TN'=>$width,
+	  'HEIGHT_TN'=>$height
+	  ));
+
 //---------------------------------------------------------- remaining pictures
-    $vtp->addSession( $sub, 'remainings' );
-    $pictures = get_images_without_thumbnail( $_GET['dir'] );
-    $vtp->setVar( $sub, 'remainings.total', count( $pictures ) );
-    foreach ( $pictures as $i => $picture ) {
-      $vtp->addSession( $sub, 'remaining' );
-      if ( $i % 2 == 1 )
-      {
-        $vtp->setVar( $sub, 'remaining.class', 'row2' );
-      }
-      $vtp->setVar( $sub, 'remaining.num',      ($i+1) );
-      $vtp->setVar( $sub, 'remaining.file',     $picture['name'] );
-      $vtp->setVar( $sub, 'remaining.filesize', $picture['size'] );
-      $vtp->setVar( $sub, 'remaining.width',    $picture['width'] );
-      $vtp->setVar( $sub, 'remaining.height',   $picture['height'] );
-      $vtp->closeSession( $sub, 'remaining' );
+  $pictures = get_images_without_thumbnail( $_GET['dir'] );
+  $template->assign_block_vars('remainings',array('TOTAL_IMG'=>count( $pictures )));
+
+  foreach ( $pictures as $i => $picture ) 
+  {
+    $class = ($i % 2)? 'row1':'row2';
+    $template->assign_block_vars('remainings.remaining',array(
+	  'NB_IMG'=>($i+1),
+	  'FILE_TN'=>$picture['name'],
+	  'FILESIZE_IMG'=>$picture['size'],
+	  'WIDTH_IMG'=>$picture['width'],
+	  'HEIGHT_IMG'=>$picture['height'],
+	  
+	  'T_CLASS'=>$class
+	  ));
     }
-    $vtp->closeSession( $sub, 'remainings' );
-  }
 }
 //-------------------------------------------------------------- directory list
 else
 {
-  $vtp->addSession( $sub, 'directory_list' );
-  get_displayed_dirs( './galleries', 60 );
-  $vtp->closeSession( $sub, 'directory_list' );
+  $categories = get_displayed_dirs( './galleries', 60 );
+  $template->assign_block_vars('directory_list',array('CATEGORY_LIST'=>$categories));
 }
-//----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'thumbnail');
 ?>

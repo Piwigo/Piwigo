@@ -21,21 +21,22 @@
 		<div class="table2">
 		<div class="titrePage">{CATEGORY}</div>
 		<div class="titreImg">{PHOTO}</div>
-		  <div class="image">
           <a href="{U_HOME}">
-            <img class="imgLink" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
+            <img class="image" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
           </a>
-		  </div>
-		  <div class="commentImage">{TITLE}</div>
+		  <div class="nameImage">{TITLE}</div>
+		  <!-- BEGIN legend -->
           <div class="commentImage">{COMMENT_IMG}</div>
+		  <!-- END legend -->
 		  </div>
           <table style="width:100%;">   
             <tr align="center" valign="middle">
 			  <td style="width:30%;">
 				<!-- BEGIN previous -->
-				<a href="{U_PREV_IMG}" title="{L_PREV_IMG}{PREV_TITLE_IMG}">
-				<img style="border:none;" class="imgLink" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
-				  <img src="{PREV_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{PREV_TITLE_IMG}"/></a>
+				<a class="none" href="{U_PREV_IMG}" title="{L_PREV_IMG}{PREV_TITLE_IMG}">
+				<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
+				  <img src="{PREV_IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{PREV_TITLE_IMG}"/>
+				  </a>
 				<!-- END previous -->
 			  </td>
 			  <td style="width:40%;">
@@ -50,8 +51,10 @@
 			  </td>
 			  <td style="width:30%;">
 				<!-- BEGIN next -->
-				  <a href="{U_NEXT_IMG}" title="{L_NEXT_IMG}{NEXT_TITLE_IMG}"><img src="{NEXT_IMG}" class="imgLink" style="margin-right:10px;margin-left:5px;" alt="{NEXT_TITLE_IMG}"/>
-				  <img style="border:none;" class="imgLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" /></a>
+				  <a  class="none" href="{U_NEXT_IMG}" title="{L_NEXT_IMG}{NEXT_TITLE_IMG}">
+				  <img class="thumbLink" src="{NEXT_IMG}" style="margin-right:10px;margin-left:5px;" alt="{NEXT_TITLE_IMG}"/>
+				  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" />
+				  </a>
 				<!-- END next -->
 			  </td>
 			</tr>
@@ -74,60 +77,53 @@
       </tr>
       <!-- BEGIN comments -->
       <tr align="center" valign="middle">
-        <td colspan="5">
-          {T_START}100%{T_BEGIN}
-            <table style="width:100%;">
-              <tr align="center">
-                <td>
-                  <div class="commentsTitle">
+        <td colspan="3" class="table2">
+                  <div class="commentTitle">
                     [{comments.NB_COMMENT}] {L_COMMENT_TITLE}
                   </div>
                   <div class="commentsNavigationBar">{comments.NAV_BAR}</div>
+				  <table class="tablecompact">
                   <!-- BEGIN comment -->
-                  <table class="tableComment">
-                    <tr>
-                      <td rowspan="2" valign="top" class="cellAuthor">
-                        <div class="commentsAuthor">{comments.comment.COMMENT_AUTHOR}</div>
-                      </td>
-                      <td align="right" class="cellInfo">
-                        <div class="commentsInfos">{comments.comment.COMMENT_DATE}
-						<!-- BEGIN delete -->
-						  <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}"><img src="{T_DEL_IMG}" style="border:none;margin-left:5px;" alt="[{L_DELETE}]"/></a>
-						<!-- END delete -->
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="commentsContent">{comments.comment.COMMENT}</div>
-                      </td>
-                    </tr>
-                  </table>
+				    <tr class="throw">
+					  <td class="throw">
+					  {comments.comment.COMMENT_AUTHOR}
+					  </td>
+					  <td colspan="2" class="commentDate">
+					  {comments.comment.COMMENT_DATE}
+					<!-- BEGIN delete -->
+					  <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}"><img src="{T_DEL_IMG}" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/></a>
+					<!-- END delete -->
+					  </td>
+					</tr>
+					<tr class="row1">
+					  <td class="comment" colspan="3">{comments.comment.COMMENT}</td>
+					</tr>
                   <!-- END comment -->
-                  <div class="commentsNavigationBar">{comments.NAV_BAR}</div>
-                </td>
-              </tr>
-            </table>
             <!-- BEGIN add_comment -->
-            <form method="post" action="{U_ADD_COMMENT}">
-              <table style="width:100%;">
-                <tr align="center">
-                  <td>
-                    <div class="commentsTitle">{L_ADD_COMMENT}</div>
+			<tr class="throw">
+			  <td colspan="3">{L_ADD_COMMENT}</td>
+			</tr>
+			<form  method="post" action="{U_ADD_COMMENT}">
+  		    <tr class="row1">
+			  <td class="comment" >
                     <!-- BEGIN author_field -->
-                    <div class="menu">{L_AUTHOR} : <input type="text" name="author" style="margin-top:5px;"/></div>
+                    {L_AUTHOR}</td><td colspan="2"><input type="text" name="author" />
+					</td></tr>
+					<tr class="row1">
+					<td class="comment" >
                     <!-- END author_field -->
                     <!-- BEGIN author_known -->
-                    <input type="hidden" name="author" value="{comments.add_comment.author_known.KNOWN_AUTHOR}" />
+                    <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}" />
                     <!-- END author_known -->
-                    <textarea name="content" rows="10" cols="50" style="overflow:auto;width:450px;margin:10px;"></textarea><br />
-                    <input type="submit" value="{L_SUBMIT}" class="bouton" />
-                  </td>
-                </tr>
-              </table>
-            </form>
+                    {L_COMMENT}</td>
+					<td style="width:100%;">
+					<input name="content" type="text" maxlength="200" style="width:100%;" value="" /></td><td>
+					<input type="submit" value="{L_SUBMIT}" class="bouton" />
+			  </td>
+			 </tr>
+			 </form>
+           	</table>
             <!-- END add_comment -->
-          {T_END}
         </td>
       </tr>
       <!-- END comments -->

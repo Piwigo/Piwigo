@@ -29,6 +29,9 @@
 define('DEBUG', 1); // Debugging on
 //define('DEBUG', 0); // Debugging off 
  
+// User level
+define('ANONYMOUS', 2);
+ 
 // Error codes
 define('GENERAL_MESSAGE', 200);
 define('GENERAL_ERROR', 202);
@@ -40,7 +43,7 @@ define('CATEGORIES_TABLE', $table_prefix.'categories');
 define('COMMENTS_TABLE', $table_prefix.'comments');
 define('CONFIG_TABLE', $table_prefix.'config');
 define('FAVORITES_TABLE', $table_prefix.'favorites');
-define('GROUPS_ACCESS_TABLE', $table_prefix.'group_access');
+define('GROUP_ACCESS_TABLE', $table_prefix.'group_access');
 define('GROUPS_TABLE', $table_prefix.'groups');
 define('HISTORY_TABLE', $table_prefix.'history');
 define('IMAGE_CATEGORY_TABLE', $table_prefix.'image_category');

@@ -125,7 +125,6 @@ include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/config.inc.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
-include(PHPWG_ROOT_PATH . 'include/vtemplate.class.php');
 
 //
 // Database connection
@@ -202,6 +201,5 @@ include(PHPWG_ROOT_PATH . 'include/user.inc.php');
 // displaying the username in the language of the connected user, instead of
 // "guest" as you can find in the database
 if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];
-include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 define('PREFIX_TABLE', $table_prefix);
 ?>

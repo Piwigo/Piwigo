@@ -20,23 +20,29 @@
 			&nbsp;<span class="menuInfoCat">[
 			<span title="{category.NB_SUBCATS} {L_SUBCAT}">{category.NB_SUBCATS}</span> - <span title="{category.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.TOTAL_CAT}</span>&nbsp;]</span>{category.CAT_ICON}<br />
 		  <!-- END category -->
-
 		  <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
-		  <!-- BEGIN favorites -->
-		  <br />&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<a href="{U_FAVORITE}"><span title="{L_FAVORITE_HINT}" style="font-weight:bold;">{L_FAVORITE}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{favorites.NB_FAV}&nbsp;]</span>
-		  <!-- END favorites -->
-		  <br />&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<span style="font-weight:bold;">{L_STATS}</span>
-		  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}" style="font-weight:bold;">{TOP_VISITED}&nbsp;{L_MOST_VISITED}</span></a>
-		  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{T_COLLAPSED}" alt='' />&nbsp;<a href="{U_RECENT}"><span title="{L_RECENT_HINT}" style="font-weight:bold;">{L_RECENT}</span></a> {T_SHORT}
+		  <br />
+		  <ul class="menu">
+		    <!-- BEGIN favorites -->
+		    <li><a href="{U_FAVORITE}"><span title="{L_FAVORITE_HINT}" style="font-weight:bold;">{L_FAVORITE}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{favorites.NB_FAV}&nbsp;]</span></li>
+		    <!-- END favorites -->
+		    <li><span style="font-weight:bold;">{L_STATS}</span></li>
+		    <ul class="menu">
+		      <li><a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}" style="font-weight:bold;">{TOP_VISITED}&nbsp;{L_MOST_VISITED}</span></a></li>
+		      <li><a href="{U_RECENT}"><span title="{L_RECENT_HINT}" style="font-weight:bold;">{L_RECENT}</span></a> {T_SHORT}</li>
+		    </ul>
+		  </ul>
 		</div>
 		<div class="titreMenu">{L_SUMMARY}</div>
 		<div class="menu">
+		<ul class="menu">
 		  <!-- BEGIN summary -->
-		  &nbsp;<img src="{T_COLLAPSED}" alt=''/>&nbsp;<a href="{summary.U_SUMMARY}" title="{summary.TITLE}">{summary.NAME}</a><br />
+		  <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}">{summary.NAME}</a></li>
 		  <!-- END summary -->
 		  <!-- BEGIN upload -->
-		  <br />&nbsp;<img src="{T_COLLAPSED}" alt=''/>&nbsp;<a href="{upload.U_UPLOAD}">{L_UPLOAD}</a>
+		  <li><a href="{upload.U_UPLOAD}">{L_UPLOAD}</a></li>
 		  <!-- END upload -->
+		</ul>
 		</div>
 		<div class="titreMenu">{L_IDENTIFY}</div>
 		 <div class="menu">
@@ -46,7 +52,7 @@
 		{L_USERNAME}<br />
 		<input type="text" name="username" size="15" value="" /><br />
 		{L_PASSWORD}<br />
-		<input type="password" name="password" size="15"><br /><br />
+		<input type="password" name="password" size="15"><br />
 		<input type="submit" name="login" value="{L_SUBMIT}" class="bouton" />
 		</form>
 		<!-- END login -->
@@ -70,16 +76,16 @@
 			  <tr>
 				<!-- BEGIN thumbnail -->
 				<td class="thumbnail">
-				  <a href="{thumbnails.line.thumbnail.U_IMG_LINK}" class="back">
+				  <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
 				  <img src="{thumbnails.line.thumbnail.IMAGE}"
 					   alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
 					   title="{thumbnails.line.thumbnail.IMAGE_TITLE}"
-					   class="imgLink" />
+					   class="thumbLink" />
 				  <br />
 				  {thumbnails.line.thumbnail.IMAGE_NAME}</a>
 				  {thumbnails.line.thumbnail.IMAGE_TS}
 				  <!-- BEGIN nb_comments -->
-				  <br />{thumbnails.line.thumbnail.NB_COMMENTS} {L_COMMENTS}
+				  <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
 				  <!-- END nb_comments -->
 				</td>
 				<!-- END thumbnail -->

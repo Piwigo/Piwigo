@@ -127,26 +127,46 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-//
-// Start output of page
-//
+$expand = ($user['expand']=='true')?'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+$nb_comments = ($user['show_nb_comments']=='true')?'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+
 $title = $lang['customize_page_title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('profile'=>'profile.tpl'));
-initialize_template();
 
 $template->assign_vars(array(
-  'L_TITLE' => $lang['customize_title'],
+  'LANG_SELECT'=>language_select($user['language'], 'language'),
+  'NB_IMAGE_LINE'=>$user['nb_image_line'],
+  'NB_ROW_PAGE'=>$user['nb_line_page'],
+  'STYLE_SELECT'=>style_select($user['template'], 'template'),
+  'SHORT_PERIOD'=>$user['short_period'],
+  'LONG_PERIOD'=>$user['long_period'],
+  
+  $expand=>'checked="checked"',
+  $nb_comments=>'checked="checked"',
+  
+   'L_TITLE' => $lang['customize_title'],
   'L_PASSWORD' => $lang['password'],
   'L_NEW' =>  $lang['new'], 
   'L_CONFIRM' =>  $lang['reg_confirm'], 
-  'L_SUBMIT' =>  $lang['submit'], 
   'L_COOKIE' =>  $lang['create_cookie'],
-	
-  'F_ACTION' => add_session_id( './profile.php' ),
-
-  'U_RETURN' => add_session_id('./category.php?'.$_SERVER['QUERY_STRING'])
+  'L_CONFIRM'=>$lang['conf_confirmation'],
+  'L_LANG_SELECT'=>$lang['customize_language'],
+  'L_NB_IMAGE_LINE'=>$lang['customize_nb_image_per_row'],
+  'L_NB_ROW_PAGE'=>$lang['customize_nb_row_per_page'],
+  'L_STYLE_SELECT'=>$lang['customize_theme'],
+  'L_SHORT_PERIOD'=>$lang['customize_short_period'],
+  'L_LONG_PERIOD'=>$lang['customize_long_period'],
+  'L_EXPAND_TREE'=>$lang['customize_expand'],
+  'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],
+  'L_YES'=>$lang['yes'],
+  'L_NO'=>$lang['no'],
+  'L_SUBMIT'=>$lang['submit'],
+  
+  'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'profile.php'),
+  
+  'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
   ));
 	
 //-------------------------------------------------------------- errors display
@@ -158,42 +178,6 @@ if ( sizeof( $errors ) != 0 )
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
 }
-
-$template->assign_block_vars('select',array(
-  'F_LABEL'=>$lang['customize_nb_image_per_row'],
-  'F_NAME'=>'nb_image_line',
-  'F_OPTIONS'=>make_jumpbox($conf['nb_image_row'], $user['nb_image_line'])
-  ));
-
-$template->assign_block_vars('select',array(
-  'F_LABEL'=>$lang['customize_nb_row_per_page'],
-  'F_NAME'=>'nb_line_page',
-  'F_OPTIONS'=>make_jumpbox($conf['nb_row_page'], $user['nb_line_page'])
-  ));
-
-$template->assign_block_vars('select',array(
-  'F_LABEL'=>$lang['customize_template'],
-  'F_NAME'=>'template',
-  'F_OPTIONS'=>make_jumpbox(get_dirs( './template' ), $user['template'])
-  ));
-
-$template->assign_block_vars('select',array(
-  'F_LABEL'=>$lang['customize_language'],
-  'F_NAME'=>'language',
-  'F_OPTIONS'=>make_jumpbox($lang['lang'], $user['language'], true)
-  ));
-
-$template->assign_block_vars('text',array(
-  'F_LABEL'=>$lang['customize_short_period'],
-  'F_NAME'=>'short_period',
-  'F_VALUE'=>$user['short_period']
-  ));
-
-$template->assign_block_vars('text',array(
-  'F_LABEL'=>$lang['customize_long_period'],
-  'F_NAME'=>'long_period',
-  'F_VALUE'=>$user['long_period']
-  ));
 
 $template->assign_block_vars('text',array(
   'F_LABEL'=>$lang['maxwidth'],
@@ -211,16 +195,6 @@ $template->assign_block_vars('text',array(
   'F_LABEL'=>$lang['mail_address'],
   'F_NAME'=>'mail_address',
   'F_VALUE'=>$user['mail_address']
-  ));
-
-$template->assign_block_vars('radio',array(
-  'F_LABEL'=>$lang['customize_expand'],
-  'F_OPTIONS'=>make_radio('expand', array(true=>$lang['yes'], false=>$lang['no']), $user['expand'], true)
-  ));
-
-$template->assign_block_vars('radio',array(
-  'F_LABEL'=>$lang['customize_show_nb_comments'],
-  'F_OPTIONS'=>make_radio('show_nb_comments', array(true=>$lang['yes'], false=>$lang['no']), $user['show_nb_comments'], true)
   ));
 
 //----------------------------------------------------------- html code display

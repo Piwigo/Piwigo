@@ -51,8 +51,8 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 
-$login = empty($_POST['login'])?$_POST['login']:'';
-$email = empty($_POST['login'])?$_POST['login']:'';
+$login = !empty($_POST['login'])?$_POST['login']:'';
+$email = !empty($_POST['login'])?$_POST['login']:'';
 
 //----------------------------------------------------- template initialization
 //
@@ -62,8 +62,6 @@ $title= $lang['register_page_title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
-initialize_template();
-
 $template->assign_vars(array(
   'L_TITLE' => $lang['register_title'],
   'L_GUEST' => $lang['ident_guest_visit'],
@@ -79,10 +77,10 @@ $template->assign_vars(array(
   ));
 
 //-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
+if ( sizeof( $error ) != 0 )
 {
   $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
+  for ( $i = 0; $i < sizeof( $error ); $i++ )
   {
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }

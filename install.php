@@ -152,12 +152,7 @@ if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/instal
 }
 include( './language/'.$language.'/install.lang.php' );
 include( './language/'.$language.'/admin.lang.php' );
-$mapping_lang = $language;
-if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/lang.lang.php')) )
-{
-  $mapping_lang = 'en_EN';
-}
-include_once(PHPWG_ROOT_PATH . 'language/' . $mapping_lang . '/lang.lang.php');
+include_once(PHPWG_ROOT_PATH . 'language/infos.lang.php');
 
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
@@ -171,10 +166,6 @@ $admin_name = (!empty($_POST['admin_name'])) ? $_POST['admin_name'] : '';
 $admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
 $admin_pass2 = (!empty($_POST['admin_pass2'])) ? $_POST['admin_pass2'] : '';
 $admin_mail = (!empty($_POST['admin_mail'])) ? $_POST['admin_mail'] : '';
-
-$lang_options = $lang['lang'];
-@asort($lang_options);
-@reset($lang_options);
 
 $infos = array();
 $errors = array();
@@ -283,6 +274,12 @@ if ( isset( $_POST['install'] ))
     $query.= " WHERE param = 'mail_webmaster'";
     $query.= ';';
     mysql_query( $query );
+	
+	$query = 'UPDATE '.CONFIG_TABLE;
+    $query.= " SET value = '".$language."'";
+    $query.= " WHERE param = 'default_lang'";
+    $query.= ';';
+    mysql_query( $query );
     
     $query = 'INSERT INTO '.SITES_TABLE;
     $query.= " (id,galleries_url) VALUES (1, './galleries/');";
@@ -343,11 +340,10 @@ $template->assign_vars(array(
   'F_DB_PREFIX'=>$table_prefix,
   'F_ADMIN'=>$admin_name,
   'F_ADMIN_EMAIL'=>$admin_mail,
-  'F_LANG_SELECT'=>make_jumpbox($lang_options, $language, true),
+  'F_LANG_SELECT'=>language_select($language),
   
-  'T_CONTENT_ENCODING' => $lang['charset'],
-  'T_STYLE' =>  './template/'.$install_style.'/'.$install_style.'-admin.css')
-	);
+  'T_CONTENT_ENCODING' => $lang['default']['charset']
+	));
 	
 //-------------------------------------------------------- errors & infos display
 if ( sizeof( $errors ) != 0 )

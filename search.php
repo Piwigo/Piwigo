@@ -69,8 +69,6 @@ $title= $lang['search_title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
-initialize_template();
-
 $template->assign_vars(array(
   'L_TITLE' => $lang['search_title'],
   'L_COMMENTS' => $lang['search_comments'],

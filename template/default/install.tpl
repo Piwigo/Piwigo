@@ -5,7 +5,62 @@
 <meta http-equiv="Content-script-type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <title>PhpWebGallery {RELEASE}</title>
-<link rel="stylesheet" href="{T_STYLE}" type="text/css" />
+<style type="text/css">
+a, a:hover {
+color:#006699;
+}
+
+body,table,input,form,select {
+font-family:arial,verdana,sans-serif;
+font-size:12px;
+color:#000000;
+text-align:left;
+}
+table 
+{
+border-collapse:separate;
+}
+body {
+background-color:#E5E5E5;
+margin:5px;
+}
+
+.contenucellule {
+background-color:#EEEEEE;
+border:2px solid #006699;
+}
+
+th {
+font-weight:bold;
+background-color:#D3DCE3;
+margin-bottom:10px;
+text-align: center;
+}
+td.row1 {
+background-color:#E6E4E4;
+}
+td.row2
+{
+background-color:#E8E8E8;
+}
+
+.info {
+color:darkblue;
+text-align:center;
+}
+.errors {
+  text-align:left;
+  margin:25px;
+  background-color:#ffe1e1;
+  border:1px solid red;
+  color:black;
+}
+.grostitre {
+  text-align : center;
+  font-size : 20px;
+   margin-bottom : 20px;
+}
+</style>
 </head>
 <body>
     <table style="width:100%;height:100%">
@@ -57,9 +112,7 @@
     <tr>
   	  <td width="30%">{L_LANG_TITLE}</td>
       <td colspan="2" align="left">
-        <select name="language" onchange="this.form.submit()">
-		  {F_LANG_SELECT}
-        </select>
+	  {F_LANG_SELECT}
       </td>
     </tr>
     <tr>

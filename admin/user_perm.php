@@ -24,15 +24,96 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
+
+if( !defined("IN_ADMIN") )
+{
+  die ("Hacking attempt!");
+}
+
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+//
+// Username search
+//
+function username_search($search_match)
+{
+  global $db, $board_config, $template, $lang, $images, $theme, $phpEx, $phpbb_root_path;
+  global $starttime, $gen_simple_header;
+  
+  $gen_simple_header = TRUE;
+
+  $username_list = '';
+  if ( !empty($search_match) )
+  {
+    $username_search = preg_replace('/\*/', '%', trim(strip_tags($search_match)));
+
+    $sql = "SELECT username 
+      FROM " . USERS_TABLE . " 
+      WHERE username LIKE '" . str_replace("\'", "''", $username_search) . "' 
+      ORDER BY username";
+    if ( !($result = $db->sql_query($sql)) )
+    {
+      message_die(GENERAL_ERROR, 'Could not obtain search results', '', __LINE__, __FILE__, $sql);
+    }
+
+    if ( $row = $db->sql_fetchrow($result) )
+    {
+      do
+      {
+        $username_list .= '<option value="' . $row['username'] . '">' . $row['username'] . '</option>';
+      }
+      while ( $row = $db->sql_fetchrow($result) );
+    }
+    else
+    {
+      $username_list .= '<option>' . $lang['No_match']. '</option>';
+    }
+    $db->sql_freeresult($result);
+  }
+
+  $page_title = $lang['Search'];
+  include($phpbb_root_path . 'includes/page_header.'.$phpEx);
+
+  $template->set_filenames(array(
+    'search_user_body' => 'search_username.tpl')
+  );
+
+  $template->assign_vars(array(
+    'USERNAME' => ( !empty($search_match) ) ? strip_tags($search_match) : '', 
+
+    'L_CLOSE_WINDOW' => $lang['Close_window'], 
+    'L_SEARCH_USERNAME' => $lang['Find_username'], 
+    'L_UPDATE_USERNAME' => $lang['Select_username'], 
+    'L_SELECT' => $lang['Select'], 
+    'L_SEARCH' => $lang['Search'], 
+    'L_SEARCH_EXPLAIN' => $lang['Search_author_explain'], 
+    'L_CLOSE_WINDOW' => $lang['Close_window'], 
+
+    'S_USERNAME_OPTIONS' => $username_list, 
+    'S_SEARCH_ACTION' => append_sid("search.$phpEx?mode=searchuser"))
+  );
+
+  if ( $username_list != '' )
+  {
+    $template->assign_block_vars('switch_select_name', array());
+  }
+
+  $template->pparse('search_user_body');
+
+  include($phpbb_root_path . 'includes/page_tail.'.$phpEx);
+
+  return;
+}
+
+if  (isset($HTTP_POST_VARS['username']) || isset( $_POST['submit'] ))
+{
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/user_perm.vtp' );
+$template->set_filenames( array('user'=>'admin/user_perm.tpl') );
+
 $error = array();
 $tpl = array( 'permuser_authorized','permuser_forbidden','submit',
               'permuser_parent_forbidden','permuser_info_message',
               'adduser_info_back','permuser_only_private' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------------------------- updates
 if ( isset( $_POST['submit'] ) )
 {
@@ -67,6 +148,7 @@ if ( isset( $_POST['submit'] ) )
   $vtp->closeSession( $sub, 'confirmation' );
 }
 //---------------------------------------------------------------- form display
+
 $restrictions = get_user_restrictions( $_GET['user_id'], $page['user_status'],
                                   false, false );
 $action = './admin.php?page=user_perm&amp;user_id='.$_GET['user_id'];
@@ -182,6 +264,19 @@ while ( $row = mysql_fetch_array( $result ) )
     $vtp->setVar( $sub, 'category.forbidden_checked', ' checked="checked"' );
   }
   $vtp->closeSession( $sub, 'category' );
+}
+//----------------------------------------------------------- default code
+else
+{
+$sub = $vtp->Open( '../template/'.$user['template'].'/admin/user_select_body.vtp' );
+$tpl = array( 'Look_up_user', 'Find_username', 'Select_username' );
+templatize_array( $tpl, 'lang', $sub );
+  $vtp->addSession( $sub, 'user' );
+  $vtp->setVarTab( $sub, array(
+      'user.S_USER_ACTION' => append_sid("./admin.php?page=user_search"),
+    'user.U_SEARCH_USER' => append_sid("./search.php"))
+    );
+  $vtp->closeSession( $sub, 'user' );
 }
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );

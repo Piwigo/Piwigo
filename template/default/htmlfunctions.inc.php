@@ -38,14 +38,14 @@ function get_icon( $date_comparaison )
     if ( $difference < $user['short_period'] * $jours )
     {
       $icon_url.= 'new_short.gif';
-	  $title .= $user['short_period'];
+    $title .= $user['short_period'];
     }
     else
     {
       $icon_url.= 'new_long.gif';
-	  $title .= $user['long_period'];
+    $title .= $user['long_period'];
     }
-	$title .=  '&nbsp;'.$lang['days'];
+  $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
     $output = '<img title="'.$title.'" src="'.$icon_url.'" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="" />';
@@ -107,57 +107,7 @@ function create_navigation_bar( $url, $nb_element, $start,
   return $navigation_bar;
 }
 
-function get_frame_start()
-{
-  return '<table style="padding:0px;border-collapse:collapse; width:';
-}
 
-function get_frame_begin()
-{
-  global $user;
-  $path = './template/'.$user['template'].'/theme/';
-  $size_01 = getimagesize( $path.'01.gif' );
-  $size_02 = getimagesize( $path.'02.gif' );
-  $size_03 = getimagesize( $path.'03.gif' );
-  return ';">
-            <tr>
-              <td><img src="'.$path.'01.gif" style="margin:auto;width:'.$size_01[0].'px;display:box;" alt="" /></td>
-              <td><img src="'.$path.'02.gif" style="margin:auto;display:box;width:100%;height:'.$size_02[1].'px;" alt="" /></td>
-              <td><img src="'.$path.'03.gif" style="margin:auto;display:box;width:'.$size_03[0].'px;" alt="" /></td>
-            </tr>
-            <tr>
-              <td style="margin:autox;background:url('.$path.'04.gif);"></td>
-              <td style="margin:auto;background:url('.$path.'05.gif);width:100%;">';
-}
-        
-function get_frame_end()
-{
-  global $user;
-  $path = './template/'.$user['template'].'/theme/';
-  $size_08 = getimagesize( $path.'08.gif' );
-  return '
-              </td>
-              <td style="margin:auto;background:url('.$path.'06.gif);"></td>
-            </tr>
-            <tr >
-              <td><img src="'.$path.'07.gif" style="margin:auto;" alt="" /></td>
-              <td><img src="'.$path.'08.gif" style="margin:auto;width:100%;height:'.$size_08[1].'px;" alt="" /></td>
-              <td><img src="'.$path.'09.gif" style="margin:auto;" alt="" /></td>
-            </tr>   
-          </table>';
-}
-
-function initialize_template()
-{
-  global $template, $user, $lang;
-  
-  $template->assign_vars(array(
-	'T_START' => get_frame_start(),
-	'T_BEGIN' => get_frame_begin(),
-	'T_END' =>  get_frame_end()
-	)
-	);
-}
 
 function make_jumpbox($value, $selected, $usekeys=false)
 {
@@ -187,5 +137,59 @@ function make_radio($name, $value, $selected, $usekeys=false)
     $boxstring .='/>'.$value[$i];
   }
   return $boxstring;
+}
+
+//
+// Pick a language, any language ...
+//
+function language_select($default, $select_name = "language")
+{
+  global $lang_info;
+  $dir = opendir(PHPWG_ROOT_PATH . 'language');
+  $available_lang= array();
+
+  while ( $file = readdir($dir) )
+  {
+    if (is_dir ( realpath(PHPWG_ROOT_PATH.'language/'.$file) ) 
+	  && !is_link(realpath(PHPWG_ROOT_PATH  . 'language/' . $file))
+	  && isset($lang_info['language'][$file]))
+    {
+      $available_lang[$file] = $lang_info['language'][$file];
+    }
+  }
+  closedir($dir);
+  @asort($available_lang);
+  @reset($available_lang);
+
+  $lang_select = '<select name="' . $select_name . '" onchange="this.form.submit()">';
+  while ( list($code, $displayname) = @each($available_lang) )
+  {
+    $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
+    $lang_select .= '<option value="' . $code . '"' . $selected . '>' . ucwords($displayname) . '</option>';
+  }
+  $lang_select .= '</select>';
+
+  return $lang_select;
+}
+
+//
+// Pick a template/theme combo, 
+//
+function style_select($default_style, $select_name = "style")
+{
+  $dir = opendir(PHPWG_ROOT_PATH . 'template');
+  $style_select = '<select name="' . $select_name . '">';
+  while ( $file = readdir($dir) )
+  {
+    if (is_dir ( realpath(PHPWG_ROOT_PATH.'template/'.$file) ) 
+	  && !is_link(realpath(PHPWG_ROOT_PATH  . 'template/' . $file))
+	  && !strstr($file,'.'))
+    {
+      $selected = ( $file == $default_style ) ? ' selected="selected"' : '';
+	  $style_select .= '<option value="' . $file . '"' . $selected . '>' . $file . '</option>';
+    }
+  }
+  closedir($dir);
+  return $style_select;
 }
 ?>

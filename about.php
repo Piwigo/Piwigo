@@ -36,13 +36,11 @@ $title= $lang['about_page_title'];
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('about'=>'about.tpl'));
-initialize_template();
-
 $template->assign_vars(array(
 	'PAGE_TITLE' => $title,
 	'L_ABOUT' => $lang['about_message'],
 	'L_RETURN' =>  $lang['about_return'], 
-	'U_RETURN' => add_session_id('./category.php?'.$_SERVER['QUERY_STRING'])
+	'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
 	)
 	);
 

@@ -667,7 +667,7 @@ function update_user_category( $categories )
         $restrictions ) );
             
       $query = 'SELECT MAX(date_last) AS last_date';
-      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query.= ' FROM '.CATEGORIES_TABLE;
       $query.= ' WHERE id IN ('.$category['id'];
       if ( count( $user_all_subcats ) > 0 )
         $query.= ','.implode( ',', $user_all_subcats );
@@ -735,8 +735,7 @@ function get_user_restrictions( $user_id, $user_status,
                                 $check_invisible, $use_groups = true )
 {
   // 1. retrieving ids of private categories
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query = 'SELECT id FROM '.CATEGORIES_TABLE;
   $query.= " WHERE status = 'private'";
   $query.= ';';
   $result = mysql_query( $query );
@@ -749,8 +748,7 @@ function get_user_restrictions( $user_id, $user_status,
   $authorized = array();
   // 2.1. retrieving authorized categories thanks to personnal user
   //      authorization
-  $query = 'SELECT cat_id';
-  $query.= ' FROM '.PREFIX_TABLE.'user_access';
+  $query = 'SELECT cat_id FROM '.USER_ACCESS_TABLE;
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   $result = mysql_query( $query );
@@ -763,8 +761,8 @@ function get_user_restrictions( $user_id, $user_status,
   if ( $use_groups )
   {
     $query = 'SELECT ga.cat_id';
-    $query.= ' FROM '.PREFIX_TABLE.'user_group as ug';
-    $query.= ', '.PREFIX_TABLE.'group_access as ga';
+    $query.= ' FROM '.USER_GROUP_TABLE.' as ug';
+    $query.= ', '.GROUP_ACCESS_TABLE.' as ga';
     $query.= ' WHERE ug.group_id = ga.group_id';
     $query.= ' AND ug.user_id = '.$user_id;
     $query.= ';';
@@ -789,8 +787,7 @@ function get_user_restrictions( $user_id, $user_status,
     // 3. adding to the restricted categories, the invisible ones
     if ( $user_status != 'admin' )
     {
-      $query = 'SELECT id';
-      $query.= ' FROM '.PREFIX_TABLE.'categories';
+      $query = 'SELECT id FROM '.CATEGORIES_TABLE;
       $query.= " WHERE visible = 'false';";
       $result = mysql_query( $query );
       while ( $row = mysql_fetch_array( $result ) )
@@ -821,13 +818,13 @@ function synchronize()
   // cleaning user_category table for users to update
   foreach( $user_restrictions as $user_id => $restrictions ) {
     $query = 'DELETE';
-    $query.= ' FROM '.PREFIX_TABLE.'user_category';
+    $query.= ' FROM '.USER_CATEGORY_TABLE;
     $query.= ' WHERE user_id = '.$user_id;
     $query.= ';';
     mysql_query( $query );
   }
 
-  $query = 'INSERT INTO '.PREFIX_TABLE.'user_category';
+  $query = 'INSERT INTO '.USER_CATEGORY_TABLE;
   $query.= ' (user_id,category_id,date_last,nb_sub_categories) VALUES ';
   $query.= $values;
   $query.= ';';
@@ -902,7 +899,7 @@ function synchronize_group( $group_id )
   
   $query = 'SELECT id';
   $query.= ' FROM '.USERS_TABLE;
-  $query.= ', '.PREFIX_TABLE.'user_group';
+  $query.= ', '.USER_GROUP_TABLE;
   $query.= ' WHERE group_id = '.$group_id;
   $query.= ' AND id = user_id';
   $query.= ';';
@@ -979,7 +976,7 @@ function is_user_allowed( $category_id, $restrictions )
   if ( in_array( $category_id, $restrictions ) ) return 1;
 
   $query = 'SELECT uppercats';
-  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' FROM '.CATEGORIES_TABLE;
   $query.= ' WHERE id = '.$category_id;
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );

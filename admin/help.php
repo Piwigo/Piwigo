@@ -24,33 +24,25 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/help.vtp' );
-$tpl = array( );
-templatize_array( $tpl, 'lang', $sub );
+$template->set_filenames( array('help'=>'admin/help.tpl') );
+
 //----------------------------------------------------- help categories display
 $categories = array( 'images','thumbnails','database','remote','upload',
                      'virtual','groups','access','infos' );
 foreach ( $categories as $category ) {
-  $vtp->addSession( $sub, 'cat' );
+  $template->assign_block_vars('cat', array('NAME'=>$lang['help_'.$category.'_title']));
   if ( $category == 'images' )
   {
-    $vtp->addSession( $sub, 'illustration' );
-    $vtp->setVar( $sub, 'illustration.pic_src', './admin/images/admin.png' );
-    $vtp->setVar( $sub, 'illustration.pic_alt', '' );
-    $vtp->setVar( $sub, 'illustration.caption', $lang['help_images_intro'] );
-    $vtp->closeSession( $sub, 'illustration' );
+    $template->assign_block_vars('cat.illustration', array(
+	  'SRC_IMG'=>PHPWG_ROOT_PATH.'admin/images/admin.png',
+	  'CAPTION'=>$lang['help_images_intro']
+	  ));
   }
-  $vtp->setVar( $sub, 'cat.name', $lang['help_'.$category.'_title'] );
   foreach ( $lang['help_'.$category] as $item ) {
-    $vtp->addSession( $sub, 'item' );
-    $vtp->setVar( $sub, 'item.content', $item );
-    $vtp->closeSession( $sub, 'item' );
+    $template->assign_block_vars('cat.item', array('CONTENT'=>$item));
   }
-
-  $vtp->closeSession( $sub, 'cat' );
 }
-//----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'help');
 ?>

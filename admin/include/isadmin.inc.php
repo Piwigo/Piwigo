@@ -25,7 +25,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include( './admin/include/functions.php' );
+include( PHPWG_ROOT_PATH.'admin/include/functions.php' );
 
 $isadmin = true;
 if ( $user['status'] != 'admin' )

@@ -27,21 +27,10 @@
 
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
+define('IN_ADMIN', true);
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-include_once( './admin/include/isadmin.inc.php' );
-//----------------------------------------------------- template initialization
-$vtp = new VTemplate;
-$handle = $vtp->Open( './template/'.$user['template'].'/admin.vtp' );
-// language
-$tpl = array( 'title_default','charset','install_warning' );
-templatize_array( $tpl, 'lang', $handle );
-$vtp->setGlobalVar( $handle, 'style', './template/'.$user['template'].'/'.$user['template'].'-admin.css');
-//-------------------------------------------------- install.php still exists ?
-if ( is_file( './install.php' ) )
-{
-  $vtp->addSession( $handle, 'install_warning' );
-  $vtp->closeSession( $handle, 'install_warning' );
-}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
@@ -52,8 +41,8 @@ switch ( $_GET['page'] )
    $title = $lang['title_liste_users'];   $page_valide = true; break;
  case 'user_modify':
    $title = $lang['title_modify'];        $page_valide = true; break;
- case 'user_perm':
-   if ( !is_numeric( $_GET['user_id'] ) ) $_GET['user_id'] = -1;
+ case 'user_search':
+  /* if ( !is_numeric( $_GET['user_id'] ) ) $_GET['user_id'] = -1;
    $query = 'SELECT status,username';
    $query.= ' FROM '.USERS_TABLE;
    $query.= ' WHERE id = '.$_GET['user_id'];
@@ -71,14 +60,15 @@ switch ( $_GET['page'] )
    else
    {
      $page_valide = false;
-   }
-   break;
+   }*/
+   $title = $lang['title_user_perm'];
+   //.' '.$_POST['username'];
+   $page_valide = true; break;
  case 'group_list' :
    $title = $lang['title_groups'];        $page_valide = true; break;
  case 'group_perm' :
    if ( !is_numeric( $_GET['group_id'] ) ) $_GET['group_id'] = -1;
-   $query = 'SELECT name';
-   $query.= ' FROM '.PREFIX_TABLE.'groups';
+   $query = 'SELECT name FROM '.GROUPS_TABLE;
    $query.= ' WHERE id = '.$_GET['group_id'];
    $query.= ';';
    $result = mysql_query( $query );
@@ -127,16 +117,16 @@ switch ( $_GET['page'] )
    $title = $lang['title_thumbnails'];
    if ( isset( $_GET['dir'] ) )
    {
-     $title.= ' '.$lang['title_thumbnails_2'].' <span style="color:#006699;">';
+     $title.= ' '.$lang['title_thumbnails_2'].' <span class="titreImg">';
      // $_GET['dir'] contains :
      // ./galleries/vieux_lyon ou
      // ./galleries/vieux_lyon/visite ou
      // ./galleries/vieux_lyon/visite/truc ...
      $dir = explode( "/", $_GET['dir'] );
      $title.= $dir[2];
-     for ( $i = 3; $i < sizeof( $dir ) - 1; $i++ )
+     for ( $i = 2; $i < sizeof( $dir ) - 1; $i++ )
      {
-       $title.= ' &gt; '.$dir[$i];
+       $title.= ' &gt; '.$dir[$i+1];
      }
      $title.= "</span>";
    }
@@ -154,43 +144,9 @@ switch ( $_GET['page'] )
    $title = $lang['title_default']; break;
 }
 if ( $title == '' ) $title = $lang['title_default'];
-$vtp->setGlobalVar( $handle, 'title', $title );
-//--------------------------------------------------------------------- summary
-$link_start = './admin.php?page=';
-// configuration
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'configuration' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_config'] );
-$vtp->closeSession( $handle, 'summary' );
-// users
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'user_list' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_users'] );
-$vtp->closeSession( $handle, 'summary' );
-// groups
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'group_list' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_groups'] );
-$vtp->closeSession( $handle, 'summary' );
-// categories
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',add_session_id( $link_start.'cat_list'));
-$vtp->setVar( $handle, 'summary.name', $lang['menu_categories'] );
-$vtp->closeSession( $handle, 'summary' );
+
 // waiting
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'waiting' ) );
-$query = 'SELECT id';
-$query.= ' FROM '.PREFIX_TABLE.'waiting';
+$query = 'SELECT id FROM '.WAITING_TABLE;
 $query.= " WHERE validated='false'";
 $query.= ';';
 $result = mysql_query( $query );
@@ -199,71 +155,60 @@ if ( mysql_num_rows( $result ) > 0 )
 {
   $nb_waiting =  ' [ '.mysql_num_rows( $result ).' ]';
 }
-$vtp->setVar( $handle, 'summary.name', $lang['menu_waiting'].$nb_waiting );
-$vtp->closeSession( $handle, 'summary' );
 // comments
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'comments' ) );
-$query = 'SELECT id';
-$query.= ' FROM '.PREFIX_TABLE.'comments';
+$query = 'SELECT id FROM '.COMMENTS_TABLE;
 $query.= " WHERE validated='false'";
 $query.= ';';
 $result = mysql_query( $query );
-$nb_waiting = '';
+$nb_comments = '';
 if ( mysql_num_rows( $result ) > 0 )
 {
-  $nb_waiting =  ' [ '.mysql_num_rows( $result ).' ]';
+  $nb_comments =  ' [ '.mysql_num_rows( $result ).' ]';
 }
-$vtp->setVar( $handle, 'summary.name', $lang['menu_comments'].$nb_waiting );
-$vtp->closeSession( $handle, 'summary' );
-// update
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'update' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_update'] );
-$vtp->closeSession( $handle, 'summary' );
-// thumbnails
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'thumbnail' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_thumbnails'] );
-$vtp->closeSession( $handle, 'summary' );
-// history
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'stats' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_history'] );
-$vtp->closeSession( $handle, 'summary' );
-// instructions
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'help' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_instructions'] );
-$vtp->closeSession( $handle, 'summary' );
-// back to thumbnails page
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.indent', '| ' );
-$vtp->setVar( $handle, 'summary.link', add_session_id( './category.php' ) );
-$vtp->setVar( $handle, 'summary.name', $lang['menu_back'] );
-$vtp->closeSession( $handle, 'summary' );
+
+$link_start = PHPWG_ROOT_PATH.'admin.php?page=';
+//----------------------------------------------------- template initialization
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->set_filenames( array('admin'=>'admin.tpl') );
+
+$template->assign_vars(array(
+  'L_CONFIG'=>$lang['menu_config'],
+  'L_USERS'=>$lang['menu_users'],
+  'L_GROUPS'=>$lang['menu_groups'],
+  'L_CATEGORIES'=>$lang['menu_categories'],
+  'L_WAITING'=>$lang['menu_waiting'].$nb_waiting,
+  'L_COMMENTS'=>$lang['menu_comments'].$nb_comments,
+  'L_UPDATE'=>$lang['menu_update'],
+  'L_THUMBNAILS'=>$lang['menu_thumbnails'],
+  'L_HISTORY'=>$lang['menu_history'],
+  'L_FAQ'=>$lang['menu_instructions'],
+  'L_RETURN'=>$lang['menu_back'],
+  
+  'U_CONFIG'=>add_session_id($link_start.'configuration' ),
+  'U_USERS'=>add_session_id($link_start.'user_search' ),
+  'U_GROUPS'=>add_session_id($link_start.'group_list' ),
+  'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
+  'U_WAITING'=>add_session_id($link_start.'waiting' ),
+  'U_COMMENTS'=>add_session_id($link_start.'comments' ),
+  'U_UPDATE'=>add_session_id($link_start.'update' ),
+  'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
+  'U_HISTORY'=>add_session_id($link_start.'stats' ),
+  'U_FAQ'=>add_session_id($link_start.'help' ),
+  'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
+  ));
+
+//--------------------------------------------------------------------- summary
+$link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 //------------------------------------------------------------- content display
 if ( $page_valide )
 {
-  include ( './admin/'.$_GET['page'].'.php' );
+  if ($_GET['page']=='comments') include ( PHPWG_ROOT_PATH.'comments.php');
+  else include ( PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php' );
 }
 else
 {
-  $vtp->setVar(
-    $handle, 'sub',
-    '<div style="text-align:center">'.$lang['default_message'].'</div>' );
+  $template->assign_vars(array ('ADMIN_CONTENT'=> '<div style="text-align:center">'.$lang['default_message'].'</div>') );
 }
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('admin');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

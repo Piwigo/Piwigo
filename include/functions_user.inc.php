@@ -229,42 +229,29 @@ function check_login_authorization()
 // Initialise user settings on page load
 function init_userprefs($userdata)
 {
-  global $conf, $template, $lang, $lang_mapping;
-  $style = $conf['default_style'];
-  if ( !$userdata['is_the_guest'] )
-  {
-    if ( !empty($userdata['language']))
-    {
-      $conf['default_lang'] = $userdata['language'];
-    }
-    if ( !empty($userdata['template']))
-    {
-      $style = $userdata['template'];
-    }
-  }
-
-  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/common.lang.php')) )
-  {
-    $conf['default_lang'] = 'en_EN';
-  }
-  include_once(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/common.lang.php');
+  global $conf, $template, $lang, $lang_info;
+  include_once(PHPWG_ROOT_PATH . 'language/infos.lang.php');
   
-  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/lang.lang.php')) )
+  $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_lang'];
+  $style = (!empty($userdata['template'])&& !$userdata['is_the_guest'] )?$userdata['template']:$conf['default_style'];
+ 
+  if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php')) )
   {
-    $conf['default_lang'] = 'en_EN';
+    $language = 'en_EN';
   }
-  include_once(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/lang.lang.php');
+  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php');
+  
   
   if ($userdata['status'] == 'admin')
   {
-    $admin_lang = $userdata['language'];
-    if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $conf['default_lang'] . '/admin.lang.php')) )
+    if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language. '/admin.lang.php')) )
     {
-      $admin_lang = 'en_EN';
+      $language = 'en_EN';
     }
-	include_once(PHPWG_ROOT_PATH . 'language/' . $admin_lang . '/admin.lang.php');
+  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
   }
-
+  
+  $lang_info['current_code']=$language;
   $template= setup_style($style);
   return;
 }
@@ -280,13 +267,22 @@ function setup_style($style)
 
 function encode_ip($dotquad_ip)
 {
-	$ip_sep = explode('.', $dotquad_ip);
-	return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
+  $ip_sep = explode('.', $dotquad_ip);
+  return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
 }
 
 function decode_ip($int_ip)
 {
-	$hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
-	return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
+  $hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
+  return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
+}
+
+function getuserdata($user)
+{
+  $sql = "SELECT * FROM " . USERS_TABLE;
+  $sql.= " WHERE ";
+  $sql .= ( ( is_integer($user) ) ? "id = $user" : "username = '" .  str_replace("\'", "''", $user) . "'" ) . " AND id <> " . ANONYMOUS;
+  $result = mysql_query($sql);
+  return ( $row = mysql_fetch_array($result) ) ? $row : false;
 }
 ?>

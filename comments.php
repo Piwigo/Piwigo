@@ -26,8 +26,11 @@
 // +-----------------------------------------------------------------------+
 
 //----------------------------------------------------------- include
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+if (!defined('IN_ADMIN'))
+{
+  define('PHPWG_ROOT_PATH','./');
+  include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+}
 
 //--------------------------------------------------- number of days to display
 if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
@@ -36,28 +39,60 @@ else                               define( 'MAX_DAYS', 0 );
 $array_cat_directories = array();
 $array_cat_names       = array();
 $array_cat_site_id     = array();
+
+// comment deletion
+if ( isset( $_POST['delete'] ) )
+{
+  $mod_sql='';
+  while( list($id, $row_id) = @each($_POST['comment_id']) )
+  {
+	$mod_sql .= ( ( $mod_sql != '' ) ? ', ' : '' ) . $row_id;
+  }
+  $query = 'DELETE FROM '.COMMENTS_TABLE.' WHERE id IN ('.$mod_sql.');';
+  mysql_query( $query );
+}
+
+//--------------------------------------------------------- comments validation
+if ( isset( $_POST['validate'] ) )
+{
+  $mod_sql='';
+  while( list($id, $row_id) = @each($_POST['comment_id']) )
+  {
+	$mod_sql .= ( ( $mod_sql != '' ) ? ', ' : '' ) . $row_id;
+  }
+  $query = 'UPDATE '.COMMENTS_TABLE;
+  $query.= " SET validated = 'true'";
+  $query.=' WHERE id IN ('.$mod_sql.');';
+  mysql_query( $query );
+}
 //------------------------------------------------------- last comments display
 
 //
 // Start output of page
 //
-$title= $lang['title_comments'];
-include(PHPWG_ROOT_PATH.'include/page_header.php');
+if (!defined('IN_ADMIN'))
+{
+  $title= $lang['title_comments'];
+  include(PHPWG_ROOT_PATH.'include/page_header.php');
+}
 
 $template->set_filenames( array('comments'=>'comments.tpl') );
-initialize_template();
-
 $template->assign_vars(array(
-  'L_TITLE' => $lang['title_comments'],
-  'L_STATS' => $lang['stats_last_days'],
-  'L_RETURN' => $lang['search_return_main_page'],
+  'L_COMMENT_TITLE' => $title,
+  'L_COMMENT_STATS' => $lang['stats_last_days'],
+  'L_COMMENT_RETURN' => $lang['search_return_main_page'],
+  'L_DELETE' =>$lang['delete'],
+  'L_VALIDATE'=>$lang['submit'],
   
-  'U_HOME' => add_session_id( 'category.php' )
+  'T_DEL_IMG' =>PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/delete.gif',
+  
+  'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' )
   )
 );
 
 foreach ( $conf['last_days'] as $option ) {
-  $url = './comments.php?last_days='.($option - 1);
+  $url = $PHP_SELF.'?last_days='.($option - 1);
+  if (defined('IN_ADMIN')) $url.= '&amp;page=comments';
   $template->assign_block_vars('last_day_option', array (
     'OPTION'=>$option,
 	'T_STYLE'=>(( $option == MAX_DAYS + 1 )?'text-decoration:underline;':''),
@@ -70,22 +105,28 @@ $date = date( 'Y-m-d', time() - ( MAX_DAYS*24*60*60 ) );
 list($year,$month,$day) = explode( '-', $date);
 $maxtime = mktime( 0,0,0,$month,$day,$year );
 $query = 'SELECT DISTINCT(ic.image_id) as image_id,';
-$query .= '(ic.category_id) as category_id';
-$query.= ' FROM '.PREFIX_TABLE.'comments AS c';
-$query.=     ', '.PREFIX_TABLE.'image_category AS ic';
+$query.= '(ic.category_id) as category_id';
+$query.= ' FROM '.COMMENTS_TABLE.' AS c';
+$query.= ', '.IMAGE_CATEGORY_TABLE.' AS ic';
 $query.= ' WHERE c.image_id = ic.image_id';
 $query.= ' AND date > '.$maxtime;
-$query.= " AND validated = 'true'";
-// we must not show pictures of a forbidden category
-if ( $user['forbidden_categories'] != '' )
+if ( $user['status'] != 'admin' )
 {
-  $query.= ' AND category_id NOT IN ';
-  $query.= '('.$user['forbidden_categories'].')';
+  $query.= " AND validated = 'true'";
+  // we must not show pictures of a forbidden category
+  if ( $user['forbidden_categories'] != '' )
+  {
+    $query.= ' AND category_id NOT IN ';
+    $query.= '('.$user['forbidden_categories'].')';
+  }
 }
 $query.= ' ORDER BY ic.image_id DESC';
 $query.= ';';
 $result = mysql_query( $query );
-
+if ( $user['status'] == 'admin' )
+{
+  $template->assign_block_vars('validation', array());
+}
 while ( $row = mysql_fetch_array( $result ) )
   {
     $category_id=$row['category_id'];
@@ -112,7 +153,7 @@ while ( $row = mysql_fetch_array( $result ) )
     $file = get_filename_wo_extension( $subrow['file'] );
     // name of the picture
     $name = $array_cat_names[$category_id].' &gt; ';
-    if ( $subrow['name'] != '' ) $name.= $subrow['name'];
+    if (!empty($subrow['name'])) $name.= $subrow['name'];
     else                         $name.= str_replace( '_', ' ', $file );
     $name.= ' [ '.$subrow['file'].' ]';
 	// source of the thumbnail picture
@@ -120,7 +161,7 @@ while ( $row = mysql_fetch_array( $result ) )
     $src.= 'thumbnail/'.$conf['prefix_thumbnail'];
     $src.= $file.'.'.$subrow['tn_ext'];
 	// link to the full size picture
-    $url = './picture.php?cat='.$category_id;
+    $url = PHPWG_ROOT_PATH.'picture.php?cat='.$category_id;
     $url.= '&amp;image_id='.$row['image_id'];
 	
 	$template->assign_block_vars('picture',array(
@@ -130,18 +171,20 @@ while ( $row = mysql_fetch_array( $result ) )
 	  ));
 
     // for each picture, retrieving all comments
-    $query = 'SELECT id,date,author,content';
-    $query.= ' FROM '.COMMENTS_TABLE;
+    $query = 'SELECT * FROM '.COMMENTS_TABLE;
     $query.= ' WHERE image_id = '.$row['image_id'];
     $query.= ' AND date > '.$maxtime;
-    $query.= " AND validated = 'true'";
+	if ( $user['status'] != 'admin' )
+    {
+      $query.= " AND validated = 'true'";
+	}
     $query.= ' ORDER BY date DESC';
     $query.= ';';
     $handleresult = mysql_query( $query );
     while ( $subrow = mysql_fetch_array( $handleresult ) )
     {
       $author = $subrow['author'];
-      if ( $subrow['author'] == '' ) $author = $lang['guest'];
+      if ( empty($subrow['author'] )) $author = $lang['guest'];
       $content = nl2br( $subrow['content'] );
       
       // replace _word_ by an underlined word
@@ -159,13 +202,28 @@ while ( $row = mysql_fetch_array( $result ) )
       $replacement = '<span style="font-style:italic;">\1</span>';
       $content = preg_replace( $pattern, $replacement, $content );
       $template->assign_block_vars('picture.comment',array(
-	    'AUTHOR'=>$author,
-		'DATE'=>format_date( $subrow['date'], 'unix', true ),
-		'CONTENT'=>$content,
+	    'COMMENT_AUTHOR'=>$author,
+		'COMMENT_DATE'=>format_date( $subrow['date'], 'unix', true ),
+		'COMMENT'=>$content,
 		));
+		if ( $user['status'] == 'admin' )
+		{
+		  $template->assign_block_vars('picture.comment.validation', array(
+		    'ID'=> $subrow['id'],
+			'CHECKED'=>($subrow['validated']=='false')?'checked="checked"': ''
+			));
+		}
     }
   }
 //----------------------------------------------------------- html code display
-$template->pparse('comments');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+if (defined('IN_ADMIN'))
+{
+  $template->assign_var_from_handle('ADMIN_CONTENT', 'comments');
+}
+else
+{
+  $template->assign_block_vars('title',array());
+  $template->pparse('comments');
+  include(PHPWG_ROOT_PATH.'include/page_tail.php');
+}
 ?>

@@ -25,7 +25,12 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once( './admin/include/isadmin.inc.php' );
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 	
 $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A", 
                 "Â" => "A", "Ã" => "A", "Ä" => "A", "Å" => "A", 
@@ -44,35 +49,14 @@ $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A",
                 "ù" => "u", "ú" => "u", "û" => "u", "ü" => "u", 
                 "ý" => "y", "ÿ" => "y");
 //------------------------------ verification and registration of modifications
-$conf_infos = array();
-$query = 'SELECT param';
-$query.= ' FROM '.CONFIG_TABLE;
-$query.= ';';
-$result = mysql_query( $query );
-while ( $row = mysql_fetch_array( $result ) )
-{
-  array_push( $conf_infos, $row['param'] );
-}
-
-$default_user_infos =
-array( 'nb_image_line','nb_line_page','language','maxwidth',
-       'maxheight','expand','show_nb_comments','short_period','long_period',
-       'template' );
 $error = array();
 if ( isset( $_POST['submit'] ) )
 {
   $int_pattern = '/^\d+$/';
-  // empty session table if asked
-  if ( $_POST['empty_session_table'] == 1 )
-  {
-    $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
-    $query.= ' WHERE expiration < '.time().';';
-    mysql_query( $query );
-  }
   // deletion of site as asked
   $site_deleted = false;
   $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'sites';
+  $query.= ' FROM '.SITES_TABLE;
   $query.= " WHERE galleries_url <> './galleries/';";
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -134,13 +118,6 @@ if ( isset( $_POST['submit'] ) )
   {
     array_push( $error, $lang['conf_err_sid_time'] );
   }
-  // max_user_listbox must be an integer between 0 and 255 included
-  if ( !preg_match( $int_pattern, $_POST['max_user_listbox'] )
-       or $_POST['max_user_listbox'] < 0
-       or $_POST['max_user_listbox'] > 255 )
-  {
-    array_push( $error, $lang['conf_err_max_user_listbox'] );
-  }
   // the number of comments per page must be an integer between 5 and 50
   // included
   if ( !preg_match( $int_pattern, $_POST['nb_comment_page'] )
@@ -185,7 +162,7 @@ if ( isset( $_POST['submit'] ) )
     array_push( $error, $lang['conf_err_upload_maxheight_thumbnail'] );
   }
 
-  if ( $_POST['maxwidth'] != ''
+/*  if ( $_POST['maxwidth'] != ''
        and ( !preg_match( $int_pattern, $_POST['maxwidth'] )
              or $_POST['maxwidth'] < 50 ) )
   {
@@ -196,805 +173,158 @@ if ( isset( $_POST['submit'] ) )
              or $_POST['maxheight'] < 50 ) )
   {
     array_push( $error, $lang['err_maxheight'] );
-  }
+  }*/
   // updating configuraiton if no error found
   if ( count( $error ) == 0 )
   {
-    foreach ( $conf_infos as $conf_info ) {
-      if ( isset( $_POST[$conf_info] ) )
+    $result = mysql_query( "SELECT * FROM ".CONFIG_TABLE );
+    while ( $row = mysql_fetch_array( $result ) )
+	{
+	  $config_name = $row['param'];
+	  $conf[$config_name] = ( isset($_POST[$config_name]) ) ? $_POST[$config_name] : $row['value'];
+      if ( isset( $_POST[$config_name] ) )
       {
         $query = 'UPDATE '.CONFIG_TABLE;
-        $query.= ' SET value = ';
-        if ( $_POST[$conf_info] == '' )
-        {
-          $query.= 'NULL';
-        }
-        else
-        {
-          $query.= "'".$_POST[$conf_info]."'";
-        }
-        $query.= " WHERE param = '".$conf_info."'";
-        $query.= ';';
+        $query.= " SET value = '". str_replace("\'", "''", $conf[$config_name]) ;
+        $query.= "' WHERE param = '$config_name'";
         mysql_query( $query );
       }
     }
-
-    $query = 'UPDATE '.USERS_TABLE;
-    $query.= ' SET';
-    foreach ( $default_user_infos as $i => $default_user_info ) {
-      if ( $i > 0 ) $query.= ',';
-      else          $query.= ' ';
-      $query.= $default_user_info;
-      $query.= ' = ';
-      if ( $_POST[$default_user_info] == '' )
-      {
-        $query.= 'NULL';
-      }
-      else
-      {
-        $query.= "'".$_POST[$default_user_info]."'";
-      }
-    }
-    $query.= " WHERE username = 'guest'";
-    $query.= ';';
-    mysql_query( $query );
-  }
-//--------------------------------------------------------- data initialization
-  foreach ( $conf_infos as $conf_info ) {
-    $$conf_info = $_POST[$conf_info];
-  }
-  foreach ( $default_user_infos as $default_user_info ) {
-    $$default_user_info = $_POST[$default_user_info];
   }
 }
-else
-{
-//--------------------------------------------------------- data initialization
-  $query = 'SELECT param,value';
-  $query.= ' FROM '.CONFIG_TABLE;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row =mysql_fetch_array( $result ) )
-  {
-    if ( isset( $row['value'] ) )
-    {
-      $$row['param'] = $row['value'];
-    }
-    else
-    {
-      $$row['param'] = '';
-    }
-  }
 
-  $query  = 'SELECT '.implode( ',', $default_user_infos );
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= " WHERE username = 'guest'";
-  $query.= ';';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $default_user_infos as $info ) {
-    if ( isset( $row[$info] ) ) $$info = $row[$info];
-    else                        $$info = '';
-  }
-}
+$access = ($conf['access']=='free')?'ACCESS_FREE':'ACCESS_RESTRICTED'; 
+$log = ($conf['log']=='true')?'HISTORY_YES':'HISTORY_NO'; 
+$mail_notif = ($conf['mail_notification']=='true')?'MAIL_NOTIFICATION_YES':'MAIL_NOTIFICATION_NO'; 
+$show_comments = ($conf['show_comments']=='true')?'SHOW_COMMENTS_YES':'SHOW_COMMENTS_NO';
+$comments_all = ($conf['comments_forall']=='true')?'COMMENTS_ALL_YES':'COMMENTS_ALL_NO';
+$comments_validation = ($conf['comments_validation']=='true')?'VALIDATE_COMMENTS_YES':'VALIDATE_COMMENTS_NO';
+$expand = ($conf['auto_expand']=='true')?'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+$nb_comments = ($conf['show_nb_comments']=='true')?'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+$upload = ($conf['upload_available']=='true')?'UPLOAD_YES':'UPLOAD_NO';
+$cookie = ($conf['authorize_cookies']=='true')?'COOKIE_YES':'COOKIE_NO';
+
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open(
-  './template/'.$user['template'].'/admin/configuration.vtp' );
+$template->set_filenames( array('config'=>'admin/configuration.tpl') );
+
+$template->assign_vars(array(
+  'ADMIN_NAME'=>$conf['webmaster'],
+  'ADMIN_MAIL'=>$conf['mail_webmaster'],
+  'THUMBNAIL_PREFIX'=>$conf['prefix_thumbnail'],
+  'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
+  'LANG_SELECT'=>language_select($conf['default_lang'], 'default_lang'),
+  'NB_IMAGE_LINE'=>$conf['nb_image_line'],
+  'NB_ROW_PAGE'=>$conf['nb_line_page'],
+  'STYLE_SELECT'=>style_select($conf['default_style'], 'default_style'),
+  'SHORT_PERIOD'=>$conf['short_period'],
+  'LONG_PERIOD'=>$conf['long_period'],
+  'UPLOAD_MAXSIZE'=>$conf['upload_maxfilesize'],
+  'UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth'],
+  'UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight'],
+  'TN_UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth_thumbnail'],
+  'TN_UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight_thumbnail'],
+  'SESSION_LENGTH'=>$conf['session_time'],
+  'SESSION_ID_SIZE'=>$conf['session_id_size'],
+  
+  $access=>'checked="checked"',
+  $log=>'checked="checked"',
+  $mail_notif=>'checked="checked"',
+  $show_comments=>'checked="checked"',
+  $comments_all=>'checked="checked"',
+  $comments_validation=>'checked="checked"',
+  $expand=>'checked="checked"',
+  $nb_comments=>'checked="checked"',
+  $upload=>'checked="checked"',
+  $cookie=>'checked="checked"',
+  
+  'L_CONFIRM'=>$lang['conf_confirmation'],
+  'L_CONF_GENERAL'=>$lang['conf_general_title'],
+  'L_ADMIN_NAME'=>$lang['conf_general_webmaster'],
+  'L_ADMIN_NAME_INFO'=>$lang['conf_general_webmaster_info'],
+  'L_ADMIN_MAIL'=>$lang['conf_general_mail'],
+  'L_ADMIN_MAIL_INFO'=>$lang['conf_general_mail_info'],
+  'L_THUMBNAIL_PREFIX'=>$lang['conf_general_prefix'],
+  'L_THUMBNAIL_PREFIX_INFO'=>$lang['conf_general_prefix_info'],
+  'L_ACCESS'=>$lang['conf_general_access'],
+  'L_ACCESS_INFO'=>$lang['conf_general_access_info'],
+  'L_ACCESS_FREE'=>$lang['conf_general_access_1'],
+  'L_ACCESS_RESTRICTED'=>$lang['conf_general_access_2'],
+  'L_HISTORY'=>$lang['conf_general_log'],
+  'L_HISTORY_INFO'=>$lang['conf_general_log_info'],
+  'L_MAIL_NOTIFICATION'=>$lang['conf_general_mail_notification'],
+  'L_MAIL_NOTIFICATION_INFO'=>$lang['conf_general_mail_notification_info'],
+  'L_CONF_COMMENTS'=>$lang['conf_comments_title'],
+  'L_SHOW_COMMENTS'=>$lang['conf_comments_show_comments'],
+  'L_SHOW_COMMENTS_INFO'=>$lang['conf_comments_show_comments_info'],
+  'L_COMMENTS_ALL'=>$lang['conf_comments_forall'],
+  'L_COMMENTS_ALL_INFO'=>$lang['conf_comments_forall_info'],
+  'L_NB_COMMENTS_PAGE'=>$lang['conf_comments_comments_number'],
+  'L_NB_COMMENTS_PAGE_INFO'=>$lang['conf_comments_comments_number_info'],
+  'L_VALIDATE_COMMENTS'=>$lang['conf_comments_validation'],
+  'L_VALIDATE_COMMENTS_INFO'=>$lang['conf_comments_validation_info'],
+  'L_ABILITIES_SETTINGS'=>$lang['conf_default_title'],
+  'L_LANG_SELECT'=>$lang['customize_language'],
+  'L_LANG_SELECT_INFO'=>$lang['conf_default_language_info'],
+  'L_NB_IMAGE_LINE'=>$lang['customize_nb_image_per_row'],
+  'L_NB_IMAGE_LINE_INFO'=>$lang['conf_default_nb_image_per_row_info'],
+  'L_NB_ROW_PAGE'=>$lang['customize_nb_row_per_page'],
+  'L_NB_ROW_PAGE_INFO'=>$lang['conf_default_nb_row_per_page_info'],
+  'L_STYLE_SELECT'=>$lang['customize_theme'],
+  'L_STYLE_SELECT_INFO'=>$lang['conf_default_theme_info'],
+  'L_SHORT_PERIOD'=>$lang['customize_short_period'],
+  'L_SHORT_PERIOD_INFO'=>$lang['conf_default_short_period_info'],
+  'L_LONG_PERIOD'=>$lang['customize_long_period'],
+  'L_LONG_PERIOD_INFO'=>$lang['conf_default_long_period_info'],
+  'L_EXPAND_TREE'=>$lang['customize_expand'],
+  'L_EXPAND_TREE_INFO'=>$lang['conf_default_expand_info'],
+  'L_NB_COMMENTS'=>$lang['customize_show_nb_comments'],
+  'L_NB_COMMENTS_INFO'=>$lang['conf_default_show_nb_comments_info'],
+  'L_UPLOAD'=>$lang['conf_upload_available'],
+  'L_UPLOAD_INFO'=>$lang['conf_upload_available_info'],
+  'L_CONF_UPLOAD'=>$lang['conf_upload_title'],
+  'L_UPLOAD_MAXSIZE'=>$lang['conf_upload_maxfilesize'],
+  'L_UPLOAD_MAXSIZE_INFO'=>$lang['conf_upload_maxfilesize_info'],
+  'L_UPLOAD_MAXWIDTH'=>$lang['conf_upload_maxwidth'],
+  'L_UPLOAD_MAXWIDTH_INFO'=>$lang['conf_upload_maxwidth_info'],
+  'L_UPLOAD_MAXHEIGHT'=>$lang['conf_upload_maxheight'],
+  'L_UPLOAD_MAXHEIGHT_INFO'=>$lang['conf_upload_maxheight_info'],
+  'L_TN_UPLOAD_MAXWIDTH'=>$lang['conf_upload_maxwidth_thumbnail'],
+  'L_TN_UPLOAD_MAXWIDTH_INFO'=>$lang['conf_upload_maxwidth_thumbnail_info'],
+  'L_TN_UPLOAD_MAXHEIGHT'=>$lang['conf_upload_maxheight_thumbnail'],
+  'L_TN_UPLOAD_MAXHEIGHT_INFO'=>$lang['conf_upload_maxheight_thumbnail'],
+  'L_CONF_SESSION'=>$lang['conf_session_title'],
+  'L_COOKIE'=>$lang['conf_session_cookie'],
+  'L_COOKIE_INFO'=>$lang['conf_session_cookie_info'],
+  'L_SESSION_LENGTH'=>$lang['conf_session_time'],
+  'L_SESSION_LENGTH_INFO'=>$lang['conf_session_time_info'],
+  'L_SESSION_ID_SIZE'=>$lang['conf_session_size'],
+  'L_SESSION_ID_SIZE_INFO'=>$lang['conf_session_size_info'],
+  'L_YES'=>$lang['yes'],
+  'L_NO'=>$lang['no'],
+  'L_SUBMIT'=>$lang['submit'],
+  
+  'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=configuration')
+  ));
 
 $tpl = array( 'conf_confirmation','remote_site','delete',
               'conf_remote_site_delete_info','submit','errors_title' );
-templatize_array( $tpl, 'lang', $sub );
+
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
 {
-  $vtp->addSession( $sub, 'errors' );
+  $template->assign_block_vars('errors',array());
   for ( $i = 0; $i < sizeof( $error ); $i++ )
   {
-    $vtp->addSession( $sub, 'li' );
-    $vtp->setVar( $sub, 'li.li', $error[$i] );
-    $vtp->closeSession( $sub, 'li' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error[$i]));
   }
-  $vtp->closeSession( $sub, 'errors' );
 }
-//-------------------------------------------------------- confirmation display
-if ( count( $error ) == 0 and isset( $_POST['submit'] ) )
+elseif ( isset( $_POST['submit'] ) )
 {
-  $vtp->addSession( $sub, 'confirmation' );
-  $vtp->closeSession( $sub, 'confirmation' );
+  $template->assign_block_vars('confirmation' ,array());
 }
-//----------------------------------------------------------------- form action
-$form_action = add_session_id( './admin.php?page=configuration' );
-$vtp->setVar( $sub, 'form_action', $form_action );
-//------------------------------------------------------- general configuration
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'title_line' );
-$vtp->setVar( $sub, 'title_line.title', $lang['conf_general_title'] );
-$vtp->closeSession( $sub, 'title_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-// webmaster name
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_webmaster'] );
-$vtp->addSession( $sub, 'hidden' );
-$vtp->setVar( $sub, 'hidden.text', $webmaster );
-$vtp->setVar( $sub, 'hidden.name', 'webmaster' );
-$vtp->setVar( $sub, 'hidden.value', $webmaster );
-$vtp->closeSession( $sub, 'hidden' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_general_webmaster_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// webmaster mail address
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_mail'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'mail_webmaster' );
-$vtp->setVar( $sub, 'text.value', $mail_webmaster );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_general_mail_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// prefix for thumbnails
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_prefix'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'prefix_thumbnail' );
-$vtp->setVar( $sub, 'text.value', $prefix_thumbnail );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_general_prefix_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// access type
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_access'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'access' );
-$vtp->setVar( $sub, 'radio.value', 'free' );
-$vtp->setVar( $sub, 'radio.option', $lang['conf_general_access_1'] );
-$checked = '';
-if ( $access == 'free' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'access' );
-$vtp->setVar( $sub, 'radio.value', 'restricted' );
-$vtp->setVar( $sub, 'radio.option', $lang['conf_general_access_2'] );
-$checked = '';
-if ( $access == 'restricted' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_general_access_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// maximum user number to display in the listbox of identification page
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name',
-              $lang['conf_general_max_user_listbox'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'max_user_listbox' );
-$vtp->setVar( $sub, 'text.value', $max_user_listbox );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_general_max_user_listbox_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// activate log
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_general_log'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'log' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$checked = '';
-if ( $log == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'log' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$checked = '';
-if ( $log == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_general_log_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// mail notification for admins
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name',
-              $lang['conf_general_mail_notification'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'mail_notification' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$checked = '';
-if ( $mail_notification == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'mail_notification' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$checked = '';
-if ( $mail_notification == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_general_mail_notification_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-//------------------------------------------------------ comments configuration
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'title_line' );
-$vtp->setVar( $sub, 'title_line.title', $lang['conf_comments_title'] );
-$vtp->closeSession( $sub, 'title_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-// show comments ?
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_comments_show_comments'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'show_comments' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$checked = '';
-if ( $show_comments == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'show_comments' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$checked = '';
-if ( $show_comments == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_comments_show_comments_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// coments for all ? true -> guests can post messages
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_comments_forall'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'comments_forall' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$checked = '';
-if ( $comments_forall == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'comments_forall' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$checked = '';
-if ( $comments_forall == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_comments_forall_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// number of comments per page
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name',
-              $lang['conf_comments_comments_number'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'nb_comment_page' );
-$vtp->setVar( $sub, 'text.value', $nb_comment_page );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_comments_comments_number_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// coments validation
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_comments_validation'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'comments_validation' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$checked = '';
-if ( $comments_validation == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'comments_validation' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$checked = '';
-if ( $comments_validation == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_comments_validation_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-//-------------------------------------------------- default user configuration
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'title_line' );
-$vtp->setVar( $sub, 'title_line.title', $lang['conf_default_title'] );
-$vtp->closeSession( $sub, 'title_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-// default language
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_language'] );
-$vtp->addSession( $sub, 'select' );
-$vtp->setVar( $sub, 'select.name', 'language' );
-$option = get_languages( './language/' );
-for ( $i = 0; $i < sizeof( $option ); $i++ )
-{
-  $vtp->addSession( $sub, 'option' );
-  $vtp->setVar( $sub, 'option.option', $option[$i] );
-  if ( $option[$i] == $language )
-  {
-    $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
-  }
-  $vtp->closeSession( $sub, 'option' );
-}
-$vtp->closeSession( $sub, 'select' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_language_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// number of image per row
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_nb_image_per_row'] );
-$vtp->addSession( $sub, 'select' );
-$vtp->setVar( $sub, 'select.name', 'nb_image_line' );
-for ( $i = 0; $i < sizeof( $conf['nb_image_row'] ); $i++ )
-{
-  $vtp->addSession( $sub, 'option' );
-  $vtp->setVar( $sub, 'option.option', $conf['nb_image_row'][$i] );
-  if ( $conf['nb_image_row'][$i] == $nb_image_line )
-  {
-    $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
-  }
-  $vtp->closeSession( $sub, 'option' );
-}
-$vtp->closeSession( $sub, 'select' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_default_nb_image_per_row_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// number of row per page
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_nb_row_per_page'] );
-$vtp->addSession( $sub, 'select' );
-$vtp->setVar( $sub, 'select.name', 'nb_line_page' );
-for ( $i = 0; $i < sizeof( $conf['nb_row_page'] ); $i++ )
-{
-  $vtp->addSession( $sub, 'option' );
-  $vtp->setVar( $sub, 'option.option', $conf['nb_row_page'][$i] );
-  if ( $conf['nb_row_page'][$i] == $nb_line_page )
-  {
-    $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
-  }
-  $vtp->closeSession( $sub, 'option' );
-}
-$vtp->closeSession( $sub, 'select' );
-$vtp->setVar( $sub, 'param_line.def',
-              $lang['conf_default_nb_row_per_page_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// template
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_theme'] );
-$vtp->addSession( $sub, 'select' );
-$vtp->setVar( $sub, 'select.name', 'template' );
-$option = get_dirs( './template/' );
-
-for ( $i = 0; $i < sizeof( $option ); $i++ )
-{
-  $vtp->addSession( $sub, 'option' );
-  $vtp->setVar( $sub, 'option.option', $option[$i] );
-  if ( $option[$i] == $template )
-  {
-    $vtp->setVar( $sub, 'option.selected', ' selected="selected"' );
-  }
-  $vtp->closeSession( $sub, 'option' );
-}
-$vtp->closeSession( $sub, 'select' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_theme_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// short period time
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_short_period'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'short_period' );
-$vtp->setVar( $sub, 'text.value', $short_period );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_short_period_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// long period time
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_long_period'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'long_period' );
-$vtp->setVar( $sub, 'text.value', $long_period );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_long_period_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// max displayed width
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['maxwidth'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'maxwidth' );
-$vtp->setVar( $sub, 'text.value', $maxwidth );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_maxwidth_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// max displayed height
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['maxheight'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'maxheight' );
-$vtp->setVar( $sub, 'text.value', $maxheight );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_maxheight_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// expand all categories ?
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_expand'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'expand' );
-
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$checked = '';
-if ( $expand == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'expand' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$checked = '';
-if ( $expand == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_expand_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// show number of comments on thumbnails page
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['customize_show_nb_comments'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'show_nb_comments' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$checked = '';
-if ( $show_nb_comments == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'show_nb_comments' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$checked = '';
-if ( $show_nb_comments == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_default_show_nb_comments_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-//-------------------------------------------------------- upload configuration
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'title_line' );
-$vtp->setVar( $sub, 'title_line.title', $lang['conf_upload_title'] );
-$vtp->closeSession( $sub, 'title_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-// is upload available ?
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_available'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'upload_available' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$checked = '';
-if ( $upload_available == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'upload_available' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$checked = '';
-if ( $upload_available == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_available_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// max filesize uploadable
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_maxfilesize'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'upload_maxfilesize' );
-$vtp->setVar( $sub, 'text.value', $upload_maxfilesize );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_maxfilesize_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// maxwidth uploadable
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_maxwidth'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'upload_maxwidth' );
-$vtp->setVar( $sub, 'text.value', $upload_maxwidth );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_maxwidth_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// maxheight uploadable
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_upload_maxheight'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'upload_maxheight' );
-$vtp->setVar( $sub, 'text.value', $upload_maxheight );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_maxheight_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// maxwidth for thumbnail
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name',$lang['conf_upload_maxwidth_thumbnail']);
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'upload_maxwidth_thumbnail' );
-$vtp->setVar( $sub, 'text.value', $upload_maxwidth_thumbnail );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar($sub,'param_line.def',$lang['conf_upload_maxwidth_thumbnail_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// maxheight for thumbnail
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub,'param_line.name',$lang['conf_upload_maxheight_thumbnail']);
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'upload_maxheight_thumbnail' );
-$vtp->setVar( $sub, 'text.value', $upload_maxheight_thumbnail );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_upload_maxheight_thumbnail_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-//------------------------------------------------------ sessions configuration
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'title_line' );
-$vtp->setVar( $sub, 'title_line.title', $lang['conf_session_title'] );
-$vtp->closeSession( $sub, 'title_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
-// authorize cookies ?
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_cookie'] );
-$vtp->addSession( $sub, 'group' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'authorize_cookies' );
-$vtp->setVar( $sub, 'radio.value', 'true' );
-$checked = '';
-if ( $authorize_cookies == 'true' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->addSession( $sub, 'radio' );
-$vtp->setVar( $sub, 'radio.name', 'authorize_cookies' );
-$vtp->setVar( $sub, 'radio.value', 'false' );
-$checked = '';
-if ( $authorize_cookies == 'false' )
-{
-  $checked = ' checked="checked"';
-}
-$vtp->setVar( $sub, 'radio.checked', $checked );
-$vtp->setVar( $sub, 'radio.option', $lang['no'] );
-$vtp->closeSession( $sub, 'radio' );
-$vtp->closeSession( $sub, 'group' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_cookie_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// session size
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_size'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'session_id_size' );
-$vtp->setVar( $sub, 'text.value', $session_id_size );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_size_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// session length
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_time'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'session_time' );
-$vtp->setVar( $sub, 'text.value', $session_time );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_time_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// session keyword
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_key'] );
-$vtp->addSession( $sub, 'text' );
-$vtp->setVar( $sub, 'text.name', 'session_keyword' );
-$vtp->setVar( $sub, 'text.value', $session_keyword );
-$vtp->closeSession( $sub, 'text' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_key_info']);
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-// session deletion
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'param_line' );
-$vtp->setVar( $sub, 'param_line.name', $lang['conf_session_delete'] );
-$vtp->addSession( $sub, 'check' );
-$vtp->addSession( $sub, 'box' );
-$vtp->setVar( $sub, 'box.name', 'empty_session_table' );
-$vtp->setVar( $sub, 'box.value', '1' );
-$vtp->setVar( $sub, 'box.checked', ' checked="checked"' );
-$vtp->closeSession( $sub, 'box' );
-$vtp->closeSession( $sub, 'check' );
-$vtp->setVar( $sub, 'param_line.def', $lang['conf_session_delete_info'] );
-$vtp->closeSession( $sub, 'param_line' );
-$vtp->closeSession( $sub, 'line' );
-
-$vtp->addSession( $sub, 'line' );
-$vtp->addSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'space_line' );
-$vtp->closeSession( $sub, 'line' );
 //------------------------------------------------ remote sites administration 
 $query = 'select id,galleries_url';
-$query.= ' from '.PREFIX_TABLE.'sites';
+$query.= ' from '.SITES_TABLE;
 $query.= " where galleries_url <> './galleries/';";
 $result = mysql_query( $query );
 if ( mysql_num_rows( $result ) > 0 )
@@ -1018,5 +348,5 @@ if ( mysql_num_rows( $result ) > 0 )
   $vtp->closeSession( $sub, 'remote_sites' );
 }
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'config');
 ?>

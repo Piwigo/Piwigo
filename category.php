@@ -54,7 +54,7 @@ function display_category( $category, $indent )
 {
   global $user,$template,$page;
   
-  $url = './category.php?cat='.$category['id'];
+  $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
 
   $style = '';
   if ( isset( $page['cat'] )
@@ -65,7 +65,7 @@ function display_category( $category, $indent )
   }
   
   $name = $category['name'];
-  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
+  if (empty($name)) $name = str_replace( '_', ' ', $category['dir'] );
   
   $template->assign_block_vars(
     'category',
@@ -89,7 +89,7 @@ function display_category( $category, $indent )
   }
   else
   {
-    $url = './category.php';
+    $url = PHPWG_ROOT_PATH.'category.php';
     if (isset($page['cat']))
     {
       $url .='?cat='.$page['cat'];
@@ -115,9 +115,10 @@ function display_category( $category, $indent )
   // recursive call
   if ( $category['expanded'] )
   {
-    foreach ( $category['subcats'] as $subcat ) {
+    foreach ( $category['subcats'] as $subcat ) 
+	{
       $template->assign_block_vars('category.subcat', array());
-      display_category( $subcat, $indent.str_repeat( '&nbsp', 2 ));
+	  display_category( $subcat, $indent.str_repeat( '&nbsp;', 2 ));
     }
   }
 }
@@ -243,7 +244,7 @@ $template->assign_vars(array(
   'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
   'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
   'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent' ),
-  'U_LOGOUT' => add_session_id( PHPWG_ROOT_PATH.'category.php?act=logout' ),
+  'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
   )
@@ -383,17 +384,16 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
 
 	  'U_IMG_LINK'=>add_session_id( $url_link )
 	  ));
-
+	  
     if ( $conf['show_comments'] && $user['show_nb_comments'] )
     {
-      $vtp->addSession( $handle, 'nb_comments' );
       $query = 'SELECT COUNT(*) AS nb_comments';
       $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$row['id'];
       $query.= " AND validated = 'true'";
       $query.= ';';
       $row = mysql_fetch_array( mysql_query( $query ) );
-      $vtp->setVar( $handle, 'nb_comments.nb', $row['nb_comments'] );
-      $vtp->closeSession( $handle, 'nb_comments' );
+      $template->assign_block_vars( 'thumbnails.line.thumbnail.nb_comments', 
+	    array('NB_COMMENTS'=>$row['nb_comments']) );
     }
   }
 }
@@ -446,7 +446,7 @@ else
 
     $thumbnail_title = $lang['hint_category'];
 
-    $url_link = './category.php?cat='.$subcat_id;
+    $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$subcat_id;
 
     $date = $page['plain_structure'][$subcat_id]['date_last'];
 
@@ -483,7 +483,7 @@ if ( isset ( $page['cat'] ) )
          and $conf['upload_available']
          and $page['cat_uploadable'] )
     {
-      $url = './upload.php?cat='.$page['cat'];
+      $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
 	  $template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
     }
   }
