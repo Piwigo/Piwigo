@@ -55,6 +55,9 @@ class Template {
   
   // This will hold the uncompiled code for that handle.
   var $uncompiled_code = array();
+
+  // output
+  var $output = '';
   
   /**
    * Constructor. Simply sets the root dir.
@@ -132,6 +135,39 @@ class Template {
       //echo ("<!-- ".$this->compiled_code[$handle]." -->");
       eval($this->compiled_code[$handle]);
       return true;
+    }
+
+  /**
+   * fills $output template var
+   */
+  function parse($handle)
+    {
+      if (!$this->loadfile($handle))
+      {
+        die("Template->pparse(): Couldn't load template file for handle $handle");
+      }
+      
+      // actually compile the template now.
+      if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
+      {
+        // Actually compile the code now.
+        $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], true, '_str');
+      }
+
+      // Run the compiled code.
+      $_str = '';
+      eval($this->compiled_code[$handle]);
+      $this->output.= $_str;
+
+      return true;
+    }
+
+  /**
+   * prints $output template var
+   */
+  function p()
+    {
+      echo $this->output;
     }
   
   /**
