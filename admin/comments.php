@@ -159,7 +159,7 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/comments.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/comments.vtp' );
 $tpl = array( 'stats_last_days','delete','close','submit','open' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );

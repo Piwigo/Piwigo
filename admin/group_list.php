@@ -18,7 +18,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/group_list.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/group_list.vtp' );
 $tpl = array( 'group_add','add','listuser_permission','delete',
               'group_confirm','yes','no','group_list_title' );
 templatize_array( $tpl, 'lang', $sub );

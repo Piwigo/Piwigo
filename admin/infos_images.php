@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 include_once( './include/isadmin.inc.php' );
-include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
+include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 //-------------------------------------------------------------- initialization
 check_cat_id( $_GET['cat_id'] );
 if ( isset( $page['cat'] ) )
@@ -222,7 +222,7 @@ if ( isset( $page['cat'] ) )
   $cat['name'] = $result['name'];
   $cat['nb_images'] = $result['nb_images'];
 //----------------------------------------------------- template initialization
-  $sub = $vtp->Open('../template/'.$user['template'].'/admin/infos_image.vtp');
+  $sub = $vtp->Open('./template/'.$user['template'].'/admin/infos_image.vtp');
   $tpl = array( 'infoimage_general','author','infoimage_useforall','submit',
                 'infoimage_creation_date','infoimage_detailed','thumbnail',
                 'infoimage_title','infoimage_comment',

@@ -138,7 +138,7 @@ if ( isset( $_POST['submit'] ) )
 }
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open(
-  '../template/'.$user['template'].'/admin/picture_modify.vtp' );
+  './template/'.$user['template'].'/admin/picture_modify.vtp' );
 
 $tpl = array( 'submit','errors_title','picmod_update','picmod_back',
               'default','file','size','filesize','registration_date',

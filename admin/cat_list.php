@@ -19,7 +19,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat_list.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_list.vtp' );
 $tpl = array( 'cat_edit','cat_up','cat_down','cat_image_info',
               'cat_permission','cat_update','cat_add','cat_parent','submit',
               'cat_virtual','delete','cat_first','cat_last' );

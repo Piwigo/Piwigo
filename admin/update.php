@@ -33,7 +33,7 @@ function insert_local_category( $cat_id )
     $cat_directory.= '/'.get_local_dir( $cat_id );
     $result = get_cat_info( $cat_id );
     // 1. display the category name to update
-    $src = '../template/'.$user['template'].'/admin/images/puce.gif';
+    $src = './template/'.$user['template'].'/admin/images/puce.gif';
     $output = '<img src="'.$src.'" alt="&gt;" />';
     $output.= '<span style="font-weight:bold;">'.$result['name'][0].'</span>';
     $output.= ' [ '.$result['dir'].' ]';
@@ -381,7 +381,7 @@ function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
     $dir = getAttribute( $list_dirs[$i], 'name' );
     $categories[$i] = $dir;
 
-    $src = '../template/'.$user['template'].'/admin/images/puce.gif';
+    $src = './template/'.$user['template'].'/admin/images/puce.gif';
     $output.= '<img src="'.$src.'" alt="&gt;" />';
     $output.= '<span style="font-weight:bold;">'.$dir.'</span>';
     $output.= '<div class="retrait">';
@@ -563,7 +563,7 @@ function insert_remote_image( $xml_dir, $category_id )
   return $output;
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/update.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/update.vtp' );
 $tpl = array( 'update_default_title', 'update_only_cat', 'update_all',
               'update_research_conclusion', 'update_deletion_conclusion',
               'remote_site', 'update_part_research' );

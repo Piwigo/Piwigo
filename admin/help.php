@@ -18,7 +18,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/help.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/help.vtp' );
 $tpl = array( );
 templatize_array( $tpl, 'lang', $sub );
 //----------------------------------------------------- help categories display

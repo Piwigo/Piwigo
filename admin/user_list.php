@@ -18,7 +18,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/user_list.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/user_list.vtp' );
 $tpl = array( 'listuser_confirm','listuser_modify_hint','listuser_modify',
               'listuser_permission','listuser_permission_hint',
               'listuser_delete_hint','listuser_delete','yes','no',

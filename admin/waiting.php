@@ -66,7 +66,7 @@ if ( isset( $_POST['submit'] ) )
   }
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/waiting.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/waiting.vtp' );
 $tpl = array( 'category','date','author','thumbnail','file','delete',
               'submit','waiting_update' );
 templatize_array( $tpl, 'lang', $sub );

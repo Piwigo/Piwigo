@@ -262,7 +262,7 @@ else
 }
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open(
-  '../template/'.$user['template'].'/admin/configuration.vtp' );
+  './template/'.$user['template'].'/admin/configuration.vtp' );
 
 $tpl = array( 'conf_confirmation','remote_site','delete',
               'conf_remote_site_delete_info','submit','errors_title' );
@@ -652,7 +652,7 @@ $vtp->addSession( $sub, 'param_line' );
 $vtp->setVar( $sub, 'param_line.name', $lang['customize_theme'] );
 $vtp->addSession( $sub, 'select' );
 $vtp->setVar( $sub, 'select.name', 'template' );
-$option = get_dirs( '../template/' );
+$option = get_dirs( './template/' );
 for ( $i = 0; $i < sizeof( $option ); $i++ )
 {
   $vtp->addSession( $sub, 'option' );

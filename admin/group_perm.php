@@ -18,7 +18,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/group_perm.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/group_perm.vtp' );
 $error = array();
 $tpl = array( 'permuser_authorized','permuser_forbidden','submit',
               'permuser_parent_forbidden','permuser_info_message',

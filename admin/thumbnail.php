@@ -259,7 +259,7 @@ function get_displayed_dirs( $dir, $indent )
   }
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/thumbnail.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/thumbnail.vtp' );
 $tpl = array(
   'tn_dirs_title','tn_dirs_alone','tn_params_title','tn_params_GD',
   'tn_params_GD_info','tn_width','tn_params_width_info','tn_height',

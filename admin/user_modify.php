@@ -18,7 +18,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/user_modify.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/user_modify.vtp' );
 $error = array();
 $tpl = array( 'adduser_info_message', 'adduser_info_back', 'adduser_fill_form',
               'login', 'new', 'password', 'mail_address', 'adduser_status',

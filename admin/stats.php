@@ -34,7 +34,7 @@ if ( isset( $_GET['act'] ) and $_GET['act'] == 'empty' )
   mysql_query( $query );
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/stats.vtp' );
+$sub = $vtp->Open( './template/'.$user['template'].'/admin/stats.vtp' );
 $tpl = array( 'stats_last_days','date','login',
               'IP','file','picture','category','stats_pages_seen',
               'stats_visitors','stats_empty', 'stats_pages_seen_graph_title',
