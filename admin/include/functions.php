@@ -431,7 +431,7 @@ function update_category( $id = 'all' )
 function check_date_format( $date )
 {
   // date arrives at this format : DD/MM/YYYY
-  list($day,$month,$year) = explode( '/', $date );
+  @list($day,$month,$year) = explode( '/', $date );
   return @checkdate( $month, $day, $year );
 }
 

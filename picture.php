@@ -234,7 +234,7 @@ if ( $page['num'] >= 1 )
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
 
-  if ( $array_cat_directories[$row['storage_category_id']] == '' )
+  if ( !isset($array_cat_directories[$row['storage_category_id']]) )
   {
     $array_cat_directories[$row['storage_category_id']] =
       get_complete_dir( $row['storage_category_id'] );
@@ -281,7 +281,7 @@ else
   $intitule_cat = $page['title'];
 }
 
-if ( $array_cat_directories[$page['storage_category_id']] == '' )
+if ( !isset($array_cat_directories[$page['storage_category_id']]) )
 {
   $array_cat_directories[$page['storage_category_id']] =
     get_complete_dir( $page['storage_category_id'] );
@@ -289,7 +289,7 @@ if ( $array_cat_directories[$page['storage_category_id']] == '' )
 $cat_directory = $array_cat_directories[$page['storage_category_id']];
 
 $n = $page['num'] + 1;
-$intitule_titre = replace_space( $intitule_cat." - " ).$n.'/'.
+$intitule_titre = replace_space( $intitule_cat." - " ).$n.'/';
 $intitule_titre.= $page['cat_nb_images']."<br />";
 if ( $page['name'] != "" )
 {
@@ -722,7 +722,8 @@ if ( $conf['show_comments'] )
     if ( !$user['is_the_guest'] )
     {
       $vtp->addSession( $handle, 'author_known' );
-      $vtp->setVar( $handle, 'author_known.value', $user['pseudo'] );
+	  if (isset($user['pseudo']))
+	      $vtp->setVar( $handle, 'author_known.value', $user['pseudo'] );
       $vtp->closeSession( $handle, 'author_known' );
     }
     else

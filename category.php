@@ -462,21 +462,22 @@ if ( isset ( $page['cat'] ) )
     $vtp->setVar( $handle, 'cat_infos.cat_name',
                   get_cat_display_name( $page['cat_name'], ' - ',
                                         'font-style:italic;' ) );
+	// upload a picture in the category
+  	if ( $page['cat_site_id'] == 1
+       and $conf['upload_available']
+       and $page['cat_uploadable'] )
+  	{
+    	$vtp->addSession( $handle, 'upload' );
+	    $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
+    	$vtp->setVar( $handle, 'upload.url', add_session_id( $url ) );
+	    $vtp->closeSession( $handle, 'upload' );
+  	}
   }
   else
   {
     $vtp->setVar( $handle, 'cat_infos.cat_name', $page['title'] );
   }
-  // upload a picture in the category
-  if ( $page['cat_site_id'] == 1
-       and $conf['upload_available']
-       and $page['cat_uploadable'] )
-  {
-    $vtp->addSession( $handle, 'upload' );
-    $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-    $vtp->setVar( $handle, 'upload.url', add_session_id( $url ) );
-    $vtp->closeSession( $handle, 'upload' );
-  }
+  
   $vtp->closeSession( $handle, 'cat_infos' );
 }
 //------------------------------------------------------------ log informations

@@ -85,7 +85,7 @@ if ( isset( $_POST['submit'] ) )
     // if the user ask the picture to be the representative picture of its
     // category, the category is updated in the database (without wondering
     // if this picture was already the representative one)
-    if ( $_POST['representative-'.$row['category_id']] == 1 )
+    if ( isset($_POST['representative-'.$row['category_id']]) )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'categories';
       $query.= ' SET representative_picture_id = '.$_GET['image_id'];
@@ -144,7 +144,7 @@ if ( isset( $_POST['submit'] ) )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    if ( $_POST['dissociate-'.$row['category_id']] == 1 )
+    if ( isset($_POST['dissociate-'.$row['category_id']]) )
     {
       $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
       $query.= ' WHERE image_id = '.$_GET['image_id'];

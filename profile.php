@@ -115,11 +115,7 @@ if ( isset( $_POST['submit'] ) )
       mysql_query( $query );
     }
     // redirection
-    $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
-    if ( $page['cat'] == 'search' )
-    {
-      $url.= '&search='.$_GET['search'].'&mode='.$_GET['mode'];
-    }
+    $url = 'category.php';
     if ( $_POST['create_cookie'] != 1 ) $url = add_session_id( $url, true );
     header( 'Request-URI: '.$url );  
     header( 'Content-Location: '.$url );  
@@ -135,11 +131,7 @@ $tpl = array( 'customize_page_title','customize_title','password','new',
               'reg_confirm','submit','create_cookie' );
 templatize_array( $tpl, 'lang', $handle );
 //----------------------------------------------------------------- form action
-$url = './profile.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-if ( $page['cat'] == 'search' )
-{
-  $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-}
+$url = './profile.php';
 $vtp->setGlobalVar( $handle, 'form_action', add_session_id( $url ) );
 //-------------------------------------------------------------- errors display
 if ( count( $errors ) != 0 )
