@@ -63,6 +63,7 @@
 </div>
 <!-- END stop_slideshow -->
 <div style="clear:both;"></div>
+<div style="white-space:nowrap;">
 <div id="gauche">
 &nbsp;
   <!-- BEGIN previous -->
@@ -90,6 +91,7 @@
 	  </a>
   <!-- END next -->
   &nbsp;
+</div>
 </div>
 <div style="clear:both;"></div>
          <!-- BEGIN metadata -->
@@ -160,7 +162,8 @@
                     <!-- END author_known -->
                     {L_COMMENT}</td>
 					<td style="width:100%;">
-					<input name="content" type="text" maxlength="200" style="width:100%;" value="" /></td><td>
+					<textarea name="content" rows="2" style="width:100%;"></textarea>
+					</td><td>
 					<input type="submit" value="{L_SUBMIT}" class="bouton" />
 			  </td>
 			 </tr>

@@ -105,12 +105,13 @@ div.information {  font-size:14px; font-weight:bold;}
   float:left;
   width:30%;
   text-align:left;
+  white-space:nowrap;
 }
 
 #centre
 {
   float:left;
-  width:40%;
+  width:39%;
   text-align:center;
 }
 
