@@ -42,17 +42,6 @@ $query.= ';';
 @mysql_query( $query );
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
-
-// if this image_id doesn't correspond to this category, an error message is
-// displayed, and execution is stopped
-if ( 0 )
-{
-  echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-  echo '<a href="'.add_session_id( PHPWG_ROOT_PATH.'category.php' ).'">';
-  echo $lang['thumbnails'].'</a></div>';
-  exit();
-}
-
 // retrieving the number of the picture in its category (in order)
 $query = '
 SELECT DISTINCT(id)
@@ -63,28 +52,44 @@ SELECT DISTINCT(id)
 ;';
 $result = mysql_query( $query );
 $page['num'] = 0;
-$row = mysql_fetch_array( $result );
-while ( $row['id'] != $_GET['image_id'] )
+$belongs = false;
+while ($row = mysql_fetch_array($result))
 {
+  if ($row['id'] == $_GET['image_id'])
+  {
+    $belongs = true;
+    break;
+  }
   $page['num']++;
-  $row = mysql_fetch_array( $result );
 }
-
+// if this image_id doesn't correspond to this category, an error message is
+// displayed, and execution is stopped
+if (!$belongs)
+{
+  echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
+  echo '<a href="'.add_session_id( PHPWG_ROOT_PATH.'category.php' ).'">';
+  echo $lang['thumbnails'].'</a></div>';
+  exit();
+}
 //------------------------------------- prev, current & next picture management
 $picture = array();
-$picture['prev']['name'] = '';
-$picture['next']['name'] = '';
-$picture['prev']['thumbnail'] = '';
-$picture['next']['thumbnail'] = '';
-$picture['prev']['url'] = '';
-$picture['next']['url'] = '';
 
-$next = $page['num'] + 1;
-$prev = $page['num'] - 1;
-
-if ( $page['num'] == $page['cat_nb_images'] - 1 )
+if ($page['num'] == 0)
 {
-  $next = 0;
+  $has_prev = false;
+}
+else
+{
+  $has_prev = true;
+}
+
+if ($page['num'] == $page['cat_nb_images'] - 1)
+{
+  $has_next = false;
+}
+else
+{
+  $has_next = true;
 }
 
 $query = '
@@ -95,25 +100,44 @@ SELECT *
   '.$conf['order_by'].'
   ';
 
-if ( $prev < 0 )
+if ( !$has_prev )
 {
   $query.= ' LIMIT 0,2';
 }
 else
 {
-  $query.= ' LIMIT '.$prev.',3';
+  $query.= ' LIMIT '.($page['num'] - 1).',3';
 }
 $query.= ';';
 
 $result = mysql_query( $query );
-$nb_row = mysql_num_rows( $result );
-$index = array('prev','current','next');
+$indexes = array('prev', 'current', 'next');
 
-for ( $i = 0; $i < $nb_row; $i++ )
+foreach (array('prev', 'current', 'next') as $i)
 {
-  $j=($prev<0)?$index[$i+1]:$index[$i];
+  if ($i == 'prev' and !$has_prev)
+  {
+    continue;
+  }
+  if ($i == 'next' and !$has_next)
+  {
+    break;
+  }
+
   $row = mysql_fetch_array($result);
-  $picture[$j] = $row;
+  foreach (array_keys($row) as $key)
+  {
+    if (!is_numeric($key))
+    {
+      $picture[$i][$key] = $row[$key];
+    }
+  }
+
+  $picture[$i]['is_picture'] = false;
+  if (in_array(get_extension($row['file']), $conf['picture_ext']))
+  {
+    $picture[$i]['is_picture'] = true;
+  }
   
   if ( !isset($array_cat_directories[$row['storage_category_id']]))
   {
@@ -121,28 +145,57 @@ for ( $i = 0; $i < $nb_row; $i++ )
       get_complete_dir( $row['storage_category_id'] );
   }
   $cat_directory = $array_cat_directories[$row['storage_category_id']];
-  $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
+  $file_wo_ext = get_filename_wo_extension($row['file']);
 
-  $picture[$j]['src'] = $cat_directory.$row['file'];
+  $icon = './template/'.$user['template'].'/mimetypes/';
+  $icon.= strtolower(get_extension($row['file'])).'.png';
 
-  $picture[$j]['thumbnail'] = $cat_directory.'thumbnail/';
-  $picture[$j]['thumbnail'].= $conf['prefix_thumbnail'].$file;
-  $picture[$j]['thumbnail'].= '.'.$row['tn_ext'];
-  
-  if ( !empty( $row['name'] ) )
+  if (isset($row['representative_ext']) and $row['representative_ext'] =! '')
   {
-    $picture[$j]['name'] = $row['name'];
+    $picture[$i]['src'] = $cat_directory.'representative/';
+    $picture[$i]['src'].= $file_wo_ext.'.'.$row['representative_ext'];
   }
   else
   {
-    $picture[$j]['name'] = str_replace( '_', ' ', $file );
+    $picture[$i]['src'] = $icon;
+  }
+  // special case for picture files
+  if ($picture[$i]['is_picture'])
+  {
+    $picture[$i]['src'] = $cat_directory.$row['file'];
   }
 
-  $picture[$j]['url'] = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
-  $picture[$j]['url'].= '&amp;cat='.$page['cat'];
+  // if picture is not a file, we need the download link
+  if (!$picture[$i]['is_picture'])
+  {
+    $picture[$i]['download'] = $cat_directory.$row['file'];
+  }
+
+  if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+  {
+    $picture[$i]['thumbnail'] = $cat_directory.'thumbnail/';
+    $picture[$i]['thumbnail'].= $conf['prefix_thumbnail'].$file_wo_ext;
+    $picture[$i]['thumbnail'].= '.'.$row['tn_ext'];
+  }
+  else
+  {
+    $picture[$i]['thumbnail'] = $icon;
+  }
+  
+  if ( !empty( $row['name'] ) )
+  {
+    $picture[$i]['name'] = $row['name'];
+  }
+  else
+  {
+    $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
+  }
+
+  $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
+  $picture[$i]['url'].= '&amp;cat='.$page['cat'];
   if ( $page['cat'] == 'search' )
   {
-    $picture[$j]['url'].= '&amp;search='.$_GET['search'];
+    $picture[$i]['url'].= '&amp;search='.$_GET['search'];
   }
 }
 
@@ -176,14 +229,14 @@ if ( isset( $_GET['add_fav'] ) )
   }
   if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
   {
-    if ( $prev < 0 and $nb_row == 1 )
+    if (!$has_prev and $mysql_num_rows == 1)
     {
       // there is no favorite picture anymore we redirect the user to the
       // category page
       $url = add_session_id( $url_home );
       redirect( $url );
     }
-    else if ( $prev < 0 )
+    else if (!$has_prev)
     {
       $url = str_replace( '&amp;', '&', $picture['next']['url'] );
       $url = add_session_id( $url, true);
@@ -332,15 +385,10 @@ $template->assign_vars(array(
   'CATEGORY' => $title_img,
   'PHOTO' => $title_nb,
   'TITLE' => $picture['current']['name'],
-  'PREV_TITLE_IMG' => $picture['prev']['name'],
-  'NEXT_TITLE_IMG' => $picture['next']['name'],
-  'PREV_IMG' => $picture['prev']['thumbnail'],
-  'NEXT_IMG' => $picture['next']['thumbnail'],
   'SRC_IMG' => $picture['current']['src'],
   'ALT_IMG' => $picture['current']['file'],
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
-  'COMMENT_IMG' => $picture['current']['comment'],
 
   'L_SLIDESHOW' => $lang['slideshow'],
   'L_TIME' => $lang['period_seconds'],
@@ -355,11 +403,11 @@ $template->assign_vars(array(
   'L_SUBMIT' =>$lang['submit'],
   'L_AUTHOR' =>$lang['author'],
   'L_COMMENT' =>$lang['comment'],
+  'L_DOWNLOAD' => $lang['download'],
+  'L_DOWNLOAD_HINT' => $lang['download_hint'],
   
   'T_DEL_IMG' =>PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/delete.gif',
   
-  'U_PREV_IMG' => add_session_id($picture['prev']['url']),
-  'U_NEXT_IMG' => add_session_id($picture['next']['url']),
   'U_HOME' => add_session_id($url_home),
   'U_ADMIN' => add_session_id($url_admin),
   'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
@@ -387,23 +435,58 @@ else
   }
 }
 
-if ($prev>=0) $template->assign_block_vars('previous', array());
-if ($next) $template->assign_block_vars('next', array());
+if ($has_prev)
+{
+  $template->assign_block_vars(
+    'previous',
+    array(
+      'TITLE_IMG' => $picture['prev']['name'],
+      'IMG' => $picture['prev']['thumbnail'],
+      'U_IMG' => add_session_id($picture['prev']['url'])
+      ));
+}
+
+if ($has_next)
+{
+  $template->assign_block_vars(
+    'next',
+    array(
+      'TITLE_IMG' => $picture['next']['name'],
+      'IMG' => $picture['next']['thumbnail'],
+      'U_IMG' => add_session_id($picture['next']['url'])
+      ));
+}
 
 //--------------------------------------------------------- picture information
 // legend
-if ( !empty($picture['current']['comment']) )
+if (isset($picture['current']['comment'])
+    and !empty($picture['current']['comment']))
 {
-  $template->assign_block_vars('legend', array());
+  $template->assign_block_vars(
+    'legend',
+    array(
+        'COMMENT_IMG' => $picture['current']['comment']
+      ));
+}
+// download link if file is not a picture
+if (!$picture['current']['is_picture'])
+{
+  $template->assign_block_vars(
+    'download',
+    array(
+        'U_DOWNLOAD' => $picture['current']['download']
+      ));
 }
 
 // author
 if ( !empty($picture['current']['author']) )
 {
-  $template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['author'],
-	  'VALUE'=>$picture['current']['author']
-	  ));
+  $template->assign_block_vars(
+    'info_line',
+    array(
+      'INFO'=>$lang['author'],
+      'VALUE'=>$picture['current']['author']
+      ));
 }
 // creation date
 if ( !empty($picture['current']['date_creation']) )
@@ -419,19 +502,26 @@ $template->assign_block_vars('info_line', array(
 	  'VALUE'=>format_date( $picture['current']['date_available'] ) 
 	  ));
 // size in pixels
-if ( $original_width != $picture_size[0] or $original_height != $picture_size[1] )
+if ($picture['current']['is_picture'])
 {
-  $content = '[ <a href="'.$picture['current']['url'].'" title="'.$lang['true_size'].'">';
-  $content.= $original_width.'*'.$original_height.'</a> ]';
+  if ($original_width != $picture_size[0]
+      or $original_height != $picture_size[1])
+  {
+    $content = '[ <a href="'.$picture['current']['url'].'" ';
+    $content.= ' title="'.$lang['true_size'].'">';
+    $content.= $original_width.'*'.$original_height.'</a> ]';
+  }
+  else
+  {
+    $content = $original_width.'*'.$original_height;
+  }
+  $template->assign_block_vars(
+    'info_line',
+    array(
+      'INFO'=>$lang['size'],
+      'VALUE'=>$content 
+      ));
 }
-else
-{
-  $content = $original_width.'*'.$original_height;
-}
-$template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['size'],
-	  'VALUE'=>$content 
-	  ));
 // file
 $template->assign_block_vars('info_line', array(
 	  'INFO'=>$lang['file'],
