@@ -714,9 +714,36 @@ SELECT COUNT(rate) AS count
       'VALUE' => $value
       ));
 }
-
-//metadata
-
+// related categories
+$query = '
+SELECT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'];
+if ($user['forbidden_categories'] != '')
+{
+  $query.= '
+    AND category_id NOT IN ('.$user['forbidden_categories'].')';
+}
+$query.= '
+;';
+$result = mysql_query($query);
+$categories = '';
+while ($row = mysql_fetch_array($result))
+{
+  if ($categories != '')
+  {
+    $categories.= '<br />';
+  }
+  $cat_info = get_cat_info($row['category_id']);
+  $categories .= get_cat_display_name($cat_info['name'], ' &gt;');
+}
+$template->assign_block_vars(
+  'info_line',
+  array(
+    'INFO'  => $lang['categories'],
+    'VALUE' => $categories
+    ));
+// metadata
 if ($metadata_showable and isset($_GET['show_metadata']))
 {
   include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
