@@ -167,9 +167,10 @@ $user_ip = encode_ip($client_ip);
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available
 //
-$query = 'SELECT param,value';
-$query.= ' FROM '.CONFIG_TABLE;
-$query.= ';';
+$query = '
+SELECT param,value
+ FROM '.CONFIG_TABLE.'
+;';
 if( !( $result = mysql_query( $query ) ) )
 {
   die("Could not query config information");

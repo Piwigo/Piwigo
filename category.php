@@ -152,6 +152,7 @@ $template->assign_vars(array(
   'L_ADMIN_HINT' => $lang['hint_admin'],
   'L_PROFILE' => $lang['customize'],
   'L_PROFILE_HINT' => $lang['hint_customize'],
+  'L_REMEMBER_ME' => $lang['remember_me'],
   
   'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
   'T_RECENT' => $icon_recent,

@@ -30,6 +30,12 @@
 	  <input class="login" type="password" name="password" size="25" maxlength="25" />
 	</td>
   </tr>
+  <tr>
+        <td align="right"><span class="gentbl">{L_REMEMBER_ME}:</span></td>
+        <td>
+          <input type="checkbox" name="remember_me" value="1" />
+        </td>
+  </tr>
   <tr align="center"> 
 	<td colspan="2"><input type="submit" name="login" value="{L_LOGIN}" class="bouton" /></td>
   </tr>

@@ -149,17 +149,14 @@
     <td colspan="2">&nbsp;</td>
   </tr>
     <tr>
-    <td width="70%"><strong>{session.L_CONF_COOKIE}&nbsp;:</strong><br /><span class="small">{session.L_CONF_COOKIE_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="authorize_cookies" value="true" {session.COOKIE_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="authorize_cookies" value="false" {session.COOKIE_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{session.L_SESSION_LENGTH}&nbsp;:</strong><br /><span class="small">{session.L_SESSION_LENGTH_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="6" name="session_time" value="{session.SESSION_LENGTH}" /></td>
+    <td width="70%"><strong>{session.L_CONF_AUTH_METHOD}&nbsp;:</strong><br /><span class="small">{session.L_CONF_AUTH_METHOD_INFO}</span></td>
+	<td class="row1"><input type="radio" class="radio" name="auth_method" value="URI" {session.AUTH_METHOD_URI} />{L_URI}&nbsp;&nbsp;
+	<input type="radio" class="radio" name="auth_method" value="cookie" {session.AUTH_METHOD_COOKIE} />{L_COOKIE}</td>
   </tr>
     <tr>
-    <td><strong>{session.L_SESSION_ID_SIZE}&nbsp;:</strong><br /><span class="small">{session.L_SESSION_ID_SIZE_INFO}</span></td>
-	<td class="row1"><input type="text" size="2" maxlength="3" name="session_id_size" value="{session.SESSION_ID_SIZE}" /></td>
+    <td width="70%"><strong>{session.L_CONF_AUTHORIZE_REMEMBERING}&nbsp;:</strong><br /><span class="small">{session.L_CONF_AUTHORIZE_REMEMBERING_INFO}</span></td>
+        <td class="row1"><input type="radio" class="radio" name="authorize_remembering" value="true" {session.AUTHORIZE_REMEMBERING_YES} />{L_YES}&nbsp;&nbsp;
+        <input type="radio" class="radio" name="authorize_remembering" value="false" {session.AUTHORIZE_REMEMBERING_NO} />{L_NO}</td>
   </tr>
 <!-- END session -->
 <!-- BEGIN metadata -->

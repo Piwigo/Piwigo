@@ -174,14 +174,12 @@ $lang['conf_upload_maxheight_thumbnail_error'] = 'Maximum height authorized for 
 
 // Configuration -> session
 $lang['conf_session_title'] = 'Sessions';
-$lang['conf_cookies'] = 'Authorize cookies';
-$lang['conf_cookies_info'] = 'Users won\'t have to log on each visit any more. Less secure.';
-$lang['conf_session_size'] = 'Identifier size';
-$lang['conf_session_size_info'] = '- the longer your identifier is, the more secure your site is<br />- enter a number between 4 and 50';
-$lang['conf_session_size_error'] = 'the session identifier size must be an integer value between 4 and 50';
-$lang['conf_session_time'] = 'validity period';
-$lang['conf_session_time_info'] = '- the shorter the validity period is, the more secure your site is<br />- enter a number between 5 and 60, in minutes';
-$lang['conf_session_time_error'] = 'the session time must be an integer value between 5 and 60';
+$lang['conf_auth_method'] = 'Authentication method';
+$lang['conf_auth_method_info'] = 'The default authentication method can be URI (session identifier in the gallery links) or cookie (no session identifier in links but needs cookies to be authorized by web browser)';
+$lang['URI'] = 'URI';
+$lang['cookie'] = 'cookie';
+$lang['conf_authorize_remembering'] = 'Authorize remembering';
+$lang['conf_authorize_remembering_info'] = 'Permits user to log for a long time. It creates a cookie on client side, with duration set in include/config.inc.php (1 year per default)';
 
 // Configuration -> metadata
 $lang['conf_metadata_title'] = 'Metadata';

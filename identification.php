@@ -31,18 +31,40 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 //-------------------------------------------------------------- identification
 $errors = array();
-if ( isset( $_POST['login'] ) )
+if (isset($_POST['login']))
 {
   // retrieving the encrypted password of the login submitted
-  $query = 'SELECT password';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= " WHERE username = '".$_POST['username']."';";
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  if( $row['password'] == md5( $_POST['password'] ) )
+  $query = '
+SELECT id, password
+  FROM '.USERS_TABLE.'
+  WHERE username = \''.$_POST['username'].'\'
+;';
+  $row = mysql_fetch_array(mysql_query($query));
+  if ($row['password'] == md5($_POST['password']))
   {
-    $session_id = session_create( $_POST['username'] );
-    $url = 'category.php?id='.$session_id;
-    redirect( $url );
+    if ($conf['auth_method'] == 'cookie'
+        or isset($_POST['remember_me']) and $_POST['remember_me'] == 1)
+    {
+      if ($conf['auth_method'] == 'cookie')
+      {
+        $cookie_length = $conf['session_length'];
+      }
+      else if ($_POST['remember_me'] == 1)
+      {
+        $cookie_length = $conf['remember_me_length'];
+      }
+      session_create($row['id'],
+                     'cookie',
+                     $cookie_length);
+      redirect('category.php');
+    }
+    else if ($conf['auth_method'] == 'URI')
+    {
+      $session_id = session_create($row['id'],
+                                   'URI',
+                                   $conf['session_length']);
+      redirect('category.php?id='.$session_id);
+    }
   }
   else
   {
@@ -68,7 +90,8 @@ $template->assign_vars(
     'L_LOGIN' => $lang['submit'],
     'L_GUEST' => $lang['ident_guest_visit'],
     'L_REGISTER' => $lang['ident_register'],
-    'L_FORGET' => $lang['ident_forgotten_password'], 
+    'L_FORGET' => $lang['ident_forgotten_password'],
+    'L_REMEMBER_ME'=>$lang['remember_me'],
     
     'T_STYLE' => $user['template'],
     

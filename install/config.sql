@@ -5,8 +5,6 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('mail_webmaster',
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_language','en_UK.iso-8859-1','Default gallery language');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('default_template','default','Default gallery style');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('access','free','access type to your gallery (free|restricted)');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_id_size','4','length of session identifiers');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('session_time','30','number of minutes for validity of sessions');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_comments','true','display the users comments');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_comment_page','10','number of comments to display on each page');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('upload_available','false','authorizing the upload of pictures by users');
@@ -18,7 +16,6 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('upload_maxheight
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('log','false','keep an history of visits on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('comments_validation','false','administrators validate users comments before becoming visible');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('comments_forall','false','even guest not registered can post comments');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('authorize_cookies','false','users can create cookies');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('mail_notification','false','automated mail notification for adminsitrators');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_image_line','5','Number of images displayed per row');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_line_page','3','Number of rows displayed per page');
@@ -29,3 +26,5 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_iptc','false
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_exif','true','Use EXIF data during database synchronization with files metadata');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_iptc','false','Show IPTC metadata on picture.php if asked by user');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_exif','true','Show EXIF metadata on picture.php if asked by user');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('auth_method','URI','Default method used to authenticate users : URI or cookie');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('authorize_remembering','true','Authorize users to be remembered, see $conf{remember_me_length}');

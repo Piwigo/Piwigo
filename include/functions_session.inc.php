@@ -31,7 +31,7 @@
 //                    "Er4Tgh6", "Rrp08P", "54gj"
 // input  : none (using global variable)
 // output : $key
-function generate_key()
+function generate_key($size)
 {
   global $conf;
 
@@ -44,7 +44,7 @@ function generate_key()
   $init = substr( $init, 0, 8 );
   mt_srand( $init );
   $key = '';
-  for ( $i = 0; $i < $conf['session_id_size']; $i++ )
+  for ( $i = 0; $i < $size; $i++ )
   {
     $c = mt_rand( 0, 2 );
     if ( $c == 0 )      $key .= chr( mt_rand( 65, 90 ) );
@@ -54,38 +54,53 @@ function generate_key()
   return $key;
 }
 
-// The function create_session finds a non-already-used session key and
-// returns it once found for the given user.
-function session_create( $username )
+/**
+ * create a new session and returns the session identifier
+ *
+ * - find a non-already-used session key
+ * - create a session in database
+ * - return session identifier
+ *
+ * @param int userid
+ * @param string method : cookie or URI
+ * @param int session_lentgh : in seconds
+ * @return string
+ */
+function session_create($userid, $method, $session_length)
 {
   global $conf;
+
   // 1. searching an unused session key
   $id_found = false;
-  while ( !$id_found )
+  while (!$id_found)
   {
-    $generated_id = generate_key();
-    $query = 'select id';
-    $query.= ' from '.PREFIX_TABLE.'sessions';
-    $query.= " where id = '".$generated_id."';";
-    $result = mysql_query( $query );
-    if ( mysql_num_rows( $result ) == 0 )
+    $generated_id = generate_key($conf['session_id_size_'.$method]);
+    $query = '
+SELECT id
+  FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$generated_id.'\'
+;';
+    $result = mysql_query($query);
+    if (mysql_num_rows($result) == 0)
     {
       $id_found = true;
     }
   }
-  // 2. retrieving id of the username given in parameter
-  $query = 'select id';
-  $query.= ' from '.USERS_TABLE;
-  $query.= " where username = '".$username."';";
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  $user_id = $row['id'];
   // 3. inserting session in database
-  $expiration = $conf['session_time'] * 60 + time();
-  $query = 'insert into '.PREFIX_TABLE.'sessions';
-  $query.= ' (id,user_id,expiration,ip) values';
-  $query.= "('".$generated_id."','".$user_id;
-  $query.= "','".$expiration."','".$_SERVER['REMOTE_ADDR']."');";
-  mysql_query( $query );
+  $expiration = $session_length + time();
+  $query = '
+INSERT INTO '.SESSIONS_TABLE.'
+  (id,user_id,expiration,ip)
+  VALUES
+  (\''.$generated_id.'\','.$userid.','.$expiration.',
+   \''.$_SERVER['REMOTE_ADDR'].'\')
+;';
+  mysql_query($query);
+
+  if ($method == 'cookie')
+  {
+    setcookie('id', $generated_id, $session_length+time(), cookie_path());
+  }
                 
   return $generated_id;
 }

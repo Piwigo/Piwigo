@@ -120,24 +120,6 @@ if (isset($_POST['submit']))
       }
       break;
     }
-    case 'session' :
-    {
-      // session_id size must be an integer between 4 and 50
-      if (!preg_match($int_pattern, $_POST['session_id_size'])
-          or $_POST['session_id_size'] < 4
-          or $_POST['session_id_size'] > 50)
-      {
-        array_push($errors, $lang['conf_session_size_error']);
-      }
-      // session_time must be an integer between 5 and 60, in minutes
-      if (!preg_match($int_pattern, $_POST['session_time'])
-          or $_POST['session_time'] < 5
-          or $_POST['session_time'] > 60)
-      {
-        array_push($errors, $lang['conf_session_time_error']);
-      }
-      break;
-    }
   }
   
   // updating configuration if no error found
@@ -172,6 +154,8 @@ $template->assign_vars(
     'L_NO'=>$lang['no'],
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
+    'L_URI'=>$lang['URI'],
+    'L_COOKIE'=>$lang['cookie'],
     
     'F_ACTION'=>add_session_id($action)
     ));
@@ -320,24 +304,28 @@ switch ($page['section'])
   }
   case 'session' :
   {
-    $cookie_yes = ($conf['upload_available']=='true')?'checked="checked"':'';
-    $cookie_no = ($conf['upload_available']=='false')?'checked="checked"':'';
+    $auth_method_URI = ($conf['auth_method']=='URI')?'checked="checked"':'';
+    $auth_method_cookie =
+      ($conf['auth_method']=='cookie')?'checked="checked"':'';
+    $authorize_remembering_yes =
+      ($conf['authorize_remembering']=='true')?'checked="checked"':'';
+    $authorize_remembering_no =
+      ($conf['authorize_remembering']=='false')?'checked="checked"':'';
       
     $template->assign_block_vars(
       'session',
       array(
         'L_CONF_TITLE'=>$lang['conf_session_title'],
-        'L_CONF_COOKIE'=>$lang['conf_cookies'],
-        'L_CONF_COOKIE_INFO'=>$lang['conf_cookies_info'],
-        'L_SESSION_LENGTH'=>$lang['conf_session_time'],
-        'L_SESSION_LENGTH_INFO'=>$lang['conf_session_time_info'],
-        'L_SESSION_ID_SIZE'=>$lang['conf_session_size'],
-        'L_SESSION_ID_SIZE_INFO'=>$lang['conf_session_size_info'],
-          
-        'SESSION_LENGTH'=>$conf['session_time'],
-        'SESSION_ID_SIZE'=>$conf['session_id_size'],
-        'COOKIE_YES'=>$cookie_yes,
-        'COOKIE_NO'=>$cookie_no
+        'L_CONF_AUTH_METHOD'=>$lang['conf_auth_method'],
+        'L_CONF_AUTH_METHOD_INFO'=>$lang['conf_auth_method_info'],
+        'L_CONF_AUTHORIZE_REMEMBERING'=>$lang['conf_authorize_remembering'],
+        'L_CONF_AUTHORIZE_REMEMBERING_INFO' =>
+        $lang['conf_authorize_remembering_info'],
+
+        'AUTH_METHOD_URI'=>$auth_method_URI,
+        'AUTH_METHOD_COOKIE'=>$auth_method_cookie,
+        'AUTHORIZE_REMEMBERING_YES'=>$authorize_remembering_yes,
+        'AUTHORIZE_REMEMBERING_NO'=>$authorize_remembering_no
         ));
     break;
   }

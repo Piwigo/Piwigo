@@ -89,4 +89,16 @@ $conf['show_exif_fields'] = array('Make',
 
 $conf['calendar_datefield'] = 'date_available';
 $conf['rate'] = true;
+
+// time of validity for "remember me" cookies, in seconds.
+$conf['remember_me_length'] = 31536000;
+
+// time of validity for normal session, in seconds.
+$conf['session_length'] = 3600;
+
+// session id length when session id in URI
+$conf['session_id_size_URI'] = 4;
+
+// session id length when session id in cookie
+$conf['session_id_size_cookie'] = 50;
 ?>
