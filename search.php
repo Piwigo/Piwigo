@@ -236,7 +236,7 @@ $template->set_filenames( array('search'=>'search.tpl') );
 $template->assign_vars(array(
   'L_TITLE' => $lang['search_title'],
   'L_SEARCH_COMMENTS' => $lang['search_comments'],
-  'L_RETURN' => $lang['gallery_index'],
+  'L_RETURN' => $lang['home'],
   'L_SUBMIT' => $lang['submit'],
   'L_SEARCH_OR'=>$lang['search_mode_or'],
   'L_SEARCH_AND'=>$lang['search_mode_and'],

@@ -173,7 +173,7 @@ $template->set_filenames( array('admin'=>'admin.tpl') );
 $template->assign_vars(array(
   'L_TITLE'=>$lang['admin_panel'],
   'L_LINKS'=>$lang['links'],
-  'L_GALLERY_INDEX'=>$lang['gallery_index'],
+  'L_GALLERY_INDEX'=>$lang['home'],
   'L_GENERAL'=>$lang['general'],
   'L_DEFAULT'=>$lang['gallery_default'],
   'L_PHPINFO'=>$lang['phpinfos'],

@@ -115,4 +115,4 @@
 <input class="radio" type="radio" name="mode" value="OR" {OR_CHECKED} /> {L_SEARCH_OR_CLAUSES}
 <input class="radio" type="radio" name="mode" value="AND" {AND_CHECKED} /> {L_SEARCH_AND_CLAUSES}<br /><br />
 <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" /><br /><br />
-<a href="{U_HOME}">[ {L_RETURN} ]</a>
+<a href="{U_HOME}" title="{L_RETURN_HINT}">[ {L_RETURN} ]</a>

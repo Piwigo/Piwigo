@@ -9,7 +9,7 @@
       {L_COMMENT_STATS}
       ]
 	  <!-- BEGIN title -->
-      [ <a class="admin" href="{U_HOME}">{L_COMMENT_RETURN}</a> ]
+      [ <a class="admin" href="{U_HOME}" title="{L_COMMENT_RETURN_HINT}">{L_COMMENT_RETURN}</a> ]
 	  <!-- END title -->
 </div>
 <!-- BEGIN validation -->

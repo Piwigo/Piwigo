@@ -79,7 +79,8 @@ $template->assign_vars(
   array(
     'L_COMMENT_TITLE' => $title,
     'L_COMMENT_STATS' => $lang['stats_last_days'],
-    'L_COMMENT_RETURN' => $lang['return_main_page'],
+    'L_COMMENT_RETURN' => $lang['home'],
+	'L_COMMENT_RETURN_HINT' => $lang['home_hint'],
     'L_DELETE' =>$lang['delete'],
     'L_VALIDATE'=>$lang['submit'],
     

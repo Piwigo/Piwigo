@@ -36,7 +36,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 $errors = array();
 $infos = array();
 $categories = array();
-$navigation = $lang['gallery_index'];
+$navigation = $lang['home'];
 // +-----------------------------------------------------------------------+
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
@@ -136,7 +136,7 @@ if (isset($_GET['parent_id']))
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
   
   $navigation = '<a class="" href="'.add_session_id($base_url).'">';
-  $navigation.= $lang['gallery_index'];
+  $navigation.= $lang['home'];
   $navigation.= '</a>';
   $navigation.= $separator;
 

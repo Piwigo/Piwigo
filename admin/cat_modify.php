@@ -125,7 +125,7 @@ foreach (array('comment','dir') as $nullable)
 $current_category = get_cat_info($_GET['cat_id']);
 $url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
 $navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
-$navigation.= $lang['gallery_index'].'</a>-&gt;';
+$navigation.= $lang['home'].'</a>-&gt;';
 $navigation.= get_cat_display_name($current_category['name'], '-&gt;', $url);
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];

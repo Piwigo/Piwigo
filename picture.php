@@ -443,7 +443,7 @@ $template->assign_vars(array(
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
 
-  'L_HOME' => $lang['gallery_index'],
+  'L_HOME' => $lang['home'],
   'L_SLIDESHOW' => $lang['slideshow'],
   'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
   'L_PREV_IMG' =>$lang['previous_image'].' : ',
@@ -459,8 +459,8 @@ $template->assign_vars(array(
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
   'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
   'L_PICTURE_HIGH' => $lang['picture_high'],
-  'L_UP_HINT' => $lang['up_hint'],
-  'L_UP_ALT' => $lang['up_alt'],
+  'L_UP_HINT' => $lang['home_hint'],
+  'L_UP_ALT' => $lang['home'],
   
   'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
   'U_UP' => add_session_id($url_up),

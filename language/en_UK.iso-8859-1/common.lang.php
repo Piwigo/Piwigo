@@ -33,7 +33,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'en';
 
 // Main words 
-$lang['gallery_index'] = 'Home';
 $lang['category'] = 'Category';
 $lang['categories'] = 'Categories';
 $lang['thumbnail'] = 'Thumbnail';
@@ -67,7 +66,23 @@ $lang['delete'] = 'Delete';
 $lang['reset'] = 'Reset';
 
 // Navigation
-$lang['return_main_page'] = 'Back to the index page';
+$lang['home'] = 'Home';
+$lang['home_hint'] = 'Back to the home page';
+$lang['special_categories'] = 'Specials';
+$lang['favorite_cat'] = 'my favorites';
+$lang['favorite_cat_hint'] = 'display my favorites pictures';
+$lang['most_visited_cat'] = 'most visited';
+$lang['most_visited_cat_hint'] = 'displays most visited pictures';
+$lang['best_rated_cat'] = 'best rated';
+$lang['best_rated_cat_hint'] = 'displays best rated items';
+$lang['recent_pics_cat'] = 'Last pictures';
+$lang['recent_pics_cat_hint'] = 'Displays most recent pictures';
+$lang['recent_cats_cat'] = 'Last categories';
+$lang['recent_cats_cat_hint'] = 'Displays recently updated categories';
+$lang['about'] = 'about';
+$lang['hint_about'] = 'more informations on PhpWebGallery...';
+$lang['admin'] = 'Administration';
+$lang['hint_admin'] = 'available for administrators only';
 
 // Identification
 $lang['login'] = 'Login';
@@ -165,12 +180,7 @@ $lang['change_login'] = 'change login';
 $lang['hint_login'] = 'identification enables site\'s appareance customization';
 $lang['hint_customize'] = 'customize the appareance of the gallery';
 $lang['hint_search'] = 'search';
-$lang['favorite_cat'] = 'my favorites';
-$lang['favorite_cat_hint'] = 'display my favorites pictures';
-$lang['about'] = 'about';
-$lang['hint_about'] = 'more informations on PhpWebGallery...';
-$lang['admin'] = 'Administration';
-$lang['hint_admin'] = 'available for administrators only';
+
 $lang['no_category'] = 'Home';
 $lang['page_number'] = 'page number';
 $lang['previous_page'] = 'Previous';
@@ -249,15 +259,8 @@ $lang['IP'] = 'IP';
 $lang['errors_title'] = 'Errors';
 $lang['infos_title'] = 'Informations';
 $lang['category_representative'] = 'representative';
-$lang['special_categories'] = 'specials';
-$lang['most_visited_cat_hint'] = 'displays most visited pictures';
-$lang['most_visited_cat'] = 'most visited';
-$lang['best_rated_cat'] = 'best rated';
-$lang['best_rated_cat_hint'] = 'displays best rated items';
-$lang['recent_pics_cat_hint'] = 'Displays most recent pictures';
-$lang['recent_pics_cat'] = 'Last pictures';
-$lang['recent_cats_cat_hint'] = 'Displays recently updated categories';
-$lang['recent_cats_cat'] = 'Last categories';
+
+
 $lang['visited'] = 'visited';
 $lang['times'] = 'times';
 $lang['slideshow'] = 'slideshow';
@@ -300,6 +303,4 @@ $lang['standard_deviation'] = 'STD';
 $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
 $lang['picture_high'] = 'Click on the picture to see it in high definition';
-$lang['up_hint'] = 'Up to the thumbnails';
-$lang['up_alt'] = 'up';
 ?>

@@ -33,7 +33,6 @@ $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
 
 // Main words 
-$lang['gallery_index'] = 'Accueil';
 $lang['category'] = 'Catégorie';
 $lang['categories'] = 'Catégories';
 $lang['thumbnail'] = 'Miniature';
@@ -74,16 +73,25 @@ $lang['identification'] = 'Identification';
 $lang['remember_me'] = 'Connexion auto';
 
 // Navigation
-$lang['special_categories'] = 'Special';
+$lang['home'] = 'Accueil';
+$lang['home_hint'] = 'Retour à la page des miniatures';
+$lang['special_categories'] = 'Spécial';
 $lang['favorite_cat'] = 'Favoris';
 $lang['favorite_cat_hint'] = 'Afficher vos favoris';
-$lang['recent_pics_cat_hint'] = 'Affiche les images les plus récentes';
+$lang['most_visited_cat'] = 'plus vues';
+$lang['most_visited_cat_hint'] = 'affiche les images les plus visitées';
+$lang['best_rated_cat'] = 'mieux notées';
+$lang['best_rated_cat_hint'] = 'affiche les images les mieux notées';
 $lang['recent_pics_cat'] = 'Nouvelles images';
-$lang['recent_cats_cat_hint'] = 'Affiche les catégories les plus récentes';
+$lang['recent_pics_cat_hint'] = 'Affiche les images les plus récentes';
 $lang['recent_cats_cat'] = 'Nouvelles catégories';
+$lang['recent_cats_cat_hint'] = 'Affiche les catégories les plus récentes';
 $lang['random_cat'] = 'Images au hasard';
 $lang['random_cat_hint'] = 'Affiche plusieurs images choisies au hasard';
-$lang['return_main_page'] = 'Retour à la page des miniatures';
+$lang['about'] = 'A propos';
+$lang['hint_about'] = 'Quelques informations sur PhpWebGallery...';
+$lang['admin'] = 'Administration';
+$lang['hint_admin'] = 'Partie accessible uniquement aux administrateurs';
 
 //Calendar
 $lang['calendar'] = 'Calendrier';
@@ -155,7 +163,6 @@ $lang['search_mode_and'] = 'tous les mots';
 $lang['search_comments'] = 'séparer les différents mots avec un espace';
 $lang['search_title'] = 'Recherche';
 $lang['search_field_search'] = 'Rechercher';
-$lang['search_return_main_page'] = 'Retour à la page des miniatures';
 $lang['Search_author_explain'] = 'Utilisez * comme un joker pour des recherches partielles';
 $lang['Look_up_user'] = 'Rechercher l\'utilisateur';
 $lang['Find_username'] = 'Trouver un nom d\'utilisateur';
@@ -176,10 +183,7 @@ $lang['hint_login'] = 's&#039;identifier permet de personnaliser l&#039;apparenc
 $lang['hint_customize'] = 'personnaliser votre affichage';
 $lang['hint_search'] = 'lancer une recherche';
 
-$lang['about'] = 'à propos';
-$lang['hint_about'] = 'des infos sur PhpWebGallery...';
-$lang['admin'] = 'Administration';
-$lang['hint_admin'] = 'accessible uniquement aux administrateurs';
+
 $lang['no_category'] = 'Accueil';
 $lang['page_number'] = 'numéro de page';
 $lang['previous_page'] = 'Précédente';
@@ -260,10 +264,7 @@ $lang['stats_last_days'] = 'derniers jours';
 $lang['menu_login'] = 'Connexion';
 $lang['connected_user'] = 'utilisateur connecté';
 $lang['hint_comments'] = 'Voir les derniers commentaires des visiteurs';
-$lang['most_visited_cat_hint'] = 'affiche les images les plus visitées';
-$lang['most_visited_cat'] = 'plus vues';
-$lang['best_rated_cat_hint'] = 'affiche les images les mieux notées';
-$lang['best_rated_cat'] = 'mieux notées';
+
 
 $lang['visited'] = 'visité';
 $lang['times'] = 'fois';
