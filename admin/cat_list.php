@@ -223,7 +223,7 @@ function display_cat_manager( $id_uppercat, $indent,
     if ( $row['rank'] != $min_rank )
     {
       $vtp->addSession( $sub, 'up' );
-      $url = add_session_id( './admin.php?page=cat&amp;up='.$row['id'] );
+      $url = add_session_id( './admin.php?page=cat_list&amp;up='.$row['id'] );
       $vtp->setVar( $sub, 'up.up_url', $url );
       $vtp->closeSession( $sub, 'up' );
     }
@@ -235,7 +235,7 @@ function display_cat_manager( $id_uppercat, $indent,
     if ( $row['rank'] != $max_rank )
     {
       $vtp->addSession( $sub, 'down' );
-      $url = add_session_id( './admin.php?page=cat&amp;down='.$row['id'] );
+      $url = add_session_id( './admin.php?page=cat_list&amp;down='.$row['id']);
       $vtp->setVar( $sub, 'down.down_url', $url );
       $vtp->closeSession( $sub, 'down' );
     }
