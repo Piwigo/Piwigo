@@ -951,7 +951,6 @@ function get_user_all_restrictions( $user_id )
 
   $restrictions = $base_restrictions;
   foreach ( $base_restrictions as $category_id ) {
-    echo $category_id.' is forbidden to user '.$user_id.'<br />';
     $restrictions =
       array_merge( $restrictions,
                    $page['plain_structure'][$category_id]['all_subcats_ids'] );
