@@ -56,6 +56,17 @@ if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
   foreach ( $tab_expand as $id ) {
     if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
   }
+  if ( is_numeric( $page['cat'] ) )
+  {
+    // the category displayed (in the URL cat=23) must be seen in the menu ->
+    // parent categories must be expanded
+    $parent = $page['plain_structure'][$page['cat']]['id_uppercat'];
+    while ( $parent != '' )
+    {
+      array_push( $page['tab_expand'], $parent );
+      $parent = $page['plain_structure'][$parent]['id_uppercat'];
+    }
+  }
   $page['expand'] = implode( ',', $page['tab_expand'] );
 }
 // in case of expanding all authorized cats
