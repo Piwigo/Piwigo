@@ -1,9 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                           identification.php                                |
+// |                          identification.php                           |
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
-// | branch        : 1.4                                                   |
+// | branch        : BSF (Best So Far)                                     |
 // +-----------------------------------------------------------------------+
 // | file          : $RCSfile$
 // | last update   : $Date$

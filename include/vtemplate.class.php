@@ -1,20 +1,29 @@
 <?php
-/*****************************************************************
- *			VIRTUAL-TEMPLATE
- *
- * Version : 1.3.2 Base Edition ( Decembre 2003 ) build 1
- *
- * Address : http://vtemplate.sourceforge.net
- * 
- * Authors: 
- *   + THIEBAUT Jean-Baptiste(J.Baptiste@leweby.com)  -  http://www.leweby.com .
- *   + CAMPANA François (fc@netouaibe.com).
- * Licence: GPL.
- * 
- * 
- *
- *			  
- *****************************************************************/ 
+// +-----------------------------------------------------------------------+
+// |                          vtemplate.class.php                          |
+// +-----------------------------------------------------------------------+
+// | application   : PhpWebGallery <http://phpwebgallery.net>              |
+// | branch        : BSF (Best So Far)                                     |
+// +-----------------------------------------------------------------------+
+// | file          : $RCSfile$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
 // to make it work on nexen.net
 set_magic_quotes_runtime(0);
 
