@@ -425,25 +425,27 @@ function initialize_category( $calling_page = 'category' )
         // construction
         $clauses = array();
         
-        // Author Search
-          if (isset($search['fields']['author']))
+        $textfields = array('file', 'name', 'comment', 'keywords', 'author');
+        foreach ($textfields as $textfield)
+        {
+          if (isset($search['fields'][$textfield]))
           {
             $local_clauses = array();
-            foreach ($search['fields']['author']['words'] as $word)
+            foreach ($search['fields'][$textfield]['words'] as $word)
             {
-              array_push($local_clauses, "author LIKE '%".$word."%'");
+              array_push($local_clauses, $textfield." LIKE '%".$word."%'");
             }
             // adds brackets around where clauses
             array_walk($local_clauses,create_function('&$s','$s="(".$s.")";'));
             array_push($clauses,
-                       implode(' '.$search['fields']['author']['mode'].' ',
+                       implode(' '.$search['fields'][$textfield]['mode'].' ',
                                $local_clauses));
           }
+        }
 
-        // All words search (author included) 
         if (isset($search['fields']['allwords']))
         {
-		  $textfields = array('file', 'name', 'comment', 'keywords', 'author');
+          $fields = array('file', 'name', 'comment', 'keywords', 'author');
           // in the OR mode, request bust be :
           // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
           // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
@@ -455,7 +457,7 @@ function initialize_category( $calling_page = 'category' )
           foreach ($search['fields']['allwords']['words'] as $word)
           {
             $field_clauses = array();
-            foreach ($textfields as $field)
+            foreach ($fields as $field)
             {
               array_push($field_clauses, $field." LIKE '%".$word."%'");
             }
