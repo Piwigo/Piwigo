@@ -27,8 +27,6 @@ if ( $user['is_the_guest'] )
   echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
   exit();
 }
-//-------------------------------------------------------------- initialization
-check_cat_id( $_GET['cat'] );
 //------------------------------------------------------ update & customization
 $infos = array( 'nb_image_line', 'nb_line_page', 'language',
                 'maxwidth', 'maxheight', 'expand', 'show_nb_comments',

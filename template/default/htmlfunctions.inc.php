@@ -188,12 +188,16 @@ function display_category( $category, $indent, $handle )
   else
   {
     $vtp->addSession( $handle, 'bullet_w_link' );
-    $url = './category.php?cat='.$page['cat'];
+    $url = './category.php';
+	if (isset($page['cat']))
+	{
+	$url .='?cat='.$page['cat'];
     $url.= '&amp;expand='.$category['expand_string'];
     if ( $page['cat'] == 'search' )
     {
       $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
     }
+	}
     $vtp->setVar( $handle, 'bullet_w_link.bullet_link', add_session_id($url) );
     if ( $category['expanded'] )
     {

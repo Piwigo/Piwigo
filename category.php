@@ -34,7 +34,7 @@ if ( isset( $_GET['act'] ) && $_GET['act'] == 'logout' && isset( $_COOKIE['id'] 
   exit();
 }
 //-------------------------------------------------- access authorization check
-if ( isset( $_GET['act'] )) 
+if ( isset( $_GET['cat'] )) 
 	check_cat_id( $_GET['cat'] );
 check_login_authorization();
 if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
@@ -269,7 +269,7 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   while ( $row = mysql_fetch_array( $result ) )
   {
     // retrieving the storage dir of the picture
-    if ( $array_cat_directories[$row['storage_category_id']] == '' )
+    if ( !isset($array_cat_directories[$row['storage_category_id']]))
     {
       $array_cat_directories[$row['storage_category_id']] =
         get_complete_dir( $row['storage_category_id'] );

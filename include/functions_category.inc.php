@@ -109,12 +109,15 @@ function get_user_plain_structure()
   {
     $category = array();
     foreach ( $infos as $info ) {
-      $category[$info] = $row[$info];
-      if ( $info == 'date_last' )
+      if ( $info == 'uc.date_last' )
       {
-        list($year,$month,$day) = explode( '-', $row[$info] );
-        $category[$info] = mktime(0,0,0,$month,$day,$year);
+        list($year,$month,$day) = explode( '-', $row['date_last'] );
+        $category['date_last'] = mktime(0,0,0,$month,$day,$year);
       }
+	  else
+	  {
+	  	$category[$info] = $row[$info];
+	  }
     }
     $plain_structure[$row['id']] = $category;
   }
@@ -411,7 +414,11 @@ function initialize_category( $calling_page = 'category' )
     // By default, it is the same as the $user['nb_image_page']
     $page['nb_image_page'] = $user['nb_image_page'];
     // $url is used to create the navigation bar
-    $url = './category.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
+    $url = './category.php?cat='.$page['cat'];
+	if ( isset($page['expand']) )
+    {
+      $url.= '&amp;expand='.$page['expand'];
+	}
     // simple category
     if ( is_numeric( $page['cat'] ) )
     {

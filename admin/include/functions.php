@@ -869,7 +869,7 @@ function update_user_restrictions( $user_id )
     $query.= "'".implode( ',', $restrictions )."'";
   else
     $query.= 'NULL';
-  $queries .= ' WHERE id = '.$row['id'];
+  $query .= ' WHERE id = $user_id';
   $query.= ';';
   mysql_query( $query );
 

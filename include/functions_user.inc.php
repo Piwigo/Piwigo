@@ -207,12 +207,14 @@ function check_login_authorization()
 {
   global $user,$lang,$conf,$page;
 
-  if ( $user['is_the_guest']
-       and ( $conf['access'] == 'restricted' or $page['cat'] == 'fav' ) )
+  if ( $user['is_the_guest'])
+  {
+  if ( $conf['access'] == 'restricted' || (isset($page['cat']) && $page['cat'] == 'fav' ) )
   {
     echo '<div style="text-align:center;">'.$lang['only_members'].'<br />';
     echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
     exit();
+  }
   }
 }
 ?>

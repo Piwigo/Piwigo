@@ -24,7 +24,7 @@ function insert_local_category( $id_uppercat )
   global $conf, $page, $user, $lang;
  
   $uppercats = '';
-		
+  $output = '';
   // 0. retrieving informations on the category to display
   $cat_directory = '../galleries';
 		
@@ -292,6 +292,13 @@ function insert_local_image( $rep, $category_id )
   }
   // inserting the pictures found in the directory
   foreach ( $pictures as $picture ) {
+	$name = '';
+	$author = ''; 
+	$comment = ''; 
+  	if (isset ($picture['name'])) $name = $picture['name']; 
+	if (isset ($picture['author'])) $author = $picture['author']; 
+	if (isset ($picture['comment'])) $comment = $picture['comment']; 
+  
     $query = 'INSERT INTO '.PREFIX_TABLE.'images';
     $query.= ' (file,storage_category_id,date_available,tn_ext';
     $query.= ',filesize,width,height';
@@ -300,9 +307,8 @@ function insert_local_image( $rep, $category_id )
     $query.= "('".$picture['file']."','".$category_id."'";
     $query.= ",'".$picture['date']."','".$picture['tn_ext']."'";
     $query.= ",'".$picture['filesize']."','".$picture['width']."'";
-    $query.= ",'".$picture['height']."','".$picture['name']."'";
-    $query.= ",'".$picture['author']."','".$picture['comment']."'";
-    if ( $picture['date_creation'] != '' )
+    $query.= ",'".$picture['height']."','$name', '$author', '$comment'";
+    if ( isset ($picture['date_creation']))
     {
       $query.= ",'".$picture['date_creation']."'";
     }
@@ -587,11 +593,7 @@ templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
-check_cat_id( $_GET['update'] );
-if ( !isset( $_GET['update'] )
-     and !( isset( $page['cat'] )
-            or $_GET['update'] == 'cats'
-            or $_GET['update'] == 'all' ) )
+if (!isset( $_GET['update'] ))
 {
   $vtp->addSession( $sub, 'introduction' );
   // only update the categories, not the pictures.
@@ -605,6 +607,7 @@ if ( !isset( $_GET['update'] )
 //------------------------------------------------- local update : ../galleries
 else
 {
+  check_cat_id( $_GET['update'] );
   $start = get_moment();
   $count_new = 0;
   $count_deleted = 0;

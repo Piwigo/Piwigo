@@ -81,6 +81,7 @@ $vtp->setVar( $handle, 'line.name', $lang['search_field_search'].' *' );
 $vtp->addSession( $handle, 'text' );
 $vtp->setVar( $handle, 'text.size', '40' );
 $vtp->setVar( $handle, 'text.name', 'search' );
+if (isset($_POST['search']))
 $vtp->setVar( $handle, 'text.value', $_POST['search'] );
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
@@ -92,7 +93,7 @@ $vtp->addSession( $handle, 'radio' );
 $vtp->setVar( $handle, 'radio.name', 'mode' );
 $vtp->setVar( $handle, 'radio.value', 'OR' );
 $vtp->setVar( $handle, 'radio.option', $lang['search_mode_or'] );
-if ( $_POST['mode'] == 'OR' or $_POST['mode'] == '' )
+if (isset($_POST['mode']) && ($_POST['mode'] == 'OR' or $_POST['mode'] == '' ))
 {
   $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
 }
@@ -102,7 +103,7 @@ $vtp->addSession( $handle, 'radio' );
 $vtp->setVar( $handle, 'radio.name', 'mode' );
 $vtp->setVar( $handle, 'radio.value', 'AND' );
 $vtp->setVar( $handle, 'radio.option', $lang['search_mode_and'] );
-if ( $_POST['mode'] == 'AND' )
+if ( isset($_POST['mode']) && $_POST['mode'] == 'AND' )
 {
   $vtp->setVar( $handle, 'radio.checked', ' checked="checked"' );
 }
