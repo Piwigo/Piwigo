@@ -36,6 +36,7 @@ $template->assign_vars(
     'L_SEND_MAIL' => $lang['send_mail'],
     'L_TITLE_MAIL' => $lang['title_send_mail'],
     'L_WEBMASTER'=>$lang['webmaster'],
+    'L_POWERED_BY'=>$lang['powered_by']
     ));
 //------------------------------------------------------------- generation time
 if ($conf['show_gt'])
