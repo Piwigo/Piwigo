@@ -39,7 +39,7 @@ $array_cat_directories = array();
   
 $query = '
 SELECT DISTINCT(id),file,date_available
-       ,tn_ext,name,filesize,storage_category_id
+       ,tn_ext,name,filesize,storage_category_id,average_rate
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
   '.$page['where'].'
@@ -78,6 +78,10 @@ while ($row = mysql_fetch_array($result))
   else
   {
     $name = str_replace('_', ' ', $file);
+  }
+  if ($page['cat'] == 'best_rated')
+  {
+    $name = '('.$row['average_rate'].') '.$name;
   }
 
   if ($page['cat'] == 'search')
