@@ -696,6 +696,8 @@ SELECT COUNT(1) AS count
         }
         $page['where'].= ' AND image_id IN ('.$_GET['list'].')';
         $page['cat_nb_images'] = count(explode(',', $_GET['list']));
+
+        $url.= '&amp;list='.$_GET['list'];
       }
 
       if (isset($query))
