@@ -25,7 +25,7 @@
   </tr>
   <tr>
     <td><strong>{general.L_CONF_TN_PREFIX}&nbsp;:</strong><br /><span class="small">{general.L_CONF_TN_PREFIX_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="4" name="prefix_thumbnail" value="{general.THUMBNAIL_PREFIX}" /></td>
+	<td class="row1"><input type="text" size="10" maxlength="10" name="prefix_thumbnail" value="{general.THUMBNAIL_PREFIX}" /></td>
   </tr>
   <tr>
   <td><strong>{general.L_CONF_ACCESS}&nbsp;:</strong><br /><span class="small">{general.L_CONF_ACCESS_INFO}</span></td>

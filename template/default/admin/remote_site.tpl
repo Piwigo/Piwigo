@@ -42,6 +42,16 @@
 </div>
 <!-- END remote_output -->
 
+<!-- BEGIN local -->
+<div class="remoteLocal">
+  {L_REMOTE_SITE_LOCAL_FOUND} {local.URL}
+  <!-- BEGIN new_site -->
+  {L_REMOTE_SITE_LOCAL_NEW}
+  <!-- END new_site -->
+  [<a href="{local.U_UPDATE}">{L_REMOTE_SITE_LOCAL_UPDATE}</a>]
+</div>
+<!-- END local -->
+
 <form action="{F_ACTION}" method="post">
   {L_REMOTE_SITE_CREATE} 
   <input type="text" name="galleries_url" value="{F_GALLERIES_URL}" />

@@ -159,6 +159,56 @@ INSERT INTO '.$table_name.'
 }
 
 /**
+ * read $listing_file and update a remote site according to its id
+ *
+ * @param string listing_file
+ * @param int site_id
+ * @return void
+ */
+function update_remote_site($listing_file, $site_id)
+{
+  global $lang, $counts, $template, $removes, $errors;
+  
+  if (@fopen($listing_file, 'r'))
+  {
+    $counts = array(
+      'new_elements' => 0,
+      'new_categories' => 0,
+      'del_elements' => 0,
+      'del_categories' => 0
+      );
+    $removes = array();
+        
+    $xml_content = getXmlCode($listing_file);
+    insert_remote_category($xml_content, $site_id, 'NULL', 0);
+    update_category();
+        
+    $template->assign_block_vars(
+      'update',
+      array(
+        'NB_NEW_CATEGORIES'=>$counts['new_categories'],
+        'NB_DEL_CATEGORIES'=>$counts['del_categories'],
+        'NB_NEW_ELEMENTS'=>$counts['new_elements'],
+        'NB_DEL_ELEMENTS'=>$counts['del_elements']
+        ));
+        
+    if (count($removes) > 0)
+    {
+      $template->assign_block_vars('update.removes', array());
+    }
+    foreach ($removes as $remove)
+    {
+      $template->assign_block_vars('update.removes.remote_remove',
+                                   array('NAME'=>$remove));
+    }
+  }
+  else
+  {
+    array_push($errors, $lang['remote_site_listing_not_found']);
+  }
+}
+
+/**
  * searchs the "dir" node of the xml_dir given and insert the contained
  * categories if the are not in the database yet. The function also deletes
  * the categories that are in the database and not in the xml_file.
@@ -318,14 +368,21 @@ SELECT id,file
   WHERE storage_category_id = '.$category_id.'
 ;';
   $result = mysql_query($query);
+  $to_delete = array();
   while ($row = mysql_fetch_array($result))
   {
     if (!in_array($row['file'], $xml_files))
     {
-      array_push($removes, $row['file']);
-      delete_element($row['id']);
+      // local_dir is cached
+      if (!isset($local_dir))
+      {
+        $local_dir = get_local_dir($category_id);
+      }
+      array_push($removes, $local_dir.$row['file']);
+      array_push($to_delete, $row['id']);
     }
   }
+  delete_elements($to_delete);
 
   $database_elements = array();
   $query = '
@@ -442,6 +499,9 @@ $template->assign_vars(
     'L_NB_DEL_CATEGORIES'=>$lang['update_nb_del_categories'],
     'L_REMOTE_SITE_REMOVED_TITLE'=>$lang['remote_site_removed_title'],
     'L_REMOTE_SITE_REMOVED'=>$lang['remote_site_removed'],
+    'L_REMOTE_SITE_LOCAL_FOUND'=>$lang['remote_site_local_found'],
+    'L_REMOTE_SITE_LOCAL_NEW'=>$lang['remote_site_local_new'],
+    'L_REMOTE_SITE_LOCAL_UPDATE'=>$lang['remote_site_local_update'],
     
     'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=remote_site')
    )
@@ -523,85 +583,119 @@ if (isset($_GET['site']) and is_numeric($_GET['site']))
 
 if (isset($_GET['action']))
 {
-  $query = '
+  if (isset($page['site']))
+  {
+    $query = '
 SELECT galleries_url
   FROM '.SITES_TABLE.'
   WHERE id = '.$page['site'].'
 ;';
-  $row = mysql_fetch_array(mysql_query($query));
-  $clf = $row['galleries_url'].'create_listing_file.php';
-  
+    list($galleries_url) = mysql_fetch_array(mysql_query($query));
+  }
+
   switch($_GET['action'])
   {
     case 'delete' :
     {
       delete_site($page['site']);
-      
+
       $template->assign_block_vars(
         'confirmation',
         array(
-          'CONTENT'=>$row['galleries_url'].' '.$lang['remote_site_deleted']
+          'CONTENT'=>$galleries_url.' '.$lang['remote_site_deleted']
           ));
       
       break;
     }
     case 'generate' :
     {
-      $title = $row['galleries_url'].' : '.$lang['remote_site_generate'];
+      $title = $galleries_url.' : '.$lang['remote_site_generate'];
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
-      remote_output($clf.'?action=generate');
+      remote_output($galleries_url.'create_listing_file.php?action=generate');
       break;
     }
     case 'update' :
     {
-      $title = $row['galleries_url'].' : '.$lang['remote_site_update'];
+      $title = $galleries_url.' : '.$lang['remote_site_update'];
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
-      
-      if (@fopen($row['galleries_url'].'listing.xml', 'r'))
-      {
-        $counts = array(
-          'new_elements' => 0,
-          'new_categories' => 0,
-          'del_elements' => 0,
-          'del_categories' => 0
-          );
-        $removes = array();
-        
-        $xml_content = getXmlCode($row['galleries_url'].'listing.xml');
-        insert_remote_category($xml_content, $page{'site'}, 'NULL', 0);
-        update_category();
-        
-        $template->assign_block_vars(
-          'update',
-          array(
-            'NB_NEW_CATEGORIES'=>$counts['new_categories'],
-            'NB_DEL_CATEGORIES'=>$counts['del_categories'],
-            'NB_NEW_ELEMENTS'=>$counts['new_elements'],
-            'NB_DEL_ELEMENTS'=>$counts['del_elements']
-            ));
-        
-        if (count($removes) > 0)
-        {
-          $template->assign_block_vars('update.removes', array());
-        }
-        foreach ($removes as $remove)
-        {
-          $template->assign_block_vars('update.removes.remote_remove',
-                                       array('NAME'=>$remove));
-        }
-      }
-      else
-      {
-        array_push($errors, $lang['remote_site_listing_not_found']);
-      }
+      update_remote_site($galleries_url.'listing.xml', $page['site']);
       break;
     }
     case 'clean' :
     {
-      $title = $row['galleries_url'].' : '.$lang['remote_site_clean'];
+      $title = $galleries_url.' : '.$lang['remote_site_clean'];
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
-      remote_output($clf.'?action=clean');
+      remote_output($galleries_url.'create_listing_file.php?action=clean');
       break;
+    }
+    case 'local_update' :
+    {
+      $local_listing = PHPWG_ROOT_PATH.'listing.xml';
+      $xml_content = getXmlCode($local_listing);
+      $url = getAttribute(getChild($xml_content, 'informations'), 'url');
+
+      // is the site already existing ?
+      $query = '
+SELECT id
+  FROM '.SITES_TABLE.'
+  WHERE galleries_url = \''.addslashes($url).'\'
+;';
+      $result = mysql_query($query);
+      if (mysql_num_rows($result) == 0)
+      {
+        // we have to register this site in the database
+        $query = '
+INSERT INTO '.SITES_TABLE.'
+  (galleries_url)
+  VALUES
+  (\''.$url.'\')
+;';
+        mysql_query($query);
+        $site_id = mysql_insert_id();
+      }
+      else
+      {
+        // we get the already registered id
+        $row = mysql_fetch_array($result);
+        $site_id = $row['id'];
+      }
+      
+      $title = $url.' : '.$lang['remote_site_local_update'];
+      $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
+      update_remote_site($local_listing, $site_id);
+      break;
+    }
+  }
+}
+else
+{
+  // we search a "local" listing.xml file
+  $local_listing = PHPWG_ROOT_PATH.'listing.xml';
+  if (is_file($local_listing))
+  {
+    $xml_content = getXmlCode($local_listing);
+    $url = getAttribute(getChild($xml_content, 'informations'), 'url');
+
+    $base_url = PHPWG_ROOT_PATH.'admin.php?page=remote_site&amp;action=';
+    
+    $template->assign_block_vars(
+      'local',
+      array(
+        'URL' => $url,
+        'U_UPDATE' => add_session_id($base_url.'local_update')
+        )
+      );
+
+    // is the site already existing ?
+    $query = '
+SELECT COUNT(*)
+  FROM '.SITES_TABLE.'
+  WHERE galleries_url = \''.addslashes($url).'\'
+;';
+    list($count) = mysql_fetch_array(mysql_query($query));
+    if ($count == 0)
+    {
+      $template->assign_block_vars('local.new_site', array());
     }
   }
 }

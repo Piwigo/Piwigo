@@ -412,3 +412,27 @@ span.update_error_element, span.update_category_error {
 .update_summary_del {
   color:#ffe1e1;
 }
+
+div.remoteOutput, div.remoteLocal {
+  background-color:#444444;
+  border:1px solid black;
+  margin:10px;
+  text-align:left;
+  padding:5px;
+}
+
+li.remoteInfo {
+  color:gray;
+}
+
+li.remoteWarning {
+  color:#ffe1e1;
+}
+
+li.remoteError {
+  color:orange;
+}
+
+div.remoteLocal {
+  text-align:center;
+}

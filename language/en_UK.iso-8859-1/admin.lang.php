@@ -1,9 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                           en_UK/admin.lang.php                           |
+// |                         en_UK/admin.lang.php                          |
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
-// | branch        : BSF (Best So Far)                                                   |
+// | branch        : BSF (Best So Far)                                     |
 // +-----------------------------------------------------------------------+
 // | file          : $RCSfile$
 // | last update   : $Date$
@@ -66,11 +66,14 @@ $lang['remote_site_delete'] = 'delete';
 $lang['remote_site_delete_hint'] = 'delete this site and all its attached elements';
 $lang['remote_site_file_not_found'] = 'file create_listing_file.php on remote site was not found';
 $lang['remote_site_error'] = 'an error happened';
-$lang['remote_site_listing_not_found'] = 'remote listing file was not found';
+$lang['remote_site_listing_not_found'] = 'listing.xml file was not found';
 $lang['remote_site_removed'] = 'was removed on remote site';
 $lang['remote_site_removed_title'] = 'Removed elements';
 $lang['remote_site_created'] = 'created';
 $lang['remote_site_deleted'] = 'deleted';
+$lang['remote_site_local_found'] = 'A local listing.xml file has been found for ';
+$lang['remote_site_local_new'] = '(new site)';
+$lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Categorie words
 $lang['cat_up'] = 'Move up';
