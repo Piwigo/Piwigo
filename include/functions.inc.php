@@ -260,10 +260,17 @@ function get_languages( $rep_language )
   return $languages;
 }
 
-// - add_style replaces the 
-//         $search  into <span style="$style">$search</span>
-// in the given $string.
-// - The function does not replace characters in HTML tags
+/**
+ * replaces the $search into <span style="$style">$search</span> in the
+ * given $string.
+ *
+ * case insensitive replacements, does not replace characters in HTML tags
+ *
+ * @param string $string
+ * @param string $search
+ * @param string $style
+ * @return string
+ */
 function add_style( $string, $search, $style )
 {
   //return $string;
@@ -277,15 +284,17 @@ function add_style( $string, $search, $style )
   while ( is_numeric( $start ) and is_numeric( $end ) )
   {
     $treatment = substr ( $remaining, 0, $start );
-    $treatment = str_replace( $search, '<span style="'.$style.'">'.
-                              $search.'</span>', $treatment );
+    $treatment = preg_replace( '/('.$search.')/i',
+                               '<span style="'.$style.'">\\0</span>',
+                               $treatment );
     $return_string.= $treatment.substr( $remaining, $start, $end-$start+1 );
     $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
     $start = strpos ( $remaining, '<' );
     $end   = strpos ( $remaining, '>' );
   }
-  $treatment = str_replace( $search, '<span style="'.$style.'">'.
-                            $search.'</span>', $remaining );
+  $treatment = preg_replace( '/('.$search.')/i',
+                             '<span style="'.$style.'">\\0</span>',
+                             $remaining );
   $return_string.= $treatment;
                 
   return $return_string;
