@@ -37,6 +37,11 @@
 	<td class="row1"><input type="radio" class="radio" name="mail_notification" value="true" {general.NOTIFICATION_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="mail_notification" value="false" {general.NOTIFICATION_NO} />{L_NO}</td>
   </tr>
+  <tr>
+    <td><strong>{general.L_CONF_GALLERY_LOCKED}&nbsp;:</strong><br /><span class="small">{general.L_CONF_GALLERY_LOCKED_INFO}</span></td>
+        <td class="row1"><input type="radio" class="radio" name="gallery_locked" value="true" {general.GALLERY_LOCKED_YES} />{L_YES}&nbsp;&nbsp;
+        <input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{L_NO}</td>
+  </tr>
 <!-- END general -->
 <!-- BEGIN comments -->
   <tr class="admin">

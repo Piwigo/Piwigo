@@ -105,6 +105,20 @@ foreach ($row as $key => $value)
   }
 }
 
+// properties of user guest are found in the configuration
+if ($user['is_the_guest'])
+{
+  $user['template'] = $conf['default_template'];
+  $user['nb_image_line'] = $conf['nb_image_line'];
+  $user['nb_line_page'] = $conf['nb_line_page'];
+  $user['language'] = $conf['default_language'];
+  $user['maxwidth'] = $conf['default_maxwidth'];
+  $user['maxheight'] = $conf['default_maxheight'];
+  $user['recent_period'] = $conf['recent_period'];
+  $user['expand'] = $conf['auto_expand'];
+  $user['show_nb_comments'] = $conf['show_nb_comments'];
+}
+
 // if no information were found about user in user_forbidden table OR the
 // forbidden categories must be updated
 if (!isset($user['need_update'])
@@ -137,6 +151,13 @@ if (empty($user['language'])
   $user['language'] = $conf['default_language'];
 }
 include_once(PHPWG_ROOT_PATH.'language/'.$user['language'].'/common.lang.php');
+
+// displaying the username in the language of the connected user, instead of
+// "guest" as you can find in the database
+if ($user['is_the_guest'])
+{
+  $user['username'] = $lang['guest'];
+}
 
 // only if we are in the administration section
 if (defined('IN_ADMIN') and IN_ADMIN)

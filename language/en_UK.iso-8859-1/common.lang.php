@@ -315,4 +315,6 @@ $lang['standard_deviation'] = 'STD';
 $lang['random_cat'] = 'random pictures';
 $lang['random_cat_hint'] = 'Displays a set of random pictures';
 $lang['picture_high'] = 'Click on the picture to see it in high definition';
+
+$lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please, come back later or loggin as an administrator to enter the gallery : <a href="'.PHPWG_ROOT_PATH.'identification.php">Identification</a>';
 ?>

@@ -163,11 +163,4 @@ while ( $row =mysql_fetch_array( $result ) )
 }
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
-
-// displaying the username in the language of the connected user, instead of
-// "guest" as you can find in the database
-if ($user['is_the_guest'])
-{
-  $user['username'] = $lang['guest'];
-}
 ?>

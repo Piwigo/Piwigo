@@ -153,6 +153,8 @@ $lang['conf_access'] = 'Access type';
 $lang['conf_log_info'] = 'Keep an history of visits on your website ? Visits will be shown in the history section of the administration panel';
 $lang['conf_notification'] = 'Mail notification';
 $lang['conf_notification_info'] = 'Automated mail notification for adminsitrators (and only for them) when a user add a comment or upload a picture.';
+$lang['conf_gallery_locked'] = 'Lock gallery';
+$lang['conf_gallery_locked_info'] = 'Lock the entire gallery for maintenance. Only administrator users will be able to reach the gallery';
 
 // Configuration -> comments
 $lang['conf_comments_title'] = 'Users comments';
@@ -344,8 +346,4 @@ $lang['permuser_only_private'] = 'Only private categories are shown';
 $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
 $lang['cat_unknown_id'] = 'This category is unknown in the database';
 $lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
-
-
-
-
 ?>

@@ -26,3 +26,4 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_exif','true'
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_iptc','false','Show IPTC metadata on picture.php if asked by user');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_exif','true','Show EXIF metadata on picture.php if asked by user');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('authorize_remembering','true','Authorize users to be remembered, see $conf{remember_me_length}');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_locked','false','Lock your gallery temporary for non admin users');

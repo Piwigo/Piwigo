@@ -158,13 +158,24 @@ function update_user( $user_id, $mail_address, $status,
 
 function check_login_authorization($guest_allowed = true)
 {
-  global $user,$lang;
+  global $user,$lang,$conf,$template;
 
   if ($user['is_the_guest'] and !$guest_allowed)
   {
     echo '<div style="text-align:center;">'.$lang['only_members'].'<br />';
     echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
     exit();
+  }
+
+  if ($conf['gallery_locked'])
+  {
+    echo '<div style="text-align:center;">';
+    echo $lang['gallery_locked_message'];
+    echo '</div>';
+    if ($user['status'] != 'admin')
+    {
+      exit();
+    }
   }
 }
 
