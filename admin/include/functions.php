@@ -101,13 +101,17 @@ function delete_category( $id )
   {
     delete_image( $row['id'] );
   }
-		
-  // destruction of the restrictions linked to the category
-  $query = 'DELETE FROM '.PREFIX_TABLE.'restrictions';
+
+  // destruction of the access linked to the category
+  $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
   $query.= ' WHERE cat_id = '.$id;
   $query.= ';';
   mysql_query( $query );
-		
+  $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
+  $query.= ' WHERE cat_id = '.$id;
+  $query.= ';';
+  mysql_query( $query );
+
   // destruction of the sub-categories
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
@@ -118,7 +122,7 @@ function delete_category( $id )
   {
     delete_category( $row['id'] );
   }
-		
+
   // destruction of the category
   $query = 'DELETE FROM '.PREFIX_TABLE.'categories';
   $query.= ' WHERE id = '.$id;
@@ -156,18 +160,32 @@ function delete_image( $id )
 	
 // The delete_user function delete a user identified by the $user_id
 // It also deletes :
-//     - all the restrictions linked to this user
+//     - all the access linked to this user
+//     - all the links to any group
 //     - all the favorites linked to this user
+//     - all sessions linked to this user
 function delete_user( $user_id )
 {
-  // destruction of the restrictions linked to the user
-  $query = 'DELETE FROM '.PREFIX_TABLE.'restrictions';
+  // destruction of the access linked to the user
+  $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   mysql_query( $query );
-		
+
+  // destruction of the group links for this user
+  $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
+  $query.= ' WHERE user_id = '.$user_id;
+  $query.= ';';
+  mysql_query( $query );
+
   // destruction of the favorites associated with the user
   $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
+  $query.= ' WHERE user_id = '.$user_id;
+  $query.= ';';
+  mysql_query( $query );
+
+  // destruction of the sessions linked with the user
+  $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
   $query.= ' WHERE user_id = '.$user_id;
   $query.= ';';
   mysql_query( $query );
@@ -178,7 +196,32 @@ function delete_user( $user_id )
   $query.= ';';
   mysql_query( $query );
 }
-	
+
+// delete_group deletes a group identified by its $group_id.
+// It also deletes :
+//     - all the access linked to this group
+//     - all the links between this group and any user
+function delete_group( $group_id )
+{
+  // destruction of the access linked to the group
+  $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
+  $query.= ' WHERE group_id = '.$group_id;
+  $query.= ';';
+  mysql_query( $query );
+
+  // destruction of the group links for this group
+  $query = 'DELETE FROM '.PREFIX_TABLE.'user_group';
+  $query.= ' WHERE group_id = '.$group_id;
+  $query.= ';';
+  mysql_query( $query );
+
+  // destruction of the group
+  $query = 'DELETE FROM '.PREFIX_TABLE.'groups';
+  $query.= ' WHERE id = '.$group_id;
+  $query.= ';';
+  mysql_query( $query );
+}
+
 // The check_favorites function deletes all the favorites of a user if he is
 // not allowed to see them (the category or an upper category is restricted
 // or invisible)

@@ -17,7 +17,7 @@
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat.vtp' );
+$sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat_list.vtp' );
 // language
 $vtp->setGlobalVar( $sub, 'cat_edit',        $lang['cat_edit'] );
 $vtp->setGlobalVar( $sub, 'cat_up',          $lang['cat_up'] );
@@ -30,41 +30,41 @@ if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ) )
 {
   // 1. searching level (id_uppercat)
   //    and rank of the category to move
-  $query = 'select id_uppercat,rank';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where id = '.$_GET['up'];
+  $query = 'SELECT id_uppercat,rank';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id = '.$_GET['up'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $level = $row['id_uppercat'];
   $rank  = $row['rank'];
   // 2. searching the id and the rank of the category
   //    just above at the same level
-  $query = 'select id,rank';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where rank < '.$rank;
+  $query = 'SELECT id,rank';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE rank < '.$rank;
   if ( $level == '' )
   {
-    $query.= ' and id_uppercat is null';
+    $query.= ' AND id_uppercat IS NULL';
   }
   else
   {
-    $query.= ' and id_uppercat = '.$level;
+    $query.= ' AND id_uppercat = '.$level;
   }
-  $query.= ' order by rank desc';
-  $query.= ' limit 0,1';
+  $query.= ' ORDER BY rank DESC';
+  $query.= ' LIMIT 0,1';
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $new_rank     = $row['rank'];
   $replaced_cat = $row['id'];
   // 3. exchanging ranks between the two categories
-  $query = 'update '.PREFIX_TABLE.'categories';
-  $query.= ' set rank = '.$new_rank;
-  $query.= ' where id = '.$_GET['up'];
+  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query.= ' SET rank = '.$new_rank;
+  $query.= ' WHERE id = '.$_GET['up'];
   $query.= ';';
   mysql_query( $query );
-  $query = 'update '.PREFIX_TABLE.'categories';
-  $query.= ' set rank = '.$rank;
-  $query.= ' where id = '.$replaced_cat;
+  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query.= ' SET rank = '.$rank;
+  $query.= ' WHERE id = '.$replaced_cat;
   $query.= ';';
   mysql_query( $query );
 }
@@ -72,41 +72,41 @@ if ( isset( $_GET['down'] ) && is_numeric( $_GET['down'] ) )
 {
   // 1. searching level (id_uppercat)
   //    and rank of the category to move
-  $query = 'select id_uppercat,rank';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where id = '.$_GET['down'];
+  $query = 'SELECT id_uppercat,rank';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id = '.$_GET['down'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $level = $row['id_uppercat'];
   $rank  = $row['rank'];
   // 2. searching the id and the rank of the category
   //    just below at the same level
-  $query = 'select id,rank';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where rank > '.$rank;
+  $query = 'SELECT id,rank';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE rank > '.$rank;
   if ( $level == '' )
   {
-    $query.= ' and id_uppercat is null';
+    $query.= ' AND id_uppercat is null';
   }
   else
   {
-    $query.= ' and id_uppercat = '.$level;
+    $query.= ' AND id_uppercat = '.$level;
   }
-  $query.= ' order by rank asc';
-  $query.= ' limit 0,1';
+  $query.= ' ORDER BY rank ASC';
+  $query.= ' LIMIT 0,1';
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $new_rank     = $row['rank'];
   $replaced_cat = $row['id'];
   // 3. exchanging ranks between the two categories
-  $query = 'update '.PREFIX_TABLE.'categories';
-  $query.= ' set rank = '.$new_rank;
-  $query.= ' where id = '.$_GET['down'];
+  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query.= ' SET rank = '.$new_rank;
+  $query.= ' WHERE id = '.$_GET['down'];
   $query.= ';';
   mysql_query( $query );
-  $query = 'update '.PREFIX_TABLE.'categories';
-  $query.= ' set rank = '.$rank;
-  $query.= ' where id = '.$replaced_cat;
+  $query = 'UPDATE '.PREFIX_TABLE.'categories';
+  $query.= ' SET rank = '.$rank;
+  $query.= ' WHERE id = '.$replaced_cat;
   $query.= ';';
   mysql_query( $query );
 }
@@ -115,24 +115,24 @@ function ordering( $id_uppercat )
 {
   $rank = 1;
 		
-  $query = 'select id';
-  $query.= ' from '.PREFIX_TABLE.'categories';
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
-    $query.= ' where id_uppercat is NULL';
+    $query.= ' WHERE id_uppercat IS NULL';
   }
   else
   {
-    $query.= ' where id_uppercat = '.$id_uppercat;
+    $query.= ' WHERE id_uppercat = '.$id_uppercat;
   }
-  $query.= ' order by rank asc, dir asc';
+  $query.= ' ORDER BY rank ASC, dir ASC';
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $query = 'update '.PREFIX_TABLE.'categories';
-    $query.= ' set rank = '.$rank;
-    $query.= ' where id = '.$row['id'];
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= ' SET rank = '.$rank;
+    $query.= ' WHERE id = '.$row['id'];
     $query.= ';';
     mysql_query( $query );
     $rank++;
@@ -148,15 +148,15 @@ function display_cat_manager( $id_uppercat, $indent,
   global $lang,$conf,$sub,$vtp;
 		
   // searching the min_rank and the max_rank of the category
-  $query = 'select min(rank) as min, max(rank) as max';
-  $query.= ' from '.PREFIX_TABLE.'categories';
+  $query = 'SELECT MIN(rank) AS min, MAX(rank) AS max';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
-    $query.= ' where id_uppercat is NULL';
+    $query.= ' WHERE id_uppercat IS NULL';
   }
   else
   {
-    $query.= ' where id_uppercat = '.$id_uppercat;
+    $query.= ' WHERE id_uppercat = '.$id_uppercat;
   }
   $query.= ';';
   $result = mysql_query( $query );
@@ -176,17 +176,17 @@ function display_cat_manager( $id_uppercat, $indent,
     $td = 'th';
   }
 		
-  $query = 'select id,name,dir,nb_images,status,rank,site_id';
-  $query.= ' from '.PREFIX_TABLE.'categories';
+  $query = 'SELECT id,name,dir,nb_images,status,rank,site_id,visible';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
   if ( !is_numeric( $id_uppercat ) )
   {
-    $query.= ' where id_uppercat is NULL';
+    $query.= ' WHERE id_uppercat IS NULL';
   }
   else
   {
-    $query.= ' where id_uppercat = '.$id_uppercat;
+    $query.= ' WHERE id_uppercat = '.$id_uppercat;
   }
-  $query.= ' order by rank asc';
+  $query.= ' ORDER BY rank ASC';
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -207,13 +207,17 @@ function display_cat_manager( $id_uppercat, $indent,
     }
     $vtp->setVar( $sub, 'cat.name', $name );
     $vtp->setVar( $sub, 'cat.dir', $row['dir'] );
-    if ( $row['status'] == 'invisible' || !$uppercat_visible )
+    if ( $row['visible'] == 'false' or !$uppercat_visible )
     {
       $subcat_visible = false;
       $vtp->setVar( $sub, 'cat.invisible', $lang['cat_invisible'] );
     }
+    if ( $row['status'] == 'private' )
+    {
+      $vtp->setVar( $sub, 'cat.private', $lang['private'] );
+    }
     $vtp->setVar( $sub, 'cat.nb_picture', $row['nb_images'] );
-    $url = add_session_id( './admin.php?page=edit_cat&amp;cat='.$row['id'] );
+    $url = add_session_id( './admin.php?page=cat_modify&amp;cat='.$row['id'] );
     $vtp->setVar( $sub, 'cat.edit_url', $url );
     if ( $row['rank'] != $min_rank )
     {
@@ -252,8 +256,18 @@ function display_cat_manager( $id_uppercat, $indent,
       $vtp->addSession( $sub, 'no_image_info' );
       $vtp->closeSession( $sub, 'no_image_info' );
     }
-    $url = add_session_id( './admin.php?page=perm&amp;cat_id='.$row['id'] );
-    $vtp->setVar( $sub, 'cat.permission_url', $url );
+    if ( $row['status'] == 'private' )
+    {
+      $vtp->addSession( $sub, 'permission' );
+      $url=add_session_id('./admin.php?page=cat_perm&amp;cat_id='.$row['id']);
+      $vtp->setVar( $sub, 'permission.url', $url );
+      $vtp->closeSession( $sub, 'permission' );
+    }
+    else
+    {
+      $vtp->addSession( $sub, 'no_permission' );
+      $vtp->closeSession( $sub, 'no_permission' );
+    }
     if ( $row['site_id'] == 1 )
     {
       $vtp->addSession( $sub, 'update' );

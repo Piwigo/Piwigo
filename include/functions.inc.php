@@ -18,6 +18,7 @@ include( 'functions_user.inc.php' );
 include( 'functions_session.inc.php' );
 include( 'functions_category.inc.php' );
 include( 'functions_xml.inc.php' );
+include( 'functions_group.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
@@ -319,22 +320,22 @@ function replace_search( $string, $search )
 
 function database_connection()
 {
-  // $cfgHote,$cfgUser,$cfgPassword,$cfgBase;
+//   $xml_content = getXmlCode( PREFIXE_INCLUDE.'./include/database_config.xml' );
+//   $mysql_conf = getChild( $xml_content, 'mysql' );
 
-  $xml_content = getXmlCode( PREFIXE_INCLUDE.'./include/database_config.xml' );
-  $mysql_conf = getChild( $xml_content, 'mysql' );
+//   $cfgHote     = getAttribute( $mysql_conf, 'host' );
+//   $cfgUser     = getAttribute( $mysql_conf, 'user' );
+//   $cfgPassword = getAttribute( $mysql_conf, 'password' );
+//   $cfgBase     = getAttribute( $mysql_conf, 'base' );
+//   define( PREFIX_TABLE, getAttribute( $mysql_conf, 'tablePrefix' ) );
 
-  $cfgHote     = getAttribute( $mysql_conf, 'host' );
-  $cfgUser     = getAttribute( $mysql_conf, 'user' );
-  $cfgPassword = getAttribute( $mysql_conf, 'password' );
-  $cfgBase     = getAttribute( $mysql_conf, 'base' );
+  include( PREFIX_INCLUDE.'./include/mysql.inc.php' );
+  define( PREFIX_TABLE, $prefix_table );
 
   @mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
     or die ( "Could not connect to server" );
   @mysql_select_db( $cfgBase )
     or die ( "Could not connect to database" );
-
-  define( PREFIX_TABLE, getAttribute( $mysql_conf, 'tablePrefix' ) );
 }
 
 function pwg_log( $file, $category, $picture = '' )

@@ -24,7 +24,7 @@ $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
                 'long_period', 'template' );
 
-$query_user  = 'select';
+$query_user  = 'SELECT';
 for ( $i = 0; $i < sizeof( $infos ); $i++ )
 {
   if ( $i > 0 )
@@ -37,16 +37,16 @@ for ( $i = 0; $i < sizeof( $infos ); $i++ )
   }
   $query_user.= $infos[$i];
 }
-$query_user.= ' from '.PREFIX_TABLE.'users';
+$query_user.= ' FROM '.PREFIX_TABLE.'users';
 $query_done = false;
 $user['is_the_guest'] = false;
 if ( isset( $_GET['id'] )
      && ereg( "^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $_GET['id'] ) )
 {
   $page['session_id'] = $_GET['id'];
-  $query = 'select user_id,expiration,ip';
-  $query.= ' from '.PREFIX_TABLE.'sessions';
-  $query.= " where id = '".$_GET['id']."'";
+  $query = 'SELECT user_id,expiration,ip';
+  $query.= ' FROM '.PREFIX_TABLE.'sessions';
+  $query.= " WHERE id = '".$_GET['id']."'";
   $query.= ';';
   $result = mysql_query( $query );
   if ( mysql_num_rows( $result ) > 0 )
@@ -56,8 +56,8 @@ if ( isset( $_GET['id'] )
     {
       // deletion of the session from the database,
       // because it is out-of-date
-      $delete_query = 'delete from '.PREFIX_TABLE.'sessions';
-      $delete_query.= " where id = '".$page['session_id']."'";
+      $delete_query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
+      $delete_query.= " WHERE id = '".$page['session_id']."'";
       $delete_query.= ';';
       mysql_query( $delete_query );
     }
@@ -65,7 +65,7 @@ if ( isset( $_GET['id'] )
     {
       if ( $_SERVER['REMOTE_ADDR'] == $row['ip'] )
       {
-        $query_user .= ' where id = '.$row['user_id'];
+        $query_user .= ' WHERE id = '.$row['user_id'];
         $query_done = true;
       }
     }
@@ -73,7 +73,7 @@ if ( isset( $_GET['id'] )
 }
 if ( !$query_done )
 {
-  $query_user .= ' where id = 2';
+  $query_user .= ' WHERE id = 2';
   $user['is_the_guest'] = true;
 }
 $query_user .= ';';
@@ -82,14 +82,13 @@ $row = mysql_fetch_array( mysql_query( $query_user ) );
 
 // affectation of each value retrieved in the users table into a variable
 // of the array $user.
-for ( $i = 0; $i < sizeof( $infos ); $i++ )
-{
-  $user[$infos[$i]] = $row[$infos[$i]];
+foreach ( $infos as $info ) {
+  $user[$info] = $row[$info];
   // If the field is true or false, the variable is transformed into a
   // boolean value.
-  if ( $row[$infos[$i]] == 'true' || $row[$infos[$i]] == 'false' )
+  if ( $row[$info] == 'true' or $row[$info] == 'false' )
   {
-    $user[$infos[$i]] = get_boolean( $row[$infos[$i]] );
+    $user[$info] = get_boolean( $row[$info] );
   }
 }
 ?>

@@ -1,16 +1,13 @@
 <?php
-include_once( './include/mysql.inc.php' );
+define( PREFIX_INCLUDE, '' );
 include_once( './include/functions.inc.php' );
 database_connection();
-// récupération des informations de configuration du site
-$query  = 'select acces ';
-$query .= 'from '.PREFIX_TABLE.'config;';
+// retrieving configuration informations
+$query = 'SELECT access';
+$query.= ' FROM '.PREFIX_TABLE.'config;';
 $row = mysql_fetch_array( mysql_query( $query ) );
-$url = 'category';
-if ( $row['acces'] == 'restreint' )
-{
-  $url = 'identification';
-}
+if ( $row['access'] == 'restricted' ) $url = 'identification';
+else                                  $url = 'category';
 // redirection
 $url.= '.php';
 header( 'Request-URI: '.$url );  

@@ -20,8 +20,8 @@ $page = array();
 $user = array();
 $lang = array();
 
-include_once( PREFIXE_INCLUDE.'./include/functions.inc.php' );
-include_once( PREFIXE_INCLUDE.'./include/vtemplate.class.php' );
+include_once( PREFIX_INCLUDE.'./include/functions.inc.php' );
+include_once( PREFIX_INCLUDE.'./include/vtemplate.class.php' );
 
 // How to change the order of display for images in a category ?
 //

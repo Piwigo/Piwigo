@@ -4,7 +4,7 @@
   <{#td} style="width:40%;text-align:left;">
     {#indent}<img src="./images/puce.gif" alt="&gt;" />
     &nbsp;{#name} [ dir : {#dir} ]
-    <span style="color:red;font-weight:normal;"> {#invisible}</span>
+    <span style="color:red;font-weight:normal;"> {#invisible} <span style="font-weight:bold;">{#private}</span></span>
   </{#td}>
   <{#td} style="text-align:center;">
     <div style="margin-left:3px;margin-right:3px;">{#nb_picture}</div>
@@ -42,7 +42,12 @@
   </{#td}>
   <{#td} class="{#class}"
          style="width:10%;white-space:nowrap;text-align:center;">
-    <a href="{#permission_url}">{#cat_permission}</a>
+    <!--VTP_permission-->
+    <a href="{#url}">{#cat_permission}</a>
+    <!--/VTP_permission-->
+    <!--VTP_no_permission-->
+    <span style="color:darkgray;">{#cat_permission}</span>
+    <!--/VTP_no_permission-->
   </{#td}>
   <{#td} class="{#class}"
          style="width:10%;white-space:nowrap;text-align:center;">

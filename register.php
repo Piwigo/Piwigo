@@ -16,9 +16,9 @@
  ***************************************************************************/
 
 //----------------------------------------------------------- personnal include
-include_once( "./include/init.inc.php" );
+include_once( './include/init.inc.php' );
 //-------------------------------------------------- access authorization check
-if ( $conf['acces'] == "restreint" )
+if ( $conf['access'] == "restricted" )
 {
   echo $lang['only_members'];
   exit();

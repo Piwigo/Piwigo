@@ -14,13 +14,11 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-define( PREFIXE_INCLUDE, '.' );
+define( PREFIX_INCLUDE, '.' );
 
 include_once( '../include/config.inc.php' );
 include_once( '../include/user.inc.php' );
 include( './include/functions.php' );
-
-$conf['lien_puce'] = $conf['repertoire_image'].'puce.gif';
 
 $isadmin = true;
 include_once( '../language/'.$user['language'].'.php' );

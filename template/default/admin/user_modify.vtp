@@ -34,7 +34,7 @@
           </tr>
           <tr>
             <td>{#new} {#password}<input type="checkbox" name="use_new_pwd" value="1" /></td>
-            <td><input type="text" name="password" value="{#user:password}" /></td>
+            <td><input type="text" name="password" value="" /></td>
           </tr>
           <tr>
             <td>{#mail_address}</td>
@@ -47,6 +47,31 @@
                 <!--VTP_status_option-->
                 <option value="{#value}"{#selected}>{#option}</option>
                 <!--/VTP_status_option-->
+              </select>
+            </td>
+          </tr>
+          <!--VTP_groups-->
+          <tr>
+            <td valign="top">{#menu_groups}</td>
+            <td>
+              <table>
+                <!--VTP_group-->
+                <tr>
+                  <td>{#name}</td>
+                  <td><input type="checkbox" name="dissociate-{#dissociate_id}" value="1" /> {#dissociate}</td>
+                </tr>
+                <!--/VTP_group-->
+              </table>
+            </td>
+          </tr>
+          <!--/VTP_groups-->
+          <tr>
+            <td>{#adduser_associate}</td>
+            <td>
+              <select name="associate">
+                <!--VTP_associate_group-->
+                <option value="{#value}">{#option}</option>
+                <!--/VTP_associate_group-->
               </select>
             </td>
           </tr>

@@ -18,7 +18,6 @@
 //------------------------------------------------------------------ constantes
 define( ATT_REG, '\w+' );
 define( VAL_REG, '[^"]*' );
-
 //------------------------------------------------------------------- functions
 // getContent returns the content of a tag
 //
@@ -32,15 +31,15 @@ function getContent( $element )
   // deleting start of the tag
   $content = preg_replace( '/^<[^>]+>/', '', $element );
   // deleting end of the tag
-  $content = preg_replace( '/<\/\w+>$/', '', $content );
+  $content = preg_replace( '/<\/[^>]+>$/', '', $content );
   // replacing multiple instance of space character
   $content = preg_replace( '/\s+/', ' ', $content );
 
   return $content;
 }
 
-// The function get Attribute returns the value corresponding to the attribute
-// $attribute for the tag $element.
+// The function get Attribute returns the value corresponding to the
+// attribute $attribute for the tag $element.
 function getAttribute( $element, $attribute )
 {
   $regex = '/^<\w+[^>]*'.$attribute.'\s*=\s*"('.VAL_REG.')"/i';

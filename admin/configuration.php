@@ -15,7 +15,7 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
- 
+
 include_once( './include/isadmin.inc.php' );
 	
 $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A", 
@@ -48,7 +48,8 @@ array( 'nb_image_line','nb_line_page','theme','language','maxwidth',
 $error = array();
 if ( isset( $_POST['submit'] ) )
 {
-  //purge de la table des session si demandé
+  $int_pattern = '/^\d+$/';
+  // empty session table if asked
   if ( $_POST['empty_session_table'] == 1 )
   {
     $query = 'DELETE FROM '.PREFIX_TABLE.'sessions';
@@ -79,8 +80,8 @@ if ( isset( $_POST['submit'] ) )
     array_push( $error, $lang['conf_err_mail'] );
   }
   // periods must be integer values, they represents number of days
-  if ( !is_int( $_POST['short_period'] )
-       or !is_int( $_POST['long_period'] ) )
+  if ( !preg_match( $int_pattern, $_POST['short_period'] )
+       or !preg_match( $int_pattern, $_POST['long_period'] ) )
   {
     array_push( $error, $lang['err_periods'] );
   }
@@ -94,21 +95,21 @@ if ( isset( $_POST['submit'] ) )
     }
   }
   // session_id size must be an integer between 4 and 50
-  if ( !is_int( $_POST['session_id_size'] )
+  if ( !preg_match( $int_pattern, $_POST['session_id_size'] )
        or $_POST['session_id_size'] < 4
        or $_POST['session_id_size'] > 50 )
   {
     array_push( $error, $lang['conf_err_sid_size'] );
   }
   // session_time must be an integer between 5 and 60, in minutes
-  if ( !is_int( $_POST['session_time'] )
+  if ( !preg_match( $int_pattern, $_POST['session_time'] )
        or $_POST['session_time'] < 5
        or $_POST['session_time'] > 60 )
   {
     array_push( $error, $lang['conf_err_sid_time'] );
   }
   // max_user_listbox must be an integer between 0 and 255 included
-  if ( !is_int( $_POST['max_user_listbox'] )
+  if ( !preg_match( $int_pattern, $_POST['max_user_listbox'] )
        or $_POST['max_user_listbox'] < 0
        or $_POST['max_user_listbox'] > 255 )
   {
@@ -116,14 +117,14 @@ if ( isset( $_POST['submit'] ) )
   }
   // the number of comments per page must be an integer between 5 and 50
   // included
-  if ( !is_int( $_POST['nb_comment_page'] )
+  if ( !preg_match( $int_pattern, $_POST['nb_comment_page'] )
        or $_POST['nb_comment_page'] < 5
        or $_POST['nb_comment_page'] > 50 )
   {
     array_push( $error, $lang['conf_err_comment_number'] );
   }
   // the maximum upload filesize must be an integer between 10 and 1000
-  if ( !is_int( $_POST['upload_maxfilesize'] )
+  if ( !preg_match( $int_pattern, $_POST['upload_maxfilesize'] )
        or $_POST['upload_maxfilesize'] < 10
        or $_POST['upload_maxfilesize'] > 1000 )
   {
@@ -131,63 +132,57 @@ if ( isset( $_POST['submit'] ) )
   }
   // the maximum width of uploaded pictures must be an integer superior to
   // 10
-  if ( !is_int( $_POST['upload_maxwidth'] )
+  if ( !preg_match( $int_pattern, $_POST['upload_maxwidth'] )
        or $_POST['upload_maxwidth'] < 10 )
   {
     array_push( $error, $lang['conf_err_upload_maxwidth'] );
   }
   // the maximum height  of uploaded pictures must be an integer superior to
   // 10
-  if ( !is_int( $_POST['upload_maxheight'] )
+  if ( !preg_match( $int_pattern, $_POST['upload_maxheight'] )
        or $_POST['upload_maxheight'] < 10 )
   {
     array_push( $error, $lang['conf_err_upload_maxheight'] );
   }
   // the maximum width of uploaded thumbnails must be an integer superior to
   // 10
-  if ( !is_int( $_POST['upload_maxwidth_thumbnail'] )
+  if ( !preg_match( $int_pattern, $_POST['upload_maxwidth_thumbnail'] )
        or $_POST['upload_maxwidth_thumbnail'] < 10 )
   {
     array_push( $error, $lang['conf_err_upload_maxwidth_thumbnail'] );
   }
   // the maximum width of uploaded thumbnails must be an integer superior to
   // 10
-  if ( !is_int( $_POST['upload_maxheight_thumbnail'] )
+  if ( !preg_match( $int_pattern, $_POST['upload_maxheight_thumbnail'] )
        or $_POST['upload_maxheight_thumbnail'] < 10 )
   {
     array_push( $error, $lang['conf_err_upload_maxheight_thumbnail'] );
   }
-  $test = '';
-  if ( is_int( $test ) ) echo 'salut'; exit();
-  if ( $_POST['maxwidth'] != '' )
+
+  if ( $_POST['maxwidth'] != ''
+       and ( !preg_match( $int_pattern, $_POST['maxwidth'] )
+             or $_POST['maxwidth'] < 50 ) )
   {
-    if ( !ereg( "^[0-9]{2,}$", $_POST['maxwidth'] )
-         or $_POST['maxwidth'] < 50 )
-    {
-      $error[$i++] = $lang['err_maxwidth'];
-    }
+    array_push( $error, $lang['err_maxwidth'] );
   }
-  if ( $_POST['maxheight'] != '' )
+  if ( $_POST['maxheight']
+       and ( !preg_match( $int_pattern, $_POST['maxheight'] )
+             or $_POST['maxheight'] < 50 ) )
   {
-    if ( !ereg( "^[0-9]{2,}$", $_POST['maxheight'] )
-         or $_POST['maxheight'] < 50 )
-    {
-      $error[$i++] = $lang['err_maxheight'];
-    }
+    array_push( $error, $lang['err_maxheight'] );
   }
-  // on met à jour les paramètres de l'application
-  // dans le cas où il n'y aucune erreurs
-  if ( sizeof( $error ) == 0 )
+  // updating configuraiton if no error found
+  if ( count( $error ) == 0 )
   {
-    mysql_query( 'delete from '.PREFIX_TABLE.'config;' );
-    $query = 'insert into '.PREFIX_TABLE.'config';
+    mysql_query( 'DELETE FROM '.PREFIX_TABLE.'config;' );
+    $query = 'INSERT INTO '.PREFIX_TABLE.'config';
     $query.= ' (';
     foreach ( $conf_infos as $i => $conf_info ) {
       if ( $i > 0 ) $query.= ',';
       $query.= $conf_info;
     }
     $query.= ')';
-    $query.= ' values';
+    $query.= ' VALUES';
     $query.= ' (';
     foreach ( $conf_infos as $i => $conf_info ) {
       if ( $i > 0 ) $query.= ',';
@@ -260,15 +255,12 @@ else
   }
 }
 //----------------------------------------------------- template initialization
-$sub = $vtp->Open( '../template/'.$user['template'].
-                   '/admin/configuration.vtp' );
-// language
-$vtp->setGlobalVar( $sub, 'conf_confirmation',  $lang['conf_confirmation'] );
-$vtp->setGlobalVar( $sub, 'remote_site',        $lang['remote_site'] );
-$vtp->setGlobalVar( $sub, 'delete',             $lang['delete'] );
-$vtp->setGlobalVar( $sub, 'conf_remote_site_delete_info',
-                    $lang['conf_remote_site_delete_info'] );
-$vtp->setGlobalVar( $sub, 'submit',             $lang['submit'] );
+$sub = $vtp->Open(
+  '../template/'.$user['template'].'/admin/configuration.vtp' );
+
+$tpl = array( 'conf_confirmation','remote_site','delete',
+              'conf_remote_site_delete_info','submit' );
+templatize_array( $tpl, 'lang', $sub );
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
 {
@@ -345,7 +337,6 @@ $vtp->setVar( $sub, 'radio.name', 'access' );
 $vtp->setVar( $sub, 'radio.value', 'free' );
 $vtp->setVar( $sub, 'radio.option', $lang['conf_general_access_1'] );
 $checked = '';
-echo $access.'<br />';
 if ( $access == 'free' )
 {
   $checked = ' checked="checked"';

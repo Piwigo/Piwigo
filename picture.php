@@ -28,20 +28,20 @@ if ( isset( $page['cat'] ) && is_numeric( $page['cat'] ) )
   check_restrictions( $page['cat'] );
 }
 //---------------------------------------- incrementation of the number of hits
-$query = 'update '.PREFIX_TABLE.'images';
-$query.= ' set hit=hit+1';
-$query.= ' where id='.$_GET['image_id'];
+$query = 'UPDATE '.PREFIX_TABLE.'images';
+$query.= ' SET hit=hit+1';
+$query.= ' WHERE id='.$_GET['image_id'];
 $query.= ';';
 @mysql_query( $query );
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
 $cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
-$query = 'select id,date_available,comment,hit';
+$query = 'SELECT id,date_available,comment,hit';
 $query.= ',author,name,file,date_creation,filesize,width,height,cat_id';
-$query.= ' from '.PREFIX_TABLE.'images';
+$query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= $page['where'];
-$query.= ' and id = '.$_GET['image_id'];
+$query.= ' AND id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
 $query.= ';';
 $result = mysql_query( $query );
@@ -59,8 +59,8 @@ $page['width']          = $row['width'];
 $page['height']         = $row['height'];
 $page['cat_id']         = $row['cat_id'];
 // retrieving the number of the picture in its category (in order)
-$query = 'select id';
-$query.= ' from '.PREFIX_TABLE.'images';
+$query = 'SELECT id';
+$query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 $query.= ';';
@@ -78,17 +78,17 @@ if ( isset( $_GET['add_fav'] ) )
   if ( $_GET['add_fav'] == 1 )
   {
     // verify if the picture is already in the favorite of the user
-    $query = 'select count(*) as nb_fav';
-    $query.= ' from '.PREFIX_TABLE.'favorites';
-    $query.= ' where image_id = '.$page['id'];
-    $query.= ' and user_id = '.$user['id'];
+    $query = 'SELECT COUNT(*) AS nb_fav';
+    $query.= ' FROM '.PREFIX_TABLE.'favorites';
+    $query.= ' WHERE image_id = '.$page['id'];
+    $query.= ' AND user_id = '.$user['id'];
     $query.= ';';
     $result = mysql_query( $query );
     $row = mysql_fetch_array( $result );
     if ( $row['nb_fav'] == 0 )
     {
-      $query = 'insert into '.PREFIX_TABLE.'favorites';
-      $query.= ' (image_id,user_id) values';
+      $query = 'INSERT INTO '.PREFIX_TABLE.'favorites';
+      $query.= ' (image_id,user_id) VALUES';
       $query.= ' ('.$page['id'].','.$user['id'].')';
       $query.= ';';
       $result = mysql_query( $query );
@@ -96,9 +96,9 @@ if ( isset( $_GET['add_fav'] ) )
   }
   if ( $_GET['add_fav'] == 0 )
   {
-    $query = 'delete from '.PREFIX_TABLE.'favorites';
-    $query.= ' where user_id = '.$user['id'];
-    $query.= ' and image_id = '.$page['id'];
+    $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
+    $query.= ' WHERE user_id = '.$user['id'];
+    $query.= ' AND image_id = '.$page['id'];
     $query.= ';';
     $result = mysql_query( $query );
     
@@ -120,11 +120,11 @@ if ( isset( $_GET['add_fav'] ) )
     {
       $page['num'] = 0;
     }
-    $query = 'select id';
-    $query.= ' from '.PREFIX_TABLE.'images';
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
     $query.= $page['where'];
     $query.= $conf['order_by'];
-    $query.= ' limit '.$page['num'].',1';
+    $query.= ' LIMIT '.$page['num'].',1';
     $query.= ';';
     $result = mysql_query( $query );
     $row = mysql_fetch_array( $result );
@@ -143,24 +143,15 @@ if ( isset( $_GET['add_fav'] ) )
 }
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
-$handle = $vtp->Open( './template/default/picture.vtp' );
-// language
-$vtp->setGlobalVar( $handle, 'back',             $lang['back'] );
-$vtp->setGlobalVar( $handle, 'submit',           $lang['submit'] );
-$vtp->setGlobalVar( $handle, 'comments_title',   $lang['comments_title'] );
-$vtp->setGlobalVar( $handle, 'comments_del',     $lang['comments_del'] );
-$vtp->setGlobalVar( $handle, 'delete',           $lang['delete'] );
-$vtp->setGlobalVar( $handle, 'comments_add',     $lang['comments_add'] );
-$vtp->setGlobalVar( $handle, 'author',           $lang['author'] );
-// user
-$vtp->setGlobalVar( $handle, 'page_style',       $user['style'] );
-$vtp->setGlobalVar( $handle, 'text_color',       $user['couleur_text'] );
-// structure
-$vtp->setGlobalVar( $handle, 'frame_start',      get_frame_start() );
-$vtp->setGlobalVar( $handle, 'frame_begin',      get_frame_begin() );
-$vtp->setGlobalVar( $handle, 'frame_end',        get_frame_end() );
+$handle = $vtp->Open( './template/'.$user['template'].'/picture.vtp' );
+initialize_template();
+
+$tpl = array( 'back','submit','comments_title','comments_del','delete',
+              'comments_add','author' );
+templatize_array( $tpl, 'lang', $handle );
+$vtp->setGlobalVar( $handle, 'text_color', $user['couleur_text'] );
 //------------------------------------------------------------------ page title
-if ( $page['name'] != "" )
+if ( $page['name'] != '' )
 {
   $vtp->setGlobalVar( $handle, 'page_title', $page['name'] );
 }
@@ -172,11 +163,11 @@ else
 if ( $page['num'] >= 1 )
 {
   $prev = $page['num'] - 1;
-  $query = 'select id,name,file,tn_ext,cat_id';
-  $query.= ' from '.PREFIX_TABLE.'images';
+  $query = 'SELECT id,name,file,tn_ext,cat_id';
+  $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= $page['where'];
   $query.= $conf['order_by'];
-  $query.= ' limit '.$prev.',1';
+  $query.= ' LIMIT '.$prev.',1';
   $query.= ';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
@@ -197,14 +188,8 @@ if ( $page['num'] >= 1 )
                 
   $prev_title = $lang['previous_image'].' : ';
   $alt_thumbnaill = '';
-  if ( $row['name'] != "" )
-  {
-    $alt_thumbnail = $row['name'];
-  }
-  else
-  {
-    $alt_thumbnail = $file;
-  }
+  if ( $row['name'] != '' ) $alt_thumbnail = $row['name'];
+  else                      $alt_thumbnail = $file;
   $prev_title.= $alt_thumbnail;
   
   $url_link = './picture.php?image_id='.$row['id'].'&amp;cat='.$page['cat'];
@@ -320,22 +305,22 @@ if ( $page['date_creation'] != "" )
 {
   $vtp->addSession( $handle, 'info_line' );
   $vtp->setVar( $handle, 'info_line.name', $lang['creation_date'].' : ' );
-  $tab_date = explode( '-', $page['date_creation'] );
+  list( $year,$month,$day ) = explode( '-', $page['date_creation'] );
   $vtp->setVar( $handle, 'info_line.content',
-                $tab_date[2].'/'.$tab_date[1].'/'.$tab_date[0] );
+                $day.'/'.$month.'/'.$year );
   $vtp->closeSession( $handle, 'info_line' );
 }
 // date of availability
 $vtp->addSession( $handle, 'info_line' );
 $vtp->setVar( $handle, 'info_line.name', $lang['registration_date'].' : ' );
-$tab_date = explode( '-', $page['date_available'] );
+list( $year,$month,$day ) = explode( '-', $page['date_available'] );
 $vtp->setVar( $handle, 'info_line.content',
-              $tab_date[2].'/'.$tab_date[1].'/'.$tab_date[0] );
+              $day.'/'.$month.'/'.$year );
 $vtp->closeSession( $handle, 'info_line' );
 // size in pixels
 $vtp->addSession( $handle, 'info_line' );
 $vtp->setVar( $handle, 'info_line.name', $lang['size'].' : ' );
-if ( $original_width != $final_width || $original_height != $final_height )
+if ( $original_width != $final_width or $original_height != $final_height )
 {
   $content = '[ <a href="'.$lien_image.'" title="'.$lang['true_size'].'">';
   $content.= $original_width.'*'.$original_height.'</a> ]';
@@ -379,7 +364,7 @@ $vtp->setVar( $handle, 'info_line.name', $lang['visited'].' : ' );
 $vtp->setVar( $handle, 'info_line.content', $page['hit'].' '.$lang['times'] );
 $vtp->closeSession( $handle, 'info_line' );
 //------------------------------------------------------- favorite manipulation
-if ( $page['cat'] != 'fav' && !$user['is_the_guest'] )
+if ( $page['cat'] != 'fav' and !$user['is_the_guest'] )
 {
   $url = './picture.php?cat='.$page['cat'].'&amp;image_id='.$page['id'];
   $url.= '&amp;expand='.$_GET['expand'].'&amp;add_fav=1';
@@ -441,7 +426,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   }
 
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
-  $lien_thumbnail = $cat_directory."thumbnail/";
+  $lien_thumbnail = $cat_directory.'thumbnail/';
   $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
   
   if ( $row['name'] != "" )
@@ -480,13 +465,13 @@ if ( $conf['show_comments'] )
   // comment registeration
   if ( isset( $_POST['content'] ) && $_POST['content'] != '' )
   {
-    $author = $user['pseudo'];
-    if ( $_POST['author'] != "" )
+    $author = $user['username'];
+    if ( $_POST['author'] != '' )
     {
       $author = $_POST['author'];
     }
-    $query = 'insert into '.PREFIX_TABLE.'comments';
-    $query.= ' (author,date,image_id,content) values';
+    $query = 'INSERT INTO '.PREFIX_TABLE.'comments';
+    $query.= ' (author,date,image_id,content) VALUES';
     $query.= " ('".$author."',".time().",".$page['id'];
     $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."');";
     mysql_query( $query );
@@ -496,14 +481,14 @@ if ( $conf['show_comments'] )
        && is_numeric( $_GET['del'] )
        && $user['status'] == 'admin' )
   {
-    $query = 'delete from '.PREFIX_TABLE.'comments';
-    $query.= ' where id = '.$_GET['del'].';';
+    $query = 'DELETE FROM '.PREFIX_TABLE.'comments';
+    $query.= ' WHERE id = '.$_GET['del'].';';
     mysql_query( $query );
   }
   // number of comment for this picture
-  $query = 'select count(*) as nb_comments';
-  $query.= ' from '.PREFIX_TABLE.'comments';
-  $query.= ' where image_id = '.$page['id'].';';
+  $query = 'SELECT COUNT(*) AS nb_comments';
+  $query.= ' FROM '.PREFIX_TABLE.'comments';
+  $query.= ' WHERE image_id = '.$page['id'].';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   $page['nb_comments'] = $row['nb_comments'];
   // navigation bar creation
@@ -514,8 +499,8 @@ if ( $conf['show_comments'] )
     $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
   }
   if( !isset( $_GET['start'] )
-      || !is_numeric( $_GET['start'] )
-      || ( is_numeric( $_GET['start'] ) && $_GET['start'] < 0 ) )
+      or !is_numeric( $_GET['start'] )
+      or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
   {
     $page['start'] = 0;
   }
@@ -531,11 +516,11 @@ if ( $conf['show_comments'] )
   $vtp->setGlobalVar( $handle, 'navigation_bar', $page['navigation_bar'] );
   $vtp->setGlobalVar( $handle, 'nb_comments', $page['nb_comments'] );
 
-  $query = 'select id,author,date,image_id,content';
-  $query.= ' from '.PREFIX_TABLE.'comments';
-  $query.= ' where image_id = '.$page['id'];
-  $query.= ' order by date asc';
-  $query.= ' limit '.$page['start'].', '.$conf['nb_comment_page'].';';
+  $query = 'SELECT id,author,date,image_id,content';
+  $query.= ' FROM '.PREFIX_TABLE.'comments';
+  $query.= ' WHERE image_id = '.$page['id'];
+  $query.= ' ORDER BY date ASC';
+  $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
   $result = mysql_query( $query );
                 
   while ( $row = mysql_fetch_array( $result ) )
@@ -580,10 +565,4 @@ mysql_close();
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
-//------------------------------------------------------------ log informations
-$query = 'insert into '.PREFIX_TABLE.'history';
-$query.= ' (date,login,IP,page,titre,categorie) values';
-$query.= " (".time().", '".$user['pseudo']."','".$_SERVER['REMOTE_ADDR']."'";
-$query.= ",'picture','".$page['file']."','".$intitule_cat."');";
-@mysql_query( $query );
 ?>

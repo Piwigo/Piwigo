@@ -1,6 +1,6 @@
 <html>
   <head>
-    {#page_style}
+    {#style}
     <!-- Specific style to picture.php-->
     <style type="text/css">
       .commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
@@ -44,6 +44,7 @@
     <title>{#page_title}</title>        
   </head>
   <body>
+    {#header}
     <table style="width:100%;height:100%;">
       <tr align="center" valign="middle">
         <td>
@@ -162,5 +163,6 @@
       </tr>
       <!--/VTP_comments-->
     </table>
+    {#footer}
   </body>
 </html>

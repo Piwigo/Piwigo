@@ -25,55 +25,110 @@ $vtp->setGlobalVar( $handle, 'page_title',  $lang['title_default'] );
 $vtp->setGlobalVar( $handle, 'menu_title',  $lang['menu_title'] );
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
+$title = '';
 switch ( $_GET['page'] )
 {
  case 'user_add':
-   $titre = $lang['title_add'];           $page_valide = true; break;
+   $title = $lang['title_add'];           $page_valide = true; break;
  case 'user_list':
-   $titre = $lang['title_liste_users'];   $page_valide = true; break;
+   $title = $lang['title_liste_users'];   $page_valide = true; break;
  case 'user_modify':
-   $titre = $lang['title_modify'];        $page_valide = true; break;
+   $title = $lang['title_modify'];        $page_valide = true; break;
+ case 'user_perm':
+   if ( !is_numeric( $_GET['user_id'] ) ) $_GET['user_id'] = -1;
+   $query = 'SELECT status,username';
+   $query.= ' FROM '.PREFIX_TABLE.'users';
+   $query.= ' WHERE id = '.$_GET['user_id'];
+   $query.= ';';
+   $result = mysql_query( $query );
+   if ( mysql_num_rows( $result ) > 0 )
+   {
+     $row = mysql_fetch_array( $result );
+     $page['user_status']   = $row['status'];
+     if ( $row['username'] == 'guest' ) $row['username'] = $lang['guest'];
+     $page['user_username'] = $row['username'];
+     $page_valide = true;
+     $title = $lang['title_user_perm'].' "'.$page['user_username'].'"';
+   }
+   else
+   {
+     $page_valide = false;
+   }
+   break;
+ case 'group_list' :
+   $title = $lang['title_groups'];        $page_valide = true; break;
+ case 'group_perm' :
+   if ( !is_numeric( $_GET['group_id'] ) ) $_GET['group_id'] = -1;
+   $query = 'SELECT name';
+   $query.= ' FROM '.PREFIX_TABLE.'groups';
+   $query.= ' WHERE id = '.$_GET['group_id'];
+   $query.= ';';
+   $result = mysql_query( $query );
+   if ( mysql_num_rows( $result ) > 0 )
+   {
+     $row = mysql_fetch_array( $result );
+     $title = $lang['title_group_perm'].' "'.$row['name'].'"';
+     $page_valide = true;
+   }
+   else
+   {
+     $page_valide = false;
+   }
+   break;
  case 'historique':
-   $titre = $lang['title_history'];       $page_valide = true; break;
+   $title = $lang['title_history'];       $page_valide = true; break;
  case 'update':
-   $titre = $lang['title_update'];        $page_valide = true; break;
+   $title = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
-   $titre = $lang['title_configuration']; $page_valide = true; break;
+   $title = $lang['title_configuration']; $page_valide = true; break;
  case 'manuel':
-   $titre = $lang['title_instructions'];  $page_valide = true; break;
- case 'perm':
-   $titre = $lang['title_permissions'];   $page_valide = true; break;
- case 'cat':
-   $titre = $lang['title_categories'];    $page_valide = true; break;
- case 'edit_cat':
-   $titre = $lang['title_edit_cat'];      $page_valide = true; break;
+   $title = $lang['title_instructions'];  $page_valide = true; break;
+ case 'cat_perm':
+   $title = $lang['title_cat_perm'];
+   if ( isset( $_GET['cat_id'] ) )
+   {
+     check_cat_id( $_GET['cat_id'] );
+     if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+     {
+       $result = get_cat_info( $page['cat'] );
+       $name = get_cat_display_name( $result['name'],' &gt; ', '' );
+       $title.= ' "'.$name.'"';
+     }
+   }
+   $page_valide = true;
+   break;
+ case 'cat_list':
+   $title = $lang['title_categories'];    $page_valide = true; break;
+ case 'cat_modify':
+   $title = $lang['title_edit_cat'];      $page_valide = true; break;
  case 'infos_images':
-   $titre = $lang['title_info_images'];   $page_valide = true; break;
+   $title = $lang['title_info_images'];   $page_valide = true; break;
  case 'waiting':
-   $titre = $lang['title_waiting'];       $page_valide = true; break;
+   $title = $lang['title_waiting'];       $page_valide = true; break;
  case 'thumbnail':
-   $titre = $lang['title_thumbnails'];
+   $title = $lang['title_thumbnails'];
    if ( isset( $_GET['dir'] ) )
    {
-     $titre.= ' '.$lang['title_thumbnails_2'].' <span style="color:#006699;">';
+     $title.= ' '.$lang['title_thumbnails_2'].' <span style="color:#006699;">';
      // $_GET['dir'] contient :
      // ../galleries/vieux_lyon ou
      // ../galleries/vieux_lyon/visite ou
      // ../galleries/vieux_lyon/visite/truc ...
      $dir = explode( "/", $_GET['dir'] );
-     $titre.= $dir[2];
+     $title.= $dir[2];
      for ( $i = 3; $i < sizeof( $dir ) - 1; $i++ )
      {
-       $titre.= ' &gt; '.$dir[$i];
+       $title.= ' &gt; '.$dir[$i];
      }
-     $titre.= "</span>";
+     $title.= "</span>";
    }
    $page_valide = true;
    break;
  default:
-   $titre = $lang['title_default']; break;
+   $title = $lang['title_default']; break;
 }
-$vtp->setGlobalVar( $handle, 'title', $titre );
+if ( $title == '' ) $title = $lang['title_default'];
+$vtp->setGlobalVar( $handle, 'title', $title );
 //--------------------------------------------------------------------- summary
 $link_start = './admin.php?page=';
 // configuration
@@ -87,7 +142,7 @@ $vtp->closeSession( $handle, 'summary' );
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
 $vtp->setVar( $handle, 'summary.link',
-              add_session_id( $link_start.'liste_users' ) );
+              add_session_id( $link_start.'user_list' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_users'] );
 $vtp->closeSession( $handle, 'summary' );
 // user list
@@ -104,10 +159,17 @@ $vtp->setVar(
   $handle, 'summary.link', add_session_id( $link_start.'user_add' ) );
 $vtp->setVar( $handle, 'summary.name', $lang['menu_add_user'] );
 $vtp->closeSession( $handle, 'summary' );
+// groups
+$vtp->addSession( $handle, 'summary' );
+$vtp->setVar( $handle, 'summary.indent', '' );
+$vtp->setVar( $handle, 'summary.link',
+              add_session_id( $link_start.'group_list' ) );
+$vtp->setVar( $handle, 'summary.name', $lang['menu_groups'] );
+$vtp->closeSession( $handle, 'summary' );
 // categories
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.indent', '' );
-$vtp->setVar( $handle, 'summary.link', add_session_id( $link_start.'cat' ) );
+$vtp->setVar( $handle, 'summary.link',add_session_id( $link_start.'cat_list'));
 $vtp->setVar( $handle, 'summary.name', $lang['menu_categories'] );
 $vtp->closeSession( $handle, 'summary' );
 // waiting

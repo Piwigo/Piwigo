@@ -14,27 +14,25 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
+
 function get_subcats_id( $cat_id )
 {
-  $restricted_cat = array();
-  $i = 0;
+  $restricted_cats = array();
                 
-  $query = 'select id';
-  $query.= ' from '.PREFIX_TABLE.'categories';
-  $query.= ' where id_uppercat = '.$cat_id;
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE id_uppercat = '.$cat_id;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    $restricted_cat[$i++] = $row['id'];
-    $sub_restricted_cat = get_subcats_id( $row['id'] );
-    for ( $j = 0; $j < sizeof( $sub_restricted_cat ); $j++ )
-    {
-      $restricted_cat[$i++] = $sub_restricted_cat[$j];
+    array_push( $restricted_cats, $row['id'] );
+    $sub_restricted_cats = get_subcats_id( $row['id'] );
+    foreach ( $sub_restricted_cats as $sub_restricted_cat ) {
+      array_push( $restricted_cats, $sub_restricted_cat );
     }
   }
-                
-  return $restricted_cat;
+  return $restricted_cats;
 }
 
 function check_restrictions( $category_id )

@@ -17,32 +17,18 @@
 include_once( './include/isadmin.inc.php' );
 //----------------------------------------------------- template initialization
 $sub = $vtp->Open( '../template/'.$user['template'].'/admin/user_list.vtp' );
-// language
-$vtp->setGlobalVar( $sub, 'listuser_confirm',  $lang['listuser_confirm'] );
-$vtp->setGlobalVar( $sub, 'listuser_modify_hint',
-                    $lang['listuser_modify_hint'] );
-$vtp->setGlobalVar( $sub, 'listuser_modify', $lang['listuser_modify'] );
-$vtp->setGlobalVar( $sub, 'listuser_permission',
-                    $lang['listuser_permission'] );
-$vtp->setGlobalVar( $sub, 'listuser_permission_hint',
-                    $lang['listuser_permission_hint'] );
-$vtp->setGlobalVar( $sub, 'listuser_delete_hint',
-                    $lang['listuser_delete_hint'] );
-$vtp->setGlobalVar( $sub, 'listuser_delete',   $lang['listuser_delete'] );
-$vtp->setGlobalVar( $sub, 'yes',               $lang['yes'] );
-$vtp->setGlobalVar( $sub, 'no',                $lang['no'] );
-$vtp->setGlobalVar( $sub, 'listuser_button_all',
-                    $lang['listuser_button_all'] );
-$vtp->setGlobalVar( $sub, 'listuser_button_invert',
-                    $lang['listuser_button_invert'] );
-$vtp->setGlobalVar( $sub, 'listuser_button_create_address',
-                    $lang['listuser_button_create_address'] );
+$tpl = array( 'listuser_confirm','listuser_modify_hint','listuser_modify',
+              'listuser_permission','listuser_permission_hint',
+              'listuser_delete_hint','listuser_delete','yes','no',
+              'listuser_button_all','listuser_button_invert',
+              'listuser_button_create_address' );
+templatize_array( $tpl, 'lang', $sub );
 //--------------------------------------------------------------- delete a user
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
 {
-  $query = 'select username';
-  $query.= ' from '.PREFIX_TABLE.'users';
-  $query.= ' where id = '.$_GET['delete'];
+  $query = 'SELECT username';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' WHERE id = '.$_GET['delete'];
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
   // confirm user deletion ?
@@ -64,9 +50,9 @@ if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
     if ( $row['username'] != 'guest'
          and $row['username'] != $conf['webmaster'] )
     {
-      $query = 'select count(*) as nb_result';
-      $query.= ' from '.PREFIX_TABLE.'users';
-      $query.= ' where id = '.$_GET['delete'];
+      $query = 'SELECT COUNT(*) AS nb_result';
+      $query.= ' FROM '.PREFIX_TABLE.'users';
+      $query.= ' WHERE id = '.$_GET['delete'];
       $query.= ';';
       $row2 = mysql_fetch_array( mysql_query( $query ) );
       if ( $row2['nb_result'] > 0 )
@@ -102,9 +88,9 @@ else
   }
   $vtp->setVar( $sub, 'users.form_action', $action );
 
-  $query = 'select id,username,status,mail_address';
-  $query.= ' from '.PREFIX_TABLE.'users';
-  $query.= ' order by status asc, username asc';
+  $query = 'SELECT id,username,status,mail_address';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= ' ORDER BY status ASC, username ASC';
   $query.= ';';
   $result = mysql_query( $query );
 
@@ -122,16 +108,8 @@ else
       $title = $lang['listuser_user_group'].' ';
       switch ( $row['status'] )
       {
-      case 'admin' :
-      {
-        $title.= $lang['adduser_status_admin'];
-        break;
-      }
-      case 'guest' :
-      {
-        $title.= $lang['adduser_status_guest'];
-        break;
-      }
+      case 'admin' : $title.= $lang['adduser_status_admin']; break;
+      case 'guest' : $title.= $lang['adduser_status_guest']; break;
       }
       $vtp->setVar( $sub, 'category.title', $title );
       $current_status = $row['status'];
@@ -152,9 +130,6 @@ else
     if ( $row['username'] == 'guest' )
     {
       $vtp->setVar( $sub, 'user.color', 'green' );
-    }
-    if ( $row['username'] == 'guest' )
-    {
       $vtp->setVar( $sub, 'user.login', $lang['guest'] );
     }
     else
@@ -179,7 +154,8 @@ else
       $vtp->closeSession( $sub, 'modify' );
     }
     // manage permission or not ?
-    if ( $row['username'] == $conf['webmaster'] )
+    if ( $row['username'] == $conf['webmaster']
+         and $user['username'] != $conf['webmaster'] )
     {
       $vtp->addSession( $sub, 'not_permission' );
       $vtp->closeSession( $sub, 'not_permission' );
@@ -187,7 +163,7 @@ else
     else
     {
       $vtp->addSession( $sub, 'permission' );
-      $url = './admin.php?page=perm&amp;user_id='.$row['id'];
+      $url = './admin.php?page=user_perm&amp;user_id='.$row['id'];
       $vtp->setVar( $sub, 'permission.url', add_session_id( $url ) );
       $vtp->setVar( $sub, 'permission.login', $row['username'] );
       $vtp->closeSession( $sub, 'permission' );
@@ -215,9 +191,8 @@ else
   {
     $mail_address = array();
     $i = 0;
-    $query = 'select';
-    $query.= ' id,mail_address';
-    $query.= ' from '.PREFIX_TABLE.'users';
+    $query = 'SELECT id,mail_address';
+    $query.= ' FROM '.PREFIX_TABLE.'users';
     $query.= ';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )

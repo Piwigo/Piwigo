@@ -15,6 +15,10 @@ $lang['no'] = 'non';
 $lang['yes'] = 'oui';
 $lang['guest'] = 'visiteur';
 $lang['mail_address'] = 'adresse mail';
+$lang['public'] = 'publique';
+$lang['private'] = 'privée';
+$lang['add'] = 'ajouter';
+$lang['dissociate'] = 'dissocier';
 // end version 1.3
 
 // page diapo
@@ -218,20 +222,26 @@ if ( $isadmin )
 //  $lang['title_add'] = 'Ajouter/Modifier un utilisateur';
   $lang['title_add'] = 'Ajouter un utilisateur';
   $lang['title_modify'] = 'Modifier un utilisateur';
+  $lang['title_groups'] = 'Gestion des groupes';
 // end version 1.3
   $lang['title_liste_users'] = 'Liste des utilisateurs';
   $lang['title_history'] = 'Historique';
   $lang['title_update'] = 'Mise à jour de la base de données';
   $lang['title_configuration'] = 'Configuration de PhpWebGallery';
   $lang['title_instructions'] = 'Instructions';
-  $lang['title_permissions'] = 'Modifier les permissions pour un utilisateur';
+// start version 1.3
+// $lang['title_permissions'] = 'Modifier les permissions pour un utilisateur';
+  $lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
+  $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
+  $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
+// end version 1.3
   $lang['title_categories'] = 'Gestion des catégories';
   $lang['title_edit_cat'] = 'Editer une catégorie';
   $lang['title_info_images'] = 'Modifier les informations sur les images d\'une catégorie';
   $lang['title_thumbnails'] = 'Création des miniatures';
   $lang['title_thumbnails_2'] = 'pour';
   $lang['title_default'] = 'Administration de PhpWebGallery';
-		
+	
   $lang['menu_title'] = 'Administration';
   $lang['menu_config'] = 'Configuration';
   $lang['menu_users'] = 'Utilisateurs';
@@ -243,7 +253,10 @@ if ( $isadmin )
   $lang['menu_history'] = 'Historique';
   $lang['menu_instructions'] = 'Instructions';
   $lang['menu_back'] = 'Page diapo';
-
+// start version 1.3
+  $lang['menu_groups'] = 'Groupes';
+// end version 1.3
+  
   $lang['title_waiting'] = 'Images en attente de validation';
   $lang['menu_waiting'] = 'En attente';
 		
@@ -383,9 +396,19 @@ if ( $isadmin )
   $lang['adduser_status_admin'] = 'admin';
 // start version 1.3
 //  $lang['adduser_status_member'] = 'membre';
+  $lang['adduser_associate'] = 'Associer au groupe';
 // end version 1.3
   $lang['adduser_status_guest'] = 'visiteur';
-		
+
+// start version 1.3
+  $lang['group_add'] = 'Ajouter un groupe';
+  $lang['group_add_error1'] = 'Le nom du groupe ne doit pas comporter de " ou de \'';
+  $lang['group_add_error2'] = 'Ce nom de groupe est déjà utilisé';
+  $lang['group_confirm'] = 'Etes-vous sûr de vouloir supprimer le groupe';
+  $lang['group_list_title'] = 'Liste des groupes existants';
+  $lang['group_err_unknown'] = 'Ce groupe n\'existe pas dans la base de données';
+// end version 1.3
+
   // page permissions
   $lang['permuser_info_message'] = 'Permissions enregistrées';
   $lang['permuser_title'] = 'Restrictions pour l\'utilisateur';
@@ -393,7 +416,9 @@ if ( $isadmin )
   $lang['permuser_authorized'] = 'autorisé';
   $lang['permuser_forbidden'] = 'interdit';
   $lang['permuser_parent_forbidden'] = 'catégorie parente interdite';
-  $lang['permuser_cat_title'] = 'Modifier les permissions pour ';
+// start version 1.3
+// $lang['permuser_cat_title'] = 'Modifier les permissions pour ';
+// end version 1.3
 		
   // page liste utilisateurs
   $lang['listuser_confirm'] = 'Etes-vous sûr de vouloir supprimer l\'utilisateur';
@@ -433,7 +458,9 @@ if ( $isadmin )
   $lang['editcat_comment'] = 'Commentaire';
   $lang['editcat_status'] = 'Status';
   $lang['editcat_status_info'] = '(invisible sauf pour les administrateurs)';
-		
+// start version 1.3
+  $lang['editcat_visible'] = 'Visible';
+// end version 1.3
   // page info images
   $lang['infoimage_err_date'] = 'date erronée';
   $lang['infoimage_general'] = 'Options générale pour la catégorie';

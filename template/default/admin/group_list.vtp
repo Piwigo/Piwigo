@@ -1,0 +1,49 @@
+<!--VTP_errors-->
+<div class="errors">
+  <ul>
+    <!--VTP_li-->
+    <li>{#li}</li>
+    <!--/VTP_li-->
+  </ul>
+</div>
+<!--/VTP_errors-->
+<!--VTP_deletion-->
+<table style="width:100%;">
+  <tr>
+    <th colspan="2">{#group_confirm} "{#name}" ?</th>
+  </tr>
+  <tr>
+    <td align="center"><a href="{#yes_url}">{#yes}</a></td>
+    <td align="center" class="row2"><a href="{#no_url}">{#no}</a></td>
+  </tr>
+</table>
+<!--/VTP_deletion-->
+<!--VTP_confirmation-->
+<div class="{#class}">{#info}</div>
+<!--/VTP_confirmation-->
+<!--VTP_groups-->
+<table width="100%">
+  <tr>
+    <th colspan="3">{#group_list_title}</th>
+  </tr>
+  <!--VTP_group-->
+  <tr>
+    <td style="width:25%;">
+      <div style="margin-left:10px;color:{#color}"><img src="./images/puce.gif" alt="&gt;" /> {#name}</div>
+    </td>
+    <td class="row2" style="text-align:center;width:25%;">
+      <a href="{#permission_url}">{#listuser_permission}</a>
+    </td>
+    <td class="row2" style="text-align:center;width:25%;">
+      <a href="{#deletion_url}">{#delete}</a>
+    </td>
+  </tr>
+  <!--/VTP_group-->
+</table>
+<!--/VTP_groups-->
+<form method="post" action="{#form_action}">
+  <div style="text-align:center;margin:10px;">
+    {#group_add} <input type="text" name="name" />
+    <input type="submit" value="{#add}" name="submit" />
+  </div>
+</form>
