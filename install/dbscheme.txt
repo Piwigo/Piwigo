@@ -122,9 +122,10 @@ PK:user_group_pk     table:user_group     column:user_id
 PK:users_pk          table:users          column:id
 PK:waiting_pk        table:waiting        column:id
 
-index:categories_i2       table:categories     column:id_uppercat
-index:image_category_i1   table:image_category column:image_id
-index:image_category_i2   table:image_category column:category_id
-index:storage_category_id table:images         column:storage_category_id
-index:sites_ui1           table:sites          column:galleries_url
-index:users_ui1           table:users          column:username
+index:categories_i2     table:categories     column:id_uppercat
+index:image_category_i1 table:image_category column:image_id
+index:image_category_i2 table:image_category column:category_id
+index:images_i2         table:images         column:date_available
+index:images_i1         table:images         column:storage_category_id
+index:sites_ui1         table:sites          column:galleries_url
+index:users_ui1         table:users          column:username
