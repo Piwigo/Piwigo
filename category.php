@@ -20,7 +20,6 @@ $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
 //----------------------------------------------------------- personnal include
 include_once( './include/init.inc.php' );
-$output.= 'after init.inc.php : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //-------------------------------------------------- access authorization check
 // creating the plain structure : array of all the available categories and
 // their relative informations, see the definition of the function
@@ -78,12 +77,10 @@ if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
 $page['structure'] = create_structure( '', $user['restrictions'] );
 $page['structure'] = update_structure( $page['structure'] );
 initialize_category();
-$output.= 'before template init : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //----------------------------------------------------- template initialization
 $vtp = new VTemplate;
 $handle = $vtp->Open( './template/'.$user['template'].'/category.vtp' );
 initialize_template();
-$output.= 'before lang array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 $tpl = array(
   'categories','hint_category','sub-cat','images_available','total',
   'title_menu','nb_image_category','send_mail','title_send_mail',
@@ -91,11 +88,9 @@ $tpl = array(
   'favorite_cat_hint','favorite_cat','stats','most_visited_cat_hint',
   'most_visited_cat','recent_cat','recent_cat_hint','upload_picture' );
 templatize_array( $tpl, 'lang', $handle );
-$output.= 'after lang array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 
 $tpl = array( 'mail_webmaster','webmaster','top_number','version','site_url' );
 templatize_array( $tpl, 'conf', $handle );
-$output.= 'after conf array : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 
 $tpl = array( 'short_period','long_period','lien_collapsed', 'username' );
 templatize_array( $tpl, 'user', $handle );
@@ -110,13 +105,11 @@ $vtp->setGlobalVar( $handle, 'icon_long', $icon_long );
 $nb_total_pictures = count_images( $page['structure'] );
 $vtp->setGlobalVar( $handle, 'nb_total_pictures',$nb_total_pictures );
 //------------------------------------------------------------- categories menu
-$output.= 'before menu : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 // normal categories
 foreach ( $page['structure'] as $category ) {
   // display category is a function relative to the template
   display_category( $category, '&nbsp;', $handle );
 }
-$output.= 'after menu : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 // favorites cat
 if ( !$user['is_the_guest'] )
 {
@@ -223,7 +216,6 @@ else
                       replace_space( $lang['no_category'] ) );
 }
 //------------------------------------------------------------------ thumbnails
-$output.= 'before thumbs : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 {
   if ( is_numeric( $page['cat'] ) )
@@ -415,7 +407,6 @@ elseif ( ( isset( $page['cat'] )
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }
-$output.= 'after thumbs : '.get_elapsed_time( $t2, get_moment() ).'<br />';
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {
@@ -462,6 +453,5 @@ $time = get_elapsed_time( $t2, get_moment() );
 $vtp->setGlobalVar( $handle, 'time', $time );
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
-echo $output;
 echo $code;
 ?>
