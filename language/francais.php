@@ -241,6 +241,15 @@ $lang['upload_creation_date'] = 'Date de création (JJ/MM/AAAA)';
 $lang['upload_comment'] = 'Commentaire';
 // end version 1.3
 
+// start version 1.3
+// mails
+$lang['mail_hello'] = 'Bonjour,';
+$lang['mail_new_upload_subject'] = 'Nouvelle image sur le site';
+$lang['mail_new_upload_content'] = 'Une nouvelle image a été placée sur la galerie. Elle est en attente de validation. RDV dans la section d\'administration pour valider ou supprimer cette image.';
+$lang['mail_new_comment_subject'] = 'Nouveau commentaire sur le site';
+$lang['mail_new_comment_content'] = 'Un nouveau commentaire a été posté sur la galerie. Si vous avez activé la validation des commentaires, il faut d\'abord valider le commentaire dans la zone d\'administration pour le voir apparaître.'."\n\n".'Vous avez accès aux derniers commentaires dans la zone d\'administration.';
+// end version 1.3
+
 //----------------------------------administration
 if ( $isadmin )
 {
@@ -343,6 +352,8 @@ if ( $isadmin )
 //  $lang['conf_general_expand_info'] = 'développer toutes les catégories par défaut dans le menu ?';
   $lang['conf_general_log'] = 'historique';
   $lang['conf_general_log_info'] = 'historiser les visites sur le site ? Les visites seront visibles dans l\'historique de l\'administration';
+  $lang['conf_general_mail_notification'] = 'Notification par mail';
+  $lang['conf_general_mail_notification_info'] = 'Notification automatique par mail des administrateurs (seuls les administrateurs) lors de l\'ajout d\'un commentaire, ou lors de l\'ajout d\'une image.';
   // end version 1.3
   $lang['conf_comments'] = 'commentaires utilisateurs';
   $lang['conf_comments_title'] = 'Configuration des '.$lang['conf_comments'];

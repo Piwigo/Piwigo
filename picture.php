@@ -605,6 +605,15 @@ if ( $conf['show_comments'] )
         }
         $vtp->setVar( $handle, 'information.content', $message );
         $vtp->closeSession( $handle, 'information' );
+        // notification to the administrators
+        if ( $conf['mail_notification'] )
+        {
+          $cat_name = get_cat_display_name( $page['cat_name'], ' > ', '' );
+          $cat_name = strip_tags( $cat_name );
+          if ( $page['name'] == '' ) $picture = $page['file'];
+          else                       $picture = $page['name'];
+          notify( 'comment', $cat_name.' > '.$picture );
+        }
       }
       else
       {

@@ -49,7 +49,7 @@ $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
 $conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
 $conf['document_ext']       = array('doc','pdf','zip');
-$conf['top_number']         = 20;
+$conf['top_number']         = 5;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 
 database_connection();
@@ -64,7 +64,7 @@ $infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
                 'upload_maxheight', 'upload_maxwidth_thumbnail',
                 'upload_maxheight_thumbnail','log','comments_validation',
-                'comments_forall','authorize_cookies' );
+                'comments_forall','authorize_cookies','mail_notification' );
 
 $query  = 'SELECT ';
 foreach ( $infos as $i => $info ) {

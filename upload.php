@@ -213,6 +213,11 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ';';
     mysql_query( $query );
     $page['waiting_id'] = mysql_insert_id();
+    // mail notification for administrators
+    if ( $conf['mail_notification'] )
+    {
+      notify( 'comment' );
+    }
   }
 }
 //------------------------------------------------------------ thumbnail upload

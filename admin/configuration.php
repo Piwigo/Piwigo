@@ -43,7 +43,8 @@ array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
        'show_comments','nb_comment_page','upload_available',
        'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
        'upload_maxwidth_thumbnail','upload_maxheight_thumbnail','log',
-       'comments_validation','comments_forall','authorize_cookies' );
+       'comments_validation','comments_forall','authorize_cookies',
+       'mail_notification' );
 $default_user_infos =
 array( 'nb_image_line','nb_line_page','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
@@ -401,6 +402,39 @@ $vtp->closeSession( $sub, 'radio' );
 $vtp->closeSession( $sub, 'group' );
 $vtp->setVar( $sub, 'param_line.def',
               $lang['conf_general_log_info'] );
+$vtp->closeSession( $sub, 'param_line' );
+$vtp->closeSession( $sub, 'line' );
+// mail notification for admins
+$vtp->addSession( $sub, 'line' );
+$vtp->addSession( $sub, 'param_line' );
+$vtp->setVar( $sub, 'param_line.name',
+              $lang['conf_general_mail_notification'] );
+$vtp->addSession( $sub, 'group' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'mail_notification' );
+$vtp->setVar( $sub, 'radio.value', 'true' );
+$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
+$checked = '';
+if ( $mail_notification == 'true' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'mail_notification' );
+$vtp->setVar( $sub, 'radio.value', 'false' );
+$vtp->setVar( $sub, 'radio.option', $lang['no'] );
+$checked = '';
+if ( $mail_notification == 'false' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->closeSession( $sub, 'group' );
+$vtp->setVar( $sub, 'param_line.def',
+              $lang['conf_general_mail_notification_info'] );
 $vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
 

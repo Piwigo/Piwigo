@@ -350,6 +350,12 @@ function templatize_array( $array, $global_array_name, $handle )
   }
 }
 
+// format_date returns a formatted date for display. The date given in
+// argument can be a unixdate (number of seconds since the 01.01.1970) or an
+// american format (2003-09-15). By option, you can show the time. The
+// output is internationalized.
+//
+// format_date( "2003-09-15", 'us', true ) -> "Monday 15 September 2003 21:52"
 function format_date( $date, $type = 'us', $show_time = false )
 {
   global $lang;
@@ -374,5 +380,47 @@ function format_date( $date, $type = 'us', $show_time = false )
   }
 
   return $formated_date;
+}
+
+// notify sends a email to every admin of the gallery
+function notify( $type, $infos = '' )
+{
+  global $conf;
+
+  $headers = 'From: '.$conf['webmaster'].' <'.$conf['mail_webmaster'].'>'."\n";
+  $headers.= 'Reply-To: '.$conf['mail_webmaster']."\n";
+  $headers.= 'X-Mailer: PhpWebGallery, PHP '.phpversion();
+
+  $options = '-f '.$conf['mail_webmaster'];
+  // retrieving all administrators
+  $query = 'SELECT username,mail_address,language';
+  $query.= ' FROM '.PREFIX_TABLE.'users';
+  $query.= " WHERE status = 'admin'";
+  $query.= ' AND mail_address IS NOT NULL';
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $to = $row['mail_address'];
+    include( PREFIX_INCLUDE.'./language/'.$row['language'].'.php' );
+    $content = $lang['mail_hello']."\n\n";
+    switch ( $type )
+    {
+    case 'upload' :
+      $subject = $lang['mail_new_upload_subject'];
+      $content.= $lang['mail_new_upload_content'];
+      break;
+    case 'comment' :
+      $subject = $lang['mail_new_comment_subject'];
+      $content.= $lang['mail_new_comment_content'];
+      break;
+    }
+    $infos = str_replace( '&nbsp;',  ' ', $infos );
+    $infos = str_replace( '&minus;', '-', $infos );
+    $content.= "\n\n".$infos;
+    $content.= "\n\n-- \nPhpWebGallery ".$conf['version'];
+    $content = wordwrap( $content, 72 );
+    @mail( $to, $subject, $content, $headers, $options );
+  }
 }
 ?>
