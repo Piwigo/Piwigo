@@ -407,7 +407,7 @@ function get_cat_display_name( $array_cat_names, $separation,
 function initialize_category( $calling_page = 'category' )
 {
   pwg_debug( 'start initialize_category' );
-  global $page,$lang,$user,$conf, $where_append;
+  global $page,$lang,$user,$conf;
 
   if ( isset( $page['cat'] ) )
   {
@@ -416,10 +416,7 @@ function initialize_category( $calling_page = 'category' )
     $page['nb_image_page'] = $user['nb_image_page'];
     // $url is used to create the navigation bar
     $url = './category.php?cat='.$page['cat'];
-	if ( isset($page['expand']) )
-    {
-      $url.= '&amp;expand='.$page['expand'];
-	}
+    if ( isset($page['expand']) ) $url.= '&amp;expand='.$page['expand'];
     // simple category
     if ( is_numeric( $page['cat'] ) )
     {
@@ -442,8 +439,8 @@ function initialize_category( $calling_page = 'category' )
         // we must not show pictures of a forbidden category
         if ( $user['forbidden_categories'] != '' )
         {
-          $query.= ' AND category_id NOT IN ';
-          $query.= '('.$user['forbidden_categories'].')';
+          $forbidden = ' category_id NOT IN ';
+          $forbidden.= '('.$user['forbidden_categories'].')';
         }
       }
       // search result
@@ -488,7 +485,7 @@ function initialize_category( $calling_page = 'category' )
           }
         }
         $page['where'].= ' )';
-        $page['where'].= $where_append;
+        if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
         $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
@@ -522,7 +519,7 @@ function initialize_category( $calling_page = 'category' )
         $date = time() - 60*60*24*$user['short_period'];
         $page['where'] = " WHERE date_available > '";
         $page['where'].= date( 'Y-m-d', $date )."'";
-        $page['where'].= $where_append;
+        if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
         $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
         $query.= ' FROM '.PREFIX_TABLE.'images';
@@ -535,7 +532,9 @@ function initialize_category( $calling_page = 'category' )
       else if ( $page['cat'] == 'most_visited' )
       {
         $page['title'] = $conf['top_number'].' '.$lang['most_visited_cat'];
-        $page['where'] = ' WHERE category_id != -1'.$where_append;
+        
+        if ( isset( $forbidden ) ) $page['where'] = ' WHERE '.$forbidden;
+        else                       $page['where'] = '';
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
         $page['cat_nb_images'] = $conf['top_number'];
         if ( isset( $page['start'] )
