@@ -92,7 +92,7 @@ function register_user(
   if ( sizeof( $error ) == 0 )
   {
     // 1. retrieving default values, the ones of the user "guest"
-    $infos = array( 'nb_image_line', 'nb_line_page', 'theme', 'language',
+    $infos = array( 'nb_image_line', 'nb_line_page', 'language',
                     'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
                     'short_period', 'long_period', 'template' );
     $query = 'select';
