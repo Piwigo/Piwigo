@@ -45,52 +45,7 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
-
 //-------------------------------------------------------------- initialization
-function display_category( $category, $indent )
-{
-  global $user,$template,$page;
-  
-  $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
-
-  $style = '';
-  if ( isset( $page['cat'] )
-       and is_numeric( $page['cat'] )
-       and $category['id'] == $page['cat'] )
-  {
-    $style = 'font-weight:normal;color:yellow;';
-  }
-  
-  $name = $category['name'];
-  if (empty($name)) $name = str_replace( '_', ' ', $category['dir'] );
-  
-  $template->assign_block_vars('category', array(
-      'T_NAME' => $style,
-      'LINK_NAME' => $name,
-      'INDENT' => $indent,
-      'U_LINK' => add_session_id($url),
-      'BULLET_IMAGE' => $user['lien_collapsed'])
-    );
-  
-  if ( $category['nb_images'] >  0 )
-  {
-    $template->assign_block_vars(
-      'category.infocat',
-      array(
-        'TOTAL_CAT'=>$category['nb_images'],
-        'CAT_ICON'=>get_icon($category['date_last'])
-        ));
-  }
-  
-  // recursive call
-  if ( $category['expanded'] )
-  {
-    foreach ( $category['subcats'] as $subcat ) {
-      display_category( $subcat, $indent.str_repeat( '&nbsp;', 2 ));
-    }
-  }
-}
-
 // detection of the start picture to display
 if ( !isset( $_GET['start'] )
      or !is_numeric( $_GET['start'] )
@@ -138,9 +93,7 @@ if ( isset( $_GET['num'] )
 $page['plain_structure'] = get_user_plain_structure();
 $page['structure'] = create_user_structure( '' );
 $page['structure'] = update_structure( $page['structure'] );
-
 //----------------------------------------------------- template initialization
-
 //
 // Start output of page
 //
@@ -162,11 +115,18 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
 
 $icon_recent = get_icon(date('Y-m-d'));
 
+$page['menu'] = '';
+foreach ($page['structure'] as $category)
+{
+  $page['menu'].= get_html_menu_category($category);
+}
+
 $template->assign_vars(array(
   'NB_PICTURE' => count_user_total_images(),
   'TITLE' => $template_title,
   'USERNAME' => $user['username'],
   'TOP_VISITED'=>$conf['top_number'],
+  'MENU_CATEGORIES_CONTENT'=>$page['menu'],
 
   'L_CATEGORIES' => $lang['categories'],
   'L_HINT_CATEGORY' => $lang['hint_category'],
@@ -214,11 +174,6 @@ $template->assign_vars(array(
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
   )
 );
-
-foreach ( $page['structure'] as $category ) {
-  // display category is a function relative to the template
-  display_category( $category, '&nbsp;');
-}
 
 // authentification mode management
 if ( !$user['is_the_guest'] )

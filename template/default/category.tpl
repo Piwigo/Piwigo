@@ -7,16 +7,9 @@
           <a href="{U_HOME}">{L_CATEGORIES}</a>
         </div>
         <div class="menu">
-          <!-- BEGIN category -->
-            {category.INDENT}
-            <img src="{category.BULLET_IMAGE}" style="border:none;" alt="" />
-            <a href="{category.U_LINK}"><span title='{L_HINT_CATEGORY}' style="{category.T_NAME}">{category.LINK_NAME}</span></a>
-            <!-- BEGIN infocat -->
-            <span class="menuInfoCat">[<span title="{category.infocat.TOTAL_CAT} {L_IMG_AVAILABLE}">{category.infocat.TOTAL_CAT}</span>]</span>
-	    {category.infocat.CAT_ICON}
-            <!-- END infocat -->
-            <br />
-          <!-- END category -->
+          <ul class="menu">
+            {MENU_CATEGORIES_CONTENT}
+          </ul>
         <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
 		  <br />
 		  <ul class="menu">
