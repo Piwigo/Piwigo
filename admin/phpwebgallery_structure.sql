@@ -22,6 +22,7 @@ CREATE TABLE phpwebgallery_categories (
   site_id tinyint(4) unsigned NOT NULL default '1',
   visible enum('true','false') NOT NULL default 'true',
   uploadable enum('true','false') NOT NULL default 'false',
+  representative_picture_id mediumint(8) unsigned default NULL,
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
