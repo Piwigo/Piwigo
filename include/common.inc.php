@@ -1,6 +1,6 @@
 <?php
 // +-----------------------------------------------------------------------+
-// |                           common.inc.php                                |
+// |                           common.inc.php                              |
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
 // | branch        : 1.4                                                   |
@@ -24,7 +24,9 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-// determine the initial instant to indicate the generation time of this page
+
+// determine the initial instant to indicate the generation time of this
+// page
 $t1 = explode( ' ', microtime() );
 $t2 = explode( '.', $t1[0] );
 $t2 = $t1[1].'.'.$t2[1];
@@ -32,131 +34,134 @@ $t2 = $t1[1].'.'.$t2[1];
 set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 
 //
-// addslashes to vars if magic_quotes_gpc is off
-// this is a security precaution to prevent someone
-// trying to break out of a SQL statement.
+// addslashes to vars if magic_quotes_gpc is off this is a security
+// precaution to prevent someone trying to break out of a SQL statement.
 //
 if( !get_magic_quotes_gpc() )
 {
-  if( is_array($HTTP_GET_VARS) )
+  if( is_array( $_GET ) )
   {
-    while( list($k, $v) = each($HTTP_GET_VARS) )
+    while( list($k, $v) = each($_GET) )
     {
-	  if( is_array($HTTP_GET_VARS[$k]) )
-	  {
-        while( list($k2, $v2) = each($HTTP_GET_VARS[$k]) )
+      if( is_array($_GET[$k]) )
+      {
+        while( list($k2, $v2) = each($_GET[$k]) )
         {
-		  $HTTP_GET_VARS[$k][$k2] = addslashes($v2);
-		}
-	  @reset($HTTP_GET_VARS[$k]);
-	  }
-	  else
-	  {
-		$HTTP_GET_VARS[$k] = addslashes($v);
-	  }
-	}
-	@reset($HTTP_GET_VARS);
+          $_GET[$k][$k2] = addslashes($v2);
+        }
+        @reset($_GET[$k]);
+      }
+      else
+      {
+        $_GET[$k] = addslashes($v);
+      }
+    }
+    @reset($_GET);
   }
   
-  if( is_array($HTTP_POST_VARS) )
+  if( is_array($_POST) )
   {
-	while( list($k, $v) = each($HTTP_POST_VARS) )
-	{
-	  if( is_array($HTTP_POST_VARS[$k]) )
-	  {
-		while( list($k2, $v2) = each($HTTP_POST_VARS[$k]) )
-		{
-		  $HTTP_POST_VARS[$k][$k2] = addslashes($v2);
-		}
-	  @reset($HTTP_POST_VARS[$k]);
-	  }
-	  else
-	  {
-		$HTTP_POST_VARS[$k] = addslashes($v);
-	  }
+    while( list($k, $v) = each($_POST) )
+    {
+      if( is_array($_POST[$k]) )
+      {
+        while( list($k2, $v2) = each($_POST[$k]) )
+        {
+          $_POST[$k][$k2] = addslashes($v2);
+        }
+        @reset($_POST[$k]);
+      }
+      else
+      {
+        $_POST[$k] = addslashes($v);
+      }
     }
-    @reset($HTTP_POST_VARS);
+    @reset($_POST);
   }
 
-  if( is_array($HTTP_COOKIE_VARS) )
+  if( is_array($_COOKIE) )
   {
-    while( list($k, $v) = each($HTTP_COOKIE_VARS) )
+    while( list($k, $v) = each($_COOKIE) )
     {
-	  if( is_array($HTTP_COOKIE_VARS[$k]) )
-	  {
-	    while( list($k2, $v2) = each($HTTP_COOKIE_VARS[$k]) )
-	    {
-		  $HTTP_COOKIE_VARS[$k][$k2] = addslashes($v2);
-	    }
-	    @reset($HTTP_COOKIE_VARS[$k]);
-	  }
-	  else
-	  {
-	    $HTTP_COOKIE_VARS[$k] = addslashes($v);
-	  }
+      if( is_array($_COOKIE[$k]) )
+      {
+        while( list($k2, $v2) = each($_COOKIE[$k]) )
+        {
+          $_COOKIE[$k][$k2] = addslashes($v2);
+        }
+        @reset($_COOKIE[$k]);
+      }
+      else
+      {
+        $_COOKIE[$k] = addslashes($v);
+      }
     }
-    @reset($HTTP_COOKIE_VARS);
+    @reset($_COOKIE);
   }
 }
 
 //
-// Define some basic configuration arrays this also prevents
-// malicious rewriting of language and otherarray values via
-// URI params
+// Define some basic configuration arrays this also prevents malicious
+// rewriting of language and otherarray values via URI params
 //
 $conf = array();
 $page = array();
 $user = array();
 $lang = array();
 
-include($phpwg_root_path .'config.php');
-
 if( !defined("PHPWG_INSTALLED") )
 {
-	header("Location: install.php");
-	exit;
+  header( 'Location: install.php' );
+  exit;
 }
 
-include($phpwg_root_path . 'include/constants.php');
-include($phpwg_root_path . 'include/functions.inc.php');
-include($phpwg_root_path . 'include/template.php');
-include($phpwg_root_path . 'include/vtemplate.class.php');
-include($phpwg_root_path . 'include/config.inc.php');
+include( $phpwg_root_path.'include/constants.php' );
+include( $phpwg_root_path.'include/functions.inc.php' );
+include( $phpwg_root_path.'include/template.php' );
+include( $phpwg_root_path.'include/vtemplate.class.php' );
+include( $phpwg_root_path.'include/config.inc.php' );
 
 //
 // Database connection
 //
 
 mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
-    or die ( "Could not connect to server" );
+or die ( "Could not connect to server" );
 mysql_select_db( $cfgBase )
-    or die ( "Could not connect to database" );
+or die ( "Could not connect to database" );
 	
 //
 // Obtain and encode users IP
 //
-if( getenv('HTTP_X_FORWARDED_FOR') != '' )
+if ( getenv( 'HTTP_X_FORWARDED_FOR' ) != '' )
 {
-  $client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
 
-  if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
+  if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/",
+                  getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
   {
-    $private_ip = array('/^0\./', '/^127\.0\.0\.1/', '/^192\.168\..*/', '/^172\.16\..*/', '/^10.\.*/', '/^224.\.*/', '/^240.\.*/');
+    $private_ip = array( '/^0\./'
+                         ,'/^127\.0\.0\.1/'
+                         ,'/^192\.168\..*/'
+                         ,'/^172\.16\..*/'
+                         ,'/^10.\.*/'
+                         ,'/^224.\.*/'
+                         ,'/^240.\.*/'
+      );
     $client_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
   }
 }
 else
 {
-  $client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : ( ( !empty($_ENV['REMOTE_ADDR']) ) ? $_ENV['REMOTE_ADDR'] : $REMOTE_ADDR );
 }
 $user_ip = encode_ip($client_ip);
 
 //
-// Setup forum wide options, if this fails
-// then we output a CRITICAL_ERROR since
-// basic forum information is not available
+// Setup forum wide options, if this fails then we output a CRITICAL_ERROR
+// since basic forum information is not available
 //
-$sql = "SELECT * FROM " . CONFIG_TABLE;
+$sql = 'SELECT * FROM '.CONFIG_TABLE;
 if( !($result = mysql_query($sql)) )
 {
   die("Could not query config information");
@@ -187,12 +192,6 @@ foreach ( $infos as $info ) {
     $conf[$info] = get_boolean( $conf[$info] );
   }
 }
-
-if (file_exists('install.php') && !DEBUG)
-{
-	die('Please ensure both the install/ and contrib/ directories are deleted');
-}
-
 
 //---------------
 // A partir d'ici il faudra dispatcher le code dans d'autres fichiers
