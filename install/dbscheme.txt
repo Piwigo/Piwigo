@@ -67,6 +67,7 @@ column:height                    table:images         type:smallint             
 column:keywords                  table:images         type:varchar                  nullable:N length:255 binary:N
 column:storage_category_id       table:images         type:smallint                 nullable:N length:5   signed:N
 column:representative_ext        table:images         type:varchar                  nullable:N length:4   binary:N
+column:date_metadata_update      table:images         type:date                     nullable:N
 column:id                        table:sessions       type:varchar                  nullable:Y length:255 binary:Y
 column:user_id                   table:sessions       type:smallint                 nullable:Y length:5   signed:N
 column:expiration                table:sessions       type:int                      nullable:Y length:10  signed:N
