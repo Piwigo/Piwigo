@@ -328,7 +328,7 @@ foreach ($datefields as $datefield)
   $template->assign_block_vars(
     'datefield',
     array('NAME'=>$datefield,
-          'L_NAME'=>$datefield,
+          'L_NAME'=>$lang['search_'.$datefield],
           'CHECKED'=>$checked,
           'AFTER_CHECKED'=>$after_checked,
           'BEFORE_CHECKED'=>$before_checked,
