@@ -94,12 +94,13 @@ CREATE TABLE phpwebgallery_groups (
 
 DROP TABLE IF EXISTS phpwebgallery_history;
 CREATE TABLE phpwebgallery_history (
-  date int(11) NOT NULL default '0',
+  date datetime NOT NULL default '0000-00-00 00:00:00',
   login varchar(15) default NULL,
   IP varchar(50) NOT NULL default '',
   category varchar(150) default NULL,
   file varchar(50) default NULL,
-  picture varchar(150) default NULL
+  picture varchar(150) default NULL,
+  PRIMARY KEY `date` (`date`)
 ) TYPE=MyISAM;
 
 --

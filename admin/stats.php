@@ -29,62 +29,16 @@ if( !defined("PHPWG_ROOT_PATH") )
 	die ("Hacking attempt!");
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-$max_pixels = 500;
-//------------------------------------------------------------ comment deletion
-if ( isset( $_GET['del'] ) and is_numeric( $_GET['del'] ) )
-{
-  $query = 'DELETE FROM '.COMMENTS_TABLE;
-  $query.= ' WHERE id = '.$_GET['del'];
-  $query.= ';';
-  mysql_query( $query );
-}
-//--------------------------------------------------------- history table empty
-if ( isset( $_GET['act'] ) and $_GET['act'] == 'empty' )
-{
-  $query = 'DELETE FROM '.HISTORY_TABLE.';';
-  mysql_query( $query );
-}
 
-// empty link
-$url_empty = PHPWG_ROOT_PATH.'admin.php?page=stats';
-if (isset($_GET['last_days']))
-  	$url_empty .='&amp;last_days='.$_GET['last_days'];
-$url_empty.= '&amp;act=empty';
+$url_img_monthly_report = PHPWG_ROOT_PATH.'/admin/images/monthly_visits.img.php';
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('stats'=>'admin/stats.tpl') );
 
-if ( isset( $_GET['last_days'] ) ) define( 'MAX_DAYS', $_GET['last_days'] );
-else                               define( 'MAX_DAYS', 0 );
-
-foreach ( $conf['last_days'] as $option ) {
-  $url = $_SERVER['PHP_SELF'].'?last_days='.($option - 1);
-  $url.= '&amp;page=stats';
-  $template->assign_block_vars(
-    'last_day_option',
-    array(
-      'OPTION'=>$option,
-      'T_STYLE'=>(( $option == MAX_DAYS + 1 )?'text-decoration:underline;':''),
-      'U_OPTION'=>add_session_id( $url )
-      )
-    );
-}
-
 $template->assign_vars(array(
-  'L_STAT_LASTDAYS'=>$lang['stats_last_days'],
-  'L_STAT_DATE'=>$lang['date'],
-  'L_STAT_LOGIN'=>$lang['login'],
-  'L_STAT_IP'=>$lang['IP'],
-  'L_STAT_FILE'=>$lang['file'],
-  'L_STAT_CATEGORY'=>$lang['category'],
-  'L_STAT_PICTURE'=>$lang['picture'],
-  'L_STAT_EMPTY'=>$lang['stats_empty'],
-  'L_STAT_SEEN'=>$lang['stats_pages_seen'],
-  'L_STAT_VISITOR'=>$lang['stats_visitors'],
-  
-  'STAT_EMPTY_URL'=>$url_empty
+  'L_STAT_TITLE'=>$lang['stats_last_days'],
+  'L_STAT_MONTHLY_ALT'=>$lang['stats_pages_seen_graph_title'],
+  'IMG_MONTHLY_REPORT'=>add_session_id($url_img_monthly_report)
   ));
-
-$tpl = array( 'stats_pages_seen_graph_title', 'stats_visitors_graph_title');
 
 //---------------------------------------------------------------- log  history
 $days = array();
@@ -93,9 +47,9 @@ $max_pages_seen = 0;
 
 $starttime = mktime(  0, 0, 0,date('n'),date('j'),date('Y') );
 $endtime   = mktime( 23,59,59,date('n'),date('j'),date('Y') );
-for ( $i = 0; $i <= MAX_DAYS; $i++ )
+//for ( $i = 0; $i <= MAX_DAYS; $i++ )
 {
-  $day = array();
+  /*$day = array();
   $template->assign_block_vars('day',array(
     ));
   

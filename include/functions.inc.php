@@ -345,9 +345,9 @@ function pwg_log( $file, $category, $picture = '' )
 
   if ( $conf['log'] )
   {
-    $query = 'insert into '.PREFIX_TABLE.'history';
+    $query = 'insert into '.HISTORY_TABLE;
     $query.= ' (date,login,IP,file,category,picture) values';
-    $query.= " (".time().", '".$user['username']."'";
+    $query.= " (NOW(), '".$user['username']."'";
     $query.= ",'".$_SERVER['REMOTE_ADDR']."'";
     $query.= ",'".$file."','".$category."','".$picture."');";
     mysql_query( $query );
