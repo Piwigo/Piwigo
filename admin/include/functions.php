@@ -379,26 +379,22 @@ function update_category( $id = 'all' )
     $query.= ' FROM '.PREFIX_TABLE.'image_category';
     $query.= ' WHERE category_id = '.$id;
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
-    $query = 'UPDATE '.PREFIX_TABLE.'categories';
-    $query.= ' SET nb_images = '.$row['nb_images'];
-    $query.= ' WHERE id = '.$id;
-    $query.= ';';
-    mysql_query( $query );
+    list( $nb_images ) = mysql_fetch_array( mysql_query( $query ) );
     // updating the date_last
-    $query = 'SELECT date_available';
+    $query = 'SELECT MAX(date_available) AS date_available';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= ' WHERE category_id = '.$id;
-    $query.= ' ORDER BY date_available DESC';
-    $query.= ' LIMIT 0,1';
     $query.= ';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
+    list( $date_available ) = mysql_fetch_array( mysql_query( $query ) );
+    
     $query = 'UPDATE '.PREFIX_TABLE.'categories';
-    $query.= " SET date_last = '".$row['date_available']."'";
+    $query.= " SET date_last = '".$date_available."'";
+    $query.= ' SET nb_images = '.$nb_images;
     $query.= ' WHERE id = '.$id;
     $query.= ';';
     mysql_query( $query );
+
     // updating the representative_picture_id : if the representative
     // picture of the category is not any more linked to the category, we
     // have to set representative_picture_id to NULL
