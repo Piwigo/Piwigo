@@ -23,7 +23,6 @@ include_once( './include/init.inc.php' );
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
-$page['plain_structure'] = get_plain_structure();
 if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
