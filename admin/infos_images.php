@@ -21,17 +21,16 @@ include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
 function check_date_format( $date )
 {
   // date arrives at this format : DD/MM/YYYY
-  // checkdate ( int month, int day, int year)
-  $tab_date = explode( '/', $date );
-  return checkdate ( $tab_date[1], $tab_date[0], $tab_date[2]);
+  list($day,$month,$year) = explode( '/', $date );
+  return checkdate ( $month, $day, $year );
 }
 
 function date_convert( $date )
 {
   // date arrives at this format : DD/MM/YYYY
   // It must be transformed in YYYY-MM-DD
-  $tab_date = explode( '/', $date );
-  return $tab_date[2].'-'.$tab_date[1].'-'.$tab_date[0];
+  list($day,$month,$year) = explode( '/', $date );
+  return $year.'-'.$month.'-'.$day;
 }
 
 function date_convert_back( $date )
@@ -40,13 +39,32 @@ function date_convert_back( $date )
   // It must be transformed in DD/MM/YYYY
   if ( $date != '' )
   {
-    $tab_date = explode( '-', $date );
-    return $tab_date[2].'/'.$tab_date[1].'/'.$tab_date[0];
+    list($year,$month,$day) = explode( '-', $date );
+    return $day.'/'.$month.'/'.$year;
   }
   else
   {
     return '';
   }
+}
+
+// get_keywords returns an array with relevant keywords found in the string
+// given in argument. Keywords must be separated by comma in this string.
+// keywords must :
+//   - be longer or equal to 3 characters
+//   - not contain ', " or blank characters
+//   - unique in the string ("test,test" -> "test")
+function get_keywords( $keywords_string )
+{
+  $keywords = array();
+
+  $candidates = explode( ',', $keywords_string );
+  foreach ( $candidates as $candidate ) {
+    if ( strlen($candidate) >= 3 and !preg_match( '/(\'|"|\s)/', $candidate ) )
+      array_push( $keywords, $candidate );
+  }
+
+  return array_unique( $keywords );
 }
 //-------------------------------------------------------------- initialization
 check_cat_id( $_GET['cat_id'] );
@@ -66,42 +84,49 @@ if ( isset( $page['cat'] ) )
     $author        = 'author-'.$row['id'];
     $comment       = 'comment-'.$row['id'];
     $date_creation = 'date_creation-'.$row['id'];
+    $keywords      = 'keywords-'.$row['id'];
     if ( isset( $_POST[$name] ) )
     {
       $query = 'UPDATE '.PREFIX_TABLE.'images';
+
+      $query.= ' SET name = ';
       if ( $_POST[$name] == '' )
-      {
-        $query.= ' SET name = NULL';
-      }
+        $query.= 'NULL';
       else
-      {
-        $query.= " SET name = '".htmlentities( $_POST[$name], ENT_QUOTES )."'";
-      }
+        $query.= "'".htmlentities( $_POST[$name], ENT_QUOTES )."'";
+
+      $query.= ', author = ';
       if ( $_POST[$author] == '' )
-      {
-        $query.= ', author = NULL';
-      }
+        $query.= 'NULL';
       else
-      {
-        $query.= ", author = '".htmlentities($_POST[$author],ENT_QUOTES)."'";
-      }
+        $query.= "'".htmlentities($_POST[$author],ENT_QUOTES)."'";
+
+      $query.= ', comment = ';
       if ( $_POST[$comment] == '' )
-      {
-        $query.= ', comment = NULL';
-      }
+        $query.= 'NULL';
+      else
+        $query.= "'".htmlentities($_POST[$comment],ENT_QUOTES)."'";
+
+      $query.= ', date_creation = ';
+      if ( check_date_format( $_POST[$date_creation] ) )
+        $query.= "'".date_convert( $_POST[$date_creation] )."'";
+      else if ( $_POST[$date_creation] == '' )
+        $query.= 'NULL';
+
+      $query.= ', keywords = ';
+      $keywords_array = get_keywords( $_POST[$keywords] );
+      if ( count( $keywords_array ) == 0 )
+        $query.= 'NULL';
       else
       {
-        $query.= ", comment = '".htmlentities($_POST[$comment],ENT_QUOTES)."'";
+        $query.= '"';
+        foreach ( $keywords_array as $i => $keyword ) {
+          if ( $i > 0 ) $query.= ',';
+          $query.= $keyword;
+        }
+        $query.= '"';
       }
-      if ( check_date_format( $_POST[$date_creation] ) )
-      {
-        $date = date_convert( $_POST[$date_creation] );
-        $query.= ", date_creation = '".$date."'";
-      }
-      else if ( $_POST[$date_creation] == '' )
-      {
-        $query.= ', date_creation = NULL';
-      }
+
       $query.= ' WHERE id = '.$row['id'];
       $query.= ';';
       mysql_query( $query );
@@ -147,6 +172,27 @@ if ( isset( $page['cat'] ) )
       echo $lang['err_date'];
     }
   }
+  if ( $_POST['use_common_keywords'] == 1 )
+  {
+    $keywords = get_keywords( $_POST['keywords_cat'] );
+    $query = 'UPDATE '.PREFIX_TABLE.'images';
+    if ( count( $keywords ) == 0 )
+    {
+      $query.= ' SET keywords = NULL';
+    }
+    else
+    {
+      $query.= ' SET keywords = "';
+      foreach ( $keywords as $i => $keyword ) {
+        if ( $i > 0 ) $query.= ',';
+        $query.= $keyword;
+      }
+      $query.= '"';
+    }
+    $query.= ' WHERE cat_id = '.$page['cat'];
+    $query.= ';';
+    mysql_query( $query );
+  }
 //--------------------------------------------------------- form initialization
   $page['nb_image_page'] = 5;
 
@@ -178,7 +224,7 @@ if ( isset( $page['cat'] ) )
   $tpl = array( 'infoimage_general','author','infoimage_useforall','submit',
                 'infoimage_creation_date','infoimage_detailed','thumbnail',
                 'infoimage_title','infoimage_comment',
-                'infoimage_creation_date' );
+                'infoimage_creation_date','infoimage_keywords' );
   templatize_array( $tpl, 'lang', $sub );
 //------------------------------------------------------------------------ form
   $url = './admin.php?page=infos_images&amp;cat_id='.$page['cat'];
@@ -190,7 +236,7 @@ if ( isset( $page['cat'] ) )
   $cat_name = get_cat_display_name( $cat['name'], ' - ', 'font-style:italic;');
   $vtp->setVar( $sub, 'cat_name', $cat_name );
 
-  $query = 'SELECT id,file,comment,author,tn_ext,name,date_creation';
+  $query = 'SELECT id,file,comment,author,tn_ext,name,date_creation,keywords';
   $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= ' WHERE cat_id = '.$page['cat'];
   $query.= $conf['order_by'];
@@ -205,6 +251,7 @@ if ( isset( $page['cat'] ) )
     $vtp->setVar( $sub, 'picture.name', $row['name'] );
     $vtp->setVar( $sub, 'picture.author', $row['author'] );
     $vtp->setVar( $sub, 'picture.comment', $row['comment'] );
+    $vtp->setVar( $sub, 'picture.keywords', $row['keywords'] );
     $vtp->setVar( $sub, 'picture.date_creation',
                   date_convert_back( $row['date_creation'] ) );
     $file = get_filename_wo_extension( $row['file'] );

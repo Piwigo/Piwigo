@@ -492,6 +492,7 @@ if ( $isadmin )
   // page info images
 // start version 1.3
   // $lang['infoimage_err_date'] = 'date erronée';
+  $lang['infoimage_keywords'] = 'mots-clefs';
 // end version 1.3
   $lang['infoimage_general'] = 'Options générale pour la catégorie';
   $lang['infoimage_useforall'] = 'utiliser pour toutes les images ?';

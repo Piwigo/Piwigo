@@ -421,7 +421,7 @@ function initialize_category( $calling_page = 'category' )
         }
 
         $page['where'] = ' WHERE (';
-        $fields = array( 'file', 'name', 'comment' );
+        $fields = array( 'file', 'name', 'comment', 'keywords' );
         $words = explode( ',', $_GET['search'] );
         $sql_search = array();
         foreach ( $words as $i => $word ) {

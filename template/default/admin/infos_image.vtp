@@ -25,13 +25,25 @@
         {#infoimage_useforall}
       </td>
     </tr>
+    <tr>
+      <td>
+        <div style="margin-left:50px;">{#infoimage_keywords}</div>
+      </td>
+      <td style="text-align:center;">
+        <input type="text" name="keywords_cat" value="" size="12" maxlength="255" />
+      </td>
+      <td style="text-align:left;">
+        <input type="checkbox" name="use_common_keywords" value="1" />
+        {#infoimage_useforall}
+      </td>
+    </tr>
   </table>
   <table width="100%">
     <tr>
-      <th colspan="5">{#infoimage_detailed}</th>
+      <th colspan="6">{#infoimage_detailed}</th>
     </tr>
     <tr>
-      <td colspan="5" align="center">{#navigation_bar}</td>
+      <td colspan="6" align="center">{#navigation_bar}</td>
     </tr>
     <tr>
       <td class="row2" style="text-align:center;">{#thumbnail}</td>
@@ -39,6 +51,7 @@
       <td class="row2" style="text-align:center;">{#author}</td>
       <td class="row2" style="text-align:center;">{#infoimage_comment}</td>
       <td class="row2" style="text-align:center;">{#infoimage_creation_date}</td>
+      <td class="row2" style="text-align:center;">{#infoimage_keywords}</td>
     </tr>
     <!--VTP_picture-->
     <tr>
@@ -47,10 +60,11 @@
       <td style="text-align:center;"><input type="text" name="author-{#id}" value="{#author}" maxlength="255"/></td>
       <td style="text-align:center;"><textarea name="comment-{#id}" rows="3" cols="40" style="overflow:auto">{#comment}</textarea></td>
       <td style="text-align:center;"><input type="text" name="date_creation-{#id}" value="{#date_creation}" maxlength="10" size="12" /></td>
+      <td style="text-align:center;"><input type="text" name="keywords-{#id}" value="{#keywords}" maxlength="255" /></td>
     </tr>
     <!--/VTP_picture-->
     <tr>
-      <td colspan="5" style="text-align:center;">
+      <td colspan="6" style="text-align:center;">
         <input type="submit" value="{#submit}" name="submit" />
       </td>
     </tr>
