@@ -580,12 +580,12 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         $page['where'].= date( 'Y-m-d', $date )."'";
         if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
-        $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
-        $query.= ' FROM '.IMAGES_TABLE;
-        $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.'AS ic';
-        $query.= ' ON id = ic.image_id';
-        $query.= $page['where'];
-        $query.= ';';
+        $query = '
+SELECT COUNT(DISTINCT(id)) AS nb_total_images
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
+    ON id = ic.image_id
+  '.$page['where'].'
+;';
       }
       // categories containing recent pictures
       else if ( $page['cat'] == 'recent_cats' )
