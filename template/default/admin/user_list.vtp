@@ -63,7 +63,7 @@
   </tr>
   <tr>
     <td colspan="5">
-      <img src="../template/{#user_template}/admin/images/arrow_up.gif" alt="&lt;" />
+      <img src="../template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" />
       <input type="button" value="{#listuser_button_all}" onClick="SelectAll(this.form)" style="margin-left:5px;margin-right:5px;" />
       <input type="button" value="{#listuser_button_invert}" onClick="Inverser(this.form)" style="margin-left:5px;margin-right:5px;" />
       <input type="submit" value="{#listuser_button_create_address}" style="margin-left:5px;margin-right:5px;" />

@@ -73,7 +73,7 @@
     <!--/VTP_picture-->
     <tr>
       <td colspan="6">
-        <img src="../template/{#user_template}/admin/images/arrow_up.gif" alt="&lt;" />
+        <img src="../template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" />
         {#infoimage_associate}
         <select name="associate">
           <!--VTP_associate_cat-->
