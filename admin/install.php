@@ -246,7 +246,7 @@ else if ( $_GET['step'] == 2 )
       // guest user
       $query = 'INSERT INTO '.$prefixeTable.'users';
       $query.= '(id,username,password,status,language) VALUES ';
-      $query.= "(2,'guest','','guest','francais')";
+      $query.= "(2,'guest','','guest','".$_GET['language']."')";
       $query.= ';';
       mysql_query( $query );
     }
