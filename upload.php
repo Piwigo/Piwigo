@@ -36,7 +36,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   $result['error'] = array();
   //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
-  if ( in_array( $extension, $conf['picture_ext'] )
+  if ( !in_array( $extension, $conf['picture_ext'] ) )
   {
     array_push( $result['error'], $lang['upload_advise_filetype'] );
     return $result;
@@ -49,7 +49,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
     array_push( $result['error'],
-                $lang['upload_advise_width'].$my_max_file_size.' KB' );
+                $lang['upload_advise_filesize'].$my_max_file_size.' KB' );
   }
   else
   {
