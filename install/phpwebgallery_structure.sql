@@ -136,7 +136,8 @@ CREATE TABLE phpwebgallery_images (
   keywords varchar(255) default NULL,
   storage_category_id smallint(5) unsigned default NULL,
   PRIMARY KEY  (id),
-  KEY storage_category_id (storage_category_id)
+  KEY images_i2 (date_available),
+  KEY images_i1 (storage_category_id)
 ) TYPE=MyISAM;
 
 --
