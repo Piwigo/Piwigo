@@ -388,3 +388,22 @@ td.confLineField {
   height:20px;
   background-color:#505050;
 }
+
+div.remoteOutput {
+  background-color:#444444;
+  border:1px solid black;
+  margin:10px;
+  text-align:left;
+}
+
+li.remoteInfo {
+  color:gray;
+}
+
+li.remoteWarning {
+  color:#ffe1e1;
+}
+
+li.remoteError {
+  color:orange;
+}

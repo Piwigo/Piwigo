@@ -24,35 +24,83 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
+// +-----------------------------------------------------------------------+
+// |                              parameters                               |
+// +-----------------------------------------------------------------------+
+
+// prefix for thumbnails in "thumbnail" sub directories
 $conf['prefix_thumbnail'] = 'TN-';
-$conf['picture_ext'] = array ( 'jpg', 'gif', 'png', 'JPG', 'GIF', 'PNG' );
 
-$listing = '';
+// $conf['file_ext'] lists all extensions (case insensitive) allowed for
+// your PhpWebGallery installation
+$conf['file_ext'] = array('jpg','JPG','png','PNG','gif','GIF','mpg','zip',
+                          'avi','mp3','ogg');
 
-$end = strrpos( $_SERVER['PHP_SELF'], '/' ) + 1;
-$local_folder = substr( $_SERVER['PHP_SELF'], 0, $end );
-$url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
+// $conf['picture_ext'] must bea subset of $conf['file_ext']
+$conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
 
-$listing.= '<url>'.$url.'</url>';
+// $conf['version'] is used to verify the compatibility of the generated
+// listing.xml file and the PhpWebGallery version you're running
+$conf['version'] = 'BSF';
+
+// +-----------------------------------------------------------------------+
+// |                               functions                               |
+// +-----------------------------------------------------------------------+
 
 /**
- * returns an array with all picture files according to $conf['picture_ext']
+ * returns a float value coresponding to the number of seconds since the
+ * unix epoch (1st January 1970) and the microseconds are precised :
+ * e.g. 1052343429.89276600
+ *
+ * @return float
+ */
+function get_moment()
+{
+  $t1 = explode(' ', microtime());
+  $t2 = explode('.', $t1[0]);
+  $t2 = $t1[1].'.'.$t2[1];
+  return $t2;
+}
+
+/**
+ * returns the number of seconds (with 3 decimals precision) between the
+ * start time and the end time given.
+ *
+ * @param float start
+ * @param float end
+ * @return void
+ */
+function get_elapsed_time($start, $end)
+{
+  return number_format($end - $start, 3, '.', ' ').' s';
+}
+
+/**
+ * returns an array with all picture files according to $conf['file_ext']
  *
  * @param string $dir
  * @return array
  */
-function get_picture_files( $dir )
+function get_pwg_files($dir)
 {
   global $conf;
 
   $pictures = array();
-  if ( $opendir = opendir( $dir ) )
+  if ($opendir = opendir($dir))
   {
-    while ( $file = readdir( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( in_array( get_extension( $file ), $conf['picture_ext'] ) )
+      if (in_array(get_extension($file), $conf['file_ext']))
       {
-        array_push( $pictures, $file );
+        array_push($pictures, $file);
+        if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
+        {
+          echo 'PWG-WARNING-2: "'.$file.'" : ';
+          echo 'The name of the file should be composed of ';
+          echo 'letters, figures, "-", "_" or "." ONLY';
+          echo "\n";
+        }
       }
     }
   }
@@ -66,145 +114,286 @@ function get_picture_files( $dir )
  * @param string $dir
  * @return array
  */
-function get_thumb_files( $dir )
+function get_thumb_files($dir)
 {
   global $conf;
 
-  $prefix_length = strlen( $conf['prefix_thumbnail'] );
+  $prefix_length = strlen($conf['prefix_thumbnail']);
   
   $thumbnails = array();
-  if ( $opendir = @opendir( $dir ) )
+  if ($opendir = @opendir($dir.'/thumbnail'))
   {
-    while ( $file = readdir( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( in_array( get_extension( $file ), $conf['picture_ext'] )
-           and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'] )
+      if (in_array(get_extension($file), $conf['picture_ext'])
+          and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'])
       {
-        array_push( $thumbnails, $file );
+        array_push($thumbnails, $file);
       }
     }
   }
   return $thumbnails;
 }
 
-// get_dirs retourne un tableau contenant tous les sous-répertoires d'un
-// répertoire
-function get_dirs( $basedir, $indent, $level )
+/**
+ * returns an array with representative picture files of a directory
+ * according to $conf['picture_ext']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_representative_files($dir)
+{
+  global $conf;
+
+  $pictures = array();
+  if ($opendir = @opendir($dir.'/representative'))
+  {
+    while ($file = readdir($opendir))
+    {
+      if (in_array(get_extension($file), $conf['picture_ext']))
+      {
+        array_push($pictures, $file);
+      }
+    }
+  }
+  return $pictures;
+}
+
+/**
+ * search in $basedir the sub-directories and calls get_pictures
+ *
+ * @return void
+ */
+function get_dirs($basedir, $indent, $level)
 {
   $fs_dirs = array();
   $dirs = "";
 
-  if ( $opendir = opendir( $basedir ) )
+  if ($opendir = opendir($basedir))
   {
-    while ( $file = readdir( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( $file != '.'
-           and $file != '..'
-           and is_dir ( $basedir.'/'.$file )
-           and $file != 'thumbnail' )
+      if ($file != '.'
+          and $file != '..'
+          and is_dir ($basedir.'/'.$file)
+          and $file != 'thumbnail')
       {
-        array_push( $fs_dirs, $file );
-        if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
+        array_push($fs_dirs, $file);
+        if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
         {
-          echo '<span style="color:red;">"'.$file.'" : ';
+          echo 'PWG-WARNING-1: "'.$file.'" : ';
           echo 'The name of the directory should be composed of ';
           echo 'letters, figures, "-", "_" or "." ONLY';
-          echo '</span><br />';
+          echo "\n";
         }
       }
     }
   }
   // write of the dirs
-  foreach ( $fs_dirs as $fs_dir ) {
+  foreach ($fs_dirs as $fs_dir)
+  {
     $dirs.= "\n".$indent.'<dir'.$level.' name="'.$fs_dir.'">';
-    $dirs.= get_pictures( $basedir.'/'.$fs_dir, $indent.'  ' );
-    $dirs.= get_dirs( $basedir.'/'.$fs_dir, $indent.'  ', $level + 1 );
+    $dirs.= get_pictures($basedir.'/'.$fs_dir, $indent.'  ');
+    $dirs.= get_dirs($basedir.'/'.$fs_dir, $indent.'  ', $level + 1);
     $dirs.= "\n".$indent.'</dir'.$level.'>';
   }
   return $dirs;		
 }
 
 // get_extension returns the part of the string after the last "."
-function get_extension( $filename )
+function get_extension($filename)
 {
-  return substr( strrchr( $filename, '.' ), 1, strlen ( $filename ) );
+  return substr(strrchr($filename, '.'), 1, strlen ($filename));
 }
 
 // get_filename_wo_extension returns the part of the string before the last
 // ".".
-// get_filename_wo_extension( 'test.tar.gz' ) -> 'test.tar'
-function get_filename_wo_extension( $filename )
+// get_filename_wo_extension('test.tar.gz') -> 'test.tar'
+function get_filename_wo_extension($filename)
 {
-  return substr( $filename, 0, strrpos( $filename, '.' ) );
+  return substr($filename, 0, strrpos($filename, '.'));
 }
 
-function get_pictures( $dir, $indent )
+function get_pictures($dir, $indent)
 {
   global $conf;
   
-  // fs means filesystem : $fs_pictures contains pictures in the filesystem
-  // found in $dir, $fs_thumbnails contains thumbnails...
-  $fs_pictures   = get_picture_files( $dir );
-  $fs_thumbnails = get_thumb_files( $dir.'/thumbnail' );
+  // fs means FileSystem : $fs_files contains files in the filesystem found
+  // in $dir that can be managed by PhpWebGallery (see get_pwg_files
+  // function), $fs_thumbnails contains thumbnails, $fs_representatives
+  // contains potentially representative pictures for non picture files
+  $fs_files = get_pwg_files($dir);
+  $fs_thumbnails = get_thumb_files($dir);
+  $fs_representatives = get_representative_files($dir);
 
-  $root = "\n".$indent.'<root>';
+  $elements = array();
+  
+  foreach ($fs_files as $fs_file)
+  {
+    $element = array();
+    $element['file'] = $fs_file;
+    $element['filesize'] = floor(filesize($dir.'/'.$fs_file) / 1024);
+    
+    $file_wo_ext = get_filename_wo_extension($fs_file);
 
-  foreach ( $fs_pictures as $fs_picture ) {
-    $file_wo_ext = get_filename_wo_extension( $fs_picture );
-    $tn_ext = '';
-    foreach ( $conf['picture_ext'] as $ext ) {
-      $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
-      if ( !in_array( $test, $fs_thumbnails ) ) continue;
-      else { $tn_ext = $ext; break; }
-    }
-    // if we found a thumnbnail corresponding to our picture...
-    if ( $tn_ext != '' )
+    foreach ($conf['picture_ext'] as $ext)
     {
-      list( $width,$height ) = @getimagesize( $dir.'/'.$fs_picture );
-
-      $root.= "\n".$indent.'  ';
-      $root.= '<picture';
-      $root.= ' file="'.    $fs_picture.'"';
-      $root.= ' tn_ext="'.  $tn_ext.'"';
-      $root.= ' filesize="'.floor(filesize($dir.'/'.$fs_picture)/1024).'"';
-      $root.= ' width="'.   $width.'"';
-      $root.= ' height="'.  $height.'"';
-      $root.= ' />';
-      
-      if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $fs_picture ) )
+      $test = $conf['prefix_thumbnail'].$file_wo_ext.'.'.$ext;
+      if (!in_array($test, $fs_thumbnails))
       {
-        echo '<span style="color:red;">"'.$fs_picture.'" : ';
-        echo 'The name of the picture should be composed of ';
-        echo 'letters, figures, "-", "_" or "." ONLY';
-        echo '</span><br />';
+        continue;
+      }
+      else
+      {
+        $element['tn_ext'] = $ext;
+        break;
+      }
+    }
+
+    // 2 cases : the element is a picture or not. Indeed, for a picture
+    // thumbnail is mandatory and for non picture element, thumbnail and
+    // representative is optionnal
+    if (in_array(get_extension($fs_file), $conf['picture_ext']))
+    {
+      // if we found a thumnbnail corresponding to our picture...
+      if (isset($element['tn_ext']))
+      {
+        if ($image_size = @getimagesize($dir.'/'.$fs_file))
+        {
+          $element['width'] = $image_size[0];
+          $element['height'] = $image_size[1];
+        }
+        
+        array_push($elements, $element);
+      }
+      else
+      {
+        echo 'PWG-ERROR-1: The thumbnail is missing for '.$dir.'/'.$fs_file;
+        echo '-> '.$dir.'/thumbnail/';
+        echo $conf['prefix_thumbnail'].$file_wo_ext.'.xxx';
+        echo ' ("xxx" can be : ';
+        echo implode(', ', $conf['picture_ext']);
+        echo ')'."\n";
       }
     }
     else
     {
-      echo 'The thumbnail is missing for '.$dir.'/'.$fs_picture;
-      echo '-> '.$dir.'/thumbnail/';
-      echo $conf['prefix_thumbnail'].$file_wo_ext.'.xxx';
-      echo ' ("xxx" can be : ';
-      echo implode( ', ', $conf['picture_ext'] );
-      echo ')<br />';
+      foreach ($conf['picture_ext'] as $ext)
+      {
+        $candidate = $file_wo_ext.'.'.$ext;
+        if (!in_array($candidate, $fs_representatives))
+        {
+          continue;
+        }
+        else
+        {
+          $element['representative_ext'] = $ext;
+          break;
+        }
+      }
+      
+      array_push($elements, $element);
     }
   }
 
-  $root.= "\n".$indent.'</root>';
+  $xml = "\n".$indent.'<root>';
+  $attributes = array('file','tn_ext','representative_ext','filesize',
+                      'width','height');
+  foreach ($elements as $element)
+  {
+    $xml.= "\n".$indent.'  ';
+    $xml.= '<element';
+    foreach ($attributes as $attribute)
+    {
+      if (isset($element{$attribute}))
+      {
+        $xml.= ' '.$attribute.'="'.$element{$attribute}.'"';
+      }
+    }
+    $xml.= ' />';
+  }
+  $xml.= "\n".$indent.'</root>';
 
-  return $root;
+  return $xml;
 }
 
-$listing.= get_dirs( '.', '', 0 );
-
-if ( $fp = @fopen("./listing.xml","w") )
+// +-----------------------------------------------------------------------+
+// |                                script                                 |
+// +-----------------------------------------------------------------------+
+if (isset($_GET['action']))
 {
-  fwrite( $fp, $listing );
-  fclose( $fp );
-  echo "listing.xml created";
+  $page['action'] = $_GET['action'];
 }
 else
 {
-  echo "I can't write the file listing.xml";
+  $page['action'] = 'generate';
 }
+echo '<pre>';
+switch ($page['action'])
+{
+  case 'generate' :
+  {
+    $start = get_moment();
+    
+    $listing = '<informations';
+    $listing.= ' generation_date="'.date('Y-m-d').'"';
+    $listing.= ' phpwg_version="'.$conf{'version'}.'"';
+    
+    $end = strrpos($_SERVER['PHP_SELF'], '/') + 1;
+    $local_folder = substr($_SERVER['PHP_SELF'], 0, $end);
+    $url = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
+    
+    $listing.= ' url="'.$url.'"';
+    $listing.= '/>'."\n";
+    
+    $listing.= get_dirs('.', '', 0);
+    
+    if ($fp = @fopen("./listing.xml","w"))
+    {
+      fwrite($fp, $listing);
+      fclose($fp);
+      echo 'PWG-INFO-1: listing.xml created in ';
+      echo get_elapsed_time($start, get_moment());
+      echo "\n";
+    }
+    else
+    {
+      echo "PWG-ERROR-2: I can't write the file listing.xml"."\n";
+    }
+    break;
+  }
+  case 'test' :
+  {
+    if (isset($_GET['version']))
+    {
+      if ($_GET['version'] != $conf['version'])
+      {
+        echo 'PWG-ERROR-4: PhpWebGallery versions differs'."\n";
+      }
+      else
+      {
+        echo 'PWG-INFO-2: test successful'."\n";
+      }
+    }
+    else
+    {
+      echo 'PWG-INFO-2: test successful'."\n";
+    }
+    break;
+  }
+  case 'clean' :
+  {
+    if( @unlink('./listing.xml'))
+    {
+      echo 'PWG-INFO-3 : listing.xml file deleted'."\n";
+    }
+    else
+    {
+      echo 'PWG-ERROR-3 : listing.xml does not exist'."\n";
+    }
+    break;
+  }
+}
+echo '</pre>';
 ?>

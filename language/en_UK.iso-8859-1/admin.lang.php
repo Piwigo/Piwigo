@@ -45,8 +45,29 @@ $lang['forbidden'] = 'Forbidden';
 // Specific words
 $lang['phpinfos'] = 'PHP Information';
 $lang['remote_site'] = 'Remote site';
+$lang['remote_sites'] = 'Remote sites';
 $lang['gallery_default'] = 'Gallery Default';
 $lang['upload'] = 'Upload';
+
+// Remote sites management
+$lang['remote_site_create'] = 'Create a new site : (give its URL to generate_file_listing.php)';
+$lang['remote_site_uncorrect_url'] = 'Remote site url must start by http or https and must only contain characters among "/", "a-zA-Z0-9", "-" or "_"';
+$lang['remote_site_already_exists'] = 'This site already exists';
+$lang['remote_site_generate'] = 'generate listing';
+$lang['remote_site_generate_hint'] = 'generate file listing.xml on remote site';
+$lang['remote_site_update'] = 'update';
+$lang['remote_site_update_hint'] = 'read remote listing.xml and updates database';
+$lang['remote_site_clean'] = 'clean';
+$lang['remote_site_clean_hint'] = 'remove remote listing.xml file';
+$lang['remote_site_delete'] = 'delete';
+$lang['remote_site_delete_hint'] = 'delete this site and all its attached elements';
+$lang['remote_site_file_not_found'] = 'file create_listing_file.php on remote site was not found';
+$lang['remote_site_error'] = 'an error happened';
+$lang['remote_site_listing_not_found'] = 'remote listing file was not found';
+$lang['remote_site_removed'] = 'was removed on remote site';
+$lang['remote_site_removed_title'] = 'Removed elements';
+$lang['remote_site_created'] = 'created';
+$lang['remote_site_deleted'] = 'deleted';
 
 // Categorie words
 $lang['cat_up'] = 'Move up';

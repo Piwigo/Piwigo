@@ -17,7 +17,7 @@
 <ul class="menu">
   <li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
   <li><a class="adminMenu" href="{U_CONFIG}">{L_CONFIG}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG}">{L_SITES}</a></li>
+  <li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
   <!--<li><a class="adminMenu" href="{U_CONFIG}">{L_DEFAULT}</a></li>-->
   <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
   <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>

@@ -103,15 +103,10 @@ while ($row = mysql_fetch_array($result))
   
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
-  if (!isset($row['filesize']) or $row['filesize'] == '')
+  if (isset($row['filesize']))
   {
-    $filesize = floor(filesize($cat_directory.$row['file']) / 1024);
+    $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
-  else
-  {
-    $filesize = $row['filesize'];
-  }
-  $thumbnail_title .= ' : '.$filesize.' KB';
   // url link on picture.php page
   $url_link = PHPWG_ROOT_PATH.'picture.php?';
   if ($page['cat'] == 'random')

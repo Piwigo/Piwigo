@@ -144,6 +144,12 @@ switch ( $_GET['page'] )
    $title = $lang['title_picmod'];
    $page_valide = true;
    break;
+ case 'remote_site' :
+ {
+   $title = $lang['remote_sites'];
+   $page_valide = true;
+   break;
+ }
  default:
    $title = $lang['title_default']; break;
 }
@@ -181,7 +187,7 @@ $template->assign_vars(array(
   'L_GALLERY_INDEX'=>$lang['gallery_index'],
   'L_GENERAL'=>$lang['general'],
   'L_CONFIG'=>$lang['config'],
-  'L_SITES'=>$lang['remote_site'],
+  'L_SITES'=>$lang['remote_sites'],
   'L_DEFAULT'=>$lang['gallery_default'],
   'L_PHPINFO'=>$lang['phpinfos'],
   'L_HISTORY'=>$lang['history'],
@@ -212,6 +218,7 @@ $template->assign_vars(array(
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_HISTORY'=>add_session_id($link_start.'stats' ),
   'U_FAQ'=>add_session_id($link_start.'help' ),
+  'U_SITES'=>add_session_id($link_start.'remote_site'),
   'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
   ));
 
