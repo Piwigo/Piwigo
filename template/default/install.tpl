@@ -90,7 +90,7 @@
     </tr>
     <tr>
       <td>{L_DB_PREFIX}</td>
-      <td align=center><input type="text" name="prefixeTable" value="{F_DB_PREFIX}" /></td>
+      <td align=center><input type="text" name="prefix" value="{F_DB_PREFIX}" /></td>
       <td class="row2">{L_DB_PREFIX_INFO}</td>
     </tr>
     <tr>
