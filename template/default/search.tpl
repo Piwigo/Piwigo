@@ -31,16 +31,43 @@
   <tr> 
     <td colspan="2"><b>{L_SEARCH_DATE} :</b><br /><span class="small">{L_SEARCH_DATE_HINT}</span></td>
     <td colspan="2" valign="middle">
-	<table><tr><td>
-	  {L_SEARCH_DATE_FROM} :</td><td>
-	  {S_CALENDAR_DAY}&nbsp;{S_CALENDAR_MONTH}&nbsp;<input name="start_year" type="text" size="4" maxlength="4">&nbsp;
-	  <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{L_TODAY}</a>
-	  </tr><tr><td>
-	  {L_SEARCH_DATE_TO} :</td><td>
-	  {E_CALENDAR_DAY}&nbsp;{E_CALENDAR_MONTH}&nbsp;<input name="end_year" type="text" size="4" maxlength="4">&nbsp;
-	  <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{L_TODAY}</a>
-	  </td></tr></table>
-	</td>
+      <table>
+        <tr>
+          <td>{L_SEARCH_DATE_FROM} :</td>
+          <td>
+            <select name="start_day">
+              <!-- BEGIN start_day -->
+              <option {start_day.SELECTED} value="{start_day.VALUE}">{start_day.OPTION}</option>
+              <!-- END start_day -->
+            </select>
+            <select name="start_month">
+              <!-- BEGIN start_month -->
+              <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
+              <!-- END start_month -->
+            </select>
+	    <input name="start_year" type="text" size="4" maxlength="4">&nbsp;
+	    <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{L_TODAY}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{L_SEARCH_DATE_TO} :</td>
+          <td>
+            <select name="end_day">
+              <!-- BEGIN end_day -->
+              <option {end_day.SELECTED} value="{end_day.VALUE}">{end_day.OPTION}</option>
+              <!-- END end_day -->
+            </select>
+            <select name="end_month">
+              <!-- BEGIN end_month -->
+              <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
+              <!-- END end_month -->
+            </select>
+            <input name="end_year" type="text" size="4" maxlength="4">&nbsp;
+	    <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{L_TODAY}</a>
+          </td>
+        </tr>
+      </table>
+    </td>
   </tr>
   <tr class="admin"> 
     <th colspan="4">{L_SEARCH_OPTIONS}</th>

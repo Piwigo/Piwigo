@@ -35,25 +35,27 @@ $errors = array();
 $search = array();
 if (isset($_POST['submit']))
 {
-  if ($_POST['search_allwords'] &&
-   !preg_match('/^\s*$/', $_POST['search_allwords']))
+  if (isset($_POST['search_allwords'])
+      and !preg_match('/^\s*$/', $_POST['search_allwords']))
   {
     $local_search = array();
-	$search_keywords = $_POST['search_allwords'];
-	$drop_char_match =   array('-', '^', '$', ';', '#', '&', '(', ')', '<', '>',
-	  '`', '\'', '"', '|', ',', '@', '_', '?', '%', '~', '.', '[', ']', '{', '}', 
-	  ':', '\\', '/', '=', '\'', '!', '*');
-	$drop_char_replace = array(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-	  '',  '',   ' ', ' ', ' ', ' ', '',  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
-	  , ' ', '' ,  ' ', ' ', ' ',  ' ', ' ');
-	$search_keywords = str_replace($drop_char_match, $drop_char_replace, $search_keywords);
+    $search_allwords = $_POST['search_allwords'];
+    $drop_char_match = array(
+      '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
+      '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
+    $drop_char_replace = array(
+      ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','','',' ',' ',' ',' ','',' ',
+      ' ',' ',' ',' ',' ',' ',' ',' ','' ,' ',' ',' ',' ',' ');
+    $search_allwords = str_replace($drop_char_match,
+                                   $drop_char_replace,
+                                   $search_allwords);
 	
-	// Split words
-	$words = preg_split('#\s+#', $search_keywords);
+    // Split words
+    $words = preg_split('/\s+/', $search_allwords);
     $words = array_unique($words);
-	$search['fields']['allwords'] = array();
-	$search['fields']['allwords']['words'] =$words;
-	$search['fields']['allwords']['mode']= $_POST['mode'];
+    $search['fields']['allwords'] = array();
+    $search['fields']['allwords']['words'] = $words;
+    $search['fields']['allwords']['mode'] = $_POST['mode'];
   }
   
   if ($_POST['search_author'])
@@ -66,48 +68,57 @@ if (isset($_POST['submit']))
   {
     $search['fields']['cat'] = array();
     $search['fields']['cat']['words'] = $_POST['cat'];
-    if (isset($_POST['subcats-included']))
+    if ($_POST['subcats-included'] == 1)
     {
       $search['fields']['cat']['mode'] = 'sub_inc';
     }
   }
+
+  // dates
+  $type_date = $_POST['date_type'];
   
   if (!empty($_POST['start_year']))
- {
-  $type_date = $_POST['date_type'];
-
-  // start event
-  $date = $_POST['start_year'].'.'.$_POST['start_month'].'.'.$_POST['start_day'];
-  $search['fields'][$type_date]['words'] = array($date);
-  
-  // duration
-  $search_duration = 0;
-  if ( !empty($date) && !empty( $_POST['end_year']) )
   {
-	$end_date = $_POST['end_year'].'.'.$_POST['end_month'].'.'.$_POST['end_day'];
-	$search['fields'][$type_date]['mode'] =  $end_date;
+    $year = $_POST['start_year'];
+    $month = $_POST['start_month'] != 0 ? $_POST['start_month'] : '01';
+    $day = $_POST['start_day'] != 0 ? $_POST['start_day'] : '01';
+    $date = $year.'-'.$month.'-'.$day;
+    
+    $search['fields'][$type_date.'-after']['words'] = array($date);
+    $search['fields'][$type_date.'-after']['mode'] = 'inc';
   }
- }
+
+  if (!empty($_POST['end_year']))
+  {
+    $year = $_POST['end_year'];
+    $month = $_POST['end_month'] != 0 ? $_POST['end_month'] : '12';
+    $day = $_POST['end_day'] != 0 ? $_POST['end_day'] : '31';
+    $date = $year.'-'.$month.'-'.$day;
+    
+    $search['fields'][$type_date.'-before']['words'] = array($date);
+    $search['fields'][$type_date.'-before']['mode'] = 'inc';
+  }
+    
   // search string (for URL) creation
   $search_string = '';
   $tokens = array();
   if (!empty($search))
   {
-  foreach (array_keys($search['fields']) as $field)
-  {
-    $token = $field.':';
-    $token.= implode(',', $search['fields'][$field]['words']);
-    if (isset($search['fields'][$field]['mode']))
+    foreach (array_keys($search['fields']) as $field)
     {
-      $token.= '~'.$search['fields'][$field]['mode'];
+      $token = $field.':';
+      $token.= implode(',', $search['fields'][$field]['words']);
+      if (isset($search['fields'][$field]['mode']))
+      {
+        $token.= '~'.$search['fields'][$field]['mode'];
+      }
+      array_push($tokens, $token);
     }
-    array_push($tokens, $token);
-  }
-  $search_string.= implode(';', $tokens);
-  if (count($tokens) > 1)
-  {
-    $search_string.= '|AND';
-  }
+    $search_string.= implode(';', $tokens);
+    if (count($tokens) > 1)
+    {
+      $search_string.= '|AND';
+    }
   }
   else
   {
@@ -121,41 +132,69 @@ if (isset($_POST['submit']) and count($errors) == 0)
   $url = add_session_id($url, true);
   redirect($url);
 }
-
 //----------------------------------------------------- template initialization
-// day list
-$start_day = '<select name="start_day">';
-for ($i=0; $i <= 31; $i++)
+/**
+ * instantiate number list for days in a template block
+ *
+ * @param string blockname
+ * @param string selection
+ */
+function get_day_list($blockname, $selection)
 {
-	$start_day .= '<option value="' . $i . '" >' . ( ($i == 0) ? ' -- ' : str_pad($i, 2, '0', STR_PAD_LEFT) ) . '</option>';
+  global $template;
+  
+  $template->assign_block_vars(
+    $blockname, array('SELECTED' => '', 'VALUE' => 0, 'OPTION' => '--'));
+  
+  for ($i = 1; $i <= 31; $i++)
+  {
+    $selected = '';
+    if ($i == (int)$selection)
+    {
+      $selected = 'selected="selected"';
+    }
+    $template->assign_block_vars(
+      $blockname, array('SELECTED' => $selected,
+                        'VALUE' => $i,
+                        'OPTION' => str_pad($i, 2, '0', STR_PAD_LEFT)));
+  }
 }
-$start_day .= '</select>';
 
-// month list
-$start_month = '<select name="start_month">';
-$start_month .= '<option value="0"> ------------ </option>';
-for ($i=1; $i <= 12; $i++)
+/**
+ * instantiate month list in a template block
+ *
+ * @param string blockname
+ * @param string selection
+ */
+function get_month_list($blockname, $selection)
 {
-	$start_month .= '<option value="' . $i . '">' . $lang['month'][$i] . '</option>';
-}
-$start_month .= '</select>';
+  global $template, $lang;
+  
+  $template->assign_block_vars(
+    $blockname, array('SELECTED' => '',
+                      'VALUE' => 0,
+                      'OPTION' => '------------'));
 
-// day list
-$end_day = '<select name="end_day">';
-for ($i=0; $i <= 31; $i++)
-{
-	$end_day .= '<option value="' . $i . '" >' . ( ($i == 0) ? ' -- ' : str_pad($i, 2, '0', STR_PAD_LEFT) ) . '</option>';
+  for ($i = 1; $i <= 12; $i++)
+  {
+    $selected = '';
+    if ($i == (int)$selection)
+    {
+      $selected = 'selected="selected"';
+    }
+    $template->assign_block_vars(
+      $blockname, array('SELECTED' => $selected,
+                        'VALUE' => $i,
+                        'OPTION' => $lang['month'][$i]));
+  }
 }
-$end_day .= '</select>';
 
-// month list
-$end_month = '<select name="end_month">';
-$end_month .= '<option value="0"> ------------ </option>';
-for ($i=1; $i <= 12; $i++)
-{
-	$end_month .= '<option value="' . $i . '">' . $lang['month'][$i] . '</option>';
-}
-$end_month .= '</select>';
+// start date
+get_day_list('start_day', @$_POST['start_day']);
+get_month_list('start_month', @$_POST['start_month']);
+// end date
+get_day_list('end_day', @$_POST['end_day']);
+get_month_list('end_month', @$_POST['end_month']);
 
 //
 // Start output of page
@@ -198,10 +237,6 @@ $template->assign_vars(array(
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
-  'E_CALENDAR_MONTH' => $end_month,
-	'E_CALENDAR_DAY' => $end_day,
-  'S_CALENDAR_MONTH' => $start_month,
-  'S_CALENDAR_DAY' => $start_day,
   'S_SEARCH_ACTION' => add_session_id( 'search.php' ),   
   'U_HOME' => add_session_id( 'category.php' )
   )
@@ -211,11 +246,11 @@ $template->assign_vars(array(
 $query = '
 SELECT name,id,date_last,nb_images,global_rank,uppercats
   FROM '.CATEGORIES_TABLE;
-  if ($user['forbidden_categories'] != '')
-  {
-    $query.= '
+if ($user['forbidden_categories'] != '')
+{
+  $query.= '
   WHERE id NOT IN ('.$user['forbidden_categories'].')';
-  }
+}
 $query.= '
 ;';
 

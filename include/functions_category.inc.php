@@ -415,30 +415,52 @@ function initialize_category( $calling_page = 'category' )
 
         // SQL where clauses are stored in $clauses array during query
         // construction
-        $clauses = $temp_clauses = array();
-        if (isset($search['fields']['allwords']))
-    {
-          $textfields = array('file', 'name', 'comment', 'keywords', 'author');
-          foreach ($textfields as $textfield)
+        $clauses = array();
+        
+        $textfields = array('file', 'name', 'comment', 'keywords', 'author');
+        foreach ($textfields as $textfield)
+        {
+          if (isset($search['fields'][$textfield]))
           {
             $local_clauses = array();
-            foreach ($search['fields']['allwords']['words'] as $word)
+            foreach ($search['fields'][$textfield]['words'] as $word)
             {
               array_push($local_clauses, $textfield." LIKE '%".$word."%'");
             }
             // adds brackets around where clauses
             array_walk($local_clauses,create_function('&$s','$s="(".$s.")";'));
-            array_push($temp_clauses,
-                       implode(' '.$search['fields']['allwords']['mode'].' ',
+            array_push($clauses,
+                       implode(' '.$search['fields'][$textfield]['mode'].' ',
                                $local_clauses));
           }
-      array_push($clauses, implode(' OR ', $temp_clauses));
         }
-    
-    if (isset($search['fields']['author']))
-    {
-           array_push($clauses, "author LIKE '%".$search['fields']['author']['words'][0]."%'");
-    }
+
+        if (isset($search['fields']['allwords']))
+        {
+          $fields = array('file', 'name', 'comment', 'keywords');
+          // in the OR mode, request bust be :
+          // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
+          // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
+          //
+          // in the AND mode :
+          // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
+          // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
+          $word_clauses = array();
+          foreach ($search['fields']['allwords']['words'] as $word)
+          {
+            $field_clauses = array();
+            foreach ($fields as $field)
+            {
+              array_push($field_clauses, $field." LIKE '%".$word."%'");
+            }
+            // adds brackets around where clauses
+            array_push($word_clauses, implode(' OR ', $field_clauses));
+          }
+          array_walk($word_clauses, create_function('&$s','$s="(".$s.")";'));
+          array_push($clauses,
+                     implode(' '.$search['fields']['allwords']['mode'].' ',
+                               $word_clauses));
+        }
 
         $datefields = array('date_available', 'date_creation');
         foreach ($datefields as $datefield)
@@ -446,27 +468,41 @@ function initialize_category( $calling_page = 'category' )
           $key = $datefield;
           if (isset($search['fields'][$key]))
           {
-            $local_clause = $datefield." ";
-      if (isset($search['fields'][$key]['mode']))
-      {
-        $local_clause .=">";
-      }
-      $local_clause .="= '";
-      $local_clause.= str_replace('.', '-',
+            $local_clause = $datefield." = '";
+            $local_clause.= str_replace('.', '-',
                                         $search['fields'][$key]['words'][0]);
-      $local_clause.= "'";
-      array_push($clauses, $local_clause);
-      
-      if (isset($search['fields'][$key]['mode']))
-      {
-        $end_sql_date = str_replace('.', '-',
-                                        $search['fields'][$key]['mode']);
-        $local_clause = $datefield." <= '".$end_sql_date."'";
-        array_push($clauses, $local_clause);
-      }
-    }
-  }
-        
+            $local_clause.= "'";
+            array_push($clauses, $local_clause);
+          }
+
+          foreach (array('after','before') as $suffix)
+          {
+            $key = $datefield.'-'.$suffix;
+            if (isset($search['fields'][$key]))
+            {
+              $local_clause = $datefield;
+              if ($suffix == 'after')
+              {
+                $local_clause.= ' >';
+              }
+              else
+              {
+                $local_clause.= ' <';
+              }
+              if (isset($search['fields'][$key]['mode'])
+                  and $search['fields'][$key]['mode'] == 'inc')
+              {
+                $local_clause.= '=';
+              }
+              $local_clause.= " '";
+              $local_clause.= str_replace('.', '-',
+                                          $search['fields'][$key]['words'][0]);
+              $local_clause.= "'";
+              array_push($clauses, $local_clause);
+            }
+          }
+        }
+
         if (isset($search['fields']['cat']))
         {
           if ($search['fields']['cat']['mode'] == 'sub_inc')
@@ -508,7 +544,7 @@ SELECT DISTINCT(id) AS id
 
         // adds brackets around where clauses
         array_walk($clauses, create_function('&$s', '$s = "(".$s.")";'));
-        $page['where'] = 'WHERE '.implode(' AND ', $clauses);
+        $page['where'] = 'WHERE '.implode(' '.$search['mode'].' ', $clauses);
         if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
         $query = '
