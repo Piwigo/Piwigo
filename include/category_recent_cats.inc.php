@@ -65,7 +65,7 @@ $conf['level_separator'] = '<br />';
 // the name to display
 while ( $row = mysql_fetch_array( $result ) )
 {
-  $name = get_cat_display_name_cache($row['uppercats'], '<br />', '', false);
+  $name = get_cat_display_name_cache($row['uppercats'], '', false);
 
   $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
