@@ -56,7 +56,7 @@ column:id                        table:images         type:mediumint            
 column:file                      table:images         type:varchar                  nullable:Y length:255 binary:N
 column:date_available            table:images         type:date                     nullable:Y
 column:date_creation             table:images         type:date                     nullable:N
-column:tn_ext                    table:images         type:char                     nullable:Y length:3   binary:N
+column:tn_ext                    table:images         type:varchar                  nullable:N length:4   binary:N
 column:name                      table:images         type:varchar                  nullable:N length:255 binary:N
 column:comment                   table:images         type:text                     nullable:N
 column:author                    table:images         type:varchar                  nullable:N length:255 binary:N
@@ -66,6 +66,7 @@ column:width                     table:images         type:smallint             
 column:height                    table:images         type:smallint                 nullable:N length:9   signed:N
 column:keywords                  table:images         type:varchar                  nullable:N length:255 binary:N
 column:storage_category_id       table:images         type:smallint                 nullable:N length:5   signed:N
+column:representative_ext        table:images         type:varchar                  nullable:N length:4   binary:N
 column:id                        table:sessions       type:varchar                  nullable:Y length:255 binary:Y
 column:user_id                   table:sessions       type:smallint                 nullable:Y length:5   signed:N
 column:expiration                table:sessions       type:int                      nullable:Y length:10  signed:N
@@ -88,8 +89,7 @@ column:maxwidth                  table:users          type:smallint             
 column:maxheight                 table:users          type:smallint                 nullable:N length:6   signed:Y
 column:expand                    table:users          type:enum('true','false')     nullable:Y
 column:show_nb_comments          table:users          type:enum('true','false')     nullable:Y
-column:short_period              table:users          type:tinyint                  nullable:Y length:3   signed:N
-column:long_period               table:users          type:tinyint                  nullable:Y length:3   signed:N
+column:recent_period             table:users          type:tinyint                  nullable:Y length:3   signed:N
 column:template                  table:users          type:varchar                  nullable:Y length:255 binary:N
 column:forbidden_categories      table:users          type:text                     nullable:N
 column:id                        table:waiting        type:int                      nullable:Y length:10  signed:N
