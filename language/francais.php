@@ -677,9 +677,11 @@ if ( $isadmin )
   $lang['step1_database_info'] = 'celui fourni par votre hébergeur';
   $lang['step1_prefix'] = 'Préfixe des noms de table';
   $lang['step1_prefix_info'] = 'le nom des tables apparaîtra avec ce préfixe (permet de mieux gérer sa base de données)';
-		
+
   $lang['step2_err_login1'] = 'veuillez rentrer un pseudo pour le webmaster';
-  $lang['step2_err_login2'] = 'le pseudo du webmaster ne doit pas se terminer ou commencer par un espace';
+// start version 1.3
+  // $lang['step2_err_login2'] = 'le pseudo du webmaster ne doit pas se terminer ou commencer par un espace';
+//
   $lang['step2_err_login3'] = 'le pseudo du webmaster ne doit pas comporter les caractère " et \'';
   $lang['step2_err_pass'] = 'veuillez retaper votre mot de passe';
   $lang['step2_err_mail'] = $lang['conf_err_mail'];
