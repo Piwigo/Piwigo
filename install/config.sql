@@ -27,3 +27,5 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_line_page','3
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('recent_period','7','Period within which pictures are displayed as new (in days)');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('auto_expand','false','Auto expand of the category tree');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_nb_comments','true','Show the number of comments under the thumbnails');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_iptc','false','Use IPTC data during database synchronization with files metadata');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_exif','true','Use EXIF data during database synchronization with files metadata');

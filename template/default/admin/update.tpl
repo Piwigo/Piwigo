@@ -7,9 +7,12 @@
 <!-- END introduction -->
 <!-- BEGIN update -->
 <div class="admin">{L_RESULT_UPDATE}</div>
-	{update.CATEGORIES}
-	<br /><span style="color:blue;">{update.NEW_CAT} {L_NEW_CATEGORY}</span>
-	<br /><span style="color:red;">{update.DEL_CAT} {L_DEL_CATEGORY}</span>
+<br /><span style="color:#9cb4ce;">{update.NEW_CAT} {L_NEW_CATEGORY}</span>
+<br /><span style="color:#ffe1e1;">{update.DEL_CAT} {L_DEL_CATEGORY}</span>
+<!-- BEGIN sync_metadata -->
+<br />[ <a href="{update.sync_metadata.U_URL}">{L_UPDATE_SYNC_METADATA_QUESTION}</a> ]
+<!-- END sync_metadata -->
+{update.CATEGORIES}
 <!-- END update -->
 <!-- BEGIN remote_update -->
   <table>

@@ -154,6 +154,11 @@ $lang['conf_default_maxwidth_info'] = 'Maximum width for display pictures : pict
 $lang['conf_default_maxheight_info'] = 'Just as the maximum width, but for the height';
 $lang['conf_session_cookie'] = 'Authorize cookies';
 $lang['conf_session_cookie_info'] = 'users won\'t have to log on each visit any more. Less secure.';
+$lang['conf_metadata_title'] = 'Files metadata';
+$lang['conf_use_exif'] = 'Use EXIF';
+$lang['conf_use_exif_info'] = 'Use EXIF data during metadata synchronization into PhpWebGallery database';
+$lang['conf_use_iptc'] = 'Use IPTC';
+$lang['conf_use_iptc_info'] = 'Use IPTC data during metadata synchronization into PhpWebGallery database';
 
 //FAQ
 $lang['help_images_title'] = 'Adding pictures';
@@ -260,6 +265,7 @@ $lang['update_research_conclusion'] = 'pictures added to the database';
 $lang['update_default_title'] = 'Choose an option';
 $lang['update_only_cat'] = 'update categories, not pictures';
 $lang['update_all'] = 'update all';
+$lang['update_sync_metadata_question'] = 'Do you want to synchronize new elements informations with files metadata ?';
 $lang['tn_width'] = 'width';
 $lang['tn_height'] = 'height';
 $lang['tn_no_support'] = 'Picture unreachable or no support';

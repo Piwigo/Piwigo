@@ -168,6 +168,35 @@
     <td><strong>{L_SESSION_ID_SIZE}&nbsp;:</strong><br /><span class="small">{L_SESSION_ID_SIZE_INFO}</span></td>
 	<td class="row1"><input type="text" size="2" maxlength="3" name="session_id_size" value="{SESSION_ID_SIZE}" /></td>
   </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr class="admin">
+    <th colspan="2">{L_CONF_METADATA}</th>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>
+      <strong>{L_USE_EXIF}&nbsp;:</strong>
+      <br /><span class="small">{L_USE_EXIF_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="use_exif" value="true" {USE_EXIF_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="use_exif" value="false" {USE_EXIF_NO} />{L_NO}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>{L_USE_IPTC}&nbsp;:</strong>
+      <br /><span class="small">{L_USE_IPTC_INFO}</span>
+    </td>
+    <td class="row1">
+      <input type="radio" class="radio" name="use_iptc" value="true" {USE_IPTC_YES} />{L_YES}&nbsp;&nbsp;
+      <input type="radio" class="radio" name="use_iptc" value="false" {USE_IPTC_NO} />{L_NO}
+    </td>
+  </tr>
     <!-- BEGIN remote_sites -->
     <tr>
       <th colspan="2" align="center">{#remote_site}</th>

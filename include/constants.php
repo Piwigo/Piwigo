@@ -57,5 +57,5 @@ define('USER_ACCESS_TABLE', $table_prefix.'user_access');
 define('USER_GROUP_TABLE', $table_prefix.'user_group');
 define('USERS_TABLE', $table_prefix.'users');
 define('WAITING_TABLE', $table_prefix.'waiting');
-
+define('IMAGE_METADATA_TABLE', $table_prefix.'image_metadata');
 ?>

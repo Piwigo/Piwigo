@@ -26,33 +26,43 @@
 // +-----------------------------------------------------------------------+
 
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
+define('CURRENT_DATE', "'".date('Y-m-d')."'");
 //------------------------------------------------------------------- functions
-function ordering( $id_uppercat)
+/**
+ * order categories (update categories.rank database field)
+ *
+ * the purpose of this function is to give a rank for all categories
+ * (insides its sub-category), even the newer that have none at te
+ * beginning. For this, ordering function selects all categories ordered by
+ * rank ASC then name ASC for each uppercat.
+ *
+ * @returns void
+ */
+function ordering()
 {
-  $rank = 1;
+  $current_rank = 0;
+  $current_uppercat = '';
 		
-  $query = 'SELECT id';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  if ( !is_numeric( $id_uppercat))
+  $query = '
+SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
+  FROM '.CATEGORIES_TABLE.'
+  ORDER BY id_uppercat,rank,name
+;';
+  $result = mysql_query($query);
+  while ($row = mysql_fetch_array($result))
   {
-    $query.= ' WHERE id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' WHERE id_uppercat = '.$id_uppercat;
-  }
-  $query.= ' ORDER BY rank ASC, dir ASC';
-  $query.= ';';
-  $result = mysql_query( $query);
-  while ( $row = mysql_fetch_array( $result))
-  {
-    $query = 'UPDATE '.CATEGORIES_TABLE;
-    $query.= ' SET rank = '.$rank;
-    $query.= ' WHERE id = '.$row['id'];
-    $query.= ';';
-    mysql_query( $query);
-    $rank++;
-    ordering( $row['id']);
+    if ($row['id_uppercat'] != $current_uppercat)
+    {
+      $current_rank = 0;
+      $current_uppercat = $row['id_uppercat'];
+    }
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+ SET rank = '.++$current_rank.'
+ WHERE id = '.$row['id'].'
+;';
+    mysql_query($query);
   }
 }
 
@@ -110,7 +120,7 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
     }
   }
 
-  $sub_dirs = get_category_directories($cat_directory);
+  $fs_subdirs = get_category_directories($cat_directory);
 
   $sub_category_dirs = array();
   $query = '
@@ -136,29 +146,34 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
   }
   
   // 3. we have to remove the categories of the database not present anymore
+  $to_delete_categories = array();
   foreach ($sub_category_dirs as $id => $dir)
   {
-    if (!in_array($dir, $sub_dirs))
+    if (!in_array($dir, $fs_subdirs))
     {
-      delete_category($id);
+      array_push($to_delete_categories,$id);
     }
+  }
+  if (count($to_delete_categories) > 0)
+  {
+    delete_categories($to_delete_categories);
   }
 
   // array of new categories to insert
   $inserts = array();
   
-  foreach ($sub_dirs as $sub_dir)
+  foreach ($fs_subdirs as $fs_subdir)
   {
     // 5. Is the category already existing ? we create a subcat if not
     //    existing
-    $category_id = array_search($sub_dir, $sub_category_dirs);
+    $category_id = array_search($fs_subdir, $sub_category_dirs);
     if (!is_numeric($category_id))
     {
-      if (preg_match('/^[a-zA-Z0-9-_.]+$/', $sub_dir))
+      if (preg_match('/^[a-zA-Z0-9-_.]+$/', $fs_subdir))
       {
-        $name = str_replace('_', ' ', $sub_dir);
+        $name = str_replace('_', ' ', $fs_subdir);
 
-        $value = "('".$sub_dir."','".$name."',1";
+        $value = "('".$fs_subdir."','".$name."',1";
         if (!is_numeric($id_uppercat))
         {
           $value.= ',NULL';
@@ -173,7 +188,7 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
       }
       else
       {
-        $output.= '<span style="color:red;">"'.$sub_dir.'" : ';
+        $output.= '<span style="color:red;">"'.$fs_subdir.'" : ';
         $output.= $lang['update_wrong_dirname'].'</span><br />';
       }
     }
@@ -250,7 +265,7 @@ SELECT id
 
 function insert_local_element($dir, $category_id)
 {
-  global $lang,$conf,$count_new, $count_deleted;
+  global $lang,$conf,$count_new;
 
   $output = '';
 
@@ -308,8 +323,7 @@ SELECT id,file,tn_ext
   }
 
   $to_delete_elements = array_unique($to_delete_elements);
-  $count_deleted+= count($to_delete_elements);
-  if ($count_deleted > 0)
+  if (count($to_delete_elements) > 0)
   {
     delete_elements($to_delete_elements);
   }
@@ -325,27 +339,20 @@ SELECT file FROM '.IMAGES_TABLE.'
     array_push($registered_elements, $row['file']);
   }
 
-  // validated pictures are picture uploaded by users, validated by an admin
-  // and not registered (visible) yet
-  $validated_pictures    = array();
+  // unvalidated pictures are picture uploaded by users, but not validated
+  // by an admin (so not registered truly visible yet)
   $unvalidated_pictures  = array();
   
   $query = '
-SELECT file,infos,validated
+SELECT file
   FROM '.WAITING_TABLE.'
   WHERE storage_category_id = '.$category_id.'
+    AND validated = \'false\'
 ;';
   $result = mysql_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    if ($row['validated'] == 'true')
-    {
-      $validated_pictures[$row['file']] = $row['infos'];
-    }
-    else
-    {
-      array_push($unvalidated_pictures, $row['file']);
-    }
+    array_push($unvalidated_pictures, $row['file']);
   }
 
   // we only search among the picture present in the filesystem and not
@@ -385,64 +392,23 @@ SELECT file,infos,validated
         // if we found a thumnbnail corresponding to our picture...
         if ($tn_ext != '')
         {
-          $image_size = @getimagesize($dir.$unregistered_element);
-          // (file, storage_category_id, date_available, tn_ext, filesize,
-          // width, height, name, author, comment, date_creation,
-          // representative_ext)'
-          $value = '(';
-          $value.= "'".$unregistered_element."'";
-          $value.= ','.$category_id;
-          $value.= ",'".date('Y-m-d')."'";
-          $value.= ",'".$tn_ext."'";
-          $value.= ','.floor(filesize($dir.$unregistered_element) / 1024);
-          $value.= ','.$image_size[0];
-          $value.= ','.$image_size[1];
-          if (isset($validated_pictures[$unregistered_element]))
-          {
-            // retrieving infos from the XML description from waiting table
-            $infos = nl2br($validated_pictures[$unregistered_element]);
+          $insert = array();
+          $insert['file'] = "'".$unregistered_element."'";
+          $insert['storage_category_id'] = $category_id;
+          $insert['date_available'] = CURRENT_DATE;
+          $insert['tn_ext'] = "'".$tn_ext."'";
 
-            $unixtime = getAttribute($infos, 'date_creation');
-            if ($unixtime != '')
-            {
-              $date_creation ="'".date('Y-m-d',$unixtime)."'";
-            }
-            else
-            {
-              $date_creation = 'NULL';
-            }
-          
-            $value.= ",'".getAttribute($infos, 'name')."'";
-            $value.= ",'".getAttribute($infos, 'author')."'";
-            $value.= ",'".getAttribute($infos, 'comment')."'";
-            $value.= ','.$date_creation;
-
-            // deleting the waiting element
-            $query = '
-DELETE FROM '.WAITING_TABLE.'
-  WHERE file = \''.$unregistered_element.'\'
-    AND storage_category_id = '.$category_id.'
-;';
-            mysql_query($query);
-          }
-          else
-          {
-            $value.= ",'','','',NULL";
-          }
-          $value.= ',NULL'; // representative_ext
-          $value.= ')';
-        
           $count_new++;
           $output.= $unregistered_element;
           $output.= ' <span style="font-weight:bold;">';
           $output.= $lang['update_research_added'].'</span>';
           $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')';
           $output.= '<br />';
-          array_push($inserts, $value);
+          array_push($inserts, $insert);
         }
         else
         {
-          $output.= '<span style="color:red;">';
+          $output.= '<span style="color:orange;">';
           $output.= $lang['update_missing_tn'].' : '.$unregistered_element;
           $output.= ' (<span style="font-weight:bold;">';
           $output.= $conf['prefix_thumbnail'];
@@ -470,44 +436,25 @@ DELETE FROM '.WAITING_TABLE.'
           }
         }
 
-        // (file, storage_category_id, date_available, tn_ext, filesize,
-        // width, height, name, author, comment, date_creation,
-        // representative_ext)'
-        $value = '(';
-        $value.= "'".$unregistered_element."'";
-        $value.= ','.$category_id;
-        $value.= ",'".date('Y-m-d')."'";
+        $insert = array();
+        $insert['file'] = "'".$unregistered_element."'";
+        $insert['storage_category_id'] = $category_id;
+        $insert['date_available'] = CURRENT_DATE;
         if ( $tn_ext != '' )
         {
-          $value.= ",'".$tn_ext."'";
+          $insert['tn_ext'] = "'".$tn_ext."'";
         }
-        else
-        {
-          $value.= ',NULL';
-        }
-        $value.= ','.floor(filesize($dir.$unregistered_element) / 1024);
-        $value.= ',NULL';
-        $value.= ',NULL';
-        $value.= ',NULL';
-        $value.= ',NULL';
-        $value.= ',NULL';
-        $value.= ',NULL';
         if ( $representative_ext != '' )
         {
-          $value.= ",'".$representative_ext."'";
+          $insert['representative_ext'] = "'".$representative_ext."'";
         }
-        else
-        {
-          $value.= ',NULL';
-        }
-        $value.= ')';
 
         $count_new++;
         $output.= $unregistered_element;
         $output.= ' <span style="font-weight:bold;">';
         $output.= $lang['update_research_added'].'</span>';
         $output.= '<br />';
-        array_push($inserts, $value);
+        array_push($inserts, $insert);
       }
     }
     else
@@ -520,13 +467,45 @@ DELETE FROM '.WAITING_TABLE.'
   if (count($inserts) > 0)
   {
     // inserts all found pictures
+    $dbfields = array(
+      'file','storage_category_id','date_available','tn_ext'
+      ,'representative_ext'
+      );
     $query = '
 INSERT INTO '.IMAGES_TABLE.'
-  (file,storage_category_id,date_available,tn_ext,filesize,width,height
-   ,name,author,comment,date_creation,representative_ext)
+  ('.implode(',', $dbfields).')
    VALUES
-   '.implode(',', $inserts).'
+   ';
+    foreach ($inserts as $insert_id => $insert)
+    {
+      $query.= '
+';
+      if ($insert_id > 0)
+      {
+        $query.= ',';
+      }
+      $query.= '(';
+      foreach ($dbfields as $field_id => $dbfield)
+      {
+        if ($field_id > 0)
+        {
+          $query.= ',';
+        }
+        
+        if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
+        {
+          $query.= 'NULL';
+        }
+        else
+        {
+          $query.= $insert[$dbfield];
+        }
+      }
+      $query.=')';
+    }
+    $query.= '
 ;';
+
     mysql_query($query);
 
     // what are the ids of the pictures in the $category_id ?
@@ -575,11 +554,11 @@ $template->assign_vars(array(
   'L_RESULT_UPDATE'=>$lang['update_part_research'],
   'L_NEW_CATEGORY'=>$lang['update_research_conclusion'],
   'L_DEL_CATEGORY'=>$lang['update_deletion_conclusion'],
+  'L_UPDATE_SYNC_METADATA_QUESTION'=>$lang['update_sync_metadata_question'],
   
   'U_CAT_UPDATE'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=cats'),
   'U_ALL_UPDATE'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=all')
  ));
-  
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
 if (!isset($_GET['update']))
@@ -587,7 +566,7 @@ if (!isset($_GET['update']))
  $template->assign_block_vars('introduction',array());
 }
 //-------------------------------------------------- local update : ./galleries
-else
+else if (!isset($_GET['metadata']))
 {
   check_cat_id($_GET['update']);
   $start = get_moment();
@@ -602,24 +581,62 @@ else
   {
     $categories = insert_local_category('NULL');
   }
-  $end = get_moment();
-  //echo get_elapsed_time($start, $end).' for update <br />';
+  echo get_elapsed_time($start,get_moment()).' for scanning directories<br />';
   $template->assign_block_vars('update',array(
     'CATEGORIES'=>$categories,
 	'NEW_CAT'=>$count_new,
 	'DEL_CAT'=>$count_deleted
    ));
+  if ($count_new > 0)
+  {
+    $url = PHPWG_ROOT_PATH.'admin.php?page=update&amp;metadata=1';
+    if (isset($page['cat']))
+    {
+      $url.= '&amp;update='.$page['cat'];
+    }
+    $template->assign_block_vars(
+      'update.sync_metadata',
+      array(
+        'U_URL' => add_session_id($url)
+        ));
+  }
 }
 //---------------------------------------- update informations about categories
-if (isset($_GET['update'])
-     or isset($page['cat'])
-     or @is_file('./listing.xml') && DEBUG)
+if (!isset($_GET['metadata'])
+    and (isset($_GET['update'])
+         or isset($page['cat'])
+         or @is_file('./listing.xml') && DEBUG))
 {
   $start = get_moment();
   update_category('all');
-  ordering('NULL');
-  $end = get_moment();
-  echo get_elapsed_time($start, $end).' for update_category(all)<br />';
+  echo get_elapsed_time($start,get_moment()).' for update_category(all)<br />';
+  $start = get_moment();
+  ordering();
+  echo get_elapsed_time($start, get_moment()).' for ordering categories<br />';
+}
+//---------------------------------------------------- metadata synchronization
+if (isset($_GET['metadata']))
+{
+  if (isset($_GET['update']))
+  {
+    check_cat_id($_GET['update']);
+  }
+  
+  $start = get_moment();
+  // $files = get_filelist(1464);
+  if (isset($page['cat']))
+  {
+    $files = get_filelist($page['cat'],true,true);
+  }
+  else
+  {
+    $files = get_filelist('',true,true);
+  }
+  echo get_elapsed_time($start, get_moment()).' for get_filelist<br />';
+  
+  $start = get_moment();
+  update_metadata($files);
+  echo get_elapsed_time($start, get_moment()).' for metadata update<br />';
 }
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'update');

@@ -166,23 +166,37 @@ if ( isset( $_POST['submit'] ) )
     array_push( $error, $lang['err_maxheight'] );
   }*/
   // updating configuraiton if no error found
-  if ( count( $error ) == 0 )
+  if (count($error) == 0)
   {
-    $result = mysql_query( "SELECT * FROM ".CONFIG_TABLE );
-    while ( $row = mysql_fetch_array( $result ) )
-	{
-	  $config_name = $row['param'];
-	  $conf[$config_name] = ( isset($_POST[$config_name]) ) ? $_POST[$config_name] : $row['value'];
-      if ( isset( $_POST[$config_name] ) )
+    $result = mysql_query('SELECT * FROM '.CONFIG_TABLE);
+    while ($row = mysql_fetch_array($result))
+    {
+      $config_name = $row['param'];
+      if (isset($_POST[$config_name]))
       {
-        $query = 'UPDATE '.CONFIG_TABLE;
-        $query.= " SET value = '". str_replace("\'", "''", $conf[$config_name]) ;
-        $query.= "' WHERE param = '$config_name'";
-        mysql_query( $query );
+        $conf[$config_name] = $_POST[$config_name];
+      }
+      else
+      {
+        $conf[$config_name] = $row['value'];
+      }
+
+      if (isset($_POST[$config_name]))
+      {
+        $query = '
+UPDATE '.CONFIG_TABLE.'
+  SET value = \''. str_replace("\'", "''", $conf[$config_name]).'\'
+  WHERE param = \''.$config_name.'\'
+;';
+        mysql_query($query);
       }
     }
   }
 }
+
+// echo '<pre>';
+// print_r($conf);
+// echo '</pre>';
 
 $access = ($conf['access']=='free')?'ACCESS_FREE':'ACCESS_RESTRICTED'; 
 $log = ($conf['log']=='true')?'HISTORY_YES':'HISTORY_NO'; 
@@ -194,6 +208,8 @@ $expand = ($conf['auto_expand']=='true')?'EXPAND_TREE_YES':'EXPAND_TREE_NO';
 $nb_comments = ($conf['show_nb_comments']=='true')?'NB_COMMENTS_YES':'NB_COMMENTS_NO';
 $upload = ($conf['upload_available']=='true')?'UPLOAD_YES':'UPLOAD_NO';
 $cookie = ($conf['authorize_cookies']=='true')?'COOKIE_YES':'COOKIE_NO';
+$use_exif = ($conf['use_exif']=='true')?'USE_EXIF_YES':'USE_EXIF_NO';
+$use_iptc = ($conf['use_iptc']=='true')?'USE_IPTC_YES':'USE_IPTC_NO';
 
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('config'=>'admin/configuration.tpl') );
@@ -226,6 +242,8 @@ $template->assign_vars(array(
   $nb_comments=>'checked="checked"',
   $upload=>'checked="checked"',
   $cookie=>'checked="checked"',
+  $use_exif=>'checked="checked"',
+  $use_iptc=>'checked="checked"',
   
   'L_CONFIRM'=>$lang['conf_confirmation'],
   'L_CONF_GENERAL'=>$lang['conf_general_title'],
@@ -290,9 +308,14 @@ $template->assign_vars(array(
   'L_YES'=>$lang['yes'],
   'L_NO'=>$lang['no'],
   'L_SUBMIT'=>$lang['submit'],
+  'L_CONF_METADATA'=>$lang['conf_metadata_title'],
+  'L_USE_EXIF'=>$lang['conf_use_exif'],
+  'L_USE_EXIF_INFO'=>$lang['conf_use_exif_info'],
+  'L_USE_IPTC'=>$lang['conf_use_iptc'],
+  'L_USE_IPTC_INFO'=>$lang['conf_use_iptc_info'],
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=configuration')
-  ));
+                         ));
 
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
