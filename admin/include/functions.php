@@ -390,7 +390,7 @@ function update_category( $id = 'all' )
     
     $query = 'UPDATE '.PREFIX_TABLE.'categories';
     $query.= " SET date_last = '".$date_available."'";
-    $query.= ' SET nb_images = '.$nb_images;
+    $query.= ', nb_images = '.$nb_images;
     $query.= ' WHERE id = '.$id;
     $query.= ';';
     mysql_query( $query );
