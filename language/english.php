@@ -281,7 +281,6 @@ if ( $isadmin )
   $lang['conf_remote_site_delete_info'] = 'Deleting a remote server will delete all the image and the categories in relation with this server.';
   $lang['conf_upload_title'] = 'Configuration of the users upload';
   $lang['conf_upload_available'] = 'authorized the upload of pictures';
-  $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server).';
   $lang['conf_upload_maxfilesize'] = 'maximum filesize';
   $lang['conf_upload_maxfilesize_info'] = 'Maximum filesize for the uploaded pictures. Must be a number between 10 and 1000 KB.';
   $lang['conf_err_upload_maxfilesize'] = 'Maximum filesize for the uploaded pictures must be a number between 10 and 1000 KB.';
@@ -541,5 +540,7 @@ Once this file deleted , follow this instructions :
   $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
   $lang['permuser_only_private'] = 'Only private categories are shown';
   $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';
+  $lang['conf_upload_available_info'] = 'Authorizing the upload of pictures by users on the categories of the website (not on a remote server). This is general parameter, it is needed to authorize upload category by category, by default, no category is "uploadable".';
+
 }
 ?>

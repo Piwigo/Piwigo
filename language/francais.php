@@ -280,7 +280,6 @@ if ( $isadmin )
   $lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';
   $lang['conf_upload_title'] = 'Configurer l\'upload des utilisateurs';
   $lang['conf_upload_available'] = 'autoriser l\'ajout d\'images';
-  $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant).';
   $lang['conf_upload_maxfilesize'] = 'poids maximum';
   $lang['conf_upload_maxfilesize_info'] = 'Poids maximum autorisé pour les images uploadées. Celui-ci doit être un entier compris entre 10 et 1000, en Ko.';
   $lang['conf_err_upload_maxfilesize'] = 'Le poids maximum pour les images uploadés doit être un entier compris entre 10 et 1000.';
@@ -541,6 +540,6 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
   $lang['help_infos'][2] = 'Pour n\'importe quelle question, n\'hésitez pas à consulter le forum ou à y poser une question, sur le site';
   $lang['help_infos'][2] = 'Pour n\'importe quelle question, n\'hésitez pas à consulter le <a href="'.$conf['forum_url'].'" style="text-decoration:underline">forum</a> ou à y poser une question, sur le site';
   $lang['step1_err_copy'] = 'Copiez le texte en bleu entre les tirets et collez-le dans le fichier mysql.inc.php qui se trouve dans le répertoire "include" à la base de l\'endroit où vous avez installé PhpWebGallery (le fichier mysql.inc.php ne doit comporter QUE ce qui est en bleu entre les tirets, aucun retour à la ligne ou espace n\'est autorisé)';
-
+  $lang['conf_upload_available_info'] = 'Autoriser l\'ajout d\'image par les utilisateurs dans les catégories du site (pas sur un site distant). Ceci est un paramètre général, il est nécessaire pour autoriser l\'upload catégorie par catégorie.';
 }
 ?>
