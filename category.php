@@ -133,19 +133,7 @@ $template->assign_vars(array(
   'L_SUBCAT' => $lang['sub-cat'],
   'L_IMG_AVAILABLE' => $lang['images_available'],
   'L_TOTAL' => $lang['total'],
-  'L_FAVORITE_HINT' => $lang['favorite_cat_hint'],
-  'L_FAVORITE' => $lang['favorite_cat'],
   'L_SPECIAL_CATEGORIES' => $lang['special_categories'],
-  'L_MOST_VISITED_HINT' => $lang['most_visited_cat_hint'],
-  'L_MOST_VISITED' => $lang['most_visited_cat'],
-  'L_BEST_RATED_HINT' => $lang['best_rated_cat_hint'],
-  'L_BEST_RATED' => $lang['best_rated_cat'],
-  'L_RECENT_PICS_HINT' => $lang['recent_pics_cat_hint'],
-  'L_RECENT_PICS' => $lang['recent_pics_cat'],
-  'L_RECENT_CATS_HINT' => $lang['recent_cats_cat_hint'],
-  'L_RECENT_CATS' => $lang['recent_cats_cat'],
-  'L_CALENDAR' => $lang['calendar'],
-  'L_CALENDAR_HINT' => $lang['calendar_hint'],
   'L_SUMMARY' => $lang['title_menu'],
   'L_UPLOAD' => $lang['upload_picture'],
   'L_COMMENT' => $lang['comments'],
@@ -166,29 +154,73 @@ $template->assign_vars(array(
   'T_RECENT' => $icon_recent,
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
-  'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
-  'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
-  'U_BEST_RATED'=>add_session_id(PHPWG_ROOT_PATH.'category.php?cat=best_rated'),
-  'U_RECENT_PICS'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent_pics' ),
-  'U_RECENT_CATS'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent_cats' ),
-  'U_CALENDAR'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=calendar' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
   )
 );
-
-// authentification mode management
+//---------------------------------------------------------- special categories
+// favorites categories
 if ( !$user['is_the_guest'] )
 {
-  // searching the number of favorite picture
-  $query = 'SELECT COUNT(*) AS count';
-  $query.= ' FROM '.FAVORITES_TABLE.' WHERE user_id = '.$user['id'].';';
-  $result = mysql_query( $query );
-  $row = mysql_fetch_array( $result );
-  $template->assign_block_vars('favorites', array ('NB_FAV'=>$row['count']) );
   $template->assign_block_vars('username', array());
+
+  $template->assign_block_vars(
+    'special_cat',
+    array(
+      'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=fav'),
+      'TITLE' => $lang['favorite_cat_hint'],
+      'NAME' => $lang['favorite_cat']
+      ));
 }
+// most visited
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=most_visited'),
+    'TITLE' => $lang['most_visited_cat_hint'],
+    'NAME' => $conf['top_number'].' '.$lang['most_visited_cat']
+    ));
+// best rated
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=best_rated'),
+    'TITLE' => $lang['best_rated_cat_hint'],
+    'NAME' => $conf['top_number'].' '.$lang['best_rated_cat']
+    ));
+// random
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=random'),
+    'TITLE' => $lang['random_cat_hint'],
+    'NAME' => $lang['random_cat']
+    ));
+// recent pics
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=recent_pics'),
+    'TITLE' => $lang['recent_pics_cat_hint'],
+    'NAME' => $lang['recent_pics_cat']
+    ));
+// recent cats
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=recent_cats'),
+    'TITLE' => $lang['recent_cats_cat_hint'],
+    'NAME' => $lang['recent_cats_cat']
+    ));
+// calendar
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=calendar'),
+    'TITLE' => $lang['calendar_hint'],
+    'NAME' => $lang['calendar']
+    ));
 //--------------------------------------------------------------------- summary
 
 if ( !$user['is_the_guest'] )
@@ -229,10 +261,13 @@ $template->assign_block_vars('summary', array(
 //------------------------------------------------------ main part : thumbnails
 if (isset($page['cat'])
     and ((is_numeric($page['cat']) and $page['cat_nb_images'] != 0)
-         or $page['cat'] == 'search'
-         or $page['cat'] == 'most_visited'
-         or $page['cat'] == 'recent_pics'
-         or $page['cat'] == 'best_rated'))
+         or in_array($page['cat'],
+                     array('search'
+                           ,'most_visited'
+                           ,'recent_pics'
+                           ,'best_rated'
+                           ,'random'
+                       ))))
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
 }

@@ -13,16 +13,11 @@
         <div class="totalImages">[&nbsp;{NB_PICTURE}&nbsp;{L_TOTAL}&nbsp;]</div>
 		  <br />
 		  <ul class="menu">
-		    <!-- BEGIN favorites -->
-		    <li><a href="{U_FAVORITE}"><span title="{L_FAVORITE_HINT}">{L_FAVORITE}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{favorites.NB_FAV}&nbsp;]</span></li>
-		    <!-- END favorites -->
 		    <li><span style="font-weight:bold;">{L_SPECIAL_CATEGORIES}</span></li>
 		    <ul class="menu">
-		      <li><a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}">{TOP_NUMBER}&nbsp;{L_MOST_VISITED}</span></a></li>
-                      <li><a href="{U_BEST_RATED}"><span title="{L_BEST_RATED_HINT}">{TOP_NUMBER}&nbsp;{L_BEST_RATED}</span></a></li>
-		      <li><a href="{U_RECENT_PICS}"><span title="{L_RECENT_PICS_HINT}">{L_RECENT_PICS}</span></a> {T_SHORT}</li>
-		      <li><a href="{U_RECENT_CATS}"><span title="{L_RECENT_CATS_HINT}">{L_RECENT_CATS}</span></a></li>
-		      <li><a href="{U_CALENDAR}"><span title="{L_CALENDAR_HINT}">{L_CALENDAR}</span></a></li>
+                      <!-- BEGIN special_cat -->
+                      <li><a href="{special_cat.URL}" title="{special_cat.TITLE}">{special_cat.NAME}</a></li>
+                      <!-- END special_cat -->
 		    </ul>
 		  </ul>
 		</div>

@@ -65,7 +65,8 @@ function check_restrictions( $category_id )
  *  - equals 'best_rated'
  *  - equals 'recent_pics'
  *  - equals 'recent_cats'
- *  _ equals 'calendar'
+ *  - equals 'calendar'
+ *  - equals 'random'
  *
  * The function fills the global var $page['cat'] and returns nothing
  *
@@ -98,7 +99,8 @@ function check_cat_id( $cat )
          or $cat == 'best_rated'
          or $cat == 'recent_pics'
          or $cat == 'recent_cats'
-         or $cat == 'calendar' )
+         or $cat == 'calendar'
+         or $cat == 'random' )
     {
       $page['cat'] = $cat;
     }
@@ -414,6 +416,7 @@ function get_site_url( $category_id )
 //       - most visited pictures
 //       - best rated pictures
 //       - recent pictures
+//       - random pictures
 // 3. determination of the title of the page
 // 4. creation of the navigation bar
 function initialize_category( $calling_page = 'category' )
@@ -732,7 +735,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         
         if (isset($forbidden))
         {
-          $page['where'] = ' AND '.$forbidden;
+          $page['where'].= ' AND '.$forbidden;
         }
 
         $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
@@ -761,6 +764,24 @@ SELECT COUNT(1) AS count
         {
           $page['nb_image_page'] = $conf['top_number'] - $page['start'];
         }
+      }
+      else if ($page['cat'] == 'random')
+      {
+        $page['title'] = $lang['random_cat'];
+          
+        if (isset($forbidden))
+        {
+          $page['where'] = 'WHERE '.$forbidden;
+        }
+        else
+        {
+          $page['where'] = 'WHERE 1=1';
+        }
+
+        $conf['order_by'] = ' ORDER BY RAND()';
+
+        $page['cat_nb_images'] = $conf['top_number'];
+        $page['nb_image_page'] = $page['cat_nb_images'];
       }
 
       if (isset($query))

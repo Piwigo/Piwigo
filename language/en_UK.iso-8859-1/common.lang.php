@@ -132,8 +132,8 @@ $lang['change_login'] = 'change login';
 $lang['hint_login'] = 'identification enables site\'s appareance customization';
 $lang['hint_customize'] = 'customize the appareance of the gallery';
 $lang['hint_search'] = 'search';
-$lang['favorite_cat'] = 'favorites';
-$lang['favorite_cat_hint'] = 'display your favorites';
+$lang['favorite_cat'] = 'my favorites';
+$lang['favorite_cat_hint'] = 'display my favorites pictures';
 $lang['about'] = 'about';
 $lang['hint_about'] = 'more informations on PhpWebGallery...';
 $lang['admin'] = 'Administration';
@@ -288,4 +288,6 @@ $lang['never_rated'] = 'You\'ve never rated this item';
 $lang['no_rate'] = 'no rate';
 $lang['rates'] = 'rates';
 $lang['standard_deviation'] = 'STD';
+$lang['random_cat'] = 'random pictures';
+$lang['random_cat_hint'] = 'Displays a set of random pictures';
 ?>
