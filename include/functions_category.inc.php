@@ -75,11 +75,7 @@ function get_user_plain_structure()
   $infos = array( 'name','id','uc.date_last','nb_images','dir','id_uppercat',
                   'rank','site_id','nb_sub_categories','uppercats');
   
-  $query = 'SELECT ';
-  foreach ( $infos as $i => $info ) {
-    if ( $i > 0 ) $query.= ',';
-    $query.= $info;
-  }
+  $query = 'SELECT '.implode( ',', $infos );
   $query.= ' FROM '.PREFIX_TABLE.'categories AS c';
 //  $query.= ' ,'.PREFIX_TABLE.'user_category AS uc';
   $query.= ' INNER JOIN '.PREFIX_TABLE.'user_category AS uc';
