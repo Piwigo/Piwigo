@@ -119,6 +119,7 @@ $lang['title_thumbnails_2'] = 'for';
 $lang['title_default'] = 'PhpWebGallery administration';
 $lang['title_waiting'] = 'Pictures waiting for validation';
 $lang['title_cat_options'] = 'Categories options';
+$lang['title_groups'] = 'Groups management';
 
 //Error messages
 $lang['cat_error_name'] = 'The name of a category mustn\'t be empty';
@@ -239,6 +240,18 @@ $lang['stats_empty'] = 'empty history';
 $lang['stats_global_graph_title'] = 'Pages seen by month';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
+// Users
+
+// Groups
+$lang['group_confirm_delete']= 'Confirm group deletion';
+$lang['group_add'] = 'Add a group';
+$lang['group_add_error1'] = 'The name of a group must not contain " or \' or be empty.';
+$lang['group_add_error2'] = 'This name is already used by another group.';
+$lang['group_list_title'] = 'List of existing groups';
+$lang['group_edit'] = 'Manage users of the group';
+$lang['group_deny_user'] = 'Deny selected';
+$lang['group_add_user']= 'Add user';
+
 $lang['menu_add_user'] = 'add';
 $lang['menu_list_user'] = 'list';
 $lang['user_err_modify'] = 'This user can\'t be modified or deleted';
@@ -302,18 +315,11 @@ $lang['tn_dirs_alone'] = 'pictures without thumbnail';
 
 $lang['title_add'] = 'Add a user';
 $lang['title_modify'] = 'Modify a user';
-$lang['title_groups'] = 'Groups management';
 $lang['title_user_perm'] = 'Modify permission for user';
 $lang['title_cat_perm'] = 'Modify permissions for category';
 $lang['title_group_perm'] = 'Modify permissions for group';
 $lang['title_picmod'] = 'Modify informations about a picture';
-$lang['adduser_associate'] = 'Associate to group';
-$lang['group_add'] = 'Add a group';
-$lang['group_add_error1'] = 'The name of a group must not contain " or \'';
-$lang['group_add_error2'] = 'This name is already used by another group';
-$lang['group_confirm'] = 'Are you sure you want to remove this group ?';
-$lang['group_list_title'] = 'List of existing groups';
-$lang['group_err_unknown'] = 'This group doesn\'t exist in the database';
+
 $lang['stats_pages_seen'] = 'pages seen';
 $lang['stats_visitors'] = 'guests';
 $lang['stats_empty'] = 'empty history';

@@ -170,40 +170,6 @@ if ( $category['site_id'] != 1 )
   $template->assign_block_vars('storage' ,array());
 }
 
-/*
-// can the parent category be changed ? (is the category virtual ?)
-if ( $row['dir'] == '' )
-{
-  $vtp->addSession( $sub, 'parent' );
-  // We only show a List Of Values if the number of categories is less than
-  // $conf['max_LOV_categories']
-  $query = 'SELECT COUNT(id) AS nb_total_categories';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  $query.= ';';
-  $countrow = mysql_fetch_array( pwg_query( $query ) );
-  if ( $countrow['nb_total_categories'] < $conf['max_LOV_categories'] )
-  {
-    $vtp->addSession( $sub, 'associate_LOV' );
-    $vtp->addSession( $sub, 'associate_cat' );
-    $vtp->setVar( $sub, 'associate_cat.value', '-1' );
-    $vtp->setVar( $sub, 'associate_cat.content', '' );
-    $vtp->closeSession( $sub, 'associate_cat' );
-    $page['plain_structure'] = get_plain_structure( true );
-    $structure = create_structure( '', array() );
-    display_categories( $structure, '&nbsp;', $row['id_uppercat'],$row['id'] );
-    $vtp->closeSession( $sub, 'associate_LOV' );
-  }
-  // else, we only display a small text field, we suppose the administrator
-  // knows the id of its category
-  else
-  {
-    $vtp->addSession( $sub, 'associate_text' );
-    $vtp->setVar( $sub, 'associate_text.value', $row['id_uppercat'] );
-    $vtp->closeSession( $sub, 'associate_text' );
-  }
-  $vtp->closeSession( $sub, 'parent' );
-}
-*/
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'categories');
 ?>

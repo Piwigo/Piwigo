@@ -135,6 +135,7 @@ $lang['show_nb_comments'] = 'Montrer le nombre de commentaires';
 $lang['recent_period'] = 'Durée de nouveauté';
 $lang['create_cookie'] = 'Créer un cookie';
 $lang['theme'] = 'Thème de l\'interface';
+$lang['mail_address'] = 'Adresse mail';
 $lang['periods_error'] = 'La période doit être entière.';
 $lang['maxwidth_error'] = 'La largeur maximum des images doit être un entier supérieur à 50';
 $lang['maxheight_error'] = 'La hauteur maximum des images doit être un entier supérieur à 50';
@@ -251,7 +252,6 @@ $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur vali
 // new or modified in release 1.3
 
 $lang['guest'] = 'visiteur';
-$lang['mail_address'] = 'adresse mail';
 $lang['add'] = 'ajouter';
 $lang['dissociate'] = 'dissocier';
 $lang['mandatory'] = 'obligatoire';

@@ -24,72 +24,38 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/group_list.vtp' );
-$tpl = array( 'group_add','add','listuser_permission','delete',
-              'group_confirm','yes','no','group_list_title' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
+if( !defined("PHPWG_ROOT_PATH") )
+{
+	die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
 //-------------------------------------------------------------- delete a group
 $error = array();
-if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )
+if ( isset( $_POST['delete'] ) && isset( $_POST['confirm_delete'] )  )
 {
-  $query = 'SELECT name';
-  $query.= ' FROM '.PREFIX_TABLE.'groups';
-  $query.= ' WHERE id = '.$_GET['delete'];
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
-  // confirm group deletion ?
-  if ( !isset( $_GET['confirm'] ) or $_GET['confirm'] != 1 )
-  {
-    $vtp->addSession( $sub, 'deletion' );
-    $vtp->setVar( $sub, 'deletion.name', $row['name'] );
-    $yes_url = './admin.php?page=group_list&amp;delete='.$_GET['delete'];
-    $yes_url.= '&amp;confirm=1';
-    $vtp->setVar( $sub, 'deletion.yes_url', add_session_id( $yes_url ) );
-    $no_url = './admin.php?page=group_list';
-    $vtp->setVar( $sub, 'deletion.no_url', add_session_id( $no_url ) );
-    $vtp->closeSession( $sub, 'deletion' );
-  }
-  // group deletion confirmed
-  else
-  {
-    $vtp->addSession( $sub, 'confirmation' );
-    $query = 'SELECT COUNT(*) AS nb_result';
-    $query.= ' FROM '.PREFIX_TABLE.'groups';
-    $query.= ' WHERE id = '.$_GET['delete'];
-    $query.= ';';
-    $row2 = mysql_fetch_array( pwg_query( $query ) );
-    if ( $row2['nb_result'] > 0 )
-    {
-      delete_group( $_GET['delete'] );
-      $vtp->setVar( $sub, 'confirmation.class', 'info' );
-      $info = '"'.$row['name'].'" '.$lang['listuser_info_deletion'];
-      $vtp->setVar( $sub, 'confirmation.info', $info );
-    }
-    else
-    {
-      $vtp->setVar( $sub, 'confirmation.class', 'erreur' );
-      $vtp->setVar( $sub, 'confirmation.info', $lang['group_err_unknown'] );
-    }
-    $vtp->closeSession( $sub, 'confirmation' );
-  }
+  $query = 'DELETE FROM ' . USER_GROUP_TABLE; 
+  $query.= ' WHERE group_id = '.$_POST['group_id'];
+	pwg_query( $query );
+	
+	$query = 'DELETE FROM ' . GROUPS_TABLE; 
+  $query.= ' WHERE id = '.$_POST['group_id'];
+	$query.= ';';
+	pwg_query( $query );
 }
 //----------------------------------------------------------------- add a group
-if ( isset( $_POST['submit'] ) )
+elseif ( isset( $_POST['new'] ) )
 {
-  if ( preg_match( "/'/", $_POST['name'] )
-       or preg_match( '/"/', $_POST['name'] ) )
+  if ( empty($_POST['newgroup']) || preg_match( "/'/", $_POST['newgroup'] )
+       or preg_match( '/"/', $_POST['newgroup'] ) )
   {
     array_push( $error, $lang['group_add_error1'] );
   }
   if ( count( $error ) == 0 )
   {
     // is the group not already existing ?
-    $query = 'SELECT id';
-    $query.= ' FROM '.PREFIX_TABLE.'groups';
-    $query.= " WHERE name = '".$_POST['name']."'";
+    $query = 'SELECT id FROM '.GROUPS_TABLE;
+    $query.= " WHERE name = '".$_POST['newgroup']."'";
     $query.= ';';
     $result = pwg_query( $query );
     if ( mysql_num_rows( $result ) > 0 )
@@ -100,47 +66,127 @@ if ( isset( $_POST['submit'] ) )
   if ( count( $error ) == 0 )
   {
     // creating the group
-    $query = ' INSERT INTO '.PREFIX_TABLE.'groups';
-    $query.= " (name) VALUES ('".$_POST['name']."')";
+    $query = ' INSERT INTO '.GROUPS_TABLE;
+    $query.= " (name) VALUES ('".$_POST['newgroup']."')";
     $query.= ';';
     pwg_query( $query );
   }
 }
+//--------------------------------------------------------------- user management
+elseif ( isset( $_POST['add'] ) )
+{
+  $userdata = getuserdata($_POST['username']);
+  if (!$userdata) echo "Utilisateur inexistant";
+	
+	// create a new association between the user and a group
+  $query = 'INSERT INTO '.USER_GROUP_TABLE;
+  $query.= ' (user_id,group_id) VALUES';
+  $query.= ' ('.$userdata['id'].','.$_POST['edit_group_id'].')';
+  $query.= ';';
+  pwg_query( $query );
+}
+elseif (isset( $_POST['deny_user'] ))
+{
+  $sql_in = '';
+	$members = $_POST['members'];
+	for($i = 0; $i < count($members); $i++)
+  {
+    $sql_in .= ( ( $sql_in != '' ) ? ', ' : '' ) . intval($members[$i]);
+  }
+  $query = 'DELETE FROM ' . USER_GROUP_TABLE; 
+  $query.= ' WHERE user_id IN ('.$sql_in;
+	$query.= ') AND group_id = '.$_POST['edit_group_id'];
+	pwg_query( $query );
+}
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )
 {
-  $vtp->addSession( $sub, 'errors' );
+  $template->assign_block_vars('errors',array());
   for ( $i = 0; $i < sizeof( $error ); $i++ )
   {
-    $vtp->addSession( $sub, 'li' );
-    $vtp->setVar( $sub, 'li.li', $error[$i] );
-    $vtp->closeSession( $sub, 'li' );
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error[$i]));
   }
-  $vtp->closeSession( $sub, 'errors' );
 }
 //----------------------------------------------------------------- groups list
-$vtp->addSession( $sub, 'groups' );
 
-$query = 'SELECT id,name';
-$query.= ' FROM '.PREFIX_TABLE.'groups';
-$query.= ' ORDER BY id ASC';
-$query.= ';';
+$query = 'SELECT id,name FROM '.GROUPS_TABLE;
+$query.= ' ORDER BY id ASC;';
 $result = pwg_query( $query );
+$groups_display = '<select name="group_id">';
+$groups_nb=0;
 while ( $row = mysql_fetch_array( $result ) )
 {
-  $vtp->addSession( $sub, 'group' );
-  $vtp->setVar( $sub, 'group.name', $row['name'] );
-  $url = './admin.php?page=group_perm&amp;group_id='.$row['id'];
-  $vtp->setVar( $sub, 'group.permission_url', add_session_id( $url ) );
-  $url = './admin.php?page=group_list&amp;delete='.$row['id'];
-  $vtp->setVar( $sub, 'group.deletion_url', add_session_id( $url ) );
-  $vtp->closeSession( $sub, 'group' );
+  $groups_nb++;
+	$selected = '';
+	if (isset($_POST['group_id']) && $_POST['group_id']==$row['id'])
+		$selected = 'selected';
+  $groups_display .= '<option value="' . $row['id'] . '" '.$selected.'>' . $row['name']  . '</option>';
+}
+$groups_display .= '</select>';
+
+$action = PHPWG_ROOT_PATH.'admin.php?page=group_list';
+//----------------------------------------------------- template initialization
+$template->set_filenames( array('groups'=>'admin/group_list.tpl') );
+$tpl = array( 'group_add','add','listuser_permission','delete',
+              'group_confirm','yes','no','group_list_title' );
+
+$template->assign_vars(array(
+  'S_GROUP_SELECT'=>$groups_display,
+	
+  'L_GROUP_SELECT'=>$lang['group_list_title'],
+	'L_GROUP_CONFIRM'=>$lang['group_confirm_delete'],
+	'L_LOOK_UP'=>$lang['edit'],
+	'L_GROUP_DELETE'=>$lang['delete'],
+  'L_CREATE_NEW_GROUP'=>$lang['group_add'],
+  'L_GROUP_EDIT'=>$lang['group_edit'],
+	'L_USER_NAME'=>$lang['login'],
+	'L_USER_EMAIL'=>$lang['mail_address'],
+	'L_USER_SELECT'=>$lang['Select'],
+	'L_DENY_SELECTED'=>$lang['group_deny_user'],
+	'L_ADD_MEMBER'=>$lang['group_add_user'],
+  'L_FIND_USERNAME'=>$lang['Find_username'],
+	
+	'S_GROUP_ACTION'=>add_session_id($action),
+	'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
+	));
+
+if ($groups_nb) 
+{
+  $template->assign_block_vars('select_box',array());
 }
 
-$vtp->closeSession( $sub, 'groups' );
-//------------------------------------------------------- create new group form
-$action = './admin.php?'.$_SERVER['QUERY_STRING'];
-$vtp->setVar( $sub, 'form_action', $action );
+//----------------------------------------------------------------- add a group
+if ( isset( $_POST['edit']) || isset( $_POST['add']) || isset( $_POST['deny_user'] ))
+{
+  // Retrieving the group name
+	$query = 'SELECT id, name FROM '.GROUPS_TABLE;
+  $query.= " WHERE id = '".$_POST['group_id']."'";
+  $query.= ';';
+  $result = mysql_fetch_array(pwg_query( $query ));
+  $template->assign_block_vars('edit_group',array(
+	  'GROUP_NAME'=>$result['name'],
+		'GROUP_ID'=>$result['id']
+		));
+		
+  // Retrieving all the users
+	$query = 'SELECT id, username, mail_address';
+	$query.= ' FROM ('.USERS_TABLE.' as u';
+	$query.= ' LEFT JOIN '.USER_GROUP_TABLE.' as ug ON ug.user_id=u.id)';
+  $query.= " WHERE ug.group_id = '".$_POST['group_id']."';";
+	$result = pwg_query( $query );
+	$i=0;
+	while ( $row = mysql_fetch_array( $result ) )
+	{
+	  $class = ($i % 2)? 'row1':'row2'; $i++;
+	  $template->assign_block_vars('edit_group.user',array(
+		  'ID'=>$row['id'],
+			'NAME'=>$row['username'],
+			'EMAIL'=>$row['mail_address'],
+			'T_CLASS'=>$class
+		));
+	}
+}
+
 //----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+$template->assign_var_from_handle('ADMIN_CONTENT', 'groups');
 ?>

@@ -121,6 +121,7 @@ $lang['title_default'] = 'Administration de PhpWebGallery';
 $lang['title_waiting'] = 'Images en attente de validation';
 $lang['title_upload'] = 'Sélectionner les catégories pour lesquelles l\'ajout d\'image est autorisé';
 $lang['title_cat_options'] = 'Options relatives aux catégories';
+$lang['title_groups'] = 'Gestion des groupes';
 
 //Error messages
 $lang['conf_confirmation'] = 'Informations enregistrées dans la base de données';
@@ -213,22 +214,24 @@ $lang['infoimage_associate'] = 'Associer à la catégorie';
 
 //Update
 $lang['update_missing_tn'] = 'Il manque la miniature pour';
-$lang['update_disappeared_tn'] = 'La miniature a disparu';
-$lang['update_disappeared'] = 'a disparu';
+$lang['update_disappeared_tn'] = 'La miniature n\'existe pas';
+$lang['update_disappeared'] = 'n\'existe pas';
 $lang['update_part_deletion'] = 'Suppression des images de la base qui n\'ont pas de thumbnail ou qui n\'existent pas';
-$lang['update_deletion_conclusion'] = 'images supprimées de la base de données';
 $lang['update_part_research'] = 'Recherche des nouvelles images dans les répertoires';
 $lang['update_research_added'] = 'ajouté';
 $lang['update_research_tn_ext'] = 'miniature en';
-$lang['update_research_conclusion'] = 'images ajoutées à la base de données';
-$lang['update_default_title'] = 'Choisir une option';
-$lang['update_only_cat'] = 'mettre à jour les catégories, mais pas les images';
-$lang['update_all'] = 'mettre tout à jour';
-$lang['update_sync_metadata_question'] = 'Utiliser les métadonnées des images pour la mise à jour';
+$lang['update_default_title'] = 'Type de mise à jour';
 $lang['update_nb_new_elements'] = 'élément(s) ajouté(s)';
 $lang['update_nb_del_elements'] = 'élément(s) effacé(s)';
 $lang['update_nb_new_categories'] = 'catégorie(s) ajoutée(s)';
 $lang['update_nb_del_categories'] = 'catégorie(s) effacée(s)';
+$lang['update_sync_files'] = 'Synchroniser la structure';
+$lang['update_sync_dirs'] = 'Seulement les catégories';
+$lang['update_sync_all'] = 'Catégories et fichiers';
+$lang['update_sync_metadata'] = 'Synchroniser les méta-donnnées';
+$lang['update_sync_metadata_new'] = 'Seulement sur les nouveaux éléments';
+$lang['update_sync_metadata_all'] = 'Sur tous les éléments';
+$lang['update_cats_subset'] = 'Limiter la synchronisation aux catégories suivantes';
 
 // History
 $lang['stats_title'] = 'Historique de l\'année écoulée';
@@ -238,7 +241,18 @@ $lang['stats_empty'] = 'vider l\'historique';
 $lang['stats_global_graph_title'] = 'Nombre de pages vues par mois';
 $lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
-//Users
+// Users
+
+
+// Groups
+$lang['group_list_title'] = 'Liste des groupes existants';
+$lang['group_confirm_delete']= 'Confirmer la destruction du groupe';
+$lang['group_add'] = 'Ajouter un groupe';
+$lang['group_add_error1'] = 'Le nom du groupe ne doit pas comporter de " ou de \' et ne pas être vide.';
+$lang['group_add_error2'] = 'Ce nom de groupe est déjà utilisé.';
+$lang['group_edit'] = 'Edition des utilisateurs appartenant au groupe';
+$lang['group_deny_user'] = 'Supprimer la sélection';
+$lang['group_add_user']= 'Ajouter le membre';
 
 
 // To be done
@@ -305,19 +319,12 @@ $lang['tn_dirs_alone'] = 'images sans miniatures';
 
 $lang['title_add'] = 'Ajouter un utilisateur';
 $lang['title_modify'] = 'Modifier un utilisateur';
-$lang['title_groups'] = 'Gestion des groupes';
+
 $lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
 $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
 $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
 $lang['title_picmod'] = 'Modifier les informations d\'une image';
 $lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
-$lang['adduser_associate'] = 'Associer au groupe';
-$lang['group_add'] = 'Ajouter un groupe';
-$lang['group_add_error1'] = 'Le nom du groupe ne doit pas comporter de " ou de \'';
-$lang['group_add_error2'] = 'Ce nom de groupe est déjà utilisé';
-$lang['group_confirm'] = 'Etes-vous sûr de vouloir supprimer le groupe';
-$lang['group_list_title'] = 'Liste des groupes existants';
-$lang['group_err_unknown'] = 'Ce groupe n\'existe pas dans la base de données';
 $lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
 
 $lang['comments_last_title'] = 'Derniers commentaires';

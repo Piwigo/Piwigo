@@ -1,4 +1,5 @@
 /* BACKGROUND */
+
 body { background-color:#000000;}
 .main, .throw, .admin {	background-color:#3F3F3F;}
 .row1,input,select,textarea, .table1, .home { background-color:#5F5F5F;}
@@ -7,6 +8,22 @@ body { background-color:#000000;}
 
 .titreMenu,.titrePage,.imgMenu a:hover { background-image: url(theme/tableh1_bg.gif);}
 .bouton, .imgMenu a, #imgBarMenu { background-image: url(theme/button_bg.gif);}
+
+/* FONT COLORS */
+
+.titreMenu, .titreMenu a, .info, .admin{ color:#FFF48E;}
+.titrePage, .titreMenu a:hover { color:#E0E0E0;}
+.comment{ color:#C6B78E;}
+.commentDate { color:#999999;}
+input,select,textarea { color:#FFFFCC;}
+
+/* ANCHORS */
+
+a { text-decoration:none; color:#FFFFFF;}
+a:hover { text-decoration:none; color:#FFF48E;}
+a.none:hover { text-decoration:none;}
+a.image:hover { text-decoration:none;}
+a.thumbLink:hover { text-decoration:none;}
 
 /* POSITION */
 #gauche,#droite
@@ -23,20 +40,9 @@ body { background-color:#000000;}
   text-align:center;
 }
 
-#droite
-{
-  text-align:right;
-}
-
-#left
-{
-  float:left; 
-}
-
-#right
-{
-  float:right; 
-}
+#droite{text-align:right;}
+#left {float:left; }
+#right{float:right; }
 
 /* MAIN STYLES */
 
@@ -59,13 +65,7 @@ h2 {
 	line-height:	120%; 
 }
 
-/* ANCHORS */
 
-a { text-decoration:none; color:#FFFFFF;}
-a:hover { text-decoration:none; color:#FFF48E;}
-a.none:hover { text-decoration:none;}
-a.image:hover { text-decoration:none;}
-a.thumbLink:hover { text-decoration:none;}
 
 /* LAYOUT STYLE */
 
@@ -92,7 +92,6 @@ a.thumbLink:hover { text-decoration:none;}
   height: 25px;
   line-height: 25px;
   font-size:12px;
-  color:#E0E0E0;
   font-weight:600;
   text-align:center;
 }
@@ -265,14 +264,10 @@ table.thumbnail {
 .commentDate {
   font-weight:lighter;
   text-align:right;
-  color:#999999;
   border-top: 1px solid #000000; 
   border-bottom: 1px solid #000000;
 }
 
-.comment{
-  color:#C6B78E; 
-}
 /* Form styles */
 
 form{
@@ -294,7 +289,6 @@ input,select,textarea {
  text-indent:2px;
  border: 1px solid #797979;
  padding: 0;
- color:#FFFFCC;
 }
 
 .radio{
@@ -316,12 +310,10 @@ font-weight:bold;
 margin:0px 0px 12px 0px;
 text-align: center;
 padding:0px;
-color : #FFF48E;
 }
 
 /* Other styles */
 .info {
-  color:#FFF48E;
   margin:5px 0px 5px 0px;
   white-space:nowrap;
   text-align:center;
