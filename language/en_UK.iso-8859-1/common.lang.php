@@ -171,7 +171,6 @@ $lang['reg_confirm'] = 'confirm';
 $lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 $lang['search_title'] = 'Search';
 $lang['invalid_search'] = 'search must be done on 3 caracters or more';
-$lang['search_field_search'] = 'Search';
 $lang['search_return_main_page'] = 'Return to thumbnails page';
 $lang['upload_forbidden'] = 'You can\'t upload pictures in this category';
 $lang['upload_file_exists'] = 'A picture\'s name already used';
@@ -257,4 +256,23 @@ $lang['hello'] = 'Hello';
 $lang['calendar'] = 'calendar';
 $lang['calendar_hint'] = 'displays each day with pictures, month per month';
 $lang['calendar_picture_hint'] = 'displays pictures added on ';
+
+// search
+$lang['search_wrong_date'] = ' : this date is not valid';
+$lang['search_wrong_date_order'] = 'the period end must be after the period start';
+$lang['search_incoherent_date_search'] = 'when choosing to match all the clauses, you can\'t search "date is" and "date is after" or "date is before"';
+$lang['search_or_clauses'] = 'at least one search clause';
+$lang['search_and_clauses'] = 'all search clauses';
+$lang['search_categories'] = 'categories';
+$lang['search_subcats_included'] = 'include sub-categories';
+$lang['search_date_included'] = 'included';
+$lang['search_date_is'] = 'is';
+$lang['search_date_is_after'] = 'is after';
+$lang['search_date_is_before'] = 'is before';
+$lang['search_file'] = 'file';
+$lang['search_name'] = 'name';
+$lang['search_comment'] = 'comment';
+$lang['search_keywords'] = 'keywords';
+$lang['search_author'] = 'author';
+$lang['search_one_clause_at_least'] = 'search at least on one search clause';
 ?>
