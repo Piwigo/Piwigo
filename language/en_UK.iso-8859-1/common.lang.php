@@ -297,6 +297,7 @@ $lang['mail_new_comment_content'] = 'A new comment has been registered on the ga
 $lang['guest'] = 'guest';
 $lang['add'] = 'add';
 
+$lang['title_comments'] = 'Users comments';
 $lang['stats_last_days'] = 'last days';
 $lang['hint_comments'] = 'See last users comments';
 $lang['menu_login'] = 'login';
