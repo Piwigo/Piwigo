@@ -341,10 +341,6 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         $tn_ext = $ext;
         break;
       }
-      else
-      {
-        continue;
-      }
     }
 
     // 2 cases : the element is a picture or not. Indeed, for a picture
@@ -386,10 +382,6 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         {
           $representative_ext = $ext;
           break;
-        }
-        else
-        {
-          continue;
         }
       }
 

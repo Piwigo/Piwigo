@@ -215,42 +215,6 @@ function RatioResizeImg( $filename, $newWidth, $newHeight, $path, $tn_ext )
   }
 }
 
-// get_displayed_dirs builds the tree of dirs under "galleries". If a
-// directory contains pictures without thumbnails, the become linked to the
-// page of thumbnails creation.
-function get_displayed_dirs( $dir, $indent )
-{
-  global $lang;
-		
-  $sub_dirs = get_subdirs( $dir );
-  $output = '';
-  if (!empty($sub_dirs))
-  {
-  $output.='<ul class="menu">';
-  // write of the dirs
-  foreach ( $sub_dirs as $sub_dir ) {
-    $output.='<li>';
-    $pictures = get_images_without_thumbnail( $dir.'/'.$sub_dir );
-    if ( count( $pictures ) > 0 )
-    {
-	  $url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$dir.'/'.$sub_dir);
-      $output.='<a class="adminMenu" href="'.$url.'">'.$sub_dir.'</a> [ '.count( $pictures ).' ';
-	  $output.=$lang['thumbnail'].' ]';
-    }
-    else
-    {
-      $output.=$sub_dir;
-    }
-    // recursive call
-    $output.=get_displayed_dirs( $dir.'/'.$sub_dir,
-                                $indent+30 ); 
-	$output.='</li>';   
-  }
-  $output.='</ul>';
-  }
-  return $output;
-}
-
 $errors = array();
 $pictures = array();
 $stats = array();
@@ -281,6 +245,7 @@ $template->set_filenames( array('thumbnail'=>'admin/thumbnail.tpl') );
 $template->assign_vars(array(
   'L_THUMBNAIL_TITLE'=>$lang['tn_dirs_title'],
   'L_UNLINK'=>$lang['tn_dirs_alone'],
+  'L_MISSING_THUMBNAILS'=>$lang['tn_dirs_alone'],
   'L_RESULTS'=>$lang['tn_results_title'],
   'L_TN_PICTURE'=>$lang['tn_picture'],
   'L_FILESIZE'=>$lang['filesize'],
@@ -318,11 +283,12 @@ if ( sizeof( $errors ) != 0 )
     $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
   }
 }
-else if ( isset( $_GET['dir'] ) &&  isset( $_POST['submit'] ) && !empty($stats))
+else if (isset($_GET['dir']) and isset($_POST['submit']) and !empty($stats))
 {
   $times = array();
-  foreach ( $stats as $stat ) {
-	array_push( $times, $stat['time'] );
+  foreach ($stats as $stat)
+  {
+    array_push( $times, $stat['time'] );
   }
   $sum=array_sum( $times );
   $average = $sum/sizeof($times);
@@ -330,81 +296,159 @@ else if ( isset( $_GET['dir'] ) &&  isset( $_POST['submit'] ) && !empty($stats))
   $max = array_pop($times);
   $min = array_shift( $times);
   
-  $template->assign_block_vars('results',array(
-    'TN_NB'=>count( $stats ),
-	'TN_TOTAL'=>number_format( $sum, 2, '.', ' ').' ms',
-	'TN_MAX'=>number_format( $max, 2, '.', ' ').' ms',
-	'TN_MIN'=>number_format( $min, 2, '.', ' ').' ms',
-	'TN_AVERAGE'=>number_format( $average, 2, '.', ' ').' ms'
-	));
-  if ( !count( $pictures ) )
+  $template->assign_block_vars(
+    'results',
+    array(
+      'TN_NB'=>count( $stats ),
+      'TN_TOTAL'=>number_format( $sum, 2, '.', ' ').' ms',
+      'TN_MAX'=>number_format( $max, 2, '.', ' ').' ms',
+      'TN_MIN'=>number_format( $min, 2, '.', ' ').' ms',
+      'TN_AVERAGE'=>number_format( $average, 2, '.', ' ').' ms'
+      ));
+  if (!count($pictures))
   {
     $template->assign_block_vars('warning',array());
   }
-
-  foreach ( $stats as $i => $stat ) 
-  {
-	$class = ($i % 2)? 'row1':'row2';
-    $color='';
-	if ($stat['time']==$max) $color = 'red';
-	elseif ($stat['time']==$min) $color = '#33FF00';
-	$template->assign_block_vars('results.picture',array(
-	  'NB_IMG'=>($i+1),
-	  'FILE_IMG'=>$stat['file'],
-	  'FILESIZE_IMG'=>$stat['size'],
-	  'WIDTH_IMG'=>$stat['width'],
-	  'HEIGHT_IMG'=>$stat['height'],
-	  'TN_FILE_IMG'=>$stat['tn_file'],
-	  'TN_FILESIZE_IMG'=>$stat['tn_size'],
-	  'TN_WIDTH_IMG'=>$stat['tn_width'],
-	  'TN_HEIGHT_IMG'=>$stat['tn_height'],
-	  'GEN_TIME'=>number_format( $stat['time'], 2, '.', ' ').' ms',
-	  
-	  'T_COLOR'=>$color,
-	  'T_CLASS'=>$class
-	  ));
-    }
-  }
-//-------------------------------------------------- miniaturization parameters
-if ( isset( $_GET['dir'] ) && !sizeof( $pictures ))
-{
-    $form_url = PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$_GET['dir'];
-    $gd = !empty( $_POST['gd'] )?$_POST['gd']:2;
-	$width = !empty( $_POST['width'] )?$_POST['width']:128;
-	$height = !empty( $_POST['height'] )?$_POST['height']:96;
-	$gdlabel = 'GD'.$gd.'_CHECKED';
-
-    $template->assign_block_vars('params',array(
-	  'F_ACTION'=>add_session_id($form_url),
-	  $gdlabel=>'checked="checked"',
-	  'WIDTH_TN'=>$width,
-	  'HEIGHT_TN'=>$height
-	  ));
-
-//---------------------------------------------------------- remaining pictures
-  $pictures = get_images_without_thumbnail( $_GET['dir'] );
-  $template->assign_block_vars('remainings',array('TOTAL_IMG'=>count( $pictures )));
-
-  foreach ( $pictures as $i => $picture ) 
+  
+  foreach ($stats as $i => $stat) 
   {
     $class = ($i % 2)? 'row1':'row2';
-    $template->assign_block_vars('remainings.remaining',array(
-	  'NB_IMG'=>($i+1),
-	  'FILE_TN'=>$picture['name'],
-	  'FILESIZE_IMG'=>$picture['size'],
-	  'WIDTH_IMG'=>$picture['width'],
-	  'HEIGHT_IMG'=>$picture['height'],
-	  
-	  'T_CLASS'=>$class
-	  ));
+    $color='';
+    if ($stat['time'] == $max)
+    {
+      $color = 'red';
     }
+    else if ($stat['time'] == $min)
+    {
+      $color = '#33FF00';
+    }
+    
+    $template->assign_block_vars(
+      'results.picture',
+      array(
+        'NB_IMG'=>($i+1),
+        'FILE_IMG'=>$stat['file'],
+        'FILESIZE_IMG'=>$stat['size'],
+        'WIDTH_IMG'=>$stat['width'],
+        'HEIGHT_IMG'=>$stat['height'],
+        'TN_FILE_IMG'=>$stat['tn_file'],
+        'TN_FILESIZE_IMG'=>$stat['tn_size'],
+        'TN_WIDTH_IMG'=>$stat['tn_width'],
+        'TN_HEIGHT_IMG'=>$stat['tn_height'],
+        'GEN_TIME'=>number_format( $stat['time'], 2, '.', ' ').' ms',
+        
+        'T_COLOR'=>$color,
+        'T_CLASS'=>$class
+        ));
+  }
+}
+//-------------------------------------------------- miniaturization parameters
+if (isset($_GET['dir']) and !sizeof($pictures))
+{
+  $form_url = PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$_GET['dir'];
+  $gd = !empty( $_POST['gd'] )?$_POST['gd']:2;
+  $width = !empty( $_POST['width'] )?$_POST['width']:128;
+  $height = !empty( $_POST['height'] )?$_POST['height']:96;
+  $gdlabel = 'GD'.$gd.'_CHECKED';
+  
+  $template->assign_block_vars(
+    'params',
+    array(
+      'F_ACTION'=>add_session_id($form_url),
+      $gdlabel=>'checked="checked"',
+      'WIDTH_TN'=>$width,
+      'HEIGHT_TN'=>$height
+      ));
+//---------------------------------------------------------- remaining pictures
+  $pictures = get_images_without_thumbnail( $_GET['dir'] );
+  $template->assign_block_vars(
+    'remainings',
+    array('TOTAL_IMG'=>count($pictures)));
+
+  foreach ($pictures as $i => $picture)
+  {
+    $class = ($i % 2)? 'row1':'row2';
+    $template->assign_block_vars(
+      'remainings.remaining',
+      array(
+        'NB_IMG'=>($i+1),
+        'FILE_TN'=>$picture['name'],
+        'FILESIZE_IMG'=>$picture['size'],
+        'WIDTH_IMG'=>$picture['width'],
+        'HEIGHT_IMG'=>$picture['height'],
+	  
+        'T_CLASS'=>$class
+        ));
+  }
 }
 //-------------------------------------------------------------- directory list
 else
 {
-  $categories = get_displayed_dirs( './galleries', 60 );
-  $template->assign_block_vars('directory_list',array('CATEGORY_LIST'=>$categories));
-}
+  $wo_thumbnails = array();
+  
+  // what is the directory to search in ?
+  $query = '
+SELECT galleries_url
+  FROM '.SITES_TABLE.'
+  WHERE id = 1
+;';
+  list($galleries_url) = mysql_fetch_array(pwg_query($query));
+  $basedir = preg_replace('#/*$#', '', $galleries_url);
 
+  $fs = get_fs($basedir);
+  // because isset is one hundred time faster than in_array
+  $fs['thumbnails'] = array_flip($fs['thumbnails']);
+
+  foreach ($fs['elements'] as $path)
+  {
+    // only pictures need thumbnails
+    if (in_array(get_extension($path), $conf['picture_ext']))
+    {
+      $dirname = dirname($path);
+      $filename = basename($path);
+      // searching the element
+      $filename_wo_ext = get_filename_wo_extension($filename);
+      $tn_ext = '';
+      $base_test = $dirname.'/thumbnail/';
+      $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
+      foreach ($conf['picture_ext'] as $ext)
+      {
+        if (isset($fs['thumbnails'][$base_test.$ext]))
+        {
+          $tn_ext = $ext;
+          break;
+        }
+      }
+      
+      if (empty($tn_ext))
+      {
+        if (!isset($wo_thumbnails[$dirname]))
+        {
+          $wo_thumbnails[$dirname] = 1;
+        }
+        else
+        {
+          $wo_thumbnails[$dirname]++;
+        }
+      }
+    }
+  }
+
+  if (count($wo_thumbnails) > 0)
+  {
+    $template->assign_block_vars('directory_list', array());
+    foreach ($wo_thumbnails as $directory => $nb_missing)
+    {
+      $url = PHPWG_ROOT_PATH.'admin.php?page=thumbnail&amp;dir='.$directory;
+      
+      $template->assign_block_vars(
+        'directory_list.directory',
+        array(
+          'DIRECTORY'=>$directory,
+          'URL'=>add_session_id($url),
+          'NB_MISSING'=>$nb_missing));
+    }
+  }
+}
 $template->assign_var_from_handle('ADMIN_CONTENT', 'thumbnail');
 ?>

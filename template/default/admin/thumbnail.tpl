@@ -1,8 +1,9 @@
 <!-- BEGIN directory_list -->
 <div class="admin">{L_THUMBNAIL_TITLE}</div>
 <ul class="menu">
-<li>galleries</li>
-{directory_list.CATEGORY_LIST}
+  <!-- BEGIN directory -->
+  <li>[<a href="{directory_list.directory.URL}">{directory_list.directory.DIRECTORY}</a>] {directory_list.directory.NB_MISSING} {L_MISSING_THUMBNAILS}</li>
+  <!-- END directory -->
 </ul>
 <!-- END directory_list -->
 <!-- BEGIN warning -->
@@ -44,7 +45,7 @@
     <th>
       <div style="text-align:right;margin-right:5px;color:{results.picture.T_COLOR};">{results.picture.GEN_TIME}</div>
     </th>
-    <td>{results.picture.TN_FILE_IMG}</td>
+    <td><img src="{results.picture.TN_FILE_IMG}" /></td>
     <td style="text-align:right;">{results.picture.TN_FILESIZE_IMG}</td>
     <td style="text-align:right;">{results.picture.TN_WIDTH_IMG}</td>
     <td style="text-align:right;">{results.picture.TN_HEIGHT_IMG}</td>
