@@ -41,6 +41,21 @@ forum              : http://forum.phpwebgallery.net
    instructions
 
 +-----------------------------------------------------------------------------+
+|                              How to start                                   |
++-----------------------------------------------------------------------------+
+
+Once installed or upgraded, your gallery is ready to run. Start by
+displaying the installation directory in your browser :
+
+http://your.domain/gallery
+
+Then identify as an administrator. A new link in Identification menu of main
+page will appear : Administration. Enter the administration panel.
+
+In the administration panel, take all your time for reading instructions
+explaining how to use your gallery.
+
++-----------------------------------------------------------------------------+
 |                               Newsletter                                    |
 +-----------------------------------------------------------------------------+
 

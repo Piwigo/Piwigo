@@ -41,6 +41,23 @@ forum          : http://forum.phpwebgallery.net
    instructions
 
 +-----------------------------------------------------------------------------+
+|                             Comment commencer                               |
++-----------------------------------------------------------------------------+
+
+Une fois installée ou mise à jour, votre galerie est prête à
+fonctionner. Commencez par vous rendre sur le répertoire d'installation dans
+votre navigateur : 
+
+http://votre.domaine/galerie
+
+Ensuite, identifiez-vous en tant qu'un administrateur. Un nouveau lien dans
+le menu d'identification de la page principale va apparaître :
+Administretion. Suivre ce lien :-)
+
+Dans la zone d'administration, prenez tout le temps nécessaire pour
+consulter les instructions, expliquant comment utiliser votre galerie.
+
++-----------------------------------------------------------------------------+
 |                               newsletter                                    |
 +-----------------------------------------------------------------------------+
 
