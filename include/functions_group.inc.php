@@ -85,10 +85,8 @@ function is_group_allowed( $category_id, $restrictions )
     $query.= ' WHERE id = '.$category_id;
     $query.= ';';
     $row = mysql_fetch_array( mysql_query( $query ) );
-    if ( $row['id_uppercat'] == '' )
-    {
-      $is_root = true;
-    }
+    if ( !isset( $row['id_uppercat'] ) ) $row['id_uppercat'] = '';
+    if ( $row['id_uppercat'] == '' ) $is_root = true;
     $category_id = $row['id_uppercat'];
   }
                 
