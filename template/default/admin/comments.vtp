@@ -46,7 +46,7 @@
                  </td>
                  <td class="cellInfo">
                    <div class="commentsInfos">
-                     {#date}<!--VTP_delete--><a href="{#link}" title="{#comments_del}"><img src="../template/{#user_template}/admin/images/delete.gif" style="border:none;margin-left:5px;" alt="[{#delete}]"/></a><!--/VTP_delete-->
+                     {#date}<!--VTP_delete--><a href="{#link}" title="{#comments_del}"><img src="./template/{#user_template}/admin/images/delete.gif" style="border:none;margin-left:5px;" alt="[{#delete}]"/></a><!--/VTP_delete-->
                    </div>
                  </td>
                </tr>

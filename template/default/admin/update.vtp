@@ -6,9 +6,9 @@
   <tr>
     <td>
       <div class="retrait">
-        <img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
+        <img src="./template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
         <a href="{#only_cat:url}">{#update_only_cat}</a>
-        <br /><img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
+        <br /><img src="./template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
         <a href="{#all:url}">{#update_all}</a>
       </div>
     </td>

@@ -70,7 +70,7 @@
                 <!--/VTP_linked_category-->
                 <!--VTP_dissociate-->
                 <tr>
-                  <td colspan="2"><img src="../template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" /> {#dissociate}</td>
+                  <td colspan="2"><img src="./template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" /> {#dissociate}</td>
                 </tr>
                 <!--/VTP_dissociate-->
                 <tr><td colspan="2">&nbsp;</td></tr>

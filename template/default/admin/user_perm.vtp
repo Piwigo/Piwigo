@@ -9,7 +9,7 @@
     <!--VTP_category-->
     <tr>
       <td>
-        <img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" /> <a href="{#cat_perm_link}"><span style="color:{#color}">{#name}</span></a>
+        <img src="./template/{#user_template}/admin/images/puce.gif" alt="&gt;" /> <a href="{#cat_perm_link}"><span style="color:{#color}">{#name}</span></a>
         <!--VTP_usergroups-->
         [
         <!--VTP_usergroup-->

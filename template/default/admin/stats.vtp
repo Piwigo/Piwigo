@@ -63,7 +63,7 @@
   <!--VTP_day-->
   <tr>
     <td colspan="6">
-      <a href="{#url}"><!--VTP_collapsed--><img src="../template/{#user_template}/admin/images/collapsed.gif" style="border:none;" /><!--/VTP_collapsed--><!--VTP_expanded--><img src="../template/{#user_template}/admin/images/expanded.gif" style="border:none;" /><!--/VTP_expanded--></a>
+      <a href="{#url}"><!--VTP_collapsed--><img src="./template/{#user_template}/admin/images/collapsed.gif" style="border:none;" /><!--/VTP_collapsed--><!--VTP_expanded--><img src="./template/{#user_template}/admin/images/expanded.gif" style="border:none;" /><!--/VTP_expanded--></a>
       <span style="font-weight:bold;">{#name}</span> [ {#nb_pages} {#stats_pages_seen} - {#nb_visitors} {#stats_visitors} ]
       [ <a href="{#url}">{#open_or_close}</a> ]
     </td>
@@ -92,9 +92,9 @@
   <td>
     <table style="border-collapse:collapse;">
       <tr>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_left.gif" width="4" height="12" /></td>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_middle.gif" width="{#width}" height="12" /></td>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_right.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_left.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_middle.gif" width="{#width}" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_right.gif" width="4" height="12" /></td>
       </tr>
     </table>
   </td>
@@ -114,9 +114,9 @@
   <td>
     <table style="border-collapse:collapse;">
       <tr>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_left.gif" width="4" height="12" /></td>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_middle.gif" width="{#width}" height="12" /></td>
-        <td style="padding:0;"><img src="../template/{#user_template}/admin/images/stat_right.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_left.gif" width="4" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_middle.gif" width="{#width}" height="12" /></td>
+        <td style="padding:0;"><img src="./template/{#user_template}/admin/images/stat_right.gif" width="4" height="12" /></td>
       </tr>
     </table>
   </td>
