@@ -47,7 +47,7 @@
     <!--/VTP_param_line-->
     <!--VTP_title_line-->
     <tr>
-      <th colspan="3" align="center">{#title}</th>
+      <th colspan="3">{#title}</th>
     </tr>
     <!--/VTP_title_line-->
     <!--VTP_space_line-->
