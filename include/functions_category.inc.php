@@ -592,7 +592,26 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         }
 
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
-        $page['cat_nb_images'] = $conf['top_number'];
+
+        // $page['cat_nb_images'] equals $conf['top_number'] unless there
+        // are less visited items
+        $query ='
+SELECT COUNT(DISTINCT(id)) AS count
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  '.$page['where'].'
+;';
+        $row = mysql_fetch_array(pwg_query($query));
+        if ($row['count'] < $conf['top_number'])
+        {
+          $page['cat_nb_images'] = $row['count'];
+        }
+        else
+        {
+          $page['cat_nb_images'] = $conf['top_number'];
+        }
+        unset($query);
+        
         if ( isset( $page['start'] )
              and ($page['start']+$user['nb_image_page']>=$conf['top_number']))
         {
