@@ -25,27 +25,31 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function get_icon( $date_comparaison )
+function get_icon( $date )
 {
   global $user, $conf, $lang;
-  $difference = time() - $date_comparaison;
-  $jours = 24*60*60;
+
+  list( $year,$month,$day ) = explode( '-', $date );
+  $unixtime = mktime( 0, 0, 0, $month, $day, $year );
+  
+  $diff = time() - $unixtime;
+  $day_in_seconds = 24*60*60;
   $output = '';
   $title = $lang['recent_image'].'&nbsp;';
-  if ( $difference < $user['long_period'] * $jours )
+  if ( $diff < $user['long_period'] * $day_in_seconds )
   {
     $icon_url = './template/'.$user['template'].'/theme/';
-    if ( $difference < $user['short_period'] * $jours )
+    if ( $diff < $user['short_period'] * $day_in_seconds )
     {
       $icon_url.= 'new_short.gif';
-    $title .= $user['short_period'];
+      $title .= $user['short_period'];
     }
     else
     {
       $icon_url.= 'new_long.gif';
-    $title .= $user['long_period'];
+      $title .= $user['long_period'];
     }
-  $title .=  '&nbsp;'.$lang['days'];
+    $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
     $output = '<img title="'.$title.'" src="'.$icon_url.'" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="" />';
