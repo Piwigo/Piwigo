@@ -46,6 +46,17 @@ if ( !isset( $_GET['start'] )
   $page['start'] = 0;
 else
   $page['start'] = $_GET['start'];
+// Sometimes, a "num" is provided in the URL. It is the number
+// of the picture to show. This picture must be in the thumbnails page.
+// We have to find the right $page['start'] that show the num picture
+// in this category
+if ( isset( $_GET['num'] )
+     and is_numeric( $_GET['num'] )
+     and $_GET['num'] >= 0 )
+{
+  $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
+  $page['start']*= $user['nb_image_page'];
+}
 
 initialize_category();
 
@@ -79,17 +90,6 @@ if ( $user['expand']
 {
   $page['tab_expand'] = array();
   $page['expand'] = 'all';
-}
-// Sometimes, a "num" is provided in the URL. It is the number
-// of the picture to show. This picture must be in the thumbnails page.
-// We have to find the right $page['start'] that show the num picture
-// in this category
-if ( isset( $_GET['num'] )
-     and is_numeric( $_GET['num'] )
-     and $_GET['num'] >= 0 )
-{
-  $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
-  $page['start']*= $user['nb_image_page'];
 }
 // creating the structure of the categories (useful for displaying the menu)
 // creating the plain structure : array of all the available categories and
