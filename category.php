@@ -27,7 +27,7 @@
 
 //--------------------------------------------------------------------- include
 $phpwg_root_path = './';
-include_once( $phpwg_root_path.'common.php' );
+include_once( $phpwg_root_path.'include/common.inc.php' );
 //---------------------------------------------------------------------- logout
 if ( isset( $_GET['act'] )
      and $_GET['act'] == 'logout'
