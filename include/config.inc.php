@@ -67,11 +67,7 @@ $infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
                 'upload_maxheight_thumbnail','log','comments_validation',
                 'comments_forall','authorize_cookies','mail_notification' );
 
-$query  = 'SELECT ';
-foreach ( $infos as $i => $info ) {
-  if ( $i > 0 ) $query.= ',';
-  $query.= $info;
-}
+$query  = 'SELECT '.implode( ',', $infos );
 $query.= ' FROM '.PREFIX_TABLE.'config;';
 
 $row = mysql_fetch_array( mysql_query( $query ) );

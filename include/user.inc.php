@@ -27,11 +27,7 @@ $infos = array( 'id', 'username', 'mail_address', 'nb_image_line',
                 'maxheight', 'expand', 'show_nb_comments', 'short_period',
                 'long_period', 'template', 'forbidden_categories' );
 
-$query_user  = 'SELECT ';
-foreach ( $infos as $i => $info ) {
-  if ( $i > 0 ) $query_user.= ', ';
-  $query_user.= $info;
-}
+$query_user = 'SELECT '.implode( ',', $infos );
 $query_user.= ' FROM '.PREFIX_TABLE.'users';
 $query_done = false;
 $user['is_the_guest'] = false;
