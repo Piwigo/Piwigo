@@ -297,6 +297,11 @@ SELECT id, uppercats
     $uppercats_array[$row['id']] =  $row['uppercats'];
   }
 
+  if (count($uppercats_array) == 0)
+  {
+    return array();
+  }
+
   $query = '
 SELECT galleries_url
   FROM '.SITES_TABLE.'
