@@ -700,7 +700,7 @@ else
     $categories = insert_local_category( 'NULL' );
   }
   $end = get_moment();
-  echo get_elapsed_time( $start, $end ).' for update <br />';
+//  echo get_elapsed_time( $start, $end ).' for update <br />';
   $vtp->setVar( $sub, 'local_update.categories', $categories );
   $vtp->setVar( $sub, 'local_update.count_new', $count_new );
   $vtp->setVar( $sub, 'local_update.count_deleted', $count_deleted );
@@ -716,7 +716,7 @@ if ( @is_file( './listing.xml' ) )
   $start = get_moment();
   remote_images();
   $end = get_moment();
-  echo get_elapsed_time( $start, $end ).' for remote_images<br />';
+//  echo get_elapsed_time( $start, $end ).' for remote_images<br />';
   
   $vtp->setVar( $sub, 'remote_update.count_new', $count_new );
   $vtp->setVar( $sub, 'remote_update.count_deleted', $count_deleted );
@@ -731,12 +731,12 @@ if ( isset( $_GET['update'] )
   $start = get_moment();
   update_category( 'all' );
   $end = get_moment();
-  echo get_elapsed_time( $start, $end ).' for update_category( all )<br />';
+//  echo get_elapsed_time( $start, $end ).' for update_category( all )<br />';
 
   $start = get_moment();
   synchronize_all_users();
   $end = get_moment();
-  echo get_elapsed_time( $start, $end ).' for synchronize_all_users<br />';
+//  echo get_elapsed_time( $start, $end ).' for synchronize_all_users<br />';
 }
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
