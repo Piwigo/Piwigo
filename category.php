@@ -263,6 +263,7 @@ if (isset($page['cat'])
                            ,'recent_pics'
                            ,'best_rated'
                            ,'list'
+                           ,'fav'
                        ))))
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
