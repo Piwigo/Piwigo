@@ -103,9 +103,10 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
   $result = get_cat_info( $page['cat'] );
-  $page['cat_dir'] = $result['dir'];
-  $page['cat_site_id'] = $result['site_id'];
-  $page['cat_name'] = $result['name'];
+  $page['cat_dir']        = $result['dir'];
+  $page['cat_site_id']    = $result['site_id'];
+  $page['cat_name']       = $result['name'];
+  $page['cat_uploadable'] = $result['uploadable'];
 }
 else
 {
@@ -113,7 +114,8 @@ else
 }
 if ( $access_forbidden == true
      or $page['cat_site_id'] != 1
-     or !$conf['upload_available'] )
+     or !$conf['upload_available']
+     or !$page['cat_uploadable'] )
 {
   echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
   echo '<a href="'.add_session_id( './category.php' ).'">';

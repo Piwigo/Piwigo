@@ -485,9 +485,12 @@ if ( $isadmin )
   $lang['editcat_name'] = 'Nom';
   $lang['editcat_comment'] = 'Commentaire';
   $lang['editcat_status'] = 'Status';
-  $lang['editcat_status_info'] = '(invisible sauf pour les administrateurs)';
 // start version 1.3
+  // $lang['editcat_status_info'] = '(invisible sauf pour les administrateurs)';
+//  $lang['editcat_status_info'] => $lang['editcat_visible_info']
+  $lang['editcat_visible_info'] = '(invisible sauf pour les administrateurs)';
   $lang['editcat_visible'] = 'Visible';
+  $lang['editcat_uploadable'] = 'Ajout d\'images par les visiteurs';
 // end version 1.3
   // page info images
 // start version 1.3

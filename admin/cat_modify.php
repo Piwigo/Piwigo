@@ -20,7 +20,8 @@ include_once( './include/isadmin.inc.php' );
 $sub = $vtp->Open( '../template/'.$user['template'].'/admin/cat_modify.vtp' );
 $tpl = array( 'remote_site','editcat_confirm','editcat_back','editcat_title1',
               'editcat_name','editcat_comment','editcat_status',
-              'editcat_visible','editcat_status_info', 'submit' );
+              'editcat_visible','editcat_visible_info', 'submit',
+              'editcat_uploadable' );
 templatize_array( $tpl, 'lang', $sub );
 //---------------------------------------------------------------- verification
 if ( !is_numeric( $_GET['cat'] ) )
@@ -53,25 +54,23 @@ if ( isset( $_POST['submit'] ) )
   }
   
   $query = 'UPDATE '.PREFIX_TABLE.'categories';
+
+  $query.= ' SET name = ';
   if ( $_POST['name'] == '' )
-  {
-    $query.= ' SET name = NULL';
-  }
+    $query.= 'NULL';
   else
-  {
-    $query.= " SET name = '".htmlentities( $_POST['name'], ENT_QUOTES)."'";
-  }
+    $query.= "'".htmlentities( $_POST['name'], ENT_QUOTES)."'";
+
+  $query.= ', comment = ';
   if ( $_POST['comment'] == '' )
-  {
-    $query.= ', comment = NULL';
-  }
+    $query.= 'NULL';
   else
-  {
-    $query.= ", comment = '".htmlentities( $_POST['comment'], ENT_QUOTES )."'";
-  }
+    $query.= "'".htmlentities( $_POST['comment'], ENT_QUOTES )."'";
+
   $query.= ", status = '".$_POST['status']."'";
   $query.= ", visible = '".$_POST['visible']."'";
-  $query.= " WHERE id = '".$_GET['cat']."'";
+  $query.= ", uploadable = '".$_POST['uploadable']."'";
+  $query.= ' WHERE id = '.$_GET['cat'];
   $query.= ';';
   mysql_query( $query );
 
@@ -93,7 +92,7 @@ if ( isset( $_POST['submit'] ) )
 $form_action = './admin.php?page=cat_modify&amp;cat='.$_GET['cat'];
 $vtp->setVar( $sub, 'form_action', add_session_id( $form_action ) );
 
-$query = 'SELECT a.id,name,dir,status,comment';
+$query = 'SELECT a.id,name,dir,status,comment,uploadable';
 $query.= ',id_uppercat,site_id,galleries_url,visible';
 $query.= ' FROM '.PREFIX_TABLE.'categories as a, '.PREFIX_TABLE.'sites as b';
 $query.= ' WHERE a.id = '.$_GET['cat'];
@@ -148,6 +147,32 @@ if ( $row['visible'] == 'false' )
 }
 $vtp->setVar( $sub, 'visible_option.checked', $checked );
 $vtp->closeSession( $sub, 'visible_option' );
+// uploadable : true or false
+if ( $conf['upload_available'] )
+{
+  $vtp->addSession( $sub, 'uploadable' );
+  $vtp->addSession( $sub, 'uploadable_option' );
+  $vtp->setVar( $sub, 'uploadable_option.value', 'true' );
+  $vtp->setVar( $sub, 'uploadable_option.option', $lang['yes'] );
+  $checked = '';
+  if ( $row['uploadable'] == 'true' )
+  {
+    $checked = ' checked="checked"';
+  }
+  $vtp->setVar( $sub, 'uploadable_option.checked', $checked );
+  $vtp->closeSession( $sub, 'uploadable_option' );
+  $vtp->addSession( $sub, 'uploadable_option' );
+  $vtp->setVar( $sub, 'uploadable_option.value', 'false' );
+  $vtp->setVar( $sub, 'uploadable_option.option', $lang['no'] );
+  $checked = '';
+  if ( $row['uploadable'] == 'false' )
+  {
+    $checked = ' checked="checked"';
+  }
+  $vtp->setVar( $sub, 'uploadable_option.checked', $checked );
+  $vtp->closeSession( $sub, 'uploadable_option' );
+  $vtp->closeSession( $sub, 'uploadable' );
+}
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>

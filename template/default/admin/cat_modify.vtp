@@ -20,13 +20,13 @@
       </td>
     </tr>
     <tr>
-      <td style="width:20%;">{#editcat_comment}</td>
+      <td>{#editcat_comment}</td>
       <td class="row2">
         <textarea name="comment" rows="5" cols="50" style="overflow:auto">{#comment}</textarea>
       </td>
     </tr>
     <tr>
-      <td style="width:20%;">{#editcat_status}</td>
+      <td>{#editcat_status}</td>
       <td class="row2">
         <!--VTP_status_option-->
         <input type="radio" name="status" value="{#value}"{#checked} />{#option}
@@ -34,14 +34,24 @@
       </td>
     </tr>
     <tr>
-      <td style="width:20%;">{#editcat_visible}</td>
+      <td>{#editcat_visible}</td>
       <td class="row2">
         <!--VTP_visible_option-->
         <input type="radio" name="visible" value="{#value}"{#checked} />{#option}
         <!--/VTP_visible_option-->
-	{#editcat_status_info}
+	{#editcat_visible_info}
       </td>
     </tr>
+    <!--VTP_uploadable-->
+    <tr>
+      <td>{#editcat_uploadable}</td>
+      <td class="row2">
+        <!--VTP_uploadable_option-->
+        <input type="radio" name="uploadable" value="{#value}"{#checked} />{#option}
+        <!--/VTP_uploadable_option-->
+      </td>
+    </tr>
+    <!--/VTP_uploadable-->
     <tr>
       <td colspan="2">&nbsp;</td>
     </tr>

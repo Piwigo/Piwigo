@@ -30,6 +30,9 @@
               <!--VTP_summary-->
               &nbsp;<img src="{#lien_collapsed}" alt="&gt;"/>&nbsp;<a href="{#url}" title="{#title}">{#name}</a><br />
               <!--/VTP_summary-->
+              <!--VTP_upload-->
+              <br />&nbsp;<img src="{#lien_collapsed}" alt="&gt;"/>&nbsp;<a href="{#url}" class="back">{#upload_picture}</a>
+              <!--/VTP_upload-->
             </div>
           {#frame_end}
         </td>
@@ -77,9 +80,6 @@
                   <!--/VTP_comment-->
                   <div class="infoCat">
                   {#nb_image_category} "{#cat_name}" : {#cat_nb_images}
-                  <!--VTP_upload-->
-                  <br /><a href="{#url}" class="back">{#upload_picture}</a>
-                  <!--/VTP_upload-->
                   </div>
                 <!--/VTP_cat_infos-->
               </td>

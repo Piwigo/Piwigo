@@ -282,7 +282,7 @@ function get_cat_info( $id )
   $cat['name'] = array();
                 
   $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
-  $query.= ',date_last';
+  $query.= ',date_last,uploadable';
   $query.= ' FROM '.PREFIX_TABLE.'categories AS a';
   $query.= ', '.PREFIX_TABLE.'sites AS b';
   $query.= ' WHERE a.id = '.$id;
@@ -294,8 +294,9 @@ function get_cat_info( $id )
   $cat['nb_images']   = $row['nb_images'];
   $cat['last_dir']    = $row['dir'];
   $cat['date_last']   = $row['date_last'];
+  $cat['uploadable']  = get_boolean( $row['uploadable'] );
   $galleries_url = $row['galleries_url'];
-                
+
   $cat['dir'] = "";
   $i = 0;
   $is_root = false;
@@ -379,7 +380,7 @@ function get_cat_display_name( $array_cat_names, $separation, $style )
 function initialize_category( $calling_page = 'category' )
 {
   global $page,$lang,$user,$conf;
-  
+
   if ( isset( $page['cat'] ) )
   {
     // $page['nb_image_page'] is the number of picture to display on this page
@@ -391,11 +392,12 @@ function initialize_category( $calling_page = 'category' )
     if ( is_numeric( $page['cat'] ) )
     {
       $result = get_cat_info( $page['cat'] );
-      $page['comment']       = $result['comment'];
-      $page['cat_dir']       = $result['dir'];
-      $page['cat_name']      = $result['name'];
-      $page['cat_nb_images'] = $result['nb_images'];
-      $page['cat_site_id']   = $result['site_id'];
+      $page['comment']        = $result['comment'];
+      $page['cat_dir']        = $result['dir'];
+      $page['cat_name']       = $result['name'];
+      $page['cat_nb_images']  = $result['nb_images'];
+      $page['cat_site_id']    = $result['site_id'];
+      $page['cat_uploadable'] = $result['uploadable'];
       $page['title'] = get_cat_display_name( $page['cat_name'], ' - ', '' );
       $page['where'] = ' WHERE cat_id = '.$page['cat'];
     }

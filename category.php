@@ -436,7 +436,9 @@ if ( isset ( $page['cat'] ) )
     $vtp->setVar( $handle, 'cat_infos.cat_name', $page['title'] );
   }
   // upload a picture in the category
-  if ( $page['cat_site_id'] == 1 and $conf['upload_available'] )
+  if ( $page['cat_site_id'] == 1
+       and $conf['upload_available']
+       and $page['cat_uploadable'] )
   {
     $vtp->addSession( $handle, 'upload' );
     $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
