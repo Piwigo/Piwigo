@@ -219,6 +219,7 @@ include('include/page_header.php');
 
 $handle = $vtp->Open( './template/'.$user['template'].'/picture.vtp' );
 initialize_template();
+$vtp->setGlobalVar( $handle, 'user_template', $user['template'] );
 
 $tpl = array( 'back','submit','comments_title','comments_del','delete',
               'comments_add','author','slideshow','slideshow_stop',
