@@ -4,14 +4,13 @@ a {
 a:hover {
   text-decoration:underline;
 }
-a.back {
-  color:#ffffff;
+a.back,body {
+  color:lightgray;
 }
 body {
   font-family:arial, sans-serif;
   font-size:12px;
   background-color:#444444;
-  color:#ffffff;
   margin:5px;
 }
 table, input {
@@ -19,13 +18,13 @@ table, input {
   font-size:12px;
 }
 .imgLink {
-  border:1px solid #ffffff;
+  border:1px solid lightgray;
 }
 .imgLink:hover {
   text-decoration:none;
 }
-.titrePage, .titreMenu, .menu, .info, a {
-  color:#ffffff;
+.titrePage,.titreMenu,.menu,.info,a,.commentsAuthor,.commentsTitle,.commentsInfos,.commentsContent,.commentsNavigationBar {
+  color:lightgray;
 }
 .titreMenu, .menu, .info {
   margin-bottom:5px;
@@ -88,11 +87,11 @@ table, input {
   font-size:17px;
 }
 .bouton {
-  background:#eeeeee;
+  background:lightgray;
 }
-input {
-  border-color:#000000;
-  background:#ffffff;
+textarea,input {
+  border-color:gray;
+  background-color:lightgray;
   color:#000000;
 }
 table {
@@ -116,12 +115,11 @@ td {
 }
 div.information {
   text-align:center;
-  border:2px solid #ffffff;
+  border:2px solid lightgray;
   margin:10px;
   padding:5px;
 }
 .commentsAuthor, .commentsTitle, .commentsInfos, .commentsContent, .commentsNavigationBar {
-  color:#ffffff;
   font-family:arial, sans-Serif;
   font-size:12px;
 }
@@ -146,17 +144,23 @@ div.information {
 .commentsNavigationBar {
   margin:10px;
 }
+.tableComment,.cellAuthor,.cellInfo {
+  border-color:lightgray;
+  border-style:solid;
+}
 .tableComment {
   width:100%;
-  border:2px solid #ffffff;
+  border-width:2px;
   text-align:left;
   padding: 10px;
 }
 .cellAuthor {
-  border-right:1px solid #ffffff;
+  border-width:0px;
+  border-right-width:1px;
   width:20%;
 }
 .cellInfo {
-  border-bottom:1px solid #ffffff;
+  border-width:0px;
+  border-bottom-width:1px;
 }
 
