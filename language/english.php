@@ -154,7 +154,7 @@ $lang['upload_advise_filetype'] = 'the picture must be to the fileformat jpg, gi
 $lang['upload_err_username'] = 'the username must be given';
 $lang['upload_username'] = 'Username';
 $lang['upload_successful'] = 'Picture uploaded with success, an administrator will validate it as soon as possible';
-// new in release 1.3
+// new or modified in release 1.3
 $lang['charset'] = 'ISO_8859-1';
 $lang['no'] = 'no';
 $lang['yes'] = 'yes';
@@ -460,7 +460,7 @@ Once this file deleted , follow this instructions :
   $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
   $lang['step2_pwd_conf'] = 'confirm password';
   $lang['step2_pwd_conf_info'] = 'verification';
-  // new in release 1.3
+  // new or modified in release 1.3
   $lang['remote_site'] = 'Remote site';
   $lang['title_add'] = 'Add a user';
   $lang['title_modify'] = 'Modify a user';
