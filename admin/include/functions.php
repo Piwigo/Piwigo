@@ -63,23 +63,23 @@ function is_image( $filename, $create_thumbnail = false )
 }
 
 /**
- * returns an array with all picture files according to $conf['picture_ext']
+ * returns an array with all picture files according to $conf['file_ext']
  *
  * @param string $dir
  * @return array
  */
-function get_picture_files( $dir )
+function get_pwg_files($dir)
 {
   global $conf;
 
   $pictures = array();
-  if ( $opendir = opendir( $dir ) )
+  if ($opendir = opendir($dir))
   {
-    while ( $file = readdir( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( in_array( get_extension( $file ), $conf['picture_ext'] ) )
+      if (in_array(get_extension($file), $conf['file_ext']))
       {
-        array_push( $pictures, $file );
+        array_push($pictures, $file);
       }
     }
   }
@@ -93,25 +93,50 @@ function get_picture_files( $dir )
  * @param string $dir
  * @return array
  */
-function get_thumb_files( $dir )
+function get_thumb_files($dir)
 {
   global $conf;
 
-  $prefix_length = strlen( $conf['prefix_thumbnail'] );
+  $prefix_length = strlen($conf['prefix_thumbnail']);
   
   $thumbnails = array();
-  if ( $opendir = @opendir( $dir ) )
+  if ($opendir = @opendir($dir.'/thumbnail'))
   {
-    while ( $file = readdir( $opendir ) )
+    while ($file = readdir($opendir))
     {
-      if ( in_array( get_extension( $file ), $conf['picture_ext'] )
-           and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'] )
+      if (in_array(get_extension($file), $conf['picture_ext'])
+          and substr($file, 0, $prefix_length) == $conf['prefix_thumbnail'])
       {
-        array_push( $thumbnails, $file );
+        array_push($thumbnails, $file);
       }
     }
   }
   return $thumbnails;
+}
+
+/**
+ * returns an array with representative picture files of a directory
+ * according to $conf['picture_ext']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_representative_files($dir)
+{
+  global $conf;
+
+  $pictures = array();
+  if ($opendir = @opendir($dir.'/representative'))
+  {
+    while ($file = readdir($opendir))
+    {
+      if (in_array(get_extension($file), $conf['picture_ext']))
+      {
+        array_push($pictures, $file);
+      }
+    }
+  }
+  return $pictures;
 }
 
 function TN_exists( $dir, $file )
@@ -130,116 +155,132 @@ function TN_exists( $dir, $file )
 }
 	
 
-// The function delete_site deletes a site
-// and call the function delete_category for each primary category of the site
+// The function delete_site deletes a site and call the function
+// delete_categories for each primary category of the site
 function delete_site( $id )
 {
   // destruction of the categories of the site
-  $query = 'SELECT id';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE site_id = '.$id;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE site_id = '.$id.'
+;';
+  $result = mysql_query($query);
+  $category_ids = array();
+  while ($row = mysql_fetch_array($result))
   {
-    delete_category( $row['id'] );
+    array_push($category_ids, $row['id']);
   }
+  delete_categories($category_ids);
 		
   // destruction of the site
-  $query = 'DELETE FROM '.PREFIX_TABLE.'sites';
-  $query.= ' WHERE id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.SITES_TABLE.'
+  WHERE id = '.$id.'
+;';
+  mysql_query($query);
 }
 	
 
-// The function delete_category deletes the category identified by the $id
-// It also deletes (in the database) :
-//    - all the images of the images (thanks to delete_image, see further)
-//    - all the links between images and this category
+// The function delete_categories deletes the categories identified by the
+// (numeric) key of the array $ids. It also deletes (in the database) :
+//    - all the elements of the category (delete_elements, see further)
+//    - all the links between elements and this category
 //    - all the restrictions linked to the category
 // The function works recursively.
-function delete_category( $id )
+function delete_categories($ids)
 {
-  // destruction of all the related images
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' WHERE storage_category_id = '.$id;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
+  // destruction of all the related elements
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE storage_category_id IN ('.implode(',', $ids).')
+;';
+  $result = mysql_query($query);
+  $element_ids = array();
+  while ($row = mysql_fetch_array($result))
   {
-    delete_image( $row['id'] );
+    array_push($element_ids, $row['id']);
   }
+  delete_elements($element_ids);
 
   // destruction of the links between images and this category
-  $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
-  $query.= ' WHERE category_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 
   // destruction of the access linked to the category
-  $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
-  $query.= ' WHERE cat_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
-  $query = 'DELETE FROM '.PREFIX_TABLE.'group_access';
-  $query.= ' WHERE cat_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.USER_ACCESS_TABLE.'
+  WHERE cat_id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
+  $query = '
+DELETE FROM '.GROUP_ACCESS_TABLE.'
+  WHERE cat_id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 
   // destruction of the sub-categories
-  $query = 'SELECT id';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE id_uppercat = '.$id;
-  $query.= ';';
-  $result = mysql_query( $query );
-  while( $row = mysql_fetch_array( $result ) )
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat IN ('.implode(',', $ids).')
+;';
+  $result = mysql_query($query);
+  $subcat_ids = array();
+  while($row = mysql_fetch_array($result))
   {
-    delete_category( $row['id'] );
+    array_push($subcat_ids, $row['id']);
   }
+  delete_categories($subcat_ids);
 
   // destruction of the category
-  $query = 'DELETE FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 }
 	
 
-// The function delete_image deletes the image identified by the $id
-// It also deletes (in the database) :
-//    - all the comments related to the image
-//    - all the links between categories and this image
-//    - all the favorites associated to the image
-function delete_image( $id )
+// The function delete_elements deletes the elements identified by the
+// (numeric) values of the array $ids. It also deletes (in the database) :
+//    - all the comments related to elements
+//    - all the links between categories and elements
+//    - all the favorites associated to elements
+function delete_elements($ids)
 {
-  global $count_deleted;
-		
   // destruction of the comments on the image
-  $query = 'DELETE FROM '.PREFIX_TABLE.'comments';
-  $query.= ' WHERE image_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.COMMENTS_TABLE.'
+  WHERE image_id IN ('.implode(',', $ids).')
+;';
+  echo '<pre>'.$query.'</pre>';
+  mysql_query($query);
 
   // destruction of the links between images and this category
-  $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
-  $query.= ' WHERE image_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 
   // destruction of the favorites associated with the picture
-  $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
-  $query.= ' WHERE image_id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
+  $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE image_id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 		
   // destruction of the image
-  $query = 'DELETE FROM '.PREFIX_TABLE.'images';
-  $query.= ' WHERE id = '.$id;
-  $query.= ';';
-  mysql_query( $query );
-  $count_deleted++;
+  $query = '
+DELETE FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $ids).')
+;';
+  mysql_query($query);
 }
 
 // The delete_user function delete a user identified by the $user_id
