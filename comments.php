@@ -159,28 +159,39 @@ while ( $row = mysql_fetch_array( $result ) )
     if (!empty($subrow['name'])) $name.= $subrow['name'];
     else                         $name.= str_replace( '_', ' ', $file );
     $name.= ' [ '.$subrow['file'].' ]';
-	// source of the thumbnail picture
-    $src = $array_cat_directories[$subrow['cat_id']];
-    $src.= 'thumbnail/'.$conf['prefix_thumbnail'];
-    $src.= $file.'.'.$subrow['tn_ext'];
-	// link to the full size picture
+    // source of the thumbnail picture
+    if (isset($subrow['tn_ext']) and $subrow['tn_ext'] != '')
+    {
+      $src = $array_cat_directories[$subrow['cat_id']];
+      $src.= 'thumbnail/'.$conf['prefix_thumbnail'];
+      $src.= $file.'.'.$subrow['tn_ext'];
+    }
+    else
+    {
+      $src = './template/'.$user['template'].'/mimetypes/';
+      $src.= strtolower(get_extension($subrow['file'])).'.png';
+    }
+    
+    // link to the full size picture
     $url = PHPWG_ROOT_PATH.'picture.php?cat='.$category_id;
     $url.= '&amp;image_id='.$row['image_id'];
-	
-	$template->assign_block_vars('picture',array(
-	  'TITLE_IMG'=>$name,
-	  'I_THUMB'=>$src,
-	  'U_THUMB'=>add_session_id( $url )
-	  ));
-
+    
+    $template->assign_block_vars(
+      'picture',
+      array(
+        'TITLE_IMG'=>$name,
+        'I_THUMB'=>$src,
+        'U_THUMB'=>add_session_id( $url )
+        ));
+    
     // for each picture, retrieving all comments
     $query = 'SELECT * FROM '.COMMENTS_TABLE;
     $query.= ' WHERE image_id = '.$row['image_id'];
     $query.= ' AND date > FROM_UNIXTIME('.$maxtime.')';
-	if ( $user['status'] != 'admin' )
+    if ( $user['status'] != 'admin' )
     {
       $query.= " AND validated = 'true'";
-	}
+    }
     $query.= ' ORDER BY date DESC';
     $query.= ';';
     $handleresult = mysql_query( $query );
