@@ -44,6 +44,7 @@ $lang['forbidden'] = 'Interdit';
 $lang['free'] = 'Libre';
 $lang['restricted'] = 'Restreint';
 $lang['metadata']='Métadonnées';
+$lang['visitors'] = 'Visiteurs';
 
 // Specific words
 $lang['phpinfos'] = 'Informations PHP';
@@ -71,6 +72,9 @@ $lang['remote_site_removed'] = 'was removed on remote site';
 $lang['remote_site_removed_title'] = 'Removed elements';
 $lang['remote_site_created'] = 'created';
 $lang['remote_site_deleted'] = 'deleted';
+$lang['remote_site_local_found'] = 'A local listing.xml file has been found for ';
+$lang['remote_site_local_new'] = '(new site)';
+$lang['remote_site_local_update'] = 'read local listing.xml and update';
 
 // Category words
 $lang['storage'] = 'Répertoire';
@@ -175,12 +179,8 @@ $lang['conf_upload_maxheight_thumbnail_error'] = 'La hauteur maximum des miniatu
 
 // Configuration -> session
 $lang['conf_session_title'] = 'Configuration des sessions';
-$lang['conf_auth_method'] = 'Méthode d\'authentification';
-$lang['conf_auth_method_info'] = 'La méthode d\'authentification par défaut peut être URI (identifiant visible dans l\'adresse) ou par cookie';
-$lang['URI'] = 'URI';
-$lang['cookie'] = 'cookie';
-$lang['conf_authorize_remembering'] = 'Authorize remembering';
-$lang['conf_authorize_remembering_info'] = 'Permits user to log for a long time. It creates a cookie on client side, with duration set in include/config.inc.php (1 year per default)';
+$lang['conf_authorize_remembering'] = 'Connexion automatique';
+$lang['conf_authorize_remembering_info'] = 'Les utilisateurs ne devront plus s\'identifier à chaque nouvelle visiste du site';
 
 // Configuration -> metadata
 $lang['conf_metadata_title'] = 'Configuration des métadonnées des images';
@@ -222,6 +222,17 @@ $lang['update_nb_new_elements'] = 'élément(s) ajouté(s)';
 $lang['update_nb_del_elements'] = 'élément(s) effacé(s)';
 $lang['update_nb_new_categories'] = 'catégorie(s) ajoutée(s)';
 $lang['update_nb_del_categories'] = 'catégorie(s) effacée(s)';
+
+// History
+$lang['stats_title'] = 'Historique de l\'année écoulée';
+$lang['stats_month_title'] = 'Historique mois par mois';
+$lang['stats_pages_seen'] = 'Pages vues';
+$lang['stats_empty'] = 'vider l\'historique';
+$lang['stats_global_graph_title'] = 'Nombre de pages vues par mois';
+$lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
+
+//Users
+
 
 // To be done
 $lang['menu_add_user'] = 'ajout';
@@ -302,11 +313,6 @@ $lang['group_list_title'] = 'Liste des groupes existants';
 $lang['group_err_unknown'] = 'Ce groupe n\'existe pas dans la base de données';
 $lang['permuser_only_private'] = 'Seules les catégories privées sont représentées';
 
-$lang['stats_pages_seen'] = 'pages vues';
-$lang['stats_visitors'] = 'visiteurs';
-$lang['stats_empty'] = 'vider l\'historique';
-$lang['stats_pages_seen_graph_title'] = 'Nombre de pages vues par jour';
-$lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 $lang['comments_last_title'] = 'Derniers commentaires';
 $lang['comments_non_validated_title'] = 'Commentaires non validés';
 $lang['cat_unknown_id'] = 'Cette catégorie n\'existe pas dans la base de données';

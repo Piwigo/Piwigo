@@ -101,6 +101,9 @@ $lang['day'][3] = 'Wednesday';
 $lang['day'][4] = 'Thursday';
 $lang['day'][5] = 'Friday';
 $lang['day'][6] = 'Saturday';
+$lang['w_month'] = 'Month';
+$lang['w_day'] = 'Day';
+$lang['days'] = 'days';
 
 // Customization
 $lang['customize_page_title'] = 'Customization';
@@ -144,6 +147,12 @@ $lang['search_mode_and'] = 'all the words';
 $lang['search_comments'] = 'separate different words with spaces';
 $lang['invalid_search'] = 'search must be done on 3 caracters or more';
 $lang['Search_author_explain'] = 'Use * as a wildcard for partial matches';
+$lang['Look_up_user'] = 'Seek user';
+$lang['Find_username'] = 'Find a username';
+$lang['No_match'] = 'No match';
+$lang['Select_username'] = 'Select a username';
+$lang['Close'] = 'Close the window';
+$lang['Select'] = 'Select';
 
 $lang['only_members'] = 'Only members can access this page';
 $lang['invalid_pwd'] = 'Invalid password!';
@@ -236,8 +245,6 @@ $lang['dissociate'] = 'dissociate';
 $lang['mandatory'] = 'obligatory';
 $lang['err_date'] = 'wrong date';
 $lang['IP'] = 'IP';
-$lang['close'] = 'close';
-$lang['open'] = 'open';
 
 $lang['errors_title'] = 'Errors';
 $lang['infos_title'] = 'Informations';

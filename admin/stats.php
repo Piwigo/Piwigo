@@ -35,12 +35,67 @@ $url_img_global_report = PHPWG_ROOT_PATH.'admin/images/global_stats.img.php';
 $template->set_filenames( array('stats'=>'admin/stats.tpl') );
 
 $template->assign_vars(array(
-  'L_STAT_TITLE'=>$lang['stats_last_days'],
-  'L_STAT_MONTHLY_ALT'=>$lang['stats_pages_seen_graph_title'],
+  'L_MONTH'=>$lang['w_month'],
+  'L_PAGES_SEEN'=>$lang['stats_pages_seen'],
+  'L_VISITORS'=>$lang['visitors'],
+  'L_PICTURES'=>$lang['pictures'],
+  'L_STAT_TITLE'=>$lang['stats_title'],
+  'L_STAT_MONTH_TITLE'=>$lang['stats_month_title'],
+  'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
+  
   'IMG_MONTHLY_REPORT'=>add_session_id($url_img_global_report)
   ));
 
 //---------------------------------------------------------------- log  history
+$query = "SELECT DISTINCT COUNT(*) as p, 
+  MONTH(date) as m,
+  YEAR(date) as y
+  FROM phpwg_history 
+  GROUP BY DATE_FORMAT(date,'%Y-%m') DESC;";
+$result = mysql_query( $query );
+$i=0;
+while ( $row = mysql_fetch_array( $result ) )
+{
+  $current_month = $row['y']."-";
+  if ($row['m'] <10) {$current_month.='0';}
+  $current_month .= $row['m'];
+  // Number of pictures seen
+  $query = "SELECT COUNT(*) as p,
+    FILE as f
+    FROM phpwg_history 
+    WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
+	AND FILE = 'picture'
+	GROUP BY FILE;";
+  $pictures = mysql_fetch_array(mysql_query( $query ));
+  
+  // Number of different visitors
+  $query = "SELECT COUNT(*) as p, login
+    FROM phpwg_history 
+    WHERE DATE_FORMAT(date,'%Y-%m') = '$current_month'
+	GROUP BY login, IP;";
+  $user_results = mysql_query( $query );
+  $nb_visitors = 0;
+  $auth_users = array();
+  while ( $user_array = mysql_fetch_array( $user_results ) )
+  {
+    if ($user_array['login'] == 'guest') 
+	  $nb_visitors += 1;
+	else
+	  array_push($auth_users, $user_array['login']);
+  }
+  $nb_visitors +=count(array_unique($auth_users));
+  $class = ($i % 2)? 'row1':'row2'; $i++;
+  
+  $template->assign_block_vars('month',array(
+    'MONTH'=>$lang['month'][$row['m']].' '.$row['y'],
+	'PAGES'=>$row['p'],
+	'VISITORS'=>$nb_visitors,
+	'IMAGES'=>$pictures['p'],
+	
+	'T_CLASS'=>$class
+    ));
+}
+$nb_visitors = mysql_num_rows( $result );
 $days = array();
 $max_nb_visitors = 0;
 $max_pages_seen = 0;
@@ -49,50 +104,7 @@ $starttime = mktime(  0, 0, 0,date('n'),date('j'),date('Y') );
 $endtime   = mktime( 23,59,59,date('n'),date('j'),date('Y') );
 //for ( $i = 0; $i <= MAX_DAYS; $i++ )
 {
-  /*$day = array();
-  $template->assign_block_vars('day',array(
-    ));
-  
-  // link to open the day to see details
-  $local_expand = $page['expand_days'];
-  if ( in_array( $i, $page['expand_days'] ) )
-  {
-    $vtp->addSession( $sub, 'expanded' );
-    $vtp->closeSession( $sub, 'expanded' );
-    $vtp->setVar( $sub, 'day.open_or_close', $lang['close'] );
-    $local_expand = array_remove( $local_expand, $i );
-  }
-  else
-  {
-    $vtp->addSession( $sub, 'collapsed' );
-    $vtp->closeSession( $sub, 'collapsed' );
-    $vtp->setVar( $sub, 'day.open_or_close', $lang['open'] );
-    array_push( $local_expand, $i );
-  }
-  $url = './admin.php?page=stats';
-  if (isset($_GET['last_days']))
-  	$url.= '&amp;last_days='.$_GET['last_days'];
-  $url.= '&amp;expand='.implode( ',', $local_expand );
-  $vtp->setVar( $sub, 'day.url', add_session_id( $url ) );
-  // date displayed like this (in English ) :
-  //                     Sunday 15 June 2003
-  $date = $lang['day'][date( 'w', $starttime )];   // Sunday
-  $date.= date( ' j ', $starttime );               // 15
-  $date.= $lang['month'][date( 'n', $starttime )]; // June
-  $date.= date( ' Y', $starttime );                // 2003
-  $day['date'] = $date;
-  $vtp->setVar( $sub, 'day.name', $date );
-  // number of visitors for this day
-  $query = 'SELECT DISTINCT(IP) as nb_visitors';
-  $query.= ' FROM '.PREFIX_TABLE.'history';
-  $query.= ' WHERE date > '.$starttime;
-  $query.= ' AND date < '.$endtime;
-  $query.= ';';
-  $result = mysql_query( $query );
-  $nb_visitors = mysql_num_rows( $result );
-  $day['nb_visitors'] = $nb_visitors;
-  if ( $nb_visitors > $max_nb_visitors ) $max_nb_visitors = $nb_visitors;
-  $vtp->setVar( $sub, 'day.nb_visitors', $nb_visitors );
+  /*
   // log lines for this day
   $query = 'SELECT date,login,IP,category,file,picture';
   $query.= ' FROM '.PREFIX_TABLE.'history';

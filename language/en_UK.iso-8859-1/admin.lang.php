@@ -44,6 +44,7 @@ $lang['forbidden'] = 'Forbidden';
 $lang['free'] = 'Free';
 $lang['restricted'] = 'Restricted';
 $lang['metadata']='Metadata';
+$lang['visitors'] = 'Visitors';
 
 // Specific words
 $lang['phpinfos'] = 'PHP Information';
@@ -218,6 +219,14 @@ $lang['update_default_title'] = 'Choose an option';
 $lang['update_only_cat'] = 'update categories, not pictures';
 $lang['update_all'] = 'update all';
 $lang['update_sync_metadata_question'] = 'Do you want to synchronize new elements informations with files metadata ?';
+
+// History
+$lang['stats_title'] = 'Last year statistics';
+$lang['stats_month_title'] = 'Monthly statistics';
+$lang['stats_pages_seen'] = 'Pages seen';
+$lang['stats_empty'] = 'empty history';
+$lang['stats_global_graph_title'] = 'Pages seen by month';
+$lang['stats_visitors_graph_title'] = 'Nombre de visiteurs par jour';
 
 $lang['menu_add_user'] = 'add';
 $lang['menu_list_user'] = 'list';

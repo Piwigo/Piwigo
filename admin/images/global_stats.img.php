@@ -33,7 +33,7 @@ include_once( 'phpBarGraph.php' );
 
 //------------------------------------------------ variable definition
 $outputFormat = "png";
-$legend = $lang['stats_pages_seen_graph_title'];
+$legend = $lang['stats_global_graph_title'];
 $imageHeight = 256;
 $imageWidth = 320;
 $sql = "SELECT DISTINCT COUNT(*), MONTH(date) 

@@ -108,6 +108,8 @@ $lang['day'][3] = 'Mercredi';
 $lang['day'][4] = 'Jeudi';
 $lang['day'][5] = 'Vendredi';
 $lang['day'][6] = 'Samedi';
+$lang['w_month']='Mois';
+$lang['w_day']='Jour';
 
 
 // Customization
@@ -155,6 +157,12 @@ $lang['search_title'] = 'Recherche';
 $lang['search_field_search'] = 'Rechercher';
 $lang['search_return_main_page'] = 'Retour à la page des miniatures';
 $lang['Search_author_explain'] = 'Utilisez * comme un joker pour des recherches partielles';
+$lang['Look_up_user'] = 'Rechercher l\'utilisateur';
+$lang['Find_username'] = 'Trouver un nom d\'utilisateur';
+$lang['No_match'] = 'Aucun enregistrement trouvé.';
+$lang['Select_username'] = 'Sélectionner un Nom d\'utilisateur';
+$lang['Close'] = 'Fermer la fenêtre';
+$lang['Select'] = 'Sélectionner';
 
 $lang['only_members'] = 'Seuls les membres du site peuvent accéder à cette page';
 $lang['invalid_pwd'] = 'Le mot de passe rentré n\'est pas valide';
@@ -196,8 +204,6 @@ $lang['ident_register'] = 'S\'enregistrer';
 $lang['ident_forgotten_password'] = 'Mot de passe oublié ?';
 $lang['ident_guest_visit'] = 'Parcourir la galerie en tant que visiteur';
 
-// Error management
-		
 $lang['previous_image'] = 'Précédent';
 $lang['next_image'] = 'Suivant';
 $lang['info_image_title'] = 'Informations';
@@ -245,8 +251,6 @@ $lang['dissociate'] = 'dissocier';
 $lang['mandatory'] = 'obligatoire';
 $lang['err_date'] = 'date erronée';
 $lang['IP'] = 'IP';
-$lang['close'] = 'fermer';
-$lang['open'] = 'ouvrir';
 
 $lang['errors_title'] = 'Erreurs';
 $lang['infos_title'] = 'Informations';
@@ -256,7 +260,6 @@ $lang['stats_last_days'] = 'derniers jours';
 $lang['menu_login'] = 'Connexion';
 $lang['connected_user'] = 'utilisateur connecté';
 $lang['hint_comments'] = 'Voir les derniers commentaires des visiteurs';
-$lang['stats'] = 'statistiques';
 $lang['most_visited_cat_hint'] = 'affiche les images les plus visitées';
 $lang['most_visited_cat'] = 'plus vues';
 $lang['best_rated_cat_hint'] = 'affiche les images les mieux notées';
@@ -294,13 +297,7 @@ $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Inform
 $lang['update_wrong_dirname'] = 'Le nom des fichiers et répertoires ne doivent être composé que de lettres, de chiffres et "-", "_" ou ".".';
 $lang['hello'] = 'Bonjour';
 
-$lang['Look_up_user'] = 'Rechercher l\'utilisateur';
-$lang['Find_username'] = 'Trouver un nom d\'utilisateur';
-$lang['Find'] = 'Trouver';
-$lang['No_match'] = 'Aucun enregistrement trouvé.';
-$lang['Select_username'] = 'Sélectionner un Nom d\'utilisateur';
-$lang['Close'] = 'Fermer la fenêtre';
-$lang['Select'] = 'Sélectionner';
+
 
 $lang['picture_show_metadata'] = 'Montrer les métadonnées';
 $lang['picture_hide_metadata'] = 'Cacher les métadonnées';
