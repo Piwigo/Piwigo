@@ -20,6 +20,7 @@ $sub = $vtp->Open( '../template/'.$user['template'].'/admin/group_list.vtp' );
 $tpl = array( 'group_add','add','listuser_permission','delete',
               'group_confirm','yes','no','group_list_title' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //-------------------------------------------------------------- delete a group
 $error = array();
 if ( isset ( $_GET['delete'] ) and is_numeric( $_GET['delete'] ) )

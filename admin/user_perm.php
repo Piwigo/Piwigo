@@ -22,6 +22,7 @@ $tpl = array( 'permuser_authorized','permuser_forbidden','submit',
               'permuser_parent_forbidden','permuser_info_message',
               'adduser_info_back' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------------------------- updates
 if ( isset( $_POST['submit'] ) )
 {

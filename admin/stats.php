@@ -38,6 +38,7 @@ $tpl = array( 'stats_last_days','date','login',
               'stats_visitors','stats_empty', 'stats_pages_seen_graph_title',
               'stats_visitors_graph_title');
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- number of days to display
 if ( isset( $_GET['last_days'] ) )
 {

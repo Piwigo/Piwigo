@@ -19,7 +19,7 @@ include_once( './include/isadmin.inc.php' );
 //------------------------------------------------------------------- functions
 function insert_local_category( $cat_id )
 {
-  global $conf, $page;
+  global $conf, $page, $user;
 		
   $site_id = 1;
 		
@@ -31,7 +31,8 @@ function insert_local_category( $cat_id )
     $result = get_cat_info( $cat_id );
     $cat_directory.= '/'.$result['local_dir'];
     // 1. display the category name to update
-    $output = '<img src="./images/puce.gif" alt="&gt;" />';
+    $src = '../template/'.$user['template'].'/admin/images/puce.gif';
+    $output = '<img src="'.$src.'" alt="&gt;" />';
     $output.= '<span style="font-weight:bold;">'.$result['name'][0].'</span>';
     $output.= ' [ '.$result['last_dir'].' ]';
     $output.= '<div class="retrait">';
@@ -370,7 +371,7 @@ function remote_images()
 // the xml_file.
 function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
 {
-  global $conf;
+  global $conf,$user;
 
   $output = '';
   $categories = array();
@@ -382,7 +383,8 @@ function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
     $name = getAttribute( $list_dirs[$i], 'name' );
     $categories[$i] = $name;
 
-    $output.= '<img src="./images/puce.gif">';
+    $src = '../template/'.$user['template'].'/admin/images/puce.gif';
+    $output.= '<img src="'.$src.'" alt="&gt;" />';
     $output.= '<span style="font-weight:bold;">'.$name.'</span>';
     $output.= '<div class="retrait">';
 
@@ -552,6 +554,7 @@ $tpl = array( 'update_default_title', 'update_only_cat', 'update_all',
               'update_research_conclusion', 'update_deletion_conclusion',
               'remote_site', 'update_part_research' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
 check_cat_id( $_GET['update'] );

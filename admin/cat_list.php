@@ -25,6 +25,7 @@ $vtp->setGlobalVar( $sub, 'cat_down',        $lang['cat_down'] );
 $vtp->setGlobalVar( $sub, 'cat_image_info',  $lang['cat_image_info'] );
 $vtp->setGlobalVar( $sub, 'cat_permission',  $lang['cat_permission'] );
 $vtp->setGlobalVar( $sub, 'cat_update',      $lang['cat_update'] );
+$vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
 //---------------------------------------------------------------  rank updates
 if ( isset( $_GET['up'] ) && is_numeric( $_GET['up'] ) )
 {

@@ -21,6 +21,7 @@ $error = array();
 $tpl = array( 'permuser_authorized','permuser_forbidden','menu_groups',
               'submit','menu_users','permuser_parent_forbidden' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //-------------------------------------------------------------- category infos
 if ( isset( $_GET['cat_id'] ) )
 {

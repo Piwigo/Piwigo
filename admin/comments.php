@@ -139,6 +139,7 @@ if ( isset( $_POST['submit'] ) )
 $sub = $vtp->Open( '../template/'.$user['template'].'/admin/comments.vtp' );
 $tpl = array( 'stats_last_days','delete','close','submit','open' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //--------------------------------------------------- number of days to display
 if ( isset( $_GET['last_days'] ) ) define( MAX_DAYS, $_GET['last_days'] );
 else                               define( MAX_DAYS, 0 );

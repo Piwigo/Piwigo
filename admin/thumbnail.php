@@ -267,6 +267,7 @@ $tpl = array(
   'tn_results_gen_time','tn_stats','tn_stats_nb','tn_stats_total',
   'tn_stats_max','tn_stats_min','tn_stats_mean' );
 templatize_array( $tpl, 'lang', $sub );
+$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
 //----------------------------------------------------- miniaturization results
 if ( isset( $_GET['dir'] ) )
 {

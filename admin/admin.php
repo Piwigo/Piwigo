@@ -23,6 +23,7 @@ $handle = $vtp->Open( '../template/'.$user['template'].'/admin/admin.vtp' );
 // language
 $tpl = array( 'menu_title', 'title_default', 'charset' );
 templatize_array( $tpl, 'lang', $handle );
+$vtp->setGlobalVar( $handle, 'user_template', $user['template'] );
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
