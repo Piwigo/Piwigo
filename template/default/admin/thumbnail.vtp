@@ -6,12 +6,12 @@
   <tr>
     <td>
       <div style="text-indent:30px;">
-        <img src="./images/puce.gif" alt="&gt;" style="border:none;" />
+        <img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" style="border:none;" />
         galleries
       </div>
       <!--VTP_dir-->
       <div style="text-indent:{#indent}px;">
-        <img src="./images/puce.gif" alt="&gt;" style="border:none;" />
+        <img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" style="border:none;" />
         <!--VTP_linked-->
         <a href="{#url}">{#name}</a> [ {#nb_pic} {#tn_dirs_alone} ]
         <!--/VTP_linked-->

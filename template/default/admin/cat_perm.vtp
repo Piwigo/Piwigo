@@ -6,7 +6,7 @@
     </tr>
     <!--VTP_group-->
     <tr>
-      <td><a href="{#group_perm_link}"><span style="color:{#color}">{#groupname}</span></a></td>
+      <td><img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" /><a href="{#group_perm_link}"><span style="color:{#color}">{#groupname}</span></a></td>
       <td style="text-align:right;">
         <input type="radio" name="groupaccess-{#id}" value="0"{#authorized_checked}/>{#permuser_authorized}
         <input type="radio" name="groupaccess-{#id}" value="1"{#forbidden_checked}/>{#permuser_forbidden}
@@ -22,6 +22,7 @@
     <!--VTP_user-->
     <tr>
       <td>
+        <img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
         <a href="{#user_perm_link}"><span style="color:{#color}">{#username}</span></a>
         <!--VTP_usergroups-->
         [

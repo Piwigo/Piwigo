@@ -2,7 +2,7 @@
 <!--VTP_cat-->
 <tr>
   <{#td} style="width:40%;text-align:left;">
-    {#indent}<img src="./images/puce.gif" alt="&gt;" />
+    {#indent}<img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" />
     &nbsp;{#name} [ dir : {#dir} ]
     <span style="color:red;font-weight:normal;"> {#invisible} <span style="font-weight:bold;">{#private}</span></span>
   </{#td}>

@@ -29,7 +29,7 @@
   <!--VTP_group-->
   <tr>
     <td style="width:25%;">
-      <div style="margin-left:10px;color:{#color}"><img src="./images/puce.gif" alt="&gt;" /> {#name}</div>
+      <div style="margin-left:10px;color:{#color}"><img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt;" /> {#name}</div>
     </td>
     <td class="row2" style="text-align:center;width:25%;">
       <a href="{#permission_url}">{#listuser_permission}</a>

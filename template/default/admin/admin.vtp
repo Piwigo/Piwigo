@@ -148,7 +148,7 @@
               <td class="contenucellule">
                 <div class="plan">
                   <!--VTP_summary-->
-                  {#indent}<img src="./images/puce.gif"><a href="{#link}" class="cat_plan">{#name}</a><br />
+                  {#indent}<img src="../template/{#user_template}/admin/images/puce.gif" alt="&gt; "><a href="{#link}" class="cat_plan">{#name}</a><br />
                   <!--/VTP_summary-->
                 </div>
               </td>
