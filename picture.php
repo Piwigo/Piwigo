@@ -530,7 +530,7 @@ if ( $page['num'] < $page['cat_nb_images']-1 )
   if ( isset( $_GET['slideshow'] ) )
   {
     $vtp->addSession( $handle, 'refresh' );
-    $vtp->setVar( $handle, 'refresh.time', 2 );
+    $vtp->setVar( $handle, 'refresh.time', $_GET['slideshow'] );
     $url = $url_link.'&amp;slideshow='.$_GET['slideshow'];
     $vtp->setVar( $handle, 'refresh.url', add_session_id( $url ) );
     $vtp->closeSession( $handle, 'refresh' );
