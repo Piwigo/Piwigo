@@ -24,8 +24,6 @@ include( PREFIX_INCLUDE.'./include/functions_group.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
-// get_enums returns an array containing the possible values of a enum field
-// in a table of the database.
 /**
  * possible values of an "enum" field
  *
@@ -35,6 +33,9 @@ include( PREFIX_INCLUDE.'./include/functions_group.inc.php' );
  * @param string table in the database
  * @param string field name in this table
  * @uses str_replace
+ * @uses explode
+ * @uses sizeof
+ * @uses substr
  */
 function get_enums( $table, $field )
 {
