@@ -240,30 +240,22 @@ if ( isset( $_POST['submit'] ) )
 else
 {
 //--------------------------------------------------------- data initialization
-  $query  = 'SELECT';
-  foreach ( $conf_infos as $i => $conf_info ) {
-    if ( $i > 0 ) $query.= ',';
-    else          $query.= ' ';
-    $query.= $conf_info;
-  }
+  $query  = 'SELECT '.implode( ',', $conf_infos );
   $query .= ' FROM '.PREFIX_TABLE.'config;';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $conf_infos as $conf_info ) {
-    $$conf_info = $row[$conf_info];
+  foreach ( $conf_infos as $info ) {
+    if ( isset( $row[$info] ) ) $$info = $row[$info];
+    else                        $$info = '';
   }
 
-  $query  = 'SELECT';
-  foreach ( $default_user_infos as $i => $default_user_info ) {
-    if ( $i > 0 ) $query.= ',';
-    else          $query.= ' ';
-    $query.= $default_user_info;
-  }
+  $query  = 'SELECT '.implode( ',', $default_user_infos );
   $query.= ' FROM '.PREFIX_TABLE.'users';
   $query.= " WHERE username = 'guest'";
   $query.= ';';
   $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $default_user_infos as $default_user_info ) {
-    $$default_user_info = $row[$default_user_info];
+  foreach ( $default_user_infos as $info ) {
+    if ( isset( $row[$info] ) ) $$info = $row[$info];
+    else                        $$info = '';
   }
 }
 //----------------------------------------------------- template initialization

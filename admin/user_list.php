@@ -150,7 +150,7 @@ else
     }
     $vtp->addSession( $sub, 'user' );
     // checkbox for mail management if the user has a mail address
-    if ( $row['mail_address'] != '' and $row['username'] != 'guest' )
+    if ( isset( $row['mail_address'] ) and $row['username'] != 'guest' )
     {
       $vtp->addSession( $sub, 'checkbox' );
       $vtp->setVar( $sub, 'checkbox.name', 'mail-'.$row['id'] );
