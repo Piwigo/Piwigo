@@ -332,6 +332,6 @@ if ( isset ( $page['cat'] ) )
 pwg_log( 'category', $page['title'] );
 mysql_close();
 
-$template->pparse('category');
+$template->parse('category');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

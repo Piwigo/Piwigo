@@ -54,5 +54,5 @@ if ( isset( $refresh ) and is_int($refresh) and isset( $url_link ) )
   $template->assign_block_vars('refresh', array());
 }
 
-$template->pparse('header');
+$template->parse('header');
 ?>

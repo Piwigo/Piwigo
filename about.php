@@ -45,6 +45,6 @@ $template->assign_vars(array(
 	)
 	);
 
-$template->pparse('about');
+$template->parse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

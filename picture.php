@@ -1029,6 +1029,6 @@ if ($page['show_comments'])
 pwg_log( 'picture', $title_img, $picture['current']['file'] );
 mysql_close();
 
-$template->pparse('picture');
+$template->parse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

@@ -232,7 +232,7 @@ if (defined('IN_ADMIN'))
 else
 {
   $template->assign_block_vars('title',array());
-  $template->pparse('comments');
+  $template->parse('comments');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
 ?>

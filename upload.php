@@ -374,6 +374,6 @@ else
   $template->assign_block_vars('upload_successful',array());
 }
 //----------------------------------------------------------- html code display
-$template->pparse('upload');
+$template->parse('upload');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

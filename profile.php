@@ -348,7 +348,7 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 else
 {
   $template->assign_block_vars('modify.profile',array());
-  $template->pparse('profile_body');
+  $template->parse('profile_body');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
 ?>

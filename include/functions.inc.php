@@ -543,17 +543,18 @@ function pwg_debug( $string )
  */
 function redirect( $url )
 {
-  global $user, $template, $lang_info, $conf, $lang, $t2;
+  global $user, $template, $lang_info, $conf, $lang, $t2, $page;
 
   // $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
   $refresh = 0;
   $url_link = $url;
   $title = 'redirection';
+
   include( PHPWG_ROOT_PATH.'include/page_header.php' );
   
   $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
-  $template->pparse('redirect');
+  $template->parse('redirect');
   
   include( PHPWG_ROOT_PATH.'include/page_tail.php' );
 

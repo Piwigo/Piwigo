@@ -244,7 +244,7 @@ else
 {
   $template->assign_vars(array ('ADMIN_CONTENT'=> '<div style="text-align:center">'.$lang['default_message'].'</div>') );
 }
-$template->pparse('admin');
+$template->parse('admin');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 // +-----------------------------------------------------------------------+
 // |                     order permission refreshment                      |

@@ -83,6 +83,6 @@ if ( sizeof( $errors ) != 0 )
   }
 }
 
-$template->pparse('register');
+$template->parse('register');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

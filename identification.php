@@ -98,6 +98,6 @@ if ( sizeof( $errors ) != 0 )
 //-------------------------------------------------------------- visit as guest
 $template->assign_block_vars('free_access',array());
 //----------------------------------------------------------- html code display
-$template->pparse('identification');
+$template->parse('identification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

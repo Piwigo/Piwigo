@@ -59,5 +59,7 @@ if ($conf['show_gt'])
 // Generate the page
 //
 
-$template->pparse('tail');
+$template->parse('tail');
+
+$template->p();
 ?>

@@ -103,6 +103,6 @@ if ( !empty($username_list))
     ));
 }
 
-$template->pparse('search');
+$template->parse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
