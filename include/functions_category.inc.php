@@ -556,7 +556,6 @@ function initialize_category( $calling_page = 'category' )
 
       if ( $query != '' )
       {
-        echo $query;
         $result = mysql_query( $query );
         $row = mysql_fetch_array( $result );
         $page['cat_nb_images'] = $row['nb_total_images'];
