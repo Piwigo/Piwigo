@@ -85,15 +85,16 @@ if ( isset( $_POST['submit'] ) )
   $query.= ';';
   mysql_query( $query );
 
+  // checking users favorites
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'users';
-  $query.= " WHERE username != '".$conf['webmaster']."'";
   $query.= ';';
   $result = mysql_query( $query );
-  while ( $row = mysql_fetch_array ( $result ) )
+  while ( $row = mysql_fetch_array( $result ) )
   {
     check_favorites( $row['id'] );
   }
+
   $vtp->addSession( $sub, 'confirmation' );
   $url = add_session_id( './admin.php?page=cat_list' );
   $vtp->setVar( $sub, 'confirmation.back_url', $url );
