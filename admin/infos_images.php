@@ -23,12 +23,14 @@ include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
 $page['nb_image_page'] = 5;
 
 check_cat_id( $_GET['cat_id'] );
+
+$errors = array();
+
 if ( isset( $page['cat'] ) )
 {
 //--------------------------------------------------- update individual options
   if ( isset( $_POST['submit'] ) )
   {
-    $errors = array();
     if ( isset( $_POST['associate'] ) )
     {
       // does the uppercat id exists in the database ?
@@ -47,13 +49,14 @@ if ( isset( $page['cat'] ) )
       }
     }
 
+    $associate = false;
+    
     $query = 'SELECT id,file';
     $query.= ' FROM '.PREFIX_TABLE.'images';
     $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= ' WHERE category_id = '.$page['cat'];
     $query.= ';';
     $result = mysql_query( $query );
-    $i = 1;
     while ( $row = mysql_fetch_array( $result ) )
     {
       $name          = 'name-'.$row['id'];
@@ -90,36 +93,30 @@ if ( isset( $page['cat'] ) )
           $query.= 'NULL';
 
         $query.= ', keywords = ';
+
         $keywords_array = get_keywords( $_POST[$keywords] );
-        if ( count( $keywords_array ) == 0 )
-          $query.= 'NULL';
-        else
-        {
-          $query.= "'";
-          foreach ( $keywords_array as $i => $keyword ) {
-            if ( $i > 0 ) $query.= ',';
-            $query.= $keyword;
-          }
-          $query.= "'";
-        }
+        if ( count( $keywords_array ) == 0 ) $query.= 'NULL';
+        else $query.= "'".implode( ',', $keywords_array )."'";
 
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
         mysql_query( $query );
       }
       // add link to another category
-      if ( $_POST['check-'.$row['id']] == 1 and count( $errors ) == 0 )
+      if ( isset( $_POST['check-'.$row['id']] ) and count( $errors ) == 0 )
       {
         $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
         $query.= ' (image_id,category_id) VALUES';
         $query.= ' ('.$row['id'].','.$_POST['associate'].')';
         $query.= ';';
         mysql_query( $query );
+        $associate = true;
       }
     }
     update_category( $_POST['associate'] );
+    if ( $associate ) synchronize_all_users();
 //------------------------------------------------------ update general options
-    if ( $_POST['use_common_author'] == 1 )
+    if ( isset( $_POST['use_common_author'] ) )
     {
       $query = 'SELECT image_id';
       $query.= ' FROM '.PREFIX_TABLE.'image_category';
@@ -142,7 +139,7 @@ if ( isset( $page['cat'] ) )
         mysql_query( $query );
       }
     }
-    if ( $_POST['use_common_date_creation'] == 1 )
+    if ( isset( $_POST['use_common_date_creation'] ) )
     {
       if ( check_date_format( $_POST['date_creation_cat'] ) )
       {
@@ -233,7 +230,7 @@ if ( isset( $page['cat'] ) )
     $page['start'] = $_GET['start'];
   }
 
-  if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
+  if ( isset($_GET['num']) and is_numeric($_GET['num']) and $_GET['num'] >= 0 )
   {
     $page['start'] =
       floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
@@ -276,8 +273,11 @@ if ( count( $errors ) != 0 )
 
   $array_cat_directories = array();
 
-  $query = 'SELECT id,file,comment,author,tn_ext,name,date_creation,keywords';
-  $query.= ',storage_category_id,category_id';
+  $infos = array( 'id','file','comment','author','tn_ext','name'
+                  ,'date_creation','keywords','storage_category_id'
+                  ,'category_id' );
+  
+  $query = 'SELECT '.implode( ',', $infos );
   $query.= ' FROM '.PREFIX_TABLE.'images';
   $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
   $query.= ' WHERE category_id = '.$page['cat'];
@@ -287,6 +287,8 @@ if ( count( $errors ) != 0 )
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
+    foreach ($infos as $info) { if (!isset($row[$info])) $row[$info] = ''; }
+    
     $vtp->addSession( $sub, 'picture' );
     $vtp->setVar( $sub, 'picture.id', $row['id'] );
     $vtp->setVar( $sub, 'picture.filename', $row['file'] );
@@ -299,7 +301,7 @@ if ( count( $errors ) != 0 )
     $file = get_filename_wo_extension( $row['file'] );
     $vtp->setVar( $sub, 'picture.default_name', $file );
     // creating url to thumbnail
-    if ( $array_cat_directories[$row['storage_category_id']] == '' )
+    if ( !isset( $array_cat_directories[$row['storage_category_id']] ) )
     {
       $array_cat_directories[$row['storage_category_id']] =
         get_complete_dir( $row['storage_category_id'] );
