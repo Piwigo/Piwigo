@@ -66,6 +66,11 @@ if ( sizeof( $error ) == 0 and isset( $_POST['submit'] ) )
   {
     $use_new_password = true;
   }
+  // if we try to update the webmaster infos, we have to set the status to
+  // 'admin'
+  if ( $row['username'] == $conf['webmaster'] )
+    $_POST['status'] = 'admin';
+
   $error = array_merge( $error, update_user(
                           $_GET['user_id'], $_POST['mail_address'],
                           $_POST['status'], $use_new_password,
