@@ -31,7 +31,20 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include(PHPWG_ROOT_PATH.'include/template.php');
+
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
+// Is PhpWebGallery already installed ?
+if (defined('PHPWG_INSTALLED'))
+{
+  $message = 'PhpWebGallery is already installed. In include/mysql.inc.php,
+remove line
+<pre style="background-color:lightgray">
+define(\'PHPWG_INSTALLED\', true);
+</pre>
+if you want to upgrade';
+  die($message);
+}
+
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
 
