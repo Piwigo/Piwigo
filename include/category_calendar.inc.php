@@ -39,7 +39,6 @@ SELECT YEAR(date_available) AS year, COUNT(id) AS count
     AND id = image_id
   GROUP BY year
 ;';
-// echo '<pre>'.$query.'</pre>';
 $result = mysql_query($query);
 $calendar_years = array();
 while ($row = mysql_fetch_array($result))
@@ -164,7 +163,6 @@ SELECT DISTINCT(date_available) AS day, COUNT(id) AS count
     AND MONTH(date_available) = '.$page['calendar_month'].'
   GROUP BY day
 ;';
-  echo '<pre>'.$query.'</pre>';
   $result = mysql_query($query);
   $calendar_days = array();
   while ($row = mysql_fetch_array($result))
@@ -189,7 +187,6 @@ SELECT category_id AS category, COUNT(id) AS count
     AND id = image_id
   GROUP BY category_id
 ;';
-//  echo '<pre>'.$query.'</pre>';
   $result = mysql_query($query);
   $calendar_categories = array();
   // special category 0 : gathering all available categories (0 cannot be a
@@ -288,7 +285,6 @@ SELECT file,tn_ext,date_available,storage_category_id
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-//    echo '<pre>'.$query.'</pre>';
     $row = mysql_fetch_array(mysql_query($query));
     
     $file = get_filename_wo_extension($row['file']);
