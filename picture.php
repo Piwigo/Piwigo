@@ -784,7 +784,7 @@ foreach ($cat_array as $category)
   }
   // the picture is commentable if it belongs at least to one category which
   // is commentable
-  if ($category['commentable'])
+  if ($category['commentable'] == 'true')
   {
     $page['show_comments'] = true;
   }

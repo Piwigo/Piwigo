@@ -61,8 +61,8 @@
     <tr>
       <td><strong>{L_EDIT_COMMENTABLE}&nbsp;:</strong><br /><span class="small">{L_EDIT_COMMENTABLE_INFO}</span></td>
       <td class="row1">
-          <input type="radio" class="radio" name="commentable" value="false" {COMMENTABLE_TRUE} />{L_YES}&nbsp;&nbsp;
-          <input type="radio" class="radio" name="commentable" value="true" {COMMENTABLE_FALSE} />{L_NO}
+          <input type="radio" class="radio" name="commentable" value="true" {COMMENTABLE_TRUE} />{L_YES}&nbsp;&nbsp;
+          <input type="radio" class="radio" name="commentable" value="false" {COMMENTABLE_FALSE} />{L_NO}
       </td>
     </tr>
     <!-- BEGIN upload -->

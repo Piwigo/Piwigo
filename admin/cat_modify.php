@@ -63,6 +63,9 @@ if ( isset( $_POST['submit'] ) )
   if ( isset( $_POST['uploadable'] ) )
     $query.= ", uploadable = '".$_POST['uploadable']."'";
 
+  if ( isset( $_POST['commentable'] ) )
+    $query.= ", commentable = '".$_POST['commentable']."'";
+
   if ( isset( $_POST['associate'] ) )
   {
     $query.= ', id_uppercat = ';
