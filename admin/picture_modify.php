@@ -112,6 +112,29 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   pwg_query($query);
   update_category($_POST['cat_associated']);
 }
+// elect the element to represent the given categories
+if (isset($_POST['elect'])
+    and isset($_POST['cat_dismissed'])
+    and count($_POST['cat_dismissed']) > 0)
+{
+  $datas = array();
+  foreach ($_POST['cat_dismissed'] as $category_id)
+  {
+    array_push($datas,
+               array('id' => $category_id,
+                     'representative_picture_id' => $_GET['image_id']));
+  }
+  $fields = array('primary' => array('id'),
+                  'update' => array('representative_picture_id'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+}
+// dismiss the element as representant of the given categories
+if (isset($_POST['dismiss'])
+    and isset($_POST['cat_elected'])
+    and count($_POST['cat_elected']) > 0)
+{
+  set_random_representant($_POST['cat_elected']);
+}
 
 // retrieving direct information about picture
 $query = '
@@ -183,6 +206,8 @@ $template->assign_vars(array(
   'L_CAT_DISSOCIATED'=>$lang['cat_dissociated'],
   'L_PATH'=>$lang['path'],
   'L_STORAGE_CATEGORY'=>$lang['storage_category'],
+  'L_REPRESENTS'=>$lang['represents'],
+  'L_DOESNT_REPRESENT'=>$lang['doesnt_represent'],
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
  ));
@@ -219,6 +244,21 @@ SELECT id,name,uppercats,global_rank
   WHERE id NOT IN ('.implode(',', $associateds).')
 ;';
 display_select_cat_wrapper($query,array(),'dissociated_option');
+// representing
+$query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id = '.$_GET['image_id'].'
+;';
+display_select_cat_wrapper($query,array(),'elected_option');
+
+$query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $associateds).')
+    AND representative_picture_id != '.$_GET['image_id'].'
+;';
+display_select_cat_wrapper($query,array(),'dismissed_option');
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');
 ?>

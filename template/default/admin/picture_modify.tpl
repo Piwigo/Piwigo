@@ -105,3 +105,40 @@
   <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
 
 </form>
+
+<form name="form2" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+
+  <div style="clear:both;"></div>
+
+  <div style="height:auto;">
+
+    <div style="float:left;padding:10px;width:300px;">
+      <span class="titreMenu">{L_REPRESENTS}</span><br />
+      <select style="height:auto;width:280px" name="cat_elected[]" multiple="multiple" size="10">
+        <!-- BEGIN elected_option -->
+        <option class="{elected_option.CLASS}" {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
+        <!-- END elected_option -->
+      </select>
+    </div>
+
+    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
+      <input type="submit" value="&larr;" name="elect" style="font-size:15px;" class="bouton" /><br/>
+      <input type="submit" value="&rarr;" name="dismiss" style="font-size:15px;" class="bouton" />
+    </div>
+
+    <div style="float:right;padding:10px;width:300px;">
+      <span class="titreMenu">{L_DOESNT_REPRESENT}</span><br />
+      <select style="width:280px" name="cat_dismissed[]" multiple="multiple" size="10">
+        <!-- BEGIN dismissed_option -->
+        <option class="{dismissed_option.CLASS}" {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
+        <!-- END dismissed_option -->
+      </select>
+    </div>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
+
+</form>

@@ -349,4 +349,6 @@ $lang['set_random_representant'] = 'set new random representant';
 $lang['cat_associated'] = 'virtually associated to';
 $lang['cat_dissociated'] = 'dissociated from';
 $lang['storage_category'] = 'storage category';
+$lang['represents'] = 'represents';
+$lang['doesnt_represent'] = 'doesn\'t represent';
 ?>
