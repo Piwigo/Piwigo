@@ -4,7 +4,6 @@
 // +-----------------------------------------------------------------------+
 // | application   : PhpWebGallery <http://phpwebgallery.net>              |
 // | branch        : 1.4                                                   |
-// | author        : Pierrick LE GALL <pierrick@z0rglub.com>               |
 // +-----------------------------------------------------------------------+
 // | file          : $RCSfile$
 // | last update   : $Date$
