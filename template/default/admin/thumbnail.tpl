@@ -94,7 +94,7 @@
         <input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5
         <input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10
         <input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20
-        <input type="radio" name="n" value="all" {params.n_all_CHECKED} /> all
+        <input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}
       </td>
       <td>{L_CREATE_INFO}</td>
     </tr>

@@ -265,6 +265,7 @@ $lang['tn_alone_title'] = 'pictures without thumbnail (jpeg and png only)';
 $lang['tn_dirs_title'] = 'Directories list';
 $lang['tn_dirs_alone'] = 'pictures without thumbnail';
 $lang['tn_no_missing'] = 'No missing thumbnail';
+$lang['tn_all'] = 'all';
 
 // Waiting files 
 $lang['waiting_update'] = 'Validated pictures will be displayed only once pictures database updated';

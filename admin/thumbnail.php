@@ -184,6 +184,7 @@ $template->assign_vars(array(
   'L_TN_MAX'=>$lang['tn_stats_max'],
   'L_TN_MIN'=>$lang['tn_stats_min'],
   'L_TN_AVERAGE'=>$lang['tn_stats_mean'],
+  'L_ALL'=>$lang['tn_all'],
   
   'T_STYLE'=>$user['template']
   ));

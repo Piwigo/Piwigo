@@ -271,6 +271,7 @@ $lang['tn_alone_title'] = 'images sans miniatures (format jpg et png uniquement)
 $lang['tn_dirs_title'] = 'Liste des répertoires';
 $lang['tn_dirs_alone'] = 'images sans miniatures';
 $lang['tn_no_missing'] = 'Aucune miniature ne manque';
+$lang['tn_all'] = 'tout';
 
 // Waiting files 
 $lang['waiting_update'] = 'Les images validées ne seront visibles qu\'après mise à jour de la base d\'images.';
