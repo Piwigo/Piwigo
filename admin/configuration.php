@@ -232,7 +232,7 @@ $template->assign_vars(
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=configuration&amp;section=';
 foreach (array_keys($sections) as $section)
 {
-  if (isset($_GET['section']) and $_GET['section'] == $section)
+  if ($section == $page['section'])
   {
     $class = 'opened';
   }
