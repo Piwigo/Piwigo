@@ -365,9 +365,9 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   }
   $vtp->closeSession( $handle, 'thumbnails' );
 }
-else if ( isset( $page['cat'] )
-          and is_numeric( $page['cat'] )
-          and $page['cat_nb_images'] == 0 )
+elseif ( isset( $page['cat'] )
+         and is_numeric( $page['cat'] )
+         and $page['cat_nb_images'] == 0 )
 {
   $vtp->addSession( $handle, 'thumbnails' );
   
@@ -383,7 +383,7 @@ else if ( isset( $page['cat'] )
     $result = get_cat_info( $cat_row['id'] );
     $cat_directory = $result['dir'];
 
-    $name = $lang['sub-cat'].'"<span style="font-weight:bold;">';
+    $name = '[ <span style="font-weight:bold;">';
     if ( $cat_row['name'] != '' )
     {
       $name.= $cat_row['name'];
@@ -392,7 +392,8 @@ else if ( isset( $page['cat'] )
     {
       $name.= $cat_row['dir'];
     }
-    $name.= '</span>"';
+    $name.= '</span> ]';
+    $name = replace_space( $name );
     
     $query = 'select file,tn_ext';
     $query.= ' from '.$prefixeTable.'images';

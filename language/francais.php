@@ -43,8 +43,8 @@ $lang['next_page'] = 'Suivante';
 $lang['nb_image_category'] = 'nombre d\'images dans la catégorie';
 // start version 1.3
 //$lang['connected_user_female'] = 'utilisatrice connectée';
+$lang['connected_user'] = 'utilisateur connecté';
 // end version 1.3
-$lang['connected_user_male'] = 'utilisateur connecté';
 $lang['recent_image'] = 'image datant de moins de';
 $lang['days'] = 'jours';
 $lang['send_mail'] = 'Une remarque : mailez moi';
