@@ -190,6 +190,7 @@ $lang['slideshow_stop'] = 'stopper le diaporama';
 $lang['comment_added'] = 'Votre commentaire a été enregistré';
 $lang['comment_to_validate'] = 'Un administrateur doit valider votre commentaire pour qu\'il soit visible';
 $lang['comment_anti-flood'] = 'Système anti-flood : attendez un moment avant de déposer un message';
+$lang['comment_user_exists'] = 'Ce pseudo appartient à un autre utilisateur';
 // end version 1.3
 
 // page register
