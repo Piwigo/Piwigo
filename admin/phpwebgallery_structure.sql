@@ -65,7 +65,8 @@ CREATE TABLE phpwebgallery_config (
   log enum('true','false') NOT NULL default 'false',
   comments_validation enum('true','false') NOT NULL default 'false',
   comments_forall enum('true','false') NOT NULL default 'false',
-  authorize_cookies enum('true','false') NOT NULL default 'false'
+  authorize_cookies enum('true','false') NOT NULL default 'false',
+  mail_notification enum('true','false') NOT NULL default 'false'
 ) TYPE=MyISAM;
 
 --
