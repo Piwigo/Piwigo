@@ -226,7 +226,7 @@ site, par exemple http://exemple.com/galleries',
 
   'Vous pouvez également effectuer ces opérations manuellement en éditant le
 fichier listing.xml à la main et en le déplaçant vers votre répertoire
-"admin". Se rendre sur zone administration, Général, Sites distant :
+racine. Se rendre sur zone administration, Général, Sites distant :
 PhpWebGallery détecte le fichier et propose de s\'en servir.'
   
   );

@@ -215,7 +215,7 @@ site, for example http://example.com/galleries',
 </ol>',
 
   'You can do all this by hand by generating yourself the listing.xml file,
-moving it from your distant server to you local PhpWebGallery "admin"
+moving it from your distant server to you local PhpWebGallery root
 directory and opening the remote site management screen : PhpWebGallery will
 propose you to use the found listing.xml file.'
   
