@@ -238,6 +238,7 @@ function init_userprefs($userdata)
       $language = DEFAULT_LANGUAGE;
     }
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
+  include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/faq.lang.php');
   }
 
   $template = setup_style($template);
