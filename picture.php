@@ -35,13 +35,12 @@ $query.= ';';
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
 //------------------------------------- main picture information initialization
-$query = 'SELECT id,date_available,comment,hit,keywords';
-$query.= ',author,name,file,date_creation,filesize,width,height';
-$query.= ',storage_category_id';
-if ( is_numeric( $page['cat'] ) )
-{
-  $query.= ',category_id';
-}
+$infos = array( 'id','date_available','comment','hit','keywords','author'
+                ,'name','file','date_creation','filesize','width','height'
+                ,'storage_category_id' );
+
+$query = 'SELECT '.implode( ',', $infos );
+if ( is_numeric( $page['cat'] ) ) $query.= ',category_id';
 $query.= ' FROM '.PREFIX_TABLE.'images';
 $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category AS ic';
 $query.= ' ON id = ic.image_id';
@@ -60,21 +59,12 @@ if ( mysql_num_rows( $result ) == 0 )
   exit();
 }
 $row = mysql_fetch_array( $result );
-$page['id']             = $row['id'];
-$page['file']           = $row['file'];
-$page['name']           = $row['name'];
-$page['date_available'] = $row['date_available'];
-$page['comment']        = $row['comment'];
-$page['hit']            = $row['hit'];
-$page['author']         = $row['author'];
-$page['date_creation']  = $row['date_creation'];
-$page['filesize']       = $row['filesize'];
-$page['width']          = $row['width'];
-$page['height']         = $row['height'];
-if (is_numeric( $page['cat'] ))
-	$page['category_id']    = $row['category_id'];
-$page['keywords']       = $row['keywords'];
-$page['storage_category_id'] = $row['storage_category_id'];
+
+foreach ( $infos as $info ) {
+  if ( isset( $row[$info] ) ) $page[$info] = $row[$info];
+  else                        $page[$info] = '';
+}
+if ( is_numeric( $page['cat'] ) ) $page['category_id'] = $row['category_id'];
 // retrieving the number of the picture in its category (in order)
 $query = 'SELECT DISTINCT(id)';
 $query.= ' FROM '.PREFIX_TABLE.'images';
