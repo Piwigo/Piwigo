@@ -74,6 +74,26 @@ if (!$belongs)
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
+//---------------------------------------------------------- related categories
+$query = '
+SELECT category_id,uppercats,commentable,global_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
+  WHERE image_id = '.$_GET['image_id'];
+if ($user['forbidden_categories'] != '')
+{
+  $query.= '
+    AND category_id NOT IN ('.$user['forbidden_categories'].')';
+}
+$query.= '
+;';
+$result = pwg_query($query);
+$related_categories = array();
+while ($row = mysql_fetch_array($result))
+{
+  array_push($related_categories, $row);
+}
+usort($related_categories, 'global_rank_compare');
 //------------------------------------- prev, current & next picture management
 $picture = array();
 
@@ -348,10 +368,14 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       // notification to the administrators
       if ( $conf['mail_notification'] )
       {
+        // find any related category (can be unreachable to this admin)
+        $category = $related_categories[0];
         // locally, we change the $conf['level_separator']
         $conf_separator = $conf['level_separator'];
         $conf['level_separator'] = ' > ';
-        $cat_name = get_cat_display_name($page['cat_name'], '');
+        $cat_name = get_cat_display_name_cache($category['uppercats'],
+                                               '',
+                                               false);
         $conf['level_separator'] = $conf_separator;
         
         $cat_name = strip_tags( $cat_name );
@@ -583,7 +607,7 @@ if (isset($picture['current']['comment'])
   $template->assign_block_vars(
     'legend',
     array(
-        'COMMENT_IMG' => $picture['current']['comment']
+      'COMMENT_IMG' => nl2br($picture['current']['comment'])
       ));
 }
 
@@ -745,36 +769,16 @@ SELECT COUNT(rate) AS count
       ));
 }
 // related categories
-$query = '
-SELECT category_id,uppercats,commentable,global_rank
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
-  WHERE image_id = '.$_GET['image_id'];
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-    AND category_id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
-;';
-$result = pwg_query($query);
-$cat_array = array();
-while ($row = mysql_fetch_array($result))
-{
-  array_push($cat_array, $row);
-}
-usort($cat_array, 'global_rank_compare');
-
 $cat_output = '';
 $page['show_comments'] = false;
-foreach ($cat_array as $category)
+foreach ($related_categories as $category)
 {
   if ($cat_output != '')
   {
     $cat_output.= '<br />';
   }
   
-  if (count($cat_array) > 3)
+  if (count($related_categories) > 3)
   {
     $cat_output .= get_cat_display_name_cache($category['uppercats']);
   }
