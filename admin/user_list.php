@@ -29,7 +29,7 @@ templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
 //------------------------------------------------------------------ add a user
 $errors = array();
-if ( isset( $_POST['submit'] ) )
+if ( isset( $_POST['submit_add_user'] ) )
 {
   $errors = register_user(
     $_POST['username'], $_POST['password'], $_POST['password'], '', 'guest' );
@@ -45,7 +45,7 @@ if ( sizeof( $errors ) != 0 )
   }
   $vtp->closeSession( $sub, 'errors' );
 }
-else
+else if ( isset( $_POST['submit_add_user'] ) )
 {
   $_POST = array();
 }
@@ -220,32 +220,24 @@ else
   }
   $vtp->closeSession( $sub, 'category' );
   // mail management : creation of the mail address if asked by administrator
-  if ( isset( $_GET['mail'] ) )
+  if ( isset( $_POST['submit_generate_mail'] ) and isset( $_GET['mail'] ) )
   {
-    $mail_address = array();
-    $i = 0;
+    $mails = array();
     $query = 'SELECT id,mail_address';
     $query.= ' FROM '.PREFIX_TABLE.'users';
     $query.= ';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
-      $key = 'mail-'.$row['id'];
-      if ( $_POST[$key] == 1 )
-      {
-        $mail_address[$i++] = $row['mail_address'];
-      }
+      if ( $_POST['mail-'.$row['id']] == 1 )
+        array_push( $mails, $row['mail_address'] );
     }
     $mail_destination = '';
-    for ( $i = 0; $i < sizeof( $mail_address ); $i++ )
-    {
-      $mail_destination.= $mail_address[$i];
-      if ( sizeof( $mail_address ) > 1 )
-      {
-        $mail_destination.= ';';
-      }
+    foreach ( $mails as $i => $mail_address ) {
+      if ( $i > 0 ) $mail_destination.= ',';
+      $mail_destination.= $mail_address;
     }
-    if ( sizeof( $mail_address ) > 0 )
+    if ( sizeof( $mails ) > 0 )
     {
       $vtp->addSession( $sub, 'mail_link' );
       $vtp->setVar( $sub, 'mail_link.mailto', $mail_destination );

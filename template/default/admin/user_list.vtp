@@ -31,13 +31,13 @@
     <span style="font-weight:bold;">{#title_add}</span> -&gt;
     {#login} : <input type="text" name="username" value="{#f_username}" />
     {#password} : <input type="text" name="password" value="{#f_password}" />
-    <input type="submit" value="{#add}" name="submit" />
+    <input type="submit" value="{#add}" name="submit_add_user" />
   </div>
 </form>
 <!--/VTP_add_user-->
 
 <!--VTP_users-->
-<form method="post" action="{#form_action}" name="{#form_name}">
+<form method="post" action="{#form_action}">
 <table width="100%">
   <!--VTP_category-->
   <tr>
@@ -90,7 +90,7 @@
       <img src="../template/{#user_template}/admin/images/arrow_select.gif" alt="&lt;" />
       <input type="button" value="{#listuser_button_all}" onClick="SelectAll(this.form)" style="margin-left:5px;margin-right:5px;" />
       <input type="button" value="{#listuser_button_invert}" onClick="Inverser(this.form)" style="margin-left:5px;margin-right:5px;" />
-      <input type="submit" value="{#listuser_button_create_address}" style="margin-left:5px;margin-right:5px;" />
+      <input type="submit" value="{#listuser_button_create_address}" name="submit_generate_mail" style="margin-left:5px;margin-right:5px;" />
       <!--VTP_mail_link-->
       <a href="mailto:{#mailto}">mailto:{#mail_address_start}...</a>
       <!--/VTP_mail_link-->
