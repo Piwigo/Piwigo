@@ -201,7 +201,7 @@ if ( in_array( 'template', $infos ) )
   $vtp->setVar( $handle, 'line.name', $lang['customize_template'] );
   $vtp->addSession( $handle, 'select' );
   $vtp->setVar( $handle, 'select.name', 'template' );
-  $option = get_dirs( './template/' );
+  $option = get_dirs( './template' );
   for ( $i = 0; $i < sizeof( $option ); $i++ )
   {
     $vtp->addSession( $handle, 'option' );
