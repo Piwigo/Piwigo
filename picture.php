@@ -180,10 +180,7 @@ if ( isset( $_GET['add_fav'] ) )
       // there is no favorite picture anymore we redirect the user to the
       // category page
       $url = add_session_id( $url_home );
-      header( 'Request-URI: '.$url );
-      header( 'Content-Location: '.$url );  
-      header( 'Location: '.$url );
-      exit();
+      redirect( $url );
     }
     else if ( $prev < 0 )
     {
@@ -195,10 +192,7 @@ if ( isset( $_GET['add_fav'] ) )
       $url = str_replace('&amp;', '&', $picture['prev']['url'] );
       $url = add_session_id( $url, true);
     }
-    header( 'Request-URI: '.$url );
-    header( 'Content-Location: '.$url );  
-    header( 'Location: '.$url );
-    exit();
+    redirect( $url );
   }
 }
 
@@ -296,7 +290,7 @@ $refresh = 0;
 if ( isset( $_GET['slideshow'] ) and $next )
 {
   $refresh= $_GET['slideshow'];
-  $url_link = $picture['next']['url'];
+  $url_link = $picture['next']['url'].'&amp;slideshow='.$refresh;
 }
 
 $title_img = $picture['current']['name'];

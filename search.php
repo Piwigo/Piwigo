@@ -55,10 +55,7 @@ if ( isset( $_POST['search'] ) )
   {
     $url = 'category.php?cat=search&search='.$search.'&mode='.$_POST['mode'];
     $url = add_session_id( $url, true );
-    header( 'Request-URI: '.$url );
-    header( 'Content-Location: '.$url );  
-    header( 'Location: '.$url );
-    exit();
+    redirect( $url );
   }
 }
 //----------------------------------------------------- template initialization

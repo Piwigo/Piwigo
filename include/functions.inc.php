@@ -24,6 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 include_once( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
@@ -462,4 +463,31 @@ function pwg_debug( $string )
   $debug.= "\n";
 }
 
+/**
+ * Redirects to the given URL
+ *
+ * Note : once this function called, the execution doesn't go further
+ * (presence of an exit() instruction.
+ *
+ * @param string $url
+ * @return void
+ */
+function redirect( $url )
+{
+  global $user, $template, $lang_info, $conf, $lang, $t2;
+
+  // $refresh, $url_link and $title are required for creating an automated
+  // refresh page in header.tpl
+  $refresh = 5;
+  $url_link = $url;
+  $title = 'redirection';
+  include( PHPWG_ROOT_PATH.'include/page_header.php' );
+  
+  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
+  $template->pparse('redirect');
+  
+  include( PHPWG_ROOT_PATH.'include/page_tail.php' );
+
+  exit();
+}
 ?>

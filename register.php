@@ -44,10 +44,7 @@ if ( isset( $_POST['submit'] ) )
   {
     $session_id = session_create( $_POST['login'] );
     $url = 'category.php?id='.$session_id;
-    header( 'Request-URI: '.$url );
-    header( 'Content-Location: '.$url );  
-    header( 'Location: '.$url );
-    exit();
+    redirect( $url );
   }
 }
 

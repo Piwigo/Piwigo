@@ -36,10 +36,7 @@ if ( isset( $_GET['act'] )
   // cookie deletion if exists
   setcookie( 'id', '', 0, cookie_path() );
   $url = 'category.php';
-  header( 'Request-URI: '.$url );  
-  header( 'Content-Location: '.$url );  
-  header( 'Location: '.$url );
-  exit();
+  redirect( $url );
 }
 //-------------------------------------------------- access authorization check
 if ( isset( $_GET['cat'] ) ) check_cat_id( $_GET['cat'] );

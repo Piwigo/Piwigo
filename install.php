@@ -180,9 +180,8 @@ if (@file_exists($config_file))
 
 // Is phpBB already installed? Yes? Redirect to the index
 if (defined("PHPWG_INSTALLED"))
-{  
-  header( 'Location: index.php' );
-  exit;
+{
+  die( 'PhpWebGallery is already installed' );
 }
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');

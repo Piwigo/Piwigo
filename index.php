@@ -36,8 +36,5 @@ if ( $conf['access'] == 'restricted' )
 else                             $url = 'category';
 // redirection
 $url.= '.php';
-header( 'Request-URI: '.$url );  
-header( 'Content-Location: '.$url );  
-header( 'Location: '.$url );
-exit();
+redirect( $url );
 ?>

@@ -30,40 +30,29 @@
 //
 $template->set_filenames(array('header'=>'header.tpl'));
 
-$css = PHPWG_ROOT_PATH.'template/'.$user['template'].'/'.$user['template'].'.css';
-$template->assign_vars(array(
-  'CONTENT_ENCODING' => $lang_info['charset'],
-  'PAGE_TITLE' => $title,
-  'LANG'=>$lang_info['code'],
-  'DIR'=>$lang_info['direction'],
-  
-  'T_STYLE' => $css
-  ));
+$css = PHPWG_ROOT_PATH.'template/'.$user['template'];
+$css.= '/'.$user['template'].'.css';
+
+$template->assign_vars(
+  array(
+    'CONTENT_ENCODING' => $lang_info['charset'],
+    'PAGE_TITLE' => $title,
+    'LANG'=>$lang_info['code'],
+    'DIR'=>$lang_info['direction'],
+    
+    'T_STYLE' => $css
+    ));
 
 // refresh
-if ( isset( $refresh ) && $refresh >0 && isset($url_link))
+if ( isset( $refresh ) and $refresh > 0 and isset( $url_link ) )
 {
-  $url = $url_link.'&amp;slideshow='.$refresh;
-  $template->assign_vars(array(
-                           'REFRESH_TIME' => $refresh,
-                           'U_REFRESH' => add_session_id( $url )
-                           ));
+  $template->assign_vars(
+    array(
+      'REFRESH_TIME' => $refresh,
+      'U_REFRESH' => add_session_id( $url_link )
+      ));
   $template->assign_block_vars('refresh', array());
 }
-
-// Work around for "current" Apache 2 + PHP module which seems to not
-// cope with private cache control setting
-if (!empty( $_SERVER['SERVER_SOFTWARE'] )
-    and strstr( $_SERVER['SERVER_SOFTWARE'], 'Apache/2'))
-{
-  header( 'Cache-Control: no-cache, pre-check=0, post-check=0, max-age=0' );
-}
-else
-{
-  header( 'Cache-Control: private, pre-check=0, post-check=0, max-age=0' );
-}
-header( 'Expires: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT' );
-header( 'Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT' );
 
 $template->pparse('header');
 ?>

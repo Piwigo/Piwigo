@@ -45,10 +45,7 @@ if ( !$conf['authorize_cookies'] and isset( $_COOKIE['id'] ) )
 {
   setcookie( 'id', '', 0, cookie_path() );
   $url = 'category.php';
-  header( 'Request-URI: '.$url );  
-  header( 'Content-Location: '.$url );  
-  header( 'Location: '.$url );
-  exit();
+  redirect( $url );
 }
 
 $user['has_cookie'] = false;
