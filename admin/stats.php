@@ -124,7 +124,7 @@ for ( $i = 0; $i <= MAX_DAYS; $i++ )
   $query.= ' FROM '.PREFIX_TABLE.'history';
   $query.= ' WHERE date > '.$starttime;
   $query.= ' AND date < '.$endtime;
-  $query.= ' ORDER BY date ASC';
+  $query.= ' ORDER BY date DESC';
   $query.= ';';
   $result = mysql_query( $query );
   $nb_pages_seen = mysql_num_rows( $result );
