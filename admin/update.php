@@ -68,7 +68,7 @@ UPDATE '.CATEGORIES_TABLE.'
 
 function insert_local_category($id_uppercat)
 {
-  global $conf, $page, $user, $lang;
+  global $conf, $page, $user, $lang, $counts;
  
   $uppercats = '';
   $output = '';
@@ -188,7 +188,7 @@ SELECT id,dir FROM '.CATEGORIES_TABLE.'
       }
       else
       {
-        $output.= '<span style="color:red;">"'.$fs_subdir.'" : ';
+        $output.= '<span class="update_category_error">"'.$fs_subdir.'" : ';
         $output.= $lang['update_wrong_dirname'].'</span><br />';
       }
     }
@@ -205,6 +205,8 @@ INSERT INTO '.CATEGORIES_TABLE.'
     $query.= '
 ;';
     mysql_query($query);
+
+    $counts['new_categories']+= count($inserts);
     // updating uppercats field
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -265,7 +267,7 @@ SELECT id
 
 function insert_local_element($dir, $category_id)
 {
-  global $lang,$conf,$count_new;
+  global $lang,$conf,$counts;
 
   $output = '';
 
@@ -398,17 +400,12 @@ SELECT file
           $insert['date_available'] = CURRENT_DATE;
           $insert['tn_ext'] = "'".$tn_ext."'";
 
-          $count_new++;
-          $output.= $unregistered_element;
-          $output.= ' <span style="font-weight:bold;">';
-          $output.= $lang['update_research_added'].'</span>';
-          $output.= ' ('.$lang['update_research_tn_ext'].' '.$tn_ext.')';
-          $output.= '<br />';
+          $counts['new_elements']++;
           array_push($inserts, $insert);
         }
         else
         {
-          $output.= '<span style="color:orange;">';
+          $output.= '<span class="update_error_element">';
           $output.= $lang['update_missing_tn'].' : '.$unregistered_element;
           $output.= ' (<span style="font-weight:bold;">';
           $output.= $conf['prefix_thumbnail'];
@@ -449,17 +446,14 @@ SELECT file
           $insert['representative_ext'] = "'".$representative_ext."'";
         }
 
-        $count_new++;
-        $output.= $unregistered_element;
-        $output.= ' <span style="font-weight:bold;">';
-        $output.= $lang['update_research_added'].'</span>';
-        $output.= '<br />';
+        $counts['new_elements']++;
         array_push($inserts, $insert);
       }
     }
     else
     {
-      $output.= '<span style="color:red;">"'.$unregistered_element.'" : ';
+      $output.= '<span class="update_error_element">"';
+      $output.= $unregistered_element.'" : ';
       $output.= $lang['update_wrong_dirname'].'</span><br />';
     }
   }
@@ -552,8 +546,10 @@ $template->assign_vars(array(
   'L_CAT_UPDATE'=>$lang['update_only_cat'],
   'L_ALL_UPDATE'=>$lang['update_all'],
   'L_RESULT_UPDATE'=>$lang['update_part_research'],
-  'L_NEW_CATEGORY'=>$lang['update_research_conclusion'],
-  'L_DEL_CATEGORY'=>$lang['update_deletion_conclusion'],
+  'L_NB_NEW_ELEMENTS'=>$lang['update_nb_new_elements'],
+  'L_NB_NEW_CATEGORIES'=>$lang['update_nb_new_categories'],
+  'L_NB_DEL_ELEMENTS'=>$lang['update_nb_del_elements'],
+  'L_NB_DEL_CATEGORIES'=>$lang['update_nb_del_categories'],
   'L_UPDATE_SYNC_METADATA_QUESTION'=>$lang['update_sync_metadata_question'],
   
   'U_CAT_UPDATE'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=update&amp;update=cats'),
@@ -570,8 +566,12 @@ else if (!isset($_GET['metadata']))
 {
   check_cat_id($_GET['update']);
   $start = get_moment();
-  $count_new = 0;
-  $count_deleted = 0;
+  $counts = array(
+    'new_elements' => 0,
+    'new_categories' => 0,
+    'del_elements' => 0,
+    'del_categories' => 0
+    );
   
   if (isset($page['cat']))
   {
@@ -582,12 +582,16 @@ else if (!isset($_GET['metadata']))
     $categories = insert_local_category('NULL');
   }
   echo get_elapsed_time($start,get_moment()).' for scanning directories<br />';
-  $template->assign_block_vars('update',array(
-    'CATEGORIES'=>$categories,
-	'NEW_CAT'=>$count_new,
-	'DEL_CAT'=>$count_deleted
-   ));
-  if ($count_new > 0)
+  $template->assign_block_vars(
+    'update',
+    array(
+      'CATEGORIES'=>$categories,
+      'NB_NEW_CATEGORIES'=>$counts['new_categories'],
+      'NB_DEL_CATEGORIES'=>$counts['del_categories'],
+      'NB_NEW_ELEMENTS'=>$counts['new_elements'],
+      'NB_DEL_ELEMENTS'=>$counts['del_elements']
+      ));
+  if ($counts['new_elements'] > 0)
   {
     $url = PHPWG_ROOT_PATH.'admin.php?page=update&amp;metadata=1';
     if (isset($page['cat']))

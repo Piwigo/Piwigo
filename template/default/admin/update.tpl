@@ -7,8 +7,12 @@
 <!-- END introduction -->
 <!-- BEGIN update -->
 <div class="admin">{L_RESULT_UPDATE}</div>
-<br /><span style="color:#9cb4ce;">{update.NEW_CAT} {L_NEW_CATEGORY}</span>
-<br /><span style="color:#ffe1e1;">{update.DEL_CAT} {L_DEL_CATEGORY}</span>
+<ul style="text-align:left;">
+  <li class="update_summary_new">{update.NB_NEW_CATEGORIES} {L_NB_NEW_CATEGORIES}</li>
+  <li class="update_summary_new">{update.NB_NEW_ELEMENTS} {L_NB_NEW_ELEMENTS}</li>
+  <li class="update_summary_del">{update.NB_DEL_CATEGORIES} {L_NB_DEL_CATEGORIES}</li>
+  <li class="update_summary_del">{update.NB_DEL_ELEMENTS} {L_NB_DEL_ELEMENTS}</li>
+</ul>
 <!-- BEGIN sync_metadata -->
 <br />[ <a href="{update.sync_metadata.U_URL}">{L_UPDATE_SYNC_METADATA_QUESTION}</a> ]
 <!-- END sync_metadata -->

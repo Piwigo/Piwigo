@@ -327,3 +327,15 @@ span.thumb_picture {
 span.thumb_category {
   font-weight:normal;
 }
+
+span.update_error_element, span.update_category_error {
+  color:orange;
+}
+
+.update_summary_new {
+  color:#9cb4ce;
+}
+
+.update_summary_del {
+  color:#ffe1e1;
+}

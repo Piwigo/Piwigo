@@ -192,6 +192,8 @@ DELETE FROM '.SITES_TABLE.'
 // The function works recursively.
 function delete_categories($ids)
 {
+  global $counts;
+  
   // destruction of all the related elements
   $query = '
 SELECT id
@@ -251,8 +253,12 @@ DELETE FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $ids).')
 ;';
   mysql_query($query);
+
+  if (isset($counts['del_categories']))
+  {
+    $counts['del_categories']+= count($ids);
+  }
 }
-	
 
 // The function delete_elements deletes the elements identified by the
 // (numeric) values of the array $ids. It also deletes (in the database) :
@@ -261,7 +267,7 @@ DELETE FROM '.CATEGORIES_TABLE.'
 //    - all the favorites associated to elements
 function delete_elements($ids)
 {
-  global $count_deleted;
+  global $counts;
   
   // destruction of the comments on the image
   $query = '
@@ -295,7 +301,10 @@ DELETE FROM '.IMAGES_TABLE.'
 ;';
   mysql_query($query);
 
-  $count_deleted+= count($ids);
+  if (isset($counts['del_elements']))
+  {
+    $counts['del_elements']+= count($ids);
+  }
 }
 
 // The delete_user function delete a user identified by the $user_id
