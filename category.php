@@ -269,7 +269,9 @@ $template->assign_block_vars('summary', array(
 ));
 
 //------------------------------------------------------ main part : thumbnails
-if (isset($page['cat']) and $page['cat_nb_images'] != 0)
+if (isset($page['cat'])
+    and ((is_numeric($page['cat']) and $page['cat_nb_images'] != 0)
+         or $page['cat'] == 'search'))
 {
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
 }
