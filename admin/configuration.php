@@ -46,6 +46,18 @@ $true_false = array('type' => 'radio',
                                        'false' => $lang['no']));
 $textfield = array('type' => 'textfield');
 
+$nb_image_row = array();
+foreach ($conf['nb_image_row'] as $value)
+{
+  $nb_image_row[$value] = $value;
+}
+
+$nb_row_page = array();
+foreach ($conf['nb_row_page'] as $value)
+{
+  $nb_row_page[$value] = $value;
+}
+
 $sections = array(
   'general' => array(
     'mail_webmaster' => $textfield,
@@ -60,32 +72,32 @@ $sections = array(
   'comments' => array(
     'show_comments' => $true_false,
     'comments_forall' => $true_false,
-    'nb_comment_page' => $textfield,
+    'nb_comment_page' => array('type' => 'textfield','size' => 2),
     'comments_validation' => $true_false
    ),
   'default' => array(
     'default_language' => array('type' => 'select',
                                 'options' => get_languages()),
-    'nb_image_line' => $textfield,
-    'nb_line_page' => $textfield,
+    'nb_image_line' => array('type' => 'radio','options' => $nb_image_row),
+    'nb_line_page' => array('type' => 'radio','options' => $nb_row_page),
     'default_template' => array('type' => 'select',
                                 'options' => get_templates()),
-    'recent_period' => $textfield,
+    'recent_period' => array('type' => 'textfield','size' => 3),
     'auto_expand' => $true_false,
     'show_nb_comments' => $true_false
    ),
   'upload' => array(
     'upload_available' => $true_false,
-    'upload_maxfilesize' => $textfield,
-    'upload_maxwidth' => $textfield,
-    'upload_maxheight' => $textfield,
-    'upload_maxwidth_thumbnail' => $textfield,
-    'upload_maxheight_thumbnail' => $textfield
+    'upload_maxfilesize' => array('type' => 'textfield','size' => 4),
+    'upload_maxwidth' => array('type' => 'textfield','size' => 4),
+    'upload_maxheight' => array('type' => 'textfield','size' => 4),
+    'upload_maxwidth_thumbnail' => array('type' => 'textfield','size' => 4),
+    'upload_maxheight_thumbnail' => array('type' => 'textfield','size' => 4)
    ),
   'session' => array(
     'authorize_cookies' => $true_false,
-    'session_time' => $textfield,
-    'session_id_size' => $textfield
+    'session_time' => array('type' => 'textfield','size' => 2),
+    'session_id_size' => array('type' => 'textfield','size' => 2)
    ),
   'metadata' => array(
     'use_exif' => $true_false,
@@ -262,11 +274,21 @@ foreach ($fields as $field_name => $field)
      ));
   if ($field['type'] == 'textfield')
   {
+    if (isset($field['size']))
+    {
+      $size = $field['size'];
+    }
+    else
+    {
+      $size = '';
+    }
+    
     $template->assign_block_vars(
       'line.textfield',
       array(
         'NAME' => $field_name,
-        'VALUE' => $conf[$field_name]
+        'VALUE' => $conf[$field_name],
+        'SIZE' => $size
        ));
   }
   else if ($field['type'] == 'radio')

@@ -30,7 +30,7 @@
     <td class="confLineField">
 
       <!-- BEGIN textfield -->
-      <input type="text" size="{line.textfield.SIZE}" name="{line.textfield.NAME}" value="{line.textfield.VALUE}" />
+      <input type="text" size="{line.textfield.SIZE}" maxlength="{line.textfield.SIZE}" name="{line.textfield.NAME}" value="{line.textfield.VALUE}" />
       <!-- END textfield -->
 
       <!-- BEGIN radio -->
