@@ -423,6 +423,12 @@ SELECT file,tn_ext,date_available,storage_category_id
     $thumbnail_title = $lang['calendar_picture_hint'].$name;
 
     $url_link = PHPWG_ROOT_PATH.'category.php?cat=search';
+    $url_link.= '&amp;search=date_available:'.$_GET['day'];
+    if ($calendar_category != 0)
+    {
+      $url_link.= ';cat:'.$calendar_category.'|AND';
+    }
+    
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(

@@ -94,12 +94,15 @@ function check_cat_id( $cat )
       }
     }
     if ( $cat == 'fav'
-         or $cat == 'search'
          or $cat == 'most_visited'
          or $cat == 'best_rated'
          or $cat == 'recent_pics'
          or $cat == 'recent_cats'
          or $cat == 'calendar' )
+    {
+      $page['cat'] = $cat;
+    }
+    if ($cat == 'search' and isset($_GET['search']))
     {
       $page['cat'] = $cat;
     }
@@ -448,6 +451,43 @@ function initialize_category( $calling_page = 'category' )
       // search result
       if ( $page['cat'] == 'search' )
       {
+        // analyze search string given in URL (created in search.php)
+        $tokens = explode('|', $_GET['search']);
+
+        if (isset($tokens[1]) and $tokens[1] == 'AND')
+        {
+          $search['mode'] = 'AND';
+        }
+        else
+        {
+          $search['mode'] = 'OR';
+        }
+
+        $search_tokens = explode(';', $tokens[0]);
+        foreach ($search_tokens as $search_token)
+        {
+          $tokens = explode(':', $search_token);
+          $field_name = $tokens[0];
+          $field_content = $tokens[1];
+
+          $tokens = explode('~', $tokens[1]);
+          if (isset($tokens[1]))
+          {
+            $search['fields'][$field_name]['mode'] = $tokens[1];
+          }
+          else
+          {
+            $search['fields'][$field_name]['mode'] = '';
+          }
+
+          $search['fields'][$field_name]['words'] = array();
+          $tokens = explode(',', $tokens[0]);
+          foreach ($tokens as $token)
+          {
+            array_push($search['fields'][$field_name]['words'], $token);
+          }
+        }
+        
         $page['title'] = $lang['search_result'];
         if ( $calling_page == 'picture' )
         {
@@ -455,48 +495,89 @@ function initialize_category( $calling_page = 'category' )
           $page['title'].= $_GET['search']."</span>";
         }
 
-        $page['where'] = ' WHERE (';
-        $fields = array( 'file', 'name', 'comment', 'keywords' );
-        $words = explode( ',', $_GET['search'] );
-        $sql_search = array();
-        foreach ( $words as $i => $word ) {
-          // if the user searchs any of the words, the where statement must
-          // be :
-          // field1 LIKE '%$word1%' OR field2 LIKE '%$word1%' ...
-          // OR field1 LIKE '%$word2%' OR field2 LIKE '%$word2%' ...
-          if ( $_GET['mode'] == 'OR' )
+        // SQL where clauses are stored in $clauses array during query
+        // construction
+        $clauses = array();
+        
+        $textfields = array('file', 'name', 'comment', 'keywords', 'author');
+        foreach ($textfields as $textfield)
+        {
+          if (isset($search['fields'][$textfield]))
           {
-            if ( $i != 0 ) $page['where'].= ' OR';
-            foreach ( $fields as $j => $field ) {
-              if ( $j != 0 ) $page['where'].= ' OR';
-              $page['where'].= ' '.$field." LIKE '%".$word."%'";
+            $local_clauses = array();
+            foreach ($search['fields'][$textfield]['words'] as $word)
+            {
+              array_push($local_clauses, $textfield." LIKE '%".$word."%'");
             }
-          }
-          // if the user searchs all the words :
-          // ( field1 LIKE '%$word1%' OR field2 LIKE '%$word1%' )
-          // AND ( field1 LIKE '%$word2%' OR field2 LIKE '%$word2%' )
-          else if ( $_GET['mode'] == 'AND' )
-          {
-            if ( $i != 0 ) $page['where'].= ' AND';
-            $page['where'].= ' (';
-            foreach ( $fields as $j => $field ) {
-              if ( $j != 0 ) $page['where'].= ' OR';
-              $page['where'].= ' '.$field." LIKE '%".$word."%'";
-            }
-            $page['where'].= ' )';
+            // adds brackets around where clauses
+            array_walk($local_clauses,create_function('&$s','$s="(".$s.")";'));
+            array_push($clauses,
+                       implode(' '.$search['fields'][$textfield]['mode'].' ',
+                               $local_clauses));
           }
         }
-        $page['where'].= ' )';
+
+        $datefields = array('date_available', 'date_creation');
+        foreach ($datefields as $datefield)
+        {
+          $key = $datefield;
+          if (isset($search['fields'][$key]))
+          {
+            $local_clause = $datefield." = '";
+            $local_clause.= str_replace('.', '-',
+                                        $search['fields'][$key]['words'][0]);
+            $local_clause.= "'";
+            array_push($clauses, $local_clause);
+          }
+
+          foreach (array('after','before') as $suffix)
+          {
+            $key = $datefield.'-'.$suffix;
+            if (isset($search['fields'][$key]))
+            {
+              $local_clause = $datefield;
+              if ($suffix == 'after')
+              {
+                $local_clause.= ' >';
+              }
+              else
+              {
+                $local_clause.= ' <';
+              }
+              if (isset($search['fields'][$key]['mode'])
+                  and $search['fields'][$key]['mode'] == 'inc')
+              {
+                $local_clause.= '=';
+              }
+              $local_clause.= " '";
+              $local_clause.= str_replace('.', '-',
+                                          $search['fields'][$key]['words'][0]);
+              $local_clause.= "'";
+              array_push($clauses, $local_clause);
+            }
+          }
+        }
+
+        if (isset($search['fields']['cat']))
+        {
+          $local_clause = 'category_id IN (';
+          $local_clause.= implode(',',$search['fields']['cat']['words']);
+          $local_clause.= ')';
+          array_push($clauses, $local_clause);
+        }
+
+        // adds brackets around where clauses
+        array_walk($clauses, create_function('&$s', '$s = "(".$s.")";'));
+        $page['where'] = 'WHERE '.implode(' '.$search['mode'].' ', $clauses);
         if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
-        $query = 'SELECT COUNT(DISTINCT(id)) AS nb_total_images';
-        $query.= ' FROM '.IMAGES_TABLE;
-        $query.= ' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic';
-        $query.= ' ON id = ic.image_id';
-        $query.= $page['where'];
-        $query.= ';';
-
-        $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+        $query = '
+SELECT COUNT(DISTINCT(id)) AS nb_total_images
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  '.$page['where'].'
+;';
+        $url.= '&amp;search='.$_GET['search'];
       }
       // favorites displaying
       else if ( $page['cat'] == 'fav' )

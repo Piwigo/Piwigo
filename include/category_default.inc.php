@@ -104,7 +104,7 @@ while ($row = mysql_fetch_array($result))
   $url_link.= '&amp;image_id='.$row['id'];
   if ($page['cat'] == 'search')
   {
-    $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
+    $url_link.= '&amp;search='.$_GET['search'];
   }
     
   $template->assign_block_vars(
