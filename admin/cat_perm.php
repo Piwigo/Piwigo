@@ -128,7 +128,11 @@ if ( mysql_num_rows( $result ) > 0 )
 //----------------------------------------------------------------------- users
 $query = 'SELECT id,username,status';
 $query.= ' FROM '.PREFIX_TABLE.'users';
-$query.= " WHERE username != '".$conf['webmaster']."'";
+// only the webmaster can modify webmaster's permissions
+if ( $user['username'] != $conf['webmaster'] )
+{
+  $query.= " WHERE username != '".$conf['webmaster']."'";
+}
 $query.= ';';
 $result = mysql_query( $query );
 while ( $row = mysql_fetch_array( $result ) )
