@@ -132,7 +132,7 @@ if ( isset( $_GET['add_fav'] ) )
     }
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category  AS ic';
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category AS ic';
     $query.= ' ON id = ic.image_id';
     $query.= $page['where'];
     $query.= $conf['order_by'];
