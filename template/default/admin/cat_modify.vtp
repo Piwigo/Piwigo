@@ -41,6 +41,7 @@
         <!--/VTP_status_option-->
       </td>
     </tr>
+<!--
     <tr>
       <td>{#editcat_visible}</td>
       <td class="row2">
@@ -50,6 +51,8 @@
 	{#editcat_visible_info}
       </td>
     </tr>
+-->
+    <input type="hidden" name="visible" value="true"/>
     <!--VTP_uploadable-->
     <tr>
       <td>{#editcat_uploadable}</td>
