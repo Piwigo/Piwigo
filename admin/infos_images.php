@@ -163,7 +163,8 @@ if ( isset( $page['cat'] ) )
 
   if ( is_numeric( $_GET['num'] ) and $_GET['num'] >= 0 )
   {
-    $page['start'] = floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
+    $page['start'] =
+      floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
   }
   // retrieving category information
   $result = get_cat_info( $page['cat'] );
