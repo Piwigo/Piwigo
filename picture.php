@@ -28,7 +28,7 @@
 $rate_items = array(0,1,2,3,4,5);
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );    
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
@@ -150,7 +150,7 @@ foreach (array('prev', 'current', 'next') as $i)
 
   if (isset($row['representative_ext']) and $row['representative_ext'] =! '')
   {
-    $picture[$i]['src'] = $cat_directory.'pwg_representative/';
+    $picture[$i]['src'] = $cat_directory.'/pwg_representative/';
     $picture[$i]['src'].= $file_wo_ext.'.'.$row['representative_ext'];
   }
   else
@@ -166,9 +166,9 @@ foreach (array('prev', 'current', 'next') as $i)
     // FIXME : with remote pictures, this "remote fopen" takes long...
     if ($i == 'current')
     {
-      if (@fopen($cat_directory.'pwg_high/'.$row['file'], 'r'))
+      if (@fopen($cat_directory.'/pwg_high/'.$row['file'], 'r'))
       {
-        $picture[$i]['high'] = $cat_directory.'pwg_high/'.$row['file'];
+        $picture[$i]['high'] = $cat_directory.'/pwg_high/'.$row['file'];
       }
     }
   }
