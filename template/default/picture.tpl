@@ -25,17 +25,20 @@
             <img class="image" src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}"/>
           </a>
 		  <div class="nameImage">{TITLE}</div>
+          <!-- BEGIN download -->
+          <div class="download">[ <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD_HINT}">{L_DOWNLOAD}</a> ]</div>
+          <!-- END download -->
 		  <!-- BEGIN legend -->
-          <div class="commentImage">{COMMENT_IMG}</div>
+          <div class="commentImage">{legend.COMMENT_IMG}</div>
 		  <!-- END legend -->
 		  </div>
           <table style="width:100%;">   
             <tr align="center" valign="middle">
 			  <td style="width:30%;">
 				<!-- BEGIN previous -->
-				<a class="none" href="{U_PREV_IMG}" title="{L_PREV_IMG}{PREV_TITLE_IMG}">
+				<a class="none" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
 				<img style="border:none;" width="30" height="100" src="template/default/theme/left-arrow.jpg" alt="" />
-				  <img src="{PREV_IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{PREV_TITLE_IMG}"/>
+				  <img src="{previous.IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{previous.TITLE_IMG}"/>
 				  </a>
 				<!-- END previous -->
 			  </td>
@@ -51,8 +54,8 @@
 			  </td>
 			  <td style="width:30%;">
 				<!-- BEGIN next -->
-				  <a  class="none" href="{U_NEXT_IMG}" title="{L_NEXT_IMG}{NEXT_TITLE_IMG}">
-				  <img class="thumbLink" src="{NEXT_IMG}" style="margin-right:10px;margin-left:5px;" alt="{NEXT_TITLE_IMG}"/>
+				  <a  class="none" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
+				  <img class="thumbLink" src="{next.IMG}" style="margin-right:10px;margin-left:5px;" alt="{next.TITLE_IMG}"/>
 				  <img style="border:none;" class="thumbLink" width="30" height="100" src="template/default/theme/right-arrow.jpg" alt="" />
 				  </a>
 				<!-- END next -->
