@@ -221,6 +221,9 @@ $lang['mail_new_upload_content'] = 'A new picture has been uploaded on the galle
 $lang['mail_new_comment_subject'] = 'New comment on website';
 $lang['mail_new_comment_content'] = 'A new comment has been registered on the gallery. If you chose to validate each comment, you first have to validate this comment in the administration panel to make it visible in the gallery.'."\n\n".'You can see last comments in the administration panel';
 $lang['connected_user'] = 'connected user';
+$lang['title_comments'] = 'Users comments';
+$lang['stats_last_days'] = 'last days';
+$lang['hint_comments'] = 'See last users comments';
 
 //-------------------------------------------------------------- administration
 if ( $isadmin )
@@ -514,7 +517,6 @@ Once this file deleted , follow this instructions :
   $lang['title_user_perm'] = 'Modify permission for user';
   $lang['title_cat_perm'] = 'Modify permissions for category';
   $lang['title_group_perm'] = 'Modify permissions for group';
-  $lang['title_comments'] = 'Users comments';
   $lang['title_picmod'] = 'Modify informations about a picture';
   $lang['menu_groups'] = 'Groups';
   $lang['menu_comments'] = 'Comments';
@@ -559,7 +561,6 @@ Once this file deleted , follow this instructions :
   $lang['infoimage_removefromall'] = 'remove from all';
   $lang['infoimage_associate'] = 'Associate to the category';
   $lang['update_wrong_dirname'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
-  $lang['stats_last_days'] = 'last days';
   $lang['stats_pages_seen'] = 'pages seen';
   $lang['stats_visitors'] = 'guests';
   $lang['stats_empty'] = 'empty history';

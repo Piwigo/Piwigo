@@ -34,6 +34,8 @@ $lang['infos_title'] = 'Informations';
 $lang['default'] = 'défaut';
 $lang['comments'] = 'commentaires';
 $lang['category_representative'] = 'représentant';
+$lang['title_comments'] = 'Commentaires des visiteurs';
+$lang['stats_last_days'] = 'derniers jours';
 // end version 1.3
 
 // page diapo
@@ -64,6 +66,7 @@ $lang['nb_image_category'] = 'nombre d\'images dans la catégorie';
 // start version 1.3
 //$lang['connected_user_female'] = 'utilisatrice connectée';
 $lang['connected_user'] = 'utilisateur connecté';
+$lang['hint_comments'] = 'Voir les derniers commentaires des visiteurs';
 // end version 1.3
 $lang['recent_image'] = 'image datant de moins de';
 $lang['days'] = 'jours';
@@ -278,7 +281,6 @@ if ( $isadmin )
   $lang['title_user_perm'] = 'Modifier les permissions pour l\'utilisateur';
   $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
   $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
-  $lang['title_comments'] = 'Commentaires des visiteurs';
   $lang['title_picmod'] = 'Modifier les informations d\'une image';
 // end version 1.3
   $lang['title_categories'] = 'Gestion des catégories';
@@ -609,7 +611,6 @@ if ( $isadmin )
   $lang['tn_dirs_alone'] = 'images sans miniatures';
 
 // start version 1.3
-  $lang['stats_last_days'] = 'derniers jours';
   $lang['stats_pages_seen'] = 'pages vues';
   $lang['stats_visitors'] = 'visiteurs';
   $lang['stats_empty'] = 'vider l\'historique';

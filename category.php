@@ -187,6 +187,12 @@ $vtp->setVar( $handle, 'summary.url', add_session_id( './search.php' ) );
 $vtp->setVar( $handle, 'summary.title', $lang['hint_search'] );
 $vtp->setVar( $handle, 'summary.name', replace_space( $lang['search'] ) );
 $vtp->closeSession( $handle, 'summary' );
+// comments link
+$vtp->addSession( $handle, 'summary' );
+$vtp->setVar( $handle, 'summary.url', add_session_id( './comments.php' ) );
+$vtp->setVar( $handle, 'summary.title', $lang['hint_comments'] );
+$vtp->setVar( $handle, 'summary.name', replace_space( $lang['comments'] ) );
+$vtp->closeSession( $handle, 'summary' );
 // about link
 $vtp->addSession( $handle, 'summary' );
 $vtp->setVar( $handle, 'summary.url', './about.php?'.
