@@ -47,17 +47,20 @@ function get_images_without_thumbnail( $dir )
   {
     while ( $file = readdir( $opendir ) )
     {
-      $path = $dir.'/'.$file;
-      if ( is_image( $path, true ) )
+      if (preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
       {
-        if ( !TN_exists( $dir, $file ) )
+        $path = $dir.'/'.$file;
+        if ( is_image( $path, true ) )
         {
-          $image_infos = getimagesize( $path );
-          $size = floor( filesize( $path ) / 1024 ). ' KB';
-          array_push( $images, array( 'name' => $file,
-                                      'width' => $image_infos[0],
-                                      'height' => $image_infos[1],
-                                      'size' => $size ) );
+          if ( !TN_exists( $dir, $file ) )
+          {
+            $image_infos = getimagesize( $path );
+            $size = floor( filesize( $path ) / 1024 ). ' KB';
+            array_push( $images, array( 'name' => $file,
+                                        'width' => $image_infos[0],
+                                        'height' => $image_infos[1],
+                                        'size' => $size ) );
+          }
         }
       }
     }
