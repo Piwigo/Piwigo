@@ -353,4 +353,30 @@ INSERT INTO '.USER_FORBIDDEN_TABLE.'
   
   return $forbidden_categories;
 }
+
+/**
+ * returns the username corresponding to the given user identifier if exists
+ *
+ * @param int user_id
+ * @return mixed
+ */
+function get_username($user_id)
+{
+  $query = '
+SELECT username
+  FROM '.USERS_TABLE.'
+  WHERE id = '.intval($user_id).'
+;';
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    list($username) = mysql_fetch_row($result);
+  }
+  else
+  {
+    return false;
+  }
+  
+  return $username;
+}
 ?>

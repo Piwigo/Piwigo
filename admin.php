@@ -34,7 +34,19 @@ include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 $page_valide = false;
 $title = '';
 $username='';
-if (isset($_POST['username'])) $username=$_POST['username'];
+if (isset($_POST['username']))
+{
+  $username = $_POST['username'];
+}
+else if (isset($_POST['userid']))
+{
+  $username = get_username($_POST['userid']);
+}
+else if (isset($_GET['user_id']))
+{
+  $username = get_username($_GET['user_id']);
+}
+
 if (isset( $_GET['page'] ))
 switch ( $_GET['page'] )
 {
