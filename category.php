@@ -52,46 +52,50 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 //-------------------------------------------------------------- initialization
 function display_category( $category, $indent )
 {
-  global $user,$lang,$template, $handle;
+  global $user,$template,$page;
   
-  $style='';
   $url = './category.php?cat='.$category['id'];
-  $url.= '&amp;expand='.$category['expand_string'];
-  $name = $category['name'];
-  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
-  if ( $category['id_uppercat'] == '' )
+
+  $style = '';
+  if ( isset( $page['cat'] )
+       and is_numeric( $page['cat'] )
+       and $category['id'] == $page['cat'] )
   {
-    $style = 'font-weight:bold;';
+    $style = 'font-weight:normal;color:yellow;';
   }
   
-  $template->assign_block_vars('category', array(
-    'LINK_NAME' => $name,
-	'INDENT' => $indent,
-	'NB_SUBCATS'=>$category['nb_sub_categories'],
-	'TOTAL_CAT'=>$category['nb_images'],
-	'CAT_ICON'=>get_icon($category['date_last']),
-	
-	'T_NAME'=>$style,
-    'U_LINK' => add_session_id($url)));
-
+  $name = $category['name'];
+  if ( $name == '' ) $name = str_replace( '_', ' ', $category['dir'] );
+  
+  $template->assign_block_vars(
+    'category',
+    array(
+      'T_NAME' => $style,
+      'LINK_NAME' => $name,
+      'INDENT' => $indent,
+      'NB_SUBCATS'=>$category['nb_sub_categories'],
+      'TOTAL_CAT'=>$category['nb_images'],
+      'CAT_ICON'=>get_icon($category['date_last']),
+      
+      'U_LINK' => add_session_id($url))
+    );
+  
   if ( $user['expand'] or $category['nb_sub_categories'] == 0 )
   {
-  	$template->assign_block_vars('category.bulletnolink', array('BULLET_IMAGE' =>  $user['lien_collapsed']));
+    $template->assign_block_vars(
+      'category.bulletnolink',
+      array('BULLET_IMAGE' => $user['lien_collapsed'])
+      );
   }
   else
   {
-	$url = './category.php';
-  	if (isset($page['cat']))
-	{
-	  $url .='?cat='.$page['cat'];
-      $url.= '&amp;expand='.$category['expand_string'];
-	}
-	else if ($category['expand_string']<>'')
-	{
-	  $url.= '?expand='.$category['expand_string'];
-	}
-	
-	if ( $category['expanded'] )
+    $url = './category.php';
+    if (isset($page['cat']))
+    {
+      $url .='?cat='.$page['cat'];
+    }
+    
+    if ( $category['expanded'] )
     {
       $img=$user['lien_expanded'];
     }
@@ -99,18 +103,20 @@ function display_category( $category, $indent )
     {
       $img=$user['lien_collapsed'];
     }
-	
-    $template->assign_block_vars('category.bulletlink', array(
-      'BULLET_IMAGE' =>  $img,
-	  'U_BULLET_LINK'=>  add_session_id($url)		
-	));
+    
+    $template->assign_block_vars(
+      'category.bulletlink',
+      array(
+        'BULLET_IMAGE' =>  $img,
+        'U_BULLET_LINK'=>  add_session_id($url))
+      );
   }
-
+  
   // recursive call
   if ( $category['expanded'] )
   {
     foreach ( $category['subcats'] as $subcat ) {
-	  $template->assign_block_vars('category.subcat', array());
+      $template->assign_block_vars('category.subcat', array());
       display_category( $subcat, $indent.str_repeat( '&nbsp', 2 ));
     }
   }
@@ -130,14 +136,7 @@ initialize_category();
 // $page['tab_expand'] contains an array with the category ids
 // $page['expand'] contains the string to display in URL with comma
 $page['tab_expand'] = array();
-if ( isset ( $_GET['expand'] ) and $_GET['expand'] != 'all' )
-{
-  $tab_expand = explode( ',', $_GET['expand'] );
-  foreach ( $tab_expand as $id ) {
-    if ( is_numeric( $id ) ) array_push( $page['tab_expand'], $id );
-  }
-}
-if ( isset($page['cat']) && is_numeric( $page['cat'] ) )
+if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   // the category displayed (in the URL cat=23) must be seen in the menu ->
   // parent categories must be expanded
@@ -146,17 +145,12 @@ if ( isset($page['cat']) && is_numeric( $page['cat'] ) )
     array_push( $page['tab_expand'], $uppercat );
   }
 }
-$page['tab_expand'] = array_unique( $page['tab_expand'] );
-$page['expand'] = implode( ',', $page['tab_expand'] );
-// in case of expanding all authorized cats
-// The $page['expand'] equals 'all' and
-// $page['tab_expand'] contains all the authorized cat ids
-if ( $user['expand']
-     or ( isset( $_GET['expand'] ) and $_GET['expand'] == 'all' ) )
+// in case of expanding all authorized cats $page['tab_expand'] is empty
+if ( $user['expand'] )
 {
   $page['tab_expand'] = array();
-  $page['expand'] = 'all';
 }
+
 // Sometimes, a "num" is provided in the URL. It is the number
 // of the picture to show. This picture must be in the thumbnails page.
 // We have to find the right $page['start'] that show the num picture
@@ -246,9 +240,9 @@ $template->assign_vars(array(
   'T_LONG'=>get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) ),
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
-  'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav&amp;expand='.$page['expand'] ),
-  'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited&amp;expand='.$page['expand'] ),
-  'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent&amp;expand='.$page['expand'] ),
+  'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
+  'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
+  'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent' ),
   'U_LOGOUT' => add_session_id( PHPWG_ROOT_PATH.'category.php?act=logout' ),
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ))
@@ -362,7 +356,7 @@ if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
     $thumbnail_title .= ' : '.$poids.' KB';
     // url link on picture.php page
     $url_link = './picture.php?cat='.$page['cat'];
-    $url_link.= '&amp;image_id='.$row['id'].'&amp;expand='.$page['expand'];
+    $url_link.= '&amp;image_id='.$row['id'];
     if ( $page['cat'] == 'search' )
     {
       $url_link.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
@@ -453,15 +447,6 @@ else
     $thumbnail_title = $lang['hint_category'];
 
     $url_link = './category.php?cat='.$subcat_id;
-    if ( isset($page['cat'])&& !in_array( $page['cat'], $page['tab_expand'] ) )
-    {
-      array_push( $page['tab_expand'], $page['cat'] );
-      $page['expand'] = implode( ',', $page['tab_expand'] );
-    }
-    $url_link.= '&amp;expand='.$page['expand'];
-    // we add the category to explore in the expand list
-    if ( $page['expand'] != '' ) $url_link.= ',';
-    $url_link.= $subcat_id;
 
     $date = $page['plain_structure'][$subcat_id]['date_last'];
 
@@ -498,7 +483,7 @@ if ( isset ( $page['cat'] ) )
          and $conf['upload_available']
          and $page['cat_uploadable'] )
     {
-      $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
+      $url = './upload.php?cat='.$page['cat'];
 	  $template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
     }
   }
