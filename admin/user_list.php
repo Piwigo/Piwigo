@@ -230,7 +230,7 @@ else
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
-      if ( $_POST['mail-'.$row['id']] == 1 )
+      if ( isset( $_POST['mail-'.$row['id']] ) )
         array_push( $mails, $row['mail_address'] );
     }
     $mail_destination = '';
