@@ -599,7 +599,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         $page['title'] = $lang['recent_pics_cat_title'];
         // We must find the date corresponding to :
         // today - $conf['periode_courte']
-        $date = time() - 60*60*24*$user['short_period'];
+        $date = time() - 60*60*24*$user['recent_period'];
         $page['where'] = " WHERE date_available > '";
         $page['where'].= date( 'Y-m-d', $date )."'";
         if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
