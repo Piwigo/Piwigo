@@ -85,8 +85,8 @@
     </div>
 
     <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&larr;" name="associate" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&rarr;" name="dissociate" style="font-size:15px;" class="bouton" />
+      <input type="submit" value="&laquo;" name="associate" style="font-size:15px;" class="bouton" /><br/>
+      <input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" class="bouton" />
     </div>
 
     <div style="float:right;padding:10px;width:300px;">
@@ -122,8 +122,8 @@
     </div>
 
     <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&larr;" name="elect" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&rarr;" name="dismiss" style="font-size:15px;" class="bouton" />
+      <input type="submit" value="&laquo;" name="elect" style="font-size:15px;" class="bouton" /><br/>
+      <input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" class="bouton" />
     </div>
 
     <div style="float:right;padding:10px;width:300px;">

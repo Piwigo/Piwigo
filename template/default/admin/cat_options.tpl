@@ -11,8 +11,8 @@
   </select>
   </div>
   <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-    <input type="submit" value="&larr;" name="trueify" style="font-size:15px;" class="bouton" /><br/>
-    <input type="submit" value="&rarr;" name="falsify" style="font-size:15px;" class="bouton" />
+    <input type="submit" value="&laquo;" name="trueify" style="font-size:15px;" class="bouton" /><br/>
+    <input type="submit" value="&raquo;" name="falsify" style="font-size:15px;" class="bouton" />
   </div>
   <div style="float:right;padding:10px;width:300px;">
    <span class="titreMenu">{L_CAT_OPTIONS_FALSE}</span><br />
