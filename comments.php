@@ -111,9 +111,11 @@ foreach ($conf['last_days'] as $option)
 $maxdate = date('Y-m-d', strtotime('-'.MAX_DAYS.' day'));
 
 $query = '
-SELECT DISTINCT(ic.image_id) AS image_id,(ic.category_id) AS category_id
+SELECT DISTINCT(ic.image_id) AS image_id,ic.category_id, uppercats
   FROM '.COMMENTS_TABLE.' AS c, '.IMAGE_CATEGORY_TABLE.' AS ic
+    , '.CATEGORIES_TABLE.' AS cat
   WHERE c.image_id = ic.image_id
+    AND ic.category_id = cat.id
     AND date >= \''.$maxdate.'\'';
 if ($user['status'] != 'admin')
 {
@@ -127,6 +129,7 @@ if ($user['status'] != 'admin')
   }
 }
 $query.= '
+  GROUP BY ic.image_id
   ORDER BY ic.image_id DESC
 ;';
 $result = pwg_query($query);
@@ -148,15 +151,9 @@ SELECT name,file,storage_category_id as cat_id,tn_ext,path
   $subresult = pwg_query($query);
   $subrow = mysql_fetch_array($subresult);
 
-  if (!isset($array_cat_names[$subrow['cat_id']]))
-  {
-    $cat_result = get_cat_info($subrow['cat_id']);
-    $array_cat_names[$subrow['cat_id']] =
-      get_cat_display_name($cat_result['name'], '');
-  }
-  
   // name of the picture
-  $name = $array_cat_names[$category_id].' &gt; ';
+  $name = get_cat_display_name_cache($row['uppercats'], '', false);
+  $name.= $conf['level_separator'];
   if (!empty($subrow['name']))
   {
     $name.= $subrow['name'];
@@ -165,7 +162,7 @@ SELECT name,file,storage_category_id as cat_id,tn_ext,path
   {
     $name.= str_replace('_',' ',get_filename_wo_extension($subrow['file']));
   }
-  $name.= ' [ '.$subrow['file'].' ]';
+
   // source of the thumbnail picture
   $thumbnail_src = get_thumbnail_src($subrow['path'], @$subrow['tn_ext']);
   // link to the full size picture
