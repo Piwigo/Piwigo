@@ -361,8 +361,8 @@ function get_html_menu_category($categories)
     }
     else if ($level < $ref_level)
     {
-      $menu.= '
-             </ul>';
+      // we may have to close more than one level at the same time...
+      $menu.= str_repeat("\n</ul>",($ref_level-$level));
     }
     $ref_level = $level;
     
