@@ -121,6 +121,7 @@ $lang['favorites'] = 'Favorites';
 $lang['search_result'] = 'Search results';
 $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['about_title'] = 'About...';
+if (isset($conf))
 $lang['about_message'] = '<div style="text-align:center;font-weigh:bold;">Information about PhpWebGallery</div>
 <ul>
   <li>This website uses <a href="'.$conf['site_url'].'" style="text-decoration:underline">PhpWebGallery</a> release '.$conf['version'].'. PhpWebGallery is a web application giving you the possibility to create an online images gallery easily.</li>

@@ -150,9 +150,10 @@ if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/instal
 {
   $language = 'en_EN';
 }
+
+include( './language/'.$language.'/common.lang.php' );
 include( './language/'.$language.'/install.lang.php' );
 include( './language/'.$language.'/admin.lang.php' );
-include_once(PHPWG_ROOT_PATH . 'language/infos.lang.php');
 
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
@@ -342,7 +343,7 @@ $template->assign_vars(array(
   'F_ADMIN_EMAIL'=>$admin_mail,
   'F_LANG_SELECT'=>language_select($language),
   
-  'T_CONTENT_ENCODING' => $lang['default']['charset']
+  'T_CONTENT_ENCODING' => $lang_info['charset']
 	));
 	
 //-------------------------------------------------------- errors & infos display
