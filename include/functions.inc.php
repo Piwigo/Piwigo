@@ -30,7 +30,7 @@ include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
-include_once( PHPWG_ROOT_PATH .'include/htmlfunctions.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
