@@ -185,7 +185,7 @@ function insert_local_image( $rep, $category_id )
         // is the picture waiting for validation by an administrator ?
         $query = 'SELECT id,validated,infos';
         $query.= ' FROM '.PREFIX_TABLE.'waiting';
-        $query.= ' WHERE category_id = '.$category_id;
+        $query.= ' WHERE storage_category_id = '.$category_id;
         $query.= " AND file = '".$file."'";
         $query.= ';';
         $result = mysql_query( $query );
