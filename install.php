@@ -149,7 +149,7 @@ else
 
 if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/install.lang.php')) )
 {
-  $language = 'en_EN';
+  $language = 'en_UK.iso-8859-1';
 }
 
 include( './language/'.$language.'/common.lang.php' );
