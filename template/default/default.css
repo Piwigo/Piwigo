@@ -311,3 +311,11 @@ div.information {
 span.selected {
   font-weight:bold;
 }
+
+span.thumb_picture {
+  font-weight:normal;
+}
+
+span.thumb_category {
+  font-weight:normal;
+}
