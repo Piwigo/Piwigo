@@ -216,7 +216,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     // mail notification for administrators
     if ( $conf['mail_notification'] )
     {
-      notify( 'comment' );
+      notify( 'upload' );
     }
   }
 }
