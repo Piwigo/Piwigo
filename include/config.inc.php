@@ -48,8 +48,12 @@ $conf['last_days']          = array(1,2,3,10,30,365);
 $conf['version']            = 'BSF';
 $conf['site_url']           = 'http://www.phpwebgallery.net';
 $conf['forum_url']          = 'http://forum.phpwebgallery.net';
-$conf['picture_ext']        = array('jpg','JPG','gif','GIF','png','PNG');
-$conf['document_ext']       = array('doc','pdf','zip');
+// $conf['file_ext'] lists all extensions (case insensitive) allowed for
+// your PhpWebGallery installation
+$conf['file_ext']           = array('jpg','JPG','png','PNG','gif','GIF'
+                                    ,'mpg','zip','avi','mp3','ogg');
+// $conf['picture_ext'] must bea subset of $conf['file_ext']
+$conf['picture_ext']        = array('jpg','JPG','png','PNG','gif','GIF');
 $conf['top_number']         = 10;
 $conf['anti-flood_time']    = 60; // seconds between 2 comments : 0 to disable
 $conf['max_LOV_categories'] = 50;
