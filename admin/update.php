@@ -96,6 +96,9 @@ function insert_local_category( $id_uppercat )
     if ( !in_array( $dir, $sub_dirs ) ) delete_category( $id );
   }
 
+  // array of new categories to insert
+  $inserts = array();
+  
   foreach ( $sub_dirs as $sub_dir ) {
     // 5. Is the category already existing ? we create a subcat if not
     //    existing
@@ -104,25 +107,15 @@ function insert_local_category( $id_uppercat )
     {
       if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $sub_dir ) )
       {
+        $value = '';
         $name = str_replace( '_', ' ', $sub_dir );
-        // we have to create the category
-        $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-        $query.= ' (dir,name,site_id,id_uppercat,uppercats) VALUES';
-        $query.= " ('".$sub_dir."','".$name."',1";
-        if ( !is_numeric( $id_uppercat ) ) $query.= ',NULL';
-        else                               $query.= ','.$id_uppercat;
-        $query.= ",'undef'";
-        $query.= ');';
-        mysql_query( $query );
-        $category_id = mysql_insert_id();
-        // updating uppercats field
-        $query = 'UPDATE '.PREFIX_TABLE.'categories';
-        $query.= " SET uppercats = '".$uppercats;
-        if ( $uppercats != '' ) $query.= ',';
-        $query.= $category_id;
-        $query.= "'";
-        $query.= ';';
-        mysql_query( $query );
+
+        $value.= "('".$sub_dir."','".$name."',1";
+        if ( !is_numeric( $id_uppercat ) ) $value.= ',NULL';
+        else                               $value.= ','.$id_uppercat;
+        $value.= ",'undef'";
+        $value.= ')';
+        array_push( $inserts, $value );
       }
       else
       {
@@ -130,13 +123,42 @@ function insert_local_category( $id_uppercat )
         $output.= $lang['update_wrong_dirname'].'</span><br />';
       }
     }
-    // 6. recursive call
-    if ( is_numeric( $category_id ) )
-    {
-      $output.= insert_local_category( $category_id );
-    }
   }
-		
+
+  // we have to create the category
+  if ( count( $inserts ) > 0 )
+  {
+    $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
+    $query.= ' (dir,name,site_id,id_uppercat,uppercats) VALUES ';
+    $query.= implode( ',', $inserts );
+    $query.= ';';
+    mysql_query( $query );
+    // updating uppercats field
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= ' SET uppercats = ';
+    if ( $uppercats != '' ) $query.= "CONCAT('".$uppercats."',',',id)";
+    else                    $query.= 'id';
+    $query.= ' WHERE id_uppercat ';
+    if (!is_numeric($id_uppercat)) $query.= 'IS NULL';
+    else                           $query.= '= '.$id_uppercat;
+    $query.= ';';
+    mysql_query( $query );
+  }
+
+  // Recursive call on the sub-categories (not virtual ones)
+  $query = 'SELECT id';
+  $query.= ' FROM '.PREFIX_TABLE.'categories';
+  $query.= ' WHERE site_id = 1';
+  if (!is_numeric($id_uppercat)) $query.= ' AND id_uppercat IS NULL';
+  else                           $query.= ' AND id_uppercat = '.$id_uppercat;
+  $query.= ' AND dir IS NOT NULL'; // virtual categories not taken
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $output.= insert_local_category( $row['id'] );
+  }
+
   if ( is_numeric( $id_uppercat ) )
   {
     $output.= '</div>';
