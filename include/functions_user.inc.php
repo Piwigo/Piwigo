@@ -102,11 +102,10 @@ function register_user( $login, $password, $password_conf,
     if ( $mail_address != '' ) $query.= ",'".$mail_address."'";
     else                       $query.= ',NULL';
     $query.= ",'".$status."'";
-    for ( $i = 0; $i < sizeof( $infos ); $i++ )
-    {
+    foreach ( $infos as $info ) {
       $query.= ',';
-      if ( $row[$infos[$i]] == '' ) $query.= 'NULL';
-      else                          $query.= "'".$row[$infos[$i]]."'";
+      if ( !isset( $row[$info] ) ) $query.= 'NULL';
+      else                         $query.= "'".$row[$info]."'";
     }
     $query.= ');';
     mysql_query( $query );
