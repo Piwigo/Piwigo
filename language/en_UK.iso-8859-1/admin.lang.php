@@ -317,4 +317,8 @@ $lang['waiting_update'] = 'Validated pictures will be displayed only once pictur
 $lang['cat_unknown_id'] = 'This category is unknown in the database';
 $lang['install_warning'] = 'The file "install.php" is still present. Please remove it from your server. It is not secure to keep it.';
 
- ?>
+$lang['cat_list_update_metadata'] = 'Synchronize<br />metadata';
+$lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
+$lang['cat_list_virtual_category_added'] = 'virtual category added';
+$lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
+?>
