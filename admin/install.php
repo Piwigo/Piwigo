@@ -81,7 +81,7 @@ if ( $_GET['step'] == 1 )
       $file_content.= "\n\$cfgUser = '".     $_POST['cfgUser']."';";
       $file_content.= "\n\$cfgPassword = '". $_POST['cfgPassword']."';";
       $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
-      $file_content.= "\n\$prefix_table = '".$_POST['prefix_table']."';";
+      $file_content.= "\n\$prefixeTable = '".$_POST['prefix_table']."';";
       $file_content.= "\n?>";
       // writting the configuration file
       if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
