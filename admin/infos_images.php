@@ -19,64 +19,15 @@
 
 include_once( './include/isadmin.inc.php' );
 include_once( '../template/'.$user['template'].'/htmlfunctions.inc.php' );
-//------------------------------------------------------------------- functions
-function check_date_format( $date )
-{
-  // date arrives at this format : DD/MM/YYYY
-  list($day,$month,$year) = explode( '/', $date );
-  return checkdate ( $month, $day, $year );
-}
-
-function date_convert( $date )
-{
-  // date arrives at this format : DD/MM/YYYY
-  // It must be transformed in YYYY-MM-DD
-  list($day,$month,$year) = explode( '/', $date );
-  return $year.'-'.$month.'-'.$day;
-}
-
-function date_convert_back( $date )
-{
-  // date arrives at this format : YYYY-MM-DD
-  // It must be transformed in DD/MM/YYYY
-  if ( $date != '' )
-  {
-    list($year,$month,$day) = explode( '-', $date );
-    return $day.'/'.$month.'/'.$year;
-  }
-  else
-  {
-    return '';
-  }
-}
-
-// get_keywords returns an array with relevant keywords found in the string
-// given in argument. Keywords must be separated by comma in this string.
-// keywords must :
-//   - be longer or equal to 3 characters
-//   - not contain ', " or blank characters
-//   - unique in the string ("test,test" -> "test")
-function get_keywords( $keywords_string )
-{
-  $keywords = array();
-
-  $candidates = explode( ',', $keywords_string );
-  foreach ( $candidates as $candidate ) {
-    if ( strlen($candidate) >= 3 and !preg_match( '/(\'|"|\s)/', $candidate ) )
-      array_push( $keywords, $candidate );
-  }
-
-  return array_unique( $keywords );
-}
 //-------------------------------------------------------------- initialization
 check_cat_id( $_GET['cat_id'] );
-
 if ( isset( $page['cat'] ) )
 {
 //--------------------------------------------------- update individual options
   $query = 'SELECT id,file';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' WHERE cat_id = '.$page['cat'];
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query.= ' WHERE category_id = '.$page['cat'];
   $query.= ';';
   $result = mysql_query( $query );
   $i = 1;
@@ -121,53 +72,77 @@ if ( isset( $page['cat'] ) )
         $query.= 'NULL';
       else
       {
-        $query.= '"';
+        $query.= "'";
         foreach ( $keywords_array as $i => $keyword ) {
           if ( $i > 0 ) $query.= ',';
           $query.= $keyword;
         }
-        $query.= '"';
+        $query.= "'";
       }
 
       $query.= ' WHERE id = '.$row['id'];
       $query.= ';';
       mysql_query( $query );
     }
+    // add link to another category
+    if ( $_POST['check-'.$row['id']] == 1 )
+    {
+      $query = 'INSERT INTO '.PREFIX_TABLE.'image_category';
+      $query.= ' (image_id,category_id) VALUES';
+      $query.= ' ('.$row['id'].','.$_POST['associate'].')';
+      $query.= ';';
+      mysql_query( $query );
+    }
   }
+  update_category( $_POST['associate'] );
 //------------------------------------------------------ update general options
   if ( $_POST['use_common_author'] == 1 )
   {
-    $query = 'UPDATE '.PREFIX_TABLE.'images';
-    if ( $_POST['author_cat'] == '' )
+    $query = 'SELECT image_id';
+    $query.= ' FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE category_id = '.$page['cat'];
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
     {
-      $query.= ' SET author = NULL';
+      $query = 'UPDATE '.PREFIX_TABLE.'images';
+      if ( $_POST['author_cat'] == '' )
+      {
+        $query.= ' SET author = NULL';
+      }
+      else
+      {
+        $query.= ' SET author = ';
+        $query.= "'".htmlentities( $_POST['author_cat'], ENT_QUOTES )."'";
+      }
+      $query.= ' WHERE id = '.$row['image_id'];
+      $query.= ';';
+      mysql_query( $query );
     }
-    else
-    {
-      $query.= ' SET author = ';
-      $query.= "'".htmlentities( $_POST['author_cat'], ENT_QUOTES )."'";
-    }
-    $query.= ' WHERE cat_id = '.$page['cat'];
-    $query.= ';';
-    mysql_query( $query );
   }
   if ( $_POST['use_common_date_creation'] == 1 )
   {
     if ( check_date_format( $_POST['date_creation_cat'] ) )
     {
       $date = date_convert( $_POST['date_creation_cat'] );
-      $query = 'UPDATE '.PREFIX_TABLE.'images';
-      if ( $_POST['date_creation_cat'] == '' )
+      $query = 'SELECT image_id';
+      $query.= ' FROM '.PREFIX_TABLE.'image_category';
+      $query.= ' WHERE category_id = '.$page['cat'];
+      $result = mysql_query( $query );
+      while ( $row = mysql_fetch_array( $result ) )
       {
-        $query.= ' SET date_creation = NULL';
+        $query = 'UPDATE '.PREFIX_TABLE.'images';
+        if ( $_POST['date_creation_cat'] == '' )
+        {
+          $query.= ' SET date_creation = NULL';
+        }
+        else
+        {
+          $query.= " SET date_creation = '".$date."'";
+        }
+        $query.= ' WHERE id = '.$row['image_id'];
+        $query.= ';';
+        mysql_query( $query );
       }
-      else
-      {
-        $query.= " SET date_creation = '".$date."'";
-      }
-      $query.= ' WHERE cat_id = '.$page['cat'];
-      $query.= ';';
-      mysql_query( $query );
     }
     else
     {
@@ -178,7 +153,8 @@ if ( isset( $page['cat'] ) )
   {
     $query = 'SELECT id,keywords';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE cat_id = '.$page['cat'];
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' WHERE category_id = '.$page['cat'];
     $query.= ';';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
@@ -241,11 +217,9 @@ if ( isset( $page['cat'] ) )
       floor( $_GET['num'] / $page['nb_image_page'] ) * $page['nb_image_page'];
   }
   // retrieving category information
+  $page['plain_structure'] = get_plain_structure();
   $result = get_cat_info( $page['cat'] );
-  $cat['local_dir'] = $result['local_dir'];
-  $cat['dir'] = $result['dir'];
   $cat['name'] = $result['name'];
-  $cat['site_id'] = $result['site_id'];
   $cat['nb_images'] = $result['nb_images'];
 //----------------------------------------------------- template initialization
   $sub = $vtp->Open('../template/'.$user['template'].'/admin/infos_image.vtp');
@@ -254,8 +228,9 @@ if ( isset( $page['cat'] ) )
                 'infoimage_title','infoimage_comment',
                 'infoimage_creation_date','keywords',
                 'infoimage_addtoall','infoimage_removefromall',
-                'infoimage_keyword_separation' );
+                'infoimage_keyword_separation','infoimage_associate' );
   templatize_array( $tpl, 'lang', $sub );
+  $vtp->setGlobalVar( $sub, 'user_template',   $user['template'] );
 //------------------------------------------------------------------------ form
   $url = './admin.php?page=infos_images&amp;cat_id='.$page['cat'];
   $url.= '&amp;start='.$page['start'];
@@ -266,9 +241,13 @@ if ( isset( $page['cat'] ) )
   $cat_name = get_cat_display_name( $cat['name'], ' - ', 'font-style:italic;');
   $vtp->setVar( $sub, 'cat_name', $cat_name );
 
+  $array_cat_directories = array();
+
   $query = 'SELECT id,file,comment,author,tn_ext,name,date_creation,keywords';
+  $query.= ',storage_category_id,category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' WHERE cat_id = '.$page['cat'];
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+  $query.= ' WHERE category_id = '.$page['cat'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
   $query.= ';';
@@ -287,13 +266,15 @@ if ( isset( $page['cat'] ) )
     $file = get_filename_wo_extension( $row['file'] );
     $vtp->setVar( $sub, 'picture.default_name', $file );
     // creating url to thumbnail
-    if ( $cat['site_id'] == 1 )
-    { 
-      $thumbnail_url = '../galleries/'.$cat['local_dir'].'/';
-    }
-    else
+    if ( $array_cat_directories[$row['storage_category_id']] == '' )
     {
-      $thumbnail_url = $cat['dir'];
+      $array_cat_directories[$row['storage_category_id']] =
+        get_complete_dir( $row['storage_category_id'] );
+    }
+    $thumbnail_url = $array_cat_directories[$row['storage_category_id']];
+    if ( preg_match( '/^\.\/galleries/', $thumbnail_url ) )
+    {
+      $thumbnail_url = '.'.$thumbnail_url;
     }
     $thumbnail_url.= 'thumbnail/';
     $thumbnail_url.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
@@ -302,6 +283,8 @@ if ( isset( $page['cat'] ) )
     $vtp->setVar( $sub, 'picture.url', add_session_id( $url ) );
     $vtp->closeSession( $sub, 'picture' );
   }
+  $structure = create_structure( '', array() );
+  display_categories( $structure, '&nbsp;' );
 }
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );

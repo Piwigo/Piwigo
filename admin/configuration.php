@@ -259,7 +259,7 @@ $sub = $vtp->Open(
   '../template/'.$user['template'].'/admin/configuration.vtp' );
 
 $tpl = array( 'conf_confirmation','remote_site','delete',
-              'conf_remote_site_delete_info','submit' );
+              'conf_remote_site_delete_info','submit','errors_title' );
 templatize_array( $tpl, 'lang', $sub );
 //-------------------------------------------------------------- errors display
 if ( sizeof( $error ) != 0 )

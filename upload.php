@@ -205,8 +205,9 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   if ( sizeof( $error ) == 0 )
   {
     $query = 'insert into '.PREFIX_TABLE.'waiting';
-    $query.= ' (cat_id,file,username,mail_address,date,infos) values';
-    $query.= " (".$page['cat'].",'".$_FILES['picture']['name']."'";
+    $query.= ' (storage_category_id,file,username,mail_address,date,infos)';
+    $query.= ' values ';
+    $query.= '('.$page['cat'].",'".$_FILES['picture']['name']."'";
     $query.= ",'".htmlspecialchars( $_POST['username'], ENT_QUOTES)."'";
     $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';

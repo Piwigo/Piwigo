@@ -94,7 +94,7 @@ function check_cat_id( $cat )
 function get_plain_structure()
 {
   $infos = array( 'name','id','date_last','nb_images','dir','id_uppercat',
-                  'rank');
+                  'rank','site_id');
   
   $query = 'SELECT ';
   foreach ( $infos as $i => $info ) {
@@ -270,7 +270,7 @@ function count_images( $categories )
 // variables :
 // $cat['comment']
 // $cat['dir']
-// $cat['last_dir']
+// $cat['dir']
 // $cat['name'] is an array :
 //      - $cat['name'][0] is the lowest cat name
 //      and
@@ -280,11 +280,12 @@ function count_images( $categories )
 // $cat['site_id']
 function get_cat_info( $id )
 {
+  global $page;
+
   $cat = array();
-  $cat['name'] = array();
                 
   $query = 'SELECT nb_images,id_uppercat,comment,site_id,galleries_url,dir';
-  $query.= ',date_last,uploadable';
+  $query.= ',date_last,uploadable,status,visible';
   $query.= ' FROM '.PREFIX_TABLE.'categories AS a';
   $query.= ', '.PREFIX_TABLE.'sites AS b';
   $query.= ' WHERE a.id = '.$id;
@@ -294,42 +295,64 @@ function get_cat_info( $id )
   $cat['id_uppercat'] = $row['id_uppercat'];
   $cat['comment']     = nl2br( $row['comment'] );
   $cat['nb_images']   = $row['nb_images'];
-  $cat['last_dir']    = $row['dir'];
+  $cat['dir']         = $row['dir'];
   $cat['date_last']   = $row['date_last'];
   $cat['uploadable']  = get_boolean( $row['uploadable'] );
-  $galleries_url = $row['galleries_url'];
+  $cat['status']      = $row['status'];
+  $cat['visible']     = get_boolean( $row['visible'] );
 
-  $cat['dir'] = "";
-  $i = 0;
-  $is_root = false;
-  $row['id_uppercat'] = $id;
-  while ( !$is_root )
+  $cat['name'] = array();
+  array_push( $cat['name'], $page['plain_structure'][$id]['name'] );
+  while ( $page['plain_structure'][$id]['id_uppercat'] != '' )
   {
-    $query = 'SELECT name,dir,id_uppercat';
-    $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE id = '.$row['id_uppercat'].';';
-    $row = mysql_fetch_array( mysql_query( $query ) );
-    $cat['dir'] = $row['dir'].'/'.$cat['dir'];
-    if ( $row['name'] == "" )
-    {
-      $cat['name'][$i] = str_replace( "_", " ", $row['dir'] );
-    }
-    else
-    {
-      $cat['name'][$i] = $row['name'];
-    }
-    if ( $row['id_uppercat'] == "" )
-    {
-      $is_root = true;
-    }
-    $i++;
+    $id = $page['plain_structure'][$id]['id_uppercat'];
+    array_push( $cat['name'], $page['plain_structure'][$id]['name'] );
   }
-  $cat['local_dir'] = substr( $cat['dir'], 0 , strlen( $cat['dir'] ) - 1 );
-  $cat['dir'] = $galleries_url.$cat['dir'];
-                
   return $cat;
 }
-        
+
+// get_complete_dir returns the concatenation of get_site_url and
+// get_local_dir
+// Example : "pets > rex > 1_year_old" is on the the same site as the
+// PhpWebGallery files and this category has 22 for identifier
+// get_complete_dir(22) returns "./galleries/pets/rex/1_year_old/"
+function get_complete_dir( $category_id )
+{
+  return get_site_url( $category_id ).get_local_dir( $category_id );
+}
+
+// get_local_dir returns an array with complete path without the site url
+// Example : "pets > rex > 1_year_old" is on the the same site as the
+// PhpWebGallery files and this category has 22 for identifier
+// get_local_dir(22) returns "pets/rex/1_year_old/"
+function get_local_dir( $category_id )
+{
+  global $page;
+
+  // creating the local path : "root_cat/sub_cat/sub_sub_cat/"
+  $dir = $page['plain_structure'][$category_id]['dir'].'/';
+  while ( $page['plain_structure'][$category_id]['id_uppercat'] != '' )
+  {
+    $category_id = $page['plain_structure'][$category_id]['id_uppercat'];
+    $dir = $page['plain_structure'][$category_id]['dir'].'/'.$dir;
+  }
+  return $dir;
+}
+
+// retrieving the site url : "http://domain.com/gallery/" or
+// simply "./galleries/"
+function get_site_url( $category_id )
+{
+  global $page;
+
+  $query = 'SELECT galleries_url';
+  $query.= ' FROM '.PREFIX_TABLE.'sites';
+  $query.= ' WHERE id = '.$page['plain_structure'][$category_id]['site_id'];
+  $query.= ';';
+  $row = mysql_fetch_array( mysql_query( $query ) );
+  return $row['galleries_url'];
+}
+
 // The function get_cat_display_name returns a string containing the list
 // of upper categories to the root category from the lowest category shown
 // example : "anniversaires - fete mere 2002 - animaux - erika"
@@ -401,7 +424,7 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_site_id']    = $result['site_id'];
       $page['cat_uploadable'] = $result['uploadable'];
       $page['title'] = get_cat_display_name( $page['cat_name'], ' - ', '' );
-      $page['where'] = ' WHERE cat_id = '.$page['cat'];
+      $page['where'] = ' WHERE category_id = '.$page['cat'];
     }
     else
     {
@@ -411,7 +434,7 @@ function initialize_category( $calling_page = 'category' )
         // we must not show pictures of a forbidden category
         $restricted_cats = get_all_restrictions( $user['id'],$user['status'] );
         foreach ( $restricted_cats as $restricted_cat ) {
-          $where_append.= ' AND cat_id != '.$restricted_cat;
+          $where_append.= ' AND category_id != '.$restricted_cat;
         }
       }
       // search result
@@ -499,7 +522,7 @@ function initialize_category( $calling_page = 'category' )
       else if ( $page['cat'] == 'most_visited' )
       {
         $page['title'] = $conf['top_number'].' '.$lang['most_visited_cat'];
-        $page['where'] = ' WHERE cat_id != -1'.$where_append;
+        $page['where'] = ' WHERE category_id != -1'.$where_append;
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
         $page['cat_nb_images'] = $conf['top_number'];
         if ( $page['start'] + $user['nb_image_page'] >= $conf['top_number'] )

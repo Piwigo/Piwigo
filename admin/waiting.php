@@ -20,7 +20,7 @@ include_once( './include/isadmin.inc.php' );
 //--------------------------------------------------------------------- updates
 if ( isset( $_POST['submit'] ) )
 {
-  $query = 'SELECT id,cat_id,file,tn_ext';
+  $query = 'SELECT id,storage_category_id,file,tn_ext';
   $query.= ' FROM '.PREFIX_TABLE.'waiting';
   $query.= " WHERE validated = 'false'";
   $query.= ';';
@@ -39,6 +39,8 @@ if ( isset( $_POST['submit'] ) )
         $query.= ' WHERE id = '.$row['id'];
         $query.= ';';
         mysql_query( $query );
+        // linking logically the picture to its storage category
+        $query = 'INSERT INTO';
       }
       else
       {
@@ -49,14 +51,14 @@ if ( isset( $_POST['submit'] ) )
         $query.= ';';
         mysql_query( $query );
         // deletion of the associated files
-        $cat = get_cat_info( $row['cat_id'] );
-        unlink( '.'.$cat['dir'].$row['file'] );
+        $dir = get_complete_dir( $row['storage_category_id'] );
+        unlink( '.'.$dir.$row['file'] );
         if ( $row['tn_ext'] != '' )
         {
           $thumbnail = $conf['prefix_thumbnail'];
           $thumbnail.= get_filename_wo_extension( $row['file'] );
           $thumbnail.= '.'.$row['tn_ext'];
-          $url = '.'.$cat['dir'].'thumbnail/'.$thumbnail;
+          $url = '.'.$dir.'thumbnail/'.$thumbnail;
           unlink( $url );
         }
       }
@@ -70,10 +72,11 @@ $tpl = array( 'category','date','author','thumbnail','file','delete',
 templatize_array( $tpl, 'lang', $sub );
 //---------------------------------------------------------------- form display
 $cat_names = array();
-$query = 'SELECT id,cat_id,file,username,mail_address,date,tn_ext';
+$query = 'SELECT id,storage_category_id,file,username,mail_address';
+$query.= ',date,tn_ext';
 $query.= ' FROM '.PREFIX_TABLE.'waiting';
 $query.= " WHERE validated = 'false'";
-$query.= ' ORDER BY cat_id';
+$query.= ' ORDER BY storage_category_id';
 $query.= ';';
 $result = mysql_query( $query );
 $i = 0;
@@ -85,26 +88,24 @@ while ( $row = mysql_fetch_array( $result ) )
   {
     $vtp->setVar( $sub, 'picture.class', 'row2' );
   }
-  if ( !isset( $cat_names[$row['cat_id']] ) )
+  if ( !isset( $cat_names[$row['storage_category_id']] ) )
   {
-    $cat = get_cat_info( $row['cat_id'] );
-    $cat_names[$row['cat_id']] = array();
-    $cat_names[$row['cat_id']]['dir'] = '.'.$cat['dir'];
-    $cat_names[$row['cat_id']]['display_name'] =
+    $cat = get_cat_info( $row['storage_category_id'] );
+    $cat_names[$row['storage_category_id']] = array();
+    $cat_names[$row['storage_category_id']]['dir'] =
+      '.'.get_complete_dir( $row['storage_category_id'] );
+    $cat_names[$row['storage_category_id']]['display_name'] =
       get_cat_display_name( $cat['name'], ' &gt; ', 'font-weight:bold;' );
   }
   // category name
   $vtp->setVar( $sub, 'picture.cat_name',
-                $cat_names[$row['cat_id']]['display_name'] );
+                $cat_names[$row['storage_category_id']]['display_name'] );
   // date displayed like this (in English ) :
   //                     Sunday 15 June 2003 21:29
-  $date = $lang['day'][date( 'w', $row['date'] )];   // Sunday
-  $date.= date( ' j ', $row['date'] );               // 15
-  $date.= $lang['month'][date( 'n', $row['date'] )]; // June
-  $date.= date( ' Y G:i', $row['date'] );            // 2003 21:29
+  $date = format_date( $row['date'], 'unix', true );
   $vtp->setVar( $sub, 'picture.date', $date );
   // file preview link
-  $url = $cat_names[$row['cat_id']]['dir'].$row['file'];
+  $url = $cat_names[$row['storage_category_id']]['dir'].$row['file'];
   $vtp->setVar( $sub, 'picture.preview_url', $url );
   // file name
   $vtp->setVar( $sub, 'picture.file', $row['file'] );
@@ -115,7 +116,8 @@ while ( $row = mysql_fetch_array( $result ) )
     $thumbnail = $conf['prefix_thumbnail'];
     $thumbnail.= get_filename_wo_extension( $row['file'] );
     $thumbnail.= '.'.$row['tn_ext'];
-    $url = $cat_names[$row['cat_id']]['dir'].'thumbnail/'.$thumbnail;
+    $url = $cat_names[$row['storage_category_id']]['dir'];
+    $url.= 'thumbnail/'.$thumbnail;
     $vtp->setVar( $sub, 'thumbnail.preview_url', $url );
     $vtp->setVar( $sub, 'thumbnail.file', $thumbnail );
     $vtp->closeSession( $sub, 'thumbnail' );

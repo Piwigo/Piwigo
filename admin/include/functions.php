@@ -94,6 +94,7 @@ function delete_site( $id )
 // The function delete_category deletes the category identified by the $id
 // It also deletes (in the database) :
 //    - all the images of the images (thanks to delete_image, see further)
+//    - all the links between images and this category
 //    - all the restrictions linked to the category
 // The function works recursively.
 function delete_category( $id )
@@ -101,13 +102,19 @@ function delete_category( $id )
   // destruction of all the related images
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
-  $query.= ' WHERE cat_id = '.$id;
+  $query.= ' WHERE storage_category_id = '.$id;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
     delete_image( $row['id'] );
   }
+
+  // destruction of the links between images and this category
+  $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+  $query.= ' WHERE category_id = '.$id;
+  $query.= ';';
+  mysql_query( $query );
 
   // destruction of the access linked to the category
   $query = 'DELETE FROM '.PREFIX_TABLE.'user_access';
@@ -140,6 +147,7 @@ function delete_category( $id )
 // The function delete_image deletes the image identified by the $id
 // It also deletes (in the database) :
 //    - all the comments related to the image
+//    - all the links between categories and this image
 //    - all the favorites associated to the image
 function delete_image( $id )
 {
@@ -150,7 +158,13 @@ function delete_image( $id )
   $query.= ' WHERE image_id = '.$id;
   $query.= ';';
   mysql_query( $query );
-		
+
+  // destruction of the links between images and this category
+  $query = 'DELETE FROM '.PREFIX_TABLE.'image_category';
+  $query.= ' WHERE image_id = '.$id;
+  $query.= ';';
+  mysql_query( $query );
+
   // destruction of the favorites associated with the picture
   $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
   $query.= ' WHERE image_id = '.$id;
@@ -244,15 +258,28 @@ function check_favorites( $user_id )
   $restricted_cat = get_all_restrictions( $user_id, $status );
   // retrieving all the favorites for this user and comparing their
   // categories to the restricted categories
-  $query = 'SELECT image_id, cat_id';
-  $query.= ' FROM '.PREFIX_TABLE.'favorites, '.PREFIX_TABLE.'images';
+  $query = 'SELECT image_id';
+  $query.= ' FROM '.PREFIX_TABLE.'favorites';
   $query.= ' WHERE user_id = '.$user_id;
-  $query.= ' AND id = image_id';
   $query.= ';';
   $result = mysql_query ( $query );
   while ( $row = mysql_fetch_array( $result ) )
   {
-    if ( in_array( $row['cat_id'], $restricted_cat ) )
+    // for each picture, we have to check all the categories it belongs
+    // to. Indeed if a picture belongs to category_1 and category_2 and that
+    // category_2 is not restricted to the user, he can have the picture as
+    // favorite.
+    $query = 'SELECT DISTINCT(category_id) as category_id';
+    $query.= ' FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE image_id = '.$row['image_id'];
+    $query.= ';';
+    $picture_result = mysql_query( $query );
+    $picture_cat = array();
+    while ( $picture_row = mysql_fetch_array( $picture_result ) )
+    {
+      array_push( $picture_cat, $picture_row['category_id'] );
+    }
+    if ( count( array_diff( $picture_cat, $restricted_cat ) ) > 0 )
     {
       $query = 'DELETE FROM '.PREFIX_TABLE.'favorites';
       $query.= ' WHERE image_id = '.$row['image_id'];
@@ -260,6 +287,115 @@ function check_favorites( $user_id )
       $query.= ';';
       mysql_query( $query );
     }
+  }
+}
+
+// update_category updates calculated informations about a category :
+// date_last and nb_images
+function update_category( $id = 'all' )
+{
+  if ( $id == 'all' )
+  {
+    $query = 'SELECT id';
+    $query.= ' FROM '.PREFIX_TABLE.'categories';
+    $query.= ';';
+    $result = mysql_query( $query );
+    while ( $row = mysql_fetch_array( $result ) )
+    {
+      // recursive call
+      update_category( $row['id'] );
+    }
+  }
+  else if ( is_numeric( $id ) )
+  {
+    // updating the number of pictures
+    $query = 'SELECT COUNT(*) as nb_images';
+    $query.= ' FROM '.PREFIX_TABLE.'image_category';
+    $query.= ' WHERE category_id = '.$id;
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= ' SET nb_images = '.$row['nb_images'];
+    $query.= ' WHERE id = '.$id;
+    $query.= ';';
+    mysql_query( $query );
+    // updating the date_last
+    $query = 'SELECT date_available';
+    $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' WHERE category_id = '.$id;
+    $query.= ' ORDER BY date_available DESC';
+    $query.= ' LIMIT 0,1';
+    $query.= ';';
+    $row = mysql_fetch_array( mysql_query( $query ) );
+    $query = 'UPDATE '.PREFIX_TABLE.'categories';
+    $query.= " SET date_last = '".$row['date_available']."'";
+    $query.= ' WHERE id = '.$id;
+    $query.= ';';
+    mysql_query( $query );
+  }
+}
+
+function check_date_format( $date )
+{
+  // date arrives at this format : DD/MM/YYYY
+  list($day,$month,$year) = explode( '/', $date );
+  return checkdate ( $month, $day, $year );
+}
+
+function date_convert( $date )
+{
+  // date arrives at this format : DD/MM/YYYY
+  // It must be transformed in YYYY-MM-DD
+  list($day,$month,$year) = explode( '/', $date );
+  return $year.'-'.$month.'-'.$day;
+}
+
+function date_convert_back( $date )
+{
+  // date arrives at this format : YYYY-MM-DD
+  // It must be transformed in DD/MM/YYYY
+  if ( $date != '' )
+  {
+    list($year,$month,$day) = explode( '-', $date );
+    return $day.'/'.$month.'/'.$year;
+  }
+  else
+  {
+    return '';
+  }
+}
+
+// get_keywords returns an array with relevant keywords found in the string
+// given in argument. Keywords must be separated by comma in this string.
+// keywords must :
+//   - be longer or equal to 3 characters
+//   - not contain ', " or blank characters
+//   - unique in the string ("test,test" -> "test")
+function get_keywords( $keywords_string )
+{
+  $keywords = array();
+
+  $candidates = explode( ',', $keywords_string );
+  foreach ( $candidates as $candidate ) {
+    if ( strlen($candidate) >= 3 and !preg_match( '/(\'|"|\s)/', $candidate ) )
+      array_push( $keywords, $candidate );
+  }
+
+  return array_unique( $keywords );
+}
+
+function display_categories( $categories, $indent )
+{
+  global $vtp,$sub;
+
+  foreach ( $categories as $category ) {
+    $vtp->addSession( $sub, 'associate_cat' );
+    $vtp->setVar( $sub, 'associate_cat.value',   $category['id'] );
+    $content = $indent.'- '.$category['name'];
+    $vtp->setVar( $sub, 'associate_cat.content', $content );
+    $vtp->closeSession( $sub, 'associate_cat' );
+    display_categories( $category['subcats'], $indent.str_repeat('&nbsp;',3) );
   }
 }
 ?>

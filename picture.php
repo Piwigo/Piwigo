@@ -23,6 +23,7 @@ include_once( './include/init.inc.php' );
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
 check_login_authorization();
+$page['plain_structure'] = get_plain_structure();
 if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
@@ -38,8 +39,10 @@ initialize_category( 'picture' );
 $cat_directory = $page['cat_dir']; // by default
 //------------------------------------- main picture information initialization
 $query = 'SELECT id,date_available,comment,hit,keywords';
-$query.= ',author,name,file,date_creation,filesize,width,height,cat_id';
+$query.= ',author,name,file,date_creation,filesize,width,height';
+$query.= ',storage_category_id,category_id';
 $query.= ' FROM '.PREFIX_TABLE.'images';
+$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
 $query.= $page['where'];
 $query.= ' AND id = '.$_GET['image_id'];
 $query.= $conf['order_by'];
@@ -57,11 +60,13 @@ $page['date_creation']  = $row['date_creation'];
 $page['filesize']       = $row['filesize'];
 $page['width']          = $row['width'];
 $page['height']         = $row['height'];
-$page['cat_id']         = $row['cat_id'];
+$page['category_id']    = $row['category_id'];
 $page['keywords']       = $row['keywords'];
+$page['storage_category_id'] = $row['storage_category_id'];
 // retrieving the number of the picture in its category (in order)
 $query = 'SELECT id';
 $query.= ' FROM '.PREFIX_TABLE.'images';
+$query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
 $query.= $page['where'];
 $query.= $conf['order_by'];
 $query.= ';';
@@ -123,6 +128,7 @@ if ( isset( $_GET['add_fav'] ) )
     }
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
     $query.= $page['where'];
     $query.= $conf['order_by'];
     $query.= ' LIMIT '.$page['num'].',1';
@@ -205,8 +211,9 @@ else
 if ( $page['num'] >= 1 )
 {
   $prev = $page['num'] - 1;
-  $query = 'SELECT id,name,file,tn_ext,cat_id';
+  $query = 'SELECT id,name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$prev.',1';
@@ -214,20 +221,17 @@ if ( $page['num'] >= 1 )
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
 
-  if ( !is_numeric( $page['cat'] ) )
+  if ( $array_cat_directories[$row['storage_category_id']] == '' )
   {
-    if ( $array_cat_directories[$row['cat_id']] == '' )
-    {
-      $cat_result = get_cat_info( $row['cat_id'] );
-      $array_cat_directories[$row['cat_id']] = $cat_result['dir'];
-    }
-    $cat_directory = $array_cat_directories[$row['cat_id']];
+    $array_cat_directories[$row['storage_category_id']] =
+      get_complete_dir( $row['storage_category_id'] );
   }
-                
-  $file = substr ( $row['file'], 0, strrpos ( $row['file'], '.' ) );
+  $cat_directory = $array_cat_directories[$row['storage_category_id']];
+
+  $file = substr( $row['file'], 0, strrpos ( $row['file'], '.' ) );
   $lien_thumbnail = $cat_directory.'/thumbnail/';
   $lien_thumbnail.= $conf['prefix_thumbnail'].$file.".".$row['tn_ext'];
-                
+
   $prev_title = $lang['previous_image'].' : ';
   $alt_thumbnaill = '';
   if ( $row['name'] != '' ) $alt_thumbnail = $row['name'];
@@ -261,14 +265,16 @@ if ( is_numeric( $page['cat'] ) )
 }
 else
 {
-  $cat_result = get_cat_info( $page['cat_id'] );
-  if ( $array_cat_directories[$page['cat_id']] == "" )
-  {
-    $array_cat_directories[$page['cat_id']] = $cat_result['dir'];
-  }
-  $cat_directory = $array_cat_directories[$page['cat_id']];
   $intitule_cat = $page['title'];
 }
+
+if ( $array_cat_directories[$page['storage_category_id']] == '' )
+{
+  $array_cat_directories[$page['storage_category_id']] =
+    get_complete_dir( $page['storage_category_id'] );
+}
+$cat_directory = $array_cat_directories[$page['storage_category_id']];
+
 $n = $page['num'] + 1;
 $intitule_titre = replace_space( $intitule_cat." - " ).$n.'/'.
 $intitule_titre.= $page['cat_nb_images']."<br />";
@@ -347,9 +353,8 @@ if ( $page['date_creation'] != "" )
 {
   $vtp->addSession( $handle, 'info_line' );
   $vtp->setVar( $handle, 'info_line.name', $lang['creation_date'].' : ' );
-  list( $year,$month,$day ) = explode( '-', $page['date_creation'] );
   $vtp->setVar( $handle, 'info_line.content',
-                $day.'/'.$month.'/'.$year );
+                format_date( $page['date_creation'] ) );
   $vtp->closeSession( $handle, 'info_line' );
 }
 // date of availability
@@ -357,7 +362,7 @@ $vtp->addSession( $handle, 'info_line' );
 $vtp->setVar( $handle, 'info_line.name', $lang['registration_date'].' : ' );
 list( $year,$month,$day ) = explode( '-', $page['date_available'] );
 $vtp->setVar( $handle, 'info_line.content',
-              $day.'/'.$month.'/'.$year );
+              format_date( $page['date_available'] ) );
 $vtp->closeSession( $handle, 'info_line' );
 // size in pixels
 $vtp->addSession( $handle, 'info_line' );
@@ -455,34 +460,31 @@ if ( $page['cat'] == 'fav' )
 if ( $user['status'] == "admin" and is_numeric( $page['cat'] ) )
 {
   $vtp->addSession( $handle, 'modification' );
-  $url = './admin/admin.php?page=infos_images&amp;cat_id='.$page['cat'];
-  $url.= '&amp;num='.$page['num'];
-  $vtp->setVar( $handle, 'modification.link',
-                add_session_id( $url )."#".$page['id'] );
+  $url = './admin/admin.php?page=picture_modify&amp;cat_id='.$page['cat'];
+  $url.= '&amp;image_id='.$page['id'];
+  $vtp->setVar( $handle, 'modification.link', add_session_id( $url ) );
   $vtp->setVar( $handle, 'modification.name', $lang['link_info_image'] );
 }
 //---------------------------------------------- next picture thumbnail display
 if ( $page['num'] < $page['cat_nb_images']-1 )
 {
   $next = $page['num'] + 1;
-  $query = 'SELECT id,name,file,tn_ext,cat_id';
+  $query = 'SELECT id,name,file,tn_ext,storage_category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$next.',1';
   $query.= ';';
   $result = mysql_query( $query );
   $row = mysql_fetch_array( $result );
-                
-  if ( !is_numeric( $page['cat'] ) )
+
+  if ( $array_cat_directories[$row['storage_category_id']] == '' )
   {
-    if ( $array_cat_directories[$row['cat_id']] == "" )
-    {
-      $cat_result = get_cat_info( $row['cat_id'] );
-      $array_cat_directories[$row['cat_id']] = $cat_result['dir'];
-    }
-    $cat_directory = $array_cat_directories[$row['cat_id']];
+    $array_cat_directories[$row['storage_category_id']] =
+      get_complete_dir( $row['storage_category_id'] );
   }
+  $cat_directory = $array_cat_directories[$row['storage_category_id']];
 
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $lien_thumbnail = $cat_directory.'thumbnail/';
@@ -629,11 +631,8 @@ if ( $conf['show_comments'] )
   {
     $vtp->addSession( $handle, 'comment' );
     $vtp->setVar( $handle, 'comment.author', $row['author'] );
-    $displayed_date = $lang['day'][date( "w", $row['date'] )];
-    $displayed_date.= date( " j ", $row['date'] );
-    $displayed_date.= $lang['month'][date( "n", $row['date'] )];
-    $displayed_date.= date( ' Y G:i', $row['date'] );
-    $vtp->setVar( $handle, 'comment.date', $displayed_date );
+    $vtp->setVar( $handle, 'comment.date',
+                  format_date( $row['date'], 'unix', true ) );
     $vtp->setVar( $handle, 'comment.content', nl2br( $row['content'] ) );
     if ( $user['status'] == 'admin' )
     {

@@ -231,22 +231,16 @@ else
 //------------------------------------------------------------------ thumbnails
 if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
 {
-  if ( is_numeric( $page['cat'] ) )
-  {
-    $cat_directory = $page['cat_dir'];
-  }
-  else if ( $page['cat'] == 'search' or $page['cat'] == 'fav' )
-  {
-    $array_cat_directories = array();
-  }
+  $array_cat_directories = array();
   
-  $query = 'SELECT id,file,date_available,tn_ext,name,filesize,cat_id';
+  $query = 'SELECT id,file,date_available,tn_ext,name,filesize';
+  $query.= ',storage_category_id,category_id';
   $query.= ' FROM '.PREFIX_TABLE.'images';
+  $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
   $query.= $page['where'];
   $query.= $conf['order_by'];
   $query.= ' LIMIT '.$page['start'].','.$page['nb_image_page'];
   $query.= ';';
-  echo $query;
   $result = mysql_query( $query );
 
   $vtp->addSession( $handle, 'thumbnails' );
@@ -257,25 +251,18 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   $line_number = 1;
   while ( $row = mysql_fetch_array( $result ) )
   {
-    if ( !is_numeric( $page['cat'] ) )
+    if ( $array_cat_directories[$row['storage_category_id']] == '' )
     {
-      if ( $array_cat_directories[$row['cat_id']] == '' )
-      {
-        $cat_result = get_cat_info( $row['cat_id'] );
-        $array_cat_directories[$row['cat_id']] = $cat_result['dir'];
-      }
-      $cat_directory = $array_cat_directories[$row['cat_id']];
+      $array_cat_directories[$row['storage_category_id']] =
+        get_complete_dir( $row['storage_category_id'] );
     }
+    $cat_directory = $array_cat_directories[$row['storage_category_id']];
+
     $file = get_filename_wo_extension( $row['file'] );
     // name of the picture
-    if ( $row['name'] != '' )
-    {
-      $name = $row['name'];
-    }
-    else
-    {
-      $name = str_replace( '_', ' ', $file );
-    }
+    if ( $row['name'] != '' ) $name = $row['name'];
+    else                      $name = str_replace( '_', ' ', $file );
+
     if ( $page['cat'] == 'search' )
     {
       $name = replace_search( $name, $_GET['search'] );
@@ -358,16 +345,16 @@ elseif ( ( isset( $page['cat'] )
   $cell_number = 1;
   $i = 0;
   foreach ( $subcats as $subcat_id => $non_empty_id ) {
-    $subcat_infos    = get_cat_info( $subcat_id );
-    $non_empty_infos = get_cat_info( $non_empty_id );
+    $subcat_infos  = get_cat_info( $subcat_id );
 
     $name ='[ <span style="font-weight:bold;">';
     $name.= $subcat_infos['name'][0];
     $name.= '</span> ]';
-    
-    $query = 'SELECT file,tn_ext';
+
+    $query = 'SELECT file,tn_ext,storage_category_id';
     $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' WHERE cat_id = '.$non_empty_id;
+    $query.= ' LEFT JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
+    $query.= ' WHERE category_id = '.$non_empty_id;
     $query.= ' ORDER BY RAND()';
     $query.= ' LIMIT 0,1';
     $query.= ';';
@@ -377,7 +364,7 @@ elseif ( ( isset( $page['cat'] )
     $file = get_filename_wo_extension( $image_row['file'] );
 
     // creating links for thumbnail and associated category
-    $thumbnail_link = $non_empty_infos['dir'];
+    $thumbnail_link = get_complete_dir( $image_row['storage_category_id'] );
     $thumbnail_link.= 'thumbnail/'.$conf['prefix_thumbnail'];
     $thumbnail_link.= $file.'.'.$image_row['tn_ext'];
 

@@ -29,6 +29,8 @@ $lang['IP'] = 'IP';
 $lang['close'] = 'fermer';
 $lang['open'] = 'ouvrir';
 $lang['keywords'] = 'mots-clefs';
+$lang['errors_title'] = 'Erreurs';
+$lang['default'] = 'défaut';
 // end version 1.3
 
 // page diapo
@@ -264,6 +266,7 @@ if ( $isadmin )
   $lang['title_cat_perm'] = 'Modifier les permissions pour la catégorie';
   $lang['title_group_perm'] = 'Modifier les permissions pour le groupe';
   $lang['title_comments'] = 'Commentaires des visiteurs';
+  $lang['title_picmod'] = 'Modifier les informations d\'une image';
 // end version 1.3
   $lang['title_categories'] = 'Gestion des catégories';
   $lang['title_edit_cat'] = 'Editer une catégorie';
@@ -511,6 +514,7 @@ if ( $isadmin )
   $lang['infoimage_keyword_separation'] = '(séparer avec des ",")';
   $lang['infoimage_addtoall'] = 'ajouter à tous';
   $lang['infoimage_removefromall'] = 'retirer à tous';
+  $lang['infoimage_associate'] = 'Associer à la catégorie';
 // end version 1.3
   $lang['infoimage_general'] = 'Options générale pour la catégorie';
   $lang['infoimage_useforall'] = 'utiliser pour toutes les images ?';

@@ -131,6 +131,10 @@ switch ( $_GET['page'] )
    $title = $lang['title_comments'];
    $page_valide = true;
    break;
+ case 'picture_modify' :
+   $title = $lang['title_picmod'];
+   $page_valide = true;
+   break;
  default:
    $title = $lang['title_default']; break;
 }

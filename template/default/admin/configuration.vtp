@@ -1,6 +1,6 @@
 <!--VTP_errors-->
 <div class="errors">
-  <div class="errors_title">Erreurs</div>
+  <div class="errors_title">{#errors_title}</div>
   <ul>
     <!--VTP_li-->
     <li>{#li}</li>

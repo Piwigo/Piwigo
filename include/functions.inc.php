@@ -349,4 +349,30 @@ function templatize_array( $array, $global_array_name, $handle )
     $vtp->setGlobalVar( $handle, $value, ${$global_array_name}[$value] );
   }
 }
+
+function format_date( $date, $type = 'us', $show_time = false )
+{
+  global $lang;
+
+  switch ( $type )
+  {
+  case 'us' :
+    list( $year,$month,$day ) = explode( '-', $date );
+    $unixdate = mktime(0,0,0,$month,$day,$year);
+    break;
+  case 'unix' :
+    $unixdate = $date;
+    break;
+  }
+  $formated_date = $lang['day'][date( "w", $unixdate )];
+  $formated_date.= date( " j ", $unixdate );
+  $formated_date.= $lang['month'][date( "n", $unixdate )];
+  $formated_date.= date( ' Y', $unixdate );
+  if ( $show_time )
+  {
+    $formated_date.= date( ' G:i', $unixdate );
+  }
+
+  return $formated_date;
+}
 ?>

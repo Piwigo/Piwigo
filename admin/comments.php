@@ -17,6 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 include_once( './include/isadmin.inc.php' );
+$page['plain_structure'] = get_plain_structure();
 //------------------------------------------------------------------- functions
 function display_pictures( $mysql_result, $maxtime, $validation_box = false )
 {
@@ -28,7 +29,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     $vtp->addSession( $sub, 'picture' );
     // 2. for each picture, getting informations for displaying thumbnail and
     //    link to the full size picture
-    $query = 'SELECT name,file,cat_id,tn_ext';
+    $query = 'SELECT name,file,storage_category_id as cat_id,tn_ext';
     $query.= ' FROM '.PREFIX_TABLE.'images';
     $query.= ' WHERE id = '.$row['image_id'];
     $query.= ';';
@@ -37,8 +38,9 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
 
     if ( $array_cat_directories[$subrow['cat_id']] == '' )
     {
+      $array_cat_directories[$subrow['cat_id']] =
+        get_complete_dir( $subrow['cat_id'] );
       $cat_result = get_cat_info( $subrow['cat_id'] );
-      $array_cat_directories[$subrow['cat_id']] = $cat_result['dir'];
       $array_cat_site_id[$subrow['cat_id']] = $cat_result['site_id'];
       $array_cat_names[$subrow['cat_id']] =
         get_cat_display_name( $cat_result['name'], ' &gt; ', '' );
@@ -83,10 +85,7 @@ function display_pictures( $mysql_result, $maxtime, $validation_box = false )
     {
       $vtp->addSession( $sub, 'comment' );
       $vtp->setVar( $sub, 'comment.author', $subrow['author'] );
-      $displayed_date = $lang['day'][date( "w", $subrow['date'] )];
-      $displayed_date.= date( " j ", $subrow['date'] );
-      $displayed_date.= $lang['month'][date( "n", $subrow['date'] )];
-      $displayed_date.= date( " Y G:i", $subrow['date'] );
+      $displayed_date = format_date( $subrow['date'], 'unix', true );
       $vtp->setVar( $sub, 'comment.date', $displayed_date );
       $vtp->setVar( $sub, 'comment.content', nl2br( $subrow['content'] ) );
       $vtp->addSession( $sub, 'delete' );
@@ -183,11 +182,9 @@ if ( isset( $_GET['last_days'] ) )
   $query = 'SELECT DISTINCT(image_id) as image_id';
   $query.= ' FROM '.PREFIX_TABLE.'comments';
   $query.=     ', '.PREFIX_TABLE.'images as images';
-  $query.=     ', '.PREFIX_TABLE.'categories';
   $query.= ' WHERE image_id = images.id';
-  $query.= ' AND   cat_id = images.cat_id';
   $query.= ' AND date > '.$maxtime;
-  $query.= ' ORDER BY cat_id ASC,date_available DESC';
+  $query.= ' ORDER BY date_available DESC';
   $query.= ';';
   $result = mysql_query( $query );
   display_pictures( $result, $maxtime );
@@ -221,11 +218,9 @@ if ( isset( $_GET['show_unvalidated'] ) )
   $query = 'SELECT DISTINCT(image_id) as image_id';
   $query.= ' FROM '.PREFIX_TABLE.'comments as comments';
   $query.=     ', '.PREFIX_TABLE.'images as images';
-  $query.=     ', '.PREFIX_TABLE.'categories';
   $query.= ' WHERE image_id = images.id';
-  $query.= ' AND   cat_id = images.cat_id';
   $query.= " AND comments.validated = 'false'";
-  $query.= ' ORDER BY cat_id ASC,date_available DESC';
+  $query.= ' ORDER BY date_available DESC';
   $query.= ';';
   $result = mysql_query( $query );
   display_pictures( $result, 0, true );
