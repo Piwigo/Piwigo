@@ -446,10 +446,12 @@ function pwg_write_debug()
 
 function pwg_query($query)
 {
+  global $conf;
+  
   $start = get_moment();
   $result = mysql_query($query);
 
-  if (DEBUG)
+  if ($conf['show_queries'])
   {
     global $count_queries,$queries_time;
    

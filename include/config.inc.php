@@ -146,4 +146,14 @@ $conf['session_id_size'] = 10;
 // info_nb_elements_page : number of elements to display per page on
 // admin/infos_images
 $conf['info_nb_elements_page'] = 5;
+
+// default_language : language used if language set in user database is not
+// available
+$conf['default_language'] = 'en_UK.iso-8859-1';
+
+// show_queries : for debug purpose, show queries and execution times
+$conf['show_queries'] = false;
+
+// show_gt : display generation time at the bottom of each page
+$conf['show_gt'] = true;
 ?>

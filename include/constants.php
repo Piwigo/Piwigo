@@ -26,14 +26,10 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
 define('PHPWG_VERSION', 'BSF');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
-// Debug Level : 1 = on, 0 = off
-define('DEBUG', 0);
- 
 // User level
 define('ANONYMOUS', 2);
  

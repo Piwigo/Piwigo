@@ -43,8 +43,7 @@ $template->assign_vars(
     
     ));
     
-//if (DEBUG)
-if (true)
+if ($conf['show_gt'])
 {
   $template->assign_block_vars('debug', array());
 }

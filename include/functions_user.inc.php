@@ -226,7 +226,7 @@ function init_userprefs($userdata)
 
   if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php')) )
   {
-    $language = DEFAULT_LANGUAGE;
+    $language = $conf['default_language'];
   }
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php');
   
@@ -235,7 +235,7 @@ function init_userprefs($userdata)
   {
     if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language. '/admin.lang.php')) )
     {
-      $language = DEFAULT_LANGUAGE;
+      $language = $conf['default_language'];
     }
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/admin.lang.php');
   include_once(PHPWG_ROOT_PATH . 'language/' . $language . '/faq.lang.php');
