@@ -213,6 +213,14 @@ foreach ($fs['elements'] as $path)
   {
     $dirname = dirname($path);
     $filename = basename($path);
+
+    // only files matching the authorized filename pattern can be considered
+    // as "without thumbnail"
+    if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
+    {
+      continue;
+    }
+    
     // searching the element
     $filename_wo_ext = get_filename_wo_extension($filename);
     $tn_ext = '';
