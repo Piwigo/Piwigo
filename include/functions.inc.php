@@ -1,21 +1,20 @@
 <?php
-/***************************************************************************
- *                             functions.inc.php                           *
- *                            -------------------                          *
- *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
- *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
- *                                                                         *
- *   $Id$
- *                                                                         *
- ***************************************************************************
+// +-----------------------------------------------------------------------+
+// |                           functions.inc.php                           |
+// +-----------------------------------------------------------------------+
+// | application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          |
+// | author        : Pierrick LE GALL <pierrick@z0rglub.com>               |
+// +-----------------------------------------------------------------------+
+// | file          : $RCSfile$
+// | tag           : $Name$
+// | last update   : $Date$
+// | revision      : $Revision$
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation;                                         |
+// +-----------------------------------------------------------------------+
 
- ***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation;                                         *
- *                                                                         *
- ***************************************************************************/
 include( PREFIX_INCLUDE.'./include/functions_user.inc.php' );
 include( PREFIX_INCLUDE.'./include/functions_session.inc.php' );
 include( PREFIX_INCLUDE.'./include/functions_category.inc.php' );
@@ -26,6 +25,16 @@ include( PREFIX_INCLUDE.'./include/functions_group.inc.php' );
 
 // get_enums returns an array containing the possible values of a enum field
 // in a table of the database.
+/**
+ * possible values of an "enum" field
+ *
+ * get_enums returns an array containing the possible values of a enum field
+ * in a table of the database.
+ *
+ * @param string table in the database
+ * @param string field name in this table
+ * @uses str_replace
+ */
 function get_enums( $table, $field )
 {
   // retrieving the properties of the table. Each line represents a field :
