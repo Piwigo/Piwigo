@@ -24,6 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 if( !defined("PHPWG_ROOT_PATH") )
 {
 	die ("Hacking attempt!");
@@ -166,35 +167,29 @@ $user_ip = encode_ip($client_ip);
 // Setup forum wide options, if this fails then we output a CRITICAL_ERROR
 // since basic forum information is not available
 //
-$sql = 'SELECT * FROM '.CONFIG_TABLE;
-if( !($result = mysql_query($sql)) )
+$query = 'SELECT param,value';
+$query.= ' FROM '.CONFIG_TABLE;
+$query.= ';';
+if( !( $result = mysql_query( $query ) ) )
 {
   die("Could not query config information");
 }
 
-$row =mysql_fetch_array($result);
-// rertieving the configuration informations for site
-// $infos array is used to know the fields to retrieve in the table "config"
-// Each field becomes an information of the array $conf.
-// Example :
-//            prefix_thumbnail --> $conf['prefix_thumbnail']
-$infos = array( 'prefix_thumbnail', 'webmaster', 'mail_webmaster', 'access',
-                'session_id_size', 'session_keyword', 'session_time',
-                'max_user_listbox', 'show_comments', 'nb_comment_page',
-                'upload_available', 'upload_maxfilesize', 'upload_maxwidth',
-                'upload_maxheight', 'upload_maxwidth_thumbnail',
-                'upload_maxheight_thumbnail','log','comments_validation',
-                'comments_forall','authorize_cookies','mail_notification' );
-// affectation of each field of the table "config" to an information of the
-// array $conf.
-foreach ( $infos as $info ) {
-  if ( isset( $row[$info] ) ) $conf[$info] = $row[$info];
-  else                        $conf[$info] = '';
-  // If the field is true or false, the variable is transformed into a boolean
-  // value.
-  if ( $conf[$info] == 'true' or $conf[$info] == 'false' )
+while ( $row =mysql_fetch_array( $result ) )
+{
+  if ( isset( $row['value'] ) )
   {
-    $conf[$info] = get_boolean( $conf[$info] );
+    $conf[$row['param']] = $row['value'];
+  }
+  else
+  {
+    $conf[$row['param']] = '';
+  }
+  // If the field is true or false, the variable is transformed into a
+  // boolean value.
+  if ( $conf[$row['param']] == 'true' or $conf[$row['param']] == 'false' )
+  {
+    $conf[$row['param']] = get_boolean( $conf[$row['param']] );
   }
 }
 

@@ -44,14 +44,16 @@ $Caracs = array("¥" => "Y", "µ" => "u", "À" => "A", "Á" => "A",
                 "ù" => "u", "ú" => "u", "û" => "u", "ü" => "u", 
                 "ý" => "y", "ÿ" => "y");
 //------------------------------ verification and registration of modifications
-$conf_infos =
-array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
-       'session_id_size','session_time','session_keyword','max_user_listbox',
-       'show_comments','nb_comment_page','upload_available',
-       'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
-       'upload_maxwidth_thumbnail','upload_maxheight_thumbnail','log',
-       'comments_validation','comments_forall','authorize_cookies',
-       'mail_notification' );
+$conf_infos = array();
+$query = 'SELECT param';
+$query.= ' FROM '.CONFIG_TABLE;
+$query.= ';';
+$result = mysql_query( $query );
+while ( $row = mysql_fetch_array( $result ) )
+{
+  array_push( $conf_infos, $row['param'] );
+}
+
 $default_user_infos =
 array( 'nb_image_line','nb_line_page','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
@@ -198,24 +200,24 @@ if ( isset( $_POST['submit'] ) )
   // updating configuraiton if no error found
   if ( count( $error ) == 0 )
   {
-    mysql_query( 'DELETE FROM '.PREFIX_TABLE.'config;' );
-    $query = 'INSERT INTO '.PREFIX_TABLE.'config';
-    $query.= ' (';
-    foreach ( $conf_infos as $i => $conf_info ) {
-      if ( $i > 0 ) $query.= ',';
-      $query.= $conf_info;
+    foreach ( $conf_infos as $conf_info ) {
+      if ( isset( $_POST[$conf_info] ) )
+      {
+        $query = 'UPDATE '.CONFIG_TABLE;
+        $query.= ' SET value = ';
+        if ( $_POST[$conf_info] == '' )
+        {
+          $query.= 'NULL';
+        }
+        else
+        {
+          $query.= "'".$_POST[$conf_info]."'";
+        }
+        $query.= " WHERE param = '".$conf_info."'";
+        $query.= ';';
+        mysql_query( $query );
+      }
     }
-    $query.= ')';
-    $query.= ' VALUES';
-    $query.= ' (';
-    foreach ( $conf_infos as $i => $conf_info ) {
-      if ( $i > 0 ) $query.= ',';
-      if ( $_POST[$conf_info] == '' ) $query.= 'NULL';
-      else                            $query.= "'".$_POST[$conf_info]."'";
-    }
-    $query.= ')';
-    $query.= ';';
-    mysql_query( $query );
 
     $query = 'UPDATE '.USERS_TABLE;
     $query.= ' SET';
@@ -248,12 +250,20 @@ if ( isset( $_POST['submit'] ) )
 else
 {
 //--------------------------------------------------------- data initialization
-  $query  = 'SELECT '.implode( ',', $conf_infos );
-  $query .= ' FROM '.PREFIX_TABLE.'config;';
-  $row = mysql_fetch_array( mysql_query( $query ) );
-  foreach ( $conf_infos as $info ) {
-    if ( isset( $row[$info] ) ) $$info = $row[$info];
-    else                        $$info = '';
+  $query = 'SELECT param,value';
+  $query.= ' FROM '.CONFIG_TABLE;
+  $query.= ';';
+  $result = mysql_query( $query );
+  while ( $row =mysql_fetch_array( $result ) )
+  {
+    if ( isset( $row['value'] ) )
+    {
+      $$row['param'] = $row['value'];
+    }
+    else
+    {
+      $$row['param'] = '';
+    }
   }
 
   $query  = 'SELECT '.implode( ',', $default_user_infos );
