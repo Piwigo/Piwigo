@@ -30,65 +30,65 @@ set_magic_quotes_runtime(0); // Disable magic_quotes_runtime
 //
 if( !get_magic_quotes_gpc() )
 {
-	if( is_array($HTTP_GET_VARS) )
-	{
-		while( list($k, $v) = each($HTTP_GET_VARS) )
-		{
-			if( is_array($HTTP_GET_VARS[$k]) )
-			{
-				while( list($k2, $v2) = each($HTTP_GET_VARS[$k]) )
-				{
-					$HTTP_GET_VARS[$k][$k2] = addslashes($v2);
-				}
-				@reset($HTTP_GET_VARS[$k]);
-			}
-			else
-			{
-				$HTTP_GET_VARS[$k] = addslashes($v);
-			}
+  if( is_array($HTTP_GET_VARS) )
+  {
+    while( list($k, $v) = each($HTTP_GET_VARS) )
+    {
+	  if( is_array($HTTP_GET_VARS[$k]) )
+	  {
+        while( list($k2, $v2) = each($HTTP_GET_VARS[$k]) )
+        {
+		  $HTTP_GET_VARS[$k][$k2] = addslashes($v2);
 		}
-		@reset($HTTP_GET_VARS);
+	  @reset($HTTP_GET_VARS[$k]);
+	  }
+	  else
+	  {
+		$HTTP_GET_VARS[$k] = addslashes($v);
+	  }
 	}
+	@reset($HTTP_GET_VARS);
+  }
+  
+  if( is_array($HTTP_POST_VARS) )
+  {
+	while( list($k, $v) = each($HTTP_POST_VARS) )
+	{
+	  if( is_array($HTTP_POST_VARS[$k]) )
+	  {
+		while( list($k2, $v2) = each($HTTP_POST_VARS[$k]) )
+		{
+		  $HTTP_POST_VARS[$k][$k2] = addslashes($v2);
+		}
+	  @reset($HTTP_POST_VARS[$k]);
+	  }
+	  else
+	  {
+		$HTTP_POST_VARS[$k] = addslashes($v);
+	  }
+    }
+    @reset($HTTP_POST_VARS);
+  }
 
-	if( is_array($HTTP_POST_VARS) )
-	{
-		while( list($k, $v) = each($HTTP_POST_VARS) )
-		{
-			if( is_array($HTTP_POST_VARS[$k]) )
-			{
-				while( list($k2, $v2) = each($HTTP_POST_VARS[$k]) )
-				{
-					$HTTP_POST_VARS[$k][$k2] = addslashes($v2);
-				}
-				@reset($HTTP_POST_VARS[$k]);
-			}
-			else
-			{
-				$HTTP_POST_VARS[$k] = addslashes($v);
-			}
-		}
-		@reset($HTTP_POST_VARS);
-	}
-
-	if( is_array($HTTP_COOKIE_VARS) )
-	{
-		while( list($k, $v) = each($HTTP_COOKIE_VARS) )
-		{
-			if( is_array($HTTP_COOKIE_VARS[$k]) )
-			{
-				while( list($k2, $v2) = each($HTTP_COOKIE_VARS[$k]) )
-				{
-					$HTTP_COOKIE_VARS[$k][$k2] = addslashes($v2);
-				}
-				@reset($HTTP_COOKIE_VARS[$k]);
-			}
-			else
-			{
-				$HTTP_COOKIE_VARS[$k] = addslashes($v);
-			}
-		}
-		@reset($HTTP_COOKIE_VARS);
-	}
+  if( is_array($HTTP_COOKIE_VARS) )
+  {
+    while( list($k, $v) = each($HTTP_COOKIE_VARS) )
+    {
+	  if( is_array($HTTP_COOKIE_VARS[$k]) )
+	  {
+	    while( list($k2, $v2) = each($HTTP_COOKIE_VARS[$k]) )
+	    {
+		  $HTTP_COOKIE_VARS[$k][$k2] = addslashes($v2);
+	    }
+	    @reset($HTTP_COOKIE_VARS[$k]);
+	  }
+	  else
+	  {
+	    $HTTP_COOKIE_VARS[$k] = addslashes($v);
+	  }
+    }
+    @reset($HTTP_COOKIE_VARS);
+  }
 }
 
 //
@@ -111,6 +111,7 @@ if( !defined("PHPWG_INSTALLED") )
 
 include($phpwg_root_path . 'include/constants.php');
 include($phpwg_root_path . 'include/functions.inc.php');
+include($phpwg_root_path . 'include/template.php');
 include($phpwg_root_path . 'include/vtemplate.class.php');
 include($phpwg_root_path . 'include/config.inc.php');
 
@@ -128,19 +129,19 @@ mysql_select_db( $cfgBase )
 //
 if( getenv('HTTP_X_FORWARDED_FOR') != '' )
 {
-	$client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
 
-	if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
-	{
-		$private_ip = array('/^0\./', '/^127\.0\.0\.1/', '/^192\.168\..*/', '/^172\.16\..*/', '/^10.\.*/', '/^224.\.*/', '/^240.\.*/');
-		$client_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
-	}
+  if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", getenv('HTTP_X_FORWARDED_FOR'), $ip_list) )
+  {
+    $private_ip = array('/^0\./', '/^127\.0\.0\.1/', '/^192\.168\..*/', '/^172\.16\..*/', '/^10.\.*/', '/^224.\.*/', '/^240.\.*/');
+    $client_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
+  }
 }
 else
 {
-	$client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
+  $client_ip = ( !empty($HTTP_SERVER_VARS['REMOTE_ADDR']) ) ? $HTTP_SERVER_VARS['REMOTE_ADDR'] : ( ( !empty($HTTP_ENV_VARS['REMOTE_ADDR']) ) ? $HTTP_ENV_VARS['REMOTE_ADDR'] : $REMOTE_ADDR );
 }
-//$user_ip = encode_ip($client_ip);
+$user_ip = encode_ip($client_ip);
 
 //
 // Setup forum wide options, if this fails
@@ -150,7 +151,7 @@ else
 $sql = "SELECT * FROM " . CONFIG_TABLE;
 if( !($result = mysql_query($sql)) )
 {
-	die("Could not query config information");
+  die("Could not query config information");
 }
 
 $row =mysql_fetch_array($result);
@@ -191,12 +192,6 @@ if (file_exists('install.php') && !DEBUG)
 
 include($phpwg_root_path . 'include/user.inc.php');
 
-// calculation of the number of picture to display per page
-$user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
-
-$isadmin = false;
-if ($user['status'] == 'admin') $isadmin =true;
-include_once( './language/'.$user['language'].'.php' );
 // displaying the username in the language of the connected user, instead of
 // "guest" as you can find in the database
 if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];

@@ -1,21 +1,21 @@
 <?php
-/***************************************************************************
- *                               category.php                              *
- *                            -------------------                          *
- *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
- *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
- *                                                                         *
- *   $Id$
- *                                                                         *
- ***************************************************************************/
+// +-----------------------------------------------------------------------+
+// |                           category.php                           |
+// +-----------------------------------------------------------------------+
+// | application   : PhpWebGallery <http://phpwebgallery.net>              |
+// | branch        : 1.4                                           |
+// | author        : Pierrick LE GALL <pierrick@z0rglub.com>               |
+// +-----------------------------------------------------------------------+
+// | file          : $RCSfile$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation;                                         |
+// +-----------------------------------------------------------------------+
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation;                                         *
- *                                                                         *
- ***************************************************************************/
 //----------------------------------------------------------- include
 $phpwg_root_path = './';
 include_once( $phpwg_root_path.'common.php' );
@@ -108,135 +108,17 @@ $page['structure'] = update_structure( $page['structure'] );
 $title = $page['title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/category.vtp' );
+$template->set_filenames( array('category'=>'category.tpl') );
 initialize_template();
-$tpl = array(
-  'categories','hint_category','sub-cat','images_available','total',
-  'title_menu','nb_image_category','send_mail','title_send_mail',
-  'connected_user','recent_image','days',
-  'favorite_cat_hint','favorite_cat','stats','most_visited_cat_hint',
-  'most_visited_cat','recent_cat','recent_cat_hint','upload_picture',
-  'comments' );
-templatize_array( $tpl, 'lang', $handle );
 
-$tpl = array( 'mail_webmaster','webmaster','top_number');
-templatize_array( $tpl, 'conf', $handle );
-
-$tpl = array( 'short_period','long_period','lien_collapsed', 'username' );
-templatize_array( $tpl, 'user', $handle );
-
-$tpl = array( 'navigation_bar','cat_comment','cat_nb_images' );
-templatize_array( $tpl, 'page', $handle );
-
-// special global template vars
-$vtp->setGlobalVar( $handle, 'icon_short', get_icon( time() ) );
-$icon_long = get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) );
-$vtp->setGlobalVar( $handle, 'icon_long', $icon_long );
-$nb_total_pictures = count_user_total_images();
-$vtp->setGlobalVar( $handle, 'nb_total_pictures',$nb_total_pictures );
-
-//------------------------------------------------------------- categories menu
-$vtp->setVar( $handle, 'home_url', add_session_id( 'category.php' ) );
-// normal categories
-foreach ( $page['structure'] as $category ) {
-  // display category is a function relative to the template
-  display_category( $category, '&nbsp;', $handle );
-}
-// favorites cat
-if ( !$user['is_the_guest'] )
-{
-  $vtp->addSession( $handle, 'favorites' );
-  $url = './category.php?cat=fav&amp;expand='.$page['expand'];
-  $vtp->setVar( $handle, 'favorites.url', add_session_id( $url ) );
-  // searching the number of favorite picture
-  $query = 'SELECT COUNT(*) AS count';
-  $query.= ' FROM '.FAVORITES_TABLE;
-  $query.= ' WHERE user_id = '.$user['id'].';';
-  $result = mysql_query( $query );
-  $row = mysql_fetch_array( $result );
-  $vtp->setVar( $handle, 'favorites.nb_favorites', $row['count'] );
-  $vtp->closeSession( $handle, 'favorites' );
-}
-// most visited pictures category
-$url = './category.php?cat=most_visited&amp;expand='.$page['expand'];
-$vtp->setGlobalVar( $handle, 'most_visited_url', add_session_id( $url ) );
-// recent pictures
-$url = './category.php?cat=recent&amp;expand='.$page['expand'];
-$vtp->setGlobalVar( $handle, 'recent_url', add_session_id( $url ) );
-//--------------------------------------------------------------------- summary
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.url', './identification.php' );
-if ( !$user['is_the_guest'] )
-{
-  $vtp->setVar( $handle, 'summary.title', '' );
-  $vtp->setVar( $handle, 'summary.name',replace_space($lang['change_login']));
-}
-else
-{
-  $vtp->setVar( $handle, 'summary.title', $lang['hint_login'] );
-  $vtp->setVar( $handle, 'summary.name',  replace_space( $lang['menu_login']));
-}
-$vtp->closeSession( $handle, 'summary' );
-// links for registered users
-if ( !$user['is_the_guest'] )
-{
-  // logout link
-  $vtp->addSession( $handle, 'summary' );
-  $vtp->setVar( $handle, 'summary.url', './category.php?act=logout' );
-  $vtp->setVar( $handle, 'summary.title', '' );
-  $vtp->setVar( $handle, 'summary.name', replace_space( $lang['logout'] ) );
-  $vtp->closeSession( $handle, 'summary' );
-  // customization link
-  $vtp->addSession( $handle, 'summary' );
-  $url = './profile.php';
-  if (isset($page['cat']) && isset($page['expand']))
-  	$url.='?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-  if ( isset($page['cat']) && $page['cat'] == 'search' )
-  {
-    $url.= '&amp;search='.$_GET['search'].'&amp;mode='.$_GET['mode'];
-  }
-  $vtp->setVar( $handle, 'summary.url', add_session_id( $url ) );
-  $vtp->setVar( $handle, 'summary.title', $lang['hint_customize'] );
-  $vtp->setVar( $handle, 'summary.name', replace_space( $lang['customize'] ) );
-  $vtp->closeSession( $handle, 'summary' );
-}
-// search link
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.url', add_session_id( './search.php' ) );
-$vtp->setVar( $handle, 'summary.title', $lang['hint_search'] );
-$vtp->setVar( $handle, 'summary.name', replace_space( $lang['search'] ) );
-$vtp->closeSession( $handle, 'summary' );
-// comments link
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.url', add_session_id( './comments.php' ) );
-$vtp->setVar( $handle, 'summary.title', $lang['hint_comments'] );
-$vtp->setVar( $handle, 'summary.name', replace_space( $lang['comments'] ) );
-$vtp->closeSession( $handle, 'summary' );
-// about link
-$vtp->addSession( $handle, 'summary' );
-$vtp->setVar( $handle, 'summary.url', './about.php?'.
-              str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) );
-$vtp->setVar( $handle, 'summary.title', $lang['hint_about'] );
-$vtp->setVar( $handle, 'summary.name', replace_space( $lang['about'] ) );
-$vtp->closeSession( $handle, 'summary' );
-// administration link
-if ( $user['status'] == 'admin' )
-{
-  $vtp->addSession( $handle, 'summary' );
-  $vtp->setVar( $handle, 'summary.url',
-                add_session_id( './admin.php' ) );
-  $vtp->setVar( $handle, 'summary.title', $lang['hint_admin'] );
-  $vtp->setVar( $handle, 'summary.name', replace_space( $lang['admin'] ) );
-  $vtp->closeSession( $handle, 'summary' );
-}
 //-------------------------------------------------------------- category title
+$cat_title = $lang['no_category'];
 if ( isset ( $page['cat'] ) )
 {
   if ( is_numeric( $page['cat'] ) )
   {
     $cat_title = get_cat_display_name( $page['cat_name'], '<br />',
                                     'font-style:italic;' );
-    $vtp->setGlobalVar( $handle, "cat_title", $cat_title );
   }
   else
   {
@@ -246,16 +128,133 @@ if ( isset ( $page['cat'] ) )
       $page['title'].= $_GET['search']."</span>";
     }
     $page['title'] = replace_space( $page['title'] );
-    $vtp->setGlobalVar( $handle, "cat_title", $page['title'] );
   }
+}
+
+$template->assign_vars(array(
+  'NB_PICTURE' => count_user_total_images(),
+  'TITLE' => $cat_title,
+  'USERNAME' => $user['username'],
+  
+  'S_TOP'=>$conf['top_number'],
+  'S_SHORT_PERIOD'=>$user['short_period'],
+  'S_LONG_PERIOD'=>$user['long_period'],
+  'S_WEBMASTER'=>$conf['webmaster'],
+  'S_MAIL'=>$conf['mail_webmaster'],
+
+  'L_CATEGORIES' => $lang['categories'],
+  'L_HINT_CATEGORY' => $lang['hint_category'],
+  'L_SUBCAT' => $lang['sub-cat'],
+  'L_IMG_AVAILABLE' => $lang['images_available'],
+  'L_TOTAL' => $lang['total'],
+  'L_FAVORITE_HINT' => $lang['favorite_cat_hint'],
+  'L_FAVORITE' => $lang['favorite_cat'],
+  'L_STATS' => $lang['stats'],
+  'L_MOST_VISITED_HINT' => $lang['most_visited_cat_hint'],
+  'L_MOST_VISITED' => $lang['most_visited_cat'],
+  'L_RECENT_HINT' => $lang['recent_cat_hint'],
+  'L_RECENT' => $lang['recent_cat'],
+  'L_SUMMARY' => $lang['title_menu'],
+  'L_UPLOAD' => $lang['upload_picture'],
+  'L_COMMENT' => $lang['comments'],
+  'L_NB_IMG' => $lang['nb_image_category'],
+  'L_USER' => $lang['connected_user'],
+  'L_RECENT_IMAGE' => $lang['recent_image'],
+  'L_DAYS' => $lang['days'],
+  'L_SEND_MAIL' => $lang['send_mail'],
+  'L_TITLE_MAIL' => $lang['title_send_mail'],
+  
+  'T_COLLAPSED' => $user['lien_collapsed'],
+  'T_SHORT'=>get_icon( time() ),
+  'T_LONG'=>get_icon( time() - ( $user['short_period'] * 24 * 60 * 60 + 1 ) ),
+
+  'U_HOME' => add_session_id( 'category.php' ),
+  'U_FAVORITE' => add_session_id( './category.php?cat=fav&amp;expand='.$page['expand'] ),
+  'U_MOST_VISITED'=>add_session_id( './category.php?cat=most_visited&amp;expand='.$page['expand'] ),
+  'U_RECENT'=>add_session_id( './category.php?cat=recent&amp;expand='.$page['expand'] )
+  )
+);
+
+foreach ( $page['structure'] as $category ) {
+  // display category is a function relative to the template
+  display_category( $category, '&nbsp;');
+}
+
+// favorites management
+if ( !$user['is_the_guest'] )
+{
+  // searching the number of favorite picture
+  $query = 'SELECT COUNT(*) AS count';
+  $query.= ' FROM '.FAVORITES_TABLE.' WHERE user_id = '.$user['id'].';';
+  $result = mysql_query( $query );
+  $row = mysql_fetch_array( $result );
+  $template->assign_block_vars('favorites', array ('NB_FAV'=>$row['count']) );
+}
+//--------------------------------------------------------------------- summary
+$sum_title = '';
+$sum_name='';
+$sum_url = '';
+if ( !$user['is_the_guest'] )
+{
+  $sum_name=replace_space($lang['logout']);
+  $sum_url = 'category.php?act=logout';
 }
 else
 {
-  $vtp->setGlobalVar( $handle, "cat_title",
-                      replace_space( $lang['no_category'] ) );
+  $sum_title =  $lang['hint_login'];
+  $sum_name=replace_space( $lang['menu_login']);
+  $sum_url = 'identification.php';
 }
+$template->assign_block_vars('summary', array(
+  'TITLE'=>$sum_title,
+  'NAME'=>$sum_name,
+  'U_SUMMARY'=>add_session_id( $sum_url ),
+  )
+);
+
+// customization link
+if ( !$user['is_the_guest'] )
+{
+  $template->assign_block_vars('summary', array(
+  'TITLE'=>$lang['hint_customize'],
+  'NAME'=>$lang['customize'],
+  'U_SUMMARY'=>add_session_id('profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] )),
+  ));
+}
+
+// search link
+$template->assign_block_vars('summary', array(
+'TITLE'=>$lang['hint_search'],
+'NAME'=>$lang['search'],
+'U_SUMMARY'=>add_session_id( 'search.php' ),
+));
+
+// comments link
+$template->assign_block_vars('summary', array(
+'TITLE'=>$lang['hint_comments'],
+'NAME'=>$lang['comments'],
+'U_SUMMARY'=>add_session_id( 'comments.php' ),
+));
+
+// about link
+$template->assign_block_vars('summary', array(
+'TITLE'=>$lang['hint_about'],
+'NAME'=>$lang['about'],
+'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
+));
+
+// administration link
+if ( $user['status'] == 'admin' )
+{
+  $template->assign_block_vars('summary', array(
+    'TITLE'=>$lang['hint_admin'],
+    'NAME'=>$lang['admin'],
+    'U_SUMMARY'=>add_session_id( 'admin.php' )
+    ));
+}
+
 //------------------------------------------------------------------ thumbnails
-if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
+if ( isset( $page['cat'] ) && $page['cat_nb_images'] != 0 )
 {
   $array_cat_directories = array();
   
@@ -269,12 +268,13 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
   $query.= ';';
   $result = mysql_query( $query );
 
-  $vtp->addSession( $handle, 'thumbnails' );
-  $vtp->addSession( $handle, 'line' );
+  $template->assign_block_vars('thumbnails', array());
+
   // iteration counter to use a new <tr> every "$nb_image_line" pictures
-  $cell_number = 1;
+  $cell_number = 0;
   // iteration counter to be sure not to create too much lines in the table
-  $line_number = 1;
+  $line_number = 0;
+
   while ( $row = mysql_fetch_array( $result ) )
   {
     // retrieving the storage dir of the picture
@@ -315,16 +315,27 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
     // date of availability for creation icon
     list( $year,$month,$day ) = explode( '-', $row['date_available'] );
     $date = mktime( 0, 0, 0, $month, $day, $year );
-    // sending vars to display
-    $vtp->addSession( $handle, 'thumbnail' );
-    $vtp->setVar( $handle, 'thumbnail.url', add_session_id( $url_link ) );
-    $vtp->setVar( $handle, 'thumbnail.src', $thumbnail_url );
-    $vtp->setVar( $handle, 'thumbnail.alt', $row['file'] );
-    $vtp->setVar( $handle, 'thumbnail.title', $thumbnail_title );
-    $vtp->setVar( $handle, 'thumbnail.name', $name );
-    $vtp->setVar( $handle, 'thumbnail.icon', get_icon( $date ) );
+    
+	// sending vars to display
+	if (!$cell_number && ( $line_number< $user['nb_line_page']))
+    {
+      $template->assign_block_vars('thumbnails.line', array());
+      $cell_number = 0;
+	  $line_number++;
+    }
+	if ( $cell_number++ == $user['nb_image_line'] -1) $cell_number = 0;
+	
+	$template->assign_block_vars('thumbnails.line.thumbnail', array(
+	  'IMAGE'=>$thumbnail_url,
+	  'IMAGE_ALT'=>$row['file'],
+	  'IMAGE_TITLE'=>$thumbnail_title,
+	  'IMAGE_NAME'=>$name,
+	  'IMAGE_TS'=>get_icon( $date ),
 
-    if ( $conf['show_comments'] and $user['show_nb_comments'] )
+	  'U_IMG_LINK'=>add_session_id( $url_link )
+	  ));
+
+    if ( $conf['show_comments'] && $user['show_nb_comments'] )
     {
       $vtp->addSession( $handle, 'nb_comments' );
       $query = 'SELECT COUNT(*) AS nb_comments';
@@ -335,41 +346,21 @@ if ( isset( $page['cat'] ) and $page['cat_nb_images'] != 0 )
       $vtp->setVar( $handle, 'nb_comments.nb', $row['nb_comments'] );
       $vtp->closeSession( $handle, 'nb_comments' );
     }
-    
-    $vtp->closeSession( $handle, 'thumbnail' );
-    
-    if ( $cell_number++ == $user['nb_image_line'] )
-    {
-      // creating a new line
-      $vtp->closeSession( $handle, 'line' );
-      // the number of the next cell is 1
-      $cell_number = 1;
-      // we only create a new line if it does not exceed the maximum line
-      // per page for the logged user
-      if ( $line_number++ < $user['nb_line_page'] )
-      {
-        $vtp->addSession( $handle, 'line' );
-      }
-    }
   }
-  $vtp->closeSession( $handle, 'thumbnails' );
 }
 //-------------------------------------------------------------- empty category
-elseif ( ( isset( $page['cat'] )
-           and is_numeric( $page['cat'] )
-           and $page['cat_nb_images'] == 0
-           and $page['plain_structure'][$page['cat']]['nb_sub_categories'] > 0)
-         or (!isset($_GET['cat'])))
+else
 {
-  $vtp->addSession( $handle, 'thumbnails' );
-  $vtp->addSession( $handle, 'line' );
-
   $subcats=array();
   if (isset($page['cat'])) $subcats = get_non_empty_subcat_ids( $page['cat'] );
   else                     $subcats = get_non_empty_subcat_ids( '' );
-  $cell_number = 1;
+  $cell_number = 0;
   $i = 0;
-  foreach ( $subcats as $subcat_id => $non_empty_id ) {
+  
+  $template->assign_block_vars('thumbnails', array());
+  
+  foreach ( $subcats as $subcat_id => $non_empty_id ) 
+  {
     $name = '<img src="'.$user['lien_collapsed'].'" style="border:none;"';
     $name.= ' alt="&gt;"/> ';
     $name.= '[ <span style="font-weight:bold;">';
@@ -420,79 +411,66 @@ elseif ( ( isset( $page['cat'] )
     $date = $page['plain_structure'][$subcat_id]['date_last'];
 
     // sending vars to display
-    $vtp->addSession( $handle, 'thumbnail' );
-    $vtp->setVar( $handle, 'thumbnail.url', add_session_id( $url_link ) );
-    $vtp->setVar( $handle, 'thumbnail.src', $thumbnail_link );
-    $vtp->setVar( $handle, 'thumbnail.alt', $image_row['file'] );
-    $vtp->setVar( $handle, 'thumbnail.title', $thumbnail_title );
-    $vtp->setVar( $handle, 'thumbnail.name', $name );
-    $vtp->setVar( $handle, 'thumbnail.icon', get_icon( $date ) );
-    $vtp->closeSession( $handle, 'thumbnail' );
-
-    if ( $cell_number++ == $user['nb_image_line'] )
+	if (!$cell_number && $i < count( $subcats ))
     {
-      $vtp->closeSession( $handle, 'line' );
-      $cell_number = 1;
-      // we open a new line if the subcat was not the last one
-      if ( $i++ < count( $subcats ) - 1 )
-      {
-        $vtp->addSession( $handle, 'line' );
-      }
+      $template->assign_block_vars('thumbnails.line', array());
+      $cell_number = 0;
+	  $i++;
     }
+	if ( $cell_number++ == $user['nb_image_line'] -1) $cell_number = 0;
+	
+	$template->assign_block_vars('thumbnails.line.thumbnail', array(
+	  'IMAGE'=>$thumbnail_link,
+	  'IMAGE_ALT'=>$image_row['file'],
+	  'IMAGE_TITLE'=>$thumbnail_title,
+	  'IMAGE_NAME'=>$name,
+	  'IMAGE_TS'=>get_icon( $date ),
+
+	  'U_IMG_LINK'=>add_session_id( $url_link )
+	  ));  
   }
-  if ( $i < count( $subcats ) - 1 )
-  {
-    $vtp->closeSession( $handle, 'line' );
-  }
-  $vtp->closeSession( $handle, 'thumbnails' );
 }
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {
-  $vtp->addSession( $handle, 'cat_infos' );
-  // navigation bar
-  if ( $page['navigation_bar'] != '' )
-  {
-    $vtp->addSession( $handle, 'navigation' );
-    $vtp->closeSession( $handle, 'navigation' );
-  }
-  // category comment
-  if ( isset( $page['comment'] ) and $page['comment'] != '' )
-  {
-    $vtp->addSession( $handle, 'comment' );
-    $vtp->setVar( $handle, 'comment.cat_comment', $page['comment'] );
-    $vtp->closeSession( $handle, 'comment' );
-  }
+  $cat_name='';
   // total number of pictures in the category
   if ( is_numeric( $page['cat'] ) )
   {
-    $vtp->setVar( $handle, 'cat_infos.cat_name',
-                  get_cat_display_name( $page['cat_name'], ' - ',
-                                        'font-style:italic;' ) );
+    $cat_name=get_cat_display_name( $page['cat_name'],' - ','font-style:italic;' );
     // upload a picture in the category
     if ( $page['cat_site_id'] == 1
          and $conf['upload_available']
          and $page['cat_uploadable'] )
     {
-      $vtp->addSession( $handle, 'upload' );
       $url = './upload.php?cat='.$page['cat'].'&amp;expand='.$page['expand'];
-      $vtp->setVar( $handle, 'upload.url', add_session_id( $url ) );
-      $vtp->closeSession( $handle, 'upload' );
+	  $template->assign_block_vars('upload',array('U_UPLOAD'=>add_session_id( $url )));
     }
   }
   else
   {
-    $vtp->setVar( $handle, 'cat_infos.cat_name', $page['title'] );
+    $cat_name= $page['title'];
   }
-  
-  $vtp->closeSession( $handle, 'cat_infos' );
+  $template->assign_block_vars('cat_infos',array(
+    'CAT_NAME'=>$cat_name,
+    'NB_IMG_CAT' => $page['cat_nb_images']
+	));
+
+  // navigation bar
+  if ( $page['navigation_bar'] != '' )
+  { 
+    $template->assign_block_vars('cat_infos.navigation',array('NAV_BAR' => $page['navigation_bar']));
+  }
+  // category comment
+  if ( isset( $page['comment'] ) and $page['comment'] != '' )
+  {
+    $template->assign_block_vars('cat_infos.navigation',array('COMMENTS' => $page['cat_comment']));
+  }
 }
 //------------------------------------------------------------ log informations
 pwg_log( 'category', $page['title'] );
 mysql_close();
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
 
+$template->pparse('category');
 include('include/page_tail.php');
 ?>

@@ -20,7 +20,7 @@
 include( './admin/include/functions.php' );
 
 $isadmin = true;
-include_once( './language/'.$user['language'].'.php' );
+include_once( './language/'.$user['language'].'/lang_admin.php' );
 
 if ( $user['status'] != 'admin' )
 {

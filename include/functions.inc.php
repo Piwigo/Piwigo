@@ -257,13 +257,9 @@ function get_languages( $rep_language )
   {
     while ( $file = readdir ( $opendir ) )
     {
-      if ( is_file ( $rep_language.$file )
-           and $file != "index.php"
-           and strrchr ( $file, "." ) == ".php" )
+      if ( is_dir ( $rep_language.$file )&& !substr_count($file,'.') )
       {
-        $languages[$i++] =
-          substr ( $file, 0, strlen ( $file )
-                   - strlen ( strrchr ( $file, "." ) ) );
+        $languages[$i++] =$file;
       }
     }
   }
@@ -454,4 +450,58 @@ function pwg_debug( $string )
   $debug.= $count_queries.' queries] : '.$string;
   $debug.= "\n";
 }
+
+//
+// Initialise user settings on page load
+function init_userprefs($userdata)
+{
+	global $conf, $template, $lang, $phpwg_root_path;
+	
+	$style = $conf['default_style'];
+	if ( !$userdata['is_the_guest'] )
+	{
+		if ( !empty($userdata['language']))
+		{
+			$conf['default_lang'] = $userdata['language'];
+		}
+		if ( !empty($userdata['template']))
+		{
+			$style = $userdata['template'];
+		}
+	}
+
+	if ( !file_exists(@realpath($phpwg_root_path . 'language/' . $conf['default_lang'] . '/lang_main.php')) )
+	{
+		$conf['default_lang'] = 'english';
+	}
+	
+	include_once($phpwg_root_path . 'language/' . $conf['default_lang'] . '/lang_main.php');
+	$template= setup_style($style);
+
+	return;
+}
+
+function setup_style($style)
+{
+	global $phpwg_root_path;
+
+	$template_path = 'template/' ;
+	$template_name = $style ;
+
+	$template = new Template($phpwg_root_path . $template_path . $template_name);
+	return $template;
+}
+
+function encode_ip($dotquad_ip)
+{
+	$ip_sep = explode('.', $dotquad_ip);
+	return sprintf('%02x%02x%02x%02x', $ip_sep[0], $ip_sep[1], $ip_sep[2], $ip_sep[3]);
+}
+
+function decode_ip($int_ip)
+{
+	$hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
+	return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
+}
+
 ?>

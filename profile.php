@@ -1,21 +1,21 @@
 <?php
-/***************************************************************************
- *                                profile.php                              *
- *                            -------------------                          *
- *   application   : PhpWebGallery 1.3 <http://phpwebgallery.net>          *
- *   author        : Pierrick LE GALL <pierrick@z0rglub.com>               *
- *                                                                         *
- *   $Id$
- *                                                                         *
- ***************************************************************************/
+// +-----------------------------------------------------------------------+
+// |                           profile.php                           |
+// +-----------------------------------------------------------------------+
+// | application   : PhpWebGallery <http://phpwebgallery.net>              |
+// | branch        : 1.4                                           |
+// | author        : Pierrick LE GALL <pierrick@z0rglub.com>               |
+// +-----------------------------------------------------------------------+
+// | file          : $RCSfile$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation;                                         |
+// +-----------------------------------------------------------------------+
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation;                                         *
- *                                                                         *
- ***************************************************************************/
 // customize appearance of the site for a user
 //----------------------------------------------------------- include
 $phpwg_root_path = './';

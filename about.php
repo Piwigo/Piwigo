@@ -27,17 +27,17 @@ include_once( $phpwg_root_path.'common.php' );
 $title= $lang['about_page_title'];
 include('include/page_header.php');
 
-$handle = $vtp->Open( './template/'.$user['template'].'/about.vtp' );
+$template->set_filenames(array('about'=>'about.tpl'));
 initialize_template();
 
-$tpl = array('about_title','about_message','about_return');
-templatize_array( $tpl, 'lang', $handle );
-$vtp->setVar( $handle, 'user_template', $user['template'] );
+$template->assign_vars(array(
+	'PAGE_TITLE' => $title,
+	'L_ABOUT' => $lang['about_message'],
+	'L_RETURN' =>  $lang['about_return'], 
+	'U_RETURN' => add_session_id('./category.php?'.$_SERVER['QUERY_STRING'])
+	)
+	);
 
-$url = './category.php?'.$_SERVER['QUERY_STRING'];
-$vtp->setVar( $handle, 'back_url', add_session_id( $url ) );
-//----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('about');
 include('include/page_tail.php');
 ?>

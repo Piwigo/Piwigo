@@ -116,4 +116,10 @@ foreach ( $infos as $info ) {
 // special for $user['restrictions'] array
 $user['restrictions'] = explode( ',', $user['forbidden_categories'] );
 if ( $user['restrictions'][0] == '' ) $user['restrictions'] = array();
+$isadmin = false;
+if ($user['status'] == 'admin') $isadmin =true;
+// calculation of the number of picture to display per page
+$user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
+
+init_userprefs($user);
 ?>

@@ -1,19 +1,26 @@
 <?php
-$handle = $vtp->Open( './template/'.$user['template'].'/footer.vtp' );
+$template->set_filenames(array('tail'=>'footer.tpl'));
 
 //------------------------------------------------------------- generation time
-$time = get_elapsed_time( $t2, get_moment() );
-$vtp->setGlobalVar( $handle, 'time', $time );
 
-$vtp->setGlobalVar( $handle, 'generation_time', $lang['generation_time'] );
-$vtp->setGlobalVar( $handle, 'version', $conf['version'] );
-$vtp->setGlobalVar( $handle, 'site_url', $conf['site_url'] );
-$vtp->setVarF( $handle, 'footer', './template/'.$user['template'].'/footer.htm' );
+$time = get_elapsed_time( $t2, get_moment() );
+
+$template->assign_vars(array(
+	'L_GEN_TIME' => $lang['generation_time'],
+	'S_TIME' =>  $time, 
+	'S_VERSION' => $conf['version'],
+	'U_SITE' => add_session_id( $conf['site_url'] )
+	)
+	);
+	
+if (DEBUG)
+{
+	$template->assign_block_vars('debug', array());
+}
 
 //
 // Generate the page
 //
 
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$template->pparse('tail');
 ?>
