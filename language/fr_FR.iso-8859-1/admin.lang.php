@@ -115,7 +115,7 @@ $lang['cat_status_title'] = 'Gestion des autorisations';
 $lang['cat_status_info'] = 'Les catégories sélectionnées sont privées : vous devrez permettre à vos utilisateurs et / ou groupes d\'y accéder.
 <br />Si une catégorie est déclarée privée, alors toutes ses sous catégories deviennent privées.
 <br />Si une catégorie est déclarée publique, alors toutes les catégories mères deviennent publiques.';
-$lang['cat_representant'] = 'Représentant au hasard';
+$lang['cat_representant'] = 'Trouver un nouveau représentant au hasard';
 
 //Titles
 $lang['admin_panel'] = 'Panneau d\'administration';

@@ -114,7 +114,7 @@ $lang['cat_status_title'] = 'Manage authorizations for selected categories';
 $lang['cat_status_info'] = 'Selected categories are private : you will need to authorize users and/or groups to access to them.
 <br />If you make a category private, all its child categories becomes private.
 <br />If you make a category public, all its parent categories becomes public';
-$lang['cat_representant'] = 'Random representant';
+$lang['cat_representant'] = 'Find a new representant by random';
 
 // Titles
 $lang['admin_panel'] = 'Administration Panel';
