@@ -492,8 +492,7 @@ if ( isset ( $page['cat'] ) )
 pwg_log( 'category', $page['title'] );
 mysql_close();
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 
 include('include/page_tail.php');
 ?>

@@ -103,7 +103,6 @@ if (isset( $_POST['mail_address']))
 $vtp->closeSession( $handle, 'text' );
 $vtp->closeSession( $handle, 'line' );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>

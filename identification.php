@@ -111,7 +111,6 @@ if ( $conf['access'] == 'free' )
   $vtp->closeSession( $handle, 'register' );
 }
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>

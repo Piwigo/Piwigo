@@ -118,8 +118,7 @@ $vtp->closeSession( $handle, 'line' );
 //---------------------------------------------------- return to main page link
 $vtp->setGlobalVar( $handle, 'back_url', add_session_id( './category.php' ) );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 //------------------------------------------------------------ log informations
 pwg_log( 'search', $title );
 mysql_close();

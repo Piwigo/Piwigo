@@ -364,7 +364,6 @@ if ( $conf['authorize_cookies'] )
   $vtp->closeSession( $handle, 'cookie' );
 }
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>

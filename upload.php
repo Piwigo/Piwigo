@@ -385,7 +385,6 @@ else
 $url = './category.php?cat='.$page['cat'].'&amp;expand='.$_GET['expand'];
 $vtp->setGlobalVar( $handle, 'return_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>

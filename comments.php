@@ -184,7 +184,6 @@ $query.= ';';
 $result = mysql_query( $query );
 display_pictures( $result, $maxtime, $user['restrictions'] );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>

@@ -36,7 +36,6 @@ $vtp->setVar( $handle, 'user_template', $user['template'] );
 $url = './category.php?'.$_SERVER['QUERY_STRING'];
 $vtp->setVar( $handle, 'back_url', add_session_id( $url ) );
 //----------------------------------------------------------- html code display
-$code = $vtp->Display( $handle, 0 );
-echo $code;
+$output.= $vtp->Display( $handle, 0 );
 include('include/page_tail.php');
 ?>
