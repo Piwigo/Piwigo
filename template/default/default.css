@@ -71,10 +71,18 @@ a.adminMenu{ color : #FFF48E; }*/
 
 ul.menu {
   text-align:left;
-  list-style-image : url(theme/collapsed.gif);
+  /* list-style-image : url(theme/collapsed.gif); */
   list-style-type: square ;
   padding-left:15px;
   margin:5px;
+}
+
+.menuCategorySelected {
+  font-weight:bold;
+}
+
+.menuCategoryNotSelected {
+  font-weight:normal;
 }
 
 .navigationBar {
