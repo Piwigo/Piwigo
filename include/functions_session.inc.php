@@ -35,7 +35,7 @@ function generate_key()
 {
   global $conf;
 
-  $md5 = md5( substr( microtime(), 2, 6 ).$conf['session_keyword'] );
+  $md5 = md5(substr(microtime(), 2, 6));
   $init = '';
   for ( $i = 0; $i < strlen( $md5 ); $i++ )
   {

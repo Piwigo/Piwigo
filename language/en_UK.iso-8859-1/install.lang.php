@@ -33,6 +33,11 @@ $lang['step2_title'] = 'Admin configuration';
 $lang['Start_Install'] = 'Start Install';
 $lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
 
+$lang['install_webmaster'] = 'webmaster login';
+$lang['install_webmaster_info'] = 'It will be shown to the visitors. It is necessary for website administration';
+$lang['install_mail_webmaster'] = $lang['conf_general_mail_webmaster'];
+$lang['install_mail_webmaster_info'] = $lang['conf_general_mail_webmaster_info'];
+
 $lang['step1_confirmation'] = 'Parameters are correct';
 $lang['step1_err_db'] = 'Connection to server succeed, but it was impossible to connect to database';
 $lang['step1_err_server'] = 'Can\'t connect to server';

@@ -213,8 +213,8 @@ function init_userprefs($userdata)
 {
   global $conf, $template, $lang, $lang_info;
     
-  $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_lang'];
-  $style = (!empty($userdata['template'])&& !$userdata['is_the_guest'] )?$userdata['template']:$conf['default_style'];
+  $language = (!empty($userdata['language']) && !$userdata['is_the_guest'] )?$userdata['language']:$conf['default_language'];
+  $style = (!empty($userdata['template'])&& !$userdata['is_the_guest'] )?$userdata['template']:$conf['default_template'];
  
   if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/common.lang.php')) )
   {

@@ -153,8 +153,8 @@ if ( !file_exists(@realpath(PHPWG_ROOT_PATH . 'language/' . $language . '/instal
 }
 
 include( './language/'.$language.'/common.lang.php' );
-include( './language/'.$language.'/install.lang.php' );
 include( './language/'.$language.'/admin.lang.php' );
+include( './language/'.$language.'/install.lang.php' );
 
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
@@ -314,14 +314,14 @@ $template->assign_vars(array(
   'L_DB_PREFIX'=>$lang['step1_prefix'],
   'L_DB_PREFIX_INFO'=>$lang['step1_prefix_info'],
   'L_ADMIN_TITLE'=>$lang['step2_title'],
-  'L_ADMIN'=>$lang['conf_general_webmaster'],
-  'L_ADMIN_INFO'=>$lang['conf_general_webmaster_info'],
+  'L_ADMIN'=>$lang['install_webmaster'],
+  'L_ADMIN_INFO'=>$lang['install_webmaster_info'],
   'L_ADMIN_PASSWORD'=>$lang['step2_pwd'],
   'L_ADMIN_PASSWORD_INFO'=>$lang['step2_pwd_info'],
   'L_ADMIN_CONFIRM_PASSWORD'=>$lang['step2_pwd_conf'],
   'L_ADMIN_CONFIRM_PASSWORD_INFO'=>$lang['step2_pwd_conf_info'],
-  'L_ADMIN_EMAIL'=>$lang['conf_general_mail'],
-  'L_ADMIN_EMAIL_INFO'=>$lang['conf_general_mail_info'],
+  'L_ADMIN_EMAIL'=>$lang['install_mail_webmaster'],
+  'L_ADMIN_EMAIL_INFO'=>$lang['install_mail_webmaster_info'],
   'L_SUBMIT'=>$lang['Start_Install'],
   'L_HELP'=>$lang['install_help'],
   'L_ERR_COPY'=>$lang['step1_err_copy'],
