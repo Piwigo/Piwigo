@@ -66,7 +66,7 @@ $conf['slideshow_period'] = 4;
 // last_days : options for X last days to displays for comments
 $conf['last_days'] = array(1,2,3,10,30,365);
 
-// file_ext : file extensions (case insensitive) authorized
+// file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array('jpg','JPG','png','PNG','gif','GIF','mpg','zip',
                           'avi','mp3','ogg');
 
@@ -100,6 +100,17 @@ $conf['show_iptc_mapping'] = array(
   'iptc_caption_writer'  => '2#122',
   'iptc_byline_title'    => '2#085',
   'iptc_caption'         => '2#120'
+  );
+
+// use_iptc_mapping : in which IPTC fields will PhpWebGallery find image
+// information ? This setting is used during metadata synchronisation. It
+// associates a phpwebgallery_images column name to a IPTC key
+$conf['use_iptc_mapping'] = array(
+  'keywords'        => '2#025',
+  'date_creation'   => '2#055',
+  'author'          => '2#122',
+  'name'            => '2#005',
+  'comment'         => '2#120'
   );
 
 // show_exif_fields : in EXIF fields, you can choose to display fields in
