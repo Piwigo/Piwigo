@@ -740,7 +740,7 @@ function is_user_allowed( $category_id, $restrictions )
 /**
  * returns an array containing sub-directories which can be a category
  *
- * directories nammed "thumbnail" are omitted
+ * directories nammed "thumbnail", "high" or "representative" are omitted
  *
  * @param string $basedir
  * @return array
@@ -753,9 +753,12 @@ function get_category_directories( $basedir )
   {
     while ( $file = readdir( $opendir ) )
     {
-      if ( $file != '.' and $file != '..'
-           and is_dir( $basedir.'/'.$file )
-           and $file != 'thumbnail' )
+      if ($file != '.'
+          and $file != '..'
+          and $file != 'thumbnail'
+          and $file != 'high'
+          and $file != 'representative'
+          and is_dir($basedir.'/'.$file))
       {
         array_push( $sub_dirs, $file );
       }

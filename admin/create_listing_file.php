@@ -258,8 +258,10 @@ function get_dirs($basedir, $indent, $level)
     {
       if ($file != '.'
           and $file != '..'
-          and is_dir ($basedir.'/'.$file)
-          and $file != 'thumbnail')
+          and $file != 'thumbnail'
+          and $file != 'high'
+          and $file != 'representative'
+          and is_dir ($basedir.'/'.$file))
       {
         array_push($fs_dirs, $file);
         if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $file))
