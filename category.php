@@ -203,7 +203,7 @@ $template->assign_vars(array(
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
   'U_FAVORITE' => add_session_id( PHPWG_ROOT_PATH.'category.php?cat=fav' ),
   'U_MOST_VISITED'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=most_visited' ),
-  'U_RECENT'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent' ),
+  'U_RECENT_PICS'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=recent_pics' ),
   'U_CALENDAR'=>add_session_id( PHPWG_ROOT_PATH.'category.php?cat=calendar' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
