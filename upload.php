@@ -30,13 +30,13 @@
 function validate_upload( $temp_name, $my_max_file_size,
                           $image_max_width, $image_max_height )
 {
-  global $lang;
+  global $conf, $lang;
 		
   $result = array();
   $result['error'] = array();
   //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
-  if ( $extension != 'gif' and $extension != 'jpg' and $extension != 'png' )
+  if ( in_array( $extension, $conf['picture_ext'] )
   {
     array_push( $result['error'], $lang['upload_advise_filetype'] );
     return $result;
