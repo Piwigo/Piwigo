@@ -50,16 +50,18 @@ function get_iptc_data($filename, $map)
       $rmap = array_flip($map);
       foreach (array_keys($rmap) as $iptc_key)
       {
-        if (isset($iptc[$iptc_key][0]) and $value = $iptc[$iptc_key][0])
+        if (isset($iptc[$iptc_key][0]))
         {
-          // strip leading zeros (weird Kodak Scanner software)
-          while ($value[0] == chr(0))
+          if ($iptc_key == '2#025')
           {
-            $value = substr($value, 1);
+            $value = implode(',',
+                             array_map('clean_iptc_value',$iptc[$iptc_key]));
           }
-          // remove binary nulls
-          $value = str_replace(chr(0x00), ' ', $value);
-          
+          else
+          {
+            $value = clean_iptc_value($iptc[$iptc_key][0]);
+          }
+
           foreach (array_keys($map, $iptc_key) as $pwg_key)
           {
             $result[$pwg_key] = $value;
@@ -69,5 +71,24 @@ function get_iptc_data($filename, $map)
     }
   }
   return $result;
+}
+
+/**
+ * return a cleaned IPTC value
+ *
+ * @param string value
+ * @return string
+ */
+function clean_iptc_value($value)
+{
+  // strip leading zeros (weird Kodak Scanner software)
+  while ($value[0] == chr(0))
+  {
+    $value = substr($value, 1);
+  }
+  // remove binary nulls
+  $value = str_replace(chr(0x00), ' ', $value);
+  
+  return $value;
 }
 ?>
