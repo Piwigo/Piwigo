@@ -355,18 +355,18 @@ function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
   {
     // is the category already existing ?
     $category_id = '';
-    $name = getAttribute( $list_dirs[$i], 'name' );
-    $categories[$i] = $name;
+    $dir = getAttribute( $list_dirs[$i], 'name' );
+    $categories[$i] = $dir;
 
     $src = '../template/'.$user['template'].'/admin/images/puce.gif';
     $output.= '<img src="'.$src.'" alt="&gt;" />';
-    $output.= '<span style="font-weight:bold;">'.$name.'</span>';
+    $output.= '<span style="font-weight:bold;">'.$dir.'</span>';
     $output.= '<div class="retrait">';
 
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'categories';
     $query.= ' WHERE site_id = '.$site_id;
-    $query.= " AND dir = '".$name."'";
+    $query.= " AND dir = '".$dir."'";
     if ( $id_uppercat == 'NULL' )
     {
       $query.= ' AND id_uppercat IS NULL';
@@ -379,9 +379,11 @@ function insert_remote_category( $xml_dir, $site_id, $id_uppercat, $level )
     $result = mysql_query( $query );
     if ( mysql_num_rows( $result ) == 0 )
     {
+      $name = str_replace( '_', ' ', $dir );
       // we have to create the category
       $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
-      $query.= " (dir,site_id,id_uppercat) VALUES ('".$name."',".$site_id;
+      $query.= ' (name,dir,site_id,id_uppercat) VALUES ';
+      $query.= "('".$name."','".$dir."',".$site_id;
       if ( !is_numeric( $id_uppercat ) )
       {
         $query.= ',NULL';
