@@ -73,12 +73,12 @@ function get_images_without_thumbnail( $dir )
   return $images;
 }
 
-// scandir scans a dir to find pictures without thumbnails. Once found,
+// phpwg_scandir scans a dir to find pictures without thumbnails. Once found,
 // creation of the thumbnails (RatioResizeImg). Only the first $_POST['n']
 // pictures without thumbnails are treated.
 // scandir returns an array with the generation time of each thumbnail (for
 // statistics purpose)
-function scandir( $dir, $width, $height )
+function phpwg_scandir( $dir, $width, $height )
 {
   global $conf;
   $stats = array();
@@ -267,7 +267,7 @@ if ( isset( $_GET['dir'] ) &&  isset( $_POST['submit'] ))
   // picture miniaturization
   if ( count( $errors ) == 0 )
   {
-    $stats = scandir( $_GET['dir'], $_POST['width'], $_POST['height'] );
+    $stats = phpwg_scandir( $_GET['dir'], $_POST['width'], $_POST['height'] );
   }
 }
 		
