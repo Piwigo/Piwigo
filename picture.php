@@ -583,30 +583,56 @@ if (isset($picture['current']['comment'])
       ));
 }
 
-
 // author
 if ( !empty($picture['current']['author']) )
 {
+  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
+  $search_url.= '&amp;search=author:'.$picture['current']['author'];
+  
+  $value = '<a href="';
+  $value.= add_session_id($search_url);
+  $value.= '">'.$picture['current']['author'].'</a>';
+  
   $template->assign_block_vars(
     'info_line',
     array(
       'INFO'=>$lang['author'],
-      'VALUE'=>$picture['current']['author']
+      'VALUE'=>$value
       ));
 }
 // creation date
 if ( !empty($picture['current']['date_creation']) )
 {
-  $template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['creation_date'],
-	  'VALUE'=>format_date( $picture['current']['date_creation'] ) 
-	  ));
+  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
+  $search_url.= '&amp;search=';
+  $search_url.= 'date_creation:'.$picture['current']['date_creation'];
+  
+  $value = '<a href="';
+  $value.= add_session_id($search_url);
+  $value.= '">'.format_date($picture['current']['date_creation']).'</a>';
+  
+  $template->assign_block_vars(
+    'info_line',
+    array(
+      'INFO'=>$lang['creation_date'],
+      'VALUE'=>$value
+      ));
 }
 // date of availability
-$template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['registration_date'],
-	  'VALUE'=>format_date( $picture['current']['date_available'] ) 
-	  ));
+$search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
+$search_url.= '&amp;search=';
+$search_url.= 'date_available:'.$picture['current']['date_available'];
+  
+$value = '<a href="';
+$value.= add_session_id($search_url);
+$value.= '">'.format_date($picture['current']['date_available']).'</a>';
+
+$template->assign_block_vars(
+  'info_line',
+  array(
+    'INFO'=>$lang['registration_date'],
+    'VALUE'=>$value
+    ));
 // size in pixels
 if ($picture['current']['is_picture'])
 {
