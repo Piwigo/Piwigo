@@ -83,109 +83,46 @@ if (isset($_POST['submit']))
   $query.= ' WHERE id = '.$_GET['image_id'];
   $query.= ';';
   pwg_query($query);
-  // make the picture representative of a category ?
+}
+// associate the element to other categories than its storage category
+if (isset($_POST['associate'])
+    and isset($_POST['cat_dissociated'])
+    and count($_POST['cat_dissociated']) > 0)
+{
+  $datas = array();
+  foreach ($_POST['cat_dissociated'] as $category_id)
+  {
+    array_push($datas, array('image_id' => $_GET['image_id'],
+                             'category_id' => $category_id));
+  }
+  mass_inserts(IMAGE_CATEGORY_TABLE, array('image_id', 'category_id'), $datas);
+
+  update_category($_POST['cat_dissociated']);
+}
+// dissociate the element from categories (but not from its storage category)
+if (isset($_POST['dissociate'])
+    and isset($_POST['cat_associated'])
+    and count($_POST['cat_associated']) > 0)
+{
   $query = '
-SELECT DISTINCT(category_id) as category_id,representative_picture_id
-  FROM '.IMAGE_CATEGORY_TABLE.' AS ic, '.CATEGORIES_TABLE.' AS c
-  WHERE c.id = ic.category_id
-    AND image_id = '.$_GET['image_id'].'
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    // if the user ask the picture to be the representative picture of its
-    // category, the category is updated in the database (without wondering
-    // if this picture was already the representative one)
-    if (isset($_POST['representative-'.$row['category_id']]))
-    {
-      $query = 'UPDATE '.CATEGORIES_TABLE;
-      $query.= ' SET representative_picture_id = '.$_GET['image_id'];
-      $query.= ' WHERE id = '.$row['category_id'];
-      $query.= ';';
-      pwg_query($query);
-    }
-    // if the user ask this picture to be not any more the representative,
-    // we have to set the representative_picture_id of this category to NULL
-    else if (isset($row['representative_picture_id'])
-             and $row['representative_picture_id'] == $_GET['image_id'])
-    {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = NULL
-  WHERE id = '.$row['category_id'].'
-;';
-      pwg_query($query);
-    }
-  }
-  $associate_or_dissociate = false;
-  // associate with a new category ?
-  if ($_POST['associate'] != '-1' and $_POST['associate'] != '')
-  {
-    // does the uppercat id exists in the database ?
-    if (!is_numeric($_POST['associate']))
-    {
-      array_push($errors, $lang['cat_unknown_id']);
-    }
-    else
-    {
-      $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$_POST['associate'].'
-;';
-      if (mysql_num_rows(pwg_query($query)) == 0)
-        array_push($errors, $lang['cat_unknown_id']);
-    }
-  }
-  if ($_POST['associate'] != '-1'
-       and $_POST['associate'] != ''
-       and count($errors) == 0)
-  {
-    $query = '
-INSERT INTO '.IMAGE_CATEGORY_TABLE.'
-  (category_id,image_id)
-  VALUES
-  ('.$_POST['associate'].','.$_GET['image_id'].')
-;';
-    pwg_query($query);
-    $associate_or_dissociate = true;
-    update_category($_POST['associate']);
-  }
-  // dissociate any category ?
-  // retrieving all the linked categories
-  $query = '
-SELECT DISTINCT(category_id) as category_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id = '.$_GET['image_id'].'
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    if (isset($_POST['dissociate-'.$row['category_id']]))
-    {
-      $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
-  AND category_id = '.$row['category_id'].'
-;';
-      pwg_query($query);
-      $associate_or_dissociate = true;
-      update_category($row['category_id']);
-    }
-  }
-  if ($associate_or_dissociate)
-  {
-    synchronize_all_users();
-  }
+    AND category_id IN ('.implode(',',$_POST['cat_associated'] ).')
+';
+  pwg_query($query);
+  update_category($_POST['cat_associated']);
 }
 
 // retrieving direct information about picture
 $query = '
-SELECT *
-  FROM '.IMAGES_TABLE.'
-  WHERE id = '.$_GET['image_id'].'
+SELECT i.*, c.uppercats
+  FROM '.IMAGES_TABLE.' AS i
+   INNER JOIN '.CATEGORIES_TABLE.' AS c ON i.storage_category_id = c.id
+  WHERE i.id = '.$_GET['image_id'].'
 ;';
 $row = mysql_fetch_array(pwg_query($query));
+
+$storage_category_id = $row['storage_category_id'];
 
 if (empty($row['name']))
 {
@@ -196,38 +133,23 @@ else
   $title = $row['name'];
 }
 // Navigation path
-$current_category = get_cat_info($row['storage_category_id']);
-$dir_path = get_cat_display_name($current_category['name'], '-&gt;', '');
-
 $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];
 $date = isset($_POST['date_creation']) && empty($errors)
-          ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
-
-// retrieving all the linked categories
-$query = '
-SELECT DISTINCT(category_id) AS category_id,status,visible
-       ,representative_picture_id
-  FROM '.IMAGE_CATEGORY_TABLE.','.CATEGORIES_TABLE.'
-  WHERE image_id = '.$_GET['image_id'].'
-    AND category_id = id
-;';
-$result = pwg_query($query);
-$categories = '';
-while ($cat_row = mysql_fetch_array($result))
-{
-  $cat_infos = get_cat_info($cat_row['category_id']);
-  $cat_name = get_cat_display_name($cat_infos['name'], ' &gt; ', '');
-  $categories.='<option value="'.$cat_row['category_id'].'">'.$cat_name.'</option>';
-}
-
+?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
+          
+$storage_category = get_cat_display_name_cache($row['uppercats'],
+                                               ' &rarr; ',
+                                               '',
+                                               false);
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('picture_modify'=>'admin/picture_modify.tpl'));
 $template->assign_vars(array(
   'TITLE_IMG'=>$title,
-  'DIR_IMG'=>$dir_path,
+  'STORAGE_CATEGORY_IMG'=>$storage_category,
+  'PATH_IMG'=>$row['path'],
   'FILE_IMG'=>$row['file'],
   'TN_URL_IMG'=>$thumbnail_url,
   'URL_IMG'=>add_session_id($url_img),
@@ -241,7 +163,6 @@ $template->assign_vars(array(
   'CREATION_DATE_IMG'=>$date,
   'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:@$row['keywords'],
   'COMMENT_IMG'=>isset($_POST['comment'])?$_POST['comment']:@$row['comment'],
-  'ASSOCIATED_CATEGORIES'=>$categories,
   
   'L_UPLOAD_NAME'=>$lang['upload_name'],
   'L_DEFAULT'=>$lang['default'],
@@ -257,50 +178,47 @@ $template->assign_vars(array(
   'L_DISSOCIATE'=>$lang['dissociate'],
   'L_INFOIMAGE_ASSOCIATE'=>$lang['infoimage_associate'],
   'L_SUBMIT'=>$lang['submit'],
+  'L_RESET'=>$lang['reset'],
+  'L_CAT_ASSOCIATED'=>$lang['cat_associated'],
+  'L_CAT_DISSOCIATED'=>$lang['cat_dissociated'],
+  'L_PATH'=>$lang['path'],
+  'L_STORAGE_CATEGORY'=>$lang['storage_category'],
   
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
  ));
   
 //-------------------------------------------------------------- errors display
-if (sizeof($errors) != 0)
+if (count($errors) != 0)
 {
   $template->assign_block_vars('errors',array());
-  for ($i = 0; $i < sizeof($errors); $i++)
+  foreach ($errors as $error)
   {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
   }
 }
 
-// if there are linked category other than the storage category, we show
-// propose the dissociate text
-if (mysql_num_rows($result) > 0)
-{
-  //$vtp->addSession($sub, 'dissociate');
-  //$vtp->closeSession($sub, 'dissociate');
-}
 // associate to another category ?
-//
-// We only show a List Of Values if the number of categories is less than
-// $conf['max_LOV_categories']
-$query = 'SELECT COUNT(id) AS nb_total_categories';
-$query.= ' FROM '.CATEGORIES_TABLE.';';
-$row = mysql_fetch_array(pwg_query($query));
-if ($row['nb_total_categories'] < $conf['max_LOV_categories'])
-{
-  $template->assign_block_vars('associate_LOV',array());
-  $template->assign_block_vars('associate_LOV.associate_cat',array(
-	));
-  /*$vtp->addSession($sub, 'associate_LOV');
-  $vtp->addSession($sub, 'associate_cat');
-  $vtp->setVar($sub, 'associate_cat.value', '-1');
-  $vtp->setVar($sub, 'associate_cat.content', '');
-  $vtp->closeSession($sub, 'associate_cat');
-  $page['plain_structure'] = get_plain_structure(true);
-  $structure = create_structure('', array());
-  display_categories($structure, '&nbsp;');
-  $vtp->closeSession($sub, 'associate_LOV');*/
-}
+$query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
+  WHERE image_id = '.$_GET['image_id'].'
+    AND id != '.$storage_category_id.'
+;';
+display_select_cat_wrapper($query,array(),'associated_option');
 
+$result = pwg_query($query);
+$associateds = array($storage_category_id);
+while ($row = mysql_fetch_array($result))
+{
+  array_push($associateds, $row['id']);
+}
+$query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id NOT IN ('.implode(',', $associateds).')
+;';
+display_select_cat_wrapper($query,array(),'dissociated_option');
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');
 ?>

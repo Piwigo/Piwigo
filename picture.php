@@ -738,8 +738,9 @@ SELECT COUNT(rate) AS count
 }
 // related categories
 $query = '
-SELECT category_id
+SELECT category_id,uppercats,commentable,global_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$_GET['image_id'];
 if ($user['forbidden_categories'] != '')
 {
@@ -749,19 +750,35 @@ if ($user['forbidden_categories'] != '')
 $query.= '
 ;';
 $result = pwg_query($query);
-$categories = '';
-$page['show_comments'] = false;
+$cat_array = array();
 while ($row = mysql_fetch_array($result))
 {
-  if ($categories != '')
+  array_push($cat_array, $row);
+}
+usort($cat_array, 'global_rank_compare');
+
+$cat_output = '';
+$page['show_comments'] = false;
+foreach ($cat_array as $category)
+{
+  if ($cat_output != '')
   {
-    $categories.= '<br />';
+    $cat_output.= '<br />';
   }
-  $cat_info = get_cat_info($row['category_id']);
-  $categories .= get_cat_display_name($cat_info['name'], ' &gt;');
+  
+  if (count($cat_array) > 3)
+  {
+    $cat_output .= get_cat_display_name_cache($category['uppercats'],
+                                              ' &rarr; ');
+  }
+  else
+  {
+    $cat_info = get_cat_info($category['category_id']);
+    $cat_output .= get_cat_display_name($cat_info['name'], ' &rarr; ');
+  }
   // the picture is commentable if it belongs at least to one category which
   // is commentable
-  if ($cat_info['commentable'])
+  if ($category['commentable'])
   {
     $page['show_comments'] = true;
   }
@@ -770,7 +787,7 @@ $template->assign_block_vars(
   'info_line',
   array(
     'INFO'  => $lang['categories'],
-    'VALUE' => $categories
+    'VALUE' => $cat_output
     ));
 // metadata
 if ($metadata_showable and isset($_GET['show_metadata']))

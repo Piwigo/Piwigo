@@ -38,7 +38,7 @@
 $array_cat_directories = array();
   
 $query = '
-SELECT DISTINCT(id),path,file,date_available,category_id
+SELECT DISTINCT(id),path,file,date_available
        ,tn_ext,name,filesize,storage_category_id,average_rate
   FROM '.IMAGES_TABLE.' AS i
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
@@ -89,15 +89,7 @@ while ($row = mysql_fetch_array($result))
     $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
   // url link on picture.php page
-  $url_link = PHPWG_ROOT_PATH.'picture.php?';
-  if ($page['cat'] == 'random')
-  {
-    $url_link.= 'cat='.$row['category_id'];
-  }
-  else
-  {
-   $url_link.= 'cat='.$page['cat'];
-  }
+  $url_link = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'];
   $url_link.= '&amp;image_id='.$row['id'];
   if ($page['cat'] == 'search')
   {

@@ -52,7 +52,7 @@
 <tr>
 <!-- END category -->
 </table>
-<form action="" method="post">
+<form action="{F_ACTION}" method="post">
   {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
   <input type="hidden" name="rank" value="{NEXT_RANK}"/>
   <input type="submit" value="{L_SUBMIT}" class="bouton" name="submit" />

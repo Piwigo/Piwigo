@@ -441,36 +441,74 @@ function check_favorites( $user_id )
 }
 
 /**
- * updates calculated informations about a category : date_last and
+ * updates calculated informations about a set of categories : date_last and
  * nb_images. It also verifies that the representative picture is really
- * linked to the category. Recursive.
+ * linked to the category. Optionnaly recursive.
  *
  * @param mixed category id
+ * @param boolean recursive
  * @returns void
  */
-function update_category($id = 'all')
+function update_category($ids = 'all', $recursive = false)
 {
+  // retrieving all categories to update
   $cat_ids = array();
   
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE;
+  if (is_array($ids))
+  {
+    if ($recursive)
+    {
+      foreach ($ids as $num => $id)
+      {
+        if ($num == 0)
+        {
+          $query.= '
+  WHERE ';
+        }
+        else
+        {
+          $query.= '
+  OR    ';
+        }
+        $query.= 'uppercats REGEXP \'(^|,)'.$id.'(,|$)\'';
+      }
+    }
+    else
+    {
+      $query.= '
+  WHERE id IN ('.implode(',', $ids).')';
+    }
+  }
+  $query.= '
+;';
+  $result = pwg_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push($cat_ids, $row['id']);
+  }
+  $cat_ids = array_unique($cat_ids);
+
+  if (count($cat_ids) == 0)
+  {
+    return false;
+  }
+  
+  // calculate informations about categories retrieved
   $query = '
 SELECT category_id,
        COUNT(image_id) AS nb_images,
        MAX(date_available) AS date_last
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
-  if (is_numeric($id))
-  {
-    $query.= '
-  WHERE uppercats REGEXP \'(^|,)'.$id.'(,|$)\'';
-  }
-  $query.= '
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  WHERE category_id IN ('.implode(',', $cat_ids).')
   GROUP BY category_id
-;';
-  $result = pwg_query( $query );
+';
+  $result = pwg_query($query);
   $datas = array();
   while ( $row = mysql_fetch_array( $result ) )
   {
-    array_push($cat_ids, $row['category_id']);
     array_push($datas, array('id' => $row['category_id'],
                              'date_last' => $row['date_last'],
                              'nb_images' => $row['nb_images']));
@@ -479,8 +517,16 @@ SELECT category_id,
                   'update'  => array('date_last', 'nb_images'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE nb_images = 0
+;';
+  pwg_query($query);
+  
   if (count($cat_ids) > 0)
   {
+    $categories = array();
     // find all categories where the setted representative is not possible
     $query = '
 SELECT id
@@ -493,35 +539,23 @@ SELECT id
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
-      // set a new representative element for this category
-      $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$row['id'].'
-  ORDER BY RAND()
-  LIMIT 0,1
-;';
-      $sub_result = pwg_query($query);
-      if (mysql_num_rows($sub_result) > 0)
-      {
-        list($representative) = mysql_fetch_array($sub_result);
-        $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = '.$representative.'
-  WHERE id = '.$row['id'].'
-;';
-        pwg_query($query);
-      }
-      else
-      {
-        $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = NULL
-  WHERE id = '.$row['id'].'
-;';
-        pwg_query($query);
-      }
+      array_push($categories, $row['id']);
     }
+    // find categories with elements and with no representant
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id IS NULL
+    AND nb_images != 0
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push($categories, $row['id']);
+    }
+
+    $categories = array_unique($categories);
+    set_random_representant($categories);
   }
 }
 

@@ -101,12 +101,12 @@ foreach (array('comment','dir','site_id') as $nullable)
 }
 
 // Navigation path
-$current_category = get_cat_info($_GET['cat_id']);
 $url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
 $navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
 $navigation.= $lang['home'].'</a> <span style="font-size:15px">&rarr;</span>';
-$navigation.= get_cat_display_name(
-  $current_category['name'],
+
+$navigation.= get_cat_display_name_cache(
+  $category['uppercats'],
   ' <span style="font-size:15px">&rarr;</span>',
   $url);
 
@@ -136,7 +136,6 @@ $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
   'CAT_NAME'=>$category['name'],
   'CAT_COMMENT'=>$category['comment'],
-  'CATEGORY_DIR'=>preg_replace('/\/$/', '', get_complete_dir($category['id'])),
   
   $status=>'checked="checked"',
   $lock=>'checked="checked"',
@@ -184,7 +183,11 @@ SELECT tn_ext,path
 
 if (!empty($category['dir']))
 {
-  $template->assign_block_vars('storage' ,array());
+  $template->assign_block_vars(
+    'storage',
+    array('CATEGORY_DIR'=>preg_replace('/\/$/',
+                                       '',
+                                       get_complete_dir($category['id']))));
   $template->assign_block_vars('upload' ,array());
 }
 

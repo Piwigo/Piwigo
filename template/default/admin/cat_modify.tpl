@@ -13,6 +13,10 @@
       <td class="row1"><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" class="bouton" /></td>
     </tr>
     <!-- END representant -->
+  </table>
+</form>
+<form action="{F_ACTION}" method="POST">
+<table style="width:100%;">
     <!-- BEGIN server -->
     <tr>
       <td style="width:50%;"><strong>{L_REMOTE_SITE}</strong></td>
@@ -28,7 +32,7 @@
 	<!-- BEGIN storage -->
 	<tr>
       <td><strong>{L_STORAGE}</strong></td>
-      <td class="row1">{CATEGORY_DIR}</td>
+      <td class="row1">{storage.CATEGORY_DIR}</td>
     </tr>
 	<!-- END storage -->
     <tr>

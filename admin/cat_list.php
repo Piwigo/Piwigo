@@ -62,16 +62,7 @@ else if (isset($_POST['submit']))
     $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL'; 
     // As we don't create a virtual category every day, let's do (far) too
     // much queries
-    if ($parent_id != 'NULL')
-    {
-      $query = '
-SELECT uppercats
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$parent_id.'
-;';
-      $parent_uppercats = array_pop(mysql_fetch_array(pwg_query($query)));
-    }
-	
+    
     // we have then to add the virtual category
     $query = '
 INSERT INTO '.CATEGORIES_TABLE.'
@@ -87,16 +78,41 @@ SELECT MAX(id)
   FROM '.CATEGORIES_TABLE.'
 ;';
     $my_id = array_pop(mysql_fetch_array(pwg_query($query)));
+    
+    if ($parent_id != 'NULL')
+    {
+      $query = '
+SELECT uppercats, global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$parent_id.'
+;';
+      $result = pwg_query($query);
+      $row = mysql_fetch_array($result);
+      
+      $parent_uppercats = $row['uppercats'];
+      $parent_global_rank = $row['global_rank'];
+    }
 
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
-  SET uppercats = \'';
+';
     if (!empty($parent_uppercats))
     {
-      $query.= $parent_uppercats.',';
+      $query.= "  SET uppercats = CONCAT('".$parent_uppercats."',',',id)";
     }
-    $query.= $my_id;
-    $query.= '\'
+    else
+    {
+      $query.= '  SET uppercats = id';
+    }
+    if (!empty($parent_global_rank))
+    {
+      $query.= "  , global_rank = CONCAT('".$parent_global_rank."','.',rank)";
+    }
+    else
+    {
+      $query.= '  , uppercats = id';
+    }
+    $query.= '
   WHERE id = '.$my_id.'
 ;';
     pwg_query($query);
@@ -276,9 +292,16 @@ reset($categories);
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('categories'=>'admin/cat_list.tpl'));
 
+$form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
+if (isset($_GET['parent_id']))
+{
+  $form_action.= '&amp;parent_id='.$_GET['parent_id'];
+}
+
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
-  'NEXT_RANK'=>count($categories)+1,
+  'NEXT_RANK'=>max(array_keys($categories))+1,
+  'F_ACTION'=>$form_action,
   
   'L_ADD_VIRTUAL'=>$lang['cat_add'],
   'L_SUBMIT'=>$lang['submit'],

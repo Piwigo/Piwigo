@@ -53,6 +53,7 @@ $lang['lock'] = 'Lock';
 $lang['unlock'] = 'Unlock';
 $lang['up'] = 'Move up';
 $lang['down'] = 'Move down';
+$lang['path'] = 'path';
 
 // Specific words
 $lang['phpinfos'] = 'PHP Information';
@@ -345,4 +346,7 @@ $lang['cat_list_update_metadata_confirmation'] = 'files metadata updated';
 $lang['cat_list_virtual_category_added'] = 'virtual category added';
 $lang['cat_list_virtual_category_deleted'] = 'virtual category deleted';
 $lang['set_random_representant'] = 'set new random representant';
+$lang['cat_associated'] = 'virtually associated to';
+$lang['cat_dissociated'] = 'dissociated from';
+$lang['storage_category'] = 'storage category';
 ?>

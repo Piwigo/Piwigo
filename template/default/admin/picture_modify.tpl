@@ -7,78 +7,55 @@
 </ul>
 </div>
 <!-- END errors -->
-<div class="admin">{TITLE_IMG} [ {DIR_IMG} &gt; {FILE_IMG} ]</div>
-<form method="post" action="{F_ACTION}">
+<div class="admin">{TITLE_IMG}</div>
+<form action="{F_ACTION}" method="POST">
   <table style="width:100%;">
-    <tr valign="top">
-      <td style="width:1px;">
-	  <a href="{URL_IMG}" class="thumbnail"><img src="{TN_URL_IMG}" alt="" class="miniature" /></a>
-	  </td>
-      <td>
-        <table>
-          <tr>
-            <td>{L_UPLOAD_NAME} :</td>
-            <td><input type="text" name="name" value="{NAME_IMG}" /> [ {L_DEFAULT} : {DEFAULT_NAME_IMG} ]</td>
-          </tr>
-          <tr>
-            <td>{L_FILE} :</td>
-            <td>{FILE_IMG}</td>
-          </tr>
-          <tr>
-            <td>{L_SIZE} :</td>
-            <td>{SIZE_IMG}</td>
-          </tr>
-          <tr>
-            <td>{L_FILESIZE} :</td>
-            <td>{FILESIZE_IMG}</td>
-          </tr>
-          <tr>
-            <td>{L_REGISTRATION_DATE} :</td>
-            <td>{REGISTRATION_DATE_IMG}</td>
-          </tr>
-          <tr>
-            <td>{L_AUTHOR} :</td>
-            <td><input type="text" name="author" value="{AUTHOR_IMG}" /></td>
-          </tr>
-          <tr>
-            <td>{L_CREATION_DATE} :</td>
-            <td><input type="text" name="date_creation" value="{CREATION_DATE_IMG}" /></td>
-          </tr>
-          <tr>
-            <td>{L_KEYWORDS} :</td>
-            <td><input type="text" name="keywords" value="{KEYWORDS_IMG}" size="50" /></td>
-          </tr>
-          <tr>
-            <td>{L_COMMENT} :</td>
-            <td><textarea name="comment" rows="5" cols="50" style="overflow:auto">{COMMENT_IMG}</textarea></td>
-          </tr>
-          <tr>
-            <td valign="top">{L_CATEGORIES} :</td>
-            <td>
-              <select style="width:280px" name="cat_data[]" multiple="multiple" size="5">
-				  {ASSOCIATED_CATEGORIES}
-			  </select>
-			</td>
-		  </tr>
-          <tr><td colspan="2">&nbsp;</td></tr>
-                <tr>
-                  <td>{L_INFOIMAGE_ASSOCIATE}</td>
-				  <td>
-                    <!-- BEGIN associate_LOV -->
-                    <select name="associate">
-                      <!-- BEGIN associate_cat -->
-                      <option value="{associate_LOV.associate_cat.VALUE_CAT}">{associate_LOV.associate_cat.VALUE_CONTENT}</option>
-                      <!-- END associate_cat -->
-                    </select>
-                    <!-- END associate_LOV -->
-                    <!-- BEGIN associate_text -->
-                    <input type="text" name="associate" />
-                    <!-- END associate_text -->
-                    </select>
-                  </td>
-                </tr>
-              </table>
-      </td>
+    <tr>
+      <td colspan="2" align="center"><a href="{URL_IMG}" class="thumbnail"><img src="{TN_URL_IMG}" alt="" class="miniature" /></a></td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_UPLOAD_NAME}</strong></td>
+      <td class="row1"><input type="text" name="name" value="{NAME_IMG}" /> [ {L_DEFAULT} : {DEFAULT_NAME_IMG} ]</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_FILE}</strong></td>
+      <td class="row1">{FILE_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_SIZE}</strong></td>
+      <td class="row1">{SIZE_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_FILESIZE}</strong></td>
+      <td class="row1">{FILESIZE_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_REGISTRATION_DATE}</strong></td>
+      <td class="row1">{REGISTRATION_DATE_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_PATH}</strong></td>
+      <td class="row1">{PATH_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_STORAGE_CATEGORY}</strong></td>
+      <td class="row1">{STORAGE_CATEGORY_IMG}</td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_AUTHOR}</strong></td>
+      <td class="row1"><input type="text" name="author" value="{AUTHOR_IMG}" /></td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_CREATION_DATE}</strong></td>
+      <td class="row1"><input type="text" name="date_creation" value="{CREATION_DATE_IMG}" /></td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_KEYWORDS}</strong></td>
+      <td class="row1"><input type="text" name="keywords" value="{KEYWORDS_IMG}" size="50" /></td>
+    </tr>
+    <tr>
+      <td style="width:50%;"><strong>{L_COMMENT}</strong></td>
+      <td class="row1"><textarea name="comment" rows="5" cols="50" style="overflow:auto">{COMMENT_IMG}</textarea></td>
     </tr>
     <tr>
       <td colspan="2"><div style="margin-bottom:0px">&nbsp;</div></td>
@@ -86,7 +63,45 @@
     <tr>
       <td colspan="2" align="center">
         <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
+        <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
       </td>
     </tr>
   </table>
+</form>
+
+<form name="form1" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+
+  <div style="clear:both;"></div>
+
+  <div style="height:auto;">
+
+    <div style="float:left;padding:10px;width:300px;">
+      <span class="titreMenu">{L_CAT_ASSOCIATED}</span><br />
+      <select style="height:auto;width:280px" name="cat_associated[]" multiple="multiple" size="10">
+        <!-- BEGIN associated_option -->
+        <option class="{associated_option.CLASS}" {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
+        <!-- END associated_option -->
+      </select>
+    </div>
+
+    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
+      <input type="submit" value="&larr;" name="associate" style="font-size:15px;" class="bouton" /><br/>
+      <input type="submit" value="&rarr;" name="dissociate" style="font-size:15px;" class="bouton" />
+    </div>
+
+    <div style="float:right;padding:10px;width:300px;">
+      <span class="titreMenu">{L_CAT_DISSOCIATED}</span><br />
+      <select style="width:280px" name="cat_dissociated[]" multiple="multiple" size="10">
+        <!-- BEGIN dissociated_option -->
+        <option class="{dissociated_option.CLASS}" {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
+        <!-- END dissociated_option -->
+      </select>
+    </div>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
+
 </form>
