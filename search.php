@@ -235,7 +235,7 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames( array('search'=>'search.tpl') );
 $template->assign_vars(array(
   'L_TITLE' => $lang['search_title'],
-  'L_COMMENTS' => $lang['comments'],
+  'L_SEARCH_COMMENTS' => $lang['search_comments'],
   'L_RETURN' => $lang['gallery_index'],
   'L_SUBMIT' => $lang['submit'],
   'L_SEARCH_OR'=>$lang['search_mode_or'],
@@ -365,6 +365,10 @@ function display_search_categories($categories, $indent, $selecteds)
     }
   }
 }
+// this is a trick : normally, get_user_plain_structure is used to create
+// the categories structure for menu (in category.php) display, but here, we
+// want all categories to be shown...
+$user['expand'] = true;
 $page['plain_structure'] = get_user_plain_structure(true);
 $structure = create_user_structure('');
 
