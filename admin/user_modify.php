@@ -137,22 +137,28 @@ if ( $display_form )
     $page['mail_address'] = $_POST['mail_address'];
   }
   $vtp->setVar( $sub, 'form.user:mail_address', $page['mail_address'] );
-  if ( isset( $_POST['status'] ) )
+  // change status only if the user is not the webmaster
+  if ( $page['username'] != $conf['webmaster'] )
   {
-    $page['status'] = $_POST['status'];
-  }
-  $option = get_enums( PREFIX_TABLE.'users', 'status' );
-  for ( $i = 0; $i < sizeof( $option ); $i++ )
-  {
-    $vtp->addSession( $sub, 'status_option' );
-    $vtp->setVar( $sub, 'status_option.value', $option[$i] );
-    $vtp->setVar( $sub, 'status_option.option',
-                  $lang['adduser_status_'.$option[$i]] );
-    if( $option[$i] == $page['status'] )
+    $vtp->addSession( $sub, 'status' );
+    if ( isset( $_POST['status'] ) )
     {
-      $vtp->setVar( $sub, 'status_option.selected', ' selected="selected"' );
+      $page['status'] = $_POST['status'];
     }
-    $vtp->closeSession( $sub, 'status_option' );
+    $option = get_enums( PREFIX_TABLE.'users', 'status' );
+    for ( $i = 0; $i < sizeof( $option ); $i++ )
+    {
+      $vtp->addSession( $sub, 'status_option' );
+      $vtp->setVar( $sub, 'status_option.value', $option[$i] );
+      $vtp->setVar( $sub, 'status_option.option',
+                    $lang['adduser_status_'.$option[$i]] );
+      if( $option[$i] == $page['status'] )
+      {
+        $vtp->setVar( $sub, 'status_option.selected', ' selected="selected"' );
+      }
+      $vtp->closeSession( $sub, 'status_option' );
+    }
+    $vtp->closeSession( $sub, 'status' );
   }
   // groups linked with this user
   $query = 'SELECT id,name';

@@ -40,6 +40,8 @@
             <td>{#mail_address}</td>
             <td><input type="text" name="mail_address" value="{#user:mail_address}" /></td>
           </tr>
+
+          <!--VTP_status-->
           <tr>
             <td>{#adduser_status}</td>
             <td>
@@ -50,6 +52,8 @@
               </select>
             </td>
           </tr>
+          <!--/VTP_status-->
+
           <!--VTP_groups-->
           <tr>
             <td valign="top">{#menu_groups}</td>
