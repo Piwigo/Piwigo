@@ -24,6 +24,7 @@ initialize_template();
 
 $tpl = array('about_page_title','about_title','about_message','about_return');
 templatize_array( $tpl, 'lang', $handle );
+$vtp->setVar( $handle, 'user_template', $user['template'] );
 
 $url = './category.php?'.$_SERVER['QUERY_STRING'];
 $vtp->setVar( $handle, 'back_url', add_session_id( $url ) );
