@@ -84,14 +84,21 @@ elseif ( isset( $_POST['new'] ) )
 elseif ( isset( $_POST['add'] ) )
 {
   $userdata = getuserdata($_POST['username']);
-  if (!$userdata) echo "Utilisateur inexistant";
-	
-	// create a new association between the user and a group
-  $query = 'INSERT INTO '.USER_GROUP_TABLE;
-  $query.= ' (user_id,group_id) VALUES';
-  $query.= ' ('.$userdata['id'].','.$_POST['edit_group_id'].')';
-  $query.= ';';
-  pwg_query( $query );
+  if (!$userdata)
+  {
+    array_push($error, $lang['user_err_unknown']);
+  }
+  else
+  {
+    // create a new association between the user and a group
+    $query = '
+INSERT INTO '.USER_GROUP_TABLE.'
+  (user_id,group_id)
+  VALUES
+  ('.$userdata['id'].','.$_POST['edit_group_id'].')
+;';
+    pwg_query($query);
+  }
 }
 elseif (isset( $_POST['deny_user'] ))
 {
