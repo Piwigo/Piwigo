@@ -283,7 +283,7 @@ if ( isset( $_POST['install'] ))
     mysql_query( $query );
     
     $query = 'INSERT INTO '.SITES_TABLE;
-    $query.= " (id,galleries_url) VALUES (1, ".PHPWG_ROOT_PATH."'galleries/');";
+    $query.= " (id,galleries_url) VALUES (1, '".PHPWG_ROOT_PATH."galleries/');";
     mysql_query( $query );
     
     // webmaster admin user
