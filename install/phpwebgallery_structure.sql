@@ -5,6 +5,17 @@
 -- Server version	3.23.49-log
 
 --
+-- Table structure for table 'phpwebgallery_caddie'
+--
+
+DROP TABLE IF EXISTS phpwebgallery_caddie;
+CREATE TABLE phpwebgallery_caddie (
+  user_id smallint(5) NOT NULL default '0',
+  element_id mediumint(8) NOT NULL default '0',
+  PRIMARY KEY  (user_id,element_id)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table 'phpwebgallery_categories'
 --
 
