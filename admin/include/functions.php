@@ -25,6 +25,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
+
 $tab_ext_create_TN = array ( 'jpg', 'png', 'JPG', 'PNG' );
 
 // is_image returns true if the given $filename (including the path) is a
@@ -202,7 +204,10 @@ SELECT id
   {
     array_push($element_ids, $row['id']);
   }
-  delete_elements($element_ids);
+  if (count($element_ids) > 0)
+  {
+    delete_elements($element_ids);
+  }
 
   // destruction of the links between images and this category
   $query = '
@@ -235,7 +240,10 @@ SELECT id
   {
     array_push($subcat_ids, $row['id']);
   }
-  delete_categories($subcat_ids);
+  if (count($subcat_ids) > 0)
+  {
+    delete_categories($subcat_ids);
+  }
 
   // destruction of the category
   $query = '
@@ -253,34 +261,41 @@ DELETE FROM '.CATEGORIES_TABLE.'
 //    - all the favorites associated to elements
 function delete_elements($ids)
 {
+  global $count_deleted;
+  
   // destruction of the comments on the image
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
-  WHERE image_id IN ('.implode(',', $ids).')
+  WHERE image_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
-  echo '<pre>'.$query.'</pre>';
   mysql_query($query);
 
   // destruction of the links between images and this category
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE image_id IN ('.implode(',', $ids).')
+  WHERE image_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   mysql_query($query);
 
   // destruction of the favorites associated with the picture
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
-  WHERE image_id IN ('.implode(',', $ids).')
+  WHERE image_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   mysql_query($query);
 		
   // destruction of the image
   $query = '
 DELETE FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $ids).')
+  WHERE id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   mysql_query($query);
+
+  $count_deleted+= count($ids);
 }
 
 // The delete_user function delete a user identified by the $user_id
@@ -401,67 +416,68 @@ function check_favorites( $user_id )
   }
 }
 
-// update_category updates calculated informations about a category :
-// date_last and nb_images. It also verifies that the representative picture
-// is really linked to the category.
-function update_category( $id = 'all' )
+/**
+ * updates calculated informations about a category : date_last and
+ * nb_images. It also verifies that the representative picture is really
+ * linked to the category. Recursive.
+ *
+ * @param mixed category id
+ * @returns void
+ */
+function update_category($id = 'all')
 {
-  if ( $id == 'all' )
+  $cat_ids = array();
+  
+  $query = '
+SELECT category_id, COUNT(image_id) AS count, max(date_available) AS date_last
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
+  if (is_numeric($id))
   {
-    $query = 'SELECT id FROM '.CATEGORIES_TABLE.';';
+    $query.= '
+  WHERE uppercats REGEXP \'(^|,)'.$id.'(,|$)\'';
+  }
+  $query.= '
+  GROUP BY category_id
+;';
+  $result = mysql_query( $query );
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    array_push($cat_ids, $row['category_id']);
+    $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET date_last = \''.$row['date_last'].'\'
+    , nb_images = '.$row['count'].'
+  WHERE id = '.$row['category_id'].'
+;';
+    mysql_query($query);
+  }
+
+  if (count($cat_ids) > 0)
+  {
+    $query = '
+SELECT id, representative_picture_id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id IS NOT NULL
+    AND id IN ('.implode(',', $cat_ids).')
+;';
     $result = mysql_query( $query );
     while ( $row = mysql_fetch_array( $result ) )
     {
-      // recursive call
-      update_category( $row['id'] );
-    }
-  }
-  else if ( is_numeric( $id ) )
-  {
-    // updating the number of pictures
-    $query = 'SELECT COUNT(*) as nb_images';
-    $query.= ' FROM '.PREFIX_TABLE.'image_category';
-    $query.= ' WHERE category_id = '.$id;
-    $query.= ';';
-    list( $nb_images ) = mysql_fetch_array( mysql_query( $query ) );
-    // updating the date_last
-    $query = 'SELECT MAX(date_available) AS date_available';
-    $query.= ' FROM '.PREFIX_TABLE.'images';
-    $query.= ' INNER JOIN '.PREFIX_TABLE.'image_category ON id = image_id';
-    $query.= ' WHERE category_id = '.$id;
-    $query.= ';';
-    list( $date_available ) = mysql_fetch_array( mysql_query( $query ) );
-    
-    $query = 'UPDATE '.CATEGORIES_TABLE;
-    $query.= " SET date_last = '".$date_available."'";
-    $query.= ', nb_images = '.$nb_images;
-    $query.= ' WHERE id = '.$id;
-    $query.= ';';
-    mysql_query( $query );
-
-    // updating the representative_picture_id : if the representative
-    // picture of the category is not any more linked to the category, we
-    // have to set representative_picture_id to NULL
-    $query = 'SELECT representative_picture_id';
-    $query.= ' FROM '.CATEGORIES_TABLE;
-    $query.= ' WHERE id = '.$id;
-    $row = mysql_fetch_array( mysql_query( $query ) );
-    // if the category has no representative picture (ie
-    // representative_picture_id == NULL) we don't update anything
-    if ( isset( $row['representative_picture_id'] ) )
-    {
-      $query = 'SELECT image_id';
-      $query.= ' FROM '.PREFIX_TABLE.'image_category';
-      $query.= ' WHERE category_id = '.$id;
-      $query.= ' AND image_id = '.$row['representative_picture_id'];
-      $query.= ';';
+      $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$row['id'].'
+    AND image_id = '.$row['representative_picture_id'].'
+;';
       $result = mysql_query( $query );
-      if ( mysql_num_rows( $result ) == 0 )
+      if (mysql_num_rows($result) == 0)
       {
-        $query = 'UPDATE '.CATEGORIES_TABLE;
-        $query.= ' SET representative_picture_id = NULL';
-        $query.= ' WHERE id = '.$id;
-        $query.= ';';
+        $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id = '.$row['id'].'
+;';
         mysql_query( $query );
       }
     }
@@ -880,5 +896,21 @@ function get_category_directories( $basedir )
     }
   }
   return $sub_dirs;
+}
+
+// my_error returns (or send to standard output) the message concerning the
+// error occured for the last mysql query.
+function my_error($header, $echo = true)
+{
+  $error = $header.'<span style="font-weight:bold;">N°= '.mysql_errno();
+  $error.= ' -->> '.mysql_error()."</span><br /><br />\n";
+  if ($echo)
+  {
+    echo $error;
+  }
+  else
+  {
+    return $error;
+  }
 }
 ?>
