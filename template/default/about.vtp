@@ -2,7 +2,7 @@
   <head>
     {#style}
     <title>{#about_page_title}</title>
-    <meta http-equiv="Content-Type" content="text/html; {#charset}">
+    <meta http-equiv="Content-Type" content="text/html; charset={#charset}" />
   </head>
   <body>
     {#header}
@@ -22,7 +22,7 @@
             <a href="{#back_url}">{#about_return}</a>
           </div>
           <div style="text-align:center;margin:5px;">
-            <img src="./images/php_sqreuil_artistes.gif" alt="php logo" />
+            <img src="./template/{#user_template}/images/php_sqreuil_artistes.gif" alt="php logo" />
           </div>
         </td>
       </tr>
