@@ -344,6 +344,8 @@ if ( $isadmin )
 // start version 1.3
   $lang['conf_comments_validation'] = 'validation';
   $lang['conf_comments_validation_info'] = 'L\'administrateur valide les commentaires avant qu\'ils apparaissent sur le site';
+  $lang['conf_comments_forall'] = 'pour tous ?';
+  $lang['conf_comments_forall_info'] = 'Même les invités non enregistrés peuvent déposer les messages';
   // $lang['conf_remote_site_title'] = 'Site distant';
 // end version 1.3
   $lang['conf_remote_site_delete_info'] = 'Supprimer un site revient à supprimer toutes les images et les catégories en relation avec ce site.';

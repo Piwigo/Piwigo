@@ -41,7 +41,7 @@ array( 'prefix_thumbnail','webmaster','mail_webmaster','access',
        'show_comments','nb_comment_page','upload_available',
        'upload_maxfilesize', 'upload_maxwidth','upload_maxheight',
        'upload_maxwidth_thumbnail','upload_maxheight_thumbnail','log',
-       'comments_validation' );
+       'comments_validation','comments_forall' );
 $default_user_infos =
 array( 'nb_image_line','nb_line_page','language','maxwidth',
        'maxheight','expand','show_nb_comments','short_period','long_period',
@@ -447,6 +447,38 @@ $vtp->closeSession( $sub, 'radio' );
 $vtp->closeSession( $sub, 'group' );
 $vtp->setVar( $sub, 'param_line.def',
               $lang['conf_comments_show_comments_info'] );
+$vtp->closeSession( $sub, 'param_line' );
+$vtp->closeSession( $sub, 'line' );
+// coments for all ? true -> guests can post messages
+$vtp->addSession( $sub, 'line' );
+$vtp->addSession( $sub, 'param_line' );
+$vtp->setVar( $sub, 'param_line.name', $lang['conf_comments_forall'] );
+$vtp->addSession( $sub, 'group' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'comments_forall' );
+$vtp->setVar( $sub, 'radio.value', 'true' );
+$vtp->setVar( $sub, 'radio.option', $lang['yes'] );
+$checked = '';
+if ( $comments_forall == 'true' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->addSession( $sub, 'radio' );
+$vtp->setVar( $sub, 'radio.name', 'comments_forall' );
+$vtp->setVar( $sub, 'radio.value', 'false' );
+$vtp->setVar( $sub, 'radio.option', $lang['no'] );
+$checked = '';
+if ( $comments_forall == 'false' )
+{
+  $checked = ' checked="checked"';
+}
+$vtp->setVar( $sub, 'radio.checked', $checked );
+$vtp->closeSession( $sub, 'radio' );
+$vtp->closeSession( $sub, 'group' );
+$vtp->setVar( $sub, 'param_line.def',
+              $lang['conf_comments_forall_info'] );
 $vtp->closeSession( $sub, 'param_line' );
 $vtp->closeSession( $sub, 'line' );
 // number of comments per page

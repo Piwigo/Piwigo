@@ -624,20 +624,27 @@ if ( $conf['show_comments'] )
     }
     $vtp->closeSession( $handle, 'comment' );
   }
-  // form action
-  $action = str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] );
-  $vtp->setGlobalVar( $handle, 'form_action', $action );
-  // display author field if the user is not logged in
-  if ( !$user['is_the_guest'] )
+
+  if ( !$user['is_the_guest']
+       or ( $user['is_the_guest'] and $conf['comments_forall'] ) )
   {
-    $vtp->addSession( $handle, 'author_known' );
-    $vtp->setVar( $handle, 'author_known.value', $user['pseudo'] );
-    $vtp->closeSession( $handle, 'author_known' );
-  }
-  else
-  {
-    $vtp->addSession( $handle, 'author_field' );
-    $vtp->closeSession( $handle, 'author_field' );
+    $vtp->addSession( $handle, 'add_comment' );
+    // form action
+    $action = str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] );
+    $vtp->setGlobalVar( $handle, 'form_action', $action );
+    // display author field if the user is not logged in
+    if ( !$user['is_the_guest'] )
+    {
+      $vtp->addSession( $handle, 'author_known' );
+      $vtp->setVar( $handle, 'author_known.value', $user['pseudo'] );
+      $vtp->closeSession( $handle, 'author_known' );
+    }
+    else
+    {
+      $vtp->addSession( $handle, 'author_field' );
+      $vtp->closeSession( $handle, 'author_field' );
+    }
+    $vtp->closeSession( $handle, 'add_comment' );
   }
   $vtp->closeSession( $handle, 'comments' );
 }
