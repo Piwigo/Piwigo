@@ -400,7 +400,7 @@ function format_date($date, $type = 'us', $show_time = false)
     }
     case 'unix' :
     {
-      list($year,$month,$day,$hour,$minute,$second) =
+      list($year,$month,$day,$hour,$minute) =
         explode('.', date('Y.n.j.G.i', $date));
       break;
     }

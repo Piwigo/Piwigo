@@ -170,7 +170,7 @@ $conf['newcat_default_commentable'] = 'true';
 
 // newcat_default_uploadable : at creation, must a category be uploadable or
 // not ?
-$conf['newcat_default_uploadable'] = 'true';
+$conf['newcat_default_uploadable'] = 'false';
 
 // newcat_default_visible : at creation, must a category be visible or not ?
 // Warning : if the parent category is invisible, the category is

@@ -122,15 +122,13 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
-if ( $page['cat_site_id'] != 1
-     or !$conf['upload_available']
-     or !$page['cat_uploadable'] )
-{
-  echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
-  echo '<a href="'.add_session_id( './category.php' ).'">';
-  echo $lang['thumbnails'].'</a></div>';
-  exit();
-}
+  if ($page['cat_site_id'] != 1 or !$page['cat_uploadable'])
+  {
+    echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
+    echo '<a href="'.add_session_id( './category.php' ).'">';
+    echo $lang['thumbnails'].'</a></div>';
+    exit();
+  }
 }
 
 $error = array();

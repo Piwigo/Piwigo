@@ -33,7 +33,7 @@
     </tr>
     <!-- END picture -->
     <tr>
-      <td colspan="5" align="center">
+      <td colspan="6" align="center">
 	  <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
 	  </td>
     </tr>
