@@ -95,13 +95,13 @@ else
   $vtp->closeSession( $handle, 'text_field' );
 }
 //-------------------------------------------------------------- visit as guest
-if ( $conf['acces'] == "libre" )
+if ( $conf['access'] == 'free' )
 {
   $vtp->addSession( $handle, 'guest_visit' );
   $vtp->closeSession( $handle, 'guest_visit' );
 }
 //---------------------------------------------------------------- registration
-if ( $conf['acces'] == "libre" )
+if ( $conf['access'] == 'free' )
 {
   $vtp->addSession( $handle, 'register' );
   $vtp->closeSession( $handle, 'register' );
@@ -109,10 +109,4 @@ if ( $conf['acces'] == "libre" )
 //----------------------------------------------------------- html code display
 $code = $vtp->Display( $handle, 0 );
 echo $code;
-//------------------------------------------------------------ log informations
-$query = 'insert into '.PREFIX_TABLE.'history';
-$query.= '(date,login,IP,page) values';
-$query.= "('".time()."', '".$user['pseudo'];
-$query.= "','$REMOTE_ADDR','identification');";
-$result = mysql_query( $query );
 ?>
