@@ -165,7 +165,7 @@ $lang['upload_err_username'] = 'Der Benutzername muss angegeben werden';
 $lang['upload_username'] = 'Benutzername';
 $lang['upload_successful'] = 'Das Bild wurde erfolgreich upgeloaded, ein Administrator wird das Bild bald freischalten.';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO_8859-1';
+$lang['charset'] = 'iso-8859-1';
 $lang['no'] = 'Nein';
 $lang['yes'] = 'Ja';
 $lang['guest'] = 'Gast';

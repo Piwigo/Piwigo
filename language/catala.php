@@ -156,7 +156,7 @@ $lang['upload_err_username'] = 'ha de donar el nom d\'usuari';
 $lang['upload_username'] = 'Usuari';
 $lang['upload_successful'] = 'Imatge pujada correctament, un administrador la validarà tan aviat com sigui possible';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO_8859-1';
+$lang['charset'] = 'iso-8859-1';
 $lang['no'] = 'no';
 $lang['yes'] = 'si';
 $lang['guest'] = 'convidat';

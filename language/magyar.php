@@ -162,7 +162,7 @@ $lang['upload_err_username'] = 'meg kell adni a felhasználói nevet';
 $lang['upload_username'] = 'Felhasználói név';
 $lang['upload_successful'] = 'A kép feltöltésre került; a rendszergazda hamarosan engedélyezni fogja';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO_8859-2';
+$lang['charset'] = 'iso-8859-2';
 $lang['no'] = 'nem';
 $lang['yes'] = 'igen';
 $lang['guest'] = 'vendég';

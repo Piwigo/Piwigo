@@ -147,7 +147,7 @@ $lang['upload_err_username'] = 'le nom de l\'utilisateur doit être renseigné';
 $lang['upload_username'] = 'Nom d\'utilisateur';
 $lang['upload_successful'] = 'Image uploadée avec succès, un administrateur validera celle-ci dès que possible.';
 // new or modified in release 1.3
-$lang['charset'] = 'ISO-8859-1';
+$lang['charset'] = 'iso-8859-1';
 $lang['no'] = 'non';
 $lang['yes'] = 'oui';
 $lang['guest'] = 'visiteur';
