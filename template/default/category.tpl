@@ -21,12 +21,13 @@
 		  <br />
 		  <ul class="menu">
 		    <!-- BEGIN favorites -->
-		    <li><a href="{U_FAVORITE}"><span title="{L_FAVORITE_HINT}" style="font-weight:bold;">{L_FAVORITE}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{favorites.NB_FAV}&nbsp;]</span></li>
+		    <li><a href="{U_FAVORITE}"><span title="{L_FAVORITE_HINT}">{L_FAVORITE}</span></a>&nbsp;<span class="menuInfoCat">[&nbsp;{favorites.NB_FAV}&nbsp;]</span></li>
 		    <!-- END favorites -->
-		    <li><span style="font-weight:bold;">{L_STATS}</span></li>
+		    <li><span style="font-weight:bold;">{L_SPECIAL_CATEGORIES}</span></li>
 		    <ul class="menu">
-		      <li><a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}" style="font-weight:bold;">{TOP_VISITED}&nbsp;{L_MOST_VISITED}</span></a></li>
-		      <li><a href="{U_RECENT}"><span title="{L_RECENT_HINT}" style="font-weight:bold;">{L_RECENT}</span></a> {T_SHORT}</li>
+		      <li><a href="{U_MOST_VISITED}"><span title="{L_MOST_VISITED_HINT}">{TOP_VISITED}&nbsp;{L_MOST_VISITED}</span></a></li>
+		      <li><a href="{U_RECENT}"><span title="{L_RECENT_HINT}">{L_RECENT}</span></a> {T_SHORT}</li>
+		      <li><a href="{U_CALENDAR}"><span title="{L_CALENDAR_HINT}">{L_CALENDAR}</span></a></li>
 		    </ul>
 		  </ul>
 		</div>
@@ -55,10 +56,10 @@
 		<!-- END login -->
 		<!-- BEGIN logout -->
 		<p>{L_HELLO}&nbsp;{USERNAME}&nbsp;!</p>
-		&nbsp;<img src="{T_COLLAPSED}" alt=""/>&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a><br />
-		&nbsp;<img src="{T_COLLAPSED}" alt=''/>&nbsp;<a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a><br />
+		&nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_LOGOUT}">{L_LOGOUT}</a><br />
+		&nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a><br />
 		<!-- BEGIN admin -->
-	    &nbsp;<img src="{T_COLLAPSED}" alt=''/>&nbsp;<a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a><br />
+	    &nbsp;<img src="{T_COLLAPSED}" alt="&gt;"/>&nbsp;<a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a><br />
 		<!-- END admin -->
 		<!-- END logout -->
 		</div>
@@ -67,6 +68,10 @@
 	<td style="padding:10px;width:99%;" valign="top">
 	  <div class="home">
 			<div class="titrePage">{TITLE}</div>
+			<!-- BEGIN calendar -->
+                          <div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
+			  <div class="navigationBar">{calendar.MONTHS_NAV_BAR}</div>
+			<!-- END calendar -->
 			<!-- BEGIN thumbnails -->
 			<table valign="top" align="center" class="thumbnail">
 			  <!-- BEGIN line -->
@@ -98,9 +103,6 @@
 			  <!-- BEGIN comment -->
 			  <div class="info">{cat_infos.comment.COMMENTS}</div>
 			  <!-- END comment -->
-			  <div class="infoCat">
-			  {L_NB_IMG} "{TITLE}" : {cat_infos.NB_IMG_CAT}
-			  </div>
 			<!-- END cat_infos -->
       </div>
 	</td>
