@@ -57,7 +57,7 @@
     <!--/VTP_line-->
     <!--VTP_remote_sites-->
     <tr>
-      <th colspan="3" align="center">{#conf_remote_site_title}</th>
+      <th colspan="3" align="center">{#remote_site}</th>
     </tr>
     <tr>
       <td colspan=3><div style='margin-bottom:0px'>&nbsp;</div></td>
