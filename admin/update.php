@@ -629,9 +629,8 @@ if (isset($_GET['metadata']))
   {
     check_cat_id($_GET['update']);
   }
-  
+
   $start = get_moment();
-  // $files = get_filelist(1464);
   if (isset($page['cat']))
   {
     $files = get_filelist($page['cat'],true,true);
