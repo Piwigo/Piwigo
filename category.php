@@ -387,8 +387,8 @@ elseif ( ( isset( $page['cat'] )
     $query.= ' WHERE category_id = '.$non_empty_id;
     $query.= ' AND id = image_id';
     // if the category has a representative picture, this is its thumbnail
-    // tha will be displayed !
-    if ( $row['representative_picture_id'] != '' )
+    // that will be displayed !
+    if ( isset( $row['representative_picture_id'] ) )
       $query.= ' AND id = '.$row['representative_picture_id'];
     else
       $query.= ' ORDER BY RAND()';
