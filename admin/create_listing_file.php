@@ -229,7 +229,7 @@ function get_representative_files($dir)
   global $conf;
 
   $pictures = array();
-  if ($opendir = @opendir($dir.'/representative'))
+  if ($opendir = @opendir($dir.'/pwg_representative'))
   {
     while ($file = readdir($opendir))
     {
@@ -259,8 +259,8 @@ function get_dirs($basedir, $indent, $level)
       if ($file != '.'
           and $file != '..'
           and $file != 'thumbnail'
-          and $file != 'high'
-          and $file != 'representative'
+          and $file != 'pwg_high'
+          and $file != 'pwg_representative'
           and is_dir ($basedir.'/'.$file))
       {
         array_push($fs_dirs, $file);

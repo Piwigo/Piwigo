@@ -153,7 +153,7 @@ foreach (array('prev', 'current', 'next') as $i)
 
   if (isset($row['representative_ext']) and $row['representative_ext'] =! '')
   {
-    $picture[$i]['src'] = $cat_directory.'representative/';
+    $picture[$i]['src'] = $cat_directory.'pwg_representative/';
     $picture[$i]['src'].= $file_wo_ext.'.'.$row['representative_ext'];
   }
   else
@@ -168,9 +168,9 @@ foreach (array('prev', 'current', 'next') as $i)
     // high quality picture
     if ($i == 'current')
     {
-      if (@fopen($cat_directory.'high/'.$row['file'], 'r'))
+      if (@fopen($cat_directory.'pwg_high/'.$row['file'], 'r'))
       {
-        $picture[$i]['high'] = $cat_directory.'high/'.$row['file'];
+        $picture[$i]['high'] = $cat_directory.'pwg_high/'.$row['file'];
       }
     }
   }

@@ -128,7 +128,7 @@ function get_representative_files($dir)
   global $conf;
 
   $pictures = array();
-  if ($opendir = @opendir($dir.'/representative'))
+  if ($opendir = @opendir($dir.'/pwg_representative'))
   {
     while ($file = readdir($opendir))
     {
@@ -740,7 +740,8 @@ function is_user_allowed( $category_id, $restrictions )
 /**
  * returns an array containing sub-directories which can be a category
  *
- * directories nammed "thumbnail", "high" or "representative" are omitted
+ * directories nammed "thumbnail", "pwg_high" or "pwg_representative" are
+ * omitted
  *
  * @param string $basedir
  * @return array
@@ -756,8 +757,8 @@ function get_category_directories( $basedir )
       if ($file != '.'
           and $file != '..'
           and $file != 'thumbnail'
-          and $file != 'high'
-          and $file != 'representative'
+          and $file != 'pwg_high'
+          and $file != 'pwg_representative'
           and is_dir($basedir.'/'.$file))
       {
         array_push( $sub_dirs, $file );
