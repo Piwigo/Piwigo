@@ -168,11 +168,9 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     list( $day,$month,$year ) = explode( '/', $_POST['date_creation'] );
     // int checkdate ( int month, int day, int year)
-    if ( checkdate( $month, $day, $year ) )
+    if (checkdate($month, $day, $year))
     {
-      // int mktime ( int hour, int minute, int second,
-      //              int month, int day, int year [, int is_dst])
-      $date_creation = mktime( 0, 0, 0, $month, $day, $year );
+      $date_creation = $year.'-'.$month.'-'.$day;
     }
     else
     {
@@ -181,7 +179,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   }
   // creation of the "infos" field :
   // <infos author="Pierrick LE GALL" comment="my comment"
-  //        date_creation="1056891767" name="" />
+  //        date_creation="2004-08-14" name="" />
   $xml_infos = '<infos';
   $xml_infos.= ' author="'.htmlspecialchars($_POST['author'],ENT_QUOTES).'"';
   $xml_infos.= ' comment="'.htmlspecialchars($_POST['comment'],ENT_QUOTES).'"';
