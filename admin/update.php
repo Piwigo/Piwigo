@@ -247,8 +247,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     $counts['del_categories'] = count($to_delete);
   }
   
+  echo '<!-- scanning dirs : ';
   echo get_elapsed_time($start, get_moment());
-  echo ' for new method scanning directories<br />';
+  echo ' -->'."\n";
 }
 // +-----------------------------------------------------------------------+
 // |                           files / elements                            |
@@ -260,8 +261,7 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files')
 
   $fs = get_fs($basedir);
   
-  echo get_elapsed_time($start, get_moment());
-  echo ' for get_fs<br />';
+  echo '<!-- get_fs : '.get_elapsed_time($start, get_moment()).' -->'."\n";
   
   $cat_ids = array_diff(array_keys($db_categories), $to_delete);
 
@@ -450,8 +450,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     $counts['del_elements'] = count($to_delete_elements);
   }
   
+  echo '<!-- scanning files : ';
   echo get_elapsed_time($start_files, get_moment());
-  echo ' for new method scanning files<br />';
+  echo ' -->'."\n";
 }
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
@@ -468,6 +469,7 @@ $result_title.= $lang['update_part_research'];
 $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],
+    'L_RESET'=>$lang['reset'],
     'L_UPDATE_TITLE'=>$lang['update_default_title'],
     'L_UPDATE_SYNC_FILES'=>$lang['update_sync_files'],
     'L_UPDATE_SYNC_DIRS'=>$lang['update_sync_dirs'],
@@ -495,9 +497,57 @@ $template->assign_vars(
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
 // +-----------------------------------------------------------------------+
-if (!isset($_POST['submit']))
+if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
 {
   $template->assign_block_vars('introduction', array());
+
+  if (isset($simulate) and $simulate)
+  {
+    switch ($_POST['sync'])
+    {
+      case 'dirs' :
+      {
+        $template->assign_vars(
+          array('SYNC_DIRS_CHECKED'=>'checked="checked"'));
+        break;
+      }
+      case 'files' :
+      {
+        $template->assign_vars(
+          array('SYNC_ALL_CHECKED'=>'checked="checked"'));
+        break;
+      }
+    }
+
+    if (isset($_POST['display_info']) and $_POST['display_info'] == 1)
+    {
+      $template->assign_vars(
+        array('DISPLAY_INFO_CHECKED'=>'checked="checked"'));
+    }
+
+    if (isset($_POST['subcats-included']) and $_POST['subcats-included'] == 1)
+    {
+      $template->assign_vars(
+        array('SUBCATS_INCLUDED_CHECKED'=>'checked="checked"'));
+    }
+
+    if (isset($_POST['cat']) and is_numeric($_POST['cat']))
+    {
+      $cat_selected = array($_POST['cat']);
+    }
+    else
+    {
+      $cat_selected = array();
+    }
+  }
+  else
+  {
+    $template->assign_vars(
+      array('SYNC_DIRS_CHECKED' => 'checked="checked"',
+            'SUBCATS_INCLUDED_CHECKED'=>'checked="checked"'));
+
+    $cat_selected = array();
+  }
 
   $query = '
 SELECT id,name,uppercats,global_rank
@@ -505,15 +555,15 @@ SELECT id,name,uppercats,global_rank
   WHERE site_id = 1
 ;';
   display_select_cat_wrapper($query,
-                             array(),
+                             $cat_selected,
                              'introduction.category_option',
                              false);
 }
 // +-----------------------------------------------------------------------+
 // |                          synchronize files                            |
 // +-----------------------------------------------------------------------+
-else if (isset($_POST['submit'])
-         and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
+if (isset($_POST['submit'])
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
   $template->assign_block_vars(
     'update',
@@ -558,13 +608,15 @@ else if (isset($_POST['submit'])
   {
     $start = get_moment();
     update_category('all');
+    echo '<!-- update_category(all) : ';
     echo get_elapsed_time($start,get_moment());
-    echo ' for update_category(all)<br />';
+    echo ' -->'."\n";
     $start = get_moment();
     ordering();
     update_global_rank();
+    echo '<!-- ordering categories : ';
     echo get_elapsed_time($start, get_moment());
-    echo ' for ordering categories<br />';
+    echo ' -->'."\n";
   }
 }
 // +-----------------------------------------------------------------------+
@@ -597,11 +649,16 @@ else if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync']))
   $files = get_filelist($opts['category_id'],
                         $opts['recursive'],
                         $opts['only_new']);
-  echo get_elapsed_time($start, get_moment()).' for get_filelist<br />';
+  
+  echo '<!-- get_filelist : ';
+  echo get_elapsed_time($start, get_moment());
+  echo ' -->'."\n";
   
   $start = get_moment();
   update_metadata($files);
-  echo get_elapsed_time($start, get_moment()).' for metadata update<br />';
+  echo '<!-- metadata update : ';
+  echo get_elapsed_time($start, get_moment());
+  echo ' -->'."\n";
 }
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
