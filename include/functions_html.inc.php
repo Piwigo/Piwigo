@@ -29,6 +29,11 @@ function get_icon( $date )
 {
   global $user, $conf, $lang;
 
+  if (!preg_match('/\d{4}-\d{2}-\d{2}/', $date))
+  {
+    return '';
+  }
+
   list( $year,$month,$day ) = explode( '-', $date );
   $unixtime = mktime( 0, 0, 0, $month, $day, $year );
   
