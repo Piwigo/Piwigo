@@ -299,6 +299,14 @@ DELETE FROM '.FAVORITES_TABLE.'
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   mysql_query($query);
+
+  // destruction of the rates associated to this element
+  $query = '
+DELETE FROM '.RATE_TABLE.'
+  WHERE element_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
+;';
+  mysql_query($query);
 		
   // destruction of the image
   $query = '
