@@ -767,22 +767,6 @@ function get_fs_directories($path, $recursive = true)
   return $dirs;
 }
 
-// my_error returns (or send to standard output) the message concerning the
-// error occured for the last mysql query.
-function my_error($header, $echo = true)
-{
-  $error = $header.'<span style="font-weight:bold;">N°= '.mysql_errno();
-  $error.= ' -->> '.mysql_error()."</span><br /><br />\n";
-  if ($echo)
-  {
-    echo $error;
-  }
-  else
-  {
-    return $error;
-  }
-}
-
 /**
  * inserts multiple lines in a table
  *
@@ -910,18 +894,21 @@ DESCRIBE '.$tablename.'
         array_push($columns, $column);
       }
     }
+    
+    $temporary_tablename = $tablename.'_'.micro_seconds();
+    
     $query = '
-CREATE TEMPORARY TABLE '.$tablename.'_temporary
+CREATE TABLE '.$temporary_tablename.'
 (
 '.implode(",\n", $columns).',
 PRIMARY KEY (id)
 )
 ;';
     pwg_query($query);
-    mass_inserts($tablename.'_temporary', $all_fields, $datas);
+    mass_inserts($temporary_tablename, $all_fields, $datas);
     // update of images table by joining with temporary table
     $query = '
-UPDATE '.$tablename.' AS t1, '.$tablename.'_temporary AS t2
+UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
   SET '.implode("\n    , ",
                 array_map(
                   create_function('$s', 'return "t1.$s = t2.$s";')
@@ -933,7 +920,7 @@ UPDATE '.$tablename.' AS t1, '.$tablename.'_temporary AS t2
 ;';
     pwg_query($query);
     $query = '
-DROP TABLE '.$tablename.'_temporary
+DROP TABLE '.$temporary_tablename.'
 ;';
     pwg_query($query);
   }
@@ -1193,12 +1180,23 @@ SELECT id, dir
     $cat_dirs[$row['id']] = $row['dir'];
   }
 
-  // filling $uppercats_array : to each category id the uppercats list is
-  // associated
-  $uppercats_array = array();
+  // caching galleries_url
+  $query = '
+SELECT id, galleries_url
+  FROM '.SITES_TABLE.'
+;';
+  $result = pwg_query($query);
+  $galleries_url = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $galleries_url[$row['id']] = $row['galleries_url'];
+  }
+
+  // categories : id, site_id, uppercats
+  $categories = array();
   
   $query = '
-SELECT id, uppercats
+SELECT id, uppercats, site_id
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
@@ -1206,25 +1204,18 @@ SELECT id, uppercats
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $uppercats_array[$row['id']] = $row['uppercats'];
+    array_push($categories, $row);
   }
-  
-  $query = '
-SELECT galleries_url
-  FROM '.SITES_TABLE.'
-  WHERE id = 1
-';
-  $row = mysql_fetch_array(pwg_query($query));
-  $basedir = $row['galleries_url'];
   
   // filling $cat_fulldirs
   $cat_fulldirs = array();
-  foreach ($uppercats_array as $cat_id => $uppercats)
+  foreach ($categories as $category)
   {
-    $uppercats = str_replace(',', '/', $uppercats);
-    $cat_fulldirs[$cat_id] = $basedir.preg_replace('/(\d+)/e',
-                                                   "\$cat_dirs['$1']",
-                                                   $uppercats);
+    $uppercats = str_replace(',', '/', $category['uppercats']);
+    $cat_fulldirs[$category['id']] = $galleries_url[$category['site_id']];
+    $cat_fulldirs[$category['id']].= preg_replace('/(\d+)/e',
+                                                  "\$cat_dirs['$1']",
+                                                  $uppercats);
   }
 
   return $cat_fulldirs;
@@ -1316,5 +1307,16 @@ function get_fs($path, $recursive = true)
     }
   }
   return $fs;
+}
+
+/**
+ * stupidly returns the current microsecond since Unix epoch
+ */
+function micro_seconds()
+{
+  $t1 = explode(' ', microtime());
+  $t2 = explode('.', $t1[0]);
+  $t2 = $t1[1].substr($t2[1], 0, 6);
+  return $t2;
 }
 ?>

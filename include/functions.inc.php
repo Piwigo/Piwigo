@@ -486,21 +486,31 @@ function pwg_write_debug()
 
 function pwg_query($query)
 {
-  global $conf,$count_queries,$queries_time;
+  global $conf,$page;
   
   $start = get_moment();
-  $result = mysql_query($query);
+  $result = mysql_query($query) or my_error($query."\n");
   
   $time = get_moment() - $start;
-  $count_queries++;
-  $queries_time+= $time;
+
+  if (!isset($page['count_queries']))
+  {
+    $page['count_queries'] = 0;
+    $page['queries_time'] = 0;
+  }
+  
+  $page['count_queries']++;
+  $page['queries_time']+= $time;
   
   if ($conf['show_queries'])
   {
     $output = '';
-    $output.= '<pre>['.$count_queries.'] '."\n".$query;
-    $output.= "\n".'(this query time : '.number_format( $time, 3, '.', ' ').' s)</b>';
-    $output.= "\n".'(total SQL time  : '.number_format( $queries_time, 3, '.', ' ').' s)';
+    $output.= '<pre>['.$page['count_queries'].'] ';
+    $output.= "\n".$query;
+    $output.= "\n".'(this query time : ';
+    $output.= number_format($time, 3, '.', ' ').' s)</b>';
+    $output.= "\n".'(total SQL time  : ';
+    $output.= number_format($page['queries_time'], 3, '.', ' ').' s)';
     $output.= '</pre>';
     
     echo $output;
@@ -623,5 +633,24 @@ function get_thumbnail_src($path, $tn_ext = '')
   }
   
   return $src;
+}
+
+// my_error returns (or send to standard output) the message concerning the
+// error occured for the last mysql query.
+function my_error($header, $echo = true)
+{
+  $error = '<pre>';
+  $error.= $header;
+  $error.= '[mysql error '.mysql_errno().'] ';
+  $error.= mysql_error();
+  $error.= '</pre>';
+  if ($echo)
+  {
+    echo $error;
+  }
+  else
+  {
+    return $error;
+  }
 }
 ?>

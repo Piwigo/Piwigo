@@ -42,17 +42,17 @@ if ($conf['show_gt'])
 {
   $time = get_elapsed_time($t2, get_moment());
 
-  if (!isset($count_queries))
+  if (!isset($page['count_queries']))
   {
-    $count_queries = 0;
-    $queries_time = 0;
+    $page['count_queries'] = 0;
+    $page['queries_time'] = 0;
   }
   
   $template->assign_block_vars(
     'debug',
     array('TIME' => $time,
-          'NB_QUERIES' => $count_queries,
-          'SQL_TIME' => number_format($queries_time, 3, '.', ' ').' s'));
+          'NB_QUERIES' => $page['count_queries'],
+          'SQL_TIME' => number_format($page['queries_time'],3,'.',' ').' s'));
 }
 
 //

@@ -221,18 +221,23 @@ SELECT '.implode(',', $infos).'
   }
   $cat['comment'] = nl2br($cat['comment']);
 
-  $cat['name'] = array();
-
+  $names = array();
   $query = '
 SELECT name,id
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.$cat['uppercats'].')
-  ORDER BY id ASC
 ;';
   $result = pwg_query($query);
   while($row = mysql_fetch_array($result))
   {
-    $cat['name'][$row['id']] = $row['name'];
+    $names[$row['id']] = $row['name'];
+  }
+
+  // category names must be in the same order than uppercats list
+  $cat['name'] = array();
+  foreach (explode(',', $cat['uppercats']) as $cat_id)
+  {
+    $cat['name'][$cat_id] = $names[$cat_id];
   }
   
   return $cat;

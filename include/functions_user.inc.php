@@ -208,10 +208,7 @@ function check_login_authorization($guest_allowed = true)
 
 function setup_style($style)
 {
-  $template_path = 'template/' ;
-  $template_name = $style ;
-  $template = new Template(PHPWG_ROOT_PATH . $template_path . $template_name);
-  return $template;
+  return new Template(PHPWG_ROOT_PATH.'template/'.$style);
 }
 
 function getuserdata($user)
