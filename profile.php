@@ -109,6 +109,12 @@ if ( isset( $_POST['submit'] ) )
     {
       setcookie( 'id',$page['session_id'],$_POST['cookie_expiration'],
                  cookie_path() );
+      // update the expiration date of the session
+      $query = 'UPDATE '.PREFIX_TABLE.'sessions';
+      $query.= ' SET expiration = '.$_POST['cookie_expiration'];
+      $query.= " WHERE id = '".$page['session_id']."'";
+      $query.= ';';
+      mysql_query( $query );
     }
     // redirection
     $url = 'category.php?cat='.$page['cat'].'&expand='.$_GET['expand'];
