@@ -28,9 +28,6 @@ $isadmin = false;
 include_once( './language/'.$user['language'].'.php' );
 // displaying the username in the language of the connected user, instead of
 // "guest" as you can find in the database
-if ( $user['is_the_guest'] )
-{
-  $user['username'] = $lang['guest'];
-}
+if ( $user['is_the_guest'] ) $user['username'] = $lang['guest'];
 include_once( './template/'.$user['template'].'/htmlfunctions.inc.php' );
 ?>
