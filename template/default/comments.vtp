@@ -23,18 +23,15 @@
 <div style="border:2px solid gray;margin:2px;padding:2px;">
   <table style="width:100%;">
     <tr>
-     <td valign="top" width="1px">
+     <td valign="top" style="width:15%;">
        <!-- the thumbnail of the picture, linked to the full size page -->
        <a href="{#thumb_url}" title="{#thumb_title}">
          <img src="{#thumb_src}" class="imgLink" alt="{#thumb_alt}"/>
        </a>
      </td>
-     <td style="padding:2px;">
-       <div style="font-weight:bold;padding-left:10px;">{#title}</div>
+     <td style="padding:10px;width:85%;">
+       <div style="font-weight:bold;padding-left:10px;text-align:left;">{#title}</div>
        <!--VTP_comment-->
-       <table style="width:100%;">
-         <tr>
-           <td>
              <table class="tableComment">
                <tr>
                  <td rowspan="2" valign="top" class="cellAuthor">
@@ -52,9 +49,6 @@
                  </td>
                </tr>
              </table>
-           </td>
-         </tr>
-       </table>
        <!--/VTP_comment-->
      </td>
     </tr>
