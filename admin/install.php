@@ -16,429 +16,168 @@
  *   the Free Software Foundation;                                         *
  *                                                                         *
  ***************************************************************************/
-function header_install()
-{
-  $output = "
-<html>
-	<head>
-		<title>PhpWebGallery 1.2</title>
-		<style>
-			a
-			{
-				text-decoration : none;
-				color : #006699;
-			}
-			a:hover
-			{
-				text-decoration : underline;
-			}
-			body,table,input,form,select,textarea
-			{
-				font-family : Arial, Verdana, Sans-Serif;
-				font-size : 12px;
-			}
-			.miniature
-			{
-				border : solid 1px black;
-			}
-			body
-			{
-				background-color :  #E5E5E5;
-			}
-			.titretable1
-			{
-				color : black;
-				background-color : #D3DCE3;
-				text-align : center;
-				border : 2px solid #006699;
-			}
-			.grostitre
-			{
-				text-align : center;
-				font-size : 20px;
-				margin-bottom : 20px;
-			}
-			.plan
-			{
-				margin : 10px 10px 10px 2px;
-				white-space : nowrap;
-			}
-			.table1
-			{
-				border-collapse : collapse;
-				background-color : #FFFFFF;
-			}
-			.contenucellule
-			{
-				background-color : #EEEEEE;
-				border : 2px solid #006699;
-			}
-			.style1
-			{
-				margin-top : 20px;
-			}
-			th
-			{
-				font-weight : bold;
-				background-color : #D3DCE3;
-			}
-			td.row1
-			{
-				background-color : #DDDDDD;
-			}
-			td.row2
-			{
-				background-color : #E8E8E8;
-			}
-			.cat_plan
-			{
-				font-weight : bold;
-			}
-			.retrait
-			{
-				margin : 10px;
-				margin-left : 30px;
-				margin-top : 2px;
-			}
-			input,textarea
-			{
-				border-width : 1;
-				border-color : #000000;
-				background : #ffffff;
-				color: #000000;
-			}
-			.erreur
-			{
-				color : red;
-				text-align : center;
-			}
-			.info
-			{
-				color : darkblue;
-				text-align : center;
-			}
-		</style>
-	</head>
-	<body>
-		<table style=\"width:100%;height:100%\">
-			<tr align=\"center\" valign=\"middle\">
-				<td>
-					<div class=\"grostitre\">PhpWebGallery 1.2</div>
-					<table width=\"700\" class=\"table1\" style=\"margin:auto;\">
-						<tr>
-							<td class=\"contenucellule\">";
-  return $output;
-}
-	
-function footer_install()
-{
-  $output = "
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-	</body>
-</html>";
-  return $output;
-}
-	
-if ( isset( $HTTP_GET_VARS['language'] ) )
+
+//-------------------------------------------------------------------- includes
+include( '../include/vtemplate.class.php' );
+include( '../include/functions.inc.php' );
+//----------------------------------------------------- template initialization
+$vtp = new VTemplate;
+$handle = $vtp->Open( '../template/default/admin/install.vtp' );
+$vtp->setGlobalVar( $handle, 'release', '1.3' );
+//-------------------------------------------------------------------- language
+if ( isset( $_GET['language'] ) )
 {
   $isadmin = true;
   $lang = array();
-  include( "../language/".$HTTP_GET_VARS['language'].".php" );
+  include( '../language/'.$_GET['language'].'.php' );
+  $tpl = array( 'step1_err_copy', 'step1_err_copy_2', 'step1_err_copy_next',
+                'errors_title', 'step1_title','step1_host','step1_host_info',
+                'step1_user','step1_user_info','step1_pass','step1_pass_info',
+                'step1_database','step1_database_info','step1_prefix',
+                'step1_prefix_info','submit','infos_title' );
+  templatize_array( $tpl, 'lang', $handle );
+  $vtp->setGlobalVar( $handle, 'language', $_GET['language'] );
 }
-	
-/*---------------------------------------Step 1------------------------------------*/
-if ( $HTTP_GET_VARS['step'] == 1 )
+//---------------------- Step 1 : connection informations, write of config file
+if ( $_GET['step'] == 1 )
 {
-  $erreur1 = true;
-  $message = "";
-  // création du fichier de configuration de connexion à la BD mysql
-  if( isset( $HTTP_POST_VARS['cfgBase'] ) && isset( $HTTP_POST_VARS['cfgUser'] ) && isset( $HTTP_POST_VARS['cfgPassword'] ) && isset( $HTTP_POST_VARS['cfgHote'] ) )
+  $errors = array();
+  $infos  = array();
+  // creation of ./include/mysql.inc.php : file containing database
+  // connection informations
+  if ( isset( $_POST['cfgBase'] )
+       and isset( $_POST['cfgUser'] )
+       and isset( $_POST['cfgPassword'] )
+       and isset( $_POST['cfgHote'] ) )
   {
-    if ( @mysql_connect( $HTTP_POST_VARS['cfgHote'], $HTTP_POST_VARS['cfgUser'], $HTTP_POST_VARS['cfgPassword'] ) )
+    if ( @mysql_connect( $_POST['cfgHote'],
+                         $_POST['cfgUser'],
+                         $_POST['cfgPassword'] ) )
     {
-      if ( @mysql_select_db($HTTP_POST_VARS['cfgBase'] ) )
+      if ( @mysql_select_db($_POST['cfgBase'] ) )
       {
-        $message.= "<div class=\"info\">".$lang['step1_confirmation']."</div>";
-        $erreur1 = false;
+        array_push( $infos, $lang['step1_confirmation'] );
       }
       else
       {
-        $message.= "<div class=\"erreur\">".$lang['step1_err_db']."</div>";
+        array_push( $errors, $lang['step1_err_db'] );
       }
     }
     else
     {
-      $message.= "<div class=\"erreur\">".$lang['step1_err_server']."</div>";
+      array_push( $errors, $lang['step1_err_server'] );
     }
 			
-    if ( !$erreur1 )
-    {				
-      // écriture du fichier de configuration
-      if ( $fp = @fopen("../include/mysql.inc.php","a+") )
+    if ( count( $errors ) == 0 )
+    {
+      $file_content = "<?php";
+      $file_content.= "\n\$cfgBase = '".     $_POST['cfgBase']."';";
+      $file_content.= "\n\$cfgUser = '".     $_POST['cfgUser']."';";
+      $file_content.= "\n\$cfgPassword = '". $_POST['cfgPassword']."';";
+      $file_content.= "\n\$cfgHote = '".     $_POST['cfgHote']."';";
+      $file_content.= "\n\$prefix_table = '".$_POST['prefix_table']."';";
+      $file_content.= "\n?>";
+      // writting the configuraiton file
+      if ( $fp = @fopen( '../include/mysql.inc.php', 'a+' ) )
       {
-        fwrite( $fp, "<?php\n\t\$cfgBase='".$HTTP_POST_VARS['cfgBase']."';\n\t\$cfgUser='".$HTTP_POST_VARS['cfgUser']."';\n\t\$cfgPassword='".$HTTP_POST_VARS['cfgPassword']."';\n\t\$cfgHote='".$HTTP_POST_VARS['cfgHote']."';\n\t\PREFIX_TABLE='".$HTTP_POST_VARS['prefixe']."';\n?>" ); 
+        fwrite( $fp, $file_content ); 
         fclose( $fp );
       }
-      $cfgHote = "";
-      $cfgUser = "";
-      $cfgPassword = "";
-      $cfgBase = "";
-      include ( "../include/mysql.inc.php" );
-      $erreur2 = true;
+      $cfgHote     = '';
+      $cfgUser     = '';
+      $cfgPassword = '';
+      $cfgBase     = '';
+      include( '../include/mysql.inc.php' );
+      $file_OK = false;
       if ( @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) )
       {
-        if ( @mysql_select_db ( $cfgBase ) )
-        {
-          $erreur2 = false;
-        }
+        if ( @mysql_select_db( $cfgBase ) ) $file_OK = true;
       }
-      if ( $erreur2 )
+      if ( !$file_OK )
       {
-        $message.="<br /><br />".$lang['step1_err_copy']." :<br />
-							-----------------------------------------------------<br />
-							<div style=\"color:blue;\">&lt;?php<br />
-							\$cfgBase = '".$HTTP_POST_VARS['cfgBase']."';<br />
-							\$cfgUser = '".$HTTP_POST_VARS['cfgUser']."';<br />
-							\$cfgPassword = '".$HTTP_POST_VARS['cfgPassword']."';<br />
-							\$cfgHote = '".$HTTP_POST_VARS['cfgHote']."';<br />
-							\PREFIX_TABLE = '".$HTTP_POST_VARS['prefixe']."';<br />
-							?&gt;</div>
-							-----------------------------------------------------<br />";
-        $message.= "<div style=\"text-align:center;\">".$lang['step1_err_copy_2']."<br />";
-        $message.= "<a href=\"install.php?step=2&amp;language=".$HTTP_GET_VARS['language']."\">".$lang['step1_err_copy_next']."</a></div>";
+        $vtp->addSession( $handle, 'error_copy' );
+        $html_content = htmlentities( $file_content, ENT_QUOTES );
+        $html_content = nl2br( $html_content );
+        $vtp->setVar( $handle, 'error_copy.file_content', $html_content );
+        $vtp->closeSession( $handle, 'error_copy' );
       }
       else
       {
-        $url = "install.php?step=2&language=".$HTTP_GET_VARS['language'];
-        header("Request-URI: $url");  
-        header("Content-Location: $url");  
-        header("Location: $url");
+        $url = 'install.php?step=2&language='.$_GET['language'];
+        header( 'Request-URI: '.$url );  
+        header( 'Content-Location: '.$url);  
+        header( 'Location: '.$url );
         exit();
       }
     }
   }
-		
-  echo header_install();
-  if ( isset( $message ) && $message != "" )
+  // errors display
+  if ( sizeof( $errors ) != 0 )
   {
-    echo"
-					<table width=\"100%\">
-						<tr>
-							<th>".$lang['install_message']."</th>
-						</tr>
-						<tr>
-							<td>$message</td>
-						</tr>
-					</table>";
+    $vtp->addSession( $handle, 'errors' );
+    foreach ( $errors as $error ) {
+      $vtp->addSession( $handle, 'error' );
+      $vtp->setVar( $handle, 'error.content', $error );
+      $vtp->closeSession( $handle, 'error' );
+    }
+    $vtp->closeSession( $handle, 'errors' );
   }
-  if ( $erreur1 )
+  // infos display
+  if ( sizeof( $infos ) != 0 )
   {
-    echo"
-					<form method=\"post\" action=\"install.php?step=1&amp;language=".$HTTP_GET_VARS['language']."\">
-						<table width=\"100%\">
-							<tr>
-								<th colspan=\"3\">".$lang['step1_title']."</th>
-							</tr>
-							<tr>
-								<td colspan=\"3\">&nbsp;</th>
-							</tr>
-							<tr>
-								<td>".$lang['step1_host']."</td>
-								<td align=center><input type='text' name='cfgHote' value='";
-    if ( !isset( $HTTP_POST_VARS['cfgHote'] ) )
+    $vtp->addSession( $handle, 'infos' );
+    foreach ( $infos as $info ) {
+      $vtp->addSession( $handle, 'info' );
+      $vtp->setVar( $handle, 'info.content', $info );
+      $vtp->closeSession( $handle, 'info' );
+    }
+    $vtp->closeSession( $handle, 'infos' );
+  }
+  // form display (if necessary)
+  if ( !isset( $_POST['submit'] ) or sizeof( $errors ) > 0 )
+  {
+    $vtp->addSession( $handle, 'step1' );
+    // host
+    if ( !isset( $_POST['cfgHote'] ) )
     {
-      echo"localhost";
+      $vtp->setVar( $handle, 'step1.f_host', 'localhost' );
     }
     else
     {
-      echo $HTTP_POST_VARS['cfgHote'];
+      $vtp->setVar( $handle, 'step1.f_host', $_POST['cfgHote'] );
     }
-    echo"'></td>
-								<td class=\"row2\">".$lang['step1_host_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step1_user']."</td>
-								<td align=center><input type='text' name='cfgUser' value='".$HTTP_POST_VARS['cfgUser']."'></td>
-								<td class=\"row2\">".$lang['step1_user_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step1_pass']."</td>
-								<td align=center><input type='password' name='cfgPassword' value=''></td>
-								<td class=\"row2\">".$lang['step1_pass_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step1_database']."</td>
-								<td align=center><input type='text' name='cfgBase' value='".$HTTP_POST_VARS['cfgBase']."'></td>
-								<td class=\"row2\">".$lang['step1_database_info']."</td>
-							</tr>
-							<tr>
-								<td>".$lang['step1_prefix']."</td>
-								<td align=center><input type='text' name='prefixe' value='";
-    if ( !isset( $HTTP_POST_VARS['prefixe'] ) )
+    // user
+    $vtp->setVar( $handle, 'step1.f_user', $_POST['cfgUser'] );
+    // base
+    $vtp->setVar( $handle, 'step1.f_base', $_POST['cfgBase'] );
+    // prefix_table
+    if ( !isset( $_POST['prefix_table'] ) )
     {
-      echo"phpwebgallery_";
+      $vtp->setVar( $handle, 'step1.f_prefix_table', 'phpwebgallery_' );
     }
     else
     {
-      echo $HTTP_POST_VARS['prefixe'];
+      $vtp->setVar( $handle, 'step1.f_prefix_table', $_POST['prefix_table'] );
     }
-    echo"'></td>
-								<td class=\"row2\">".$lang['step1_prefix_info']."</td>
-							</tr>
-							<tr>
-								<td colspan=\"3\">&nbsp;</th>
-							</tr>
-							<tr>
-								<td colspan=3 align=center><input type='submit' name='Valider' value=\"".$lang['submit']." *\"></td>
-							</tr>
-						</table>
-					</form>";
+    
+    $vtp->closeSession( $handle, 'step1' );
   }
-  echo footer_install();
 }
-/*---------------------------------------Step 2------------------------------------*/
-else if ( $HTTP_GET_VARS['step'] == 2 )
+//------------------------------------- Step 2 : creation of tables in database
+else if ( $_GET['step'] == 2 )
 {
-  include( "../include/mysql.inc.php" );
-  mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) or die ( "erreur de connexion au serveur" );
-  mysql_select_db( $cfgBase ) or die ( "erreur de connexion a la base de donnees" );
+  include( '../include/mysql.inc.php' );
+  mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
+    or die ( "Can't connect to database host" );
+  mysql_select_db( $cfgBase )
+    or die ( "Connection to host succeeded, but database selection failed" );
 		
-  if ( !isset( $HTTP_POST_VARS['submit'] ) )
+  if ( !isset( $_POST['submit'] ) )
   {
-    $query = "CREATE TABLE ".PREFIX_TABLE."categories (
-				id tinyint(3) unsigned NOT NULL auto_increment,
-			  date_dernier date NOT NULL default '0000-00-00',
-			  nb_images smallint(5) unsigned NOT NULL default '0',
-			  name varchar(255) default NULL,
-			  id_uppercat tinyint(3) unsigned default NULL,
-			  comment text,
-			  dir varchar(255) NOT NULL default '',
-			  rank tinyint(3) unsigned default NULL,
-			  status enum('visible','invisible') NOT NULL default 'visible',
-			  site_id tinyint(4) unsigned NOT NULL default '1',
-			  PRIMARY KEY (id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."comments (
-			  id int(11) unsigned NOT NULL auto_increment,
-			  image_id smallint(5) unsigned NOT NULL default '0',
-			  date int(11) unsigned NOT NULL default '0',
-			  author varchar(255) NOT NULL default '',
-			  content longtext,
-			  PRIMARY KEY  (id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."config (
-			  periode_courte smallint(5) unsigned NOT NULL default '7',
-			  periode_longue smallint(5) unsigned NOT NULL default '14',
-			  prefix_thumbnail varchar(10) NOT NULL default 'TN-',
-			  webmaster varchar(255) NOT NULL default '',
-			  mail_webmaster varchar(255) NOT NULL default '',
-			  acces enum('libre','restreint') NOT NULL default 'libre',
-			  session_id_size tinyint(3) unsigned NOT NULL default '4',
-			  session_keyword varchar(255) NOT NULL default '',
-			  session_time tinyint(3) unsigned NOT NULL default '30',
-			  max_user_listbox tinyint(3) unsigned NOT NULL default '10',
-			  expand enum('true','false') NOT NULL default 'false',
-			  show_comments enum('true','false') NOT NULL default 'true',
-			  nb_comment_page tinyint(4) NOT NULL default '10',
-			  upload_available enum('true','false') NOT NULL default 'false',
-			  upload_maxfilesize smallint(5) unsigned NOT NULL default '150',
-			  upload_maxwidth smallint(5) unsigned NOT NULL default '800',
-			  upload_maxheight smallint(5) unsigned NOT NULL default '600',
-			  upload_maxwidth_thumbnail smallint(5) unsigned NOT NULL default '150',
-			  upload_maxheight_thumbnail smallint(5) unsigned NOT NULL default '100'
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."favorites (
-			  user_id smallint(5) unsigned NOT NULL default '0',
-			  image_id smallint(5) unsigned NOT NULL default '0',
-			  KEY user_id (user_id,image_id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."history (
-			  date int(11) NOT NULL default '0',
-			  login varchar(15) default NULL,
-			  IP varchar(50) NOT NULL default '',
-			  categorie varchar(150) default NULL,
-			  page varchar(50) default NULL,
-			  titre varchar(150) default NULL,
-			  commentaire varchar(200) default NULL
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."images (
-			  id smallint(5) unsigned NOT NULL auto_increment,
-			  file varchar(255) NOT NULL default '',
-			  cat_id tinyint(3) unsigned NOT NULL default '0',
-			  date_available date NOT NULL default '0000-00-00',
-			  date_creation date default NULL,
-			  tn_ext char(3) NOT NULL default 'jpg',
-			  name varchar(255) default NULL,
-			  comment varchar(255) default NULL,
-			  author varchar(255) default NULL,
-			  hit int(10) unsigned NOT NULL default '0',
-			  filesize mediumint(9) unsigned default NULL,
-			  width smallint(9) unsigned default NULL,
-			  height smallint(9) unsigned default NULL,
-			  PRIMARY KEY  (id),
-			  KEY cat_id (cat_id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."restrictions (
-			  user_id smallint(5) unsigned NOT NULL default '0',
-			  cat_id tinyint(3) unsigned NOT NULL default '0',
-			  PRIMARY KEY  (user_id,cat_id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."sessions (
-			  id varchar(255) binary NOT NULL default '',
-			  user_id smallint(5) unsigned NOT NULL default '0',
-			  expiration int(10) unsigned NOT NULL default '0',
-			  ip varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (id)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."sites (
-			  id tinyint(4) NOT NULL auto_increment,
-			  galleries_url varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (id),
-			  UNIQUE KEY galleries_url (galleries_url)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."users (
-			  id smallint(5) unsigned NOT NULL auto_increment,
-			  pseudo varchar(20) binary NOT NULL default '',
-			  password varchar(255) NOT NULL default '',
-			  mail_address varchar(255) default NULL,
-			  nombre_image_ligne tinyint(1) unsigned NOT NULL default '5',
-			  nombre_ligne_page tinyint(3) unsigned NOT NULL default '3',
-			  theme varchar(255) NOT NULL default 'melodie/blue',
-			  status enum('admin','membre','visiteur') NOT NULL default 'visiteur',
-			  language varchar(50) NOT NULL default 'english',
-			  maxwidth smallint(6) default NULL,
-			  maxheight smallint(6) default NULL,
-			  PRIMARY KEY  (id),
-			  UNIQUE KEY pseudo (pseudo)
-			);";
-    mysql_query( $query );
-    $query = "CREATE TABLE ".PREFIX_TABLE."waiting (
-			  id int(10) unsigned NOT NULL auto_increment,
-			  cat_id tinyint(3) unsigned NOT NULL default '0',
-			  file varchar(255) NOT NULL default '',
-			  username varchar(255) NOT NULL default '',
-			  mail_address varchar(255) NOT NULL default '',
-			  date int(10) unsigned NOT NULL default '0',
-			  tn_ext char(3) default NULL,
-			  PRIMARY KEY  (id)
-			);";
-    mysql_query( $query );
+    // tables creation, based on phpwebgallery_structure.sql
   }
-  if ( isset( $HTTP_POST_VARS['submit'] ) )
+
+  if ( isset( $_POST['submit'] ) )
   {
     $configuration = false;
     $erreur = "";
@@ -450,30 +189,30 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
     // Notes sur le pseudo du webmaster :
     // - lorsque l'on trouve plusieurs occurences
     // consécutives du caractère espace, on réduit à une seule occurence
-    if ( $HTTP_POST_VARS['webmaster'] == "" )
+    if ( $_POST['webmaster'] == "" )
     {
       $erreur .= "<li>".$lang['step2_err_login1']."</li>";
       $nb_erreur++;
     }
-    $webmaster = ereg_replace( "[ ]{2,}", " ", $HTTP_POST_VARS['webmaster'] );
-    if ( ereg( "^.* $", $webmaster ) || ereg( "^ .*$", $webmaster) )
+    $webmaster = ereg_replace( "[ ]{2,}", " ", $_POST['webmaster'] );
+    if ( ereg( "^.* $", $webmaster ) or ereg( "^ .*$", $webmaster) )
     {
       $erreur .= "<li>".$lang['step2_err_login2']."</li>";
       $nb_erreur++;
     }
-    if ( ereg( "'",$webmaster ) || ereg( "\"",$webmaster ) )
+    if ( ereg( "'",$webmaster ) or ereg( "\"",$webmaster ) )
     {
       $erreur .= "<li>".$lang['step2_err_login3']."</li>";
       $nb_erreur++;
     }
     // on vérifie que le password rentré correspond bien à la confirmation faite par l'utilisateur
-    if ( $HTTP_POST_VARS['pwdWebmaster'] != $HTTP_POST_VARS['pwdWebmasterConf'] )
+    if ( $_POST['pwdWebmaster'] != $_POST['pwdWebmasterConf'] )
     {
       $erreur .= "<li>".$lang['step2_err_pass']."</li>";
       $nb_erreur++;
     }
     // le mail doit être conforme à qqch du type : nom@serveur.com
-    if( !ereg("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)", $HTTP_POST_VARS['mail_webmaster'] ) )
+    if( !ereg("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)", $_POST['mail_webmaster'] ) )
     {
       $erreur .= "<li>".$lang['step2_err_mail']."</li>";
       $nb_erreur++;
@@ -482,13 +221,13 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
     if ( $nb_erreur == 0 )
     {
       mysql_query( "delete from PREFIX_TABLE"."config" );
-      $query = "insert into PREFIX_TABLE"."config (webmaster,mail_webmaster) values ('$webmaster','".$HTTP_POST_VARS['mail_webmaster']."')";
+      $query = "insert into PREFIX_TABLE"."config (webmaster,mail_webmaster) values ('$webmaster','".$_POST['mail_webmaster']."')";
       mysql_query($query);
       $query = "insert into PREFIX_TABLE"."sites values (1, './galleries/');";
       mysql_query($query);
-      $query = "insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('$webmaster','".md5( $pwdWebmaster )."','admin','".$HTTP_GET_VARS['language']."')";
+      $query = "insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('$webmaster','".md5( $pwdWebmaster )."','admin','".$_GET['language']."')";
       mysql_query($query);
-      mysql_query("insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('visiteur','".md5( "" )."','visiteur','".$HTTP_GET_VARS['language']."')");
+      mysql_query("insert into PREFIX_TABLE"."users (pseudo,password,status,language) values ('visiteur','".md5( "" )."','visiteur','".$_GET['language']."')");
       $configuration = true;
     }
   }
@@ -530,7 +269,7 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
 						</table>";
     }
     echo"
-					<form method=\"post\" action=\"install.php?step=2&amp;language=".$HTTP_GET_VARS['language']."\">
+					<form method=\"post\" action=\"install.php?step=2&amp;language=".$_GET['language']."\">
 						<table width=100%>
 							<tr>
 								<th colspan=\"3\">".$lang['step2_title']."</th>
@@ -540,7 +279,7 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
 							</tr>
 							<tr>
 								<td>".$lang['conf_general_webmaster']."</td>
-								<td align=\"center\"><input type='text' name='webmaster' value=\"".$HTTP_POST_VARS['webmaster']."\"></td>
+								<td align=\"center\"><input type='text' name='webmaster' value=\"".$_POST['webmaster']."\"></td>
 								<td class=\"row2\">".$lang['conf_general_webmaster_info']."</td>
 							</tr>
 							<tr>
@@ -555,7 +294,7 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
 							</tr>
 							<tr>
 								<td>".$lang['conf_general_mail']."</td>
-								<td align=center><input type='text' name='mail_webmaster' value=\"".$HTTP_POST_VARS['mail_webmaster']."\"></td>
+								<td align=center><input type='text' name='mail_webmaster' value=\"".$_POST['mail_webmaster']."\"></td>
 								<td class=\"row2\">".$lang['conf_general_mail_info']."</td>
 							</tr>
 							<tr>
@@ -571,31 +310,19 @@ else if ( $HTTP_GET_VARS['step'] == 2 )
   }
   echo footer_install();
 }
-/*----------------------------------Language choice------------------------------------*/
+//---------------------------------------------------- Step 0 : language choice
 else
 {
-  include( "../include/functions.php" );
-  echo header_install();
-  echo"
-					<form method=\"get\" action=\"install.php\">
-						<input type=\"hidden\" name=\"step\" value=\"1\"/>
-						<table width=\"100%\">
-							<tr>
-								<td align=\"center\">
-									<select name=\"language\">";
-  $languages = get_languages( "../language/" );
-  for ( $i = 0; $i < sizeof ( $languages ); $i++ )
-  {
-    echo"
-										<option>".$languages[$i]."</option>";
+  $vtp->addSession( $handle, 'step0' );
+  $languages = get_languages( '../language/' );
+  foreach ( $languages as $language ) {
+    $vtp->addSession( $handle, 'language' );
+    $vtp->setVar( $handle, 'language.name', $language );
+    $vtp->closeSession( $handle, 'language' );
   }
-  echo"
-										</select>
-										<input type=\"submit\" value=\"Go\">
-								</td>
-							</tr>
-						</table>
-					</form>";
-  echo footer_install();
+  $vtp->closeSession( $handle, 'step0' );
 }
+//----------------------------------------------------------- html code display
+$code = $vtp->Display( $handle, 0 );
+echo $code;
 ?>
