@@ -23,7 +23,7 @@ function insert_local_category( $cat_id )
 {
   global $conf, $page, $user, $lang;
 		
-  $site_id = 1;
+  $uppercats = '';
 		
   // 0. retrieving informations on the category to display
   $cat_directory = '../galleries';
@@ -32,10 +32,13 @@ function insert_local_category( $cat_id )
   {
     $cat_directory.= '/'.get_local_dir( $cat_id );
     $result = get_cat_info( $cat_id );
+    $uppercats = $result['uppercats'];
     // 1. display the category name to update
     $src = '../template/'.$user['template'].'/admin/images/puce.gif';
     $output = '<img src="'.$src.'" alt="&gt;" />';
-    $output.= '<span style="font-weight:bold;">'.$result['name'][0].'</span>';
+    $output.= '<span style="font-weight:bold;">';
+    $output.= $result['name'][count($result['name'])-1];
+    $output.= '</span>';
     $output.= ' [ '.$result['dir'].' ]';
     $output.= '<div class="retrait">';
 
@@ -50,15 +53,9 @@ function insert_local_category( $cat_id )
   // 3. we have to remove the categories of the database not present anymore
   $query = 'SELECT id';
   $query.= ' FROM '.PREFIX_TABLE.'categories';
-  $query.= ' WHERE site_id = '.$site_id;
-  if ( !is_numeric( $cat_id ) )
-  {
-    $query.= ' AND id_uppercat IS NULL';
-  }
-  else
-  {
-    $query.= ' AND id_uppercat = '.$cat_id;
-  }
+  $query.= ' WHERE site_id = 1';
+  if ( !is_numeric( $cat_id ) ) $query.= ' AND id_uppercat IS NULL';
+  else                          $query.= ' AND id_uppercat = '.$cat_id;
   $query.= ';';
   $result = mysql_query( $query );
   while ( $row = mysql_fetch_array( $result ) )
@@ -77,7 +74,7 @@ function insert_local_category( $cat_id )
     {
       if ( $file != '.'
            and $file != '..'
-           and is_dir ( $cat_directory.'/'.$file )
+           and is_dir( $cat_directory.'/'.$file )
            and $file != 'thumbnail' )
       {
         if ( preg_match( '/^[a-zA-Z0-9-_.]+$/', $file ) )
@@ -90,7 +87,7 @@ function insert_local_category( $cat_id )
           // PhpWebGallery), we keep it in our $subdirs array
           $query = 'SELECT id';
           $query.= ' FROM '.PREFIX_TABLE.'categories';
-          $query.= ' WHERE site_id = '.$site_id;
+          $query.= ' WHERE site_id = 1';
           $query.= " AND dir = '".$file."'";
           $query.= ' AND id_uppercat';
           if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
@@ -111,7 +108,7 @@ function insert_local_category( $cat_id )
     $category_id = '';
     $query = 'SELECT id';
     $query.= ' FROM '.PREFIX_TABLE.'categories';
-    $query.= ' WHERE site_id = '.$site_id;
+    $query.= ' WHERE site_id = 1';
     $query.= " AND dir = '".$subdir."'";
     $query.= ' AND id_uppercat';
     if ( !is_numeric( $cat_id ) ) $query.= ' IS NULL';
@@ -124,14 +121,12 @@ function insert_local_category( $cat_id )
       // we have to create the category
       $query = 'INSERT INTO '.PREFIX_TABLE.'categories';
       $query.= ' (dir,name,site_id,id_uppercat) VALUES';
-      $query.= " ('".$subdir."','".$name."','".$site_id."'";
+      $query.= " ('".$subdir."','".$name."',1";
       if ( !is_numeric( $cat_id ) ) $query.= ',NULL';
       else                          $query.= ",'".$cat_id."'";
       $query.= ');';
       mysql_query( $query );
       $category_id = mysql_insert_id();
-      // regeneration of the plain_structure to integrate the new category
-      $page['plain_structure'] = get_plain_structure();
     }
     else
     {
@@ -149,7 +144,7 @@ function insert_local_category( $cat_id )
   }
   return $output;
 }
-	
+
 function insert_local_image( $rep, $category_id )
 {
   global $lang,$conf,$count_new;
@@ -569,8 +564,6 @@ $tpl = array( 'update_default_title', 'update_only_cat', 'update_all',
               'remote_site', 'update_part_research' );
 templatize_array( $tpl, 'lang', $sub );
 $vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//-------------------------------------------------------- categories structure
-$page['plain_structure'] = get_plain_structure();
 //-------------------------------------------- introduction : choices of update
 // Display choice if "update" var is not specified
 check_cat_id( $_GET['update'] );
@@ -621,7 +614,13 @@ if ( @is_file( './listing.xml' ) )
   $vtp->closeSession( $sub, 'remote_update' );
 }
 //---------------------------------------- update informations about categories
-update_category( 'all' );
+if ( isset( $_GET['update'] )
+     or isset( $page['cat'] )
+     or @is_file( './listing.xml' ) )
+{
+  update_category( 'all' );
+  synchronize_all_users();
+}
 //----------------------------------------------------------- sending html code
 $vtp->Parse( $handle , 'sub', $sub );
 ?>
