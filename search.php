@@ -133,61 +133,6 @@ if (isset($_POST['submit']) and count($errors) == 0)
   redirect($url);
 }
 //----------------------------------------------------- template initialization
-/**
- * instantiate number list for days in a template block
- *
- * @param string blockname
- * @param string selection
- */
-function get_day_list($blockname, $selection)
-{
-  global $template;
-  
-  $template->assign_block_vars(
-    $blockname, array('SELECTED' => '', 'VALUE' => 0, 'OPTION' => '--'));
-  
-  for ($i = 1; $i <= 31; $i++)
-  {
-    $selected = '';
-    if ($i == (int)$selection)
-    {
-      $selected = 'selected="selected"';
-    }
-    $template->assign_block_vars(
-      $blockname, array('SELECTED' => $selected,
-                        'VALUE' => $i,
-                        'OPTION' => str_pad($i, 2, '0', STR_PAD_LEFT)));
-  }
-}
-
-/**
- * instantiate month list in a template block
- *
- * @param string blockname
- * @param string selection
- */
-function get_month_list($blockname, $selection)
-{
-  global $template, $lang;
-  
-  $template->assign_block_vars(
-    $blockname, array('SELECTED' => '',
-                      'VALUE' => 0,
-                      'OPTION' => '------------'));
-
-  for ($i = 1; $i <= 12; $i++)
-  {
-    $selected = '';
-    if ($i == (int)$selection)
-    {
-      $selected = 'selected="selected"';
-    }
-    $template->assign_block_vars(
-      $blockname, array('SELECTED' => $selected,
-                        'VALUE' => $i,
-                        'OPTION' => $lang['month'][$i]));
-  }
-}
 
 // start date
 get_day_list('start_day', @$_POST['start_day']);

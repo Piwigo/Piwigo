@@ -1,3 +1,14 @@
+2005-04-11 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
+
+	* functions get_day_list and get_month_list moved from search.php
+	to include/functions.inc.php : these functions are now also used
+	in admin/element_set_global.php
+
+	* elements batch management improved : ability to set the number
+	of elements to display per line, ability to set {author, name,
+	creation date} fields, ability to add and remove keywords, ability
+	to take selected elements out of caddie
+
 2005-03-31 Pierrick LE GALL <pierrick at phpwebgallery dot net>
 
 	* apply category name and element name separation in calendar

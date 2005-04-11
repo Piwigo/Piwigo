@@ -30,8 +30,6 @@
  * user caddie.
  * 
  */
-
-$user['nb_image_line'] = 6; // temporary
  
 if (!defined('PHPWG_ROOT_PATH'))
 {
@@ -40,15 +38,81 @@ if (!defined('PHPWG_ROOT_PATH'))
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 // +-----------------------------------------------------------------------+
-// |                              empty caddie                             |
+// |                               functions                               |
 // +-----------------------------------------------------------------------+
-if (isset($_GET['empty']))
+
+/**
+ * returns the list of uniq keywords among given elements
+ *
+ * @param array element_ids
+ */
+function get_elements_keywords($element_ids)
 {
+  if (0 == count($element_ids))
+  {
+    return array();
+  }
+  
+  $keywords = array();
+  
   $query = '
+SELECT keywords
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $element_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    if (isset($row['keywords']) and !empty($row['keywords']))
+    {
+      $keywords = array_merge($keywords, explode(',', $row['keywords']));
+    }
+  }
+  return array_unique($keywords);
+}
+
+// +-----------------------------------------------------------------------+
+// |                          caddie management                            |
+// +-----------------------------------------------------------------------+
+if (isset($_POST['submit_caddie']))
+{
+  if (isset($_POST['caddie_action']))
+  {
+    switch ($_POST['caddie_action'])
+    {
+      case 'empty_all' :
+      {
+          $query = '
 DELETE FROM '.CADDIE_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
-  pwg_query($query);
+          pwg_query($query);
+          break;
+      }
+      case 'empty_selected' :
+      {
+        if (isset($_POST['selection']) and count($_POST['selection']) > 0)
+        {
+          $query = '
+DELETE
+  FROM '.CADDIE_TABLE.'
+  WHERE element_id IN ('.implode(',', $_POST['selection']).')
+    AND user_id = '.$user['id'].'
+;';
+          pwg_query($query);
+        }
+        else
+        {
+          // TODO : add error
+        }
+        break;
+      }
+    }
+  }
+  else
+  {
+    // TODO : add error
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -61,7 +125,7 @@ if (isset($_POST['submit']))
   $collection = array();
   
 //   echo '<pre>';
-//   print_r($_POST['selection']);
+//   print_r($_POST);
 //   echo '</pre>';
 //   exit();
 
@@ -99,6 +163,7 @@ SELECT image_id
 ;';
     $associated = array_from_query($query, 'image_id');
 
+    // TODO : if $associable array is empty, no further actions
     $associable = array_diff($collection, $associated);
     
     foreach ($associable as $item)
@@ -136,6 +201,111 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
 
     update_category(array($_POST['dissociate']));
   }
+
+  $datas = array();
+  $dbfields = array('primary' => array('id'), 'update' => array());
+
+  if (!empty($_POST['add_keywords']) or $_POST['remove_keyword'] != '0')
+  {
+    array_push($dbfields['update'], 'keywords');
+  }
+
+  $formfields = array('author', 'name', 'date_creation');
+  foreach ($formfields as $formfield)
+  {
+    if ($_POST[$formfield.'_action'] != 'leave')
+    {
+      array_push($dbfields['update'], $formfield);
+    }
+  }
+  
+  // updating elements is useful only if needed...
+  if (count($dbfields['update']) > 0)
+  {
+    $query = '
+SELECT id, keywords
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $collection).')
+;';
+    $result = pwg_query($query);
+
+    while ($row = mysql_fetch_array($result))
+    {
+      $data = array();
+      $data['id'] = $row['id'];
+      
+      if (!empty($_POST['add_keywords']))
+      {
+        $data['keywords'] =
+          implode(
+            ',',
+            array_unique(
+              array_merge(
+                get_keywords(empty($row['keywords']) ? '' : $row['keywords']),
+                get_keywords($_POST['add_keywords'])
+                )
+              )
+            );
+      }
+
+      if ($_POST['remove_keyword'] != '0')
+      {
+        if (!isset($data['keywords']))
+        {
+          $data['keywords'] = empty($row['keywords']) ? '' : $row['keywords'];
+        }
+        
+        $data['keywords'] =
+          implode(
+            ',',
+            array_unique(
+              array_diff(
+                get_keywords($data['keywords']),
+                array($_POST['remove_keyword'])
+                )
+              )
+            );
+
+        if ($data['keywords'] == '')
+        {
+          unset($data['keywords']);
+        }
+      }
+
+      if ('set' == $_POST['author_action'])
+      {
+        $data['author'] = $_POST['author'];
+
+        if ('' == $data['author'])
+        {
+          unset($data['author']);
+        }
+      }
+
+      if ('set' == $_POST['name_action'])
+      {
+        $data['name'] = $_POST['name'];
+
+        if ('' == $data['name'])
+        {
+          unset($data['name']);
+        }
+      }
+
+      if ('set' == $_POST['date_creation_action'])
+      {
+        $data['date_creation'] =
+          $_POST['date_creation_year']
+          .'-'.$_POST['date_creation_month']
+          .'-'.$_POST['date_creation_day']
+          ;
+      }
+      
+      array_push($datas, $data);
+    }
+    echo '<pre>'; print_r($datas); echo '</pre>';
+    mass_updates(IMAGES_TABLE, $dbfields, $datas);
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -144,15 +314,17 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
 $template->set_filenames(
   array('element_set_global' => 'admin/element_set_global.tpl'));
 
-$form_action = PHPWG_ROOT_PATH.'admin.php?page=element_set_global';
+$base_url = PHPWG_ROOT_PATH.'admin.php';
+
+// $form_action = $base_url.'?page=element_set_global';
 
 $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],
 
-    'U_EMPTY_CADDIE'=>add_session_id($form_action.'&amp;empty=1'),
+    'U_ELEMENTS_LINE'=>$base_url.get_query_string_diff(array('display')),
     
-    'F_ACTION'=>add_session_id($form_action)
+    'F_ACTION'=>$base_url.get_query_string_diff(array()),
    )
  );
 // +-----------------------------------------------------------------------+
@@ -201,9 +373,60 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
 ;';
 display_select_cat_wrapper($query, array(), $blockname, true);
 
+$blockname = 'remove_keyword_option';
+
+$template->assign_block_vars(
+  $blockname,
+  array('VALUE'=> 0,
+        'OPTION' => '------------'
+    ));
+
+$query = '
+SELECT element_id
+  FROM '.CADDIE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+$keywords = get_elements_keywords(array_from_query($query, 'element_id'));
+
+foreach ($keywords as $keyword)
+{
+  $template->assign_block_vars(
+  $blockname,
+  array('VALUE'=> $keyword,
+        'OPTION' => $keyword
+    ));
+}
+
+// creation date
+$day =
+empty($_POST['date_creation_day']) ? date('j') : $_POST['date_creation_day'];
+get_day_list('date_creation_day', $day);
+
+if (!empty($_POST['date_creation_month']))
+{
+  $month = $_POST['date_creation_month'];
+}
+else
+{
+  $month = date('n');
+}
+get_month_list('date_creation_month', $month);
+
+if (!empty($_POST['date_creation_year']))
+{
+  $year = $_POST['date_creation_year'];
+}
+else
+{
+  $year = date('Y');
+}
+$template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
+
 // +-----------------------------------------------------------------------+
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
+
+$page['nb_image_line'] = !empty($_GET['display']) ? $_GET['display'] : 5;
 
 $query = '
 SELECT element_id,path,tn_ext
@@ -239,7 +462,7 @@ while ($row = mysql_fetch_array($result))
     );
   
   // create a new line ?
-  if (++$row_number == $user['nb_image_line'])
+  if (++$row_number == $page['nb_image_line'])
   {
     $template->assign_block_vars('thumbnails.line', array());
     $row_number = 0;
