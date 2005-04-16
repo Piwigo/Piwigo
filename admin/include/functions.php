@@ -300,6 +300,14 @@ DELETE FROM '.RATE_TABLE.'
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
+
+  // destruction of the rates associated to this element
+  $query = '
+DELETE FROM '.CADDIE_TABLE.'
+  WHERE element_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
+;';
+  pwg_query($query);
 		
   // destruction of the image
   $query = '

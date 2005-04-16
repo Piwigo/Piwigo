@@ -1,3 +1,5 @@
+<div class="admin">{CATEGORY_TITLE}</div>
+
 <p style="text-align:center;">
   <a href="{U_GLOBAL_MODE}">global mode</a>
   | unit mode

@@ -1,5 +1,20 @@
 2005-04-16 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
 
+	* elements batch management : element_set page becomes the
+	frontend to element_set_global and element_set_unit, infos_images
+	(after a long time of use) become deprecated : the more powerful
+	element_set is used instead. Consequently, batch management
+	concerns caddie but also "normal categories".
+	
+	* refactoring code in admin.php to include the sub-file (clearer)
+
+	* caddie : function fill_caddie replaces the code in category.php
+	and can be used in admin/element_set.php
+
+	* caddie : caddie table is added in delete_elements function
+
+2005-04-16 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
+
 	* elements batch management : in addition to global mode, a unit
 	mode is added : ability to manage a set of elements, element by
 	element. This screen is very close to the existing "infos_images"

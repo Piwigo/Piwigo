@@ -451,7 +451,7 @@ foreach ($categories as $category)
       'U_CAT_DELETE'=>add_session_id($self_url.'&amp;delete='.$category['id']),
       
       'U_INFO_IMG'
-      => add_session_id($base_url.'infos_images&amp;cat_id='.$category['id'])
+      => add_session_id($base_url.'element_set&amp;cat='.$category['id'])
       ));
   
   if (!empty($category['dir']))

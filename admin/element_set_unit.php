@@ -99,36 +99,6 @@ SELECT id, date_creation
 }
 
 // +-----------------------------------------------------------------------+
-// |                         page information init                         |
-// +-----------------------------------------------------------------------+
-
-// $page['start'] contains the number of the first element in its
-// category. For exampe, $page['start'] = 12 means we must show elements #12
-// and $page['nb_images'] next elements
-if (!isset($_GET['start'])
-    or !is_numeric($_GET['start'])
-    or $_GET['start'] < 0)
-{
-  $page['start'] = 0;
-}
-else
-{
-  $page['start'] = $_GET['start'];
-}
-
-// $page['nb_images'] is the number of elements to show in the page
-$page['nb_images'] = !empty($_GET['display']) ? $_GET['display'] : 5;
-
-// $page['cat_nb_images'] is the total number of elements to show in the
-// category
-$query = '
-SELECT COUNT(*)
-  FROM '.CADDIE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-;';
-list($page['cat_nb_images']) = mysql_fetch_row(pwg_query($query));
-
-// +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
@@ -141,14 +111,18 @@ $base_url = PHPWG_ROOT_PATH.'admin.php';
 
 $template->assign_vars(
   array(
+    'CATEGORY_TITLE'=>$page['title'],
+
     'L_SUBMIT'=>$lang['submit'],
     
     'U_ELEMENTS_PAGE'
     =>$base_url.get_query_string_diff(array('display','start')),
     
     'U_GLOBAL_MODE'
-//    =>$base_url.get_query_string_diff(array('mode','display','start')),
-    =>add_session_id($base_url.'?page=element_set_global'),
+    =>
+    $base_url
+    .get_query_string_diff(array('mode','display'))
+    .'&amp;mode=global',
     
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
     )
@@ -158,61 +132,68 @@ $template->assign_vars(
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
 
-$element_ids = array();
+$page['nb_images'] = !empty($_GET['display']) ? intval($_GET['display']) : 5;
 
-$query = '
-SELECT element_id,path,tn_ext,name,date_creation,comment,keywords,author
-  FROM '.IMAGES_TABLE.' INNER JOIN '.CADDIE_TABLE.' ON id=element_id
-  WHERE user_id = '.$user['id'].'
+
+if (count($page['cat_elements_id']) > 0)
+{
+  $nav_bar = create_navigation_bar(
+    $base_url.get_query_string_diff(array('start')),
+    count($page['cat_elements_id']),
+    $page['start'],
+    $page['nb_images'],
+    '');
+  $template->assign_vars(array('NAV_BAR' => $nav_bar));
+
+ 
+  $element_ids = array();
+
+  $query = '
+SELECT id,path,tn_ext,name,date_creation,comment,keywords,author
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
   LIMIT '.$page['start'].', '.$page['nb_images'].'
 ;';
-$result = pwg_query($query);
+  $result = pwg_query($query);
 
-while ($row = mysql_fetch_array($result))
-{
-  // echo '<pre>'; print_r($row); echo '</pre>';
-  array_push($element_ids, $row['element_id']);
-  
-  $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
-
-  // creation date
-  if (!empty($row['date_creation']))
+  while ($row = mysql_fetch_array($result))
   {
-    list($year,$month,$day) = explode('-', $row['date_creation']);
-  }
-  else
-  {
-    list($year,$month,$day) = array('','','');
+    // echo '<pre>'; print_r($row); echo '</pre>';
+    array_push($element_ids, $row['id']);
+    
+    $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    
+    // creation date
+    if (!empty($row['date_creation']))
+    {
+      list($year,$month,$day) = explode('-', $row['date_creation']);
+    }
+    else
+    {
+      list($year,$month,$day) = array('','','');
+    }
+    
+    $template->assign_block_vars(
+      'element',
+      array(
+        'ID' => $row['id'],
+        'FILENAME' => $row['path'],
+        'TN_SRC' => $src,
+        'NAME' => @$row['name'],
+        'AUTHOR' => @$row['author'],
+        'COMMENT' => @$row['comment'],
+        'DATE_CREATION_YEAR' => $year,
+        'KEYWORDS' => @$row['keywords']
+        )
+      );
+    
+    get_day_list('element.date_creation_day', $day);
+    get_month_list('element.date_creation_month', $month);
   }
 
-  $template->assign_block_vars(
-    'element',
-    array(
-      'ID' => $row['element_id'],
-      'FILENAME' => $row['path'],
-      'TN_SRC' => $src,
-      'NAME' => @$row['name'],
-      'AUTHOR' => @$row['author'],
-      'COMMENT' => @$row['comment'],
-      'DATE_CREATION_YEAR' => $year,
-      'KEYWORDS' => @$row['keywords']
-      )
-    );
-  
-  get_day_list('element.date_creation_day', $day);
-  get_month_list('element.date_creation_month', $month);
+  $template->assign_vars(array('IDS_LIST' => implode(',', $element_ids)));
 }
-
-$template->assign_vars(array('IDS_LIST' => implode(',', $element_ids)));
-
-$nav_bar = create_navigation_bar(
-  $base_url.get_query_string_diff(array('start')),
-  $page['cat_nb_images'],
-  $page['start'],
-  $page['nb_images'],
-  '');
-$template->assign_vars(array('NAV_BAR' => $nav_bar));
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

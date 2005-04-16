@@ -149,18 +149,18 @@ switch ( $_GET['page'] )
    $page_valide = true;
    break;
  }
- case 'element_set_global' :
+ case 'element_set' :
  {
    $title = 'batch management';
    $page_valide = true;
    break;
  }
- case 'element_set_unit' :
- {
-   $title = 'batch management';
-   $page_valide = true;
-   break;
- }
+//  case 'element_set_unit' :
+//  {
+//    $title = 'batch management';
+//    $page_valide = true;
+//    break;
+//  }
  default:
    $title = $lang['title_default']; break;
 }
@@ -246,7 +246,7 @@ $template->assign_vars(array(
   'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
   'U_WAITING'=>add_session_id($link_start.'waiting' ),
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
-  'U_SET'=>add_session_id($link_start.'element_set_global'),
+  'U_CADDIE'=>add_session_id($link_start.'element_set&amp;cat=caddie'),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_USERS'=>add_session_id($link_start.'profile' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
@@ -259,15 +259,34 @@ $template->assign_vars(array(
 //--------------------------------------------------------------------- summary
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 //------------------------------------------------------------- content display
-if ( $page_valide )
+if ($page_valide)
 {
-  if ($_GET['page']=='comments') include ( PHPWG_ROOT_PATH.'comments.php');
-	elseif ($_GET['page']=='profile') include ( PHPWG_ROOT_PATH.'profile.php');
-  else include ( PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php' );
+  switch ($_GET['page'])
+  {
+    case 'comments' :
+    {
+      include(PHPWG_ROOT_PATH.'comments.php');
+      break;
+    }
+    case 'profile' :
+    {
+      include(PHPWG_ROOT_PATH.'profile.php');
+      break;
+    }
+    default :
+    {
+      include(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php');
+    }
+  }
 }
 else
 {
-  $template->assign_vars(array ('ADMIN_CONTENT'=> '<div style="text-align:center">'.$lang['default_message'].'</div>') );
+  $template->assign_vars(
+    array(
+      'ADMIN_CONTENT'
+      =>'<div style="text-align:center">'.$lang['default_message'].'</div>'
+      )
+    );
 }
 $template->parse('admin');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

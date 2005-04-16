@@ -1,3 +1,5 @@
+<div class="admin">{CATEGORY_TITLE}</div>
+
 <p style="text-align:center;">
   global mode 
   | <a href="{U_UNIT_MODE}">unit mode</a>
@@ -10,8 +12,16 @@
   <legend>Caddie management</legend>
 
   <ul style="list-style-type:none;">
+
+    <!-- BEGIN in_caddie -->
     <li><input type="radio" name="caddie_action" value="empty_all" /> Empty caddie</li>
     <li><input type="radio" name="caddie_action" value="empty_selected" /> Take selected elements out of caddie</li>
+    <!-- END in_caddie -->
+
+    <!-- BEGIN not_in_caddie -->
+    <li><input type="radio" name="caddie_action" value="add_selected" /> Add selected elements to caddie</li>
+    <!-- END not_in_caddie -->
+  
   </ul>
 
   <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" class="bouton" /></p>
@@ -23,13 +33,20 @@
   <legend>Display options</legend>
 
   <p>elements per line :
-      <a href="{U_ELEMENTS_LINE}&amp;display=4">4</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=5">5</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=6">6</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=7">7</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=8">8</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=9">9</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=10">10</a>
+      <a href="{U_COLS}&amp;cols=4">4</a>
+    | <a href="{U_COLS}&amp;cols=5">5</a>
+    | <a href="{U_COLS}&amp;cols=6">6</a>
+    | <a href="{U_COLS}&amp;cols=7">7</a>
+    | <a href="{U_COLS}&amp;cols=8">8</a>
+    | <a href="{U_COLS}&amp;cols=9">9</a>
+    | <a href="{U_COLS}&amp;cols=10">10</a>
+  </p>
+
+  <p>elements per page :
+      <a href="{U_DISPLAY}&amp;display=20">20</a>
+    | <a href="{U_DISPLAY}&amp;display=50">50</a>
+    | <a href="{U_DISPLAY}&amp;display=100">100</a>
+    | <a href="{U_DISPLAY}&amp;display=all">all</a>
   </p>
 
 </fieldset>
@@ -139,6 +156,8 @@
 <fieldset>
 
   <legend>Elements</legend>
+
+  <div class="navigationBar">{NAV_BAR}</div>
 
   <!-- BEGIN thumbnails -->
   <table valign="top" align="center" class="thumbnail">

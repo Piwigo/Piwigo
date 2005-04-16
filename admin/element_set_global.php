@@ -72,50 +72,6 @@ SELECT keywords
 }
 
 // +-----------------------------------------------------------------------+
-// |                          caddie management                            |
-// +-----------------------------------------------------------------------+
-if (isset($_POST['submit_caddie']))
-{
-  if (isset($_POST['caddie_action']))
-  {
-    switch ($_POST['caddie_action'])
-    {
-      case 'empty_all' :
-      {
-          $query = '
-DELETE FROM '.CADDIE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-;';
-          pwg_query($query);
-          break;
-      }
-      case 'empty_selected' :
-      {
-        if (isset($_POST['selection']) and count($_POST['selection']) > 0)
-        {
-          $query = '
-DELETE
-  FROM '.CADDIE_TABLE.'
-  WHERE element_id IN ('.implode(',', $_POST['selection']).')
-    AND user_id = '.$user['id'].'
-;';
-          pwg_query($query);
-        }
-        else
-        {
-          // TODO : add error
-        }
-        break;
-      }
-    }
-  }
-  else
-  {
-    // TODO : add error
-  }
-}
-
-// +-----------------------------------------------------------------------+
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 $errors = array();
@@ -133,16 +89,7 @@ if (isset($_POST['submit']))
   {
     case 'all' :
     {
-      $query = '
-SELECT element_id
-  FROM '.CADDIE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-;';
-      $result = pwg_query($query);
-      while ($row = mysql_fetch_array($result))
-      {
-        array_push($collection, $row['element_id']);
-      }
+      $collection = $page['cat_elements_id'];
       break;
     }
     case 'selection' :
@@ -181,7 +128,7 @@ SELECT image_id
 
   if ($_POST['dissociate'] != 0)
   {
-    // physical links must be broken, so we must first retrieve image_id
+    // physical links must not be broken, so we must first retrieve image_id
     // which create virtual links with the category to "dissociate from".
     $query = '
 SELECT id
@@ -320,14 +267,36 @@ $base_url = PHPWG_ROOT_PATH.'admin.php';
 
 $template->assign_vars(
   array(
+    'CATEGORY_TITLE'=>$page['title'],
+    
     'L_SUBMIT'=>$lang['submit'],
 
-    'U_ELEMENTS_LINE'=>$base_url.get_query_string_diff(array('display')),
-    'U_UNIT_MODE'=>add_session_id($base_url.'?page=element_set_unit'),
+    'U_COLS'=>$base_url.get_query_string_diff(array('cols')),
+    'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
+    
+    'U_UNIT_MODE'
+    =>
+    $base_url
+    .get_query_string_diff(array('mode','display'))
+    .'&amp;mode=unit',
     
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
    )
  );
+
+// +-----------------------------------------------------------------------+
+// |                            caddie options                             |
+// +-----------------------------------------------------------------------+
+
+if ('caddie' == $_GET['cat'])
+{
+  $template->assign_block_vars('in_caddie', array());
+}
+else
+{
+  $template->assign_block_vars('not_in_caddie', array());
+}
+
 // +-----------------------------------------------------------------------+
 // |                           global mode form                            |
 // +-----------------------------------------------------------------------+
@@ -360,19 +329,20 @@ $template->assign_block_vars(
         'OPTION' => '------------'
     ));
 
-$query = '
+if (count($page['cat_elements_id']) > 0)
+{
+  $query = '
 SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic,
-       '.CADDIE_TABLE.' AS caddie,
        '.CATEGORIES_TABLE.' AS c,
        '.IMAGES_TABLE.' AS i
-  WHERE ic.image_id = caddie.element_id
+  WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
     AND ic.category_id = c.id
     AND ic.image_id = i.id
     AND ic.category_id != i.storage_category_id
-    AND caddie.user_id = '.$user['id'].'
 ;';
-display_select_cat_wrapper($query, array(), $blockname, true);
+  display_select_cat_wrapper($query, array(), $blockname, true);
+}
 
 $blockname = 'remove_keyword_option';
 
@@ -382,12 +352,7 @@ $template->assign_block_vars(
         'OPTION' => '------------'
     ));
 
-$query = '
-SELECT element_id
-  FROM '.CADDIE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-;';
-$keywords = get_elements_keywords(array_from_query($query, 'element_id'));
+$keywords = get_elements_keywords($page['cat_elements_id']);
 
 foreach ($keywords as $keyword)
 {
@@ -427,46 +392,59 @@ $template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
 
-$page['nb_image_line'] = !empty($_GET['display']) ? $_GET['display'] : 5;
+$page['cols'] = !empty($_GET['cols']) ? intval($_GET['cols']) : 5;
+$page['nb_images'] = !empty($_GET['display']) ? intval($_GET['display']) : 20;
 
-$query = '
-SELECT element_id,path,tn_ext
-  FROM '.IMAGES_TABLE.' INNER JOIN '.CADDIE_TABLE.' ON id=element_id
-  WHERE user_id = '.$user['id'].'
+if (count($page['cat_elements_id']) > 0)
+{
+  $nav_bar = create_navigation_bar(
+    $base_url.get_query_string_diff(array('start')),
+    count($page['cat_elements_id']),
+    $page['start'],
+    $page['nb_images'],
+    '');
+  $template->assign_vars(array('NAV_BAR' => $nav_bar));
+
+  $query = '
+SELECT id,path,tn_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
+  LIMIT '.$page['start'].', '.$page['nb_images'].'
 ;';
-//echo '<pre>'.$query.'</pre>';
-$result = pwg_query($query);
+  //echo '<pre>'.$query.'</pre>';
+  $result = pwg_query($query);
 
-// template thumbnail initialization
-if (mysql_num_rows($result) > 0)
-{
-  $template->assign_block_vars('thumbnails', array());
-  // first line
-  $template->assign_block_vars('thumbnails.line', array());
-  // current row displayed
-  $row_number = 0;
-}
-
-while ($row = mysql_fetch_array($result))
-{
-  $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
-      
-  $template->assign_block_vars(
-    'thumbnails.line.thumbnail',
-    array(
-      'ID' => $row['element_id'],
-      'SRC' => $src,
-      'ALT' => 'TODO',
-      'TITLE' => 'TODO'
-      )
-    );
-  
-  // create a new line ?
-  if (++$row_number == $page['nb_image_line'])
+  // template thumbnail initialization
+  if (mysql_num_rows($result) > 0)
   {
+    $template->assign_block_vars('thumbnails', array());
+    // first line
+    $template->assign_block_vars('thumbnails.line', array());
+    // current row displayed
+    $row_number = 0;
+  }
+
+  while ($row = mysql_fetch_array($result))
+  {
+    $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail',
+      array(
+        'ID' => $row['id'],
+        'SRC' => $src,
+        'ALT' => 'TODO',
+        'TITLE' => 'TODO'
+        )
+      );
+    
+    // create a new line ?
+    if (++$row_number == $page['cols'])
+    {
     $template->assign_block_vars('thumbnails.line', array());
     $row_number = 0;
+    }
   }
 }
 

@@ -550,15 +550,8 @@ function get_query_string_diff($rejects = array())
   {
     if (!in_array($key, $rejects))
     {
-      if ($is_first)
-      {
-        $query_string.= '?';
-        $is_first = false;
-      }
-      else
-      {
-        $query_string.= '&amp;';
-      }
+      $query_string.= $is_first ? '?' : '&amp;';
+      $is_first = false;
       $query_string.= $key.'='.$value;
     }
   }
@@ -693,6 +686,41 @@ function get_month_list($blockname, $selection)
       $blockname, array('SELECTED' => $selected,
                         'VALUE' => $i,
                         'OPTION' => $lang['month'][$i]));
+  }
+}
+
+/**
+ * fill the current user caddie with given elements, if not already in
+ * caddie
+ *
+ * @param array elements_id
+ */
+function fill_caddie($elements_id)
+{
+  global $user;
+  
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  
+  $query = '
+SELECT element_id
+  FROM '.CADDIE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+  $in_caddie = array_from_query($query, 'element_id');
+
+  $caddiables = array_diff($elements_id, $in_caddie);
+
+  $datas = array();
+
+  foreach ($caddiables as $caddiable)
+  {
+    array_push($datas, array('element_id' => $caddiable,
+                             'user_id' => $user['id']));
+  }
+
+  if (count($caddiables) > 0)
+  {
+    mass_inserts(CADDIE_TABLE, array('element_id','user_id'), $datas);
   }
 }
 ?>
