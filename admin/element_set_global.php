@@ -303,7 +303,7 @@ SELECT id, keywords
       
       array_push($datas, $data);
     }
-    echo '<pre>'; print_r($datas); echo '</pre>';
+    // echo '<pre>'; print_r($datas); echo '</pre>';
     mass_updates(IMAGES_TABLE, $dbfields, $datas);
   }
 }
@@ -323,6 +323,7 @@ $template->assign_vars(
     'L_SUBMIT'=>$lang['submit'],
 
     'U_ELEMENTS_LINE'=>$base_url.get_query_string_diff(array('display')),
+    'U_UNIT_MODE'=>add_session_id($base_url.'?page=element_set_unit'),
     
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
    )

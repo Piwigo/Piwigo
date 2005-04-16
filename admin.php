@@ -155,6 +155,12 @@ switch ( $_GET['page'] )
    $page_valide = true;
    break;
  }
+ case 'element_set_unit' :
+ {
+   $title = 'batch management';
+   $page_valide = true;
+   break;
+ }
  default:
    $title = $lang['title_default']; break;
 }

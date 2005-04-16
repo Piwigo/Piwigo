@@ -1,3 +1,8 @@
+<p style="text-align:center;">
+  global mode 
+  | <a href="{U_UNIT_MODE}">unit mode</a>
+</p>
+
 <form action="{F_ACTION}" method="post">
 
 <fieldset>
@@ -10,6 +15,22 @@
   </ul>
 
   <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" class="bouton" /></p>
+
+</fieldset>
+
+<fieldset>
+
+  <legend>Display options</legend>
+
+  <p>elements per line :
+      <a href="{U_ELEMENTS_LINE}&amp;display=4">4</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=5">5</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=6">6</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=7">7</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=8">8</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=9">9</a>
+    | <a href="{U_ELEMENTS_LINE}&amp;display=10">10</a>
+  </p>
 
 </fieldset>
 
@@ -137,22 +158,6 @@
     <!-- END line -->
   </table>
   <!-- END thumbnails -->
-
-</fieldset>
-
-<fieldset>
-
-  <legend>Display options</legend>
-
-  <p>elements per line :
-      <a href="{U_ELEMENTS_LINE}&amp;display=4">4</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=5">5</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=6">6</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=7">7</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=8">8</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=9">9</a>
-    | <a href="{U_ELEMENTS_LINE}&amp;display=10">10</a>
-  </p>
 
 </fieldset>
 

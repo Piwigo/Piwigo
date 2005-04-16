@@ -1,3 +1,13 @@
+2005-04-16 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
+
+	* elements batch management : in addition to global mode, a unit
+	mode is added : ability to manage a set of elements, element by
+	element. This screen is very close to the existing "infos_images"
+	(which will soon disappear).
+
+	* elements batch management : in screen element_set_global, the
+	display options are displayed at the top as in element_set_unit
+	
 2005-04-11 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
 
 	* functions get_day_list and get_month_list moved from search.php
