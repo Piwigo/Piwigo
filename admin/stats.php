@@ -30,12 +30,28 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 
-$url_img_global_report = PHPWG_ROOT_PATH.'admin/images/global_stats.img.php';
+$url_img = PHPWG_ROOT_PATH.'admin/images/'; 
+$nls_value_title = $lang['w_month'];
+$group_clause = "DATE_FORMAT(date,'%Y-%m') DESC";
+$where_clause = "1";
+
+if (isset($_GET['month']) && isset($_GET['year']) )
+{
+  $url_img .= 'monthly_stats.img.php?year='.$_GET['year'].'&month='.$_GET['month'];
+  $nls_value_title = $lang['w_day'];
+  $group_clause = "DATE_FORMAT(date,'%Y-%m-%d') ASC";
+  $where_clause = "(YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." )";
+}
+else 
+{
+  $url_img .= 'global_stats.img.php';
+}
+
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('stats'=>'admin/stats.tpl') );
 
 $template->assign_vars(array(
-  'L_MONTH'=>$lang['w_month'],
+  'L_VALUE'=>$nls_value_title,
   'L_PAGES_SEEN'=>$lang['stats_pages_seen'],
   'L_VISITORS'=>$lang['visitors'],
   'L_PICTURES'=>$lang['pictures'],
@@ -43,32 +59,50 @@ $template->assign_vars(array(
   'L_STAT_MONTH_TITLE'=>$lang['stats_month_title'],
   'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
   
-  'IMG_MONTHLY_REPORT'=>add_session_id($url_img_global_report)
+  'IMG_REPORT'=>add_session_id($url_img)
   ));
 
 //---------------------------------------------------------------- log  history
 $query = '
 SELECT DISTINCT COUNT(*) as p,
+       DATE(date) as d,
        MONTH(date) as m,
        YEAR(date) as y
   FROM '.HISTORY_TABLE.' 
-  GROUP BY DATE_FORMAT(date,\'%Y-%m\') DESC
-;';
+  WHERE '.$where_clause.'
+  GROUP BY '.$group_clause.';';
+
 $result = pwg_query( $query );
 $i=0;
 while ( $row = mysql_fetch_array( $result ) )
 {
-  $current_month = $row['y']."-";
-  if ($row['m'] <10) {$current_month.='0';}
-  $current_month .= $row['m'];
+  $where_clause="";
+  $value = '';
+  if (isset($_GET['month']) && isset($_GET['year']) )
+  {
+    $where_clause = "DATE_FORMAT(date,'%Y-%m-%d') = '".$row['d']."'";
+    $value = substr($row['d'],8,2);
+  }
+  else
+  {
+    $current_month = $row['y']."-";
+    if ($row['m'] <10) {$current_month.='0';}
+    $current_month .= $row['m'];
+    $where_clause = "DATE_FORMAT(date,'%Y-%m') = '".$current_month."'";
+    $value = "<a href='".PHPWG_ROOT_PATH."admin.php?page=stats";
+    $value.= "&amp;year=".$row['y']."&amp;month=".$row['m']."'>";
+    $value.= $lang['month'][$row['m']].' '.$row['y'];
+    $value.= "</a>";
+  }
+  
   // Number of pictures seen
   $query = '
 SELECT COUNT(*) as p,
-       FILE as f
-  FROM '.HISTORY_TABLE.' 
-  WHERE DATE_FORMAT(date,\'%Y-%m\') = \''.$current_month.'\'
+    FILE as f
+    FROM '.HISTORY_TABLE.' 
+    WHERE '.$where_clause.'
     AND FILE = \'picture\'
-  GROUP BY FILE
+    GROUP BY FILE
 ;';
   $pictures = mysql_fetch_array(pwg_query( $query ));
   
@@ -76,7 +110,7 @@ SELECT COUNT(*) as p,
   $query = '
 SELECT COUNT(*) as p, login
   FROM '.HISTORY_TABLE.' 
-  WHERE DATE_FORMAT(date,\'%Y-%m\') = \''.$current_month.'\'
+  WHERE '.$where_clause.'
   GROUP BY login, IP
 ;';
   $user_results = pwg_query( $query );
@@ -92,8 +126,8 @@ SELECT COUNT(*) as p, login
   $nb_visitors +=count(array_unique($auth_users));
   $class = ($i % 2)? 'row1':'row2'; $i++;
   
-  $template->assign_block_vars('month',array(
-    'MONTH'=>$lang['month'][$row['m']].' '.$row['y'],
+  $template->assign_block_vars('statrow',array(
+      'VALUE'=>$value,
 	'PAGES'=>$row['p'],
 	'VISITORS'=>$nb_visitors,
 	'IMAGES'=>$pictures['p'],

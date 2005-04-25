@@ -27,7 +27,7 @@
 
 $lang['install_message'] = 'Message';
 $lang['Initial_config'] = 'Basic configuration';
-$lang['Default_lang'] = 'Default galerie language';
+$lang['Default_lang'] = 'Default gallery language';
 $lang['step1_title'] = 'Database configuration';
 $lang['step2_title'] = 'Admin configuration';
 $lang['Start_Install'] = 'Start Install';
@@ -36,7 +36,7 @@ $lang['mail_webmaster'] = 'Webmaster mail adress';
 $lang['mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
 $lang['reg_err_mail_address'] = 'e-mail address refused, it must be like name@server.com';
 
-$lang['install_webmaster'] = 'webmaster login';
+$lang['install_webmaster'] = 'Webmaster login';
 $lang['install_webmaster_info'] = 'It will be shown to the visitors. It is necessary for website administration';
 
 $lang['step1_confirmation'] = 'Parameters are correct';
@@ -48,7 +48,7 @@ $lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the f
 
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
-$lang['step1_user'] = 'user';
+$lang['step1_user'] = 'User';
 $lang['step1_user_info'] = 'user login given by your host provider';
 $lang['step1_pass'] = 'Password';
 $lang['step1_pass_info'] = 'user password given by your host provider';
@@ -60,9 +60,9 @@ $lang['step2_err_login1'] = 'enter a login for webmaster';
 $lang['step2_err_login3'] = 'webmaster login can\'t contain characters \' or "';
 $lang['step2_err_pass'] = 'please enter your password again';
 $lang['install_end_title'] = 'Installation finished';
-$lang['step2_pwd'] = 'webmaster password';
+$lang['step2_pwd'] = 'Webmaster password';
 $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
-$lang['step2_pwd_conf'] = 'confirm password';
+$lang['step2_pwd_conf'] = 'Password [confirm]';
 $lang['step2_pwd_conf_info'] = 'verification';
 $lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
 $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />

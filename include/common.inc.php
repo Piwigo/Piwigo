@@ -113,7 +113,7 @@ $user = array();
 $lang = array();
 
 
-include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
+@include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if (!defined('PHPWG_INSTALLED'))
 {
   header('Location: install.php');
