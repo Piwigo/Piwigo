@@ -30,13 +30,17 @@
  *
  * Set configuration parameters that are not in the table config. In the
  * application, configuration parameters are considered in the same way
- * coming from config table or config.inc.php.
+ * coming from config table or config_default.inc.php.
  *
- * Why having some parameters in config table and others in config.inc.php ?
- * Modifying config.inc.php is a "hard" task for low skilled users, they
- * need a GUI for this : admin/configuration. But only parameters that might
- * be modified by low skilled users are in config table, other parameters
- * are in config.inc.php
+ * It is recommended to let config_default.inc.php as provided and to
+ * overwrite configuration in your local configuration file
+ * config_local.inc.php
+ *
+ * Why having some parameters in config table and others in
+ * config_*.inc.php? Modifying config_*.inc.php is a "hard" task for low
+ * skilled users, they need a GUI for this : admin/configuration. But only
+ * parameters that might be modified by low skilled users are in config
+ * table, other parameters are in config_*.inc.php
  */
 
 // order_by : how to change the order of display for images in a category ?

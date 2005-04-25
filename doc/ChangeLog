@@ -1,5 +1,12 @@
 2005-04-25 Pierrick LE GALL
 
+	* include/config.inc.php becomes include/config_default.inc.php :
+	this file should not be modified. A new file
+	include/config_local.inc.php can be used for overwriting
+	configuration parameters
+	
+2005-04-25 Pierrick LE GALL
+
 	* come back to previous version of include/constants.php :
 	%PWGVERSION% was not a mistake
 
