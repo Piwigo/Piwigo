@@ -1,3 +1,12 @@
+2005-04-25 Gweltas
+
+	* ability to install even if file include/mysql.inc.php doesn't
+	exist
+
+	* monthly statistics
+
+	* installation labels updated (english only)
+
 2005-04-16 Pierrick LE GALL <pierrick /at/ phpwebgallery {dot} net>
 
 	* elements batch management : element_set page becomes the
