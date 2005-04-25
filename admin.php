@@ -50,12 +50,18 @@ else if (isset($_GET['user_id']))
 if (isset( $_GET['page'] ))
 switch ( $_GET['page'] )
 {
- case 'user_list':
-   $title = $lang['title_liste_users'];   $page_valide = true; break;
- case 'profile':
-   $title = $lang['title_user_modify'];
-	 $page_valide = true; 
-	 break;
+  case 'user_list' :
+  {
+    $title = $lang['title_liste_users'];
+    $page_valide = true;
+    break;
+  }
+  case 'profile' :
+  {
+    $title = $lang['title_user_modify'];
+    $page_valide = true; 
+    break;
+  }
  case 'user_perm':
    $title = $lang['title_user_perm'].' '.$username;
    $page_valide = true; break;
@@ -248,7 +254,7 @@ $template->assign_vars(array(
   'U_COMMENTS'=>add_session_id($link_start.'comments' ),
   'U_CADDIE'=>add_session_id($link_start.'element_set&amp;cat=caddie'),
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
-  'U_USERS'=>add_session_id($link_start.'profile' ),
+  'U_USERS'=>add_session_id($link_start.'user_list' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
   'U_USERS_AUTH'=>add_session_id($link_start.'user_perm' ),
   'U_GROUPS_AUTH'=>add_session_id($link_start.'group_perm'),
