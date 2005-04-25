@@ -1,5 +1,10 @@
 2005-04-25 Pierrick LE GALL
 
+	* come back to previous version of include/constants.php :
+	%PWGVERSION% was not a mistake
+
+2005-04-25 Pierrick LE GALL
+
 	* profile.php is no longer used for listing users :
 	admin/user_list.php comes back (as in 1.3 branch)
 
