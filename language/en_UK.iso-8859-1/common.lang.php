@@ -59,6 +59,7 @@ $lang['webmaster'] = 'Webmaster';
 $lang['language']='Language';
 $lang['powered_by'] = 'Powered by';
 $lang['all_categories'] = 'all categories';
+$lang['unavailable'] = 'N/A';
 
 //Properties
 $lang['registration_date'] = 'Registered on';

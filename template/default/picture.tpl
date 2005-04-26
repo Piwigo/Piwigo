@@ -75,12 +75,48 @@
 </div>
 <div id="centre">
   <table style="margin:auto;margin-top:5px;margin-bottom:5px;">
-	  <!-- BEGIN info_line -->
-	  <tr>
-		 <td class="menu" style="font-weight:bold;">{info_line.INFO} : </td>
-		 <td class="menu" style="text-align:right;">{info_line.VALUE}</td>
-	  </tr>
-	  <!-- END info_line -->
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_AUTHOR} : </td>
+	 <td class="menu" style="text-align:right;">{AUTHOR}</td>
+    </tr>
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_CREATION_DATE} : </td>
+	 <td class="menu" style="text-align:right;">{CREATION_DATE}</td>
+    </tr>
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_AVAILABILITY_DATE} : </td>
+	 <td class="menu" style="text-align:right;">{AVAILABILITY_DATE}</td>
+    </tr>
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_SIZE} : </td>
+	 <td class="menu" style="text-align:right;">{SIZE}</td>
+    </tr>
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_FILE} : </td>
+	 <td class="menu" style="text-align:right;">{ALT_IMG}</td>
+    </tr>
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{L_FILE_SIZE} : </td>
+	 <td class="menu" style="text-align:right;">{FILE_SIZE} Ko</td>
+    </tr>
+    <!-- BEGIN keywords -->
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{keywords.INFO} : </td>
+	 <td class="menu" style="text-align:right;">{keywords.VALUE}</td>
+    </tr>
+    <!-- END keywords -->
+    <!-- BEGIN associated -->
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{associated.INFO} : </td>
+	 <td class="menu" style="text-align:right;">{associated.VALUE}</td>
+    </tr>
+    <!-- END associated -->
+    <!-- BEGIN rate -->
+    <tr>
+	 <td class="menu" style="font-weight:bold;">{rate.INFO} : </td>
+	 <td class="menu" style="text-align:right;">{rate.VALUE}</td>
+    </tr>
+    <!-- END rate -->
   </table>
 </div>
 <div id="droite">
@@ -94,36 +130,35 @@
 </div>
 </div>
 <div style="clear:both;"></div>
-         <!-- BEGIN metadata -->
-          <table class="tablecompact">
-            <!-- BEGIN headline -->
-            <tr>
-              <th colspan="2">{metadata.headline.TITLE}</th>
-            </tr>
-            <!-- END headline -->
-            <!-- BEGIN line -->
-            <tr>
-              <td>{metadata.line.KEY}</td>
-              <td>{metadata.line.VALUE}</td>
-            </tr>
-            <!-- END line -->
-          </table>
-          <!-- END metadata -->
+<!-- BEGIN metadata -->
+ <table class="tablecompact">
+  <!-- BEGIN headline -->
+  <tr>
+    <th colspan="2">{metadata.headline.TITLE}</th>
+  </tr>
+  <!-- END headline -->
+  <!-- BEGIN line -->
+  <tr>
+    <td>{metadata.line.KEY}</td>
+    <td>{metadata.line.VALUE}</td>
+  </tr>
+  <!-- END line -->
+  </table>
+<!-- END metadata -->
 
-          <!-- BEGIN rate -->
-          <div>
-            {rate.SENTENCE} :
-            <!-- BEGIN rate_option -->
-            {rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}">{rate.rate_option.OPTION}</a>
-            <!-- END rate_option -->
-          </div>
-          <!-- END rate -->
+<!-- BEGIN rate -->
+<div>{rate.SENTENCE} :
+  <!-- BEGIN rate_option -->
+  {rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}">{rate.rate_option.OPTION}</a>
+  <!-- END rate_option -->
+</div>
+<!-- END rate -->
          
 <table class="tablecompact">
-      <!-- BEGIN comments -->
-      <tr align="center" valign="middle">
-        <td colspan="3" class="table2">
-                  <div class="commentTitle">
+  <!-- BEGIN comments -->
+  <tr align="center" valign="middle">
+    <td colspan="3" class="table2">
+    <div class="commentTitle">
                     [{comments.NB_COMMENT}] {L_COMMENT_TITLE}
                   </div>
                   <div class="commentsNavigationBar">{comments.NAV_BAR}</div>

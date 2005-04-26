@@ -59,6 +59,7 @@ $lang['language'] = 'Langue';
 $lang['send_mail'] = 'Contact';
 $lang['powered_by'] = 'Propulsé par';
 $lang['all_categories'] = 'toutes catégories';
+$lang['unavailable'] = 'N/A';
 
 // Properties
 $lang['registration_date'] = 'Enregistré le';

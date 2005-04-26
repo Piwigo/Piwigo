@@ -459,7 +459,69 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
 {
   $url_metadata.= '&amp;show_metadata=1';
 }
-				  
+
+// author
+$author = $creation_date = $size = $filesize = $lang['unavailable'];
+if ( !empty($picture['current']['author']) )
+{
+  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
+  $search_url.= '&amp;search=author:'.$picture['current']['author'];
+  
+  $author = '<a href="';
+  $author .= add_session_id($search_url);
+  $author .= '">'.$picture['current']['author'].'</a>';
+}
+
+// creation date
+if ( !empty($picture['current']['date_creation']) )
+{
+  $creation_date = format_date($picture['current']['date_creation']);
+}
+
+// date of availability
+$availability_date = format_date($picture['current']['date_available']);
+
+// size in pixels
+if ($picture['current']['is_picture'])
+{
+  if ($original_width != $picture_size[0]
+      or $original_height != $picture_size[1])
+  {
+    $size = '[ <a href="'.$picture['current']['src'].'" ';
+    $size .= ' title="'.$lang['true_size'].'">';
+    $size .= $original_width.'*'.$original_height.'</a> ]';
+  }
+  else
+  {
+    $size = $original_width.'*'.$original_height;
+  }
+}
+
+// filesize
+if (empty($picture['current']['filesize']))
+{
+  if (!$picture['current']['is_picture'])
+  {
+    $filesize = floor(filesize($picture['current']['download'])/1024);
+  }
+  else
+  {
+    $filesize = floor(filesize($picture['current']['src'])/1024);
+  }
+}
+else
+{
+  $filesize = $picture['current']['filesize'];
+}
+
+// number of visits
+$template->assign_block_vars(
+  'info_line',
+  array(
+    'INFO'=>$lang['visited'],
+    'VALUE'=>$picture['current']['hit'].' '.$lang['times']
+    ));
+			  
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 
@@ -471,6 +533,11 @@ $template->assign_vars(array(
   'ALT_IMG' => $picture['current']['file'],
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
+  'AUTHOR' => $author,
+  'CREATION_DATE' => $creation_date,
+  'AVAILABILITY_DATE' => $availability_date,
+  'SIZE' => $size,
+  'FILE_SIZE' => $filesize,
 
   'LEVEL_SEPARATOR' => $conf['level_separator'],
 
@@ -493,6 +560,11 @@ $template->assign_vars(array(
   'L_PICTURE_HIGH' => $lang['picture_high'],
   'L_UP_HINT' => $lang['home_hint'],
   'L_UP_ALT' => $lang['home'],
+  'L_CREATION_DATE' => $lang['creation_date'],
+  'L_AVAILABILITY_DATE' => $lang['registration_date'],
+  'L_SIZE' => $lang['size'],
+  'L_FILE' => $lang['file'],
+  'L_FILE_SIZE' => $lang['size'],
   
   'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
   'U_UP' => add_session_id($url_up),
@@ -611,103 +683,6 @@ if (isset($picture['current']['comment'])
       ));
 }
 
-// author
-if ( !empty($picture['current']['author']) )
-{
-  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
-  $search_url.= '&amp;search=author:'.$picture['current']['author'];
-  
-  $value = '<a href="';
-  $value.= add_session_id($search_url);
-  $value.= '">'.$picture['current']['author'].'</a>';
-  
-  $template->assign_block_vars(
-    'info_line',
-    array(
-      'INFO'=>$lang['author'],
-      'VALUE'=>$value
-      ));
-}
-// creation date
-if ( !empty($picture['current']['date_creation']) )
-{
-  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
-  $search_url.= '&amp;search=';
-  $search_url.= 'date_creation:'.$picture['current']['date_creation'];
-  
-  $value = '<a href="';
-  $value.= add_session_id($search_url);
-  $value.= '">'.format_date($picture['current']['date_creation']).'</a>';
-  
-  $template->assign_block_vars(
-    'info_line',
-    array(
-      'INFO'=>$lang['creation_date'],
-      'VALUE'=>$value
-      ));
-}
-// date of availability
-$search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
-$search_url.= '&amp;search=';
-$search_url.= 'date_available:'.$picture['current']['date_available'];
-  
-$value = '<a href="';
-$value.= add_session_id($search_url);
-$value.= '">'.format_date($picture['current']['date_available']).'</a>';
-
-$template->assign_block_vars(
-  'info_line',
-  array(
-    'INFO'=>$lang['registration_date'],
-    'VALUE'=>$value
-    ));
-// size in pixels
-if ($picture['current']['is_picture'])
-{
-  if ($original_width != $picture_size[0]
-      or $original_height != $picture_size[1])
-  {
-    $content = '[ <a href="'.$picture['current']['src'].'" ';
-    $content.= ' title="'.$lang['true_size'].'">';
-    $content.= $original_width.'*'.$original_height.'</a> ]';
-  }
-  else
-  {
-    $content = $original_width.'*'.$original_height;
-  }
-  $template->assign_block_vars(
-    'info_line',
-    array(
-      'INFO'=>$lang['size'],
-      'VALUE'=>$content 
-      ));
-}
-// file
-$template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['file'],
-	  'VALUE'=>$picture['current']['file'] 
-	  ));
-// filesize
-if (empty($picture['current']['filesize']))
-{
-  if (!$picture['current']['is_picture'])
-  {
-    $filesize = floor(filesize($picture['current']['download'])/1024);
-  }
-  else
-  {
-    $filesize = floor(filesize($picture['current']['src'])/1024);
-  }
-}
-else
-{
-  $filesize = $picture['current']['filesize'];
-}
-
-$template->assign_block_vars('info_line', array(
-	  'INFO'=>$lang['filesize'],
-	  'VALUE'=>$filesize.' KB'
-	  ));
 // keywords
 if (!empty($picture['current']['keywords']))
 {
@@ -724,50 +699,13 @@ if (!empty($picture['current']['keywords']))
     $content.= '<a href="'.$local_url.'">'.$keyword.'</a>';
   }
   $template->assign_block_vars(
-    'info_line',
+    'keywords',
     array(
       'INFO'=>$lang['keywords'],
       'VALUE'=>$content
       ));
 }
-// number of visits
-$template->assign_block_vars(
-  'info_line',
-  array(
-    'INFO'=>$lang['visited'],
-    'VALUE'=>$picture['current']['hit'].' '.$lang['times']
-    ));
-// rate results
-if ($conf['rate'])
-{
-  $query = '
-SELECT COUNT(rate) AS count
-     , ROUND(AVG(rate),2) AS average
-     , ROUND(STD(rate),2) AS STD
-  FROM '.RATE_TABLE.'
-  WHERE element_id = '.$picture['current']['id'].'
-;';
-  $row = mysql_fetch_array(pwg_query($query));
-  if ($row['count'] == 0)
-  {
-    $value = $lang['no_rate'];
-  }
-  else
-  {
-    $value = $row['average'];
-    $value.= ' (';
-    $value.= $row['count'].' '.$lang['rates'];
-    $value.= ', '.$lang['standard_deviation'].' : '.$row['STD'];
-    $value.= ')';
-  }
-  
-  $template->assign_block_vars(
-    'info_line',
-    array(
-      'INFO'  => $lang['element_rate'],
-      'VALUE' => $value
-      ));
-}
+
 // related categories
 $cat_output = '';
 $page['show_comments'] = false;
@@ -795,12 +733,13 @@ foreach ($related_categories as $category)
   }
 }
 $template->assign_block_vars(
-  'info_line',
+  'associated',
   array(
     'INFO'  => $lang['categories'],
     'VALUE' => $cat_output
     ));
-// metadata
+
+//-------------------------------------------------------------------  metadata
 if ($metadata_showable and isset($_GET['show_metadata']))
 {
   include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
@@ -904,15 +843,35 @@ if ( isset( $_GET['slideshow'] ) )
   ));
 }
 
-//------------------------------------------------------------------- rate form
-if ($conf['rate'] and !$user['is_the_guest'])
+//------------------------------------------------------------------- rating
+if ($conf['rate'])
 {
-  $query = '
-SELECT rate
+  $query = 'SELECT COUNT(rate) AS count
+     , ROUND(AVG(rate),2) AS average
+     , ROUND(STD(rate),2) AS STD
   FROM '.RATE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-    AND element_id = '.$_GET['image_id'].'
+  WHERE element_id = '.$picture['current']['id'].'
 ;';
+  $row = mysql_fetch_array(pwg_query($query));
+  if ($row['count'] == 0)
+  {
+    $value = $lang['no_rate'];
+  }
+  else
+  {
+    $value = $row['average'];
+    $value.= ' (';
+    $value.= $row['count'].' '.$lang['rates'];
+    $value.= ', '.$lang['standard_deviation'].' : '.$row['STD'];
+    $value.= ')';
+  }
+  
+  if (!$user['is_the_guest'])
+  {
+    $query = 'SELECT rate
+    FROM '.RATE_TABLE.'
+    WHERE user_id = '.$user['id'].'
+    AND element_id = '.$_GET['image_id'].';';
   $result = pwg_query($query);
   if (mysql_num_rows($result) > 0)
   {
@@ -924,12 +883,14 @@ SELECT rate
   else
   {
     $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
-  }
+  }  
   $template->assign_block_vars(
     'rate',
-    array('SENTENCE' => $sentence)
-    );
-  
+    array(
+      'INFO'  => $lang['element_rate'],
+      'VALUE' => $value,
+      'SENTENCE' => $sentence
+      ));
   
   foreach ($rate_items as $num => $mark)
   {
@@ -953,8 +914,10 @@ SELECT rate
         'URL' => $url,
         'SEPARATOR' => $separator
         ));
+    }
   }
 }
+
 //---------------------------------------------------- users's comments display
 if ($page['show_comments'])
 {
