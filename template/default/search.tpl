@@ -18,8 +18,8 @@
     <td colspan="2" valign="top">
 	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
 	  <br />
-	  <input type="radio" name="mode" value="AND" checked="checked" /> {L_SEARCH_ALL_TERMS}<br />
-	  <input type="radio" name="mode" value="OR" /> {L_SEARCH_ANY_TERMS}
+	  <input class ="radio" type="radio" name="mode" value="AND" checked="checked" /> {L_SEARCH_ALL_TERMS}<br />
+	  <input class ="radio" type="radio" name="mode" value="OR" /> {L_SEARCH_ANY_TERMS}
 	</td>
   </tr>
   <tr> 
@@ -83,41 +83,41 @@
 	</td>
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_SUBFORUMS} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="subcats-included" value="1" checked="checked" />{L_YES}&nbsp;&nbsp;
-	  <input type="radio" name="subcats-included" value="0" />{L_NO}
+	  <input class ="radio" type="radio" name="subcats-included" value="1" checked="checked" />{L_YES}&nbsp;&nbsp;
+	  <input class ="radio" type="radio" name="subcats-included" value="0" />{L_NO}
 	</td>
    </tr>
    <tr> 
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_DATE_TYPE} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{L_SEARCH_CREATION}<br />
-	  <input type="radio" name="date_type" value="date_available" />{L_SEARCH_AVAILABILITY}
+	  <input class ="radio" type="radio" name="date_type" value="date_creation" checked="checked" />{L_SEARCH_CREATION}<br />
+	  <input class ="radio" type="radio" name="date_type" value="date_available" />{L_SEARCH_AVAILABILITY}
 	</td>
 	<td><b>{L_RESULT_SORT} : </b></td>
     <td nowrap="nowrap">
-	  <input type="radio" name="sd" value="AND" />{L_SORT_ASCENDING}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
+	  <input class ="radio" type="radio" name="sd" value="AND" />{L_SORT_ASCENDING}<br />
+	  <input class ="radio" type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
 	</td>
   </tr>
 <!--  <tr> 
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_WITHIN} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="search_fields" value="all" checked="checked" />{L_SEARCH_ALL}<br />
-	  <input type="radio" name="search_fields" value="imgonly" />{L_SEARCH_IMG_ONLY}<br />
-	  <input type="radio" name="search_fields" value="commentsonly" />{L_SEARCH_COMMENTS_ONLY}
+	  <input class ="radio" type="radio" name="search_fields" value="all" checked="checked" />{L_SEARCH_ALL}<br />
+	  <input class ="radio" type="radio" name="search_fields" value="imgonly" />{L_SEARCH_IMG_ONLY}<br />
+	  <input class ="radio" type="radio" name="search_fields" value="commentsonly" />{L_SEARCH_COMMENTS_ONLY}
 	</td>
   </tr>
   <tr>
     <td><b>{L_RESULT_SORT} : </b></td>
     <td nowrap="nowrap">
 	  {S_SELECT_SORT_KEY}<br />
-	  <input type="radio" name="sd" value="a" />{L_SORT_ASCENDING}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
+	  <input class ="radio" type="radio" name="sd" value="a" />{L_SORT_ASCENDING}<br />
+	  <input class ="radio" type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
 	</td>
     <td nowrap="nowrap"><b>{L_DISPLAY_RESULTS} : </b></td>
     <td nowrap="nowrap">
-	  <input type="radio" name="show_results" value="images" checked="checked" />{L_IMAGES}&nbsp;&nbsp;
-	  <input type="radio" name="show_results" value="comments" /> {L_COMMENTS}
+	  <input class ="radio" type="radio" name="show_results" value="images" checked="checked" />{L_IMAGES}&nbsp;&nbsp;
+	  <input class ="radio" type="radio" name="show_results" value="comments" /> {L_COMMENTS}
 	</td>
   </tr>  
   -->
