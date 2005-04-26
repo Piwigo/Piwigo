@@ -11,7 +11,7 @@
 <!-- BEGIN profile -->
 <div class="titrePage">{L_TITLE}</div>
 <!-- END profile -->
-<form method="post" action="{F_ACTION}">
+<form method="post" name="profile" action="{F_ACTION}">
 <table width="70%" align="center">
   <tr class="admin">
     <th colspan="2">{L_REGISTRATION_INFO}</th>
@@ -72,36 +72,36 @@
 	<td><input type="radio" class="radio" name="show_nb_comments" value="true" {NB_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
 	<input type="radio" class="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO} />{L_NO}</td>
   </tr>
-	<tr>
+  <tr>
     <td>{L_MAXWIDTH}</td>
 	<td><input type="text" size="4" maxlength="4" name="maxwidth" value="{MAXWIDTH}" />
 	</td>
   </tr>
-	<tr>
+  <tr>
     <td>{L_MAXHEIGHT}</td>
-	<td><input type="text" size="4" maxlength="4" name="maxheight" value="{MAXHEIGHT}" />
-	</td>
+    <td><input type="text" size="4" maxlength="4" name="maxheight" value="{MAXHEIGHT}" />
+    </td>
   </tr>
 <!-- BEGIN admin -->
 	<tr class="admin">
     <th colspan="2">{modify.admin.L_ADMIN_USER}</th>
   </tr>
-	<tr>
+  <tr>
     <td>{modify.admin.L_STATUS}</td>
 	<td>{modify.admin.STATUS}
 	</td>
   </tr>
-	<tr>
+  <tr>
     <td>{modify.admin.L_DELETE}<br />
-		<span class="small">{modify.admin.L_DELETE_HINT}</span></td>
+	<span class="small">{modify.admin.L_DELETE_HINT}</span></td>
 	<td><input name="user_delete" type="checkbox" value="1">
 	</td>
   </tr>
 <!-- END admin -->
-<tr>
+  <tr>
 	<td colspan="2" align="center">
-	  <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
-          <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
+	  <input type="submit" name="validate" value="{L_SUBMIT}" class="bouton" />
+        <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
 	</td>
   </tr>
 </table>

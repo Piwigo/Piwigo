@@ -34,7 +34,7 @@ if (defined('IN_ADMIN') and IN_ADMIN and isset($_GET['user_id']))
 {
   $userdata = getuserdata(intval($_GET['user_id']));
 }
-elseif (defined('IN_ADMIN') and isset($_POST['submit']))
+elseif (defined('IN_ADMIN') and (isset($_POST['validate'])) )
 {
   $userdata = getuserdata(intval($_POST['userid']));
 }
@@ -51,7 +51,7 @@ $infos = array('nb_image_line', 'nb_line_page', 'language',
                'recent_period', 'template', 'mail_address');
 
 $errors = array();
-if (isset($_POST['submit']))
+if (isset($_POST['username']) && !isset($_POST['reset']))
 {
   $int_pattern = '/^\d+$/';
   
@@ -193,14 +193,17 @@ UPDATE '.USERS_TABLE.'
     }
     
     // redirection
-    if (!defined('IN_ADMIN') or !IN_ADMIN)
+    if (isset($_POST['validate']))
     {
-      $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
-      redirect(add_session_id($url));
-    }
-    else
-    {
-      redirect(add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'));
+      if (!defined('IN_ADMIN') or !IN_ADMIN)
+      {
+        $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
+        redirect(add_session_id($url));
+       }
+      else
+      {
+        redirect(add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'));
+      }
     }
   }
 }
