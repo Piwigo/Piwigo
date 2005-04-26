@@ -36,10 +36,14 @@ $outputFormat = "png";
 $legend = $lang['stats_global_graph_title'];
 $imageHeight = 256;
 $imageWidth = 512;
-$sql = "SELECT DISTINCT COUNT(*), DAY(date) 
-  FROM ".HISTORY_TABLE." 
-  WHERE (YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." ) 
-  GROUP BY DATE_FORMAT(date,'%Y-%m-%d') DESC;";
+$sql = '
+SELECT DISTINCT COUNT(*)
+     , DAYOFMONTH(date) 
+  FROM '.HISTORY_TABLE.'
+  WHERE YEAR(date) = '.$_GET['year'].'
+    AND MONTH(date) = '.$_GET['month'].'
+  GROUP BY DATE_FORMAT(date, \'%Y-%m-%d\') DESC
+;';
 
 //------------------------------------------------ Image definition
 $image = ImageCreate($imageWidth, $imageHeight);
@@ -75,10 +79,15 @@ $myBarGraph->SetBarSpacing(5);     // The default is 10. This changes the space 
 $result = pwg_query($sql)
 or die(mysql_errno().": ".mysql_error()."<BR>".$sql);
 
-$days =array_fill(1,31,0);
+$days = array();
+for ($i = 1; $i <= 31; $i++)
+{
+  $days[$i] = 0;
+}
+
 while ($r = mysql_fetch_row($result))
 { 
-  $days [$r[1]]= $r[0];
+  $days[$r[1]]= $r[0];
 }
 $o=0;
 while (list ($key,$value) = each($days ))

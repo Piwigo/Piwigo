@@ -65,7 +65,7 @@ $template->assign_vars(array(
 //---------------------------------------------------------------- log  history
 $query = '
 SELECT DISTINCT COUNT(*) as p,
-       DATE(date) as d,
+       DAYOFMONTH(date) as d,
        MONTH(date) as m,
        YEAR(date) as y
   FROM '.HISTORY_TABLE.' 
