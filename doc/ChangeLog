@@ -1,3 +1,7 @@
+2005-04-28 Pierrick LE GALL
+
+	* user list updated : ability to filter list on group
+
 2005-04-25 Pierrick LE GALL
 
 	* include/config.inc.php becomes include/config_default.inc.php :

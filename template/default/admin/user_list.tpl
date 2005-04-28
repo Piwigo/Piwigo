@@ -22,6 +22,13 @@
 
   username <input type="text" name="username" value="{F_USERNAME}" />
 
+  group
+  <select name="group">
+    <!-- BEGIN group_option -->
+    <option value="{group_option.VALUE}" {group_option.SELECTED} > {group_option.CONTENT}</option>
+    <!-- END group_option -->
+  </select>
+
   {L_ORDER_BY}
   <select name="order_by">
     <!-- BEGIN order_by -->

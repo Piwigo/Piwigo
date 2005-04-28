@@ -122,7 +122,36 @@ foreach ($direction_items as $item => $label)
     array(
       'VALUE' => $item,
       'CONTENT' => $label,
-        'SELECTED' => $selected
+      'SELECTED' => $selected
+      ));
+}
+
+$blockname = 'group_option';
+
+$template->assign_block_vars(
+  $blockname,
+  array(
+    'VALUE'=> -1,
+    'CONTENT' => '------------',
+    'SELECTED' => ''
+    ));
+
+$query = '
+SELECT id, name
+  FROM '.GROUPS_TABLE.'
+;';
+$result = pwg_query($query);
+
+while ($row = mysql_fetch_array($result))
+{
+  $selected = (isset($_GET['group']) and $_GET['group'] == $row['id']) ?
+    'selected="selected"' : '';
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $row['id'],
+      'CONTENT' => $row['name'],
+      'SELECTED' => $selected
       ));
 }
 
@@ -130,27 +159,53 @@ foreach ($direction_items as $item => $label)
 // |                                 filter                                |
 // +-----------------------------------------------------------------------+
 
-$username = !empty($_GET['username']) ? $_GET['username'] : '%';
-$username = str_replace('*', '%', $username);
-if (function_exists('mysql_real_escape_string'))
+$filter = array();
+
+if (isset($_GET['username']) and !empty($_GET['username']))
 {
-  $username = mysql_real_escape_string($username);
+  $username = str_replace('*', '%', $_GET['username']);
+  if (function_exists('mysql_real_escape_string'))
+  {
+    $username = mysql_real_escape_string($username);
+  }
+  else
+  {
+    $username = mysql_escape_string($username);
+  }
+
+  if (!empty($username))
+  {
+    $filter['username'] = $username;
+  }
 }
-else
+
+if (isset($_GET['group'])
+    and -1 != $_GET['group']
+    and is_numeric($_GET['group']))
 {
-  $username = mysql_escape_string($username);
+  $filter['group'] = $_GET['group'];
 }
-$username = !empty($username) ? $username : '%';
+
 
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT count(*)
-  FROM '.USERS_TABLE.'
-  WHERE id != 2
-    AND username LIKE \''.$username.'\'
+SELECT COUNT(DISTINCT(id))
+  FROM '.USERS_TABLE.' LEFT JOIN '.USER_GROUP_TABLE.' ON id = user_id
+  WHERE id != 2';
+if (isset($filter['username']))
+{
+  $query.= '
+    AND username LIKE \''.$filter['username'].'\'';
+}
+if (isset($filter['group']))
+{
+  $query.= '
+    AND group_id = '.$filter['group'];
+}
+$query.= '
 ;';
 list($counter) = mysql_fetch_row(pwg_query($query));
 
@@ -191,9 +246,19 @@ if (isset($_GET['direction'])
 
 $query = '
 SELECT id, username, mail_address, status
-  FROM '.USERS_TABLE.'
-  WHERE id != 2
-    AND username LIKE \''.$username.'\'
+  FROM '.USERS_TABLE.' LEFT JOIN '.USER_GROUP_TABLE.' ON id = user_id
+  WHERE id != 2';
+if (isset($filter['username']))
+{
+  $query.= '
+    AND username LIKE \''.$filter['username'].'\'';
+}
+if (isset($filter['group']))
+{
+  $query.= '
+    AND group_id = '.$filter['group'];
+}
+$query.= '
   ORDER BY '.$order_by.' '.$direction.'
   LIMIT '.$start.', '.$conf['users_page'].'
 ;';
