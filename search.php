@@ -204,6 +204,7 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
 $template->assign_vars(array(
+  'L_RETURN_HINT' => $lang['home_hint'],
   'L_SEARCH_TITLE' => $lang['search_title'],
   'L_SEARCH_OPTIONS' => $lang['search_options'],
   'L_RETURN' => $lang['home'],
