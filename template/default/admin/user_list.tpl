@@ -22,6 +22,13 @@
 
   username <input type="text" name="username" value="{F_USERNAME}" />
 
+  status
+  <select name="status">
+    <!-- BEGIN status_option -->
+    <option value="{status_option.VALUE}" {status_option.SELECTED} > {status_option.CONTENT}</option>
+    <!-- END status_option -->
+  </select>
+
   group
   <select name="group">
     <!-- BEGIN group_option -->

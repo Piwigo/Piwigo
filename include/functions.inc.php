@@ -34,6 +34,36 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 
 //----------------------------------------------------------- generic functions
 
+/**
+ * returns an array containing the possible values of an enum field
+ *
+ * @param string tablename
+ * @param string fieldname
+ */
+function get_enums($table, $field)
+{
+  // retrieving the properties of the table. Each line represents a field :
+  // columns are 'Field', 'Type'
+  $result = pwg_query('desc '.$table);
+  while ($row = mysql_fetch_array($result))
+  {
+    // we are only interested in the the field given in parameter for the
+    // function
+    if ($row['Field'] == $field)
+    {
+      // retrieving possible values of the enum field
+      // enum('blue','green','black')
+      $options = explode(',', substr($row['Type'], 5, -1));
+      foreach ($options as $i => $option)
+      {
+        $options[$i] = str_replace("'", '',$option);
+      }
+    }
+  }
+  mysql_free_result($result);
+  return $options;
+}
+
 // get_boolean transforms a string to a boolean value. If the string is
 // "false" (case insensitive), then the boolean value false is returned. In
 // any other case, true is returned.

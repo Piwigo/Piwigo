@@ -1,3 +1,9 @@
+2005-04-30 Pierrick LE GALL
+
+	* user list updated : ability to filter list on status. Function
+	get_enums comes back to retrieve the list of possible status in
+	the database.
+	
 2005-04-28 Pierrick LE GALL
 
 	* user list updated : ability to filter list on group

@@ -155,6 +155,29 @@ while ($row = mysql_fetch_array($result))
       ));
 }
 
+$blockname = 'status_option';
+
+$template->assign_block_vars(
+  $blockname,
+  array(
+    'VALUE'=> -1,
+    'CONTENT' => '------------',
+    'SELECTED' => ''
+    ));
+
+foreach (get_enums(USERS_TABLE, 'status') as $status)
+{
+  $selected = (isset($_GET['status']) and $_GET['status'] == $status) ?
+    'selected="selected"' : '';
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $status,
+      'CONTENT' => $lang['user_status_'.$status],
+      'SELECTED' => $selected
+      ));
+}
+
 // +-----------------------------------------------------------------------+
 // |                                 filter                                |
 // +-----------------------------------------------------------------------+
@@ -186,6 +209,11 @@ if (isset($_GET['group'])
   $filter['group'] = $_GET['group'];
 }
 
+if (isset($_GET['status'])
+    and in_array($_GET['status'], get_enums(USERS_TABLE, 'status')))
+{
+  $filter['status'] = $_GET['status'];
+}
 
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
@@ -204,6 +232,11 @@ if (isset($filter['group']))
 {
   $query.= '
     AND group_id = '.$filter['group'];
+}
+if (isset($filter['status']))
+{
+  $query.= '
+    AND status = \''.$filter['status']."'";
 }
 $query.= '
 ;';
@@ -257,6 +290,11 @@ if (isset($filter['group']))
 {
   $query.= '
     AND group_id = '.$filter['group'];
+}
+if (isset($filter['status']))
+{
+  $query.= '
+    AND status = \''.$filter['status']."'";
 }
 $query.= '
   ORDER BY '.$order_by.' '.$direction.'
