@@ -159,7 +159,33 @@ else
 $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
-$url_img .= '&amp;cat='.$row['storage_category_id'];
+
+$query = '
+SELECT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'];
+
+if (isset($user['forbidden_categories'])
+    and !empty($user['forbidden_categories']))
+{
+  $query.= '
+    AND category_id NOT IN ('.$user['forbidden_categories'].')';
+}
+$query.= '
+  ORDER BY RAND()
+;';
+$result = pwg_query($query);
+
+if (mysql_num_rows($result) > 0)
+{
+  list($category_id) = mysql_fetch_array($result);
+  $url_img .= '&amp;cat='.$category_id;
+}
+else
+{
+  $url_img .= '&amp;cat='.$row['storage_category_id'];
+}
+
 $date = isset($_POST['date_creation']) && empty($errors)
 ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
 
