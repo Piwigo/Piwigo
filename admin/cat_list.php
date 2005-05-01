@@ -329,7 +329,7 @@ else
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
   'NEXT_RANK'=>$next_rank,
-  'F_ACTION'=>$form_action,
+  'F_ACTION'=>add_session_id($form_action),
   
   'L_ADD_VIRTUAL'=>$lang['cat_add'],
   'L_SUBMIT'=>$lang['submit'],
