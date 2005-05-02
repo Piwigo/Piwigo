@@ -389,7 +389,7 @@ function initialize_category( $calling_page = 'category' )
           $search['mode'] = 'OR';
         }
 
-        $search_tokens = explode(';', $tokens[0]);
+        $search_tokens = explode('--', $tokens[0]);
         foreach ($search_tokens as $search_token)
         {
           $tokens = explode(':', $search_token);

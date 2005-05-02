@@ -114,7 +114,7 @@ if (isset($_POST['submit']))
       }
       array_push($tokens, $token);
     }
-    $search_string.= implode(';', $tokens);
+    $search_string.= implode('--', $tokens);
     if (count($tokens) > 1)
     {
       $search_string.= '|AND';
