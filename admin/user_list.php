@@ -278,7 +278,7 @@ if (isset($_GET['direction'])
 }
 
 $query = '
-SELECT id, username, mail_address, status
+SELECT DISTINCT(id), username, mail_address, status
   FROM '.USERS_TABLE.' LEFT JOIN '.USER_GROUP_TABLE.' ON id = user_id
   WHERE id != 2';
 if (isset($filter['username']))
