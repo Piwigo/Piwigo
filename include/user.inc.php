@@ -26,13 +26,17 @@
 // +-----------------------------------------------------------------------+
 
 // Dynamic change of language with database persistency
-if (isset($_POST['language'])) 
-{
-  $query = "UPDATE ".USERS_TABLE." SET language = '";
-  $query.= $_POST['language'];
-  $query.= "' WHERE id = ".$_POST['userid'].";";
-  pwg_query($query);
-}
+//
+// FIXME : ce bout de code fait planter l'assignation d'un language a
+// plusieurs users simultanement dans la nouvelle page admin/user_list.php
+// 
+// if (isset($_POST['language'])) 
+// {
+//   $query = "UPDATE ".USERS_TABLE." SET language = '";
+//   $query.= $_POST['language'];
+//   $query.= "' WHERE id = ".$_POST['userid'].";";
+//   pwg_query($query);
+// }
 
 
 // retrieving connected user informations

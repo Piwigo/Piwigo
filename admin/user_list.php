@@ -52,6 +52,140 @@ if (isset($_POST['submit_add']))
 }
 
 // +-----------------------------------------------------------------------+
+// |                       preferences form submission                     |
+// +-----------------------------------------------------------------------+
+
+$errors = array();
+
+if (isset($_POST['pref_submit']))
+{
+  $collection = array();
+  
+  switch ($_POST['target'])
+  {
+    case 'all' :
+    {
+      $query = '
+SELECT id
+  FROM '.USERS_TABLE.'
+  WHERE id != 2
+;';
+      $collection = array_from_query($query, 'id');
+      break;
+    }
+    case 'selection' :
+    {
+      $collection = $_POST['selection'];
+      break;
+    }
+  }
+
+  if (-1 != $_POST['associate'])
+  {
+    $datas = array();
+
+    $query = '
+SELECT user_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE group_id = '.$_POST['associate'].'
+;';
+    $associated = array_from_query($query, 'user_id');
+
+    // TODO : if $associable array is empty, no further actions
+    $associable = array_diff($collection, $associated);
+    
+    foreach ($associable as $item)
+    {
+      array_push($datas,
+                 array('group_id'=>$_POST['associate'],
+                       'user_id'=>$item));
+    }
+  
+    mass_inserts(USER_GROUP_TABLE,
+                 array('group_id', 'user_id'),
+                 $datas);
+  }
+
+  if (-1 != $_POST['dissociate'])
+  {
+    $query = '
+DELETE FROM '.USER_GROUP_TABLE.'
+  WHERE group_id = '.$_POST['dissociate'].'
+  AND user_id IN ('.implode(',', $collection).')
+';
+    pwg_query($query);
+  }
+
+  // properties to set for the collection (a user list)
+  $datas = array();
+  $dbfields = array('primary' => array('id'), 'update' => array());
+
+  $formfields = array('nb_image_line', 'nb_line_page', 'template', 'language',
+                      'recent_period', 'expand', 'show_nb_comments',
+                      'maxwidth', 'maxheight', 'status');
+  
+  foreach ($formfields as $formfield)
+  {
+    if ($_POST[$formfield.'_action'] != 'leave')
+    {
+      array_push($dbfields['update'], $formfield);
+    }
+  }
+  
+  // updating elements is useful only if needed...
+  if (count($dbfields['update']) > 0)
+  {
+    $datas = array();
+    
+    foreach ($collection as $user_id)
+    {
+      $data = array();
+      $data['id'] = $user_id;
+
+      // TODO : verify if submited values are semanticaly correct
+      foreach ($dbfields['update'] as $dbfield)
+      {
+        // if the action is 'unset', the key won't be in row and
+        // mass_updates function will set this field to NULL
+        if ('set' == $_POST[$dbfield.'_action'])
+        {
+          $data[$dbfield] = $_POST[$dbfield];
+        }
+      }
+
+      // Webmaster (user_id = 1) status must not be changed
+      if (1 == $user_id and isset($data['status']))
+      {
+        $data['status'] = 'admin';
+      }
+
+      array_push($datas, $data);
+    }
+
+//     echo '<pre>'; print_r($dbfields); echo '</pre>';
+//     echo '<pre>'; print_r($datas); echo '</pre>';
+    mass_updates(USERS_TABLE, $dbfields, $datas);
+  }
+}
+
+// +-----------------------------------------------------------------------+
+// |                              groups list                              |
+// +-----------------------------------------------------------------------+
+
+$groups = array();
+
+$query = '
+SELECT id, name
+  FROM '.GROUPS_TABLE.'
+;';
+$result = pwg_query($query);
+
+while ($row = mysql_fetch_array($result))
+{
+  $groups[$row['id']] = $row['name'];
+}
+
+// +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
@@ -83,6 +217,21 @@ $template->assign_vars(
     'L_ACTIONS' => $lang['actions'],
     'L_PERMISSIONS' => $lang['permissions'],
     'L_USERS_LIST' => $lang['title_liste_users'],
+    'L_LANGUAGE' => $lang['language'],
+    'L_NB_IMAGE_LINE' => $lang['nb_image_per_row'],
+    'L_NB_LINE_PAGE' => $lang['nb_row_per_page'],
+    'L_TEMPLATE' => $lang['theme'],
+    'L_RECENT_PERIOD' => $lang['recent_period'],
+    'L_EXPAND' => $lang['auto_expand'],
+    'L_SHOW_NB_COMMENTS' => $lang['show_nb_comments'],
+    'L_MAXWIDTH' => $lang['maxwidth'],
+    'L_MAXHEIGHT' => $lang['maxheight'],
+    'L_YES' => $lang['yes'],
+    'L_NO' => $lang['no'],
+    'L_SUBMIT' => $lang['submit'],
+    'L_RESET' => $lang['reset'],
+    'L_DELETE' => $lang['user_delete'],
+    'L_DELETE_HINT' => $lang['user_delete_hint'],
     
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @$_GET['username'],
@@ -136,21 +285,15 @@ $template->assign_block_vars(
     'SELECTED' => ''
     ));
 
-$query = '
-SELECT id, name
-  FROM '.GROUPS_TABLE.'
-;';
-$result = pwg_query($query);
-
-while ($row = mysql_fetch_array($result))
+foreach ($groups as $group_id => $group_name)
 {
-  $selected = (isset($_GET['group']) and $_GET['group'] == $row['id']) ?
+  $selected = (isset($_GET['group']) and $_GET['group'] == $group_id) ?
     'selected="selected"' : '';
   $template->assign_block_vars(
     $blockname,
     array(
-      'VALUE' => $row['id'],
-      'CONTENT' => $row['name'],
+      'VALUE' => $group_id,
+      'CONTENT' => $group_name,
       'SELECTED' => $selected
       ));
 }
@@ -174,6 +317,194 @@ foreach (get_enums(USERS_TABLE, 'status') as $status)
     array(
       'VALUE' => $status,
       'CONTENT' => $lang['user_status_'.$status],
+      'SELECTED' => $selected
+      ));
+}
+
+// ---
+//   $user['template'] = $conf['default_template'];
+//   $user['nb_image_line'] = $conf['nb_image_line'];
+//   $user['nb_line_page'] = $conf['nb_line_page'];
+//   $user['language'] = $conf['default_language'];
+//   $user['maxwidth'] = $conf['default_maxwidth'];
+//   $user['maxheight'] = $conf['default_maxheight'];
+//   $user['recent_period'] = $conf['recent_period'];
+//   $user['expand'] = $conf['auto_expand'];
+//   $user['show_nb_comments'] = $conf['show_nb_comments'];
+// ---
+
+if (isset($_POST['pref_submit']))
+{
+//  echo '<pre>'; print_r($_POST); echo '</pre>';
+  $template->assign_vars(
+    array(
+      'NB_IMAGE_LINE' => $_POST['nb_image_line'],
+      'NB_LINE_PAGE' => $_POST['nb_line_page'],
+      'MAXWIDTH' => $_POST['maxwidth'],
+      'MAXHEIGHT' => $_POST['maxheight'],
+      'RECENT_PERIOD' => $_POST['recent_period'],
+      'EXPAND_YES' => 'true' == $_POST['expand'] ? 'checked="checked"' : '',
+      'EXPAND_NO' => 'false' == $_POST['expand'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_YES' =>
+        'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_NO' =>
+        'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : ''
+      ));
+}
+else
+{
+  $template->assign_vars(
+    array(
+      'NB_IMAGE_LINE' => $conf['nb_image_line'],
+      'NB_LINE_PAGE' => $conf['nb_line_page'],
+      'MAXWIDTH' => @$conf['default_maxwidth'],
+      'MAXHEIGHT' => @$conf['default_maxheight'],
+      'RECENT_PERIOD' => $conf['recent_period'],
+      'EXPAND_YES' => $conf['auto_expand'] ? 'checked="checked"' : '',
+      'EXPAND_NO' => !$conf['auto_expand'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_YES' =>
+        $conf['show_nb_comments'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_NO' =>
+        !$conf['show_nb_comments'] ? 'checked="checked"' : ''
+      ));
+}
+
+$blockname = 'template_option';
+
+foreach (get_templates() as $pwg_template)
+{
+  if (isset($_POST['pref_submit']))
+  {
+    $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
+  }
+  else if ($conf['default_template'] == $pwg_template)
+  {
+    $selected = 'selected="selected"';
+  }
+  else
+  {
+    $selected = '';
+  }
+  
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE'=> $pwg_template,
+      'CONTENT' => $pwg_template,
+      'SELECTED' => $selected
+      ));
+}
+
+$blockname = 'language_option';
+
+foreach (get_languages() as $language_code => $language_name)
+{
+  if (isset($_POST['pref_submit']))
+  {
+    $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
+  }
+  else if ($conf['default_language'] == $language_code)
+  {
+    $selected = 'selected="selected"';
+  }
+  else
+  {
+    $selected = '';
+  }
+  
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE'=> $language_code,
+      'CONTENT' => $language_name,
+      'SELECTED' => $selected
+      ));
+}
+
+$blockname = 'pref_status_option';
+
+foreach (get_enums(USERS_TABLE, 'status') as $status)
+{
+  if (isset($_POST['pref_submit']))
+  {
+    $selected = $_POST['status'] == $status ? 'selected="selected"' : '';
+  }
+  else if ('guest' == $status)
+  {
+    $selected = 'selected="selected"';
+  }
+  else
+  {
+    $selected = '';
+  }
+  
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $status,
+      'CONTENT' => $lang['user_status_'.$status],
+      'SELECTED' => $selected
+      ));
+}
+
+// associate
+$blockname = 'associate_option';
+
+$template->assign_block_vars(
+  $blockname,
+  array(
+    'VALUE'=> -1,
+    'CONTENT' => '------------',
+    'SELECTED' => ''
+    ));
+
+foreach ($groups as $group_id => $group_name)
+{
+  if (isset($_POST['pref_submit']))
+  {
+    $selected = $_POST['associate'] == $group_id ? 'selected="selected"' : '';
+  }
+  else
+  {
+    $selected = '';
+  }
+    
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $group_id,
+      'CONTENT' => $group_name,
+      'SELECTED' => $selected
+      ));
+}
+
+// dissociate
+$blockname = 'dissociate_option';
+
+$template->assign_block_vars(
+  $blockname,
+  array(
+    'VALUE'=> -1,
+    'CONTENT' => '------------',
+    'SELECTED' => ''
+    ));
+
+foreach ($groups as $group_id => $group_name)
+{
+  if (isset($_POST['pref_submit']))
+  {
+    $selected = $_POST['dissociate'] == $group_id ? 'selected="selected"' : '';
+  }
+  else
+  {
+    $selected = '';
+  }
+    
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $group_id,
+      'CONTENT' => $group_name,
       'SELECTED' => $selected
       ));
 }
@@ -261,7 +592,6 @@ $perm_url = PHPWG_ROOT_PATH.'admin.php?page=user_perm&amp;user_id=';
 
 $users = array();
 $user_ids = array();
-$groups_content = array();
 
 $order_by = 'id';
 if (isset($_GET['order_by'])
@@ -311,32 +641,45 @@ while ($row = mysql_fetch_array($result))
 if (count($user_ids) > 0)
 {
   $query = '
-SELECT user_id, group_id, name
-  FROM '.USER_GROUP_TABLE.' INNER JOIN '.GROUPS_TABLE.' ON group_id = id
+SELECT user_id, group_id
+  FROM '.USER_GROUP_TABLE.'
   WHERE user_id IN ('.implode(',', $user_ids).')
 ;';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $groups_content[$row['group_id']] = $row['name'];
     array_push($user_groups[$row['user_id']], $row['group_id']);
   }
 
-  foreach ($users as $item)
+  foreach ($users as $num => $item)
   {
-    $groups = preg_replace('/(\d+)/e',
-                           "\$groups_content['$1']",
-                           implode(', ', $user_groups[$item['id']]));
+    $groups_string = preg_replace('/(\d+)/e',
+                                  "\$groups['$1']",
+                                  implode(', ', $user_groups[$item['id']]));
+
+    if (isset($_POST['pref_submit'])
+        and isset($_POST['selection'])
+        and in_array($item['id'], $_POST['selection']))
+    {
+      $checked = 'checked="checked"';
+    }
+    else
+    {
+      $checked = '';
+    }
     
     $template->assign_block_vars(
       'user',
       array(
+        'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
+        'ID'=>$item['id'],
+        'CHECKED'=>$checked,
         'U_MOD'=>add_session_id($profile_url.$item['id']),
         'U_PERM'=>add_session_id($perm_url.$item['id']),
         'USERNAME'=>$item['username'],
         'STATUS'=>$lang['user_status_'.$item['status']],
         'EMAIL'=>isset($item['mail_address']) ? $item['mail_address'] : '',
-        'GROUPS'=>$groups
+        'GROUPS'=>$groups_string
         ));
   }
 }

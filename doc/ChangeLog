@@ -1,3 +1,16 @@
+2005-05-10 Pierrick LE GALL
+
+	* user list : links to profile page and permissions page are
+	represented by icons (more compact)
+
+	* user list : ability to associate to a group or to dissociate
+	from a group a list of selected users
+
+	* user list : ability to set user properties in "batch" mode (a
+	selection of users at once)
+
+	* user list : alternate background color for each line
+	
 2005-04-30 Pierrick LE GALL
 
 	* user list updated : ability to filter list on status. Function

@@ -377,3 +377,7 @@ div.remoteLocal {
 
 /* for debugging purpose */
 pre { text-align:left; }
+
+label:hover {
+  cursor: pointer;
+}
