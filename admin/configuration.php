@@ -66,12 +66,8 @@ if (isset($_POST['submit']))
       {
         array_push($errors, $lang['conf_prefix_thumbnail_error']);
       }
-      // mail must be formatted as follows : name@server.com
-      $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
-      if (!preg_match($pattern, $_POST['mail_webmaster']))
-      {
-        array_push($errors, $lang['conf_mail_webmaster_error']);
-      }
+      // as webmaster mail address shown on the website, it can be obfuscated
+      // and no comply with normal mail address pattern
       break;
     }
     case 'comments' :
