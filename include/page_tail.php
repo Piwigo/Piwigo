@@ -28,7 +28,7 @@ $template->set_filenames(array('tail'=>'footer.tpl'));
 
 $template->assign_vars(
   array(
-    'VERSION' => PHPWG_VERSION,
+    'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
     'MAIL'=>$conf['mail_webmaster'],
     
     'L_GEN_TIME' => $lang['generation_time'],

@@ -66,12 +66,8 @@ if (isset($_POST['submit']))
       {
         array_push($errors, $lang['conf_prefix_thumbnail_error']);
       }
-      // mail must be formatted as follows : name@server.com
-      $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
-      if (!preg_match($pattern, $_POST['mail_webmaster']))
-      {
-        array_push($errors, $lang['conf_mail_webmaster_error']);
-      }
+      // as webmaster mail address shown on the website, it can be obfuscated
+      // and no comply with normal mail address pattern
       break;
     }
     case 'comments' :
@@ -93,6 +89,22 @@ if (isset($_POST['submit']))
           or $_POST['recent_period'] <= 0)
       {
         array_push($errors, $lang['periods_error']);
+      }
+      // maxwidth
+      if (isset($_POST['default_maxwidth'])
+          and !empty($_POST['default_maxwidth'])
+          and (!preg_match($int_pattern, $_POST['default_maxwidth'])
+               or $_POST['default_maxwidth'] < 50))
+      {
+        array_push($errors, $lang['maxwidth_error']);
+      }
+      // maxheight
+      if (isset($_POST['default_maxheight'])
+          and !empty($_POST['default_maxheight'])
+          and (!preg_match($int_pattern, $_POST['default_maxheight'])
+               or $_POST['default_maxheight'] < 50))
+      {
+        array_push($errors, $lang['maxheight_error']);
       }
       break;
     }
@@ -255,6 +267,8 @@ switch ($page['section'])
         'CONF_STYLE_SELECT'=>style_select($conf['default_template'], 'default_template'),
         'CONF_RECENT'=>$conf['recent_period'],
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
+        'MAXWIDTH'=>$conf['default_maxwidth'],
+        'MAXHEIGHT'=>$conf['default_maxheight'],
         'EXPAND_YES'=>$expand_yes,
         'EXPAND_NO'=>$expand_no,
         'SHOW_COMMENTS_YES'=>$show_yes,
