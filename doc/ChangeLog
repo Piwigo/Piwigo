@@ -1,3 +1,8 @@
+2005-06-11 Pierrick LE GALL
+
+	* bug 96 (informations given by uploaders are lost) correction
+	reported from branch 1.4
+
 2005-05-10 Pierrick LE GALL
 
 	* user list : links to profile page and permissions page are
