@@ -81,7 +81,7 @@ if ( isset( $_POST['submit'] ) )
   set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   set_cat_status(array($_GET['cat_id']), $_POST['status']);
 
-  $template->assign_block_vars('confirmation' ,array());
+  array_push($infos, $lang['editcat_confirm']);
 }
 else if (isset($_POST['set_random_representant']))
 {
@@ -144,7 +144,6 @@ $template->assign_vars(array(
   $commentable=>'checked="checked"',
   $uploadable=>'checked="checked"',
   
-  'L_EDIT_CONFIRM'=>$lang['editcat_confirm'],
   'L_EDIT_NAME'=>$lang['name'],
   'L_STORAGE'=>$lang['storage'],
   'L_REMOTE_SITE'=>$lang['remote_site'],

@@ -1,7 +1,3 @@
-<!-- BEGIN confirmation -->
-<div style="color:red;text-align:center;">
-  {L_EDIT_CONFIRM} <a href="{U_PERMISSIONS}">{L_HERE}</a></div>
-<!-- END confirmation -->
 <div class="admin">{CATEGORIES_NAV}</div>
 <form action="{F_ACTION}" method="POST">
 <table style="width:100%;">

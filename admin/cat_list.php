@@ -33,8 +33,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
-$errors = array();
-$infos = array();
 $categories = array();
 $navigation = $lang['home'];
 // +-----------------------------------------------------------------------+
@@ -44,7 +42,7 @@ $navigation = $lang['home'];
 if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 {
   delete_categories(array($_GET['delete']));
-  array_push($infos, $lang['cat_virtual_deleted']);
+  array_push($page['infos'], $lang['cat_virtual_deleted']);
   ordering();
   update_global_rank();
 }
@@ -54,10 +52,10 @@ else if (isset($_POST['submit']))
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $_POST['virtual_name']))
   {
-    array_push($errors, $lang['cat_error_name']);
+    array_push($page['errors'], $lang['cat_error_name']);
   }
 	
-  if (!count($errors))
+  if (!count($page['errors']))
   {
     $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL';
     
@@ -136,7 +134,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1)
                       'uppercats','global_rank');
     mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
 
-    array_push($infos, $lang['cat_virtual_added']);
+    array_push($page['infos'], $lang['cat_virtual_added']);
   }
 }
 // +-----------------------------------------------------------------------+
@@ -343,25 +341,6 @@ $template->assign_vars(array(
  ));
   
 $tpl = array('cat_first','cat_last');
-// +-----------------------------------------------------------------------+
-// |                            errors & infos                             |
-// +-----------------------------------------------------------------------+
-if (count($errors) != 0)
-{
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
-  }
-}
-if (count($infos) != 0)
-{
-  $template->assign_block_vars('infos',array());
-  foreach ($infos as $info)
-  {
-    $template->assign_block_vars('infos.info',array('INFO'=>$info));
-  }
-}
 // +-----------------------------------------------------------------------+
 // |                          Categories display                           |
 // +-----------------------------------------------------------------------+

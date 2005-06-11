@@ -654,11 +654,11 @@ if (isset($_POST['submit'])
   
   if (count($errors) > 0)
   {
-    $template->assign_block_vars('update.errors', array());
+    $template->assign_block_vars('update.update_errors', array());
     foreach ($errors as $error)
     {
       $template->assign_block_vars(
-        'update.errors.error',
+        'update.update_errors.update_error',
         array(
           'ELEMENT' => $error['path'],
           'LABEL' => $error['type'].' ('.$error_labels[$error['type']].')'
@@ -669,11 +669,11 @@ if (isset($_POST['submit'])
       and isset($_POST['display_info'])
       and $_POST['display_info'] == 1)
   {
-    $template->assign_block_vars('update.infos', array());
+    $template->assign_block_vars('update.update_infos', array());
     foreach ($infos as $info)
     {
       $template->assign_block_vars(
-        'update.infos.info',
+        'update.update_infos.update_info',
         array(
           'ELEMENT' => $info['path'],
           'LABEL' => $info['info']

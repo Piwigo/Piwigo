@@ -1,12 +1,3 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
 <form method="post" name="post" action="{S_GROUP_ACTION}">
 <div class="admin">{L_GROUP_SELECT}</div>
 <!-- BEGIN select_box -->

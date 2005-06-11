@@ -40,7 +40,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 // +-----------------------------------------------------------------------+
 // |                        unit mode form submission                      |
 // +-----------------------------------------------------------------------+
-$errors = array();
 
 if (isset($_POST['submit']))
 {

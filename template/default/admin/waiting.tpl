@@ -1,7 +1,4 @@
 <form action="{F_ACTION}" method="post">
-  <!-- BEGIN confirmation -->
-  <div class="info">{L_WAITING_CONFIRMATION}</div>
-  <!-- END confirmation -->
   <table style="width:100%;" >
     <tr class="throw">
       <th style="width:20%;">{L_CATEGORY}</th>

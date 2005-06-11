@@ -31,7 +31,7 @@ include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 // "thumbnail".
 function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
 {
-  global $conf, $lang, $errors;
+  global $conf, $lang, $page;
 
   $filename = basename($path);
   $dirname = dirname($path);
@@ -100,7 +100,8 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
     {
       if (!is_writable($dirname))
       {
-        array_push($errors, '['.$dirname.'] : '.$lang['no_write_access']);
+        array_push($page['errors'],
+                   '['.$dirname.'] : '.$lang['no_write_access']);
         return false;
       }
       umask(0000);
@@ -114,7 +115,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
     // creation and backup of final picture
     if (!is_writable($tndir))
     {
-      array_push($errors, '['.$tndir.'] : '.$lang['no_write_access']);
+      array_push($page['errors'], '['.$tndir.'] : '.$lang['no_write_access']);
       return false;
     }
     imagejpeg($destImage, $dest_file);
@@ -148,7 +149,6 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
   }
 }
 
-$errors = array();
 $pictures = array();
 $stats = array();
 // +-----------------------------------------------------------------------+
@@ -247,22 +247,21 @@ foreach ($fs['elements'] as $path)
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit']))
 {
-  $errors = array();
   $times = array();
   $infos = array();
   
   // checking criteria
   if (!ereg('^[0-9]{2,3}$', $_POST['width']) or $_POST['width'] < 10)
   {
-    array_push($errors, $lang['tn_err_width'].' 10');
+    array_push($page['errors'], $lang['tn_err_width'].' 10');
   }
   if (!ereg('^[0-9]{2,3}$', $_POST['height']) or $_POST['height'] < 10)
   {
-    array_push($errors, $lang['tn_err_height'].' 10');
+    array_push($page['errors'], $lang['tn_err_height'].' 10');
   }
   
   // picture miniaturization
-  if (count($errors) == 0)
+  if (count($page['errors']) == 0)
   {
     $num = 1;
     foreach ($wo_thumbnails as $path)
@@ -342,17 +341,6 @@ if (isset($_POST['submit']))
             ));
       }
     }
-  }
-}
-// +-----------------------------------------------------------------------+
-// |                            errors display                             |
-// +-----------------------------------------------------------------------+
-if (count($errors) != 0)
-{
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
   }
 }
 // +-----------------------------------------------------------------------+

@@ -1,19 +1,3 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
-<!-- BEGIN infos -->
-<div class="info">
-  <!-- BEGIN info -->
-  <li>{infos.info.INFO}</li>
-  <!-- END info -->
-</div>
-<!-- END infos -->
 <div class="admin">{CATEGORIES_NAV}</div>
 <table style="width:100%;">
 <!-- BEGIN category -->

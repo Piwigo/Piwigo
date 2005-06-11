@@ -1,12 +1,3 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
 <div class="admin">{TITLE_IMG}</div>
 <form action="{F_ACTION}" method="POST">
   <table style="width:100%;">

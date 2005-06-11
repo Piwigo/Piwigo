@@ -72,12 +72,12 @@ if ( isset( $_POST['submit'] ) )
       }
     }
   }
+  array_push($infos, $lang['waiting_update']);
 }
 
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('waiting'=>'admin/waiting.tpl'));
 $template->assign_vars(array(
-  'L_WAITING_CONFIRMATION'=>$lang['waiting_update'],
   'L_AUTHOR'=>$lang['author'],
   'L_THUMBNAIL'=>$lang['thumbnail'],
   'L_DATE'=>$lang['date'],
@@ -90,11 +90,6 @@ $template->assign_vars(array(
   'F_ACTION'=>add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
   ));
   
-//-------------------------------------------------------- confirmation message
-if (isset($_POST['submit']))
-{
-  $template->assign_block_vars('confirmation' ,array());
-}
 //---------------------------------------------------------------- form display
 $cat_names = array();
 $query = 'SELECT * FROM '.WAITING_TABLE;

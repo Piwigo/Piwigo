@@ -71,6 +71,27 @@
 	<td style="padding:10px;width:99%;" valign="top">
 <div class="home">
   <div class="titrePage">{PAGE_TITLE}</div>
+
+  <!-- BEGIN errors -->
+  <div id="errors">
+    <ul>
+      <!-- BEGIN error -->
+      <li>{errors.error.ERROR}</li>
+      <!-- END error -->
+    </ul>
+  </div>
+  <!-- END errors -->
+
+  <!-- BEGIN infos -->
+  <div id="infos">
+    <ul>
+      <!-- BEGIN info -->
+      <li>{infos.info.INFO}</li>
+      <!-- END info -->
+    </ul>
+  </div>
+  <!-- END infos -->
+
   <div align="center">{ADMIN_CONTENT}{ADMIN_CONTENT_2}</div>
 </div>
 	</td>

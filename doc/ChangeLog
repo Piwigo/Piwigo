@@ -1,5 +1,12 @@
 2005-06-11 Pierrick LE GALL
 
+	* errors and informations boxes : management centralized in
+	admin.php, $errors and $infos arrays replaced by $page['errors']
+	and $page['infos'], special management for admin/update.php (more
+	complex management)
+
+2005-06-11 Pierrick LE GALL
+
 	* bug 96 (informations given by uploaders are lost) correction
 	reported from branch 1.4
 

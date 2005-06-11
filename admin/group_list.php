@@ -31,7 +31,6 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 
 //-------------------------------------------------------------- delete a group
-$error = array();
 if ( isset( $_POST['delete'] ) && isset( $_POST['confirm_delete'] )  )
 {
   // destruction of the access linked to the group
@@ -57,9 +56,9 @@ elseif ( isset( $_POST['new'] ) )
   if ( empty($_POST['newgroup']) || preg_match( "/'/", $_POST['newgroup'] )
        or preg_match( '/"/', $_POST['newgroup'] ) )
   {
-    array_push( $error, $lang['group_add_error1'] );
+    array_push( $page['errors'], $lang['group_add_error1'] );
   }
-  if ( count( $error ) == 0 )
+  if ( count( $page['errors'] ) == 0 )
   {
     // is the group not already existing ?
     $query = 'SELECT id FROM '.GROUPS_TABLE;
@@ -68,10 +67,10 @@ elseif ( isset( $_POST['new'] ) )
     $result = pwg_query( $query );
     if ( mysql_num_rows( $result ) > 0 )
     {
-      array_push( $error, $lang['group_add_error2'] );
+      array_push( $page['errors'], $lang['group_add_error2'] );
     }
   }
-  if ( count( $error ) == 0 )
+  if ( count( $page['errors'] ) == 0 )
   {
     // creating the group
     $query = ' INSERT INTO '.GROUPS_TABLE;
@@ -80,13 +79,13 @@ elseif ( isset( $_POST['new'] ) )
     pwg_query( $query );
   }
 }
-//--------------------------------------------------------------- user management
+//------------------------------------------------------------- user management
 elseif ( isset( $_POST['add'] ) )
 {
   $userdata = getuserdata($_POST['username']);
   if (!$userdata)
   {
-    array_push($error, $lang['user_err_unknown']);
+    array_push($page['errors'], $lang['user_err_unknown']);
   }
   else
   {
@@ -112,15 +111,6 @@ elseif (isset( $_POST['deny_user'] ))
   $query.= ' WHERE user_id IN ('.$sql_in;
 	$query.= ') AND group_id = '.$_POST['edit_group_id'];
 	pwg_query( $query );
-}
-//-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
-{
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error[$i]));
-  }
 }
 //----------------------------------------------------------------- groups list
 

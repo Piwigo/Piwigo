@@ -45,17 +45,15 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 if (isset($_POST['submit_add']))
 {
-  $errors = register_user($_POST['login'],
-                          $_POST['password'],
-                          $_POST['password'],
-                          '');
+  $page['errors'] = register_user($_POST['login'],
+                                  $_POST['password'],
+                                  $_POST['password'],
+                                  '');
 }
 
 // +-----------------------------------------------------------------------+
 // |                       preferences form submission                     |
 // +-----------------------------------------------------------------------+
-
-$errors = array();
 
 if (isset($_POST['pref_submit']))
 {
@@ -193,7 +191,7 @@ $template->set_filenames(array('user_list'=>'admin/user_list.tpl'));
 
 $base_url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_list');
 
-$conf['users_page'] = 20;
+$conf['users_page'] = 10;
 
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {

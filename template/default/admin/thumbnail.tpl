@@ -1,13 +1,3 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
-
 <!-- BEGIN results -->
 <div class="admin">{L_RESULTS}</div>
 <table style="width:100%;">

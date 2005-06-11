@@ -45,7 +45,7 @@ define('CURRENT_DATE', date('Y-m-d'));
  */
 function remote_output($url)
 {
-  global $template, $errors, $lang;
+  global $template, $page, $lang;
   
   if($lines = @file($url))
   {
@@ -68,7 +68,7 @@ function remote_output($url)
   }
   else
   {
-    array_push($errors, $lang['remote_site_file_not_found']);
+    array_push($page['errors'], $lang['remote_site_file_not_found']);
   }
 }
 
@@ -120,7 +120,7 @@ SELECT id,dir
  */
 function update_remote_site($listing_file, $site_id)
 {
-  global $lang, $counts, $template, $removes, $errors;
+  global $lang, $counts, $template, $removes, $page;
   
   if (@fopen($listing_file, 'r'))
   {
@@ -159,7 +159,7 @@ function update_remote_site($listing_file, $site_id)
   }
   else
   {
-    array_push($errors, $lang['remote_site_listing_not_found']);
+    array_push($page['errors'], $lang['remote_site_listing_not_found']);
   }
 }
 
@@ -518,14 +518,12 @@ $template->assign_vars(
 // +-----------------------------------------------------------------------+
 // |                        new site creation form                         |
 // +-----------------------------------------------------------------------+
-$errors = array();
-
 if (isset($_POST['submit']))
 {
   // site must start by http:// or https://
   if (!preg_match('/^https?:\/\/[~\/\.\w-]+$/', $_POST['galleries_url']))
   {
-    array_push($errors, $lang['remote_site_uncorrect_url']);
+    array_push($page['errors'], $lang['remote_site_uncorrect_url']);
   }
   else
   {
@@ -542,11 +540,11 @@ SELECT COUNT(id) AS count
     $row = mysql_fetch_array(pwg_query($query));
     if ($row['count'] > 0)
     {
-      array_push($errors, $lang['remote_site_already_exists']);
+      array_push($page['errors'], $lang['remote_site_already_exists']);
     }
   }
 
-  if (count($errors) == 0)
+  if (count($page['errors']) == 0)
   {
     $url = $page['galleries_url'].'create_listing_file.php';
     $url.= '?action=test';
@@ -556,16 +554,17 @@ SELECT COUNT(id) AS count
       $first_line = strip_tags($lines[0]);
       if (!preg_match('/^PWG-INFO-2:/', $first_line))
       {
-        array_push($errors, $lang['remote_site_error'].' : '.$first_line);
+        array_push($page['errors'],
+                   $lang['remote_site_error'].' : '.$first_line);
       }
     }
     else
     {
-      array_push($errors, $lang['remote_site_file_not_found']);
+      array_push($page['errors'], $lang['remote_site_file_not_found']);
     }
   }
   
-  if (count($errors) == 0)
+  if (count($page['errors']) == 0)
   {
     $query = '
 INSERT INTO '.SITES_TABLE.'
@@ -575,11 +574,8 @@ INSERT INTO '.SITES_TABLE.'
 ;';
     pwg_query($query);
 
-    $template->assign_block_vars(
-      'confirmation',
-      array(
-        'CONTENT'=>$page['galleries_url'].' '.$lang['remote_site_created']
-        ));
+    array_push($page['infos'],
+               $page['galleries_url'].' '.$lang['remote_site_created']);
   }
 }
 // +-----------------------------------------------------------------------+
@@ -607,13 +603,8 @@ SELECT galleries_url
     case 'delete' :
     {
       delete_site($page['site']);
-
-      $template->assign_block_vars(
-        'confirmation',
-        array(
-          'CONTENT'=>$galleries_url.' '.$lang['remote_site_deleted']
-          ));
-      
+      array_push($page['infos'],
+                 $galleries_url.' '.$lang['remote_site_deleted']);
       break;
     }
     case 'generate' :
@@ -736,17 +727,6 @@ while ($row = mysql_fetch_array($result))
       'U_DELETE' => add_session_id($base_url.'delete')
      )
    );
-}
-// +-----------------------------------------------------------------------+
-// |                             errors display                            |
-// +-----------------------------------------------------------------------+
-if (count($errors) != 0)
-{
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
-  }
 }
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

@@ -53,7 +53,6 @@ while ($row = mysql_fetch_array($result))
   }
 }					   
 //------------------------------ verification and registration of modifications
-$errors = array();
 if (isset($_POST['submit']))
 {
   $int_pattern = '/^\d+$/';
@@ -64,13 +63,13 @@ if (isset($_POST['submit']))
       // thumbnail prefix must only contain simple ASCII characters
       if (!preg_match('/^[\w-]*$/', $_POST['prefix_thumbnail']))
       {
-        array_push($errors, $lang['conf_prefix_thumbnail_error']);
+        array_push($page['errors'], $lang['conf_prefix_thumbnail_error']);
       }
       // mail must be formatted as follows : name@server.com
       $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
       if (!preg_match($pattern, $_POST['mail_webmaster']))
       {
-        array_push($errors, $lang['conf_mail_webmaster_error']);
+        array_push($page['errors'], $lang['conf_mail_webmaster_error']);
       }
       break;
     }
@@ -82,7 +81,7 @@ if (isset($_POST['submit']))
            or $_POST['nb_comment_page'] < 5
            or $_POST['nb_comment_page'] > 50)
       {
-        array_push($errors, $lang['conf_nb_comment_page_error']);
+        array_push($page['errors'], $lang['conf_nb_comment_page_error']);
       }
       break;
     }
@@ -92,7 +91,7 @@ if (isset($_POST['submit']))
       if (!preg_match($int_pattern, $_POST['recent_period'])
           or $_POST['recent_period'] <= 0)
       {
-        array_push($errors, $lang['periods_error']);
+        array_push($page['errors'], $lang['periods_error']);
       }
       break;
     }
@@ -103,7 +102,7 @@ if (isset($_POST['submit']))
           or $_POST['upload_maxfilesize'] < 10
           or $_POST['upload_maxfilesize'] > 1000)
       {
-        array_push($errors, $lang['conf_upload_maxfilesize_error']);
+        array_push($page['errors'], $lang['conf_upload_maxfilesize_error']);
       }
       
       foreach (array('upload_maxwidth',
@@ -113,9 +112,9 @@ if (isset($_POST['submit']))
                as $field)
       {
         if (!preg_match($int_pattern, $_POST[$field])
-          or $_POST[$field] < 10)
+            or $_POST[$field] < 10)
         {
-          array_push($errors, $lang['conf_'.$field.'_error']);
+          array_push($page['errors'], $lang['conf_'.$field.'_error']);
         }
       }
       break;
@@ -123,8 +122,9 @@ if (isset($_POST['submit']))
   }
   
   // updating configuration if no error found
-  if (count($errors) == 0)
+  if (count($page['errors']) == 0)
   {
+    echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT * FROM '.CONFIG_TABLE);
     while ($row = mysql_fetch_array($result))
     {
@@ -138,6 +138,7 @@ UPDATE '.CONFIG_TABLE.'
         pwg_query($query);
       }
     }
+    array_push($page['infos'], $lang['conf_confirmation']);
   }
 }
 
@@ -149,7 +150,6 @@ $action.= '&amp;section='.$page['section'];
 
 $template->assign_vars(
   array(
-    'L_CONFIRM'=>$lang['conf_confirmation'],
     'L_YES'=>$lang['yes'],
     'L_NO'=>$lang['no'],
     'L_SUBMIT'=>$lang['submit'],
@@ -342,19 +342,6 @@ switch ($page['section'])
         ));
     break;
   }
-}
-//-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
-{
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
-  }
-}
-elseif ( isset( $_POST['submit'] ) )
-{
-  $template->assign_block_vars('confirmation' ,array());
 }
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');

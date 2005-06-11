@@ -1,15 +1,3 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
-<!-- BEGIN confirmation -->
-<div class="info">{L_CONFIRM}</div>
-<!-- END confirmation -->
 <form method="post" action="{F_ACTION}">
 <table width="100%" align="center">
 <!-- BEGIN general -->

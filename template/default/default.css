@@ -381,3 +381,35 @@ pre { text-align:left; }
 label:hover {
   cursor: pointer;
 }
+
+/**
+ * Errors box in administration
+ */
+#errors {
+  text-align: left;
+  background-color: red;
+  background-image: url(admin/images/errors.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  color: white;
+  font-weight: bold;
+  margin: 5px;
+  border:1px solid black;
+  padding: 10px 50px 10px 10px;
+}
+
+/**
+ * Informations box in administration
+ */
+#infos {
+  text-align: left;
+  background-color: #eee;
+  background-image: url(admin/images/infos.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  color: black;
+  font-weight: bold;
+  margin: 5px;
+  border:1px solid gray;
+  padding: 10px 50px 10px 10px;
+}

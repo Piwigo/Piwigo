@@ -265,6 +265,9 @@ $template->assign_vars(array(
 //--------------------------------------------------------------------- summary
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 //------------------------------------------------------------- content display
+$page['errors'] = array();
+$page['infos'] = array();
+
 if ($page_valide)
 {
   switch ($_GET['page'])
@@ -294,6 +297,26 @@ else
       )
     );
 }
+// +-----------------------------------------------------------------------+
+// |                            errors & infos                             |
+// +-----------------------------------------------------------------------+
+if (count($page['errors']) != 0)
+{
+  $template->assign_block_vars('errors',array());
+  foreach ($page['errors'] as $error)
+  {
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
+  }
+}
+if (count($page['infos']) != 0)
+{
+  $template->assign_block_vars('infos',array());
+  foreach ($page['infos'] as $info)
+  {
+    $template->assign_block_vars('infos.info',array('INFO'=>$info));
+  }
+}
+
 $template->parse('admin');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 // +-----------------------------------------------------------------------+

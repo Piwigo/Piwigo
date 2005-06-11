@@ -7,27 +7,27 @@
   <li class="update_summary_del">{update.NB_DEL_ELEMENTS} {L_NB_DEL_ELEMENTS}</li>
   <li class="update_summary_err">{update.NB_ERRORS} {L_UPDATE_NB_ERRORS}</li>
 </ul>
-<!-- BEGIN errors -->
+<!-- BEGIN update_errors -->
 <div class="admin">{L_UPDATE_ERROR_LIST_TITLE}</div>
 <ul style="text-align:left;">
-  <!-- BEGIN error -->
-  <li>[{update.errors.error.ELEMENT}] {update.errors.error.LABEL}</li>
-  <!-- END error -->
+  <!-- BEGIN update_error -->
+  <li>[{update.update_errors.update_error.ELEMENT}] {update.update_errors.update_error.LABEL}</li>
+  <!-- END update_error -->
 </ul>
 <div class="admin">{L_UPDATE_ERRORS_CAPTION}</div>
 <ul style="text-align:left;">
   <li><strong>PWG-UPDATE-1</strong> : {L_UPDATE_WRONG_DIRNAME_INFO}</li>
   <li><strong>PWG-UPDATE-2</strong> : {L_UPDATE_MISSING_TN_INFO} {{PICTURE_EXT_LIST}}</li>
 </ul>
-<!-- END errors -->
-<!-- BEGIN infos -->
+<!-- END update_errors -->
+<!-- BEGIN update_infos -->
 <div class="admin">{L_UPDATE_INFOS_TITLE}</div>
 <ul style="text-align:left;">
-  <!-- BEGIN info -->
-  <li>[{update.infos.info.ELEMENT}] {update.infos.info.LABEL}</li>
-  <!-- END info -->
+  <!-- BEGIN update_info -->
+  <li>[{update.update_infos.update_info.ELEMENT}] {update.update_infos.update_info.LABEL}</li>
+  <!-- END update_info -->
 </ul>
-<!-- END infos -->
+<!-- END update_infos -->
 <!-- END update -->
 
 <!-- BEGIN metadata_result -->

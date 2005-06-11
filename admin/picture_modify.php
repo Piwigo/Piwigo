@@ -31,16 +31,15 @@ if(!defined("PHPWG_ROOT_PATH"))
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 //--------------------------------------------------------- update informations
-$errors = array();
 // first, we verify whether there is a mistake on the given creation date
 if (isset($_POST['date_creation']) and !empty($_POST['date_creation']))
 {
   if (!check_date_format($_POST['date_creation']))
   {
-    array_push($errors, $lang['err_date']);
+    array_push($page['errors'], $lang['err_date']);
   }
 }
-if (isset($_POST['submit']) and count($errors) == 0)
+if (isset($_POST['submit']) and count($page['errors']) == 0)
 {
   $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
   if ($_POST['name'] == '')
@@ -160,7 +159,7 @@ $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
 $url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
 $url_img .= '&amp;cat='.$row['storage_category_id'];
-$date = isset($_POST['date_creation']) && empty($errors)
+$date = isset($_POST['date_creation']) && empty($page['errors'])
 ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
 
 $url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
@@ -212,16 +211,6 @@ $template->assign_vars(array(
   'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
  ));
   
-//-------------------------------------------------------------- errors display
-if (count($errors) != 0)
-{
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
-  }
-}
-
 // associate to another category ?
 $query = '
 SELECT id,name,uppercats,global_rank

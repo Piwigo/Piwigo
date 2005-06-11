@@ -1,19 +1,5 @@
 {REMOTE_SITE_TITLE}
 
-<!-- BEGIN errors -->
-<div class="errors">
-  <ul>
-    <!-- BEGIN error -->
-    <li>{errors.error.ERROR}</li>
-    <!-- END error -->
-  </ul>
-</div>
-<!-- END errors -->
-
-<!-- BEGIN confirmation -->
-<div class="info">{confirmation.CONTENT}</div>
-<!-- END confirmation -->
-
 <!-- BEGIN update -->
 <div class="admin">{L_RESULT_UPDATE}</div>
 <ul style="text-align:left;">
