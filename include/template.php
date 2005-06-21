@@ -156,6 +156,11 @@ class Template {
 
       // Run the compiled code.
       $_str = '';
+//      echo '<pre>'.($this->compiled_code[$handle]).'</pre>';
+      $fp = @fopen( './log/debug.log', 'a+' );
+      fwrite( $fp, "\n\n" );
+      fwrite( $fp, $this->compiled_code[$handle] );
+      fclose( $fp );
       eval($this->compiled_code[$handle]);
       $this->output.= $_str;
 
@@ -327,12 +332,12 @@ class Template {
    */
   function compile($code, $do_not_echo = false, $retvar = '')
     {
+      // PWG specific : communication between template and $lang
+      $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
+            
       // replace \ with \\ and then ' with \'.
       $code = str_replace('\\', '\\\\', $code);
       $code = str_replace('\'', '\\\'', $code);
-
-      // PWG specific : communication between template and $lang
-      $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
       
       // change template varrefs into PHP varrefs
       
