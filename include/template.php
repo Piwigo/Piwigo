@@ -330,6 +330,9 @@ class Template {
       // replace \ with \\ and then ' with \'.
       $code = str_replace('\\', '\\\\', $code);
       $code = str_replace('\'', '\\\'', $code);
+
+      // PWG specific : communication between template and $lang
+      $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
       
       // change template varrefs into PHP varrefs
       

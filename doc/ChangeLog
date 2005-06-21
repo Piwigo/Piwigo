@@ -1,5 +1,10 @@
 2005-06-21 Pierrick LE GALL
 
+	* direct communication between templates and language items,
+	without needing a mapping in the PHP code.
+
+2005-06-21 Pierrick LE GALL
+
 	* new function get_name_from_file to centralize the construction
 	of displayed name from the filename
 
