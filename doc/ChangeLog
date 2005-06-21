@@ -1,3 +1,13 @@
+2005-06-21 Pierrick LE GALL
+
+	* new function get_name_from_file to centralize the construction
+	of displayed name from the filename
+
+	* new function l10n which returns the corresponding value from
+	$lang if existing. Else, the key is returned. This means that if a
+	language item is not translated, the key is displayed instead
+	(better than nothing).
+
 2005-06-11 Pierrick LE GALL
 
 	* errors and informations boxes : management centralized in

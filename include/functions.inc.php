@@ -753,4 +753,29 @@ SELECT element_id
     mass_inserts(CADDIE_TABLE, array('element_id','user_id'), $datas);
   }
 }
+
+/**
+ * returns the element name from its filename
+ *
+ * @param string filename
+ * @return string name
+ */
+function get_name_from_file($filename)
+{
+  return str_replace('_',' ',get_filename_wo_extension($filename));
+}
+
+/**
+ * returns the corresponding value from $lang if existing. Else, the key is
+ * returned
+ *
+ * @param string key
+ * @return string
+ */
+function l10n($key)
+{
+  global $lang;
+
+  return (isset($lang[$key])) ? $lang[$key] : $key;
+}
 ?>
