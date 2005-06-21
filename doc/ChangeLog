@@ -1,5 +1,11 @@
 2005-06-21 Pierrick LE GALL
 
+	* comments page rewritten : comments are displayed one by one,
+	with filters and display options available. The list of comments
+	is paginated.
+	
+2005-06-21 Pierrick LE GALL
+
 	* direct communication between templates and language items,
 	without needing a mapping in the PHP code.
 

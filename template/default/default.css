@@ -413,3 +413,35 @@ label:hover {
   border:1px solid gray;
   padding: 10px 50px 10px 10px;
 }
+
+/**
+ * Filter forms are displayed label by label with the input (or select...)
+ * below the label
+ */
+form.filter FIELDSET {
+  padding: 10px;
+}
+
+form.filter FIELDSET LABEL {
+  display: block;
+  float: left;
+  width: auto;
+  margin-right: 10px;
+  padding: 0;
+}
+
+form.filter FIELDSET INPUT, form.filter FIELDSET SELECT {
+  display: block;
+}
+
+form.filter FIELDSET P {
+  clear: left;
+}
+
+form.filter FIELDSET {
+  border: 1px solid gray;
+}
+
+form.filter FIELDSET + INPUT {
+  margin-top: 10px;
+}

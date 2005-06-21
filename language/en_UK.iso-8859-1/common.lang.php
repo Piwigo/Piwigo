@@ -306,4 +306,24 @@ $lang['hint_comments'] = 'See last users comments';
 $lang['menu_login'] = 'login';
 $lang['hello'] = 'Hello';
 
+$lang['today'] = 'today';
+$lang['last %d days'] = 'last %d days';
+$lang['the beginning'] = 'the beginning';
+
+$lang['comment date'] = 'comment date';
+$lang['image'] = 'image';
+$lang['descending'] = 'descending';
+$lang['ascending'] = 'ascending';
+$lang['all'] = 'all';
+$lang['Filter'] = 'Filter';
+$lang['Keyword'] = 'Keyword';
+$lang['Author'] = 'Author';
+$lang['Category'] = 'Category';
+$lang['Since'] = 'Since';
+$lang['Display'] = 'Display';
+$lang['Sort by'] = 'Sort by';
+$lang['Sort order'] = 'Sort order';
+$lang['Number of items'] = 'Number of items';
+$lang['return to homepage'] = 'return to homepage';
+$lang['Filter and display'] = 'Filter and display';
 ?>

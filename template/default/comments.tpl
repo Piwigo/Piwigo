@@ -1,17 +1,76 @@
 <!-- BEGIN title -->
 <div class="titrePage">{L_COMMENT_TITLE}</div>
 <!-- END title -->
-<div class="admin">
-      [
-      <!-- BEGIN last_day_option -->
-      <a class="admin" href="{last_day_option.U_OPTION}" style="{last_day_option.T_STYLE}">{last_day_option.OPTION}</a>{T_SEPARATION}
-      <!-- END last_day_option -->
-      {L_COMMENT_STATS}
-      ]
-	  <!-- BEGIN title -->
-      [ <a class="admin" href="{U_HOME}" title="{L_COMMENT_RETURN_HINT}">{L_COMMENT_RETURN}</a> ]
-	  <!-- END title -->
-</div>
+
+<form class="filter" action="{F_ACTION}" method="get">
+
+  <fieldset>
+    <legend>{lang:Filter}</legend>
+
+    <label>{lang:Keyword}<input type="text" name="keyword" value="{F_KEYWORD}" /></label>
+
+    <label>{lang:Author}<input type="text" name="author" value="{F_AUTHOR}" /></label>
+
+    <label>
+      {lang:Category}
+      <select name="cat">
+        <!-- BEGIN category -->
+        <option class="{category.CLASS}" {category.SELECTED} value="{category.VALUE}">{category.OPTION}</option>
+        <!-- END category -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Since}
+      <select name="since">
+        <!-- BEGIN since_option -->
+        <option {since_option.SELECTED} value="{since_option.VALUE}">{since_option.CONTENT}</option>
+        <!-- END since_option -->
+      </select>
+    </label>
+
+  </fieldset>
+
+  <fieldset>
+
+    <legend>{lang:Display}</legend>
+
+    <label>
+      {lang:Sort by}
+      <select name="sort_by">
+        <!-- BEGIN sort_by_option -->
+        <option value="{sort_by_option.VALUE}" {sort_by_option.SELECTED} >{sort_by_option.CONTENT}</option>
+        <!-- END sort_by_option -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Sort order}
+      <select name="sort_order">
+        <!-- BEGIN sort_order_option -->
+        <option value="{sort_order_option.VALUE}" {sort_order_option.SELECTED} >{sort_order_option.CONTENT}</option>
+        <!-- END sort_order_option -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Number of items}
+      <select name="items_number">
+        <!-- BEGIN items_number_option -->
+        <option value="{items_number_option.VALUE}" {items_number_option.SELECTED} >{items_number_option.CONTENT}</option>
+        <!-- END items_option -->
+      </select>
+    </label>
+
+  </fieldset>
+
+  <input type="submit" name="submit" value="{lang:Filter and display}" />
+
+</form>
+
+<div class="navigationBar">{NAVBAR}</div>
+<a class="admin" href="{U_HOME}" title="{lang:return to homepage}">{lang:home}</a>
+
 <!-- BEGIN validation -->
 <form action="{F_ACTION}" method="post">
 <!-- END validation -->
@@ -50,8 +109,8 @@
 </table>
 <!-- BEGIN validation -->
 <div align="center">
-<input type="submit" name="validate" class="bouton" value="{L_VALIDATE}" />
-<input type="submit" name="delete" class="bouton" value="{L_DELETE}" />
+<input type="submit" name="validate" class="bouton" value="{lang:submit}" />
+<input type="submit" name="delete" class="bouton" value="{lang:delete}" />
 </div>
 </form>
 <!-- END validation -->

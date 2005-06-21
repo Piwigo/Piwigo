@@ -309,4 +309,24 @@ $lang['hint_comments'] = 'Voir les derniers commentaires des visiteurs';
 
 $lang['update_wrong_dirname'] = 'Le nom des fichiers et répertoires ne doivent être composé que de lettres, de chiffres et "-", "_" ou ".".';
 $lang['hello'] = 'Bonjour';
+
+$lang['today'] = 'aujourd\'hui';
+$lang['last %d days'] = 'les %d derniers jours';
+$lang['the beginning'] = 'le début';
+$lang['comment date'] = 'date du commentaire';
+$lang['image'] = 'image';
+$lang['descending'] = 'décroissant';
+$lang['ascending'] = 'croissant';
+$lang['all'] = 'tout';
+$lang['Filter'] = 'Filtre';
+$lang['Keyword'] = 'Mot-Clef';
+$lang['Author'] = 'Auteur';
+$lang['Category'] = 'Catégorie';
+$lang['Since'] = 'Depuis';
+$lang['Display'] = 'Affichage';
+$lang['Sort by'] = 'Trier par';
+$lang['Sort order'] = 'Ordre';
+$lang['Number of items'] = 'Nombre d\'éléments';
+$lang['return to homepage'] = 'retourner à la page d\'accueil';
+$lang['Filter and display'] = 'Filtrer et afficher';
 ?>
