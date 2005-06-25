@@ -329,4 +329,5 @@ $lang['Sort order'] = 'Ordre';
 $lang['Number of items'] = 'Nombre d\'éléments';
 $lang['return to homepage'] = 'retourner à la page d\'accueil';
 $lang['Filter and display'] = 'Filtrer et afficher';
+$lang['Links'] = 'Liens';
 ?>

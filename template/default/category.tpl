@@ -3,6 +3,16 @@
   <tr>
     <td valign="top" style="padding:0px 10px 0px 10px;width:1%;">
       <div class="table1">
+        <!-- BEGIN links -->
+        <div class="titreMenu">{lang:Links}</div>
+        <div class="menu">
+          <ul class="menu">
+            <!-- BEGIN link -->
+            <li><a href="{links.link.URL}">{links.link.LABEL}</a></li>
+            <!-- END link -->
+          </ul>
+        </div>
+        <!-- END links -->
         <div class="titreMenu">
           <a href="{U_HOME}">{L_CATEGORIES}</a>
         </div>

@@ -175,6 +175,21 @@ $template->assign_vars(array(
   'U_CADDIE'=>add_session_id(PHPWG_ROOT_PATH.'category.php'.get_query_string_diff(array('caddie')).'&amp;caddie=1')
   )
 );
+//-------------------------------------------------------------- external links
+if (count($conf['links']) > 0)
+{
+  $template->assign_block_vars('links', array());
+
+  foreach ($conf['links'] as $url => $label)
+  {
+    $template->assign_block_vars(
+      'links.link',
+      array(
+        'URL' => $url,
+        'LABEL' => $label
+        ));
+  }
+}
 //---------------------------------------------------------- special categories
 // favorites categories
 if ( !$user['is_the_guest'] )

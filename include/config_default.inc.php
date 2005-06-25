@@ -199,4 +199,17 @@ $conf['tn_height'] = 96;
 // show_version : shall the version of PhpWebGallery be displayed at the
 // bottom of each page ?
 $conf['show_version'] = true;
+
+// links : list of external links to add in the menu. An example is the best
+// than a long explanation :
+//
+// $conf['links'] = array(
+//   'http://phpwebgallery.net' => 'PWG website',
+//   'http://forum.phpwebgallery.net' => 'PWG forum',
+//   'http://phpwebgallery.net/doc' => 'PWG wiki'
+//   );
+//
+// If the array is empty, the "Links" box won't be displayed on the main
+// page.
+$conf['links'] = array();
 ?>
