@@ -459,12 +459,13 @@ form.filter FIELDSET LABEL {
   padding: 0;
 }
 
-form.filter FIELDSET INPUT, form.filter FIELDSET SELECT {
+form.filter>FIELDSET>LABEL>INPUT, form.filter>FIELDSET>LABEL>SELECT {
   display: block;
 }
 
-form.filter FIELDSET P {
+form.filter FIELDSET P, form.filter FIELDSET>INPUT {
   clear: left;
+  display: block;
 }
 
 form.filter FIELDSET {

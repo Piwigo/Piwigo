@@ -1,5 +1,10 @@
 2005-06-30 Pierrick LE GALL
 
+	* users managment : change display of filter (according to filter
+	on user comments)
+
+2005-06-30 Pierrick LE GALL
+
 	* categories management : new display with icon for actions
 	(delete, sub-categories, elements, edit, jump to, permissions)
 

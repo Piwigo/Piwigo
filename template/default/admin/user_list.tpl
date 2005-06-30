@@ -10,9 +10,7 @@
 
 <div class="admin">{L_USERS_LIST}</div>
 
-<form method="get" name="filter" action="{F_FILTER_ACTION}">
-
-<div style="text-align:center">
+<form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}">
 
   <input type="hidden" name="page" value="user_list" />
   
@@ -20,35 +18,52 @@
   <input type="hidden" name="id" value="{session.ID}" />
   <!-- END session -->
 
-  username <input type="text" name="username" value="{F_USERNAME}" />
+<fieldset>
 
-  status
+  <legend>{lang:Filter}</legend>
+
+
+  <label>{lang:username} <input type="text" name="username" value="{F_USERNAME}" /></label>
+
+  <label>
+  {lang:status}
   <select name="status">
     <!-- BEGIN status_option -->
     <option value="{status_option.VALUE}" {status_option.SELECTED} > {status_option.CONTENT}</option>
     <!-- END status_option -->
   </select>
+  </label>
 
-  group
+  <label>
+  {lang:group}
   <select name="group">
     <!-- BEGIN group_option -->
     <option value="{group_option.VALUE}" {group_option.SELECTED} > {group_option.CONTENT}</option>
     <!-- END group_option -->
   </select>
+  </label>
 
-  {L_ORDER_BY}
+  <label>
+  {lang:Order by}
   <select name="order_by">
     <!-- BEGIN order_by -->
     <option value="{order_by.VALUE}" {order_by.SELECTED} >{order_by.CONTENT}</option>
     <!-- END order_by -->
   </select>
+  </label>
+
+  <label>
+  {lang:Sort order}
   <select name="direction">
     <!-- BEGIN direction -->
     <option value="{direction.VALUE}" {direction.SELECTED} >{direction.CONTENT}</option>
     <!-- END direction -->
   </select>
+  </label>
+
   <input type="submit" name="submit_filter" value="{L_SUBMIT}" class="bouton" />
-</div>
+
+</fieldset>
 
 </form>
 
