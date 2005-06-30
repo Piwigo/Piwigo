@@ -383,6 +383,35 @@ label:hover {
 }
 
 /**
+ * Categories management
+ */
+
+form#categoryOrdering>ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+form#categoryOrdering>ul>li {
+  border: 1px solid grey;
+  padding: 0px 5px;
+  margin-bottom: 5px;
+}
+
+form#categoryOrdering ul.categoryActions {
+  float: right;
+  margin-top: 5px;
+}
+
+ul.categoryActions>li {
+  display: inline;
+}
+
+ul.categoryActions a img {
+  border: none;
+}
+
+/**
  * Errors box in administration
  */
 #errors {

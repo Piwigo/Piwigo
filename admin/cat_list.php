@@ -30,6 +30,34 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
+// +-----------------------------------------------------------------------+
+// |                               functions                               |
+// +-----------------------------------------------------------------------+
+
+/**
+ * save the rank depending on given categories order
+ *
+ * The list of ordered categories id is supposed to be in the same parent
+ * category
+ *
+ * @param array categories
+ * @return void
+ */
+function save_categories_order($categories)
+{
+  $current_rank = 0;
+  $datas = array();
+  foreach ($categories as $id)
+  {
+    array_push($datas, array('id' => $id, 'rank' => ++$current_rank));
+  }
+  $fields = array('primary' => array('id'), 'update' => array('rank'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+
+  update_global_rank(@$_GET['parent_id']);
+}
+
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
@@ -47,7 +75,7 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
   update_global_rank();
 }
 // request to add a virtual category
-else if (isset($_POST['submit']))
+else if (isset($_POST['submitAdd']))
 {
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $_POST['virtual_name']))
@@ -137,6 +165,11 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1)
     array_push($page['infos'], $lang['cat_virtual_added']);
   }
 }
+else if (isset($_POST['submitOrder']))
+{
+  asort($_POST['catOrd'], SORT_NUMERIC);
+  save_categories_order(array_keys($_POST['catOrd']));
+}
 // +-----------------------------------------------------------------------+
 // |                           Cache management                            |
 // +-----------------------------------------------------------------------+
@@ -180,131 +213,6 @@ if (isset($_GET['parent_id']))
                                      false);
 }
 // +-----------------------------------------------------------------------+
-// |                               rank updates                            |
-// +-----------------------------------------------------------------------+
-$current_rank = 0;
-if (isset($_GET['up']) and is_numeric($_GET['up']))
-{
-  // 1. searching the id of the category just above at the same level
-  while (list ($id,$current) = each($categories))
-  {
-    if ($current['id'] == $_GET['up'])
-    {
-      $current_rank = $current['rank'];
-      break;
-    }
-  }
-  if ($current_rank > 1)
-  {
-    // 2. Exchanging ranks between the two categories
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.($current_rank-1).'
-  WHERE id = '.$_GET['up'].'
-;';
-    pwg_query($query);
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.$current_rank.'
-  WHERE id = '.$categories[($current_rank-1)]['id'].'
-;';
-    pwg_query($query);
-    // 3. Updating the cache array
-    $categories[$current_rank] = $categories[($current_rank-1)];
-    $categories[($current_rank-1)] = $current;
-  }
-  else
-  {
-    // 2. Updating the rank of our category to be after the previous max rank
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.(count($categories) + 1).'
-  WHERE id = '.$_GET['up'].'
-;';
-    pwg_query($query);
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = rank-1
-  WHERE id_uppercat ';
-    if (empty($_GET['parent_id']))
-    {
-      $query.= 'IS NULL';
-    }
-    else
-    {
-      $query.= '= '.$_GET['parent_id'];
-    }
-    $query.= '
-;';
-    pwg_query($query);
-    // 3. Updating the cache array
-    array_push($categories, $current);
-    array_shift($categories);
-  }
-  update_global_rank(@$_GET['parent_id']);
-}
-else if (isset($_GET['down']) and is_numeric($_GET['down']))
-{
-  // 1. searching the id of the category just above at the same level
-  while (list ($id,$current) = each($categories))
-  {
-    if ($current['id'] == $_GET['down'])
-    {
-      $current_rank = $current['rank'];
-      break;
-    }
-  }
-  if ($current_rank < count($categories))
-  {
-    // 2. Exchanging ranks between the two categories
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.($current_rank+1).'
-  WHERE id = '.$_GET['down'].'
-;';
-    pwg_query($query);
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = '.$current_rank.'
-  WHERE id = '.$categories[($current_rank+1)]['id'].'
-;';
-    pwg_query($query);
-    // 3. Updating the cache array
-    $categories[$current_rank]=$categories[($current_rank+1)];
-    $categories[($current_rank+1)] = $current;
-  }
-  else 
-  {
-    // 2. updating the rank of our category to be the first one
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = 0
-  WHERE id = '.$_GET['down'].'
-;';
-    pwg_query($query);
-    $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET rank = rank+1
-  WHERE id_uppercat ';
-    if (empty($_GET['parent_id']))
-    {
-      $query.= 'IS NULL';
-    }
-    else
-    {
-      $query.= '= '.$_GET['parent_id'];
-    }
-    $query.= '
-;';
-    pwg_query($query);
-    // 3. Updating the cache array
-    array_unshift($categories, $current);
-    array_pop($categories);
-  }
-  update_global_rank(@$_GET['parent_id']);
-}
-reset($categories);
-// +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('categories'=>'admin/cat_list.tpl'));
@@ -344,26 +252,46 @@ $tpl = array('cat_first','cat_last');
 // +-----------------------------------------------------------------------+
 // |                          Categories display                           |
 // +-----------------------------------------------------------------------+
-$ranks = array();
+
+$categories = array();
+
+$query = '
+SELECT id, name, dir, rank, nb_images, status
+  FROM '.CATEGORIES_TABLE;
+if (!isset($_GET['parent_id']))
+{
+  $query.= '
+  WHERE id_uppercat IS NULL';
+}
+else
+{
+  $query.= '
+  WHERE id_uppercat = '.$_GET['parent_id'];
+}
+$query.= '
+  ORDER BY rank ASC
+;';
+$result = pwg_query($query);
+while ($row = mysql_fetch_array($result))
+{
+  $categories[$row['id']] = $row;
+  // by default, let's consider there is no sub-categories. This will be
+  // calculated after.
+  $categories[$row['id']]['nb_subcats'] = 0;
+}
 
 if (count($categories) > 0)
 {
-  foreach ($categories as $category)
-  {
-    $ranks[$category['id']] = $category['rank'];
-  }
-
   $query = '
 SELECT id_uppercat, COUNT(*) AS nb_subcats
   FROM '. CATEGORIES_TABLE.'
-  WHERE id_uppercat IN ('.implode(',', array_keys($ranks)).')
+  WHERE id_uppercat IN ('.implode(',', array_keys($categories)).')
   GROUP BY id_uppercat
 ;';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $categories[$ranks[$row['id_uppercat']]]['nb_subcats']
-      = $row['nb_subcats'];
+    $categories[$row['id_uppercat']]['nb_subcats'] = $row['nb_subcats'];
   }
 }
 
@@ -372,32 +300,6 @@ foreach ($categories as $category)
   $images_folder = PHPWG_ROOT_PATH.'template/';
   $images_folder.= $user['template'].'/admin/images';
   
-  if ($category['visible'] == 'false')
-  {
-    $image_src = $images_folder.'/icon_folder_lock.gif';
-    $image_alt = $lang['cat_private'];
-    $image_title = $lang['cat_private'];
-  }
-  else if (empty($category['dir']))
-  {
-    $image_src = $images_folder.'/icon_folder_link.gif';
-    $image_alt = $lang['cat_virtual'];
-    $image_title = $lang['cat_virtual'];
-  }
-  else
-  {
-    if ($category['nb_subcats'] > 0)
-    {
-      $image_src = $images_folder.'/icon_subfolder.gif';
-    }
-    else
-    {
-      $image_src = $images_folder.'/icon_folder.gif';
-    }
-    $image_alt = '';
-    $image_title = '';
-  }
-
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
   $cat_list_url = $base_url.'cat_list';
   
@@ -410,45 +312,49 @@ foreach ($categories as $category)
   $template->assign_block_vars(
     'category',
     array(
-      'CATEGORY_IMG_SRC'=>$image_src,
-      'CATEGORY_IMG_ALT'=>$image_alt,
-      'CATEGORY_IMG_TITLE'=>$image_title,
-      'CATEGORY_NAME'=>$category['name'],
-      'CATEGORY_DIR'=>@$category['dir'],
-      'CATEGORY_NB_IMG'=>$category['nb_images'],
+      'NAME'=>$category['name'],
+      'ID'=>$category['id'],
+      'RANK'=>$category['rank']*10,
+
+      'U_JUMPTO'=>
+      add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']),
       
-      'U_CATEGORY'=>
+      'U_CHILDREN'=>
       add_session_id($cat_list_url.'&amp;parent_id='.$category['id']),
       
-      'U_MOVE_UP'=>add_session_id($self_url.'&amp;up='.$category['id']),
-      
-      'U_MOVE_DOWN'=>add_session_id($self_url.'&amp;down='.$category['id']),
-      
-      'U_CAT_EDIT'=>
-      add_session_id($base_url.'cat_modify&amp;cat_id='.$category['id']),
-      
-      'U_CAT_DELETE'=>add_session_id($self_url.'&amp;delete='.$category['id']),
-      
-      'U_INFO_IMG'
-      => add_session_id($base_url.'element_set&amp;cat='.$category['id'])
-      ));
+      'U_EDIT'=>
+      add_session_id($base_url.'cat_modify&amp;cat_id='.$category['id'])
+      )
+    );
   
-  if (!empty($category['dir']))
+  if (empty($category['dir']))
   {
-    $template->assign_block_vars('category.storage' ,array());
-  }
-  else
-  {
-    $template->assign_block_vars('category.virtual' ,array());
+    $template->assign_block_vars(
+      'category.delete',
+      array(
+        'URL'=>add_session_id($self_url.'&amp;delete='.$category['id'])
+        )
+      );
   }
   
   if ($category['nb_images'] > 0)
   {
-    $template->assign_block_vars('category.image_info' ,array());
+    $template->assign_block_vars(
+      'category.elements',
+      array(
+        'URL'=>add_session_id($base_url.'element_set&amp;cat='.$category['id'])
+        )
+      );
   }
-  else
+
+  if ('private' == $category['status'])
   {
-    $template->assign_block_vars('category.no_image_info' ,array()); 
+    $template->assign_block_vars(
+      'category.permissions',
+      array(
+        'URL'=>add_session_id($base_url.'cat_perm&amp;cat='.$category['id'])
+        )
+      );
   }
 }
 // +-----------------------------------------------------------------------+

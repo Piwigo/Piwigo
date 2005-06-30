@@ -1,43 +1,42 @@
 <div class="admin">{CATEGORIES_NAV}</div>
-<table style="width:100%;">
-<!-- BEGIN category -->
-<tr>
-  <td style="width:1px;padding:5px;"><img src="{category.CATEGORY_IMG_SRC}" alt="{category.CATEGORY_IMG_ALT}" title="{category.CATEGORY_IMG_TITLE}" /></td>
-  <td style="width:60%;text-align:left;"><a class="titreImg" href="{category.U_CATEGORY}">{category.CATEGORY_NAME}</a>
-    <br />
-	<!-- BEGIN storage -->
-    {L_STORAGE} : {category.CATEGORY_DIR} - 
-    <!-- END storage -->
-	{L_NB_IMG} : {category.CATEGORY_NB_IMG}
-  </td>
-  <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
-    <a href="{category.U_MOVE_UP}">{L_MOVE_UP}</a><br />
-	<a href="{category.U_MOVE_DOWN}">{L_MOVE_DOWN}</a>
-  </td>
-  <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
-    <a href="{category.U_CAT_EDIT}">{L_EDIT}</a>
-  </td>
-  <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
-    <!-- BEGIN image_info -->
-    <a href="{category.U_INFO_IMG}">{L_INFO_IMG}</a>
-    <!-- END image_info -->
-    <!-- BEGIN no_image_info -->
-    <span style="color:darkgray;">{L_INFO_IMG}</span>
-    <!-- END no_image_info -->
-  </td>
-  <td class="row1" style="width:10%;white-space:nowrap;text-align:center;">
-    <!-- BEGIN virtual -->
-    <a href="{category.U_CAT_DELETE}">{L_DELETE}</a>
-    <!-- END virtual -->
-    <!-- BEGIN storage -->
-    <span style="color:darkgray;">{L_DELETE}</span>
-    <!-- END storage -->
-  </td>
-<tr>
-<!-- END category -->
-</table>
+
+<form id="categoryOrdering" action="" method="post">
+
+  <ul>
+
+    <!-- BEGIN category -->
+    <li> <!-- category {category.ID} -->
+
+      <ul class="categoryActions">
+        <li><a href="{category.U_JUMPTO}" title="{lang:jump to category}"><img src="./template/default/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li> 
+        <li><a href="{category.U_EDIT}" title="{lang:edit category informations}"><img src="./template/default/theme/category_edit.png" alt="{lang:edit}"/></a></li>
+        <!-- BEGIN elements -->
+        <li><a href="{category.elements.URL}" title="{lang:manage category elements}"><img src="./template/default/theme/category_elements.png" alt="{lang:elements}" /></a></li>
+        <!-- END elements -->
+        <li><a href="{category.U_CHILDREN}" title="{lang:manage sub-categories}"><img src="./template/default/theme/category_children.png" alt="{lang:sub-categories}" /></a></li> 
+        <!-- BEGIN delete -->
+        <li><a href="{category.delete.URL}" title="{lang:delete category}"><img src="./template/default/theme/category_delete.png" alt="{lang:delete}" /></a></li>
+        <!-- END delete -->
+      </ul>
+
+      <p><strong>{category.NAME}</strong></p>
+
+      <p>
+        <label>
+          {lang:Position} :
+          <input type="text" size="4" name="catOrd[{category.ID}]" maxlength="4" value="{category.RANK}" />
+        </label>
+      </p>
+
+    </li>
+    <!-- END category -->
+
+  <p><input name="submitOrder" type="submit" class="bouton" value="{lang:Save order}" /></p>
+
+</form>
+
 <form action="{F_ACTION}" method="post">
   {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
   <input type="hidden" name="rank" value="{NEXT_RANK}"/>
-  <input type="submit" value="{L_SUBMIT}" class="bouton" name="submit" />
+  <input type="submit" value="{L_SUBMIT}" class="bouton" name="submitAdd" />
 </form>

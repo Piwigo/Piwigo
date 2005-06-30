@@ -1,3 +1,14 @@
+2005-06-30 Pierrick LE GALL
+
+	* categories management : new display with icon for actions
+	(delete, sub-categories, elements, edit, jump to, permissions)
+
+	* categories management : semantic HTML layout (using common
+	lists)
+
+	* categories management : new way to order categories of the same
+	level : a text field let the admin reorder all categories at once.
+	
 2005-06-25 Pierrick LE GALL
 
 	* new feature : ability to add links on the main page (see
