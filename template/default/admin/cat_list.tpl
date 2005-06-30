@@ -14,6 +14,9 @@
         <li><a href="{category.elements.URL}" title="{lang:manage category elements}"><img src="./template/default/theme/category_elements.png" alt="{lang:elements}" /></a></li>
         <!-- END elements -->
         <li><a href="{category.U_CHILDREN}" title="{lang:manage sub-categories}"><img src="./template/default/theme/category_children.png" alt="{lang:sub-categories}" /></a></li> 
+        <!-- BEGIN permissions -->
+        <li><a href="{category.permissions.URL}" title="{lang:edit category permissions}" ><img src="./template/default/theme/category_permissions.png" alt="{lang:permissions}" /></a></li>
+        <!-- END permissions -->
         <!-- BEGIN delete -->
         <li><a href="{category.delete.URL}" title="{lang:delete category}"><img src="./template/default/theme/category_delete.png" alt="{lang:delete}" /></a></li>
         <!-- END delete -->

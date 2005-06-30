@@ -24,205 +24,342 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( './admin/include/isadmin.inc.php' );
-//----------------------------------------------------- template initialization
-$sub = $vtp->Open( './template/'.$user['template'].'/admin/cat_perm.vtp' );
-$error = array();
-$tpl = array( 'permuser_authorized','permuser_forbidden','menu_groups',
-              'submit','menu_users','permuser_parent_forbidden' );
-templatize_array( $tpl, 'lang', $sub );
-$vtp->setGlobalVar( $sub, 'user_template', $user['template'] );
-//-------------------------------------------------------------- category infos
-if ( isset( $_GET['cat_id'] ) )
-{
-  check_cat_id( $_GET['cat_id'] );
-  if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
-  {
-    $result = get_cat_info( $page['cat'] );
-    $page['cat_name']    = $result['name'];
-    $page['id_uppercat'] = $result['id_uppercat'];
-  }
-}
-//---------------------------------------------------------- permission updates
-if ( isset( $_POST['submit'] ) )
-{
-  // groups access update
-  $query = 'DELETE';
-  $query.= ' FROM '.PREFIX_TABLE.'group_access';
-  $query.= ' WHERE cat_id = '.$page['cat'];
-  $query.= ';';
-  pwg_query( $query );
-  $query = 'SELECT id';
-  $query.= ' FROM '.PREFIX_TABLE.'groups';
-  $query.= ';';
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $radioname = 'groupaccess-'.$row['id'];
-    if ( $_POST[$radioname] == 0 )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'group_access';
-      $query.= ' (cat_id,group_id) VALUES';
-      $query.= ' ('.$page['cat'].','.$row['id'].')';
-      $query.= ';';
-      pwg_query( $query );
-    }
-  }
-  // users access update
-  $query = 'DELETE';
-  $query.= ' FROM '.PREFIX_TABLE.'user_access';
-  $query.= ' WHERE cat_id = '.$page['cat'];
-  $query.= ';';
-  pwg_query( $query );
-  $query = 'SELECT id';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= ';';
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $radioname = 'useraccess-'.$row['id'];
-    if ( $_POST[$radioname] == 0 )
-    {
-      $query = 'INSERT INTO '.PREFIX_TABLE.'user_access';
-      $query.= ' (cat_id,user_id) VALUES';
-      $query.= ' ('.$page['cat'].','.$row['id'].')';
-      $query.= ';';
-      pwg_query( $query );
-    }
-    check_favorites( $row['id'] );
-  }
-  // resynchronize all users
-  synchronize_all_users();
-}
-//---------------------------------------------------------------------- groups
-$query = 'SELECT id,name';
-$query.= ' FROM '.PREFIX_TABLE.'groups';
-$query. ';';
-$result = pwg_query( $query );
-if ( mysql_num_rows( $result ) > 0 )
-{
-  $vtp->addSession( $sub, 'groups' );
-  // creating an array with all authorized groups for this category
-  $query = 'SELECT group_id';
-  $query.= ' FROM '.PREFIX_TABLE.'group_access';
-  $query.= ' WHERE cat_id = '.$_GET['cat_id'];
-  $query.= ';';
-  $subresult = pwg_query( $query );
-  $authorized_groups = array();
-  while ( $subrow = mysql_fetch_array( $subresult ) )
-  {
-    array_push( $authorized_groups, $subrow['group_id'] );
-  }
-  // displaying each group
-  while( $row = mysql_fetch_array( $result ) )
-  {
-    $vtp->addSession( $sub, 'group' );
-    if ( in_array( $row['id'], $authorized_groups ) )
-    {
-      $vtp->setVar( $sub, 'group.color', 'green' );
-      $vtp->setVar( $sub, 'group.authorized_checked', ' checked="checked"' );
-    }
-    else
-    {
-      $vtp->setVar( $sub, 'group.color', 'red' );
-      $vtp->setVar( $sub, 'group.forbidden_checked', ' checked="checked"' );
-    }
-    $vtp->setVar( $sub, 'group.groupname', $row['name'] );
-    $vtp->setVar( $sub, 'group.id', $row['id'] );
-    $url = './admin.php?page=group_perm&amp;group_id='.$row['id'];
-    $vtp->setVar( $sub, 'group.group_perm_link', add_session_id( $url ) );
-    $vtp->closeSession( $sub, 'group' );
-  }
-  $vtp->closeSession( $sub, 'groups' );
-}
-//----------------------------------------------------------------------- users
-$query = 'SELECT id,username,status';
-$query.= ' FROM '.USERS_TABLE;
-// only the webmaster can modify webmaster's permissions
-if ( $user['username'] != $conf['webmaster'] )
-{
-  $query.= " WHERE username != '".$conf['webmaster']."'";
-}
-$query.= ';';
-$result = pwg_query( $query );
-while ( $row = mysql_fetch_array( $result ) )
-{
-  $vtp->addSession( $sub, 'user' );
-  $vtp->setVar( $sub, 'user.id', $row['id'] );
-  $url = add_session_id( './admin.php?page=user_perm&amp;user_id='.$row['id']);
-  $vtp->setVar( $sub, 'user.user_perm_link', $url);
-  if ( $row['username'] == 'guest' )
-  {
-    $row['username'] = $lang['guest'];
-  }
-  $vtp->setVar( $sub, 'user.username', $row['username'] );
 
-  // for color of user : (red means access forbidden, green authorized) we
-  // ask all forbidden categories, including the groups rights
-  $restrictions = get_user_restrictions( $row['id'], $row['status'], false );
-  $is_user_allowed = is_user_allowed( $page['cat'], $restrictions );
-  if ( $is_user_allowed == 0 )
-  {
-    $vtp->setVar( $sub, 'user.color', 'green' );
-  }
-  else
-  {
-    $vtp->setVar( $sub, 'user.color', 'red' );
-  }
-  // for permission update button, we only ask forbidden categories for the
-  // user, not taking into account the groups the user belongs to
-  $restrictions = get_user_restrictions($row['id'],$row['status'],false,false);
-  $is_user_allowed = is_user_allowed( $page['cat'], $restrictions );
-  if ( $is_user_allowed == 2 )
-  {
-    $vtp->addSession( $sub, 'parent_forbidden' );
-    $url = './admin.php?page=cat_perm&amp;cat_id='.$page['id_uppercat'];
-    $vtp->setVar( $sub, 'parent_forbidden.url', add_session_id( $url ) );
-    $vtp->closeSession( $sub, 'parent_forbidden' );
-  }
-  if ( $is_user_allowed == 0 )
-  {
-    $vtp->setVar( $sub, 'user.authorized_checked', ' checked="checked"' );
-  }
-  else
-  {
-    $vtp->setVar( $sub, 'user.forbidden_checked', ' checked="checked"' );
-  }
-  // user's group(s)
-  $query = 'SELECT g.name as groupname, g.id as groupid';
-  $query.= ' FROM '.PREFIX_TABLE.'groups as g';
-  $query.= ', '.PREFIX_TABLE.'user_group as ug';
-  $query.= ' WHERE ug.group_id = g.id';
-  $query.= ' AND ug.user_id = '.$row['id'];
-  $query.= ';';
-  $subresult = pwg_query( $query );
-  if ( mysql_num_rows( $subresult ) > 0 )
-  {
-    $vtp->addSession( $sub, 'usergroups' );
-    $i = 0;
-    while( $subrow = mysql_fetch_array( $subresult ) )
-    {
-      $vtp->addSession( $sub, 'usergroup' );
-      if ( in_array( $subrow['groupid'], $authorized_groups ) )
-      {
-        $vtp->setVar( $sub, 'usergroup.color', 'green' );
-      }
-      else
-      {
-        $vtp->setVar( $sub, 'usergroup.color', 'red' );
-      }
-      $vtp->setVar( $sub, 'usergroup.name', $subrow['groupname'] );
-      if ( $i < mysql_num_rows( $subresult ) - 1 )
-      {
-        $vtp->setVar( $sub, 'usergroup.separation', ',' );
-      }
-      $vtp->closeSession( $sub, 'usergroup' );
-      $i++;
-    }
-    $vtp->closeSession( $sub, 'usergroups' );
-  }
-  $vtp->closeSession( $sub, 'user' );
+if (!defined('PHPWG_ROOT_PATH'))
+{
+  die ("Hacking attempt!");
 }
-//----------------------------------------------------------- sending html code
-$vtp->Parse( $handle , 'sub', $sub );
+include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
+// +-----------------------------------------------------------------------+
+// |                       variable initialization                         |
+// +-----------------------------------------------------------------------+
+
+// if the category is not correct (not numeric, not private)
+if (isset($_GET['cat']) and is_numeric($_GET['cat']))
+{
+  $query = '
+SELECT status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$_GET['cat'].'
+;';
+  list($status) = mysql_fetch_array(pwg_query($query));
+  
+  if ('private' == $status)
+  {
+    $page['cat'] = $_GET['cat'];
+  }
+}
+
+if (!isset($page['cat']))
+{
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE status = \'private\'
+  LIMIT 0,1
+;';
+
+  list($page['cat']) = mysql_fetch_array(pwg_query($query));
+}
+
+// +-----------------------------------------------------------------------+
+// |                           form submission                             |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST) and false)
+{
+  echo '<pre>';
+  print_r($_POST);
+  echo '</pre>';
+}
+
+if (isset($_POST['deny_groups_submit'])
+         and isset($_POST['deny_groups'])
+         and count($_POST['deny_groups']) > 0)
+{
+  // if you forbid access to a category, all sub-categories become
+  // automatically forbidden
+  $query = '
+DELETE
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE group_id IN ('.implode(',', $_POST['deny_groups']).')
+    AND cat_id IN ('.implode(',', get_subcat_ids(array($page['cat']))).')
+;';
+  pwg_query($query);
+}
+else if (isset($_POST['grant_groups_submit'])
+         and isset($_POST['grant_groups'])
+         and count($_POST['grant_groups']) > 0)
+{
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', get_uppercat_ids(array($page['cat']))).')
+  AND status = \'private\'
+;';
+  $private_uppercats = array_from_query($query, 'id');
+
+  // We must not reinsert already existing lines in group_access table
+  $granteds = array();
+  foreach ($private_uppercats as $cat_id)
+  {
+    $granteds[$cat_id] = array();
+  }
+  
+  $query = '
+SELECT group_id, cat_id
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE cat_id IN ('.implode(',', $private_uppercats).')
+    AND group_id IN ('.implode(',', $_POST['grant_groups']).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($granteds[$row['cat_id']], $row['group_id']);
+  }
+
+  $inserts = array();
+  
+  foreach ($private_uppercats as $cat_id)
+  {
+    $group_ids = array_diff($_POST['grant_groups'], $granteds[$cat_id]);
+    foreach ($group_ids as $group_id)
+    {
+      array_push($inserts, array('group_id' => $group_id,
+                                 'cat_id' => $cat_id));
+    }
+  }
+
+  mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
+}
+else if (isset($_POST['deny_users_submit'])
+         and isset($_POST['deny_users'])
+         and count($_POST['deny_users']) > 0)
+{
+  // if you forbid access to a category, all sub-categories become
+  // automatically forbidden
+  $query = '
+DELETE
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE user_id IN ('.implode(',', $_POST['deny_users']).')
+    AND cat_id IN ('.implode(',', get_subcat_ids(array($page['cat']))).')
+;';
+  pwg_query($query);
+}
+else if (isset($_POST['grant_users_submit'])
+         and isset($_POST['grant_users'])
+         and count($_POST['grant_users']) > 0)
+{
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', get_uppercat_ids(array($page['cat']))).')
+  AND status = \'private\'
+;';
+  $private_uppercats = array_from_query($query, 'id');
+
+  // We must not reinsert already existing lines in user_access table
+  $granteds = array();
+  foreach ($private_uppercats as $cat_id)
+  {
+    $granteds[$cat_id] = array();
+  }
+  
+  $query = '
+SELECT user_id, cat_id
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE cat_id IN ('.implode(',', $private_uppercats).')
+    AND user_id IN ('.implode(',', $_POST['grant_users']).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($granteds[$row['cat_id']], $row['user_id']);
+  }
+
+  $inserts = array();
+  
+  foreach ($private_uppercats as $cat_id)
+  {
+    $user_ids = array_diff($_POST['grant_users'], $granteds[$cat_id]);
+    foreach ($user_ids as $user_id)
+    {
+      array_push($inserts, array('user_id' => $user_id,
+                                 'cat_id' => $cat_id));
+    }
+  }
+
+  mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $inserts);
+}
+
+// +-----------------------------------------------------------------------+
+// |                       template initialization                         |
+// +-----------------------------------------------------------------------+
+$template->set_filenames(array('cat_perm'=>'admin/cat_perm.tpl'));
+
+$form_action = PHPWG_ROOT_PATH.'admin.php';
+$form_action.= '?page=cat_perm&amp;cat='.$page['cat'];
+
+$template->assign_vars(array('F_ACTION' => $form_action));
+
+// +-----------------------------------------------------------------------+
+// |                          form construction                            |
+// +-----------------------------------------------------------------------+
+
+// groups denied are the groups not granted. So we need to find all groups
+// minus groups granted to find groups denied.
+
+$groups = array();
+
+$query = '
+SELECT id, name
+  FROM '.GROUPS_TABLE.'
+;';
+$result = pwg_query($query);
+
+while ($row = mysql_fetch_array($result))
+{
+  $groups[$row['id']] = $row['name'];
+}
+
+$query = '
+SELECT group_id
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE cat_id = '.$page['cat'].'
+;';
+$group_granted_ids = array_from_query($query, 'group_id');
+
+// groups granted to access the category
+foreach ($group_granted_ids as $group_id)
+{
+  $template->assign_block_vars(
+    'group_granted',
+    array(
+      'NAME'=>$groups[$group_id],
+      'ID'=>$group_id
+      )
+    );
+}
+
+// groups denied
+foreach (array_diff(array_keys($groups), $group_granted_ids) as $group_id)
+{
+  $template->assign_block_vars(
+    'group_denied',
+    array(
+      'NAME'=>$groups[$group_id],
+      'ID'=>$group_id
+      )
+    );
+}
+
+// users...
+$users = array();
+
+$query = '
+SELECT id, username
+  FROM '.USERS_TABLE.'
+  WHERE id != 2
+;';
+$result = pwg_query($query);
+while($row = mysql_fetch_array($result))
+{
+  $users[$row['id']] = $row['username'];
+}
+
+$query = '
+SELECT user_id
+  FROM '.USER_ACCESS_TABLE.'
+  WHERE cat_id = '.$page['cat'].'
+;';
+$user_granted_direct_ids = array_from_query($query, 'user_id');
+
+foreach ($user_granted_direct_ids as $user_id)
+{
+  $template->assign_block_vars(
+    'user_granted',
+    array(
+      'NAME'=>$users[$user_id],
+      'ID'=>$user_id
+      )
+    );
+}
+
+$user_granted_indirect_ids = array();
+if (count($group_granted_ids) > 0)
+{
+  $granted_groups = array();
+
+  $query = '
+SELECT user_id, group_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE group_id IN ('.implode(',', $group_granted_ids).') 
+';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    if (!isset($granted_groups[$row['group_id']]))
+    {
+      $granted_groups[$row['group_id']] = array();
+    }
+    array_push($granted_groups[$row['group_id']], $row['user_id']);
+  }
+
+  $user_granted_by_group_ids = array();
+
+  foreach ($granted_groups as $group_users)
+  {
+    $user_granted_by_group_ids = array_merge($user_granted_by_group_ids,
+                                             $group_users);
+  }
+  $user_granted_by_group_ids = array_unique($user_granted_by_group_ids);
+  
+  
+  $user_granted_indirect_ids = array_diff($user_granted_by_group_ids,
+                                          $user_granted_direct_ids);
+  
+  foreach ($user_granted_indirect_ids as $user_id)
+  {
+    $group = '';
+    
+    foreach ($granted_groups as $group_id => $group_users)
+    {
+      if (in_array($user_id, $group_users))
+      {
+        $group = $groups[$group_id];
+        break;
+      }
+    }
+    
+    $template->assign_block_vars(
+      'user_granted_indirect',
+      array(
+        'NAME'=>$users[$user_id],
+        'GROUP'=>$group
+        )
+      );
+  }
+}
+
+$user_denied_ids = array_diff(array_keys($users),
+                              $user_granted_indirect_ids,
+                              $user_granted_direct_ids);
+
+foreach ($user_denied_ids as $user_id)
+{
+  $template->assign_block_vars(
+    'user_denied',
+    array(
+      'NAME'=>$users[$user_id],
+      'ID'=>$user_id
+      )
+    );
+}
+
+
+// +-----------------------------------------------------------------------+
+// |                           sending html code                           |
+// +-----------------------------------------------------------------------+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'cat_perm');
 ?>

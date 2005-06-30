@@ -96,9 +96,9 @@ switch ( $_GET['page'] )
    $title = $lang['title_instructions'];  $page_valide = true; break;
  case 'cat_perm':
    $title = $lang['title_cat_perm'];
-   if ( isset( $_GET['cat_id'] ) )
+   if ( isset( $_GET['cat'] ) )
    {
-     check_cat_id( $_GET['cat_id'] );
+     check_cat_id( $_GET['cat'] );
      if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
      {
        $result = get_cat_info( $page['cat'] );

@@ -475,3 +475,8 @@ form.filter FIELDSET {
 form.filter FIELDSET + INPUT {
   margin-top: 10px;
 }
+
+FORM#categoryPermissions LI {
+  display:inline;
+  white-space: nowrap;
+}
