@@ -180,7 +180,8 @@ $template->assign_vars(array(
   'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:@$row['name'],
   'SIZE_IMG'=>@$row['width'].' * '.@$row['height'],
   'FILESIZE_IMG'=>@$row['filesize'].' KB',
-  'REGISTRATION_DATE_IMG'=> format_date($row['date_available']),
+  'REGISTRATION_DATE_IMG'
+  => format_date($row['date_available'], 'mysql_datetime', true),
   'AUTHOR_IMG'=>isset($_POST['author'])?$_POST['author']:@$row['author'],
   'CREATION_DATE_IMG'=>$date,
   'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:@$row['keywords'],

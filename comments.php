@@ -157,6 +157,7 @@ if (isset($_POST['validate']) and count($_POST['comment_id']) > 0)
   $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
+    , validation_date = NOW()
   WHERE id IN ('.implode(',', $_POST['comment_id']).')
 ;';
   pwg_query($query);

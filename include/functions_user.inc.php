@@ -110,6 +110,7 @@ SELECT id
     $insert['nb_line_page'] = $conf['nb_line_page'];
     $insert['language'] = $conf['default_language'];
     $insert['recent_period'] = $conf['recent_period'];
+    $insert['feed_id'] = find_available_feed_id();
     $insert['expand'] = boolean_to_string($conf['auto_expand']);
     $insert['show_nb_comments'] = boolean_to_string($conf['show_nb_comments']);
     if ( $mail_address != '' )
@@ -141,6 +142,13 @@ INSERT INTO '.USERS_TABLE.'
       $is_first = false;
     }
     $query.= ')
+;';
+    pwg_query($query);
+
+    $query = '
+UPDATE '.USERS_TABLE.'
+  SET registration_date = NOW()
+  WHERE id = '.mysql_insert_id().'
 ;';
     pwg_query($query);
   }
@@ -378,5 +386,28 @@ SELECT username
   }
   
   return $username;
+}
+
+/**
+ * search an available feed_id
+ *
+ * @return string feed identifier
+ */
+function find_available_feed_id()
+{
+  while (true)
+  {
+    $key = generate_key(50);
+    $query = '
+SELECT COUNT(*)
+  FROM '.USERS_TABLE.'
+  WHERE feed_id = \''.$key.'\'
+;';
+    list($count) = mysql_fetch_row(pwg_query($query));
+    if (0 == $count)
+    {
+      return $key;
+    }
+  }
 }
 ?>

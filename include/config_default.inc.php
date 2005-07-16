@@ -212,4 +212,8 @@ $conf['show_version'] = true;
 // If the array is empty, the "Links" box won't be displayed on the main
 // page.
 $conf['links'] = array();
+
+// feed_period : how long between two feed refresh ? Possible values are
+// "hour", "half day", "day", "week", "month".
+$conf['feed_period'] = 'week';
 ?>

@@ -306,6 +306,13 @@ if ( isset( $_POST['install'] ))
     $query.= ",'admin','".$language."'";
     $query.= ",'".$admin_mail."');";
     mysql_query($query);
+
+    $query = '
+UPDATE '.USERS_TABLE.'
+  SET feed_id = \''.find_available_feed_id().'\'
+  WHERE id = 1
+;';
+    mysql_query($query);
     
     // guest user
     $query = 'INSERT INTO '.USERS_TABLE;
@@ -348,7 +355,7 @@ $template->assign_vars(
     'L_END_TITLE'=>$lang['install_end_title'],
     'L_END_MESSAGE'=>$lang['install_end_message'],
     
-    'F_ACTION'=>add_session_id( 'install.php' ),
+    'F_ACTION'=>'install.php',
     'F_DB_HOST'=>$dbhost,
     'F_DB_USER'=>$dbuser,
     'F_DB_NAME'=>$dbname,

@@ -1,3 +1,36 @@
+2005-06-16 Pierrick LE GALL
+
+	* new feature : RSS notification feed. Feed generator is an
+	external tool (FeedCreator class v1.7.2). New file feed.php
+
+	* new database field : comments.validation_date (datetime). This
+	field is required for notification feed.
+
+	* new database field : users.feed_id (varchar(50)). users.feed_id
+	is an alias of users.id but is much more complicated to find (50
+	characters, figures or letters, case sensitive) : the purpose is
+	to keep it secret (as far as possible).
+
+	* new database field : users.last_feed_check (datetime)
+
+	* new database field : users.registration_date (datetime)
+
+	* bug fixed : no need to add the (unavailable) session id to
+	install.php in the installation form.
+
+	* modified database field : images.date_available become more
+	precise (date to datetime). This precision is needed for
+	notification feed.
+
+	* new index : comments_i1 (validation_date). Might be useful for
+	feed queries.
+
+	* new index : comments_i2 (image_id). Useful each time you want to
+	have informations about an element and its associated comments.
+
+	* version 9.11 of mysqldump outputs database field names and table
+	names with backquote "`" (didn't find how to take them off)
+	
 2005-06-30 Pierrick LE GALL
 	
 	* category permissions management comes back! (it disappeared in

@@ -342,23 +342,34 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
     if ( mysql_num_rows( pwg_query( $query ) ) == 0
          or $conf['anti-flood_time'] == 0 )
     {
-      $query = 'INSERT INTO '.COMMENTS_TABLE;
-      $query.= ' (author,date,image_id,content,validated) VALUES (';
-      $query.= "'".$author."'";
-      $query.= ',NOW(),'.$_GET['image_id'];
-      $query.= ",'".htmlspecialchars( $_POST['content'], ENT_QUOTES)."'";
-      if ( !$conf['comments_validation'] or $user['status'] == 'admin' )
-      {        
-        $query.= ",'true'";
+      list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+
+      $data = array();
+      $data{'author'} = $author;
+      $data{'date'} = $dbnow;
+      $data{'image_id'} = $_GET['image_id'];
+      $data{'content'} = htmlspecialchars( $_POST['content'], ENT_QUOTES);
+      
+      if (!$conf['comments_validation'] or $user['status'] == 'admin')
+      {
+        $data{'validated'} = 'true';
+        $data{'validation_date'} = $dbnow;
       }
       else
       {
-        $query.= ",'false'";
+        $data{'validated'} = 'false';
       }
-      $query.= ');';
-      pwg_query( $query );
+      
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      $fields = array('author', 'date', 'image_id', 'content', 'validated',
+                      'validation_date');
+      mass_inserts(COMMENTS_TABLE, $fields, array($data));
+      
       // information message
       $message = $lang['comment_added'];
+
+      if (!$conf['comments_validation'] or $user['status'] == 'admin')
+      
       if ( $conf['comments_validation'] and $user['status'] != 'admin' )
       {
         $message.= '<br />'.$lang['comment_to_validate'];
@@ -479,7 +490,8 @@ if ( !empty($picture['current']['date_creation']) )
 }
 
 // date of availability
-$availability_date = format_date($picture['current']['date_available']);
+$availability_date = format_date($picture['current']['date_available'],
+                                 'mysql_datetime');
 
 // size in pixels
 if ($picture['current']['is_picture'])

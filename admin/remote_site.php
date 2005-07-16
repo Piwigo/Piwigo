@@ -31,7 +31,8 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
-define('CURRENT_DATE', date('Y-m-d'));
+list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+define('CURRENT_DATE', $dbnow);
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
 // +-----------------------------------------------------------------------+

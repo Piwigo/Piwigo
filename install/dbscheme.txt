@@ -1,4 +1,5 @@
 
+table:caddie
 table:categories
 table:comments
 table:config
@@ -17,8 +18,10 @@ table:user_group
 table:users
 table:waiting
 
+column:user_id                   table:caddie         type:smallint                 nullable:N length:5   signed:Y
+column:element_id                table:caddie         type:mediumint                nullable:N length:8   signed:Y
 column:id                        table:categories     type:smallint                 nullable:N length:5   signed:N
-column:date_last                 table:categories     type:date                     nullable:Y
+column:date_last                 table:categories     type:datetime                 nullable:Y
 column:nb_images                 table:categories     type:mediumint                nullable:N length:8   signed:N
 column:name                      table:categories     type:varchar                  nullable:N length:255 binary:N
 column:id_uppercat               table:categories     type:smallint                 nullable:Y length:5   signed:N
@@ -39,6 +42,7 @@ column:date                      table:comments       type:datetime             
 column:author                    table:comments       type:varchar                  nullable:Y length:255 binary:N
 column:content                   table:comments       type:longtext                 nullable:Y
 column:validated                 table:comments       type:enum('true','false')     nullable:N
+column:validation_date           table:comments       type:datetime                 nullable:Y
 column:param                     table:config         type:varchar                  nullable:N length:40  binary:N
 column:value                     table:config         type:varchar                  nullable:Y length:255 binary:N
 column:comment                   table:config         type:varchar                  nullable:Y length:255 binary:N
@@ -58,7 +62,7 @@ column:image_id                  table:image_category type:mediumint            
 column:category_id               table:image_category type:smallint                 nullable:N length:5   signed:N
 column:id                        table:images         type:mediumint                nullable:N length:8   signed:N
 column:file                      table:images         type:varchar                  nullable:N length:255 binary:N
-column:date_available            table:images         type:date                     nullable:N
+column:date_available            table:images         type:datetime                 nullable:N
 column:date_creation             table:images         type:date                     nullable:Y
 column:tn_ext                    table:images         type:varchar                  nullable:Y length:4   binary:N
 column:name                      table:images         type:varchar                  nullable:Y length:255 binary:N
@@ -91,7 +95,7 @@ column:user_id                   table:user_group     type:smallint             
 column:group_id                  table:user_group     type:smallint                 nullable:N length:5   signed:N
 column:id                        table:users          type:smallint                 nullable:N length:5   signed:N
 column:username                  table:users          type:varchar                  nullable:N length:20  binary:Y
-column:password                  table:users          type:varchar                  nullable:N length:255 binary:N
+column:password                  table:users          type:varchar                  nullable:Y length:32  binary:N
 column:mail_address              table:users          type:varchar                  nullable:Y length:255 binary:N
 column:nb_image_line             table:users          type:tinyint                  nullable:N length:1   signed:N
 column:nb_line_page              table:users          type:tinyint                  nullable:N length:3   signed:N
@@ -103,6 +107,9 @@ column:expand                    table:users          type:enum('true','false') 
 column:show_nb_comments          table:users          type:enum('true','false')     nullable:N
 column:recent_period             table:users          type:tinyint                  nullable:N length:3   signed:N
 column:template                  table:users          type:varchar                  nullable:N length:255 binary:N
+column:last_feed_check           table:users          type:datetime                 nullable:Y
+column:feed_id                   table:users          type:varchar                  nullable:Y length:50  binary:Y
+column:registration_date         table:users          type:datetime                 nullable:N
 column:id                        table:waiting        type:int                      nullable:N length:10  signed:N
 column:storage_category_id       table:waiting        type:smallint                 nullable:N length:5   signed:N
 column:file                      table:waiting        type:varchar                  nullable:N length:255 binary:N
@@ -113,6 +120,8 @@ column:tn_ext                    table:waiting        type:char                 
 column:validated                 table:waiting        type:enum('true','false')     nullable:N
 column:infos                     table:waiting        type:text                     nullable:Y
 
+PK:caddie_pk         table:caddie         column:user_id
+PK:caddie_pk         table:caddie         column:element_id
 PK:categories_pk     table:categories     column:id
 PK:comments_pk       table:comments       column:id
 PK:config_pk         table:config         column:param
@@ -137,6 +146,8 @@ PK:users_pk          table:users          column:id
 PK:waiting_pk        table:waiting        column:id
 
 index:categories_i2     table:categories     column:id_uppercat
+index:comments_i2       table:comments       column:validation_date
+index:comments_i1       table:comments       column:image_id
 index:history_i1        table:history        column:date
 index:image_category_i1 table:image_category column:image_id
 index:image_category_i2 table:image_category column:category_id

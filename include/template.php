@@ -156,11 +156,6 @@ class Template {
 
       // Run the compiled code.
       $_str = '';
-//      echo '<pre>'.($this->compiled_code[$handle]).'</pre>';
-      $fp = @fopen( './log/debug.log', 'a+' );
-      fwrite( $fp, "\n\n" );
-      fwrite( $fp, $this->compiled_code[$handle] );
-      fclose( $fp );
       eval($this->compiled_code[$handle]);
       $this->output.= $_str;
 

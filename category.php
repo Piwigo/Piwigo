@@ -293,6 +293,16 @@ $template->assign_block_vars('summary', array(
 'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
 ));
 
+// notification feed
+$template->assign_block_vars(
+  'summary',
+  array(
+    'TITLE'=>l10n('RSS notification feed'),
+    'NAME'=>l10n('Notification feed'),
+    'U_SUMMARY'=>
+    'feed.php'.(ANONYMOUS != $user['id'] ? '?feed='.$user['feed_id'] : '')
+));
+
 //------------------------------------------------------ main part : thumbnails
 if (isset($page['cat'])
     and ((is_numeric($page['cat']) and $page['cat_nb_images'] != 0)

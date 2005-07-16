@@ -31,7 +31,9 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
-define('CURRENT_DATE', date('Y-m-d'));
+list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+define('CURRENT_DATE', $dbnow);
+
 $error_labels = array('PWG-UPDATE-1' => $lang['update_wrong_dirname_short'],
                       'PWG-UPDATE-2' => $lang['update_missing_tn_short']);
 $errors = array();
