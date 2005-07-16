@@ -1,4 +1,4 @@
-2005-06-16 Pierrick LE GALL
+2005-07-16 Pierrick LE GALL
 
 	* new feature : RSS notification feed. Feed generator is an
 	external tool (FeedCreator class v1.7.2). New file feed.php
