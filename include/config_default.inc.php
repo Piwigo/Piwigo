@@ -216,4 +216,11 @@ $conf['links'] = array();
 // feed_period : how long between two feed refresh ? Possible values are
 // "hour", "half day", "day", "week", "month".
 $conf['feed_period'] = 'week';
+
+// show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
+$conf['show_thumbnail_caption'] = true;
+
+// show_picture_name_on_title : on picture presentation page, show picture
+// name ?
+$conf['show_picture_name_on_title'] = true;
 ?>

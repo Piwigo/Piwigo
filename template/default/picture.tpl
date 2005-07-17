@@ -1,10 +1,15 @@
 <!-- BEGIN information -->
 <div class="information">{information.INFORMATION}</div>
 <!-- END information -->
+
 <div class="titrePage">
-  <div id="gauche"><a href="{U_HOME}">{L_HOME}</a>{LEVEL_SEPARATOR}{CATEGORY}</div>
-  <div id="centre" class="nameImage">{TITLE}</div>
-  <div id="droite">{PHOTO}</div>
+  <div id="pictureTitle">
+    <a href="{U_HOME}">{L_HOME}</a>{LEVEL_SEPARATOR}{CATEGORY}
+    <!-- BEGIN title -->
+    {LEVEL_SEPARATOR}{TITLE}
+    <!-- END title -->
+  </div>
+  <div id="pictureNumber">{PHOTO}</div>
 </div>
 
 <div id="imgBarMenu">

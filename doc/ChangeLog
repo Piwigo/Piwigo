@@ -1,3 +1,13 @@
+2005-07-17 Pierrick LE GALL
+
+	* new configuration parameter : hide thumbnail captions on main
+	page with $conf['show_thumbnail_caption']
+
+	* new configuration parameter : hide picture name in title on
+	picture presentation page with $conf['show_picture_name_on_title']
+
+	* template : new CSS classes to manage picture.php title
+	
 2005-07-16 Pierrick LE GALL
 
 	* new feature : RSS notification feed. Feed generator is an

@@ -61,25 +61,6 @@ if ( mysql_num_rows($result) > 0 )
 
 while ($row = mysql_fetch_array($result))
 {
-  // name of the picture
-  if (isset($row['name']) and $row['name'] != '')
-  {
-    $name = $row['name'];
-  }
-  else
-  {
-    $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
-  }
-  if ($page['cat'] == 'best_rated')
-  {
-    $name = '('.$row['average_rate'].') '.$name;
-  }
-
-  if ($page['cat'] == 'search')
-  {
-    $name = replace_search($name, $_GET['search']);
-  }
-  
   $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
   // message in title for the thumbnail
@@ -111,13 +92,35 @@ while ($row = mysql_fetch_array($result))
       'U_IMG_LINK'         => add_session_id($url_link)
       )
     );
+
+  if ($conf['show_thumbnail_caption'])
+  {
+    // name of the picture
+    if (isset($row['name']) and $row['name'] != '')
+    {
+      $name = $row['name'];
+    }
+    else
+    {
+      $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
+    }
+    if ($page['cat'] == 'best_rated')
+    {
+      $name = '('.$row['average_rate'].') '.$name;
+    }
+    
+    if ($page['cat'] == 'search')
+    {
+      $name = replace_search($name, $_GET['search']);
+    }
   
-  $template->assign_block_vars(
-    'thumbnails.line.thumbnail.element_name',
-    array(
-      'NAME' => $name
-      )
-    );
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.element_name',
+      array(
+        'NAME' => $name
+        )
+      );
+  }
     
   if ($user['show_nb_comments']
       and is_numeric($page['cat'])

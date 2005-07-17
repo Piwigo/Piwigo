@@ -586,6 +586,12 @@ $template->assign_vars(array(
   'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
   )
 );
+
+if ($conf['show_picture_name_on_title'])
+{
+  $template->assign_block_vars('title', array());
+}
+
 //------------------------------------------------------- upper menu management
 // download link if file is not a picture
 if (!$picture['current']['is_picture'])
