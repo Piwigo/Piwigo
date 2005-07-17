@@ -1,5 +1,10 @@
 2005-07-17 Pierrick LE GALL
 
+	* improvement : in admin/element_set_global, javascript is not
+	used anymore to select an item with its thumbnail
+
+2005-07-17 Pierrick LE GALL
+
 	* bug fixed : in admin/user_list, if target is "selection" and
 	that no user is selected, an error occurs
 

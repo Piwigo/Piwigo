@@ -164,13 +164,14 @@
     <!-- BEGIN line -->
     <tr>
       <!-- BEGIN thumbnail -->
-      <td class="thumbnail"
-          onmousedown="document.getElementById('selection_{thumbnails.line.thumbnail.ID}').checked = (document.getElementById('selection_{thumbnails.line.thumbnail.ID}').checked ? false : true);">
+      <td class="thumbnail">
+        <label>
         <img src="{thumbnails.line.thumbnail.SRC}"
              alt="{thumbnails.line.thumbnail.ALT}"
              title="{thumbnails.line.thumbnail.TITLE}"
              class="thumbLink" />
-        <br /><input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" id="selection_{thumbnails.line.thumbnail.ID}" />
+        <br /><input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" />
+        </label>
       </td>
       <!-- END thumbnail -->
     </tr>
