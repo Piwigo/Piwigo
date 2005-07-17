@@ -1,5 +1,21 @@
 2005-07-17 Pierrick LE GALL
 
+	* new feature : use Apache authentication. If
+	$conf['apache_authentication'] is set true : if no user matches
+	$_SERVER['REMOTE_USER'] in "users" table, PWG automatically
+	creates one. This way, users can customize the behaviour of the
+	application.
+
+	* template : new organisation of identification menu
+	(category.php). Simplification is required for Apache
+	authentication (no logout link even if user is externally logged
+	in)
+
+	* new : usernames can contain quotes (required because Apache
+	authentication authorized quotes in usernames)
+
+2005-07-17 Pierrick LE GALL
+
 	* new configuration parameter : hide thumbnail captions on main
 	page with $conf['show_thumbnail_caption']
 

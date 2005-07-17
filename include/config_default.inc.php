@@ -223,4 +223,8 @@ $conf['show_thumbnail_caption'] = true;
 // show_picture_name_on_title : on picture presentation page, show picture
 // name ?
 $conf['show_picture_name_on_title'] = true;
+
+// apache_authentication : use Apache authentication as reference instead of
+// users table ?
+$conf['apache_authentication'] = false;
 ?>

@@ -54,7 +54,6 @@ function register_user($login, $password, $password_conf,
   // login must not
   //      1. be empty
   //      2. start ou end with space character
-  //      3. include ' or " characters
   //      4. be already used
   if ($login == '')
   {
@@ -69,23 +68,17 @@ function register_user($login, $password, $password_conf,
     array_push($errors, $lang['reg_err_login3']);
   }
 
-  if (ereg("'", $login) or ereg("\"", $login))
-  {
-    array_push($errors, $lang['reg_err_login4']);
-  }
-  else
-  {
-    $query = '
+  $query = '
 SELECT id
   FROM '.USERS_TABLE.'
-  WHERE username = \''.$login.'\'
+  WHERE username = \''.mysql_escape_string($login).'\'
 ;';
-    $result = pwg_query($query);
-    if (mysql_num_rows($result) > 0)
-    {
-      array_push($errors, $lang['reg_err_login5']);
-    }
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    array_push($errors, $lang['reg_err_login5']);
   }
+
   // given password must be the same as the confirmation
   if ($password != $password_conf)
   {
@@ -102,7 +95,7 @@ SELECT id
   if (count($errors) == 0)
   {
     $insert = array();
-    $insert['username'] = $login;
+    $insert['username'] = mysql_escape_string($login);
     $insert['password'] = md5($password);
     $insert['status'] = $status;
     $insert['template'] = $conf['default_template'];

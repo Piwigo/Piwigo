@@ -107,9 +107,9 @@ INSERT INTO '.SESSIONS_TABLE.'
 // parameter $redirect is set to true, '&' is used instead of '&'.
 function add_session_id( $url, $redirect = false )
 {
-  global $page, $user;
+  global $page, $user, $conf;
 
-  if ( $user['has_cookie'] ) return $url;
+  if ( $user['has_cookie'] or $conf['apache_authentication']) return $url;
 
   $amp = '&amp;';
   if ( $redirect )

@@ -41,34 +41,48 @@
 		</div>
 		<div class="titreMenu">{L_IDENTIFY}</div>
 		 <div class="menu">
-		 <!-- BEGIN login -->
+                 <!-- BEGIN hello -->
+                 <p>{L_HELLO}&nbsp;{USERNAME}&nbsp;!</p>
+                 <!-- END hello -->
 		<ul class="menu">
+
+                  <!-- BEGIN register -->
 		  <li><a href="{U_REGISTER}">{L_REGISTER}</a></li>
-			<li><a href="{F_IDENTIFY}">{L_LOGIN}</a></li>
-		</ul>
-		<hr />
-		<form method="post" action="{F_IDENTIFY}">
-		<input type="hidden" name="redirect" value="{U_REDIRECT}">
-		{L_USERNAME}<br />
-		<input type="text" name="username" size="15" value="" /><br />
-		{L_PASSWORD}<br />
-		<input type="password" name="password" size="15"><br />
-                <!-- BEGIN remember_me -->
-                <input type="checkbox" name="remember_me" value="1" /> {L_REMEMBER_ME}<br />
-                <!-- END remember_me -->
-		<input type="submit" name="login" value="{L_SUBMIT}" class="bouton" />
+                  <!-- END register -->
+
+		  <!-- BEGIN login -->
+		  <li><a href="{F_IDENTIFY}">{L_LOGIN}</a></li>
+                  <!-- END login -->
+
+                  <!-- BEGIN logout -->
+                  <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>
+                  <!-- END logout -->
+                  
+                  <!-- BEGIN profile -->
+                  <li><a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a></li>
+                  <!-- END profile -->
+
+                  <!-- BEGIN admin -->
+                  <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
+                  <!-- END admin -->
+
+                </ul>
+
+                <!-- BEGIN quickconnect -->
+                <hr />
+                <form method="post" action="{F_IDENTIFY}">
+	          <input type="hidden" name="redirect" value="{U_REDIRECT}">
+		  {L_USERNAME}<br />
+		  <input type="text" name="username" size="15" value="" /><br />
+		  {L_PASSWORD}<br />
+		  <input type="password" name="password" size="15"><br />
+                  <!-- BEGIN remember_me -->
+                  <input type="checkbox" name="remember_me" value="1" /> {L_REMEMBER_ME}<br />
+                  <!-- END remember_me -->
+		  <input type="submit" name="login" value="{L_SUBMIT}" class="bouton" />
 		</form>
-		<!-- END login -->
-		<!-- BEGIN logout -->
-		<p>{L_HELLO}&nbsp;{USERNAME}&nbsp;!</p>
-		<ul class="menu">
-		  <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>
-		  <li><a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a></li>
-		<!-- BEGIN admin -->
-	      <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
-		<!-- END admin -->
-		</ul>
-		<!-- END logout -->
+		<!-- END quickconnect -->
+
 		</div>
       </div>
 	</td>

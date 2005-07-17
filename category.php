@@ -254,21 +254,32 @@ $template->assign_block_vars(
     ));
 //--------------------------------------------------------------------- summary
 
-if ( !$user['is_the_guest'] )
+if ($user['is_the_guest'])
 {
-  $template->assign_block_vars('logout',array());
-  // administration link
-  if ( $user['status'] == 'admin' )
+  $template->assign_block_vars('register', array());
+  $template->assign_block_vars('login', array());
+  
+  $template->assign_block_vars('quickconnect', array());
+  if ($conf['authorize_remembering'])
   {
-    $template->assign_block_vars('logout.admin', array());
+    $template->assign_block_vars('quickconnect.remember_me', array());
   }
 }
 else
 {
-  $template->assign_block_vars('login',array());
-  if ($conf['authorize_remembering'])
+  $template->assign_block_vars('hello', array());
+  $template->assign_block_vars('profile', array());
+
+  // the logout link has no meaning with Apache authentication : it is not
+  // possible to logout with this kind of authentication.
+  if (!$conf['apache_authentication'])
   {
-    $template->assign_block_vars('login.remember_me',array());
+    $template->assign_block_vars('logout', array());
+  }
+
+  if ('admin' == $user['status'])
+  {
+    $template->assign_block_vars('admin', array());
   }
 }
 

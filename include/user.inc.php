@@ -91,6 +91,35 @@ if (!isset($user['id']))
   $user['is_the_guest'] = true;
 }
 
+// using Apache authentication override the above user search
+if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
+{
+  $query = '
+SELECT id
+  FROM '.USERS_TABLE.'
+  WHERE username = \''.mysql_escape_string($_SERVER['REMOTE_USER']).'\'
+;';
+  $result = pwg_query($query);
+
+  if (mysql_num_rows($result) == 0)
+  {
+    register_user($_SERVER['REMOTE_USER'], '', '', '');
+
+    $query = '
+SELECT id
+  FROM '.USERS_TABLE.'
+  WHERE username = \''.mysql_escape_string($_SERVER['REMOTE_USER']).'\'
+;';
+    list($user['id']) = mysql_fetch_row(pwg_query($query));
+  }
+  else
+  {
+    list($user['id']) = mysql_fetch_row($result);
+  }
+
+  $user['is_the_guest'] = false;
+}
+
 $query = '
 SELECT u.*, uf.*
   FROM '.USERS_TABLE.' AS u LEFT JOIN '.USER_FORBIDDEN_TABLE.' AS uf
