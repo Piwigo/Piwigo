@@ -1,5 +1,10 @@
 2005-07-17 Pierrick LE GALL
 
+	* bug fixed : in admin/user_list, if target is "selection" and
+	that no user is selected, an error occurs
+
+2005-07-17 Pierrick LE GALL
+
 	* new feature : use Apache authentication. If
 	$conf['apache_authentication'] is set true : if no user matches
 	$_SERVER['REMOTE_USER'] in "users" table, PWG automatically

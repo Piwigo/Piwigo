@@ -73,96 +73,107 @@ SELECT id
     }
     case 'selection' :
     {
-      $collection = $_POST['selection'];
+      if (isset($_POST['selection']))
+      {
+        $collection = $_POST['selection'];
+      }
       break;
     }
   }
 
-  if (-1 != $_POST['associate'])
+  if (count($collection) > 0)
   {
-    $datas = array();
+    if (-1 != $_POST['associate'])
+    {
+      $datas = array();
 
-    $query = '
+      $query = '
 SELECT user_id
   FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$_POST['associate'].'
 ;';
-    $associated = array_from_query($query, 'user_id');
+      $associated = array_from_query($query, 'user_id');
 
-    // TODO : if $associable array is empty, no further actions
-    $associable = array_diff($collection, $associated);
-    
-    foreach ($associable as $item)
-    {
-      array_push($datas,
-                 array('group_id'=>$_POST['associate'],
-                       'user_id'=>$item));
+      $associable = array_diff($collection, $associated);
+
+      if (count($associable) > 0)
+      {
+        foreach ($associable as $item)
+        {
+          array_push($datas,
+                     array('group_id'=>$_POST['associate'],
+                           'user_id'=>$item));
+        }
+        
+        mass_inserts(USER_GROUP_TABLE,
+                     array('group_id', 'user_id'),
+                     $datas);
+      }
     }
-  
-    mass_inserts(USER_GROUP_TABLE,
-                 array('group_id', 'user_id'),
-                 $datas);
-  }
 
-  if (-1 != $_POST['dissociate'])
-  {
-    $query = '
+    if (-1 != $_POST['dissociate'])
+    {
+      $query = '
 DELETE FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$_POST['dissociate'].'
   AND user_id IN ('.implode(',', $collection).')
 ';
-    pwg_query($query);
-  }
-
-  // properties to set for the collection (a user list)
-  $datas = array();
-  $dbfields = array('primary' => array('id'), 'update' => array());
-
-  $formfields = array('nb_image_line', 'nb_line_page', 'template', 'language',
-                      'recent_period', 'expand', 'show_nb_comments',
-                      'maxwidth', 'maxheight', 'status');
-  
-  foreach ($formfields as $formfield)
-  {
-    if ($_POST[$formfield.'_action'] != 'leave')
-    {
-      array_push($dbfields['update'], $formfield);
+      pwg_query($query);
     }
-  }
-  
-  // updating elements is useful only if needed...
-  if (count($dbfields['update']) > 0)
-  {
+
+    // properties to set for the collection (a user list)
     $datas = array();
+    $dbfields = array('primary' => array('id'), 'update' => array());
     
-    foreach ($collection as $user_id)
+    $formfields =
+      array('nb_image_line', 'nb_line_page', 'template', 'language',
+            'recent_period', 'expand', 'show_nb_comments', 'maxwidth',
+            'maxheight', 'status');
+  
+    foreach ($formfields as $formfield)
     {
-      $data = array();
-      $data['id'] = $user_id;
-
-      // TODO : verify if submited values are semanticaly correct
-      foreach ($dbfields['update'] as $dbfield)
+      if ($_POST[$formfield.'_action'] != 'leave')
       {
-        // if the action is 'unset', the key won't be in row and
-        // mass_updates function will set this field to NULL
-        if ('set' == $_POST[$dbfield.'_action'])
-        {
-          $data[$dbfield] = $_POST[$dbfield];
-        }
+        array_push($dbfields['update'], $formfield);
       }
-
-      // Webmaster (user_id = 1) status must not be changed
-      if (1 == $user_id and isset($data['status']))
-      {
-        $data['status'] = 'admin';
-      }
-
-      array_push($datas, $data);
     }
+    
+    // updating elements is useful only if needed...
+    if (count($dbfields['update']) > 0)
+    {
+      $datas = array();
+      
+      foreach ($collection as $user_id)
+      {
+        $data = array();
+        $data['id'] = $user_id;
+        
+        // TODO : verify if submited values are semanticaly correct
+        foreach ($dbfields['update'] as $dbfield)
+        {
+          // if the action is 'unset', the key won't be in row and
+          // mass_updates function will set this field to NULL
+          if ('set' == $_POST[$dbfield.'_action'])
+          {
+            $data[$dbfield] = $_POST[$dbfield];
+          }
+        }
+        
+        // Webmaster (user_id = 1) status must not be changed
+        if (1 == $user_id and isset($data['status']))
+        {
+          $data['status'] = 'admin';
+        }
+        
+        array_push($datas, $data);
+      }
 
-//     echo '<pre>'; print_r($dbfields); echo '</pre>';
-//     echo '<pre>'; print_r($datas); echo '</pre>';
-    mass_updates(USERS_TABLE, $dbfields, $datas);
+      mass_updates(USERS_TABLE, $dbfields, $datas);
+    }
+  }
+  else
+  {
+    array_push($page['errors'], l10n('Select at least one user'));
   }
 }
 
