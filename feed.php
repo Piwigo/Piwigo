@@ -130,12 +130,12 @@ SELECT DISTINCT category_id
 function new_users($start, $end)
 {
   $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
+SELECT user_id
+  FROM '.USER_INFOS_TABLE.'
   WHERE registration_date > \''.$start.'\'
     AND registration_date <= \''.$end.'\'
 ;';
-  return array_from_query($query, 'id');
+  return array_from_query($query, 'user_id');
 }
 
 /**
@@ -268,15 +268,17 @@ if (isset($_GET['feed'])
     and preg_match('/^[A-Za-z0-9]{50}$/', $_GET['feed']))
 {
   $query = '
-SELECT id, status, last_feed_check
-  FROM '.USERS_TABLE.'
+SELECT user_id AS id,
+       status,
+       last_feed_check
+  FROM '.USER_INFOS_TABLE.'
   WHERE feed_id = \''.$_GET['feed'].'\'
 ;';
   $user = mysql_fetch_array(pwg_query($query));
 }
 else
 {
-  $user = array('id' => ANONYMOUS,
+  $user = array('id' => $conf['guest_id'],
                 'status' => 'guest');
 }
 
@@ -300,7 +302,7 @@ $rss->link = 'http://phpwebgallery.net';
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-if (ANONYMOUS != $user['id'])
+if ($conf['guest_id'] != $user['id'])
 {
   $news = news($user['last_feed_check'], $dbnow);
 
@@ -330,9 +332,9 @@ if (ANONYMOUS != $user['id'])
   }
 
   $query = '
-UPDATE '.USERS_TABLE.'
+UPDATE '.USER_INFOS_TABLE.'
   SET last_feed_check = \''.$dbnow.'\'
-  WHERE id = '.$user['id'].'
+  WHERE user_id = '.$user['id'].'
 ;';
   pwg_query($query);
 }

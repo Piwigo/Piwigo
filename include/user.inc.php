@@ -38,7 +38,6 @@
 //   pwg_query($query);
 // }
 
-
 // retrieving connected user informations
 if (isset($_COOKIE['id']))
 {
@@ -87,65 +86,24 @@ DELETE FROM '.SESSIONS_TABLE.'
 }
 if (!isset($user['id']))
 {
-  $user['id'] = 2;
+  $user['id'] = $conf['guest_id'];
   $user['is_the_guest'] = true;
 }
 
 // using Apache authentication override the above user search
 if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
 {
-  $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
-  WHERE username = \''.mysql_escape_string($_SERVER['REMOTE_USER']).'\'
-;';
-  $result = pwg_query($query);
-
-  if (mysql_num_rows($result) == 0)
+  if (!($user['id'] = get_userid($_SERVER['REMOTE_USER'])))
   {
-    register_user($_SERVER['REMOTE_USER'], '', '', '');
-
-    $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
-  WHERE username = \''.mysql_escape_string($_SERVER['REMOTE_USER']).'\'
-;';
-    list($user['id']) = mysql_fetch_row(pwg_query($query));
+    register_user($_SERVER['REMOTE_USER'], '', '');
+    $user['id'] = get_userid($_SERVER['REMOTE_USER']);
   }
-  else
-  {
-    list($user['id']) = mysql_fetch_row($result);
-  }
-
+  
   $user['is_the_guest'] = false;
 }
 
-$query = '
-SELECT u.*, uf.*
-  FROM '.USERS_TABLE.' AS u LEFT JOIN '.USER_FORBIDDEN_TABLE.' AS uf
-    ON id = user_id
-  WHERE u.id = '.$user['id'].'
-;';
-$row = mysql_fetch_array(pwg_query($query));
-
-// affectation of each value retrieved in the users table into a variable of
-// the array $user.
-foreach ($row as $key => $value)
-{
-  if (!is_numeric($key))
-  {
-    // If the field is true or false, the variable is transformed into a
-    // boolean value.
-    if ($value == 'true' or $value == 'false')
-    {
-      $user[$key] = get_boolean($value);
-    }
-    else
-    {
-      $user[$key] = $value;
-    }
-  }
-}
+$use_cache = (defined('IN_ADMIN') and IN_ADMIN) ? false : true;
+$user = array_merge($user, getuserdata($user['id'], $use_cache));
 
 // properties of user guest are found in the configuration
 if ($user['is_the_guest'])
@@ -161,66 +119,6 @@ if ($user['is_the_guest'])
   $user['show_nb_comments'] = $conf['show_nb_comments'];
 }
 
-// if no information were found about user in user_forbidden table OR the
-// forbidden categories must be updated : only if current user is in public
-// part
-if (!defined('IN_ADMIN') or !IN_ADMIN)
-{
-  if (!isset($user['need_update'])
-      or !is_bool($user['need_update'])
-      or $user['need_update'] == true)
-  {
-    $user['forbidden_categories'] = calculate_permissions($user['id'],
-                                                          $user['status']);
-  }
-}
-
-// forbidden_categories is a must be empty, at least
-if (!isset($user['forbidden_categories']))
-{
-  $user['forbidden_categories'] = '';
-}
-
-// special for $user['restrictions'] array
-$user['restrictions'] = explode(',', $user['forbidden_categories']);
-if ($user['restrictions'][0] == '')
-{
-  $user['restrictions'] = array();
-}
-
 // calculation of the number of picture to display per page
 $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
-
-if (empty($user['language'])
-    or !file_exists(PHPWG_ROOT_PATH.'language/'.
-                    $user['language'].'/common.lang.php'))
-{
-  $user['language'] = $conf['default_language'];
-}
-include_once(PHPWG_ROOT_PATH.'language/'.$user['language'].'/common.lang.php');
-
-// displaying the username in the language of the connected user, instead of
-// "guest" as you can find in the database
-if ($user['is_the_guest'])
-{
-  $user['username'] = $lang['guest'];
-}
-
-// only if we are in the administration section
-if (defined('IN_ADMIN') and IN_ADMIN)
-{
-  $langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
-  if (!file_exists($langdir.'/admin.lang.php'))
-  {
-    $langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
-  }
-  include_once($langdir.'/admin.lang.php');
-  include_once($langdir.'/faq.lang.php');
-}
-
-if (empty($user['template']))
-{
-  $user['template'] = $conf['default_template'];
-}
-$template = setup_style($user['template']);
 ?>

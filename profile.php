@@ -29,29 +29,15 @@
 // +-----------------------------------------------------------------------+
 // |                           initialization                              |
 // +-----------------------------------------------------------------------+
-$userdata = array();
-if (defined('IN_ADMIN') and IN_ADMIN and isset($_GET['user_id']))
-{
-  $userdata = getuserdata(intval($_GET['user_id']));
-}
-elseif (defined('IN_ADMIN') and (isset($_POST['validate'])) )
-{
-  $userdata = getuserdata(intval($_POST['userid']));
-}
-elseif (!defined('IN_ADMIN') or !IN_ADMIN)
-{
-  define('PHPWG_ROOT_PATH','./');
-  include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-  check_login_authorization(false);
-  $userdata = $user;
-}
-//------------------------------------------------------ update & customization
-$infos = array('nb_image_line', 'nb_line_page', 'language',
-               'maxwidth', 'maxheight', 'expand', 'show_nb_comments',
-               'recent_period', 'template', 'mail_address');
 
+define('PHPWG_ROOT_PATH','./');
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+check_login_authorization(false);
+$userdata = $user;
+
+//------------------------------------------------------ update & customization
 $errors = array();
-if (isset($_POST['username']) && !isset($_POST['reset']))
+if (isset($_POST['validate']))
 {
   $int_pattern = '/^\d+$/';
   
@@ -74,153 +60,92 @@ if (isset($_POST['username']) && !isset($_POST['reset']))
     array_push($errors, $lang['periods_error']);
   }
 
-  // if mail_address has changed
-  if (!isset($userdata['mail_address']))
+  $mail_error = validate_mail_address($_POST['mail_address']);
+  if (!empty($mail_error))
   {
-    $userdata['mail_address'] = '';
+    array_push($errors, $mail_error);
   }
-  
-  if ($_POST['mail_address'] != @$userdata['mail_address'])
+    
+  if (!empty($_POST['use_new_pwd']))
   {
-    if ($user['status'] == 'admin')
+    // password must be the same as its confirmation
+    if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
     {
-      $mail_error = validate_mail_address($_POST['mail_address']);
-      if (!empty($mail_error))
-      {
-        array_push($errors, $mail_error);
-      }
+      array_push($errors,
+                 l10n('New password confirmation does not correspond'));
     }
-    else if (!empty($_POST['password']))
-    {
-      array_push($errors, $lang['reg_err_pass']);
-    }
-    else
-    {
-      // retrieving the encrypted password of the login submitted
-      $query = '
+    
+    // changing password requires old password
+    $query = '
 SELECT password
   FROM '.USERS_TABLE.'
-  WHERE id = \''.$userdata['id'].'\'
+  WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
 ;';
-      $row = mysql_fetch_array(pwg_query($query));
-      if ($row['password'] == md5($_POST['password']))
-      {
-        $mail_error = validate_mail_address($_POST['mail_address']);
-        if (!empty($mail_error))
-        {
-          array_push($errors, $mail_error);
-        }
-      }
-      else
-      {
-        array_push($errors, $lang['reg_err_pass']);
-      }
-    }
-  }
-  
-  // password must be the same as its confirmation
-  if (!empty($_POST['use_new_pwd'])
-      and $_POST['use_new_pwd'] != $_POST['passwordConf'])
-  {
-    array_push($errors, $lang['reg_err_pass']);
-  }
-  
-  // We check if we are in the admin level
-  if (isset($_POST['user_delete']))
-  {
-    if ($_POST['userid'] > 2) // gallery founder + guest
+    list($current_password) = mysql_fetch_row(pwg_query($query));
+    
+    if ($conf['pass_convert']($_POST['password']) != $current_password)
     {
-      delete_user($_POST['userid']);
-    }
-    else
-    {
-      array_push($errors, $lang['user_err_modify']);
-    }
-  }
-	
-  // We check if we are in the admin level
-  if (isset($_POST['status']) and $_POST['status'] <> $userdata['status'])
-  {
-    if ($_POST['userid'] > 2) // gallery founder + guest
-    {
-      array_push($infos, 'status');
-    }
-    else
-    {
-      array_push($errors, $lang['user_err_modify']);
+      array_push($errors, l10n('Current password is wrong'));
     }
   }
   
   if (count($errors) == 0)
   {
-    $query = '
-UPDATE '.USERS_TABLE.'
-  SET ';
-    $is_first = true;
-    foreach ($infos as $i => $info)
-    {
-      if (!$is_first)
-      {
-        $query.= '
-    , ';
-      }
-      $is_first = false;
-      
-      $query.= $info;
-      $query.= ' = ';
-      if ($_POST[$info] == '')
-      {
-        $query.= 'NULL';
-      }
-      else
-      {
-        $query.= "'".$_POST[$info]."'";
-      }
-    }
-    $query.= '
-  WHERE id = '.$_POST['userid'].'
-;';
-    pwg_query($query);
+    // mass_updates function
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    
+    // update common user informations
+    $fields = array($conf['user_fields']['email']);
 
+    $data = array();
+    $data{$conf['user_fields']['id']} = $_POST['userid'];
+    $data{$conf['user_fields']['email']} = $_POST['mail_address'];
+
+    // password is updated only if filled
     if (!empty($_POST['use_new_pwd']))
     {
-      $query = '
-UPDATE '.USERS_TABLE.'
-  SET password = \''.md5($_POST['use_new_pwd']).'\'
-  WHERE id = '.$_POST['userid'].'
-;';
-      pwg_query($query);
+      array_push($fields, $conf['user_fields']['password']);
+      // password is encrpyted with function $conf['pass_convert']
+      $data{$conf['user_fields']['password']} =
+        $conf['pass_convert']($_POST['use_new_pwd']);
     }
+    mass_updates(USERS_TABLE,
+                 array('primary' => array($conf['user_fields']['id']),
+                       'update' => $fields),
+                 array($data));
     
-    // redirection
-    if (isset($_POST['validate']))
+    // update user "additional" informations (specific to PhpWebGallery)
+    $fields = array(
+      'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
+      'expand', 'show_nb_comments', 'recent_period', 'template'
+      );
+    
+    $data = array();
+    $data{'user_id'} = $_POST['userid'];
+    
+    foreach ($fields as $field)
     {
-      if (!defined('IN_ADMIN') or !IN_ADMIN)
+      if (isset($_POST[$field]))
       {
-        $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
-        redirect(add_session_id($url));
-       }
-      else
-      {
-        redirect(add_session_id(PHPWG_ROOT_PATH.'admin.php?page=profile'));
+        $data{$field} = $_POST[$field];
       }
     }
+    mass_updates(USER_INFOS_TABLE,
+                 array('primary' => array('user_id'), 'update' => $fields),
+                 array($data));
+    
+    // redirection
+    $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
+    redirect(add_session_id($url));
   }
 }
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
-$url_action = PHPWG_ROOT_PATH;
-if (!defined('IN_ADMIN'))
-{
-  $title= $lang['customize_page_title'];
-  include(PHPWG_ROOT_PATH.'include/page_header.php');
-  $url_action .='profile.php';
-}
-else
-{
-  $url_action .='admin.php?page=profile';
-}
+$title= $lang['customize_page_title'];
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+$url_action = PHPWG_ROOT_PATH.'profile.php';
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('profile_body'=>'profile.tpl'));
 
@@ -233,7 +158,7 @@ $template->assign_vars(
   array(
     'USERNAME'=>$userdata['username'],
     'USERID'=>$userdata['id'],
-    'EMAIL'=>@$userdata['mail_address'],
+    'EMAIL'=>@$userdata['email'],
     'LANG_SELECT'=>language_select($userdata['language'], 'language'),
     'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
     'NB_ROW_PAGE'=>$userdata['nb_line_page'],
@@ -270,43 +195,12 @@ $template->assign_vars(
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
     'L_RETURN' =>  $lang['home'],
-    'L_RETURN_HINT' =>  $lang['home_hint'],  
+    'L_RETURN_HINT' =>  $lang['home_hint'],
+
+    'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
     
     'F_ACTION'=>add_session_id($url_action),
     ));
-
-if (!defined('IN_ADMIN') or !IN_ADMIN)
-{
-  $url_return = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
-  $template->assign_vars(array('U_RETURN' => add_session_id($url_return)));
-}
-//------------------------------------------------------------- user management
-if (defined('IN_ADMIN') and IN_ADMIN)
-{
-  $status_select = '<select name="status">';
-  $status_select .='<option value = "guest" ';
-  if ($userdata['status'] == 'guest')
-  {
-    $status_select .= 'selected="selected"';
-  }
-  $status_select .='>'.$lang['user_status_guest'] .'</option>';
-  $status_select .='<option value = "admin" ';
-  if ($userdata['status'] == 'admin')
-  {
-    $status_select .= 'selected="selected"';
-  }
-  $status_select .='>'.$lang['user_status_admin'] .'</option>';
-  $status_select .='</select>';
-  $template->assign_block_vars(
-    'admin',
-    array(
-      'L_ADMIN_USER'=>$lang['user_management'],
-      'L_STATUS'=>$lang['user_status'],
-      'L_DELETE'=>$lang['user_delete'],
-      'L_DELETE_HINT'=>$lang['user_delete_hint'],
-      'STATUS'=>$status_select
-      ));
-}
 // +-----------------------------------------------------------------------+
 // |                             errors display                            |
 // +-----------------------------------------------------------------------+
@@ -321,14 +215,7 @@ if (count($errors) != 0)
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
-if (defined('IN_ADMIN') and IN_ADMIN)
-{
-  $template->assign_var_from_handle('ADMIN_CONTENT', 'profile_body');
-}
-else
-{
-  $template->assign_block_vars('profile',array());
-  $template->parse('profile_body');
-  include(PHPWG_ROOT_PATH.'include/page_tail.php');
-}
+$template->assign_block_vars('profile',array());
+$template->parse('profile_body');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

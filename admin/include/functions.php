@@ -332,6 +332,8 @@ DELETE FROM '.IMAGES_TABLE.'
 //     - calculated permissions linked to the user
 function delete_user($user_id)
 {
+  global $conf;
+  
   // destruction of the access linked to the user
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
@@ -367,10 +369,17 @@ DELETE FROM '.USER_FORBIDDEN_TABLE.'
 ;';
   pwg_query($query);
 
+  // deletion of phpwebgallery specific informations
+  $query = '
+DELETE FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
   // destruction of the user
   $query = '
 DELETE FROM '.USERS_TABLE.'
-  WHERE id = '.$user_id.'
+  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
 ;';
   pwg_query($query);
 }
@@ -553,165 +562,6 @@ function get_keywords( $keywords_string )
 }
 
 /**
- * returns an array with the ids of the restricted categories for the user
- *
- * Returns an array with the ids of the restricted categories for the
- * user. If the $check_invisible parameter is set to true, invisible
- * categorie are added to the restricted one in the array.
- *
- * @param int $user_id
- * @param string $user_status
- * @param bool $check_invisible
- * @param bool $use_groups
- * @return array
- */
-function get_user_restrictions( $user_id, $user_status,
-                                $check_invisible, $use_groups = true )
-{
-  // 1. retrieving ids of private categories
-  $query = 'SELECT id FROM '.CATEGORIES_TABLE;
-  $query.= " WHERE status = 'private'";
-  $query.= ';';
-  $result = pwg_query( $query );
-  $privates = array();
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    array_push( $privates, $row['id'] );
-  }
-  // 2. retrieving all authorized categories for the user
-  $authorized = array();
-  // 2.1. retrieving authorized categories thanks to personnal user
-  //      authorization
-  $query = 'SELECT cat_id FROM '.USER_ACCESS_TABLE;
-  $query.= ' WHERE user_id = '.$user_id;
-  $query.= ';';
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    array_push( $authorized, $row['cat_id'] );
-  }
-  // 2.2. retrieving authorized categories thanks to group authorization to
-  //      which the user is a member
-  if ( $use_groups )
-  {
-    $query = 'SELECT ga.cat_id';
-    $query.= ' FROM '.USER_GROUP_TABLE.' as ug';
-    $query.= ', '.GROUP_ACCESS_TABLE.' as ga';
-    $query.= ' WHERE ug.group_id = ga.group_id';
-    $query.= ' AND ug.user_id = '.$user_id;
-    $query.= ';';
-    $result = pwg_query( $query );
-    while ( $row = mysql_fetch_array( $result ) )
-    {
-      array_push( $authorized, $row['cat_id'] );
-    }
-    $authorized = array_unique( $authorized );
-  }
-
-  $forbidden = array();
-  foreach ( $privates as $private ) {
-    if ( !in_array( $private, $authorized ) )
-    {
-      array_push( $forbidden, $private );
-    }
-  }
-
-  if ( $check_invisible )
-  {
-    // 3. adding to the restricted categories, the invisible ones
-    if ( $user_status != 'admin' )
-    {
-      $query = 'SELECT id FROM '.CATEGORIES_TABLE;
-      $query.= " WHERE visible = 'false';";
-      $result = pwg_query( $query );
-      while ( $row = mysql_fetch_array( $result ) )
-      {
-        array_push( $forbidden, $row['id'] );
-      }
-    }
-  }
-  return array_unique( $forbidden );
-}
-
-/**
- * updates the calculated data users.forbidden_categories, it includes
- * sub-categories of the direct forbidden categories
- *
- * @param nt $user_id
- * @return array
- */
-function update_user_restrictions( $user_id )
-{
-  $restrictions = get_user_all_restrictions( $user_id );
-
-  // update the users.forbidden_categories in database
-  $query = 'UPDATE '.USERS_TABLE;
-  $query.= ' SET forbidden_categories = ';
-  if ( count( $restrictions ) > 0 )
-    $query.= "'".implode( ',', $restrictions )."'";
-  else
-    $query.= 'NULL';
-  $query .= ' WHERE id = '.$user_id;
-  $query.= ';';
-  pwg_query( $query );
-
-  return $restrictions;
-}
-
-/**
- * returns all the restricted categories ids including sub-categories
- *
- * @param int $user_id
- * @return array
- */
-function get_user_all_restrictions( $user_id )
-{
-  global $page;
-  
-  $query = 'SELECT status';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= ' WHERE id = '.$user_id;
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
-  
-  $base_restrictions=get_user_restrictions($user_id,$row['status'],true,true);
-
-  $restrictions = $base_restrictions;
-  foreach ( $base_restrictions as $category_id ) {
-    echo $category_id.' is forbidden to user '.$user_id.'<br />';
-    $restrictions =
-      array_merge( $restrictions,
-                   $page['plain_structure'][$category_id]['all_subcats_ids'] );
-  }
-
-  return array_unique( $restrictions );
-}
-
-// The function is_user_allowed returns :
-//      - 0 : if the category is allowed with this $restrictions array
-//      - 1 : if this category is not allowed
-//      - 2 : if an uppercat category is not allowed
-// Note : the restrictions array must represent ONLY direct forbidden
-// categories, not all forbidden categories
-function is_user_allowed( $category_id, $restrictions )
-{
-  if ( in_array( $category_id, $restrictions ) ) return 1;
-
-  $query = 'SELECT uppercats';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  $query.= ' WHERE id = '.$category_id;
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
-  $uppercats = explode( ',', $row['uppercats'] );
-  foreach ( $uppercats as $category_id ) {
-    if ( in_array( $category_id, $restrictions ) ) return 2;
-  }
-
-  // no restriction found : the user is allowed to access this category
-  return 0;
-}
-
-/**
  * returns an array containing sub-directories which can be a category
  *
  * directories nammed "thumbnail", "pwg_high" or "pwg_representative" are
@@ -842,8 +692,8 @@ function mass_updates($tablename, $dbfields, $datas)
   // depending on the MySQL version, we use the multi table update or N
   // update queries
   $query = 'SELECT VERSION() AS version;';
-  $row = mysql_fetch_array(pwg_query($query));
-  if (count($datas) < 10 or version_compare($row['version'],'4.0.4') < 0)
+  list($mysql_version) = mysql_fetch_array(pwg_query($query));
+  if (count($datas) < 10 or version_compare($mysql_version, '4.0.4') < 0)
   {
     // MySQL is prior to version 4.0.4, multi table update feature is not
     // available
@@ -1333,5 +1183,74 @@ function micro_seconds()
   $t2 = explode('.', $t1[0]);
   $t2 = $t1[1].substr($t2[1], 0, 6);
   return $t2;
+}
+
+/**
+ * compares and synchronizes USERS_TABLE and USER_INFOS_TABLE : each user in
+ * USERS_TABLE must be present in USER_INFOS_TABLE.
+ */
+function sync_users()
+{
+  global $conf;
+  
+  $query = '
+SELECT '.$conf['user_fields']['id'].' AS id
+  FROM '.USERS_TABLE.'
+;';
+  $base_users = array_from_query($query, 'id');
+
+  $query = '
+SELECT user_id
+  FROM '.USER_INFOS_TABLE.'
+;';
+  $infos_users = array_from_query($query, 'user_id');
+
+  // users present in $base_users and not in $infos_users must be added
+  $to_create = array_diff($base_users, $infos_users);
+
+  if (count($to_create) > 0)
+  {
+    $inserts = array();
+
+    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+
+    foreach ($to_create as $user_id)
+    {
+      $insert = array();
+      $insert['user_id'] = $user_id;
+      $insert['status'] = 'guest';
+      $insert['template'] = $conf['default_template'];
+      $insert['nb_image_line'] = $conf['nb_image_line'];
+      $insert['nb_line_page'] = $conf['nb_line_page'];
+      $insert['language'] = $conf['default_language'];
+      $insert['recent_period'] = $conf['recent_period'];
+      $insert['feed_id'] = find_available_feed_id();
+      $insert['expand'] = boolean_to_string($conf['auto_expand']);
+      $insert['show_nb_comments'] =
+        boolean_to_string($conf['show_nb_comments']);
+      $insert['maxwidth'] = $conf['default_maxwidth'];
+      $insert['maxheight'] = $conf['default_maxheight'];
+      $insert['registration_date'] = $dbnow;
+
+      array_push($inserts, $insert);
+    }
+
+    mass_inserts(USER_INFOS_TABLE,
+                 array_keys($inserts[0]),
+                 $inserts);
+  }
+
+  // users present in $infos_users and not in $base_users must be deleted
+  $to_delete = array_diff($infos_users, $base_users);
+
+  if (count($to_delete) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id in ('.implode(',', $to_delete).')
+;';
+    pwg_query($query);
+  } 
 }
 ?>

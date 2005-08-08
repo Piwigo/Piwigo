@@ -73,7 +73,7 @@ if ( !empty($search_match) )
   $sql = "SELECT username 
     FROM " . USERS_TABLE . " 
     WHERE username LIKE '" . str_replace("\'", "''", $username_search) . "' 
-    AND id <> ".ANONYMOUS."
+    AND id <> ".$conf['guest_id']."
 		ORDER BY username";
   if ( !($result = pwg_query($sql)) )
   {

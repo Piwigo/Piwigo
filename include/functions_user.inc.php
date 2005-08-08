@@ -45,16 +45,11 @@ function validate_mail_address( $mail_address )
   }
 }
 
-function register_user($login, $password, $password_conf,
-                       $mail_address, $status = 'guest')
+function register_user($login, $password, $mail_address)
 {
   global $lang, $conf;
 
   $errors = array();
-  // login must not
-  //      1. be empty
-  //      2. start ou end with space character
-  //      4. be already used
   if ($login == '')
   {
     array_push($errors, $lang['reg_err_login1']);
@@ -67,121 +62,33 @@ function register_user($login, $password, $password_conf,
   {
     array_push($errors, $lang['reg_err_login3']);
   }
-
-  $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
-  WHERE username = \''.mysql_escape_string($login).'\'
-;';
-  $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
+  if (get_userid($login))
   {
     array_push($errors, $lang['reg_err_login5']);
   }
-
-  // given password must be the same as the confirmation
-  if ($password != $password_conf)
+  $mail_error = validate_mail_address($mail_address);
+  if ('' != $mail_error)
   {
-    array_push($errors, $lang['reg_err_pass']);
-  }
-
-  $error_mail_address = validate_mail_address($mail_address);
-  if ($error_mail_address != '')
-  {
-    array_push($errors, $error_mail_address);
+    array_push($errors, $mail_error);
   }
 
   // if no error until here, registration of the user
   if (count($errors) == 0)
   {
-    $insert = array();
-    $insert['username'] = mysql_escape_string($login);
-    $insert['password'] = md5($password);
-    $insert['status'] = $status;
-    $insert['template'] = $conf['default_template'];
-    $insert['nb_image_line'] = $conf['nb_image_line'];
-    $insert['nb_line_page'] = $conf['nb_line_page'];
-    $insert['language'] = $conf['default_language'];
-    $insert['recent_period'] = $conf['recent_period'];
-    $insert['feed_id'] = find_available_feed_id();
-    $insert['expand'] = boolean_to_string($conf['auto_expand']);
-    $insert['show_nb_comments'] = boolean_to_string($conf['show_nb_comments']);
-    if ( $mail_address != '' )
-    {
-      $insert['mail_address'] = $mail_address;
-    }
-    if ($conf['default_maxwidth'] != '')
-    {
-      $insert['maxwidth'] = $conf['default_maxwidth'];
-    }
-    if ($conf['default_maxheight'] != '')
-    {
-      $insert['maxheight'] = $conf['default_maxheight'];
-    }
+    $insert =
+      array(
+        $conf['user_fields']['username'] => mysql_escape_string($login),
+        $conf['user_fields']['password'] => $conf['pass_convert']($password),
+        $conf['user_fields']['email'] => $mail_address
+        );
 
-    $query = '
-INSERT INTO '.USERS_TABLE.'
-  ('.implode(',', array_keys($insert)).')
-  VALUES
-  (';
-    $is_first = true;
-    foreach (array_keys($insert) as $field)
-    {
-      if (!$is_first)
-      {
-        $query.= ',';
-      }
-      $query.= "'".$insert[$field]."'";
-      $is_first = false;
-    }
-    $query.= ')
-;';
-    pwg_query($query);
-
-    $query = '
-UPDATE '.USERS_TABLE.'
-  SET registration_date = NOW()
-  WHERE id = '.mysql_insert_id().'
-;';
-    pwg_query($query);
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
+    
+    create_user_infos(mysql_insert_id());
   }
-  return $errors;
-}
-
-function update_user( $user_id, $mail_address, $status,
-                      $use_new_password = false, $password = '' )
-{
-  $error = array();
-  $i = 0;
   
-  $error_mail_address = validate_mail_address( $mail_address );
-  if ( $error_mail_address != '' )
-  {
-    $error[$i++] = $error_mail_address;
-  }
-
-  if ( sizeof( $error ) == 0 )
-  {
-    $query = 'UPDATE '.USERS_TABLE;
-    $query.= " SET status = '".$status."'";
-    if ( $use_new_password )
-    {
-      $query.= ", password = '".md5( $password )."'";
-    }
-    $query.= ', mail_address = ';
-    if ( $mail_address != '' )
-    {
-      $query.= "'".$mail_address."'";
-    }
-    else
-    {
-      $query.= 'NULL';
-    }
-    $query.= ' WHERE id = '.$user_id;
-    $query.= ';';
-    pwg_query( $query );
-  }
-  return $error;
+  return $errors;
 }
 
 function check_login_authorization($guest_allowed = true)
@@ -212,13 +119,107 @@ function setup_style($style)
   return new Template(PHPWG_ROOT_PATH.'template/'.$style);
 }
 
-function getuserdata($user)
+/**
+ * find informations related to the user identifier
+ *
+ * @param int user identifier
+ * @param boolean use_cache
+ * @param array
+ */
+function getuserdata($user_id, $use_cache)
 {
-  $sql = "SELECT * FROM " . USERS_TABLE;
-  $sql.= " WHERE ";
-  $sql .= ( ( is_integer($user) ) ? "id = $user" : "username = '" .  str_replace("\'", "''", $user) . "'" ) . " AND id <> " . ANONYMOUS;
-  $result = pwg_query($sql);
-  return ( $row = mysql_fetch_array($result) ) ? $row : false;
+  global $conf;
+
+  $userdata = array();
+  
+  $query = '
+SELECT ';
+  $is_first = true;
+  foreach ($conf['user_fields'] as $pwgfield => $dbfield)
+  {
+    if ($is_first)
+    {
+      $is_first = false;
+    }
+    else
+    {
+      $query.= '
+     , ';
+    }
+    $query.= $dbfield.' AS '.$pwgfield;
+  }
+  $query.= '
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'
+;';
+  
+  $row = mysql_fetch_array(pwg_query($query));
+
+  while (true)
+  {
+    $query = '
+SELECT ui.*, uc.*
+  FROM '.USER_INFOS_TABLE.' AS ui LEFT JOIN '.USER_CACHE_TABLE.' AS uc
+    ON ui.user_id = uc.user_id
+  WHERE ui.user_id = \''.$user_id.'\'
+;';
+    $result = pwg_query($query);
+    if (mysql_num_rows($result) > 0)
+    {
+      break;
+    }
+    else
+    {
+      create_user_infos($user_id);
+    }
+  }
+  
+  $row = array_merge($row, mysql_fetch_array($result));
+  
+  foreach ($row as $key => $value)
+  {
+    if (!is_numeric($key))
+    {
+      // If the field is true or false, the variable is transformed into a
+      // boolean value.
+      if ($value == 'true' or $value == 'false')
+      {
+        $userdata[$key] = get_boolean($value);
+      }
+      else
+      {
+        $userdata[$key] = $value;
+      }
+    }
+  }
+
+  if ($use_cache)
+  {
+    if (!isset($userdata['need_update'])
+        or !is_bool($userdata['need_update'])
+        or $userdata['need_update'] == true)
+    {
+      $userdata['forbidden_categories'] =
+        calculate_permissions($userdata['id'], $userdata['status']);
+
+      // update user cache
+      $query = '
+DELETE FROM '.USER_CACHE_TABLE.'
+  WHERE user_id = '.$userdata['id'].'
+;';
+      pwg_query($query);
+  
+      $query = '
+INSERT INTO '.USER_CACHE_TABLE.'
+  (user_id,need_update,forbidden_categories)
+  VALUES
+  ('.$userdata['id'].',\'false\',\''.$userdata['forbidden_categories'].'\')
+;';
+      pwg_query($query);
+    }
+  }
+
+  return $userdata;
 }
 
 /*
@@ -261,11 +262,12 @@ DELETE FROM '.FAVORITES_TABLE.'
 }
 
 /**
- * update table user_forbidden for the given user
+ * calculates the list of forbidden categories for a given user
  *
- * table user_forbidden contains calculated data. Calculation is based on
- * private categories minus categories authorized to the groups the user
- * belongs to minus the categories directly authorized to the user
+ * Calculation is based on private categories minus categories authorized to
+ * the groups the user belongs to minus the categories directly authorized
+ * to the user. The list contains at least -1 to be compliant with queries
+ * such as "WHERE category_id NOT IN ($forbidden_categories)"
  *
  * @param int user_id
  * @param string user_status
@@ -310,11 +312,7 @@ SELECT cat_id
   FROM '.USER_ACCESS_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($authorized_array, $row['cat_id']);
-  }
+  $authorized_array = array_from_query($query, 'cat_id');
 
   // retrieve category ids authorized to the groups the user belongs to
   $query = '
@@ -323,11 +321,11 @@ SELECT cat_id
     ON ug.group_id = ga.group_id
   WHERE ug.user_id = '.$user_id.'
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($authorized_array, $row['cat_id']);
-  }
+  $authorized_array =
+    array_merge(
+      $authorized_array,
+      array_from_query($query, 'cat_id')
+      );
 
   // uniquify ids : some private categories might be authorized for the
   // groups and for the user
@@ -336,23 +334,12 @@ SELECT cat_id
   // only unauthorized private categories are forbidden
   $forbidden_array = array_diff($private_array, $authorized_array);
 
-  $query = '
-DELETE FROM '.USER_FORBIDDEN_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  $forbidden_categories = implode(',', $forbidden_array);
+  // at least, the list contains -1 values. This category does not exists so
+  // where clauses such as "WHERE category_id NOT IN(-1)" will always be
+  // true.
+  array_push($forbidden_array, '-1');
   
-  $query = '
-INSERT INTO '.USER_FORBIDDEN_TABLE.'
-  (user_id,need_update,forbidden_categories)
-  VALUES
-  ('.$user_id.',\'false\',\''.$forbidden_categories.'\')
-;';
-  pwg_query($query);
-  
-  return $forbidden_categories;
+  return implode(',', $forbidden_array);
 }
 
 /**
@@ -363,10 +350,12 @@ INSERT INTO '.USER_FORBIDDEN_TABLE.'
  */
 function get_username($user_id)
 {
+  global $conf;
+  
   $query = '
-SELECT username
+SELECT '.$conf['user_fields']['username'].'
   FROM '.USERS_TABLE.'
-  WHERE id = '.intval($user_id).'
+  WHERE '.$conf['user_fields']['id'].' = '.intval($user_id).'
 ;';
   $result = pwg_query($query);
   if (mysql_num_rows($result) > 0)
@@ -382,6 +371,36 @@ SELECT username
 }
 
 /**
+ * returns user identifier thanks to his name, false if not found
+ *
+ * @param string username
+ * @param int user identifier
+ */
+function get_userid($username)
+{
+  global $conf;
+
+  $username = mysql_escape_string($username);
+
+  $query = '
+SELECT '.$conf['user_fields']['id'].'
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
+;';
+  $result = pwg_query($query);
+
+  if (mysql_num_rows($result) == 0)
+  {
+    return false;
+  }
+  else
+  {
+    list($user_id) = mysql_fetch_row($result);
+    return $user_id;
+  }
+}
+
+/**
  * search an available feed_id
  *
  * @return string feed identifier
@@ -393,7 +412,7 @@ function find_available_feed_id()
     $key = generate_key(50);
     $query = '
 SELECT COUNT(*)
-  FROM '.USERS_TABLE.'
+  FROM '.USER_INFOS_TABLE.'
   WHERE feed_id = \''.$key.'\'
 ;';
     list($count) = mysql_fetch_row(pwg_query($query));
@@ -402,5 +421,37 @@ SELECT COUNT(*)
       return $key;
     }
   }
+}
+
+/**
+ * add user informations based on default values
+ *
+ * @param int user_id
+ */
+function create_user_infos($user_id)
+{
+  global $conf;
+  
+  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+
+  $insert =
+    array(
+      'user_id' => $user_id,
+      'status' => 'guest',
+      'template' => $conf['default_template'],
+      'nb_image_line' => $conf['nb_image_line'],
+      'nb_line_page' => $conf['nb_line_page'],
+      'language' => $conf['default_language'],
+      'recent_period' => $conf['recent_period'],
+      'feed_id' => find_available_feed_id(),
+      'expand' => boolean_to_string($conf['auto_expand']),
+      'show_nb_comments' => boolean_to_string($conf['show_nb_comments']),
+      'maxwidth' => $conf['default_maxwidth'],
+      'maxheight' => $conf['default_maxheight'],
+      'registration_date' => $dbnow
+      );
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  mass_inserts(USER_INFOS_TABLE, array_keys($insert), array($insert));
 }
 ?>

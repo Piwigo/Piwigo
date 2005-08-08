@@ -30,9 +30,6 @@ define('PHPWG_VERSION', '%PWGVERSION%');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
 
-// User level
-define('ANONYMOUS', 2);
- 
 // Error codes
 define('GENERAL_MESSAGE', 200);
 define('GENERAL_ERROR', 202);
@@ -53,10 +50,11 @@ define('SESSIONS_TABLE', $prefixeTable.'sessions');
 define('SITES_TABLE', $prefixeTable.'sites');
 define('USER_ACCESS_TABLE', $prefixeTable.'user_access');
 define('USER_GROUP_TABLE', $prefixeTable.'user_group');
-define('USERS_TABLE', $prefixeTable.'users');
+define('USERS_TABLE', $conf['users_table']);
+define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
 define('WAITING_TABLE', $prefixeTable.'waiting');
 define('IMAGE_METADATA_TABLE', $prefixeTable.'image_metadata');
 define('RATE_TABLE', $prefixeTable.'rate');
-define('USER_FORBIDDEN_TABLE', $prefixeTable.'user_forbidden');
+define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
 define('CADDIE_TABLE', $prefixeTable.'caddie');
 ?>

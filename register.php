@@ -32,8 +32,19 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 $errors = array();
 if (isset($_POST['submit']))
 {
-  $errors = register_user($_POST['login'], $_POST['password'],
-                          $_POST['password_conf'], $_POST['mail_address']);
+  if ($_POST['password'] != $_POST['password_conf'])
+  {
+    array_push($errors, $lang['reg_err_pass']);
+  }
+  
+  $errors =
+    array_merge(
+      $errors,
+      register_user($_POST['login'],
+                    $_POST['password'],
+                    $_POST['mail_address'])
+      );
+  
   if (count($errors) == 0)
   {
     $query = '

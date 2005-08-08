@@ -30,6 +30,13 @@ define('PHPWG_ROOT_PATH','./');
 define('IN_ADMIN', true);
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// |                    synchronize user informations                      |
+// +-----------------------------------------------------------------------+
+
+sync_users();
+
 //--------------------------------------- validating page and creation of title
 $page_valide = false;
 $title = '';
@@ -323,7 +330,7 @@ include(PHPWG_ROOT_PATH.'include/page_tail.php');
 // |                     order permission refreshment                      |
 // +-----------------------------------------------------------------------+
 $query = '
-UPDATE '.USER_FORBIDDEN_TABLE.'
+UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\'
 ;';
 pwg_query($query);

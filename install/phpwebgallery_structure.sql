@@ -212,11 +212,11 @@ CREATE TABLE `phpwebgallery_user_access` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_forbidden`
+-- Table structure for table `phpwebgallery_user_cache`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_forbidden`;
-CREATE TABLE `phpwebgallery_user_forbidden` (
+DROP TABLE IF EXISTS `phpwebgallery_user_cache`;
+CREATE TABLE `phpwebgallery_user_cache` (
   `user_id` smallint(5) unsigned NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` text,
@@ -235,15 +235,12 @@ CREATE TABLE `phpwebgallery_user_group` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_users`
+-- Table structure for table `phpwebgallery_user_infos`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_users`;
-CREATE TABLE `phpwebgallery_users` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `username` varchar(20) binary NOT NULL default '',
-  `password` varchar(32) default NULL,
-  `mail_address` varchar(255) default NULL,
+DROP TABLE IF EXISTS `phpwebgallery_user_infos`;
+CREATE TABLE `phpwebgallery_user_infos` (
+  `user_id` smallint(5) unsigned NOT NULL default '0',
   `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
   `status` enum('admin','guest') NOT NULL default 'guest',
@@ -257,6 +254,19 @@ CREATE TABLE `phpwebgallery_users` (
   `last_feed_check` datetime default NULL,
   `feed_id` varchar(50) binary default NULL,
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
+  UNIQUE KEY `user_infos_ui1` (`user_id`)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table `phpwebgallery_users`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_users`;
+CREATE TABLE `phpwebgallery_users` (
+  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `username` varchar(20) binary NOT NULL default '',
+  `password` varchar(32) default NULL,
+  `mail_address` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
 ) TYPE=MyISAM;

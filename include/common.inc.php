@@ -120,9 +120,9 @@ if (!defined('PHPWG_INSTALLED'))
   exit;
 }
 
-include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
@@ -164,4 +164,43 @@ while ( $row =mysql_fetch_array( $result ) )
 }
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
+
+// language files
+$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
+$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+
+if (file_exists($user_langdir.'/common.lang.php'))
+{
+  include_once($user_langdir.'/common.lang.php');
+}
+else
+{
+  include_once($conf_langdir.'/common.lang.php');
+}
+
+// The administration section requires 2 more language files
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  foreach (array('admin', 'faq') as $section)
+  {
+    if (file_exists($user_langdir.'/'.$section.'.lang.php'))
+    {
+      include_once($user_langdir.'/'.$section.'.lang.php');
+    }
+    else
+    {
+      include_once($conf_langdir.'/'.$section.'.lang.php');
+    }
+  }
+}
+
+// only now we can set the localized username of the guest user (and not in
+// include/user.inc.php)
+if ($user['is_the_guest'])
+{
+  $user['username'] = $lang['guest'];
+}
+
+// template instance
+$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
 ?>

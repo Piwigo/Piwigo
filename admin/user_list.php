@@ -45,10 +45,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
 if (isset($_POST['submit_add']))
 {
-  $page['errors'] = register_user($_POST['login'],
-                                  $_POST['password'],
-                                  $_POST['password'],
-                                  '');
+  $page['errors'] = register_user($_POST['login'], $_POST['password'], '');
 }
 
 // +-----------------------------------------------------------------------+
@@ -66,7 +63,7 @@ if (isset($_POST['pref_submit']))
       $query = '
 SELECT id
   FROM '.USERS_TABLE.'
-  WHERE id != 2
+  WHERE id != '.$conf['guest_id'].'
 ;';
       $collection = array_from_query($query, 'id');
       break;
@@ -123,7 +120,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
 
     // properties to set for the collection (a user list)
     $datas = array();
-    $dbfields = array('primary' => array('id'), 'update' => array());
+    $dbfields = array('primary' => array('user_id'), 'update' => array());
     
     $formfields =
       array('nb_image_line', 'nb_line_page', 'template', 'language',
@@ -146,7 +143,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
       foreach ($collection as $user_id)
       {
         $data = array();
-        $data['id'] = $user_id;
+        $data['user_id'] = $user_id;
         
         // TODO : verify if submited values are semanticaly correct
         foreach ($dbfields['update'] as $dbfield)
@@ -168,7 +165,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
         array_push($datas, $data);
       }
 
-      mass_updates(USERS_TABLE, $dbfields, $datas);
+      mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
     }
   }
   else
@@ -202,7 +199,7 @@ $template->set_filenames(array('user_list'=>'admin/user_list.tpl'));
 
 $base_url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_list');
 
-$conf['users_page'] = 10;
+$conf['users_page'] = 20;
 
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {
@@ -317,7 +314,7 @@ $template->assign_block_vars(
     'SELECTED' => ''
     ));
 
-foreach (get_enums(USERS_TABLE, 'status') as $status)
+foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
   $selected = (isset($_GET['status']) and $_GET['status'] == $status) ?
     'selected="selected"' : '';
@@ -432,7 +429,7 @@ foreach (get_languages() as $language_code => $language_name)
 
 $blockname = 'pref_status_option';
 
-foreach (get_enums(USERS_TABLE, 'status') as $status)
+foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
   if (isset($_POST['pref_submit']))
   {
@@ -550,7 +547,7 @@ if (isset($_GET['group'])
 }
 
 if (isset($_GET['status'])
-    and in_array($_GET['status'], get_enums(USERS_TABLE, 'status')))
+    and in_array($_GET['status'], get_enums(USER_INFOS_TABLE, 'status')))
 {
   $filter['status'] = $_GET['status'];
 }
@@ -560,23 +557,27 @@ if (isset($_GET['status'])
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT COUNT(DISTINCT(id))
-  FROM '.USERS_TABLE.' LEFT JOIN '.USER_GROUP_TABLE.' ON id = user_id
-  WHERE id != 2';
+SELECT COUNT(DISTINCT u.'.$conf['user_fields']['id'].')
+  FROM '.USERS_TABLE.' AS u
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON u.'.$conf['user_fields']['id'].' = ui.user_id
+    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
+      ON u.'.$conf['user_fields']['id'].' = ug.user_id
+  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
 if (isset($filter['username']))
 {
   $query.= '
-    AND username LIKE \''.$filter['username'].'\'';
+  AND u.'.$conf['user_fields']['username'].' LIKE \''.$filter['username'].'\'';
 }
 if (isset($filter['group']))
 {
   $query.= '
-    AND group_id = '.$filter['group'];
+    AND ug.group_id = '.$filter['group'];
 }
 if (isset($filter['status']))
 {
   $query.= '
-    AND status = \''.$filter['status']."'";
+    AND ui.status = \''.$filter['status']."'";
 }
 $query.= '
 ;';
@@ -617,9 +618,16 @@ if (isset($_GET['direction'])
 }
 
 $query = '
-SELECT DISTINCT(id), username, mail_address, status
-  FROM '.USERS_TABLE.' LEFT JOIN '.USER_GROUP_TABLE.' ON id = user_id
-  WHERE id != 2';
+SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
+                u.'.$conf['user_fields']['username'].' AS username,
+                u.'.$conf['user_fields']['email'].' AS email,
+                ui.status
+  FROM '.USERS_TABLE.' AS u
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON u.'.$conf['user_fields']['id'].' = ui.user_id
+    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
+      ON u.'.$conf['user_fields']['id'].' = ug.user_id
+  WHERE id != '.$conf['guest_id'];
 if (isset($filter['username']))
 {
   $query.= '
@@ -628,12 +636,12 @@ if (isset($filter['username']))
 if (isset($filter['group']))
 {
   $query.= '
-    AND group_id = '.$filter['group'];
+    AND ug.group_id = '.$filter['group'];
 }
 if (isset($filter['status']))
 {
   $query.= '
-    AND status = \''.$filter['status']."'";
+    AND ui.status = \''.$filter['status']."'";
 }
 $query.= '
   ORDER BY '.$order_by.' '.$direction.'
@@ -687,7 +695,7 @@ SELECT user_id, group_id
         'U_PERM'=>add_session_id($perm_url.$item['id']),
         'USERNAME'=>$item['username'],
         'STATUS'=>$lang['user_status_'.$item['status']],
-        'EMAIL'=>isset($item['mail_address']) ? $item['mail_address'] : '',
+        'EMAIL'=>isset($item['email']) ? $item['email'] : '',
         'GROUPS'=>$groups_string
         ));
   }

@@ -109,28 +109,23 @@ function add_session_id( $url, $redirect = false )
 {
   global $page, $user, $conf;
 
-  if ( $user['has_cookie'] or $conf['apache_authentication']) return $url;
-
-  $amp = '&amp;';
-  if ( $redirect )
-  {
-    $amp = '&';
-  }
-  if ( !$user['is_the_guest'] )
-  {
-    if ( preg_match( '/\.php\?/',$url ) )
-    {
-      return $url.$amp.'id='.$page['session_id'];
-    }
-    else
-    {
-      return $url.'?id='.$page['session_id'];
-    }
-  }
-  else
+  if ($user['is_the_guest']
+      or $user['has_cookie']
+      or $conf['apache_authentication'])
   {
     return $url;
   }
+
+  if (preg_match('/\.php\?/', $url))
+  {
+    $separator = $redirect ? '&' : '&amp;';
+  }
+  else
+  {
+    $separator = '?';
+  }
+
+  return $url.$separator.'id='.$page['session_id'];
 }
 
 // cookie_path returns the path to use for the PhpWebGallery cookie.

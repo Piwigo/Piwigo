@@ -40,11 +40,11 @@
  * @param int category id to verify
  * @return void
  */
-function check_restrictions( $category_id )
+function check_restrictions($category_id)
 {
-  global $user,$lang;
+  global $user, $lang;
 
-  if ( in_array( $category_id, $user['restrictions'] ) )
+  if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
     echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
     echo '<a href="'.add_session_id( './category.php' ).'">';
@@ -167,18 +167,12 @@ function count_user_total_images()
 
   $query = '
 SELECT COUNT(DISTINCT(image_id)) as total
-  FROM '.IMAGE_CATEGORY_TABLE;
-  if (count($user['restrictions']) > 0)
-  {
-    $query.= '
-  WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
-  }
-  $query.= '
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
- 
-  $row = mysql_fetch_array(pwg_query($query));
-
-  return isset($row['total']) ? $row['total'] : 0;
+  list($total) = mysql_fetch_array(pwg_query($query));
+  
+  return $total;
 }
 
 /**

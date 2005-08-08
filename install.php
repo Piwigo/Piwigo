@@ -300,26 +300,45 @@ if ( isset( $_POST['install'] ))
     mysql_query( $query );
     
     // webmaster admin user
-    $query = 'INSERT INTO '.USERS_TABLE;
-    $query.= ' (id,username,password,status,language,mail_address) VALUES ';
-    $query.= "(1,'".$admin_name."','".md5( $admin_pass1 )."'";
-    $query.= ",'admin','".$language."'";
-    $query.= ",'".$admin_mail."');";
+    $query = '
+INSERT INTO '.USERS_TABLE.'
+  (id,username,password,mail_address)
+  VALUES
+  (1,\''.$admin_name.'\',\''.md5($admin_pass1).'\',\''.$admin_mail.'\')
+;';
     mysql_query($query);
 
     $query = '
-UPDATE '.USERS_TABLE.'
-  SET feed_id = \''.find_available_feed_id().'\'
-  WHERE id = 1
+INSERT INTO '.USER_INFOS_TABLE.'
+  (user_id,status,language)
+  VALUES
+  (1, \'admin\', \''.$language.'\')
 ;';
     mysql_query($query);
-    
+
+    $query = '
+UPDATE '.USER_INFOS_TABLE.'
+  SET feed_id = \''.find_available_feed_id().'\'
+  WHERE user_id = 1
+;';
+    mysql_query($query);
+
     // guest user
-    $query = 'INSERT INTO '.USERS_TABLE;
-    $query.= '(id,username,password,status,language) VALUES ';
-    $query.= "(2,'guest','','guest','".$language."')";
-    $query.= ';';
-    mysql_query( $query );
+    $query = '
+INSERT INTO '.USERS_TABLE.'
+  (id,username,password,mail_address)
+  VALUES
+  (2,\'guest\',\'\',\'\')
+;';
+    mysql_query($query);
+
+    $query = '
+INSERT INTO '.USER_INFOS_TABLE.'
+  (user_id,status,language)
+  VALUES
+  (2, \'guest\', \''.$language.'\')
+;';
+    mysql_query($query);
   }
 }
 

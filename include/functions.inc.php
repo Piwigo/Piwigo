@@ -774,8 +774,13 @@ function get_name_from_file($filename)
  */
 function l10n($key)
 {
-  global $lang;
+  global $lang, $conf;
 
-  return (isset($lang[$key])) ? $lang[$key] : $key;
+  if ($conf['debug_l10n'])
+  {
+    echo '[l10n] language key "'.$key.'" is not defined<br />';
+  }
+  
+  return isset($lang[$key]) ? $lang[$key] : $key;
 }
 ?>

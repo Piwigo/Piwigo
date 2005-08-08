@@ -94,13 +94,21 @@
 </table>
 <div class="navigationBar">{NAVBAR}</div>
 
+<!-- delete the selected users ? -->
+<fieldset>
+  <legend>{lang:Deletions}</legend>
+  <input type="checkbox" name="confirm_deletion" value="1" /> {lang:confirm}
+  <input type="submit" value="{lang:Delete selected users}" name="delete" class="bouton" />
+</fieldset>
+
 <!-- form to set properties for many users at once -->
-<div class="admin">Preferences</div>
+<fieldset>
+  <legend>{lang:Groups}</legend>
 
 <table>
 
   <tr>
-    <td>associate to groupe</td>
+    <td>{lang:associate to group}</td>
     <td>
       <select name="associate" size="1">
         <!-- BEGIN associate_option -->
@@ -111,7 +119,7 @@
   </tr>
 
   <tr>
-    <td>dissociate from groupe</td>
+    <td>{lang:dissociate from group}</td>
     <td>
       <select name="dissociate" size="1">
         <!-- BEGIN dissociate_option -->
@@ -120,6 +128,15 @@
       </select>
     </td>
   </tr>
+
+</table>
+
+</fieldset>
+
+<fieldset>
+  <legend>{lang:Preferences}</legend>
+
+<table>
 
   <tr>
     <td>{L_NB_IMAGE_LINE}</td>
@@ -238,6 +255,8 @@
   </tr>
 
 </table>
+
+</fieldset>
 
 <p style="text-align:center;">
   target  

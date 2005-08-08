@@ -171,7 +171,7 @@ $template->assign_vars(array(
   'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
-  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] )),
+  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php'),
   'U_CADDIE'=>add_session_id(PHPWG_ROOT_PATH.'category.php'.get_query_string_diff(array('caddie')).'&amp;caddie=1')
   )
 );
@@ -311,7 +311,7 @@ $template->assign_block_vars(
     'TITLE'=>l10n('RSS notification feed'),
     'NAME'=>l10n('Notification feed'),
     'U_SUMMARY'=>
-    'feed.php'.(ANONYMOUS != $user['id'] ? '?feed='.$user['feed_id'] : '')
+    'feed.php'.($user['is_the_guest'] ? '?feed='.$user['feed_id'] : '')
 ));
 
 //------------------------------------------------------ main part : thumbnails

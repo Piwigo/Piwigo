@@ -227,4 +227,29 @@ $conf['show_picture_name_on_title'] = true;
 // apache_authentication : use Apache authentication as reference instead of
 // users table ?
 $conf['apache_authentication'] = false;
+
+// debug_l10n : display a warning message each time an unset language key is
+// accessed
+$conf['debug_l10n'] = false;
+
+// users_table : which table is the reference for users ? Can be a different
+// table than PhpWebGallery table
+$conf['users_table'] = $prefixeTable.'users';
+
+// user_fields : mapping between generic field names and table specific
+// field names. For example, in PWG, the mail address is names
+// "mail_address" and in punbb, it's called "email".
+$conf['user_fields'] = array(
+  'id' => 'id',
+  'username' => 'username',
+  'password' => 'password',
+  'email' => 'mail_address'
+  );
+
+// pass_convert : function to crypt or hash the clear user password to store
+// it in the database
+$conf['pass_convert'] = create_function('$s', 'return md5($s);');
+
+// guest_id : id of the anonymous user
+$conf['guest_id'] = 2;
 ?>

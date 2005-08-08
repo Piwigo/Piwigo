@@ -33,14 +33,16 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 $errors = array();
 if (isset($_POST['login']))
 {
+  $username = mysql_escape_string($_POST['username']);
   // retrieving the encrypted password of the login submitted
   $query = '
-SELECT id, password
+SELECT '.$conf['user_fields']['id'].' AS id,
+       '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
-  WHERE username = \''.$_POST['username'].'\'
+  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
 ;';
   $row = mysql_fetch_array(pwg_query($query));
-  if ($row['password'] == md5($_POST['password']))
+  if ($row['password'] == $conf['pass_convert']($_POST['password']))
   {
     $session_length = $conf['session_length'];
     if ($conf['authorize_remembering']

@@ -1,3 +1,28 @@
+2005-08-08 Pierrick LE GALL
+
+	* new : external authentication in another users table. Previous
+	users table is divided between users (common properties with any
+	web application) and user_infos (phpwebgallery specific
+	informations). External table and fields can be configured.
+	
+	* modification : profile.php is not reachable through
+	administration anymore (not useful).
+
+	* modification : in profile.php, current password is mandatory
+	only if user tries to change his password. Username can't be
+	changed.
+
+	* deletion : of obsolete functions get_user_restrictions,
+	update_user_restrictions, get_user_all_restrictions,
+	is_user_allowed, update_user
+
+	* modification : $user['forbidden_categories'] equals at least
+	"-1" so that category_id NOT IN ($user['forbidden_categories'])
+	can always be used.
+
+	* modification : user_forbidden table becomes user_cache so that
+	not only restriction informations can be stored in this table.
+	
 2005-07-17 Pierrick LE GALL
 
 	* improvement : in admin/element_set_global, javascript is not

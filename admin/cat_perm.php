@@ -258,9 +258,10 @@ foreach (array_diff(array_keys($groups), $group_granted_ids) as $group_id)
 $users = array();
 
 $query = '
-SELECT id, username
+SELECT '.$conf['user_fields']['id'].' AS id,
+       '.$conf['user_fields']['username'].' AS username
   FROM '.USERS_TABLE.'
-  WHERE id != 2
+  WHERE id != '.$conf['guest_id'].'
 ;';
 $result = pwg_query($query);
 while($row = mysql_fetch_array($result))
