@@ -168,6 +168,18 @@ switch ( $_GET['page'] )
    $page_valide = true;
    break;
  }
+ case 'maintenance' :
+ {
+   $title = l10n('Maintenance');
+   $page_valide = true;
+   break;
+ }
+ case 'representative' :
+ {
+   $title = l10n('Representative');
+   $page_valide = true;
+   break;
+ }
 //  case 'element_set_unit' :
 //  {
 //    $title = 'batch management';
@@ -244,6 +256,7 @@ $template->assign_vars(array(
   'U_FAQ'=>add_session_id($link_start.'help' ),
   'U_SITES'=>add_session_id($link_start.'remote_site'),
   'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
+  'U_MAINTENANCE'=>add_session_id($link_start.'maintenance'),
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
   'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
@@ -269,6 +282,16 @@ $template->assign_vars(array(
   'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
   ));
 
+if ($conf['allow_random_representative'])
+{
+  $template->assign_block_vars(
+    'representative',
+    array(
+      'URL' => add_session_id($opt_link.'representative')
+      )
+    );
+}
+  
 //--------------------------------------------------------------------- summary
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 //------------------------------------------------------------- content display

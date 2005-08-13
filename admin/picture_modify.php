@@ -234,6 +234,7 @@ SELECT id,name,uppercats,global_rank
   WHERE id NOT IN ('.implode(',', $associateds).')
 ;';
 display_select_cat_wrapper($query,array(),'dissociated_option');
+
 // representing
 $query = '
 SELECT id,name,uppercats,global_rank
@@ -245,8 +246,8 @@ display_select_cat_wrapper($query,array(),'elected_option');
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $associateds).')
-    AND representative_picture_id != '.$_GET['image_id'].'
+  WHERE representative_picture_id != '.$_GET['image_id'].'
+    OR representative_picture_id IS NULL
 ;';
 display_select_cat_wrapper($query,array(),'dismissed_option');
 //----------------------------------------------------------- sending html code

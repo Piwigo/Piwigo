@@ -252,4 +252,17 @@ $conf['pass_convert'] = create_function('$s', 'return md5($s);');
 
 // guest_id : id of the anonymous user
 $conf['guest_id'] = 2;
+
+// allow_random_representative : do you wish PhpWebGallery to search among
+// categories elements a new representative at each reload ?
+//
+// If false, an element is randomly or manually chosen to represent its
+// category and remains the representative as long as an admin does not
+// change it.
+//
+// Warning : setting this parameter to true is CPU consuming. Each time you
+// change the value of this parameter from false to true, an administrator
+// must update categories informations in screen [Admin > General >
+// Maintenance].
+$conf['allow_random_representative'] = false;
 ?>

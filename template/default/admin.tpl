@@ -20,6 +20,7 @@
   <li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
   <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
   <li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
+  <li><a class="adminMenu" href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
 </ul>
 </div>
 <div class="titreMenu">{L_CONFIGURATION}</div>
@@ -41,6 +42,9 @@
   <li><a class="adminMenu" href="{U_CAT_COMMENTS}">{L_CAT_COMMENTS}</a></li>
   <li><a class="adminMenu" href="{U_CAT_VISIBLE}">{L_CAT_VISIBLE}</a></li>
   <li><a class="adminMenu" href="{U_CAT_STATUS}">{L_CAT_STATUS}</a></li>
+  <!-- BEGIN representative -->
+  <li><a class="adminMenu" href="{representative.URL}">{lang:Representatve}</a></li>
+  <!-- END representative -->
 </ul>
 </div>
 <div class="titreMenu">{L_IMAGES}</div>
@@ -91,8 +95,9 @@
     </ul>
   </div>
   <!-- END infos -->
-
-  <div align="center">{ADMIN_CONTENT}{ADMIN_CONTENT_2}</div>
+  <div id="adminMain">
+    {ADMIN_CONTENT}{ADMIN_CONTENT_2}
+  </div>
 </div>
 	</td>
   </tr>

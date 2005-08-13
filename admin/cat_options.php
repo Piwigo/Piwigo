@@ -72,6 +72,16 @@ UPDATE '.CATEGORIES_TABLE.'
       set_cat_status($_POST['cat_true'], 'private');
       break;
     }
+    case 'representative' :
+    {
+      $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id IN ('.implode(',', $_POST['cat_true']).')
+;';
+      pwg_query($query);
+      break;
+    }
   }
 }
 else if (isset($_POST['trueify'])
@@ -108,6 +118,13 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'status' :
     {
       set_cat_status($_POST['cat_false'], 'public');
+      break;
+    }
+    case 'representative' :
+    {
+      // theoretically, all categories in $_POST['cat_false'] contain at
+      // least one element, so PhpWebGallery can find a representant.
+      set_random_representant($_POST['cat_false']);
       break;
     }
   }
@@ -178,7 +195,6 @@ SELECT id,name,uppercats,global_rank
         'L_CAT_OPTIONS_INFO' => $lang['cat_upload_info'],
         )
       );
-    $template->assign_block_vars('upload', array());
     break;
   }
   case 'comments' :
@@ -201,7 +217,6 @@ SELECT id,name,uppercats,global_rank
         'L_CAT_OPTIONS_INFO' => $lang['cat_comments_info'],
         )
       );
-    $template->assign_block_vars('comments', array());
     break;
   }
   case 'visible' :
@@ -224,7 +239,6 @@ SELECT id,name,uppercats,global_rank
         'L_CAT_OPTIONS_INFO' => $lang['cat_lock_info'],
         )
       );
-    $template->assign_block_vars('visible', array());
     break;
   }
   case 'status' :
@@ -247,7 +261,29 @@ SELECT id,name,uppercats,global_rank
         'L_CAT_OPTIONS_INFO' => $lang['cat_status_info'],
         )
       );
-    $template->assign_block_vars('status', array());
+    break;
+  }
+  case 'representative' :
+  {
+    $query_true = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE representative_picture_id IS NOT NULL
+;';
+    $query_false = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE nb_images != 0
+    AND representative_picture_id IS NULL
+;';
+    $template->assign_vars(
+      array(
+        'L_CAT_TITLE' => l10n('Representative'),
+        'L_CAT_OPTIONS_TRUE' => l10n('singly represented'),
+        'L_CAT_OPTIONS_FALSE' => l10n('randomly represented'),
+        'L_CAT_OPTIONS_INFO' => l10n('')
+        )
+      );
     break;
   }
 }

@@ -1,3 +1,27 @@
+2005-09-13 Pierrick LE GALL
+
+	* new : maintenance screen in administration. There you can update
+	categories informations (number of images, date of the last added
+	element), update images informations (path, average rate), purge
+	obsolete sessions, purge history.
+
+	* new : ability to have random representative for categories. This
+	configuration parameter is set to false by default.
+
+	* new : ability to set an element as representative of a category
+	without belonging to the category. Thus, administrator can choose
+	representative even for empty categories.
+
+	* improvement : semantically superior design for category edition
+	screen by regrouping fields in fieldsets. The improved screen
+	contains action buttons as in category list screen.
+
+	* new : ability to move a virtual category (ie change its parent
+	category).
+
+	* bug fixed : the sync_users function checks all user children
+	tables (access, cache, group association).
+
 2005-08-08 Pierrick LE GALL
 
 	* new : external authentication in another users table. Previous

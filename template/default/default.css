@@ -50,15 +50,6 @@ h1 /* H1 tag style (admin side only) */
 	font-weight: bold;
 }
 
-h2 /* H2 tag style (admin side only) */
-{
-	font-family: Arial, Helvetica, sans-serif;
-	text-decoration:none; 
-	line-height:	120%; 
-	font-size:12px;
-	font-weight: bold;
-}
-
 .titreMenu /* Menu titles */
 {
   font-size:12px;
@@ -365,6 +356,16 @@ input,select,textarea
   font-size:12px;
 }
 
+div#adminMain {
+  text-align: left;
+}
+
+div#adminMain h2 {
+  background-color: #3f3f3f;
+  text-align: center;
+  font-size: 120%;
+}
+
 div.adminMenu{ margin:10px 50px 10px 50px; }
 
 .admin 
@@ -411,6 +412,10 @@ form#categoryOrdering>ul>li {
 form#categoryOrdering ul.categoryActions {
   float: right;
   margin-top: 5px;
+}
+
+div#adminMain>ul.categoryActions {
+  text-align: center;
 }
 
 ul.categoryActions>li {
@@ -489,4 +494,12 @@ form.filter FIELDSET + INPUT {
 FORM#categoryPermissions LI {
   display:inline;
   white-space: nowrap;
+}
+
+fieldset {
+  border: 1px solid gray;
+}
+
+fieldset>legend {
+  margin: 5px;
 }

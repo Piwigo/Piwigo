@@ -395,6 +395,8 @@ DELETE FROM '.USERS_TABLE.'
  */
 function update_category($ids = 'all', $recursive = false)
 {
+  global $conf;
+  
   // retrieving all categories to update
   $cat_ids = array();
   
@@ -428,12 +430,7 @@ SELECT id
   }
   $query.= '
 ;';
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    array_push($cat_ids, $row['id']);
-  }
-  $cat_ids = array_unique($cat_ids);
+  $cat_ids = array_unique(array_from_query($query, 'id'));
 
   if (count($cat_ids) == 0)
   {
@@ -470,45 +467,88 @@ SELECT category_id,
                   'update'  => array('date_last', 'nb_images'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
-  $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = NULL
-  WHERE nb_images = 0
-;';
-  pwg_query($query);
-  
+  // representative pictures
   if (count($cat_ids) > 0)
   {
-    $categories = array();
-    // find all categories where the setted representative is not possible
+    // find all categories where the setted representative is not possible :
+    // the picture does not exist
     $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.' LEFT JOIN '.IMAGE_CATEGORY_TABLE.'
-    ON id = category_id AND representative_picture_id = image_id
+SELECT c.id
+  FROM '.CATEGORIES_TABLE.' AS c LEFT JOIN '.IMAGES_TABLE.' AS i
+    ON c.representative_picture_id = i.id
   WHERE representative_picture_id IS NOT NULL
-    AND id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-    AND category_id IS NULL
+    AND c.id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+    AND i.id IS NULL
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    $wrong_representant = array_from_query($query, 'id');
+
+    if ($conf['allow_random_representative'])
     {
-      array_push($categories, $row['id']);
+      if (count($wrong_representant) > 0)
+      {
+        $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id IN ('.wordwrap(implode(', ', $wrong_representant), 80, "\n").')
+;';
+        pwg_query($query);
+      }
     }
-    // find categories with elements and with no representant
-    $query = '
+    else
+    {
+      $to_null = array();
+      $to_rand = array();
+
+      if (count($wrong_representant) > 0)
+      {
+        // among the categories with an unknown representant, we dissociate
+        // categories containing pictures and categories containing no
+        // pictures. Indeed, the representant must set to NULL if no picture
+        // in the category and set to a random picture otherwise.
+        $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.wordwrap(implode(', ', $wrong_representant), 80, "\n").')
+    AND nb_images = 0
+;';
+        $to_null = array_from_query($query, 'id');
+        $to_rand = array_diff($wrong_representant, $to_null);
+      }
+      
+      if (count($to_null) > 0)
+      {
+        $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = NULL
+  WHERE id IN ('.wordwrap(implode(', ', $to_null), 80, "\n").')
+;';
+        pwg_query($query);
+      }
+      
+      // If the random representant is not allowed, we need to find
+      // categories with elements and with no representant. Those categories
+      // must be added to the list of categories to set to a random
+      // representant.
+      $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id IS NULL
     AND nb_images != 0
+    AND id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($categories, $row['id']);
+      $to_rand =
+        array_unique(
+          array_merge(
+            $to_rand,
+            array_from_query($query, 'id')
+            )
+          );
+      
+      if (count($to_rand) > 0)
+      {
+        set_random_representant($to_rand);
+      }
     }
-
-    $categories = array_unique($categories);
-    set_random_representant($categories);
   }
 }
 
@@ -1186,8 +1226,14 @@ function micro_seconds()
 }
 
 /**
- * compares and synchronizes USERS_TABLE and USER_INFOS_TABLE : each user in
- * USERS_TABLE must be present in USER_INFOS_TABLE.
+ * synchronize base users list and related users list
+ *
+ * compares and synchronizes base users table (USERS_TABLE) with its child
+ * tables (USER_INFOS_TABLE, USER_ACCESS, USER_CACHE, USER_GROUP) : each
+ * base user must be present in child tables, users in child tables not
+ * present in base table must be deleted.
+ *
+ * @return void
  */
 function sync_users()
 {
@@ -1240,17 +1286,257 @@ SELECT user_id
                  $inserts);
   }
 
-  // users present in $infos_users and not in $base_users must be deleted
-  $to_delete = array_diff($infos_users, $base_users);
-
-  if (count($to_delete) > 0)
+  // users present in user related tables must be present in the base user
+  // table
+  $tables =
+    array(
+      USER_INFOS_TABLE,
+      USER_ACCESS_TABLE,
+      USER_CACHE_TABLE,
+      USER_GROUP_TABLE
+      );
+  foreach ($tables as $table)
   {
     $query = '
+SELECT user_id
+  FROM '.$table.'
+;';
+    $to_delete =
+      array_diff(
+        array_from_query($query, 'user_id'),
+        $base_users
+        );
+    
+    if (count($to_delete) > 0)
+    {
+      $query = '
 DELETE
-  FROM '.USER_INFOS_TABLE.'
+  FROM '.$table.'
   WHERE user_id in ('.implode(',', $to_delete).')
 ;';
+      pwg_query($query);
+    }
+  }
+}
+
+/**
+ * updates categories.uppercats field based on categories.id +
+ * categories.id_uppercat
+ *
+ * @return void
+ */
+function update_uppercats()
+{
+  $uppercat_ids = array();
+  
+  $query = '
+SELECT id, id_uppercat
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $uppercat_ids[$row['id']] =
+      !empty($row['id_uppercat']) ? $row['id_uppercat'] : 'NULL';
+  }
+  
+  // uppercats array associates a category id to the list of uppercats id.
+  $uppercats = array();
+  
+  foreach (array_keys($uppercat_ids) as $id)
+  {
+    $uppercats[$id] = array();
+
+    $uppercat = $id;
+
+    while ($uppercat != 'NULL')
+    {
+      array_push($uppercats[$id], $uppercat);
+      $uppercat = $uppercat_ids[$uppercat];
+    }
+  }
+
+  $datas = array();
+
+  foreach ($uppercats as $id => $list)
+  {
+    array_push(
+      $datas,
+      array(
+        'id' => $id,
+        'uppercats' => implode(',', array_reverse($list))
+        )
+      );
+  }
+
+  $fields = array('primary' => array('id'), 'update' => array('uppercats'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+}
+
+/**
+ * update images.path field
+ *
+ * @return void
+ */
+function update_path()
+{
+  $query = '
+SELECT DISTINCT(storage_category_id)
+  FROM '.IMAGES_TABLE.'
+;';
+  $cat_ids = array_from_query($query, 'storage_category_id');
+  $fulldirs = get_fulldirs($cat_ids);
+ 
+  foreach ($cat_ids as $cat_id)
+  {
+    $query = '
+UPDATE '.IMAGES_TABLE.'
+  SET path = CONCAT(\''.$fulldirs[$cat_id].'\',\'/\',file)
+  WHERE storage_category_id = '.$cat_id.'
+;';
     pwg_query($query);
-  } 
+  }
+}
+
+/**
+ * update images.average_rate field
+ *
+ * @return void
+ */
+function update_average_rate()
+{
+  $average_rates = array();
+  
+  $query = '
+SELECT element_id,
+       ROUND(AVG(rate),2) AS average_rate
+  FROM '.RATE_TABLE.'
+  GROUP BY element_id
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($average_rates, $row);
+  }
+
+  $datas = array();
+  foreach ($average_rates as $item)
+  {
+    array_push(
+      $datas,
+      array(
+        'id' => $item['element_id'],
+        'average_rate' => $item['average_rate']
+        )
+      );
+  }
+  $fields = array('primary' => array('id'), 'update' => array('average_rate'));
+  mass_updates(IMAGES_TABLE, $fields, $datas);
+}
+
+/**
+ * change the parent category of the given category. The category is
+ * supposed virtual.
+ *
+ * @param int category identifier
+ * @param int parent category identifier
+ * @return void
+ */
+function move_category($category_id, $new_parent = -1)
+{
+  // verifies if the move is necessary
+  $query = '
+SELECT id_uppercat, status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$category_id.'
+;';
+  list($old_parent, $status) = mysql_fetch_row(pwg_query($query));
+
+  $old_parent = empty($old_parent) ? 'NULL' : $old_parent;
+  $new_parent = $new_parent < 1 ? 'NULL' : $new_parent;
+
+  if ($new_parent == $old_parent)
+  {
+    // no need to move !
+    return;
+  }
+  
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET id_uppercat = '.$new_parent.'
+  WHERE id = '.$category_id.'
+;';
+  pwg_query($query);
+
+  update_uppercats();
+  ordering();
+  update_global_rank();
+
+  // status and related permissions management
+  if ('NULL' == $new_parent)
+  {
+    $parent_status = 'public';
+  }
+  else
+  {
+    $query = '
+SELECT status
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$new_parent.'
+;';
+    list($parent_status) = mysql_fetch_row(pwg_query($query));
+  }
+
+  if ('private' == $parent_status)
+  {
+    switch ($status)
+    {
+      case 'public' :
+      {
+        set_cat_status(array($category_id), 'private');
+        break;
+      }
+      case 'private' :
+      {
+        $subcats = get_subcat_ids(array($category_id));
+
+        $tables =
+          array(
+            USER_ACCESS_TABLE => 'user_id',
+            GROUP_ACCESS_TABLE => 'group_id'
+            );
+        
+        foreach ($tables as $table => $field)
+        {
+          $query = '
+SELECT '.$field.'
+  FROM '.$table.'
+  WHERE category_id = '.$category_id.'
+;';
+          $category_access = array_from_query($query, $field);
+
+          $query = '
+SELECT '.$field.'
+  FROM '.$table.'
+  WHERE category_id = '.$new_parent.'
+;';
+          $parent_access = array_from_query($query, $field);
+          
+          $to_delete = array_diff($parent_access, $category_access);
+          
+          if (count($to_delete) > 0)
+          {
+            $query = '
+DELETE FROM '.$table.'
+  WHERE '.$field.' IN ('.implode(',', $to_delete).')
+    AND category_id IN ('.implode(',', $subcats).')
+;';
+            pwg_query($query);
+          }
+        }
+        break;
+      }
+    }
+  }
 }
 ?>
