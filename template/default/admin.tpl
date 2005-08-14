@@ -43,7 +43,7 @@
   <li><a class="adminMenu" href="{U_CAT_VISIBLE}">{L_CAT_VISIBLE}</a></li>
   <li><a class="adminMenu" href="{U_CAT_STATUS}">{L_CAT_STATUS}</a></li>
   <!-- BEGIN representative -->
-  <li><a class="adminMenu" href="{representative.URL}">{lang:Representatve}</a></li>
+  <li><a class="adminMenu" href="{representative.URL}">{lang:Representative}</a></li>
   <!-- END representative -->
 </ul>
 </div>

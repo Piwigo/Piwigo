@@ -508,3 +508,16 @@ fieldset {
 fieldset>legend {
   margin: 5px;
 }
+
+select.categoryList {
+  width: 400px;
+}
+
+table.doubleSelect {
+  text-align: center;
+  margin: 0 auto;
+}
+
+table.doubleSelect td {
+  padding: 0 5px;
+}

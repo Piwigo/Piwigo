@@ -1,5 +1,10 @@
 2005-08-14 Pierrick LE GALL
 
+	* modification : simplification of HTML/CSS code for double select
+	screen to manage categories properties (admin/cat_options)
+
+2005-08-14 Pierrick LE GALL
+
 	* new : ability to set an element as representant of its category
 	directly from picture.php screen.
 
