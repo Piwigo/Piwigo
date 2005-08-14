@@ -74,6 +74,22 @@ if (!$belongs)
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
+//-------------------------------------------------------------- representative
+if ('admin' == $user['status'] and isset($_GET['representative']))
+{
+  $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = '.$_GET['image_id'].'
+  WHERE id = '.$page['cat'].'
+;';
+  pwg_query($query);
+
+  $url =
+    PHPWG_ROOT_PATH
+    .'picture.php'
+    .get_query_string_diff(array('representative'));
+  redirect($url);
+}
 //---------------------------------------------------------- related categories
 $query = '
 SELECT category_id,uppercats,commentable,global_rank
@@ -619,6 +635,19 @@ if (isset($picture['current']['high']))
 	'WIDTH_IMG'=>($full_width + 16),
 	'HEIGHT_IMG'=>($full_height + 16)
 	));
+}
+// button to set the current picture as representative
+if ('admin' == $user['status'] and is_numeric($page['cat']))
+{
+  $template->assign_block_vars(
+    'representative',
+    array(
+      'URL' =>
+        PHPWG_ROOT_PATH.'picture.php'
+        .get_query_string_diff(array())
+        .'&amp;representative=1'
+      )
+    );
 }
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )

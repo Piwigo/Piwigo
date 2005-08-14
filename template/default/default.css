@@ -414,6 +414,11 @@ form#categoryOrdering ul.categoryActions {
   margin-top: 5px;
 }
 
+div.titrePage ul.categoryActions {
+  float: right;
+  margin: 0;
+}
+
 div#adminMain>ul.categoryActions {
   text-align: center;
 }

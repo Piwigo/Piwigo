@@ -28,6 +28,15 @@
 	<img src="template/default/theme/metadata.gif" alt="{L_PICTURE_METADATA}" />
   </a>
 </div>
+
+<!-- BEGIN representative -->
+<div class="imgMenu" id="left">
+  <a href="{representative.URL}" title="{lang:set as category representative}">
+        <img src="template/default/theme/representative.png" alt="{lang:representative}" />
+  </a>
+</div>
+<!-- END representative -->
+
 <!-- BEGIN favorite -->
 <div class="imgMenu" id="right">
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">

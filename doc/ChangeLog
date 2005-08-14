@@ -1,5 +1,13 @@
 2005-08-14 Pierrick LE GALL
 
+	* new : ability to set an element as representant of its category
+	directly from picture.php screen.
+
+	* improvement : dedicated icon to add elements into caddie. Ths
+	icon is displayed in the category title bar.
+	
+2005-08-14 Pierrick LE GALL
+
 	* new : maintenance screen in administration. There you can update
 	categories informations (number of images, date of the last added
 	element), update images informations (path, average rate), purge

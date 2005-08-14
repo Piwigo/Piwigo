@@ -88,7 +88,14 @@
 	</td>
 	<td style="padding:0px 10px 0px 10px; width:99%;" valign="top">
 	  <div class="home">
-			<div class="titrePage">{TITLE}</div>
+            <div class="titrePage">
+              <ul class="categoryActions">
+                <!-- BEGIN caddie -->
+                <li><a href="{U_CADDIE}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" /></a></li>
+                <!-- END caddie -->
+              </ul>
+              {TITLE}
+            </div>
 			<!-- BEGIN calendar -->
                <div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
 			  <div class="navigationBar">{calendar.MONTHS_NAV_BAR}</div>
@@ -123,10 +130,6 @@
 			  <!-- END line -->
 			</table>
 			<!-- END thumbnails -->
-                <!-- BEGIN caddie -->
-		<br />
-		<div class="navigationBar"><a href="{U_CADDIE}">add to caddie</a></div>
-                <!-- END caddie -->
 			<!-- BEGIN cat_infos -->
 			  <!-- BEGIN navigation -->
 			  <div class="navigationBar">{cat_infos.navigation.NAV_BAR}</div>
