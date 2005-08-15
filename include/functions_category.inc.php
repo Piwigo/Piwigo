@@ -155,20 +155,30 @@ SELECT name,id,date_last,nb_images,global_rank
   return get_html_menu_category($cats);
 }
 
+/**
+ * returns the total number of elements viewable in the gallery by the
+ * connected user
+ *
+ * @return int
+ */
 function count_user_total_images()
 {
   global $user;
 
-  $query = 'SELECT SUM(nb_images) AS total';
-  $query.= ' FROM '.CATEGORIES_TABLE;
-  if ( count( $user['restrictions'] ) > 0 )
-    $query.= ' WHERE id NOT IN ('.$user['forbidden_categories'].')';
-  $query.= ';';
+  $query = '
+SELECT COUNT(DISTINCT(image_id)) as total
+  FROM '.IMAGE_CATEGORY_TABLE;
+  if (count($user['restrictions']) > 0)
+  {
+    $query.= '
+  WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
+  }
+  $query.= '
+;';
  
-  $row = mysql_fetch_array( pwg_query( $query ) );
+  $row = mysql_fetch_array(pwg_query($query));
 
-  if ( !isset( $row['total'] ) ) $row['total'] = 0;
-  return $row['total'];
+  return isset($row['total']) ? $row['total'] : 0;
 }
 
 /**
