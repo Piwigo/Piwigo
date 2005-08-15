@@ -1,3 +1,14 @@
+2005-08-15 Pierrick LE GALL
+
+	* new : introduction page to administration section. This page
+	gives informations about PhpWebGallery version, PHP version, MySQL
+	version, gallery database informations (number of categories,
+	elements, users, comments). Ability to request phpwebgallery.net
+	for upgrade.
+
+	* deletion : of obsolete admin/admin_phpinfo.php page replaced by
+	a link in introduction page.
+
 2005-08-14 Pierrick LE GALL
 
 	* modification : simplification of HTML/CSS code for double select

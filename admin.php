@@ -54,7 +54,8 @@ else if (isset($_GET['user_id']))
   $username = get_username($_GET['user_id']);
 }
 
-if (isset( $_GET['page'] ))
+$_GET['page'] = isset($_GET['page']) ? $_GET['page'] : 'intro';
+
 switch ( $_GET['page'] )
 {
   case 'user_list' :
@@ -97,8 +98,6 @@ switch ( $_GET['page'] )
    $title = $lang['title_update'];        $page_valide = true; break;
  case 'configuration':
    $title = $lang['title_configuration']; $page_valide = true; break;
- case 'admin_phpinfo':
-   $title = $lang['phpinfos']; $page_valide = true; break;
  case 'help':
    $title = $lang['title_instructions'];  $page_valide = true; break;
  case 'cat_perm':
@@ -186,8 +185,17 @@ switch ( $_GET['page'] )
 //    $page_valide = true;
 //    break;
 //  }
- default:
-   $title = $lang['title_default']; break;
+ case 'intro' :
+ {
+   $_GET['page'] = 'intro';
+   $title = $lang['title_default'];
+   $page_valide = true;
+   break;
+ }
+ default :
+ {
+   break;
+ }
 }
 if ( $title == '' ) $title = $lang['title_default'];
 
@@ -225,7 +233,6 @@ $template->assign_vars(array(
   'L_GALLERY_INDEX'=>$lang['home'],
   'L_GENERAL'=>$lang['general'],
   'L_DEFAULT'=>$lang['gallery_default'],
-  'L_PHPINFO'=>$lang['phpinfos'],
   'L_HISTORY'=>$lang['history'],
   'L_FAQ'=>$lang['instructions'],
   'L_CONFIGURATION'=>$lang['config'],
@@ -255,7 +262,6 @@ $template->assign_vars(array(
   'U_HISTORY'=>add_session_id($link_start.'stats' ),
   'U_FAQ'=>add_session_id($link_start.'help' ),
   'U_SITES'=>add_session_id($link_start.'remote_site'),
-  'U_PHPINFO'=>add_session_id($link_start.'admin_phpinfo' ),
   'U_MAINTENANCE'=>add_session_id($link_start.'maintenance'),
   'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
   'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),

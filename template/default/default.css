@@ -26,8 +26,16 @@ input,select,textarea { color:#FFFFCC;} /* Forms font color */
 
 /* ANCHORS */
 
-a { text-decoration:none; color:#FFFFFF;}
-a:hover { text-decoration:none; color:#FFF48E;}
+a {
+  text-decoration: none;
+  color: #F6B620;
+}
+
+a:hover {
+  text-decoration:none;
+  color: #ffee40;
+}
+
 a.none:hover { text-decoration:none;}
 a.image:hover { text-decoration:none;}
 a.thumbLink:hover { text-decoration:none;}
@@ -520,4 +528,18 @@ table.doubleSelect {
 
 table.doubleSelect td {
   padding: 0 5px;
+}
+
+div#adminMain dl {
+  margin: 10px;
+}
+
+div#adminMain dl>dd {
+  margin-bottom: 10px;
+}
+
+div#adminMain dl>dt {
+  margin-bottom: 5px;
+  font-style: italic;
+  font-size: 110%;
 }
