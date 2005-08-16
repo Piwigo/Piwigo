@@ -1,8 +1,6 @@
 <div class="admin">{L_CAT_TITLE}</div>
 
 <form method="post" action="{F_ACTION}">
-  <input type="hidden" name="{HIDDEN_NAME}" value="{HIDDEN_VALUE}" />
-
   <table class="doubleSelect">
     <tr>
       <td>

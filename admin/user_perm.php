@@ -31,26 +31,34 @@ if (!defined('IN_ADMIN'))
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
-$userdata = array();
-if (isset($_POST['submituser']))
+// +-----------------------------------------------------------------------+
+// |                            variables init                             |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['user_id']) and is_numeric($_GET['user_id']))
 {
-  $userdata = getuserdata($_POST['username']);
+  $page['user'] = $_GET['user_id'];
 }
-else if (isset($_GET['user_id']))
+else
 {
-  $userdata = getuserdata(intval($_GET['user_id']));
+  echo l10n('user_id URL parameter is missing');
+  exit();
 }
-else if (isset($_POST['falsify'])
-         and isset($_POST['cat_true'])
-         and count($_POST['cat_true']) > 0)
+
+// +-----------------------------------------------------------------------+
+// |                                updates                                |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['falsify'])
+    and isset($_POST['cat_true'])
+    and count($_POST['cat_true']) > 0)
 {
-  $userdata = getuserdata(intval($_POST['userid']));
   // if you forbid access to a category, all sub-categories become
   // automatically forbidden
   $subcats = get_subcat_ids($_POST['cat_true']);
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
-  WHERE user_id = '.$userdata['id'].'
+  WHERE user_id = '.$page['user'].'
     AND cat_id IN ('.implode(',', $subcats).')
 ;';
   pwg_query($query);
@@ -59,8 +67,6 @@ else if (isset($_POST['trueify'])
          and isset($_POST['cat_false'])
          and count($_POST['cat_false']) > 0)
 {
-  $userdata = getuserdata(intval($_POST['userid']));
-    
   $uppercats = get_uppercat_ids($_POST['cat_false']);
   $private_uppercats = array();
 
@@ -84,7 +90,7 @@ SELECT id
   $query = '
 SELECT cat_id
   FROM '.USER_ACCESS_TABLE.'
-  WHERE user_id = '.$userdata['id'].'
+  WHERE user_id = '.$page['user'].'
 ;';
   $result = pwg_query($query);
   
@@ -97,74 +103,61 @@ SELECT cat_id
   $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
   foreach ($to_autorize_ids as $to_autorize_id)
   {
-    array_push($inserts, array('user_id' => $userdata['id'],
+    array_push($inserts, array('user_id' => $page['user'],
                                'cat_id' => $to_autorize_id));
   }
 
   mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $inserts);
 }
 //----------------------------------------------------- template initialization
-if (empty($userdata))
-{
-  $template->set_filenames(array('user' => 'admin/user_perm.tpl'));
+$template->set_filenames(array('user_perm'=>'admin/cat_options.tpl'));
 
-  $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
-  
-  $template->assign_vars(array(
-    'L_SELECT_USERNAME'=>$lang['Select_username'],
-    'L_LOOKUP_USER'=>$lang['Look_up_user'],
-    'L_FIND_USERNAME'=>$lang['Find_username'],
-    'L_AUTH_USER'=>$lang['permuser_only_private'],
-    'L_SUBMIT'=>$lang['submit'],
+$template->assign_vars(
+  array(
+    'L_RESET'=>$lang['reset'],
+    'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
+    'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
+    'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
+    
+    'F_ACTION' =>
+      add_session_id(
+        PHPWG_ROOT_PATH.
+        'admin.php?page=user_perm'.
+        '&amp;user_id='.$page['user']
+        )
+    )
+  );
 
-    'F_SEARCH_USER_ACTION' => add_session_id($base_url.'user_perm'),
-    'U_SEARCH_USER' => add_session_id(PHPWG_ROOT_PATH.'admin/search.php')
-    ));
-}
-else
-{
-  $template->set_filenames(array('user'=>'admin/cat_options.tpl'));
-  $template->assign_vars(
-    array(
-      'L_RESET'=>$lang['reset'],
-      'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
-      'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
-      'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
-      
-      'HIDDEN_NAME'=> 'userid',
-      'HIDDEN_VALUE'=>$userdata['id'],
-      'F_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_perm'),
-      ));
-
-  // only private categories are listed
-  $query_true = '
+// only private categories are listed
+$query_true = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_ACCESS_TABLE.' ON cat_id = id
   WHERE status = \'private\'
-    AND user_id = '.$userdata['id'].'
+    AND user_id = '.$page['user'].'
 ;';
-  display_select_cat_wrapper($query_true,array(),'category_option_true');
+display_select_cat_wrapper($query_true,array(),'category_option_true');
   
-  $result = pwg_query($query_true);
-  $authorized_ids = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($authorized_ids, $row['id']);
-  }
-  
-  $query_false = '
+$result = pwg_query($query_true);
+$authorized_ids = array();
+while ($row = mysql_fetch_array($result))
+{
+  array_push($authorized_ids, $row['id']);
+}
+
+$query_false = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'';
-  if (count($authorized_ids) > 0)
-  {
-    $query_false.= '
-    AND id NOT IN ('.implode(',', $authorized_ids).')';
-  }
+if (count($authorized_ids) > 0)
+{
   $query_false.= '
-;';
-  display_select_cat_wrapper($query_false,array(),'category_option_false');
+    AND id NOT IN ('.implode(',', $authorized_ids).')';
 }
+$query_false.= '
+;';
+display_select_cat_wrapper($query_false,array(),'category_option_false');
+
 //----------------------------------------------------------- sending html code
-$template->assign_var_from_handle('ADMIN_CONTENT', 'user');
+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'user_perm');
 ?>

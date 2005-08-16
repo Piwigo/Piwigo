@@ -76,21 +76,26 @@ switch ( $_GET['page'] )
  case 'group_list' :
    $title = $lang['title_groups'];        $page_valide = true; break;
  case 'group_perm' :
-   /*if ( !is_numeric( $_GET['group_id'] ) ) $_GET['group_id'] = -1;
-   $query = 'SELECT name FROM '.GROUPS_TABLE;
-   $query.= ' WHERE id = '.$_GET['group_id'];
-   $query.= ';';
-   $result = pwg_query( $query );
-   if ( mysql_num_rows( $result ) > 0 )
+   if (!is_numeric($_GET['group_id']))
    {
-     $row = mysql_fetch_array( $result );*/
-     $title = $lang['title_group_perm'];//.' "'.$row['name'].'"';
+     $_GET['group_id'] = -1;
+   }
+   $query = '
+SELECT name
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$_GET['group_id'].'
+;';
+   $result = pwg_query($query);
+   if (mysql_num_rows($result) > 0 )
+   {
+     $row = mysql_fetch_array($result);
+     $title = $lang['title_group_perm'].' "'.$row['name'].'"';
      $page_valide = true;
-   /*}
+   }
    else
    {
      $page_valide = false;
-   }*/
+   }
    break;
  case 'stats':
    $title = $lang['title_history'];       $page_valide = true; break;
@@ -252,7 +257,6 @@ $template->assign_vars(array(
   'L_IDENTIFY'=>$lang['identification'],
   'L_USERS'=>$lang['users'],
   'L_GROUPS'=>$lang['groups'],
-  'L_AUTH'=>$lang['permissions'],
   'L_UPDATE'=>$lang['update'],
   'L_CAT_UPLOAD'=>$lang['upload'],
   'L_CAT_COMMENTS'=>$lang['comments'],
@@ -282,9 +286,6 @@ $template->assign_vars(array(
   'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
   'U_USERS'=>add_session_id($link_start.'user_list' ),
   'U_GROUPS'=>add_session_id($link_start.'group_list' ),
-  'U_USERS_AUTH'=>add_session_id($link_start.'user_perm' ),
-  'U_GROUPS_AUTH'=>add_session_id($link_start.'group_perm'),
-  'U_CAT_AUTH'=>add_session_id($link_start.'cat_perm' ),
   'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
   ));
 

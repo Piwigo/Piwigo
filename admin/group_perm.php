@@ -24,23 +24,44 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 if( !defined("PHPWG_ROOT_PATH") )
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
+}
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// |                            variables init                             |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['group_id']) and is_numeric($_GET['group_id']))
+{
+  $page['group'] = $_GET['group_id'];
+}
+else
+{
+  echo l10n('group_id URL parameter is missing');
+  exit();
 }
 
-include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-//--------------------------------------------------------------------- updates
+// +-----------------------------------------------------------------------+
+// |                                updates                                |
+// +-----------------------------------------------------------------------+
+
 if (isset($_POST['falsify'])
-         and isset($_POST['cat_true'])
-         and count($_POST['cat_true']) > 0)
+    and isset($_POST['cat_true'])
+    and count($_POST['cat_true']) > 0)
 {
   // if you forbid access to a category, all sub-categories become
   // automatically forbidden
   $subcats = get_subcat_ids($_POST['cat_true']);
-  $query = 'DELETE FROM '.GROUP_ACCESS_TABLE.'
-    WHERE group_id = '.$_POST['group_id'].'
-    AND cat_id IN ('.implode(',', $subcats).');';
+  $query = '
+DELETE
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE group_id = '.$page['group'].'
+  AND cat_id IN ('.implode(',', $subcats).')
+;';
   pwg_query($query);
 }
 else if (isset($_POST['trueify'])
@@ -50,10 +71,12 @@ else if (isset($_POST['trueify'])
   $uppercats = get_uppercat_ids($_POST['cat_false']);
   $private_uppercats = array();
 
-  $query = 'SELECT id
-    FROM '.CATEGORIES_TABLE.'
-    WHERE id IN ('.implode(',', $uppercats).')
-    AND status = \'private\';';
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $uppercats).')
+  AND status = \'private\'
+;';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -65,9 +88,11 @@ else if (isset($_POST['trueify'])
   // accesible
   $authorized_ids = array();
     
-  $query = 'SELECT cat_id
+  $query = '
+SELECT cat_id
   FROM '.GROUP_ACCESS_TABLE.'
-  WHERE group_id = '.$_POST['group_id'].';';
+  WHERE group_id = '.$page['group'].'
+;';
   $result = pwg_query($query);
   
   while ($row = mysql_fetch_array($result))
@@ -79,89 +104,73 @@ else if (isset($_POST['trueify'])
   $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
   foreach ($to_autorize_ids as $to_autorize_id)
   {
-    array_push($inserts, array('group_id' => $_POST['group_id'],
-                               'cat_id' => $to_autorize_id));
+    array_push(
+      $inserts,
+      array(
+        'group_id' => $page['group'],
+        'cat_id' => $to_autorize_id
+        )
+      );
   }
 
   mass_inserts(GROUP_ACCESS_TABLE, array('group_id','cat_id'), $inserts);
 }
 
-//----------------------------------------------------- template initialization
-$query = 'SELECT id,name FROM '.GROUPS_TABLE;
-$query.= ' ORDER BY id ASC;';
-$result = pwg_query( $query );
-$groups_display = '<select name="group_id">';
-$groups_nb=0;
-while ( $row = mysql_fetch_array( $result ) )
-{
-  $groups_nb++;
-  $selected = '';
-  if (isset($_POST['group_id']) && $_POST['group_id']==$row['id'])
-		$selected = 'selected';
-  $groups_display .= '<option value="' . $row['id'] . '" '.$selected.'>' . $row['name']  . '</option>';
-}
-$groups_display .= '</select>';
+// +-----------------------------------------------------------------------+
+// |                             template init                             |
+// +-----------------------------------------------------------------------+
 
-$action = PHPWG_ROOT_PATH.'admin.php?page=group_perm';
-$template->set_filenames( array('groups'=>'admin/group_perm.tpl') );
-$template->assign_vars(array(
-  'S_GROUP_SELECT'=>$groups_display,
-  'L_GROUP_SELECT'=>$lang['group_list_title'],
-  'L_LOOK_UP'=>$lang['edit'],
-  'S_GROUP_ACTION'=>add_session_id($action)
-  ));
-  
-if ($groups_nb) 
-{
-  $template->assign_block_vars('select_box',array());
-}
+$template->set_filenames(array('group_perm'=>'admin/cat_options.tpl'));
 
-if ( isset( $_POST['edit']) || isset($_POST['falsify']) || isset($_POST['trueify']))
-{
-  $template->set_filenames(array('groups_auth'=>'admin/cat_options.tpl'));
-  $template->assign_vars(array(
-      'L_RESET'=>$lang['reset'],
-      'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
-      'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
-      'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
-      
-      'HIDDEN_NAME'=> 'group_id',
-      'HIDDEN_VALUE'=>$_POST['group_id'],
-      'F_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=group_perm'),
-  ));
+$template->assign_vars(
+  array(
+    'L_RESET'=>$lang['reset'],
+    'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
+    'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
+    'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
+    
+    'F_ACTION' =>
+    add_session_id(
+      PHPWG_ROOT_PATH.
+      'admin.php?page=group_perm&amp;group_id='.
+      $page['group']
+      )
+    )
+  );
   
-  // only private categories are listed
-  $query_true = '
+// only private categories are listed
+$query_true = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.GROUP_ACCESS_TABLE.' ON cat_id = id
   WHERE status = \'private\'
-    AND group_id = '.$_POST['group_id'].'
+    AND group_id = '.$page['group'].'
 ;';
-  display_select_cat_wrapper($query_true,array(),'category_option_true');
-  
-  $result = pwg_query($query_true);
-  $authorized_ids = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($authorized_ids, $row['id']);
-  }
-  
-  $query_false = '
+display_select_cat_wrapper($query_true,array(),'category_option_true');
+
+$result = pwg_query($query_true);
+$authorized_ids = array();
+while ($row = mysql_fetch_array($result))
+{
+  array_push($authorized_ids, $row['id']);
+}
+
+$query_false = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'';
-  if (count($authorized_ids) > 0)
-  {
-    $query_false.= '
-    AND id NOT IN ('.implode(',', $authorized_ids).')';
-  }
+if (count($authorized_ids) > 0)
+{
   $query_false.= '
-;';
-  display_select_cat_wrapper($query_false,array(),'category_option_false');
-  
-  $template->assign_var_from_handle('ADMIN_CONTENT_2', 'groups_auth');
+    AND id NOT IN ('.implode(',', $authorized_ids).')';
 }
-//----------------------------------------------------------- sending html code
-$template->assign_var_from_handle('ADMIN_CONTENT', 'groups');
+$query_false.= '
+;';
+display_select_cat_wrapper($query_false,array(),'category_option_false');
+
+// +-----------------------------------------------------------------------+
+// |                           html code display                           |
+// +-----------------------------------------------------------------------+
+
+$template->assign_var_from_handle('ADMIN_CONTENT', 'group_perm');
 
 ?>

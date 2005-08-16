@@ -1,14 +1,11 @@
-<div class="admin">{L_GROUP_ADD_USER}</div>
-
-<form method="post" name="add_user" action="{F_ADD_ACTION}">
-<div style="text-align:center">
-  {L_USERNAME} <input type="text" name="login" maxlength="50" size="20" />
-  {L_PASSWORD} <input type="text" name="password" />
-  <input type="submit" name="submit_add" value="{L_SUBMIT}" class="bouton" />
-</div>
+<form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
+  <fieldset>
+    <legend>{lang:Add a user}</legend>
+    <label>{L_USERNAME} <input type="text" name="login" maxlength="50" size="20" /></label>
+    <label>{L_PASSWORD} <input type="text" name="password" /></label>
+    <input type="submit" name="submit_add" value="{L_SUBMIT}" class="bouton" />
+  </fieldset>
 </form>
-
-<div class="admin">{L_USERS_LIST}</div>
 
 <form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}">
 

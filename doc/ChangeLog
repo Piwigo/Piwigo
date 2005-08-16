@@ -1,3 +1,15 @@
+2005-08-16 Pierrick LE GALL
+
+	* modification : admin/group_list screen completely rewrite to
+	present the list of existing groups and a form to add a new
+	group. Here you can delete a group, go to permissions management
+	for a group, go to member list of a group (on admin/user_list with
+	a filter on group).
+	
+	* modification : admin/user_perm and admin/group_perm are not
+	directly reachable by the admin menu anymore. Only the user/group
+	list lets you reach user/group permissions management screen.
+
 2005-08-15 Pierrick LE GALL
 
 	* new : introduction page to administration section. This page

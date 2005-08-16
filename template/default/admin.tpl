@@ -62,13 +62,6 @@
   <li><a class="adminMenu" href="{U_GROUPS}">{L_GROUPS}</a></li>
 </ul>
 </div>
-<div class="titreMenu">{L_AUTH}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_USERS_AUTH}">{L_USERS}</a></li>
-  <li><a class="adminMenu" href="{U_GROUPS_AUTH}">{L_GROUPS}</a></li>
-</ul>
-</div>
       </div>
 	</td>
 	<td style="padding:10px;width:99%;" valign="top">
@@ -95,7 +88,7 @@
   </div>
   <!-- END infos -->
   <div id="adminMain">
-    {ADMIN_CONTENT}{ADMIN_CONTENT_2}
+    {ADMIN_CONTENT}
   </div>
 </div>
 	</td>
