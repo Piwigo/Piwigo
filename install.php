@@ -186,6 +186,7 @@ if (@file_exists($config_file))
 }
 
 $prefixeTable = $table_prefix;
+include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
