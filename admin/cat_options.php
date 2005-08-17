@@ -30,9 +30,11 @@ if (!defined('PHPWG_ROOT_PATH'))
   die ("Hacking attempt!");
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
 // +-----------------------------------------------------------------------+
 // |                       modification registration                       |
 // +-----------------------------------------------------------------------+
+
 // print '<pre>';
 // print_r($_POST);
 // print '</pre>';
@@ -129,21 +131,21 @@ UPDATE '.CATEGORIES_TABLE.'
     }
   }
 }
+
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
-$template->set_filenames(array('cat_options'=>'admin/cat_options.tpl'));
 
-if (!isset($_GET['section']))
-{
-  $page['section'] = 'upload';
-}
-else
-{
-  $page['section'] = $_GET['section'];
-}
+$template->set_filenames(
+  array(
+    'cat_options' => 'admin/cat_options.tpl',
+    'double_select' => 'admin/double_select.tpl'
+    )
+  );
 
+$page['section'] = isset($_GET['section']) ? $_GET['section'] : 'upload';
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_options&amp;section=';
+
 $template->assign_vars(
   array(
     'L_SUBMIT'=>$lang['submit'],
@@ -153,7 +155,6 @@ $template->assign_vars(
    )
  );
 
-$template->assign_vars(array(strtoupper($page['section']).'_CLASS'=>'opened'));
 // +-----------------------------------------------------------------------+
 // |                              form display                             |
 // +-----------------------------------------------------------------------+
@@ -189,7 +190,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_CAT_TITLE' => $lang['cat_upload_title'],
+        'L_SECTION' => $lang['cat_upload_title'],
         'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
         'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
         'L_CAT_OPTIONS_INFO' => $lang['cat_upload_info'],
@@ -211,7 +212,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_CAT_TITLE' => $lang['cat_comments_title'],
+        'L_SECTION' => $lang['cat_comments_title'],
         'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
         'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
         'L_CAT_OPTIONS_INFO' => $lang['cat_comments_info'],
@@ -233,7 +234,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_CAT_TITLE' => $lang['cat_lock_title'],
+        'L_SECTION' => $lang['cat_lock_title'],
         'L_CAT_OPTIONS_TRUE' => $lang['unlocked'],
         'L_CAT_OPTIONS_FALSE' => $lang['locked'],
         'L_CAT_OPTIONS_INFO' => $lang['cat_lock_info'],
@@ -255,7 +256,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_CAT_TITLE' => $lang['cat_status_title'],
+        'L_SECTION' => $lang['cat_status_title'],
         'L_CAT_OPTIONS_TRUE' => $lang['cat_public'],
         'L_CAT_OPTIONS_FALSE' => $lang['cat_private'],
         'L_CAT_OPTIONS_INFO' => $lang['cat_status_info'],
@@ -278,7 +279,7 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_CAT_TITLE' => l10n('Representative'),
+        'L_SECTION' => l10n('Representative'),
         'L_CAT_OPTIONS_TRUE' => l10n('singly represented'),
         'L_CAT_OPTIONS_FALSE' => l10n('randomly represented'),
         'L_CAT_OPTIONS_INFO' => l10n('')
@@ -289,8 +290,11 @@ SELECT id,name,uppercats,global_rank
 }
 display_select_cat_wrapper($query_true,array(),'category_option_true');
 display_select_cat_wrapper($query_false,array(),'category_option_false');
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
+
+$template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'cat_options');
 ?>

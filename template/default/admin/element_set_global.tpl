@@ -1,3 +1,5 @@
+<h1>{lang:Batch management}</h1>
+
 <div class="admin">{CATEGORY_TITLE}</div>
 
 <p style="text-align:center;">

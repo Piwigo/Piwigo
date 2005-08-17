@@ -1,3 +1,5 @@
+<h1>{lang:title_history}</h1>
+
 <div class="admin">{L_STAT_TITLE}</div>
 <img class="image" src="{IMG_REPORT}" alt="{L_STAT_MONTHLY_ALT}" />
 <div class="admin">{L_STAT_MONTH_TITLE}</div>

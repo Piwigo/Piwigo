@@ -1,3 +1,5 @@
+<h1>{lang:title_update}</h1>
+
 <!-- BEGIN update -->
 <div class="admin">{L_RESULT_UPDATE}</div>
 <ul style="text-align:left;">

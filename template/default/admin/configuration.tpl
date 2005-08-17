@@ -1,3 +1,5 @@
+<h1>{lang:title_configuration}</h1>
+
 <form method="post" action="{F_ACTION}">
 <table width="100%" align="center">
 <!-- BEGIN general -->

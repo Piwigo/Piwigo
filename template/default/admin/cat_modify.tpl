@@ -1,3 +1,5 @@
+<h1>{lang:title_edit_cat}</h1>
+
 <h2>{CATEGORIES_NAV}</h2>
 
 <ul class="categoryActions">

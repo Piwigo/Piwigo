@@ -1,3 +1,5 @@
+<h1>{lang:title_thumbnails}</h1>
+
 <!-- BEGIN results -->
 <div class="admin">{L_RESULTS}</div>
 <table style="width:100%;">

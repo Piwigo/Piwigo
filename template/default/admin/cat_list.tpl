@@ -1,3 +1,5 @@
+<h1>{lang:title_categories}</h1>
+
 <div class="admin">{CATEGORIES_NAV}</div>
 
 <form id="categoryOrdering" action="" method="post">

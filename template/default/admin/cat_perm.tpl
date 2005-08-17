@@ -1,3 +1,5 @@
+<h1>{TITLE}</h1>
+
 <form action="{F_ACTION}" method="post" id="categoryPermissions">
 
   <h2>{lang:Groups}</h2>

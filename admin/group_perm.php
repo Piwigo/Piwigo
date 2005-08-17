@@ -120,21 +120,31 @@ SELECT cat_id
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('group_perm'=>'admin/cat_options.tpl'));
+$template->set_filenames(
+  array(
+    'group_perm' => 'admin/group_perm.tpl',
+    'double_select' => 'admin/double_select.tpl'
+    )
+  );
 
 $template->assign_vars(
   array(
-    'L_RESET'=>$lang['reset'],
+    'TITLE' =>
+      sprintf(
+        l10n('Manage permissions for group "%s"'),
+        get_groupname($page['group']
+          )
+        ),
     'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
     'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
     'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
     
     'F_ACTION' =>
-    add_session_id(
-      PHPWG_ROOT_PATH.
-      'admin.php?page=group_perm&amp;group_id='.
-      $page['group']
-      )
+      add_session_id(
+        PHPWG_ROOT_PATH.
+        'admin.php?page=group_perm&amp;group_id='.
+        $page['group']
+        )
     )
   );
   
@@ -171,6 +181,7 @@ display_select_cat_wrapper($query_false,array(),'category_option_false');
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 
+$template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'group_perm');
 
 ?>

@@ -1,3 +1,5 @@
+<h1>{lang:Maintenance}</h1>
+
 <ul>
   <li><a href="{U_MAINT_CATEGORIES}">{lang:update categories informations}</a></li>
   <li><a href="{U_MAINT_IMAGES}">{lang:update images informations}</a></li>

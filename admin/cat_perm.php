@@ -196,12 +196,22 @@ SELECT user_id, cat_id
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
+
 $template->set_filenames(array('cat_perm'=>'admin/cat_perm.tpl'));
 
-$form_action = PHPWG_ROOT_PATH.'admin.php';
-$form_action.= '?page=cat_perm&amp;cat='.$page['cat'];
-
-$template->assign_vars(array('F_ACTION' => $form_action));
+$template->assign_vars(
+  array(
+    'TITLE' =>
+      sprintf(
+        l10n('Manage permissions for category "%s"'),
+        get_cat_display_name_from_id($page['cat'])
+        )
+    'F_ACTION' =>
+      add_session_id(
+        PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat='.$page['cat']
+        )
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                          form construction                            |

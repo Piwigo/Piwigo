@@ -454,4 +454,31 @@ function create_user_infos($user_id)
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts(USER_INFOS_TABLE, array_keys($insert), array($insert));
 }
+
+/**
+ * returns the groupname corresponding to the given group identifier if
+ * exists
+ *
+ * @param int group_id
+ * @return mixed
+ */
+function get_groupname($group_id)
+{
+  $query = '
+SELECT name
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.intval($group_id).'
+;';
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    list($groupname) = mysql_fetch_row($result);
+  }
+  else
+  {
+    return false;
+  }
+  
+  return $groupname;
+}
 ?>

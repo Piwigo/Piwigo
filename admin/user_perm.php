@@ -109,15 +109,28 @@ SELECT cat_id
 
   mass_inserts(USER_ACCESS_TABLE, array('user_id','cat_id'), $inserts);
 }
-//----------------------------------------------------- template initialization
-$template->set_filenames(array('user_perm'=>'admin/cat_options.tpl'));
+
+// +-----------------------------------------------------------------------+
+// |                             template init                             |
+// +-----------------------------------------------------------------------+
+
+$template->set_filenames(
+  array(
+    'user_perm' => 'admin/user_perm.tpl',
+    'double_select' => 'admin/double_select.tpl'
+    )
+  );
 
 $template->assign_vars(
   array(
-    'L_RESET'=>$lang['reset'],
+    'TITLE' =>
+      sprintf(
+        l10n('Manage permissions for user "%s"'),
+        get_username($page['user']
+          )
+        ),
     'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
     'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
-    'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
     
     'F_ACTION' =>
       add_session_id(
@@ -157,7 +170,10 @@ $query_false.= '
 ;';
 display_select_cat_wrapper($query_false,array(),'category_option_false');
 
-//----------------------------------------------------------- sending html code
+// +-----------------------------------------------------------------------+
+// |                           sending html code                           |
+// +-----------------------------------------------------------------------+
 
+$template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'user_perm');
 ?>

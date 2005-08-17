@@ -1,3 +1,29 @@
+2005-08-17 Pierrick LE GALL
+
+	* modification : major simplification of admin.php. Titles are
+	managed by included page, localized items are managed directly in
+	the template.
+
+	* new : sub template admin/double_select is included in templates
+	admin/cat_options, admin/user_perm and admin/group_perm. I haven't
+	been able to use it in admin/picture_modify because it seems
+	impossible to have two instance of the same sub-template without
+	interfering.
+
+	* modification : bug 99, in profile manager, no auto submit when
+	changing language (useless and generate accessibility problem).
+
+	* improvement : HTML semantically correct for administration menu,
+	simpler syntax, less tags, correct tags (dl/dt/dd instead of
+	div/div).
+
+	* modification : number of waiting elements and unvalidated
+	comments are displayed in admin/intro instead of administration
+	menu (with a link to the dedicated pages).
+
+	* deletion : no link to profile from admin/user_list anymore (no
+	need).
+
 2005-08-16 Pierrick LE GALL
 
 	* modification : admin/group_list screen completely rewrite to

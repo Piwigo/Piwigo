@@ -192,7 +192,45 @@ $template->assign_vars(
       add_session_id(PHPWG_ROOT_PATH.'admin.php?action=phpinfo')
     )
   );
-  
+
+// waiting elements
+$query = '
+SELECT COUNT(*)
+  FROM '.WAITING_TABLE.'
+  WHERE validated=\'false\'
+;';
+list($nb_waiting) = mysql_fetch_row(pwg_query($query));
+
+if ($nb_waiting > 0)
+{
+  $template->assign_block_vars(
+    'waiting',
+    array(
+      'URL' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=waiting'),
+      'INFO' => sprintf(l10n('%d waiting for validation'), $nb_waiting)
+      )
+    );
+}
+
+// unvalidated comments
+$query = '
+SELECT COUNT(*)
+  FROM '.COMMENTS_TABLE.'
+  WHERE validated=\'false\'
+;';
+list($nb_comments) = mysql_fetch_row(pwg_query($query));
+
+if ($nb_comments > 0)
+{
+  $template->assign_block_vars(
+    'unvalidated',
+    array(
+      'URL' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=comments'),
+      'INFO' => sprintf(l10n('%d waiting for validation'), $nb_comments)
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

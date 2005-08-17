@@ -1,3 +1,5 @@
+<h1>{lang:title_waiting}</h1>
+
 <form action="{F_ACTION}" method="post">
   <table style="width:100%;" >
     <tr class="throw">

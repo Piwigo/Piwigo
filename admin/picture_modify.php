@@ -167,7 +167,12 @@ $storage_category = get_cat_display_name_cache($row['uppercats'],
                                                $url,
                                                false);
 //----------------------------------------------------- template initialization
-$template->set_filenames(array('picture_modify'=>'admin/picture_modify.tpl'));
+$template->set_filenames(
+  array(
+    'picture_modify' => 'admin/picture_modify.tpl'
+    )
+  );
+
 $template->assign_vars(array(
   'TITLE_IMG'=>$title,
   'STORAGE_CATEGORY_IMG'=>$storage_category,
@@ -220,7 +225,7 @@ SELECT id,name,uppercats,global_rank
   WHERE image_id = '.$_GET['image_id'].'
     AND id != '.$storage_category_id.'
 ;';
-display_select_cat_wrapper($query,array(),'associated_option');
+display_select_cat_wrapper($query, array(), 'associated_option');
 
 $result = pwg_query($query);
 $associateds = array($storage_category_id);
@@ -233,7 +238,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE id NOT IN ('.implode(',', $associateds).')
 ;';
-display_select_cat_wrapper($query,array(),'dissociated_option');
+display_select_cat_wrapper($query, array(), 'dissociated_option');
 
 // representing
 $query = '
@@ -241,7 +246,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id = '.$_GET['image_id'].'
 ;';
-display_select_cat_wrapper($query,array(),'elected_option');
+display_select_cat_wrapper($query, array(), 'elected_option');
 
 $query = '
 SELECT id,name,uppercats,global_rank
@@ -249,7 +254,10 @@ SELECT id,name,uppercats,global_rank
   WHERE representative_picture_id != '.$_GET['image_id'].'
     OR representative_picture_id IS NULL
 ;';
-display_select_cat_wrapper($query,array(),'dismissed_option');
+display_select_cat_wrapper($query, array(), 'dismissed_option');
+
 //----------------------------------------------------------- sending html code
+
+
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');
 ?>

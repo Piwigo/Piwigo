@@ -192,7 +192,7 @@ function language_select($default, $select_name = "language")
 {
   $available_lang = get_languages();
 
-  $lang_select = '<select name="' . $select_name . '" onchange="this.form.submit()">';
+  $lang_select = '<select name="' . $select_name . '">';
   foreach ($available_lang as $code => $displayname)
   {
     $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
@@ -448,5 +448,13 @@ function parse_comment_content($content)
   $content = preg_replace($pattern, $replacement, $content);
 
   return $content;
+}
+
+function get_cat_display_name_from_id($cat_id,
+                                      $url = 'category.php?cat=',
+                                      $replace_space = true)
+{
+  $cat_info = get_cat_info($cat_id);
+  get_cat_display_name($cat_info['id'], $url, $replace_space);
 }
 ?>

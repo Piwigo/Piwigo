@@ -1,3 +1,5 @@
+<h1>{lang:title_instructions}</h1>
+
 <table style="width:100%;">
   <!-- BEGIN cat -->
   <tr class="admin">

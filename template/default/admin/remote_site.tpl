@@ -1,3 +1,5 @@
+<h1>{lang:remote_sites}</h1>
+
 {REMOTE_SITE_TITLE}
 
 <!-- BEGIN update -->

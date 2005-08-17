@@ -1,3 +1,5 @@
+<h1>{lang:title_picmod}</h1>
+
 <div class="admin">{TITLE_IMG}</div>
 <form action="{F_ACTION}" method="POST">
   <table style="width:100%;">
@@ -60,76 +62,64 @@
   </table>
 </form>
 
-<form name="form1" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+<form name="form1" method="post" action="{F_ACTION}">
+  <fieldset>
+    <legend>{lang:Association to categories}</legend>
 
-  <div style="clear:both;"></div>
+    <table class="doubleSelect">
+      <tr>
+        <td>
+          <h3>{L_CAT_ASSOCIATED}</h3>
+          <select class="categoryList" name="cat_associated[]" multiple="multiple" size="30">
+            <!-- BEGIN associated_option -->
+            <option {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
+            <!-- END associated_option -->
+          </select>
+          <p><input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;"/></p>
+        </td>
 
-  <div style="height:auto;">
+        <td>
+          <h3>{L_CAT_DISSOCIATED}</h3>
+          <select class="categoryList" name="cat_dissociated[]" multiple="multiple" size="30">
+            <!-- BEGIN dissociated_option -->
+            <option {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
+            <!-- END dissociated_option -->
+          </select>
+          <p><input type="submit" value="&laquo;" name="associate" style="font-size:15px;" /></p>
+        </td>
+      </tr>
+    </table>
 
-    <div style="float:left;padding:10px;width:300px;">
-      <span class="titreMenu">{L_CAT_ASSOCIATED}</span><br />
-      <select style="height:auto;width:280px" name="cat_associated[]" multiple="multiple" size="10">
-        <!-- BEGIN associated_option -->
-        <option class="{associated_option.CLASS}" {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
-        <!-- END associated_option -->
-      </select>
-    </div>
-
-    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&laquo;" name="associate" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" class="bouton" />
-    </div>
-
-    <div style="float:right;padding:10px;width:300px;">
-      <span class="titreMenu">{L_CAT_DISSOCIATED}</span><br />
-      <select style="width:280px" name="cat_dissociated[]" multiple="multiple" size="10">
-        <!-- BEGIN dissociated_option -->
-        <option class="{dissociated_option.CLASS}" {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
-        <!-- END dissociated_option -->
-      </select>
-    </div>
-
-  </div>
-
-  <div style="clear:both;"></div>
-
-  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
-
+  </fieldset>
 </form>
 
-<form name="form2" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+<form name="form2" method="post" action="{F_ACTION}">
+  <fieldset>
+    <legend>{lang:Representation of categories}</legend>
 
-  <div style="clear:both;"></div>
+    <table class="doubleSelect">
+      <tr>
+        <td>
+          <h3>{L_REPRESENTS}</h3>
+          <select class="categoryList" name="cat_elected[]" multiple="multiple" size="30">
+            <!-- BEGIN elected_option -->
+            <option {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
+            <!-- END elected_option -->
+          </select>
+          <p><input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;"/></p>
+        </td>
 
-  <div style="height:auto;">
+        <td>
+          <h3>{L_DOESNT_REPRESENT}</h3>
+          <select class="categoryList" name="cat_dismissed[]" multiple="multiple" size="30">
+            <!-- BEGIN dismissed_option -->
+            <option {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
+            <!-- END dismissed_option -->
+          </select>
+          <p><input type="submit" value="&laquo;" name="elect" style="font-size:15px;" /></p>
+        </td>
+      </tr>
+    </table>
 
-    <div style="float:left;padding:10px;width:300px;">
-      <span class="titreMenu">{L_REPRESENTS}</span><br />
-      <select style="height:auto;width:280px" name="cat_elected[]" multiple="multiple" size="10">
-        <!-- BEGIN elected_option -->
-        <option class="{elected_option.CLASS}" {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
-        <!-- END elected_option -->
-      </select>
-    </div>
-
-    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&laquo;" name="elect" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" class="bouton" />
-    </div>
-
-    <div style="float:right;padding:10px;width:300px;">
-      <span class="titreMenu">{L_DOESNT_REPRESENT}</span><br />
-      <select style="width:280px" name="cat_dismissed[]" multiple="multiple" size="10">
-        <!-- BEGIN dismissed_option -->
-        <option class="{dismissed_option.CLASS}" {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
-        <!-- END dismissed_option -->
-      </select>
-    </div>
-
-  </div>
-
-  <div style="clear:both;"></div>
-
-  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
-
+  </fieldset>
 </form>

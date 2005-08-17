@@ -1,96 +1,98 @@
-<!-- BEGIN install_warning -->
-  <p class="install_warning">{L_INSTALL_WARNING}</div>
-<!-- END install_warning -->
 <table style="width:100%;">
   <tr>
-	<td valign="top" style="padding:10px;width:1%;">
-	<div class="table1">
+    <td valign="top" style="width:1%;">
+      <div id="theNavbar">
+        <dl>
+          <dt>{lang:links}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_RETURN}">{lang:home}</a></li>
+            </ul>
+          </dd>
 
-<div class="titreMenu">{L_LINKS}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_RETURN}">{L_GALLERY_INDEX}</a></li>
-  </ul>
-</div>
-<div class="titreMenu">{L_GENERAL}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
-  <li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
-  <li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
-  <li><a class="adminMenu" href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
-</ul>
-</div>
-<div class="titreMenu">{L_CONFIGURATION}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_CONFIG_GENERAL}">{L_CONFIG_GENERAL}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_COMMENTS}">{L_CONFIG_COMMENTS}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_DISPLAY}">{L_CONFIG_DISPLAY}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_UPLOAD}">{L_CONFIG_UPLOAD}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_SESSION}">{L_CONFIG_SESSION}</a></li>
-  <li><a class="adminMenu" href="{U_CONFIG_METADATA}">{L_CONFIG_METADATA}</a></li>
-</ul>
-</div>
-<div class="titreMenu">{L_CATEGORIES}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_UPLOAD}">{L_CAT_UPLOAD}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_COMMENTS}">{L_CAT_COMMENTS}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_VISIBLE}">{L_CAT_VISIBLE}</a></li>
-  <li><a class="adminMenu" href="{U_CAT_STATUS}">{L_CAT_STATUS}</a></li>
-  <!-- BEGIN representative -->
-  <li><a class="adminMenu" href="{representative.URL}">{lang:Representative}</a></li>
-  <!-- END representative -->
-</ul>
-</div>
-<div class="titreMenu">{L_IMAGES}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a></li>
-  <li><a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a></li>
-  <li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
-  <li><a class="adminMenu" href="{U_CADDIE}">Caddie</a></li>
-</ul>
-</div>
-<div class="titreMenu">{L_IDENTIFY}</div>
-<div class="menu">
-<ul class="menu">
-  <li><a class="adminMenu" href="{U_USERS}">{L_USERS}</a></li>
-  <li><a class="adminMenu" href="{U_GROUPS}">{L_GROUPS}</a></li>
-</ul>
-</div>
+          <dt>{lang:general}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_FAQ}">{lang:instructions}</a></li>
+              <li><a href="{U_SITES}">{lang:remote_sites}</a></li>
+              <li><a href="{U_HISTORY}">{lang:history}</a></li>
+              <li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
+              <li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
+            </ul>
+          </dd>
+
+          <dt>{lang:config}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
+	      <li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
+	      <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
+	      <li><a href="{U_CONFIG_UPLOAD}">{lang:upload}</a></li>
+	      <li><a href="{U_CONFIG_SESSION}">{lang:conf_cookie}</a></li>
+	      <li><a href="{U_CONFIG_METADATA}">{lang:metadata}</a></li>
+	    </ul>
+          </dd>
+
+          <dt>{lang:categories}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
+	      <li><a href="{U_CAT_UPLOAD}">{lang:upload}</a></li>
+	      <li><a href="{U_CAT_COMMENTS}">{lang:comments}</a></li>
+	      <li><a href="{U_CAT_VISIBLE}">{lang:lock}</a></li>
+	      <li><a href="{U_CAT_STATUS}">{lang:cat_security}</a></li>
+	      <!-- BEGIN representative -->
+	      <li><a href="{representative.URL}">{lang:Representative}</a></li>
+	      <!-- END representative -->
+	    </ul>
+          </dd>
+
+          <dt>{lang:pictures}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_WAITING}">{lang:waiting}</a></li>
+	      <li><a href="{U_THUMBNAILS}">{lang:thumbnails}</a></li>
+	      <li><a href="{U_COMMENTS}">{lang:comments}</a></li>
+	      <li><a href="{U_CADDIE}">{lang:Caddie}</a></li>
+	    </ul>
+          </dd>
+
+          <dt>{lang:identification}</dt>
+          <dd>
+            <ul>
+              <li><a href="{U_USERS}">{lang:users}</a></li>
+              <li><a href="{U_GROUPS}">{lang:groups}</a></li>
+            </ul>
+          </dd>
+	</dl>
+      </div> <!-- end div#theNavbar -->
+    </td>
+
+    <td style="width:99%;" valign="top">
+      <div id="adminMain">
+
+	<!-- BEGIN errors -->
+	<div id="errors">
+	  <ul>
+	    <!-- BEGIN error -->
+	    <li>{errors.error.ERROR}</li>
+	    <!-- END error -->
+	  </ul>
+	</div>
+	<!-- END errors -->
+
+	<!-- BEGIN infos -->
+	<div id="infos">
+	  <ul>
+	    <!-- BEGIN info -->
+	    <li>{infos.info.INFO}</li>
+	    <!-- END info -->
+	  </ul>
+	</div>
+	<!-- END infos -->
+
+        {ADMIN_CONTENT}
       </div>
-	</td>
-	<td style="padding:10px;width:99%;" valign="top">
-<div class="home">
-  <div class="titrePage">{PAGE_TITLE}</div>
-
-  <!-- BEGIN errors -->
-  <div id="errors">
-    <ul>
-      <!-- BEGIN error -->
-      <li>{errors.error.ERROR}</li>
-      <!-- END error -->
-    </ul>
-  </div>
-  <!-- END errors -->
-
-  <!-- BEGIN infos -->
-  <div id="infos">
-    <ul>
-      <!-- BEGIN info -->
-      <li>{infos.info.INFO}</li>
-      <!-- END info -->
-    </ul>
-  </div>
-  <!-- END infos -->
-  <div id="adminMain">
-    {ADMIN_CONTENT}
-  </div>
-</div>
-	</td>
+    </td>
   </tr>
 </table>

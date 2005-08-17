@@ -1,3 +1,5 @@
+<h1>{lang:title_default}</h1>
+
 <dl>
   <dt>{lang:PhpWebGallery version}</dt>
   <dd>
@@ -19,18 +21,23 @@
   <dt>{lang:Database}</dt>
   <dd>
     <ul>
-      <li>{DB_ELEMENTS}</li>
+      <li>
+        {DB_ELEMENTS}
+        <!-- BEGIN waiting -->
+        (<a href="{waiting.URL}">{waiting.INFO}</a>)
+        <!-- END waiting -->
+      </li>
       <li>{DB_CATEGORIES}</li>
       <li>{DB_USERS}</li>
       <li>{DB_GROUPS}</li>
-      <li>{DB_COMMENTS}</li>
+      <li>
+        {DB_COMMENTS}
+        <!-- BEGIN unvalidated -->
+        (<a href="{unvalidated.URL}">{unvalidated.INFO}</a>)
+        <!-- END unvalidated -->
+      </li>
       <li>{DB_DATE}</li>
     </ul>
   </dd>
 
-  <dt></dt>
-  <dd></dd>
-
-  <dt></dt>
-  <dd></dd>
 </dl>

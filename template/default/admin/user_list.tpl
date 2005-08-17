@@ -1,3 +1,5 @@
+<h1>{lang:title_liste_users}</h1>
+
 <form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
   <fieldset>
     <legend>{lang:Add a user}</legend>
@@ -83,7 +85,6 @@
     <td>{user.EMAIL}</td>
     <td>{user.GROUPS}</td>
     <td style="text-align:center;">
-      <a href="{user.U_MOD}"><img src="./template/default/theme/profile.png" style="border:none" alt="profile" title="profile" /></a>
       <a href="{user.U_PERM}"><img src="./template/default/theme/permissions.png" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
     </td>
   </tr>

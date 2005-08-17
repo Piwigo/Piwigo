@@ -1,3 +1,5 @@
+<h1>{lang:title_groups}</h1>
+
 <form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
   <fieldset>
     <legend>{lang:Add group}</legend>
