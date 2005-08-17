@@ -141,12 +141,56 @@ $template->assign_vars(
     )
   );
 
+
+// retrieve category ids authorized to the groups the user belongs to
+$group_authorized = array();
+
+$query = '
+SELECT DISTINCT cat_id, c.uppercats, c.global_rank
+  FROM '.USER_GROUP_TABLE.' AS ug
+    INNER JOIN '.GROUP_ACCESS_TABLE.' AS ga
+      ON ug.group_id = ga.group_id
+    INNER JOIN '.CATEGORIES_TABLE.' AS c
+      ON c.id = ga.cat_id
+  WHERE ug.user_id = '.$page['user'].'
+;';
+$result = pwg_query($query);
+
+if (mysql_num_rows($result) > 0)
+{
+  $template->assign_block_vars('groups', array());
+
+  $cats = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($cats, $row);
+    array_push($group_authorized, $row['cat_id']);
+  }
+  usort($cats, 'global_rank_compare');
+
+  foreach ($cats as $category)
+  {
+    $template->assign_block_vars(
+      'groups.category',
+      array(
+        'NAME' => get_cat_display_name_cache($category['uppercats'], '', false)
+        )
+      );
+  }
+}
+
 // only private categories are listed
 $query_true = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_ACCESS_TABLE.' ON cat_id = id
   WHERE status = \'private\'
-    AND user_id = '.$page['user'].'
+    AND user_id = '.$page['user'];
+if (count($group_authorized) > 0)
+{
+  $query_true.= '
+    AND cat_id NOT IN ('.implode(',', $group_authorized).')';
+}
+$query_true.= '
 ;';
 display_select_cat_wrapper($query_true,array(),'category_option_true');
   
@@ -165,6 +209,11 @@ if (count($authorized_ids) > 0)
 {
   $query_false.= '
     AND id NOT IN ('.implode(',', $authorized_ids).')';
+}
+if (count($group_authorized) > 0)
+{
+  $query_false.= '
+    AND id NOT IN ('.implode(',', $group_authorized).')';
 }
 $query_false.= '
 ;';

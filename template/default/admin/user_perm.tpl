@@ -1,7 +1,21 @@
 <h1>{TITLE}</h1>
 
-<form method="post" action="{F_ACTION}">
-  {DOUBLE_SELECT}
-</form>
+<!-- BEGIN groups -->
+<fieldset>
+  <legend>{lang:Categories authorized thanks to group associations}</legend>
 
-<p>{lang:Only private categories are listed}</p>
+  <ul>
+    <!-- BEGIN category -->
+    <li>{groups.category.NAME}</li>
+    <!-- END category -->
+  </ul>
+</fieldset>
+<!-- END groups -->
+
+<fieldset>
+  <legend>{lang:Other private categories}</legend>
+
+  <form method="post" action="{F_ACTION}">
+    {DOUBLE_SELECT}
+  </form>
+</fieldset>
