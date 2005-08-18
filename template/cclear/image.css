@@ -1,0 +1,120 @@
+#imageHeaderBar {
+    padding: 2px 10px;
+    margin: 4px 0;
+}
+#imageHeaderBar .browsePath { float: left; }
+#imageHeaderBar .imageNumber { float: right; }
+
+#imageHeaderBar H1 {
+    margin: 1ex 0; /* override default-layout for less bottom-margin */
+}
+
+#imageToolBar {
+    text-align: left;
+    position: relative;
+    clear: both;
+    margin: 4px 0; padding: 0;
+}
+
+/* Moi, je preferais les boutons "imgPrec" et "imgSuiv" au milieu, au-dessus
+de l'image...
+
+#imageToolBar IMG, #imageToolBar A {
+    display: inline;
+    border: none; margin: auto; padding: 0;
+}
+
+#imageToolBar .randomButtons {
+    position: absolute;
+    left: 0;
+}
+#imageToolBar .randomButtons IMG {
+    padding: 0 4px; /* au pire: 3 * (4+24+4) = 96 < 100 * /
+}
+
+#imageToolBar .prevNnext {
+    text-align: center;
+}
+#imageToolBar .prevNnext IMG {
+    padding: 0 100px;
+}
+*/
+
+#imageToolBar {
+    height: 28px;
+}
+#imageToolBar A, #imageToolBar IMG {
+    display: block;
+    border: none;
+    margin: 0; padding: 0;
+}
+#imageToolBar A { width: 48px; }
+#imageToolBar IMG { margin: 2px auto; }
+#imageToolBar .randomButtons A { float: left; }
+#imageToolBar .navButtons    A { float: right; }
+
+#theImage {
+    clear: left;
+}
+
+#theImage * {
+    display: block;
+    margin: 0 auto;
+}
+
+.navThumb.prev {
+    float: left;
+}
+
+.navThumb.next {
+    float: right;
+}
+
+TABLE.infoTable {
+    margin: auto;
+}
+TABLE.infoTable TD {
+    text-align: left;
+}
+
+TABLE.infoTable .label {
+    font-weight: bold;
+}
+
+#comments {
+    text-align: left;
+}
+
+#comments .comment {
+    margin: 3ex 0;
+}
+
+#comments H2 {
+    margin: 1ex 0;
+}
+
+#comments P {
+    margin: 0;
+}
+
+#comments .author {
+    font-weight: bold;
+}
+
+#comments BLOCKQUOTE {
+    margin: 1ex 0 1ex 2em;
+    padding: 4px 4px 0 /* IE bug */ 4px;
+}
+
+#comments BLOCKQUOTE P {
+    margin: 0;
+    padding-bottom: 4px; /* IE bug follow-up */
+}
+#comments BLOCKQUOTE P+P {
+    margin-top: 1ex;
+}
+
+#comments P.userCommentDelete {
+    float: right;
+    margin: 0;
+}

@@ -1,0 +1,134 @@
+BODY {
+	color:#696969; /* dimgray */
+    /*color:#111111;*/
+    background: #ffffff;
+}
+
+H1 {
+    color: #696969;
+    background: transparent;
+}
+
+H2 {
+    color: #696969;
+    background: #d3d3d3;
+}
+
+H3 {
+    color: #696969;
+    background: #ffffff;
+}
+
+A {
+    color: #005e89;
+    background: transparent;
+}
+
+A:hover {
+    color: #754300;
+}
+
+
+.pleaseNote {
+    background: #9c9c9c;
+    color: #ffff99;
+    padding: 1ex;
+    font-weight: bold;
+}
+
+#imageHeaderBar {
+    background: #d3d3d3;
+}
+#imageToolBar {
+    background: #eeeeee;
+    border: 1px solid #d3d3d3;
+}
+#imageToolBar * {
+    background: inherit;
+}
+
+#imageToolBar A, #imageToolBar A:hover {
+    border-bottom: none;
+}
+#imageToolBar A:hover {
+    background: #d3d3d3;
+}
+
+#theImage IMG {
+    border: 3px solid #d3d3d3;
+}
+A.navThumb, A.navThumb:hover {
+    border-bottom: none;
+}
+
+
+#categoryContent {
+    border: 1px solid #d3d3d3;
+    background:#eeeeee;
+}
+
+#categoryContent H2 {
+    text-align: left;
+}
+
+#categoryContent H3 {
+    text-align: center;
+}
+
+#categoryContent UL.thumbnail IMG {
+    border: 1px solid #a0a0a0;
+}
+
+/* So that non-links are slightly greyed out */
+#categoryContent .navigationBar {
+    color: #696969;
+}
+#categoryContent .pageNumberSelected {
+    color: #000000;
+}
+
+
+#menubar DL {
+    border: 1px solid #d3d3d3;
+    background: #eeeeee;
+}
+
+#menubar DT {
+    color: #696969;
+    background: #d3d3d3;
+}
+
+#menubar DD {
+    background:#eeeeee;
+}
+
+
+#comments BLOCKQUOTE {
+    background: #eeeeee;
+    border-left: 2px solid #696969;
+}
+
+/* Tables & forms */
+.throw {
+	background-color:white;
+}
+input, select, textarea {
+	color:black;
+	background-color:#eee;
+}
+.bouton {
+	background-color:#d3d3d3;
+}
+.errors { /* Errors display */
+	color:red;
+	background-color:#ffe1e1;
+	font-weight:bold;
+	text-align:left;
+	margin:5px;
+	border:1px solid red;
+}
+.errors ul li
+{
+	font-weight:normal;
+}
+

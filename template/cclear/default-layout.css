@@ -1,0 +1,122 @@
+
+@import "menubar.css";
+@import "categoryContent.css";
+@import "image.css";
+
+/* * { padding: 0 !important; margin: 0 !important; } */
+
+BODY {
+    margin: 5px;
+    padding: 0;
+    font-size: 100%;
+    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    text-align: center; /* be nice to IE5 */
+}
+
+#the_page {
+    margin: 0; padding: 0;
+    /* border: 1px solid #000000; */
+    width: 100%;
+}
+
+H1 {
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+    padding: 0; margin: 1ex 0 2ex 0;
+}
+
+H2 {
+    margin: 0;
+    padding: 5px 10px;
+    text-align: left;
+    font-size: 120%;
+}
+
+A {
+    text-decoration:none;
+    border-bottom: 1px dotted #000000;
+}
+A:hover {
+    border-bottom-style: solid;
+}
+
+IMG {
+    border: none;
+}
+
+#copyright {
+    clear: both;
+    font-size: 83%;
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+/** General defaults **/
+ul { text-align: left;}
+
+/** forms **/
+div.formbox {
+  width: 70%;
+  margin: 0 auto 1em auto;
+}
+/* form row are dl instead of table rows */
+form dl {
+  text-align: left;   /* must set it there otherwise IE render dl.biglabel dt incorectly */
+  margin-top: 0;
+  margin-bottom: 0;
+    font-size: 100%; /* TO DO : alignement pb in Opera !!!*/
+}
+form dt {
+  float: left;
+  /*text-align: left;*/
+  width: 60%;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+form dd {
+  /*text-align: left;*/
+  /*margin-top: 0.5em;*/
+  margin:0;
+  padding:0;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+/* we must use one dl.biglabel per <dt><dl> because of positionning */
+form dl.biglabel {
+  position: relative; /* to allow position: absolute in dd*/
+}
+form dl.biglabel dt {
+  float: none;
+}
+
+form dl.biglabel dd {
+  /*float: right; do not whant to float ????*/
+  /*width: 60%;*/
+  position: absolute;
+  top: 0;
+  left: 60%; /* same as form dt width */
+}
+form dl.biglabel dd { padding-left:2px;} /* IE */
+form dl.biglabel>dd { padding-left:0;}	/* other browsers */
+
+form p {
+	text-align: center;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+form table {
+	width: 99%; /* IE 6 seems to dislike 100% in admin->user */
+}
+.small {
+	font-size: 80%;
+}
+
+/** go to an admin.css ? **/
+.table2 {
+	border: 1px solid #000000; 
+	margin:	auto 10px auto 10px;
+	padding:0px;
+}
+form#add_virtual p { text-align: left; }
