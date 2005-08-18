@@ -1,6 +1,14 @@
 2005-08-18 Pierrick LE GALL
 
-	* bug 133 fixed : "Nb of images incorectly rendered in "tool tip"
+	* bug 133 fixed : (report from branch 1.4) Deleting user favorites
+	is too restrictive. Instead of deleting a favorite because it
+	belongs to at least one forbidden category, a favorite is deleted
+	if it belongs to no authorized category (which was the expected
+	behaviour).
+
+2005-08-18 Pierrick LE GALL
+
+	* bug 134 fixed : "Nb of images incorectly rendered in "tool tip"
 	near category in category menu". Correction reported (and
 	improved) from branch 1.4
 

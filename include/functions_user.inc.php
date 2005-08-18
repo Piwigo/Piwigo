@@ -9,6 +9,7 @@
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -235,26 +236,42 @@ function check_user_favorites()
   {
     return;
   }
-  
+
+  // retrieving images allowed : belonging to at least one authorized
+  // category
   $query = '
-SELECT f.image_id
+SELECT DISTINCT f.image_id
   FROM '.FAVORITES_TABLE.' AS f INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON f.image_id = ic.image_id
   WHERE f.user_id = '.$user['id'].'
-    AND ic.category_id IN ('.$user['forbidden_categories'].')
+    AND ic.category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
   $result = pwg_query($query);
-  $elements = array();
+  $authorizeds = array();
   while ($row = mysql_fetch_array($result))
   {
-    array_push($elements, $row['image_id']);
+    array_push($authorizeds, $row['image_id']);
   }
 
-  if (count($elements) > 0)
+  $query = '
+SELECT image_id
+  FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+  $result = pwg_query($query);
+  $favorites = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($favorites, $row['image_id']);
+  }
+
+  $to_deletes = array_diff($favorites, $authorizeds);
+
+  if (count($to_deletes) > 0)
   {
     $query = '
 DELETE FROM '.FAVORITES_TABLE.'
-  WHERE image_id IN ('.implode(',', $elements).')
+  WHERE image_id IN ('.implode(',', $to_deletes).')
     AND user_id = '.$user['id'].'
 ;';
     pwg_query($query);
