@@ -1,4 +1,5 @@
-<h1>{lang:title_default}</h1>
+<!-- $Id$ -->
+<h2>{lang:title_default}</h2>
 
 <dl>
   <dt>{lang:PhpWebGallery version}</dt>

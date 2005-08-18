@@ -56,6 +56,14 @@
     text-align: left;
 }
 
+/* content defaults */
+#content dl, dd { margin: 10px; }
+#content dt {
+  margin-bottom: 5px;
+  font-style: italic;
+  font-size: 110%;
+}
+
 /* actions */
 div.titrePage ul.categoryActions {
   float: right;

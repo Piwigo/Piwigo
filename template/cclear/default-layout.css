@@ -55,7 +55,7 @@ IMG {
 }
 
 /** General defaults **/
-ul { text-align: left;}
+ul, dl { text-align: left;}
 
 /** forms **/
 div.formbox {

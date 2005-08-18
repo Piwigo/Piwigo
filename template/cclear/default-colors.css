@@ -62,28 +62,28 @@ A.navThumb, A.navThumb:hover {
 }
 
 
-#categoryContent {
+#content {
     border: 1px solid #d3d3d3;
     background:#eeeeee;
 }
 
-#categoryContent H2 {
+#content H2 {
     text-align: left;
 }
 
-#categoryContent H3 {
+#content H3 {
     text-align: center;
 }
 
-#categoryContent UL.thumbnail IMG {
+#content UL.thumbnail IMG {
     border: 1px solid #a0a0a0;
 }
 
 /* So that non-links are slightly greyed out */
-#categoryContent .navigationBar {
+#content .navigationBar {
     color: #696969;
 }
-#categoryContent .pageNumberSelected {
+#content .pageNumberSelected {
     color: #000000;
 }
 
