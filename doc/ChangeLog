@@ -1,5 +1,11 @@
 2005-08-18 Pierrick LE GALL
 
+	* bug 133 fixed : "Nb of images incorectly rendered in "tool tip"
+	near category in category menu". Correction reported (and
+	improved) from branch 1.4
+
+2005-08-18 Pierrick LE GALL
+
 	* improvement : screen admin/picture_modify
 	rewritten. Presentation copied from admin/cat_modify : fieldsets
 	regroup fields. Ability to synchronize metadata for the displayed

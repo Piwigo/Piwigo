@@ -394,24 +394,21 @@ function get_html_menu_category($categories)
     }
 
     $menu.= '
-           <a href="'.$url.'"
-              title="'.$lang['hint_category'].'"
-              class="'.$class.'">
-             '.$category['name'].'
-           </a>';
+             <a href="'.$url.'" class="'.$class.'">'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
     {
       $menu.= '
-             <span class="menuInfoCat"
-                   title="'.$category['nb_images'].'
-                          '.$lang['images_available'].'">
-             ['.$category['nb_images'].']
-             </span>
-             '.get_icon($category['date_last']);
+             <span class="menuInfoCat"';
+      $menu.= ' title="'.$category['nb_images'];
+      $menu.= ' '.$lang['images_available'].'">';
+      $menu.= '['.$category['nb_images'].']';
+      $menu.= '</span>';
+      $menu.= get_icon($category['date_last']);
     }
 
-    $menu.= '</li>';
+    $menu.= '
+           </li>';
   }
   
   $menu.= '
