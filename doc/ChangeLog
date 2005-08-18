@@ -1,3 +1,24 @@
+2005-08-18 Pierrick LE GALL
+
+	* improvement : screen admin/picture_modify
+	rewritten. Presentation copied from admin/cat_modify : fieldsets
+	regroup fields. Ability to synchronize metadata for the displayed
+	item.
+
+	* bug 110 fixed : "return to element view from element edition
+	fails depending on permissions". If a reachable (for the connected
+	admin) category is available, a "jump to" link is displayed, by
+	default, using the category given in URL.
+
+	* bug fixed : in mass_updates function, the first item of
+	$fields['update'] has not always 0 for id (as in any array).
+
+	* modification : get_keywords function understands spaces as
+	separator, allow less than 3 chars keywords, allow quotes.
+
+	* new : ability to allow HTML in picture or category description
+	(false by default)
+
 2005-08-17 Pierrick LE GALL
 
 	* improvement : in admin/user_perm, already authorized categories

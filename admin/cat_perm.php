@@ -201,11 +201,11 @@ $template->set_filenames(array('cat_perm'=>'admin/cat_perm.tpl'));
 
 $template->assign_vars(
   array(
-    'TITLE' =>
-      sprintf(
-        l10n('Manage permissions for category "%s"'),
-        get_cat_display_name_from_id($page['cat'])
-        )
+    'CATEGORIES_NAV' =>
+      get_cat_display_name_from_id(
+        $page['cat'],
+        'admin.php?page=cat_modify&amp;cat_id='
+        ),
     'F_ACTION' =>
       add_session_id(
         PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat='.$page['cat']

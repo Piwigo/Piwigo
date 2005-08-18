@@ -426,6 +426,11 @@ form#categoryOrdering ul.categoryActions {
   margin-top: 5px;
 }
 
+ul.categoryActions {
+  margin: 5px;
+  padding: 5px;
+}
+
 div.titrePage ul.categoryActions {
   float: right;
   margin: 0;
@@ -604,4 +609,10 @@ div#adminMain>fieldset {
 
 fieldset>legend {
   font-style: italic;
+}
+
+div#adminMain img.thumbnail {
+  border: 1px solid white;
+  margin: 0 auto;
+  display: block;
 }

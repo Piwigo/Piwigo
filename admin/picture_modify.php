@@ -27,61 +27,93 @@
 
 if(!defined("PHPWG_ROOT_PATH"))
 {
-  die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
-//--------------------------------------------------------- update informations
-// first, we verify whether there is a mistake on the given creation date
-if (isset($_POST['date_creation']) and !empty($_POST['date_creation']))
+
+// +-----------------------------------------------------------------------+
+// |                          synchronize metadata                         |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['sync_metadata']))
 {
-  if (!check_date_format($_POST['date_creation']))
+  $query = '
+SELECT path
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$_GET['image_id'].'
+;';
+  list($path) = mysql_fetch_row(pwg_query($query));
+  update_metadata(array($_GET['image_id'] => $path));
+
+  array_push($page['infos'], l10n('Metadata synchronized from file'));
+}
+
+//--------------------------------------------------------- update informations
+
+// first, we verify whether there is a mistake on the given creation date
+if (isset($_POST['date_creation_action'])
+    and 'set' == $_POST['date_creation_action'])
+{
+  if (!checkdate(
+        $_POST['date_creation_month'],
+        $_POST['date_creation_day'],
+        $_POST['date_creation_year'])
+    )
   {
     array_push($page['errors'], $lang['err_date']);
   }
 }
+
 if (isset($_POST['submit']) and count($page['errors']) == 0)
 {
-  $query = 'UPDATE '.IMAGES_TABLE.' SET name = ';
-  if ($_POST['name'] == '')
-    $query.= 'NULL';
-  else
-    $query.= "'".htmlentities($_POST['name'], ENT_QUOTES)."'";
-  
-  $query.= ', author = ';
-  if ($_POST['author'] == '')
-    $query.= 'NULL';
-  else
-    $query.= "'".htmlentities($_POST['author'],ENT_QUOTES)."'";
+  $data = array();
+  $data{'id'} = $_GET['image_id'];
+  $data{'name'} = $_POST['name'];
+  $data{'author'} = $_POST['author'];
 
-  $query.= ', comment = ';
-  if ($_POST['comment'] == '')
-    $query.= 'NULL';
-  else
-    $query.= "'".htmlentities($_POST['comment'],ENT_QUOTES)."'";
-
-  $query.= ', date_creation = ';
-  if (!empty($_POST['date_creation']))
-    $query.= "'".date_convert($_POST['date_creation'])."'";
-  else if ($_POST['date_creation'] == '')
-    $query.= 'NULL';
-
-  $query.= ', keywords = ';
-  $keywords_array = get_keywords($_POST['keywords']);
-  if (count($keywords_array) == 0)
-    $query.= 'NULL';
+  if ($conf['allow_html_descriptions'])
+  {
+    $data{'comment'} = @$_POST['description'];
+  }
   else
   {
-    $query.= "'";
-    foreach ($keywords_array as $i => $keyword) {
-      if ($i > 0) $query.= ',';
-      $query.= $keyword;
-    }
-    $query.= "'";
+    $data{'comment'} = strip_tags(@$_POST['description']);
   }
 
-  $query.= ' WHERE id = '.$_GET['image_id'];
-  $query.= ';';
-  pwg_query($query);
+  if (isset($_POST['date_creation_action']))
+  {
+    if ('set' == $_POST['date_creation_action'])
+    {
+      $data{'date_creation'} = $_POST['date_creation_year']
+                                 .'-'.$_POST['date_creation_month']
+                                 .'-'.$_POST['date_creation_day'];
+    }
+    else if ('unset' == $_POST['date_creation_action'])
+    {
+      $data{'date_creation'} = '';
+    }
+  }
+
+  $keywords = get_keywords($_POST['keywords']);
+  if (count($keywords) > 0)
+  {
+    $data{'keywords'} = implode(',', $keywords);
+  }
+  else
+  {
+    $data{'keywords'} = '';
+  }
+
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array_diff(array_keys($data), array('id'))
+      ),
+    array($data)
+    );
+
+  array_push($page['infos'], l10n('Picture informations updated'));
 }
 // associate the element to other categories than its storage category
 if (isset($_POST['associate'])
@@ -137,85 +169,175 @@ if (isset($_POST['dismiss'])
 
 // retrieving direct information about picture
 $query = '
-SELECT i.*, c.uppercats
-  FROM '.IMAGES_TABLE.' AS i
-   INNER JOIN '.CATEGORIES_TABLE.' AS c ON i.storage_category_id = c.id
-  WHERE i.id = '.$_GET['image_id'].'
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$_GET['image_id'].'
 ;';
 $row = mysql_fetch_array(pwg_query($query));
 
 $storage_category_id = $row['storage_category_id'];
 
-if (empty($row['name']))
-{
-  $title = str_replace('_', ' ',get_filename_wo_extension($row['file']));
-}
-else
-{
-  $title = $row['name'];
-}
 // Navigation path
-$thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
-$url_img = PHPWG_ROOT_PATH.'picture.php?image_id='.$_GET['image_id'];
-$url_img .= '&amp;cat='.$row['storage_category_id'];
 $date = isset($_POST['date_creation']) && empty($page['errors'])
 ?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
 
-$url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
-$storage_category = get_cat_display_name_cache($row['uppercats'],
-                                               $url,
-                                               false);
-//----------------------------------------------------- template initialization
+// +-----------------------------------------------------------------------+
+// |                             template init                             |
+// +-----------------------------------------------------------------------+
+
 $template->set_filenames(
   array(
     'picture_modify' => 'admin/picture_modify.tpl'
     )
   );
 
-$template->assign_vars(array(
-  'TITLE_IMG'=>$title,
-  'STORAGE_CATEGORY_IMG'=>$storage_category,
-  'PATH_IMG'=>$row['path'],
-  'FILE_IMG'=>$row['file'],
-  'TN_URL_IMG'=>$thumbnail_url,
-  'URL_IMG'=>add_session_id($url_img),
-  'DEFAULT_NAME_IMG'=>str_replace('_',' ',get_filename_wo_extension($row['file'])),
-  'FILE_IMG'=>$row['file'],
-  'NAME_IMG'=>isset($_POST['name'])?$_POST['name']:@$row['name'],
-  'SIZE_IMG'=>@$row['width'].' * '.@$row['height'],
-  'FILESIZE_IMG'=>@$row['filesize'].' KB',
-  'REGISTRATION_DATE_IMG'
-  => format_date($row['date_available'], 'mysql_datetime', true),
-  'AUTHOR_IMG'=>isset($_POST['author'])?$_POST['author']:@$row['author'],
-  'CREATION_DATE_IMG'=>$date,
-  'KEYWORDS_IMG'=>isset($_POST['keywords'])?$_POST['keywords']:@$row['keywords'],
-  'COMMENT_IMG'=>isset($_POST['comment'])?$_POST['comment']:@$row['comment'],
+$template->assign_vars(
+  array(
+    'U_SYNC' =>
+      add_session_id(
+        PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
+        '&amp;image_id='.$_GET['image_id'].
+        (isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '').
+        '&amp;sync_metadata=1'
+        ),
+    
+    'PATH'=>$row['path'],
+    
+    'TN_SRC' => get_thumbnail_src($row['path'], @$row['tn_ext']),
+    
+    'NAME' =>
+      isset($_POST['name']) ?
+        stripslashes($_POST['name']) : @$row['name'],
+    
+    'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
+    
+    'FILESIZE' => @$row['filesize'].' KB',
+    
+    'REGISTRATION_DATE' =>
+      format_date($row['date_available'], 'mysql_datetime', false),
+    
+    'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
+    
+    'CREATION_DATE' => $date,
+    
+    'KEYWORDS' =>
+      isset($_POST['keywords']) ?
+        stripslashes($_POST['keywords']) : @$row['keywords'],
+    
+    'DESCRIPTION' =>
+      isset($_POST['description']) ?
+        stripslashes($_POST['description']) : @$row['comment'],
   
-  'L_UPLOAD_NAME'=>$lang['upload_name'],
-  'L_DEFAULT'=>$lang['default'],
-  'L_FILE'=>$lang['file'],
-  'L_SIZE'=>$lang['size'],
-  'L_FILESIZE'=>$lang['filesize'],
-  'L_REGISTRATION_DATE'=>$lang['registration_date'],
-  'L_AUTHOR'=>$lang['author'],
-  'L_CREATION_DATE'=>$lang['creation_date'],
-  'L_KEYWORDS'=>$lang['keywords'],
-  'L_COMMENT'=>$lang['description'],
-  'L_CATEGORIES'=>$lang['categories'],
-  'L_DISSOCIATE'=>$lang['dissociate'],
-  'L_INFOIMAGE_ASSOCIATE'=>$lang['infoimage_associate'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_RESET'=>$lang['reset'],
-  'L_CAT_ASSOCIATED'=>$lang['infoimage_associated'],
-  'L_CAT_DISSOCIATED'=>$lang['infoimage_dissociated'],
-  'L_PATH'=>$lang['path'],
-  'L_STORAGE_CATEGORY'=>$lang['storage_category'],
-  'L_REPRESENTS'=>$lang['represents'],
-  'L_DOESNT_REPRESENT'=>$lang['doesnt_represent'],
+    'F_ACTION' =>
+      add_session_id(
+        PHPWG_ROOT_PATH.'admin.php'
+        .get_query_string_diff(array('sync_metadata'))
+        )
+    )
+  );
+
+// creation date
+unset($day, $month, $year);
+
+if (isset($_POST['date_creation_action'])
+    and 'set' == $_POST['date_creation_action'])
+{
+  foreach (array('day', 'month', 'year') as $varname)
+  {
+    $$varname = $_POST['date_creation_'.$varname];
+  }
+}
+else if (isset($row['date_creation']) and !empty($row['date_creation']))
+{
+  list($year, $month, $day) = explode('-', $row['date_creation']);
+}
+else
+{
+  list($year, $month, $day) = array('', 0, 0);
+}
+get_day_list('date_creation_day', $day);
+get_month_list('date_creation_month', $month);
+$template->assign_vars(array('DATE_CREATION_YEAR_VALUE' => $year));
   
-  'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?'.$_SERVER['QUERY_STRING'])
- ));
+$query = '
+SELECT category_id, uppercats
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
+    INNER JOIN '.CATEGORIES_TABLE.' AS c
+      ON c.id = ic.category_id
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+$result = pwg_query($query);
+
+if (mysql_num_rows($result) > 1)
+{
+  $template->assign_block_vars('links', array());
+}
+
+while ($row = mysql_fetch_array($result))
+{
+  $name =
+    get_cat_display_name_cache(
+      $row['uppercats'],
+      PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
+      false
+      );
+    
+  if ($row['category_id'] == $storage_category_id)
+  {
+    $template->assign_vars(array('STORAGE_CATEGORY' => $name));
+  }
+  else
+  {
+    $template->assign_block_vars('links.category', array('NAME' => $name));
+  }
+}
+
+// jump to link
+//
+// 1. find all linked categories that are reachable for the current user.
+// 2. if a category is available in the URL, use it if reachable
+// 3. if URL category not available or reachable, use the first reachable
+//    linked category
+// 4. if no category reachable, no jumpto link
+$base_url_img = PHPWG_ROOT_PATH.'picture.php';
+$base_url_img.= '?image_id='.$_GET['image_id'];
+$base_url_img.= '&amp;cat=';
+unset($url_img);
+
+$query = '
+SELECT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+$authorizeds = array_diff(
+  array_from_query($query, 'category_id'),
+  explode(',', calculate_permissions($user['id'], $user['status']))
+  );
+
+if (isset($_GET['cat_id'])
+    and in_array($_GET['cat_id'], $authorizeds))
+{
+  $url_img = $base_url_img.$_GET['cat_id'];
+}
+else
+{
+  foreach ($authorizeds as $category)
+  {
+    $url_img = $base_url_img.$category;
+    break;
+  }
+}
+
+if (isset($url_img))
+{
+  $template->assign_block_vars(
+    'jumpto',
+    array(
+      'URL' => $url_img
+      )
+    );
+}
   
 // associate to another category ?
 $query = '
@@ -257,7 +379,6 @@ SELECT id,name,uppercats,global_rank
 display_select_cat_wrapper($query, array(), 'dismissed_option');
 
 //----------------------------------------------------------- sending html code
-
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'picture_modify');
 ?>

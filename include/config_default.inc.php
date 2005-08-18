@@ -265,4 +265,8 @@ $conf['guest_id'] = 2;
 // must update categories informations in screen [Admin > General >
 // Maintenance].
 $conf['allow_random_representative'] = false;
+
+// allow_html_descriptions : authorize administrators to use HTML in
+// category and element description.
+$conf['allow_html_descriptions'] = true;
 ?>

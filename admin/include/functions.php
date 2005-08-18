@@ -582,23 +582,23 @@ function date_convert_back( $date )
   }
 }
 
-// get_keywords returns an array with relevant keywords found in the string
-// given in argument. Keywords must be separated by comma in this string.
-// keywords must :
-//   - be longer or equal to 3 characters
-//   - not contain ', " or blank characters
-//   - unique in the string ("test,test" -> "test")
-function get_keywords( $keywords_string )
+/**
+ * returns an array with relevant keywords found in the given string.
+ *
+ * Keywords must be separated by comma or space characters.
+ *
+ * @param string keywords_string
+ * @return array
+ */
+function get_keywords($keywords_string)
 {
-  $keywords = array();
-
-  $candidates = explode( ',', $keywords_string );
-  foreach ( $candidates as $candidate ) {
-    if ( strlen($candidate) >= 3 and !preg_match( '/(\'|"|\s)/', $candidate ) )
-      array_push( $keywords, $candidate );
-  }
-
-  return array_unique( $keywords );
+  return
+    array_unique(
+      preg_split(
+        '/[\s,]+/',
+        $keywords_string
+        )
+      );
 }
 
 /**
@@ -742,14 +742,15 @@ function mass_updates($tablename, $dbfields, $datas)
       $query = '
 UPDATE '.$tablename.'
   SET ';
+      $is_first = true;
       foreach ($dbfields['update'] as $num => $key)
       {
-        if ($num >= 1)
+        if (!$is_first)
         {
           $query.= ",\n      ";
         }
         $query.= $key.' = ';
-        if (isset($data[$key]))
+        if (isset($data[$key]) and $data[$key] != '')
         {
           $query.= '\''.$data[$key].'\'';
         }
@@ -757,6 +758,7 @@ UPDATE '.$tablename.'
         {
           $query.= 'NULL';
         }
+        $is_first = false;
       }
       $query.= '
   WHERE ';

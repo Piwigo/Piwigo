@@ -1,4 +1,6 @@
-<h1>{TITLE}</h1>
+<h1>{lang:Manage permissions for a category}</h1>
+
+<h2>{CATEGORIES_NAV}</h2>
 
 <form action="{F_ACTION}" method="post" id="categoryPermissions">
 

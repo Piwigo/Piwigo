@@ -259,8 +259,9 @@ function get_cat_display_name($cat_informations,
     }
     else
     {
-      $output.= '
-<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">'.$name.'</a>';
+      $output.= '<a class=""';
+      $output.= ' href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">';
+      $output.= $name.'</a>';
     }
   }
   if ($replace_space)
@@ -455,6 +456,6 @@ function get_cat_display_name_from_id($cat_id,
                                       $replace_space = true)
 {
   $cat_info = get_cat_info($cat_id);
-  get_cat_display_name($cat_info['id'], $url, $replace_space);
+  return get_cat_display_name($cat_info['name'], $url, $replace_space);
 }
 ?>

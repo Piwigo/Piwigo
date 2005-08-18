@@ -39,39 +39,29 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 $template->set_filenames( array('categories'=>'admin/cat_modify.tpl') );
 
 //--------------------------------------------------------- form criteria check
-if ( isset( $_POST['submit'] ) )
+if (isset($_POST['submit']))
 {
-  $query = 'UPDATE '.CATEGORIES_TABLE;
-  $query.= ' SET name = ';
-  if ( empty($_POST['name']))
-    $query.= 'NULL';
-  else
-    $query.= "'".htmlentities( $_POST['name'], ENT_QUOTES)."'";
+  $data =
+    array(
+      'id' => $_GET['cat_id'],
+      'name' => @$_POST['name'],
+      'commentable' => $_POST['commentable'],
+      'uploadable' =>
+        isset($_POST['uploadable']) ? $_POST['uploadable'] : 'false',
+      'comment' =>
+        $conf['allow_html_descriptions'] ?
+          @$_POST['comment'] : strip_tags(@$_POST['comment'])
+      );
 
-  $query.= ', comment = ';
-  if ( empty($_POST['comment']))
-    $query.= 'NULL';
-  else
-    $query.= "'".htmlentities( $_POST['comment'], ENT_QUOTES )."'";
-
-  if ( isset( $_POST['uploadable'] ) )
-    $query.= ", uploadable = '".$_POST['uploadable']."'";
-
-  if ( isset( $_POST['commentable'] ) )
-    $query.= ", commentable = '".$_POST['commentable']."'";
-
-  if ( isset( $_POST['associate'] ) )
-  {
-    $query.= ', id_uppercat = ';
-    if ( $_POST['associate'] == -1 or $_POST['associate'] == '' )
-      $query.= 'NULL';
-    else
-      $query.= $_POST['associate'];
-  }
-  $query.= ' WHERE id = '.$_GET['cat_id'];
-  $query.= ';';
-  pwg_query( $query );
-
+  mass_updates(
+    CATEGORIES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array_diff(array_keys($data), array('id'))
+      ),
+    array($data)
+    );
+  
   set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   set_cat_status(array($_GET['cat_id']), $_POST['status']);
 
