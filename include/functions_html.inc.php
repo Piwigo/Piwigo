@@ -403,8 +403,7 @@ function get_html_menu_category($categories)
     {
       $menu.= '
              <span class="menuInfoCat"
-                   title="'.$category['nb_images'].'
-                          '.$lang['images_available'].'">
+                   title="'.$category['nb_images'].' '.$lang['images_available'].'">
              ['.$category['nb_images'].']
              </span>
              '.get_icon($category['date_last']);
