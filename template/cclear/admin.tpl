@@ -1,92 +1,93 @@
-<!-- BEGIN install_warning -->
-<div class="errors">
-  <ul>
-  <p class="install_warning">{L_INSTALL_WARNING}</p>
-  </ul>
-</div>
-
-<!-- END install_warning -->
-
+<!-- $Id$ -->
 <div id="menubar">
   <dl>
-    <dt>{L_LINKS}</dt>
+    <dt>{lang:links}</dt>
     <dd>
       <ul>
-	<li><a class="adminMenu" href="{U_RETURN}">{L_GALLERY_INDEX}</a></li>
+	<li><a href="{U_RETURN}">{lang:home}</a></li>
       </ul>
     </dd>
-  </dl>
-  <dl>
-    <dt>{L_GENERAL}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_FAQ}">{L_FAQ}</a></li>
-	<li><a class="adminMenu" href="{U_SITES}">{L_SITES}</a></li>
-	<li><a class="adminMenu" href="{U_PHPINFO}">{L_PHPINFO}</a></li>
-	<li><a class="adminMenu" href="{U_HISTORY}">{L_HISTORY}</a></li>
-	<li><a class="adminMenu" href="{U_CAT_UPDATE}">{L_UPDATE}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt>{L_CONFIGURATION}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_CONFIG_GENERAL}">{L_CONFIG_GENERAL}</a></li>
-	<li><a class="adminMenu" href="{U_CONFIG_COMMENTS}">{L_CONFIG_COMMENTS}</a></li>
-	<li><a class="adminMenu" href="{U_CONFIG_DISPLAY}">{L_CONFIG_DISPLAY}</a></li>
-	<li><a class="adminMenu" href="{U_CONFIG_UPLOAD}">{L_CONFIG_UPLOAD}</a></li>
-	<li><a class="adminMenu" href="{U_CONFIG_SESSION}">{L_CONFIG_SESSION}</a></li>
-	<li><a class="adminMenu" href="{U_CONFIG_METADATA}">{L_CONFIG_METADATA}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt>{L_CATEGORIES}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_CATEGORIES}">{L_MANAGE}</a></li>
-	<li><a class="adminMenu" href="{U_CAT_UPLOAD}">{L_CAT_UPLOAD}</a></li>
-	<li><a class="adminMenu" href="{U_CAT_COMMENTS}">{L_CAT_COMMENTS}</a></li>
-	<li><a class="adminMenu" href="{U_CAT_VISIBLE}">{L_CAT_VISIBLE}</a></li>
-	<li><a class="adminMenu" href="{U_CAT_STATUS}">{L_CAT_STATUS}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt>{L_IMAGES}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_WAITING}">{L_WAITING}</a></li>
-	<li><a class="adminMenu" href="{U_THUMBNAILS}">{L_THUMBNAILS}</a></li>
-	<li><a class="adminMenu" href="{U_COMMENTS}">{L_COMMENTS}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt>{L_IDENTIFY}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_USERS}">{L_USERS}</a></li>
-	<li><a class="adminMenu" href="{U_GROUPS}">{L_GROUPS}</a></li>
-      </ul>
-    </dd>
-  </dl>
-  <dl>
-    <dt>{L_AUTH}</dt>
-    <dd>
-      <ul>
-	<li><a class="adminMenu" href="{U_USERS_AUTH}">{L_USERS}</a></li>
-	<li><a class="adminMenu" href="{U_GROUPS_AUTH}">{L_GROUPS}</a></li>
-      </ul>
-    </dd>
-  </dl>
-</div>
 
-<div id="categoryContent">
-<!--div class="home"-->
-  <h2>{PAGE_TITLE}</h2>
-  <div>{ADMIN_CONTENT}{ADMIN_CONTENT_2}</div>
+    <dt>{lang:general}</dt>
+    <dd>
+      <ul>
+	<li><a href="{U_FAQ}">{lang:instructions}</a></li>
+	<li><a href="{U_SITES}">{lang:remote_sites}</a></li>
+	<li><a href="{U_HISTORY}">{lang:history}</a></li>
+	<li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
+	<li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
+      </ul>
+    </dd>
+
+    <dt>{lang:config}</dt>
+    <dd>
+      <ul>
+	<li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
+	<li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
+	<li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
+	<li><a href="{U_CONFIG_UPLOAD}">{lang:upload}</a></li>
+	<li><a href="{U_CONFIG_SESSION}">{lang:conf_cookie}</a></li>
+	<li><a href="{U_CONFIG_METADATA}">{lang:metadata}</a></li>
+      </ul>
+    </dd>
+
+    <dt>{lang:categories}</dt>
+    <dd>
+      <ul>
+	<li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
+	<li><a href="{U_CAT_UPLOAD}">{lang:upload}</a></li>
+	<li><a href="{U_CAT_COMMENTS}">{lang:comments}</a></li>
+	<li><a href="{U_CAT_VISIBLE}">{lang:lock}</a></li>
+	<li><a href="{U_CAT_STATUS}">{lang:cat_security}</a></li>
+	<!-- BEGIN representative -->
+	<li><a href="{representative.URL}">{lang:Representative}</a></li>
+	<!-- END representative -->
+      </ul>
+    </dd>
+
+    <dt>{lang:pictures}</dt>
+    <dd>
+      <ul>
+	<li><a href="{U_WAITING}">{lang:waiting}</a></li>
+	<li><a href="{U_THUMBNAILS}">{lang:thumbnails}</a></li>
+	<li><a href="{U_COMMENTS}">{lang:comments}</a></li>
+	<li><a href="{U_CADDIE}">{lang:Caddie}</a></li>
+      </ul>
+    </dd>
+
+    <dt>{lang:identification}</dt>
+    <dd>
+      <ul>
+	<li><a href="{U_USERS}">{lang:users}</a></li>
+	<li><a href="{U_GROUPS}">{lang:groups}</a></li>
+      </ul>
+    </dd>
+  </dl>
+</div> <!-- menubar -->
+
+<div id="content">
+  <!--h2>{PAGE_TITLE}</h2-->
+  <!-- BEGIN errors -->
+  <div id="errors">
+    <ul>
+      <!-- BEGIN error -->
+      <li>{errors.error.ERROR}</li>
+      <!-- END error -->
+    </ul>
+  </div>
+  <!-- END errors -->
+
+  <!-- BEGIN infos -->
+  <div id="infos">
+    <ul>
+      <!-- BEGIN info -->
+      <li>{infos.info.INFO}</li>
+      <!-- END info -->
+    </ul>
+  </div>
+  <!-- END infos -->
+
+  {ADMIN_CONTENT}
 </div>
 
 
