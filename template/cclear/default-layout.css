@@ -1,7 +1,9 @@
 
 @import "menubar.css";
-@import "categoryContent.css";
+@import "content.css";
 @import "image.css";
+
+/* $Id$ */
 
 /* * { padding: 0 !important; margin: 0 !important; } */
 
