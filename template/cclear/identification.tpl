@@ -24,7 +24,7 @@
 </form>
   <!-- BEGIN free_access -->
   <p><a href="./category.php">[ {L_GUEST} ]</a></p>
-  <a href="register.php"><img src="template/clear/theme/register.gif" style="border:0;" alt=""/>&nbsp;{L_REGISTER}</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+  <a href="register.php"><img src="template/cclear/theme/register.gif" style="border:0;" alt=""/>&nbsp;{L_REGISTER}</a>&nbsp;&nbsp;-&nbsp;&nbsp;
   <!-- END free_access -->
-  <a href="mailto:{MAIL_ADMIN}?subject=[PhpWebGallery] {L_FORGET}"><img src="template/clear/theme/lost.gif" style="border:0;" alt=""/>&nbsp;{L_FORGET}</a>
+  <a href="mailto:{MAIL_ADMIN}?subject=[PhpWebGallery] {L_FORGET}"><img src="template/cclear/theme/lost.gif" style="border:0;" alt=""/>&nbsp;{L_FORGET}</a>
 </div> <!--formbox-->
