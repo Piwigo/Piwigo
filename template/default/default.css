@@ -616,3 +616,14 @@ div#adminMain img.thumbnail {
   margin: 0 auto;
   display: block;
 }
+
+textarea.description {
+  height: 100px;
+  width: 500px;
+  overflow: auto;
+}
+
+fieldset.elementEdit>a {
+  display: block;
+  float: right;
+}

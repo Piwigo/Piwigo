@@ -45,17 +45,7 @@ if (isset($_POST['submit']))
 {
   $collection = explode(',', $_POST['list']);
   
-//   echo '<pre>';
-//   print_r($_POST);
-//   echo '</pre>';
-//   exit();
-
   $datas = array();
-  $dbfields =
-    array(
-      'primary' => array('id'),
-      'update' => array('name','author','comment','date_creation','keywords')
-      );
   
   $query = '
 SELECT id, date_creation
@@ -67,34 +57,70 @@ SELECT id, date_creation
   while ($row = mysql_fetch_array($result))
   {
     $data = array();
-    $data['id'] = $row['id'];
-    
-    foreach (array_diff($dbfields['update'], array('date_creation')) as $field)
+
+    $data{'id'} = $row['id'];
+    $data{'name'} = $_POST['name-'.$row['id']];
+    $data{'author'} = $_POST['author-'.$row['id']];
+
+    foreach (array('name', 'author') as $field)
     {
       if (!empty($_POST[$field.'-'.$row['id']]))
       {
-        $data[$field] = $_POST[$field.'-'.$row['id']];
+        $data{$field} = strip_tags($_POST[$field.'-'.$row['id']]);
       }
     }
-
-    if ('set' == $_POST['date_creation_action-'.$row['id']])
+    
+    if ($conf['allow_html_descriptions'])
     {
-      $data['date_creation'] =
-        $_POST['date_creation_year-'.$row['id']]
-        .'-'.$_POST['date_creation_month-'.$row['id']]
-        .'-'.$_POST['date_creation_day-'.$row['id']]
-        ;
+      $data{'comment'} = @$_POST['description-'.$row['id']];
     }
-    else if ('leave' == $_POST['date_creation_action-'.$row['id']]
-             and !empty($row['date_creation']))
+    else
     {
-      $data['date_creation'] = $row['date_creation'];
+      $data{'comment'} = strip_tags(@$_POST['description-'.$row['id']]);
+    }
+
+    if (isset($_POST['date_creation_action-'.$row['id']]))
+    {
+      if ('set' == $_POST['date_creation_action-'.$row['id']])
+      {
+        $data{'date_creation'} =
+          $_POST['date_creation_year-'.$row['id']]
+            .'-'.$_POST['date_creation_month-'.$row['id']]
+            .'-'.$_POST['date_creation_day-'.$row['id']];
+      }
+      else if ('unset' == $_POST['date_creation_action-'.$row['id']])
+      {
+        $data{'date_creation'} = '';
+      }
+    }
+    else
+    {
+      $data{'date_creation'} = $row['date_creation'];
+    }
+
+    $keywords = get_keywords($_POST['keywords-'.$row['id']]);
+    if (count($keywords) > 0)
+    {
+      $data{'keywords'} = implode(',', $keywords);
+    }
+    else
+    {
+      $data{'keywords'} = '';
     }
 
     array_push($datas, $data);
   }
-  // echo '<pre>'; print_r($datas); echo '</pre>';
-  mass_updates(IMAGES_TABLE, $dbfields, $datas);
+  
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('name','author','comment','date_creation','keywords')
+      ),
+    $datas
+    );
+  
+  array_push($page['infos'], l10n('Picture informations updated'));
 }
 
 // +-----------------------------------------------------------------------+
@@ -148,7 +174,7 @@ if (count($page['cat_elements_id']) > 0)
   $element_ids = array();
 
   $query = '
-SELECT id,path,tn_ext,name,date_creation,comment,keywords,author
+SELECT id,path,tn_ext,name,date_creation,comment,keywords,author,file
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
@@ -176,12 +202,20 @@ SELECT id,path,tn_ext,name,date_creation,comment,keywords,author
     $template->assign_block_vars(
       'element',
       array(
+        'LEGEND' =>
+          !empty($row['name']) ?
+            $row['name'] : get_name_from_file($row['file']),
+        'U_EDIT' =>
+          add_session_id(
+            PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
+            '&amp;image_id='.$row['id']
+            ),
         'ID' => $row['id'],
         'FILENAME' => $row['path'],
         'TN_SRC' => $src,
         'NAME' => @$row['name'],
         'AUTHOR' => @$row['author'],
-        'COMMENT' => @$row['comment'],
+        'DESCRIPTION' => @$row['comment'],
         'DATE_CREATION_YEAR' => $year,
         'KEYWORDS' => @$row['keywords']
         )

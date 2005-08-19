@@ -1,5 +1,10 @@
 2005-08-19 Pierrick LE GALL
 
+	* improvement : less compact presentation of screen
+	admin/element_set_unit.
+
+2005-08-19 Pierrick LE GALL
+
 	* improvement : standardization of categories navigation bar on
 	top of administration screen element_set_(global|unit),
 	cat_modify, cat_list, cat_perm.

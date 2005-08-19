@@ -104,7 +104,7 @@
 
       <tr>
         <td><strong>{lang:Description}</strong></td>
-        <td><textarea name="description" rows="5" cols="50" style="overflow:auto">{DESCRIPTION}</textarea></td>
+        <td><textarea name="description" class="description">{DESCRIPTION}</textarea></td>
       </tr>
 
     </table>
