@@ -104,13 +104,12 @@ foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 $category['is_virtual'] = empty($category['dir']) ? true : false;
 
 // Navigation path
-$url = PHPWG_ROOT_PATH.'admin.php?page=cat_list&amp;parent_id=';
-$navigation = '<a class="" href="'.add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_list').'">';
-$navigation.= $lang['home'].'</a>'.$conf['level_separator'];
+$url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
 
-$navigation.= get_cat_display_name_cache(
+$navigation = get_cat_display_name_cache(
   $category['uppercats'],
-  $url);
+  PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='
+  );
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
 $status = ($category['status']=='public')?'STATUS_PUBLIC':'STATUS_PRIVATE'; 

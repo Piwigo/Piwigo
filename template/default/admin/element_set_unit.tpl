@@ -1,4 +1,6 @@
-<div class="admin">{CATEGORY_TITLE}</div>
+<h1>{lang:Batch management}</h1>
+
+<h2>{CATEGORIES_NAV}</h2>
 
 <p style="text-align:center;">
   <a href="{U_GLOBAL_MODE}">global mode</a>

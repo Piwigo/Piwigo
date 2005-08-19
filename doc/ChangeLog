@@ -1,5 +1,13 @@
 2005-08-19 Pierrick LE GALL
 
+	* improvement : standardization of categories navigation bar on
+	top of administration screen element_set_(global|unit),
+	cat_modify, cat_list, cat_perm.
+
+	* new : direct link to admin/cat_modify from category.php.
+
+2005-08-19 Pierrick LE GALL
+
 	* modification : RSS feed work only with a given feed
 	identifier. Thus we can avoid fixed frequency notification to
 	concentrate on variable frequency notification, which is much more

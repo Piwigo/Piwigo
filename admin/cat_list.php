@@ -61,8 +61,14 @@ function save_categories_order($categories)
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
+
 $categories = array();
-$navigation = $lang['home'];
+
+$base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
+$navigation = '<a class="" href="'.add_session_id($base_url).'">';
+$navigation.= $lang['home'];
+$navigation.= '</a>';
+
 // +-----------------------------------------------------------------------+
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
@@ -195,16 +201,13 @@ while ($row = mysql_fetch_assoc($result))
   $categories[$row['rank']] = $row;
   $categories[$row['rank']]['nb_subcats'] = 0;
 }
+
 // +-----------------------------------------------------------------------+
 // |                            Navigation path                            |
 // +-----------------------------------------------------------------------+
+
 if (isset($_GET['parent_id']))
 {
-  $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
-  
-  $navigation = '<a class="" href="'.add_session_id($base_url).'">';
-  $navigation.= $lang['home'];
-  $navigation.= '</a>';
   $navigation.= $conf['level_separator'];
 
   $current_category = get_cat_info($_GET['parent_id']);

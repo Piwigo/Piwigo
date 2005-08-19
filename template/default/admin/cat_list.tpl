@@ -1,6 +1,6 @@
 <h1>{lang:title_categories}</h1>
 
-<div class="admin">{CATEGORIES_NAV}</div>
+<h2>{CATEGORIES_NAV}</h2>
 
 <form id="categoryOrdering" action="" method="post">
 

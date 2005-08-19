@@ -171,8 +171,7 @@ $template->assign_vars(array(
   'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
-  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php'),
-  'U_CADDIE'=>add_session_id(PHPWG_ROOT_PATH.'category.php'.get_query_string_diff(array('caddie')).'&amp;caddie=1')
+  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php')
   )
 );
 //-------------------------------------------------------------- external links
@@ -313,6 +312,22 @@ $template->assign_block_vars(
     'U_SUMMARY'=>add_session_id(PHPWG_ROOT_PATH.'notification.php')
 ));
 
+if (isset($page['cat'])
+    and is_numeric($page['cat'])
+    and 'admin' == $user['status'])
+{
+  $template->assign_block_vars(
+    'edit',
+    array(
+      'URL' =>
+        add_session_id(
+          PHPWG_ROOT_PATH.'admin.php?page=cat_modify'
+          .'&amp;cat_id='.$page['cat']
+          )
+      )
+    );
+}
+
 //------------------------------------------------------ main part : thumbnails
 if (isset($page['cat'])
     and ((is_numeric($page['cat']) and $page['cat_nb_images'] != 0)
@@ -329,7 +344,15 @@ if (isset($page['cat'])
 
   if ('admin' == $user['status'])
   {
-    $template->assign_block_vars('caddie', array());
+    $template->assign_block_vars(
+      'caddie',
+      array(
+        'URL' =>
+          add_session_id(
+            PHPWG_ROOT_PATH.'category.php'
+            .get_query_string_diff(array('caddie')).'&amp;caddie=1')
+        )
+      );
   }
 }
 elseif (isset($page['cat']) and $page['cat'] == 'calendar')

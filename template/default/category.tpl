@@ -91,8 +91,12 @@
             <div class="titrePage">
               <ul class="categoryActions">
                 <!-- BEGIN caddie -->
-                <li><a href="{U_CADDIE}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" /></a></li>
+                <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" /></a></li>
                 <!-- END caddie -->
+
+                <!-- BEGIN edit -->
+                <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/default/theme/category_edit.png" alt="{lang:edit}"/></a></li>
+                <!-- END edit -->
               </ul>
               {TITLE}
             </div>

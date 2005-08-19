@@ -266,7 +266,7 @@ $base_url = PHPWG_ROOT_PATH.'admin.php';
 
 $template->assign_vars(
   array(
-    'CATEGORY_TITLE'=>$page['title'],
+    'CATEGORIES_NAV'=>$page['title'],
     
     'L_SUBMIT'=>$lang['submit'],
 

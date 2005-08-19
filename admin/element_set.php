@@ -104,7 +104,12 @@ DELETE
 if (is_numeric($_GET['cat']))
 {
   $cat_infos = get_cat_info($_GET['cat']);
-  $page['title'] = get_cat_display_name($cat_infos['name'], '', false);
+  $page['title'] =
+    get_cat_display_name(
+      $cat_infos['name'],
+      PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
+      false
+      );
   
   $query = '
 SELECT image_id
