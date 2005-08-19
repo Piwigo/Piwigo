@@ -1292,6 +1292,7 @@ SELECT user_id
   // table
   $tables =
     array(
+      USER_FEED_TABLE,
       USER_INFOS_TABLE,
       USER_ACCESS_TABLE,
       USER_CACHE_TABLE,

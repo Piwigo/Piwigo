@@ -304,14 +304,13 @@ $template->assign_block_vars('summary', array(
 'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
 ));
 
-// notification feed
+// notification
 $template->assign_block_vars(
   'summary',
   array(
-    'TITLE'=>l10n('RSS notification feed'),
-    'NAME'=>l10n('Notification feed'),
-    'U_SUMMARY'=>
-    'feed.php'.($user['is_the_guest'] ? '?feed='.$user['feed_id'] : '')
+    'TITLE'=>l10n('notification'),
+    'NAME'=>l10n('Notification'),
+    'U_SUMMARY'=>add_session_id(PHPWG_ROOT_PATH.'notification.php')
 ));
 
 //------------------------------------------------------ main part : thumbnails

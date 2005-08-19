@@ -224,6 +224,18 @@ CREATE TABLE `phpwebgallery_user_cache` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_user_feed`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_user_feed`;
+CREATE TABLE `phpwebgallery_user_feed` (
+  `id` varchar(50) binary NOT NULL default '',
+  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `last_check` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_user_group`
 --
 
@@ -251,8 +263,6 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `show_nb_comments` enum('true','false') NOT NULL default 'false',
   `recent_period` tinyint(3) unsigned NOT NULL default '7',
   `template` varchar(255) NOT NULL default 'default',
-  `last_feed_check` datetime default NULL,
-  `feed_id` varchar(50) binary default NULL,
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   UNIQUE KEY `user_infos_ui1` (`user_id`)
 ) TYPE=MyISAM;

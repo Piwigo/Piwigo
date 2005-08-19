@@ -72,6 +72,16 @@ DELETE
     pwg_query($query);
     break;
   }
+  case 'feeds' :
+  {
+    $query = '
+DELETE
+  FROM '.USER_FEED_TABLE.'
+  WHERE last_check IS NULL
+;';
+    pwg_query($query);
+    break;
+  }
   default :
   {
     break;
@@ -91,7 +101,8 @@ $template->assign_vars(
     'U_MAINT_CATEGORIES' => add_session_id($start_url.'categories'),
     'U_MAINT_IMAGES' => add_session_id($start_url.'images'),
     'U_MAINT_HISTORY' => add_session_id($start_url.'history'),
-    'U_MAINT_SESSIONS' => add_session_id($start_url.'sessions')
+    'U_MAINT_SESSIONS' => add_session_id($start_url.'sessions'),
+    'U_MAINT_FEEDS' => add_session_id($start_url.'feeds'),
     )
   );
   

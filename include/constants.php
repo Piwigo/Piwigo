@@ -52,6 +52,7 @@ define('USER_ACCESS_TABLE', $prefixeTable.'user_access');
 define('USER_GROUP_TABLE', $prefixeTable.'user_group');
 define('USERS_TABLE', $conf['users_table']);
 define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
+define('USER_FEED_TABLE', $prefixeTable.'user_feed');
 define('WAITING_TABLE', $prefixeTable.'waiting');
 define('IMAGE_METADATA_TABLE', $prefixeTable.'image_metadata');
 define('RATE_TABLE', $prefixeTable.'rate');

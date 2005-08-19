@@ -429,8 +429,8 @@ function find_available_feed_id()
     $key = generate_key(50);
     $query = '
 SELECT COUNT(*)
-  FROM '.USER_INFOS_TABLE.'
-  WHERE feed_id = \''.$key.'\'
+  FROM '.USER_FEED_TABLE.'
+  WHERE id = \''.$key.'\'
 ;';
     list($count) = mysql_fetch_row(pwg_query($query));
     if (0 == $count)
@@ -460,7 +460,6 @@ function create_user_infos($user_id)
       'nb_line_page' => $conf['nb_line_page'],
       'language' => $conf['default_language'],
       'recent_period' => $conf['recent_period'],
-      'feed_id' => find_available_feed_id(),
       'expand' => boolean_to_string($conf['auto_expand']),
       'show_nb_comments' => boolean_to_string($conf['show_nb_comments']),
       'maxwidth' => $conf['default_maxwidth'],

@@ -269,4 +269,10 @@ $conf['allow_random_representative'] = false;
 // allow_html_descriptions : authorize administrators to use HTML in
 // category and element description.
 $conf['allow_html_descriptions'] = true;
+
+// gallery_title : Title for RSS feed
+$conf['gallery_title'] = 'PhpWebGallery demo';
+
+// galery_url : URL given in RSS feed
+$conf['gallery_url'] = 'http://demo.phpwebgallery.net';
 ?>

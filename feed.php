@@ -268,18 +268,23 @@ if (isset($_GET['feed'])
     and preg_match('/^[A-Za-z0-9]{50}$/', $_GET['feed']))
 {
   $query = '
-SELECT user_id AS id,
-       status,
-       last_feed_check
-  FROM '.USER_INFOS_TABLE.'
-  WHERE feed_id = \''.$_GET['feed'].'\'
+SELECT uf.user_id AS id,
+       ui.status,
+       uf.last_check,
+       u.'.$conf['user_fields']['username'].' AS username
+  FROM '.USER_FEED_TABLE.' AS uf
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON ui.user_id = uf.user_id
+    INNER JOIN '.USERS_TABLE.' AS u
+      ON u.'.$conf['user_fields']['id'].' = uf.user_id
+  WHERE uf.id = \''.$_GET['feed'].'\'
 ;';
   $user = mysql_fetch_array(pwg_query($query));
 }
 else
 {
-  $user = array('id' => $conf['guest_id'],
-                'status' => 'guest');
+  echo l10n('Unknown feed identifier');
+  exit();
 }
 
 $user['forbidden_categories'] = calculate_permissions($user['id'],
@@ -294,153 +299,45 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 
 $rss = new UniversalFeedCreator();
-// $rss->useCached(); // use cached version if age<1 hour
-$rss->title = 'PhpWebGallery notifications';
-$rss->link = 'http://phpwebgallery.net';
+
+$rss->title = $conf['gallery_title'].', notifications';
+$rss->title.= ' (as '.$user['username'].')';
+
+$rss->link = $conf['gallery_url'];
 
 // +-----------------------------------------------------------------------+
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-if ($conf['guest_id'] != $user['id'])
-{
-  $news = news($user['last_feed_check'], $dbnow);
+$news = news($user['last_check'], $dbnow);
 
-  if (count($news) > 0)
-  {
-    // echo '<pre>';
-    // print_r($news);
-    // echo '</pre>';
-    
-    $item = new FeedItem(); 
-    $item->title = sprintf(l10n('New on %s'), $dbnow);
-    $item->link = 'http://phpwebgallery.net';
-    
-    // content creation
-    $item->description = '<ul>';
-    foreach ($news as $line)
-    {
-      $item->description.= '<li>'.$line.'</li>';
-    }
-    $item->description.= '</ul>';
-    $item->descriptionHtmlSyndicated = true;
-    
-    $item->date = $dbnow; 
-    $item->author = 'PhpWebGallery notifier'; 
+if (count($news) > 0)
+{
+  $item = new FeedItem(); 
+  $item->title = sprintf(l10n('New on %s'), $dbnow);
+  $item->link = 'http://phpwebgallery.net';
   
-    $rss->addItem($item);
+  // content creation
+  $item->description = '<ul>';
+  foreach ($news as $line)
+  {
+    $item->description.= '<li>'.$line.'</li>';
   }
+  $item->description.= '</ul>';
+  $item->descriptionHtmlSyndicated = true;
+  
+  $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
+  $item->author = 'PhpWebGallery notifier'; 
+  
+  $rss->addItem($item);
+}
 
-  $query = '
-UPDATE '.USER_INFOS_TABLE.'
-  SET last_feed_check = \''.$dbnow.'\'
-  WHERE user_id = '.$user['id'].'
+$query = '
+UPDATE '.USER_FEED_TABLE.'
+  SET last_check = \''.$dbnow.'\'
+  WHERE id = \''.$_GET['feed'].'\'
 ;';
-  pwg_query($query);
-}
-else
-{
-  // The feed is filled with periodical blocks of informations. Date
-  // "checkpoints" cut the blocks. The first step is to find those
-  // checkpoints according to the configured feed period.
-  //
-  // checkpoints are first calculated in Unix timestamp (number of seconds
-  // since 1970-01-01 00:00:00 GMT) and then converted to MySQL datetime
-  // format.
-
-  $now = explode_mysqldt($dbnow);
-
-  $checkpoints = array();
-  $checkpoints[0] = mysqldt_to_ts($dbnow);
-
-  // if the feed period was not configured the right way (ie among the list
-  // of possible values), the configuration is overloaded here.
-  if (!in_array($conf['feed_period'],
-                array('hour', 'half day', 'day', 'week', 'month')))
-  {
-    $conf['feed_period'] = 'week';
-  }
-
-  // foreach feed_period possible, we need to find the beginning of the
-  // current period. The variable $timeshift contains the shift to apply to
-  // each checkpoint to find the previous one with strtotime function
-  switch ($conf['feed_period'])
-  {
-    // 2005-07-14 23:36:19 => 2005-07-14 23:00:00
-    case 'hour' :
-    {
-      $checkpoints[1] = mktime($now['hour'],0,0,
-                               $now['month'],$now['day'],$now['year']);
-      $timeshift = '1 hour ago';
-      break;
-    }
-    // 2005-07-14 23:36:19 => 2005-07-14 12:00:00
-    case 'half day' :
-    {
-      $checkpoints[1] = mktime(($now['hour'] < 12) ? 0 : 12,0,0,
-                               $now['month'],$now['day'],$now['year']);
-      $timeshift = '12 hours ago';
-      break;
-    }
-    // 2005-07-14 23:36:19 => 2005-07-14 00:00:00
-    case 'day' :
-    {
-      $checkpoints[1] = mktime(0,0,0,$now['month'],$now['day'],$now['year']);
-      $timeshift = '1 day ago';
-      break;
-    }
-    // 2005-07-14 23:36:19 => 2005-07-11 00:00:00
-    case 'week' :
-    {
-      $checkpoints[1] = strtotime('last monday', $checkpoints[0]);
-      $timeshift = '1 week ago';
-      break;
-    }
-    // 2005-07-14 23:36:19 => 2005-07-01 00:00:00
-    case 'month' :
-    {
-      $checkpoints[1] = mktime(0,0,0,$now['month'],1,$now['year']);
-      $timeshift = '1 month ago';
-      break;
-    }
-  }
-
-  for ($i = 2; $i <= 11; $i++)
-  {
-    $checkpoints[$i] = strtotime($timeshift, $checkpoints[$i-1]);
-  }
-
-  // converts all timestamp values to MySQL datetime format
-  $checkpoints = array_map('ts_to_mysqldt', $checkpoints);
-
-  for ($i = 1; $i <= max(array_keys($checkpoints)); $i++)
-  {
-    $news = news($checkpoints[$i], $checkpoints[$i-1]);
-
-    if (count($news) > 0)
-    {
-      $item = new FeedItem(); 
-      $item->title = sprintf(l10n('New from %s to %s'),
-                             $checkpoints[$i],
-                             $checkpoints[$i-1]);
-      $item->link = 'http://phpwebgallery.net';
-      
-      // content creation
-      $item->description = '<ul>';
-      foreach ($news as $line)
-      {
-        $item->description.= '<li>'.$line.'</li>';
-      }
-      $item->description.= '</ul>';
-      $item->descriptionHtmlSyndicated = true;
-      
-      $item->date = ts_to_iso8601(mysqldt_to_ts($checkpoints[$i-1]));
-      $item->author = 'PhpWebGallery notifier'; 
-      
-      $rss->addItem($item);
-    }
-  }
-}
+pwg_query($query);
 
 // send XML feed
 echo $rss->saveFeed('RSS2.0', '', true);

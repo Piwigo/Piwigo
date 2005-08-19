@@ -1,3 +1,12 @@
+2005-08-19 Pierrick LE GALL
+
+	* modification : RSS feed work only with a given feed
+	identifier. Thus we can avoid fixed frequency notification to
+	concentrate on variable frequency notification, which is much more
+	interesting. To do this, feeds have moved to a dedicated table
+	allowing each user (including guest user) to have more than on
+	feed.
+	
 2005-08-18 Pierrick LE GALL
 
 	* bug 133 fixed : (report from branch 1.4) Deleting user favorites
