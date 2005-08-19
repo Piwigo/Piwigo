@@ -1,144 +1,182 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
+<!-- $Id$ -->
+<h2>{lang:title_picmod}</h2>
+
+<img src="{TN_SRC}" alt="{lang:thumbnail}" class="thumbnail" />
+
+<ul class="categoryActions">
+  <!-- BEGIN jumpto -->
+  <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="./template/default/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li>
+  <!-- END jumpto -->
+  <li><a href="{U_SYNC}" title="{lang:synchronize metadata}"><img src="./template/default/theme/sync_metadata.png" alt="{lang:synchronize}" /></a></li>
 </ul>
-</div>
-<!-- END errors -->
-<div class="admin">{TITLE_IMG}</div>
-<form action="{F_ACTION}" method="POST">
-  <table style="width:100%;">
-    <tr>
-      <td colspan="2" align="center"><a href="{URL_IMG}" class="thumbnail"><img src="{TN_URL_IMG}" alt="" class="miniature" /></a></td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_UPLOAD_NAME}</strong></td>
-      <td class="row1"><input type="text" name="name" value="{NAME_IMG}" /> [ {L_DEFAULT} : {DEFAULT_NAME_IMG} ]</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_FILE}</strong></td>
-      <td class="row1">{FILE_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_SIZE}</strong></td>
-      <td class="row1">{SIZE_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_FILESIZE}</strong></td>
-      <td class="row1">{FILESIZE_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_REGISTRATION_DATE}</strong></td>
-      <td class="row1">{REGISTRATION_DATE_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_PATH}</strong></td>
-      <td class="row1">{PATH_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_STORAGE_CATEGORY}</strong></td>
-      <td class="row1">{STORAGE_CATEGORY_IMG}</td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_AUTHOR}</strong></td>
-      <td class="row1"><input type="text" name="author" value="{AUTHOR_IMG}" /></td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_CREATION_DATE}</strong></td>
-      <td class="row1"><input type="text" name="date_creation" value="{CREATION_DATE_IMG}" /></td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_KEYWORDS}</strong></td>
-      <td class="row1"><input type="text" name="keywords" value="{KEYWORDS_IMG}" size="50" /></td>
-    </tr>
-    <tr>
-      <td style="width:50%;"><strong>{L_COMMENT}</strong></td>
-      <td class="row1"><textarea name="comment" rows="5" cols="50" style="overflow:auto">{COMMENT_IMG}</textarea></td>
-    </tr>
-    <tr>
-      <td colspan="2"><div style="margin-bottom:0px">&nbsp;</div></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />
-        <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
-      </td>
-    </tr>
-  </table>
+
+<form action="{F_ACTION}" method="post" id="properties">
+
+  <fieldset>
+    <legend>{lang:Informations}</legend>
+
+    <table>
+
+      <tr>
+        <td><strong>{lang:Path}</strong></td>
+        <td>{PATH}</td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Registration date}</strong></td>
+        <td>{REGISTRATION_DATE}</td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Dimensions}</strong></td>
+        <td>{DIMENSIONS}</td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Filesize}</strong></td>
+        <td>{FILESIZE}</td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Storage category}</strong></td>
+        <td>{STORAGE_CATEGORY}</td>
+      </tr>
+
+      <!-- BEGIN links -->
+      <tr>
+        <td><strong>{lang:Linked categories}</strong></td>
+        <td>
+          <ul>
+            <!-- BEGIN category -->
+            <li>{links.category.NAME}</li>
+            <!-- END category -->
+          </ul>
+        </td>
+      </tr>
+      <!-- END links -->
+
+    </table>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>{lang:Properties}</legend>
+
+    <table>
+
+      <tr>
+        <td><strong>{lang:Name}</strong></td>
+        <td><input type="text" name="name" value="{NAME}" /></td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Author}</strong></td>
+        <td><input type="text" name="author" value="{AUTHOR}" /></td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Creation date}</strong></td>
+        <td>
+          <label><input type="radio" name="date_creation_action" value="unset" /> unset</label>
+          <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> set to
+          <select onmousedown="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
+            <!-- BEGIN date_creation_day -->
+            <option {date_creation_day.SELECTED} value="{date_creation_day.VALUE}">{date_creation_day.OPTION}</option>
+            <!-- END date_creation_day -->
+          </select>
+          <select onmousedown="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_month">
+            <!-- BEGIN date_creation_month -->
+            <option {date_creation_month.SELECTED} value="{date_creation_month.VALUE}">{date_creation_month.OPTION}</option>
+            <!-- END date_creation_month -->
+          </select>
+          <input onmousedown="document.getElementById('date_creation_action_set').checked = true;"
+                 name="date_creation_year"
+                 type="text"
+                 size="4"
+                 maxlength="4"
+                 value="{DATE_CREATION_YEAR_VALUE}" />
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Keywords}</strong></td>
+        <td><input type="text" name="keywords" value="{KEYWORDS}" size="50" /></td>
+      </tr>
+
+      <tr>
+        <td><strong>{lang:Description}</strong></td>
+        <td><textarea name="description" class="description">{DESCRIPTION}</textarea></td>
+      </tr>
+
+    </table>
+
+    <p style="text-align:center;">
+      <input type="submit" value="{lang:Submit}" name="submit" />
+      <input type="reset" value="{lang:Reset}" name="reset" />
+    </p>
+
+  </fieldset>
+
 </form>
 
-<form name="form1" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+<form id="associations" method="post" action="{F_ACTION}#associations">
+  <fieldset>
+    <legend>{lang:Association to categories}</legend>
 
-  <div style="clear:both;"></div>
+    <table class="doubleSelect">
+      <tr>
+        <td>
+          <h3>{lang:Associated}</h3>
+          <select class="categoryList" name="cat_associated[]" multiple="multiple" size="30">
+            <!-- BEGIN associated_option -->
+            <option {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
+            <!-- END associated_option -->
+          </select>
+          <p><input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;"/></p>
+        </td>
 
-  <div style="height:auto;">
+        <td>
+          <h3>{lang:Dissociated}</h3>
+          <select class="categoryList" name="cat_dissociated[]" multiple="multiple" size="30">
+            <!-- BEGIN dissociated_option -->
+            <option {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
+            <!-- END dissociated_option -->
+          </select>
+          <p><input type="submit" value="&laquo;" name="associate" style="font-size:15px;" /></p>
+        </td>
+      </tr>
+    </table>
 
-    <div style="float:left;padding:10px;width:300px;">
-      <span class="titreMenu">{L_CAT_ASSOCIATED}</span><br />
-      <select style="height:auto;width:280px" name="cat_associated[]" multiple="multiple" size="10">
-        <!-- BEGIN associated_option -->
-        <option class="{associated_option.CLASS}" {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
-        <!-- END associated_option -->
-      </select>
-    </div>
-
-    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&laquo;" name="associate" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" class="bouton" />
-    </div>
-
-    <div style="float:right;padding:10px;width:300px;">
-      <span class="titreMenu">{L_CAT_DISSOCIATED}</span><br />
-      <select style="width:280px" name="cat_dissociated[]" multiple="multiple" size="10">
-        <!-- BEGIN dissociated_option -->
-        <option class="{dissociated_option.CLASS}" {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
-        <!-- END dissociated_option -->
-      </select>
-    </div>
-
-  </div>
-
-  <div style="clear:both;"></div>
-
-  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
-
+  </fieldset>
 </form>
 
-<form name="form2" method="post" action="{F_ACTION}" style="text-align:center;width:800px;">
+<form id="representation" method="post" action="{F_ACTION}#representation">
+  <fieldset>
+    <legend>{lang:Representation of categories}</legend>
 
-  <div style="clear:both;"></div>
+    <table class="doubleSelect">
+      <tr>
+        <td>
+          <h3>{lang:Represents}</h3>
+          <select class="categoryList" name="cat_elected[]" multiple="multiple" size="30">
+            <!-- BEGIN elected_option -->
+            <option {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
+            <!-- END elected_option -->
+          </select>
+          <p><input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;"/></p>
+        </td>
 
-  <div style="height:auto;">
+        <td>
+          <h3>{lang:Does not represent}</h3>
+          <select class="categoryList" name="cat_dismissed[]" multiple="multiple" size="30">
+            <!-- BEGIN dismissed_option -->
+            <option {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
+            <!-- END dismissed_option -->
+          </select>
+          <p><input type="submit" value="&laquo;" name="elect" style="font-size:15px;" /></p>
+        </td>
+      </tr>
+    </table>
 
-    <div style="float:left;padding:10px;width:300px;">
-      <span class="titreMenu">{L_REPRESENTS}</span><br />
-      <select style="height:auto;width:280px" name="cat_elected[]" multiple="multiple" size="10">
-        <!-- BEGIN elected_option -->
-        <option class="{elected_option.CLASS}" {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
-        <!-- END elected_option -->
-      </select>
-    </div>
-
-    <div style="float:left;padding-top:80px;padding-bottom:80px;text-align:center;width:160px;" >
-      <input type="submit" value="&laquo;" name="elect" style="font-size:15px;" class="bouton" /><br/>
-      <input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" class="bouton" />
-    </div>
-
-    <div style="float:right;padding:10px;width:300px;">
-      <span class="titreMenu">{L_DOESNT_REPRESENT}</span><br />
-      <select style="width:280px" name="cat_dismissed[]" multiple="multiple" size="10">
-        <!-- BEGIN dismissed_option -->
-        <option class="{dismissed_option.CLASS}" {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
-        <!-- END dismissed_option -->
-      </select>
-    </div>
-
-  </div>
-
-  <div style="clear:both;"></div>
-
-  <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
-
+  </fieldset>
 </form>

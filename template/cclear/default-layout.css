@@ -37,7 +37,7 @@ H2 {
 
 A {
     text-decoration:none;
-    border-bottom: 1px dotted #000000;
+    /*border-bottom: 1px dotted #000000;*/
 }
 A:hover {
     border-bottom-style: solid;
@@ -55,13 +55,14 @@ IMG {
 }
 
 /** General defaults **/
-ul, dl { text-align: left;}
+ul, dl, li { text-align: left;}
 
 /** forms **/
 div.formbox {
   width: 70%;
   margin: 0 auto 1em auto;
 }
+form { padding: 0.5em; }
 /* form row are dl instead of table rows */
 form dl {
   text-align: left;   /* must set it there otherwise IE render dl.biglabel dt incorectly */
@@ -115,6 +116,15 @@ form table {
 	font-size: 80%;
 }
 
+textarea.description {
+  height: 100px;
+  width: 500px;
+  overflow: auto;
+}
+select.categoryList {
+  width: 400px;
+}
+
 /** go to an admin.css ? **/
 .table2 {
 	border: 1px solid #000000; 
@@ -122,3 +132,26 @@ form table {
 	padding:0px;
 }
 form#add_virtual p { text-align: left; }
+form#categoryOrdering p {
+	text-align: left;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+form#categoryOrdering>ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+form#categoryOrdering>ul>li {
+  border: 1px solid grey;
+  padding: 0px 5px;
+  margin-bottom: 5px;
+}
+
+form#categoryOrdering ul.categoryActions {
+  float: right;
+  margin-top: 5px;
+}
+
+form#cat_modify table { width: auto; }

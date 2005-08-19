@@ -1,6 +1,7 @@
-<h1>{lang:Batch management}</h1>
+<!-- $Id$ -->
+<h2>{lang:Batch management}</h2>
 
-<div class="admin">{CATEGORY_TITLE}</div>
+<h3>{CATEGORIES_NAV}</h3>
 
 <p style="text-align:center;">
   global mode 

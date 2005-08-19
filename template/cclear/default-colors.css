@@ -131,4 +131,7 @@ input, select, textarea {
 {
 	font-weight:normal;
 }
+fieldset>legend {
+  font-style: italic;
+}
 

@@ -21,13 +21,17 @@
 
 #content UL.thumbnails LI {
     display: inline;
+    text-align: center; /* eventuellement */
+    margin: 0; padding: 0;
 }
 
 #content UL.thumbnails SPAN {
-    margin: 0 10px 10px 10px;
-    vertical-align: top;
-    width: 128px; /* FIXME */
-    display:table-cell; display:inline-table; display:inline-block;
+    	margin: 0 10px 10px 10px;
+    	vertical-align: top;
+    	width: 128px;
+    	display:table-cell;   /* for geko */
+	display:inline-table; /* for ??? (ask yoDan) */
+	display:inline-block; /* for IE */
 }
 #content UL.thumbnails LI>SPAN { vertical-align: baseline; }
 #content UL.thumbnails LI IMG.thumbnail { margin-bottom: .4ex; }
@@ -65,16 +69,22 @@
 }
 
 /* actions */
-div.titrePage ul.categoryActions {
-  float: right;
+ul.categoryActions {
+  text-align: center;
   margin: 0;
+  padding: 0;
+  text-indent: 0;
 }
 
-ul.categoryActions>li {
+#content div.titrePage ul.categoryActions {
+  float: right;
+}
+
+#content ul.categoryActions>li {
   display: inline;
 }
 
-ul.categoryActions a img, ul.categoryActions a {
+#content ul.categoryActions a img, ul.categoryActions a {
   border: none;
 }
 

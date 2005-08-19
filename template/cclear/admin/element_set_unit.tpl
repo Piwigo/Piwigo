@@ -1,4 +1,6 @@
-<div class="admin">{CATEGORY_TITLE}</div>
+<h2>{lang:Batch management}</h2>
+
+<h3>{CATEGORIES_NAV}</h3>
 
 <p style="text-align:center;">
   <a href="{U_GLOBAL_MODE}">global mode</a>
@@ -22,39 +24,31 @@
 
 </fieldset>
 
-<fieldset>
+<div class="navigationBar">{NAV_BAR}</div>
 
-  <legend>Elements</legend>
+<!-- BEGIN element -->
+<fieldset class="elementEdit">
+  <legend>{element.LEGEND}</legend>
 
-  <div class="navigationBar">{NAV_BAR}</div>
+  <a href="{element.U_EDIT}"><img src="{element.TN_SRC}" alt="" class="miniature" title="{lang:Edit all picture informations}" /></a>
 
-  <table width="100%">
+  <table>
 
     <tr>
-      <th class="row2" style="text-align:center;">&nbsp;</td>
-      <th class="row2" style="text-align:center;">name</td>
-      <th class="row2" style="text-align:center;">author</td>
-      <th class="row2" style="text-align:center;">description</td>
-      <th class="row2" style="text-align:center;">creation date</td>
-      <th class="row2" style="text-align:center;">keywords</td>
+      <td><strong>{lang:Name}</strong></td>
+      <td><input type="text" name="name-{element.ID}" value="{element.NAME}" /></td>
     </tr>
 
-    <!-- BEGIN element -->
     <tr>
+      <td><strong>{lang:Author}</strong></td>
+      <td><input type="text" name="author-{element.ID}" value="{element.AUTHOR}" /></td>
+    </tr>
 
-      <td style="text-align:center;"><img src="{element.TN_SRC}" alt="" class="miniature" title="{element.FILENAME}" /></td>
-
-      <td style="text-align:center;"><input type="text" name="name-{element.ID}" value="{element.NAME}" maxlength="255"/></td>
-
-      <td style="text-align:center;"><input type="text" name="author-{element.ID}" value="{element.AUTHOR}" maxlength="255" size="12" /></td>
-
-      <td style="text-align:center;"><textarea name="comment-{element.ID}" rows="5" cols="30" style="overflow:auto">{element.COMMENT}</textarea></td>
-
-      <td style="text-align:left;">
-        <input type="radio" name="date_creation_action-{element.ID}" value="leave" checked="checked" /> leave unchanged
-        <br /><input type="radio" name="date_creation_action-{element.ID}" value="unset" /> unset
-        <br /><input type="radio" name="date_creation_action-{element.ID}" value="set" id="date_creation_action_set-{element.ID}" />
-
+    <tr>
+      <td><strong>{lang:Creation date}</strong></td>
+      <td>
+        <label><input type="radio" name="date_creation_action-{element.ID}" value="unset" /> unset</label>
+        <input type="radio" name="date_creation_action-{element.ID}" value="set" id="date_creation_action_set-{element.ID}" /> set to
         <select onmousedown="document.getElementById('date_creation_action_set-{element.ID}').checked = true;" name="date_creation_day-{element.ID}">
           <!-- BEGIN date_creation_day -->
           <option {element.date_creation_day.SELECTED} value="{element.date_creation_day.VALUE}">{element.date_creation_day.OPTION}</option>
@@ -72,18 +66,27 @@
                maxlength="4"
                value="{element.DATE_CREATION_YEAR}" />
       </td>
-
-      <td style="text-align:center;"><input type="text" name="keywords-{element.ID}" value="{element.KEYWORDS}" length="255" /></td>
-
     </tr>
-    <!-- END element -->
+
+    <tr>
+      <td><strong>{lang:Keywords}</strong></td>
+      <td><input type="text" name="keywords-{element.ID}" value="{element.KEYWORDS}" size="50" /></td>
+    </tr>
+
+    <tr>
+      <td><strong>{lang:Description}</strong></td>
+      <td><textarea name="description-{element.ID}" class="description">{element.DESCRIPTION}</textarea></td>
+    </tr>
 
   </table>
 
-  <p style="text-align:center;">
-    <input type="submit" value="{L_SUBMIT}" name="submit" class="bouton" />
-  </p>
-
 </fieldset>
+<!-- END element -->
+
+<p>
+  <input type="submit" value="{L_SUBMIT}" name="submit" />
+  <input type="reset" value="{lang:Reset}" />
+</p>
+
 
 </form>
