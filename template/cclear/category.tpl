@@ -112,23 +112,25 @@
 <ul class="thumbnails">
   <!-- BEGIN line -->
   <!-- BEGIN thumbnail -->
-  <li><span><a href="{thumbnails.line.thumbnail.U_IMG_LINK}"><img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
-    alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
-    title="{thumbnails.line.thumbnail.IMAGE_TITLE}"></a>
-    <!-- BEGIN element_name -->
+  <li><span>
+    <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
+      <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
+	   alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
+	   title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
+    </a>
+      <!-- BEGIN element_name -->
+      <p>
+	<span class="thumb_picture">{thumbnails.line.thumbnail.element_name.NAME}</span>
+	<!-- END element_name -->
+	<!-- BEGIN category_name -->
+	<span class="thumb_category">[{thumbnails.line.thumbnail.category_name.NAME}]</span>
+	<!-- END category_name -->
+	{thumbnails.line.thumbnail.IMAGE_TS}
+      </p>
+    <!-- BEGIN nb_comments -->
     <br />
-    <span class="thumb_picture">{thumbnails.line.thumbnail.element_name.NAME}</span>
-    <!-- END element_name -->
-    <!-- BEGIN category_name -->
-    <br />
-    <span class="thumb_category">[{thumbnails.line.thumbnail.category_name.NAME}]</span>
-    <!-- END category_name -->
-  </a>
-  {thumbnails.line.thumbnail.IMAGE_TS}
-  <br />
-  <!-- BEGIN nb_comments -->
-  {thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
-  <!-- END nb_comments -->
+    {thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
+    <!-- END nb_comments -->
   </span></li>
   <!-- END thumbnail -->
   <!-- END line -->

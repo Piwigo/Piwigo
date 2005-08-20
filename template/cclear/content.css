@@ -16,24 +16,31 @@
 #content UL.thumbnails {
     margin: 0; padding: 0;
     list-style-type: none;
-    text-align: center; /* eventuellement */
+    /*text-align: center;  eventuellement */
 }
 
 #content UL.thumbnails LI {
-    display: inline;
-    text-align: center; /* eventuellement */
-    margin: 0; padding: 0;
+	display: inline;
+	/*text-align: center; */
+	padding: 0; text-indent: 0;
+	margin: 0 10px 10px 10px;
+}
+#content UL.thumbnails UL LI {
+	dislplay: list-item;
 }
 
 #content UL.thumbnails SPAN {
-    	margin: 0 10px 10px 10px;
+	margin: 0;
+    	/*margin: 0 10px 10px 10px;*/
     	vertical-align: top;
     	width: 128px;
     	display:table-cell;   /* for geko */
 	display:inline-table; /* for ??? (ask yoDan) */
 	display:inline-block; /* for IE */
+	text-align: center;    for IE */
+border: 1px solid yellow;
 }
-#content UL.thumbnails LI>SPAN { vertical-align: baseline; }
+/*#content UL.thumbnails LI>SPAN { vertical-align: baseline; }*/
 #content UL.thumbnails LI IMG.thumbnail { margin-bottom: .4ex; }
 
 #content UL.thumbnails IMG.thumbnail { border: 1px solid #000000; }

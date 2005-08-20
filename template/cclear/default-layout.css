@@ -56,6 +56,8 @@ IMG {
 
 /** General defaults **/
 ul, dl, li { text-align: left;}
+/* for debugging purpose */
+pre { text-align:left; }
 
 /** forms **/
 div.formbox {
@@ -126,6 +128,22 @@ select.categoryList {
 }
 
 /** go to an admin.css ? **/
+/**
+ * Informations box in administration
+ */
+#infos {
+  text-align: left;
+  background-color: #eee;
+  background-image: url(admin/images/infos.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  color: black;
+  font-weight: bold;
+  margin: 5px;
+  border:1px solid gray;
+  padding: 10px 50px 10px 10px;
+}
+
 .table2 {
 	border: 1px solid #000000; 
 	margin:	auto 10px auto 10px;
