@@ -627,3 +627,42 @@ fieldset.elementEdit>a {
   display: block;
   float: right;
 }
+
+/* Administration comments */
+div#adminMain div.comment {
+  margin: 5px;
+  border: 1px solid gray;
+  clear: both;
+}
+
+div#adminMain div.comment > a.illustration {
+  display: block;
+  float: left;
+  margin: 5px;
+}
+
+div#adminMain div.comment p.commentHeader {
+  text-align: right;
+  margin: 0.5em 0.5em 0 0;
+}
+
+div#adminMain div.comment ul.actions {
+  text-align: center;
+  margin: 0.2em;
+  clear: both;
+}
+
+div#adminMain div.comment > ul.actions > li {
+  display: inline;
+}
+
+div#adminMain div.comment blockquote {
+  margin: 15px;
+  border: 1px dashed gray;
+  padding: 0.5em;
+}
+
+/* */
+form p.bottomButtons {
+  text-align: center;
+}
