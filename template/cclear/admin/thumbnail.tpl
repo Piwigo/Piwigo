@@ -1,12 +1,5 @@
-<!-- BEGIN errors -->
-<div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.ERROR}</li>
-  <!-- END error -->
-</ul>
-</div>
-<!-- END errors -->
+<!-- $Id$ -->
+<h2>{lang:title_thumbnails}</h2>
 
 <!-- BEGIN results -->
 <div class="admin">{L_RESULTS}</div>

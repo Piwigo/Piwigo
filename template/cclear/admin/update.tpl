@@ -1,3 +1,7 @@
+<!-- $Id$ -->
+
+<h2>{lang:title_update}</h2>
+
 <!-- BEGIN update -->
 <h3>{L_RESULT_UPDATE}</h3>
 <ul>
