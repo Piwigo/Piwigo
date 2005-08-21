@@ -94,8 +94,9 @@
 <div id="content">
   <div class="titrePage">
     <ul class="categoryActions">
+      <li>&nbsp;</li>
       <!-- BEGIN caddie -->
-      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" /></a></li>
+      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" alt="{lang:caddie}"/></a></li>
       <!-- END caddie -->
       <!-- BEGIN edit -->
       <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/default/theme/category_edit.png" alt="{lang:edit}"/></a></li>
@@ -112,26 +113,28 @@
 <ul class="thumbnails">
   <!-- BEGIN line -->
   <!-- BEGIN thumbnail -->
-  <li><span>
-    <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
-      <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
-	   alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
-	   title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
-    </a>
-      <!-- BEGIN element_name -->
-      <p>
-	<span class="thumb_picture">{thumbnails.line.thumbnail.element_name.NAME}</span>
+  <li class="thumbnails">
+    <div>
+        <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
+          <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
+	  alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
+	  title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
+        </a>
+      <ul>
+      <li>
+	<!-- BEGIN element_name -->
+	{thumbnails.line.thumbnail.element_name.NAME}
 	<!-- END element_name -->
 	<!-- BEGIN category_name -->
-	<span class="thumb_category">[{thumbnails.line.thumbnail.category_name.NAME}]</span>
+	[{thumbnails.line.thumbnail.category_name.NAME}]
 	<!-- END category_name -->
 	{thumbnails.line.thumbnail.IMAGE_TS}
-      </p>
-    <!-- BEGIN nb_comments -->
-    <br />
-    {thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
-    <!-- END nb_comments -->
-  </span></li>
+      </li>
+      <!-- BEGIN nb_comments -->
+      <li>{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT} </li>
+      <!-- END nb_comments -->
+     </div>
+  </li>
   <!-- END thumbnail -->
   <!-- END line -->
 

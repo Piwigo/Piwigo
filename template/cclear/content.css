@@ -16,38 +16,56 @@
 #content UL.thumbnails {
     margin: 0; padding: 0;
     list-style-type: none;
-    /*text-align: center;  eventuellement */
+    text-align: center;  /*eventuellement */
 }
 
-#content UL.thumbnails LI {
+#content LI.thumbnails {
 	display: inline;
-	/*text-align: center; */
 	padding: 0; text-indent: 0;
 	margin: 0 10px 10px 10px;
 }
+#content UL.thumbnails UL {
+	margin: 0; padding: 0; text-indent: 0;
+	list-style-type: none;
+}
 #content UL.thumbnails UL LI {
-	dislplay: list-item;
+	text-align: center; 
 }
-
-#content UL.thumbnails SPAN {
+#content UL.thumbnails div {
 	margin: 0;
-    	/*margin: 0 10px 10px 10px;*/
-    	vertical-align: top;
+    	vertical-align: top;   /*geko doesn't eat that :-(*/
+	text-align: center; 
     	width: 128px;
-    	display:table-cell;   /* for geko */
-	display:inline-table; /* for ??? (ask yoDan) */
-	display:inline-block; /* for IE */
-	text-align: center;    for IE */
-border: 1px solid yellow;
 }
+/* IE block level element inline-block hack */
+* html #content UL.thumbnails div {display:inline-block;}
+* html #content UL.thumbnails div {display:inline;}
+/* end of IE hack*/
+/* for non-IE */
+#content UL.thumbnails li>div {display:table-cell;display:inline-table;}
+
+/* Geko hack to get thumbnails top aligned*/
+/* not proud of that still looking for a better one */
+#content UL.thumbnails li>div {height:150px;}
+/* endof Geko hack*/
+
+/* align top with geko */
+/*#content UL.thumbnails li>div>div {
+	display: block;
+	position: relative;
+	height:128px;
+}
+#content UL.thumbnails li>div>div>a { position: absolute; top: 0; }
+#content UL.thumbnails li>div img.thumbnail { position: relative; left: -50%; }
+#content UL.thumbnails li>div ul {position: absolute; bottom: 0;}
+doesn't work :-((*/
+
 /*#content UL.thumbnails LI>SPAN { vertical-align: baseline; }*/
 #content UL.thumbnails LI IMG.thumbnail { margin-bottom: .4ex; }
 
 #content UL.thumbnails IMG.thumbnail { border: 1px solid #000000; }
 
-#content UL.thumbnails SPAN A:first-child { border: none }
-
-
+/*#content UL.thumbnails SPAN A:first-child { border: none }*/
 
 
 #content .navigationBar, #content .additional_info {
