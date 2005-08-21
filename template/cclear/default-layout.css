@@ -16,9 +16,7 @@ BODY {
 }
 
 #the_page {
-    margin: 0; padding: 0;
-    /* border: 1px solid #000000; */
-    width: 100%;
+    /* Just in case another template needs an inner frame */
 }
 
 H1 {
