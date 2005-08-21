@@ -7,6 +7,7 @@
 
 #imageHeaderBar H1 {
     margin: 1ex 0; /* override default-layout for less bottom-margin */
+    clear: both;
 }
 
 #imageToolBar {
@@ -73,12 +74,20 @@ de l'image...
 TABLE.infoTable {
     margin: auto;
 }
-TABLE.infoTable TD {
+TABLE.infoTable .value {
     text-align: left;
 }
 
 TABLE.infoTable .label {
     font-weight: bold;
+    text-align: right;
+    padding-right: 0.5em; 
+}
+
+TABLE.infoTable TD.value UL {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+  list-style-type: square;
 }
 
 #comments {

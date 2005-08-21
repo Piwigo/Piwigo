@@ -25,7 +25,7 @@ A {
 }
 
 A:hover {
-    color: #754300;
+    color: #858460;
 }
 
 
@@ -114,7 +114,8 @@ A.navThumb, A.navThumb:hover {
 }
 input, select, textarea {
 	color:black;
-	background-color:#eee;
+	background-color: lightgrey;
+        border: 1px solid gray;
 }
 .bouton {
 	background-color:#d3d3d3;

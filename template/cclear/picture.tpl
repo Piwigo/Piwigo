@@ -10,44 +10,31 @@
 
 <div id="imageToolBar">
 <div class="randomButtons">
-  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}">
-    <img src="template/cclear/theme/slideshow.png" alt="{L_SLIDESHOW}">
-  </a>
-  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}">
-    <img src="template/cclear/theme/metadata.png" alt="{L_PICTURE_METADATA}">
-  </a>
+  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}"><img src="template/cclear/theme/slideshow.png" alt="{L_SLIDESHOW}"></a>
+  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="template/cclear/theme/metadata.png" alt="{L_PICTURE_METADATA}"></a>
+<!-- BEGIN representative -->
+  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="template/cclear/theme/representative.png" alt="{lang:representative}" /></a>
+<!-- END representative -->
 <!-- BEGIN favorite -->
-  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}">
-    <img src="{favorite.FAVORITE_IMG}" alt="{favorite.FAVORITE_ALT}">
-  </a>
+  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" alt="{favorite.FAVORITE_ALT}"></a>
 <!-- END favorite -->
 <!-- BEGIN download -->
-  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}">
-    <img src="template/cclear/theme/save.png" alt="{L_DOWNLOAD}">
-  </a>
+  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="template/cclear/theme/save.png" alt="{L_DOWNLOAD}"></a>
 <!-- END download -->
 <!-- BEGIN admin -->
-  <a href="{U_ADMIN}" title="{L_ADMIN}">
-    <img src="template/cclear/theme/preferences.png" alt="{L_ADMIN}">
-  </a>
+  <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="template/cclear/theme/preferences.png" alt="{L_ADMIN}"></a>
 <!-- END admin -->
 </div>
 <div class="navButtons">
 <!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
-    <img src="template/cclear/theme/right.png" alt="next">
-  </a>
+  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}"><img src="template/cclear/theme/right.png" alt="next"></a>
 <!-- END next -->
-  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}">
-    <img src="template/cclear/theme/up.png" alt="{L_UP_ALT}">
-  </a>
+  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}"><img src="template/cclear/theme/up.png" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
-    <img src="template/cclear/theme/left.png" alt="previous">
-  </a>
+  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}"><img src="template/cclear/theme/left.png" alt="previous"></a>
 <!-- END previous -->
 </div>
-</div>
+</div> <!-- imageToolBar -->
 
 <div id="theImage">
 <!-- BEGIN high -->
@@ -80,12 +67,54 @@
 <!-- END next -->
 
 <table class="infoTable" summary="Some info about this picture">
-  <!-- BEGIN info_line -->
   <tr>
-    <td class="label">{info_line.INFO} :</td>
-    <td class="value">{info_line.VALUE}</td>
+    <td class="label">{lang:Author}</td>
+    <td class="value">{INFO_AUTHOR}</td>
   </tr>
-  <!-- END info_line -->
+  <tr>
+    <td class="label">{lang:Created on}</td>
+    <td class="value">{INFO_CREATION_DATE}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Registered on}</td>
+    <td class="value">{INFO_AVAILABILITY_DATE}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Dimensions}</td>
+    <td class="value">{INFO_DIMENSIONS}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:File}</td>
+    <td class="value">{INFO_FILE}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Filesize}</td>
+    <td class="value">{INFO_FILESIZE}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Keywords}</td>
+    <td class="value">{INFO_KEYWORDS}</td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Categories}</td>
+    <td class="value">
+      <ul>
+        <!-- BEGIN category -->
+        <li>{category.LINE}</li>
+        <!-- END category -->
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{lang:Visits}</td>
+    <td class="value">{INFO_VISITS}</td>
+  </tr>
+  <!-- BEGIN info_rate -->
+  <tr>
+    <td class="label">{lang:Average rate}</td>
+    <td class="value">{info_rate.CONTENT}</td>
+  </tr>
+  <!-- END info_rate -->
 </table>
 
 <!-- BEGIN metadata -->
@@ -112,6 +141,8 @@
 <!-- END rate_option -->
 </p>
 <!-- END rate -->
+
+<hr class="separation">
 
 <!-- BEGIN comments -->
 <div id="comments">

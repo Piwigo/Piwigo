@@ -95,13 +95,8 @@ $query = '
 SELECT category_id,uppercats,commentable,global_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
-  WHERE image_id = '.$_GET['image_id'];
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-    AND category_id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
+  WHERE image_id = '.$_GET['image_id'].'
+    AND category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
 $result = pwg_query($query);
 $related_categories = array();
@@ -487,69 +482,6 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
   $url_metadata.= '&amp;show_metadata=1';
 }
 
-// author
-$author = $creation_date = $size = $filesize = $lang['unavailable'];
-if ( !empty($picture['current']['author']) )
-{
-  $search_url = PHPWG_ROOT_PATH.'category.php?cat=search';
-  $search_url.= '&amp;search=author:'.$picture['current']['author'];
-  
-  $author = '<a href="';
-  $author .= add_session_id($search_url);
-  $author .= '">'.$picture['current']['author'].'</a>';
-}
-
-// creation date
-if ( !empty($picture['current']['date_creation']) )
-{
-  $creation_date = format_date($picture['current']['date_creation']);
-}
-
-// date of availability
-$availability_date = format_date($picture['current']['date_available'],
-                                 'mysql_datetime');
-
-// size in pixels
-if ($picture['current']['is_picture'])
-{
-  if ($original_width != $picture_size[0]
-      or $original_height != $picture_size[1])
-  {
-    $size = '[ <a href="'.$picture['current']['src'].'" ';
-    $size .= ' title="'.$lang['true_size'].'">';
-    $size .= $original_width.'*'.$original_height.'</a> ]';
-  }
-  else
-  {
-    $size = $original_width.'*'.$original_height;
-  }
-}
-
-// filesize
-if (empty($picture['current']['filesize']))
-{
-  if (!$picture['current']['is_picture'])
-  {
-    $filesize = floor(filesize($picture['current']['download'])/1024);
-  }
-  else
-  {
-    $filesize = floor(filesize($picture['current']['src'])/1024);
-  }
-}
-else
-{
-  $filesize = $picture['current']['filesize'];
-}
-
-// number of visits
-$template->assign_block_vars(
-  'info_line',
-  array(
-    'INFO'=>$lang['visited'],
-    'VALUE'=>$picture['current']['hit'].' '.$lang['times']
-    ));
-			  
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 
@@ -561,11 +493,6 @@ $template->assign_vars(array(
   'ALT_IMG' => $picture['current']['file'],
   'WIDTH_IMG' => $picture_size[0],
   'HEIGHT_IMG' => $picture_size[1],
-  'AUTHOR' => $author,
-  'CREATION_DATE' => $creation_date,
-  'AVAILABILITY_DATE' => $availability_date,
-  'SIZE' => $size,
-  'FILE_SIZE' => $filesize,
 
   'LEVEL_SEPARATOR' => $conf['level_separator'],
 
@@ -580,7 +507,6 @@ $template->assign_vars(array(
   'L_DELETE_COMMENT' =>$lang['comments_del'],
   'L_DELETE' =>$lang['delete'],
   'L_SUBMIT' =>$lang['submit'],
-  'L_AUTHOR' =>$lang['author'],
   'L_COMMENT' =>$lang['comment'],
   'L_DOWNLOAD' => $lang['download'],
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
@@ -588,11 +514,6 @@ $template->assign_vars(array(
   'L_PICTURE_HIGH' => $lang['picture_high'],
   'L_UP_HINT' => $lang['home_hint'],
   'L_UP_ALT' => $lang['home'],
-  'L_CREATION_DATE' => $lang['creation_date'],
-  'L_AVAILABILITY_DATE' => $lang['registration_date'],
-  'L_SIZE' => $lang['size'],
-  'L_FILE' => $lang['file'],
-  'L_FILE_SIZE' => $lang['size'],
   
   'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
   'U_UP' => add_session_id($url_up),
@@ -730,61 +651,123 @@ if (isset($picture['current']['comment'])
       ));
 }
 
-// keywords
-if (!empty($picture['current']['keywords']))
+$infos = array();
+
+// author
+if (!empty($picture['current']['author']))
 {
-  $keywords = explode(',', $picture['current']['keywords']);
-  $content = '';
-  $url = PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:';
-  foreach ($keywords as $i => $keyword)
-  {
-    $local_url = add_session_id($url.$keyword);
-    if ($i > 0)
-    {
-      $content.= ',';
-    }
-    $content.= '<a href="'.$local_url.'">'.$keyword.'</a>';
-  }
-  $template->assign_block_vars(
-    'keywords',
-    array(
-      'INFO'=>$lang['keywords'],
-      'VALUE'=>$content
-      ));
+  $infos['INFO_AUTHOR'] =
+    '<a href="'.
+    add_session_id(
+      PHPWG_ROOT_PATH.'category.php?cat=search'.
+      '&amp;search=author:'.$picture['current']['author']
+      ).
+    '">'.$picture['current']['author'].'</a>';
+}
+else
+{
+  $infos['INFO_AUTHOR'] = l10n('N/A');
 }
 
-// related categories
-$cat_output = '';
-$page['show_comments'] = false;
-foreach ($related_categories as $category)
+// creation date
+if (!empty($picture['current']['date_creation']))
 {
-  if ($cat_output != '')
+  $infos['INFO_CREATION_DATE'] =
+    '<a href="'.
+    add_session_id(
+      PHPWG_ROOT_PATH.'category.php?cat=search'.
+      '&amp;search=date_creation:'.$picture['current']['date_creation']
+      ).
+    '">'.format_date($picture['current']['date_creation']).'</a>';
+}
+else
+{
+  $infos['INFO_CREATION_DATE'] = l10n('N/A');
+}
+
+// date of availability
+$infos['INFO_AVAILABILITY_DATE'] =
+  '<a href="'.
+  add_session_id(
+    PHPWG_ROOT_PATH.'category.php?cat=search'.
+    '&amp;search=date_available:'.
+    substr($picture['current']['date_available'], 0, 10)
+    ).
+    '">'.
+  format_date($picture['current']['date_available'], 'mysql_datetime').
+  '</a>';
+
+// size in pixels
+if ($picture['current']['is_picture'])
+{
+  if ($original_width != $picture_size[0]
+      or $original_height != $picture_size[1])
   {
-    $cat_output.= '<br />';
-  }
-  
-  if (count($related_categories) > 3)
-  {
-    $cat_output .= get_cat_display_name_cache($category['uppercats']);
+    $infos['INFO_DIMENSIONS'] =
+      '<a href="'.$picture['current']['src'].'" title="'.
+      l10n('Original dimensions').'">'.
+      $original_width.'*'.$original_height.'</a>';
   }
   else
   {
-    $cat_info = get_cat_info($category['category_id']);
-    $cat_output .= get_cat_display_name($cat_info['name']);
-  }
-  // the picture is commentable if it belongs at least to one category which
-  // is commentable
-  if ($category['commentable'] == 'true')
-  {
-    $page['show_comments'] = true;
+    $infos['INFO_DIMENSIONS'] = $original_width.'*'.$original_height;
   }
 }
-$template->assign_block_vars(
-  'associated',
-  array(
-    'INFO'  => $lang['categories'],
-    'VALUE' => $cat_output
-    ));
+else
+{
+  $infos['INFO_DIMENSIONS'] = l10n('N/A');
+}
+
+// filesize
+if (!empty($picture['current']['filesize']))
+{
+  $infos['INFO_FILESIZE'] =
+    sprintf(l10n('%d Kb'), $picture['current']['filesize']);
+}
+else
+{
+  $infos['INFO_FILESIZE'] = l10n('N/A');
+}
+
+// number of visits
+$infos['INFO_VISITS'] = $picture['current']['hit'];
+
+// file
+$infos['INFO_FILE'] = $picture['current']['file'];
+
+// keywords
+if (!empty($picture['current']['keywords']))
+{
+  $infos['INFO_KEYWORDS'] =
+    preg_replace(
+      '/([^,]+)/',
+      '<a href="'.
+      add_session_id(
+        PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:$1'
+        ).
+      '">$1</a>',
+      $picture['current']['keywords']
+      );
+}
+else
+{
+  $infos['INFO_KEYWORDS'] = l10n('N/A');
+}
+
+$template->assign_vars($infos);
+
+// related categories
+foreach ($related_categories as $category)
+{
+  $template->assign_block_vars(
+    'category',
+    array(
+      'LINE' => count($related_categories) > 3
+        ? get_cat_display_name_cache($category['uppercats'])
+        : get_cat_display_name_from_id($category['category_id'])
+      )
+    );
+}
 
 //-------------------------------------------------------------------  metadata
 if ($metadata_showable and isset($_GET['show_metadata']))
@@ -893,7 +876,8 @@ if ( isset( $_GET['slideshow'] ) )
 //------------------------------------------------------------------- rating
 if ($conf['rate'])
 {
-  $query = 'SELECT COUNT(rate) AS count
+  $query = '
+SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
      , ROUND(STD(rate),2) AS STD
   FROM '.RATE_TABLE.'
@@ -906,11 +890,12 @@ if ($conf['rate'])
   }
   else
   {
-    $value = $row['average'];
-    $value.= ' (';
-    $value.= $row['count'].' '.$lang['rates'];
-    $value.= ', '.$lang['standard_deviation'].' : '.$row['STD'];
-    $value.= ')';
+    $value = sprintf(
+      l10n('%.2f (rated %d times, standard deviation = %.2f)'),
+      $row['average'],
+      $row['count'],
+      $row['STD']
+      );
   }
   
   if (!$user['is_the_guest'])
@@ -934,10 +919,17 @@ if ($conf['rate'])
   $template->assign_block_vars(
     'rate',
     array(
-      'INFO'  => $lang['element_rate'],
-      'VALUE' => $value,
+      'CONTENT' => $value,
       'SENTENCE' => $sentence
       ));
+
+  $template->assign_block_vars('info_rate', array('CONTENT' => $value));
+  
+  $template->assign_vars(
+    array(
+      'INFO_RATE' => $value
+      )
+    );
   
   foreach ($rate_items as $num => $mark)
   {
@@ -966,6 +958,18 @@ if ($conf['rate'])
 }
 
 //---------------------------------------------------- users's comments display
+
+// the picture is commentable if it belongs at least to one category which
+// is commentable
+$page['show_comments'] = false;
+foreach ($related_categories as $category)
+{
+  if ($category['commentable'] == 'true')
+  {
+    $page['show_comments'] = true;
+  }
+}
+
 if ($page['show_comments'])
 {
   // number of comment for this picture
