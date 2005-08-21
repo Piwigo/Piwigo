@@ -5,6 +5,10 @@
     margin-bottom: 1em; /* when it's longer than menu bar */
 }
 
+#commentsPage #content {
+  margin: 1em;
+}
+
 #content H2 {
     margin-bottom: 1ex;
 }
@@ -96,7 +100,7 @@ doesn't work :-((*/
 /* actions */
 ul.categoryActions {
   text-align: center;
-  margin: 0;
+  margin: 1px 1px 0 0;
   padding: 0;
   text-indent: 0;
 }
@@ -113,3 +117,41 @@ ul.categoryActions {
   border: none;
 }
 
+/* User comments */
+
+#content DIV.comment {
+  margin: 5px;
+  border: 1px solid gray;
+}
+
+#content DIV.comment > A.illustration {
+  display: block;
+  float: left;
+  margin: 5px;
+}
+
+#content DIV.comment > A.illustration IMG {
+  border: 1px solid gray;
+}
+
+#content DIV.comment P.commentHeader {
+  text-align: right;
+  margin: 0.5em 0.5em 0 0;
+}
+
+#content DIV.comment UL.actions {
+  text-align: center;
+  margin: 0.2em;
+  clear: left;
+}
+
+#content DIV.comment > UL.actions > LI {
+  display: inline;
+}
+
+#content DIV.comment BLOCKQUOTE {
+  margin: 1em 1em 1em 150px; /* margin-left corresponds to maximum thumbnail width */
+  border: 1px solid #d3d3d3; 
+  border-left: 2px solid gray;
+  padding: 0.5em;
+}

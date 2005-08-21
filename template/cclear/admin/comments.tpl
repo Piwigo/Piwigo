@@ -1,6 +1,6 @@
 <h2>{lang:User comments validation}</h2>
 
-<form method="post" action="{F_ACTION}" id="comment">
+<form method="post" action="{F_ACTION}">
 
   <input type="hidden" name="list" value="{LIST}" />
 

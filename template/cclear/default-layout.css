@@ -176,3 +176,36 @@ form#categoryOrdering ul.categoryActions {
 }
 
 form#cat_modify table { width: auto; }
+
+/**
+ * Filter forms are displayed label by label with the input (or select...)
+ * below the label
+ */
+FORM.filter FIELDSET {
+  padding: 10px;
+}
+
+FORM.filter FIELDSET LABEL {
+  display: block;
+  float: left;
+  width: auto;
+  margin-right: 10px;
+  padding: 0;
+}
+
+FORM.filter>FIELDSET>LABEL>INPUT, FORM.filter>FIELDSET>LABEL>SELECT {
+  display: block;
+}
+
+FORM.filter FIELDSET P, FORM.filter FIELDSET>INPUT {
+  clear: left;
+  display: block;
+}
+
+FORM.filter FIELDSET {
+  border: 1px solid gray;
+}
+
+FORM.filter FIELDSET + INPUT {
+  margin-top: 10px;
+}

@@ -1,3 +1,9 @@
+2005-08-21 Pierrick LE GALL
+
+	* modification : adaptation of template variables and blocks in
+	comments page to display comment by comment instead of picture by
+	picture.
+
 2005-08-20 Pierrick LE GALL
 
 	* improvement : dedicated page for user comments validation/reject

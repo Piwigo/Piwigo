@@ -425,11 +425,13 @@ SELECT id, uppercats
     }
     
     $template->assign_block_vars(
-      'picture.comment',
+      'comment',
       array(
-        'COMMENT_AUTHOR' => $author,
-        'COMMENT_DATE'=>format_date($comment['date'],'mysql_datetime',true),
-        'COMMENT'=>parse_comment_content($comment['content']),
+        'U_PICTURE' => add_session_id($url),
+        'TN_SRC' => $thumbnail_src,
+        'AUTHOR' => $author,
+        'DATE'=>format_date($comment['date'],'mysql_datetime',true),
+        'CONTENT'=>parse_comment_content($comment['content']),
         ));
   }
 }

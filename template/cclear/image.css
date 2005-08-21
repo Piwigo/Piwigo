@@ -58,7 +58,7 @@ de l'image...
     clear: left;
 }
 
-#theImage * {
+#theImage>IMG {
     display: block;
     margin: 0 auto;
 }

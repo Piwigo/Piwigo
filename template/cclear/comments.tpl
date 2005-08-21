@@ -1,47 +1,96 @@
-<!-- BEGIN title -->
-<h2>{L_COMMENT_TITLE}</h2>
-<!-- END title -->
-<!-- TODO -->
-<div class="admin">
-      [
-      <!-- BEGIN last_day_option -->
-      <a class="admin" href="{last_day_option.U_OPTION}" style="{last_day_option.T_STYLE}">{last_day_option.OPTION}</a>{T_SEPARATION}
-      <!-- END last_day_option -->
-      {L_COMMENT_STATS}
-      ]
-	  <!-- BEGIN title -->
-      [ <a class="admin" href="{U_HOME}" title="{L_COMMENT_RETURN_HINT}">{L_COMMENT_RETURN}</a> ]
-	  <!-- END title -->
-</div>
-<!-- BEGIN validation -->
-<form action="{F_ACTION}" method="post">
-<!-- END validation -->
+<div id="commentsPage">
 
-<!-- BEGIN picture -->
-<div class="commentTitle">{picture.TITLE_IMG}</div>
+<div id="content">
 
-<div style="margin-left:auto;margin-right:auto;text-align:center;">
-  <a href="{picture.U_THUMB}" title="{picture.TITLE_IMG}"><img src="{picture.I_THUMB}" class="thumbLink" alt="{picture.THUMB_ALT_IMG}"/></a>
-</div>
+  <div class="titrePage">
+    <ul class="categoryActions">
+      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="./template/cclear/theme/home.png" alt="{lang:home}"/></a></li>
+    </ul>
+    <h2>{lang:User comments}</h2>
+  </div>
 
-<!-- BEGIN comment -->
-<div class="userCommentHeader">
-  <!-- BEGIN validation -->
-  <p class="userCommentDelete">
-    <input type="checkbox" name="comment_id[]" value="{picture.comment.validation.ID}" {picture.comment.validation.CHECKED} />
-  </p>
-  <!-- END validation -->
-  <strong>{picture.comment.COMMENT_AUTHOR}</strong> - {picture.comment.COMMENT_DATE}
-</div>
+<form class="filter" action="{F_ACTION}" method="get">
 
-<blockquote>{picture.comment.COMMENT}</blockquote>
-<!-- END comment -->
-<!-- END picture -->
+  <fieldset>
+    <legend>{lang:Filter}</legend>
 
-<!-- BEGIN validation -->
-<div align="center">
-<input type="submit" name="validate" class="bouton" value="{L_VALIDATE}" />
-<input type="submit" name="delete" class="bouton" value="{L_DELETE}" />
-</div>
+    <label>{lang:Keyword}<input type="text" name="keyword" value="{F_KEYWORD}" /></label>
+
+    <label>{lang:Author}<input type="text" name="author" value="{F_AUTHOR}" /></label>
+
+    <label>
+      {lang:Category}
+      <select name="cat">
+        <!-- BEGIN category -->
+        <option class="{category.CLASS}" {category.SELECTED} value="{category.VALUE}">{category.OPTION}</option>
+        <!-- END category -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Since}
+      <select name="since">
+        <!-- BEGIN since_option -->
+        <option {since_option.SELECTED} value="{since_option.VALUE}">{since_option.CONTENT}</option>
+        <!-- END since_option -->
+      </select>
+    </label>
+
+  </fieldset>
+
+  <fieldset>
+
+    <legend>{lang:Display}</legend>
+
+    <label>
+      {lang:Sort by}
+      <select name="sort_by">
+        <!-- BEGIN sort_by_option -->
+        <option value="{sort_by_option.VALUE}" {sort_by_option.SELECTED} >{sort_by_option.CONTENT}</option>
+        <!-- END sort_by_option -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Sort order}
+      <select name="sort_order">
+        <!-- BEGIN sort_order_option -->
+        <option value="{sort_order_option.VALUE}" {sort_order_option.SELECTED} >{sort_order_option.CONTENT}</option>
+        <!-- END sort_order_option -->
+      </select>
+    </label>
+
+    <label>
+      {lang:Number of items}
+      <select name="items_number">
+        <!-- BEGIN items_number_option -->
+        <option value="{items_number_option.VALUE}" {items_number_option.SELECTED} >{items_number_option.CONTENT}</option>
+        <!-- END items_option -->
+      </select>
+    </label>
+
+  </fieldset>
+
+  <input type="submit" name="submit" value="{lang:Filter and display}" />
+
 </form>
-<!-- END validation -->
+
+<div class="navigationBar">{NAVBAR}</div>
+
+<div id="comments">
+
+  <!-- BEGIN comment -->
+  <div class="comment">
+    <a class="illustration" href="{comment.U_PICTURE}"><img src="{comment.TN_SRC}" /></a>
+    <p class="commentHeader"><span class="author">{comment.AUTHOR}</span> - <span class="date">{comment.DATE}</span></p>
+    <blockquote>{comment.CONTENT}</blockquote>
+    <hr class="separation">
+  </div>
+
+  <!-- END comment -->
+
+</div>
+
+</div> <!-- content -->
+
+</div> <!-- commentsPage -->
