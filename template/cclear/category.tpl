@@ -133,6 +133,7 @@
       <!-- BEGIN nb_comments -->
       <li>{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT} </li>
       <!-- END nb_comments -->
+      </ul>
      </div>
   </li>
   <!-- END thumbnail -->
