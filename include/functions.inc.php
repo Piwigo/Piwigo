@@ -433,48 +433,6 @@ function format_date($date, $type = 'us', $show_time = false)
   return $formated_date;
 }
 
-// notify sends a email to every admin of the gallery
-function notify( $type, $infos = '' )
-{
-  global $conf;
-
-  $headers = 'From: <'.$conf['mail_webmaster'].'>'."\n";
-  $headers.= 'Reply-To: '.$conf['mail_webmaster']."\n";
-  $headers.= 'X-Mailer: PhpWebGallery, PHP '.phpversion();
-
-  $options = '-f '.$conf['mail_webmaster'];
-  // retrieving all administrators
-  $query = 'SELECT username,mail_address,language';
-  $query.= ' FROM '.USERS_TABLE;
-  $query.= " WHERE status = 'admin'";
-  $query.= ' AND mail_address IS NOT NULL';
-  $query.= ';';
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $to = $row['mail_address'];
-    include( PHPWG_ROOT_PATH.'language/'.$row['language'].'/common.lang.php' );
-    $content = $lang['mail_hello']."\n\n";
-    switch ( $type )
-    {
-    case 'upload' :
-      $subject = $lang['mail_new_upload_subject'];
-      $content.= $lang['mail_new_upload_content'];
-      break;
-    case 'comment' :
-      $subject = $lang['mail_new_comment_subject'];
-      $content.= $lang['mail_new_comment_content'];
-      break;
-    }
-    $infos = str_replace( '&nbsp;',  ' ', $infos );
-    $infos = str_replace( '&minus;', '-', $infos );
-    $content.= "\n\n".$infos;
-    $content.= "\n\n-- \nPhpWebGallery ".PHPWG_VERSION;
-    $content = wordwrap( $content, 72 );
-    @mail( $to, $subject, $content, $headers, $options );
-  }
-}
-
 function pwg_write_debug()
 {
   global $debug;

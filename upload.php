@@ -212,11 +212,6 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ';';
     pwg_query( $query );
     $page['waiting_id'] = mysql_insert_id();
-    // mail notification for administrators
-    if ( $conf['mail_notification'] )
-    {
-      notify( 'upload' );
-    }
   }
 }
 
@@ -276,7 +271,7 @@ else
 }
 
 $username = !empty($_POST['username'])?$_POST['username']:$user['username'];
-$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:$user['mail_address'];
+$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:@$user['mail_address'];
 $name = !empty($_POST['name'])?$_POST['name']:'';
 $author = !empty($_POST['author'])?$_POST['author']:'';
 $date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';

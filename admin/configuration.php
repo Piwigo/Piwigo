@@ -164,8 +164,6 @@ switch ($page['section'])
   {
     $history_yes = ($conf['log']=='true')?'checked="checked"':'';
     $history_no  = ($conf['log']=='false')?'checked="checked"':'';
-    $notif_yes = ($conf['mail_notification']=='true')?'checked="checked"':'';
-    $notif_no = ($conf['mail_notification']=='false')?'checked="checked"':'';
     $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
     $lock_no = ($conf['gallery_locked']=='false')?'checked="checked"':'';
     
@@ -179,8 +177,6 @@ switch ($page['section'])
         'L_CONF_TN_PREFIX_INFO'=>$lang['conf_prefix_info'],
         'L_CONF_HISTORY'=>$lang['history'],
         'L_CONF_HISTORY_INFO'=>$lang['conf_log_info'],
-        'L_CONF_NOTIFICATION'=>$lang['conf_notification'],
-        'L_CONF_NOTIFICATION_INFO'=>$lang['conf_notification_info'],
         'L_CONF_GALLERY_LOCKED'=>$lang['conf_gallery_locked'],
         'L_CONF_GALLERY_LOCKED_INFO'=>$lang['conf_gallery_locked_info'],
           
@@ -188,8 +184,6 @@ switch ($page['section'])
         'THUMBNAIL_PREFIX'=>$conf['prefix_thumbnail'],
         'HISTORY_YES'=>$history_yes,
         'HISTORY_NO'=>$history_no,
-        'NOTIFICATION_YES'=>$notif_yes,
-        'NOTIFICATION_NO'=>$notif_no,
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
         ));

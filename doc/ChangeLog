@@ -1,3 +1,11 @@
+2005-08-25 Pierrick LE GALL
+
+	* deletion : no mail notification anymore. Feature replaced by RSS
+	feed notification.
+
+	* improvement : on waiting pictures management. Ability to
+	validate all or reject all in one clic.
+
 2005-08-21 Pierrick LE GALL
 
 	* modification : adaptation of template variables and blocks in

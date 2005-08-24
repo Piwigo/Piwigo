@@ -387,22 +387,6 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       }
       $template->assign_block_vars('information',
                                    array('INFORMATION'=>$message));
-      // notification to the administrators
-      if ( $conf['mail_notification'] )
-      {
-        // find any related category (can be unreachable to this admin)
-        $category = $related_categories[0];
-        // locally, we change the $conf['level_separator']
-        $conf_separator = $conf['level_separator'];
-        $conf['level_separator'] = ' > ';
-        $cat_name = get_cat_display_name_cache($category['uppercats'],
-                                               '',
-                                               false);
-        $conf['level_separator'] = $conf_separator;
-        
-        $cat_name = strip_tags( $cat_name );
-        notify( 'comment', $cat_name.' > '.$picture['current']['name']);
-      }
     }
     else
     {

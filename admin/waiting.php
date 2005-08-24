@@ -30,49 +30,110 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 //--------------------------------------------------------------------- updates
-if ( isset( $_POST['submit'] ) )
+
+if (isset($_POST))
 {
-  $query = 'SELECT * FROM '.WAITING_TABLE;
-  $query.= " WHERE validated = 'false';";
-  $result = pwg_query( $query );
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    $key = 'validate-'.$row['id'];
-    if ( isset( $_POST[$key] ) )
+  $to_validate = array();
+  $to_reject = array();
+  
+  if (isset($_POST['submit']))
+  {    
+    foreach (explode(',', $_POST['list']) as $waiting_id)
     {
-      if ( $_POST[$key] == 'true' )
+      if (isset($_POST['action-'.$waiting_id]))
       {
-        // The uploaded element was validated, we have to set the
-        // "validated" field to "true"
-        $query = 'UPDATE '.WAITING_TABLE;
-        $query.= " SET validated = 'true'";
-        $query.= ' WHERE id = '.$row['id'];
-        $query.= ';';
-        pwg_query( $query );
-      }
-      else
-      {
-        // The uploaded element was refused, we have to delete its reference
-        // in the database and to delete the element as well.
-        $query = 'DELETE FROM '.WAITING_TABLE;
-        $query.= ' WHERE id = '.$row['id'];
-        $query.= ';';
-        pwg_query( $query );
-        // deletion of the associated files
-        $dir = get_complete_dir( $row['storage_category_id'] );
-        unlink( $dir.$row['file'] );
-        if (isset($row['tn_ext']) and $row['tn_ext'] != '' )
+        switch ($_POST['action-'.$waiting_id])
         {
-          $thumbnail = $conf['prefix_thumbnail'];
-          $thumbnail.= get_filename_wo_extension( $row['file'] );
-          $thumbnail.= '.'.$row['tn_ext'];
-          $url = $dir.'thumbnail/'.$thumbnail;
-          unlink( $url );
+          case 'reject' :
+          {
+            array_push($to_reject, $waiting_id);
+            break;
+          }
+          case 'validate' :
+          {
+            array_push($to_validate, $waiting_id);
+            break;
+          }
         }
       }
     }
   }
-  array_push($infos, $lang['waiting_update']);
+  else if (isset($_POST['validate-all']))
+  {
+    $to_validate = explode(',', $_POST['list']);
+  }
+  else if (isset($_POST['reject-all']))
+  {
+    $to_reject = explode(',', $_POST['list']);
+  }
+
+  if (count($to_validate) > 0)
+  {
+    $query = '
+UPDATE '.WAITING_TABLE.'
+  SET validated = \'true\'
+  WHERE id IN ('.implode(',', $to_validate).')
+;';
+    pwg_query($query);
+
+    array_push(
+      $page['infos'],
+      sprintf(
+        l10n('%d waiting pictures validated'),
+        count($to_validate)
+        )
+      );
+  }
+
+  if (count($to_reject) > 0)
+  {
+    // The uploaded element was refused, we have to delete its reference in
+    // the database and to delete the element as well.
+    $query = '
+SELECT id, storage_category_id, file, tn_ext
+  FROM '.WAITING_TABLE.'
+  WHERE id IN ('.implode(',', $to_reject).')
+;';
+    $result = pwg_query($query);
+    while($row = mysql_fetch_array($result))
+    {
+      $dir = get_complete_dir($row['storage_category_id']);
+      unlink($dir.$row['file']);
+      if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+      {
+        unlink(
+          get_thumbnail_src(
+            $dir.$row['file'],
+            $row['tn_ext']
+            )
+          );
+      }
+      else if (@is_file(get_thumbnail_src($dir.$row['file'], 'jpg')))
+      {
+        unlink(
+          get_thumbnail_src(
+            $dir.$row['file'],
+            'jpg'
+            )
+          );
+      }
+    }
+    
+    $query = '
+DELETE
+  FROM '.WAITING_TABLE.'
+  WHERE id IN ('.implode(',', $to_reject).')
+;';
+    pwg_query($query);
+
+    array_push(
+      $page['infos'],
+      sprintf(
+        l10n('%d waiting pictures rejected'),
+        count($to_reject)
+        )
+      );
+  }
 }
 
 //----------------------------------------------------- template initialization
@@ -92,6 +153,8 @@ $template->assign_vars(array(
   
 //---------------------------------------------------------------- form display
 $cat_names = array();
+$list = array();
+
 $query = 'SELECT * FROM '.WAITING_TABLE;
 $query.= " WHERE validated = 'false'";
 $query.= ' ORDER BY storage_category_id';
@@ -113,16 +176,22 @@ while ( $row = mysql_fetch_array( $result ) )
   $class='row1';
   if ( $i++ % 2== 0 ) $class='row2';
   
-  $template->assign_block_vars('picture' ,array(
-    'WAITING_CLASS'=>$class,
-    'CATEGORY_IMG'=>$cat_names[$row['storage_category_id']]['display_name'],
-    'ID_IMG'=>$row['id'],
-	'DATE_IMG'=>format_date( $row['date'], 'unix', true ),
-	'FILE_IMG'=>$row['file'],
-	'PREVIEW_URL_IMG'=>$preview_url, 
-	'UPLOAD_EMAIL'=>$row['mail_address'],
-	'UPLOAD_USERNAME'=>$row['username']
-	));
+  $template->assign_block_vars(
+    'picture',
+    array(
+      'WAITING_CLASS'=>$class,
+      'CATEGORY_IMG'=>$cat_names[$row['storage_category_id']]['display_name'],
+      'ID_IMG'=>$row['id'],
+      'DATE_IMG' => date('Y-m-d H:i:s', $row['date']),
+      'FILE_TITLE'=>$row['file'],
+      'FILE_IMG' =>
+        (strlen($row['file']) > 10) ?
+          (substr($row['file'], 0, 10)).'...' : $row['file'],
+      'PREVIEW_URL_IMG'=>$preview_url, 
+      'UPLOAD_EMAIL'=>$row['mail_address'],
+      'UPLOAD_USERNAME'=>$row['username']
+      )
+    );
 
   // is there an existing associated thumnail ?
   if ( !empty( $row['tn_ext'] ))
@@ -133,12 +202,27 @@ while ( $row = mysql_fetch_array( $result ) )
 	$url = $cat_names[$row['storage_category_id']]['dir'];
     $url.= 'thumbnail/'.$thumbnail;
 	
-    $template->assign_block_vars('picture.thumbnail' ,array(
-	  'PREVIEW_URL_TN_IMG'=>$url,
-	  'FILE_TN_IMG'=>$thumbnail
-	  ));
+    $template->assign_block_vars(
+      'picture.thumbnail',
+      array(
+        'PREVIEW_URL_TN_IMG' => $url,
+        'FILE_TN_IMG' =>
+          (strlen($thumbnail) > 10) ?
+            (substr($thumbnail, 0, 10)).'...' : $thumbnail,
+        'FILE_TN_TITLE' => $thumbnail
+        )
+      );
   }
+
+  array_push($list, $row['id']);
 }
+
+$template->assign_vars(
+  array(
+    'LIST' => implode(',', $list)
+    )
+  );
+  
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'waiting');
 ?>
