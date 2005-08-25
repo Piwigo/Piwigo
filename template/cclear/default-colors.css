@@ -117,9 +117,7 @@ input, select, textarea {
 	background-color: lightgrey;
         border: 1px solid gray;
 }
-.bouton {
-	background-color:#d3d3d3;
-}
+
 .errors { /* Errors display */
 	color:red;
 	background-color:#ffe1e1;
@@ -132,7 +130,10 @@ input, select, textarea {
 {
 	font-weight:normal;
 }
-fieldset>legend {
+LEGEND {
   font-style: italic;
 }
 
+FIELDSET {
+  border: 1px solid gray;
+}

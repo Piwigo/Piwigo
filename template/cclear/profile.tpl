@@ -76,10 +76,11 @@
     </dd>
   </dl>
 
-  <p>
-    <input type="submit" name="validate" value="{L_SUBMIT}" class="bouton" />
-    <input type="reset" name="reset" value="{L_RESET}" class="bouton" />
+  <p class="bottomButtons">
+    <input type="submit" name="validate" value="{L_SUBMIT}">
+    <input type="reset" name="reset" value="{L_RESET}">
   </p>
+
 </form>
 
   <p><a href="{U_RETURN}" title="{L_RETURN_HINT}">[{L_RETURN}]</a></p>

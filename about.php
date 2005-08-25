@@ -33,17 +33,16 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 // Start output of page
 //
 $title= $lang['about_page_title'];
+$page['body_id'] = 'theAboutPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('about'=>'about.tpl'));
-$template->assign_vars(array(
-	'PAGE_TITLE' => $title,
-	'L_ABOUT' => $lang['about_message'],
-	'L_RETURN' =>  $lang['home'],
-	'L_RETURN_HINT' =>  $lang['home_hint'],  
-	'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
-	)
-	);
+$template->assign_vars(
+  array(
+    'L_ABOUT' => $lang['about_message'],
+    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php')
+    )
+  );
 
 $template->parse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

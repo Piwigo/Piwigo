@@ -1,4 +1,12 @@
-<h2>{L_SEARCH_TITLE}</h2>
+<div id="content">
+
+  <div class="titrePage">
+    <ul class="categoryActions">
+      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="./template/cclear/theme/home.png" alt="{lang:home}"/></a></li>
+    </ul>
+    <h2>{lang:Search}</h2>
+  </div>
+
 <!-- TO DO -->
 <form method="post" name="post" action="{S_SEARCH_ACTION}">
 <!-- BEGIN errors -->
@@ -11,9 +19,6 @@
 </div>
 <!-- END errors -->
 <table width="100%" align="center" cellpadding="2">
-  <tr class="admin">
-    <th colspan="4">{L_SEARCH_TITLE}</th>
-  </tr>
   <tr> 
     <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b><br /><span class="small">{L_SEARCH_KEYWORDS_HINT}</span></td>
     <td colspan="2" valign="top">
@@ -129,4 +134,5 @@
 </td>
 </table>
 </form>
-<a href="{U_HOME}" title="{L_RETURN_HINT}">[ {L_RETURN} ]</a>
+
+</div> <!-- content -->

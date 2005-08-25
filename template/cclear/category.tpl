@@ -1,6 +1,4 @@
 <!-- $Id$ -->
-<h1>PhpWebGallery demonstration site</h1>
-
 <div id="menubar">
 <!-- BEGIN links -->
 <dl>
@@ -84,7 +82,7 @@
 	<label for="remember_me">{L_REMEMBER_ME}</label>
       </p>
       <!-- END remember_me -->
-      <p><input type="submit" name="login" value="{L_SUBMIT}" class="bouton"></p>
+      <p><input type="submit" name="login" value="{L_SUBMIT}"></p>
     </form>
     <!-- END quickconnect -->
   </dd>

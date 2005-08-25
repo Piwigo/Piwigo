@@ -5,7 +5,14 @@
     margin-bottom: 1em; /* when it's longer than menu bar */
 }
 
-#commentsPage #content {
+BODY#theCommentsPage #content,
+BODY#theRegisterPage #content,
+BODY#theIdentificationPage #content,
+BODY#theProfilePage #content,
+BODY#theSearchPage #content,
+BODY#theAboutPage #content,
+BODY#theNotificationPage #content
+{
   margin: 1em;
 }
 
@@ -126,7 +133,7 @@ ul.categoryActions {
 
 #content DIV.comment > A.illustration {
   display: block;
-  float: left;
+  position: absolute;
   margin: 5px;
 }
 
@@ -142,7 +149,6 @@ ul.categoryActions {
 #content DIV.comment UL.actions {
   text-align: center;
   margin: 0.2em;
-  clear: left;
 }
 
 #content DIV.comment > UL.actions > LI {
@@ -155,3 +161,4 @@ ul.categoryActions {
   border-left: 2px solid gray;
   padding: 0.5em;
 }
+

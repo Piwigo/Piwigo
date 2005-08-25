@@ -4,7 +4,7 @@
 
 <form action="{F_ACTION}" method="post" id="categoryPermissions">
 
-  <h3>{lang:Groups}</h3>
+  <h4>{lang:Groups}</h4>
 
   <fieldset>
     <legend>{lang:Permission granted}</legend>
@@ -26,7 +26,7 @@
     <input type="submit" name="grant_groups_submit" value="{lang:Grant selected groups}" />
   </fieldset>
 
-  <h3>{lang:Users}</h3>
+  <h4>{lang:Users}</h4>
   
   <fieldset>
     <legend>{lang:Permission granted}</legend>

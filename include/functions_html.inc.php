@@ -374,27 +374,21 @@ function get_html_menu_category($categories)
       $menu.= str_repeat("\n</ul>",($ref_level-$level));
     }
     $ref_level = $level;
-    
+
     $menu.= '
 
-           <li>';
-  
-    $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
-
-    $class = '';
+           <li';
     if (isset($page['cat'])
         and is_numeric($page['cat'])
         and $category['id'] == $page['cat'])
     {
-      $class = 'menuCategorySelected';
+      $menu.= ' class="selected"';
     }
-    else
-    {
-      $class = 'menuCategoryNotSelected';
-    }
-
+    $menu.= '>';
+  
+    $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
     $menu.= '
-             <a href="'.$url.'" class="'.$class.'">'.$category['name'].'</a>';
+             <a href="'.$url.'">'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
     {

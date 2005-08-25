@@ -55,7 +55,7 @@
 <form action="{F_ACTION}" method="post">
   {L_REMOTE_SITE_CREATE} 
   <input type="text" name="galleries_url" value="{F_GALLERIES_URL}" />
-  <input class="bouton" type="submit" name="submit" value="{L_SUBMIT}" />
+  <input type="submit" name="submit" value="{L_SUBMIT}" />
 </form>
 
 <table>

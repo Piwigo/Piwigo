@@ -1,5 +1,4 @@
-<div id="commentsPage">
-
+<!-- $Id$ -->
 <div id="content">
 
   <div class="titrePage">
@@ -92,5 +91,3 @@
 </div>
 
 </div> <!-- content -->
-
-</div> <!-- commentsPage -->

@@ -190,8 +190,8 @@
 <!-- END metadata -->
     <tr>
       <td colspan="2" align="center">
-        <input type="submit" name="submit" class="bouton" value="{L_SUBMIT}">
-	<input type="reset" name="reset" class="bouton" value="{L_RESET}">
+        <input type="submit" name="submit" value="{L_SUBMIT}">
+	<input type="reset" name="reset" value="{L_RESET}">
       </td>
     </tr>
   </table>

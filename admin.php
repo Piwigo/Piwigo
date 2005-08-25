@@ -57,6 +57,8 @@ $conf_link = $link_start.'configuration&amp;section=';
 $opt_link = $link_start.'cat_options&amp;section=';
 //----------------------------------------------------- template initialization
 $title = l10n('PhpWebGallery administration'); // for include/page_header.php
+$page['gallery_title'] = l10n('PhpWebGallery Administration');
+$page['body_id'] = 'theAdminPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('admin' => 'admin.tpl'));

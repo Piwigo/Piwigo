@@ -112,6 +112,7 @@ if ( $user['expand'] )
 // Start output of page
 //
 $title = $page['title'];
+$page['body_id'] = 'theCategoryPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('category'=>'category.tpl') );
@@ -134,7 +135,8 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
 
 $icon_recent = get_icon(date('Y-m-d'));
 
-$template->assign_vars(array(
+$template->assign_vars(
+  array(
   'NB_PICTURE' => count_user_total_images(),
   'TITLE' => $template_title,
   'USERNAME' => $user['username'],

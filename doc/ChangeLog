@@ -1,3 +1,22 @@
+2005-08-26 Pierrick LE GALL
+
+	* new : HTML BODY identifier to let CSS stylesheets manage
+	specific behaviour.
+
+	* deletion : admin/search useless
+
+	* improvement : in admin/user_list, special behaviour for
+	true/false fields (expand, show_comments)
+
+	* new : gallery_title and gallery_description are displayed at the
+	top of each page.
+
+	* improvement : simplification in HTML for categories menu.
+
+	* improvement : standardization of presentation in all public
+	pages (identification, registration, search, profile,
+	notification, comments, etc.)
+
 2005-08-25 Pierrick LE GALL
 
 	* deletion : no mail notification anymore. Feature replaced by RSS

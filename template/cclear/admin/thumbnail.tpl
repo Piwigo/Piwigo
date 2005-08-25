@@ -98,7 +98,7 @@
     </tr>
     <tr>
       <td colspan="3" style="text-align:center;">
-        <input type="submit" name="submit" class="bouton" value="{L_SUBMIT}"/>
+        <input type="submit" name="submit" value="{L_SUBMIT}"/>
       </td>
     </tr>
   </table>

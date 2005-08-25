@@ -466,6 +466,7 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
   $url_metadata.= '&amp;show_metadata=1';
 }
 
+$page['body_id'] = 'thePicturePage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 

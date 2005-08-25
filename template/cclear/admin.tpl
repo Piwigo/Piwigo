@@ -1,4 +1,5 @@
 <!-- $Id$ -->
+
 <div id="menubar">
   <dl>
     <dt>{lang:links}</dt>
@@ -66,7 +67,6 @@
 </div> <!-- menubar -->
 
 <div id="content">
-  <!--h2>{PAGE_TITLE}</h2-->
   <!-- BEGIN errors -->
   <div id="errors">
     <ul>
@@ -89,5 +89,3 @@
 
   {ADMIN_CONTENT}
 </div>
-
-

@@ -24,47 +24,49 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
- 
-//
-// Start output of page
-//
-$template->set_filenames(array('header'=>'header.tpl'));
 
-$css = PHPWG_ROOT_PATH.'template/'.$user['template'];
-$css.= '/'.$user['template'].'.css';
+// +-----------------------------------------------------------------------+
+// |                           initialization                              |
+// +-----------------------------------------------------------------------+
+
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// |                          new feed creation                            |
+// +-----------------------------------------------------------------------+
+
+$page['feed'] = find_available_feed_id();
+
+$query = '
+INSERT INTO '.USER_FEED_TABLE.'
+  (id, user_id, last_check)
+  VALUES
+  (\''.$page['feed'].'\', '.$user['id'].', NULL)
+;';
+pwg_query($query);
+
+// +-----------------------------------------------------------------------+
+// |                        template initialization                        |
+// +-----------------------------------------------------------------------+
+
+$title = l10n('Notification');
+$page['body_id'] = 'theNotificationPage';
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->set_filenames(array('notification'=>'notification.tpl'));
 
 $template->assign_vars(
   array(
-    'GALLERY_TITLE' =>
-      isset($page['gallery_title']) ?
-        $page['gallery_title'] : $conf['gallery_title'],
-    
-    'GALLERY_DESCRIPTION' =>
-      isset($page['gallery_description']) ?
-        $page['gallery_description'] : $conf['gallery_description'],
-    
-    'BODY_ID' =>
-      isset($page['body_id']) ?
-        $page['body_id'] : '',
-    
-    'CONTENT_ENCODING' => $lang_info['charset'],
-    'PAGE_TITLE' => $title,
-    'LANG'=>$lang_info['code'],
-    'DIR'=>$lang_info['direction'],
-    
-    'T_STYLE' => $css
-    ));
+    'FEED_URL' => PHPWG_ROOT_PATH.'feed.php?feed='.$page['feed'],
+    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php')
+    )
+  );
 
-// refresh
-if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) )
-{
-  $template->assign_vars(
-    array(
-      'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => add_session_id( $url_link )
-      ));
-  $template->assign_block_vars('refresh', array());
-}
+// +-----------------------------------------------------------------------+
+// |                           html code display                           |
+// +-----------------------------------------------------------------------+
 
-$template->parse('header');
+$template->parse('notification');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
 ?>

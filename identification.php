@@ -64,6 +64,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 // Start output of page
 //
 $title = $lang['identification'];
+$page['body_id'] = 'theIdentificationPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );

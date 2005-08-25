@@ -67,6 +67,7 @@ $email = !empty($_POST['mail_address'])?$_POST['mail_address']:'';
 // Start output of page
 //
 $title= $lang['register_page_title'];
+$page['body_id'] = 'theRegisterPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
@@ -78,6 +79,8 @@ $template->assign_vars(array(
   'L_PASSWORD' => $lang['password'],
   'L_CONFIRM_PASSWORD' => $lang['reg_confirm'],
   'L_EMAIL' => $lang['mail_address'],
+
+  'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
   
   'F_ACTION' => add_session_id('register.php'),
   'F_LOGIN' => $login,

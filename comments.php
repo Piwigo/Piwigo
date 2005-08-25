@@ -165,11 +165,10 @@ UPDATE '.COMMENTS_TABLE.'
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
-if (!defined('IN_ADMIN'))
-{
-  $title= l10n('title_comments');
-  include(PHPWG_ROOT_PATH.'include/page_header.php');
-}
+
+$title= l10n('title_comments');
+$page['body_id'] = 'theCommentsPage';
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('comments'=>'comments.tpl'));
 $template->assign_vars(

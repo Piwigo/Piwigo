@@ -142,10 +142,13 @@ SELECT password
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
+
 $title= $lang['customize_page_title'];
+$page['body_id'] = 'theProfilePage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $url_action = PHPWG_ROOT_PATH.'profile.php';
+
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('profile_body'=>'profile.tpl'));
 

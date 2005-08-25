@@ -1,4 +1,14 @@
-<h2>{L_TITLE}</h2>
+<!-- $Id$ -->
+<div id="content">
+
+  <div class="titrePage">
+    <ul class="categoryActions">
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="./template/cclear/theme/register.png" alt="{lang:register"/></a></li>
+      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="./template/cclear/theme/home.png" alt="{lang:home}"/></a></li>
+    </ul>
+    <h2>{lang:Identification}</h2>
+  </div>
+
 <div class="formbox">
 <form action="{F_LOGIN_ACTION}" method="post">
   <!-- BEGIN errors -->
@@ -20,11 +30,9 @@
     <dd><input type="checkbox" name="remember_me" value="1" /></dd>
   <!-- END remember_me -->
   </dl>
-  <p><input type="submit" name="login" value="{L_LOGIN}" class="bouton" /></p>
+  <p><input type="submit" name="login" value="{L_LOGIN}"></p>
 </form>
-  <!-- BEGIN free_access -->
-  <p><a href="./category.php">[ {L_GUEST} ]</a></p>
-  <a href="register.php"><img src="template/cclear/theme/register.gif" style="border:0;" alt=""/>&nbsp;{L_REGISTER}</a>&nbsp;&nbsp;-&nbsp;&nbsp;
-  <!-- END free_access -->
-  <a href="mailto:{MAIL_ADMIN}?subject=[PhpWebGallery] {L_FORGET}"><img src="template/cclear/theme/lost.gif" style="border:0;" alt=""/>&nbsp;{L_FORGET}</a>
+  <a href="{U_REGISTER}"><img src="template/cclear/theme/register.png" alt=""> {L_REGISTER}</a>
 </div> <!--formbox-->
+
+</div> <!-- content -->

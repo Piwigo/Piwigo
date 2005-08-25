@@ -124,17 +124,29 @@ DELETE FROM '.USER_GROUP_TABLE.'
     
     $formfields =
       array('nb_image_line', 'nb_line_page', 'template', 'language',
-            'recent_period', 'expand', 'show_nb_comments', 'maxwidth',
+            'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
             'maxheight', 'status');
-  
+
+    $true_false_fields = array('expand', 'show_nb_comments');
+    
     foreach ($formfields as $formfield)
     {
-      if ($_POST[$formfield.'_action'] != 'leave')
+      // special for true/false fields
+      if (in_array($formfield, $true_false_fields))
+      {
+        $test = $formfield;
+      }
+      else
+      {
+        $test = $formfield.'_action';
+      }
+               
+      if ($_POST[$test] != 'leave')
       {
         array_push($dbfields['update'], $formfield);
       }
     }
-    
+
     // updating elements is useful only if needed...
     if (count($dbfields['update']) > 0)
     {
@@ -150,7 +162,8 @@ DELETE FROM '.USER_GROUP_TABLE.'
         {
           // if the action is 'unset', the key won't be in row and
           // mass_updates function will set this field to NULL
-          if ('set' == $_POST[$dbfield.'_action'])
+          if (in_array($dbfield, $true_false_fields)
+              or 'set' == $_POST[$dbfield.'_action'])
           {
             $data[$dbfield] = $_POST[$dbfield];
           }
@@ -164,6 +177,10 @@ DELETE FROM '.USER_GROUP_TABLE.'
         
         array_push($datas, $data);
       }
+
+//       echo '<pre>';
+//       print_r($datas);
+//       echo '</pre>';
 
       mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
     }
@@ -366,12 +383,6 @@ else
       'MAXWIDTH' => @$conf['default_maxwidth'],
       'MAXHEIGHT' => @$conf['default_maxheight'],
       'RECENT_PERIOD' => $conf['recent_period'],
-      'EXPAND_YES' => $conf['auto_expand'] ? 'checked="checked"' : '',
-      'EXPAND_NO' => !$conf['auto_expand'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_YES' =>
-        $conf['show_nb_comments'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_NO' =>
-        !$conf['show_nb_comments'] ? 'checked="checked"' : ''
       ));
 }
 

@@ -145,6 +145,7 @@ get_month_list('end_month', @$_POST['end_month']);
 // Start output of page
 //
 $title= $lang['search_title'];
+$page['body_id'] = 'theSearchPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );

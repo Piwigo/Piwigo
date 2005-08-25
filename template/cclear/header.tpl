@@ -21,5 +21,10 @@
 <script type="text/javascript" src="include/scripts.js"></script>
 </head>
 
-<body>
+<body id="{BODY_ID}">
 <div id="the_page">
+
+<div id="theHeader">
+  <h1>{GALLERY_TITLE}</h1>
+  <p>{GALLERY_DESCRIPTION}</p>
+</div>

@@ -27,7 +27,7 @@
   
   </ul>
 
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" class="bouton" /></p>
+  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" /></p>
 
 </fieldset>
 
@@ -152,7 +152,7 @@
   </p>
 
     
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" class="bouton" /></p>
+  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" /></p>
 
 </fieldset>
 

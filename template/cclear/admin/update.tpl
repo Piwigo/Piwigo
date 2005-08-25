@@ -79,8 +79,8 @@
   </fieldset>
 
   <p class="bottomButtons">
-    <input type="submit" value="{L_SUBMIT}" name="submit" class="bouton" />
-    <input type="reset"  value="{L_RESET}"  name="reset"  class="bouton" />
+    <input type="submit" value="{L_SUBMIT}" name="submit" />
+    <input type="reset"  value="{L_RESET}"  name="reset"  />
   </p>
 
 </form>

@@ -28,7 +28,7 @@ H1 {
 
 H2 {
     margin: 0;
-    padding: 5px 10px;
+    padding: 5px;
     text-align: left;
     font-size: 120%;
 }
@@ -67,7 +67,9 @@ div.formbox {
   width: 70%;
   margin: 0 auto 1em auto;
 }
-form { padding: 0.5em; }
+
+form { padding: 0em; }
+
 /* form row are dl instead of table rows */
 form dl {
   text-align: left;   /* must set it there otherwise IE render dl.biglabel dt incorectly */
@@ -113,10 +115,6 @@ form p {
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
-
-form table {
-	width: 99%; /* IE 6 seems to dislike 100% in admin->user */
-}
 .small {
 	font-size: 80%;
 }
@@ -148,10 +146,15 @@ select.categoryList {
 }
 
 .table2 {
-	border: 1px solid #000000; 
-	margin:	auto 10px auto 10px;
-	padding:0px;
+  border: 1px solid black; 
+  margin: 1em auto;
+  padding: 0;
 }
+
+.table2 TD, .table2 TH {
+  padding: 0 1em;
+}
+
 form#add_virtual p { text-align: left; }
 form#categoryOrdering p {
 	text-align: left;
@@ -181,8 +184,9 @@ form#cat_modify table { width: auto; }
  * Filter forms are displayed label by label with the input (or select...)
  * below the label
  */
-FORM.filter FIELDSET {
-  padding: 10px;
+FIELDSET {
+  padding: 1em;
+  margin: 1em;
 }
 
 FORM.filter FIELDSET LABEL {
@@ -193,19 +197,51 @@ FORM.filter FIELDSET LABEL {
   padding: 0;
 }
 
-FORM.filter>FIELDSET>LABEL>INPUT, FORM.filter>FIELDSET>LABEL>SELECT {
+FORM.filter FIELDSET LABEL INPUT, FORM.filter FIELDSET LABEL SELECT {
   display: block;
+  margin: 0.5em 0;
 }
 
-FORM.filter FIELDSET P, FORM.filter FIELDSET>INPUT {
+FORM.filter FIELDSET P, FORM.filter FIELDSET INPUT {
   clear: left;
   display: block;
 }
 
-FORM.filter FIELDSET {
-  border: 1px solid gray;
+FORM.filter INPUT[type="submit"] {
+  margin-top: 1em;
 }
 
-FORM.filter FIELDSET + INPUT {
-  margin-top: 10px;
+FIELDSET.elementEdit A {
+  display: block;
+  float: right;
+}
+
+TABLE.doubleSelect {
+  text-align: center;
+  margin: 0 auto;
+}
+
+TABLE.doubleSelect TD {
+  padding: 0 5px;
+}
+
+FORM#categoryPermissions LI {
+  display:inline;
+  white-space: nowrap;
+}
+
+#theHeader {
+}
+
+#theHeader H1 {
+  margin-bottom: 0.5em;
+}
+
+#theHeader P {
+  margin-top: 0;
+  padding: 0;
+}
+
+BODY#theAdminPage #theHeader P { 
+  display: none;
 }

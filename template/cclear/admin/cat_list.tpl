@@ -37,12 +37,12 @@
     </li>
     <!-- END category -->
 
-  <p><input name="submitOrder" type="submit" class="bouton" value="{lang:Save order}" /></p>
+  <p><input name="submitOrder" type="submit" value="{lang:Save order}" /></p>
 
 </form>
 
 <form action="{F_ACTION}" method="post">
   {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
   <input type="hidden" name="rank" value="{NEXT_RANK}"/>
-  <input type="submit" value="{L_SUBMIT}" class="bouton" name="submitAdd" />
+  <input type="submit" value="{L_SUBMIT}" name="submitAdd" />
 </form>
