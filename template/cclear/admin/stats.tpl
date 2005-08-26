@@ -1,3 +1,6 @@
+<!-- $Id$ -->
+<h2>{lang:title_history}</h2>
+
 <h3>{L_STAT_TITLE}</h3>
 <img class="image" src="{IMG_MONTHLY_REPORT}" alt="{L_STAT_MONTHLY_ALT}" />
 <h3>{L_STAT_MONTH_TITLE}</h3>
