@@ -1,4 +1,5 @@
-{REMOTE_SITE_TITLE}
+<!-- $Id$ -->
+<h2>{lang:remote_sites}</h2>
 
 <!-- BEGIN errors -->
 <div class="errors">
