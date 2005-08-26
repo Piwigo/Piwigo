@@ -1,8 +1,11 @@
 /* $Id$ */
 #content {
-    margin-left: 14em;
+    margin-left: 24em;
     margin-right: 1em;
     margin-bottom: 1em; /* when it's longer than menu bar */
+}
+BODY#theAdminPage #content {
+    margin-left: 14em;
 }
 
 BODY#theCommentsPage #content,
