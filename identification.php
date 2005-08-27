@@ -81,8 +81,11 @@ $template->assign_vars(
     'L_REGISTER' => $lang['ident_register'],
     'L_FORGET' => $lang['ident_forgotten_password'],
     'L_REMEMBER_ME'=>$lang['remember_me'],
+
+    'U_REGISTER' => add_session_id(PHPWG_ROOT_PATH.'register.php'),
+    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
     
-    'F_LOGIN_ACTION' => add_session_id('identification.php')
+    'F_LOGIN_ACTION' => add_session_id(PHPWG_ROOT_PATH.'identification.php')
     ));
 
 if ($conf['authorize_remembering'])

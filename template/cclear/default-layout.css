@@ -63,10 +63,6 @@ ul, dl, li { text-align: left;}
 pre { text-align:left; }
 
 /** forms **/
-div.formbox {
-  width: 70%;
-  margin: 0 auto 1em auto;
-}
 
 form { padding: 0em; }
 
@@ -209,6 +205,38 @@ FORM.filter FIELDSET P, FORM.filter FIELDSET INPUT {
 
 FORM.filter INPUT[type="submit"] {
   margin-top: 1em;
+}
+
+FORM.properties UL {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+FORM.properties LI {
+  margin-bottom: 0.5em;
+  padding: 0;
+  line-height: 1.8em;
+}
+
+FORM.properties LABEL {
+  float: left;
+  width: 50%;
+  text-align: right;
+  margin: 0;
+  padding: 0 0.5em 0 0;
+}
+
+FORM.properties LABEL.mandatory {
+  font-weight: bold;
+}
+
+FORM.properties .focus {
+  background-color: whitesmoke;
+}
+
+FORM.properties .nofocus {
+  background-color: lightgrey; /* must be the same as input background-color */
 }
 
 FIELDSET.elementEdit A {

@@ -162,10 +162,8 @@ $template->assign_vars(
     'USERNAME'=>$userdata['username'],
     'USERID'=>$userdata['id'],
     'EMAIL'=>@$userdata['email'],
-    'LANG_SELECT'=>language_select($userdata['language'], 'language'),
     'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
     'NB_ROW_PAGE'=>$userdata['nb_line_page'],
-    'STYLE_SELECT'=>style_select($userdata['template'], 'template'),
     'RECENT_PERIOD'=>$userdata['recent_period'],
     'MAXWIDTH'=>@$userdata['maxwidth'],
     'MAXHEIGHT'=>@$userdata['maxheight'],
@@ -204,6 +202,59 @@ $template->assign_vars(
     
     'F_ACTION'=>add_session_id($url_action),
     ));
+
+$blockname = 'template_option';
+
+foreach (get_templates() as $pwg_template)
+{
+  if (isset($_POST['submit']))
+  {
+    $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
+  }
+  else if ($userdata['template'] == $pwg_template)
+  {
+    $selected = 'selected="selected"';
+  }
+  else
+  {
+    $selected = '';
+  }
+  
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE'=> $pwg_template,
+      'CONTENT' => $pwg_template,
+      'SELECTED' => $selected
+      ));
+}
+
+$blockname = 'language_option';
+
+foreach (get_languages() as $language_code => $language_name)
+{
+  if (isset($_POST['submit']))
+  {
+    $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
+  }
+  else if ($userdata['language'] == $language_code)
+  {
+    $selected = 'selected="selected"';
+  }
+  else
+  {
+    $selected = '';
+  }
+  
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE'=> $language_code,
+      'CONTENT' => $language_name,
+      'SELECTED' => $selected
+      ));
+}
+
 // +-----------------------------------------------------------------------+
 // |                             errors display                            |
 // +-----------------------------------------------------------------------+

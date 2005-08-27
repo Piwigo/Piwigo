@@ -9,9 +9,6 @@
     <h2>{lang:Registration}</h2>
   </div>
 
-<!-- TO DO -->
-<!-- It's easy, just lok at identification.tpl ;-) -->
-
   <!-- BEGIN errors -->
   <div class="errors">
     <ul>
@@ -22,18 +19,37 @@
   </div>
   <!-- END errors -->
 
-<form method="post" action="{F_ACTION}" class="filter">
+<form method="post" action="{F_ACTION}" class="properties">
   <fieldset>
     <legend>{lang:Enter your personnal informations}</legend>
 
-    <label>* {lang:Username}<input type="text" name="login" value="{F_LOGIN}"></label>
-    <label>* {lang:Password}<input type="password" name="password"></label>
-    <label>* {lang:Confirm Password}<input type="password" name="password_conf"></label>
-    <label>{lang:Mail address}<input type="text" name="mail_address" value="{F_EMAIL}"></label>
+    <ul>
+      <li>
+        <label for="login" class="mandatory">* {lang:Username}</label>
+        <input type="text" name="login" id="login" value="{F_LOGIN}" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      </li>
+
+      <li>
+        <label for="password" class="mandatory">* {lang:Password}</label>
+        <input type="password" name="password" id="password" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      </li>
+
+      <li>
+        <label for="password_conf" class="mandatory">* {lang:Confirm Password}</label>
+        <input type="password" name="password_conf" id="password_conf" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      </li>
+
+      <li>
+        <label for="mail_address">{lang:Mail address}</label>
+        <input type="text" name="mail_address" id="mail_address" value="{F_EMAIL}" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      </li>
+    </ul>
+
   </fieldset>
 
   <p class="bottomButtons">
     <input type="submit" name="submit" value="{lang:Register}">
+    <input type="reset" value="{lang:Reset}">
   </p>
 
 </form>

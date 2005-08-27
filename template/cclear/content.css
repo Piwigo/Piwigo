@@ -132,6 +132,7 @@ ul.categoryActions {
 #content DIV.comment {
   margin: 5px;
   border: 1px solid gray;
+  min-height: 150px; /* maximum thumbnail height */
 }
 
 #content DIV.comment > A.illustration {

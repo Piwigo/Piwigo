@@ -4,7 +4,7 @@
  <!-- END debug -->
 
  <!-- Please, do not remove this copyright. If you really want to,
-	  contact me pierrick@phpwebgallery.net to find a solution on how
+	  contact us on http://phpwebgallery.net to find a solution on how
 	  to show the origin of the script...-->
 
   {L_POWERED_BY} <a href="http://www.phpwebgallery.net" class="back">PhpWebGallery</a>
