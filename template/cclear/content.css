@@ -42,6 +42,7 @@ BODY#theNotificationPage #content
   display: table-cell; display: inline-table; display: inline-block;
   vertical-align: top;		/* OK with Opera and IE6 not Geko */
   text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
+  font-size: 80%;
 }
 #content UL.thumbnails SPAN SPAN {
   margin: 0;			/* important reset the margins */
@@ -61,6 +62,10 @@ BODY#theNotificationPage #content
 }
 #content UL.thumbnails IMG {
   margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
+}
+/* fix Geko's lack of good willing in vertical-align: top */
+#content UL.thumbnails>LI>SPAN{
+  height: 170px;	/* unfortunately min-height doesn't work here */
 }
 
 /* fix IE with another layout */
