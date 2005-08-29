@@ -28,58 +28,58 @@ BODY#theNotificationPage #content
 }
 
 #content UL.thumbnails {
-    margin: 0; padding: 0;
-    list-style-type: none;
-    text-align: center;  /*eventuellement */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;	/* to center the whole collection in #content */
+}
+#content UL.thumbnails LI { display: inline }
+
+#content UL.thumbnails SPAN {
+  margin: 0 5px 5px 5px;
+  /*width: 130px;		 128px + 2 * 1px if the SPAN has a border of 1px */
+  width: 128px;			/* we can use the same size as well */
+  display: table-cell; display: inline-table; display: inline-block;
+  vertical-align: top;		/* OK with Opera and IE6 not Geko */
+  text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
+}
+#content UL.thumbnails SPAN SPAN {
+  margin: 0;			/* important reset the margins */
+  border: 1px solid #aaaaaa;
+  width: 128px;			/* fixed size again */
+  height: 128px;		/* fixed size again */
+  display: table-cell;		/* block prevents vertical-align here */
+  vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
+}
+#content UL.thumbnails SPAN.wrap {
+  border: none;
+  height: auto;		/* important for vertical centering */
+  display: block;	/* important */
+  overflow: hidden;	/* everridden by specific IE6 rule below */
+  margin-top: auto;	/* to make vertical-align work in Geko and Opera */
+  margin-bottom: auto;	/* to make vertical-align work in Geko and Opera */
+}
+#content UL.thumbnails IMG {
+  margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
 
-#content LI.thumbnails {
-	display: inline;
-	padding: 0; text-indent: 0;
-	margin: 0 10px 10px 10px;
+/* fix IE with another layout */
+* html #content UL.thumbnails SPAN {
+  overflow: hidden;	/* keep it there: not needed by Geko, buggy with Opera */
 }
-#content UL.thumbnails UL {
-	margin: 0; padding: 0; text-indent: 0;
-	list-style-type: none;
+* html #content UL.thumbnails SPAN SPAN {
+  position: relative;
 }
-#content UL.thumbnails UL LI {
-	text-align: center; 
+* html #content UL.thumbnails SPAN.wrap {
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+  left: 0px;		/* same as "#content UL.thumbnails SPAN SPAN { padding:" if any*/
 }
-#content UL.thumbnails div {
-	margin: 0;
-    	vertical-align: top;   /*geko doesn't eat that :-(*/
-	text-align: center; 
-    	width: 128px;
+* html #content UL.thumbnails IMG {
+  position: relative;
+  top: -50%;
 }
-/* IE block level element inline-block hack */
-* html #content UL.thumbnails div {display:inline-block;}
-* html #content UL.thumbnails div {display:inline;}
-/* end of IE hack*/
-/* for non-IE */
-#content UL.thumbnails li>div {display:table-cell;display:inline-table;}
-
-/* Geko hack to get thumbnails top aligned*/
-/* not proud of that still looking for a better one */
-#content UL.thumbnails li>div {height:150px;}
-/* endof Geko hack*/
-
-/* align top with geko */
-/*#content UL.thumbnails li>div>div {
-	display: block;
-	position: relative;
-	height:128px;
-}
-#content UL.thumbnails li>div>div>a { position: absolute; top: 0; }
-#content UL.thumbnails li>div img.thumbnail { position: relative; left: -50%; }
-#content UL.thumbnails li>div ul {position: absolute; bottom: 0;}
-doesn't work :-((*/
-
-/*#content UL.thumbnails LI>SPAN { vertical-align: baseline; }*/
-#content UL.thumbnails LI IMG.thumbnail { margin-bottom: .4ex; }
-
-#content UL.thumbnails IMG.thumbnail { border: 1px solid #000000; }
-
-/*#content UL.thumbnails SPAN A:first-child { border: none }*/
 
 
 #content .navigationBar, #content .additional_info {

@@ -111,28 +111,26 @@
 <ul class="thumbnails">
   <!-- BEGIN line -->
   <!-- BEGIN thumbnail -->
-  <li class="thumbnails">
-    <div>
+  <li>
+    <span>
+      <span><span class="wrap">
         <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
           <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
 	  alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
 	  title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
         </a>
-      <ul>
-      <li>
-	<!-- BEGIN element_name -->
-	{thumbnails.line.thumbnail.element_name.NAME}
-	<!-- END element_name -->
-	<!-- BEGIN category_name -->
-	[{thumbnails.line.thumbnail.category_name.NAME}]
-	<!-- END category_name -->
-	{thumbnails.line.thumbnail.IMAGE_TS}
-      </li>
+      </span></span>
+      <!-- BEGIN element_name -->
+      {thumbnails.line.thumbnail.element_name.NAME}
+      <!-- END element_name -->
+      <!-- BEGIN category_name -->
+      [{thumbnails.line.thumbnail.category_name.NAME}]
+      <!-- END category_name -->
+      {thumbnails.line.thumbnail.IMAGE_TS}
       <!-- BEGIN nb_comments -->
-      <li>{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT} </li>
+      <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
       <!-- END nb_comments -->
-      </ul>
-     </div>
+     </span>
   </li>
   <!-- END thumbnail -->
   <!-- END line -->
