@@ -64,9 +64,10 @@ BODY#theNotificationPage #content
   margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
 /* fix Geko's lack of good willing in vertical-align: top */
-#content UL.thumbnails>LI>SPAN{
-  height: 170px;	/* unfortunately min-height doesn't work here */
-}
+/* Too dirty : have to find something better */
+/*#content UL.thumbnails>LI>SPAN{*/
+/*  height: 170px;*/	/* unfortunately min-height doesn't work here */
+/*}*/
 
 /* fix IE with another layout */
 * html #content UL.thumbnails SPAN {
