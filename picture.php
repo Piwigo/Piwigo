@@ -90,6 +90,20 @@ UPDATE '.CATEGORIES_TABLE.'
     .get_query_string_diff(array('representative'));
   redirect($url);
 }
+
+//-------------------------------------------------------------- caddie filling
+
+if (isset($_GET['caddie']))
+{
+  fill_caddie(array($_GET['image_id']));
+
+  $url =
+    PHPWG_ROOT_PATH
+    .'picture.php'
+    .get_query_string_diff(array('caddie'));
+  redirect($url);
+}
+
 //---------------------------------------------------------- related categories
 $query = '
 SELECT category_id,uppercats,commentable,global_rank
@@ -244,6 +258,7 @@ $url_admin.= '&amp;image_id='.$_GET['image_id'];
 
 $url_slide = $picture['current']['url'];
 $url_slide.= '&amp;slideshow='.$conf['slideshow_period'];
+
 //----------------------------------------------------------- rate registration
 if (isset($_GET['rate'])
     and $conf['rate']
@@ -555,6 +570,20 @@ if ('admin' == $user['status'] and is_numeric($page['cat']))
       )
     );
 }
+
+if ('admin' == $user['status'])
+{
+  $template->assign_block_vars(
+    'caddie',
+    array(
+      'URL' =>
+      add_session_id(
+        PHPWG_ROOT_PATH.'picture.php'
+        .get_query_string_diff(array('caddie')).'&amp;caddie=1')
+      )
+    );
+}
+
 //------------------------------------------------------- favorite manipulation
 if ( !$user['is_the_guest'] )
 {
@@ -1034,7 +1063,6 @@ if ($page['show_comments'])
 }
 //------------------------------------------------------------ log informations
 pwg_log( 'picture', $title_img, $picture['current']['file'] );
-mysql_close();
 
 $template->parse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

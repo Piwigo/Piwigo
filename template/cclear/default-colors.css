@@ -118,18 +118,40 @@ input, select, textarea {
         border: 1px solid gray;
 }
 
-.errors { /* Errors display */
-	color:red;
-	background-color:#ffe1e1;
-	font-weight:bold;
-	text-align:left;
-	margin:5px;
-	border:1px solid red;
+#errors { /* Errors display */
+  color: red;
+  background-color: #ffe1e1;
+  font-weight: bold;
+  text-align: left;
+  margin: 5px;
+  border: 1px solid red;
+  background-image: url(admin/images/errors.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  padding: 10px 50px 10px 10px;
 }
-.errors ul li
+
+#errors ul li
 {
-	font-weight:normal;
+  font-weight: normal;
 }
+
+/**
+ * Informations box in administration
+ */
+#infos {
+  text-align: left;
+  background-color: palegreen;
+  background-image: url(admin/images/infos.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  color: darkgreen;
+  font-weight: bold;
+  margin: 5px;
+  border:1px solid gray;
+  padding: 10px 50px 10px 10px;
+}
+
 LEGEND {
   font-style: italic;
 }

@@ -9,6 +9,7 @@
 </div>
 
 <div id="imageToolBar">
+
 <div class="randomButtons">
   <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}"><img src="template/cclear/theme/slideshow.png" alt="{L_SLIDESHOW}"></a>
   <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="template/cclear/theme/metadata.png" alt="{L_PICTURE_METADATA}"></a>
@@ -24,7 +25,11 @@
 <!-- BEGIN admin -->
   <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="template/cclear/theme/preferences.png" alt="{L_ADMIN}"></a>
 <!-- END admin -->
+<!-- BEGIN caddie -->
+  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" alt="{lang:caddie}"/></a>
+<!-- END caddie -->
 </div>
+
 <div class="navButtons">
 <!-- BEGIN next -->
   <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}"><img src="template/cclear/theme/right.png" alt="next"></a>
@@ -34,6 +39,7 @@
   <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}"><img src="template/cclear/theme/left.png" alt="previous"></a>
 <!-- END previous -->
 </div>
+
 </div> <!-- imageToolBar -->
 
 <div id="theImage">

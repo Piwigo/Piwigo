@@ -91,4 +91,46 @@ function clean_iptc_value($value)
   
   return $value;
 }
+
+/**
+ * returns informations from EXIF metadata, mapping is done at the beginning
+ * of the function
+ *
+ * @param string $filename
+ * @return array
+ */
+function get_exif_data($filename, $map)
+{
+  $result = array();
+
+  if (!function_exists('read_exif_data'))
+  {
+    die('Exif extension not available, admin should disable exif use');
+  }
+  
+  // Read EXIF data
+  if ($exif = @read_exif_data($filename))
+  {
+    foreach ($map as $key => $field)
+    {
+      if (strpos($field, ';') === false)
+      {
+        if (isset($exif[$field]))
+        {
+          $result[$key] = $exif[$field];
+        }
+      }
+      else
+      {
+        $tokens = explode(';', $field);
+        if (isset($exif[$tokens[0]][$tokens[1]]))
+        {
+          $result[$key] = $exif[$tokens[0]][$tokens[1]];
+        }
+      }
+    }
+  }
+
+  return $result;
+}
 ?>

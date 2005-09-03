@@ -512,10 +512,13 @@ $template->assign_vars(
     'L_REMOTE_SITE_LOCAL_FOUND'=>$lang['remote_site_local_found'],
     'L_REMOTE_SITE_LOCAL_NEW'=>$lang['remote_site_local_new'],
     'L_REMOTE_SITE_LOCAL_UPDATE'=>$lang['remote_site_local_update'],
+
+    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=remote_site',
     
     'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=remote_site')
    )
  );
+ 
 // +-----------------------------------------------------------------------+
 // |                        new site creation form                         |
 // +-----------------------------------------------------------------------+

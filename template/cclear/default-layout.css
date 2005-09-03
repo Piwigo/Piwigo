@@ -2,6 +2,7 @@
 @import "menubar.css";
 @import "content.css";
 @import "image.css";
+@import "popuphelp.css";
 
 /* $Id$ */
 
@@ -125,21 +126,6 @@ select.categoryList {
 }
 
 /** go to an admin.css ? **/
-/**
- * Informations box in administration
- */
-#infos {
-  text-align: left;
-  background-color: #eee;
-  background-image: url(admin/images/infos.png);
-  background-repeat: no-repeat;
-  background-position: top right;
-  color: black;
-  font-weight: bold;
-  margin: 5px;
-  border:1px solid gray;
-  padding: 10px 50px 10px 10px;
-}
 
 .table2 {
   border: 1px solid black; 
@@ -273,3 +259,9 @@ FORM#categoryPermissions LI {
 BODY#theAdminPage #theHeader P { 
   display: none;
 }
+
+BODY#thePopuphelpPage #copyright {
+  color: green;
+  display: none;
+}
+

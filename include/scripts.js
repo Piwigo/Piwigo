@@ -30,3 +30,13 @@ function phpWGOpenWindow(theURL,winName,features)
 {
   window.open(theURL,winName,features);
 }
+
+function popuphelp(url)
+{
+  window.open(
+    url,
+    'dc_popup',
+    'alwaysRaised=yes,dependent=yes,toolbar=no,height=420,width=500,menubar=no,resizable=yes,scrollbars=yes,status=no'
+  );
+}
+

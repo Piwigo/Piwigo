@@ -49,10 +49,10 @@ if (isset($_POST['submit_add']))
 }
 
 // +-----------------------------------------------------------------------+
-// |                       preferences form submission                     |
+// |                            selected users                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['pref_submit']))
+if (isset($_POST['delete']) or isset($_POST['pref_submit']))
 {
   $collection = array();
   
@@ -78,116 +78,154 @@ SELECT id
     }
   }
 
-  if (count($collection) > 0)
+  if (count($collection) == 0)
   {
-    if (-1 != $_POST['associate'])
-    {
-      $datas = array();
+    array_push($page['errors'], l10n('Select at least one user'));
+  }
+}
 
-      $query = '
+// +-----------------------------------------------------------------------+
+// |                             delete users                              |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['delete']) and count($collection) > 0)
+{
+  if (in_array($conf['webmaster_id'], $collection))
+  {
+    array_push($page['errors'], l10n('Webmaster cannot be deleted'));
+  }
+  else
+  {
+    if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
+    {
+      foreach ($collection as $user_id)
+      {
+        delete_user($user_id);
+      }
+      array_push(
+        $page['infos'],
+        sprintf(
+          l10n('%d users deleted'),
+          count($collection)
+          )
+        );
+    }
+    else
+    {
+      array_push($page['errors'], l10n('You need to confirm deletion'));
+    }
+  }
+}
+
+// +-----------------------------------------------------------------------+
+// |                       preferences form submission                     |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['pref_submit']) and count($collection) > 0)
+{
+  if (-1 != $_POST['associate'])
+  {
+    $datas = array();
+    
+    $query = '
 SELECT user_id
   FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$_POST['associate'].'
 ;';
-      $associated = array_from_query($query, 'user_id');
-
-      $associable = array_diff($collection, $associated);
-
-      if (count($associable) > 0)
-      {
-        foreach ($associable as $item)
-        {
-          array_push($datas,
-                     array('group_id'=>$_POST['associate'],
-                           'user_id'=>$item));
-        }
-        
-        mass_inserts(USER_GROUP_TABLE,
-                     array('group_id', 'user_id'),
-                     $datas);
-      }
-    }
-
-    if (-1 != $_POST['dissociate'])
+    $associated = array_from_query($query, 'user_id');
+    
+    $associable = array_diff($collection, $associated);
+    
+    if (count($associable) > 0)
     {
-      $query = '
+      foreach ($associable as $item)
+      {
+        array_push($datas,
+                   array('group_id'=>$_POST['associate'],
+                         'user_id'=>$item));
+      }
+        
+      mass_inserts(USER_GROUP_TABLE,
+                   array('group_id', 'user_id'),
+                   $datas);
+    }
+  }
+  
+  if (-1 != $_POST['dissociate'])
+  {
+    $query = '
 DELETE FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$_POST['dissociate'].'
   AND user_id IN ('.implode(',', $collection).')
 ';
-      pwg_query($query);
+    pwg_query($query);
+  }
+  
+  // properties to set for the collection (a user list)
+  $datas = array();
+  $dbfields = array('primary' => array('user_id'), 'update' => array());
+  
+  $formfields =
+    array('nb_image_line', 'nb_line_page', 'template', 'language',
+          'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
+          'maxheight', 'status');
+  
+  $true_false_fields = array('expand', 'show_nb_comments');
+  
+  foreach ($formfields as $formfield)
+  {
+    // special for true/false fields
+    if (in_array($formfield, $true_false_fields))
+    {
+      $test = $formfield;
     }
-
-    // properties to set for the collection (a user list)
+    else
+    {
+      $test = $formfield.'_action';
+    }
+    
+    if ($_POST[$test] != 'leave')
+    {
+      array_push($dbfields['update'], $formfield);
+    }
+  }
+  
+  // updating elements is useful only if needed...
+  if (count($dbfields['update']) > 0)
+  {
     $datas = array();
-    $dbfields = array('primary' => array('user_id'), 'update' => array());
     
-    $formfields =
-      array('nb_image_line', 'nb_line_page', 'template', 'language',
-            'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-            'maxheight', 'status');
-
-    $true_false_fields = array('expand', 'show_nb_comments');
-    
-    foreach ($formfields as $formfield)
+    foreach ($collection as $user_id)
     {
-      // special for true/false fields
-      if (in_array($formfield, $true_false_fields))
-      {
-        $test = $formfield;
-      }
-      else
-      {
-        $test = $formfield.'_action';
-      }
-               
-      if ($_POST[$test] != 'leave')
-      {
-        array_push($dbfields['update'], $formfield);
-      }
-    }
-
-    // updating elements is useful only if needed...
-    if (count($dbfields['update']) > 0)
-    {
-      $datas = array();
+      $data = array();
+      $data['user_id'] = $user_id;
       
-      foreach ($collection as $user_id)
+      // TODO : verify if submited values are semanticaly correct
+      foreach ($dbfields['update'] as $dbfield)
       {
-        $data = array();
-        $data['user_id'] = $user_id;
-        
-        // TODO : verify if submited values are semanticaly correct
-        foreach ($dbfields['update'] as $dbfield)
+        // if the action is 'unset', the key won't be in row and
+        // mass_updates function will set this field to NULL
+        if (in_array($dbfield, $true_false_fields)
+            or 'set' == $_POST[$dbfield.'_action'])
         {
-          // if the action is 'unset', the key won't be in row and
-          // mass_updates function will set this field to NULL
-          if (in_array($dbfield, $true_false_fields)
-              or 'set' == $_POST[$dbfield.'_action'])
-          {
-            $data[$dbfield] = $_POST[$dbfield];
-          }
+          $data[$dbfield] = $_POST[$dbfield];
         }
-        
-        // Webmaster (user_id = 1) status must not be changed
-        if (1 == $user_id and isset($data['status']))
-        {
-          $data['status'] = 'admin';
-        }
-        
-        array_push($datas, $data);
       }
-
+      
+      // Webmaster status must not be changed
+      if ($conf['webmaster_id'] == $user_id and isset($data['status']))
+      {
+        $data['status'] = 'admin';
+      }
+      
+      array_push($datas, $data);
+    }
+    
 //       echo '<pre>';
 //       print_r($datas);
 //       echo '</pre>';
-
-      mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
-    }
-  }
-  else
-  {
-    array_push($page['errors'], l10n('Select at least one user'));
+    
+    mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
   }
 }
 

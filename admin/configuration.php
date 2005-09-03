@@ -60,17 +60,6 @@ if (isset($_POST['submit']))
   {
     case 'general' :
     {
-      // thumbnail prefix must only contain simple ASCII characters
-      if (!preg_match('/^[\w-]*$/', $_POST['prefix_thumbnail']))
-      {
-        array_push($page['errors'], $lang['conf_prefix_thumbnail_error']);
-      }
-      // mail must be formatted as follows : name@server.com
-      $pattern = '/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
-      if (!preg_match($pattern, $_POST['mail_webmaster']))
-      {
-        array_push($page['errors'], $lang['conf_mail_webmaster_error']);
-      }
       break;
     }
     case 'comments' :
@@ -92,30 +81,6 @@ if (isset($_POST['submit']))
           or $_POST['recent_period'] <= 0)
       {
         array_push($page['errors'], $lang['periods_error']);
-      }
-      break;
-    }
-    case 'upload' :
-    {
-      // the maximum upload filesize must be an integer between 10 and 1000
-      if (!preg_match($int_pattern, $_POST['upload_maxfilesize'])
-          or $_POST['upload_maxfilesize'] < 10
-          or $_POST['upload_maxfilesize'] > 1000)
-      {
-        array_push($page['errors'], $lang['conf_upload_maxfilesize_error']);
-      }
-      
-      foreach (array('upload_maxwidth',
-                     'upload_maxheight',
-                     'upload_maxwidth_thumbnail',
-                     'upload_maxheight_thumbnail')
-               as $field)
-      {
-        if (!preg_match($int_pattern, $_POST[$field])
-            or $_POST[$field] < 10)
-        {
-          array_push($page['errors'], $lang['conf_'.$field.'_error']);
-        }
       }
       break;
     }
@@ -154,6 +119,8 @@ $template->assign_vars(
     'L_NO'=>$lang['no'],
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
+
+    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=configuration',
     
     'F_ACTION'=>add_session_id($action)
     ));
@@ -170,18 +137,6 @@ switch ($page['section'])
     $template->assign_block_vars(
       'general',
       array(
-        'L_CONF_TITLE'=>$lang['conf_general_title'],
-        'L_CONF_MAIL'=>$lang['conf_mail_webmaster'],
-        'L_CONF_MAIL_INFO'=>$lang['conf_mail_webmaster_info'],
-        'L_CONF_TN_PREFIX'=>$lang['conf_prefix'],
-        'L_CONF_TN_PREFIX_INFO'=>$lang['conf_prefix_info'],
-        'L_CONF_HISTORY'=>$lang['history'],
-        'L_CONF_HISTORY_INFO'=>$lang['conf_log_info'],
-        'L_CONF_GALLERY_LOCKED'=>$lang['conf_gallery_locked'],
-        'L_CONF_GALLERY_LOCKED_INFO'=>$lang['conf_gallery_locked_info'],
-          
-        'ADMIN_MAIL'=>$conf['mail_webmaster'],
-        'THUMBNAIL_PREFIX'=>$conf['prefix_thumbnail'],
         'HISTORY_YES'=>$history_yes,
         'HISTORY_NO'=>$history_no,
         'GALLERY_LOCKED_YES'=>$lock_yes,
@@ -199,14 +154,6 @@ switch ($page['section'])
     $template->assign_block_vars(
       'comments',
       array(
-        'L_CONF_TITLE'=>$lang['conf_comments_title'],
-        'L_CONF_COMMENTS_ALL'=>$lang['conf_comments_forall'],
-        'L_CONF_COMMENTS_ALL_INFO'=>$lang['conf_comments_forall_info'],
-        'L_CONF_NB_COMMENTS_PAGE'=>$lang['conf_nb_comment_page'],
-        'L_CONF_NB_COMMENTS_PAGE_INFO'=>$lang['conf_nb_comment_page'],
-        'L_CONF_VALIDATE'=>$lang['conf_comments_validation'],
-        'L_CONF_VALIDATE_INFO'=>$lang['conf_comments_validation_info'],
-          
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
         'COMMENTS_ALL_YES'=>$all_yes,
         'COMMENTS_ALL_NO'=>$all_no,
@@ -225,28 +172,8 @@ switch ($page['section'])
     $template->assign_block_vars(
       'default',
       array(
-        'L_CONF_TITLE'=>$lang['conf_default_title'],
-        'L_CONF_LANG'=>$lang['language'],
-        'L_CONF_LANG_INFO'=>$lang['conf_default_language_info'],
-        'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
-        'L_NB_IMAGE_LINE_INFO'=>$lang['conf_nb_image_line_info'],
-        'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
-        'L_NB_ROW_PAGE_INFO'=>$lang['conf_nb_line_page_info'],
-        'L_CONF_STYLE'=>$lang['theme'],
-        'L_CONF_STYLE_INFO'=>$lang['conf_default_theme_info'],
-        'L_CONF_RECENT'=>$lang['recent_period'],
-        'L_CONF_RECENT_INFO'=>$lang['conf_recent_period_info'],
-        'L_CONF_EXPAND'=>$lang['auto_expand'],
-        'L_CONF_EXPAND_INFO'=>$lang['conf_default_expand_info'],
-        'L_NB_COMMENTS'=>$lang['show_nb_comments'],
-        'L_NB_COMMENTS_INFO'=>$lang['conf_show_nb_comments_info'],
-        'L_MAXWIDTH'=>$lang['maxwidth'],
-        'L_MAXHEIGHT'=>$lang['maxheight'],
-  
-        'CONF_LANG_SELECT'=>language_select($conf['default_language'], 'default_language'),
         'NB_IMAGE_LINE'=>$conf['nb_image_line'],
         'NB_ROW_PAGE'=>$conf['nb_line_page'],
-        'CONF_STYLE_SELECT'=>style_select($conf['default_template'], 'default_template'),
         'CONF_RECENT'=>$conf['recent_period'],
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
         'EXPAND_YES'=>$expand_yes,
@@ -254,86 +181,65 @@ switch ($page['section'])
         'SHOW_COMMENTS_YES'=>$show_yes,
         'SHOW_COMMENTS_NO'=>$show_no
         ));
-    break;
-  }
-  case 'upload' :
-  {
-    $template->assign_block_vars(
-      'upload',
-      array(
-        'L_CONF_TITLE'=>$lang['conf_upload_title'],
-        'L_CONF_MAXSIZE'=>$lang['conf_upload_maxfilesize'],
-        'L_CONF_MAXSIZE_INFO'=>$lang['conf_upload_maxfilesize_info'],
-        'L_CONF_MAXWIDTH'=>$lang['conf_upload_maxwidth'],
-        'L_CONF_MAXWIDTH_INFO'=>$lang['conf_upload_maxwidth_info'],
-        'L_CONF_MAXHEIGHT'=>$lang['conf_upload_maxheight'],
-        'L_CONF_MAXHEIGHT_INFO'=>$lang['conf_upload_maxheight_info'],
-        'L_CONF_TN_MAXWIDTH'=>$lang['conf_upload_tn_maxwidth'],
-        'L_CONF_TN_MAXWIDTH_INFO'=>$lang['conf_upload_tn_maxwidth_info'],
-        'L_CONF_TN_MAXHEIGHT'=>$lang['conf_upload_tn_maxheight'],
-        'L_CONF_TN_MAXHEIGHT_INFO'=>$lang['conf_upload_tn_maxheight_info'],
-          
-        'UPLOAD_MAXSIZE'=>$conf['upload_maxfilesize'],
-        'UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth'],
-        'UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight'],
-        'TN_UPLOAD_MAXWIDTH'=>$conf['upload_maxwidth_thumbnail'],
-        'TN_UPLOAD_MAXHEIGHT'=>$conf['upload_maxheight_thumbnail'],
-        ));
-    break;
-  }
-  case 'session' :
-  {
-    $authorize_remembering_yes =
-      ($conf['authorize_remembering']=='true')?'checked="checked"':'';
-    $authorize_remembering_no =
-      ($conf['authorize_remembering']=='false')?'checked="checked"':'';
+    
+    $blockname = 'default.language_option';
+    
+    foreach (get_languages() as $language_code => $language_name)
+    {
+      if (isset($_POST['submit']))
+      {
+        $selected =
+          $_POST['default_language'] == $language_code
+            ? 'selected="selected"' : '';
+      }
+      else if ($conf['default_language'] == $language_code)
+      {
+        $selected = 'selected="selected"';
+      }
+      else
+      {
+        $selected = '';
+      }
       
-    $template->assign_block_vars(
-      'session',
-      array(
-        'L_CONF_TITLE'=>$lang['conf_session_title'],
-        'L_CONF_AUTHORIZE_REMEMBERING'=>$lang['conf_authorize_remembering'],
-        'L_CONF_AUTHORIZE_REMEMBERING_INFO' =>
-        $lang['conf_authorize_remembering_info'],
+      $template->assign_block_vars(
+        $blockname,
+        array(
+          'VALUE'=> $language_code,
+          'CONTENT' => $language_name,
+          'SELECTED' => $selected
+          ));
+    }
 
-        'AUTHORIZE_REMEMBERING_YES'=>$authorize_remembering_yes,
-        'AUTHORIZE_REMEMBERING_NO'=>$authorize_remembering_no
-        ));
-    break;
-  }
-  case 'metadata' :
-  {
-    $exif_yes = ($conf['use_exif']=='true')?'checked="checked"':'';
-    $exif_no = ($conf['use_exif']=='false')?'checked="checked"':'';
-    $iptc_yes = ($conf['use_iptc']=='true')?'checked="checked"':'';
-    $iptc_no = ($conf['use_iptc']=='false')?'checked="checked"':'';
-    $show_exif_yes = ($conf['show_exif']=='true')?'checked="checked"':'';
-    $show_exif_no = ($conf['show_exif']=='false')?'checked="checked"':'';
-    $show_iptc_yes = ($conf['show_iptc']=='true')?'checked="checked"':'';
-    $show_iptc_no = ($conf['show_iptc']=='false')?'checked="checked"':'';
+    $blockname = 'default.template_option';
+
+    foreach (get_templates() as $pwg_template)
+    {
+      if (isset($_POST['submit']))
+      {
+        $selected =
+          $_POST['default_template'] == $pwg_template
+            ? 'selected="selected"' : '';
+      }
+      else if ($conf['default_template'] == $pwg_template)
+      {
+        $selected = 'selected="selected"';
+      }
+      else
+      {
+        $selected = '';
+      }
       
-    $template->assign_block_vars(
-      'metadata',
-      array(
-        'L_CONF_TITLE'=>$lang['conf_metadata_title'],
-        'L_CONF_EXIF'=>$lang['conf_use_exif'],
-        'L_CONF_EXIF_INFO'=>$lang['conf_use_exif_info'],
-        'L_CONF_IPTC'=>$lang['conf_use_iptc'],
-        'L_CONF_IPTC_INFO'=>$lang['conf_use_iptc_info'],
-        'L_CONF_SHOW_EXIF'=>$lang['conf_show_exif'],
-        'L_CONF_SHOW_EXIF_INFO'=>$lang['conf_show_exif_info'],
-        'L_CONF_SHOW_IPTC'=>$lang['conf_show_iptc'],
-        'L_CONF_SHOW_IPTC_INFO'=>$lang['conf_show_iptc_info'],
-          
-        'USE_EXIF_YES'=>$exif_yes,
-        'USE_EXIF_NO'=>$exif_no,
-        'USE_IPTC_YES'=>$iptc_yes,
-        'USE_IPTC_NO'=>$iptc_no,
-        'SHOW_EXIF_YES'=>$show_exif_yes,
-        'SHOW_EXIF_NO'=>$show_exif_no,
-        'SHOW_IPTC_YES'=>$show_iptc_yes,
-        'SHOW_IPTC_NO'=>$show_iptc_no
-        ));
+      $template->assign_block_vars(
+        $blockname,
+        array(
+          'VALUE'=> $pwg_template,
+          'CONTENT' => $pwg_template,
+          'SELECTED' => $selected
+          )
+        );
+    }
+
+ 
     break;
   }
 }

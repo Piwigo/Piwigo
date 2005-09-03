@@ -410,7 +410,6 @@ if ( isset ( $page['cat'] ) )
 }
 //------------------------------------------------------------ log informations
 pwg_log( 'category', $page['title'] );
-mysql_close();
 
 $template->parse('category');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

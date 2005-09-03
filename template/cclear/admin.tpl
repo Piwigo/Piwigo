@@ -26,9 +26,6 @@
 	<li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
 	<li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
 	<li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
-	<li><a href="{U_CONFIG_UPLOAD}">{lang:upload}</a></li>
-	<li><a href="{U_CONFIG_SESSION}">{lang:conf_cookie}</a></li>
-	<li><a href="{U_CONFIG_METADATA}">{lang:metadata}</a></li>
       </ul>
     </dd>
 

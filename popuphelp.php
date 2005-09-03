@@ -24,60 +24,41 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$template->set_filenames(array('tail'=>'footer.tpl'));
 
-$template->assign_vars(
-  array(
-    'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-    
-    'L_GEN_TIME' => $lang['generation_time'],
-    'L_SQL_QUERIES_IN' => $lang['sql_queries_in'],
-    'L_SEND_MAIL' => $lang['send_mail'],
-    'L_TITLE_MAIL' => $lang['title_send_mail'],
-    'L_POWERED_BY'=>$lang['powered_by']
-    ));
-//------------------------------------------------------------- generation time
-if ($conf['show_gt'])
+// +-----------------------------------------------------------------------+
+// |                           initialization                              |
+// +-----------------------------------------------------------------------+
+
+define('PHPWG_ROOT_PATH','./');
+include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+
+// language files
+$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
+$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+
+if (file_exists($user_langdir.'/help/'.$_GET['page'].'.html'))
 {
-  $time = get_elapsed_time($t2, get_moment());
-
-  if (!isset($page['count_queries']))
-  {
-    $page['count_queries'] = 0;
-    $page['queries_time'] = 0;
-  }
-  
-  $template->assign_block_vars(
-    'debug',
-    array('TIME' => $time,
-          'NB_QUERIES' => $page['count_queries'],
-          'SQL_TIME' => number_format($page['queries_time'],3,'.',' ').' s'));
+  $html_file = $user_langdir.'/help/'.$_GET['page'].'.html';
+}
+else
+{
+  $html_file = $conf_langdir.'/help/'.$_GET['page'].'.html';
 }
 
-//--------------------------------------------------------------------- contact
+$page['body_id'] = 'thePopuphelpPage';
+$page['gallery_title'] = $title = l10n('PhpWebGallery Help');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->set_filenames(array('help_content' => $html_file));
 
-if (!$user['is_the_guest'])
-{
-  $query = '
-SELECT '.$conf['user_fields']['email'].'
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
-;';
-  list($email) = mysql_fetch_array(pwg_query($query));
-  
-  $template->assign_block_vars(
-    'contact',
-    array(
-      'MAIL' => $email
-      )
-    );
-}
+$template->set_filenames(array('popuphelp' => 'popuphelp.tpl'));
 
-//
-// Generate the page
-//
+$template->assign_var_from_handle('HELP_CONTENT', 'help_content');
 
-$template->parse('tail');
+// +-----------------------------------------------------------------------+
+// |                           html code display                           |
+// +-----------------------------------------------------------------------+
 
-$template->p();
+$template->parse('popuphelp');
+
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

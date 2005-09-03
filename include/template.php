@@ -269,7 +269,8 @@ class Template {
   function make_filename($filename)
     {
       // Check if it's an absolute or relative path.
-      if (substr($filename, 0, 1) != '/')
+      // if (substr($filename, 0, 1) != '/')
+      if (preg_match('/^[a-z_]/i', $filename))
       {
         $filename = $this->root.'/'.$filename;
       }

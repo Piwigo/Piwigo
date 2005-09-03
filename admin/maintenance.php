@@ -103,6 +103,7 @@ $template->assign_vars(
     'U_MAINT_HISTORY' => add_session_id($start_url.'history'),
     'U_MAINT_SESSIONS' => add_session_id($start_url.'sessions'),
     'U_MAINT_FEEDS' => add_session_id($start_url.'feeds'),
+    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=maintenance',
     )
   );
   

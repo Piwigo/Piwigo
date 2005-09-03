@@ -1,3 +1,21 @@
+2005-09-03 Pierrick LE GALL
+
+	* modification : less configuration parameters in administration
+	screen. These parameters are move to
+	include/config_default.inc.php.
+
+	* new : ability to add a single picture to caddie from picture.php
+
+	* new : contextual help, only a few pages are available.
+
+	* new : ability to delete users from admin/user_list
+
+	* modification : reorganization of configuration file
+
+	* new : configuration parameter use_exif_mapping
+
+	* improvement : MOD hidemail added to standard
+
 2005-08-26 Pierrick LE GALL
 
 	* new : HTML BODY identifier to let CSS stylesheets manage

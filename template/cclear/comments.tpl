@@ -70,7 +70,7 @@
 
   </fieldset>
 
-  <input type="submit" name="submit" value="{lang:Filter and display}" />
+  <p><input type="submit" name="submit" value="{lang:Filter and display}"></p>
 
 </form>
 

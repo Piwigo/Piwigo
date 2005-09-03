@@ -573,6 +573,12 @@ $template->assign_vars(
     'L_USED_METADATA'=>$lang['update_used_metadata'],
     'METADATA_LIST' => $used_metadata
     ));
+
+$template->assign_vars(
+  array(
+    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=synchronize'
+    )
+  );
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
 // +-----------------------------------------------------------------------+

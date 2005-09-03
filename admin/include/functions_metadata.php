@@ -27,18 +27,19 @@
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 
+$page['datefields'] = array('date_creation', 'date_available');
+
 function get_sync_iptc_data($file)
 {
-  global $conf;
+  global $conf, $page;
   
   $map = $conf['use_iptc_mapping'];
-  $datefields = array('date_creation', 'date_available');
   
   $iptc = get_iptc_data($file, $map);
 
   foreach ($iptc as $pwg_key => $value)
   {
-    if (in_array($pwg_key, $datefields))
+    if (in_array($pwg_key, $page['datefields']))
     {
       if (preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
@@ -57,6 +58,26 @@ function get_sync_iptc_data($file)
   }
 
   return $iptc;
+}
+
+function get_sync_exif_data($file)
+{
+  global $conf, $page;
+
+  $exif = get_exif_data($file, $conf['use_exif_mapping']);
+
+  foreach ($exif as $pwg_key => $value)
+  {
+    if (in_array($pwg_key, $page['datefields']))
+    {
+      if (preg_match('/^(\d{4}).(\d{2}).(\d{2})/', $value, $matches))
+      {
+        $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
+      }
+    }
+  }
+
+  return $exif;
 }
 
 function update_metadata($files)
@@ -84,17 +105,13 @@ function update_metadata($files)
   
     if ($conf['use_exif'])
     {
-      if (!function_exists('read_exif_data'))
+      $exif = get_sync_exif_data($file);
+
+      if (count($exif) > 0)
       {
-        die('Exif extension not available, admin should disable exif use');
-      }
-      
-      if ($exif = @read_exif_data($file))
-      {
-        if (isset($exif['DateTime']))
+        foreach (array_keys($exif) as $key)
         {
-          preg_match('/^(\d{4}).(\d{2}).(\d{2})/',$exif['DateTime'],$matches);
-          $data['date_creation'] = $matches[1].'-'.$matches[2].'-'.$matches[3];
+          $data[$key] = addslashes($exif[$key]);
         }
       }
     }
@@ -128,7 +145,7 @@ function update_metadata($files)
       $update_fields = array_merge($update_fields,
                                    array_keys($conf['use_iptc_mapping']));
     }
-    
+
     $fields = array('primary' => array('id'),
                     'update'  => array_unique($update_fields));
     mass_updates(IMAGES_TABLE, $fields, $datas);

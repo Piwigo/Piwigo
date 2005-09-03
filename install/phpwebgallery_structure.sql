@@ -77,7 +77,7 @@ CREATE TABLE `phpwebgallery_config` (
 
 DROP TABLE IF EXISTS `phpwebgallery_favorites`;
 CREATE TABLE `phpwebgallery_favorites` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`image_id`)
 ) TYPE=MyISAM;
@@ -170,7 +170,7 @@ CREATE TABLE `phpwebgallery_images` (
 
 DROP TABLE IF EXISTS `phpwebgallery_rate`;
 CREATE TABLE `phpwebgallery_rate` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `element_id` mediumint(8) unsigned NOT NULL default '0',
   `rate` tinyint(2) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`element_id`)
@@ -183,7 +183,7 @@ CREATE TABLE `phpwebgallery_rate` (
 DROP TABLE IF EXISTS `phpwebgallery_sessions`;
 CREATE TABLE `phpwebgallery_sessions` (
   `id` varchar(255) binary NOT NULL default '',
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `expiration` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
@@ -206,7 +206,7 @@ CREATE TABLE `phpwebgallery_sites` (
 
 DROP TABLE IF EXISTS `phpwebgallery_user_access`;
 CREATE TABLE `phpwebgallery_user_access` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)
 ) TYPE=MyISAM;
@@ -217,7 +217,7 @@ CREATE TABLE `phpwebgallery_user_access` (
 
 DROP TABLE IF EXISTS `phpwebgallery_user_cache`;
 CREATE TABLE `phpwebgallery_user_cache` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` text,
   PRIMARY KEY  (`user_id`)
@@ -230,7 +230,7 @@ CREATE TABLE `phpwebgallery_user_cache` (
 DROP TABLE IF EXISTS `phpwebgallery_user_feed`;
 CREATE TABLE `phpwebgallery_user_feed` (
   `id` varchar(50) binary NOT NULL default '',
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `last_check` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
@@ -241,7 +241,7 @@ CREATE TABLE `phpwebgallery_user_feed` (
 
 DROP TABLE IF EXISTS `phpwebgallery_user_group`;
 CREATE TABLE `phpwebgallery_user_group` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `group_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`group_id`,`user_id`)
 ) TYPE=MyISAM;
@@ -252,7 +252,7 @@ CREATE TABLE `phpwebgallery_user_group` (
 
 DROP TABLE IF EXISTS `phpwebgallery_user_infos`;
 CREATE TABLE `phpwebgallery_user_infos` (
-  `user_id` smallint(5) unsigned NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
   `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
   `status` enum('admin','guest') NOT NULL default 'guest',
@@ -273,7 +273,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
 
 DROP TABLE IF EXISTS `phpwebgallery_users`;
 CREATE TABLE `phpwebgallery_users` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `id` smallint(5) NOT NULL auto_increment,
   `username` varchar(20) binary NOT NULL default '',
   `password` varchar(32) default NULL,
   `mail_address` varchar(255) default NULL,

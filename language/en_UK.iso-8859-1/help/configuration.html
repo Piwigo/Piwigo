@@ -1,0 +1,87 @@
+<h2>Configuration</h2>
+
+<p>This screen let the administrator do basic configuration. Indeed, this
+screen only shows simple configuration parameters that should be enough for
+the vast majority of administrators. If you want to see other numerous (and
+advanced) configuration parameters, read file <span
+cass="filename">include/config_default.inc.php</span>.</p>
+
+<p>This screen is divided in several sections, regrouping configuration
+parameters by theme.</p>
+
+<h3>General</h3>
+
+<ul>
+
+  <li><strong>History</strong>: visits on pages <span
+  class="pwgScreen">category.php</span> and <span
+  class="pwgScreen">picture.php</span> will be registered in
+  <code>history</code> table. Visits will be shown in <span
+  class="pwgScreen">Administration, General, History</span>.</li>
+
+  <li><strong>Lock gallery</strong>: Lock the entire gallery for
+  maintenance. Only administrator users will be able to reach the
+  gallery.</li>
+
+</ul>
+
+
+<h3>User comments</h3>
+
+<ul>
+
+  <li><strong>Comments for all</strong>: Even guest not registered can post
+  comments.</li>
+
+  <li><strong>Number of comments per page</strong>.</li>
+
+  <li><strong>Validation</strong>: an administrator validate users posted
+  comments before they become visible on the site. User comments validation
+  takes place in screen <span class="pwgScreen">Administration, Pictures,
+  Comments</span>.</li>
+
+</ul>
+
+<h3>Default display</h3>
+
+<p>Here you can change display options used by default, when guest is not
+connected. Once connected, these options are overloaded by user own options
+(modifiable in <span class="pwgScreen">profile</span>).</p>
+
+<p>It is possible to change display options for all existing users, but the
+screen to consider is <span class="pwgScreen">Administration,
+Identification, Users</span>, where you can options for a selected list of
+users.</p>
+
+<ul>
+
+  <li><strong>Language</strong>: concerns only PhpWebGallery
+  labels. Category names, picture names and all descriptions are not
+  localized.</li>
+
+  <li><strong>Number of images per row</strong></li>
+
+  <li><strong>Number of rows per page</strong></li>
+
+  <li><strong>Interface theme</strong></li>
+
+  <li><strong>Recent period</strong>: By days. Period within a picture is
+  shown as new. Must be superior to 1 day.</li>
+
+  <li><strong>Expand all categories</strong>: Expand all categories by
+  default in the menu? <em>Warning</em>: this option is resources consuming
+  and may generate a huge menu if your category tree is contains many
+  categories.</li>
+
+  <li><strong>Show number of comments</strong>: show the number of comments
+  for each picture on the thumbnails page. Resource consuming.</li>
+
+  <li><strong>Maximum width of the pictures</strong>: maximum displayed
+  width. If pictures are larger than this setting, they will be resized on
+  display. If you consider filling this option, you'd better consider
+  modifying the width of your pictures instead.</li>
+
+  <li><strong>Maximum height of the pictures</strong>: same remarks as for
+  previous setting.</li>
+
+</ul>

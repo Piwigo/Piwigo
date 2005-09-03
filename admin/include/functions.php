@@ -364,7 +364,7 @@ DELETE FROM '.SESSIONS_TABLE.'
 
   // deletion of calculated permissions linked to the user
   $query = '
-DELETE FROM '.USER_FORBIDDEN_TABLE.'
+DELETE FROM '.USER_CACHE_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
   pwg_query($query);

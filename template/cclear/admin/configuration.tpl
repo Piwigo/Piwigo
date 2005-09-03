@@ -1,198 +1,118 @@
 <!-- $Id$ -->
-<h2>{lang:title_configuration}</h2>
+<div class="titrePage">
+  <ul class="categoryActions">
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/cclear/theme/help.png" alt="(?)"></a></li>
+  </ul>
+  <h2>{lang:title_configuration}</h2>
+</div>
 
-<form method="post" action="{F_ACTION}">
-<table width="100%" align="center">
+<form method="post" action="{F_ACTION}" class="properties">
+
+<fieldset>
 <!-- BEGIN general -->
-  <tr class="admin">
-    <th colspan="2">{general.L_CONF_TITLE}</th>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="70%"><strong>{general.L_CONF_MAIL}&nbsp;:</strong><br /><span class="small">{general.L_CONF_MAIL_INFO}</span></td>
-	<td class="row1"><input type="text" size="25" maxlength="100" name="mail_webmaster" value="{general.ADMIN_MAIL}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{general.L_CONF_TN_PREFIX}&nbsp;:</strong><br /><span class="small">{general.L_CONF_TN_PREFIX_INFO}</span></td>
-	<td class="row1"><input type="text" size="10" maxlength="10" name="prefix_thumbnail" value="{general.THUMBNAIL_PREFIX}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{general.L_CONF_HISTORY}&nbsp;:</strong><br /><span class="small">{general.L_CONF_HISTORY_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{general.L_CONF_GALLERY_LOCKED}&nbsp;:</strong><br /><span class="small">{general.L_CONF_GALLERY_LOCKED_INFO}</span></td>
-        <td class="row1"><input type="radio" class="radio" name="gallery_locked" value="true" {general.GALLERY_LOCKED_YES} />{L_YES}&nbsp;&nbsp;
-        <input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{L_NO}</td>
-  </tr>
+  <legend>{lang:conf_general_title}</legend>
+
+  <ul>
+    <li>
+      <label><strong>{lang:History}</strong></label>
+      <input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{lang:No}
+    </li>
+
+    <li>
+      <label><strong>{lang:Lock gallery}</strong></label>
+      <input type="radio" class="radio" name="gallery_locked" value="true" {general.GALLERY_LOCKED_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{lang:No}
+    </li>
+  </ul>
 <!-- END general -->
+
 <!-- BEGIN comments -->
-  <tr class="admin">
-    <th colspan="2">{comments.L_CONF_TITLE}</th>
-  </tr>
-    <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="70%"><strong>{comments.L_CONF_COMMENTS_ALL}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_COMMENTS_ALL_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="comments_forall" value="true" {comments.COMMENTS_ALL_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="comments_forall" value="false" {comments.COMMENTS_ALL_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{comments.L_CONF_NB_COMMENTS_PAGE}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_NB_COMMENTS_PAGE_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="4" name="nb_comment_page" value="{comments.NB_COMMENTS_PAGE}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{comments.L_CONF_VALIDATE}&nbsp;:</strong><br /><span class="small">{comments.L_CONF_VALIDATE_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="comments_validation" value="true" {comments.VALIDATE_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="comments_validation" value="false" {comments.VALIDATE_NO} />{L_NO}</td>
-  </tr>
+  <legend>{lang:conf_comments_title}</legend>
+
+  <ul>
+    <li>
+      <label><strong>{lang:Comments for all}</strong></label>
+      <input type="radio" class="radio" name="comments_forall" value="true" {comments.COMMENTS_ALL_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="comments_forall" value="false" {comments.COMMENTS_ALL_NO} />{lang:No}
+    </li>
+
+    <li>
+      <label for="nb_comment_page"><strong>{lang:Number of comments per page}</strong></label>
+      <input type="text" size="3" maxlength="4" name="nb_comment_page" id="nb_comment_page" value="{comments.NB_COMMENTS_PAGE}" />
+    </li>
+
+    <li>
+      <label><strong>{lang:Validation}</strong></label>
+      <input type="radio" class="radio" name="comments_validation" value="true" {comments.VALIDATE_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="comments_validation" value="false" {comments.VALIDATE_NO} />{lang:No}
+    </li>
+  </ul>
 <!-- END comments -->
 <!-- BEGIN default -->
-  <tr class="admin">
-    <th colspan="2">{default.L_CONF_TITLE}</th>
-  </tr>
-    <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="70%"><strong>{default.L_CONF_LANG}&nbsp;:</strong><br /><span class="small">{default.L_CONF_LANG_INFO}</span></td>
-	<td class="row1">{default.CONF_LANG_SELECT}</td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_NB_IMAGE_LINE}&nbsp;:</strong><br /><span class="small">{default.L_NB_IMAGE_LINE_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="2" name="nb_image_line" value="{default.NB_IMAGE_LINE}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_NB_ROW_PAGE}&nbsp;:</strong><br /><span class="small">{default.L_NB_ROW_PAGE_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="2" name="nb_line_page" value="{default.NB_ROW_PAGE}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_CONF_STYLE}&nbsp;:</strong><br /><span class="small">{default.L_CONF_STYLE_INFO}</span></td>
-	<td class="row1">{default.CONF_STYLE_SELECT}</td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_CONF_RECENT}&nbsp;:</strong><br /><span class="small">{default.L_CONF_RECENT_INFO}</span></td>
-	<td class="row1"><input type="text" size="3" maxlength="2" name="recent_period" value="{default.CONF_RECENT}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_CONF_EXPAND}&nbsp;:</strong><br /><span class="small">{default.L_CONF_EXPAND_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="auto_expand" value="true" {default.EXPAND_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="auto_expand" value="false" {default.EXPAND_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_NB_COMMENTS}&nbsp;:</strong><br /><span class="small">{default.L_NB_COMMENTS_INFO}</span></td>
-	<td class="row1"><input type="radio" class="radio" name="show_nb_comments" value="true" {default.SHOW_COMMENTS_YES} />{L_YES}&nbsp;&nbsp;
-	<input type="radio" class="radio" name="show_nb_comments" value="false" {default.SHOW_COMMENTS_NO} />{L_NO}</td>
-  </tr>
-  <tr>
-    <td><strong>{default.L_MAXWIDTH}&nbsp;:</strong></td>
-	<td><input type="text" size="4" maxlength="4" name="default_maxwidth" value="{default.MAXWIDTH}" />
-	</td>
-  </tr>
-	<tr>
-    <td><strong>{default.L_MAXHEIGHT}&nbsp;:</strong></td>
-	<td><input type="text" size="4" maxlength="4" name="default_maxheight" value="{default.MAXHEIGHT}" />
-	</td>
-  </tr>
+  <legend>{lang:conf_default_title}</legend>
+
+  <ul>
+    <li>
+      <label for="language"><strong>{lang:Language}</strong></label>
+      <select name="default_language" id="default_language">
+        <!-- BEGIN language_option -->
+        <option value="{default.language_option.VALUE}" {default.language_option.SELECTED}>{default.language_option.CONTENT}</option>
+        <!-- END language_option -->
+      </select>
+    </li>
+
+    <li>
+      <label for="nb_image_line"><strong>{lang:Number of images per row}</strong></label>
+      <input type="text" size="3" maxlength="2" name="nb_image_line" value="{default.NB_IMAGE_LINE}" />
+    </li>
+
+    <li>
+      <label><strong>{lang:Number of rows per page}</strong></label>
+      <input type="text" size="3" maxlength="2" name="nb_line_page" value="{default.NB_ROW_PAGE}" />
+    </li>
+
+    <li>
+      <label><strong>{lang:Interface theme}</strong></label>
+      <select name="default_template" id="default_template">
+        <!-- BEGIN template_option -->
+        <option value="{default.template_option.VALUE}" {default.template_option.SELECTED}>{default.template_option.CONTENT}</option>
+        <!-- END template_option -->
+      </select>
+    </li>
+
+    <li>
+      <label for="recent_period"><strong>{lang:Recent period}</strong></label>
+      <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{default.CONF_RECENT}" />
+    </li>
+
+    <li>
+      <label><strong>{lang:Expand all categories}</strong></label>
+      <input type="radio" class="radio" name="auto_expand" value="true" {default.EXPAND_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="auto_expand" value="false" {default.EXPAND_NO} />{lang:No}
+    </li>
+
+    <li>
+      <label><strong>{lang:Show number of comments}</strong></label>
+      <input type="radio" class="radio" name="show_nb_comments" value="true" {default.SHOW_COMMENTS_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="show_nb_comments" value="false" {default.SHOW_COMMENTS_NO} />{lang:No}
+    </li>
+
+    <li>
+      <label><strong>{lang:Maximum width of the pictures}</strong></label>
+      <input type="text" size="4" maxlength="4" name="default_maxwidth" value="{default.MAXWIDTH}" />
+    </li>
+
+    <li>
+      <label><strong>{lang:Maximum height of the pictures}</strong></label>
+      <input type="text" size="4" maxlength="4" name="default_maxheight" value="{default.MAXHEIGHT}" />
+    </li>
+  </ul>
 <!-- END default -->
-<!-- BEGIN upload -->
-  <tr class="admin">
-    <th colspan="2">{upload.L_CONF_TITLE}</th>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="70%"><strong>{upload.L_CONF_MAXSIZE}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXSIZE_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxfilesize" value="{upload.UPLOAD_MAXSIZE}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{upload.L_CONF_MAXWIDTH}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXWIDTH_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxwidth" value="{upload.UPLOAD_MAXWIDTH}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{upload.L_CONF_MAXHEIGHT}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_MAXHEIGHT_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxheight" value="{upload.UPLOAD_MAXHEIGHT}" /></td>
-  </tr>
-    <tr>
-    <td><strong>{upload.L_CONF_TN_MAXWIDTH}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_TN_MAXWIDTH_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxwidth_thumbnail" value="{upload.TN_UPLOAD_MAXWIDTH}" /></td>
-  </tr>
-  <tr>
-    <td><strong>{upload.L_CONF_TN_MAXHEIGHT}&nbsp;:</strong><br /><span class="small">{upload.L_CONF_TN_MAXHEIGHT_INFO}</span></td>
-	<td class="row1"><input type="text" size="4" maxlength="4" name="upload_maxheight_thumbnail" value="{upload.TN_UPLOAD_MAXHEIGHT}" /></td>
-  </tr>
-<!-- END upload -->
-<!-- BEGIN session -->
-  <tr class="admin">
-    <th colspan="2">{session.L_CONF_TITLE}</th>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-    <tr>
-    <td width="70%"><strong>{session.L_CONF_AUTHORIZE_REMEMBERING}&nbsp;:</strong><br /><span class="small">{session.L_CONF_AUTHORIZE_REMEMBERING_INFO}</span></td>
-        <td class="row1"><input type="radio" class="radio" name="authorize_remembering" value="true" {session.AUTHORIZE_REMEMBERING_YES} />{L_YES}&nbsp;&nbsp;
-        <input type="radio" class="radio" name="authorize_remembering" value="false" {session.AUTHORIZE_REMEMBERING_NO} />{L_NO}</td>
-  </tr>
-<!-- END session -->
-<!-- BEGIN metadata -->
-  <tr class="admin">
-    <th colspan="2">{metadata.L_CONF_TITLE}</th>
-  </tr>
-  <tr>
-    <td colspan="2">&nbsp;</td>
-  </tr>
-  <tr>
-    <td width="70%">
-      <strong>{metadata.L_CONF_EXIF}&nbsp;:</strong>
-      <br /><span class="small">{metadata.L_CONF_EXIF_INFO}</span>
-    </td>
-    <td class="row1">
-      <input type="radio" class="radio" name="use_exif" value="true" {metadata.USE_EXIF_YES} />{L_YES}&nbsp;&nbsp;
-      <input type="radio" class="radio" name="use_exif" value="false" {metadata.USE_EXIF_NO} />{L_NO}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>{metadata.L_CONF_IPTC}&nbsp;:</strong>
-      <br /><span class="small">{metadata.L_CONF_IPTC_INFO}</span>
-    </td>
-    <td class="row1">
-      <input type="radio" class="radio" name="use_iptc" value="true" {metadata.USE_IPTC_YES} />{L_YES}&nbsp;&nbsp;
-      <input type="radio" class="radio" name="use_iptc" value="false" {metadata.USE_IPTC_NO} />{L_NO}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>{metadata.L_CONF_SHOW_EXIF}&nbsp;:</strong>
-      <br /><span class="small">{metadata.L_CONF_SHOW_EXIF_INFO}</span>
-    </td>
-    <td class="row1">
-      <input type="radio" class="radio" name="show_exif" value="true" {metadata.SHOW_EXIF_YES} />{L_YES}&nbsp;&nbsp;
-      <input type="radio" class="radio" name="show_exif" value="false" {metadata.SHOW_EXIF_NO} />{L_NO}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>{metadata.L_CONF_SHOW_IPTC}&nbsp;:</strong>
-      <br /><span class="small">{metadata.L_CONF_SHOW_IPTC_INFO}</span>
-    </td>
-    <td class="row1">
-      <input type="radio" class="radio" name="show_iptc" value="true" {metadata.SHOW_IPTC_YES} />{L_YES}&nbsp;&nbsp;
-      <input type="radio" class="radio" name="show_iptc" value="false" {metadata.SHOW_IPTC_NO} />{L_NO}
-    </td>
-  </tr>
-<!-- END metadata -->
-    <tr>
-      <td colspan="2" align="center">
-        <input type="submit" name="submit" value="{L_SUBMIT}">
-	<input type="reset" name="reset" value="{L_RESET}">
-      </td>
-    </tr>
-  </table>
+  </fieldset>
+  
+  <p>
+    <input type="submit" name="submit" value="{lang:Submit}">
+    <input type="reset" name="reset" value="{lang:Reset}">
+  </p>
 </form>

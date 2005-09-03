@@ -17,8 +17,8 @@
   <ul style="list-style-type:none;">
 
     <!-- BEGIN in_caddie -->
-    <li><input type="radio" name="caddie_action" value="empty_all" /> Empty caddie</li>
-    <li><input type="radio" name="caddie_action" value="empty_selected" /> Take selected elements out of caddie</li>
+    <li><label><input type="radio" name="caddie_action" value="empty_all" /> {lang:Empty caddie}</label></li>
+    <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {lang:Take selected elements out of caddie}</label></li>
     <!-- END in_caddie -->
 
     <!-- BEGIN not_in_caddie -->
