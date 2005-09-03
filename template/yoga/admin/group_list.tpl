@@ -19,8 +19,8 @@
     <td>{group.NAME}</td>
     <td><a href="{group.U_MEMBERS}">{group.MEMBERS}</a></td>
     <td style="text-align:center;">
-      <a href="{group.U_PERM}"><img src="./template/default/theme/permissions.png" style="border:none" alt="permissions" title="{lang:permissions}" /></a>
-      <a href="{group.U_DELETE}"><img src="./template/default/theme/delete.png" style="border:none" alt="delete" title="{lang:delete}" /></a>
+      <a href="{group.U_PERM}"><img src="./template/yoga/theme/permissions.png" style="border:none" alt="permissions" title="{lang:permissions}" /></a>
+      <a href="{group.U_DELETE}"><img src="./template/yoga/theme/delete.png" style="border:none" alt="delete" title="{lang:delete}" /></a>
     </td>
   </tr>
   <!-- END group -->

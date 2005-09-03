@@ -5,9 +5,9 @@
 
 <ul class="categoryActions">
   <!-- BEGIN jumpto -->
-  <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="./template/default/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li>
+  <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="./template/yoga/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li>
   <!-- END jumpto -->
-  <li><a href="{U_SYNC}" title="{lang:synchronize metadata}"><img src="./template/default/theme/sync_metadata.png" alt="{lang:synchronize}" /></a></li>
+  <li><a href="{U_SYNC}" title="{lang:synchronize metadata}"><img src="./template/yoga/theme/sync_metadata.png" alt="{lang:synchronize}" /></a></li>
 </ul>
 
 <form action="{F_ACTION}" method="post" id="properties">

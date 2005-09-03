@@ -94,10 +94,10 @@
     <ul class="categoryActions">
       <li>&nbsp;</li>
       <!-- BEGIN caddie -->
-      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" alt="{lang:caddie}"/></a></li>
+      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" alt="{lang:caddie}"/></a></li>
       <!-- END caddie -->
       <!-- BEGIN edit -->
-      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/default/theme/category_edit.png" alt="{lang:edit}"/></a></li>
+      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/yoga/theme/category_edit.png" alt="{lang:edit}"/></a></li>
       <!-- END edit -->
     </ul>
     <h2>{TITLE}</h2>

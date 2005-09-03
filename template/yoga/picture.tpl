@@ -26,7 +26,7 @@
   <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="template/yoga/theme/preferences.png" alt="{L_ADMIN}"></a>
 <!-- END admin -->
 <!-- BEGIN caddie -->
-  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/default/theme/caddie_add.png" alt="{lang:caddie}"/></a>
+  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" alt="{lang:caddie}"/></a>
 <!-- END caddie -->
 </div>
 

@@ -85,7 +85,7 @@
     <td>{user.EMAIL}</td>
     <td>{user.GROUPS}</td>
     <td style="text-align:center;">
-      <a href="{user.U_PERM}"><img src="./template/default/theme/permissions.png" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
+      <a href="{user.U_PERM}"><img src="./template/yoga/theme/permissions.png" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
     </td>
   </tr>
   <!-- END user -->

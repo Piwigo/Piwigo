@@ -155,8 +155,6 @@ if( !get_magic_quotes_gpc() )
 }
 
 //----------------------------------------------------- variable initialization
-$install_style = 'default';
-
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
@@ -209,7 +207,7 @@ include( './language/'.$language.'/common.lang.php' );
 include( './language/'.$language.'/admin.lang.php' );
 include( './language/'.$language.'/install.lang.php' );
 //----------------------------------------------------- template initialization
-$template=setup_style($install_style);
+$template=setup_style('yoga');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;
 //---------------------------------------------------------------- form analyze

@@ -4,16 +4,16 @@
 <h3>{CATEGORIES_NAV}</h3>
 
 <ul class="categoryActions">
-  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="./template/default/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li>
+  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="./template/yoga/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li>
   <!-- BEGIN elements -->
-  <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="./template/default/theme/category_elements.png" alt="{lang:elements}" /></a></li>
+  <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="./template/yoga/theme/category_elements.png" alt="{lang:elements}" /></a></li>
   <!-- END elements -->
-  <li><a href="{U_CHILDREN}" title="{lang:manage sub-categories}"><img src="./template/default/theme/category_children.png" alt="{lang:sub-categories}" /></a></li>
+  <li><a href="{U_CHILDREN}" title="{lang:manage sub-categories}"><img src="./template/yoga/theme/category_children.png" alt="{lang:sub-categories}" /></a></li>
   <!-- BEGIN permissions -->
-  <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="./template/default/theme/category_permissions.png" alt="{lang:permissions}" /></a></li>
+  <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="./template/yoga/theme/category_permissions.png" alt="{lang:permissions}" /></a></li>
   <!-- END permissions -->
   <!-- BEGIN delete -->
-  <li><a href="{delete.URL}" title="{lang:delete category}"><img src="./template/default/theme/category_delete.png" alt="{lang:delete}" /></a></li>
+  <li><a href="{delete.URL}" title="{lang:delete category}"><img src="./template/yoga/theme/category_delete.png" alt="{lang:delete}" /></a></li>
   <!-- END delete -->
 </ul>
 
@@ -113,7 +113,7 @@
         <!-- END picture -->
 
         <!-- BEGIN random -->
-        <img src="./template/default/theme/category_representant_random.png" alt="{lang:Random picture}" class="miniature" />
+        <img src="./template/yoga/theme/category_representant_random.png" alt="{lang:Random picture}" class="miniature" />
         <!-- END random -->
       </td>
       <td>
