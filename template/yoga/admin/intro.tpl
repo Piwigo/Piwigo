@@ -27,6 +27,10 @@
         <!-- BEGIN waiting -->
         (<a href="{waiting.URL}">{waiting.INFO}</a>)
         <!-- END waiting -->
+
+        <!-- BEGIN first_added -->
+        ({first_added.DB_DATE})
+        <!-- END first_added -->
       </li>
       <li>{DB_CATEGORIES}</li>
       <li>{DB_USERS}</li>
@@ -37,7 +41,6 @@
         (<a href="{unvalidated.URL}">{unvalidated.INFO}</a>)
         <!-- END unvalidated -->
       </li>
-      <li>{DB_DATE}</li>
     </ul>
   </dd>
 

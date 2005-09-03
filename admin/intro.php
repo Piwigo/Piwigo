@@ -158,12 +158,6 @@ SELECT COUNT(*)
 ;';
 list($nb_comments) = mysql_fetch_row(pwg_query($query));
 
-$query = '
-SELECT MIN(date_available)
-  FROM '.IMAGES_TABLE.'
-;';
-list($first_date) = mysql_fetch_row(pwg_query($query));
-
 $template->assign_vars(
   array(
     'PWG_VERSION' => PHPWG_VERSION,
@@ -181,17 +175,32 @@ $template->assign_vars(
     'DB_USERS' => sprintf(l10n('%d users'), $nb_users),
     'DB_GROUPS' => sprintf(l10n('%d groups'), $nb_groups),
     'DB_COMMENTS' => sprintf(l10n('%d comments'), $nb_comments),
-    'DB_DATE' =>
-      sprintf(
-        l10n('first element added on %s'),
-        format_date($first_date, 'mysql_datetime')
-        ),
     'U_CHECK_UPGRADE' =>
       add_session_id(PHPWG_ROOT_PATH.'admin.php?action=check_upgrade'),
     'U_PHPINFO' =>
       add_session_id(PHPWG_ROOT_PATH.'admin.php?action=phpinfo')
     )
   );
+
+if ($nb_elements > 0)
+{
+  $query = '
+SELECT MIN(date_available)
+  FROM '.IMAGES_TABLE.'
+;';
+  list($first_date) = mysql_fetch_row(pwg_query($query));
+
+  $template->assign_block_vars(
+    'first_added',
+    array(
+      'DB_DATE' =>
+      sprintf(
+        l10n('first element added on %s'),
+        format_date($first_date, 'mysql_datetime')
+        )
+      )
+    );
+}
 
 // waiting elements
 $query = '

@@ -1,5 +1,10 @@
 2005-09-03 Pierrick LE GALL
 
+	* bug fixed : no display of first added element date in
+	admin/intro if no element in the gallery.
+
+2005-09-03 Pierrick LE GALL
+
 	* new : template yoga, made by yoDan, helped by chrisaga for
 	integration becomes the official template.
 
