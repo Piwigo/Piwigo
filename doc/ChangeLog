@@ -1,5 +1,10 @@
 2005-09-03 Pierrick LE GALL
 
+	* new : template yoga, made by yoDan, helped by chrisaga for
+	integration becomes the official template.
+
+2005-09-03 Pierrick LE GALL
+
 	* modification : less configuration parameters in administration
 	screen. These parameters are move to
 	include/config_default.inc.php.
