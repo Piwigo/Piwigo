@@ -24,23 +24,22 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
-//----------------------------------------------------- template initialization
-$template->set_filenames( array('help'=>'admin/help.tpl') );
 
-//----------------------------------------------------- help categories display
-$categories = array('images','thumbnails','database','access','groups',
-                    'remote','upload','virtual','infos');
-foreach ($categories as $category)
+include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+// language files
+$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
+$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+
+if (file_exists($user_langdir.'/help.html'))
 {
-  $template->assign_block_vars(
-    'cat',
-    array('NAME'=>$lang['help_'.$category.'_title']));
-  
-  foreach ($lang['help_'.$category] as $item)
-  {
-    $template->assign_block_vars('cat.item', array('CONTENT'=>$item));
-  }
+  $html_file = $user_langdir.'/help.html';
 }
-$template->assign_var_from_handle('ADMIN_CONTENT', 'help');
+else
+{
+  $html_file = $conf_langdir.'/help.html';
+}
+
+$template->set_filenames(array('help_content' => $html_file));
+$template->assign_var_from_handle('ADMIN_CONTENT', 'help_content');
 ?>

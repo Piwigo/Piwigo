@@ -156,18 +156,15 @@ $template->assign_vars(array(
   'L_SUBMIT' => $lang['submit'],
   'L_RESET' => $lang['reset'],
   'L_SEARCH_KEYWORDS'=>$lang['search_keywords'],
-  'L_SEARCH_KEYWORDS_HINT'=>$lang['search_keywords_hint'],
   'L_SEARCH_ANY_TERMS'=>$lang['search_mode_or'],
   'L_SEARCH_ALL_TERMS'=>$lang['search_mode_and'],
   'L_SEARCH_AUTHOR'=>$lang['search_author'],
   'L_SEARCH_AUTHOR_HINT'=>$lang['search_explain'],
   'L_SEARCH_CATEGORIES'=>$lang['search_categories'],
-  'L_SEARCH_CATEGORIES_HINT'=>$lang['search_categories_hint'],
   'L_SEARCH_SUBFORUMS'=>$lang['search_subcats_included'],
   'L_YES' => $lang['yes'],
   'L_NO' => $lang['no'],
   'L_SEARCH_DATE' => $lang['search_date'],
-  'L_SEARCH_DATE_HINT' => $lang['search_date_hint'],
   'L_TODAY' => $lang['today'],
   'L_SEARCH_DATE_FROM'=>$lang['search_date_from'],
   'L_SEARCH_DATE_TO'=>$lang['search_date_to'],
@@ -183,7 +180,8 @@ $template->assign_vars(array(
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
-  'S_SEARCH_ACTION' => add_session_id( 'search.php' ),   
+  'S_SEARCH_ACTION' => add_session_id( 'search.php' ),
+  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=search',
   'U_HOME' => add_session_id( 'category.php' )
   )
 );

@@ -181,7 +181,7 @@ else
 // The administration section requires 2 more language files
 if (defined('IN_ADMIN') and IN_ADMIN)
 {
-  foreach (array('admin', 'faq') as $section)
+  foreach (array('admin') as $section)
   {
     if (file_exists($user_langdir.'/'.$section.'.lang.php'))
     {

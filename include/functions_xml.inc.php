@@ -56,28 +56,6 @@ function getAttribute( $element, $attribute )
   if ( preg_match( $regex, $element, $out ) ) return $out[1];
   else return '';
 }
-
-function deprecated_getAttribute( $element, $attribute )
-{
-  // Retrieving string with tag name and all attributes
-  $regex = '/^<\w+( '.ATT_REG.'="'.VAL_REG.'")*/';
-  preg_match( $regex, $element, $out );
-
-  // Splitting string for retrieving separately attributes
-  // and corresponding values
-  $regex = '/('.ATT_REG.')="('.VAL_REG.')"/';
-  preg_match_all( $regex, $out[0], $out );
-
-  // Searching and returning the value of the requested attribute
-  for ( $i = 0; $i < sizeof( $out[0] ); $i++ )
-  {
-    if ( $out[1][$i] == $attribute )
-    {
-      return $out[2][$i];
-    }
-  }
-  return '';
-}
 	
 // The function getChild returns the first child
 // exemple : getChild( "<table><tr>XXX</tr><tr>YYY</tr></table>", "tr" )

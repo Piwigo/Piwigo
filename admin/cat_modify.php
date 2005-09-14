@@ -157,17 +157,12 @@ $template->assign_vars(array(
   'L_STORAGE'=>$lang['storage'],
   'L_REMOTE_SITE'=>$lang['remote_site'],
   'L_EDIT_COMMENT'=>$lang['description'],
-  'L_EDIT_CAT_OPTIONS'=>$lang['cat_options'],
   'L_EDIT_STATUS'=>$lang['conf_access'],
-  'L_EDIT_STATUS_INFO'=>$lang['cat_access_info'],
   'L_STATUS_PUBLIC'=>$lang['public'],
   'L_STATUS_PRIVATE'=>$lang['private'],
   'L_EDIT_LOCK'=>$lang['lock'],
-  'L_EDIT_LOCK_INFO'=>$lang['editcat_lock_info'],
   'L_EDIT_UPLOADABLE'=>$lang['editcat_uploadable'],
-  'L_EDIT_UPLOADABLE_INFO'=>$lang['editcat_uploadable_info'],
   'L_EDIT_COMMENTABLE'=>$lang['comments'],
-  'L_EDIT_COMMENTABLE_INFO'=>$lang['editcat_commentable_info'],
   'L_YES'=>$lang['yes'],
   'L_NO'=>$lang['no'],
   'L_SUBMIT'=>$lang['submit'],
@@ -177,6 +172,7 @@ $template->assign_vars(array(
     add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']),
   'U_CHILDREN'=>
     add_session_id($cat_list_url.'&amp;parent_id='.$category['id']),
+  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
    
   'F_ACTION'=>add_session_id($form_action)
   ));

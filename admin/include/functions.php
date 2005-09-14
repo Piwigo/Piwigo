@@ -27,44 +27,6 @@
 
 include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
 
-$tab_ext_create_TN = array ( 'jpg', 'png', 'JPG', 'PNG' );
-
-// is_image returns true if the given $filename (including the path) is a
-// picture according to its format and its extension.
-// As GD library can only generate pictures from jpeg and png files, if you
-// ask if the filename is an image for thumbnail creation (second parameter
-// set to true), the only authorized formats are jpeg and png.
-function is_image( $filename, $create_thumbnail = false )
-{
-  global $conf, $tab_ext_create_TN;
-
-  if (is_file($filename)
-      and in_array(get_extension($filename), $conf['picture_ext']))
-  {
-    $size = getimagesize( $filename );
-    // $size[2] == 1 means GIF
-    // $size[2] == 2 means JPG
-    // $size[2] == 3 means PNG
-    if ( !$create_thumbnail )
-    {
-      if ( in_array( get_extension( $filename ), $conf['picture_ext'] )
-           and ( $size[2] == 1 or $size[2] == 2 or $size[2] == 3 ) )
-      {
-        return true;
-      }
-    }
-    else
-    {
-      if ( in_array( get_extension( $filename ), $tab_ext_create_TN )
-           and ( $size[2] == 2 or $size[2] == 3 ) )
-      {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 /**
  * returns an array with all picture files according to $conf['file_ext']
  *
@@ -141,22 +103,6 @@ function get_representative_files($dir)
   }
   return $pictures;
 }
-
-function TN_exists( $dir, $file )
-{
-  global $conf;
-
-  $filename = get_filename_wo_extension( $file );
-  foreach ( $conf['picture_ext'] as $ext ) {
-    $test = $dir.'/thumbnail/'.$conf['prefix_thumbnail'].$filename.'.'.$ext;
-    if ( is_file ( $test ) )
-    {
-      return $ext;
-    }
-  }
-  return false;
-}
-	
 
 // The function delete_site deletes a site and call the function
 // delete_categories for each primary category of the site
@@ -552,21 +498,6 @@ SELECT id
   }
 }
 
-function check_date_format( $date )
-{
-  // date arrives at this format : DD/MM/YYYY
-  @list($day,$month,$year) = explode( '/', $date );
-  return @checkdate( $month, $day, $year );
-}
-
-function date_convert( $date )
-{
-  // date arrives at this format : DD/MM/YYYY
-  // It must be transformed in YYYY-MM-DD
-  list($day,$month,$year) = explode( '/', $date );
-  return $year.'-'.$month.'-'.$day;
-}
-
 function date_convert_back( $date )
 {
   // date arrives at this format : YYYY-MM-DD
@@ -599,37 +530,6 @@ function get_keywords($keywords_string)
         $keywords_string
         )
       );
-}
-
-/**
- * returns an array containing sub-directories which can be a category
- *
- * directories nammed "thumbnail", "pwg_high" or "pwg_representative" are
- * omitted
- *
- * @param string $basedir
- * @return array
- */
-function get_category_directories( $basedir )
-{
-  $sub_dirs = array();
-  
-  if ( $opendir = opendir( $basedir ) )
-  {
-    while ( $file = readdir( $opendir ) )
-    {
-      if ($file != '.'
-          and $file != '..'
-          and $file != 'thumbnail'
-          and $file != 'pwg_high'
-          and $file != 'pwg_representative'
-          and is_dir($basedir.'/'.$file))
-      {
-        array_push( $sub_dirs, $file );
-      }
-    }
-  }
-  return $sub_dirs;
 }
 
 /**

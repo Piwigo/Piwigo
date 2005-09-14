@@ -1,5 +1,10 @@
 <!-- $Id$ -->
-<h2>{lang:title_thumbnails}</h2>
+<div class="titrePage">
+  <ul class="categoryActions">
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" alt="(?)"></a></li>
+  </ul>
+  <h2>{lang:title_thumbnails}</h2>
+</div>
 
 <!-- BEGIN results -->
 <div class="admin">{L_RESULTS}</div>
@@ -53,55 +58,39 @@
 <!-- END results -->
 
 <!-- BEGIN params -->
-<form method="post" action="{params.F_ACTION}">
-  <table style="width:100%;">
-    <tr>
-      <th class="admin" colspan="3">{L_PARAMS}</th>
-    </tr>
-    <tr><td colspan="3">&nbsp;</td></tr>
-    <tr>
-      <td><div class="key">{L_GD}</div></td>
-      <td class="choice">
-        <input type="radio" name="gd" value="2" {params.GD2_CHECKED} />2.x
-        <input type="radio" name="gd" value="1" {params.GD1_CHECKED} />1.x
-      </td>
-      <td style="width:50%;" class="row2">{L_GD_INFO}</td>
-    </tr>
-    <tr>
-      <td><div class="key">{L_WIDTH}</div></td>
-      <td class="choice">
-        <input type="text" name="width" value="{params.WIDTH_TN}"/>
-      </td>
-      <td>{L_WIDTH_INFO}</td>
-    </tr>
-    <tr>
-      <td><div class="key">{L_HEIGHT}</div></td>
-      <td class="choice">
-        <input type="text" name="height" value="{params.HEIGHT_TN}"/>
-      </td>
-      <td>{L_HEIGHT_INFO}</td>
-    </tr>
-    <tr>
-      <td><div class="key">{L_CREATE}</div></td>
-      <td class="choice">
-        <input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5
-        <input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10
-        <input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20
-        <input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}
-      </td>
-      <td>{L_CREATE_INFO}</td>
-    </tr>
-    <tr>
-      <td><div class="key">{L_FORMAT}</div></td>
-      <td class="choice"><span style="font-weight:bold;">jpeg</span></td>
-      <td>{L_FORMAT_INFO}</td>
-    </tr>
-    <tr>
-      <td colspan="3" style="text-align:center;">
-        <input type="submit" name="submit" value="{L_SUBMIT}"/>
-      </td>
-    </tr>
-  </table>
+<form method="post" action="{params.F_ACTION}" class="properties">
+
+  <fieldset>
+    <legend>{L_PARAMS}</legend>
+
+    <ul>
+      <li>
+        <label><strong>{L_GD}</strong></label>
+	<input type="radio" name="gd" value="2" {params.GD2_CHECKED} />2.x
+	<input type="radio" name="gd" value="1" {params.GD1_CHECKED} />1.x
+      </li>
+
+      <li>
+        <label><strong>{L_WIDTH}</strong></label>
+	<input type="text" name="width" value="{params.WIDTH_TN}"/>
+      </li>
+
+      <li>
+        <label><strong>{L_HEIGHT}</strong></label>
+	<input type="text" name="height" value="{params.HEIGHT_TN}"/>
+      </li>
+
+      <li>
+        <label><strong>{lang:Number of thumbnails to create}</strong></label>
+	<input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5
+	<input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10
+	<input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20
+	<input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}
+      </li>
+    </ul>
+  </fieldset>
+
+  <p><input type="submit" name="submit" value="{L_SUBMIT}"/></p>
 </form>
 <!-- END params -->
 

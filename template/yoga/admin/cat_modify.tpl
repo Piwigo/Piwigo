@@ -1,5 +1,10 @@
 <!-- $Id$ -->
-<h2>{lang:title_edit_cat}</h2>
+<div class="titrePage">
+  <ul class="categoryActions">
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" alt="(?)"></a></li>
+  </ul>
+  <h2>{lang:title_edit_cat}</h2>
+</div>
 
 <h3>{CATEGORIES_NAV}</h3>
 
@@ -65,21 +70,21 @@
   <legend>{lang:Options}</legend>
   <table>
     <tr>
-      <td><strong>{L_EDIT_STATUS}</strong><br /><span class="small">{L_EDIT_STATUS_INFO}</span></td>
+      <td><strong>{L_EDIT_STATUS}</strong>
       <td>
 	  <input type="radio" name="status" value="public" {STATUS_PUBLIC} />{L_STATUS_PUBLIC}
 	  <input type="radio" name="status" value="private" {STATUS_PRIVATE} />{L_STATUS_PRIVATE}
       </td>
     </tr>
     <tr>
-      <td><strong>{L_EDIT_LOCK}</strong><br /><span class="small">{L_EDIT_LOCK_INFO}</span></td>
+      <td><strong>{L_EDIT_LOCK}</strong>
       <td>
 	  <input type="radio" name="visible" value="false" {LOCKED} />{L_YES}
 	  <input type="radio" name="visible" value="true" {UNLOCKED} />{L_NO}
       </td>
     </tr>
     <tr>
-      <td><strong>{L_EDIT_COMMENTABLE}</strong><br /><span class="small">{L_EDIT_COMMENTABLE_INFO}</span></td>
+      <td><strong>{L_EDIT_COMMENTABLE}</strong>
       <td>
           <input type="radio" name="commentable" value="true" {COMMENTABLE_TRUE} />{L_YES}
           <input type="radio"  name="commentable" value="false" {COMMENTABLE_FALSE} />{L_NO}
@@ -87,7 +92,7 @@
     </tr>
     <!-- BEGIN upload -->
     <tr>
-      <td><strong>{L_EDIT_UPLOADABLE}</strong><br /><span class="small">{L_EDIT_UPLOADABLE_INFO}</span></td>
+      <td><strong>{L_EDIT_UPLOADABLE}</strong>
       <td>
           <input type="radio" name="uploadable" value="true" {UPLOADABLE_TRUE} />{L_YES}
           <input type="radio" name="uploadable" value="false" {UPLOADABLE_FALSE} />{L_NO}

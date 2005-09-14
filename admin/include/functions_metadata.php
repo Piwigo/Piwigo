@@ -221,28 +221,4 @@ SELECT id, path
   
   return $files;
 }
-
-// used_metadata string is displayed to inform admin which metadata will be
-// used from files for synchronization
-function get_used_metadata_list()
-{
-  global $conf;
-  
-  $used_metadata = array('filesize', 'width', 'height');
-
-  if ($conf['use_exif'])
-  {
-    array_push($used_metadata, 'date_creation');
-  }
-
-  if ($conf['use_iptc'])
-  {
-    foreach (array_keys($conf['use_iptc_mapping']) as $key)
-    {
-      array_push($used_metadata, $key);
-    }
-  }
-
-  return array_unique($used_metadata);
-}
 ?>

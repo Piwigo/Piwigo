@@ -203,24 +203,6 @@ function language_select($default, $select_name = "language")
   return $lang_select;
 }
 
-//
-// Pick a template/theme combo, 
-//
-function style_select($default_style, $select_name = "style")
-{
-  $templates = get_templates();
-
-  $style_selected = '<select name="' . $select_name . '" >';
-  foreach ($templates as $template)
-  {
-    $selected = ( $template == $default_style ) ? ' selected="selected"' : '';
-    $style_selected.= '<option value="'.$template.'"'.$selected.'>';
-    $style_selected.= $template.'</option>';
-  }
-  $style_selected .= '</select>';
-  return $style_selected;
-}
-
 /**
  * returns the list of categories as a HTML string
  *

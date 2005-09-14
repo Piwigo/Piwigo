@@ -39,11 +39,26 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('about'=>'about.tpl'));
 $template->assign_vars(
   array(
-    'L_ABOUT' => $lang['about_message'],
     'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php')
     )
   );
 
+// language files
+$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
+$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+
+if (file_exists($user_langdir.'/about.html'))
+{
+  $html_file = $user_langdir.'/about.html';
+}
+else
+{
+  $html_file = $conf_langdir.'/about.html';
+}
+
+$template->set_filenames(array('about_content' => $html_file));
+$template->assign_var_from_handle('ABOUT_MESSAGE', 'about_content');
+  
 $template->parse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

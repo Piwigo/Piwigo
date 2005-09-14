@@ -2,6 +2,7 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
+      <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" alt="(?)"></a></li>
       <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="./template/yoga/theme/home.png" alt="{lang:home}"/></a></li>
     </ul>
     <h2>{lang:Search}</h2>
@@ -20,7 +21,7 @@
 <!-- END errors -->
 <table width="100%" align="center" cellpadding="2">
   <tr> 
-    <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b><br /><span class="small">{L_SEARCH_KEYWORDS_HINT}</span></td>
+    <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b>
     <td colspan="2" valign="top">
 	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
 	  <br />
@@ -29,13 +30,13 @@
 	</td>
   </tr>
   <tr> 
-    <td colspan="2"><b>{L_SEARCH_AUTHOR} :</b><br /><span class="small">{L_SEARCH_AUTHOR_HINT}</span></td>
+    <td colspan="2"><b>{L_SEARCH_AUTHOR} :</b>
     <td colspan="2" valign="middle">
 	  <input type="text" style="width: 300px" name="search_author" size="30" />
 	</td>
   </tr>
   <tr> 
-    <td colspan="2"><b>{L_SEARCH_DATE} :</b><br /><span class="small">{L_SEARCH_DATE_HINT}</span></td>
+    <td colspan="2"><b>{L_SEARCH_DATE} :</b>
     <td colspan="2" valign="middle">
       <table>
         <tr>
@@ -79,7 +80,7 @@
     <th colspan="4">{L_SEARCH_OPTIONS}</th>
   </tr>
   <tr> 
-    <td width="25%" ><b>{L_SEARCH_CATEGORIES} : </b><br /><span class="small">{L_SEARCH_CATEGORIES_HINT}</span></td>
+    <td width="25%" ><b>{L_SEARCH_CATEGORIES} : </b>
     <td width="25%" nowrap="nowrap">
 	  <select style="width:200px" name="cat[]" multiple="multiple" size="8">
       <!-- BEGIN category_option -->

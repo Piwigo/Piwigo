@@ -1,0 +1,230 @@
+<h2>Help</h2>
+
+<h3>Adding elements</h3>
+
+<ul>
+
+  <li>
+
+    <p>Category directories are in the PhpWebGallery directory
+    "galleries". Here follow the directory tree of a very small gallery (but
+    using many features) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>Basically, a category is represented by a directory at any level in
+  PhpWebGallery directory "galleries". Each category can contain as many
+  sub-level as you wish. In the example above, category-1.1.1.1 is at level
+  4 of deepness.</li>
+
+  <li>Basically, an element is represented by a file. A file can be a
+  PhpWebGallery element if its extenstion is among <code>file_ext</code>
+  configuration parameter possibilities (see <span
+  class="filename">include/config_default.inc.php</span> file). A file can
+  be a picture if its extension is among <code>picture_ext</code>
+  configuration parameter possibilities.</li>
+
+  <li>Picture elements must have an associated thumbnail (see section below
+  about thumbnails)</li>
+
+  <li>Picture elements can have a high quality file associated. As for
+  wedding.jpgin the example above. No prefix on the high quality picture is
+  required.</li>
+
+  <li>Non picture elements (video, sounds, file texts, what you want...) are
+  by default represented by an icon corresponding to the filename
+  extension. Optionaly, you can associate a thumbnail and a representative
+  file (see video.avi in the example above).</li>
+
+  <li>Warning : the name of directories and files must be composed of
+  letters, figures, "-", "_" or ".". No blank space, no accentuated
+  characters</li>
+
+  <li>Advise : a category can contain elements and sub-categories in the
+  same time. Nerverthless, you are strongly advised for each category to
+  choose between category containing elements OR category containing
+  sub-categories.</li>
+
+  <li>Once files, thumbnails and representatives are correctly placed in the
+  directories, go to : <span class="pwgScreen">Administration, General,
+  Synchronize</span></li>
+
+</ul>
+
+<h3>Thumbnails</h3>
+
+<ul>
+
+  <li>As said earlier, each element of picture type must be associated with
+  a thumbnail.</li>
+
+  <li>Thumbnails are stored in the sub-directory "thumbnail" of the category
+  directory. The thumbnail is a picture (same filename extensions possible
+  than picture files) which filename is prefixed by the configured
+  "Thumbnail prefix" (see admin panel, Configuration, General).</li>
+
+  <li>Thumbnails don't need to have the same extension as their associated
+  picture (a picture with .jpg extension can have a thumbnail in .GIF
+  extention for instance).</li>
+
+  <li>Advise: use an external module for thumbnails creation.</li>
+
+  <li>You can also use the thumbnail creation page (<span
+  class="pwgScreen">Administration, Pictures, Thumbnails</span>), but it is
+  not recommended. Indeed, thumbnail quality may be poor and it uses a high
+  CPU load which can be a problem if you use free web hosting.</li>
+
+  <li>If you choose to use your hosting provider to create thumbnails, you
+  must give write rights on all category directories and sub-directories
+  "thumbnail" for ugo (user, group, other).</li>
+
+</ul>
+
+<h3>Access authorization</h3>
+
+<ul>
+
+  <li>You can forbid access to categories. Categories can be "public" or
+  "private". Permissions (for groups and users) can be set only if the
+  category is private.</li>
+
+  <li>You can set a category to private by editing a single category (<span
+  class="pwgScreen">Administration, Categories, Manage, edit</span>) or by
+  setting options to your whole category tree (<span
+  class="pwgScreen">Administration, Categories, Public/Private</span>).</li>
+
+  <li>
+
+    <p>Once the category is private, you can manage permissions for groups
+    and users through 3 screens :(administration panel, Permissions).</p>
+
+    <ul>
+
+      <li><span class="pwgScreen">Administration, Identification, Users,
+      permissions action (one link per user)</span></li>
+
+      <li><span class="pwgScreen">Administration, Identification, Groups,
+      permissions action (one link per group)</span></li>
+
+      <li><span class="pwgScreen">Administration, Categories, Manage, edit
+      category permissions action (one link per category)</span></li>
+
+    </ul>
+
+  </li>
+
+</ul>
+
+<h3>Users Groups</h3>
+
+<ul>
+
+  <li>PhpWebGallery is able to manage groups of users. It can be very useful
+  to have common permission access for private categories.</li>
+
+  <li>You can create groups in <span class="pwgScreen">Administration,
+  Identification, Groups</span> and associate users to this group in <span
+  class="pwgScreen">Administration, Identication, Users</span>.</li>
+
+  <li>A user can belong to several groups. The authorization is stronger
+  than prohibition : if user "jack" belongs to groups "family" and
+  "friends", and that only group "family" can see category "Christmas 2003",
+  "jack" will be able to see "Christmas 2003".</li>
+
+</ul>
+
+<h3>Files upload by users</h3>
+
+<p>PhpWebGallery offers the possibility for users to upload images. in
+order to do it:</p>
+
+<ol>
+
+  <li>authorize upload on any categories (<span
+  class="pwgScreen">Administration, Categories, Manage, edit</span> or <span
+  class="pwgScreen">Administration panel, Categories, Upload</span>)</li>
+
+  <li>give write rights on directories for ugo (user, group, other)</li>
+
+</ol>
+
+<p>Files uploaded by users are not directly visible on the website, they
+must be validated by an administrator. For that purpose, an administrator
+must go in <span class="pwgScreen">Administration, Pictures, Waiting</span>
+in order to validate or to refuse the files proposed, then to synchronize
+filesystem with database.</p>
+
+
+<h3>Links between elements and categories, virtual categories</h3>
+
+<ul>
+
+  <li>PhpWebGallery dissociates categories where elements are stored and
+  categories where they are shown.</li>
+
+  <li>By default, elements are shown only in their real categories : the
+  ones corresponding to directories on the web server.</li>
+
+  <li>To link an element to a category, you just have to make the
+  association on the page of element edition (link to this screen on
+  picture.php logged as an administrator) or on the informations of all
+  elements of a category.</li>
+
+  <li>Using this principle, it is possible to create virtual categories : no
+  directory coresponds to this category. You can create virtual categories
+  in <span class="pwgScreen">Administration, Categories, Manage</span>.</li>
+
+</ul>
+
+<h3>Miscellanous informations</h3>
+
+<ul>
+
+  <li>As soon as you created your gallery, modify default display properties
+  in <span class="pwgScreen">Administration panel, Configuration,
+  Default</span>. Indeed, every new registered user will have by default the
+  same display properties.</li>
+
+  <li>If you have any question, do not hesitate to take a look at the forum
+  or ask a question there. The <a
+  href="http://forum.phpwebgallery.net">forum</a> (message board) is
+  available on the presentation site of PhpWebGallery. Check the <a
+  href="http://doc.phpwebgallery.net">official PhpWebGallery
+  documentation</a> for further reading.</li>
+
+</ul>
+

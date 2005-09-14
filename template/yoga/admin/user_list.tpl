@@ -1,4 +1,9 @@
-<h2>{lang:title_liste_users}</h2>
+<div class="titrePage">
+  <ul class="categoryActions">
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" alt="(?)"></a></li>
+  </ul>
+  <h2>{lang:title_liste_users}</h2>
+</div>
 
 <form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
   <fieldset>

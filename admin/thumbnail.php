@@ -169,13 +169,7 @@ $template->assign_vars(array(
   'L_THUMBNAIL'=>$lang['thumbnail'],
   'L_PARAMS'=>$lang['tn_params_title'],
   'L_GD'=>$lang['tn_params_GD'],
-  'L_GD_INFO'=>$lang['tn_params_GD_info'],
-  'L_WIDTH_INFO'=>$lang['tn_params_width_info'],
-  'L_HEIGHT_INFO'=>$lang['tn_params_height_info'],
   'L_CREATE'=>$lang['tn_params_create'],
-  'L_CREATE_INFO'=>$lang['tn_params_create_info'],
-  'L_FORMAT'=>$lang['tn_params_format'],
-  'L_FORMAT_INFO'=>$lang['tn_params_format_info'],
   'L_SUBMIT'=>$lang['submit'],
   'L_REMAINING'=>$lang['tn_alone_title'],
   'L_TN_STATS'=>$lang['tn_stats'],
@@ -185,6 +179,8 @@ $template->assign_vars(array(
   'L_TN_MIN'=>$lang['tn_stats_min'],
   'L_TN_AVERAGE'=>$lang['tn_stats_mean'],
   'L_ALL'=>$lang['tn_all'],
+
+  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=thumbnail',
   
   'T_STYLE'=>$user['template']
   ));

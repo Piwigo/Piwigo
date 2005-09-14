@@ -17,18 +17,6 @@ BODY#thePopuphelpPage #content UL LI
   margin-bottom: 0.5em;
 }
 
-BODY#thePopuphelpPage #content SPAN.pwgScreen {
-  border-bottom: 1px dotted black;
-}
-
-BODY#thePopuphelpPage #content SPAN.filename:before {
-  content: "[";
-}
-
-BODY#thePopuphelpPage #content SPAN.filename:after {
-  content: "]";
-}
-
 BODY#thePopuphelpPage P#pageBottomActions A {
   border: none;
 }

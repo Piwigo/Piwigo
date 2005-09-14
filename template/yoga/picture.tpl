@@ -161,7 +161,7 @@
   <!-- BEGIN delete -->
   <p class="userCommentDelete">
   <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}">
-    <img src="template/clear/theme/delete.gif" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
+    <img src="template/yoga/theme/delete.png" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
   </a>
   </p>
   <!-- END delete -->

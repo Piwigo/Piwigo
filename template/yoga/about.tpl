@@ -7,6 +7,6 @@
     <h2>{lang:About}</h2>
   </div>
 
-  {lang:about_message}
+  {ABOUT_MESSAGE}
 
 </div>

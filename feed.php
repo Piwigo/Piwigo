@@ -215,18 +215,6 @@ function explode_mysqldt($mysqldt)
 }
 
 /**
- * creates a MySQL datetime format (2005-07-14 23:01:37) from a Unix
- * timestamp (number of seconds since 1970-01-01 00:00:00 GMT)
- *
- * @param int unix timestamp
- * @return string mysql datetime format
- */
-function ts_to_mysqldt($ts)
-{
-  return date('Y-m-d H:i:s', $ts);
-}
-
-/**
  * creates a Unix timestamp (number of seconds since 1970-01-01 00:00:00
  * GMT) from a MySQL datetime format (2005-07-14 23:01:37)
  *

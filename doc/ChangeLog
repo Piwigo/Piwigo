@@ -1,5 +1,24 @@
 2005-09-03 Pierrick LE GALL
 
+	* improvement: long localized messages are in HTML files instead
+	of $lang array. This is the case of admin/help and about pages.
+
+	* deletion: of unused functions (ts_to_mysqldt, is_image,
+	TN_exists, check_date_format, date_convert,
+	get_category_directories, get_used_metadata_list, array_remove,
+	pwg_write_debug, get_group_restrictions,
+	get_all_group_restrictions, is_group_allowed, style_select,
+	deprecated_getAttribute).
+
+	* new: many new contextual help pages to replace descriptions
+	previously included in pages.
+
+	* modification: reorganisation of language files. Deletion of
+	unused language keys, alphabetical sort. No faq.lang.php anymore
+	(replaced by help.html). Only done for en_UK.iso-8859-1.
+
+2005-09-03 Pierrick LE GALL
+
 	* bug fixed : no display of first added element date in
 	admin/intro if no element in the gallery.
 

@@ -102,17 +102,6 @@ function boolean_to_string($var)
   }
 }
 
-// array_remove removes a value from the given array if the value existed in
-// this array.
-function array_remove( $array, $value )
-{
-  $output = array();
-  foreach ( $array as $v ) {
-    if ( $v != $value ) array_push( $output, $v );
-  }
-  return $output;
-}
-
 // The function get_moment returns a float value coresponding to the number
 // of seconds since the unix epoch (1st January 1970) and the microseconds
 // are precised : e.g. 1052343429.89276600
@@ -433,16 +422,6 @@ function format_date($date, $type = 'us', $show_time = false)
   return $formated_date;
 }
 
-function pwg_write_debug()
-{
-  global $debug;
-  
-  $fp = @fopen( './log/debug.log', 'a+' );
-  fwrite( $fp, "\n\n" );
-  fwrite( $fp, $debug );
-  fclose( $fp );
-}
-
 function pwg_query($query)
 {
   global $conf,$page;
@@ -734,7 +713,7 @@ function l10n($key)
 {
   global $lang, $conf;
 
-  if ($conf['debug_l10n'])
+  if ($conf['debug_l10n'] and !isset($lang[$key]))
   {
     echo '[l10n] language key "'.$key.'" is not defined<br />';
   }

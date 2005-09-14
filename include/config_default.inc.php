@@ -176,7 +176,8 @@ $conf['gallery_description'] = 'My photos web site';
 // galery_url : URL given in RSS feed
 $conf['gallery_url'] = 'http://demo.phpwebgallery.net';
 
-// prefix_thumbnail : string before filename
+// prefix_thumbnail : string before filename. Thumbnail's prefix must only
+// contain characters among : a to z (case insensitive), "-" or "_".
 $conf['prefix_thumbnail'] = 'TN-';
 
 // +-----------------------------------------------------------------------+
