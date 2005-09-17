@@ -245,9 +245,7 @@ $template->assign_vars(array(
   'L_STORAGE'=>$lang['storage'],
   'L_NB_IMG'=>$lang['pictures'],
   'L_MOVE_UP'=>$lang['up'],
-  'L_MOVE_DOWN'=>$lang['down'],
   'L_EDIT'=>$lang['edit'],
-  'L_INFO_IMG'=>$lang['cat_image_info'],
   'L_DELETE'=>$lang['delete'],
  ));
   

@@ -1,4 +1,9 @@
-2005-09-03 Pierrick LE GALL
+2005-09-17 Pierrick LE GALL
+
+	* translation: common and admin strings translated in french from
+	english files
+
+2005-09-14 Pierrick LE GALL
 
 	* improvement: long localized messages are in HTML files instead
 	of $lang array. This is the case of admin/help and about pages.
