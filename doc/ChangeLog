@@ -1,5 +1,19 @@
 2005-09-17 Pierrick LE GALL
 
+	* improvement: add information about how to use an external table
+	for users
+	
+	* bug fixed: uses user configuration fields for filtering in
+	admin/user_list
+
+	* bug fixed: don't try to create feeds automatically during
+	sync_users (when line in user_infos is missing)
+
+	* bug fixed: create_user_infos function gives status admin if user
+	id matches $conf['webmaster_id']
+
+2005-09-17 Pierrick LE GALL
+
 	* new: the number of elements waiting for validation is notified
 	in RSS feed.
 

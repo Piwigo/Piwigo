@@ -454,7 +454,7 @@ function create_user_infos($user_id)
   $insert =
     array(
       'user_id' => $user_id,
-      'status' => 'guest',
+      'status' => $user_id == $conf['webmaster_id'] ? 'admin' : 'guest',
       'template' => $conf['default_template'],
       'nb_image_line' => $conf['nb_image_line'],
       'nb_line_page' => $conf['nb_line_page'],

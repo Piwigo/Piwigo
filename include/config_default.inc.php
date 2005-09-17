@@ -297,8 +297,25 @@ $conf['debug_l10n'] = false;
 // users table ?
 $conf['apache_authentication'] = false;
 
-// users_table : which table is the reference for users ? Can be a different
+// users_table: which table is the reference for users? Can be a different
 // table than PhpWebGallery table
+//
+// If you decide to use another table than the default one, you need to
+// prepare your database by deleting some datas :
+//
+// delete from phpwebgallery_user_access;
+// delete from phpwebgallery_user_cache;
+// delete from phpwebgallery_user_feed;
+// delete from phpwebgallery_user_group;
+// delete from phpwebgallery_user_infos;
+// delete from phpwebgallery_sessions;
+// delete from phpwebgallery_rate;
+// update phpwebgallery_images set average_rate = NULL;
+// delete from phpwebgallery_caddie;
+// delete from phpwebgallery_favorites;
+//
+// All informations contained in these tables and column are related to
+// phpwebgallery_users table.
 $conf['users_table'] = $prefixeTable.'users';
 
 // user_fields : mapping between generic field names and table specific

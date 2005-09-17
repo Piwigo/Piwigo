@@ -678,11 +678,11 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
     LEFT JOIN '.USER_GROUP_TABLE.' AS ug
       ON u.'.$conf['user_fields']['id'].' = ug.user_id
-  WHERE id != '.$conf['guest_id'];
+  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
 if (isset($filter['username']))
 {
   $query.= '
-    AND username LIKE \''.$filter['username'].'\'';
+  AND u.'.$conf['user_fields']['username'].' LIKE \''.$filter['username'].'\'';
 }
 if (isset($filter['group']))
 {

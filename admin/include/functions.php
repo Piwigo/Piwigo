@@ -1172,7 +1172,6 @@ SELECT user_id
       $insert['nb_line_page'] = $conf['nb_line_page'];
       $insert['language'] = $conf['default_language'];
       $insert['recent_period'] = $conf['recent_period'];
-      $insert['feed_id'] = find_available_feed_id();
       $insert['expand'] = boolean_to_string($conf['auto_expand']);
       $insert['show_nb_comments'] =
         boolean_to_string($conf['show_nb_comments']);
