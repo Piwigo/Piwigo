@@ -1,5 +1,10 @@
 2005-09-17 Pierrick LE GALL
 
+	* new: the number of elements waiting for validation is notified
+	in RSS feed.
+
+2005-09-17 Pierrick LE GALL
+
 	* translation: common and admin strings translated in french from
 	english files
 

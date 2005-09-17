@@ -139,6 +139,22 @@ SELECT user_id
 }
 
 /**
+ * currently waiting pictures
+ *
+ * @return array waiting ids
+ */
+function waiting_elements()
+{
+  $query = '
+SELECT id
+  FROM '.WAITING_TABLE.'
+  WHERE validated = \'false\'
+;';
+
+  return array_from_query($query, 'id');
+}
+
+/**
  * What's new between two dates ?
  *
  * Informations : number of new comments, number of new elements, number of
@@ -187,6 +203,18 @@ function news($start, $end)
     if ($nb_new_users > 0)
     {
       array_push($news, sprintf(l10n('%d new users'), $nb_new_users));
+    }
+
+    $nb_waiting_elements = count(waiting_elements());
+    if ($nb_waiting_elements > 0)
+    {
+      array_push(
+        $news,
+        sprintf(
+          l10n('%d waiting elements'),
+          $nb_waiting_elements
+          )
+        );
     }
   }
 
