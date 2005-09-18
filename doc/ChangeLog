@@ -1,6 +1,14 @@
 2005-09-18 Pierrick LE GALL
 
-	* bug 101 fixed: correction reported from branch 1.4
+	* bug 107 fixed: crash when logging visit on a category containing
+	"'" character. Correction reported from branch 1.4
+
+	* bug fixed: in admin/stats, incorrect SQL queries gave no result.
+
+2005-09-18 Pierrick LE GALL
+
+	* bug 101 fixed: "problem with IE search on keywords". correction
+	reported from branch 1.4
 
 2005-09-17 Pierrick LE GALL
 

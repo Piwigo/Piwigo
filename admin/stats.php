@@ -80,8 +80,11 @@ while ( $row = mysql_fetch_array( $result ) )
   $value = '';
   if (isset($_GET['month']) && isset($_GET['year']) )
   {
-    $where_clause = "DATE_FORMAT(date,'%Y-%m-%d') = '".$row['d']."'";
-    $value = substr($row['d'],8,2);
+    $where_clause = 'DAYOFMONTH(date) = '.$row['d'].'
+    AND MONTH(date) = '.$row['m'].'
+    AND YEAR(date) = '.$row['y'];
+    $week_day = $lang['day'][date('w', mktime(12,0,0,$row['m'],$row['d'],$row['y']))];
+    $value = $row['d'].' ('.$week_day.')';
   }
   else
   {
@@ -97,12 +100,10 @@ while ( $row = mysql_fetch_array( $result ) )
   
   // Number of pictures seen
   $query = '
-SELECT COUNT(*) as p,
-    FILE as f
+SELECT COUNT(*) as p
     FROM '.HISTORY_TABLE.' 
     WHERE '.$where_clause.'
     AND FILE = \'picture\'
-    GROUP BY FILE
 ;';
   $pictures = mysql_fetch_array(pwg_query( $query ));
   

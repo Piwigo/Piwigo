@@ -331,6 +331,6 @@ $lang['user_status_guest'] = 'Visiteur';
 $lang['username'] = 'nom utilisateur';
 $lang['users'] = 'Utilisateurs';
 $lang['visitors'] = 'Visiteurs';
-$lang['w_day'] = 'jour de la semaine';
+$lang['w_day'] = 'Jour';
 $lang['waiting'] = 'En attente';
 ?>

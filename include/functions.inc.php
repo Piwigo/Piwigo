@@ -359,11 +359,11 @@ INSERT INTO '.HISTORY_TABLE.'
   (date,login,IP,file,category,picture)
   VALUES
   (NOW(),
-  \''.(($user['id'] == 2) ? 'guest' : $user['username']).'\',
+  \''.(($user['id'] == 2) ? 'guest' : addslashes($user['username'])).'\',
   \''.$_SERVER['REMOTE_ADDR'].'\',
-  \''.$file.'\',
-  \''.$category.'\',
-  \''.$picture.'\')
+  \''.addslashes($file).'\',
+  \''.addslashes($category).'\',
+  \''.addslashes($picture).'\')
 ;';
     pwg_query($query);
   }

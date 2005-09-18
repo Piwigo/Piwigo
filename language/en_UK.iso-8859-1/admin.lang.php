@@ -333,6 +333,6 @@ $lang['user_status_guest'] = 'User';
 $lang['username'] = 'username';
 $lang['users'] = 'Users';
 $lang['visitors'] = 'Visitors';
-$lang['w_day'] = 'w_day';
+$lang['w_day'] = 'Day';
 $lang['waiting'] = 'Waiting';
 ?>
