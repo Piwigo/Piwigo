@@ -82,6 +82,22 @@ if (isset($_POST['submit']))
       {
         array_push($page['errors'], $lang['periods_error']);
       }
+      // maxwidth
+      if (isset($_POST['default_maxwidth'])
+          and !empty($_POST['default_maxwidth'])
+          and (!preg_match($int_pattern, $_POST['default_maxwidth'])
+               or $_POST['default_maxwidth'] < 50))
+      {
+        array_push($page['errors'], $lang['maxwidth_error']);
+      }
+      // maxheight
+      if (isset($_POST['default_maxheight'])
+          and !empty($_POST['default_maxheight'])
+          and (!preg_match($int_pattern, $_POST['default_maxheight'])
+               or $_POST['default_maxheight'] < 50))
+      {
+        array_push($page['errors'], $lang['maxheight_error']);
+      }
       break;
     }
   }
@@ -89,7 +105,7 @@ if (isset($_POST['submit']))
   // updating configuration if no error found
   if (count($page['errors']) == 0)
   {
-    echo '<pre>'; print_r($_POST); echo '</pre>';
+//    echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT * FROM '.CONFIG_TABLE);
     while ($row = mysql_fetch_array($result))
     {
@@ -176,6 +192,8 @@ switch ($page['section'])
         'NB_ROW_PAGE'=>$conf['nb_line_page'],
         'CONF_RECENT'=>$conf['recent_period'],
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
+        'MAXWIDTH'=>$conf['default_maxwidth'],
+        'MAXHEIGHT'=>$conf['default_maxheight'],
         'EXPAND_YES'=>$expand_yes,
         'EXPAND_NO'=>$expand_no,
         'SHOW_COMMENTS_YES'=>$show_yes,
