@@ -424,7 +424,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
     $url_link.= '&amp;search='.$conf['calendar_datefield'].':'.$_GET['day'];
     if ($calendar_category != 0)
     {
-      $url_link.= ';cat:'.$calendar_category.'|AND';
+      $url_link.= '--cat:'.$calendar_category.'|AND';
     }
     
     $template->assign_block_vars(

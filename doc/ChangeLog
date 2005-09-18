@@ -1,3 +1,7 @@
+2005-09-18 Pierrick LE GALL
+
+	* bug 101 fixed: correction reported from branch 1.4
+
 2005-09-17 Pierrick LE GALL
 
 	* new: automatic new password sent by mail when requested by user
