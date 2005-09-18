@@ -1,5 +1,9 @@
 2005-09-17 Pierrick LE GALL
 
+	* new: automatic new password sent by mail when requested by user
+
+2005-09-17 Pierrick LE GALL
+
 	* improvement: add information about how to use an external table
 	for users
 	

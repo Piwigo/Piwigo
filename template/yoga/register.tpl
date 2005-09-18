@@ -42,6 +42,7 @@
       <li>
         <label for="mail_address">{lang:Mail address}</label>
         <input type="text" name="mail_address" id="mail_address" value="{F_EMAIL}" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+        ({lang:useful when password forgotten})
       </li>
     </ul>
 

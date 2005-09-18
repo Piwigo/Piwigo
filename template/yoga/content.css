@@ -15,6 +15,7 @@ BODY#theProfilePage #content,
 BODY#theSearchPage #content,
 BODY#theAboutPage #content,
 BODY#thePopuphelpPage #content,
+BODY#thePasswordPage #content,
 BODY#theNotificationPage #content
 {
   margin: 1em;

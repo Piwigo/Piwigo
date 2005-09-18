@@ -71,8 +71,6 @@ $template->set_filenames( array('identification'=>'identification.tpl') );
 
 $template->assign_vars(
   array(
-    'MAIL_ADMIN' => $conf['mail_webmaster'],
-    
     'L_TITLE' => $lang['identification'],
     'L_USERNAME' => $lang['login'],
     'L_PASSWORD' => $lang['password'],
@@ -83,6 +81,7 @@ $template->assign_vars(
     'L_REMEMBER_ME'=>$lang['remember_me'],
 
     'U_REGISTER' => add_session_id(PHPWG_ROOT_PATH.'register.php'),
+    'U_LOST_PASSWORD' => add_session_id(PHPWG_ROOT_PATH.'password.php'),
     'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
     
     'F_LOGIN_ACTION' => add_session_id(PHPWG_ROOT_PATH.'identification.php')
