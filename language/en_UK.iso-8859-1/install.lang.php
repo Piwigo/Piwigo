@@ -72,4 +72,6 @@ Once this file deleted , follow this instructions :
 <li>go to the identification page : [ <a href="identification.php">identification</a> ] and use the login/password given for webmaster</li>
 <li>this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories</li>
 </ul>';
+$lang['conf_mail_webmaster'] = 'Webmaster mail adress';
+$lang['conf_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
 ?>
