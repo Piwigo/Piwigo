@@ -25,7 +25,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('IN_UPGRADE', true);
 define('PHPWG_ROOT_PATH', './');
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
@@ -34,16 +33,19 @@ include(PHPWG_ROOT_PATH.'include/template.php');
 
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 // Is PhpWebGallery already installed ?
-if (defined('PHPWG_INSTALLED'))
+if (!defined('PHPWG_IN_UPGRADE') or !PHPWG_IN_UPGRADE)
 {
-  $message = 'PhpWebGallery is already installed. In include/mysql.inc.php,
-remove line
+  $message = 'PhpWebGallery is not in upgrade mode. In include/mysql.inc.php,
+insert line
 <pre style="background-color:lightgray">
-define(\'PHPWG_INSTALLED\', true);
+define(\'PHPWG_IN_UPGRADE\', true);
 </pre>
 if you want to upgrade';
   die($message);
 }
+
+// concerning upgrade, we use the default users table
+$conf['users_table'] = $prefixeTable.'users';
 
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
@@ -113,9 +115,11 @@ function execute_sqlfile($filepath, $replaced, $replacing)
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
-$template = setup_style('default');
+
+$template = new Template(PHPWG_ROOT_PATH.'template/yoga');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign_vars(array('RELEASE'=>PHPWG_VERSION));
+
 // +-----------------------------------------------------------------------+
 // |                          versions upgradable                          |
 // +-----------------------------------------------------------------------+
@@ -178,7 +182,16 @@ else
     array_push(
       $infos,
       '[security] delete files "upgrade.php", "install.php" and "install"
-directory');
+directory'
+      );
+
+    array_push(
+      $infos,
+      'in include/mysql.inc.php, remove
+<pre style="background-color:lightgray">
+define(\'PHPWG_IN_UPGRADE\', true);
+</pre>'
+      );
     
     $template->assign_block_vars('upgrade.infos', array());
     

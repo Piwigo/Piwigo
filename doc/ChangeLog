@@ -1,3 +1,16 @@
+2005-09-20 Pierrick LE GALL
+
+	* update: upgrade from 1.4.0 or 1.4.1. Upgrade from 1.3.x is not
+	available anymore.
+
+	* update: README files updated for very near branch 1.5 :-)
+
+	* new: file tools/config_local.inc.php as example for optional
+	include/config_local.inc.php
+
+	* bug fixed: configuration parameter show_picture_name_on_title
+	was useless
+
 2005-09-18 Pierrick LE GALL
 
 	* bug 111 fixed: "Can't add virtual category when cookie

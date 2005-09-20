@@ -1,12 +1,12 @@
-                               PhpWebGallery
+=============
+PhpWebGallery
+=============
 
-official website   : http://phpwebgallery.net
-documentation      : http://doc.phpwebgallery.net
-forum              : http://forum.phpwebgallery.net
+http://phpwebgallery.net
 
-+-----------------------------------------------------------------------------+
-|                        Installation instructions                            |
-+-----------------------------------------------------------------------------+
+
+Installation
+============
 
 1. extract files from the downloaded file (using tar or unzip command, or
    softwares like 7-zip or winzip)
@@ -17,9 +17,8 @@ forum              : http://forum.phpwebgallery.net
 3. go to the URL http://your.domain/gallery/install.php and follow the
    instructions of installation
 
-+-----------------------------------------------------------------------------+
-|                           Upgrade instructions                              |
-+-----------------------------------------------------------------------------+
+Upgrade
+=======
 
 1. elements to save :
 
@@ -40,9 +39,8 @@ forum              : http://forum.phpwebgallery.net
 5. go to the URL http://your.domain/gallery/upgrade.php and follow the
    instructions
 
-+-----------------------------------------------------------------------------+
-|                              How to start                                   |
-+-----------------------------------------------------------------------------+
+How to start
+============
 
 Once installed or upgraded, your gallery is ready to run. Start by
 displaying the installation directory in your browser :
@@ -55,37 +53,49 @@ page will appear : Administration. Enter the administration panel.
 In the administration panel, take all your time for reading instructions
 explaining how to use your gallery.
 
-+-----------------------------------------------------------------------------+
-|                               Newsletter                                    |
-+-----------------------------------------------------------------------------+
+Communication
+=============
+
+Newsletter
+----------
+
+https://gna.org/mail/?group=phpwebgallery
 
 It is *highly* recommended to subscribe to PhpWebGallery newsletter. This is
 extremely low-traffic, but will provide you with announcements of new
 PhpWebGallery releases and serious bug notification. You will find available
 mailing lists at this URL :
 
-                 https://gna.org/mail/?group=phpwebgallery
+No spam, no commercial use.
 
-Be sure that the mail address you are going to give for newsletter is
-completely unreadable by someone else than PhpWebGallery team and not
-present on any web page (a web search engine won't find it).
+Freshmeat
+---------
 
-PhpWebGallery also assure you that your mail address will NEVER be used for
-something else than PhpWebGallery informations.
+http://freshmeat.net/projects/phpwebgallery
 
-+-----------------------------------------------------------------------------+
-|                             Discussion forum                                |
-+-----------------------------------------------------------------------------+
+Want to stay informed at each release, stable and development
+release. Development releases notification are not send in the newsletter.
 
-A forum is available and recommended for any question (installation, bug
-reports, new feature requests) :
+Bugtracker
+----------
 
-                     http://forum.phpwebgallery.net
+http://bugs.phpwebgallery.net
 
-Before asking any question on the forum, do not hesitate to search for
-related topics... other users may have found same bugs, had same requests.
+Bugs and change requests tracking. The best way to have your bug corrected:
+it won't be forgotten (as in the forum).
 
-PhpWebGallery forum is a place open to every one. Please be always
-respectful in this place. Consider also that clear messages (with simple and
-direct subjects) are always prefered. It is forbidden (and useless) to say
-that your question is "urgent", you won't be answered in priority.
+Wiki
+----
+
+http://phpwebgallery.net/doc
+
+Wiki documentation: everyone can participate to improve documentation
+content.
+
+Message board
+-------------
+
+http://forum.phpwebgallery.net
+
+All communications (installation help, technical discussions) that can't be
+done in other channels.

@@ -1,12 +1,11 @@
-                               PhpWebGallery
+=============
+PhpWebGallery
+=============
 
-site officel   : http://phpwebgallery.net
-documentation  : http://doc.phpwebgallery.net
-forum          : http://forum.phpwebgallery.net
+http://phpwebgallery.net
 
-+-----------------------------------------------------------------------------+
-|                              installation                                   |
-+-----------------------------------------------------------------------------+
+Installation
+============
 
 1. décompresser à l'aide de winzip par exemple (winrar, winace et beaucoup
    d'autres le permettent également) le fichier téléchargé.
@@ -17,9 +16,8 @@ forum          : http://forum.phpwebgallery.net
 3. se rendre à l'URL http://votre.domaine/galerie/install.php et suivre les
    instructions
 
-+-----------------------------------------------------------------------------+
-|                               mise à jour                                   |
-+-----------------------------------------------------------------------------+
+Mise à jour
+===========
 
 1. éléments à sauvegarder :
 
@@ -40,9 +38,8 @@ forum          : http://forum.phpwebgallery.net
 5. se rendre à l'URL http://votre.domaine/galerie/upgrade.php et suivre les
    instructions
 
-+-----------------------------------------------------------------------------+
-|                             Comment commencer                               |
-+-----------------------------------------------------------------------------+
+Comment commencer
+=================
 
 Une fois installée ou mise à jour, votre galerie est prête à
 fonctionner. Commencez par vous rendre sur le répertoire d'installation dans
@@ -57,9 +54,13 @@ Administration. Suivre ce lien :-)
 Dans la zone d'administration, prenez tout le temps nécessaire pour
 consulter les instructions, expliquant comment utiliser votre galerie.
 
-+-----------------------------------------------------------------------------+
-|                               newsletter                                    |
-+-----------------------------------------------------------------------------+
+Communication
+=============
+
+Newsletter
+----------
+
+https://gna.org/mail/?group=phpwebgallery
 
 Il est *fortement* recommandé de souscrire à la newsletter de
 PhpWebGallery. Très peu de mails sont envoyés, mais les informations sont
@@ -67,31 +68,45 @@ importantes : nouvelles versions de l'application, notification de bugs
 importants (relatifs à la sécurité). Vous trouverez les listes de
 discussions disponibles sur la page suivante :
 
-         https://gna.org/mail/?group=phpwebgallery
+Pas de spam, pas d'utilisation commerciale.
 
-Etant moi-même très dérangé par le spam (courrier non solicité), je peux
-vous assurer que le mail que vous allez donner à l'équipe de PhpWebGallery
-est absolument illisible autrement que par nous sur une page avec accès
-sécurisé dont l'URL n'est en lien nul part sur le web (donc introuvable par
-un moteur de recherche).
+Freshmeat
+---------
 
-L'équipe de PhpWebGallery vous assure également que JAMAIS l'adresse qui
-nous a été confiée ne sera utilisée dans un autre cadre que la newsletter de
-PhpWebGallery.
+http://freshmeat.net/projects/phpwebgallery
 
-+-----------------------------------------------------------------------------+
-|                            forum de discussion                              |
-+-----------------------------------------------------------------------------+
+Permet d'être au courant des sorties de toutes les releases, et en
+exclusivité les builds de la branche de développement (ce qui n'est pas
+prévu sur les mailing lists "announce").
 
-Un forum est disponible et recommandé pour toutes vos questions
-(installation, rapport de bugs, demandes de nouvelles fonctionnalités) :
+Outil de suivi de bogues
+------------------------
 
-                     http://forum.phpwebgallery.net
+http://bugs.phpwebgallery.net
 
-Avant le poser une question, assurez-vous qu'elle n'a pas déjà sa réponse en
-effectuant une recherche.
+Gestion des bugs, mais aussi demande de nouvelles fonctionnalités. Rien de
+plus efficace pour qu'un bug soit corrigé : tant qu'il ne l'est pas, la
+"fiche" reste là à attendre, on ne l'oublie pas comme un topic sur le
+forum.
 
-Le forum est ouvert à tous. Merci d'y faire preuve de respect. Rappelez-vous
-que les messages clairs (avec un sujet direct et un énoncé du problème
-précis) sont toujours préférés. Il est interdit (et surtout inutile) de dire
-que votre question est "urgente", on ne vous répondra pas en priorité.
+Les demandes d'évolutions sont également gérées dans cet outil. Ce n'est pas
+forcément idéal car il ne s'agit pas de la même chose, mais le suivi du dev
+d'une nouvelle fonctionnalité peut se modéliser de la même façon que le
+suivi de la correction d'un bug.
+
+Wiki
+----
+
+http://phpwebgallery.net/doc
+
+Documentation suivant le système du wiki. Chacun peut participer à
+l'amélioration de la doc.
+
+Forum de discussion
+-------------------
+
+http://forum.phpwebgallery.net
+
+Un forum est disponible et recommandé pour toutes les questions autres que
+les demandes d'évolution et rapport de bogue (installation, discussions
+techniques).
