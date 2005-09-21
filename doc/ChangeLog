@@ -1,3 +1,8 @@
+2005-09-21 Pierrick LE GALL
+
+	* bug 150 fixed: in category permissions management, wrong column
+	name when using an external users table.
+
 2005-09-20 Pierrick LE GALL
 
 	* update: upgrade from 1.4.0 or 1.4.1. Upgrade from 1.3.x is not
