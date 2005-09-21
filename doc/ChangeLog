@@ -1,5 +1,10 @@
 2005-09-21 Pierrick LE GALL
 
+	* bug 151 fixed: default maxheight was not proposed as "set to"
+	option in admin/user_list
+
+2005-09-21 Pierrick LE GALL
+
 	* bug 150 fixed: in category permissions management, wrong column
 	name when using an external users table.
 

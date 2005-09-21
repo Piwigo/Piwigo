@@ -257,7 +257,7 @@
       <label><input type="radio" name="maxheight_action" value="unset" /> {lang:unset}</label>
       <label><input type="radio" name="maxheight_action" value="set" id="maxheight_action_set" /> {lang:set to}</label>
       <input onmousedown="document.getElementById('maxheight_action_set').checked = true;"
-             type="text" size="4" maxlength="4" name="maxheight" value="{maxheight}" />
+             type="text" size="4" maxlength="4" name="maxheight" value="{MAXHEIGHT}" />
     </td>
   </tr>
 
