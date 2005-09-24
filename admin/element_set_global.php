@@ -93,12 +93,19 @@ if (isset($_POST['submit']))
     }
     case 'selection' :
     {
-      $collection = $_POST['selection'];
+      if (!isset($_POST['selection']) or count($_POST['selection']) == 0)
+      {
+        array_push($page['errors'], l10n('Select at least one picture'));
+      }
+      else
+      {
+        $collection = $_POST['selection'];
+      }
       break;
     }
   }
 
-  if ($_POST['associate'] != 0)
+  if ($_POST['associate'] != 0 and count($collection) > 0)
   {
     $datas = array();
 
@@ -125,7 +132,7 @@ SELECT image_id
     update_category(array($_POST['associate']));
   }
 
-  if ($_POST['dissociate'] != 0)
+  if ($_POST['dissociate'] != 0 and count($collection) > 0)
   {
     // physical links must not be broken, so we must first retrieve image_id
     // which create virtual links with the category to "dissociate from".
@@ -166,7 +173,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   }
   
   // updating elements is useful only if needed...
-  if (count($dbfields['update']) > 0)
+  if (count($dbfields['update']) > 0 and count($collection) > 0)
   {
     $query = '
 SELECT id, keywords
@@ -392,7 +399,23 @@ $template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
 // +-----------------------------------------------------------------------+
 
 $page['cols'] = !empty($_GET['cols']) ? intval($_GET['cols']) : 5;
-$page['nb_images'] = !empty($_GET['display']) ? intval($_GET['display']) : 20;
+
+// how many items to display on this page
+if (!empty($_GET['display']))
+{
+  if ('all' == $_GET['display'])
+  {
+    $page['nb_images'] = count($page['cat_elements_id']);
+  }
+  else
+  {
+    $page['nb_images'] = intval($_GET['display']);
+  }
+}
+else
+{
+  $page['nb_images'] = 20;
+}
 
 if (count($page['cat_elements_id']) > 0)
 {

@@ -157,7 +157,23 @@ $template->assign_vars(
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
 
-$page['nb_images'] = !empty($_GET['display']) ? intval($_GET['display']) : 5;
+// how many items to display on this page
+if (!empty($_GET['display']))
+{
+  if ('all' == $_GET['display'])
+  {
+    $page['nb_images'] = count($page['cat_elements_id']);
+  }
+  else
+  {
+    $page['nb_images'] = intval($_GET['display']);
+  }
+}
+else
+{
+  $page['nb_images'] = 5;
+}
+
 
 
 if (count($page['cat_elements_id']) > 0)
