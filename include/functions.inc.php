@@ -354,15 +354,18 @@ function pwg_log( $file, $category, $picture = '' )
 
   if ($conf['log'])
   {
+    $login = ($user['id'] == $conf['guest_id'])
+      ? 'guest' : addslashes($user['username']);
+    
     $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (date,login,IP,file,category,picture)
   VALUES
   (NOW(),
-  \''.(($user['id'] == 2) ? 'guest' : addslashes($user['username'])).'\',
+  \''.$login.'\',
   \''.$_SERVER['REMOTE_ADDR'].'\',
   \''.addslashes($file).'\',
-  \''.addslashes($category).'\',
+  \''.addslashes(strip_tags($category)).'\',
   \''.addslashes($picture).'\')
 ;';
     pwg_query($query);

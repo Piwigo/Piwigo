@@ -1,7 +1,19 @@
-2005-09-21 Pierrick LE GALL
+2005-09-24 Pierrick LE GALL
+
+	* bug fixed: HTML error on nested UL in categories menu.
+
+	* bug 161 fixed: guest_id not taken into account for history table
+	insert.
+
+	* bug 164 fixed: category inserted in history table becomes too
+	long if HTML tags are kept.
+
+2005-09-24 Pierrick LE GALL
 
 	* bug 162 fixed: division by zero when trying to view "all" items
 	in admin/element_set_(global|unit)
+
+	* bug 156 fixed: error when selection is empty was not catched.
 	
 2005-09-21 Pierrick LE GALL
 

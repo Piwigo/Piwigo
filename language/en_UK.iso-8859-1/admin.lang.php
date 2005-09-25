@@ -115,6 +115,7 @@ $lang['Representation of categories'] = 'Representation of categories';
 $lang['Representative'] = 'Representative';
 $lang['Represents'] = 'Represents';
 $lang['Save order'] = 'Save order';
+$lang['Select at least one picture'] = 'Select at least one picture';
 $lang['Select at least one user'] = 'Select at least one user';
 $lang['Show info'] = 'Show info';
 $lang['Show number of comments'] = 'Show number of comments';

@@ -49,9 +49,15 @@ BODY#theAdminPage #menubar {
     font-size: 100%;
     margin-top: 0;
 }
-#menubar LI.selected {
-    font-weight: bold;
+
+#menubar LI.selected A {
+  font-weight: bold;
 }
+
+#menubar LI.selected LI A {
+  font-weight: normal;
+}
+
 #menubar HR {
     display: block;
     margin: 10px auto;

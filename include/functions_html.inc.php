@@ -339,21 +339,26 @@ function get_html_menu_category($categories)
   global $page, $lang;
 
   $ref_level = 0;
-  $menu = '
-             <ul class="menu">';
+  $menu = '';
   
   foreach ($categories as $category)
   {
-    $level = substr_count($category['global_rank'], '.');
+    $level = substr_count($category['global_rank'], '.') + 1;
     if ($level > $ref_level)
     {
       $menu.= '
-             <ul class="menu">';
+             <ul>';
+    }
+    else if ($level == $ref_level)
+    {
+      $menu.= '
+             </li>';
     }
     else if ($level < $ref_level)
     {
       // we may have to close more than one level at the same time...
       $menu.= str_repeat("\n</ul>",($ref_level-$level));
+      $menu.= "\n</li>";
     }
     $ref_level = $level;
 
@@ -382,12 +387,9 @@ function get_html_menu_category($categories)
       $menu.= '</span>';
       $menu.= get_icon($category['date_last']);
     }
-
-    $menu.= '
-           </li>';
   }
   
-  $menu.= '
+  $menu.= '</li>
              </ul>';
   
   return $menu;

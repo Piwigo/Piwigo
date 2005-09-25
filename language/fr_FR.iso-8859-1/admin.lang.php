@@ -115,6 +115,7 @@ $lang['Representation of categories'] = 'Représentation des catégories';
 $lang['Representative'] = 'Représentant';
 $lang['Represents'] = 'Représente';
 $lang['Save order'] = 'Sauvegarder l\'ordre';
+$lang['Select at least one picture'] = 'Sélectionner au moins une image';
 $lang['Select at least one user'] = 'Séléctionner au moins un utilisateur';
 $lang['Show info'] = 'Montrer les informations';
 $lang['Show number of comments'] = 'Montrer le nombre de commentaires';
