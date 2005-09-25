@@ -1,3 +1,7 @@
+2005-09-25 Pierrick LE GALL
+
+	* bug 163 fixed: link error when cookies disabled in admin/stats
+
 2005-09-24 Pierrick LE GALL
 
 	* bug fixed: HTML error on nested UL in categories menu.

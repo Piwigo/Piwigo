@@ -91,9 +91,17 @@ while ( $row = mysql_fetch_array( $result ) )
     $current_month = $row['y']."-";
     if ($row['m'] <10) {$current_month.='0';}
     $current_month .= $row['m'];
+    
     $where_clause = "DATE_FORMAT(date,'%Y-%m') = '".$current_month."'";
-    $value = "<a href='".PHPWG_ROOT_PATH."admin.php?page=stats";
-    $value.= "&amp;year=".$row['y']."&amp;month=".$row['m']."'>";
+
+    $url =
+      PHPWG_ROOT_PATH.'admin.php'
+      .'?page=stats'
+      .'&amp;year='.$row['y']
+      .'&amp;month='.$row['m']
+      ;
+    
+    $value = '<a href="'.add_session_id($url).'">';
     $value.= $lang['month'][$row['m']].' '.$row['y'];
     $value.= "</a>";
   }
