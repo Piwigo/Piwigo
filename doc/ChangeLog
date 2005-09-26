@@ -1,3 +1,9 @@
+2005-09-26 Pierrick LE GALL
+
+	* bug 158 fixed: display error on "double selects" screens (with
+	MSIE, strange behavior). VDigital modification optimizes width
+	usage :-)
+
 2005-09-25 Pierrick LE GALL
 
 	* bug 163 fixed: link error when cookies disabled in admin/stats

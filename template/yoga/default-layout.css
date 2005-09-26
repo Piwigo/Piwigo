@@ -122,7 +122,7 @@ textarea.description {
   overflow: auto;
 }
 select.categoryList {
-  width: 400px;
+  width: 100%;
 }
 
 /** go to an admin.css ? **/
@@ -233,10 +233,12 @@ FIELDSET.elementEdit A {
 TABLE.doubleSelect {
   text-align: center;
   margin: 0 auto;
+  width: 100%;
 }
 
 TABLE.doubleSelect TD {
   padding: 0 5px;
+  width: 50%;
 }
 
 FORM#categoryPermissions LI {
@@ -264,4 +266,3 @@ BODY#thePopuphelpPage #copyright {
   color: green;
   display: none;
 }
-
