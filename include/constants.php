@@ -29,6 +29,7 @@
 define('PHPWG_VERSION', '%PWGVERSION%');
 define('PHPWG_URL', 'http://www.phpwebgallery.net');
 define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
+define('PHPWG_DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
 
 // Error codes
 define('GENERAL_MESSAGE', 200);

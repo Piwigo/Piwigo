@@ -32,23 +32,15 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
-// language files
-$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
-$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
-
-if (file_exists($user_langdir.'/help/'.$_GET['page'].'.html'))
-{
-  $html_file = $user_langdir.'/help/'.$_GET['page'].'.html';
-}
-else
-{
-  $html_file = $conf_langdir.'/help/'.$_GET['page'].'.html';
-}
-
 $page['body_id'] = 'thePopuphelpPage';
 $page['gallery_title'] = $title = l10n('PhpWebGallery Help');
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->set_filenames(array('help_content' => $html_file));
+
+$template->set_filenames(
+  array(
+    'help_content' => get_language_filepath('help/'.$_GET['page'].'.html')
+    )
+  );
 
 $template->set_filenames(array('popuphelp' => 'popuphelp.tpl'));
 

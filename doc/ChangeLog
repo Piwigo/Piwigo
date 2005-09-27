@@ -1,3 +1,9 @@
+2005-09-27 Pierrick LE GALL
+	
+	* bug 168 fixed: crash when language file does not
+	exists. Constant PHPWG_DEFAULT_LANGUAGE added. New function
+	get_language_filepath always used to find language files.
+
 2005-09-26 Pierrick LE GALL
 
 	* bug 158 fixed: display error on "double selects" screens (with

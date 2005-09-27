@@ -497,4 +497,38 @@ SELECT name
   
   return $groupname;
 }
+
+/**
+ * return the file path of the given language filename, depending on the
+ * availability of the file
+ *
+ * in descending order of preference: user language, default language,
+ * PhpWebGallery default language.
+ *
+ * @param string filename
+ * @return string filepath
+ */
+function get_language_filepath($filename)
+{
+  global $user, $conf;
+  
+  $directories =
+    array(
+      PHPWG_ROOT_PATH.'language/'.$user['language'],
+      PHPWG_ROOT_PATH.'language/'.$conf['default_language'],
+      PHPWG_ROOT_PATH.'language/'.PHPWG_DEFAULT_LANGUAGE
+      );
+
+  foreach ($directories as $directory)
+  {
+    $filepath = $directory.'/'.$filename;
+    
+    if (file_exists($filepath))
+    {
+      return $filepath;
+    }
+  }
+  
+  return false;
+}
 ?>

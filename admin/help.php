@@ -27,19 +27,11 @@
 
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
 
-// language files
-$user_langdir = PHPWG_ROOT_PATH.'language/'.$user['language'];
-$conf_langdir = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
-
-if (file_exists($user_langdir.'/help.html'))
-{
-  $html_file = $user_langdir.'/help.html';
-}
-else
-{
-  $html_file = $conf_langdir.'/help.html';
-}
-
-$template->set_filenames(array('help_content' => $html_file));
+$template->set_filenames(
+  array(
+    'help_content' => get_language_filepath('help.html')
+    )
+  );
+  
 $template->assign_var_from_handle('ADMIN_CONTENT', 'help_content');
 ?>
