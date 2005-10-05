@@ -180,6 +180,10 @@ $conf['gallery_url'] = 'http://demo.phpwebgallery.net';
 // contain characters among : a to z (case insensitive), "-" or "_".
 $conf['prefix_thumbnail'] = 'TN-';
 
+// users_page: how many users to display in screen
+// Administration>Identification>Users?
+$conf['users_page'] = 20;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

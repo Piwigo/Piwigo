@@ -1,3 +1,20 @@
+2005-10-05 Pierrick LE GALL
+
+	* bug 160 fixed: (part one of the bug) hard coded column name of
+	users table had to be replaced by the configurable column
+	name. This correction was made by a full rewrite of filtered users
+	list management. The other bug (not submited in bugtracker) that
+	needed this rewrite was that when you choose "all" as target for
+	mass users modification, you expected to apply modification on
+	filtered users, not all users.
+
+	* bug 160 fixed: (part two of the bug) hard coded column name for
+	primary key in mass_updates function.
+
+	* modification: configuration parameter users_page is now located
+	in the correct file (include/config_default.inc.php instead of
+	admin/user_list.php)
+
 2005-09-27 Pierrick LE GALL
 	
 	* bug 168 fixed: crash when language file does not

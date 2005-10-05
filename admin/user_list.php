@@ -30,6 +30,136 @@
  */
 
 // +-----------------------------------------------------------------------+
+// |                              functions                                |
+// +-----------------------------------------------------------------------+
+
+/**
+ * returns a list of users depending on page filters (in $_GET)
+ *
+ * Each user comes with his related informations : id, username, mail
+ * address, list of groups.
+ *
+ * @return array
+ */
+function get_filtered_user_list()
+{
+  global $conf, $page;
+
+  $users = array();
+  
+  // filter
+  $filter = array();
+  
+  if (isset($_GET['username']) and !empty($_GET['username']))
+  {
+    $username = str_replace('*', '%', $_GET['username']);
+    if (function_exists('mysql_real_escape_string'))
+    {
+      $filter['username'] = mysql_real_escape_string($username);
+    }
+    else
+    {
+      $filter['username'] = mysql_escape_string($username);
+    }
+  }
+
+  if (isset($_GET['group'])
+      and -1 != $_GET['group']
+      and is_numeric($_GET['group']))
+  {
+    $filter['group'] = $_GET['group'];
+  }
+
+  if (isset($_GET['status'])
+      and in_array($_GET['status'], get_enums(USER_INFOS_TABLE, 'status')))
+  {
+    $filter['status'] = $_GET['status'];
+  }
+
+  // how to order the list?
+  $order_by = 'id';
+  if (isset($_GET['order_by'])
+      and in_array($_GET['order_by'], array_keys($page['order_by_items'])))
+  {
+    $order_by = $_GET['order_by'];
+  }
+  
+  $direction = 'ASC';
+  if (isset($_GET['direction'])
+      and in_array($_GET['direction'], array_keys($page['direction_items'])))
+  {
+    $direction = strtoupper($_GET['direction']);
+  }
+
+  // search users depending on filters and order
+  $query = '
+SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
+                u.'.$conf['user_fields']['username'].' AS username,
+                u.'.$conf['user_fields']['email'].' AS email,
+                ui.status
+  FROM '.USERS_TABLE.' AS u
+    INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON u.'.$conf['user_fields']['id'].' = ui.user_id
+    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
+      ON u.'.$conf['user_fields']['id'].' = ug.user_id
+  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
+  if (isset($filter['username']))
+  {
+    $query.= '
+  AND u.'.$conf['user_fields']['username'].' LIKE \''.$filter['username'].'\'';
+  }
+  if (isset($filter['group']))
+  {
+    $query.= '
+    AND ug.group_id = '.$filter['group'];
+  }
+  if (isset($filter['status']))
+  {
+    $query.= '
+    AND ui.status = \''.$filter['status']."'";
+  }
+  $query.= '
+  ORDER BY '.$order_by.' '.$direction.'
+;';
+
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $user = $row;
+    $user['groups'] = array();
+
+    array_push($users, $user);
+  }
+
+  // add group lists
+  $user_ids = array();
+  foreach ($users as $i => $user)
+  {
+    $user_ids[$i] = $user['id'];
+  }
+  $user_nums = array_flip($user_ids);
+  
+  if (count($user_ids) > 0)
+  {
+    $query = '
+SELECT user_id, group_id
+  FROM '.USER_GROUP_TABLE.'
+  WHERE user_id IN ('.implode(',', $user_ids).')
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push(
+        $users[$user_nums[$row['user_id']]]['groups'],
+        $row['group_id']
+        );
+    }
+  }
+    
+  return $users;
+}
+
+// +-----------------------------------------------------------------------+
 // |                           initialization                              |
 // +-----------------------------------------------------------------------+
 
@@ -38,6 +168,18 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
+
+$page['order_by_items'] = array(
+  'id' => $lang['registration_date'],
+  'username' => $lang['Username']
+  );
+
+$page['direction_items'] = array(
+  'asc' => $lang['ascending'],
+  'desc' => $lang['descending']
+  );
+
+$page['filtered_users'] = get_filtered_user_list();
 
 // +-----------------------------------------------------------------------+
 // |                              add a user                               |
@@ -60,12 +202,10 @@ if (isset($_POST['delete']) or isset($_POST['pref_submit']))
   {
     case 'all' :
     {
-      $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
-  WHERE id != '.$conf['guest_id'].'
-;';
-      $collection = array_from_query($query, 'id');
+      foreach($page['filtered_users'] as $local_user)
+      {
+        array_push($collection, $local_user['id']);
+      }
       break;
     }
     case 'selection' :
@@ -254,8 +394,6 @@ $template->set_filenames(array('user_list'=>'admin/user_list.tpl'));
 
 $base_url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_list');
 
-$conf['users_page'] = 20;
-
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {
   $start = $_GET['start'];
@@ -306,10 +444,7 @@ if (isset($_GET['id']))
   $template->assign_block_vars('session', array('ID' => $_GET['id']));
 }
 
-$order_by_items = array('id' => $lang['registration_date'],
-                        'username' => $lang['login']);
-
-foreach ($order_by_items as $item => $label)
+foreach ($page['order_by_items'] as $item => $label)
 {
   $selected = (isset($_GET['order_by']) and $_GET['order_by'] == $item) ?
     'selected="selected"' : '';
@@ -322,10 +457,7 @@ foreach ($order_by_items as $item => $label)
       ));
 }
 
-$direction_items = array('asc' => $lang['ascending'],
-                         'desc' => $lang['descending']);
-
-foreach ($direction_items as $item => $label)
+foreach ($page['direction_items'] as $item => $label)
 {
   $selected = (isset($_GET['direction']) and $_GET['direction'] == $item) ?
     'selected="selected"' : '';
@@ -567,80 +699,18 @@ foreach ($groups as $group_id => $group_name)
 }
 
 // +-----------------------------------------------------------------------+
-// |                                 filter                                |
-// +-----------------------------------------------------------------------+
-
-$filter = array();
-
-if (isset($_GET['username']) and !empty($_GET['username']))
-{
-  $username = str_replace('*', '%', $_GET['username']);
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $username = mysql_real_escape_string($username);
-  }
-  else
-  {
-    $username = mysql_escape_string($username);
-  }
-
-  if (!empty($username))
-  {
-    $filter['username'] = $username;
-  }
-}
-
-if (isset($_GET['group'])
-    and -1 != $_GET['group']
-    and is_numeric($_GET['group']))
-{
-  $filter['group'] = $_GET['group'];
-}
-
-if (isset($_GET['status'])
-    and in_array($_GET['status'], get_enums(USER_INFOS_TABLE, 'status')))
-{
-  $filter['status'] = $_GET['status'];
-}
-
-// +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
 // +-----------------------------------------------------------------------+
 
-$query = '
-SELECT COUNT(DISTINCT u.'.$conf['user_fields']['id'].')
-  FROM '.USERS_TABLE.' AS u
-    INNER JOIN '.USER_INFOS_TABLE.' AS ui
-      ON u.'.$conf['user_fields']['id'].' = ui.user_id
-    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
-      ON u.'.$conf['user_fields']['id'].' = ug.user_id
-  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
-if (isset($filter['username']))
-{
-  $query.= '
-  AND u.'.$conf['user_fields']['username'].' LIKE \''.$filter['username'].'\'';
-}
-if (isset($filter['group']))
-{
-  $query.= '
-    AND ug.group_id = '.$filter['group'];
-}
-if (isset($filter['status']))
-{
-  $query.= '
-    AND ui.status = \''.$filter['status']."'";
-}
-$query.= '
-;';
-list($counter) = mysql_fetch_row(pwg_query($query));
-
 $url = PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start'));
 
-$navbar = create_navigation_bar($url,
-                                $counter,
-                                $start,
-                                $conf['users_page'],
-                                '');
+$navbar = create_navigation_bar(
+  $url,
+  count($page['filtered_users']),
+  $start,
+  $conf['users_page'],
+  ''
+  );
 
 $template->assign_vars(array('NAVBAR' => $navbar));
 
@@ -651,105 +721,52 @@ $template->assign_vars(array('NAVBAR' => $navbar));
 $profile_url = PHPWG_ROOT_PATH.'admin.php?page=profile&amp;user_id=';
 $perm_url = PHPWG_ROOT_PATH.'admin.php?page=user_perm&amp;user_id=';
 
-$users = array();
-$user_ids = array();
-
-$order_by = 'id';
-if (isset($_GET['order_by'])
-    and in_array($_GET['order_by'], array_keys($order_by_items)))
+foreach ($page['filtered_users'] as $num => $local_user)
 {
-  $order_by = $_GET['order_by'];
-}
-
-$direction = 'ASC';
-if (isset($_GET['direction'])
-    and in_array($_GET['direction'], array_keys($direction_items)))
-{
-  $direction = strtoupper($_GET['direction']);
-}
-
-$query = '
-SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
-                u.'.$conf['user_fields']['username'].' AS username,
-                u.'.$conf['user_fields']['email'].' AS email,
-                ui.status
-  FROM '.USERS_TABLE.' AS u
-    INNER JOIN '.USER_INFOS_TABLE.' AS ui
-      ON u.'.$conf['user_fields']['id'].' = ui.user_id
-    LEFT JOIN '.USER_GROUP_TABLE.' AS ug
-      ON u.'.$conf['user_fields']['id'].' = ug.user_id
-  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
-if (isset($filter['username']))
-{
-  $query.= '
-  AND u.'.$conf['user_fields']['username'].' LIKE \''.$filter['username'].'\'';
-}
-if (isset($filter['group']))
-{
-  $query.= '
-    AND ug.group_id = '.$filter['group'];
-}
-if (isset($filter['status']))
-{
-  $query.= '
-    AND ui.status = \''.$filter['status']."'";
-}
-$query.= '
-  ORDER BY '.$order_by.' '.$direction.'
-  LIMIT '.$start.', '.$conf['users_page'].'
-;';
-$result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
-{
-  array_push($users, $row);
-  array_push($user_ids, $row['id']);
-  $user_groups[$row['id']] = array();
-}
-
-if (count($user_ids) > 0)
-{
-  $query = '
-SELECT user_id, group_id
-  FROM '.USER_GROUP_TABLE.'
-  WHERE user_id IN ('.implode(',', $user_ids).')
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  // simulate LIMIT $start, $conf['users_page']
+  if ($num < $start)
   {
-    array_push($user_groups[$row['user_id']], $row['group_id']);
+    continue;
+  }
+  if ($num >= $start + $conf['users_page'])
+  {
+    break;
   }
 
-  foreach ($users as $num => $item)
-  {
-    $groups_string = preg_replace('/(\d+)/e',
-                                  "\$groups['$1']",
-                                  implode(', ', $user_groups[$item['id']]));
+  $groups_string = preg_replace(
+    '/(\d+)/e',
+    "\$groups['$1']",
+    implode(
+      ', ',
+      $local_user['groups']
+      )
+    );
 
-    if (isset($_POST['pref_submit'])
-        and isset($_POST['selection'])
-        and in_array($item['id'], $_POST['selection']))
-    {
-      $checked = 'checked="checked"';
-    }
-    else
-    {
-      $checked = '';
-    }
+  if (isset($_POST['pref_submit'])
+      and isset($_POST['selection'])
+      and in_array($local_user['id'], $_POST['selection']))
+  {
+    $checked = 'checked="checked"';
+  }
+  else
+  {
+    $checked = '';
+  }
     
-    $template->assign_block_vars(
-      'user',
-      array(
-        'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
-        'ID'=>$item['id'],
-        'CHECKED'=>$checked,
-        'U_MOD'=>add_session_id($profile_url.$item['id']),
-        'U_PERM'=>add_session_id($perm_url.$item['id']),
-        'USERNAME'=>$item['username'],
-        'STATUS'=>$lang['user_status_'.$item['status']],
-        'EMAIL'=>isset($item['email']) ? $item['email'] : '',
-        'GROUPS'=>$groups_string
-        ));
-  }
+  $template->assign_block_vars(
+    'user',
+    array(
+      'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
+      'ID' => $local_user['id'],
+      'CHECKED' => $checked,
+      'U_MOD' => add_session_id($profile_url.$local_user['id']),
+      'U_PERM' => add_session_id($perm_url.$local_user['id']),
+      'USERNAME' => $local_user['username'],
+      'STATUS' => $lang['user_status_'.$local_user['status']],
+      'EMAIL' => isset($local_user['email']) ? $local_user['email'] : '',
+      'GROUPS' => $groups_string
+      )
+    );
 }
 
 // +-----------------------------------------------------------------------+

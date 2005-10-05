@@ -708,7 +708,7 @@ DESCRIBE '.$tablename.'
 CREATE TABLE '.$temporary_tablename.'
 (
 '.implode(",\n", $columns).',
-PRIMARY KEY (id)
+PRIMARY KEY ('.implode(',', $dbfields['primary']).')
 )
 ;';
     pwg_query($query);
