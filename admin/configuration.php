@@ -111,9 +111,20 @@ if (isset($_POST['submit']))
     {
       if (isset($_POST[$row['param']]))
       {
+        $value = $_POST[$row['param']];
+      
+        if ('gallery_title' == $row['param']
+            or 'gallery_description' == $row['param'])
+        {
+          if (!$conf['allow_html_descriptions'])
+          {
+            $value = strip_tags($value);
+          }
+        }
+        
         $query = '
 UPDATE '.CONFIG_TABLE.'
-  SET value = \''. str_replace("\'", "''", $_POST[$row['param']]).'\'
+  SET value = \''. str_replace("\'", "''", $value).'\'
   WHERE param = \''.$row['param'].'\'
 ;';
         pwg_query($query);
@@ -157,6 +168,8 @@ switch ($page['section'])
         'HISTORY_NO'=>$history_no,
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
+        'CONF_GALLERY_TITLE' => $conf['gallery_title'],
+        'CONF_GALLERY_DESCRIPTION' => $conf['gallery_description'],
         ));
     break;
   }

@@ -167,12 +167,6 @@ $conf['allow_random_representative'] = false;
 // category and element description.
 $conf['allow_html_descriptions'] = true;
 
-// gallery_title : Title at top of each page and for RSS feed
-$conf['gallery_title'] = 'PhpWebGallery demonstration site';
-
-// gallery_description : Short description displayed with gallery title
-$conf['gallery_description'] = 'My photos web site';
-
 // galery_url : URL given in RSS feed
 $conf['gallery_url'] = 'http://demo.phpwebgallery.net';
 

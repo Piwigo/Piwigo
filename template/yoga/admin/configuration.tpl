@@ -14,6 +14,16 @@
 
   <ul>
     <li>
+      <label for="gallery_title"><strong>{lang:Gallery title}</strong></label>
+      <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{general.CONF_GALLERY_TITLE}" />
+    </li>
+
+    <li>
+      <label for="gallery_description"><strong>{lang:Gallery description}</strong></label>
+      <textarea cols="50" rows="5" name="gallery_description" id="gallery_description">{general.CONF_GALLERY_DESCRIPTION}</textarea>
+    </li>
+
+    <li>
       <label><strong>{lang:History}</strong></label>
       <input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{lang:Yes}
       <input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{lang:No}

@@ -1,5 +1,15 @@
 2005-10-08 Pierrick LE GALL
 
+	* modification: configuration parameters gallery_title and
+	gallery_description are GUI managed in
+	Administration>Configuration>General
+
+	* bug fixed: configuration parameters (use|show)_(exif|iptc) and
+	authorize_remembering should have been deleted from config table
+	some time ago.
+	
+2005-10-08 Pierrick LE GALL
+
 	* new: mass virtual categories movement manager in
 	Administration>Categories>Move screen.
 

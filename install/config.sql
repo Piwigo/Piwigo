@@ -13,9 +13,7 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nb_line_page','3
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('recent_period','7','Period within which pictures are displayed as new (in days)');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('auto_expand','false','Auto expand of the category tree');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_nb_comments','false','Show the number of comments under the thumbnails');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_iptc','false','Use IPTC data during database synchronization with files metadata');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('use_exif','false','Use EXIF data during database synchronization with files metadata');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_iptc','false','Show IPTC metadata on picture.php if asked by user');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_exif','true','Show EXIF metadata on picture.php if asked by user');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('authorize_remembering','true','Authorize users to be remembered, see $conf{remember_me_length}');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_locked','false','Lock your gallery temporary for non admin users');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_title','PhpWebGallery demonstration site','Title at top of each page and for RSS feed');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_description','My photos web site','Short description displayed with gallery title');
+
