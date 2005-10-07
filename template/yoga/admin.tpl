@@ -33,6 +33,7 @@
     <dd>
       <ul>
 	<li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
+	<li><a href="{U_MOVE}">{lang:Move}</a></li>
 	<li><a href="{U_CAT_UPLOAD}">{lang:upload}</a></li>
 	<li><a href="{U_CAT_COMMENTS}">{lang:comments}</a></li>
 	<li><a href="{U_CAT_VISIBLE}">{lang:lock}</a></li>

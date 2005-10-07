@@ -1,3 +1,8 @@
+2005-10-08 Pierrick LE GALL
+
+	* new: mass virtual categories movement manager in
+	Administration>Categories>Move screen.
+
 2005-10-05 Pierrick LE GALL
 
 	* bug 160 fixed: (part one of the bug) hard coded column name of

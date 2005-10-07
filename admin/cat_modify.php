@@ -67,7 +67,10 @@ if (isset($_POST['submit']))
 
   if (isset($_POST['parent']))
   {
-    move_category($_GET['cat_id'], $_POST['parent']);
+    move_categories(
+      array($_GET['cat_id']),
+      $_POST['parent']
+      );
   }
 
   array_push($page['infos'], $lang['editcat_confirm']);

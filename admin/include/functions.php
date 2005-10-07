@@ -1337,36 +1337,78 @@ SELECT element_id,
 }
 
 /**
- * change the parent category of the given category. The category is
+ * change the parent category of the given categories. The categories are
  * supposed virtual.
  *
- * @param int category identifier
+ * @param array category identifiers
  * @param int parent category identifier
  * @return void
  */
-function move_category($category_id, $new_parent = -1)
+function move_categories($category_ids, $new_parent = -1)
 {
-  // verifies if the move is necessary
-  $query = '
-SELECT id_uppercat, status
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$category_id.'
-;';
-  list($old_parent, $status) = mysql_fetch_row(pwg_query($query));
+  global $page;
 
-  $old_parent = empty($old_parent) ? 'NULL' : $old_parent;
-  $new_parent = $new_parent < 1 ? 'NULL' : $new_parent;
-
-  if ($new_parent == $old_parent)
+  if (count($category_ids) == 0)
   {
-    // no need to move !
     return;
   }
+
+  $new_parent = $new_parent < 1 ? 'NULL' : $new_parent;
+
+  $categories = array();
+  
+  $query = '
+SELECT id, id_uppercat, status, uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $category_ids).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $categories[$row['id']] =
+      array(
+        'parent' => empty($row['id_uppercat']) ? 'NULL' : $row['id_uppercat'],
+        'status' => $row['status'],
+        'uppercats' => $row['uppercats']
+        );
+  }
+  
+  // is the movement possible? The movement is impossible if you try to move
+  // a category in a sub-category or itself
+  if ('NULL' != $new_parent)
+  {
+    $query = '
+SELECT uppercats
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id = '.$new_parent.'
+;';
+    list($new_parent_uppercats) = mysql_fetch_row(pwg_query($query));
+
+    foreach ($categories as $category)
+    {
+      // technically, you can't move a category with uppercats 12,125,13,14
+      // into a new parent category with uppercats 12,125,13,14,24
+      if (preg_match('/^'.$category['uppercats'].'/', $new_parent_uppercats))
+      {
+        array_push(
+          $page['errors'],
+          l10n('You cannot move a category in its own sub category')
+          );
+        return;
+      }
+    }
+  }
+  
+  $tables =
+    array(
+      USER_ACCESS_TABLE => 'user_id',
+      GROUP_ACCESS_TABLE => 'group_id'
+      );
   
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET id_uppercat = '.$new_parent.'
-  WHERE id = '.$category_id.'
+  WHERE id IN ('.implode(',', $category_ids).')
 ;';
   pwg_query($query);
 
@@ -1391,54 +1433,59 @@ SELECT status
 
   if ('private' == $parent_status)
   {
-    switch ($status)
+    foreach ($categories as $cat_id => $category)
     {
-      case 'public' :
+      switch ($category['status'])
       {
-        set_cat_status(array($category_id), 'private');
-        break;
-      }
-      case 'private' :
-      {
-        $subcats = get_subcat_ids(array($category_id));
-
-        $tables =
-          array(
-            USER_ACCESS_TABLE => 'user_id',
-            GROUP_ACCESS_TABLE => 'group_id'
-            );
-        
-        foreach ($tables as $table => $field)
+        case 'public' :
         {
-          $query = '
-SELECT '.$field.'
-  FROM '.$table.'
-  WHERE category_id = '.$category_id.'
-;';
-          $category_access = array_from_query($query, $field);
-
-          $query = '
-SELECT '.$field.'
-  FROM '.$table.'
-  WHERE category_id = '.$new_parent.'
-;';
-          $parent_access = array_from_query($query, $field);
-          
-          $to_delete = array_diff($parent_access, $category_access);
-          
-          if (count($to_delete) > 0)
+          set_cat_status(array($cat_id), 'private');
+          break;
+        }
+        case 'private' :
+        {
+          $subcats = get_subcat_ids(array($cat_id));
+        
+          foreach ($tables as $table => $field)
           {
             $query = '
+SELECT '.$field.'
+  FROM '.$table.'
+  WHERE cat_id = '.$cat_id.'
+;';
+            $category_access = array_from_query($query, $field);
+
+            $query = '
+SELECT '.$field.'
+  FROM '.$table.'
+  WHERE cat_id = '.$new_parent.'
+;';
+            $parent_access = array_from_query($query, $field);
+          
+            $to_delete = array_diff($parent_access, $category_access);
+          
+            if (count($to_delete) > 0)
+            {
+              $query = '
 DELETE FROM '.$table.'
   WHERE '.$field.' IN ('.implode(',', $to_delete).')
-    AND category_id IN ('.implode(',', $subcats).')
+    AND cat_id IN ('.implode(',', $subcats).')
 ;';
-            pwg_query($query);
+              pwg_query($query);
+            }
           }
+          break;
         }
-        break;
       }
     }
   }
+
+  array_push(
+    $page['infos'],
+    sprintf(
+      l10n('%d categories moved'),
+      count($categories)
+      )
+    );
 }
 ?>

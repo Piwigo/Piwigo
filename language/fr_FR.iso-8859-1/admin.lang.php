@@ -26,6 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 $lang['%d categories including %d physical and %d virtual'] = '%d catégories dont %d physiques et %d virtuelles';
+$lang['%d categories moved'] = '%d catégories déplacées';
 $lang['%d comments'] = '%d commentaires utilisateur';
 $lang['%d elements'] = '%d éléments';
 $lang['%d groups'] = '%d groupes';
@@ -82,8 +83,10 @@ $lang['Maximum height of the pictures'] = 'Hauteur maximum des images';
 $lang['Maximum width of the pictures'] = 'Largeur maximum des images';
 $lang['Members'] = 'Membres';
 $lang['Metadata synchronized from file'] = 'Meta-données synchronisées à partir du fichier';
+$lang['Move categories'] = 'Déplacer les catégories';
 $lang['Move'] = 'Déplacer';
 $lang['Name'] = 'Nom';
+$lang['New parent category'] = 'Nouvelle catégorie parente';
 $lang['No'] = 'Non';
 $lang['Number of comments per page'] = 'Nombre de commentaires utilisateur par page';
 $lang['Number of images per row'] = 'Nombre de miniatures par ligne';
@@ -129,10 +132,13 @@ $lang['Users'] = 'Utilisateurs';
 $lang['Validate All'] = 'Tout valider';
 $lang['Validate'] = 'Valider';
 $lang['Validation'] = 'Validation';
+$lang['Virtual categories movement'] = 'Déplacement de catégories virtuelles';
+$lang['Virtual categories to move'] = 'Catégories virtuelles à déplacer';
 $lang['Webmaster cannot be deleted'] = 'Le webmestre ne peut pas être supprimé';
 $lang['Yes'] = 'Oui';
 $lang['You are running on development sources, no check possible.'] = 'Vous travaillez avec les sources de développement, impossible de vérifier la dernière version.';
 $lang['You are running the latest version of PhpWebGallery.'] = 'Vous utilisez la dernière version de PhpWebGallery.';
+$lang['You cannot move a category in its own sub category'] = 'Vous ne pouvez pas déplacer une catégorie dans sa propre sous-catégorie';
 $lang['You need to confirm deletion'] = 'Vous devez confirmer la suppression';
 $lang['actions'] = 'actions';
 $lang['all'] = 'tout';

@@ -73,6 +73,7 @@ $template->assign_vars(
     'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
     'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
     'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
+    'U_MOVE'=>add_session_id($link_start.'cat_move' ),
     'U_CAT_UPLOAD'=>add_session_id($opt_link.'upload'),
     'U_CAT_COMMENTS'=>add_session_id($opt_link.'comments'),
     'U_CAT_VISIBLE'=>add_session_id($opt_link.'visible'),
