@@ -65,6 +65,7 @@ $lang['Edit all picture informations'] = 'Modifier toutes les informations liées
 $lang['Empty caddie'] = 'Vider le panier';
 $lang['Environment'] = 'Environnement';
 $lang['Expand all categories'] = 'Développer toutes les catégories';
+$lang['Gallery title'] = 'Titre de la galerie';
 $lang['Grant selected groups'] = 'Donner l\'accès aux groupes sélectionnés';
 $lang['Grant selected users'] = 'Donner l\'accès aux utilisateurs sélectionnés';
 $lang['Group name'] = 'Nom du groupe';
@@ -340,4 +341,5 @@ $lang['users'] = 'Utilisateurs';
 $lang['visitors'] = 'Visiteurs';
 $lang['w_day'] = 'Jour';
 $lang['waiting'] = 'En attente';
+$lang['Gallery description'] = 'Description de la galerie';
 ?>

@@ -1,5 +1,10 @@
 2005-10-08 Pierrick LE GALL
 
+	* translation: new items related to configuration parameters
+	gallery_title and gallery_description in GUI.
+
+2005-10-08 Pierrick LE GALL
+
 	* modification: configuration parameters gallery_title and
 	gallery_description are GUI managed in
 	Administration>Configuration>General
