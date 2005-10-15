@@ -507,6 +507,7 @@ $template->assign_vars(array(
   'L_DELETE_COMMENT' =>$lang['comments_del'],
   'L_DELETE' =>$lang['delete'],
   'L_SUBMIT' =>$lang['submit'],
+  'L_AUTHOR' =>  $lang['upload_author'],
   'L_COMMENT' =>$lang['comment'],
   'L_DOWNLOAD' => $lang['download'],
   'L_DOWNLOAD_HINT' => $lang['download_hint'],
