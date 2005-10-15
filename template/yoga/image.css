@@ -5,8 +5,10 @@
 #imageHeaderBar .browsePath { float: left; }
 #imageHeaderBar .imageNumber { float: right; }
 
-#imageHeaderBar H1 {
-    margin: 1ex 0; /* override default-layout for less bottom-margin */
+#imageHeaderBar H2 {
+    /*margin: 1ex 0;  override default-layout for less bottom-margin */
+    text-align: center;
+    padding-top: 0;
     clear: both;
 }
 

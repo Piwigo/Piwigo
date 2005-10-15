@@ -6,9 +6,8 @@
   <div class="browsePath"><a href="{U_HOME}">{L_HOME}</a>{LEVEL_SEPARATOR}{CATEGORY}</div>
   <div class="imageNumber">{PHOTO}</div>
   <!-- BEGIN title -->
-  <h1>{TITLE}</h1>
+  <h2>{TITLE}</h2>
   <!-- END title -->
-  <hr class="separation">
 </div>
 
 <div id="imageToolBar">
