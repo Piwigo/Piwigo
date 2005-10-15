@@ -71,6 +71,16 @@ de l'image...
     float: right;
 }
 
+.thumbLink.prev {
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.thumbLink.next {
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
 TABLE.infoTable {
     margin: auto;
 }

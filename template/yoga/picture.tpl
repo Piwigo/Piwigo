@@ -66,12 +66,12 @@
 
 <!-- BEGIN previous -->
 <a class="navThumb prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
-  <img src="{previous.IMG}" class="thumbLink" style="margin-right:10px;margin-left:5px;" alt="{previous.TITLE_IMG}">
+  <img src="{previous.IMG}" class="thumbLink prev" alt="{previous.TITLE_IMG}">
 </a>
 <!-- END previous -->
 <!-- BEGIN next -->
 <a class="navThumb next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
-  <img src="{next.IMG}" alt="{next.TITLE_IMG}">
+  <img src="{next.IMG}" class="thumbLink next" alt="{next.TITLE_IMG}">
 </a>
 <!-- END next -->
 
