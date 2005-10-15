@@ -29,6 +29,8 @@ BODY#theNotificationPage #content
     margin-bottom: 1ex;
 }
 
+/* Thumbnail "elastic" layout */
+
 #content UL.thumbnails {
   margin: 0;
   padding: 0;
@@ -84,7 +86,7 @@ BODY#theNotificationPage #content
   top: 50%;
   left: 0px;		/* same as "#content UL.thumbnails SPAN SPAN { padding:" if any*/
 }
-* html #content UL.thumbnails IMG {
+* html #content UL.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;
 }
