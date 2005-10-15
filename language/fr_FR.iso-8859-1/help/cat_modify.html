@@ -1,0 +1,103 @@
+<h2>Modifier une catégorie</h2>
+
+<p>Modifier les informations et options d'une catégorie.</p>
+
+<h3>Liens d'action</h3>
+
+<p>Cette page est liée à la page de modification de chaque catégorie parente
+ainsi qu'aux actions suivantes:</p>
+
+<ul>
+  <li>se rendre dans la catégorie</li>
+  <li>gérer le éléments (si la catégorie en contient)</li>
+  <li>gérer les sous-catégories</li>
+  <li>gérer les permissions (si la catégorie est privée)</li>
+  <li>supprimer la catégorie (si la catégorie est virtuelle)</li>
+</ul>
+
+<h3>Déplacer</h3>
+
+<p>Si la catégorie est virtuelle, vous pouvez la déplacer. Déplacer une
+catégorie signifie changer de catégorie parente.</p>
+
+<h3>Options</h3>
+
+<ul>
+
+  <li><strong>Type d'accès</strong>: gestion des permissions. Si vous rendez
+une catégorie privée, toutes ses catégories filles deviennent privées. Si
+vous rendez une catégorie publique, toutes ses catégories mères deviennent
+publiques.</li>
+
+  <li><strong>Vérouiller</strong>: la catégorie et toutes ses catégories
+filles deviennent temporairement inaccessibles pour maintenance.</li>
+
+  <li><strong>Commentaires</strong>: autorise les utilisateurs à commenter
+les éléments de cette catégorie.</li>
+
+  <li><strong>Autoriser l'ajout d'images</strong>: autorise les utilisateurs
+à télécharger des fichiers. Cette option n'est disponible que si la
+catégorie est physique (et non virtuelle).</li>
+
+</ul>
+
+<p>Vous pouvez aussi gérer ces options dans la gestion globale des options
+multi-catégories (écrans <span class="pwgScreen">Ajout</span>, <span
+class="pwgScreen">Commentaires</span>, <span
+class="pwgScreen">Vérouiller</span>, <span
+class="pwgScreen">Publique/Privée</span>, <span
+class="pwgScreen">Représentant</span> dans <span
+class="pwgScreen">Administration, Catégories</span>).</p>
+
+<h3>Représentant</h3>
+
+<p>Le représentant d'une catégorie est la miniature affichée pour
+représenter la catégorie sur la page principale (<span
+class="pwgScreen">category.php</span>) lorsqu'une catégorie contient
+uniquement des sous-catégories et pas d'éléments directs (comme à la
+racine)</p>
+
+<p>Il existe 4 moyens de choisir le représentant d'une catégorie:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">picture.php</span>: dans la barre des boutons
+d'action, l'un d'eux permet de choisir l'élément affiché comme représentant
+de la catégorie affichée. Ce bouton d'action n'est disponible que pour les
+administrateurs.</li>
+
+  <li><span class="pwgScreen">Modifier les informations d'une image</span>
+dans l'administration. Cet écran peut être atteint depuis <span
+class="pwgScreen">picture.php</span> ou <span class="pwgScreen">Gestion par
+lot</span> dans le <em>mode unitaire</em>. Voir l'aide de cet écran pour les
+détails.</li>
+
+  <li><span class="pwgScreen">Administration, Catégories,
+Représentant</span>. Voir l'aide de cet écran pour les détails.</li>
+
+  <li><span class="pwgScreen">Modifier une catégorie</span> (le présent
+écran).</li>
+
+</ul>
+
+<p>La représentation dépent du paramètre de configuration
+<code>allow_random_representative</code> (voir <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Par défaut (<code>allow_random_representative</code> à false) chaque
+catégorie contenant au moins un élément est représenté par un élément
+fixe. Une fois fixé (à la création de la catégorie), le représentant change
+uniquement lorsque l'administrateur le demande. Si le représentant ne
+convient pas, vous pouvez demander à <strong>Trouver un nouveau représentant
+au hasard</strong>.</p>
+
+<p>Si le paramètre de configuration <code>allow_random_representative</code>
+està true, une catégorie contenant des éléments peut ne pas avoir de
+représentant fixe. Utiliser simplement le bouton <strong>Supprimer le
+représentant</strong>.</p>
+
+<p>Si la catégorie ne contient aucun élément (mais uniquement des sous
+catégories) elle peut quand même être représentée par n'importe quel élément
+grâce à l'écran <span class="pwgScreen">Modifier les informations d'une
+image</span>. La seule option du présent écran est le bouton
+<strong>Supprimer le représentant</strong>.</p>

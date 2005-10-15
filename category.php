@@ -304,8 +304,8 @@ $template->assign_block_vars('summary', array(
 
 // about link
 $template->assign_block_vars('summary', array(
-'TITLE'=>$lang['hint_about'],
-'NAME'=>$lang['about'],
+'TITLE'=>$lang['about_page_title'],
+'NAME'=>$lang['About'],
 'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
 ));
 

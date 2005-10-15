@@ -100,7 +100,6 @@ $lang['User comments'] = 'User comments';
 $lang['Username'] = 'Username';
 $lang['Visits'] = 'Visits';
 $lang['Webmaster'] = 'Webmaster';
-$lang['about'] = 'about';
 $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['access_forbiden'] = 'You are not authorized to access this page';
 $lang['add to caddie'] = 'add to caddie';
@@ -154,7 +153,6 @@ $lang['gallery_locked_message'] = 'The gallery is locked for maintenance. Please
 $lang['generation_time'] = 'Page generated in';
 $lang['guest'] = 'guest';
 $lang['hello'] = 'Hello';
-$lang['hint_about'] = 'more informations on PhpWebGallery...';
 $lang['hint_admin'] = 'available for administrators only';
 $lang['hint_category'] = 'shows images at the root of this categry';
 $lang['hint_comments'] = 'See last users comments';
@@ -300,4 +298,10 @@ $lang['upload_username'] = 'Username';
 $lang['useful when password forgotten'] = 'useful when password forgotten';
 $lang['w_month'] = 'Month';
 $lang['yes'] = 'Yes';
+
+$lang['descending'] = 'descending';
+$lang['all'] = 'all';
+$lang['ascending'] = 'ascending';
+$lang['comment date'] = 'comment date';
+$lang['picture'] = 'picture';
 ?>

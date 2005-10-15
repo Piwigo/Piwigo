@@ -1,0 +1,43 @@
+<h2>Options des catégories</h2>
+
+<p>Gestion des options pour plusieurs catégories à la fois.</p>
+
+<dl>
+
+  <dt>Autorisation à l'ajout</dt>
+
+  <dd>Rendre les catégories autorisée à l'ajout par les visiteurs. Cette
+option n'est pas disponible pour les catégories virtuelles et
+distantes.</dd>
+  
+  <dt>Commentaires utilisateur</dt>
+
+  <dd>Autoriser les utilisateurs à commenter les images des catégories
+sélectionnées. Par héritage, une image est commentable si elle appartient à
+au moins une catégories commentable.</dd>
+  
+  <dt>Vérouiller</dt>
+
+  <dd>Les catégories sélectionnées deviennent temporairement inactive pour
+maintenance. Lorsqu'une catégorie est vérouillée, toutes les catégories
+enfant sont vérouillées. Lorsqu'une catégorie est dévérouillée, toutes les
+catégories parente sont dévérouillées.</dd>
+
+  <dt>Publique / Privée</dt>
+
+  <dd>Gestion du status des catégories. Les permissions ne sont possibles
+que pour les catégories privées. Une fois qu'une catégorie est privée, vous
+devez explicitement autoriser les utilisateur ou les groupes à y
+accéder. Lorsqu'une catégorie devient privée, toutes les catégories enfant
+deviennent privées. Lorsqu'une catégorie devient publique, toutes les
+catégories parentes deviennent publique.</dd>
+
+  <dt>Représentant</dt>
+
+  <dd>Cette option est disponible uniquement si le paramètre de
+configuration <code>allow_random_representative</code> (voir <span
+class="filename">include/config_default.inc.php</span>) est
+<em>true</em>. Chaque catégorie peut-être représentée au hasard ou par une
+miniature fixe unique.</dd>
+
+</dl>
