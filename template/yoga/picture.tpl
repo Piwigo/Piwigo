@@ -8,6 +8,7 @@
   <!-- BEGIN title -->
   <h2>{TITLE}</h2>
   <!-- END title -->
+  <hr class="separation">
 </div>
 
 <div id="imageToolBar">
