@@ -67,21 +67,23 @@
     <!-- BEGIN quickconnect -->
     <hr />
     <form method="post" action="{F_IDENTIFY}" id="quickconnect">
-      <p>
-	<input type="hidden" name="redirect" value="{U_REDIRECT}">
-	<label for="username">{L_USERNAME}:</label>
-	<input type="text" name="username" id="username" size="15" value="">
-      </p>
-      <p>
-	<label for="password">{L_PASSWORD}:</label>
-	<input type="password" name="password" id="password" size="15">
-      </p>
-      <!-- BEGIN remember_me -->
-      <p>
-	<input type="checkbox" name="remember_me" id="remember_me" value="1">
-	<label for="remember_me">{L_REMEMBER_ME}</label>
-      </p>
-      <!-- END remember_me -->
+      <ul>
+        <li>
+	  <input type="hidden" name="redirect" value="{U_REDIRECT}">
+	  <label for="username">{L_USERNAME}</label>
+	  <input type="text" name="username" id="username" size="15" value="">
+        </li>
+        <li>
+	  <label for="password">{L_PASSWORD}</label>
+	  <input type="password" name="password" id="password" size="15">
+        </li>
+        <!-- BEGIN remember_me -->
+        <li>
+	  <label for="remember_me">{L_REMEMBER_ME}</label>
+	  <input type="checkbox" name="remember_me" id="remember_me" value="1">
+        </li>
+        <!-- END remember_me -->
+      </ul>
       <p><input type="submit" name="login" value="{L_SUBMIT}"></p>
     </form>
     <!-- END quickconnect -->

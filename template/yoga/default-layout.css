@@ -59,6 +59,7 @@ HR.separation {
 }
 
 /** General defaults **/
+INPUT {margin: 0;}
 ul, dl, li { text-align: left;}
 /* for debugging purpose */
 pre { text-align:left; }
@@ -193,13 +194,13 @@ FORM.filter INPUT[type="submit"] {
   margin-top: 1em;
 }
 
-FORM.properties UL {
+FORM.properties UL, FORM#quickconnect UL {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-FORM.properties LI {
+FORM.properties LI, FORM#quickconnect UL  {
   margin-bottom: 0.5em;
   padding: 0;
   line-height: 1.8em;
@@ -211,6 +212,18 @@ FORM.properties LABEL {
   text-align: right;
   margin: 0;
   padding: 0 0.5em 0 0;
+}
+
+FORM#quickconnect LABEL {
+  float: left;
+  width: 30%;
+  text-align: right;
+  margin: 0.5em 0 0 0;
+  padding: 0 0.5em 0 0;
+}
+
+FORM#quickconnect INPUT {
+  margin-top: 0.5em;
 }
 
 FORM.properties LABEL.mandatory {
