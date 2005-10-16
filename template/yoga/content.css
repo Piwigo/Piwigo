@@ -129,7 +129,7 @@ ul.categoryActions {
   float: right;
 }
 
-#content ul.categoryActions>li {
+#content ul.categoryActions li {
   display: inline;
 }
 
