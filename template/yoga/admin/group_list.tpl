@@ -1,10 +1,11 @@
+<!-- $Id$ -->
 <h2>{lang:title_groups}</h2>
 
-<form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
+<form method="post" name="add_user" action="{F_ADD_ACTION}" class="properties">
   <fieldset>
     <legend>{lang:Add group}</legend>
-    <label>{lang:Group name} <input type="text" name="groupname" maxlength="50" size="20" /></label>
-    <input type="submit" name="submit_add" value="{lang:Add}" />
+    <label>{lang:Group name}</label><input type="text" name="groupname" maxlength="50" size="20" />
+    <p><input type="submit" name="submit_add" value="{lang:Add}" /></p>
   </fieldset>
 </form>
 

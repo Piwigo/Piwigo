@@ -8,7 +8,7 @@
 #imageHeaderBar H2 {
     /*margin: 1ex 0;  override default-layout for less bottom-margin */
     text-align: center;
-    padding-top: 0;
+    padding: 0;
     clear: both;
 }
 

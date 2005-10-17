@@ -11,7 +11,7 @@
 BODY {
     margin: 5px;
     padding: 0;
-    font-size: 100%;
+    font-size: 12px;
     font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
     text-align: center; /* be nice to IE5 */
 }
@@ -194,13 +194,13 @@ FORM.filter INPUT[type="submit"] {
   margin-top: 1em;
 }
 
-FORM.properties UL, FORM#quickconnect UL {
+FORM.properties UL, FORM#quickconnect UL, FORM#update UL {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-FORM.properties LI, FORM#quickconnect UL  {
+FORM.properties LI, FORM#quickconnect UL, FORM#update UL  {
   margin-bottom: 0.5em;
   padding: 0;
   line-height: 1.8em;

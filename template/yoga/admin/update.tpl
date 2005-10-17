@@ -73,14 +73,17 @@
   
   <fieldset>
     <legend>{L_UPDATE_CATS_SUBSET}</legend>
-  
+    <ul>
+    <li> 
     <select style="width:500px" name="cat" size="10">
       <!-- BEGIN category_option -->
       <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
       <!-- END category_option -->
     </select>
+    </li>
   
-    <label><input type="checkbox" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} /> {L_SEARCH_SUBCATS_INCLUDED}</label>
+    <li><label><input type="checkbox" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} /> {L_SEARCH_SUBCATS_INCLUDED}</label></li>
+    </ul>
   </fieldset>
 
   <p class="bottomButtons">

@@ -1,3 +1,11 @@
+2005-10-18 chrisaga
+
+	* display : in group_list.tpl - wrong form class, mixed html tags, ...
+
+	* display : suppress bullets in admin->synchronize and checkbox under select
+
+	* display : set standard font size to 12pt
+
 2005-10-17 Pierrick LE GALL
 
 	* improvement: use new function get_language_filepath in about.php
