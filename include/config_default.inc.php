@@ -359,4 +359,15 @@ $conf['upload_maxheight_thumbnail'] = 100;
 // upload_maxwidth_thumbnail: maximum width authorized for the uploaded
 // thumbnails
 $conf['upload_maxwidth_thumbnail'] = 150;
+
+// +-----------------------------------------------------------------------+
+// |                               history                                   |
+// +-----------------------------------------------------------------------+
+
+// nb_logs_page :  how many logs to display on a page
+$conf['nb_logs_page'] = 300;
+
+// history__admin : history admin visits  ?
+$conf['history_admin'] = false;
+
 ?>

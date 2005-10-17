@@ -35,7 +35,15 @@ $nls_value_title = $lang['w_month'];
 $group_clause = "DATE_FORMAT(date,'%Y-%m') DESC";
 $where_clause = "1";
 
-if (isset($_GET['month']) && isset($_GET['year']) )
+
+if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
+{
+  $url_img .= 'dayly_stats.img.php?year='.$_GET['year'].'&month='.$_GET['month'].'&day='.$_GET['day'];
+  $nls_value_title = $lang['w_day'];
+  $group_clause = "DATE_FORMAT(date,'%Y-%m-%d') ASC";
+  $where_clause = "(YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." )";
+}
+elseif (isset($_GET['month']) && isset($_GET['year']) )
 {
   $url_img .= 'monthly_stats.img.php?year='.$_GET['year'].'&month='.$_GET['month'];
   $nls_value_title = $lang['w_day'];
@@ -47,7 +55,35 @@ else
   $url_img .= 'global_stats.img.php';
 }
 
+
 //----------------------------------------------------- template initialization
+if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
+{
+  $date_of_day=$_GET['day'].' '.$lang['month'][$_GET['month']].' '.$_GET['year'];
+  $title_page=$lang['stats_day_title'].' du '.$date_of_day;
+  $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
+  $url_back = add_session_id($url_back);
+  $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
+  $title_day=$lang['stats_day_details_title']." ".$date_of_day;
+}
+elseif ( isset($_GET['month']) && isset($_GET['year']) )
+{
+  $date_of_day=$lang['month'][$_GET['month']].' '.$_GET['year'];
+  $title_page=$lang['stats_month_title'].' : '.$date_of_day;
+  $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
+  $url_back = add_session_id($url_back);
+  $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
+  $title_day=$lang['today'];
+}
+else
+{
+  $date_of_day='';
+  $title_page=$lang['stats_title'];
+  $title_details=$lang['stats_month_title'];
+  $title_day=$lang['today'];
+}
+
+
 $template->set_filenames( array('stats'=>'admin/stats.tpl') );
 
 $template->assign_vars(array(
@@ -58,6 +94,16 @@ $template->assign_vars(array(
   'L_STAT_TITLE'=>$lang['stats_title'],
   'L_STAT_MONTH_TITLE'=>$lang['stats_month_title'],
   'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
+  'L_STAT_TITLE'=>$title_page,
+  'L_STAT_DETAIL_TITLE'=>$title_details,
+  'L_DATE_TITLE'=>$title_day,
+  'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
+  'L_STAT_HOUR'=>$lang['stats_hour'],
+  'L_STAT_LOGIN'=>$lang['stats_login'],
+  'L_STAT_ADDR'=>$lang['stats_addr'],
+  'L_STAT_CATEGORY'=>$lang['stats_category'],
+  'L_STAT_FILE'=>$lang['stats_file'],
+  'L_STAT_PICTURE'=>$lang['stats_picture'],
   
   'IMG_REPORT'=>add_session_id($url_img)
   ));
@@ -148,6 +194,94 @@ $nb_visitors = mysql_num_rows( $result );
 $days = array();
 $max_nb_visitors = 0;
 $max_pages_seen = 0;
+
+//----------------------------------------------------------- stats / jour
+
+if ( isset( $_GET['month'] ) && isset( $_GET['month'] ) && isset( $_GET['day'] ) )
+{  if ($_GET['day'] <10) {$current_day='0';
+  	$current_day.= $_GET['day'];}
+  else {$current_day = $_GET['day'];}
+  if ($_GET['month'] <10) {$current_month='0';
+  	$current_month.= $_GET['month'];}
+  else {$current_month = $_GET['month'];}
+  $current_year = $_GET['year'];
+}
+
+else
+{  $current_date = GetDate();
+  if ($current_date['mday'] <10) {$current_day='0';
+  	$current_day.= $current_date['mday'];}
+  else {$current_day = $current_date['mday'];}
+  if ($current_date['mon'] <10) {$current_month='0';
+  	$current_month.= $current_date['mon'];}
+  else {$current_month = $current_date['mon'];}
+  $current_year = $current_date['year'];  
+}
+
+// Set WHERE clause
+$where = ' WHERE DATE_FORMAT(date,\'%Y-%m-%d\') = \''.$current_year."-".$current_month."-".$current_day.'\'';
+  
+// Set LIMIT clause
+$limit = ' LIMIT ';
+$page['start'] = 0;
+if (isset($_GET['start']) and is_numeric($_GET['start'])) $page['start'] = abs($_GET['start']);
+$limit .= $page['start'];
+$limit .= ','.$conf['nb_logs_page'];
+
+$query = '
+SELECT DATE_FORMAT(date,\'%H:%i:%s\') AS hour,
+     login,
+     IP,
+     category,
+     file,
+     picture
+  FROM '.HISTORY_TABLE.
+  $where.'
+  ORDER BY date DESC'.
+  $limit.
+  ';';
+
+
+$result = pwg_query( $query );
+
+$i=0;
+ 
+while ( $row = mysql_fetch_array( $result ) )
+{
+  $class = ($i % 2)? 'row1':'row2'; $i++;
+    $template->assign_block_vars('detail',array(
+    'HOUR'=>$row['hour'],
+    'LOGIN'=>$row['login'],
+    'IP'=>$row['IP'],
+    'CATEGORY'=>$row['category'],
+    'FILE'=>$row['file'],
+    'PICTURE'=>$row['picture'],
+    'T_CLASS'=>$class
+  ));
+  }
+
+
+// Get total number of logs
+$query = '
+    SELECT COUNT(date) as nb_logs
+     FROM '.HISTORY_TABLE.
+  $where.'
+    ;';
+
+  $result = pwg_query($query);
+  $row = mysql_fetch_array($result);
+  $page['nb_logs']=$row['nb_logs'];
+
+  //display nav bar
+  $url = $_SERVER['PHP_SELF'].'?page=stats&year='.$_GET['year'];
+  $url .= '&month='.$_GET['month'].'&day='.$_GET['day'];
+  $page['navigation_bar'] =
+  create_navigation_bar( $url, $page['nb_logs'],$page['start'],$conf['nb_logs_page'], 'admin' );
+$template->assign_block_vars('navigation',
+    array('NAV_BAR' => $page['navigation_bar'])
+    );
+
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>
+
