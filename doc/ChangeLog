@@ -1,5 +1,12 @@
 2005-10-17 Pierrick LE GALL
 
+	* bug 154 fixed: "Calendar category, too precise dates". Bug came
+	from the bigger precision of creation_date and available_date in
+	images tables. Need to retrieve only the year-month-day
+	information.
+	
+2005-10-17 volcom
+
 	* new: history details by month,day
 	
 2005-10-15 Pierrick LE GALL

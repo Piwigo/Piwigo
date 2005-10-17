@@ -157,7 +157,9 @@ elseif (!isset($page['calendar_day']))
   // creation of hash associating the number of the day in the month with
   // the number of picture for this day : $calendar_days
   $query = '
-SELECT DISTINCT('.$conf['calendar_datefield'].') AS day, COUNT(id) AS count
+SELECT
+    DISTINCT DATE_FORMAT('.$conf['calendar_datefield'].', \'%Y-%m-%d\') AS day
+  , COUNT(id) AS count
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
     AND '.$conf['calendar_datefield'].'
