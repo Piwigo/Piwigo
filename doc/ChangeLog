@@ -1,5 +1,10 @@
 2005-10-17 Pierrick LE GALL
 
+	* improvement: use new function get_language_filepath in about.php
+	(complement of bug 168 correction)
+	
+2005-10-17 Pierrick LE GALL
+
 	* bug 154 fixed: "Calendar category, too precise dates". Bug came
 	from the bigger precision of creation_date and available_date in
 	images tables. Need to retrieve only the year-month-day
