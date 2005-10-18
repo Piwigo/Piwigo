@@ -178,6 +178,10 @@ $conf['prefix_thumbnail'] = 'TN-';
 // Administration>Identification>Users?
 $conf['users_page'] = 20;
 
+// mail_options: only set it true if you have a send mail warning with
+// "options" parameter missing on mail() function execution.
+$conf['mail_options'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+
@@ -361,13 +365,13 @@ $conf['upload_maxheight_thumbnail'] = 100;
 $conf['upload_maxwidth_thumbnail'] = 150;
 
 // +-----------------------------------------------------------------------+
-// |                               history                                   |
+// |                               history                                 |
 // +-----------------------------------------------------------------------+
 
 // nb_logs_page :  how many logs to display on a page
 $conf['nb_logs_page'] = 300;
 
-// history__admin : history admin visits  ?
+// history_admin : history admin visits  ?
 $conf['history_admin'] = false;
 
 ?>

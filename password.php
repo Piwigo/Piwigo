@@ -52,8 +52,15 @@ function pwg_mail($to, $from, $infos = '')
   
   $content = $infos;
   $content.= "\n\n-- \nPhpWebGallery ".PHPWG_VERSION;
-  
-  return mail($to, $subject, $content, $headers, $options);
+
+  if ($conf['mail_options'])
+  {
+    return mail($to, $subject, $content, $headers, $options);
+  }
+  else
+  {
+    return mail($to, $subject, $content, $headers);
+  }
 }
 
 // +-----------------------------------------------------------------------+

@@ -1,3 +1,8 @@
+2005-10-18 Pierrick LE GALL
+
+	* bug 159 and 166 fixed: parameter "options" for mail() function
+	disabled by default.
+
 2005-10-18 chrisaga
 
 	* display : smaller font-size and, as requested, fonts more like 1.4
