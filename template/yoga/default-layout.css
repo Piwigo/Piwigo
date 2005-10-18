@@ -11,8 +11,8 @@
 BODY {
     margin: 5px;
     padding: 0;
-    font-size: 12px;
-    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+    font-family: Bitsream Vera Sans, Helvetica, Arial, sans-serif;
     text-align: center; /* be nice to IE5 */
 }
 

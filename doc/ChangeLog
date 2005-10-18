@@ -1,5 +1,9 @@
 2005-10-18 chrisaga
 
+	* display : smaller font-size and, as requested, fonts more like 1.4
+
+2005-10-18 chrisaga
+
 	* display : in group_list.tpl - wrong form class, mixed html tags, ...
 
 	* display : suppress bullets in admin->synchronize and checkbox under select
