@@ -2,6 +2,8 @@
 
 	* display : smaller font-size and, as requested, fonts more like 1.4
 
+	* bug 165 fixed : La largeur par défaut en PIXELS pas en Kb
+
 2005-10-18 chrisaga
 
 	* display : in group_list.tpl - wrong form class, mixed html tags, ...

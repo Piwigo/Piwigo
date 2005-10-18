@@ -349,7 +349,7 @@ $conf['upload_maxfilesize'] = 200;
 $conf['upload_maxheight'] = 800;
 
 // upload_maxwidth: maximum width authorized for the uploaded images. In
-// kilobytes.
+// pixels.
 $conf['upload_maxwidth'] = 800;
 
 // upload_maxheight_thumbnail: maximum height authorized for the uploaded
