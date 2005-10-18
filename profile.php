@@ -77,7 +77,7 @@ if (isset($_POST['validate']))
     
     // changing password requires old password
     $query = '
-SELECT password
+SELECT '.$conf['user_fields']['password'].' AS password
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
 ;';

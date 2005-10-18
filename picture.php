@@ -345,7 +345,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
   {
     $query = 'SELECT COUNT(*) AS user_exists';
     $query.= ' FROM '.USERS_TABLE;
-    $query.= " WHERE username = '".$author."'";
+    $query.= ' WHERE '.$conf['user_fields']['username']." = '".$author."'";
     $query.= ';';
     $row = mysql_fetch_array( pwg_query( $query ) );
     if ( $row['user_exists'] == 1 )

@@ -1,5 +1,11 @@
 2005-10-18 Pierrick LE GALL
 
+	* bug 172 fixed: crash when changing password with an external
+	users table. The same kind of correction was also made in
+	picture.php and register.php.
+
+2005-10-18 Pierrick LE GALL
+
 	* bug 159 and 166 fixed: parameter "options" for mail() function
 	disabled by default.
 

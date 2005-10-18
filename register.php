@@ -47,12 +47,7 @@ if (isset($_POST['submit']))
   
   if (count($errors) == 0)
   {
-    $query = '
-SELECT id
-  FROM '.USERS_TABLE.'
-  WHERE username = \''.$_POST['login'].'\'
-;';
-    list($user_id) = mysql_fetch_array(pwg_query($query));
+    $user_id = get_userid($_POST['login']);
     $session_id = session_create($user_id, $conf['session_length']);
     $url = 'category.php?id='.$session_id;
     redirect($url);
