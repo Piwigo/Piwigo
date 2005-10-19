@@ -1,5 +1,10 @@
 2005-10-18 Pierrick LE GALL
 
+	* bug 174 fixed: use_exif_mapping configuration parameter was not
+	used to list database fields to update from EXIF values.
+
+2005-10-18 Pierrick LE GALL
+
 	* bug 172 fixed: crash when changing password with an external
 	users table. The same kind of correction was also made in
 	picture.php and register.php.

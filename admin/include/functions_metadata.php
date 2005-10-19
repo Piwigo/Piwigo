@@ -135,19 +135,37 @@ function update_metadata($files)
   
   if (count($datas) > 0)
   {
-    $update_fields = array('filesize','width','height','date_metadata_update');
+    $update_fields =
+      array(
+        'filesize',
+        'width',
+        'height',
+        'date_metadata_update'
+        );
+    
     if ($conf['use_exif'])
     {
-      array_push($update_fields, 'date_creation');
+      $update_fields =
+        array_merge(
+          $update_fields,
+          array_keys($conf['use_exif_mapping'])
+          );
     }
+    
     if ($conf['use_iptc'])
     {
-      $update_fields = array_merge($update_fields,
-                                   array_keys($conf['use_iptc_mapping']));
+      $update_fields =
+        array_merge(
+          $update_fields,
+          array_keys($conf['use_iptc_mapping'])
+          );
     }
 
-    $fields = array('primary' => array('id'),
-                    'update'  => array_unique($update_fields));
+    $fields =
+      array(
+        'primary' => array('id'),
+        'update'  => array_unique($update_fields)
+        );
     mass_updates(IMAGES_TABLE, $fields, $datas);
   }
 }
