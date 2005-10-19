@@ -273,13 +273,25 @@ $query = '
   $page['nb_logs']=$row['nb_logs'];
 
   //display nav bar
-  $url = $_SERVER['PHP_SELF'].'?page=stats&year='.$_GET['year'];
-  $url .= '&month='.$_GET['month'].'&day='.$_GET['day'];
-  $page['navigation_bar'] =
-  create_navigation_bar( $url, $page['nb_logs'],$page['start'],$conf['nb_logs_page'], 'admin' );
-$template->assign_block_vars('navigation',
-    array('NAV_BAR' => $page['navigation_bar'])
-    );
+$url = $_SERVER['PHP_SELF'].'?page=stats';
+$url.= isset($_GET['year']) ? '&amp;year='.$_GET['year'] : '';
+$url.= isset($_GET['month']) ? '&amp;month='.$_GET['month'] : '';
+
+$page['navigation_bar'] =
+create_navigation_bar(
+  $url,
+  $page['nb_logs'],
+  $page['start'],
+  $conf['nb_logs_page'],
+  'admin'
+  );
+
+$template->assign_block_vars(
+  'navigation',
+  array(
+    'NAV_BAR' => $page['navigation_bar']
+    )
+  );
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
