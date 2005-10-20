@@ -19,6 +19,9 @@
 <!-- END refresh -->
 <title>{PAGE_TITLE}</title>
 <script type="text/javascript" src="include/scripts.js"></script>
+<!--[if gte IE 5.5000]>
+<script type="text/javascript" src="include/pngfix.js"></script>
+<![endif]-->
 </head>
 
 <body id="{BODY_ID}">

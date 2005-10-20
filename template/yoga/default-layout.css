@@ -139,19 +139,23 @@ select.categoryList {
 }
 
 form#add_virtual p { text-align: left; }
-form#categoryOrdering p {
+FORM#categoryOrdering, FORM#addVirtual {
+  padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+  padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+}
+FORM#categoryOrdering p {
 	text-align: left;
 	margin-top: 1em;
 	margin-bottom: 1em;
 }
-form#categoryOrdering>ul {
+UL.categoryUl {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-form#categoryOrdering>ul>li {
-  border: 1px solid grey;
+LI.categoryLi {
+  border: 1px solid gray;
   padding: 0px 5px;
   margin-bottom: 5px;
 }

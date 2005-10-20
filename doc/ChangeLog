@@ -1,3 +1,11 @@
+2005-10-20 chrisaga
+
+	* bug 176 fixed: need a javascript to handle transparent PNG background in IE
+	(tribute to Bob Osola http://homepage.ntlworld.com/bobosola/index.htm
+
+	* display: fixed another IE childselector bug in Categories Management admin page
+	and improved display of this page in all browsers too.
+
 2005-10-18 Pierrick LE GALL
 
 	* bug 174 fixed: use_exif_mapping configuration parameter was not

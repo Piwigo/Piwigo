@@ -5,10 +5,10 @@
 
 <form id="categoryOrdering" action="" method="post">
 
-  <ul>
+  <ul class="categoryUl">
 
     <!-- BEGIN category -->
-    <li> <!-- category {category.ID} -->
+    <li class="categoryLi"> <!-- category {category.ID} -->
 
       <ul class="categoryActions">
         <li><a href="{category.U_JUMPTO}" title="{lang:jump to category}"><img src="./template/yoga/theme/category_jump-to.png" alt="{lang:jump to}" /></a></li> 
@@ -37,11 +37,12 @@
     </li>
     <!-- END category -->
 
+  </ul>
   <p><input name="submitOrder" type="submit" value="{lang:Save order}" /></p>
 
 </form>
 
-<form action="{F_ACTION}" method="post">
+<form id="addVirtual" action="{F_ACTION}" method="post">
   {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
   <input type="hidden" name="rank" value="{NEXT_RANK}"/>
   <input type="submit" value="{L_SUBMIT}" name="submitAdd" />
