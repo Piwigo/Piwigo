@@ -77,8 +77,8 @@
       <tr>
         <td><strong>{lang:Creation date}</strong></td>
         <td>
-          <label><input type="radio" name="date_creation_action" value="unset" /> unset</label>
-          <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> set to
+          <label><input type="radio" name="date_creation_action" value="unset" /> {lang:unset}</label>
+          <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {lang:set to}
           <select onmousedown="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
             <!-- BEGIN date_creation_day -->
             <option {date_creation_day.SELECTED} value="{date_creation_day.VALUE}">{date_creation_day.OPTION}</option>
