@@ -1,10 +1,21 @@
+2005-10-22 Pierrick LE GALL
+
+	* bug 173 fixed: due to phpBB user identifiers management, the
+	method to find the next user identifier has changer to MAX+1.
+
+	* improvement: information message when new user added
+
+	* bug fixed: language item "Username" used instead of "login".
+	
 2005-10-20 chrisaga
 
-	* bug 176 fixed: need a javascript to handle transparent PNG background in IE
-	(tribute to Bob Osola http://homepage.ntlworld.com/bobosola/index.htm
+	* bug 176 fixed: need a javascript to handle transparent PNG
+	background in IE (tribute to Bob Osola
+	http://homepage.ntlworld.com/bobosola/index.htm)
 
-	* display: fixed another IE childselector bug in Categories Management admin page
-	and improved display of this page in all browsers too.
+	* display: fixed another IE childselector bug in Categories
+	Management admin page and improved display of this page in all
+	browsers too.
 
 2005-10-18 Pierrick LE GALL
 

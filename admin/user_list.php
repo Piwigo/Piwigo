@@ -188,6 +188,17 @@ $page['filtered_users'] = get_filtered_user_list();
 if (isset($_POST['submit_add']))
 {
   $page['errors'] = register_user($_POST['login'], $_POST['password'], '');
+
+  if (count($page['errors']) == 0)
+  {
+    array_push(
+      $page['infos'],
+      sprintf(
+        l10n('user "%s" added'),
+        $_POST['login']
+        )
+      );
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -409,7 +420,6 @@ $template->assign_vars(
     'L_GROUP_ADD_USER' => $lang['group_add_user'],
     'L_SUBMIT'=>$lang['submit'],
     'L_STATUS'=>$lang['user_status'],
-    'L_USERNAME' => $lang['login'],
     'L_PASSWORD' => $lang['password'],
     'L_EMAIL' => $lang['mail_address'],
     'L_ORDER_BY' => $lang['order_by'],

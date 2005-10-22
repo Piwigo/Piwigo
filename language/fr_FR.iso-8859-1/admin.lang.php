@@ -352,6 +352,7 @@ $lang['update_used_metadata'] = 'Méta-données employées';
 $lang['update_wrong_dirname_info'] = 'Le nom des répertoires et des fichiers ne doit être constitué que de lettres, de chiffres, de "-", "_" et "."';
 $lang['update_wrong_dirname_short'] = 'nom de fichier erroné';
 $lang['upload'] = 'Ajout';
+$lang['user "%s" added'] = 'utilisateur "%s" ajouté';
 $lang['user_delete'] = 'Supprimer utilisateur';
 $lang['user_delete_hint'] = 'Cliquer ici pour supprimer cet utilisateur. Attention :  cette opération ne peut pas être annulée !';
 $lang['user_id URL parameter is missing'] = 'le paramètre d\'URL "user_id" manque';

@@ -354,6 +354,7 @@ $lang['update_used_metadata'] = 'Used metadata';
 $lang['update_wrong_dirname_info'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 $lang['update_wrong_dirname_short'] = 'wrong filename';
 $lang['upload'] = 'Upload';
+$lang['user "%s" added'] = 'user "%s" added';
 $lang['user_delete'] = 'Delete user';
 $lang['user_delete_hint'] = 'Click here to delete this user. Warning! This operation cannot be undone!';
 $lang['user_id URL parameter is missing'] = 'user_id URL parameter is missing';

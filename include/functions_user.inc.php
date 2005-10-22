@@ -76,8 +76,16 @@ function register_user($login, $password, $mail_address)
   // if no error until here, registration of the user
   if (count($errors) == 0)
   {
+    // what will be the inserted id ?
+    $query = '
+SELECT MAX('.$conf['user_fields']['id'].') + 1
+  FROM '.USERS_TABLE.'
+;';
+    list($next_id) = mysql_fetch_array(pwg_query($query));
+    
     $insert =
       array(
+        $conf['user_fields']['id'] => $next_id,
         $conf['user_fields']['username'] => mysql_escape_string($login),
         $conf['user_fields']['password'] => $conf['pass_convert']($password),
         $conf['user_fields']['email'] => $mail_address
@@ -86,9 +94,9 @@ function register_user($login, $password, $mail_address)
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
     
-    create_user_infos(mysql_insert_id());
+    create_user_infos($next_id);
   }
-  
+
   return $errors;
 }
 

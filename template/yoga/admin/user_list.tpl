@@ -8,7 +8,7 @@
 <form class="filter" method="post" name="add_user" action="{F_ADD_ACTION}">
   <fieldset>
     <legend>{lang:Add a user}</legend>
-    <label>{L_USERNAME} <input type="text" name="login" maxlength="50" size="20" /></label>
+    <label>{lang:Username} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{L_PASSWORD} <input type="text" name="password" /></label>
     <input type="submit" name="submit_add" value="{L_SUBMIT}" />
   </fieldset>
@@ -27,7 +27,7 @@
   <legend>{lang:Filter}</legend>
 
 
-  <label>{lang:username} <input type="text" name="username" value="{F_USERNAME}" /></label>
+  <label>{lang:Username} <input type="text" name="username" value="{F_USERNAME}" /></label>
 
   <label>
   {lang:status}
@@ -76,7 +76,7 @@
 <table class="table2">
   <tr class="throw">
     <th>&nbsp;</th>
-    <th>{L_USERNAME}</th>
+    <th>{lang:Username}</th>
     <th>{L_STATUS}</th>
     <th>{L_EMAIL}</th>
     <th>{lang:Groups}</th>
