@@ -1,5 +1,10 @@
 2005-10-22 Pierrick LE GALL
 
+	* bug fixed: link on a single day in
+	Administration>General>History was missing
+
+2005-10-22 Pierrick LE GALL
+
 	* bug 173 fixed: due to phpBB user identifiers management, the
 	method to find the next user identifier has changer to MAX+1.
 
@@ -43,7 +48,8 @@
 
 	* display : in group_list.tpl - wrong form class, mixed html tags, ...
 
-	* display : suppress bullets in admin->synchronize and checkbox under select
+	* display : suppress bullets in admin->synchronize and checkbox
+	under select
 
 	* display : set standard font size to 12pt
 

@@ -64,7 +64,7 @@ if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
   $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
   $url_back = add_session_id($url_back);
   $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
-  $title_day=$lang['stats_day_details_title']." ".$date_of_day;
+  $title_day = $date_of_day;
 }
 elseif ( isset($_GET['month']) && isset($_GET['year']) )
 {
@@ -129,8 +129,21 @@ while ( $row = mysql_fetch_array( $result ) )
     $where_clause = 'DAYOFMONTH(date) = '.$row['d'].'
     AND MONTH(date) = '.$row['m'].'
     AND YEAR(date) = '.$row['y'];
-    $week_day = $lang['day'][date('w', mktime(12,0,0,$row['m'],$row['d'],$row['y']))];
-    $value = $row['d'].' ('.$week_day.')';
+    
+    $week_day =
+      $lang['day'][date('w', mktime(12,0,0,$row['m'],$row['d'],$row['y']))];
+
+    $url =
+      PHPWG_ROOT_PATH.'admin.php'
+      .'?page=stats'
+      .'&amp;year='.$row['y']
+      .'&amp;month='.$row['m']
+      .'&amp;day='.$row['d']
+      ;
+
+    $value = '<a href="'.add_session_id($url).'">';
+    $value.= $row['d'].' ('.$week_day.')';
+    $value.= "</a>";
   }
   else
   {
@@ -276,6 +289,7 @@ $query = '
 $url = $_SERVER['PHP_SELF'].'?page=stats';
 $url.= isset($_GET['year']) ? '&amp;year='.$_GET['year'] : '';
 $url.= isset($_GET['month']) ? '&amp;month='.$_GET['month'] : '';
+$url.= isset($_GET['day']) ? '&amp;day='.$_GET['day'] : '';
 
 $page['navigation_bar'] =
 create_navigation_bar(
