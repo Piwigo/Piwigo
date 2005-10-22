@@ -120,9 +120,11 @@ BODY#theNotificationPage #content
 /* actions */
 ul.categoryActions {
   text-align: center;
-  margin: 1px 1px 0 0;
+  margin: 0 0 0 0;
+  width: auto;
   padding: 0;
   text-indent: 0;
+  list-style: none;
 }
 
 #content div.titrePage ul.categoryActions {

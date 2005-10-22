@@ -6,6 +6,9 @@
 <!-- BIG FIX ME BELOW (paths) -->
 <link rel="stylesheet" type="text/css" href="template/yoga/default-layout.css">
 <link rel="stylesheet" type="text/css" href="template/yoga/default-colors.css">
+<!-- the next css is used to fix khtml (Konqueror/Safari) issue
+the "extra-keyword" and "text/nonsense" prevent other browsers to load it -->
+<link rel="extra-keyword stylesheet" type="text/nonsense" href="template/yoga/fix-khtml.css">
 <link rel="stylesheet" type="text/css" media="print" href="template/yoga/print.css">
 <!-- AN OTHER FIX ME -->
 <style type="text/css">

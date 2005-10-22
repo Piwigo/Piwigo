@@ -1,3 +1,13 @@
+2005-10-22 chrisaga
+
+	* bug 177 fixed: icon tools wrong position in Safari and Konqueror
+	Needed a little trick to fix it. Put the trick in a fix-khtml.css
+	Loading in header.tpl and protected from IE, Geko and Opera,
+	just in case (couldn't foud a safari css-only filter wich validate)
+	
+	* bug fixed: issue in the FORM in remote_site.tpl which prevented
+	HTML validation (still something to do with the TABLE).
+
 2005-10-22 Pierrick LE GALL
 
 	* bug fixed: link on a single day in

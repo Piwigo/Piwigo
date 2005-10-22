@@ -59,9 +59,13 @@
 <!-- END local -->
 
 <form action="{F_ACTION}" method="post">
-  {L_REMOTE_SITE_CREATE} 
-  <input type="text" name="galleries_url" value="{F_GALLERIES_URL}" />
-  <input type="submit" name="submit" value="{L_SUBMIT}" />
+  <p>
+    <label for="galleries_url" >{L_REMOTE_SITE_CREATE}</label> 
+    <input type="text" name="galleries_url" id="galleries_url" value="{F_GALLERIES_URL}" />
+  </p>
+  <p>
+    <input type="submit" name="submit" value="{L_SUBMIT}" />
+  </p>
 </form>
 
 <table>
