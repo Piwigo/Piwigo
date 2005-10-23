@@ -116,9 +116,21 @@ SELECT galleries_url
   // we need to have fulldirs as keys to make efficient comparison
   $db_fulldirs = array_flip($db_fulldirs);
 
-  // finding next rank for each id_uppercat
+  // finding next rank for each id_uppercat. By default, each category id
+  // has 1 for next rank on its sub-categories to create
   $next_rank['NULL'] = 1;
   
+  $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $next_rank[$row['id']] = 1;
+  }
+
+  // let's see if some categories already have some sub-categories...
   $query = '
 SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
