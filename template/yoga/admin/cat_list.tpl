@@ -43,7 +43,9 @@
 </form>
 
 <form id="addVirtual" action="{F_ACTION}" method="post">
-  {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
-  <input type="hidden" name="rank" value="{NEXT_RANK}"/>
-  <input type="submit" value="{L_SUBMIT}" name="submitAdd" />
+  <p>
+    {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
+    <input type="hidden" name="rank" value="{NEXT_RANK}"/>
+    <input type="submit" value="{L_SUBMIT}" name="submitAdd" />
+  </p>
 </form>

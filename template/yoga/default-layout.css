@@ -68,46 +68,6 @@ pre { text-align:left; }
 
 form { padding: 0em; }
 
-/* form row are dl instead of table rows */
-form dl {
-  text-align: left;   /* must set it there otherwise IE render dl.biglabel dt incorectly */
-  margin-top: 0;
-  margin-bottom: 0;
-    font-size: 100%; /* TO DO : alignement pb in Opera !!!*/
-}
-form dt {
-  float: left;
-  /*text-align: left;*/
-  width: 60%;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-form dd {
-  /*text-align: left;*/
-  /*margin-top: 0.5em;*/
-  margin:0;
-  padding:0;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-/* we must use one dl.biglabel per <dt><dl> because of positionning */
-form dl.biglabel {
-  position: relative; /* to allow position: absolute in dd*/
-}
-form dl.biglabel dt {
-  float: none;
-}
-
-form dl.biglabel dd {
-  /*float: right; do not whant to float ????*/
-  /*width: 60%;*/
-  position: absolute;
-  top: 0;
-  left: 60%; /* same as form dt width */
-}
-form dl.biglabel dd { padding-left:2px;} /* IE */
-form dl.biglabel>dd { padding-left:0;}	/* other browsers */
-
 form p {
 	text-align: center;
 	margin-top: 2em;
