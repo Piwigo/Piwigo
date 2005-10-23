@@ -1,5 +1,10 @@
 2005-10-23 Pierrick LE GALL
 
+	* bug 182 fixed: newly created user is not displayed in the user
+	list.
+
+2005-10-23 Pierrick LE GALL
+
 	* bug fixed: during file tree synchronization, warning on finding
 	the next rank of category which has no sub-categories yet.
 	
