@@ -60,7 +60,12 @@ DELETE
    \'upload_maxheight\',
    \'upload_maxwidth_thumbnail\',
    \'upload_maxheight_thumbnail\',
-   \'mail_notification\'
+   \'mail_notification\',
+   \'use_iptc\',
+   \'use_exif\',
+   \'show_iptc\',
+   \'show_exif\',
+   \'authorize_remembering\'
    )
 ;';
 mysql_query($query);
@@ -250,6 +255,28 @@ UPDATE ".CONFIG_TABLE."
 UPDATE ".CONFIG_TABLE."
   SET value = 'yoga'
   WHERE param = 'default_template'
+;",
+
+  "
+INSERT INTO ".CONFIG_TABLE."
+  (param,value,comment)
+  VALUES
+  (
+    'gallery_title',
+    'PhpWebGallery demonstration site',
+    'Title at top of each page and for RSS feed'
+  )
+;",
+
+  "
+INSERT INTO ".CONFIG_TABLE."
+  (param,value,comment)
+  VALUES
+  (
+    'gallery_description',
+    'My photos web site',
+    'Short description displayed with gallery title'
+  )
 ;"
 
   );

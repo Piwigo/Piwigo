@@ -1,3 +1,10 @@
+2005-10-23 Pierrick LE GALL
+
+	* bug 181 fixed: "Parameters not created in phpwebgallery_config
+	during upgrade". gallery_title and gallery_description had not
+	been added to config table. (use|show)_(exif|iptc) and
+	authorize_remembering have also been removed...
+
 2005-10-22 chrisaga
 
 	* bug 177 fixed: icon tools wrong position in Safari and Konqueror
