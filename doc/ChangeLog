@@ -1,3 +1,7 @@
+2005-10-23 chrisaga
+
+	* bug 184 fixed: .png button left aligned in IE
+
 2005-10-23 Pierrick LE GALL
 
 	* bug 182 fixed: newly created user is not displayed in the user
