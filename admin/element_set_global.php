@@ -116,20 +116,29 @@ SELECT image_id
 ;';
     $associated = array_from_query($query, 'image_id');
 
-    // TODO : if $associable array is empty, no further actions
     $associable = array_diff($collection, $associated);
-    
-    foreach ($associable as $item)
+
+    if (count($associable) != 0)
     {
-      array_push($datas,
-                 array('category_id'=>$_POST['associate'],
-                       'image_id'=>$item));
-    }
+      foreach ($associable as $item)
+      {
+        array_push(
+          $datas,
+          array(
+            'category_id' => $_POST['associate'],
+            'image_id' => $item
+            )
+          );
+      }
   
-    mass_inserts(IMAGE_CATEGORY_TABLE,
-                 array('image_id', 'category_id'),
-                 $datas);
-    update_category(array($_POST['associate']));
+      mass_inserts(
+        IMAGE_CATEGORY_TABLE,
+        array('image_id', 'category_id'),
+        $datas
+        );
+      
+      update_category(array($_POST['associate']));
+    }
   }
 
   if ($_POST['dissociate'] != 0 and count($collection) > 0)
