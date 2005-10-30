@@ -33,17 +33,17 @@ include_once( 'phpBarGraph.php' );
 
 //------------------------------------------------ variable definition
 $outputFormat = "png";
-$legend = $lang['stats_monthly_graph_title'];
+$legend = $lang['stats_daily_graph_title'];
 $imageHeight = 256;
 $imageWidth = 512;
 $sql = '
 SELECT DISTINCT COUNT(*)
-     , DAYOFMONTH(date) 
+     , HOUR(DATE_FORMAT(date, \'%H:%i:%s\'))
   FROM '.HISTORY_TABLE.'
   WHERE YEAR(date) = '.$_GET['year'].'
     AND MONTH(date) = '.$_GET['month'].'
-  GROUP BY DATE_FORMAT(date, \'%Y-%m-%d\') DESC
-;';
+    AND DAYOFMONTH(date) = '.$_GET['day'].'
+  GROUP BY DATE_FORMAT(date, \'%H\') DESC;';
 
 //------------------------------------------------ Image definition
 $image = ImageCreate($imageWidth, $imageHeight);
@@ -79,18 +79,18 @@ $myBarGraph->SetBarSpacing(5);     // The default is 10. This changes the space 
 $result = pwg_query($sql)
 or die(mysql_errno().": ".mysql_error()."<BR>".$sql);
 
-$days = array();
-for ($i = 1; $i <= 31; $i++)
+$hours = array();
+for ($i = 0; $i <= 23; $i++)
 {
-  $days[$i] = 0;
+  $hours[$i] = 0;
 }
 
 while ($r = mysql_fetch_row($result))
 { 
-  $days[$r[1]]= $r[0];
+  $hours[$r[1]]= $r[0];
 }
 $o=0;
-while (list ($key,$value) = each($days ))
+while (list ($key,$value) = each($hours ))
 {
   $myBarGraph->AddValue($key, $value);
 }

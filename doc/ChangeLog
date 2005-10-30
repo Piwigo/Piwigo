@@ -1,3 +1,8 @@
+2005-10-30 volcom
+	
+	* bug 190 fixed: issue in stats.tpl display
+	* bug fixed: labels of monthly, daily graph fixed
+
 2005-10-26 chrisaga
 
 	* bug 177 fixed: for Safari (was fixed for Konqueror only)

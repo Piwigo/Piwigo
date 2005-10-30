@@ -38,7 +38,7 @@ $where_clause = "1";
 
 if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
 {
-  $url_img .= 'dayly_stats.img.php?year='.$_GET['year'].'&month='.$_GET['month'].'&day='.$_GET['day'];
+  $url_img .= 'daily_stats.img.php?year='.$_GET['year'].'&month='.$_GET['month'].'&day='.$_GET['day'];
   $nls_value_title = $lang['w_day'];
   $group_clause = "DATE_FORMAT(date,'%Y-%m-%d') ASC";
   $where_clause = "(YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." )";

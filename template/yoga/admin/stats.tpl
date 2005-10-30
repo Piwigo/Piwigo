@@ -20,17 +20,18 @@
     <td>{statrow.IMAGES}</td>
   </tr>
 <!-- END statrow -->
+</table>
 
+<h3>{L_DATE_TITLE}</h3>
 <table class="table2" width="98%">
 <tr class="throw">
     <th>{L_STAT_HOUR}</th>
-  <th>{L_STAT_LOGIN}</th>
+    <th>{L_STAT_LOGIN}</th>
     <th>{L_STAT_ADDR}</th>
     <th>{L_STAT_CATEGORY}</th>
     <th>{L_STAT_FILE}</th>
     <th>{L_STAT_PICTURE}</th>
 </tr>
-<h3>{L_DATE_TITLE}</h3>
 <!-- BEGIN detail -->
   <tr class="{detail.T_CLASS}">
     <td nowrap>{detail.HOUR}</td>
@@ -41,13 +42,11 @@
   <td>{detail.PICTURE}</td>
   </tr>
 <!-- END detail -->
-
 </table>
-<br />
+
+
 <!-- BEGIN navigation -->
-<div  class="admin">
+<div class="admin">
 {navigation.NAV_BAR}
 </div>
 <!-- END navigation -->
-<br />
-</table>
