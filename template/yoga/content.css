@@ -124,6 +124,7 @@ ul.categoryActions {
   padding: 0;
   text-indent: 0;
   list-style: none;
+  text-align: center;
 }
 
 #content div.titrePage ul.categoryActions {
