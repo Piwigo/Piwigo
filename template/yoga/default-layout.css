@@ -158,13 +158,13 @@ FORM.filter INPUT[type="submit"] {
   margin-top: 1em;
 }
 
-FORM.properties UL, FORM#quickconnect UL, FORM#update UL {
+FORM.properties UL, FORM#update UL {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-FORM.properties LI, FORM#quickconnect UL, FORM#update UL  {
+FORM.properties LI, FORM#update UL  {
   margin-bottom: 0.5em;
   padding: 0;
   line-height: 1.8em;
@@ -178,16 +178,20 @@ FORM.properties LABEL {
   padding: 0 0.5em 0 0;
 }
 
-FORM#quickconnect LABEL {
-  float: left;
-  width: 30%;
-  text-align: right;
-  margin: 0.5em 0 0 0;
-  padding: 0 0.5em 0 0;
+FORM#quickconnect { 
+  margin: 0;
 }
 
-FORM#quickconnect INPUT {
-  margin-top: 0.5em;
+FORM#quickconnect FIELDSET {
+  margin: 5px;
+}
+
+FORM#quickconnect P {
+  text-align: center;
+}
+
+FORM#quickconnect P INPUT {
+  display: inline;
 }
 
 FORM.properties LABEL.mandatory {

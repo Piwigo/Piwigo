@@ -16,6 +16,7 @@
   <dt><a href="{U_HOME}">{L_CATEGORIES}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
+    <p class="totalImages">{NB_PICTURE} {L_TOTAL}</p>
   </dd>
 </dl>
 <dl>
@@ -52,7 +53,7 @@
       <li><a href="{U_REGISTER}">{L_REGISTER}</a></li>
       <!-- END register -->
       <!-- BEGIN login -->
-      <li><a href="{F_IDENTIFY}">{L_LOGIN}</a></li>
+      <li><a href="{F_IDENTIFY}">{lang:Connection}</a></li>
       <!-- END login -->
       <!-- BEGIN logout -->
       <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>
@@ -65,28 +66,35 @@
       <!-- END admin -->
     </ul>
     <!-- BEGIN quickconnect -->
-    <hr />
-    <form method="post" action="{F_IDENTIFY}" id="quickconnect">
-      <ul>
-        <li>
-	  <input type="hidden" name="redirect" value="{U_REDIRECT}">
-	  <label for="username">{L_USERNAME}</label>
-	  <input type="text" name="username" id="username" size="15" value="">
-        </li>
-        <li>
-	  <label for="password">{L_PASSWORD}</label>
-	  <input type="password" name="password" id="password" size="15">
-        </li>
+    <form method="post" action="{F_IDENTIFY}" class="filter" id="quickconnect">
+      <fieldset>
+        <legend>{lang:Connection}</legend>
+    
+        <label>
+          {lang:Username}
+          <input type="text" name="username" size="15" value="">
+        </label>
+        
+        <label>
+          {L_PASSWORD}
+          <input type="password" name="password" size="15">
+        </label>
+        
         <!-- BEGIN remember_me -->
-        <li>
-	  <label for="remember_me">{L_REMEMBER_ME}</label>
-	  <input type="checkbox" name="remember_me" id="remember_me" value="1">
-        </li>
+        <label>
+          {L_REMEMBER_ME}
+          <input type="checkbox" name="remember_me" value="1">
+        </label>
         <!-- END remember_me -->
-      </ul>
-      <p><input type="submit" name="login" value="{L_SUBMIT}"></p>
+    
+        <p>
+         <input type="submit" name="login" value="{lang:submit}">
+        </p>
+    
+      </fieldset>    
     </form>
     <!-- END quickconnect -->
+
   </dd>
 </dl>
 </div> <!-- menubar -->

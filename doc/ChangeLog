@@ -1,3 +1,10 @@
+2005-10-31 Pierrick LE GALL
+
+	* modification: use "filter" class for quickconnect box (with some
+	custom modifications)
+
+	* bug fixed: the total number of pictures had disappeared
+
 2005-10-30 volcom
 	
 	* bug 190 fixed: issue in stats.tpl display
