@@ -3,8 +3,8 @@
 <h3>{CATEGORIES_NAV}</h3>
 
 <p style="text-align:center;">
-  <a href="{U_GLOBAL_MODE}">global mode</a>
-  | unit mode
+  <a href="{U_GLOBAL_MODE}">{lang:global mode}</a>
+  | {lang:unit mode}
 </p>
 
 <form action="{F_ACTION}" method="POST">
@@ -13,13 +13,13 @@
 
 <fieldset>
 
-  <legend>Display options</legend>
+  <legend>{lang:Display options}</legend>
 
-  <p>elements per page :
+  <p>{lang:elements per page} :
       <a href="{U_ELEMENTS_PAGE}&amp;display=5">5</a>
     | <a href="{U_ELEMENTS_PAGE}&amp;display=10">10</a>
     | <a href="{U_ELEMENTS_PAGE}&amp;display=50">50</a>
-    | <a href="{U_ELEMENTS_PAGE}&amp;display=all">all</a>
+    | <a href="{U_ELEMENTS_PAGE}&amp;display=all">{lang:all}</a>
   </p>
 
 </fieldset>
@@ -47,8 +47,8 @@
     <tr>
       <td><strong>{lang:Creation date}</strong></td>
       <td>
-        <label><input type="radio" name="date_creation_action-{element.ID}" value="unset" /> unset</label>
-        <input type="radio" name="date_creation_action-{element.ID}" value="set" id="date_creation_action_set-{element.ID}" /> set to
+        <label><input type="radio" name="date_creation_action-{element.ID}" value="unset" /> {lang:unset}</label>
+        <input type="radio" name="date_creation_action-{element.ID}" value="set" id="date_creation_action_set-{element.ID}" /> {lang:set to}
         <select onmousedown="document.getElementById('date_creation_action_set-{element.ID}').checked = true;" name="date_creation_day-{element.ID}">
           <!-- BEGIN date_creation_day -->
           <option {element.date_creation_day.SELECTED} value="{element.date_creation_day.VALUE}">{element.date_creation_day.OPTION}</option>

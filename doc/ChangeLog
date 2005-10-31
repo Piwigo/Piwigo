@@ -1,5 +1,9 @@
 2005-10-31 Pierrick LE GALL
 
+	* bug 185 fixed: errors in language items.
+
+2005-10-31 Pierrick LE GALL
+
 	* modification: use "filter" class for quickconnect box (with some
 	custom modifications)
 

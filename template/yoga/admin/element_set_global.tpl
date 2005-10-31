@@ -22,7 +22,7 @@
     <!-- END in_caddie -->
 
     <!-- BEGIN not_in_caddie -->
-    <li><input type="radio" name="caddie_action" value="add_selected" /> Add selected elements to caddie</li>
+    <li><input type="radio" name="caddie_action" value="add_selected" /> {lang:Add selected elements to caddie}</li>
     <!-- END not_in_caddie -->
   
   </ul>
