@@ -603,7 +603,7 @@ if ( !$user['is_the_guest'] )
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.gif',
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.png',
         'FAVORITE_HINT' =>$lang['add_favorites_hint'],
         'FAVORITE_ALT' =>$lang['add_favorites_alt'],
         'U_FAVORITE' => $url
@@ -618,7 +618,7 @@ if ( !$user['is_the_guest'] )
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.gif',
+        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.png',
         'FAVORITE_HINT' =>$lang['del_favorites_hint'],
         'FAVORITE_ALT' =>$lang['del_favorites_alt'],
         'U_FAVORITE'=> $url

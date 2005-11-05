@@ -1,3 +1,8 @@
+2005-11-05 Pierrick LE GALL
+
+	* bug 186 fixed: useless template theme icons deleted. Remaining
+	icons in GIF converted to PNG.
+
 2005-10-31 Pierrick LE GALL
 
 	* bug 185 fixed: errors in language items.
