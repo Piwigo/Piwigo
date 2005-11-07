@@ -1,3 +1,7 @@
+2005-11-07 Pierrick LE GALL
+
+	* improvement: use a "filter" form for adding user comments.
+
 2005-11-05 Pierrick LE GALL
 
 	* bug 186 fixed: useless template theme icons deleted. Remaining

@@ -174,19 +174,24 @@
 <!-- END comment -->
 
 <!-- BEGIN add_comment -->
-<h2>{L_ADD_COMMENT}</h2>
-<form  method="post" action="{U_ADD_COMMENT}">
-  <!-- BEGIN author_field -->
-<p><label>{L_AUTHOR}:<input type="text" name="author"></label>
-  <!-- END author_field -->
-  <!-- BEGIN author_known -->
-  <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}">
-  <!-- END author_known -->
-<p><label>{L_COMMENT}:
-<textarea name="content" rows="7" style="width:100%;"></textarea></label>
-<p><input type="submit" value="{L_SUBMIT}">
+<form  method="post" action="{U_ADD_COMMENT}" class="filter" id="addComment">
+  <fieldset>
+    <legend>{L_ADD_COMMENT}</legend>
+
+    <!-- BEGIN author_field -->
+    <label>{L_AUTHOR}<input type="text" name="author"></label>
+    <!-- END author_field -->
+
+    <!-- BEGIN author_known -->
+    <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}">
+    <!-- END author_known -->
+
+    <label>{L_COMMENT}<textarea name="content" rows="10" cols="80"></textarea></label>
+
+    <input type="submit" value="{L_SUBMIT}">
+  </fieldset>
 </form>
-       <!-- END add_comment -->
+<!-- END add_comment -->
 <!-- END comments -->
 
 </div>

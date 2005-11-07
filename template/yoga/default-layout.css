@@ -144,12 +144,16 @@ FORM.filter FIELDSET LABEL {
   padding: 0;
 }
 
-FORM.filter FIELDSET LABEL INPUT, FORM.filter FIELDSET LABEL SELECT {
+FORM.filter FIELDSET LABEL INPUT,
+FORM.filter FIELDSET LABEL SELECT,
+FORM.filter FIELDSET LABEL TEXTAREA {
   display: block;
   margin: 0.5em 0;
 }
 
-FORM.filter FIELDSET P, FORM.filter FIELDSET INPUT {
+FORM.filter FIELDSET P,
+FORM.filter FIELDSET INPUT,
+FORM.filter FIELDSET TEXTAREA {
   clear: left;
   display: block;
 }
@@ -245,5 +249,13 @@ BODY#theAdminPage #theHeader P {
 
 BODY#thePopuphelpPage #copyright {
   color: green;
+  display: none;
+}
+
+FORM#addComment FIELDSET LABEL {
+  clear: both;
+}
+
+FORM#addComment FIELDSET INPUT[type="hidden"] {
   display: none;
 }
