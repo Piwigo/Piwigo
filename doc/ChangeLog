@@ -1,3 +1,10 @@
+2005-11-08 Pierrick LE GALL
+
+	* Branch 1.5 creation
+
+	* modification: on a fix branch, version is not shown, neither
+	generation time.
+
 2005-11-07 Pierrick LE GALL
 
 	* bug 184 fixed: for the third time...

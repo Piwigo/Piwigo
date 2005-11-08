@@ -128,7 +128,7 @@ $conf['tn_height'] = 96;
 
 // show_version : shall the version of PhpWebGallery be displayed at the
 // bottom of each page ?
-$conf['show_version'] = true;
+$conf['show_version'] = false;
 
 // links : list of external links to add in the menu. An example is the best
 // than a long explanation :
@@ -285,7 +285,7 @@ $conf['session_id_size'] = 10;
 $conf['show_queries'] = false;
 
 // show_gt : display generation time at the bottom of each page
-$conf['show_gt'] = true;
+$conf['show_gt'] = false;
 
 // debug_l10n : display a warning message each time an unset language key is
 // accessed
