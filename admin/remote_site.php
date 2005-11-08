@@ -714,6 +714,12 @@ SELECT id, galleries_url
   WHERE id != 1
 ;';
 $result = pwg_query($query);
+
+if (mysql_num_rows($result) > 0)
+{
+  $template->assign_block_vars('sites', array());
+}
+
 while ($row = mysql_fetch_array($result))
 {
   $base_url = PHPWG_ROOT_PATH.'admin.php';
@@ -722,7 +728,7 @@ while ($row = mysql_fetch_array($result))
   $base_url.= '&amp;action=';
   
   $template->assign_block_vars(
-    'site',
+    'sites.site',
     array(
       'NAME' => $row['galleries_url'],
       'U_GENERATE' => add_session_id($base_url.'generate'),
