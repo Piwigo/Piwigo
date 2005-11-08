@@ -1,4 +1,13 @@
 2005-11-08 Pierrick LE GALL
+	
+	* bug 180 fixed: (report from BSF) remote_site.tpl doesn't
+	validate.
+
+	* translation bug fixed: (report from BSF)
+	generate_file_listing.php doesn't exist, it's
+	create_listing_file.php !
+
+2005-11-08 Pierrick LE GALL
 
 	* Branch 1.5 creation
 
