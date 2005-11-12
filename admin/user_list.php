@@ -382,6 +382,16 @@ DELETE FROM '.USER_GROUP_TABLE.'
     
     mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
   }
+
+  redirect(
+    PHPWG_ROOT_PATH.
+    'admin.php'.
+    get_query_string_diff(
+      array(
+        'start'
+        )
+      )
+    );
 }
 
 // +-----------------------------------------------------------------------+
