@@ -65,20 +65,23 @@ de l'image...
     margin: 0 auto;
 }
 
-.navThumb.prev {
+.navThumb {
+    margin-top: 2px;
+}
+#thumbPrev {
     float: left;
 }
 
-.navThumb.next {
+#thumbNext {
     float: right;
 }
 
-.thumbLink.prev {
+#linkPrev {
     margin-right: 10px;
     margin-left: 5px;
 }
 
-.thumbLink.next {
+#linkNext {
     margin-right: 5px;
     margin-left: 10px;
 }
