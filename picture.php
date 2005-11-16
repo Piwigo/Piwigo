@@ -31,6 +31,12 @@ define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 //-------------------------------------------------- access authorization check
 check_cat_id( $_GET['cat'] );
+
+if (!isset($page['cat']))
+{
+  die($lang['access_forbiden']);
+}
+
 check_login_authorization();
 if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
