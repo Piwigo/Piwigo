@@ -71,12 +71,12 @@
       </li>
 
       <li>
-        <label><strong>{L_WIDTH}</strong></label>
+        <label><strong>{lang:maximum width}</strong></label>
 	<input type="text" name="width" value="{params.WIDTH_TN}"/>
       </li>
 
       <li>
-        <label><strong>{L_HEIGHT}</strong></label>
+        <label><strong>{lang:maximum height}</strong></label>
 	<input type="text" name="height" value="{params.HEIGHT_TN}"/>
       </li>
 

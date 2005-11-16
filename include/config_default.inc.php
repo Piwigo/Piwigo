@@ -124,7 +124,7 @@ $conf['paginate_pages_around'] = 2;
 $conf['tn_width'] = 128;
 
 // tn_height : default height for thumbnails creation
-$conf['tn_height'] = 96;
+$conf['tn_height'] = 128;
 
 // show_version : shall the version of PhpWebGallery be displayed at the
 // bottom of each page ?
