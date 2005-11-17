@@ -14,32 +14,32 @@
 <div id="imageToolBar">
 
 <div class="randomButtons">
-  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}"><img src="template/yoga/theme/slideshow.png" alt="{L_SLIDESHOW}"></a>
-  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="template/yoga/theme/metadata.png" alt="{L_PICTURE_METADATA}"></a>
+  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}"><img src="template/yoga/theme/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
+  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="template/yoga/theme/metadata.png" class="button" alt="{L_PICTURE_METADATA}"></a>
 <!-- BEGIN representative -->
-  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="template/yoga/theme/representative.png" alt="{lang:representative}" /></a>
+  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="template/yoga/theme/representative.png" class="button" alt="{lang:representative}" /></a>
 <!-- END representative -->
 <!-- BEGIN favorite -->
-  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" alt="{favorite.FAVORITE_ALT}"></a>
+  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
 <!-- END favorite -->
 <!-- BEGIN download -->
-  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="template/yoga/theme/save.png" alt="{L_DOWNLOAD}"></a>
+  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="template/yoga/theme/save.png" class="button" alt="{L_DOWNLOAD}"></a>
 <!-- END download -->
 <!-- BEGIN admin -->
-  <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="template/yoga/theme/preferences.png" alt="{L_ADMIN}"></a>
+  <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="template/yoga/theme/preferences.png" class="button" alt="{L_ADMIN}"></a>
 <!-- END admin -->
 <!-- BEGIN caddie -->
-  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" alt="{lang:caddie}"/></a>
+  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" class="button" alt="{lang:caddie}"/></a>
 <!-- END caddie -->
 </div>
 
 <div class="navButtons">
 <!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}"><img src="template/yoga/theme/right.png" alt="next"></a>
+  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}"><img src="template/yoga/theme/right.png" class="button" alt="next"></a>
 <!-- END next -->
-  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}"><img src="template/yoga/theme/up.png" alt="{L_UP_ALT}"></a>
+  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}"><img src="template/yoga/theme/up.png" class="button" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}"><img src="template/yoga/theme/left.png" alt="previous"></a>
+  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}"><img src="template/yoga/theme/left.png" class="button" alt="previous"></a>
 <!-- END previous -->
 </div>
 
@@ -164,7 +164,7 @@
   <!-- BEGIN delete -->
   <p class="userCommentDelete">
   <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}">
-    <img src="template/yoga/theme/delete.png" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
+    <img src="template/yoga/theme/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
   </a>
   </p>
   <!-- END delete -->

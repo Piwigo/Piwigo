@@ -48,8 +48,8 @@ function get_icon( $date )
     $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
-    $output = '<img title="'.$title.'" src="'.$icon_url.'" style="border:0;';
-    $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="" />';
+    $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
+    $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
   }
   return $output;
 }

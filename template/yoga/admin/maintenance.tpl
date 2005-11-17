@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" alt="(?)"></a></li>
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{lang:Maintenance}</h2>
 </div>

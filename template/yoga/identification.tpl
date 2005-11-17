@@ -3,9 +3,9 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="template/yoga/theme/lost_password.png" alt="{lang:Forgot your password?}"></a></li>
-      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="./template/yoga/theme/register.png" alt="{lang:register}"/></a></li>
-      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="./template/yoga/theme/home.png" alt="{lang:home}"/></a></li>
+      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="template/yoga/theme/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="./template/yoga/theme/register.png" class="button" alt="{lang:register}"/></a></li>
+      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="./template/yoga/theme/home.png" class="button" alt="{lang:home}"/></a></li>
     </ul>
     <h2>{lang:Identification}</h2>
   </div>
@@ -48,8 +48,8 @@
 </form>
  
   <p>
-    <a href="{U_REGISTER}"><img src="template/yoga/theme/register.png" alt=""> {L_REGISTER}</a>
-    <a href="{U_LOST_PASSWORD}"><img src="template/yoga/theme/lost_password.png" alt=""> {lang:Forgot your password?}</a>
+    <a href="{U_REGISTER}"><img src="template/yoga/theme/register.png" class="button" alt=""> {L_REGISTER}</a>
+    <a href="{U_LOST_PASSWORD}"><img src="template/yoga/theme/lost_password.png" class="button" alt=""> {lang:Forgot your password?}</a>
   </p>
 
 </div> <!-- content -->

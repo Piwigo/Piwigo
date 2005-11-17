@@ -29,8 +29,28 @@ BODY#theNotificationPage #content
     margin-bottom: 1ex;
 }
 
+/* Thumbnails customization */
+#content UL.thumbnails SPAN, #content UL.thumbnails SPAN.wrap2 A {
+  width: 140px;			/* max thumbnail width + 2px */
+}
+#content UL.thumbnails SPAN.wrap2 {
+  height: 140px;		/* max thumbnail height + 2px */
+}
+#content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  -moz-border-radius: 4px;	/* round corners with Geko */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+#content UL.thumbnails SPAN.wrap2:hover {
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+}
+#content UL.thumbnails SPAN.thumbLegend {
+  font-size: 80%;		/* font size */
+  height: 3em;			/* max legend height (don't set auto to be Geko friendly)*/
+  display: block;		/* display: hide if you don't want legend */
+  overflow: hidden;		/* oversized legend is clipped */
+}
 /* Thumbnail "elastic" layout */
-
 #content UL.thumbnails {
   margin: 0;
   padding: 0;
@@ -39,58 +59,41 @@ BODY#theNotificationPage #content
 }
 #content UL.thumbnails LI { display: inline }
 
-#content UL.thumbnails SPAN {
+#content UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;
-  /*width: 130px;		 128px + 2 * 1px if the SPAN has a border of 1px */
-  width: 128px;			/* we can use the same size as well */
   display: table-cell; display: inline-table; display: inline-block;
   vertical-align: top;		/* OK with Opera and IE6 not Geko */
   text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
-  font-size: 80%;
 }
-#content UL.thumbnails SPAN SPAN {
+#content UL.thumbnails SPAN.wrap2 {
   margin: 0;			/* important reset the margins */
-  border: 1px solid #aaaaaa;
-  width: 128px;			/* fixed size again */
-  height: 128px;		/* fixed size again */
   display: table-cell;		/* block prevents vertical-align here */
   vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
 }
-#content UL.thumbnails SPAN.wrap {
-  border: none;
-  height: auto;		/* important for vertical centering */
-  display: block;	/* important */
-  overflow: hidden;	/* everridden by specific IE6 rule below */
-  margin-top: auto;	/* to make vertical-align work in Geko and Opera */
-  margin-bottom: auto;	/* to make vertical-align work in Geko and Opera */
+#content UL.thumbnails SPAN.wrap2 A {
+  display: block;
+  border-bottom: none;
 }
 #content UL.thumbnails IMG {
   margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
 }
-/* fix Geko's lack of good willing in vertical-align: top */
-/* Too dirty : have to find something better */
-/*#content UL.thumbnails>LI>SPAN{*/
-/*  height: 170px;*/	/* unfortunately min-height doesn't work here */
-/*}*/
 
 /* fix IE with another layout */
-* html #content UL.thumbnails SPAN {
-  overflow: hidden;	/* keep it there: not needed by Geko, buggy with Opera */
-}
-* html #content UL.thumbnails SPAN SPAN {
+* html #content UL.thumbnails SPAN.wrap2 {
+  display: block;
   position: relative;
+  text-align: left;
 }
-* html #content UL.thumbnails SPAN.wrap {
+* html #content UL.thumbnails SPAN.wrap2 A {
   overflow: visible;
   position: absolute;
   top: 50%;
-  left: 0px;		/* same as "#content UL.thumbnails SPAN SPAN { padding:" if any*/
+  text-align: center;
 }
 * html #content UL.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;
 }
-
 
 #content .navigationBar, #content .additional_info {
     margin: 10px 0;
@@ -173,7 +176,7 @@ ul.categoryActions {
 }
 
 #content DIV.comment BLOCKQUOTE {
-  margin: 1em 1em 1em 150px; /* margin-left corresponds to maximum thumbnail width */
+  margin: 1em 1em 1em 140px; /* margin-left corresponds to maximum thumbnail width */
   border: 1px solid #d3d3d3; 
   border-left: 2px solid gray;
   padding: 0.5em;
