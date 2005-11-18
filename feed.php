@@ -331,7 +331,7 @@ if (count($news) > 0)
 {
   $item = new FeedItem(); 
   $item->title = sprintf(l10n('New on %s'), $dbnow);
-  $item->link = 'http://phpwebgallery.net';
+  $item->link = $conf['gallery_url'];
   
   // content creation
   $item->description = '<ul>';
