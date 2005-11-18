@@ -346,25 +346,21 @@ function get_html_menu_category($categories)
     $level = substr_count($category['global_rank'], '.') + 1;
     if ($level > $ref_level)
     {
-      $menu.= '
-             <ul>';
+      $menu.= "\n<ul>";
     }
     else if ($level == $ref_level)
     {
-      $menu.= '
-             </li>';
+      $menu.= "\n</li>";
     }
     else if ($level < $ref_level)
     {
       // we may have to close more than one level at the same time...
-      $menu.= str_repeat("\n</ul>",($ref_level-$level));
       $menu.= "\n</li>";
+      $menu.= str_repeat("\n</ul></li>",($ref_level-$level));
     }
     $ref_level = $level;
 
-    $menu.= '
-
-           <li';
+    $menu.= "\n\n".'<li';
     if (isset($page['cat'])
         and is_numeric($page['cat'])
         and $category['id'] == $page['cat'])
@@ -374,13 +370,11 @@ function get_html_menu_category($categories)
     $menu.= '>';
   
     $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
-    $menu.= '
-             <a href="'.$url.'">'.$category['name'].'</a>';
+    $menu.= "\n".'<a href="'.$url.'">'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
     {
-      $menu.= '
-             <span class="menuInfoCat"';
+      $menu.= "\n".'<span class="menuInfoCat"';
       $menu.= ' title="'.$category['nb_images'];
       $menu.= ' '.$lang['images_available'].'">';
       $menu.= '['.$category['nb_images'].']';
@@ -388,9 +382,8 @@ function get_html_menu_category($categories)
       $menu.= get_icon($category['date_last']);
     }
   }
-  
-  $menu.= '</li>
-             </ul>';
+
+  $menu.= str_repeat("\n</li></ul>",($level));
   
   return $menu;
 }
