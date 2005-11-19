@@ -104,10 +104,10 @@
     <ul class="categoryActions">
       <li>&nbsp;</li>
       <!-- BEGIN caddie -->
-      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" alt="{lang:caddie}"/></a></li>
+      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="./template/yoga/theme/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
       <!-- END caddie -->
       <!-- BEGIN edit -->
-      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/yoga/theme/category_edit.png" alt="{lang:edit}"/></a></li>
+      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="./template/yoga/theme/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
       <!-- END edit -->
     </ul>
     <h2>{TITLE}</h2>
@@ -122,14 +122,15 @@
   <!-- BEGIN line -->
   <!-- BEGIN thumbnail -->
   <li>
-    <span>
-      <span><span class="wrap">
+    <span class="wrap1">
+      <span class="wrap2">
         <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
-          <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
-	  alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
-	  title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
+            <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
+	    alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
+	    title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
         </a>
-      </span></span>
+      </span>
+      <span class="thumbLegend">
       <!-- BEGIN element_name -->
       {thumbnails.line.thumbnail.element_name.NAME}
       <!-- END element_name -->
@@ -140,7 +141,8 @@
       <!-- BEGIN nb_comments -->
       <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
       <!-- END nb_comments -->
-     </span>
+      </span>
+    </span>
   </li>
   <!-- END thumbnail -->
   <!-- END line -->

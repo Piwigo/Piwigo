@@ -6,7 +6,9 @@ function correctPNG()
    {
    for(var i=0; i<document.images.length; i++)
       {
-	  var img = document.images[i]
+      var img = document.images[i]
+      if (img.className == "button" || img.className == "icon")
+          {
 	  var imgName = img.src.toUpperCase()
 	  if (imgName.substring(imgName.length-3, imgName.length) == "PNG")
 	     {
@@ -24,6 +26,7 @@ function correctPNG()
 		 img.outerHTML = strNewHTML
 		 i = i-1
 	     }
+          }
       }
    }
 window.attachEvent("onload", correctPNG);

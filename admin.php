@@ -86,7 +86,10 @@ $template->assign_vars(
     'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
     'U_USERS'=>add_session_id($link_start.'user_list' ),
     'U_GROUPS'=>add_session_id($link_start.'group_list' ),
-    'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
+    'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php'),
+    'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
+    'L_ADMIN' => $lang['admin'],
+    'L_ADMIN_HINT' => $lang['hint_admin']
     )
   );
 
