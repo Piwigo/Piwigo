@@ -287,7 +287,8 @@ SELECT COUNT(DISTINCT(id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-  WHERE '.$since_options[$page['since']]['clause'].'
+  WHERE validated = \'true\'
+    AND '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'];
@@ -329,7 +330,8 @@ SELECT com.id AS comment_id
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-  WHERE '.$since_options[$page['since']]['clause'].'
+  WHERE validated = \'true\'
+    AND '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'];
