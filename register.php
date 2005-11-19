@@ -36,14 +36,15 @@ if (isset($_POST['submit']))
   {
     array_push($errors, $lang['reg_err_pass']);
   }
-  
-  $errors =
-    array_merge(
-      $errors,
-      register_user($_POST['login'],
-                    $_POST['password'],
-                    $_POST['mail_address'])
-      );
+  else
+  {
+    $errors =
+      register_user(
+        $_POST['login'],
+        $_POST['password'],
+        $_POST['mail_address']
+        );
+  }
   
   if (count($errors) == 0)
   {
