@@ -398,16 +398,21 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       mass_inserts(COMMENTS_TABLE, $fields, array($data));
       
       // information message
-      $message = $lang['comment_added'];
-
-      if (!$conf['comments_validation'] or $user['status'] == 'admin')
+      $message =
+        $lang['comment_added']
+        .(
+          ($conf['comments_validation'] and $user['status'] != 'admin')
+          ?
+          '<br />'.$lang['comment_to_validate']
+          :
+          ''
+          )
+        ;
       
-      if ( $conf['comments_validation'] and $user['status'] != 'admin' )
-      {
-        $message.= '<br />'.$lang['comment_to_validate'];
-      }
-      $template->assign_block_vars('information',
-                                   array('INFORMATION'=>$message));
+      $template->assign_block_vars(
+        'information',
+        array('INFORMATION'=>$message)
+        );
     }
     else
     {
