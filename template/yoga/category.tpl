@@ -68,7 +68,7 @@
     <!-- BEGIN quickconnect -->
     <form method="post" action="{F_IDENTIFY}" class="filter" id="quickconnect">
       <fieldset>
-        <legend>{lang:Connection}</legend>
+        <legend>{lang:Quick connect}</legend>
     
         <label>
           {lang:Username}

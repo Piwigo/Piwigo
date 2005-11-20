@@ -48,6 +48,7 @@ $lang['Category'] = 'Category';
 $lang['Close this window'] = 'Close this window';
 $lang['Confirm Password'] = 'Confirm Password';
 $lang['Connection'] = 'Connection';
+$lang['Quick connect'] = 'Quick connect';
 $lang['Connection settings'] = 'Connection settings';
 $lang['Contact webmaster'] = 'Contact webmaster';
 $lang['Create a new account'] = 'Create a new account';
