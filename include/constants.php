@@ -59,4 +59,5 @@ define('IMAGE_METADATA_TABLE', $prefixeTable.'image_metadata');
 define('RATE_TABLE', $prefixeTable.'rate');
 define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
 define('CADDIE_TABLE', $prefixeTable.'caddie');
+define('UPGRADE_TABLE', $prefixeTable.'upgrade');
 ?>

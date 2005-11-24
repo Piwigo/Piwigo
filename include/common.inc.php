@@ -131,7 +131,47 @@ mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
 or die ( "Could not connect to database server" );
 mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
-	
+
+if ($conf['check_upgrade_feed'])
+{
+  define('PREFIX_TABLE', $prefixeTable);
+  define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
+  
+  // retrieve already applied upgrades
+  $query = '
+SELECT id
+  FROM '.PREFIX_TABLE.'upgrade
+;';
+  $applied = array_from_query($query, 'id');
+
+  // retrieve existing upgrades
+  $existing = array();
+
+  if ($contents = opendir(UPGRADES_PATH))
+  {
+    while (($node = readdir($contents)) !== false)
+    {
+      if (is_file(UPGRADES_PATH.'/'.$node)
+          and preg_match('/^(.*?)-database\.php$/', $node, $match))
+      {
+        array_push($existing, $match[1]);
+      }
+    }
+  }
+  natcasesort($existing);
+
+  // which upgrades need to be applied?
+  if (count(array_diff($existing, $applied)) > 0)
+  {
+    echo
+      '<p>'
+      .'Some database upgrades are missing, '
+      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>'
+      .'</p>'
+      ;
+  }
+}
+
 //
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available

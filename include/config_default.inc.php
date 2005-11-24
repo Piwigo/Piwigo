@@ -182,6 +182,14 @@ $conf['users_page'] = 20;
 // "options" parameter missing on mail() function execution.
 $conf['mail_options'] = false;
 
+// check_upgrade_feed: check if there are database upgrade required. Set to
+// true, a message will strongly encourage you to upgrade your database if
+// needed.
+//
+// This configuration parameter is set to true in BSF branch and to false
+// elsewhere.
+$conf['check_upgrade_feed'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

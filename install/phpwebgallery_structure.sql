@@ -201,6 +201,18 @@ CREATE TABLE `phpwebgallery_sites` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_upgrade`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_upgrade`;
+CREATE TABLE `phpwebgallery_upgrade` (
+  `id` varchar(20) NOT NULL default '',
+  `applied` datetime NOT NULL default '0000-00-00 00:00:00',
+  `description` varchar(255) default NULL,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_user_access`
 --
 
