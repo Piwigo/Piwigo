@@ -146,20 +146,22 @@ ul.categoryActions {
 
 /* User comments */
 
+#content DIV#comments {
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: padding-box;
+}
 #content DIV.comment {
-  margin: 5px;
-  border: 1px solid gray;
-  min-height: 150px; /* maximum thumbnail height */
+  margin: 0 0 0.5em 0;
+  padding: 0;
+  overflow: hidden; /* these 2 lines ensure the floating child is kept in the DIV */
+  width: 100%;	    /* don't ask why. It's a very usefull trick                   */
 }
 
-#content DIV.comment > A.illustration {
+#content DIV.comment A.illustration {
   display: block;
-  position: absolute;
-  margin: 5px;
-}
-
-#content DIV.comment > A.illustration IMG {
-  border: 1px solid gray;
+  float: left;
+  margin: 0.5em 0 0 0.5em;
 }
 
 #content DIV.comment P.commentHeader {
@@ -172,17 +174,14 @@ ul.categoryActions {
   margin: 0.2em;
 }
 
-#content DIV.comment > UL.actions > LI {
+#content DIV.comment  UL.actions  LI {
   display: inline;
 }
 
 #content DIV.comment BLOCKQUOTE {
-  margin: 1em 1em 1em 150px; /* margin-left corresponds to maximum thumbnail width */
-  border: 1px solid #d3d3d3; 
-  border-left: 2px solid gray;
+  margin: 1em 0.5em 0.5em 150px; /* margin-left corresponds to maximum thumbnail width + ~10px */
   padding: 0.5em;
 }
-
 
 /* should be in admin.css ? CSS properties also used in popuphelp */
 

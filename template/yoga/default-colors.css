@@ -98,9 +98,17 @@ A.navThumb, A.navThumb:hover {
     background:#eeeeee;
 }
 
+/* User comments */
+#content DIV.comment {
+  border: 1px solid gray;
+}
 
-#comments BLOCKQUOTE {
-    background: #eeeeee;
+#content DIV.comment  A.illustration IMG {
+  border: 1px solid gray;
+}
+
+#comments DIV.comment BLOCKQUOTE {
+    border: 1px solid #d3d3d3;
     border-left: 2px solid #696969;
 }
 
