@@ -86,6 +86,7 @@ $template->assign_vars(
     'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
     'U_USERS'=>add_session_id($link_start.'user_list' ),
     'U_GROUPS'=>add_session_id($link_start.'group_list' ),
+    'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
     'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
     )
   );

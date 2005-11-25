@@ -6,6 +6,7 @@
     <dd>
       <ul>
 	<li><a href="{U_RETURN}">{lang:home}</a></li>
+        <li><a href="{U_ADMIN}" >{lang:admin}</a></li>
       </ul>
     </dd>
 
