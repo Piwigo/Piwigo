@@ -480,8 +480,9 @@ if (isset($_GET['action']))
 }
 else
 {
-  $page['action'] = 'generate';
+  $page['action'] = '';
 }
+
 echo '<pre>';
 switch ($page['action'])
 {
@@ -546,6 +547,25 @@ switch ($page['action'])
       echo 'PWG-ERROR-3 : listing.xml does not exist'."\n";
     }
     break;
+  }
+  default :
+  {
+    // Menu de lancement pour la mise à jour manuel des sites distant
+    echo '</pre>
+<ul>
+  <li>
+    <a href="create_listing_file.php?action=generate">Generate listing.xml</a>
+  </li>
+
+  <li>
+    <a href="create_listing_file.php?action=test">Test</a>
+  </li>
+
+  <li>
+    <a href="create_listing_file.php?action=clean">Clean</a>
+  </li>
+</ul>
+<pre>';
   }
 }
 echo '</pre>';
