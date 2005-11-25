@@ -167,7 +167,8 @@ SELECT DISTINCT(image_id)
 
 if (!isset($_GET['start'])
     or !is_numeric($_GET['start'])
-    or $_GET['start'] < 0)
+    or $_GET['start'] < 0
+    or (isset($_GET['display']) and 'all' == $_GET['display']))
 {
   $page['start'] = 0;
 }
