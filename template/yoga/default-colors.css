@@ -26,7 +26,7 @@ input, select, textarea {
 	background-color: #d3d3d3;	/* lightgrey */
 }
 
-#errors { /* Errors display */
+.errors { /* Errors display */
   color: red;
   background-color: #ffe1e1;
   font-weight: bold;
@@ -39,7 +39,7 @@ input, select, textarea {
   padding: 10px 50px 10px 10px;
 }
 
-#errors ul li
+.errors ul li
 {
   font-weight: normal;
 }
@@ -47,7 +47,7 @@ input, select, textarea {
 /**
  * Informations box in administration
  */
-#infos {
+.infos {
   text-align: left;
   background-color: palegreen;
   background-image: url(../../template-common/icons/admin/infos.png);

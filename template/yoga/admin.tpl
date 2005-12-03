@@ -77,7 +77,7 @@
   <!-- END errors -->
 
   <!-- BEGIN infos -->
-  <div id="infos">
+  <div class="infos">
     <ul>
       <!-- BEGIN info -->
       <li>{infos.info.INFO}</li>
