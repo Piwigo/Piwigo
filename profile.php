@@ -205,7 +205,7 @@ $template->assign_vars(
 
 $blockname = 'template_option';
 
-foreach (get_templates() as $pwg_template)
+foreach (get_themes() as $pwg_template)
 {
   if (isset($_POST['submit']))
   {

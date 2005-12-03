@@ -4,19 +4,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
 <!-- BIG FIX ME BELOW (paths) -->
-<link rel="stylesheet" type="text/css" href="template/yoga/default-layout.css">
-<link rel="stylesheet" type="text/css" href="template/yoga/default-colors.css">
+<link rel="stylesheet" type="text/css" href="template/{themeconf:template}/default-layout.css">
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue
-the "text/nonsense" prevents geko based browsers to load it -->
-<link rel="stylesheet" type="text/nonsense" href="template/yoga/fix-khtml.css">
-<link rel="stylesheet" type="text/css" media="print" href="template/yoga/print.css">
-<!-- AN OTHER FIX ME -->
-<style type="text/css">
-.notDoneYet {
-        background: yellow;
-        color: red;
-}
-</style>
+the "text/nonsense" prevents gecko based browsers to load it -->
+<link rel="stylesheet" type="text/nonsense" href="template/{themeconf:template}/fix-khtml.css">
+<link rel="stylesheet" type="text/css" media="print" href="template/{themeconf:template}/print.css">
+<link rel="stylesheet" type="text/css" href="template/{themeconf:template}/default-colors.css">
+<link rel="stylesheet" type="text/css" href="template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
 <!-- BEGIN refresh -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->

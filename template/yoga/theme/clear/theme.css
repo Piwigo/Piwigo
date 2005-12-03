@@ -1,0 +1,78 @@
+/* $Id$ */
+
+/* text color */
+BODY, H1, H2, H3, DT {
+  color:#696969;	/* dimgray */
+}
+
+/* backgrounds */
+BODY, H3, .throw {
+  background-color: #ffffff;	/* white */
+}
+
+H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
+  background-color: #d3d3d3;
+}
+
+#menubar DL, #content, #imageToolBar {
+  background-color: #eeeeee;
+}
+
+/* borders */
+#menubar DL, #content, #imageToolBar, #theImage IMG,
+#comments DIV.comment BLOCKQUOTE {
+  border: 1px solid #d3d3d3;
+}
+
+#theImage IMG {
+  border-width: 3px;
+}
+
+#content UL.thumbnail IMG {
+    border: 1px solid #a0a0a0;
+}
+
+FIELDSET, INPUT, SELECT, TEXTAREA,
+#content DIV.comment  A.illustration IMG, #infos {
+  border: 1px solid gray;
+}
+
+#comments DIV.comment BLOCKQUOTE {
+  border-left: 2px solid #696969;
+}
+
+#content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  -moz-border-radius: 4px;	/* round corners with Geko */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+#content UL.thumbnails SPAN.wrap2:hover {
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+}
+
+/* links */
+A {
+    color: #005e89;
+    background: transparent;
+}
+
+A:hover {
+    color: #858460;
+}
+
+#imageToolBar A, #imageToolBar A:hover {
+    border-bottom: none;
+}
+
+A.navThumb, A.navThumb:hover {
+    border-bottom: none;
+}
+
+/* others */
+.pleaseNote {
+    background: #9c9c9c;
+    color: #ffff99;
+    padding: 1ex;
+    font-weight: bold;
+}
+

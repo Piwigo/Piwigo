@@ -1,20 +1,11 @@
 #menubar {
-    /* Do not put font-size: 90% here for it makes it harder to have correct
-       margin for contentarea */
     float: left;
-    left: 0px;
-
-    width: 22em;
     margin: 0 0 10px 1em;
     padding: 0;
     /* Fix against the "double margin of a floated item" IE bug */
     /* Damned: that screws up top_navbar in opera 7.54/Linux! */
     display: inline;
     text-align: left; /* follow-up of the "be nice to IE5" rule */
-}
-
-BODY#theAdminPage #menubar {
-    width: 12em;
 }
 
 #menubar DL, #menubar DT, #menubar DD {
@@ -24,11 +15,9 @@ BODY#theAdminPage #menubar {
 /* H2 properties copied here */
 #menubar DT {
     font-weight: bold; /* default for h2 */
-
     margin: 0;
     padding: 5px 10px;
     font-size: 120%;
-
     text-align: center;
 }
 

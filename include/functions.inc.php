@@ -533,11 +533,25 @@ function get_query_string_diff($rejects = array())
 }
 
 /**
- * returns available templates
+ * returns available templates/themes
  */
 function get_templates()
 {
-  return get_dirs(PHPWG_ROOT_PATH.'template');
+  return get_dirs(PHPWG_ROOT_PATH.'theme');
+}
+function get_themes()
+{
+  $themes = array();
+
+  foreach (get_dirs(PHPWG_ROOT_PATH.'template') as $template)
+  {
+    foreach (get_dirs(PHPWG_ROOT_PATH.'template/'.$template.'/theme') as $theme)
+    {
+      array_push($themes, $template.'/'.$theme);
+    }
+  }
+
+  return $themes;
 }
 
 /**
@@ -565,8 +579,7 @@ function get_thumbnail_src($path, $tn_ext = '')
   }
   else
   {
-    $src = PHPWG_ROOT_PATH;
-    $src.= 'template/'.$user['template'].'/mimetypes/';
+    $src = get_themeconf('mime_icon_dir');
     $src.= strtolower(get_extension($path)).'.png';
   }
   
@@ -725,5 +738,19 @@ function l10n($key)
   }
   
   return isset($lang[$key]) ? $lang[$key] : $key;
+}
+
+/**
+ * returns the corresponding value from $themeconf if existing. Else, the key is
+ * returned
+ *
+ * @param string key
+ * @return string
+ */
+function get_themeconf($key)
+{
+  global $themeconf;
+
+  return $themeconf[$key];
 }
 ?>

@@ -1,0 +1,109 @@
+/* $Id$ */
+
+/* text color */
+BODY, H1, H3, DT {
+  color:#e0e0e0;
+}
+
+H2, #menubar DT, .throw {
+    color: #fff48e;
+}
+
+#content .navigationBar {
+    color: #aaaaaa;
+}
+#content .pageNumberSelected {
+    color: #000000;
+}
+
+/* backgrounds */
+BODY {
+  background-color: #000000;
+}
+
+H2, H3, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .throw {
+  background-color: #3f3f3f;
+}
+
+#menubar DL, #content, #imageToolBar {
+  background-color: #5f5f5f;
+}
+
+H2, #menubar DT, .throw  {
+    background-image: url(images/tableh1_bg.png);
+}
+
+#imageHeaderBar {
+    background-image: url(images/tableh2_bg.png);
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+/* borders */
+#menubar DL, #content, #imageToolBar, #theImage IMG,
+#comments DIV.comment BLOCKQUOTE {
+  border: 1px solid #000000;
+}
+
+#theImage IMG {
+  border-width: 3px;
+}
+
+#content UL.thumbnail IMG {
+    border: 1px solid #a0a0a0;
+}
+
+FIELDSET, INPUT, SELECT, TEXTAREA,
+#content DIV.comment  A.illustration IMG, #infos {
+  border: 1px solid gray;
+}
+
+#comments DIV.comment BLOCKQUOTE {
+  border-left: 2px solid #696969;
+}
+
+#content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  -moz-border-radius: 4px;	/* round corners with Geko */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+#content UL.thumbnails SPAN.wrap2:hover {
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+}
+
+H2, #menubar DT, #imageHeaderBar {
+    border-bottom: 1px solid #000000;
+}
+
+/* links */
+A {
+    color: #FFFFFF;
+}
+
+A:hover {
+    color: #FFF48E;
+}
+
+#imageToolBar A, #imageToolBar A:hover {
+    border-bottom: none;
+}
+
+A.navThumb, A.navThumb:hover {
+    border-bottom: none;
+}
+
+/* others */
+.pleaseNote {
+    background: #9c9c9c;
+    color: #ffff99;
+    padding: 1ex;
+    font-weight: bold;
+}
+#the_page {
+    border: 1px solid #e0e0e0;
+    padding-top: 5px;	
+    padding-bottom:30px;
+    text-align:center;
+    display:block;
+    background:#3f3f3f;
+}

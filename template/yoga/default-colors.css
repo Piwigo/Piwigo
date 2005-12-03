@@ -1,34 +1,6 @@
-BODY {
-	color:#696969; /* dimgray */
-    /*color:#111111;*/
-    background: #ffffff;
-}
+/* $Id$ */
 
-H1 {
-    color: #696969;
-    background: transparent;
-}
-
-H2 {
-    color: #696969;
-    background: #d3d3d3;
-}
-
-H3 {
-    color: #696969;
-    background: #ffffff;
-}
-
-A {
-    color: #005e89;
-    background: transparent;
-}
-
-A:hover {
-    color: #858460;
-}
-
-
+/* others */
 .pleaseNote {
     background: #9c9c9c;
     color: #ffff99;
@@ -36,43 +8,8 @@ A:hover {
     font-weight: bold;
 }
 
-#imageHeaderBar {
-    background: #d3d3d3;
-}
-#imageToolBar {
-    background: #eeeeee;
-    border: 1px solid #d3d3d3;
-}
 #imageToolBar * {
     background: inherit;
-}
-
-#imageToolBar A, #imageToolBar A:hover {
-    border-bottom: none;
-}
-#imageToolBar A:hover {
-    background: #d3d3d3;
-}
-
-#theImage IMG {
-    border: 3px solid #d3d3d3;
-}
-A.navThumb, A.navThumb:hover {
-    border-bottom: none;
-}
-
-
-#content {
-    border: 1px solid #d3d3d3;
-    background:#eeeeee;
-}
-
-#content H3 {
-    text-align: center;
-}
-
-#content UL.thumbnail IMG {
-    border: 1px solid #a0a0a0;
 }
 
 /* So that non-links are slightly greyed out */
@@ -83,43 +20,10 @@ A.navThumb, A.navThumb:hover {
     color: #000000;
 }
 
-
-#menubar DL {
-    border: 1px solid #d3d3d3;
-    background: #eeeeee;
-}
-
-#menubar DT {
-    color: #696969;
-    background: #d3d3d3;
-}
-
-#menubar DD {
-    background:#eeeeee;
-}
-
-/* User comments */
-#content DIV.comment {
-  border: 1px solid gray;
-}
-
-#content DIV.comment  A.illustration IMG {
-  border: 1px solid gray;
-}
-
-#comments DIV.comment BLOCKQUOTE {
-    border: 1px solid #d3d3d3;
-    border-left: 2px solid #696969;
-}
-
 /* Tables & forms */
-.throw {
-	background-color:white;
-}
 input, select, textarea {
 	color:black;
-	background-color: lightgrey;
-        border: 1px solid gray;
+	background-color: #d3d3d3;	/* lightgrey */
 }
 
 #errors { /* Errors display */
@@ -129,7 +33,7 @@ input, select, textarea {
   text-align: left;
   margin: 5px;
   border: 1px solid red;
-  background-image: url(admin/images/errors.png);
+  background-image: url(../../template-common/icons/admin/errors.png);
   background-repeat: no-repeat;
   background-position: top right;
   padding: 10px 50px 10px 10px;
@@ -146,20 +50,15 @@ input, select, textarea {
 #infos {
   text-align: left;
   background-color: palegreen;
-  background-image: url(admin/images/infos.png);
+  background-image: url(../../template-common/icons/admin/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
   color: darkgreen;
   font-weight: bold;
   margin: 5px;
-  border:1px solid gray;
   padding: 10px 50px 10px 10px;
 }
 
 LEGEND {
   font-style: italic;
-}
-
-FIELDSET {
-  border: 1px solid gray;
 }

@@ -298,8 +298,9 @@ SELECT id_uppercat, COUNT(*) AS nb_subcats
 
 foreach ($categories as $category)
 {
-  $images_folder = PHPWG_ROOT_PATH.'template/';
-  $images_folder.= $user['template'].'/admin/images';
+  // TODO : not used anymore ?
+  //$images_folder = PHPWG_ROOT_PATH.'template/';
+  //$images_folder.= $user['template'].'/admin/images';
   
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
   $cat_list_url = $base_url.'cat_list';

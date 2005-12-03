@@ -220,6 +220,12 @@ if ($user['is_the_guest'])
   $user['username'] = $lang['guest'];
 }
 
+// include template/theme configuration
+list($user['template'], $user['theme']) = explode('/', $user['template']);
+// TODO : replace initial $user['template'] by $user['layout']
+
+include(PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/'.$user['theme'].'/themeconf.inc.php');
+
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
 ?>

@@ -196,7 +196,7 @@ foreach (array('prev', 'current', 'next') as $i)
   $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
-  $icon = PHPWG_ROOT_PATH.'template/'.$user['template'].'/mimetypes/';
+  $icon = get_themeconf('mime_icon_dir');
   $icon.= strtolower(get_extension($row['file'])).'.png';
 
   if (isset($row['representative_ext']) and $row['representative_ext'] != '')
@@ -609,7 +609,7 @@ if ( !$user['is_the_guest'] )
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/favorite.png',
+        'FAVORITE_IMG' => get_themeconf('icon_dir').'/favorite.png',
         'FAVORITE_HINT' =>$lang['add_favorites_hint'],
         'FAVORITE_ALT' =>$lang['add_favorites_alt'],
         'U_FAVORITE' => $url
@@ -624,7 +624,7 @@ if ( !$user['is_the_guest'] )
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/del_favorite.png',
+        'FAVORITE_IMG' => get_themeconf('icon_dir').'/del_favorite.png',
         'FAVORITE_HINT' =>$lang['del_favorites_hint'],
         'FAVORITE_ALT' =>$lang['del_favorites_alt'],
         'U_FAVORITE'=> $url

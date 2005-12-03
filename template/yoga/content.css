@@ -1,11 +1,7 @@
 /* $Id$ */
 #content {
-    margin-left: 24em;
     margin-right: 1em;
     margin-bottom: 1em; /* when it's longer than menu bar */
-}
-BODY#theAdminPage #content {
-    margin-left: 14em;
 }
 
 BODY#theCommentsPage #content,
@@ -21,33 +17,18 @@ BODY#theNotificationPage #content
   margin: 1em;
 }
 
-#content H2 {
+#content H2, H3 {
     margin-bottom: 1ex;
 }
 
 #content H3 {
-    margin-bottom: 1ex;
+    text-align: center;
 }
 
 /* Thumbnails customization */
-#content UL.thumbnails SPAN, #content UL.thumbnails SPAN.wrap2 A {
-  width: 140px;			/* max thumbnail width + 2px */
-}
-#content UL.thumbnails SPAN.wrap2 {
-  height: 140px;		/* max thumbnail height + 2px */
-}
-#content UL.thumbnails SPAN.wrap2 {
-  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
-  -moz-border-radius: 4px;	/* round corners with Geko */
-  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
-}
-#content UL.thumbnails SPAN.wrap2:hover {
-  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
-}
 #content UL.thumbnails SPAN.thumbLegend {
   font-size: 80%;		/* font size */
   height: 3em;			/* max legend height (don't set auto to be Geko friendly)*/
-  display: block;		/* display: none; if you don't want legend */
   overflow: hidden;		/* oversized legend is clipped */
 }
 
@@ -179,7 +160,9 @@ ul.categoryActions {
 }
 
 #content DIV.comment BLOCKQUOTE {
-  margin: 1em 0.5em 0.5em 150px; /* margin-left corresponds to maximum thumbnail width + ~10px */
+  margin-top: 1em;
+  margin-right: 0.5em; 
+  margin-bottom: 150px; 
   padding: 0.5em;
 }
 

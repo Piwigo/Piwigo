@@ -1,0 +1,33 @@
+/* $Id$ */
+
+/* Set the width of the menubar for the galery */
+#menubar {
+  width: 18em;
+}
+#content {
+  margin-left: 20em;	/* = #menubar width + 2em */
+}
+
+/* Set the width of the menubar for the admin section */
+BODY#theAdminPage #menubar {
+  width: 12em;
+}
+BODY#theAdminPage #content {
+  margin-left: 14em;
+}
+
+/* Set some sizes according to your maximum thumbnail width adn height */
+#content UL.thumbnails SPAN, #content UL.thumbnails SPAN.wrap2 A {
+  width: 140px;			/* max thumbnail width + 2px */
+}
+#content UL.thumbnails SPAN.wrap2 {
+  height: 140px;		/* max thumbnail height + 2px */
+}
+#content DIV.comment BLOCKQUOTE {
+  margin-left: 150px;		/*maximum thumbnail width + ~10px */
+}
+
+/* display/hide thumbnails legend */
+#content UL.thumbnails SPAN.thumbLegend {
+  display: block;		/* display: none; if you don't want legend */
+}

@@ -43,8 +43,7 @@ function get_icon( $date )
   $title = $lang['recent_image'].'&nbsp;';
   if ( $diff < $user['recent_period'] * $day_in_seconds )
   {
-    $icon_url = './template/'.$user['template'].'/theme/';
-    $icon_url.= 'recent.png';
+    $icon_url = get_themeconf('icon_dir').'/recent.png';
     $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );

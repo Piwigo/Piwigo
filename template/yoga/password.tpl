@@ -3,7 +3,7 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="./template/yoga/theme/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
     </ul>
     <h2>{lang:Password forgotten}</h2>
   </div>

@@ -330,6 +330,8 @@ class Template {
     {
       // PWG specific : communication between template and $lang
       $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
+      // PWG specific : expand themeconf.inc.php variables
+      $code = preg_replace('/\{themeconf:([^}]+)\}/e', "get_themeconf('$1')", $code);
             
       // replace \ with \\ and then ' with \'.
       $code = str_replace('\\', '\\\\', $code);
