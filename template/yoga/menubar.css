@@ -70,3 +70,23 @@ BODY#theAdminPage #menubar {
 #menubar INPUT {
     text-indent: 2px;
 }
+
+/* quickconnect form */
+FORM#quickconnect { 
+  margin: 0;
+}
+
+FORM#quickconnect FIELDSET {
+  margin: 5px;
+}
+
+FORM#quickconnect P {
+  float: left;
+  margin: 0;
+}
+
+FORM#quickconnect UL.actions {
+  display: inline;
+  margin: 0,5em 0 0 0;
+  float: right;
+}

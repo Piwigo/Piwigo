@@ -173,10 +173,6 @@ ul.categoryActions {
   margin: 0.2em;
 }
 
-#content DIV.comment  UL.actions  LI {
-  display: inline;
-}
-
 #content DIV.comment BLOCKQUOTE {
   margin: 1em 0.5em 0.5em 150px; /* margin-left corresponds to maximum thumbnail width + ~10px */
   padding: 0.5em;
