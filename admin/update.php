@@ -469,7 +469,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
   echo ' -->'."\n";
 
   // retrieving informations given by uploaders
-  if (!$simulate)
+  if (!$simulate and count($cat_ids) > 0)
   {
     $query = '
 SELECT id,file,storage_category_id,infos
