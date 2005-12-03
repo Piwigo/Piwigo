@@ -192,6 +192,12 @@ directory'
 define(\'PHPWG_IN_UPGRADE\', true);
 </pre>'
       );
+
+    array_push(
+      $infos,
+      'Perform a maintenance check in [Administration>General>Maintenance]
+if you encounter any problem.'
+      );
     
     $template->assign_block_vars('upgrade.infos', array());
     
