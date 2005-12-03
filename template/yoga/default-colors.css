@@ -33,7 +33,7 @@ input, select, textarea {
   text-align: left;
   margin: 5px;
   border: 1px solid red;
-  background-image: url(../../template-common/icons/admin/errors.png);
+  background-image: url(icon/admin/errors.png);
   background-repeat: no-repeat;
   background-position: top right;
   padding: 10px 50px 10px 10px;
@@ -50,7 +50,7 @@ input, select, textarea {
 .infos {
   text-align: left;
   background-color: palegreen;
-  background-image: url(../../template-common/icons/admin/infos.png);
+  background-image: url(icon/admin/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
   color: darkgreen;
