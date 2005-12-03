@@ -183,22 +183,6 @@ FORM.properties LABEL {
   padding: 0 0.5em 0 0;
 }
 
-FORM#quickconnect { 
-  margin: 0;
-}
-
-FORM#quickconnect FIELDSET {
-  margin: 5px;
-}
-
-FORM#quickconnect P {
-  text-align: center;
-}
-
-FORM#quickconnect P INPUT {
-  display: inline;
-}
-
 FORM.properties LABEL.mandatory {
   font-weight: bold;
 }
@@ -260,3 +244,16 @@ FORM#addComment FIELDSET LABEL {
 FORM#addComment FIELDSET INPUT[type="hidden"] {
   display: none;
 }
+
+/* button tools */
+UL.actions {
+  text-indent: 0;
+  list-style: none;
+}
+UL.actions  LI {
+  display: inline;
+}
+UL.actions  A {
+  border: none;
+}
+

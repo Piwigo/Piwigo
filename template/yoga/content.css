@@ -155,10 +155,6 @@ ul.categoryActions {
   margin: 0.2em;
 }
 
-#content DIV.comment  UL.actions  LI {
-  display: inline;
-}
-
 #content DIV.comment BLOCKQUOTE {
   margin-top: 1em;
   margin-right: 0.5em; 

@@ -90,7 +90,11 @@
         <p>
          <input type="submit" name="login" value="{lang:submit}">
         </p>
-    
+    <ul class="actions">
+      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
+    </ul>
+
       </fieldset>    
     </form>
     <!-- END quickconnect -->
