@@ -287,6 +287,70 @@ foreach ($queries as $query)
   pwg_query($query);
 }
 
+// delete obsolete users table colums
+$queries = array(
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN status
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN nb_image_line
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN maxheight
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN language
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN nb_line_page
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN expand
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN template
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN maxwidth
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN show_nb_comments
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  DROP COLUMN recent_period
+;",
+
+  "
+ALTER TABLE phpwebgallery_users
+  CHANGE COLUMN password password varchar(32) default NULL
+;"
+  );
+
+foreach ($queries as $query)
+{
+  $query = str_replace('phpwebgallery_', PREFIX_TABLE, $query);
+  pwg_query($query);
+}
+
 $infos = array();
 
 if ($prefix_thumbnail != 'TN-')
