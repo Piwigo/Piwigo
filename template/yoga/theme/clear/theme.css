@@ -39,6 +39,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 
 #comments DIV.comment BLOCKQUOTE {
   border-left: 2px solid #696969;
+  background-color: #eee;
 }
 
 #content UL.thumbnails SPAN.wrap2 {
