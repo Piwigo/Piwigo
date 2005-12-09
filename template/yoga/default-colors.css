@@ -110,6 +110,7 @@ A.navThumb, A.navThumb:hover {
 #comments DIV.comment BLOCKQUOTE {
     border: 1px solid #d3d3d3;
     border-left: 2px solid #696969;
+    background-color: #eee;
 }
 
 /* Tables & forms */
