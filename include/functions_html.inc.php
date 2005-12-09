@@ -338,6 +338,7 @@ function get_html_menu_category($categories)
   global $page, $lang;
 
   $ref_level = 0;
+  $level = 0;
   $menu = '';
   
   foreach ($categories as $category)
