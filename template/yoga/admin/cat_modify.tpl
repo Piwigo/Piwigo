@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="template/yoga/theme/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{lang:title_edit_cat}</h2>
 </div>
@@ -9,16 +9,16 @@
 <h3>{CATEGORIES_NAV}</h3>
 
 <ul class="categoryActions">
-  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="./template/yoga/theme/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li>
+  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li>
   <!-- BEGIN elements -->
-  <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="./template/yoga/theme/category_elements.png" class="button" alt="{lang:elements}" /></a></li>
+  <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="{themeconf:icon_dir}/category_elements.png" class="button" alt="{lang:elements}" /></a></li>
   <!-- END elements -->
-  <li><a href="{U_CHILDREN}" title="{lang:manage sub-categories}"><img src="./template/yoga/theme/category_children.png" class="button" alt="{lang:sub-categories}" /></a></li>
+  <li><a href="{U_CHILDREN}" title="{lang:manage sub-categories}"><img src="{themeconf:icon_dir}/category_children.png" class="button" alt="{lang:sub-categories}" /></a></li>
   <!-- BEGIN permissions -->
-  <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="./template/yoga/theme/category_permissions.png" class="button" alt="{lang:permissions}" /></a></li>
+  <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="{themeconf:icon_dir}/category_permissions.png" class="button" alt="{lang:permissions}" /></a></li>
   <!-- END permissions -->
   <!-- BEGIN delete -->
-  <li><a href="{delete.URL}" title="{lang:delete category}"><img src="./template/yoga/theme/category_delete.png" class="button" alt="{lang:delete}" /></a></li>
+  <li><a href="{delete.URL}" title="{lang:delete category}"><img src="{themeconf:icon_dir}/category_delete.png" class="button" alt="{lang:delete}" /></a></li>
   <!-- END delete -->
 </ul>
 
@@ -118,7 +118,7 @@
         <!-- END picture -->
 
         <!-- BEGIN random -->
-        <img src="./template/yoga/theme/category_representant_random.png" class="button" alt="{lang:Random picture}" class="miniature" />
+        <img src="{themeconf:icon_dir}/category_representant_random.png" class="button" alt="{lang:Random picture}" class="miniature" />
         <!-- END random -->
       </td>
       <td>
