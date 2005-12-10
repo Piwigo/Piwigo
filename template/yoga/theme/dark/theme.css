@@ -6,14 +6,14 @@ BODY, H1, H3, DT {
 }
 
 H2, #menubar DT, .throw {
-    color: #fff48e;
+  color: #fff48e;
 }
 
 #content .navigationBar {
-    color: #aaaaaa;
+  color: #aaaaaa;
 }
 #content .pageNumberSelected {
-    color: #000000;
+  color: #000000;
 }
 
 /* backgrounds */
@@ -30,13 +30,19 @@ H2, H3, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .throw {
 }
 
 H2, #menubar DT, .throw  {
-    background-image: url(images/tableh1_bg.png);
+  background-image: url(images/tableh1_bg.png);
 }
 
+#imageHeaderBar H2 {
+  background-image: none;
+  background-color: transparent;
+  border: none;
+}
+   
 #imageHeaderBar {
-    background-image: url(images/tableh2_bg.png);
-    background-repeat: repeat-x;
-    background-position: center;
+  background-image: url(images/tableh2_bg.png);
+  background-repeat: repeat-x;
+  background-position: center;
 }
 
 /* borders */
@@ -50,7 +56,7 @@ H2, #menubar DT, .throw  {
 }
 
 #content UL.thumbnail IMG {
-    border: 1px solid #a0a0a0;
+  border: 1px solid #a0a0a0;
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
@@ -72,38 +78,38 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 
 H2, #menubar DT, #imageHeaderBar {
-    border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 
 /* links */
 A {
-    color: #FFFFFF;
+  color: #FFFFFF;
 }
 
 A:hover {
-    color: #FFF48E;
+  color: #FFF48E;
 }
 
 #imageToolBar A, #imageToolBar A:hover {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 A.navThumb, A.navThumb:hover {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* others */
 .pleaseNote {
-    background: #9c9c9c;
-    color: #ffff99;
-    padding: 1ex;
-    font-weight: bold;
+  background: #9c9c9c;
+  color: #ffff99;
+  padding: 1ex;
+  font-weight: bold;
 }
 #the_page {
-    border: 1px solid #e0e0e0;
-    padding-top: 5px;	
-    padding-bottom:30px;
-    text-align:center;
-    display:block;
-    background:#3f3f3f;
+  border: 1px solid #e0e0e0;
+  padding-top: 5px;	
+  padding-bottom:30px;
+  text-align:center;
+  display:block;
+  background:#3f3f3f;
 }

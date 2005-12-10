@@ -95,16 +95,16 @@ BODY#theNotificationPage #content
 }
 
 /* content defaults */
-#content dl, dd { margin: 10px; }
-#content dt {
+#content DL, DD { margin: 10px; }
+#content DT {
   margin-bottom: 5px;
   font-style: italic;
   font-size: 110%;
 }
 
 /* actions */
-ul.categoryActions {
-  margin: 0 0 0 0;
+UL.categoryActions {
+  margin: 2px;
   width: auto;
   padding: 0;
   text-indent: 0;
@@ -112,16 +112,16 @@ ul.categoryActions {
   text-align: center;
 }
 
-#content div.titrePage ul.categoryActions {
+#content DIV.titrePage UL.categoryActions {
   float: right;
   text-align: center;
 }
 
-#content ul.categoryActions li {
+#content UL.categoryActions LI {
   display: inline;
 }
 
-#content ul.categoryActions a img, ul.categoryActions a {
+#content UL.categoryActions A IMG, UL.categoryActions A {
   border: none;
 }
 
