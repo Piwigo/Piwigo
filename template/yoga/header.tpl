@@ -3,7 +3,7 @@
 <html lang="{LANG}" dir="{DIR}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
-<!-- BIG FIX ME BELOW (paths) -->
+<link rel="shortcut icon" type="image/x-icon" href="template-common/favicon.ico" />
 <link rel="stylesheet" type="text/css" href="template/{themeconf:template}/default-layout.css">
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue
 the "text/nonsense" prevents gecko based browsers to load it -->
