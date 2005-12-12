@@ -20,7 +20,7 @@ the "text/nonsense" prevents geko based browsers to load it -->
 <!-- BEGIN refresh -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->
-<title>{PAGE_TITLE}</title>
+<title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
 <script type="text/javascript" src="include/scripts.js"></script>
 <!--[if gte IE 5.5000]>
 <script type="text/javascript" src="include/pngfix.js"></script>
