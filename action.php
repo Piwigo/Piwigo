@@ -5,10 +5,10 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $URL$
 // | last update   : $Date$
 // | last modifier : $Author$
-// | revision      : $Revision$
+// | revision      : $Rev$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
