@@ -560,9 +560,15 @@ if (isset($picture['current']['high']))
   $template->assign_block_vars('high', array(
     'U_HIGH' => $picture['current']['high'],
 	'UUID'=>$uuid,
-	'WIDTH_IMG'=>($full_width + 16),
-	'HEIGHT_IMG'=>($full_height + 16)
+	'WIDTH_IMG'=>($full_width + 40),
+	'HEIGHT_IMG'=>($full_height + 40)
 	));
+  $template->assign_block_vars(
+    'download',
+    array('U_DOWNLOAD' => PHPWG_ROOT_PATH.'action.php?dwn='
+          .$picture['current']['high']
+    )
+  );
 }
 // button to set the current picture as representative
 if ('admin' == $user['status'] and is_numeric($page['cat']))

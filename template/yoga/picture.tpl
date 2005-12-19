@@ -20,7 +20,7 @@
   <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}" /></a>
 <!-- END representative -->
 <!-- BEGIN favorite -->
-  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" alt="{favorite.FAVORITE_ALT}"></a>
+  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
 <!-- END favorite -->
 <!-- BEGIN download -->
   <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="{themeconf:icon_dir}/save.png" class="button" alt="{L_DOWNLOAD}"></a>
@@ -47,7 +47,7 @@
 
 <div id="theImage">
 <!-- BEGIN high -->
-<a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=yes,status=yes,resizable=yes,width={high.WIDTH_IMG},height={high.HEIGHT_IMG}')">
+<a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=no,status=no,resizable=yes,width={high.WIDTH_IMG},height={high.HEIGHT_IMG}')">
 <!-- END high -->
   <img src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}">
 <!-- BEGIN high -->
