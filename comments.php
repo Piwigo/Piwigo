@@ -61,7 +61,20 @@ $since_options = array(
              'clause' => '1=1') // stupid but generic
   );
 
-$page['since'] = isset($_GET['since']) ? $_GET['since'] : 1;
+// since
+//
+$page['since'] = 1;
+if (isset($_GET['since']))
+{
+  if (!isset($since_options{ $_GET['since'] }))
+  {
+    die('Hacking attempt on "since" GET parameter');
+  }
+  else
+  {
+    $page['since'] = $_GET['since'];
+  }
+}
 
 // on which field sorting
 //
@@ -69,7 +82,14 @@ $page['sort_by'] = 'date';
 // if the form was submitted, it overloads default behaviour
 if (isset($_GET['sort_by']))
 {
-  $page['sort_by'] = $_GET['sort_by'];
+  if (!isset($sort_by{ $_GET['sort_by'] }))
+  {
+    die('Hacking attempt on "sort_by" GET parameter');
+  }
+  else
+  {
+    $page['sort_by'] = $_GET['sort_by'];
+  }
 }
 
 // order to sort
@@ -78,7 +98,14 @@ $page['sort_order'] = $sort_order['descending'];
 // if the form was submitted, it overloads default behaviour
 if (isset($_GET['sort_order']))
 {
-  $page['sort_order'] = $sort_order[$_GET['sort_order']];
+  if (!isset($sort_order{ $_GET['sort_order'] }))
+  {
+    die('Hacking attempt on "sort_order" GET parameter');
+  }
+  else
+  {
+    $page['sort_order'] = $sort_order[$_GET['sort_order']];
+  }
 }
 
 // number of items to display
@@ -86,15 +113,35 @@ if (isset($_GET['sort_order']))
 $page['items_number'] = 5;
 if (isset($_GET['items_number']))
 {
-  $page['items_number'] = $_GET['items_number'];
+  if (!in_array($_GET['items_number'], $items_number))
+  {
+    die('Hacking attempt on "items_number" GET parameter');
+  }
+  else
+  {
+    $page['items_number'] = $_GET['items_number'];
+  }
 }
 
 // which category to filter on ?
 $page['cat_clause'] = '1=1';
-if (isset($_GET['cat']) and 0 != $_GET['cat'])
+if (isset($_GET['cat']))
 {
-  $page['cat_clause'] =
-    'category_id IN ('.implode(',', get_subcat_ids(array($_GET['cat']))).')';
+  if (''.intval($_GET['cat']) != ''.$_GET['cat'])
+  {
+    die('Hacking attempt on "cat" GET parameter');
+  }
+  else if (0 != $_GET['cat'])
+  {
+    $page['cat_clause'] =
+      'category_id IN ('.
+      implode(
+        ',',
+        get_subcat_ids(array($_GET['cat']))
+        ).
+      ')'
+      ;
+  }
 }
 
 // search a particular author
@@ -127,16 +174,18 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
   }
   $page['keyword_clause'] =
     '('.
-    implode(' AND ',
-            array_map(
-              create_function(
-                '$s',
-                'return "content LIKE \'%$s%\'";'
-                ),
-              preg_split('/[\s,;]+/', $keyword)
-              )
+    implode(
+      ' AND ',
+      array_map(
+        create_function(
+          '$s',
+          'return "content LIKE \'%$s%\'";'
+          ),
+        preg_split('/[\s,;]+/', $keyword)
+        )
       ).
-    ')';
+    ')'
+    ;
 }
 
 // +-----------------------------------------------------------------------+
