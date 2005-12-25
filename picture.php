@@ -42,6 +42,12 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
 {
   check_restrictions( $page['cat'] );
 }
+
+if (!is_numeric($_GET['image_id']))
+{
+  die('Hacking attempt on "image_id" GET parameter');
+}
+
 //---------------------------------------- incrementation of the number of hits
 $query = '
 UPDATE '.IMAGES_TABLE.'
