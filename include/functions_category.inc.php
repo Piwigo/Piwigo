@@ -381,6 +381,12 @@ function initialize_category( $calling_page = 'category' )
       // search result
       if ( $page['cat'] == 'search' )
       {
+        // SQL injection hacking attempt?
+        if (strpos($_GET['search'], ';') !== false)
+        {
+          die('Hacking attempt on "search" GET parameter');
+        }
+        
         // analyze search string given in URL (created in search.php)
         $tokens = explode('|', $_GET['search']);
 
