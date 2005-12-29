@@ -33,7 +33,7 @@ $template->assign_vars(
     'L_GEN_TIME' => $lang['generation_time'],
     'L_SQL_QUERIES_IN' => $lang['sql_queries_in'],
     'L_SEND_MAIL' => $lang['send_mail'],
-    'L_TITLE_MAIL' => $lang['title_send_mail'],
+    'L_TITLE_MAIL' => urlencode($lang['title_send_mail']),
     'L_POWERED_BY'=>$lang['powered_by']
     ));
 //------------------------------------------------------------- generation time
