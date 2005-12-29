@@ -261,9 +261,16 @@ if (isset($_POST['delete']) and count($collection) > 0)
         $page['infos'],
         sprintf(
           l10n('%d users deleted'),
-          count($collection)
+          count($collection)  
           )
         );
+      $_values = array_values($collection);
+      foreach ($page['filtered_users'] as $_key => $_value) 
+      {
+        if (in_array($_value['id'],$_values)) {
+	  unset($page['filtered_users'][$_key]);
+        }
+      }
     }
     else
     {
