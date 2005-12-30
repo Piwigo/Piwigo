@@ -544,12 +544,6 @@ if (!$picture['current']['is_picture'])
     'download',
     array('U_DOWNLOAD' => $picture['current']['download']));
 }
-else
-{
-  $template->assign_block_vars(
-    'ecard',
-    array('U_ECARD' => $picture['current']['url']));
-}
 // display a high quality link if present
 if (isset($picture['current']['high']))
 {

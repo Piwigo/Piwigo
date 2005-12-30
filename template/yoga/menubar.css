@@ -63,19 +63,35 @@
 /* quickconnect form */
 FORM#quickconnect { 
   margin: 0;
+  padding: 5px;
 }
 
 FORM#quickconnect FIELDSET {
-  margin: 5px;
+  margin: 0;
+  padding: 0 0 0.5em 0;
+  overflow: hidden;	/* Correct float issue with Opera 7.5 */
+  width: 100%;		/*        //			      */
 }
 
 FORM#quickconnect P {
   float: left;
+}
+
+FORM#quickconnect P INPUT {
   margin: 0;
 }
 
 FORM#quickconnect UL.actions {
   display: inline;
-  margin: 0,5em 0 0 0;
   float: right;
+  padding: 0;
+  text-align: right;	/* Opera 7.5 */
+  width: 40%;		/* Opera 7.5 cannot find why width:auto fails :-( */
 }
+
+FORM#quickconnect UL.actions,
+FORM#quickconnect P, 
+FORM#quickconnect LABEL {
+  margin: 0 0.5em 0 0.5em;
+}
+
