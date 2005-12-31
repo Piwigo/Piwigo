@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset={T_CONTENT_ENCODING}"  />
-<meta http-equiv="Content-script-type" content="text/javascript" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset={T_CONTENT_ENCODING}">
+<meta http-equiv="Content-script-type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
 <title>PhpWebGallery {RELEASE}</title>
 <style type="text/css">
 a, a:hover {
@@ -110,7 +111,7 @@ text-align:center;
       <th colspan="3">{L_BASE_TITLE}</th>
     </tr>
     <tr>
-  	  <td width="30%">{L_LANG_TITLE}</td>
+      <td style="width:30%;">{L_LANG_TITLE}</td>
       <td colspan="2" align="left">
 	  {F_LANG_SELECT}
       </td>
@@ -176,7 +177,7 @@ text-align:center;
       <td class="row2">{L_ADMIN_EMAIL_INFO}</td>
     </tr>
     <tr>
-      <td colspan="3">&nbsp;</th>
+      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
       <td colspan="3" align="center">
