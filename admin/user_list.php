@@ -264,12 +264,12 @@ if (isset($_POST['delete']) and count($collection) > 0)
           count($collection)  
           )
         );
-      $_values = array_values($collection);
-      foreach ($page['filtered_users'] as $_key => $_value) 
+      foreach ($page['filtered_users'] as $filter_key => $filter_user)
       {
-        if (in_array($_value['id'],$_values)) {
-	  unset($page['filtered_users'][$_key]);
-        }
+	if (in_array($filter_user['id'], $collection))
+	{
+	  unset($page['filtered_users'][$filter_key]);
+	}
       }
     }
     else
