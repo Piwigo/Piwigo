@@ -168,6 +168,7 @@ $template->assign_vars(
 
   'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
   'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
+  'U_LOST_PASSWORD' => add_session_id(PHPWG_ROOT_PATH.'password.php'),
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
   'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php')
