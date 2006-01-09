@@ -555,6 +555,7 @@ function get_fs_directories($path, $recursive = true)
         if (is_dir($path.'/'.$node)
             and $node != '.'
             and $node != '..'
+            and $node != '.svn'
             and $node != 'thumbnail'
             and $node != 'pwg_high'
             and $node != 'pwg_representative')
