@@ -264,6 +264,21 @@ $conf['use_exif_mapping'] = array(
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+
 
+// specifies to use cookie to store the session id on client side
+$conf['session_use_cookies'] = 1;
+
+// specifies to only use cookie to store the session id on client side
+$conf['session_use_only_cookies'] = 1;
+
+// do not use transparent session id support
+$conf['session_use_trans_sid'] = 0;
+
+// specifies the name of the session which is used as cookie name
+$conf['session_name'] = 'pwg_id';
+
+// comment the line below to use file handler for sessions.
+$conf['session_save_handler'] = 'db';
+
 // authorize_remembering : permits user to stay logged for a long time. It
 // creates a cookie on client side.
 $conf['authorize_remembering'] = true;
@@ -274,16 +289,6 @@ $conf['remember_me_length'] = 31536000;
 
 // session_length : time of validity for normal session, in seconds.
 $conf['session_length'] = 3600;
-
-// session_id_size : a session identifier is compound of alphanumeric
-// characters and is case sensitive. Each character is among 62
-// possibilities. The number of possible sessions is
-// 62^$conf['session_id_size'].
-//
-// 62^5  =             916,132,832
-// 62^10 = 839,299,365,868,340,224
-//
-$conf['session_id_size'] = 10;
 
 // +-----------------------------------------------------------------------+
 // |                                debug                                  |

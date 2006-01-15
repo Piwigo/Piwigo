@@ -179,7 +179,7 @@ $template->assign_vars(
     'F_KEYWORD'=>@$_GET['keyword'],
     'F_AUTHOR'=>@$_GET['author'],
     
-    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php')
+    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
     )
   );
 
@@ -414,7 +414,7 @@ SELECT id, uppercats
       array(
         'TITLE_IMG'=>$name,
         'I_THUMB'=>$thumbnail_src,
-        'U_THUMB'=>add_session_id($url)
+        'U_THUMB'=>$url
         ));
     
     $author = $comment['author'];
@@ -426,7 +426,7 @@ SELECT id, uppercats
     $template->assign_block_vars(
       'comment',
       array(
-        'U_PICTURE' => add_session_id($url),
+        'U_PICTURE' => $url,
         'TN_SRC' => $thumbnail_src,
         'AUTHOR' => $author,
         'DATE'=>format_date($comment['date'],'mysql_datetime',true),

@@ -183,7 +183,7 @@ CREATE TABLE `phpwebgallery_rate` (
 DROP TABLE IF EXISTS `phpwebgallery_sessions`;
 CREATE TABLE `phpwebgallery_sessions` (
   `id` varchar(255) binary NOT NULL default '',
-  `user_id` smallint(5) NOT NULL default '0',
+  `data` text NOT NULL,
   `expiration` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;

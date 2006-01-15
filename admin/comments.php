@@ -117,7 +117,7 @@ $template->set_filenames(array('comments'=>'admin/comments.tpl'));
 
 $template->assign_vars(
   array(
-    'F_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=comments')
+    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=comments'
     )
   );
 
@@ -141,10 +141,8 @@ while ($row = mysql_fetch_array($result))
     'comment',
     array(
       'U_PICTURE' =>
-        add_session_id(
           PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-          '&amp;image_id='.$row['image_id']
-          ),
+          '&amp;image_id='.$row['image_id'],
       'ID' => $row['id'],
       'TN_SRC' => get_thumbnail_src($row['path'], @$row['tn_ext']),
       'AUTHOR' => $row['author'],

@@ -76,7 +76,7 @@ while ($row = mysql_fetch_array($result))
 if (!$belongs)
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-  echo '<a href="'.add_session_id( PHPWG_ROOT_PATH.'category.php' ).'">';
+  echo '<a href="'.PHPWG_ROOT_PATH.'category.php'.'">';
   echo $lang['thumbnails'].'</a></div>';
   exit();
 }
@@ -323,18 +323,17 @@ if ( isset( $_GET['add_fav'] ) )
     {
       // there is no favorite picture anymore we redirect the user to the
       // category page
-      $url = add_session_id($url_up);
-      redirect($url);
+      redirect($url_up);
     }
     else if (!$has_prev)
     {
       $url = str_replace( '&amp;', '&', $picture['next']['url'] );
-      $url = add_session_id( $url, true);
+      redirect( $url );
     }
     else
     {
       $url = str_replace('&amp;', '&', $picture['prev']['url'] );
-      $url = add_session_id( $url, true);
+      redirect( $url );
     }
     redirect( $url );
   }
@@ -522,12 +521,12 @@ $template->assign_vars(array(
   'L_UP_HINT' => $lang['home_hint'],
   'L_UP_ALT' => $lang['home'],
   
-  'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
-  'U_UP' => add_session_id($url_up),
-  'U_METADATA' => add_session_id($url_metadata),
-  'U_ADMIN' => add_session_id($url_admin),
-  'U_SLIDESHOW'=> add_session_id($url_slide),
-  'U_ADD_COMMENT' => add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
+  'U_HOME' => (PHPWG_ROOT_PATH.'category.php'),
+  'U_UP' => $url_up,
+  'U_METADATA' => $url_metadata,
+  'U_ADMIN' => $url_admin,
+  'U_SLIDESHOW'=> $url_slide,
+  'U_ADD_COMMENT' => str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] )
   )
 );
 
@@ -584,10 +583,8 @@ if ('admin' == $user['status'])
     'caddie',
     array(
       'URL' =>
-      add_session_id(
         PHPWG_ROOT_PATH.'picture.php'
         .get_query_string_diff(array('caddie')).'&amp;caddie=1')
-      )
     );
 }
 
@@ -645,7 +642,7 @@ if ($has_prev)
     array(
       'TITLE_IMG' => $picture['prev']['name'],
       'IMG' => $picture['prev']['thumbnail'],
-      'U_IMG' => add_session_id($picture['prev']['url'])
+      'U_IMG' => $picture['prev']['url']
       ));
 }
 
@@ -656,7 +653,7 @@ if ($has_next)
     array(
       'TITLE_IMG' => $picture['next']['name'],
       'IMG' => $picture['next']['thumbnail'],
-      'U_IMG' => add_session_id($picture['next']['url'])
+      'U_IMG' => $picture['next']['url']
       ));
 }
 
@@ -679,11 +676,9 @@ if (!empty($picture['current']['author']))
 {
   $infos['INFO_AUTHOR'] =
     '<a href="'.
-    add_session_id(
       PHPWG_ROOT_PATH.'category.php?cat=search'.
       '&amp;search=author:'.$picture['current']['author']
-      ).
-    '">'.$picture['current']['author'].'</a>';
+      .'">'.$picture['current']['author'].'</a>';
 }
 else
 {
@@ -695,11 +690,9 @@ if (!empty($picture['current']['date_creation']))
 {
   $infos['INFO_CREATION_DATE'] =
     '<a href="'.
-    add_session_id(
       PHPWG_ROOT_PATH.'category.php?cat=search'.
       '&amp;search=date_creation:'.$picture['current']['date_creation']
-      ).
-    '">'.format_date($picture['current']['date_creation']).'</a>';
+      .'">'.format_date($picture['current']['date_creation']).'</a>';
 }
 else
 {
@@ -709,12 +702,10 @@ else
 // date of availability
 $infos['INFO_AVAILABILITY_DATE'] =
   '<a href="'.
-  add_session_id(
     PHPWG_ROOT_PATH.'category.php?cat=search'.
     '&amp;search=date_available:'.
     substr($picture['current']['date_available'], 0, 10)
-    ).
-    '">'.
+    .'">'.
   format_date($picture['current']['date_available'], 'mysql_datetime').
   '</a>';
 
@@ -763,10 +754,8 @@ if (!empty($picture['current']['keywords']))
     preg_replace(
       '/([^,]+)/',
       '<a href="'.
-      add_session_id(
         PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:$1'
-        ).
-      '">$1</a>',
+        .'">$1</a>',
       $picture['current']['keywords']
       );
 }
@@ -890,7 +879,7 @@ if ( isset( $_GET['slideshow'] ) )
   if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'];
 	
   $template->assign_block_vars('stop_slideshow', array(
-  'U_SLIDESHOW'=>add_session_id( $picture['current']['url'] )
+  'U_SLIDESHOW'=>$picture['current']['url']
   ));
 }
 
@@ -1043,7 +1032,7 @@ if ($page['show_comments'])
     {
       $template->assign_block_vars(
         'comments.comment.delete',
-        array('U_COMMENT_DELETE'=>add_session_id( $url.'&amp;del='.$row['id'])
+        array('U_COMMENT_DELETE'=> $url.'&amp;del='.$row['id']
           ));
     }
   }

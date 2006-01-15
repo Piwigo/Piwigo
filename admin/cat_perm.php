@@ -207,10 +207,7 @@ $template->assign_vars(
         'admin.php?page=cat_modify&amp;cat_id='
         ),
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_perm',
-    'F_ACTION' =>
-      add_session_id(
-        PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat='.$page['cat']
-        )
+    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat='.$page['cat']
     )
   );
 

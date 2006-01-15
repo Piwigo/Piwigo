@@ -175,10 +175,8 @@ $template->assign_vars(
     'DB_USERS' => sprintf(l10n('%d users'), $nb_users),
     'DB_GROUPS' => sprintf(l10n('%d groups'), $nb_groups),
     'DB_COMMENTS' => sprintf(l10n('%d comments'), $nb_comments),
-    'U_CHECK_UPGRADE' =>
-      add_session_id(PHPWG_ROOT_PATH.'admin.php?action=check_upgrade'),
-    'U_PHPINFO' =>
-      add_session_id(PHPWG_ROOT_PATH.'admin.php?action=phpinfo')
+    'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
+    'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo'
     )
   );
 
@@ -215,7 +213,7 @@ if ($nb_waiting > 0)
   $template->assign_block_vars(
     'waiting',
     array(
-      'URL' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=waiting'),
+      'URL' => PHPWG_ROOT_PATH.'admin.php?page=waiting',
       'INFO' => sprintf(l10n('%d waiting for validation'), $nb_waiting)
       )
     );
@@ -234,7 +232,7 @@ if ($nb_comments > 0)
   $template->assign_block_vars(
     'unvalidated',
     array(
-      'URL' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=comments'),
+      'URL' => PHPWG_ROOT_PATH.'admin.php?page=comments',
       'INFO' => sprintf(l10n('%d waiting for validation'), $nb_comments)
       )
     );

@@ -125,7 +125,7 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   if ($page['cat_site_id'] != 1 or !$page['cat_uploadable'])
   {
     echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
-    echo '<a href="'.add_session_id( './category.php' ).'">';
+    echo '<a href="./category.php">';
     echo $lang['thumbnails'].'</a></div>';
     exit();
   }
@@ -299,9 +299,9 @@ $template->assign_vars(array(
   'L_UPLOAD_DONE' =>  $lang['upload_successful'],
   'L_MANDATORY' =>  $lang['mandatory'],
 	
-  'F_ACTION' => add_session_id( $u_form ),
+  'F_ACTION' => $u_form,
 
-  'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'])
+  'U_RETURN' => PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING']
   ));
   
 if ( !$page['upload_successful'] )

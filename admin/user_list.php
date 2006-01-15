@@ -424,7 +424,7 @@ while ($row = mysql_fetch_array($result))
 
 $template->set_filenames(array('user_list'=>'admin/user_list.tpl'));
 
-$base_url = add_session_id(PHPWG_ROOT_PATH.'admin.php?page=user_list');
+$base_url = PHPWG_ROOT_PATH.'admin.php?page=user_list';
 
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {
@@ -790,8 +790,8 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
       'ID' => $local_user['id'],
       'CHECKED' => $checked,
-      'U_MOD' => add_session_id($profile_url.$local_user['id']),
-      'U_PERM' => add_session_id($perm_url.$local_user['id']),
+      'U_MOD' => $profile_url.$local_user['id'],
+      'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username'],
       'STATUS' => $lang['user_status_'.$local_user['status']],
       'EMAIL' => isset($local_user['email']) ? $local_user['email'] : '',

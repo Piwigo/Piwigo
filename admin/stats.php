@@ -62,7 +62,7 @@ if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
   $date_of_day=$_GET['day'].' '.$lang['month'][$_GET['month']].' '.$_GET['year'];
   $title_page=$lang['stats_day_title'].' du '.$date_of_day;
   $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
-  $url_back = add_session_id($url_back);
+  $url_back = $url_back;
   $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
   $title_day = $date_of_day;
 }
@@ -71,7 +71,7 @@ elseif ( isset($_GET['month']) && isset($_GET['year']) )
   $date_of_day=$lang['month'][$_GET['month']].' '.$_GET['year'];
   $title_page=$lang['stats_month_title'].' : '.$date_of_day;
   $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
-  $url_back = add_session_id($url_back);
+  $url_back = $url_back;
   $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
   $title_day=$lang['today'];
 }
@@ -105,7 +105,7 @@ $template->assign_vars(array(
   'L_STAT_FILE'=>$lang['stats_file'],
   'L_STAT_PICTURE'=>$lang['stats_picture'],
   
-  'IMG_REPORT'=>add_session_id($url_img)
+  'IMG_REPORT'=>$url_img
   ));
 
 //---------------------------------------------------------------- log  history
@@ -141,7 +141,7 @@ while ( $row = mysql_fetch_array( $result ) )
       .'&amp;day='.$row['d']
       ;
 
-    $value = '<a href="'.add_session_id($url).'">';
+    $value = '<a href="'.$url.'">';
     $value.= $row['d'].' ('.$week_day.')';
     $value.= "</a>";
   }
@@ -160,7 +160,7 @@ while ( $row = mysql_fetch_array( $result ) )
       .'&amp;month='.$row['m']
       ;
     
-    $value = '<a href="'.add_session_id($url).'">';
+    $value = '<a href="'.$url.'">';
     $value.= $lang['month'][$row['m']].' '.$row['y'];
     $value.= "</a>";
   }

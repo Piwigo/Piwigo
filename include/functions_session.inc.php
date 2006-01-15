@@ -25,115 +25,77 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// The function generate_key creates a string with pseudo random characters.
-// the size of the string depends on the $conf['session_id_size'].
-// Characters used are a-z A-Z and numerical values. Examples :
-//                    "Er4Tgh6", "Rrp08P", "54gj"
-// input  : none (using global variable)
-// output : $key
-function generate_key($size)
-{
-  global $conf;
-
-  $md5 = md5(substr(microtime(), 2, 6));
-  $init = '';
-  for ( $i = 0; $i < strlen( $md5 ); $i++ )
-  {
-    if ( is_numeric( $md5[$i] ) ) $init.= $md5[$i];
-  }
-  $init = substr( $init, 0, 8 );
-  mt_srand( $init );
-  $key = '';
-  for ( $i = 0; $i < $size; $i++ )
-  {
-    $c = mt_rand( 0, 2 );
-    if ( $c == 0 )      $key .= chr( mt_rand( 65, 90 ) );
-    else if ( $c == 1 ) $key .= chr( mt_rand( 97, 122 ) );
-    else                $key .= mt_rand( 0, 9 );
-  }
-  return $key;
+if (isset($conf['session_save_handler']) and ($conf['session_save_handler'] == 'db')) {
+  session_set_save_handler('pwg_session_open', 
+			   'pwg_session_close',
+			   'pwg_session_read',
+			   'pwg_session_write',
+			   'pwg_session_destroy',
+			   'pwg_session_gc'
+			   );
 }
 
-/**
- * create a new session and returns the session identifier
- *
- * - find a non-already-used session key
- * - create a session in database
- * - return session identifier
- *
- * @param int userid
- * @param int session_lentgh : in seconds
- * @return string
- */
-function session_create($userid, $session_length)
-{
-  global $conf;
+ini_set('session.use_cookies', $conf['session_use_cookies']);
+ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+ini_set('session.use_trans_sid', $conf['session_use_trans_sid']);
+ini_set('session.name', $conf['session_name']);
 
-  // 1. searching an unused session key
-  $id_found = false;
-  while (!$id_found)
-  {
-    $generated_id = generate_key($conf['session_id_size']);
-    $query = '
-SELECT id
-  FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$generated_id.'\'
-;';
-    $result = pwg_query($query);
-    if (mysql_num_rows($result) == 0)
-    {
-      $id_found = true;
-    }
+function pwg_session_open($path, $name) 
+{
+  return true;
+}
+
+function pwg_session_close() 
+{
+  pwg_session_gc();
+  return true;
+}
+
+function pwg_session_read($session_id) 
+{
+  $query = "SELECT data FROM " . SESSIONS_TABLE;
+  $query .= " WHERE id = '$session_id'";
+  $result = pwg_query($query);
+  if ($result) {
+    $row = mysql_fetch_assoc($result);
+    return $row['data'];
+  } else {
+    return '';
   }
-  // 3. inserting session in database
-  $query = '
-INSERT INTO '.SESSIONS_TABLE.'
-  (id,user_id,expiration)
-  VALUES
-  (\''.$generated_id.'\','.$userid.',
-   ADDDATE(NOW(), INTERVAL '.$session_length.' SECOND))
-;';
+}
+
+function pwg_session_write($session_id, $data) 
+{
+  $query = "SELECT id FROM " . SESSIONS_TABLE;
+  $query .= " WHERE id = '$session_id'";
+  $result = pwg_query($query);
+  if (mysql_num_rows($result)) {
+    $query = "UPDATE " . SESSIONS_TABLE . " SET expiration = now()";
+    $query .= " WHERE id = '$session_id'";    
+    pwg_query($query);
+  } else {
+    $query = "INSERT INTO " . SESSIONS_TABLE . " (id,data,expiration)";
+    $query .= " VALUES('$session_id','$data',now())";
+    pwg_query($query);    
+  }
+  return true;
+}
+
+function pwg_session_destroy($session_id) 
+{
+  $query = "DELETE FROM " . SESSIONS_TABLE;
+  $query .= " WHERE id = '$session_id'";
   pwg_query($query);
-
-  $expiration = $session_length + time();
-  setcookie('id', $generated_id, $expiration, cookie_path());
-                
-  return $generated_id;
+  return true;
 }
 
-// add_session_id adds the id of the session to the string given in
-// parameter as $url. If the session id is the first parameter to the url,
-// it is preceded by a '?', else it is preceded by a '&amp;'. If the
-// parameter $redirect is set to true, '&' is used instead of '&'.
-function add_session_id( $url, $redirect = false )
+function pwg_session_gc() 
 {
-  global $page, $user, $conf;
+  global $conf;
 
-  if ($user['is_the_guest']
-      or $user['has_cookie']
-      or $conf['apache_authentication'])
-  {
-    return $url;
-  }
-
-  if (preg_match('/\.php\?/', $url))
-  {
-    $separator = $redirect ? '&' : '&amp;';
-  }
-  else
-  {
-    $separator = '?';
-  }
-
-  return $url.$separator.'id='.$page['session_id'];
-}
-
-// cookie_path returns the path to use for the PhpWebGallery cookie.
-// If PhpWebGallery is installed on :
-// http://domain.org/meeting/gallery/category.php
-// cookie_path will return : "/meeting/gallery"
-function cookie_path()
-{
-  return substr($_SERVER['PHP_SELF'],0,strrpos( $_SERVER['PHP_SELF'],'/'));
+  $query = "DELETE FROM " . SESSIONS_TABLE;
+  $query .= " WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(expiration) > " . $conf['session_length'];
+  pwg_query($query);
+  return true;
 }
 ?>

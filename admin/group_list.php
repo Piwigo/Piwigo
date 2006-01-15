@@ -124,8 +124,7 @@ $template->set_filenames(array('group_list' => 'admin/group_list.tpl'));
 
 $template->assign_vars(
   array(
-    'F_ADD_ACTION' =>
-      add_session_id(PHPWG_ROOT_PATH.'admin.php?page=group_list')
+    'F_ADD_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=group_list'
     )
   );
 
