@@ -171,13 +171,11 @@ $template->assign_vars(array(
   'L_SUBMIT'=>$lang['submit'],
   'L_SET_RANDOM_REPRESENTANT'=>$lang['cat_representant'],
 
-  'U_JUMPTO'=>
-    add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']),
-  'U_CHILDREN'=>
-    add_session_id($cat_list_url.'&amp;parent_id='.$category['id']),
+  'U_JUMPTO'=>PHPWG_ROOT_PATH.'category.php?cat='.$category['id'],
+  'U_CHILDREN'=>$cat_list_url.'&amp;parent_id='.$category['id'],
   'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
    
-  'F_ACTION'=>add_session_id($form_action)
+  'F_ACTION'=>$form_action
   ));
 
 
@@ -186,7 +184,7 @@ if ('private' == $category['status'])
   $template->assign_block_vars(
     'permissions',
     array(
-      'URL'=>add_session_id($base_url.'cat_perm&amp;cat='.$category['id'])
+      'URL'=>$base_url.'cat_perm&amp;cat='.$category['id']
         )
     );
 }
@@ -197,7 +195,7 @@ if ($category['nb_images'] > 0)
   $template->assign_block_vars(
     'elements',
     array(
-      'URL'=>add_session_id($base_url.'element_set&amp;cat='.$category['id'])
+      'URL'=>$base_url.'element_set&amp;cat='.$category['id']
       )
     );
 }
@@ -267,7 +265,7 @@ else
   $template->assign_block_vars(
     'delete',
     array(
-      'URL'=>add_session_id($self_url.'&amp;delete='.$category['id'])
+      'URL'=>$self_url.'&amp;delete='.$category['id']
       )
     );
 

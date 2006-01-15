@@ -61,7 +61,7 @@ if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) )
   $template->assign_vars(
     array(
       'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => add_session_id( $url_link )
+      'U_REFRESH' => $url_link
       ));
   $template->assign_block_vars('refresh', array());
 }

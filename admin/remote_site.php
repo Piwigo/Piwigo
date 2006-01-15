@@ -515,7 +515,7 @@ $template->assign_vars(
 
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=remote_site',
     
-    'F_ACTION'=>add_session_id(PHPWG_ROOT_PATH.'admin.php?page=remote_site')
+    'F_ACTION'=>PHPWG_ROOT_PATH.'admin.php?page=remote_site'
    )
  );
  
@@ -686,7 +686,7 @@ else
       'local',
       array(
         'URL' => $url,
-        'U_UPDATE' => add_session_id($base_url.'local_update')
+        'U_UPDATE' => $base_url.'local_update'
         )
       );
 
@@ -731,10 +731,10 @@ while ($row = mysql_fetch_array($result))
     'sites.site',
     array(
       'NAME' => $row['galleries_url'],
-      'U_GENERATE' => add_session_id($base_url.'generate'),
-      'U_UPDATE' => add_session_id($base_url.'update'),
-      'U_CLEAN' => add_session_id($base_url.'clean'),
-      'U_DELETE' => add_session_id($base_url.'delete')
+      'U_GENERATE' => $base_url.'generate',
+      'U_UPDATE' => $base_url.'update',
+      'U_CLEAN' => $base_url.'clean',
+      'U_DELETE' => $base_url.'delete'
      )
    );
 }

@@ -26,55 +26,24 @@
 // +-----------------------------------------------------------------------+
 
 // retrieving connected user informations
-if (isset($_COOKIE['id']))
+if (isset($_COOKIE[session_name()])) 
 {
-  $session_id = $_COOKIE['id'];
-  $user['has_cookie'] = true;
-}
-else if (isset($_GET['id']))
+ session_start();
+ if (isset($_SESSION['id'])) 
+ {
+   $user['id'] = $_SESSION['id'];    
+ }
+ else 
+ {
+   // session timeout
+   $user['id'] = $conf['guest_id'];
+   $user['is_the_guest'] = true;
+ }
+} 
+else 
 {
-  $session_id = $_GET['id'];
-  $user['has_cookie'] = false;
-}
-else
-{
-  $user['has_cookie'] = false;
-}
-
-if (isset($session_id)
-    and ereg("^[0-9a-zA-Z]{".$conf['session_id_size']."}$", $session_id))
-{
-  $page['session_id'] = $session_id;
-  $query = '
-SELECT user_id,expiration,NOW() AS now
-  FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$page['session_id'].'\'
-;';
-  $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
-  {
-    $row = mysql_fetch_array($result);
-    if (strnatcmp($row['expiration'], $row['now']) < 0)
-    {
-      // deletion of the session from the database, because it is
-      // out-of-date
-      $delete_query = '
-DELETE FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$page['session_id'].'\'
-;';
-      pwg_query($delete_query);
-    }
-    else
-    {
-      $user['id'] = $row['user_id'];
-      $user['is_the_guest'] = false;
-    }
-  }
-}
-if (!isset($user['id']))
-{
-  $user['id'] = $conf['guest_id'];
-  $user['is_the_guest'] = true;
+ $user['id'] = $conf['guest_id'];
+ $user['is_the_guest'] = true;
 }
 
 // using Apache authentication override the above user search

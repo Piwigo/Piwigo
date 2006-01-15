@@ -31,10 +31,13 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //---------------------------------------------------------------------- logout
 if ( isset( $_GET['act'] )
      and $_GET['act'] == 'logout'
-     and isset( $_COOKIE['id'] ) )
+     and isset( $_COOKIE[session_name()] ) )
 {
   // cookie deletion if exists
-  setcookie( 'id', '', 0, cookie_path() );
+  $_SESSION = array();
+  session_unset();
+  session_destroy();
+  setcookie(session_name(),'',0,'/');
   $url = 'category.php';
   redirect( $url );
 }
@@ -163,15 +166,15 @@ $template->assign_vars(
   'L_PROFILE_HINT' => $lang['hint_customize'],
   'L_REMEMBER_ME' => $lang['remember_me'],
   
-  'F_IDENTIFY' => add_session_id( PHPWG_ROOT_PATH.'identification.php' ),
+  'F_IDENTIFY' => PHPWG_ROOT_PATH.'identification.php',
   'T_RECENT' => $icon_recent,
 
-  'U_HOME' => add_session_id( PHPWG_ROOT_PATH.'category.php' ),
-  'U_REGISTER' => add_session_id( PHPWG_ROOT_PATH.'register.php' ),
-  'U_LOST_PASSWORD' => add_session_id(PHPWG_ROOT_PATH.'password.php'),
+  'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+  'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
+  'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
-  'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
-  'U_PROFILE'=>add_session_id(PHPWG_ROOT_PATH.'profile.php')
+  'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
+  'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php'
   )
 );
 //-------------------------------------------------------------- external links
@@ -198,7 +201,7 @@ if ( !$user['is_the_guest'] )
   $template->assign_block_vars(
     'special_cat',
     array(
-      'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=fav'),
+      'URL' => PHPWG_ROOT_PATH.'category.php?cat=fav',
       'TITLE' => $lang['favorite_cat_hint'],
       'NAME' => $lang['favorite_cat']
       ));
@@ -207,7 +210,7 @@ if ( !$user['is_the_guest'] )
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=most_visited'),
+    'URL' => PHPWG_ROOT_PATH.'category.php?cat=most_visited',
     'TITLE' => $lang['most_visited_cat_hint'],
     'NAME' => $lang['most_visited_cat']
     ));
@@ -217,7 +220,7 @@ if ($conf['rate'])
   $template->assign_block_vars(
     'special_cat',
     array(
-      'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=best_rated'),
+      'URL' => PHPWG_ROOT_PATH.'category.php?cat=best_rated',
       'TITLE' => $lang['best_rated_cat_hint'],
       'NAME' => $lang['best_rated_cat']
       )
@@ -227,7 +230,7 @@ if ($conf['rate'])
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'random.php'),
+    'URL' => PHPWG_ROOT_PATH.'random.php',
     'TITLE' => $lang['random_cat_hint'],
     'NAME' => $lang['random_cat']
     ));
@@ -235,7 +238,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=recent_pics'),
+    'URL' => PHPWG_ROOT_PATH.'category.php?cat=recent_pics',
     'TITLE' => $lang['recent_pics_cat_hint'],
     'NAME' => $lang['recent_pics_cat']
     ));
@@ -243,7 +246,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=recent_cats'),
+    'URL' => PHPWG_ROOT_PATH.'category.php?cat=recent_cats',
     'TITLE' => $lang['recent_cats_cat_hint'],
     'NAME' => $lang['recent_cats_cat']
     ));
@@ -251,7 +254,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => add_session_id(PHPWG_ROOT_PATH.'category.php?cat=calendar'),
+    'URL' => PHPWG_ROOT_PATH.'category.php?cat=calendar',
     'TITLE' => $lang['calendar_hint'],
     'NAME' => $lang['calendar']
     ));
@@ -290,21 +293,21 @@ else
 $template->assign_block_vars('summary', array(
 'TITLE'=>$lang['hint_search'],
 'NAME'=>$lang['search'],
-'U_SUMMARY'=>add_session_id( 'search.php' ),
+'U_SUMMARY'=> 'search.php',
 ));
 
 // comments link
 $template->assign_block_vars('summary', array(
 'TITLE'=>$lang['hint_comments'],
 'NAME'=>$lang['comments'],
-'U_SUMMARY'=>add_session_id( 'comments.php' ),
+'U_SUMMARY'=> 'comments.php',
 ));
 
 // about link
 $template->assign_block_vars('summary', array(
 'TITLE'=>$lang['about_page_title'],
 'NAME'=>$lang['About'],
-'U_SUMMARY'=>add_session_id( 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) )
+'U_SUMMARY'=> 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) 
 ));
 
 // notification
@@ -313,7 +316,7 @@ $template->assign_block_vars(
   array(
     'TITLE'=>l10n('notification'),
     'NAME'=>l10n('Notification'),
-    'U_SUMMARY'=>add_session_id(PHPWG_ROOT_PATH.'notification.php')
+    'U_SUMMARY'=> PHPWG_ROOT_PATH.'notification.php'
 ));
 
 if (isset($page['cat'])
@@ -324,10 +327,8 @@ if (isset($page['cat'])
     'edit',
     array(
       'URL' =>
-        add_session_id(
           PHPWG_ROOT_PATH.'admin.php?page=cat_modify'
           .'&amp;cat_id='.$page['cat']
-          )
       )
     );
 }
@@ -352,10 +353,8 @@ if (isset($page['cat'])
       'caddie',
       array(
         'URL' =>
-          add_session_id(
             PHPWG_ROOT_PATH.'category.php'
             .get_query_string_diff(array('caddie')).'&amp;caddie=1')
-        )
       );
   }
 }
@@ -383,7 +382,7 @@ if ( isset ( $page['cat'] ) )
     $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
     $template->assign_block_vars(
       'upload',
-      array('U_UPLOAD'=>add_session_id( $url ))
+      array('U_UPLOAD'=> $url )
       );
   }
 

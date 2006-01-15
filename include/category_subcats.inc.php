@@ -152,7 +152,7 @@ SELECT id, path, tn_ext
         'IMAGE_TITLE' => $lang['hint_category'],
         'IMAGE_TS' => get_icon(@$item['date_last']),
         'U_IMG_LINK' =>
-          add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$item['category'])
+          PHPWG_ROOT_PATH.'category.php?cat='.$item['category']
         )
       );
     

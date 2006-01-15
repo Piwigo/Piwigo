@@ -149,7 +149,7 @@ $template->assign_vars(
 
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=configuration',
     
-    'F_ACTION'=>add_session_id($action)
+    'F_ACTION'=>$action
     ));
 
 switch ($page['section'])

@@ -47,7 +47,7 @@ function check_restrictions($category_id)
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
     echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-    echo '<a href="'.add_session_id( './category.php' ).'">';
+    echo '<a href="./category.php">';
     echo $lang['thumbnails'].'</a></div>';
     exit();
   }

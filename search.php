@@ -129,7 +129,6 @@ if (isset($_POST['submit']))
 if (isset($_POST['submit']) and count($errors) == 0)
 {
   $url = 'category.php?cat=search&search='.$search_string;
-  $url = add_session_id($url, true);
   redirect($url);
 }
 //----------------------------------------------------- template initialization
@@ -180,9 +179,9 @@ $template->assign_vars(array(
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
-  'S_SEARCH_ACTION' => add_session_id( 'search.php' ),
+  'S_SEARCH_ACTION' => 'search.php',
   'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=search',
-  'U_HOME' => add_session_id( 'category.php' )
+  'U_HOME' => 'category.php'
   )
 );
 

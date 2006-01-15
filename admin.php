@@ -65,29 +65,29 @@ $template->set_filenames(array('admin' => 'admin.tpl'));
 
 $template->assign_vars(
   array(
-    'U_HISTORY'=>add_session_id($link_start.'stats' ),
-    'U_FAQ'=>add_session_id($link_start.'help' ),
-    'U_SITES'=>add_session_id($link_start.'remote_site'),
-    'U_MAINTENANCE'=>add_session_id($link_start.'maintenance'),
-    'U_CONFIG_GENERAL'=>add_session_id($conf_link.'general' ),
-    'U_CONFIG_COMMENTS'=>add_session_id($conf_link.'comments' ),
-    'U_CONFIG_DISPLAY'=>add_session_id($conf_link.'default' ),
-    'U_CATEGORIES'=>add_session_id($link_start.'cat_list' ),
-    'U_MOVE'=>add_session_id($link_start.'cat_move' ),
-    'U_CAT_UPLOAD'=>add_session_id($opt_link.'upload'),
-    'U_CAT_COMMENTS'=>add_session_id($opt_link.'comments'),
-    'U_CAT_VISIBLE'=>add_session_id($opt_link.'visible'),
-    'U_CAT_STATUS'=>add_session_id($opt_link.'status'),
-    'U_CAT_OPTIONS'=>add_session_id($link_start.'cat_options'),
-    'U_CAT_UPDATE'=>add_session_id($link_start.'update'),
-    'U_WAITING'=>add_session_id($link_start.'waiting' ),
-    'U_COMMENTS'=>add_session_id($link_start.'comments' ),
-    'U_CADDIE'=>add_session_id($link_start.'element_set&amp;cat=caddie'),
-    'U_THUMBNAILS'=>add_session_id($link_start.'thumbnail' ),
-    'U_USERS'=>add_session_id($link_start.'user_list' ),
-    'U_GROUPS'=>add_session_id($link_start.'group_list' ),
-    'U_ADMIN'=>add_session_id( PHPWG_ROOT_PATH.'admin.php' ),
-    'U_RETURN'=>add_session_id(PHPWG_ROOT_PATH.'category.php')
+    'U_HISTORY'=> $link_start.'stats',
+    'U_FAQ'=> $link_start.'help',
+    'U_SITES'=> $link_start.'remote_site',
+    'U_MAINTENANCE'=> $link_start.'maintenance',
+    'U_CONFIG_GENERAL'=> $conf_link.'general',
+    'U_CONFIG_COMMENTS'=> $conf_link.'comments',
+    'U_CONFIG_DISPLAY'=> $conf_link.'default',
+    'U_CATEGORIES'=> $link_start.'cat_list',
+    'U_MOVE'=> $link_start.'cat_move',
+    'U_CAT_UPLOAD'=> $opt_link.'upload',
+    'U_CAT_COMMENTS'=> $opt_link.'comments',
+    'U_CAT_VISIBLE'=> $opt_link.'visible',
+    'U_CAT_STATUS'=> $opt_link.'status',
+    'U_CAT_OPTIONS'=> $link_start.'cat_options',
+    'U_CAT_UPDATE'=> $link_start.'update',
+    'U_WAITING'=> $link_start.'waiting',
+    'U_COMMENTS'=> $link_start.'comments',
+    'U_CADDIE'=> $link_start.'element_set&amp;cat=caddie',
+    'U_THUMBNAILS'=> $link_start.'thumbnail',
+    'U_USERS'=> $link_start.'user_list',
+    'U_GROUPS'=> $link_start.'group_list',
+    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
+    'U_RETURN'=> PHPWG_ROOT_PATH.'category.php'
     )
   );
 
@@ -96,7 +96,7 @@ if ($conf['allow_random_representative'])
   $template->assign_block_vars(
     'representative',
     array(
-      'URL' => add_session_id($opt_link.'representative')
+      'URL' => $opt_link.'representative'
       )
     );
 }

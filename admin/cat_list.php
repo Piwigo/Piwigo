@@ -65,7 +65,7 @@ function save_categories_order($categories)
 $categories = array();
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
-$navigation = '<a class="" href="'.add_session_id($base_url).'">';
+$navigation = '<a class="" href="'.$base_url.'">';
 $navigation.= $lang['home'];
 $navigation.= '</a>';
 
@@ -238,7 +238,7 @@ else
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
   'NEXT_RANK'=>$next_rank,
-  'F_ACTION'=>add_session_id($form_action),
+  'F_ACTION'=>$form_action,
   
   'L_ADD_VIRTUAL'=>$lang['cat_add'],
   'L_SUBMIT'=>$lang['submit'],
@@ -317,14 +317,9 @@ foreach ($categories as $category)
       'ID'=>$category['id'],
       'RANK'=>$category['rank']*10,
 
-      'U_JUMPTO'=>
-      add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']),
-      
-      'U_CHILDREN'=>
-      add_session_id($cat_list_url.'&amp;parent_id='.$category['id']),
-      
-      'U_EDIT'=>
-      add_session_id($base_url.'cat_modify&amp;cat_id='.$category['id'])
+      'U_JUMPTO'=>PHPWG_ROOT_PATH.'category.php?cat='.$category['id'],
+      'U_CHILDREN'=>$cat_list_url.'&amp;parent_id='.$category['id'],      
+      'U_EDIT'=>$base_url.'cat_modify&amp;cat_id='.$category['id']
       )
     );
   
@@ -333,7 +328,7 @@ foreach ($categories as $category)
     $template->assign_block_vars(
       'category.delete',
       array(
-        'URL'=>add_session_id($self_url.'&amp;delete='.$category['id'])
+        'URL'=>$self_url.'&amp;delete='.$category['id']
         )
       );
   }
@@ -343,7 +338,7 @@ foreach ($categories as $category)
     $template->assign_block_vars(
       'category.elements',
       array(
-        'URL'=>add_session_id($base_url.'element_set&amp;cat='.$category['id'])
+        'URL'=>$base_url.'element_set&amp;cat='.$category['id']
         )
       );
   }
@@ -353,7 +348,7 @@ foreach ($categories as $category)
     $template->assign_block_vars(
       'category.permissions',
       array(
-        'URL'=>add_session_id($base_url.'cat_perm&amp;cat='.$category['id'])
+        'URL'=>$base_url.'cat_perm&amp;cat='.$category['id']
         )
       );
   }
