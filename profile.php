@@ -136,7 +136,7 @@ SELECT '.$conf['user_fields']['password'].' AS password
     
     // redirection
     $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
-    redirect($url);
+    redirect(add_session_id($url));
   }
 }
 // +-----------------------------------------------------------------------+
@@ -198,9 +198,9 @@ $template->assign_vars(
     'L_RETURN' =>  $lang['home'],
     'L_RETURN_HINT' =>  $lang['home_hint'],
 
-    'U_RETURN' => PHPWG_ROOT_PATH.'category.php',
+    'U_RETURN' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
     
-    'F_ACTION'=>$url_action,
+    'F_ACTION'=>add_session_id($url_action),
     ));
 
 $blockname = 'template_option';

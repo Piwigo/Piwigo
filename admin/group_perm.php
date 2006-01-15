@@ -140,9 +140,11 @@ $template->assign_vars(
     'L_CAT_OPTIONS_INFO'=>$lang['permuser_info'],
     
     'F_ACTION' =>
+      add_session_id(
         PHPWG_ROOT_PATH.
         'admin.php?page=group_perm&amp;group_id='.
         $page['group']
+        )
     )
   );
   

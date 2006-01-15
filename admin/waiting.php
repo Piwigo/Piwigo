@@ -148,7 +148,7 @@ $template->assign_vars(array(
   'L_RESET'=>$lang['reset'],
   'L_DELETE'=>$lang['delete'],
   
-  'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])
+  'F_ACTION'=>add_session_id(str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] ))
   ));
   
 //---------------------------------------------------------------- form display

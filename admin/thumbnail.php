@@ -358,7 +358,7 @@ if (count($remainings) > 0)
   $template->assign_block_vars(
     'params',
     array(
-      'F_ACTION'=>$form_url,
+      'F_ACTION'=>add_session_id($form_url),
       $gdlabel=>'checked="checked"',
       $nlabel=>'checked="checked"',
       'WIDTH_TN'=>$width,

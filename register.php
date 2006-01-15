@@ -76,9 +76,9 @@ $template->assign_vars(array(
   'L_CONFIRM_PASSWORD' => $lang['reg_confirm'],
   'L_EMAIL' => $lang['mail_address'],
 
-  'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+  'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
   
-  'F_ACTION' => 'register.php',
+  'F_ACTION' => add_session_id('register.php'),
   'F_LOGIN' => $login,
   'F_EMAIL' => $email
   ));

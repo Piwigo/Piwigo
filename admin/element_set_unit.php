@@ -222,8 +222,10 @@ SELECT id,path,tn_ext,name,date_creation,comment,keywords,author,file
           !empty($row['name']) ?
             $row['name'] : get_name_from_file($row['file']),
         'U_EDIT' =>
+          add_session_id(
             PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
-            '&amp;image_id='.$row['id'],
+            '&amp;image_id='.$row['id']
+            ),
         'ID' => $row['id'],
         'FILENAME' => $row['path'],
         'TN_SRC' => $src,

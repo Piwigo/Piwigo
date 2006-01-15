@@ -51,9 +51,8 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     {
       $session_length = $conf['remember_me_length'];
     }
-    session_start();
-    $_SESSION['id'] = $row['id'];
-    redirect('category.php');
+    $session_id = session_create($row['id'], $session_length);
+    redirect('category.php?id='.$session_id);
   }
   else
   {
@@ -81,11 +80,11 @@ $template->assign_vars(
     'L_FORGET' => $lang['ident_forgotten_password'],
     'L_REMEMBER_ME'=>$lang['remember_me'],
 
-    'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
-    'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+    'U_REGISTER' => add_session_id(PHPWG_ROOT_PATH.'register.php'),
+    'U_LOST_PASSWORD' => add_session_id(PHPWG_ROOT_PATH.'password.php'),
+    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php'),
     
-    'F_LOGIN_ACTION' => PHPWG_ROOT_PATH.'identification.php'
+    'F_LOGIN_ACTION' => add_session_id(PHPWG_ROOT_PATH.'identification.php')
     ));
 
 if ($conf['authorize_remembering'])

@@ -89,7 +89,7 @@ while ($row = mysql_fetch_array($result))
       'IMAGE_TITLE'        => $thumbnail_title,
       'IMAGE_TS'           => get_icon($row['date_available']),
       
-      'U_IMG_LINK'         => $url_link
+      'U_IMG_LINK'         => add_session_id($url_link)
       )
     );
 

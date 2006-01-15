@@ -133,9 +133,11 @@ $template->assign_vars(
     'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
     
     'F_ACTION' =>
+      add_session_id(
         PHPWG_ROOT_PATH.
         'admin.php?page=user_perm'.
         '&amp;user_id='.$page['user']
+        )
     )
   );
 

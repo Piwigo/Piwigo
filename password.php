@@ -176,7 +176,7 @@ $template->set_filenames(array('password'=>'password.tpl'));
 
 $template->assign_vars(
   array(
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
+    'U_HOME' => add_session_id(PHPWG_ROOT_PATH.'category.php')
     )
   );
 

@@ -67,6 +67,7 @@ foreach ($calendar_years as $calendar_year => $nb_picture_year)
   {
     $url = PHPWG_ROOT_PATH.'category.php?cat=calendar';
     $url.= '&amp;year='.$calendar_year;
+    $url = add_session_id($url);
     $years_nav_bar.= ' <a href="'.$url.'">'.$calendar_year.'</a>';
   }
 }
@@ -123,7 +124,7 @@ SELECT DISTINCT(MONTH('.$conf['calendar_datefield'].')) AS month
       $url = PHPWG_ROOT_PATH.'category.php?cat=calendar&amp;month=';
       $url.= $page['calendar_year'].'.'.sprintf('%02s', $calendar_month);
       $months_nav_bar.= ' ';
-      $months_nav_bar.= '<a href="'.$url.'">';
+      $months_nav_bar.= '<a href="'.add_session_id($url).'">';
       $months_nav_bar.= $lang['month'][(int)$calendar_month];
       $months_nav_bar.= '</a>';
     }
@@ -247,7 +248,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
           
-        'U_IMG_LINK'=>$url_link
+        'U_IMG_LINK'=>add_session_id($url_link)
        )
      );
 
@@ -307,7 +308,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
           
-        'U_IMG_LINK'=>$url_link
+        'U_IMG_LINK'=>add_session_id($url_link)
        )
      );
 
@@ -361,7 +362,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
           
-        'U_IMG_LINK'=>$url_link
+        'U_IMG_LINK'=>add_session_id($url_link)
          )
        );
 
@@ -435,7 +436,7 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
         'IMAGE_ALT'=>$row['file'],
         'IMAGE_TITLE'=>$thumbnail_title,
           
-        'U_IMG_LINK'=>$url_link
+        'U_IMG_LINK'=>add_session_id($url_link)
          )
        );
 

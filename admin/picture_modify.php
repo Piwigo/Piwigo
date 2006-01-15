@@ -195,10 +195,12 @@ $template->set_filenames(
 $template->assign_vars(
   array(
     'U_SYNC' =>
+      add_session_id(
         PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
         '&amp;image_id='.$_GET['image_id'].
         (isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '').
-        '&amp;sync_metadata=1',
+        '&amp;sync_metadata=1'
+        ),
     
     'PATH'=>$row['path'],
     
@@ -228,8 +230,10 @@ $template->assign_vars(
         stripslashes($_POST['description']) : @$row['comment'],
   
     'F_ACTION' =>
+      add_session_id(
         PHPWG_ROOT_PATH.'admin.php'
         .get_query_string_diff(array('sync_metadata'))
+        )
     )
   );
 

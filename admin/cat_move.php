@@ -68,7 +68,7 @@ $template->set_filenames(
 
 $template->assign_vars(
   array(
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=cat_move',
+    'F_ACTION' => add_session_id(PHPWG_ROOT_PATH.'admin.php?page=cat_move'),
     )
   );
   

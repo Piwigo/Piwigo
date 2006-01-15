@@ -59,5 +59,5 @@ while ($row = mysql_fetch_array($result))
 // |                                redirect                               |
 // +-----------------------------------------------------------------------+
 $url = PHPWG_ROOT_PATH.'category.php?cat=list&amp;list='.implode(',', $ids);
-redirect($url);
+redirect(add_session_id($url));
 ?>

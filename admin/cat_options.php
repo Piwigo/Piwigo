@@ -153,7 +153,7 @@ $template->assign_vars(
 
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_options',
     
-    'F_ACTION'=>$base_url.$page['section']
+    'F_ACTION'=>add_session_id($base_url.$page['section'])
    )
  );
 

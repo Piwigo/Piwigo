@@ -78,7 +78,7 @@ while ( $row = mysql_fetch_array( $result ) )
       'IMAGE_ALT'               => $row['file'],
       'IMAGE_TITLE'             => $lang['hint_category'],
         
-      'U_IMG_LINK'              => $url_link
+      'U_IMG_LINK'              => add_session_id($url_link)
       )
     );
 

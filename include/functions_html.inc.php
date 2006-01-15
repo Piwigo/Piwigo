@@ -82,7 +82,7 @@ function create_navigation_bar($url, $nb_element, $start,
     if ($cur_page != 1)
     {
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start=0';
+      $navbar.= add_session_id($url.'&amp;start=0');
       $navbar.= '" class="'.$link_class.'">'.$lang['first_page'];
       $navbar.= '</a>';
     }
@@ -96,7 +96,7 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $previous = $start - $nb_element_page;
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$previous;
+      $navbar.= add_session_id( $url.'&amp;start='.$previous );
       $navbar.= '" class="'.$link_class.'">'.$lang['previous_page'];
       $navbar.= '</a>';
     }
@@ -109,7 +109,7 @@ function create_navigation_bar($url, $nb_element, $start,
     if ($cur_page > $pages_around + 1)
     {
       $navbar.= '&nbsp;<a href="';
-      $navbar.= $url.'&amp;start=0';
+      $navbar.= add_session_id($url.'&amp;start=0');
       $navbar.= '" class="'.$link_class.'">1</a>';
       if ($cur_page > $pages_around + 2)
       {
@@ -130,7 +130,7 @@ function create_navigation_bar($url, $nb_element, $start,
       {
         $temp_start = ($i - 1) * $nb_element_page;
         $navbar.= '&nbsp;<a href="';
-        $navbar.= $url.'&amp;start='.$temp_start;
+        $navbar.= add_session_id($url.'&amp;start='.$temp_start);
         $navbar.= '" class="'.$link_class.'">'.$i.'</a>';
       }
       else
@@ -148,7 +148,7 @@ function create_navigation_bar($url, $nb_element, $start,
         $navbar.= ' ...';
       }
       $navbar.= ' <a href="';
-      $navbar.= $url.'&amp;start='.$temp_start;
+      $navbar.= add_session_id($url.'&amp;start='.$temp_start);
       $navbar.= '" class="'.$link_class.'">'.$maximum.'</a>';
     }
     
@@ -159,7 +159,7 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $next = $start + $nb_element_page;
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$next;
+      $navbar.= add_session_id( $url.'&amp;start='.$next );
       $navbar.= '" class="'.$link_class.'">'.$lang['next_page'].'</a>';
     }
     else
@@ -173,7 +173,7 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$temp_start;
+      $navbar.= add_session_id($url.'&amp;start='.$temp_start);
       $navbar.= '" class="'.$link_class.'">'.$lang['last_page'];
       $navbar.= '</a>';
     }
@@ -242,7 +242,7 @@ function get_cat_display_name($cat_informations,
     else
     {
       $output.= '<a class=""';
-      $output.= ' href="'.PHPWG_ROOT_PATH.$url.$id.'">';
+      $output.= ' href="'.add_session_id(PHPWG_ROOT_PATH.$url.$id).'">';
       $output.= $name.'</a>';
     }
   }
@@ -311,7 +311,7 @@ SELECT id,name
     {
       $output.= '
 <a class=""
-   href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$name.'</a>';
+   href="'.add_session_id(PHPWG_ROOT_PATH.$url.$category_id).'">'.$name.'</a>';
     }
   }
   if ($replace_space)
@@ -370,7 +370,7 @@ function get_html_menu_category($categories)
     }
     $menu.= '>';
   
-    $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
+    $url = add_session_id(PHPWG_ROOT_PATH.'category.php?cat='.$category['id']);
     $menu.= "\n".'<a href="'.$url.'">'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
