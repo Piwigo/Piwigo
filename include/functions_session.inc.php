@@ -25,20 +25,33 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (isset($conf['session_save_handler']) and ($conf['session_save_handler'] == 'db')) {
+if (isset($conf['session_save_handler']) 
+  and ($conf['session_save_handler'] == 'db')) 
+{
   session_set_save_handler('pwg_session_open', 
-			   'pwg_session_close',
-			   'pwg_session_read',
-			   'pwg_session_write',
-			   'pwg_session_destroy',
-			   'pwg_session_gc'
-			   );
+    'pwg_session_close',
+    'pwg_session_read',
+    'pwg_session_write',
+    'pwg_session_destroy',
+    'pwg_session_gc'
+  );
 }
-
-ini_set('session.use_cookies', $conf['session_use_cookies']);
-ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
-ini_set('session.use_trans_sid', $conf['session_use_trans_sid']);
-ini_set('session.name', $conf['session_name']);
+if (isset($conf['session_use_cookies'])) 
+{ 
+  ini_set('session.use_cookies', $conf['session_use_cookies']);
+}
+if (isset($conf['session_use_only_cookies']))
+{
+  ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+}
+if (isset($conf['session_use_trans_sid']))
+{
+  ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+}
+if (isset($conf['session_name']))
+{
+  ini_set('session.name', $conf['session_name']);
+}
 
 function pwg_session_open($path, $name) 
 {
@@ -53,29 +66,39 @@ function pwg_session_close()
 
 function pwg_session_read($session_id) 
 {
-  $query = "SELECT data FROM " . SESSIONS_TABLE;
-  $query .= " WHERE id = '$session_id'";
+  $query = '
+SELECT data FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'';
   $result = pwg_query($query);
-  if ($result) {
+  if ($result) 
+  {
     $row = mysql_fetch_assoc($result);
     return $row['data'];
-  } else {
+  } 
+  else 
+  {
     return '';
   }
 }
 
 function pwg_session_write($session_id, $data) 
 {
-  $query = "SELECT id FROM " . SESSIONS_TABLE;
-  $query .= " WHERE id = '$session_id'";
+  $query = '
+SELECT id FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'';
   $result = pwg_query($query);
-  if (mysql_num_rows($result)) {
-    $query = "UPDATE " . SESSIONS_TABLE . " SET expiration = now()";
-    $query .= " WHERE id = '$session_id'";    
+  if (mysql_num_rows($result)) 
+  {
+    $query = '
+UPDATE '.SESSIONS_TABLE.' SET expiration = now()
+  WHERE id = \''.$session_id.'\'';    
     pwg_query($query);
-  } else {
-    $query = "INSERT INTO " . SESSIONS_TABLE . " (id,data,expiration)";
-    $query .= " VALUES('$session_id','$data',now())";
+  } 
+  else 
+  {
+    $query = '
+INSERT INTO '.SESSIONS_TABLE.'(id,data,expiration)
+  VALUES(\''.$session_id.'\',\''.$data.'\',now())';
     pwg_query($query);    
   }
   return true;
@@ -83,8 +106,9 @@ function pwg_session_write($session_id, $data)
 
 function pwg_session_destroy($session_id) 
 {
-  $query = "DELETE FROM " . SESSIONS_TABLE;
-  $query .= " WHERE id = '$session_id'";
+  $query = '
+DELETE FROM '.SESSIONS_TABLE.'
+  WHERE id = '.$session_id;
   pwg_query($query);
   return true;
 }
@@ -93,8 +117,10 @@ function pwg_session_gc()
 {
   global $conf;
 
-  $query = "DELETE FROM " . SESSIONS_TABLE;
-  $query .= " WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(expiration) > " . $conf['session_length'];
+  $query = '
+DELETE FROM '.SESSIONS_TABLE.'
+  WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(expiration) > '
+  .$conf['session_length'];
   pwg_query($query);
   return true;
 }

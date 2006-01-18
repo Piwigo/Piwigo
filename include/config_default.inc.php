@@ -264,19 +264,22 @@ $conf['use_exif_mapping'] = array(
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+
 
-// specifies to use cookie to store the session id on client side
-$conf['session_use_cookies'] = 1;
+// session_use_cookies: specifies to use cookie to store 
+// the session id on client side
+$conf['session_use_cookies'] = true;
 
-// specifies to only use cookie to store the session id on client side
-$conf['session_use_only_cookies'] = 1;
+// session_use_only_cookies: specifies to only use cookie to store 
+// the session id on client side
+$conf['session_use_only_cookies'] = true;
 
-// do not use transparent session id support
-$conf['session_use_trans_sid'] = 0;
+// session_use_trans_sid: do not use transparent session id support
+$conf['session_use_trans_sid'] = false;
 
-// specifies the name of the session which is used as cookie name
+// session_name: specifies the name of the session which is used as cookie name
 $conf['session_name'] = 'pwg_id';
 
-// comment the line below to use file handler for sessions.
+// session_save_handler: comment the line below 
+// to use file handler for sessions.
 $conf['session_save_handler'] = 'db';
 
 // authorize_remembering : permits user to stay logged for a long time. It

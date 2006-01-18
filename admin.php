@@ -86,7 +86,7 @@ $template->assign_vars(
     'U_THUMBNAILS'=> $link_start.'thumbnail',
     'U_USERS'=> $link_start.'user_list',
     'U_GROUPS'=> $link_start.'group_list',
-    'U_RETURN'=> PHPWG_ROOT_PATH.'category.php'
+    'U_RETURN'=> PHPWG_ROOT_PATH.'category.php',
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
     'L_ADMIN' => $lang['admin'],
     'L_ADMIN_HINT' => $lang['hint_admin']
