@@ -37,41 +37,43 @@ if (isset($_POST['submit']))
 {
   if (isset($_POST['search_allwords'])
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
-  {
-    $local_search = array();
-    $search_allwords = $_POST['search_allwords'];
+  {    
     $drop_char_match = array(
       '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
       '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
     $drop_char_replace = array(
       ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','','',' ',' ',' ',' ','',' ',
       ' ',' ',' ',' ',' ',' ',' ',' ','' ,' ',' ',' ',' ',' ');
-    $search_allwords = str_replace($drop_char_match,
-                                   $drop_char_replace,
-                                   $search_allwords);
 	
     // Split words
-    $words = preg_split('/\s+/', $search_allwords);
-    $words = array_unique($words);
-    $search['fields']['allwords'] = array();
-    $search['fields']['allwords']['words'] = $words;
-    $search['fields']['allwords']['mode'] = $_POST['mode'];
+    $search['fields']['allwords'] = array(
+      'words' => array_unique(
+        preg_split(
+          '/\s+/',
+          str_replace(
+            $drop_char_match,
+            $drop_char_replace,
+            $_POST['search_allwords']
+            )
+          )
+        ),
+      'mode' => $_POST['mode'],
+      );
   }
   
   if ($_POST['search_author'])
   {
-    $search['fields']['author'] = array();
-    $search['fields']['author']['words'] = array($_POST['search_author']);
+    $search['fields']['author'] = array(
+      'words' => array($_POST['search_author']),
+      );
   }
   
   if (isset($_POST['cat']))
   {
-    $search['fields']['cat'] = array();
-    $search['fields']['cat']['words'] = $_POST['cat'];
-    if ($_POST['subcats-included'] == 1)
-    {
-      $search['fields']['cat']['mode'] = 'sub_inc';
-    }
+    $search['fields']['cat'] = array(
+      'words'   => $_POST['cat'],
+      'sub_inc' => ($_POST['subcats-included'] == 1) ? true : false,
+      );
   }
 
   // dates
@@ -79,46 +81,71 @@ if (isset($_POST['submit']))
   
   if (!empty($_POST['start_year']))
   {
-    $year = $_POST['start_year'];
-    $month = $_POST['start_month'] != 0 ? $_POST['start_month'] : '01';
-    $day = $_POST['start_day'] != 0 ? $_POST['start_day'] : '01';
-    $date = $year.'-'.$month.'-'.$day;
+//     $year = $_POST['start_year'];
+//     $month = $_POST['start_month'] != 0 ? $_POST['start_month'] : '01';
+//     $day = $_POST['start_day'] != 0 ? $_POST['start_day'] : '01';
+//     $date = $year.'-'.$month.'-'.$day;
     
-    $search['fields'][$type_date.'-after']['words'] = array($date);
-    $search['fields'][$type_date.'-after']['mode'] = 'inc';
+//     $search['fields'][$type_date.'-after']['words'] = array($date);
+//     $search['fields'][$type_date.'-after']['mode'] = 'inc';
+
+    $search['fields'][$type_date.'-after'] = array(
+      'date' => join(
+        '-',
+        array(
+          $_POST['start_year'],
+          $_POST['start_month'] != 0 ? $_POST['start_month'] : '01',
+          $_POST['start_day']   != 0 ? $_POST['start_day']   : '01',
+          )
+        ),
+      'inc' => true,
+      );
   }
 
   if (!empty($_POST['end_year']))
   {
-    $year = $_POST['end_year'];
-    $month = $_POST['end_month'] != 0 ? $_POST['end_month'] : '12';
-    $day = $_POST['end_day'] != 0 ? $_POST['end_day'] : '31';
-    $date = $year.'-'.$month.'-'.$day;
+//     $year = $_POST['end_year'];
+//     $month = $_POST['end_month'] != 0 ? $_POST['end_month'] : '12';
+//     $day = $_POST['end_day'] != 0 ? $_POST['end_day'] : '31';
+//     $date = $year.'-'.$month.'-'.$day;
     
-    $search['fields'][$type_date.'-before']['words'] = array($date);
-    $search['fields'][$type_date.'-before']['mode'] = 'inc';
+    $search['fields'][$type_date.'-before'] = array(
+      'date' => join(
+        '-',
+        array(
+          $_POST['end_year'],
+          $_POST['end_month'] != 0 ? $_POST['end_month'] : '12',
+          $_POST['end_day']   != 0 ? $_POST['end_day']   : '31',
+          )
+        ),
+      'inc' => true,
+      );
   }
-    
-  // search string (for URL) creation
-  $search_string = '';
-  $tokens = array();
+  
   if (!empty($search))
   {
-    foreach (array_keys($search['fields']) as $field)
-    {
-      $token = $field.':';
-      $token.= implode(',', $search['fields'][$field]['words']);
-      if (isset($search['fields'][$field]['mode']))
-      {
-        $token.= '~'.$search['fields'][$field]['mode'];
-      }
-      array_push($tokens, $token);
-    }
-    $search_string.= implode('--', $tokens);
-    if (count($tokens) > 1)
-    {
-      $search_string.= '|AND';
-    }
+    // default search mode : each clause must be respected
+    $search['mode'] = 'AND';
+
+//     echo '<pre>';
+//     print_r($_POST);
+//     echo '</pre>';
+
+//     echo '<pre>';
+//     print_r($search);
+//     echo '</pre>';
+    
+    // register search rules in database, then they will be available on
+    // thumbnails page and picture page.
+    $query ='
+INSERT INTO '.SEARCH_TABLE.'
+  (rules)
+  VALUES
+  (\''.serialize($search).'\')
+;';
+    pwg_query($query);
+
+    $search_id = mysql_insert_id();
   }
   else
   {
@@ -128,7 +155,7 @@ if (isset($_POST['submit']))
 //----------------------------------------------------------------- redirection
 if (isset($_POST['submit']) and count($errors) == 0)
 {
-  $url = 'category.php?cat=search&search='.$search_string;
+  $url = 'category.php?cat=search&search='.$search_id;
   redirect($url);
 }
 //----------------------------------------------------- template initialization

@@ -177,6 +177,18 @@ CREATE TABLE `phpwebgallery_rate` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_search`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_search`;
+CREATE TABLE `phpwebgallery_search` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `last_seen` date default NULL,
+  `rules` text,
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_sessions`
 --
 

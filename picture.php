@@ -675,10 +675,14 @@ $infos = array();
 if (!empty($picture['current']['author']))
 {
   $infos['INFO_AUTHOR'] =
-    '<a href="'.
-      PHPWG_ROOT_PATH.'category.php?cat=search'.
-      '&amp;search=author:'.$picture['current']['author']
-      .'">'.$picture['current']['author'].'</a>';
+    // FIXME because of search engine partial rewrite, giving the author
+    // name threw GET is not supported anymore. This feature should come
+    // back later, with a better design
+//     '<a href="'.
+//       PHPWG_ROOT_PATH.'category.php?cat=search'.
+//       '&amp;search=author:'.$picture['current']['author']
+//       .'">'.$picture['current']['author'].'</a>';
+    $picture['current']['author'];
 }
 else
 {
@@ -689,10 +693,14 @@ else
 if (!empty($picture['current']['date_creation']))
 {
   $infos['INFO_CREATION_DATE'] =
-    '<a href="'.
-      PHPWG_ROOT_PATH.'category.php?cat=search'.
-      '&amp;search=date_creation:'.$picture['current']['date_creation']
-      .'">'.format_date($picture['current']['date_creation']).'</a>';
+    // FIXME because of search engine partial rewrite, giving the author
+    // name threw GET is not supported anymore. This feature should come
+    // back later, with a better design (calendar view).
+//     '<a href="'.
+//       PHPWG_ROOT_PATH.'category.php?cat=search'.
+//       '&amp;search=date_creation:'.$picture['current']['date_creation']
+//       .'">'.format_date($picture['current']['date_creation']).'</a>';
+    format_date($picture['current']['date_creation']);
 }
 else
 {
@@ -701,13 +709,18 @@ else
 
 // date of availability
 $infos['INFO_AVAILABILITY_DATE'] =
-  '<a href="'.
-    PHPWG_ROOT_PATH.'category.php?cat=search'.
-    '&amp;search=date_available:'.
-    substr($picture['current']['date_available'], 0, 10)
-    .'">'.
-  format_date($picture['current']['date_available'], 'mysql_datetime').
-  '</a>';
+// FIXME because of search engine partial rewrite, giving the author
+// name threw GET is not supported anymore. This feature should come
+// back later, with a better design (calendar view).
+//
+//   '<a href="'.
+//     PHPWG_ROOT_PATH.'category.php?cat=search'.
+//     '&amp;search=date_available:'.
+//     substr($picture['current']['date_available'], 0, 10)
+//     .'">'.
+//   format_date($picture['current']['date_available'], 'mysql_datetime').
+//   '</a>';
+format_date($picture['current']['date_available'], 'mysql_datetime');
 
 // size in pixels
 if ($picture['current']['is_picture'])
@@ -751,13 +764,17 @@ $infos['INFO_FILE'] = $picture['current']['file'];
 if (!empty($picture['current']['keywords']))
 {
   $infos['INFO_KEYWORDS'] =
-    preg_replace(
-      '/([^,]+)/',
-      '<a href="'.
-        PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:$1'
-        .'">$1</a>',
-      $picture['current']['keywords']
-      );
+    // FIXME because of search engine partial rewrite, giving the author
+    // name threw GET is not supported anymore. This feature should come
+    // back later, with a better design (tag classification).
+//     preg_replace(
+//       '/([^,]+)/',
+//       '<a href="'.
+//         PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:$1'
+//         .'">$1</a>',
+//       $picture['current']['keywords']
+//       );
+    $picture['current']['keywords'];
 }
 else
 {

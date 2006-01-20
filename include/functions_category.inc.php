@@ -103,7 +103,9 @@ function check_cat_id( $cat )
     {
       $page['cat'] = $cat;
     }
-    if ($cat == 'search' and isset($_GET['search']))
+    if ($cat == 'search'
+        and isset($_GET['search'])
+        and is_numeric($_GET['search']))
     {
       $page['cat'] = $cat;
     }
@@ -381,44 +383,6 @@ function initialize_category( $calling_page = 'category' )
       // search result
       if ( $page['cat'] == 'search' )
       {
-        // analyze search string given in URL (created in search.php)
-        $tokens = explode('|', $_GET['search']);
-
-        if (isset($tokens[1]) and $tokens[1] == 'AND')
-        {
-          $search['mode'] = 'AND';
-        }
-        else
-        {
-          $search['mode'] = 'OR';
-        }
-
-        $search_tokens = explode('--', $tokens[0]);
-        foreach ($search_tokens as $search_token)
-        {
-          $tokens = explode(':', $search_token);
-          $field_name = $tokens[0];
-          $field_content = $tokens[1];
-
-          $tokens = explode('~', $tokens[1]);
-          if (isset($tokens[1]))
-          {
-            $search['fields'][$field_name]['mode'] = $tokens[1];
-          }
-          else
-          {
-            $search['fields'][$field_name]['mode'] = '';
-          }
-
-          $search['fields'][$field_name]['words'] = array();
-          $tokens = explode(',', $tokens[0]);
-          foreach ($tokens as $token)
-          {
-            array_push($search['fields'][$field_name]['words'],
-                       htmlentities($token));
-          }
-        }
-        
         $page['title'] = $lang['search_result'];
         if ( $calling_page == 'picture' )
         {
@@ -426,116 +390,12 @@ function initialize_category( $calling_page = 'category' )
           $page['title'].= $_GET['search']."</span>";
         }
 
-        // SQL where clauses are stored in $clauses array during query
-        // construction
-        $clauses = array();
+        $page['where'] = 'WHERE '.get_sql_search_clause($_GET['search']);
         
-        $textfields = array('file', 'name', 'comment', 'keywords', 'author');
-        foreach ($textfields as $textfield)
+        if (isset($forbidden))
         {
-          if (isset($search['fields'][$textfield]))
-          {
-            $local_clauses = array();
-            foreach ($search['fields'][$textfield]['words'] as $word)
-            {
-              array_push($local_clauses, $textfield." LIKE '%".$word."%'");
-            }
-            // adds brackets around where clauses
-            array_walk($local_clauses,create_function('&$s','$s="(".$s.")";'));
-            array_push($clauses,
-                       implode(' '.$search['fields'][$textfield]['mode'].' ',
-                               $local_clauses));
-          }
+          $page['where'].= "\n    AND ".$forbidden;
         }
-
-        if (isset($search['fields']['allwords']))
-        {
-          $fields = array('file', 'name', 'comment', 'keywords', 'author');
-          // in the OR mode, request bust be :
-          // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
-          // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
-          //
-          // in the AND mode :
-          // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
-          // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
-          $word_clauses = array();
-          foreach ($search['fields']['allwords']['words'] as $word)
-          {
-            $field_clauses = array();
-            foreach ($fields as $field)
-            {
-              array_push($field_clauses, $field." LIKE '%".$word."%'");
-            }
-            // adds brackets around where clauses
-            array_push($word_clauses, implode(' OR ', $field_clauses));
-          }
-          array_walk($word_clauses, create_function('&$s','$s="(".$s.")";'));
-          array_push($clauses,
-                     implode(' '.$search['fields']['allwords']['mode'].' ',
-                               $word_clauses));
-        }
-
-        $datefields = array('date_available', 'date_creation');
-        foreach ($datefields as $datefield)
-        {
-          $key = $datefield;
-          if (isset($search['fields'][$key]))
-          {
-            $local_clause = $datefield." = '";
-            $local_clause.= str_replace('.', '-',
-                                        $search['fields'][$key]['words'][0]);
-            $local_clause.= "'";
-            array_push($clauses, $local_clause);
-          }
-
-          foreach (array('after','before') as $suffix)
-          {
-            $key = $datefield.'-'.$suffix;
-            if (isset($search['fields'][$key]))
-            {
-              $local_clause = $datefield;
-              if ($suffix == 'after')
-              {
-                $local_clause.= ' >';
-              }
-              else
-              {
-                $local_clause.= ' <';
-              }
-              if (isset($search['fields'][$key]['mode'])
-                  and $search['fields'][$key]['mode'] == 'inc')
-              {
-                $local_clause.= '=';
-              }
-              $local_clause.= " '";
-              $local_clause.= str_replace('.', '-',
-                                          $search['fields'][$key]['words'][0]);
-              $local_clause.= "'";
-              array_push($clauses, $local_clause);
-            }
-          }
-        }
-
-        if (isset($search['fields']['cat']))
-        {
-          if ($search['fields']['cat']['mode'] == 'sub_inc')
-          {
-            // searching all the categories id of sub-categories
-            $cat_ids = get_subcat_ids($search['fields']['cat']['words']);
-          }
-          else
-          {
-            $cat_ids = $search['fields']['cat']['words'];
-          }
-          
-          $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
-          array_push($clauses, $local_clause);
-        }
-
-        // adds brackets around where clauses
-        array_walk($clauses, create_function('&$s', '$s = "(".$s.")";'));
-        $page['where'] = 'WHERE '.implode(' '.$search['mode'].' ', $clauses);
-        if ( isset( $forbidden ) ) $page['where'].= ' AND '.$forbidden;
 
         $query = '
 SELECT COUNT(DISTINCT(id)) AS nb_total_images

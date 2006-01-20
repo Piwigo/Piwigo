@@ -741,8 +741,8 @@ function l10n($key)
 }
 
 /**
- * returns the corresponding value from $themeconf if existing. Else, the key is
- * returned
+ * returns the corresponding value from $themeconf if existing. Else, the
+ * key is returned
  *
  * @param string key
  * @return string
@@ -752,5 +752,187 @@ function get_themeconf($key)
   global $themeconf;
 
   return $themeconf[$key];
+}
+
+/**
+ * Prepends and appends a string at each value of the given array.
+ *
+ * @param array
+ * @param string prefix to each array values
+ * @param string suffix to each array values
+ */
+function prepend_append_array_items($array, $prepend_str, $append_str)
+{
+  array_walk(
+    $array,
+    create_function('&$s', '$s = "'.$prepend_str.'".$s."'.$append_str.'";')
+    );
+
+  return $array;
+}
+
+/**
+ * returns the SQL clause from a search identifier
+ *
+ * Search rules are stored in search table as a serialized array. This array
+ * need to be transformed into an SQL clause to be used in queries.
+ *
+ * @param int search_id
+ * @return string
+ */
+function get_sql_search_clause($search_id)
+{
+  if (!is_numeric($search_id))
+  {
+    die('Search id must be an integer');
+  }
+  
+  $query = '
+SELECT rules
+  FROM '.SEARCH_TABLE.'
+  WHERE id = '.$_GET['search'].'
+;';
+  list($serialized_rules) = mysql_fetch_row(pwg_query($query));
+  
+  $search = unserialize($serialized_rules);
+
+//   echo '<pre>';
+//   print_r($search);
+//   echo '</pre>';
+
+  // SQL where clauses are stored in $clauses array during query
+  // construction
+  $clauses = array();
+  
+  foreach (array('file','name','comment','keywords','author') as $textfield)
+  {
+    if (isset($search['fields'][$textfield]))
+    {
+      $local_clauses = array();
+      foreach ($search['fields'][$textfield]['words'] as $word)
+      {
+        array_push($local_clauses, $textfield." LIKE '%".$word."%'");
+      }
+
+      // adds brackets around where clauses
+      $local_clauses = prepend_append_array_items($local_clauses, '(', ')');
+
+      array_push(
+        $clauses,
+        implode(
+          ' '.$search['fields'][$textfield]['mode'].' ',
+          $local_clauses
+          )
+        );
+    }
+  }
+  
+  if (isset($search['fields']['allwords']))
+  {
+    $fields = array('file', 'name', 'comment', 'keywords', 'author');
+    // in the OR mode, request bust be :
+    // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
+    // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
+    //
+    // in the AND mode :
+    // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
+    // AND (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
+    $word_clauses = array();
+    foreach ($search['fields']['allwords']['words'] as $word)
+    {
+      $field_clauses = array();
+      foreach ($fields as $field)
+      {
+        array_push($field_clauses, $field." LIKE '%".$word."%'");
+      }
+      // adds brackets around where clauses
+      array_push(
+        $word_clauses,
+        implode(
+          "\n          OR ",
+          $field_clauses
+          )
+        );
+    }
+    
+    array_walk(
+      $word_clauses,
+      create_function('&$s','$s="(".$s.")";')
+      );
+    
+    array_push(
+      $clauses,
+      "\n         ".
+      implode(
+        "\n         ".
+              $search['fields']['allwords']['mode'].
+        "\n         ",
+        $word_clauses
+        )
+      );
+  }
+  
+  foreach (array('date_available', 'date_creation') as $datefield)
+  {
+    if (isset($search['fields'][$datefield]))
+    {
+      array_push(
+        $clauses,
+        $datefield." = '".$search['fields'][$datefield]['date']."'"
+        );
+    }
+    
+    foreach (array('after','before') as $suffix)
+    {
+      $key = $datefield.'-'.$suffix;
+      
+      if (isset($search['fields'][$key]))
+      {
+        array_push(
+          $clauses,
+          
+          $datefield.
+          ($suffix == 'after'             ? ' >' : ' <').
+          ($search['fields'][$key]['inc'] ? '='  : '').
+          " '".$search['fields'][$key]['date']."'"
+          
+          );
+      }
+    }
+  }
+  
+  if (isset($search['fields']['cat']))
+  {
+    if ($search['fields']['cat']['sub_inc'])
+    {
+      // searching all the categories id of sub-categories
+      $cat_ids = get_subcat_ids($search['fields']['cat']['words']);
+    }
+    else
+    {
+      $cat_ids = $search['fields']['cat']['words'];
+    }
+    
+    $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
+    array_push($clauses, $local_clause);
+  }
+  
+  // adds brackets around where clauses
+  $clauses = prepend_append_array_items($clauses, '(', ')');
+  
+  $where_separator =
+    implode(
+      "\n    ".$search['mode'].' ',
+      $clauses
+      );
+  
+  $search_clause = $where_separator;
+  
+  if (isset($forbidden))
+  {
+    $search_clause.= "\n    AND ".$forbidden;
+  }
+
+  return $search_clause;
 }
 ?>

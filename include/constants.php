@@ -60,4 +60,5 @@ define('RATE_TABLE', $prefixeTable.'rate');
 define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
 define('CADDIE_TABLE', $prefixeTable.'caddie');
 define('UPGRADE_TABLE', $prefixeTable.'upgrade');
+define('SEARCH_TABLE', $prefixeTable.'search');
 ?>
