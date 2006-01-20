@@ -81,14 +81,6 @@ if (isset($_POST['submit']))
   
   if (!empty($_POST['start_year']))
   {
-//     $year = $_POST['start_year'];
-//     $month = $_POST['start_month'] != 0 ? $_POST['start_month'] : '01';
-//     $day = $_POST['start_day'] != 0 ? $_POST['start_day'] : '01';
-//     $date = $year.'-'.$month.'-'.$day;
-    
-//     $search['fields'][$type_date.'-after']['words'] = array($date);
-//     $search['fields'][$type_date.'-after']['mode'] = 'inc';
-
     $search['fields'][$type_date.'-after'] = array(
       'date' => join(
         '-',
@@ -104,11 +96,6 @@ if (isset($_POST['submit']))
 
   if (!empty($_POST['end_year']))
   {
-//     $year = $_POST['end_year'];
-//     $month = $_POST['end_month'] != 0 ? $_POST['end_month'] : '12';
-//     $day = $_POST['end_day'] != 0 ? $_POST['end_day'] : '31';
-//     $date = $year.'-'.$month.'-'.$day;
-    
     $search['fields'][$type_date.'-before'] = array(
       'date' => join(
         '-',
@@ -127,14 +114,6 @@ if (isset($_POST['submit']))
     // default search mode : each clause must be respected
     $search['mode'] = 'AND';
 
-//     echo '<pre>';
-//     print_r($_POST);
-//     echo '</pre>';
-
-//     echo '<pre>';
-//     print_r($search);
-//     echo '</pre>';
-    
     // register search rules in database, then they will be available on
     // thumbnails page and picture page.
     $query ='
