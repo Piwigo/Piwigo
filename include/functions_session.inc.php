@@ -36,39 +36,46 @@ if (isset($conf['session_save_handler'])
     'pwg_session_gc'
   );
 }
-if (isset($conf['session_use_cookies'])) 
-{ 
-  ini_set('session.use_cookies', $conf['session_use_cookies']);
-}
-if (isset($conf['session_use_only_cookies']))
-{
-  ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
-}
-if (isset($conf['session_use_trans_sid']))
-{
-  ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
-}
-if (isset($conf['session_name']))
-{
-  ini_set('session.name', $conf['session_name']);
-}
+ 
+ini_set('session.use_cookies', $conf['session_use_cookies']);
+ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+ini_set('session.name', $conf['session_name']);
 
+/**
+ * returns true; used when the session_start() function is called
+ *
+ * @params not use but useful for php engine
+ */
 function pwg_session_open($path, $name) 
 {
   return true;
 }
 
+/**
+ * returns true; used when the session is closed (unset($_SESSION))
+ *
+ */
 function pwg_session_close() 
 {
   pwg_session_gc();
   return true;
 }
 
+/**
+ * this function returns
+ * a string corresponding to the value of the variable save in the session 
+ * or an empty string when the variable doesn't exist
+ * 
+ * @param string session id
+ */
 function pwg_session_read($session_id) 
 {
   $query = '
-SELECT data FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$session_id.'\'';
+SELECT data 
+  FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'
+;';
   $result = pwg_query($query);
   if ($result) 
   {
@@ -81,46 +88,71 @@ SELECT data FROM '.SESSIONS_TABLE.'
   }
 }
 
+/**
+ * returns true; writes set a variable in the active session 
+ * 
+ * @param string session id
+ * @data string value of date to be saved
+ */
 function pwg_session_write($session_id, $data) 
 {
   $query = '
-SELECT id FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$session_id.'\'';
+SELECT id 
+  FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'
+;';
   $result = pwg_query($query);
   if (mysql_num_rows($result)) 
   {
     $query = '
-UPDATE '.SESSIONS_TABLE.' SET expiration = now()
-  WHERE id = \''.$session_id.'\'';    
+UPDATE '.SESSIONS_TABLE.' 
+  SET expiration = now()
+  WHERE id = \''.$session_id.'\'
+;';    
     pwg_query($query);
   } 
   else 
   {
     $query = '
-INSERT INTO '.SESSIONS_TABLE.'(id,data,expiration)
-  VALUES(\''.$session_id.'\',\''.$data.'\',now())';
+INSERT INTO '.SESSIONS_TABLE.' 
+  (id,data,expiration)
+  VALUES(\''.$session_id.'\',\''.$data.'\',now())
+;';
     pwg_query($query);    
   }
   return true;
 }
 
+/**
+ * returns true; delete the active session 
+ * 
+ * @param string session id
+ */
 function pwg_session_destroy($session_id) 
 {
   $query = '
-DELETE FROM '.SESSIONS_TABLE.'
-  WHERE id = '.$session_id;
+DELETE 
+  FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'
+;';
   pwg_query($query);
   return true;
 }
 
+/**
+ * returns true; delete expired sessions
+ * called each time a session is closed.
+ */
 function pwg_session_gc() 
 {
   global $conf;
 
   $query = '
-DELETE FROM '.SESSIONS_TABLE.'
+DELETE 
+  FROM '.SESSIONS_TABLE.'
   WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(expiration) > '
-  .$conf['session_length'];
+  .$conf['session_length'].'
+;';
   pwg_query($query);
   return true;
 }
