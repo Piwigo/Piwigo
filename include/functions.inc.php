@@ -430,7 +430,7 @@ function format_date($date, $type = 'us', $show_time = false)
 
 function pwg_query($query)
 {
-  global $conf,$page;
+  global $conf,$page,$debug;
   
   $start = get_moment();
   $result = mysql_query($query) or my_error($query."\n");
@@ -452,12 +452,12 @@ function pwg_query($query)
     $output.= '<pre>['.$page['count_queries'].'] ';
     $output.= "\n".$query;
     $output.= "\n".'(this query time : ';
-    $output.= number_format($time, 3, '.', ' ').' s)</b>';
+    $output.= '<b>'.number_format($time, 3, '.', ' ').' s)</b>';
     $output.= "\n".'(total SQL time  : ';
     $output.= number_format($page['queries_time'], 3, '.', ' ').' s)';
-    $output.= '</pre>';
+    $output.= "</pre>\n";
     
-    echo $output;
+    $debug .= $output;
   }
   
   return $result;
@@ -471,9 +471,10 @@ function pwg_debug( $string )
   $now2 = explode( '.', $now[0] );
   $now2 = $now[1].'.'.$now2[1];
   $time = number_format( $now2 - $t2, 3, '.', ' ').' s';
+  $debug .= '<p>';
   $debug.= '['.$time.', ';
   $debug.= $count_queries.' queries] : '.$string;
-  $debug.= "\n";
+  $debug.= "</p>\n";
 }
 
 /**

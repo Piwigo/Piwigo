@@ -17,5 +17,8 @@
 </div> <!-- copyright -->
 </div> <!-- the_page -->
 
+<!-- BEGIN debug -->
+  {debug.QUERIES_LIST}
+<!-- END debug -->
 </body>
 </html>
