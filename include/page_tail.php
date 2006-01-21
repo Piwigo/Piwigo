@@ -54,6 +54,14 @@ if ($conf['show_gt'])
           'SQL_TIME' => number_format($page['queries_time'],3,'.',' ').' s'));
 }
 
+if ($conf['show_queries']) 
+{
+  $template->assign_block_vars(
+    'debug',
+    array('QUERIES_LIST' => $debug)
+  );
+}
+
 //--------------------------------------------------------------------- contact
 
 if (!$user['is_the_guest'])
