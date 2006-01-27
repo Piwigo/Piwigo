@@ -14,7 +14,7 @@
 <div id="imageToolBar">
 
 <div class="randomButtons">
-  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}"><img src="{themeconf:icon_dir}/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
+  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}" rel="nofollow"><img src="{themeconf:icon_dir}/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
   <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="{themeconf:icon_dir}/metadata.png" class="button" alt="{L_PICTURE_METADATA}"></a>
 <!-- BEGIN representative -->
   <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}" /></a>
@@ -34,13 +34,20 @@
 </div>
 
 <div class="navButtons">
+<!-- BEGIN last -->
+  <a class="navButton prev" href="{last.U_IMG}"><img src="{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
+<!-- END last -->
 <!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}"><img src="{themeconf:icon_dir}/right.png" class="button" alt="next"></a>
+  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{themeconf:icon_dir}/right.png" class="button" alt="next"></a>
+  <link rel="prefetch" href="{next.U_IMG_SRC}"><link rel="prefetch" href="{next.U_IMG}">
 <!-- END next -->
   <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}"><img src="{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}"><img src="{themeconf:icon_dir}/left.png" class="button" alt="previous"></a>
+  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev"><img src="{themeconf:icon_dir}/left.png" class="button" alt="previous"></a>
 <!-- END previous -->
+<!-- BEGIN first -->
+  <a class="navButton prev" href="{first.U_IMG}" rel="start"><img src="{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
+<!-- END first -->
 </div>
 
 </div> <!-- imageToolBar -->
@@ -65,12 +72,12 @@
 </div>
 
 <!-- BEGIN previous -->
-<a class="navThumb" id="thumbPrev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}">
+<a class="navThumb" id="thumbPrev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev">
   <img src="{previous.IMG}" class="thumbLink" id="linkPrev" alt="{previous.TITLE_IMG}">
 </a>
 <!-- END previous -->
 <!-- BEGIN next -->
-<a class="navThumb" id="thumbNext" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}">
+<a class="navThumb" id="thumbNext" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next">
   <img src="{next.IMG}" class="thumbLink" id="linkNext" alt="{next.TITLE_IMG}">
 </a>
 <!-- END next -->
@@ -146,7 +153,7 @@
 <p>
 {rate.SENTENCE} :
 <!-- BEGIN rate_option -->
-{rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}">{rate.rate_option.OPTION}</a>
+{rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}" rel="nofollow">{rate.rate_option.OPTION}</a>
 <!-- END rate_option -->
 </p>
 <!-- END rate -->

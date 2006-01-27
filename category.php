@@ -64,18 +64,6 @@ else
   $page['start'] = $_GET['start'];
 }
 
-// Sometimes, a "num" is provided in the URL. It is the number
-// of the picture to show. This picture must be in the thumbnails page.
-// We have to find the right $page['start'] that show the num picture
-// in this category
-if ( isset( $_GET['num'] )
-     and is_numeric( $_GET['num'] )
-     and $_GET['num'] >= 0 )
-{
-  $page['start'] = floor( $_GET['num'] / $user['nb_image_page'] );
-  $page['start']*= $user['nb_image_page'];
-}
-
 initialize_category();
 
 // caddie filling :-)

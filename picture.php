@@ -43,12 +43,18 @@ if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
   check_restrictions( $page['cat'] );
 }
 //---------------------------------------- incrementation of the number of hits
-$query = '
-UPDATE '.IMAGES_TABLE.'
-  SET hit = hit+1
-  WHERE id = '.$_GET['image_id'].'
-;';
-@pwg_query( $query );
+if ( count(array_intersect(
+             array_keys($_GET),
+             array('add_fav', 'caddie', 'rate', 'representative', 'del') )
+          )==0 )
+{
+  $query = '
+  UPDATE '.IMAGES_TABLE.'
+    SET hit = hit+1
+    WHERE id = '.$_GET['image_id'].'
+  ;';
+  @pwg_query( $query );
+}
 //-------------------------------------------------------------- initialization
 initialize_category( 'picture' );
 // retrieving the number of the picture in its category (in order)
@@ -69,8 +75,35 @@ while ($row = mysql_fetch_array($result))
     $belongs = true;
     break;
   }
+  if ($page['num']==0)
+  {
+    $url_first_last = PHPWG_ROOT_PATH.'picture.php';
+    $url_first_last.= get_query_string_diff(array('image_id','add_fav',
+                                                    'slideshow','rate'));
+    $url_first_last.= '&amp;image_id=';
+    $template->assign_block_vars(
+      'first',
+      array(
+        'U_IMG' => $url_first_last . $row['id'],
+        ));
+  }
   $page['num']++;
 }
+if ($page['cat_nb_images']>0 and $page['num'] < $page['cat_nb_images'] - 1)
+{
+  mysql_data_seek($result, $page['cat_nb_images'] - 1);
+  $row = mysql_fetch_array($result);
+  $url_first_last = PHPWG_ROOT_PATH.'picture.php';
+  $url_first_last.= get_query_string_diff(array('image_id','add_fav',
+                                                  'slideshow','rate'));
+  $url_first_last.= '&amp;image_id=';
+  $template->assign_block_vars(
+    'last',
+    array(
+      'U_IMG' => $url_first_last . $row['id'],
+      ));
+}
+
 // if this image_id doesn't correspond to this category, an error message is
 // displayed, and execution is stopped
 if (!$belongs)
@@ -247,8 +280,14 @@ foreach (array('prev', 'current', 'next') as $i)
   $picture[$i]['url'].= '&amp;image_id='.$row['id'];
 }
 
-$url_up = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'].'&amp;';
-$url_up.= 'num='.$page['num']; 
+$url_up = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'];
+$url_up_start = floor( $page['num'] / $user['nb_image_page'] );
+$url_up_start *= $user['nb_image_page'];
+if ($url_up_start>0)
+{
+  $url_up .= '&amp;start='.$url_up_start; 
+}
+
 if ( $page['cat'] == 'search' )
 {
   $url_up.= "&amp;search=".$_GET['search'];
@@ -642,7 +681,8 @@ if ($has_prev)
     array(
       'TITLE_IMG' => $picture['prev']['name'],
       'IMG' => $picture['prev']['thumbnail'],
-      'U_IMG' => $picture['prev']['url']
+      'U_IMG' => $picture['prev']['url'],
+      'U_IMG_SRC' => $picture['prev']['src']
       ));
 }
 
@@ -653,7 +693,8 @@ if ($has_next)
     array(
       'TITLE_IMG' => $picture['next']['name'],
       'IMG' => $picture['next']['thumbnail'],
-      'U_IMG' => $picture['next']['url']
+      'U_IMG' => $picture['next']['url'],
+      'U_IMG_SRC' => $picture['next']['src'] // allow navigator to preload
       ));
 }
 

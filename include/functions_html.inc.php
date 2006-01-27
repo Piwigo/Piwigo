@@ -82,7 +82,7 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $navbar.= '<a href="';
       $navbar.= $url.'&amp;start=0';
-      $navbar.= '" class="'.$link_class.'">'.$lang['first_page'];
+      $navbar.= '" class="'.$link_class.'" rel="start">'.$lang['first_page'];
       $navbar.= '</a>';
     }
     else
@@ -96,7 +96,7 @@ function create_navigation_bar($url, $nb_element, $start,
       $previous = $start - $nb_element_page;
       $navbar.= '<a href="';
       $navbar.= $url.'&amp;start='.$previous;
-      $navbar.= '" class="'.$link_class.'">'.$lang['previous_page'];
+      $navbar.= '" class="'.$link_class.'" rel="prev">'.$lang['previous_page'];
       $navbar.= '</a>';
     }
     else
@@ -130,7 +130,16 @@ function create_navigation_bar($url, $nb_element, $start,
         $temp_start = ($i - 1) * $nb_element_page;
         $navbar.= '&nbsp;<a href="';
         $navbar.= $url.'&amp;start='.$temp_start;
-        $navbar.= '" class="'.$link_class.'">'.$i.'</a>';
+        $navbar.= '" class="'.$link_class.'"';
+        if ($i == $cur_page - 1)
+        {
+          $navbar.= ' rel="prev"';
+        }
+        if ($i == $cur_page + 1)
+        {
+          $navbar.= ' rel="next"';
+        }
+        $navbar.='>'.$i.'</a>';
       }
       else
       {
@@ -159,7 +168,7 @@ function create_navigation_bar($url, $nb_element, $start,
       $next = $start + $nb_element_page;
       $navbar.= '<a href="';
       $navbar.= $url.'&amp;start='.$next;
-      $navbar.= '" class="'.$link_class.'">'.$lang['next_page'].'</a>';
+      $navbar.= '" class="'.$link_class.'" rel="next">'.$lang['next_page'].'</a>';
     }
     else
     {
