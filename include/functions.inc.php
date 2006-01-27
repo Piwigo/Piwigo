@@ -773,6 +773,30 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
 }
 
 /**
+ * returns search rules stored into a serialized array in "search"
+ * table. Each search rules set is numericaly identified.
+ *
+ * @param int search_id
+ * @return array
+ */
+function get_search_array($search_id)
+{
+  if (!is_numeric($search_id))
+  {
+    die('Search id must be an integer');
+  }
+  
+  $query = '
+SELECT rules
+  FROM '.SEARCH_TABLE.'
+  WHERE id = '.$search_id.'
+;';
+  list($serialized_rules) = mysql_fetch_row(pwg_query($query));
+  
+  return unserialize($serialized_rules);
+}
+
+/**
  * returns the SQL clause from a search identifier
  *
  * Search rules are stored in search table as a serialized array. This array
@@ -783,24 +807,8 @@ function prepend_append_array_items($array, $prepend_str, $append_str)
  */
 function get_sql_search_clause($search_id)
 {
-  if (!is_numeric($search_id))
-  {
-    die('Search id must be an integer');
-  }
+  $search = get_search_array($search_id);
   
-  $query = '
-SELECT rules
-  FROM '.SEARCH_TABLE.'
-  WHERE id = '.$_GET['search'].'
-;';
-  list($serialized_rules) = mysql_fetch_row(pwg_query($query));
-  
-  $search = unserialize($serialized_rules);
-
-//   echo '<pre>';
-//   print_r($search);
-//   echo '</pre>';
-
   // SQL where clauses are stored in $clauses array during query
   // construction
   $clauses = array();

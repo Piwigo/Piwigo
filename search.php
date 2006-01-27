@@ -64,7 +64,11 @@ if (isset($_POST['submit']))
   if ($_POST['search_author'])
   {
     $search['fields']['author'] = array(
-      'words' => array($_POST['search_author']),
+      'words' => preg_split(
+        '/\s+/',
+        $_POST['search_author']
+        ),
+      'mode' => 'OR',
       );
   }
   

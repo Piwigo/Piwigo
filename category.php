@@ -165,6 +165,16 @@ $template->assign_vars(
   'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php'
   )
 );
+
+if (isset($page['cat']) and 'search' == $page['cat'])
+{
+  $template->assign_block_vars(
+    'search_rules',
+    array(
+      'URL' => PHPWG_ROOT_PATH.'/search_rules.php?search_id='.$_GET['search'],
+      )
+    );
+}
 //-------------------------------------------------------------- external links
 if (count($conf['links']) > 0)
 {
