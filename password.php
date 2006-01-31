@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -31,37 +31,7 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-
-// +-----------------------------------------------------------------------+
-// |                              functions                                |
-// +-----------------------------------------------------------------------+
-
-/**
- * sends an email, using PhpWebGallery specific informations
- */
-function pwg_mail($to, $from, $infos = '')
-{
-  global $conf;
-
-  $headers = 'From: <'.$from.'>'."\n";
-  $headers.= 'Reply-To: '.$from."\n";
-
-  $options = '-f '.$from;
-  
-  $subject = l10n('password updated');
-  
-  $content = $infos;
-  $content.= "\n\n-- \nPhpWebGallery ".PHPWG_VERSION;
-
-  if ($conf['mail_options'])
-  {
-    return mail($to, $subject, $content, $headers, $options);
-  }
-  else
-  {
-    return mail($to, $subject, $content, $headers);
-  }
-}
+include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                          send a new password                          |
@@ -118,7 +88,7 @@ SELECT '.$conf['user_fields']['id'].' AS id
           ."\n".l10n('Password').': '.$new_password
           ;
 
-        if (pwg_mail($row['email'], $mail_webmaster, $infos))
+        if (pwg_mail($row['email'], $mail_webmaster, l10n('password updated'), $infos))
         {
           $data =
             array(

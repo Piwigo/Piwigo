@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -181,6 +181,10 @@ $conf['users_page'] = 20;
 // mail_options: only set it true if you have a send mail warning with
 // "options" parameter missing on mail() function execution.
 $conf['mail_options'] = false;
+
+// Send bcc mail to webmaster
+// Set true for debug or test
+$conf['send_bcc_mail_webmaster'] = false;
 
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
