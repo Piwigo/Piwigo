@@ -51,6 +51,14 @@ if (isset($page['cat']) and is_numeric($page['cat']))
 {
   check_restrictions($page['cat']);
 }
+//----------------------------------------------- change of image dispaly order 
+if ( isset($_GET['image_order']) )
+{
+  setcookie( 'pwg_image_order', 
+    $_GET['image_order']>0 ? $_GET['image_order'] : '', 0 );
+  redirect( PHPWG_ROOT_PATH.'category.php'.
+    get_query_string_diff(array('image_order')) );
+}
 //-------------------------------------------------------------- initialization
 // detection of the start picture to display
 if ( !isset( $_GET['start'] )
@@ -412,16 +420,9 @@ if ( isset ( $page['cat'] ) )
     // image order
     $template->assign_block_vars( 'preferred_image_order', array() );
   
-    if ( isset($_GET['image_order']) )
-    {
-      $order_idx = $_GET['image_order'];
-    }
-    else
-    {
-      $order_idx = isset($_COOKIE['pwg_image_order']) ? 
+    $order_idx = isset($_COOKIE['pwg_image_order']) ? 
                      $_COOKIE['pwg_image_order'] : 0;
-    }
-  
+
     $orders = get_category_preferred_image_orders();
     for ( $i = 0; $i < count($orders); $i++)
     {

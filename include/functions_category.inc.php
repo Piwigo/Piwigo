@@ -617,22 +617,17 @@ SELECT COUNT(DISTINCT(id)) AS count
         create_navigation_bar( $url, $page['cat_nb_images'], $page['start'],
                                $user['nb_image_page'], 'back' );
     }
-    
+
     if ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated')
     {
       $available_image_orders = get_category_preferred_image_orders();
-      
+
       $order_idx=0;
-      if ( isset($_GET['image_order']) )
-      {
-        $order_idx = $_GET['image_order'];
-        setcookie( 'pwg_image_order', $order_idx, 0 );
-      }
-      else if ( isset($_COOKIE['pwg_image_order']) )
+      if ( isset($_COOKIE['pwg_image_order']) )
       {
         $order_idx = $_COOKIE['pwg_image_order'];
       }
-      
+
       if ( $order_idx > 0 )
       {
         $order = $available_image_orders[$order_idx][1];
