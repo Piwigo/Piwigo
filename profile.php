@@ -211,7 +211,7 @@ foreach (get_themes() as $pwg_template)
   {
     $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
   }
-  else if ($userdata['template'] == $pwg_template)
+  else if ($userdata['template'].'/'.$userdata['theme'] == $pwg_template)
   {
     $selected = 'selected="selected"';
   }

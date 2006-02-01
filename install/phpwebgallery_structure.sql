@@ -1,8 +1,8 @@
--- MySQL dump 9.11
+-- MySQL dump 10.9
 --
--- Host: localhost    Database: pwg-bsf
+-- Host: localhost    Database: pwg_dev_bsf
 -- ------------------------------------------------------
--- Server version	4.0.24_Debian-10-log
+-- Server version	4.1.15-nt
 
 --
 -- Table structure for table `phpwebgallery_caddie`
@@ -155,6 +155,7 @@ CREATE TABLE `phpwebgallery_images` (
   `representative_ext` varchar(4) default NULL,
   `date_metadata_update` date default NULL,
   `average_rate` float(5,2) unsigned default NULL,
+  `has_high` enum('true') default NULL,
   `path` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),

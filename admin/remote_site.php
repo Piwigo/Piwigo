@@ -409,6 +409,7 @@ SELECT file
                              'keywords',
                              'name',
                              'comment',
+                             'has_high',
                              'path');
       foreach ($optional_atts as $att)
       {
@@ -425,7 +426,7 @@ SELECT file
   {
     $dbfields = array('file','storage_category_id','date_available','tn_ext',
                       'filesize','width','height','date_creation','author',
-                      'keywords','name','comment','path');
+                      'keywords','name','comment','has_high','path');
     mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
     $counts{'new_elements'}+= count($inserts);
 

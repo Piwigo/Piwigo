@@ -247,12 +247,22 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['src'] = $row['path'];
     // if we are working on the "current" element, we search if there is a
     // high quality picture
-    // FIXME : with remote pictures, this "remote fopen" takes long...
     if ($i == 'current')
     {
-      if (@fopen($cat_directory.'/pwg_high/'.$row['file'], 'r'))
+      $url_high=$cat_directory.'/pwg_high/'.$row['file'];
+      if (url_is_remote($cat_directory))
       {
-        $picture[$i]['high'] = $cat_directory.'/pwg_high/'.$row['file'];
+        if ($row['has_high'])
+        {
+          $picture[$i]['high'] = $url_high;
+        }
+      }
+      else
+      {
+        if (@fopen($url_high, 'r'))
+        {
+          $picture[$i]['high'] = $url_high;
+        }
       }
     }
   }
@@ -526,6 +536,31 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
 }
 
 $page['body_id'] = 'thePicturePage';
+//-------------------------------------------------------- navigation management
+if ($has_prev)
+{
+  $template->assign_block_vars(
+    'previous',
+    array(
+      'TITLE_IMG' => $picture['prev']['name'],
+      'IMG' => $picture['prev']['thumbnail'],
+      'U_IMG' => $picture['prev']['url'],
+      'U_IMG_SRC' => $picture['prev']['src']
+      ));
+}
+
+if ($has_next)
+{
+  $template->assign_block_vars(
+    'next',
+    array(
+      'TITLE_IMG' => $picture['next']['name'],
+      'IMG' => $picture['next']['thumbnail'],
+      'U_IMG' => $picture['next']['url'],
+      'U_IMG_SRC' => $picture['next']['src'] // allow navigator to preload
+      ));
+}
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 
@@ -585,15 +620,10 @@ if (!$picture['current']['is_picture'])
 // display a high quality link if present
 if (isset($picture['current']['high']))
 {
-  $full_size = @getimagesize($picture['current']['high']);
-  $full_width = $full_size[0];
-  $full_height = $full_size[1];
   $uuid = uniqid(rand());
   $template->assign_block_vars('high', array(
     'U_HIGH' => $picture['current']['high'],
-	'UUID'=>$uuid,
-	'WIDTH_IMG'=>($full_width + 40),
-	'HEIGHT_IMG'=>($full_height + 40)
+	'UUID'=>$uuid
 	));
   $template->assign_block_vars(
     'download',
@@ -671,31 +701,6 @@ if ( !$user['is_the_guest'] )
 if ( $user['status'] == 'admin' )
 {
   $template->assign_block_vars('admin', array());
-}
-
-//-------------------------------------------------------- navigation management
-if ($has_prev)
-{
-  $template->assign_block_vars(
-    'previous',
-    array(
-      'TITLE_IMG' => $picture['prev']['name'],
-      'IMG' => $picture['prev']['thumbnail'],
-      'U_IMG' => $picture['prev']['url'],
-      'U_IMG_SRC' => $picture['prev']['src']
-      ));
-}
-
-if ($has_next)
-{
-  $template->assign_block_vars(
-    'next',
-    array(
-      'TITLE_IMG' => $picture['next']['name'],
-      'IMG' => $picture['next']['thumbnail'],
-      'U_IMG' => $picture['next']['url'],
-      'U_IMG_SRC' => $picture['next']['src'] // allow navigator to preload
-      ));
 }
 
 //--------------------------------------------------------- picture information

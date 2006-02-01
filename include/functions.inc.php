@@ -533,6 +533,15 @@ function get_query_string_diff($rejects = array())
   return $query_string;
 }
 
+function url_is_remote($url)
+{
+  if (preg_match('/^https?:\/\/[~\/\.\w-]+$/', $url))
+  {
+    return true;
+  }
+  return false;
+}
+
 /**
  * returns available templates/themes
  */

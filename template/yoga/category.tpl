@@ -120,6 +120,16 @@
       <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
+      <!-- BEGIN preferred_image_order -->
+      <li>
+      {lang:Sort order}:
+      <select onchange="document.location = this.options[this.selectedIndex].value;">
+        <!-- BEGIN order -->
+        <option value="{preferred_image_order.order.URL}" {preferred_image_order.order.SELECTED_OPTION}>{preferred_image_order.order.DISPLAY}</option>
+        <!-- END order -->
+      </select>
+      </li>
+      <!-- END preferred_image_order -->
     </ul>
     
   <h2>{TITLE}</h2>

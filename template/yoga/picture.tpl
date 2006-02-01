@@ -39,7 +39,6 @@
 <!-- END last -->
 <!-- BEGIN next -->
   <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{themeconf:icon_dir}/right.png" class="button" alt="next"></a>
-  <link rel="prefetch" href="{next.U_IMG_SRC}"><link rel="prefetch" href="{next.U_IMG}">
 <!-- END next -->
   <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}"><img src="{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
@@ -54,7 +53,7 @@
 
 <div id="theImage">
 <!-- BEGIN high -->
-<a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=no,status=no,resizable=yes,width={high.WIDTH_IMG},height={high.HEIGHT_IMG}')">
+<a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=no,status=no,resizable=yes')">
 <!-- END high -->
   <img src="{SRC_IMG}" style="width:{WIDTH_IMG}px;height:{HEIGHT_IMG}px;" alt="{ALT_IMG}">
 <!-- BEGIN high -->

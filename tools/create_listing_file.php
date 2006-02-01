@@ -280,6 +280,31 @@ function get_representative_files($dir)
 }
 
 /**
+ * returns an array with high quality/resolution picture files of a directory
+ * according to $conf['picture_ext']
+ *
+ * @param string $dir
+ * @return array
+ */
+function get_high_files($dir)
+{
+  global $conf;
+
+  $pictures = array();
+  if ($opendir = @opendir($dir.'/pwg_high'))
+  {
+    while ($file = readdir($opendir))
+    {
+      if (in_array(get_extension($file), $conf['picture_ext']))
+      {
+        array_push($pictures, $file);
+      }
+    }
+  }
+  return $pictures;
+}
+
+/**
  * search in $basedir the sub-directories and calls get_pictures
  *
  * @return void
@@ -347,6 +372,7 @@ function get_pictures($dir, $indent)
   $fs_files = get_pwg_files($dir);
   $fs_thumbnails = get_thumb_files($dir);
   $fs_representatives = get_representative_files($dir);
+  $fs_highs = get_high_files($dir);
 
   $elements = array();
 
@@ -377,8 +403,8 @@ function get_pictures($dir, $indent)
     }
 
     // 2 cases : the element is a picture or not. Indeed, for a picture
-    // thumbnail is mandatory and for non picture element, thumbnail and
-    // representative is optionnal
+    // thumbnail is mandatory, high is optional and for non picture element, 
+    // thumbnail and representative is optionnal
     if (in_array(get_extension($fs_file), $conf['picture_ext']))
     {
       // if we found a thumnbnail corresponding to our picture...
@@ -388,6 +414,11 @@ function get_pictures($dir, $indent)
         {
           $element['width'] = $image_size[0];
           $element['height'] = $image_size[1];
+        }
+        
+        if ( in_array($fs_file, $fs_highs) )
+        {
+          $element['has_high'] = 'true';
         }
 
         if ($conf['use_exif'])
@@ -452,7 +483,7 @@ function get_pictures($dir, $indent)
   $xml = "\n".$indent.'<root>';
   $attributes = array('file','tn_ext','representative_ext','filesize',
                       'width','height','date_creation','author','keywords',
-                      'name','comment','path');
+                      'name','comment','has_high', 'path');
   foreach ($elements as $element)
   {
     $xml.= "\n".$indent.'  ';

@@ -11,6 +11,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/css" media="print" href="template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
+<!-- BEGIN next -->
+<link rel="prefetch" href="{next.U_IMG_SRC}">
+<!-- END next -->
 <!-- BEGIN refresh -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->

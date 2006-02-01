@@ -406,6 +406,38 @@ if ( isset ( $page['cat'] ) )
       array('COMMENTS' => $page['comment'])
       );
   }
+  if ($page['cat_nb_images']>0 and 
+       $page['cat'] != 'most_visited' and $page['cat'] != 'best_rated')
+  {
+    // image order
+    $template->assign_block_vars( 'preferred_image_order', array() );
+  
+    if ( isset($_GET['image_order']) )
+    {
+      $order_idx = $_GET['image_order'];
+    }
+    else
+    {
+      $order_idx = isset($_COOKIE['pwg_image_order']) ? 
+                     $_COOKIE['pwg_image_order'] : 0;
+    }
+  
+    $orders = get_category_preferred_image_orders();
+    for ( $i = 0; $i < count($orders); $i++)
+    {
+      if ($orders[$i][2])
+      {
+        $url = PHPWG_ROOT_PATH.'category.php'
+                 .get_query_string_diff(array('image_order'));
+        $url .= '&amp;image_order='.$i;
+        $template->assign_block_vars( 'preferred_image_order.order', array(
+          'DISPLAY' => $orders[$i][0],
+          'URL' => $url,
+          'SELECTED_OPTION' => ($order_idx==$i ? 'SELECTED' : '' ),
+          ) );
+      }
+    }
+  }
 }
 //------------------------------------------------------------ log informations
 pwg_log( 'category', $page['title'] );

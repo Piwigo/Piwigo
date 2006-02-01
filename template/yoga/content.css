@@ -119,10 +119,12 @@ UL.categoryActions {
 
 #content UL.categoryActions LI {
   display: inline;
+
 }
 
 #content UL.categoryActions A IMG, UL.categoryActions A {
   border: none;
+  margin-bottom: -5px;
 }
 
 /* User comments */

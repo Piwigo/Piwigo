@@ -318,6 +318,20 @@ SELECT galleries_url
   return $row['galleries_url'];
 }
 
+// returns an array of image orders available for users/visitors
+function get_category_preferred_image_orders()
+{
+  global $lang, $conf;
+  return array(
+	array('Default', '', true),
+	array($lang['best_rated_cat'],   'average_rate DESC', $conf['rate']),
+	array($lang['most_visited_cat'], 'hit DESC', true),
+	array($lang['Creation date'], 'date_creation DESC', true),
+	array($lang['Availability date'], 'date_available DESC', true)
+  );
+}
+
+
 // initialize_category initializes ;-) the variables in relation
 // with category :
 // 1. calculation of the number of pictures in the category
@@ -602,6 +616,29 @@ SELECT COUNT(DISTINCT(id)) AS count
       $page['navigation_bar'] =
         create_navigation_bar( $url, $page['cat_nb_images'], $page['start'],
                                $user['nb_image_page'], 'back' );
+    }
+    
+    if ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated')
+    {
+      $available_image_orders = get_category_preferred_image_orders();
+      
+      $order_idx=0;
+      if ( isset($_GET['image_order']) )
+      {
+        $order_idx = $_GET['image_order'];
+        setcookie( 'pwg_image_order', $order_idx, 0 );
+      }
+      else if ( isset($_COOKIE['pwg_image_order']) )
+      {
+        $order_idx = $_COOKIE['pwg_image_order'];
+      }
+      
+      if ( $order_idx > 0 )
+      {
+        $order = $available_image_orders[$order_idx][1];
+        $conf['order_by'] = str_replace('ORDER BY ', 'ORDER BY '.$order.',', 
+                                          $conf['order_by'] );
+      }
     }
   }
   else
