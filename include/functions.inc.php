@@ -953,4 +953,23 @@ function get_sql_search_clause($search_id)
 
   return $search_clause;
 }
+
+/**
+ * Returns webmaster mail address depending on $conf['webmaster_id']
+ *
+ * @return string
+ */
+function get_webmaster_mail_address()
+{
+  global $conf;
+
+  $query = '
+SELECT '.$conf['user_fields']['email'].'
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
+;';
+  list($email) = mysql_fetch_array(pwg_query($query));
+
+  return $email;
+}
 ?>

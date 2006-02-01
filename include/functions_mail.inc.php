@@ -26,42 +26,66 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// Extract mail fonctions of password.php
-// And Modify pwg_mail (add pararameters + news fonctionnalities)
-// And var conf_mail, function init_conf_mail, function format_email
-
-define('PHPWG_ROOT_PATH','./');
-include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+/**
+ * - Extract mail fonctions of password.php
+ * - Modify pwg_mail (add pararameters + news fonctionnalities)
+ * - Var conf_mail, function init_conf_mail, function format_email
+ */
 
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
 
 /*
- * Initialization of global variable $conf_mail
+ * Returns an array of mail configuration parameters :
+ *
+ * - mail_options: see $conf['mail_options']
+ * - send_bcc_mail_webmaster: see $conf['send_bcc_mail_webmaster']
+ * - email_webmaster: mail corresponding to $conf['webmaster_id']
+ * - formated_email_webmaster: the name of webmaster is $conf['gallery_title']
+ * - text_footer: PhpWebGallery and version
+ *
+ * @return array
  */
-function init_conf_mail()
+function get_mail_configuration()
 {
-  global $conf, $conf_mail;
+  global $conf;
 
-  if (count($conf_mail) == 0)
-  {
-    $conf_mail['mail_options'] = $conf['mail_options'];
-    $conf_mail['send_bcc_mail_webmaster'] = ($conf['send_bcc_mail_webmaster'] == true ? true : false);
-    list($conf_mail['email_webmaster']) = mysql_fetch_array(pwg_query('select '.$conf['user_fields']['email'].' from '.USERS_TABLE.' where '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].';'));
-    $conf_mail['formated_email_webmaster'] = format_email($conf['gallery_title'], $conf_mail['email_webmaster']);
-    $conf_mail['text_footer'] = "\n\n-- \nPhpWebGallery ".($conf['show_version'] ? PHPWG_VERSION : '');
-  }
+  $conf_mail = array(
+    'mail_options' => $conf['mail_options'],
+    'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
+    );
 
-  return true;
+  // we have webmaster id among user list, what's his email address ?
+  $conf_mail['email_webmaster'] = get_webmaster_mail_address();
+
+  // name of the webmaster is the title of the gallery
+  $conf_mail['formated_email_webmaster'] =
+    format_email($conf['gallery_title'], $conf_mail['email_webmaster']);
+
+  // what to display at the bottom of each mail ?
+  $conf_mail['text_footer'] =
+    "\n\n-- \nPhpWebGallery ".($conf['show_version'] ? PHPWG_VERSION : '');
+  
+  return $conf_mail;
 }
 
+/**
+ * Returns an email address with an associated real name
+ *
+ * @param string name
+ * @param string email
+ */
 function format_email($name, $email)
 {
   if (strpos($email, '<') === false)
+  {
     return $name.' <'.$email.'>';
+  }
   else
+  {
     return $name.$email;
+  }
 }
 
 /**
@@ -71,26 +95,37 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
 {
   global $conf, $conf_mail;
 
+  if (!isset($conf_mail))
+  {
+    $conf_mail = get_mail_configuration();
+  }
+
   $to = format_email('', $to);
 
-  if ($from =='')
+  if ($from == '')
+  {
     $from = $conf_mail['formated_email_webmaster'];
+  }
   else
+  {
     $from = format_email('', $from);
+  }
 
   $headers = 'From: '.$from."\n";
   $headers.= 'Reply-To: '.$from."\n";
+  
   if ($conf_mail['send_bcc_mail_webmaster'])
+  {
     $headers.= 'Bcc: '.$conf_mail['formated_email_webmaster']."\n";
-
-
-  $options = '-f '.$from;
-
+  }
+  
   $content = $infos;
   $content.= $conf_mail['text_footer'];
 
   if ($conf_mail['mail_options'])
   {
+    $options = '-f '.$from;
+    
     return mail($to, $subject, $content, $headers, $options);
   }
   else
@@ -98,12 +133,4 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
     return mail($to, $subject, $content, $headers);
   }
 }
-
-// +-----------------------------------------------------------------------+
-// | Global Variables
-// +-----------------------------------------------------------------------+
-$conf_mail = array();
-
-init_conf_mail();
-
 ?>

@@ -36,6 +36,19 @@ $template->assign_vars(
     'L_TITLE_MAIL' => $lang['title_send_mail'],
     'L_POWERED_BY'=>$lang['powered_by']
     ));
+
+//--------------------------------------------------------------------- contact
+
+if (!$user['is_the_guest'])
+{
+  $template->assign_block_vars(
+    'contact',
+    array(
+      'MAIL' => get_webmaster_mail_address()
+      )
+    );
+}
+
 //------------------------------------------------------------- generation time
 if ($conf['show_gt'])
 {
@@ -60,25 +73,6 @@ if ($conf['show_queries'])
     'debug',
     array('QUERIES_LIST' => $debug)
   );
-}
-
-//--------------------------------------------------------------------- contact
-
-if (!$user['is_the_guest'])
-{
-  $query = '
-SELECT '.$conf['user_fields']['email'].'
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
-;';
-  list($email) = mysql_fetch_array(pwg_query($query));
-  
-  $template->assign_block_vars(
-    'contact',
-    array(
-      'MAIL' => $email
-      )
-    );
 }
 
 //

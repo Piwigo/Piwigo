@@ -26,10 +26,9 @@
 // +-----------------------------------------------------------------------+
 
 
-// Extract news fonctions of feed.php
-
-define('PHPWG_ROOT_PATH','./');
-include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+/**
+ * Extract news fonctions of feed.php
+ */
 
 // +-----------------------------------------------------------------------+
 // |                               functions                               |

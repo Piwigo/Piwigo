@@ -182,8 +182,8 @@ $conf['users_page'] = 20;
 // "options" parameter missing on mail() function execution.
 $conf['mail_options'] = false;
 
-// Send bcc mail to webmaster
-// Set true for debug or test
+// send_bcc_mail_webmaster: send bcc mail to webmaster. Set true for debug
+// or test.
 $conf['send_bcc_mail_webmaster'] = false;
 
 // check_upgrade_feed: check if there are database upgrade required. Set to
