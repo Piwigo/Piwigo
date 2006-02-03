@@ -32,6 +32,7 @@ if (isset($_COOKIE[session_name()]))
  if (isset($_SESSION['id'])) 
  {
    $user['id'] = $_SESSION['id'];    
+   $user['is_the_guest'] = false;
  }
  else 
  {
