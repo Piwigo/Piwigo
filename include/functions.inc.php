@@ -488,7 +488,7 @@ function pwg_debug( $string )
  */
 function redirect( $url )
 {
-  global $user, $template, $lang_info, $conf, $lang, $t2, $page;
+  global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
   // $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
@@ -971,5 +971,32 @@ SELECT '.$conf['user_fields']['email'].'
   list($email) = mysql_fetch_array(pwg_query($query));
 
   return $email;
+}
+
+/**
+ * which upgrades are available ?
+ *
+ * @return array
+ */
+function get_available_upgrade_ids()
+{
+  $upgrades_path = PHPWG_ROOT_PATH.'install/db';
+
+  $available_upgrade_ids = array();
+  
+  if ($contents = opendir($upgrades_path))
+  {
+    while (($node = readdir($contents)) !== false)
+    {
+      if (is_file($upgrades_path.'/'.$node)
+          and preg_match('/^(.*?)-database\.php$/', $node, $match))
+      {
+        array_push($available_upgrade_ids, $match[1]);
+      }
+    }
+  }
+  natcasesort($available_upgrade_ids);
+
+  return $available_upgrade_ids;
 }
 ?>

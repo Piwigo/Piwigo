@@ -134,31 +134,15 @@ or die ( "Could not connect to database" );
 
 if ($conf['check_upgrade_feed'])
 {
-  define('PREFIX_TABLE', $prefixeTable);
-  define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
-  
   // retrieve already applied upgrades
   $query = '
 SELECT id
-  FROM '.PREFIX_TABLE.'upgrade
+  FROM '.UPGRADE_TABLE.'
 ;';
   $applied = array_from_query($query, 'id');
 
   // retrieve existing upgrades
-  $existing = array();
-
-  if ($contents = opendir(UPGRADES_PATH))
-  {
-    while (($node = readdir($contents)) !== false)
-    {
-      if (is_file(UPGRADES_PATH.'/'.$node)
-          and preg_match('/^(.*?)-database\.php$/', $node, $match))
-      {
-        array_push($existing, $match[1]);
-      }
-    }
-  }
-  natcasesort($existing);
+  $existing = get_available_upgrade_ids();
 
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)

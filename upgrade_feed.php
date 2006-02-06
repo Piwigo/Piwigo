@@ -56,20 +56,7 @@ SELECT id
 $applied = array_from_query($query, 'id');
 
 // retrieve existing upgrades
-$existing = array();
-
-if ($contents = opendir(UPGRADES_PATH))
-{
-  while (($node = readdir($contents)) !== false)
-  {
-    if (is_file(UPGRADES_PATH.'/'.$node)
-        and preg_match('/^(.*?)-database\.php$/', $node, $match))
-    {
-      array_push($existing, $match[1]);
-    }
-  }
-}
-natcasesort($existing);
+$existing = get_available_upgrade_ids();
 
 // which upgrades need to be applied?
 $to_apply = array_diff($existing, $applied);
