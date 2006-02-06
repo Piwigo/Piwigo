@@ -324,3 +324,17 @@ CREATE TABLE `phpwebgallery_waiting` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
+--
+-- Table structure for table `phpwebgallery_user_mail_notification`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_user_mail_notification`;
+CREATE TABLE `phpwebgallery_user_mail_notification`
+(
+  `user_id` smallint(5) NOT NULL default '0',
+  `check_key` varchar(128) binary NOT NULL,
+  `enabled` enum('true','false') NOT NULL default 'false',
+  `last_send` datetime default NULL,
+  PRIMARY KEY  (`user_id`),
+  UNIQUE KEY `uidx_check_key` (`check_key`)
+) TYPE=MyISAM;

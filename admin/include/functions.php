@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -274,8 +274,8 @@ DELETE FROM '.IMAGES_TABLE.'
 //     - all the access linked to this user
 //     - all the links to any group
 //     - all the favorites linked to this user
-//     - all sessions linked to this user
 //     - calculated permissions linked to the user
+//     - all datas about notifications for the user
 function delete_user($user_id)
 {
   global $conf;
@@ -283,6 +283,20 @@ function delete_user($user_id)
   // destruction of the access linked to the user
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
+  // destruction of data notification by mail for this user
+  $query = '
+DELETE FROM '.USER_MAIL_NOTIFICATION_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
+  // destruction of data RSS notification for this user
+  $query = '
+DELETE FROM '.USER_FEED_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
   pwg_query($query);
@@ -297,13 +311,6 @@ DELETE FROM '.USER_GROUP_TABLE.'
   // destruction of the favorites associated with the user
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // destruction of the sessions linked with the user
-  $query = '
-DELETE FROM '.SESSIONS_TABLE.'
   WHERE user_id = '.$user_id.'
 ;';
   pwg_query($query);
@@ -1192,6 +1199,7 @@ SELECT user_id
   // table
   $tables =
     array(
+      USER_MAIL_NOTIFICATION_TABLE,
       USER_FEED_TABLE,
       USER_INFOS_TABLE,
       USER_ACCESS_TABLE,
