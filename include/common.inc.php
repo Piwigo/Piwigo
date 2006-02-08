@@ -147,6 +147,7 @@ SELECT id
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)
   {
+    ob_start();// buffer output so that cookies work
     echo
       '<p>'
       .'Some database upgrades are missing, '

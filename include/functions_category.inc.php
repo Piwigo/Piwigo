@@ -321,13 +321,14 @@ SELECT galleries_url
 // returns an array of image orders available for users/visitors
 function get_category_preferred_image_orders()
 {
-  global $lang, $conf;
+  global $conf;
   return array(
 	array('Default', '', true),
-	array($lang['best_rated_cat'],   'average_rate DESC', $conf['rate']),
-	array($lang['most_visited_cat'], 'hit DESC', true),
-	array($lang['Creation date'], 'date_creation DESC', true),
-	array($lang['Availability date'], 'date_available DESC', true)
+	array(get_lang('best_rated_cat'),   'average_rate DESC', $conf['rate']),
+	array(get_lang('most_visited_cat'), 'hit DESC', true),
+	array(get_lang('Creation date'), 'date_creation DESC', true),
+	array(get_lang('Availability date'), 'date_available DESC', true),
+	array(get_lang('File name'), 'file ASC', true)
   );
 }
 

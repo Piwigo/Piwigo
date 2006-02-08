@@ -64,6 +64,7 @@ $lang['Email address'] = 'Email address';
 $lang['Enter your personnal informations'] = 'Enter your personnal informations';
 $lang['Error sending email'] = 'Error sending email';
 $lang['File'] = 'File';
+$lang['File name'] = 'File name';
 $lang['Filesize'] = 'Filesize';
 $lang['Filter and display'] = 'Filter and display';
 $lang['Filter'] = 'Filter';

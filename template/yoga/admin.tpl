@@ -14,6 +14,7 @@
     <dd>
       <ul>
 	<li><a href="{U_FAQ}">{lang:instructions}</a></li>
+	<li><a href="{U_SITE_MANAGER}">{lang:Site manager}</a></li>
 	<li><a href="{U_SITES}">{lang:remote_sites}</a></li>
 	<li><a href="{U_HISTORY}">{lang:history}</a></li>
 	<li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
@@ -67,7 +68,7 @@
 
 <div id="content">
   <!-- BEGIN errors -->
-  <div id="errors">
+  <div class="errors">
     <ul>
       <!-- BEGIN error -->
       <li>{errors.error.ERROR}</li>

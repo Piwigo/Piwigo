@@ -743,7 +743,7 @@ else if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync']))
     }
   }
   $start = get_moment();
-  $files = get_filelist($opts['category_id'],
+  $files = get_filelist($opts['category_id'], 1,
                         $opts['recursive'],
                         $opts['only_new']);
   

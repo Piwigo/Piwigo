@@ -69,7 +69,25 @@ if (isset($conf['session_save_handler'])
   ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
   ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
   ini_set('session.name', $conf['session_name']);
-  ini_set('session.cookie_path', dirname($_SERVER['PHP_SELF']));
+  ini_set('session.cookie_path', cookie_path() );
+}
+
+// cookie_path returns the path to use for the PhpWebGallery cookie.
+// If PhpWebGallery is installed on :
+// http://domain.org/meeting/gallery/category.php
+// cookie_path will return : "/meeting/gallery"
+function cookie_path()
+{
+  if ( isset($_SERVER['REDIRECT_URL']) )
+  { // mod_rewrite is activated for upper level directories. we must set the 
+    // cookie to the path shown in the browser otherwise it will be discarded.
+    $scr = $_SERVER['REDIRECT_URL'];
+  }
+  else
+  {
+    $scr = $_SERVER['PHP_SELF'];
+  }
+  return substr($scr,0,strrpos( $scr,'/'));
 }
 
 /**

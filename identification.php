@@ -51,6 +51,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     {
       $session_length = $conf['remember_me_length'];
     }
+    session_set_cookie_params($session_length);
     session_start();
     $_SESSION['id'] = $row['id'];
     redirect('category.php');

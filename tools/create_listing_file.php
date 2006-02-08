@@ -44,9 +44,13 @@ $conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
 // listing.xml file and the PhpWebGallery version you're running
 $conf['version'] = '%PWGVERSION%';
 
-// $conf['use_exif'] set to true if you want to use Exif Date as "creation
-// date" for the element, otherwise, set to false
+// $conf['use_exif'] set to true if you want to use Exif information
 $conf['use_exif'] = true;
+
+// use_exif_mapping: same behaviour as use_iptc_mapping
+$conf['use_exif_mapping'] = array(
+  'date_creation' => 'DateTimeOriginal'
+  );
 
 // $conf['use_iptc'] set to true if you want to use IPTC informations of the
 // element according to get_sync_iptc_data function mapping, otherwise, set
@@ -320,6 +324,7 @@ function get_dirs($basedir, $indent, $level)
     {
       if ($file != '.'
           and $file != '..'
+          and $file != '.svn'
           and $file != 'thumbnail'
           and $file != 'pwg_high'
           and $file != 'pwg_representative'
@@ -344,7 +349,7 @@ function get_dirs($basedir, $indent, $level)
     $dirs.= get_dirs($basedir.'/'.$fs_dir, $indent.'  ', $level + 1);
     $dirs.= "\n".$indent.'</dir'.$level.'>';
   }
-  return $dirs;		
+  return $dirs;   
 }
 
 // get_extension returns the part of the string after the last "."
@@ -425,13 +430,25 @@ function get_pictures($dir, $indent)
         {
           if ($exif = @read_exif_data($dir.'/'.$fs_file))
           {
-            if (isset($exif['DateTime']))
+            foreach ($conf['use_exif_mapping'] as $pwg_key => $exif_key )
             {
-              preg_match('/^(\d{4}):(\d{2}):(\d{2})/'
-                         ,$exif['DateTime']
-                         ,$matches);
-              $element['date_creation'] =
-                $matches[1].'-'.$matches[2].'-'.$matches[3];
+              if (isset($exif[$exif_key]))
+              {
+                if ( in_array($pwg_key, array('date_creation','date_available') ) )
+                {
+                   if (preg_match('/^(\d{4}):(\d{2}):(\d{2})/'
+                         ,$exif[$exif_key]
+                         ,$matches))
+                   {
+                     $element[$pwg_key] =
+                        $matches[1].'-'.$matches[2].'-'.$matches[3];
+                   }
+                }
+                else
+                {
+                  $element[$pwg_key] = $exif[$exif_key];
+                }
+              }
             }
           }
         }
@@ -524,6 +541,17 @@ switch ($page['action'])
     $listing = '<informations';
     $listing.= ' generation_date="'.date('Y-m-d').'"';
     $listing.= ' phpwg_version="'.$conf{'version'}.'"';
+    
+    $attrs=array();
+    if ($conf['use_iptc'])
+    {
+      $attrs = array_merge($attrs, array_keys($conf['use_iptc_mapping']) );
+    }
+    if ($conf['use_exif'])
+    {
+      $attrs = array_merge($attrs, array_keys($conf['use_exif_mapping']) );
+    }
+    $listing.= ' metadata="'.implode(',',array_unique($attrs)).'"';
     
     $end = strrpos($_SERVER['PHP_SELF'], '/') + 1;
     $local_folder = substr($_SERVER['PHP_SELF'], 0, $end);

@@ -175,11 +175,13 @@ function update_metadata($files)
  * path in the filesystem
  *
  * @param int id_uppercat
+ * @param int site_id
  * @param boolean recursive ?
  * @param boolean only newly added files ?
  * @return array
  */
-function get_filelist($category_id = '', $recursive = false, $only_new = false)
+function get_filelist($category_id = '', $site_id=1, $recursive = false, 
+                      $only_new = false)
 {
   // filling $cat_ids : all categories required
   $cat_ids = array();
@@ -187,7 +189,7 @@ function get_filelist($category_id = '', $recursive = false, $only_new = false)
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
-  WHERE site_id = 1
+  WHERE site_id = '.$site_id.'
     AND dir IS NOT NULL';
   if (is_numeric($category_id))
   {

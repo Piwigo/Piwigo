@@ -63,6 +63,7 @@ $lang['Email address'] = 'Adresse e-mail';
 $lang['Enter your personnal informations'] = 'Entrer vos informations personnelles';
 $lang['Error sending email'] = 'Erreur à l\'envoi du mail';
 $lang['File'] = 'Fichier';
+$lang['File name'] = 'Nom du fichier';
 $lang['Filesize'] = 'Poids';
 $lang['Filter and display'] = 'Filtrer et afficher';
 $lang['Filter'] = 'Filtre';

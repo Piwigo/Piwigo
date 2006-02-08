@@ -974,6 +974,20 @@ SELECT '.$conf['user_fields']['email'].'
 }
 
 /**
+ * returns the $str in current language if possible or $str enclosed 
+ * in special chars
+ */
+function get_lang($str)
+{
+  global $lang;
+  if ( isset($lang[$str]) )
+  {
+    return $lang[$str];
+  }
+  return '@@'.$str.'@@';
+}
+
+/**
  * which upgrades are available ?
  *
  * @return array

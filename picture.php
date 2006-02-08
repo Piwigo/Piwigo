@@ -249,20 +249,10 @@ foreach (array('prev', 'current', 'next') as $i)
     // high quality picture
     if ($i == 'current')
     {
-      $url_high=$cat_directory.'/pwg_high/'.$row['file'];
-      if (url_is_remote($cat_directory))
+      if ($row['has_high']=='true')
       {
-        if ($row['has_high'])
-        {
-          $picture[$i]['high'] = $url_high;
-        }
-      }
-      else
-      {
-        if (@fopen($url_high, 'r'))
-        {
-          $picture[$i]['high'] = $url_high;
-        }
+        $url_high=$cat_directory.'/pwg_high/'.$row['file'];
+        $picture[$i]['high'] = $url_high;
       }
     }
   }
@@ -1054,7 +1044,7 @@ if ($page['show_comments'])
   
   // navigation bar creation
   $url = PHPWG_ROOT_PATH.'picture.php';
-  $url.= get_query_string_diff(array('rate','add_fav'));
+  $url.= get_query_string_diff(array('rate','add_fav','start'));
 
   if (!isset( $_GET['start'] )
       or !is_numeric( $_GET['start'] )
