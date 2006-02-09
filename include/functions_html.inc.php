@@ -409,21 +409,25 @@ function get_html_menu_category($categories)
 function parse_comment_content($content)
 {
   $content = nl2br($content);
+
+  $pattern = '/(http?:\/\/\S*)/';
+  $replacement = '<a href="$1">$1</a>';
+  $content = preg_replace($pattern, $replacement, $content);
   
   // replace _word_ by an underlined word
-  $pattern = '/_([^\s]*)_/';
-  $replacement = '<span style="text-decoration:underline;">\1</span>';
+  $pattern = '/\b_(\S*)_\b/';
+  $replacement = '<span style="text-decoration:underline;">$1</span>';
   $content = preg_replace($pattern, $replacement, $content);
   
   // replace *word* by a bolded word
-  $pattern = '/\*([^\s]*)\*/';
-  $replacement = '<span style="font-weight:bold;">\1</span>';
+  $pattern = '/\b\*(\S*)\*\b/';
+  $replacement = '<span style="font-weight:bold;">$1</span>';
   $content = preg_replace($pattern, $replacement, $content);
   
   // replace /word/ by an italic word
-  $pattern = '/\/([^\s]*)\//';
-  $replacement = '<span style="font-style:italic;">\1</span>';
-  $content = preg_replace($pattern, $replacement, $content);
+   $pattern = "/\/(\S*)\/(\s)/";
+   $replacement = '<span style="font-style:italic;">$1$2</span>';
+   $content = preg_replace($pattern, $replacement, $content);
 
   return $content;
 }
