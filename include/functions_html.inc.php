@@ -81,7 +81,7 @@ function create_navigation_bar($url, $nb_element, $start,
     if ($cur_page != 1)
     {
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start=0';
+      $navbar.= $url;
       $navbar.= '" class="'.$link_class.'" rel="start">'.$lang['first_page'];
       $navbar.= '</a>';
     }
@@ -95,7 +95,11 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $previous = $start - $nb_element_page;
       $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$previous;
+      $navbar.= $url;
+      if ($previous>0)
+      {
+        $navbar.= '&amp;start='.$previous;
+      }
       $navbar.= '" class="'.$link_class.'" rel="prev">'.$lang['previous_page'];
       $navbar.= '</a>';
     }
@@ -103,12 +107,12 @@ function create_navigation_bar($url, $nb_element, $start,
     {
       $navbar.= $lang['previous_page'];
     }
-    $navbar.= ' | ';
+    $navbar.= ' |';
 
     if ($cur_page > $pages_around + 1)
     {
       $navbar.= '&nbsp;<a href="';
-      $navbar.= $url.'&amp;start=0';
+      $navbar.= $url;
       $navbar.= '" class="'.$link_class.'">1</a>';
       if ($cur_page > $pages_around + 2)
       {
@@ -129,16 +133,12 @@ function create_navigation_bar($url, $nb_element, $start,
       {
         $temp_start = ($i - 1) * $nb_element_page;
         $navbar.= '&nbsp;<a href="';
-        $navbar.= $url.'&amp;start='.$temp_start;
+        $navbar.= $url;
+        if ($temp_start>0)
+        {
+          $navbar.= '&amp;start='.$temp_start;
+        }
         $navbar.= '" class="'.$link_class.'"';
-        if ($i == $cur_page - 1)
-        {
-          $navbar.= ' rel="prev"';
-        }
-        if ($i == $cur_page + 1)
-        {
-          $navbar.= ' rel="next"';
-        }
         $navbar.='>'.$i.'</a>';
       }
       else
@@ -182,7 +182,7 @@ function create_navigation_bar($url, $nb_element, $start,
       $temp_start = ($maximum - 1) * $nb_element_page;
       $navbar.= '<a href="';
       $navbar.= $url.'&amp;start='.$temp_start;
-      $navbar.= '" class="'.$link_class.'">'.$lang['last_page'];
+      $navbar.= '" class="'.$link_class.'" rel="last">'.$lang['last_page'];
       $navbar.= '</a>';
     }
     else
@@ -350,6 +350,11 @@ function get_html_menu_category($categories)
   $level = 0;
   $menu = '';
   
+  $page_cat = 0;
+  if (isset($page['cat']) and is_numeric($page['cat']) )
+  {
+    $page_cat = $page['cat'];
+  }
   foreach ($categories as $category)
   {
     $level = substr_count($category['global_rank'], '.') + 1;
@@ -370,16 +375,19 @@ function get_html_menu_category($categories)
     $ref_level = $level;
 
     $menu.= "\n\n".'<li';
-    if (isset($page['cat'])
-        and is_numeric($page['cat'])
-        and $category['id'] == $page['cat'])
+    if ($category['id'] == $page_cat)
     {
       $menu.= ' class="selected"';
     }
     $menu.= '>';
   
     $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
-    $menu.= "\n".'<a href="'.$url.'">'.$category['name'].'</a>';
+    $menu.= "\n".'<a href="'.$url.'"';
+    if ($category['id'] == $page['cat_id_uppercat'])
+    {
+      $menu.= ' rel="up"';
+    }
+    $menu.= '>'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
     {
@@ -408,11 +416,11 @@ function get_html_menu_category($categories)
  */
 function parse_comment_content($content)
 {
-  $content = nl2br($content);
-
-  $pattern = '/(http?:\/\/\S*)/';
-  $replacement = '<a href="$1">$1</a>';
+  $pattern = '/(https?:\/\/\S*)/';
+  $replacement = '<a href="$1" rel="nofollow">$1</a>';
   $content = preg_replace($pattern, $replacement, $content);
+
+  $content = nl2br($content);
   
   // replace _word_ by an underlined word
   $pattern = '/\b_(\S*)_\b/';
@@ -425,10 +433,11 @@ function parse_comment_content($content)
   $content = preg_replace($pattern, $replacement, $content);
   
   // replace /word/ by an italic word
-   $pattern = "/\/(\S*)\/(\s)/";
-   $replacement = '<span style="font-style:italic;">$1$2</span>';
-   $content = preg_replace($pattern, $replacement, $content);
+  $pattern = "/\/(\S*)\/(\s)/";
+  $replacement = '<span style="font-style:italic;">$1$2</span>';
+  $content = preg_replace($pattern, $replacement, $content);
 
+  $content = '<div>'.$content.'</div>';
   return $content;
 }
 

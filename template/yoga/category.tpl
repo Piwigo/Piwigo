@@ -34,7 +34,7 @@
   <dd>
     <ul>
       <!-- BEGIN summary -->
-      <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}">{summary.NAME}</a></li>
+      <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}" {summary.REL}>{summary.NAME}</a></li>
       <!-- END summary -->
       <!-- BEGIN upload -->
       <li><a href="{upload.U_UPLOAD}">{L_UPLOAD}</a></li>
@@ -50,10 +50,10 @@
     <!-- END hello -->
     <ul>
       <!-- BEGIN register -->
-      <li><a href="{U_REGISTER}">{L_REGISTER}</a></li>
+      <li><a href="{U_REGISTER}" rel="nofollow">{L_REGISTER}</a></li>
       <!-- END register -->
       <!-- BEGIN login -->
-      <li><a href="{F_IDENTIFY}">{lang:Connection}</a></li>
+      <li><a href="{F_IDENTIFY}" rel="nofollow">{lang:Connection}</a></li>
       <!-- END login -->
       <!-- BEGIN logout -->
       <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>

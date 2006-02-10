@@ -132,9 +132,9 @@ SELECT name,id,date_last,nb_images,global_rank
   {
     $query.= '
     AND (id_uppercat is NULL';
-    if (isset ($page['tab_expand']) and count($page['tab_expand']) > 0)
+    if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
     {
-      $query.= ' OR id_uppercat IN ('.implode(',',$page['tab_expand']).')';
+      $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
     }
     $query.= ')';
   }
@@ -323,12 +323,12 @@ function get_category_preferred_image_orders()
 {
   global $conf;
   return array(
-	array('Default', '', true),
-	array(get_lang('best_rated_cat'),   'average_rate DESC', $conf['rate']),
-	array(get_lang('most_visited_cat'), 'hit DESC', true),
-	array(get_lang('Creation date'), 'date_creation DESC', true),
-	array(get_lang('Availability date'), 'date_available DESC', true),
-	array(get_lang('File name'), 'file ASC', true)
+    array('Default', '', true),
+    array(l10n('best_rated_cat'),   'average_rate DESC', $conf['rate']),
+    array(l10n('most_visited_cat'), 'hit DESC', true),
+    array(l10n('Creation date'), 'date_creation DESC', true),
+    array(l10n('Availability date'), 'date_available DESC', true),
+    array(l10n('File name'), 'file ASC', true)
   );
 }
 
@@ -371,6 +371,7 @@ function initialize_category( $calling_page = 'category' )
       $page['cat_site_id']    = $result['site_id'];
       $page['cat_uploadable'] = $result['uploadable'];
       $page['cat_commentable'] = $result['commentable'];
+      $page['cat_id_uppercat'] = $result['id_uppercat'];
       $page['uppercats']      = $result['uppercats'];
       $page['title'] =
         get_cat_display_name($page['cat_name'],
@@ -468,7 +469,7 @@ SELECT COUNT(DISTINCT(id)) AS nb_total_images
         $page['where'] = 'WHERE hit > 0';
         if (isset($forbidden))
         {
-          $page['where'] = "\n".'    AND '.$forbidden;
+          $page['where'] .= "\n".'    AND '.$forbidden;
         }
 
         $conf['order_by'] = ' ORDER BY hit DESC, file ASC';

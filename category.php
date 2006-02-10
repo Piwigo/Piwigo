@@ -88,24 +88,6 @@ SELECT DISTINCT(id)
   fill_caddie(array_from_query($query, 'id'));
 }
 
-// creation of the array containing the cat ids to expand in the menu
-// $page['tab_expand'] contains an array with the category ids
-// $page['expand'] contains the string to display in URL with comma
-$page['tab_expand'] = array();
-if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
-{
-  // the category displayed (in the URL cat=23) must be seen in the menu ->
-  // parent categories must be expanded
-  $uppercats = explode( ',', $page['uppercats'] );
-  foreach ( $uppercats as $uppercat ) {
-    array_push( $page['tab_expand'], $uppercat );
-  }
-}
-// in case of expanding all authorized cats $page['tab_expand'] is empty
-if ( $user['expand'] )
-{
-  $page['tab_expand'] = array();
-}
 //----------------------------------------------------- template initialization
 //
 // Start output of page
@@ -300,6 +282,7 @@ $template->assign_block_vars('summary', array(
 'TITLE'=>$lang['hint_search'],
 'NAME'=>$lang['search'],
 'U_SUMMARY'=> 'search.php',
+'REL'=> 'rel="search"'
 ));
 
 // comments link
@@ -322,7 +305,8 @@ $template->assign_block_vars(
   array(
     'TITLE'=>l10n('notification'),
     'NAME'=>l10n('Notification'),
-    'U_SUMMARY'=> PHPWG_ROOT_PATH.'notification.php'
+    'U_SUMMARY'=> PHPWG_ROOT_PATH.'notification.php',
+    'REL'=> 'rel="nofollow"'
 ));
 
 if (isset($page['cat'])

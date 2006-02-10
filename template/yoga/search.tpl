@@ -3,7 +3,7 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{U_HOME}" title="{lang:return to homepage}" rel="home"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
     </ul>
     <h2>{lang:Search}</h2>
   </div>
