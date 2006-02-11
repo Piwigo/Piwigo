@@ -154,7 +154,8 @@ SELECT id
   {
     $query = '
 UPDATE '.SESSIONS_TABLE.' 
-  SET expiration = now()
+  SET expiration = now(),
+  data = \''.$data.'\'
   WHERE id = \''.$session_id.'\'
 ;';    
     pwg_query($query);
