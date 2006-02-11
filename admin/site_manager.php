@@ -63,7 +63,7 @@ function remote_output($url)
   }
   else
   {
-    array_push($page['errors'], get_lang('remote_site_file_not_found'));
+    array_push($page['errors'], l10n('remote_site_file_not_found'));
   }
 }
 
@@ -99,7 +99,7 @@ SELECT COUNT(id) AS count
   if ($row['count'] > 0)
   {
     array_push($page['errors'],
-      get_lang('remote_site_already_exists').' ['.$url.']');
+      l10n('remote_site_already_exists').' ['.$url.']');
   }
   if (count($page['errors']) == 0)
   {
@@ -114,12 +114,12 @@ SELECT COUNT(id) AS count
         if (!preg_match('/^PWG-INFO-2:/', $first_line))
         {
           array_push($page['errors'],
-                     get_lang('remote_site_error').' : '.$first_line);
+                     l10n('remote_site_error').' : '.$first_line);
         }
       }
       else
       {
-        array_push($page['errors'], get_lang('remote_site_file_not_found') );
+        array_push($page['errors'], l10n('remote_site_file_not_found') );
       }
     }
     else
@@ -127,7 +127,7 @@ SELECT COUNT(id) AS count
       if ( ! file_exists($url) )
       {
         array_push($page['errors'],
-          get_lang('Directory does not exist').' ['.$url.']');
+          l10n('Directory does not exist').' ['.$url.']');
       }
     }
   }
@@ -142,7 +142,7 @@ INSERT INTO '.SITES_TABLE.'
 ;';
     pwg_query($query);
     array_push($page['infos'],
-               $url.' '.get_lang('remote_site_created'));
+               $url.' '.l10n('remote_site_created'));
   }
 }
 
@@ -165,21 +165,21 @@ SELECT galleries_url
   {
     case 'generate' :
     {
-      $title = $galleries_url.' : '.get_lang('remote_site_generate');
+      $title = $galleries_url.' : '.l10n('remote_site_generate');
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=generate');
       break;
     }
     case 'test' :
     {
-      $title = $galleries_url.' : '.get_lang('remote_site_test');
+      $title = $galleries_url.' : '.l10n('remote_site_test');
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=test&version='.PHPWG_VERSION);
       break;
     }
     case 'clean' :
     {
-      $title = $galleries_url.' : '.get_lang('remote_site_clean');
+      $title = $galleries_url.' : '.l10n('remote_site_clean');
       $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=clean');
       break;
@@ -188,7 +188,7 @@ SELECT galleries_url
     {
       delete_site($page['site']);
       array_push($page['infos'],
-                 $galleries_url.' '.get_lang('remote_site_deleted'));
+                 $galleries_url.' '.l10n('remote_site_deleted'));
       break;
     }
   }
@@ -231,7 +231,7 @@ while ($row = mysql_fetch_array($result))
     'sites.site',
     array(
       'NAME' => $row['galleries_url'],
-      'TYPE' => get_lang( $is_remote ? 'Remote' : 'Local' ),
+      'TYPE' => l10n( $is_remote ? 'Remote' : 'Local' ),
       'CATEGORIES' => $row['nb_categories'],
       'IMAGES' => isset($row['nb_images']) ? $row['nb_images'] : 0,
       'U_UPDATE' => $update_url

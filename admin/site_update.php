@@ -50,17 +50,17 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 define('CURRENT_DATE', $dbnow);
 
 $error_labels = array(
-  'PWG-UPDATE-1' => array( get_lang('update_wrong_dirname_short'), 
-                           get_lang('update_wrong_dirname_info') ),
-  'PWG-UPDATE-2' => array( get_lang('update_missing_tn_short'),
-                           get_lang('update_missing_tn_info') 
+  'PWG-UPDATE-1' => array( l10n('update_wrong_dirname_short'), 
+                           l10n('update_wrong_dirname_info') ),
+  'PWG-UPDATE-2' => array( l10n('update_missing_tn_short'),
+                           l10n('update_missing_tn_info') 
                            . implode(',', $conf['picture_ext']) ),
-  'PWG-ERROR-NO-FS' => array( get_lang('Does not exist'), 
-                             get_lang('update_missing_file_or_dir_info')),
-  'PWG-ERROR-VERSION' => array( get_lang('Invalid PhpWebGalley version'), 
-                             get_lang('update_pwg_version_differs_info')),
-  'PWG-ERROR-NOLISTING' => array( get_lang('remote_site_listing_not_found'), 
-                             get_lang('remote_site_listing_not_found_info'))
+  'PWG-ERROR-NO-FS' => array( l10n('Does not exist'), 
+                             l10n('update_missing_file_or_dir_info')),
+  'PWG-ERROR-VERSION' => array( l10n('Invalid PhpWebGalley version'), 
+                             l10n('update_pwg_version_differs_info')),
+  'PWG-ERROR-NOLISTING' => array( l10n('remote_site_listing_not_found'), 
+                             l10n('remote_site_listing_not_found_info'))
                       );
 $errors = array();
 $infos = array();
@@ -226,7 +226,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
       }
       else
       {
-        $insert{'uploadable'} = false;
+        $insert{'uploadable'} = 'false';
       }
       $insert{'status'} = $conf{'newcat_default_status'};
       $insert{'visible'} = $conf{'newcat_default_visible'};
@@ -259,7 +259,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
 
       array_push($inserts, $insert);
       array_push($infos, array('path' => $fulldir,
-                               'info' => get_lang('update_research_added')));
+                               'info' => l10n('update_research_added')));
 
       // add the new category to $db_categories and $db_fulldirs array
       $db_categories[$insert{'id'}] =
@@ -300,7 +300,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     array_push($to_delete, $db_fulldirs[$fulldir]);
     unset($db_fulldirs[$fulldir]);
     array_push($infos, array('path' => $fulldir,
-                             'info' => get_lang('update_research_deleted')));
+                             'info' => l10n('update_research_deleted')));
   }
   if (count($to_delete) > 0)
   {
@@ -416,7 +416,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
                    array('image_id' => $insert{'id'},
                          'category_id' => $insert{'storage_category_id'}));
         array_push($infos, array('path' => $insert{'path'},
-                                 'info' => get_lang('update_research_added')));
+                                 'info' => l10n('update_research_added')));
       }
       else
       {
@@ -446,7 +446,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
                  array('image_id' => $insert{'id'},
                        'category_id' => $insert{'storage_category_id'}));
       array_push($infos, array('path' => $insert{'path'},
-                               'info' => get_lang('update_research_added')));
+                               'info' => l10n('update_research_added')));
     }
   }
 
@@ -474,7 +474,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
   {
     array_push($to_delete_elements, array_search($path, $db_elements));
     array_push($infos, array('path' => $path,
-                             'info' => get_lang('update_research_deleted')));
+                             'info' => l10n('update_research_deleted')));
   }
   if (count($to_delete_elements) > 0)
   {
@@ -663,7 +663,7 @@ $template->set_filenames(array('update'=>'admin/site_update.tpl'));
 $result_title = '';
 if (isset($simulate) and $simulate)
 {
-  $result_title.= get_lang('update_simulation_title').' ';
+  $result_title.= l10n('update_simulation_title').' ';
 }
 
 // used_metadata string is displayed to inform admin which metadata will be
@@ -671,15 +671,15 @@ if (isset($simulate) and $simulate)
 $used_metadata = implode( ', ', $site_reader->get_update_attributes());
 if ($site_is_remote and !isset($_POST['submit']) )
 {
-  $used_metadata.= ' + ' . get_lang('Aditionnal remote attributes');
+  $used_metadata.= ' + ' . l10n('Aditionnal remote attributes');
 }
 
 $template->assign_vars(
   array(
     'SITE_URL'=>$site_url,
     'U_SITE_MANAGER'=> PHPWG_ROOT_PATH.'admin.php?page=site_manager',
-    'L_RESULT_UPDATE'=>$result_title.get_lang('update_part_research'),
-    'L_RESULT_METADATA'=>$result_title.get_lang('update_result_metadata'),
+    'L_RESULT_UPDATE'=>$result_title.l10n('update_part_research'),
+    'L_RESULT_METADATA'=>$result_title.l10n('update_result_metadata'),
     'METADATA_LIST' => $used_metadata
     ));
 

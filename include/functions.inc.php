@@ -430,7 +430,7 @@ function format_date($date, $type = 'us', $show_time = false)
 
 function pwg_query($query)
 {
-  global $conf,$page,$debug;
+  global $conf,$page,$debug,$t2;
   
   $start = get_moment();
   $result = mysql_query($query) or my_error($query."\n");
@@ -455,6 +455,8 @@ function pwg_query($query)
     $output.= '<b>'.number_format($time, 3, '.', ' ').' s)</b>';
     $output.= "\n".'(total SQL time  : ';
     $output.= number_format($page['queries_time'], 3, '.', ' ').' s)';
+    $output.= "\n".'(total time      : ';
+    $output.= number_format( ($time+$start-$t2), 3, '.', ' ').' s)';
     $output.= "</pre>\n";
     
     $debug .= $output;
@@ -465,7 +467,7 @@ function pwg_query($query)
 
 function pwg_debug( $string )
 {
-  global $debug,$t2,$count_queries;
+  global $debug,$t2,$page;
 
   $now = explode( ' ', microtime() );
   $now2 = explode( '.', $now[0] );
@@ -473,7 +475,7 @@ function pwg_debug( $string )
   $time = number_format( $now2 - $t2, 3, '.', ' ').' s';
   $debug .= '<p>';
   $debug.= '['.$time.', ';
-  $debug.= $count_queries.' queries] : '.$string;
+  $debug.= $page['count_queries'].' queries] : '.$string;
   $debug.= "</p>\n";
 }
 
@@ -971,20 +973,6 @@ SELECT '.$conf['user_fields']['email'].'
   list($email) = mysql_fetch_array(pwg_query($query));
 
   return $email;
-}
-
-/**
- * returns the $str in current language if possible or $str enclosed 
- * in special chars
- */
-function get_lang($str)
-{
-  global $lang;
-  if ( isset($lang[$str]) )
-  {
-    return $lang[$str];
-  }
-  return '@@'.$str.'@@';
 }
 
 /**
