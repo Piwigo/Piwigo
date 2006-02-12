@@ -201,7 +201,8 @@ function get_dirs($directory)
       if ($file != '.'
           and $file != '..'
           and is_dir($directory.'/'.$file)
-          and $file != 'CVS')
+          and $file != 'CVS'
+	  and $file != '.svn')
       {
         array_push($sub_dirs, $file);
       }
