@@ -106,7 +106,6 @@ function pwg_session_open($path, $name)
  */
 function pwg_session_close() 
 {
-  pwg_session_gc();
   return true;
 }
 
