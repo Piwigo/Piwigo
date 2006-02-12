@@ -32,7 +32,14 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-check_login_authorization(false);
+
+if ($user['is_the_guest'] and !$guest_allowed)
+{
+  echo '<div style="text-align:center;">'.$lang['only_members'].'<br />';
+  echo '<a href="./identification.php">'.$lang['ident_title'].'</a></div>';
+  exit();
+}
+
 $userdata = $user;
 
 //------------------------------------------------------ update & customization

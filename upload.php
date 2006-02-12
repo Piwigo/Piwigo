@@ -112,9 +112,12 @@ function validate_upload( $temp_name, $my_max_file_size,
 }	
 
 //-------------------------------------------------- access authorization check
-check_login_authorization();
-check_cat_id( $_GET['cat'] );
-if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+if (is_numeric($_GET['cat']))
+{
+  $page['cat'] = $_GET['cat'];
+}
+
+if (isset($page['cat']))
 {
   check_restrictions( $page['cat'] );
   $result = get_cat_info( $page['cat'] );

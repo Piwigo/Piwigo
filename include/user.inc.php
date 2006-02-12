@@ -59,8 +59,13 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
   $user['is_the_guest'] = false;
 }
 
-$use_cache = (defined('IN_ADMIN') and IN_ADMIN) ? false : true;
-$user = array_merge($user, getuserdata($user['id'], $use_cache));
+$user = array_merge(
+  $user,
+  getuserdata(
+    $user['id'],
+    defined('IN_ADMIN') and IN_ADMIN ? false : true // use cache ?
+    )
+  );
 
 // properties of user guest are found in the configuration
 if ($user['is_the_guest'])

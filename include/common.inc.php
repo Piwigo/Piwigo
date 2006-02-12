@@ -198,6 +198,19 @@ if (defined('IN_ADMIN') and IN_ADMIN)
   include_once(get_language_filepath('admin.lang.php'));
 }
 
+if ($conf['gallery_locked'])
+{
+  echo
+    '<div style="text-align:center;">'
+    .$lang['gallery_locked_message']
+    .'</div>';
+
+  if ($user['status'] != 'admin')
+  {
+    exit();
+  }
+}
+
 // only now we can set the localized username of the guest user (and not in
 // include/user.inc.php)
 if ($user['is_the_guest'])
@@ -209,7 +222,12 @@ if ($user['is_the_guest'])
 list($user['template'], $user['theme']) = explode('/', $user['template']);
 // TODO : replace initial $user['template'] by $user['layout']
 
-include(PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/'.$user['theme'].'/themeconf.inc.php');
+include(
+  PHPWG_ROOT_PATH
+  .'template/'.$user['template']
+  .'/theme/'.$user['theme']
+  .'/themeconf.inc.php'
+  );
 
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);

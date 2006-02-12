@@ -31,26 +31,36 @@
  * 
  */
 
-/**
- * $array_cat_directories is a cache hash associating category id with their
- * complete directory
- */
-$array_cat_directories = array();
-  
-$query = '
-SELECT DISTINCT(id),path,file,date_available
-       ,tn_ext,name,filesize,storage_category_id,average_rate,hit
-  FROM '.IMAGES_TABLE.' AS i
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=ic.image_id
-  '.$page['where'].'
-  '.$conf['order_by'].'
-  LIMIT '.$page['start'].','.$page['nb_image_page'].'
+$page['rank_of'] = array_flip($page['items']);
+
+$pictures = array();
+
+$selection = array_slice(
+  $page['items'],
+  $page['start'],
+  $page['nb_image_page']
+  );
+
+if (count($selection) > 0)
+{
+  $query = '
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $selection).')
 ;';
-//echo '<pre>'.$query.'</pre>';
-$result = pwg_query($query);
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $row['rank'] = $page['rank_of'][ $row['id'] ];
+    
+    array_push($pictures, $row);
+  }
+
+  usort($pictures, 'rank_compare');
+}
 
 // template thumbnail initialization
-if ( mysql_num_rows($result) > 0 )
+if (count($pictures) > 0)
 {
   $template->assign_block_vars('thumbnails', array());
   // first line
@@ -59,7 +69,7 @@ if ( mysql_num_rows($result) > 0 )
   $row_number = 0;
 }
 
-while ($row = mysql_fetch_array($result))
+foreach ($pictures as $row)
 {
   $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
   
@@ -150,4 +160,6 @@ SELECT COUNT(*) AS nb_comments
     $row_number = 0;
   }
 }
+
+pwg_debug('end include/category_default.inc.php');
 ?>

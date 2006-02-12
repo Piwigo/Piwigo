@@ -349,7 +349,8 @@ function get_html_menu_category($categories)
   $ref_level = 0;
   $level = 0;
   $menu = '';
-  
+
+  // $page_cat value remains 0 for special sections
   $page_cat = 0;
   if (isset($page['cat']) and is_numeric($page['cat']) )
   {
@@ -383,7 +384,8 @@ function get_html_menu_category($categories)
   
     $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
     $menu.= "\n".'<a href="'.$url.'"';
-    if ($category['id'] == $page['cat_id_uppercat'])
+    if ($page_cat != 0
+        and $category['id'] == $page['cat_id_uppercat'])
     {
       $menu.= ' rel="up"';
     }

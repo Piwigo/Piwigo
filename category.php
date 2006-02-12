@@ -41,23 +41,20 @@ if ( isset( $_GET['act'] )
   $url = 'category.php';
   redirect( $url );
 }
-//-------------------------------------------------- access authorization check
-if (isset($_GET['cat']))
+//---------------------------------------------- change of image display order 
+if (isset($_GET['image_order']))
 {
-  check_cat_id($_GET['cat']);
-}
-check_login_authorization();
-if (isset($page['cat']) and is_numeric($page['cat']))
-{
-  check_restrictions($page['cat']);
-}
-//----------------------------------------------- change of image dispaly order 
-if ( isset($_GET['image_order']) )
-{
-  setcookie( 'pwg_image_order', 
-    $_GET['image_order']>0 ? $_GET['image_order'] : '', 0 );
-  redirect( PHPWG_ROOT_PATH.'category.php'.
-    get_query_string_diff(array('image_order')) );
+  setcookie(
+    'pwg_image_order', 
+    $_GET['image_order'] > 0 ? $_GET['image_order'] : '',
+    0
+    );
+  
+  redirect(
+    PHPWG_ROOT_PATH
+    .'category.php'
+    .get_query_string_diff(array('image_order'))
+    );
 }
 //-------------------------------------------------------------- initialization
 // detection of the start picture to display
@@ -72,20 +69,51 @@ else
   $page['start'] = $_GET['start'];
 }
 
-initialize_category();
+include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
+
+// access authorization check
+if (isset($page['cat']) and is_numeric($page['cat']))
+{
+  check_restrictions($page['cat']);
+}
+
+if (isset($page['cat'])
+    and $page['cat_nb_images'] > $user['nb_image_page'])
+{
+  // $nav_url is used to create the navigation bar
+  $nav_url = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'];
+
+  switch ($page['cat'])
+  {
+    case 'search':
+    {
+      $nav_url.= '&amp;search='.$_GET['search'];
+      break;
+    }
+    case 'list':
+    {
+      $nav_url.= '&amp;list='.$_GET['list'];
+      break;
+    }
+  }
+  
+  $page['navigation_bar'] = create_navigation_bar(
+    $nav_url,
+    $page['cat_nb_images'],
+    $page['start'],
+    $user['nb_image_page'],
+    'back'
+    );
+}
+else
+{
+  $page['navigation_bar'] = '';
+}
 
 // caddie filling :-)
 if (isset($_GET['caddie']))
 {
-//  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  
-  $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.' AS i
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  '.$page['where'].'
-;';
-  fill_caddie(array_from_query($query, 'id'));
+  fill_caddie($page['items']);
 }
 
 //----------------------------------------------------- template initialization
@@ -324,42 +352,7 @@ if (isset($page['cat'])
 }
 
 //------------------------------------------------------ main part : thumbnails
-if (isset($page['cat'])
-    and ((is_numeric($page['cat']) and $page['cat_nb_images'] != 0)
-         or in_array($page['cat'],
-                     array('search'
-                           ,'most_visited'
-                           ,'recent_pics'
-                           ,'best_rated'
-                           ,'list'
-                           ,'fav'
-                       ))))
-{
-  include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
-
-  if ('admin' == $user['status'])
-  {
-    $template->assign_block_vars(
-      'caddie',
-      array(
-        'URL' =>
-            PHPWG_ROOT_PATH.'category.php'
-            .get_query_string_diff(array('caddie')).'&amp;caddie=1')
-      );
-  }
-}
-elseif (isset($page['cat']) and $page['cat'] == 'calendar')
-{
-  include(PHPWG_ROOT_PATH.'include/category_calendar.inc.php');
-}
-elseif (isset($page['cat']) and $page['cat'] == 'recent_cats')
-{
-  include(PHPWG_ROOT_PATH.'include/category_recent_cats.inc.php');
-}
-else
-{
-  include(PHPWG_ROOT_PATH.'include/category_subcats.inc.php');
-}
+include(PHPWG_ROOT_PATH.$page['thumbnails_include']);
 //------------------------------------------------------- category informations
 if ( isset ( $page['cat'] ) )
 {

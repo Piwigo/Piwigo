@@ -30,18 +30,75 @@ $rate_items = array(0,1,2,3,4,5);
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 //-------------------------------------------------- access authorization check
-check_cat_id( $_GET['cat'] );
-
-if (!isset($page['cat']))
+if (isset($page['cat']) and is_numeric($page['cat']))
 {
-  die($lang['access_forbiden']);
+  check_restrictions($page['cat']);
+}
+//-------------------------------------------------------------- initialization
+include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
+
+// if this image_id doesn't correspond to this category, an error message is
+// displayed, and execution is stopped
+if (!in_array($_GET['image_id'], $page['items']))
+{
+  echo '
+<div style="text-align:center;">'.$lang['access_forbiden'].'<br />
+  <a href="'.PHPWG_ROOT_PATH.'category.php'.'">'.$lang['thumbnails'].'</a>
+</div>';
+  exit();
 }
 
-check_login_authorization();
-if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+$page['rank_of'] = array_flip($page['items']);
+
+// caching first_rank, last_rank, current_rank in the displayed
+// section. This should also help in readability.
+$page['first_rank']   = 0;
+$page['last_rank']    = count($page['items']) - 1;
+$page['current_rank'] = $page['rank_of'][ $_GET['image_id'] ];
+
+// caching current item : readability purpose
+$page['current_item'] = $_GET['image_id'];
+
+if ($page['current_rank'] != $page['first_rank'])
 {
-  check_restrictions( $page['cat'] );
+  // "go to first picture of this section" link is displayed only if the
+  // displayed item is not the first.
+  $template->assign_block_vars(
+    'first',
+    array(
+      'U_IMG' =>
+        PHPWG_ROOT_PATH.'picture.php'.
+        get_query_string_diff(
+          array('image_id', 'add_fav', 'slideshow', 'rate')
+          ).
+        '&amp;image_id='.$page['items'][ $page['first_rank'] ],
+      )
+    );
+
+  // caching previous item : readability purpose
+  $page['previous_item'] = $page['items'][ $page['current_rank'] - 1 ];
 }
+
+if ($page['current_rank'] != $page['last_rank'])
+{
+  // "go to last picture of this section" link is displayed only if the
+  // displayed item is not the last.
+  $template->assign_block_vars(
+    'last',
+    array(
+      'U_IMG' =>
+        PHPWG_ROOT_PATH.'picture.php'.
+        get_query_string_diff(
+          array('image_id', 'add_fav', 'slideshow', 'rate')
+          ).
+        '&amp;image_id='.$page['items'][ $page['last_rank'] ],
+      )
+    );
+
+  // caching next item : readability purpose
+  $page['next_item'] = $page['items'][ $page['current_rank'] + 1 ];
+}
+
 //---------------------------------------- incrementation of the number of hits
 if ( count(array_intersect(
              array_keys($_GET),
@@ -55,64 +112,7 @@ if ( count(array_intersect(
   ;';
   @pwg_query( $query );
 }
-//-------------------------------------------------------------- initialization
-initialize_category( 'picture' );
-// retrieving the number of the picture in its category (in order)
-$query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  '.$page['where'].'
-  '.$conf['order_by'].'
-;';
-$result = pwg_query( $query );
-$page['num'] = 0;
-$belongs = false;
-while ($row = mysql_fetch_array($result))
-{
-  if ($row['id'] == $_GET['image_id'])
-  {
-    $belongs = true;
-    break;
-  }
-  if ($page['num']==0)
-  {
-    $url_first_last = PHPWG_ROOT_PATH.'picture.php';
-    $url_first_last.= get_query_string_diff(array('image_id','add_fav',
-                                                    'slideshow','rate'));
-    $url_first_last.= '&amp;image_id=';
-    $template->assign_block_vars(
-      'first',
-      array(
-        'U_IMG' => $url_first_last . $row['id'],
-        ));
-  }
-  $page['num']++;
-}
-if ($page['cat_nb_images']>0 and $page['num'] < $page['cat_nb_images'] - 1)
-{
-  mysql_data_seek($result, $page['cat_nb_images'] - 1);
-  $row = mysql_fetch_array($result);
-  $url_first_last = PHPWG_ROOT_PATH.'picture.php';
-  $url_first_last.= get_query_string_diff(array('image_id','add_fav',
-                                                  'slideshow','rate'));
-  $url_first_last.= '&amp;image_id=';
-  $template->assign_block_vars(
-    'last',
-    array(
-      'U_IMG' => $url_first_last . $row['id'],
-      ));
-}
 
-// if this image_id doesn't correspond to this category, an error message is
-// displayed, and execution is stopped
-if (!$belongs)
-{
-  echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-  echo '<a href="'.PHPWG_ROOT_PATH.'category.php'.'">';
-  echo $lang['thumbnails'].'</a></div>';
-  exit();
-}
 //-------------------------------------------------------------- representative
 if ('admin' == $user['status'] and isset($_GET['representative']))
 {
@@ -161,57 +161,39 @@ usort($related_categories, 'global_rank_compare');
 //------------------------------------- prev, current & next picture management
 $picture = array();
 
-if ($page['num'] == 0)
+$ids = array($_GET['image_id']);
+if (isset($page['previous_item']))
 {
-  $has_prev = false;
+  array_push($ids, $page['previous_item']);
 }
-else
+if (isset($page['next_item']))
 {
-  $has_prev = true;
-}
-
-if ($page['num'] == $page['cat_nb_images'] - 1)
-{
-  $has_next = false;
-}
-else
-{
-  $has_next = true;
+  array_push($ids, $page['next_item']);
 }
 
 $query = '
-SELECT DISTINCT(i.id), i.*
-  FROM '.IMAGES_TABLE.' AS i
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
-  '.$page['where'].'
-  '.$conf['order_by'].'
-  ';
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $ids).')
+;';
 
-if ( !$has_prev )
-{
-  $query.= ' LIMIT 0,2';
-}
-else
-{
-  $query.= ' LIMIT '.($page['num'] - 1).',3';
-}
-$query.= ';';
+$result = pwg_query($query);
 
-$result = pwg_query( $query );
-$indexes = array('prev', 'current', 'next');
-
-foreach (array('prev', 'current', 'next') as $i)
+while ($row = mysql_fetch_array($result))
 {
-  if ($i == 'prev' and !$has_prev)
+  if (isset($page['previous_item']) and $row['id'] == $page['previous_item'])
   {
-    continue;
+    $i = 'prev';
   }
-  if ($i == 'next' and !$has_next)
+  else if (isset($page['next_item']) and $row['id'] == $page['next_item'])
   {
-    break;
+    $i = 'next';
   }
-
-  $row = mysql_fetch_array($result);
+  else
+  {
+    $i = 'current';
+  }
+  
   foreach (array_keys($row) as $key)
   {
     if (!is_numeric($key))
@@ -234,8 +216,9 @@ foreach (array('prev', 'current', 'next') as $i)
 
   if (isset($row['representative_ext']) and $row['representative_ext'] != '')
   {
-    $picture[$i]['src'] = $cat_directory.'/pwg_representative/';
-    $picture[$i]['src'].= $file_wo_ext.'.'.$row['representative_ext'];
+    $picture[$i]['src'] =
+      $cat_directory.'/pwg_representative/'
+      .$file_wo_ext.'.'.$row['representative_ext'];
   }
   else
   {
@@ -274,14 +257,15 @@ foreach (array('prev', 'current', 'next') as $i)
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
-  $picture[$i]['url'] = PHPWG_ROOT_PATH.'picture.php';
-  $picture[$i]['url'].= get_query_string_diff(array('image_id','add_fav',
-                                                    'slideshow','rate'));
-  $picture[$i]['url'].= '&amp;image_id='.$row['id'];
+  $picture[$i]['url'] =
+    PHPWG_ROOT_PATH.'picture.php'
+    .get_query_string_diff(array('image_id', 'add_fav', 'slideshow', 'rate'))
+    .'&amp;image_id='.$row['id'];
 }
 
 $url_up = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'];
-$url_up_start = floor( $page['num'] / $user['nb_image_page'] );
+
+$url_up_start = floor( $page['current_rank'] / $user['nb_image_page'] );
 $url_up_start *= $user['nb_image_page'];
 if ($url_up_start>0)
 {
@@ -297,12 +281,13 @@ if ( $page['cat'] == 'list' )
   $url_up.= "&amp;list=".$_GET['list'];
 }
 
-$url_admin = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
-$url_admin.= '&amp;cat_id='.$page['cat'];
-$url_admin.= '&amp;image_id='.$_GET['image_id'];
+$url_admin =
+  PHPWG_ROOT_PATH.'admin.php?page=picture_modify'
+  .'&amp;cat_id='.$page['cat']
+  .'&amp;image_id='.$_GET['image_id'];
 
-$url_slide = $picture['current']['url'];
-$url_slide.= '&amp;slideshow='.$conf['slideshow_period'];
+$url_slide =
+  $picture['current']['url'].'&amp;slideshow='.$conf['slideshow_period'];
 
 //----------------------------------------------------------- rate registration
 if (isset($_GET['rate'])
@@ -484,7 +469,7 @@ $title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
   $title_img = replace_space(get_cat_display_name($page['cat_name']));
-  $n = $page['num'] + 1;
+  $n = $page['current_rank'] + 1;
   $title_nb = $n.'/'.$page['cat_nb_images'];
 }
 else if ( $page['cat'] == 'search' )
@@ -526,8 +511,8 @@ if ($metadata_showable and !isset($_GET['show_metadata']))
 }
 
 $page['body_id'] = 'thePicturePage';
-//-------------------------------------------------------- navigation management
-if ($has_prev)
+//------------------------------------------------------- navigation management
+if (isset($page['previous_item']))
 {
   $template->assign_block_vars(
     'previous',
@@ -536,10 +521,11 @@ if ($has_prev)
       'IMG' => $picture['prev']['thumbnail'],
       'U_IMG' => $picture['prev']['url'],
       'U_IMG_SRC' => $picture['prev']['src']
-      ));
+      )
+    );
 }
 
-if ($has_next)
+if (isset($page['next_item']))
 {
   $template->assign_block_vars(
     'next',
@@ -548,7 +534,8 @@ if ($has_next)
       'IMG' => $picture['next']['thumbnail'],
       'U_IMG' => $picture['next']['url'],
       'U_IMG_SRC' => $picture['next']['src'] // allow navigator to preload
-      ));
+      )
+    );
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
