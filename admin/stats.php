@@ -60,7 +60,7 @@ else
 if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
 {
   $date_of_day=$_GET['day'].' '.$lang['month'][$_GET['month']].' '.$_GET['year'];
-  $title_page=$lang['stats_day_title'].' du '.$date_of_day;
+  $title_page=$lang['stats_day_title'].' : '.$date_of_day;
   $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
   $url_back = add_session_id($url_back);
   $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
