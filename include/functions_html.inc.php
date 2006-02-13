@@ -25,17 +25,36 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function get_icon( $date )
+function get_icon($date)
 {
-  global $user, $conf, $lang;
+  global $page, $user, $conf, $lang;
 
-  if (!preg_match('/\d{4}-\d{2}-\d{2}/', $date))
+  if (empty($date))
   {
-    return '';
+    $date = 'NULL';
   }
 
-  list( $year,$month,$day ) = explode( '-', $date );
+  if (isset($page['get_icon_cache'][$date]))
+  {
+    return $page['get_icon_cache'][$date];
+  }
+
+  if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $date, $matches))
+  {
+    // date can be empty, no icon to display
+    $page['get_icon_cache'][$date] = '';
+    return $page['get_icon_cache'][$date];
+  }
+  
+  list($devnull, $year, $month, $day) = $matches;
   $unixtime = mktime( 0, 0, 0, $month, $day, $year );
+
+  if ($unixtime === false  // PHP 5.1.0 and above
+      or $unixtime === -1) // PHP prior to 5.1.0
+  {
+    $page['get_icon_cache'][$date] = '';
+    return $page['get_icon_cache'][$date];
+  }
   
   $diff = time() - $unixtime;
   $day_in_seconds = 24*60*60;
@@ -50,7 +69,10 @@ function get_icon( $date )
     $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
   }
-  return $output;
+
+  $page['get_icon_cache'][$date] = $output;
+
+  return $page['get_icon_cache'][$date];
 }
 
 function create_navigation_bar($url, $nb_element, $start,
