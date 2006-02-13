@@ -27,15 +27,23 @@
 
 function get_icon( $date )
 {
+  // TODO $page['icon_cache'], for each date, associate the HTML icon
   global $user, $conf, $lang;
 
-  if (!preg_match('/\d{4}-\d{2}-\d{2}/', $date))
+  if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $date, $matches))
+  {
+    // date can be empty, no icon to display
+    return '';
+  }
+  
+  list($devnull, $year, $month, $day) = $matches;
+  $unixtime = mktime( 0, 0, 0, $month, $day, $year );
+
+  if ($unixtime === false  // PHP 5.1.0 and above
+      or $unixtime === -1) // PHP prior to 5.1.0
   {
     return '';
   }
-
-  list( $year,$month,$day ) = explode( '-', $date );
-  $unixtime = mktime( 0, 0, 0, $month, $day, $year );
   
   $diff = time() - $unixtime;
   $day_in_seconds = 24*60*60;
