@@ -93,6 +93,10 @@ $conf['calendar_datefield'] = 'date_creation';
 // rate : enable feature for rating elements
 $conf['rate'] = true;
 
+// rate_anonymous : visitors are able to rate pictures (requires 
+// $conf['rate'] set to true)
+$conf['rate_anonymous'] = true;
+
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
 $conf['newcat_default_commentable'] = 'true';

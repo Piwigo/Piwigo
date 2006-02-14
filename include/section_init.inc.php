@@ -208,7 +208,7 @@ SELECT image_id
         $page,
         array(
           'title' => $lang['favorites'],
-          'items' => array_from_query($query, 'id'),
+          'items' => array_from_query($query, 'image_id'),
           'thumbnails_include' => 'include/category_default.inc.php',
           )
         );

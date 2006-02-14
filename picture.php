@@ -69,7 +69,7 @@ if ($page['current_rank'] != $page['first_rank'])
       'U_IMG' =>
         PHPWG_ROOT_PATH.'picture.php'.
         get_query_string_diff(
-          array('image_id', 'add_fav', 'slideshow', 'rate')
+          array('image_id', 'add_fav', 'slideshow')
           ).
         '&amp;image_id='.$page['items'][ $page['first_rank'] ],
       )
@@ -89,7 +89,7 @@ if ($page['current_rank'] != $page['last_rank'])
       'U_IMG' =>
         PHPWG_ROOT_PATH.'picture.php'.
         get_query_string_diff(
-          array('image_id', 'add_fav', 'slideshow', 'rate')
+          array('image_id', 'add_fav', 'slideshow')
           ).
         '&amp;image_id='.$page['items'][ $page['last_rank'] ],
       )
@@ -142,6 +142,105 @@ if (isset($_GET['caddie']))
     .get_query_string_diff(array('caddie'));
   redirect($url);
 }
+
+
+//----------------------------------------------------------- rate registration
+if (isset($_GET['rate'])
+    and $conf['rate']
+    and ( !$user['is_the_guest'] or $conf['rate_anonymous'] )
+    and in_array($_GET['rate'], $rate_items))
+{
+  if ($user['is_the_guest'])
+  {
+    $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
+    if ( count($ip_components)>3 )
+    {
+      array_pop($ip_components);
+    }
+    $anonymous_id = implode ('.', $ip_components);
+
+    if ( isset($_COOKIE['pwg_anonymous_rater']) )
+    {
+      if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'] )
+      { // client has changed his IP adress or he's trying to fool us
+        $query = '
+SELECT element_id FROM '. RATE_TABLE . '
+  WHERE user_id=' . $user['id'] . '
+  AND anonymous_id=\'' . $anonymous_id . '\'';
+        $result = pwg_query($query);
+        $already_there = array();
+        while ( $row = mysql_fetch_array($result) )
+        {
+          array_push( $already_there, $row['element_id'] );
+        }
+        
+        if ( count($already_there)>0 )
+        {
+          $query = '
+DELETE FROM '. RATE_TABLE . '
+  WHERE user_id=' . $user['id'] . '
+  AND anonymous_id=\'' . $_COOKIE['pwg_anonymous_rater'] . '\'
+  AND element_id NOT IN (' . implode(',',$already_there) . ')';
+          pwg_query($query);
+        }
+        
+        $query = '
+UPDATE '. RATE_TABLE . '
+  SET anonymous_id=\'' . $anonymous_id . '\'
+  WHERE user_id=' . $user['id'] . '
+  AND anonymous_id=\'' . $_COOKIE['pwg_anonymous_rater'] . '\'';
+        pwg_query($query);
+
+        setcookie('pwg_anonymous_rater', $anonymous_id, 
+                   strtotime('+10 years'), cookie_path() );
+      }
+    }
+    else
+    {
+      setcookie('pwg_anonymous_rater', $anonymous_id, 
+                 strtotime('+10 years'), cookie_path() );
+    }
+  }
+
+  $query = '
+DELETE FROM '.RATE_TABLE.'
+  WHERE element_id = '.$_GET['image_id'] . '
+  AND user_id = '.$user['id']
+;
+  if (isset($anonymous_id))
+  {
+    $query.= ' AND anonymous_id=\'' . $anonymous_id .'\'';
+  }
+  pwg_query($query);
+  $query = '
+INSERT INTO '.RATE_TABLE.'
+  (user_id,anonymous_id,element_id,rate,date)
+  VALUES
+  ('.$user['id'].','.(isset($anonymous_id)?'\''.$anonymous_id.'\'':"''").','.
+   $_GET['image_id'].','.$_GET['rate'].',NOW())
+;';
+  pwg_query($query);
+
+  // update of images.average_rate field
+  $query = '
+SELECT ROUND(AVG(rate),2) AS average_rate
+  FROM '.RATE_TABLE.'
+  WHERE element_id = '.$_GET['image_id'].'
+;';
+  $row = mysql_fetch_array(pwg_query($query));
+  $query = '
+UPDATE '.IMAGES_TABLE.'
+  SET average_rate = '.$row['average_rate'].'
+  WHERE id = '.$_GET['image_id'].'
+;';
+  pwg_query($query);
+  $url =
+    PHPWG_ROOT_PATH
+    .'picture.php'
+    .get_query_string_diff(array('rate'));
+  redirect($url);
+}
+
 
 //---------------------------------------------------------- related categories
 $query = '
@@ -259,7 +358,7 @@ while ($row = mysql_fetch_array($result))
 
   $picture[$i]['url'] =
     PHPWG_ROOT_PATH.'picture.php'
-    .get_query_string_diff(array('image_id', 'add_fav', 'slideshow', 'rate'))
+    .get_query_string_diff(array('image_id', 'add_fav', 'slideshow'))
     .'&amp;image_id='.$row['id'];
 }
 
@@ -289,41 +388,6 @@ $url_admin =
 $url_slide =
   $picture['current']['url'].'&amp;slideshow='.$conf['slideshow_period'];
 
-//----------------------------------------------------------- rate registration
-if (isset($_GET['rate'])
-    and $conf['rate']
-    and !$user['is_the_guest']
-    and in_array($_GET['rate'], $rate_items))
-{
-  $query = '
-DELETE
-  FROM '.RATE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-    AND element_id = '.$_GET['image_id'].'
-;';
-  pwg_query($query);
-  $query = '
-INSERT INTO '.RATE_TABLE.'
-  (user_id,element_id,rate)
-  VALUES
-  ('.$user['id'].','.$_GET['image_id'].','.$_GET['rate'].')
-;';
-  pwg_query($query);
-
-  // update of images.average_rate field
-  $query = '
-SELECT ROUND(AVG(rate),2) AS average_rate
-  FROM '.RATE_TABLE.'
-  WHERE element_id = '.$_GET['image_id'].'
-;';
-  $row = mysql_fetch_array(pwg_query($query));
-  $query = '
-UPDATE '.IMAGES_TABLE.'
-  SET average_rate = '.$row['average_rate'].'
-  WHERE id = '.$_GET['image_id'].'
-;';
-  pwg_query($query);
-}
 //--------------------------------------------------------- favorite management
 if ( isset( $_GET['add_fav'] ) )
 {
@@ -343,13 +407,13 @@ if ( isset( $_GET['add_fav'] ) )
   }
   if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
   {
-    if (!$has_prev and !$has_next)
+    if (!isset($page['previous_item']) and !isset($page['next_item']))
     {
       // there is no favorite picture anymore we redirect the user to the
       // category page
       redirect($url_up);
     }
-    else if (!$has_prev)
+    else if (!isset($page['previous_item']))
     {
       $url = str_replace( '&amp;', '&', $picture['next']['url'] );
       redirect( $url );
@@ -458,7 +522,7 @@ if ( isset( $_GET['del'] )
 
 $title =  $picture['current']['name'];
 $refresh = 0;
-if ( isset( $_GET['slideshow'] ) and $has_next )
+if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 {
   $refresh= $_GET['slideshow'];
   $url_link = $picture['next']['url'].'&amp;slideshow='.$refresh;
@@ -600,8 +664,8 @@ if (isset($picture['current']['high']))
   $uuid = uniqid(rand());
   $template->assign_block_vars('high', array(
     'U_HIGH' => $picture['current']['high'],
-	'UUID'=>$uuid
-	));
+    'UUID'=>$uuid
+  ));
   $template->assign_block_vars(
     'download',
     array('U_DOWNLOAD' => PHPWG_ROOT_PATH.'action.php?dwn='
@@ -617,7 +681,7 @@ if ('admin' == $user['status'] and is_numeric($page['cat']))
     array(
       'URL' =>
         PHPWG_ROOT_PATH.'picture.php'
-        .get_query_string_diff(array())
+        .get_query_string_diff(array('add_fav'))
         .'&amp;representative=1'
       )
     );
@@ -630,7 +694,7 @@ if ('admin' == $user['status'])
     array(
       'URL' =>
         PHPWG_ROOT_PATH.'picture.php'
-        .get_query_string_diff(array('caddie')).'&amp;caddie=1')
+        .get_query_string_diff(array('add_fav')).'&amp;caddie=1')
     );
 }
 
@@ -646,7 +710,7 @@ if ( !$user['is_the_guest'] )
   if (!$row['nb_fav'])
   {
     $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= get_query_string_diff(array('add_fav'));
     $url.= '&amp;add_fav=1';
 
     $template->assign_block_vars(
@@ -661,7 +725,7 @@ if ( !$user['is_the_guest'] )
   else
   {
     $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('rate','add_fav'));
+    $url.= get_query_string_diff(array('add_fav'));
     $url.= '&amp;add_fav=0';
     
     $template->assign_block_vars(
@@ -917,7 +981,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
 if ( isset( $_GET['slideshow'] ) )
 {
   if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'];
-	
+  
   $template->assign_block_vars('stop_slideshow', array(
   'U_SLIDESHOW'=>$picture['current']['url']
   ));
@@ -947,62 +1011,81 @@ SELECT COUNT(rate) AS count
       $row['STD']
       );
   }
-  
-  if (!$user['is_the_guest'])
-  {
-    $query = 'SELECT rate
-    FROM '.RATE_TABLE.'
-    WHERE user_id = '.$user['id'].'
-    AND element_id = '.$_GET['image_id'].';';
-  $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
-  {
-    $row = mysql_fetch_array($result);
-    $sentence = $lang['already_rated'];
-    $sentence.= ' ('.$row['rate'].'). ';
-    $sentence.= $lang['update_rate'];
-  }
-  else
-  {
-    $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
-  }  
-  $template->assign_block_vars(
-    'rate',
-    array(
-      'CONTENT' => $value,
-      'SENTENCE' => $sentence
-      ));
 
-  $template->assign_block_vars('info_rate', array('CONTENT' => $value));
-  
-  $template->assign_vars(
-    array(
-      'INFO_RATE' => $value
-      )
-    );
-  
-  foreach ($rate_items as $num => $mark)
+  if ($conf['rate_anonymous'] or !$user['is_the_guest'])
   {
-    if ($num > 0)
+    if ($row['count']>0)
     {
-      $separator = '|';
+      $query = 'SELECT rate
+      FROM '.RATE_TABLE.'
+      WHERE element_id = '.$_GET['image_id'] . '
+      AND user_id = '.$user['id'] ;
+  
+      if ($user['is_the_guest'])
+      {
+        $ip_components = explode('.', $_SERVER['REMOTE_ADDR']);
+        if ( count($ip_components)>3 )
+        {
+          array_pop($ip_components);
+        }
+        $anonymous_id = implode ('.', $ip_components);
+        $query .= ' AND anonymous_id = \''.$anonymous_id . '\'';
+      }
+      
+      $result = pwg_query($query);
+      if (mysql_num_rows($result) > 0)
+      {
+        $row = mysql_fetch_array($result);
+        $sentence = $lang['already_rated'];
+        $sentence.= ' ('.$row['rate'].'). ';
+        $sentence.= $lang['update_rate'];
+      }
+      else
+      {
+        $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
+      }
     }
-    else
+    else  
     {
-      $separator = '';
+      $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
     }
-
-    $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('rate','add_fav'));
-    $url.= '&amp;rate='.$mark;
-    
     $template->assign_block_vars(
-      'rate.rate_option',
+      'rate',
       array(
-        'OPTION' => $mark,
-        'URL' => $url,
-        'SEPARATOR' => $separator
+        'CONTENT' => $value,
+        'SENTENCE' => $sentence
         ));
+
+    $template->assign_block_vars('info_rate', array('CONTENT' => $value));
+
+    $template->assign_vars(
+      array(
+        'INFO_RATE' => $value
+        )
+      );
+
+    foreach ($rate_items as $num => $mark)
+    {
+      if ($num > 0)
+      {
+        $separator = '|';
+      }
+      else
+      {
+        $separator = '';
+      }
+
+      $url = PHPWG_ROOT_PATH.'picture.php';
+      $url.= get_query_string_diff(array('add_fav'));
+      $url.= '&amp;rate='.$mark;
+
+      $template->assign_block_vars(
+        'rate.rate_option',
+        array(
+          'OPTION' => $mark,
+          'URL' => $url,
+          'SEPARATOR' => $separator
+          ));
     }
   }
 }
@@ -1031,7 +1114,7 @@ if ($page['show_comments'])
   
   // navigation bar creation
   $url = PHPWG_ROOT_PATH.'picture.php';
-  $url.= get_query_string_diff(array('rate','add_fav','start'));
+  $url.= get_query_string_diff(array('add_fav','start'));
 
   if (!isset( $_GET['start'] )
       or !is_numeric( $_GET['start'] )
@@ -1051,32 +1134,35 @@ if ($page['show_comments'])
     'NB_COMMENT'=>$row['nb_comments'],
     'NAV_BAR'=>$page['navigation_bar']));
 
-  $query = 'SELECT id,author,date,image_id,content';
-  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
-  $query.= " AND validated = 'true'";
-  $query.= ' ORDER BY date ASC';
-  $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
-  $result = pwg_query( $query );
-                
-  while ( $row = mysql_fetch_array( $result ) )
+  if ($row['nb_comments']>0)
   {
-    $template->assign_block_vars(
-      'comments.comment',
-      array(
-        'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
-        'COMMENT_DATE'=>format_date($row['date'], 'mysql_datetime', true),
-	'COMMENT'=>parse_comment_content($row['content'])
-	));
-	
-    if ( $user['status'] == 'admin' )
+    $query = 'SELECT id,author,date,image_id,content';
+    $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
+    $query.= " AND validated = 'true'";
+    $query.= ' ORDER BY date ASC';
+    $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
+    $result = pwg_query( $query );
+
+    while ( $row = mysql_fetch_array( $result ) )
     {
       $template->assign_block_vars(
-        'comments.comment.delete',
-        array('U_COMMENT_DELETE'=> $url.'&amp;del='.$row['id']
-          ));
+        'comments.comment',
+        array(
+          'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
+          'COMMENT_DATE'=>format_date($row['date'], 'mysql_datetime', true),
+    'COMMENT'=>parse_comment_content($row['content'])
+    ));
+
+      if ( $user['status'] == 'admin' )
+      {
+        $template->assign_block_vars(
+          'comments.comment.delete',
+          array('U_COMMENT_DELETE'=> $url.'&amp;del='.$row['id']
+            ));
+      }
     }
   }
-
+  
   if (!$user['is_the_guest']
       or ($user['is_the_guest'] and $conf['comments_forall']))
   {

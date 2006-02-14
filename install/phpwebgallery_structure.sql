@@ -173,8 +173,10 @@ DROP TABLE IF EXISTS `phpwebgallery_rate`;
 CREATE TABLE `phpwebgallery_rate` (
   `user_id` smallint(5) NOT NULL default '0',
   `element_id` mediumint(8) unsigned NOT NULL default '0',
+  `anonymous_id` varchar(45) NOT NULL default '',
   `rate` tinyint(2) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`user_id`,`element_id`)
+  `date` date NOT NULL default '0000-00-00',
+  PRIMARY KEY  (`element_id`,`user_id`,`anonymous_id`)
 ) TYPE=MyISAM;
 
 --
