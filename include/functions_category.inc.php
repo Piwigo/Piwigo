@@ -259,7 +259,7 @@ function get_category_preferred_image_orders()
   global $conf;
   return array(
     array('Default', '', true),
-    array(l10n('best_rated_cat'),   'average_rate DESC', $conf['rate']),
+    array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
     array(l10n('most_visited_cat'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
     array(l10n('Availability date'), 'date_available DESC', true),

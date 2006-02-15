@@ -1042,12 +1042,12 @@ SELECT COUNT(rate) AS count
       }
       else
       {
-        $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
+        $sentence = $lang['never_rated'].'. '.$lang['Rate'];
       }
     }
     else  
     {
-      $sentence = $lang['never_rated'].'. '.$lang['to_rate'];
+      $sentence = $lang['never_rated'].'. '.$lang['Rate'];
     }
     $template->assign_block_vars(
       'rate',

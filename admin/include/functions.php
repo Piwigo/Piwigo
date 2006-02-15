@@ -1311,19 +1311,23 @@ UPDATE '.IMAGES_TABLE.'
 
 /**
  * update images.average_rate field
- *
+ * param int $element_id optional, otherwise applies to all
  * @return void
  */
-function update_average_rate()
+function update_average_rate( $element_id=-1 )
 {
   $average_rates = array();
   
   $query = '
 SELECT element_id,
        ROUND(AVG(rate),2) AS average_rate
-  FROM '.RATE_TABLE.'
-  GROUP BY element_id
-;';
+  FROM '.RATE_TABLE;
+  if ( $element_id != -1 )
+  {
+    $query .= ' WHERE element_id=' . $element_id;
+  }
+  $query .= ' GROUP BY element_id;';
+  
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -1343,6 +1347,17 @@ SELECT element_id,
   }
   $fields = array('primary' => array('id'), 'update' => array('average_rate'));
   mass_updates(IMAGES_TABLE, $fields, $datas);
+
+  $query='
+UPDATE '.IMAGES_TABLE .' 
+  LEFT JOIN '.RATE_TABLE.' ON id=element_id
+  SET average_rate=NULL
+  WHERE element_id IS NULL';
+  if ( $element_id != -1 )
+  {
+    $query .= ' AND id=' . $element_id;
+  }
+  pwg_query($query);
 }
 
 /**
