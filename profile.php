@@ -47,6 +47,17 @@ $errors = array();
 if (isset($_POST['validate']))
 {
   $int_pattern = '/^\d+$/';
+  if (empty($_POST['nb_image_line'])
+      or (!preg_match($int_pattern, $_POST['nb_image_line'])))
+  {
+    array_push($errors, $lang['nb_image_line_error']);
+  }
+
+  if (empty($_POST['nb_line_page'])
+      or (!preg_match($int_pattern, $_POST['nb_line_page'])))
+  {
+    array_push($errors, $lang['nb_line_page_error']);
+  }
   
   if ($_POST['maxwidth'] != ''
       and (!preg_match($int_pattern, $_POST['maxwidth'])
@@ -128,13 +139,13 @@ SELECT '.$conf['user_fields']['password'].' AS password
       );
     
     $data = array();
-    $data{'user_id'} = $_POST['userid'];
+    $data['user_id'] = $_POST['userid'];
     
     foreach ($fields as $field)
     {
       if (isset($_POST[$field]))
       {
-        $data{$field} = $_POST[$field];
+        $data[$field] = $_POST[$field];
       }
     }
     mass_updates(USER_INFOS_TABLE,
