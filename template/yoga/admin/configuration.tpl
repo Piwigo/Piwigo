@@ -24,6 +24,11 @@
     </li>
 
     <li>
+      <label for="gallery_title"><strong>{lang:Gallery URL}</strong></label>
+      <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{general.CONF_GALLERY_URL}" />
+    </li>
+
+    <li>
       <label><strong>{lang:History}</strong></label>
       <input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{lang:Yes}
       <input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{lang:No}
@@ -33,6 +38,20 @@
       <label><strong>{lang:Lock gallery}</strong></label>
       <input type="radio" class="radio" name="gallery_locked" value="true" {general.GALLERY_LOCKED_YES} />{lang:Yes}
       <input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{lang:No}
+    </li>
+  </ul>
+  
+  <ul>
+    <li>
+      <label><strong>{lang:Rating}</strong></label>
+      <input type="radio" class="radio" name="rate" value="true" {general.RATE_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="rate" value="false" {general.RATE_NO} />{lang:No}
+    </li>
+
+    <li>
+      <label><strong>{lang:Rating by guests}</strong></label>
+      <input type="radio" class="radio" name="rate_anonymous" value="true" {general.RATE_ANONYMOUS_YES} />{lang:Yes}
+      <input type="radio" class="radio" name="rate_anonymous" value="false" {general.RATE_ANONYMOUS_NO} />{lang:No}
     </li>
   </ul>
 <!-- END general -->

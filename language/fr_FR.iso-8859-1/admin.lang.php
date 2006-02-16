@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -71,6 +71,7 @@ $lang['Empty caddie'] = 'Vider le panier';
 $lang['Environment'] = 'Environnement';
 $lang['Expand all categories'] = 'Développer toutes les catégories';
 $lang['Form'] = 'Formulaire';
+$lang['Gallery URL'] = 'URL de la galerie';
 $lang['Gallery description'] = 'Description de la galerie';
 $lang['Gallery title'] = 'Titre de la galerie';
 $lang['Grant selected groups'] = 'Donner l\'accès aux groupes sélectionnés';
@@ -120,6 +121,7 @@ $lang['Properties'] = 'Propriétés';
 $lang['Random picture'] = 'Au hasard';
 $lang['Rate date'] = 'Date de notation';
 $lang['Rating'] = 'Notation';
+$lang['Rating by guests'] = 'Notation par les visiteurs';
 $lang['Recent period'] = 'Période récente';
 $lang['Registration date'] = 'Date d\'enregistrement';
 $lang['Reject All'] = 'Tout rejeter';
@@ -177,6 +179,7 @@ $lang['conf_comments_title'] = 'Commentaires utilisateur';
 $lang['conf_confirmation'] = 'Informations enregistrées dans la base de données';
 $lang['conf_default'] = 'Affichage par défaut';
 $lang['conf_default_title'] = 'Affichage par défaut';
+$lang['conf_gallery_url_error'] = 'L\'adresse de la galerie n\'est pas valide.';
 $lang['conf_general_title'] = 'Configuration principale';
 $lang['conf_nb_comment_page_error'] = 'Le nombre de commentaires utilisateurs par page doit être compris entre 5 et 50.';
 $lang['config'] = 'Configuration';

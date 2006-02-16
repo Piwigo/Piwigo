@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -71,6 +71,7 @@ $lang['Empty caddie'] = 'Empty caddie';
 $lang['Environment'] = 'Environment';
 $lang['Expand all categories'] = 'Expand all categories';
 $lang['Form'] = 'Form';
+$lang['Gallery URL'] = 'Gallery URL';
 $lang['Gallery description'] = 'Gallery description';
 $lang['Gallery title'] = 'Gallery title';
 $lang['Grant selected groups'] = 'Grant selected groups';
@@ -120,6 +121,7 @@ $lang['Properties'] = 'Properties';
 $lang['Random picture'] = 'Random picture';
 $lang['Rate date'] = 'Rate date';
 $lang['Rating'] = 'Rating';
+$lang['Rating by guests'] = 'Rating by guests';
 $lang['Recent period'] = 'Recent period';
 $lang['Registration date'] = 'Registration date';
 $lang['Reject All'] = 'Reject All';
@@ -162,7 +164,6 @@ $lang['authorized'] = 'Authorized';
 $lang['cat_add'] = 'Add a virtual category';
 $lang['cat_comments_title'] = 'Authorize users to add comments on selected categories';
 $lang['cat_error_name'] = 'The name of a category should not be empty';
-$lang['cat_image_info'] = 'Images info';
 $lang['cat_lock_title'] = 'Lock categories';
 $lang['cat_private'] = 'Private category';
 $lang['cat_public'] = 'Public category';
@@ -178,6 +179,7 @@ $lang['conf_comments_title'] = 'Users comments';
 $lang['conf_confirmation'] = 'Information data registered in database';
 $lang['conf_default'] = 'Default display';
 $lang['conf_default_title'] = 'Default display';
+$lang['conf_gallery_url_error'] = 'The gallery URL is not valid.';
 $lang['conf_general_title'] = 'Main configuration';
 $lang['conf_nb_comment_page_error'] = 'The number of comments a page must be between 5 and 50 included.';
 $lang['config'] = 'Configuration';

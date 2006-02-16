@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -60,6 +60,10 @@ if (isset($_POST['submit']))
   {
     case 'general' :
     {
+      if ( !url_is_remote($_POST['gallery_url']) )
+      {
+        array_push($page['errors'], $lang['conf_gallery_url_error']);
+      }
       break;
     }
     case 'comments' :
@@ -156,6 +160,8 @@ switch ($page['section'])
 {
   case 'general' :
   {
+    $html_check='checked="checked"';
+    
     $history_yes = ($conf['log']=='true')?'checked="checked"':'';
     $history_no  = ($conf['log']=='false')?'checked="checked"':'';
     $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
@@ -168,8 +174,12 @@ switch ($page['section'])
         'HISTORY_NO'=>$history_no,
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
+        ($conf['rate']=='true'?'RATE_YES':'RATE_NO')=>$html_check,
+        ($conf['rate_anonymous']=='true'
+             ? 'RATE_ANONYMOUS_YES' : 'RATE_ANONYMOUS_NO')=>$html_check,
         'CONF_GALLERY_TITLE' => $conf['gallery_title'],
         'CONF_GALLERY_DESCRIPTION' => $conf['gallery_description'],
+        'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
     break;
   }

@@ -90,13 +90,6 @@ $conf['anti-flood_time'] = 60;
 // catgory
 $conf['calendar_datefield'] = 'date_creation';
 
-// rate : enable feature for rating elements
-$conf['rate'] = true;
-
-// rate_anonymous : visitors are able to rate pictures (requires 
-// $conf['rate'] set to true)
-$conf['rate_anonymous'] = true;
-
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
 $conf['newcat_default_commentable'] = 'true';
@@ -170,9 +163,6 @@ $conf['allow_random_representative'] = false;
 // allow_html_descriptions : authorize administrators to use HTML in
 // category and element description.
 $conf['allow_html_descriptions'] = true;
-
-// galery_url : URL given in RSS feed
-$conf['gallery_url'] = 'http://demo.phpwebgallery.net';
 
 // prefix_thumbnail : string before filename. Thumbnail's prefix must only
 // contain characters among : a to z (case insensitive), "-" or "_".
