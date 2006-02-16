@@ -44,6 +44,7 @@ $lang['Add a user'] = 'Ajouter un utilisateur';
 $lang['Add group'] = 'Ajouter un groupe';
 $lang['Add selected elements to caddie'] = 'Ajouter les éléments sélectionnés au panier';
 $lang['Add'] = 'Ajouter';
+$lang['Are you sure?'] = 'Etes-vous sur?';
 $lang['Associated'] = 'Associée à';
 $lang['Association to categories'] = 'Association aux catégories';
 $lang['Batch management'] = 'Gestion par lot';

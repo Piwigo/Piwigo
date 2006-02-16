@@ -18,7 +18,7 @@
   <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="{themeconf:icon_dir}/category_permissions.png" class="button" alt="{lang:permissions}" /></a></li>
   <!-- END permissions -->
   <!-- BEGIN delete -->
-  <li><a href="{delete.URL}" title="{lang:delete category}"><img src="{themeconf:icon_dir}/category_delete.png" class="button" alt="{lang:delete}" /></a></li>
+  <li><a href="{delete.URL}" title="{lang:delete category}" onclick="return confirm('{lang:Are you sure?}');"><img src="{themeconf:icon_dir}/category_delete.png" class="button" alt="{lang:delete}" /></a></li>
   <!-- END delete -->
 </ul>
 

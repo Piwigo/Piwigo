@@ -24,7 +24,7 @@
   </td><td>  
     [<a href="{sites.site.U_UPDATE}" title="{lang:update this site}">{lang:remote_site_update}</a>]
     <!-- BEGIN delete -->
-      [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:remote_site_delete_hint}.\n{sites.site.NAME}\n{lang:Are you sure}?');" 
+      [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');" 
                 title="{lang:remote_site_delete_hint}">{lang:remote_site_delete}</a>]
     <!-- END delete -->
     <!-- BEGIN remote -->
