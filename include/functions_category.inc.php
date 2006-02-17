@@ -160,7 +160,12 @@ SELECT '.implode(',', $infos).'
       $cat[$info] = get_boolean( $cat[$info] );
     }
   }
-  $cat['comment'] = nl2br($cat['comment']);
+  global $conf;
+  if ( !( $conf['allow_html_descriptions'] and
+          preg_match('/<(div|br|img).*>/i', $cat['comment']) ) )
+  {
+    $cat['comment'] = nl2br($cat['comment']);
+  }
 
   $names = array();
   $query = '

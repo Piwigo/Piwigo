@@ -529,17 +529,15 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 }
 
 $title_img = $picture['current']['name'];
-$title_nb = '';
 if (is_numeric( $page['cat'] )) 
 {
   $title_img = replace_space(get_cat_display_name($page['cat_name']));
-  $n = $page['current_rank'] + 1;
-  $title_nb = $n.'/'.$page['cat_nb_images'];
 }
 else if ( $page['cat'] == 'search' )
 {
   $title_img = replace_search( $title_img, $_GET['search'] );
 }
+$title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 
 // calculation of width and height
 if (empty($picture['current']['width']))

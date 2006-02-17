@@ -152,7 +152,8 @@ function get_element_attributes($file, $attributes)
   {
     if (getAttribute($xml_element, $att) != '')
     {
-      $data[$att] = getAttribute($xml_element, $att);
+      $val = html_entity_decode( getAttribute($xml_element, $att) );
+      $data[$att] = addslashes($val);
     }
   }
   return $data;

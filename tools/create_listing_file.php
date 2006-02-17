@@ -460,7 +460,7 @@ function get_pictures($dir, $indent)
           {
             foreach (array_keys($iptc) as $key)
             {
-              $element[$key] = addslashes($iptc[$key]);
+              $element[$key] = $iptc[$key];
             }
           }
         }
@@ -540,7 +540,7 @@ switch ($page['action'])
     
     $listing = '<informations';
     $listing.= ' generation_date="'.date('Y-m-d').'"';
-    $listing.= ' phpwg_version="'.$conf{'version'}.'"';
+    $listing.= ' phpwg_version="'.htmlentities($conf{'version'}).'"';
     
     $attrs=array();
     if ($conf['use_iptc'])
