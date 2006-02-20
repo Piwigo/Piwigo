@@ -1316,8 +1316,6 @@ UPDATE '.IMAGES_TABLE.'
  */
 function update_average_rate( $element_id=-1 )
 {
-  $average_rates = array();
-  
   $query = '
 SELECT element_id,
        ROUND(AVG(rate),2) AS average_rate
@@ -1329,24 +1327,28 @@ SELECT element_id,
   $query .= ' GROUP BY element_id;';
   
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($average_rates, $row);
-  }
 
   $datas = array();
-  foreach ($average_rates as $item)
+  
+  while ($row = mysql_fetch_array($result))
   {
     array_push(
       $datas,
       array(
-        'id' => $item['element_id'],
-        'average_rate' => $item['average_rate']
+        'id' => $row['element_id'],
+        'average_rate' => $row['average_rate']
         )
       );
   }
-  $fields = array('primary' => array('id'), 'update' => array('average_rate'));
-  mass_updates(IMAGES_TABLE, $fields, $datas);
+  
+  mass_updates(
+    IMAGES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('average_rate')
+      ),
+    $datas
+    );
 
   $query='
 UPDATE '.IMAGES_TABLE .' 

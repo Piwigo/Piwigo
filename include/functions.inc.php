@@ -546,19 +546,17 @@ function url_is_remote($url)
 }
 
 /**
- * returns available templates/themes
+ * returns available template/theme
  */
-function get_templates()
-{
-  return get_dirs(PHPWG_ROOT_PATH.'theme');
-}
-function get_themes()
+function get_pwg_themes()
 {
   $themes = array();
 
-  foreach (get_dirs(PHPWG_ROOT_PATH.'template') as $template)
+  $template_dir = PHPWG_ROOT_PATH.'template';
+  
+  foreach (get_dirs($template_dir) as $template)
   {
-    foreach (get_dirs(PHPWG_ROOT_PATH.'template/'.$template.'/theme') as $theme)
+    foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
     {
       array_push($themes, $template.'/'.$theme);
     }

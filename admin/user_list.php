@@ -591,7 +591,7 @@ else
 
 $blockname = 'template_option';
 
-foreach (get_themes() as $pwg_template)
+foreach (get_pwg_themes() as $pwg_template)
 {
   if (isset($_POST['pref_submit']))
   {
