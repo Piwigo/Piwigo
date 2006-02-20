@@ -77,24 +77,36 @@ if (isset($page['cat']) and is_numeric($page['cat']))
   check_restrictions($page['cat']);
 }
 
-if (isset($page['cat'])
+if ( isset($page['cat_nb_images'])
     and $page['cat_nb_images'] > $user['nb_image_page'])
 {
   // $nav_url is used to create the navigation bar
-  $nav_url = PHPWG_ROOT_PATH.'category.php?cat='.$page['cat'];
+  $nav_url = PHPWG_ROOT_PATH.'category.php?';
+  if ( isset($page['cat']) )
+  {
+    $nav_url .= 'cat='.$page['cat'].'&amp;';
+  }
 
   switch ($page['cat'])
   {
     case 'search':
     {
-      $nav_url.= '&amp;search='.$_GET['search'];
+      $nav_url.= 'search='.$_GET['search'].'&amp;';
       break;
     }
     case 'list':
     {
-      $nav_url.= '&amp;list='.$_GET['list'];
+      $nav_url.= 'list='.$_GET['list'].'&amp;';
       break;
     }
+  }
+  if ( isset($_GET['calendar']) )
+  {
+    $nav_url.= 'calendar='.$_GET['calendar'];
+  }
+  else
+  {
+    $nav_url = preg_replace('/&amp;$/', '', $nav_url);
   }
   
   $page['navigation_bar'] = create_navigation_bar(
@@ -144,6 +156,13 @@ if ( isset( $page['cat_nb_images'] ) and $page['cat_nb_images'] > 0 )
 
 $icon_recent = get_icon(date('Y-m-d'));
 
+$calendar_view_link = PHPWG_ROOT_PATH.'category.php'
+                        .get_query_string_diff(array('start','calendar'));
+if ( ! isset($_GET['calendar']) )
+{
+  $calendar_view_link .= (empty($_GET)? '?':'&' ) . 'calendar=';
+}
+
 $template->assign_vars(
   array(
   'NB_PICTURE' => count_user_total_images(),
@@ -180,7 +199,8 @@ $template->assign_vars(
   'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
-  'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php'
+  'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php',
+  'U_CALENDAR' => $calendar_view_link
   )
 );
 
@@ -352,8 +372,24 @@ if (isset($page['cat'])
 }
 
 //------------------------------------------------------ main part : thumbnails
-include(PHPWG_ROOT_PATH.$page['thumbnails_include']);
+if ( isset($page['thumbnails_include']) )
+{
+  include(PHPWG_ROOT_PATH.$page['thumbnails_include']);
+}
 //------------------------------------------------------- category informations
+if ( $page['navigation_bar'] != ''
+     or ( isset( $page['comment'] ) and $page['comment'] != '' ) )
+{
+  $template->assign_block_vars('cat_infos',array());
+}
+// navigation bar
+if ( $page['navigation_bar'] != '' )
+{ 
+  $template->assign_block_vars(
+    'cat_infos.navigation',
+    array('NAV_BAR' => $page['navigation_bar'])
+    );
+}
 if ( isset ( $page['cat'] ) )
 {
   // upload a picture in the category
@@ -366,21 +402,6 @@ if ( isset ( $page['cat'] ) )
     $template->assign_block_vars(
       'upload',
       array('U_UPLOAD'=> $url )
-      );
-  }
-
-  if ( $page['navigation_bar'] != ''
-       or ( isset( $page['comment'] ) and $page['comment'] != '' ) )
-  {
-    $template->assign_block_vars('cat_infos',array());
-  }
-  
-  // navigation bar
-  if ( $page['navigation_bar'] != '' )
-  { 
-    $template->assign_block_vars(
-      'cat_infos.navigation',
-      array('NAV_BAR' => $page['navigation_bar'])
       );
   }
   // category comment

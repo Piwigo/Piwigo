@@ -93,13 +93,12 @@ if (isset($_GET['cat']))
   }
 }
 
+// $page['nb_image_page'] is the number of picture to display on this page
+// By default, it is the same as the $user['nb_image_page']
+$page['nb_image_page'] = $user['nb_image_page'];
 
 if (isset($page['cat']))
 {
-  // $page['nb_image_page'] is the number of picture to display on this page
-  // By default, it is the same as the $user['nb_image_page']
-  $page['nb_image_page'] = $user['nb_image_page'];
-
   if ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated')
   {
     if (isset($_COOKIE['pwg_image_order'])
@@ -397,4 +396,11 @@ else
   $page['title'] = $lang['no_category'];
   $page['thumbnails_include'] = 'include/category_subcats.inc.php';
 }
+
+if ( isset($_GET['calendar']) )
+{
+  include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
+  initialize_calendar();
+}
+
 ?>

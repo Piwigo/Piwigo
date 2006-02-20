@@ -80,8 +80,12 @@ foreach ($pictures as $row)
     $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
   // url link on picture.php page
-  $url_link = PHPWG_ROOT_PATH.'picture.php?cat='.$page['cat'];
-  $url_link.= '&amp;image_id='.$row['id'];
+  $url_link = PHPWG_ROOT_PATH.'picture.php?';
+  if ( isset($page['cat']) )
+  {
+    $url_link .= 'cat='.$page['cat'].'&amp;';
+  }
+  $url_link.= 'image_id='.$row['id'];
   if ($page['cat'] == 'search')
   {
     $url_link.= '&amp;search='.$_GET['search'];
@@ -89,6 +93,10 @@ foreach ($pictures as $row)
   else if ($page['cat'] == 'list')
   {
     $url_link.= '&amp;list='.$_GET['list'];
+  }
+  if ( isset($_GET['calendar']) )
+  {
+    $url_link.= '&amp;calendar='.$_GET['calendar'];
   }
     
   $template->assign_block_vars(

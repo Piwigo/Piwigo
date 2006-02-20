@@ -130,6 +130,7 @@
       </select>
       </li>
       <!-- END preferred_image_order -->
+      <a href="{U_CALENDAR}">Toggle calendar</a>
     </ul>
     
   <h2>{TITLE}</h2>
@@ -139,6 +140,12 @@
 <!-- BEGIN calendar -->
 <div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
 <div class="navigationBar">{calendar.MONTHS_NAV_BAR}</div>
+<!-- END calendar -->
+
+<!-- BEGIN calendar -->
+<!-- BEGIN navbar -->
+<div class="navigationBar">{calendar.navbar.BAR}</div>
+<!-- END navbar -->
 <!-- END calendar -->
 
 <!-- BEGIN thumbnails -->
