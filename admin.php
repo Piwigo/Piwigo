@@ -70,6 +70,7 @@ $template->assign_vars(
     'U_FAQ'=> $link_start.'help',
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',
+    'U_MAILTOUSERS'=> $link_start.'mailtousers',
     'U_CONFIG_GENERAL'=> $conf_link.'general',
     'U_CONFIG_COMMENTS'=> $conf_link.'comments',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
