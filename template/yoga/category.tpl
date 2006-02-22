@@ -107,6 +107,16 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li>&nbsp;</li>
+      <!-- BEGIN preferred_image_order -->
+      <li>
+      {lang:Sort order}:
+      <select onchange="document.location = this.options[this.selectedIndex].value;">
+        <!-- BEGIN order -->
+        <option value="{preferred_image_order.order.URL}" {preferred_image_order.order.SELECTED_OPTION}>{preferred_image_order.order.DISPLAY}</option>
+        <!-- END order -->
+      </select>
+      </li>
+      <!-- END preferred_image_order -->
       
       <!-- BEGIN caddie -->
       <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
@@ -119,18 +129,13 @@
       <!-- BEGIN search_rules -->
       <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
-
-      <!-- BEGIN preferred_image_order -->
-      <li>
-      {lang:Sort order}:
-      <select onchange="document.location = this.options[this.selectedIndex].value;">
-        <!-- BEGIN order -->
-        <option value="{preferred_image_order.order.URL}" {preferred_image_order.order.SELECTED_OPTION}>{preferred_image_order.order.DISPLAY}</option>
-        <!-- END order -->
-      </select>
-      </li>
-      <!-- END preferred_image_order -->
-      <a href="{U_CALENDAR}">Toggle calendar</a>
+      
+      <!-- BEGIN calendar_view -->
+      <li><a href="{calendar_view.URL}" title="{lang:calendar}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
+      <!-- END calendar_view -->
+      <!-- BEGIN normal_view -->
+      <li><a href="{normal_view.URL}" title="{lang:calendar}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
+      <!-- END normal_view -->
     </ul>
     
   <h2>{TITLE}</h2>
@@ -143,9 +148,22 @@
 <!-- END calendar -->
 
 <!-- BEGIN calendar -->
+
+<!-- BEGIN styles -->
+<div class="calendarStyles">Style: {calendar.styles.BAR}</div>
+<!-- END styles -->
+
+<!-- BEGIN views -->
+<div class="calendarViews">{calendar.views.BAR}</div>
+<!-- END views -->
+<br/>
 <!-- BEGIN navbar -->
 <div class="navigationBar">{calendar.navbar.BAR}</div>
 <!-- END navbar -->
+
+<!-- BEGIN calbar -->
+<div class="calendarBar">{calendar.calbar.BAR}</div>
+<!-- END calbar -->
 <!-- END calendar -->
 
 <!-- BEGIN thumbnails -->

@@ -177,3 +177,41 @@ SPAN.filename:before {
 SPAN.filename:after {
   content: "]";
 }
+
+
+#content DIV.calendarStyles {
+  float: left;
+}
+
+#content DIV.calendarViews {
+  float: right;
+}
+
+SPAN.cal {
+  font-weight: bold;
+  border: 1px solid gray;
+  margin: 0 2px;
+}
+
+SPAN.calSel {
+  font-weight: bold;
+  color: dark-gray;
+  border: 1px solid gray;
+  margin: 0 2px;
+}
+
+#content .calendarBar {
+  margin: 8px 5px;
+  text-align: left;
+}
+
+SPAN.calCalHead {
+  font-weight: bold;
+  font-size: 110%;
+  margin: 0 2px;
+}
+
+SPAN.calCal {
+  margin: 0 2px;
+}
+

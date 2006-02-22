@@ -161,6 +161,17 @@ $calendar_view_link = PHPWG_ROOT_PATH.'category.php'
 if ( ! isset($_GET['calendar']) )
 {
   $calendar_view_link .= (empty($_GET)? '?':'&' ) . 'calendar=';
+  $template->assign_block_vars(
+    'calendar_view',
+    array( 'URL' => $calendar_view_link )
+    );
+}
+else
+{
+  $template->assign_block_vars(
+    'normal_view',
+    array( 'URL' => $calendar_view_link )
+    );
 }
 
 $template->assign_vars(
@@ -200,7 +211,6 @@ $template->assign_vars(
   'U_LOGOUT' => PHPWG_ROOT_PATH.'category.php?act=logout',
   'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
   'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php',
-  'U_CALENDAR' => $calendar_view_link
   )
 );
 
