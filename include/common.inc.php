@@ -200,12 +200,15 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 
 if ($conf['gallery_locked'])
 {
+  ob_start(); // make sure we can send cookies
   echo
     '<div style="text-align:center;">'
-    .$lang['gallery_locked_message']
-    .'</div>';
+    .$lang['gallery_locked_message'];
+  echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">.</a>';
+  echo '</div>';
 
-  if ($user['status'] != 'admin')
+  if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
+      and $user['status'] != 'admin' )
   {
     exit();
   }

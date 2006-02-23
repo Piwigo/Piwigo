@@ -29,14 +29,14 @@ $rate_items = array(0,1,2,3,4,5);
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+
+include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 //-------------------------------------------------- access authorization check
 if (isset($page['cat']) and is_numeric($page['cat']))
 {
   check_restrictions($page['cat']);
 }
 //-------------------------------------------------------------- initialization
-include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
-
 // if this image_id doesn't correspond to this category, an error message is
 // displayed, and execution is stopped
 if (!in_array($_GET['image_id'], $page['items']))

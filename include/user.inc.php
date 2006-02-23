@@ -58,12 +58,11 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
   
   $user['is_the_guest'] = false;
 }
-
 $user = array_merge(
   $user,
   getuserdata(
     $user['id'],
-    defined('IN_ADMIN') and IN_ADMIN ? false : true // use cache ?
+    ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
     )
   );
 

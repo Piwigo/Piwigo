@@ -23,7 +23,7 @@
 <form action="{F_LOGIN_ACTION}" method="post" class="properties">
   <fieldset>
     <legend>{lang:Connection settings}</legend>
-
+     <input type="hidden" name="redirect" value="{U_REDIRECT}">
     <ul>
       <li> 
         <label for="username">{L_USERNAME}</label>

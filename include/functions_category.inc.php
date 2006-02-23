@@ -46,10 +46,21 @@ function check_restrictions($category_id)
 
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
-    echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-    echo '<a href="./category.php">';
-    echo $lang['thumbnails'].'</a></div>';
-    exit();
+    $login_url = './identification.php?redirect='.
+                  htmlentities(htmlentities($_SERVER['REQUEST_URI']));
+    if ( ! $user['is_the_guest'] )
+    {
+      echo '<div style="text-align:center;">';
+      echo $lang['hello'].' '.$user['username'].'! ';
+      echo $lang['access_forbiden'].'<br />';
+      echo '<a href="./category.php">'.$lang['thumbnails'].'</a> ';
+      echo '</div>';
+      exit();
+    }
+    else
+    {
+      redirect($login_url);
+    }
   }
 }
 

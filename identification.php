@@ -31,8 +31,20 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 //-------------------------------------------------------------- identification
 $errors = array();
+
+$redirect_to = '';
+if ( !empty($_GET['redirect']) )
+{
+  $redirect_to = $_GET['redirect'];
+  if ( $user['is_the_guest'] )
+  {
+    array_push($errors, $lang['access_forbiden']);
+  }
+}
+
 if (isset($_POST['login']))
 {
+  $redirect_to = $_POST['redirect'];
   $username = mysql_escape_string($_POST['username']);
   // retrieving the encrypted password of the login submitted
   $query = '
@@ -54,7 +66,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     session_set_cookie_params($session_length);
     session_start();
     $_SESSION['id'] = $row['id'];
-    redirect('category.php');
+    redirect(empty($redirect_to) ? 'category.php' : $redirect_to);
   }
   else
   {
@@ -85,6 +97,7 @@ $template->assign_vars(
     'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
     'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+    'U_REDIRECT' => $redirect_to,
     
     'F_LOGIN_ACTION' => PHPWG_ROOT_PATH.'identification.php'
     ));
