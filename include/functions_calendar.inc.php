@@ -24,8 +24,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-define('CAL_VIEW_LIST','l');
-define('CAL_VIEW_CALENDAR','c');
+define('CAL_VIEW_LIST',     'l');
+define('CAL_VIEW_CALENDAR', 'c');
 
 function initialize_calendar()
 {
@@ -33,17 +33,21 @@ function initialize_calendar()
 
 //------------------ initialize the condition on items to take into account ---
   $inner_sql = ' FROM ' . IMAGES_TABLE;
-  if ( !isset($page['cat']) or is_numeric($page['cat']) )
+  
+  if (!isset($page['cat']) or is_numeric($page['cat']))
   { // we will regenerate the items by including subcats elements
-    $page['cat_nb_images']=0;
-    $page['items']=array();
+    $page['cat_nb_images'] = 0;
+    $page['items'] = array();
     $inner_sql .= '
 INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
-    if ( is_numeric($page['cat']) )
+    
+    if (isset($page['cat']) and is_numeric($page['cat']))
     {
-      $sub_ids = get_subcat_ids(array($page['cat']));
-      $sub_ids = array_diff($sub_ids,
-                            explode(',', $user['forbidden_categories']) );
+      $sub_ids = array_diff(
+        get_subcat_ids(array($page['cat'])),
+        explode(',', $user['forbidden_categories'])
+        );
+      
       if (empty($sub_ids))
       {
         return; // nothing to do
@@ -69,79 +73,94 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
 //-------------------------------------- initialize the calendar parameters ---
   pwg_debug('start initialize_calendar');
+  
   $cal_styles = array(
-    array('link'=>'m', 'default_link'=>'', 'name'=>l10n('Monthly'),
-          'include'=>'calendar_monthly.class.php', 'view_calendar'=>true ),
-    array('link'=>'w', 'default_link'=>'w-', 'name'=>l10n('Weekly'),
-          'include'=>'calendar_weekly.class.php', ),
+    // Weekly style
+    array(
+      'link'           => 'm',
+      'default_link'   => '',
+      'name'           => l10n('Monthly'),
+      'include'        => 'calendar_monthly.class.php',
+      'view_calendar'  => true,
+      ),
+    // Monthly style
+    array(
+      'link'           => 'w',
+      'default_link'   => 'w-',
+      'name'           => l10n('Weekly'),
+      'include'        => 'calendar_weekly.class.php',
+      ),
     );
 
   $requested = explode('-', $_GET['calendar']);
   $calendar = null;
-  foreach( $cal_styles as $cal_style)
+  foreach ($cal_styles as $cal_style)
   {
-    if ($requested[0]==$cal_style['link'])
+    if ($requested[0] == $cal_style['link'])
     {
-      include( PHPWG_ROOT_PATH.'include/'.$cal_style['include']);
+      include(PHPWG_ROOT_PATH.'include/'.$cal_style['include']);
       $calendar = new Calendar();
       array_shift($requested);
       break;
     }
   }
-  if ( !isset($calendar) )
+  
+  if (!isset($calendar))
   {
-    foreach( $cal_styles as $cal_style)
+    foreach($cal_styles as $cal_style)
     {
-      if (''==$cal_style['default_link'])
+      if ('' == $cal_style['default_link'])
+      {
         break;
+      }
     }
     include( PHPWG_ROOT_PATH.'include/'.$cal_style['include']);
     $calendar = new Calendar();
   }
 
-  $view_type=CAL_VIEW_LIST;
-  if ($requested[0]==CAL_VIEW_LIST)
+  $view_type = CAL_VIEW_LIST;
+  if ($requested[0] == CAL_VIEW_LIST)
   {
     array_shift($requested);
   }
-  elseif ($requested[0]==CAL_VIEW_CALENDAR)
+  elseif ($requested[0] == CAL_VIEW_CALENDAR)
   {
     if ($cal_style['view_calendar'])
     {
-      $view_type=CAL_VIEW_CALENDAR;
+      $view_type = CAL_VIEW_CALENDAR;
     }
     array_shift($requested);
   }
   // perform a sanity check on $requested
-  while (count($requested)>3)
+  while (count($requested) > 3)
   {
     array_pop($requested);
   }
 
   $any_count = 0;
-  for ($i=0; $i<count($requested); $i++)
+  for ($i = 0; $i < count($requested); $i++)
   {
-    if ($requested[$i]=='any')
+    if ($requested[$i] == 'any')
     {
-      if ($view_type==CAL_VIEW_CALENDAR)
+      if ($view_type == CAL_VIEW_CALENDAR)
       {// we dont allow any in calendar view
-        while ($i<count($requested))
+        while ($i < count($requested))
         {
-          array_pop( $requested );
+          array_pop($requested);
         }
         break;
       }
       $any_count++;
     }
-    elseif ( $requested[$i]=='' )
+    elseif ($requested[$i] == '')
     {
-      while ($i<count($requested))
+      while ($i < count($requested))
       {
-        array_pop( $requested );
+        array_pop($requested);
       }
     }
   }
-  if ($any_count==3)
+  if ($any_count == 3)
   {
     array_pop($requested);
   }
@@ -150,63 +169,84 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   //echo ('<pre>'. var_export($requested, true) . '</pre>');
   //echo ('<pre>'. var_export($calendar, true) . '</pre>');
 
-  $category_calling = false;
-  if (basename($_SERVER["PHP_SELF"]) == 'category.php')
-  {
-    $category_calling = true;
-  }
-
+  // TODO: what makes the list view required?
   $must_show_list = true;
-  if ($category_calling)
+  
+  if (basename($_SERVER["PHP_SELF"]) == 'category.php')
   {
     $template->assign_block_vars('calendar', array());
 
-    $url_base = get_query_string_diff(array('start','calendar'));
-    $url_base .= empty($url_base) ? '?' : '&';
-    $url_base .= 'calendar=';
-    $url_base = PHPWG_ROOT_PATH.'category.php'.$url_base;
+    $url_base =
+      PHPWG_ROOT_PATH.'category.php'
+      .get_query_string_diff(array('start', 'calendar'))
+      .(empty($url_base) ? '?' : '&')
+      .'calendar='
+      ;
 
-    if ( $calendar->generate_category_content(
-              $url_base.$cal_style['default_link'], $view_type, $requested) )
+    if ($calendar->generate_category_content(
+          $url_base.$cal_style['default_link'],
+          $view_type,
+          $requested
+          )
+       )
     {
-      unset( $page['thumbnails_include'] );
-      unset( $page['items'] );
-      unset( $page['cat_nb_images'] );
+      unset(
+        $page['thumbnails_include'],
+        $page['items'],
+        $page['cat_nb_images']
+        );
+      
       $must_show_list = false;
     }
 
     if ($cal_style['view_calendar'])
-    { // Build bar for view modes (List/Calendar)
+    { // Build bar for views (List/Calendar)
       $views = array(
-        array(CAL_VIEW_LIST, l10n('List') ),
-        array(CAL_VIEW_CALENDAR, l10n('calendar') ),
+        // list view
+        array(
+          'type'  => CAL_VIEW_LIST,
+          'label' => l10n('List')
+          ),
+        // calendar view
+        array(
+          'type'  => CAL_VIEW_CALENDAR,
+          'label' => l10n('calendar')
+          ),
         );
+      
       $views_bar = '';
-      foreach( $views as $view )
+
+      foreach ($views as $view)
       {
-        $v = $view[1];
-        if ( $view_type!=$view[0] )
+        if ($view_type != $view['type'])
         {
-          $url = $url_base.$cal_style['default_link'].$view[0].'-';
-          $url .= implode('-', $requested);
-          $v = '<a href="'.$url.'">'.$v.'</a> ';
+          $views_bar.=
+            '<a href="'
+            .$url_base.$cal_style['default_link'].$view['type'].'-'
+            .implode('-', $requested)
+            .'">'.$view['label'].'</a> ';
         }
         else
         {
-          $v = $v.' ';
+          $views_bar.= $view['label'].' ';
         }
-        $views_bar .= $v . ' ';
+        
+        $views_bar.= ' ';
       }
-      $template->assign_block_vars('calendar.views', array(
-        'BAR'=>$views_bar
-        ));
+      
+      $template->assign_block_vars(
+        'calendar.views',
+        array(
+          'BAR' => $views_bar,
+          )
+        );
     }
 
     // Build bar for calendar styles (Monthly, Weekly)
     $styles_bar = '';
-    foreach ( $cal_styles as $style)
+    foreach ($cal_styles as $style)
     {
-      if ($cal_style['link']!=$style['link'])
+      if ($cal_style['link'] != $style['link'])
       {
         $url = $url_base.$style['default_link'];
         $url .= $view_type;
@@ -221,9 +261,12 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         $styles_bar .=  $style['name'].' ';
       }
     }
-    $template->assign_block_vars( 'calendar.styles',
-               array( 'BAR' => $styles_bar)
-               );
+    $template->assign_block_vars(
+      'calendar.styles',
+      array(
+        'BAR' => $styles_bar,
+        )
+      );
   } // end category calling
 
   if ($must_show_list)
@@ -239,14 +282,14 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     else
     {
       $order_by = str_replace(
-                'ORDER BY ',
-                'ORDER BY '.$calendar->date_field.',', $conf['order_by']
-               );
+        'ORDER BY ',
+        'ORDER BY '.$calendar->date_field.',', $conf['order_by']
+        );
       $query .= $order_by;
     }
 
-    $page['items'] = array_from_query($query, 'id');
-    $page['cat_nb_images'] = count($page['items']);
+    $page['items']              = array_from_query($query, 'id');
+    $page['cat_nb_images']      = count($page['items']);
     $page['thumbnails_include'] = 'include/category_default.inc.php';
   }
   pwg_debug('end initialize_calendar');

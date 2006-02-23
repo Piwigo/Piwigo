@@ -73,7 +73,7 @@ function generate_category_content($url_base, $view_type, &$requested)
     if (count($requested)>0)
       $this->build_nav_bar2($view_type, $requested, 1, 'MONTH', $lang['month']); // month
     if (count($requested)>1)
-      $this->build_nav_bar2($view_type, $requested, 2, 'DAY' ); // days
+      $this->build_nav_bar2($view_type, $requested, 2, 'DAYOFWEEK' ); // days
   }
   return false;
 }
@@ -123,7 +123,7 @@ function get_date_where($requested, $max_levels=3)
       }
       if (isset($requested[2]) and $requested[2]!='any')
       {
-        $res .= ' AND DAY('.$this->date_field.')='.$requested[2];
+        $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$requested[2];
       }
     }
     $res = " AND $this->date_field BETWEEN '$b' AND '$e 23:59:59'" . $res;
@@ -137,7 +137,7 @@ function get_date_where($requested, $max_levels=3)
     }
     if (isset($requested[2]) and $requested[2]!='any')
     {
-      $res .= ' AND DAY('.$this->date_field.')='.$requested[2];
+      $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$requested[2];
     }
   }
   return $res;
