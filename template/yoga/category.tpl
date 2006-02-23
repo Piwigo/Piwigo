@@ -131,7 +131,7 @@
       <!-- END search_rules -->
       
       <!-- BEGIN calendar_view -->
-      <li><a href="{calendar_view.URL}" title="{lang:calendar}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
+      <li><a href="{calendar_view.URL}" title="{lang:calendar_hint}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
       <!-- END calendar_view -->
       <!-- BEGIN normal_view -->
       <li><a href="{normal_view.URL}" title="{lang:calendar}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
@@ -143,12 +143,6 @@
   </div> <!-- content -->
     
 <!-- BEGIN calendar -->
-<div class="navigationBar">{calendar.YEARS_NAV_BAR}</div>
-<div class="navigationBar">{calendar.MONTHS_NAV_BAR}</div>
-<!-- END calendar -->
-
-<!-- BEGIN calendar -->
-
 <!-- BEGIN styles -->
 <div class="calendarStyles">Style: {calendar.styles.BAR}</div>
 <!-- END styles -->

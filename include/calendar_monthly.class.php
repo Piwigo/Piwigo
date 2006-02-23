@@ -126,7 +126,7 @@ function get_date_where($requested, $max_levels=3)
         $res .= ' AND DAY('.$this->date_field.')='.$requested[2];
       }
     }
-    $res = " AND $this->date_field BETWEEN '$b' AND '$e'" . $res;
+    $res = " AND $this->date_field BETWEEN '$b' AND '$e 23:59:59'" . $res;
   }
   else
   {
@@ -235,12 +235,14 @@ function build_year_calendar(&$requested)
   {
     $url_base = $this->url_base.'c-'.$requested[0].'-'.$month;
 
-    $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">'.$lang['month'][$month].'</a>';
+    $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">';
+    $nav_bar .= $lang['month'][$month].'</a>';
     $nav_bar .= ' ('.$month_data['nb_images'].')';
     $nav_bar .= '</span><br>';
 
     $url_base .= '-';
-    $nav_bar .= $this->get_nav_bar_from_items( $url_base, $month_data['children'], $requested[1], 'calCal', false );
+    $nav_bar .= $this->get_nav_bar_from_items( $url_base, 
+                     $month_data['children'], $requested[1], 'calCal', false );
 
     $template->assign_block_vars( 'calendar.calbar',
          array( 'BAR' => $nav_bar)
@@ -278,6 +280,9 @@ function build_month_calendar($requested)
 SELECT file,tn_ext,path, DAYOFWEEK('.$this->date_field.')-1 as dw';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where($requested);
+    $query.= '
+  ORDER BY RAND()
+  LIMIT 0,1';
 
     $row = mysql_fetch_array(pwg_query($query));
 
@@ -305,5 +310,4 @@ SELECT file,tn_ext,path, DAYOFWEEK('.$this->date_field.')-1 as dw';
 }
 
 }
-
 ?>

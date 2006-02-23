@@ -52,8 +52,7 @@ if (isset($_GET['cat']))
            or $_GET['cat'] == 'most_visited'
            or $_GET['cat'] == 'best_rated'
            or $_GET['cat'] == 'recent_pics'
-           or $_GET['cat'] == 'recent_cats'
-           or $_GET['cat'] == 'calendar')
+           or $_GET['cat'] == 'recent_cats')
   {
     $page['cat'] = $_GET['cat'];
   }
@@ -97,39 +96,30 @@ if (isset($_GET['cat']))
 // By default, it is the same as the $user['nb_image_page']
 $page['nb_image_page'] = $user['nb_image_page'];
 
+if (isset($_COOKIE['pwg_image_order'])
+    and is_numeric($_COOKIE['pwg_image_order'])
+    and $_COOKIE['pwg_image_order'] > 0)
+{
+  $orders = get_category_preferred_image_orders();
+
+  $conf['order_by'] = str_replace(
+    'ORDER BY ',
+    'ORDER BY '.$orders[ $_COOKIE['pwg_image_order'] ][1].',', 
+    $conf['order_by']
+    );
+  $page['super_order_by'] = true;
+}
+
 if (isset($page['cat']))
 {
-  if ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated')
-  {
-    if (isset($_COOKIE['pwg_image_order'])
-        and is_numeric($_COOKIE['pwg_image_order'])
-        and $_COOKIE['pwg_image_order'] > 0)
-    {
-      $orders = get_category_preferred_image_orders();
-
-      $conf['order_by'] = str_replace(
-        'ORDER BY ',
-        'ORDER BY '.$orders[ $_COOKIE['pwg_image_order'] ][1].',', 
-        $conf['order_by']
-        );
-    }
-  }
-  
+ 
 // +-----------------------------------------------------------------------+
 // |                              category                                 |
 // +-----------------------------------------------------------------------+
   if (is_numeric($page['cat']))
   {
-    $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.IMAGES_TABLE.' ON id = image_id
-  WHERE category_id = '.$page['cat'].'
-  '.$conf['order_by'].'
-;';
-
     $result = get_cat_info($page['cat']);
-    
+
     $page = array_merge(
       $page,
       array(
@@ -142,15 +132,25 @@ SELECT image_id
         'cat_commentable'  => $result['commentable'],
         'cat_id_uppercat'  => $result['id_uppercat'],
         'uppercats'        => $result['uppercats'],
-                
+
         'title' => get_cat_display_name($result['name'], '', false),
-        'items' => array_from_query($query, 'image_id'),
-        'thumbnails_include' =>
-          $result['nb_images'] > 0
-          ? 'include/category_default.inc.php'
-          : 'include/category_subcats.inc.php',
         )
       );
+    if ( !isset($_GET['calendar']) )
+    {
+      $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON id = image_id
+  WHERE category_id = '.$page['cat'].'
+  '.$conf['order_by'].'
+;';
+      $page['items'] = array_from_query($query, 'image_id');
+      $page['thumbnails_include'] =
+          $result['nb_images'] > 0
+          ? 'include/category_default.inc.php'
+          : 'include/category_subcats.inc.php';
+    }//otherwise the calendar will requery all subitems
   }
   // special section
   else
@@ -255,13 +255,15 @@ SELECT DISTINCT(id)
 // +-----------------------------------------------------------------------+
     else if ($page['cat'] == 'most_visited')
     {
+      $page['super_order_by'] = true;
+      $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
       $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
-    AND '.$forbidden.'
-  ORDER BY hit DESC, file ASC
+    AND '.$forbidden.
+  $conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
 
@@ -275,79 +277,20 @@ SELECT DISTINCT(id)
         );
     }
 // +-----------------------------------------------------------------------+
-// |                           calendar section                            |
-// +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'calendar')
-    {
-      $page['cat_nb_images'] = 0;
-      $page['title'] = $lang['calendar'];
-      if (isset($_GET['year'])
-          and preg_match('/^\d+$/', $_GET['year']))
-      {
-        $page['calendar_year'] = (int)$_GET['year'];
-      }
-      if (isset($_GET['month'])
-          and preg_match('/^(\d+)\.(\d{2})$/', $_GET['month'], $matches))
-      {
-        $page['calendar_year'] = (int)$matches[1];
-        $page['calendar_month'] = (int)$matches[2];
-      }
-      if (isset($_GET['day'])
-          and preg_match('/^(\d+)\.(\d{2})\.(\d{2})$/',
-                         $_GET['day'],
-                         $matches))
-      {
-        $page['calendar_year'] = (int)$matches[1];
-        $page['calendar_month'] = (int)$matches[2];
-        $page['calendar_day'] = (int)$matches[3];
-      }
-      if (isset($page['calendar_year']))
-      {
-        $page['title'] .= ' (';
-        if (isset($page['calendar_day']))
-        {
-          if ($page['calendar_year'] >= 1970)
-          {
-            $unixdate = mktime(
-              0,
-              0,
-              0,
-              $page['calendar_month'],
-              $page['calendar_day'],
-              $page['calendar_year']
-              );
-            $page['title'].= $lang['day'][date("w", $unixdate)];
-          }
-          $page['title'].= ' '.$page['calendar_day'].', ';
-        }
-        if (isset($page['calendar_month']))
-        {
-          $page['title'] .= $lang['month'][$page['calendar_month']].' ';
-        }
-        $page['title'] .= $page['calendar_year'];
-        $page['title'] .= ')';
-      }
-        
-      $page['where'] = 'WHERE '.$conf['calendar_datefield'].' IS NOT NULL';
-      if (isset($forbidden))
-      {
-        $page['where'].= ' AND '.$forbidden;
-      }
-
-      $page['thumbnails_include'] = 'include/category_calendar.inc.php';
-    }
-// +-----------------------------------------------------------------------+
 // |                          best rated section                           |
 // +-----------------------------------------------------------------------+
     else if ($page['cat'] == 'best_rated')
     {
+      $page['super_order_by'] = true;
+      $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
+
       $query ='
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE average_rate IS NOT NULL
-    AND '.$forbidden.'
-  ORDER BY average_rate DESC, id ASC
+    AND '.$forbidden.
+  $conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
       $page = array_merge(

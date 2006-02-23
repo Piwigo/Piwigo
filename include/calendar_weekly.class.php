@@ -72,7 +72,7 @@ function get_date_where($requested, $max_levels=3)
   if (isset($requested[0]) and $requested[0]!='any')
   {
     $y = $requested[0];
-    $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31'";
+    $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31 23:59:59'";
   }
 
   if (isset($requested[1]) and $requested[1]!='any')

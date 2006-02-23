@@ -231,6 +231,19 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     $query = 'SELECT DISTINCT(id)';
     $query .= $calendar->inner_sql;
     $query .= $calendar->get_date_where($requested);
+    if ( isset($page['super_order_by']) )
+    {
+      $query .= '
+  '.$conf['order_by'];
+    }
+    else
+    {
+      $order_by = str_replace(
+                'ORDER BY ',
+                'ORDER BY '.$calendar->date_field.',', $conf['order_by']
+               );
+      $query .= $order_by;
+    }
 
     $page['items'] = array_from_query($query, 'id');
     $page['cat_nb_images'] = count($page['items']);
