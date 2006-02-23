@@ -487,7 +487,7 @@ function initialize_category( $calling_page = 'category' )
           $key = $datefield;
           if (isset($search['fields'][$key]))
           {
-            $local_clause = $datefield." = '";
+            $local_clause = 'DATE_FORMAT('.$datefield.", '%Y-%m-%d') = '";
             $local_clause.= str_replace('.', '-',
                                         $search['fields'][$key]['words'][0]);
             $local_clause.= "'";

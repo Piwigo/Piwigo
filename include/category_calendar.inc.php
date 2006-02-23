@@ -187,7 +187,8 @@ elseif (isset($page['calendar_day']))
 SELECT category_id AS category, COUNT(id) AS count
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'
+    AND DATE_FORMAT('.$conf['calendar_datefield'].', \'%Y-%c-%e\')'
+    .' = \''.$page['calendar_date'].'\'
   GROUP BY category_id
 ;';
   $result = pwg_query($query);
@@ -337,7 +338,8 @@ SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
        , DAYOFWEEK(\''.$calendar_day.'\') AS dow
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   '.$page['where'].'
-    AND '.$conf['calendar_datefield'].' = \''.$calendar_day.'\'
+    AND DATE_FORMAT('.$conf['calendar_datefield'].', \'%Y-%m-%d\')'
+      .' = \''.$calendar_day.'\'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -405,7 +407,8 @@ elseif (isset($page['calendar_day']))
 SELECT file,tn_ext,'.$conf['calendar_datefield'].',path
   FROM '.IMAGES_TABLE.', '.IMAGE_CATEGORY_TABLE.'
   '.$page['where'].'
-    AND '.$conf['calendar_datefield'].' = \''.$page['calendar_date'].'\'';
+    AND DATE_FORMAT('.$conf['calendar_datefield'].', \'%Y-%c-%e\')'
+      .' = \''.$page['calendar_date'].'\'';
     if ($calendar_category != 0)
     {
       $query.= '
