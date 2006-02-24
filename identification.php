@@ -44,7 +44,7 @@ if ( !empty($_GET['redirect']) )
 
 if (isset($_POST['login']))
 {
-  $redirect_to = $_POST['redirect'];
+  $redirect_to = isset($_POST['redirect']) ? $_POST['redirect'] : '';
   $username = mysql_escape_string($_POST['username']);
   // retrieving the encrypted password of the login submitted
   $query = '

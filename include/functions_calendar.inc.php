@@ -75,7 +75,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   pwg_debug('start initialize_calendar');
   
   $cal_styles = array(
-    // Weekly style
+    // Monthly style
     array(
       'link'           => 'm',
       'default_link'   => '',
@@ -83,12 +83,13 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       'include'        => 'calendar_monthly.class.php',
       'view_calendar'  => true,
       ),
-    // Monthly style
+    // Weekly style    
     array(
       'link'           => 'w',
       'default_link'   => 'w-',
       'name'           => l10n('Weekly'),
       'include'        => 'calendar_weekly.class.php',
+      'view_calendar'  => false,
       ),
     );
 

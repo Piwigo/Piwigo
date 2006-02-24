@@ -85,7 +85,7 @@ foreach ($pictures as $row)
 
   if (isset($page['cat']))
   {
-    $url_link.= 'cat='.$page['cat'].'&amp;';
+    $url_link.= '&amp;cat='.$page['cat'];
 
     if ($page['cat'] == 'search')
     {
@@ -125,19 +125,21 @@ foreach ($pictures as $row)
     {
       $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
     }
-    if ($page['cat'] == 'best_rated')
+    if ( isset($page['cat']) )
     {
-      $name = '('.$row['average_rate'].') '.$name;
-    }
-    else
-    if ($page['cat'] == 'most_visited')
-    {
-      $name = '('.$row['hit'].') '.$name;
-    }
-    
-    if ($page['cat'] == 'search')
-    {
-      $name = replace_search($name, $_GET['search']);
+      if ($page['cat'] == 'best_rated')
+      {
+        $name = '('.$row['average_rate'].') '.$name;
+      }
+      elseif ($page['cat'] == 'most_visited')
+      {
+        $name = '('.$row['hit'].') '.$name;
+      }
+      
+      if ($page['cat'] == 'search')
+      {
+        $name = replace_search($name, $_GET['search']);
+      }
     }
   
     $template->assign_block_vars(

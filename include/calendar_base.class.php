@@ -162,7 +162,7 @@ SELECT DISTINCT('.$sql_func.'('.$this->date_field.')'.$sql_offset
     $nav_bar = $this->get_nav_bar_from_items(
       $url_base,
       $level_items,
-      $requested[$level],
+      isset($requested[$level]) ? $requested[$level] : null,
       'cal',
       true,
       $labels

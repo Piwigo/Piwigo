@@ -223,7 +223,7 @@ ORDER BY date DESC;';
     $url_del = PHPWG_ROOT_PATH.'admin.php'.
                 get_query_string_diff(array('del'));
     
-    $del_param = 'e='.$image[id].
+    $del_param = 'e='.$image['id'].
                  '&u='.$row['user_id'].
                  '&a='.$row['anonymous_id'];
     

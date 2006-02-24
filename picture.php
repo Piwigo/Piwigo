@@ -379,18 +379,21 @@ if ($url_up_start>0)
   $url_up .= '&amp;start='.$url_up_start; 
 }
 
-if ( $page['cat'] == 'search' )
+if ( isset($page['cat']) )
 {
-  $url_up.= '&amp;search='.$_GET['search'];
-}
-if ( $page['cat'] == 'list' )
-{
-  $url_up.= '&amp;list='.$_GET['list'];
+  if ( $page['cat'] == 'search' )
+  {
+    $url_up.= '&amp;search='.$_GET['search'];
+  }
+  if ( $page['cat'] == 'list' )
+  {
+    $url_up.= '&amp;list='.$_GET['list'];
+  }
 }
 
 $url_admin =
   PHPWG_ROOT_PATH.'admin.php?page=picture_modify'
-  .'&amp;cat_id='.$page['cat']
+  .'&amp;cat_id='. ( isset($page['cat']) ? $page['cat'] : '' )
   .'&amp;image_id='.$_GET['image_id'];
 
 $url_slide =
@@ -413,7 +416,7 @@ if ( isset( $_GET['add_fav'] ) )
     $query.= ';';
     $result = pwg_query( $query );
   }
-  if ( !$_GET['add_fav'] and $page['cat'] == 'fav' )
+  if ( !$_GET['add_fav'] and isset($page['cat']) and 'fav'==$page['cat'] )
   {
     if (!isset($page['previous_item']) and !isset($page['next_item']))
     {
@@ -537,13 +540,16 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 }
 
 $title_img = $picture['current']['name'];
-if (is_numeric( $page['cat'] )) 
+if ( isset( $page['cat'] ) ) 
 {
-  $title_img = replace_space(get_cat_display_name($page['cat_name']));
-}
-else if ( $page['cat'] == 'search' )
-{
-  $title_img = replace_search( $title_img, $_GET['search'] );
+  if (is_numeric( $page['cat'] )) 
+  {
+    $title_img = replace_space(get_cat_display_name($page['cat_name']));
+  }
+  else if ( $page['cat'] == 'search' )
+  {
+    $title_img = replace_search( $title_img, $_GET['search'] );
+  }
 }
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 
@@ -680,7 +686,8 @@ if (isset($picture['current']['high']))
   );
 }
 // button to set the current picture as representative
-if ('admin' == $user['status'] and is_numeric($page['cat']))
+if ('admin' == $user['status'] and 
+    isset($page['cat']) and is_numeric($page['cat']))
 {
   $template->assign_block_vars(
     'representative',

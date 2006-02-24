@@ -73,7 +73,7 @@ function generate_category_content($url_base, $view_type, &$requested)
     if (count($requested)>0)
       $this->build_nav_bar2($view_type, $requested, 1, 'MONTH', $lang['month']); // month
     if (count($requested)>1)
-      $this->build_nav_bar2($view_type, $requested, 2, 'DAYOFWEEK' ); // days
+      $this->build_nav_bar2($view_type, $requested, 2, 'DAYOFMONTH' ); // days
   }
   return false;
 }
@@ -151,10 +151,11 @@ function build_nav_bar2($view_type, $requested, $level, $sql_func, $labels=null)
 
 function build_global_calendar(&$requested)
 {
+  assert( count($requested) == 0 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%Y%m")) as period,
             COUNT(id) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($requested, 0);
+  $query.= $this->get_date_where($requested);
   $query.= '
   GROUP BY period';
 
@@ -188,7 +189,8 @@ function build_global_calendar(&$requested)
     $nav_bar .= '</span><br>';
 
     $url_base .= '-';
-    $nav_bar .= $this->get_nav_bar_from_items( $url_base, $year_data['children'], $requested[0], 'calCal', false, $lang['month'] );
+    $nav_bar .= $this->get_nav_bar_from_items( $url_base, 
+            $year_data['children'], null, 'calCal', false, $lang['month'] );
 
     $template->assign_block_vars( 'calendar.calbar',
          array( 'BAR' => $nav_bar)
@@ -199,10 +201,11 @@ function build_global_calendar(&$requested)
 
 function build_year_calendar(&$requested)
 {
+  assert( count($requested) == 1 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%m%d")) as period,
             COUNT(id) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($requested, 1);
+  $query.= $this->get_date_where($requested);
   $query.= '
   GROUP BY period';
 
@@ -242,7 +245,7 @@ function build_year_calendar(&$requested)
 
     $url_base .= '-';
     $nav_bar .= $this->get_nav_bar_from_items( $url_base, 
-                     $month_data['children'], $requested[1], 'calCal', false );
+                     $month_data['children'], null, 'calCal', false );
 
     $template->assign_block_vars( 'calendar.calbar',
          array( 'BAR' => $nav_bar)

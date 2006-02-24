@@ -85,21 +85,22 @@ if ( isset($page['cat_nb_images'])
   if ( isset($page['cat']) )
   {
     $nav_url .= 'cat='.$page['cat'].'&amp;';
+
+    switch ($page['cat'])
+    {
+      case 'search':
+      {
+        $nav_url.= 'search='.$_GET['search'].'&amp;';
+        break;
+      }
+      case 'list':
+      {
+        $nav_url.= 'list='.$_GET['list'].'&amp;';
+        break;
+      }
+    }
   }
 
-  switch ($page['cat'])
-  {
-    case 'search':
-    {
-      $nav_url.= 'search='.$_GET['search'].'&amp;';
-      break;
-    }
-    case 'list':
-    {
-      $nav_url.= 'list='.$_GET['list'].'&amp;';
-      break;
-    }
-  }
   if ( isset($_GET['calendar']) )
   {
     $nav_url.= 'calendar='.$_GET['calendar'];
@@ -401,7 +402,8 @@ if ( $page['navigation_bar'] != '' )
     );
 }
 
-if ($page['cat_nb_images']>0 and 
+if ( ( isset($page['cat_nb_images']) and $page['cat_nb_images']>0 ) 
+     and 
     ( !isset($page['cat']) 
       or ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated') )
    )
