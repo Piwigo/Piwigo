@@ -26,6 +26,10 @@
 
 include_once(PHPWG_ROOT_PATH.'include/calendar_base.class.php');
 
+define ('CYEAR',  0);
+define ('CMONTH', 1);
+define ('CDAY',   2);
+
 /**
  * Monthly calendar style (composed of years/months and days)
  */
@@ -37,43 +41,62 @@ class Calendar extends CalendarBase
  * @return boolean false to indicate that thumbnails
  * where not included here, true otherwise
  */
-function generate_category_content($url_base, $view_type, &$requested)
+function generate_category_content($url_base, $view_type)
 {
-  global $lang;
+  global $lang, $conf;
 
   $this->url_base = $url_base;
 
-  if ($view_type==CAL_VIEW_CALENDAR and count($requested)==0)
-  {//case A: no year given - display all years+months
-    if ($this->build_global_calendar($requested))
-      return true;
-  }
+  if ($view_type==CAL_VIEW_CALENDAR)
+  {
+    if ( count($this->date_components)==0 )
+    {//case A: no year given - display all years+months
+      if ($this->build_global_calendar())
+        return true;
+    }
 
-  if ($view_type==CAL_VIEW_CALENDAR and count($requested)==1)
-  {//case B: year given - display all days in given year
-    if ($this->build_year_calendar($requested))
-    {
-      $this->build_nav_bar2($view_type, $requested, 0, 'YEAR'); // years
+    if ( count($this->date_components)==1 )
+    {//case B: year given - display all days in given year
+      if ($this->build_year_calendar())
+      {
+        if ( $conf['calendar_multi_bar'] )
+          $this->build_nav_bar2(CYEAR, 'YEAR'); // years
+        return true;
+      }
+    }
+
+    if ( count($this->date_components)==2 )
+    {//case C: year+month given - display a nice month calendar
+      $this->build_month_calendar();
+      if ( $conf['calendar_multi_bar'] )
+      {
+        $this->build_nav_bar2(CYEAR, 'YEAR'); // years
+      }
+      if (count($this->date_components)>=1 and
+          ( $conf['calendar_multi_bar'] or count($this->date_components)==1 ) )
+      {
+        $this->build_nav_bar2(CMONTH, 'MONTH', $lang['month']); // month
+      }
       return true;
     }
   }
 
-  if ($view_type==CAL_VIEW_CALENDAR and count($requested)==2)
-  {//case C: year+month given - display a nice month calendar
-    $this->build_month_calendar($requested);
-    $this->build_nav_bar2(CAL_VIEW_CALENDAR, $requested, 0, 'YEAR'); // years
-    if (count($requested)>0)
-      $this->build_nav_bar2(CAL_VIEW_CALENDAR, $requested, 1, 'MONTH', $lang['month']); // month
-    return true;
-  }
-
-  if ($view_type==CAL_VIEW_LIST or count($requested)==3)
+  if ($view_type==CAL_VIEW_LIST or count($this->date_components)==3)
   {
-    $this->build_nav_bar2($view_type, $requested, 0, 'YEAR'); // years
-    if (count($requested)>0)
-      $this->build_nav_bar2($view_type, $requested, 1, 'MONTH', $lang['month']); // month
-    if (count($requested)>1)
-      $this->build_nav_bar2($view_type, $requested, 2, 'DAYOFMONTH' ); // days
+    if ( $conf['calendar_multi_bar'] or count($this->date_components)==0 )
+    {
+      $this->build_nav_bar2(CYEAR, 'YEAR'); // years
+    }
+    if ( count($this->date_components)>=1 and
+        ( $conf['calendar_multi_bar'] or count($this->date_components)==1 )
+       )
+    {
+      $this->build_nav_bar2(CMONTH, 'MONTH', $lang['month']); // month
+    }
+    if ( count($this->date_components)>=2 )
+    {
+      $this->build_nav_bar2(CDAY, 'DAYOFMONTH' ); // days
+    }
   }
   return false;
 }
@@ -81,31 +104,30 @@ function generate_category_content($url_base, $view_type, &$requested)
 
 /**
  * Returns a sql where subquery for the date field
- * @param array requested selected levels for this calendar
- * (e.g. 2005,11,5 for 5th of November 2005)
  * @param int max_levels return the where up to this level
  * (e.g. 2=only year and month)
  * @return string
  */
-function get_date_where($requested, $max_levels=3)
+function get_date_where($max_levels=3)
 {
-  while (count($requested)>$max_levels)
+  $date = $this->date_components;
+  while (count($date)>$max_levels)
   {
-    array_pop($requested);
+    array_pop($date);
   }
   $res = '';
-  if (isset($requested[0]) and $requested[0]!='any')
+  if (isset($date[CYEAR]) and $date[CYEAR]!='any')
   {
-    $b = $requested[0] . '-';
-    $e = $requested[0] . '-';
-    if (isset($requested[1]) and $requested[1]!='any')
+    $b = $date[CYEAR] . '-';
+    $e = $date[CYEAR] . '-';
+    if (isset($date[CMONTH]) and $date[CMONTH]!='any')
     {
-      $b .= $requested[1] . '-';
-      $e .= $requested[1] . '-';
-      if (isset($requested[2]) and $requested[2]!='any')
+      $b .= $date[CMONTH] . '-';
+      $e .= $date[CMONTH] . '-';
+      if (isset($date[CDAY]) and $date[CDAY]!='any')
       {
-        $b .= $requested[2];
-        $e .= $requested[2];
+        $b .= $date[CDAY];
+        $e .= $date[CDAY];
       }
       else
       {
@@ -117,13 +139,13 @@ function get_date_where($requested, $max_levels=3)
     {
       $b .= '01-01';
       $e .= '12-31';
-      if (isset($requested[1]) and $requested[1]!='any')
+      if (isset($date[CMONTH]) and $date[CMONTH]!='any')
       {
-        $res .= ' AND MONTH('.$this->date_field.')='.$requested[1];
+        $res .= ' AND MONTH('.$this->date_field.')='.$date[CMONTH];
       }
-      if (isset($requested[2]) and $requested[2]!='any')
+      if (isset($date[2]) and $date[2]!='any')
       {
-        $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$requested[2];
+        $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$date[CDAY];
       }
     }
     $res = " AND $this->date_field BETWEEN '$b' AND '$e 23:59:59'" . $res;
@@ -131,31 +153,72 @@ function get_date_where($requested, $max_levels=3)
   else
   {
     $res = ' AND '.$this->date_field.' IS NOT NULL';
-    if (isset($requested[1]) and $requested[1]!='any')
+    if (isset($date[CMONTH]) and $date[CMONTH]!='any')
     {
-      $res .= ' AND MONTH('.$this->date_field.')='.$requested[1];
+      $res .= ' AND MONTH('.$this->date_field.')='.$date[CMONTH];
     }
-    if (isset($requested[2]) and $requested[2]!='any')
+    if (isset($date[CDAY]) and $date[CDAY]!='any')
     {
-      $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$requested[2];
+      $res .= ' AND DAYOFMONTH('.$this->date_field.')='.$date[CDAY];
     }
   }
   return $res;
 }
 
-//--------------------------------------------------------- private members ---
-function build_nav_bar2($view_type, $requested, $level, $sql_func, $labels=null)
+
+function get_display_name()
 {
-  parent::build_nav_bar($view_type, $requested, $level, $sql_func, '', $labels);
+  global $conf, $lang;
+  $res = '';
+  $url = $this->url_base;
+  if ( isset($this->date_components[CYEAR]) )
+  {
+    $res .= $conf['level_separator'];
+    $url .= $this->date_components[CYEAR].'-';
+    $res .= 
+      '<a href="'.$url.'">'
+      .$this->get_date_component_label($this->date_components[CYEAR])
+      .'</a>';
+  }
+  if ( isset($this->date_components[CMONTH]) )
+  {
+    $res .= $conf['level_separator'];
+    $url .= $this->date_components[CMONTH].'-';
+    $res .= 
+      '<a href="'.$url.'">'
+      .$this->get_date_component_label(
+                     $this->date_components[CMONTH], 
+                     $lang['month']
+                    )
+      .'</a>';
+  }
+  if ( isset($this->date_components[CDAY]) )
+  {
+    $res .= $conf['level_separator'];
+    $url .= $this->date_components[CDAY].'-';
+    $res .= 
+      '<a href="'.$url.'">'
+      .$this->get_date_component_label($this->date_components[CDAY])
+      .'</a>';
+  }
+
+  return $res;
 }
 
-function build_global_calendar(&$requested)
+
+//--------------------------------------------------------- private members ---
+function build_nav_bar2($level, $sql_func, $labels=null)
 {
-  assert( count($requested) == 0 );
+  parent::build_nav_bar($level, $sql_func, '', $labels);
+}
+
+function build_global_calendar()
+{
+  assert( count($this->date_components) == 0 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%Y%m")) as period,
             COUNT(id) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($requested);
+  $query.= $this->get_date_where();
   $query.= '
   GROUP BY period';
 
@@ -175,14 +238,14 @@ function build_global_calendar(&$requested)
   if (count($items)==1)
   {// only one year exists so bail out to year view
     list($y) = array_keys($items);
-    array_push($requested, $y );
+    $this->date_components[CYEAR] = $y;
     return false;
   }
 
   global $lang, $template;
   foreach ( $items as $year=>$year_data)
   {
-    $url_base = $this->url_base .'c-'.$year;
+    $url_base = $this->url_base.$year;
 
     $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">'.$year.'</a>';
     $nav_bar .= ' ('.$year_data['nb_images'].')';
@@ -199,13 +262,13 @@ function build_global_calendar(&$requested)
   return true;
 }
 
-function build_year_calendar(&$requested)
+function build_year_calendar()
 {
-  assert( count($requested) == 1 );
+  assert( count($this->date_components) == 1 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%m%d")) as period,
             COUNT(id) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($requested);
+  $query.= $this->get_date_where();
   $query.= '
   GROUP BY period';
 
@@ -225,18 +288,18 @@ function build_year_calendar(&$requested)
   if (count($items)==1)
   { // only one month exists so bail out to month view
     list($m) = array_keys($items);
-    array_push($requested, $m );
+    $this->date_components[CMONTH] = $m;
     if (count($items[$m]['children'])==1)
     { // or even to day view if everything occured in one day
       list($d) = array_keys($items[$m]['children']);
-      array_push($requested, $d);
+      $this->date_components[CDAY] = $d;
     }
     return false;
   }
   global $lang, $template;
   foreach ( $items as $month=>$month_data)
   {
-    $url_base = $this->url_base.'c-'.$requested[0].'-'.$month;
+    $url_base = $this->url_base.$this->date_components[CYEAR].'-'.$month;
 
     $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">';
     $nav_bar .= $lang['month'][$month].'</a>';
@@ -255,12 +318,12 @@ function build_year_calendar(&$requested)
 
 }
 
-function build_month_calendar($requested)
+function build_month_calendar()
 {
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%d")) as period,
             COUNT(id) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($requested, 2);
+  $query.= $this->get_date_where($this->date_components);
   $query.= '
   GROUP BY period';
 
@@ -277,15 +340,18 @@ function build_month_calendar($requested)
   $template->assign_block_vars('thumbnails.line', array());
   foreach ( $items as $day=>$nb_images)
   {
-    $url_base = $this->url_base.'c-'.$requested[0].'-'.$requested[1].'-'.$day;
-    $requested[2]=$day;
+    $url_base = $this->url_base.
+          $this->date_components[CYEAR].'-'.
+          $this->date_components[CMONTH].'-'.$day;
+    $this->date_components[CDAY]=$day;
     $query = '
 SELECT file,tn_ext,path, DAYOFWEEK('.$this->date_field.')-1 as dw';
     $query.= $this->inner_sql;
-    $query.= $this->get_date_where($requested);
+    $query.= $this->get_date_where();
     $query.= '
   ORDER BY RAND()
   LIMIT 0,1';
+    unset ( $this->date_components[CDAY] );
 
     $row = mysql_fetch_array(pwg_query($query));
 

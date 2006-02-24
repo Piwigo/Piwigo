@@ -27,6 +27,25 @@
 define('CAL_VIEW_LIST',     'l');
 define('CAL_VIEW_CALENDAR', 'c');
 
+function get_calendar_parameter($options, &$parameters )
+{
+  if ( count($parameters) and isset($options[$parameters[0]]) )
+  {
+    return array_shift($parameters);
+  }
+  else
+  {
+    foreach ($options as $option => $data)
+    {
+       if ( empty( $data['default_link'] ) )
+       {
+         break;
+       }
+    }
+    return $option;
+  }
+}
+
 function initialize_calendar()
 {
   global $page, $conf, $user, $template;
@@ -73,65 +92,76 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
 //-------------------------------------- initialize the calendar parameters ---
   pwg_debug('start initialize_calendar');
-  
-  $cal_styles = array(
+  // the parameters look like (FIELD)?(STYLE)?(VIEW)?(DATE COMPONENTS)?
+  // FIELD = (created-|posted-)
+  // STYLE = (m-|w-)
+  // VIEW  = (l-|c-)
+  // DATE COMPONENTS= YEAR(-MONTH/WEEK)?(-DAY)?
+
+  $fields = array(
+    // Created
+    'created' => array(
+       // TODO change next line when calendar_datefield disapears
+      'default_link'   => ( $conf['calendar_datefield']=='date_creation' ? '' : 'created-' ),
+      'label'          => l10n('Creation date'),
+      'db_field'       => 'date_creation',
+      ),
+    // Posted
+    'posted' => array(
+      // TODO change next line when calendar_datefield disapears
+      'default_link'   => ( $conf['calendar_datefield']=='date_available' ? '' : 'posted-' ),
+      'label'          => l10n('Availability date'),
+      'db_field'       => 'date_available',
+      ),
+    );
+
+  $styles = array(
     // Monthly style
-    array(
-      'link'           => 'm',
+    'monthly' => array(
       'default_link'   => '',
-      'name'           => l10n('Monthly'),
+      'label'           => l10n('Monthly'),
       'include'        => 'calendar_monthly.class.php',
       'view_calendar'  => true,
       ),
     // Weekly style    
-    array(
-      'link'           => 'w',
-      'default_link'   => 'w-',
-      'name'           => l10n('Weekly'),
+    'weekly' => array(
+      'default_link'   => 'weekly-',
+      'label'           => l10n('Weekly'),
       'include'        => 'calendar_weekly.class.php',
       'view_calendar'  => false,
       ),
     );
 
+  $views = array(
+    // list view
+    CAL_VIEW_LIST => array(
+      'default_link'   => '',
+      'label' => l10n('List')
+      ),
+    // calendar view
+    CAL_VIEW_CALENDAR => array(
+      'default_link'   => CAL_VIEW_CALENDAR.'-',
+      'label' => l10n('calendar')
+      ),
+    );
+
   $requested = explode('-', $_GET['calendar']);
-  $calendar = null;
-  foreach ($cal_styles as $cal_style)
-  {
-    if ($requested[0] == $cal_style['link'])
-    {
-      include(PHPWG_ROOT_PATH.'include/'.$cal_style['include']);
-      $calendar = new Calendar();
-      array_shift($requested);
-      break;
-    }
-  }
   
-  if (!isset($calendar))
+  // Retrieve calendar field
+  $cal_field = get_calendar_parameter($fields, $requested);
+  
+  // Retrieve style
+  $cal_style = get_calendar_parameter($styles, $requested);
+  include(PHPWG_ROOT_PATH.'include/'. $styles[$cal_style]['include']);
+  $calendar = new Calendar();
+
+  // Retrieve view
+  $cal_view = get_calendar_parameter($views, $requested);
+  if ( CAL_VIEW_CALENDAR==$cal_view and !$styles[$cal_style]['view_calendar'] )
   {
-    foreach($cal_styles as $cal_style)
-    {
-      if ('' == $cal_style['default_link'])
-      {
-        break;
-      }
-    }
-    include( PHPWG_ROOT_PATH.'include/'.$cal_style['include']);
-    $calendar = new Calendar();
+    $cal_view=CAL_VIEW_LIST;
   }
 
-  $view_type = CAL_VIEW_LIST;
-  if ($requested[0] == CAL_VIEW_LIST)
-  {
-    array_shift($requested);
-  }
-  elseif ($requested[0] == CAL_VIEW_CALENDAR)
-  {
-    if ($cal_style['view_calendar'])
-    {
-      $view_type = CAL_VIEW_CALENDAR;
-    }
-    array_shift($requested);
-  }
   // perform a sanity check on $requested
   while (count($requested) > 3)
   {
@@ -143,7 +173,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   {
     if ($requested[$i] == 'any')
     {
-      if ($view_type == CAL_VIEW_CALENDAR)
+      if ($cal_view == CAL_VIEW_CALENDAR)
       {// we dont allow any in calendar view
         while ($i < count($requested))
         {
@@ -165,29 +195,26 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   {
     array_pop($requested);
   }
-
-  $calendar->initialize($conf['calendar_datefield'], $inner_sql);
-  //echo ('<pre>'. var_export($requested, true) . '</pre>');
-  //echo ('<pre>'. var_export($calendar, true) . '</pre>');
-
-  // TODO: what makes the list view required?
-  $must_show_list = true;
   
+  $calendar->initialize($fields[$cal_field]['db_field'], $inner_sql, $requested);
+  
+  //echo ('<pre>'. var_export($fields, true) . '</pre>');
+
+  $url_base =
+    PHPWG_ROOT_PATH.'category.php'
+    .get_query_string_diff(array('start', 'calendar'))
+    .(empty($url_base) ? '?' : '&')
+    .'calendar='.$cal_field.'-'
+    ;
+
+  $must_show_list = true; // true until calendar generates its own display
   if (basename($_SERVER["PHP_SELF"]) == 'category.php')
   {
     $template->assign_block_vars('calendar', array());
 
-    $url_base =
-      PHPWG_ROOT_PATH.'category.php'
-      .get_query_string_diff(array('start', 'calendar'))
-      .(empty($url_base) ? '?' : '&')
-      .'calendar='
-      ;
-
     if ($calendar->generate_category_content(
-          $url_base.$cal_style['default_link'],
-          $view_type,
-          $requested
+          $url_base.$cal_style.'-'.$cal_view.'-',
+          $cal_view
           )
        )
     {
@@ -199,82 +226,60 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       
       $must_show_list = false;
     }
-
-    if ($cal_style['view_calendar'])
-    { // Build bar for views (List/Calendar)
-      $views = array(
-        // list view
-        array(
-          'type'  => CAL_VIEW_LIST,
-          'label' => l10n('List')
-          ),
-        // calendar view
-        array(
-          'type'  => CAL_VIEW_CALENDAR,
-          'label' => l10n('calendar')
-          ),
-        );
-      
-      $views_bar = '';
-
-      foreach ($views as $view)
-      {
-        if ($view_type != $view['type'])
-        {
-          $views_bar.=
-            '<a href="'
-            .$url_base.$cal_style['default_link'].$view['type'].'-'
-            .implode('-', $requested)
-            .'">'.$view['label'].'</a> ';
-        }
-        else
-        {
-          $views_bar.= $view['label'].' ';
-        }
-        
-        $views_bar.= ' ';
-      }
-      
-      $template->assign_block_vars(
-        'calendar.views',
-        array(
-          'BAR' => $views_bar,
-          )
-        );
-    }
-
-    // Build bar for calendar styles (Monthly, Weekly)
-    $styles_bar = '';
-    foreach ($cal_styles as $style)
+    
+    $template->assign_block_vars( 'calendar.views', array() );
+    foreach ($styles as $style => $style_data)
     {
-      if ($cal_style['link'] != $style['link'])
+      foreach ($views as $view => $view_data)
       {
-        $url = $url_base.$style['default_link'];
-        $url .= $view_type;
-        if (isset($requested[0]))
+        if ( $style_data['view_calendar'] or $view != CAL_VIEW_CALENDAR)
         {
-          $url .= '-' . $requested[0];
+          $selected = '';
+          $url = $url_base.$style.'-'.$view;
+          if ($style==$cal_style)
+          {
+            $url .= '-'.implode('-', $calendar->date_components);
+            if ( $view==$cal_view )
+            {
+              $selected = 'SELECTED';
+            }
+          }
+          else
+          {
+            if (isset($calendar->date_components[0]))
+            {
+              $url .= '-' . $calendar->date_components[0];
+            }
+          }
+          $template->assign_block_vars(
+            'calendar.views.view',
+            array(
+              'VALUE' => $url,
+              'CONTENT' => $style_data['label'].' ('.$view_data['label'].')',
+              'SELECTED' => $selected,
+              )
+            );
         }
-        $styles_bar .= '<a href="'. $url . '">'.$style['name'].'</a> ';
-      }
-      else
-      {
-        $styles_bar .=  $style['name'].' ';
       }
     }
-    $template->assign_block_vars(
-      'calendar.styles',
-      array(
-        'BAR' => $styles_bar,
-        )
-      );
   } // end category calling
 
+  $calendar_title = 
+      '<a href="'.$url_base.$cal_style.'-'.$cal_view.'">'
+      .$fields[$cal_field]['label'].'</a>';
+  $calendar_title.= $calendar->get_display_name();
+  $template->assign_block_vars(
+    'calendar',
+    array(
+      'TITLE' => $calendar_title,
+      )
+    );
+  
   if ($must_show_list)
   {
     $query = 'SELECT DISTINCT(id)';
     $query .= $calendar->inner_sql;
-    $query .= $calendar->get_date_where($requested);
+    $query .= $calendar->get_date_where();
     if ( isset($page['super_order_by']) )
     {
       $query .= '

@@ -301,7 +301,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => PHPWG_ROOT_PATH.'category.php?calendar=m-c',
+    'URL' => PHPWG_ROOT_PATH.'category.php?calendar=monthly-c',
     'TITLE' => $lang['calendar_hint'],
     'NAME' => $lang['calendar']
     ));

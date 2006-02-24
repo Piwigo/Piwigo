@@ -793,16 +793,9 @@ else
 if (!empty($picture['current']['date_creation']))
 {
   $val = format_date($picture['current']['date_creation']);
-  if ( $conf['calendar_datefield'] == 'date_creation' )
-  {
-    $infos['INFO_CREATION_DATE'] = '<a href="'.
-       PHPWG_ROOT_PATH.'category.php?calendar=c-'.
+  $infos['INFO_CREATION_DATE'] = '<a href="'.
+       PHPWG_ROOT_PATH.'category.php?calendar=created-c-'.
        $picture['current']['date_creation'].'">'.$val.'</a>';
-  }
-  else
-  {
-     $infos['INFO_CREATION_DATE'] = $val;
-  }
 }
 else
 {
@@ -811,16 +804,9 @@ else
 
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
-if ( $conf['calendar_datefield'] == 'date_available' )
-{
-  $infos['INFO_AVAILABILITY_DATE'] = '<a href="'.
-     PHPWG_ROOT_PATH.'category.php?calendar=c-'.
-     substr($picture['current']['date_available'],0,10).'">'.$val.'</a>';
-}
-else
-{
-   $infos['INFO_AVAILABILITY_DATE'] = $val;
-}
+$infos['INFO_AVAILABILITY_DATE'] = '<a href="'.
+   PHPWG_ROOT_PATH.'category.php?calendar=posted-c-'.
+   substr($picture['current']['date_available'],0,10).'">'.$val.'</a>';
 
 // size in pixels
 if ($picture['current']['is_picture'])

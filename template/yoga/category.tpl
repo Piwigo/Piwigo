@@ -138,19 +138,23 @@
       <!-- END normal_view -->
     </ul>
     
-  <h2>{TITLE}</h2>
-    
+  <h2>{TITLE}
+  <!-- BEGIN calendar -->
+  <br/>{calendar.TITLE}
+  <!-- END calendar --></h2>
   </div> <!-- content -->
     
 <!-- BEGIN calendar -->
-<!-- BEGIN styles -->
-<div class="calendarStyles">Style: {calendar.styles.BAR}</div>
-<!-- END styles -->
-
 <!-- BEGIN views -->
-<div class="calendarViews">{calendar.views.BAR}</div>
+<div class="calendarViews">
+<select onchange="document.location = this.options[this.selectedIndex].value;">
+<!-- BEGIN view -->
+  <option value="{calendar.views.view.VALUE}" {calendar.views.view.SELECTED}>{calendar.views.view.CONTENT}</option>
+<!-- END view -->
+</select>
+</div><br/>
 <!-- END views -->
-<br/>
+
 <!-- BEGIN navbar -->
 <div class="navigationBar">{calendar.navbar.BAR}</div>
 <!-- END navbar -->

@@ -35,25 +35,41 @@ class CalendarBase
   var $inner_sql;
   // base url used when generating html links
   var $url_base;
+  // array of date components e.g. (2005,10,12) ...
+  var $date_components;
 
-  function get_date_where()
-  {
-    die("get_date_where not extended");
-  }
 
   /**
    * Initialize the calendar
    * @param string date_field db column on which this calendar works
    * @param string inner_sql used for queries (INNER JOIN or normal)
+   * @param array date_components
    */
-  function initialize($date_field, $inner_sql)
+  function initialize($date_field, $inner_sql, $date_components)
   {
     $this->date_field = $date_field;
     $this->inner_sql = $inner_sql;
+    $this->date_components = $date_components;
   }
 
 //--------------------------------------------------------- private members ---
-
+  /**
+   * Returns a display name for a date component optionally using labels
+  */
+  function get_date_component_label($date_component, $labels=null)
+  {
+    $label = $date_component;
+    if (isset($labels[$date_component]))
+    {
+      $label = $labels[$date_component];
+    }
+    elseif ($date_component == 'any' )
+    {
+      $label = l10n('calendar_any');
+    }
+    return $label;
+  }
+  
   /**
    * Creates a calendar navigation bar.
    *
@@ -96,8 +112,8 @@ class CalendarBase
       }
       $nav_bar.= '</span>';
     }
-
-    if ($allow_any and count($items) > 1)
+    global $conf;
+    if ($conf['calendar_show_any'] and $allow_any and count($items) > 1)
     {
       $label = l10n('calendar_any');
       if (isset($selected_item) and 'any' == $selected_item)
@@ -121,14 +137,12 @@ class CalendarBase
   /**
    * Creates a calendar navigation bar for a given level.
    *
-   * @param string view_type - list or calendar (e.g. 'l' or 'c')
-   * @param array requested - array of current selected elements (e.g. 2005,10)
    * @param string sql_func - YEAR/MONTH/DAY/WEEK/DAYOFWEEK ...
    * @param string sql_offset - (e.g. +1 for WEEK - first in year is 1)
    * @param array labels - optional labels to show in the navigation bar
    * @return void
    */
-  function build_nav_bar($view_type, $requested, $level, $sql_func,
+  function build_nav_bar($level, $sql_func,
                          $sql_offset='', $labels=null)
   {
     global $template;
@@ -137,7 +151,7 @@ class CalendarBase
 SELECT DISTINCT('.$sql_func.'('.$this->date_field.')'.$sql_offset
       .') as period';
     $query.= $this->inner_sql;
-    $query.= $this->get_date_where($requested, $level);
+    $query.= $this->get_date_where($level);
     $query.= '
   GROUP BY period
 ;';
@@ -150,19 +164,22 @@ SELECT DISTINCT('.$sql_func.'('.$this->date_field.')'.$sql_offset
     }
 
     $url_base = $this->url_base;
-    $url_base .= $view_type.'-';
     for ($i=0; $i<$level; $i++)
     {
-      if (isset($requested[$i]))
+      if (isset($this->date_components[$i]))
       {
-        $url_base .= $requested[$i].'-';
+        $url_base .= $this->date_components[$i].'-';
       }
     }
-
+    $selected = null;
+    if ( isset($this->date_components[$level]) )
+    {
+      $selected = $this->date_components[$level];
+    }
     $nav_bar = $this->get_nav_bar_from_items(
       $url_base,
       $level_items,
-      isset($requested[$level]) ? $requested[$level] : null,
+      $selected,
       'cal',
       true,
       $labels

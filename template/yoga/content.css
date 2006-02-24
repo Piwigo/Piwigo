@@ -179,12 +179,8 @@ SPAN.filename:after {
 }
 
 
-#content DIV.calendarStyles {
-  float: left;
-}
-
 #content DIV.calendarViews {
-  float: right;
+  float: left;
 }
 
 SPAN.cal {

@@ -90,6 +90,14 @@ $conf['anti-flood_time'] = 60;
 // catgory
 $conf['calendar_datefield'] = 'date_creation';
 
+// calendar_multi_bar : the calendar shows a maximum number of 
+// year/month/week/day navigation bars
+$conf['calendar_multi_bar'] = true;
+
+// calendar_show_any : the calendar shows an aditional 'any' button in the
+// year/month/week/day navigation bars
+$conf['calendar_show_any'] = true;
+
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
 $conf['newcat_default_commentable'] = 'true';
