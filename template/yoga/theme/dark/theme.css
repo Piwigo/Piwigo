@@ -38,7 +38,7 @@ H2, #menubar DT, .throw  {
   background-color: transparent;
   border: none;
 }
-   
+
 #imageHeaderBar {
   background-image: url(images/tableh2_bg.png);
   background-repeat: repeat-x;
@@ -107,9 +107,17 @@ A.navThumb, A.navThumb:hover {
 }
 #the_page {
   border: 1px solid #e0e0e0;
-  padding-top: 5px;	
+  padding-top: 5px;
   padding-bottom:30px;
   text-align:center;
   display:block;
   background:#3f3f3f;
+}
+
+SPAN.calItemSel {
+  color: #fff48e;
+}
+
+SPAN.calItemEmpty {
+  color: darkgray;
 }

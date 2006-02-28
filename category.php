@@ -41,15 +41,15 @@ if ( isset( $_GET['act'] )
   $url = 'category.php';
   redirect( $url );
 }
-//---------------------------------------------- change of image display order 
+//---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
 {
   setcookie(
-    'pwg_image_order', 
+    'pwg_image_order',
     $_GET['image_order'] > 0 ? $_GET['image_order'] : '',
     0
     );
-  
+
   redirect(
     PHPWG_ROOT_PATH
     .'category.php'
@@ -109,7 +109,7 @@ if ( isset($page['cat_nb_images'])
   {
     $nav_url = preg_replace('/&amp;$/', '', $nav_url);
   }
-  
+
   $page['navigation_bar'] = create_navigation_bar(
     $nav_url,
     $page['cat_nb_images'],
@@ -163,16 +163,45 @@ if ( ! isset($_GET['calendar']) )
 {
   $calendar_view_link .= (empty($_GET)? '?':'&' ) . 'calendar=';
   $template->assign_block_vars(
-    'calendar_view',
-    array( 'URL' => $calendar_view_link )
+    'mode_created',
+    array( 'URL' => $calendar_view_link.'created' )
     );
+  $template->assign_block_vars(
+    'mode_posted',
+    array( 'URL' => $calendar_view_link.'posted' )
+    );
+
 }
 else
 {
   $template->assign_block_vars(
-    'normal_view',
+    'mode_normal',
     array( 'URL' => $calendar_view_link )
     );
+  if (get_query_string_diff( array('start','calendar') )=='')
+  {
+    $calendar_view_link .= '?';
+  }
+  else
+  {
+    $calendar_view_link .= '&';
+  }
+
+  $calendar_view_link .= 'calendar=';
+  if ( strpos($_GET['calendar'], 'posted') === false)
+  {
+    $template->assign_block_vars(
+      'mode_posted',
+      array( 'URL' => $calendar_view_link.'posted' )
+      );
+  }
+  else
+  {
+    $template->assign_block_vars(
+      'mode_created',
+      array( 'URL' => $calendar_view_link.'created' )
+      );
+  }
 }
 
 $template->assign_vars(
@@ -202,7 +231,7 @@ $template->assign_vars(
   'L_PROFILE' => $lang['customize'],
   'L_PROFILE_HINT' => $lang['hint_customize'],
   'L_REMEMBER_ME' => $lang['remember_me'],
-  
+
   'F_IDENTIFY' => PHPWG_ROOT_PATH.'identification.php',
   'T_RECENT' => $icon_recent,
 
@@ -298,10 +327,19 @@ $template->assign_block_vars(
     'NAME' => $lang['recent_cats_cat']
     ));
 // calendar
+if ( $conf['calendar_datefield'] == 'date_available' )
+{
+  $calendar_link = 'posted';
+}
+else
+{
+  $calendar_link = 'created';
+}
+$calendar_link .= '-monthly-c';
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => PHPWG_ROOT_PATH.'category.php?calendar=monthly-c',
+    'URL' => PHPWG_ROOT_PATH.'category.php?calendar='.$calendar_link,
     'TITLE' => $lang['calendar_hint'],
     'NAME' => $lang['calendar']
     ));
@@ -311,7 +349,7 @@ if ($user['is_the_guest'])
 {
   $template->assign_block_vars('register', array());
   $template->assign_block_vars('login', array());
-  
+
   $template->assign_block_vars('quickconnect', array());
   if ($conf['authorize_remembering'])
   {
@@ -355,7 +393,7 @@ $template->assign_block_vars('summary', array(
 $template->assign_block_vars('summary', array(
 'TITLE'=>$lang['about_page_title'],
 'NAME'=>$lang['About'],
-'U_SUMMARY'=> 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] ) 
+'U_SUMMARY'=> 'about.php?'.str_replace( '&', '&amp;', $_SERVER['QUERY_STRING'] )
 ));
 
 // notification
@@ -395,23 +433,23 @@ if ( $page['navigation_bar'] != ''
 }
 // navigation bar
 if ( $page['navigation_bar'] != '' )
-{ 
+{
   $template->assign_block_vars(
     'cat_infos.navigation',
     array('NAV_BAR' => $page['navigation_bar'])
     );
 }
 
-if ( ( isset($page['cat_nb_images']) and $page['cat_nb_images']>0 ) 
-     and 
-    ( !isset($page['cat']) 
+if ( ( isset($page['cat_nb_images']) and $page['cat_nb_images']>0 )
+     and
+    ( !isset($page['cat'])
       or ($page['cat'] != 'most_visited' and $page['cat'] != 'best_rated') )
    )
 {
   // image order
   $template->assign_block_vars( 'preferred_image_order', array() );
 
-  $order_idx = isset($_COOKIE['pwg_image_order']) ? 
+  $order_idx = isset($_COOKIE['pwg_image_order']) ?
                    $_COOKIE['pwg_image_order'] : 0;
 
   $orders = get_category_preferred_image_orders();

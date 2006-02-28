@@ -28,7 +28,7 @@
 /**
  * Provides functions to handle categories.
  *
- * 
+ *
  */
 
 /**
@@ -67,9 +67,9 @@ function check_restrictions($category_id)
 function get_categories_menu()
 {
   global $page,$user;
-  
+
   $infos = array('');
-  
+
   $query = '
 SELECT name,id,date_last,nb_images,global_rank
   FROM '.CATEGORIES_TABLE.'
@@ -119,7 +119,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
   WHERE category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
   list($total) = mysql_fetch_array(pwg_query($query));
-  
+
   return $total;
 }
 
@@ -135,7 +135,7 @@ SELECT COUNT(DISTINCT(image_id)) as total
  *  - nb_images
  *  - id_uppercat
  *  - site_id
- *  - 
+ *  -
  *
  * @param int category id
  * @return array
@@ -145,7 +145,7 @@ function get_cat_info( $id )
   $infos = array('nb_images','id_uppercat','comment','site_id'
                  ,'dir','date_last','uploadable','status','visible'
                  ,'representative_picture_id','uppercats','commentable');
-  
+
   $query = '
 SELECT '.implode(',', $infos).'
   FROM '.CATEGORIES_TABLE.'
@@ -196,7 +196,7 @@ SELECT name,id
   {
     $cat['name'][$cat_id] = $names[$cat_id];
   }
-  
+
   return $cat;
 }
 
@@ -274,11 +274,11 @@ function get_category_preferred_image_orders()
 {
   global $conf;
   return array(
-    array('Default', '', true),
+    array(l10n('default_sort'), '', true),
     array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
     array(l10n('most_visited_cat'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
-    array(l10n('Availability date'), 'date_available DESC', true),
+    array(l10n('Post date'), 'date_available DESC', true),
     array(l10n('File name'), 'file ASC', true)
   );
 }
@@ -310,7 +310,7 @@ function display_select_categories($categories,
                            (3 * substr_count($category['global_rank'], '.')));
       $option.= '- '.$category['name'];
     }
-    
+
     $template->assign_block_vars(
       $blockname,
       array('SELECTED'=>$selected,

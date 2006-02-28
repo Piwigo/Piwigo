@@ -52,21 +52,21 @@ function initialize_calendar()
 
 //------------------ initialize the condition on items to take into account ---
   $inner_sql = ' FROM ' . IMAGES_TABLE;
-  
+
   if (!isset($page['cat']) or is_numeric($page['cat']))
   { // we will regenerate the items by including subcats elements
     $page['cat_nb_images'] = 0;
     $page['items'] = array();
     $inner_sql .= '
 INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
-    
+
     if (isset($page['cat']) and is_numeric($page['cat']))
     {
       $sub_ids = array_diff(
         get_subcat_ids(array($page['cat'])),
         explode(',', $user['forbidden_categories'])
         );
-      
+
       if (empty($sub_ids))
       {
         return; // nothing to do
@@ -101,16 +101,14 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   $fields = array(
     // Created
     'created' => array(
-       // TODO change next line when calendar_datefield disapears
-      'default_link'   => ( $conf['calendar_datefield']=='date_creation' ? '' : 'created-' ),
+      'default_link'   => 'created-',
       'label'          => l10n('Creation date'),
       'db_field'       => 'date_creation',
       ),
     // Posted
     'posted' => array(
-      // TODO change next line when calendar_datefield disapears
-      'default_link'   => ( $conf['calendar_datefield']=='date_available' ? '' : 'posted-' ),
-      'label'          => l10n('Availability date'),
+      'default_link'   => 'posted-',
+      'label'          => l10n('Post date'),
       'db_field'       => 'date_available',
       ),
     );
@@ -119,14 +117,12 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     // Monthly style
     'monthly' => array(
       'default_link'   => '',
-      'label'           => l10n('Monthly'),
       'include'        => 'calendar_monthly.class.php',
       'view_calendar'  => true,
       ),
-    // Weekly style    
+    // Weekly style
     'weekly' => array(
       'default_link'   => 'weekly-',
-      'label'           => l10n('Weekly'),
       'include'        => 'calendar_weekly.class.php',
       'view_calendar'  => false,
       ),
@@ -136,20 +132,18 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     // list view
     CAL_VIEW_LIST => array(
       'default_link'   => '',
-      'label' => l10n('List')
       ),
     // calendar view
     CAL_VIEW_CALENDAR => array(
       'default_link'   => CAL_VIEW_CALENDAR.'-',
-      'label' => l10n('calendar')
       ),
     );
 
   $requested = explode('-', $_GET['calendar']);
-  
+
   // Retrieve calendar field
   $cal_field = get_calendar_parameter($fields, $requested);
-  
+
   // Retrieve style
   $cal_style = get_calendar_parameter($styles, $requested);
   include(PHPWG_ROOT_PATH.'include/'. $styles[$cal_style]['include']);
@@ -190,23 +184,27 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         array_pop($requested);
       }
     }
+    else
+    {
+      $requested[$i] = (int)$requested[$i];
+    }
   }
   if ($any_count == 3)
   {
     array_pop($requested);
   }
-  
-  $calendar->initialize($fields[$cal_field]['db_field'], $inner_sql, $requested);
-  
-  //echo ('<pre>'. var_export($fields, true) . '</pre>');
 
+  $calendar->initialize($fields[$cal_field]['db_field'], $inner_sql, $requested);
+
+  //echo ('<pre>'. var_export($calendar, true) . '</pre>');
+
+  $url_base = get_query_string_diff(array('start', 'calendar'));
   $url_base =
     PHPWG_ROOT_PATH.'category.php'
-    .get_query_string_diff(array('start', 'calendar'))
+    .$url_base
     .(empty($url_base) ? '?' : '&')
     .'calendar='.$cal_field.'-'
     ;
-
   $must_show_list = true; // true until calendar generates its own display
   if (basename($_SERVER["PHP_SELF"]) == 'category.php')
   {
@@ -223,10 +221,10 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         $page['items'],
         $page['cat_nb_images']
         );
-      
+
       $must_show_list = false;
     }
-    
+
     $template->assign_block_vars( 'calendar.views', array() );
     foreach ($styles as $style => $style_data)
     {
@@ -255,7 +253,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
             'calendar.views.view',
             array(
               'VALUE' => $url,
-              'CONTENT' => $style_data['label'].' ('.$view_data['label'].')',
+              'CONTENT' => l10n('calendar_'.$style.'_'.$view),
               'SELECTED' => $selected,
               )
             );
@@ -264,17 +262,17 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     }
   } // end category calling
 
-  $calendar_title = 
+  $calendar_title =
       '<a href="'.$url_base.$cal_style.'-'.$cal_view.'">'
       .$fields[$cal_field]['label'].'</a>';
   $calendar_title.= $calendar->get_display_name();
   $template->assign_block_vars(
     'calendar',
     array(
-      'TITLE' => $calendar_title,
+      'TITLE' => '<br/>'.$calendar_title,
       )
     );
-  
+
   if ($must_show_list)
   {
     $query = 'SELECT DISTINCT(id)';
@@ -289,7 +287,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     {
       $order_by = str_replace(
         'ORDER BY ',
-        'ORDER BY '.$calendar->date_field.',', $conf['order_by']
+        'ORDER BY '.$calendar->date_field.' DESC,', $conf['order_by']
         );
       $query .= $order_by;
     }

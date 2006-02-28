@@ -173,7 +173,7 @@ SELECT element_id FROM '. RATE_TABLE . '
         {
           array_push( $already_there, $row['element_id'] );
         }
-        
+
         if ( count($already_there)>0 )
         {
           $query = '
@@ -183,7 +183,7 @@ DELETE FROM '. RATE_TABLE . '
   AND element_id NOT IN (' . implode(',',$already_there) . ')';
           pwg_query($query);
         }
-        
+
         $query = '
 UPDATE '. RATE_TABLE . '
   SET anonymous_id=\'' . $anonymous_id . '\'
@@ -191,13 +191,13 @@ UPDATE '. RATE_TABLE . '
   AND anonymous_id=\'' . $_COOKIE['pwg_anonymous_rater'] . '\'';
         pwg_query($query);
 
-        setcookie('pwg_anonymous_rater', $anonymous_id, 
+        setcookie('pwg_anonymous_rater', $anonymous_id,
                    strtotime('+10 years'), cookie_path() );
       }
     }
     else
     {
-      setcookie('pwg_anonymous_rater', $anonymous_id, 
+      setcookie('pwg_anonymous_rater', $anonymous_id,
                  strtotime('+10 years'), cookie_path() );
     }
   }
@@ -292,7 +292,7 @@ while ($row = mysql_fetch_array($result))
   {
     $i = 'current';
   }
-  
+
   foreach (array_keys($row) as $key)
   {
     if (!is_numeric($key))
@@ -306,7 +306,7 @@ while ($row = mysql_fetch_array($result))
   {
     $picture[$i]['is_picture'] = true;
   }
-  
+
   $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
@@ -346,7 +346,7 @@ while ($row = mysql_fetch_array($result))
   }
 
   $picture[$i]['thumbnail'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
-  
+
   if ( !empty( $row['name'] ) )
   {
     $picture[$i]['name'] = $row['name'];
@@ -376,7 +376,7 @@ $url_up_start = floor( $page['current_rank'] / $user['nb_image_page'] );
 $url_up_start *= $user['nb_image_page'];
 if ($url_up_start>0)
 {
-  $url_up .= '&amp;start='.$url_up_start; 
+  $url_up .= '&amp;start='.$url_up_start;
 }
 
 if ( isset($page['cat']) )
@@ -407,7 +407,7 @@ if ( isset( $_GET['add_fav'] ) )
   $query.= ' AND image_id = '.$picture['current']['id'];
   $query.= ';';
   $result = pwg_query( $query );
-  
+
   if ( $_GET['add_fav'] == 1 )
   {
     $query = 'INSERT INTO '.FAVORITES_TABLE;
@@ -460,7 +460,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       $register_comment = false;
     }
   }
-  
+
   if ( $register_comment )
   {
     // anti-flood system
@@ -479,7 +479,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       $data{'date'} = $dbnow;
       $data{'image_id'} = $_GET['image_id'];
       $data{'content'} = htmlspecialchars( $_POST['content'], ENT_QUOTES);
-      
+
       if (!$conf['comments_validation'] or $user['status'] == 'admin')
       {
         $data{'validated'} = 'true';
@@ -489,17 +489,17 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       {
         $data{'validated'} = 'false';
       }
-      
+
       include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
       $fields = array('author', 'date', 'image_id', 'content', 'validated',
                       'validation_date');
       mass_inserts(COMMENTS_TABLE, $fields, array($data));
-      
+
       // information message
       $message = $lang['comment_added'];
 
       if (!$conf['comments_validation'] or $user['status'] == 'admin')
-      
+
       if ( $conf['comments_validation'] and $user['status'] != 'admin' )
       {
         $message.= '<br />'.$lang['comment_to_validate'];
@@ -540,9 +540,9 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 }
 
 $title_img = $picture['current']['name'];
-if ( isset( $page['cat'] ) ) 
+if ( isset( $page['cat'] ) )
 {
-  if (is_numeric( $page['cat'] )) 
+  if (is_numeric( $page['cat'] ))
   {
     $title_img = replace_space(get_cat_display_name($page['cat_name']));
   }
@@ -647,7 +647,7 @@ $template->assign_vars(array(
   'L_PICTURE_HIGH' => $lang['picture_high'],
   'L_UP_HINT' => $lang['home_hint'],
   'L_UP_ALT' => $lang['home'],
-  
+
   'U_HOME' => (PHPWG_ROOT_PATH.'category.php'),
   'U_UP' => $url_up,
   'U_METADATA' => $url_metadata,
@@ -686,7 +686,7 @@ if (isset($picture['current']['high']))
   );
 }
 // button to set the current picture as representative
-if ('admin' == $user['status'] and 
+if ('admin' == $user['status'] and
     isset($page['cat']) and is_numeric($page['cat']))
 {
   $template->assign_block_vars(
@@ -740,7 +740,7 @@ if ( !$user['is_the_guest'] )
     $url = PHPWG_ROOT_PATH.'picture.php';
     $url.= get_query_string_diff(array('add_fav'));
     $url.= '&amp;add_fav=0';
-    
+
     $template->assign_block_vars(
       'favorite',
       array(
@@ -804,7 +804,7 @@ else
 
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
-$infos['INFO_AVAILABILITY_DATE'] = '<a href="'.
+$infos['INFO_POSTED_DATE'] = '<a href="'.
    PHPWG_ROOT_PATH.'category.php?calendar=posted-c-'.
    substr($picture['current']['date_available'],0,10).'">'.$val.'</a>';
 
@@ -893,7 +893,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
     {
       die('Exif extension not available, admin should disable exif display');
     }
-    
+
     if ($exif = @read_exif_data($picture['current']['src']))
     {
       $template->assign_block_vars(
@@ -912,7 +912,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
             {
               $key = $lang['exif_field_'.$field];
             }
-            
+
             $template->assign_block_vars(
               'metadata.line',
               array(
@@ -932,7 +932,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
             {
               $key = $lang['exif_field_'.$tokens[1]];
             }
-            
+
             $template->assign_block_vars(
               'metadata.line',
               array(
@@ -957,7 +957,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
         array('TITLE' => 'IPTC Metadata')
         );
     }
-    
+
     foreach ($iptc as $field => $value)
     {
       $key = $field;
@@ -965,7 +965,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
       {
         $key = $lang[$field];
       }
-      
+
       $template->assign_block_vars(
         'metadata.line',
         array(
@@ -980,7 +980,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
 if ( isset( $_GET['slideshow'] ) )
 {
   if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'];
-  
+
   $template->assign_block_vars('stop_slideshow', array(
   'U_SLIDESHOW'=>$picture['current']['url']
   ));
@@ -1019,7 +1019,7 @@ SELECT COUNT(rate) AS count
       FROM '.RATE_TABLE.'
       WHERE element_id = '.$_GET['image_id'] . '
       AND user_id = '.$user['id'] ;
-  
+
       if ($user['is_the_guest'])
       {
         $ip_components = explode('.', $_SERVER['REMOTE_ADDR']);
@@ -1030,7 +1030,7 @@ SELECT COUNT(rate) AS count
         $anonymous_id = implode ('.', $ip_components);
         $query .= ' AND anonymous_id = \''.$anonymous_id . '\'';
       }
-      
+
       $result = pwg_query($query);
       if (mysql_num_rows($result) > 0)
       {
@@ -1044,7 +1044,7 @@ SELECT COUNT(rate) AS count
         $sentence = $lang['never_rated'].'. '.$lang['Rate'];
       }
     }
-    else  
+    else
     {
       $sentence = $lang['never_rated'].'. '.$lang['Rate'];
     }
@@ -1110,7 +1110,7 @@ if ($page['show_comments'])
   $query.= " AND validated = 'true'";
   $query.= ';';
   $row = mysql_fetch_array( pwg_query( $query ) );
-  
+
   // navigation bar creation
   $url = PHPWG_ROOT_PATH.'picture.php';
   $url.= get_query_string_diff(array('add_fav','start'));
@@ -1161,7 +1161,7 @@ if ($page['show_comments'])
       }
     }
   }
-  
+
   if (!$user['is_the_guest']
       or ($user['is_the_guest'] and $conf['comments_forall']))
   {

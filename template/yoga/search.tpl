@@ -20,7 +20,7 @@
 </div>
 <!-- END errors -->
 <table width="100%" align="center" cellpadding="2">
-  <tr> 
+  <tr>
     <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b>
     <td colspan="2" valign="top">
 	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
@@ -29,13 +29,13 @@
 	  <input type="radio" name="mode" value="OR" /> {L_SEARCH_ANY_TERMS}
 	</td>
   </tr>
-  <tr> 
+  <tr>
     <td colspan="2"><b>{L_SEARCH_AUTHOR} :</b>
     <td colspan="2" valign="middle">
 	  <input type="text" style="width: 300px" name="search_author" size="30" />
 	</td>
   </tr>
-  <tr> 
+  <tr>
     <td colspan="2"><b>{L_SEARCH_DATE} :</b>
     <td colspan="2" valign="middle">
       <table>
@@ -76,10 +76,10 @@
       </table>
     </td>
   </tr>
-  <tr class="admin"> 
+  <tr class="admin">
     <th colspan="4">{L_SEARCH_OPTIONS}</th>
   </tr>
-  <tr> 
+  <tr>
     <td width="25%" ><b>{L_SEARCH_CATEGORIES} : </b>
     <td width="25%" nowrap="nowrap">
 	  <select style="width:200px" name="cat[]" multiple="multiple" size="8">
@@ -94,11 +94,11 @@
 	  <input type="radio" name="subcats-included" value="0" />{L_NO}
 	</td>
    </tr>
-   <tr> 
+   <tr>
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_DATE_TYPE} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{L_SEARCH_CREATION}<br />
-	  <input type="radio" name="date_type" value="date_available" />{L_SEARCH_AVAILABILITY}
+	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{lang:Creation date}<br />
+	  <input type="radio" name="date_type" value="date_available" />{lang:Post date}
 	</td>
 	<td><b>{L_RESULT_SORT} : </b></td>
     <td nowrap="nowrap">
@@ -106,7 +106,7 @@
 	  <input type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
 	</td>
   </tr>
-<!--  <tr> 
+<!--  <tr>
     <td width="25%" nowrap="nowrap"><b>{L_SEARCH_WITHIN} : </b></td>
     <td width="25%" nowrap="nowrap">
 	  <input type="radio" name="search_fields" value="all" checked="checked" />{L_SEARCH_ALL}<br />
@@ -126,9 +126,9 @@
 	  <input type="radio" name="show_results" value="images" checked="checked" />{L_IMAGES}&nbsp;&nbsp;
 	  <input type="radio" name="show_results" value="comments" /> {L_COMMENTS}
 	</td>
-  </tr>  
+  </tr>
   -->
-<tr> 
+<tr>
 <td align="center" valign="bottom" colspan="4" height="38">
 <input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />&nbsp;&nbsp;
 <input type="reset" value="{L_RESET}" class="bouton" />

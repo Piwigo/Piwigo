@@ -69,24 +69,24 @@
     <form method="post" action="{F_IDENTIFY}" class="filter" id="quickconnect">
       <fieldset>
         <legend>{lang:Quick connect}</legend>
-    
+
         <label>
           {lang:Username}
           <input type="text" name="username" size="15" value="">
         </label>
-        
+
         <label>
           {L_PASSWORD}
           <input type="password" name="password" size="15">
         </label>
-        
+
         <!-- BEGIN remember_me -->
         <label>
           {L_REMEMBER_ME}
           <input type="checkbox" name="remember_me" value="1">
         </label>
         <!-- END remember_me -->
-    
+
         <p>
          <input type="submit" name="login" value="{lang:submit}">
         </p>
@@ -95,7 +95,7 @@
       <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
     </ul>
 
-      </fieldset>    
+      </fieldset>
     </form>
     <!-- END quickconnect -->
 
@@ -117,11 +117,11 @@
       </select>
       </li>
       <!-- END preferred_image_order -->
-      
+
       <!-- BEGIN caddie -->
       <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
       <!-- END caddie -->
-      
+
       <!-- BEGIN edit -->
       <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="{themeconf:icon_dir}/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
       <!-- END edit -->
@@ -129,38 +129,42 @@
       <!-- BEGIN search_rules -->
       <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
-      
-      <!-- BEGIN calendar_view -->
-      <li><a href="{calendar_view.URL}" title="{lang:calendar_hint}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
-      <!-- END calendar_view -->
-      <!-- BEGIN normal_view -->
-      <li><a href="{normal_view.URL}" title="{lang:calendar}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:calendar}"></a></li>
-      <!-- END normal_view -->
+
+      <!-- BEGIN mode_normal -->
+      <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
+      <!-- END mode_normal -->
+      <!-- BEGIN mode_posted -->
+      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
+      <!-- END mode_posted -->
+      <!-- BEGIN mode_created -->
+      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}"><img src="{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
+      <!-- END mode_created -->
     </ul>
-    
+
   <h2>{TITLE}
   <!-- BEGIN calendar -->
-  <br/>{calendar.TITLE}
-  <!-- END calendar --></h2>
+  {calendar.TITLE}
+  <!-- END calendar -->
+  </h2>
   </div> <!-- content -->
-    
+
 <!-- BEGIN calendar -->
 <!-- BEGIN views -->
 <div class="calendarViews">
-<select onchange="document.location = this.options[this.selectedIndex].value;">
+{lang:calendar_view}: <select onchange="document.location = this.options[this.selectedIndex].value;">
 <!-- BEGIN view -->
   <option value="{calendar.views.view.VALUE}" {calendar.views.view.SELECTED}>{calendar.views.view.CONTENT}</option>
 <!-- END view -->
 </select>
-</div><br/>
+</div>
 <!-- END views -->
 
 <!-- BEGIN navbar -->
-<div class="navigationBar">{calendar.navbar.BAR}</div>
+<div class="calendarBar">{calendar.navbar.BAR}</div>
 <!-- END navbar -->
 
 <!-- BEGIN calbar -->
-<div class="calendarBar">{calendar.calbar.BAR}</div>
+<div class="calendarCalBar">{calendar.calbar.BAR}</div>
 <!-- END calbar -->
 <!-- END calendar -->
 

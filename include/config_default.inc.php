@@ -90,13 +90,17 @@ $conf['anti-flood_time'] = 60;
 // catgory
 $conf['calendar_datefield'] = 'date_creation';
 
-// calendar_multi_bar : the calendar shows a maximum number of 
+// calendar_multi_bar : the calendar shows a maximum number of
 // year/month/week/day navigation bars
 $conf['calendar_multi_bar'] = true;
 
 // calendar_show_any : the calendar shows an aditional 'any' button in the
 // year/month/week/day navigation bars
 $conf['calendar_show_any'] = true;
+
+// calendar_show_empty : the calendar shows month/weeks/days even if there are
+//no elements for these
+$conf['calendar_show_empty'] = true;
 
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
@@ -249,7 +253,7 @@ $conf['show_exif'] = true;
 //
 // for PHP version newer than 4.1.2 :
 // $conf['show_exif_fields'] = array('CameraMake','CameraModel','DateTime');
-// 
+//
 $conf['show_exif_fields'] = array(
   'Make',
   'Model',
@@ -270,11 +274,11 @@ $conf['use_exif_mapping'] = array(
 // |                               sessions                                |
 // +-----------------------------------------------------------------------+
 
-// session_use_cookies: specifies to use cookie to store 
+// session_use_cookies: specifies to use cookie to store
 // the session id on client side
 $conf['session_use_cookies'] = true;
 
-// session_use_only_cookies: specifies to only use cookie to store 
+// session_use_only_cookies: specifies to only use cookie to store
 // the session id on client side
 $conf['session_use_only_cookies'] = true;
 
@@ -284,7 +288,7 @@ $conf['session_use_trans_sid'] = false;
 // session_name: specifies the name of the session which is used as cookie name
 $conf['session_name'] = 'pwg_id';
 
-// session_save_handler: comment the line below 
+// session_save_handler: comment the line below
 // to use file handler for sessions.
 $conf['session_save_handler'] = 'db';
 

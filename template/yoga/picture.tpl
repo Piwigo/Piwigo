@@ -91,8 +91,8 @@
     <td class="value">{INFO_CREATION_DATE}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Registered on}</td>
-    <td class="value">{INFO_AVAILABILITY_DATE}</td>
+    <td class="label">{lang:Posted on}</td>
+    <td class="value">{INFO_POSTED_DATE}</td>
   </tr>
   <tr>
     <td class="label">{lang:Dimensions}</td>

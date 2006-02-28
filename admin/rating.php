@@ -114,7 +114,7 @@ while ($row = mysql_fetch_array($result))
 }
 
 
-$query = 'SELECT COUNT(DISTINCT(i.id)) 
+$query = 'SELECT COUNT(DISTINCT(i.id))
 FROM '.RATE_TABLE.' AS r, '.IMAGES_TABLE.' AS i
 WHERE r.element_id=i.id'. $display_filter .
 ';';
@@ -146,13 +146,13 @@ $template->assign_vars(
 
 $available_order_by= array(
     array(l10n('Rate date'), 'recently_rated DESC'),
-    array(l10n('Average rate'), 'average_rate DESC'), 
-    array(l10n('Number of rates'), 'nb_rates DESC'), 
-    array(l10n('Sum of rates'), 'sum_rates DESC'), 
-    array(l10n('Controversy'), 'std_rates DESC'), 
-    array(l10n('File name'), 'file DESC'), 
+    array(l10n('Average rate'), 'average_rate DESC'),
+    array(l10n('Number of rates'), 'nb_rates DESC'),
+    array(l10n('Sum of rates'), 'sum_rates DESC'),
+    array(l10n('Controversy'), 'std_rates DESC'),
+    array(l10n('File name'), 'file DESC'),
     array(l10n('Creation date'), 'date_creation DESC'),
-    array(l10n('Availability date'), 'date_available DESC'),
+    array(l10n('Post date'), 'date_available DESC'),
 
   );
 
@@ -168,9 +168,9 @@ for ($i=0; $i<count($available_order_by); $i++)
     );
 }
 
-$query = 'SELECT i.id, i.path, i.file, i.tn_ext, i.average_rate, i.storage_category_id, 
-          MAX(r.date) as recently_rated, COUNT(r.rate) as nb_rates, 
-          SUM(r.rate) as sum_rates, ROUND(STD(r.rate),2) as std_rates 
+$query = 'SELECT i.id, i.path, i.file, i.tn_ext, i.average_rate, i.storage_category_id,
+          MAX(r.date) as recently_rated, COUNT(r.rate) as nb_rates,
+          SUM(r.rate) as sum_rates, ROUND(STD(r.rate),2) as std_rates
 FROM '.RATE_TABLE.' AS r LEFT JOIN '.IMAGES_TABLE.' AS i
 ON r.element_id=i.id
 WHERE 1=1 ' . $display_filter . '
@@ -195,7 +195,7 @@ foreach ($images as $image)
   $image_url = PHPWG_ROOT_PATH.'picture.php?'.
                 'cat=' . $image['storage_category_id'].
                 '&amp;image_id=' . $image['id'];
-    
+
   $query = 'SELECT *
 FROM '.RATE_TABLE.' AS r
 WHERE r.element_id='.$image['id'] . '
@@ -203,7 +203,7 @@ ORDER BY date DESC;';
   $result = pwg_query($query);
   $nb_rates = mysql_num_rows($result);
 
-  $template->assign_block_vars('image', 
+  $template->assign_block_vars('image',
      array(
        'U_THUMB' => $thumbnail_src,
        'U_URL' => $image_url,
@@ -222,11 +222,11 @@ ORDER BY date DESC;';
 
     $url_del = PHPWG_ROOT_PATH.'admin.php'.
                 get_query_string_diff(array('del'));
-    
+
     $del_param = 'e='.$image['id'].
                  '&u='.$row['user_id'].
                  '&a='.$row['anonymous_id'];
-    
+
     $url_del .= '&amp;del='.urlencode(urlencode($del_param));
 
     if ( isset($users[$row['user_id']]) )
@@ -241,8 +241,8 @@ ORDER BY date DESC;';
     {
       $user .= '('.$row['anonymous_id'].')';
     }
-    
-    $template->assign_block_vars('image.rate', 
+
+    $template->assign_block_vars('image.rate',
        array(
          'DATE' => format_date($row['date']),
          'RATE' => $row['rate'],

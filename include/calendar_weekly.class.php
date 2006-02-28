@@ -36,32 +36,58 @@ define ('CDAY',  2);
 class Calendar extends CalendarBase
 {
 
+  /**
+   * Initialize the calendar
+   * @param string date_field db column on which this calendar works
+   * @param string inner_sql used for queries (INNER JOIN or normal)
+   * @param array date_components
+   */
+  function initialize($date_field, $inner_sql, $date_components)
+  {
+    parent::initialize($date_field, $inner_sql, $date_components);
+    global $lang;
+    $this->calendar_levels = array(
+      array(
+          'sql'=> 'YEAR('.$this->date_field.')',
+          'labels' => null
+        ),
+      array(
+          'sql'=> 'WEEK('.$this->date_field.')+1',
+          'labels' => null
+        ),
+      array(
+          'sql'=> 'DAYOFWEEK('.$this->date_field.')-1',
+          'labels' => $lang['day']
+        ),
+     );
+    //Comment next lines for week starting on Sunday or if MySQL version<4.0.17
+    //WEEK(date,5) = "0-53 - Week 1=the first week with a Monday in this year"
+    $this->calendar_levels[CWEEK]['sql'] = 'WEEK('.$this->date_field.',5)+1';
+    $this->calendar_levels[CDAY]['sql'] = 'WEEKDAY('.$this->date_field.')';
+    array_push( $this->calendar_levels[CDAY]['labels'],
+                array_shift( $this->calendar_levels[CDAY]['labels'] ) );
+  }
+
 /**
  * Generate navigation bars for category page
  * @return boolean false to indicate that thumbnails where not included here
  */
 function generate_category_content($url_base, $view_type)
 {
-  global $lang, $conf;
+  global $conf;
 
   $this->url_base = $url_base;
 
   assert($view_type==CAL_VIEW_LIST);
 
-  if ( $conf['calendar_multi_bar'] or count($this->date_components)==0 )
+  $this->build_nav_bar(CYEAR); // years
+  if ( count($this->date_components)>=1 )
   {
-    $this->build_nav_bar(CYEAR, 'YEAR'); // years
-  }
-  if ( count($this->date_components)>=1 and
-      ( $conf['calendar_multi_bar'] or count($this->date_components)==1 )
-     )
-  {
-    $this->build_nav_bar(CWEEK, 'WEEK', '+1' ); // month
+    $this->build_nav_bar(CWEEK); // week nav bar 1-53
   }
   if ( count($this->date_components)>=2 )
   {
-    $this->build_nav_bar(CDAY, 'DAYOFWEEK', '-1',
-                         $lang['day'] ); // days
+    $this->build_nav_bar(CDAY); // days nav bar Mon-Sun
   }
   return false;
 }
@@ -75,68 +101,29 @@ function generate_category_content($url_base, $view_type)
  */
 function get_date_where($max_levels=3)
 {
-  $date_components = $this->date_components;
-  while (count($date_components)>$max_levels)
+  $date = $this->date_components;
+  while (count($date)>$max_levels)
   {
-    array_pop($date_components);
+    array_pop($date);
   }
   $res = '';
-  if (isset($date_components[CYEAR]) and $date_components[CYEAR]!='any')
+  if (isset($date[CYEAR]) and $date[CYEAR]!='any')
   {
-    $y = $date_components[CYEAR];
+    $y = $date[CYEAR];
     $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31 23:59:59'";
   }
 
-  if (isset($date_components[CWEEK]) and $date_components[CWEEK]!='any')
+  if (isset($date[CWEEK]) and $date[CWEEK]!='any')
   {
-    $res .= ' AND WEEK('.$this->date_field.')+1='.$date_components[CWEEK];
+    $res .= ' AND '.$this->calendar_levels[CWEEK]['sql'].'='.$date[CWEEK];
   }
-  if (isset($date_components[CDAY]) and $date_components[CDAY]!='any')
+  if (isset($date[CDAY]) and $date[CDAY]!='any')
   {
-    $res .= ' AND DAYOFWEEK('.$this->date_field.')-1='
-            .$date_components[CDAY];
+    $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
   }
   if (empty($res))
   {
     $res = ' AND '.$this->date_field.' IS NOT NULL';
-  }
-  return $res;
-}
-
-function get_display_name()
-{
-  global $conf,$lang;
-  $res = '';
-  $url = $this->url_base;
-  if ( isset($this->date_components[CYEAR]) )
-  {
-    $res .= $conf['level_separator'];
-    $url .= $this->date_components[CYEAR].'-';
-    $res .= 
-      '<a href="'.$url.'">'
-      .$this->get_date_component_label($this->date_components[CYEAR])
-      .'</a>';
-  }
-  if ( isset($this->date_components[CWEEK]) )
-  {
-    $res .= $conf['level_separator'];
-    $url .= $this->date_components[CWEEK].'-';
-    $res .= 
-      '<a href="'.$url.'">'
-      .$this->get_date_component_label($this->date_components[CWEEK])
-      .'</a>';
-  }
-  if ( isset($this->date_components[CDAY]) )
-  {
-    $res .= $conf['level_separator'];
-    $url .= $this->date_components[CDAY].'-';
-    $res .= 
-      '<a href="'.$url.'">'
-      .$this->get_date_component_label(
-                    $this->date_components[CDAY], 
-                    $lang['day']
-                    )
-      .'</a>';
   }
   return $res;
 }

@@ -159,8 +159,8 @@ UL.categoryActions {
 
 #content DIV.comment BLOCKQUOTE {
   margin-top: 1em;
-  margin-right: 0.5em; 
-  margin-bottom: 150px; 
+  margin-right: 0.5em;
+  margin-bottom: 150px;
   padding: 0.5em;
 }
 
@@ -180,24 +180,37 @@ SPAN.filename:after {
 
 
 #content DIV.calendarViews {
-  float: left;
+  display: block;
+  text-align: left;
+  margin: 5px 0;
 }
 
-SPAN.cal {
+#content DIV.calendarBar {
+  margin: 8px 4px;
+}
+
+SPAN.calItem {
   font-weight: bold;
-  border: 1px solid gray;
   margin: 0 2px;
+  border: 1px solid gray;
 }
 
-SPAN.calSel {
+SPAN.calItemSel {
   font-weight: bold;
+  margin: 0 2px;
+  border: 1px solid gray;
   color: dark-gray;
-  border: 1px solid gray;
-  margin: 0 2px;
 }
 
-#content .calendarBar {
-  margin: 8px 5px;
+SPAN.calItemEmpty {
+  font-weight: bold;
+  margin: 0 2px;
+  border: 1px solid gray;
+  color: lightgray;
+}
+
+#content DIV.calendarCalBar {
+  margin: 10px 10px;
   text-align: left;
 }
 

@@ -35,14 +35,14 @@ if (isset($_POST['submit']))
 {
   if (isset($_POST['search_allwords'])
       and !preg_match('/^\s*$/', $_POST['search_allwords']))
-  {    
+  {
     $drop_char_match = array(
       '-','^','$',';','#','&','(',')','<','>','`','\'','"','|',',','@','_',
       '?','%','~','.','[',']','{','}',':','\\','/','=','\'','!','*');
     $drop_char_replace = array(
       ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','','',' ',' ',' ',' ','',' ',
       ' ',' ',' ',' ',' ',' ',' ',' ','' ,' ',' ',' ',' ',' ');
-	
+
     // Split words
     $search['fields']['allwords'] = array(
       'words' => array_unique(
@@ -58,7 +58,7 @@ if (isset($_POST['submit']))
       'mode' => $_POST['mode'],
       );
   }
-  
+
   if ($_POST['search_author'])
   {
     $search['fields']['author'] = array(
@@ -69,7 +69,7 @@ if (isset($_POST['submit']))
       'mode' => 'OR',
       );
   }
-  
+
   if (isset($_POST['cat']))
   {
     $search['fields']['cat'] = array(
@@ -80,7 +80,7 @@ if (isset($_POST['submit']))
 
   // dates
   $type_date = $_POST['date_type'];
-  
+
   if (!empty($_POST['start_year']))
   {
     $search['fields'][$type_date.'-after'] = array(
@@ -110,7 +110,7 @@ if (isset($_POST['submit']))
       'inc' => true,
       );
   }
-  
+
   if (!empty($search))
   {
     // default search mode : each clause must be respected
@@ -178,12 +178,10 @@ $template->assign_vars(array(
   'L_DAYS'=>$lang['days'],
   'L_MONTH'=>$lang['w_month'],
   'L_SEARCH_DATE_TYPE'=>$lang['search_date_type'],
-  'L_SEARCH_CREATION'=>$lang['search_date_creation'],
-  'L_SEARCH_AVAILABILITY'=>$lang['search_date_available'],
   'L_RESULT_SORT'=>$lang['search_sort'],
   'L_SORT_ASCENDING'=>$lang['search_ascending'],
   'L_SORT_DESCENDING'=>$lang['search_descending'],
-  
+
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
