@@ -50,17 +50,17 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 define('CURRENT_DATE', $dbnow);
 
 $error_labels = array(
-  'PWG-UPDATE-1' => array( l10n('update_wrong_dirname_short'), 
+  'PWG-UPDATE-1' => array( l10n('update_wrong_dirname_short'),
                            l10n('update_wrong_dirname_info') ),
   'PWG-UPDATE-2' => array( l10n('update_missing_tn_short'),
-                           l10n('update_missing_tn_info') 
+                           l10n('update_missing_tn_info')
                            . implode(',', $conf['picture_ext']) ),
-  'PWG-ERROR-NO-FS' => array( l10n('Does not exist'), 
+  'PWG-ERROR-NO-FS' => array( l10n('update_missing_file_or_dir'),
                              l10n('update_missing_file_or_dir_info')),
-  'PWG-ERROR-VERSION' => array( l10n('Invalid PhpWebGalley version'), 
-                             l10n('update_pwg_version_differs_info')),
-  'PWG-ERROR-NOLISTING' => array( l10n('remote_site_listing_not_found'), 
-                             l10n('remote_site_listing_not_found_info'))
+  'PWG-ERROR-VERSION' => array( l10n('update_err_pwg_version_differs'),
+                             l10n('update_err_pwg_version_differs_info')),
+  'PWG-ERROR-NOLISTING' => array( l10n('update_err_remote_listing_not_found'),
+                             l10n('update_err_remote_listing_not_found_info'))
                       );
 $errors = array();
 $infos = array();
@@ -408,7 +408,14 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         $insert{'storage_category_id'} = $db_fulldirs[$dirname];
         $insert{'date_available'} = CURRENT_DATE;
         $insert{'tn_ext'} = $fs[$path]['tn_ext'];
-        $insert{'has_high'} = $fs[$path]['has_high'];
+        if ( isset($fs[$path]['has_high']) )
+        {
+          $insert{'has_high'} = $fs[$path]['has_high'];
+        }
+        else
+        {
+          $insert{'has_high'} = null;
+        }
         $insert{'path'} = $path;
 
         array_push($inserts, $insert);
@@ -430,6 +437,14 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       $insert{'storage_category_id'} = $db_fulldirs[$dirname];
       $insert{'date_available'} = CURRENT_DATE;
       $insert{'has_high'} = $fs[$path]['has_high'];
+      if ( isset($fs[$path]['has_high']) )
+      {
+        $insert{'has_high'} = $fs[$path]['has_high'];
+      }
+      else
+      {
+        $insert{'has_high'} = null;
+      }
       $insert{'path'} = $path;
 
       if ( isset($fs[$path]['tn_ext']) )
@@ -524,7 +539,7 @@ SELECT id
 
       foreach ($fields['update'] as $field)
       {
-        $data[$field] = getAttribute($row['infos'], $field);
+        $data[$field] = addslashes( getAttribute($row['infos'], $field) );
       }
 
       array_push($datas, $data);
@@ -581,7 +596,7 @@ if (isset($_POST['submit'])
 // +-----------------------------------------------------------------------+
 // |                          synchronize metadata                         |
 // +-----------------------------------------------------------------------+
-if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync']) 
+if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
          and !$general_failure)
 {
   // sync only never synchronized files ?
@@ -642,7 +657,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
   {
     mass_updates(IMAGES_TABLE, $fields, $datas);
   }
-  
+
   echo '<!-- metadata update : ';
   echo get_elapsed_time($start, get_moment());
   echo ' -->'."\n";
@@ -671,7 +686,7 @@ if (isset($simulate) and $simulate)
 $used_metadata = implode( ', ', $site_reader->get_update_attributes());
 if ($site_is_remote and !isset($_POST['submit']) )
 {
-  $used_metadata.= ' + ' . l10n('Aditionnal remote attributes');
+  $used_metadata.= ' + ...';
 }
 
 $template->assign_vars(

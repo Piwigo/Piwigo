@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -81,7 +81,7 @@ $template->assign_vars(
     'U_CAT_VISIBLE'=> $opt_link.'visible',
     'U_CAT_STATUS'=> $opt_link.'status',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
-    'U_CAT_UPDATE'=> $link_start.'update',
+    'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_WAITING'=> $link_start.'waiting',
     'U_COMMENTS'=> $link_start.'comments',
     'U_RATING'=> $link_start.'rating',
@@ -105,7 +105,7 @@ if ($conf['allow_random_representative'])
       )
     );
 }
-  
+
 //------------------------------------------------------------- content display
 $page['errors'] = array();
 $page['infos']  = array();

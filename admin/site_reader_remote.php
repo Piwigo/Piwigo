@@ -71,7 +71,7 @@ function open()
   }
   else
   {
-    array_push($errors, array('path' => $listing_file, 'type' => 'PWG-ERROR-NO-FS'));
+    array_push($errors, array('path' => $listing_file, 'type' => 'PWG-ERROR-NOLISTING'));
     return false;
   }
 }
@@ -94,7 +94,7 @@ function get_full_directories($basedir)
 }
 
 /**
- * Returns a hash with all elements (images and files) inside the full $path 
+ * Returns a hash with all elements (images and files) inside the full $path
  * according to listing.xml
  * @param string $path recurse in this directory only
  * @return array like "pic.jpg"=>array('tn_ext'=>'jpg' ... )
@@ -109,7 +109,7 @@ function get_elements($path)
     {
       foreach ( $files as $file)
       {
-        $data = $this->get_element_attributes($file, 
+        $data = $this->get_element_attributes($file,
                                               $this->insert_attributes);
         $elements[$file] = $data;
       }
@@ -119,7 +119,7 @@ function get_elements($path)
   return $elements;
 }
 
-// returns the name of the attributes that are supported for 
+// returns the name of the attributes that are supported for
 // update/synchronization according to listing.xml
 function get_update_attributes()
 {
@@ -129,7 +129,7 @@ function get_update_attributes()
 // returns a hash of attributes (metadata+filesize+width,...) for file
 function get_element_update_attributes($file)
 {
-    return $this->get_element_attributes($file, 
+    return $this->get_element_attributes($file,
                                          $this->update_attributes);
 }
 
@@ -137,13 +137,13 @@ function get_element_update_attributes($file)
 /**
  * Returns a hash of image/file attributes
  * @param string $file fully qualified file name
- * @param array $attributes specifies which attributes to retrieve 
+ * @param array $attributes specifies which attributes to retrieve
  *  returned
 */
 function get_element_attributes($file, $attributes)
 {
   $xml_element = $this->site_files[$file];
-  if ( ! isset($xml_element) ) 
+  if ( ! isset($xml_element) )
   {
     return null;
   }
@@ -152,7 +152,7 @@ function get_element_attributes($file, $attributes)
   {
     if (getAttribute($xml_element, $att) != '')
     {
-      $val = html_entity_decode( getAttribute($xml_element, $att) );
+      $val = getAttribute($xml_element, $att);
       $data[$att] = addslashes($val);
     }
   }

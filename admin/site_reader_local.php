@@ -46,7 +46,7 @@ function open()
   global $errors;
   if (!is_dir($this->site_url))
   {
-    array_push($errors, array('path' => $this->site_url, 'type' => 'PWG-ERROR-NODIR'));
+    array_push($errors, array('path' => $this->site_url, 'type' => 'PWG-ERROR-NO-FS'));
     return false;
   }
   return true;
@@ -60,7 +60,7 @@ function get_full_directories($basedir)
 }
 
 /**
- * Returns an array with all file system files according to $conf['file_ext'] 
+ * Returns an array with all file system files according to $conf['file_ext']
  * and $conf['picture_ext']
  * @param string $path recurse in this directory
  * @return array like "pic.jpg"=>array('tn_ext'=>'jpg' ... )
@@ -130,12 +130,12 @@ function get_elements($path)
   return $fs;
 }
 
-// returns the name of the attributes that are supported for 
+// returns the name of the attributes that are supported for
 // update/synchronization according to configuration
 function get_update_attributes()
 {
   global $conf;
-  $update_fields = array( 'has_high', 'representative_ext', 
+  $update_fields = array( 'has_high', 'representative_ext',
       'filesize', 'width', 'height' );
   if ($conf['use_exif'])
   {
@@ -165,14 +165,14 @@ function get_element_update_attributes($file)
   {
     return null;
   }
-  
+
   $data = array();
-  
+
   $filename = basename($file);
   $data['has_high'] = $this->get_has_high( dirname($file), $filename );
-  $data['representative_ext'] = $this->get_representative_ext( dirname($file), 
+  $data['representative_ext'] = $this->get_representative_ext( dirname($file),
                                         get_filename_wo_extension($filename) );
-  
+
   $data['filesize'] = floor(filesize($file)/1024);
   if ($image_size = @getimagesize($file))
   {

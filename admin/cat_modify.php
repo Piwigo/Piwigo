@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -258,7 +258,6 @@ if (!$category['is_virtual']) //!empty($category['dir']))
     array('CATEGORY_DIR'=>preg_replace('/\/$/',
                                        '',
                                        get_complete_dir($category['id']))));
-  $template->assign_block_vars('upload' ,array());
 }
 else
 {
@@ -300,7 +299,8 @@ SELECT id,name,uppercats,global_rank
     );
 }
 
-if (is_numeric($category['site_id']) and $category['site_id'] != 1)
+$category['cat_dir'] = get_complete_dir($_GET['cat_id']);
+if (is_numeric($category['site_id']) and url_is_remote($category['cat_dir']) )
 {
   $query = '
 SELECT galleries_url
@@ -309,6 +309,11 @@ SELECT galleries_url
 ;';
   list($galleries_url) = mysql_fetch_array(pwg_query($query));
   $template->assign_block_vars('server', array('SITE_URL' => $galleries_url));
+}
+
+if (!$category['is_virtual'] and !url_is_remote($category['cat_dir']) )
+{
+  $template->assign_block_vars('upload' ,array());
 }
 
 //----------------------------------------------------------- sending html code

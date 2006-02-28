@@ -3,7 +3,7 @@
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:remote_sites}</h2>
+  <h2>{lang:Site manager}</h2>
 </div>
 
 <!-- BEGIN remote_output -->
@@ -22,14 +22,14 @@
   <tr align="left"><td>
     <a href="{sites.site.NAME}" target="_blank">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:categories}, {sites.site.IMAGES} {lang:picture}s)
   </td><td>  
-    [<a href="{sites.site.U_UPDATE}" title="{lang:update this site}">{lang:remote_site_update}</a>]
+    [<a href="{sites.site.U_SYNCHRONIZE}" title="{lang:site_synchronize_hint}">{lang:site_synchronize}</a>]
     <!-- BEGIN delete -->
       [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');" 
-                title="{lang:remote_site_delete_hint}">{lang:remote_site_delete}</a>]
+                title="{lang:site_delete_hint}">{lang:site_delete}</a>]
     <!-- END delete -->
     <!-- BEGIN remote -->
       <br>
-      [<a href="{sites.site.remote.U_TEST}" title="{lang:@@}">{lang:Test}</a>]
+      [<a href="{sites.site.remote.U_TEST}" title="{lang:remote_site_test_hint}">{lang:remote_site_test}</a>]
       [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}">{lang:remote_site_generate}</a>]
       [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}">{lang:remote_site_clean}</a>]
     <!-- END remote -->
@@ -40,7 +40,7 @@
 
 <form action="{F_ACTION}" method="post">
   <p>
-    <label for="galleries_url" >{lang:remote_site_create}</label> 
+    <label for="galleries_url" >{lang:site_create}</label> 
     <input type="text" name="galleries_url" id="galleries_url" />
   </p>
   <p>

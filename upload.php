@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -125,7 +125,7 @@ if (isset($page['cat']))
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
-  if ($page['cat_site_id'] != 1 or !$page['cat_uploadable'])
+  if ( url_is_remote($page['cat_dir']) or !$page['cat_uploadable'])
   {
     echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
     echo '<a href="./category.php">';
@@ -182,10 +182,10 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   // <infos author="Pierrick LE GALL" comment="my comment"
   //        date_creation="2004-08-14" name="" />
   $xml_infos = '<infos';
-  $xml_infos.= ' author="'.htmlspecialchars($_POST['author'],ENT_QUOTES).'"';
-  $xml_infos.= ' comment="'.htmlspecialchars($_POST['comment'],ENT_QUOTES).'"';
-  $xml_infos.= ' date_creation="'.$date_creation.'"';
-  $xml_infos.= ' name="'.htmlspecialchars( $_POST['name'], ENT_QUOTES).'"';
+  $xml_infos.= encodeAttribute('author', $_POST['author']);
+  $xml_infos.= encodeAttribute('comment', $_POST['comment']);
+  $xml_infos.= encodeAttribute('date_creation', $date_creation);
+  $xml_infos.= encodeAttribute('name', $_POST['name']);
   $xml_infos.= ' />';
 
   if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )

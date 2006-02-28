@@ -53,8 +53,17 @@ function getAttribute( $element, $attribute )
 {
 //  echo htmlentities($element).'<br /><br />';
   $regex = '/^<\w+[^>]*'.$attribute.'\s*=\s*"('.VAL_REG.')"/i';
-  if ( preg_match( $regex, $element, $out ) ) return $out[1];
+  if ( preg_match( $regex, $element, $out ) ) 
+  {
+    return html_entity_decode($out[1], ENT_QUOTES);
+  }
   else return '';
+}
+
+// The function encode Attribute returns the xml attribute $attribute="$value" 
+function encodeAttribute( $attribute, $value )
+{
+  return $attribute.'="'.htmlspecialchars($value, ENT_QUOTES).'" ';
 }
 	
 // The function getChild returns the first child

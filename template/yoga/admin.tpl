@@ -15,7 +15,6 @@
       <ul>
 	<li><a href="{U_FAQ}">{lang:instructions}</a></li>
 	<li><a href="{U_SITE_MANAGER}">{lang:Site manager}</a></li>
-	<li><a href="{U_SITES}">{lang:remote_sites}</a></li>
 	<li><a href="{U_HISTORY}">{lang:history}</a></li>
 	<li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
 	<li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>

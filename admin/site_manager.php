@@ -63,7 +63,7 @@ function remote_output($url)
   }
   else
   {
-    array_push($page['errors'], l10n('remote_site_file_not_found'));
+    array_push($page['errors'], l10n('site_err_remote_file_not_found'));
   }
 }
 
@@ -99,7 +99,7 @@ SELECT COUNT(id) AS count
   if ($row['count'] > 0)
   {
     array_push($page['errors'],
-      l10n('remote_site_already_exists').' ['.$url.']');
+      l10n('site_already_exists').' ['.$url.']');
   }
   if (count($page['errors']) == 0)
   {
@@ -114,12 +114,12 @@ SELECT COUNT(id) AS count
         if (!preg_match('/^PWG-INFO-2:/', $first_line))
         {
           array_push($page['errors'],
-                     l10n('remote_site_error').' : '.$first_line);
+                     l10n('site_err').' : '.$first_line);
         }
       }
       else
       {
-        array_push($page['errors'], l10n('remote_site_file_not_found') );
+        array_push($page['errors'], l10n('site_err_remote_file_not_found') );
       }
     }
     else
@@ -142,7 +142,7 @@ INSERT INTO '.SITES_TABLE.'
 ;';
     pwg_query($query);
     array_push($page['infos'],
-               $url.' '.l10n('remote_site_created'));
+               $url.' '.l10n('site_created'));
   }
 }
 
@@ -188,7 +188,7 @@ SELECT galleries_url
     {
       delete_site($page['site']);
       array_push($page['infos'],
-                 $galleries_url.' '.l10n('remote_site_deleted'));
+                 $galleries_url.' '.l10n('site_deleted'));
       break;
     }
   }
@@ -196,9 +196,9 @@ SELECT galleries_url
 
 $template->assign_vars( array(
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php'
-                .get_query_string_diff( array('action','site') ) 
+                .get_query_string_diff( array('action','site') )
   ) );
-  
+
 // +-----------------------------------------------------------------------+
 // |                           remote sites list                           |
 // +-----------------------------------------------------------------------+
@@ -226,18 +226,16 @@ while ($row = mysql_fetch_array($result))
   $update_url = PHPWG_ROOT_PATH.'admin.php';
   $update_url.= '?page=site_update';
   $update_url.= '&amp;site='.$row['id'];
-
   $template->assign_block_vars(
     'sites.site',
     array(
       'NAME' => $row['galleries_url'],
-      'TYPE' => l10n( $is_remote ? 'Remote' : 'Local' ),
+      'TYPE' => l10n( $is_remote ? 'site_remote' : 'site_local' ),
       'CATEGORIES' => $row['nb_categories'],
       'IMAGES' => isset($row['nb_images']) ? $row['nb_images'] : 0,
-      'U_UPDATE' => $update_url
+      'U_SYNCHRONIZE' => $update_url
      )
    );
-
    if ($is_remote)
    {
      $template->assign_block_vars('sites.site.remote',

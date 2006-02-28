@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -435,7 +435,7 @@ if ( isset ( $page['cat'] ) )
 {
   // upload a picture in the category
   if (is_numeric($page['cat'])
-      and $page['cat_site_id'] == 1
+//      and $page['cat_site_id'] == 1
       and $page['cat_dir'] != ''
       and $page['cat_uploadable'])
   {

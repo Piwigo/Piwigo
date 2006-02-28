@@ -21,8 +21,8 @@
 <!-- BEGIN metadata_result -->
 <h3>{L_RESULT_METADATA}</h3>
 <ul>
-  <li>{metadata_result.NB_ELEMENTS_DONE} {lang:update_elements_metadata_sync}</li>
-  <li>{metadata_result.NB_ELEMENTS_CANDIDATES} {lang:elements available for synchronization}</li>
+  <li>{metadata_result.NB_ELEMENTS_DONE} {lang:update_nb_elements_metadata_sync}</li>
+  <li>{metadata_result.NB_ELEMENTS_CANDIDATES} {lang:update_nb_elements_metadata_available}</li>
   <li>{lang:update_used_metadata} : {METADATA_LIST}</li>
 </ul>
 <!-- END metadata_result -->
