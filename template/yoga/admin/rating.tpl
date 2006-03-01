@@ -1,9 +1,9 @@
 <h2>{lang:Rating} [{NB_ELEMENTS} {lang:elements}]</h2>
 
 <form action="" method="GET" id="update">
-<input type="hidden" name="page" value="rating" />
 <fieldset>
-
+<legend></legend>
+<input type="hidden" name="page" value="rating" />
 <ul>
 
 <li><label>{lang:elements per page}: <input type="text" name="display" size="2" value="{DISPLAY}"></label></li>
@@ -39,9 +39,7 @@
 <input type="submit" value="{lang:Submit}" />
 </p>
 </form>
-
 <div class="navigationBar">{NAVBAR}</div>
-
 <table width="100%">
 <tr class="throw">
   <td>{lang:File}</td>

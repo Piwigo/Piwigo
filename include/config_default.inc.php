@@ -102,6 +102,16 @@ $conf['calendar_show_any'] = true;
 //no elements for these
 $conf['calendar_show_empty'] = true;
 
+// calendar_month_cell_width, calendar_month_cell_height : define the
+// width and the height of a cell in the monthly calendar when viewing a
+// given month. a value of 0 means that the pretty view is not shown.
+// a good suggestion would be to have the width and the height equal
+// and smaller than tn_width and tn_height. NOTE THAT tn_width AND tn_height
+// MUST CORRESPOND APPROXIMATIVELY TO YOUR REAL THUMBNAIL SIZE, OTHERWISE
+// THE IMAGES WILL NOT SHOW CORRECTLY
+$conf['calendar_month_cell_width'] =80;
+$conf['calendar_month_cell_height']=80;
+
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
 $conf['newcat_default_commentable'] = 'true';

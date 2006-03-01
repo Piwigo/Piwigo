@@ -113,9 +113,9 @@ function generate_category_content($url_base, $view_type)
     {
       $this->build_nav_bar(
           CDAY,
-          $this->get_all_days_in_month(
-              $this->date_components[CYEAR] ,$this->date_components[CMONTH]
-            )
+          range( 1, $this->get_all_days_in_month(
+              $this->date_components[CYEAR] ,$this->date_components[CMONTH] )
+              )
         ); // days
     }
   }
@@ -211,7 +211,7 @@ function get_all_days_in_month($year, $month)
   {
     $nb_days = 31;
   }
-  return range(1, $nb_days);
+  return $nb_days;
 }
 
 function build_global_calendar()
@@ -324,8 +324,8 @@ function build_year_calendar()
 
 function build_month_calendar()
 {
-  $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%d")) as period,
-            COUNT(id) as count';
+  $query='SELECT DISTINCT(DAYOFMONTH('.$this->date_field.')) as period,
+            COUNT( DISTINCT(id) ) as count';
   $query.= $this->inner_sql;
   $query.= $this->get_date_where($this->date_components);
   $query.= '
@@ -334,7 +334,7 @@ function build_month_calendar()
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $d = $row['period'];
+    $d = (int)$row['period'];
     $items[$d] = array('nb_images'=>$row['count']);
   }
 
@@ -342,7 +342,7 @@ function build_month_calendar()
   {
     $this->date_components[CDAY]=$day;
     $query = '
-SELECT file,tn_ext,path, DAYOFWEEK('.$this->date_field.')-1 as dw';
+SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as dow';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '
@@ -353,36 +353,197 @@ SELECT file,tn_ext,path, DAYOFWEEK('.$this->date_field.')-1 as dw';
     $row = mysql_fetch_array(pwg_query($query));
     $items[$day]['tn_path'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
     $items[$day]['tn_file'] = $row['file'];
-    $items[$day]['tn_dw'] = $row['dw'];
+    $items[$day]['width'] = $row['width'];
+    $items[$day]['height'] = $row['height'];
+    $items[$day]['dow'] = $row['dow'];
   }
 
-  global $lang, $template;
-  $template->assign_block_vars('thumbnails', array());
-  $template->assign_block_vars('thumbnails.line', array());
-  foreach ( $items as $day=>$data)
+  global $lang, $template, $conf;
+
+  if ( !empty($items)
+      and $conf['calendar_month_cell_width']>0
+      and $conf['calendar_month_cell_height']>0)
   {
-    $url_base = $this->url_base.
-          $this->date_components[CYEAR].'-'.
-          $this->date_components[CMONTH].'-'.$day;
+    list($known_day) = array_keys($items);
+    $known_dow = $items[$known_day]['dow'];
+    $first_day_dow = ($known_dow-($known_day-1))%7;
+    if ($first_day_dow<0)
+    {
+      $first_day_dow += 7;
+    }
+    //first_day_dow = week day corresponding to the first day of this month
+    $wday_labels = $lang['day'];
 
-    $thumbnail_title = $lang['day'][$data['tn_dw']] . ' ' . $day;
-    $name = $thumbnail_title .' ('.$data['nb_images'].')';
+    // BEGIN - pass now in week starting Monday
+    if ($first_day_dow==0)
+    {
+      $first_day_dow = 6;
+    }
+    else
+    {
+      $first_day_dow -= 1;
+    }
+    array_push( $wday_labels, array_shift($wday_labels) );
+    // END - pass now in week starting Monday
 
-    $template->assign_block_vars(
-        'thumbnails.line.thumbnail',
+    $cell_width = $conf['calendar_month_cell_width'];
+    $cell_height = $conf['calendar_month_cell_height'];
+
+    $template->set_filenames(
+      array(
+        'month_calendar'=>'month_calendar.tpl',
+        )
+      );
+
+    $template->assign_block_vars('calendar.thumbnails',
         array(
-          'IMAGE'=>$data['tn_path'],
-          'IMAGE_ALT'=>$data['tn_file'],
-          'IMAGE_TITLE'=>$thumbnail_title,
-          'U_IMG_LINK'=>$url_base
-         )
-        );
-    $template->assign_block_vars(
-        'thumbnails.line.thumbnail.category_name',
-        array(
-          'NAME' => $name
+           'WIDTH'=>$cell_width,
+           'HEIGHT'=>$cell_height,
           )
-        );
+      );
+
+    //fill the heading with day names
+    $template->assign_block_vars('calendar.thumbnails.head', array());
+    foreach( $wday_labels as $d => $label)
+    {
+      $template->assign_block_vars('calendar.thumbnails.head.col',
+                    array('LABEL'=>$label)
+                  );
+    }
+
+    $template->assign_block_vars('calendar.thumbnails.row', array());
+
+    //fill the empty days in the week before first day of this month
+    for ($i=0; $i<$first_day_dow; $i++)
+    {
+      $template->assign_block_vars('calendar.thumbnails.row.col', array());
+      $template->assign_block_vars('calendar.thumbnails.row.col.blank', array());
+    }
+    for ($day=1; $day<=$this->get_all_days_in_month(
+              $this->date_components[CYEAR] ,$this->date_components[CMONTH]); $day++)
+    {
+      $dow = ($first_day_dow + $day-1)%7;
+      if ($dow==0)
+      {
+        $template->assign_block_vars('calendar.thumbnails.row', array());
+      }
+      $template->assign_block_vars('calendar.thumbnails.row.col', array());
+      if ( !isset($items[$day]) )
+      {
+        $template->assign_block_vars('calendar.thumbnails.row.col.empty',
+              array('LABEL'=>$day));
+      }
+      else
+      {
+        // first try to guess thumbnail size
+        if ( !empty($items[$day]['width']) )
+        {
+          $tn_size = get_picture_size(
+                 $items[$day]['width'], $items[$day]['height'],
+                 $conf['tn_width'], $conf['tn_height'] );
+        }
+        else
+        {// item not an image (tn is either mime type or an image)
+          $tn_size = @getimagesize($items[$day]['tn_path']);
+        }
+        $tn_width = $tn_size[0];
+        $tn_height = $tn_size[1];
+
+        // now need to fit the thumbnail of size tn_size within
+        // a cell of size cell_size by playing with CSS position (left/top)
+        // and the width and height of <img>.
+        $ratio_w = $tn_width/$cell_width;
+        $ratio_h = $tn_height/$cell_height;
+
+        $pos_top=$pos_left=0;
+        $img_width=$img_height='';
+        if ( $ratio_w>1 and $ratio_h>1)
+        {// cell completely smaller than the thumbnail so we will let the browser
+         // resize the thumbnail
+          if ($ratio_w > $ratio_h )
+          {// thumbnail ratio compared to cell -> wide format
+            $img_height = 'height="'.$cell_height.'"';
+            $browser_img_width = $cell_height*$tn_width/$tn_height;
+            $pos_left = ($tn_width-$browser_img_width)/2;
+          }
+          else
+          {
+            $img_width = 'width="'.$cell_width.'"';
+            $browser_img_height = $cell_width*$tn_height/$tn_width;
+            $pos_top = ($tn_height-$browser_img_height)/2;
+          }
+        }
+        else
+        {
+          $pos_left = ($tn_width-$cell_width)/2;
+          $pos_top = ($tn_height-$cell_height)/2;
+        }
+
+        $css_style = '';
+        if ( round($pos_left)!=0)
+        {
+          $css_style.='left:'.round(-$pos_left).'px;';
+        }
+        if ( round($pos_top)!=0)
+        {
+          $css_style.='top:'.round(-$pos_top).'px;';
+        }
+        $url = $this->url_base.
+              $this->date_components[CYEAR].'-'.
+              $this->date_components[CMONTH].'-'.$day;
+        $alt = $wday_labels[$dow] . ' ' . $day.
+               ' ('.$items[$day]['nb_images'].')';
+        $template->assign_block_vars('calendar.thumbnails.row.col.full',
+              array(
+                'LABEL'     => $day,
+                'IMAGE'     => $items[$day]['tn_path'],
+                'U_IMG_LINK'=> $url,
+                'STYLE'     => $css_style,
+                'IMG_WIDTH' => $img_width,
+                'IMG_HEIGHT'=> $img_height,
+                'IMAGE_ALT' => $alt,
+              )
+            );
+      }
+    }
+    //fill the empty days in the week after the last day of this month
+    while ( $dow<6 )
+    {
+      $template->assign_block_vars('calendar.thumbnails.row.col', array());
+      $template->assign_block_vars('calendar.thumbnails.row.col.blank', array());
+      $dow++;
+    }
+    $template->assign_var_from_handle('MONTH_CALENDAR', 'month_calendar');
+  }
+  else
+  {
+    $template->assign_block_vars('thumbnails', array());
+    $template->assign_block_vars('thumbnails.line', array());
+    foreach ( $items as $day=>$data)
+    {
+      $url = $this->url_base.
+            $this->date_components[CYEAR].'-'.
+            $this->date_components[CMONTH].'-'.$day;
+
+      $thumbnail_title = $lang['day'][$data['dow']] . ' ' . $day;
+      $name = $thumbnail_title .' ('.$data['nb_images'].')';
+
+      $template->assign_block_vars(
+          'thumbnails.line.thumbnail',
+          array(
+            'IMAGE'=>$data['tn_path'],
+            'IMAGE_ALT'=>$data['tn_file'],
+            'IMAGE_TITLE'=>$thumbnail_title,
+            'U_IMG_LINK'=>$url
+           )
+          );
+      $template->assign_block_vars(
+          'thumbnails.line.thumbnail.category_name',
+          array(
+            'NAME' => $name
+            )
+          );
+    }
   }
 
   return true;

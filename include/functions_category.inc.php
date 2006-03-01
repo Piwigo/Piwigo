@@ -47,7 +47,7 @@ function check_restrictions($category_id)
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
     $login_url = './identification.php?redirect='.
-                  htmlentities(htmlentities($_SERVER['REQUEST_URI']));
+                  urlencode(urlencode($_SERVER['REQUEST_URI']));
     if ( ! $user['is_the_guest'] )
     {
       echo '<div style="text-align:center;">';

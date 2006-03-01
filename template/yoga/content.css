@@ -179,6 +179,7 @@ SPAN.filename:after {
 }
 
 
+/* begin chronology/calendar elements*/
 #content DIV.calendarViews {
   display: block;
   text-align: left;
@@ -199,14 +200,12 @@ SPAN.calItemSel {
   font-weight: bold;
   margin: 0 2px;
   border: 1px solid gray;
-  color: dark-gray;
 }
 
 SPAN.calItemEmpty {
   font-weight: bold;
   margin: 0 2px;
   border: 1px solid gray;
-  color: lightgray;
 }
 
 #content DIV.calendarCalBar {
@@ -224,3 +223,46 @@ SPAN.calCal {
   margin: 0 2px;
 }
 
+/* nice looking month calendar*/
+.calMonth { border: none; border-collapse: collapse; }
+
+TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank
+{
+  text-align:left;
+  vertical-align: top;
+  font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+TD.calDayHead { font: bold 12px Arial, Helvetica, sans-serif; }
+
+DIV.calImg
+{
+  overflow: hidden;
+  vertical-align: bottom;
+  z-index: 1;
+  position: relative; /*<- this required by IE*/
+}
+
+.calImg img
+{
+  position: relative;
+  border: 0;
+}
+
+.calBackDate {
+  padding-left: 4px;
+  padding-top: 0px;
+  z-index: 2;
+  position: absolute;
+  text-align: left;
+  vertical-align: top;
+}
+
+.calForeDate {
+  padding-left: 5px;
+  padding-top: 1px;
+  z-index: 3;
+  position: absolute;
+  text-align: left;
+  vertical-align: top;
+}

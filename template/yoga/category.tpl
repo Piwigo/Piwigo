@@ -168,6 +168,8 @@
 <!-- END calbar -->
 <!-- END calendar -->
 
+{MONTH_CALENDAR}
+
 <!-- BEGIN thumbnails -->
 <ul class="thumbnails">
   <!-- BEGIN line -->

@@ -35,7 +35,7 @@ $errors = array();
 $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
-  $redirect_to = $_GET['redirect'];
+  $redirect_to = urldecode($_GET['redirect']);
   if ( $user['is_the_guest'] )
   {
     array_push($errors, $lang['access_forbiden']);
@@ -98,7 +98,7 @@ $template->assign_vars(
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
     'U_HOME' => PHPWG_ROOT_PATH.'category.php',
     'U_REDIRECT' => $redirect_to,
-    
+
     'F_LOGIN_ACTION' => PHPWG_ROOT_PATH.'identification.php'
     ));
 
