@@ -63,7 +63,7 @@ function get_thumb_files($dir)
   global $conf;
 
   $prefix_length = strlen($conf['prefix_thumbnail']);
-  
+
   $thumbnails = array();
   if ($opendir = @opendir($dir.'/thumbnail'))
   {
@@ -121,7 +121,7 @@ SELECT id
     array_push($category_ids, $row['id']);
   }
   delete_categories($category_ids);
-		
+
   // destruction of the site
   $query = '
 DELETE FROM '.SITES_TABLE.'
@@ -129,7 +129,7 @@ DELETE FROM '.SITES_TABLE.'
 ;';
   pwg_query($query);
 }
-	
+
 
 // The function delete_categories deletes the categories identified by the
 // (numeric) key of the array $ids. It also deletes (in the database) :
@@ -149,7 +149,7 @@ function delete_categories($ids)
   // add sub-category ids to the given ids : if a category is deleted, all
   // sub-categories must be so
   $ids = get_subcat_ids($ids);
-  
+
   // destruction of all the related elements
   $query = '
 SELECT id
@@ -214,7 +214,7 @@ function delete_elements($ids)
   {
     return;
   }
-  
+
   // destruction of the comments on the image
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
@@ -254,7 +254,7 @@ DELETE FROM '.CADDIE_TABLE.'
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
-		
+
   // destruction of the image
   $query = '
 DELETE FROM '.IMAGES_TABLE.'
@@ -279,7 +279,7 @@ DELETE FROM '.IMAGES_TABLE.'
 function delete_user($user_id)
 {
   global $conf;
-  
+
   // destruction of the access linked to the user
   $query = '
 DELETE FROM '.USER_ACCESS_TABLE.'
@@ -349,10 +349,10 @@ DELETE FROM '.USERS_TABLE.'
 function update_category($ids = 'all', $recursive = false)
 {
   global $conf;
-  
+
   // retrieving all categories to update
   $cat_ids = array();
-  
+
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE;
@@ -389,7 +389,7 @@ SELECT id
   {
     return false;
   }
-  
+
   // calculate informations about categories retrieved
   $query = '
 SELECT category_id,
@@ -415,7 +415,7 @@ SELECT category_id,
   {
     array_push($datas, array('id' => $id, 'nb_images' => 0));
   }
-  
+
   $fields = array('primary' => array('id'),
                   'update'  => array('date_last', 'nb_images'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
@@ -467,7 +467,7 @@ SELECT id
         $to_null = array_from_query($query, 'id');
         $to_rand = array_diff($wrong_representant, $to_null);
       }
-      
+
       if (count($to_null) > 0)
       {
         $query = '
@@ -477,7 +477,7 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
         pwg_query($query);
       }
-      
+
       // If the random representant is not allowed, we need to find
       // categories with elements and with no representant. Those categories
       // must be added to the list of categories to set to a random
@@ -496,7 +496,7 @@ SELECT id
             array_from_query($query, 'id')
             )
           );
-      
+
       if (count($to_rand) > 0)
       {
         set_random_representant($to_rand);
@@ -552,7 +552,7 @@ function get_keywords($keywords_string)
 function get_fs_directories($path, $recursive = true)
 {
   $dirs = array();
-  
+
   if (is_dir($path))
   {
     if ($contents = opendir($path))
@@ -610,7 +610,7 @@ INSERT INTO '.$table_name.'
       {
         $query.= ',';
       }
-      
+
       if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
       {
         $query.= 'NULL';
@@ -709,9 +709,9 @@ DESCRIBE '.$tablename.'
         array_push($columns, $column);
       }
     }
-    
+
     $temporary_tablename = $tablename.'_'.micro_seconds();
-    
+
     $query = '
 CREATE TABLE '.$temporary_tablename.'
 (
@@ -780,7 +780,7 @@ SELECT id,uppercats
   {
     $uppercats_array[$row['id']] =  $row['uppercats'];
   }
-  
+
   $datas = array();
   foreach ($uppercats_array as $id => $uppercats)
   {
@@ -885,7 +885,7 @@ function get_uppercat_ids($cat_ids)
   {
     return array();
   }
-  
+
   $uppercats = array();
 
   $query = '
@@ -946,7 +946,7 @@ function ordering()
 {
   $current_rank = 0;
   $current_uppercat = '';
-		
+
   $query = '
 SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
   FROM '.CATEGORIES_TABLE.'
@@ -981,7 +981,7 @@ function get_fulldirs($cat_ids)
   {
     return array();
   }
-  
+
   // caching directories of existing categories
   $query = '
 SELECT id, dir
@@ -1009,7 +1009,7 @@ SELECT id, galleries_url
 
   // categories : id, site_id, uppercats
   $categories = array();
-  
+
   $query = '
 SELECT id, uppercats, site_id
   FROM '.CATEGORIES_TABLE.'
@@ -1021,7 +1021,7 @@ SELECT id, uppercats, site_id
   {
     array_push($categories, $row);
   }
-  
+
   // filling $cat_fulldirs
   $cat_fulldirs = array();
   foreach ($categories as $category)
@@ -1072,7 +1072,7 @@ function get_fs($path, $recursive = true)
         if (is_file($path.'/'.$node))
         {
           $extension = get_extension($node);
-          
+
 //          if (in_array($extension, $conf['picture_ext']))
           if (isset($conf['flip_picture_ext'][$extension]))
           {
@@ -1113,10 +1113,10 @@ function get_fs($path, $recursive = true)
 
       $fs['elements']        = array_merge($fs['elements'],
                                            $tmp_fs['elements']);
-      
+
       $fs['thumbnails']      = array_merge($fs['thumbnails'],
                                            $tmp_fs['thumbnails']);
-      
+
       $fs['representatives'] = array_merge($fs['representatives'],
                                            $tmp_fs['representatives']);
     }
@@ -1148,7 +1148,7 @@ function micro_seconds()
 function sync_users()
 {
   global $conf;
-  
+
   $query = '
 SELECT '.$conf['user_fields']['id'].' AS id
   FROM '.USERS_TABLE.'
@@ -1217,7 +1217,7 @@ SELECT user_id
         array_from_query($query, 'user_id'),
         $base_users
         );
-    
+
     if (count($to_delete) > 0)
     {
       $query = '
@@ -1239,7 +1239,7 @@ DELETE
 function update_uppercats()
 {
   $uppercat_ids = array();
-  
+
   $query = '
 SELECT id, id_uppercat
   FROM '.CATEGORIES_TABLE.'
@@ -1250,10 +1250,10 @@ SELECT id, id_uppercat
     $uppercat_ids[$row['id']] =
       !empty($row['id_uppercat']) ? $row['id_uppercat'] : 'NULL';
   }
-  
+
   // uppercats array associates a category id to the list of uppercats id.
   $uppercats = array();
-  
+
   foreach (array_keys($uppercat_ids) as $id)
   {
     $uppercats[$id] = array();
@@ -1297,7 +1297,7 @@ SELECT DISTINCT(storage_category_id)
 ;';
   $cat_ids = array_from_query($query, 'storage_category_id');
   $fulldirs = get_fulldirs($cat_ids);
- 
+
   foreach ($cat_ids as $cat_id)
   {
     $query = '
@@ -1325,11 +1325,11 @@ SELECT element_id,
     $query .= ' WHERE element_id=' . $element_id;
   }
   $query .= ' GROUP BY element_id;';
-  
+
   $result = pwg_query($query);
 
   $datas = array();
-  
+
   while ($row = mysql_fetch_array($result))
   {
     array_push(
@@ -1340,7 +1340,7 @@ SELECT element_id,
         )
       );
   }
-  
+
   mass_updates(
     IMAGES_TABLE,
     array(
@@ -1351,15 +1351,23 @@ SELECT element_id,
     );
 
   $query='
-UPDATE '.IMAGES_TABLE .' 
+SELECT id FROM '.IMAGES_TABLE .'
   LEFT JOIN '.RATE_TABLE.' ON id=element_id
-  SET average_rate=NULL
-  WHERE element_id IS NULL';
+  WHERE element_id IS NULL AND average_rate IS NOT NULL';
   if ( $element_id != -1 )
   {
     $query .= ' AND id=' . $element_id;
   }
-  pwg_query($query);
+  $to_update = array_from_query( $query, 'id');
+
+  if ( !empty($to_update) )
+  {
+    $query='
+UPDATE '.IMAGES_TABLE .'
+  SET average_rate=NULL
+  WHERE id IN (' . implode(',',$to_update) . ')';
+    pwg_query($query);
+  }
 }
 
 /**
@@ -1382,7 +1390,7 @@ function move_categories($category_ids, $new_parent = -1)
   $new_parent = $new_parent < 1 ? 'NULL' : $new_parent;
 
   $categories = array();
-  
+
   $query = '
 SELECT id, id_uppercat, status, uppercats
   FROM '.CATEGORIES_TABLE.'
@@ -1398,7 +1406,7 @@ SELECT id, id_uppercat, status, uppercats
         'uppercats' => $row['uppercats']
         );
   }
-  
+
   // is the movement possible? The movement is impossible if you try to move
   // a category in a sub-category or itself
   if ('NULL' != $new_parent)
@@ -1424,13 +1432,13 @@ SELECT uppercats
       }
     }
   }
-  
+
   $tables =
     array(
       USER_ACCESS_TABLE => 'user_id',
       GROUP_ACCESS_TABLE => 'group_id'
       );
-  
+
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET id_uppercat = '.$new_parent.'
@@ -1471,7 +1479,7 @@ SELECT status
         case 'private' :
         {
           $subcats = get_subcat_ids(array($cat_id));
-        
+
           foreach ($tables as $table => $field)
           {
             $query = '
@@ -1487,9 +1495,9 @@ SELECT '.$field.'
   WHERE cat_id = '.$new_parent.'
 ;';
             $parent_access = array_from_query($query, $field);
-          
+
             $to_delete = array_diff($parent_access, $category_access);
-          
+
             if (count($to_delete) > 0)
             {
               $query = '
