@@ -452,6 +452,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
         $ratio_w = $tn_width/$cell_width;
         $ratio_h = $tn_height/$cell_height;
 
+
         $pos_top=$pos_left=0;
         $img_width=$img_height='';
         if ( $ratio_w>1 and $ratio_h>1)
@@ -461,13 +462,13 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
           {// thumbnail ratio compared to cell -> wide format
             $img_height = 'height="'.$cell_height.'"';
             $browser_img_width = $cell_height*$tn_width/$tn_height;
-            $pos_left = ($tn_width-$browser_img_width)/2;
+            $pos_left = ($browser_img_width-$cell_width)/2;
           }
           else
           {
             $img_width = 'width="'.$cell_width.'"';
             $browser_img_height = $cell_width*$tn_height/$tn_width;
-            $pos_top = ($tn_height-$browser_img_height)/2;
+            $pos_top = ($browser_img_height-$cell_height)/2;
           }
         }
         else
