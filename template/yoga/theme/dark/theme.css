@@ -115,14 +115,17 @@ A.navThumb, A.navThumb:hover {
 }
 
 /*calendar elements*/
-SPAN.calItemSel { color: #fff48e; }
+SPAN.calItemEmpty { color: silver; }
 
-SPAN.calItemEmpty { color: darkgray; }
+SPAN.calItem, SPAN.calItemEmpty
+{
+  border: 1px solid gray;
+}
 
 /* nice looking month calendar*/
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 
-TD.calDayCellEmpty { color: lightgray; }
+TD.calDayCellEmpty { color: silver; }
 
 .calBackDate { color: #000; }
 .calForeDate { color: #fff; }

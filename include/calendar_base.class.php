@@ -40,6 +40,8 @@ class CalendarBase
   //
   var $calendar_levels;
 
+  var $has_nav_bar;
+
   /**
    * Initialize the calendar
    * @param string date_field db column on which this calendar works
@@ -51,6 +53,7 @@ class CalendarBase
     $this->date_field = $date_field;
     $this->inner_sql = $inner_sql;
     $this->date_components = $date_components;
+    $this->has_nav_bar = false;
   }
 
   function get_display_name()
@@ -98,6 +101,28 @@ class CalendarBase
       $label = l10n('calendar_any');
     }
     return $label;
+  }
+
+  /**
+   * Gets a nice display name for a date to be shown in previos/next links.
+   */
+  function get_date_nice_name($date)
+  {
+    $date_components = explode('-', $date);
+    $res = '';
+    for ($i=count($date_components)-1; $i>=0; $i--)
+    {
+      if ($date_components[$i]!='any')
+      {
+        $label = $date_components[$i];
+        if (isset($this->calendar_levels[$i]['labels'][$date_components[$i]]))
+        {
+          $label = $this->calendar_levels[$i]['labels'][$date_components[$i]];
+        }
+        $res .= $label.' ';
+      }
+    }
+    return $res;
   }
 
   /**
@@ -211,21 +236,19 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
       $level_items[$row['period']] = 0;
     }
 
-    if ( count($level_items)==1 )
+    if ( count($level_items)==1 and
+         count($this->date_components)<count($this->calendar_levels)-1)
     {
       if ( ! isset($this->date_components[$level]) )
       {
         list($key) = array_keys($level_items);
         $this->date_components[$level] = (int)$key;
-      }
-    }
 
-    if ( $conf['calendar_multi_bar']==false )
-    {
-      if ( $level<count($this->date_components) and
-           $level!=count($this->calendar_levels)-1 )
-      {
-        return;
+        if ( $level<count($this->date_components) and
+             $level!=count($this->calendar_levels)-1 )
+        {
+          return;
+        }
       }
     }
 
@@ -237,15 +260,10 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
         $url_base .= $this->date_components[$i].'-';
       }
     }
-    $selected = null;
-    if ( isset($this->date_components[$level]) )
-    {
-      $selected = $this->date_components[$level];
-    }
     $nav_bar = $this->get_nav_bar_from_items(
       $url_base,
       $level_items,
-      $selected,
+      null,
       'calItem',
       true,
       true,
@@ -255,9 +273,76 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $template->assign_block_vars(
       'calendar.navbar',
       array(
-        'BAR' => $nav_bar
+        'BAR' => $nav_bar,
         )
       );
+    $this->has_nav_bar = true;
+  }
+
+  /**
+   * Assigns the next/previous link to the template with regards to
+   * the currently choosen date.
+   */
+  function build_next_prev()
+  {
+    global $template;
+    $prev = $next =null;
+    if ( empty($this->date_components) )
+      return;
+
+    $current = '';
+    $query = 'SELECT CONCAT_WS("-"';
+    for ($i=0; $i<count($this->date_components); $i++)
+    {
+      if ( $this->date_components[$i] != 'any' )
+      {
+        $query .= ','.$this->calendar_levels[$i]['sql'];
+      }
+      else
+      {
+        $query .= ','.'"any"';
+      }
+      $current .= '-' . $this->date_components[$i];
+    }
+    $current = substr($current, 1);
+
+    $query.=') as period' . $this->inner_sql .'
+AND ' . $this->date_field . ' IS NOT NULL
+GROUP BY period';
+    $upper_items = array_from_query( $query, 'period');
+    usort($upper_items, 'version_compare');
+    //echo ('<pre>'. var_export($upper_items, true) . '</pre>');
+    $upper_items_rank = array_flip($upper_items);
+    $current_rank = $upper_items_rank[$current];
+    if (!$this->has_nav_bar and
+        ($current_rank>0 or $current_rank < count($upper_items)-1 ) )
+    {
+      $template->assign_block_vars( 'calendar.navbar', array() );
+    }
+
+    if ( $current_rank>0 )
+    { // has previous
+      $prev = $upper_items[$current_rank-1];
+      $template->assign_block_vars(
+        'calendar.navbar.prev',
+        array(
+          'LABEL' => $this->get_date_nice_name($prev),
+          'URL' => $this->url_base . $prev,
+          )
+        );
+    }
+    if ( $current_rank < count($upper_items)-1 )
+    {
+      // has next
+      $next = $upper_items[$current_rank+1];
+      $template->assign_block_vars(
+        'calendar.navbar.next',
+        array(
+          'LABEL' => $this->get_date_nice_name($next),
+          'URL' => $this->url_base . $next,
+          )
+        );
+    }
   }
 }
 ?>

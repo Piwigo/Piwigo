@@ -80,15 +80,19 @@ function generate_category_content($url_base, $view_type)
 
   assert($view_type==CAL_VIEW_LIST);
 
-  $this->build_nav_bar(CYEAR); // years
-  if ( count($this->date_components)>=1 )
+  if ( count($this->date_components)==0 )
+  {
+    $this->build_nav_bar(CYEAR); // years
+  }
+  if ( count($this->date_components)==1 )
   {
     $this->build_nav_bar(CWEEK); // week nav bar 1-53
   }
-  if ( count($this->date_components)>=2 )
+  if ( count($this->date_components)==2 )
   {
     $this->build_nav_bar(CDAY); // days nav bar Mon-Sun
   }
+  $this->build_next_prev();
   return false;
 }
 

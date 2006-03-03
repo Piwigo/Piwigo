@@ -182,31 +182,18 @@ SPAN.filename:after {
 /* begin chronology/calendar elements*/
 #content DIV.calendarViews {
   display: block;
-  text-align: left;
-  margin: 5px 0;
+  float: right;
+  margin: 2px 2px;
 }
 
-#content DIV.calendarBar {
-  margin: 8px 4px;
-}
+#content DIV.calendarBar { margin: 8px 4px; }
 
-SPAN.calItem {
+SPAN.calItem, SPAN.calItemEmpty {
   font-weight: bold;
-  margin: 0 2px;
-  border: 1px solid gray;
+  margin: 0 1px;
 }
 
-SPAN.calItemSel {
-  font-weight: bold;
-  margin: 0 2px;
-  border: 1px solid gray;
-}
-
-SPAN.calItemEmpty {
-  font-weight: bold;
-  margin: 0 2px;
-  border: 1px solid gray;
-}
+SPAN.calItem A { border:0 }
 
 #content DIV.calendarCalBar {
   margin: 10px 10px;
@@ -219,9 +206,7 @@ SPAN.calCalHead {
   margin: 0 2px;
 }
 
-SPAN.calCal {
-  margin: 0 2px;
-}
+SPAN.calCal { margin: 0 2px; }
 
 /* nice looking month calendar*/
 .calMonth { border: none; border-collapse: collapse; }

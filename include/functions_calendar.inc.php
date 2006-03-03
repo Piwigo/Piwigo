@@ -260,24 +260,20 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         }
       }
     }
+    $calendar_title =
+        '<a href="'.$url_base.$cal_style.'-'.$cal_view.'">'
+        .$fields[$cal_field]['label'].'</a>';
+    $calendar_title.= $calendar->get_display_name();
+    //this should be an assign_block_vars, but I need to assign 'calendar'
+    //above and at that point I don't have the title yet.
+    $template->_tpldata['calendar.'][0]['TITLE'] = $calendar_title;
   } // end category calling
-
-  $calendar_title =
-      '<a href="'.$url_base.$cal_style.'-'.$cal_view.'">'
-      .$fields[$cal_field]['label'].'</a>';
-  $calendar_title.= $calendar->get_display_name();
-  $template->assign_block_vars(
-    'calendar',
-    array(
-      'TITLE' => '<br/>'.$calendar_title,
-      )
-    );
 
   if ($must_show_list)
   {
     $query = 'SELECT DISTINCT(id)';
-    $query .= $calendar->inner_sql;
-    $query .= $calendar->get_date_where();
+    $query .= $calendar->inner_sql.'
+  '.$calendar->get_date_where();
     if ( isset($page['super_order_by']) )
     {
       $query .= '
@@ -289,7 +285,8 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         'ORDER BY ',
         'ORDER BY '.$calendar->date_field.' DESC,', $conf['order_by']
         );
-      $query .= $order_by;
+      $query .= '
+  '.$order_by;
     }
 
     $page['items']              = array_from_query($query, 'id');

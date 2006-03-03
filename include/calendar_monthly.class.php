@@ -93,31 +93,33 @@ function generate_category_content($url_base, $view_type)
     if ( count($this->date_components)==2 )
     {//case C: year+month given - display a nice month calendar
       $this->build_month_calendar();
-      $this->build_nav_bar(CYEAR); // years
-      $this->build_nav_bar(CMONTH); // month
+      //$this->build_nav_bar(CYEAR); // years
+      //$this->build_nav_bar(CMONTH); // month
+      $this->build_next_prev();
       return true;
     }
   }
 
   if ($view_type==CAL_VIEW_LIST or count($this->date_components)==3)
   {
-    if ( count($this->date_components)>=0 )
+    $has_nav_bar = false;
+    if ( count($this->date_components)==0 )
     {
       $this->build_nav_bar(CYEAR); // years
     }
-    if ( count($this->date_components)>=1)
+    if ( count($this->date_components)==1)
     {
       $this->build_nav_bar(CMONTH); // month
     }
-    if ( count($this->date_components)>=2 )
+    if ( count($this->date_components)==2 )
     {
-      $this->build_nav_bar(
-          CDAY,
-          range( 1, $this->get_all_days_in_month(
-              $this->date_components[CYEAR] ,$this->date_components[CMONTH] )
-              )
-        ); // days
+      $day_labels = range( 1, $this->get_all_days_in_month(
+              $this->date_components[CYEAR] ,$this->date_components[CMONTH] ) );
+      array_unshift($day_labels, 0);
+      unset( $day_labels[0] );
+      $this->build_nav_bar( CDAY, $day_labels ); // days
     }
+    $this->build_next_prev();
   }
   return false;
 }
@@ -293,11 +295,6 @@ function build_year_calendar()
   { // only one month exists so bail out to month view
     list($m) = array_keys($items);
     $this->date_components[CMONTH] = $m;
-    if (count($items[$m]['children'])==1)
-    { // or even to day view if everything occured in one day
-      list($d) = array_keys($items[$m]['children']);
-      $this->date_components[CDAY] = $d;
-    }
     return false;
   }
   global $lang, $template;

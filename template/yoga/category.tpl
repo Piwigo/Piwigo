@@ -141,26 +141,37 @@
       <!-- END mode_created -->
     </ul>
 
-  <h2>{TITLE}
+  <h2>{TITLE}</h2>
   <!-- BEGIN calendar -->
-  {calendar.TITLE}
+  <!-- BEGIN views -->
+  <div class="calendarViews">{lang:calendar_view}:
+    <select onchange="document.location = this.options[this.selectedIndex].value;">
+    <!-- BEGIN view -->
+      <option value="{calendar.views.view.VALUE}" {calendar.views.view.SELECTED}>{calendar.views.view.CONTENT}</option>
+    <!-- END view -->
+    </select>
+  </div>
+  <!-- END views -->
   <!-- END calendar -->
-  </h2>
+
+  <!-- BEGIN calendar -->
+  <h2>{calendar.TITLE}
+</h2>
+  <!-- END calendar -->
+
   </div> <!-- content -->
 
 <!-- BEGIN calendar -->
-<!-- BEGIN views -->
-<div class="calendarViews">
-{lang:calendar_view}: <select onchange="document.location = this.options[this.selectedIndex].value;">
-<!-- BEGIN view -->
-  <option value="{calendar.views.view.VALUE}" {calendar.views.view.SELECTED}>{calendar.views.view.CONTENT}</option>
-<!-- END view -->
-</select>
-</div>
-<!-- END views -->
-
 <!-- BEGIN navbar -->
-<div class="calendarBar">{calendar.navbar.BAR}</div>
+<div class="calendarBar">
+<!-- BEGIN prev -->
+	<div style="float:left">&laquo; <a href="{calendar.navbar.prev.URL}">{calendar.navbar.prev.LABEL}</a></div>
+<!-- END prev -->
+<!-- BEGIN next -->
+	<div style="float:right"><a href="{calendar.navbar.next.URL}">{calendar.navbar.next.LABEL}</a> &raquo;</div>
+<!-- END next -->
+	{calendar.navbar.BAR}&nbsp;
+</div>
 <!-- END navbar -->
 
 <!-- BEGIN calbar -->
