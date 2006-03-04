@@ -1,8 +1,8 @@
--- MySQL dump 10.9
+-- MySQL dump 9.11
 --
--- Host: localhost    Database: pwg_dev_bsf
+-- Host: localhost    Database: pwg-bsf
 -- ------------------------------------------------------
--- Server version	4.1.15-nt
+-- Server version	4.0.24_Debian-10-log
 
 --
 -- Table structure for table `phpwebgallery_caddie`
@@ -39,6 +39,17 @@ CREATE TABLE `phpwebgallery_categories` (
   `global_rank` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   KEY `categories_i2` (`id_uppercat`)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table `phpwebgallery_categories_link`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_categories_link`;
+CREATE TABLE `phpwebgallery_categories_link` (
+  `source` smallint(5) unsigned NOT NULL default '0',
+  `destination` smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`source`,`destination`)
 ) TYPE=MyISAM;
 
 --
@@ -127,6 +138,7 @@ DROP TABLE IF EXISTS `phpwebgallery_image_category`;
 CREATE TABLE `phpwebgallery_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
+  `is_storage` enum('true','false') default 'false',
   PRIMARY KEY  (`image_id`,`category_id`),
   KEY `image_category_i1` (`image_id`),
   KEY `image_category_i2` (`category_id`)
@@ -295,6 +307,20 @@ CREATE TABLE `phpwebgallery_user_infos` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_user_mail_notification`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_user_mail_notification`;
+CREATE TABLE `phpwebgallery_user_mail_notification` (
+  `user_id` smallint(5) NOT NULL default '0',
+  `check_key` varchar(128) binary NOT NULL default '',
+  `enabled` enum('true','false') NOT NULL default 'false',
+  `last_send` datetime default NULL,
+  PRIMARY KEY  (`user_id`),
+  UNIQUE KEY `uidx_check_key` (`check_key`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_users`
 --
 
@@ -326,17 +352,3 @@ CREATE TABLE `phpwebgallery_waiting` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
---
--- Table structure for table `phpwebgallery_user_mail_notification`
---
-
-DROP TABLE IF EXISTS `phpwebgallery_user_mail_notification`;
-CREATE TABLE `phpwebgallery_user_mail_notification`
-(
-  `user_id` smallint(5) NOT NULL default '0',
-  `check_key` varchar(128) binary NOT NULL,
-  `enabled` enum('true','false') NOT NULL default 'false',
-  `last_send` datetime default NULL,
-  PRIMARY KEY  (`user_id`),
-  UNIQUE KEY `uidx_check_key` (`check_key`)
-) TYPE=MyISAM;

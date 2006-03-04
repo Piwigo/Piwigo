@@ -88,6 +88,122 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
   pwg_query($query);
 }
+else if (isset($_POST['submitAdd']))
+{
+  $output_create = create_virtual_category(
+    $_POST['virtual_name'],
+    (0 == $_POST['parent'] ? null : $_POST['parent'])
+    );
+  
+  if (isset($output_create['error']))
+  {
+    array_push($page['errors'], $output_create['error']);
+  }
+  else
+  {
+    // Virtual category creation succeeded
+    //
+    // Add the information in the information list
+    array_push($page['infos'], $output_create['info']);
+    
+    // Link the new category to the current category
+    $query = '
+INSERT
+  INTO '.CATEGORIES_LINK_TABLE.'
+  (source, destination)
+  VALUES
+  ('.$_GET['cat_id'].', '.$output_create['id'].')
+;';
+    pwg_query($query);
+
+    check_links(array($output_create['id']));
+    update_category(array($output_create['id']));
+  }
+}
+else if (isset($_POST['destination_trueify'])
+         and isset($_POST['destination_false'])
+         and count($_POST['destination_false']))
+{
+  $datas = array();
+  
+  foreach ($_POST['destination_false'] as $category_id)
+  {
+    array_push(
+      $datas,
+      array(
+        'source'      => $_GET['cat_id'],
+        'destination' => $category_id,
+        )
+      );
+  }
+  
+  mass_inserts(
+    CATEGORIES_LINK_TABLE,
+    array('source', 'destination'),
+    $datas
+    );
+
+  check_links($_POST['destination_false']);
+  update_category(
+    $_POST['destination_false'],
+    true                          // recursive update
+    );
+}
+else if (isset($_POST['destination_falsify'])
+         and isset($_POST['destination_true'])
+         and count($_POST['destination_true']))
+{
+  foreach ($_POST['destination_true'] as $destination)
+  {
+    delete_sources($destination, array($_GET['cat_id']));
+  }
+
+  update_category(
+    $_POST['destination_true'],
+    true                          // recursive update
+    );
+}
+else if (isset($_POST['source_trueify'])
+         and isset($_POST['source_false'])
+         and count($_POST['source_false']))
+{
+  $datas = array();
+  
+  foreach ($_POST['source_false'] as $category_id)
+  {
+    array_push(
+      $datas,
+      array(
+        'source'      => $category_id,
+        'destination' => $_GET['cat_id'],
+        )
+      );
+  }
+  
+  mass_inserts(
+    CATEGORIES_LINK_TABLE,
+    array('source', 'destination'),
+    $datas
+    );
+
+  check_links(array($_GET['cat_id']));
+  update_category(
+    array($_GET['cat_id']),
+    true                          // recursive update
+    );
+}
+else if (isset($_POST['source_falsify'])
+         and isset($_POST['source_true'])
+         and count($_POST['source_true']))
+{
+  delete_sources($_GET['cat_id'], $_POST['source_true']);
+  
+  update_category(
+    array($_GET['cat_id']),
+    true                          // recursive update
+    );
+}
+
 
 $query = '
 SELECT *
@@ -315,6 +431,71 @@ if (!$category['is_virtual'] and !url_is_remote($category['cat_dir']) )
 {
   $template->assign_block_vars('upload' ,array());
 }
+
+$blockname = 'category_option_parent';
+
+$template->assign_block_vars(
+  $blockname,
+  array(
+    'VALUE'=> 0,
+    'OPTION' => '------------'
+    )
+  );
+
+$query = '
+SELECT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.'
+;';
+
+display_select_cat_wrapper(
+  $query,
+  array(),
+  $blockname
+  );
+
+// destination categories
+$query = '
+SELECT DISTINCT id, name, uppercats, global_rank
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.CATEGORIES_LINK_TABLE.' ON destination = id
+  WHERE source = '.$_GET['cat_id'].'
+;';
+display_select_cat_wrapper($query, array(), 'destination_option_true');
+
+// non destination categories
+$destinations = array_merge(
+  array($_GET['cat_id']),
+  array_from_query($query, 'id')
+  );
+
+$query = '
+SELECT DISTINCT id, name, uppercats, global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id NOT IN ('.implode(',', $destinations).')
+;';
+display_select_cat_wrapper($query, array(), 'destination_option_false');
+
+// source categories
+$query = '
+SELECT DISTINCT id, name, uppercats, global_rank
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.CATEGORIES_LINK_TABLE.' ON source = id
+  WHERE destination = '.$_GET['cat_id'].'
+;';
+display_select_cat_wrapper($query, array(), 'source_option_true');
+
+// non source categories
+$sources = array_merge(
+  array($_GET['cat_id']),
+  array_from_query($query, 'id')
+  );
+
+$query = '
+SELECT DISTINCT id, name, uppercats, global_rank
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id NOT IN ('.implode(',', $sources).')
+;';
+display_select_cat_wrapper($query, array(), 'source_option_false');
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'categories');

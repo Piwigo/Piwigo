@@ -27,22 +27,25 @@
 
 if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ('Hacking attempt!');
+  die('Hacking attempt!');
 }
 include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
 
-if (! is_numeric($_GET['site']) )
+if (!is_numeric($_GET['site']))
 {
   die ('site param missing or invalid');
 }
 $site_id = $_GET['site'];
-$query='SELECT galleries_url FROM '.SITES_TABLE.'
-WHERE id='.$site_id.'
+
+$query='
+SELECT galleries_url
+  FROM '.SITES_TABLE.'
+  WHERE id = '.$site_id.'
 ;';
-list($site_url)=mysql_fetch_row(pwg_query($query));
-if (! isset($site_url) )
+list($site_url) = mysql_fetch_row(pwg_query($query));
+if (!isset($site_url))
 {
-  die ("site $site_id does not exist");
+  die('site '.$site_id.' does not exist');
 }
 $site_is_remote = url_is_remote($site_url);
 
@@ -50,24 +53,33 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 define('CURRENT_DATE', $dbnow);
 
 $error_labels = array(
-  'PWG-UPDATE-1' => array( l10n('update_wrong_dirname_short'),
-                           l10n('update_wrong_dirname_info') ),
-  'PWG-UPDATE-2' => array( l10n('update_missing_tn_short'),
-                           l10n('update_missing_tn_info')
-                           . implode(',', $conf['picture_ext']) ),
-  'PWG-ERROR-NO-FS' => array( l10n('update_missing_file_or_dir'),
-                             l10n('update_missing_file_or_dir_info')),
-  'PWG-ERROR-VERSION' => array( l10n('update_err_pwg_version_differs'),
-                             l10n('update_err_pwg_version_differs_info')),
-  'PWG-ERROR-NOLISTING' => array( l10n('update_err_remote_listing_not_found'),
-                             l10n('update_err_remote_listing_not_found_info'))
-                      );
+  'PWG-UPDATE-1' => array(
+    l10n('update_wrong_dirname_short'),
+    l10n('update_wrong_dirname_info')
+    ),
+  'PWG-UPDATE-2' => array(
+    l10n('update_missing_tn_short'),
+    l10n('update_missing_tn_info').implode(',', $conf['picture_ext'])
+    ),
+  'PWG-ERROR-NO-FS' => array(
+    l10n('update_missing_file_or_dir'),
+    l10n('update_missing_file_or_dir_info')
+    ),
+  'PWG-ERROR-VERSION' => array(
+    l10n('update_err_pwg_version_differs'),
+    l10n('update_err_pwg_version_differs_info')
+    ),
+  'PWG-ERROR-NOLISTING' => array(
+    l10n('update_err_remote_listing_not_found'),
+    l10n('update_err_remote_listing_not_found_info')
+    )
+  );
 $errors = array();
 $infos = array();
 
 if ($site_is_remote)
 {
-  include_once( PHPWG_ROOT_PATH.'admin/site_reader_remote.php');
+  include_once(PHPWG_ROOT_PATH.'admin/site_reader_remote.php');
   $site_reader = new RemoteSiteReader($site_url);
 }
 else
@@ -76,7 +88,7 @@ else
   $site_reader = new LocalSiteReader($site_url);
 }
 
-$general_failure=true;
+$general_failure = true;
 if (isset($_POST['submit']))
 {
   if ($site_reader->open())
@@ -213,23 +225,18 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     $dir = basename($fulldir);
     if (preg_match('/^[a-zA-Z0-9-_.]+$/', $dir))
     {
-      $insert = array();
-
-      $insert{'id'} = $next_id++;
-      $insert{'dir'} = $dir;
-      $insert{'name'} = str_replace('_', ' ', $dir);
-      $insert{'site_id'} = $site_id;
-      $insert{'commentable'} = $conf['newcat_default_commentable'];
-      if (! $site_is_remote)
-      {
-        $insert{'uploadable'} = $conf['newcat_default_uploadable'];
-      }
-      else
-      {
-        $insert{'uploadable'} = 'false';
-      }
-      $insert{'status'} = $conf{'newcat_default_status'};
-      $insert{'visible'} = $conf{'newcat_default_visible'};
+      $insert = array(
+        'id'          => $next_id++,
+        'dir'         => $dir,
+        'name'        => str_replace('_', ' ', $dir),
+        'site_id'     => $site_id,
+        'commentable' => $conf['newcat_default_commentable'],
+        'uploadable'  => $site_is_remote
+          ? false
+          : $conf['newcat_default_uploadable'],
+        'status'      => $conf{'newcat_default_status'},
+        'visible'     => $conf{'newcat_default_visible'},
+        );
 
       if (isset($db_fulldirs[dirname($fulldir)]))
       {
@@ -258,8 +265,13 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
       }
 
       array_push($inserts, $insert);
-      array_push($infos, array('path' => $fulldir,
-                               'info' => l10n('update_research_added')));
+      array_push(
+        $infos,
+        array(
+          'path' => $fulldir,
+          'info' => l10n('update_research_added')
+          )
+        );
 
       // add the new category to $db_categories and $db_fulldirs array
       $db_categories[$insert{'id'}] =
@@ -275,7 +287,13 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     }
     else
     {
-      array_push($errors, array('path' => $fulldir, 'type' => 'PWG-UPDATE-1'));
+      array_push(
+        $errors,
+        array(
+          'path' => $fulldir,
+          'type' => 'PWG-UPDATE-1'
+          )
+        );
     }
   }
 
@@ -338,8 +356,15 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
     $query = '
 SELECT id, path
   FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id IN (
-'.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
+  WHERE is_storage = \'true\'
+    AND category_id IN ('.
+      wordwrap(
+        implode(', ', $cat_ids),
+        80,
+        "\n"
+        ).
+      ')
 ;';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
@@ -361,8 +386,10 @@ SELECT file,storage_category_id
     {
       array_push(
         $db_unvalidated,
-        array_search($row['storage_category_id'],
-                     $db_fulldirs).'/'.$row['file']
+        array_search(
+          $row['storage_category_id'],
+          $db_fulldirs)
+        .'/'.$row['file']
         );
     }
   }
@@ -391,7 +418,14 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     $filename = basename($path);
     if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
     {
-      array_push($errors, array('path' => $path, 'type' => 'PWG-UPDATE-1'));
+      array_push(
+        $errors,
+        array(
+          'path' => $path,
+          'type' => 'PWG-UPDATE-1'
+          )
+        );
+      
       continue;
     }
 
@@ -401,67 +435,90 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     if (in_array(get_extension($filename), $conf['picture_ext']))
     {
       // if we found a thumnbnail corresponding to our picture...
-      if ( isset($fs[$path]['tn_ext']) )
+      if (isset($fs[$path]['tn_ext']))
       {
-        $insert{'id'} = $next_element_id++;
-        $insert{'file'} = $filename;
-        $insert{'storage_category_id'} = $db_fulldirs[$dirname];
-        $insert{'date_available'} = CURRENT_DATE;
-        $insert{'tn_ext'} = $fs[$path]['tn_ext'];
-        if ( isset($fs[$path]['has_high']) )
-        {
-          $insert{'has_high'} = $fs[$path]['has_high'];
-        }
-        else
-        {
-          $insert{'has_high'} = null;
-        }
-        $insert{'path'} = $path;
-
-        array_push($inserts, $insert);
-        array_push($insert_links,
-                   array('image_id' => $insert{'id'},
-                         'category_id' => $insert{'storage_category_id'}));
-        array_push($infos, array('path' => $insert{'path'},
-                                 'info' => l10n('update_research_added')));
+        $insert = array(
+          'id'             => $next_element_id++,
+          'file'           => $filename,
+          'date_available' => CURRENT_DATE,
+          'tn_ext'         => $fs[$path]['tn_ext'],
+          'has_high'       => isset($fs[$path]['has_high'])
+            ? $fs[$path]['has_high']
+            : null,
+          'path'           => $path,
+          );
+        
+        array_push(
+          $inserts,
+          $insert
+          );
+        
+        array_push(
+          $insert_links,
+          array(
+            'image_id'    => $insert{'id'},
+            'category_id' => $db_fulldirs[$dirname],
+            'is_storage'  => 'true',
+            )
+          );
+        array_push(
+          $infos,
+          array(
+            'path' => $insert{'path'},
+            'info' => l10n('update_research_added')
+            )
+          );
       }
       else
       {
-        array_push($errors, array('path' => $path, 'type' => 'PWG-UPDATE-2'));
+        array_push(
+          $errors,
+          array(
+            'path' => $path,
+            'type' => 'PWG-UPDATE-2'
+            )
+          );
       }
     }
     else
     {
-      $insert{'id'} = $next_element_id++;
-      $insert{'file'} = $filename;
-      $insert{'storage_category_id'} = $db_fulldirs[$dirname];
-      $insert{'date_available'} = CURRENT_DATE;
-      $insert{'has_high'} = $fs[$path]['has_high'];
-      if ( isset($fs[$path]['has_high']) )
-      {
-        $insert{'has_high'} = $fs[$path]['has_high'];
-      }
-      else
-      {
-        $insert{'has_high'} = null;
-      }
-      $insert{'path'} = $path;
+      $insert = array(
+        'id'             => $next_element_id++,
+        'file'           => $filename,
+        'date_available' => CURRENT_DATE,
+        'path'           => $path,
+        'has_high'       => isset($fs[$path]['has_high'])
+          ? $fs[$path]['has_high']
+          : null,
+        'tn_ext'         => isset($fs[$path]['tn_ext'])
+          ? $fs[$path]['tn_ext']
+          : null,
+        'representative_ext' => isset($fs[$path]['representative_ext'])
+          ? $fs[$path]['representative_ext']
+          : null,
+        );
 
-      if ( isset($fs[$path]['tn_ext']) )
-      {
-        $insert{'tn_ext'} = $fs[$path]['tn_ext'];
-      }
-      if (isset($fs[$path]['representative_ext']))
-      {
-        $insert{'representative_ext'} = $fs[$path]['representative_ext'];
-      }
+      array_push(
+        $inserts,
+        $insert
+        );
 
-      array_push($inserts, $insert);
-      array_push($insert_links,
-                 array('image_id' => $insert{'id'},
-                       'category_id' => $insert{'storage_category_id'}));
-      array_push($infos, array('path' => $insert{'path'},
-                               'info' => l10n('update_research_added')));
+      array_push(
+        $insert_links,
+        array(
+          'image_id'    => $insert{'id'},
+          'category_id' => $db_fulldirs[$dirname],
+          'is_storage'  => 'true',
+          )
+        );
+
+      array_push(
+        $infos,
+        array(
+          'path' => $insert{'path'},
+          'info' => l10n('update_research_added')
+          )
+        );
     }
   }
 
@@ -470,15 +527,23 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     if (!$simulate)
     {
       // inserts all new elements
-      $dbfields = array(
-        'id','file','storage_category_id','date_available','tn_ext'
-        ,'representative_ext', 'has_high', 'path'
+      mass_inserts(
+        IMAGES_TABLE,
+        array(
+          'id', 'file', 'date_available', 'tn_ext', 'representative_ext',
+          'has_high', 'path',
+          ),
+        $inserts
         );
-      mass_inserts(IMAGES_TABLE, $dbfields, $inserts);
 
-      // insert all links between new elements and their storage category
-      $dbfields = array('image_id','category_id');
-      mass_inserts(IMAGE_CATEGORY_TABLE, $dbfields, $insert_links);
+      // inserts all links between new elements and their storage category
+      mass_inserts(
+        IMAGE_CATEGORY_TABLE,
+        array(
+          'image_id','category_id', 'is_storage',
+          ),
+        $insert_links
+        );
     }
     $counts['new_elements'] = count($inserts);
   }
@@ -532,7 +597,9 @@ SELECT id,file,storage_category_id,infos
       $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-  WHERE storage_category_id = \''.$row['storage_category_id'].'\'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
+  WHERE is_storage = \'true\'
+    AND category_id = '.$row['storage_category_id'].'
     AND file = \''.$row['file'].'\'
 ;';
       list($data['id']) = mysql_fetch_array(pwg_query($query));
@@ -579,6 +646,11 @@ if (isset($_POST['submit'])
 
   if (!$simulate)
   {
+    $start = get_moment();
+    check_links('all');
+    echo '<!-- check_links(all) : ';
+    echo get_elapsed_time($start,get_moment());
+    echo ' -->'."\n";
     $start = get_moment();
     update_category('all');
     echo '<!-- update_category(all) : ';

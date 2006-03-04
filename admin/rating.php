@@ -168,16 +168,26 @@ for ($i=0; $i<count($available_order_by); $i++)
     );
 }
 
-$query = 'SELECT i.id, i.path, i.file, i.tn_ext, i.average_rate, i.storage_category_id,
-          MAX(r.date) as recently_rated, COUNT(r.rate) as nb_rates,
-          SUM(r.rate) as sum_rates, ROUND(STD(r.rate),2) as std_rates
-FROM '.RATE_TABLE.' AS r LEFT JOIN '.IMAGES_TABLE.' AS i
-ON r.element_id=i.id
-WHERE 1=1 ' . $display_filter . '
-GROUP BY r.element_id
-ORDER BY ' . $available_order_by[$order_by_index][1] .'
-LIMIT '.$start.','.$elements_per_page .
-';';
+$query = '
+SELECT i.id,
+       i.path,
+       i.file,
+       i.tn_ext,
+       i.average_rate,
+       MAX(r.date)          AS recently_rated,
+       COUNT(r.rate)        AS nb_rates,
+       SUM(r.rate)          AS sum_rates,
+       ROUND(STD(r.rate),2) AS std_rates,
+       ic.category_id       AS storage_category_id
+  FROM '.RATE_TABLE.' AS r
+    LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
+  WHERE 1 = 1 ' . $display_filter . '
+    AND ic.is_storage = \'true\'
+  GROUP BY r.element_id
+  ORDER BY ' . $available_order_by[$order_by_index][1] .'
+  LIMIT '.$start.','.$elements_per_page.'
+;';
 
 $images = array();
 $result = pwg_query($query);
@@ -188,13 +198,13 @@ while ($row = mysql_fetch_array($result))
 
 foreach ($images as $image)
 {
-  $thumbnail_src = get_thumbnail_src(
-    $image['path'], $image['tn_ext']
-    );
+  $thumbnail_src = get_thumbnail_src($image['path'], $image['tn_ext']);
 
-  $image_url = PHPWG_ROOT_PATH.'picture.php?'.
-                'cat=' . $image['storage_category_id'].
-                '&amp;image_id=' . $image['id'];
+  $image_url =
+    PHPWG_ROOT_PATH.'picture.php?'.
+    'cat=' . $image['storage_category_id'].
+    '&amp;image_id=' . $image['id']
+    ;
 
   $query = 'SELECT *
 FROM '.RATE_TABLE.' AS r

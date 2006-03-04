@@ -39,8 +39,12 @@ var $update_attributes;
 function RemoteSiteReader($url)
 {
   $this->site_url = $url;
-  $this->insert_attributes = array('tn_ext', 'representative_ext', 'has_high');
-  $this->update_attributes = array( 'representative_ext', 'has_high', 'filesize', 'width', 'height' );
+  $this->insert_attributes = array(
+    'tn_ext', 'representative_ext', 'has_high'
+    );
+  $this->update_attributes = array(
+    'representative_ext', 'has_high', 'filesize', 'width', 'height'
+    );
 }
 
 /**
@@ -51,6 +55,7 @@ function RemoteSiteReader($url)
 function open()
 {
   global $errors;
+  
   $listing_file = $this->site_url.'/listing.xml';
   if (@fopen($listing_file, 'r'))
   {
@@ -58,20 +63,38 @@ function open()
     $this->site_files = array();
     $xml_content = getXmlCode($listing_file);
     $info_xml_element = getChild($xml_content, 'informations');
-    if ( getAttribute($info_xml_element , 'phpwg_version') != PHPWG_VERSION )
+    if (getAttribute($info_xml_element , 'phpwg_version') != PHPWG_VERSION)
     {
-      array_push($errors, array('path' => $listing_file, 'type' => 'PWG-ERROR-VERSION'));
+      array_push(
+        $errors,
+        array(
+          'path' => $listing_file,
+          'type' => 'PWG-ERROR-VERSION'
+          )
+        );
+      
       return false;
     }
-    $meta_attributes = explode ( ',',
-        getAttribute($info_xml_element , 'metadata') );
-    $this->update_attributes = array_merge( $this->update_attributes, $meta_attributes );
+
+    $this->update_attributes = array_merge(
+      $this->update_attributes,
+      explode(',', getAttribute($info_xml_element, 'metadata'))
+      );
+    
     $this->build_structure($xml_content, '', 0);
+    
     return true;
   }
   else
   {
-    array_push($errors, array('path' => $listing_file, 'type' => 'PWG-ERROR-NOLISTING'));
+    array_push(
+      $errors,
+      array(
+        'path' => $listing_file,
+        'type' => 'PWG-ERROR-NOLISTING'
+        )
+      );
+
     return false;
   }
 }
@@ -83,8 +106,8 @@ function get_full_directories($basedir)
   foreach ( array_keys($this->site_dirs) as $dir)
   {
     $full_dir = $this->site_url . $dir;
-    if ( $full_dir!=$basedir
-      and strpos($full_dir, $basedir)===0
+    if ($full_dir != $basedir
+        and strpos($full_dir, $basedir) === 0
       )
     {
       array_push($dirs, $full_dir);
@@ -105,12 +128,14 @@ function get_elements($path)
   foreach ( $this->site_dirs as $dir=>$files)
   {
     $full_dir = $this->site_url . $dir;
-    if ( strpos($full_dir, $path)===0 )
+    if (strpos($full_dir, $path) === 0)
     {
-      foreach ( $files as $file)
+      foreach ($files as $file)
       {
-        $data = $this->get_element_attributes($file,
-                                              $this->insert_attributes);
+        $data = $this->get_element_attributes(
+          $file,
+          $this->insert_attributes
+          );
         $elements[$file] = $data;
       }
     }
@@ -129,8 +154,10 @@ function get_update_attributes()
 // returns a hash of attributes (metadata+filesize+width,...) for file
 function get_element_update_attributes($file)
 {
-    return $this->get_element_attributes($file,
-                                         $this->update_attributes);
+  return $this->get_element_attributes(
+    $file,
+    $this->update_attributes
+    );
 }
 
 //-------------------------------------------------- private functions --------
@@ -143,7 +170,7 @@ function get_element_update_attributes($file)
 function get_element_attributes($file, $attributes)
 {
   $xml_element = $this->site_files[$file];
-  if ( ! isset($xml_element) )
+  if (!isset($xml_element))
   {
     return null;
   }
@@ -177,12 +204,15 @@ function build_structure($xml_content, $basedir, $level)
 
   if ($basedir != '')
   {
-    $xml_elements = getChildren( getChild($xml_content, 'root'), 'element' );
+    $xml_elements = getChildren(
+      getChild($xml_content, 'root'),
+      'element'
+      );
     foreach ($xml_elements as $xml_element)
     {
       $path = getAttribute($xml_element, 'path');
       $this->site_files[$path] = $xml_element;
-      array_push( $this->site_dirs[$basedir], $path);
+      array_push($this->site_dirs[$basedir], $path);
     }
   }
 }

@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2005-09-21 00:04:57 +0200 (mer, 21 sep 2005) $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 870 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -27,90 +27,30 @@
 
 if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
-}
-include_once(PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php');
-
-// +-----------------------------------------------------------------------+
-// |                                actions                                |
-// +-----------------------------------------------------------------------+
-
-$action = isset($_GET['action']) ? $_GET['action'] : '';
-
-switch ($action)
-{
-  case 'categories' :
-  {
-    check_links();
-    update_uppercats();
-    update_category('all');
-    ordering();
-    update_global_rank();
-    break;
-  }
-  case 'images' :
-  {
-    update_path();
-    update_average_rate();
-    break;
-  }
-  case 'history' :
-  {
-    $query = '
-DELETE
-  FROM '.HISTORY_TABLE.'
-;';
-    pwg_query($query);
-    break;
-  }
-  case 'sessions' :
-  {
-    $query = '
-DELETE
-  FROM '.SESSIONS_TABLE.'
-  WHERE expiration < NOW()
-;';
-    pwg_query($query);
-    break;
-  }
-  case 'feeds' :
-  {
-    $query = '
-DELETE
-  FROM '.USER_FEED_TABLE.'
-  WHERE last_check IS NULL
-;';
-    pwg_query($query);
-    break;
-  }
-  default :
-  {
-    break;
-  }
+  die('Hacking attempt!');
 }
 
-// +-----------------------------------------------------------------------+
-// |                             template init                             |
-// +-----------------------------------------------------------------------+
+$upgrade_description = 'New table #categories_link';
 
-$template->set_filenames(array('maintenance'=>'admin/maintenance.tpl'));
-
-$start_url = PHPWG_ROOT_PATH.'admin.php?page=maintenance&amp;action=';
-
-$template->assign_vars(
-  array(
-    'U_MAINT_CATEGORIES' => $start_url.'categories',
-    'U_MAINT_IMAGES' => $start_url.'images',
-    'U_MAINT_HISTORY' => $start_url.'history',
-    'U_MAINT_SESSIONS' => $start_url.'sessions',
-    'U_MAINT_FEEDS' => $start_url.'feeds',
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=maintenance',
-    )
-  );
-  
 // +-----------------------------------------------------------------------+
-// |                           sending html code                           |
+// |                            Upgrade content                            |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'maintenance');
+$query = "
+CREATE TABLE phpwebgallery_categories_link (
+  source smallint(5) unsigned NOT NULL default '0',
+  destination smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (source,destination)
+) TYPE=MyISAM;";
+pwg_query($query);
+
+// +-----------------------------------------------------------------------+
+// |                           End notification                            |
+// +-----------------------------------------------------------------------+
+
+echo
+"\n"
+.'Table '.PREFIX_TABLE.'categories_link created'
+."\n"
+;
 ?>

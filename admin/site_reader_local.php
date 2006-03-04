@@ -44,11 +44,20 @@ function LocalSiteReader($url)
 function open()
 {
   global $errors;
+  
   if (!is_dir($this->site_url))
   {
-    array_push($errors, array('path' => $this->site_url, 'type' => 'PWG-ERROR-NO-FS'));
+    array_push(
+      $errors,
+      array(
+        'path' => $this->site_url,
+        'type' => 'PWG-ERROR-NO-FS'
+        )
+      );
+    
     return false;
   }
+  
   return true;
 }
 
@@ -135,8 +144,11 @@ function get_elements($path)
 function get_update_attributes()
 {
   global $conf;
-  $update_fields = array( 'has_high', 'representative_ext',
-      'filesize', 'width', 'height' );
+  
+  $update_fields = array(
+    'has_high', 'representative_ext', 'filesize', 'width', 'height'
+    );
+  
   if ($conf['use_exif'])
   {
     $update_fields =
@@ -154,6 +166,7 @@ function get_update_attributes()
         array_keys($conf['use_iptc_mapping'])
         );
   }
+  
   return $update_fields;
 }
 
@@ -169,9 +182,13 @@ function get_element_update_attributes($file)
   $data = array();
 
   $filename = basename($file);
-  $data['has_high'] = $this->get_has_high( dirname($file), $filename );
-  $data['representative_ext'] = $this->get_representative_ext( dirname($file),
-                                        get_filename_wo_extension($filename) );
+  
+  $data['has_high'] = $this->get_has_high(dirname($file), $filename);
+  
+  $data['representative_ext'] = $this->get_representative_ext(
+    dirname($file),
+    get_filename_wo_extension($filename)
+    );
 
   $data['filesize'] = floor(filesize($file)/1024);
   if ($image_size = @getimagesize($file))
@@ -204,6 +221,7 @@ function get_element_update_attributes($file)
       }
     }
   }
+  
   return $data;
 }
 
@@ -212,8 +230,7 @@ function get_element_update_attributes($file)
 function get_representative_ext($path, $filename_wo_ext)
 {
   global $conf;
-  $base_test = $path.'/pwg_representative/';
-  $base_test.= $filename_wo_ext.'.';
+  $base_test = $path.'/pwg_representative/'.$filename_wo_ext.'.';
   foreach ($conf['picture_ext'] as $ext)
   {
     $test = $base_test.$ext;
@@ -228,8 +245,10 @@ function get_representative_ext($path, $filename_wo_ext)
 function get_tn_ext($path, $filename_wo_ext)
 {
   global $conf;
-  $base_test = $path.'/thumbnail/';
-  $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
+  
+  $base_test =
+    $path.'/thumbnail/'.$conf['prefix_thumbnail'].$filename_wo_ext.'.';
+  
   foreach ($conf['picture_ext'] as $ext)
   {
     $test = $base_test.$ext;
@@ -238,6 +257,7 @@ function get_tn_ext($path, $filename_wo_ext)
       return $ext;
     }
   }
+  
   return null;
 }
 
@@ -247,6 +267,7 @@ function get_has_high($path, $filename)
   {
     return 'true';
   }
+  
   return null;
 }
 

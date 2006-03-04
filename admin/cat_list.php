@@ -83,92 +83,18 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']))
 // request to add a virtual category
 else if (isset($_POST['submitAdd']))
 {
-  // is the given category name only containing blank spaces ?
-  if (preg_match('/^\s*$/', $_POST['virtual_name']))
+  $output_create = create_virtual_category(
+    $_POST['virtual_name'],
+    @$_GET['parent_id']
+    );
+
+  if (isset($output_create['error']))
   {
-    array_push($page['errors'], $lang['cat_error_name']);
+    array_push($page['errors'], $output_create['error']);
   }
-	
-  if (!count($page['errors']))
+  else
   {
-    $parent_id = !empty($_GET['parent_id'])?$_GET['parent_id']:'NULL';
-    
-    if ($parent_id != 'NULL')
-    {
-      $query = '
-SELECT id,uppercats,global_rank,visible,status
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id = '.$parent_id.'
-;';
-      $row = mysql_fetch_array(pwg_query($query));
-      $parent = array('id' => $row['id'],
-                      'uppercats' => $row['uppercats'],
-                      'visible' => $row['visible'],
-                      'status' => $row['status'],
-                      'global_rank' => $row['global_rank']);
-    }
-
-    // what will be the inserted id ?
-    $query = '
-SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1)
-  FROM '.CATEGORIES_TABLE.'
-;';
-    list($next_id) = mysql_fetch_array(pwg_query($query));
-    
-    $insert = array();
-    $insert{'id'} = $next_id++;
-    $insert{'name'} = $_POST['virtual_name'];
-    $insert{'rank'} = $_POST['rank'];
-    $insert{'commentable'} = $conf['newcat_default_commentable'];
-
-    // a virtual category can't be uploadable
-    $insert{'uploadable'} = 'false';
-    
-    if (isset($parent))
-    {
-      $insert{'id_uppercat'} = $parent{'id'};
-      $insert{'uppercats'}   = $parent{'uppercats'}.','.$insert{'id'};
-      $insert{'global_rank'} = $parent{'global_rank'}.'.'.$insert{'rank'};
-      // at creation, must a category be visible or not ? Warning : if
-      // the parent category is invisible, the category is automatically
-      // create invisible. (invisible = locked)
-      if ('false' == $parent['visible'])
-      {
-        $insert{'visible'} = 'false';
-      }
-      else
-      {
-        $insert{'visible'} = $conf['newcat_default_visible'];
-      }
-      // at creation, must a category be public or private ? Warning :
-      // if the parent category is private, the category is
-      // automatically create private.
-      if ('private' == $parent['status'])
-      {
-        $insert{'status'} = 'private';
-      }
-      else
-      {
-        $insert{'status'} = $conf['newcat_default_status'];
-      }
-    }
-    else
-    {
-      $insert{'visible'} = $conf['newcat_default_visible'];
-      $insert{'status'} = $conf['newcat_default_status'];
-      $insert{'uppercats'} = $insert{'id'};
-      $insert{'global_rank'} = $insert{'rank'};
-    }
-
-    $inserts = array($insert);
-    
-    // we have then to add the virtual category
-    $dbfields = array('id','site_id','name','id_uppercat','rank',
-                      'commentable','uploadable','visible','status',
-                      'uppercats','global_rank');
-    mass_inserts(CATEGORIES_TABLE, $dbfields, $inserts);
-
-    array_push($page['infos'], $lang['cat_virtual_added']);
+    array_push($page['infos'], $output_create['info']);
   }
 }
 else if (isset($_POST['submitOrder']))
@@ -211,9 +137,12 @@ if (isset($_GET['parent_id']))
   $navigation.= $conf['level_separator'];
 
   $current_category = get_cat_info($_GET['parent_id']);
-  $navigation.= get_cat_display_name($current_category['name'],
-                                     $base_url.'&amp;parent_id=',
-                                     false);
+  
+  $navigation.= get_cat_display_name(
+    $current_category['name'],
+    $base_url.'&amp;parent_id=',
+    false
+    );
 }
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
@@ -226,18 +155,8 @@ if (isset($_GET['parent_id']))
   $form_action.= '&amp;parent_id='.$_GET['parent_id'];
 }
 
-if (count($categories) > 0)
-{
-  $next_rank = max(array_keys($categories)) + 1;
-}
-else
-{
-  $next_rank = 1;
-}
-
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
-  'NEXT_RANK'=>$next_rank,
   'F_ACTION'=>$form_action,
   
   'L_ADD_VIRTUAL'=>$lang['cat_add'],

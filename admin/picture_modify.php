@@ -171,11 +171,13 @@ if (isset($_POST['dismiss'])
 $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
   WHERE id = '.$_GET['image_id'].'
+    AND is_storage = \'true\'
 ;';
 $row = mysql_fetch_array(pwg_query($query));
 
-$storage_category_id = $row['storage_category_id'];
+$storage_category_id = $row['category_id'];
 
 // Navigation path
 
@@ -341,7 +343,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
   WHERE image_id = '.$_GET['image_id'].'
-    AND id != '.$storage_category_id.'
+    AND is_storage = \'false\'
 ;';
 display_select_cat_wrapper($query, array(), 'associated_option');
 
