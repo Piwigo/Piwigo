@@ -136,32 +136,51 @@ SELECT image_id
         array('image_id', 'category_id'),
         $datas
         );
-      
+
+      check_links();
       update_category(array($_POST['associate']));
     }
   }
 
   if ($_POST['dissociate'] != 0 and count($collection) > 0)
   {
-    // physical links must not be broken, so we must first retrieve image_id
-    // which create virtual links with the category to "dissociate from".
+    // First, we must identify which elements in the collection are really
+    // virtually associated with the category
     $query = '
-SELECT id
-  FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id = id
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$_POST['dissociate'].'
-    AND category_id != storage_category_id
-    AND id IN ('.implode(',', $collection).')
+    AND image_id IN ('.implode(',', $collection).')
+    AND is_storage = \'false\'
 ;';
-    $dissociables = array_from_query($query, 'id');
+    $associated_images = array_from_query($query, 'image_id');
 
+    // If the same element is associated to a source and its destinations,
+    // dissociating the element with the source implies dissociating the
+    // element fwith the destination.
+    $destinations_of = get_destinations($_POST['dissociate']);
+
+    $associated_categories = array_merge(
+      array($_POST['dissociate']),
+      $destinations_of[ $_POST['dissociate'] ]
+      );
+    
+    // Eventually, deletion of associations
     $query = '
-DELETE FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$_POST['dissociate'].'
-  AND image_id IN ('.implode(',', $dissociables).')
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $associated_categories).'
+    AND image_id IN ('.implode(',', $associated_images).')
 ';
     pwg_query($query);
 
-    update_category(array($_POST['dissociate']));
+    // check source/destination links. If category C has for sources A and
+    // B, if picture 1 was associated to A and B, the previous code lines
+    // have deleted the link between C and 1, while it should be kept due to
+    // B. Who said "complicated"?
+    check_links();
+    
+    update_category($associated_categories);
   }
 
   $datas = array();
