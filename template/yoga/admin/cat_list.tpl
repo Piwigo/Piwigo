@@ -3,7 +3,7 @@
 
 <h3>{CATEGORIES_NAV}</h3>
 
-<form id="categoryOrdering" action="" method="post">
+<form id="categoryOrdering" action="{F_ACTION}" method="post">
 
   <ul class="categoryUl">
 
@@ -38,7 +38,10 @@
     <!-- END category -->
 
   </ul>
-  <p><input name="submitOrder" type="submit" value="{lang:Save order}" /></p>
+  <p>
+    <input name="submitOrder" type="submit" value="{lang:Save order}" />
+    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" />
+  </p>
 
 </form>
 

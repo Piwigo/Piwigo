@@ -97,11 +97,41 @@ else if (isset($_POST['submitAdd']))
     array_push($page['infos'], $output_create['info']);
   }
 }
+// save manual category ordering
 else if (isset($_POST['submitOrder']))
 {
   asort($_POST['catOrd'], SORT_NUMERIC);
   save_categories_order(array_keys($_POST['catOrd']));
+
+  array_push(
+    $page['infos'],
+    l10n('Categories manual order was saved')
+    );
 }
+// sort categories alpha-numerically
+else if (isset($_POST['submitOrderAlphaNum']))
+{
+  $query = '
+SELECT id, name
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id_uppercat '.
+    (!isset($_GET['parent_id']) ? 'IS NULL' : '= '.$_GET['parent_id']).'
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_assoc($result))
+  {
+    $categories[ $row['id'] ] = $row['name'];
+  }
+
+  asort($categories, SORT_REGULAR);
+  save_categories_order(array_keys($categories));
+
+  array_push(
+    $page['infos'],
+    l10n('Categories ordered alphanumerically')
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // |                           Cache management                            |
 // +-----------------------------------------------------------------------+
