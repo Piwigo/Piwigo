@@ -1,4 +1,3 @@
-
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
@@ -187,7 +186,7 @@ DELETE FROM '.USER_ACCESS_TABLE.'
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
-  
+
   $query = '
 DELETE FROM '.GROUP_ACCESS_TABLE.'
   WHERE cat_id IN (
@@ -205,7 +204,7 @@ SELECT destination, source
   $result = pwg_query($query);
 
   $sources_of = array();
-  
+
   while ($row = mysql_fetch_array($result))
   {
     if (!isset($sources_of[ $row['destination'] ]))
@@ -445,7 +444,7 @@ SELECT category_id,
   while ($row = mysql_fetch_array($result))
   {
     array_push($query_ids, $row['category_id']);
-    
+
     array_push(
       $datas,
       array(
@@ -1349,7 +1348,7 @@ SELECT id, id_uppercat
 function update_path()
 {
   $images_of = array();
-  
+
   $query = '
 SELECT category_id, image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -1368,7 +1367,7 @@ SELECT category_id, image_id
       $row['image_id']
       );
   }
-  
+
   $fulldirs = get_fulldirs(
     array_keys($images_of)
     );
@@ -1618,7 +1617,7 @@ SELECT source, destination
   $result = pwg_query($query);
 
   $destinations_of = array();
-  
+
   while ($row = mysql_fetch_array($result))
   {
     if (!isset($destinations_of[ $row['source'] ]))
@@ -1638,7 +1637,7 @@ SELECT source, destination
   {
     // let's suppose we only need a single turn
     $need_new_turn = false;
-    
+
     foreach ($destinations_of as $source => $destinations)
     {
       foreach ($destinations as $destination)
@@ -1655,7 +1654,7 @@ SELECT source, destination
             $destinations,
             array($source) // no cyclic link
             );
-          
+
           if (count($missing_destinations) > 0)
           {
             $destinations_of[$source] = array_unique(
@@ -1684,7 +1683,7 @@ SELECT source, destination
     {
       $filtered_destinations_of[$category] = array();
     }
-    
+
     foreach ($destinations_of as $source => $destinations)
     {
       if (in_array($source, $categories))
@@ -1712,7 +1711,7 @@ function get_sources($categories = 'all')
   $destinations_of = get_destinations();
 
   $sources_of = array();
-  
+
   foreach ($destinations_of as $source => $destinations)
   {
     foreach ($destinations as $destination)
@@ -1725,7 +1724,7 @@ function get_sources($categories = 'all')
       array_push($sources_of[$destination], $source);
     }
   }
-  
+
   // eventually, filter
   if (is_array($categories))
   {
@@ -1737,7 +1736,7 @@ function get_sources($categories = 'all')
     {
       $filtered_sources_of[$category] = array();
     }
-    
+
     foreach ($sources_of as $destination => $sources)
     {
       if (in_array($destination, $categories))
@@ -1783,7 +1782,7 @@ function check_links($destinations = 'all')
       $images_of[$source] = array();
     }
   }
-  
+
   $query = '
 SELECT image_id, category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -1802,12 +1801,12 @@ SELECT image_id, category_id
   }
 
   $inserts = array();
-  
+
   foreach ($sources_of as $destination => $sources)
   {
     // merge all images from the sources of this destination
     $sources_images = array();
-    
+
     foreach ($sources as $source)
     {
       $sources_images = array_merge(
@@ -1874,7 +1873,7 @@ SELECT image_id, category_id
  * associated manually to 9.
  *
  * Warning: only virtual links can be removed, physical links are protected.
- * 
+ *
  * @param int destination
  * @param array sources
  */
@@ -1893,7 +1892,7 @@ DELETE
     AND source IN ('.implode(',', $sources).')
 ;';
   pwg_query($query);
-  
+
   // The strategy is the following:
   //
   // * first we brutally delete the image/category associations on
@@ -1927,7 +1926,7 @@ SELECT image_id
     array($destination),
     $destinations_of[$destination]
     );
-  
+
   // unlink sources images from destinations
   $query = '
 DELETE
@@ -1948,7 +1947,7 @@ SELECT id, representative_picture_id
   $result = pwg_query($query);
 
   $request_random = array();
-  
+
   while ($row = mysql_fetch_array($result))
   {
     if (isset($row['representative_picture_id']))
@@ -1978,13 +1977,13 @@ SELECT id, representative_picture_id
 function create_virtual_category($category_name, $parent_id=null)
 {
   global $conf;
-  
+
   // is the given category name only containing blank spaces ?
   if (preg_match('/^\s*$/', $category_name))
   {
     return array('error' => l10n('cat_error_name'));
   }
-	
+
   $parent_id = !empty($parent_id) ? $parent_id : 'NULL';
 
   $query = '
@@ -1993,14 +1992,14 @@ SELECT MAX(rank)
   WHERE id_uppercat '.(is_numeric($parent_id) ? '= '.$parent_id : 'IS NULL').'
 ;';
   list($current_rank) = mysql_fetch_array(pwg_query($query));
-  
+
   $insert = array(
     'name' => $category_name,
     'rank' => ++$current_rank,
     'commentable' => $conf['newcat_default_commentable'],
     'uploadable' => 'false',
     );
-    
+
   if ($parent_id != 'NULL')
   {
     $query = '
@@ -2012,7 +2011,7 @@ SELECT id, uppercats, global_rank, visible, status
 
     $insert{'id_uppercat'} = $parent{'id'};
     $insert{'global_rank'} = $parent{'global_rank'}.'.'.$insert{'rank'};
-    
+
     // at creation, must a category be visible or not ? Warning : if the
     // parent category is invisible, the category is automatically create
     // invisible. (invisible = locked)
@@ -2024,7 +2023,7 @@ SELECT id, uppercats, global_rank, visible, status
     {
       $insert{'visible'} = $conf['newcat_default_visible'];
     }
-    
+
     // at creation, must a category be public or private ? Warning : if the
     // parent category is private, the category is automatically create
     // private.
@@ -2066,7 +2065,7 @@ UPDATE
   WHERE id = '.$inserted_id.'
 ;';
   pwg_query($query);
-  
+
   return array(
     'info' => l10n('cat_virtual_added'),
     'id'   => $inserted_id,

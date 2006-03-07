@@ -36,7 +36,7 @@ if (isset($_POST['submit']))
   {
     array_push($errors, $lang['reg_err_pass']);
   }
-  
+
   $errors =
     array_merge(
       $errors,
@@ -44,13 +44,12 @@ if (isset($_POST['submit']))
                     $_POST['password'],
                     $_POST['mail_address'])
       );
-  
+
   if (count($errors) == 0)
   {
     $user_id = get_userid($_POST['login']);
-    $session_id = session_create($user_id, $conf['session_length']);
-    $url = 'category.php?id='.$session_id;
-    redirect($url);
+    log_user( $user_id, false);
+    redirect('category.php');
   }
 }
 
@@ -76,7 +75,7 @@ $template->assign_vars(array(
   'L_EMAIL' => $lang['mail_address'],
 
   'U_HOME' => PHPWG_ROOT_PATH.'category.php',
-  
+
   'F_ACTION' => 'register.php',
   'F_LOGIN' => $login,
   'F_EMAIL' => $email

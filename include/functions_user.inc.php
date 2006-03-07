@@ -82,7 +82,7 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
   FROM '.USERS_TABLE.'
 ;';
     list($next_id) = mysql_fetch_array(pwg_query($query));
-    
+
     $insert =
       array(
         $conf['user_fields']['id'] => $next_id,
@@ -93,7 +93,7 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
-    
+
     create_user_infos($next_id);
   }
 
@@ -117,7 +117,7 @@ function getuserdata($user_id, $use_cache)
   global $conf;
 
   $userdata = array();
-  
+
   $query = '
 SELECT ';
   $is_first = true;
@@ -138,7 +138,7 @@ SELECT ';
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'
 ;';
-  
+
   $row = mysql_fetch_array(pwg_query($query));
 
   while (true)
@@ -159,9 +159,9 @@ SELECT ui.*, uc.*
       create_user_infos($user_id);
     }
   }
-  
+
   $row = array_merge($row, mysql_fetch_array($result));
-  
+
   foreach ($row as $key => $value)
   {
     if (!is_numeric($key))
@@ -194,7 +194,7 @@ DELETE FROM '.USER_CACHE_TABLE.'
   WHERE user_id = '.$userdata['id'].'
 ;';
       pwg_query($query);
-  
+
       $query = '
 INSERT INTO '.USER_CACHE_TABLE.'
   (user_id,need_update,forbidden_categories)
@@ -307,7 +307,7 @@ SELECT id
 
     $private_array = array_unique($private_array);
   }
-  
+
   // retrieve category ids directly authorized to the user
   $query = '
 SELECT cat_id
@@ -340,7 +340,7 @@ SELECT cat_id
   // where clauses such as "WHERE category_id NOT IN(-1)" will always be
   // true.
   array_push($forbidden_array, '-1');
-  
+
   return implode(',', $forbidden_array);
 }
 
@@ -353,7 +353,7 @@ SELECT cat_id
 function get_username($user_id)
 {
   global $conf;
-  
+
   $query = '
 SELECT '.$conf['user_fields']['username'].'
   FROM '.USERS_TABLE.'
@@ -368,7 +368,7 @@ SELECT '.$conf['user_fields']['username'].'
   {
     return false;
   }
-  
+
   return $username;
 }
 
@@ -433,7 +433,7 @@ SELECT COUNT(*)
 function create_user_infos($user_id)
 {
   global $conf;
-  
+
   list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
   $insert =
@@ -479,7 +479,7 @@ SELECT name
   {
     return false;
   }
-  
+
   return $groupname;
 }
 
@@ -496,7 +496,7 @@ SELECT name
 function get_language_filepath($filename)
 {
   global $user, $conf;
-  
+
   $directories =
     array(
       PHPWG_ROOT_PATH.'language/'.$user['language'],
@@ -507,13 +507,33 @@ function get_language_filepath($filename)
   foreach ($directories as $directory)
   {
     $filepath = $directory.'/'.$filename;
-    
+
     if (file_exists($filepath))
     {
       return $filepath;
     }
   }
-  
+
   return false;
 }
+
+/*
+ * Performs all required actions for user login
+ * @param int user_id
+ * @param bool remember_me
+ * @return void
+*/
+function log_user($user_id, $remember_me)
+{
+  global $conf;
+  $session_length = $conf['session_length'];
+  if ($remember_me)
+  {
+    $session_length = $conf['remember_me_length'];
+  }
+  session_set_cookie_params($session_length);
+  session_start();
+  $_SESSION['id'] = $user_id;
+}
+
 ?>

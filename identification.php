@@ -56,16 +56,14 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   $row = mysql_fetch_array(pwg_query($query));
   if ($row['password'] == $conf['pass_convert']($_POST['password']))
   {
-    $session_length = $conf['session_length'];
+    $remember_me = false;
     if ($conf['authorize_remembering']
         and isset($_POST['remember_me'])
         and $_POST['remember_me'] == 1)
     {
-      $session_length = $conf['remember_me_length'];
+      $remember_me = true;
     }
-    session_set_cookie_params($session_length);
-    session_start();
-    $_SESSION['id'] = $row['id'];
+    log_user( $row['id'], $remember_me);
     redirect(empty($redirect_to) ? 'category.php' : $redirect_to);
   }
   else
