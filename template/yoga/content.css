@@ -17,9 +17,11 @@ BODY#theNotificationPage #content
   margin: 1em;
 }
 
-#content H2, H3 {
+#content H3 {
     margin-bottom: 1ex;
 }
+
+#content H2 { margin-bottom: 3px;} /*<- for IE otherwise calendar select is displaced to middle of page*/
 
 #content H3 {
     text-align: center;
@@ -104,7 +106,7 @@ BODY#theNotificationPage #content
 
 /* actions */
 UL.categoryActions {
-  margin: 2px;
+  margin: 0 2px;
   width: auto;
   padding: 0;
   text-indent: 0;
@@ -117,9 +119,12 @@ UL.categoryActions {
   text-align: center;
 }
 
+#content DIV.titrePage {
+  padding: 0 0 3px;
+}
+
 #content UL.categoryActions LI {
   display: inline;
-
 }
 
 #content UL.categoryActions A IMG, UL.categoryActions A {
@@ -183,7 +188,7 @@ SPAN.filename:after {
 #content DIV.calendarViews {
   display: block;
   float: right;
-  margin: 2px 2px;
+  margin: 2px 0 0;
 }
 
 #content DIV.calendarBar { margin: 8px 4px; }

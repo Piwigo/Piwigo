@@ -65,8 +65,11 @@ class CalendarBase
     for ($i=0; $i<count($this->date_components); $i++)
     {
       $res .= $conf['level_separator'];
-
-      $url .= $this->date_components[$i].'-';
+      if ($i>0)
+      {
+        $url .= '-';
+      }
+      $url .= $this->date_components[$i];
       if ( isset($this->date_components[$i+1]) )
       {
         $res .=
@@ -96,7 +99,7 @@ class CalendarBase
     {
       $label = $this->calendar_levels[$level]['labels'][$date_component];
     }
-    elseif ($date_component == 'any' )
+    elseif ('any' === $date_component )
     {
       $label = l10n('calendar_any');
     }
@@ -112,14 +115,14 @@ class CalendarBase
     $res = '';
     for ($i=count($date_components)-1; $i>=0; $i--)
     {
-      if ($date_components[$i]!='any')
+      if ('any' !== $date_components[$i])
       {
-        $label = $date_components[$i];
-        if (isset($this->calendar_levels[$i]['labels'][$date_components[$i]]))
+        $label = $this->get_date_component_label($i, $date_components[$i] );
+        if ( $res!='' )
         {
-          $label = $this->calendar_levels[$i]['labels'][$date_components[$i]];
+          $res .= ' ';
         }
-        $res .= $label.' ';
+        $res .= $label;
       }
     }
     return $res;
@@ -192,7 +195,7 @@ class CalendarBase
     if ($conf['calendar_show_any'] and $show_any and count($items) > 1)
     {
       $label = l10n('calendar_any');
-      if (isset($selected_item) and 'any' == $selected_item)
+      if (isset($selected_item) and 'any' === $selected_item)
       {
         $nav_bar .= '<span class="'.$class_prefix.'Sel">';
         $nav_bar .= $label;
@@ -289,37 +292,41 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $prev = $next =null;
     if ( empty($this->date_components) )
       return;
-
-    $current = '';
     $query = 'SELECT CONCAT_WS("-"';
     for ($i=0; $i<count($this->date_components); $i++)
     {
-      if ( $this->date_components[$i] != 'any' )
-      {
-        $query .= ','.$this->calendar_levels[$i]['sql'];
-      }
-      else
+      if ( 'any' === $this->date_components[$i] )
       {
         $query .= ','.'"any"';
       }
-      $current .= '-' . $this->date_components[$i];
+      else
+      {
+        $query .= ','.$this->calendar_levels[$i]['sql'];
+      }
     }
-    $current = substr($current, 1);
+    $current = implode('-', $this->date_components );
 
     $query.=') as period' . $this->inner_sql .'
 AND ' . $this->date_field . ' IS NOT NULL
 GROUP BY period';
+
     $upper_items = array_from_query( $query, 'period');
+
     usort($upper_items, 'version_compare');
-    //echo ('<pre>'. var_export($upper_items, true) . '</pre>');
     $upper_items_rank = array_flip($upper_items);
+    if ( !isset($upper_items_rank[$current]) )
+    {
+      array_push($upper_items, $current);// just in case (external link)
+      usort($upper_items, 'version_compare');
+      $upper_items_rank = array_flip($upper_items);
+    }
     $current_rank = $upper_items_rank[$current];
+
     if (!$this->has_nav_bar and
         ($current_rank>0 or $current_rank < count($upper_items)-1 ) )
     {
       $template->assign_block_vars( 'calendar.navbar', array() );
     }
-
     if ( $current_rank>0 )
     { // has previous
       $prev = $upper_items[$current_rank-1];

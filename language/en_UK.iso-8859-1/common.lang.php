@@ -109,6 +109,7 @@ $lang['User comments'] = 'User comments';
 $lang['Username'] = 'Username';
 $lang['Visits'] = 'Visits';
 $lang['Webmaster'] = 'Webmaster';
+$lang['Week %d'] = 'Week %d';
 $lang['about_page_title'] = 'About PhpWebGallery';
 $lang['access_forbiden'] = 'You are not authorized to access the requested page';
 $lang['add to caddie'] = 'add to caddie';

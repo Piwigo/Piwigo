@@ -139,15 +139,15 @@ function get_date_where($max_levels=3)
     array_pop($date);
   }
   $res = '';
-  if (isset($date[CYEAR]) and $date[CYEAR]!='any')
+  if (isset($date[CYEAR]) and $date[CYEAR]!=='any')
   {
     $b = $date[CYEAR] . '-';
     $e = $date[CYEAR] . '-';
-    if (isset($date[CMONTH]) and $date[CMONTH]!='any')
+    if (isset($date[CMONTH]) and $date[CMONTH]!=='any')
     {
       $b .= $date[CMONTH] . '-';
       $e .= $date[CMONTH] . '-';
-      if (isset($date[CDAY]) and $date[CDAY]!='any')
+      if (isset($date[CDAY]) and $date[CDAY]!=='any')
       {
         $b .= $date[CDAY];
         $e .= $date[CDAY];
@@ -162,11 +162,11 @@ function get_date_where($max_levels=3)
     {
       $b .= '01-01';
       $e .= '12-31';
-      if (isset($date[CMONTH]) and $date[CMONTH]!='any')
+      if (isset($date[CMONTH]) and $date[CMONTH]!=='any')
       {
         $res .= ' AND '.$this->calendar_levels[CMONTH]['sql'].'='.$date[CMONTH];
       }
-      if (isset($date[CDAY]) and $date[CDAY]!='any')
+      if (isset($date[CDAY]) and $date[CDAY]!=='any')
       {
         $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
       }
@@ -176,11 +176,11 @@ function get_date_where($max_levels=3)
   else
   {
     $res = ' AND '.$this->date_field.' IS NOT NULL';
-    if (isset($date[CMONTH]) and $date[CMONTH]!='any')
+    if (isset($date[CMONTH]) and $date[CMONTH]!=='any')
     {
       $res .= ' AND '.$this->calendar_levels[CMONTH]['sql'].'='.$date[CMONTH];
     }
-    if (isset($date[CDAY]) and $date[CDAY]!='any')
+    if (isset($date[CDAY]) and $date[CDAY]!=='any')
     {
       $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
     }
@@ -224,7 +224,8 @@ function build_global_calendar()
   $query.= $this->inner_sql;
   $query.= $this->get_date_where();
   $query.= '
-  GROUP BY period';
+  GROUP BY period
+  ORDER BY YEAR('.$this->date_field.') DESC';
 
   $result = pwg_query($query);
   $items=array();
@@ -290,7 +291,6 @@ function build_year_calendar()
     $items[$m]['children'][$d] = $row['count'];
     $items[$m]['nb_images'] += $row['count'];
   }
-  //echo ('<pre>'. var_export($items, true) . '</pre>');
   if (count($items)==1)
   { // only one month exists so bail out to month view
     list($m) = array_keys($items);

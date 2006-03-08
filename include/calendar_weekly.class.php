@@ -46,6 +46,13 @@ class Calendar extends CalendarBase
   {
     parent::initialize($date_field, $inner_sql, $date_components);
     global $lang;
+    $week_no_labels=array();
+    for ($i=1; $i<=53; $i++)
+    {
+      $week_no_labels[$i] = sprintf( l10n("Week %d"), $i);
+      //$week_no_labels[$i] = $i;
+    }
+
     $this->calendar_levels = array(
       array(
           'sql'=> 'YEAR('.$this->date_field.')',
@@ -53,7 +60,7 @@ class Calendar extends CalendarBase
         ),
       array(
           'sql'=> 'WEEK('.$this->date_field.')+1',
-          'labels' => null
+          'labels' => $week_no_labels,
         ),
       array(
           'sql'=> 'DAYOFWEEK('.$this->date_field.')-1',
@@ -86,7 +93,7 @@ function generate_category_content($url_base, $view_type)
   }
   if ( count($this->date_components)==1 )
   {
-    $this->build_nav_bar(CWEEK); // week nav bar 1-53
+    $this->build_nav_bar(CWEEK, array()); // week nav bar 1-53
   }
   if ( count($this->date_components)==2 )
   {
@@ -111,17 +118,17 @@ function get_date_where($max_levels=3)
     array_pop($date);
   }
   $res = '';
-  if (isset($date[CYEAR]) and $date[CYEAR]!='any')
+  if (isset($date[CYEAR]) and $date[CYEAR]!=='any')
   {
     $y = $date[CYEAR];
     $res = " AND $this->date_field BETWEEN '$y-01-01' AND '$y-12-31 23:59:59'";
   }
 
-  if (isset($date[CWEEK]) and $date[CWEEK]!='any')
+  if (isset($date[CWEEK]) and $date[CWEEK]!=='any')
   {
     $res .= ' AND '.$this->calendar_levels[CWEEK]['sql'].'='.$date[CWEEK];
   }
-  if (isset($date[CDAY]) and $date[CDAY]!='any')
+  if (isset($date[CDAY]) and $date[CDAY]!=='any')
   {
     $res .= ' AND '.$this->calendar_levels[CDAY]['sql'].'='.$date[CDAY];
   }

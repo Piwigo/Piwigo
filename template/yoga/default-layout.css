@@ -30,7 +30,7 @@ H1 {
 
 H2 {
     margin: 0;
-    padding: 5px;
+    padding: 0px 5px 4px;
     text-align: left;
     font-size: 120%;
 }
@@ -90,7 +90,7 @@ select.categoryList {
 /** go to an admin.css ? **/
 
 .table2 {
-  border: 1px solid black; 
+  border: 1px solid black;
   margin: 1em auto;
   padding: 0;
 }
@@ -228,7 +228,7 @@ FORM#categoryPermissions LI {
   padding: 0;
 }
 
-BODY#theAdminPage #theHeader P { 
+BODY#theAdminPage #theHeader P {
   display: none;
 }
 
@@ -256,4 +256,5 @@ UL.actions  LI {
 UL.actions  A {
   border: none;
 }
+
 
