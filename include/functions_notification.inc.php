@@ -192,7 +192,7 @@ function news($start, $end)
                               $nb_updated_categories));
   }
   
-  if ('admin' == $user['status'])
+  if (is_admin())
   {
     $nb_unvalidated_comments = count(unvalidated_comments($end));
     if ($nb_unvalidated_comments > 0)

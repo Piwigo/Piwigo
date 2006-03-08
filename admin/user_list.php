@@ -377,7 +377,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
       // Webmaster status must not be changed
       if ($conf['webmaster_id'] == $user_id and isset($data['status']))
       {
-        $data['status'] = 'admin';
+        $data['status'] = 'webmaster';
       }
       
       array_push($datas, $data);
@@ -649,7 +649,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
   {
     $selected = $_POST['status'] == $status ? 'selected="selected"' : '';
   }
-  else if ('guest' == $status)
+  else if ('normal' == $status)
   {
     $selected = 'selected="selected"';
   }

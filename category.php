@@ -368,7 +368,7 @@ else
     $template->assign_block_vars('logout', array());
   }
 
-  if ('admin' == $user['status'])
+  if (is_admin())
   {
     $template->assign_block_vars('admin', array());
   }
@@ -408,7 +408,7 @@ $template->assign_block_vars(
 
 if (isset($page['cat'])
     and is_numeric($page['cat'])
-    and 'admin' == $user['status'])
+    and is_admin())
 {
   $template->assign_block_vars(
     'edit',

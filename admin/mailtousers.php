@@ -77,15 +77,17 @@ where
  */
 function update_data_user_mail_notification()
 {
-/*  $query = '
-insert into '.USER_MAIL_NOTIFICATION_TABLE.'
-  (user_id, enabled)
-  (select id, \'false\' from '.USERS_TABLE.'
-  where mail_address is not null and id not in (select user_id from '.USER_MAIL_NOTIFICATION_TABLE.'))
-;';
-  pwg_query($query);*/
-
   global $conf, $page;
+
+  // Set null mail_address empty
+  $query = '
+update 
+  '.USERS_TABLE.'
+set
+  mail_address = null
+where
+  trim(mail_address) = \'\';';
+  pwg_query($query);
 
   $query = '
 select

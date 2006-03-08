@@ -1230,7 +1230,7 @@ SELECT user_id
     {
       $insert = array();
       $insert['user_id'] = $user_id;
-      $insert['status'] = 'guest';
+      $insert['status'] = 'normal';
       $insert['template'] = $conf['default_template'];
       $insert['nb_image_line'] = $conf['nb_image_line'];
       $insert['nb_line_page'] = $conf['nb_line_page'];

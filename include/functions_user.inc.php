@@ -292,7 +292,7 @@ SELECT id
   }
 
   // if user is not an admin, locked categories can be considered as private$
-  if ($user_status != 'admin')
+  if (!is_admin())
   {
     $query = '
 SELECT id
@@ -439,7 +439,7 @@ function create_user_infos($user_id)
   $insert =
     array(
       'user_id' => $user_id,
-      'status' => $user_id == $conf['webmaster_id'] ? 'admin' : 'guest',
+      'status' => $user_id == $conf['webmaster_id'] ? 'admin' : 'normal',
       'template' => $conf['default_template'],
       'nb_image_line' => $conf['nb_image_line'],
       'nb_line_page' => $conf['nb_line_page'],
@@ -534,6 +534,17 @@ function log_user($user_id, $remember_me)
   session_set_cookie_params($session_length);
   session_start();
   $_SESSION['id'] = $user_id;
+}
+
+/*
+ * Return if current is an administrator
+ * @return bool
+*/
+function is_admin()
+{
+  global $user;
+  
+  return ($user['status'] == 'webmaster' or $user['status'] == 'admin') ? true : false;
 }
 
 ?>

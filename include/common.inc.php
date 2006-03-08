@@ -208,7 +208,7 @@ if ($conf['gallery_locked'])
   echo '</div>';
 
   if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
-      and $user['status'] != 'admin' )
+      and !is_admin() )
   {
     exit();
   }

@@ -69,8 +69,12 @@ SELECT '.$conf['user_fields']['email'].'
 SELECT '.$conf['user_fields']['id'].' AS id
      , '.$conf['user_fields']['username'].' AS username
      , '.$conf['user_fields']['email'].' AS email
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['email'].' = \''.$mail_address.'\'
+FROM '.USERS_TABLE.' as u
+  INNER JOIN '.USER_INFOS_TABLE.' AS ui
+      ON u.'.$conf['user_fields']['id'].' = ui.user_id
+WHERE '
+  .$conf['user_fields']['email'].' = \''.$mail_address.'\' AND
+  ui.status not in (\'guest\', \'generic\', \'webmaster\')
 ;';
     $result = pwg_query($query);
 

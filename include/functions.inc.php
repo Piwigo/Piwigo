@@ -355,7 +355,7 @@ function pwg_log( $file, $category, $picture = '' )
 
   if ($conf['log'])
   {
-   if ( ($conf['history_admin'] ) or  ( (! $conf['history_admin'])  and ($user['status'] != 'admin')  ) )
+   if ( ($conf['history_admin'] ) or  ( (! $conf['history_admin'])  and (!is_admin())  ) )
 	  {
     $login = ($user['id'] == $conf['guest_id'])
       ? 'guest' : addslashes($user['username']);

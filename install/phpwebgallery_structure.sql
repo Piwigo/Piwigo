@@ -1,4 +1,5 @@
 -- MySQL dump 9.11
+-- MySQL dump 9.11
 --
 -- Host: localhost    Database: pwg-bsf
 -- ------------------------------------------------------
@@ -294,7 +295,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `user_id` smallint(5) NOT NULL default '0',
   `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
-  `status` enum('admin','guest') NOT NULL default 'guest',
+  `status` enum('webmaster', 'admin', 'normal', 'generic', 'guest') NOT NULL default 'guest',
   `language` varchar(50) NOT NULL default 'english',
   `maxwidth` smallint(6) default NULL,
   `maxheight` smallint(6) default NULL,

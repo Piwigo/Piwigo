@@ -114,7 +114,7 @@ if ( count(array_intersect(
 }
 
 //-------------------------------------------------------------- representative
-if ('admin' == $user['status'] and isset($_GET['representative']))
+if (is_admin() and isset($_GET['representative']))
 {
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -480,7 +480,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       $data{'image_id'} = $_GET['image_id'];
       $data{'content'} = htmlspecialchars( $_POST['content'], ENT_QUOTES);
 
-      if (!$conf['comments_validation'] or $user['status'] == 'admin')
+      if (!$conf['comments_validation'] or is_admin())
       {
         $data{'validated'} = 'true';
         $data{'validation_date'} = $dbnow;
@@ -498,9 +498,9 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
       // information message
       $message = $lang['comment_added'];
 
-      if (!$conf['comments_validation'] or $user['status'] == 'admin')
+      if (!$conf['comments_validation'] or is_admin())
 
-      if ( $conf['comments_validation'] and $user['status'] != 'admin' )
+      if ( $conf['comments_validation'] and !is_admin() )
       {
         $message.= '<br />'.$lang['comment_to_validate'];
       }
@@ -519,7 +519,7 @@ if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
 // comment deletion
 if ( isset( $_GET['del'] )
      and is_numeric( $_GET['del'] )
-     and $user['status'] == 'admin' )
+     and is_admin() )
 {
   $query = 'DELETE FROM '.COMMENTS_TABLE;
   $query.= ' WHERE id = '.$_GET['del'];
@@ -686,7 +686,7 @@ if (isset($picture['current']['high']))
   );
 }
 // button to set the current picture as representative
-if ('admin' == $user['status'] and
+if (is_admin() and
     isset($page['cat']) and is_numeric($page['cat']))
 {
   $template->assign_block_vars(
@@ -700,7 +700,7 @@ if ('admin' == $user['status'] and
     );
 }
 
-if ('admin' == $user['status'])
+if (is_admin())
 {
   $template->assign_block_vars(
     'caddie',
@@ -752,7 +752,7 @@ if ( !$user['is_the_guest'] )
   }
 }
 //------------------------------------ admin link for information modifications
-if ( $user['status'] == 'admin' )
+if ( is_admin() )
 {
   $template->assign_block_vars('admin', array());
 }
@@ -1152,7 +1152,7 @@ if ($page['show_comments'])
     'COMMENT'=>parse_comment_content($row['content'])
     ));
 
-      if ( $user['status'] == 'admin' )
+      if ( is_admin() )
       {
         $template->assign_block_vars(
           'comments.comment.delete',
