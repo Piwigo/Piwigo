@@ -96,12 +96,12 @@ where
 
   $query = '
 select
-  id user_id, username, mail_address
+  u.id user_id, u.username, u.mail_address
 from
-  '.USERS_TABLE.'
+  '.USERS_TABLE.' as u left join '.USER_MAIL_NOTIFICATION_TABLE.' as m on u.id = m.user_id
 where
-  mail_address is not null and 
-  id not in (select user_id from '.USER_MAIL_NOTIFICATION_TABLE.')
+  u.mail_address is not null and
+  m.user_id is null
 order by
   id;';
 
