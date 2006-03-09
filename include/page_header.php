@@ -24,7 +24,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
- 
+
 //
 // Start output of page
 //
@@ -38,20 +38,20 @@ $template->assign_vars(
     'GALLERY_TITLE' =>
       isset($page['gallery_title']) ?
         $page['gallery_title'] : $conf['gallery_title'],
-    
-    'GALLERY_DESCRIPTION' =>
-      isset($page['gallery_description']) ?
-        $page['gallery_description'] : $conf['gallery_description'],
-    
+
+    'PAGE_BANNER' =>
+      isset($page['page_banner']) ?
+        $page['page_banner'] : $conf['page_banner'],
+
     'BODY_ID' =>
       isset($page['body_id']) ?
         $page['body_id'] : '',
-    
+
     'CONTENT_ENCODING' => $lang_info['charset'],
     'PAGE_TITLE' => $title,
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
-    
+
     'T_STYLE' => $css
     ));
 

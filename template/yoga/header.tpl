@@ -27,7 +27,4 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <body id="{BODY_ID}">
 <div id="the_page">
 
-<div id="theHeader">
-  <h1>{GALLERY_TITLE}</h1>
-  <p>{GALLERY_DESCRIPTION}</p>
-</div>
+{PAGE_BANNER}

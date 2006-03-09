@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2005-09-21 00:04:57 +0200 (mer, 21 sep 2005) $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 870 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -25,33 +25,49 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// +-----------------------------------------------------------------------+
-// |                           initialization                              |
-// +-----------------------------------------------------------------------+
+if (!defined('PHPWG_ROOT_PATH'))
+{
+  die('Hacking attempt!');
+}
 
-define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+$upgrade_description = '#config (gallery_description out page_banner in)';
 
-$page['body_id'] = 'thePopuphelpPage';
-$title = l10n('PhpWebGallery Help');
-$page['page_banner'] = '<h1>'.$title.'</h1>';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
+$query = "
+ALTER TABLE ".PREFIX_TABLE."config MODIFY COLUMN `value` TEXT;";
+pwg_query($query);
 
-$template->set_filenames(
-  array(
-    'help_content' => get_language_filepath('help/'.$_GET['page'].'.html')
-    )
-  );
 
-$template->set_filenames(array('popuphelp' => 'popuphelp.tpl'));
+$query = '
+SELECT value
+  FROM '.PREFIX_TABLE.'config
+  WHERE param=\'gallery_title\'
+;';
+list($t) = array_from_query($query, 'value');
 
-$template->assign_var_from_handle('HELP_CONTENT', 'help_content');
+$query = '
+SELECT value
+  FROM '.PREFIX_TABLE.'config
+  WHERE param=\'gallery_description\'
+;';
+list($d) = array_from_query($query, 'value');
 
-// +-----------------------------------------------------------------------+
-// |                           html code display                           |
-// +-----------------------------------------------------------------------+
+$page_banner='<div id="theHeader"><h1>'.$t.'</h1><p>'.$d.'</p></div>';
+$page_banner=addslashes($page_banner);
+$query = '
+INSERT INTO '.PREFIX_TABLE.'config (param,value,comment) VALUES (' .
+"'page_banner','$page_banner','html displayed on the top each page of your gallery');";
+pwg_query($query);
 
-$template->parse('popuphelp');
+$query = '
+DELETE FROM '.PREFIX_TABLE.'config
+  WHERE param=\'gallery_description\'
+;';
+pwg_query($query);
 
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
+echo
+"\n"
+.'Table '.PREFIX_TABLE.'config updated'
+."\n"
+;
 ?>

@@ -45,7 +45,8 @@ define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 $page['body_id'] = 'thePopuphelpPage';
-$page['gallery_title'] = $title = l10n('PhpWebGallery Help');
+$title = l10n('PhpWebGallery Help');
+$page['page_banner'] = '<h1>'.$title.'</h1>';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('search_rules' => 'search_rules.tpl'));
@@ -194,7 +195,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
       array(
         'CONTENT' => sprintf(
           l10n($lang_items['period']),
-          
+
           format_date($search['fields'][ $keys['after'] ]['date']),
           inc_exc_str($search['fields'][ $keys['after'] ]['inc']),
 
@@ -211,7 +212,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
       array(
         'CONTENT' => sprintf(
           l10n($lang_items['before']),
-          
+
           format_date($search['fields'][ $keys['before'] ]['date']),
           inc_exc_str($search['fields'][ $keys['before'] ]['inc'])
           ),
@@ -225,7 +226,7 @@ foreach (array('date_available', 'date_creation') as $datefield)
       array(
         'CONTENT' => sprintf(
           l10n($lang_items['after']),
-          
+
           format_date($search['fields'][ $keys['after'] ]['date']),
           inc_exc_str($search['fields'][ $keys['after'] ]['inc'])
           )

@@ -78,7 +78,7 @@ CREATE TABLE `phpwebgallery_comments` (
 DROP TABLE IF EXISTS `phpwebgallery_config`;
 CREATE TABLE `phpwebgallery_config` (
   `param` varchar(40) NOT NULL default '',
-  `value` varchar(255) default NULL,
+  `value` text,
   `comment` varchar(255) default NULL,
   PRIMARY KEY  (`param`)
 ) TYPE=MyISAM COMMENT='configuration table';

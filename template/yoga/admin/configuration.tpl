@@ -19,12 +19,12 @@
     </li>
 
     <li>
-      <label for="gallery_description"><strong>{lang:Gallery description}</strong></label>
-      <textarea cols="50" rows="5" name="gallery_description" id="gallery_description">{general.CONF_GALLERY_DESCRIPTION}</textarea>
+      <label for="page_banner"><strong>{lang:Page banner}</strong></label>
+      <textarea cols="50" rows="5" name="page_banner" id="page_banner">{general.CONF_PAGE_BANNER}</textarea>
     </li>
 
     <li>
-      <label for="gallery_title"><strong>{lang:Gallery URL}</strong></label>
+      <label for="gallery_url"><strong>{lang:Gallery URL}</strong></label>
       <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{general.CONF_GALLERY_URL}" />
     </li>
 
@@ -40,7 +40,7 @@
       <input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{lang:No}
     </li>
   </ul>
-  
+
   <ul>
     <li>
       <label><strong>{lang:Rating}</strong></label>
@@ -139,7 +139,7 @@
   </ul>
 <!-- END default -->
   </fieldset>
-  
+
   <p>
     <input type="submit" name="submit" value="{lang:Submit}">
     <input type="reset" name="reset" value="{lang:Reset}">

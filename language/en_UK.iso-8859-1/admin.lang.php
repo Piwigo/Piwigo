@@ -118,6 +118,7 @@ $lang['Permission granted thanks to a group'] = 'Permission granted thanks to a 
 $lang['Permission granted'] = 'Permission granted';
 $lang['PhpWebGallery Administration'] = 'PhpWebGallery Administration';
 $lang['PhpWebGallery version'] = 'PhpWebGallery version';
+$lang['Page banner'] = 'Page banner';
 $lang['Picture informations updated'] = 'Picture informations updated';
 $lang['Position'] = 'Position';
 $lang['Preferences'] = 'Preferences';

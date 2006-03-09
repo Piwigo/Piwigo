@@ -15,8 +15,8 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('auto_expand','fa
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('show_nb_comments','false','Show the number of comments under the thumbnails');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_locked','false','Lock your gallery temporary for non admin users');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_title','PhpWebGallery demonstration site','Title at top of each page and for RSS feed');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_description','My photos web site','Short description displayed with gallery title');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_url','http://demo.phpwebgallery.net','URL given in RSS feed');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate','true','Rating pictures feature is enabled');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<div id=\"theHeader\"><h1>PhpWebGallery demonstration site</h1><p>My photos web site</p></div>','html displayed on the top each page of your gallery');
 

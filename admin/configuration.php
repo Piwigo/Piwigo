@@ -50,8 +50,12 @@ while ($row = mysql_fetch_array($result))
   if (isset($_POST[$row['param']]))
   {
     $conf[$row['param']] = $_POST[$row['param']];
+    if ( 'page_banner'==$row['param'] )
+    { // should we do it for all ?
+      $conf[$row['param']] = stripslashes( $conf[$row['param']] );
+    }
   }
-}					   
+}
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
 {
@@ -105,7 +109,7 @@ if (isset($_POST['submit']))
       break;
     }
   }
-  
+
   // updating configuration if no error found
   if (count($page['errors']) == 0)
   {
@@ -116,16 +120,15 @@ if (isset($_POST['submit']))
       if (isset($_POST[$row['param']]))
       {
         $value = $_POST[$row['param']];
-      
-        if ('gallery_title' == $row['param']
-            or 'gallery_description' == $row['param'])
+
+        if ('gallery_title' == $row['param'])
         {
           if (!$conf['allow_html_descriptions'])
           {
             $value = strip_tags($value);
           }
         }
-        
+
         $query = '
 UPDATE '.CONFIG_TABLE.'
   SET value = \''. str_replace("\'", "''", $value).'\'
@@ -152,7 +155,7 @@ $template->assign_vars(
     'L_RESET'=>$lang['reset'],
 
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=configuration',
-    
+
     'F_ACTION'=>$action
     ));
 
@@ -161,12 +164,12 @@ switch ($page['section'])
   case 'general' :
   {
     $html_check='checked="checked"';
-    
+
     $history_yes = ($conf['log']=='true')?'checked="checked"':'';
     $history_no  = ($conf['log']=='false')?'checked="checked"':'';
     $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
     $lock_no = ($conf['gallery_locked']=='false')?'checked="checked"':'';
-    
+
     $template->assign_block_vars(
       'general',
       array(
@@ -178,7 +181,7 @@ switch ($page['section'])
         ($conf['rate_anonymous']=='true'
              ? 'RATE_ANONYMOUS_YES' : 'RATE_ANONYMOUS_NO')=>$html_check,
         'CONF_GALLERY_TITLE' => $conf['gallery_title'],
-        'CONF_GALLERY_DESCRIPTION' => $conf['gallery_description'],
+        'CONF_PAGE_BANNER' => $conf['page_banner'],
         'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
     break;
@@ -189,7 +192,7 @@ switch ($page['section'])
     $all_no  = ($conf['comments_forall']=='false')?'checked="checked"':'';
     $validate_yes = ($conf['comments_validation']=='true')?'checked="checked"':'';
     $validate_no = ($conf['comments_validation']=='false')?'checked="checked"':'';
-      
+
     $template->assign_block_vars(
       'comments',
       array(
@@ -207,7 +210,7 @@ switch ($page['section'])
     $show_no = ($conf['show_nb_comments']=='false')?'checked="checked"':'';
     $expand_yes = ($conf['auto_expand']=='true')?'checked="checked"':'';
     $expand_no  = ($conf['auto_expand']=='false')?'checked="checked"':'';
-      
+
     $template->assign_block_vars(
       'default',
       array(
@@ -222,9 +225,9 @@ switch ($page['section'])
         'SHOW_COMMENTS_YES'=>$show_yes,
         'SHOW_COMMENTS_NO'=>$show_no
         ));
-    
+
     $blockname = 'default.language_option';
-    
+
     foreach (get_languages() as $language_code => $language_name)
     {
       if (isset($_POST['submit']))
@@ -241,7 +244,7 @@ switch ($page['section'])
       {
         $selected = '';
       }
-      
+
       $template->assign_block_vars(
         $blockname,
         array(
@@ -269,7 +272,7 @@ switch ($page['section'])
       {
         $selected = '';
       }
-      
+
       $template->assign_block_vars(
         $blockname,
         array(
@@ -280,7 +283,7 @@ switch ($page['section'])
         );
     }
 
- 
+
     break;
   }
 }

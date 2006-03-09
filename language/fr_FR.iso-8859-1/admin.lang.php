@@ -111,6 +111,7 @@ $lang['Options'] = 'Options';
 $lang['Order alphanumerically'] = 'Ordonner alphabético-numériquement';
 $lang['Order by'] = 'Trier selon';
 $lang['Other private categories'] = 'Autres catégories privées';
+$lang['Page banner'] = 'Bannière des pages';
 $lang['Parent category'] = 'Catégorie parente';
 $lang['Path'] = 'Chemin';
 $lang['Permission denied'] = 'Accès interdit';
