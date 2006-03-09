@@ -32,6 +32,11 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_GUEST);
+
 $page['body_id'] = 'thePopuphelpPage';
 $title = l10n('PhpWebGallery Help');
 $page['page_banner'] = '<h1>'.$title.'</h1>';

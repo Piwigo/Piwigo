@@ -33,6 +33,11 @@
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_CLASSIC);
+
 if ($user['is_the_guest'] and !$guest_allowed)
 {
   echo '<div style="text-align:center;">'.$lang['only_members'].'<br />';

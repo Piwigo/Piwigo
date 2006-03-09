@@ -537,14 +537,71 @@ function log_user($user_id, $remember_me)
 }
 
 /*
- * Return if current is an administrator
+ * Return if current user have access to access_type definition
+ * Test does with user status
+ * @return bool
+*/
+function is_autorize_status($access_type)
+{
+  global $user;
+
+  $access_type_status = ACCESS_NONE;
+  if (isset($user['status']))
+  {
+    switch ($user['status'])
+    {
+      case 'guest':
+      case 'generic':
+      {
+        $access_type_status = ACCESS_GUEST;
+        break;
+      }
+      case 'normal':
+      {
+        $access_type_status = ACCESS_CLASSIC;
+        break;
+      }
+      case 'admin':
+      {
+        $access_type_status = ACCESS_ADMINISTRATOR;
+        break;
+      }
+      case 'webmaster':
+      {
+        $access_type_status = ACCESS_WEBMASTER;
+        break;
+      }
+    }
+  }
+
+  return ($access_type_status >= $access_type);
+}
+
+/*
+ * Check if current user have access to access_type definition
+ * Stop action if there are not access
+ * Test does with user status
+ * @return none
+*/
+function check_status($access_type)
+{
+  global $lang;
+
+  if (!is_autorize_status($access_type))
+  {
+    echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
+    echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">'.$lang['identification'].'</a></div>';
+    exit();
+  }
+}
+
+/*
+ * Return if current user is an administrator
  * @return bool
 */
 function is_admin()
 {
-  global $user;
-  
-  return ($user['status'] == 'webmaster' or $user['status'] == 'admin') ? true : false;
+  return is_autorize_status(ACCESS_ADMINISTRATOR);
 }
 
 ?>

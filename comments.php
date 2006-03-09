@@ -34,6 +34,11 @@ if (!defined('IN_ADMIN'))
   include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 }
 
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_GUEST);
+
 $sort_order = array(
   'descending' => 'DESC',
   'ascending' => 'ASC'

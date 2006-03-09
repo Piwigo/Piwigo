@@ -24,7 +24,14 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-include_once( PHPWG_ROOT_PATH.'admin/include/isadmin.inc.php' );
+
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_ADMINISTRATOR);
+
 //------------------------------------------------------------------- functions
 // RatioResizeImg creates a new picture (a thumbnail since it is supposed to
 // be smaller than original picture !) in the sub directory named

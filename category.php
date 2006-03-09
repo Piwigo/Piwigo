@@ -28,6 +28,12 @@
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_GUEST);
+
 //---------------------------------------------------------------------- logout
 if ( isset( $_GET['act'] )
      and $_GET['act'] == 'logout'
@@ -359,7 +365,11 @@ if ($user['is_the_guest'])
 else
 {
   $template->assign_block_vars('hello', array());
-  $template->assign_block_vars('profile', array());
+
+  if (is_autorize_status(ACCESS_CLASSIC))
+  {
+    $template->assign_block_vars('profile', array());
+  }
 
   // the logout link has no meaning with Apache authentication : it is not
   // possible to logout with this kind of authentication.

@@ -30,6 +30,11 @@ $rate_items = array(0,1,2,3,4,5);
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_GUEST);
+
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 //-------------------------------------------------- access authorization check
 if (isset($page['cat']) and is_numeric($page['cat']))

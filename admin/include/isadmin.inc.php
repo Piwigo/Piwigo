@@ -25,12 +25,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include( PHPWG_ROOT_PATH.'admin/include/functions.php' );
+include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-if (!is_admin())
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_ADMINISTRATOR);
+
+/*if (!is_admin())
 {
   echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
   echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">'.$lang['identification'].'</a></div>';
   exit();
-}
+}*/
+
 ?>
