@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -32,17 +32,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include(PHPWG_ROOT_PATH.'include/template.php');
 
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
-// Is PhpWebGallery already installed ?
-if (!defined('PHPWG_IN_UPGRADE') or !PHPWG_IN_UPGRADE)
-{
-  $message = 'PhpWebGallery is not in upgrade mode. In include/mysql.inc.php,
-insert line
-<pre style="background-color:lightgray">
-define(\'PHPWG_IN_UPGRADE\', true);
-</pre>
-if you want to upgrade';
-  die($message);
-}
+
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when it is not ok                               |
+// +-----------------------------------------------------------------------+
+check_upgrade();
 
 // concerning upgrade, we use the default users table
 $conf['users_table'] = $prefixeTable.'users';

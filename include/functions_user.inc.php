@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -277,6 +277,8 @@ DELETE FROM '.FAVORITES_TABLE.'
  */
 function calculate_permissions($user_id, $user_status)
 {
+  global $user;
+
   $private_array = array();
   $authorized_array = array();
 
@@ -292,7 +294,7 @@ SELECT id
   }
 
   // if user is not an admin, locked categories can be considered as private$
-  if (!is_admin())
+  if (!is_admin($user_status))
   {
     $query = '
 SELECT id
@@ -541,36 +543,38 @@ function log_user($user_id, $remember_me)
  * Test does with user status
  * @return bool
 */
-function is_autorize_status($access_type)
+function is_autorize_status($access_type, $user_status = '')
 {
   global $user;
 
-  $access_type_status = ACCESS_NONE;
-  if (isset($user['status']))
+  if (($user_status == '') and isset($user['status']))
   {
-    switch ($user['status'])
+    $user_status = $user['status'];
+  }
+
+  $access_type_status = ACCESS_NONE;
+  switch ($user_status)
+  {
+    case 'guest':
+    case 'generic':
     {
-      case 'guest':
-      case 'generic':
-      {
-        $access_type_status = ACCESS_GUEST;
-        break;
-      }
-      case 'normal':
-      {
-        $access_type_status = ACCESS_CLASSIC;
-        break;
-      }
-      case 'admin':
-      {
-        $access_type_status = ACCESS_ADMINISTRATOR;
-        break;
-      }
-      case 'webmaster':
-      {
-        $access_type_status = ACCESS_WEBMASTER;
-        break;
-      }
+      $access_type_status = ACCESS_GUEST;
+      break;
+    }
+    case 'normal':
+    {
+      $access_type_status = ACCESS_CLASSIC;
+      break;
+    }
+    case 'admin':
+    {
+      $access_type_status = ACCESS_ADMINISTRATOR;
+      break;
+    }
+    case 'webmaster':
+    {
+      $access_type_status = ACCESS_WEBMASTER;
+      break;
     }
   }
 
@@ -583,11 +587,11 @@ function is_autorize_status($access_type)
  * Test does with user status
  * @return none
 */
-function check_status($access_type)
+function check_status($access_type, $user_status = '')
 {
   global $lang;
 
-  if (!is_autorize_status($access_type))
+  if (!is_autorize_status($access_type, $user_status))
   {
     echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
     echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">'.$lang['identification'].'</a></div>';
@@ -599,9 +603,9 @@ function check_status($access_type)
  * Return if current user is an administrator
  * @return bool
 */
-function is_admin()
+function is_admin($user_status = '')
 {
-  return is_autorize_status(ACCESS_ADMINISTRATOR);
+  return is_autorize_status(ACCESS_ADMINISTRATOR, $user_status);
 }
 
 ?>
