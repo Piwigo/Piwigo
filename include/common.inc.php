@@ -132,6 +132,31 @@ or die ( "Could not connect to database server" );
 mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 
+if ($conf['check_upgrade_feed'])
+{
+  // retrieve already applied upgrades
+  $query = '
+SELECT id
+  FROM '.UPGRADE_TABLE.'
+;';
+  $applied = array_from_query($query, 'id');
+
+  // retrieve existing upgrades
+  $existing = get_available_upgrade_ids();
+
+  // which upgrades need to be applied?
+  if (count(array_diff($existing, $applied)) > 0)
+  {
+    ob_start();// buffer output so that cookies work
+    echo
+      '<p>'
+      .'Some database upgrades are missing, '
+      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>'
+      .'</p>'
+      ;
+  }
+}
+
 //
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available
@@ -164,31 +189,6 @@ while ( $row =mysql_fetch_array( $result ) )
 }
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
-
-if (is_admin() and $conf['check_upgrade_feed'])
-{
-  // retrieve already applied upgrades
-  $query = '
-SELECT id
-  FROM '.UPGRADE_TABLE.'
-;';
-  $applied = array_from_query($query, 'id');
-
-  // retrieve existing upgrades
-  $existing = get_available_upgrade_ids();
-
-  // which upgrades need to be applied?
-  if (count(array_diff($existing, $applied)) > 0)
-  {
-    ob_start();// buffer output so that cookies work
-    echo
-      '<p>'
-      .'Some database upgrades are missing, '
-      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>'
-      .'</p>'
-      ;
-  }
-}
 
 // language files
 include_once(get_language_filepath('common.lang.php'));
