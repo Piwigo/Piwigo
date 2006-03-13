@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -311,7 +311,7 @@ INSERT INTO '.USERS_TABLE.'
 INSERT INTO '.USER_INFOS_TABLE.'
   (user_id,status,language)
   VALUES
-  (1, \'admin\', \''.$language.'\')
+  (1, \'webmaster\', \''.$language.'\')
 ;';
     mysql_query($query);
 
