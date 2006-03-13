@@ -126,6 +126,9 @@ $conf['newcat_default_visible'] = 'true';
 // automatically create private.
 $conf['newcat_default_status'] = 'public';
 
+// newuser_default_enabled_high : at creation, must a user with enabled_high or not
+$conf['newuser_default_enabled_high'] = 'true';
+
 // level_separator : character string used for separating a category level
 // to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',
 // ' &gt;'

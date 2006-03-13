@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -336,7 +336,7 @@ while ($row = mysql_fetch_array($result))
     // high quality picture
     if ($i == 'current')
     {
-      if ($row['has_high']=='true')
+      if (($row['has_high'] == 'true') and ($user['enabled_high'] == 'true'))
       {
         $url_high=$cat_directory.'/pwg_high/'.$row['file'];
         $picture[$i]['high'] = $url_high;

@@ -304,6 +304,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `recent_period` tinyint(3) unsigned NOT NULL default '7',
   `template` varchar(255) NOT NULL default 'yoga/clear',
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `enabled_high` enum('true','false') NOT NULL default 'true',
   UNIQUE KEY `user_infos_ui1` (`user_id`)
 ) TYPE=MyISAM;
 
