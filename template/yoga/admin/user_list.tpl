@@ -80,6 +80,7 @@
     <th>{L_STATUS}</th>
     <th>{L_EMAIL}</th>
     <th>{lang:Groups}</th>
+    <th>{L_PROPERTIES}</th>
     <th>{L_ACTIONS}</th>
   </tr>
   <!-- BEGIN user -->
@@ -89,8 +90,9 @@
     <td>{user.STATUS}</td>
     <td>{user.EMAIL}</td>
     <td>{user.GROUPS}</td>
+    <td>{user.PROPERTIES}</td>
     <td style="text-align:center;">
-      <a href="{user.U_PERM}"><img src="./template/yoga/theme/permissions.png" class="button" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
+      <a href="{user.U_PERM}"><img src="{themeconf:icon_dir}/permissions.png" class="button" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
     </td>
   </tr>
   <!-- END user -->
@@ -157,6 +159,27 @@
 
 </fieldset>
 
+<!-- Properties -->
+<fieldset>
+  <legend>{L_PROPERTIES}</legend>
+
+  <table>
+
+    <tr>
+      <td>{lang:enabled_high}</td>
+      <td>
+        <label><input type="radio" name="enabled_high" value="leave" checked="checked" /> {lang:leave}</label>
+        / {lang:set to}
+        <label><input type="radio" name="enabled_high" value="true"  {ENABLED_HIGH_YES} />{L_YES}</label>
+        <label><input type="radio" name="enabled_high" value="false" {ENABLED_HIGH_NO}  />{L_NO}</label>
+      </td>
+    </tr>
+
+  </table>
+
+</fieldset>
+
+<!-- preference -->
 <fieldset>
   <legend>{lang:Preferences}</legend>
 

@@ -185,6 +185,7 @@ if (@file_exists($config_file))
 
 $prefixeTable = $table_prefix;
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
@@ -309,9 +310,9 @@ INSERT INTO '.USERS_TABLE.'
 
     $query = '
 INSERT INTO '.USER_INFOS_TABLE.'
-  (user_id,status,language)
+  (user_id,status,language,enabled_high)
   VALUES
-  (1, \'webmaster\', \''.$language.'\')
+  (1, \'webmaster\', \''.$language.'\',\''.$conf['newuser_default_enabled_high'].'\')
 ;';
     mysql_query($query);
 
@@ -333,9 +334,9 @@ INSERT INTO '.USERS_TABLE.'
 
     $query = '
 INSERT INTO '.USER_INFOS_TABLE.'
-  (user_id,status,language)
+  (user_id,status,language,enabled_high)
   VALUES
-  (2, \'guest\', \''.$language.'\')
+  (2, \'guest\', \''.$language.'\',\'false\')
 ;';
     mysql_query($query);
 

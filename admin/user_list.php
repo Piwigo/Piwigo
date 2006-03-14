@@ -96,7 +96,8 @@ function get_filtered_user_list()
 SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
                 u.'.$conf['user_fields']['username'].' AS username,
                 u.'.$conf['user_fields']['email'].' AS email,
-                ui.status
+                ui.status,
+                ui.enabled_high
   FROM '.USERS_TABLE.' AS u
     INNER JOIN '.USER_INFOS_TABLE.' AS ui
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
@@ -272,10 +273,10 @@ if (isset($_POST['delete']) and count($collection) > 0)
         );
       foreach ($page['filtered_users'] as $filter_key => $filter_user)
       {
-	if (in_array($filter_user['id'], $collection))
-	{
-	  unset($page['filtered_users'][$filter_key]);
-	}
+        if (in_array($filter_user['id'], $collection))
+        {
+          unset($page['filtered_users'][$filter_key]);
+        }
       }
     }
     else
@@ -336,9 +337,9 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'maxheight', 'status');
+          'maxheight', 'status', 'enabled_high');
   
-  $true_false_fields = array('expand', 'show_nb_comments');
+  $true_false_fields = array('expand', 'show_nb_comments', 'enabled_high');
   
   foreach ($formfields as $formfield)
   {
@@ -451,6 +452,7 @@ $template->assign_vars(
     'L_EMAIL' => $lang['mail_address'],
     'L_ORDER_BY' => $lang['order_by'],
     'L_ACTIONS' => $lang['actions'],
+    'L_PROPERTIES' => $lang['properties'],
     'L_PERMISSIONS' => $lang['permissions'],
     'L_USERS_LIST' => $lang['title_liste_users'],
     'L_LANGUAGE' => $lang['language'],
@@ -801,7 +803,8 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'USERNAME' => $local_user['username'],
       'STATUS' => $lang['user_status_'.$local_user['status']],
       'EMAIL' => isset($local_user['email']) ? $local_user['email'] : '',
-      'GROUPS' => $groups_string
+      'GROUPS' => $groups_string,
+      'PROPERTIES' => (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true')) ? $lang['is_high_enabled'] : $lang['is_high_disabled']
       )
     );
 }

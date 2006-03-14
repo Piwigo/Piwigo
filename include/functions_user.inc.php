@@ -451,7 +451,8 @@ function create_user_infos($user_id)
       'show_nb_comments' => boolean_to_string($conf['show_nb_comments']),
       'maxwidth' => $conf['default_maxwidth'],
       'maxheight' => $conf['default_maxheight'],
-      'registration_date' => $dbnow
+      'registration_date' => $dbnow,
+      'enabled_high' => $conf['newuser_default_enabled_high']
       );
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
