@@ -71,12 +71,7 @@ DELETE
   }
   case 'sessions' :
   {
-    $query = '
-DELETE
-  FROM '.SESSIONS_TABLE.'
-  WHERE expiration < NOW()
-;';
-    pwg_query($query);
+    pwg_session_gc();
     break;
   }
   case 'feeds' :
@@ -113,7 +108,7 @@ $template->assign_vars(
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=maintenance',
     )
   );
-  
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
