@@ -260,6 +260,7 @@ CREATE TABLE `phpwebgallery_user_cache` (
   `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` text,
+  `nb_total_images` mediumint(8),
   PRIMARY KEY  (`user_id`)
 ) TYPE=MyISAM;
 

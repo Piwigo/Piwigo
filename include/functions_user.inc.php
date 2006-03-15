@@ -188,6 +188,13 @@ SELECT ui.*, uc.*
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
+      $query = '
+SELECT COUNT(DISTINCT(image_id)) as total
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
+;';
+      list($userdata['nb_total_images']) = mysql_fetch_array(pwg_query($query));
+
       // update user cache
       $query = '
 DELETE FROM '.USER_CACHE_TABLE.'
@@ -197,9 +204,10 @@ DELETE FROM '.USER_CACHE_TABLE.'
 
       $query = '
 INSERT INTO '.USER_CACHE_TABLE.'
-  (user_id,need_update,forbidden_categories)
+  (user_id,need_update,forbidden_categories,nb_total_images)
   VALUES
-  ('.$userdata['id'].',\'false\',\''.$userdata['forbidden_categories'].'\')
+  ('.$userdata['id'].',\'false\',\''
+  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].')
 ;';
       pwg_query($query);
     }

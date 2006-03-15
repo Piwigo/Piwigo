@@ -212,7 +212,7 @@ else
 
 $template->assign_vars(
   array(
-  'NB_PICTURE' => count_user_total_images(),
+  'NB_PICTURE' => $user['nb_total_images'],
   'TITLE' => $template_title,
   'USERNAME' => $user['username'],
   'TOP_NUMBER'=>$conf['top_number'],

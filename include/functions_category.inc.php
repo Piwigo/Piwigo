@@ -104,26 +104,6 @@ SELECT name,id,date_last,nb_images,global_rank
 }
 
 /**
- * returns the total number of elements viewable in the gallery by the
- * connected user
- *
- * @return int
- */
-function count_user_total_images()
-{
-  global $user;
-
-  $query = '
-SELECT COUNT(DISTINCT(image_id)) as total
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
-;';
-  list($total) = mysql_fetch_array(pwg_query($query));
-
-  return $total;
-}
-
-/**
  * Retrieve informations about a category in the database
  *
  * Returns an array with following keys :
