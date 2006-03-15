@@ -333,31 +333,41 @@ while ($row = mysql_fetch_array($result))
 // 3. if URL category not available or reachable, use the first reachable
 //    linked category
 // 4. if no category reachable, no jumpto link
-$base_url_img = PHPWG_ROOT_PATH.'picture.php';
-$base_url_img.= '?image_id='.$_GET['image_id'];
-$base_url_img.= '&amp;cat=';
-unset($url_img);
 
 $query = '
 SELECT category_id
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
 ;';
+
 $authorizeds = array_diff(
   array_from_query($query, 'category_id'),
-  explode(',', calculate_permissions($user['id'], $user['status']))
+  explode(
+    ',',
+    calculate_permissions($user['id'], $user['status'])
+    )
   );
 
 if (isset($_GET['cat_id'])
     and in_array($_GET['cat_id'], $authorizeds))
 {
-  $url_img = $base_url_img.$_GET['cat_id'];
+  $url_img = make_picture_URL(
+    array(
+      'image_id' => $_GET['image_id'],
+      'category' => $_GET['cat_id'],
+      )
+    );
 }
 else
 {
   foreach ($authorizeds as $category)
   {
-    $url_img = $base_url_img.$category;
+    $url_img = make_picture_URL(
+      array(
+        'image_id' => $_GET['image_id'],
+        'category' => $category,
+        )
+      );
     break;
   }
 }

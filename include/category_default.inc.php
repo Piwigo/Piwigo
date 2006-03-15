@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * This file is included by category.php to show thumbnails for the default
+ * This file is included by the main page to show thumbnails for the default
  * case
  * 
  */
@@ -81,25 +81,39 @@ foreach ($pictures as $row)
   }
   
   // url link on picture.php page
-  $url_link = PHPWG_ROOT_PATH.'picture.php?image_id='.$row['id'];
+  $url_link = PHPWG_ROOT_PATH.'picture.php?/'.$row['id'];
 
-  if (isset($page['cat']))
+  switch ($page['section'])
   {
-    $url_link.= '&amp;cat='.$page['cat'];
-
-    if ($page['cat'] == 'search')
+    case 'categories' :
     {
-      $url_link.= '&amp;search='.$_GET['search'];
+      $url_link.= '/category/'.$page['category'];
+      break;
     }
-    else if ($page['cat'] == 'list')
+    case 'tags' :
     {
-      $url_link.= '&amp;list='.$_GET['list'];
+      // TODO
+      break;
+    }
+    case 'search' :
+    {
+      $url_link.= '/search/'.$page['search'];
+      break;
+    }
+    case 'list' :
+    {
+      $url_link.= '/list/'.implode(',', $page['list']);
+      break;
+    }
+    default :
+    {
+      $url_link.= '/'.$page['section'];
     }
   }
   
-  if (isset($_GET['calendar']))
+  if (isset($page['chronology']))
   {
-    $url_link.= '&amp;calendar='.$_GET['calendar'];
+    $url_link.= '/chronology='.$page['chronology'];
   }
     
   $template->assign_block_vars(
@@ -125,20 +139,23 @@ foreach ($pictures as $row)
     {
       $name = str_replace('_', ' ', get_filename_wo_extension($row['file']));
     }
-    if ( isset($page['cat']) )
+
+    switch ($page['section'])
     {
-      if ($page['cat'] == 'best_rated')
+      case 'best_rated' :
       {
         $name = '('.$row['average_rate'].') '.$name;
+        break;
       }
-      elseif ($page['cat'] == 'most_visited')
+      case 'most_visited' :
       {
         $name = '('.$row['hit'].') '.$name;
+        break;
       }
-      
-      if ($page['cat'] == 'search')
+      case 'search' :
       {
         $name = replace_search($name, $_GET['search']);
+        break;
       }
     }
   
@@ -151,7 +168,7 @@ foreach ($pictures as $row)
   }
     
   if ($user['show_nb_comments']
-      and is_numeric($page['cat'])
+      and isset($page['category'])
       and $page['cat_commentable'])
   {
     $query = '

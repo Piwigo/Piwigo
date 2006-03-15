@@ -49,7 +49,7 @@ if (isset($_POST['submit']))
   {
     $user_id = get_userid($_POST['login']);
     log_user( $user_id, false);
-    redirect('category.php');
+    redirect(make_index_url());
   }
 }
 
@@ -74,7 +74,7 @@ $template->assign_vars(array(
   'L_CONFIRM_PASSWORD' => $lang['reg_confirm'],
   'L_EMAIL' => $lang['mail_address'],
 
-  'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+  'U_HOME' => make_index_url(),
 
   'F_ACTION' => 'register.php',
   'F_LOGIN' => $login,

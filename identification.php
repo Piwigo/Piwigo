@@ -64,7 +64,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
       $remember_me = true;
     }
     log_user( $row['id'], $remember_me);
-    redirect(empty($redirect_to) ? 'category.php' : $redirect_to);
+    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
   else
   {
@@ -94,7 +94,7 @@ $template->assign_vars(
 
     'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php',
+    'U_HOME' => make_index_url(),
     'U_REDIRECT' => $redirect_to,
 
     'F_LOGIN_ACTION' => PHPWG_ROOT_PATH.'identification.php'

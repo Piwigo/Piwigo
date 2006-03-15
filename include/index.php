@@ -24,7 +24,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-$url = '../category.php';
+
+$url = '../index.php';
 header( 'Request-URI: '.$url );  
 header( 'Content-Location: '.$url );  
 header( 'Location: '.$url );

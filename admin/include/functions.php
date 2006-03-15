@@ -780,14 +780,22 @@ PRIMARY KEY ('.implode(',', $dbfields['primary']).')
     // update of images table by joining with temporary table
     $query = '
 UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
-  SET '.implode("\n    , ",
-                array_map(
-                  create_function('$s', 'return "t1.$s = t2.$s";')
-                  , $dbfields['update'])).'
-  WHERE '.implode("\n    AND ",
-                array_map(
-                  create_function('$s', 'return "t1.$s = t2.$s";')
-                  , $dbfields['primary'])).'
+  SET '.
+      implode(
+        "\n    , ",
+        array_map(
+          create_function('$s', 'return "t1.$s = t2.$s";'),
+          $dbfields['update']
+          )
+        ).'
+  WHERE '.
+      implode(
+        "\n    AND ",
+        array_map(
+          create_function('$s', 'return "t1.$s = t2.$s";'),
+          $dbfields['primary']
+          )
+        ).'
 ;';
     pwg_query($query);
     $query = '
@@ -840,17 +848,27 @@ SELECT id,uppercats
   $datas = array();
   foreach ($uppercats_array as $id => $uppercats)
   {
-    $data = array();
-    $data['id'] = $id;
-    $global_rank = preg_replace('/(\d+)/e',
-                                "\$ranks_array['$1']",
-                                str_replace(',', '.', $uppercats));
-    $data['global_rank'] = $global_rank;
-    array_push($datas, $data);
+    array_push(
+      $datas,
+      array(
+        'id'          => $id,
+        'global_rank' => preg_replace(
+          '/(\d+)/e',
+          "\$ranks_array['$1']",
+          str_replace(',', '.', $uppercats)
+          ),
+        )
+      );
   }
 
-  $fields = array('primary' => array('id'), 'update' => array('global_rank'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+  mass_updates(
+    CATEGORIES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update'  => array('global_rank')
+      ),
+    $datas
+    );
 }
 
 /**
@@ -1253,26 +1271,25 @@ SELECT user_id
 
   // users present in user related tables must be present in the base user
   // table
-  $tables =
-    array(
-      USER_MAIL_NOTIFICATION_TABLE,
-      USER_FEED_TABLE,
-      USER_INFOS_TABLE,
-      USER_ACCESS_TABLE,
-      USER_CACHE_TABLE,
-      USER_GROUP_TABLE
-      );
+  $tables = array(
+    USER_MAIL_NOTIFICATION_TABLE,
+    USER_FEED_TABLE,
+    USER_INFOS_TABLE,
+    USER_ACCESS_TABLE,
+    USER_CACHE_TABLE,
+    USER_GROUP_TABLE
+    );
+  
   foreach ($tables as $table)
   {
     $query = '
 SELECT user_id
   FROM '.$table.'
 ;';
-    $to_delete =
-      array_diff(
-        array_from_query($query, 'user_id'),
-        $base_users
-        );
+    $to_delete = array_diff(
+      array_from_query($query, 'user_id'),
+      $base_users
+      );
 
     if (count($to_delete) > 0)
     {

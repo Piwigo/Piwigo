@@ -46,16 +46,13 @@ function check_restrictions($category_id)
 
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
-    $login_url = './identification.php?redirect='.
-                  urlencode(urlencode($_SERVER['REQUEST_URI']));
-    if ( ! $user['is_the_guest'] )
+    $login_url =
+      './identification.php?redirect='
+      .urlencode(urlencode($_SERVER['REQUEST_URI']));
+    
+    if (!$user['is_the_guest'])
     {
-      echo '<div style="text-align:center;">';
-      echo $lang['hello'].' '.$user['username'].'! ';
-      echo $lang['access_forbiden'].'<br />';
-      echo '<a href="./category.php">'.$lang['thumbnails'].'</a> ';
-      echo '</div>';
-      exit();
+      die('Fatal: you are trying to reach a forbidden category');
     }
     else
     {

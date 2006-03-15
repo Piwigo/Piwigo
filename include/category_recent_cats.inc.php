@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * This file is included by category.php to show thumbnails for recent_cats
+ * This file is included by the main page to show thumbnails for recent_cats
  * category
  * 
  */
@@ -65,27 +65,25 @@ $conf['level_separator'] = '<br />';
 // the name to display
 while ( $row = mysql_fetch_array( $result ) )
 {
-  $name = get_cat_display_name_cache($row['uppercats'], '', false);
-
-  $thumbnail_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
-  
-  $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['category_id'];
-  
   $template->assign_block_vars(
     'thumbnails.line.thumbnail',
     array(
-      'IMAGE'                   => $thumbnail_src,
-      'IMAGE_ALT'               => $row['file'],
-      'IMAGE_TITLE'             => $lang['hint_category'],
-        
-      'U_IMG_LINK'              => $url_link
+      'IMAGE'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
+      'IMAGE_ALT'   => $row['file'],
+      'IMAGE_TITLE' => $lang['hint_category'],
+      
+      'U_IMG_LINK'  => make_index_url(
+        array(
+          'category' => $row['category_id'],
+          )
+        ),
       )
     );
 
   $template->assign_block_vars(
     'thumbnails.line.thumbnail.category_name',
     array(
-      'NAME' => $name
+      'NAME' => get_cat_display_name_cache($row['uppercats'], '', false),
       )
     );
   

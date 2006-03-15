@@ -158,8 +158,7 @@ SELECT '.$conf['user_fields']['password'].' AS password
                  array($data));
     
     // redirection
-    $url = PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING'];
-    redirect($url);
+    redirect(make_index_url());
   }
 }
 // +-----------------------------------------------------------------------+
@@ -221,7 +220,7 @@ $template->assign_vars(
     'L_RETURN' =>  $lang['home'],
     'L_RETURN_HINT' =>  $lang['home_hint'],
 
-    'U_RETURN' => PHPWG_ROOT_PATH.'category.php',
+    'U_RETURN' => make_index_url(),
     
     'F_ACTION'=>$url_action,
     ));

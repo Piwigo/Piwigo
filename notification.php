@@ -63,7 +63,7 @@ $template->set_filenames(array('notification'=>'notification.tpl'));
 $template->assign_vars(
   array(
     'FEED_URL' => PHPWG_ROOT_PATH.'feed.php?feed='.$page['feed'],
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
+    'U_HOME' => make_index_url(),
     )
   );
 

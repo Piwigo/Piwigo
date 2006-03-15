@@ -247,7 +247,7 @@ function language_select($default, $select_name = "language")
  * @return string
  */
 function get_cat_display_name($cat_informations,
-                              $url = 'category.php?cat=',
+                              $url = 'category.php?/category/',
                               $replace_space = true)
 {
   global $conf;
@@ -300,7 +300,7 @@ function get_cat_display_name($cat_informations,
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
-                                    $url = 'category.php?cat=',
+                                    $url = 'category.php?/category/',
                                     $replace_space = true)
 {
   global $cat_names, $conf;
@@ -355,7 +355,7 @@ SELECT id,name
 }
 
 /**
- * returns the HTML code for a category item in the menu (for category.php)
+ * returns the HTML code for a category item in the menu (for the main page)
  *
  * HTML code generated uses logical list tags ul and each category is an
  * item li. The paramter given is the category informations as an array,
@@ -374,10 +374,11 @@ function get_html_menu_category($categories)
 
   // $page_cat value remains 0 for special sections
   $page_cat = 0;
-  if (isset($page['cat']) and is_numeric($page['cat']) )
+  if (isset($page['category']))
   {
-    $page_cat = $page['cat'];
+    $page_cat = $page['category'];
   }
+  
   foreach ($categories as $category)
   {
     $level = substr_count($category['global_rank'], '.') + 1;
@@ -404,7 +405,8 @@ function get_html_menu_category($categories)
     }
     $menu.= '>';
   
-    $url = PHPWG_ROOT_PATH.'category.php?cat='.$category['id'];
+    $url = make_index_url(array('category' => $category['id']));
+    
     $menu.= "\n".'<a href="'.$url.'"';
     if ($page_cat != 0
         and $category['id'] == $page['cat_id_uppercat'])
@@ -466,7 +468,7 @@ function parse_comment_content($content)
 }
 
 function get_cat_display_name_from_id($cat_id,
-                                      $url = 'category.php?cat=',
+                                      $url = 'category.php?/category/',
                                       $replace_space = true)
 {
   $cat_info = get_cat_info($cat_id);

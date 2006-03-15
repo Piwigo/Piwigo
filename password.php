@@ -150,7 +150,7 @@ $template->set_filenames(array('password'=>'password.tpl'));
 
 $template->assign_vars(
   array(
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
+    'U_HOME' => make_index_url(),
     )
   );
 

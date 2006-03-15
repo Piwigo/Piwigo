@@ -40,55 +40,170 @@
  * display
  */
 
-unset($page['cat']);
+// "index.php?/category/12-foo/start-24&action=fill_caddie" must return :
+//
+// array(
+//   'section'  => 'categories',
+//   'category' => 12,
+//   'start'    => 24
+//   'action'   => 'fill_caddie'
+//   );
 
-if (isset($_GET['cat']))
+$page['section'] = 'categories';
+
+foreach (array_keys($_GET) as $keynum => $key)
 {
-  if (is_numeric($_GET['cat']))
+  if (0 == $keynum)
   {
-    $page['cat'] = $_GET['cat'];
-  }
-  else if ($_GET['cat'] == 'fav'
-           or $_GET['cat'] == 'most_visited'
-           or $_GET['cat'] == 'best_rated'
-           or $_GET['cat'] == 'recent_pics'
-           or $_GET['cat'] == 'recent_cats')
-  {
-    $page['cat'] = $_GET['cat'];
-  }
-  else if ($_GET['cat'] == 'search')
-  {
-    if (!isset($_GET['search']))
+    // deleting first "/" if displayed
+    $tokens = explode(
+      '/',
+      preg_replace('#^/#', '', $key)
+      );
+
+    // $tokens = array(
+    //   0 => category,
+    //   1 => 12-foo,
+    //   2 => start-24
+    //   );
+
+    $next_token = 0;
+
+    if (basename($_SERVER['PHP_SELF']) == 'picture.php')
     {
-      die('search GET parameter is missing');
+      // the first token must be the numeric identifier of the picture
+      preg_match('/(\d+)/', $tokens[$next_token], $matches);
+      if (!isset($matches[1]))
+      {
+        die('Fatal: picture identifier is missing');
+      }
+      $page['image_id'] = $matches[1];
+      
+      $next_token++;
     }
-    else if (!is_numeric($_GET['search']))
+    
+    if (0 === strpos($tokens[$next_token], 'cat'))
     {
-      die('wrong format on search GET parameter');
+      $page['section'] = 'categories';
+      $next_token++;
+      
+      if (isset($tokens[$next_token])
+          and preg_match('/(\d+)/', $tokens[$next_token], $matches))
+      {
+        $page['category'] = $matches[1];
+        $next_token++;
+      }
+    }
+    else if (0 === strpos($tokens[$next_token], 'tag'))
+    {
+      $page['section'] = 'tags';
+      $page['tags'] = array();
+      
+      $next_token++;
+      
+      for ($i = $next_token; ; $i++)
+      {
+        if (!isset($tokens[$i]))
+        {
+          break;
+        }
+        
+        preg_match('/^(\d+)/', $tokens[$i], $matches);
+        if (!isset($matches[1]))
+        {
+          if (0 == count($page['tags']))
+          {
+            die('Fatal: at least one tag required');
+          }
+          else
+          {
+            break;
+          }
+        }
+        array_push($page['tags'], $matches[1]);
+      }
+      
+      $next_token = $i;
+    }
+    else if (0 === strpos($tokens[$next_token], 'fav'))
+    {
+      $page['section'] = 'favorites';
+      $next_token++;
+    }
+    else if ('most_visited' == $tokens[$next_token])
+    {
+      $page['section'] = 'most_visited';
+      $next_token++;
+    }
+    else if ('best_rated' == $tokens[$next_token])
+    {
+      $page['section'] = 'best_rated';
+      $next_token++;
+    }
+    else if ('recent_pics' == $tokens[$next_token])
+    {
+      $page['section'] = 'recent_pics';
+      $next_token++;
+    }
+    else if ('recent_cats' == $tokens[$next_token])
+    {
+      $page['section'] = 'recent_cats';
+      $next_token++;
+    }
+    else if ('search' == $tokens[$next_token])
+    {
+      $page['section'] = 'search';
+      $next_token++;
+      
+      preg_match('/(\d+)/', $tokens[$next_token], $matches);
+      if (!isset($matches[1]))
+      {
+        die('Fatal: search identifier is missing');
+      }
+      $page['search'] = $matches[1];
+      $next_token++;
+    }
+    else if ('list' == $tokens[$next_token])
+    {
+      $page['section'] = 'list';
+      $next_token++;
+
+      $page['list'] = array();
+      if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
+      {
+        die('wrong format on list GET parameter');
+      }
+      foreach (explode(',', $tokens[$next_token]) as $image_id)
+      {
+        array_push($page['list'], $image_id);
+      }
+      $next_token++;
     }
     else
     {
-      $page['cat'] = 'search';
+      $page['section'] = 'categories';
+      $next_token++;
     }
-  }
-  else if ($_GET['cat'] == 'list')
-  {
-    if (!isset($_GET['list']))
+    
+    for ($i = $next_token; ; $i++)
     {
-      die('list GET parameter is missing');
+      if (!isset($tokens[$i]))
+      {
+        break;
+      }
+      
+      if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
+      {
+        $page['start'] = $matches[1];
+      }
+
+      if (preg_match('/^calendar-(.+)$/', $tokens[$i], $matches))
+      {
+        // TODO: decide with rvelices how we name calendar/chronology is the
+        // URL
+        $_GET['calendar'] = $matches[1];
+      }
     }
-    else if (!preg_match('/^\d+(,\d+)*$/', $_GET['list']))
-    {
-      die('wrong format on list GET parameter');
-    }
-    else
-    {
-      $page['cat'] = 'list';
-    }
-  }
-  else
-  {
-    die('unknown cat GET parameter value');
   }
 }
 
@@ -110,16 +225,15 @@ if (isset($_COOKIE['pwg_image_order'])
   $page['super_order_by'] = true;
 }
 
-if (isset($page['cat']))
-{
- 
 // +-----------------------------------------------------------------------+
 // |                              category                                 |
 // +-----------------------------------------------------------------------+
-  if (is_numeric($page['cat']))
+if ('categories' == $page['section'])
+{
+  if (isset($page['category']))
   {
-    $result = get_cat_info($page['cat']);
-
+    $result = get_cat_info($page['category']);
+    
     $page = array_merge(
       $page,
       array(
@@ -132,45 +246,52 @@ if (isset($page['cat']))
         'cat_commentable'  => $result['commentable'],
         'cat_id_uppercat'  => $result['id_uppercat'],
         'uppercats'        => $result['uppercats'],
-
+        
         'title' => get_cat_display_name($result['name'], '', false),
         )
       );
-    if ( !isset($_GET['calendar']) )
+    
+    if (!isset($_GET['calendar']))
     {
       $query = '
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
-  WHERE category_id = '.$page['cat'].'
+  WHERE category_id = '.$page['category'].'
   '.$conf['order_by'].'
 ;';
       $page['items'] = array_from_query($query, 'image_id');
+      
       $page['thumbnails_include'] =
-          $result['nb_images'] > 0
-          ? 'include/category_default.inc.php'
-          : 'include/category_subcats.inc.php';
-    }//otherwise the calendar will requery all subitems
+        $result['nb_images'] > 0
+        ? 'include/category_default.inc.php'
+        : 'include/category_subcats.inc.php';
+    } //otherwise the calendar will requery all subitems
   }
-  // special section
   else
   {
-    if (!empty($user['forbidden_categories']))
-    {
-      $forbidden =
-        ' category_id NOT IN ('.$user['forbidden_categories'].')';
-    }
-    else
-    {
-      $forbidden = ' 1=1';
-    }
-          
+    $page['title'] = $lang['no_category'];
+    $page['thumbnails_include'] = 'include/category_subcats.inc.php';
+  }
+}
+// special sections
+else
+{
+  if (!empty($user['forbidden_categories']))
+  {
+    $forbidden =
+      ' category_id NOT IN ('.$user['forbidden_categories'].')';
+  }
+  else
+  {
+    $forbidden = ' 1 = 1';
+  }
 // +-----------------------------------------------------------------------+
 // |                           search section                              |
 // +-----------------------------------------------------------------------+
-    if ( $page['cat'] == 'search' )
-    {
-      $query = '
+  if ($page['section'] == 'search')
+  {
+    $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
@@ -179,23 +300,23 @@ SELECT DISTINCT(id)
   '.$conf['order_by'].'
 ;';
 
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $lang['search_result'],
-          'items' => array_from_query($query, 'id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $lang['search_result'],
+        'items' => array_from_query($query, 'id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                           favorite section                            |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'fav')
-    {
-      check_user_favorites();
+  else if ($page['section'] == 'favorites')
+  {
+    check_user_favorites();
 
-      $query = '
+    $query = '
 SELECT image_id
   FROM '.FAVORITES_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
@@ -203,147 +324,146 @@ SELECT image_id
   '.$conf['order_by'].'
 ;';
 
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $lang['favorites'],
-          'items' => array_from_query($query, 'image_id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $lang['favorites'],
+        'items' => array_from_query($query, 'image_id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                       recent pictures section                         |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'recent_pics')
-    {
-      $query = '
+  else if ($page['section'] == 'recent_pics')
+  {
+    $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE date_available > \''.
-        date('Y-m-d', time() - 60*60*24*$user['recent_period']).'\'
+      date('Y-m-d', time() - 60*60*24*$user['recent_period']).'\'
     AND '.$forbidden.'
   '.$conf['order_by'].'
 ;';
 
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $lang['recent_pics_cat'],
-          'items' => array_from_query($query, 'id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $lang['recent_pics_cat'],
+        'items' => array_from_query($query, 'id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                 recently updated categories section                   |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'recent_cats')
-    {
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $lang['recent_cats_cat'],
-          'cat_nb_images' => 0,
-          'thumbnails_include' => 'include/category_recent_cats.inc.php',
-          )
-        );
-    }
+  else if ($page['section'] == 'recent_cats')
+  {
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $lang['recent_cats_cat'],
+        'cat_nb_images' => 0,
+        'thumbnails_include' => 'include/category_recent_cats.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                        most visited section                           |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'most_visited')
-    {
-      $page['super_order_by'] = true;
-      $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
-      $query = '
+  else if ($page['section'] == 'most_visited')
+  {
+    $page['super_order_by'] = true;
+    $conf['order_by'] = ' ORDER BY hit DESC, file ASC';
+    $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
-    AND '.$forbidden.
-  $conf['order_by'].'
+    AND '.$forbidden.'
+    '.$conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
-
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $conf['top_number'].' '.$lang['most_visited_cat'],
-          'items' => array_from_query($query, 'id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
+    
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $conf['top_number'].' '.$lang['most_visited_cat'],
+        'items' => array_from_query($query, 'id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                          best rated section                           |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'best_rated')
-    {
-      $page['super_order_by'] = true;
-      $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
-
-      $query ='
+  else if ($page['section'] == 'best_rated')
+  {
+    $page['super_order_by'] = true;
+    $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
+    
+    $query ='
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE average_rate IS NOT NULL
-    AND '.$forbidden.
-  $conf['order_by'].'
+    AND '.$forbidden.'
+    '.$conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $conf['top_number'].' '.$lang['best_rated_cat'],
-          'items' => array_from_query($query, 'id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $conf['top_number'].' '.$lang['best_rated_cat'],
+        'items' => array_from_query($query, 'id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
 // +-----------------------------------------------------------------------+
 // |                             list section                              |
 // +-----------------------------------------------------------------------+
-    else if ($page['cat'] == 'list')
-    {
-      $query ='
+  else if ($page['section'] == 'list')
+  {
+    $query ='
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE image_id IN ('.$_GET['list'].')
+  WHERE image_id IN ('.implode(',', $page['list']).')
     AND '.$forbidden.'
   '.$conf['order_by'].'
 ;';
-      $page = array_merge(
-        $page,
-        array(
-          'title' => $lang['random_cat'],
-          'items' => array_from_query($query, 'id'),
-          'thumbnails_include' => 'include/category_default.inc.php',
-          )
-        );
-    }
-
-    if (!isset($page['cat_nb_images']))
-    {
-      $page['cat_nb_images'] = count($page['items']);
-    }
+      
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $lang['random_cat'],
+        'items' => array_from_query($query, 'id'),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
+  
+  if (!isset($page['cat_nb_images']))
+  {
+    $page['cat_nb_images'] = count($page['items']);
   }
 }
-// +-----------------------------------------------------------------------+
-// |                            root category                              |
-// +-----------------------------------------------------------------------+
-else
-{
-  $page['title'] = $lang['no_category'];
-  $page['thumbnails_include'] = 'include/category_subcats.inc.php';
-}
 
-if ( isset($_GET['calendar']) )
+// +-----------------------------------------------------------------------+
+// |                             chronology                                |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['calendar']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
 }
+
+// echo '<pre>'; print_r($page); echo '</pre>';
+
 
 ?>

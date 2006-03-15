@@ -125,12 +125,10 @@ if (isset($page['cat']))
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
-  if ( url_is_remote($page['cat_dir']) or !$page['cat_uploadable'])
+  
+  if (url_is_remote($page['cat_dir']) or !$page['cat_uploadable'])
   {
-    echo '<div style="text-align:center;">'.$lang['upload_forbidden'].'<br />';
-    echo '<a href="./category.php">';
-    echo $lang['thumbnails'].'</a></div>';
-    exit();
+    die('Fatal: you take a wrong way, bye bye');
   }
 }
 
@@ -280,32 +278,34 @@ $author = !empty($_POST['author'])?$_POST['author']:'';
 $date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';
 $comment = !empty($_POST['comment'])?$_POST['comment']:'';
 
-$template->assign_vars(array(
-  'ADVISE_TITLE' => $advise_title,
-  'NAME' => $username,
-  'EMAIL' => $mail_address,
-  'NAME_IMG' => $name,
-  'AUTHOR_IMG' => $author,
-  'DATE_IMG' => $date_creation,
-  'COMMENT_IMG' => $comment,
+$template->assign_vars(
+  array(
+    'ADVISE_TITLE' => $advise_title,
+    'NAME' => $username,
+    'EMAIL' => $mail_address,
+    'NAME_IMG' => $name,
+    'AUTHOR_IMG' => $author,
+    'DATE_IMG' => $date_creation,
+    'COMMENT_IMG' => $comment,
+    
+    'L_TITLE' => $lang['upload_title'],
+    'L_USERNAME' => $lang['upload_username'],
+    'L_EMAIL' =>  $lang['mail_address'], 
+    'L_NAME_IMG' =>  $lang['upload_name'], 
+    'L_SUBMIT' =>  $lang['submit'],
+    'L_AUTHOR' =>  $lang['upload_author'], 
+    'L_CREATION_DATE' =>  $lang['upload_creation_date'], 
+    'L_COMMENT' =>  $lang['comment'],
+    'L_RETURN' =>  $lang['home'],
+    'L_RETURN_HINT' =>  $lang['home_hint'],
+    'L_UPLOAD_DONE' =>  $lang['upload_successful'],
+    'L_MANDATORY' =>  $lang['mandatory'],
+    
+    'F_ACTION' => $u_form,
 
-  'L_TITLE' => $lang['upload_title'],
-  'L_USERNAME' => $lang['upload_username'],
-  'L_EMAIL' =>  $lang['mail_address'], 
-  'L_NAME_IMG' =>  $lang['upload_name'], 
-  'L_SUBMIT' =>  $lang['submit'],
-  'L_AUTHOR' =>  $lang['upload_author'], 
-  'L_CREATION_DATE' =>  $lang['upload_creation_date'], 
-  'L_COMMENT' =>  $lang['comment'],
-  'L_RETURN' =>  $lang['home'],
-  'L_RETURN_HINT' =>  $lang['home_hint'],
-  'L_UPLOAD_DONE' =>  $lang['upload_successful'],
-  'L_MANDATORY' =>  $lang['mandatory'],
-	
-  'F_ACTION' => $u_form,
-
-  'U_RETURN' => PHPWG_ROOT_PATH.'category.php?'.$_SERVER['QUERY_STRING']
-  ));
+    'U_RETURN' => make_index_url(array('category' => $page['cat'])),
+    )
+  );
   
 if ( !$page['upload_successful'] )
 {

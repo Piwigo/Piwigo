@@ -269,13 +269,18 @@ foreach ($categories as $category)
   $template->assign_block_vars(
     'category',
     array(
-      'NAME'=>$category['name'],
-      'ID'=>$category['id'],
-      'RANK'=>$category['rank']*10,
+      'NAME'       => $category['name'],
+      'ID'         => $category['id'],
+      'RANK'       => $category['rank']*10,
 
-      'U_JUMPTO'=>PHPWG_ROOT_PATH.'category.php?cat='.$category['id'],
-      'U_CHILDREN'=>$cat_list_url.'&amp;parent_id='.$category['id'],      
-      'U_EDIT'=>$base_url.'cat_modify&amp;cat_id='.$category['id']
+      'U_JUMPTO'   => make_index_url(
+        array(
+          'category' => $category['id'],
+          )
+        ),
+      
+      'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],      
+      'U_EDIT'     => $base_url.'cat_modify&amp;cat_id='.$category['id'],
       )
     );
   

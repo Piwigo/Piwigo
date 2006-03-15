@@ -184,7 +184,7 @@ $template->assign_vars(
     'F_KEYWORD'=>@$_GET['keyword'],
     'F_AUTHOR'=>@$_GET['author'],
     
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
+    'U_HOME' => make_index_url(),
     )
   );
 

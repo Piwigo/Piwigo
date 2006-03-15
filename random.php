@@ -28,6 +28,7 @@
 // +-----------------------------------------------------------------------+
 // |                          define and include                           |
 // +-----------------------------------------------------------------------+
+
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
@@ -40,30 +41,22 @@ check_status(ACCESS_GUEST);
 // |                     generate random element list                      |
 // +-----------------------------------------------------------------------+
 
-// we must not show pictures of a forbidden category
-$where = '';
-if ( $user['forbidden_categories'] != '' )
-{
-  $where = 'WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
-}
-
 $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  '.$where.'
+  '.(
+    $user['forbidden_categories'] != ''
+      ? 'WHERE category_id NOT IN ('.$user['forbidden_categories'].')'
+      : ''
+    ).'
   ORDER BY RAND(NOW())
   LIMIT 0, '.$conf['top_number'].'
 ;';
-$result = pwg_query($query);
-$ids = array();
-while ($row = mysql_fetch_array($result))
-{
-  array_push($ids, $row['id']);
-}
+
 // +-----------------------------------------------------------------------+
 // |                                redirect                               |
 // +-----------------------------------------------------------------------+
-$url = PHPWG_ROOT_PATH.'category.php?cat=list&amp;list='.implode(',', $ids);
-redirect($url);
+
+redirect(make_index_URL(array('list' => array_from_query($query, 'id'))));
 ?>

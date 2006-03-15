@@ -25,33 +25,29 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$rate_items = array(0,1,2,3,4,5);
-//--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
+// Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
-include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
-//-------------------------------------------------- access authorization check
-if (isset($page['cat']) and is_numeric($page['cat']))
+// access authorization check
+if (isset($page['category']))
 {
-  check_restrictions($page['cat']);
+  check_restrictions($page['category']);
 }
-//-------------------------------------------------------------- initialization
+
 // if this image_id doesn't correspond to this category, an error message is
 // displayed, and execution is stopped
-if (!in_array($_GET['image_id'], $page['items']))
+if (!in_array($page['image_id'], $page['items']))
 {
-  echo '
-<div style="text-align:center;">'.$lang['access_forbiden'].'<br />
-  <a href="'.PHPWG_ROOT_PATH.'category.php'.'">'.$lang['thumbnails'].'</a>
-</div>';
-  exit();
+  die('Fatal: this picture does not belong to this section');
 }
+
+// +-----------------------------------------------------------------------+
+// |                            initialization                             |
+// +-----------------------------------------------------------------------+
 
 $page['rank_of'] = array_flip($page['items']);
 
@@ -59,10 +55,10 @@ $page['rank_of'] = array_flip($page['items']);
 // section. This should also help in readability.
 $page['first_rank']   = 0;
 $page['last_rank']    = count($page['items']) - 1;
-$page['current_rank'] = $page['rank_of'][ $_GET['image_id'] ];
+$page['current_rank'] = $page['rank_of'][ $page['image_id'] ];
 
 // caching current item : readability purpose
-$page['current_item'] = $_GET['image_id'];
+$page['current_item'] = $page['image_id'];
 
 if ($page['current_rank'] != $page['first_rank'])
 {
@@ -71,12 +67,14 @@ if ($page['current_rank'] != $page['first_rank'])
   $template->assign_block_vars(
     'first',
     array(
-      'U_IMG' =>
-        PHPWG_ROOT_PATH.'picture.php'.
-        get_query_string_diff(
-          array('image_id', 'add_fav', 'slideshow')
-          ).
-        '&amp;image_id='.$page['items'][ $page['first_rank'] ],
+      'U_IMG' => duplicate_picture_URL(
+        // redefinitions
+        array(
+          'image_id' => $page['items'][ $page['first_rank'] ],
+          ),
+        // removes
+        array()
+        )
       )
     );
 
@@ -91,12 +89,14 @@ if ($page['current_rank'] != $page['last_rank'])
   $template->assign_block_vars(
     'last',
     array(
-      'U_IMG' =>
-        PHPWG_ROOT_PATH.'picture.php'.
-        get_query_string_diff(
-          array('image_id', 'add_fav', 'slideshow')
-          ).
-        '&amp;image_id='.$page['items'][ $page['last_rank'] ],
+      'U_IMG' => duplicate_picture_URL(
+        // redefinitions
+        array(
+          'image_id' => $page['items'][ $page['last_rank'] ],
+          ),
+        // removes
+        array()
+        )
       )
     );
 
@@ -104,155 +104,240 @@ if ($page['current_rank'] != $page['last_rank'])
   $page['next_item'] = $page['items'][ $page['current_rank'] + 1 ];
 }
 
-//---------------------------------------- incrementation of the number of hits
-if ( count(array_intersect(
-             array_keys($_GET),
-             array('add_fav', 'caddie', 'rate', 'representative', 'del') )
-          )==0 )
+$url_up = duplicate_index_URL(
+  array(
+    'start' =>
+      floor($page['current_rank'] / $user['nb_image_page'])
+      * $user['nb_image_page']
+    ),
+  array(
+    'start',
+    )
+  );
+
+$url_self = duplicate_picture_URL();
+
+// +-----------------------------------------------------------------------+
+// |                                actions                                |
+// +-----------------------------------------------------------------------+
+
+/**
+ * Actions are favorite adding, user comment deletion, setting the picture
+ * as representative of the current category...
+ *
+ * Actions finish by a redirection
+ */
+
+if (isset($_GET['action']))
 {
-  $query = '
-  UPDATE '.IMAGES_TABLE.'
-    SET hit = hit+1
-    WHERE id = '.$_GET['image_id'].'
-  ;';
-  @pwg_query( $query );
-}
-
-//-------------------------------------------------------------- representative
-if (is_admin() and isset($_GET['representative']))
-{
-  $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = '.$_GET['image_id'].'
-  WHERE id = '.$page['cat'].'
-;';
-  pwg_query($query);
-
-  $url =
-    PHPWG_ROOT_PATH
-    .'picture.php'
-    .get_query_string_diff(array('representative'));
-  redirect($url);
-}
-
-//-------------------------------------------------------------- caddie filling
-
-if (isset($_GET['caddie']))
-{
-  fill_caddie(array($_GET['image_id']));
-
-  $url =
-    PHPWG_ROOT_PATH
-    .'picture.php'
-    .get_query_string_diff(array('caddie'));
-  redirect($url);
-}
-
-
-//----------------------------------------------------------- rate registration
-if (isset($_GET['rate'])
-    and $conf['rate']
-    and ( !$user['is_the_guest'] or $conf['rate_anonymous'] )
-    and in_array($_GET['rate'], $rate_items))
-{
-  if ($user['is_the_guest'])
+  switch ($_GET['action'])
   {
-    $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
-    if ( count($ip_components)>3 )
+    case 'add_to_favorites' :
     {
-      array_pop($ip_components);
-    }
-    $anonymous_id = implode ('.', $ip_components);
+      $query = '
+INSERT INTO '.FAVORITES_TABLE.'
+  (image_id,user_id)
+  VALUES
+  ('.$page['image_id'].','.$user['id'].')
+;';
+      pwg_query($query);
 
-    if ( isset($_COOKIE['pwg_anonymous_rater']) )
+      redirect($url_self);
+      
+      break;
+    }
+    case 'remove_from_favorites' :
     {
-      if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'] )
-      { // client has changed his IP adress or he's trying to fool us
+      $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND image_id = '.$page['image_id'].'
+;';
+      pwg_query($query);
+
+      if ('favorites' == $page['section'])
+      {
+        redirect($url_up);
+      }
+      else
+      {
+        redirect($url_self);
+      }
+      
+      break;
+    }
+    case 'set_as_representative' :
+    {
+      if (is_admin() and isset($page['category']))
+      {
         $query = '
+UPDATE '.CATEGORIES_TABLE.'
+  SET representative_picture_id = '.$page['image_id'].'
+  WHERE id = '.$page['category'].'
+;';
+        pwg_query($query);
+      }
+      
+      redirect($url_self);
+  
+      break;
+    }
+    case 'toggle_metadata' :
+    {
+      break;
+    }
+    case 'add_to_caddie' :
+    {
+      fill_caddie(array($page['image_id']));
+      redirect($url_self);
+      break;
+    }
+    case 'rate' :
+    {
+      if (isset($_GET['rate'])
+          and $conf['rate']
+          and (!$user['is_the_guest'] or $conf['rate_anonymous'])
+          and in_array($_GET['rate'], $rate_items))
+      {
+        if ($user['is_the_guest'])
+        {
+          $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
+          if (count($ip_components) > 3)
+          {
+            array_pop($ip_components);
+          }
+          $anonymous_id = implode ('.', $ip_components);
+          
+          if (isset($_COOKIE['pwg_anonymous_rater']))
+          {
+            if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'])
+            { // client has changed his IP adress or he's trying to fool us
+              $query = '
 SELECT element_id FROM '. RATE_TABLE . '
   WHERE user_id=' . $user['id'] . '
   AND anonymous_id=\'' . $anonymous_id . '\'';
-        $result = pwg_query($query);
-        $already_there = array();
-        while ( $row = mysql_fetch_array($result) )
-        {
-          array_push( $already_there, $row['element_id'] );
-        }
+              $result = pwg_query($query);
+              $already_there = array();
+              while ($row = mysql_fetch_array($result))
+              {
+                array_push($already_there, $row['element_id']);
+              }
+              
+              if (count($already_there) > 0)
+              {
+                $query = '
+DELETE
+  FROM '.RATE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND anonymous_id = \''.$_COOKIE['pwg_anonymous_rater'].'\'
+    AND element_id NOT IN ('.implode(',', $already_there).')
+;';
+                pwg_query($query);
+              }
 
-        if ( count($already_there)>0 )
-        {
-          $query = '
-DELETE FROM '. RATE_TABLE . '
-  WHERE user_id=' . $user['id'] . '
-  AND anonymous_id=\'' . $_COOKIE['pwg_anonymous_rater'] . '\'
-  AND element_id NOT IN (' . implode(',',$already_there) . ')';
-          pwg_query($query);
-        }
+              $query = '
+UPDATE
+  '.RATE_TABLE.'
+  SET anonymous_id = \'' .$anonymous_id.'\'
+  WHERE user_id = '.$user['id'].'
+    AND anonymous_id = \'' . $_COOKIE['pwg_anonymous_rater'].'\'
+;';
+              pwg_query($query);
 
+              setcookie(
+                'pwg_anonymous_rater',
+                $anonymous_id,
+                strtotime('+10 years'),
+                cookie_path()
+                );
+            }
+          }
+          else
+          {
+            setcookie(
+              'pwg_anonymous_rater',
+              $anonymous_id,
+              strtotime('+10 years'),
+              cookie_path()
+              );
+          }
+        }
+        
         $query = '
-UPDATE '. RATE_TABLE . '
-  SET anonymous_id=\'' . $anonymous_id . '\'
-  WHERE user_id=' . $user['id'] . '
-  AND anonymous_id=\'' . $_COOKIE['pwg_anonymous_rater'] . '\'';
+DELETE
+  FROM '.RATE_TABLE.'
+  WHERE element_id = '.$page['image_id'] . '
+  AND user_id = '.$user['id'].'
+';
+        if (isset($anonymous_id))
+        {
+          $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
+        }
         pwg_query($query);
-
-        setcookie('pwg_anonymous_rater', $anonymous_id,
-                   strtotime('+10 years'), cookie_path() );
-      }
-    }
-    else
-    {
-      setcookie('pwg_anonymous_rater', $anonymous_id,
-                 strtotime('+10 years'), cookie_path() );
-    }
-  }
-
-  $query = '
-DELETE FROM '.RATE_TABLE.'
-  WHERE element_id = '.$_GET['image_id'] . '
-  AND user_id = '.$user['id']
-;
-  if (isset($anonymous_id))
-  {
-    $query.= ' AND anonymous_id=\'' . $anonymous_id .'\'';
-  }
-  pwg_query($query);
-  $query = '
-INSERT INTO '.RATE_TABLE.'
+        $query = '
+INSERT
+  INTO '.RATE_TABLE.'
   (user_id,anonymous_id,element_id,rate,date)
   VALUES
-  ('.$user['id'].','.(isset($anonymous_id)?'\''.$anonymous_id.'\'':"''").','.
-   $_GET['image_id'].','.$_GET['rate'].',NOW())
+  ('
+          .$user['id'].','
+          .(isset($anonymous_id) ? '\''.$anonymous_id.'\'' : "''").','
+          .$page['image_id'].','
+          .$_GET['rate']
+          .',NOW())
 ;';
-  pwg_query($query);
-
-  // update of images.average_rate field
-  $query = '
+        pwg_query($query);
+        
+        // update of images.average_rate field
+        $query = '
 SELECT ROUND(AVG(rate),2) AS average_rate
   FROM '.RATE_TABLE.'
-  WHERE element_id = '.$_GET['image_id'].'
+  WHERE element_id = '.$page['image_id'].'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
-  $query = '
+        $row = mysql_fetch_array(pwg_query($query));
+        $query = '
 UPDATE '.IMAGES_TABLE.'
   SET average_rate = '.$row['average_rate'].'
-  WHERE id = '.$_GET['image_id'].'
+  WHERE id = '.$page['image_id'].'
 ;';
-  pwg_query($query);
-  $url =
-    PHPWG_ROOT_PATH
-    .'picture.php'
-    .get_query_string_diff(array('rate'));
-  redirect($url);
+        pwg_query($query);
+      }
+      
+      redirect($url_self);
+    }
+    case 'delete_comment' :
+    {
+      if (isset($_GET['comment_to_delete'])
+          and is_numeric($_GET['comment_to_delete'])
+          and is_admin())
+      {
+        $query = '
+DELETE FROM '.COMMENTS_TABLE.'
+  WHERE id = '.$_GET['comment_to_delete'].'
+;';
+        pwg_query( $query );
+      }
+
+      redirect($url_self);
+    }
+  }
 }
 
+// incrementation of the number of hits, we do this only if no action
+$query = '
+UPDATE
+  '.IMAGES_TABLE.'
+  SET hit = hit+1
+  WHERE id = '.$page['image_id'].'
+;';
+pwg_query($query);
 
 //---------------------------------------------------------- related categories
 $query = '
 SELECT category_id,uppercats,commentable,global_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
-  WHERE image_id = '.$_GET['image_id'].'
+  WHERE image_id = '.$page['image_id'].'
     AND category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
 $result = pwg_query($query);
@@ -265,7 +350,7 @@ usort($related_categories, 'global_rank_compare');
 //------------------------------------- prev, current & next picture management
 $picture = array();
 
-$ids = array($_GET['image_id']);
+$ids = array($page['image_id']);
 if (isset($page['previous_item']))
 {
   array_push($ids, $page['previous_item']);
@@ -361,180 +446,26 @@ while ($row = mysql_fetch_array($result))
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
-  $picture[$i]['url'] =
-    PHPWG_ROOT_PATH.'picture.php'
-    .get_query_string_diff(array('image_id', 'add_fav', 'slideshow'))
-    .'&amp;image_id='.$row['id'];
-}
-
-$url_up = PHPWG_ROOT_PATH.'category.php?';
-if ( isset($page['cat']) )
-{
-  $url_up .= 'cat='.$page['cat'];
-}
-elseif ( isset($_GET['calendar']) )
-{
-  $url_up .= 'calendar='.$_GET['calendar'];
-}
-
-$url_up_start = floor( $page['current_rank'] / $user['nb_image_page'] );
-$url_up_start *= $user['nb_image_page'];
-if ($url_up_start>0)
-{
-  $url_up .= '&amp;start='.$url_up_start;
-}
-
-if ( isset($page['cat']) )
-{
-  if ( $page['cat'] == 'search' )
-  {
-    $url_up.= '&amp;search='.$_GET['search'];
-  }
-  if ( $page['cat'] == 'list' )
-  {
-    $url_up.= '&amp;list='.$_GET['list'];
-  }
+  $picture[$i]['url'] = duplicate_picture_URL(
+    array(
+      'image_id' => $row['id'],
+      ),
+    array(
+      'start',
+      )
+    );
 }
 
 $url_admin =
   PHPWG_ROOT_PATH.'admin.php?page=picture_modify'
-  .'&amp;cat_id='. ( isset($page['cat']) ? $page['cat'] : '' )
-  .'&amp;image_id='.$_GET['image_id'];
+  .'&amp;cat_id='.(isset($page['category']) ? $page['category'] : '')
+  .'&amp;image_id='.$page['image_id']
+;
 
 $url_slide =
-  $picture['current']['url'].'&amp;slideshow='.$conf['slideshow_period'];
-
-//--------------------------------------------------------- favorite management
-if ( isset( $_GET['add_fav'] ) )
-{
-  $query = 'DELETE FROM '.FAVORITES_TABLE;
-  $query.= ' WHERE user_id = '.$user['id'];
-  $query.= ' AND image_id = '.$picture['current']['id'];
-  $query.= ';';
-  $result = pwg_query( $query );
-
-  if ( $_GET['add_fav'] == 1 )
-  {
-    $query = 'INSERT INTO '.FAVORITES_TABLE;
-    $query.= ' (image_id,user_id) VALUES';
-    $query.= ' ('.$picture['current']['id'].','.$user['id'].')';
-    $query.= ';';
-    $result = pwg_query( $query );
-  }
-  if ( !$_GET['add_fav'] and isset($page['cat']) and 'fav'==$page['cat'] )
-  {
-    if (!isset($page['previous_item']) and !isset($page['next_item']))
-    {
-      // there is no favorite picture anymore we redirect the user to the
-      // category page
-      redirect($url_up);
-    }
-    else if (!isset($page['previous_item']))
-    {
-      $url = str_replace( '&amp;', '&', $picture['next']['url'] );
-      redirect( $url );
-    }
-    else
-    {
-      $url = str_replace('&amp;', '&', $picture['prev']['url'] );
-      redirect( $url );
-    }
-    redirect( $url );
-  }
-}
-
-//------------------------------------------------------  comment registeration
-if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
-{
-  $register_comment = true;
-  $author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
-  // if a guest try to use the name of an already existing user, he must be
-  // rejected
-  if ( $author != $user['username'] )
-  {
-    $query = 'SELECT COUNT(*) AS user_exists';
-    $query.= ' FROM '.USERS_TABLE;
-    $query.= ' WHERE '.$conf['user_fields']['username']." = '".$author."'";
-    $query.= ';';
-    $row = mysql_fetch_array( pwg_query( $query ) );
-    if ( $row['user_exists'] == 1 )
-    {
-      $template->assign_block_vars(
-        'information',
-        array('INFORMATION'=>$lang['comment_user_exists']));
-      $register_comment = false;
-    }
-  }
-
-  if ( $register_comment )
-  {
-    // anti-flood system
-    $reference_date = time() - $conf['anti-flood_time'];
-    $query = 'SELECT id FROM '.COMMENTS_TABLE;
-    $query.= ' WHERE date > FROM_UNIXTIME('.$reference_date.')';
-    $query.= " AND author = '".$author."'";
-    $query.= ';';
-    if ( mysql_num_rows( pwg_query( $query ) ) == 0
-         or $conf['anti-flood_time'] == 0 )
-    {
-      list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-
-      $data = array();
-      $data{'author'} = $author;
-      $data{'date'} = $dbnow;
-      $data{'image_id'} = $_GET['image_id'];
-      $data{'content'} = htmlspecialchars( $_POST['content'], ENT_QUOTES);
-
-      if (!$conf['comments_validation'] or is_admin())
-      {
-        $data{'validated'} = 'true';
-        $data{'validation_date'} = $dbnow;
-      }
-      else
-      {
-        $data{'validated'} = 'false';
-      }
-
-      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-      $fields = array('author', 'date', 'image_id', 'content', 'validated',
-                      'validation_date');
-      mass_inserts(COMMENTS_TABLE, $fields, array($data));
-
-      // information message
-      $message = $lang['comment_added'];
-
-      if (!$conf['comments_validation'] or is_admin())
-
-      if ( $conf['comments_validation'] and !is_admin() )
-      {
-        $message.= '<br />'.$lang['comment_to_validate'];
-      }
-      $template->assign_block_vars('information',
-                                   array('INFORMATION'=>$message));
-    }
-    else
-    {
-      // information message
-      $template->assign_block_vars(
-        'information',
-        array('INFORMATION'=>$lang['comment_anti-flood']));
-    }
-  }
-}
-// comment deletion
-if ( isset( $_GET['del'] )
-     and is_numeric( $_GET['del'] )
-     and is_admin() )
-{
-  $query = 'DELETE FROM '.COMMENTS_TABLE;
-  $query.= ' WHERE id = '.$_GET['del'];
-  $query.= ';';
-  pwg_query( $query );
-}
-
-//
-// Start output of page
-//
+  $picture['current']['url']
+  .'&amp;slideshow='.$conf['slideshow_period']
+;
 
 $title =  $picture['current']['name'];
 $refresh = 0;
@@ -571,8 +502,12 @@ else
   $original_height = $picture['current']['height'];
 }
 
-$picture_size = get_picture_size($original_width, $original_height,
-                                 @$user['maxwidth'], @$user['maxheight']);
+$picture_size = get_picture_size(
+  $original_width,
+  $original_height,
+  @$user['maxwidth'],
+  @$user['maxheight']
+  );
 
 // metadata
 if ($conf['show_exif'] or $conf['show_iptc'])
@@ -584,12 +519,15 @@ else
   $metadata_showable = false;
 }
 
-$url_metadata = PHPWG_ROOT_PATH.'picture.php';
-$url_metadata .=  get_query_string_diff(array('add_fav', 'slideshow', 'show_metadata'));
-if ($metadata_showable and !isset($_GET['show_metadata']))
-{
-  $url_metadata.= '&amp;show_metadata=1';
-}
+// $url_metadata = PHPWG_ROOT_PATH.'picture.php';
+// $url_metadata .=  get_query_string_diff(array('add_fav', 'slideshow', 'show_metadata'));
+// if ($metadata_showable and !isset($_GET['show_metadata']))
+// {
+//   $url_metadata.= '&amp;show_metadata=1';
+// }
+
+// TODO: rewrite metadata display to toggle on/off user_infos.show_metadata
+$url_metadata = duplicate_picture_URL();
 
 $page['body_id'] = 'thePicturePage';
 //------------------------------------------------------- navigation management
@@ -622,45 +560,46 @@ if (isset($page['next_item']))
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 
-$template->assign_vars(array(
-  'CATEGORY' => $title_img,
-  'PHOTO' => $title_nb,
-  'TITLE' => $picture['current']['name'],
-  'SRC_IMG' => $picture['current']['src'],
-  'ALT_IMG' => $picture['current']['file'],
-  'WIDTH_IMG' => $picture_size[0],
-  'HEIGHT_IMG' => $picture_size[1],
+$template->assign_vars(
+  array(
+    'CATEGORY' => $title_img,
+    'PHOTO' => $title_nb,
+    'TITLE' => $picture['current']['name'],
+    'SRC_IMG' => $picture['current']['src'],
+    'ALT_IMG' => $picture['current']['file'],
+    'WIDTH_IMG' => $picture_size[0],
+    'HEIGHT_IMG' => $picture_size[1],
 
-  'LEVEL_SEPARATOR' => $conf['level_separator'],
+    'LEVEL_SEPARATOR' => $conf['level_separator'],
 
-  'L_HOME' => $lang['home'],
-  'L_SLIDESHOW' => $lang['slideshow'],
-  'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
-  'L_PREV_IMG' =>$lang['previous_page'].' : ',
-  'L_NEXT_IMG' =>$lang['next_page'].' : ',
-  'L_ADMIN' =>$lang['link_info_image'],
-  'L_COMMENT_TITLE' =>$lang['comments_title'],
-  'L_ADD_COMMENT' =>$lang['comments_add'],
-  'L_DELETE_COMMENT' =>$lang['comments_del'],
-  'L_DELETE' =>$lang['delete'],
-  'L_SUBMIT' =>$lang['submit'],
-  'L_AUTHOR' =>  $lang['upload_author'],
-  'L_COMMENT' =>$lang['comment'],
-  'L_DOWNLOAD' => $lang['download'],
-  'L_DOWNLOAD_HINT' => $lang['download_hint'],
-  'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
-  'L_PICTURE_HIGH' => $lang['picture_high'],
-  'L_UP_HINT' => $lang['home_hint'],
-  'L_UP_ALT' => $lang['home'],
+    'L_HOME' => $lang['home'],
+    'L_SLIDESHOW' => $lang['slideshow'],
+    'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
+    'L_PREV_IMG' =>$lang['previous_page'].' : ',
+    'L_NEXT_IMG' =>$lang['next_page'].' : ',
+    'L_ADMIN' =>$lang['link_info_image'],
+    'L_COMMENT_TITLE' =>$lang['comments_title'],
+    'L_ADD_COMMENT' =>$lang['comments_add'],
+    'L_DELETE_COMMENT' =>$lang['comments_del'],
+    'L_DELETE' =>$lang['delete'],
+    'L_SUBMIT' =>$lang['submit'],
+    'L_AUTHOR' =>  $lang['upload_author'],
+    'L_COMMENT' =>$lang['comment'],
+    'L_DOWNLOAD' => $lang['download'],
+    'L_DOWNLOAD_HINT' => $lang['download_hint'],
+    'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
+    'L_PICTURE_HIGH' => $lang['picture_high'],
+    'L_UP_HINT' => $lang['home_hint'],
+    'L_UP_ALT' => $lang['home'],
 
-  'U_HOME' => (PHPWG_ROOT_PATH.'category.php'),
-  'U_UP' => $url_up,
-  'U_METADATA' => $url_metadata,
-  'U_ADMIN' => $url_admin,
-  'U_SLIDESHOW'=> $url_slide,
-  'U_ADD_COMMENT' => str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'] )
-  )
-);
+    'U_HOME' => make_index_URL(),
+    'U_UP' => $url_up,
+    'U_METADATA' => $url_metadata,
+    'U_ADMIN' => $url_admin,
+    'U_SLIDESHOW'=> $url_slide,
+    'U_ADD_COMMENT' => $url_self,
+    )
+  );
 
 if ($conf['show_picture_name_on_title'])
 {
@@ -668,92 +607,100 @@ if ($conf['show_picture_name_on_title'])
 }
 
 //------------------------------------------------------- upper menu management
+
 // download link if file is not a picture
 if (!$picture['current']['is_picture'])
 {
   $template->assign_block_vars(
     'download',
-    array('U_DOWNLOAD' => $picture['current']['download']));
-}
-// display a high quality link if present
-if (isset($picture['current']['high']))
-{
-  $uuid = uniqid(rand());
-  $template->assign_block_vars('high', array(
-    'U_HIGH' => $picture['current']['high'],
-    'UUID'=>$uuid
-  ));
-  $template->assign_block_vars(
-    'download',
-    array('U_DOWNLOAD' => PHPWG_ROOT_PATH.'action.php?dwn='
-          .$picture['current']['high']
-    )
-  );
-}
-// button to set the current picture as representative
-if (is_admin() and
-    isset($page['cat']) and is_numeric($page['cat']))
-{
-  $template->assign_block_vars(
-    'representative',
     array(
-      'URL' =>
-        PHPWG_ROOT_PATH.'picture.php'
-        .get_query_string_diff(array('add_fav'))
-        .'&amp;representative=1'
+      'U_DOWNLOAD' => $picture['current']['download']
       )
     );
 }
 
+// display a high quality link if present
+if (isset($picture['current']['high']))
+{
+  $uuid = uniqid(rand());
+  
+  $template->assign_block_vars(
+    'high',
+    array(
+      'U_HIGH' => $picture['current']['high'],
+      'UUID'   => $uuid,
+      )
+    );
+  
+  $template->assign_block_vars(
+    'download',
+    array(
+      'U_DOWNLOAD' => PHPWG_ROOT_PATH.'action.php?dwn='
+      .$picture['current']['high']
+      )
+    );
+}
+
+// button to set the current picture as representative
+if (is_admin() and isset($page['category']))
+{
+  $template->assign_block_vars(
+    'representative',
+    array(
+      'URL' => $url_self.'&amp;action=set_as_representative'
+      )
+    );
+}
+
+// caddie button
 if (is_admin())
 {
   $template->assign_block_vars(
     'caddie',
     array(
-      'URL' =>
-        PHPWG_ROOT_PATH.'picture.php'
-        .get_query_string_diff(array('add_fav')).'&amp;caddie=1')
+      'URL' => $url_self.'&amp;action=add_to_caddie'
+      )
     );
 }
 
-//------------------------------------------------------- favorite manipulation
-if ( !$user['is_the_guest'] )
+// favorite manipulation
+if (!$user['is_the_guest'])
 {
   // verify if the picture is already in the favorite of the user
-  $query = 'SELECT COUNT(*) AS nb_fav';
-  $query.= ' FROM '.FAVORITES_TABLE.' WHERE image_id = '.$_GET['image_id'];
-  $query.= ' AND user_id = '.$user['id'].';';
-  $result = pwg_query( $query );
-  $row = mysql_fetch_array( $result );
-  if (!$row['nb_fav'])
+  $query = '
+SELECT COUNT(*) AS nb_fav
+  FROM '.FAVORITES_TABLE.'
+  WHERE image_id = '.$page['image_id'].'
+    AND user_id = '.$user['id'].'
+;';
+  $result = pwg_query($query);
+  $row = mysql_fetch_array($result);
+  
+  if ($row['nb_fav'] == 0)
   {
-    $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('add_fav'));
-    $url.= '&amp;add_fav=1';
+    $url = $url_self.'&amp;action=add_to_favorites';
 
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => get_themeconf('icon_dir').'/favorite.png',
-        'FAVORITE_HINT' =>$lang['add_favorites_hint'],
-        'FAVORITE_ALT' =>$lang['add_favorites_alt'],
-        'U_FAVORITE' => $url
-        ));
+        'FAVORITE_IMG'  => get_themeconf('icon_dir').'/favorite.png',
+        'FAVORITE_HINT' => $lang['add_favorites_hint'],
+        'FAVORITE_ALT'  => $lang['add_favorites_alt'],
+        'U_FAVORITE'    => $url_self.'&amp;action=add_to_favorites',
+        )
+      );
   }
   else
   {
-    $url = PHPWG_ROOT_PATH.'picture.php';
-    $url.= get_query_string_diff(array('add_fav'));
-    $url.= '&amp;add_fav=0';
-
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG' => get_themeconf('icon_dir').'/del_favorite.png',
-        'FAVORITE_HINT' =>$lang['del_favorites_hint'],
-        'FAVORITE_ALT' =>$lang['del_favorites_alt'],
-        'U_FAVORITE'=> $url
-        ));
+        'FAVORITE_IMG'  => get_themeconf('icon_dir').'/del_favorite.png',
+        'FAVORITE_HINT' => $lang['del_favorites_hint'],
+        'FAVORITE_ALT'  => $lang['del_favorites_alt'],
+        'U_FAVORITE'    => $url_self.'&amp;action=remove_from_favorites',
+        )
+      );
   }
 }
 //------------------------------------ admin link for information modifications
@@ -887,306 +834,30 @@ foreach ($related_categories as $category)
     );
 }
 
-//-------------------------------------------------------------------  metadata
-if ($metadata_showable and isset($_GET['show_metadata']))
-{
-  include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
-  $template->assign_block_vars('metadata', array());
-  if ($conf['show_exif'])
-  {
-    if (!function_exists('read_exif_data'))
-    {
-      die('Exif extension not available, admin should disable exif display');
-    }
-
-    if ($exif = @read_exif_data($picture['current']['src']))
-    {
-      $template->assign_block_vars(
-        'metadata.headline',
-        array('TITLE' => 'EXIF Metadata')
-        );
-
-      foreach ($conf['show_exif_fields'] as $field)
-      {
-        if (strpos($field, ';') === false)
-        {
-          if (isset($exif[$field]))
-          {
-            $key = $field;
-            if (isset($lang['exif_field_'.$field]))
-            {
-              $key = $lang['exif_field_'.$field];
-            }
-
-            $template->assign_block_vars(
-              'metadata.line',
-              array(
-                'KEY' => $key,
-                'VALUE' => $exif[$field]
-                )
-              );
-          }
-        }
-        else
-        {
-          $tokens = explode(';', $field);
-          if (isset($exif[$tokens[0]][$tokens[1]]))
-          {
-            $key = $tokens[1];
-            if (isset($lang['exif_field_'.$tokens[1]]))
-            {
-              $key = $lang['exif_field_'.$tokens[1]];
-            }
-
-            $template->assign_block_vars(
-              'metadata.line',
-              array(
-                'KEY' => $key,
-                'VALUE' => $exif[$tokens[0]][$tokens[1]]
-                )
-              );
-          }
-        }
-      }
-    }
-  }
-  if ($conf['show_iptc'])
-  {
-    $iptc = get_iptc_data($picture['current']['src'],
-                          $conf['show_iptc_mapping']);
-
-    if (count($iptc) > 0)
-    {
-      $template->assign_block_vars(
-        'metadata.headline',
-        array('TITLE' => 'IPTC Metadata')
-        );
-    }
-
-    foreach ($iptc as $field => $value)
-    {
-      $key = $field;
-      if (isset($lang[$field]))
-      {
-        $key = $lang[$field];
-      }
-
-      $template->assign_block_vars(
-        'metadata.line',
-        array(
-          'KEY' => $key,
-          'VALUE' => $value
-          )
-        );
-    }
-  }
-}
 //slideshow end
-if ( isset( $_GET['slideshow'] ) )
+if (isset($_GET['slideshow']))
 {
-  if ( !is_numeric( $_GET['slideshow'] ) ) $_GET['slideshow'] = $conf['slideshow_period'];
+  if (!is_numeric($_GET['slideshow']))
+  {
+    $_GET['slideshow'] = $conf['slideshow_period'];
+  }
 
-  $template->assign_block_vars('stop_slideshow', array(
-  'U_SLIDESHOW'=>$picture['current']['url']
-  ));
+  $template->assign_block_vars(
+    'stop_slideshow',
+    array(
+      'U_SLIDESHOW' => $picture['current']['url'],
+      )
+    );
 }
 
-//------------------------------------------------------------------- rating
-if ($conf['rate'])
-{
-  $query = '
-SELECT COUNT(rate) AS count
-     , ROUND(AVG(rate),2) AS average
-     , ROUND(STD(rate),2) AS STD
-  FROM '.RATE_TABLE.'
-  WHERE element_id = '.$picture['current']['id'].'
-;';
-  $row = mysql_fetch_array(pwg_query($query));
-  if ($row['count'] == 0)
-  {
-    $value = $lang['no_rate'];
-  }
-  else
-  {
-    $value = sprintf(
-      l10n('%.2f (rated %d times, standard deviation = %.2f)'),
-      $row['average'],
-      $row['count'],
-      $row['STD']
-      );
-  }
+// +-----------------------------------------------------------------------+
+// |                               sub pages                               |
+// +-----------------------------------------------------------------------+
 
-  if ($conf['rate_anonymous'] or !$user['is_the_guest'])
-  {
-    if ($row['count']>0)
-    {
-      $query = 'SELECT rate
-      FROM '.RATE_TABLE.'
-      WHERE element_id = '.$_GET['image_id'] . '
-      AND user_id = '.$user['id'] ;
+include(PHPWG_ROOT_PATH.'include/picture_rate.inc.php');
+include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
+include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 
-      if ($user['is_the_guest'])
-      {
-        $ip_components = explode('.', $_SERVER['REMOTE_ADDR']);
-        if ( count($ip_components)>3 )
-        {
-          array_pop($ip_components);
-        }
-        $anonymous_id = implode ('.', $ip_components);
-        $query .= ' AND anonymous_id = \''.$anonymous_id . '\'';
-      }
-
-      $result = pwg_query($query);
-      if (mysql_num_rows($result) > 0)
-      {
-        $row = mysql_fetch_array($result);
-        $sentence = $lang['already_rated'];
-        $sentence.= ' ('.$row['rate'].'). ';
-        $sentence.= $lang['update_rate'];
-      }
-      else
-      {
-        $sentence = $lang['never_rated'].'. '.$lang['Rate'];
-      }
-    }
-    else
-    {
-      $sentence = $lang['never_rated'].'. '.$lang['Rate'];
-    }
-    $template->assign_block_vars(
-      'rate',
-      array(
-        'CONTENT' => $value,
-        'SENTENCE' => $sentence
-        ));
-
-    $template->assign_block_vars('info_rate', array('CONTENT' => $value));
-
-    $template->assign_vars(
-      array(
-        'INFO_RATE' => $value
-        )
-      );
-
-    foreach ($rate_items as $num => $mark)
-    {
-      if ($num > 0)
-      {
-        $separator = '|';
-      }
-      else
-      {
-        $separator = '';
-      }
-
-      $url = PHPWG_ROOT_PATH.'picture.php';
-      $url.= get_query_string_diff(array('add_fav'));
-      $url.= '&amp;rate='.$mark;
-
-      $template->assign_block_vars(
-        'rate.rate_option',
-        array(
-          'OPTION' => $mark,
-          'URL' => $url,
-          'SEPARATOR' => $separator
-          ));
-    }
-  }
-}
-
-//---------------------------------------------------- users's comments display
-
-// the picture is commentable if it belongs at least to one category which
-// is commentable
-$page['show_comments'] = false;
-foreach ($related_categories as $category)
-{
-  if ($category['commentable'] == 'true')
-  {
-    $page['show_comments'] = true;
-  }
-}
-
-if ($page['show_comments'])
-{
-  // number of comment for this picture
-  $query = 'SELECT COUNT(*) AS nb_comments';
-  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
-  $query.= " AND validated = 'true'";
-  $query.= ';';
-  $row = mysql_fetch_array( pwg_query( $query ) );
-
-  // navigation bar creation
-  $url = PHPWG_ROOT_PATH.'picture.php';
-  $url.= get_query_string_diff(array('add_fav','start'));
-
-  if (!isset( $_GET['start'] )
-      or !is_numeric( $_GET['start'] )
-      or ( is_numeric( $_GET['start'] ) and $_GET['start'] < 0 ) )
-  {
-    $page['start'] = 0;
-  }
-  else
-  {
-    $page['start'] = $_GET['start'];
-  }
-  $page['navigation_bar'] = create_navigation_bar( $url, $row['nb_comments'],
-                                                   $page['start'],
-                                                   $conf['nb_comment_page'],
-                                                   '' );
-  $template->assign_block_vars('comments', array(
-    'NB_COMMENT'=>$row['nb_comments'],
-    'NAV_BAR'=>$page['navigation_bar']));
-
-  if ($row['nb_comments']>0)
-  {
-    $query = 'SELECT id,author,date,image_id,content';
-    $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$_GET['image_id'];
-    $query.= " AND validated = 'true'";
-    $query.= ' ORDER BY date ASC';
-    $query.= ' LIMIT '.$page['start'].', '.$conf['nb_comment_page'].';';
-    $result = pwg_query( $query );
-
-    while ( $row = mysql_fetch_array( $result ) )
-    {
-      $template->assign_block_vars(
-        'comments.comment',
-        array(
-          'COMMENT_AUTHOR'=>empty($row['author'])?$lang['guest']:$row['author'],
-          'COMMENT_DATE'=>format_date($row['date'], 'mysql_datetime', true),
-    'COMMENT'=>parse_comment_content($row['content'])
-    ));
-
-      if ( is_admin() )
-      {
-        $template->assign_block_vars(
-          'comments.comment.delete',
-          array('U_COMMENT_DELETE'=> $url.'&amp;del='.$row['id']
-            ));
-      }
-    }
-  }
-
-  if (!$user['is_the_guest']
-      or ($user['is_the_guest'] and $conf['comments_forall']))
-  {
-    $template->assign_block_vars('comments.add_comment', array());
-    // display author field if the user is not logged in
-    if (!$user['is_the_guest'])
-    {
-      $template->assign_block_vars(
-        'comments.add_comment.author_known',
-        array('KNOWN_AUTHOR'=>$user['username'])
-        );
-    }
-    else
-    {
-      $template->assign_block_vars(
-        'comments.add_comment.author_field', array()
-        );
-    }
-  }
-}
 //------------------------------------------------------------ log informations
 pwg_log( 'picture', $title_img, $picture['current']['file'] );
 

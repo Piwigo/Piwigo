@@ -26,7 +26,7 @@
 // +-----------------------------------------------------------------------+
 
 /**
- * This file is included by category.php to show thumbnails for a category
+ * This file is included by the main page to show thumbnails for a category
  * that have only subcategories
  * 
  */
@@ -34,16 +34,8 @@
 $query = '
 SELECT id, name, date_last, representative_picture_id
   FROM '.CATEGORIES_TABLE.'
-  WHERE id_uppercat ';
-if (!isset($page['cat']) or !is_numeric($page['cat']))
-{
-  $query.= 'is NULL';
-}
-else
-{
-  $query.= '= '.$page['cat'];
-}
-  $query.= '
+  WHERE id_uppercat '.
+  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
     AND id NOT IN ('.$user['forbidden_categories'].')
   ORDER BY rank
 ;';
@@ -142,17 +134,19 @@ SELECT id, path, tn_ext
   
   foreach ($cat_thumbnails as $item)
   {
-    $url_link = PHPWG_ROOT_PATH.'category.php?cat='.$row['id'];
-
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
-        'IMAGE' => $images[$item['picture']],
-        'IMAGE_ALT' => $item['name'],
+        'IMAGE'       => $images[$item['picture']],
+        'IMAGE_ALT'   => $item['name'],
         'IMAGE_TITLE' => $lang['hint_category'],
-        'IMAGE_TS' => get_icon(@$item['date_last']),
-        'U_IMG_LINK' =>
-          PHPWG_ROOT_PATH.'category.php?cat='.$item['category']
+        'IMAGE_TS'    => get_icon(@$item['date_last']),
+        
+        'U_IMG_LINK'  => make_index_url(
+          array(
+            'category' => $item['category'],
+            )
+          ),
         )
       );
     

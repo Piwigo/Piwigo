@@ -582,10 +582,12 @@ function get_thumbnail_src($path, $tn_ext = '')
 
   if ($tn_ext != '')
   {
-    $src = substr_replace(get_filename_wo_extension($path),
-                          '/thumbnail/'.$conf['prefix_thumbnail'],
-                          strrpos($path,'/'),
-                          1);
+    $src = substr_replace(
+      get_filename_wo_extension($path),
+      '/thumbnail/'.$conf['prefix_thumbnail'],
+      strrpos($path,'/'),
+      1
+      );
     $src.= '.'.$tn_ext;
   }
   else
@@ -999,5 +1001,224 @@ function get_available_upgrade_ids()
   natcasesort($available_upgrade_ids);
 
   return $available_upgrade_ids;
+}
+
+/**
+ * build an index URL for a specific section
+ *
+ * @param array
+ * @return string
+ */
+function make_index_URL($params = array())
+{
+  $url =
+    PHPWG_ROOT_PATH.'category.php?'
+    .'/'.make_section_in_URL($params)
+    ;
+  
+  if (isset($params['start']) and $params['start'] > 0)
+  {
+    $url.= '/start-'.$params['start'];
+  }
+
+  return $url;
+}
+
+/**
+ * build an index URL with current page parameters, but with redefinitions
+ * and removes.
+ *
+ * duplicate_index_URL(array('category' => 12), array('start')) will create
+ * an index URL on the current section (categories), but on a redefined
+ * category and without the start URL parameter.
+ *
+ * @param array redefined keys
+ * @param array removed keys
+ * @return string
+ */
+function duplicate_index_URL($redefined = array(), $removed = array())
+{
+  return make_index_URL(
+    params_for_duplication($redefined, $removed)
+    );
+}
+
+/**
+ * returns $page global array with key redefined and key removed
+ *
+ * @param array redefined keys
+ * @param array removed keys
+ * @return array
+ */
+function params_for_duplication($redefined, $removed)
+{
+  global $page;
+
+  if (count($removed) > 0)
+  {
+    $params = array();
+
+    foreach ($page as $page_item_key => $page_item_value)
+    {
+      if (!in_array($page_item_key, $removed))
+      {
+        $params[$page_item_key] = $page_item_value;
+      }
+    }
+  }
+  else
+  {
+    $params = $page;
+  }
+
+  foreach ($redefined as $redefined_param => $redefined_value)
+  {
+    $params[$redefined_param] = $redefined_value;
+  }
+
+  return $params;
+}
+
+/**
+ * create a picture URL with current page parameters, but with redefinitions
+ * and removes. See duplicate_index_URL.
+ *
+ * @param array redefined keys
+ * @param array removed keys
+ * @return string
+ */
+function duplicate_picture_URL($redefined = array(), $removed = array())
+{
+  return make_picture_URL(
+    params_for_duplication($redefined, $removed)
+    );
+}
+
+/**
+ * create a picture URL on a specific section for a specific picture
+ *
+ * @param array
+ * @return string
+ */
+function make_picture_URL($params)
+{
+  if (!isset($params['image_id']))
+  {
+    die('make_picture_URL: image_id is a required parameter');
+  }
+  
+  $url =
+    PHPWG_ROOT_PATH.'picture.php?'
+    .'/'.$params['image_id']
+    .'/'.make_section_in_URL($params)
+    ;
+
+  // first comment to start on
+  if (isset($params['start']) and $params['start'] > 0)
+  {
+    $url.= '/start-'.$params['start'];
+  }
+
+  return $url;
+}
+
+/**
+ * return the section token of an index or picture URL.
+ *
+ * Depending on section, other parameters are required (see function code
+ * for details)
+ *
+ * @param array
+ * @return string
+ */
+function make_section_in_URL($params)
+{
+  $section_string = '';
+  
+  if (!isset($params['section']))
+  {
+    if (isset($params['section']))
+    {
+      $params['section'] = 'categories';
+    }
+    else if (isset($params['tags']))
+    {
+      $params['section'] = 'tags';
+    }
+    else if (isset($params['list']))
+    {
+      $params['section'] = 'list';
+    }
+    else if (isset($params['search']))
+    {
+      $params['section'] = 'search';
+    }
+  }
+
+  if (!isset($params['section']))
+  {
+    $params['section'] = 'categories';
+  }
+  
+  switch($params['section'])
+  {
+    case 'categories' :
+    {
+      if (!isset($params['category']))
+      {
+        $section_string.= 'categories';
+      }
+      else
+      {
+        $section_string.= 'category/'.$params['category'];
+      }
+      
+      break;
+    }
+    case 'tags' :
+    {
+      if (!isset($params['tags']) or count($params['tags']) == 0)
+      {
+        die('make_section_in_URL: require at least one tag');
+      }
+
+      $section_string.= 'tags';
+
+      foreach ($params['tags'] as $tag)
+      {
+        $section_string.= '/'.$tag;
+      }
+      
+      break;
+    }
+    case 'search' :
+    {
+      if (!isset($params['search']))
+      {
+        die('make_section_in_URL: require a search identifier');
+      }
+      
+      $section_string.= 'search/'.$params['search'];
+
+      break;
+    }
+    case 'list' :
+    {
+      if (!isset($params['list']))
+      {
+        die('make_section_in_URL: require a list of items');
+      }
+
+      $section_string.= 'list/'.implode(',', $params['list']);
+      
+      break;
+    }
+    default :
+    {
+      $section_string.= $params['section'];
+    }
+  }
+
+  return $section_string;
 }
 ?>

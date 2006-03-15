@@ -51,7 +51,7 @@ $template->set_filenames(
   
 $template->assign_vars(
   array(
-    'U_HOME' => PHPWG_ROOT_PATH.'category.php'
+    'U_HOME' => make_index_url(),
     )
   );
 

@@ -142,8 +142,14 @@ INSERT INTO '.SEARCH_TABLE.'
 //----------------------------------------------------------------- redirection
 if (isset($_POST['submit']) and count($errors) == 0)
 {
-  $url = 'category.php?cat=search&search='.$search_id;
-  redirect($url);
+  redirect(
+    make_index_url(
+      array(
+        'section' => 'search',
+        'search'  => $search_id,
+        )
+      )
+    );
 }
 //----------------------------------------------------- template initialization
 
@@ -193,7 +199,7 @@ $template->assign_vars(array(
   'TODAY_YEAR' => date('Y', time()),
   'S_SEARCH_ACTION' => 'search.php',
   'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=search',
-  'U_HOME' => 'category.php'
+  'U_HOME' => make_index_url(),
   )
 );
 

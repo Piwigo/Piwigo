@@ -269,37 +269,44 @@ if (!empty($category['id_uppercat']))
   $self_url.= '&amp;parent_id='.$category['id_uppercat'];
 }
 
-$template->assign_vars(array( 
-  'CATEGORIES_NAV'=>$navigation,
-  'CAT_NAME'=>$category['name'],
-  'CAT_COMMENT'=>$category['comment'],
-  
-  $status=>'checked="checked"',
-  $lock=>'checked="checked"',
-  $commentable=>'checked="checked"',
-  $uploadable=>'checked="checked"',
-  
-  'L_EDIT_NAME'=>$lang['name'],
-  'L_STORAGE'=>$lang['storage'],
-  'L_REMOTE_SITE'=>$lang['remote_site'],
-  'L_EDIT_COMMENT'=>$lang['description'],
-  'L_EDIT_STATUS'=>$lang['conf_access'],
-  'L_STATUS_PUBLIC'=>$lang['public'],
-  'L_STATUS_PRIVATE'=>$lang['private'],
-  'L_EDIT_LOCK'=>$lang['lock'],
-  'L_EDIT_UPLOADABLE'=>$lang['editcat_uploadable'],
-  'L_EDIT_COMMENTABLE'=>$lang['comments'],
-  'L_YES'=>$lang['yes'],
-  'L_NO'=>$lang['no'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_SET_RANDOM_REPRESENTANT'=>$lang['cat_representant'],
+$template->assign_vars(
+  array( 
+    'CATEGORIES_NAV'     => $navigation,
+    'CAT_NAME'           => $category['name'],
+    'CAT_COMMENT'        => $category['comment'],
+    
+    $status              => 'checked="checked"',
+    $lock                => 'checked="checked"',
+    $commentable         => 'checked="checked"',
+    $uploadable          => 'checked="checked"',
+    
+    'L_EDIT_NAME'        => $lang['name'],
+    'L_STORAGE'          => $lang['storage'],
+    'L_REMOTE_SITE'      => $lang['remote_site'],
+    'L_EDIT_COMMENT'     => $lang['description'],
+    'L_EDIT_STATUS'      => $lang['conf_access'],
+    'L_STATUS_PUBLIC'    => $lang['public'],
+    'L_STATUS_PRIVATE'   => $lang['private'],
+    'L_EDIT_LOCK'        => $lang['lock'],
+    'L_EDIT_UPLOADABLE'  => $lang['editcat_uploadable'],
+    'L_EDIT_COMMENTABLE' => $lang['comments'],
+    'L_YES'              => $lang['yes'],
+    'L_NO'               => $lang['no'],
+    'L_SUBMIT'           => $lang['submit'],
+    'L_SET_RANDOM_REPRESENTANT'=>$lang['cat_representant'],
 
-  'U_JUMPTO'=>PHPWG_ROOT_PATH.'category.php?cat='.$category['id'],
-  'U_CHILDREN'=>$cat_list_url.'&amp;parent_id='.$category['id'],
-  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
-   
-  'F_ACTION'=>$form_action
-  ));
+    'U_JUMPTO' => make_index_url(
+      array(
+        'category' => $category['id'],
+        )
+      ),
+    
+    'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
+    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
+    
+    'F_ACTION' => $form_action,
+    )
+  );
 
 
 if ('private' == $category['status'])
