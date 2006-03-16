@@ -132,13 +132,16 @@ list($nb_images) = mysql_fetch_row(pwg_query($query));
 
 $template->set_filenames(array('rating'=>'admin/rating.tpl'));
 
-$navbar = create_navigation_bar(
-           PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start','del')),
-                                $nb_images,
-                                $start,
-                                $elements_per_page,
-                                '');
-$template->assign_vars(array('NAVBAR' => $navbar));
+$template->assign_vars(
+  array(
+    'NAVBAR' => create_navigation_bar(
+      PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start','del')),
+      $nb_images,
+      $start,
+      $elements_per_page,
+      )
+    )
+  );
 
 
 $template->assign_vars(

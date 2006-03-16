@@ -27,6 +27,7 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
 // Check Access and exit when user status is not ok
@@ -194,115 +195,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'rate' :
     {
-      if (isset($_GET['rate'])
-          and $conf['rate']
-          and (!$user['is_the_guest'] or $conf['rate_anonymous'])
-          and in_array($_GET['rate'], $rate_items))
-      {
-        if ($user['is_the_guest'])
-        {
-          $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
-          if (count($ip_components) > 3)
-          {
-            array_pop($ip_components);
-          }
-          $anonymous_id = implode ('.', $ip_components);
-          
-          if (isset($_COOKIE['pwg_anonymous_rater']))
-          {
-            if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'])
-            { // client has changed his IP adress or he's trying to fool us
-              $query = '
-SELECT element_id FROM '. RATE_TABLE . '
-  WHERE user_id=' . $user['id'] . '
-  AND anonymous_id=\'' . $anonymous_id . '\'';
-              $result = pwg_query($query);
-              $already_there = array();
-              while ($row = mysql_fetch_array($result))
-              {
-                array_push($already_there, $row['element_id']);
-              }
-              
-              if (count($already_there) > 0)
-              {
-                $query = '
-DELETE
-  FROM '.RATE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-    AND anonymous_id = \''.$_COOKIE['pwg_anonymous_rater'].'\'
-    AND element_id NOT IN ('.implode(',', $already_there).')
-;';
-                pwg_query($query);
-              }
-
-              $query = '
-UPDATE
-  '.RATE_TABLE.'
-  SET anonymous_id = \'' .$anonymous_id.'\'
-  WHERE user_id = '.$user['id'].'
-    AND anonymous_id = \'' . $_COOKIE['pwg_anonymous_rater'].'\'
-;';
-              pwg_query($query);
-
-              setcookie(
-                'pwg_anonymous_rater',
-                $anonymous_id,
-                strtotime('+10 years'),
-                cookie_path()
-                );
-            }
-          }
-          else
-          {
-            setcookie(
-              'pwg_anonymous_rater',
-              $anonymous_id,
-              strtotime('+10 years'),
-              cookie_path()
-              );
-          }
-        }
-        
-        $query = '
-DELETE
-  FROM '.RATE_TABLE.'
-  WHERE element_id = '.$page['image_id'] . '
-  AND user_id = '.$user['id'].'
-';
-        if (isset($anonymous_id))
-        {
-          $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
-        }
-        pwg_query($query);
-        $query = '
-INSERT
-  INTO '.RATE_TABLE.'
-  (user_id,anonymous_id,element_id,rate,date)
-  VALUES
-  ('
-          .$user['id'].','
-          .(isset($anonymous_id) ? '\''.$anonymous_id.'\'' : "''").','
-          .$page['image_id'].','
-          .$_GET['rate']
-          .',NOW())
-;';
-        pwg_query($query);
-        
-        // update of images.average_rate field
-        $query = '
-SELECT ROUND(AVG(rate),2) AS average_rate
-  FROM '.RATE_TABLE.'
-  WHERE element_id = '.$page['image_id'].'
-;';
-        $row = mysql_fetch_array(pwg_query($query));
-        $query = '
-UPDATE '.IMAGES_TABLE.'
-  SET average_rate = '.$row['average_rate'].'
-  WHERE id = '.$page['image_id'].'
-;';
-        pwg_query($query);
-      }
-      
+      rate_picture($user['id'], $page['image_id'], $_GET['rate']);
       redirect($url_self);
     }
     case 'delete_comment' :

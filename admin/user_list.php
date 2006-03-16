@@ -747,8 +747,7 @@ $navbar = create_navigation_bar(
   $url,
   count($page['filtered_users']),
   $start,
-  $conf['users_page'],
-  ''
+  $conf['users_page']
   );
 
 $template->assign_vars(array('NAVBAR' => $navbar));

@@ -30,8 +30,6 @@
  * 
  */
 
-$rate_items = array(0,1,2,3,4,5);
-
 if ($conf['rate'])
 {
   $query = '
@@ -109,7 +107,7 @@ SELECT COUNT(rate) AS count
         )
       );
 
-    foreach ($rate_items as $num => $mark)
+    foreach ($conf['rate_items'] as $num => $mark)
     {
       $template->assign_block_vars(
         'rate.rate_option',

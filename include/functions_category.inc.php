@@ -75,7 +75,7 @@ SELECT name,id,date_last,nb_images,global_rank
   {
     $query.= '
     AND (id_uppercat is NULL';
-    if ( isset( $page['cat'] ) and is_numeric( $page['cat'] ) )
+    if (isset($page['category']))
     {
       $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
     }

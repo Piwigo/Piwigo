@@ -1137,7 +1137,7 @@ function make_section_in_URL($params)
   
   if (!isset($params['section']))
   {
-    if (isset($params['section']))
+    if (isset($params['category']))
     {
       $params['section'] = 'categories';
     }

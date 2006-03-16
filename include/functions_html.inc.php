@@ -75,12 +75,14 @@ function get_icon($date)
   return $page['get_icon_cache'][$date];
 }
 
-function create_navigation_bar($url, $nb_element, $start,
-                               $nb_element_page, $link_class)
+function create_navigation_bar(
+  $url, $nb_element, $start, $nb_element_page, $clean_url = false
+  )
 {
   global $lang, $conf;
 
   $pages_around = $conf['paginate_pages_around'];
+  $start_str = $clean_url ? '/start-' : '&amp;start=';
   
   $navbar = '';
   
@@ -102,10 +104,10 @@ function create_navigation_bar($url, $nb_element, $start,
     // link to first page ?
     if ($cur_page != 1)
     {
-      $navbar.= '<a href="';
-      $navbar.= $url;
-      $navbar.= '" class="'.$link_class.'" rel="start">'.$lang['first_page'];
-      $navbar.= '</a>';
+      $navbar.=
+        '<a href="'.$url.'" rel="start">'
+        .$lang['first_page']
+        .'</a>';
     }
     else
     {
@@ -113,17 +115,16 @@ function create_navigation_bar($url, $nb_element, $start,
     }
     $navbar.= ' | ';
     // link on previous page ?
-    if ( $start != 0 )
+    if ($start != 0)
     {
       $previous = $start - $nb_element_page;
-      $navbar.= '<a href="';
-      $navbar.= $url;
-      if ($previous>0)
-      {
-        $navbar.= '&amp;start='.$previous;
-      }
-      $navbar.= '" class="'.$link_class.'" rel="prev">'.$lang['previous_page'];
-      $navbar.= '</a>';
+      
+      $navbar.=
+        '<a href="'
+        .$url.($previous > 0 ? $start_str.$previous : '')
+        .'" rel="prev">'
+        .$lang['previous_page']
+        .'</a>';
     }
     else
     {
@@ -133,9 +134,8 @@ function create_navigation_bar($url, $nb_element, $start,
 
     if ($cur_page > $pages_around + 1)
     {
-      $navbar.= '&nbsp;<a href="';
-      $navbar.= $url;
-      $navbar.= '" class="'.$link_class.'">1</a>';
+      $navbar.= '&nbsp;<a href="'.$url.'">1</a>';
+      
       if ($cur_page > $pages_around + 2)
       {
         $navbar.= ' ...';
@@ -154,43 +154,48 @@ function create_navigation_bar($url, $nb_element, $start,
       else if ($i != $cur_page)
       {
         $temp_start = ($i - 1) * $nb_element_page;
-        $navbar.= '&nbsp;<a href="';
-        $navbar.= $url;
-        if ($temp_start>0)
-        {
-          $navbar.= '&amp;start='.$temp_start;
-        }
-        $navbar.= '" class="'.$link_class.'"';
-        $navbar.='>'.$i.'</a>';
+        
+        $navbar.=
+          '&nbsp;'
+          .'<a href="'.$url
+          .($temp_start > 0 ? $start_str.$temp_start : '')
+          .'">'
+          .$i
+          .'</a>';
       }
       else
       {
-        $navbar.= '&nbsp;<span class="pageNumberSelected">';
-        $navbar.= $i.'</span>';
+        $navbar.=
+          '&nbsp;'
+          .'<span class="pageNumberSelected">'
+          .$i
+          .'</span>';
       }
     }
 
     if ($cur_page < ($maximum - $pages_around))
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
+      
       if ($cur_page < ($maximum - $pages_around - 1))
       {
         $navbar.= ' ...';
       }
-      $navbar.= ' <a href="';
-      $navbar.= $url.'&amp;start='.$temp_start;
-      $navbar.= '" class="'.$link_class.'">'.$maximum.'</a>';
+      
+      $navbar.= ' <a href="'.$url.$start_str.$temp_start.'">'.$maximum.'</a>';
     }
     
     $navbar.= ' | ';
     // link on next page ?
-    if ( $nb_element > $nb_element_page
-         && $start + $nb_element_page < $nb_element )
+    if ($nb_element > $nb_element_page
+        and $start + $nb_element_page < $nb_element)
     {
       $next = $start + $nb_element_page;
-      $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$next;
-      $navbar.= '" class="'.$link_class.'" rel="next">'.$lang['next_page'].'</a>';
+      
+      $navbar.=
+        '<a href="'.$url.$start_str.$next.'" rel="next">'
+        .$lang['next_page']
+        .'</a>';
     }
     else
     {
@@ -202,10 +207,11 @@ function create_navigation_bar($url, $nb_element, $start,
     if ($cur_page != $maximum)
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
-      $navbar.= '<a href="';
-      $navbar.= $url.'&amp;start='.$temp_start;
-      $navbar.= '" class="'.$link_class.'" rel="last">'.$lang['last_page'];
-      $navbar.= '</a>';
+      
+      $navbar.=
+        '<a href="'.$url.$start_str.$temp_start.'" rel="last">'
+        .$lang['last_page']
+        .'</a>';
     }
     else
     {

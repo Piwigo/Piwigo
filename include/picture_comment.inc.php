@@ -129,30 +129,17 @@ if ($page['show_comments'])
   $row = mysql_fetch_array( pwg_query( $query ) );
 
   // navigation bar creation
-  $url = PHPWG_ROOT_PATH.'picture.php';
-  $url.= get_query_string_diff(array('add_fav','start'));
-
-//   $url = duplicate_picture_URL(
-//     array(),
-//     array('start')
-//     );
-
-  if (!isset($_GET['start'])
-      or !is_numeric($_GET['start'])
-      or (is_numeric($_GET['start']) and $_GET['start'] < 0))
+  if (!isset($page['start']))
   {
     $page['start'] = 0;
   }
-  else
-  {
-    $page['start'] = $_GET['start'];
-  }
+  
   $page['navigation_bar'] = create_navigation_bar(
-    $url,
+    duplicate_picture_URL(array(), array('start')),
     $row['nb_comments'],
     $page['start'],
     $conf['nb_comment_page'],
-    ''
+    true // We want a clean URL
     );
   
   $template->assign_block_vars(
@@ -198,7 +185,10 @@ SELECT id,author,date,image_id,content
         $template->assign_block_vars(
           'comments.comment.delete',
           array(
-            'U_COMMENT_DELETE' => $url.'&amp;del='.$row['id']
+            'U_COMMENT_DELETE' =>
+              $url_self
+              .'&amp;action=delete_comment'
+              .'&amp;comment_to_delete='.$row['id']
             )
           );
       }

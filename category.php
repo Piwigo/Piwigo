@@ -28,6 +28,7 @@
 //--------------------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -47,6 +48,7 @@ if ( isset( $_GET['act'] )
   $url = 'category.php';
   redirect( $url );
 }
+
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
 {
@@ -57,14 +59,13 @@ if (isset($_GET['image_order']))
     );
 
   redirect(
-    make_index_URL(
-      array(),
-      array('image_order')
+    duplicate_index_URL(
+      array(),        // nothing to redefine
+      array('start')  // changing display order goes back to section first page
       )
     );
 }
 //-------------------------------------------------------------- initialization
-include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 // detection of the start picture to display
 if (!isset($page['start']))
 {
@@ -85,7 +86,7 @@ if (isset($page['cat_nb_images'])
     $page['cat_nb_images'],
     $page['start'],
     $user['nb_image_page'],
-    'back'
+    true
     );
 }
 else

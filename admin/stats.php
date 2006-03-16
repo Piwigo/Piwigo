@@ -302,8 +302,7 @@ create_navigation_bar(
   $url,
   $page['nb_logs'],
   $page['start'],
-  $conf['nb_logs_page'],
-  'admin'
+  $conf['nb_logs_page']
   );
 
 $template->assign_block_vars(

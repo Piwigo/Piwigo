@@ -188,8 +188,8 @@ if (count($page['cat_elements_id']) > 0)
     $base_url.get_query_string_diff(array('start')),
     count($page['cat_elements_id']),
     $page['start'],
-    $page['nb_images'],
-    '');
+    $page['nb_images']
+    );
   $template->assign_vars(array('NAV_BAR' => $nav_bar));
 
  
