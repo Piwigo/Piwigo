@@ -80,7 +80,7 @@
 
   <fieldset>
     <legend></legend>
-    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" /> {lang:update_simulate}</label></li></ul>
+    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {TAG_INPUT_ENABLED} /> {lang:update_simulate}</label></li></ul>
   </fieldset>
   
   <fieldset>

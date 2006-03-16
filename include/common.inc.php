@@ -232,6 +232,18 @@ include(
   .'/themeconf.inc.php'
   );
 
+if (is_adviser())
+{
+  echo '
+  <div class="titrePage">
+    <h2>
+      <div style="text-align:center;">'.$lang['adviser_mode_enabled'].'
+      </div>
+    </h2>
+  </div>
+  ';
+}
+
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
 ?>

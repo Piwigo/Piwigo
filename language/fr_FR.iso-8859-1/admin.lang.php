@@ -166,6 +166,7 @@ $lang['properties'] = 'Propriétés';
 $lang['is_high_enabled'] = 'Haute définition';
 $lang['is_high_disabled'] = '';
 $lang['enabled_high'] = 'Haute définition actif';
+$lang['adviser'] = 'Conseiller';
 $lang['add keywords'] = 'ajouter des mots-clef';
 $lang['associate to category'] = 'associer à la catégorie';
 $lang['associate to group'] = 'associer au groupe';

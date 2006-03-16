@@ -7,7 +7,7 @@
   <!-- BEGIN jumpto -->
   <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li>
   <!-- END jumpto -->
-  <li><a href="{U_SYNC}" title="{lang:synchronize metadata}"><img src="{themeconf:icon_dir}/sync_metadata.png" class="button" alt="{lang:synchronize}" /></a></li>
+  <li><a href="{U_SYNC}" title="{lang:synchronize metadata}" {TAG_INPUT_ENABLED}><img src="{themeconf:icon_dir}/sync_metadata.png" class="button" alt="{lang:synchronize}" /></a></li>
 </ul>
 
 <form action="{F_ACTION}" method="post" id="properties">
@@ -111,7 +111,7 @@
     </table>
 
     <p style="text-align:center;">
-      <input type="submit" value="{lang:Submit}" name="submit" />
+      <input type="submit" value="{lang:Submit}" name="submit" {TAG_INPUT_ENABLED}/>
       <input type="reset" value="{lang:Reset}" name="reset" />
     </p>
 
@@ -132,7 +132,7 @@
             <option {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
             <!-- END associated_option -->
           </select>
-          <p><input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;"/></p>
+          <p><input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
 
         <td>
@@ -142,7 +142,7 @@
             <option {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
             <!-- END dissociated_option -->
           </select>
-          <p><input type="submit" value="&laquo;" name="associate" style="font-size:15px;" /></p>
+          <p><input type="submit" value="&laquo;" name="associate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
       </tr>
     </table>
@@ -163,7 +163,7 @@
             <option {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
             <!-- END elected_option -->
           </select>
-          <p><input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;"/></p>
+          <p><input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
 
         <td>
@@ -173,7 +173,7 @@
             <option {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
             <!-- END dismissed_option -->
           </select>
-          <p><input type="submit" value="&laquo;" name="elect" style="font-size:15px;" /></p>
+          <p><input type="submit" value="&laquo;" name="elect" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
       </tr>
     </table>

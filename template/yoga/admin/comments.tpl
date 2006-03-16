@@ -17,7 +17,7 @@
   <!-- END comment -->
 
   <p class="bottomButtons">
-    <input type="submit" name="submit" value="{lang:Submit}" />
+    <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
     <input type="submit" name="validate-all" value="{lang:Validate All}" />
     <input type="submit" name="reject-all" value="{lang:Reject All}" />
     <input type="reset" value="{lang:Reset}" />

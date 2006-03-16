@@ -141,7 +141,7 @@
   </fieldset>
 
   <p>
-    <input type="submit" name="submit" value="{lang:Submit}">
+    <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}>
     <input type="reset" name="reset" value="{lang:Reset}">
   </p>
 </form>

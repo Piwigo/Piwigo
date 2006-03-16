@@ -169,7 +169,7 @@ DELETE FROM '.FAVORITES_TABLE.'
     }
     case 'set_as_representative' :
     {
-      if (is_admin() and isset($page['category']))
+      if (is_admin() and isset($page['category']) and !is_adviser())
       {
         $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -189,7 +189,10 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'add_to_caddie' :
     {
-      fill_caddie(array($page['image_id']));
+      if (!is_adviser())
+      {
+        fill_caddie(array($page['image_id']));
+      }
       redirect($url_self);
       break;
     }

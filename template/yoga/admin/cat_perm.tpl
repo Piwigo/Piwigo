@@ -18,7 +18,7 @@
       <li><label><input type="checkbox" name="deny_groups[]" value="{group_granted.ID}" /> {group_granted.NAME}</label></li>
       <!-- END group_granted -->
     </ul>
-    <input type="submit" name="deny_groups_submit" value="{lang:Deny selected groups}" />
+    <input type="submit" name="deny_groups_submit" value="{lang:Deny selected groups}" {TAG_INPUT_ENABLED}/>
   </fieldset>
 
   <fieldset>
@@ -28,7 +28,7 @@
       <li><label><input type="checkbox" name="grant_groups[]" value="{group_denied.ID}"> {group_denied.NAME}</label></li>
       <!-- END group_denied -->
     </ul>
-    <input type="submit" name="grant_groups_submit" value="{lang:Grant selected groups}" />
+    <input type="submit" name="grant_groups_submit" value="{lang:Grant selected groups}" {TAG_INPUT_ENABLED}/>
   </fieldset>
 
   <h4>{lang:Users}</h4>
@@ -40,7 +40,7 @@
       <li><label><input type="checkbox" name="deny_users[]" value="{user_granted.ID}" /> {user_granted.NAME}</label></li>
       <!-- END user_granted -->
     </ul>
-    <input type="submit" name="deny_users_submit" value="{lang:Deny selected users}" />
+    <input type="submit" name="deny_users_submit" value="{lang:Deny selected users}" {TAG_INPUT_ENABLED}/>
   </fieldset>
 
   <fieldset>
@@ -59,7 +59,7 @@
       <li><label><input type="checkbox" name="grant_users[]" value="{user_denied.ID}"> {user_denied.NAME}</label></li>
       <!-- END user_denied -->
     </ul>
-    <input type="submit" name="grant_users_submit" value="{lang:Grant selected users}" />
+    <input type="submit" name="grant_users_submit" value="{lang:Grant selected users}" {TAG_INPUT_ENABLED}/>
   </fieldset>
 
 </form>

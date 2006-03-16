@@ -10,7 +10,7 @@
     <legend>{lang:Add a user}</legend>
     <label>{lang:Username} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{L_PASSWORD} <input type="text" name="password" /></label>
-    <input type="submit" name="submit_add" value="{L_SUBMIT}" />
+    <input type="submit" name="submit_add" value="{L_SUBMIT}" {TAG_INPUT_ENABLED} />
   </fieldset>
 </form>
 
@@ -65,7 +65,7 @@
   </select>
   </label>
 
-  <input type="submit" name="submit_filter" value="{L_SUBMIT}" />
+  <input type="submit" name="submit_filter" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}/>
 
 </fieldset>
 
@@ -104,7 +104,7 @@
 <fieldset>
   <legend>{lang:Deletions}</legend>
   <label><input type="checkbox" name="confirm_deletion" value="1" /> {lang:confirm}</label>
-  <input type="submit" value="{lang:Delete selected users}" name="delete" />
+  <input type="submit" value="{lang:Delete selected users}" name="delete" {TAG_INPUT_ENABLED}/>
 </fieldset>
 
 <fieldset>
@@ -121,6 +121,16 @@
           <option {pref_status_option.SELECTED} value="{pref_status_option.VALUE}">{pref_status_option.CONTENT}</option>
           <!-- END pref_status_option -->
         </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>{lang:adviser}</td>
+      <td>
+        <label><input type="radio" name="adviser" value="leave" checked="checked" /> {lang:leave}</label>
+        / {lang:set to}
+        <label><input type="radio" name="adviser" value="true"  {ADVISER_YES} />{L_YES}</label>
+        <label><input type="radio" name="adviser" value="false" {ADVISER_NO}  />{L_NO}</label>
       </td>
     </tr>
   </table>
@@ -296,7 +306,7 @@
 </p>
 
 <p>
-  <input type="submit" value="{L_SUBMIT}" name="pref_submit" />
+  <input type="submit" value="{L_SUBMIT}" name="pref_submit" {TAG_INPUT_ENABLED} />
   <input type="reset" value="{L_RESET}" name="pref_reset" />
 </p>
 

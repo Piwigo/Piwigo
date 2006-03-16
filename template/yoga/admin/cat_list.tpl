@@ -39,8 +39,8 @@
 
   </ul>
   <p>
-    <input name="submitOrder" type="submit" value="{lang:Save order}" />
-    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" />
+    <input name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
+    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
   </p>
 
 </form>
@@ -48,6 +48,6 @@
 <form id="addVirtual" action="{F_ACTION}" method="post">
   <p>
     {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
-    <input type="submit" value="{L_SUBMIT}" name="submitAdd" />
+    <input type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} />
   </p>
 </form>

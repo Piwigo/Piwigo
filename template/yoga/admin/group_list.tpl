@@ -5,7 +5,7 @@
   <fieldset>
     <legend>{lang:Add group}</legend>
     <label>{lang:Group name}</label><input type="text" name="groupname" maxlength="50" size="20" />
-    <p><input type="submit" name="submit_add" value="{lang:Add}" /></p>
+    <p><input type="submit" name="submit_add" value="{lang:Add}" {TAG_INPUT_ENABLED}/></p>
   </fieldset>
 </form>
 
@@ -21,7 +21,7 @@
     <td><a href="{group.U_MEMBERS}">{group.MEMBERS}</a></td>
     <td style="text-align:center;">
       <a href="{group.U_PERM}"><img src="{themeconf:icon_dir}/permissions.png" class="button" style="border:none" alt="permissions" title="{lang:permissions}" /></a>
-      <a href="{group.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');"><img src="{themeconf:icon_dir}/delete.png" class="button" style="border:none" alt="delete" title="{lang:delete}" /></a>
+      <a href="{group.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');"><img src="{themeconf:icon_dir}/delete.png" class="button" style="border:none" alt="delete" title="{lang:delete}" {TAG_INPUT_ENABLED}/></a>
     </td>
   </tr>
   <!-- END group -->

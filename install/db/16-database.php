@@ -2,13 +2,13 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2005-09-21 00:04:57 +0200 (mer, 21 sep 2005) $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 870 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -25,47 +25,30 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//
-// Start output of page
-//
-$template->set_filenames(array('header'=>'header.tpl'));
-
-$css = PHPWG_ROOT_PATH.'template/'.$user['template'];
-$css.= '/'.$user['template'].'.css';
-
-$template->assign_vars(
-  array(
-    'GALLERY_TITLE' =>
-      isset($page['gallery_title']) ?
-        $page['gallery_title'] : $conf['gallery_title'],
-
-    'PAGE_BANNER' =>
-      isset($page['page_banner']) ?
-        $page['page_banner'] : $conf['page_banner'],
-
-    'BODY_ID' =>
-      isset($page['body_id']) ?
-        $page['body_id'] : '',
-
-    'CONTENT_ENCODING' => $lang_info['charset'],
-    'PAGE_TITLE' => $title,
-    'LANG'=>$lang_info['code'],
-    'DIR'=>$lang_info['direction'],
-
-    'T_STYLE' => $css,
-    'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled' : '')
-    ));
-
-// refresh
-if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  $template->assign_vars(
-    array(
-      'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => $url_link
-      ));
-  $template->assign_block_vars('refresh', array());
+  die('Hacking attempt!');
 }
 
-$template->parse('header');
+$upgrade_description = 'Update database from adviser functionnality';
+
+include_once(PHPWG_ROOT_PATH.'include/constants.php');
+
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
+
+echo "Alter table ".USER_INFOS_TABLE. ' add field adviser';
+$query = "
+alter table ".USER_INFOS_TABLE."
+  add column `adviser` enum('true','false') NOT NULL default 'false' after `status`
+;";
+pwg_query($query);
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
+
 ?>

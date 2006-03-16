@@ -17,7 +17,7 @@
   <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}" rel="nofollow"><img src="{themeconf:icon_dir}/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
   <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="{themeconf:icon_dir}/metadata.png" class="button" alt="{L_PICTURE_METADATA}"></a>
 <!-- BEGIN representative -->
-  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}" /></a>
+  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"/></a>
 <!-- END representative -->
 <!-- BEGIN favorite -->
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
@@ -152,7 +152,7 @@
 <p>
 {rate.SENTENCE} :
 <!-- BEGIN rate_option -->
-{rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}" rel="nofollow">{rate.rate_option.OPTION}</a>
+{rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}" rel="nofollow" {TAG_INPUT_ENABLED}>{rate.rate_option.OPTION}</a>
 <!-- END rate_option -->
 </p>
 <!-- END rate -->
@@ -194,7 +194,7 @@
 
     <label>{L_COMMENT}<textarea name="content" rows="10" cols="80"></textarea></label>
 
-    <input type="submit" value="{L_SUBMIT}">
+    <input type="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}>
   </fieldset>
 </form>
 <!-- END add_comment -->

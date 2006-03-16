@@ -27,7 +27,7 @@
   
   </ul>
 
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" /></p>
+  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" {TAG_INPUT_ENABLED}/></p>
 
 </fieldset>
 
@@ -152,7 +152,7 @@
   </p>
 
     
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" /></p>
+  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/></p>
 
 </fieldset>
 

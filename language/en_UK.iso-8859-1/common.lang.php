@@ -331,4 +331,5 @@ $lang['upload_username'] = 'Username';
 $lang['useful when password forgotten'] = 'useful when password forgotten';
 $lang['w_month'] = 'Month';
 $lang['yes'] = 'Yes';
+$lang['adviser_mode_enabled'] = 'Adviser mode enabled';
 ?>

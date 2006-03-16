@@ -97,6 +97,7 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
                 u.'.$conf['user_fields']['username'].' AS username,
                 u.'.$conf['user_fields']['email'].' AS email,
                 ui.status,
+                ui.adviser,
                 ui.enabled_high
   FROM '.USERS_TABLE.' AS u
     INNER JOIN '.USER_INFOS_TABLE.' AS ui
@@ -337,9 +338,9 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'maxheight', 'status', 'enabled_high');
+          'maxheight', 'status', 'adviser', 'enabled_high');
   
-  $true_false_fields = array('expand', 'show_nb_comments', 'enabled_high');
+  $true_false_fields = array('expand', 'show_nb_comments', 'adviser', 'enabled_high');
   
   foreach ($formfields as $formfield)
   {
@@ -380,19 +381,21 @@ DELETE FROM '.USER_GROUP_TABLE.'
           $data[$dbfield] = $_POST[$dbfield];
         }
       }
-      
+
       // Webmaster status must not be changed
       if ($conf['webmaster_id'] == $user_id and isset($data['status']))
       {
         $data['status'] = 'webmaster';
       }
-      
+
+      // Webmaster and guest adviser must not be changed
+      if ((($conf['webmaster_id'] == $user_id) or ($conf['guest_id'] == $user_id)) and isset($data['adviser']))
+      {
+        $data['adviser'] = 'false';
+      }
+
       array_push($datas, $data);
     }
-    
-//       echo '<pre>';
-//       print_r($datas);
-//       echo '</pre>';
     
     mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
   }
@@ -572,6 +575,8 @@ if (isset($_POST['pref_submit']))
 //  echo '<pre>'; print_r($_POST); echo '</pre>';
   $template->assign_vars(
     array(
+      'ADVISER_YES' => 'true' == $_POST['adviser'] ? 'checked="checked"' : '',
+      'ADVISER_NO' => 'false' == $_POST['adviser'] ? 'checked="checked"' : '',
       'NB_IMAGE_LINE' => $_POST['nb_image_line'],
       'NB_LINE_PAGE' => $_POST['nb_line_page'],
       'MAXWIDTH' => $_POST['maxwidth'],
@@ -582,7 +587,9 @@ if (isset($_POST['pref_submit']))
       'SHOW_NB_COMMENTS_YES' =>
         'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
       'SHOW_NB_COMMENTS_NO' =>
-        'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : ''
+        'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
+      'ENABLED_HIGH_YES' => 'true' == $_POST['enabled_high'] ? 'checked="checked"' : '',
+      'ENABLED_HIGH_NO' => 'false' == $_POST['enabled_high'] ? 'checked="checked"' : '',
       ));
 }
 else
@@ -665,14 +672,18 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
   {
     $selected = '';
   }
-  
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $status,
-      'CONTENT' => $lang['user_status_'.$status],
-      'SELECTED' => $selected
-      ));
+
+  // Only status <= can be assign
+  if (is_autorize_status(get_access_type_status($status)))
+  {
+    $template->assign_block_vars(
+      $blockname,
+      array(
+        'VALUE' => $status,
+        'CONTENT' => $lang['user_status_'.$status],
+        'SELECTED' => $selected
+        ));
+  }
 }
 
 // associate
@@ -800,7 +811,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'U_MOD' => $profile_url.$local_user['id'],
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username'],
-      'STATUS' => $lang['user_status_'.$local_user['status']],
+      'STATUS' => $lang['user_status_'.$local_user['status']].(($local_user['adviser'] == 'true') ? ' ['.$lang['adviser'].']' : ''),
       'EMAIL' => isset($local_user['email']) ? $local_user['email'] : '',
       'GROUPS' => $groups_string,
       'PROPERTIES' => (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true')) ? $lang['is_high_enabled'] : $lang['is_high_disabled']

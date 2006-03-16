@@ -41,7 +41,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                          synchronize metadata                         |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['sync_metadata']))
+if (isset($_GET['sync_metadata']) and !is_adviser())
 {
   $query = '
 SELECT path

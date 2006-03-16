@@ -36,7 +36,7 @@
 
 </fieldset>
 <p class="bottomButtons">
-<input type="submit" value="{lang:Submit}" />
+<input type="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
 </p>
 </form>
 <div class="navigationBar">{NAVBAR}</div>

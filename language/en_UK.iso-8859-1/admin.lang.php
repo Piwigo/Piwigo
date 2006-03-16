@@ -166,6 +166,7 @@ $lang['properties'] = 'Properties';
 $lang['is_high_enabled'] = 'High definition';
 $lang['is_high_disabled'] = '';
 $lang['enabled_high'] = 'High definition enabled';
+$lang['adviser'] = 'Adviser';
 $lang['add keywords'] = 'add keywords';
 $lang['associate to category'] = 'associate to category';
 $lang['associate to group'] = 'associate to group';

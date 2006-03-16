@@ -103,7 +103,7 @@
 </fieldset>
 
 <p style="text-align:center;">
-  <input type="submit" value="{L_SUBMIT}" name="submit" />
+  <input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
   <input type="reset" value="{lang:Reset}" name="reset" />
 </p>
 
@@ -123,7 +123,7 @@
       </td>
       <td>
         <!-- BEGIN set_random --> 
-        <p><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" /></p>
+        <p><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" {TAG_INPUT_ENABLED}/></p>
         <!-- END set_random -->
 
         <!-- BEGIN delete_representant -->
@@ -161,7 +161,7 @@
   </table>
 
   <p style="text-align:center;">
-    <input type="submit" value="{lang:Submit}" name="submitAdd" />
+    <input type="submit" value="{lang:Submit}" name="submitAdd" {TAG_INPUT_ENABLED}/>
     <input type="reset" value="{lang:Reset}" name="reset" />
   </p>  
 
@@ -179,7 +179,7 @@
           <option {destination_option_true.SELECTED} value="{destination_option_true.VALUE}">{destination_option_true.OPTION}</option>
           <!-- END destination_option_true -->
         </select>
-        <p><input type="submit" value="&raquo;" name="destination_falsify" style="font-size:15px;"/></p>
+        <p><input type="submit" value="&raquo;" name="destination_falsify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
       </td>
 
       <td>
@@ -189,7 +189,7 @@
           <option {destination_option_false.SELECTED} value="{destination_option_false.VALUE}">{destination_option_false.OPTION}</option>
           <!-- END destination_option_false -->
         </select>
-        <p><input type="submit" value="&laquo;" name="destination_trueify" style="font-size:15px;" /></p>
+        <p><input type="submit" value="&laquo;" name="destination_trueify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
       </td>
     </tr>
   </table>
@@ -203,7 +203,7 @@
           <option {source_option_true.SELECTED} value="{source_option_true.VALUE}">{source_option_true.OPTION}</option>
           <!-- END source_option_true -->
         </select>
-        <p><input type="submit" value="&raquo;" name="source_falsify" style="font-size:15px;"/></p>
+        <p><input type="submit" value="&raquo;" name="source_falsify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
       </td>
 
       <td>
@@ -213,7 +213,7 @@
           <option {source_option_false.SELECTED} value="{source_option_false.VALUE}">{source_option_false.OPTION}</option>
           <!-- END source_option_false -->
         </select>
-        <p><input type="submit" value="&laquo;" name="source_trueify" style="font-size:15px;" /></p>
+        <p><input type="submit" value="&laquo;" name="source_trueify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
       </td>
     </tr>
   </table>

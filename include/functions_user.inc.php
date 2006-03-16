@@ -548,11 +548,11 @@ function log_user($user_id, $remember_me)
 }
 
 /*
- * Return if current user have access to access_type definition
+ * Return access_type definition of uuser
  * Test does with user status
  * @return bool
 */
-function is_autorize_status($access_type, $user_status = '')
+function get_access_type_status($user_status = '')
 {
   global $user;
 
@@ -587,11 +587,21 @@ function is_autorize_status($access_type, $user_status = '')
     }
   }
 
-  return ($access_type_status >= $access_type);
+  return $access_type_status;
 }
 
 /*
- * Check if current user have access to access_type definition
+ * Return if user have access to access_type definition
+ * Test does with user status
+ * @return bool
+*/
+function is_autorize_status($access_type, $user_status = '')
+{
+  return (get_access_type_status($user_status) >= $access_type);
+}
+
+/*
+ * Check if user have access to access_type definition
  * Stop action if there are not access
  * Test does with user status
  * @return none
@@ -609,12 +619,23 @@ function check_status($access_type, $user_status = '')
 }
 
 /*
- * Return if current user is an administrator
+ * Return if user is an administrator
  * @return bool
 */
 function is_admin($user_status = '')
 {
   return is_autorize_status(ACCESS_ADMINISTRATOR, $user_status);
+}
+
+/*
+ * Return if current user is an adviser
+ * @return bool
+*/
+function is_adviser()
+{
+  global $user;
+
+  return ($user['adviser'] == 'true');
 }
 
 ?>
