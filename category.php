@@ -145,7 +145,7 @@ if (!isset($page['chronology_type']))
       'URL' => $calendar_view_link.'created'
       )
     );
-  
+
   $template->assign_block_vars(
     'mode_posted',
     array(
@@ -191,29 +191,9 @@ $template->assign_vars(
     'TOP_NUMBER' => $conf['top_number'],
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
 
-    'L_CATEGORIES' => $lang['categories'],
-    'L_HINT_CATEGORY' => $lang['hint_category'],
-    'L_SUBCAT' => $lang['sub-cat'],
-    'L_IMG_AVAILABLE' => $lang['images_available'],
-    'L_TOTAL' => $lang['total'],
-    'L_SPECIAL_CATEGORIES' => $lang['special_categories'],
-    'L_SUMMARY' => $lang['title_menu'],
-    'L_UPLOAD' => $lang['upload_picture'],
-    'L_COMMENT' => $lang['comments'],
-    'L_IDENTIFY' => $lang['identification'],
-    'L_PASSWORD' => $lang['password'],
-    'L_HELLO' => $lang['hello'],
-    'L_REGISTER' => $lang['ident_register'],
-    'L_LOGOUT' => $lang['logout'],
-    'L_ADMIN' => $lang['admin'],
-    'L_ADMIN_HINT' => $lang['hint_admin'],
-    'L_PROFILE' => $lang['customize'],
-    'L_PROFILE_HINT' => $lang['hint_customize'],
-    'L_REMEMBER_ME' => $lang['remember_me'],
-    
     'F_IDENTIFY' => PHPWG_ROOT_PATH.'identification.php',
     'T_RECENT' => $icon_recent,
-    
+
     'U_HOME' => make_index_URL(),
     'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
@@ -479,7 +459,7 @@ if (isset($page['category']))
         )
       );
   }
-  
+
   // category comment
   if (isset($page['comment']) and $page['comment'] != '')
   {

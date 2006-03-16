@@ -20,11 +20,11 @@
 <table border="1" cellpadding="0" cellspacing="0">
   <!-- BEGIN site -->
   <tr align="left"><td>
-    <a href="{sites.site.NAME}" target="_blank">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:categories}, {sites.site.IMAGES} {lang:picture}s)
-  </td><td>  
+    <a href="{sites.site.NAME}" target="_blank">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:Categories}, {sites.site.IMAGES} {lang:picture}s)
+  </td><td>
     [<a href="{sites.site.U_SYNCHRONIZE}" title="{lang:site_synchronize_hint}">{lang:site_synchronize}</a>]
     <!-- BEGIN delete -->
-      [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');" 
+      [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');"
                 title="{lang:site_delete_hint}">{lang:site_delete}</a>]
     <!-- END delete -->
     <!-- BEGIN remote -->
@@ -40,7 +40,7 @@
 
 <form action="{F_ACTION}" method="post">
   <p>
-    <label for="galleries_url" >{lang:site_create}</label> 
+    <label for="galleries_url" >{lang:site_create}</label>
     <input type="text" name="galleries_url" id="galleries_url" />
   </p>
   <p>

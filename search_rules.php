@@ -110,7 +110,7 @@ if (isset($search['fields']['cat']))
   $template->assign_block_vars(
     'categories',
     array(
-      'LIST_INTRO' => l10n('categories'),
+      'LIST_INTRO' => l10n('Categories'),
       )
     );
 

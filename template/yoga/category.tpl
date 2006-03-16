@@ -13,14 +13,14 @@
 </dl>
 <!-- END links -->
 <dl>
-  <dt><a href="{U_HOME}">{L_CATEGORIES}</a></dt>
+  <dt><a href="{U_HOME}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
-    <p class="totalImages">{NB_PICTURE} {L_TOTAL}</p>
+    <p class="totalImages">{NB_PICTURE} {lang:total}</p>
   </dd>
 </dl>
 <dl>
-  <dt>{L_SPECIAL_CATEGORIES}</dt>
+  <dt>{lang:special_categories}</dt>
   <dd>
     <ul>
       <!-- BEGIN special_cat -->
@@ -30,39 +30,39 @@
   </dd>
 </dl>
 <dl>
-  <dt>{L_SUMMARY}</dt>
+  <dt>{lang:title_menu}</dt>
   <dd>
     <ul>
       <!-- BEGIN summary -->
       <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}" {summary.REL}>{summary.NAME}</a></li>
       <!-- END summary -->
       <!-- BEGIN upload -->
-      <li><a href="{upload.U_UPLOAD}">{L_UPLOAD}</a></li>
+      <li><a href="{upload.U_UPLOAD}">{lang:upload_picture}</a></li>
       <!-- END upload -->
     </ul>
   </dd>
 </dl>
 <dl>
-  <dt>{L_IDENTIFY}</dt>
+  <dt>{lang:identification}</dt>
   <dd>
     <!-- BEGIN hello -->
-    <p>{L_HELLO}&nbsp;{USERNAME}&nbsp;!</p>
+    <p>{lang:hello}&nbsp;{USERNAME}&nbsp;!</p>
     <!-- END hello -->
     <ul>
       <!-- BEGIN register -->
-      <li><a href="{U_REGISTER}" rel="nofollow">{L_REGISTER}</a></li>
+      <li><a href="{U_REGISTER}" rel="nofollow">{lang:ident_register}</a></li>
       <!-- END register -->
       <!-- BEGIN login -->
       <li><a href="{F_IDENTIFY}" rel="nofollow">{lang:Connection}</a></li>
       <!-- END login -->
       <!-- BEGIN logout -->
-      <li><a href="{U_LOGOUT}">{L_LOGOUT}</a></li>
+      <li><a href="{U_LOGOUT}">{lang:logout}</a></li>
       <!-- END logout -->
       <!-- BEGIN profile -->
-      <li><a href="{U_PROFILE}" title="{L_PROFILE_HINT}">{L_PROFILE}</a></li>
+      <li><a href="{U_PROFILE}" title="{lang:hint_customize}">{lang:customize}</a></li>
       <!-- END profile -->
       <!-- BEGIN admin -->
-      <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
+      <li><a href="{U_ADMIN}" title="{lang:hint_admin}">{lang:admin}</a></li>
       <!-- END admin -->
     </ul>
     <!-- BEGIN quickconnect -->
@@ -76,13 +76,13 @@
         </label>
 
         <label>
-          {L_PASSWORD}
+          {lang:password}
           <input type="password" name="password" size="15">
         </label>
 
         <!-- BEGIN remember_me -->
         <label>
-          {L_REMEMBER_ME}
+          {lang:remember_me}
           <input type="checkbox" name="remember_me" value="1">
         </label>
         <!-- END remember_me -->
@@ -203,7 +203,7 @@
       <!-- END category_name -->
       {thumbnails.line.thumbnail.IMAGE_TS}
       <!-- BEGIN nb_comments -->
-      <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {L_COMMENT}
+      <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {lang:comments}
       <!-- END nb_comments -->
       </span>
     </span>

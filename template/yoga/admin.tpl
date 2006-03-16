@@ -31,7 +31,7 @@
       </ul>
     </dd>
 
-    <dt>{lang:categories}</dt>
+    <dt>{lang:Categories}</dt>
     <dd>
       <ul>
 	<li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
