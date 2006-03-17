@@ -131,26 +131,29 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
 
 $icon_recent = get_icon(date('Y-m-d'));
 
-$calendar_view_link = duplicate_index_URL(
-  array(),                            // nothing to redefine
-  array('chronology_type', 'start')   // what to remove ?
-  );
-
-if (!isset($page['chronology_type']))
+if (!isset($page['chronology']))
 {
-  $calendar_view_link.= '/calendar-';
-
+  $chronology =
+    array(
+      'chronology' =>
+        array(
+          'field' => 'created',
+          'style' => 'monthly',
+          'view' => 'list',
+        )
+    );
   $template->assign_block_vars(
     'mode_created',
     array(
-      'URL' => $calendar_view_link.'created'
+      'URL' => duplicate_index_URL( $chronology, array('start') )
       )
     );
 
+  $chronology['chronology']['field'] = 'posted';
   $template->assign_block_vars(
     'mode_posted',
     array(
-      'URL' => $calendar_view_link.'posted'
+      'URL' => duplicate_index_URL( $chronology, array('start') )
       )
     );
 }
@@ -159,29 +162,29 @@ else
   $template->assign_block_vars(
     'mode_normal',
     array(
-      'URL' => $calendar_view_link
+      'URL' => duplicate_index_URL( array(), array('chronology','start') )
       )
     );
 
-  $calendar_view_link .= '/calendar-';
-  if ($page['chronology_type'] == 'created')
+  $chronology = $page['chronology'];
+  if ($chronology['field'] == 'created')
   {
-    $template->assign_block_vars(
-      'mode_posted',
-      array(
-        'URL' => $calendar_view_link.'posted'
-        )
-      );
+    $chronology['field'] = 'posted';
   }
   else
   {
-    $template->assign_block_vars(
-      'mode_created',
-      array(
-        'URL' => $calendar_view_link.'created'
-        )
-      );
+    $chronology['field'] = 'created';
   }
+  $url = duplicate_index_URL(
+            array(
+              'chronology'=>$chronology
+            ),
+            array('chronology_date', 'start')
+          );
+  $template->assign_block_vars(
+    'mode_'.$chronology['field'],
+    array('URL' => $url )
+    );
 }
 
 $template->assign_vars(
@@ -293,10 +296,16 @@ $template->assign_block_vars(
   'special_cat',
   array(
     'URL' =>
-      make_index_URL()
-      .'/calendar-'
-      .($conf['calendar_datefield'] == 'date_available' ? 'posted' : 'created')
-      .'-monthly-c',
+      make_index_URL(
+        array(
+          'chronology'=>
+            array(
+              'field' => ($conf['calendar_datefield']=='date_available' ? 'posted' : 'created'),
+              'style' => 'monthly',
+              'view' => 'calendar'
+            )
+        )
+      ),
     'TITLE' => $lang['calendar_hint'],
     'NAME' => $lang['calendar']
     )

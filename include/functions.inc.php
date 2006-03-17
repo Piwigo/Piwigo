@@ -223,7 +223,7 @@ function get_picture_size( $original_width, $original_height,
   $width = $original_width;
   $height = $original_height;
   $is_original_size = true;
-                
+
   if ( $max_width != "" )
   {
     if ( $original_width > $max_width )
@@ -249,13 +249,13 @@ function get_picture_size( $original_width, $original_height,
     if ( ( $ratioWidth > 1 ) or ( $ratioHeight > 1 ) )
     {
       if ( $ratioWidth < $ratioHeight )
-      { 
+      {
         $width = floor( $original_width / $ratioHeight );
         $height = $max_height;
       }
       else
-      { 
-        $width = $max_width; 
+      {
+        $width = $max_width;
         $height = floor( $original_height / $ratioWidth );
       }
       $is_original_size = false;
@@ -330,7 +330,7 @@ function add_style( $string, $search, $style )
                              '<span style="'.$style.'">\\0</span>',
                              $remaining );
   $return_string.= $treatment;
-                
+
   return $return_string;
 }
 
@@ -340,7 +340,7 @@ function replace_search( $string, $search )
 {
   // FIXME : with new advanced search, this function needs a rewrite
   return $string;
-  
+
   $words = explode( ',', $search );
   $style = 'background-color:white;color:red;';
   foreach ( $words as $word ) {
@@ -359,7 +359,7 @@ function pwg_log( $file, $category, $picture = '' )
 	  {
     $login = ($user['id'] == $conf['guest_id'])
       ? 'guest' : addslashes($user['username']);
-    
+
     $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (date,login,IP,file,category,picture)
@@ -387,7 +387,7 @@ function format_date($date, $type = 'us', $show_time = false)
   global $lang;
 
   list($year,$month,$day,$hour,$minute,$second) = array(0,0,0,0,0,0);
-  
+
   switch ( $type )
   {
     case 'us' :
@@ -432,10 +432,10 @@ function format_date($date, $type = 'us', $show_time = false)
 function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
-  
+
   $start = get_moment();
   $result = mysql_query($query) or my_error($query."\n");
-  
+
   $time = get_moment() - $start;
 
   if (!isset($page['count_queries']))
@@ -443,10 +443,10 @@ function pwg_query($query)
     $page['count_queries'] = 0;
     $page['queries_time'] = 0;
   }
-  
+
   $page['count_queries']++;
   $page['queries_time']+= $time;
-  
+
   if ($conf['show_queries'])
   {
     $output = '';
@@ -459,10 +459,10 @@ function pwg_query($query)
     $output.= "\n".'(total time      : ';
     $output.= number_format( ($time+$start-$t2), 3, '.', ' ').' s)';
     $output.= "</pre>\n";
-    
+
     $debug .= $output;
   }
-  
+
   return $result;
 }
 
@@ -500,10 +500,10 @@ function redirect( $url )
   $title = 'redirection';
 
   include( PHPWG_ROOT_PATH.'include/page_header.php' );
-  
+
   $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
   $template->parse('redirect');
-  
+
   include( PHPWG_ROOT_PATH.'include/page_tail.php' );
 
   exit();
@@ -518,10 +518,10 @@ function redirect( $url )
 function get_query_string_diff($rejects = array())
 {
   $query_string = '';
-  
+
   $str = $_SERVER['QUERY_STRING'];
   parse_str($str, $vars);
-  
+
   $is_first = true;
   foreach ($vars as $key => $value)
   {
@@ -553,7 +553,7 @@ function get_pwg_themes()
   $themes = array();
 
   $template_dir = PHPWG_ROOT_PATH.'template';
-  
+
   foreach (get_dirs($template_dir) as $template)
   {
     foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
@@ -595,7 +595,7 @@ function get_thumbnail_src($path, $tn_ext = '')
     $src = get_themeconf('mime_icon_dir');
     $src.= strtolower(get_extension($path)).'.png';
   }
-  
+
   return $src;
 }
 
@@ -622,7 +622,7 @@ function my_error($header)
 function array_from_query($query, $fieldname)
 {
   $array = array();
-  
+
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -641,10 +641,10 @@ function array_from_query($query, $fieldname)
 function get_day_list($blockname, $selection)
 {
   global $template;
-  
+
   $template->assign_block_vars(
     $blockname, array('SELECTED' => '', 'VALUE' => 0, 'OPTION' => '--'));
-  
+
   for ($i = 1; $i <= 31; $i++)
   {
     $selected = '';
@@ -668,7 +668,7 @@ function get_day_list($blockname, $selection)
 function get_month_list($blockname, $selection)
 {
   global $template, $lang;
-  
+
   $template->assign_block_vars(
     $blockname, array('SELECTED' => '',
                       'VALUE' => 0,
@@ -697,9 +697,9 @@ function get_month_list($blockname, $selection)
 function fill_caddie($elements_id)
 {
   global $user;
-  
+
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  
+
   $query = '
 SELECT element_id
   FROM '.CADDIE_TABLE.'
@@ -749,7 +749,7 @@ function l10n($key)
   {
     echo '[l10n] language key "'.$key.'" is not defined<br />';
   }
-  
+
   return isset($lang[$key]) ? $lang[$key] : $key;
 }
 
@@ -797,14 +797,14 @@ function get_search_array($search_id)
   {
     die('Search id must be an integer');
   }
-  
+
   $query = '
 SELECT rules
   FROM '.SEARCH_TABLE.'
   WHERE id = '.$search_id.'
 ;';
   list($serialized_rules) = mysql_fetch_row(pwg_query($query));
-  
+
   return unserialize($serialized_rules);
 }
 
@@ -820,11 +820,11 @@ SELECT rules
 function get_sql_search_clause($search_id)
 {
   $search = get_search_array($search_id);
-  
+
   // SQL where clauses are stored in $clauses array during query
   // construction
   $clauses = array();
-  
+
   foreach (array('file','name','comment','keywords','author') as $textfield)
   {
     if (isset($search['fields'][$textfield]))
@@ -847,7 +847,7 @@ function get_sql_search_clause($search_id)
         );
     }
   }
-  
+
   if (isset($search['fields']['allwords']))
   {
     $fields = array('file', 'name', 'comment', 'keywords', 'author');
@@ -875,12 +875,12 @@ function get_sql_search_clause($search_id)
           )
         );
     }
-    
+
     array_walk(
       $word_clauses,
       create_function('&$s','$s="(".$s.")";')
       );
-    
+
     array_push(
       $clauses,
       "\n         ".
@@ -892,7 +892,7 @@ function get_sql_search_clause($search_id)
         )
       );
   }
-  
+
   foreach (array('date_available', 'date_creation') as $datefield)
   {
     if (isset($search['fields'][$datefield]))
@@ -902,26 +902,26 @@ function get_sql_search_clause($search_id)
         $datefield." = '".$search['fields'][$datefield]['date']."'"
         );
     }
-    
+
     foreach (array('after','before') as $suffix)
     {
       $key = $datefield.'-'.$suffix;
-      
+
       if (isset($search['fields'][$key]))
       {
         array_push(
           $clauses,
-          
+
           $datefield.
           ($suffix == 'after'             ? ' >' : ' <').
           ($search['fields'][$key]['inc'] ? '='  : '').
           " '".$search['fields'][$key]['date']."'"
-          
+
           );
       }
     }
   }
-  
+
   if (isset($search['fields']['cat']))
   {
     if ($search['fields']['cat']['sub_inc'])
@@ -933,22 +933,22 @@ function get_sql_search_clause($search_id)
     {
       $cat_ids = $search['fields']['cat']['words'];
     }
-    
+
     $local_clause = 'category_id IN ('.implode(',', $cat_ids).')';
     array_push($clauses, $local_clause);
   }
-  
+
   // adds brackets around where clauses
   $clauses = prepend_append_array_items($clauses, '(', ')');
-  
+
   $where_separator =
     implode(
       "\n    ".$search['mode'].' ',
       $clauses
       );
-  
+
   $search_clause = $where_separator;
-  
+
   if (isset($forbidden))
   {
     $search_clause.= "\n    AND ".$forbidden;
@@ -986,7 +986,7 @@ function get_available_upgrade_ids()
   $upgrades_path = PHPWG_ROOT_PATH.'install/db';
 
   $available_upgrade_ids = array();
-  
+
   if ($contents = opendir($upgrades_path))
   {
     while (($node = readdir($contents)) !== false)
@@ -1015,11 +1015,8 @@ function make_index_URL($params = array())
     PHPWG_ROOT_PATH.'category.php?'
     .'/'.make_section_in_URL($params)
     ;
-  
-  if (isset($params['start']) and $params['start'] > 0)
-  {
-    $url.= '/start-'.$params['start'];
-  }
+
+  $url = add_well_known_params_in_url($url, $params);
 
   return $url;
 }
@@ -1106,19 +1103,40 @@ function make_picture_URL($params)
   {
     die('make_picture_URL: image_id is a required parameter');
   }
-  
+
   $url =
     PHPWG_ROOT_PATH.'picture.php?'
     .'/'.$params['image_id']
     .'/'.make_section_in_URL($params)
     ;
 
-  // first comment to start on
+  $url = add_well_known_params_in_url($url, $params);
+  return $url;
+}
+
+/**
+ *adds to the url the chronology and start parameters
+*/
+function add_well_known_params_in_url($url, $params)
+{
+  if ( isset($params['chronology']) )
+  {
+    $url .= '/'. $params['chronology']['field'];
+    $url .= '-'. $params['chronology']['style'];
+    if ( isset($params['chronology']['view']) )
+    {
+      $url .= '-'. $params['chronology']['view'];
+    }
+    if ( isset($params['chronology_date']) )
+    {
+      $url .= '-'. implode('-', $params['chronology_date'] );
+    }
+  }
+
   if (isset($params['start']) and $params['start'] > 0)
   {
     $url.= '/start-'.$params['start'];
   }
-
   return $url;
 }
 
@@ -1134,7 +1152,7 @@ function make_picture_URL($params)
 function make_section_in_URL($params)
 {
   $section_string = '';
-  
+
   if (!isset($params['section']))
   {
     if (isset($params['category']))
@@ -1159,7 +1177,7 @@ function make_section_in_URL($params)
   {
     $params['section'] = 'categories';
   }
-  
+
   switch($params['section'])
   {
     case 'categories' :
@@ -1172,7 +1190,7 @@ function make_section_in_URL($params)
       {
         $section_string.= 'category/'.$params['category'];
       }
-      
+
       break;
     }
     case 'tags' :
@@ -1188,7 +1206,7 @@ function make_section_in_URL($params)
       {
         $section_string.= '/'.$tag;
       }
-      
+
       break;
     }
     case 'search' :
@@ -1197,7 +1215,7 @@ function make_section_in_URL($params)
       {
         die('make_section_in_URL: require a search identifier');
       }
-      
+
       $section_string.= 'search/'.$params['search'];
 
       break;
@@ -1210,7 +1228,7 @@ function make_section_in_URL($params)
       }
 
       $section_string.= 'list/'.implode(',', $params['list']);
-      
+
       break;
     }
     default :

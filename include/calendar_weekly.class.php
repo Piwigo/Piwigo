@@ -38,13 +38,11 @@ class Calendar extends CalendarBase
 
   /**
    * Initialize the calendar
-   * @param string date_field db column on which this calendar works
    * @param string inner_sql used for queries (INNER JOIN or normal)
-   * @param array date_components
    */
-  function initialize($date_field, $inner_sql, $date_components)
+  function initialize($inner_sql)
   {
-    parent::initialize($date_field, $inner_sql, $date_components);
+    parent::initialize($inner_sql);
     global $lang;
     $week_no_labels=array();
     for ($i=1; $i<=53; $i++)
@@ -79,23 +77,19 @@ class Calendar extends CalendarBase
  * Generate navigation bars for category page
  * @return boolean false to indicate that thumbnails where not included here
  */
-function generate_category_content($url_base, $view_type)
+function generate_category_content()
 {
-  global $conf;
+  global $conf, $page;
 
-  $this->url_base = $url_base;
-
-  assert($view_type==CAL_VIEW_LIST);
-
-  if ( count($this->date_components)==0 )
+  if ( count($page['chronology_date'])==0 )
   {
     $this->build_nav_bar(CYEAR); // years
   }
-  if ( count($this->date_components)==1 )
+  if ( count($page['chronology_date'])==1 )
   {
     $this->build_nav_bar(CWEEK, array()); // week nav bar 1-53
   }
-  if ( count($this->date_components)==2 )
+  if ( count($page['chronology_date'])==2 )
   {
     $this->build_nav_bar(CDAY); // days nav bar Mon-Sun
   }
@@ -112,7 +106,8 @@ function generate_category_content($url_base, $view_type)
  */
 function get_date_where($max_levels=3)
 {
-  $date = $this->date_components;
+  global $page;
+  $date = $page['chronology_date'];
   while (count($date)>$max_levels)
   {
     array_pop($date);

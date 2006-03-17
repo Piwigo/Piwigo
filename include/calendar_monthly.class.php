@@ -1,4 +1,4 @@
-<?php
+  <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
@@ -38,13 +38,11 @@ class Calendar extends CalendarBase
 
   /**
    * Initialize the calendar
-   * @param string date_field db column on which this calendar works
    * @param string inner_sql used for queries (INNER JOIN or normal)
-   * @param array date_components
    */
-  function initialize($date_field, $inner_sql, $date_components)
+  function initialize($inner_sql)
   {
-    parent::initialize($date_field, $inner_sql, $date_components);
+    parent::initialize($inner_sql);
     global $lang;
     $this->calendar_levels = array(
       array(
@@ -67,21 +65,20 @@ class Calendar extends CalendarBase
  * @return boolean false to indicate that thumbnails
  * where not included here, true otherwise
  */
-function generate_category_content($url_base, $view_type)
+function generate_category_content()
 {
-  global $conf;
+  global $conf, $page;
 
-  $this->url_base = $url_base;
-
+  $view_type = $page['chronology']['view'];
   if ($view_type==CAL_VIEW_CALENDAR)
   {
-    if ( count($this->date_components)==0 )
+    if ( count($page['chronology_date'])==0 )
     {//case A: no year given - display all years+months
       if ($this->build_global_calendar())
         return true;
     }
 
-    if ( count($this->date_components)==1 )
+    if ( count($page['chronology_date'])==1 )
     {//case B: year given - display all days in given year
       if ($this->build_year_calendar())
       {
@@ -90,7 +87,7 @@ function generate_category_content($url_base, $view_type)
       }
     }
 
-    if ( count($this->date_components)==2 )
+    if ( count($page['chronology_date'])==2 )
     {//case C: year+month given - display a nice month calendar
       $this->build_month_calendar();
       //$this->build_nav_bar(CYEAR); // years
@@ -100,21 +97,21 @@ function generate_category_content($url_base, $view_type)
     }
   }
 
-  if ($view_type==CAL_VIEW_LIST or count($this->date_components)==3)
+  if ($view_type==CAL_VIEW_LIST or count($page['chronology_date'])==3)
   {
     $has_nav_bar = false;
-    if ( count($this->date_components)==0 )
+    if ( count($page['chronology_date'])==0 )
     {
       $this->build_nav_bar(CYEAR); // years
     }
-    if ( count($this->date_components)==1)
+    if ( count($page['chronology_date'])==1)
     {
       $this->build_nav_bar(CMONTH); // month
     }
-    if ( count($this->date_components)==2 )
+    if ( count($page['chronology_date'])==2 )
     {
       $day_labels = range( 1, $this->get_all_days_in_month(
-              $this->date_components[CYEAR] ,$this->date_components[CMONTH] ) );
+              $page['chronology_date'][CYEAR] ,$page['chronology_date'][CMONTH] ) );
       array_unshift($day_labels, 0);
       unset( $day_labels[0] );
       $this->build_nav_bar( CDAY, $day_labels ); // days
@@ -133,7 +130,8 @@ function generate_category_content($url_base, $view_type)
  */
 function get_date_where($max_levels=3)
 {
-  $date = $this->date_components;
+  global $page;
+  $date = $page['chronology_date'];
   while (count($date)>$max_levels)
   {
     array_pop($date);
@@ -218,7 +216,8 @@ function get_all_days_in_month($year, $month)
 
 function build_global_calendar()
 {
-  assert( count($this->date_components) == 0 );
+  global $page;
+  assert( count($page['chronology_date']) == 0 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%Y%m")) as period,
             COUNT( DISTINCT(id) ) as count';
   $query.= $this->inner_sql;
@@ -244,21 +243,21 @@ function build_global_calendar()
   if (count($items)==1)
   {// only one year exists so bail out to year view
     list($y) = array_keys($items);
-    $this->date_components[CYEAR] = $y;
+    $page['chronology_date'][CYEAR] = $y;
     return false;
   }
 
   global $lang, $template;
   foreach ( $items as $year=>$year_data)
   {
-    $url_base = $this->url_base.$year;
+    $chronology_date = array( $year );
+    $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
-    $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">'.$year.'</a>';
+    $nav_bar = '<span class="calCalHead"><a href="'.$url.'">'.$year.'</a>';
     $nav_bar .= ' ('.$year_data['nb_images'].')';
     $nav_bar .= '</span><br>';
 
-    $url_base .= '-';
-    $nav_bar .= $this->get_nav_bar_from_items( $url_base,
+    $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
             $year_data['children'], null, 'calCal', false, false, $lang['month'] );
 
     $template->assign_block_vars( 'calendar.calbar',
@@ -270,7 +269,8 @@ function build_global_calendar()
 
 function build_year_calendar()
 {
-  assert( count($this->date_components) == 1 );
+  global $page;
+  assert( count($page['chronology_date']) == 1 );
   $query='SELECT DISTINCT(DATE_FORMAT('.$this->date_field.',"%m%d")) as period,
             COUNT( DISTINCT(id) ) as count';
   $query.= $this->inner_sql;
@@ -294,21 +294,21 @@ function build_year_calendar()
   if (count($items)==1)
   { // only one month exists so bail out to month view
     list($m) = array_keys($items);
-    $this->date_components[CMONTH] = $m;
+    $page['chronology_date'][CMONTH] = $m;
     return false;
   }
   global $lang, $template;
   foreach ( $items as $month=>$month_data)
   {
-    $url_base = $this->url_base.$this->date_components[CYEAR].'-'.$month;
+    $chronology_date = array( $page['chronology_date'][CYEAR], $month );
+    $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
-    $nav_bar = '<span class="calCalHead"><a href="'.$url_base.'">';
+    $nav_bar = '<span class="calCalHead"><a href="'.$url.'">';
     $nav_bar .= $lang['month'][$month].'</a>';
     $nav_bar .= ' ('.$month_data['nb_images'].')';
     $nav_bar .= '</span><br>';
 
-    $url_base .= '-';
-    $nav_bar .= $this->get_nav_bar_from_items( $url_base,
+    $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
                      $month_data['children'], null, 'calCal', false );
 
     $template->assign_block_vars( 'calendar.calbar',
@@ -321,10 +321,11 @@ function build_year_calendar()
 
 function build_month_calendar()
 {
+  global $page;
   $query='SELECT DISTINCT(DAYOFMONTH('.$this->date_field.')) as period,
             COUNT( DISTINCT(id) ) as count';
   $query.= $this->inner_sql;
-  $query.= $this->get_date_where($this->date_components);
+  $query.= $this->get_date_where();
   $query.= '
   GROUP BY period';
 
@@ -337,7 +338,7 @@ function build_month_calendar()
 
   foreach ( $items as $day=>$data)
   {
-    $this->date_components[CDAY]=$day;
+    $page['chronology_date'][CDAY]=$day;
     $query = '
 SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as dow';
     $query.= $this->inner_sql;
@@ -345,7 +346,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
     $query.= '
   ORDER BY RAND()
   LIMIT 0,1';
-    unset ( $this->date_components[CDAY] );
+    unset ( $page['chronology_date'][CDAY] );
 
     $row = mysql_fetch_array(pwg_query($query));
     $items[$day]['tn_path'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
@@ -416,8 +417,11 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
       $template->assign_block_vars('calendar.thumbnails.row.col', array());
       $template->assign_block_vars('calendar.thumbnails.row.col.blank', array());
     }
-    for ($day=1; $day<=$this->get_all_days_in_month(
-              $this->date_components[CYEAR] ,$this->date_components[CMONTH]); $day++)
+    for ( $day = 1;
+          $day <= $this->get_all_days_in_month(
+            $page['chronology_date'][CYEAR], $page['chronology_date'][CMONTH]
+              );
+          $day++)
     {
       $dow = ($first_day_dow + $day-1)%7;
       if ($dow==0)
@@ -486,9 +490,16 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
         {
           $css_style.='top:'.round(-$pos_top).'px;';
         }
-        $url = $this->url_base.
-              $this->date_components[CYEAR].'-'.
-              $this->date_components[CMONTH].'-'.$day;
+        $url = duplicate_index_url(
+            array(
+              'chronology_date' =>
+                array(
+                  $page['chronology_date'][CYEAR],
+                  $page['chronology_date'][CMONTH],
+                  $day
+                )
+            )
+          );
         $alt = $wday_labels[$dow] . ' ' . $day.
                ' ('.$items[$day]['nb_images'].')';
         $template->assign_block_vars('calendar.thumbnails.row.col.full',
@@ -519,9 +530,16 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
     $template->assign_block_vars('thumbnails.line', array());
     foreach ( $items as $day=>$data)
     {
-      $url = $this->url_base.
-            $this->date_components[CYEAR].'-'.
-            $this->date_components[CMONTH].'-'.$day;
+      $url = duplicate_index_url(
+          array(
+            'chronology_date' =>
+              array(
+                $page['chronology_date'][CYEAR],
+                $page['chronology_date'][CMONTH],
+                $day
+              )
+          )
+        );
 
       $thumbnail_title = $lang['day'][$data['dow']] . ' ' . $day;
       $name = $thumbnail_title .' ('.$data['nb_images'].')';

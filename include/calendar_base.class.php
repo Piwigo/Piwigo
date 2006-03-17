@@ -33,10 +33,6 @@ class CalendarBase
   var $date_field;
   // used for queries (INNER JOIN or normal)
   var $inner_sql;
-  // base url used when generating html links
-  var $url_base;
-  // array of date components e.g. (2005,10,12) ...
-  var $date_components;
   //
   var $calendar_levels;
 
@@ -44,44 +40,48 @@ class CalendarBase
 
   /**
    * Initialize the calendar
-   * @param string date_field db column on which this calendar works
    * @param string inner_sql used for queries (INNER JOIN or normal)
-   * @param array date_components
    */
-  function initialize($date_field, $inner_sql, $date_components)
+  function initialize($inner_sql)
   {
-    $this->date_field = $date_field;
+    global $page;
+    if ($page['chronology']['field']=='posted')
+    {
+      $this->date_field = 'date_available';
+    }
+    else
+    {
+      $this->date_field = 'date_creation';
+    }
     $this->inner_sql = $inner_sql;
-    $this->date_components = $date_components;
     $this->has_nav_bar = false;
   }
 
   function get_display_name()
   {
-    global $conf;
+    global $conf, $page;
     $res = '';
-    $url = $this->url_base;
 
-    for ($i=0; $i<count($this->date_components); $i++)
+    for ($i=0; $i<count($page['chronology_date']); $i++)
     {
       $res .= $conf['level_separator'];
-      if ($i>0)
+      if ( isset($page['chronology_date'][$i+1]) )
       {
-        $url .= '-';
-      }
-      $url .= $this->date_components[$i];
-      if ( isset($this->date_components[$i+1]) )
-      {
+        $chronology_date = array_slice($page['chronology_date'],0, $i+1);
+        $url = duplicate_index_url(
+            array( 'chronology_date'=>$chronology_date ),
+            array( 'start' )
+            );
         $res .=
           '<a href="'.$url.'">'
-          .$this->get_date_component_label($i, $this->date_components[$i])
+          .$this->get_date_component_label($i, $page['chronology_date'][$i])
           .'</a>';
       }
       else
       {
         $res .=
           '<span class="calInHere">'
-          .$this->get_date_component_label($i, $this->date_components[$i])
+          .$this->get_date_component_label($i, $page['chronology_date'][$i])
           .'</span>';
       }
     }
@@ -131,7 +131,7 @@ class CalendarBase
   /**
    * Creates a calendar navigation bar.
    *
-   * @param string url_base - links start with this root
+   * @param array date_components
    * @param array items - hash of items to put in the bar (e.g. 2005,2006)
    * @param array selected_item - item currently selected (e.g. 2005)
    * @param string class_prefix - html class attribute prefix for span elements
@@ -140,11 +140,11 @@ class CalendarBase
    * @param array labels - optional labels for items (e.g. Jan,Feb,...)
    * @return string the navigation bar
    */
-  function get_nav_bar_from_items($url_base, $items, $selected_item,
+  function get_nav_bar_from_items($date_components, $items, $selected_item,
                                   $class_prefix, $show_any,
                                   $show_empty=false, $labels=null)
   {
-    global $conf;
+    global $conf, $page;
 
     $nav_bar = '';
 
@@ -180,7 +180,10 @@ class CalendarBase
       else
       {
         $nav_bar .= '<span class="'.$class_prefix.'">';
-        $url = $url_base . $item;
+        $url = duplicate_index_url(
+          array('chronology_date'=>array_merge($date_components,$item)),
+          array( 'start' )
+            );
         $nav_bar .= '<a href="'.$url.'">';
         $nav_bar .= $label;
         $nav_bar .= '</a>';
@@ -203,7 +206,10 @@ class CalendarBase
       else
       {
         $nav_bar .= '<span class="'.$class_prefix.'">';
-        $url = $url_base . 'any';
+        $url = duplicate_index_url(
+          array('chronology_date'=>array_merge($date_components,'any')),
+          array( 'start' )
+            );
         $nav_bar .= '<a href="'.$url.'">';
         $nav_bar .= $label;
         $nav_bar .= '</a>';
@@ -221,7 +227,7 @@ class CalendarBase
    */
   function build_nav_bar($level, $labels=null)
   {
-    global $template, $conf;
+    global $template, $conf, $page;
 
     $query = '
 SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
@@ -240,14 +246,14 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     }
 
     if ( count($level_items)==1 and
-         count($this->date_components)<count($this->calendar_levels)-1)
+         count($page['chronology_date'])<count($this->calendar_levels)-1)
     {
-      if ( ! isset($this->date_components[$level]) )
+      if ( ! isset($page['chronology_date'][$level]) )
       {
         list($key) = array_keys($level_items);
-        $this->date_components[$level] = (int)$key;
+        $page['chronology_date'][$level] = (int)$key;
 
-        if ( $level<count($this->date_components) and
+        if ( $level<count($page['chronology_date']) and
              $level!=count($this->calendar_levels)-1 )
         {
           return;
@@ -255,16 +261,8 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
       }
     }
 
-    $url_base = $this->url_base;
-    for ($i=0; $i<$level; $i++)
-    {
-      if (isset($this->date_components[$i]))
-      {
-        $url_base .= $this->date_components[$i].'-';
-      }
-    }
     $nav_bar = $this->get_nav_bar_from_items(
-      $url_base,
+      $page['chronology_date'],
       $level_items,
       null,
       'calItem',
@@ -288,14 +286,14 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
    */
   function build_next_prev()
   {
-    global $template;
+    global $template, $page;
     $prev = $next =null;
-    if ( empty($this->date_components) )
+    if ( empty($page['chronology_date']) )
       return;
     $query = 'SELECT CONCAT_WS("-"';
-    for ($i=0; $i<count($this->date_components); $i++)
+    for ($i=0; $i<count($page['chronology_date']); $i++)
     {
-      if ( 'any' === $this->date_components[$i] )
+      if ( 'any' === $page['chronology_date'] )
       {
         $query .= ','.'"any"';
       }
@@ -304,7 +302,7 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
         $query .= ','.$this->calendar_levels[$i]['sql'];
       }
     }
-    $current = implode('-', $this->date_components );
+    $current = implode('-', $page['chronology_date'] );
 
     $query.=') as period' . $this->inner_sql .'
 AND ' . $this->date_field . ' IS NOT NULL
@@ -327,26 +325,32 @@ GROUP BY period';
     {
       $template->assign_block_vars( 'calendar.navbar', array() );
     }
+
     if ( $current_rank>0 )
     { // has previous
       $prev = $upper_items[$current_rank-1];
+      $chronology_date = explode('-', $prev);
       $template->assign_block_vars(
         'calendar.navbar.prev',
         array(
           'LABEL' => $this->get_date_nice_name($prev),
-          'URL' => $this->url_base . $prev,
+          'URL' => duplicate_index_url(
+                array('chronology_date'=>$chronology_date), array('start')
+                )
           )
         );
     }
     if ( $current_rank < count($upper_items)-1 )
-    {
-      // has next
+    { // has next
       $next = $upper_items[$current_rank+1];
+      $chronology_date = explode('-', $next);
       $template->assign_block_vars(
         'calendar.navbar.next',
         array(
           'LABEL' => $this->get_date_nice_name($next),
-          'URL' => $this->url_base . $next,
+          'URL' => duplicate_index_url(
+                array('chronology_date'=>$chronology_date), array('start')
+                )
           )
         );
     }

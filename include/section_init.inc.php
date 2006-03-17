@@ -78,17 +78,17 @@ foreach (array_keys($_GET) as $keynum => $key)
         die('Fatal: picture identifier is missing');
       }
       $page['image_id'] = $matches[1];
-      
+
       $next_token++;
     }
-    
+
     if (0 === strpos($tokens[$next_token], 'cat'))
     {
       $page['section'] = 'categories';
       $next_token++;
-      
+
       if (isset($tokens[$next_token])
-          and preg_match('/(\d+)/', $tokens[$next_token], $matches))
+          and preg_match('/^(\d+)/', $tokens[$next_token], $matches))
       {
         $page['category'] = $matches[1];
         $next_token++;
@@ -98,16 +98,16 @@ foreach (array_keys($_GET) as $keynum => $key)
     {
       $page['section'] = 'tags';
       $page['tags'] = array();
-      
+
       $next_token++;
-      
+
       for ($i = $next_token; ; $i++)
       {
         if (!isset($tokens[$i]))
         {
           break;
         }
-        
+
         preg_match('/^(\d+)/', $tokens[$i], $matches);
         if (!isset($matches[1]))
         {
@@ -122,7 +122,7 @@ foreach (array_keys($_GET) as $keynum => $key)
         }
         array_push($page['tags'], $matches[1]);
       }
-      
+
       $next_token = $i;
     }
     else if (0 === strpos($tokens[$next_token], 'fav'))
@@ -154,7 +154,7 @@ foreach (array_keys($_GET) as $keynum => $key)
     {
       $page['section'] = 'search';
       $next_token++;
-      
+
       preg_match('/(\d+)/', $tokens[$next_token], $matches);
       if (!isset($matches[1]))
       {
@@ -184,24 +184,36 @@ foreach (array_keys($_GET) as $keynum => $key)
       $page['section'] = 'categories';
       $next_token++;
     }
-    
+
     for ($i = $next_token; ; $i++)
     {
       if (!isset($tokens[$i]))
       {
         break;
       }
-      
+
       if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
       {
         $page['start'] = $matches[1];
       }
 
-      if (preg_match('/^calendar-(.+)$/', $tokens[$i], $matches))
+      if (preg_match('/^posted|created/', $tokens[$i] ))
       {
-        // TODO: decide with rvelices how we name calendar/chronology is the
-        // URL
-        $_GET['calendar'] = $matches[1];
+        $chronology_tokens = explode('-', $tokens[$i] );
+        $page['chronology']['field'] = $chronology_tokens[0];
+        array_shift($chronology_tokens);
+        $page['chronology']['style'] = $chronology_tokens[0];
+        array_shift($chronology_tokens);
+        if ( count($chronology_tokens)>0 )
+        {
+          if ('list'==$chronology_tokens[0] or
+              'calendar'==$chronology_tokens[0])
+          {
+            $page['chronology']['view'] = $chronology_tokens[0];
+            array_shift($chronology_tokens);
+          }
+          $page['chronology_date'] = $chronology_tokens;
+        }
       }
     }
   }
@@ -219,7 +231,7 @@ if (isset($_COOKIE['pwg_image_order'])
 
   $conf['order_by'] = str_replace(
     'ORDER BY ',
-    'ORDER BY '.$orders[ $_COOKIE['pwg_image_order'] ][1].',', 
+    'ORDER BY '.$orders[ $_COOKIE['pwg_image_order'] ][1].',',
     $conf['order_by']
     );
   $page['super_order_by'] = true;
@@ -233,7 +245,7 @@ if ('categories' == $page['section'])
   if (isset($page['category']))
   {
     $result = get_cat_info($page['category']);
-    
+
     $page = array_merge(
       $page,
       array(
@@ -246,11 +258,11 @@ if ('categories' == $page['section'])
         'cat_commentable'  => $result['commentable'],
         'cat_id_uppercat'  => $result['id_uppercat'],
         'uppercats'        => $result['uppercats'],
-        
+
         'title' => get_cat_display_name($result['name'], '', false),
         )
       );
-    
+
     if (!isset($_GET['calendar']))
     {
       $query = '
@@ -261,7 +273,7 @@ SELECT image_id
   '.$conf['order_by'].'
 ;';
       $page['items'] = array_from_query($query, 'image_id');
-      
+
       $page['thumbnails_include'] =
         $result['nb_images'] > 0
         ? 'include/category_default.inc.php'
@@ -387,7 +399,7 @@ SELECT DISTINCT(id)
     '.$conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
-    
+
     $page = array_merge(
       $page,
       array(
@@ -404,7 +416,7 @@ SELECT DISTINCT(id)
   {
     $page['super_order_by'] = true;
     $conf['order_by'] = ' ORDER BY average_rate DESC, id ASC';
-    
+
     $query ='
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
@@ -436,7 +448,7 @@ SELECT DISTINCT(id)
     AND '.$forbidden.'
   '.$conf['order_by'].'
 ;';
-      
+
     $page = array_merge(
       $page,
       array(
@@ -446,7 +458,7 @@ SELECT DISTINCT(id)
         )
       );
   }
-  
+
   if (!isset($page['cat_nb_images']))
   {
     $page['cat_nb_images'] = count($page['items']);
@@ -457,7 +469,7 @@ SELECT DISTINCT(id)
 // |                             chronology                                |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['calendar']))
+if (isset($page['chronology']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();

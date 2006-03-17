@@ -63,46 +63,16 @@ $page['current_item'] = $page['image_id'];
 
 if ($page['current_rank'] != $page['first_rank'])
 {
-  // "go to first picture of this section" link is displayed only if the
-  // displayed item is not the first.
-  $template->assign_block_vars(
-    'first',
-    array(
-      'U_IMG' => duplicate_picture_URL(
-        // redefinitions
-        array(
-          'image_id' => $page['items'][ $page['first_rank'] ],
-          ),
-        // removes
-        array()
-        )
-      )
-    );
-
-  // caching previous item : readability purpose
+  // caching first & previous item : readability purpose
   $page['previous_item'] = $page['items'][ $page['current_rank'] - 1 ];
+  $page['first_item'] = $page['items'][ $page['first_rank'] ];
 }
 
 if ($page['current_rank'] != $page['last_rank'])
 {
-  // "go to last picture of this section" link is displayed only if the
-  // displayed item is not the last.
-  $template->assign_block_vars(
-    'last',
-    array(
-      'U_IMG' => duplicate_picture_URL(
-        // redefinitions
-        array(
-          'image_id' => $page['items'][ $page['last_rank'] ],
-          ),
-        // removes
-        array()
-        )
-      )
-    );
-
-  // caching next item : readability purpose
+  // caching next & last item : readability purpose
   $page['next_item'] = $page['items'][ $page['current_rank'] + 1 ];
+  $page['last_item'] = $page['items'][ $page['last_rank'] ];
 }
 
 $url_up = duplicate_index_URL(
@@ -144,7 +114,7 @@ INSERT INTO '.FAVORITES_TABLE.'
       pwg_query($query);
 
       redirect($url_self);
-      
+
       break;
     }
     case 'remove_from_favorites' :
@@ -164,7 +134,7 @@ DELETE FROM '.FAVORITES_TABLE.'
       {
         redirect($url_self);
       }
-      
+
       break;
     }
     case 'set_as_representative' :
@@ -178,9 +148,9 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
         pwg_query($query);
       }
-      
+
       redirect($url_self);
-  
+
       break;
     }
     case 'toggle_metadata' :
@@ -243,17 +213,19 @@ while ($row = mysql_fetch_array($result))
   array_push($related_categories, $row);
 }
 usort($related_categories, 'global_rank_compare');
-//------------------------------------- prev, current & next picture management
+//-------------------------first, prev, current, next & last picture management
 $picture = array();
 
 $ids = array($page['image_id']);
 if (isset($page['previous_item']))
 {
   array_push($ids, $page['previous_item']);
+  array_push($ids, $page['first_item']);
 }
 if (isset($page['next_item']))
 {
   array_push($ids, $page['next_item']);
+  array_push($ids, $page['last_item']);
 }
 
 $query = '
@@ -268,11 +240,19 @@ while ($row = mysql_fetch_array($result))
 {
   if (isset($page['previous_item']) and $row['id'] == $page['previous_item'])
   {
-    $i = 'prev';
+    $i = 'previous';
   }
   else if (isset($page['next_item']) and $row['id'] == $page['next_item'])
   {
     $i = 'next';
+  }
+  else if (isset($page['first_item']) and $row['id'] == $page['first_item'])
+  {
+    $i = 'first';
+  }
+  else if (isset($page['last_item']) and $row['id'] == $page['last_item'])
+  {
+    $i = 'last';
   }
   else
   {
@@ -350,6 +330,15 @@ while ($row = mysql_fetch_array($result))
       'start',
       )
     );
+
+  if ('previous'==$i and $page['previous_item']==$page['first_item'])
+  {
+    $picture['first'] = $picture[$i];
+  }
+  if ('next'==$i and $page['next_item']==$page['last_item'])
+  {
+    $picture['last'] = $picture[$i];
+  }
 }
 
 $url_admin =
@@ -427,30 +416,20 @@ $url_metadata = duplicate_picture_URL();
 
 $page['body_id'] = 'thePicturePage';
 //------------------------------------------------------- navigation management
-if (isset($page['previous_item']))
+foreach ( array('first','previous','next','last') as $which_image )
 {
-  $template->assign_block_vars(
-    'previous',
-    array(
-      'TITLE_IMG' => $picture['prev']['name'],
-      'IMG' => $picture['prev']['thumbnail'],
-      'U_IMG' => $picture['prev']['url'],
-      'U_IMG_SRC' => $picture['prev']['src']
-      )
-    );
-}
-
-if (isset($page['next_item']))
-{
-  $template->assign_block_vars(
-    'next',
-    array(
-      'TITLE_IMG' => $picture['next']['name'],
-      'IMG' => $picture['next']['thumbnail'],
-      'U_IMG' => $picture['next']['url'],
-      'U_IMG_SRC' => $picture['next']['src'] // allow navigator to preload
-      )
-    );
+  if (isset($picture[$which_image]))
+  {
+    $template->assign_block_vars(
+      $which_image,
+      array(
+        'TITLE_IMG' => $picture[$which_image]['name'],
+        'IMG' => $picture[$which_image]['thumbnail'],
+        'U_IMG' => $picture[$which_image]['url'],
+        'U_IMG_SRC' => $picture[$which_image]['src']
+        )
+      );
+  }
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
@@ -519,7 +498,7 @@ if (!$picture['current']['is_picture'])
 if (isset($picture['current']['high']))
 {
   $uuid = uniqid(rand());
-  
+
   $template->assign_block_vars(
     'high',
     array(
@@ -527,7 +506,7 @@ if (isset($picture['current']['high']))
       'UUID'   => $uuid,
       )
     );
-  
+
   $template->assign_block_vars(
     'download',
     array(
@@ -571,7 +550,7 @@ SELECT COUNT(*) AS nb_fav
 ;';
   $result = pwg_query($query);
   $row = mysql_fetch_array($result);
-  
+
   if ($row['nb_fav'] == 0)
   {
     $url = $url_self.'&amp;action=add_to_favorites';
@@ -641,9 +620,18 @@ else
 if (!empty($picture['current']['date_creation']))
 {
   $val = format_date($picture['current']['date_creation']);
-  $infos['INFO_CREATION_DATE'] = '<a href="'.
-       PHPWG_ROOT_PATH.'category.php?calendar=created-c-'.
-       $picture['current']['date_creation'].'">'.$val.'</a>';
+  $url = make_index_URL(
+          array(
+            'chronology' =>
+              array(
+                'field'=>'created',
+                'style'=>'monthly',
+                'view'=>'list',
+              ),
+             'chronology_date' => explode('-', $picture['current']['date_creation'])
+           )
+         );
+  $infos['INFO_CREATION_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
 }
 else
 {
@@ -652,9 +640,18 @@ else
 
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
-$infos['INFO_POSTED_DATE'] = '<a href="'.
-   PHPWG_ROOT_PATH.'category.php?calendar=posted-c-'.
-   substr($picture['current']['date_available'],0,10).'">'.$val.'</a>';
+$url = make_index_URL(
+        array(
+          'chronology' =>
+            array(
+              'field'=>'posted',
+              'style'=>'monthly',
+              'view'=>'list',
+            ),
+           'chronology_date' => explode('-', substr($picture['current']['date_available'],0,10))
+         )
+       );
+$infos['INFO_POSTED_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
 
 // size in pixels
 if ($picture['current']['is_picture'])
