@@ -486,6 +486,12 @@ if (isset($_GET['id']))
   $template->assign_block_vars('session', array('ID' => $_GET['id']));
 }
 
+// Hide radio-button if not allow to assign adviser
+if ($conf['allow_adviser'])
+{
+  $template->assign_block_vars('adviser', array());
+}
+
 foreach ($page['order_by_items'] as $item => $label)
 {
   $selected = (isset($_GET['order_by']) and $_GET['order_by'] == $item) ?
@@ -801,7 +807,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
   {
     $checked = '';
   }
-    
+
   $template->assign_block_vars(
     'user',
     array(

@@ -124,6 +124,7 @@
       </td>
     </tr>
 
+    <!-- BEGIN adviser -->
     <tr>
       <td>{lang:adviser}</td>
       <td>
@@ -133,8 +134,9 @@
         <label><input type="radio" name="adviser" value="false" {ADVISER_NO}  />{L_NO}</label>
       </td>
     </tr>
-  </table>
+    <!-- END adviser -->
 
+  </table>
 </fieldset>
 
 <!-- form to set properties for many users at once -->

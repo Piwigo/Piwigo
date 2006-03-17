@@ -378,6 +378,9 @@ $conf['guest_id'] = 2;
 // webmaster_id : webmaster'id.
 $conf['webmaster_id'] = 1;
 
+// allow to use adviser mode
+$conf['allow_adviser'] = false;
+
 // +-----------------------------------------------------------------------+
 // |                                upload                                 |
 // +-----------------------------------------------------------------------+
