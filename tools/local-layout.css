@@ -1,0 +1,6 @@
+/* Add background picture */
+BODY {
+  background-image:url(background.gif);
+  background-attachment:fixed;
+}
+

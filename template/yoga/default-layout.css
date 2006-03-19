@@ -1,8 +1,12 @@
 
+/* template css */
 @import "menubar.css";
 @import "content.css";
 @import "image.css";
 @import "popuphelp.css";
+/* Override properties with import local file */
+@import "local-layout.css";
+/* common css */
 @import "../../template-common/default-layout.css";
 
 /* $Id$ */
@@ -256,5 +260,4 @@ UL.actions  LI {
 UL.actions  A {
   border: none;
 }
-
 

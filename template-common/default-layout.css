@@ -31,3 +31,6 @@ BODY#theAdminPage #content {
 #content UL.thumbnails SPAN.thumbLegend {
   display: block;		/* display: none; if you don't want legend */
 }
+
+/* Override properties with import local file */
+@import "local-layout.css";
