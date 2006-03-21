@@ -138,7 +138,7 @@ $template->assign_vars(
       PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start','del')),
       $nb_images,
       $start,
-      $elements_per_page,
+      $elements_per_page
       )
     )
   );
@@ -208,11 +208,13 @@ foreach ($images as $image)
 {
   $thumbnail_src = get_thumbnail_src($image['path'], $image['tn_ext']);
 
-  $image_url =
-    PHPWG_ROOT_PATH.'picture.php?'.
-    'cat=' . $image['storage_category_id'].
-    '&amp;image_id=' . $image['id']
-    ;
+  $image_url = make_picture_url(
+      array(
+        'category' => $image['storage_category_id'],
+        'image_id' => $image['id'],
+        'image_file' => $image['file'],
+      )
+    );
 
   $query = 'SELECT *
 FROM '.RATE_TABLE.' AS r

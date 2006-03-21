@@ -131,29 +131,26 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
 
 $icon_recent = get_icon(date('Y-m-d'));
 
-if (!isset($page['chronology']))
+if (!isset($page['chronology_field']))
 {
-  $chronology =
-    array(
-      'chronology' =>
-        array(
-          'field' => 'created',
-          'style' => 'monthly',
-          'view' => 'list',
-        )
-    );
+  $chronology_params =
+      array(
+          'chronology_field' => 'created',
+          'chronology_style' => 'monthly',
+          'chronology_view' => 'list',
+      );
   $template->assign_block_vars(
     'mode_created',
     array(
-      'URL' => duplicate_index_URL( $chronology, array('start') )
+      'URL' => duplicate_index_URL( $chronology_params, array('start') )
       )
     );
 
-  $chronology['chronology']['field'] = 'posted';
+  $chronology_params['chronology_field'] = 'posted';
   $template->assign_block_vars(
     'mode_posted',
     array(
-      'URL' => duplicate_index_URL( $chronology, array('start') )
+      'URL' => duplicate_index_URL( $chronology_params, array('start') )
       )
     );
 }
@@ -162,27 +159,24 @@ else
   $template->assign_block_vars(
     'mode_normal',
     array(
-      'URL' => duplicate_index_URL( array(), array('chronology','start') )
+      'URL' => duplicate_index_URL( array(), array('chronology_field','start') )
       )
     );
 
-  $chronology = $page['chronology'];
-  if ($chronology['field'] == 'created')
+  if ($page['chronology_field'] == 'created')
   {
-    $chronology['field'] = 'posted';
+    $chronology_field = 'posted';
   }
   else
   {
-    $chronology['field'] = 'created';
+    $chronology_field = 'created';
   }
   $url = duplicate_index_URL(
-            array(
-              'chronology'=>$chronology
-            ),
+            array('chronology_field'=>$chronology_field ),
             array('chronology_date', 'start')
           );
   $template->assign_block_vars(
-    'mode_'.$chronology['field'],
+    'mode_'.$chronology_field,
     array('URL' => $url )
     );
 }
@@ -195,15 +189,15 @@ $template->assign_vars(
     'TOP_NUMBER' => $conf['top_number'],
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
 
-    'F_IDENTIFY' => PHPWG_ROOT_PATH.'identification.php',
+    'F_IDENTIFY' => get_root_url().'identification.php',
     'T_RECENT' => $icon_recent,
 
     'U_HOME' => make_index_URL(),
-    'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
-    'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
-    'U_LOGOUT' => make_index_URL().'&amp;act=logout',
-    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
-    'U_PROFILE'=> PHPWG_ROOT_PATH.'profile.php',
+    'U_REGISTER' => get_root_url().'register.php',
+    'U_LOST_PASSWORD' => get_root_url().'password.php',
+    'U_LOGOUT' => add_url_param(make_index_URL(), 'act=logout'),
+    'U_ADMIN'=> get_root_url().'admin.php',
+    'U_PROFILE'=> get_root_url().'profile.php',
     )
   );
 
@@ -298,12 +292,10 @@ $template->assign_block_vars(
     'URL' =>
       make_index_URL(
         array(
-          'chronology'=>
-            array(
-              'field' => ($conf['calendar_datefield']=='date_available' ? 'posted' : 'created'),
-              'style' => 'monthly',
-              'view' => 'calendar'
-            )
+          'chronology_field' => ($conf['calendar_datefield']=='date_available'
+                                  ? 'posted' : 'created'),
+           'chronology_style'=> 'monthly',
+           'chronology_view' => 'calendar'
         )
       ),
     'TITLE' => $lang['calendar_hint'],
@@ -351,7 +343,7 @@ $template->assign_block_vars(
   array(
     'TITLE'=>$lang['hint_search'],
     'NAME'=>$lang['search'],
-    'U_SUMMARY'=> 'search.php',
+    'U_SUMMARY'=> get_root_url().'search.php',
     'REL'=> 'rel="search"'
     )
   );
@@ -362,7 +354,7 @@ $template->assign_block_vars(
   array(
     'TITLE'=>$lang['hint_comments'],
     'NAME'=>$lang['comments'],
-    'U_SUMMARY'=> 'comments.php',
+    'U_SUMMARY'=> get_root_url().'comments.php',
     )
   );
 
@@ -386,7 +378,7 @@ $template->assign_block_vars(
   array(
     'TITLE'=>l10n('notification'),
     'NAME'=>l10n('Notification'),
-    'U_SUMMARY'=> PHPWG_ROOT_PATH.'notification.php',
+    'U_SUMMARY'=> get_root_url().'notification.php',
     'REL'=> 'rel="nofollow"'
     )
   );
@@ -397,7 +389,7 @@ if (isset($page['category']) and is_admin())
     'edit',
     array(
       'URL' =>
-        PHPWG_ROOT_PATH.'admin.php?page=cat_modify'
+        get_root_url().'admin.php?page=cat_modify'
         .'&amp;cat_id='.$page['category']
       )
     );
@@ -448,7 +440,7 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
         'preferred_image_order.order',
         array(
           'DISPLAY' => $orders[$i][0],
-          'URL' => duplicate_index_URL().'&amp;image_order='.$i,
+          'URL' => add_url_param( duplicate_index_URL(), 'image_order='.$i ),
           'SELECTED_OPTION' => ($order_idx==$i ? 'SELECTED' : ''),
           )
         );

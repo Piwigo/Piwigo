@@ -276,9 +276,6 @@ while ($row = mysql_fetch_array($result))
   $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
-  $icon = get_themeconf('mime_icon_dir');
-  $icon.= strtolower(get_extension($row['file'])).'.png';
-
   if (isset($row['representative_ext']) and $row['representative_ext'] != '')
   {
     $picture[$i]['src'] =
@@ -287,6 +284,8 @@ while ($row = mysql_fetch_array($result))
   }
   else
   {
+    $icon = get_themeconf('mime_icon_dir');
+    $icon.= strtolower(get_extension($row['file'])).'.png';
     $picture[$i]['src'] = $icon;
   }
   // special case for picture files
@@ -300,15 +299,25 @@ while ($row = mysql_fetch_array($result))
       if (($row['has_high'] == 'true') and ($user['enabled_high'] == 'true'))
       {
         $url_high=$cat_directory.'/pwg_high/'.$row['file'];
-        $picture[$i]['high'] = $url_high;
+        $picture[$i]['high_file_system'] = $picture[$i]['high'] = $url_high;
+        if ( ! url_is_remote($picture[$i]['high']) )
+        {
+          $picture[$i]['high'] = get_root_url().$picture[$i]['high'];
+        }
       }
     }
+  }
+  $picture[$i]['src_file_system'] = $picture[$i]['src'];
+  if ( ! url_is_remote($picture[$i]['src']) )
+  {
+    $picture[$i]['src'] = get_root_url(). $picture[$i]['src'];
   }
 
   // if picture is not a file, we need the download link
   if (!$picture[$i]['is_picture'])
   {
-    $picture[$i]['download'] = $row['path'];
+    $picture[$i]['download'] = url_is_remote($row['path']) ? '' : get_root_url();
+    $picture[$i]['download'].= $row['path'];
   }
 
   $picture[$i]['thumbnail'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
@@ -325,6 +334,7 @@ while ($row = mysql_fetch_array($result))
   $picture[$i]['url'] = duplicate_picture_URL(
     array(
       'image_id' => $row['id'],
+      'image_file' => $row['file'],
       ),
     array(
       'start',
@@ -342,22 +352,21 @@ while ($row = mysql_fetch_array($result))
 }
 
 $url_admin =
-  PHPWG_ROOT_PATH.'admin.php?page=picture_modify'
+  get_root_url().'admin.php?page=picture_modify'
   .'&amp;cat_id='.(isset($page['category']) ? $page['category'] : '')
   .'&amp;image_id='.$page['image_id']
 ;
 
-$url_slide =
-  $picture['current']['url']
-  .'&amp;slideshow='.$conf['slideshow_period']
-;
+$url_slide = add_url_param(
+  $picture['current']['url'],
+  'slideshow='.$conf['slideshow_period'] );
 
 $title =  $picture['current']['name'];
 $refresh = 0;
 if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 {
   $refresh= $_GET['slideshow'];
-  $url_link = $picture['next']['url'].'&amp;slideshow='.$refresh;
+  $url_link = add_url_param($picture['next']['url'], 'slideshow='.$refresh);
 }
 
 $title_img = $picture['current']['name'];
@@ -377,7 +386,7 @@ $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 // calculation of width and height
 if (empty($picture['current']['width']))
 {
-  $taille_image = @getimagesize($picture['current']['src']);
+  $taille_image = @getimagesize($picture['current']['src_file_system']);
   $original_width = $taille_image[0];
   $original_height = $taille_image[1];
 }
@@ -510,8 +519,8 @@ if (isset($picture['current']['high']))
   $template->assign_block_vars(
     'download',
     array(
-      'U_DOWNLOAD' => PHPWG_ROOT_PATH.'action.php?dwn='
-      .$picture['current']['high']
+      'U_DOWNLOAD' => get_root_url().'action.php?dwn='
+      .$picture['current']['high_file_system']
       )
     );
 }
@@ -522,7 +531,7 @@ if (is_admin() and isset($page['category']))
   $template->assign_block_vars(
     'representative',
     array(
-      'URL' => $url_self.'&amp;action=set_as_representative'
+      'URL' => add_url_param($url_self, 'action=set_as_representative')
       )
     );
 }
@@ -533,7 +542,7 @@ if (is_admin())
   $template->assign_block_vars(
     'caddie',
     array(
-      'URL' => $url_self.'&amp;action=add_to_caddie'
+      'URL' => add_url_param($url_self, 'action=add_to_caddie')
       )
     );
 }
@@ -553,15 +562,13 @@ SELECT COUNT(*) AS nb_fav
 
   if ($row['nb_fav'] == 0)
   {
-    $url = $url_self.'&amp;action=add_to_favorites';
-
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG'  => get_themeconf('icon_dir').'/favorite.png',
+        'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/favorite.png',
         'FAVORITE_HINT' => $lang['add_favorites_hint'],
         'FAVORITE_ALT'  => $lang['add_favorites_alt'],
-        'U_FAVORITE'    => $url_self.'&amp;action=add_to_favorites',
+        'U_FAVORITE'    => add_url_param($url_self, 'action=add_to_favorites'),
         )
       );
   }
@@ -570,10 +577,10 @@ SELECT COUNT(*) AS nb_fav
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG'  => get_themeconf('icon_dir').'/del_favorite.png',
+        'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
         'FAVORITE_HINT' => $lang['del_favorites_hint'],
         'FAVORITE_ALT'  => $lang['del_favorites_alt'],
-        'U_FAVORITE'    => $url_self.'&amp;action=remove_from_favorites',
+        'U_FAVORITE'    => add_url_param($url_self, 'action=remove_from_favorites'),
         )
       );
   }
@@ -621,16 +628,13 @@ if (!empty($picture['current']['date_creation']))
 {
   $val = format_date($picture['current']['date_creation']);
   $url = make_index_URL(
-          array(
-            'chronology' =>
-              array(
-                'field'=>'created',
-                'style'=>'monthly',
-                'view'=>'list',
-              ),
-             'chronology_date' => explode('-', $picture['current']['date_creation'])
-           )
-         );
+        array(
+          'chronology_field'=>'created',
+          'chronology_style'=>'monthly',
+          'chronology_view'=>'list',
+          'chronology_date' => explode('-', $picture['current']['date_creation'])
+        )
+      );
   $infos['INFO_CREATION_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
 }
 else
@@ -641,16 +645,13 @@ else
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
 $url = make_index_URL(
-        array(
-          'chronology' =>
-            array(
-              'field'=>'posted',
-              'style'=>'monthly',
-              'view'=>'list',
-            ),
-           'chronology_date' => explode('-', substr($picture['current']['date_available'],0,10))
-         )
-       );
+      array(
+        'chronology_field'=>'posted',
+        'chronology_style'=>'monthly',
+        'chronology_view'=>'list',
+        'chronology_date'=>explode('-', substr($picture['current']['date_available'],0,10))
+      )
+    );
 $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
 
 // size in pixels

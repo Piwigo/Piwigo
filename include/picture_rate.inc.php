@@ -27,7 +27,7 @@
 
 /**
  * This file is included by the picture page to manage rates
- * 
+ *
  */
 
 if ($conf['rate'])
@@ -113,7 +113,7 @@ SELECT COUNT(rate) AS count
         'rate.rate_option',
         array(
           'OPTION'    => $mark,
-          'URL'       => $url_self.'&amp;action=rate&amp;rate='.$mark,
+          'URL'       => add_url_param($url_self,'action=rate&amp;rate='.$mark),
           'SEPARATOR' => ($num > 0 ? '|' : ''),
           )
         );

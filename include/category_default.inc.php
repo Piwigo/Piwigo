@@ -28,7 +28,7 @@
 /**
  * This file is included by the main page to show thumbnails for the default
  * case
- * 
+ *
  */
 
 $page['rank_of'] = array_flip($page['items']);
@@ -52,7 +52,7 @@ SELECT *
   while ($row = mysql_fetch_array($result))
   {
     $row['rank'] = $page['rank_of'][ $row['id'] ];
-    
+
     array_push($pictures, $row);
   }
 
@@ -72,50 +72,22 @@ if (count($pictures) > 0)
 foreach ($pictures as $row)
 {
   $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
-  
+
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
   if (isset($row['filesize']))
   {
     $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
-  
-  // url link on picture.php page
-  $url_link = PHPWG_ROOT_PATH.'picture.php?/'.$row['id'];
 
-  switch ($page['section'])
-  {
-    case 'categories' :
-    {
-      $url_link.= '/category/'.$page['category'];
-      break;
-    }
-    case 'tags' :
-    {
-      // TODO
-      break;
-    }
-    case 'search' :
-    {
-      $url_link.= '/search/'.$page['search'];
-      break;
-    }
-    case 'list' :
-    {
-      $url_link.= '/list/'.implode(',', $page['list']);
-      break;
-    }
-    default :
-    {
-      $url_link.= '/'.$page['section'];
-    }
-  }
-  
-  if (isset($page['chronology']))
-  {
-    $url_link.= '/chronology='.$page['chronology'];
-  }
-    
+  // link on picture.php page
+  $url = duplicate_picture_url(
+        array(
+          'image_id' => $row['id'],
+          'image_file' => $row['file']
+        )
+      );
+
   $template->assign_block_vars(
     'thumbnails.line.thumbnail',
     array(
@@ -123,8 +95,8 @@ foreach ($pictures as $row)
       'IMAGE_ALT'          => $row['file'],
       'IMAGE_TITLE'        => $thumbnail_title,
       'IMAGE_TS'           => get_icon($row['date_available']),
-      
-      'U_IMG_LINK'         => $url_link
+
+      'U_IMG_LINK'         => $url
       )
     );
 
@@ -158,7 +130,7 @@ foreach ($pictures as $row)
         break;
       }
     }
-  
+
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.element_name',
       array(
@@ -166,7 +138,7 @@ foreach ($pictures as $row)
         )
       );
   }
-    
+
   if ($user['show_nb_comments']
       and isset($page['category'])
       and $page['cat_commentable'])

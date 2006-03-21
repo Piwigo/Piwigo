@@ -183,7 +183,7 @@ $template->assign_vars(
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
     'F_KEYWORD'=>@$_GET['keyword'],
     'F_AUTHOR'=>@$_GET['author'],
-    
+
     'U_HOME' => make_index_url(),
     )
   );
@@ -220,7 +220,7 @@ $blockname = 'since_option';
 foreach ($since_options as $id => $option)
 {
   $selected = ($id == $page['since']) ? 'selected="selected"' : '';
-  
+
   $template->assign_block_vars(
     $blockname,
     array('SELECTED' => $selected,
@@ -403,17 +403,25 @@ SELECT id, uppercats
     {
       $name.= get_name_from_file($elements[$comment['image_id']]['file']);
     }
-    
+
     // source of the thumbnail picture
     $thumbnail_src = get_thumbnail_src(
       $elements[$comment['image_id']]['path'],
       @$elements[$comment['image_id']]['tn_ext']
       );
-  
+
     // link to the full size picture
     $url = PHPWG_ROOT_PATH.'picture.php?cat='.$comment['category_id'];
     $url.= '&amp;image_id='.$comment['image_id'];
-    
+
+    $url = make_picture_url(
+            array(
+              'category' => $comment['category_id'],
+              'image_id' => $comment['image_id'],
+              'image_file' => $elements[$comment['image_id']]['file'],
+            )
+          );
+
     $template->assign_block_vars(
       'picture',
       array(
@@ -421,13 +429,13 @@ SELECT id, uppercats
         'I_THUMB'=>$thumbnail_src,
         'U_THUMB'=>$url
         ));
-    
+
     $author = $comment['author'];
     if (empty($comment['author']))
     {
       $author = l10n('guest');
     }
-    
+
     $template->assign_block_vars(
       'comment',
       array(

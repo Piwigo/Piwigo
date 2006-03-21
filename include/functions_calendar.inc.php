@@ -34,7 +34,8 @@ function initialize_calendar()
 //------------------ initialize the condition on items to take into account ---
   $inner_sql = ' FROM ' . IMAGES_TABLE;
 
-  if (!isset($page['category']) or is_numeric($page['category']))
+  if ($page['section']=='categories' or
+      ( isset($page['category']) and is_numeric($page['category']) ) )
   { // we will regenerate the items by including subcats elements
     $page['cat_nb_images'] = 0;
     $page['items'] = array();
@@ -101,35 +102,34 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   $views = array(CAL_VIEW_LIST,CAL_VIEW_CALENDAR);
 
   // Retrieve calendar field
-  if ( !isset( $fields[ $page['chronology']['field'] ] ) )
+  if ( !isset( $fields[ $page['chronology_field'] ] ) )
   {
-    die('bad field');
+    die('bad chronology field');
   }
 
   // Retrieve style
-  if ( !isset( $styles[ $page['chronology']['style'] ] ) )
+  if ( !isset( $styles[ $page['chronology_style'] ] ) )
   {
-    $page['chronology']['style'] = 'monthly';
+    $page['chronology_style'] = 'monthly';
   }
-  $cal_style = $page['chronology']['style'];
+  $cal_style = $page['chronology_style'];
   include(PHPWG_ROOT_PATH.'include/'. $styles[$cal_style]['include']);
   $calendar = new Calendar();
 
   // Retrieve view
 
-  if ( !isset($page['chronology']['view']) or
-       !in_array( $page['chronology']['view'], $views ) )
+  if ( !isset($page['chronology_view']) or
+       !in_array( $page['chronology_view'], $views ) )
   {
-    $page['chronology']['view'] = CAL_VIEW_LIST;
+    $page['chronology_view'] = CAL_VIEW_LIST;
   }
 
-  if ( CAL_VIEW_CALENDAR==$page['chronology']['view'] and
+  if ( CAL_VIEW_CALENDAR==$page['chronology_view'] and
         !$styles[$cal_style]['view_calendar'] )
   {
 
-    $page['chronology']['view'] = CAL_VIEW_LIST;
+    $page['chronology_view'] = CAL_VIEW_LIST;
   }
-  $cal_view = $page['chronology']['view'];
 
   // perform a sanity check on $requested
   if (!isset($page['chronology_date']))
@@ -146,7 +146,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   {
     if ($page['chronology_date'][$i] == 'any')
     {
-      if ($cal_view == CAL_VIEW_CALENDAR)
+      if ($page['chronology_view'] == CAL_VIEW_CALENDAR)
       {// we dont allow any in calendar view
         while ($i < count($page['chronology_date']))
         {
@@ -177,15 +177,8 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
   //echo ('<pre>'. var_export($calendar, true) . '</pre>');
 
-/*  $url_base = get_query_string_diff(array('start', 'calendar'));
-  $url_base =
-    PHPWG_ROOT_PATH.'category.php'
-    .$url_base
-    .(empty($url_base) ? '?' : '&')
-    .'calendar='.$cal_field.'-'
-    ;*/
   $must_show_list = true; // true until calendar generates its own display
-  if (basename($_SERVER["PHP_SELF"]) == 'category.php')
+  if (basename($_SERVER['SCRIPT_NAME']) == 'category.php')
   {
     $template->assign_block_vars('calendar', array());
 
@@ -208,9 +201,6 @@ WHERE id IN (' . implode(',',$page['items']) .')';
         if ( $style_data['view_calendar'] or $view != CAL_VIEW_CALENDAR)
         {
           $selected = '';
-          $chronology = $page['chronology'];
-          $chronology['style'] = $style;
-          $chronology['view'] = $view;
 
           if ($style!=$cal_style)
           {
@@ -226,12 +216,13 @@ WHERE id IN (' . implode(',',$page['items']) .')';
           }
           $url = duplicate_index_url(
               array(
-                'chronology' => $chronology,
+                'chronology_style' => $style,
+                'chronology_view' => $view,
                 'chronology_date' => $chronology_date,
                 )
              );
 
-          if ($style==$cal_style and $view==$cal_view )
+          if ($style==$cal_style and $view==$page['chronology_view'] )
           {
             $selected = 'SELECTED';
           }
@@ -240,7 +231,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
             'calendar.views.view',
             array(
               'VALUE' => $url,
-              'CONTENT' => l10n('calendar_'.$style.'_'.$view),
+              'CONTENT' => l10n('chronology_'.$style.'_'.$view),
               'SELECTED' => $selected,
               )
             );
@@ -248,10 +239,10 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       }
     }
     $url = duplicate_index_url(
-              array('chronology_date'=>array()), array('start')
+              array(), array('start', 'chronology_date')
             );
     $calendar_title = '<a href="'.$url.'">'
-        .$fields[$chronology['field']]['label'].'</a>';
+        .$fields[$page['chronology_field']]['label'].'</a>';
     $calendar_title.= $calendar->get_display_name();
     //this should be an assign_block_vars, but I need to assign 'calendar'
     //above and at that point I don't have the title yet.

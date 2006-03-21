@@ -40,7 +40,9 @@
  * display
  */
 
-// "index.php?/category/12-foo/start-24&action=fill_caddie" must return :
+// "index.php?/category/12-foo/start-24&action=fill_caddie" or
+// "index.php/category/12-foo/start-24&action=fill_caddie"
+// must return :
 //
 // array(
 //   'section'  => 'categories',
@@ -51,173 +53,185 @@
 
 $page['section'] = 'categories';
 
-foreach (array_keys($_GET) as $keynum => $key)
+if ( isset($_SERVER["PATH_INFO"]) )
 {
-  if (0 == $keynum)
+  $rewritten = $_SERVER["PATH_INFO"];
+  $rewritten = str_replace('//', '/', $rewritten);
+  $path_count = count( explode('/', $rewritten) );
+  $page['root_path'] = PHPWG_ROOT_PATH.str_repeat('../', $path_count-1);
+}
+else
+{
+  $rewritten = '';
+  foreach (array_keys($_GET) as $keynum => $key)
   {
-    // deleting first "/" if displayed
-    $tokens = explode(
-      '/',
-      preg_replace('#^/#', '', $key)
-      );
+    $rewritten = $key;
+    break;
+  }
+  $page['root_path'] = PHPWG_ROOT_PATH;
+}
+//phpinfo();
+// deleting first "/" if displayed
+$tokens = explode(
+  '/',
+  preg_replace('#^/#', '', $rewritten)
+  );
+// $tokens = array(
+//   0 => category,
+//   1 => 12-foo,
+//   2 => start-24
+//   );
 
-    // $tokens = array(
-    //   0 => category,
-    //   1 => 12-foo,
-    //   2 => start-24
-    //   );
+$next_token = 0;
+if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php')
+{
 
-    $next_token = 0;
+  // the first token must be the numeric identifier of the picture
+  preg_match('/(\d+)/', $tokens[$next_token], $matches);
+  if (!isset($matches[1]))
+  {
+    die('Fatal: picture identifier is missing');
+  }
+  $page['image_id'] = $matches[1];
 
-    if (basename($_SERVER['PHP_SELF']) == 'picture.php')
+  $next_token++;
+}
+
+if (0 === strpos($tokens[$next_token], 'cat'))
+{
+  $page['section'] = 'categories';
+  $next_token++;
+
+  if (isset($tokens[$next_token])
+      and preg_match('/^(\d+)/', $tokens[$next_token], $matches))
+  {
+    $page['category'] = $matches[1];
+    $next_token++;
+  }
+}
+else if (0 === strpos($tokens[$next_token], 'tag'))
+{
+  $page['section'] = 'tags';
+  $page['tags'] = array();
+
+  $next_token++;
+
+  for ($i = $next_token; ; $i++)
+  {
+    if (!isset($tokens[$i]))
     {
-      // the first token must be the numeric identifier of the picture
-      preg_match('/(\d+)/', $tokens[$next_token], $matches);
-      if (!isset($matches[1]))
+      break;
+    }
+
+    preg_match('/^(\d+)/', $tokens[$i], $matches);
+    if (!isset($matches[1]))
+    {
+      if (0 == count($page['tags']))
       {
-        die('Fatal: picture identifier is missing');
+        die('Fatal: at least one tag required');
       }
-      $page['image_id'] = $matches[1];
-
-      $next_token++;
-    }
-
-    if (0 === strpos($tokens[$next_token], 'cat'))
-    {
-      $page['section'] = 'categories';
-      $next_token++;
-
-      if (isset($tokens[$next_token])
-          and preg_match('/^(\d+)/', $tokens[$next_token], $matches))
-      {
-        $page['category'] = $matches[1];
-        $next_token++;
-      }
-    }
-    else if (0 === strpos($tokens[$next_token], 'tag'))
-    {
-      $page['section'] = 'tags';
-      $page['tags'] = array();
-
-      $next_token++;
-
-      for ($i = $next_token; ; $i++)
-      {
-        if (!isset($tokens[$i]))
-        {
-          break;
-        }
-
-        preg_match('/^(\d+)/', $tokens[$i], $matches);
-        if (!isset($matches[1]))
-        {
-          if (0 == count($page['tags']))
-          {
-            die('Fatal: at least one tag required');
-          }
-          else
-          {
-            break;
-          }
-        }
-        array_push($page['tags'], $matches[1]);
-      }
-
-      $next_token = $i;
-    }
-    else if (0 === strpos($tokens[$next_token], 'fav'))
-    {
-      $page['section'] = 'favorites';
-      $next_token++;
-    }
-    else if ('most_visited' == $tokens[$next_token])
-    {
-      $page['section'] = 'most_visited';
-      $next_token++;
-    }
-    else if ('best_rated' == $tokens[$next_token])
-    {
-      $page['section'] = 'best_rated';
-      $next_token++;
-    }
-    else if ('recent_pics' == $tokens[$next_token])
-    {
-      $page['section'] = 'recent_pics';
-      $next_token++;
-    }
-    else if ('recent_cats' == $tokens[$next_token])
-    {
-      $page['section'] = 'recent_cats';
-      $next_token++;
-    }
-    else if ('search' == $tokens[$next_token])
-    {
-      $page['section'] = 'search';
-      $next_token++;
-
-      preg_match('/(\d+)/', $tokens[$next_token], $matches);
-      if (!isset($matches[1]))
-      {
-        die('Fatal: search identifier is missing');
-      }
-      $page['search'] = $matches[1];
-      $next_token++;
-    }
-    else if ('list' == $tokens[$next_token])
-    {
-      $page['section'] = 'list';
-      $next_token++;
-
-      $page['list'] = array();
-      if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
-      {
-        die('wrong format on list GET parameter');
-      }
-      foreach (explode(',', $tokens[$next_token]) as $image_id)
-      {
-        array_push($page['list'], $image_id);
-      }
-      $next_token++;
-    }
-    else
-    {
-      $page['section'] = 'categories';
-      $next_token++;
-    }
-
-    for ($i = $next_token; ; $i++)
-    {
-      if (!isset($tokens[$i]))
+      else
       {
         break;
       }
+    }
+    array_push($page['tags'], $matches[1]);
+  }
 
-      if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
-      {
-        $page['start'] = $matches[1];
-      }
+  $next_token = $i;
+}
+else if (0 === strpos($tokens[$next_token], 'fav'))
+{
+  $page['section'] = 'favorites';
+  $next_token++;
+}
+else if ('most_visited' == $tokens[$next_token])
+{
+  $page['section'] = 'most_visited';
+  $next_token++;
+}
+else if ('best_rated' == $tokens[$next_token])
+{
+  $page['section'] = 'best_rated';
+  $next_token++;
+}
+else if ('recent_pics' == $tokens[$next_token])
+{
+  $page['section'] = 'recent_pics';
+  $next_token++;
+}
+else if ('recent_cats' == $tokens[$next_token])
+{
+  $page['section'] = 'recent_cats';
+  $next_token++;
+}
+else if ('search' == $tokens[$next_token])
+{
+  $page['section'] = 'search';
+  $next_token++;
 
-      if (preg_match('/^posted|created/', $tokens[$i] ))
+  preg_match('/(\d+)/', $tokens[$next_token], $matches);
+  if (!isset($matches[1]))
+  {
+    die('Fatal: search identifier is missing');
+  }
+  $page['search'] = $matches[1];
+  $next_token++;
+}
+else if ('list' == $tokens[$next_token])
+{
+  $page['section'] = 'list';
+  $next_token++;
+
+  $page['list'] = array();
+  if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
+  {
+    die('wrong format on list GET parameter');
+  }
+  foreach (explode(',', $tokens[$next_token]) as $image_id)
+  {
+    array_push($page['list'], $image_id);
+  }
+  $next_token++;
+}
+else
+{
+  $page['section'] = 'categories';
+  $next_token++;
+}
+
+for ($i = $next_token; ; $i++)
+{
+  if (!isset($tokens[$i]))
+  {
+    break;
+  }
+
+  if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
+  {
+    $page['start'] = $matches[1];
+  }
+
+  if (preg_match('/^posted|created/', $tokens[$i] ))
+  {
+    $chronology_tokens = explode('-', $tokens[$i] );
+    $page['chronology_field'] = $chronology_tokens[0];
+    array_shift($chronology_tokens);
+    $page['chronology_style'] = $chronology_tokens[0];
+    array_shift($chronology_tokens);
+    if ( count($chronology_tokens)>0 )
+    {
+      if ('list'==$chronology_tokens[0] or
+          'calendar'==$chronology_tokens[0])
       {
-        $chronology_tokens = explode('-', $tokens[$i] );
-        $page['chronology']['field'] = $chronology_tokens[0];
+        $page['chronology_view'] = $chronology_tokens[0];
         array_shift($chronology_tokens);
-        $page['chronology']['style'] = $chronology_tokens[0];
-        array_shift($chronology_tokens);
-        if ( count($chronology_tokens)>0 )
-        {
-          if ('list'==$chronology_tokens[0] or
-              'calendar'==$chronology_tokens[0])
-          {
-            $page['chronology']['view'] = $chronology_tokens[0];
-            array_shift($chronology_tokens);
-          }
-          $page['chronology_date'] = $chronology_tokens;
-        }
       }
+      $page['chronology_date'] = $chronology_tokens;
     }
   }
 }
+
 
 // $page['nb_image_page'] is the number of picture to display on this page
 // By default, it is the same as the $user['nb_image_page']
@@ -469,13 +483,10 @@ SELECT DISTINCT(id)
 // |                             chronology                                |
 // +-----------------------------------------------------------------------+
 
-if (isset($page['chronology']))
+if (isset($page['chronology_field']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
 }
-
-// echo '<pre>'; print_r($page); echo '</pre>';
-
 
 ?>

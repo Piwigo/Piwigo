@@ -45,7 +45,7 @@ class CalendarBase
   function initialize($inner_sql)
   {
     global $page;
-    if ($page['chronology']['field']=='posted')
+    if ($page['chronology_field']=='posted')
     {
       $this->date_field = 'date_available';
     }

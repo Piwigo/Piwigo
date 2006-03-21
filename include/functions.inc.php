@@ -574,9 +574,10 @@ function get_pwg_themes()
  *
  * @param string path
  * @param string tn_ext
+ * @param bool with_rewrite if true returned path can't be used from the script
  * @return string
  */
-function get_thumbnail_src($path, $tn_ext = '')
+function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
 {
   global $conf, $user;
 
@@ -589,10 +590,15 @@ function get_thumbnail_src($path, $tn_ext = '')
       1
       );
     $src.= '.'.$tn_ext;
+    if ($with_rewrite==true and !url_is_remote($src) )
+    {
+      $src = get_root_url().$src;
+    }
   }
   else
   {
-    $src = get_themeconf('mime_icon_dir');
+    $src = ($with_rewrite==true) ? get_root_url() : '';
+    $src .= get_themeconf('mime_icon_dir');
     $src.= strtolower(get_extension($path)).'.png';
   }
 
@@ -1004,6 +1010,35 @@ function get_available_upgrade_ids()
 }
 
 /**
+ * returns a prefix for each url link on displayed page
+ * @return string
+ */
+function get_root_url()
+{
+  global $page;
+  if ( isset($page['root_path']) )
+  {
+    return $page['root_path'];
+  }
+  return PHPWG_ROOT_PATH;
+}
+
+/**
+ * adds one or more _GET style parameters to an url
+ * example: add_url_param('/x', 'a=b') returns /x?a=b
+ * add_url_param('/x?cat_id=10', 'a=b') returns /x?cat_id=10&amp;a=b
+ * @param string url
+ * @param string param
+ * @return string
+ */
+function add_url_param($url, $param)
+{
+  $url .= ( strstr($url, '?')===false ) ? '?' :'&amp;';
+  $url .= $param;
+  return $url;
+}
+
+/**
  * build an index URL for a specific section
  *
  * @param array
@@ -1012,7 +1047,7 @@ function get_available_upgrade_ids()
 function make_index_URL($params = array())
 {
   $url =
-    PHPWG_ROOT_PATH.'category.php?'
+    get_root_url().'category.php?'
     .'/'.make_section_in_URL($params)
     ;
 
@@ -1105,7 +1140,7 @@ function make_picture_URL($params)
   }
 
   $url =
-    PHPWG_ROOT_PATH.'picture.php?'
+    get_root_url().'picture.php?'
     .'/'.$params['image_id']
     .'/'.make_section_in_URL($params)
     ;
@@ -1119,15 +1154,15 @@ function make_picture_URL($params)
 */
 function add_well_known_params_in_url($url, $params)
 {
-  if ( isset($params['chronology']) )
+  if ( isset($params['chronology_field']) )
   {
-    $url .= '/'. $params['chronology']['field'];
-    $url .= '-'. $params['chronology']['style'];
-    if ( isset($params['chronology']['view']) )
+    $url .= '/'. $params['chronology_field'];
+    $url .= '-'. $params['chronology_style'];
+    if ( isset($params['chronology_view']) )
     {
-      $url .= '-'. $params['chronology']['view'];
+      $url .= '-'. $params['chronology_view'];
     }
-    if ( isset($params['chronology_date']) )
+    if ( !empty($params['chronology_date']) )
     {
       $url .= '-'. implode('-', $params['chronology_date'] );
     }

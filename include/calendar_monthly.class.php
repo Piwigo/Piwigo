@@ -69,7 +69,7 @@ function generate_category_content()
 {
   global $conf, $page;
 
-  $view_type = $page['chronology']['view'];
+  $view_type = $page['chronology_view'];
   if ($view_type==CAL_VIEW_CALENDAR)
   {
     if ( count($page['chronology_date'])==0 )

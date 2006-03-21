@@ -27,10 +27,10 @@
 
 /**
  * This file is included by the picture page to manage user comments
- * 
+ *
  */
 
-if ( isset( $_POST['content'] ) && !empty($_POST['content']) )
+if ( isset( $_POST['content'] ) and !empty($_POST['content']) )
 {
   $register_comment = true;
   $author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
@@ -133,7 +133,7 @@ if ($page['show_comments'])
   {
     $page['start'] = 0;
   }
-  
+
   $page['navigation_bar'] = create_navigation_bar(
     duplicate_picture_URL(array(), array('start')),
     $row['nb_comments'],
@@ -141,7 +141,7 @@ if ($page['show_comments'])
     $conf['nb_comment_page'],
     true // We want a clean URL
     );
-  
+
   $template->assign_block_vars(
     'comments',
     array(
@@ -170,12 +170,12 @@ SELECT id,author,date,image_id,content
           'COMMENT_AUTHOR' => empty($row['author'])
             ? $lang['guest']
             : $row['author'],
-          
+
           'COMMENT_DATE' => format_date(
             $row['date'],
             'mysql_datetime',
             true),
-          
+
           'COMMENT' => parse_comment_content($row['content']),
           )
         );
@@ -186,9 +186,9 @@ SELECT id,author,date,image_id,content
           'comments.comment.delete',
           array(
             'U_COMMENT_DELETE' =>
-              $url_self
-              .'&amp;action=delete_comment'
-              .'&amp;comment_to_delete='.$row['id']
+              add_url_param( $url_self,
+                  'action=delete_comment&amp;comment_to_delete='.$row['id']
+                )
             )
           );
       }

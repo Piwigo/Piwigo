@@ -45,7 +45,7 @@ function get_icon($date)
     $page['get_icon_cache'][$date] = '';
     return $page['get_icon_cache'][$date];
   }
-  
+
   list($devnull, $year, $month, $day) = $matches;
   $unixtime = mktime( 0, 0, 0, $month, $day, $year );
 
@@ -55,7 +55,7 @@ function get_icon($date)
     $page['get_icon_cache'][$date] = '';
     return $page['get_icon_cache'][$date];
   }
-  
+
   $diff = time() - $unixtime;
   $day_in_seconds = 24*60*60;
   $output = '';
@@ -83,9 +83,9 @@ function create_navigation_bar(
 
   $pages_around = $conf['paginate_pages_around'];
   $start_str = $clean_url ? '/start-' : '&amp;start=';
-  
+
   $navbar = '';
-  
+
   // current page detection
   if (!isset($start)
       or !is_numeric($start)
@@ -93,7 +93,7 @@ function create_navigation_bar(
   {
     $start = 0;
   }
-  
+
   // navigation bar useful only if more than one page to display !
   if ($nb_element > $nb_element_page)
   {
@@ -118,7 +118,7 @@ function create_navigation_bar(
     if ($start != 0)
     {
       $previous = $start - $nb_element_page;
-      
+
       $navbar.=
         '<a href="'
         .$url.($previous > 0 ? $start_str.$previous : '')
@@ -135,13 +135,13 @@ function create_navigation_bar(
     if ($cur_page > $pages_around + 1)
     {
       $navbar.= '&nbsp;<a href="'.$url.'">1</a>';
-      
+
       if ($cur_page > $pages_around + 2)
       {
         $navbar.= ' ...';
       }
     }
-    
+
     // inspired from punbb source code
     for ($i = $cur_page - $pages_around, $stop = $cur_page + $pages_around + 1;
          $i < $stop;
@@ -154,7 +154,7 @@ function create_navigation_bar(
       else if ($i != $cur_page)
       {
         $temp_start = ($i - 1) * $nb_element_page;
-        
+
         $navbar.=
           '&nbsp;'
           .'<a href="'.$url
@@ -176,22 +176,22 @@ function create_navigation_bar(
     if ($cur_page < ($maximum - $pages_around))
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
-      
+
       if ($cur_page < ($maximum - $pages_around - 1))
       {
         $navbar.= ' ...';
       }
-      
+
       $navbar.= ' <a href="'.$url.$start_str.$temp_start.'">'.$maximum.'</a>';
     }
-    
+
     $navbar.= ' | ';
     // link on next page ?
     if ($nb_element > $nb_element_page
         and $start + $nb_element_page < $nb_element)
     {
       $next = $start + $nb_element_page;
-      
+
       $navbar.=
         '<a href="'.$url.$start_str.$next.'" rel="next">'
         .$lang['next_page']
@@ -201,13 +201,13 @@ function create_navigation_bar(
     {
       $navbar.= $lang['next_page'];
     }
-    
+
     $navbar.= ' | ';
     // link to last page ?
     if ($cur_page != $maximum)
     {
       $temp_start = ($maximum - 1) * $nb_element_page;
-      
+
       $navbar.=
         '<a href="'.$url.$start_str.$temp_start.'" rel="last">'
         .$lang['last_page']
@@ -257,7 +257,7 @@ function get_cat_display_name($cat_informations,
                               $replace_space = true)
 {
   global $conf;
-  
+
   $output = '';
   $is_first = true;
   foreach ($cat_informations as $id => $name)
@@ -323,13 +323,13 @@ SELECT id,name
       $cat_names[$row['id']] = $row['name'];
     }
   }
-  
+
   $output = '';
   $is_first = true;
   foreach (explode(',', $uppercats) as $category_id)
   {
     $name = $cat_names[$category_id];
-    
+
     if ($is_first)
     {
       $is_first = false;
@@ -384,7 +384,7 @@ function get_html_menu_category($categories)
   {
     $page_cat = $page['category'];
   }
-  
+
   foreach ($categories as $category)
   {
     $level = substr_count($category['global_rank'], '.') + 1;
@@ -410,9 +410,9 @@ function get_html_menu_category($categories)
       $menu.= ' class="selected"';
     }
     $menu.= '>';
-  
+
     $url = make_index_url(array('category' => $category['id']));
-    
+
     $menu.= "\n".'<a href="'.$url.'"';
     if ($page_cat != 0
         and $category['id'] == $page['cat_id_uppercat'])
@@ -433,7 +433,7 @@ function get_html_menu_category($categories)
   }
 
   $menu.= str_repeat("\n</li></ul>",($level));
-  
+
   return $menu;
 }
 
@@ -453,17 +453,17 @@ function parse_comment_content($content)
   $content = preg_replace($pattern, $replacement, $content);
 
   $content = nl2br($content);
-  
+
   // replace _word_ by an underlined word
   $pattern = '/\b_(\S*)_\b/';
   $replacement = '<span style="text-decoration:underline;">$1</span>';
   $content = preg_replace($pattern, $replacement, $content);
-  
+
   // replace *word* by a bolded word
   $pattern = '/\b\*(\S*)\*\b/';
   $replacement = '<span style="font-weight:bold;">$1</span>';
   $content = preg_replace($pattern, $replacement, $content);
-  
+
   // replace /word/ by an italic word
   $pattern = "/\/(\S*)\/(\s)/";
   $replacement = '<span style="font-style:italic;">$1$2</span>';
