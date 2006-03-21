@@ -27,7 +27,7 @@
 // +-----------------------------------------------------------------------+
 
 // +-----------------------------------------------------------------------+
-// | include
+// | include                                                               |
 // +-----------------------------------------------------------------------+
 
 if (!defined('PHPWG_ROOT_PATH'))
@@ -47,7 +47,7 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// | functions
+// | functions                                                             |
 // +-----------------------------------------------------------------------+
 /*
  * Search an available check_key
@@ -252,20 +252,119 @@ order by
 }
 
 // +-----------------------------------------------------------------------+
-// | Main
+// | Main                                                                  |
 // +-----------------------------------------------------------------------+
 update_data_user_mail_notification();
-send_all_user_mail_notification();
+//send_all_user_mail_notification();
 
+if (!isset($_GET['mode']))
+{
+  $page['mode'] = 'send';
+}
+else
+{
+  $page['mode'] = $_GET['mode'];
+}
 
 // +-----------------------------------------------------------------------+
-// |                        template initialization                        |
+// | template initialization                                               |
 // +-----------------------------------------------------------------------+
+$template->set_filenames(
+  array(
+    'double_select' => 'admin/double_select.tpl',
+    'notification_by_mail'=>'admin/notification_by_mail.tpl'
+    )
+  );
 
-$title = l10n('nbm_Send mail to users');
+$base_url = get_root_url().'admin.php';
+
+$template->assign_vars(
+  array(
+    'U_TABSHEET_TITLE' => l10n('nbm_'.$page['mode'].'_mode'),
+    'U_HELP' => add_url_param(get_root_url().'/popuphelp.php', 'page=notification_by_mail'),
+    'U_PARAM_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=param'),
+    'U_SUBSCRIBE_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=subscribe'),
+    'U_SEND_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=send'),
+    'F_ACTION'=> $base_url.get_query_string_diff(array())
+    ));
+
+switch ($page['mode'])
+{
+  case 'param' :
+  {
+    $template->assign_block_vars(
+      $page['mode'],
+      array(
+        //'HISTORY_YES'=>$history_yes
+        ));
+    break;
+  }
+  case 'subscribe' :
+  {
+    $template->assign_block_vars(
+      $page['mode'],
+      array(
+        //'HISTORY_YES'=>$history_yes
+        ));
+
+    $template->assign_vars(
+      array(
+        'L_CAT_OPTIONS_TRUE' => l10n('nbm_subscribe_col'),
+        'L_CAT_OPTIONS_FALSE' => l10n('nbm_unsubscribe_col')
+        )
+      );
+
+
+/*    $template->assign_block_vars(
+      $blockname,
+      array('SELECTED'=>$selected,
+            'VALUE'=>$category['id'],
+            'OPTION'=>$option
+        ));*/
+    $template->assign_block_vars(
+      'category_option_true',
+      array('SELECTED'=>'',
+            'VALUE'=>'rub',
+            'OPTION'=>'rub [rub@phpwebgallery.net]'
+        ));
+
+    break;
+  }
+  case 'send' :
+  {
+    $template->assign_block_vars(
+      $page['mode'],
+      array(
+        //'HISTORY_YES'=>$history_yes
+        ));
+
+    $template->assign_vars(
+      array(
+        'L_CAT_OPTIONS_TRUE' => l10n('nbm_send_col'),
+        'L_CAT_OPTIONS_FALSE' => l10n('nbm_nosend_col')
+        )
+      );
+
+
+/*    $template->assign_block_vars(
+      $blockname,
+      array('SELECTED'=>$selected,
+            'VALUE'=>$category['id'],
+            'OPTION'=>$option
+        ));*/
+    $template->assign_block_vars(
+      'category_option_true',
+      array('SELECTED'=>' selected="selected"',
+            'VALUE'=>'rub',
+            'OPTION'=>'rub [2006-03-20 23:35:23]'
+        ));
+
+    break;
+  }
+}
 
 // +-----------------------------------------------------------------------+
-// |                        infos & errors display                         |
+// | infos & errors display                                                |
 // +-----------------------------------------------------------------------+
 
 /*echo '<pre>';
@@ -290,4 +389,11 @@ if (count($page['infos']) != 0)
 
 echo '</pre>';
 */
+
+// +-----------------------------------------------------------------------+
+// | Sending html code                                                     |
+// +-----------------------------------------------------------------------+
+$template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'notification_by_mail');
+
 ?>
