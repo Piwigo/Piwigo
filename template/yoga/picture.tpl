@@ -14,38 +14,38 @@
 <div id="imageToolBar">
 
 <div class="randomButtons">
-  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}" rel="nofollow"><img src="{themeconf:icon_dir}/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
-  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="{themeconf:icon_dir}/metadata.png" class="button" alt="{L_PICTURE_METADATA}"></a>
+  <a href="{U_SLIDESHOW}" title="{L_SLIDESHOW}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{L_SLIDESHOW}"></a>
+  <a href="{U_METADATA}" title="{L_PICTURE_METADATA}"><img src="{pwg_root}{themeconf:icon_dir}/metadata.png" class="button" alt="{L_PICTURE_METADATA}"></a>
 <!-- BEGIN representative -->
-  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"/></a>
+  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"/></a>
 <!-- END representative -->
 <!-- BEGIN favorite -->
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
 <!-- END favorite -->
 <!-- BEGIN download -->
-  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="{themeconf:icon_dir}/save.png" class="button" alt="{L_DOWNLOAD}"></a>
+  <a href="{download.U_DOWNLOAD}" title="{L_DOWNLOAD}"><img src="{pwg_root}{themeconf:icon_dir}/save.png" class="button" alt="{L_DOWNLOAD}"></a>
 <!-- END download -->
 <!-- BEGIN admin -->
-  <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="{themeconf:icon_dir}/preferences.png" class="button" alt="{L_ADMIN}"></a>
+  <a href="{U_ADMIN}" title="{L_ADMIN}"><img src="{pwg_root}{themeconf:icon_dir}/preferences.png" class="button" alt="{L_ADMIN}"></a>
 <!-- END admin -->
 <!-- BEGIN caddie -->
-  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a>
+  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a>
 <!-- END caddie -->
 </div>
 
 <div class="navButtons">
 <!-- BEGIN last -->
-  <a class="navButton prev" href="{last.U_IMG}" rel="last"><img src="{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
+  <a class="navButton prev" href="{last.U_IMG}" rel="last"><img src="{pwg_root}{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
 <!-- END last -->
 <!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{themeconf:icon_dir}/right.png" class="button" alt="next"></a>
+  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="next"></a>
 <!-- END next -->
-  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}" rel="up"><img src="{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
+  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev"><img src="{themeconf:icon_dir}/left.png" class="button" alt="previous"></a>
+  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="previous"></a>
 <!-- END previous -->
 <!-- BEGIN first -->
-  <a class="navButton prev" href="{first.U_IMG}" rel="first"><img src="{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
+  <a class="navButton prev" href="{first.U_IMG}" rel="first"><img src="{pwg_root}{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
 <!-- END first -->
 </div>
 
@@ -170,7 +170,7 @@
   <!-- BEGIN delete -->
   <p class="userCommentDelete">
   <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}">
-    <img src="{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
+    <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
   </a>
   </p>
   <!-- END delete -->

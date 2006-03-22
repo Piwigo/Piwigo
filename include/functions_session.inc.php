@@ -81,11 +81,26 @@ function cookie_path()
   if ( isset($_SERVER['REDIRECT_URL']) )
   { // mod_rewrite is activated for upper level directories. we must set the
     // cookie to the path shown in the browser otherwise it will be discarded.
-    $scr = $_SERVER['REDIRECT_URL'];
+    if ( isset($_SERVER['PATH_INFO']) )
+    {
+      $idx = strpos( $_SERVER['REDIRECT_URL'], $_SERVER['PATH_INFO'] );
+      if ($idx !== false)
+      {
+        $scr = substr($_SERVER['REDIRECT_URL'], 0, $idx);
+      }
+      else
+      {//this should never happen
+        $scr='//';
+      }
+    }
+    else
+    {
+      $scr = $_SERVER['REDIRECT_URL'];
+    }
   }
   else
   {
-    $scr = $_SERVER['PHP_SELF'];
+    $scr = $_SERVER['SCRIPT_NAME'];
   }
   return substr($scr,0,strrpos( $scr,'/'));
 }

@@ -28,9 +28,9 @@
 /**
  * Management of elements set. Elements can belong to a category or to the
  * user caddie.
- * 
+ *
  */
- 
+
 if (!defined('PHPWG_ROOT_PATH'))
 {
   die('Hacking attempt!');
@@ -58,9 +58,9 @@ function get_elements_keywords($element_ids)
   {
     return array();
   }
-  
+
   $keywords = array();
-  
+
   $query = '
 SELECT keywords
   FROM '.IMAGES_TABLE.'
@@ -84,7 +84,7 @@ SELECT keywords
 if (isset($_POST['submit']))
 {
   $collection = array();
-  
+
 //   echo '<pre>';
 //   print_r($_POST);
 //   echo '</pre>';
@@ -136,7 +136,7 @@ SELECT image_id
             )
           );
       }
-  
+
       mass_inserts(
         IMAGE_CATEGORY_TABLE,
         array('image_id', 'category_id'),
@@ -170,7 +170,7 @@ SELECT image_id
       array($_POST['dissociate']),
       $destinations_of[ $_POST['dissociate'] ]
       );
-    
+
     // Eventually, deletion of associations
     $query = '
 DELETE
@@ -185,7 +185,7 @@ DELETE
     // have deleted the link between C and 1, while it should be kept due to
     // B. Who said "complicated"?
     check_links();
-    
+
     update_category($associated_categories);
   }
 
@@ -205,7 +205,7 @@ DELETE
       array_push($dbfields['update'], $formfield);
     }
   }
-  
+
   // updating elements is useful only if needed...
   if (count($dbfields['update']) > 0 and count($collection) > 0)
   {
@@ -220,7 +220,7 @@ SELECT id, keywords
     {
       $data = array();
       $data['id'] = $row['id'];
-      
+
       if (!empty($_POST['add_keywords']))
       {
         $data['keywords'] =
@@ -241,7 +241,7 @@ SELECT id, keywords
         {
           $data['keywords'] = empty($row['keywords']) ? '' : $row['keywords'];
         }
-        
+
         $data['keywords'] =
           implode(
             ',',
@@ -287,7 +287,7 @@ SELECT id, keywords
           .'-'.$_POST['date_creation_day']
           ;
       }
-      
+
       array_push($datas, $data);
     }
     // echo '<pre>'; print_r($datas); echo '</pre>';
@@ -308,18 +308,18 @@ $base_url = PHPWG_ROOT_PATH.'admin.php';
 $template->assign_vars(
   array(
     'CATEGORIES_NAV'=>$page['title'],
-    
+
     'L_SUBMIT'=>$lang['submit'],
 
     'U_COLS'=>$base_url.get_query_string_diff(array('cols')),
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
-    
+
     'U_UNIT_MODE'
     =>
     $base_url
     .get_query_string_diff(array('mode','display'))
     .'&amp;mode=unit',
-    
+
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
    )
  );
@@ -379,7 +379,7 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
   WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
     AND ic.category_id = c.id
     AND ic.image_id = i.id
-    AND ic.category_id != i.storage_category_id
+    AND ic.is_storage = \'false\'
 ;';
   display_select_cat_wrapper($query, array(), $blockname, true);
 }
@@ -484,7 +484,7 @@ SELECT id,path,tn_ext
   while ($row = mysql_fetch_array($result))
   {
     $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
-    
+
     $template->assign_block_vars(
       'thumbnails.line.thumbnail',
       array(
@@ -494,7 +494,7 @@ SELECT id,path,tn_ext
         'TITLE' => 'TODO'
         )
       );
-    
+
     // create a new line ?
     if (++$row_number == $page['cols'])
     {

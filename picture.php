@@ -168,7 +168,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'rate' :
     {
-      rate_picture($user['id'], $page['image_id'], $_GET['rate']);
+      rate_picture($page['image_id'], $_GET['rate']);
       redirect($url_self);
     }
     case 'delete_comment' :
@@ -370,14 +370,14 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 }
 
 $title_img = $picture['current']['name'];
-if ( isset( $page['cat'] ) )
+if ( isset( $page['category'] ) )
 {
-  if (is_numeric( $page['cat'] ))
+  if (is_numeric( $page['category'] ))
   {
     $title_img = replace_space(get_cat_display_name($page['cat_name']));
   }
   else if ( $page['cat'] == 'search' )
-  {
+  { // ??? TODO -remove or change some remainings from old variables
     $title_img = replace_search( $title_img, $_GET['search'] );
   }
 }
@@ -404,24 +404,19 @@ $picture_size = get_picture_size(
   );
 
 // metadata
+$url_metadata = duplicate_picture_URL();
 if ($conf['show_exif'] or $conf['show_iptc'])
 {
   $metadata_showable = true;
+  if ( !isset($_GET['metadata']) )
+  {
+    $url_metadata = add_url_param( $url_metadata, 'metadata' );
+  }
 }
 else
 {
   $metadata_showable = false;
 }
-
-// $url_metadata = PHPWG_ROOT_PATH.'picture.php';
-// $url_metadata .=  get_query_string_diff(array('add_fav', 'slideshow', 'show_metadata'));
-// if ($metadata_showable and !isset($_GET['show_metadata']))
-// {
-//   $url_metadata.= '&amp;show_metadata=1';
-// }
-
-// TODO: rewrite metadata display to toggle on/off user_infos.show_metadata
-$url_metadata = duplicate_picture_URL();
 
 $page['body_id'] = 'thePicturePage';
 //------------------------------------------------------- navigation management

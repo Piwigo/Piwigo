@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-03-09 00:14:53 +0100 (jeu, 09 mar 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1070 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -27,10 +27,10 @@
 
 /**
  * This file is included by the picture page to manage picture metadata
- * 
+ *
  */
 
-if ($metadata_showable and isset($_GET['show_metadata']))
+if ($metadata_showable and isset($_GET['metadata']))
 {
   include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
   $template->assign_block_vars('metadata', array());
@@ -41,7 +41,7 @@ if ($metadata_showable and isset($_GET['show_metadata']))
       die('Exif extension not available, admin should disable exif display');
     }
 
-    if ($exif = @read_exif_data($picture['current']['src']))
+    if ($exif = @read_exif_data($picture['current']['src_file_system']))
     {
       $template->assign_block_vars(
         'metadata.headline',

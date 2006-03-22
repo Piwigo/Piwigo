@@ -127,7 +127,7 @@ if (isset($_POST['associate'])
     and count($_POST['cat_dissociated']) > 0)
 {
   $datas = array();
-  
+
   foreach ($_POST['cat_dissociated'] as $category_id)
   {
     array_push(
@@ -138,7 +138,7 @@ if (isset($_POST['associate'])
         )
       );
   }
-  
+
   mass_inserts(
     IMAGE_CATEGORY_TABLE,
     array('image_id', 'category_id'),
@@ -166,7 +166,7 @@ if (isset($_POST['dissociate'])
       $destinations
       );
   }
-  
+
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
@@ -213,6 +213,7 @@ SELECT *
 $row = mysql_fetch_array(pwg_query($query));
 
 $storage_category_id = $row['category_id'];
+$image_file = $row['file'];
 
 // Navigation path
 
@@ -236,34 +237,34 @@ $template->assign_vars(
         '&amp;image_id='.$_GET['image_id'].
         (isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '').
         '&amp;sync_metadata=1',
-    
+
     'PATH'=>$row['path'],
-    
+
     'TN_SRC' => get_thumbnail_src($row['path'], @$row['tn_ext']),
-    
+
     'NAME' =>
       isset($_POST['name']) ?
         stripslashes($_POST['name']) : @$row['name'],
-    
+
     'DIMENSIONS' => @$row['width'].' * '.@$row['height'],
-    
+
     'FILESIZE' => @$row['filesize'].' KB',
-    
+
     'REGISTRATION_DATE' =>
       format_date($row['date_available'], 'mysql_datetime', false),
-    
+
     'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
-    
+
     'CREATION_DATE' => $date,
-    
+
     'KEYWORDS' =>
       isset($_POST['keywords']) ?
         stripslashes($_POST['keywords']) : @$row['keywords'],
-    
+
     'DESCRIPTION' =>
       isset($_POST['description']) ?
         stripslashes($_POST['description']) : @$row['comment'],
-  
+
     'F_ACTION' =>
         PHPWG_ROOT_PATH.'admin.php'
         .get_query_string_diff(array('sync_metadata'))
@@ -292,7 +293,7 @@ else
 get_day_list('date_creation_day', $day);
 get_month_list('date_creation_month', $month);
 $template->assign_vars(array('DATE_CREATION_YEAR_VALUE' => $year));
-  
+
 $query = '
 SELECT category_id, uppercats
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
@@ -315,7 +316,7 @@ while ($row = mysql_fetch_array($result))
       PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
       false
       );
-    
+
   if ($row['category_id'] == $storage_category_id)
   {
     $template->assign_vars(array('STORAGE_CATEGORY' => $name));
@@ -354,6 +355,7 @@ if (isset($_GET['cat_id'])
   $url_img = make_picture_URL(
     array(
       'image_id' => $_GET['image_id'],
+      'image_file' => $image_file,
       'category' => $_GET['cat_id'],
       )
     );
@@ -365,6 +367,7 @@ else
     $url_img = make_picture_URL(
       array(
         'image_id' => $_GET['image_id'],
+        'image_file' => $image_file,
         'category' => $category,
         )
       );
@@ -381,7 +384,7 @@ if (isset($url_img))
       )
     );
 }
-  
+
 // associate to another category ?
 $query = '
 SELECT id,name,uppercats,global_rank

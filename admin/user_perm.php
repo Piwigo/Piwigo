@@ -92,19 +92,19 @@ SELECT id
   // an error (in SQL statement), so we need to know which categories are
   // accesible
   $authorized_ids = array();
-    
+
   $query = '
 SELECT cat_id
   FROM '.USER_ACCESS_TABLE.'
   WHERE user_id = '.$page['user'].'
 ;';
   $result = pwg_query($query);
-  
+
   while ($row = mysql_fetch_array($result))
   {
     array_push($authorized_ids, $row['cat_id']);
   }
-  
+
   $inserts = array();
   $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
   foreach ($to_autorize_ids as $to_autorize_id)
@@ -137,7 +137,7 @@ $template->assign_vars(
         ),
     'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
     'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
-    
+
     'F_ACTION' =>
         PHPWG_ROOT_PATH.
         'admin.php?page=user_perm'.
@@ -177,7 +177,7 @@ if (mysql_num_rows($result) > 0)
     $template->assign_block_vars(
       'groups.category',
       array(
-        'NAME' => get_cat_display_name_cache($category['uppercats'], '', false)
+        'NAME' => get_cat_display_name_cache($category['uppercats'], null, false)
         )
       );
   }
@@ -197,7 +197,7 @@ if (count($group_authorized) > 0)
 $query_true.= '
 ;';
 display_select_cat_wrapper($query_true,array(),'category_option_true');
-  
+
 $result = pwg_query($query_true);
 $authorized_ids = array();
 while ($row = mysql_fetch_array($result))

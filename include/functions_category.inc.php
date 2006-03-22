@@ -47,9 +47,9 @@ function check_restrictions($category_id)
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
     $login_url =
-      './identification.php?redirect='
+      get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
-    
+
     if (!$user['is_the_guest'])
     {
       die('Fatal: you are trying to reach a forbidden category');
@@ -278,7 +278,7 @@ function display_select_categories($categories,
     if ($fullname)
     {
       $option = get_cat_display_name_cache($category['uppercats'],
-                                           '',
+                                           null,
                                            false);
     }
     else

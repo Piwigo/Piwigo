@@ -140,7 +140,7 @@ SELECT id, uppercats, global_rank
       array(
         'NAME' => get_cat_display_name_cache(
           $category['uppercats'],
-          '',                      // no url on category names
+          null,                      // no url on category names
           false                    // no blank replacement
           )
         )

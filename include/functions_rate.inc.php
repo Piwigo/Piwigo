@@ -6,10 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-03-15 03:26:25 +0100 (mer, 15 mar 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1081 $
-// | revision      : $Revision: 1081 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -29,137 +28,126 @@
 /**
  * rate a picture by a user
  *
- * @param int user identifier
  * @param int image identifier
  * @param int rate
  * @return void
  */
-function rate_picture($user_id, $image_id, $rate)
+function rate_picture($image_id, $rate)
 {
-  global $conf;
+  global $conf, $user;
 
-  $query = '
-SELECT status
-  FROM '.USER_INFOS_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  list($user_status) = mysql_fetch_array(pwg_query($query));
+  if (!isset($rate)
+      or !$conf['rate']
+      or !in_array($rate, $conf['rate_items']))
+  {
+    return;
+  }
 
-  if ('guest' == $user_status
-      or 'generic' == $user_status)
+  $user_anonymous = is_autorize_status(ACCESS_CLASSIC) ? false : true;
+
+  if ($user_anonymous and !$conf['rate_anonymous'])
   {
-    $user_anonymous = true;
+    return;
   }
-  else
+
+  if ($user_anonymous)
   {
-    $user_anonymous = false;
-  }
-  
-  if (isset($rate)
-      and $conf['rate']
-      and (!$user_anonymous or $conf['rate_anonymous'])
-      and in_array($rate, $conf['rate_items']))
-  {
-    if ($user_anonymous)
+    $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
+    if (count($ip_components) > 3)
     {
-      $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
-      if (count($ip_components) > 3)
-      {
-        array_pop($ip_components);
-      }
-      $anonymous_id = implode ('.', $ip_components);
-          
-      if (isset($_COOKIE['pwg_anonymous_rater']))
-      {
-        if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'])
-        { // client has changed his IP adress or he's trying to fool us
-          $query = '
+      array_pop($ip_components);
+    }
+    $anonymous_id = implode ('.', $ip_components);
+
+    if (isset($_COOKIE['pwg_anonymous_rater']))
+    {
+      if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'])
+      { // client has changed his IP adress or he's trying to fool us
+        $query = '
 SELECT element_id
   FROM '.RATE_TABLE.'
   WHERE user_id = '.$user['id'].'
     AND anonymous_id = \''.$anonymous_id.'\'
 ;';
-          $already_there = array_from_query($query, 'element_id');
-          
-          if (count($already_there) > 0)
-          {
-            $query = '
+        $already_there = array_from_query($query, 'element_id');
+
+        if (count($already_there) > 0)
+        {
+          $query = '
 DELETE
   FROM '.RATE_TABLE.'
   WHERE user_id = '.$user['id'].'
     AND anonymous_id = \''.$_COOKIE['pwg_anonymous_rater'].'\'
     AND element_id NOT IN ('.implode(',', $already_there).')
 ;';
-            pwg_query($query);
-          }
+           pwg_query($query);
+         }
 
-          $query = '
+         $query = '
 UPDATE
   '.RATE_TABLE.'
   SET anonymous_id = \'' .$anonymous_id.'\'
   WHERE user_id = '.$user['id'].'
     AND anonymous_id = \'' . $_COOKIE['pwg_anonymous_rater'].'\'
 ;';
-          pwg_query($query);
+         pwg_query($query);
 
-          setcookie(
+         setcookie(
             'pwg_anonymous_rater',
             $anonymous_id,
             strtotime('+10 years'),
             cookie_path()
-            );
-        }
-      }
-      else
-      {
-        setcookie(
+           );
+      } // end client changed ip
+    } // end client has cookie
+    else
+    {
+      setcookie(
           'pwg_anonymous_rater',
           $anonymous_id,
           strtotime('+10 years'),
           cookie_path()
           );
-      }
     }
-    
-    $query = '
+  } // end anonymous user
+  $query = '
 DELETE
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
-  AND user_id = '.$user_id.'
+  AND user_id = '.$user['id'].'
 ';
-    if (isset($anonymous_id))
-    {
-      $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
-    }
-    pwg_query($query);
-    $query = '
+  if (isset($anonymous_id))
+  {
+    $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
+  }
+  pwg_query($query);
+  $query = '
 INSERT
   INTO '.RATE_TABLE.'
   (user_id,anonymous_id,element_id,rate,date)
   VALUES
   ('
-      .$user_id.','
-      .(isset($anonymous_id) ? '\''.$anonymous_id.'\'' : "''").','
-      .$image_id.','
-      .$rate
-      .',NOW())
+    .$user['id'].','
+    .(isset($anonymous_id) ? '\''.$anonymous_id.'\'' : "''").','
+    .$image_id.','
+    .$rate
+    .',NOW())
 ;';
-    pwg_query($query);
-        
-    // update of images.average_rate field
-    $query = '
+  pwg_query($query);
+
+  // update of images.average_rate field
+  $query = '
 SELECT ROUND(AVG(rate),2) AS average_rate
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
 ;';
-    $row = mysql_fetch_array(pwg_query($query));
-    $query = '
+  $row = mysql_fetch_array(pwg_query($query));
+  $query = '
 UPDATE '.IMAGES_TABLE.'
   SET average_rate = '.$row['average_rate'].'
   WHERE id = '.$image_id.'
 ;';
-    pwg_query($query);
-  }
+  pwg_query($query);
 }
 
 ?>

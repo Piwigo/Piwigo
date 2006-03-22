@@ -224,7 +224,7 @@ function build_global_calendar()
   $query.= $this->get_date_where();
   $query.= '
   GROUP BY period
-  ORDER BY YEAR('.$this->date_field.') DESC';
+  ORDER BY YEAR('.$this->date_field.') DESC, MONTH('.$this->date_field.')';
 
   $result = pwg_query($query);
   $items=array();
@@ -350,7 +350,9 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
 
     $row = mysql_fetch_array(pwg_query($query));
     $items[$day]['tn_path'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
-    $items[$day]['tn_file'] = $row['file'];
+    $items[$day]['file'] = $row['file'];
+    $items[$day]['path'] = $row['path'];
+    $items[$day]['tn_ext'] = @$row['tn_ext'];
     $items[$day]['width'] = $row['width'];
     $items[$day]['height'] = $row['height'];
     $items[$day]['dow'] = $row['dow'];
@@ -445,7 +447,10 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
         }
         else
         {// item not an image (tn is either mime type or an image)
-          $tn_size = @getimagesize($items[$day]['tn_path']);
+          $thumb = get_thumbnail_src(
+                $items[$day]['path'], @$items[$day]['tn_ext'], false
+              );
+          $tn_size = @getimagesize($thumb);
         }
         $tn_width = $tn_size[0];
         $tn_height = $tn_size[1];
@@ -548,7 +553,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
           'thumbnails.line.thumbnail',
           array(
             'IMAGE'=>$data['tn_path'],
-            'IMAGE_ALT'=>$data['tn_file'],
+            'IMAGE_ALT'=>$data['file'],
             'IMAGE_TITLE'=>$thumbnail_title,
             'U_IMG_LINK'=>$url
            )

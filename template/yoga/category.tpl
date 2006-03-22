@@ -91,8 +91,8 @@
          <input type="submit" name="login" value="{lang:submit}">
         </p>
     <ul class="actions">
-      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
-      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
+      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{pwg_root}{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{pwg_root}{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
     </ul>
 
       </fieldset>
@@ -119,25 +119,25 @@
       <!-- END preferred_image_order -->
 
       <!-- BEGIN caddie -->
-      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
+      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
       <!-- END caddie -->
 
       <!-- BEGIN edit -->
-      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="{themeconf:icon_dir}/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
+      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="{pwg_root}{themeconf:icon_dir}/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
       <!-- END edit -->
 
       <!-- BEGIN search_rules -->
-      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
+      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
       <!-- BEGIN mode_normal -->
-      <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
+      <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
       <!-- END mode_normal -->
       <!-- BEGIN mode_posted -->
-      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}"><img src="{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
+      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
       <!-- END mode_posted -->
       <!-- BEGIN mode_created -->
-      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}"><img src="{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
+      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}"><img src="{pwg_root}{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
       <!-- END mode_created -->
     </ul>
 

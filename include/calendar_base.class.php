@@ -261,8 +261,14 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
       }
     }
 
+    $dates = $page['chronology_date'];
+    while ($level<count($dates))
+    {
+      array_pop($dates);
+    }
+
     $nav_bar = $this->get_nav_bar_from_items(
-      $page['chronology_date'],
+      $dates,
       $level_items,
       null,
       'calItem',

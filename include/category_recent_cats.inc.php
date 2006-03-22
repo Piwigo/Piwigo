@@ -28,7 +28,7 @@
 /**
  * This file is included by the main page to show thumbnails for recent_cats
  * category
- * 
+ *
  */
 
 // retrieving categories recently update, ie containing pictures added
@@ -71,7 +71,7 @@ while ( $row = mysql_fetch_array( $result ) )
       'IMAGE'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
       'IMAGE_ALT'   => $row['file'],
       'IMAGE_TITLE' => $lang['hint_category'],
-      
+
       'U_IMG_LINK'  => make_index_url(
         array(
           'category' => $row['category_id'],
@@ -83,10 +83,10 @@ while ( $row = mysql_fetch_array( $result ) )
   $template->assign_block_vars(
     'thumbnails.line.thumbnail.category_name',
     array(
-      'NAME' => get_cat_display_name_cache($row['uppercats'], '', false),
+      'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
       )
     );
-  
+
   // create a new line ?
   if (++$row_number == $user['nb_image_line'])
   {

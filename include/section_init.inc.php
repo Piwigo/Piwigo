@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-01-27 02:11:43 +0100 (ven, 27 jan 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1014 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -84,17 +84,35 @@ $tokens = explode(
 
 $next_token = 0;
 if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php')
-{
-
-  // the first token must be the numeric identifier of the picture
-  preg_match('/(\d+)/', $tokens[$next_token], $matches);
-  if (!isset($matches[1]))
+{ // the last token must be the identifier for the picture
+  $token = array_pop($tokens);
+  if ( is_numeric($token) )
   {
-    die('Fatal: picture identifier is missing');
+    $page['image_id'] = $token;
   }
-  $page['image_id'] = $matches[1];
-
-  $next_token++;
+  else
+  {
+    preg_match('/^(\d+-)?((.*)[_\.]html?)?$/', $token, $matches);
+    if ( isset($matches[1]) and is_numeric($matches[1]) )
+    {
+      $page['image_id'] = $matches[1];
+      if ( !empty($matches[3]) )
+      {
+        $page['image_file'] = $matches[3];
+      }
+    }
+    else
+    {
+      if ( !empty($matches[3]) )
+      {
+        $page['image_file'] = $matches[3];
+      }
+      else
+      {
+        die('Fatal: picture identifier is missing');
+      }
+    }
+  }
 }
 
 if (0 === strpos($tokens[$next_token], 'cat'))
@@ -273,11 +291,11 @@ if ('categories' == $page['section'])
         'cat_id_uppercat'  => $result['id_uppercat'],
         'uppercats'        => $result['uppercats'],
 
-        'title' => get_cat_display_name($result['name'], '', false),
+        'title' => get_cat_display_name($result['name'], null, false),
         )
       );
 
-    if (!isset($_GET['calendar']))
+    if (!isset($page['chronology_field']))
     {
       $query = '
 SELECT image_id
@@ -321,7 +339,7 @@ else
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE '.get_sql_search_clause($_GET['search']).'
+  WHERE '.get_sql_search_clause($page['search']).'
     AND '.$forbidden.'
   '.$conf['order_by'].'
 ;';
@@ -489,4 +507,19 @@ if (isset($page['chronology_field']))
   initialize_calendar();
 }
 
+if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php'
+    and !isset($page['image_id']) )
+{
+  $query = '
+SELECT id,file
+  FROM '.IMAGES_TABLE .'
+  WHERE id IN ('.implode(',',$page['items']).')
+  AND file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"'
+;
+  $result = pwg_query($query);
+  if (mysql_num_rows($result)>0)
+  {
+    list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
+  }
+}
 ?>

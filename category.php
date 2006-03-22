@@ -45,8 +45,7 @@ if ( isset( $_GET['act'] )
   session_unset();
   session_destroy();
   setcookie(session_name(),'',0, cookie_path() );
-  $url = 'category.php';
-  redirect( $url );
+  redirect( make_index_url() );
 }
 
 //---------------------------------------------- change of image display order
@@ -113,11 +112,7 @@ $template->set_filenames( array('category'=>'category.tpl') );
 //-------------------------------------------------------------- category title
 if (isset($page['category']))
 {
-  $template_title = get_cat_display_name(
-    $page['cat_name'],
-    'category.php?/category/',
-    false
-    );
+  $template_title = get_cat_display_name( $page['cat_name'], '', false );
 }
 else
 {
@@ -206,7 +201,7 @@ if ('search' == $page['section'])
   $template->assign_block_vars(
     'search_rules',
     array(
-      'URL' => PHPWG_ROOT_PATH.'/search_rules.php?search_id='.$page['search'],
+      'URL' => get_root_url().'search_rules.php?search_id='.$page['search'],
       )
     );
 }
@@ -264,7 +259,7 @@ if ($conf['rate'])
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => PHPWG_ROOT_PATH.'random.php',
+    'URL' => get_root_url().'random.php',
     'TITLE' => $lang['random_cat_hint'],
     'NAME' => $lang['random_cat']
     ));
@@ -395,6 +390,17 @@ if (isset($page['category']) and is_admin())
     );
 }
 
+if (is_admin() and !empty($page['items']) )
+{
+    $template->assign_block_vars(
+      'caddie',
+      array(
+        'URL' =>
+          add_url_param(duplicate_index_url(),'caddie=1')
+        )
+      );
+  }
+
 //------------------------------------------------------ main part : thumbnails
 if (isset($page['thumbnails_include']))
 {
@@ -453,7 +459,7 @@ if (isset($page['category']))
   // upload a picture in the category
   if ($page['cat_uploadable'])
   {
-    $url = PHPWG_ROOT_PATH.'upload.php?cat='.$page['category'];
+    $url = get_root_url().'upload.php?cat='.$page['category'];
     $template->assign_block_vars(
       'upload',
       array(

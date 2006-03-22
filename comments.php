@@ -66,7 +66,7 @@ $since_options = array(
              'clause' => '1=1') // stupid but generic
   );
 
-$page['since'] = isset($_GET['since']) ? $_GET['since'] : 1;
+$page['since'] = isset($_GET['since']) ? $_GET['since'] : 3;
 
 // on which field sorting
 //
@@ -393,7 +393,7 @@ SELECT id, uppercats
   {
     // name of the picture
     $name = get_cat_display_name_cache(
-      $categories[$comment['category_id']]['uppercats'], '', false);
+      $categories[$comment['category_id']]['uppercats'], null, false);
     $name.= $conf['level_separator'];
     if (!empty($elements[$comment['image_id']]['name']))
     {
@@ -411,9 +411,6 @@ SELECT id, uppercats
       );
 
     // link to the full size picture
-    $url = PHPWG_ROOT_PATH.'picture.php?cat='.$comment['category_id'];
-    $url.= '&amp;image_id='.$comment['image_id'];
-
     $url = make_picture_url(
             array(
               'category' => $comment['category_id'],

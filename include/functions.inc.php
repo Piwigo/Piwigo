@@ -202,7 +202,7 @@ function get_dirs($directory)
           and $file != '..'
           and is_dir($directory.'/'.$file)
           and $file != 'CVS'
-	  and $file != '.svn')
+    and $file != '.svn')
       {
         array_push($sub_dirs, $file);
       }
@@ -356,7 +356,7 @@ function pwg_log( $file, $category, $picture = '' )
   if ($conf['log'])
   {
    if ( ($conf['history_admin'] ) or  ( (! $conf['history_admin'])  and (!is_admin())  ) )
-	  {
+    {
     $login = ($user['id'] == $conf['guest_id'])
       ? 'guest' : addslashes($user['username']);
 
@@ -1141,11 +1141,13 @@ function make_picture_URL($params)
 
   $url =
     get_root_url().'picture.php?'
-    .'/'.$params['image_id']
     .'/'.make_section_in_URL($params)
     ;
-
   $url = add_well_known_params_in_url($url, $params);
+  $url.= '/'.
+         $params['image_id']//.'-'.
+         //get_filename_wo_extension($params['image_file']).'.htm'
+       ;
   return $url;
 }
 

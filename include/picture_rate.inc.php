@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-03-09 00:14:53 +0100 (jeu, 09 mar 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1070 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -54,7 +54,7 @@ SELECT COUNT(rate) AS count
       );
   }
 
-  if ($conf['rate_anonymous'] or !$user['is_the_guest'])
+  if ($conf['rate_anonymous'] or is_autorize_status(ACCESS_CLASSIC) )
   {
     if ($row['count']>0)
     {
@@ -63,7 +63,7 @@ SELECT COUNT(rate) AS count
       WHERE element_id = '.$page['image_id'] . '
       AND user_id = '.$user['id'] ;
 
-      if ($user['is_the_guest'])
+      if ( !is_autorize_status(ACCESS_CLASSIC) )
       {
         $ip_components = explode('.', $_SERVER['REMOTE_ADDR']);
         if ( count($ip_components)>3 )

@@ -61,7 +61,7 @@ if( !get_magic_quotes_gpc() )
     }
     @reset($_GET);
   }
-  
+
   if( is_array($_POST) )
   {
     while( list($k, $v) = each($_POST) )

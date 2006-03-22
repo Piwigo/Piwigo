@@ -66,6 +66,7 @@ function get_icon($date)
     $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( $icon_url );
+    $icon_url = get_root_url().$icon_url;
     $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
   }
@@ -244,7 +245,7 @@ function language_select($default, $select_name = "language")
  *
  * categories string returned contains categories as given in the input
  * array $cat_informations. $cat_informations array must be an association
- * of {category_id => category_name}. If url input parameter is empty,
+ * of {category_id => category_name}. If url input parameter is null,
  * returns only the categories name without links.
  *
  * @param array cat_informations
@@ -253,7 +254,7 @@ function language_select($default, $select_name = "language")
  * @return string
  */
 function get_cat_display_name($cat_informations,
-                              $url = 'category.php?/category/',
+                              $url = '',
                               $replace_space = true)
 {
   global $conf;
@@ -271,9 +272,15 @@ function get_cat_display_name($cat_informations,
       $output.= $conf['level_separator'];
     }
 
-    if ($url == '')
+    if ( !isset($url) )
     {
       $output.= $name;
+    }
+    elseif ($url == '')
+    {
+      $output.= '<a class=""';
+      $output.= ' href="'.make_index_url( array('category'=>$id) ).'">';
+      $output.= $name.'</a>';
     }
     else
     {
@@ -306,7 +313,7 @@ function get_cat_display_name($cat_informations,
  * @return string
  */
 function get_cat_display_name_cache($uppercats,
-                                    $url = 'category.php?/category/',
+                                    $url = '',
                                     $replace_space = true)
 {
   global $cat_names, $conf;
@@ -339,9 +346,15 @@ SELECT id,name
       $output.= $conf['level_separator'];
     }
 
-    if ($url == '')
+    if ( !isset($url) )
     {
       $output.= $name;
+    }
+    elseif ($url == '')
+    {
+      $output.= '
+<a class=""
+   href="'.make_index_url( array('category'=>$category_id) ).'">'.$name.'</a>';
     }
     else
     {
@@ -474,7 +487,7 @@ function parse_comment_content($content)
 }
 
 function get_cat_display_name_from_id($cat_id,
-                                      $url = 'category.php?/category/',
+                                      $url = '',
                                       $replace_space = true)
 {
   $cat_info = get_cat_info($cat_id);

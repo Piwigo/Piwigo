@@ -29,12 +29,8 @@ $template->set_filenames(array('tail'=>'footer.tpl'));
 $template->assign_vars(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-    
-    'L_GEN_TIME' => $lang['generation_time'],
-    'L_SQL_QUERIES_IN' => $lang['sql_queries_in'],
-    'L_SEND_MAIL' => $lang['send_mail'],
+
     'L_TITLE_MAIL' => urlencode($lang['title_send_mail']),
-    'L_POWERED_BY'=>$lang['powered_by']
     ));
 
 //--------------------------------------------------------------------- contact
@@ -50,6 +46,7 @@ if (!$user['is_the_guest'])
 }
 
 //------------------------------------------------------------- generation time
+$debug_vars = array();
 if ($conf['show_gt'])
 {
   $time = get_elapsed_time($t2, get_moment());
@@ -59,20 +56,22 @@ if ($conf['show_gt'])
     $page['count_queries'] = 0;
     $page['queries_time'] = 0;
   }
-  
-  $template->assign_block_vars(
-    'debug',
+
+  $debug_vars = array_merge($debug_vars,
     array('TIME' => $time,
           'NB_QUERIES' => $page['count_queries'],
-          'SQL_TIME' => number_format($page['queries_time'],3,'.',' ').' s'));
+          'SQL_TIME' => number_format($page['queries_time'],3,'.',' ').' s')
+          );
 }
 
-if ($conf['show_queries']) 
+if ($conf['show_queries'])
 {
-  $template->assign_block_vars(
-    'debug',
-    array('QUERIES_LIST' => $debug)
-  );
+  $debug_vars = array_merge($debug_vars, array('QUERIES_LIST' => $debug) );
+}
+
+if ( !empty($debug_vars) )
+{
+  $template->assign_block_vars('debug',$debug_vars );
 }
 
 //

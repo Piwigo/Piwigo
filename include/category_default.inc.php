@@ -126,7 +126,7 @@ foreach ($pictures as $row)
       }
       case 'search' :
       {
-        $name = replace_search($name, $_GET['search']);
+        $name = replace_search($name, $page['search']);
         break;
       }
     }
