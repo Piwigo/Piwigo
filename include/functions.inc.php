@@ -1068,12 +1068,13 @@ function make_index_URL($params = array())
 {
   global $conf;
   $url = get_root_url().'category';
-  if ($conf['question_mark_in_urls'])
-  {
-  }
   if ($conf['php_extension_in_urls'])
   {
     $url .= '.php';
+  }
+  if ($conf['question_mark_in_urls'])
+  {
+    $url .= '?';
   }
   $url.= make_section_in_URL($params);
   $url = add_well_known_params_in_url($url, $params);
