@@ -190,7 +190,7 @@ $template->assign_vars(
     'U_HOME' => make_index_URL(),
     'U_REGISTER' => get_root_url().'register.php',
     'U_LOST_PASSWORD' => get_root_url().'password.php',
-    'U_LOGOUT' => add_url_param(make_index_URL(), 'act=logout'),
+    'U_LOGOUT' => add_url_params(make_index_URL(), array('act'=>'logout') ),
     'U_ADMIN'=> get_root_url().'admin.php',
     'U_PROFILE'=> get_root_url().'profile.php',
     )
@@ -396,7 +396,7 @@ if (is_admin() and !empty($page['items']) )
       'caddie',
       array(
         'URL' =>
-          add_url_param(duplicate_index_url(),'caddie=1')
+          add_url_params(duplicate_index_url(), array('caddie'=>1) )
         )
       );
   }
@@ -446,7 +446,7 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
         'preferred_image_order.order',
         array(
           'DISPLAY' => $orders[$i][0],
-          'URL' => add_url_param( duplicate_index_URL(), 'image_order='.$i ),
+          'URL' => add_url_params( duplicate_index_URL(), array('image_order'=>$i) ),
           'SELECTED_OPTION' => ($order_idx==$i ? 'SELECTED' : ''),
           )
         );

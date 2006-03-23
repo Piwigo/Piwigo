@@ -85,7 +85,8 @@ foreach ($pictures as $row)
         array(
           'image_id' => $row['id'],
           'image_file' => $row['file']
-        )
+        ),
+        array('start')
       );
 
   $template->assign_block_vars(

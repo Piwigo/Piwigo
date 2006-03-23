@@ -415,4 +415,27 @@ $conf['nb_logs_page'] = 300;
 // history_admin : history admin visits  ?
 $conf['history_admin'] = false;
 
+// +-----------------------------------------------------------------------+
+// |                                 urls                                  |
+// +-----------------------------------------------------------------------+
+
+// question_mark_in_urls : the generated urls contain a ? sign. This can be
+// changed to false only if the server translates PATH_INFO variable
+// (depends on the server AcceptPathInfo directive configuration)
+$conf['question_mark_in_urls'] = true;
+
+// picture_url_style : one of 'id' 'id-file' or 'file'. 'id-file' or 'file'
+// mean that the file name (without extension will appear in the url).
+// Note that one aditionnal sql query will occur if 'file' is choosen.
+// Note that you might experience navigation issues if you choose 'file'
+// and your file names are not unique
+$conf['picture_url_style'] = 'id';
+
+
+// php_extension_in_urls : if true, the urls generated for picture and
+// category will not contain the .php extension. This will work only if
+// .htaccess defines Options +MultiViews parameter or url rewriting rules
+// are active.
+$conf['php_extension_in_urls'] = true;
+
 ?>

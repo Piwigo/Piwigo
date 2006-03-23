@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-03-09 00:14:53 +0100 (jeu, 09 mar 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1070 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -186,8 +186,12 @@ SELECT id,author,date,image_id,content
           'comments.comment.delete',
           array(
             'U_COMMENT_DELETE' =>
-              add_url_param( $url_self,
-                  'action=delete_comment&amp;comment_to_delete='.$row['id']
+              add_url_params(
+                    $url_self,
+                    array(
+                      'action'=>'delete_comment',
+                      'comment_to_delete'=>$row['id']
+                    )
                 )
             )
           );

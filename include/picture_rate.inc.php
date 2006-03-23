@@ -113,7 +113,13 @@ SELECT COUNT(rate) AS count
         'rate.rate_option',
         array(
           'OPTION'    => $mark,
-          'URL'       => add_url_param($url_self,'action=rate&amp;rate='.$mark),
+          'URL'       => add_url_params(
+                          $url_self,
+                          array(
+                            'action'=>'rate',
+                            'rate'=>$mark
+                          )
+                        ),
           'SEPARATOR' => ($num > 0 ? '|' : ''),
           )
         );

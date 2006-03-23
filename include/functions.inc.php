@@ -1025,16 +1025,36 @@ function get_root_url()
 
 /**
  * adds one or more _GET style parameters to an url
- * example: add_url_param('/x', 'a=b') returns /x?a=b
- * add_url_param('/x?cat_id=10', 'a=b') returns /x?cat_id=10&amp;a=b
+ * example: add_url_params('/x', array('a'=>'b')) returns /x?a=b
+ * add_url_params('/x?cat_id=10', array('a'=>'b')) returns /x?cat_id=10&amp;a=b
  * @param string url
- * @param string param
+ * @param array params
  * @return string
  */
-function add_url_param($url, $param)
+function add_url_params($url, $params)
 {
-  $url .= ( strstr($url, '?')===false ) ? '?' :'&amp;';
-  $url .= $param;
+  if ( !empty($params) )
+  {
+    assert( is_array($params) );
+    $is_first = true;
+    foreach($params as $param=>$val)
+    {
+      if ($is_first)
+      {
+        $is_first = false;
+        $url .= ( strstr($url, '?')===false ) ? '?' :'&amp;';
+      }
+      else
+      {
+        $url .= '&amp;';
+      }
+      $url .= $param;
+      if (isset($val))
+      {
+        $url .= '='.$val;
+      }
+    }
+  }
   return $url;
 }
 
@@ -1046,13 +1066,17 @@ function add_url_param($url, $param)
  */
 function make_index_URL($params = array())
 {
-  $url =
-    get_root_url().'category.php?'
-    .'/'.make_section_in_URL($params)
-    ;
-
+  global $conf;
+  $url = get_root_url().'category';
+  if ($conf['question_mark_in_urls'])
+  {
+  }
+  if ($conf['php_extension_in_urls'])
+  {
+    $url .= '.php';
+  }
+  $url.= make_section_in_URL($params);
   $url = add_well_known_params_in_url($url, $params);
-
   return $url;
 }
 
@@ -1134,20 +1158,34 @@ function duplicate_picture_URL($redefined = array(), $removed = array())
  */
 function make_picture_URL($params)
 {
+  global $conf;
   if (!isset($params['image_id']))
   {
     die('make_picture_URL: image_id is a required parameter');
   }
 
-  $url =
-    get_root_url().'picture.php?'
-    .'/'.make_section_in_URL($params)
-    ;
+  $url = get_root_url().'picture';
+  if ($conf['php_extension_in_urls'])
+  {
+    $url .= '.php';
+  }
+  if ($conf['question_mark_in_urls'])
+  {
+    $url .= '?';
+  }
+  $url .= make_section_in_URL($params);
   $url = add_well_known_params_in_url($url, $params);
-  $url.= '/'.
-         $params['image_id']//.'-'.
-         //get_filename_wo_extension($params['image_file']).'.htm'
-       ;
+  $url.= '/';
+  switch ( $conf['picture_url_style'] )
+  {
+    case 'id-file':
+      $url .= $params['image_id'].'-';
+    case 'file':
+      $url .= get_filename_wo_extension($params['image_file']).'.htm';
+      break;
+    default:
+      $url .= $params['image_id'];
+  }
   return $url;
 }
 
@@ -1221,11 +1259,11 @@ function make_section_in_URL($params)
     {
       if (!isset($params['category']))
       {
-        $section_string.= 'categories';
+        //$section_string.= '/categories';
       }
       else
       {
-        $section_string.= 'category/'.$params['category'];
+        $section_string.= '/category/'.$params['category'];
       }
 
       break;
@@ -1237,7 +1275,7 @@ function make_section_in_URL($params)
         die('make_section_in_URL: require at least one tag');
       }
 
-      $section_string.= 'tags';
+      $section_string.= '/tags';
 
       foreach ($params['tags'] as $tag)
       {
@@ -1253,7 +1291,7 @@ function make_section_in_URL($params)
         die('make_section_in_URL: require a search identifier');
       }
 
-      $section_string.= 'search/'.$params['search'];
+      $section_string.= '/search/'.$params['search'];
 
       break;
     }
@@ -1264,13 +1302,13 @@ function make_section_in_URL($params)
         die('make_section_in_URL: require a list of items');
       }
 
-      $section_string.= 'list/'.implode(',', $params['list']);
+      $section_string.= '/list/'.implode(',', $params['list']);
 
       break;
     }
     default :
     {
-      $section_string.= $params['section'];
+      $section_string.= '/'.$params['section'];
     }
   }
 

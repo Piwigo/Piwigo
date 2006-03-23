@@ -27,5 +27,5 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-redirect('category.php');
+redirect( make_index_url() );
 ?>

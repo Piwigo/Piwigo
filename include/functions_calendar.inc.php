@@ -5,9 +5,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-01-27 02:11:43 +0100 (ven, 27 jan 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1014 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -178,7 +178,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   //echo ('<pre>'. var_export($calendar, true) . '</pre>');
 
   $must_show_list = true; // true until calendar generates its own display
-  if (basename($_SERVER['SCRIPT_NAME']) == 'category.php')
+  if (basename($_SERVER['SCRIPT_FILENAME']) == 'category.php')
   {
     $template->assign_block_vars('calendar', array());
 

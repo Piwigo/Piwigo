@@ -7,9 +7,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2005-09-21 00:04:57 +0200 (mer, 21 sep 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 870 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -86,7 +86,7 @@ function update_data_user_mail_notification()
 
   // Set null mail_address empty
   $query = '
-update 
+update
   '.USERS_TABLE.'
 set
   mail_address = null
@@ -281,10 +281,10 @@ $base_url = get_root_url().'admin.php';
 $template->assign_vars(
   array(
     'U_TABSHEET_TITLE' => l10n('nbm_'.$page['mode'].'_mode'),
-    'U_HELP' => add_url_param(get_root_url().'/popuphelp.php', 'page=notification_by_mail'),
-    'U_PARAM_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=param'),
-    'U_SUBSCRIBE_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=subscribe'),
-    'U_SEND_MODE' => add_url_param($base_url.get_query_string_diff(array('mode')), 'mode=send'),
+    'U_HELP' => add_url_params(get_root_url().'/popuphelp.php', array('page'=>'notification_by_mail') ),
+    'U_PARAM_MODE' => add_url_params($base_url.get_query_string_diff(array('mode')), array('mode'=>'param') ),
+    'U_SUBSCRIBE_MODE' => add_url_params($base_url.get_query_string_diff(array('mode')), array('mode'=>'subscribe') ),
+    'U_SEND_MODE' => add_url_params($base_url.get_query_string_diff(array('mode')), array('mode'=>'send') ),
     'F_ACTION'=> $base_url.get_query_string_diff(array())
     ));
 

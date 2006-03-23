@@ -357,16 +357,20 @@ $url_admin =
   .'&amp;image_id='.$page['image_id']
 ;
 
-$url_slide = add_url_param(
+$url_slide = add_url_params(
   $picture['current']['url'],
-  'slideshow='.$conf['slideshow_period'] );
+  array( 'slideshow'=>$conf['slideshow_period'] )
+  );
 
 $title =  $picture['current']['name'];
 $refresh = 0;
 if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 {
   $refresh= $_GET['slideshow'];
-  $url_link = add_url_param($picture['next']['url'], 'slideshow='.$refresh);
+  $url_link = add_url_params(
+      $picture['next']['url'],
+      array('slideshow'=>$refresh)
+    );
 }
 
 $title_img = $picture['current']['name'];
@@ -410,7 +414,7 @@ if ($conf['show_exif'] or $conf['show_iptc'])
   $metadata_showable = true;
   if ( !isset($_GET['metadata']) )
   {
-    $url_metadata = add_url_param( $url_metadata, 'metadata' );
+    $url_metadata = add_url_params( $url_metadata, array('metadata'=>null) );
   }
 }
 else
@@ -526,7 +530,9 @@ if (is_admin() and isset($page['category']))
   $template->assign_block_vars(
     'representative',
     array(
-      'URL' => add_url_param($url_self, 'action=set_as_representative')
+      'URL' => add_url_params($url_self,
+                  array('action'=>'set_as_representative')
+               )
       )
     );
 }
@@ -537,7 +543,9 @@ if (is_admin())
   $template->assign_block_vars(
     'caddie',
     array(
-      'URL' => add_url_param($url_self, 'action=add_to_caddie')
+      'URL' => add_url_params($url_self,
+                  array('action'=>'add_to_caddie')
+               )
       )
     );
 }
@@ -563,7 +571,10 @@ SELECT COUNT(*) AS nb_fav
         'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/favorite.png',
         'FAVORITE_HINT' => $lang['add_favorites_hint'],
         'FAVORITE_ALT'  => $lang['add_favorites_alt'],
-        'U_FAVORITE'    => add_url_param($url_self, 'action=add_to_favorites'),
+        'U_FAVORITE'    => add_url_params(
+                              $url_self,
+                              array('action'=>'add_to_favorites')
+                           ),
         )
       );
   }
@@ -575,7 +586,10 @@ SELECT COUNT(*) AS nb_fav
         'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
         'FAVORITE_HINT' => $lang['del_favorites_hint'],
         'FAVORITE_ALT'  => $lang['del_favorites_alt'],
-        'U_FAVORITE'    => add_url_param($url_self, 'action=remove_from_favorites'),
+        'U_FAVORITE'    => add_url_params(
+                              $url_self,
+                              array('action'=>'remove_from_favorites')
+                           )
         )
       );
   }

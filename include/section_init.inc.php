@@ -83,7 +83,7 @@ $tokens = explode(
 //   );
 
 $next_token = 0;
-if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php')
+if (basename($_SERVER['SCRIPT_FILENAME']) == 'picture.php')
 { // the last token must be the identifier for the picture
   $token = array_pop($tokens);
   if ( is_numeric($token) )
@@ -93,13 +93,14 @@ if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php')
   else
   {
     preg_match('/^(\d+-)?((.*)[_\.]html?)?$/', $token, $matches);
-    if ( isset($matches[1]) and is_numeric($matches[1]) )
+    if (isset($matches[1]) and is_numeric($matches[1]=rtrim($matches[1],'-')) )
     {
       $page['image_id'] = $matches[1];
       if ( !empty($matches[3]) )
       {
         $page['image_file'] = $matches[3];
       }
+
     }
     else
     {
@@ -507,19 +508,26 @@ if (isset($page['chronology_field']))
   initialize_calendar();
 }
 
-if (basename($_SERVER['SCRIPT_NAME']) == 'picture.php'
+if (basename($_SERVER['SCRIPT_FILENAME']) == 'picture.php'
     and !isset($page['image_id']) )
 {
-  $query = '
+  if ( !empty($page['items']) )
+  {
+    $query = '
 SELECT id,file
   FROM '.IMAGES_TABLE .'
   WHERE id IN ('.implode(',',$page['items']).')
   AND file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"'
 ;
-  $result = pwg_query($query);
-  if (mysql_num_rows($result)>0)
+    $result = pwg_query($query);
+    if (mysql_num_rows($result)>0)
+    {
+      list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
+    }
+  }
+  if ( !isset($page['image_id']) )
   {
-    list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
+    $page['image_id'] = -1; // will fail in picture.php
   }
 }
 ?>
