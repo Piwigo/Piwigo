@@ -214,10 +214,13 @@ SPAN.calCalHead {
 SPAN.calCal { margin: 0 2px; }
 
 /* nice looking month calendar*/
-.calMonth { border: none; border-collapse: collapse; }
+TABLE.calMonth {
+  border: none;
+  border-collapse: collapse;
+  margin-bottom: 10px;	/*<-IE ignores this */
+}
 
-TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank
-{
+TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank {
   text-align:left;
   vertical-align: top;
   font: bold 18px Arial, Helvetica, sans-serif;
@@ -225,16 +228,14 @@ TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank
 
 TD.calDayHead { font: bold 12px Arial, Helvetica, sans-serif; }
 
-DIV.calImg
-{
+DIV.calImg {
   overflow: hidden;
   vertical-align: bottom;
   z-index: 1;
   position: relative; /*<- this required by IE*/
 }
 
-.calImg img
-{
+.calImg img {
   position: relative;
   border: 0;
 }
