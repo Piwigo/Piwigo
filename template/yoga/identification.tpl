@@ -32,7 +32,6 @@
   
       <li>
         <label for="password">{L_PASSWORD}</label>
-        <input class="login" type="password" name="password" id="password" size="25" maxlength="25">
         <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25">
       </li>
   
