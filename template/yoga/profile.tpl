@@ -105,7 +105,7 @@
       </li>
  
       <li>
-        <label for"maxwidth">{L_MAXWIDTH}</label>
+        <label for="maxwidth">{L_MAXWIDTH}</label>
         <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{MAXWIDTH}"
                onfocus="this.className='focus';" onblur="this.className='nofocus';">
       </li>

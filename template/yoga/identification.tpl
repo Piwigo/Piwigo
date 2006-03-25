@@ -27,18 +27,19 @@
     <ul>
       <li> 
         <label for="username">{L_USERNAME}</label>
-        <input class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}">
+        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}">
       </li>
   
       <li>
         <label for="password">{L_PASSWORD}</label>
         <input class="login" type="password" name="password" id="password" size="25" maxlength="25">
+        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25">
       </li>
   
       <!-- BEGIN remember_me -->
       <li>
-        <label>{L_REMEMBER_ME}</label>
-        <input type="checkbox" name="remember_me" value="1">
+        <label for="remember_me">{L_REMEMBER_ME}</label>
+        <input type="checkbox" name="remember_me" id=="remember_me" value="1">
       </li>
       <!-- END remember_me -->
     </ul>
