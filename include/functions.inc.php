@@ -747,7 +747,7 @@ function get_name_from_file($filename)
  * @param string key
  * @return string
  */
-function l10n($key)
+function raw_l10n($key)
 {
   global $lang, $conf;
 
@@ -757,6 +757,16 @@ function l10n($key)
   }
 
   return isset($lang[$key]) ? $lang[$key] : $key;
+}
+/**
+ * Like l10n but converts html entities
+ *
+ * @param string key
+ * @return string
+ */
+function l10n($key)
+{
+  return htmlentities(raw_l10n($key),ENT_QUOTES);
 }
 
 /**
