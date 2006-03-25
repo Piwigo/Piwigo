@@ -147,6 +147,7 @@ SELECT id, path, tn_ext
             'category' => $item['category'],
             )
           ),
+        'CLASS'       => 'thumbCat',
         )
       );
     

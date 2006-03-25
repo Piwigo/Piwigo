@@ -185,7 +185,7 @@
 <ul class="thumbnails">
   <!-- BEGIN line -->
   <!-- BEGIN thumbnail -->
-  <li>
+  <li class="{thumbnails.line.thumbnail.CLASS}">
     <span class="wrap1">
       <span class="wrap2">
         <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">

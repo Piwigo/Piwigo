@@ -97,7 +97,9 @@ foreach ($pictures as $row)
       'IMAGE_TITLE'        => $thumbnail_title,
       'IMAGE_TS'           => get_icon($row['date_available']),
 
-      'U_IMG_LINK'         => $url
+      'U_IMG_LINK'         => $url,
+
+      'CLASS'              => 'thumbElmt',
       )
     );
 
