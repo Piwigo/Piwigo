@@ -20,3 +20,7 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate','true','Ra
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<div id=\"theHeader\"><h1>PhpWebGallery demonstration site</h1><p>My photos web site</p></div>','html displayed on the top each page of your gallery');
 
+-- Notification by mail
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_complementary_mail_content','','Complementary mail content for notification by mail');

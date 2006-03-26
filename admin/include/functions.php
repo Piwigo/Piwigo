@@ -743,7 +743,7 @@ UPDATE '.$tablename.'
   {
     // creation of the temporary table
     $query = '
-DESCRIBE '.$tablename.'
+SHOW FULL COLUMNS FROM '.$tablename.'
 ;';
     $result = pwg_query($query);
     $columns = array();
@@ -761,6 +761,10 @@ DESCRIBE '.$tablename.'
         if (isset($row['Default']))
         {
           $column.= " default '".$row['Default']."'";
+        }
+        if (isset($row['Collation']))
+        {
+          $column.= " collate '".$row['Collation']."'";
         }
         array_push($columns, $column);
       }

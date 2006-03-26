@@ -29,7 +29,7 @@
 /**
  * - Extract mail fonctions of password.php
  * - Modify pwg_mail (add pararameters + news fonctionnalities)
- * - Var conf_mail, function init_conf_mail, function format_email
+ * - Var conf_mail, function get_mail_configuration, format_email, pwg_mail
  */
 
 // +-----------------------------------------------------------------------+
@@ -133,4 +133,5 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
     return mail($to, $subject, $content, $headers);
   }
 }
+
 ?>
