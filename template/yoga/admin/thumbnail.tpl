@@ -10,12 +10,12 @@
 <div class="admin">{L_RESULTS}</div>
 <table style="width:100%;">
   <tr class="throw">
-    <th>{L_PATH}</td>
-    <th>{L_THUMBNAIL}</td>
-    <th>{L_GENERATED}</th>
-    <th>{L_FILESIZE}</td>
-    <th>{L_WIDTH}</td>
-    <th>{L_HEIGHT}</td>
+    <td>{L_PATH}</td>
+    <td>{L_THUMBNAIL}</td>
+    <td>{L_GENERATED}</td>
+    <td>{L_FILESIZE}</td>
+    <td>{L_WIDTH}</td>
+    <td>{L_HEIGHT}</td>
   </tr>
   <!-- BEGIN picture -->
   <tr class="{results.picture.T_CLASS}">
@@ -31,7 +31,7 @@
 
 <table class="table2">
   <tr class="throw">
-    <th colspan="2">{L_TN_STATS}</td>
+    <td colspan="2">{L_TN_STATS}</td>
   </tr>
   <tr>
     <td>{L_TN_NB_STATS}</td>
@@ -102,11 +102,11 @@
 <div class="admin">{remainings.TOTAL_IMG} {L_REMAINING}</div>
 <table style="width:100%;">
   <tr class="throw">
-    <th>&nbsp;</td>
-    <th style="width:60%;">{L_PATH}</td>
-    <th>{L_FILESIZE}</td>
-    <th>{L_WIDTH}</td>
-    <th>{L_HEIGHT}</td>
+    <td>&nbsp;</td>
+    <td style="width:60%;">{L_PATH}</td>
+    <td>{L_FILESIZE}</td>
+    <td>{L_WIDTH}</td>
+    <td>{L_HEIGHT}</td>
   </tr>
   <!-- BEGIN remaining -->
   <tr class="{remainings.remaining.T_CLASS}">
