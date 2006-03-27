@@ -78,8 +78,8 @@ $navigation.= '</a>';
 // +-----------------------------------------------------------------------+
 // |                    virtual categories management                      |
 // +-----------------------------------------------------------------------+
-// request to delete a virtual category
-if (isset($_GET['delete']) and is_numeric($_GET['delete']))
+// request to delete a virtual category / not for an adviser
+if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
   array_push($page['infos'], $lang['cat_virtual_deleted']);

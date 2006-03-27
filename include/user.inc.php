@@ -78,6 +78,7 @@ if ($user['is_the_guest'])
   $user['recent_period'] = $conf['recent_period'];
   $user['expand'] = $conf['auto_expand'];
   $user['show_nb_comments'] = $conf['show_nb_comments'];
+  $user['enabled_high'] = $conf['newuser_default_enabled_high'];
 }
 
 // calculation of the number of picture to display per page

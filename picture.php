@@ -99,7 +99,7 @@ $url_self = duplicate_picture_URL();
  * Actions finish by a redirection
  */
 
-if (isset($_GET['action']))
+if (isset($_GET['action']) and !is_adviser())
 {
   switch ($_GET['action'])
   {
@@ -139,7 +139,7 @@ DELETE FROM '.FAVORITES_TABLE.'
     }
     case 'set_as_representative' :
     {
-      if (is_admin() and isset($page['category']) and !is_adviser())
+      if (is_admin() and isset($page['category']))
       {
         $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -159,10 +159,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'add_to_caddie' :
     {
-      if (!is_adviser())
-      {
-        fill_caddie(array($page['image_id']));
-      }
+      fill_caddie(array($page['image_id']));
       redirect($url_self);
       break;
     }
