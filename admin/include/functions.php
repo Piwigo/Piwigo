@@ -2092,4 +2092,57 @@ UPDATE
     'id'   => $inserted_id,
     );
 }
+
+/**
+ * Do maintenance on all PWG tables
+ *
+ * @return nono
+ */
+function do_maintenance_all_tables()
+{
+  global $prefixeTable;
+  
+  $all_tables = array();
+
+  // List all tables
+  $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\';';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($all_tables, $row[0]);
+  }
+
+  // Repair all tables
+  $query = 'REPAIR TABLE '.implode(', ', $all_tables).';';
+  pwg_query($query);
+
+  // Re-Order all tables
+  foreach ($all_tables as $table_name)
+  {
+    $all_primary_key = array();
+    
+    $query = 'DESC '.$table_name.';';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      if ($row['Key'] == 'PRI')
+      {
+        array_push($all_primary_key, $row['Field']);
+      }
+    }
+    
+    if (count($all_primary_key) != 0)
+    {
+      $query = 'ALTER TABLE '.$table_name.' ORDER BY '.implode(', ', $all_primary_key).';';
+      pwg_query($query);
+    }
+  }
+
+  // Optimize all tables
+  $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables).';';
+  pwg_query($query);
+
+}
+
+
 ?>

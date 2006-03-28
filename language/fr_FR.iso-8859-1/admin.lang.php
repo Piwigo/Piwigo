@@ -293,6 +293,7 @@ $lang['private'] = 'privée';
 $lang['public'] = 'publique';
 $lang['purge history'] = 'purger l\'historique';
 $lang['purge never used notification feeds'] = 'purger les flux de notification jamais utilisés';
+$lang['repair and optimize database'] = 'réparer et optimiser la base de données';
 $lang['purge sessions'] = 'purger les sessions';
 $lang['randomly represented'] = 'représentant au hasard';
 $lang['registration_date'] = 'date d\'enregistrement';
