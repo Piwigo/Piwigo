@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2005-12-03 17:03:58 -0500 (Sat, 03 Dec 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 967 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -86,7 +86,13 @@ $infos = array();
 if ($site_is_remote)
 {
   include_once(PHPWG_ROOT_PATH.'admin/site_reader_remote.php');
-  $site_reader = new RemoteSiteReader($site_url);
+  $local_listing = null;
+  if ( isset($_GET['local_listing'])
+      and $_GET['local_listing'] )
+  {
+    $local_listing = PHPWG_ROOT_PATH.'listing.xml';
+  }
+  $site_reader = new RemoteSiteReader($site_url, $local_listing);
 }
 else
 {
@@ -431,7 +437,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           'type' => 'PWG-UPDATE-1'
           )
         );
-      
+
       continue;
     }
 
@@ -453,12 +459,12 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
             : null,
           'path'           => $path,
           );
-        
+
         array_push(
           $inserts,
           $insert
           );
-        
+
         array_push(
           $insert_links,
           array(
@@ -724,7 +730,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
     }
   }
   $update_fields = $site_reader->get_update_attributes();
-  $update_fields = array_merge($update_fields, 'date_metadata_update');
+  $update_fields = array_merge($update_fields, array('date_metadata_update'));
   $fields =
       array(
         'primary' => array('id'),

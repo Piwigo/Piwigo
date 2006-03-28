@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2005-12-03 17:03:58 -0500 (Sat, 03 Dec 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 967 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -31,12 +31,13 @@ class RemoteSiteReader
 {
 
 var $site_url;
+var $listing_url;
 var $site_dirs;
 var $site_files;
 var $insert_attributes;
 var $update_attributes;
 
-function RemoteSiteReader($url)
+function RemoteSiteReader($url, $listing_url)
 {
   $this->site_url = $url;
   $this->insert_attributes = array(
@@ -45,6 +46,15 @@ function RemoteSiteReader($url)
   $this->update_attributes = array(
     'representative_ext', 'has_high', 'filesize', 'width', 'height'
     );
+
+  if (!isset($listing_url))
+  {
+    $this->listing_url = $this->site_url.'/listing.xml';
+  }
+  else
+  {
+    $this->listing_url = $listing_url;
+  }
 }
 
 /**
@@ -55,24 +65,23 @@ function RemoteSiteReader($url)
 function open()
 {
   global $errors;
-  
-  $listing_file = $this->site_url.'/listing.xml';
-  if (@fopen($listing_file, 'r'))
+
+  if (@fopen($this->listing_url, 'r'))
   {
     $this->site_dirs = array();
     $this->site_files = array();
-    $xml_content = getXmlCode($listing_file);
+    $xml_content = getXmlCode($this->listing_url);
     $info_xml_element = getChild($xml_content, 'informations');
     if (getAttribute($info_xml_element , 'phpwg_version') != PHPWG_VERSION)
     {
       array_push(
         $errors,
         array(
-          'path' => $listing_file,
+          'path' => $this->listing_url,
           'type' => 'PWG-ERROR-VERSION'
           )
         );
-      
+
       return false;
     }
 
@@ -80,9 +89,9 @@ function open()
       $this->update_attributes,
       explode(',', getAttribute($info_xml_element, 'metadata'))
       );
-    
+
     $this->build_structure($xml_content, '', 0);
-    
+
     return true;
   }
   else
@@ -90,7 +99,7 @@ function open()
     array_push(
       $errors,
       array(
-        'path' => $listing_file,
+        'path' => $this->listing_url,
         'type' => 'PWG-ERROR-NOLISTING'
         )
       );

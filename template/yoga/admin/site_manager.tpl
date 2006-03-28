@@ -1,4 +1,4 @@
-<!-- $Id: remote_site.tpl 980 2005-12-10 15:24:53Z chrisaga $ -->
+<!-- $Id$ -->
 <div class="titrePage">
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
@@ -15,6 +15,23 @@
   </ul>
 </div>
 <!-- END remote_output -->
+
+<!-- BEGIN local_listing -->
+{lang:remote_site_local_found} {local_listing.URL}
+<!-- BEGIN create -->
+<form action="" method="post">
+  <p>
+    {lang:remote_site_local_create}:
+    <input type="hidden" name="no_check" value="1"/>
+    <input type="hidden" name="galleries_url" value="{local_listing.URL}" />
+    <input type="submit" name="submit" value="{lang:submit}"/>
+  </p>
+</form>
+<!-- END create -->
+<!-- BEGIN update -->
+<a href="{local_listing.update.U_SYNCHRONIZE}" title="{lang:remote_site_local_update}">{lang:site_synchronize}</a>
+<!-- END update -->
+<!-- END local_listing -->
 
 <!-- BEGIN sites -->
 <table border="1" cellpadding="0" cellspacing="0">

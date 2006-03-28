@@ -27,7 +27,6 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
 // Check Access and exit when user status is not ok
@@ -165,6 +164,7 @@ UPDATE '.CATEGORIES_TABLE.'
     }
     case 'rate' :
     {
+      include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
       rate_picture($page['image_id'], $_GET['rate']);
       redirect($url_self);
     }
@@ -756,8 +756,10 @@ if (isset($_GET['slideshow']))
 
 include(PHPWG_ROOT_PATH.'include/picture_rate.inc.php');
 include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
-include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
-
+if ($metadata_showable and isset($_GET['metadata']))
+{
+  include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
+}
 //------------------------------------------------------------ log informations
 pwg_log( 'picture', $title_img, $picture['current']['file'] );
 

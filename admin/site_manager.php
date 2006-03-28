@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-01-31 21:46:26 -0500 (Tue, 31 Jan 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1020 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -111,21 +111,24 @@ SELECT COUNT(id) AS count
   {
     if ($is_remote)
     {
-      $clf_url = $url.'create_listing_file.php';
-      $clf_url.= '?action=test';
-      $clf_url.= '&version='.PHPWG_VERSION;
-      if ($lines = @file($clf_url))
+      if ( ! isset($_POST['no_check']) )
       {
-        $first_line = strip_tags($lines[0]);
-        if (!preg_match('/^PWG-INFO-2:/', $first_line))
+        $clf_url = $url.'create_listing_file.php';
+        $clf_url.= '?action=test';
+        $clf_url.= '&version='.PHPWG_VERSION;
+        if ($lines = @file($clf_url))
         {
-          array_push($page['errors'],
-                     l10n('site_err').' : '.$first_line);
+          $first_line = strip_tags($lines[0]);
+          if (!preg_match('/^PWG-INFO-2:/', $first_line))
+          {
+            array_push($page['errors'],
+                       l10n('site_err').' : '.$first_line);
+          }
         }
-      }
-      else
-      {
-        array_push($page['errors'], l10n('site_err_remote_file_not_found') );
+        else
+        {
+          array_push($page['errors'], l10n('site_err_remote_file_not_found') );
+        }
       }
     }
     else
@@ -210,11 +213,24 @@ $template->assign_vars( array(
 // |                           remote sites list                           |
 // +-----------------------------------------------------------------------+
 
+if ( is_file(PHPWG_ROOT_PATH.'listing.xml') )
+{
+  $xml_content = getXmlCode(PHPWG_ROOT_PATH.'listing.xml');
+  $local_listing_site_url = getAttribute(
+          getChild($xml_content, 'informations'),
+          'url'
+        );
+  if ( !url_is_remote($local_listing_site_url) )
+  {
+    $local_listing_site_url = null;
+  }
+}
+
 $query = '
 SELECT s.*, COUNT(c.id) AS nb_categories, SUM(c.nb_images) AS nb_images
-FROM '.SITES_TABLE.' AS s LEFT JOIN '.CATEGORIES_TABLE.' AS c
-ON s.id=c.site_id
-GROUP BY s.id'.
+  FROM '.SITES_TABLE.' AS s LEFT JOIN '.CATEGORIES_TABLE.' AS c
+  ON s.id=c.site_id
+  GROUP BY s.id'.
 ';';
 $result = pwg_query($query);
 
@@ -254,12 +270,43 @@ while ($row = mysql_fetch_array($result))
        );
    }
 
-   if ($row['id'] != 1)
-   {
-     $template->assign_block_vars( 'sites.site.delete',
-       array('U_DELETE' => $base_url.'delete') );
-   }
+  if ($row['id'] != 1)
+  {
+    $template->assign_block_vars( 'sites.site.delete',
+      array('U_DELETE' => $base_url.'delete') );
+  }
+
+  if ( isset($local_listing_site_url) and
+       $row['galleries_url']==$local_listing_site_url )
+  {
+    $local_listing_site_id = $row['id'];
+    $template->assign_block_vars( 'local_listing',
+        array(
+          'URL' =>  $local_listing_site_url,
+        )
+      );
+
+    $template->assign_block_vars( 'local_listing.update',
+          array(
+            'U_SYNCHRONIZE' => $update_url.'&amp;local_listing=1'
+            )
+        );
+  }
 }
+
+if ( isset($local_listing_site_url) and !isset($local_listing_site_id) )
+{
+  $template->assign_block_vars( 'local_listing',
+      array(
+        'URL' =>  $local_listing_site_url,
+      )
+    );
+
+  $template->assign_block_vars( 'local_listing.create',
+        array('NAME' => $local_listing_site_url)
+      );
+}
+
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'site_manager');
 ?>

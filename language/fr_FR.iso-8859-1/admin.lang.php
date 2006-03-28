@@ -301,6 +301,7 @@ $lang['remote_site_clean'] = 'nettoyer';
 $lang['remote_site_clean_hint'] = 'supprimer le fichier listing.xml distant';
 $lang['remote_site_generate'] = 'générer le listing';
 $lang['remote_site_generate_hint'] = 'générer le fichier listing.xml sur le site distant';
+$lang['remote_site_local_create'] = 'Créer ce site';
 $lang['remote_site_local_found'] = 'Un fichier listing.xml local a été trouvé pour ';
 $lang['remote_site_local_update'] = 'lire le listing.xml local et mettre à jour';
 $lang['remote_site_test'] = 'tester';
