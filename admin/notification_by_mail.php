@@ -230,14 +230,14 @@ order by
         include(get_language_filepath('admin.lang.php'));
       }
 
-      $message = '';
-      $news = news($row['last_send'], $dbnow);
-      if (count($news) > 0)
+      if ($is_action_send)
       {
-        array_push($return_list, $row);
-
-        if ($is_action_send)
+        $message = '';
+        $news = news($row['last_send'], $dbnow);
+        if (count($news) > 0)
         {
+          array_push($return_list, $row);
+
           $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_ContentObject');
           $message .= sprintf(l10n('nbm_ContentHello'), $row['username']).",\n\n";
 
@@ -279,6 +279,13 @@ order by
             $error_on_mail_count += 1;
             array_push($page['errors'], sprintf($msg_error, $row['username'], $row['mail_address']));
           }
+        }
+      }
+      else
+      {
+        if (news_exists($row['last_send'], $dbnow))
+        {
+          array_push($return_list, $row);
         }
       }
     }
