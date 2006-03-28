@@ -1,4 +1,4 @@
-  <?php
+<?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |

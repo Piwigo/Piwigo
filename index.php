@@ -108,7 +108,7 @@ $title = $page['title'];
 $page['body_id'] = 'theCategoryPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
-$template->set_filenames( array('category'=>'category.tpl') );
+$template->set_filenames( array('index'=>'index.tpl') );
 //-------------------------------------------------------------- category title
 if (isset($page['category']))
 {
@@ -482,6 +482,6 @@ if (isset($page['category']))
 //------------------------------------------------------------ log informations
 pwg_log('category', $page['title']);
 
-$template->parse('category');
+$template->parse('index');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

@@ -84,29 +84,40 @@ $tokens = explode(
 
 $next_token = 0;
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'picture.php')
-{ // the last token must be the identifier for the picture
-  $token = array_pop($tokens);
+{ // the first token must be the identifier for the picture
+  if ( isset($_GET['image_id'])
+       and isset($_GET['cat']) and is_numeric($_GET['cat']) )
+  {// url compatibility with versions below 1.6
+    $url = make_picture_url( array(
+        'section' => 'categories',
+        'category' => $_GET['cat'],
+        'image_id' => $_GET['image_id']
+      ) );
+    redirect($url);
+  }
+  $token = $tokens[$next_token];
+  $next_token++;
   if ( is_numeric($token) )
   {
     $page['image_id'] = $token;
   }
   else
   {
-    preg_match('/^(\d+-)?((.*)[_\.]html?)?$/', $token, $matches);
+    preg_match('/^(\d+-)?(.*)?$/', $token, $matches);
     if (isset($matches[1]) and is_numeric($matches[1]=rtrim($matches[1],'-')) )
     {
       $page['image_id'] = $matches[1];
-      if ( !empty($matches[3]) )
+      if ( !empty($matches[2]) )
       {
-        $page['image_file'] = $matches[3];
+        $page['image_file'] = $matches[2];
       }
 
     }
     else
     {
-      if ( !empty($matches[3]) )
+      if ( !empty($matches[2]) )
       {
-        $page['image_file'] = $matches[3];
+        $page['image_file'] = $matches[2];
       }
       else
       {
@@ -116,7 +127,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) == 'picture.php')
   }
 }
 
-if (0 === strpos($tokens[$next_token], 'cat'))
+if (0 === strpos($tokens[$next_token], 'categor'))
 {
   $page['section'] = 'categories';
   $next_token++;
@@ -211,11 +222,6 @@ else if ('list' == $tokens[$next_token])
   {
     array_push($page['list'], $image_id);
   }
-  $next_token++;
-}
-else
-{
-  $page['section'] = 'categories';
   $next_token++;
 }
 

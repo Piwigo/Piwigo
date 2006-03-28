@@ -178,7 +178,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   //echo ('<pre>'. var_export($calendar, true) . '</pre>');
 
   $must_show_list = true; // true until calendar generates its own display
-  if (basename($_SERVER['SCRIPT_FILENAME']) == 'category.php')
+  if (basename($_SERVER['SCRIPT_FILENAME']) != 'picture.php')
   {
     $template->assign_block_vars('calendar', array());
 
