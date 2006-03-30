@@ -73,6 +73,62 @@ function get_tab_status($mode)
   return $result;
 }
 
+function get_user_notifications($enabled_only=false, $valid_email_only=false)
+{
+  global $conf;
+  $query = '
+SELECT
+  N.user_id, N.check_key, N.last_send, N.enabled,
+  U.'.$conf['user_fields']['username'].' AS username, U.'.$conf['user_fields']['email'].' AS mail_address
+FROM
+  '.USER_MAIL_NOTIFICATION_TABLE.' as N,
+  '.USERS_TABLE.' as U
+WHERE
+  N.user_id = U.'.$conf['user_fields']['id'];
+  if ($enabled_only)
+  {
+    $query .= '
+AND N.enabled = \'true\'';
+  }
+
+  if ($valid_email_only)
+  {
+    $query .= '
+AND U.'.$conf['user_fields']['email'].' IS NOT NULL';
+  }
+  $query .= '
+ORDER BY username
+;';
+  $users = array();
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $row['enabled'] = ($row['enabled']=='true') ? true:false;
+    array_push($users, $row);
+  }
+  return $users;
+}
+
+function make_index_absolute_url($cat_id)
+{
+  global $page, $conf;
+  if ( isset($page['root_path']) )
+  {
+    $save_root_path = $page['root_path'];
+  }
+  $page['root_path'] = 'http://'.$_SERVER['HTTP_HOST'].cookie_path().'/';
+  $url = make_index_url( array('category'=>$cat_id) );
+  if (isset($save_root_path))
+  {
+    $page['root_path'] = $save_root_path;
+  }
+  else
+  {
+    unset($page['root_path']);
+  }
+  return $url;
+}
+
 /*
  * Inserting News users
  */
@@ -120,7 +176,7 @@ order by
       // Insert new rows
       array_push
       (
-        $inserts, 
+        $inserts,
         array
         (
           'user_id' => $row['user_id'],
@@ -147,186 +203,129 @@ order by
  * Send mail for notification to all users
  * Return list of "treated/selected" users
  */
-function do_action_send_mail_notification($action = 'prepare', $check_key_list = array(), $customize_mail_content = '')
+function do_action_send_mail_notification($check_key_list = array(), $customize_mail_content = '')
 {
   global $conf, $page, $user, $lang_info, $lang;
-  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-  $return_list = array();
-  $is_action_send = ($action == 'send');
 
-  $quoted_check_key_list = quote_check_key_list($check_key_list);
-  if (count($quoted_check_key_list) != 0 )
-  {
-    $query_and_check_key = ' and 
-  check_key in ('.implode(",", $quoted_check_key_list).') ';
-  }
-  else
-  {
-    $query_and_check_key = '';
-  }
+  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
   if (isset($customize_mail_content))
   {
     $customize_mail_content = $conf['nbm_complementary_mail_content'];
   }
 
-  // disabled and null mail_address are not selected in the list
-  $query = '
-select
-  N.user_id, N.check_key, U.username, U.mail_address, N.last_send
-from
-  '.USER_MAIL_NOTIFICATION_TABLE.' as N,
-  '.USERS_TABLE.' as U
-where
-  N.user_id =  U.id and
-  N.enabled = \'true\' and
-  U.mail_address is not null'.$query_and_check_key.'
-order by
-  username;';
+  $user_notifications = get_user_notifications(true,true);
 
-  $result = pwg_query($query);
+  $error_on_mail_count = 0;
+  $sent_mail_count = 0;
+  $datas = array();
+  // Save $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
+  $sav_mailtousers_user = $user;
+  $sav_mailtousers_lang_info = $lang_info;
+  $sav_mailtousers_lang = $lang;
+  // Save message info and error in the original language
+  $msg_info = l10n('nbm_Mail sent to %s [%s].');
+  $msg_error = l10n('nbm_Error when sending email to %s [%s].');
+  // Last Language
+  $last_mailtousers_language = $user['language'];
 
-  if (mysql_num_rows($result) > 0)
+  // Init mail configuration
+  $send_as_name = ((isset($conf['nbm_send_mail_as']) and !empty($conf['nbm_send_mail_as'])) ? $conf['nbm_send_mail_as'] : $conf['gallery_title']);
+  $send_as_mail_address = get_webmaster_mail_address();
+  $send_as_mail_formated = format_email($send_as_name, $send_as_mail_address);
+
+  foreach ($user_notifications as $user_notification)
   {
-    $error_on_mail_count = 0;
-    $sent_mail_count = 0;
-    $datas = array();
-    // Save $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
-    $sav_mailtousers_user = $user;
-    $sav_mailtousers_lang_info = $lang_info;
-    $sav_mailtousers_lang = $lang;
-    // Save message info and error in the original language
-    $msg_info = l10n('nbm_Mail sent to %s [%s].');
-    $msg_error = l10n('nbm_Error when sending email to %s [%s].');
-    // Last Language
-    $last_mailtousers_language = $user['language'];
+    if (!in_array($user_notification['check_key'], $check_key_list))
+      continue;
+    if (!$user_notification['enabled'])
+      continue;
+    $user = array();
+    $user['id'] = $user_notification['user_id'];
+    $user = array_merge($user, getuserdata($user['id'], true));
 
-    if ($is_action_send)
+    if ($last_mailtousers_language != $user['language'])
     {
-      // Init mail configuration
-      $send_as_name = ((isset($conf['nbm_send_mail_as']) and !empty($conf['nbm_send_mail_as'])) ? $conf['nbm_send_mail_as'] : $conf['gallery_title']);
-      $send_as_mail_address = get_webmaster_mail_address();
-      $send_as_mail_formated = format_email($send_as_name, $send_as_mail_address);
+      $last_mailtousers_language = $user['language'];
+
+      // Re-Init language arrays
+      $lang_info = array();
+      $lang  = array();
+
+      // language files
+      include(get_language_filepath('common.lang.php'));
+      // No test admin because script is checked admin (user selected no)
+      // Translations are in admin file too
+      include(get_language_filepath('admin.lang.php'));
     }
 
-    while ($row = mysql_fetch_array($result))
+    $message = '';
+    $news = news($user_notification['last_send'], $dbnow);
+    if (count($news) > 0)
     {
-      $user = array();
-      $user['id'] = $row['user_id'];
-      $user = array_merge($user, getuserdata($user['id'], true));
+      $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_ContentObject');
+      $message .= sprintf(l10n('nbm_ContentHello'), $user_notification['username']).",\n\n";
 
-      if ($last_mailtousers_language != $user['language'])
+      if (!is_null($user_notification['last_send']))
+        $message .= sprintf(l10n('nbm_ContentNewElementsBetween'), $user_notification['last_send'], $dbnow);
+      else
+        $message .= sprintf(l10n('nbm_ContentNewElements'), $dbnow);
+
+      if ($conf['nbm_send_detailed_content'])
       {
-        $last_mailtousers_language = $user['language'];
-
-        // Re-Init language arrays
-        $lang_info = array();
-        $lang  = array();
-
-        // language files
-        include(get_language_filepath('common.lang.php'));
-        // No test admin because script is checked admin (user selected no)
-        // Translations are in admin file too
-        include(get_language_filepath('admin.lang.php'));
-      }
-
-      if ($is_action_send)
-      {
-        $message = '';
-        $news = news($row['last_send'], $dbnow);
-        if (count($news) > 0)
+        $message .= ":\n";
+        foreach ($news as $line)
         {
-          array_push($return_list, $row);
-
-          $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_ContentObject');
-          $message .= sprintf(l10n('nbm_ContentHello'), $row['username']).",\n\n";
-
-          if (!is_null($row['last_send']))
-            $message .= sprintf(l10n('nbm_ContentNewElementsBetween'), $row['last_send'], $dbnow);
-          else
-            $message .= sprintf(l10n('nbm_ContentNewElements'), $dbnow);
-
-          if ($conf['nbm_send_detailed_content'])
-          {
-            $message .= ":\n";
-
-            foreach ($news as $line)
-            {
-              $message .= '  o '.$line."\n";
-            }
-            $message .= "\n";
-          }
-          else
-          {
-            $message .= ".\n";
-          }
-
-          $message .= sprintf(l10n('nbm_ContentGoTo'), $conf['gallery_title'], $conf['gallery_url'])."\n\n";
-          $message .= $customize_mail_content."\n\n";
-          $message .= l10n('nbm_ContentByeBye')."\n   ".$send_as_name."\n\n";
-          $message .= "\n".sprintf(l10n('nbm_ContentUnsubscribe'), $send_as_mail_address)."\n\n";
-
-          if (pwg_mail(format_email($row['username'], $row['mail_address']), $send_as_mail_formated, $subject, $message))
-          {
-            $sent_mail_count += 1;
-            array_push($page['infos'], sprintf($msg_info, $row['username'], $row['mail_address']));
-            $data = array('user_id' => $row['user_id'],
-                          'last_send' => $dbnow);
-            array_push($datas, $data);
-          }
-          else
-          {
-            $error_on_mail_count += 1;
-            array_push($page['errors'], sprintf($msg_error, $row['username'], $row['mail_address']));
-          }
+          $message .= '  o '.$line."\n";
         }
+      }
+      $message .= ".\n";
+
+      $message .= sprintf(l10n('nbm_ContentGoTo'), $conf['gallery_title'], $conf['gallery_url'])."\n\n";
+      $message .= $customize_mail_content."\n\n";
+      $message .= l10n('nbm_ContentByeBye')."\n   ".$send_as_name."\n\n";
+      $message .= "\n".sprintf(l10n('nbm_ContentUnsubscribe'), $send_as_mail_address)."\n\n";
+      if (pwg_mail(format_email($user_notification['username'], $user_notification['mail_address']), $send_as_mail_formated, $subject, $message))
+      {
+        $sent_mail_count++;
+        array_push($page['infos'], sprintf($msg_info, $user_notification['username'], $user_notification['mail_address']));
+        $data = array('user_id' => $user_notification['user_id'],
+                      'last_send' => $dbnow);
+        array_push($datas, $data);
       }
       else
       {
-        if (news_exists($row['last_send'], $dbnow))
-        {
-          array_push($return_list, $row);
-        }
+        $error_on_mail_count++;
+        array_push($page['errors'], sprintf($msg_error, $user_notification['username'], $user_notification['mail_address']));
       }
     }
+  }
 
-    // Restore $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
-    $user = $sav_mailtousers_user;
-    $lang_info = $sav_mailtousers_lang_info;
-    $lang = $sav_mailtousers_lang;
+  // Restore $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
+  $user = $sav_mailtousers_user;
+  $lang_info = $sav_mailtousers_lang_info;
+  $lang = $sav_mailtousers_lang;
 
-    if ($is_action_send)
-    {
-      mass_updates(
-        USER_MAIL_NOTIFICATION_TABLE,
-        array(
-          'primary' => array('user_id'),
-          'update' => array('last_send')
-         ),
-         $datas
-         );
+  mass_updates(
+    USER_MAIL_NOTIFICATION_TABLE,
+    array(
+      'primary' => array('user_id'),
+      'update' => array('last_send')
+     ),
+     $datas
+     );
 
-      if ($error_on_mail_count != 0)
-      {
-        array_push($page['errors'], sprintf(l10n('nbm_%d mails were not sent.'), $error_on_mail_count));
-      }
-      else
-      {
-        if ($sent_mail_count == 0)
-          array_push($page['infos'], l10n('nbm_No mail to send.'));
-        else
-          array_push($page['infos'], sprintf(l10n('nbm_%d mails were sent.'), $sent_mail_count));
-      }
-    }
+  if ($error_on_mail_count != 0)
+  {
+    array_push($page['errors'], sprintf(l10n('nbm_%d mails were not sent.'), $error_on_mail_count));
   }
   else
   {
-    if ($is_action_send)
-    {
-      array_push($page['errors'], l10n('nbm_No user to send notifications by mail.'));
-    }
+    if ($sent_mail_count == 0)
+      array_push($page['infos'], l10n('nbm_No mail to send.'));
+    else
+      array_push($page['infos'], sprintf(l10n('nbm_%d mails were sent.'), $sent_mail_count));
   }
-  return $return_list;
 }
 
 // +-----------------------------------------------------------------------+
@@ -376,7 +375,7 @@ switch ($page['mode'])
           $query = '
 update
   '.CONFIG_TABLE.'
-set 
+set
   value = \''. str_replace("\'", "''", $value).'\'
 where
   param = \''.$row['param'].'\';';
@@ -401,7 +400,7 @@ where
         $conf[$row['param']] = get_boolean($conf[$row['param']]);
       }
     }
-    
+
     if ($updated_param_count != 0)
     {
       array_push($page['infos'], sprintf(l10n('nbm_updated_param_count'), $updated_param_count));
@@ -425,7 +424,7 @@ where
   {
     if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
     {
-      do_action_send_mail_notification('send', $_POST['send_selection'], $_POST['send_customize_mail_content']);
+      do_action_send_mail_notification($_POST['send_selection'], $_POST['send_customize_mail_content']);
     }
   }
 }
@@ -497,31 +496,17 @@ switch ($page['mode'])
         )
       );
 
-    $query = '
-select
-  N.check_key, N.enabled, U.username, U.mail_address
-from
-  '.USER_MAIL_NOTIFICATION_TABLE.' as N,
-  '.USERS_TABLE.' as U
-where
-  N.user_id =  U.id
-order by
-  username;';
+    $user_notifications = get_user_notifications();
 
-    $result = pwg_query($query);
-    if (!empty($result))
+    foreach( $user_notifications as $user_notification)
     {
-      while ($row = mysql_fetch_array($result))
-      {
-        $template->assign_block_vars(
-          (get_boolean($row['enabled']) ? 'category_option_true' : 'category_option_false'),
-          array('SELECTED' => '',
-                'VALUE' => $row['check_key'],
-                'OPTION' => $row['username'].'['.$row['mail_address'].']'
-            ));
-      }
+      $template->assign_block_vars(
+        $user_notification['enabled'] ? 'category_option_true' : 'category_option_false',
+        array('SELECTED' => '',
+              'VALUE' => $user_notification['check_key'],
+              'OPTION' => $user_notification['username'].'['.$user_notification['mail_address'].']'
+          ));
     }
-
     break;
   }
 
@@ -529,7 +514,7 @@ order by
   {
     $template->assign_block_vars($page['mode'], array());
 
-    $data_rows = do_action_send_mail_notification('prepare');
+    $data_rows = get_user_notifications(true,true);
 
     if  (count($data_rows) == 0)
     {
@@ -540,22 +525,30 @@ order by
       $template->assign_block_vars(
         $page['mode'].'.send_data',
         array(
-  //        'URL_CHECK_ALL' => add_url_params($base_url.get_query_string_diff(array('select')), array('select' => 'all')),
-  //        'URL_UNCHECK_ALL' => add_url_params($base_url.get_query_string_diff(array('select')), array('select' => 'none')),
           'CUSTOMIZE_MAIL_CONTENT' => isset($_POST['send_customize_mail_content']) ? $_POST['send_customize_mail_content'] : $conf['nbm_complementary_mail_content']
           ));
-
       foreach ($data_rows as $num => $local_user)
-          $template->assign_block_vars(
+      {
+        $checked = 'checked="checked"';
+        if ( isset($_POST['send_submit']) and
+             ( !isset($_POST['send_selection']) or
+               !in_array($local_user['check_key'], $_POST['send_selection'])
+             )
+           )
+        {
+          $checked='';
+        }
+        $template->assign_block_vars(
             $page['mode'].'.send_data.user_send_mail',
             array(
               'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
               'ID' => $local_user['check_key'],
-              'CHECKED' => isset($_POST['send_uncheck_all']) ? '' : 'checked="checked"',
+              'CHECKED' => $checked,
               'USERNAME'=> $local_user['username'],
               'EMAIL' => $local_user['mail_address'],
               'LAST_SEND'=> $local_user['last_send']
               ));
+      }
     }
 
     break;

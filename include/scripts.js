@@ -12,6 +12,20 @@ for( i = 0; i < len; i++)
 }
 }
 
+function DeselectAll( formulaire )
+{
+len = formulaire.elements.length;
+var i=0;
+for( i = 0; i < len; i++)
+{
+  if ( formulaire.elements[i].type=='checkbox'
+	   && formulaire.elements[i].name != 'copie')
+  {
+	formulaire.elements[i].checked = false;
+  }
+}
+}
+
 function Inverser( formulaire )
 {
 len = formulaire.elements.length;
@@ -26,7 +40,7 @@ for( i=0; i<len; i++)
 }
 }
 
-function phpWGOpenWindow(theURL,winName,features) 
+function phpWGOpenWindow(theURL,winName,features)
 {
   window.open(theURL,winName,features);
 }

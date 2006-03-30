@@ -7,15 +7,15 @@
   <!-- BEGIN header_link -->
   <h3>
     <p style="text-align:center;">
-      <a href="{header_link.PARAM_MODE}">{lang:nbm_param_mode}</a> | 
-      <a href="{header_link.SUBSCRIBE_MODE}">{lang:nbm_subscribe_mode}</a> | 
+      <a href="{header_link.PARAM_MODE}">{lang:nbm_param_mode}</a> |
+      <a href="{header_link.SUBSCRIBE_MODE}">{lang:nbm_subscribe_mode}</a> |
       <a href="{header_link.SEND_MODE}">{lang:nbm_send_mode}</a>
     </p>
   </h3>
   <!-- END header_link -->
 </div>
 
-<form method="post" name="notification_by_mail" action="{F_ACTION}">
+<form method="post" name="notification_by_mail" id="notification_by_mail" action="{F_ACTION}">
 
   <!-- BEGIN param -->
   <fieldset>
@@ -83,16 +83,10 @@
         </tr>
         <!-- END user_send_mail -->
       </table>
-  <!--
       <p>
-          <a href="{send.send_data.URL_CHECK_ALL}">{lang:nbm_send_check_all}</a>
-        / <a href="{send.send_data.URL_UNCHECK_ALL}">{lang:nbm_send_uncheck_all}</a>
-      </p>
-  -->
-      <p>
-        <input type="submit" value="{lang:nbm_send_check_all}" name="send_check_all"/>
+        <input type="button" value="{lang:nbm_send_check_all}" onclick="SelectAll(document.getElementById('notification_by_mail'))"/>
         /
-        <input type="submit" value="{lang:nbm_send_uncheck_all}" name="send_uncheck_all"/>
+        <input type="button" value="{lang:nbm_send_uncheck_all}" onclick="DeselectAll(document.getElementById('notification_by_mail'))"/>
       </p>
     </fieldset>
 
