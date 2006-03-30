@@ -7,8 +7,8 @@
   <!-- BEGIN header_link -->
   <h3>
     <p style="text-align:center;">
-      <a href="{header_link.PARAM_MODE}">{lang:nbm_param_mode}</a> |
-      <a href="{header_link.SUBSCRIBE_MODE}">{lang:nbm_subscribe_mode}</a> |
+      <a href="{header_link.PARAM_MODE}">{lang:nbm_param_mode}</a> | 
+      <a href="{header_link.SUBSCRIBE_MODE}">{lang:nbm_subscribe_mode}</a> | 
       <a href="{header_link.SEND_MODE}">{lang:nbm_send_mode}</a>
     </p>
   </h3>
@@ -61,7 +61,7 @@
     <!-- BEGIN send_empty -->
     <center>
       {lang:nbm_no_user_available_to_send_L1}<br>
-      {lang:nbm_no_user_available_to_send_L2}
+      {lang:nbm_no_user_available_to_send_L2}<br>
     </center>
     <!-- END send_empty -->
     <!-- BEGIN send_data -->
@@ -84,9 +84,8 @@
         <!-- END user_send_mail -->
       </table>
       <p>
-        <input type="button" value="{lang:nbm_send_check_all}" onclick="SelectAll(document.getElementById('notification_by_mail'))"/>
-        /
-        <input type="button" value="{lang:nbm_send_uncheck_all}" onclick="DeselectAll(document.getElementById('notification_by_mail'))"/>
+          <a href="" onclick="SelectAll(document.getElementById('notification_by_mail')); return false;">{lang:nbm_send_check_all}</a>
+        / <a href="" onclick="DeselectAll(document.getElementById('notification_by_mail')); return false;">{lang:nbm_send_uncheck_all}</a>
       </p>
     </fieldset>
 
