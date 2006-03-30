@@ -5,10 +5,10 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2005-09-27 23:57:14 +0200 (mar, 27 sep 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 879 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -43,6 +43,7 @@ function inc_exc_str($is_included)
 
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+include_once( PHPWG_ROOT_PATH.'include/functions_search.inc.php' );
 
 $page['body_id'] = 'thePopuphelpPage';
 $title = l10n('PhpWebGallery Help');

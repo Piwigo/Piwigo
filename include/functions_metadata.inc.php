@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -35,13 +35,13 @@
 function get_iptc_data($filename, $map)
 {
   $result = array();
-  
+
   // Read IPTC data
   $iptc = array();
-  
+
   $imginfo = array();
   getimagesize($filename, $imginfo);
-  
+
   if (isset($imginfo['APP13']))
   {
     $iptc = iptcparse($imginfo['APP13']);
@@ -82,13 +82,13 @@ function get_iptc_data($filename, $map)
 function clean_iptc_value($value)
 {
   // strip leading zeros (weird Kodak Scanner software)
-  while ($value[0] == chr(0))
+  while ( isset($value[0]) and $value[0] == chr(0))
   {
     $value = substr($value, 1);
   }
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
-  
+
   return $value;
 }
 
@@ -107,7 +107,7 @@ function get_exif_data($filename, $map)
   {
     die('Exif extension not available, admin should disable exif use');
   }
-  
+
   // Read EXIF data
   if ($exif = @read_exif_data($filename))
   {

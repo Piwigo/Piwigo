@@ -54,7 +54,7 @@ if (isset($_GET['image_order']))
   setcookie(
     'pwg_image_order',
     $_GET['image_order'] > 0 ? $_GET['image_order'] : '',
-    0
+    0, cookie_path()
     );
 
   redirect(

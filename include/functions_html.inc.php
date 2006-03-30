@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -492,5 +492,31 @@ function get_cat_display_name_from_id($cat_id,
 {
   $cat_info = get_cat_info($cat_id);
   return get_cat_display_name($cat_info['name'], $url, $replace_space);
+}
+
+/**
+ * exits the current script (either exit or redirect)
+ */
+function access_denied()
+{
+  global $user, $lang;
+
+  $login_url =
+      get_root_url().'identification.php?redirect='
+      .urlencode(urlencode($_SERVER['REQUEST_URI']));
+
+  if ( isset($user['is_the_guest']) and !$user['is_the_guest'] )
+  {
+    echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
+    echo '<a href="'.get_root_url().'identification.php">'.$lang['identification'].'</a>&nbsp;';
+    echo '<a href="'.make_index_url().'">'.$lang['home'].'</a></div>';
+    exit();
+  }
+  else
+  {
+    header('HTTP/1.1 401 Authorization required');
+    header('Status: 401 Authorization required');
+    redirect($login_url);
+  }
 }
 ?>

@@ -5,10 +5,9 @@
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
-// | revision      : $Revision$
 // | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -608,13 +607,9 @@ function is_autorize_status($access_type, $user_status = '')
 */
 function check_status($access_type, $user_status = '')
 {
-  global $lang;
-
   if (!is_autorize_status($access_type, $user_status))
   {
-    echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-    echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">'.$lang['identification'].'</a></div>';
-    exit();
+    access_denied();
   }
 }
 

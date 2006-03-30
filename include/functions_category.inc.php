@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -42,22 +42,11 @@
  */
 function check_restrictions($category_id)
 {
-  global $user, $lang;
+  global $user;
 
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
-    $login_url =
-      get_root_url().'identification.php?redirect='
-      .urlencode(urlencode($_SERVER['REQUEST_URI']));
-
-    if (!$user['is_the_guest'])
-    {
-      die('Fatal: you are trying to reach a forbidden category');
-    }
-    else
-    {
-      redirect($login_url);
-    }
+    access_denied();
   }
 }
 

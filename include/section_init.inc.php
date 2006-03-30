@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -342,6 +342,7 @@ else
 // +-----------------------------------------------------------------------+
   if ($page['section'] == 'search')
   {
+    include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
