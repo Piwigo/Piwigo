@@ -234,6 +234,7 @@ include(
 
 if (is_adviser())
 {
+  ob_start();// buffer output so that cookies work
   echo '
   <div class="titrePage">
     <h2>

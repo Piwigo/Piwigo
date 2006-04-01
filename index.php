@@ -44,7 +44,7 @@ if ( isset( $_GET['act'] )
   $_SESSION = array();
   session_unset();
   session_destroy();
-  setcookie(session_name(),'',0, cookie_path() );
+  setcookie(session_name(),'',0, ini_get('session.cookie_path') );
   redirect( make_index_url() );
 }
 

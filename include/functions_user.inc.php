@@ -300,23 +300,6 @@ SELECT id
     array_push($private_array, $row['id']);
   }
 
-  // if user is not an admin, locked categories can be considered as private$
-  if (!is_admin($user_status))
-  {
-    $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE visible = \'false\'
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($private_array, $row['id']);
-    }
-
-    $private_array = array_unique($private_array);
-  }
-
   // retrieve category ids directly authorized to the user
   $query = '
 SELECT cat_id
@@ -345,10 +328,28 @@ SELECT cat_id
   // only unauthorized private categories are forbidden
   $forbidden_array = array_diff($private_array, $authorized_array);
 
-  // at least, the list contains -1 values. This category does not exists so
-  // where clauses such as "WHERE category_id NOT IN(-1)" will always be
-  // true.
-  array_push($forbidden_array, '-1');
+  // if user is not an admin, locked categories are forbidden
+  if (!is_admin($user_status))
+  {
+    $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE visible = \'false\'
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push($forbidden_array, $row['id']);
+    }
+    $forbidden_array = array_unique($forbidden_array);
+  }
+
+  if ( empty($forbidden_array) )
+  {// at least, the list contains -1 values. This category does not exists so
+   // where clauses such as "WHERE category_id NOT IN(-1)" will always be
+   // true.
+    array_push($forbidden_array, '-1');
+  }
 
   return implode(',', $forbidden_array);
 }
