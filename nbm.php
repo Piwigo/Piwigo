@@ -55,34 +55,46 @@ if (isset($_GET['unsubscribe'])
 }
 else
 {
-  echo l10n('nbm_unknown_identifier');
-  exit();
+/*  echo l10n('nbm_unknown_identifier');
+  exit();*/
+  array_push($page['errors'], l10n('nbm_unknown_identifier'));
 }
 
 // +-----------------------------------------------------------------------+
-// |                        infos & errors display                         |
+// | template initialization                                               |
 // +-----------------------------------------------------------------------+
-echo '<pre>';
+$title = $lang['nbm_item_notification'];
+$page['body_id'] = 'theNBMPage';
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 
+$template->set_filenames(array('nbm'=>'nbm.tpl'));
+
+$template->assign_vars(array('U_HOME' => make_index_url()));
+
+// +-----------------------------------------------------------------------+
+// | errors & infos                                                        |
+// +-----------------------------------------------------------------------+
 if (count($page['errors']) != 0)
 {
-  echo "\n\nErrors:\n";
+  $template->assign_block_vars('errors',array());
   foreach ($page['errors'] as $error)
   {
-    echo $error."\n";
+    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
   }
 }
 
 if (count($page['infos']) != 0)
 {
-  echo "\n\nInformations:\n";
+  $template->assign_block_vars('infos',array());
   foreach ($page['infos'] as $info)
   {
-    echo $info."\n";
+    $template->assign_block_vars('infos.info',array('INFO'=>$info));
   }
 }
 
-echo '</pre>';
-
-
+// +-----------------------------------------------------------------------+
+// | html code display                                                     |
+// +-----------------------------------------------------------------------+
+$template->parse('nbm');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
