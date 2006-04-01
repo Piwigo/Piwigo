@@ -105,6 +105,7 @@ $lang['Sort by'] = 'Sort by';
 $lang['Sort order'] = 'Sort order';
 $lang['The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'] = 'The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.';
 $lang['Unknown feed identifier'] = 'Unknown feed identifier';
+$lang['nbm_unknown_identifier'] = 'Unknown identifier';
 $lang['User comments'] = 'User comments';
 $lang['Username'] = 'Username';
 $lang['Visits'] = 'Visits';

@@ -104,6 +104,7 @@ $lang['Sort by'] = 'Trier selon';
 $lang['Sort order'] = 'Ordre de tri';
 $lang['The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'] = 'Le flux RSS notifie les événements de la galerie : nouvelles images, catégories mises à jour, nouveaux commentaires utilisateur. À utiliser avec un lecteur de flux RSS.';
 $lang['Unknown feed identifier'] = 'Identifiant de flux inconnu';
+$lang['nbm_unknown_identifier'] = 'Identifiants inconnus';
 $lang['User comments'] = 'Commentaires utilisateur';
 $lang['Username'] = 'Nom d\'utilisateur';
 $lang['Visits'] = 'Visites';

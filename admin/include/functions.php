@@ -762,7 +762,7 @@ SHOW FULL COLUMNS FROM '.$tablename.'
         {
           $column.= " default '".$row['Default']."'";
         }
-        if (isset($row['Collation']))
+        if (isset($row['Collation']) and $row['Collation'] != 'NULL')
         {
           $column.= " collate '".$row['Collation']."'";
         }

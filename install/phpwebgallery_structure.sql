@@ -317,7 +317,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
 DROP TABLE IF EXISTS `phpwebgallery_user_mail_notification`;
 CREATE TABLE `phpwebgallery_user_mail_notification` (
   `user_id` smallint(5) NOT NULL default '0',
-  `check_key` varchar(128) binary NOT NULL default '',
+  `check_key` varchar(16) binary NOT NULL default '',
   `enabled` enum('true','false') NOT NULL default 'false',
   `last_send` datetime default NULL,
   PRIMARY KEY  (`user_id`),
