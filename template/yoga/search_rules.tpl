@@ -9,6 +9,18 @@
   <li>{words.CONTENT}</li>
   <!-- END words -->
 
+  <!-- BEGIN tags -->
+  <li>
+    <p>{tags.LIST_INTRO}</p>
+
+    <ul>
+      <!-- BEGIN tag -->
+      <li>{tags.tag.NAME}</li>
+      <!-- END tag -->
+    </ul>
+  </li>
+  <!-- END tags -->
+  
   <!-- BEGIN author -->
   <li>{author.CONTENT}</li>
   <!-- END author -->

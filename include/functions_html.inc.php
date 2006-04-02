@@ -5,7 +5,6 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -492,6 +491,56 @@ function get_cat_display_name_from_id($cat_id,
 {
   $cat_info = get_cat_info($cat_id);
   return get_cat_display_name($cat_info['name'], $url, $replace_space);
+}
+
+/**
+ * Returns an HTML list of tags. It can be a multi select field or a list of
+ * checkboxes.
+ *
+ * @param string HTML field name
+ * @param array selected tag ids
+ * @return array
+ */
+function get_html_tag_selection(
+  $tags,
+  $fieldname,
+  $selecteds = array(),
+  $forbidden_categories = null
+  )
+{
+  global $conf;
+  
+  $output = '<ul class="tagSelection">';
+  foreach ($tags as $tag)
+  {
+    $output.=
+      '<li>'
+      .'<label>'
+      .'<input type="checkbox" name="'.$fieldname.'[]"'
+      .' value="'.$tag['tag_id'].'"'
+      ;
+
+    if (in_array($tag['tag_id'], $selecteds))
+    {
+      $output.= ' checked="checked"';
+    }
+    
+    $output.=
+      ' />'
+      .' '.$tag['name']
+      .'</label>'
+      .'</li>'
+      ."\n"
+      ;
+  }
+  $output.= '</ul>';
+
+  return $output;
+}
+
+function name_compare($a, $b)
+{
+  return strcmp($a['name'], $b['name']);
 }
 
 /**

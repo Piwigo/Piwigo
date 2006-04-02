@@ -65,6 +65,14 @@ if (isset($_POST['submit']))
       );
   }
 
+  if (isset($_POST['tags']))
+  {
+    $search['fields']['tags'] = array(
+      'words' => $_POST['tags'],
+      'mode'  => $_POST['tag_mode'],
+      );
+  }
+  
   if ($_POST['search_author'])
   {
     $search['fields']['author'] = array(
@@ -200,6 +208,16 @@ $template->assign_vars(array(
   'S_SEARCH_ACTION' => 'search.php',
   'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=search',
   'U_HOME' => make_index_url(),
+
+  'TAG_SELECTION' => get_html_tag_selection(
+    get_available_tags(
+      isset($user['forbidden_categories'])
+      ? explode(',', $user['forbidden_categories'])
+      : null
+      ),
+    'tags',
+    isset($_POST['tags']) ? $_POST['tags'] : array()
+    ),
   )
 );
 

@@ -69,8 +69,8 @@
     </tr>
 
     <tr>
-      <td><strong>{lang:Keywords}</strong></td>
-      <td><input type="text" name="keywords-{element.ID}" value="{element.KEYWORDS}" size="50" /></td>
+      <td><strong>{lang:Tags}</strong></td>
+      <td>{element.TAG_SELECTION}</td>
     </tr>
 
     <tr>

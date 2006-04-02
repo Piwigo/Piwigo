@@ -50,10 +50,7 @@ function get_sync_iptc_data($file)
 
   if (isset($iptc['keywords']))
   {
-    // keywords separator is the comma, nothing else. Allowed characters in
-    // keywords : [A-Za-z0-9], "-" and "_". All other characters will be
-    // considered as separators
-    $iptc['keywords'] = preg_replace('/[^\w-]+/', ',', $iptc['keywords']);
+    // keywords separator is the comma
     $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
   }
 
@@ -90,6 +87,7 @@ function update_metadata($files)
   }
 
   $datas = array();
+  $tags_of = array();
 
   foreach ($files as $id => $file)
   {
@@ -123,7 +121,25 @@ function update_metadata($files)
       {
         foreach (array_keys($iptc) as $key)
         {
-          $data[$key] = addslashes($iptc[$key]);
+          if ($key == 'keywords' or $key == 'tags')
+          {
+            if (!isset($tags_of[$id]))
+            {
+              $tags_of[$id] = array();
+            }
+            
+            foreach (explode(',', $iptc[$key]) as $tag_name)
+            {
+              array_push(
+                $tags_of[$id],
+                tag_id_from_tag_name($tag_name)
+                );
+            }
+          }
+          else
+          {
+            $data[$key] = addslashes($iptc[$key]);
+          }
         }
       }
     }
@@ -157,7 +173,10 @@ function update_metadata($files)
       $update_fields =
         array_merge(
           $update_fields,
-          array_keys($conf['use_iptc_mapping'])
+          array_diff(
+            array_keys($conf['use_iptc_mapping']),
+            array('tags', 'keywords')
+            )
           );
     }
 
@@ -166,8 +185,11 @@ function update_metadata($files)
         'primary' => array('id'),
         'update'  => array_unique($update_fields)
         );
+    echo '<pre>'; print_r($datas); echo '</pre>';
     mass_updates(IMAGES_TABLE, $fields, $datas);
   }
+
+  set_tags_of(tags_of);
 }
 
 /**

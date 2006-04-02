@@ -95,3 +95,12 @@ FORM#quickconnect LABEL {
   margin: 0 0.5em 0 0.5em;
 }
 
+#menubar #menuTagCloud {
+  text-align: center;
+  margin: 5px 0;
+}
+
+#menubar #menuTagCloud LI
+{
+  display: inline;
+}

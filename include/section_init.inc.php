@@ -145,15 +145,11 @@ else if (0 === strpos($tokens[$next_token], 'tag'))
   $page['tags'] = array();
 
   $next_token++;
+  $i = $next_token;
 
-  for ($i = $next_token; ; $i++)
+  while (isset($tokens[$i]))
   {
-    if (!isset($tokens[$i]))
-    {
-      break;
-    }
-
-    preg_match('/^(\d+)/', $tokens[$i], $matches);
+    preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches);
     if (!isset($matches[1]))
     {
       if (0 == count($page['tags']))
@@ -165,7 +161,16 @@ else if (0 === strpos($tokens[$next_token], 'tag'))
         break;
       }
     }
-    array_push($page['tags'], $matches[1]);
+    
+    array_push(
+      $page['tags'],
+      array(
+        'id'       => $matches[1],
+        'url_name' => isset($matches[2]) ? $matches[2] : '',
+        )
+      );
+
+    $i++;
   }
 
   $next_token = $i;
@@ -225,13 +230,10 @@ else if ('list' == $tokens[$next_token])
   $next_token++;
 }
 
-for ($i = $next_token; ; $i++)
-{
-  if (!isset($tokens[$i]))
-  {
-    break;
-  }
+$i = $next_token;
 
+while (isset($tokens[$i]))
+{
   if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
   {
     $page['start'] = $matches[1];
@@ -240,9 +242,12 @@ for ($i = $next_token; ; $i++)
   if (preg_match('/^posted|created/', $tokens[$i] ))
   {
     $chronology_tokens = explode('-', $tokens[$i] );
+
     $page['chronology_field'] = $chronology_tokens[0];
+
     array_shift($chronology_tokens);
     $page['chronology_style'] = $chronology_tokens[0];
+
     array_shift($chronology_tokens);
     if ( count($chronology_tokens)>0 )
     {
@@ -255,6 +260,8 @@ for ($i = $next_token; ; $i++)
       $page['chronology_date'] = $chronology_tokens;
     }
   }
+
+  $i++;
 }
 
 
@@ -338,19 +345,97 @@ else
     $forbidden = ' 1 = 1';
   }
 // +-----------------------------------------------------------------------+
+// |                            tags section                               |
+// +-----------------------------------------------------------------------+
+  if ($page['section'] == 'tags')
+  {
+    $page['tag_ids'] = array();
+    foreach ($page['tags'] as $tag)
+    {
+      array_push($page['tag_ids'], $tag['id']);
+    }
+
+    $items = get_image_ids_for_tags($page['tag_ids']);
+
+    // permissions depends on category, so to only keep images that are
+    // reachable to the connected user, we need to check category
+    // associations
+    if (!empty($user['forbidden_categories']))
+    {
+      $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $items).')
+    AND '.$forbidden.'
+;';
+      $items = array_unique(
+        array_from_query($query, 'image_id')
+        );
+    }
+
+    // tag names
+    $query = '
+SELECT name, url_name, id
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $page['tag_ids']).')
+;';
+    $result = pwg_query($query);
+    $tag_infos = array();
+    
+    while ($row = mysql_fetch_array($result))
+    {
+      $tag_infos[ $row['id'] ]['name'] = $row['name'];
+      $tag_infos[ $row['id'] ]['url_name'] = $row['url_name'];
+    }
+
+    $title = count($page['tags']) > 1 ? l10n('Tags') : l10n('Tag');
+    $title.= ' ';
+
+    $tag_num = 1;
+    foreach ($page['tag_ids'] as $tag_id)
+    {
+      $title.=
+        ($tag_num++ > 1 ? ' + ' : '')
+        .'<a href="'
+        .make_index_url(
+          array(
+            'tags' => array(
+              array(
+                'id' => $tag_id,
+                'url_name' => $tag_infos[$tag_id]['url_name'],
+                ),
+              )
+            )
+          )
+        .'">'
+        .$tag_infos[$tag_id]['name']
+        .'</a>';
+    }
+
+    $page = array_merge(
+      $page,
+      array(
+        'title' => $title,
+        'items' => array_values($items),
+        'thumbnails_include' => 'include/category_default.inc.php',
+        )
+      );
+  }
+// +-----------------------------------------------------------------------+
 // |                           search section                              |
 // +-----------------------------------------------------------------------+
   if ($page['section'] == 'search')
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
+
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE '.get_sql_search_clause($page['search']).'
+  WHERE id IN ('.implode(',', get_search_items($page['search'])).')
     AND '.$forbidden.'
   '.$conf['order_by'].'
-;';
+;'; 
 
     $page = array_merge(
       $page,

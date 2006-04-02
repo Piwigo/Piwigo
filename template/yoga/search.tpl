@@ -35,6 +35,16 @@
 	  <input type="text" style="width: 300px" name="search_author" size="30" />
 	</td>
   </tr>
+  
+  <tr>
+    <td colspan="2"><b>{lang:Search tags} :</b></td>
+    <td colspan="2" valign="middle">
+      {TAG_SELECTION}
+      <br /><label><input type="radio" name="tag_mode" value="AND" checked="checked" /> {lang:All tags}</label>
+      <br /><label><input type="radio" name="tag_mode" value="OR" /> {lang:Any tag}</label>
+    </td>
+  </tr>
+  
   <tr>
     <td colspan="2"><b>{L_SEARCH_DATE} :</b>
     <td colspan="2" valign="middle">

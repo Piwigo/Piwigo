@@ -83,21 +83,15 @@
     </tr>
 
     <tr>
-      <td>{lang:add keywords}</td>
-      <td><input type="text" name="add_keywords" value="" /></td>
+      <td>{lang:add tags}</td>
+      <td>{ADD_TAG_SELECTION}</td>
     </tr>
 
     <tr>
-      <td>{lang:remove keyword}</td>
-      <td>
-        <select name="remove_keyword">
-          <!-- BEGIN remove_keyword_option -->
-          <option value="{remove_keyword_option.VALUE}">{remove_keyword_option.OPTION}</option>
-          <!-- END remove_keyword_option -->
-        </select>
-      </td>
+      <td>{lang:remove tags}</td>
+      <td>{DEL_TAG_SELECTION}</td>
     </tr>
-
+    
     <tr>
       <td>{lang:author}</td>
       <td>

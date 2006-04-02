@@ -715,6 +715,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
 
   $start = get_moment();
   $datas = array();
+  $tags_of = array();
   foreach ( $files as $id=>$file )
   {
     $data = $site_reader->get_element_update_attributes($file);
@@ -723,23 +724,55 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
       $data['date_metadata_update'] = CURRENT_DATE;
       $data['id']=$id;
       array_push($datas, $data);
+
+      foreach (array('keywords', 'tags') as $key)
+      {
+        if (isset($data[$key]))
+        {
+          if (!isset($tags_of[$id]))
+          {
+            $tags_of[$id] = array();
+          }
+        
+          foreach (explode(',', $data[$key]) as $tag_name)
+          {
+            array_push(
+              $tags_of[$id],
+              tag_id_from_tag_name($tag_name)
+              );
+          }
+        }
+      }
     }
     else
     {
       array_push($errors, array('path' => $file, 'type' => 'PWG-ERROR-NO-FS'));
     }
   }
-  $update_fields = $site_reader->get_update_attributes();
-  $update_fields = array_merge($update_fields, array('date_metadata_update'));
-  $fields =
-      array(
-        'primary' => array('id'),
-        'update'  => array_unique($update_fields)
-        );
-  //print_r($datas);
-  if (!$simulate and count($datas)>0 )
+
+  if (!$simulate)
   {
-    mass_updates(IMAGES_TABLE, $fields, $datas);
+    if (count($datas) > 0)
+    {
+      mass_updates(
+        IMAGES_TABLE,
+        // fields
+        array(
+          'primary' => array('id'),
+          'update'  => array_unique(
+            array_merge(
+              array_diff(
+                $site_reader->get_update_attributes(),
+                // keywords and tags fields are managed separately
+                array('keywords', 'tags')
+                ),
+              array('date_metadata_update'))
+            )
+          ),
+        $datas
+        );
+    }
+    set_tags_of($tags_of);
   }
 
   echo '<!-- metadata update : ';

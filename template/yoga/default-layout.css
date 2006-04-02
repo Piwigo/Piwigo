@@ -261,3 +261,12 @@ UL.actions  A {
   border: none;
 }
 
+UL.tagSelection {
+  width: 500px;
+  padding: 0;
+}
+
+UL.tagSelection LI {
+  display: inline;
+  white-space: nowrap;
+}

@@ -70,4 +70,6 @@ define('UPGRADE_TABLE', $prefixeTable.'upgrade');
 define('SEARCH_TABLE', $prefixeTable.'search');
 define('USER_MAIL_NOTIFICATION_TABLE', $prefixeTable.'user_mail_notification');
 define('CATEGORIES_LINK_TABLE', $prefixeTable.'categories_link');
+define('TAGS_TABLE', $prefixeTable.'tags');
+define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
 ?>

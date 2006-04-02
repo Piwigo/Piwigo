@@ -13,6 +13,7 @@ BODY#theAboutPage #content,
 BODY#thePopuphelpPage #content,
 BODY#thePasswordPage #content,
 BODY#theNotificationPage #content,
+BODY#theTagsPage #content,
 BODY#theNBMPage #content
 {
   margin: 1em;

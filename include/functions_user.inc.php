@@ -633,5 +633,4 @@ function is_adviser()
 
   return ($user['adviser'] == 'true');
 }
-
 ?>

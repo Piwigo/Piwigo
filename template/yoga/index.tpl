@@ -19,6 +19,23 @@
     <p class="totalImages">{NB_PICTURE} {lang:total}</p>
   </dd>
 </dl>
+
+<!-- BEGIN tags -->
+<dl>
+  <dt>{lang:Related tags}</dt>
+  <dd>
+    <ul id="menuTagCloud">
+      <!-- BEGIN tag -->
+      <li>
+        <a href="{tags.tag.URL_ADD}" title="{tags.tag.TITLE_ADD}"><img src="{pwg_root}{themeconf:icon_dir}/add_tag.png" alt="+"></a>
+        <a href="{tags.tag.URL}" class="{tags.tag.CLASS}" title="{tags.tag.TITLE}">{tags.tag.NAME}</a>
+      </li>
+      <!-- END tag -->
+    </ul>
+  </dd>
+</dl>
+<!-- END tags -->
+
 <dl>
   <dt>{lang:special_categories}</dt>
   <dd>

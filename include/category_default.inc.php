@@ -79,7 +79,7 @@ foreach ($pictures as $row)
   {
     $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
-
+  
   // link on picture.php page
   $url = duplicate_picture_url(
         array(

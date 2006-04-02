@@ -44,40 +44,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// |                               functions                               |
-// +-----------------------------------------------------------------------+
-
-/**
- * returns the list of uniq keywords among given elements
- *
- * @param array element_ids
- */
-function get_elements_keywords($element_ids)
-{
-  if (0 == count($element_ids))
-  {
-    return array();
-  }
-
-  $keywords = array();
-
-  $query = '
-SELECT keywords
-  FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $element_ids).')
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    if (isset($row['keywords']) and !empty($row['keywords']))
-    {
-      $keywords = array_merge($keywords, explode(',', $row['keywords']));
-    }
-  }
-  return array_unique($keywords);
-}
-
-// +-----------------------------------------------------------------------+
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 
@@ -111,6 +77,22 @@ if (isset($_POST['submit']))
     }
   }
 
+  if (isset($_POST['add_tags']) and count($collection) > 0)
+  {
+    add_tags($_POST['add_tags'], $collection);
+  }
+
+  if (isset($_POST['del_tags']) and count($collection) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN ('.implode(',', $collection).')
+    AND tag_id IN ('.implode(',', $_POST['del_tags']).')
+;';
+    pwg_query($query);
+  }
+  
   if ($_POST['associate'] != 0 and count($collection) > 0)
   {
     $datas = array();
@@ -192,11 +174,6 @@ DELETE
   $datas = array();
   $dbfields = array('primary' => array('id'), 'update' => array());
 
-  if (!empty($_POST['add_keywords']) or $_POST['remove_keyword'] != '0')
-  {
-    array_push($dbfields['update'], 'keywords');
-  }
-
   $formfields = array('author', 'name', 'date_creation');
   foreach ($formfields as $formfield)
   {
@@ -210,7 +187,7 @@ DELETE
   if (count($dbfields['update']) > 0 and count($collection) > 0)
   {
     $query = '
-SELECT id, keywords
+SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $collection).')
 ;';
@@ -220,44 +197,6 @@ SELECT id, keywords
     {
       $data = array();
       $data['id'] = $row['id'];
-
-      if (!empty($_POST['add_keywords']))
-      {
-        $data['keywords'] =
-          implode(
-            ',',
-            array_unique(
-              array_merge(
-                get_keywords(empty($row['keywords']) ? '' : $row['keywords']),
-                get_keywords($_POST['add_keywords'])
-                )
-              )
-            );
-      }
-
-      if ($_POST['remove_keyword'] != '0')
-      {
-        if (!isset($data['keywords']))
-        {
-          $data['keywords'] = empty($row['keywords']) ? '' : $row['keywords'];
-        }
-
-        $data['keywords'] =
-          implode(
-            ',',
-            array_unique(
-              array_diff(
-                get_keywords($data['keywords']),
-                array($_POST['remove_keyword'])
-                )
-              )
-            );
-
-        if ($data['keywords'] == '')
-        {
-          unset($data['keywords']);
-        }
-      }
 
       if ('set' == $_POST['author_action'])
       {
@@ -384,24 +323,35 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
   display_select_cat_wrapper($query, array(), $blockname, true);
 }
 
-$blockname = 'remove_keyword_option';
+// add tags
+$template->assign_vars(
+  array(
+    'ADD_TAG_SELECTION' => get_html_tag_selection(get_all_tags(), 'add_tags'),
+    )
+  );
 
-$template->assign_block_vars(
-  $blockname,
-  array('VALUE'=> 0,
-        'OPTION' => '------------'
-    ));
+// remove tags
+$query = '
+SELECT tag_id, name, url_name, count(*) counter
+  FROM '.IMAGE_TAG_TABLE.'
+    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+  WHERE image_id IN ('.implode(',', $page['cat_elements_id']).')
+  GROUP BY tag_id
+  ORDER BY name ASC
+;';
+$result = pwg_query($query);
 
-$keywords = get_elements_keywords($page['cat_elements_id']);
-
-foreach ($keywords as $keyword)
+$tags = array();
+while($row = mysql_fetch_array($result))
 {
-  $template->assign_block_vars(
-  $blockname,
-  array('VALUE'=> $keyword,
-        'OPTION' => $keyword
-    ));
+  array_push($tags, $row);
 }
+
+$template->assign_vars(
+  array(
+    'DEL_TAG_SELECTION' => get_html_tag_selection($tags, 'del_tags'),
+    )
+  );
 
 // creation date
 $day =

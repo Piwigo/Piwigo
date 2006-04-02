@@ -258,23 +258,18 @@ function make_section_in_URL($params)
 {
   $section_string = '';
 
-  if (!isset($params['section']))
+  $section_of = array(
+    'category' => 'categories',
+    'tags'     => 'tags',
+    'list'     => 'list',
+    'search'   => 'search',
+    );
+
+  foreach ($section_of as $param => $section)
   {
-    if (isset($params['category']))
+    if (isset($params[$param]))
     {
-      $params['section'] = 'categories';
-    }
-    else if (isset($params['tags']))
-    {
-      $params['section'] = 'tags';
-    }
-    else if (isset($params['list']))
-    {
-      $params['section'] = 'list';
-    }
-    else if (isset($params['search']))
-    {
-      $params['section'] = 'search';
+      $params['section'] = $section;
     }
   }
 
@@ -289,7 +284,7 @@ function make_section_in_URL($params)
     {
       if (!isset($params['category']))
       {
-        //$section_string.= '/categories';
+        $section_string.= '/categories';
       }
       else
       {
@@ -309,7 +304,12 @@ function make_section_in_URL($params)
 
       foreach ($params['tags'] as $tag)
       {
-        $section_string.= '/'.$tag;
+        $section_string.= '/'.$tag['id'];
+        
+        if (isset($tag['url_name']))
+        {
+          $section_string.= '-'.$tag['url_name'];
+        }
       }
 
       break;

@@ -83,6 +83,34 @@ if (isset($search['fields']['allwords']))
     );
 }
 
+if (isset($search['fields']['tags']))
+{
+  $template->assign_block_vars(
+    'tags',
+    array(
+      'LIST_INTRO' => ($search['fields']['tags']['mode'] == 'AND')
+        ? l10n('All tags must match')
+        : l10n('At least one tag must match')
+      )
+    );
+
+  $query = '
+SELECT name
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(',', $search['fields']['tags']['words']).')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $template->assign_block_vars(
+      'tags.tag',
+      array(
+        'NAME' => $row['name'],
+        )
+      );
+  }
+}
+
 if (isset($search['fields']['author']))
 {
   $template->assign_block_vars(

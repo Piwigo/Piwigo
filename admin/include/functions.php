@@ -269,6 +269,14 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
 ;';
   pwg_query($query);
 
+  // destruction of the links between images and tags
+  $query = '
+DELETE FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
+;';
+  pwg_query($query);
+
   // destruction of the favorites associated with the picture
   $query = '
 DELETE FROM '.FAVORITES_TABLE.'
@@ -574,25 +582,6 @@ function date_convert_back( $date )
   {
     return '';
   }
-}
-
-/**
- * returns an array with relevant keywords found in the given string.
- *
- * Keywords must be separated by comma or space characters.
- *
- * @param string keywords_string
- * @return array
- */
-function get_keywords($keywords_string)
-{
-  return
-    array_unique(
-      preg_split(
-        '/[\s,]+/',
-        $keywords_string
-        )
-      );
 }
 
 /**
@@ -2094,6 +2083,173 @@ UPDATE
 }
 
 /**
+ * Set tags to an image. Warning: given tags are all tags associated to the
+ * image, not additionnal tags.
+ *
+ * @param array tag ids
+ * @param int image id
+ * @return void
+ */
+function set_tags($tags, $image_id)
+{
+  $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id = '.$image_id.'
+;';
+  pwg_query($query);
+
+  if (count($tags) > 0)
+  {
+    $inserts = array();
+    foreach ($tags as $tag_id)
+    {
+      array_push(
+        $inserts,
+        array(
+          'tag_id' => $tag_id,
+          'image_id' => $image_id
+          )
+        );
+    }
+    mass_inserts(
+      IMAGE_TAG_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+      );
+  }
+}
+
+/**
+ * Add new tags to a set of images.
+ *
+ * @param array tag ids
+ * @param array image ids
+ * @return void
+ */
+function add_tags($tags, $images)
+{
+  if (count($tags) == 0 or count($tags) == 0)
+  {
+    return;
+  }
+  
+  // we can't insert twice the same {image_id,tag_id} so we must first
+  // delete lines we'll insert later
+  $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN ('.implode(',', $images).')
+    AND tag_id IN ('.implode(',', $tags).')
+;';
+  pwg_query($query);
+
+  $inserts = array();
+  foreach ($images as $image_id)
+  {
+    foreach ($tags as $tag_id)
+    {
+      array_push(
+        $inserts,
+        array(
+          'image_id' => $image_id,
+          'tag_id' => $tag_id,
+          )
+        );
+    }
+  }
+  mass_inserts(
+    IMAGE_TAG_TABLE,
+    array_keys($inserts[0]),
+    $inserts
+    );
+}
+
+function tag_id_from_tag_name($tag_name)
+{
+  global $page;
+
+  if (isset($page['tag_id_from_tag_name_cache'][$tag_name]))
+  {
+    return $page['tag_id_from_tag_name_cache'][$tag_name];
+  }
+  
+  if (function_exists('mysql_real_escape_string'))
+  {
+    $tag_name = mysql_real_escape_string($tag_name);
+  }
+  else
+  {
+    $tag_name = mysql_escape_string($tag_name);
+  }
+
+  // does the tag already exist?
+  $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE name = \''.$tag_name.'\'
+;';
+  $existing_tags = array_from_query($query, 'id');
+
+  if (count($existing_tags) == 0)
+  {
+    mass_inserts(
+      TAGS_TABLE,
+      array('name', 'url_name'),
+      array(
+        array(
+          'name' => $tag_name,
+          'url_name' => str2url($tag_name),
+          )
+        )
+      );
+
+    $page['tag_id_from_tag_name_cache'][$tag_name] = mysql_insert_id();
+  }
+  else
+  {
+    $page['tag_id_from_tag_name_cache'][$tag_name] = $existing_tags[0];
+  }
+
+  return $page['tag_id_from_tag_name_cache'][$tag_name];
+}
+
+function set_tags_of($tags_of)
+{
+  if (count($tags_of) > 0)
+  {
+    $query = '
+DELETE
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id IN ('.implode(',', array_keys($tags_of)).')
+;';
+    pwg_query($query);
+
+    $inserts = array();
+    
+    foreach ($tags_of as $image_id => $tag_ids)
+    {
+      foreach ($tag_ids as $tag_id)
+      {
+        array_push(
+          $inserts,
+          array(
+            'image_id' => $image_id,
+            'tag_id' => $tag_id,
+            )
+          );
+      }
+    }
+
+    mass_inserts(
+      IMAGE_TAG_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+      );
+  }
+}
+
+/**
  * Do maintenance on all PWG tables
  *
  * @return nono
@@ -2143,6 +2299,4 @@ function do_maintenance_all_tables()
   pwg_query($query);
 
 }
-
-
 ?>

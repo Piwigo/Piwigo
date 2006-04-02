@@ -107,8 +107,8 @@
     <td class="value">{INFO_FILESIZE}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Keywords}</td>
-    <td class="value">{INFO_KEYWORDS}</td>
+    <td class="label">{lang:Tags}</td>
+    <td class="value">{INFO_TAGS}</td>
   </tr>
   <tr>
     <td class="label">{lang:Categories}</td>

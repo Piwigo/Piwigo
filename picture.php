@@ -698,25 +698,43 @@ $infos['INFO_VISITS'] = $picture['current']['hit'];
 // file
 $infos['INFO_FILE'] = $picture['current']['file'];
 
-// keywords
-if (!empty($picture['current']['keywords']))
+// tags
+$query = '
+SELECT id, name, url_name
+  FROM '.IMAGE_TAG_TABLE.'
+    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+  WHERE image_id = '.$page['image_id'].'
+;';
+$result = pwg_query($query);
+
+if (mysql_num_rows($result) > 0)
 {
-  $infos['INFO_KEYWORDS'] =
-    // FIXME because of search engine partial rewrite, giving the author
-    // name threw GET is not supported anymore. This feature should come
-    // back later, with a better design (tag classification).
-//     preg_replace(
-//       '/([^,]+)/',
-//       '<a href="'.
-//         PHPWG_ROOT_PATH.'category.php?cat=search&amp;search=keywords:$1'
-//         .'">$1</a>',
-//       $picture['current']['keywords']
-//       );
-    $picture['current']['keywords'];
+  $tags = array();
+  
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push(
+      $tags,
+      '<a href="'
+      .make_index_URL(
+        array(
+          'tags' => array(
+            array(
+              'id' => $row['id'],
+              'url_name' => $row['url_name'],
+              ),
+            )
+          )
+        )
+      .'">'.$row['name'].'</a>'
+      );
+  }
+
+  $infos['INFO_TAGS'] = implode(', ', $tags);
 }
 else
 {
-  $infos['INFO_KEYWORDS'] = l10n('N/A');
+  $infos['INFO_TAGS'] = l10n('N/A');
 }
 
 $template->assign_vars($infos);

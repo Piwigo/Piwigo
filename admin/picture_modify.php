@@ -100,16 +100,6 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
     }
   }
 
-  $keywords = get_keywords($_POST['keywords']);
-  if (count($keywords) > 0)
-  {
-    $data{'keywords'} = implode(',', $keywords);
-  }
-  else
-  {
-    $data{'keywords'} = '';
-  }
-
   mass_updates(
     IMAGES_TABLE,
     array(
@@ -117,6 +107,11 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
       'update' => array_diff(array_keys($data), array('id'))
       ),
     array($data)
+    );
+
+  set_tags(
+    isset($_POST['tags']) ? $_POST['tags'] : array(),
+    $_GET['image_id']
     );
 
   array_push($page['infos'], l10n('Picture informations updated'));
@@ -215,6 +210,14 @@ $row = mysql_fetch_array(pwg_query($query));
 $storage_category_id = $row['category_id'];
 $image_file = $row['file'];
 
+// tags
+$query = '
+SELECT tag_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id = '.$_GET['image_id'].'
+;';
+$selected_tags = array_from_query($query, 'tag_id');
+
 // Navigation path
 
 $date = isset($_POST['date_creation']) && empty($page['errors'])
@@ -257,9 +260,11 @@ $template->assign_vars(
 
     'CREATION_DATE' => $date,
 
-    'KEYWORDS' =>
-      isset($_POST['keywords']) ?
-        stripslashes($_POST['keywords']) : @$row['keywords'],
+    'TAG_SELECTION' => get_html_tag_selection(
+      get_all_tags(),
+      'tags',
+      $selected_tags
+      ),
 
     'DESCRIPTION' =>
       isset($_POST['description']) ?

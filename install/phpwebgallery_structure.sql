@@ -1,5 +1,4 @@
 -- MySQL dump 9.11
--- MySQL dump 9.11
 --
 -- Host: localhost    Database: pwg-bsf
 -- ------------------------------------------------------
@@ -146,6 +145,17 @@ CREATE TABLE `phpwebgallery_image_category` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_image_tag`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_image_tag`;
+CREATE TABLE `phpwebgallery_image_tag` (
+  `image_id` mediumint(8) unsigned NOT NULL default '0',
+  `tag_id` smallint(5) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`image_id`,`tag_id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_images`
 --
 
@@ -163,8 +173,6 @@ CREATE TABLE `phpwebgallery_images` (
   `filesize` mediumint(9) unsigned default NULL,
   `width` smallint(9) unsigned default NULL,
   `height` smallint(9) unsigned default NULL,
-  `keywords` varchar(255) default NULL,
-  `storage_category_id` smallint(5) unsigned default NULL,
   `representative_ext` varchar(4) default NULL,
   `date_metadata_update` date default NULL,
   `average_rate` float(5,2) unsigned default NULL,
@@ -172,7 +180,6 @@ CREATE TABLE `phpwebgallery_images` (
   `path` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
-  KEY `images_i1` (`storage_category_id`),
   KEY `images_i3` (`average_rate`),
   KEY `images_i4` (`hit`),
   KEY `images_i5` (`date_creation`)
@@ -229,6 +236,18 @@ CREATE TABLE `phpwebgallery_sites` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_tags`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_tags`;
+CREATE TABLE `phpwebgallery_tags` (
+  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `name` varchar(255) binary NOT NULL default '',
+  `url_name` varchar(255) binary NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_upgrade`
 --
 
@@ -260,7 +279,7 @@ CREATE TABLE `phpwebgallery_user_cache` (
   `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` text,
-  `nb_total_images` mediumint(8) unsigned,
+  `nb_total_images` mediumint(8) unsigned default NULL,
   PRIMARY KEY  (`user_id`)
 ) TYPE=MyISAM;
 
@@ -296,7 +315,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `user_id` smallint(5) NOT NULL default '0',
   `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
-  `status` enum('webmaster', 'admin', 'normal', 'generic', 'guest') NOT NULL default 'guest',
+  `status` enum('webmaster','admin','normal','generic','guest') NOT NULL default 'guest',
   `adviser` enum('true','false') NOT NULL default 'false',
   `language` varchar(50) NOT NULL default 'english',
   `maxwidth` smallint(6) default NULL,

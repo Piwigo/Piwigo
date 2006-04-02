@@ -221,6 +221,76 @@ if (count($conf['links']) > 0)
       );
   }
 }
+//------------------------------------------------------------------------ tags
+if ('tags' == $page['section'])
+{
+  $template->assign_block_vars('tags', array());
+  
+  // display tags associated to currently tagged items, less current tags
+  $query = '
+SELECT tag_id, name, url_name, count(*) counter
+  FROM '.IMAGE_TAG_TABLE.'
+    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+  WHERE image_id IN ('.implode(',', $items).')
+    AND tag_id NOT IN ('.implode(',', $page['tag_ids']).')
+  GROUP BY tag_id
+  ORDER BY name ASC
+;';
+  $result = pwg_query($query);
+
+  $tags = array();
+  
+  while($row = mysql_fetch_array($result))
+  {
+    array_push($tags, $row);
+  }
+
+  $tags = add_level_to_tags($tags);
+
+  foreach ($tags as $tag)
+  {
+    $template->assign_block_vars(
+      'tags.tag',
+      array(
+        'URL_ADD' => make_index_URL(
+          array(
+            'tags' => array_merge(
+              $page['tags'],
+              array(
+                array(
+                  'id' => $tag['tag_id'],
+                  'url_name' => $tag['url_name'],
+                  ),
+                )
+              )
+            )
+          ),
+
+        'URL' => make_index_URL(
+          array(
+            'tags' => array(
+              array(
+                'id' => $tag['tag_id'],
+                'url_name' => $tag['url_name'],
+                ),
+              )
+            )
+          ),
+        
+        'NAME' => $tag['name'],
+        
+        'TITLE' => l10n('See pictures linked to this tag only'),
+
+        'TITLE_ADD' => sprintf(
+          l10n('%d pictures are also linked to current tags'),
+          $tag['counter']
+          ),
+        
+        'CLASS' => 'tagLevel'.$tag['level']
+        )
+      );
+  }
+}
 //---------------------------------------------------------- special categories
 // favorites categories
 if ( !$user['is_the_guest'] )
@@ -331,6 +401,16 @@ else
     $template->assign_block_vars('admin', array());
   }
 }
+
+// tags link
+$template->assign_block_vars(
+  'summary',
+  array(
+    'TITLE' => l10n('See available tags'),
+    'NAME' => l10n('Tags'),
+    'U_SUMMARY'=> get_root_url().'tags.php',
+    )
+  );
 
 // search link
 $template->assign_block_vars(

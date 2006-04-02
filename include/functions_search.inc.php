@@ -84,7 +84,7 @@ function get_sql_search_clause($search_id)
   // construction
   $clauses = array();
 
-  foreach (array('file','name','comment','keywords','author') as $textfield)
+  foreach (array('file','name','comment','author') as $textfield)
   {
     if (isset($search['fields'][$textfield]))
     {
@@ -109,7 +109,7 @@ function get_sql_search_clause($search_id)
 
   if (isset($search['fields']['allwords']))
   {
-    $fields = array('file', 'name', 'comment', 'keywords', 'author');
+    $fields = array('file', 'name', 'comment', 'author');
     // in the OR mode, request bust be :
     // ((field1 LIKE '%word1%' OR field2 LIKE '%word1%')
     // OR (field1 LIKE '%word2%' OR field2 LIKE '%word2%'))
@@ -208,12 +208,68 @@ function get_sql_search_clause($search_id)
 
   $search_clause = $where_separator;
 
-  if (isset($forbidden))
-  {
-    $search_clause.= "\n    AND ".$forbidden;
-  }
-
   return $search_clause;
 }
 
+/**
+ * returns the list of items corresponding to the search id
+ *
+ * @param int search id
+ * @return array
+ */
+function get_search_items($search_id)
+{
+  $items = array();
+  
+  $search_clause = get_sql_search_clause($search_id);
+  
+  if (!empty($search_clause))
+  {
+    $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$search_clause.'
+;';
+    $items = array_from_query($query, 'id');
+  }
+
+  $search = get_search_array($search_id);
+
+  if (isset($search['fields']['tags']))
+  {
+    $tag_items = get_image_ids_for_tags(
+      $search['fields']['tags']['words'],
+      $search['fields']['tags']['mode']
+      );
+
+    switch ($search['mode'])
+    {
+      case 'AND':
+      {
+        if (empty($search_clause))
+        {
+          $items = $tag_items;
+        }
+        else
+        {
+          $items = array_intersect($items, $tag_items);
+        }
+        break;
+      }
+      case 'OR':
+      {
+        $items = array_unique(
+          array_merge(
+            $items,
+            $tag_items
+            )
+          );
+        break;
+      }
+    }
+  }
+  
+  return $items;
+}
 ?>

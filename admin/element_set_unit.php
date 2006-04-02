@@ -103,25 +103,21 @@ SELECT id, date_creation
     {
       $data{'date_creation'} = $row['date_creation'];
     }
-
-    $keywords = get_keywords($_POST['keywords-'.$row['id']]);
-    if (count($keywords) > 0)
-    {
-      $data{'keywords'} = implode(',', $keywords);
-    }
-    else
-    {
-      $data{'keywords'} = '';
-    }
-
+    
     array_push($datas, $data);
+
+    // tags management
+    if (isset($_POST[ 'tags-'.$row['id'] ]))
+    {
+      set_tags($_POST[ 'tags-'.$row['id'] ], $row['id']);
+    }
   }
   
   mass_updates(
     IMAGES_TABLE,
     array(
       'primary' => array('id'),
-      'update' => array('name','author','comment','date_creation','keywords')
+      'update' => array('name','author','comment','date_creation')
       ),
     $datas
     );
@@ -192,11 +188,13 @@ if (count($page['cat_elements_id']) > 0)
     );
   $template->assign_vars(array('NAV_BAR' => $nav_bar));
 
+  // tags
+  $all_tags = get_all_tags();
  
   $element_ids = array();
 
   $query = '
-SELECT id,path,tn_ext,name,date_creation,comment,keywords,author,file
+SELECT id,path,tn_ext,name,date_creation,comment,author,file
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
@@ -210,6 +208,13 @@ SELECT id,path,tn_ext,name,date_creation,comment,keywords,author,file
     array_push($element_ids, $row['id']);
     
     $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+
+    $query = '
+SELECT tag_id
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE image_id = '.$row['id'].'
+;';
+    $selected_tags = array_from_query($query, 'tag_id');
     
     // creation date
     if (!empty($row['date_creation']))
@@ -237,7 +242,12 @@ SELECT id,path,tn_ext,name,date_creation,comment,keywords,author,file
         'AUTHOR' => @$row['author'],
         'DESCRIPTION' => @$row['comment'],
         'DATE_CREATION_YEAR' => $year,
-        'KEYWORDS' => @$row['keywords']
+        
+        'TAG_SELECTION' => get_html_tag_selection(
+          $all_tags,
+          'tags-'.$row['id'],
+          $selected_tags
+          ),
         )
       );
     

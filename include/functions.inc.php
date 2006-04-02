@@ -31,6 +31,7 @@ include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 
 //----------------------------------------------------------- generic functions
@@ -267,6 +268,35 @@ function get_picture_size( $original_width, $original_height,
   $picture_size[1] = $height;
   return $picture_size;
 }
+
+/**
+ * simplify a string to insert it into an URL
+ *
+ * based on str2url function from Dotclear
+ *
+ * @param string
+ * @return string
+ */
+function str2url($str)
+{
+  $str = strtr(
+    $str,
+    'ÀÁÂÃÄÅàáâãäåÇçÒÓÔÕÖØòóôõöøÈÉÊËèéêëÌÍÎÏìíîïÙÚÛÜùúûü¾ÝÿýÑñ',
+    'AAAAAAaaaaaaCcOOOOOOooooooEEEEeeeeIIIIiiiiUUUUuuuuYYyyNn'
+    );
+
+  $str = str_replace('Æ', 'AE', $str);
+  $str = str_replace('æ', 'ae', $str);
+  $str = str_replace('¼', 'OE', $str);
+  $str = str_replace('½', 'oe', $str);
+
+  $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\]-]/','',strtolower($str));
+  $str = preg_replace('/[\s\'\:\/\[\]-]+/',' ',trim($str));
+  $res = str_replace(' ','_',$str);
+  
+  return $res;
+}
+
 //-------------------------------------------- PhpWebGallery specific functions
 
 /**
@@ -829,5 +859,4 @@ function get_available_upgrade_ids()
 
   return $available_upgrade_ids;
 }
-
 ?>

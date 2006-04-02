@@ -439,6 +439,18 @@ $conf['picture_url_style'] = 'id';
 $conf['php_extension_in_urls'] = true;
 
 // +-----------------------------------------------------------------------+
+// |                                 tags                                  |
+// +-----------------------------------------------------------------------+
+
+// full_tag_cloud_items_number: number of tags to show in the full tag
+// cloud. Only the most represented tags will be shown
+$conf['full_tag_cloud_items_number'] = 200;
+
+// tags_levels: number of levels to use for display. Each level is bind to a
+// CSS class tagLevelX.
+$conf['tags_levels'] = 10;
+
+// +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
 // +-----------------------------------------------------------------------+
 
@@ -455,5 +467,4 @@ $conf['nbm_list_all_enabled_users_to_send'] = false;
 
 // Max mails sended on one pass
 $conf['nbm_max_mails_send'] = 35;
-
 ?>
