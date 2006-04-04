@@ -538,19 +538,14 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       // inserts all new elements
       mass_inserts(
         IMAGES_TABLE,
-        array(
-          'id', 'file', 'date_available', 'tn_ext', 'representative_ext',
-          'has_high', 'path',
-          ),
+        array_keys($inserts[0]),
         $inserts
         );
 
       // inserts all links between new elements and their storage category
       mass_inserts(
         IMAGE_CATEGORY_TABLE,
-        array(
-          'image_id','category_id',
-          ),
+        array_keys($insert_links[0]),
         $insert_links
         );
     }
