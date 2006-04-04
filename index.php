@@ -433,11 +433,7 @@ $template->assign_block_vars(
   array(
     'TITLE'     => $lang['about_page_title'],
     'NAME'      => $lang['About'],
-    'U_SUMMARY' => 'about.php?'.str_replace(
-      '&',
-      '&amp;',
-      $_SERVER['QUERY_STRING']
-      )
+    'U_SUMMARY' => get_root_url().'about.php',
     )
   );
 
