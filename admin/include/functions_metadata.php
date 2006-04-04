@@ -246,9 +246,7 @@ SELECT id
   $query = '
 SELECT id, path
   FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
-  WHERE is_storage = \'true\'
-    AND category_id IN ('.implode(',', $cat_ids).')';
+  WHERE storage_category_id IN ('.implode(',', $cat_ids).')';
   if ($only_new)
   {
     $query.= '

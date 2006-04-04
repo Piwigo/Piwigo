@@ -368,15 +368,12 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
     $query = '
 SELECT id, path
   FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
-  WHERE is_storage = \'true\'
-    AND category_id IN ('.
-      wordwrap(
+  WHERE storage_category_id IN ('
+      .wordwrap(
         implode(', ', $cat_ids),
         80,
         "\n"
-        ).
-      ')
+        ).')
 ;';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
@@ -458,6 +455,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
             ? $fs[$path]['has_high']
             : null,
           'path'           => $path,
+          'storage_category_id' => $db_fulldirs[$dirname],
           );
 
         array_push(
@@ -469,8 +467,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           $insert_links,
           array(
             'image_id'    => $insert{'id'},
-            'category_id' => $db_fulldirs[$dirname],
-            'is_storage'  => 'true',
+            'category_id' => $insert['storage_category_id'],
             )
           );
         array_push(
@@ -508,6 +505,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         'representative_ext' => isset($fs[$path]['representative_ext'])
           ? $fs[$path]['representative_ext']
           : null,
+        'storage_category_id' => $db_fulldirs[$dirname],
         );
 
       array_push(
@@ -519,8 +517,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         $insert_links,
         array(
           'image_id'    => $insert{'id'},
-          'category_id' => $db_fulldirs[$dirname],
-          'is_storage'  => 'true',
+          'category_id' => $insert['storage_category_id'],
           )
         );
 
@@ -552,7 +549,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       mass_inserts(
         IMAGE_CATEGORY_TABLE,
         array(
-          'image_id','category_id', 'is_storage',
+          'image_id','category_id',
           ),
         $insert_links
         );
@@ -609,9 +606,7 @@ SELECT id,file,storage_category_id,infos
       $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
-  WHERE is_storage = \'true\'
-    AND category_id = '.$row['storage_category_id'].'
+  WHERE storage_category_id = '.$row['storage_category_id'].'
     AND file = \''.$row['file'].'\'
 ;';
       list($data['id']) = mysql_fetch_array(pwg_query($query));
@@ -658,11 +653,6 @@ if (isset($_POST['submit'])
 
   if (!$simulate)
   {
-    $start = get_moment();
-    check_links('all');
-    echo '<!-- check_links(all) : ';
-    echo get_elapsed_time($start,get_moment());
-    echo ' -->'."\n";
     $start = get_moment();
     update_category('all');
     echo '<!-- update_category(all) : ';

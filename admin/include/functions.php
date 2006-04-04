@@ -152,22 +152,16 @@ function delete_categories($ids)
 
   // destruction of all the related elements
   $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE is_storage = \'true\'
-    AND category_id IN ('.
-    wordwrap(
-      implode(', ', $ids),
-      80,
-      "\n"
-      ).
-    ')
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE storage_category_id IN (
+'.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   $result = pwg_query($query);
   $element_ids = array();
   while ($row = mysql_fetch_array($result))
   {
-    array_push($element_ids, $row['image_id']);
+    array_push($element_ids, $row['id']);
   }
   delete_elements($element_ids);
 
@@ -193,37 +187,6 @@ DELETE FROM '.GROUP_ACCESS_TABLE.'
 '.wordwrap(implode(', ', $ids), 80, "\n").')
 ;';
   pwg_query($query);
-
-  // source/destination links deletion
-  $query = '
-SELECT destination, source
-  FROM '.CATEGORIES_LINK_TABLE.'
-  WHERE source IN ('.implode(',', $ids).')
-    OR destination IN ('.implode(',', $ids).')
-;';
-  $result = pwg_query($query);
-
-  $sources_of = array();
-
-  while ($row = mysql_fetch_array($result))
-  {
-    if (!isset($sources_of[ $row['destination'] ]))
-    {
-      $sources_of[ $row['destination'] ] = array();
-    }
-
-    array_push(
-      $sources_of[ $row['destination'] ],
-      $row['source']
-      );
-  }
-
-  foreach ($sources_of as $destination => $sources)
-  {
-    delete_sources($destination, $sources);
-  }
-
-  update_category();
 
   // destruction of the category
   $query = '
@@ -441,15 +404,14 @@ SELECT id
 SELECT category_id,
        COUNT(image_id) AS nb_images,
        MAX(date_available) AS date_last
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
   WHERE category_id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
   GROUP BY category_id
 ;';
   $result = pwg_query($query);
   $datas = array();
   $query_ids = array();
-  while ($row = mysql_fetch_array($result))
+  while ( $row = mysql_fetch_array( $result ) )
   {
     array_push($query_ids, $row['category_id']);
 
@@ -466,23 +428,12 @@ SELECT category_id,
   // is returned but the update must be done !
   foreach (array_diff($cat_ids, $query_ids) as $id)
   {
-    array_push(
-      $datas,
-      array(
-        'id'        => $id,
-        'nb_images' => 0,
-        )
-      );
+    array_push($datas, array('id' => $id, 'nb_images' => 0));
   }
 
-  mass_updates(
-    CATEGORIES_TABLE,
-    array(
-      'primary' => array('id'),
-      'update'  => array('date_last', 'nb_images')
-      ),
-    $datas
-    );
+  $fields = array('primary' => array('id'),
+                  'update'  => array('date_last', 'nb_images'));
+  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
   // representative pictures
   if (count($cat_ids) > 0)
@@ -1357,42 +1308,19 @@ SELECT id, id_uppercat
  */
 function update_path()
 {
-  $images_of = array();
-
   $query = '
-SELECT category_id, image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE is_storage = \'true\'
+SELECT DISTINCT(storage_category_id)
+  FROM '.IMAGES_TABLE.'
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    if (!isset($images_of[ $row['category_id'] ]))
-    {
-      $images_of[ $row['category_id'] ] = array();
-    }
+  $cat_ids = array_from_query($query, 'storage_category_id');
+  $fulldirs = get_fulldirs($cat_ids);
 
-    array_push(
-      $images_of[ $row['category_id'] ],
-      $row['image_id']
-      );
-  }
-
-  $fulldirs = get_fulldirs(
-    array_keys($images_of)
-    );
-
-  foreach ($images_of as $cat_id => $image_ids)
+  foreach ($cat_ids as $cat_id)
   {
     $query = '
 UPDATE '.IMAGES_TABLE.'
   SET path = CONCAT(\''.$fulldirs[$cat_id].'\',\'/\',file)
-  WHERE id IN ('.
-      wordwrap(
-        implode(', ', $image_ids),
-        80,
-        "\n").
-      ')
+  WHERE storage_category_id = '.$cat_id.'
 ;';
     pwg_query($query);
   }
@@ -1610,371 +1538,6 @@ DELETE FROM '.$table.'
       count($categories)
       )
     );
-}
-
-/**
- * Returns all destinations of a list of source categories. This function
- * solves transitivity.
- *
- * @param mixed array of category ids, empty for all categories
- */
-function get_destinations($categories = 'all')
-{
-  $query = '
-SELECT source, destination
-  FROM '.CATEGORIES_LINK_TABLE.'
-';
-  $result = pwg_query($query);
-
-  $destinations_of = array();
-
-  while ($row = mysql_fetch_array($result))
-  {
-    if (!isset($destinations_of[ $row['source'] ]))
-    {
-      $destinations_of[ $row['source'] ] = array();
-    }
-
-    array_push(
-      $destinations_of[ $row['source'] ],
-      $row['destination']
-      );
-  }
-
-  // transitivity resolution: if " => " means "source of", if A=>B=>C
-  // implies A=>B and A=>C. So A has 2 destinations: B and C.
-  do
-  {
-    // let's suppose we only need a single turn
-    $need_new_turn = false;
-
-    foreach ($destinations_of as $source => $destinations)
-    {
-      foreach ($destinations as $destination)
-      {
-        // does the current destination has destinations itself?
-        if (isset($destinations_of[$destination]))
-        {
-          // are there destinations of current destination not already among
-          // destinations of the current source? (advise: take a piece of
-          // paper and draw a schema). The source itself must not be counted
-          // as a destination, thus avoiding cyclic links.
-          $missing_destinations = array_diff(
-            $destinations_of[$destination],
-            $destinations,
-            array($source) // no cyclic link
-            );
-
-          if (count($missing_destinations) > 0)
-          {
-            $destinations_of[$source] = array_unique(
-              array_merge(
-                $destinations,
-                $missing_destinations
-                )
-              );
-
-            // a category has a least one new destination, we have to check
-            // one more time that it doesn't generate more destinations
-            $need_new_turn = true;
-          }
-        }
-      }
-    }
-  } while ($need_new_turn);
-
-  if (is_array($categories))
-  {
-    $filtered_destinations_of = array();
-
-    // Even if there is no destinations for the requested categories, we
-    // return empty arrays
-    foreach ($categories as $category)
-    {
-      $filtered_destinations_of[$category] = array();
-    }
-
-    foreach ($destinations_of as $source => $destinations)
-    {
-      if (in_array($source, $categories))
-      {
-        $filtered_destinations_of[$source] = $destinations;
-      }
-    }
-
-    return $filtered_destinations_of;
-  }
-  else
-  {
-    return $destinations_of;
-  }
-}
-
-/**
- * Returns all sources of a list of destination categories. This function
- * solves transitivity.
- *
- * @param mixed array of category ids, empty for all categories
- */
-function get_sources($categories = 'all')
-{
-  $destinations_of = get_destinations();
-
-  $sources_of = array();
-
-  foreach ($destinations_of as $source => $destinations)
-  {
-    foreach ($destinations as $destination)
-    {
-      if (!isset($sources_of[$destination]))
-      {
-        $sources_of[$destination] = array();
-      }
-
-      array_push($sources_of[$destination], $source);
-    }
-  }
-
-  // eventually, filter
-  if (is_array($categories))
-  {
-    $filtered_sources_of = array();
-
-    // Even if there is no sources for the requested categories, we return
-    // empty arrays
-    foreach ($categories as $category)
-    {
-      $filtered_sources_of[$category] = array();
-    }
-
-    foreach ($sources_of as $destination => $sources)
-    {
-      if (in_array($destination, $categories))
-      {
-        $filtered_sources_of[$destination] = $sources;
-      }
-    }
-
-    return $filtered_sources_of;
-  }
-  else
-  {
-    return $sources_of;
-  }
-}
-
-/**
- * Checks categories links are respected for a given list of destinations.
- *
- * Checking categories links means that each destination must be associated
- * to the images of its sources.
- *
- * @param mixed source category ids
- */
-function check_links($destinations = 'all')
-{
-  $sources_of = get_sources($destinations);
-
-  if (empty($sources_of))
-  {
-    return true;
-  }
-
-  // we need to search images of all sources and destinations
-  $images_of = array();
-
-  foreach ($sources_of as $destination => $sources)
-  {
-    $images_of[$destination] = array();
-
-    foreach ($sources as $source)
-    {
-      $images_of[$source] = array();
-    }
-  }
-
-  $query = '
-SELECT image_id, category_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.
-    implode(',', array_keys($images_of)).
-    ')
-;';
-  $result = pwg_query($query);
-
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push(
-      $images_of[ $row['category_id'] ],
-      $row['image_id']
-      );
-  }
-
-  $inserts = array();
-
-  foreach ($sources_of as $destination => $sources)
-  {
-    // merge all images from the sources of this destination
-    $sources_images = array();
-
-    foreach ($sources as $source)
-    {
-      $sources_images = array_merge(
-        $sources_images,
-        $images_of[$source]
-        );
-    }
-
-    $sources_images = array_unique($sources_images);
-
-    // are there images among the sources that are not linked to the
-    // destination?
-    $missing_images = array_diff(
-      $sources_images,
-      $images_of[$destination]
-      );
-
-    // if we find missing images (missing links in reality), we prepare the
-    // final mass_inserts
-    if (count($missing_images) > 0)
-    {
-      foreach ($missing_images as $missing_image)
-      {
-        array_push(
-          $inserts,
-          array(
-            'category_id' => $destination,
-            'image_id'    => $missing_image,
-            )
-          );
-      }
-    }
-  }
-
-  if (count($inserts) > 0)
-  {
-    mass_inserts(
-      IMAGE_CATEGORY_TABLE,
-      array_keys($inserts[0]),
-      $inserts
-      );
-  }
-}
-
-/**
- * Based on categories links, delete image_category links on destinations.
- *
- * The rule is the following: if an image belong to the category and to the
- * source, we suppose it comes from the source. If the source/destination
- * link is broken, we delete the image/category link if the only origin of
- * the link was the broken categories link.
- *
- * Example: "=>" means "source of". Between brackets the associated images.
- *
- * A (1,2,9) => \
- *               |=> C (1,2,3,4,5,9) => D (1,2,3,4,5,6,9)
- * B (3,4,9) => /
- *
- * In category C, we suppose (1,2) come from A, (3,4) from B, 9 from A or B
- * and 5 was manually added. In category D, 6 was added manually.
- *
- * If we break A=>C, C and D loose (1,2) but not 9 because it can come from
- * B. If we break C=>D, D loose (3,4,5,9) but not 6 because it was
- * associated manually to 9.
- *
- * Warning: only virtual links can be removed, physical links are protected.
- *
- * @param int destination
- * @param array sources
- */
-function delete_sources($destination, $sources)
-{
-  // if no sources to unlink, we stop with OK status
-  if (count($sources) == 0)
-  {
-    return true;
-  }
-
-  $query = '
-DELETE
-  FROM '.CATEGORIES_LINK_TABLE.'
-  WHERE destination = '.$destination.'
-    AND source IN ('.implode(',', $sources).')
-;';
-  pwg_query($query);
-
-  // The strategy is the following:
-  //
-  // * first we brutally delete the image/category associations on
-  // destinations categories for all images belonging to sources.
-  //
-  // * then we check_links on destinations to rebuild missing image/category
-  // associations.
-
-  // what are the images associated to the sources to unlink
-  $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.
-    implode(',', $sources).
-    ')
-;';
-  $sources_images = array_unique(
-    array_from_query($query, 'image_id')
-    );
-
-  if (count($sources_images) == 0)
-  {
-    return true;
-  }
-
-  // retrieve all direct and indirect destinations of the current
-  // destination
-  $destinations_of = get_destinations(array($destination));
-
-  $destinations = array_merge(
-    array($destination),
-    $destinations_of[$destination]
-    );
-
-  // unlink sources images from destinations
-  $query = '
-DELETE
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.implode(',', $destinations).')
-    AND image_id IN ('.implode(',', $sources_images).')
-    AND is_storage = \'false\'
-;';
-  pwg_query($query);
-
-  // if the representative thumbnail of destinations was a picture from
-  // $sources_images, we request a new random representant
-  $query = '
-SELECT id, representative_picture_id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $destinations).')
-;';
-  $result = pwg_query($query);
-
-  $request_random = array();
-
-  while ($row = mysql_fetch_array($result))
-  {
-    if (isset($row['representative_picture_id']))
-    {
-      if (in_array($row['representative_picture_id'], $sources_images))
-      {
-        array_push($request_random, $row['id']);
-      }
-    }
-  }
-
-  set_random_representant($request_random);
-
-  // eventually, we check_links to rebuild missing associations
-  check_links($destinations);
-
-  return true;
 }
 
 /**
@@ -2298,5 +1861,79 @@ function do_maintenance_all_tables()
   $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables).';';
   pwg_query($query);
 
+}
+
+/**
+ * Associate a list of images to a list of categories.
+ *
+ * The function will not duplicate links
+ *
+ * @param array images
+ * @param array categories
+ * @return void
+ */
+function associate_images_to_categories($images, $categories)
+{
+  if (count($images) == 0
+      or count($categories) == 0)
+  {
+    return false;
+  }
+
+  $query = '
+DELETE
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $images).')
+    AND category_id IN ('.implode(',', $categories).')
+;';
+  pwg_query($query);
+
+  $inserts = array();
+  foreach ($categories as $category_id)
+  {
+    foreach ($images as $image_id)
+    {
+      array_push(
+        $inserts,
+        array(
+          'image_id' => $image_id,
+          'category_id' => $category_id,
+          )
+        );
+    }
+  }
+  
+  mass_inserts(
+    IMAGE_CATEGORY_TABLE,
+    array_keys($inserts[0]),
+    $inserts
+    );
+
+  update_category($categories);
+}
+
+/**
+ * Associate images associated to a list of source categories to a list of
+ * destination categories.
+ *
+ * @param array sources
+ * @param array destinations
+ * @return void
+ */
+function associate_categories_to_categories($sources, $destinations)
+{
+  if (count($sources) == 0)
+  {
+    return false;
+  }
+
+  $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', $sources).')
+;';
+  $images = array_from_query($query, 'image_id');
+
+  associate_images_to_categories($images, $destinations);
 }
 ?>

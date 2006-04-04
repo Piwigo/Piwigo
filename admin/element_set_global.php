@@ -95,80 +95,35 @@ DELETE
 
   if ($_POST['associate'] != 0 and count($collection) > 0)
   {
-    $datas = array();
-
-    $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id = '.$_POST['associate'].'
-;';
-    $associated = array_from_query($query, 'image_id');
-
-    $associable = array_diff($collection, $associated);
-
-    if (count($associable) != 0)
-    {
-      foreach ($associable as $item)
-      {
-        array_push(
-          $datas,
-          array(
-            'category_id' => $_POST['associate'],
-            'image_id' => $item
-            )
-          );
-      }
-
-      mass_inserts(
-        IMAGE_CATEGORY_TABLE,
-        array('image_id', 'category_id'),
-        $datas
-        );
-
-      check_links();
-      update_category(array($_POST['associate']));
-    }
+    associate_images_to_categories(
+      $collection,
+      array($_POST['associate'])
+      );
   }
 
   if ($_POST['dissociate'] != 0 and count($collection) > 0)
   {
-    // First, we must identify which elements in the collection are really
-    // virtually associated with the category
+    // physical links must not be broken, so we must first retrieve image_id
+    // which create virtual links with the category to "dissociate from".
     $query = '
-SELECT image_id
+SELECT id
   FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE category_id = '.$_POST['dissociate'].'
-    AND image_id IN ('.implode(',', $collection).')
-    AND is_storage = \'false\'
+    AND id IN ('.implode(',', $collection).')
+    AND category_id != storage_category_id
 ;';
-    $associated_images = array_from_query($query, 'image_id');
+    $dissociables = array_from_query($query, 'id');
 
-    // If the same element is associated to a source and its destinations,
-    // dissociating the element with the source implies dissociating the
-    // element fwith the destination.
-    $destinations_of = get_destinations($_POST['dissociate']);
-
-    $associated_categories = array_merge(
-      array($_POST['dissociate']),
-      $destinations_of[ $_POST['dissociate'] ]
-      );
-
-    // Eventually, deletion of associations
     $query = '
 DELETE
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id IN ('.implode(',', $associated_categories).'
-    AND image_id IN ('.implode(',', $associated_images).')
+  WHERE category_id = '.$_POST['dissociate'].'
+    AND image_id IN ('.implode(',', $dissociables).')
 ';
     pwg_query($query);
-
-    // check source/destination links. If category C has for sources A and
-    // B, if picture 1 was associated to A and B, the previous code lines
-    // have deleted the link between C and 1, while it should be kept due to
-    // B. Who said "complicated"?
-    check_links();
-
-    update_category($associated_categories);
+    
+    update_category($_POST['dissociate']);
   }
 
   $datas = array();
@@ -318,7 +273,7 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
   WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
     AND ic.category_id = c.id
     AND ic.image_id = i.id
-    AND ic.is_storage = \'false\'
+    AND ic.category_id != i.storage_category_id
 ;';
   display_select_cat_wrapper($query, array(), $blockname, true);
 }

@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2005-09-21 00:04:57 +0200 (mer, 21 sep 2005) $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 870 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -27,96 +27,65 @@
 
 if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+$upgrade_description =
+  '#image_category.is_storage replaced by #image.storage_category_id';
 
 // +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
-check_status(ACCESS_ADMINISTRATOR);
-
-// +-----------------------------------------------------------------------+
-// |                                actions                                |
+// |                              New column                               |
 // +-----------------------------------------------------------------------+
 
-$action = (isset($_GET['action']) and !is_adviser()) ? $_GET['action'] : '';
+$query = '
+ALTER TABLE '.PREFIX_TABLE.'images
+  ADD storage_category_id smallint(5) unsigned default NULL
+;';
+pwg_query($query);
 
-switch ($action)
+$query = '
+SELECT category_id, image_id
+  FROM '.PREFIX_TABLE.'image_category
+  WHERE is_storage = \'true\'
+;';
+$result = pwg_query($query);
+
+$datas = array();
+while ($row = mysql_fetch_array($result))
 {
-  case 'categories' :
-  {
-    update_uppercats();
-    update_category('all');
-    ordering();
-    update_global_rank();
-    break;
-  }
-  case 'images' :
-  {
-    update_path();
-    update_average_rate();
-    break;
-  }
-  case 'history' :
-  {
-    $query = '
-DELETE
-  FROM '.HISTORY_TABLE.'
-;';
-    pwg_query($query);
-    break;
-  }
-  case 'sessions' :
-  {
-    pwg_session_gc();
-    break;
-  }
-  case 'feeds' :
-  {
-    $query = '
-DELETE
-  FROM '.USER_FEED_TABLE.'
-  WHERE last_check IS NULL
-;';
-    pwg_query($query);
-    break;
-  }
-  case 'database' :
-  {
-    do_maintenance_all_tables();
-    break;
-  }
-  default :
-  {
-    break;
-  }
+  array_push(
+    $datas,
+    array(
+      'id' => $row['image_id'],
+      'storage_category_id' => $row['category_id'],
+      )
+    );
 }
-
-// +-----------------------------------------------------------------------+
-// |                             template init                             |
-// +-----------------------------------------------------------------------+
-
-$template->set_filenames(array('maintenance'=>'admin/maintenance.tpl'));
-
-$start_url = PHPWG_ROOT_PATH.'admin.php?page=maintenance&amp;action=';
-
-$template->assign_vars(
+mass_updates(
+  PREFIX_TABLE.'images',
   array(
-    'U_MAINT_CATEGORIES' => $start_url.'categories',
-    'U_MAINT_IMAGES' => $start_url.'images',
-    'U_MAINT_HISTORY' => $start_url.'history',
-    'U_MAINT_SESSIONS' => $start_url.'sessions',
-    'U_MAINT_FEEDS' => $start_url.'feeds',
-    'U_MAINT_DATABASE' => $start_url.'database',
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=maintenance',
-    )
+    'primary' => array('id'),
+    'update' => array('storage_category_id'),
+    ),
+  $datas
   );
 
 // +-----------------------------------------------------------------------+
-// |                           sending html code                           |
+// |                         Delete obsolete column                        |
 // +-----------------------------------------------------------------------+
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'maintenance');
+$query = '
+ALTER TABLE '.PREFIX_TABLE.'image_category DROP COLUMN is_storage
+;';
+pwg_query($query);
+
+// +-----------------------------------------------------------------------+
+// |                           End notification                            |
+// +-----------------------------------------------------------------------+
+
+echo
+"\n"
+.'Column '.PREFIX_TABLE.'image_category'
+.' replaced by '.PREFIX_TABLE.'images.storage_category_id'."\n"
+;
 ?>

@@ -42,17 +42,6 @@ CREATE TABLE `phpwebgallery_categories` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_categories_link`
---
-
-DROP TABLE IF EXISTS `phpwebgallery_categories_link`;
-CREATE TABLE `phpwebgallery_categories_link` (
-  `source` smallint(5) unsigned NOT NULL default '0',
-  `destination` smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`source`,`destination`)
-) TYPE=MyISAM;
-
---
 -- Table structure for table `phpwebgallery_comments`
 --
 
@@ -138,7 +127,6 @@ DROP TABLE IF EXISTS `phpwebgallery_image_category`;
 CREATE TABLE `phpwebgallery_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
-  `is_storage` enum('true','false') default 'false',
   PRIMARY KEY  (`image_id`,`category_id`),
   KEY `image_category_i1` (`image_id`),
   KEY `image_category_i2` (`category_id`)
@@ -178,6 +166,7 @@ CREATE TABLE `phpwebgallery_images` (
   `average_rate` float(5,2) unsigned default NULL,
   `has_high` enum('true') default NULL,
   `path` varchar(255) NOT NULL default '',
+  `storage_category_id` smallint(5) unsigned default NULL,
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`average_rate`),

@@ -182,16 +182,14 @@ SELECT i.id,
        i.file,
        i.tn_ext,
        i.average_rate,
+       i.storage_category_id,
        MAX(r.date)          AS recently_rated,
        COUNT(r.rate)        AS nb_rates,
        SUM(r.rate)          AS sum_rates,
-       ROUND(STD(r.rate),2) AS std_rates,
-       ic.category_id       AS storage_category_id
+       ROUND(STD(r.rate),2) AS std_rates
   FROM '.RATE_TABLE.' AS r
     LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.image_id = i.id
   WHERE 1 = 1 ' . $display_filter . '
-    AND ic.is_storage = \'true\'
   GROUP BY r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
   LIMIT '.$start.','.$elements_per_page.'

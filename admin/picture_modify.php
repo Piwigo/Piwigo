@@ -121,56 +121,23 @@ if (isset($_POST['associate'])
     and isset($_POST['cat_dissociated'])
     and count($_POST['cat_dissociated']) > 0)
 {
-  $datas = array();
-
-  foreach ($_POST['cat_dissociated'] as $category_id)
-  {
-    array_push(
-      $datas,
-      array(
-        'image_id' => $_GET['image_id'],
-        'category_id' => $category_id
-        )
-      );
-  }
-
-  mass_inserts(
-    IMAGE_CATEGORY_TABLE,
-    array('image_id', 'category_id'),
-    $datas
+  associate_images_to_categories(
+    array($_GET['image_id']),
+    $_POST['cat_dissociated']
     );
-
-  check_links();
-  update_category($_POST['cat_dissociated']);
 }
 // dissociate the element from categories (but not from its storage category)
 if (isset($_POST['dissociate'])
     and isset($_POST['cat_associated'])
     and count($_POST['cat_associated']) > 0)
 {
-  $associated_categories = $_POST['cat_associated'];
-
-  // If the same element is associated to a source and its destinations,
-  // dissociating the element with the source implies dissociating the
-  // element fwith the destination.
-  $destinations_of = get_destinations($_POST['cat_associated']);
-  foreach ($destinations_of as $source => $destinations)
-  {
-    $associated_categories = array_merge(
-      $associated_categories,
-      $destinations
-      );
-  }
-
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE image_id = '.$_GET['image_id'].'
-    AND category_id IN ('.implode(',', $associated_categories).')
-    AND is_storage = \'false\'
+    AND category_id IN ('.implode(',', $_POST['cat_associated']).')
 ';
   pwg_query($query);
-
-  check_links();
+  
   update_category($_POST['cat_associated']);
 }
 // elect the element to represent the given categories
@@ -201,13 +168,11 @@ if (isset($_POST['dismiss'])
 $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
   WHERE id = '.$_GET['image_id'].'
-    AND is_storage = \'true\'
 ;';
 $row = mysql_fetch_array(pwg_query($query));
 
-$storage_category_id = $row['category_id'];
+$storage_category_id = $row['storage_category_id'];
 $image_file = $row['file'];
 
 // tags
@@ -396,7 +361,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
   WHERE image_id = '.$_GET['image_id'].'
-    AND is_storage = \'false\'
+    AND id != '.$storage_category_id.'
 ;';
 display_select_cat_wrapper($query, array(), 'associated_option');
 
