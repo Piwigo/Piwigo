@@ -36,7 +36,7 @@ function counter_compare($a, $b)
     return tag_id_compare($a, $b);
   }
 
-  return ($a['counter'] < $b['counter']) ? -1 : 1;
+  return ($a['counter'] < $b['counter']) ? +1 : -1;
 }
 
 function tag_id_compare($a, $b)
@@ -102,7 +102,7 @@ foreach ($tags as $tag)
             ),
           )
         ),
-      
+
       'NAME' => $tag['name'],
       'TITLE' => $tag['counter'],
       'CLASS' => 'tagLevel'.$tag['level'],

@@ -110,15 +110,7 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('index'=>'index.tpl') );
 //-------------------------------------------------------------- category title
-if (isset($page['category']))
-{
-  $template_title = get_cat_display_name( $page['cat_name'], '', false );
-}
-else
-{
-  $template_title = $page['title'];
-}
-
+$template_title = $page['title'];
 if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
 {
   $template_title.= ' ['.$page['cat_nb_images'].']';
@@ -225,9 +217,13 @@ if (count($conf['links']) > 0)
 if ('tags' == $page['section'])
 {
   $template->assign_block_vars('tags', array());
-  
+
   // display tags associated to currently tagged items, less current tags
-  $query = '
+  $tags = array();
+
+  if ( !empty($page['items']) )
+  {
+    $query = '
 SELECT tag_id, name, url_name, count(*) counter
   FROM '.IMAGE_TAG_TABLE.'
     INNER JOIN '.TAGS_TABLE.' ON tag_id = id
@@ -236,13 +232,11 @@ SELECT tag_id, name, url_name, count(*) counter
   GROUP BY tag_id
   ORDER BY name ASC
 ;';
-  $result = pwg_query($query);
-
-  $tags = array();
-  
-  while($row = mysql_fetch_array($result))
-  {
-    array_push($tags, $row);
+    $result = pwg_query($query);
+    while($row = mysql_fetch_array($result))
+    {
+      array_push($tags, $row);
+    }
   }
 
   $tags = add_level_to_tags($tags);
@@ -276,16 +270,16 @@ SELECT tag_id, name, url_name, count(*) counter
               )
             )
           ),
-        
+
         'NAME' => $tag['name'],
-        
+
         'TITLE' => l10n('See pictures linked to this tag only'),
 
         'TITLE_ADD' => sprintf(
           l10n('%d pictures are also linked to current tags'),
           $tag['counter']
           ),
-        
+
         'CLASS' => 'tagLevel'.$tag['level']
         )
       );

@@ -270,3 +270,13 @@ UL.tagSelection LI {
   display: inline;
   white-space: nowrap;
 }
+
+#fullTagCloud { font-size: 140%; }
+
+#fullTagCloud LI { display: inline; }
+
+.tagLevel5 { font-size: 150%; }
+.tagLevel4 { font-size: 140%; }
+.tagLevel3 { font-size: 120%; }
+.tagLevel2 { font-size: 100%; }
+.tagLevel1 { font-size: 90%; }

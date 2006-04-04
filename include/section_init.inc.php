@@ -161,7 +161,7 @@ else if (0 === strpos($tokens[$next_token], 'tag'))
         break;
       }
     }
-    
+
     array_push(
       $page['tags'],
       array(
@@ -305,7 +305,7 @@ if ('categories' == $page['section'])
         'cat_id_uppercat'  => $result['id_uppercat'],
         'uppercats'        => $result['uppercats'],
 
-        'title' => get_cat_display_name($result['name'], null, false),
+        'title' => get_cat_display_name($result['name'], '', false),
         )
       );
 
@@ -360,7 +360,7 @@ else
     // permissions depends on category, so to only keep images that are
     // reachable to the connected user, we need to check category
     // associations
-    if (!empty($user['forbidden_categories']))
+    if (!empty($user['forbidden_categories']) and !empty($items) )
     {
       $query = '
 SELECT image_id
@@ -381,7 +381,7 @@ SELECT name, url_name, id
 ;';
     $result = pwg_query($query);
     $tag_infos = array();
-    
+
     while ($row = mysql_fetch_array($result))
     {
       $tag_infos[ $row['id'] ]['name'] = $row['name'];
@@ -428,20 +428,28 @@ SELECT name, url_name, id
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
 
-    $query = '
+    $search_items = get_search_items($page['search']);
+    if ( !empty($search_items) )
+    {
+      $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', get_search_items($page['search'])).')
+  WHERE id IN ('.implode(',', $search_items).')
     AND '.$forbidden.'
   '.$conf['order_by'].'
-;'; 
+;';
+      $page['items'] = array_from_query($query, 'id');
+    }
+    else
+    {
+      $page['items'] = array();
+    }
 
     $page = array_merge(
       $page,
       array(
         'title' => $lang['search_result'],
-        'items' => array_from_query($query, 'id'),
         'thumbnails_include' => 'include/category_default.inc.php',
         )
       );

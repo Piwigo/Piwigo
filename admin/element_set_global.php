@@ -92,7 +92,7 @@ DELETE
 ;';
     pwg_query($query);
   }
-  
+
   if ($_POST['associate'] != 0 and count($collection) > 0)
   {
     $datas = array();
@@ -330,29 +330,31 @@ $template->assign_vars(
     )
   );
 
-// remove tags
-$query = '
-SELECT tag_id, name, url_name, count(*) counter
-  FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
-  WHERE image_id IN ('.implode(',', $page['cat_elements_id']).')
-  GROUP BY tag_id
-  ORDER BY name ASC
-;';
-$result = pwg_query($query);
-
-$tags = array();
-while($row = mysql_fetch_array($result))
+if (count($page['cat_elements_id']) > 0)
 {
-  array_push($tags, $row);
+  // remove tags
+  $query = '
+  SELECT tag_id, name, url_name, count(*) counter
+    FROM '.IMAGE_TAG_TABLE.'
+      INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+    WHERE image_id IN ('.implode(',', $page['cat_elements_id']).')
+    GROUP BY tag_id
+    ORDER BY name ASC
+  ;';
+  $result = pwg_query($query);
+
+  $tags = array();
+  while($row = mysql_fetch_array($result))
+  {
+    array_push($tags, $row);
+  }
+
+  $template->assign_vars(
+    array(
+      'DEL_TAG_SELECTION' => get_html_tag_selection($tags, 'del_tags'),
+      )
+    );
 }
-
-$template->assign_vars(
-  array(
-    'DEL_TAG_SELECTION' => get_html_tag_selection($tags, 'del_tags'),
-    )
-  );
-
 // creation date
 $day =
 empty($_POST['date_creation_day']) ? date('j') : $_POST['date_creation_day'];

@@ -48,7 +48,7 @@ $template->assign_vars(
         $page['body_id'] : '',
 
     'CONTENT_ENCODING' => $lang_info['charset'],
-    'PAGE_TITLE' => $title,
+    'PAGE_TITLE' => strip_tags($title),
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
 

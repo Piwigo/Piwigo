@@ -448,7 +448,7 @@ $conf['full_tag_cloud_items_number'] = 200;
 
 // tags_levels: number of levels to use for display. Each level is bind to a
 // CSS class tagLevelX.
-$conf['tags_levels'] = 10;
+$conf['tags_levels'] = 5;
 
 // +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
