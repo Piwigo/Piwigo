@@ -25,7 +25,7 @@
         <!-- END delete -->
       </ul>
 
-      <p><strong>{category.NAME}</strong></p>
+      <p><strong><a href="{category.U_CHILDREN}" title="{lang:manage sub-categories}">{category.NAME}</a></strong></p>
 
       <p>
         <label>
