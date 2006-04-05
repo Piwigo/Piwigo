@@ -50,7 +50,8 @@ function get_sync_iptc_data($file)
 
   if (isset($iptc['keywords']))
   {
-    // keywords separator is the comma
+    // official keywords separator is the comma
+    $iptc['keywords'] = preg_replace('/[.;]/', ',', $iptc['keywords']);
     $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
   }
 
@@ -180,16 +181,17 @@ function update_metadata($files)
           );
     }
 
-    $fields =
+    mass_updates(
+      IMAGES_TABLE,
       array(
         'primary' => array('id'),
         'update'  => array_unique($update_fields)
-        );
-    echo '<pre>'; print_r($datas); echo '</pre>';
-    mass_updates(IMAGES_TABLE, $fields, $datas);
+        ),
+      $datas
+      );
   }
 
-  set_tags_of(tags_of);
+  set_tags_of($tags_of);
 }
 
 /**
