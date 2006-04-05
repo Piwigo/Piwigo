@@ -3,7 +3,11 @@
 <!-- END information -->
 
 <div id="imageHeaderBar">
-  <div class="browsePath"><a href="{U_HOME}" rel="home">{L_HOME}</a>{LEVEL_SEPARATOR}{CATEGORY}</div>
+  <div class="browsePath">
+    <a href="{U_HOME}" rel="home">{L_HOME}</a>
+    {LEVEL_SEPARATOR}{SECTION_TITLE}
+    {LEVEL_SEPARATOR}{PICTURE_TITLE}
+  </div>
   <div class="imageNumber">{PHOTO}</div>
   <!-- BEGIN title -->
   <h2>{TITLE}</h2>

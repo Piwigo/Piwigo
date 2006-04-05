@@ -370,18 +370,6 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
     );
 }
 
-$title_img = $picture['current']['name'];
-if ( isset( $page['category'] ) )
-{
-  if (is_numeric( $page['category'] ))
-  {
-    $title_img = replace_space(get_cat_display_name($page['cat_name']));
-  }
-  else if ( $page['cat'] == 'search' )
-  { // ??? TODO -remove or change some remainings from old variables
-    $title_img = replace_search( $title_img, $_GET['search'] );
-  }
-}
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 
 // calculation of width and height
@@ -442,7 +430,8 @@ $template->set_filenames(array('picture'=>'picture.tpl'));
 
 $template->assign_vars(
   array(
-    'CATEGORY' => $title_img,
+    'SECTION_TITLE' => $page['title'],
+    'PICTURE_TITLE' => $picture['current']['name'],
     'PHOTO' => $title_nb,
     'TITLE' => $picture['current']['name'],
     'SRC_IMG' => $picture['current']['src'],
@@ -779,7 +768,7 @@ if ($metadata_showable and isset($_GET['metadata']))
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
 //------------------------------------------------------------ log informations
-pwg_log( 'picture', $title_img, $picture['current']['file'] );
+pwg_log('picture', $page['title'], $picture['current']['file']);
 
 $template->parse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
