@@ -21,21 +21,21 @@
 <!-- END errors -->
 <table width="100%" align="center" cellpadding="2">
   <tr>
-    <td width="50%" colspan="2"><b>{L_SEARCH_KEYWORDS} : </b>
+    <td width="50%" colspan="2"><b>{lang:search_keywords} : </b>
     <td colspan="2" valign="top">
 	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
 	  <br />
-	  <input type="radio" name="mode" value="AND" checked="checked" /> {L_SEARCH_ALL_TERMS}<br />
-	  <input type="radio" name="mode" value="OR" /> {L_SEARCH_ANY_TERMS}
+	  <input type="radio" name="mode" value="AND" checked="checked" /> {lang:search_mode_and}<br />
+	  <input type="radio" name="mode" value="OR" /> {lang:search_mode_or}
 	</td>
   </tr>
   <tr>
-    <td colspan="2"><b>{L_SEARCH_AUTHOR} :</b>
+    <td colspan="2"><b>{lang:search_author} :</b>
     <td colspan="2" valign="middle">
 	  <input type="text" style="width: 300px" name="search_author" size="30" />
 	</td>
   </tr>
-  
+
   <tr>
     <td colspan="2"><b>{lang:Search tags} :</b></td>
     <td colspan="2" valign="middle">
@@ -44,13 +44,13 @@
       <br /><label><input type="radio" name="tag_mode" value="OR" /> {lang:Any tag}</label>
     </td>
   </tr>
-  
+
   <tr>
-    <td colspan="2"><b>{L_SEARCH_DATE} :</b>
+    <td colspan="2"><b>{lang:search_date} :</b>
     <td colspan="2" valign="middle">
       <table>
         <tr>
-          <td>{L_SEARCH_DATE_FROM} :</td>
+          <td>{lang:search_date_from} :</td>
           <td>
             <select name="start_day">
               <!-- BEGIN start_day -->
@@ -63,11 +63,11 @@
               <!-- END start_month -->
             </select>
 	    <input name="start_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{L_TODAY}</a>
+	    <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{lang:today}</a>
           </td>
         </tr>
         <tr>
-          <td>{L_SEARCH_DATE_TO} :</td>
+          <td>{lang:search_date_to} :</td>
           <td>
             <select name="end_day">
               <!-- BEGIN end_day -->
@@ -80,17 +80,17 @@
               <!-- END end_month -->
             </select>
             <input name="end_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{L_TODAY}</a>
+	    <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{lang:today}</a>
           </td>
         </tr>
       </table>
     </td>
   </tr>
   <tr class="admin">
-    <th colspan="4">{L_SEARCH_OPTIONS}</th>
+    <th colspan="4">{lang:search_options}</th>
   </tr>
   <tr>
-    <td width="25%" ><b>{L_SEARCH_CATEGORIES} : </b>
+    <td width="25%" ><b>{lang:search_categories} : </b>
     <td width="25%" nowrap="nowrap">
 	  <select style="width:200px" name="cat[]" multiple="multiple" size="8">
       <!-- BEGIN category_option -->
@@ -98,22 +98,22 @@
       <!-- END category_option -->
       </select>
 	</td>
-    <td width="25%" nowrap="nowrap"><b>{L_SEARCH_SUBFORUMS} : </b></td>
+    <td width="25%" nowrap="nowrap"><b>{lang:search_subcats_included} : </b></td>
     <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="subcats-included" value="1" checked="checked" />{L_YES}&nbsp;&nbsp;
-	  <input type="radio" name="subcats-included" value="0" />{L_NO}
+	  <input type="radio" name="subcats-included" value="1" checked="checked" />{lang:yes}&nbsp;&nbsp;
+	  <input type="radio" name="subcats-included" value="0" />{lang:no}
 	</td>
    </tr>
    <tr>
-    <td width="25%" nowrap="nowrap"><b>{L_SEARCH_DATE_TYPE} : </b></td>
+    <td width="25%" nowrap="nowrap"><b>{lang:search_date_type} : </b></td>
     <td width="25%" nowrap="nowrap">
 	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{lang:Creation date}<br />
 	  <input type="radio" name="date_type" value="date_available" />{lang:Post date}
 	</td>
-	<td><b>{L_RESULT_SORT} : </b></td>
+	<td><b>{lang:search_sort} : </b></td>
     <td nowrap="nowrap">
-	  <input type="radio" name="sd" value="AND" />{L_SORT_ASCENDING}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
+	  <input type="radio" name="sd" value="AND" />{lang:search_ascending}<br />
+	  <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
 	</td>
   </tr>
 <!--  <tr>
@@ -125,11 +125,11 @@
 	</td>
   </tr>
   <tr>
-    <td><b>{L_RESULT_SORT} : </b></td>
+    <td><b>{lang:search_sort} : </b></td>
     <td nowrap="nowrap">
 	  {S_SELECT_SORT_KEY}<br />
-	  <input type="radio" name="sd" value="a" />{L_SORT_ASCENDING}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{L_SORT_DESCENDING}
+	  <input type="radio" name="sd" value="a" />{lang:search_ascending}<br />
+	  <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
 	</td>
     <td nowrap="nowrap"><b>{L_DISPLAY_RESULTS} : </b></td>
     <td nowrap="nowrap">
@@ -140,8 +140,8 @@
   -->
 <tr>
 <td align="center" valign="bottom" colspan="4" height="38">
-<input type="submit" name="submit" value="{L_SUBMIT}" class="bouton" />&nbsp;&nbsp;
-<input type="reset" value="{L_RESET}" class="bouton" />
+<input type="submit" name="submit" value="{lang:submit}" class="bouton" />&nbsp;&nbsp;
+<input type="reset" value="{lang:reset}" class="bouton" />
 </td>
 </table>
 </form>

@@ -80,7 +80,7 @@ while ($row = mysql_fetch_array($result))
     {
       $tag_id[$keyword] = $current_id++;
     }
-    
+
     if (!isset($tag_images[ $tag_id[$keyword] ]))
     {
       $tag_images[ $tag_id[$keyword] ] = array();
@@ -102,6 +102,7 @@ foreach ($tag_id as $tag_name => $tag_id)
       )
     );
 }
+if (!empty($datas))
 mass_inserts(
   PREFIX_TABLE.'tags',
   array_keys($datas[0]),
@@ -123,6 +124,7 @@ foreach ($tag_images as $tag_id => $images)
   }
 }
 
+if (!empty($datas))
 mass_inserts(
   PREFIX_TABLE.'image_tag',
   array_keys($datas[0]),

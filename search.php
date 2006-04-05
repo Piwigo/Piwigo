@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -72,7 +72,7 @@ if (isset($_POST['submit']))
       'mode'  => $_POST['tag_mode'],
       );
   }
-  
+
   if ($_POST['search_author'])
   {
     $search['fields']['author'] = array(
@@ -176,32 +176,15 @@ $page['body_id'] = 'theSearchPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
-$template->assign_vars(array(
-  'L_SEARCH_TITLE' => $lang['search_title'],
-  'L_SEARCH_OPTIONS' => $lang['search_options'],
-  'L_RETURN' => $lang['home'],
-  'L_SUBMIT' => $lang['submit'],
-  'L_RESET' => $lang['reset'],
-  'L_SEARCH_KEYWORDS'=>$lang['search_keywords'],
-  'L_SEARCH_ANY_TERMS'=>$lang['search_mode_or'],
-  'L_SEARCH_ALL_TERMS'=>$lang['search_mode_and'],
-  'L_SEARCH_AUTHOR'=>$lang['search_author'],
-  'L_SEARCH_AUTHOR_HINT'=>$lang['search_explain'],
-  'L_SEARCH_CATEGORIES'=>$lang['search_categories'],
-  'L_SEARCH_SUBFORUMS'=>$lang['search_subcats_included'],
-  'L_YES' => $lang['yes'],
-  'L_NO' => $lang['no'],
-  'L_SEARCH_DATE' => $lang['search_date'],
-  'L_TODAY' => $lang['today'],
-  'L_SEARCH_DATE_FROM'=>$lang['search_date_from'],
-  'L_SEARCH_DATE_TO'=>$lang['search_date_to'],
-  'L_DAYS'=>$lang['days'],
-  'L_MONTH'=>$lang['w_month'],
-  'L_SEARCH_DATE_TYPE'=>$lang['search_date_type'],
-  'L_RESULT_SORT'=>$lang['search_sort'],
-  'L_SORT_ASCENDING'=>$lang['search_ascending'],
-  'L_SORT_DESCENDING'=>$lang['search_descending'],
 
+$available_tags = get_available_tags(
+      isset($user['forbidden_categories'])
+      ? explode(',', $user['forbidden_categories'])
+      : null
+      );
+usort( $available_tags, 'name_compare');
+
+$template->assign_vars(array(
   'TODAY_DAY' => date('d', time()),
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
@@ -210,11 +193,7 @@ $template->assign_vars(array(
   'U_HOME' => make_index_url(),
 
   'TAG_SELECTION' => get_html_tag_selection(
-    get_available_tags(
-      isset($user['forbidden_categories'])
-      ? explode(',', $user['forbidden_categories'])
-      : null
-      ),
+    $available_tags,
     'tags',
     isset($_POST['tags']) ? $_POST['tags'] : array()
     ),

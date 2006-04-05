@@ -37,7 +37,6 @@ function initialize_calendar()
   if ($page['section']=='categories' or
       ( isset($page['category']) and is_numeric($page['category']) ) )
   { // we will regenerate the items by including subcats elements
-    $page['cat_nb_images'] = 0;
     $page['items'] = array();
     $inner_sql .= '
 INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
@@ -186,8 +185,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     {
       unset(
         $page['thumbnails_include'],
-        $page['items'],
-        $page['cat_nb_images']
+        $page['items']
         );
 
       $must_show_list = false;
@@ -270,7 +268,6 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     }
 
     $page['items']              = array_from_query($query, 'id');
-    $page['cat_nb_images']      = count($page['items']);
     $page['thumbnails_include'] = 'include/category_default.inc.php';
   }
   pwg_debug('end initialize_calendar');

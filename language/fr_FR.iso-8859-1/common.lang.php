@@ -294,7 +294,6 @@ $lang['search_date_from'] = 'Date';
 $lang['search_date_to'] = 'Date de fin';
 $lang['search_date_type'] = 'Type de date';
 $lang['search_descending'] = 'Décroissant';
-$lang['search_explain'] = 'Utiliser * comme un joker pour une recherche partielle';
 $lang['search_keywords'] = 'Recherche de mot';
 $lang['search_mode_and'] = 'Rechercher tous les mots';
 $lang['search_mode_or'] = 'Rechercher un des mots';

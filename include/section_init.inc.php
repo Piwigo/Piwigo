@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -298,7 +298,6 @@ if ('categories' == $page['section'])
         'comment'          => $result['comment'],
         'cat_dir'          => $result['dir'],
         'cat_name'         => $result['name'],
-        'cat_nb_images'    => $result['nb_images'],
         'cat_site_id'      => $result['site_id'],
         'cat_uploadable'   => $result['uploadable'],
         'cat_commentable'  => $result['commentable'],
@@ -364,9 +363,10 @@ else
     {
       $query = '
 SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
+  FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE image_id IN ('.implode(',', $items).')
-    AND '.$forbidden.'
+    AND '.$forbidden.
+    $conf['order_by'].'
 ;';
       $items = array_unique(
         array_from_query($query, 'image_id')
@@ -511,7 +511,6 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => $lang['recent_cats_cat'],
-        'cat_nb_images' => 0,
         'thumbnails_include' => 'include/category_recent_cats.inc.php',
         )
       );
@@ -591,11 +590,6 @@ SELECT DISTINCT(id)
         )
       );
   }
-
-  if (!isset($page['cat_nb_images']))
-  {
-    $page['cat_nb_images'] = count($page['items']);
-  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -607,6 +601,8 @@ if (isset($page['chronology_field']))
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
 }
+
+$page['cat_nb_images'] = isset($page['items']) ? count($page['items']) : 0;
 
 if (basename($_SERVER['SCRIPT_FILENAME']) == 'picture.php'
     and !isset($page['image_id']) )
