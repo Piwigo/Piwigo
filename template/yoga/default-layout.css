@@ -179,16 +179,13 @@ FORM.properties LI, FORM#update UL  {
   line-height: 1.8em;
 }
 
-FORM.properties LABEL {
+FORM.properties SPAN.property {
+  font-weight: bold;
   float: left;
   width: 50%;
   text-align: right;
   margin: 0;
   padding: 0 0.5em 0 0;
-}
-
-FORM.properties LABEL.mandatory {
-  font-weight: bold;
 }
 
 FORM.properties .focus {

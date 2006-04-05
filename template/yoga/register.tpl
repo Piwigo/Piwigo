@@ -25,22 +25,30 @@
 
     <ul>
       <li>
-        <label for="login" class="mandatory">* {lang:Username}</label>
+        <span class="property">
+          <label for="login">* {lang:Username}</label>
+        </span>
         <input type="text" name="login" id="login" value="{F_LOGIN}" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       </li>
 
       <li>
-        <label for="password" class="mandatory">* {lang:Password}</label>
+        <span class="property">
+          <label for="password">* {lang:Password}</label>
+        </span>
         <input type="password" name="password" id="password" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       </li>
 
       <li>
-        <label for="password_conf" class="mandatory">* {lang:Confirm Password}</label>
+        <span class="property">
+          <label for="password_conf">* {lang:Confirm Password}</label>
+        </span>
         <input type="password" name="password_conf" id="password_conf" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       </li>
 
       <li>
-        <label for="mail_address">{lang:Mail address}</label>
+        <span class="property">
+          <label for="mail_address">{lang:Mail address}</label>
+        </span>
         <input type="text" name="mail_address" id="mail_address" value="{F_EMAIL}" onfocus="this.className='focus';" onblur="this.className='nofocus';">
         ({lang:useful when password forgotten})
       </li>

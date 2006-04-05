@@ -33,14 +33,18 @@
     <legend>{lang:Retrieve password}</legend>
 
     <ul>
-      <li> 
-        <label for="mail_address">{lang:Email address}</label>
-        <input class="login" type="text" name="mail_address" id="mail_address" size="40" maxlength="40">
+      <li>
+        <span class="property">
+          <label for="mail_address">{lang:Email address}</label>
+        </span>
+        <input class="login" type="text" name="mail_address" id="mail_address" size="40" maxlength="40" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       </li>
 
       <li>
-        <label>{lang:No email address}</label>
-        <input type="checkbox" name="no_mail_address" value="1">
+        <span class="property">
+          <label for="no_mail_address">{lang:No email address}</label>
+        </span>
+        <input type="checkbox" id="no_mail_address" name="no_mail_address" value="1">
       </li>
     </ul>
   </fieldset>

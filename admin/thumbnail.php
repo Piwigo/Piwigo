@@ -170,8 +170,6 @@ $template->assign_vars(array(
   'L_RESULTS'=>$lang['tn_results_title'],
   'L_PATH'=>$lang['path'],
   'L_FILESIZE'=>$lang['filesize'],
-  'L_WIDTH'=>$lang['tn_width'],
-  'L_HEIGHT'=>$lang['tn_height'],
   'L_GENERATED'=>$lang['tn_results_gen_time'],
   'L_THUMBNAIL'=>$lang['thumbnail'],
   'L_PARAMS'=>$lang['tn_params_title'],

@@ -23,28 +23,36 @@
 <form action="{F_LOGIN_ACTION}" method="post" class="properties">
   <fieldset>
     <legend>{lang:Connection settings}</legend>
-     <input type="hidden" name="redirect" value="{U_REDIRECT}">
+    
+    <input type="hidden" name="redirect" value="{U_REDIRECT}">
+    
     <ul>
       <li> 
-        <label for="username">{L_USERNAME}</label>
-        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}">
+        <span class="property">
+          <label for="username">{L_USERNAME}</label>
+        </span>
+        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
   
       <li>
-        <label for="password">{L_PASSWORD}</label>
-        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25">
+        <span class="property">
+          <label for="password">{L_PASSWORD}</label>
+        </span>
+        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
   
       <!-- BEGIN remember_me -->
       <li>
-        <label for="remember_me">{L_REMEMBER_ME}</label>
-        <input type="checkbox" name="remember_me" id=="remember_me" value="1">
+        <span class="property">
+          <label for="remember_me">{L_REMEMBER_ME}</label>
+        </span>
+        <input tabindex="3" type="checkbox" name="remember_me" id="remember_me" value="1">
       </li>
       <!-- END remember_me -->
     </ul>
   </fieldset>
 
-  <p><input type="submit" name="login" value="{L_LOGIN}"></p>
+  <p><input tabindex="4" type="submit" name="login" value="{L_LOGIN}"></p>
 </form>
  
   <p>

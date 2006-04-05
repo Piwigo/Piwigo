@@ -65,27 +65,35 @@
 
     <ul>
       <li>
-        <label><strong>{L_GD}</strong></label>
-	<input type="radio" name="gd" value="2" {params.GD2_CHECKED} />2.x
-	<input type="radio" name="gd" value="1" {params.GD1_CHECKED} />1.x
+        <span class="property">{L_GD}</span>
+	<label>
+          <input type="radio" name="gd" value="2" {params.GD2_CHECKED} />2.x
+        </label>
+        <label>
+          <input type="radio" name="gd" value="1" {params.GD1_CHECKED} />1.x
+        </label>
       </li>
 
       <li>
-        <label><strong>{lang:maximum width}</strong></label>
-	<input type="text" name="width" value="{params.WIDTH_TN}"/>
+        <span class="property">
+          <label for="width">{lang:maximum width}</label>
+        </span>
+	<input type="text" id="width" name="width" value="{params.WIDTH_TN}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
 
       <li>
-        <label><strong>{lang:maximum height}</strong></label>
-	<input type="text" name="height" value="{params.HEIGHT_TN}"/>
+        <span class="property">
+          <label for="height">{lang:maximum height}</label>
+        </span>
+	<input type="text" id="height" name="height" value="{params.HEIGHT_TN}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
 
       <li>
-        <label><strong>{lang:Number of thumbnails to create}</strong></label>
-	<input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5
-	<input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10
-	<input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20
-	<input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}
+        <span class="property">{lang:Number of thumbnails to create}</span>
+	<label><input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5</label>
+	<label><input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10</label>
+	<label><input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20</label>
+	<label><input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}</label>
       </li>
     </ul>
   </fieldset>
