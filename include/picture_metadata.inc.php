@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -30,98 +30,96 @@
  *
  */
 
-if ($metadata_showable and isset($_GET['metadata']))
+include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
+$template->assign_block_vars('metadata', array());
+if ($conf['show_exif'])
 {
-  include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
-  $template->assign_block_vars('metadata', array());
-  if ($conf['show_exif'])
+  if (!function_exists('read_exif_data'))
   {
-    if (!function_exists('read_exif_data'))
-    {
-      die('Exif extension not available, admin should disable exif display');
-    }
-
-    if ($exif = @read_exif_data($picture['current']['src_file_system']))
-    {
-      $template->assign_block_vars(
-        'metadata.headline',
-        array('TITLE' => 'EXIF Metadata')
-        );
-
-      foreach ($conf['show_exif_fields'] as $field)
-      {
-        if (strpos($field, ';') === false)
-        {
-          if (isset($exif[$field]))
-          {
-            $key = $field;
-            if (isset($lang['exif_field_'.$field]))
-            {
-              $key = $lang['exif_field_'.$field];
-            }
-
-            $template->assign_block_vars(
-              'metadata.line',
-              array(
-                'KEY' => $key,
-                'VALUE' => $exif[$field]
-                )
-              );
-          }
-        }
-        else
-        {
-          $tokens = explode(';', $field);
-          if (isset($exif[$tokens[0]][$tokens[1]]))
-          {
-            $key = $tokens[1];
-            if (isset($lang['exif_field_'.$tokens[1]]))
-            {
-              $key = $lang['exif_field_'.$tokens[1]];
-            }
-
-            $template->assign_block_vars(
-              'metadata.line',
-              array(
-                'KEY' => $key,
-                'VALUE' => $exif[$tokens[0]][$tokens[1]]
-                )
-              );
-          }
-        }
-      }
-    }
+    die('Exif extension not available, admin should disable exif display');
   }
-  if ($conf['show_iptc'])
+
+  if ($exif = @read_exif_data($picture['current']['src_file_system']))
   {
-    $iptc = get_iptc_data($picture['current']['src'],
-                          $conf['show_iptc_mapping']);
+    $template->assign_block_vars(
+      'metadata.headline',
+      array('TITLE' => 'EXIF Metadata')
+      );
 
-    if (count($iptc) > 0)
+    foreach ($conf['show_exif_fields'] as $field)
     {
-      $template->assign_block_vars(
-        'metadata.headline',
-        array('TITLE' => 'IPTC Metadata')
-        );
-    }
-
-    foreach ($iptc as $field => $value)
-    {
-      $key = $field;
-      if (isset($lang[$field]))
+      if (strpos($field, ';') === false)
       {
-        $key = $lang[$field];
-      }
+        if (isset($exif[$field]))
+        {
+          $key = $field;
+          if (isset($lang['exif_field_'.$field]))
+          {
+            $key = $lang['exif_field_'.$field];
+          }
 
-      $template->assign_block_vars(
-        'metadata.line',
-        array(
-          'KEY' => $key,
-          'VALUE' => $value
-          )
-        );
+          $template->assign_block_vars(
+            'metadata.line',
+            array(
+              'KEY' => $key,
+              'VALUE' => $exif[$field]
+              )
+            );
+        }
+      }
+      else
+      {
+        $tokens = explode(';', $field);
+        if (isset($exif[$tokens[0]][$tokens[1]]))
+        {
+          $key = $tokens[1];
+          if (isset($lang['exif_field_'.$tokens[1]]))
+          {
+            $key = $lang['exif_field_'.$tokens[1]];
+          }
+
+          $template->assign_block_vars(
+            'metadata.line',
+            array(
+              'KEY' => $key,
+              'VALUE' => $exif[$tokens[0]][$tokens[1]]
+              )
+            );
+        }
+      }
     }
   }
 }
+if ($conf['show_iptc'])
+{
+  $iptc = get_iptc_data($picture['current']['src_file_system'],
+                        $conf['show_iptc_mapping']);
+
+  if (count($iptc) > 0)
+  {
+    $template->assign_block_vars(
+      'metadata.headline',
+      array('TITLE' => 'IPTC Metadata')
+      );
+  }
+
+  foreach ($iptc as $field => $value)
+  {
+    $key = $field;
+    if (isset($lang[$field]))
+    {
+      $key = $lang[$field];
+    }
+
+    $template->assign_block_vars(
+      'metadata.line',
+      array(
+        'KEY' => $key,
+        'VALUE' => $value
+        )
+      );
+  }
+}
+
 
 ?>
