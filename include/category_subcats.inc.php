@@ -32,7 +32,7 @@
  */
 
 $query = '
-SELECT id, name, date_last, representative_picture_id
+SELECT id, name, date_last, representative_picture_id, comment, nb_images
   FROM '.CATEGORIES_TABLE.'
   WHERE id_uppercat '.
   (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
@@ -98,7 +98,9 @@ SELECT representative_picture_id
         'category' => $row['id'],
         'picture' => $image_id,
         'name' => $row['name'],
-        'date_last' => @$row['date_last']
+        'date_last' => @$row['date_last'],
+        'comment' => @$row['comment'],
+        'nb_images' => $row['nb_images'],
         )
       );
   }
@@ -126,44 +128,28 @@ SELECT id, path, tn_ext
     $images[$row['id']] = get_thumbnail_src($row['path'], @$row['tn_ext']);
   }
 
-  $template->assign_block_vars('thumbnails', array());
-  // first line
-  $template->assign_block_vars('thumbnails.line', array());
-  // current row displayed
-  $row_number = 0;
+  $template->assign_block_vars('categories', array());
   
   foreach ($cat_thumbnails as $item)
   {
     $template->assign_block_vars(
-      'thumbnails.line.thumbnail',
+      'categories.category',
       array(
-        'IMAGE'       => $images[$item['picture']],
-        'IMAGE_ALT'   => $item['name'],
-        'IMAGE_TITLE' => $lang['hint_category'],
-        'IMAGE_TS'    => get_icon(@$item['date_last']),
+        'SRC'   => $images[$item['picture']],
+        'ALT'   => $item['name'],
+        'TITLE' => $lang['hint_category'],
+        'ICON'  => get_icon(@$item['date_last']),
         
-        'U_IMG_LINK'  => make_index_url(
+        'URL' => make_index_url(
           array(
             'category' => $item['category'],
             )
           ),
-        'CLASS'       => 'thumbCat',
+        'NAME' => $item['name'],
+        'NB_IMAGES' => $item['nb_images'],
+        'DESCRIPTION' => @$item['comment'],
         )
       );
-    
-    $template->assign_block_vars(
-      'thumbnails.line.thumbnail.category_name',
-      array(
-        'NAME' => $item['name']
-        )
-      );
-    
-    // create a new line ?
-    if (++$row_number == $user['nb_image_line'])
-    {
-      $template->assign_block_vars('thumbnails.line', array());
-      $row_number = 0;
-    }
   }
 }
 ?>

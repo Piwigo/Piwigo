@@ -31,15 +31,26 @@
  *
  */
 
+// FIXME: categories having no representant
+// ($conf['allow_random_representative'] = true) are not displayed :-/
+
 // retrieving categories recently update, ie containing pictures added
 // recently. The calculated table field categories.date_last will be
 // easier to use
 $query = '
-SELECT c.id AS category_id,uppercats,representative_picture_id,path,file,tn_ext
-  FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGES_TABLE.' AS i
-    ON i.id = c.representative_picture_id
-  WHERE date_last > SUBDATE(CURRENT_DATE
-                            ,INTERVAL '.$user['recent_period'].' DAY)';
+SELECT c.id AS category_id
+       , uppercats
+       , representative_picture_id
+       , path
+       , file
+       , c.comment
+       , tn_ext
+       , nb_images
+  FROM '.CATEGORIES_TABLE.' AS c
+    INNER JOIN '.IMAGES_TABLE.' AS i ON i.id = c.representative_picture_id
+  WHERE date_last > SUBDATE(
+    CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
+  )';
 if ( $user['forbidden_categories'] != '' )
 {
   $query.= '
@@ -52,47 +63,29 @@ $result = pwg_query( $query );
 // template thumbnail initialization
 if (mysql_num_rows($result) > 0)
 {
-  $template->assign_block_vars('thumbnails', array());
-  // first line
-  $template->assign_block_vars('thumbnails.line', array());
-  // current row displayed
-  $row_number = 0;
+  $template->assign_block_vars('categories', array());
 }
 
-$old_level_separator = $conf['level_separator'];
-$conf['level_separator'] = '<br />';
 // for each category, we have to search a recent picture to display and
 // the name to display
 while ( $row = mysql_fetch_array( $result ) )
 {
   $template->assign_block_vars(
-    'thumbnails.line.thumbnail',
+    'categories.category',
     array(
-      'IMAGE'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
-      'IMAGE_ALT'   => $row['file'],
-      'IMAGE_TITLE' => $lang['hint_category'],
+      'SRC'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
+      'ALT'   => $row['file'],
+      'TITLE' => $lang['hint_category'],
 
-      'U_IMG_LINK'  => make_index_url(
+      'URL'  => make_index_url(
         array(
           'category' => $row['category_id'],
           )
         ),
-      )
-    );
-
-  $template->assign_block_vars(
-    'thumbnails.line.thumbnail.category_name',
-    array(
       'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
+      'NB_IMAGES' => $row['nb_images'],
+      'DESCRIPTION' => @$row['comment'],
       )
     );
-
-  // create a new line ?
-  if (++$row_number == $user['nb_image_line'])
-  {
-    $template->assign_block_vars('thumbnails.line', array());
-    $row_number = 0;
-  }
 }
-$conf['level_separator'] = $old_level_separator;
 ?>

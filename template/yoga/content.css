@@ -259,3 +259,49 @@ DIV.calImg {
   text-align: left;
   vertical-align: top;
 }
+
+/* Category thumbnails on main page, CSS code inspired from MOD subcatify */
+#content UL.thumbnailCategories {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+#content UL.thumbnailCategories LI {
+  width: 49.9%; /* 49.9% for 2 per line, 33.3% for 3 per line*/
+  margin:0;
+  padding:0;
+  float:left;
+}
+
+#content DIV.thumbnailCategory {
+  display:block;
+  border: 1px solid #aaa;
+  padding: 5px 0px 0px 4px;
+  margin: 5px;
+}
+
+#content DIV.thumbnailCategory DIV.description {
+  font-size: 90%;
+}
+
+#content DIV.thumbnailCategory DIV.description H3 {
+  text-align: left;
+  background: #eee;
+  margin: 0;
+  padding: 0.1em;
+  font-size: 120%;
+}
+
+#content DIV.thumbnailCategory DIV.description P {
+  margin: 0;
+}
+
+#content DIV.thumbnailCategory DIV.illustration {
+  text-align: left;
+  padding: 2px;
+  float: left;
+  width: 110px;   /* sorry, this is a very personal value :-( */
+  height: 110px;
+}
