@@ -19,7 +19,7 @@
   </div>
   <!-- END errors -->
 
-<form method="post" action="{F_ACTION}" class="properties">
+<form method="post" action="{F_ACTION}" class="properties" name="register_form">
   <fieldset>
     <legend>{lang:Enter your personnal informations}</legend>
 
@@ -62,6 +62,10 @@
   </p>
 
 </form>
+
+<script><!--
+document.register_form.login.focus();
+//--></script>
 
 </div> <!-- content -->
 </div> <!-- registerPage -->

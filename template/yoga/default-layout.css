@@ -188,11 +188,11 @@ FORM.properties SPAN.property {
   padding: 0 0.5em 0 0;
 }
 
-FORM.properties .focus {
+FORM .focus {
   background-color: whitesmoke;
 }
 
-FORM.properties .nofocus {
+FORM .nofocus {
   background-color: lightgrey; /* must be the same as input background-color */
 }
 

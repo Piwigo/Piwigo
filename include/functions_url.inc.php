@@ -256,6 +256,7 @@ function add_well_known_params_in_url($url, $params)
  */
 function make_section_in_URL($params)
 {
+  global $conf;
   $section_string = '';
 
   $section_of = array(
@@ -289,6 +290,19 @@ function make_section_in_URL($params)
       else
       {
         $section_string.= '/category/'.$params['category'];
+        if ($conf['category_url_style']=='id-name' and isset($params['cat_name']) )
+        {
+          if ( is_string($params['cat_name']) )
+          {
+            $section_string.= '-'.str2url($params['cat_name']);
+          }
+          elseif ( is_array( $params['cat_name'] ) and
+                isset( $params['cat_name'][$params['category']] ) )
+          {
+            $section_string.= '-'
+                .str2url($params['cat_name'][$params['category']]);
+          }
+        }
       }
 
       break;
@@ -304,11 +318,23 @@ function make_section_in_URL($params)
 
       foreach ($params['tags'] as $tag)
       {
-        $section_string.= '/'.$tag['id'];
-        
-        if (isset($tag['url_name']))
+        switch ( $conf['tag_url_style'] )
         {
-          $section_string.= '-'.$tag['url_name'];
+          case 'id':
+            $section_string.= '/'.$tag['id'];
+            break;
+          case 'tag':
+            if (isset($tag['url_name']) and !is_numeric($tag['url_name']) )
+            {
+              $section_string.= '/'.$tag['url_name'];
+              break;
+            }
+          default:
+            $section_string.= '/'.$tag['id'];
+            if (isset($tag['url_name']))
+            {
+              $section_string.= '-'.$tag['url_name'];
+            }
         }
       }
 

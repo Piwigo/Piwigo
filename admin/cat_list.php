@@ -173,7 +173,7 @@ if (isset($_GET['parent_id']))
   $navigation.= $conf['level_separator'];
 
   $current_category = get_cat_info($_GET['parent_id']);
-  
+
   $navigation.= get_cat_display_name(
     $current_category['name'],
     $base_url.'&amp;parent_id=',
@@ -194,7 +194,7 @@ if (isset($_GET['parent_id']))
 $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
-  
+
   'L_ADD_VIRTUAL'=>$lang['cat_add'],
   'L_SUBMIT'=>$lang['submit'],
   'L_STORAGE'=>$lang['storage'],
@@ -203,7 +203,7 @@ $template->assign_vars(array(
   'L_EDIT'=>$lang['edit'],
   'L_DELETE'=>$lang['delete'],
  ));
-  
+
 $tpl = array('cat_first','cat_last');
 // +-----------------------------------------------------------------------+
 // |                          Categories display                           |
@@ -256,10 +256,10 @@ foreach ($categories as $category)
   // TODO : not used anymore ?
   //$images_folder = PHPWG_ROOT_PATH.'template/';
   //$images_folder.= $user['template'].'/admin/images';
-  
+
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
   $cat_list_url = $base_url.'cat_list';
-  
+
   $self_url = $cat_list_url;
   if (isset($_GET['parent_id']))
   {
@@ -276,14 +276,15 @@ foreach ($categories as $category)
       'U_JUMPTO'   => make_index_url(
         array(
           'category' => $category['id'],
+          'cat_name' => $category['name'],
           )
         ),
-      
-      'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],      
+
+      'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
       'U_EDIT'     => $base_url.'cat_modify&amp;cat_id='.$category['id'],
       )
     );
-  
+
   if (empty($category['dir']))
   {
     $template->assign_block_vars(
@@ -293,7 +294,7 @@ foreach ($categories as $category)
         )
       );
   }
-  
+
   if ($category['nb_images'] > 0)
   {
     $template->assign_block_vars(

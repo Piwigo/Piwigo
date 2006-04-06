@@ -424,19 +424,28 @@ $conf['history_admin'] = false;
 // (depends on the server AcceptPathInfo directive configuration)
 $conf['question_mark_in_urls'] = true;
 
-// picture_url_style : one of 'id' 'id-file' or 'file'. 'id-file' or 'file'
-// mean that the file name (without extension will appear in the url).
-// Note that one aditionnal sql query will occur if 'file' is choosen.
-// Note that you might experience navigation issues if you choose 'file'
-// and your file names are not unique
-$conf['picture_url_style'] = 'id';
-
-
 // php_extension_in_urls : if true, the urls generated for picture and
 // category will not contain the .php extension. This will work only if
 // .htaccess defines Options +MultiViews parameter or url rewriting rules
 // are active.
 $conf['php_extension_in_urls'] = true;
+
+// category_url_style : one of 'id' (default) or 'id-name'. 'id-name'
+// means that an simplified ascii represntation of the category name will
+// appear in the url
+$conf['category_url_style'] = 'id';
+
+// picture_url_style : one of 'id' (default), 'id-file' or 'file'. 'id-file'
+// or 'file' mean that the file name (without extension will appear in the
+// url). Note that one aditionnal sql query will occur if 'file' is choosen.
+// Note that you might experience navigation issues if you choose 'file'
+// and your file names are not unique
+$conf['picture_url_style'] = 'id';
+
+// tag_url_style : one of 'id-tag' (default), 'id' or 'tag'.
+// Note that if you choose 'tag' and the url (ascii) representation of your
+// tags is not unique, all tags with the same url representation will be shown
+$conf['tag_url_style'] = 'id-tag';
 
 // +-----------------------------------------------------------------------+
 // |                                 tags                                  |

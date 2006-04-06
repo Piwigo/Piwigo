@@ -68,7 +68,7 @@ if (isset($_POST['submit']))
       ),
     array($data)
     );
-  
+
   set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   set_cat_status(array($_GET['cat_id']), $_POST['status']);
 
@@ -101,7 +101,7 @@ else if (isset($_POST['submitAdd']))
     $_POST['virtual_name'],
     (0 == $_POST['parent'] ? null : $_POST['parent'])
     );
-  
+
   if (isset($output_create['error']))
   {
     array_push($page['errors'], $output_create['error']);
@@ -112,7 +112,7 @@ else if (isset($_POST['submitAdd']))
     //
     // Add the information in the information list
     array_push($page['infos'], $output_create['info']);
-    
+
     // Link the new category to the current category
     associate_categories_to_categories(
       array($_GET['cat_id']),
@@ -184,7 +184,7 @@ $navigation = get_cat_display_name_cache(
   );
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
-$status = ($category['status']=='public')?'STATUS_PUBLIC':'STATUS_PRIVATE'; 
+$status = ($category['status']=='public')?'STATUS_PUBLIC':'STATUS_PRIVATE';
 $lock = ($category['visible']=='true')?'UNLOCKED':'LOCKED';
 
 if ($category['commentable'] == 'true')
@@ -208,7 +208,7 @@ else
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
 $cat_list_url = $base_url.'cat_list';
-  
+
 $self_url = $cat_list_url;
 if (!empty($category['id_uppercat']))
 {
@@ -216,16 +216,16 @@ if (!empty($category['id_uppercat']))
 }
 
 $template->assign_vars(
-  array( 
+  array(
     'CATEGORIES_NAV'     => $navigation,
     'CAT_NAME'           => $category['name'],
     'CAT_COMMENT'        => $category['comment'],
-    
+
     $status              => 'checked="checked"',
     $lock                => 'checked="checked"',
     $commentable         => 'checked="checked"',
     $uploadable          => 'checked="checked"',
-    
+
     'L_EDIT_NAME'        => $lang['name'],
     'L_STORAGE'          => $lang['storage'],
     'L_REMOTE_SITE'      => $lang['remote_site'],
@@ -244,12 +244,13 @@ $template->assign_vars(
     'U_JUMPTO' => make_index_url(
       array(
         'category' => $category['id'],
+        'cat_name' => $category['name'],
         )
       ),
-    
+
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
-    
+
     'F_ACTION' => $form_action,
     )
   );
@@ -295,7 +296,7 @@ SELECT tn_ext,path
     $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
     $url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
-  
+
     $template->assign_block_vars(
       'representant.picture',
       array(
@@ -349,7 +350,7 @@ else
   // the category can be moved in any category but in itself, in any
   // sub-category
   $unmovables = get_subcat_ids(array($category['id']));
-  
+
   $blockname = 'move.parent_option';
 
   $template->assign_block_vars(
@@ -361,13 +362,13 @@ else
       'OPTION' => '------------'
       )
     );
-  
+
   $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE id NOT IN ('.implode(',', $unmovables).')
 ;';
-  
+
   display_select_cat_wrapper(
     $query,
     empty($category['id_uppercat']) ? array() : array($category['id_uppercat']),

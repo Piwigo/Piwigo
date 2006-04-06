@@ -140,7 +140,8 @@ DROP TABLE IF EXISTS `phpwebgallery_image_tag`;
 CREATE TABLE `phpwebgallery_image_tag` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `tag_id` smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`image_id`,`tag_id`)
+  PRIMARY KEY  (`image_id`,`tag_id`),
+  KEY `image_tag_i1` (`tag_id`)
 ) TYPE=MyISAM;
 
 --
@@ -233,7 +234,8 @@ CREATE TABLE `phpwebgallery_tags` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) binary NOT NULL default '',
   `url_name` varchar(255) binary NOT NULL default '',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `tags_i1` (`url_name`)
 ) TYPE=MyISAM;
 
 --

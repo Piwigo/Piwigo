@@ -278,7 +278,14 @@ function get_cat_display_name($cat_informations,
     elseif ($url == '')
     {
       $output.= '<a class=""';
-      $output.= ' href="'.make_index_url( array('category'=>$id) ).'">';
+      $output.= ' href="'
+            .make_index_url(
+                array(
+                  'category'=>$id,
+                  'cat_name'=>$name
+                  )
+              )
+            .'">';
       $output.= $name.'</a>';
     }
     else
@@ -353,7 +360,14 @@ SELECT id,name
     {
       $output.= '
 <a class=""
-   href="'.make_index_url( array('category'=>$category_id) ).'">'.$name.'</a>';
+   href="'
+      .make_index_url(
+          array(
+            'category'=>$category_id,
+            'cat_name'=>$name
+            )
+        )
+      .'">'.$name.'</a>';
     }
     else
     {
@@ -423,7 +437,12 @@ function get_html_menu_category($categories)
     }
     $menu.= '>';
 
-    $url = make_index_url(array('category' => $category['id']));
+    $url = make_index_url(
+            array(
+              'category'=>$category['id'],
+              'cat_name'=>$category['name']
+              )
+            );
 
     $menu.= "\n".'<a href="'.$url.'"';
     if ($page_cat != 0
@@ -509,7 +528,7 @@ function get_html_tag_selection(
   )
 {
   global $conf;
-  
+
   $output = '<ul class="tagSelection">';
   foreach ($tags as $tag)
   {
@@ -524,7 +543,7 @@ function get_html_tag_selection(
     {
       $output.= ' checked="checked"';
     }
-    
+
     $output.=
       ' />'
       .' '.$tag['name']

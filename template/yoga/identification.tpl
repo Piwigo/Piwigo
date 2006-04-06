@@ -20,27 +20,27 @@
   </div>
   <!-- END errors -->
 
-<form action="{F_LOGIN_ACTION}" method="post" class="properties">
+<form action="{F_LOGIN_ACTION}" method="post" name="login_form" class="properties">
   <fieldset>
     <legend>{lang:Connection settings}</legend>
-    
+
     <input type="hidden" name="redirect" value="{U_REDIRECT}">
-    
+
     <ul>
-      <li> 
+      <li>
         <span class="property">
           <label for="username">{L_USERNAME}</label>
         </span>
         <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
-  
+
       <li>
         <span class="property">
           <label for="password">{L_PASSWORD}</label>
         </span>
         <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
       </li>
-  
+
       <!-- BEGIN remember_me -->
       <li>
         <span class="property">
@@ -54,7 +54,11 @@
 
   <p><input tabindex="4" type="submit" name="login" value="{L_LOGIN}"></p>
 </form>
- 
+
+<script><!--
+document.login_form.username.focus();
+//--></script>
+
   <p>
     <a href="{U_REGISTER}"><img src="{themeconf:icon_dir}/register.png" class="button" alt=""> {L_REGISTER}</a>
     <a href="{U_LOST_PASSWORD}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt=""> {lang:Forgot your password?}</a>

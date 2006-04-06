@@ -70,7 +70,7 @@ else
   }
   $page['root_path'] = PHPWG_ROOT_PATH;
 }
-//phpinfo();
+
 // deleting first "/" if displayed
 $tokens = explode(
   '/',
@@ -147,33 +147,58 @@ else if (0 === strpos($tokens[$next_token], 'tag'))
   $next_token++;
   $i = $next_token;
 
+  $requested_tag_ids = array();
+  $requested_tag_url_names = array();
+
   while (isset($tokens[$i]))
   {
-    preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches);
-    if (!isset($matches[1]))
+    if ( preg_match('/^(created-|posted-|start-(\d)+)/', $tokens[$i]) )
+      break;
+
+    if ( preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches) )
     {
-      if (0 == count($page['tags']))
-      {
-        die('Fatal: at least one tag required');
-      }
-      else
-      {
-        break;
-      }
+      array_push($requested_tag_ids, $matches[1]);
     }
-
-    array_push(
-      $page['tags'],
-      array(
-        'id'       => $matches[1],
-        'url_name' => isset($matches[2]) ? $matches[2] : '',
-        )
-      );
-
+    else
+    {
+      array_push($requested_tag_url_names, "'".$tokens[$i]."'");
+    }
     $i++;
   }
-
   $next_token = $i;
+
+  if ( empty($requested_tag_ids) && empty($requested_tag_url_names) )
+  {
+    die('Fatal: at least one tag required');
+  }
+  // tag infos
+  $query = '
+SELECT name, url_name, id
+  FROM '.TAGS_TABLE.'
+  WHERE ';
+  if ( !empty($requested_tag_ids) )
+  {
+    $query.= 'id IN ('.implode(',', $requested_tag_ids ).')';
+  }
+  if ( !empty($requested_tag_url_names) )
+  {
+    if ( !empty($requested_tag_ids) )
+    {
+      $query.= ' OR ';
+    }
+    $query.= 'url_name IN ('.implode(',', $requested_tag_url_names ).')';
+  }
+  $result = pwg_query($query);
+  $tag_infos = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $tag_infos[ $row['id'] ] = $row;
+    array_push($page['tags'], $row );//we loose given tag order; is it important?
+  }
+  if ( empty($page['tags']) )
+  {
+    die('Fatal: no existing tag');
+  }
 }
 else if (0 === strpos($tokens[$next_token], 'fav'))
 {
@@ -239,7 +264,7 @@ while (isset($tokens[$i]))
     $page['start'] = $matches[1];
   }
 
-  if (preg_match('/^posted|created/', $tokens[$i] ))
+  if (preg_match('/^(posted|created)/', $tokens[$i] ))
   {
     $chronology_tokens = explode('-', $tokens[$i] );
 
@@ -359,7 +384,7 @@ else
     // permissions depends on category, so to only keep images that are
     // reachable to the connected user, we need to check category
     // associations
-    if (!empty($user['forbidden_categories']) and !empty($items) )
+    if (!empty($items) )
     {
       $query = '
 SELECT image_id
@@ -371,21 +396,6 @@ SELECT image_id
       $items = array_unique(
         array_from_query($query, 'image_id')
         );
-    }
-
-    // tag names
-    $query = '
-SELECT name, url_name, id
-  FROM '.TAGS_TABLE.'
-  WHERE id IN ('.implode(',', $page['tag_ids']).')
-;';
-    $result = pwg_query($query);
-    $tag_infos = array();
-
-    while ($row = mysql_fetch_array($result))
-    {
-      $tag_infos[ $row['id'] ]['name'] = $row['name'];
-      $tag_infos[ $row['id'] ]['url_name'] = $row['url_name'];
     }
 
     $title = count($page['tags']) > 1 ? l10n('Tags') : l10n('Tag');

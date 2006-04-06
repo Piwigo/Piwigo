@@ -28,7 +28,7 @@
 /**
  * This file is included by the main page to show thumbnails for a category
  * that have only subcategories
- * 
+ *
  */
 
 $query = '
@@ -90,6 +90,12 @@ SELECT representative_picture_id
     }
   }
 
+  $comment = null;
+  if ( isset($row['comment']) )
+  {
+    $comment = strip_tags( $row['comment'] );
+  }
+
   if (isset($image_id))
   {
     array_push(
@@ -99,7 +105,7 @@ SELECT representative_picture_id
         'picture' => $image_id,
         'name' => $row['name'],
         'date_last' => @$row['date_last'],
-        'comment' => @$row['comment'],
+        'comment' => $comment,
         'nb_images' => $row['nb_images'],
         )
       );
@@ -111,7 +117,7 @@ SELECT representative_picture_id
 if (count($cat_thumbnails) > 0)
 {
   $images = array();
-  
+
   foreach ($cat_thumbnails as $item)
   {
     $images[$item['picture']] = '';
@@ -129,7 +135,7 @@ SELECT id, path, tn_ext
   }
 
   $template->assign_block_vars('categories', array());
-  
+
   foreach ($cat_thumbnails as $item)
   {
     $template->assign_block_vars(
@@ -139,10 +145,11 @@ SELECT id, path, tn_ext
         'ALT'   => $item['name'],
         'TITLE' => $lang['hint_category'],
         'ICON'  => get_icon(@$item['date_last']),
-        
+
         'URL' => make_index_url(
           array(
             'category' => $item['category'],
+            'cat_name' => $item['name'],
             )
           ),
         'NAME' => $item['name'],

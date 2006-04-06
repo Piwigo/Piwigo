@@ -290,10 +290,10 @@ function str2url($str)
   $str = str_replace('¼', 'OE', $str);
   $str = str_replace('½', 'oe', $str);
 
-  $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\]-]/','',strtolower($str));
-  $str = preg_replace('/[\s\'\:\/\[\]-]+/',' ',trim($str));
+  $str = preg_replace('/[^a-z0-9_\s\'\:\/\[\],-]/','',strtolower($str));
+  $str = preg_replace('/[\s\'\:\/\[\],-]+/',' ',trim($str));
   $res = str_replace(' ','_',$str);
-  
+
   return $res;
 }
 

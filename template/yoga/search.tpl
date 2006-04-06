@@ -146,4 +146,8 @@
 </table>
 </form>
 
+<script><!--
+document.post.search_allwords.focus();
+//--></script>
+
 </div> <!-- content -->
