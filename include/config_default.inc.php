@@ -168,6 +168,10 @@ $conf['show_thumbnail_caption'] = true;
 // name ?
 $conf['show_picture_name_on_title'] = true;
 
+// subcatify: display thumbnails representing a category a different way
+// than thumbnails representing a picture.
+$conf['subcatify'] = true;
+
 // allow_random_representative : do you wish PhpWebGallery to search among
 // categories elements a new representative at each reload ?
 //

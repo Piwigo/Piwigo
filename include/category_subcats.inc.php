@@ -43,7 +43,8 @@ $result = pwg_query($query);
 
 // $conf['allow_random_representative']
 
-$cat_thumbnails = array();
+$categories = array();
+$image_ids = array();
 
 while ($row = mysql_fetch_array($result))
 {
@@ -91,72 +92,123 @@ SELECT representative_picture_id
   }
 
   $comment = null;
-  if ( isset($row['comment']) )
+  if (isset($row['comment']))
   {
-    $comment = strip_tags( $row['comment'] );
+    $comment = strip_tags($row['comment']);
   }
 
   if (isset($image_id))
   {
     array_push(
-      $cat_thumbnails,
+      $categories,
       array(
-        'category' => $row['id'],
-        'picture' => $image_id,
-        'name' => $row['name'],
-        'date_last' => @$row['date_last'],
-        'comment' => $comment,
-        'nb_images' => $row['nb_images'],
+        'category'    => $row['id'],
+        'picture'     => $image_id,
+        'name'        => $row['name'],
+        'date_last'   => @$row['date_last'],
+        'comment'     => $comment,
+        'nb_images'   => $row['nb_images'],
         )
       );
+
+    array_push($image_ids, $image_id);
   }
 
   unset($image_id);
 }
 
-if (count($cat_thumbnails) > 0)
+if (count($image_ids) > 0)
 {
-  $images = array();
-
-  foreach ($cat_thumbnails as $item)
-  {
-    $images[$item['picture']] = '';
-  }
+  $thumbnail_src_of = array();
 
   $query = '
 SELECT id, path, tn_ext
   FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', array_keys($images)).')
+  WHERE id IN ('.implode(',', $image_ids).')
 ;';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $images[$row['id']] = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $thumbnail_src_of[$row['id']] =
+      get_thumbnail_src($row['path'], @$row['tn_ext']);
   }
-
-  $template->assign_block_vars('categories', array());
-
-  foreach ($cat_thumbnails as $item)
+  
+  if ($conf['subcatify'])
   {
-    $template->assign_block_vars(
-      'categories.category',
+    $template->set_filenames(
       array(
-        'SRC'   => $images[$item['picture']],
-        'ALT'   => $item['name'],
-        'TITLE' => $lang['hint_category'],
-        'ICON'  => get_icon(@$item['date_last']),
-
-        'URL' => make_index_url(
-          array(
-            'category' => $item['category'],
-            'cat_name' => $item['name'],
-            )
-          ),
-        'NAME' => $item['name'],
-        'NB_IMAGES' => $item['nb_images'],
-        'DESCRIPTION' => @$item['comment'],
+        'mainpage_categories' => 'mainpage_categories.tpl',
         )
       );
+
+    $template->assign_block_vars('categories', array());
+    
+    foreach ($categories as $category)
+    {
+      $template->assign_block_vars(
+        'categories.category',
+        array(
+          'SRC'   => $thumbnail_src_of[ $category['picture'] ],
+          'ALT'   => $category['name'],
+          'TITLE' => $lang['hint_category'],
+          'ICON'  => get_icon(@$category['date_last']),
+          
+          'URL' => make_index_url(
+            array(
+              'category' => $category['category'],
+              'cat_name' => $category['name'],
+              )
+            ),
+          'NAME' => $category['name'],
+          'NB_IMAGES' => $category['nb_images'],
+          'DESCRIPTION' => @$category['comment'],
+          )
+        );
+    }
+  
+    $template->assign_var_from_handle('CATEGORIES', 'mainpage_categories');
+  }
+  else
+  {
+    $template->assign_block_vars('thumbnails', array());
+    // first line
+    $template->assign_block_vars('thumbnails.line', array());
+    // current row displayed
+    $row_number = 0;
+    
+    foreach ($categories as $category)
+    {
+      $template->assign_block_vars(
+        'thumbnails.line.thumbnail',
+        array(
+          'IMAGE'       => $thumbnail_src_of[ $category['picture'] ],
+          'IMAGE_ALT'   => $category['name'],
+          'IMAGE_TITLE' => $lang['hint_category'],
+          'IMAGE_TS'    => get_icon(@$category['date_last']),
+          
+          'U_IMG_LINK'  => make_index_url(
+            array(
+              'category' => $category['category'],
+              )
+            ),
+          'CLASS'       => 'thumbCat',
+          )
+        );
+
+      $template->assign_block_vars(
+        'thumbnails.line.thumbnail.category_name',
+        array(
+          'NAME' => $category['name']
+          )
+        );
+      
+      // create a new line ?
+      if (++$row_number == $user['nb_image_line'])
+      {
+        $template->assign_block_vars('thumbnails.line', array());
+        $row_number = 0;
+      }
+    }
   }
 }
 ?>

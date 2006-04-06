@@ -60,32 +60,92 @@ $query.= '
 ;';
 $result = pwg_query( $query );
 
-// template thumbnail initialization
-if (mysql_num_rows($result) > 0)
+if ($conf['subcatify'])
 {
-  $template->assign_block_vars('categories', array());
-}
-
-// for each category, we have to search a recent picture to display and
-// the name to display
-while ( $row = mysql_fetch_array( $result ) )
-{
-  $template->assign_block_vars(
-    'categories.category',
+  $template->set_filenames(
     array(
-      'SRC'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
-      'ALT'   => $row['file'],
-      'TITLE' => $lang['hint_category'],
-
-      'URL'  => make_index_url(
-        array(
-          'category' => $row['category_id'],
-          )
-        ),
-      'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
-      'NB_IMAGES' => $row['nb_images'],
-      'DESCRIPTION' => @$row['comment'],
+      'mainpage_categories' => 'mainpage_categories.tpl',
       )
     );
+  
+  // template thumbnail initialization
+  if (mysql_num_rows($result) > 0)
+  {
+    $template->assign_block_vars('categories', array());
+  }
+
+  // for each category, we have to search a recent picture to display and
+  // the name to display
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $template->assign_block_vars(
+      'categories.category',
+      array(
+        'SRC'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
+        'ALT'   => $row['file'],
+        'TITLE' => $lang['hint_category'],
+        
+        'URL'  => make_index_url(
+          array(
+            'category' => $row['category_id'],
+            )
+          ),
+        'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
+        'NB_IMAGES' => $row['nb_images'],
+        'DESCRIPTION' => @$row['comment'],
+        )
+      );
+  }
+
+  $template->assign_var_from_handle('CATEGORIES', 'mainpage_categories');
+}
+else
+{
+  // template thumbnail initialization
+  if (mysql_num_rows($result) > 0)
+  {
+    $template->assign_block_vars('thumbnails', array());
+    // first line
+    $template->assign_block_vars('thumbnails.line', array());
+    // current row displayed
+    $row_number = 0;
+  }
+  
+  $old_level_separator = $conf['level_separator'];
+  $conf['level_separator'] = '<br />';
+  // for each category, we have to search a recent picture to display and
+  // the name to display
+  while ( $row = mysql_fetch_array( $result ) )
+  {
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail',
+      array(
+        'IMAGE'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
+        'IMAGE_ALT'   => $row['file'],
+        'IMAGE_TITLE' => $lang['hint_category'],
+        
+        'U_IMG_LINK'  => make_index_url(
+          array(
+            'category' => $row['category_id'],
+            )
+          ),
+        )
+      );
+
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.category_name',
+      array(
+        'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
+        )
+      );
+
+    // create a new line ?
+    if (++$row_number == $user['nb_image_line'])
+    {
+      $template->assign_block_vars('thumbnails.line', array());
+      $row_number = 0;
+    }
+  }
+  $conf['level_separator'] = $old_level_separator;
 }
 ?>
