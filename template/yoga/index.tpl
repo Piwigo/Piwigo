@@ -108,8 +108,8 @@
          <input type="submit" name="login" value="{lang:submit}">
         </p>
     <ul class="actions">
-      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{pwg_root}{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
-      <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{pwg_root}{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
+      <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
     </ul>
 
       </fieldset>
@@ -151,10 +151,10 @@
       <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
       <!-- END mode_normal -->
       <!-- BEGIN mode_posted -->
-      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
+      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
       <!-- END mode_posted -->
       <!-- BEGIN mode_created -->
-      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}"><img src="{pwg_root}{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
+      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
       <!-- END mode_created -->
     </ul>
 

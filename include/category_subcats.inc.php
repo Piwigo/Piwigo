@@ -132,7 +132,7 @@ SELECT id, path, tn_ext
     $thumbnail_src_of[$row['id']] =
       get_thumbnail_src($row['path'], @$row['tn_ext']);
   }
-  
+
   if ($conf['subcatify'])
   {
     $template->set_filenames(
@@ -142,7 +142,7 @@ SELECT id, path, tn_ext
       );
 
     $template->assign_block_vars('categories', array());
-    
+
     foreach ($categories as $category)
     {
       $template->assign_block_vars(
@@ -152,7 +152,7 @@ SELECT id, path, tn_ext
           'ALT'   => $category['name'],
           'TITLE' => $lang['hint_category'],
           'ICON'  => get_icon(@$category['date_last']),
-          
+
           'URL' => make_index_url(
             array(
               'category' => $category['category'],
@@ -165,7 +165,7 @@ SELECT id, path, tn_ext
           )
         );
     }
-  
+
     $template->assign_var_from_handle('CATEGORIES', 'mainpage_categories');
   }
   else
@@ -175,7 +175,7 @@ SELECT id, path, tn_ext
     $template->assign_block_vars('thumbnails.line', array());
     // current row displayed
     $row_number = 0;
-    
+
     foreach ($categories as $category)
     {
       $template->assign_block_vars(
@@ -185,10 +185,11 @@ SELECT id, path, tn_ext
           'IMAGE_ALT'   => $category['name'],
           'IMAGE_TITLE' => $lang['hint_category'],
           'IMAGE_TS'    => get_icon(@$category['date_last']),
-          
+
           'U_IMG_LINK'  => make_index_url(
             array(
               'category' => $category['category'],
+              'cat_name' => $category['name'],
               )
             ),
           'CLASS'       => 'thumbCat',
@@ -201,7 +202,7 @@ SELECT id, path, tn_ext
           'NAME' => $category['name']
           )
         );
-      
+
       // create a new line ?
       if (++$row_number == $user['nb_image_line'])
       {
