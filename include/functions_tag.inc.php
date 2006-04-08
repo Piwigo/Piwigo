@@ -54,7 +54,10 @@ SELECT DISTINCT image_id
   WHERE category_id NOT IN ('.implode(',', $forbidden_categories).')
 ;';
     $image_ids = array_from_query($images_query, 'image_id');
-
+    if ( empty($image_ids) )
+    {
+      return array();
+    }
     $tags_query.= '
   WHERE image_id IN ('.
       wordwrap(
@@ -63,13 +66,13 @@ SELECT DISTINCT image_id
         "\n"
         ).')';
   }
-  
+
   $tags_query.= '
   GROUP BY tag_id
 ;';
 
   $result = pwg_query($tags_query);
-  
+
   $tags = array();
 
   while ($row = mysql_fetch_array($result))
@@ -93,7 +96,7 @@ SELECT id AS tag_id, name, url_name
   ORDER BY name
 ;';
   $result = pwg_query($query);
-  
+
   $tags = array();
 
   while ($row = mysql_fetch_array($result))
@@ -123,7 +126,7 @@ function add_level_to_tags($tags)
   {
     return $tags;
   }
-  
+
   $total_count = 0;
 
   foreach ($tags as $tag)
@@ -146,7 +149,7 @@ function add_level_to_tags($tags)
   foreach (array_keys($tags) as $k)
   {
     $tags[$k]['level'] = 1;
-    
+
     // based on threshold, determine current tag level
     for ($i = $conf['tags_levels'] - 1; $i >= 1; $i--)
     {
@@ -177,7 +180,7 @@ function get_image_ids_for_tags($tag_ids, $mode = 'AND')
     {
       // strategy is to list images associated to each tag
       $tag_images = array();
-      
+
       foreach ($tag_ids as $tag_id)
       {
         $query = '

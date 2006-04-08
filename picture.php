@@ -630,7 +630,7 @@ if (!empty($picture['current']['date_creation']))
           'chronology_date' => explode('-', $picture['current']['date_creation'])
         )
       );
-  $infos['INFO_CREATION_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
+  $infos['INFO_CREATION_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 }
 else
 {
@@ -647,7 +647,7 @@ $url = make_index_URL(
         'chronology_date'=>explode('-', substr($picture['current']['date_available'],0,10))
       )
     );
-$infos['INFO_POSTED_DATE'] = '<a href="'.$url.'">'.$val.'</a>';
+$infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 
 // size in pixels
 if ($picture['current']['is_picture'])
@@ -699,7 +699,7 @@ $result = pwg_query($query);
 if (mysql_num_rows($result) > 0)
 {
   $tags = array();
-  
+
   while ($row = mysql_fetch_array($result))
   {
     array_push(
