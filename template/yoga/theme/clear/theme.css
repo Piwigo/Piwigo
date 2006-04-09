@@ -33,7 +33,8 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG, #infos {
+#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
 
