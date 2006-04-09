@@ -1,0 +1,7 @@
+/* $Id: layout.css 1131 2006-04-06 02:23:54Z rvelices $ */
+
+/* template css */
+@import "default-layout.css";
+/* Override properties with import local file */
+@import "local-layout.css";
+
