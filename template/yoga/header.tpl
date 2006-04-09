@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
 <link rel="shortcut icon" type="image/x-icon" href="{pwg_root}template-common/favicon.ico">
-<link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-layout.css">
+<link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/layout.css">
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue
 the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-khtml.css">
