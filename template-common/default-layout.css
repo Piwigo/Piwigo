@@ -16,15 +16,24 @@ BODY#theAdminPage #content {
   margin-left: 14em;
 }
 
-/* Set some sizes according to your maximum thumbnail width adn height */
-#content UL.thumbnails SPAN, #content UL.thumbnails SPAN.wrap2 A {
+/* Set some sizes according to your maximum thumbnail width and height */
+#content UL.thumbnails SPAN,
+#content UL.thumbnails SPAN.wrap2 A,
+#content DIV.thumbnailCategory DIV.illustration {
   width: 140px;			/* max thumbnail width + 2px */
 }
-#content UL.thumbnails SPAN.wrap2 {
+#content UL.thumbnails SPAN.wrap2,
+#content DIV.thumbnailCategory DIV.description {
   height: 140px;		/* max thumbnail height + 2px */
 }
-#content DIV.comment BLOCKQUOTE {
+#content DIV.comment BLOCKQUOTE/*,
+#content DIV.thumbnailCategory DIV.description*/ {
   margin-left: 150px;		/*maximum thumbnail width + ~10px */
+}
+
+/* Category thumbnails on main page */
+#content UL.thumbnailCategories LI {
+  width: 49.9%; /* 49.9% for 2 per line, 33.3% for 3 per line*/
 }
 
 /* display/hide thumbnails legend */

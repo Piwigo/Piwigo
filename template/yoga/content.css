@@ -266,10 +266,15 @@ DIV.calImg {
   padding: 0;
   list-style: none;
   text-align: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+* html #content UL.thumbnailCategories {
+  width: 99%; /* buggy IE box model */
 }
 
 #content UL.thumbnailCategories LI {
-  width: 49.9%; /* 49.9% for 2 per line, 33.3% for 3 per line*/
   margin:0;
   padding:0;
   float:left;
@@ -277,18 +282,19 @@ DIV.calImg {
 
 #content DIV.thumbnailCategory {
   display:block;
-  border: 1px solid #aaa;
-  padding: 5px 0px 0px 4px;
+  padding: 2px 0px 0px 2px;
   margin: 5px;
 }
 
 #content DIV.thumbnailCategory DIV.description {
   font-size: 90%;
+  overflow: auto;
+  width: inherit;
 }
 
 #content DIV.thumbnailCategory DIV.description H3 {
   text-align: left;
-  background: #eee;
+  background: transparent;
   margin: 0;
   padding: 0.1em;
   font-size: 120%;
@@ -300,8 +306,6 @@ DIV.calImg {
 
 #content DIV.thumbnailCategory DIV.illustration {
   text-align: left;
-  padding: 2px;
+  margin: 2px 0 2px 2px;
   float: left;
-  width: 110px;   /* sorry, this is a very personal value :-( */
-  height: 110px;
 }

@@ -18,10 +18,8 @@
         <p>{categories.category.NB_IMAGES} {lang:pictures}</p>
         <p>{categories.category.DESCRIPTION}</p>
       </div>
-      <hr class="separation" />
     </div>
   </li>
   <!-- END category -->
 </ul>
-<hr class="separation" />
 <!-- END categories -->
