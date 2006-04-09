@@ -63,7 +63,7 @@
 
 </form>
 
-<script><!--
+<script type="text/javascript"><!--
 document.register_form.login.focus();
 //--></script>
 

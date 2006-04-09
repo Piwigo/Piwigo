@@ -55,7 +55,7 @@
   <p><input tabindex="4" type="submit" name="login" value="{L_LOGIN}"></p>
 </form>
 
-<script><!--
+<script type="text/javascript"><!--
 document.login_form.username.focus();
 //--></script>
 
