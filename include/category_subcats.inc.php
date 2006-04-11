@@ -94,7 +94,7 @@ SELECT representative_picture_id
   $comment = null;
   if (isset($row['comment']))
   {
-    $comment = strip_tags($row['comment']);
+    $comment = strip_tags($row['comment'], '<a><br><p><b><i><small><strong>');
   }
 
   if (isset($image_id))
