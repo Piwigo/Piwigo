@@ -46,6 +46,7 @@ SELECT c.id AS category_id
        , c.comment
        , tn_ext
        , nb_images
+       , c.name AS cat_name
   FROM '.CATEGORIES_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i ON i.id = c.representative_picture_id
   WHERE date_last > SUBDATE(
@@ -67,11 +68,17 @@ if ($conf['subcatify'])
       'mainpage_categories' => 'mainpage_categories.tpl',
       )
     );
-  
+
   // template thumbnail initialization
   if (mysql_num_rows($result) > 0)
   {
     $template->assign_block_vars('categories', array());
+  }
+
+  $comment = null;
+  if (isset($row['comment']))
+  {
+    $comment = strip_tags($row['comment'], '<a><br><p><b><i><small><strong>');
   }
 
   // for each category, we have to search a recent picture to display and
@@ -84,15 +91,16 @@ if ($conf['subcatify'])
         'SRC'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
         'ALT'   => $row['file'],
         'TITLE' => $lang['hint_category'],
-        
+
         'URL'  => make_index_url(
           array(
             'category' => $row['category_id'],
+            'cat_name' => $row['cat_name'],
             )
           ),
         'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
         'NB_IMAGES' => $row['nb_images'],
-        'DESCRIPTION' => @$row['comment'],
+        'DESCRIPTION' => $comment,
         )
       );
   }
@@ -110,7 +118,7 @@ else
     // current row displayed
     $row_number = 0;
   }
-  
+
   $old_level_separator = $conf['level_separator'];
   $conf['level_separator'] = '<br />';
   // for each category, we have to search a recent picture to display and
@@ -123,10 +131,11 @@ else
         'IMAGE'       => get_thumbnail_src($row['path'], @$row['tn_ext']),
         'IMAGE_ALT'   => $row['file'],
         'IMAGE_TITLE' => $lang['hint_category'],
-        
+
         'U_IMG_LINK'  => make_index_url(
           array(
             'category' => $row['category_id'],
+            'cat_name' => $row['cat_name'],
             )
           ),
         )

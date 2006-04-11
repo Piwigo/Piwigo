@@ -82,13 +82,13 @@ $conf['use_iptc_mapping'] = array(
 function get_iptc_data($filename, $map)
 {
   $result = array();
-  
+
   // Read IPTC data
   $iptc = array();
-  
+
   $imginfo = array();
   getimagesize($filename, $imginfo);
-  
+
   if (isset($imginfo['APP13']))
   {
     $iptc = iptcparse($imginfo['APP13']);
@@ -135,7 +135,7 @@ function clean_iptc_value($value)
   }
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
-  
+
   return htmlentities($value);
 }
 
@@ -145,7 +145,7 @@ function get_sync_iptc_data($file)
 
   $map = $conf['use_iptc_mapping'];
   $datefields = array('date_creation', 'date_available');
-  
+
   $iptc = get_iptc_data($file, $map);
 
   foreach ($iptc as $pwg_key => $value)
@@ -161,10 +161,8 @@ function get_sync_iptc_data($file)
 
   if (isset($iptc['keywords']))
   {
-    // keywords separator is the comma, nothing else. Allowed characters in
-    // keywords : [A-Za-z0-9], "-" and "_". All other characters will be
-    // considered as separators
-    $iptc['keywords'] = preg_replace('/[^\w-]+/', ',', $iptc['keywords']);
+    // official keywords separator is the comma
+    $iptc['keywords'] = preg_replace('/[.;]/', ',', $iptc['keywords']);
     $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
   }
 
@@ -242,7 +240,7 @@ function get_thumb_files($dir)
   global $conf;
 
   $prefix_length = strlen($conf['prefix_thumbnail']);
-  
+
   $thumbnails = array();
   if ($opendir = @opendir($dir.'/thumbnail'))
   {
@@ -349,7 +347,7 @@ function get_dirs($basedir, $indent, $level)
     $dirs.= get_dirs($basedir.'/'.$fs_dir, $indent.'  ', $level + 1);
     $dirs.= "\n".$indent.'</dir'.$level.'>';
   }
-  return $dirs;   
+  return $dirs;
 }
 
 // get_extension returns the part of the string after the last "."
@@ -369,7 +367,7 @@ function get_filename_wo_extension($filename)
 function get_pictures($dir, $indent)
 {
   global $conf, $page;
-  
+
   // fs means FileSystem : $fs_files contains files in the filesystem found
   // in $dir that can be managed by PhpWebGallery (see get_pwg_files
   // function), $fs_thumbnails contains thumbnails, $fs_representatives
@@ -383,14 +381,14 @@ function get_pictures($dir, $indent)
 
   $print_dir = preg_replace('/^\.\//', '', $dir);
   $print_dir = preg_replace('/\/*$/', '/', $print_dir);
-  
+
   foreach ($fs_files as $fs_file)
   {
     $element = array();
     $element['file'] = $fs_file;
     $element['path'] = $page['url'].$print_dir.$fs_file;
     $element['filesize'] = floor(filesize($dir.'/'.$fs_file) / 1024);
-    
+
     $file_wo_ext = get_filename_wo_extension($fs_file);
 
     foreach ($conf['picture_ext'] as $ext)
@@ -408,7 +406,7 @@ function get_pictures($dir, $indent)
     }
 
     // 2 cases : the element is a picture or not. Indeed, for a picture
-    // thumbnail is mandatory, high is optional and for non picture element, 
+    // thumbnail is mandatory, high is optional and for non picture element,
     // thumbnail and representative is optionnal
     if (in_array(get_extension($fs_file), $conf['picture_ext']))
     {
@@ -420,7 +418,7 @@ function get_pictures($dir, $indent)
           $element['width'] = $image_size[0];
           $element['height'] = $image_size[1];
         }
-        
+
         if ( in_array($fs_file, $fs_highs) )
         {
           $element['has_high'] = 'true';
@@ -464,7 +462,7 @@ function get_pictures($dir, $indent)
             }
           }
         }
-        
+
         array_push($elements, $element);
       }
       else
@@ -492,7 +490,7 @@ function get_pictures($dir, $indent)
           break;
         }
       }
-      
+
       array_push($elements, $element);
     }
   }
@@ -537,11 +535,11 @@ switch ($page['action'])
   case 'generate' :
   {
     $start = get_moment();
-    
+
     $listing = '<informations';
     $listing.= ' generation_date="'.date('Y-m-d').'"';
     $listing.= ' phpwg_version="'.htmlentities($conf{'version'}).'"';
-    
+
     $attrs=array();
     if ($conf['use_iptc'])
     {
@@ -552,16 +550,16 @@ switch ($page['action'])
       $attrs = array_merge($attrs, array_keys($conf['use_exif_mapping']) );
     }
     $listing.= ' metadata="'.implode(',',array_unique($attrs)).'"';
-    
+
     $end = strrpos($_SERVER['PHP_SELF'], '/') + 1;
     $local_folder = substr($_SERVER['PHP_SELF'], 0, $end);
     $page['url'] = 'http://'.$_SERVER['HTTP_HOST'].$local_folder;
-    
+
     $listing.= ' url="'.$page['url'].'"';
     $listing.= '/>'."\n";
-    
+
     $listing.= get_dirs('.', '', 0);
-    
+
     if ($fp = @fopen("./listing.xml","w"))
     {
       fwrite($fp, $listing);
