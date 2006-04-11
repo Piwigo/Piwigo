@@ -32,38 +32,6 @@ define('PHPWG_ROOT_PATH','./');
 function guess_lang()
 {
   return 'en_UK.iso-8859-1';
-
-//   $languages = array();
-//   $i = 0;
-//   if ($opendir = opendir(PHPWG_ROOT_PATH.'language/'))
-//   {
-//     while ( $file = readdir ( $opendir ) )
-//     {
-//       if ( is_dir ( PHPWG_ROOT_PATH.'language/'.$file )&& !substr_count($file,'.'))
-//       {
-//         $languages[$i++] =$file;
-//       }
-//     }
-//   }
-
-//   if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-//   {
-//     $accept_lang_ary = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-//     for ($i = 0; $i < sizeof($accept_lang_ary); $i++)
-//     {
-//       for ($j=0; $j<sizeof($languages); $j++)
-//       {
-//         if (preg_match('#' . substr($languages[$j],0,2) . '#i', substr(trim($accept_lang_ary[$i]),0,2)))
-//         {
-//           if (file_exists(PHPWG_ROOT_PATH . 'language/' . $languages[$j].'/install.lang.php'))
-// 		  {
-//                     return $languages[$j];
-// 		  }
-//         }
-//       }
-//     }
-//   }
-//   return 'en_EN';
 }
 
 /**
@@ -155,13 +123,23 @@ if( !get_magic_quotes_gpc() )
 }
 
 //----------------------------------------------------- variable initialization
+
+define('DEFAULT_PREFIX_TABLE', 'phpwebgallery_');
+
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
 $dbuser = (!empty($_POST['dbuser'])) ? $_POST['dbuser'] : '';
 $dbpasswd = (!empty($_POST['dbpasswd'])) ? $_POST['dbpasswd'] : '';
 $dbname = (!empty($_POST['dbname'])) ? $_POST['dbname'] : '';
 
-$table_prefix = (!empty($_POST['prefix'])) ? $_POST['prefix'] : 'phpwebgallery_';
+if (isset($_POST['install']))
+{
+  $table_prefix = $_POST['prefix'];
+}
+else
+{
+  $table_prefix = DEFAULT_PREFIX_TABLE;
+}
 
 $admin_name = (!empty($_POST['admin_name'])) ? $_POST['admin_name'] : '';
 $admin_pass1 = (!empty($_POST['admin_pass1'])) ? $_POST['admin_pass1'] : '';
@@ -251,16 +229,16 @@ if ( isset( $_POST['install'] ))
   if ( count( $errors ) == 0 )
   {
     $step = 2;
-    $file_content = "<?php";
-    $file_content.= "\n\$cfgBase = '".     $dbname."';";
-    $file_content.= "\n\$cfgUser = '".     $dbuser."';";
-    $file_content.= "\n\$cfgPassword = '". $dbpasswd."';";
-    $file_content.= "\n\$cfgHote = '".     $dbhost."';";
-    $file_content.= "\n";
-    $file_content.= "\n\$prefixeTable = '".$table_prefix."';";
-    $file_content.= "\n";
-    $file_content.= "\ndefine('PHPWG_INSTALLED', true);";
-    $file_content.= "\n?".">";
+    $file_content = '<?php
+$cfgBase = \''.$dbname.'\';
+$cfgUser = \''.$dbuser.'\';
+$cfgPassword = \''.$dbpasswd.'\';
+$cfgHote = \''.$dbhost.'\';
+
+$prefixeTable = \''.$table_prefix.'\';
+
+define(\'PHPWG_INSTALLED\', true);
+?'.'>';
     
     @umask(0111);
     // writing the configuration file
@@ -275,29 +253,40 @@ if ( isset( $_POST['install'] ))
     @fclose($fp);
     
     // tables creation, based on phpwebgallery_structure.sql
-    execute_sqlfile( PHPWG_ROOT_PATH.'install/phpwebgallery_structure.sql'
-                     , 'phpwebgallery_'
-                     , $table_prefix );
+    execute_sqlfile(
+      PHPWG_ROOT_PATH.'install/phpwebgallery_structure.sql',
+      DEFAULT_PREFIX_TABLE,
+      $table_prefix
+      );
     // We fill the tables with basic informations
-    execute_sqlfile( PHPWG_ROOT_PATH.'install/config.sql'
-                     , 'phpwebgallery_'
-                     , $table_prefix );
+    execute_sqlfile(
+      PHPWG_ROOT_PATH.'install/config.sql',
+      DEFAULT_PREFIX_TABLE,
+      $table_prefix
+      );
 
-    $query = 'UPDATE '.CONFIG_TABLE;
-    $query.= " SET value = '".$admin_mail."'";
-    $query.= " WHERE param = 'mail_webmaster'";
-    $query.= ';';
-    mysql_query( $query );
+    $query = '
+UPDATE '.CONFIG_TABLE.'
+  SET value = \''.$admin_mail.'\'
+  WHERE param = \'mail_webmaster\'
+;';
+    mysql_query($query);
 	
-    $query = 'UPDATE '.CONFIG_TABLE;
-    $query.= " SET value = '".$language."'";
-    $query.= " WHERE param = 'default_language'";
-    $query.= ';';
-    mysql_query( $query );
+    $query = '
+UPDATE '.CONFIG_TABLE.'
+  SET value = \''.$language.'\'
+  WHERE param = \'default_language\'
+;';
+    mysql_query($query);
     
-    $query = 'INSERT INTO '.SITES_TABLE;
-    $query.= " (id,galleries_url) VALUES (1, '".PHPWG_ROOT_PATH."galleries/');";
-    mysql_query( $query );
+    $query = '
+INSERT
+  INTO '.SITES_TABLE.'
+  (id, galleries_url)
+  VALUES
+  (1, \''.PHPWG_ROOT_PATH.'galleries/\')
+;';
+    mysql_query($query);
     
     // webmaster admin user
     $query = '
@@ -392,7 +381,11 @@ $template->assign_vars(
     'F_DB_HOST'=>$dbhost,
     'F_DB_USER'=>$dbuser,
     'F_DB_NAME'=>$dbname,
-    'F_DB_PREFIX'=>$table_prefix,
+    'F_DB_PREFIX' => (
+      $table_prefix != DEFAULT_PREFIX_TABLE
+      ? $table_prefix
+      : DEFAULT_PREFIX_TABLE
+      ),
     'F_ADMIN'=>$admin_name,
     'F_ADMIN_EMAIL'=>$admin_mail,
     'F_LANG_SELECT'=>language_select($language),
