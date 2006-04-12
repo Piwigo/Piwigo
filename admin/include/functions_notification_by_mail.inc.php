@@ -27,7 +27,13 @@
 // +-----------------------------------------------------------------------+
 
 /* nbm_global_var */
-$env_nbm = array();
+$env_nbm = array
+          (
+            'start_time' => get_moment(),
+            'sendmail_timeout' => (intval(ini_get('max_execution_time')) * $conf['nbm_max_treatment_timeout_percent']),
+            'is_sendmail_timeout' => false
+          );
+
 
 /*
  * Search an available check_key
@@ -55,6 +61,20 @@ where
       return $key;
     }
   }
+}
+
+/*
+ * Check sendmail timeout state
+ *
+ * @return true, if it's timeout
+ */
+function check_sendmail_timeout()
+{
+  global $env_nbm;
+
+  $env_nbm['is_sendmail_timeout'] = ((get_moment() - $env_nbm['start_time']) > $env_nbm['sendmail_timeout']);
+
+  return $env_nbm['is_sendmail_timeout'];
 }
 
 
@@ -318,12 +338,13 @@ function get_mail_content_subscribe_unsubcribe($nbm_user)
  * is_subscribe define if action=subscribe or unsubscribe
  * check_key list where action will be done
  *
- * @return updated data count
+ * @return check_key lisr treated
  */
 function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_subscribe = false, $check_key_list = array())
 {
   global $conf, $page, $env_nbm, $conf;
 
+  $check_key_treated = array();
   $updated_data_count = 0;
   $error_on_updated_data_count = 0;
 
@@ -344,17 +365,23 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
     $enabled_value = boolean_to_string($is_subscribe);
     $data_users = get_user_notifications('subscribe', $check_key_list, !$is_subscribe);
 
+    // Prepare message after change language
+    $msg_break_timeout = l10n('nbm_nbm_break_timeout_send_mail');
+
     // Begin nbm users environment
     begin_users_env_nbm(true);
 
     foreach ($data_users as $nbm_user)
     {
-      if (($env_nbm['error_on_mail_count'] + $env_nbm['sent_mail_count']) >= $conf['nbm_max_mails_send'])
+      if (check_sendmail_timeout())
       {
         // Stop fill list on 'send', if the quota is override
-        array_push($page['errors'], sprintf(l10n('nbm_nbm_break_send_mail'), $conf['nbm_max_mails_send']));
+        array_push($page['errors'], $msg_break_timeout);
         break;
       }
+
+      // Fill return list
+      array_push($check_key_treated, $nbm_user['check_key']);
 
       $do_update = true;
       if ($nbm_user['mail_address'] != '')
@@ -436,7 +463,7 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
     array_push($page['errors'], sprintf(l10n('nbm_user_change_enabled_error_on_updated_data_count'), $error_on_updated_data_count));
   }
 
-  return $updated_data_count;
+  return $check_key_treated;
 }
 
 /*
@@ -444,7 +471,7 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
  *
  * check_key list where action will be done
  *
- * @return updated data count
+ * @return check_key lisr treated
  */
 function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {
@@ -456,7 +483,7 @@ function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = ar
  *
  * check_key list where action will be done
  *
- * @return updated data count
+ * @return check_key lisr treated
  */
 function subcribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {

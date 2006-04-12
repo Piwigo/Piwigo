@@ -518,15 +518,25 @@ function pwg_debug( $string )
  * (presence of an exit() instruction.
  *
  * @param string $url
+ * @param string $title_msg
+ * @param integer $refreh_time
  * @return void
  */
-function redirect( $url )
+function redirect( $url , $msg = '', $refreh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
-  // $refresh, $url_link and $title are required for creating an automated
+  // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
-  $refresh = 0;
+  if (!isset($msg) or ($msg == ''))
+  {
+    $redirect_msg = l10n('redirect_msg');
+  }
+  else
+  {
+    $redirect_msg = $msg;
+  }
+  $refresh = $refreh_time;
   $url_link = $url;
   $title = 'redirection';
 
@@ -859,4 +869,76 @@ function get_available_upgrade_ids()
 
   return $available_upgrade_ids;
 }
+
+/**
+ * Adaptation of _HTTPRequestToString (http://fr.php.net/urlencode)
+ *
+ * 
+ * @return array request to string
+ */
+function http_request_to_string($arr_request, $var_name, $separator='&') {
+   $ret = "";
+   if (is_array($arr_request)) {
+       foreach ($arr_request as $key => $value) {
+           if (is_array($value)) {
+               if ($var_name) {
+                   $ret .= http_request_to_string($value, "{$var_name}[{$key}]", $separator);
+               } else {
+                   $ret .= http_request_to_string($value, "{$key}", $separator);
+               }
+           } else {
+               if ($var_name) {
+                   $ret .= "{$var_name}[{$key}]=".urlencode($value)."&";
+               } else {
+                   $ret .= "{$key}=".urlencode($value)."&";
+               }
+           }
+       }
+   }
+   if (!$var_name) {
+       $ret = substr($ret,0,-1);
+   }
+   return $ret;
+}
+
+/**
+ * Post request HTTP on backgroung and redirec to selected url
+ *
+ * Note : once this function called, the execution doesn't go further
+ * (presence of an exit() instruction.
+ *
+ * @param string $url_redirect
+ * @param string $redirect_message
+ * @param integer $redirect_refreh_time
+ * @return void
+ */
+function re_post_http($url_redirect, $redirect_message, $redirect_refreh_time)
+{
+  global $conf;
+
+  $data_post = http_request_to_string($_POST, '');
+
+  $message_post  = "POST ".$_SERVER['PHP_SELF'].html_entity_decode(get_query_string_diff(array()))." HTTP/1.1\r\n";
+
+  foreach (array_flip(array_diff(array_flip(apache_request_headers()), array('Content-Type', 'Content-Length'))) as $header_name => $header_value)
+  {
+    $message_post .= $header_name.": ".$header_value."\r\n";
+  }
+
+
+//  $message_post .= "Host: ".$_SERVER['HTTP_HOST']."\r\n";
+//  $message_post .= "Cookie: ".$conf['session_name']."=".$_COOKIE[$conf['session_name']]."\r\n";
+  $message_post .= "Content-Type: application/x-www-form-urlencoded\r\n";
+  $message_post .= "Content-Length: ".strlen($data_post)."\r\n";
+  $message_post .= "\r\n";
+  $message_post .= $data_post."\r\n";
+
+  $fd = fsockopen($_SERVER['HTTP_HOST'], $_SERVER['SERVER_PORT']);
+  fputs($fd, $message_post);
+  fclose($fd);
+
+  redirect($url_redirect, $redirect_message, $redirect_refreh_time);
+  //exit(); done by redirect
+}
+
 ?>

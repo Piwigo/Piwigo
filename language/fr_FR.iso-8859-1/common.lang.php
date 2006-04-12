@@ -343,4 +343,5 @@ $lang['upload_username'] = 'Nom d\'utilisateur';
 $lang['useful when password forgotten'] = 'utile en cas d\'oubli de mot de passe';
 $lang['w_month'] = 'Mois';
 $lang['yes'] = 'Oui';
+$lang['redirect_msg'] = 'Redirection...';
 ?>
