@@ -45,7 +45,7 @@ if (isset($_POST))
 {
   $to_validate = array();
   $to_reject = array();
-  
+
   if (isset($_POST['submit']))
   {    
     foreach (explode(',', $_POST['list']) as $comment_id)
@@ -68,11 +68,11 @@ if (isset($_POST))
       }
     }
   }
-  else if (isset($_POST['validate-all']))
+  else if (isset($_POST['validate-all']) and !empty($_POST['list']))
   {
     $to_validate = explode(',', $_POST['list']);
   }
-  else if (isset($_POST['reject-all']))
+  else if (isset($_POST['reject-all']) and !empty($_POST['list']))
   {
     $to_reject = explode(',', $_POST['list']);
   }
