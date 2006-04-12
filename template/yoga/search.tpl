@@ -63,7 +63,7 @@
               <!-- END start_month -->
             </select>
 	    <input name="start_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" name="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};" />{lang:today}</a>
+	    <a href="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};">{lang:today}</a>
           </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@
               <!-- END end_month -->
             </select>
             <input name="end_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" name="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};" />{lang:today}</a>
+	    <a href="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};">{lang:today}</a>
           </td>
         </tr>
       </table>
