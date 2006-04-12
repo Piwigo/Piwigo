@@ -470,14 +470,11 @@ $conf['tags_levels'] = 5;
 // Default Value for nbm user
 $conf['nbm_default_value_user_enabled'] = false;
 
-// Max user to show on list users to send notification
-// Parameter not used if $conf['nbm_list_all_enabled_users_to_send'] is true
-$conf['nbm_max_list_users_to_send'] = 100;
-
 // Search List user to send with quick (List all without check news)
 // More quickly but less fun to use
 $conf['nbm_list_all_enabled_users_to_send'] = false;
 
 // Max mails sended on one pass
-$conf['nbm_max_mails_send'] = 35;
+$conf['nbm_max_treatment_timeout_percent'] = 0.8;
+
 ?>

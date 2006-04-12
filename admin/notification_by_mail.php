@@ -47,8 +47,45 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
+// | Initialization                                                        |
+// +-----------------------------------------------------------------------+
+$base_url = get_root_url().'admin.php';
+
+// +-----------------------------------------------------------------------+
 // | functions                                                             |
 // +-----------------------------------------------------------------------+
+
+/*
+ * Do background treatmetn in order to finish to send mails
+ *
+ * @param $post_keyname: key of check_key post array
+ * @param check_key_treated:array of check_key treated
+ * @return none
+ */
+function do_background_treatment($post_keyname, $check_key_treated = array())
+{
+  global $env_nbm, $base_url;
+
+  if ($env_nbm['is_sendmail_timeout'])
+  {
+    if (isset($_POST[$post_keyname]))
+    {
+      $post_count = count($_POST[$post_keyname]);
+      $treated_count = count($check_key_treated);
+      if ($treated_count != 0)
+      {
+        $time_refresh = ceil((get_moment() - $env_nbm['start_time']) * $post_count / $treated_count);
+      }
+      else
+      {
+        $time_refresh = 10;
+      }
+      $_POST[$post_keyname] = array_diff($_POST[$post_keyname], $check_key_treated);
+      re_post_http($base_url.get_query_string_diff(array()), sprintf(l10n('nbm_background_treatment_redirect'), $time_refresh) , $time_refresh);
+    }
+  }
+
+}
 
 /*
  * Get the authorized_status for each tab
@@ -78,7 +115,7 @@ function get_tab_status($mode)
  */
 function insert_new_data_user_mail_notification()
 {
-  global $conf, $page;
+  global $conf, $page, $env_nbm;
 
   // Set null mail_address empty
   $query = '
@@ -137,18 +174,36 @@ order by
     // Insert new nbm_users
     mass_inserts(USER_MAIL_NOTIFICATION_TABLE, array('user_id', 'check_key', 'enabled'), $inserts);
     // Update field enabled with specific function
-    do_subscribe_unsubcribe_notification_by_mail
+    $check_key_treated = do_subscribe_unsubcribe_notification_by_mail
     (
       true,
       $conf['nbm_default_value_user_enabled'],
       $check_key_list
     );
+
+     // On timeout simulate like tabsheet send
+    if ($env_nbm['is_sendmail_timeout'])
+    {
+      if ($conf['nbm_default_value_user_enabled'])
+      {
+        $_POST['trueify'] = 'trueify';
+        $_POST['cat_false'] = $check_key_list;
+        do_background_treatment('cat_false', $check_key_treated);
+      }
+      else
+      {
+        $_POST['falsify'] = 'falsify';
+        $_POST['cat_true'] = $check_key_list;
+        do_background_treatment('cat_true', $check_key_treated);
+      }
+    }
   }
 }
 
 /*
  * Send mail for notification to all users
- * Return list of "treated/selected" users
+ * Return list of "selected" users for 'list_to_send'
+ * Return list of "treated" check_key for 'send'
  */
 function do_action_send_mail_notification($action = 'list_to_send', $check_key_list = array(), $customize_mail_content = '')
 {
@@ -176,21 +231,31 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
       {
         $datas = array();
 
+        // Prepare message after change language
+        if ($is_action_send)
+        {
+          $msg_break_timeout = l10n('nbm_nbm_break_timeout_send_mail');
+        }
+        else
+        {
+          $msg_break_timeout = l10n('nbm_break_timeout_list_user');
+        }
+
         // Begin nbm users environment
         begin_users_env_nbm($is_action_send);
 
         foreach ($data_users as $nbm_user)
         {
-          if ((!$is_action_send) and (count($return_list) >= $conf['nbm_max_list_users_to_send']))
+          if ((!$is_action_send) and check_sendmail_timeout())
           {
             // Stop fill list on 'list_to_send', if the quota is override
-            array_push($page['infos'], sprintf(l10n('nbm_break_list_user'), $conf['nbm_max_list_users_to_send']));
+            array_push($page['infos'], $msg_break_timeout);
             break;
           }
-          if (($is_action_send) and (count($return_list) >= $conf['nbm_max_mails_send']))
+          if (($is_action_send) and check_sendmail_timeout())
           {
             // Stop fill list on 'send', if the quota is override
-            array_push($page['errors'], sprintf(l10n('nbm_nbm_break_send_mail'), $conf['nbm_max_mails_send']));
+            array_push($page['errors'], $msg_break_timeout);
             break;
           }
 
@@ -199,6 +264,8 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
           if ($is_action_send)
           {
+            // Fill return list of "treated" check_key for 'send'
+            array_push($return_list, $nbm_user['check_key']);
             $message = '';
 
             if ($conf['nbm_send_detailed_content'])
@@ -213,8 +280,6 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
             if ($exist_data)
             {
-              array_push($return_list, $nbm_user);
-
               $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_object_news');
               $message .= sprintf(l10n('nbm_content_hello'), $nbm_user['username']).",\n\n";
 
@@ -262,6 +327,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           {
             if (news_exists($nbm_user['last_send'], $dbnow))
             {
+              // Fill return list of "selected" users for 'list_to_send'
               array_push($return_list, $nbm_user);
             }
           }
@@ -295,9 +361,13 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
     else
     {
       // Quick List, don't check news
+      // Fill return list of "selected" users for 'list_to_send'
       $return_list = $data_users;
     }
   }
+
+  // Return list of "selected" users for 'list_to_send'
+  // Return list of "treated" check_key for 'send'
   return $return_list;
 }
 
@@ -383,12 +453,14 @@ where
   {
     if (isset($_POST['falsify']) and isset($_POST['cat_true']))
     {
-      unsubcribe_notification_by_mail(true, $_POST['cat_true']);
+      $check_key_treated = unsubcribe_notification_by_mail(true, $_POST['cat_true']);
+      do_background_treatment('cat_true', $check_key_treated);
     }
     else
     if (isset($_POST['trueify']) and isset($_POST['cat_false']))
     {
-      subcribe_notification_by_mail(true, $_POST['cat_false']);
+      $check_key_treated = subcribe_notification_by_mail(true, $_POST['cat_false']);
+      do_background_treatment('cat_false', $check_key_treated);
     }
     break;
   }
@@ -397,7 +469,8 @@ where
   {
     if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
     {
-      do_action_send_mail_notification('send', $_POST['send_selection'], $_POST['send_customize_mail_content']);
+      $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], $_POST['send_customize_mail_content']);
+      do_background_treatment('send_selection', $check_key_treated);
     }
   }
 }
@@ -414,14 +487,12 @@ $template->set_filenames
   )
 );
 
-$base_url = get_root_url().'admin.php';
-
 $template->assign_vars
 (
   array
   (
     'U_TABSHEET_TITLE' => l10n('nbm_'.$page['mode'].'_mode'),
-    'U_HELP' => add_url_params(get_root_url().'/popuphelp.php', array('page' => 'notification_by_mail')),
+    'U_HELP' => add_url_params(get_root_url().'popuphelp.php', array('page' => 'notification_by_mail')),
     'F_ACTION'=> $base_url.get_query_string_diff(array())
   )
 );

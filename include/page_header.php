@@ -57,10 +57,11 @@ $template->assign_vars(
     ));
 
 // refresh
-if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) )
+if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) and isset( $redirect_msg ) )
 {
   $template->assign_vars(
     array(
+      'U_REDIRECT_MSG' => $redirect_msg,
       'REFRESH_TIME' => $refresh,
       'U_REFRESH' => $url_link
       ));
