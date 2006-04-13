@@ -536,6 +536,7 @@ function redirect( $url , $msg = '', $refreh_time = 0)
   {
     $redirect_msg = $msg;
   }
+  $redirect_msg = nl2br($redirect_msg);
   $refresh = $refreh_time;
   $url_link = $url;
   $title = 'redirection';
@@ -920,14 +921,14 @@ function re_post_http($url_redirect, $redirect_message, $redirect_refreh_time)
 
   $message_post  = "POST ".$_SERVER['PHP_SELF'].html_entity_decode(get_query_string_diff(array()))." HTTP/1.1\r\n";
 
-  foreach (array_flip(array_diff(array_flip(apache_request_headers()), array('Content-Type', 'Content-Length'))) as $header_name => $header_value)
+/*  foreach (array_flip(array_diff(array_flip(apache_request_headers()), array('Content-Type', 'Content-Length'))) as $header_name => $header_value)
   {
     $message_post .= $header_name.": ".$header_value."\r\n";
-  }
+  }*/
+  $message_post .= "Host: ".$_SERVER['HTTP_HOST']."\r\n";
+  $message_post .= "Cookie: ".$conf['session_name']."=".$_COOKIE[$conf['session_name']]."\r\n";
 
 
-//  $message_post .= "Host: ".$_SERVER['HTTP_HOST']."\r\n";
-//  $message_post .= "Cookie: ".$conf['session_name']."=".$_COOKIE[$conf['session_name']]."\r\n";
   $message_post .= "Content-Type: application/x-www-form-urlencoded\r\n";
   $message_post .= "Content-Length: ".strlen($data_post)."\r\n";
   $message_post .= "\r\n";

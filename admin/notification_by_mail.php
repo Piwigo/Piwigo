@@ -117,6 +117,18 @@ function insert_new_data_user_mail_notification()
 {
   global $conf, $page, $env_nbm;
 
+  // Treatment of simulate post
+  if (isset($_POST['insert_new_user_nbm']))
+  {
+     $check_key_treated = do_subscribe_unsubcribe_notification_by_mail
+    (
+      true,
+      $conf['nbm_default_value_user_enabled'],
+      $_POST['insert_new_user_nbm']
+    );
+    do_background_treatment('insert_new_user_nbm', $check_key_treated);
+  }
+
   // Set null mail_address empty
   $query = '
 update
@@ -186,15 +198,9 @@ order by
     {
       if ($conf['nbm_default_value_user_enabled'])
       {
-        $_POST['trueify'] = 'trueify';
-        $_POST['cat_false'] = $check_key_list;
-        do_background_treatment('cat_false', $check_key_treated);
-      }
-      else
-      {
-        $_POST['falsify'] = 'falsify';
-        $_POST['cat_true'] = $check_key_list;
-        do_background_treatment('cat_true', $check_key_treated);
+        // Simulate Post
+        $_POST['insert_new_user_nbm'] = $check_key_list;
+        do_background_treatment('insert_new_user_nbm', $check_key_treated);
       }
     }
   }
@@ -572,7 +578,7 @@ switch ($page['mode'])
       $template->assign_block_vars(
         $page['mode'].'.send_data',
         array(
-          'CUSTOMIZE_MAIL_CONTENT' => isset($_POST['send_customize_mail_content']) ? $_POST['send_customize_mail_content'] : $conf['nbm_complementary_mail_content']
+          'CUSTOMIZE_MAIL_CONTENT' => isset($_POST['send_customize_mail_content']) ? stripslashes($_POST['send_customize_mail_content']) : $conf['nbm_complementary_mail_content']
           ));
 
       foreach ($data_users as $num => $nbm_user)
