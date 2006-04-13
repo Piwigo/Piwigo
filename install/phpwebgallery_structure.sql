@@ -172,7 +172,8 @@ CREATE TABLE `phpwebgallery_images` (
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`average_rate`),
   KEY `images_i4` (`hit`),
-  KEY `images_i5` (`date_creation`)
+  KEY `images_i5` (`date_creation`),
+  KEY `images_i1` (`storage_category_id`)
 ) TYPE=MyISAM;
 
 --
