@@ -338,9 +338,14 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'maxheight', 'status', 'adviser', 'enabled_high');
+          'maxheight', 'status', 'enabled_high');
   
-  $true_false_fields = array('expand', 'show_nb_comments', 'adviser', 'enabled_high');
+  $true_false_fields = array('expand', 'show_nb_comments', 'enabled_high');
+  if ($conf['allow_adviser'])
+  {
+    array_push($formfields, 'adviser');
+    array_push($true_false_fields, 'adviser');
+  }
   
   foreach ($formfields as $formfield)
   {
@@ -581,8 +586,8 @@ if (isset($_POST['pref_submit']))
 //  echo '<pre>'; print_r($_POST); echo '</pre>';
   $template->assign_vars(
     array(
-      'ADVISER_YES' => 'true' == $_POST['adviser'] ? 'checked="checked"' : '',
-      'ADVISER_NO' => 'false' == $_POST['adviser'] ? 'checked="checked"' : '',
+      'ADVISER_YES' => 'true' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
+      'ADVISER_NO' => 'false' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
       'NB_IMAGE_LINE' => $_POST['nb_image_line'],
       'NB_LINE_PAGE' => $_POST['nb_line_page'],
       'MAXWIDTH' => $_POST['maxwidth'],
