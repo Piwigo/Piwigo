@@ -7,18 +7,17 @@
   </head>
 
   <body>
-    <!-- BEGIN choices -->
+    <!-- BEGIN introduction -->
     <h1>Welcome to PhpWebGallery upgrade page.</h1>
-    <p>This page proposes to upgrade your database corresponding to your old version
-      of PhpWebGallery to the current version. Select the version you wish to upgrade
-      :</p>
 
-    <ul>
-      <!-- BEGIN choice -->
-      <li><a href="{choices.choice.URL}">{choices.choice.VERSION}</a></li>
-      <!-- END choice -->
-    </ul>
-    <!-- END choices -->
+    <p>This page proposes to upgrade your database corresponding to your old
+version of PhpWebGallery to the current version. The upgrade assistant
+thinks you are currently running a
+<strong>release {introduction.CURRENT_RELEASE}</strong> (or equivalent).</p>
+
+    <p><a href="{introduction.RUN_UPGRADE_URL}">Upgrade from release
+{introduction.CURRENT_RELEASE} to {RELEASE}</a></p>
+    <!-- END introduction -->
 
     <!-- BEGIN upgrade -->
     <h1>Upgrade from version {upgrade.VERSION} to {RELEASE}</h1>

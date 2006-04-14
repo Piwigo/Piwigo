@@ -651,12 +651,22 @@ function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
 // error occured for the last mysql query.
 function my_error($header)
 {
+  global $conf;
+  
   $error = '<pre>';
   $error.= $header;
   $error.= '[mysql error '.mysql_errno().'] ';
   $error.= mysql_error();
   $error.= '</pre>';
-  die ($error);
+
+  if ($conf['die_on_sql_error'])
+  {
+    die($error);
+  }
+  else
+  {
+    echo $error;
+  }
 }
 
 /**

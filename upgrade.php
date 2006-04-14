@@ -29,13 +29,13 @@ define('PHPWG_ROOT_PATH', './');
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH.'include/template.php');
 
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
+include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when it is not ok                               |
-// +-----------------------------------------------------------------------+
 check_upgrade();
 
 // concerning upgrade, we use the default users table
@@ -43,8 +43,6 @@ $conf['users_table'] = $prefixeTable.'users';
 
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
-
-$conf['show_queries'] = false;
 
 // Database connection
 mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
@@ -68,44 +66,218 @@ flush();
 // +-----------------------------------------------------------------------+
 
 /**
- * loads an sql file and executes all queries
+ * list all tables in an array
  *
- * Before executing a query, $replaced is... replaced by $replacing. This is
- * useful when the SQL file contains generic words. Drop table queries are
- * not executed.
- *
- * @param string filepath
- * @param string replaced
- * @param string replacing
- * @return void
+ * @return array
  */
-function execute_sqlfile($filepath, $replaced, $replacing)
+function get_tables()
 {
-  $sql_lines = file($filepath);
-  $query = '';
-  foreach ($sql_lines as $sql_line)
+  $tables = array();
+  
+  $query = '
+SHOW TABLES
+;';
+  $result = mysql_query($query);
+
+  while ($row = mysql_fetch_row($result))
   {
-    $sql_line = trim($sql_line);
-    if (preg_match('/(^--|^$)/', $sql_line))
+    array_push(
+      $tables,
+      preg_replace('/^'.PREFIX_TABLE.'/', '', $row[0])
+      );
+  }
+
+  return $tables;
+}
+
+/**
+ * list all columns of each given table
+ *
+ * @return array of array
+ */
+function get_columns_of($tables)
+{
+  $columns_of = array();
+
+  foreach ($tables as $table)
+  {
+    $query = '
+DESC '.PREFIX_TABLE.$table.'
+;';
+    $result = mysql_query($query);
+
+    $columns_of[$table] = array();
+
+    while ($row = mysql_fetch_row($result))
     {
-      continue;
-    }
-    $query.= ' '.$sql_line;
-    // if we reached the end of query, we execute it and reinitialize the
-    // variable "query"
-    if (preg_match('/;$/', $sql_line))
-    {
-      $query = trim($query);
-      $query = str_replace($replaced, $replacing, $query);
-      // we don't execute "DROP TABLE" queries
-      if (!preg_match('/^DROP TABLE/i', $query))
-      {
-        mysql_query($query);
-      }
-      $query = '';
+      array_push($columns_of[$table], $row[0]);
     }
   }
+
+  return $columns_of;
 }
+
+/**
+ */
+function print_time($message)
+{
+  global $last_time;
+  
+  $new_time = get_moment();
+  echo '<pre>['.get_elapsed_time($last_time, $new_time).']';
+  echo ' '.$message;
+  echo '</pre>';
+  flush();
+  $last_time = $new_time;
+}
+
+/**
+ * replace old style #images.keywords by #tags. Requires a big data
+ * migration.
+ *
+ * @return void
+ */
+function tag_replace_keywords()
+{
+  // code taken from upgrades 19 and 22
+  
+  $query = '
+CREATE TABLE '.PREFIX_TABLE.'tags (
+  id smallint(5) UNSIGNED NOT NULL auto_increment,
+  name varchar(255) BINARY NOT NULL,
+  url_name varchar(255) BINARY NOT NULL,
+  PRIMARY KEY (id)
+)
+;';
+  pwg_query($query);
+  
+  $query = '
+CREATE TABLE '.PREFIX_TABLE.'image_tag (
+  image_id mediumint(8) UNSIGNED NOT NULL,
+  tag_id smallint(5) UNSIGNED NOT NULL,
+  PRIMARY KEY (image_id,tag_id)
+)
+;';
+  pwg_query($query);
+  
+  //
+  // Move keywords to tags
+  //
+
+  // each tag label is associated to a numeric identifier
+  $tag_id = array();
+  // to each tag id (key) a list of image ids (value) is associated
+  $tag_images = array();
+
+  $current_id = 1;
+
+  $query = '
+SELECT id, keywords
+  FROM '.PREFIX_TABLE.'images
+  WHERE keywords IS NOT NULL
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    foreach(preg_split('/[,]+/', $row['keywords']) as $keyword)
+    {
+      if (!isset($tag_id[$keyword]))
+      {
+        $tag_id[$keyword] = $current_id++;
+      }
+
+      if (!isset($tag_images[ $tag_id[$keyword] ]))
+      {
+        $tag_images[ $tag_id[$keyword] ] = array();
+      }
+
+      array_push(
+        $tag_images[ $tag_id[$keyword] ],
+        $row['id']
+        );
+    }
+  }
+
+  $datas = array();
+  foreach ($tag_id as $tag_name => $tag_id)
+  {
+    array_push(
+      $datas,
+      array(
+        'id'       => $tag_id,
+        'name'     => $tag_name,
+        'url_name' => str2url($tag_name),
+        )
+      );
+  }
+  
+  if (!empty($datas))
+  {
+    mass_inserts(
+      PREFIX_TABLE.'tags',
+      array_keys($datas[0]),
+      $datas
+      );
+  }
+
+  $datas = array();
+  foreach ($tag_images as $tag_id => $images)
+  {
+    foreach (array_unique($images) as $image_id)
+    {
+      array_push(
+        $datas,
+        array(
+          'tag_id'   => $tag_id,
+          'image_id' => $image_id,
+          )
+        );
+    }
+  }
+  
+  if (!empty($datas))
+  {
+    mass_inserts(
+      PREFIX_TABLE.'image_tag',
+      array_keys($datas[0]),
+      $datas
+      );
+  }
+
+  //
+  // Delete images.keywords
+  //
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'images DROP COLUMN keywords
+;';
+  pwg_query($query);
+
+  //
+  // Add useful indexes
+  //
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'tags
+  ADD INDEX tags_i1(url_name)
+;';
+  pwg_query($query);
+
+
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'image_tag
+  ADD INDEX image_tag_i1(tag_id)
+;';
+  pwg_query($query);
+
+  print_time('tags have replaced keywords');
+}
+
+// +-----------------------------------------------------------------------+
+// |                             playing zone                              |
+// +-----------------------------------------------------------------------+
+
+// echo implode('<br>', get_tables());
+// echo '<pre>'; print_r(get_columns_of(get_tables())); echo '</pre>';
+
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
@@ -115,47 +287,61 @@ $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign_vars(array('RELEASE'=>PHPWG_VERSION));
 
 // +-----------------------------------------------------------------------+
-// |                          versions upgradable                          |
-// +-----------------------------------------------------------------------+
-$versions = array();
-$path = PHPWG_ROOT_PATH.'install';
-if ($contents = opendir($path))
-{
-  while (($node = readdir($contents)) !== false)
-  {
-    if (is_file($path.'/'.$node)
-        and preg_match('/^upgrade_(.*?)\.php$/', $node, $match))
-    {
-      array_push($versions, $match[1]);
-    }
-  }
-}
-natcasesort($versions);
-// +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
 // +-----------------------------------------------------------------------+
+
 if (!isset($_GET['version']))
 {
-  $template->assign_block_vars('choices', array());
-  foreach ($versions as $version)
+  // find the current release
+  $tables = get_tables();
+  $columns_of = get_columns_of($tables);
+
+  if (!in_array('param', $columns_of['config']))
   {
-    $template->assign_block_vars(
-      'choices.choice',
-      array(
-        'URL' => PHPWG_ROOT_PATH.'upgrade.php?version='.$version,
-        'VERSION' => $version
-        ));
+    // we're in branch 1.3, important upgrade, isn't it?
+    if (in_array('user_category', $tables))
+    {
+      $current_release = '1.3.1';
+    }
+    else
+    {
+      $current_release = '1.3.0';
+    }
   }
+  else if (!in_array('user_cache', $tables))
+  {
+    $current_release = '1.4.0';
+  }
+  else if (!in_array('tags', $tables))
+  {
+    $current_release = '1.5.0';
+  }
+  else
+  {
+    die('You are already on branch 1.6, no upgrade required');
+  }
+  
+  $template->assign_block_vars(
+    'introduction',
+    array(
+      'CURRENT_RELEASE' => $current_release,
+      'RUN_UPGRADE_URL' =>
+        PHPWG_ROOT_PATH.'upgrade.php?version='.$current_release,
+      )
+    );
 }
+
 // +-----------------------------------------------------------------------+
 // |                            upgrade launch                             |
 // +-----------------------------------------------------------------------+
+
 else
 {
-  $upgrade_file = $path.'/upgrade_'.$_GET['version'].'.php';
+  $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$_GET['version'].'.php';
   if (is_file($upgrade_file))
   {
     $page['upgrade_start'] = get_moment();
+    $conf['die_on_sql_error'] = false;
     include($upgrade_file);
     $page['upgrade_end'] = get_moment();
 
@@ -163,11 +349,19 @@ else
       'upgrade',
       array(
         'VERSION' => $_GET['version'],
-        'TOTAL_TIME' => get_elapsed_time($page['upgrade_start'],
-                                         $page['upgrade_end']),
-        'SQL_TIME' => number_format($page['queries_time'], 3, '.', ' ').' s',
+        'TOTAL_TIME' => get_elapsed_time(
+          $page['upgrade_start'],
+          $page['upgrade_end']
+          ),
+        'SQL_TIME' => number_format(
+          $page['queries_time'],
+          3,
+          '.',
+          ' '
+          ).' s',
         'NB_QUERIES' => $page['count_queries']
-        ));
+        )
+      );
 
     if (!isset($infos))
     {
@@ -197,8 +391,12 @@ if you encounter any problem.'
     
     foreach ($infos as $info)
     {
-      $template->assign_block_vars('upgrade.infos.info',
-                                   array('CONTENT' => $info));
+      $template->assign_block_vars(
+        'upgrade.infos.info',
+        array(
+          'CONTENT' => $info,
+          )
+        );
     }
   }
   else
@@ -206,8 +404,16 @@ if you encounter any problem.'
     die('Hacking attempt');
   }
 }
+
+$query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET need_update = \'true\'
+;';
+pwg_query($query);
+
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |
 // +-----------------------------------------------------------------------+
+
 $template->pparse('upgrade');
 ?>
