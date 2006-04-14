@@ -1,5 +1,4 @@
 <!-- $Id$ -->
-
 <div id="menubar">
   <dl>
     <dt>{lang:links}</dt>
@@ -9,7 +8,8 @@
         <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
       </ul>
     </dd>
-
+  </dl>
+  <dl>
     <dt>{lang:general}</dt>
     <dd>
       <ul>
@@ -21,7 +21,8 @@
 	<li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
       </ul>
     </dd>
-
+  </dl>
+  <dl>
     <dt>{lang:config}</dt>
     <dd>
       <ul>
@@ -30,7 +31,8 @@
 	<li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
       </ul>
     </dd>
-
+  </dl>
+  <dl>
     <dt>{lang:Categories}</dt>
     <dd>
       <ul>
@@ -45,7 +47,8 @@
 	<!-- END representative -->
       </ul>
     </dd>
-
+  </dl>
+  <dl>
     <dt>{lang:pictures}</dt>
     <dd>
       <ul>
@@ -57,7 +60,8 @@
 	<li><a href="{U_TAGS}">{lang:Tags}</a></li>
       </ul>
     </dd>
-
+  </dl>
+  <dl>
     <dt>{lang:identification}</dt>
     <dd>
       <ul>
