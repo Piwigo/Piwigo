@@ -46,13 +46,13 @@ H2, #menubar DT, .throw  {
 }
 
 /* borders */
-#menubar DL, #content, #imageToolBar, #theImage IMG,
+#menubar DL, #content, #imageToolBar,
 #comments DIV.comment BLOCKQUOTE {
   border: 1px solid #000000;
 }
 
 #theImage IMG {
-  border-width: 3px;
+  border-color: #000000;
 }
 
 #content UL.thumbnail IMG {
