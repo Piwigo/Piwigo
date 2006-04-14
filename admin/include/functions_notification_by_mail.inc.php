@@ -338,7 +338,7 @@ function get_mail_content_subscribe_unsubcribe($nbm_user)
  * is_subscribe define if action=subscribe or unsubscribe
  * check_key list where action will be done
  *
- * @return check_key lisr treated
+ * @return check_key list treated
  */
 function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_subscribe = false, $check_key_list = array())
 {
@@ -366,7 +366,7 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
     $data_users = get_user_notifications('subscribe', $check_key_list, !$is_subscribe);
 
     // Prepare message after change language
-    $msg_break_timeout = l10n('nbm_nbm_break_timeout_send_mail');
+    $msg_break_timeout = l10n('nbm_break_timeout_send_mail');
 
     // Begin nbm users environment
     begin_users_env_nbm(true);
@@ -471,7 +471,7 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
  *
  * check_key list where action will be done
  *
- * @return check_key lisr treated
+ * @return check_key list treated
  */
 function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {
@@ -483,7 +483,7 @@ function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = ar
  *
  * check_key list where action will be done
  *
- * @return check_key lisr treated
+ * @return check_key list treated
  */
 function subcribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {
