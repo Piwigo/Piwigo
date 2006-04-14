@@ -320,7 +320,6 @@ $lang['path'] = 'chemin';
 $lang['permissions'] = 'Permissions';
 $lang['permuser_info'] = 'Seules les catégories privées sont listées.';
 $lang['permuser_only_private'] = 'Seules les catégories privées sont listées.';
-$lang['pictures'] = 'images';
 $lang['private'] = 'privée';
 $lang['properties'] = 'Propriétés';
 $lang['public'] = 'publique';

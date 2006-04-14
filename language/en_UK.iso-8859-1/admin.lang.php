@@ -317,7 +317,6 @@ $lang['path'] = 'path';
 $lang['permissions'] = 'Permissions';
 $lang['permuser_info'] = 'Only private categories are listed. Private/Public category status can be set in screen "Categories &gt; Public / Private"';
 $lang['permuser_only_private'] = 'Only private categories are shown';
-$lang['pictures'] = 'pictures';
 $lang['private'] = 'private';
 $lang['properties'] = 'Properties';
 $lang['public'] = 'public';

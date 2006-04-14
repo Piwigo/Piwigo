@@ -344,4 +344,5 @@ $lang['useful when password forgotten'] = 'utile en cas d\'oubli de mot de passe
 $lang['w_month'] = 'Mois';
 $lang['yes'] = 'Oui';
 $lang['redirect_msg'] = 'Redirection...';
+$lang['pictures'] = 'images';
 ?>
