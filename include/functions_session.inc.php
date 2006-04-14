@@ -165,7 +165,7 @@ UPDATE '.SESSIONS_TABLE.'
   WHERE id = \''.$session_id.'\'
 ;';
   pwg_query($query);
-  if ( mysql_affected_rows()==0 )
+  if ( mysql_affected_rows()==-1 )
   {
     $query = '
 INSERT INTO '.SESSIONS_TABLE.'
