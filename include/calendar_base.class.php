@@ -195,7 +195,8 @@ class CalendarBase
       $nav_bar.= '</span>';
     }
 
-    if ($conf['calendar_show_any'] and $show_any and count($items) > 1)
+    if ($conf['calendar_show_any'] and $show_any and count($items)>1 and
+          count($date_components)<count($this->calendar_levels)-1 )
     {
       $label = l10n('calendar_any');
       if (isset($selected_item) and 'any' === $selected_item)
@@ -299,7 +300,7 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $query = 'SELECT CONCAT_WS("-"';
     for ($i=0; $i<count($page['chronology_date']); $i++)
     {
-      if ( 'any' === $page['chronology_date'] )
+      if ( 'any' === $page['chronology_date'][$i] )
       {
         $query .= ','.'"any"';
       }
