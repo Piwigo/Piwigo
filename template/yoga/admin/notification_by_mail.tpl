@@ -16,6 +16,15 @@
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{F_ACTION}">
+  <!-- BEGIN repost -->
+  <fieldset>
+    <div class="errors">
+      <p>
+        <input type="submit" value="{lang:nbm_repost_submit}" name="{REPOST_SUBMIT_NAME}" {TAG_INPUT_ENABLED}/>
+      </p>
+    </div>
+  </fieldset>
+  <!-- END repost -->
 
   <!-- BEGIN param -->
   <fieldset>
@@ -62,6 +71,7 @@
     <center>
       {lang:nbm_no_user_available_to_send_L1}<br>
       {lang:nbm_no_user_available_to_send_L2}<br>
+      <br>
     </center>
     <!-- END send_empty -->
     <!-- BEGIN send_data -->

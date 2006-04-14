@@ -50,21 +50,22 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Initialization                                                        |
 // +-----------------------------------------------------------------------+
 $base_url = get_root_url().'admin.php';
+$must_repost = false;
 
 // +-----------------------------------------------------------------------+
 // | functions                                                             |
 // +-----------------------------------------------------------------------+
 
 /*
- * Do background treatmetn in order to finish to send mails
+ * Do timeout treatment in order to finish to send mails
  *
  * @param $post_keyname: key of check_key post array
- * @param check_key_treated:array of check_key treated
+ * @param check_key_treated: array of check_key treated
  * @return none
  */
-function do_background_treatment($post_keyname, $check_key_treated = array())
+function do_timeout_treatment($post_keyname, $check_key_treated = array())
 {
-  global $env_nbm, $base_url;
+  global $env_nbm, $base_url, $page, $must_repost;
 
   if ($env_nbm['is_sendmail_timeout'])
   {
@@ -78,10 +79,12 @@ function do_background_treatment($post_keyname, $check_key_treated = array())
       }
       else
       {
-        $time_refresh = 10;
+        $time_refresh = 0;
       }
       $_POST[$post_keyname] = array_diff($_POST[$post_keyname], $check_key_treated);
-      re_post_http($base_url.get_query_string_diff(array()), sprintf(l10n('nbm_background_treatment_redirect'), $time_refresh) , $time_refresh);
+      
+      $must_repost = true;
+      array_push($page['errors'], sprintf(l10n('nbm_background_treatment_redirect'), $time_refresh));
     }
   }
 
@@ -116,18 +119,6 @@ function get_tab_status($mode)
 function insert_new_data_user_mail_notification()
 {
   global $conf, $page, $env_nbm;
-
-  // Treatment of simulate post
-  if (isset($_POST['insert_new_user_nbm']))
-  {
-     $check_key_treated = do_subscribe_unsubcribe_notification_by_mail
-    (
-      true,
-      $conf['nbm_default_value_user_enabled'],
-      $_POST['insert_new_user_nbm']
-    );
-    do_background_treatment('insert_new_user_nbm', $check_key_treated);
-  }
 
   // Set null mail_address empty
   $query = '
@@ -196,11 +187,13 @@ order by
      // On timeout simulate like tabsheet send
     if ($env_nbm['is_sendmail_timeout'])
     {
-      if ($conf['nbm_default_value_user_enabled'])
+      $quoted_check_key_list = quote_check_key_list(array_diff($check_key_list, $check_key_treated));
+      if (count($quoted_check_key_list) != 0 )
       {
-        // Simulate Post
-        $_POST['insert_new_user_nbm'] = $check_key_list;
-        do_background_treatment('insert_new_user_nbm', $check_key_treated);
+        $query = 'delete from '.USER_MAIL_NOTIFICATION_TABLE.' where check_key in ('.implode(",", $quoted_check_key_list).');';
+        $result = pwg_query($query);
+
+        redirect($base_url.get_query_string_diff(array()));
       }
     }
   }
@@ -230,8 +223,11 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
     // disabled and null mail_address are not selected in the list
     $data_users = get_user_notifications('send', $check_key_list);
 
+    // List all if it's define on options or on timeout
+    $is_list_all_without_test = ($env_nbm['is_sendmail_timeout'] or $conf['nbm_list_all_enabled_users_to_send']);
+
     // Check if exist news to list user or send mails
-    if (($conf['nbm_list_all_enabled_users_to_send'] == false) or ($is_action_send))
+    if ((!$is_list_all_without_test == false) or ($is_action_send))
     {
       if (count($data_users) > 0)
       {
@@ -240,7 +236,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
         // Prepare message after change language
         if ($is_action_send)
         {
-          $msg_break_timeout = l10n('nbm_nbm_break_timeout_send_mail');
+          $msg_break_timeout = l10n('nbm_break_timeout_send_mail');
         }
         else
         {
@@ -460,13 +456,13 @@ where
     if (isset($_POST['falsify']) and isset($_POST['cat_true']))
     {
       $check_key_treated = unsubcribe_notification_by_mail(true, $_POST['cat_true']);
-      do_background_treatment('cat_true', $check_key_treated);
+      do_timeout_treatment('cat_true', $check_key_treated);
     }
     else
     if (isset($_POST['trueify']) and isset($_POST['cat_false']))
     {
       $check_key_treated = subcribe_notification_by_mail(true, $_POST['cat_false']);
-      do_background_treatment('cat_false', $check_key_treated);
+      do_timeout_treatment('cat_false', $check_key_treated);
     }
     break;
   }
@@ -476,7 +472,7 @@ where
     if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
     {
       $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], $_POST['send_customize_mail_content']);
-      do_background_treatment('send_selection', $check_key_treated);
+      do_timeout_treatment('send_selection', $check_key_treated);
     }
   }
 }
@@ -515,6 +511,33 @@ if (is_autorize_status(ACCESS_WEBMASTER))
       'SEND_MODE' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'send'))
     )
   );
+}
+
+if ($must_repost)
+{
+  // Get name of submit button
+  $repost_submit_name = '';
+  if (isset($_POST['falsify']))
+  {
+    $repost_submit_name = 'falsify';
+  }
+  elseif (isset($_POST['trueify']))
+  {
+    $repost_submit_name = 'trueify';
+  }
+  elseif (isset($_POST['send_submit']))
+  {
+    $repost_submit_name = 'send_submit';
+  }
+
+  $template->assign_block_vars
+  (
+    'repost', 
+      array
+      (
+        'REPOST_SUBMIT_NAME' => $repost_submit_name
+      )
+    );
 }
 
 switch ($page['mode'])
@@ -589,7 +612,7 @@ switch ($page['mode'])
               'ID' => $nbm_user['check_key'],
               'CHECKED' =>  ( // not check if not selected,  on init select<all
                               isset($_POST['send_selection']) and // not init
-                              !in_array($nbm_user['check_key'],  $_POST['send_selection']) // not selected
+                              !in_array($nbm_user['check_key'], $_POST['send_selection']) // not selected
                             )   ? '' : 'checked="checked"',
               'USERNAME'=> $nbm_user['username'],
               'EMAIL' => $nbm_user['mail_address'],
