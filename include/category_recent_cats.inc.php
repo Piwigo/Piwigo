@@ -99,7 +99,7 @@ if ($conf['subcatify'])
             )
           ),
         'NAME' => get_cat_display_name_cache($row['uppercats'], null, false),
-        'NB_IMAGES' => $row['nb_images'],
+        'CAPTION_NB_IMAGES' => (($row['nb_images'] == 0) ? '' : sprintf("%d ".l10n('pictures'), $row['nb_images'])),
         'DESCRIPTION' => $comment,
         )
       );

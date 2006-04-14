@@ -160,7 +160,7 @@ SELECT id, path, tn_ext
               )
             ),
           'NAME' => $category['name'],
-          'NB_IMAGES' => $category['nb_images'],
+          'CAPTION_NB_IMAGES' => (($category['nb_images'] == 0) ? '' : sprintf("%d ".l10n('pictures'), $category['nb_images'])),
           'DESCRIPTION' => @$category['comment'],
           )
         );
