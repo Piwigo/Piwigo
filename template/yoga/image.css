@@ -65,6 +65,11 @@ de l'image...
     margin: 0 auto;
 }
 
+#theImage IMG {
+  border-width: 3px;
+  border-style: solid;
+}
+
 .navThumb {
     margin-top: 2px;
 }
@@ -96,7 +101,7 @@ TABLE.infoTable .value {
 TABLE.infoTable .label {
     font-weight: bold;
     text-align: right;
-    padding-right: 0.5em; 
+    padding-right: 0.5em;
 }
 
 TABLE.infoTable TD.value UL {

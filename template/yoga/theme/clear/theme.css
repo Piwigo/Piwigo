@@ -19,13 +19,13 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
 }
 
 /* borders */
-#menubar DL, #content, #imageToolBar, #theImage IMG,
+#menubar DL, #content, #imageToolBar,
 #comments DIV.comment BLOCKQUOTE {
   border: 1px solid #d3d3d3;
 }
 
 #theImage IMG {
-  border-width: 3px;
+  border-color: #d3d3d3;
 }
 
 #content UL.thumbnail IMG {

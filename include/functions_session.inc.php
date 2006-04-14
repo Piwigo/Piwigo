@@ -165,14 +165,25 @@ UPDATE '.SESSIONS_TABLE.'
   WHERE id = \''.$session_id.'\'
 ;';
   pwg_query($query);
-  if ( mysql_affected_rows()==-1 )
-  {
+  if ( mysql_affected_rows()==0 )
+  { // 2 possible cases:
+    //- the user has just login so we need to insert
+    //- the user went through 2 pages very fast (in the same second), so
+    //  data and expiration are the same as before
     $query = '
+SELECT id FROM '.SESSIONS_TABLE.'
+  WHERE id = \''.$session_id.'\'
+;';
+    $id =  array_from_query( $query, array('id') );
+    if ( empty($id) )
+    {
+      $query = '
 INSERT INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
   VALUES(\''.$session_id.'\',\''.$data.'\',now())
 ;';
-    pwg_query($query);
+      pwg_query($query);
+    }
   }
   return true;
 }
