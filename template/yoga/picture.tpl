@@ -202,6 +202,7 @@
   </fieldset>
 </form>
 <!-- END add_comment -->
+</div>
 <!-- END comments -->
 
-</div>
+
