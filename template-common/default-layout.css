@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id:$ */
 
 /* Set the width of the menubar for the galery */
 #menubar {
@@ -6,6 +6,11 @@
 }
 #content {
   margin-left: 20em;	/* = #menubar width + 2em */
+}
+/* Set minimum width of the page before getting a scrollbar */
+/* IE5 and IE6 don't get that */
+BODY {
+  min-width: 60em;	/* ~ 3* #menubar width */
 }
 
 /* Set the width of the menubar for the admin section */
