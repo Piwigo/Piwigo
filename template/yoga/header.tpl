@@ -8,6 +8,9 @@
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue
 the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-khtml.css">
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
+<![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{pwg_root}template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
@@ -19,7 +22,7 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <!-- END refresh -->
 <title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
 <script type="text/javascript" src="{pwg_root}include/scripts.js"></script>
-<!--[if gte IE 5.5000]>
+<!--[if lt IE 7]>
 <script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
 <![endif]-->
 </head>
