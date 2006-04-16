@@ -165,43 +165,40 @@
 
 <!-- BEGIN comments -->
 <div id="comments">
-<h2>[{comments.NB_COMMENT}] {L_COMMENT_TITLE}</h2>
+  <h2>[{comments.NB_COMMENT}] {L_COMMENT_TITLE}</h2>
 
-<div class="navigationBar">{comments.NAV_BAR}</div>
+  <div class="navigationBar">{comments.NAV_BAR}</div>
 
-<!-- BEGIN comment -->
-<div class="comment">
-  <!-- BEGIN delete -->
-  <p class="userCommentDelete">
-  <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}">
-    <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
-  </a>
-  </p>
-  <!-- END delete -->
-  <p class="commentInfo"><span class="author">{comments.comment.COMMENT_AUTHOR}</span> - {comments.comment.COMMENT_DATE}</p>
-  <blockquote>{comments.comment.COMMENT}</blockquote>
-</div>
-<!-- END comment -->
+  <!-- BEGIN comment -->
+  <div class="comment">
+    <!-- BEGIN delete -->
+    <p class="userCommentDelete">
+    <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{L_DELETE_COMMENT}">
+      <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{L_DELETE}]"/>
+    </a>
+    </p>
+    <!-- END delete -->
+    <p class="commentInfo"><span class="author">{comments.comment.COMMENT_AUTHOR}</span> - {comments.comment.COMMENT_DATE}</p>
+    <blockquote>{comments.comment.COMMENT}</blockquote>
+  </div>
+  <!-- END comment -->
 
-<!-- BEGIN add_comment -->
-<form  method="post" action="{U_ADD_COMMENT}" class="filter" id="addComment">
-  <fieldset>
-    <legend>{L_ADD_COMMENT}</legend>
+  <!-- BEGIN add_comment -->
+  <form  method="post" action="{U_ADD_COMMENT}" class="filter" id="addComment">
+    <fieldset>
+      <legend>{L_ADD_COMMENT}</legend>
+      <!-- BEGIN author_field -->
+      <label>{L_AUTHOR}<input type="text" name="author"></label>
+      <!-- END author_field -->
+      <!-- BEGIN author_known -->
+      <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}">
+      <!-- END author_known -->
+      <label>{L_COMMENT}<textarea name="content" rows="10" cols="80"></textarea></label>
+      <input type="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}>
+    </fieldset>
+  </form>
+  <!-- END add_comment -->
 
-    <!-- BEGIN author_field -->
-    <label>{L_AUTHOR}<input type="text" name="author"></label>
-    <!-- END author_field -->
-
-    <!-- BEGIN author_known -->
-    <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}">
-    <!-- END author_known -->
-
-    <label>{L_COMMENT}<textarea name="content" rows="10" cols="80"></textarea></label>
-
-    <input type="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}>
-  </fieldset>
-</form>
-<!-- END add_comment -->
 </div>
 <!-- END comments -->
 
