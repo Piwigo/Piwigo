@@ -65,8 +65,11 @@ function force_download ($filename)
 //--------------------------------------------------------- download big picture
 if ( isset( $_GET['dwn'] ) )
 {
-//TODO : verify the path begins with './gallerie' and doesn't contains any '..'
-// in order to avoid hacking atempts
+//TODO : verify the path begins with something in galleries_url and that user has access rights to the picture
+// in order to avoid hacking atempts by forged url
+  if (preg_match('/\.\./',$_GET['dwn'])) {
+    die('Hacking attempt!');
+  }
   force_download($_GET['dwn']);
 }
 
