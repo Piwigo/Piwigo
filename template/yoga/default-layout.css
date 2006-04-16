@@ -1,7 +1,5 @@
 /* $Id$ */
 
-/* * { padding: 0 !important; margin: 0 !important; } */
-
 BODY {
     margin: 5px;
     padding: 0;
@@ -114,12 +112,12 @@ LI.categoryLi {
   margin-bottom: 5px;
 }
 
-form#categoryOrdering ul.categoryActions {
+FORM#categoryOrdering UL.categoryActions {
   float: right;
   margin-top: 5px;
 }
 
-form#cat_modify table { width: auto; }
+FORM#cat_modify TABLE { width: auto; }
 
 /**
  * Filter forms are displayed label by label with the input (or select...)
@@ -175,14 +173,6 @@ FORM.properties SPAN.property {
   text-align: right;
   margin: 0;
   padding: 0 0.5em 0 0;
-}
-
-FORM .focus {
-  background-color: whitesmoke;
-}
-
-FORM .nofocus {
-  background-color: lightgrey; /* must be the same as input background-color */
 }
 
 FIELDSET.elementEdit A {
