@@ -21,10 +21,16 @@
 }
 
 /* Tables & forms */
-input, select, textarea {
+INPUT, SELECT, TEXTAREA {
 	color:black;
+}
+INPUT, SELECT, TEXTAREA, FORM .nofocus {
 	background-color: #d3d3d3;	/* lightgrey */
 }
+FORM .focus {
+  background-color: #f5f5f5;		/* whitesmoke */
+}
+
 
 .errors { /* Errors display */
   color: red;
@@ -39,7 +45,7 @@ input, select, textarea {
   padding: 10px 50px 10px 10px;
 }
 
-.errors ul li
+.errors UL LI
 {
   font-weight: normal;
 }
