@@ -440,6 +440,7 @@ $lang['update_nb_elements_metadata_sync'] = 'informations des images synchronisé
 $lang['update_nb_errors'] = 'erreurs survenues durant la synchronisation';
 $lang['update_nb_new_categories'] = 'catégories ajoutées dans la base de données';
 $lang['update_nb_new_elements'] = 'éléments ajoutés dans la base de données';
+$lang['update_nb_upd_elements'] = 'éléments mis à jour dans la base de données';
 $lang['update_part_research'] = 'Chercher les nouvelles images dans les répertoires';
 $lang['update_research_added'] = 'ajouté';
 $lang['update_research_deleted'] = 'supprimé';

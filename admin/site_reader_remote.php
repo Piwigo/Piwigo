@@ -35,16 +35,19 @@ var $listing_url;
 var $site_dirs;
 var $site_files;
 var $insert_attributes;
-var $update_attributes;
+var $metadata_attributes;
 
 function RemoteSiteReader($url, $listing_url)
 {
   $this->site_url = $url;
   $this->insert_attributes = array(
-    'tn_ext', 'representative_ext', 'has_high'
+    'tn_ext',
     );
   $this->update_attributes = array(
-    'representative_ext', 'has_high', 'filesize', 'width', 'height'
+    'tn_ext', 'representative_ext', 'has_high',
+    );
+  $this->metadata_attributes = array(
+    'filesize', 'width', 'height'
     );
 
   if (!isset($listing_url))
@@ -85,8 +88,8 @@ function open()
       return false;
     }
 
-    $this->update_attributes = array_merge(
-      $this->update_attributes,
+    $this->metadata_attributes = array_merge(
+      $this->metadata_attributes,
       explode(',', getAttribute($info_xml_element, 'metadata'))
       );
 
@@ -154,18 +157,33 @@ function get_elements($path)
 }
 
 // returns the name of the attributes that are supported for
-// update/synchronization according to listing.xml
+// files update/synchronization
 function get_update_attributes()
 {
   return $this->update_attributes;
 }
 
-// returns a hash of attributes (metadata+filesize+width,...) for file
 function get_element_update_attributes($file)
 {
   return $this->get_element_attributes(
     $file,
     $this->update_attributes
+    );
+}
+
+// returns the name of the attributes that are supported for
+// metadata update/synchronization according to listing.xml
+function get_metadata_attributes()
+{
+  return $this->metadata_attributes;
+}
+
+// returns a hash of attributes (metadata+width,...) for file
+function get_element_metadata($file)
+{
+  return $this->get_element_attributes(
+    $file,
+    $this->metadata_attributes
     );
 }
 

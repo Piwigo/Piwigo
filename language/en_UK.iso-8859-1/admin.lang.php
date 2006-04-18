@@ -437,6 +437,7 @@ $lang['update_nb_elements_metadata_sync'] = 'elements informations synchronized 
 $lang['update_nb_errors'] = 'errors during synchronization';
 $lang['update_nb_new_categories'] = 'categories added in the database';
 $lang['update_nb_new_elements'] = 'elements added in the database';
+$lang['update_nb_upd_elements'] = 'elements updated in the database';
 $lang['update_part_research'] = 'Search for new images in the directories';
 $lang['update_research_added'] = 'added';
 $lang['update_research_deleted'] = 'deleted';

@@ -103,6 +103,10 @@ else
 $general_failure = true;
 if (isset($_POST['submit']))
 {
+  if (!isset($conf['flip_picture_ext']))
+  {
+    $conf['flip_picture_ext'] = array_flip($conf['picture_ext']);
+  }
   if ($site_reader->open())
   {
     $general_failure = false;
@@ -129,6 +133,7 @@ if (isset($_POST['submit'])
   $counts['del_categories'] = 0;
   $counts['del_elements'] = 0;
   $counts['new_elements'] = 0;
+  $counts['upd_elements'] = 0;
 
   $start = get_moment();
   // which categories to update ?
@@ -441,7 +446,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     // 2 cases : the element is a picture or not. Indeed, for a picture
     // thumbnail is mandatory and for non picture element, thumbnail and
     // representative are optionnal
-    if (in_array(get_extension($filename), $conf['picture_ext']))
+    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] ) )
     {
       // if we found a thumnbnail corresponding to our picture...
       if (isset($fs[$path]['tn_ext']))
@@ -451,9 +456,6 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           'file'           => $filename,
           'date_available' => CURRENT_DATE,
           'tn_ext'         => $fs[$path]['tn_ext'],
-          'has_high'       => isset($fs[$path]['has_high'])
-            ? $fs[$path]['has_high']
-            : null,
           'path'           => $path,
           'storage_category_id' => $db_fulldirs[$dirname],
           );
@@ -496,14 +498,8 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         'file'           => $filename,
         'date_available' => CURRENT_DATE,
         'path'           => $path,
-        'has_high'       => isset($fs[$path]['has_high'])
-          ? $fs[$path]['has_high']
-          : null,
         'tn_ext'         => isset($fs[$path]['tn_ext'])
           ? $fs[$path]['tn_ext']
-          : null,
-        'representative_ext' => isset($fs[$path]['representative_ext'])
-          ? $fs[$path]['representative_ext']
           : null,
         'storage_category_id' => $db_fulldirs[$dirname],
         );
@@ -634,18 +630,9 @@ DELETE
 // |                          synchronize files                            |
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit'])
-    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files')
+    and !$general_failure )
 {
-  $template->assign_block_vars(
-    'update_result',
-    array(
-      'NB_NEW_CATEGORIES'=>$counts['new_categories'],
-      'NB_DEL_CATEGORIES'=>$counts['del_categories'],
-      'NB_NEW_ELEMENTS'=>$counts['new_elements'],
-      'NB_DEL_ELEMENTS'=>$counts['del_elements'],
-      'NB_ERRORS'=>count($errors),
-      ));
-
   if (!$simulate)
   {
     $start = get_moment();
@@ -660,6 +647,91 @@ if (isset($_POST['submit'])
     echo get_elapsed_time($start, get_moment());
     echo ' -->'."\n";
   }
+
+  if ($_POST['sync'] == 'files')
+  {
+    $start = get_moment();
+    $opts['category_id'] = '';
+    $opts['recursive'] = true;
+    if (isset($_POST['cat']))
+    {
+      $opts['category_id'] = $_POST['cat'];
+      if (!isset($_POST['subcats-included']) or $_POST['subcats-included'] != 1)
+      {
+        $opts['recursive'] = false;
+      }
+    }
+    $files = get_filelist($opts['category_id'], $site_id,
+                          $opts['recursive'],
+                          false);
+    echo '<!-- get_filelist : ';
+    echo get_elapsed_time($start, get_moment());
+    echo ' -->'."\n";
+    $start = get_moment();
+
+    $datas = array();
+    foreach ( $files as $id=>$file )
+    {
+      $data = $site_reader->get_element_update_attributes($file);
+      if ( !is_array($data) )
+      {
+        continue;
+      }
+      $extension = get_extension($file);
+      if ( isset($conf['flip_picture_ext'][$extension]) )
+      {
+        if ( !isset($data['tn_ext']) )
+        {
+          array_push(
+            $errors,
+            array(
+              'path' => $file,
+              'type' => 'PWG-UPDATE-2'
+              )
+            );
+          continue;
+        }
+      }
+
+      $data['id']=$id;
+      array_push($datas, $data);
+    } // end foreach file
+
+    $counts['upd_elements'] = count($datas);
+    if (!$simulate and count($datas)>0 )
+    {
+      mass_updates(
+        IMAGES_TABLE,
+        // fields
+        array(
+          'primary' => array('id'),
+          'update'  => $site_reader->get_update_attributes(),
+          ),
+        $datas
+        );
+    }
+    echo '<!-- update files : ';
+    echo get_elapsed_time($start,get_moment());
+    echo ' -->'."\n";
+  }// end if sync files
+}
+
+// +-----------------------------------------------------------------------+
+// |                          synchronize files                            |
+// +-----------------------------------------------------------------------+
+if (isset($_POST['submit'])
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
+{
+  $template->assign_block_vars(
+    'update_result',
+    array(
+      'NB_NEW_CATEGORIES'=>$counts['new_categories'],
+      'NB_DEL_CATEGORIES'=>$counts['del_categories'],
+      'NB_NEW_ELEMENTS'=>$counts['new_elements'],
+      'NB_DEL_ELEMENTS'=>$counts['del_elements'],
+      'NB_UPD_ELEMENTS'=>$counts['upd_elements'],
+      'NB_ERRORS'=>count($errors),
+      ));
 }
 
 // +-----------------------------------------------------------------------+
@@ -703,7 +775,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
   $tags_of = array();
   foreach ( $files as $id=>$file )
   {
-    $data = $site_reader->get_element_update_attributes($file);
+    $data = $site_reader->get_element_metadata($file);
     if ( is_array($data) )
     {
       $data['date_metadata_update'] = CURRENT_DATE;
@@ -718,7 +790,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
           {
             $tags_of[$id] = array();
           }
-        
+
           foreach (explode(',', $data[$key]) as $tag_name)
           {
             array_push(
@@ -747,7 +819,7 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
           'update'  => array_unique(
             array_merge(
               array_diff(
-                $site_reader->get_update_attributes(),
+                $site_reader->get_metadata_attributes(),
                 // keywords and tags fields are managed separately
                 array('keywords', 'tags')
                 ),
@@ -785,7 +857,7 @@ if (isset($simulate) and $simulate)
 
 // used_metadata string is displayed to inform admin which metadata will be
 // used from files for synchronization
-$used_metadata = implode( ', ', $site_reader->get_update_attributes());
+$used_metadata = implode( ', ', $site_reader->get_metadata_attributes());
 if ($site_is_remote and !isset($_POST['submit']) )
 {
   $used_metadata.= ' + ...';
