@@ -21,7 +21,7 @@ BODY {
   background-color: #000000;
 }
 
-H2, H3, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .throw {
+H3, #the_page, #imageHeaderBar, #imageToolBar A:hover {
   background-color: #3f3f3f;
 }
 
@@ -112,7 +112,6 @@ A.navThumb, A.navThumb:hover {
   padding-bottom:30px;
   text-align:center;
   display:block;
-  background:#3f3f3f;
 }
 
 /*calendar elements*/
