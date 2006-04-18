@@ -14,6 +14,7 @@
   <li class="update_summary_new">{update_result.NB_NEW_ELEMENTS} {lang:update_nb_new_elements}</li>
   <li class="update_summary_del">{update_result.NB_DEL_CATEGORIES} {lang:update_nb_del_categories}</li>
   <li class="update_summary_del">{update_result.NB_DEL_ELEMENTS} {lang:update_nb_del_elements}</li>
+  <li>{update_result.NB_UPD_ELEMENTS} {lang:update_nb_upd_elements}</li>
   <li class="update_summary_err">{update_result.NB_ERRORS} {lang:update_nb_errors}</li>
 </ul>
 <!-- END update_result -->
@@ -82,18 +83,18 @@
     <legend></legend>
     <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {TAG_INPUT_ENABLED} /> {lang:update_simulate}</label></li></ul>
   </fieldset>
-  
+
   <fieldset>
     <legend>{lang:update_cats_subset}</legend>
     <ul>
-    <li> 
+    <li>
     <select style="width:500px" name="cat" size="10">
       <!-- BEGIN category_option -->
       <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
       <!-- END category_option -->
     </select>
     </li>
-  
+
     <li><label><input type="checkbox" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} /> {lang:search_subcats_included}</label></li>
     </ul>
   </fieldset>

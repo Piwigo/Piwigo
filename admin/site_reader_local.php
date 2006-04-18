@@ -44,7 +44,7 @@ function LocalSiteReader($url)
 function open()
 {
   global $errors;
-  
+
   if (!is_dir($this->site_url))
   {
     array_push(
@@ -54,10 +54,10 @@ function open()
         'type' => 'PWG-ERROR-NO-FS'
         )
       );
-    
+
     return false;
   }
-  
+
   return true;
 }
 
@@ -77,10 +77,6 @@ function get_full_directories($basedir)
 function get_elements($path)
 {
   global $conf;
-  if (!isset($conf['flip_picture_ext']))
-  {
-    $conf['flip_picture_ext'] = array_flip($conf['picture_ext']);
-  }
   if (!isset($conf['flip_file_ext']))
   {
     $conf['flip_file_ext'] = array_flip($conf['file_ext']);
@@ -97,26 +93,13 @@ function get_elements($path)
         $extension = get_extension($node);
         $filename_wo_ext = get_filename_wo_extension($node);
 
-        // searching the thumbnail
-        $tn_ext = $this->get_tn_ext($path, $filename_wo_ext);
-
-        if (isset($conf['flip_picture_ext'][$extension]))
+        if ( isset($conf['flip_file_ext'][$extension]) )
         {
+          $tn_ext = $this->get_tn_ext($path, $filename_wo_ext);
           $fs[ $path.'/'.$node ] = array(
             'tn_ext' => $tn_ext,
-            'has_high' => $this->get_has_high($path, $node)
             );
         }
-        else if (isset($conf['flip_file_ext'][$extension]))
-        { // file not a picture
-          $representative_ext = $this->get_representative_ext($path, $filename_wo_ext);
-
-          $fs[ $path.'/'.$node ] = array(
-            'tn_ext' => $tn_ext,
-            'representative_ext' => $representative_ext
-            );
-        }
-
       }
       elseif (is_dir($path.'/'.$node)
                and $node != '.'
@@ -140,15 +123,42 @@ function get_elements($path)
 }
 
 // returns the name of the attributes that are supported for
-// update/synchronization according to configuration
+// files update/synchronization
 function get_update_attributes()
 {
+  return array('tn_ext', 'has_high', 'representative_ext');
+}
+
+function get_element_update_attributes($file)
+{
   global $conf;
-  
-  $update_fields = array(
-    'has_high', 'representative_ext', 'filesize', 'width', 'height'
-    );
-  
+  $data = array();
+
+  $filename = basename($file);
+  $dirname = dirname($file);
+  $filename_wo_ext = get_filename_wo_extension($filename);
+  $extension = get_extension($filename);
+
+  $data['tn_ext'] = $this->get_tn_ext($dirname, $filename_wo_ext);
+  $data['has_high'] = $this->get_has_high($dirname, $filename);
+
+  if ( !isset($conf['flip_picture_ext'][$extension]) )
+  {
+    $data['representative_ext'] = $this->get_representative_ext(
+        $dirname, $filename_wo_ext
+      );
+  }
+  return $data;
+}
+
+// returns the name of the attributes that are supported for
+// metadata update/synchronization according to configuration
+function get_metadata_attributes()
+{
+  global $conf;
+
+  $update_fields = array('filesize', 'width', 'height');
+
   if ($conf['use_exif'])
   {
     $update_fields =
@@ -166,12 +176,12 @@ function get_update_attributes()
         array_keys($conf['use_iptc_mapping'])
         );
   }
-  
+
   return $update_fields;
 }
 
 // returns a hash of attributes (metadata+filesize+width,...) for file
-function get_element_update_attributes($file)
+function get_element_metadata($file)
 {
   global $conf;
   if (!is_file($file))
@@ -181,16 +191,8 @@ function get_element_update_attributes($file)
 
   $data = array();
 
-  $filename = basename($file);
-  
-  $data['has_high'] = $this->get_has_high(dirname($file), $filename);
-  
-  $data['representative_ext'] = $this->get_representative_ext(
-    dirname($file),
-    get_filename_wo_extension($filename)
-    );
-
   $data['filesize'] = floor(filesize($file)/1024);
+
   if ($image_size = @getimagesize($file))
   {
     $data['width'] = $image_size[0];
@@ -221,7 +223,7 @@ function get_element_update_attributes($file)
       }
     }
   }
-  
+
   return $data;
 }
 
@@ -245,10 +247,10 @@ function get_representative_ext($path, $filename_wo_ext)
 function get_tn_ext($path, $filename_wo_ext)
 {
   global $conf;
-  
+
   $base_test =
     $path.'/thumbnail/'.$conf['prefix_thumbnail'].$filename_wo_ext.'.';
-  
+
   foreach ($conf['picture_ext'] as $ext)
   {
     $test = $base_test.$ext;
@@ -257,7 +259,7 @@ function get_tn_ext($path, $filename_wo_ext)
       return $ext;
     }
   }
-  
+
   return null;
 }
 
@@ -267,7 +269,7 @@ function get_has_high($path, $filename)
   {
     return 'true';
   }
-  
+
   return null;
 }
 
