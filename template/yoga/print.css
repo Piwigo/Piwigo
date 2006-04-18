@@ -1,4 +1,5 @@
-#menubar, #categoryContent .navigationBar, #imageToolBar, .navThumb, TABLE.infoTable, #add_a_comment {
+#menubar, #content .navigationBar, UL.categoryActions, #content DIV.calendarViews, .calendarBar,
+#imageToolBar, .navThumb, #addComment {
     display: none;
 }
 
@@ -8,6 +9,6 @@ BODY {
     background: #ffffff;
 }
 
-#categoryContent {
+#content {
     margin: 0;
 }
