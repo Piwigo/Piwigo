@@ -197,6 +197,7 @@ FORM#categoryPermissions LI {
 }
 
 #theHeader {
+  width: 100%;	/* <- useless but seems to make IE6 happy */
 }
 
 #theHeader H1 {
