@@ -529,6 +529,10 @@ function get_html_tag_selection(
 {
   global $conf;
 
+  if (count ($tags) == 0 )
+  {
+    return '';
+  }
   $output = '<ul class="tagSelection">';
   foreach ($tags as $tag)
   {
