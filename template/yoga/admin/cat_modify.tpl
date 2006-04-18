@@ -48,7 +48,7 @@
     <tr>
       <td><strong>{L_EDIT_COMMENT}</strong></td>
       <td>
-        <textarea name="comment" class="description">{CAT_COMMENT}</textarea>
+        <textarea cols="50" rows="5" name="comment" class="description">{CAT_COMMENT}</textarea>
       </td>
     </tr>
   </table>
