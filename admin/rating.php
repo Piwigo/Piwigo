@@ -61,32 +61,17 @@ if (isset($_GET['order_by']) and is_numeric($_GET['order_by']))
   $order_by_index = $_GET['order_by'];
 }
 
-$display_filter= '';
-if (isset($_GET['display_filter']))
+$page['user_filter'] = '';
+if (isset($_GET['users']))
 {
-  if ( $_GET['display_filter']=='user' )
+  if ($_GET['users'] == 'user')
   {
-    $display_filter= ' AND r.user_id <> ' . $conf['guest_id'];
-    $template->assign_vars( array(
-        'DISPLAY_FILTER_USER_CHECKED'=>'checked="checked"'
-        )
-    );
+    $page['user_filter'] = ' AND r.user_id <> '.$conf['guest_id'];
   }
-  elseif ( $_GET['display_filter']=='guest' )
+  elseif ($_GET['users'] == 'guest')
   {
-    $display_filter= ' AND r.user_id =' . $conf['guest_id'];
-    $template->assign_vars( array(
-        'DISPLAY_FILTER_GUEST_CHECKED'=>'checked="checked"'
-        )
-     );
+    $page['user_filter'] = ' AND r.user_id = '.$conf['guest_id'];
   }
-}
-if ($display_filter=='')
-{
-    $template->assign_vars( array(
-        'DISPLAY_FILTER_ALL_CHECKED'=>'checked="checked"'
-        )
-     );
 }
 
 if (isset($_GET['del']))
@@ -121,7 +106,7 @@ while ($row = mysql_fetch_array($result))
 
 $query = 'SELECT COUNT(DISTINCT(i.id))
 FROM '.RATE_TABLE.' AS r, '.IMAGES_TABLE.' AS i
-WHERE r.element_id=i.id'. $display_filter .
+WHERE r.element_id=i.id'. $page['user_filter'] .
 ';';
 list($nb_images) = mysql_fetch_row(pwg_query($query));
 
@@ -176,6 +161,36 @@ for ($i=0; $i<count($available_order_by); $i++)
     );
 }
 
+$user_options = array(
+  array(
+    'value' => 'all',
+    'content' => l10n('All'),
+    ),
+  array(
+    'value' => 'user',
+    'content' => l10n('Users'),
+    ),
+  array(
+    'value' => 'guest',
+    'content' => l10n('Guests'),
+    ),
+  );
+
+foreach ($user_options as $user_option)
+{
+  $template->assign_block_vars(
+    'user_option',
+    array(
+      'VALUE' => $user_option['value'],
+      'CONTENT' => $user_option['content'],
+      'SELECTED' =>
+        (isset($_GET['users']) and $_GET['users'] == $user_option['value'])
+        ? 'selected="selected"'
+        : '',
+      )
+    );
+}
+
 $query = '
 SELECT i.id,
        i.path,
@@ -189,7 +204,7 @@ SELECT i.id,
        ROUND(STD(r.rate),2) AS std_rates
   FROM '.RATE_TABLE.' AS r
     LEFT JOIN '.IMAGES_TABLE.' AS i ON r.element_id = i.id
-  WHERE 1 = 1 ' . $display_filter . '
+  WHERE 1 = 1 ' . $page['user_filter'] . '
   GROUP BY r.element_id
   ORDER BY ' . $available_order_by[$order_by_index][1] .'
   LIMIT '.$start.','.$elements_per_page.'
