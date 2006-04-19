@@ -196,10 +196,6 @@ FORM#categoryPermissions LI {
   white-space: nowrap;
 }
 
-#theHeader {
-  width: 100%;	/* <- useless but seems to make IE6 happy */
-}
-
 #theHeader H1 {
   margin-bottom: 0.5em;
 }

@@ -1,2 +1,11 @@
 /* $Id:$ */
 /* Issues in IE from 5 to 6 only to to be used with IE7                       */
+
+/* to avoid vanishing objects in IE6 */
+H1, #theHeader {
+  width: 100%;	/* <- useless but seems to make IE6 happy */
+}
+#content {
+  height: 1em; /* for IE6 it's like min-height */
+}
+
