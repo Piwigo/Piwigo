@@ -157,7 +157,8 @@
   <div class="navigationBar">{NAV_BAR}</div>
 
   <!-- BEGIN thumbnails -->
-  <table valign="top" align="center" class="thumbnail">
+  <!--table valign="top" align="center" class="thumbnail"-->
+  <table class="thumbnail">
     <!-- BEGIN line -->
     <tr>
       <!-- BEGIN thumbnail -->
@@ -167,7 +168,7 @@
              alt="{thumbnails.line.thumbnail.ALT}"
              title="{thumbnails.line.thumbnail.TITLE}"
              class="thumbLink" />
-        <br /><input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" />
+        <input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" />
         </label>
       </td>
       <!-- END thumbnail -->

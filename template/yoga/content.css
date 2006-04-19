@@ -185,6 +185,20 @@ SPAN.filename:after {
   content: "]";
 }
 
+TABLE.thumbnail {
+  margin-left: auto;
+  margin-right: auto;
+}
+TD.thumbnail label {
+  position: relative;
+}
+TD.thumbnail input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: transparent;
+  border: none;
+}
 
 /* begin chronology/calendar elements*/
 #content DIV.calendarViews {
