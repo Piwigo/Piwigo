@@ -82,7 +82,7 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
         $time_refresh = 0;
       }
       $_POST[$post_keyname] = array_diff($_POST[$post_keyname], $check_key_treated);
-      
+
       $must_repost = true;
       array_push($page['errors'], sprintf(l10n('nbm_background_treatment_redirect'), $time_refresh));
     }
@@ -227,7 +227,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
     $is_list_all_without_test = ($env_nbm['is_sendmail_timeout'] or $conf['nbm_list_all_enabled_users_to_send']);
 
     // Check if exist news to list user or send mails
-    if ((!$is_list_all_without_test == false) or ($is_action_send))
+    if ((!$is_list_all_without_test) or ($is_action_send))
     {
       if (count($data_users) > 0)
       {
@@ -605,6 +605,12 @@ switch ($page['mode'])
           ));
 
       foreach ($data_users as $num => $nbm_user)
+      {
+        if (
+            (!$must_repost) or // Not timeout, normal treatment
+            (($must_repost) and in_array($nbm_user['check_key'], $_POST['send_selection']))  // Must be repost, show only user to send
+            )
+        {
           $template->assign_block_vars(
             $page['mode'].'.send_data.user_send_mail',
             array(
@@ -618,6 +624,8 @@ switch ($page['mode'])
               'EMAIL' => $nbm_user['mail_address'],
               'LAST_SEND'=> $nbm_user['last_send']
               ));
+        }
+      }
     }
 
     break;
