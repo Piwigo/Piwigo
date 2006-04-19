@@ -131,152 +131,17 @@ function print_time($message)
   $last_time = $new_time;
 }
 
-/**
- * replace old style #images.keywords by #tags. Requires a big data
- * migration.
- *
- * @return void
- */
-function tag_replace_keywords()
-{
-  // code taken from upgrades 19 and 22
-  
-  $query = '
-CREATE TABLE '.PREFIX_TABLE.'tags (
-  id smallint(5) UNSIGNED NOT NULL auto_increment,
-  name varchar(255) BINARY NOT NULL,
-  url_name varchar(255) BINARY NOT NULL,
-  PRIMARY KEY (id)
-)
-;';
-  pwg_query($query);
-  
-  $query = '
-CREATE TABLE '.PREFIX_TABLE.'image_tag (
-  image_id mediumint(8) UNSIGNED NOT NULL,
-  tag_id smallint(5) UNSIGNED NOT NULL,
-  PRIMARY KEY (image_id,tag_id)
-)
-;';
-  pwg_query($query);
-  
-  //
-  // Move keywords to tags
-  //
-
-  // each tag label is associated to a numeric identifier
-  $tag_id = array();
-  // to each tag id (key) a list of image ids (value) is associated
-  $tag_images = array();
-
-  $current_id = 1;
-
-  $query = '
-SELECT id, keywords
-  FROM '.PREFIX_TABLE.'images
-  WHERE keywords IS NOT NULL
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    foreach(preg_split('/[,]+/', $row['keywords']) as $keyword)
-    {
-      if (!isset($tag_id[$keyword]))
-      {
-        $tag_id[$keyword] = $current_id++;
-      }
-
-      if (!isset($tag_images[ $tag_id[$keyword] ]))
-      {
-        $tag_images[ $tag_id[$keyword] ] = array();
-      }
-
-      array_push(
-        $tag_images[ $tag_id[$keyword] ],
-        $row['id']
-        );
-    }
-  }
-
-  $datas = array();
-  foreach ($tag_id as $tag_name => $tag_id)
-  {
-    array_push(
-      $datas,
-      array(
-        'id'       => $tag_id,
-        'name'     => $tag_name,
-        'url_name' => str2url($tag_name),
-        )
-      );
-  }
-  
-  if (!empty($datas))
-  {
-    mass_inserts(
-      PREFIX_TABLE.'tags',
-      array_keys($datas[0]),
-      $datas
-      );
-  }
-
-  $datas = array();
-  foreach ($tag_images as $tag_id => $images)
-  {
-    foreach (array_unique($images) as $image_id)
-    {
-      array_push(
-        $datas,
-        array(
-          'tag_id'   => $tag_id,
-          'image_id' => $image_id,
-          )
-        );
-    }
-  }
-  
-  if (!empty($datas))
-  {
-    mass_inserts(
-      PREFIX_TABLE.'image_tag',
-      array_keys($datas[0]),
-      $datas
-      );
-  }
-
-  //
-  // Delete images.keywords
-  //
-  $query = '
-ALTER TABLE '.PREFIX_TABLE.'images DROP COLUMN keywords
-;';
-  pwg_query($query);
-
-  //
-  // Add useful indexes
-  //
-  $query = '
-ALTER TABLE '.PREFIX_TABLE.'tags
-  ADD INDEX tags_i1(url_name)
-;';
-  pwg_query($query);
-
-
-  $query = '
-ALTER TABLE '.PREFIX_TABLE.'image_tag
-  ADD INDEX image_tag_i1(tag_id)
-;';
-  pwg_query($query);
-
-  print_time('tags have replaced keywords');
-}
-
 // +-----------------------------------------------------------------------+
 // |                             playing zone                              |
 // +-----------------------------------------------------------------------+
 
 // echo implode('<br>', get_tables());
 // echo '<pre>'; print_r(get_columns_of(get_tables())); echo '</pre>';
+
+// foreach (get_available_upgrade_ids() as $upgrade_id)
+// {
+//   echo $upgrade_id, '<br>';
+// }
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
@@ -340,9 +205,34 @@ else
   $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$_GET['version'].'.php';
   if (is_file($upgrade_file))
   {
+    $page['infos'] = array();
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
+
+    // Available upgrades must be ignored after a fresh installation. To
+    // make PWG avoid upgrading, we must tell it upgrades have already been
+    // made.
+    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+    define('CURRENT_DATE', $dbnow);
+    $datas = array();
+    foreach (get_available_upgrade_ids() as $upgrade_id)
+    {
+      array_push(
+        $datas,
+        array(
+          'id'          => $upgrade_id,
+          'applied'     => CURRENT_DATE,
+          'description' => 'upgrade included in upgrade',
+          )
+        );
+    }
+    mass_inserts(
+      UPGRADE_TABLE,
+      array_keys($datas[0]),
+      $datas
+      );
+    
     $page['upgrade_end'] = get_moment();
 
     $template->assign_block_vars(
@@ -363,18 +253,14 @@ else
         )
       );
 
-    if (!isset($infos))
-    {
-      $infos = array();
-    }
     array_push(
-      $infos,
+      $page['infos'],
       '[security] delete files "upgrade.php", "install.php" and "install"
 directory'
       );
 
     array_push(
-      $infos,
+      $page['infos'],
       'in include/mysql.inc.php, remove
 <pre style="background-color:lightgray">
 define(\'PHPWG_IN_UPGRADE\', true);
@@ -382,14 +268,14 @@ define(\'PHPWG_IN_UPGRADE\', true);
       );
 
     array_push(
-      $infos,
+      $page['infos'],
       'Perform a maintenance check in [Administration>General>Maintenance]
 if you encounter any problem.'
       );
     
     $template->assign_block_vars('upgrade.infos', array());
     
-    foreach ($infos as $info)
+    foreach ($page['infos'] as $info)
     {
       $template->assign_block_vars(
         'upgrade.infos.info',
@@ -398,18 +284,18 @@ if you encounter any problem.'
           )
         );
     }
+
+    $query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET need_update = \'true\'
+;';
+    pwg_query($query);
   }
   else
   {
     die('Hacking attempt');
   }
 }
-
-$query = '
-UPDATE '.USER_CACHE_TABLE.'
-  SET need_update = \'true\'
-;';
-pwg_query($query);
 
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |

@@ -37,6 +37,146 @@ else
   }
 }
 
+/**
+ * replace old style #images.keywords by #tags. Requires a big data
+ * migration.
+ *
+ * @return void
+ */
+function tag_replace_keywords()
+{
+  // code taken from upgrades 19 and 22
+  
+  $query = '
+CREATE TABLE '.PREFIX_TABLE.'tags (
+  id smallint(5) UNSIGNED NOT NULL auto_increment,
+  name varchar(255) BINARY NOT NULL,
+  url_name varchar(255) BINARY NOT NULL,
+  PRIMARY KEY (id)
+)
+;';
+  pwg_query($query);
+  
+  $query = '
+CREATE TABLE '.PREFIX_TABLE.'image_tag (
+  image_id mediumint(8) UNSIGNED NOT NULL,
+  tag_id smallint(5) UNSIGNED NOT NULL,
+  PRIMARY KEY (image_id,tag_id)
+)
+;';
+  pwg_query($query);
+  
+  //
+  // Move keywords to tags
+  //
+
+  // each tag label is associated to a numeric identifier
+  $tag_id = array();
+  // to each tag id (key) a list of image ids (value) is associated
+  $tag_images = array();
+
+  $current_id = 1;
+
+  $query = '
+SELECT id, keywords
+  FROM '.PREFIX_TABLE.'images
+  WHERE keywords IS NOT NULL
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    foreach(preg_split('/[,]+/', $row['keywords']) as $keyword)
+    {
+      if (!isset($tag_id[$keyword]))
+      {
+        $tag_id[$keyword] = $current_id++;
+      }
+
+      if (!isset($tag_images[ $tag_id[$keyword] ]))
+      {
+        $tag_images[ $tag_id[$keyword] ] = array();
+      }
+
+      array_push(
+        $tag_images[ $tag_id[$keyword] ],
+        $row['id']
+        );
+    }
+  }
+
+  $datas = array();
+  foreach ($tag_id as $tag_name => $tag_id)
+  {
+    array_push(
+      $datas,
+      array(
+        'id'       => $tag_id,
+        'name'     => $tag_name,
+        'url_name' => str2url($tag_name),
+        )
+      );
+  }
+  
+  if (!empty($datas))
+  {
+    mass_inserts(
+      PREFIX_TABLE.'tags',
+      array_keys($datas[0]),
+      $datas
+      );
+  }
+
+  $datas = array();
+  foreach ($tag_images as $tag_id => $images)
+  {
+    foreach (array_unique($images) as $image_id)
+    {
+      array_push(
+        $datas,
+        array(
+          'tag_id'   => $tag_id,
+          'image_id' => $image_id,
+          )
+        );
+    }
+  }
+  
+  if (!empty($datas))
+  {
+    mass_inserts(
+      PREFIX_TABLE.'image_tag',
+      array_keys($datas[0]),
+      $datas
+      );
+  }
+
+  //
+  // Delete images.keywords
+  //
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'images DROP COLUMN keywords
+;';
+  pwg_query($query);
+
+  //
+  // Add useful indexes
+  //
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'tags
+  ADD INDEX tags_i1(url_name)
+;';
+  pwg_query($query);
+
+
+  $query = '
+ALTER TABLE '.PREFIX_TABLE.'image_tag
+  ADD INDEX image_tag_i1(tag_id)
+;';
+  pwg_query($query);
+
+  // print_time('tags have replaced keywords');
+}
+
 tag_replace_keywords();
 
 $queries = array(
@@ -296,5 +436,34 @@ INSERT INTO ".CONFIG_TABLE."
 ;
 ";
 pwg_query($query);
+
+// depending on the way the 1.5.0 was installed (from scratch or by upgrade)
+// the database structure has small differences that should be corrected.
+
+$query = '
+ALTER TABLE '.PREFIX_TABLE.'users
+  CHANGE COLUMN password password varchar(32) default NULL
+;';
+pwg_query($query);
+
+$to_keep = array('id', 'username', 'password', 'mail_address');
+  
+$query = '
+DESC '.PREFIX_TABLE.'users
+;';
+
+$result = pwg_query($query);
+
+while ($row = mysql_fetch_array($result))
+{
+  if (!in_array($row['Field'], $to_keep))
+  {
+    $query = '
+ALTER TABLE '.PREFIX_TABLE.'users
+  DROP COLUMN '.$row['Field'].'
+;';
+    pwg_query($query);
+  }
+}
 
 ?>

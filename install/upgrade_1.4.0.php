@@ -188,12 +188,6 @@ foreach ($queries as $query)
   pwg_query($query);
 }
 
-$new_time = get_moment();
-echo '<pre>['.get_elapsed_time($last_time, $new_time).']';
-echo ' Basic database structure upgrade done</pre>';
-flush();
-$last_time = $new_time;
-
 // user datas migration from phpwebgallery_users to phpwebgallery_user_infos
 $query = '
 SELECT *
@@ -287,16 +281,16 @@ foreach ($queries as $query)
   pwg_query($query);
 }
 
-$infos = array();
-
 if ($prefix_thumbnail != 'TN-')
 {
   array_push(
-    $infos,
+    $page['infos'],
     'the thumbnail prefix configuration parameter was moved to configuration
 file, copy config_local.inc.php from "tools" directory to "include" directory
 and edit $conf[\'prefix_thumbnail\'] = '.$prefix_thumbnail
     );
 }
 
+// now we upgrade from 1.5.0 to 1.6.0
+include_once(PHPWG_ROOT_PATH.'install/upgrade_1.5.0.php');
 ?>

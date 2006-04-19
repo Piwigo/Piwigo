@@ -23,14 +23,14 @@ Upgrade
 1. elements to save :
 
  - file "include/mysql.inc.php"
+ - file "include/config_local.inc.php" if you have one
  - directory "galleries"
  - your database (create a dump, using PhpMyAdmin for instance)
 
 2. delete all files and directories of your previous installation (but not
    the previous listed elements)
 
-3. extract files from the downloaded file (using tar or unzip command, or
-   softwares like 7-zip or winzip)
+3. extract files from the downloaded file
 
 4. upload all the new version files to your website but the previous listed
    elements. The only elements coming from the previous installed version

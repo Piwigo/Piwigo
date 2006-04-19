@@ -7,8 +7,7 @@ http://phpwebgallery.net
 Installation
 ============
 
-1. décompresser à l'aide de winzip par exemple (winrar, winace et beaucoup
-   d'autres le permettent également) le fichier téléchargé.
+1. décompresser l'archive téléchargée
 
 2. placer les fichiers décompressés sur votre serveur web dans le répertoire
    de votre choix ("galerie" par exemple)
@@ -22,14 +21,14 @@ Mise à jour
 1. éléments à sauvegarder :
 
  - fichier "include/mysql.inc.php"
+ - fichier "include/config_local.inc.php" s'il existe
  - répertoire "galleries"
  - votre base de données (en créant un dump, avec PhpMyAdmin par exemple)
 
 2. supprimer tous les fichiers et répertoires de la précédente installation
    (sauf les éléments listés ci-dessus)
 
-3. décompresser à l'aide de winzip par exemple (winrar, winace et beaucoup
-   d'autres le permettent également) le fichier téléchargé.
+3. décompresser l'archive contenant la dernière version
 
 4. placer tous les fichiers de la nouvelle version sur votre site web sauf
    pour les élements listés ci-dessus. Les seuls éléments venant de la
