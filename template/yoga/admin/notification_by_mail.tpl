@@ -18,9 +18,9 @@
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{F_ACTION}">
   <!-- BEGIN repost -->
   <fieldset>
-    <div class="errors">
+    <div class="infos">
       <p>
-        <input type="submit" value="{lang:nbm_repost_submit}" name="{REPOST_SUBMIT_NAME}" {TAG_INPUT_ENABLED}/>
+        <input type="submit" value="{lang:nbm_repost_submit}" name="{repost.REPOST_SUBMIT_NAME}" {TAG_INPUT_ENABLED}/>
       </p>
     </div>
   </fieldset>
