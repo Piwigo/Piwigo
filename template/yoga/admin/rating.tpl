@@ -1,44 +1,37 @@
 <h2>{lang:Rating} [{NB_ELEMENTS} {lang:elements}]</h2>
 
-<form action="" method="GET" id="update">
-<fieldset>
-<legend></legend>
-<input type="hidden" name="page" value="rating" />
-<ul>
+<form action="{F_ACTION}" method="GET" id="update" class="filter">
+  <fieldset>
+    <legend>{lang:Filter}</legend>
 
-<li><label>{lang:elements per page}: <input type="text" name="display" size="2" value="{DISPLAY}"></label></li>
+    <label>
+      {lang:Sort by}
+      <select name="order_by">
+        <!-- BEGIN order_by -->
+        <option value="{order_by.VALUE}" {order_by.SELECTED}>{order_by.CONTENT}</option>
+        <!-- END order_by -->
+      </select>
+    </label>
 
-<li>
-<label>{lang:Sort by}:
-<select name="order_by">
-<!-- BEGIN order_by -->
-<option value="{order_by.VALUE}" {order_by.SELECTED}>{order_by.CONTENT}</option>
-<!-- END order_by -->
-</select>
-</label></li>
+    <label>
+      {lang:Users}
+      <select name="users">
+        <!-- BEGIN user_option -->
+        <option value="{user_option.VALUE}" {user_option.SELECTED}>{user_option.CONTENT}</option>
+        <!-- END user_option -->
+      </select>
+    </label>
 
-<li>{lang:Filter}:
-<label>
- <input type="radio" class="radio" name="display_filter" {DISPLAY_FILTER_ALL_CHECKED} value="all"/>
- {lang:users} & {lang:guest}
-</label>
-<label>
- <input type="radio" class="radio" name="display_filter" {DISPLAY_FILTER_USER_CHECKED} value="user"/>
- {lang:users}
-</label>
-<label>
- <input type="radio" class="radio" name="display_filter" {DISPLAY_FILTER_GUEST_CHECKED} value="guest"/>
- {lang:guest}
-</label>
-</li>
+    <label>
+      {lang:Number of items}
+      <input type="text" name="display" size="2" value="{DISPLAY}">
+    </label>
 
-</ul>
-
-</fieldset>
-<p class="bottomButtons">
-<input type="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
-</p>
+    <input type="submit" name="submit_filter" value="{lang:Submit}" />
+  </fieldset>
+  <input type="hidden" name="page" value="rating" />
 </form>
+
 <div class="navigationBar">{NAVBAR}</div>
 <table width="100%">
 <tr class="throw">
