@@ -33,7 +33,7 @@
 </form>
 
 <div class="navigationBar">{NAVBAR}</div>
-<table width="100%">
+<table width="99%">
 <tr class="throw">
   <td>{lang:File}</td>
   <td>{lang:Number of rates}</td>

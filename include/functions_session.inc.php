@@ -65,11 +65,17 @@ if (isset($conf['session_save_handler'])
     'pwg_session_destroy',
     'pwg_session_gc'
   );
-  ini_set('session.use_cookies', $conf['session_use_cookies']);
-  ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
-  ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
-  ini_set('session.name', $conf['session_name']);
-  ini_set('session.cookie_path', cookie_path() );
+  if ( function_exists('ini_set') )
+  {
+    ini_set('session.use_cookies', $conf['session_use_cookies']);
+    ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+    ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+  }
+  session_name( $conf['session_name'] );
+  session_set_cookie_params(
+      ini_get('session.cookie_lifetime'),
+      cookie_path()
+    );
 }
 
 // cookie_path returns the path to use for the PhpWebGallery cookie.
@@ -166,7 +172,7 @@ UPDATE '.SESSIONS_TABLE.'
 ;';
   pwg_query($query);
   if ( mysql_affected_rows()>0 )
-  { 
+  {
     return true;
   }
   $query = '
@@ -174,7 +180,7 @@ INSERT INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
   VALUES(\''.$session_id.'\',\''.$data.'\',now())
 ;';
-  pwg_query($query);
+  mysql_query($query);
   return true;
 }
 
