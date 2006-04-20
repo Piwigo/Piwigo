@@ -9,7 +9,7 @@
 the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-khtml.css">
 <!--[if lt IE 7]>
-<link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
+<link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
 <![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{pwg_root}template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
