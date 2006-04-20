@@ -126,7 +126,7 @@ SELECT id, name
   $result = pwg_query($query);
   while ($row = mysql_fetch_assoc($result))
   {
-    $categories[ $row['id'] ] = $row['name'];
+    $categories[ $row['id'] ] = strtolower($row['name']);
   }
 
   asort($categories, SORT_REGULAR);
