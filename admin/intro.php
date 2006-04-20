@@ -82,7 +82,9 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
         l10n('Check for upgrade failed for unknown reasons.')
         );
     }
-    else if ('%PWGVERSION%' == $versions{'current'})
+    // concatenation needed to avoid automatic transformation by release
+    // script generator
+    else if ('%'.'PWGVERSION'.'%' == $versions{'current'})
     {
       array_push(
         $page['infos'],
