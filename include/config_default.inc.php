@@ -333,6 +333,9 @@ $conf['show_gt'] = true;
 // accessed
 $conf['debug_l10n'] = false;
 
+// die_on_sql_error: if an SQL query fails, should everything stop?
+$conf['die_on_sql_error'] = true;
+
 // +-----------------------------------------------------------------------+
 // |                            authentication                             |
 // +-----------------------------------------------------------------------+

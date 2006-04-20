@@ -166,6 +166,7 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
+include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
 if ( isset( $_POST['language'] ))
@@ -332,16 +333,25 @@ INSERT INTO '.USER_INFOS_TABLE.'
     // Available upgrades must be ignored after a fresh installation. To
     // make PWG avoid upgrading, we must tell it upgrades have already been
     // made.
+    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
+    define('CURRENT_DATE', $dbnow);
+    $datas = array();
     foreach (get_available_upgrade_ids() as $upgrade_id)
     {
-      $query = '
-INSERT INTO '.UPGRADE_TABLE.'
-  (id, applied, description)
-  VALUES
-  ('.$upgrade_id.', NOW(), \'upgrade included in installation\')
-';
-      mysql_query($query);
+      array_push(
+        $datas,
+        array(
+          'id'          => $upgrade_id,
+          'applied'     => CURRENT_DATE,
+          'description' => 'upgrade included in installation',
+          )
+        );
     }
+    mass_inserts(
+      UPGRADE_TABLE,
+      array_keys($datas[0]),
+      $datas
+      );
   }
 }
 
