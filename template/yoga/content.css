@@ -47,7 +47,7 @@ BODY#theNBMPage #content
 
 #content UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;
-  display: table-cell; display: inline-table; display: inline;
+  display: table-cell; display: inline-table; display: inline-block;
   vertical-align: top;		/* OK with Opera and IE6 not Geko */
   text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
 }
