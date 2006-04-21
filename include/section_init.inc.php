@@ -53,7 +53,7 @@
 
 $page['section'] = 'categories';
 
-if ( isset($_SERVER["PATH_INFO"]) )
+if ( isset($_SERVER["PATH_INFO"]) and !empty($_SERVER["PATH_INFO"]) )
 {
   $rewritten = $_SERVER["PATH_INFO"];
   $rewritten = str_replace('//', '/', $rewritten);

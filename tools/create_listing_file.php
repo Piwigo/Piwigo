@@ -165,7 +165,15 @@ function get_sync_iptc_data($file)
     $iptc['keywords'] = preg_replace('/[.;]/', ',', $iptc['keywords']);
     $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
   }
-
+  $iptc['keywords'] = implode(
+  	       ',',
+  	       array_unique(
+  	         explode(
+  	           ',',
+  	           $iptc['keywords']
+  	           )
+  	         )
+  	       );
   return $iptc;
 }
 
