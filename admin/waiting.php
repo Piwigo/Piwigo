@@ -65,11 +65,11 @@ if (isset($_POST))
       }
     }
   }
-  else if (isset($_POST['validate-all']))
+  elseif (isset($_POST['validate-all']) and !empty($_POST['list']))
   {
     $to_validate = explode(',', $_POST['list']);
   }
-  else if (isset($_POST['reject-all']))
+  elseif (isset($_POST['reject-all']) and !empty($_POST['list']))
   {
     $to_reject = explode(',', $_POST['list']);
   }
