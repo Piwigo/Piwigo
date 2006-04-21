@@ -26,22 +26,22 @@
 // +-----------------------------------------------------------------------+
 
 // retrieving connected user informations
-if (isset($_COOKIE[session_name()])) 
+if (isset($_COOKIE[session_name()]))
 {
  session_start();
- if (isset($_SESSION['id'])) 
+ if (isset($_SESSION['pwg_uid']))
  {
-   $user['id'] = $_SESSION['id'];    
+   $user['id'] = $_SESSION['pwg_uid'];
    $user['is_the_guest'] = false;
  }
- else 
+ else
  {
    // session timeout
    $user['id'] = $conf['guest_id'];
    $user['is_the_guest'] = true;
  }
-} 
-else 
+}
+else
 {
  $user['id'] = $conf['guest_id'];
  $user['is_the_guest'] = true;
@@ -55,7 +55,7 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
     register_user($_SERVER['REMOTE_USER'], '', '');
     $user['id'] = get_userid($_SERVER['REMOTE_USER']);
   }
-  
+
   $user['is_the_guest'] = false;
 }
 $user = array_merge(
