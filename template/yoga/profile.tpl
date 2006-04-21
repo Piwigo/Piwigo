@@ -19,11 +19,9 @@
 
 <form method="post" name="profile" action="{F_ACTION}" id="profile" class="properties">
 
-  <input type="hidden" name="userid" value="{USERID}" />
-
   <fieldset>
     <legend>{L_REGISTRATION_INFO}</legend>
-
+    <input type="hidden" name="userid" value="{USERID}" />
     <ul>
       <li>
         <span class="property">{lang:Username}</span>

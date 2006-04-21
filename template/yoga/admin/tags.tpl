@@ -5,11 +5,9 @@
 <form action="{F_ACTION}" method="post">
 
   <!-- BEGIN edit_tags -->
-  <input type="hidden" name="edit_list" value="{edit_tags.LIST}" />
-
   <fieldset>
     <legend>{lang:Edit tags}</legend>
-
+    <input type="hidden" name="edit_list" value="{edit_tags.LIST}" />
     <table class="table2">
       <tr class="throw">
         <th>{lang:Current name}</th>
