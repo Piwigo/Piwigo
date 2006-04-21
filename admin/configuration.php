@@ -160,7 +160,7 @@ $template->assign_vars(
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
 
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=configuration',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=configuration',
 
     'F_ACTION'=>$action
     ));

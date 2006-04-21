@@ -189,7 +189,7 @@ $template->assign_vars(array(
   'TODAY_MONTH' => date('m', time()),
   'TODAY_YEAR' => date('Y', time()),
   'S_SEARCH_ACTION' => 'search.php',
-  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=search',
+  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
   'U_HOME' => make_index_url(),
 
   'TAG_SELECTION' => get_html_tag_selection(

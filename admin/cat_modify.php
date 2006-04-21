@@ -249,7 +249,7 @@ $template->assign_vars(
       ),
 
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_modify',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_modify',
 
     'F_ACTION' => $form_action,
     )
