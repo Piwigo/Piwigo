@@ -14,18 +14,10 @@
   </fieldset>
 </form>
 
-<form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}">
-
-  <input type="hidden" name="page" value="user_list" />
-  
-  <!-- BEGIN session -->
-  <input type="hidden" name="id" value="{session.ID}" />
-  <!-- END session -->
-
+<form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}"> 
 <fieldset>
-
   <legend>{lang:Filter}</legend>
-
+  <input type="hidden" name="page" value="user_list" />
 
   <label>{lang:Username} <input type="text" name="username" value="{F_USERNAME}" /></label>
 
@@ -303,8 +295,8 @@
 
 <p>
   {lang:target}
-  <label><input type="radio" name="target" value="all" /> {lang:all}
-  <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}
+  <label><input type="radio" name="target" value="all" /> {lang:all}</label>
+  <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}</label>
 </p>
 
 <p>

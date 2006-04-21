@@ -2,9 +2,6 @@
 <h2>{lang:title_waiting}</h2>
 
 <form action="{F_ACTION}" method="post" id="waiting">
-
-  <input type="hidden" name="list" value="{LIST}" />
-
   <table style="width:100%;" >
     <tr class="throw">
       <th style="width:20%;">{L_CATEGORY}</th>
@@ -38,6 +35,7 @@
   </table>
 
   <p class="bottomButtons">
+    <input type="hidden" name="list" value="{LIST}" />
     <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
     <input type="submit" name="validate-all" value="{lang:Validate All}" {TAG_INPUT_ENABLED}/>
     <input type="submit" name="reject-all" value="{lang:Reject All}" {TAG_INPUT_ENABLED}/>

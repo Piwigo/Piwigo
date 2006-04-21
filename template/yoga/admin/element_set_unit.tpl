@@ -8,13 +8,10 @@
 </p>
 
 <form action="{F_ACTION}" method="POST">
-
-<input type="hidden" name="list" value="{IDS_LIST}" />
-
 <fieldset>
 
   <legend>{lang:Display options}</legend>
-
+  <input type="hidden" name="list" value="{IDS_LIST}" />
   <p>{lang:elements per page} :
       <a href="{U_ELEMENTS_PAGE}&amp;display=5">5</a>
     | <a href="{U_ELEMENTS_PAGE}&amp;display=10">10</a>
