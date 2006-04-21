@@ -28,8 +28,8 @@
     </label>
 
     <input type="submit" name="submit_filter" value="{lang:Submit}" />
+    <input type="hidden" name="page" value="rating" />
   </fieldset>
-  <input type="hidden" name="page" value="rating" />
 </form>
 
 <div class="navigationBar">{NAVBAR}</div>

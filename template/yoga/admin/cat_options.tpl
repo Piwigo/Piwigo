@@ -13,5 +13,5 @@
   </fieldset>
 </form>
 
-<p class="information">{L_CAT_OPTIONS_INFO}</div>
+<p class="information">{L_CAT_OPTIONS_INFO}</p>
 
