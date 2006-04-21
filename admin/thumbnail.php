@@ -185,7 +185,7 @@ $template->assign_vars(array(
   'L_TN_AVERAGE'=>$lang['tn_stats_mean'],
   'L_ALL'=>$lang['tn_all'],
 
-  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=thumbnail',
+  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=thumbnail',
   
   'T_STYLE'=>$user['template']
   ));
