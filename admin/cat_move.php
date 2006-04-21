@@ -74,6 +74,7 @@ $template->set_filenames(
 
 $template->assign_vars(
   array(
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_move',
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=cat_move',
     )
   );
