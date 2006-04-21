@@ -874,7 +874,7 @@ $template->assign_vars(
 
 $template->assign_vars(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=synchronize'
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=synchronize'
     )
   );
 // +-----------------------------------------------------------------------+

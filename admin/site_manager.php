@@ -204,7 +204,7 @@ SELECT galleries_url
 }
 
 $template->assign_vars( array(
-  'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=remote_site',
+  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=remote_site',
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php'
                 .get_query_string_diff( array('action','site') )
   ) );

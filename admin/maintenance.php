@@ -110,7 +110,7 @@ $template->assign_vars(
     'U_MAINT_SESSIONS' => $start_url.'sessions',
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=maintenance',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=maintenance',
     )
   );
 

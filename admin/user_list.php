@@ -479,7 +479,7 @@ $template->assign_vars(
     'L_DELETE' => $lang['user_delete'],
     'L_DELETE_HINT' => $lang['user_delete_hint'],
 
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=user_list',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
     
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @$_GET['username'],
