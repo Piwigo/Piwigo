@@ -157,7 +157,7 @@ $template->assign_vars(
     'L_SUBMIT'=>$lang['submit'],
     'L_RESET'=>$lang['reset'],
 
-    'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_options',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_options',
     
     'F_ACTION'=>$base_url.$page['section']
    )
