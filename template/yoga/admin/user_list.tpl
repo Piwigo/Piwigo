@@ -303,8 +303,8 @@
 
 <p>
   {lang:target}
-  <label><input type="radio" name="target" value="all" /> {lang:all}
-  <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}
+  <label><input type="radio" name="target" value="all" /> {lang:all}</label>
+  <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}</label>
 </p>
 
 <p>
