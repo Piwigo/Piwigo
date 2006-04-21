@@ -70,7 +70,9 @@
     <!-- BEGIN send_empty -->
     <center>
       {lang:nbm_no_user_available_to_send_L1}<br>
+      <br>
       {lang:nbm_no_user_available_to_send_L2}<br>
+      {lang:nbm_no_user_available_to_send_L3}<br>
       <br>
     </center>
     <!-- END send_empty -->

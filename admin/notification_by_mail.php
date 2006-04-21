@@ -193,7 +193,7 @@ order by
         $query = 'delete from '.USER_MAIL_NOTIFICATION_TABLE.' where check_key in ('.implode(",", $quoted_check_key_list).');';
         $result = pwg_query($query);
 
-        redirect($base_url.get_query_string_diff(array()));
+        redirect($base_url.get_query_string_diff(array()), l10n('nbm_redirect_msg'));
       }
     }
   }
