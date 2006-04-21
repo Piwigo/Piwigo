@@ -544,7 +544,7 @@ function log_user($user_id, $remember_me)
   }
   session_set_cookie_params($session_length);
   session_start();
-  $_SESSION['id'] = $user_id;
+  $_SESSION['pwg_uid'] = $user_id;
 }
 
 /*

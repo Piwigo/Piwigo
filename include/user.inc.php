@@ -29,9 +29,9 @@
 if (isset($_COOKIE[session_name()])) 
 {
  session_start();
- if (isset($_SESSION['id'])) 
+ if (isset($_SESSION['pwg_uid']))
  {
-   $user['id'] = $_SESSION['id'];    
+   $user['id'] = $_SESSION['pwg_uid'];
    $user['is_the_guest'] = false;
  }
  else 
