@@ -363,11 +363,14 @@ $title =  $picture['current']['name'];
 $refresh = 0;
 if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 {
+  // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
+  // refresh page in header.tpl
   $refresh= $_GET['slideshow'];
   $url_link = add_url_params(
       $picture['next']['url'],
       array('slideshow'=>$refresh)
     );
+  $redirect_msg = nl2br(l10n('redirect_msg'));
 }
 
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
