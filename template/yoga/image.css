@@ -91,9 +91,6 @@ de l'image...
     margin-left: 10px;
 }
 
-TABLE.infoTable {
-    margin: auto;
-}
 TABLE.infoTable .value {
     text-align: left;
 }

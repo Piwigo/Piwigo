@@ -1,4 +1,5 @@
 <!-- BEGIN calendar -->
+<!-- $Id:$ -->
 <!-- BEGIN thumbnails -->
 <style type="text/css">
 <!--
@@ -13,13 +14,13 @@ DIV.calImg
   height: {calendar.thumbnails.HEIGHT}px;
 }
 //--></style>
-<table class="calMonth" align="center" cellpadding="1">
+<table class="calMonth">
 <!-- BEGIN head -->
- <thead>
+ <thead><tr>
  <!-- BEGIN col -->
- <td class="calDayHead">{calendar.thumbnails.head.col.LABEL}</td>
+   <td class="calDayHead">{calendar.thumbnails.head.col.LABEL}</td>
  <!-- END col -->
- </thead>
+ </tr></thead>
 <!-- END head -->
 <!-- BEGIN row -->
  <tr>
