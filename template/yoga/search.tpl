@@ -21,12 +21,16 @@
 <!-- END errors -->
 <fieldset>
   <legend>{lang:Filter}</legend>
-  <label>{lang:search_keywords}<input type="text" style="width: 300px" name="search_allwords" size="30" /></label>
+  <label>{lang:search_keywords}
+    <input type="text" style="width: 300px" name="search_allwords" size="30"  onfocus="this.className='focus';" onblur="this.className='nofocus';"/>
+  </label>
   <label>
     <span><input type="radio" name="mode" value="AND" checked="checked" /> {lang:search_mode_and}</span>
     <span><input type="radio" name="mode" value="OR" /> {lang:search_mode_or}</span>
   </label>
-  <label>{lang:search_author}<input type="text" style="width: 300px" name="search_author" size="30" /></label>
+  <label>{lang:search_author}
+    <input type="text" style="width: 300px" name="search_author" size="30"  onfocus="this.className='focus';" onblur="this.className='nofocus';"/>
+  </label>
 </fieldset>
 <fieldset>
   <legend>{lang:Search tags}</legend>
@@ -57,7 +61,7 @@
         <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
         <!-- END start_month -->
       </select>
-      <input name="start_year" type="text" size="4" maxlength="4">
+      <input name="start_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
     </span>
     <a href="#" onClick="document.search.start_day.value={TODAY_DAY};document.search.start_month.value={TODAY_MONTH};document.search.start_year.value={TODAY_YEAR};">{lang:today}</a>
   </label>
@@ -73,7 +77,7 @@
         <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
         <!-- END end_month -->
       </select>
-      <input name="end_year" type="text" size="4" maxlength="4">
+      <input name="end_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
     </span>
     <a href="#" onClick="document.search.end_day.value={TODAY_DAY};document.search.end_month.value={TODAY_MONTH};document.search.end_year.value={TODAY_YEAR};">{lang:today}</a>
   </label>
@@ -82,7 +86,7 @@
 <fieldset>
   <legend>{lang:search_options}</legend>
   <label>{lang:search_categories}
-    <select style="width:200px" name="cat[]" multiple="multiple" size="8">
+    <select style="width:200px" name="cat[]" multiple="multiple" size="8" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       <!-- BEGIN category_option -->
       <option value="{category_option.VALUE}">{category_option.OPTION}</option>
       <!-- END category_option -->
