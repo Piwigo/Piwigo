@@ -450,7 +450,7 @@ function get_html_menu_category($categories)
     {
       $menu.= ' rel="up"';
     }
-    $menu.= '>'.$category['name'].'</a>';
+    $menu.= '>'.htmlentities($category['name'],ENT_QUOTES).'</a>';
 
     if ($category['nb_images'] > 0)
     {
@@ -500,7 +500,7 @@ function parse_comment_content($content)
   $replacement = '<span style="font-style:italic;">$1$2</span>';
   $content = preg_replace($pattern, $replacement, $content);
 
-  $content = '<div>'.$content.'</div>';
+  $content = '<div>'.htmlentities($content,ENT_QUOTES).'</div>';
   return $content;
 }
 
@@ -550,7 +550,7 @@ function get_html_tag_selection(
 
     $output.=
       ' />'
-      .' '.$tag['name']
+      .' '. htmlentities($tag['name'],ENT_QUOTES)
       .'</label>'
       .'</li>'
       ."\n"
