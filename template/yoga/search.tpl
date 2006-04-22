@@ -1,4 +1,4 @@
-<!-- $Id:$ -->
+<!-- $Id$ -->
 <div id="content">
 
   <div class="titrePage">
@@ -9,8 +9,7 @@
     <h2>{lang:Search}</h2>
   </div>
 
-<!-- TO DO -->
-<form method="post" name="post" action="{S_SEARCH_ACTION}">
+<form class="filter" method="post" name="search" action="{S_SEARCH_ACTION}">
 <!-- BEGIN errors -->
 <div class="errors">
   <ul>
@@ -20,109 +19,92 @@
   </ul>
 </div>
 <!-- END errors -->
-<table width="100%" cellpadding="2">
-  <tr>
-    <td width="50%" colspan="2"><b>{lang:search_keywords} : </b>
-    <td colspan="2" valign="top">
-	  <input type="text" style="width: 300px" name="search_allwords" size="30" />
-	  <br />
-	  <input type="radio" name="mode" value="AND" checked="checked" /> {lang:search_mode_and}<br />
-	  <input type="radio" name="mode" value="OR" /> {lang:search_mode_or}
-	</td>
-  </tr>
-  <tr>
-    <td colspan="2"><b>{lang:search_author} :</b>
-    <td colspan="2" valign="middle">
-	  <input type="text" style="width: 300px" name="search_author" size="30" />
-	</td>
-  </tr>
+<fieldset>
+  <legend>{lang:Filter}</legend>
+  <label>{lang:search_keywords}<input type="text" style="width: 300px" name="search_allwords" size="30" /></label>
+  <label>
+    <span><input type="radio" name="mode" value="AND" checked="checked" /> {lang:search_mode_and}</span>
+    <span><input type="radio" name="mode" value="OR" /> {lang:search_mode_or}</span>
+  </label>
+  <label>{lang:search_author}<input type="text" style="width: 300px" name="search_author" size="30" /></label>
+</fieldset>
+<fieldset>
+  <legend>{lang:Search tags}</legend>
+  {TAG_SELECTION}
+  <label><span><input type="radio" name="tag_mode" value="AND" checked="checked" /> {lang:All tags}</span></label>
+  <label><span><input type="radio" name="tag_mode" value="OR" /> {lang:Any tag}</span></label>
+</fieldset>
 
-  <tr>
-    <td colspan="2"><b>{lang:Search tags} :</b></td>
-    <td colspan="2" valign="middle">
-      {TAG_SELECTION}
-      <br /><label><input type="radio" name="tag_mode" value="AND" checked="checked" /> {lang:All tags}</label>
-      <br /><label><input type="radio" name="tag_mode" value="OR" /> {lang:Any tag}</label>
-    </td>
-  </tr>
-
-  <tr>
-    <td colspan="2"><b>{lang:search_date} :</b>
-    <td colspan="2" valign="middle">
-      <table>
-        <tr>
-          <td>{lang:search_date_from} :</td>
-          <td>
-            <select name="start_day">
-              <!-- BEGIN start_day -->
-              <option {start_day.SELECTED} value="{start_day.VALUE}">{start_day.OPTION}</option>
-              <!-- END start_day -->
-            </select>
-            <select name="start_month">
-              <!-- BEGIN start_month -->
-              <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
-              <!-- END start_month -->
-            </select>
-	    <input name="start_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" onClick="document.post.start_day.value={TODAY_DAY};document.post.start_month.value={TODAY_MONTH};document.post.start_year.value={TODAY_YEAR};">{lang:today}</a>
-          </td>
-        </tr>
-        <tr>
-          <td>{lang:search_date_to} :</td>
-          <td>
-            <select name="end_day">
-              <!-- BEGIN end_day -->
-              <option {end_day.SELECTED} value="{end_day.VALUE}">{end_day.OPTION}</option>
-              <!-- END end_day -->
-            </select>
-            <select name="end_month">
-              <!-- BEGIN end_month -->
-              <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
-              <!-- END end_month -->
-            </select>
-            <input name="end_year" type="text" size="4" maxlength="4">&nbsp;
-	    <a href="#" onClick="document.post.end_day.value={TODAY_DAY};document.post.end_month.value={TODAY_MONTH};document.post.end_year.value={TODAY_YEAR};">{lang:today}</a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr class="admin">
-    <th colspan="4">{lang:search_options}</th>
-  </tr>
-  <tr>
-    <td width="25%" ><b>{lang:search_categories} : </b>
-    <td width="25%" nowrap="nowrap">
-	  <select style="width:200px" name="cat[]" multiple="multiple" size="8">
-      <!-- BEGIN category_option -->
-        <option value="{category_option.VALUE}">{category_option.OPTION}</option>
-      <!-- END category_option -->
+<fieldset>
+  <legend>{lang:search_date}</legend>
+  <label>{lang:search_date_type}
+    <span>
+      <input type="radio" name="date_type" value="date_creation" checked="checked" />{lang:Creation date}
+    </span>
+    <span>
+      <input type="radio" name="date_type" value="date_available" />{lang:Post date}
+    </span>
+  </label>
+  <label>{lang:search_date_from}
+    <span>
+      <select name="start_day">
+        <!-- BEGIN start_day -->
+        <option {start_day.SELECTED} value="{start_day.VALUE}">{start_day.OPTION}</option>
+        <!-- END start_day -->
       </select>
-	</td>
-    <td width="25%" nowrap="nowrap"><b>{lang:search_subcats_included} : </b></td>
-    <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="subcats-included" value="1" checked="checked" />{lang:yes}&nbsp;&nbsp;
-	  <input type="radio" name="subcats-included" value="0" />{lang:no}
-	</td>
-   </tr>
-   <tr>
-    <td width="25%" nowrap="nowrap"><b>{lang:search_date_type} : </b></td>
-    <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="date_type" value="date_creation" checked="checked" />{lang:Creation date}<br />
-	  <input type="radio" name="date_type" value="date_available" />{lang:Post date}
-	</td>
-	<td><b>{lang:search_sort} : </b></td>
-    <td nowrap="nowrap">
-	  <input type="radio" name="sd" value="AND" />{lang:search_ascending}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
-	</td>
-  </tr>
-<tr>
-<td align="center" valign="bottom" colspan="4" height="38">
-<input type="submit" name="submit" value="{lang:submit}" class="bouton" />&nbsp;&nbsp;
-<input type="reset" value="{lang:reset}" class="bouton" />
-</td>
-</table>
+      <select name="start_month">
+        <!-- BEGIN start_month -->
+        <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
+        <!-- END start_month -->
+      </select>
+      <input name="start_year" type="text" size="4" maxlength="4">
+    </span>
+    <a href="#" onClick="document.search.start_day.value={TODAY_DAY};document.search.start_month.value={TODAY_MONTH};document.search.start_year.value={TODAY_YEAR};">{lang:today}</a>
+  </label>
+  <label>{lang:search_date_to}
+    <span>
+      <select name="end_day">
+        <!-- BEGIN end_day -->
+        <option {end_day.SELECTED} value="{end_day.VALUE}">{end_day.OPTION}</option>
+        <!-- END end_day -->
+      </select>
+      <select name="end_month">
+        <!-- BEGIN end_month -->
+        <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
+        <!-- END end_month -->
+      </select>
+      <input name="end_year" type="text" size="4" maxlength="4">
+    </span>
+    <a href="#" onClick="document.search.end_day.value={TODAY_DAY};document.search.end_month.value={TODAY_MONTH};document.search.end_year.value={TODAY_YEAR};">{lang:today}</a>
+  </label>
+</fieldset>
+
+<fieldset>
+  <legend>{lang:search_options}</legend>
+  <label>{lang:search_categories}
+    <select style="width:200px" name="cat[]" multiple="multiple" size="8">
+      <!-- BEGIN category_option -->
+      <option value="{category_option.VALUE}">{category_option.OPTION}</option>
+      <!-- END category_option -->
+    </select>
+  </label>
+  <label>{lang:search_subcats_included}
+    <span>
+    <input type="radio" name="subcats-included" value="1" checked="checked" />{lang:yes}
+    </span>
+    <span>
+    <input type="radio" name="subcats-included" value="0" />{lang:no}
+    </span>
+  </label>
+  <label>{lang:search_sort}
+    <span><input type="radio" name="sd" value="AND" />{lang:search_ascending}</span>
+    <span><input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}</span>
+  </label>
+</fieldset>
+<p>
+  <input type="submit" name="submit" value="{lang:submit}" class="bouton" />
+  <input type="reset" value="{lang:reset}" class="bouton" />
+</p>
 </form>
 
 <script type="text/javascript"><!--

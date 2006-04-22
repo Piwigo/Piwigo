@@ -75,6 +75,7 @@ FORM#quickconnect FIELDSET {
 
 FORM#quickconnect P {
   float: left;
+  clear: left;
 }
 
 FORM#quickconnect P INPUT {
