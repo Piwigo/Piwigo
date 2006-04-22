@@ -1,4 +1,5 @@
 <!-- BEGIN categories -->
+<!-- $Id:$ -->
 <ul class="thumbnailCategories">
   <!-- BEGIN category -->
   <li>
@@ -12,8 +13,8 @@
       </div>
       <div class="description">
         <h3>
-          {categories.category.ICON}
           <a href="{categories.category.URL}">{categories.category.NAME}</a>
+          {categories.category.ICON}
         </h3>
         <p>{categories.category.CAPTION_NB_IMAGES}</p>
         <p>{categories.category.DESCRIPTION}</p>

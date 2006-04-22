@@ -9,3 +9,8 @@ H1, #theHeader {
   height: 1em; /* for IE6 it's like min-height */
 }
 
+/* to get less hugly checkboxes at least in tagSelection */
+UL.tagSelection LI INPUT {
+  border: none;
+  background-color: transparent;
+}

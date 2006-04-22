@@ -31,8 +31,7 @@ BODY#theAdminPage #content {
 #content DIV.thumbnailCategory DIV.description {
   height: 140px;		/* max thumbnail height + 2px */
 }
-#content DIV.comment BLOCKQUOTE/*,
-#content DIV.thumbnailCategory DIV.description*/ {
+#content DIV.comment BLOCKQUOTE {
   margin-left: 150px;		/*maximum thumbnail width + ~10px */
 }
 

@@ -137,7 +137,7 @@ FORM.filter FIELDSET LABEL {
   display: block;
   float: left;
   width: auto;
-  margin-right: 10px;
+  margin-right: 1em;
   padding: 0;
 }
 FORM.filter FIELDSET UL LABEL {
@@ -160,7 +160,7 @@ FORM.filter FIELDSET LABEL * SELECT,
 FORM.filter FIELDSET * LABEL TEXTAREA,
 FORM.filter FIELDSET LABEL * TEXTAREA {
   display: inline;
-  vertical-align: baseline;
+  vertical-align: top;
   margin: 0 0.5em 0 0;
 }
 

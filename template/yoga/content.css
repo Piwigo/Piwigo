@@ -302,7 +302,7 @@ DIV.calImg {
 #content DIV.thumbnailCategory DIV.description {
   font-size: 90%;
   overflow: auto;
-  width: inherit;
+  /*width: inherit;*/
 }
 
 #content DIV.thumbnailCategory DIV.description H3 {
@@ -319,6 +319,6 @@ DIV.calImg {
 
 #content DIV.thumbnailCategory DIV.illustration {
   text-align: left;
-  margin: 2px 0 2px 2px;
+  margin: 2px 0 0 2px;
   float: left;
 }
