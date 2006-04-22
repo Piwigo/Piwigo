@@ -79,6 +79,9 @@ BODY#theNBMPage #content
 * html #content UL.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;
+  /*\*//*/
+    margin-top: -40%;
+  /**/
 }
 
 #content .navigationBar, #content .additional_info {
