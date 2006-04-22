@@ -1,3 +1,4 @@
+<!-- $Id:$ -->
 <div id="content">
 
   <div class="titrePage">
@@ -19,7 +20,7 @@
   </ul>
 </div>
 <!-- END errors -->
-<table width="100%" align="center" cellpadding="2">
+<table width="100%" cellpadding="2">
   <tr>
     <td width="50%" colspan="2"><b>{lang:search_keywords} : </b>
     <td colspan="2" valign="top">
@@ -116,28 +117,6 @@
 	  <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
 	</td>
   </tr>
-<!--  <tr>
-    <td width="25%" nowrap="nowrap"><b>{L_SEARCH_WITHIN} : </b></td>
-    <td width="25%" nowrap="nowrap">
-	  <input type="radio" name="search_fields" value="all" checked="checked" />{L_SEARCH_ALL}<br />
-	  <input type="radio" name="search_fields" value="imgonly" />{L_SEARCH_IMG_ONLY}<br />
-	  <input type="radio" name="search_fields" value="commentsonly" />{L_SEARCH_COMMENTS_ONLY}
-	</td>
-  </tr>
-  <tr>
-    <td><b>{lang:search_sort} : </b></td>
-    <td nowrap="nowrap">
-	  {S_SELECT_SORT_KEY}<br />
-	  <input type="radio" name="sd" value="a" />{lang:search_ascending}<br />
-	  <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
-	</td>
-    <td nowrap="nowrap"><b>{L_DISPLAY_RESULTS} : </b></td>
-    <td nowrap="nowrap">
-	  <input type="radio" name="show_results" value="images" checked="checked" />{L_IMAGES}&nbsp;&nbsp;
-	  <input type="radio" name="show_results" value="comments" /> {L_COMMENTS}
-	</td>
-  </tr>
-  -->
 <tr>
 <td align="center" valign="bottom" colspan="4" height="38">
 <input type="submit" name="submit" value="{lang:submit}" class="bouton" />&nbsp;&nbsp;

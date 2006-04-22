@@ -53,6 +53,10 @@ HR.separation {
 /** General defaults **/
 INPUT {margin: 0;}
 ul, dl, li { text-align: left;}
+TABLE {			/* horizontaly centered */
+  margin-left: auto;
+  margin-right: auto;
+}
 /* for debugging purpose */
 pre { text-align:left; }
 
