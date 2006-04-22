@@ -30,7 +30,10 @@ INPUT, SELECT, TEXTAREA, FORM .nofocus {
 FORM .focus {
   background-color: #f5f5f5;		/* whitesmoke */
 }
-
+INPUT[type="radio"] {	/* for Opera */
+  border: none;
+  background-color: transparent;
+}
 
 .errors { /* Errors display */
   color: red;
