@@ -10,7 +10,8 @@ H1, #theHeader {
 }
 
 /* to get less hugly checkboxes at least in tagSelection */
-UL.tagSelection LI INPUT {
+UL.tagSelection LI INPUT,
+#content UL.thumbnails SPAN.wrap2 input {
   border: none;
   background-color: transparent;
 }

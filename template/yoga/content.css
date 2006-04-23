@@ -56,12 +56,23 @@ BODY#theNBMPage #content
   display: table-cell;		/* block prevents vertical-align here */
   vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
 }
-#content UL.thumbnails SPAN.wrap2 A {
+#content UL.thumbnails SPAN.wrap2 A,
+#content UL.thumbnails SPAN.wrap2 LABEL {
   display: block;
   border-bottom: none;
 }
 #content UL.thumbnails IMG {
   margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
+}
+
+/* label and input used for caddie in admin section */
+#content UL.thumbnails SPAN.wrap2 LABEL {
+  position: relative;
+}
+:root #content UL.thumbnails SPAN.wrap2 INPUT { /* hide from Opera */
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 /* fix IE with another layout */
@@ -70,7 +81,8 @@ BODY#theNBMPage #content
   position: relative;
   text-align: left;
 }
-* html #content UL.thumbnails SPAN.wrap2 A {
+* html #content UL.thumbnails SPAN.wrap2 A,
+* html #content UL.thumbnails SPAN.wrap2 LABEL {
   overflow: visible;
   position: absolute;
   top: 50%;
@@ -82,6 +94,11 @@ BODY#theNBMPage #content
   /*\*//*/
     margin-top: -40%;
   /**/
+}
+* html #content UL.thumbnails SPAN.wrap2 input {
+  position: absolute;
+  left: 0;
+  top: -50%;  /* same as other browsers but not so pretty */
 }
 
 #content .navigationBar, #content .additional_info {
@@ -186,17 +203,6 @@ SPAN.filename:before {
 
 SPAN.filename:after {
   content: "]";
-}
-
-TD.thumbnail label {
-  position: relative;
-}
-TD.thumbnail input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: transparent;
-  border: none;
 }
 
 /* begin chronology/calendar elements*/

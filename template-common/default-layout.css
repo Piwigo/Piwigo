@@ -24,6 +24,7 @@ BODY#theAdminPage #content {
 /* Set some sizes according to your maximum thumbnail width and height */
 #content UL.thumbnails SPAN,
 #content UL.thumbnails SPAN.wrap2 A,
+#content UL.thumbnails SPAN.wrap2 LABEL,
 #content DIV.thumbnailCategory DIV.illustration {
   width: 140px;			/* max thumbnail width + 2px */
 }

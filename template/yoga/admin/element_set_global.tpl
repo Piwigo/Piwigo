@@ -34,7 +34,7 @@
 <fieldset>
 
   <legend>{lang:Display options}</legend>
-
+<!--
   <p>{lang:elements per line}:
       <a href="{U_COLS}&amp;cols=4">4</a>
     | <a href="{U_COLS}&amp;cols=5">5</a>
@@ -44,7 +44,7 @@
     | <a href="{U_COLS}&amp;cols=9">9</a>
     | <a href="{U_COLS}&amp;cols=10">10</a>
   </p>
-
+-->
   <p>{lang:elements per page}:
       <a href="{U_DISPLAY}&amp;display=20">20</a>
     | <a href="{U_DISPLAY}&amp;display=50">50</a>
@@ -157,24 +157,21 @@
   <div class="navigationBar">{NAV_BAR}</div>
 
   <!-- BEGIN thumbnails -->
-  <!--table valign="top" align="center" class="thumbnail"-->
-  <table class="thumbnail">
+  <ul class="thumbnails">
     <!-- BEGIN line -->
-    <tr>
       <!-- BEGIN thumbnail -->
-      <td class="thumbnail">
+      <li><span class="wrap1"><span class="wrap2">
         <label>
         <img src="{thumbnails.line.thumbnail.SRC}"
              alt="{thumbnails.line.thumbnail.ALT}"
              title="{thumbnails.line.thumbnail.TITLE}"
-             class="thumbLink" />
+             class="thumbnail" />
         <input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" />
         </label>
-      </td>
+      </span></span></li>
       <!-- END thumbnail -->
-    </tr>
     <!-- END line -->
-  </table>
+  </ul>
   <!-- END thumbnails -->
 
 </fieldset>
