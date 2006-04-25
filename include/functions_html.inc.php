@@ -479,6 +479,7 @@ function get_html_menu_category($categories)
  */
 function parse_comment_content($content)
 {
+  htmlentities($content,ENT_QUOTES);
   $pattern = '/(https?:\/\/\S*)/';
   $replacement = '<a href="$1" rel="nofollow">$1</a>';
   $content = preg_replace($pattern, $replacement, $content);
@@ -500,7 +501,7 @@ function parse_comment_content($content)
   $replacement = '<span style="font-style:italic;">$1$2</span>';
   $content = preg_replace($pattern, $replacement, $content);
 
-  $content = '<div>'.htmlentities($content,ENT_QUOTES).'</div>';
+  $content = '<div>'.$content.'</div>';
   return $content;
 }
 
