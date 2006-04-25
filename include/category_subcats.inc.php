@@ -161,7 +161,7 @@ SELECT id, path, tn_ext
             ),
           'NAME' => htmlentities($category['name'],ENT_QUOTES),
           'CAPTION_NB_IMAGES' => (($category['nb_images'] == 0) ? '' : sprintf("%d ".l10n('pictures'), $category['nb_images'])),
-          'DESCRIPTION' => htmlentities(@$category['comment'],ENT_QUOTES),
+          'DESCRIPTION' => @$category['comment'],ENT_QUOTES,
           )
         );
     }
