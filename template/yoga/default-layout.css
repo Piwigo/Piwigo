@@ -125,7 +125,8 @@ FORM#cat_modify TABLE { width: auto; }
 
 /**
  * Filter forms are displayed label by label with the input (or select...)
- * below the label. Use a SPAN to group objects in a single line.
+ * below the label. Use an UL to make a group (radiobox for instance).
+ * Use a SPAN to group objects in line
  */
 FIELDSET {
   padding: 1em;
@@ -133,14 +134,28 @@ FIELDSET {
   overflow: hidden; /* <- makes Opera happy */
 }
 
+FORM.filter FIELDSET UL {
+  margin: 0;
+}
+FORM.filter FIELDSET UL,
 FORM.filter FIELDSET LABEL {
   display: block;
   float: left;
-  width: auto;
   margin-right: 1em;
   padding: 0;
 }
-FORM.filter FIELDSET UL LABEL {
+
+FORM.filter FIELDSET LI {
+  list-style: none;
+  margin-bottom: 0.5em;
+}
+
+FORM.filter FIELDSET LI LABEL {
+  display: inline;
+  float: none;
+}
+
+FORM.filter FIELDSET UL.tagSelection LABEL {
   display: inline;
   float: none;
 }
@@ -154,11 +169,11 @@ FORM.filter FIELDSET LABEL TEXTAREA {
   margin: 0.5em 0;
 }
 FORM.filter FIELDSET * LABEL INPUT,
-FORM.filter FIELDSET LABEL * INPUT,
 FORM.filter FIELDSET * LABEL SELECT,
-FORM.filter FIELDSET LABEL * SELECT,
 FORM.filter FIELDSET * LABEL TEXTAREA,
-FORM.filter FIELDSET LABEL * TEXTAREA {
+FORM.filter FIELDSET LABEL SPAN INPUT,
+FORM.filter FIELDSET LABEL SPAN SELECT,
+FORM.filter FIELDSET LABEL SPAN TEXTAREA {
   display: inline;
   vertical-align: top;
   margin: 0 0.5em 0 0;
