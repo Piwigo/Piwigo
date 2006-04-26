@@ -162,8 +162,8 @@ SELECT COUNT(*)
       'NAME' => $row['name'],
       'MEMBERS' => sprintf(l10n('%d members'), $counter),
       'U_MEMBERS' => $members_url.$row['id'],
-      'U_DELETE' => $del_url.$row['id'],
-      'U_PERM' => $perm_url.$row['id']
+      'U_DELETE' => add_session_id($del_url.$row['id']),
+      'U_PERM' => add_session_id($perm_url.$row['id'])
       )
     );
 }
