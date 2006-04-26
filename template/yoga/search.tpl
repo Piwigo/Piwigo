@@ -70,7 +70,7 @@
       <input name="start_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
     </li>
     <li>
-      <a href="#" onClick="document.search.start_day.value={TODAY_DAY};document.search.start_month.value={TODAY_MONTH};document.search.start_year.value={TODAY_YEAR};">{lang:today}</a>
+      <a href="#" onClick="document.search.start_day.value={TODAY_DAY};document.search.start_month.value={TODAY_MONTH};document.search.start_year.value={TODAY_YEAR};return false;">{lang:today}</a>
     </li>
   </ul>
   <ul>
@@ -89,7 +89,7 @@
       <input name="end_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
     </li>
     <li>
-      <a href="#" onClick="document.search.end_day.value={TODAY_DAY};document.search.end_month.value={TODAY_MONTH};document.search.end_year.value={TODAY_YEAR};">{lang:today}</a>
+      <a href="#" onClick="document.search.end_day.value={TODAY_DAY};document.search.end_month.value={TODAY_MONTH};document.search.end_year.value={TODAY_YEAR};return false;">{lang:today}</a>
     </li>
   </ul>
 </fieldset>
