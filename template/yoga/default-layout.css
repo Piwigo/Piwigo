@@ -158,6 +158,7 @@ FORM.filter FIELDSET LI LABEL {
 FORM.filter FIELDSET UL.tagSelection LABEL {
   display: inline;
   float: none;
+  margin-right:0.5em;/*reduce from above*/
 }
 
 /* cannot use FIELDSET>LABEL because of IE<=6 */
@@ -177,6 +178,10 @@ FORM.filter FIELDSET LABEL SPAN TEXTAREA {
   display: inline;
   vertical-align: top;
   margin: 0 0.5em 0 0;
+}
+
+FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
+  margin-right:0;
 }
 
 /* following declaration is important to avoid strange FF behaviour */
