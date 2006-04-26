@@ -1569,7 +1569,7 @@ SELECT MAX(rank)
   $insert = array(
     'name' => $category_name,
     'rank' => ++$current_rank,
-    'commentable' => $conf['newcat_default_commentable'],
+    'commentable' => boolean_to_string($conf['newcat_default_commentable']),
     'uploadable' => 'false',
     );
 
@@ -1594,7 +1594,7 @@ SELECT id, uppercats, global_rank, visible, status
     }
     else
     {
-      $insert{'visible'} = $conf['newcat_default_visible'];
+      $insert{'visible'} = boolean_to_string($conf['newcat_default_visible']);
     }
 
     // at creation, must a category be public or private ? Warning : if the
@@ -1606,13 +1606,13 @@ SELECT id, uppercats, global_rank, visible, status
     }
     else
     {
-      $insert{'status'} = $conf['newcat_default_status'];
+      $insert{'status'} = boolean_to_string($conf['newcat_default_status']);
     }
   }
   else
   {
-    $insert{'visible'} = $conf['newcat_default_visible'];
-    $insert{'status'} = $conf['newcat_default_status'];
+    $insert{'visible'} = boolean_to_string($conf['newcat_default_visible']);
+    $insert{'status'} = boolean_to_string($conf['newcat_default_status']);
     $insert{'global_rank'} = $insert{'rank'};
   }
 

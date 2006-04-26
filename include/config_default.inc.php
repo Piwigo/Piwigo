@@ -110,16 +110,16 @@ $conf['calendar_month_cell_height']=80;
 
 // newcat_default_commentable : at creation, must a category be commentable
 // or not ?
-$conf['newcat_default_commentable'] = 'true';
+$conf['newcat_default_commentable'] = true;
 
 // newcat_default_uploadable : at creation, must a category be uploadable or
 // not ?
-$conf['newcat_default_uploadable'] = 'false';
+$conf['newcat_default_uploadable'] = false;
 
 // newcat_default_visible : at creation, must a category be visible or not ?
 // Warning : if the parent category is invisible, the category is
 // automatically create invisible. (invisible = locked)
-$conf['newcat_default_visible'] = 'true';
+$conf['newcat_default_visible'] = true;
 
 // newcat_default_status : at creation, must a category be public or private
 // ? Warning : if the parent category is private, the category is
@@ -127,7 +127,7 @@ $conf['newcat_default_visible'] = 'true';
 $conf['newcat_default_status'] = 'public';
 
 // newuser_default_enabled_high : at creation, must a user with enabled_high or not
-$conf['newuser_default_enabled_high'] = 'true';
+$conf['newuser_default_enabled_high'] = true;
 
 // level_separator : character string used for separating a category level
 // to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',

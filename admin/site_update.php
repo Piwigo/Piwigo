@@ -247,12 +247,13 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
         'dir'         => $dir,
         'name'        => str_replace('_', ' ', $dir),
         'site_id'     => $site_id,
-        'commentable' => $conf['newcat_default_commentable'],
+        'commentable' =>
+          boolean_to_string($conf['newcat_default_commentable']),
         'uploadable'  => $site_is_remote
           ? false
-          : $conf['newcat_default_uploadable'],
-        'status'      => $conf{'newcat_default_status'},
-        'visible'     => $conf{'newcat_default_visible'},
+          : boolean_to_string($conf['newcat_default_uploadable']),
+        'status'      => boolean_to_string($conf{'newcat_default_status'}),
+        'visible'     => boolean_to_string($conf{'newcat_default_visible'}),
         );
 
       if (isset($db_fulldirs[dirname($fulldir)]))
