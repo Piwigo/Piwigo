@@ -162,32 +162,7 @@ SELECT id
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available
 //
-$query = '
-SELECT param,value
- FROM '.CONFIG_TABLE.'
-;';
-if (!($result = pwg_query($query)))
-{
-  die("Could not query config information");
-}
-
-while ( $row =mysql_fetch_array( $result ) )
-{
-  if ( isset( $row['value'] ) )
-  {
-    $conf[$row['param']] = $row['value'];
-  }
-  else
-  {
-    $conf[$row['param']] = '';
-  }
-  // If the field is true or false, the variable is transformed into a
-  // boolean value.
-  if ( $conf[$row['param']] == 'true' or $conf[$row['param']] == 'false' )
-  {
-    $conf[$row['param']] = get_boolean( $conf[$row['param']] );
-  }
-}
+load_conf_from_db();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 

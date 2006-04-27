@@ -881,4 +881,36 @@ function get_available_upgrade_ids()
   return $available_upgrade_ids;
 }
 
+/**
+ * Add configuration parameters from database to global $conf array
+ *
+ * @return void
+ */
+function load_conf_from_db()
+{
+  global $conf;
+  
+  $query = '
+SELECT param,value
+ FROM '.CONFIG_TABLE.'
+;';
+  $result = pwg_query($query);
+
+  if (mysql_num_rows($result) == 0)
+  {
+    die('No configuration data');
+  }
+
+  while ($row = mysql_fetch_array($result))
+  {
+    $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
+    
+    // If the field is true or false, the variable is transformed into a
+    // boolean value.
+    if ($conf[$row['param']] == 'true' or $conf[$row['param']] == 'false')
+    {
+      $conf[ $row['param'] ] = get_boolean($conf[ $row['param'] ]);
+    }
+  }
+}
 ?>
