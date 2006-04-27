@@ -247,8 +247,12 @@ define(\'PHPWG_INSTALLED\', true);
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $template->assign_block_vars('error_copy',
-                                   array('FILE_CONTENT'=>$html_content));
+      $template->assign_block_vars(
+        'error_copy',
+        array(
+          'FILE_CONTENT' => $html_content,
+          )
+        );
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
@@ -268,65 +272,41 @@ define(\'PHPWG_INSTALLED\', true);
 
     $query = '
 UPDATE '.CONFIG_TABLE.'
-  SET value = \''.$admin_mail.'\'
-  WHERE param = \'mail_webmaster\'
-;';
-    mysql_query($query);
-	
-    $query = '
-UPDATE '.CONFIG_TABLE.'
   SET value = \''.$language.'\'
   WHERE param = \'default_language\'
 ;';
     mysql_query($query);
-    
-    $query = '
-INSERT
-  INTO '.SITES_TABLE.'
-  (id, galleries_url)
-  VALUES
-  (1, \''.PHPWG_ROOT_PATH.'galleries/\')
-;';
-    mysql_query($query);
+
+    // fill $conf global array
+    load_conf_from_db();
+
+    $insert = array(
+      'id' => 1,
+      'galleries_url' => PHPWG_ROOT_PATH.'galleries/',
+      );
+    mass_inserts(SITES_TABLE, array_keys($insert), array($insert));
     
     // webmaster admin user
-    $query = '
-INSERT INTO '.USERS_TABLE.'
-  (id,username,password,mail_address)
-  VALUES
-  (1,\''.$admin_name.'\',\''.md5($admin_pass1).'\',\''.$admin_mail.'\')
-;';
-    mysql_query($query);
+    $inserts = array(
+      array(
+        'id'           => 1,
+        'username'     => $admin_name,
+        'password'     => md5($admin_pass1),
+        'mail_address' => $admin_mail,
+        ),
+      array(
+        'id'           => 2,
+        'username'     => 'guest',
+        ),
+      );
+    mass_inserts(USERS_TABLE, array_keys($inserts[0]), $inserts);
 
-    $query = '
-INSERT INTO '.USER_INFOS_TABLE.'
-  (user_id,status,language,enabled_high)
-  VALUES
-  (1, \'webmaster\', \''.$language.'\',\''.$conf['newuser_default_enabled_high'].'\')
-;';
-    mysql_query($query);
+    create_user_infos(1);
+    create_user_infos(2);
 
     $query = '
 UPDATE '.USER_INFOS_TABLE.'
-  SET feed_id = \''.find_available_feed_id().'\'
-  WHERE user_id = 1
-;';
-    mysql_query($query);
-
-    // guest user
-    $query = '
-INSERT INTO '.USERS_TABLE.'
-  (id,username,password,mail_address)
-  VALUES
-  (2,\'guest\',\'\',\'\')
-;';
-    mysql_query($query);
-
-    $query = '
-INSERT INTO '.USER_INFOS_TABLE.'
-  (user_id,status,language,enabled_high)
-  VALUES
-  (2, \'guest\', \''.$language.'\',\'false\')
+  SET language = \''.$language.'\'
 ;';
     mysql_query($query);
 

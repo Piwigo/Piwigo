@@ -252,7 +252,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
         'uploadable'  => $site_is_remote
           ? false
           : boolean_to_string($conf['newcat_default_uploadable']),
-        'status'      => boolean_to_string($conf{'newcat_default_status'}),
+        'status'      => $conf{'newcat_default_status'},
         'visible'     => boolean_to_string($conf{'newcat_default_visible'}),
         );
 

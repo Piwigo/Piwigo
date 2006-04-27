@@ -1606,13 +1606,13 @@ SELECT id, uppercats, global_rank, visible, status
     }
     else
     {
-      $insert{'status'} = boolean_to_string($conf['newcat_default_status']);
+      $insert{'status'} = $conf['newcat_default_status'];
     }
   }
   else
   {
     $insert{'visible'} = boolean_to_string($conf['newcat_default_visible']);
-    $insert{'status'} = boolean_to_string($conf['newcat_default_status']);
+    $insert{'status'} = $conf['newcat_default_status'];
     $insert{'global_rank'} = $insert{'rank'};
   }
 

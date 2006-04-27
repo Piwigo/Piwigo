@@ -446,10 +446,23 @@ function create_user_infos($user_id)
 
   list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
+  if ($user_id == $conf['webmaster_id'])
+  {
+    $status = 'webmaster';
+  }
+  else if ($user_id == $conf['guest_id'])
+  {
+    $status = 'guest';
+  }
+  else
+  {
+    $status = 'normal';
+  }
+  
   $insert =
     array(
       'user_id' => $user_id,
-      'status' => $user_id == $conf['webmaster_id'] ? 'admin' : 'normal',
+      'status' => $status,
       'template' => $conf['default_template'],
       'nb_image_line' => $conf['nb_image_line'],
       'nb_line_page' => $conf['nb_line_page'],
@@ -460,7 +473,8 @@ function create_user_infos($user_id)
       'maxwidth' => $conf['default_maxwidth'],
       'maxheight' => $conf['default_maxheight'],
       'registration_date' => $dbnow,
-      'enabled_high' => $conf['newuser_default_enabled_high']
+      'enabled_high' =>
+        boolean_to_string($conf['newuser_default_enabled_high']),
       );
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
