@@ -31,6 +31,10 @@
 
 </fieldset>
 
+</form>
+  
+<form action="{F_ACTION}" method="post">
+
 <fieldset>
 
   <legend>{lang:Display options}</legend>
@@ -139,14 +143,14 @@
 
   </table>
 
-  <p style="text-align:center;">
+  <p>
     {lang:target}
-    <input type="radio" name="target" value="all" /> {lang:all}
-    <input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}
+    <label><input type="radio" name="target" value="all" /> {lang:all}</label>
+    <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}</label>
   </p>
 
     
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/></p>
+  <p><input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/></p>
 
 </fieldset>
 
