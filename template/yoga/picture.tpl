@@ -153,12 +153,19 @@
 <!-- END metadata -->
 
 <!-- BEGIN rate -->
-<p>
-{rate.SENTENCE} :
+<form action="{rate.F_ACTION}" method="post">
+<div>{rate.SENTENCE} :
 <!-- BEGIN rate_option -->
-{rate.rate_option.SEPARATOR} <a href="{rate.rate_option.URL}" rel="nofollow" {TAG_INPUT_ENABLED}>{rate.rate_option.OPTION}</a>
+{rate.rate_option.SEPARATOR}
+<!-- BEGIN my_rate -->
+<input type="button" name="rate" value="{rate.rate_option.OPTION}" class="rateButtonSelected" />
+<!-- END my_rate -->
+<!-- BEGIN not_my_rate -->
+<input type="submit" name="rate" value="{rate.rate_option.OPTION}" class="rateButton" />
+<!-- END not_my_rate -->
 <!-- END rate_option -->
-</p>
+</div>
+</form>
 <!-- END rate -->
 
 <hr class="separation">

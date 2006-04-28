@@ -83,7 +83,7 @@ H2, #menubar DT, #imageHeaderBar {
 }
 
 /* links */
-A {
+A, .rateButton {
   color: #FFFFFF;
 }
 
