@@ -118,6 +118,8 @@ SELECT '.implode(',', $infos).'
   WHERE id = '.$id.'
 ;';
   $row = mysql_fetch_array(pwg_query($query));
+  if (empty($row))
+    return null;
 
   $cat = array();
   foreach ($infos as $info)

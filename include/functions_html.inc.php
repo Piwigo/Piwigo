@@ -591,4 +591,22 @@ function access_denied()
     redirect($login_url);
   }
 }
+
+/**
+ * exits the current script with 404 code when a page cannot be found
+ * @param string msg a message to display
+ * @param string alternate_url redirect to this url
+ */
+function page_not_found($msg, $alternate_url=null)
+{
+  header('HTTP/1.1 404 Not found');
+  header('Status: 404 Not found');
+  if ($alternate_url==null)
+    $alternate_url = make_index_url();
+  redirect( $alternate_url,
+    '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
+<h1 style="text-align:left; font-size:36px;">Page not found</h1><br/>'
+.$msg.'</div>',
+    5 );
+}
 ?>

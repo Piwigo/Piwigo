@@ -42,7 +42,8 @@ if (isset($page['category']))
 // displayed, and execution is stopped
 if (!in_array($page['image_id'], $page['items']))
 {
-  die('Fatal: this picture does not belong to this section');
+  page_not_found('The requested image does not belong to this image set',
+      duplicate_index_url() );
 }
 
 // +-----------------------------------------------------------------------+
