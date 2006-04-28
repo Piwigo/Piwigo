@@ -54,6 +54,7 @@ SELECT COUNT(rate) AS count
       );
   }
 
+  $user_rate = null;
   if ($conf['rate_anonymous'] or is_autorize_status(ACCESS_CLASSIC) )
   {
     if ($row['count']>0)
@@ -78,34 +79,22 @@ SELECT COUNT(rate) AS count
       if (mysql_num_rows($result) > 0)
       {
         $row = mysql_fetch_array($result);
-        $sentence = $lang['already_rated'];
-        $sentence.= ' ('.$row['rate'].'). ';
-        $sentence.= $lang['update_rate'];
-      }
-      else
-      {
-        $sentence = $lang['never_rated'].'. '.$lang['Rate'];
+        $user_rate = $row['rate'];
       }
     }
-    else
-    {
-      $sentence = $lang['never_rated'].'. '.$lang['Rate'];
-    }
+
     $template->assign_block_vars(
       'rate',
       array(
-        'CONTENT' => $value,
-        'SENTENCE' => $sentence
+        'SENTENCE' =>isset($user_rate) ? l10n('update_rate') : l10n('new_rate'),
+        'F_ACTION' => add_url_params(
+                        $url_self,
+                        array('action'=>'rate')
+                      )
         )
       );
 
     $template->assign_block_vars('info_rate', array('CONTENT' => $value));
-
-    $template->assign_vars(
-      array(
-        'INFO_RATE' => $value
-        )
-      );
 
     foreach ($conf['rate_items'] as $num => $mark)
     {
@@ -113,16 +102,17 @@ SELECT COUNT(rate) AS count
         'rate.rate_option',
         array(
           'OPTION'    => $mark,
-          'URL'       => add_url_params(
-                          $url_self,
-                          array(
-                            'action'=>'rate',
-                            'rate'=>$mark
-                          )
-                        ),
           'SEPARATOR' => ($num > 0 ? '|' : ''),
           )
         );
+      if (isset($user_rate) and $user_rate==$mark)
+      {
+        $template->assign_block_vars('rate.rate_option.my_rate', array() );
+      }
+      else
+      {
+        $template->assign_block_vars('rate.rate_option.not_my_rate', array() );
+      }
     }
   }
 }

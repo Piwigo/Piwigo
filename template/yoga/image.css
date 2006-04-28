@@ -107,6 +107,22 @@ TABLE.infoTable TD.value UL {
   list-style-type: square;
 }
 
+.rateButton, .rateButtonSelected {
+  background-color:transparent;
+  padding:0;
+  border:0;
+}
+
+.rateButton {
+  cursor: pointer;
+}
+
+.rateButtonSelected {
+  color:inherit;
+  font-weight:bold;
+  font-size:120%;
+}
+
 #comments {
     text-align: left;
 }

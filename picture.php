@@ -165,7 +165,8 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'rate' :
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
-      rate_picture($page['image_id'], $_GET['rate']);
+      rate_picture($page['image_id'],
+          isset($_POST['rate']) ? $_POST['rate'] : $_GET['rate'] );
       redirect($url_self);
     }
     case 'delete_comment' :
