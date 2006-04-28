@@ -197,7 +197,7 @@ SELECT name, url_name, id
   }
   if ( empty($page['tags']) )
   {
-    die('Fatal: no existing tag');
+    page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
   }
 }
 else if (0 === strpos($tokens[$next_token], 'fav'))
@@ -316,6 +316,10 @@ if ('categories' == $page['section'])
   if (isset($page['category']))
   {
     $result = get_cat_info($page['category']);
+    if (empty($result))
+    {
+      page_not_found('Requested category does not exist' );
+    }
 
     $page = array_merge(
       $page,

@@ -39,6 +39,9 @@ if ( isset($_GET['cat']) )
   {
     $url_params['section'] = 'categories';
     $url_params['category'] = $_GET['cat'];
+    $result = get_cat_info($url_params['category']);
+    if ( !empty($result) )
+      $url_params['cat_name'] = $result['name'];
   }
   elseif ( in_array($_GET['cat'],
               array('best_rated','most_visited','recent_pics','recent_cats')
@@ -46,6 +49,10 @@ if ( isset($_GET['cat']) )
          )
   {
     $url_params['section'] = $_GET['cat'];
+  }
+  else
+  {
+    page_not_found('');
   }
 }
 
