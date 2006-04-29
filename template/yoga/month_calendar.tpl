@@ -1,5 +1,5 @@
 <!-- BEGIN calendar -->
-<!-- $Id:$ -->
+<!-- $Id$ -->
 <!-- BEGIN thumbnails -->
 <style type="text/css">
 <!--

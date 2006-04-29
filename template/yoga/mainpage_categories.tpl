@@ -1,5 +1,5 @@
 <!-- BEGIN categories -->
-<!-- $Id:$ -->
+<!-- $Id$ -->
 <ul class="thumbnailCategories">
   <!-- BEGIN category -->
   <li>
