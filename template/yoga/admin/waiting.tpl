@@ -16,11 +16,11 @@
       <td class="{picture.WAITING_CLASS}" style="white-space:nowrap;">{picture.CATEGORY_IMG}</td>
       <td class="{picture.WAITING_CLASS}" style="white-space:nowrap;">{picture.DATE_IMG}</td>
       <td class="{picture.WAITING_CLASS}" style="white-space:nowrap;">
-        <a target="_blank" href="{picture.PREVIEW_URL_IMG}" title="{picture.FILE_TITLE}">{picture.FILE_IMG}</a>
+        <a href="{picture.PREVIEW_URL_IMG}" title="{picture.FILE_TITLE}">{picture.FILE_IMG}</a>
       </td>
       <td class="{picture.WAITING_CLASS}" style="white-space:nowrap;">
         <!-- BEGIN thumbnail -->
-        <a target="_blank" href="{picture.thumbnail.PREVIEW_URL_TN_IMG}" title="{picture.thumbnail.FILE_TN_TITLE}">{picture.thumbnail.FILE_TN_IMG}</a>
+        <a href="{picture.thumbnail.PREVIEW_URL_TN_IMG}" title="{picture.thumbnail.FILE_TN_TITLE}">{picture.thumbnail.FILE_TN_IMG}</a>
         <!-- END thumbnail -->
       </td>
       <td class="{picture.WAITING_CLASS}" style="white-space:nowrap;">
