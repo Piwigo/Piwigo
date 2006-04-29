@@ -4,7 +4,7 @@
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:title_update}: <a href="{SITE_URL}" target="_blank">{SITE_URL}</a></h2>
+  <h2>{lang:title_update}: <a href="{SITE_URL}">{SITE_URL}</a></h2>
 </div>
 
 <!-- BEGIN update_result -->

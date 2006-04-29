@@ -37,7 +37,7 @@
 <table border="1" cellpadding="0" cellspacing="0">
   <!-- BEGIN site -->
   <tr align="left"><td>
-    <a href="{sites.site.NAME}" target="_blank">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:Categories}, {sites.site.IMAGES} {lang:picture}s)
+    <a href="{sites.site.NAME}">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:Categories}, {sites.site.IMAGES} {lang:picture}s)
   </td><td>
     [<a href="{sites.site.U_SYNCHRONIZE}" title="{lang:site_synchronize_hint}">{lang:site_synchronize}</a>]
     <!-- BEGIN delete -->
