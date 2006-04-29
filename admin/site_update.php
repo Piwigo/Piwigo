@@ -250,7 +250,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
         'commentable' =>
           boolean_to_string($conf['newcat_default_commentable']),
         'uploadable'  => $site_is_remote
-          ? false
+          ? 'false'
           : boolean_to_string($conf['newcat_default_uploadable']),
         'status'      => $conf{'newcat_default_status'},
         'visible'     => boolean_to_string($conf{'newcat_default_visible'}),
