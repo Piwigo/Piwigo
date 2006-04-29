@@ -68,5 +68,6 @@ if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) and isse
   $template->assign_block_vars('refresh', array());
 }
 
+header('Content-Type: text/html; charset='.$lang_info['charset']);
 $template->parse('header');
 ?>

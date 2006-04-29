@@ -149,7 +149,7 @@ SELECT id, path, tn_ext
         'categories.category',
         array(
           'SRC'   => $thumbnail_src_of[ $category['picture'] ],
-          'ALT'   => htmlentities($category['name'],ENT_QUOTES),
+          'ALT'   => $category['name'],
           'TITLE' => $lang['hint_category'],
           'ICON'  => get_icon(@$category['date_last']),
 
@@ -159,7 +159,7 @@ SELECT id, path, tn_ext
               'cat_name' => $category['name'],
               )
             ),
-          'NAME' => htmlentities($category['name'],ENT_QUOTES),
+          'NAME' => $category['name'],
           'CAPTION_NB_IMAGES' => (($category['nb_images'] == 0) ? '' : sprintf("%d ".l10n('pictures'), $category['nb_images'])),
           'DESCRIPTION' => @$category['comment'],
           )

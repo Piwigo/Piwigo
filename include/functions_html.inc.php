@@ -450,7 +450,7 @@ function get_html_menu_category($categories)
     {
       $menu.= ' rel="up"';
     }
-    $menu.= '>'.htmlentities($category['name'],ENT_QUOTES).'</a>';
+    $menu.= '>'.$category['name'].'</a>';
 
     if ($category['nb_images'] > 0)
     {
@@ -550,7 +550,7 @@ function get_html_tag_selection(
 
     $output.=
       ' />'
-      .' '. htmlentities($tag['name'],ENT_QUOTES)
+      .' '. $tag['name']
       .'</label>'
       .'</li>'
       ."\n"
