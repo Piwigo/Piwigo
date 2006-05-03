@@ -526,6 +526,13 @@ function redirect( $url , $msg = '', $refreh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
+  unset($template);
+  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
+  if (!isset($page['body_id'])) 
+  {
+    $page['body_id'] = 'adminPage';
+  }
+
   // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
   // refresh page in header.tpl
   if (!isset($msg) or ($msg == ''))
