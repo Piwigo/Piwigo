@@ -52,6 +52,16 @@ $template->assign_vars(
     'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled' : '')
     ));
 
+if (is_adviser())
+{
+  $template->assign_vars(
+    array(
+      'ADVISER_ENABLED' => $lang['adviser_mode_enabled']
+      )
+    );
+}
+
+
 // refresh
 if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) and isset( $redirect_msg ) )
 {
