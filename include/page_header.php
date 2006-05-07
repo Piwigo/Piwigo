@@ -49,18 +49,8 @@ $template->assign_vars(
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
 
-    'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled' : '')
+    'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled onclick="return false;"' : '')
     ));
-
-if (is_adviser())
-{
-  $template->assign_vars(
-    array(
-      'ADVISER_ENABLED' => $lang['adviser_mode_enabled']
-      )
-    );
-}
-
 
 // refresh
 if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) and isset( $redirect_msg ) )
