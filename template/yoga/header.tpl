@@ -29,8 +29,5 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 
 <body id="{BODY_ID}">
 <div id="the_page">
-  <div class="titrePage">
-    <h2 style="text-align:center">{ADVISER_ENABLED}</h2>
-  </div>
 
 {PAGE_BANNER}
