@@ -53,7 +53,10 @@
 
 $page['section'] = 'categories';
 
-if ( isset($_SERVER["PATH_INFO"]) and !empty($_SERVER["PATH_INFO"]) )
+// some ISPs set PATH_INFO to empty string or to SCRIPT_FILENAME while in the
+// default apache implementation it is not set
+if ( $conf['question_mark_in_urls']==false and
+     isset($_SERVER["PATH_INFO"]) and !empty($_SERVER["PATH_INFO"]) )
 {
   $rewritten = $_SERVER["PATH_INFO"];
   $rewritten = str_replace('//', '/', $rewritten);
