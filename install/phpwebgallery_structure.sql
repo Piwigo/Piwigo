@@ -28,7 +28,7 @@ CREATE TABLE `phpwebgallery_categories` (
   `id_uppercat` smallint(5) unsigned default NULL,
   `comment` text,
   `dir` varchar(255) default NULL,
-  `rank` tinyint(3) unsigned default NULL,
+  `rank` smallint(5) unsigned default NULL,
   `status` enum('public','private') NOT NULL default 'public',
   `site_id` tinyint(4) unsigned default '1',
   `visible` enum('true','false') NOT NULL default 'true',

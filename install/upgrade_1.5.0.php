@@ -300,7 +300,10 @@ ALTER TABLE ".PREFIX_TABLE."user_infos
 ALTER TABLE ".PREFIX_TABLE."user_infos
   ADD COLUMN enabled_high enum('true','false') NOT NULL default 'true'
 ;",
-
+  "
+ALTER TABLE ".PREFIX_TABLE."categories
+  CHANGE COLUMN rank rank SMALLINT(5) UNSIGNED DEFAULT NULL
+;",
   // configuration table
   "
 UPDATE ".PREFIX_TABLE."config
