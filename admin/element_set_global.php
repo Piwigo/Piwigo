@@ -277,10 +277,27 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
   display_select_cat_wrapper($query, array(), $blockname, true);
 }
 
+$all_tags = get_all_tags();
+
+if (count($all_tags) == 0)
+{
+  $add_tag_selection =
+    '<p>'.
+    l10n('No tag defined. Use Administration>Pictures>Tags').
+    '</p>';
+}
+else
+{
+  $add_tag_selection = get_html_tag_selection(
+    get_all_tags(),
+    'add_tags'
+    );
+}
+
 // add tags
 $template->assign_vars(
   array(
-    'ADD_TAG_SELECTION' => get_html_tag_selection(get_all_tags(), 'add_tags'),
+    'ADD_TAG_SELECTION' => $add_tag_selection,
     )
   );
 

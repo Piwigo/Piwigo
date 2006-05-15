@@ -198,6 +198,24 @@ $template->set_filenames(
     )
   );
 
+$all_tags = get_all_tags();
+
+if (count($all_tags) > 0)
+{
+  $tag_selection = get_html_tag_selection(
+    get_all_tags(),
+    'tags',
+    $selected_tags
+    );
+}
+else
+{
+  $tag_selection =
+    '<p>'.
+    l10n('No tag defined. Use Administration>Pictures>Tags').
+    '</p>';
+}
+  
 $template->assign_vars(
   array(
     'U_SYNC' =>
@@ -225,11 +243,7 @@ $template->assign_vars(
 
     'CREATION_DATE' => $date,
 
-    'TAG_SELECTION' => get_html_tag_selection(
-      get_all_tags(),
-      'tags',
-      $selected_tags
-      ),
+    'TAG_SELECTION' => $tag_selection,
 
     'DESCRIPTION' =>
       isset($_POST['description']) ?
