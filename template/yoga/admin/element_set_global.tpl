@@ -8,46 +8,9 @@
   | <a href="{U_UNIT_MODE}">{lang:unit mode}</a>
 </p>
 
-<form action="{F_ACTION}" method="post">
-
-<fieldset>
-
-  <legend>{lang:Caddie management}</legend>
-
-  <ul style="list-style-type:none;">
-
-    <!-- BEGIN in_caddie -->
-    <li><label><input type="radio" name="caddie_action" value="empty_all" /> {lang:Empty caddie}</label></li>
-    <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {lang:Take selected elements out of caddie}</label></li>
-    <!-- END in_caddie -->
-
-    <!-- BEGIN not_in_caddie -->
-    <li><input type="radio" name="caddie_action" value="add_selected" /> {lang:Add selected elements to caddie}</li>
-    <!-- END not_in_caddie -->
-  
-  </ul>
-
-  <p style="text-align:center;"><input type="submit" value="{L_SUBMIT}" name="submit_caddie" {TAG_INPUT_ENABLED}/></p>
-
-</fieldset>
-
-</form>
-  
-<form action="{F_ACTION}" method="post">
-
 <fieldset>
 
   <legend>{lang:Display options}</legend>
-
-  <p>{lang:elements per line}:
-      <a href="{U_COLS}&amp;cols=4">4</a>
-    | <a href="{U_COLS}&amp;cols=5">5</a>
-    | <a href="{U_COLS}&amp;cols=6">6</a>
-    | <a href="{U_COLS}&amp;cols=7">7</a>
-    | <a href="{U_COLS}&amp;cols=8">8</a>
-    | <a href="{U_COLS}&amp;cols=9">9</a>
-    | <a href="{U_COLS}&amp;cols=10">10</a>
-  </p>
 
   <p>{lang:elements per page}:
       <a href="{U_DISPLAY}&amp;display=20">20</a>
@@ -55,6 +18,32 @@
     | <a href="{U_DISPLAY}&amp;display=100">100</a>
     | <a href="{U_DISPLAY}&amp;display=all">{lang:all}</a>
   </p>
+
+</fieldset>
+
+<form action="{F_ACTION}" method="post">
+
+<fieldset>
+
+  <legend>{lang:Elements}</legend>
+
+  <div class="navigationBar">{NAV_BAR}</div>
+
+  <!-- BEGIN thumbnails -->
+  <ul class="thumbnails">
+    <!-- BEGIN thumbnail -->
+    <li><span class="wrap1"><span class="wrap2">
+        <label>
+        <img src="{thumbnails.thumbnail.SRC}"
+             alt="{thumbnails.thumbnail.ALT}"
+             title="{thumbnails.thumbnail.TITLE}"
+             class="thumbLink" />
+        <input type="checkbox" name="selection[]" value="{thumbnails.thumbnail.ID}" />
+        </label>
+    </li>
+    <!-- END thumbnail -->
+  </ul>
+  <!-- END thumbnails -->
 
 </fieldset>
 
@@ -156,30 +145,22 @@
 
 <fieldset>
 
-  <legend>{lang:Elements}</legend>
+  <legend>{lang:Caddie management}</legend>
 
-  <div class="navigationBar">{NAV_BAR}</div>
+  <ul style="list-style-type:none;">
 
-  <!-- BEGIN thumbnails -->
-  <!--table valign="top" align="center" class="thumbnail"-->
-  <table class="thumbnail">
-    <!-- BEGIN line -->
-    <tr>
-      <!-- BEGIN thumbnail -->
-      <td class="thumbnail">
-        <label>
-        <img src="{thumbnails.line.thumbnail.SRC}"
-             alt="{thumbnails.line.thumbnail.ALT}"
-             title="{thumbnails.line.thumbnail.TITLE}"
-             class="thumbLink" />
-        <input type="checkbox" name="selection[]" value="{thumbnails.line.thumbnail.ID}" />
-        </label>
-      </td>
-      <!-- END thumbnail -->
-    </tr>
-    <!-- END line -->
-  </table>
-  <!-- END thumbnails -->
+    <!-- BEGIN in_caddie -->
+    <li><label><input type="radio" name="caddie_action" value="empty_all" /> {lang:Empty caddie}</label></li>
+    <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {lang:Take selected elements out of caddie}</label></li>
+    <!-- END in_caddie -->
+
+    <!-- BEGIN not_in_caddie -->
+    <li><label><input type="radio" name="caddie_action" value="add_selected" /> {lang:Add selected elements to caddie}</label></li>
+    <!-- END not_in_caddie -->
+  
+  </ul>
+
+  <p><input type="submit" value="{L_SUBMIT}" name="submit_caddie" {TAG_INPUT_ENABLED}/></p>
 
 </fieldset>
 

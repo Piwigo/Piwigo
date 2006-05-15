@@ -205,7 +205,6 @@ $template->assign_vars(
 
     'L_SUBMIT'=>$lang['submit'],
 
-    'U_COLS'=>$base_url.get_query_string_diff(array('cols')),
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
 
     'U_UNIT_MODE'
@@ -339,8 +338,6 @@ $template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
 
-$page['cols'] = !empty($_GET['cols']) ? intval($_GET['cols']) : 5;
-
 // how many items to display on this page
 if (!empty($_GET['display']))
 {
@@ -382,10 +379,6 @@ SELECT id,path,tn_ext
   if (mysql_num_rows($result) > 0)
   {
     $template->assign_block_vars('thumbnails', array());
-    // first line
-    $template->assign_block_vars('thumbnails.line', array());
-    // current row displayed
-    $row_number = 0;
   }
 
   while ($row = mysql_fetch_array($result))
@@ -393,7 +386,7 @@ SELECT id,path,tn_ext
     $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
 
     $template->assign_block_vars(
-      'thumbnails.line.thumbnail',
+      'thumbnails.thumbnail',
       array(
         'ID' => $row['id'],
         'SRC' => $src,
@@ -401,13 +394,6 @@ SELECT id,path,tn_ext
         'TITLE' => 'TODO'
         )
       );
-
-    // create a new line ?
-    if (++$row_number == $page['cols'])
-    {
-    $template->assign_block_vars('thumbnails.line', array());
-    $row_number = 0;
-    }
   }
 }
 
