@@ -177,28 +177,39 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
 
+$template->assign_vars(
+  array(
+    'TODAY_DAY' => date('d', time()),
+    'TODAY_MONTH' => date('m', time()),
+    'TODAY_YEAR' => date('Y', time()),
+    'S_SEARCH_ACTION' => 'search.php',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
+    'U_HOME' => make_index_url(),
+    )
+  );
+
 $available_tags = get_available_tags(
       isset($user['forbidden_categories'])
       ? explode(',', $user['forbidden_categories'])
       : null
       );
-usort( $available_tags, 'name_compare');
 
-$template->assign_vars(array(
-  'TODAY_DAY' => date('d', time()),
-  'TODAY_MONTH' => date('m', time()),
-  'TODAY_YEAR' => date('Y', time()),
-  'S_SEARCH_ACTION' => 'search.php',
-  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
-  'U_HOME' => make_index_url(),
+if (count($available_tags) > 0)
+{
+  usort( $available_tags, 'name_compare');
 
-  'TAG_SELECTION' => get_html_tag_selection(
-    $available_tags,
-    'tags',
-    isset($_POST['tags']) ? $_POST['tags'] : array()
-    ),
-  )
-);
+  $template->assign_block_vars('tags', array());
+  
+  $template->assign_vars(
+    array(
+      'TAG_SELECTION' => get_html_tag_selection(
+        $available_tags,
+        'tags',
+        isset($_POST['tags']) ? $_POST['tags'] : array()
+        ),
+      )
+    );
+}
 
 //------------------------------------------------------------- categories form
 $query = '

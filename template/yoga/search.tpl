@@ -36,12 +36,15 @@
     <input type="text" style="width: 300px" name="search_author" size="30"  onfocus="this.className='focus';" onblur="this.className='nofocus';"/>
   </label>
 </fieldset>
+
+<!-- BEGIN tags -->
 <fieldset>
   <legend>{lang:Search tags}</legend>
   {TAG_SELECTION}
   <label><span><input type="radio" name="tag_mode" value="AND" checked="checked" /> {lang:All tags}</span></label>
   <label><span><input type="radio" name="tag_mode" value="OR" /> {lang:Any tag}</span></label>
 </fieldset>
+<!-- END tags -->
 
 <fieldset>
   <legend>{lang:search_date}</legend>

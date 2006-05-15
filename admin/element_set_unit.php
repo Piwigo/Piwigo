@@ -225,6 +225,22 @@ SELECT tag_id
     {
       list($year,$month,$day) = array('','','');
     }
+
+    if (count($all_tags) > 0)
+    {
+      $tag_selection = get_html_tag_selection(
+        $all_tags,
+        'tags-'.$row['id'],
+        $selected_tags
+        );
+    }
+    else
+    {
+      $tag_selection =
+        '<p>'.
+        l10n('No tag defined. Use Administration>Pictures>Tags').
+        '</p>';
+    }
     
     $template->assign_block_vars(
       'element',
@@ -243,11 +259,7 @@ SELECT tag_id
         'DESCRIPTION' => @$row['comment'],
         'DATE_CREATION_YEAR' => $year,
         
-        'TAG_SELECTION' => get_html_tag_selection(
-          $all_tags,
-          'tags-'.$row['id'],
-          $selected_tags
-          ),
+        'TAG_SELECTION' => $tag_selection,
         )
       );
     
