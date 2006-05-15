@@ -563,7 +563,7 @@ function get_html_tag_selection(
 
 function name_compare($a, $b)
 {
-  return strcmp($a['name'], $b['name']);
+  return strcmp(strtolower($a['name']), strtolower($b['name']));
 }
 
 /**

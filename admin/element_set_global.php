@@ -293,7 +293,6 @@ if (count($page['cat_elements_id']) > 0)
       INNER JOIN '.TAGS_TABLE.' ON tag_id = id
     WHERE image_id IN ('.implode(',', $page['cat_elements_id']).')
     GROUP BY tag_id
-    ORDER BY name ASC
   ;';
   $result = pwg_query($query);
 
@@ -302,6 +301,8 @@ if (count($page['cat_elements_id']) > 0)
   {
     array_push($tags, $row);
   }
+
+  usort($tags, 'name_compare');
 
   $template->assign_vars(
     array(

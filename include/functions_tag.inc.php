@@ -91,9 +91,10 @@ SELECT DISTINCT image_id
 function get_all_tags()
 {
   $query = '
-SELECT id AS tag_id, name, url_name
+SELECT id AS tag_id,
+       name,
+       url_name
   FROM '.TAGS_TABLE.'
-  ORDER BY name
 ;';
   $result = pwg_query($query);
 
@@ -103,6 +104,8 @@ SELECT id AS tag_id, name, url_name
   {
     array_push($tags, $row);
   }
+
+  usort($tags, 'name_compare');
 
   return $tags;
 }
