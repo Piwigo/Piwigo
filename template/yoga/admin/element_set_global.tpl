@@ -37,9 +37,9 @@
         <img src="{thumbnails.thumbnail.SRC}"
              alt="{thumbnails.thumbnail.ALT}"
              title="{thumbnails.thumbnail.TITLE}"
-             class="thumbLink" />
+             class="thumbnail" />
         <input type="checkbox" name="selection[]" value="{thumbnails.thumbnail.ID}" />
-        </label>
+        </label></span></span>
     </li>
     <!-- END thumbnail -->
   </ul>
