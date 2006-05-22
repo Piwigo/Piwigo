@@ -30,9 +30,6 @@
 //
 $template->set_filenames(array('header'=>'header.tpl'));
 
-$css = PHPWG_ROOT_PATH.'template/'.$user['template'];
-$css.= '/'.$user['template'].'.css';
-
 $template->assign_vars(
   array(
     'GALLERY_TITLE' =>
@@ -52,7 +49,6 @@ $template->assign_vars(
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
 
-    'T_STYLE' => $css,
     'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled onclick="return false;"' : '')
     ));
 
