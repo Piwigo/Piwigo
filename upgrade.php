@@ -81,10 +81,10 @@ SHOW TABLES
 
   while ($row = mysql_fetch_row($result))
   {
-    array_push(
-      $tables,
-      preg_replace('/^'.PREFIX_TABLE.'/', '', $row[0])
-      );
+    if (preg_match('/^'.PREFIX_TABLE.'/', $row[0]))
+    {
+      array_push($tables, $row[0]);
+    }
   }
 
   return $tables;
@@ -102,7 +102,7 @@ function get_columns_of($tables)
   foreach ($tables as $table)
   {
     $query = '
-DESC '.PREFIX_TABLE.$table.'
+DESC '.$table.'
 ;';
     $result = mysql_query($query);
 
@@ -161,10 +161,10 @@ if (!isset($_GET['version']))
   $tables = get_tables();
   $columns_of = get_columns_of($tables);
 
-  if (!in_array('param', $columns_of['config']))
+  if (!in_array('param', $columns_of[PREFIX_TABLE.'config']))
   {
     // we're in branch 1.3, important upgrade, isn't it?
-    if (in_array('user_category', $tables))
+    if (in_array(PREFIX_TABLE.'user_category', $tables))
     {
       $current_release = '1.3.1';
     }
@@ -173,11 +173,11 @@ if (!isset($_GET['version']))
       $current_release = '1.3.0';
     }
   }
-  else if (!in_array('user_cache', $tables))
+  else if (!in_array(PREFIX_TABLE.'user_cache', $tables))
   {
     $current_release = '1.4.0';
   }
-  else if (!in_array('tags', $tables))
+  else if (!in_array(PREFIX_TABLE.'tags', $tables))
   {
     $current_release = '1.5.0';
   }
