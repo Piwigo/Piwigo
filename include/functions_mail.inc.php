@@ -122,10 +122,6 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
   $content = $infos;
   $content.= $conf_mail['text_footer'];
 
-  // Convert Text on HTML format to raw text format
-  $subject = html_entity_decode($subject);
-  $content = html_entity_decode($content);
-
   if ($conf_mail['mail_options'])
   {
     $options = '-f '.$from;
