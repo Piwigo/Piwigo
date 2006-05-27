@@ -1,4 +1,4 @@
-/* $Id:$ */
+/* $Id$ */
 
 /* Set the width of the menubar for the galery */
 #menubar {
@@ -11,6 +11,9 @@
 /* IE5 and IE6 don't get that */
 BODY {
   min-width: 60em;	/* ~ 3* #menubar width */
+}
+BODY#thePopuphelpPage {
+  min-width: 0;
 }
 
 /* Set the width of the menubar for the admin section */
