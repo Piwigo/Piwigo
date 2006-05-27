@@ -12,6 +12,9 @@
 BODY {
   min-width: 60em;	/* ~ 3* #menubar width */
 }
+BODY#thePopuphelpPage {
+  min-width: 0;
+}
 
 /* Set the width of the menubar for the admin section */
 BODY#theAdminPage #menubar {
