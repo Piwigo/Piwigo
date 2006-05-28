@@ -46,9 +46,16 @@ H2, #menubar DT, .throw  {
 }
 
 /* borders */
-#menubar DL, #content, #imageToolBar,
+#menubar DL, #content,
 #comments DIV.comment BLOCKQUOTE {
   border: 1px solid #000000;
+}
+
+#imageHeaderBar {
+  border-top: 1px solid #000000;
+}
+H2, #menubar DT, #imageToolBar {
+  border-bottom: 1px solid #000000;
 }
 
 #theImage IMG {
@@ -76,10 +83,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 #content UL.thumbnails SPAN.wrap2:hover {
   border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
-}
-
-H2, #menubar DT, #imageHeaderBar {
-  border-bottom: 1px solid #000000;
 }
 
 /* links */
