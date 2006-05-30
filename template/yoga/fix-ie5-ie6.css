@@ -1,5 +1,10 @@
-/* $Id:$ */
+/* $Id$ */
 /* Issues in IE from 5 to 6 only to to be used with IE7                       */
+
+/* fix lack of :hover behaviour for non link objects */
+BODY {
+  behavior:url("template-common/csshover.htc");
+}
 
 /* to avoid vanishing objects in IE6 */
 H1, #theHeader {
