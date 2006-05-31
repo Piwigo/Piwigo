@@ -345,10 +345,10 @@ SELECT id
   }
 
   if ( empty($forbidden_array) )
-  {// at least, the list contains -1 values. This category does not exists so
-   // where clauses such as "WHERE category_id NOT IN(-1)" will always be
+  {// at least, the list contains 0 value. This category does not exists so
+   // where clauses such as "WHERE category_id NOT IN(0)" will always be
    // true.
-    array_push($forbidden_array, '-1');
+    array_push($forbidden_array, 0);
   }
 
   return implode(',', $forbidden_array);
