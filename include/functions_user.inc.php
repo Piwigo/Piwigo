@@ -362,7 +362,10 @@ SELECT cat_id
   // at least, the list contains -1 values. This category does not exists so
   // where clauses such as "WHERE category_id NOT IN(-1)" will always be
   // true.
-  array_push($forbidden_array, '-1');
+  if (count($forbidden_array) == 0)
+  {
+    array_push($forbidden_array, 0);
+  }
   
   return implode(',', $forbidden_array);
 }

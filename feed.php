@@ -307,7 +307,7 @@ $user['forbidden_categories'] = calculate_permissions($user['id'],
                                                       $user['status']);
 if ('' == $user['forbidden_categories'])
 {
-  $user['forbidden_categories'] = '-1';
+  $user['forbidden_categories'] = '0';
 }
 
 list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
