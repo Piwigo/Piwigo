@@ -164,7 +164,7 @@ for ($i=0; $i<count($available_order_by); $i++)
 $user_options = array(
   array(
     'value' => 'all',
-    'content' => l10n('All'),
+    'content' => l10n('all'),
     ),
   array(
     'value' => 'user',
