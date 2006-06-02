@@ -87,6 +87,7 @@ $lang['Grant selected groups'] = 'Grant selected groups';
 $lang['Grant selected users'] = 'Grant selected users';
 $lang['Group name'] = 'Group name';
 $lang['Groups'] = 'Groups';
+$lang['Guests'] = 'Guests';
 $lang['History'] = 'History';
 $lang['Informations'] = 'Informations';
 $lang['Interface theme'] = 'Interface theme';

@@ -25,7 +25,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
 $lang['%d categories including %d physical and %d virtual'] = '%d catégories dont %d physiques et %d virtuelles';
 $lang['%d categories moved'] = '%d catégories déplacées';
 $lang['%d comments'] = '%d commentaires utilisateur';
@@ -88,6 +87,7 @@ $lang['Grant selected groups'] = 'Donner l\'accès aux groupes sélectionnés';
 $lang['Grant selected users'] = 'Donner l\'accès aux utilisateurs sélectionnés';
 $lang['Group name'] = 'Nom du groupe';
 $lang['Groups'] = 'Groupes';
+$lang['Guests'] = 'Invités';
 $lang['History'] = 'Historique';
 $lang['Informations'] = 'Informations';
 $lang['Interface theme'] = 'Theme de l\'interface';
