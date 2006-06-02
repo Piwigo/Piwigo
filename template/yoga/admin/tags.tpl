@@ -46,7 +46,7 @@
 
     <p>
       <input type="submit" name="edit" value="{lang:Edit selected tags}" {TAG_INPUT_ENABLED}/>
-      <input type="submit" name="delete" value="{lang:Delete selected tags}" {TAG_INPUT_ENABLED}/>
+      <input type="submit" name="delete" value="{lang:Delete selected tags}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}/>
     </p>
   </fieldset>
 
