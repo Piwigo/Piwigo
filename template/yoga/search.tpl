@@ -55,7 +55,7 @@
     </label></li>
     <li><label>
       <input type="radio" name="date_type" value="date_available" />{lang:Post date}
-    </li></label>
+    </label></li>
   </ul>
   <ul>
     <li><label>{lang:search_date_from}</label></li>
@@ -116,13 +116,13 @@
     </label></li>
   </ul>
   <ul>
-    <li><label>{lang:search_sort}</li></label>
+    <li><label>{lang:search_sort}</label></li>
     <li><label>
       <input type="radio" name="sd" value="AND" />{lang:search_ascending}
-    </li></label>
+    </label></li>
     <li><label>
       <input type="radio" name="sd" value="d" checked="checked" />{lang:search_descending}
-    </li></label>
+    </label></li>
   </ul>
 </fieldset>
 <p>
