@@ -21,7 +21,7 @@ BODY {
   background-color: #000000;
 }
 
-H3, #the_page, #imageHeaderBar, #imageToolBar A:hover {
+H3, #the_page, #imageHeaderBar, #imageToolBar A:hover, .row1  {
   background-color: #3f3f3f;
 }
 

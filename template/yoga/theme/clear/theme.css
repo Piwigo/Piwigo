@@ -10,7 +10,7 @@ BODY, H3, .throw {
   background-color: #ffffff;	/* white */
 }
 
-H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
+H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
   background-color: #d3d3d3;
 }
 
