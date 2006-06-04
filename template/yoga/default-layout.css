@@ -52,19 +52,19 @@ HR.separation {
 
 /** General defaults **/
 INPUT {margin: 0;}
-ul, dl, li { text-align: left;}
+UL, DL, LI { text-align: left;}
 TABLE {			/* horizontaly centered */
   margin-left: auto;
   margin-right: auto;
 }
 /* for debugging purpose */
-pre { text-align:left; }
+PRE { text-align:left; }
 
 /** forms **/
 
-form { padding: 0em; }
+FORM { padding: 0em; }
 
-form p {
+FORM P {
 	text-align: center;
 	margin-top: 2em;
 	margin-bottom: 2em;
@@ -73,28 +73,52 @@ form p {
 	font-size: 80%;
 }
 
-textarea.description {
+TEXTAREA.description {
   height: 100px;
   width: 500px;
   overflow: auto;
 }
-select.categoryList {
+SELECT.categoryList {
   width: 100%;
 }
 
 /** go to an admin.css ? **/
 
-.table2 {
+TABLE.table2 {
   border: 1px solid black;
   margin: 1em auto;
   padding: 0;
 }
 
-.table2 TD, .table2 TH {
+TABLE.table2 TD, TABLE.table2 TH {
   padding: 0 1em;
 }
 
-form#add_virtual p { text-align: left; }
+TABLE.table2 TR {
+  text-align: left;
+}
+
+TABLE.table2 TR.throw {
+  text-align: center;
+}
+
+.hour {
+  white-space: pre;
+}
+
+.number {
+  text-align: right;
+}
+  
+TABLE#dailyStats {
+  width: 60%;
+}
+
+TABLE#detailedStats {
+  width: 80%;
+}
+
+FORM#add_virtual P { text-align: left; }
 FORM#categoryOrdering, FORM#addVirtual {
   padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
   padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
