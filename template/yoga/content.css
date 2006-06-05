@@ -32,7 +32,6 @@ BODY#theNBMPage #content
 /* Thumbnails customization */
 #content UL.thumbnails SPAN.thumbLegend {
   font-size: 80%;		/* font size */
-  height: 3em;			/* max legend height (don't set auto to be Geko friendly)*/
   overflow: hidden;		/* oversized legend is clipped */
 }
 
