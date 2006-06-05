@@ -41,10 +41,11 @@ BODY#theAdminPage #content {
 
 /* Category thumbnails on main page */
 #content UL.thumbnailCategories LI {
-  width: 49.9%; /* 49.9% for 2 per line, 33.3% for 3 per line*/
+  width: 49.9%;		/* 49.9% for 2 per line, 33.3% for 3 per line*/
 }
 
-/* display/hide thumbnails legend */
+/* Set defaults for thumbnails legend */
 #content UL.thumbnails SPAN.thumbLegend {
-  display: block;		/* display: none; if you don't want legend */
+  display: block;	/* display: none; if you don't want legend */
+  height: 4em;		/* legend height (don't set auto to be Gecko friendly)*/
 }
