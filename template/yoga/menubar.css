@@ -104,4 +104,5 @@ FORM#quickconnect LABEL {
 #menubar #menuTagCloud LI
 {
   display: inline;
+  white-space: nowrap;
 }
