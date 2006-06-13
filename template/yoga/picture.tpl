@@ -43,7 +43,7 @@
 <!-- BEGIN next -->
   <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
 <!-- END next -->
-  <a class="navButton up" href="{U_UP}" title="{L_UP_HINT}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
+  <a class="navButton up" href="{U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
 <!-- BEGIN previous -->
   <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
 <!-- END previous -->
