@@ -394,7 +394,7 @@ SELECT value
 ;';
 list($d) = array_from_query($query, 'value');
 
-$page_banner='<div id="theHeader"><h1>'.$t.'</h1><p>'.$d.'</p></div>';
+$page_banner='<h1>'.$t.'</h1><p>'.$d.'</p>';
 $page_banner=addslashes($page_banner);
 $query = '
 INSERT INTO '.PREFIX_TABLE.'config

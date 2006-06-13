@@ -18,7 +18,7 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_title','
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_url','http://demo.phpwebgallery.net','URL given in RSS feed');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate','true','Rating pictures feature is enabled');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<div id=\"theHeader\"><h1>PhpWebGallery demonstration site</h1><p>My photos web site</p></div>','html displayed on the top each page of your gallery');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<h1>PhpWebGallery demonstration site</h1><p>My photos web site</p>','html displayed on the top each page of your gallery');
 
 -- Notification by mail
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');

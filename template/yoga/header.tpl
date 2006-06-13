@@ -30,4 +30,4 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <body id="{BODY_ID}">
 <div id="the_page">
 
-{PAGE_BANNER}
+<div id="theHeader">{PAGE_BANNER}</div>
