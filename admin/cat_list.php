@@ -249,6 +249,8 @@ SELECT id_uppercat, COUNT(*) AS nb_subcats
   {
     $categories[$row['id_uppercat']]['nb_subcats'] = $row['nb_subcats'];
   }
+
+  $template->assign_block_vars('categories', array());
 }
 
 foreach ($categories as $category)
@@ -267,7 +269,7 @@ foreach ($categories as $category)
   }
 
   $template->assign_block_vars(
-    'category',
+    'categories.category',
     array(
       'NAME'       => $category['name'],
       'ID'         => $category['id'],
@@ -288,7 +290,7 @@ foreach ($categories as $category)
   if (empty($category['dir']))
   {
     $template->assign_block_vars(
-      'category.delete',
+      'categories.category.delete',
       array(
         'URL'=>$self_url.'&amp;delete='.$category['id']
         )
@@ -298,7 +300,7 @@ foreach ($categories as $category)
   if ($category['nb_images'] > 0)
   {
     $template->assign_block_vars(
-      'category.elements',
+      'categories.category.elements',
       array(
         'URL'=>$base_url.'element_set&amp;cat='.$category['id']
         )
