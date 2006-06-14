@@ -426,7 +426,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
           $day++)
     {
       $dow = ($first_day_dow + $day-1)%7;
-      if ($dow==0)
+      if ($dow==0 and $day!=1)
       {
         $template->assign_block_vars('calendar.thumbnails.row', array());
       }

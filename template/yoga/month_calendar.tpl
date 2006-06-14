@@ -1,19 +1,6 @@
 <!-- BEGIN calendar -->
 <!-- $Id:$ -->
 <!-- BEGIN thumbnails -->
-<style type="text/css">
-<!--
-TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank
-{
-  width: {calendar.thumbnails.WIDTH}px;
-  height: {calendar.thumbnails.HEIGHT}px;
-}
-DIV.calImg
-{
-  width: {calendar.thumbnails.WIDTH}px;
-  height: {calendar.thumbnails.HEIGHT}px;
-}
-//--></style>
 <table class="calMonth">
 <!-- BEGIN head -->
  <thead><tr>
@@ -26,14 +13,14 @@ DIV.calImg
  <tr>
  <!-- BEGIN col -->
  <!-- BEGIN blank -->
- <td class="calDayCellBlank">
+ <td class="calDayCellBlank" style="width:{calendar.thumbnails.WIDTH}px;height:{calendar.thumbnails.HEIGHT}px;">
  <!-- END blank -->
  <!-- BEGIN empty -->
- <td class="calDayCellEmpty">{calendar.thumbnails.row.col.empty.LABEL}
+ <td class="calDayCellEmpty" style="width:{calendar.thumbnails.WIDTH}px;height:{calendar.thumbnails.HEIGHT}px;">{calendar.thumbnails.row.col.empty.LABEL}
  <!-- END empty -->
  <!-- BEGIN full -->
  <td class="calDayCellFull"><div class="calBackDate">{calendar.thumbnails.row.col.full.LABEL}</div><div class="calForeDate">{calendar.thumbnails.row.col.full.LABEL}</div>
-	<div class="calImg"><a href="{calendar.thumbnails.row.col.full.U_IMG_LINK}">
+	<div class="calImg" style="width:{calendar.thumbnails.WIDTH}px;height:{calendar.thumbnails.HEIGHT}px;"><a href="{calendar.thumbnails.row.col.full.U_IMG_LINK}">
 	  <img style="{calendar.thumbnails.row.col.full.STYLE}" {calendar.thumbnails.row.col.full.IMG_WIDTH} {calendar.thumbnails.row.col.full.IMG_HEIGHT}
 	       src="{calendar.thumbnails.row.col.full.IMAGE}" alt="{calendar.thumbnails.row.col.full.IMAGE_ALT}"
 	    title="{calendar.thumbnails.row.col.full.IMAGE_ALT}">
