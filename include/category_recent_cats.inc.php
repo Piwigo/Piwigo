@@ -78,7 +78,7 @@ if ($conf['subcatify'])
   $comment = null;
   if (isset($row['comment']))
   {
-    $comment = strip_tags($row['comment'], '<a><br><p><b><i><small><strong>');
+    $comment = strip_tags($row['comment'], '<a><br><p><b><i><small><strong><font>');
   }
 
   // for each category, we have to search a recent picture to display and
