@@ -213,7 +213,7 @@ FORM.filter FIELDSET LABEL SPAN SELECT {
   margin: 0;
 }
 
-FORM.filter FIELDSET P,
+FORM.filter FIELDSET P
 {
   clear: left;
   display: block;
