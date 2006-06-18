@@ -820,7 +820,8 @@ function l10n($key)
 
 /**
  * Translate string in string ascii7bits
- * It's possible to do that with iconv_substr but this fonction is not avaible on all the providers.
+ * It's possible to do that with iconv_substr
+ * but this fonction is not avaible on all the providers.
  *
  * @param string str
  * @return string
