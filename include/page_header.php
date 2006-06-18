@@ -28,7 +28,7 @@
 //
 // Start output of page
 //
-if (IN_ADMIN)
+if (defined('IN_ADMIN') && IN_ADMIN)
 {
   $template->set_rootdir(PHPWG_ROOT_PATH.'template/admin/'.$user['template']);
   $template->set_filenames(array('header'=>'header.tpl'));

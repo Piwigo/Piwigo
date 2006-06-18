@@ -201,7 +201,7 @@ if ($user['is_the_guest'])
 list($user['template'], $user['theme']) = explode('/', $user['template']);
 // TODO : replace initial $user['template'] by $user['layout']
 
-if (IN_ADMIN) 
+if (defined('IN_ADMIN') && IN_ADMIN) 
 {
   $template_root = 'admin';
 } 
