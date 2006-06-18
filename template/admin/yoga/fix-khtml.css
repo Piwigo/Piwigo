@@ -1,0 +1,14 @@
+/* $Id: fix-khtml.css 1180 2006-04-15 09:53:11Z chrisaga $ */
+/* Issue in Safari/Konqueror only                                                 */
+/* If H2 has a 0 margin-top categoryActions doesn't float right but overwrites H2 */
+#content>DIV.titrePage>H2 {
+    margin: 1px 0 0 0;	/* add an arbitrary margin-top */
+}
+
+#content>div.titrePage {
+    position: relative;
+    top: -1px;		/* move the container up by the same amount */
+    margin-bottom: 5px; 
+}
+/* end Safari/Konqueror */
+

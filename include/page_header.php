@@ -28,7 +28,16 @@
 //
 // Start output of page
 //
-$template->set_filenames(array('header'=>'header.tpl'));
+if (IN_ADMIN)
+{
+  $template->set_rootdir(PHPWG_ROOT_PATH.'template/admin/'.$user['template']);
+  $template->set_filenames(array('header'=>'header.tpl'));
+}
+else
+{
+  $template->set_rootdir(PHPWG_ROOT_PATH.'template/public/'.$user['template']);
+  $template->set_filenames(array('header'=>'header.tpl'));
+}
 
 $template->assign_vars(
   array(

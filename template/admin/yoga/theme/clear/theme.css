@@ -1,0 +1,95 @@
+/* $Id: theme.css 1339 2006-06-04 10:13:38Z chrisaga $ */
+
+/* text color */
+BODY, H1, H2, H3, DT {
+  color:#696969;	/* dimgray */
+}
+
+/* backgrounds */
+BODY, H3, .throw {
+  background-color: #ffffff;	/* white */
+}
+
+H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
+  background-color: #d3d3d3;
+}
+
+#menubar DL, #content, #imageToolBar {
+  background-color: #eeeeee;
+}
+
+/* borders */
+#menubar DL, #content, #imageToolBar,
+#comments DIV.comment BLOCKQUOTE {
+  border: 1px solid #d3d3d3;
+}
+
+#theImage IMG {
+  border-color: #d3d3d3;
+}
+
+#content UL.thumbnail IMG {
+    border: 1px solid #a0a0a0;
+}
+
+FIELDSET, INPUT, SELECT, TEXTAREA,
+#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.thumbnailCategory {
+  border: 1px solid gray;
+}
+
+#comments DIV.comment BLOCKQUOTE {
+  border-left: 2px solid #696969;
+  background-color: #eee;
+}
+
+#content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  -moz-border-radius: 4px;	/* round corners with Geko */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+#content UL.thumbnails SPAN.wrap2:hover {
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+}
+
+/* links */
+A, .rateButton {
+    color: #005e89;
+    background: transparent;
+}
+
+A:hover {
+    color: #858460;
+}
+
+#imageToolBar A, #imageToolBar A:hover {
+    border-bottom: none;
+}
+
+A.navThumb, A.navThumb:hover {
+    border-bottom: none;
+}
+
+/* others */
+.pleaseNote {
+    background: #9c9c9c;
+    color: #ffff99;
+    padding: 1ex;
+    font-weight: bold;
+}
+
+/*calendar elements*/
+SPAN.calItemEmpty { color: silver; }
+
+SPAN.calItem, SPAN.calItemEmpty
+{
+  border: 1px solid silver;
+}
+
+/* nice looking month calendar*/
+TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid #7E7262;}
+
+TD.calDayCellEmpty { color: silver; }
+
+.calBackDate { color: #000; }
+.calForeDate { color: #fff; }

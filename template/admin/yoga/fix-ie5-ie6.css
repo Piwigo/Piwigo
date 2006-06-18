@@ -1,0 +1,22 @@
+/* $Id: fix-ie5-ie6.css 1328 2006-05-30 19:00:17Z chrisaga $ */
+/* Issues in IE from 5 to 6 only to to be used with IE7                       */
+
+/* fix lack of :hover behaviour for non link objects */
+BODY {
+  behavior:url("template-common/csshover.htc");
+}
+
+/* to avoid vanishing objects in IE6 */
+H1, #theHeader {
+  width: 100%;	/* <- useless but seems to make IE6 happy */
+}
+#content {
+  height: 1em; /* for IE6 it's like min-height */
+}
+
+/* to get less hugly checkboxes at least in tagSelection */
+UL.tagSelection LI INPUT,
+#content UL.thumbnails SPAN.wrap2 input {
+  border: none;
+  background-color: transparent;
+}

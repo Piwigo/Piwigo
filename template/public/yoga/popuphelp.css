@@ -1,0 +1,22 @@
+BODY#thePopuphelpPage #copyright {
+  display: none;
+}
+
+BODY#thePopuphelpPage #theHeader P {
+  display: none;
+}
+
+BODY#thePopuphelpPage #content P {
+  text-align: justify;
+  padding: 0.5em;
+}
+
+BODY#thePopuphelpPage #content OL LI,
+BODY#thePopuphelpPage #content UL LI
+{
+  margin-bottom: 0.5em;
+}
+
+BODY#thePopuphelpPage P#pageBottomActions A {
+  border: none;
+}

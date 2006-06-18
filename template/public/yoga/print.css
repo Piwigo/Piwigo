@@ -1,0 +1,14 @@
+#menubar, #content .navigationBar, UL.categoryActions, #content DIV.calendarViews, .calendarBar,
+#imageToolBar, .navThumb, #addComment {
+    display: none;
+}
+
+BODY {
+    margin: 0;
+    color: #000000;
+    background: #ffffff;
+}
+
+#content {
+    margin: 0;
+}

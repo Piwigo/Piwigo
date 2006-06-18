@@ -1,0 +1,149 @@
+#imageHeaderBar {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+
+#imageHeaderBar .browsePath {
+  float: left;
+  margin-left: 10px;
+}
+
+#imageHeaderBar .imageNumber {
+  float: right;
+  margin-right: 10px;
+}
+
+#imageHeaderBar H2 {
+  text-align: center;
+  padding: 0;
+  clear: both;
+}
+
+#imageToolBar {
+  text-align: center;
+  position: relative;
+  clear: both;
+  margin-bottom: 4px;
+  padding: 0;
+}
+
+#imageToolBar {
+    height: 28px;
+}
+#imageToolBar A, #imageToolBar IMG {
+    display: block;
+    border: none;
+    margin: 0; padding: 0;
+}
+#imageToolBar A { width: 48px; }
+#imageToolBar IMG { margin: 2px auto; }
+#imageToolBar .randomButtons A { float: left; }
+#imageToolBar .navButtons    A { float: right; }
+
+#theImage {
+    clear: left;
+}
+
+#theImage>IMG {
+    display: block;
+    margin: 0 auto;
+}
+
+#theImage IMG {
+  border-width: 3px;
+  border-style: solid;
+}
+
+.navThumb {
+    margin-top: 2px;
+}
+#thumbPrev {
+    float: left;
+}
+
+#thumbNext {
+    float: right;
+}
+
+#linkPrev {
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+#linkNext {
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+TABLE.infoTable .value {
+    text-align: left;
+}
+
+TABLE.infoTable .label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 0.5em;
+}
+
+TABLE.infoTable TD.value UL {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+  list-style-type: square;
+}
+
+.rateButton, .rateButtonSelected {
+  background-color:transparent;
+  padding:0;
+  border:0;
+}
+
+.rateButton {
+  cursor: pointer;
+}
+
+.rateButtonSelected {
+  color:inherit;
+  font-weight:bold;
+  font-size:120%;
+}
+
+#comments {
+    text-align: left;
+}
+
+#comments .comment {
+    margin: 3ex 0;
+}
+
+#comments H2 {
+    margin: 1ex 0;
+}
+
+#comments P {
+    margin: 0;
+}
+
+#comments .author {
+    font-weight: bold;
+}
+
+#comments BLOCKQUOTE {
+    margin: 1ex 0 1ex 2em;
+    padding: 4px 4px 0 /* IE bug */ 4px;
+}
+
+#comments BLOCKQUOTE P {
+    margin: 0;
+    padding-bottom: 4px; /* IE bug follow-up */
+}
+#comments BLOCKQUOTE P+P {
+    margin-top: 1ex;
+}
+
+#comments P.userCommentDelete {
+    float: right;
+    margin: 0;
+}

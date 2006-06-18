@@ -1,0 +1,325 @@
+/* $Id: default-layout.css 1356 2006-06-15 20:49:39Z nikrou $ */
+
+BODY {
+    margin: 5px;
+    padding: 0;
+    font-size: 0.8em;
+    font-family: Bitsream Vera Sans, Helvetica, Arial, sans-serif;
+    text-align: center; /* be nice to IE5 */
+}
+
+#the_page {
+    /* Just in case another template needs an inner frame */
+}
+
+H1 {
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+    padding: 0; margin: 1ex 0 2ex 0;
+}
+
+H2 {
+    margin: 0;
+    padding: 5px 5px 5px 5px;
+    text-align: left;
+    font-size: 120%;
+}
+
+A {
+    text-decoration:none;
+    border-bottom: 1px dotted #005e89;
+}
+A:hover {
+    border-bottom: 1px solid #858460;
+}
+
+IMG {
+    border: none;
+}
+
+HR.separation {
+  visibility: hidden;
+  clear: both;
+}
+
+#copyright {
+    clear: both;
+    font-size: 83%;
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+/** General defaults **/
+INPUT {margin: 0;}
+UL, DL, LI { text-align: left;}
+TABLE {			/* horizontaly centered */
+  margin-left: auto;
+  margin-right: auto;
+}
+/* for debugging purpose */
+PRE { text-align:left; }
+
+/** forms **/
+
+FORM { padding: 0em; }
+
+FORM P {
+	text-align: center;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+.small {
+	font-size: 80%;
+}
+
+TEXTAREA.description {
+  height: 100px;
+  width: 500px;
+  overflow: auto;
+}
+SELECT.categoryList {
+  width: 100%;
+}
+
+/** go to an admin.css ? **/
+
+TABLE.table2 {
+  border: 1px solid black;
+  margin: 1em auto;
+  padding: 0;
+}
+
+TABLE.table2 TD, TABLE.table2 TH {
+  padding: 0 1em;
+}
+
+TABLE.table2 TR {
+  text-align: left;
+}
+
+TABLE.table2 TR.throw {
+  text-align: center;
+}
+
+.hour {
+  white-space: pre;
+}
+
+.number {
+  text-align: right;
+}
+  
+TABLE#dailyStats {
+  width: 60%;
+}
+
+TABLE#detailedStats {
+  width: 80%;
+}
+
+FORM#add_virtual P { text-align: left; }
+FORM#categoryOrdering, FORM#addVirtual {
+  padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+  padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+}
+FORM#categoryOrdering p {
+	text-align: left;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+UL.categoryUl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+LI.categoryLi {
+  border: 1px solid gray;
+  padding: 0px 5px;
+  margin-bottom: 5px;
+}
+
+FORM#categoryOrdering UL.categoryActions {
+  float: right;
+  margin-top: 5px;
+}
+
+FORM#cat_modify TABLE { width: auto; }
+
+/**
+ * Filter forms are displayed label by label with the input (or select...)
+ * below the label. Use an UL to make a group (radiobox for instance).
+ * Use a SPAN to group objects in line
+ */
+FIELDSET {
+  padding: 1em;
+  margin: 1em;
+  overflow: hidden; /* <- makes Opera happy */
+}
+
+FORM.filter FIELDSET UL {
+  margin: 0;
+}
+FORM.filter FIELDSET UL,
+FORM.filter FIELDSET LABEL {
+  display: block;
+  float: left;
+  margin-right: 1em;
+  padding: 0;
+}
+
+FORM.filter FIELDSET LI {
+  list-style: none;
+  margin-bottom: 0.5em;
+}
+
+FORM.filter FIELDSET LI LABEL {
+  display: inline;
+  float: none;
+}
+
+FORM.filter FIELDSET UL.tagSelection LABEL {
+  display: inline;
+  float: none;
+  margin-right:0.5em;/*reduce from above*/
+}
+
+/* cannot use FIELDSET>LABEL because of IE<=6 */
+FORM.filter FIELDSET LABEL INPUT,
+FORM.filter FIELDSET LABEL SELECT,
+FORM.filter FIELDSET LABEL SPAN,
+FORM.filter FIELDSET LABEL TEXTAREA {
+  display: block;
+  margin: 0.5em 0;
+}
+FORM.filter FIELDSET * LABEL INPUT,
+FORM.filter FIELDSET * LABEL SELECT,
+FORM.filter FIELDSET * LABEL TEXTAREA,
+FORM.filter FIELDSET LABEL SPAN INPUT,
+FORM.filter FIELDSET LABEL SPAN SELECT,
+FORM.filter FIELDSET LABEL SPAN TEXTAREA {
+  display: inline;
+  vertical-align: top;
+  margin: 0 0.5em 0 0;
+}
+
+FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
+  margin-right:0;
+}
+
+/* following declaration is important to avoid strange FF behaviour */
+FORM.filter FIELDSET LABEL SPAN SELECT {
+  margin: 0;
+}
+
+FORM.filter FIELDSET P
+{
+  clear: left;
+  display: block;
+}
+
+FORM.filter INPUT[type="submit"] {
+  margin-top: 1em;
+}
+
+FORM.properties UL, FORM#update UL {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+FORM.properties LI, FORM#update UL  {
+  margin-bottom: 0.5em;
+  padding: 0;
+  line-height: 1.8em;
+}
+
+FORM.properties SPAN.property {
+  font-weight: bold;
+  float: left;
+  width: 50%;
+  text-align: right;
+  margin: 0;
+  padding: 0 0.5em 0 0;
+}
+
+FIELDSET.elementEdit A {
+  display: block;
+  float: right;
+}
+
+TABLE.doubleSelect {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+TABLE.doubleSelect TD {
+  padding: 0 5px;
+  width: 50%;
+}
+
+FORM#categoryPermissions LI {
+  display:inline;
+  white-space: nowrap;
+}
+
+#theHeader H1 {
+  margin-bottom: 0.5em;
+}
+
+#theHeader P {
+  margin-top: 0;
+  padding: 0;
+}
+
+BODY#theAdminPage #theHeader P {
+  display: none;
+}
+
+BODY#thePopuphelpPage #copyright {
+  color: green;
+  display: none;
+}
+
+FORM#addComment FIELDSET LABEL {
+  clear: both;
+}
+
+FORM#addComment FIELDSET INPUT[type="hidden"] {
+  display: none;
+}
+
+/* button tools */
+UL.actions {
+  text-indent: 0;
+  list-style: none;
+}
+UL.actions  LI {
+  display: inline;
+}
+UL.actions  A {
+  border: none;
+}
+
+UL.tagSelection {
+  width: 40em;
+  margin: 1em 0 1em 0;
+  padding: 0;
+}
+
+UL.tagSelection LI {
+  display: inline;
+  white-space: nowrap;
+}
+
+#fullTagCloud { font-size: 140%; }
+
+#fullTagCloud LI { display: inline; }
+
+.tagLevel5 { font-size: 150%; }
+.tagLevel4 { font-size: 140%; }
+.tagLevel3 { font-size: 120%; }
+.tagLevel2 { font-size: 100%; }
+.tagLevel1 { font-size: 90%; }
