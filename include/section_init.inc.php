@@ -513,7 +513,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $lang['recent_pics_cat'],
+        'title' => '<a href="'.duplicate_index_url().'">'
+                  .$lang['recent_pics_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         'thumbnails_include' => 'include/category_default.inc.php',
         )
@@ -552,7 +553,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $conf['top_number'].' '.$lang['most_visited_cat'],
+        'title' => '<a href="'.duplicate_index_url().'">'
+                  .$conf['top_number'].' '.$lang['most_visited_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         'thumbnails_include' => 'include/category_default.inc.php',
         )
@@ -578,7 +580,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $conf['top_number'].' '.$lang['best_rated_cat'],
+        'title' => '<a href="'.duplicate_index_url().'">'
+                  .$conf['top_number'].' '.$lang['best_rated_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         'thumbnails_include' => 'include/category_default.inc.php',
         )
@@ -601,7 +604,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $lang['random_cat'],
+        'title' => '<a href="'.duplicate_index_url().'">'
+                    .$lang['random_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         'thumbnails_include' => 'include/category_default.inc.php',
         )
