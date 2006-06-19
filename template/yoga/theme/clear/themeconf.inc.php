@@ -4,6 +4,7 @@ $themeconf = array(
   'theme' => 'clear',
   'icon_dir' => 'template/yoga/icon',
   'admin_icon_dir' => 'template/yoga/icon/admin',
-  'mime_icon_dir' => 'template/yoga/icon/mimetypes/'
+  'mime_icon_dir' => 'template/yoga/icon/mimetypes/',
+  'local_head' => '<!-- no theme specific head content -->'
 );
 ?>
