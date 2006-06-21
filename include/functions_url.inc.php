@@ -27,6 +27,7 @@
 
 /**
  * returns a prefix for each url link on displayed page
+ * and return an empty string for current path
  * @return string
  */
 function get_root_url()
@@ -34,9 +35,20 @@ function get_root_url()
   global $page;
   if ( isset($page['root_path']) )
   {
-    return $page['root_path'];
+    $root_url = $page['root_path'];
   }
-  return PHPWG_ROOT_PATH;
+  else 
+  {
+    $root_url = PHPWG_ROOT_PATH;
+  }
+  if ( dirname($root_url)!='.' )
+  {
+    return $root_url;
+  } 
+  else 
+  {
+    return '';
+  }
 }
 
 /**
