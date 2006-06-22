@@ -32,3 +32,12 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <div id="the_page">
 
 <div id="theHeader">{PAGE_BANNER}</div>
+<!-- BEGIN warnings -->
+<div class="infos">
+  <ul>
+    <!-- BEGIN warning -->
+    <li>{warnings.warning.WARNING}</li>
+    <!-- END warning -->
+  </ul>
+</div>
+<!-- END warnings -->
