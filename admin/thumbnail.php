@@ -40,6 +40,11 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
 {
   global $conf, $lang, $page;
 
+  if (!function_exists('gd_info'))
+  {
+    return;
+  }
+
   $filename = basename($path);
   $dirname = dirname($path);
   
