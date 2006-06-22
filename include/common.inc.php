@@ -111,7 +111,7 @@ $conf = array();
 $page = array();
 $user = array();
 $lang = array();
-
+$warnings = array();
 
 @include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if (!defined('PHPWG_INSTALLED'))
@@ -147,14 +147,8 @@ SELECT id
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)
   {
-    ob_start();// buffer output so that cookies work
-
-    echo
-      '<p>'
-      .'Some database upgrades are missing, '
-      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>'
-      .'</p>'
-      ;
+    $warnings[] = 'Some database upgrades are missing, '
+      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>';
   }
 }
 
@@ -176,12 +170,8 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 
 if ($conf['gallery_locked'])
 {
-  ob_start(); // make sure we can send cookies
-  echo
-    '<div style="text-align:center;">'
-    .$lang['gallery_locked_message'];
-  echo '<a href="'.PHPWG_ROOT_PATH.'identification.php">.</a>';
-  echo '</div>';
+  $warnings[] = $lang['gallery_locked_message']
+    . '<a href="'.PHPWG_ROOT_PATH.'identification.php">.</a>';
 
   if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
       and !is_admin() )
@@ -218,17 +208,18 @@ include(
 
 if (is_adviser())
 {
-  ob_start();// buffer output so that cookies work
-  echo '
-  <div class="titrePage">
-    <h2>
-      <div style="text-align:center;">'.$lang['adviser_mode_enabled'].'
-      </div>
-    </h2>
-  </div>
-  ';
+  $warnings[] = $lang['adviser_mode_enabled'];
 }
 
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
+
+if (count($warnings) > 0)
+{
+  $template->assign_block_vars('warnings',array());
+  foreach ($warnings as $warning)
+  {
+    $template->assign_block_vars('warnings.warning', array('WARNING'=>$warning));
+  }
+}
 ?>
