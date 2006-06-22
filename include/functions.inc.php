@@ -597,11 +597,11 @@ function url_is_remote($url)
 /**
  * returns available template/theme
  */
-function get_pwg_themes($template_root = 'public')
+function get_pwg_themes()
 {
   $themes = array();
 
-  $template_dir = PHPWG_ROOT_PATH.'template'.'/'.$template_root;
+  $template_dir = PHPWG_ROOT_PATH.'template';
 
   foreach (get_dirs($template_dir) as $template)
   {

@@ -9,5 +9,5 @@
 /* Override properties with import local file */
 @import "local-layout.css";
 /* common css */
-@import "../../../template-common/layout.css";
+@import "../../template-common/layout.css";
 

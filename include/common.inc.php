@@ -201,17 +201,9 @@ if ($user['is_the_guest'])
 list($user['template'], $user['theme']) = explode('/', $user['template']);
 // TODO : replace initial $user['template'] by $user['layout']
 
-if (defined('IN_ADMIN') && IN_ADMIN) 
-{
-  $template_root = 'admin';
-} 
-else 
-{
-  $template_root = 'public';
-}
 include(
   PHPWG_ROOT_PATH
-  .'template/'.$template_root.'/'.$user['template']
+  .'template/'.$user['template']
   .'/theme/'.$user['theme']
   .'/themeconf.inc.php'
   );
