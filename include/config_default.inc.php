@@ -480,4 +480,11 @@ $conf['nbm_list_all_enabled_users_to_send'] = false;
 // Max mails sended on one pass
 $conf['nbm_max_treatment_timeout_percent'] = 0.8;
 
+// +-----------------------------------------------------------------------+
+// | Set default admin layout                                              |
+// +-----------------------------------------------------------------------+
+
+// Must be user setable in future
+$conf['admin_layout']='yoga/dark';
+
 ?>

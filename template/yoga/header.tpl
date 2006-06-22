@@ -9,11 +9,12 @@
 the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/nonsense" href="{pwg_root}template/{themeconf:template}/fix-khtml.css">
 <!--[if lt IE 7]>
-<link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
+  <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
 <![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{pwg_root}template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
+{themeconf:local_head}
 <!-- BEGIN next -->
 <link rel="prefetch" href="{next.U_IMG_SRC}">
 <!-- END next -->
@@ -23,7 +24,7 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
 <script type="text/javascript" src="{pwg_root}include/scripts.js"></script>
 <!--[if lt IE 7]>
-<script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
+  <script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
 <![endif]-->
 </head>
 

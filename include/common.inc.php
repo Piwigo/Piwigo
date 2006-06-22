@@ -198,7 +198,15 @@ if ($user['is_the_guest'])
 }
 
 // include template/theme configuration
-list($user['template'], $user['theme']) = explode('/', $user['template']);
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  list($user['template'], $user['theme']) = explode('/', $conf['admin_layout']);
+// TODO : replace $conf['admin_layout'] by $user['admin_layout']
+}
+else
+{
+  list($user['template'], $user['theme']) = explode('/', $user['template']);
+}
 // TODO : replace initial $user['template'] by $user['layout']
 
 include(
