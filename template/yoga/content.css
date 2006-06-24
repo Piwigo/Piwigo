@@ -119,20 +119,6 @@ UL.categoryActions {
   padding: 0.5em;
 }
 
-/* should be in admin.css ? CSS properties also used in popuphelp */
-
-SPAN.pwgScreen {
-  border-bottom: 1px dotted black;
-}
-
-SPAN.filename:before {
-  content: "[";
-}
-
-SPAN.filename:after {
-  content: "]";
-}
-
 /* begin chronology/calendar elements*/
 #content DIV.calendarViews {
   display: block;

@@ -1,5 +1,5 @@
 /* $Id$ */
-
+@import "admin/default-layout.css";
 BODY {
     margin: 5px;
     padding: 0;
@@ -79,74 +79,6 @@ TEXTAREA.description {
   width: 500px;
   overflow: auto;
 }
-SELECT.categoryList {
-  width: 100%;
-}
-
-/** go to an admin.css ? **/
-
-TABLE.table2 {
-  border: 1px solid black;
-  margin: 1em auto;
-  padding: 0;
-}
-
-TABLE.table2 TD, TABLE.table2 TH {
-  padding: 0 1em;
-}
-
-TABLE.table2 TR {
-  text-align: left;
-}
-
-TABLE.table2 TR.throw {
-  text-align: center;
-}
-
-.hour {
-  white-space: pre;
-}
-
-.number {
-  text-align: right;
-}
-  
-TABLE#dailyStats {
-  width: 60%;
-}
-
-TABLE#detailedStats {
-  width: 80%;
-}
-
-FORM#add_virtual P { text-align: left; }
-FORM#categoryOrdering, FORM#addVirtual {
-  padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
-  padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
-}
-FORM#categoryOrdering p {
-	text-align: left;
-	margin-top: 1em;
-	margin-bottom: 1em;
-}
-UL.categoryUl {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-LI.categoryLi {
-  border: 1px solid gray;
-  padding: 0px 5px;
-  margin-bottom: 5px;
-}
-
-FORM#categoryOrdering UL.categoryActions {
-  float: right;
-  margin-top: 5px;
-}
-
-FORM#cat_modify TABLE { width: auto; }
 
 /**
  * Filter forms are displayed label by label with the input (or select...)
@@ -245,27 +177,6 @@ FORM.properties SPAN.property {
   padding: 0 0.5em 0 0;
 }
 
-FIELDSET.elementEdit A {
-  display: block;
-  float: right;
-}
-
-TABLE.doubleSelect {
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-}
-
-TABLE.doubleSelect TD {
-  padding: 0 5px;
-  width: 50%;
-}
-
-FORM#categoryPermissions LI {
-  display:inline;
-  white-space: nowrap;
-}
-
 #theHeader H1 {
   margin-bottom: 0.5em;
 }
@@ -273,10 +184,6 @@ FORM#categoryPermissions LI {
 #theHeader P {
   margin-top: 0;
   padding: 0;
-}
-
-BODY#theAdminPage #theHeader P {
-  display: none;
 }
 
 BODY#thePopuphelpPage #copyright {
