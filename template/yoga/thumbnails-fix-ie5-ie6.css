@@ -1,4 +1,4 @@
-/* $Id: thumbnails-fix-ie5-ie6.css 1385 2006-06-24 09:09:17Z chrisaga $ */
+/* $Id$ */
 /* fix IE with another layout for thumbnails */
 #content UL.thumbnails SPAN.wrap2 {
   display: block;

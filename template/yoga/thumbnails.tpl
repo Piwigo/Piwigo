@@ -1,4 +1,4 @@
-<!-- $Id: thumbnails.tpl 1385 2006-06-24 09:09:17Z chrisaga $ -->
+<!-- $Id$ -->
 <!-- BEGIN thumbnails -->
 <ul class="thumbnails">
   <!-- BEGIN line -->
