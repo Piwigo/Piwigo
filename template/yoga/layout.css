@@ -3,6 +3,7 @@
 /* template css */
 @import "menubar.css";
 @import "content.css";
+@import "thumbnails.css";
 @import "image.css";
 @import "popuphelp.css";
 @import "default-layout.css";
