@@ -37,17 +37,17 @@ function get_root_url()
   {
     $root_url = $page['root_path'];
   }
-  else 
+  else
   {
     $root_url = PHPWG_ROOT_PATH;
   }
   if ( dirname($root_url)!='.' )
   {
     return $root_url;
-  } 
-  else 
+  }
+  else
   {
-    return '';
+    return substr($root_url, 2);
   }
 }
 
