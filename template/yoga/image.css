@@ -111,39 +111,33 @@ TABLE.infoTable TD.value UL {
 }
 
 #comments {
-    text-align: left;
+  text-align: left;
 }
 
 #comments .comment {
-    margin: 3ex 0;
+  margin: 1em 0;
 }
 
 #comments H2 {
-    margin: 1ex 0;
+  margin: 0.5em 0;
 }
 
 #comments P {
-    margin: 0;
+  margin: 0 0.5em 0 1em;
 }
 
 #comments .author {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #comments BLOCKQUOTE {
-    margin: 1ex 0 1ex 2em;
-    padding: 4px 4px 0 /* IE bug */ 4px;
-}
-
-#comments BLOCKQUOTE P {
-    margin: 0;
-    padding-bottom: 4px; /* IE bug follow-up */
-}
-#comments BLOCKQUOTE P+P {
-    margin-top: 1ex;
+  margin: 0.5em 1em 1em 4em;
+  padding: 0.5em;
+  overflow: auto;	/* no solution for IE6 */
+  min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
 }
 
 #comments P.userCommentDelete {
-    float: right;
-    margin: 0;
+  float: right;
+  margin: 0 0.5em 0 0;
 }
