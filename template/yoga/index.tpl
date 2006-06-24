@@ -52,8 +52,7 @@
   <!-- END calendar -->
 
   <!-- BEGIN calendar -->
-  <h2>{calendar.TITLE}
-</h2>
+  <h2>{calendar.TITLE}</h2>
   <!-- END calendar -->
 
   </div> <!-- titrePage -->

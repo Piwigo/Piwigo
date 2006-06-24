@@ -1,5 +1,5 @@
-/* $Id:$ */
-/* Issues in IE from 5 to 6 only to to be used with IE7                       */
+/* $Id$ */
+/* Issues in IE from 5 to 6 only not to be used with IE7                      */
 
 /* fix lack of :hover behaviour for non link objects */
 BODY {
@@ -20,3 +20,35 @@ UL.tagSelection LI INPUT,
   border: none;
   background-color: transparent;
 }
+
+/* fix IE with another layout for thumbnails */
+#content UL.thumbnails SPAN.wrap2 {
+  display: block;
+  position: relative;
+  text-align: left;
+}
+#content UL.thumbnails SPAN.wrap2 A,
+#content UL.thumbnails SPAN.wrap2 LABEL {
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+}
+#content UL.thumbnails IMG.thumbnail {
+  position: relative;
+  top: -50%;
+  /*\*//*/
+    margin-top: -40%;
+  /**/
+}
+#content UL.thumbnails SPAN.wrap2 input {
+  position: absolute;
+  left: 0;
+  top: -50%;  /* same as other browsers but not so pretty */
+}
+
+/* fix category thumbnails on main page */
+#content UL.thumbnailCategories {
+  width: 99%; /* buggy IE box model */
+}
+

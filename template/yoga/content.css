@@ -74,32 +74,6 @@ BODY#theNBMPage #content
   top: 0;
 }
 
-/* fix IE with another layout */
-* html #content UL.thumbnails SPAN.wrap2 {
-  display: block;
-  position: relative;
-  text-align: left;
-}
-* html #content UL.thumbnails SPAN.wrap2 A,
-* html #content UL.thumbnails SPAN.wrap2 LABEL {
-  overflow: visible;
-  position: absolute;
-  top: 50%;
-  text-align: center;
-}
-* html #content UL.thumbnails IMG.thumbnail {
-  position: relative;
-  top: -50%;
-  /*\*//*/
-    margin-top: -40%;
-  /**/
-}
-* html #content UL.thumbnails SPAN.wrap2 input {
-  position: absolute;
-  left: 0;
-  top: -50%;  /* same as other browsers but not so pretty */
-}
-
 #content .navigationBar, #content .additional_info {
     margin: 10px 0;
     text-align: center;
@@ -163,8 +137,8 @@ UL.categoryActions {
 #content DIV.comment {
   margin: 0 0 0.5em 0;
   padding: 0;
-  overflow: hidden; /* these 2 lines ensure the floating child is kept in the DIV */
-  width: 100%;	    /* don't ask why. It's a very usefull trick                   */
+  overflow: hidden; /* these 2 lines keep the floating child in the DIV */
+  width: 100%;	    /* don't ask why. It's a very usefull trick         */
 }
 
 #content DIV.comment A.illustration {
@@ -286,10 +260,6 @@ DIV.calImg {
   text-align: center;
   overflow: hidden;
   width: 100%;
-}
-
-* html #content UL.thumbnailCategories {
-  width: 99%; /* buggy IE box model */
 }
 
 #content UL.thumbnailCategories LI {
