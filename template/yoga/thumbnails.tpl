@@ -1,4 +1,4 @@
-<!-- $Id: $ -->
+<!-- $Id$ -->
 <!-- BEGIN thumbnails -->
 <ul class="thumbnails">
   <!-- BEGIN line -->
