@@ -847,7 +847,7 @@ function get_themeconf($key)
 {
   global $themeconf;
 
-  return $themeconf[$key];
+  return isset($themeconf[$key]) ? $themeconf[$key] : '';
 }
 
 /**
