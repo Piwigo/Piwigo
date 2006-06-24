@@ -60,6 +60,7 @@ SELECT *
 }
 
 // template thumbnail initialization
+$template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',)); 
 if (count($pictures) > 0)
 {
   $template->assign_block_vars('thumbnails', array());
@@ -165,6 +166,7 @@ SELECT COUNT(*) AS nb_comments
     $row_number = 0;
   }
 }
+$template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
 
 pwg_debug('end include/category_default.inc.php');
 ?>

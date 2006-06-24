@@ -29,51 +29,6 @@ BODY#theNBMPage #content
     text-align: center;
 }
 
-/* Thumbnails customization */
-#content UL.thumbnails SPAN.thumbLegend {
-  font-size: 80%;		/* font size */
-  overflow: hidden;		/* oversized legend is clipped */
-}
-
-/* Thumbnail "elastic" layout */
-#content UL.thumbnails {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;	/* to center the whole collection in #content */
-}
-#content UL.thumbnails LI { display: inline }
-
-#content UL.thumbnails SPAN.wrap1 {
-  margin: 0 5px 5px 5px;
-  display: table-cell; display: inline-table; display: inline-block;
-  vertical-align: top;		/* OK with Opera and IE6 not Geko */
-  text-align: center;		/* to center the thumbnail and legend in Geko/Opera */
-}
-#content UL.thumbnails SPAN.wrap2 {
-  margin: 0;			/* important reset the margins */
-  display: table-cell;		/* block prevents vertical-align here */
-  vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
-}
-#content UL.thumbnails SPAN.wrap2 A,
-#content UL.thumbnails SPAN.wrap2 LABEL {
-  display: block;
-  border-bottom: none;
-}
-#content UL.thumbnails IMG {
-  margin-bottom: -4px;  /* why ??? something wrong with Geko and Opera ignored by IE6*/
-}
-
-/* label and input used for caddie in admin section */
-#content UL.thumbnails SPAN.wrap2 LABEL {
-  position: relative;
-}
-:root #content UL.thumbnails SPAN.wrap2 INPUT { /* hide from Opera */
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
 #content .navigationBar, #content .additional_info {
     margin: 10px 0;
     text-align: center;
@@ -176,17 +131,6 @@ SPAN.filename:before {
 
 SPAN.filename:after {
   content: "]";
-}
-
-TD.thumbnail label {
-  position: relative;
-}
-TD.thumbnail input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: transparent;
-  border: none;
 }
 
 /* begin chronology/calendar elements*/
