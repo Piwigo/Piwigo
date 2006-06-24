@@ -13,15 +13,16 @@ BODY {
 }
 
 H1 {
-    text-align: center;
-    font-size: 150%;
-    font-weight: bold;
-    padding: 0; margin: 1ex 0 2ex 0;
+  text-align: center;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 0;
+  margin: 0.5em 0 1em 0;
 }
 
 H2 {
     margin: 0;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 0.5em 5px 0.5em;
     text-align: left;
     font-size: 120%;
 }
