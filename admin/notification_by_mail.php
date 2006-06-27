@@ -215,7 +215,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
     $is_action_send = ($action == 'send');
 
-    if (isset($customize_mail_content))
+    if (!isset($customize_mail_content))
     {
       $customize_mail_content = $conf['nbm_complementary_mail_content'];
     }
