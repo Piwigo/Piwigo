@@ -170,6 +170,7 @@ SELECT id, path, tn_ext
   }
   else
   {
+    $template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
     $template->assign_block_vars('thumbnails', array());
     // first line
     $template->assign_block_vars('thumbnails.line', array());
@@ -210,6 +211,7 @@ SELECT id, path, tn_ext
         $row_number = 0;
       }
     }
+    $template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
   }
 }
 ?>

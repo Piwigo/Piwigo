@@ -109,6 +109,7 @@ if ($conf['subcatify'])
 }
 else
 {
+  $template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
   // template thumbnail initialization
   if (mysql_num_rows($result) > 0)
   {
@@ -156,5 +157,6 @@ else
     }
   }
   $conf['level_separator'] = $old_level_separator;
+  $template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
 }
 ?>
