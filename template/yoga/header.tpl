@@ -30,13 +30,13 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 
 <body id="{BODY_ID}">
 <div id="the_page">
-{PAGE_BANNER}
-<!-- BEGIN warnings -->
-<div class="infos">
-  <ul>
-    <!-- BEGIN warning -->
-    <li>{warnings.warning.WARNING}</li>
-    <!-- END warning -->
-  </ul>
+<!-- BEGIN header_msgs -->
+<div class="header_msgs">
+  <table>
+    <!-- BEGIN header_msg -->
+    <tr><td>{header_msgs.header_msg.HEADER_MSG}</td></tr>
+    <!-- END header_msg -->
+  </table>
 </div>
-<!-- END warnings -->
+<!-- END header_msgs -->
+{PAGE_BANNER}

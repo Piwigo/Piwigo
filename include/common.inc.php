@@ -111,7 +111,7 @@ $conf = array();
 $page = array();
 $user = array();
 $lang = array();
-$warnings = array();
+$header_msgs = array();
 
 @include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if (!defined('PHPWG_INSTALLED'))
@@ -147,7 +147,7 @@ SELECT id
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)
   {
-    $warnings[] = 'Some database upgrades are missing, '
+    $header_msgs[] = 'Some database upgrades are missing, '
       .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>';
   }
 }
@@ -170,7 +170,7 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 
 if ($conf['gallery_locked'])
 {
-  $warnings[] = $lang['gallery_locked_message']
+  $header_msgs[] = $lang['gallery_locked_message']
     . '<a href="'.PHPWG_ROOT_PATH.'identification.php">.</a>';
 
   if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
@@ -214,18 +214,18 @@ include(
 
 if (is_adviser())
 {
-  $warnings[] = $lang['adviser_mode_enabled'];
+  $header_msgs[] = $lang['adviser_mode_enabled'];
 }
 
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
 
-if (count($warnings) > 0)
+if (count($header_msgs) > 0)
 {
-  $template->assign_block_vars('warnings',array());
-  foreach ($warnings as $warning)
+  $template->assign_block_vars('header_msgs',array());
+  foreach ($header_msgs as $header_msg)
   {
-    $template->assign_block_vars('warnings.warning', array('WARNING'=>$warning));
+    $template->assign_block_vars('header_msgs.header_msg', array('HEADER_MSG'=>$header_msg));
   }
 }
 ?>

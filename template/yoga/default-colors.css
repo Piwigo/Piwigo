@@ -68,6 +68,17 @@ INPUT[type="radio"] {	/* for Opera */
   padding: 10px 50px 10px 10px;
 }
 
+/**
+ * Header message like upgrade or adviser mode
+ */
+.header_msgs {
+  text-align:center;
+  font-weight: bold;
+  color:#696969;	/* dimgray */
+  background-color: #d3d3d3;
+  margin: 5px;
+}
+
 LEGEND {
   font-style: italic;
 }
