@@ -190,7 +190,13 @@ if ($user['is_the_guest'])
 // include template/theme configuration
 if (defined('IN_ADMIN') and IN_ADMIN)
 {
-  list($user['template'], $user['theme']) = explode('/', isset($conf['default_admin_layout']) ? $conf['default_admin_layout'] : $user['template']);
+  list($user['template'], $user['theme']) =
+    explode
+    (
+      '/',
+      isset($conf['default_admin_layout']) ? $conf['default_admin_layout']
+                                           : $user['template']
+    );
 // TODO : replace $conf['admin_layout'] by $user['admin_layout']
 }
 else

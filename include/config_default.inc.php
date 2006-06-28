@@ -489,7 +489,8 @@ $conf['nbm_max_treatment_timeout_percent'] = 0.8;
 // Step 1, default_admin_layout is not defined
 //        null value, user_layout is used for admin layout
 //        defined value, this value are used for admin layout
-// Next on step, default_admin_layout will be used if the ara not checkeg admin layout
+// Next on step 2, default_admin_layout will be used 
+//                 if there are not checked like admin layout
 // stored on user informations
 //$conf['default_admin_layout']='yoga/dark';
 
