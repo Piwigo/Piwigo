@@ -39,4 +39,4 @@ the "text/nonsense" prevents gecko based browsers to load it -->
   </table>
 </div>
 <!-- END header_msgs -->
-{PAGE_BANNER}
+<div id="theHeader">{PAGE_BANNER}</div>
