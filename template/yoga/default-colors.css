@@ -76,7 +76,8 @@ INPUT[type="radio"] {	/* for Opera */
   font-weight: bold;
   color:#696969;	/* dimgray */
   background-color: #d3d3d3;
-  margin: 5px;
+  margin: 1px;
+  padding: 1px;
 }
 
 LEGEND {

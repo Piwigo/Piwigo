@@ -32,11 +32,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <div id="the_page">
 <!-- BEGIN header_msgs -->
 <div class="header_msgs">
-  <table>
-    <!-- BEGIN header_msg -->
-    <tr><td>{header_msgs.header_msg.HEADER_MSG}</td></tr>
-    <!-- END header_msg -->
-  </table>
+  <!-- BEGIN header_msg -->
+  <P>{header_msgs.header_msg.HEADER_MSG}</p>
+  <!-- END header_msg -->
 </div>
 <!-- END header_msgs -->
 <div id="theHeader">{PAGE_BANNER}</div>
