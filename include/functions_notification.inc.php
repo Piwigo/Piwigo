@@ -33,7 +33,7 @@
  * Execute custom notification query
  *
  * @param string action ('count' or 'info')
- * @param string type of query ('new_comments', 'unvalidated_comments', 'new_elements', 'updated_categories', ' new_users', 'waiting_elements')
+ * @param string type of query ('new_comments', 'unvalidated_comments', 'new_elements', 'updated_categories', 'new_users', 'waiting_elements')
  * @param string start (mysql datetime format)
  * @param string end (mysql datetime format)
  *
@@ -80,7 +80,7 @@ function custom_notification_query($action, $type, $start, $end)
     AND category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
       break;
-    case ' new_users':
+    case 'new_users':
       $query = '
   FROM '.USER_INFOS_TABLE.'
   WHERE registration_date > \''.$start.'\'
@@ -116,7 +116,7 @@ function custom_notification_query($action, $type, $start, $end)
         case 'updated_categories':
           $field_id = 'category_id';
           break;
-        case ' new_users':
+        case 'new_users':
           $field_id = 'user_id';
           break;
         case 'waiting_elements':
@@ -144,7 +144,7 @@ function custom_notification_query($action, $type, $start, $end)
         case 'updated_categories':
           $fields = array('category_id');
           break;
-        case ' new_users':
+        case 'new_users':
           $fields = array('user_id');
           break;
         case 'waiting_elements':
