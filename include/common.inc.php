@@ -132,7 +132,9 @@ or die ( "Could not connect to database server" );
 mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 
-if ($conf['check_upgrade_feed'])
+if ($conf['check_upgrade_feed']
+    and defined('PHPWG_IN_UPGRADE')
+    and PHPWG_IN_UPGRADE)
 {
   // retrieve already applied upgrades
   $query = '
