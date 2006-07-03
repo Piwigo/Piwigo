@@ -607,7 +607,7 @@ INSERT INTO '.$table_name.'
         $query.= ',';
       }
 
-      if (!isset($insert[$dbfield]) or $insert[$dbfield] == '')
+      if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
       {
         $query.= 'NULL';
       }
@@ -940,14 +940,24 @@ SELECT image_id
   LIMIT 0,1
 ;';
     list($representative) = mysql_fetch_array(pwg_query($query));
-    $data = array('id' => $category_id,
-                  'representative_picture_id' => $representative);
-    array_push($datas, $data);
+
+    array_push(
+      $datas,
+      array(
+        'id' => $category_id,
+        'representative_picture_id' => $representative,
+        )
+      );
   }
 
-  $fields = array('primary' => array('id'),
-                  'update' => array('representative_picture_id'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
+  mass_updates(
+    CATEGORIES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array('representative_picture_id')
+      ),
+    $datas
+    );
 }
 
 /**
