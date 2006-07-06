@@ -28,7 +28,7 @@
 /**
  * This file is included by the main page to show the menu bar
  *
- */ 
+ */
 $template->set_filenames(
   array(
     'menubar' => 'menubar.tpl',
@@ -300,5 +300,17 @@ $template->assign_block_vars(
     'REL'=> 'rel="nofollow"'
     )
   );
+
+if (isset($page['category']) and $page['cat_uploadable'] )
+{ // upload a picture in the category
+  $url = get_root_url().'upload.php?cat='.$page['category'];
+  $template->assign_block_vars(
+    'upload',
+    array(
+      'U_UPLOAD'=> $url
+      )
+    );
+}
+
 $template->assign_var_from_handle('MENUBAR', 'menubar');
 ?>

@@ -267,18 +267,6 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
 
 if (isset($page['category']))
 {
-  // upload a picture in the category
-  if ($page['cat_uploadable'])
-  {
-    $url = get_root_url().'upload.php?cat='.$page['category'];
-    $template->assign_block_vars(
-      'upload',
-      array(
-        'U_UPLOAD'=> $url
-        )
-      );
-  }
-
   // category comment
   if (isset($page['comment']) and $page['comment'] != '')
   {
