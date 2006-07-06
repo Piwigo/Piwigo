@@ -436,8 +436,7 @@ INSERT INTO ".CONFIG_TABLE."
     '',
     'Complementary mail content for notification by mail'
   )
-;
-";
+;";
 pwg_query($query);
 
 // depending on the way the 1.5.0 was installed (from scratch or by upgrade)
