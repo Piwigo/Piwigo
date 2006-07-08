@@ -100,7 +100,7 @@
 <fieldset>
   <legend>{lang:search_options}</legend>
   <label>{lang:search_categories}
-    <select style="width:200px" name="cat[]" multiple="multiple" size="8" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+    <select class="categoryList" name="cat[]" multiple="multiple" onfocus="this.className='focus';" onblur="this.className='nofocus';">
       <!-- BEGIN category_option -->
       <option value="{category_option.VALUE}">{category_option.OPTION}</option>
       <!-- END category_option -->
