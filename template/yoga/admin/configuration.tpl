@@ -8,8 +8,8 @@
 
 <form method="post" action="{F_ACTION}" class="properties">
 
-<fieldset>
 <!-- BEGIN general -->
+<fieldset id="generalConf">
   <legend>{lang:conf_general_title}</legend>
 
   <ul>
@@ -24,7 +24,7 @@
       <span class="property">
         <label for="page_banner">{lang:Page banner}</label>
       </span>
-      <textarea cols="50" rows="5" name="page_banner" id="page_banner" onfocus="this.className='focus';" onblur="this.className='nofocus';">{general.CONF_PAGE_BANNER}</textarea>
+      <textarea class="description" name="page_banner" id="page_banner" onfocus="this.className='description focus';" onblur="this.className='description nofocus';">{general.CONF_PAGE_BANNER}</textarea>
     </li>
 
     <li>
@@ -58,9 +58,11 @@
       <label><input type="radio" class="radio" name="rate_anonymous" value="false" {general.RATE_ANONYMOUS_NO} />{lang:No}</label>
     </li>
   </ul>
+</fieldset>
 <!-- END general -->
 
 <!-- BEGIN comments -->
+<fieldset id="commentsConf">
   <legend>{lang:conf_comments_title}</legend>
 
   <ul>
@@ -83,8 +85,10 @@
       <label><input type="radio" class="radio" name="comments_validation" value="false" {comments.VALIDATE_NO} />{lang:No}</label>
     </li>
   </ul>
+</fieldset>
 <!-- END comments -->
 <!-- BEGIN default -->
+<fieldset id="commentsConf">
   <legend>{lang:conf_default_title}</legend>
 
   <ul>
@@ -157,8 +161,8 @@
       <input type="text" size="4" maxlength="4" id="default_maxheight" name="default_maxheight" value="{default.MAXHEIGHT}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
     </li>
   </ul>
+</fieldset>
 <!-- END default -->
-  </fieldset>
 
   <p>
     <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}>

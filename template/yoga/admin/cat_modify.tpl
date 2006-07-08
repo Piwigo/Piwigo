@@ -55,10 +55,10 @@
 </fieldset>
 
 <!-- BEGIN move -->
-<fieldset>
+<fieldset id="move">
   <legend>{lang:Move}</legend>
   {lang:Parent category}
-  <select name="parent">
+  <select class="categoryDropDown" name="parent">
     <!-- BEGIN parent_option -->
     <option class="{move.parent_option.CLASS}" {move.parent_option.SELECTED} value="{move.parent_option.VALUE}">{move.parent_option.OPTION}</option>
     <!-- END parent_option -->
@@ -66,7 +66,7 @@
 </fieldset>
 <!-- END move -->
 
-<fieldset>
+<fieldset id="options">
   <legend>{lang:Options}</legend>
   <table>
     <tr>
@@ -108,7 +108,7 @@
 </p>
 
 <!-- BEGIN representant -->
-<fieldset>
+<fieldset id="representant">
   <legend>{lang:Representant}</legend>
   <table>
     <tr>
@@ -139,7 +139,7 @@
 
 <form action="{F_ACTION}" method="POST" id="links">
   
-<fieldset>
+<fieldset id="linkAllNew">
   <legend>{lang:Link all category elements to a new category}</legend>
 
   <table>
@@ -151,7 +151,7 @@
     <tr>
       <td>{lang:Parent category}</td>
       <td>
-        <select class="categoryList" name="parent">
+        <select class="categoryDropDown" name="parent">
           <!-- BEGIN category_option_parent -->
           <option {category_option_parent.SELECTED} value="{category_option_parent.VALUE}">{category_option_parent.OPTION}</option>
           <!-- END category_option_parent -->
@@ -167,7 +167,7 @@
 
 </fieldset>
 
-<fieldset>
+<fieldset id="linkAllExist">
   <legend>{lang:Link all category elements to some existing categories}</legend>
 
   <table>
