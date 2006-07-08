@@ -147,7 +147,7 @@ DELETE
 // |                               add a tag                               |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['add_tag']) and !empty($_POST['add_tag']))
+if (isset($_POST['add']) and !empty($_POST['add_tag']))
 {
   if (function_exists('mysql_real_escape_string'))
   {
