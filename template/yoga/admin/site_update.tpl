@@ -1,4 +1,4 @@
-<!-- $Id: update.tpl 980 2005-12-10 15:24:53Z chrisaga $ -->
+<!-- $Id$ -->
 
 <div class="titrePage">
   <ul class="categoryActions">
@@ -61,7 +61,7 @@
 <h3>{lang:update_default_title}</h3>
 <form action="{F_ACTION}" method="post" id="update">
 
-  <fieldset>
+  <fieldset id="syncFiles">
     <legend>{lang:update_sync_files}</legend>
     <ul>
       <li><label><input type="radio" name="sync" value="dirs" {SYNC_DIRS_CHECKED} /> {lang:update_sync_dirs}</label></li>
@@ -70,7 +70,7 @@
     </ul>
   </fieldset>
 
-  <fieldset>
+  <fieldset id="syncMetadata">
     <legend>{lang:update_sync_metadata}</legend>
     {lang:update_used_metadata} : {METADATA_LIST}.<br/>
     <ul>
@@ -79,16 +79,16 @@
     </ul>
   </fieldset>
 
-  <fieldset>
+  <fieldset id="syncSimulate">
     <legend></legend>
     <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {TAG_INPUT_ENABLED} /> {lang:update_simulate}</label></li></ul>
   </fieldset>
 
-  <fieldset>
+  <fieldset id="catSubset">
     <legend>{lang:update_cats_subset}</legend>
     <ul>
     <li>
-    <select style="width:500px" name="cat" size="10">
+    <select class="categoryList" name="cat" size="10">
       <!-- BEGIN category_option -->
       <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
       <!-- END category_option -->

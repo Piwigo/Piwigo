@@ -18,7 +18,7 @@ H1, #theHeader {
 
 /* to get less hugly checkboxes at least in tagSelection */
 /* as well as several forms */
-FORM#update INPUT,
+FORM#update FIELDSET INPUT,
 UL.tagSelection LI INPUT,
 #content UL.thumbnails SPAN.wrap2 INPUT {
   border: none;

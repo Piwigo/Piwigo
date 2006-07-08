@@ -88,8 +88,18 @@ TABLE.doubleSelect TD {
   width: 50%;
 }
 
+TABLE.doubleSelect SELECT.categoryList {
+  width: 100%;
+}
+
 FORM#categoryPermissions LI {
   display:inline;
   white-space: nowrap;
 }
 
+FIELDSET#generalConf SPAN.property {
+  width: 25%;
+}
+FIELDSET#generalConf TEXTAREA.description {
+  width: 70%;
+}
