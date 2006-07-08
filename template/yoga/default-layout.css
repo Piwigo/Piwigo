@@ -80,6 +80,11 @@ TEXTAREA.description {
   overflow: auto;
 }
 
+SELECT.categoryList {
+  height: 20em;
+  width: 30em;
+}
+
 /**
  * Filter forms are displayed label by label with the input (or select...)
  * below the label. Use an UL to make a group (radiobox for instance).
