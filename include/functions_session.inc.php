@@ -84,7 +84,12 @@ if (isset($conf['session_save_handler'])
 // cookie_path will return : "/meeting/gallery"
 function cookie_path()
 {
-  if ( isset($_SERVER['REDIRECT_URL']) )
+  if ( isset($_SERVER['REDIRECT_SCRIPT_NAME']) and 
+       !empty($_SERVER['REDIRECT_SCRIPT_NAME']) )
+  {
+    $scr = $_SERVER['REDIRECT_SCRIPT_NAME'];
+  }
+  else if ( isset($_SERVER['REDIRECT_URL']) )
   { // mod_rewrite is activated for upper level directories. we must set the
     // cookie to the path shown in the browser otherwise it will be discarded.
     if ( isset($_SERVER['PATH_INFO']) and !empty($_SERVER['PATH_INFO']) )
@@ -108,7 +113,9 @@ function cookie_path()
   {
     $scr = $_SERVER['SCRIPT_NAME'];
   }
-  return substr($scr,0,strrpos( $scr,'/'));
+  $scr = substr($scr,0,strrpos( $scr,'/'));
+  // add a trailing '/' if needed
+  return ($scr{strlen($scr)-1} == '/') ? $scr : $scr . '/';
 }
 
 /**
