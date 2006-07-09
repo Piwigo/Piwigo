@@ -1756,7 +1756,7 @@ function tag_id_from_tag_name($tag_name)
     $tag_name = mysql_escape_string($tag_name);
   }
 
-  // does the tag already exist?
+  // does the tag already exists?
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'

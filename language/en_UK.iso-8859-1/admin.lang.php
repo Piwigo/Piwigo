@@ -159,6 +159,7 @@ $lang['Status'] = 'Status';
 $lang['Storage category'] = 'Storage category';
 $lang['Submit'] = 'Submit';
 $lang['Sum of rates'] = 'Sum of rates';
+$lang['Tag "%s" already exists'] = 'Tag "%s" already exists';
 $lang['Tag "%s" was added'] = 'Tag "%s" was added';
 $lang['Tag selection'] = 'Tag selection';
 $lang['Take selected elements out of caddie'] = 'Take selected elements out of caddie';
