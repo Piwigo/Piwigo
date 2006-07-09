@@ -22,7 +22,7 @@
   <!-- END delete -->
 </ul>
 
-<form action="{F_ACTION}" method="POST" id="cat_modify">
+<form action="{F_ACTION}" method="POST" id="catModify">
 
 <fieldset>
   <legend>{lang:Informations}</legend>
