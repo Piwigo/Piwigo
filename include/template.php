@@ -328,11 +328,11 @@ class Template {
    */
   function compile($code, $do_not_echo = false, $retvar = '')
     {
-      $code = preg_replace('/\{pwg_root\}/e', "get_root_url()", $code);
       // PWG specific : communication between template and $lang
       $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
       // PWG specific : expand themeconf.inc.php variables
       $code = preg_replace('/\{themeconf:([^}]+)\}/e', "get_themeconf('$1')", $code);
+      $code = preg_replace('/\{pwg_root\}/e', "get_root_url()", $code);
 
       // replace \ with \\ and then ' with \'.
       $code = str_replace('\\', '\\\\', $code);
