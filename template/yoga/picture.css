@@ -131,11 +131,8 @@ TABLE.infoTable TD.value UL {
   font-weight: bold;
 }
 
-#comments BLOCKQUOTE {
+#thePicturePage #comments BLOCKQUOTE {
   margin: 0.5em 1em 1em 4em;
-  padding: 0.5em;
-  overflow: auto;	/* no solution for IE6 */
-  min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
 }
 
 #comments P.userCommentDelete {

@@ -113,10 +113,8 @@ UL.categoryActions {
 }
 
 #content DIV.comment BLOCKQUOTE {
-  margin-top: 1em;
   margin-right: 0.5em;
-  margin-bottom: 150px;
-  padding: 0.5em;
+  overflow: visible; /*avoid a very strange margin behaviour (all browsers) */
 }
 
 /* begin chronology/calendar elements*/
