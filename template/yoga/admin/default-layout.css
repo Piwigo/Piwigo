@@ -70,7 +70,7 @@ FORM#categoryOrdering UL.categoryActions {
 }
 /* */
 
-FORM#cat_modify TABLE { width: auto; }
+FORM#catModify TABLE { width: auto; }
 
 FIELDSET.elementEdit A {
   display: block;
