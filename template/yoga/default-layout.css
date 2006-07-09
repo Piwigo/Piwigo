@@ -82,9 +82,15 @@ TEXTAREA.description {
 
 SELECT.categoryList {
   height: 20em;
-  /*max-width: 60em;*/
   width: auto;
 }
+
+DIV.comment BLOCKQUOTE {
+  padding: 0.5em;
+  overflow: auto;	/* no solution for IE6 */
+  min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
+}
+
 
 /**
  * Filter forms are displayed label by label with the input (or select...)
