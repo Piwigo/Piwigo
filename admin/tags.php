@@ -78,7 +78,7 @@ SELECT id, name
         array_push(
           $page['errors'],
           sprintf(
-            l10n('Tag "%s" already exist'),
+            l10n('Tag "%s" already exists'),
             $tag_name
             )
           );
@@ -158,7 +158,7 @@ if (isset($_POST['add']) and !empty($_POST['add_tag']))
     $tag_name = mysql_escape_string($_POST['add_tag']);
   }
 
-  // does the tag already exist?
+  // does the tag already exists?
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
@@ -192,7 +192,7 @@ SELECT id
     array_push(
       $page['errors'],
       sprintf(
-        l10n('Tag "%s" already exist'),
+        l10n('Tag "%s" already exists'),
         $tag_name
         )
       );
