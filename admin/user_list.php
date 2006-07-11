@@ -823,7 +823,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username'],
       'STATUS' => $lang['user_status_'.$local_user['status']].(($local_user['adviser'] == 'true') ? ' ['.$lang['adviser'].']' : ''),
-      'EMAIL' => isset($local_user['email']) ? $local_user['email'] : '',
+      'EMAIL' => isset($local_user['email']) ? get_email_address_as_display_text($local_user['email']) : '',
       'GROUPS' => $groups_string,
       'PROPERTIES' => (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true')) ? $lang['is_high_enabled'] : $lang['is_high_disabled']
       )
