@@ -111,8 +111,9 @@ if (isset($_POST['submit']))
   {
     $general_failure = false;
   }
+
   // shall we simulate only
-  if (isset($_POST['simulate']) and $_POST['simulate'] == 1)
+  if ((isset($_POST['simulate']) and $_POST['simulate'] == 1) or is_adviser())
   {
     $simulate = true;
   }

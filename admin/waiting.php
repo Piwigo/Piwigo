@@ -195,7 +195,7 @@ while ( $row = mysql_fetch_array( $result ) )
         (strlen($row['file']) > 10) ?
           (substr($row['file'], 0, 10)).'...' : $row['file'],
       'PREVIEW_URL_IMG'=>$preview_url, 
-      'UPLOAD_EMAIL'=>$row['mail_address'],
+      'UPLOAD_EMAIL'=>get_email_address_as_display_text($row['mail_address']),
       'UPLOAD_USERNAME'=>$row['username']
       )
     );

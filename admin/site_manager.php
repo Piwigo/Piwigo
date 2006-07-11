@@ -162,7 +162,7 @@ if (isset($_GET['site']) and is_numeric($_GET['site']))
 {
   $page['site'] = $_GET['site'];
 }
-if (isset($_GET['action']) and isset($page['site']) )
+if (isset($_GET['action']) and isset($page['site']) and !is_adviser())
 {
   $query = '
 SELECT galleries_url

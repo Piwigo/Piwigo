@@ -58,7 +58,7 @@
     <td>{image.rate.RATE}</td>
     <td><b>{image.rate.USER}</b></td>
     <td><span class="date">{image.rate.DATE}</span></td>
-    <td><a href="{image.rate.U_DELETE}"><img src="{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{lang:delete}]"/></a></td>
+    <td><a href="{image.rate.U_DELETE}" {TAG_INPUT_ENABLED}><img src="{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{lang:delete}]"/></a></td>
 </tr>
 <!-- END rate -->
 <!-- END image -->

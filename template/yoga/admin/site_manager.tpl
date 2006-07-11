@@ -24,7 +24,7 @@
     {lang:remote_site_local_create}:
     <input type="hidden" name="no_check" value="1"/>
     <input type="hidden" name="galleries_url" value="{local_listing.URL}" />
-    <input type="submit" name="submit" value="{lang:submit}"/>
+    <input type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED} />
   </p>
 </form>
 <!-- END create -->
@@ -42,13 +42,13 @@
     [<a href="{sites.site.U_SYNCHRONIZE}" title="{lang:site_synchronize_hint}">{lang:site_synchronize}</a>]
     <!-- BEGIN delete -->
       [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');"
-                title="{lang:site_delete_hint}">{lang:site_delete}</a>]
+                title="{lang:site_delete_hint}" {TAG_INPUT_ENABLED}>{lang:site_delete}</a>]
     <!-- END delete -->
     <!-- BEGIN remote -->
       <br>
-      [<a href="{sites.site.remote.U_TEST}" title="{lang:remote_site_test_hint}">{lang:remote_site_test}</a>]
-      [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}">{lang:remote_site_generate}</a>]
-      [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}">{lang:remote_site_clean}</a>]
+      [<a href="{sites.site.remote.U_TEST}" title="{lang:remote_site_test_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_test}</a>]
+      [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_generate}</a>]
+      [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_clean}</a>]
     <!-- END remote -->
   </td></tr>
   <!-- END site -->

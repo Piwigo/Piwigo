@@ -647,4 +647,23 @@ function is_adviser()
 
   return ($user['adviser'] == 'true');
 }
+
+/*
+ * Return mail address as display text
+ * @return string
+*/
+function get_email_address_as_display_text($email_address)
+{
+  global $conf;
+
+  if (is_adviser())
+  {
+    return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
+  }
+  else
+  {
+    return $email_address;
+  }
+}
+
 ?>

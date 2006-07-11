@@ -171,7 +171,15 @@ order by
         )
       );
 
-      array_push($page['infos'], sprintf(l10n('nbm_user_x_added'), $nbm_user['username'], $nbm_user['mail_address']));
+      array_push
+      (
+        $page['infos'], 
+        sprintf(
+          l10n('nbm_user_x_added'), 
+          $nbm_user['username'], 
+          get_email_address_as_display_text($nbm_user['mail_address'])
+        )
+      );
     }
 
     // Insert new nbm_users
@@ -579,7 +587,7 @@ switch ($page['mode'])
                                                                 : (isset($_POST['trueify']) and isset($_POST['cat_false']) and in_array($nbm_user['check_key'], $_POST['cat_false']))
                             ) ? 'selected="selected"' : '',
               'VALUE' => $nbm_user['check_key'],
-              'OPTION' => $nbm_user['username'].'['.$nbm_user['mail_address'].']'
+              'OPTION' => $nbm_user['username'].'['.get_email_address_as_display_text($nbm_user['mail_address']).']'
           ));
     }
 
@@ -621,7 +629,7 @@ switch ($page['mode'])
                               !in_array($nbm_user['check_key'], $_POST['send_selection']) // not selected
                             )   ? '' : 'checked="checked"',
               'USERNAME'=> $nbm_user['username'],
-              'EMAIL' => $nbm_user['mail_address'],
+              'EMAIL' => get_email_address_as_display_text($nbm_user['mail_address']),
               'LAST_SEND'=> $nbm_user['last_send']
               ));
         }
