@@ -656,13 +656,20 @@ function get_email_address_as_display_text($email_address)
 {
   global $conf;
 
-  if (is_adviser())
+  if (!isset($email_address) or (trim($email_address) == ''))
   {
-    return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
+    return '';
   }
   else
   {
-    return $email_address;
+    if (is_adviser())
+    {
+      return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
+    }
+    else
+    {
+      return $email_address;
+    }
   }
 }
 
