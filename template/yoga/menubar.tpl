@@ -1,7 +1,7 @@
-<!-- $Id:$ -->
+<!-- $Id$ -->
 <div id="menubar">
 <!-- BEGIN links -->
-<dl>
+<dl id="mbLinks">
   <dt>{lang:Links}</dt>
   <dd>
     <ul>
@@ -12,7 +12,7 @@
   </dd>
 </dl>
 <!-- END links -->
-<dl>
+<dl id="mbCategories">
   <dt><a href="{U_HOME}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
@@ -21,7 +21,7 @@
 </dl>
 
 <!-- BEGIN tags -->
-<dl>
+<dl id="mbTags">
   <dt>{lang:Related tags}</dt>
   <dd>
     <ul id="menuTagCloud">
@@ -36,7 +36,7 @@
 </dl>
 <!-- END tags -->
 
-<dl>
+<dl id="mbSpecial">
   <dt>{lang:special_categories}</dt>
   <dd>
     <ul>
@@ -46,7 +46,7 @@
     </ul>
   </dd>
 </dl>
-<dl>
+<dl id="mbMenu">
   <dt>{lang:title_menu}</dt>
   <dd>
     <ul>
@@ -59,7 +59,7 @@
     </ul>
   </dd>
 </dl>
-<dl>
+<dl id="mbIdentification">
   <dt>{lang:identification}</dt>
   <dd>
     <!-- BEGIN hello -->
