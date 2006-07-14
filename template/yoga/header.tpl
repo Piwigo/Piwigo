@@ -24,6 +24,10 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
 <script type="text/javascript" src="{pwg_root}include/scripts.js"></script>
 <!--[if lt IE 7]>
+  <style>
+    /* only because we need \{pwg_root\} otherwise use fix-ie5-ie6.css */
+    BODY { behavior:url("{pwg_root}template-common/csshover.htc"); }
+  </style>
   <script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
 <![endif]-->
 </head>

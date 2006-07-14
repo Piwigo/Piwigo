@@ -3,11 +3,6 @@
 
 @import "thumbnails-fix-ie5-ie6.css";
 
-/* fix lack of :hover behaviour for non link objects */
-BODY {
-  behavior:url("template-common/csshover.htc");
-}
-
 /* to avoid vanishing objects in IE6 */
 H1, #theHeader {
   width: 100%;	/* <- useless but seems to make IE6 happy */
