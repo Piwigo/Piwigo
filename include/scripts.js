@@ -40,9 +40,32 @@ for( i=0; i<len; i++)
 }
 }
 
+function verifieAndOpen()
+{
+  var ok=1;
+  if (!img.complete)
+  {
+    // sometime the image loading is not complete
+    // especially with KHTML and Opera 
+    setTimeout("verifieAndOpen()",200)
+  }
+  else
+  {
+  /* give more space for scrollbars (10 for FF, 40 for IE) */
+    width=img.width +40;
+    height=img.height +40;
+    window.open(owURL,owName,owFeatures  + ',width=' + width + ',height=' + height);
+  }
+}
+
 function phpWGOpenWindow(theURL,winName,features)
 {
-  window.open(theURL,winName,features);
+  img = new Image()
+  img.src = theURL;
+  owURL=theURL;
+  owName=winName;
+  owFeatures=features;
+  verifieAndOpen();
 }
 
 function popuphelp(url)
