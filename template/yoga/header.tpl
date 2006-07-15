@@ -27,6 +27,7 @@ the "text/nonsense" prevents gecko based browsers to load it -->
   <style>
     /* only because we need \{pwg_root\} otherwise use fix-ie5-ie6.css */
     BODY { behavior:url("{pwg_root}template-common/csshover.htc"); }
+    A IMG, .button, .icon { behavior:url("{pwg_root}template-common/tooltipfix.htc"); }
   </style>
   <script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
 <![endif]-->
