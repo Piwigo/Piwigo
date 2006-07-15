@@ -48,6 +48,10 @@ if ( isset( $_GET['act'] )
       ini_get('session.cookie_path'), ini_get('session.cookie_domain') );
   redirect( make_index_url() );
 }
+if ($user['is_the_guest'] and !$conf['guest_access'])
+{
+  redirect (get_root_url().'identification.php');
+}
 
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
