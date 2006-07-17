@@ -25,3 +25,8 @@ UL.tagSelection LI INPUT,
   width: 99%; /* buggy IE box model */
 }
 
+/* fix tag clouds : IE doesn't like anything but inline */
+#menubar #menuTagCloud LI
+{
+  display: inline;
+}
