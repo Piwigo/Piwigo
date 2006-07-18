@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2006-03-15 23:44:35 +0100 (mer., 15 mars 2006) $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 1082 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
