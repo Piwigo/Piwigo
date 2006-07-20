@@ -136,7 +136,7 @@ function clean_iptc_value($value)
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
 
-  return htmlentities($value);
+  return $value;
 }
 
 function get_sync_iptc_data($file)
@@ -154,17 +154,18 @@ function get_sync_iptc_data($file)
     {
       if ( preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
-        $iptc[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
+        $value = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }
     }
+    if ($pwg_key == 'keywords')
+    {
+      // official keywords separator is the comma
+      $value = preg_replace('/[.;]/', ',', $value);
+      $value = preg_replace('/^,+|,+$/', '', $value);
+    }
+    $iptc[$pwg_key] = htmlentities($value);
   }
 
-  if (isset($iptc['keywords']))
-  {
-    // official keywords separator is the comma
-    $iptc['keywords'] = preg_replace('/[.;]/', ',', $iptc['keywords']);
-    $iptc['keywords'] = preg_replace('/^,+|,+$/', '', $iptc['keywords']);
-  }
   $iptc['keywords'] = implode(
   	       ',',
   	       array_unique(
