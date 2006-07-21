@@ -149,20 +149,13 @@ DELETE
 
 if (isset($_POST['add']) and !empty($_POST['add_tag']))
 {
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $tag_name = mysql_real_escape_string($_POST['add_tag']);
-  }
-  else
-  {
-    $tag_name = mysql_escape_string($_POST['add_tag']);
-  }
+  $tag_name = $_POST['add_tag'];
 
   // does the tag already exists?
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
-  WHERE name = \''.$tag_name.'\'
+  WHERE name = \''.pwg_quotemeta($tag_name).'\'
 ;';
   $existing_tags = array_from_query($query, 'id');
 
@@ -173,7 +166,7 @@ SELECT id
       array('name', 'url_name'),
       array(
         array(
-          'name' => $tag_name,
+          'name' => pwg_quotemeta($tag_name),
           'url_name' => str2url($tag_name),
           )
         )
@@ -183,7 +176,7 @@ SELECT id
       $page['infos'],
       sprintf(
         l10n('Tag "%s" was added'),
-        $tag_name
+        pwg_stripslashes($tag_name)
         )
       );
   }
@@ -193,7 +186,7 @@ SELECT id
       $page['errors'],
       sprintf(
         l10n('Tag "%s" already exists'),
-        $tag_name
+        pwg_stripslashes($tag_name)
         )
       );
   }
