@@ -460,6 +460,40 @@ function format_date($date, $type = 'us', $show_time = false)
   return $formated_date;
 }
 
+function pwg_stripslashes($value) 
+{
+  if (get_magic_quotes_gpc())
+  {
+    $value = stripslashes($value);
+  }
+  return $value;
+}
+
+function pwg_addslashes($value) 
+{
+  if (!get_magic_quotes_gpc())
+  {
+    $value = addslashes($value);
+  }
+  return $value;
+}
+
+function pwg_quotemeta($value) 
+{
+  if (get_magic_quotes_gpc()) {
+    $value = stripslashes($value);
+  }
+  if (function_exists('mysql_real_escape_string'))
+  {
+    $value = mysql_real_escape_string($value);
+  }
+  else
+  {
+    $value = mysql_escape_string($value);
+  }
+  return $value;
+}
+
 function pwg_query($query)
 {
   global $conf,$page,$debug,$t2;
