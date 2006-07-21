@@ -177,6 +177,7 @@ $lang['Webmaster cannot be deleted'] = 'Webmaster cannot be deleted';
 $lang['Yes'] = 'Yes';
 $lang['You are running on development sources, no check possible.'] = 'You are running on development sources, no check possible.';
 $lang['You are running the latest version of PhpWebGallery.'] = 'You are running the latest version of PhpWebGallery.';
+$lang['You cannot delete your account'] = "You cannot delete your account";
 $lang['You cannot move a category in its own sub category'] = 'You cannot move a category in its own sub category';
 $lang['You need to confirm deletion'] = 'You need to confirm deletion';
 $lang['actions'] = 'Actions';

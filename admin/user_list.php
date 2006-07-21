@@ -250,12 +250,15 @@ if (isset($_POST['delete']) or isset($_POST['pref_submit']))
 // +-----------------------------------------------------------------------+
 // |                             delete users                              |
 // +-----------------------------------------------------------------------+
-
 if (isset($_POST['delete']) and count($collection) > 0)
 {
   if (in_array($conf['webmaster_id'], $collection))
   {
     array_push($page['errors'], l10n('Webmaster cannot be deleted'));
+  }
+  elseif (in_array($user['id'], $collection))
+  {
+    array_push($page['errors'], l10n('You cannot delete your account'));
   }
   else
   {
