@@ -78,14 +78,14 @@
         <span class="property">
           <label for="width">{lang:maximum width}</label>
         </span>
-	<input type="text" id="width" name="width" value="{params.WIDTH_TN}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+	<input type="text" id="width" name="width" value="{params.WIDTH_TN}" />
       </li>
 
       <li>
         <span class="property">
           <label for="height">{lang:maximum height}</label>
         </span>
-	<input type="text" id="height" name="height" value="{params.HEIGHT_TN}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+	<input type="text" id="height" name="height" value="{params.HEIGHT_TN}" />
       </li>
 
       <li>

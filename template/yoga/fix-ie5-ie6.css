@@ -11,13 +11,9 @@ H1, #theHeader {
   height: 1em; /* for IE6 it's like min-height */
 }
 
-/* to get less hugly checkboxes at least in tagSelection */
-/* as well as several forms */
-FORM#update FIELDSET INPUT,
-UL.tagSelection LI INPUT,
-#content UL.thumbnails SPAN.wrap2 INPUT {
+/* some theme set a border on INPUT  which is not pretty for those */
+INPUT.radio, INPUT.checkbox {
   border: none;
-  background-color: transparent;
 }
 
 /* fix category thumbnails on main page */

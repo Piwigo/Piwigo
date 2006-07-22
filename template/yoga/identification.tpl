@@ -31,14 +31,14 @@
         <span class="property">
           <label for="username">{L_USERNAME}</label>
         </span>
-        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}" />
       </li>
 
       <li>
         <span class="property">
           <label for="password">{L_PASSWORD}</label>
         </span>
-        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" />
       </li>
 
       <!-- BEGIN remember_me -->

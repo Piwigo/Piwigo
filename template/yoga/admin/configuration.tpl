@@ -17,21 +17,21 @@
       <span class="property">
         <label for="gallery_title">{lang:Gallery title}</label>
       </span>
-      <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{general.CONF_GALLERY_TITLE}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{general.CONF_GALLERY_TITLE}" />
     </li>
 
     <li>
       <span class="property">
         <label for="page_banner">{lang:Page banner}</label>
       </span>
-      <textarea class="description" name="page_banner" id="page_banner" onfocus="this.className='description focus';" onblur="this.className='description nofocus';">{general.CONF_PAGE_BANNER}</textarea>
+      <textarea class="description" name="page_banner" id="page_banner">{general.CONF_PAGE_BANNER}</textarea>
     </li>
 
     <li>
       <span class="property">
         <label for="gallery_url">{lang:Gallery URL}</label>
       </span>
-      <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{general.CONF_GALLERY_URL}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{general.CONF_GALLERY_URL}" />
     </li>
 
     <li>
@@ -76,7 +76,7 @@
       <span class="property">
         <label for="nb_comment_page">{lang:Number of comments per page}</label>
       </span>
-      <input type="text" size="3" maxlength="4" name="nb_comment_page" id="nb_comment_page" value="{comments.NB_COMMENTS_PAGE}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="3" maxlength="4" name="nb_comment_page" id="nb_comment_page" value="{comments.NB_COMMENTS_PAGE}" />
     </li>
 
     <li>
@@ -96,7 +96,7 @@
       <span class="property">
         <label for="default_language">{lang:Language}</label>
       </span>
-      <select name="default_language" id="default_language" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      <select name="default_language" id="default_language">
         <!-- BEGIN language_option -->
         <option value="{default.language_option.VALUE}" {default.language_option.SELECTED}>{default.language_option.CONTENT}</option>
         <!-- END language_option -->
@@ -107,21 +107,21 @@
       <span class="property">
         <label for="nb_image_line">{lang:Number of images per row}</label>
       </span>
-      <input type="text" size="3" maxlength="2" id="nb_image_line" name="nb_image_line" value="{default.NB_IMAGE_LINE}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="3" maxlength="2" id="nb_image_line" name="nb_image_line" value="{default.NB_IMAGE_LINE}" />
     </li>
 
     <li>
       <span class="property">
         <label for="nb_line_page">{lang:Number of rows per page}</label>
       </span>
-      <input type="text" size="3" maxlength="2" id="nb_line_page" name="nb_line_page" value="{default.NB_ROW_PAGE}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="3" maxlength="2" id="nb_line_page" name="nb_line_page" value="{default.NB_ROW_PAGE}" />
     </li>
 
     <li>
       <span class="property">
         <label for="default_template">{lang:Interface theme}</label>
       </span>
-      <select name="default_template" id="default_template" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      <select name="default_template" id="default_template">
         <!-- BEGIN template_option -->
         <option value="{default.template_option.VALUE}" {default.template_option.SELECTED}>{default.template_option.CONTENT}</option>
         <!-- END template_option -->
@@ -132,7 +132,7 @@
       <span class="property">
         <label for="recent_period">{lang:Recent period}</label>
       </span>
-      <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{default.CONF_RECENT}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{default.CONF_RECENT}" />
     </li>
 
     <li>
@@ -151,14 +151,14 @@
       <span class="property">
         <label for="default_maxwidth">{lang:Maximum width of the pictures}</label>
       </span>
-      <input type="text" size="4" maxlength="4" id="default_maxwidth" name="default_maxwidth" value="{default.MAXWIDTH}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="4" maxlength="4" id="default_maxwidth" name="default_maxwidth" value="{default.MAXWIDTH}" />
     </li>
 
     <li>
       <span class="property">
         <label for="default_maxheight">{lang:Maximum height of the pictures}</label>
       </span>
-      <input type="text" size="4" maxlength="4" id="default_maxheight" name="default_maxheight" value="{default.MAXHEIGHT}" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+      <input type="text" size="4" maxlength="4" id="default_maxheight" name="default_maxheight" value="{default.MAXHEIGHT}" />
     </li>
   </ul>
 </fieldset>

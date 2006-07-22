@@ -89,12 +89,12 @@
 
         <label>
           {lang:Username}
-          <input type="text" name="username" size="15" value="" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+          <input type="text" name="username" size="15" value="">
         </label>
 
         <label>
           {lang:password}
-          <input type="password" name="password" size="15" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+          <input type="password" name="password" size="15">
         </label>
 
         <!-- BEGIN remember_me -->

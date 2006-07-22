@@ -37,9 +37,8 @@
         <span class="property">
           <label for="mail_address">{lang:Email address}</label>
         </span>
-        <input class="login" type="text" name="mail_address" id="mail_address" size="40" maxlength="40" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+        <input class="login" type="text" name="mail_address" id="mail_address" size="40" maxlength="40" >
       </li>
-
       <li>
         <span class="property">
           <label for="no_mail_address">{lang:No email address}</label>
