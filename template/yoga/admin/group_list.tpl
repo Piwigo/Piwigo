@@ -8,7 +8,7 @@
     <span class="property">
       <label for="groupname">{lang:Group name}</label>
     </span>
-    <input type="text" id="groupname" name="groupname" maxlength="50" size="20" onfocus="this.className='focus';" onblur="this.className='nofocus';" />
+    <input type="text" id="groupname" name="groupname" maxlength="50" size="20" />
 
     <p>
       <input type="submit" name="submit_add" value="{lang:Add}" {TAG_INPUT_ENABLED}/>

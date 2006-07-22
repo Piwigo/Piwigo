@@ -22,7 +22,7 @@
 <fieldset>
   <legend>{lang:Filter}</legend>
   <label>{lang:search_keywords}
-    <input type="text" style="width: 300px" name="search_allwords" size="30"  onfocus="this.className='focus';" onblur="this.className='nofocus';"/>
+    <input type="text" style="width: 300px" name="search_allwords" size="30"  />
   </label>
   <ul>
     <li><label>
@@ -33,7 +33,7 @@
     </label></li>
   </ul>
   <label>{lang:search_author}
-    <input type="text" style="width: 300px" name="search_author" size="30"  onfocus="this.className='focus';" onblur="this.className='nofocus';"/>
+    <input type="text" style="width: 300px" name="search_author" size="30"  />
   </label>
 </fieldset>
 
@@ -70,7 +70,7 @@
         <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
         <!-- END start_month -->
       </select>
-      <input name="start_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      <input name="start_year" type="text" size="4" maxlength="4" >
     </li>
     <li>
       <a href="#" onClick="document.search.start_day.value={TODAY_DAY};document.search.start_month.value={TODAY_MONTH};document.search.start_year.value={TODAY_YEAR};return false;">{lang:today}</a>
@@ -89,7 +89,7 @@
         <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
         <!-- END end_month -->
       </select>
-      <input name="end_year" type="text" size="4" maxlength="4" onfocus="this.className='focus';" onblur="this.className='nofocus';">
+      <input name="end_year" type="text" size="4" maxlength="4" >
     </li>
     <li>
       <a href="#" onClick="document.search.end_day.value={TODAY_DAY};document.search.end_month.value={TODAY_MONTH};document.search.end_year.value={TODAY_YEAR};return false;">{lang:today}</a>
@@ -100,7 +100,7 @@
 <fieldset>
   <legend>{lang:search_options}</legend>
   <label>{lang:search_categories}
-    <select class="categoryList" name="cat[]" multiple="multiple" onfocus="this.className='categoryList focus';" onblur="this.className='categoryList nofocus';">
+    <select class="categoryList" name="cat[]" multiple="multiple" >
       <!-- BEGIN category_option -->
       <option value="{category_option.VALUE}">{category_option.OPTION}</option>
       <!-- END category_option -->
