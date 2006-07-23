@@ -71,6 +71,34 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     array_push( $errors, $lang['invalid_pwd'] );
   }
 }
+elseif (!empty($_COOKIE[$conf['remember_me_name']]))
+{
+  $cookie = unserialize(pwg_stripslashes($_COOKIE[$conf['remember_me_name']]));
+  $query = '
+SELECT auto_login_key
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
+;';
+
+  $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
+  if ($auto_login_key == $cookie['key'])
+  {
+    log_user($cookie['id'], false);
+    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
+  }
+  else
+  {
+    // Hacking attempt!
+    $query = '
+UPDATE '.USERS_TABLE.'
+  SET auto_login_key=\''.$auto_login_key.'\'
+  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
+;';
+    pwg_query($query);
+    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
+  }
+}
 //----------------------------------------------------- template initialization
 //
 // Start output of page

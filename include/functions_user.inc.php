@@ -551,12 +551,34 @@ function get_language_filepath($filename)
 function log_user($user_id, $remember_me)
 {
   global $conf;
-  $session_length = $conf['session_length'];
+
   if ($remember_me)
   {
-    $session_length = $conf['remember_me_length'];
+    // search for an existing auto_login_key
+    $query = '
+SELECT auto_login_key 
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
+;';
+ 
+    $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
+    if (empty($auto_login_key)) 
+    {
+      $auto_login_key = base64_encode(md5(uniqid(rand(), true)));
+      $query = '
+UPDATE '.USERS_TABLE.'
+  SET auto_login_key=\''.$auto_login_key.'\'
+  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
+;';
+      pwg_query($query);
+    }
+    $cookie = array('id' => $user_id, 'key' => $auto_login_key);
+    setcookie($conf['remember_me_name'],
+	      serialize($cookie), 
+	      time()+$conf['remember_me_length'],
+	      cookie_path()
+	      );
   }
-  session_set_cookie_params($session_length);
   session_start();
   $_SESSION['pwg_uid'] = $user_id;
 }
