@@ -88,13 +88,6 @@ SELECT auto_login_key
   }
   else
   {
-    // Hacking attempt!
-    $query = '
-UPDATE '.USERS_TABLE.'
-  SET auto_login_key=\''.$auto_login_key.'\'
-  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
-;';
-    pwg_query($query);
     setcookie($conf['remember_me_name'], '', 0, cookie_path());
     redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
