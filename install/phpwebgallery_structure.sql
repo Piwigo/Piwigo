@@ -342,7 +342,7 @@ CREATE TABLE `phpwebgallery_user_mail_notification` (
 DROP TABLE IF EXISTS `phpwebgallery_users`;
 CREATE TABLE `phpwebgallery_users` (
   `id` smallint(5) NOT NULL auto_increment,
-  `username` varchar(20) binary NOT NULL default '',
+  `username` varchar(100) binary NOT NULL default '',
   `password` varchar(32) default NULL,
   `mail_address` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
