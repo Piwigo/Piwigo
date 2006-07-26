@@ -92,7 +92,7 @@ function add_url_params($url, $params)
  * @param array
  * @return string
  */
-function make_index_URL($params = array())
+function make_index_url($params = array())
 {
   global $conf;
   $url = get_root_url().'index';
@@ -104,7 +104,7 @@ function make_index_URL($params = array())
   {
     $url .= '?';
   }
-  $url.= make_section_in_URL($params);
+  $url.= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
   return $url;
 }
@@ -113,7 +113,7 @@ function make_index_URL($params = array())
  * build an index URL with current page parameters, but with redefinitions
  * and removes.
  *
- * duplicate_index_URL(array('category' => 12), array('start')) will create
+ * duplicate_index_url(array('category' => 12), array('start')) will create
  * an index URL on the current section (categories), but on a redefined
  * category and without the start URL parameter.
  *
@@ -121,9 +121,9 @@ function make_index_URL($params = array())
  * @param array removed keys
  * @return string
  */
-function duplicate_index_URL($redefined = array(), $removed = array())
+function duplicate_index_url($redefined = array(), $removed = array())
 {
-  return make_index_URL(
+  return make_index_url(
     params_for_duplication($redefined, $removed)
     );
 }
@@ -166,15 +166,15 @@ function params_for_duplication($redefined, $removed)
 
 /**
  * create a picture URL with current page parameters, but with redefinitions
- * and removes. See duplicate_index_URL.
+ * and removes. See duplicate_index_url.
  *
  * @param array redefined keys
  * @param array removed keys
  * @return string
  */
-function duplicate_picture_URL($redefined = array(), $removed = array())
+function duplicate_picture_url($redefined = array(), $removed = array())
 {
-  return make_picture_URL(
+  return make_picture_url(
     params_for_duplication($redefined, $removed)
     );
 }
@@ -185,12 +185,12 @@ function duplicate_picture_URL($redefined = array(), $removed = array())
  * @param array
  * @return string
  */
-function make_picture_URL($params)
+function make_picture_url($params)
 {
   global $conf;
   if (!isset($params['image_id']))
   {
-    die('make_picture_URL: image_id is a required parameter');
+    die('make_picture_url: image_id is a required parameter');
   }
 
   $url = get_root_url().'picture';
@@ -226,7 +226,7 @@ function make_picture_URL($params)
     default:
       $url .= $params['image_id'];
   }
-  $url .= make_section_in_URL($params);
+  $url .= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
   return $url;
 }
@@ -266,7 +266,7 @@ function add_well_known_params_in_url($url, $params)
  * @param array
  * @return string
  */
-function make_section_in_URL($params)
+function make_section_in_url($params)
 {
   global $conf;
   $section_string = '';
@@ -323,7 +323,7 @@ function make_section_in_URL($params)
     {
       if (!isset($params['tags']) or count($params['tags']) == 0)
       {
-        die('make_section_in_URL: require at least one tag');
+        die('make_section_in_url: require at least one tag');
       }
 
       $section_string.= '/tags';
@@ -356,7 +356,7 @@ function make_section_in_URL($params)
     {
       if (!isset($params['search']))
       {
-        die('make_section_in_URL: require a search identifier');
+        die('make_section_in_url: require a search identifier');
       }
 
       $section_string.= '/search/'.$params['search'];
@@ -367,7 +367,7 @@ function make_section_in_URL($params)
     {
       if (!isset($params['list']))
       {
-        die('make_section_in_URL: require a list of items');
+        die('make_section_in_url: require a list of items');
       }
 
       $section_string.= '/list/'.implode(',', $params['list']);

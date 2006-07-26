@@ -336,7 +336,7 @@ $authorizeds = array_diff(
 if (isset($_GET['cat_id'])
     and in_array($_GET['cat_id'], $authorizeds))
 {
-  $url_img = make_picture_URL(
+  $url_img = make_picture_url(
     array(
       'image_id' => $_GET['image_id'],
       'image_file' => $image_file,
@@ -348,7 +348,7 @@ else
 {
   foreach ($authorizeds as $category)
   {
-    $url_img = make_picture_URL(
+    $url_img = make_picture_url(
       array(
         'image_id' => $_GET['image_id'],
         'image_file' => $image_file,
