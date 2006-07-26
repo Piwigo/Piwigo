@@ -135,7 +135,7 @@ if ($page['show_comments'])
   }
 
   $page['navigation_bar'] = create_navigation_bar(
-    duplicate_picture_URL(array(), array('start')),
+    duplicate_picture_url(array(), array('start')),
     $row['nb_comments'],
     $page['start'],
     $conf['nb_comment_page'],

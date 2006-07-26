@@ -58,5 +58,5 @@ SELECT DISTINCT(id)
 // |                                redirect                               |
 // +-----------------------------------------------------------------------+
 
-redirect(make_index_URL(array('list' => array_from_query($query, 'id'))));
+redirect(make_index_url(array('list' => array_from_query($query, 'id'))));
 ?>

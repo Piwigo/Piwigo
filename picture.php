@@ -75,7 +75,7 @@ if ($page['current_rank'] != $page['last_rank'])
   $page['last_item'] = $page['items'][ $page['last_rank'] ];
 }
 
-$url_up = duplicate_index_URL(
+$url_up = duplicate_index_url(
   array(
     'start' =>
       floor($page['current_rank'] / $user['nb_image_page'])
@@ -86,7 +86,7 @@ $url_up = duplicate_index_URL(
     )
   );
 
-$url_self = duplicate_picture_URL();
+$url_self = duplicate_picture_url();
 
 // +-----------------------------------------------------------------------+
 // |                                actions                                |
@@ -330,7 +330,7 @@ while ($row = mysql_fetch_array($result))
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
-  $picture[$i]['url'] = duplicate_picture_URL(
+  $picture[$i]['url'] = duplicate_picture_url(
     array(
       'image_id' => $row['id'],
       'image_file' => $row['file'],
@@ -398,7 +398,7 @@ $picture_size = get_picture_size(
   );
 
 // metadata
-$url_metadata = duplicate_picture_URL();
+$url_metadata = duplicate_picture_url();
 if ($conf['show_exif'] or $conf['show_iptc'])
 {
   $metadata_showable = true;
@@ -466,7 +466,7 @@ $template->assign_vars(
     'L_UP_HINT' => $lang['home_hint'],
     'L_UP_ALT' => $lang['home'],
 
-    'U_HOME' => make_index_URL(),
+    'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
     'U_METADATA' => $url_metadata,
     'U_ADMIN' => $url_admin,
@@ -627,7 +627,7 @@ else
 if (!empty($picture['current']['date_creation']))
 {
   $val = format_date($picture['current']['date_creation']);
-  $url = make_index_URL(
+  $url = make_index_url(
         array(
           'chronology_field'=>'created',
           'chronology_style'=>'monthly',
@@ -644,7 +644,7 @@ else
 
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
-$url = make_index_URL(
+$url = make_index_url(
       array(
         'chronology_field'=>'posted',
         'chronology_style'=>'monthly',
@@ -710,7 +710,7 @@ if (mysql_num_rows($result) > 0)
     array_push(
       $tags,
       '<a href="'
-      .make_index_URL(
+      .make_index_url(
         array(
           'tags' => array(
             array(

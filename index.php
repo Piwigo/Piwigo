@@ -63,7 +63,7 @@ if (isset($_GET['image_order']))
     );
 
   redirect(
-    duplicate_index_URL(
+    duplicate_index_url(
       array(),        // nothing to redefine
       array('start')  // changing display order goes back to section first page
       )
@@ -86,7 +86,7 @@ if (isset($page['cat_nb_images'])
     and $page['cat_nb_images'] > $user['nb_image_page'])
 {
   $page['navigation_bar'] = create_navigation_bar(
-    duplicate_index_URL(array(), array('start')),
+    duplicate_index_url(array(), array('start')),
     $page['cat_nb_images'],
     $page['start'],
     $user['nb_image_page'],
@@ -134,7 +134,7 @@ if (!isset($page['chronology_field']))
   $template->assign_block_vars(
     'mode_created',
     array(
-      'URL' => duplicate_index_URL( $chronology_params, array('start') )
+      'URL' => duplicate_index_url( $chronology_params, array('start') )
       )
     );
 
@@ -142,7 +142,7 @@ if (!isset($page['chronology_field']))
   $template->assign_block_vars(
     'mode_posted',
     array(
-      'URL' => duplicate_index_URL( $chronology_params, array('start') )
+      'URL' => duplicate_index_url( $chronology_params, array('start') )
       )
     );
 }
@@ -151,7 +151,7 @@ else
   $template->assign_block_vars(
     'mode_normal',
     array(
-      'URL' => duplicate_index_URL( array(), array('chronology_field','start') )
+      'URL' => duplicate_index_url( array(), array('chronology_field','start') )
       )
     );
 
@@ -163,7 +163,7 @@ else
   {
     $chronology_field = 'created';
   }
-  $url = duplicate_index_URL(
+  $url = duplicate_index_url(
             array('chronology_field'=>$chronology_field ),
             array('chronology_date', 'start')
           );
@@ -261,7 +261,7 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
         'preferred_image_order.order',
         array(
           'DISPLAY' => $orders[$i][0],
-          'URL' => add_url_params( duplicate_index_URL(), array('image_order'=>$i) ),
+          'URL' => add_url_params( duplicate_index_url(), array('image_order'=>$i) ),
           'SELECTED_OPTION' => ($order_idx==$i ? 'SELECTED' : ''),
           )
         );

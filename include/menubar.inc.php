@@ -5,10 +5,10 @@
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $Id:$
-// | last update   : $Date:$
-// | last modifier : $Author:$
-// | revision      : $Revision:$
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -41,10 +41,10 @@ $template->assign_vars(
     'USERNAME' => $user['username'],
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
     'F_IDENTIFY' => get_root_url().'identification.php',
-    'U_HOME' => make_index_URL(),
+    'U_HOME' => make_index_url(),
     'U_REGISTER' => get_root_url().'register.php',
     'U_LOST_PASSWORD' => get_root_url().'password.php',
-    'U_LOGOUT' => add_url_params(make_index_URL(), array('act'=>'logout') ),
+    'U_LOGOUT' => add_url_params(make_index_url(), array('act'=>'logout') ),
     'U_ADMIN'=> get_root_url().'admin.php',
     'U_PROFILE'=> get_root_url().'profile.php',
     )
@@ -99,7 +99,7 @@ SELECT tag_id, name, url_name, count(*) counter
     $template->assign_block_vars(
       'tags.tag',
       array(
-        'URL_ADD' => make_index_URL(
+        'URL_ADD' => make_index_url(
           array(
             'tags' => array_merge(
               $page['tags'],
@@ -113,7 +113,7 @@ SELECT tag_id, name, url_name, count(*) counter
             )
           ),
 
-        'URL' => make_index_URL(
+        'URL' => make_index_url(
           array(
             'tags' => array(
               array(
@@ -147,7 +147,7 @@ if ( !$user['is_the_guest'] )
   $template->assign_block_vars(
     'special_cat',
     array(
-      'URL' => make_index_URL(array('section' => 'favorites')),
+      'URL' => make_index_url(array('section' => 'favorites')),
       'TITLE' => $lang['favorite_cat_hint'],
       'NAME' => $lang['favorite_cat']
       ));
@@ -156,7 +156,7 @@ if ( !$user['is_the_guest'] )
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => make_index_URL(array('section' => 'most_visited')),
+    'URL' => make_index_url(array('section' => 'most_visited')),
     'TITLE' => $lang['most_visited_cat_hint'],
     'NAME' => $lang['most_visited_cat']
     ));
@@ -166,7 +166,7 @@ if ($conf['rate'])
   $template->assign_block_vars(
     'special_cat',
     array(
-      'URL' => make_index_URL(array('section' => 'best_rated')),
+      'URL' => make_index_url(array('section' => 'best_rated')),
       'TITLE' => $lang['best_rated_cat_hint'],
       'NAME' => $lang['best_rated_cat']
       )
@@ -184,7 +184,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => make_index_URL(array('section' => 'recent_pics')),
+    'URL' => make_index_url(array('section' => 'recent_pics')),
     'TITLE' => $lang['recent_pics_cat_hint'],
     'NAME' => $lang['recent_pics_cat']
     ));
@@ -192,7 +192,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'special_cat',
   array(
-    'URL' => make_index_URL(array('section' => 'recent_cats')),
+    'URL' => make_index_url(array('section' => 'recent_cats')),
     'TITLE' => $lang['recent_cats_cat_hint'],
     'NAME' => $lang['recent_cats_cat']
     ));
@@ -202,7 +202,7 @@ $template->assign_block_vars(
   'special_cat',
   array(
     'URL' =>
-      make_index_URL(
+      make_index_url(
         array(
           'chronology_field' => ($conf['calendar_datefield']=='date_available'
                                   ? 'posted' : 'created'),
