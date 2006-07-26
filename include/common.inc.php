@@ -178,6 +178,7 @@ if ($conf['gallery_locked'])
   if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
       and !is_admin() )
   {
+    echo( $lang['gallery_locked_message'] );
     exit();
   }
 }
