@@ -22,7 +22,7 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->
 <title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
-<script type="text/javascript" src="{pwg_root}include/scripts.js"></script>
+<script type="text/javascript" src="{pwg_root}template-common/scripts.js"></script>
 <!--[if lt IE 7]>
   <style>
     /* only because we need \{pwg_root\} otherwise use fix-ie5-ie6.css */
@@ -32,7 +32,7 @@ the "text/nonsense" prevents gecko based browsers to load it -->
     }
     FORM { behavior: url("{pwg_root}template-common/inputfix.htc"); }
   </style>
-  <script type="text/javascript" src="{pwg_root}include/pngfix.js"></script>
+  <script type="text/javascript" src="{pwg_root}template-common/pngfix.js"></script>
 <![endif]-->
 </head>
 
