@@ -342,6 +342,11 @@ if ('categories' == $page['section'])
 
     if (!isset($page['chronology_field']))
     {
+      if ( !empty($result['image_order']) and !isset($page['super_order_by']) )
+      {
+      	$conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
+      }
+
       $query = '
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'

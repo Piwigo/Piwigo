@@ -80,6 +80,39 @@ if (isset($_POST['submit']))
       );
   }
 
+  $image_order = '';
+  if ( !isset($_POST['image_order_default']) )
+  {
+    for ($i=1; $i<=3; $i++)
+    {
+      if ( !empty($_POST['order_field_'.$i]) )
+      {
+        if (! empty($image_order) )
+        {
+          $image_order .= ',';
+        }
+        $image_order .= $_POST['order_field_'.$i];
+        if ($_POST['order_direction_'.$i]=='DESC')
+        {
+          $image_order .= ' DESC';
+        }
+      }
+    }
+  }
+  $image_order = empty($image_order) ? 'null' : "'$image_order'";
+  $query = '
+UPDATE '.CATEGORIES_TABLE.' SET image_order='.$image_order.'
+WHERE ';
+  if (isset($_POST['image_order_subcats']))
+  {
+    $query .= 'uppercats REGEXP \'(^|,)'.$_GET['cat_id'].'(,|$)\'';
+  }
+  else
+  {
+    $query .= 'id='.$_GET['cat_id'].';';
+  }
+  pwg_query($query);
+
   array_push($page['infos'], $lang['editcat_confirm']);
 }
 else if (isset($_POST['set_random_representant']))
@@ -226,6 +259,9 @@ $template->assign_vars(
     $commentable         => 'checked="checked"',
     $uploadable          => 'checked="checked"',
 
+    'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
+                              'checked="checked"' : '',
+
     'L_EDIT_NAME'        => $lang['name'],
     'L_STORAGE'          => $lang['storage'],
     'L_REMOTE_SITE'      => $lang['remote_site'],
@@ -276,6 +312,70 @@ if ($category['nb_images'] > 0)
       )
     );
 }
+
+// image order management
+$matches = array();
+if ( !empty( $category['image_order'] ) )
+{
+  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
+    $category['image_order'], $matches);
+}
+
+$sort_fields = array(
+  '' => '',
+  'date_creation' => l10n('Creation date'),
+  'date_available' => l10n('Post date'),
+  'average_rate' => l10n('Average rate'),
+  'hit' => l10n('most_visited_cat'),
+  'file' => l10n('File name'),
+  'id' => 'Id',
+  );
+
+for ($i=0; $i<3; $i++) // 3 fields
+{
+  $template->assign_block_vars('image_order', array('NUMBER'=>$i+1) );
+  foreach ($sort_fields as $sort_field => $name)
+  {
+    $selected='';
+    if ( isset($matches[1][$i]) and $matches[1][$i]==$sort_field )
+    {
+      $selected='selected="selected"';
+    }
+    elseif ( empty($sort_field) )
+    {
+      $selected='selected="selected"';
+    }
+
+    $template->assign_block_vars('image_order.field',
+      array(
+        'SELECTED' => $selected,
+        'VALUE' => $sort_field,
+        'OPTION' => $name
+        )
+      );
+  }
+
+  $template->assign_block_vars('image_order.order',
+    array(
+      'SELECTED' =>
+        ( empty($matches[2][$i]) or strcasecmp($matches[2][$i],'ASC')==0 )
+          ? 'selected="selected"' : '',
+      'VALUE' => 'ASC',
+      'OPTION' => 'Ascending'
+      )
+    );
+
+  $template->assign_block_vars('image_order.order',
+    array(
+      'SELECTED' =>
+        ( isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0 )
+          ? 'selected="selected"' : '',
+      'VALUE' => 'DESC',
+      'OPTION' => 'Descending'
+      )
+    );
+}
+
 
 // representant management
 if ($category['nb_images'] > 0

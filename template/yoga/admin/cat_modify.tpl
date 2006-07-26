@@ -62,7 +62,7 @@
     <!-- BEGIN parent_option -->
     <option class="{move.parent_option.CLASS}" {move.parent_option.SELECTED} value="{move.parent_option.VALUE}">{move.parent_option.OPTION}</option>
     <!-- END parent_option -->
-  </select>  
+  </select>
 </fieldset>
 <!-- END move -->
 
@@ -102,6 +102,28 @@
   </table>
 </fieldset>
 
+<fieldset id="image_order">
+  <legend>{lang:Sort order}</legend>
+  <input type="checkbox" name="image_order_default" id="image_order_default" {IMG_ORDER_DEFAULT} />
+  <label for="image_order_default">{lang:Use default sort order}</label>
+  <br/>
+  <input type="checkbox" name="image_order_subcats" id="image_order_subcats" />
+  <label for="image_order_subcats">{lang:Apply to subcategories}</label>
+  <br/>
+  <!-- BEGIN image_order -->
+    <select name="order_field_{image_order.NUMBER}">
+    <!-- BEGIN field -->
+      <option value="{image_order.field.VALUE}" {image_order.field.SELECTED}>{image_order.field.OPTION}</option>
+    <!-- END field -->
+    </select>
+    <select name="order_direction_{image_order.NUMBER}">
+    <!-- BEGIN order -->
+      <option value="{image_order.order.VALUE}" {image_order.order.SELECTED}>{image_order.order.OPTION}</option>
+    <!-- END order -->
+    </select><br/>
+  <!-- END image_order -->
+</fieldset>
+
 <p style="text-align:center;">
   <input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
   <input type="reset" value="{lang:Reset}" name="reset" />
@@ -122,7 +144,7 @@
         <!-- END random -->
       </td>
       <td>
-        <!-- BEGIN set_random --> 
+        <!-- BEGIN set_random -->
         <p><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" {TAG_INPUT_ENABLED}/></p>
         <!-- END set_random -->
 
@@ -138,7 +160,7 @@
 </form>
 
 <form action="{F_ACTION}" method="POST" id="links">
-  
+
 <fieldset id="linkAllNew">
   <legend>{lang:Link all category elements to a new category}</legend>
 
@@ -163,7 +185,7 @@
   <p>
     <input type="submit" value="{lang:Submit}" name="submitAdd" {TAG_INPUT_ENABLED}/>
     <input type="reset" value="{lang:Reset}" name="reset" />
-  </p>  
+  </p>
 
 </fieldset>
 
@@ -186,7 +208,7 @@
   <p>
     <input type="submit" value="{lang:Submit}" name="submitDestinations" {TAG_INPUT_ENABLED}/>
     <input type="reset" value="{lang:Reset}" name="reset" />
-  </p>  
+  </p>
 
 </fieldset>
 

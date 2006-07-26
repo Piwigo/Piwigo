@@ -37,6 +37,7 @@ CREATE TABLE `phpwebgallery_categories` (
   `uppercats` varchar(255) NOT NULL default '',
   `commentable` enum('true','false') NOT NULL default 'true',
   `global_rank` varchar(255) default NULL,
+  `image_order` varchar(128) default NULL,
   PRIMARY KEY  (`id`),
   KEY `categories_i2` (`id_uppercat`)
 ) TYPE=MyISAM;

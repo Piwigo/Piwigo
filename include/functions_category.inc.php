@@ -110,7 +110,8 @@ function get_cat_info( $id )
 {
   $infos = array('nb_images','id_uppercat','comment','site_id'
                  ,'dir','date_last','uploadable','status','visible'
-                 ,'representative_picture_id','uppercats','commentable');
+                 ,'representative_picture_id','uppercats','commentable'
+                 ,'image_order');
 
   $query = '
 SELECT '.implode(',', $infos).'
