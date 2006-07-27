@@ -52,18 +52,6 @@ $template->assign_vars(
     'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled onclick="return false;"' : '')
     ));
 
-// refresh
-if ( isset( $refresh ) and intval($refresh) >= 0 and isset( $url_link ) and isset( $redirect_msg ) )
-{
-  $template->assign_vars(
-    array(
-      'U_REDIRECT_MSG' => $redirect_msg,
-      'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => $url_link
-      ));
-  $template->assign_block_vars('refresh', array());
-}
-
 header('Content-Type: text/html; charset='.$lang_info['charset']);
 $template->parse('header');
 ?>

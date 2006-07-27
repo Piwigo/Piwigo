@@ -556,20 +556,17 @@ function pwg_debug( $string )
  * @param integer $refreh_time
  * @return void
  */
-function redirect( $url , $msg = '', $refreh_time = 0)
+function redirect( $url , $msg = '', $refresh_time = 0)
 {
-  global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
+  global $lang_info;
 
-  unset($template);
-  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
-  if (!isset($page['body_id'])) 
-  {
-    $page['body_id'] = 'adminPage';
+  if (!isset($lang_info)) {
+    include_once(get_language_filepath('common.lang.php'));
   }
 
-  // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
-  // refresh page in header.tpl
-  if (!isset($msg) or ($msg == ''))
+  $template = new Template(PHPWG_ROOT_PATH.'template-common');
+  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
+  if (empty($msg))
   {
     $redirect_msg = l10n('redirect_msg');
   }
@@ -578,17 +575,27 @@ function redirect( $url , $msg = '', $refreh_time = 0)
     $redirect_msg = $msg;
   }
   $redirect_msg = nl2br($redirect_msg);
-  $refresh = $refreh_time;
-  $url_link = $url;
-  $title = 'redirection';
 
-  include( PHPWG_ROOT_PATH.'include/page_header.php' );
+  $template->assign_vars(
+    array(
+      'CONTENT_ENCODING' => $lang_info['charset'],
+      'LANG'=>$lang_info['code'],
+      'DIR'=>$lang_info['direction'],
+      'CONTENT' => print_r($user,true),
+      'LANG_INFO' => print_r($lang_info,true)
+      )
+    );
 
-  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
+  $template->assign_vars(
+    array(
+      'U_REDIRECT_MSG' => $redirect_msg,
+      'REFRESH_TIME' => $refresh_time,
+      'U_REFRESH' => $url
+      )
+    );
+  $template->assign_block_vars('refresh', array());
   $template->parse('redirect');
-
-  include( PHPWG_ROOT_PATH.'include/page_tail.php' );
-
+  $template->p();
   exit();
 }
 
