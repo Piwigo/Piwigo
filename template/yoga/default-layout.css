@@ -52,7 +52,10 @@ HR.separation {
 }
 
 /** General defaults **/
-INPUT {margin: 0;}
+INPUT, SELECT {
+  margin: 0;
+  font-size: 1em;	/* <= some browsers don't set it correctly */
+}
 UL, DL, LI { text-align: left;}
 TABLE {			/* horizontaly centered */
   margin-left: auto;

@@ -87,6 +87,8 @@ FORM#quickconnect UL.actions {
   float: right;
   padding: 0;
   text-align: right;	/* Opera 7.5 */
+}
+FORM#quickconnect FIELDSET>UL.actions {
   width: 40%;		/* Opera 7.5 cannot find why width:auto fails :-( */
 }
 
@@ -94,6 +96,16 @@ FORM#quickconnect UL.actions,
 FORM#quickconnect P, 
 FORM#quickconnect LABEL {
   margin: 0 0.5em 0 0.5em;
+}
+
+FORM#quickconnect INPUT[type=text],
+FORM#quickconnect INPUT[type=password] {
+  width: 16.5em;
+}
+
+FORM#quickconnect INPUT.text,
+FORM#quickconnect INPUT.password {
+  width: 16.5em;		/* <= same as above for IE with inputfix.htc */
 }
 
 #menubar #menuTagCloud {
