@@ -26,3 +26,22 @@ INPUT.radio, INPUT.checkbox {
 {
   display: inline;
 }
+
+/* fix quickconnect layout */
+FORM#quickconnect UL.actions {
+  width: 30px;	/* <= get icons not so badly positionned */
+}
+
+FORM#quickconnect INPUT.text,
+FORM#quickconnect INPUT.password,
+FORM#quickconnect INPUT.submit {
+  position: relative;
+  left: -0.5em;	/* definitively a bug ! */
+}
+
+FORM#quickconnect INPUT.text,
+FORM#quickconnect INPUT.password {
+  width: 10em;
+}
+
+
