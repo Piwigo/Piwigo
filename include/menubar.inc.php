@@ -44,7 +44,7 @@ $template->assign_vars(
     'U_HOME' => make_index_url(),
     'U_REGISTER' => get_root_url().'register.php',
     'U_LOST_PASSWORD' => get_root_url().'password.php',
-    'U_LOGOUT' => add_url_params(make_index_url(), array('act'=>'logout') ),
+    'U_LOGOUT' => get_root_url().'?act=logout',
     'U_ADMIN'=> get_root_url().'admin.php',
     'U_PROFILE'=> get_root_url().'profile.php',
     )

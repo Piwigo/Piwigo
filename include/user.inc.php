@@ -25,26 +25,49 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// retrieving connected user informations
 if (isset($_COOKIE[session_name()]))
 {
- session_start();
- if (isset($_SESSION['pwg_uid']))
- {
-   $user['id'] = $_SESSION['pwg_uid'];
-   $user['is_the_guest'] = false;
- }
- else
- {
-   // session timeout
-   $user['id'] = $conf['guest_id'];
-   $user['is_the_guest'] = true;
- }
+  session_start();
+  if (isset($_GET['act']) and $_GET['act'] == 'logout')
+  {
+    // logout
+    $_SESSION = array();
+    session_unset();
+    session_destroy();
+    setcookie(session_name(),'',0,
+	      ini_get('session.cookie_path'), 
+	      ini_get('session.cookie_domain') 
+	      );
+    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    redirect(make_index_url());
+  } 
+  elseif (empty($_SESSION['pwg_uid'])) 
+  {
+    // timeout
+    setcookie(session_name(),'',0,
+	      ini_get('session.cookie_path'), 
+	      ini_get('session.cookie_domain') 
+	      );
+  }
+  else
+  {
+    $user['id'] = $_SESSION['pwg_uid'];
+    $user['is_the_guest'] = false;
+  }
 }
+elseif (!empty($_COOKIE[$conf['remember_me_name']]))
+{
+  auto_login();
+} 
 else
 {
- $user['id'] = $conf['guest_id'];
- $user['is_the_guest'] = true;
+  $user['id'] = $conf['guest_id'];
+  $user['is_the_guest'] = true;
+}
+
+if ($user['is_the_guest'] and !$conf['guest_access'])
+{
+  redirect (get_root_url().'identification.php');
 }
 
 // using Apache authentication override the above user search
@@ -58,6 +81,7 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
 
   $user['is_the_guest'] = false;
 }
+
 $user = array_merge(
   $user,
   getuserdata(

@@ -550,7 +550,7 @@ function get_language_filepath($filename)
 */
 function log_user($user_id, $remember_me)
 {
-  global $conf;
+  global $conf, $user;
 
   if ($remember_me)
   {
@@ -581,6 +581,36 @@ UPDATE '.USERS_TABLE.'
   }
   session_start();
   $_SESSION['pwg_uid'] = $user_id;
+
+  $user['id'] = $_SESSION['pwg_uid'];
+  $user['is_the_guest'] = false;
+}
+
+/*
+ * Performs auto-connexion when cookie remember_me exists
+ * @return void
+*/
+function auto_login() { 
+  global $conf;
+
+  $cookie = unserialize(pwg_stripslashes($_COOKIE[$conf['remember_me_name']]));
+  $query = '
+SELECT auto_login_key
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
+;';
+
+  $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
+  if ($auto_login_key == $cookie['key'])
+  {
+    log_user($cookie['id'], false);
+    redirect(make_index_url());
+  }
+  else
+  {
+    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    redirect(make_index_url());
+  } 
 }
 
 /*

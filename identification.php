@@ -63,7 +63,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     {
       $remember_me = true;
     }
-    log_user( $row['id'], $remember_me);
+    log_user($row['id'], $remember_me);
     redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
   else
@@ -73,24 +73,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 }
 elseif (!empty($_COOKIE[$conf['remember_me_name']]))
 {
-  $cookie = unserialize(pwg_stripslashes($_COOKIE[$conf['remember_me_name']]));
-  $query = '
-SELECT auto_login_key
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
-;';
-
-  $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-  if ($auto_login_key == $cookie['key'])
-  {
-    log_user($cookie['id'], false);
-    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
-  }
-  else
-  {
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
-    redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
-  }
+  auto_login();
 }
 //----------------------------------------------------- template initialization
 //
