@@ -386,7 +386,8 @@ function pwg_log( $file, $category, $picture = '' )
 
   if ($conf['log'])
   {
-   if ( ($conf['history_admin'] ) or  ( (! $conf['history_admin'])  and (!is_admin())  ) )
+   if (($conf['history_admin']) or ((! $conf['history_admin']) 
+       and (!is_admin())))
     {
     $login = ($user['id'] == $conf['guest_id'])
       ? 'guest' : addslashes($user['username']);
@@ -556,7 +557,7 @@ function pwg_debug( $string )
  * @param integer $refreh_time
  * @return void
  */
-function redirect( $url , $msg = '', $refresh_time = 1000)
+function redirect( $url , $msg = '', $refresh_time = 0)
 {
   global $lang_info, $lang;
 
