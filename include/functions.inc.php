@@ -556,9 +556,9 @@ function pwg_debug( $string )
  * @param integer $refreh_time
  * @return void
  */
-function redirect( $url , $msg = '', $refresh_time = 0)
+function redirect( $url , $msg = '', $refresh_time = 1000)
 {
-  global $lang_info;
+  global $lang_info, $lang;
 
   if (!isset($lang_info)) {
     include_once(get_language_filepath('common.lang.php'));
@@ -581,8 +581,6 @@ function redirect( $url , $msg = '', $refresh_time = 0)
       'CONTENT_ENCODING' => $lang_info['charset'],
       'LANG'=>$lang_info['code'],
       'DIR'=>$lang_info['direction'],
-      'CONTENT' => print_r($user,true),
-      'LANG_INFO' => print_r($lang_info,true)
       )
     );
 
