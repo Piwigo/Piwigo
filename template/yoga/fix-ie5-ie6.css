@@ -11,11 +11,6 @@ H1, #theHeader {
   height: 1em;	/* for IE6 it's like min-height */
 }
 
-/* some theme set a border on INPUT  which is not pretty for those */
-INPUT.radio, INPUT.checkbox {
-  border: none;
-}
-
 /* fix category thumbnails on main page */
 #content UL.thumbnailCategories {
   width: 99%;	/* buggy IE box model */
