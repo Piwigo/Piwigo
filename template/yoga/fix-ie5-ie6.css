@@ -8,7 +8,7 @@ H1, #theHeader {
   width: 100%;	/* <- useless but seems to make IE6 happy */
 }
 #content {
-  height: 1em; /* for IE6 it's like min-height */
+  height: 1em;	/* for IE6 it's like min-height */
 }
 
 /* some theme set a border on INPUT  which is not pretty for those */
@@ -18,7 +18,7 @@ INPUT.radio, INPUT.checkbox {
 
 /* fix category thumbnails on main page */
 #content UL.thumbnailCategories {
-  width: 99%; /* buggy IE box model */
+  width: 99%;	/* buggy IE box model */
 }
 
 /* fix tag clouds : IE doesn't like anything but inline */
@@ -28,20 +28,6 @@ INPUT.radio, INPUT.checkbox {
 }
 
 /* fix quickconnect layout */
-FORM#quickconnect UL.actions {
-  width: 30px;	/* <= get icons not so badly positionned */
+FORM#quickconnect FIELDSET {
+  width: 99%;	/* correct an ugly 1 or 2 px misalignement with IE */
 }
-
-FORM#quickconnect INPUT.text,
-FORM#quickconnect INPUT.password,
-FORM#quickconnect INPUT.submit {
-  position: relative;
-  left: -0.5em;	/* definitively a bug ! */
-}
-
-FORM#quickconnect INPUT.text,
-FORM#quickconnect INPUT.password {
-  width: 10em;
-}
-
-

@@ -52,10 +52,6 @@
     margin: 10px auto;
     width: 90%;
 }
-#menubar FORM P {
-    margin: 5px;
-    font-size: 100%;
-}
 #menubar INPUT {
     text-indent: 2px;
 }
@@ -69,11 +65,11 @@ FORM#quickconnect {
 FORM#quickconnect FIELDSET {
   margin: 0;
   padding: 0 0 0.5em 0;
-  overflow: hidden;	/* Correct float issue with Opera 7.5 */
-  width: 100%;		/*        //			      */
 }
 
 FORM#quickconnect P {
+  margin-left: 0;
+  font-size: 100%;
   float: left;
   clear: left;
 }
@@ -93,20 +89,30 @@ FORM#quickconnect FIELDSET>UL.actions {
 }
 
 FORM#quickconnect UL.actions,
-FORM#quickconnect P, 
+FORM#quickconnect P,
 FORM#quickconnect LABEL {
-  margin: 0 0.5em 0 0.5em;
+  padding: 0 0.5em 0 0.5em;
+}
+
+FORM#quickconnect LABEL {
+  margin:0;
+  width: 100%;
+ /* -moz-box-sizing: padding-box;*/
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 FORM#quickconnect INPUT[type=text],
 FORM#quickconnect INPUT[type=password] {
-  width: 16.5em;
+  width: 100%;	/* mozilla can handle 100% */
 }
-
-FORM#quickconnect INPUT.text,
+/* same as above for IE with inputfix.htc              */
+/* unfortunately IE doesn't handle that correctly      */
+/* so you should set a width in em in local_layout.css */
+/*FORM#quickconnect INPUT.text,
 FORM#quickconnect INPUT.password {
-  width: 16.5em;		/* <= same as above for IE with inputfix.htc */
-}
+  width: 95%;
+}*/
 
 #menubar #menuTagCloud {
   text-align: center;
