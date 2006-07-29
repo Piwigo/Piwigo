@@ -1,7 +1,8 @@
 /* $Id$ */
 
 /* text color */
-BODY, H1, H2, H3, DT {
+BODY, H1, H2, H3, DT,
+INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
   color:#696969;	/* dimgray */
 }
 
@@ -53,12 +54,12 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 
 /* links */
-A, .rateButton {
+A, INPUT.rateButton {
     color: #005e89;
     background: transparent;
 }
 
-A:hover {
+A:hover, INPUT.rateButton:hover {
     color: #858460;
 }
 

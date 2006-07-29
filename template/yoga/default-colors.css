@@ -35,10 +35,24 @@ SELECT, TEXTAREA {
   color:black;
   background-color: #d3d3d3;	/* lightgrey */
 }
-/*INPUT.text.focus, INPUT.password.focus, INPUT.button.focus,
-INPUT.submit.focus, INPUT.reset.focus, INPUT.file.focus,*/
+
 INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
-  background-color: #f5f5f5;		/* whitesmoke */
+  background-color: #f5f5f5;	/* whitesmoke */
+}
+
+/* some theme set a border on INPUT  which is not pretty for radio/checkbox */
+INPUT[type="radio"], INPUT[type="checkbox"] {
+  border: none;	/* <= Opera needs this */
+}
+
+INPUT.radio, INPUT.checkbox {
+  border: none;	/* <= IE6 needs this */
+}
+
+/* rate buttons displayed like links */
+INPUT.rateButton, INPUT.rateButtonSelected {
+  color:inherit;
+  background-color:transparent;	/* Konqueror doesn't accept transparent here */
 }
 
 .errors { /* Errors display */
