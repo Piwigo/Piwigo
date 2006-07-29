@@ -32,14 +32,17 @@
   <!-- BEGIN thumbnails -->
   <ul class="thumbnails">
     <!-- BEGIN thumbnail -->
-    <li><span class="wrap1"><span class="wrap2">
+    <li><span class="wrap1">
         <label>
-        <img src="{thumbnails.thumbnail.SRC}"
-             alt="{thumbnails.thumbnail.ALT}"
-             title="{thumbnails.thumbnail.TITLE}"
-             class="thumbnail" />
-        <input type="checkbox" name="selection[]" value="{thumbnails.thumbnail.ID}" />
-        </label></span></span>
+          <span class="wrap2"><span>
+            <img src="{thumbnails.thumbnail.SRC}"
+               alt="{thumbnails.thumbnail.ALT}"
+               title="{thumbnails.thumbnail.TITLE}"
+               class="thumbnail" />
+          </span></span>
+          <input type="checkbox" name="selection[]" value="{thumbnails.thumbnail.ID}" />
+        </label>
+        </span>
     </li>
     <!-- END thumbnail -->
   </ul>

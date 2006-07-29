@@ -27,7 +27,7 @@
   vertical-align: middle;	/* Ok with Opera and Geko not IE6 */
 }
 #content UL.thumbnails SPAN.wrap2 A,
-#content UL.thumbnails SPAN.wrap2 LABEL {
+#content UL.thumbnails LABEL {
   display: block;
   border-bottom: none;
 }
@@ -36,12 +36,17 @@
 }
 
 /* label and input used for caddie in admin section */
-#content UL.thumbnails SPAN.wrap2 LABEL {
+#content UL.thumbnails LABEL {
   position: relative;
 }
-:root #content UL.thumbnails SPAN.wrap2 INPUT { /* hide from Opera */
-  position: absolute;
-  left: 0;
-  top: 0;
+
+#content UL.thumbnails INPUT {
+  position: relative;	/* <= Opera can handle relative here */
+  top: -20px;
+}
+:root #content UL.thumbnails INPUT { /* hide from Opera */
+  position: absolute;	/* <= Opera hide 1 checkbox over 2 !!! */
+  left: 2px;
+  top: 2px;
 }
  
