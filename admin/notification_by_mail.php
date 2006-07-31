@@ -479,7 +479,7 @@ where
   {
     if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
     {
-      $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], $_POST['send_customize_mail_content']);
+      $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], stripslashes($_POST['send_customize_mail_content']));
       do_timeout_treatment('send_selection', $check_key_treated);
     }
   }
