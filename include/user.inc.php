@@ -65,7 +65,8 @@ else
   $user['is_the_guest'] = true;
 }
 
-if ($user['is_the_guest'] and !$conf['guest_access'])
+if ($user['is_the_guest'] and !$conf['guest_access'] 
+    and (basename($_SERVER['PHP_SELF'])!='identification.php'))
 {
   redirect (get_root_url().'identification.php');
 }
