@@ -66,7 +66,9 @@ else
 }
 
 if ($user['is_the_guest'] and !$conf['guest_access'] 
-    and (basename($_SERVER['PHP_SELF'])!='identification.php'))
+    and (basename($_SERVER['PHP_SELF'])!='identification.php')
+    and (basename($_SERVER['PHP_SELF'])!='password.php')
+    and (basename($_SERVER['PHP_SELF'])!='register.php'))
 {
   redirect (get_root_url().'identification.php');
 }
