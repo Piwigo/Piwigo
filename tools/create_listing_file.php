@@ -251,14 +251,17 @@ function get_thumb_files($dir)
   $prefix_length = strlen($conf['prefix_thumbnail']);
 
   $thumbnails = array();
-  if ($opendir = @opendir($dir.'/thumbnail'))
+  if (is_dir($dir.'/thumbnail'))
   {
-    while ($file = readdir($opendir))
+    if ($opendir = opendir($dir.'/thumbnail'))
     {
-      if (in_array(get_extension($file), $conf['picture_ext'])
-          and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'])
+      while ($file = readdir($opendir))
       {
-        array_push($thumbnails, $file);
+        if (in_array(get_extension($file), $conf['picture_ext'])
+            and substr($file,0,$prefix_length) == $conf['prefix_thumbnail'])
+        {
+          array_push($thumbnails, $file);
+        }
       }
     }
   }
@@ -277,13 +280,16 @@ function get_representative_files($dir)
   global $conf;
 
   $pictures = array();
-  if ($opendir = @opendir($dir.'/pwg_representative'))
+  if (is_dir($dir.'/pwg_representative'))
   {
-    while ($file = readdir($opendir))
+    if ($opendir = opendir($dir.'/pwg_representative'))
     {
-      if (in_array(get_extension($file), $conf['picture_ext']))
+      while ($file = readdir($opendir))
       {
-        array_push($pictures, $file);
+        if (in_array(get_extension($file), $conf['picture_ext']))
+        {
+          array_push($pictures, $file);
+        }
       }
     }
   }
@@ -302,13 +308,16 @@ function get_high_files($dir)
   global $conf;
 
   $pictures = array();
-  if ($opendir = @opendir($dir.'/pwg_high'))
+  if (is_dir($dir.'/pwg_high'))
   {
-    while ($file = readdir($opendir))
+    if ($opendir = opendir($dir.'/pwg_high'))
     {
-      if (in_array(get_extension($file), $conf['picture_ext']))
+      while ($file = readdir($opendir))
       {
-        array_push($pictures, $file);
+        if (in_array(get_extension($file), $conf['picture_ext']))
+        {
+          array_push($pictures, $file);
+        }
       }
     }
   }
@@ -324,6 +333,14 @@ function get_dirs($basedir, $indent, $level)
 {
   $fs_dirs = array();
   $dirs = "";
+  global $conf_safe_mode;
+
+  // Refresh the max_execution_time to avoid timout error
+  // By default time to scan a directory (without subdirs) is fixed to 30 seconds
+  if (!$conf_safe_mode)
+  {
+    set_time_limit(30);
+  }
 
   if ($opendir = opendir($basedir))
   {
@@ -435,25 +452,29 @@ function get_pictures($dir, $indent)
 
         if ($conf['use_exif'])
         {
-          if ($exif = @read_exif_data($dir.'/'.$fs_file))
+          // Verify activation of exif module
+          if (extension_loaded('exif'))
           {
-            foreach ($conf['use_exif_mapping'] as $pwg_key => $exif_key )
+            if ($exif = read_exif_data($dir.'/'.$fs_file))
             {
-              if (isset($exif[$exif_key]))
+              foreach ($conf['use_exif_mapping'] as $pwg_key => $exif_key )
               {
-                if ( in_array($pwg_key, array('date_creation','date_available') ) )
+                if (isset($exif[$exif_key]))
                 {
-                   if (preg_match('/^(\d{4}):(\d{2}):(\d{2})/'
-                         ,$exif[$exif_key]
-                         ,$matches))
-                   {
-                     $element[$pwg_key] =
-                        $matches[1].'-'.$matches[2].'-'.$matches[3];
-                   }
-                }
-                else
-                {
-                  $element[$pwg_key] = $exif[$exif_key];
+                  if ( in_array($pwg_key, array('date_creation','date_available') ) )
+                  {
+                     if (preg_match('/^(\d{4}):(\d{2}):(\d{2})/'
+                           ,$exif[$exif_key]
+                           ,$matches))
+                     {
+                       $element[$pwg_key] =
+                          $matches[1].'-'.$matches[2].'-'.$matches[3];
+                     }
+                  }
+                  else
+                  {
+                    $element[$pwg_key] = $exif[$exif_key];
+                  }
                 }
               }
             }
@@ -536,6 +557,13 @@ if (isset($_GET['action']))
 else
 {
   $page['action'] = '';
+}
+
+// Looking at the safe_mode configuration for execution time
+$conf_safe_mode = TRUE;
+if (ini_get('safe_mode') == 0)
+{
+  $conf_safe_mode = FALSE;
 }
 
 echo '<pre>';
