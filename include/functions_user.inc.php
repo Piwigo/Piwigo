@@ -593,7 +593,9 @@ UPDATE '.USERS_TABLE.'
 function auto_login() { 
   global $conf;
 
-  $cookie = unserialize(pwg_stripslashes($_COOKIE[$conf['remember_me_name']]));
+  // must remove slash added in include/common.inc.php
+  $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
+
   $query = '
 SELECT auto_login_key
   FROM '.USERS_TABLE.'
@@ -603,6 +605,7 @@ SELECT auto_login_key
   $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
   if ($auto_login_key == $cookie['key'])
   {
+    error_log("ici\n", 3, '/tmp/cookie');
     log_user($cookie['id'], false);
     redirect(make_index_url());
   }
