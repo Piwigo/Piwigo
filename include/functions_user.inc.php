@@ -605,7 +605,6 @@ SELECT auto_login_key
   $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
   if ($auto_login_key == $cookie['key'])
   {
-    error_log("ici\n", 3, '/tmp/cookie');
     log_user($cookie['id'], false);
     redirect(make_index_url());
   }
