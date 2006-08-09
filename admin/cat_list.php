@@ -310,7 +310,7 @@ foreach ($categories as $category)
   if ('private' == $category['status'])
   {
     $template->assign_block_vars(
-      'category.permissions',
+      'categories.category.permissions',
       array(
         'URL'=>$base_url.'cat_perm&amp;cat='.$category['id']
         )
