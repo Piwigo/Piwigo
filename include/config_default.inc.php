@@ -205,6 +205,12 @@ $conf['mail_options'] = false;
 // or test.
 $conf['send_bcc_mail_webmaster'] = false;
 
+// enabled_format_email:
+//  on true email will be formatted with name and address 
+//  on false email will be only address
+// There are webhosting wich not allow email formatted (Lycos, ...)
+$conf['enabled_format_email'] = true;
+
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
 // needed.
@@ -478,12 +484,17 @@ $conf['tags_levels'] = 5;
 // Default Value for nbm user
 $conf['nbm_default_value_user_enabled'] = false;
 
-// Search List user to send with quick (List all without check news)
+// Search list user to send quickly (List all without to check news)
 // More quickly but less fun to use
 $conf['nbm_list_all_enabled_users_to_send'] = false;
 
-// Max mails sended on one pass
+// Max time used on one pass in order to send mails.
+// Timeout delay ratio.
 $conf['nbm_max_treatment_timeout_percent'] = 0.8;
+
+// If timeout cannot be compite with nbm_max_treatment_timeout_percent,
+// nbm_treatment_timeout_default is used by default
+$conf['nbm_treatment_timeout_default'] = 20;
 
 // +-----------------------------------------------------------------------+
 // | Set default admin layout                                              |

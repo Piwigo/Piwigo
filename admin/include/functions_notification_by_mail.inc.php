@@ -34,6 +34,15 @@ $env_nbm = array
             'is_sendmail_timeout' => false
           );
 
+if
+  (
+    (!isset($env_nbm['sendmail_timeout'])) or
+    (!is_numeric($env_nbm['sendmail_timeout'])) or
+    ($env_nbm['sendmail_timeout'] <= 0)
+  )
+{
+  $env_nbm['sendmail_timeout'] = $conf['nbm_treatment_timeout_default'];
+}
 
 /*
  * Search an available check_key

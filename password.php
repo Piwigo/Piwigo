@@ -42,16 +42,8 @@ $page['infos'] = array();
 
 if (isset($_POST['submit']))
 {
-  // in case of error, creation of mailto link
-  $query = '
-SELECT '.$conf['user_fields']['email'].'
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$conf['webmaster_id'].'
-;';
-  list($mail_webmaster) = mysql_fetch_array(pwg_query($query));
-
   $mailto =
-    '<a href="mailto:'.$mail_webmaster.'">'
+    '<a href="mailto:'.get_webmaster_mail_address().'">'
     .l10n('Contact webmaster')
     .'</a>'
     ;
@@ -92,7 +84,7 @@ WHERE '
           ."\n".l10n('Password').': '.$new_password
           ;
 
-        if (pwg_mail($row['email'], $mail_webmaster, l10n('password updated'), $infos))
+        if (pwg_mail($row['email'], '', l10n('password updated'), $infos))
         {
           $data =
             array(

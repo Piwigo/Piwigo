@@ -78,15 +78,24 @@ function get_mail_configuration()
  */
 function format_email($name, $email)
 {
-  $cvt7b_name = str_translate_to_ascii7bits($name);
+  global $conf;
 
-  if (strpos($email, '<') === false)
+  if ($conf['enabled_format_email'])
   {
-    return $cvt7b_name.' <'.$email.'>';
+    $cvt7b_name = str_translate_to_ascii7bits($name);
+
+    if (strpos($email, '<') === false)
+    {
+      return $cvt7b_name.' <'.$email.'>';
+    }
+    else
+    {
+      return $cvt7b_name.$email;
+    }
   }
   else
   {
-    return $cvt7b_name.$email;
+    return $email;
   }
 }
 
@@ -128,7 +137,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
 
   if ($conf_mail['mail_options'])
   {
-    $options = '-f '.$from;
+    $options = '-f '.$conf_mail['email_webmaster'];
     
     return mail($to, $cvt7b_subject, $content, $headers, $options);
   }
