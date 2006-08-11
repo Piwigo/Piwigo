@@ -126,7 +126,6 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
 
   $headers = 'From: '.$from."\n";
   $headers.= 'Reply-To: '.$from."\n";
-  $headers.= 'Reply-To: '.$from."\n";
   $headers.= 'Content-Type: text/plain;format=flowed;charset="'.$lang_info['charset'].'";';
   $headers.= 'reply-type=original'."\n";
 
