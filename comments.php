@@ -148,8 +148,9 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
 // comments deletion
-if (isset($_POST['delete']) and count($_POST['comment_id']) > 0)
+if (isset($_POST['delete']) and count($_POST['comment_id']) > 0 and is_admin())
 {
+  $_POST['comment_id'] = array_map('intval', $_POST['comment_id']);
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
   WHERE id IN ('.implode(',', $_POST['comment_id']).')
@@ -157,8 +158,10 @@ DELETE FROM '.COMMENTS_TABLE.'
   pwg_query($query);
 }
 // comments validation
-if (isset($_POST['validate']) and count($_POST['comment_id']) > 0)
+if (isset($_POST['validate']) and count($_POST['comment_id']) > 0
+   and is_admin())
 {
+  $_POST['comment_id'] = array_map('intval', $_POST['comment_id']);
   $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
