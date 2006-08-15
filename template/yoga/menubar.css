@@ -57,7 +57,7 @@
 }
 
 /* quickconnect form */
-FORM#quickconnect { 
+FORM#quickconnect {
   margin: 0;
   padding: 5px;
 }
@@ -113,6 +113,11 @@ FORM#quickconnect INPUT[type=password] {
 FORM#quickconnect INPUT.password {
   width: 95%;
 }*/
+
+FORM#quicksearch {
+  margin-top: 4px;
+  margin-bottom: 1px;
+}
 
 #menubar #menuTagCloud {
   text-align: center;

@@ -61,14 +61,26 @@ $template->set_filenames(array('search_rules' => 'search_rules.tpl'));
 
 $search = get_search_array($_GET['search_id']);
 
-$template->assign_vars(
-  array(
-    'INTRODUCTION'
-      => 'OR' == $search['mode']
-      ? l10n('At least one listed rule must be satisfied.')
-      : l10n('Each listed rule must be satisfied.'),
-    )
-  );
+if (isset($search['q']))
+{
+  $template->assign_block_vars(
+    'words',
+    array(
+      'CONTENT' => $search['q']
+        )
+    );
+}
+else
+{
+  $template->assign_vars(
+    array(
+      'INTRODUCTION'
+        => 'OR' == $search['mode']
+        ? l10n('At least one listed rule must be satisfied.')
+        : l10n('Each listed rule must be satisfied.'),
+      )
+    );
+}
 
 if (isset($search['fields']['allwords']))
 {

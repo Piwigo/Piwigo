@@ -76,20 +76,8 @@ if ('tags' == $page['section'])
 
   if ( !empty($page['items']) )
   {
-    $query = '
-SELECT tag_id, name, url_name, count(*) counter
-  FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
-  WHERE image_id IN ('.implode(',', $items).')
-    AND tag_id NOT IN ('.implode(',', $page['tag_ids']).')
-  GROUP BY tag_id
-  ORDER BY name ASC
-;';
-    $result = pwg_query($query);
-    while($row = mysql_fetch_array($result))
-    {
-      array_push($tags, $row);
-    }
+    $tags = get_common_tags($page['items'],
+        $conf['menubar_tag_cloud_items_number'], $page['tag_ids']);
   }
 
   $tags = add_level_to_tags($tags);
@@ -269,6 +257,7 @@ $template->assign_block_vars(
     'REL'=> 'rel="search"'
     )
   );
+$template->assign_block_vars( 'summary.quick_search',  array() );
 
 // comments link
 $template->assign_block_vars(

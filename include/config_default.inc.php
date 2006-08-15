@@ -206,7 +206,7 @@ $conf['mail_options'] = false;
 $conf['send_bcc_mail_webmaster'] = false;
 
 // enabled_format_email:
-//  on true email will be formatted with name and address 
+//  on true email will be formatted with name and address
 //  on false email will be only address
 // There are webhosting wich not allow email formatted (Lycos, ...)
 $conf['enabled_format_email'] = true;
@@ -473,6 +473,14 @@ $conf['tag_url_style'] = 'id-tag';
 // cloud. Only the most represented tags will be shown
 $conf['full_tag_cloud_items_number'] = 200;
 
+// menubar_tag_cloud_items_number: number of tags to show in the tag
+// cloud in the menubar. Only the most represented tags will be shown
+$conf['menubar_tag_cloud_items_number'] = 100;
+
+// content_tag_cloud_items_number: number of tags to show in the tag
+// cloud on the content page. Only the most represented tags will be shown
+$conf['content_tag_cloud_items_number'] = 12;
+
 // tags_levels: number of levels to use for display. Each level is bind to a
 // CSS class tagLevelX.
 $conf['tags_levels'] = 5;
@@ -505,7 +513,7 @@ $conf['nbm_treatment_timeout_default'] = 20;
 // Step 1, default_admin_layout is not defined
 //        null value, user_layout is used for admin layout
 //        defined value, this value are used for admin layout
-// Next on step 2, default_admin_layout will be used 
+// Next on step 2, default_admin_layout will be used
 //                 if there are not checked like admin layout
 // stored on user informations
 //$conf['default_admin_layout']='yoga/dark';

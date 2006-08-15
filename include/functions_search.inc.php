@@ -73,13 +73,11 @@ SELECT rules
  * Search rules are stored in search table as a serialized array. This array
  * need to be transformed into an SQL clause to be used in queries.
  *
- * @param int search_id
+ * @param array search
  * @return string
  */
-function get_sql_search_clause($search_id)
+function get_sql_search_clause($search)
 {
-  $search = get_search_array($search_id);
-
   // SQL where clauses are stored in $clauses array during query
   // construction
   $clauses = array();
@@ -212,17 +210,17 @@ function get_sql_search_clause($search_id)
 }
 
 /**
- * returns the list of items corresponding to the search id
+ * returns the list of items corresponding to the advanced search array
  *
- * @param int search id
+ * @param array search
  * @return array
  */
-function get_search_items($search_id)
+function get_regular_search_results($search)
 {
   $items = array();
-  
-  $search_clause = get_sql_search_clause($search_id);
-  
+
+  $search_clause = get_sql_search_clause($search);
+
   if (!empty($search_clause))
   {
     $query = '
@@ -269,7 +267,181 @@ SELECT DISTINCT(id)
       }
     }
   }
-  
+
   return $items;
+}
+
+
+if (!function_exists('array_intersect_key')) {
+   function array_intersect_key()
+   {
+       $arrs = func_get_args();
+       $result = array_shift($arrs);
+       foreach ($arrs as $array) {
+           foreach ($result as $key => $v) {
+               if (!array_key_exists($key, $array)) {
+                   unset($result[$key]);
+               }
+           }
+       }
+       return $result;
+   }
+}
+
+
+function get_qsearch_like_clause($q, $field)
+{
+  $tokens = preg_split('/[\s,.;!\?]+/', $q);
+  for ($i=0; $i<count($tokens); $i++)
+  {
+    $tokens[$i]=str_replace('*','%', $tokens[$i]);
+    if (preg_match('/^[+<>]/',$tokens[$i]) )
+      $tokens[$i]=substr($tokens[$i], 1);
+    else if (substr($tokens[$i], 0, 1)=='-')
+    {
+      unset($tokens[$i]);
+      $i--;
+    }
+  }
+
+  if (!empty($tokens))
+  {
+    $query = '(';
+    for ($i=0; $i<count($tokens); $i++)
+    {
+      if ($i>0) $query .= 'OR ';
+      $query .= ' '.$field.' LIKE "%'.$tokens[$i].'%" ';
+    }
+    $query .= ')';
+    return $query;
+  }
+  return null;
+}
+
+
+/**
+ * returns the search results corresponding to a quick search
+ *
+ * @param string q
+ * @return array
+ */
+function get_quick_search_results($q)
+{
+  global $user, $page;
+  $search_results = array();
+
+  $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
+  $by_tag_weights=array();
+  if (!empty($q_like_clause))
+  {
+    $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE '.$q_like_clause;
+    $tag_ids = array_from_query( $query, 'id');
+    if (!empty($tag_ids))
+    {
+      $query = '
+SELECT image_id, COUNT(tag_id) AS q
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  GROUP BY image_id';
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_array($result))
+      {
+        $by_tag_weights[(int)$row['image_id']] = $row['q'];
+      }
+    }
+  }
+
+  $query = '
+SELECT
+  i.id, i.file, CAST( CONCAT_WS(" ",
+    IFNULL(i.name,""),
+    IFNULL(i.comment,""),
+    IFNULL(GROUP_CONCAT(DISTINCT co.content),""),
+    IFNULL(GROUP_CONCAT(DISTINCT c.dir),""),
+    IFNULL(GROUP_CONCAT(DISTINCT c.name),""),
+    IFNULL(GROUP_CONCAT(DISTINCT c.comment),"") ) AS CHAR) AS ft
+FROM (
+  (
+    '.IMAGES_TABLE.' i LEFT JOIN '.COMMENTS_TABLE.' co on i.id=co.image_id
+  )
+    INNER JOIN
+  '.IMAGE_CATEGORY_TABLE.' ic on ic.image_id=i.id
+  )
+    INNER JOIN
+  '.CATEGORIES_TABLE.' c on c.id=ic.category_id
+WHERE category_id NOT IN ('.$user['forbidden_categories'].')
+GROUP BY i.id';
+
+  $query = 'SELECT id, MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS q FROM ('.$query.') AS Y
+WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
+
+  $q_like_clause = get_qsearch_like_clause($q, 'file' );
+  if (! empty($q_like_clause) )
+  {
+    $query .= ' OR '.$q_like_clause;
+  }
+
+  $by_weights=array();
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $by_weights[(int)$row['id']] = $row['q'] ? $row['q'] : 0;
+  }
+
+  foreach ( $by_weights as $image=>$w )
+  {
+    $by_tag_weights[$image] = 2*$w+ (isset($by_tag_weights[$image])?$by_tag_weights[$image]:0);
+  }
+
+  if ( empty($by_tag_weights) or isset($page['super_order_by']) )
+  {
+    if (! isset($page['super_order_by']) )
+    {
+      arsort($by_tag_weights, SORT_NUMERIC);
+      $search_results['as_is']=1;
+    }
+    $search_results['items'] = array_keys($by_tag_weights);
+  }
+  else
+  {
+    $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE id IN ('.implode(',', array_keys($by_tag_weights) ).')
+    AND category_id NOT IN ('.$user['forbidden_categories'].')';
+
+    $allowed_image_ids = array_from_query( $query, 'id');
+    $by_tag_weights = array_intersect_key($by_tag_weights, array_flip($allowed_image_ids));
+    arsort($by_tag_weights, SORT_NUMERIC);
+    $search_results = array(
+          'items'=>array_keys($by_tag_weights),
+          'as_is'=>1
+        );
+  }
+  return $search_results;
+}
+
+/**
+ * returns an array of 'items' corresponding to the search id
+ *
+ * @param int search id
+ * @return array
+ */
+function get_search_results($search_id)
+{
+  $search = get_search_array($search_id);
+  if ( !isset($search['q']) )
+  {
+    $result['items'] = get_regular_search_results($search);
+    return $result;
+  }
+  else
+  {
+    return get_quick_search_results($search['q']);
+  }
 }
 ?>

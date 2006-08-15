@@ -198,6 +198,41 @@ if (is_admin() and !empty($page['items']) )
       );
   }
 
+if ( $page['section']=='search' and $page['start']==0 )
+{
+  $tags = get_common_tags($page['items'],
+      $conf['content_tag_cloud_items_number'], null);
+  if ( count($tags)>1 )
+  {
+    $template->assign_block_vars('related_tags', array() );
+
+    $tags = add_level_to_tags($tags);
+    foreach ($tags as $tag)
+    {
+      $template->assign_block_vars(
+      'related_tags.tag', array(
+        'URL' => make_index_url(
+          array(
+            'tags' => array(
+              array(
+                'id' => $tag['tag_id'],
+                'url_name' => $tag['url_name'],
+                ),
+              )
+            )
+          ),
+        'NAME' => $tag['name'],
+        'TITLE' => sprintf(
+          l10n('%d pictures are also linked to current tags'),
+          $tag['counter']
+          ),
+        'CLASS' => 'tagLevel'.$tag['level']
+        )
+      );
+    }
+  }
+}
+
 //------------------------------------------------------ main part : thumbnails
 if (isset($page['thumbnails_include']))
 {

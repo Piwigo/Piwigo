@@ -450,14 +450,14 @@ SELECT image_id
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
 
-    $search_items = get_search_items($page['search']);
-    if ( !empty($search_items) )
+    $search_result = get_search_results($page['search']);
+    if ( !empty($search_result['items']) and !isset($search_result['as_is']) )
     {
       $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', $search_items).')
+  WHERE id IN ('.implode(',', $search_result['items']).')
     AND '.$forbidden.'
   '.$conf['order_by'].'
 ;';
@@ -465,7 +465,7 @@ SELECT DISTINCT(id)
     }
     else
     {
-      $page['items'] = array();
+      $page['items'] = $search_result['items'];
     }
 
     $page = array_merge(

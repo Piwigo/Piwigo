@@ -221,4 +221,47 @@ SELECT DISTINCT image_id
     }
   }
 }
+
+/**
+ * return a list of tags corresponding to given items.
+ *
+ * @param array items
+ * @param array max_tags
+ * @param array excluded_tag_ids
+ * @return array
+ */
+function get_common_tags($items, $max_tags, $excluded_tag_ids=null)
+{
+  if (empty($items))
+  {
+    return array();
+  }
+  $query = '
+SELECT tag_id, name, url_name, count(*) counter
+  FROM '.IMAGE_TAG_TABLE.'
+    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+  WHERE image_id IN ('.implode(',', $items).')';
+  if (!empty($excluded_tag_ids))
+  {
+    $query.='
+    AND tag_id NOT IN ('.implode(',', $excluded_tag_ids).')';
+  }
+  $query .='
+  GROUP BY tag_id
+  ORDER BY counter DESC';
+  if ($max_tags>0)
+  {
+    $query .= '
+  LIMIT 0,'.$max_tags;
+  }
+
+  $result = pwg_query($query);
+  $tags = array();
+  while($row = mysql_fetch_array($result))
+  {
+    array_push($tags, $row);
+  }
+  usort($tags, 'name_compare');
+  return $tags;
+}
 ?>

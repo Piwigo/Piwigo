@@ -90,4 +90,14 @@
 <!-- END comment -->
 <!-- END cat_infos -->
 
+<!-- BEGIN related_tags -->
+  <ul id="fullTagCloud">
+    <li>{lang:Related tags}:</li>
+    <!-- BEGIN tag -->
+    <li><a href="{related_tags.tag.URL}" class="{related_tags.tag.CLASS}" title="{related_tags.tag.TITLE}">{related_tags.tag.NAME}</a></li>
+    <!-- END tag -->
+  </ul>
+<!-- END related_tags -->
+
+
 </div> <!-- content -->

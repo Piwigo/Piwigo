@@ -51,6 +51,10 @@
   <dd>
     <ul>
       <!-- BEGIN summary -->
+      <!-- BEGIN quick_search -->
+      <form action="{pwg_root}qsearch.php" method="get" id="quicksearch"><input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;"></form>
+      <script type="text/javascript">var qsearch_prompt="{lang:search}"; document.getElementById('qsearchInput').value=qsearch_prompt;</script>
+      <!-- END quick_search -->
       <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}" {summary.REL}>{summary.NAME}</a></li>
       <!-- END summary -->
       <!-- BEGIN upload -->
