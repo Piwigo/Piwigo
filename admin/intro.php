@@ -55,7 +55,7 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
   {
     $versions = array('current' => PHPWG_VERSION);
     $lines = @file('http://www.phpwebgallery.net/latest_version');
-    
+
     // if the current version is a BSF (development branch) build, we check
     // the first line, for stable versions, we check the second line
     if (preg_match('/^BSF/', $versions{'current'}))
@@ -150,6 +150,24 @@ list($nb_physical) = mysql_fetch_row(pwg_query($query));
 
 $query = '
 SELECT COUNT(*)
+  FROM '.IMAGE_CATEGORY_TABLE.'
+;';
+list($nb_image_category) = mysql_fetch_row(pwg_query($query));
+
+$query = '
+SELECT COUNT(*)
+  FROM '.TAGS_TABLE.'
+;';
+list($nb_tags) = mysql_fetch_row(pwg_query($query));
+
+$query = '
+SELECT COUNT(*)
+  FROM '.IMAGE_TAG_TABLE.'
+;';
+list($nb_image_tag) = mysql_fetch_row(pwg_query($query));
+
+$query = '
+SELECT COUNT(*)
   FROM '.USERS_TABLE.'
 ;';
 list($nb_users) = mysql_fetch_row(pwg_query($query));
@@ -180,6 +198,9 @@ $template->assign_vars(
         $nb_physical,
         $nb_virtual
         ),
+    'DB_IMAGE_CATEGORY' =>sprintf(l10n('%d associations'), $nb_image_category),
+    'DB_TAGS' => sprintf(l10n('%d tags'), $nb_tags),
+    'DB_IMAGE_TAG' => sprintf(l10n('%d associations'), $nb_image_tag),
     'DB_USERS' => sprintf(l10n('%d users'), $nb_users),
     'DB_GROUPS' => sprintf(l10n('%d groups'), $nb_groups),
     'DB_COMMENTS' => sprintf(l10n('%d comments'), $nb_comments),

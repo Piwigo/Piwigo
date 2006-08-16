@@ -25,12 +25,14 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+$lang['%d associations'] = '%d associations';
 $lang['%d categories including %d physical and %d virtual'] = '%d catégories dont %d physiques et %d virtuelles';
 $lang['%d categories moved'] = '%d catégories déplacées';
 $lang['%d comments'] = '%d commentaires utilisateur';
 $lang['%d elements'] = '%d éléments';
 $lang['%d groups'] = '%d groupes';
 $lang['%d members'] = '%d membres';
+$lang['%d tags'] = '%d tags';
 $lang['%d user comments rejected'] = '%d commentaires utilisateur rejetés';
 $lang['%d user comments validated'] = '%d commentaires utilisateur validés';
 $lang['%d users deleted'] = '%d utilisateurs supprimés';

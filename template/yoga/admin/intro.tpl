@@ -32,7 +32,8 @@
         ({first_added.DB_DATE})
         <!-- END first_added -->
       </li>
-      <li>{DB_CATEGORIES}</li>
+      <li>{DB_CATEGORIES} ({DB_IMAGE_CATEGORY})</li>
+      <li>{DB_TAGS} ({DB_IMAGE_TAG})</li>
       <li>{DB_USERS}</li>
       <li>{DB_GROUPS}</li>
       <li>
