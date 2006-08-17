@@ -34,6 +34,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
   </style>
   <script type="text/javascript" src="{pwg_root}template-common/pngfix.js"></script>
 <![endif]-->
+<!-- BEGIN head_element -->
+{head_element.CONTENT}
+<!-- END head_element -->
 </head>
 
 <body id="{BODY_ID}">

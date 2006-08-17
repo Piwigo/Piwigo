@@ -51,18 +51,30 @@ INSERT INTO '.USER_FEED_TABLE.'
 ;';
 pwg_query($query);
 
+$feed_url=PHPWG_ROOT_PATH.'feed.php?feed='.$page['feed'];
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
 
 $title = l10n('Notification');
 $page['body_id'] = 'theNotificationPage';
+$template->assign_block_vars('head_element',
+    array(
+      'CONTENT' => '<meta name="robots" content="noindex,nofollow">'
+      )
+  );
+$template->assign_block_vars('head_element',
+    array(
+      'CONTENT' => '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'
+      )
+  );
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('notification'=>'notification.tpl'));
 
 $template->assign_vars(
   array(
-    'FEED_URL' => PHPWG_ROOT_PATH.'feed.php?feed='.$page['feed'],
+    'FEED_URL' => $feed_url,
     'U_HOME' => make_index_url(),
     )
   );
