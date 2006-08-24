@@ -104,7 +104,7 @@ function format_email($name, $email)
  */
 function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
 {
-  global $conf, $conf_mail;
+  global $conf, $conf_mail, $lang_info;
 
   $cvt7b_subject = str_translate_to_ascii7bits($subject);
 
