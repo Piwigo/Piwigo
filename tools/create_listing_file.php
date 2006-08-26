@@ -42,7 +42,7 @@ $conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
 
 // $conf['version'] is used to verify the compatibility of the generated
 // listing.xml file and the PhpWebGallery version you're running
-$conf['version'] = '%PWGVERSION%';
+$conf['version'] = 'Alligator';
 
 // $conf['use_exif'] set to true if you want to use Exif information
 $conf['use_exif'] = true;
