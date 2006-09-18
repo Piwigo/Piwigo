@@ -127,7 +127,7 @@ function custom_notification_query($action, $type, $start, $end)
 '.$query;
     list($count) = mysql_fetch_array(pwg_query($query));
     return $count;
-    
+
     break;
     case 'info':
       switch($type)
@@ -152,12 +152,12 @@ function custom_notification_query($action, $type, $start, $end)
           break;
       }
 
-    $query = 'SELECT distinct '.implode(', ', $fields).' 
+    $query = 'SELECT distinct '.implode(', ', $fields).'
 '.$query;
     $result = pwg_query($query);
 
     $infos = array();
-  
+
     while ($row = mysql_fetch_array($result))
     {
       array_push($infos, $row);
@@ -345,6 +345,22 @@ function news_exists($start, $end)
 }
 
 /**
+ * Formats a news line and adds it to the array (e.g. '5 new elements')
+ */
+function add_news_line(&$news, $count, $format, $url='', $add_url=false)
+{
+  if ($count > 0)
+  {
+    $line = sprintf($format, $count);
+    if ($add_url and !empty($url) )
+    {
+      $line = '<a href="'.$url.'">'.$line.'</a>';
+    }
+    array_push($news, $line);
+  }
+}
+
+/**
  * What's new between two dates ?
  *
  * Informations : number of new comments, number of new elements, number of
@@ -354,58 +370,51 @@ function news_exists($start, $end)
  *
  * @param string start date (mysql datetime format)
  * @param string end date (mysql datetime format)
+ * @param bool exclude_img_cats if true, no info about new images/categories
+ * @param bool add_url add html A link around news
  *
  * @return array of news
  */
-function news($start, $end)
+function news($start, $end, $exclude_img_cats=false, $add_url=false)
 {
   $news = array();
 
-  $nb_new_comments = nb_new_comments($start, $end);
-  if ($nb_new_comments > 0)
+  if (!$exclude_img_cats)
   {
-    array_push($news, sprintf(l10n('%d new comments'), $nb_new_comments));
+    $nb_new_elements = nb_new_elements($start, $end);
+    if ($nb_new_elements > 0)
+    {
+      array_push($news, sprintf(l10n('%d new elements'), $nb_new_elements));
+    }
   }
 
-  $nb_new_elements = nb_new_elements($start, $end);
-  if ($nb_new_elements > 0)
+  if (!$exclude_img_cats)
   {
-    array_push($news, sprintf(l10n('%d new elements'), $nb_new_elements));
+    $nb_updated_categories = nb_updated_categories($start, $end);
+    if ($nb_updated_categories > 0)
+    {
+      array_push($news, sprintf(l10n('%d categories updated'),
+                                $nb_updated_categories));
+    }
   }
 
-  $nb_updated_categories = nb_updated_categories($start, $end);
-  if ($nb_updated_categories > 0)
-  {
-    array_push($news, sprintf(l10n('%d categories updated'),
-                              $nb_updated_categories));
-  }
-  
+  add_news_line( $news,
+      nb_new_comments($start, $end), l10n('%d new comments'),
+      get_root_url().'comments.php', $add_url );
+
   if (is_admin())
   {
-    $nb_unvalidated_comments = nb_unvalidated_comments($end);
-    if ($nb_unvalidated_comments > 0)
-    {
-      array_push($news, sprintf(l10n('%d comments to validate'),
-                                $nb_unvalidated_comments));
-    }
+    add_news_line( $news,
+        nb_unvalidated_comments($end), l10n('%d comments to validate'),
+        get_root_url().'admin.php?page=comments', $add_url );
 
-    $nb_new_users = nb_new_users($start, $end);
-    if ($nb_new_users > 0)
-    {
-      array_push($news, sprintf(l10n('%d new users'), $nb_new_users));
-    }
+    add_news_line( $news,
+        nb_new_users($start, $end), l10n('%d new users'),
+        PHPWG_ROOT_PATH.'admin.php?page=user_list', $add_url );
 
-    $nb_waiting_elements = nb_waiting_elements();
-    if ($nb_waiting_elements > 0)
-    {
-      array_push(
-        $news,
-        sprintf(
-          l10n('%d waiting elements'),
-          $nb_waiting_elements
-          )
-        );
-    }
+    add_news_line( $news,
+        nb_waiting_elements(), l10n('%d waiting elements'),
+        PHPWG_ROOT_PATH.'admin.php?page=waiting', $add_url );
   }
 
   return $news;

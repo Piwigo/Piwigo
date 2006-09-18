@@ -109,10 +109,10 @@ SELECT uf.user_id AS id,
 ;';
   $user = mysql_fetch_array(pwg_query($query));
 }
-else
+
+if ( empty($user) )
 {
-  echo l10n('Unknown feed identifier');
-  exit();
+  page_not_found('Unknown/missing feed identifier');
 }
 
 $user['forbidden_categories'] = calculate_permissions($user['id'],
@@ -126,9 +126,16 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
 include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 
+$base_url = 'http://'.$_SERVER["HTTP_HOST"].cookie_path();
+if ( strrpos($base_url, '/') !== strlen($base_url)-1 )
+{
+  $base_url .= '/';
+}
+$page['root_path']=$base_url;
+
 $rss = new UniversalFeedCreator();
 
-$rss->title = $conf['gallery_title'].', notifications';
+$rss->title = $conf['gallery_title'];
 $rss->title.= ' (as '.$user['username'].')';
 
 $rss->link = $conf['gallery_url'];
@@ -137,14 +144,14 @@ $rss->link = $conf['gallery_url'];
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-$news = news($user['last_check'], $dbnow);
+$news = news($user['last_check'], $dbnow, true);
 
 if (count($news) > 0)
 {
-  $item = new FeedItem(); 
+  $item = new FeedItem();
   $item->title = sprintf(l10n('New on %s'), $dbnow);
   $item->link = $conf['gallery_url'];
-  
+
   // content creation
   $item->description = '<ul>';
   foreach ($news as $line)
@@ -153,19 +160,121 @@ if (count($news) > 0)
   }
   $item->description.= '</ul>';
   $item->descriptionHtmlSyndicated = true;
-  
-  $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
-  $item->author = 'PhpWebGallery notifier'; 
-  
-  $rss->addItem($item);
-}
 
-$query = '
+  $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
+  $item->author = 'PhpWebGallery notifier';
+  $item->guid= sprintf('%s', $dbnow);;
+
+  $rss->addItem($item);
+
+  $query = '
 UPDATE '.USER_FEED_TABLE.'
   SET last_check = \''.$dbnow.'\'
   WHERE id = \''.$_GET['feed'].'\'
 ;';
-pwg_query($query);
+  pwg_query($query);
+}
+
+
+// build items for new images/albums
+$query = '
+SELECT date_available,
+      COUNT(DISTINCT id) nb_images,
+      COUNT(DISTINCT category_id) nb_cats
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
+  GROUP BY date_available
+  ORDER BY date_available DESC
+  LIMIT 0,5
+;';
+$result = pwg_query($query);
+$dates = array();
+while ($row = mysql_fetch_array($result))
+{
+  array_push($dates, $row);
+}
+
+foreach($dates as  $date_detail)
+{ // for each recent post date we create a feed item
+  $date = $date_detail['date_available'];
+  $exploded_date = explode_mysqldt($date);
+  $item = new FeedItem();
+  $item->title = sprintf(l10n('%d new elements'), $date_detail['nb_images']);
+  $item->title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
+  $item->link = make_index_url(
+        array(
+          'chronology_field' => 'posted',
+          'chronology_style'=> 'monthly',
+          'chronology_view' => 'calendar',
+          'chronology_date' => explode('-', substr($date,0,10) )
+        )
+      );
+
+  $item->description .=
+    '<a href="'.make_index_url().'">'.$conf['gallery_title'].'</a><br/> ';
+
+  $item->description .=
+        '<li>'
+        .sprintf(l10n('%d new elements'), $date_detail['nb_images'])
+        .' ('
+        .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
+          .l10n('recent_pics_cat').'</a>'
+        .')'
+        .'</li>';
+
+  // get some thumbnails ...
+  $query = '
+SELECT DISTINCT id, path, name, tn_ext
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
+    AND date_available="'.$date.'"
+    AND tn_ext IS NOT NULL
+  LIMIT 0,6
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $tn_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $item->description .= '<img src="'.$tn_src.'"/>';
+  }
+  $item->description .= '...<br/>';
+
+
+  $item->description .=
+        '<li>'
+        .sprintf(l10n('%d categories updated'), $date_detail['nb_cats'])
+        .'</li>';
+  // get some categories ...
+  $query = '
+SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
+  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
+    INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
+  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
+    AND date_available="'.$date.'"
+  GROUP BY category_id
+  ORDER BY img_count DESC
+  LIMIT 0,6
+;';
+  $result = pwg_query($query);
+  $item->description .= '<ul>';
+  while ($row = mysql_fetch_array($result))
+  {
+    $item->description .=
+          '<li>'
+          .get_cat_display_name_cache($row['uppercats'])
+          .' ('.sprintf(l10n('%d new elements'), $row['img_count']).')'
+          .'</li>';
+  }
+  $item->description .= '</ul>';
+
+  $item->descriptionHtmlSyndicated = true;
+
+  $item->date = ts_to_iso8601(mysqldt_to_ts($date));
+  $item->author = 'PhpWebGallery notifier';
+  $item->guid= sprintf('%s', 'pics-'.$date);;
+
+  $rss->addItem($item);
+}
 
 // send XML feed
 echo $rss->saveFeed('RSS2.0', '', true);
