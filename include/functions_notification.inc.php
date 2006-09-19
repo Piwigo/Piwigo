@@ -410,11 +410,11 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
 
     add_news_line( $news,
         nb_new_users($start, $end), l10n('%d new users'),
-        PHPWG_ROOT_PATH.'admin.php?page=user_list', $add_url );
+        get_root_url().'admin.php?page=user_list', $add_url );
 
     add_news_line( $news,
         nb_waiting_elements(), l10n('%d waiting elements'),
-        PHPWG_ROOT_PATH.'admin.php?page=waiting', $add_url );
+        get_root_url().'admin.php?page=waiting', $add_url );
   }
 
   return $news;

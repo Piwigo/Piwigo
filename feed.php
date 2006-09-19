@@ -144,7 +144,7 @@ $rss->link = $conf['gallery_url'];
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-$news = news($user['last_check'], $dbnow, true);
+$news = news($user['last_check'], $dbnow, true, true);
 
 if (count($news) > 0)
 {
