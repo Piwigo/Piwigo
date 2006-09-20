@@ -58,7 +58,13 @@ function force_download ($filename)
          .basename($filename)."\";");
   header("Content-Transfer-Encoding: binary");
   header("Content-Length: ".@filesize($filename));
-  set_time_limit(0);
+
+  // Looking at the safe_mode configuration for execution time
+  if (ini_get('safe_mode') == 0)
+  {
+    @set_time_limit(0);
+  }
+
   @readfile("$filename") or die("File not found.");
 }
 
