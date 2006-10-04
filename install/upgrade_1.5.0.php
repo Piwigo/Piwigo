@@ -468,4 +468,9 @@ ALTER TABLE '.PREFIX_TABLE.'users
   }
 }
 
+$query = '
+ALTER TABLE '.PREFIX_TABLE.'users
+  ADD auto_login_key varchar(64) NOT NULL
+;';
+pwg_query($query);
 ?>

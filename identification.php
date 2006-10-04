@@ -63,13 +63,17 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     {
       $remember_me = true;
     }
-    log_user( $row['id'], $remember_me);
+    log_user($row['id'], $remember_me);
     redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
   else
   {
     array_push( $errors, $lang['invalid_pwd'] );
   }
+}
+elseif (!empty($_COOKIE[$conf['remember_me_name']]))
+{
+  auto_login();
 }
 //----------------------------------------------------- template initialization
 //

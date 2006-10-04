@@ -1,4 +1,4 @@
--- MySQL dump 9.11
+1-- MySQL dump 9.11
 --
 -- Host: localhost    Database: pwg-1_6
 -- ------------------------------------------------------
@@ -345,6 +345,7 @@ CREATE TABLE `phpwebgallery_users` (
   `username` varchar(100) binary NOT NULL default '',
   `password` varchar(32) default NULL,
   `mail_address` varchar(255) default NULL,
+  `auto_login_key` varchar(64) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
 ) TYPE=MyISAM;

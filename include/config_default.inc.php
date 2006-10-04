@@ -318,12 +318,12 @@ $conf['session_save_handler'] = 'db';
 // creates a cookie on client side.
 $conf['authorize_remembering'] = true;
 
+// remember_me_name: specifies the name of the cookie used to stay logged
+$conf['remember_me_name'] = 'pwg_remember';
+
 // remember_me_length : time of validity for "remember me" cookies, in
 // seconds.
 $conf['remember_me_length'] = 31536000;
-
-// session_length : time of validity for normal session, in seconds.
-$conf['session_length'] = 3600;
 
 // +-----------------------------------------------------------------------+
 // |                                debug                                  |
