@@ -35,24 +35,6 @@ include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_GUEST);
 
-//---------------------------------------------------------------------- logout
-if ( isset( $_GET['act'] )
-     and $_GET['act'] == 'logout'
-     and isset( $_COOKIE[session_name()] ) )
-{
-  // cookie deletion if exists
-  $_SESSION = array();
-  session_unset();
-  session_destroy();
-  setcookie(session_name(),'',0,
-      ini_get('session.cookie_path'), ini_get('session.cookie_domain') );
-  redirect( make_index_url() );
-}
-if ($user['is_the_guest'] and !$conf['guest_access'])
-{
-  redirect (get_root_url().'identification.php');
-}
-
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
 {
