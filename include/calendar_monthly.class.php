@@ -329,6 +329,7 @@ function build_month_calendar()
   $query.= '
   GROUP BY period';
 
+  $items=array();
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
