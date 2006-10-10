@@ -25,10 +25,28 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+define('PHPWG_ROOT_PATH','./');
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+
+// Check Access and exit when user status is not ok
+check_status(ACCESS_GUEST);
+
 function force_download ($filename)
 {
 //TODO : messages in "lang"
-  $filename = realpath($filename);
+  if (!url_is_remote($filename))
+  {
+    $filename = realpath($filename);
+    if (!file_exists($filename))
+    {
+      die("NO FILE HERE");
+    }
+    $file_size = @filesize($filename);
+  }
+  else
+  {
+    $file_size = 0;
+  }
 
   $file_extension = strtolower(substr(strrchr($filename,"."),1));
 
@@ -45,10 +63,6 @@ function force_download ($filename)
       default: $ctype="application/octet-stream";
   }
 
-  if (!file_exists($filename)) {
-      die("NO FILE HERE");
-  }
-
   header("Pragma: public");
   header("Expires: 0");
   header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -57,7 +71,10 @@ function force_download ($filename)
   header("Content-Disposition: attachment; filename=\""
          .basename($filename)."\";");
   header("Content-Transfer-Encoding: binary");
-  header("Content-Length: ".@filesize($filename));
+  if (isset($file_size) and ($file_size != 0))
+  {
+    header("Content-Length: ".@filesize($filename));
+  }
 
   // Looking at the safe_mode configuration for execution time
   if (ini_get('safe_mode') == 0)
