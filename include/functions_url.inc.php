@@ -213,16 +213,15 @@ function make_picture_url($params)
       }
       break;
     case 'file':
-      if ( isset($params['image_file'])
-           and !is_numeric($params['image_file']) )
+      if ( isset($params['image_file']) )
       {
-        $url .= get_filename_wo_extension($params['image_file']);
+        $fname_wo_ext = get_filename_wo_extension($params['image_file']);
+        if (! preg_match('/^\d+(-|$)/', $fname_wo_ext) )
+        {
+          $url .= $fname_wo_ext;
+          break;
+        }
       }
-      else
-      {
-        $url .= $params['image_id'];
-      }
-      break;
     default:
       $url .= $params['image_id'];
   }
