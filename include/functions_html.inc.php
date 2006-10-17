@@ -82,7 +82,8 @@ function create_navigation_bar(
   global $lang, $conf;
 
   $pages_around = $conf['paginate_pages_around'];
-  $start_str = $clean_url ? '/start-' : '&amp;start=';
+  $start_str = $clean_url ? '/start-' :
+    ( ( strstr($url, '?')===false ? '?':'&amp;') . 'start=' );
 
   $navbar = '';
 

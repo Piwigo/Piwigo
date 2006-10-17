@@ -158,7 +158,7 @@ DELETE FROM '.COMMENTS_TABLE.'
   pwg_query($query);
 }
 // comments validation
-if (isset($_POST['validate']) and count($_POST['comment_id']) > 0 
+if (isset($_POST['validate']) and count($_POST['comment_id']) > 0
    and is_admin())
 {
   $_POST['comment_id'] = array_map('intval', $_POST['comment_id']);
@@ -308,7 +308,7 @@ $query.= '
 ;';
 list($counter) = mysql_fetch_row(pwg_query($query));
 
-$url = PHPWG_ROOT_PATH.'comments.php?t=1'.get_query_string_diff(array('start'));
+$url = PHPWG_ROOT_PATH.'comments.php'.get_query_string_diff(array('start'));
 
 $navbar = create_navigation_bar($url,
                                 $counter,
@@ -382,7 +382,7 @@ SELECT id, name, file, path, tn_ext
   // retrieving category informations
   $categories = array();
   $query = '
-SELECT id, uppercats
+SELECT id, name, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
@@ -417,6 +417,7 @@ SELECT id, uppercats
     $url = make_picture_url(
             array(
               'category' => $comment['category_id'],
+              'cat_name' => $categories[ $comment['category_id']] ['name'],
               'image_id' => $comment['image_id'],
               'image_file' => $elements[$comment['image_id']]['file'],
             )
