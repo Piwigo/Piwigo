@@ -430,9 +430,6 @@ $conf['upload_maxwidth_thumbnail'] = 150;
 // nb_logs_page :  how many logs to display on a page
 $conf['nb_logs_page'] = 300;
 
-// history_admin : history admin visits  ?
-$conf['history_admin'] = false;
-
 // +-----------------------------------------------------------------------+
 // |                                 urls                                  |
 // +-----------------------------------------------------------------------+

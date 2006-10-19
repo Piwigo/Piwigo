@@ -46,22 +46,6 @@ else
 {
   $page['section'] = $_GET['section'];
 }
-//------------------------------------------------------ $conf reinitialization
-$result = pwg_query('SELECT param,value FROM '.CONFIG_TABLE);
-while ($row = mysql_fetch_array($result))
-{
-  $conf[$row['param']] = $row['value'];
-  // if the parameter is present in $_POST array (if a form is submited), we
-  // override it with the submited value
-  if (isset($_POST[$row['param']]))
-  {
-    $conf[$row['param']] = $_POST[$row['param']];
-    if ( 'page_banner'==$row['param'] )
-    { // should we do it for all ?
-      $conf[$row['param']] = stripslashes( $conf[$row['param']] );
-    }
-  }
-}
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']))
 {
@@ -74,6 +58,10 @@ if (isset($_POST['submit']))
       {
         array_push($page['errors'], $lang['conf_gallery_url_error']);
       }
+      $_POST['log'] = empty($_POST['log'])?'false':'true';
+      $_POST['history_admin'] = empty($_POST['history_admin'])?'false':'true';
+      $_POST['history_guest'] = empty($_POST['history_guest'])?'false':'true';
+      $_POST['login_history'] = empty($_POST['login_history'])?'false':'true';
       break;
     }
     case 'comments' :
@@ -119,7 +107,7 @@ if (isset($_POST['submit']))
   // updating configuration if no error found
   if (count($page['errors']) == 0)
   {
-//    echo '<pre>'; print_r($_POST); echo '</pre>';
+    //echo '<pre>'; print_r($_POST); echo '</pre>';
     $result = pwg_query('SELECT * FROM '.CONFIG_TABLE);
     while ($row = mysql_fetch_array($result))
     {
@@ -147,6 +135,13 @@ UPDATE '.CONFIG_TABLE.'
   }
 }
 
+//------------------------------------------------------ $conf reinitialization
+$result = pwg_query('SELECT param,value FROM '.CONFIG_TABLE);
+while ($row = mysql_fetch_array($result))
+{
+  $conf[$row['param']] = $row['value'];
+}
+
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('config'=>'admin/configuration.tpl') );
 
@@ -171,16 +166,20 @@ switch ($page['section'])
   {
     $html_check='checked="checked"';
 
-    $history_yes = ($conf['log']=='true')?'checked="checked"':'';
-    $history_no  = ($conf['log']=='false')?'checked="checked"':'';
     $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
     $lock_no = ($conf['gallery_locked']=='false')?'checked="checked"':'';
+    $history_users = ($conf['log']=='true')?$html_check:'';
+    $history_admin = ($conf['history_admin']=='true')?$html_check:'';
+    $history_guest = ($conf['history_guest']=='true')?$html_check:'';
+    $login_history = ($conf['login_history']=='true')?$html_check:'';
 
     $template->assign_block_vars(
       'general',
       array(
-        'HISTORY_YES'=>$history_yes,
-        'HISTORY_NO'=>$history_no,
+        'HISTORY_USERS'=>$history_users,
+        'HISTORY_ADMIN'=>$history_admin,
+        'HISTORY_GUEST'=>$history_guest,
+        'LOGIN_HISTORY'=>$login_history,
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
         ($conf['rate']=='true'?'RATE_YES':'RATE_NO')=>$html_check,

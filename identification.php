@@ -64,6 +64,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
       $remember_me = true;
     }
     log_user($row['id'], $remember_me);
+    pwg_log_login( $username );
     redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
   else

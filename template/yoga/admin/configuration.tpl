@@ -35,17 +35,11 @@
     </li>
 
     <li>
-      <span class="property">{lang:History}</span>
-      <label><input type="radio" class="radio" name="log" value="true" {general.HISTORY_YES} />{lang:Yes}</label>
-      <label><input type="radio" class="radio" name="log" value="false" {general.HISTORY_NO} />{lang:No}</label>
-    </li>
-
-    <li>
       <span class="property">{lang:Lock gallery}</span>
       <label><input type="radio" class="radio" name="gallery_locked" value="true" {general.GALLERY_LOCKED_YES} />{lang:Yes}</label>
       <label><input type="radio" class="radio" name="gallery_locked" value="false" {general.GALLERY_LOCKED_NO} />{lang:No}</label>
     </li>
-    
+
     <li>
       <span class="property">{lang:Rating}</span>
       <label><input type="radio" class="radio" name="rate" value="true" {general.RATE_YES} />{lang:Yes}</label>
@@ -56,6 +50,29 @@
       <span class="property">{lang:Rating by guests}</span>
       <label><input type="radio" class="radio" name="rate_anonymous" value="true" {general.RATE_ANONYMOUS_YES} />{lang:Yes}</label>
       <label><input type="radio" class="radio" name="rate_anonymous" value="false" {general.RATE_ANONYMOUS_NO} />{lang:No}</label>
+    </li>
+
+    <li>
+      <fieldset>
+        <legend>{lang:History}</legend>
+        <ul>
+          <li>
+            <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {general.HISTORY_USERS} /></label>
+          </li>
+
+          <li>
+            <label><span class="property">{lang:user_status_admin}</span><input type="checkbox" name="history_admin" {general.HISTORY_ADMIN} /></label>
+          </li>
+
+          <li>
+            <label><span class="property">{lang:Guests}</span><input type="checkbox" name="history_guest" {general.HISTORY_GUEST} /></label>
+          </li>
+
+          <li>
+            <label><span class="property">{lang:Login history}</span><input type="checkbox" name="login_history" {general.LOGIN_HISTORY} /></label>
+          </li>
+        </ul>
+      </fieldset>
     </li>
   </ul>
 </fieldset>

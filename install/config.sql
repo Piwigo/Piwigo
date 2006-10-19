@@ -19,7 +19,9 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('gallery_url','ht
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate','true','Rating pictures feature is enabled');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<h1>PhpWebGallery demonstration site</h1><p>My photos web site</p>','html displayed on the top each page of your gallery');
-
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_admin','false','keep a history of administrator visits on your website');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('login_history','true','keep a history of user logins on your website');
 -- Notification by mail
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');

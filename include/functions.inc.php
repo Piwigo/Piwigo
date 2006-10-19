@@ -384,15 +384,40 @@ function pwg_log( $file, $category, $picture = '' )
 {
   global $conf, $user;
 
-  if ($conf['log'])
+  if ( is_admin() )
   {
-   if (($conf['history_admin']) or ((! $conf['history_admin']) 
-       and (!is_admin())))
-    {
+    $doit=$conf['history_admin'];
+  }
+  elseif ( $user['is_the_guest'] )
+  {
+    $doit=$conf['history_guest'];
+  }
+  else
+  {
+    $doit = $conf['log'];
+  }
+
+  if ($doit)
+  {
     $login = ($user['id'] == $conf['guest_id'])
       ? 'guest' : addslashes($user['username']);
+    insert_into_history($login, $file, $category, $picture);
+  }
+}
 
-    $query = '
+function pwg_log_login( $username )
+{
+  global $conf;
+  if ( $conf['login_history'] )
+  {
+    insert_into_history($username, 'login', '', '');
+  }
+}
+
+// inserts a row in the history table
+function insert_into_history( $login, $file, $category, $picture)
+{
+  $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (date,login,IP,file,category,picture)
   VALUES
@@ -403,9 +428,7 @@ INSERT INTO '.HISTORY_TABLE.'
   \''.addslashes(strip_tags($category)).'\',
   \''.addslashes($picture).'\')
 ;';
-    pwg_query($query);
-  }
-  }
+  pwg_query($query);
 }
 
 // format_date returns a formatted date for display. The date given in
@@ -461,7 +484,7 @@ function format_date($date, $type = 'us', $show_time = false)
   return $formated_date;
 }
 
-function pwg_stripslashes($value) 
+function pwg_stripslashes($value)
 {
   if (get_magic_quotes_gpc())
   {
@@ -470,7 +493,7 @@ function pwg_stripslashes($value)
   return $value;
 }
 
-function pwg_addslashes($value) 
+function pwg_addslashes($value)
 {
   if (!get_magic_quotes_gpc())
   {
@@ -479,7 +502,7 @@ function pwg_addslashes($value)
   return $value;
 }
 
-function pwg_quotemeta($value) 
+function pwg_quotemeta($value)
 {
   if (get_magic_quotes_gpc()) {
     $value = stripslashes($value);
@@ -699,7 +722,7 @@ function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
 function my_error($header)
 {
   global $conf;
-  
+
   $error = '<pre>';
   $error.= $header;
   $error.= '[mysql error '.mysql_errno().'] ';
@@ -944,7 +967,7 @@ function get_available_upgrade_ids()
 function load_conf_from_db()
 {
   global $conf;
-  
+
   $query = '
 SELECT param,value
  FROM '.CONFIG_TABLE.'
@@ -959,7 +982,7 @@ SELECT param,value
   while ($row = mysql_fetch_array($result))
   {
     $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
-    
+
     // If the field is true or false, the variable is transformed into a
     // boolean value.
     if ($conf[$row['param']] == 'true' or $conf[$row['param']] == 'false')

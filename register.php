@@ -48,7 +48,6 @@ if (isset($_POST['submit']))
   if (count($errors) == 0)
   {
     $user_id = get_userid($_POST['login']);
-    log_user( $user_id, false);
     redirect(make_index_url());
   }
 }

@@ -99,6 +99,7 @@ $lang['Link all category elements to a new category'] = 'Associer tous les éléme
 $lang['Link all category elements to some existing categories'] = 'Associer tous les éléments de la catégorie à des catégories existantes';
 $lang['Linked categories'] = 'Catégories associées';
 $lang['Lock gallery'] = 'Verrouiller la galerie';
+$lang['Login history'] = 'Historique des connexions';
 $lang['Maintenance'] = 'Maintenance';
 $lang['Manage permissions for a category'] = 'Gérer les permissions pour une catégorie';
 $lang['Manage permissions for group "%s"'] = 'Gérer les permissions pour le groupe "%s"';
