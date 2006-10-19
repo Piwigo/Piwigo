@@ -582,14 +582,12 @@ function pwg_debug( $string )
  */
 function redirect( $url , $msg = '', $refresh_time = 0)
 {
-  global $lang_info, $lang;
+  global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
   if (!isset($lang_info)) {
     include_once(get_language_filepath('common.lang.php'));
   }
 
-  $template = new Template(PHPWG_ROOT_PATH.'template-common');
-  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
   if (empty($msg))
   {
     $redirect_msg = l10n('redirect_msg');
@@ -600,24 +598,39 @@ function redirect( $url , $msg = '', $refresh_time = 0)
   }
   $redirect_msg = nl2br($redirect_msg);
 
-  $template->assign_vars(
-    array(
-      'CONTENT_ENCODING' => $lang_info['charset'],
-      'LANG'=>$lang_info['code'],
-      'DIR'=>$lang_info['direction'],
-      )
-    );
+  $refresh = $refresh_time;
+  $url_link = $url;
+  $title = 'redirection';
 
-  $template->assign_vars(
-    array(
-      'U_REDIRECT_MSG' => $redirect_msg,
-      'REFRESH_TIME' => $refresh_time,
-      'U_REFRESH' => $url
-      )
-    );
-  $template->assign_block_vars('refresh', array());
+  unset($template);
+  if ( isset($user['template']) )
+  {
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
+  }
+  else
+  {
+    list($tmpl, $thm) = explode('/', $conf['default_template']);
+    global $themeconf;
+    include(
+      PHPWG_ROOT_PATH
+      .'template/'.$tmpl
+      .'/theme/'.$thm
+      .'/themeconf.inc.php'
+      );
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl);
+    $user['is_the_guest']=true;
+    $user['id']=$conf['guest_id'];
+  }
+
+  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
+
+  include( PHPWG_ROOT_PATH.'include/page_header.php' );
+
+  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
   $template->parse('redirect');
-  $template->p();
+
+  include( PHPWG_ROOT_PATH.'include/page_tail.php' );
+
   exit();
 }
 

@@ -458,7 +458,7 @@ function create_user_infos($user_id)
   {
     $status = 'normal';
   }
-  
+
   $insert =
     array(
       'user_id' => $user_id,
@@ -522,12 +522,13 @@ function get_language_filepath($filename)
 {
   global $user, $conf;
 
-  $directories =
-    array(
-      PHPWG_ROOT_PATH.'language/'.$user['language'],
-      PHPWG_ROOT_PATH.'language/'.$conf['default_language'],
-      PHPWG_ROOT_PATH.'language/'.PHPWG_DEFAULT_LANGUAGE
-      );
+  $directories = array();
+  if ( isset($user['language']) )
+  {
+    $directories[] = PHPWG_ROOT_PATH.'language/'.$user['language'];
+  }
+  $directories[] = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
+  $directories[] = PHPWG_ROOT_PATH.'language/'.PHPWG_DEFAULT_LANGUAGE;
 
   foreach ($directories as $directory)
   {
@@ -556,13 +557,13 @@ function log_user($user_id, $remember_me)
   {
     // search for an existing auto_login_key
     $query = '
-SELECT auto_login_key 
+SELECT auto_login_key
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
 ;';
- 
+
     $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-    if (empty($auto_login_key)) 
+    if (empty($auto_login_key))
     {
       $auto_login_key = base64_encode(md5(uniqid(rand(), true)));
       $query = '
@@ -574,7 +575,7 @@ UPDATE '.USERS_TABLE.'
     }
     $cookie = array('id' => $user_id, 'key' => $auto_login_key);
     setcookie($conf['remember_me_name'],
-	      serialize($cookie), 
+	      serialize($cookie),
 	      time()+$conf['remember_me_length'],
 	      cookie_path()
 	      );
@@ -590,7 +591,7 @@ UPDATE '.USERS_TABLE.'
  * Performs auto-connexion when cookie remember_me exists
  * @return void
 */
-function auto_login() { 
+function auto_login() {
   global $conf;
 
   // must remove slash added in include/common.inc.php
@@ -612,7 +613,7 @@ SELECT auto_login_key
   {
     setcookie($conf['remember_me_name'], '', 0, cookie_path());
     redirect(make_index_url());
-  } 
+  }
 }
 
 /*
