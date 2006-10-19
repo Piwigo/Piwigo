@@ -52,6 +52,21 @@ function get_root_url()
 }
 
 /**
+ * returns the url of the current host (e.g. http://www.toto.com )
+ * TODO: if required by someone, treat https case
+ */
+function get_host_url()
+{
+  $url = "http://";
+  $url .= $_SERVER['HTTP_HOST'];
+  if ($_SERVER['SERVER_PORT']!=80)
+  {
+    $url .= ':'.$_SERVER['SERVER_PORT'];
+  }
+  return $url;
+}
+
+/**
  * adds one or more _GET style parameters to an url
  * example: add_url_params('/x', array('a'=>'b')) returns /x?a=b
  * add_url_params('/x?cat_id=10', array('a'=>'b')) returns /x?cat_id=10&amp;a=b

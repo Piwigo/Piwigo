@@ -48,6 +48,27 @@ if (isset($_POST['submit']))
   if (count($errors) == 0)
   {
     $user_id = get_userid($_POST['login']);
+    log_user( $user_id, false);
+
+    if ($conf['email_admin_on_new_user'])
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+      $username = $_POST['login'];
+      $admin_url = get_host_url().cookie_path()
+        .'admin.php?page=user_list&username='.$username;
+
+      $content =
+        'User: '.$username."\n"
+        .'Mail: '.$_POST['mail_address']."\n"
+        .'IP: '.$_SERVER['REMOTE_ADDR']."\n"
+        .'Browser: '.$_SERVER['HTTP_USER_AGENT']."\n\n"
+        .l10n('admin').': '.$admin_url;
+
+      pwg_mail( get_webmaster_mail_address(), '',
+          'PWG '.l10n('register_title').' '.$username,
+          $content
+          );
+    }
     redirect(make_index_url());
   }
 }
