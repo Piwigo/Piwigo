@@ -584,8 +584,16 @@ function redirect( $url , $msg = '', $refresh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
-  if (!isset($lang_info)) {
+  if (!isset($lang_info))
+  {
+    $user = build_user( $conf['guest_id'], true);
     include_once(get_language_filepath('common.lang.php'));
+    list($tmpl, $thm) = explode('/', $conf['default_template']);
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+  }
+  else
+  {
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme']);
   }
 
   if (empty($msg))
@@ -601,26 +609,6 @@ function redirect( $url , $msg = '', $refresh_time = 0)
   $refresh = $refresh_time;
   $url_link = $url;
   $title = 'redirection';
-
-  unset($template);
-  if ( isset($user['template']) )
-  {
-    $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
-  }
-  else
-  {
-    list($tmpl, $thm) = explode('/', $conf['default_template']);
-    global $themeconf;
-    include(
-      PHPWG_ROOT_PATH
-      .'template/'.$tmpl
-      .'/theme/'.$thm
-      .'/themeconf.inc.php'
-      );
-    $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl);
-    $user['is_the_guest']=true;
-    $user['id']=$conf['guest_id'];
-  }
 
   $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
 
@@ -921,9 +909,9 @@ function str_translate_to_ascii7bits($str)
  */
 function get_themeconf($key)
 {
-  global $themeconf;
+  global $template;
 
-  return isset($themeconf[$key]) ? $themeconf[$key] : '';
+  return $template->get_themeconf($key);
 }
 
 /**

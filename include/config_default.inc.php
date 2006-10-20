@@ -323,7 +323,10 @@ $conf['remember_me_name'] = 'pwg_remember';
 
 // remember_me_length : time of validity for "remember me" cookies, in
 // seconds.
-$conf['remember_me_length'] = 31536000;
+$conf['remember_me_length'] = 5184000;
+
+// session_length : time of validity for normal session, in seconds.
+$conf['session_length'] = 3600;
 
 // +-----------------------------------------------------------------------+
 // |                                debug                                  |

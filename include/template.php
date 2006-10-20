@@ -59,13 +59,22 @@ class Template {
   // output
   var $output = '';
 
+  var $themeconf = array();
+
   /**
    * Constructor. Simply sets the root dir.
    *
    */
-  function Template($root = ".")
+  function Template($root = ".", $theme= "")
     {
-      $this->set_rootdir($root);
+      if ( $this->set_rootdir($root) )
+      {
+        if ( !empty( $theme ) )
+        {
+          include($root.'/theme/'.$theme.'/themeconf.inc.php');
+          $this->themeconf = $themeconf;
+        }
+      }
     }
 
   /**
@@ -311,14 +320,14 @@ class Template {
       {
         die("Template->loadfile(): File $filename for handle $handle is empty");
       }
-      
+
       $this->uncompiled_code[$handle] = $str;
-      
+
       return true;
     }
-  
-  
-  
+
+
+
   /**
    * Compiles the given string of code, and returns the result in a string.
    *
@@ -331,7 +340,7 @@ class Template {
       // PWG specific : communication between template and $lang
       $code = preg_replace('/\{lang:([^}]+)\}/e', "l10n('$1')", $code);
       // PWG specific : expand themeconf.inc.php variables
-      $code = preg_replace('/\{themeconf:([^}]+)\}/e', "get_themeconf('$1')", $code);
+      $code = preg_replace('/\{themeconf:([^}]+)\}/e', '$this->get_themeconf(\'$1\')', $code);
       $code = preg_replace('/\{pwg_root\}/e', "get_root_url()", $code);
 
       // replace \ with \\ and then ' with \'.
@@ -525,6 +534,10 @@ class Template {
       return $varref;
     }
 
+    function get_themeconf($key)
+    {
+      return isset($this->themeconf[$key]) ? $this->themeconf[$key] : '';
+    }
 }
 
 ?>
