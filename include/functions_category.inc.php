@@ -142,7 +142,7 @@ SELECT '.implode(',', $infos).'
   }
   global $conf;
   if ( !( $conf['allow_html_descriptions'] and
-          preg_match('/<(div|br|img).*>/i', $cat['comment']) ) )
+          preg_match('/<(div|br|img|script).*>/i', $cat['comment']) ) )
   {
     $cat['comment'] = nl2br($cat['comment']);
   }
