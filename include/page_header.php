@@ -49,7 +49,8 @@ $template->assign_vars(
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
 
-    'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled onclick="return false;"' : '')
+//    'TAG_INPUT_ENABLED' => ((is_adviser()) ? 'disabled onclick="return false;"' : '')
+    'TAG_INPUT_ENABLED' => ((is_adviser()) ? '' : '')
     ));
 
 // refresh

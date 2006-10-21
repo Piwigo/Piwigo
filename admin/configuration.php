@@ -53,7 +53,7 @@ while ($row = mysql_fetch_array($result))
   $conf[$row['param']] = $row['value'];
   // if the parameter is present in $_POST array (if a form is submited), we
   // override it with the submited value
-  if (isset($_POST[$row['param']]))
+  if (isset($_POST[$row['param']]) and !is_adviser())
   {
     $conf[$row['param']] = $_POST[$row['param']];
     if ( 'page_banner'==$row['param'] )
@@ -63,7 +63,7 @@ while ($row = mysql_fetch_array($result))
   }
 }
 //------------------------------ verification and registration of modifications
-if (isset($_POST['submit']))
+if (isset($_POST['submit']) and !is_adviser())
 {
   $int_pattern = '/^\d+$/';
   switch ($page['section'])

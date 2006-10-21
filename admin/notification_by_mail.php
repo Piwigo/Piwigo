@@ -419,7 +419,7 @@ switch ($page['mode'])
     $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
     while ($nbm_user = mysql_fetch_array($result))
     {
-      if (isset($_POST['param_submit']))
+      if (isset($_POST['param_submit']) and !is_adviser())
       {
         if (isset($_POST[$nbm_user['param']]))
         {
@@ -441,7 +441,7 @@ where
 
       // if the parameter is present in $_POST array (if a form is submited), we
       // override it with the submited value
-      if (isset($_POST[$nbm_user['param']]))
+      if (isset($_POST[$nbm_user['param']]) and !is_adviser())
       {
         $conf[$nbm_user['param']] = stripslashes($_POST[$nbm_user['param']]);
       }
@@ -461,23 +461,26 @@ where
   }
   case 'subscribe' :
   {
-    if (isset($_POST['falsify']) and isset($_POST['cat_true']))
+    if (!is_adviser())
     {
-      $check_key_treated = unsubcribe_notification_by_mail(true, $_POST['cat_true']);
-      do_timeout_treatment('cat_true', $check_key_treated);
-    }
-    else
-    if (isset($_POST['trueify']) and isset($_POST['cat_false']))
-    {
-      $check_key_treated = subcribe_notification_by_mail(true, $_POST['cat_false']);
-      do_timeout_treatment('cat_false', $check_key_treated);
+      if (isset($_POST['falsify']) and isset($_POST['cat_true']))
+      {
+        $check_key_treated = unsubcribe_notification_by_mail(true, $_POST['cat_true']);
+        do_timeout_treatment('cat_true', $check_key_treated);
+      }
+      else
+      if (isset($_POST['trueify']) and isset($_POST['cat_false']))
+      {
+        $check_key_treated = subcribe_notification_by_mail(true, $_POST['cat_false']);
+        do_timeout_treatment('cat_false', $check_key_treated);
+      }
     }
     break;
   }
 
   case 'send' :
   {
-    if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']))
+    if (isset($_POST['send_submit']) and isset($_POST['send_selection']) and isset($_POST['send_customize_mail_content']) and !is_adviser())
     {
       $check_key_treated = do_action_send_mail_notification('send', $_POST['send_selection'], stripslashes($_POST['send_customize_mail_content']));
       do_timeout_treatment('send_selection', $check_key_treated);
