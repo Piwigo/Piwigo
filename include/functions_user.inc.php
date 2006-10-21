@@ -104,6 +104,54 @@ function setup_style($style)
   return new Template(PHPWG_ROOT_PATH.'template/'.$style);
 }
 
+
+function build_user( $user_id, $use_cache )
+{
+  global $conf;
+  $user['id'] = $user_id;
+  $user = array_merge( $user, getuserdata($user_id, $use_cache) );
+  if ( $user['id'] == $conf['guest_id'])
+  {
+    $user['is_the_guest']=true;
+    $user['template'] = $conf['default_template'];
+    $user['nb_image_line'] = $conf['nb_image_line'];
+    $user['nb_line_page'] = $conf['nb_line_page'];
+    $user['language'] = $conf['default_language'];
+    $user['maxwidth'] = $conf['default_maxwidth'];
+    $user['maxheight'] = $conf['default_maxheight'];
+    $user['recent_period'] = $conf['recent_period'];
+    $user['expand'] = $conf['auto_expand'];
+    $user['show_nb_comments'] = $conf['show_nb_comments'];
+    $user['enabled_high'] = $conf['newuser_default_enabled_high'];
+  }
+  else
+  {
+    $user['is_the_guest']=false;
+  }
+  // calculation of the number of picture to display per page
+  $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
+
+  // include template/theme configuration
+  if (defined('IN_ADMIN') and IN_ADMIN)
+  {
+    list($user['template'], $user['theme']) =
+      explode
+      (
+        '/',
+        isset($conf['default_admin_layout']) ? $conf['default_admin_layout']
+                                             : $user['template']
+      );
+    // TODO : replace $conf['admin_layout'] by $user['admin_layout']
+  }
+  else
+  {
+    list($user['template'], $user['theme']) = explode('/', $user['template']);
+  }
+
+  return $user;
+}
+
+
 /**
  * find informations related to the user identifier
  *
@@ -458,7 +506,7 @@ function create_user_infos($user_id)
   {
     $status = 'normal';
   }
-  
+
   $insert =
     array(
       'user_id' => $user_id,
@@ -556,13 +604,13 @@ function log_user($user_id, $remember_me)
   {
     // search for an existing auto_login_key
     $query = '
-SELECT auto_login_key 
+SELECT auto_login_key
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
 ;';
- 
+
     $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-    if (empty($auto_login_key)) 
+    if (empty($auto_login_key))
     {
       $auto_login_key = base64_encode(md5(uniqid(rand(), true)));
       $query = '
@@ -574,45 +622,58 @@ UPDATE '.USERS_TABLE.'
     }
     $cookie = array('id' => $user_id, 'key' => $auto_login_key);
     setcookie($conf['remember_me_name'],
-	      serialize($cookie), 
+	      serialize($cookie),
 	      time()+$conf['remember_me_length'],
 	      cookie_path()
 	      );
   }
-  session_start();
+  else
+  { // make sure we clean any remember me ...
+    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+  }
+  if ( session_id()!="" )
+  { // this can happpen when the session is expired and auto_login
+    session_regenerate_id();
+  }
+  else
+  {
+    session_start();
+  }
   $_SESSION['pwg_uid'] = $user_id;
 
   $user['id'] = $_SESSION['pwg_uid'];
-  $user['is_the_guest'] = false;
 }
 
 /*
  * Performs auto-connexion when cookie remember_me exists
- * @return void
+ * @return true/false
 */
-function auto_login() { 
+function auto_login() {
   global $conf;
 
-  // must remove slash added in include/common.inc.php
-  $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
+  if ( isset( $_COOKIE[$conf['remember_me_name']] ) )
+  {
+    // must remove slash added in include/common.inc.php
+    $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
 
-  $query = '
+    $query = '
 SELECT auto_login_key
   FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
 ;';
 
-  $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-  if ($auto_login_key == $cookie['key'])
-  {
-    log_user($cookie['id'], false);
-    redirect(make_index_url());
+    $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
+    if ($auto_login_key == $cookie['key'])
+    {
+      log_user($cookie['id'], true);
+      return true;
+    }
+    else
+    {
+      setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    }
   }
-  else
-  {
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
-    redirect(make_index_url());
-  } 
+  return false;
 }
 
 /*

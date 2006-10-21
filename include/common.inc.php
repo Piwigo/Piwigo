@@ -132,6 +132,61 @@ or die ( "Could not connect to database server" );
 mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 
+//
+// Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
+// since basic gallery information is not available
+//
+load_conf_from_db();
+
+include(PHPWG_ROOT_PATH.'include/user.inc.php');
+
+
+// language files
+include_once(get_language_filepath('common.lang.php'));
+if (defined('IN_ADMIN') and IN_ADMIN)
+{
+  include_once(get_language_filepath('admin.lang.php'));
+}
+
+// only now we can set the localized username of the guest user (and not in
+// include/user.inc.php)
+if ($user['is_the_guest'])
+{
+  $user['username'] = $lang['guest'];
+}
+
+// template instance
+$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
+
+if ($conf['gallery_locked'])
+{
+  $header_msgs[] = $lang['gallery_locked_message'];
+
+  if ( basename($_SERVER["SCRIPT_FILENAME"]) != 'identification.php'
+      and !is_admin() )
+  {
+    //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
+    $page['root_path'] = cookie_path();
+    echo $lang['gallery_locked_message']
+      .'<a href="'.get_root_url().'identification.php">.</a>';
+    exit();
+  }
+}
+
+if ($user['is_the_guest'] and !$conf['guest_access']
+    and !in_array( basename($_SERVER['SCRIPT_FILENAME']),
+                      array('identification.php',
+                            'password.php',
+                            'register.php'
+                        )
+                  )
+    )
+{
+  //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
+  $page['root_path'] = cookie_path();
+  redirect (get_root_url().'identification.php');
+}
+
 if ($conf['check_upgrade_feed']
     and defined('PHPWG_IN_UPGRADE')
     and PHPWG_IN_UPGRADE)
@@ -149,79 +204,18 @@ SELECT id
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)
   {
+    //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
+    $page['root_path'] = cookie_path();
     $header_msgs[] = 'Some database upgrades are missing, '
-      .'<a href="'.PHPWG_ROOT_PATH.'upgrade_feed.php">upgrade now</a>';
+      .'<a href="'.get_root_url().'upgrade_feed.php">upgrade now</a>';
   }
 }
 
-//
-// Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
-// since basic gallery information is not available
-//
-load_conf_from_db();
-
-include(PHPWG_ROOT_PATH.'include/user.inc.php');
-
-// language files
-include_once(get_language_filepath('common.lang.php'));
-
-if (defined('IN_ADMIN') and IN_ADMIN)
-{
-  include_once(get_language_filepath('admin.lang.php'));
-}
-
-if ($conf['gallery_locked'])
-{
-  $header_msgs[] = $lang['gallery_locked_message']
-    . '<a href="'.PHPWG_ROOT_PATH.'identification.php">.</a>';
-
-  if ( basename($_SERVER["PHP_SELF"]) != 'identification.php'
-      and !is_admin() )
-  {
-    echo( $lang['gallery_locked_message'] );
-    exit();
-  }
-}
-
-// only now we can set the localized username of the guest user (and not in
-// include/user.inc.php)
-if ($user['is_the_guest'])
-{
-  $user['username'] = $lang['guest'];
-}
-
-// include template/theme configuration
-if (defined('IN_ADMIN') and IN_ADMIN)
-{
-  list($user['template'], $user['theme']) =
-    explode
-    (
-      '/',
-      isset($conf['default_admin_layout']) ? $conf['default_admin_layout']
-                                           : $user['template']
-    );
-// TODO : replace $conf['admin_layout'] by $user['admin_layout']
-}
-else
-{
-  list($user['template'], $user['theme']) = explode('/', $user['template']);
-}
-// TODO : replace initial $user['template'] by $user['layout']
-
-include(
-  PHPWG_ROOT_PATH
-  .'template/'.$user['template']
-  .'/theme/'.$user['theme']
-  .'/themeconf.inc.php'
-  );
 
 if (is_adviser())
 {
   $header_msgs[] = $lang['adviser_mode_enabled'];
 }
-
-// template instance
-$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
 
 if (count($header_msgs) > 0)
 {

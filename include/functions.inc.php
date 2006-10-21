@@ -460,7 +460,7 @@ function format_date($date, $type = 'us', $show_time = false)
   return $formated_date;
 }
 
-function pwg_stripslashes($value) 
+function pwg_stripslashes($value)
 {
   if (get_magic_quotes_gpc())
   {
@@ -469,7 +469,7 @@ function pwg_stripslashes($value)
   return $value;
 }
 
-function pwg_addslashes($value) 
+function pwg_addslashes($value)
 {
   if (!get_magic_quotes_gpc())
   {
@@ -478,7 +478,7 @@ function pwg_addslashes($value)
   return $value;
 }
 
-function pwg_quotemeta($value) 
+function pwg_quotemeta($value)
 {
   if (get_magic_quotes_gpc()) {
     $value = stripslashes($value);
@@ -556,20 +556,23 @@ function pwg_debug( $string )
  * @param integer $refreh_time
  * @return void
  */
-function redirect( $url , $msg = '', $refreh_time = 0)
+function redirect( $url , $msg = '', $refresh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
-  unset($template);
-  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template']);
-  if (!isset($page['body_id'])) 
+  if (!isset($lang_info))
   {
-    $page['body_id'] = 'adminPage';
+    $user = build_user( $conf['guest_id'], true);
+    include_once(get_language_filepath('common.lang.php'));
+    list($tmpl, $thm) = explode('/', $conf['default_template']);
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+  }
+  else
+  {
+    $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme']);
   }
 
-  // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
-  // refresh page in header.tpl
-  if (!isset($msg) or ($msg == ''))
+  if (empty($msg))
   {
     $redirect_msg = l10n('redirect_msg');
   }
@@ -578,9 +581,12 @@ function redirect( $url , $msg = '', $refreh_time = 0)
     $redirect_msg = $msg;
   }
   $redirect_msg = nl2br($redirect_msg);
-  $refresh = $refreh_time;
+
+  $refresh = $refresh_time;
   $url_link = $url;
   $title = 'redirection';
+
+  $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
 
   include( PHPWG_ROOT_PATH.'include/page_header.php' );
 
@@ -591,7 +597,6 @@ function redirect( $url , $msg = '', $refreh_time = 0)
 
   exit();
 }
-
 /**
  * returns $_SERVER['QUERY_STRING'] whitout keys given in parameters
  *
@@ -693,7 +698,7 @@ function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
 function my_error($header)
 {
   global $conf;
-  
+
   $error = '<pre>';
   $error.= $header;
   $error.= '[mysql error '.mysql_errno().'] ';
@@ -879,9 +884,9 @@ function str_translate_to_ascii7bits($str)
  */
 function get_themeconf($key)
 {
-  global $themeconf;
+  global $template;
 
-  return isset($themeconf[$key]) ? $themeconf[$key] : '';
+  return $template->get_themeconf($key);
 }
 
 /**
@@ -938,7 +943,7 @@ function get_available_upgrade_ids()
 function load_conf_from_db()
 {
   global $conf;
-  
+
   $query = '
 SELECT param,value
  FROM '.CONFIG_TABLE.'
@@ -953,7 +958,7 @@ SELECT param,value
   while ($row = mysql_fetch_array($result))
   {
     $conf[ $row['param'] ] = isset($row['value']) ? $row['value'] : '';
-    
+
     // If the field is true or false, the variable is transformed into a
     // boolean value.
     if ($conf[$row['param']] == 'true' or $conf[$row['param']] == 'false')

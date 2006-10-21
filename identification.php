@@ -71,10 +71,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
     array_push( $errors, $lang['invalid_pwd'] );
   }
 }
-elseif (!empty($_COOKIE[$conf['remember_me_name']]))
-{
-  auto_login();
-}
+
 //----------------------------------------------------- template initialization
 //
 // Start output of page
