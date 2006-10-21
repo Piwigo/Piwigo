@@ -70,7 +70,7 @@ if (isset($_POST['date_creation_action'])
   }
 }
 
-if (isset($_POST['submit']) and count($page['errors']) == 0)
+if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
 {
   $data = array();
   $data{'id'} = $_GET['image_id'];
@@ -119,7 +119,9 @@ if (isset($_POST['submit']) and count($page['errors']) == 0)
 // associate the element to other categories than its storage category
 if (isset($_POST['associate'])
     and isset($_POST['cat_dissociated'])
-    and count($_POST['cat_dissociated']) > 0)
+    and count($_POST['cat_dissociated']) > 0
+    and !is_adviser()
+  )
 {
   associate_images_to_categories(
     array($_GET['image_id']),
@@ -129,7 +131,9 @@ if (isset($_POST['associate'])
 // dissociate the element from categories (but not from its storage category)
 if (isset($_POST['dissociate'])
     and isset($_POST['cat_associated'])
-    and count($_POST['cat_associated']) > 0)
+    and count($_POST['cat_associated']) > 0
+    and !is_adviser()
+  )
 {
   $query = '
 DELETE FROM '.IMAGE_CATEGORY_TABLE.'
@@ -143,7 +147,9 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
 // elect the element to represent the given categories
 if (isset($_POST['elect'])
     and isset($_POST['cat_dismissed'])
-    and count($_POST['cat_dismissed']) > 0)
+    and count($_POST['cat_dismissed']) > 0
+    and !is_adviser()
+  )
 {
   $datas = array();
   foreach ($_POST['cat_dismissed'] as $category_id)
@@ -159,7 +165,9 @@ if (isset($_POST['elect'])
 // dismiss the element as representant of the given categories
 if (isset($_POST['dismiss'])
     and isset($_POST['cat_elected'])
-    and count($_POST['cat_elected']) > 0)
+    and count($_POST['cat_elected']) > 0
+    and !is_adviser()
+  )
 {
   set_random_representant($_POST['cat_elected']);
 }

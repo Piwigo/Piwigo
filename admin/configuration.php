@@ -47,7 +47,7 @@ else
   $page['section'] = $_GET['section'];
 }
 //------------------------------ verification and registration of modifications
-if (isset($_POST['submit']))
+if (isset($_POST['submit']) and !is_adviser())
 {
   $int_pattern = '/^\d+$/';
   switch ($page['section'])

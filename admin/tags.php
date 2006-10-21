@@ -37,7 +37,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                                edit tags                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit']))
+if (isset($_POST['submit']) and !is_adviser())
 {
   $query = '
 SELECT name
@@ -110,7 +110,7 @@ SELECT id, name
 // |                               delete tags                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['delete']) and isset($_POST['tags']))
+if (isset($_POST['delete']) and isset($_POST['tags']) and !is_adviser())
 {
   $query = '
 SELECT name
@@ -147,7 +147,7 @@ DELETE
 // |                               add a tag                               |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['add']) and !empty($_POST['add_tag']))
+if (isset($_POST['add']) and !empty($_POST['add_tag']) and !is_adviser())
 {
   $tag_name = $_POST['add_tag'];
 
