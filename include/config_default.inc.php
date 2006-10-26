@@ -521,4 +521,6 @@ $conf['email_admin_on_new_user']=false;
 // stored on user informations
 //$conf['default_admin_layout']='yoga/dark';
 
+
+$conf['disable_plugins']=false;
 ?>

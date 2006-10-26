@@ -19,6 +19,7 @@
 	<li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
 	<li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
 	<li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
+	<li><a href="{U_PLUGINS}">{lang:Plugins}</a></li>
       </ul>
     </dd>
   </dl>

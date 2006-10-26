@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | last update   : $Date: 2006-07-23 14:17:00 +0200 (dim, 23 jui 2006) $
+// | last modifier : $Author: nikrou $
+// | revision      : $Revision: 1492 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -25,48 +25,23 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//
-// Start output of page
-//
-$template->set_filenames(array('header'=>'header.tpl'));
-
-$template->assign_vars(
-  array(
-    'GALLERY_TITLE' =>
-      isset($page['gallery_title']) ?
-        $page['gallery_title'] : $conf['gallery_title'],
-
-    'PAGE_BANNER' =>
-      trigger_event('page_banner',
-          isset($page['page_banner']) ?
-          $page['page_banner'] : $conf['page_banner'] ),
-
-    'BODY_ID' =>
-      isset($page['body_id']) ?
-        $page['body_id'] : '',
-
-    'CONTENT_ENCODING' => $lang_info['charset'],
-    'PAGE_TITLE' => strip_tags($title),
-    'LANG'=>$lang_info['code'],
-    'DIR'=>$lang_info['direction'],
-
-    'TAG_INPUT_ENABLED' =>
-      ((is_adviser()) ? 'disabled onclick="return false;"' : '')
-    ));
-
-// refresh
-if ( isset( $refresh ) and intval($refresh) >= 0
-    and isset( $url_link ) and isset( $redirect_msg ) )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  $template->assign_vars(
-    array(
-      'U_REDIRECT_MSG' => $redirect_msg,
-      'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => $url_link
-      ));
-  $template->assign_block_vars('refresh', array());
+  die('Hacking attempt!');
 }
 
-header('Content-Type: text/html; charset='.$lang_info['charset']);
-$template->parse('header');
+$upgrade_description = 'add active_plugins to config';
+
+// add column auto_login_key
+$query = '
+INSERT INTO '.PREFIX_TABLE.'config (param,value,comment)
+  VALUES (\'active_plugins\',\'\',\'activated plugins\')
+;';
+pwg_query($query);
+
+echo
+"\n"
+. $upgrade_description
+."\n"
+;
 ?>

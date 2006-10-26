@@ -158,6 +158,8 @@ if ($user['is_the_guest'])
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
 
+load_plugins();
+
 if ($conf['gallery_locked'])
 {
   $header_msgs[] = $lang['gallery_locked_message'];
@@ -191,6 +193,7 @@ if ($conf['check_upgrade_feed']
     and defined('PHPWG_IN_UPGRADE')
     and PHPWG_IN_UPGRADE)
 {
+
   // retrieve already applied upgrades
   $query = '
 SELECT id
