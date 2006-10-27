@@ -98,4 +98,19 @@ UPDATE '.CONFIG_TABLE.'
   }
   return false;
 }
+
+/*allows plugins to add their content to the administration page*/
+function add_plugin_admin_menu($title, $func)
+{
+  global $page;
+
+  $uid = md5( var_export($func, true) );
+  $page['plugin_admin_menu'][] =
+    array(
+      'title' => $title,
+      'function' => $func,
+      'uid' => $uid
+    );
+}
+
 ?>

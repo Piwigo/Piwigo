@@ -34,51 +34,27 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
-$my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
-
-if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
-{
-  if ( $_REQUEST['action']=='deactivate')
-  {
-    $result = deactivate_plugin( $_REQUEST['plugin'] );
-  }
-  else
-  {
-    $result = activate_plugin( $_REQUEST['plugin'] );
-  }
-  if ($result)
-  { // we need a redirect so that we really reload it
-    redirect($my_base_url.'&amp;'.$_REQUEST['action'].'='.$result);
-  }
-  else
-  {
-    array_push( $page['errors'], 'Plugin activation/deactivation error' );
-  }
-}
-
-
-$active_plugins = get_active_plugins();
-$active_plugins = array_flip($active_plugins);
-
-$plugins = get_plugins();
-
-$template->set_filenames(array('plugins' => 'admin/plugins.tpl'));
-
+$template->set_filenames(array('plugin' => 'admin/plugin.tpl'));
 
 trigger_event('plugin_admin_menu');
 
-$template->assign_block_vars('plugin_menu.menu_item',
-    array(
-      'NAME' => l10n('Plugins'),
-      'URL' => PHPWG_ROOT_PATH.'admin.php?page=plugins'
-    )
-  );
 
 if ( isset($page['plugin_admin_menu']) )
 {
+  $template->assign_block_vars('plugin_menu.menu_item',
+      array(
+        'NAME' => l10n('Plugins'),
+        'URL' => PHPWG_ROOT_PATH.'admin.php?page=plugins'
+      )
+    );
+
   $plug_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section=';
   foreach ($page['plugin_admin_menu'] as $menu)
   {
+    if (isset($_GET['section']) and $menu['uid']==$_GET['section'])
+    {
+      $found_menu=$menu;
+    }
     $template->assign_block_vars('plugin_menu.menu_item',
         array(
           'NAME' => $menu['title'],
@@ -87,38 +63,12 @@ if ( isset($page['plugin_admin_menu']) )
       );
   }
 }
-
-$num=0;
-foreach( $plugins as $plugin_id => $plugin )
+if ( isset($found_menu) )
 {
-  $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
-  if ( isset( $active_plugins[$plugin_id] ) )
-  {
-    $action_url .= '&amp;action=deactivate';
-    $action_name = l10n('Deactivate');
-  }
-  else
-  {
-    $action_url .= '&amp;action=activate';
-    $action_name = l10n('Activate');
-  }
-  $display_name = $plugin['name'];
-  if ( !empty($plugin['uri']) )
-  {
-    $display_name='<a href="'.$plugin['uri'].'">'.$display_name.'</a>';
-  }
-  $template->assign_block_vars( 'plugins.plugin',
-      array(
-        'NAME' => $display_name,
-        'VERSION' => $plugin['version'],
-        'DESCRIPTION' => $plugin['description'],
-        'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
-        'L_ACTION' => $action_name,
-        'U_ACTION' => $action_url,
-        )
-     );
+  call_user_func(
+    $found_menu['function'],
+    PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section='.$found_menu['uid'] );
 }
 
-
-$template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin');
 ?>
