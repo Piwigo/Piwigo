@@ -222,7 +222,7 @@ class Template {
         for ($i = 0; $i < $blockcount; $i++)
         {
           $str .= '[\'' . $blocks[$i] . '.\']';
-          eval('$lastiteration = sizeof(' . $str . ') - 1;');
+          eval('$lastiteration = isset('.$str.') ? sizeof('.$str.')-1:0;');
           $str .= '[' . $lastiteration . ']';
         }
         // Now we add the block that we're actually assigning to.
@@ -278,8 +278,9 @@ class Template {
   function make_filename($filename)
     {
       // Check if it's an absolute or relative path.
-      // if (substr($filename, 0, 1) != '/')
-      if (preg_match('/^[a-z_]/i', $filename))
+      if (substr($filename, 0, 1) != '/'
+          and substr($filename, 0, 1) != '\\' //Windows UNC path
+          and !preg_match('/^[a-z]:\\\/i', $filename) )
       {
         $filename = $this->root.'/'.$filename;
       }
@@ -316,6 +317,7 @@ class Template {
       $filename = $this->files[$handle];
 
       $str = implode("", @file($filename));
+
       if (empty($str))
       {
         die("Template->loadfile(): File $filename for handle $handle is empty");
