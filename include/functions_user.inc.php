@@ -94,10 +94,10 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
 
   // Assign by default one group
-  if(isset($conf['id_group']))
+  if(isset($conf['default_group_id']))
   {
     $query = '
-select count(*) from '.GROUPS_TABLE.' where id = '.$conf['id_group'].';';
+select count(*) from '.GROUPS_TABLE.' where id = '.$conf['default_group_id'].';';
     list($exist_group) = mysql_fetch_array(pwg_query($query));
 
     if ($exist_group == 1)
@@ -105,7 +105,7 @@ select count(*) from '.GROUPS_TABLE.' where id = '.$conf['id_group'].';';
       $insert =
         array(
           'user_id' => $next_id,
-          'group_id' => $conf['id_group']
+          'group_id' => $conf['default_group_id']
           );
 
       include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
