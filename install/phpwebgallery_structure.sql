@@ -102,6 +102,7 @@ DROP TABLE IF EXISTS `phpwebgallery_groups`;
 CREATE TABLE `phpwebgallery_groups` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
+  `is_default` enum('true','false') NOT NULL default 'false',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 

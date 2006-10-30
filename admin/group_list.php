@@ -123,6 +123,33 @@ INSERT INTO '.GROUPS_TABLE.'
 }
 
 // +-----------------------------------------------------------------------+
+// | toggle is default group property                                      |
+// +-----------------------------------------------------------------------+
+
+if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']))
+{
+  $query = '
+SELECT name, is_default
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$_GET['toggle_is_default'].'
+;';
+  list($groupname, $is_default) = mysql_fetch_row(pwg_query($query));
+  
+  // update of the group
+  $query = '
+UPDATE '.GROUPS_TABLE.'
+  SET is_default = \''.boolean_to_string(!get_boolean($is_default)).'\'
+  WHERE id = '.$_GET['toggle_is_default'].'
+;';
+  pwg_query($query);
+
+  array_push(
+    $page['infos'],
+    sprintf(l10n('group "%s" updated'), $groupname)
+    );
+}
+
+// +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
@@ -139,7 +166,7 @@ $template->assign_vars(
 // +-----------------------------------------------------------------------+
 
 $query = '
-SELECT id, name
+SELECT id, name, is_default
   FROM '.GROUPS_TABLE.'
   ORDER BY id ASC
 ;';
@@ -149,6 +176,7 @@ $admin_url = PHPWG_ROOT_PATH.'admin.php?page=';
 $perm_url    = $admin_url.'group_perm&amp;group_id=';
 $del_url     = $admin_url.'group_list&amp;delete=';
 $members_url = $admin_url.'user_list&amp;group=';
+$toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
 $num = 0;
 while ($row = mysql_fetch_array($result))
@@ -165,10 +193,12 @@ SELECT COUNT(*)
     array(
       'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
       'NAME' => $row['name'],
+      'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('is_default_group').']' : ''),
       'MEMBERS' => sprintf(l10n('%d members'), $counter),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'],
-      'U_PERM' => $perm_url.$row['id']
+      'U_PERM' => $perm_url.$row['id'],
+      'U_ISDEFAULT' => $toggle_is_default_url.$row['id']
       )
     );
 }

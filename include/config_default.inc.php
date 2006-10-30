@@ -222,9 +222,6 @@ $conf['check_upgrade_feed'] = true;
 // rate_items: available rates for a picture
 $conf['rate_items'] = array(0,1,2,3,4,5);
 
-// Dafault groups to assign to new user
-$conf['default_group_id'] = -1;
-
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

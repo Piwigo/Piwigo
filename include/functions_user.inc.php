@@ -93,23 +93,34 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
 
-  // Assign by default one group
-  if(isset($conf['default_group_id']))
+  // Assign by default groups
   {
     $query = '
-select count(*) from '.GROUPS_TABLE.' where id = '.$conf['default_group_id'].';';
-    list($exist_group) = mysql_fetch_array(pwg_query($query));
+SELECT id
+  FROM '.GROUPS_TABLE.'
+  WHERE is_default = \''.boolean_to_string(true).'\'
+  ORDER BY id ASC
+;';
+    $result = pwg_query($query);
 
-    if ($exist_group == 1)
+    $inserts = array();
+    while ($row = mysql_fetch_array($result))
     {
-      $insert =
-        array(
+      array_push
+      (
+        $inserts,
+        array
+        (
           'user_id' => $next_id,
-          'group_id' => $conf['default_group_id']
-          );
+          'group_id' => $row['id']
+        )
+      );
+    }
 
+    if (count($inserts) != 0)
+    {
       include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-      mass_inserts(USER_GROUP_TABLE, array_keys($insert), array($insert));
+      mass_inserts(USER_GROUP_TABLE, array('user_id', 'group_id'), $inserts);
     }
   }
 

@@ -242,6 +242,7 @@ $lang['general'] = 'Général';
 $lang['global mode'] = 'mode global';
 $lang['group "%s" added'] = 'groupe "%s" ajouté';
 $lang['group "%s" deleted'] = 'groupe "%s" supprimé';
+$lang['group "%s" updated'] = 'groupe "%s" mis à jour';
 $lang['group'] = 'groupe';
 $lang['group_add_error1'] = 'Le nom du groupe ne doit pas contenir " or \' et ne doit pas être vide.';
 $lang['group_add_error2'] = 'Ce nom est déjà utilisé par un autre groupe.';
@@ -486,4 +487,6 @@ $lang['users'] = 'Utilisateurs';
 $lang['visitors'] = 'Visiteurs';
 $lang['w_day'] = 'Jour';
 $lang['waiting'] = 'En attente';
+$lang['is_default_group'] = 'par défaut';
+$lang['toggle_is_default_group'] = 'Inverser la propriété \'groupe par défaut\'';
 ?>
