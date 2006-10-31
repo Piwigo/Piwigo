@@ -154,9 +154,9 @@ DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
 $fs_plugins = get_fs_plugins();
 $db_plugins = get_db_plugins();
 $db_plugins_by_id=array();
-foreach ($db_plugins as &$db_plugin)
+foreach ($db_plugins as $db_plugin)
 {
-  $db_plugins_by_id[$db_plugin['id']] = &$db_plugin;
+  $db_plugins_by_id[$db_plugin['id']] = $db_plugin;
 }
 
 
