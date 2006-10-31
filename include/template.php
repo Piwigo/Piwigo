@@ -244,6 +244,30 @@ class Template {
     }
 
   /**
+   * Block-level variable merge. Merge given variables to the last block
+   * iteration. This can be called several times per block iteration.
+   */
+  function merge_block_vars($blockname, $vararray)
+    {
+      $blocks = explode('.', $blockname);
+      $blockcount = count($blocks);
+      $str = '$this->_tpldata';
+      for ($i = 0; $i < $blockcount; $i++)
+      {
+        $str .= '[\'' . $blocks[$i] . '.\']';
+        eval('$lastiteration = isset('.$str.') ? sizeof('.$str.')-1:-1;');
+        if ($lastiteration==-1)
+        {
+          return false;
+        }
+        $str .= '[' . $lastiteration . ']';
+      }
+      $str = $str.'=array_merge('.$str.', $vararray);';
+      eval($str);
+      return true;
+    }
+
+  /**
    * Root-level variable assignment. Adds to current assignments, overriding
    * any existing variable assignment with the same name.
    */
