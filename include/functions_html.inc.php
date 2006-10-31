@@ -64,7 +64,7 @@ function get_icon($date)
     $icon_url = get_themeconf('icon_dir').'/recent.png';
     $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
-    $size = getimagesize( $icon_url );
+    $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
     $icon_url = get_root_url().$icon_url;
     $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
