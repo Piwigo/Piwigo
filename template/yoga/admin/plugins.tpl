@@ -22,7 +22,11 @@
   <td>{plugins.plugin.NAME}</td>
   <td>{plugins.plugin.VERSION}</td>
   <td>{plugins.plugin.DESCRIPTION}</td>
-  <td><a href="{plugins.plugin.U_ACTION}">{plugins.plugin.L_ACTION}</a></td>
+  <td>
+  <!-- BEGIN action -->
+  <a href="{plugins.plugin.action.U_ACTION}">{plugins.plugin.action.L_ACTION}</a>
+  <!-- END action -->
+  </td>
 </tr>
 <!-- END plugin -->
 </table>

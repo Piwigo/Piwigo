@@ -67,6 +67,10 @@ function add_event_handler($event, $func, $priority=50, $accepted_args=1)
 }
 
 
+/* Triggers an event and calls all registered event handlers
+ * @param string $event name of the event
+ * @param mixed $data data to pass to handlers
+*/
 function trigger_event($event, $data=null)
 {
   global $pwg_event_handlers;
@@ -123,32 +127,53 @@ function trigger_event($event, $data=null)
 
 
 
-
-function get_active_plugins($runtime = true)
+/* Returns an array of plugins defined in the database
+ * @param string $state optional filter on this state
+ * @param string $id optional returns only data about given plugin
+*/
+function get_db_plugins($state='', $id='')
 {
-  global $conf;
-  if ($conf['disable_plugins'] and $runtime)
+  $query = '
+SELECT * FROM '.PLUGINS_TABLE;
+  if (!empty($state) or !empty($id) )
   {
-    return array();
+    $query .= '
+WHERE 1=1';
+    if (!empty($state))
+    {
+      $query .= '
+  AND state="'.$state.'"';
+    }
+    if (!empty($id))
+    {
+      $query .= '
+  AND id="'.$id.'"';
+    }
   }
-  if (empty($conf['active_plugins']))
-  {
-    return array();
-  }
-  return explode(',', $conf['active_plugins']);
 
+  $result = pwg_query($query);
+  $plugins = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($plugins, $row);
+  }
+  return $plugins;
 }
 
 
+/*loads all the plugins on startup*/
 function load_plugins()
 {
-  $plugins = get_active_plugins();
+  global $conf;
+  if ($conf['disable_plugins'])
+  {
+    return;
+  }
+
+  $plugins = get_db_plugins('active');
   foreach( $plugins as $plugin)
   {
-    if (!empty($plugin))
-    {
-      include_once( PHPWG_PLUGINS_PATH.$plugin.'/index.php' );
-    }
+    @include_once( PHPWG_PLUGINS_PATH.$plugin['id'].'/index.php' );
   }
   trigger_event('plugins_loaded');
 }

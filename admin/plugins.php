@@ -36,34 +36,131 @@ check_status(ACCESS_ADMINISTRATOR);
 
 $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 
+
+
+// +-----------------------------------------------------------------------+
+// |                     perform requested actions                         |
+// +-----------------------------------------------------------------------+
 if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
 {
-  if ( $_REQUEST['action']=='deactivate')
+  $plugin_id = $_REQUEST['plugin'];
+  $crt_db_plugin = get_db_plugins('', $plugin_id);
+  if (!empty($crt_db_plugin))
   {
-    $result = deactivate_plugin( $_REQUEST['plugin'] );
+    $crt_db_plugin=$crt_db_plugin[0];
   }
   else
   {
-    $result = activate_plugin( $_REQUEST['plugin'] );
+    unset($crt_db_plugin);
   }
-  if ($result)
-  { // we need a redirect so that we really reload it
-    redirect($my_base_url.'&amp;'.$_REQUEST['action'].'='.$result);
-  }
-  else
+
+  $file_to_include = PHPWG_PLUGINS_PATH.$plugin_id.'/maintain.inc.php';
+
+  switch ( $_REQUEST['action'] )
   {
-    array_push( $page['errors'], 'Plugin activation/deactivation error' );
+    case 'install':
+      if ( !empty($crt_db_plugin))
+      {
+        die ('CANNOT install - ALREADY INSTALLED');
+      }
+      $fs_plugins = get_fs_plugins();
+      if ( !isset( $fs_plugins[$plugin_id] ) )
+      {
+        die ('CANNOT install - NO SUCH PLUGIN');
+      }
+      $query = '
+INSERT INTO '.PLUGINS_TABLE.' (id,version) VALUES ("'
+.$plugin_id.'","'.$fs_plugins[$plugin_id]['version'].'"
+)';
+      pwg_query($query);
+
+      // MAYBE TODO HERE = what if we die or we fail ???
+      @include_once($file_to_include);
+      if ( function_exists('plugin_install') )
+      {
+        plugin_install($plugin_id);
+      }
+      break;
+
+
+    case 'activate':
+      if ( !isset($crt_db_plugin) )
+      {
+        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+      }
+      if ($crt_db_plugin['state']!='inactive')
+      {
+        die('invalid current state '.$crt_db_plugin['state']);
+      }
+      $query = '
+UPDATE '.PLUGINS_TABLE.' SET state="active" WHERE id="'.$plugin_id.'"';
+      pwg_query($query);
+
+      // MAYBE TODO HERE = what if we die or we fail ???
+      @include_once($file_to_include);
+      if ( function_exists('plugin_activate') )
+      {
+        plugin_activate($plugin_id);
+      }
+      break;
+
+
+    case 'deactivate':
+      if ( !isset($crt_db_plugin) )
+      {
+        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+      }
+      if ($crt_db_plugin['state']!='active')
+      {
+        die('invalid current state '.$crt_db_plugin['state']);
+      }
+      $query = '
+UPDATE '.PLUGINS_TABLE.' SET state="inactive" WHERE id="'.$plugin_id.'"';
+      pwg_query($query);
+
+      // MAYBE TODO HERE = what if we die or we fail ???
+      @include_once($file_to_include);
+      if ( function_exists('plugin_deactivate') )
+      {
+        plugin_deactivate($plugin_id);
+      }
+      break;
+
+    case 'uninstall':
+      if ( !isset($crt_db_plugin) )
+      {
+        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+      }
+      $query = '
+DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
+      pwg_query($query);
+
+      // MAYBE TODO HERE = what if we die or we fail ???
+      @include_once($file_to_include);
+      if ( function_exists('plugin_uninstall') )
+      {
+        plugin_uninstall($plugin_id);
+      }
+      break;
   }
+  // do the redirection so that we allow the plugins to load/unload
+  redirect($my_base_url);
 }
 
 
-$active_plugins = get_active_plugins();
-$active_plugins = array_flip($active_plugins);
+// +-----------------------------------------------------------------------+
+// |                     start template output                             |
+// +-----------------------------------------------------------------------+
+$fs_plugins = get_fs_plugins();
+$db_plugins = get_db_plugins();
+$db_plugins_by_id=array();
+foreach ($db_plugins as &$db_plugin)
+{
+  $db_plugins_by_id[$db_plugin['id']] = &$db_plugin;
+}
 
-$plugins = get_plugins();
 
 $template->set_filenames(array('plugins' => 'admin/plugins.tpl'));
-
 
 trigger_event('plugin_admin_menu');
 
@@ -89,36 +186,86 @@ if ( isset($page['plugin_admin_menu']) )
 }
 
 $num=0;
-foreach( $plugins as $plugin_id => $plugin )
+foreach( $fs_plugins as $plugin_id => $fs_plugin )
 {
-  $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
-  if ( isset( $active_plugins[$plugin_id] ) )
+  $display_name = $fs_plugin['name'];
+  if ( !empty($fs_plugin['uri']) )
   {
-    $action_url .= '&amp;action=deactivate';
-    $action_name = l10n('Deactivate');
-  }
-  else
-  {
-    $action_url .= '&amp;action=activate';
-    $action_name = l10n('Activate');
-  }
-  $display_name = $plugin['name'];
-  if ( !empty($plugin['uri']) )
-  {
-    $display_name='<a href="'.$plugin['uri'].'">'.$display_name.'</a>';
+    $display_name='<a href="'.$fs_plugin['uri'].'">'.$display_name.'</a>';
   }
   $template->assign_block_vars( 'plugins.plugin',
       array(
         'NAME' => $display_name,
-        'VERSION' => $plugin['version'],
-        'DESCRIPTION' => $plugin['description'],
+        'VERSION' => $fs_plugin['version'],
+        'DESCRIPTION' => $fs_plugin['description'],
         'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
-        'L_ACTION' => $action_name,
-        'U_ACTION' => $action_url,
         )
      );
+
+
+  $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
+  if ( isset($db_plugins_by_id[$plugin_id]) )
+  { // already in the database
+    // MAYBE TODO HERE: check for the version and propose upgrade action
+    switch ($db_plugins_by_id[$plugin_id]['state'])
+    {
+      case 'active':
+        $template->assign_block_vars( 'plugins.plugin.action',
+            array(
+              'U_ACTION' => $action_url . '&amp;action=deactivate',
+              'L_ACTION' => l10n('Deactivate'),
+            )
+          );
+        break;
+      case 'inactive':
+        $template->assign_block_vars( 'plugins.plugin.action',
+            array(
+              'U_ACTION' => $action_url . '&amp;action=activate',
+              'L_ACTION' => l10n('Activate'),
+            )
+          );
+        $template->assign_block_vars( 'plugins.plugin.action',
+            array(
+              'U_ACTION' => $action_url . '&amp;action=uninstall',
+              'L_ACTION' => l10n('Uninstall'),
+            )
+          );
+        break;
+    }
+  }
+  else
+  {
+    $template->assign_block_vars( 'plugins.plugin.action',
+        array(
+          'U_ACTION' => $action_url . '&amp;action=install',
+          'L_ACTION' => l10n('Install'),
+        )
+      );
+  }
 }
 
+$missing_plugin_ids = array_diff(
+    array_keys($db_plugins_by_id), array_keys($fs_plugins)
+  );
+foreach( $missing_plugin_ids as $plugin_id )
+{
+  $template->assign_block_vars( 'plugins.plugin',
+      array(
+        'NAME' => $plugin_id,
+        'VERSION' => $db_plugins_by_id[$plugin_id]['version'],
+        'DESCRIPTION' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
+        'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
+        )
+     );
+   $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
+        $template->assign_block_vars( 'plugins.plugin.action',
+            array(
+              'U_ACTION' => $action_url . '&amp;action=uninstall',
+              'L_ACTION' => l10n('Uninstall'),
+            )
+          );
+
+}
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

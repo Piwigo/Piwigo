@@ -35,7 +35,7 @@ define('PHPWG_DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
 define('GENERAL_MESSAGE', 200);
 define('GENERAL_ERROR', 202);
 define('CRITICAL_MESSAGE', 203);
-define('CRITICAL_ERROR', 204); 
+define('CRITICAL_ERROR', 204);
 
 // Access codes
 define('ACCESS_NONE', 0);
@@ -71,4 +71,5 @@ define('SEARCH_TABLE', $prefixeTable.'search');
 define('USER_MAIL_NOTIFICATION_TABLE', $prefixeTable.'user_mail_notification');
 define('TAGS_TABLE', $prefixeTable.'tags');
 define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
+define('PLUGINS_TABLE', $prefixeTable.'plugins');
 ?>

@@ -24,7 +24,9 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function get_plugins()
+/* Returns an array of plugins defined in the plugin directory
+*/
+function get_fs_plugins()
 {
   $plugins = array();
 
@@ -39,7 +41,7 @@ function get_plugins()
           and file_exists($path.'/index.php')
           )
       {
-        $plugin = array('name'=>'?', 'version'=>'?', 'uri'=>'', 'description'=>'');
+        $plugin = array('name'=>'?', 'version'=>'0', 'uri'=>'', 'description'=>'');
         $plg_data = implode( '', file($path.'/index.php') );
 
         if ( preg_match("|Plugin Name: (.*)|i", $plg_data, $val) )
@@ -64,39 +66,6 @@ function get_plugins()
   }
   closedir($dir);
   return $plugins;
-}
-
-function activate_plugin($plugin_name)
-{
-  global $conf;
-  $arr = get_active_plugins(false);
-  array_push($arr, $plugin_name);
-  if ($arr != array_unique($arr) )
-    return false; // just added the same one
-  $conf['active_plugins'] = implode(',', $arr);
-  pwg_query('
-UPDATE '.CONFIG_TABLE.'
-  SET value="'.$conf['active_plugins'].'"
-  WHERE param="active_plugins"');
-  return true;
-}
-
-function deactivate_plugin($plugin_name)
-{
-  global $conf;
-  $arr = get_active_plugins(false);
-  $idx = array_search($plugin_name, $arr);
-  if ($idx!==false)
-  {
-    unset( $arr[$idx] );
-    $conf['active_plugins'] = implode(',', $arr);
-    pwg_query('
-UPDATE '.CONFIG_TABLE.'
-  SET value="'.$conf['active_plugins'].'"
-  WHERE param="active_plugins"');
-    return true;
-  }
-  return false;
 }
 
 /*allows plugins to add their content to the administration page*/

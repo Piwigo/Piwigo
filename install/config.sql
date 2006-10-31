@@ -22,7 +22,6 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('page_banner','<h
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_admin','false','keep a history of administrator visits on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('login_history','true','keep a history of user logins on your website');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('active_plugins','','activated plugins');
 -- Notification by mail
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');

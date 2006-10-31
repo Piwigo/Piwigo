@@ -179,6 +179,18 @@ CREATE TABLE `phpwebgallery_images` (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table `phpwebgallery_plugins`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_plugins`;
+CREATE TABLE `phpwebgallery_plugins` (
+  `id` varchar(64) binary NOT NULL default '',
+  `state` enum('inactive','active') NOT NULL default 'inactive',
+  `version` varchar(64) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+--
 -- Table structure for table `phpwebgallery_rate`
 --
 
