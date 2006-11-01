@@ -15,9 +15,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
 {themeconf:local_head}
-<!-- BEGIN next -->
-<link rel="prefetch" href="{next.U_IMG_SRC}">
-<!-- END next -->
+<!-- BEGIN prefetch -->
+<link rel="prefetch" href="{prefetch.URL}">
+<!-- END prefetch -->
 <!-- BEGIN refresh -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->

@@ -39,7 +39,7 @@ if ($conf['show_exif'])
     die('Exif extension not available, admin should disable exif display');
   }
 
-  if ($exif = @read_exif_data($picture['current']['src_file_system']))
+  if ($exif = @read_exif_data($picture['current']['image_path']))
   {
     $template->assign_block_vars(
       'metadata.headline',
@@ -92,7 +92,7 @@ if ($conf['show_exif'])
 }
 if ($conf['show_iptc'])
 {
-  $iptc = get_iptc_data($picture['current']['src_file_system'],
+  $iptc = get_iptc_data($picture['current']['image_path'],
                         $conf['show_iptc_mapping']);
 
   if (count($iptc) > 0)

@@ -46,6 +46,50 @@ if (!in_array($page['image_id'], $page['items']))
       duplicate_index_url() );
 }
 
+// add default event handler for rendering element content
+add_event_handler('render_element_content', 'default_picture_content',
+  EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+trigger_action('loc_begin_picture');
+
+// this is the default handler that generates the display for the element
+function default_picture_content($content, $element_info)
+{
+  if ( !empty($content) )
+  {// someone hooked us - so we skip;
+    return $content;
+  }
+  if (!isset($element_info['image_url']))
+  { // nothing to do
+    return $content;
+  }
+  global $user;
+  $my_template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'],
+    $user['theme'] );
+  $my_template->set_filenames( array('default_content'=>'picture_content.tpl') );
+
+  if (isset($element_info['high_url']))
+  {
+    $uuid = uniqid(rand());
+    $my_template->assign_block_vars(
+      'high',
+      array(
+        'U_HIGH' => $element_info['high_url'],
+        'UUID'   => $uuid,
+        )
+      );
+  }
+  $my_template->assign_vars( array(
+      'SRC_IMG' => $element_info['image_url'],
+      'ALT_IMG' => $element_info['file'],
+      'WIDTH_IMG' => $element_info['scaled_width'],
+      'HEIGHT_IMG' => $element_info['scaled_height'],
+      )
+    );
+  return $my_template->parse( 'default_content', true);
+}
+
+
+
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
@@ -99,7 +143,7 @@ $url_self = duplicate_picture_url();
  * Actions finish by a redirection
  */
 
-if (isset($_GET['action']) and !is_adviser())
+if (isset($_GET['action']))
 {
   switch ($_GET['action'])
   {
@@ -139,7 +183,7 @@ DELETE FROM '.FAVORITES_TABLE.'
     }
     case 'set_as_representative' :
     {
-      if (is_admin() and isset($page['category']))
+      if (is_admin() and !is_adviser() and isset($page['category']))
       {
         $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -174,7 +218,7 @@ UPDATE '.CATEGORIES_TABLE.'
     {
       if (isset($_GET['comment_to_delete'])
           and is_numeric($_GET['comment_to_delete'])
-          and is_admin())
+          and is_admin() and !is_adviser() )
       {
         $query = '
 DELETE FROM '.COMMENTS_TABLE.'
@@ -275,22 +319,17 @@ while ($row = mysql_fetch_array($result))
   $cat_directory = dirname($row['path']);
   $file_wo_ext = get_filename_wo_extension($row['file']);
 
-  if (isset($row['representative_ext']) and $row['representative_ext'] != '')
+  // ------ build element_path and element_url
+  $picture[$i]['element_url'] = $row['path'];
+  if ( ! url_is_remote($row['path']) )
   {
-    $picture[$i]['src'] =
-      $cat_directory.'/pwg_representative/'
-      .$file_wo_ext.'.'.$row['representative_ext'];
+    $picture[$i]['element_url'] = get_root_url().$row['path'];
   }
-  else
-  {
-    $icon = get_themeconf('mime_icon_dir');
-    $icon.= strtolower(get_extension($row['file'])).'.png';
-    $picture[$i]['src'] = $icon;
-  }
-  // special case for picture files
+
+  // ------ build image_path and image_url
   if ($picture[$i]['is_picture'])
   {
-    $picture[$i]['src'] = $row['path'];
+    $picture[$i]['image_path'] = $row['path'];
     // if we are working on the "current" element, we search if there is a
     // high quality picture
     if ($i == 'current')
@@ -298,25 +337,47 @@ while ($row = mysql_fetch_array($result))
       if (($row['has_high'] == 'true') and ($user['enabled_high'] == 'true'))
       {
         $url_high=$cat_directory.'/pwg_high/'.$row['file'];
-        $picture[$i]['high_file_system'] = $picture[$i]['high'] = $url_high;
-        if ( ! url_is_remote($picture[$i]['high']) )
+         $picture[$i]['high_url'] = $picture[$i]['high_path'] = $url_high;
+        if ( ! url_is_remote($picture[$i]['high_path']) )
         {
-          $picture[$i]['high'] = get_root_url().$picture[$i]['high'];
+          $picture[$i]['high_url'] = get_root_url().$picture[$i]['high_path'];
         }
       }
     }
   }
-  $picture[$i]['src_file_system'] = $picture[$i]['src'];
-  if ( ! url_is_remote($picture[$i]['src']) )
-  {
-    $picture[$i]['src'] = get_root_url(). $picture[$i]['src'];
+  else
+  {// not a picture
+    if (isset($row['representative_ext']) and $row['representative_ext']!='')
+    {
+      $picture[$i]['image_path'] =
+        $cat_directory.'/pwg_representative/'
+        .$file_wo_ext.'.'.$row['representative_ext'];
+    }
+    else
+    {
+      $picture[$i]['image_path'] =
+        get_themeconf('mime_icon_dir')
+        .strtolower(get_extension($row['file'])).'.png';
+    }
   }
 
-  // if picture is not a file, we need the download link
-  if (!$picture[$i]['is_picture'])
+  $picture[$i]['image_url'] = $picture[$i]['image_path'];
+  if ( ! url_is_remote($picture[$i]['image_path']) )
   {
-    $picture[$i]['download'] = url_is_remote($row['path']) ? '' : get_root_url();
-    $picture[$i]['download'].= $row['path'];
+    $picture[$i]['image_url'] = get_root_url().$picture[$i]['image_path'];
+  }
+
+  if (!$picture[$i]['is_picture'])
+  {// if picture is not a file, we need the download link
+    $picture[$i]['download_url'] = $picture[$i]['element_url'];
+  }
+  else
+  {// if picture is a file with high, we put the download link
+    if ( isset($picture[$i]['high_path']) )
+    {
+      $picture[$i]['download_url'] = get_root_url().'action.php?dwn='
+        .$picture[$i]['high_path'];
+    }
   }
 
   $picture[$i]['thumbnail'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
@@ -350,6 +411,32 @@ while ($row = mysql_fetch_array($result))
   }
 }
 
+// calculation of width and height for the current picture
+if (empty($picture['current']['width']))
+{
+  $taille_image = @getimagesize($picture['current']['image_path']);
+  if ($taille_image!==false)
+  {
+    $picture['current']['width'] = $taille_image[0];
+    $picture['current']['height']= $taille_image[1];
+  }
+}
+
+if (!empty($picture['current']['width']))
+{
+  list($picture['current']['scaled_width'],$picture['current']['scaled_height']) =
+    get_picture_size(
+      $picture['current']['width'],
+      $picture['current']['height'],
+      @$user['maxwidth'],
+      @$user['maxheight']
+    );
+}
+
+// now give an opportunity to the filters to alter element_url,
+// image_url, high_url and download_url
+$picture = trigger_event('picture_navigation', $picture);
+
 $url_admin =
   get_root_url().'admin.php?page=picture_modify'
   .'&amp;cat_id='.(isset($page['category']) ? $page['category'] : '')
@@ -377,42 +464,43 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 
-// calculation of width and height
-if (empty($picture['current']['width']))
-{
-  $taille_image = @getimagesize($picture['current']['src_file_system']);
-  $original_width = $taille_image[0];
-  $original_height = $taille_image[1];
-}
-else
-{
-  $original_width = $picture['current']['width'];
-  $original_height = $picture['current']['height'];
-}
-
-$picture_size = get_picture_size(
-  $original_width,
-  $original_height,
-  @$user['maxwidth'],
-  @$user['maxheight']
-  );
-
 // metadata
 $url_metadata = duplicate_picture_url();
-if ($conf['show_exif'] or $conf['show_iptc'])
+
+// do we have a plugin that can show metadata for something else than images?
+$metadata_showable = trigger_event('get_element_metadata_available',
+    (
+      ($conf['show_exif'] or $conf['show_iptc'])
+      and isset($picture['current']['image_path'])
+    ),
+    $picture['current']['path'] );
+if ($metadata_showable)
 {
-  $metadata_showable = true;
   if ( !isset($_GET['metadata']) )
   {
     $url_metadata = add_url_params( $url_metadata, array('metadata'=>null) );
   }
 }
-else
-{
-  $metadata_showable = false;
-}
 
 $page['body_id'] = 'thePicturePage';
+
+// maybe someone wants a special display (call it before page_header so that they
+// can add stylesheets)
+$element_content = trigger_event('render_element_content',
+                      '', $picture['current'] );
+
+if ( isset($picture['next']['image_url'])
+      and isset($picture['next']['is_picture']) )
+{
+  $template->assign_block_vars( 'prefetch',
+    array (
+      'URL' => $picture['next']['image_url']
+    )
+  );
+}
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->set_filenames(array('picture'=>'picture.tpl'));
+
 //------------------------------------------------------- navigation management
 foreach ( array('first','previous','next','last') as $which_image )
 {
@@ -424,14 +512,10 @@ foreach ( array('first','previous','next','last') as $which_image )
         'TITLE_IMG' => $picture[$which_image]['name'],
         'IMG' => $picture[$which_image]['thumbnail'],
         'U_IMG' => $picture[$which_image]['url'],
-        'U_IMG_SRC' => $picture[$which_image]['src']
         )
       );
   }
 }
-
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->set_filenames(array('picture'=>'picture.tpl'));
 
 $template->assign_vars(
   array(
@@ -439,32 +523,9 @@ $template->assign_vars(
     'PICTURE_TITLE' => $picture['current']['name'],
     'PHOTO' => $title_nb,
     'TITLE' => $picture['current']['name'],
-    'SRC_IMG' => $picture['current']['src'],
-    'ALT_IMG' => $picture['current']['file'],
-    'WIDTH_IMG' => $picture_size[0],
-    'HEIGHT_IMG' => $picture_size[1],
+    'ELEMENT_CONTENT' => $element_content,
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
-
-    'L_HOME' => $lang['home'],
-    'L_SLIDESHOW' => $lang['slideshow'],
-    'L_STOP_SLIDESHOW' => $lang['slideshow_stop'],
-    'L_PREV_IMG' =>$lang['previous_page'].' : ',
-    'L_NEXT_IMG' =>$lang['next_page'].' : ',
-    'L_ADMIN' =>$lang['link_info_image'],
-    'L_COMMENT_TITLE' =>$lang['comments_title'],
-    'L_ADD_COMMENT' =>$lang['comments_add'],
-    'L_DELETE_COMMENT' =>$lang['comments_del'],
-    'L_DELETE' =>$lang['delete'],
-    'L_SUBMIT' =>$lang['submit'],
-    'L_AUTHOR' =>  $lang['upload_author'],
-    'L_COMMENT' =>$lang['comment'],
-    'L_DOWNLOAD' => $lang['download'],
-    'L_DOWNLOAD_HINT' => $lang['download_hint'],
-    'L_PICTURE_METADATA' => $lang['picture_show_metadata'],
-    'L_PICTURE_HIGH' => $lang['picture_high'],
-    'L_UP_HINT' => $lang['home_hint'],
-    'L_UP_ALT' => $lang['home'],
 
     'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
@@ -482,35 +543,13 @@ if ($conf['show_picture_name_on_title'])
 
 //------------------------------------------------------- upper menu management
 
-// download link if file is not a picture
-if (!$picture['current']['is_picture'])
+// download link
+if ( isset($picture['current']['download_url']) )
 {
   $template->assign_block_vars(
     'download',
     array(
-      'U_DOWNLOAD' => $picture['current']['download']
-      )
-    );
-}
-
-// display a high quality link if present
-if (isset($picture['current']['high']))
-{
-  $uuid = uniqid(rand());
-
-  $template->assign_block_vars(
-    'high',
-    array(
-      'U_HIGH' => $picture['current']['high'],
-      'UUID'   => $uuid,
-      )
-    );
-
-  $template->assign_block_vars(
-    'download',
-    array(
-      'U_DOWNLOAD' => get_root_url().'action.php?dwn='
-      .$picture['current']['high_file_system']
+      'U_DOWNLOAD' => $picture['current']['download_url']
       )
     );
 }
@@ -655,19 +694,19 @@ $url = make_index_url(
 $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 
 // size in pixels
-if ($picture['current']['is_picture'])
+if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
 {
-  if ($original_width != $picture_size[0]
-      or $original_height != $picture_size[1])
+  if ($picture['current']['scaled_width'] !== $picture['current']['width'] )
   {
     $infos['INFO_DIMENSIONS'] =
-      '<a href="'.$picture['current']['src'].'" title="'.
+      '<a href="'.$picture['current']['image_url'].'" title="'.
       l10n('Original dimensions').'">'.
-      $original_width.'*'.$original_height.'</a>';
+      $picture['current']['width'].'*'.$picture['current']['height'].'</a>';
   }
   else
   {
-    $infos['INFO_DIMENSIONS'] = $original_width.'*'.$original_height;
+    $infos['INFO_DIMENSIONS'] =
+      $picture['current']['width'].'*'.$picture['current']['height'];
   }
 }
 else

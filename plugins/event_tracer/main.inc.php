@@ -19,7 +19,7 @@ class EventTracer
 
   function load_config()
   {
-    $x = @file_get_contents( dirname(__FILE__).'/tracer.dat' );
+    $x = @file_get_contents( dirname(__FILE__).'/data.dat' );
     if ($x!==false)
     {
       $c = unserialize($x);
@@ -37,38 +37,44 @@ class EventTracer
 
   function save_config()
   {
-    $file = fopen( dirname(__FILE__).'/tracer.dat', 'w' );
+    $file = fopen( dirname(__FILE__).'/data.dat', 'w' );
     fwrite($file, serialize($this->my_config) );
     fclose( $file );
   }
 
-  function pre_trigger_event($event_info)
+  function on_pre_trigger_event($event_info)
   {
-    if (!$this->me_working)
+    $this->dump('pre_trigger_event', $event_info);
+  }
+  function on_post_trigger_event($event_info)
+  {
+    $this->dump('post_trigger_event', $event_info);
+  }
+
+  function on_trigger_action($event_info)
+  {
+    $this->dump('trigger_action', $event_info);
+  }
+
+  function dump($event, $event_info)
+  {
+    foreach( $this->my_config['filters'] as $filter)
     {
-      foreach( $this->my_config['filters'] as $filter)
+      if ( preg_match( '/'.$filter.'/', $event_info['event'] ) )
       {
-        if ( preg_match( '/'.$filter.'/', $event_info['event'] ) )
+        if ($this->my_config['show_args'])
         {
-          if ($this->my_config['show_args'])
-            $s = var_export( $event_info['data'], true );
-          else
-            $s = '';
-          pwg_debug('begin trigger_event "'.$event_info['event'].'" '.htmlspecialchars($s) );
-          break;
+          $s = '<pre>';
+          $s .= htmlspecialchars( var_export( $event_info['data'], true ) );
+          $s .= '</pre>';
         }
+        else
+          $s = '';
+        pwg_debug($event.' "'.$event_info['event'].'" '.($s) );
+        break;
       }
     }
   }
-
-  /*function post_trigger_event($filter_info)
-  {
-    if (!$this->me_working)
-    {
-      $s = var_export( $filter_info['data'], true );
-      pwg_debug('end trigger_event '.$filter_info['event'].' '.$s );
-    }
-  }*/
 
   function plugin_admin_menu()
   {
@@ -86,5 +92,7 @@ $eventTracer = new EventTracer();
 $eventTracer->load_config();
 
 add_event_handler('plugin_admin_menu', array(&$eventTracer, 'plugin_admin_menu') );
-add_event_handler('pre_trigger_event', array(&$eventTracer, 'pre_trigger_event') );
+add_event_handler('pre_trigger_event', array(&$eventTracer, 'on_pre_trigger_event') );
+add_event_handler('post_trigger_event', array(&$eventTracer, 'on_post_trigger_event') );
+add_event_handler('trigger_action', array(&$eventTracer, 'on_trigger_action') );
 ?>

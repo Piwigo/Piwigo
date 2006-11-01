@@ -36,7 +36,7 @@ check_status(ACCESS_ADMINISTRATOR);
 
 $template->set_filenames(array('plugin' => 'admin/plugin.tpl'));
 
-trigger_event('plugin_admin_menu');
+trigger_action('plugin_admin_menu');
 
 
 if ( isset($page['plugin_admin_menu']) )

@@ -8,7 +8,7 @@ You can use this plugin to see what events is PhpWebGallery calling.
 	<legend>Event Tracer</legend>
 
 <label>Show event argument
-	<input type="checkbox" name="eventTracer_show_args" value="{EVENT_TRACER_SHOW_ARGS}" />
+	<input type="checkbox" name="eventTracer_show_args" {EVENT_TRACER_SHOW_ARGS} />
 </label>
 <br/>
 <label>Fill below a list of regular expressions (one per line).

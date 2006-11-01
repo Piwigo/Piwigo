@@ -38,11 +38,11 @@ function get_fs_plugins()
       $path = PHPWG_PLUGINS_PATH.$file;
       if (is_dir($path) and !is_link($path)
           and preg_match('/^[a-zA-Z0-9-_]+$/', $file )
-          and file_exists($path.'/index.php')
+          and file_exists($path.'/main.inc.php')
           )
       {
         $plugin = array('name'=>'?', 'version'=>'0', 'uri'=>'', 'description'=>'');
-        $plg_data = implode( '', file($path.'/index.php') );
+        $plg_data = implode( '', file($path.'/main.inc.php') );
 
         if ( preg_match("|Plugin Name: (.*)|i", $plg_data, $val) )
         {
@@ -72,8 +72,26 @@ function get_fs_plugins()
 function add_plugin_admin_menu($title, $func)
 {
   global $page;
-
-  $uid = md5( var_export($func, true) );
+  if ( is_array( $func) )
+  {
+    $s = '';
+    foreach( $func as $e)
+    {
+      if (is_object($e))
+      {
+        $s.=get_class($e)."\n";
+      }
+      else
+      {
+        $s.=$e;
+      }
+    }
+    $uid = md5( $s );
+  }
+  else
+  {
+    $uid = md5( $func );
+  }
   $page['plugin_admin_menu'][] =
     array(
       'title' => $title,

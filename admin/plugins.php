@@ -162,7 +162,7 @@ foreach ($db_plugins as $db_plugin)
 
 $template->set_filenames(array('plugins' => 'admin/plugins.tpl'));
 
-trigger_event('plugin_admin_menu');
+trigger_action('plugin_admin_menu');
 
 $template->assign_block_vars('plugin_menu.menu_item',
     array(

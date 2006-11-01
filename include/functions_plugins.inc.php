@@ -35,17 +35,22 @@ string.
 
 define('PHPWG_PLUGINS_PATH',PHPWG_ROOT_PATH.'plugins/');
 
+define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
+
 /* Register a event handler.
  * @param string $event the name of the event to listen to
  * @param mixed $func the function that will handle the event
+ * @param int $priority optional priority (greater priority will
+ * be executed at last)
 */
-function add_event_handler($event, $func, $priority=50, $accepted_args=1)
+function add_event_handler($event, $func,
+    $priority=EVENT_HANDLER_PRIORITY_NEUTRAL, $accepted_args=1)
 {
   global $pwg_event_handlers;
 
-  if ( isset($pwg_event_handlers[$event]["$priority"]) )
+  if ( isset($pwg_event_handlers[$event][$priority]) )
   {
-    foreach($pwg_event_handlers[$event]["$priority"] as $handler)
+    foreach($pwg_event_handlers[$event][$priority] as $handler)
     {
       if ( $handler['function'] == $func )
       {
@@ -54,18 +59,50 @@ function add_event_handler($event, $func, $priority=50, $accepted_args=1)
     }
   }
 
-  trigger_event('add_event_handler',
-      array('event'=>$event, 'function'=>$func)
-    );
-
-  $pwg_event_handlers[$event]["$priority"][] =
+  $pwg_event_handlers[$event][$priority][] =
     array(
       'function'=>$func,
       'accepted_args'=>$accepted_args);
-
+  ksort( $pwg_event_handlers[$event] );
   return true;
 }
 
+/* Register a event handler.
+ * @param string $event the name of the event to listen to
+ * @param mixed $func the function that needs removal
+ * @param int $priority optional priority (greater priority will
+ * be executed at last)
+*/
+function remove_event_handler($event, $func,
+   $priority=EVENT_HANDLER_PRIORITY_NEUTRAL)
+{
+  global $pwg_event_handlers;
+
+  if (!isset( $pwg_event_handlers[$event][$priority] ) )
+  {
+    return false;
+  }
+  for ($i=0; $i<count($pwg_event_handlers[$event][$priority]); $i++)
+  {
+    if ($pwg_event_handlers[$event][$priority][$i]['function']==$func)
+    {
+      unset($pwg_event_handlers[$event][$priority][$i]);
+      $pwg_event_handlers[$event][$priority] =
+        array_values($pwg_event_handlers[$event][$priority]);
+
+      if ( empty($pwg_event_handlers[$event][$priority]) )
+      {
+        unset( $pwg_event_handlers[$event][$priority] );
+        if (empty( $pwg_event_handlers[$event] ) )
+        {
+          unset( $pwg_event_handlers[$event] );
+        }
+      }
+      return true;
+    }
+  }
+  return false;
+}
 
 /* Triggers an event and calls all registered event handlers
  * @param string $event name of the event
@@ -74,19 +111,15 @@ function add_event_handler($event, $func, $priority=50, $accepted_args=1)
 function trigger_event($event, $data=null)
 {
   global $pwg_event_handlers;
-  if ($event!='pre_trigger_event' and $event!='post_trigger_event')
-  {// special case
-    trigger_event('pre_trigger_event',
+
+  // just for debugging
+  trigger_action('pre_trigger_event',
         array('event'=>$event, 'data'=>$data) );
-    if ( !isset($pwg_event_handlers[$event]) )
-    {
-      trigger_event('post_trigger_event',
-          array('event'=>$event, 'data'=>$data) );
-    }
-  }
 
   if ( !isset($pwg_event_handlers[$event]) )
   {
+    trigger_action('post_trigger_event',
+        array('event'=>$event, 'data'=>$data) );
     return $data;
   }
   $args = array_slice(func_get_args(), 2);
@@ -114,17 +147,53 @@ function trigger_event($event, $data=null)
       }
     }
   }
-
-  if ($event!='pre_trigger_event' and $event!='post_trigger_event')
-  {
-    trigger_event('post_trigger_event',
+  trigger_action('post_trigger_event',
         array('event'=>$event, 'data'=>$data) );
-  }
-
   return $data;
 }
 
 
+function trigger_action($event, $data=null)
+{
+  global $pwg_event_handlers;
+  if ($event!='pre_trigger_event'
+    and $event!='post_trigger_event'
+    and $event!='trigger_action')
+  {// special case for debugging - avoid recursive calls
+    trigger_action('trigger_action',
+        array('event'=>$event, 'data'=>$data) );
+  }
+
+  if ( !isset($pwg_event_handlers[$event]) )
+  {
+    return;
+  }
+  $args = array_slice(func_get_args(), 2);
+
+  foreach ($pwg_event_handlers[$event] as $priority => $handlers)
+  {
+    if ( !is_null($handlers) )
+    {
+      foreach($handlers as $handler)
+      {
+        $all_args = array_merge( array($data), $args);
+        $function_name = $handler['function'];
+        $accepted_args = $handler['accepted_args'];
+
+        if ( $accepted_args == 1 )
+          $the_args = array($data);
+        elseif ( $accepted_args > 1 )
+          $the_args = array_slice($all_args, 0, $accepted_args);
+        elseif ( $accepted_args == 0 )
+          $the_args = NULL;
+        else
+          $the_args = $all_args;
+
+        call_user_func_array($function_name, $the_args);
+      }
+    }
+  }
+}
 
 
 /* Returns an array of plugins defined in the database
@@ -173,8 +242,12 @@ function load_plugins()
   $plugins = get_db_plugins('active');
   foreach( $plugins as $plugin)
   {
-    @include_once( PHPWG_PLUGINS_PATH.$plugin['id'].'/index.php' );
+    $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
+    if ( file_exists($file_name) )
+    {
+      include_once( $file_name );
+    }
   }
-  trigger_event('plugins_loaded');
+  trigger_action('plugins_loaded');
 }
 ?>

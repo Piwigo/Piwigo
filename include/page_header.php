@@ -30,6 +30,8 @@
 //
 $template->set_filenames(array('header'=>'header.tpl'));
 
+trigger_action('loc_begin_page_header');
+
 $template->assign_vars(
   array(
     'GALLERY_TITLE' =>
@@ -37,9 +39,8 @@ $template->assign_vars(
         $page['gallery_title'] : $conf['gallery_title'],
 
     'PAGE_BANNER' =>
-      trigger_event('page_banner',
-          isset($page['page_banner']) ?
-          $page['page_banner'] : $conf['page_banner'] ),
+      isset($page['page_banner']) ?
+        $page['page_banner'] : $conf['page_banner'],
 
     'BODY_ID' =>
       isset($page['body_id']) ?
@@ -66,6 +67,8 @@ if ( isset( $refresh ) and intval($refresh) >= 0
       ));
   $template->assign_block_vars('refresh', array());
 }
+
+trigger_action('loc_end_page_header');
 
 header('Content-Type: text/html; charset='.$lang_info['charset']);
 $template->parse('header');
