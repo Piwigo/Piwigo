@@ -147,9 +147,9 @@ class Template {
     }
 
   /**
-   * fills $output template var
+   * fills $output template var by default or returns the content
    */
-  function parse($handle)
+  function parse($handle, $return=false)
     {
       if (!$this->loadfile($handle))
       {
@@ -166,6 +166,10 @@ class Template {
       // Run the compiled code.
       $_str = '';
       eval($this->compiled_code[$handle]);
+      if ($return)
+      {
+        return $_str;
+      }
       $this->output.= $_str;
 
       return true;
@@ -302,9 +306,8 @@ class Template {
   function make_filename($filename)
     {
       // Check if it's an absolute or relative path.
-      if (substr($filename, 0, 1) != '/'
-          and substr($filename, 0, 1) != '\\' //Windows UNC path
-          and !preg_match('/^[a-z]:\\\/i', $filename) )
+      // if (substr($filename, 0, 1) != '/')
+      if (preg_match('/^[a-z_][^:]/i', $filename) )
       {
         $filename = $this->root.'/'.$filename;
       }

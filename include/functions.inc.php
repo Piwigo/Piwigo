@@ -184,7 +184,8 @@ function get_extension( $filename )
 // get_filename_wo_extension( 'test.tar.gz' ) -> 'test.tar'
 function get_filename_wo_extension( $filename )
 {
-  return substr( $filename, 0, strrpos( $filename, '.' ) );
+  $pos = strrpos( $filename, '.' );
+  return ($pos===false) ? $filename : substr( $filename, 0, $pos);
 }
 
 /**
