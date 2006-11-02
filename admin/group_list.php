@@ -41,7 +41,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // |                             delete a group                            |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['delete']) and is_numeric($_GET['delete']))
+if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   // destruction of the access linked to the group
   $query = '
@@ -84,7 +84,7 @@ DELETE
 // |                              add a group                              |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST['submit_add']))
+if (isset($_POST['submit_add']) and !is_adviser())
 {
   if (empty($_POST['groupname']))
   {
@@ -126,7 +126,7 @@ INSERT INTO '.GROUPS_TABLE.'
 // | toggle is default group property                                      |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']))
+if (isset($_GET['toggle_is_default']) and is_numeric($_GET['toggle_is_default']) and !is_adviser())
 {
   $query = '
 SELECT name, is_default
@@ -157,7 +157,8 @@ $template->set_filenames(array('group_list' => 'admin/group_list.tpl'));
 
 $template->assign_vars(
   array(
-    'F_ADD_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=group_list'
+    'F_ADD_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=group_list',
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=group_list',
     )
   );
 

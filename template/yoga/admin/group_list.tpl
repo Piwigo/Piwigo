@@ -1,5 +1,10 @@
 <!-- $Id$ -->
-<h2>{lang:title_groups}</h2>
+<div class="titrePage">
+  <ul class="categoryActions">
+    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+  </ul>
+  <h2>{lang:title_groups}</h2>
+</div>
 
 <form method="post" name="add_user" action="{F_ADD_ACTION}" class="properties">
   <fieldset>
