@@ -27,82 +27,6 @@
 
 include(PHPWG_ROOT_PATH.'admin/include/functions_metadata.php');
 
-/**
- * returns an array with all picture files according to $conf['file_ext']
- *
- * @param string $dir
- * @return array
- */
-function get_pwg_files($dir)
-{
-  global $conf;
-
-  $pictures = array();
-  if ($opendir = opendir($dir))
-  {
-    while ($file = readdir($opendir))
-    {
-      if (in_array(get_extension($file), $conf['file_ext']))
-      {
-        array_push($pictures, $file);
-      }
-    }
-  }
-  return $pictures;
-}
-
-/**
- * returns an array with all thumbnails according to $conf['picture_ext']
- * and $conf['prefix_thumbnail']
- *
- * @param string $dir
- * @return array
- */
-function get_thumb_files($dir)
-{
-  global $conf;
-
-  $prefix_length = strlen($conf['prefix_thumbnail']);
-
-  $thumbnails = array();
-  if ($opendir = @opendir($dir.'/thumbnail'))
-  {
-    while ($file = readdir($opendir))
-    {
-      if (in_array(get_extension($file), $conf['picture_ext'])
-          and substr($file, 0, $prefix_length) == $conf['prefix_thumbnail'])
-      {
-        array_push($thumbnails, $file);
-      }
-    }
-  }
-  return $thumbnails;
-}
-
-/**
- * returns an array with representative picture files of a directory
- * according to $conf['picture_ext']
- *
- * @param string $dir
- * @return array
- */
-function get_representative_files($dir)
-{
-  global $conf;
-
-  $pictures = array();
-  if ($opendir = @opendir($dir.'/pwg_representative'))
-  {
-    while ($file = readdir($opendir))
-    {
-      if (in_array(get_extension($file), $conf['picture_ext']))
-      {
-        array_push($pictures, $file);
-      }
-    }
-  }
-  return $pictures;
-}
 
 // The function delete_site deletes a site and call the function
 // delete_categories for each primary category of the site
@@ -1233,7 +1157,7 @@ SELECT user_id
     USER_CACHE_TABLE,
     USER_GROUP_TABLE
     );
-  
+
   foreach ($tables as $table)
   {
     $query = '
@@ -1706,7 +1630,7 @@ function add_tags($tags, $images)
   {
     return;
   }
-  
+
   // we can't insert twice the same {image_id,tag_id} so we must first
   // delete lines we'll insert later
   $query = '
@@ -1746,7 +1670,7 @@ function tag_id_from_tag_name($tag_name)
   {
     return $page['tag_id_from_tag_name_cache'][$tag_name];
   }
-  
+
   if (function_exists('mysql_real_escape_string'))
   {
     $tag_name = mysql_real_escape_string($tag_name);
@@ -1799,7 +1723,7 @@ DELETE
     pwg_query($query);
 
     $inserts = array();
-    
+
     foreach ($tags_of as $image_id => $tag_ids)
     {
       foreach ($tag_ids as $tag_id)
@@ -1830,7 +1754,7 @@ DELETE
 function do_maintenance_all_tables()
 {
   global $prefixeTable;
-  
+
   $all_tables = array();
 
   // List all tables
@@ -1849,7 +1773,7 @@ function do_maintenance_all_tables()
   foreach ($all_tables as $table_name)
   {
     $all_primary_key = array();
-    
+
     $query = 'DESC '.$table_name.';';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
@@ -1859,7 +1783,7 @@ function do_maintenance_all_tables()
         array_push($all_primary_key, $row['Field']);
       }
     }
-    
+
     if (count($all_primary_key) != 0)
     {
       $query = 'ALTER TABLE '.$table_name.' ORDER BY '.implode(', ', $all_primary_key).';';
@@ -1912,7 +1836,7 @@ DELETE
         );
     }
   }
-  
+
   mass_inserts(
     IMAGE_CATEGORY_TABLE,
     array_keys($inserts[0]),
