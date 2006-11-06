@@ -32,7 +32,6 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 $upgrade_description = 'change username length in users table';
 
-// add column auto_login_key
 $query = '
 ALTER TABLE '.PREFIX_TABLE.'users
   CHANGE username username VARCHAR(100) NOT NULL 
