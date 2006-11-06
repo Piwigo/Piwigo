@@ -605,8 +605,8 @@ function log_user($user_id, $remember_me)
     // search for an existing auto_login_key
     $query = '
 SELECT auto_login_key
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$user_id.'
 ;';
 
     $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
@@ -614,9 +614,9 @@ SELECT auto_login_key
     {
       $auto_login_key = base64_encode(md5(uniqid(rand(), true)));
       $query = '
-UPDATE '.USERS_TABLE.'
-  SET auto_login_key=\''.$auto_login_key.'\'
-  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
+UPDATE '.USER_INFOS_TABLE.'
+  SET auto_login_key = \''.$auto_login_key.'\'
+  WHERE user_id = '.$user_id.'
 ;';
       pwg_query($query);
     }
@@ -658,8 +658,8 @@ function auto_login() {
 
     $query = '
 SELECT auto_login_key
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
+  FROM '.USER_INFOS_TABLE.'
+  WHERE user_id = '.$cookie['id'].'
 ;';
 
     $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
