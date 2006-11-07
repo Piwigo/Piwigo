@@ -681,44 +681,77 @@ function get_pwg_themes()
 }
 
 /**
- * returns thumbnail filepath (or distant URL if thumbnail is remote) for a
- * given element
- *
- * the returned string can represente the filepath of the thumbnail or the
- * filepath to the corresponding icon for non picture elements
- *
- * @param string path
- * @param string tn_ext
- * @param bool with_rewrite if true returned path can't be used from the script
- * @return string
+DEPRECATED use get_thumbnail_path or get_thumbnail_url
  */
 function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
 {
-  global $conf, $user;
+  if ($with_rewrite)
+    return get_thumbnail_url( array('path'=>$path, 'tn_ext'=>$tn_ext) );
+  else
+    return get_thumbnail_path( array('path'=>$path, 'tn_ext'=>$tn_ext) );
+}
 
-  if ($tn_ext != '')
+/* Returns the PATH to the thumbnail to be displayed. If the element does not
+ * have a thumbnail, the default mime image path is returned. The PATH can be
+ * used in the php script, but not sent to the browser.
+ * @param array element_info assoc array containing element info from db
+ * at least 'path', 'tn_ext' and 'id' should be present
+ */
+function get_thumbnail_path($element_info)
+{
+  $path = get_thumbnail_location($element_info);
+  if ( !url_is_remote($path) )
   {
-    $src = substr_replace(
-      get_filename_wo_extension($path),
+    $path = PHPWG_ROOT_PATH.$path;
+  }
+  return $path;
+}
+
+/* Returns the URL of the thumbnail to be displayed. If the element does not
+ * have a thumbnail, the default mime image url is returned. The URL can be
+ * sent to the browser, but not used in the php script.
+ * @param array element_info assoc array containing element info from db
+ * at least 'path', 'tn_ext' and 'id' should be present
+ */
+function get_thumbnail_url($element_info)
+{
+  $path = get_thumbnail_location($element_info);
+  if ( !url_is_remote($path) )
+  {
+    $path = get_root_url().$path;
+  }
+  // plugins want another url ?
+  $path = trigger_event('get_thumbnail_url', $path, $element_info);
+  return $path;
+}
+
+/* returns the relative path of the thumnail with regards to to the root
+of phpwebgallery (not the current page!).This function is not intended to be
+called directly from code.*/
+function get_thumbnail_location($element_info)
+{
+  global $conf;
+  if ( !empty( $element_info['tn_ext'] ) )
+  {
+    $path = substr_replace(
+      get_filename_wo_extension($element_info['path']),
       '/thumbnail/'.$conf['prefix_thumbnail'],
-      strrpos($path,'/'),
+      strrpos($element_info['path'],'/'),
       1
       );
-    $src.= '.'.$tn_ext;
-    if ($with_rewrite==true and !url_is_remote($src) )
-    {
-      $src = get_root_url().$src;
-    }
+    $path.= '.'.$element_info['tn_ext'];
   }
   else
   {
-    $src = ($with_rewrite==true) ? get_root_url() : '';
-    $src .= get_themeconf('mime_icon_dir');
-    $src.= strtolower(get_extension($path)).'.png';
+    $path = get_themeconf('mime_icon_dir')
+        .strtolower(get_extension($element_info['path'])).'.png';
   }
 
-  return $src;
+  // plugins want another location ?
+  $path = trigger_event( 'get_thumbnail_location', $path, $element_info);
+  return $path;
 }
+
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.

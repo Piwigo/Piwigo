@@ -81,8 +81,8 @@ function default_picture_content($content, $element_info)
   $my_template->assign_vars( array(
       'SRC_IMG' => $element_info['image_url'],
       'ALT_IMG' => $element_info['file'],
-      'WIDTH_IMG' => $element_info['scaled_width'],
-      'HEIGHT_IMG' => $element_info['scaled_height'],
+      'WIDTH_IMG' => @$element_info['scaled_width'],
+      'HEIGHT_IMG' => @$element_info['scaled_height'],
       )
     );
   return $my_template->parse( 'default_content', true);
@@ -279,7 +279,7 @@ SELECT *
 
 $result = pwg_query($query);
 
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   if (isset($page['previous_item']) and $row['id'] == $page['previous_item'])
   {
@@ -302,13 +302,7 @@ while ($row = mysql_fetch_array($result))
     $i = 'current';
   }
 
-  foreach (array_keys($row) as $key)
-  {
-    if (!is_numeric($key))
-    {
-      $picture[$i][$key] = $row[$key];
-    }
-  }
+  $picture[$i] = $row;
 
   $picture[$i]['is_picture'] = false;
   if (in_array(get_extension($row['file']), $conf['picture_ext']))
@@ -380,7 +374,7 @@ while ($row = mysql_fetch_array($result))
     }
   }
 
-  $picture[$i]['thumbnail'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
+  $picture[$i]['thumbnail'] = get_thumbnail_url($row);
 
   if ( !empty( $row['name'] ) )
   {

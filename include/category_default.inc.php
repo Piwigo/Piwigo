@@ -49,7 +49,7 @@ SELECT *
   WHERE id IN ('.implode(',', $selection).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $row['rank'] = $page['rank_of'][ $row['id'] ];
 
@@ -60,19 +60,20 @@ SELECT *
 }
 
 // template thumbnail initialization
-$template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',)); 
+$template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
 if (count($pictures) > 0)
 {
-  $template->assign_block_vars('thumbnails', array());
   // first line
   $template->assign_block_vars('thumbnails.line', array());
   // current row displayed
   $row_number = 0;
 }
 
+trigger_action('loc_begin_index_thumbnails', $pictures);
+
 foreach ($pictures as $row)
 {
-  $thumbnail_url = get_thumbnail_src($row['path'], @$row['tn_ext']);
+  $thumbnail_url = get_thumbnail_url($row);
 
   // message in title for the thumbnail
   $thumbnail_title = $row['file'];
@@ -80,7 +81,7 @@ foreach ($pictures as $row)
   {
     $thumbnail_title .= ' : '.$row['filesize'].' KB';
   }
-  
+
   // link on picture.php page
   $url = duplicate_picture_url(
         array(
@@ -159,6 +160,9 @@ SELECT COUNT(*) AS nb_comments
       array('NB_COMMENTS'=>$row['nb_comments']));
   }
 
+  //plugins need to add/modify sth in this loop ?
+  trigger_action('loc_index_thumbnail', $row, 'thumbnails.line.thumbnail' );
+
   // create a new line ?
   if (++$row_number == $user['nb_image_line'])
   {
@@ -166,6 +170,8 @@ SELECT COUNT(*) AS nb_comments
     $row_number = 0;
   }
 }
+
+trigger_action('loc_end_index_thumbnails', $pictures);
 $template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
 
 pwg_debug('end include/category_default.inc.php');
