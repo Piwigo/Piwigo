@@ -26,6 +26,8 @@
 // +-----------------------------------------------------------------------+
 $template->set_filenames(array('tail'=>'footer.tpl'));
 
+trigger_action('loc_begin_page_tail');
+
 $template->assign_vars(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
@@ -74,10 +76,10 @@ if ( !empty($debug_vars) )
   $template->assign_block_vars('debug',$debug_vars );
 }
 
+trigger_action('loc_end_page_tail');
 //
 // Generate the page
 //
-
 $template->parse('tail');
 
 $template->p();

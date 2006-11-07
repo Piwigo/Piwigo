@@ -35,6 +35,8 @@ $template->set_filenames(
     )
   );
 
+trigger_action('loc_begin_menubar');
+
 $template->assign_vars(
   array(
     'NB_PICTURE' => $user['nb_total_images'],
@@ -51,29 +53,21 @@ $template->assign_vars(
   );
 
 //-------------------------------------------------------------- external links
-if (count($conf['links']) > 0)
+foreach ($conf['links'] as $url => $label)
 {
-  $template->assign_block_vars('links', array());
-
-  foreach ($conf['links'] as $url => $label)
-  {
-    $template->assign_block_vars(
-      'links.link',
-      array(
-        'URL' => $url,
-        'LABEL' => $label
-        )
-      );
-  }
+  $template->assign_block_vars(
+    'links.link',
+    array(
+      'URL' => $url,
+      'LABEL' => $label
+      )
+    );
 }
 //------------------------------------------------------------------------ tags
 if ('tags' == $page['section'])
 {
-  $template->assign_block_vars('tags', array());
-
   // display tags associated to currently tagged items, less current tags
   $tags = array();
-
   if ( !empty($page['items']) )
   {
     $tags = get_common_tags($page['items'],
@@ -87,20 +81,6 @@ if ('tags' == $page['section'])
     $template->assign_block_vars(
       'tags.tag',
       array(
-        'URL_ADD' => make_index_url(
-          array(
-            'tags' => array_merge(
-              $page['tags'],
-              array(
-                array(
-                  'id' => $tag['tag_id'],
-                  'url_name' => $tag['url_name'],
-                  ),
-                )
-              )
-            )
-          ),
-
         'URL' => make_index_url(
           array(
             'tags' => array(
@@ -116,14 +96,33 @@ if ('tags' == $page['section'])
 
         'TITLE' => l10n('See pictures linked to this tag only'),
 
-        'TITLE_ADD' => sprintf(
-          l10n('%d pictures are also linked to current tags'),
-          $tag['counter']
-          ),
-
         'CLASS' => 'tagLevel'.$tag['level']
         )
       );
+
+    $template->assign_block_vars(
+      'tags.tag.add',
+      array(
+        'URL' => make_index_url(
+          array(
+            'tags' => array_merge(
+              $page['tags'],
+              array(
+                array(
+                  'id' => $tag['tag_id'],
+                  'url_name' => $tag['url_name'],
+                  ),
+                )
+              )
+            )
+          ),
+        'TITLE' => sprintf(
+          l10n('%d pictures are also linked to current tags'),
+          $tag['counter']
+          ),
+        )
+      );
+
   }
 }
 //---------------------------------------------------------- special categories
@@ -301,5 +300,6 @@ if (isset($page['category']) and $page['cat_uploadable'] )
     );
 }
 
+trigger_action('loc_end_menubar');
 $template->assign_var_from_handle('MENUBAR', 'menubar');
 ?>

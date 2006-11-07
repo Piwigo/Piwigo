@@ -27,7 +27,9 @@
     <ul id="menuTagCloud">
       <!-- BEGIN tag -->
       <li>
-        <a href="{tags.tag.URL_ADD}" title="{tags.tag.TITLE_ADD}"><img src="{pwg_root}{themeconf:icon_dir}/add_tag.png" alt="+"></a>
+        <!-- BEGIN add -->
+        <a href="{tags.tag.add.URL}" title="{tags.tag.add.TITLE}"><img src="{pwg_root}{themeconf:icon_dir}/add_tag.png" alt="+"></a>
+        <!-- END add -->
         <a href="{tags.tag.URL}" class="{tags.tag.CLASS}" title="{tags.tag.TITLE}">{tags.tag.NAME}</a>
       </li>
       <!-- END tag -->
