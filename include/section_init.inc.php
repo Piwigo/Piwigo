@@ -359,13 +359,13 @@ SELECT image_id
       $page['thumbnails_include'] =
         $result['nb_images'] > 0
         ? 'include/category_default.inc.php'
-        : 'include/category_subcats.inc.php';
+        : 'include/category_cats.inc.php';
     } //otherwise the calendar will requery all subitems
   }
   else
   {
     $page['title'] = $lang['no_category'];
-    $page['thumbnails_include'] = 'include/category_subcats.inc.php';
+    $page['thumbnails_include'] = 'include/category_cats.inc.php';
   }
 }
 // special sections
@@ -534,7 +534,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => $lang['recent_cats_cat'],
-        'thumbnails_include' => 'include/category_recent_cats.inc.php',
+        'thumbnails_include' => 'include/category_cats.inc.php',
         )
       );
   }

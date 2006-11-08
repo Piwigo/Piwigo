@@ -3,11 +3,10 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2006-01-27 02:11:43 +0100 (ven, 27 jan 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1014 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -341,7 +340,7 @@ function build_month_calendar()
   {
     $page['chronology_date'][CDAY]=$day;
     $query = '
-SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as dow';
+SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as dow';
     $query.= $this->inner_sql;
     $query.= $this->get_date_where();
     $query.= '
@@ -349,8 +348,8 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
   LIMIT 0,1';
     unset ( $page['chronology_date'][CDAY] );
 
-    $row = mysql_fetch_array(pwg_query($query));
-    $items[$day]['tn_path'] = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $row = mysql_fetch_assoc(pwg_query($query));
+    $items[$day]['tn_url'] = get_thumbnail_url($row);
     $items[$day]['file'] = $row['file'];
     $items[$day]['path'] = $row['path'];
     $items[$day]['tn_ext'] = @$row['tn_ext'];
@@ -448,9 +447,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
         }
         else
         {// item not an image (tn is either mime type or an image)
-          $thumb = get_thumbnail_src(
-                $items[$day]['path'], @$items[$day]['tn_ext'], false
-              );
+          $thumb = get_thumbnail_path($items[$day]);
           $tn_size = @getimagesize($thumb);
         }
         $tn_width = $tn_size[0];
@@ -507,11 +504,11 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
             )
           );
         $alt = $wday_labels[$dow] . ' ' . $day.
-               ' ('.$items[$day]['nb_images'].')';
+               ' ('.sprintf("%d ".l10n('pictures'), $items[$day]['nb_images']).')';
         $template->assign_block_vars('calendar.thumbnails.row.col.full',
               array(
                 'LABEL'     => $day,
-                'IMAGE'     => $items[$day]['tn_path'],
+                'IMAGE'     => $items[$day]['tn_url'],
                 'U_IMG_LINK'=> $url,
                 'STYLE'     => $css_style,
                 'IMG_WIDTH' => $img_width,
@@ -553,7 +550,7 @@ SELECT file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 as do
       $template->assign_block_vars(
           'thumbnails.line.thumbnail',
           array(
-            'IMAGE'=>$data['tn_path'],
+            'IMAGE'=>$data['tn_url'],
             'IMAGE_ALT'=>$data['file'],
             'IMAGE_TITLE'=>$thumbnail_title,
             'U_IMG_LINK'=>$url
