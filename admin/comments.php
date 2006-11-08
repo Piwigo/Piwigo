@@ -47,7 +47,7 @@ if (isset($_POST))
   $to_reject = array();
 
   if (isset($_POST['submit']) and !is_adviser())
-  {    
+  {
     foreach (explode(',', $_POST['list']) as $comment_id)
     {
       if (isset($_POST['action-'.$comment_id]))
@@ -141,8 +141,15 @@ SELECT c.id, c.image_id, c.date, c.author, c.content, i.path, i.tn_ext
   WHERE validated = \'false\'
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
+  $thumb = get_thumbnail_url(
+      array(
+        'id'=>$row['image_id'],
+        'path'=>$row['path'],
+        'tn_ext'=>@$row['tn_ext']
+        )
+     );
   $template->assign_block_vars(
     'comment',
     array(
@@ -150,10 +157,10 @@ while ($row = mysql_fetch_array($result))
           PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
           '&amp;image_id='.$row['image_id'],
       'ID' => $row['id'],
-      'TN_SRC' => get_thumbnail_src($row['path'], @$row['tn_ext']),
+      'TN_SRC' => $thumb,
       'AUTHOR' => $row['author'],
       'DATE' => format_date($row['date'],'mysql_datetime',true),
-      'CONTENT' => parse_comment_content($row['content'])
+      'CONTENT' => trigger_event('render_comment_content',$row['content'])
       )
     );
 

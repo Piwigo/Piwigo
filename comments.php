@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -28,11 +28,8 @@
 // +-----------------------------------------------------------------------+
 // |                           initialization                              |
 // +-----------------------------------------------------------------------+
-if (!defined('IN_ADMIN'))
-{
-  define('PHPWG_ROOT_PATH','./');
-  include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-}
+define('PHPWG_ROOT_PATH','./');
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -144,31 +141,41 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
     ')';
 }
 
+// which status to filter on ?
+if ( is_admin() )
+{
+  $page['status_clause'] = '1=1';
+}
+else
+{
+  $page['status_clause'] = 'validated="true"';
+}
+
+
 // +-----------------------------------------------------------------------+
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
-// comments deletion
-if (isset($_POST['delete']) and count($_POST['comment_id']) > 0 and is_admin())
+if (is_admin() and !is_adviser() )
 {
-  $_POST['comment_id'] = array_map('intval', $_POST['comment_id']);
-  $query = '
+  if (isset($_GET['delete']) and is_numeric($_GET['delete']) )
+  {// comments deletion
+    $query = '
 DELETE FROM '.COMMENTS_TABLE.'
-  WHERE id IN ('.implode(',', $_POST['comment_id']).')
+  WHERE id='.$_GET['delete'].'
 ;';
-  pwg_query($query);
-}
-// comments validation
-if (isset($_POST['validate']) and count($_POST['comment_id']) > 0
-   and is_admin())
-{
-  $_POST['comment_id'] = array_map('intval', $_POST['comment_id']);
-  $query = '
+    pwg_query($query);
+  }
+
+  if (isset($_GET['validate']) and is_numeric($_GET['validate']) )
+  {  // comments validation
+    $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
     , validation_date = NOW()
-  WHERE id IN ('.implode(',', $_POST['comment_id']).')
+  WHERE id='.$_GET['validate'].'
 ;';
-  pwg_query($query);
+    pwg_query($query);
+  }
 }
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
@@ -298,7 +305,8 @@ SELECT COUNT(DISTINCT(id))
   WHERE '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'];
+    AND '.$page['keyword_clause'].'
+    AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
   $query.= '
@@ -308,7 +316,9 @@ $query.= '
 ;';
 list($counter) = mysql_fetch_row(pwg_query($query));
 
-$url = PHPWG_ROOT_PATH.'comments.php'.get_query_string_diff(array('start'));
+$url = PHPWG_ROOT_PATH
+    .'comments.php'
+    .get_query_string_diff(array('start','delete','validate'));
 
 $navbar = create_navigation_bar($url,
                                 $counter,
@@ -334,13 +344,15 @@ SELECT com.id AS comment_id
      , com.date
      , com.content
      , com.id AS comment_id
+     , com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
   WHERE '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'];
+    AND '.$page['keyword_clause'].'
+    AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
   $query.= '
@@ -357,7 +369,7 @@ if ('all' != $page['items_number'])
 $query.= '
 ;';
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($comments, $row);
   array_push($element_ids, $row['image_id']);
@@ -374,7 +386,7 @@ SELECT id, name, file, path, tn_ext
   WHERE id IN ('.implode(',', $element_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $elements[$row['id']] = $row;
   }
@@ -387,31 +399,24 @@ SELECT id, name, uppercats
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $categories[$row['id']] = $row;
   }
 
   foreach ($comments as $comment)
   {
-    // name of the picture
-    $name = get_cat_display_name_cache(
-      $categories[$comment['category_id']]['uppercats'], null, false);
-    $name.= $conf['level_separator'];
     if (!empty($elements[$comment['image_id']]['name']))
     {
-      $name.= $elements[$comment['image_id']]['name'];
+      $name=$elements[$comment['image_id']]['name'];
     }
     else
     {
-      $name.= get_name_from_file($elements[$comment['image_id']]['file']);
+      $name=get_name_from_file($elements[$comment['image_id']]['file']);
     }
 
     // source of the thumbnail picture
-    $thumbnail_src = get_thumbnail_src(
-      $elements[$comment['image_id']]['path'],
-      @$elements[$comment['image_id']]['tn_ext']
-      );
+    $thumbnail_src = get_thumbnail_url( $elements[$comment['image_id']] );
 
     // link to the full size picture
     $url = make_picture_url(
@@ -422,14 +427,6 @@ SELECT id, name, uppercats
               'image_file' => $elements[$comment['image_id']]['file'],
             )
           );
-
-    $template->assign_block_vars(
-      'picture',
-      array(
-        'TITLE_IMG'=>$name,
-        'I_THUMB'=>$thumbnail_src,
-        'U_THUMB'=>$url
-        ));
 
     $author = $comment['author'];
     if (empty($comment['author']))
@@ -442,23 +439,39 @@ SELECT id, name, uppercats
       array(
         'U_PICTURE' => $url,
         'TN_SRC' => $thumbnail_src,
+        'ALT' => $name,
         'AUTHOR' => $author,
         'DATE'=>format_date($comment['date'],'mysql_datetime',true),
-        'CONTENT'=>parse_comment_content($comment['content']),
+        'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         ));
+
+    if ( is_admin() )
+    {
+      $url = get_root_url().'comments.php'.get_query_string_diff(array('delete','validate'));
+      $template->assign_block_vars(
+        'comment.action_delete',
+        array(
+          'U_DELETE' => add_url_params($url,
+                          array('delete'=>$comment['comment_id'])
+                         ),
+          ));
+      if ($comment['validated'] != 'true')
+      {
+        $template->assign_block_vars(
+          'comment.action_validate',
+          array(
+            'U_VALIDATE' => add_url_params($url,
+                            array('validate'=>$comment['comment_id'])
+                           ),
+            ));
+      }
+    }
   }
 }
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
-if (defined('IN_ADMIN'))
-{
-  $template->assign_var_from_handle('ADMIN_CONTENT', 'comments');
-}
-else
-{
-  $template->assign_block_vars('title',array());
-  $template->parse('comments');
-  include(PHPWG_ROOT_PATH.'include/page_tail.php');
-}
+$template->assign_block_vars('title',array());
+$template->parse('comments');
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

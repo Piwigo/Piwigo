@@ -176,7 +176,7 @@ SELECT id,author,date,image_id,content
             'mysql_datetime',
             true),
 
-          'COMMENT' => parse_comment_content($row['content']),
+          'COMMENT' => trigger_event('render_comment_content',$row['content']),
           )
         );
 

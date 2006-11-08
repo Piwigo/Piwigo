@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -228,4 +228,8 @@ if (count($header_msgs) > 0)
                                  array('HEADER_MSG'=>$header_msg));
   }
 }
+
+// default event handlers
+add_event_handler('render_comment_content', 'parse_comment_content');
+trigger_action('init');
 ?>

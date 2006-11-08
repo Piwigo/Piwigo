@@ -70,7 +70,7 @@
 
   </fieldset>
 
-  <p><input type="submit" name="submit" value="{lang:Filter and display}"></p>
+  <p><input type="submit" value="{lang:Filter and display}"></p>
 
 </form>
 
@@ -80,8 +80,19 @@
 
   <!-- BEGIN comment -->
   <div class="comment">
-    <a class="illustration" href="{comment.U_PICTURE}"><img src="{comment.TN_SRC}" /></a>
-    <p class="commentHeader"><span class="author">{comment.AUTHOR}</span> - <span class="date">{comment.DATE}</span></p>
+    <a class="illustration" href="{comment.U_PICTURE}"><img src="{comment.TN_SRC}" alt="{comment.ALT}" /></a>
+    <p class="commentHeader"><span class="author">{comment.AUTHOR}</span> - <span class="date">{comment.DATE}</span>
+    <!-- BEGIN action_delete -->
+    <a href="{comment.action_delete.U_DELETE}" title="{lang:comments_del}">
+      <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{lang:delete}]"/>
+    </a>
+    <!-- END action_delete -->
+    <!-- BEGIN action_validate -->
+    <a href="{comment.action_validate.U_VALIDATE}" title="validate this comment">
+      <img src="{pwg_root}{themeconf:icon_dir}/validate_s.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[validate]"/>
+    </a>
+    <!-- END action_validate -->
+    </p>
     <blockquote>{comment.CONTENT}</blockquote>
     <hr class="separation">
   </div>
