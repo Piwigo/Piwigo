@@ -1,4 +1,4 @@
-1-- MySQL dump 9.11
+-- MySQL dump 9.11
 --
 -- Host: localhost    Database: pwg-1_6
 -- ------------------------------------------------------
@@ -318,6 +318,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `template` varchar(255) NOT NULL default 'yoga/clear',
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `enabled_high` enum('true','false') NOT NULL default 'true',
+  `auto_login_key` varchar(64) NOT NULL default '',
   UNIQUE KEY `user_infos_ui1` (`user_id`)
 ) TYPE=MyISAM;
 
@@ -345,7 +346,6 @@ CREATE TABLE `phpwebgallery_users` (
   `username` varchar(100) binary NOT NULL default '',
   `password` varchar(32) default NULL,
   `mail_address` varchar(255) default NULL,
-  `auto_login_key` varchar(64) default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `users_ui1` (`username`)
 ) TYPE=MyISAM;

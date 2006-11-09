@@ -468,9 +468,6 @@ ALTER TABLE '.PREFIX_TABLE.'users
   }
 }
 
-$query = '
-ALTER TABLE '.PREFIX_TABLE.'users
-  ADD auto_login_key varchar(64) NOT NULL
-;';
-pwg_query($query);
+// now we upgrade from 1.6.0 to 1.6.2
+include_once(PHPWG_ROOT_PATH.'install/upgrade_1.6.0.php');
 ?>

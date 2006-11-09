@@ -181,9 +181,13 @@ if (!isset($_GET['version']))
   {
     $current_release = '1.5.0';
   }
+  else if (!in_array('auto_login_key', $columns_of[PREFIX_TABLE.'user_infos']))
+  {
+    $current_release = '1.6.0';
+  }
   else
   {
-    die('You are already on branch 1.6, no upgrade required');
+    die('No upgrade required, the database structure is up to date');
   }
   
   $template->assign_block_vars(
@@ -223,7 +227,7 @@ else
         array(
           'id'          => $upgrade_id,
           'applied'     => CURRENT_DATE,
-          'description' => 'upgrade included in upgrade',
+          'description' => 'upgrade included in migration',
           )
         );
     }
