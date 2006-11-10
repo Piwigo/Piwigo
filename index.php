@@ -30,6 +30,8 @@ define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 
+trigger_action('loc_begin_index');
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -239,13 +241,7 @@ if (isset($page['thumbnails_include']))
   include(PHPWG_ROOT_PATH.$page['thumbnails_include']);
 }
 //------------------------------------------------------- category informations
-if (
-  $page['navigation_bar'] != ''
-  or (isset($page['comment']) and $page['comment'] != '')
-  )
-{
-  $template->assign_block_vars('cat_infos',array());
-}
+
 // navigation bar
 if ($page['navigation_bar'] != '')
 {
@@ -286,22 +282,20 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
   }
 }
 
-if (isset($page['category']))
+// category comment
+if (isset($page['comment']) and $page['comment'] != '')
 {
-  // category comment
-  if (isset($page['comment']) and $page['comment'] != '')
-  {
-    $template->assign_block_vars(
-      'cat_infos.comment',
-      array(
-        'COMMENTS' => $page['comment']
-        )
-      );
-  }
+  $template->assign_block_vars(
+    'cat_infos.comment',
+    array(
+      'COMMENTS' => $page['comment']
+      )
+    );
 }
 //------------------------------------------------------------ log informations
 pwg_log('category', $page['title']);
 
+trigger_action('loc_end_index');
 $template->parse('index');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

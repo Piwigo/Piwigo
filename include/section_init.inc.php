@@ -652,4 +652,6 @@ SELECT id,file
     $page['image_id'] = -1; // will fail in picture.php
   }
 }
+
+trigger_action('loc_end_section_init');
 ?>

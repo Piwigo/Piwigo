@@ -212,22 +212,15 @@ SELECT i.id,
 
 $images = array();
 $result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($images, $row);
 }
 
 foreach ($images as $image)
 {
-  $thumbnail_src = get_thumbnail_src($image['path'], $image['tn_ext']);
+  $thumbnail_src = get_thumbnail_url($image);
 
-  /*$image_url = make_picture_url(
-      array(
-        'category' => $image['storage_category_id'],
-        'image_id' => $image['id'],
-        'image_file' => $image['file'],
-      )
-    );*/
   $image_url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
             '&amp;image_id='.$image['id'];
 

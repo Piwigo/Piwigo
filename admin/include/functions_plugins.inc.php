@@ -41,7 +41,7 @@ function get_fs_plugins()
           and file_exists($path.'/main.inc.php')
           )
       {
-        $plugin = array('name'=>'?', 'version'=>'0', 'uri'=>'', 'description'=>'');
+        $plugin = array('name'=>$file, 'version'=>'0', 'uri'=>'', 'description'=>'');
         $plg_data = implode( '', file($path.'/main.inc.php') );
 
         if ( preg_match("|Plugin Name: (.*)|i", $plg_data, $val) )

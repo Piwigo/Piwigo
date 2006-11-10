@@ -54,7 +54,7 @@ function add_event_handler($event, $func,
     {
       if ( $handler['function'] == $func )
       {
-        return true;
+        return false;
       }
     }
   }
@@ -230,6 +230,15 @@ WHERE 1=1';
 }
 
 
+function load_plugin($plugin)
+{
+  $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
+  if ( file_exists($file_name) )
+  {
+    include_once( $file_name );
+  }
+}
+
 /*loads all the plugins on startup*/
 function load_plugins()
 {
@@ -241,12 +250,8 @@ function load_plugins()
 
   $plugins = get_db_plugins('active');
   foreach( $plugins as $plugin)
-  {
-    $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
-    if ( file_exists($file_name) )
-    {
-      include_once( $file_name );
-    }
+  {// include main from a function to avoid using same function context
+    load_plugin($plugin);
   }
   trigger_action('plugins_loaded');
 }

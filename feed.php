@@ -126,7 +126,7 @@ list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
 include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 
-$base_url = 'http://'.$_SERVER["HTTP_HOST"].cookie_path();
+$base_url = get_host_url().cookie_path();
 if ( strrpos($base_url, '/') !== strlen($base_url)-1 )
 {
   $base_url .= '/';
@@ -189,7 +189,7 @@ SELECT date_available,
 ;';
 $result = pwg_query($query);
 $dates = array();
-while ($row = mysql_fetch_array($result))
+while ($row = mysql_fetch_assoc($result))
 {
   array_push($dates, $row);
 }
@@ -232,9 +232,9 @@ SELECT DISTINCT id, path, name, tn_ext
   LIMIT 0,6
 ;';
   $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
-    $tn_src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $tn_src = get_thumbnail_url($row);
     $item->description .= '<img src="'.$tn_src.'"/>';
   }
   $item->description .= '...<br/>';
