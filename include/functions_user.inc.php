@@ -125,6 +125,14 @@ SELECT id
   }
 
     create_user_infos($next_id);
+
+    trigger_action('register_user',
+      array(
+        'id'=>$next_id,
+        'username'=>$login,
+        'email'=>$mail_address,
+       )
+      );
   }
 
   return $errors;

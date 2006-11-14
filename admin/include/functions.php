@@ -124,6 +124,7 @@ DELETE FROM '.CATEGORIES_TABLE.'
   {
     $counts['del_categories']+= count($ids);
   }
+  trigger_action('delete_categories', $ids);
 }
 
 // The function delete_elements deletes the elements identified by the
@@ -200,6 +201,7 @@ DELETE FROM '.IMAGES_TABLE.'
   {
     $counts['del_elements']+= count($ids);
   }
+  trigger_action('delete_elements', $ids);
 }
 
 // The delete_user function delete a user identified by the $user_id
@@ -268,6 +270,8 @@ DELETE FROM '.USERS_TABLE.'
   WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
 ;';
   pwg_query($query);
+
+  trigger_action('delete_user', $user_id);
 }
 
 /**
