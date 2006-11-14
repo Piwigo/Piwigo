@@ -610,4 +610,52 @@ function page_not_found($msg, $alternate_url=null)
 .$msg.'</div>',
     5 );
 }
+
+/* returns the title to be displayed above thumbnails on tag page
+ */
+function get_tags_content_title()
+{
+  global $page;
+  $title = count($page['tags']) > 1 ? l10n('Tags') : l10n('Tag');
+  $title.= ' ';
+
+  for ($i=0; $i<count($page['tags']); $i++)
+  {
+    $title.= $i>0 ? ' + ' : '';
+
+    $title.=
+      '<a href="'
+      .make_index_url(
+        array(
+          'tags' => array( $page['tags'][$i] )
+          )
+        )
+      .'" title="'
+      .l10n('See pictures linked to this tag only')
+      .'">'
+      .$page['tags'][$i]['name']
+      .'</a>';
+
+    if ( count($page['tags'])>2 )
+    {
+      $other_tags = $page['tags'];
+      unset ( $other_tags[$i] );
+      $title.=
+        '<a href="'
+        .make_index_url(
+          array(
+            'tags' => $other_tags
+            )
+          )
+        .'" style="border:none;" title="'
+        .l10n('remove this tag')
+        .'"><img src="'
+        .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
+        .'" alt="x" style="vertical-align:bottom;" class="button"/>'
+        .'</a>';
+    }
+
+  }
+  return $title;
+}
 ?>

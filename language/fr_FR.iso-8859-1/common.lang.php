@@ -542,6 +542,7 @@ $lang['register'] = 's\'enregistrer';
 $lang['register_page_title'] = 'Enregistrement';
 $lang['register_title'] = 'Enregistrement';
 $lang['remember_me'] = 'Connexion auto';
+$lang['remove this tag'] = 'enlever ce tag de la liste';
 $lang['representative'] = 'représentant';
 $lang['reset'] = 'Annuler';
 $lang['return to homepage'] = 'retour à la page d\'accueil';

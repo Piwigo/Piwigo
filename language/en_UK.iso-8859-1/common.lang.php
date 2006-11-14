@@ -543,6 +543,7 @@ $lang['register'] = 'register';
 $lang['register_page_title'] = 'Registration';
 $lang['register_title'] = 'Registration';
 $lang['remember_me'] = 'Auto login';
+$lang['remove this tag'] = 'remove this tag from the list';
 $lang['representative'] = 'representative';
 $lang['reset'] = 'Reset';
 $lang['return to homepage'] = 'return to homepage';

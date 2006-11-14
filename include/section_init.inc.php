@@ -193,7 +193,7 @@ SELECT name, url_name, id
   }
   $result = pwg_query($query);
   $tag_infos = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $tag_infos[ $row['id'] ] = $row;
     array_push($page['tags'], $row );//we loose given tag order; is it important?
@@ -410,29 +410,7 @@ SELECT image_id
         );
     }
 
-    $title = count($page['tags']) > 1 ? l10n('Tags') : l10n('Tag');
-    $title.= ' ';
-
-    $tag_num = 1;
-    foreach ($page['tag_ids'] as $tag_id)
-    {
-      $title.=
-        ($tag_num++ > 1 ? ' + ' : '')
-        .'<a href="'
-        .make_index_url(
-          array(
-            'tags' => array(
-              array(
-                'id' => $tag_id,
-                'url_name' => $tag_infos[$tag_id]['url_name'],
-                ),
-              )
-            )
-          )
-        .'">'
-        .$tag_infos[$tag_id]['name']
-        .'</a>';
-    }
+    $title = get_tags_content_title();
 
     $page = array_merge(
       $page,
