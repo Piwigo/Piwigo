@@ -4,12 +4,12 @@
 
 function setFocusStyle()
 {
-  this.className += ' focus';
+  window.event.srcElement.className += ' focus';
 }
 
 function setBlurStyle()
 {
-  this.className = this.className.replace( ' focus', ' nofocus');
+  window.event.srcElement.className = window.event.srcElement.className.replace( ' focus', ' nofocus');
 }
 
 function setClassFromType()
@@ -28,16 +28,15 @@ function fixElements()
         elem.className += ' ' + elem.type;
         if ( (elem.type != "radio") && (elem.type != "checkbox") )
         { /* setting focus/nofocus on those is a mess to handle in css */
-          elem.onfocus = setFocusStyle;
-          elem.onblur = setBlurStyle;
+          elem.attachEvent( 'onfocus', setFocusStyle );
+          elem.attachEvent( 'onblur', setBlurStyle );
         }
       break;
       case "SELECT":
       case "TEXTAREA":
-        elem.onfocus = setFocusStyle;
-        elem.onblur = setBlurStyle;
+        elem.attachEvent( 'onfocus', setFocusStyle );
+        elem.attachEvent( 'onblur', setBlurStyle );
     }
   }
 }
 </script>
-
