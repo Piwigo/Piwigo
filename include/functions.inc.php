@@ -680,17 +680,6 @@ function get_pwg_themes()
   return $themes;
 }
 
-/**
-DEPRECATED use get_thumbnail_path or get_thumbnail_url
- */
-function get_thumbnail_src($path, $tn_ext = '', $with_rewrite = true)
-{
-  if ($with_rewrite)
-    return get_thumbnail_url( array('path'=>$path, 'tn_ext'=>$tn_ext) );
-  else
-    return get_thumbnail_path( array('path'=>$path, 'tn_ext'=>$tn_ext) );
-}
-
 /* Returns the PATH to the thumbnail to be displayed. If the element does not
  * have a thumbnail, the default mime image path is returned. The PATH can be
  * used in the php script, but not sent to the browser.

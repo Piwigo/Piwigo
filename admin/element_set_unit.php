@@ -28,9 +28,9 @@
 /**
  * Management of elements set. Elements can belong to a category or to the
  * user caddie.
- * 
+ *
  */
- 
+
 if (!defined('PHPWG_ROOT_PATH'))
 {
   die('Hacking attempt!');
@@ -50,9 +50,9 @@ check_status(ACCESS_ADMINISTRATOR);
 if (isset($_POST['submit']))
 {
   $collection = explode(',', $_POST['list']);
-  
+
   $datas = array();
-  
+
   $query = '
 SELECT id, date_creation
   FROM '.IMAGES_TABLE.'
@@ -75,7 +75,7 @@ SELECT id, date_creation
         $data{$field} = strip_tags($_POST[$field.'-'.$row['id']]);
       }
     }
-    
+
     if ($conf['allow_html_descriptions'])
     {
       $data{'comment'} = @$_POST['description-'.$row['id']];
@@ -103,7 +103,7 @@ SELECT id, date_creation
     {
       $data{'date_creation'} = $row['date_creation'];
     }
-    
+
     array_push($datas, $data);
 
     // tags management
@@ -112,7 +112,7 @@ SELECT id, date_creation
       set_tags($_POST[ 'tags-'.$row['id'] ], $row['id']);
     }
   }
-  
+
   mass_updates(
     IMAGES_TABLE,
     array(
@@ -121,7 +121,7 @@ SELECT id, date_creation
       ),
     $datas
     );
-  
+
   array_push($page['infos'], l10n('Picture informations updated'));
 }
 
@@ -141,16 +141,16 @@ $template->assign_vars(
     'CATEGORIES_NAV'=>$page['title'],
 
     'L_SUBMIT'=>$lang['submit'],
-    
+
     'U_ELEMENTS_PAGE'
     =>$base_url.get_query_string_diff(array('display','start')),
-    
+
     'U_GLOBAL_MODE'
     =>
     $base_url
     .get_query_string_diff(array('mode','display'))
     .'&amp;mode=global',
-    
+
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
     )
   );
@@ -190,7 +190,7 @@ if (count($page['cat_elements_id']) > 0)
 
   // tags
   $all_tags = get_all_tags();
- 
+
   $element_ids = array();
 
   $query = '
@@ -202,12 +202,12 @@ SELECT id,path,tn_ext,name,date_creation,comment,author,file
 ;';
   $result = pwg_query($query);
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     // echo '<pre>'; print_r($row); echo '</pre>';
     array_push($element_ids, $row['id']);
-    
-    $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+
+    $src = get_thumbnail_url($row);
 
     $query = '
 SELECT tag_id
@@ -215,7 +215,7 @@ SELECT tag_id
   WHERE image_id = '.$row['id'].'
 ;';
     $selected_tags = array_from_query($query, 'tag_id');
-    
+
     // creation date
     if (!empty($row['date_creation']))
     {
@@ -241,7 +241,7 @@ SELECT tag_id
         l10n('No tag defined. Use Administration>Pictures>Tags').
         '</p>';
     }
-    
+
     $template->assign_block_vars(
       'element',
       array(
@@ -258,11 +258,11 @@ SELECT tag_id
         'AUTHOR' => @$row['author'],
         'DESCRIPTION' => @$row['comment'],
         'DATE_CREATION_YEAR' => $year,
-        
+
         'TAG_SELECTION' => $tag_selection,
         )
       );
-    
+
     get_day_list('element.date_creation_day', $day);
     get_month_list('element.date_creation_month', $month);
   }

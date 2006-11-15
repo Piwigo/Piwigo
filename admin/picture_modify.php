@@ -141,7 +141,7 @@ DELETE FROM '.IMAGE_CATEGORY_TABLE.'
     AND category_id IN ('.implode(',', $_POST['cat_associated']).')
 ';
   pwg_query($query);
-  
+
   update_category($_POST['cat_associated']);
 }
 // elect the element to represent the given categories
@@ -223,7 +223,7 @@ else
     l10n('No tag defined. Use Administration>Pictures>Tags').
     '</p>';
 }
-  
+
 $template->assign_vars(
   array(
     'U_SYNC' =>
@@ -234,7 +234,7 @@ $template->assign_vars(
 
     'PATH'=>$row['path'],
 
-    'TN_SRC' => get_thumbnail_src($row['path'], @$row['tn_ext']),
+    'TN_SRC' => get_thumbnail_url($row),
 
     'NAME' =>
       isset($_POST['name']) ?

@@ -42,9 +42,9 @@ if (isset($_POST))
 {
   $to_validate = array();
   $to_reject = array();
-  
+
   if (isset($_POST['submit']))
-  {    
+  {
     foreach (explode(',', $_POST['list']) as $waiting_id)
     {
       if (isset($_POST['action-'.$waiting_id]))
@@ -106,26 +106,19 @@ SELECT id, storage_category_id, file, tn_ext
     {
       $dir = get_complete_dir($row['storage_category_id']);
       unlink($dir.$row['file']);
-      if (isset($row['tn_ext']) and $row['tn_ext'] != '')
+      $element_info = array(
+        'path' => $dir.$row['file'],
+        'tn_ext' =>
+          (isset($row['tn_ext']) and $row['tn_ext']!='') ? $row['tn_ext']:'jpg'
+        );
+      $tn_path = get_thumbnail_path( $element_info );
+
+      if ( @is_file($tn_path) )
       {
-        unlink(
-          get_thumbnail_src(
-            $dir.$row['file'],
-            $row['tn_ext']
-            )
-          );
-      }
-      else if (@is_file(get_thumbnail_src($dir.$row['file'], 'jpg')))
-      {
-        unlink(
-          get_thumbnail_src(
-            $dir.$row['file'],
-            'jpg'
-            )
-          );
+        unlink( $tn_path );
       }
     }
-    
+
     $query = '
 DELETE
   FROM '.WAITING_TABLE.'
@@ -154,10 +147,10 @@ $template->assign_vars(array(
   'L_SUBMIT'=>$lang['submit'],
   'L_RESET'=>$lang['reset'],
   'L_DELETE'=>$lang['delete'],
-  
+
   'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])
   ));
-  
+
 //---------------------------------------------------------------- form display
 $cat_names = array();
 $list = array();
@@ -182,7 +175,7 @@ while ( $row = mysql_fetch_array( $result ) )
   $preview_url = PHPWG_ROOT_PATH.$cat_names[$row['storage_category_id']]['dir'].$row['file'];
   $class='row1';
   if ( $i++ % 2== 0 ) $class='row2';
-  
+
   $template->assign_block_vars(
     'picture',
     array(
@@ -194,7 +187,7 @@ while ( $row = mysql_fetch_array( $result ) )
       'FILE_IMG' =>
         (strlen($row['file']) > 10) ?
           (substr($row['file'], 0, 10)).'...' : $row['file'],
-      'PREVIEW_URL_IMG'=>$preview_url, 
+      'PREVIEW_URL_IMG'=>$preview_url,
       'UPLOAD_EMAIL'=>get_email_address_as_display_text($row['mail_address']),
       'UPLOAD_USERNAME'=>$row['username']
       )
@@ -208,7 +201,7 @@ while ( $row = mysql_fetch_array( $result ) )
     $thumbnail.= '.'.$row['tn_ext'];
 	$url = $cat_names[$row['storage_category_id']]['dir'];
     $url.= 'thumbnail/'.$thumbnail;
-	
+
     $template->assign_block_vars(
       'picture.thumbnail',
       array(
@@ -229,7 +222,7 @@ $template->assign_vars(
     'LIST' => implode(',', $list)
     )
   );
-  
+
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'waiting');
 ?>

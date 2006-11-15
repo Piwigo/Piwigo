@@ -122,7 +122,7 @@ DELETE
     AND image_id IN ('.implode(',', $dissociables).')
 ';
     pwg_query($query);
-    
+
     update_category($_POST['dissociate']);
   }
 
@@ -399,9 +399,9 @@ SELECT id,path,tn_ext
     $template->assign_block_vars('thumbnails', array());
   }
 
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
-    $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $src = get_thumbnail_url($row);
 
     $template->assign_block_vars(
       'thumbnails.thumbnail',

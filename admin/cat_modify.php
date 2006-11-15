@@ -388,12 +388,12 @@ if ($category['nb_images'] > 0
   if (!empty($category['representative_picture_id']))
   {
     $query = '
-SELECT tn_ext,path
+SELECT id,tn_ext,path
   FROM '.IMAGES_TABLE.'
   WHERE id = '.$category['representative_picture_id'].'
 ;';
     $row = mysql_fetch_array(pwg_query($query));
-    $src = get_thumbnail_src($row['path'], @$row['tn_ext']);
+    $src = get_thumbnail_url($row);
     $url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
 
