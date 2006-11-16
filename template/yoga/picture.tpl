@@ -189,9 +189,6 @@
       <!-- BEGIN author_field -->
       <label>{lang:upload_author}<input type="text" name="author"></label>
       <!-- END author_field -->
-      <!-- BEGIN author_known -->
-      <input type="hidden" name="author"  value="{comments.add_comment.author_known.KNOWN_AUTHOR}">
-      <!-- END author_known -->
       <label>{lang:comment}<textarea name="content" rows="10" cols="80"></textarea></label>
       <input type="submit" value="{lang:submit}">
     </fieldset>

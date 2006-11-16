@@ -413,6 +413,7 @@ $lang['comment date'] = 'comment date';
 $lang['comment'] = 'Comment';
 $lang['comment_added'] = 'Your comment has been registered';
 $lang['comment_anti-flood'] = 'Anti-flood system : please wait for a moment before trying to post another comment';
+$lang['comment_not_added'] = 'Your comment has NOT been registered because it did not pass the validation rules';
 $lang['comment_to_validate'] = 'An administrator must authorize your comment before it is visible.';
 $lang['comment_user_exists'] = 'This login is already used by another user';
 $lang['comments'] = 'Comments';

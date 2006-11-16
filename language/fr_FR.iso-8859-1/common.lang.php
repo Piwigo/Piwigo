@@ -412,6 +412,7 @@ $lang['comment date'] = 'date du commentaire';
 $lang['comment'] = 'Commentaire';
 $lang['comment_added'] = 'Votre commentaire a été enregistré';
 $lang['comment_anti-flood'] = 'Système anti-abus : merci de patienter avant d\'ajouter un nouveau commentaire';
+$lang['comment_not_added'] = 'Votre commentaire n\'a pas été enregistré parce qu\'il ne vérifie pas les règles de validation';
 $lang['comment_to_validate'] = 'Un administrateur doit valider votre commentaire afin qu\'il soit visible.';
 $lang['comment_user_exists'] = 'Ce nom d\'utilisateur est déjà pris';
 $lang['comments'] = 'Commentaires';
