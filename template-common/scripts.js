@@ -1,6 +1,6 @@
 function SelectAll( formulaire )
 {
-len = formulaire.elements.length;
+var len = formulaire.elements.length;
 var i=0;
 for( i = 0; i < len; i++)
 {
@@ -14,7 +14,7 @@ for( i = 0; i < len; i++)
 
 function DeselectAll( formulaire )
 {
-len = formulaire.elements.length;
+var len = formulaire.elements.length;
 var i=0;
 for( i = 0; i < len; i++)
 {
@@ -28,7 +28,7 @@ for( i = 0; i < len; i++)
 
 function Inverser( formulaire )
 {
-len = formulaire.elements.length;
+var len = formulaire.elements.length;
 var i=0;
 for( i=0; i<len; i++)
 {
@@ -40,32 +40,27 @@ for( i=0; i<len; i++)
 }
 }
 
-function verifieAndOpen()
+function phpWGOpenWindow(theURL,winName,features)
 {
-  var ok=1;
-  if (!img.complete)
+  img = new Image();
+  img.src = theURL;
+  if (img.complete)
   {
-    // sometime the image loading is not complete
-    // especially with KHTML and Opera 
-    setTimeout("verifieAndOpen()",200)
+    var width=img.width +40;
+    var height=img.height +40;
   }
   else
   {
-  /* give more space for scrollbars (10 for FF, 40 for IE) */
-    width=img.width +40;
-    height=img.height +40;
-    window.open(owURL,owName,owFeatures  + ',width=' + width + ',height=' + height);
+    var width=640;
+    var height=480;
+    img.onload = resizeWindowToFit;
   }
+  newWin = window.open(theURL,winName,features+',left=2,top=1,width=' + width + ',height=' + height);
 }
 
-function phpWGOpenWindow(theURL,winName,features)
+function resizeWindowToFit()
 {
-  img = new Image()
-  img.src = theURL;
-  owURL=theURL;
-  owName=winName;
-  owFeatures=features;
-  verifieAndOpen();
+  newWin.resizeTo( img.width+50, img.height+100);
 }
 
 function popuphelp(url)
