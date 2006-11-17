@@ -31,69 +31,127 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
 
-function force_download ($filename)
+function guess_mime_type($ext)
 {
-//TODO : messages in "lang"
-  if (!url_is_remote($filename))
+  switch ( strtolower($ext) )
   {
-    $filename = realpath($filename);
-    if (!file_exists($filename))
-    {
-      die("NO FILE HERE");
-    }
-    $file_size = @filesize($filename);
+    case "jpe": case "jpeg":
+    case "jpg": $ctype="image/jpeg"; break;
+    case "png": $ctype="image/png"; break;
+    case "gif": $ctype="image/gif"; break;
+    case "tiff":
+    case "tif": $ctype="image/tiff"; break;
+    case "txt": $ctype="text/plain"; break;
+    case "html":
+    case "htm": $ctype="text/html"; break;
+    case "xml": $ctype="text/xml"; break;
+    case "pdf": $ctype="application/pdf"; break;
+    case "zip": $ctype="application/zip"; break;
+    case "ogg": $ctype="application/ogg"; break;
+    default: $ctype="application/octet-stream";
   }
-  else
-  {
-    $file_size = 0;
-  }
-
-  $file_extension = strtolower(substr(strrchr($filename,"."),1));
-
-  switch ($file_extension) {
-      case "jpe": case "jpeg":
-      case "jpg": $ctype="image/jpg"; break;
-      case "png": $ctype="image/png"; break;
-      case "gif": $ctype="image/gif"; break;
-      case "pdf": $ctype="application/pdf"; break;
-      case "zip": $ctype="application/zip"; break;
-      case "php": 
-        // never allow download of php scripts to protect our conf files
-        die('Hacking attempt!'); break;
-      default: $ctype="application/octet-stream";
-  }
-
-  header("Pragma: public");
-  header("Expires: 0");
-  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-  header("Cache-Control: private",false);
-  header("Content-Type: $ctype");
-  header("Content-Disposition: attachment; filename=\""
-         .basename($filename)."\";");
-  header("Content-Transfer-Encoding: binary");
-  if (isset($file_size) and ($file_size != 0))
-  {
-    header("Content-Length: ".@filesize($filename));
-  }
-
-  // Looking at the safe_mode configuration for execution time
-  if (ini_get('safe_mode') == 0)
-  {
-    @set_time_limit(0);
-  }
-
-  @readfile("$filename") or die("File not found.");
+  return $ctype;
 }
 
-//--------------------------------------------------------- download big picture
-if ( isset( $_GET['dwn'] ) )
+function do_error( $code, $str )
 {
-//TODO : verify the path begins with something in galleries_url and that user has access rights to the picture
-// in order to avoid hacking atempts by forged url
-  if (preg_match('/\.\./',$_GET['dwn'])) {
-    die('Hacking attempt!');
-  }
-  force_download($_GET['dwn']);
+  header("HTTP/1.1 $code ");
+  header("Status: $code ");
+  echo $str ;
+  exit();
 }
+
+
+if ( !isset($_GET['id']) or !is_numeric($_GET['id'])
+    or !isset($_GET['part'])
+    or !in_array($_GET['part'], array('t','e','i','h') ) )
+{
+  do_error(400, 'Invalid request - id/part');
+}
+
+$id = $_GET['id'];
+$query = '
+SELECT * FROM '. IMAGES_TABLE.'
+  WHERE id='.$id.'
+;';
+
+$result = pwg_query($query);
+$element_info = mysql_fetch_assoc($result);
+if ( empty($element_info) )
+{
+  do_error(404, 'Requested id not found');
+}
+
+// TODO - check permissions
+
+include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+$file='';
+switch ($_GET['part'])
+{
+  case 't':
+    $file = get_thumbnail_path($element_info);
+    break;
+  case 'e':
+    $file = get_element_path($element_info);
+    break;
+  case 'i':
+    $file = get_image_path($element_info);
+    break;
+  case 'h':
+    $file = get_high_path($element_info);
+    break;
+}
+
+if ( empty($file) )
+{
+  do_error(404, 'Requested file not found');
+}
+
+$http_headers = array();
+
+$ctype = null;
+if (!url_is_remote($file))
+{
+  if ( !@is_readable($file) )
+  {
+    do_error(404, "Requested file not found - $file");
+  }
+  $http_headers[] = 'Content-Length: '.@filesize($file);
+  if ( function_exists('mime_content_type') )
+  {
+    $ctype = mime_content_type($file);
+  }
+}
+if (!isset($ctype))
+{ // give it a guess
+  $ctype = guess_mime_type( get_extension($file) );
+}
+
+$http_headers[] = 'Content-Type: '.$ctype;
+
+if (!isset($_GET['view']))
+{
+  $http_headers[] = 'Content-Disposition: attachment; filename="'
+            .basename($file).'";';
+  $http_headers[] = 'Content-Transfer-Encoding: binary';
+}
+$http_headers[] = 'Pragma: public';
+$http_headers[] = 'Expires: 0';
+$http_headers[] = 'Cache-Control: must-revalidate, post-check=0, pre-check=0';
+
+
+foreach ($http_headers as $header)
+{
+  header( $header );
+}
+header("Cache-Control: private",false); //???
+
+// Looking at the safe_mode configuration for execution time
+if (ini_get('safe_mode') == 0)
+{
+  @set_time_limit(0);
+}
+
+@readfile($file);
 
 ?>

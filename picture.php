@@ -28,6 +28,7 @@
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
@@ -310,67 +311,34 @@ while ($row = mysql_fetch_assoc($result))
     $picture[$i]['is_picture'] = true;
   }
 
-  $cat_directory = dirname($row['path']);
-  $file_wo_ext = get_filename_wo_extension($row['file']);
-
   // ------ build element_path and element_url
-  $picture[$i]['element_url'] = $row['path'];
-  if ( ! url_is_remote($row['path']) )
-  {
-    $picture[$i]['element_url'] = get_root_url().$row['path'];
-  }
+  $picture[$i]['element_path'] = get_element_path($picture[$i]);
+  $picture[$i]['element_url'] = get_element_url($picture[$i]);
 
   // ------ build image_path and image_url
-  if ($picture[$i]['is_picture'])
+  if ($i=='current' or $i=='next')
   {
-    $picture[$i]['image_path'] = $row['path'];
-    // if we are working on the "current" element, we search if there is a
-    // high quality picture
-    if ($i == 'current')
+    $picture[$i]['image_path'] = get_image_path( $picture[$i] );
+    $picture[$i]['image_url'] = get_image_url( $picture[$i] );
+  }
+
+  if ($i=='current')
+  {
+    if ( $picture[$i]['is_picture'] )
     {
-      if (($row['has_high'] == 'true') and ($user['enabled_high'] == 'true'))
+      if ( $user['enabled_high']=='true' )
       {
-        $url_high=$cat_directory.'/pwg_high/'.$row['file'];
-         $picture[$i]['high_url'] = $picture[$i]['high_path'] = $url_high;
-        if ( ! url_is_remote($picture[$i]['high_path']) )
+        $hi_url=get_high_url($picture[$i]);
+        if ( !empty($hi_url) )
         {
-          $picture[$i]['high_url'] = get_root_url().$picture[$i]['high_path'];
+          $picture[$i]['high_url'] = $hi_url;
+          $picture[$i]['download_url'] = get_download_url('h',$picture[$i]);
         }
       }
     }
-  }
-  else
-  {// not a picture
-    if (isset($row['representative_ext']) and $row['representative_ext']!='')
-    {
-      $picture[$i]['image_path'] =
-        $cat_directory.'/pwg_representative/'
-        .$file_wo_ext.'.'.$row['representative_ext'];
-    }
     else
-    {
-      $picture[$i]['image_path'] =
-        get_themeconf('mime_icon_dir')
-        .strtolower(get_extension($row['file'])).'.png';
-    }
-  }
-
-  $picture[$i]['image_url'] = $picture[$i]['image_path'];
-  if ( ! url_is_remote($picture[$i]['image_path']) )
-  {
-    $picture[$i]['image_url'] = get_root_url().$picture[$i]['image_path'];
-  }
-
-  if (!$picture[$i]['is_picture'])
-  {// if picture is not a file, we need the download link
-    $picture[$i]['download_url'] = $picture[$i]['element_url'];
-  }
-  else
-  {// if picture is a file with high, we put the download link
-    if ( isset($picture[$i]['high_path']) )
-    {
-      $picture[$i]['download_url'] = get_root_url().'action.php?dwn='
-        .$picture[$i]['high_path'];
+    { // not a pic - need download link
+      $picture[$i]['download_url'] = get_download_url('e',$picture[$i]);
     }
   }
 
@@ -382,6 +350,7 @@ while ($row = mysql_fetch_assoc($result))
   }
   else
   {
+    $file_wo_ext = get_filename_wo_extension($row['file']);
     $picture[$i]['name'] = str_replace('_', ' ', $file_wo_ext);
   }
 
@@ -426,10 +395,6 @@ if (!empty($picture['current']['width']))
       @$user['maxheight']
     );
 }
-
-// now give an opportunity to the filters to alter element_url,
-// image_url, high_url and download_url
-$picture = trigger_event('picture_navigation', $picture);
 
 $url_admin =
   get_root_url().'admin.php?page=picture_modify'
