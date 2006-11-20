@@ -473,7 +473,6 @@ $lang['language'] = 'Langue';
 $lang['last %d days'] = '%d derniers jours';
 $lang['last_page'] = 'Dernier';
 $lang['link_info_image'] = 'Modifier les informations';
-$lang['login'] = 'Connexion';
 $lang['logout'] = 'Déconnexion';
 $lang['mail_address'] = $lang['Email address'];
 $lang['mandatory'] = 'obligatoire';

@@ -474,7 +474,6 @@ $lang['language']='Language';
 $lang['last %d days'] = 'last %d days';
 $lang['last_page'] = 'Last';
 $lang['link_info_image'] = 'Modify information';
-$lang['login'] = 'Login';
 $lang['logout'] = 'Logout';
 $lang['mail_address'] = 'E-mail address';
 $lang['mandatory'] = 'obligatory';
