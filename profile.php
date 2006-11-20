@@ -196,7 +196,7 @@ $template->assign_vars(
     'L_TITLE' => $lang['customize_title'],
     'L_REGISTRATION_INFO' => $lang['register_title'],
     'L_PREFERENCES' => $lang['preferences'],
-    'L_USERNAME' => $lang['login'],
+    'L_USERNAME' => $lang['Username'],
     'L_EMAIL' => $lang['mail_address'],
     'L_CURRENT_PASSWORD' => $lang['password'],
     'L_CURRENT_PASSWORD_HINT' => $lang['password_hint'],

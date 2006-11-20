@@ -85,7 +85,7 @@ $template->set_filenames( array('identification'=>'identification.tpl') );
 $template->assign_vars(
   array(
     'L_TITLE' => $lang['identification'],
-    'L_USERNAME' => $lang['login'],
+    'L_USERNAME' => $lang['Username'],
     'L_PASSWORD' => $lang['password'],
     'L_LOGIN' => $lang['submit'],
     'L_GUEST' => $lang['ident_guest_visit'],
