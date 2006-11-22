@@ -29,14 +29,14 @@
     <ul>
       <li>
         <span class="property">
-          <label for="username">{L_USERNAME}</label>
+          <label for="username">{lang:Username}</label>
         </span>
         <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" value="{USERNAME}" />
       </li>
 
       <li>
         <span class="property">
-          <label for="password">{L_PASSWORD}</label>
+          <label for="password">{lang:password}</label>
         </span>
         <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" />
       </li>
@@ -44,7 +44,7 @@
       <!-- BEGIN remember_me -->
       <li>
         <span class="property">
-          <label for="remember_me">{L_REMEMBER_ME}</label>
+          <label for="remember_me">{lang:remember_me}</label>
         </span>
         <input tabindex="3" type="checkbox" name="remember_me" id="remember_me" value="1">
       </li>
@@ -52,7 +52,7 @@
     </ul>
   </fieldset>
 
-  <p><input tabindex="4" type="submit" name="login" value="{L_LOGIN}"></p>
+  <p><input tabindex="4" type="submit" name="login" value="{lang:submit}"></p>
 </form>
 
 <script type="text/javascript"><!--
@@ -60,7 +60,7 @@ document.login_form.username.focus();
 //--></script>
 
   <p>
-    <a href="{U_REGISTER}"><img src="{themeconf:icon_dir}/register.png" class="button" alt=""> {L_REGISTER}</a>
+    <a href="{U_REGISTER}"><img src="{themeconf:icon_dir}/register.png" class="button" alt=""> {lang:Register}</a>
     <a href="{U_LOST_PASSWORD}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt=""> {lang:Forgot your password?}</a>
   </p>
 

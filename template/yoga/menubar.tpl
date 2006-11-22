@@ -73,7 +73,7 @@
     <!-- END hello -->
     <ul>
       <!-- BEGIN register -->
-      <li><a href="{U_REGISTER}" rel="nofollow">{lang:ident_register}</a></li>
+      <li><a href="{U_REGISTER}" rel="nofollow">{lang:Register}</a></li>
       <!-- END register -->
       <!-- BEGIN login -->
       <li><a href="{F_IDENTIFY}" rel="nofollow">{lang:Connection}</a></li>

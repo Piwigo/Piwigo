@@ -85,14 +85,6 @@ $template->set_filenames( array('identification'=>'identification.tpl') );
 
 $template->assign_vars(
   array(
-    'L_TITLE' => $lang['identification'],
-    'L_USERNAME' => $lang['Username'],
-    'L_PASSWORD' => $lang['password'],
-    'L_LOGIN' => $lang['submit'],
-    'L_GUEST' => $lang['ident_guest_visit'],
-    'L_REGISTER' => $lang['ident_register'],
-    'L_FORGET' => $lang['ident_forgotten_password'],
-    'L_REMEMBER_ME'=>$lang['remember_me'],
 
     'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',

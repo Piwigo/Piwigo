@@ -86,14 +86,6 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
 $template->assign_vars(array(
-  'L_TITLE' => $lang['register_title'],
-  'L_GUEST' => $lang['ident_guest_visit'],
-  'L_SUBMIT' => $lang['submit'],
-  'L_USERNAME' => $lang['login'],
-  'L_PASSWORD' => $lang['password'],
-  'L_CONFIRM_PASSWORD' => $lang['reg_confirm'],
-  'L_EMAIL' => $lang['mail_address'],
-
   'U_HOME' => make_index_url(),
 
   'F_ACTION' => 'register.php',
