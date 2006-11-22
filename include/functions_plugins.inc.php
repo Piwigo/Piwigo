@@ -243,16 +243,14 @@ function load_plugin($plugin)
 function load_plugins()
 {
   global $conf;
-  if ($conf['disable_plugins'])
+  if ($conf['enable_plugins'])
   {
-    return;
+    $plugins = get_db_plugins('active');
+    foreach( $plugins as $plugin)
+    {// include main from a function to avoid using same function context
+      load_plugin($plugin);
+    }
+    trigger_action('plugins_loaded');
   }
-
-  $plugins = get_db_plugins('active');
-  foreach( $plugins as $plugin)
-  {// include main from a function to avoid using same function context
-    load_plugin($plugin);
-  }
-  trigger_action('plugins_loaded');
 }
 ?>

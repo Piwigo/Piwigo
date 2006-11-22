@@ -82,7 +82,18 @@ if ( empty($element_info) )
   do_error(404, 'Requested id not found');
 }
 
-// TODO - check permissions
+$query='
+SELECT id FROM '.CATEGORIES_TABLE.'
+  INNER JOIN '.IMAGE_CATEGORY_TABLE.'
+  ON category_id=id
+  WHERE image_id='.$id.'
+  AND category_id NOT IN ('.$user['forbidden_categories'].')
+  LIMIT 1
+;';
+if ( mysql_num_rows(pwg_query($query))<1 )
+{
+  do_error(401, 'Access denied');
+}
 
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 $file='';
@@ -98,6 +109,10 @@ switch ($_GET['part'])
     $file = get_image_path($element_info);
     break;
   case 'h':
+    if ( $user['enabled_high']!='true' )
+    {
+      do_error(401, 'Access denied h');
+    }
     $file = get_high_path($element_info);
     break;
 }
@@ -121,7 +136,28 @@ if (!url_is_remote($file))
   {
     $ctype = mime_content_type($file);
   }
+
+  $gmt_mtime = gmdate('D, d M Y H:i:s', filemtime($file)).' GMT';
+  $http_headers[] = 'Last-Modified: '.$gmt_mtime;
+
+  // following lines would indicate how the client should handle the cache
+  /* $max_age=300;
+  $http_headers[] = 'Expires: '.gmdate('D, d M Y H:i:s', time()+$max_age).' GMT';
+  // HTTP/1.1 only
+  $http_headers[] = 'Cache-Control: private, must-revalidate, max-age='.$max_age;*/
+
+  if ( isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) )
+  {
+    header("HTTP/1.1 304 Not modified ");
+    header("Status: 304 Not modified");
+    foreach ($http_headers as $header)
+    {
+      header( $header );
+    }
+    exit();
+  }
 }
+
 if (!isset($ctype))
 { // give it a guess
   $ctype = guess_mime_type( get_extension($file) );
@@ -135,16 +171,16 @@ if (!isset($_GET['view']))
             .basename($file).'";';
   $http_headers[] = 'Content-Transfer-Encoding: binary';
 }
-$http_headers[] = 'Pragma: public';
-$http_headers[] = 'Expires: 0';
-$http_headers[] = 'Cache-Control: must-revalidate, post-check=0, pre-check=0';
-
+else
+{
+  $http_headers[] = 'Content-Disposition: inline; filename="'
+            .basename($file).'";';
+}
 
 foreach ($http_headers as $header)
 {
   header( $header );
 }
-header("Cache-Control: private",false); //???
 
 // Looking at the safe_mode configuration for execution time
 if (ini_get('safe_mode') == 0)
