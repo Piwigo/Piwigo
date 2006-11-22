@@ -193,6 +193,31 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     }
     $template->assign_block_vars('information',
                                  array('INFORMATION'=>$message));
+    if ( ($comment_action=='validate' and $conf['email_admin_on_comment'])
+      or $conf['email_admin_on_comment_validation'] )
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      $del_url = get_host_url().cookie_path()
+        .'comments.php?delete='.$comm['id'];
+
+      $content =
+        'Author: '.$comm['author']."\n"
+        .'Comment: '.$comm['content']."\n"
+        .'IP: '.$comm['ip']."\n"
+        .'Browser: '.$comm['agent']."\n\n"
+        .'Delete: '.$del_url."\n";
+      if ($comment_action!='validate')
+      {
+        $content .=
+          'Validate: '.get_host_url().cookie_path()
+          .'comments.php?validate='.$comm['id'];
+      }
+      pwg_mail( get_webmaster_mail_address(), '',
+          'PWG comment by '.$comm['author'],
+          $content
+          );
+    }
   }
   else
   {

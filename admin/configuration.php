@@ -46,6 +46,22 @@ else
 {
   $page['section'] = $_GET['section'];
 }
+
+$general_checkboxes = array(
+    'log',
+    'history_admin',
+    'history_guest',
+    'login_history',
+    'email_admin_on_new_user'
+   );
+
+$comments_checkboxes = array(
+    'comments_forall',
+    'comments_validation',
+    'email_admin_on_comment',
+    'email_admin_on_comment_validation',
+  );
+
 //------------------------------ verification and registration of modifications
 if (isset($_POST['submit']) and !is_adviser())
 {
@@ -58,10 +74,10 @@ if (isset($_POST['submit']) and !is_adviser())
       {
         array_push($page['errors'], $lang['conf_gallery_url_error']);
       }
-      $_POST['log'] = empty($_POST['log'])?'false':'true';
-      $_POST['history_admin'] = empty($_POST['history_admin'])?'false':'true';
-      $_POST['history_guest'] = empty($_POST['history_guest'])?'false':'true';
-      $_POST['login_history'] = empty($_POST['login_history'])?'false':'true';
+      foreach( $general_checkboxes as $checkbox)
+      {
+        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
+      }
       break;
     }
     case 'comments' :
@@ -73,6 +89,10 @@ if (isset($_POST['submit']) and !is_adviser())
            or $_POST['nb_comment_page'] > 50)
       {
         array_push($page['errors'], $lang['conf_nb_comment_page_error']);
+      }
+      foreach( $comments_checkboxes as $checkbox)
+      {
+        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
       }
       break;
     }
@@ -160,26 +180,18 @@ $template->assign_vars(
     'F_ACTION'=>$action
     ));
 
+$html_check='checked="checked"';
+
 switch ($page['section'])
 {
   case 'general' :
   {
-    $html_check='checked="checked"';
-
     $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
     $lock_no = ($conf['gallery_locked']=='false')?'checked="checked"':'';
-    $history_users = ($conf['log']=='true')?$html_check:'';
-    $history_admin = ($conf['history_admin']=='true')?$html_check:'';
-    $history_guest = ($conf['history_guest']=='true')?$html_check:'';
-    $login_history = ($conf['login_history']=='true')?$html_check:'';
 
     $template->assign_block_vars(
       'general',
       array(
-        'HISTORY_USERS'=>$history_users,
-        'HISTORY_ADMIN'=>$history_admin,
-        'HISTORY_GUEST'=>$history_guest,
-        'LOGIN_HISTORY'=>$login_history,
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
         ($conf['rate']=='true'?'RATE_YES':'RATE_NO')=>$html_check,
@@ -189,24 +201,35 @@ switch ($page['section'])
         'CONF_PAGE_BANNER' => $conf['page_banner'],
         'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
+
+    foreach( $general_checkboxes as $checkbox)
+    {
+      $template->merge_block_vars(
+          'general',
+          array(
+            strtoupper($checkbox) => ($conf[$checkbox]=='true')?$html_check:''
+            )
+        );
+    }
     break;
   }
   case 'comments' :
   {
-    $all_yes = ($conf['comments_forall']=='true')?'checked="checked"':'';
-    $all_no  = ($conf['comments_forall']=='false')?'checked="checked"':'';
-    $validate_yes = ($conf['comments_validation']=='true')?'checked="checked"':'';
-    $validate_no = ($conf['comments_validation']=='false')?'checked="checked"':'';
-
     $template->assign_block_vars(
       'comments',
       array(
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
-        'COMMENTS_ALL_YES'=>$all_yes,
-        'COMMENTS_ALL_NO'=>$all_no,
-        'VALIDATE_YES'=>$validate_yes,
-        'VALIDATE_NO'=>$validate_no
         ));
+
+    foreach( $comments_checkboxes as $checkbox)
+    {
+      $template->merge_block_vars(
+          'comments',
+          array(
+            strtoupper($checkbox) => ($conf[$checkbox]=='true')?$html_check:''
+            )
+        );
+    }
     break;
   }
   case 'default' :

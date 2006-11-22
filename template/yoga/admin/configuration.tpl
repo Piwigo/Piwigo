@@ -53,11 +53,19 @@
     </li>
 
     <li>
+      <label>
+        <span class="property">{lang:Email admin when a new user registers}</span>
+        <input type="checkbox" name="email_admin_on_new_user" {general.EMAIL_ADMIN_ON_NEW_USER} />
+      </label>
+    </li>
+
+    <br/>
+    <li>
       <fieldset>
         <legend>{lang:History}</legend>
         <ul>
           <li>
-            <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {general.HISTORY_USERS} /></label>
+            <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {general.LOG} /></label>
           </li>
 
           <li>
@@ -84,9 +92,10 @@
 
   <ul>
     <li>
-      <span class="property">{lang:Comments for all}</span>
-      <label><input type="radio" class="radio" name="comments_forall" value="true" {comments.COMMENTS_ALL_YES} />{lang:Yes}</label>
-      <label><input type="radio" class="radio" name="comments_forall" value="false" {comments.COMMENTS_ALL_NO} />{lang:No}</label>
+      <label>
+        <span class="property">{lang:Comments for all}</span>
+        <input type="checkbox" name="comments_forall" {comments.COMMENTS_FORALL} />
+      </label>
     </li>
 
     <li>
@@ -97,10 +106,27 @@
     </li>
 
     <li>
-      <span class="property">{lang:Validation}</span>
-      <label><input type="radio" class="radio" name="comments_validation" value="true" {comments.VALIDATE_YES} />{lang:Yes}</label>
-      <label><input type="radio" class="radio" name="comments_validation" value="false" {comments.VALIDATE_NO} />{lang:No}</label>
+      <label>
+        <span class="property">{lang:Validation}</span>
+        <input type="checkbox" name="comments_validation" {comments.COMMENTS_VALIDATION} />
+      </label>
     </li>
+
+
+    <li>
+      <label>
+        <span class="property">{lang:Email admin when a valid comment is entered}</span>
+        <input type="checkbox" name="email_admin_on_comment" {comments.EMAIL_ADMIN_ON_COMMENT} />
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{lang:Email admin when a comment requires validation}</span>
+        <input type="checkbox" name="email_admin_on_comment_validation" {comments.EMAIL_ADMIN_ON_COMMENT_VALIDATION} />
+      </label>
+    </li>
+
   </ul>
 </fieldset>
 <!-- END comments -->

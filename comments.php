@@ -155,28 +155,30 @@ else
 // +-----------------------------------------------------------------------+
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
-if (is_admin() and !is_adviser() )
-{
-  if (isset($_GET['delete']) and is_numeric($_GET['delete']) )
-  {// comments deletion
-    $query = '
+if (isset($_GET['delete']) and is_numeric($_GET['delete'])
+      and !is_adviser() )
+{// comments deletion
+  check_status(ACCESS_ADMINISTRATOR);
+  $query = '
 DELETE FROM '.COMMENTS_TABLE.'
   WHERE id='.$_GET['delete'].'
 ;';
-    pwg_query($query);
-  }
+  pwg_query($query);
+}
 
-  if (isset($_GET['validate']) and is_numeric($_GET['validate']) )
-  {  // comments validation
-    $query = '
+if (isset($_GET['validate']) and is_numeric($_GET['validate'])
+      and !is_adviser() )
+{  // comments validation
+  check_status(ACCESS_ADMINISTRATOR);
+  $query = '
 UPDATE '.COMMENTS_TABLE.'
   SET validated = \'true\'
-    , validation_date = NOW()
+  , validation_date = NOW()
   WHERE id='.$_GET['validate'].'
 ;';
-    pwg_query($query);
-  }
+  pwg_query($query);
 }
+
 // +-----------------------------------------------------------------------+
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+

@@ -515,9 +515,6 @@ $conf['nbm_max_treatment_timeout_percent'] = 0.8;
 // nbm_treatment_timeout_default is used by default
 $conf['nbm_treatment_timeout_default'] = 20;
 
-// Send an email to the webmaster when a new user registers
-$conf['email_admin_on_new_user']=false;
-
 // +-----------------------------------------------------------------------+
 // | Set default admin layout                                              |
 // +-----------------------------------------------------------------------+
