@@ -232,8 +232,6 @@ SELECT DISTINCT(id)
     $items = array_from_query($query, 'id');
   }
 
-  $search = get_search_array($search_id);
-
   if (isset($search['fields']['tags']))
   {
     $tag_items = get_image_ids_for_tags(
