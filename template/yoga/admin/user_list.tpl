@@ -9,12 +9,12 @@
   <fieldset>
     <legend>{lang:Add a user}</legend>
     <label>{lang:Username} <input type="text" name="login" maxlength="50" size="20" /></label>
-    <label>{L_PASSWORD} <input type="text" name="password" /></label>
-    <input type="submit" name="submit_add" value="{L_SUBMIT}" {TAG_INPUT_ENABLED} />
+    <label>{lang:Password} <input type="text" name="password" /></label>
+    <input type="submit" name="submit_add" value="{lang:submit}" {TAG_INPUT_ENABLED} />
   </fieldset>
 </form>
 
-<form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}"> 
+<form class="filter" method="get" name="filter" action="{F_FILTER_ACTION}">
 <fieldset>
   <legend>{lang:Filter}</legend>
   <input type="hidden" name="page" value="user_list" />
@@ -57,7 +57,7 @@
   </select>
   </label>
 
-  <input type="submit" name="submit_filter" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}/>
+  <input type="submit" name="submit_filter" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
 
 </fieldset>
 
@@ -70,7 +70,7 @@
     <th>&nbsp;</th>
     <th>{lang:Username}</th>
     <th>{L_STATUS}</th>
-    <th>{L_EMAIL}</th>
+    <th>{lang:Email address}</th>
     <th>{lang:Groups}</th>
     <th>{L_PROPERTIES}</th>
     <th>{L_ACTIONS}</th>
@@ -122,8 +122,8 @@
       <td>
         <label><input type="radio" name="adviser" value="leave" checked="checked" /> {lang:leave}</label>
         / {lang:set to}
-        <label><input type="radio" name="adviser" value="true"  {ADVISER_YES} />{L_YES}</label>
-        <label><input type="radio" name="adviser" value="false" {ADVISER_NO}  />{L_NO}</label>
+        <label><input type="radio" name="adviser" value="true"  {ADVISER_YES} />{lang:yes}</label>
+        <label><input type="radio" name="adviser" value="false" {ADVISER_NO}  />{lang:no}</label>
       </td>
     </tr>
     <!-- END adviser -->
@@ -174,8 +174,8 @@
       <td>
         <label><input type="radio" name="enabled_high" value="leave" checked="checked" /> {lang:leave}</label>
         / {lang:set to}
-        <label><input type="radio" name="enabled_high" value="true"  {ENABLED_HIGH_YES} />{L_YES}</label>
-        <label><input type="radio" name="enabled_high" value="false" {ENABLED_HIGH_NO}  />{L_NO}</label>
+        <label><input type="radio" name="enabled_high" value="true"  {ENABLED_HIGH_YES} />{lang:yes}</label>
+        <label><input type="radio" name="enabled_high" value="false" {ENABLED_HIGH_NO}  />{lang:no}</label>
       </td>
     </tr>
 
@@ -223,7 +223,7 @@
   </tr>
 
   <tr>
-    <td>{L_LANGUAGE}</td>
+    <td>{lang:language}</td>
     <td>
       <label><input type="radio" name="language_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="language_action" value="set" id="language_action_set" /> {lang:set to}</label>
@@ -250,8 +250,8 @@
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked" /> {lang:leave}</label>
       / {lang:set to}
-      <label><input type="radio" name="expand" value="true"  {EXPAND_YES} />{L_YES}</label>
-      <label><input type="radio" name="expand" value="false" {EXPAND_NO}  />{L_NO}</label>
+      <label><input type="radio" name="expand" value="true"  {EXPAND_YES} />{lang:yes}</label>
+      <label><input type="radio" name="expand" value="false" {EXPAND_NO}  />{lang:no}</label>
     </td>
   </tr>
 
@@ -260,8 +260,8 @@
     <td>
       <label><input type="radio" name="show_nb_comments" value="leave" checked="checked" /> {lang:leave}</label>
       / {lang:set to}
-      <label><input type="radio" name="show_nb_comments" value="true" {SHOW_NB_COMMENTS_YES} />{L_YES}</label>
-      <label><input type="radio" name="show_nb_comments" value="false" {SHOW_NB_COMMENTS_NO} />{L_NO}</label>
+      <label><input type="radio" name="show_nb_comments" value="true" {SHOW_NB_COMMENTS_YES} />{lang:yes}</label>
+      <label><input type="radio" name="show_nb_comments" value="false" {SHOW_NB_COMMENTS_NO} />{lang:no}</label>
     </td>
   </tr>
 
@@ -300,8 +300,8 @@
 </p>
 
 <p>
-  <input type="submit" value="{L_SUBMIT}" name="pref_submit" {TAG_INPUT_ENABLED} />
-  <input type="reset" value="{L_RESET}" name="pref_reset" />
+  <input type="submit" value="{lang:submit}" name="pref_submit" {TAG_INPUT_ENABLED} />
+  <input type="reset" value="{lang:reset}" name="pref_reset" />
 </p>
 
 </form>

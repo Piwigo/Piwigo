@@ -99,7 +99,7 @@
         </label>
 
         <label>
-          {lang:password}
+          {lang:Password}
           <input type="password" name="password" size="15">
         </label>
 

@@ -36,7 +36,7 @@
 
       <li>
         <span class="property">
-          <label for="password">{lang:password}</label>
+          <label for="password">{lang:Password}</label>
         </span>
         <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" />
       </li>

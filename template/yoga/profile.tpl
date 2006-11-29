@@ -20,7 +20,7 @@
 <form method="post" name="profile" action="{F_ACTION}" id="profile" class="properties">
 
   <fieldset>
-    <legend>{L_REGISTRATION_INFO}</legend>
+    <legend>{lang:register_title}</legend>
     <input type="hidden" name="userid" value="{USERID}" />
     <ul>
       <li>
@@ -35,19 +35,19 @@
       </li>
       <li>
         <span class="property">
-          <label for="password">{L_CURRENT_PASSWORD}</label>
+          <label for="password">{lang:Password}</label>
         </span>
         <input type="password" name="password" id="password" value="">
       </li>
       <li>
         <span class="property">
-          <label for="use_new_pwd">{L_NEW_PASSWORD}</label>
+          <label for="use_new_pwd">{lang:new_password}</label>
         </span>
         <input type="password" name="use_new_pwd" id="use_new_pwd" value="">
       </li>
       <li>
         <span class="property">
-          <label for="passwordConf">{L_CONFIRM_PASSWORD}</label>
+          <label for="passwordConf">{lang:Confirm Password}</label>
         </span>
         <input type="password" name="passwordConf" id="passwordConf" value="">
       </li>
@@ -55,24 +55,24 @@
   </fieldset>
 
   <fieldset>
-    <legend>{L_PREFERENCES}</legend>
+    <legend>{lang:preferences}</legend>
 
     <ul>
       <li>
         <span class="property">
-          <label for="nb_image_line">{L_NB_IMAGE_LINE}</label>
+          <label for="nb_image_line">{lang:nb_image_per_row}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{NB_IMAGE_LINE}">
       </li>
       <li>
         <span class="property">
-          <label for="nb_line_page">{L_NB_ROW_PAGE}</label>
+          <label for="nb_line_page">{lang:nb_row_per_page}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{NB_ROW_PAGE}" >
       </li>
       <li>
         <span class="property">
-          <label for="template">{L_STYLE_SELECT}</label>
+          <label for="template">{lang:theme}</label>
         </span>
         <select name="template" id="template">
           <!-- BEGIN template_option -->
@@ -82,7 +82,7 @@
       </li>
       <li>
         <span class="property">
-          <label for="language">{L_LANG_SELECT}</label>
+          <label for="language">{lang:language}</label>
         </span>
         <select name="language" id="language">
           <!-- BEGIN language_option -->
@@ -92,29 +92,29 @@
       </li>
       <li>
         <span class="property">
-          <label for="recent_period">{L_RECENT_PERIOD}</label>
+          <label for="recent_period">{lang:recent_period}</label>
         </span>
         <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{RECENT_PERIOD}">
       </li>
       <li>
-        <span class="property">{L_EXPAND_TREE}</span>
-        <label><input type="radio" name="expand" value="true" {EXPAND_TREE_YES}> {L_YES}</label>
-        <label><input type="radio" name="expand" value="false" {EXPAND_TREE_NO}> {L_NO}</label>
+        <span class="property">{lang:auto_expand}</span>
+        <label><input type="radio" name="expand" value="true" {EXPAND_TREE_YES}> {lang:yes}</label>
+        <label><input type="radio" name="expand" value="false" {EXPAND_TREE_NO}> {lang:no}</label>
       </li>
       <li>
-        <span class="property">{L_NB_COMMENTS}</span>
-        <label><input type="radio" name="show_nb_comments" value="true" {NB_COMMENTS_YES}> {L_YES}</label>
-        <label><input type="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO}> {L_NO}</label>
+        <span class="property">{lang:show_nb_comments}</span>
+        <label><input type="radio" name="show_nb_comments" value="true" {NB_COMMENTS_YES}> {lang:yes}</label>
+        <label><input type="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO}> {lang:no}</label>
       </li>
       <li>
         <span class="property">
-          <label for="maxwidth">{L_MAXWIDTH}</label>
+          <label for="maxwidth">{lang:maxwidth}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{MAXWIDTH}">
       </li>
       <li>
         <span class="property">
-          <label for="maxheight">{L_MAXHEIGHT}</label>
+          <label for="maxheight">{lang:maxheight}</label>
         </span>
         <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{MAXHEIGHT}">
       </li>
@@ -122,8 +122,8 @@
   </fieldset>
 
   <p class="bottomButtons">
-    <input type="submit" name="validate" value="{L_SUBMIT}">
-    <input type="reset" name="reset" value="{L_RESET}" class="reset">
+    <input type="submit" name="validate" value="{lang:submit}">
+    <input type="reset" name="reset" value="{lang:reset}" class="reset">
   </p>
 
 </form>

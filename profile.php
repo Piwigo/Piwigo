@@ -63,7 +63,7 @@ if (isset($_POST['validate']))
   {
     array_push($errors, $lang['nb_line_page_error']);
   }
-  
+
   if ($_POST['maxwidth'] != ''
       and (!preg_match($int_pattern, $_POST['maxwidth'])
            or $_POST['maxwidth'] < 50))
@@ -88,7 +88,7 @@ if (isset($_POST['validate']))
   {
     array_push($errors, $mail_error);
   }
-    
+
   if (!empty($_POST['use_new_pwd']))
   {
     // password must be the same as its confirmation
@@ -97,7 +97,7 @@ if (isset($_POST['validate']))
       array_push($errors,
                  l10n('New password confirmation does not correspond'));
     }
-    
+
     // changing password requires old password
     $query = '
 SELECT '.$conf['user_fields']['password'].' AS password
@@ -105,18 +105,18 @@ SELECT '.$conf['user_fields']['password'].' AS password
   WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
 ;';
     list($current_password) = mysql_fetch_row(pwg_query($query));
-    
+
     if ($conf['pass_convert']($_POST['password']) != $current_password)
     {
       array_push($errors, l10n('Current password is wrong'));
     }
   }
-  
+
   if (count($errors) == 0)
   {
     // mass_updates function
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    
+
     // update common user informations
     $fields = array($conf['user_fields']['email']);
 
@@ -136,16 +136,16 @@ SELECT '.$conf['user_fields']['password'].' AS password
                  array('primary' => array($conf['user_fields']['id']),
                        'update' => $fields),
                  array($data));
-    
+
     // update user "additional" informations (specific to PhpWebGallery)
     $fields = array(
       'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
       'expand', 'show_nb_comments', 'recent_period', 'template'
       );
-    
+
     $data = array();
     $data['user_id'] = $_POST['userid'];
-    
+
     foreach ($fields as $field)
     {
       if (isset($_POST[$field]))
@@ -156,7 +156,7 @@ SELECT '.$conf['user_fields']['password'].' AS password
     mass_updates(USER_INFOS_TABLE,
                  array('primary' => array('user_id'), 'update' => $fields),
                  array($data));
-    
+
     // redirection
     redirect(make_index_url());
   }
@@ -175,10 +175,10 @@ $url_action = PHPWG_ROOT_PATH.'profile.php';
 $template->set_filenames(array('profile_body'=>'profile.tpl'));
 
 $expand = ($userdata['expand'] == 'true') ? 'EXPAND_TREE_YES':'EXPAND_TREE_NO';
-  
+
 $nb_comments =
 ($userdata['show_nb_comments'] == 'true') ? 'NB_COMMENTS_YES':'NB_COMMENTS_NO';
-  
+
 $template->assign_vars(
   array(
     'USERNAME'=>$userdata['username'],
@@ -189,39 +189,12 @@ $template->assign_vars(
     'RECENT_PERIOD'=>$userdata['recent_period'],
     'MAXWIDTH'=>@$userdata['maxwidth'],
     'MAXHEIGHT'=>@$userdata['maxheight'],
-    
+
     $expand=>'checked="checked"',
     $nb_comments=>'checked="checked"',
-    
-    'L_TITLE' => $lang['customize_title'],
-    'L_REGISTRATION_INFO' => $lang['register_title'],
-    'L_PREFERENCES' => $lang['preferences'],
-    'L_USERNAME' => $lang['Username'],
-    'L_EMAIL' => $lang['mail_address'],
-    'L_CURRENT_PASSWORD' => $lang['password'],
-    'L_CURRENT_PASSWORD_HINT' => $lang['password_hint'],
-    'L_NEW_PASSWORD' =>  $lang['new_password'],
-    'L_NEW_PASSWORD_HINT' => $lang['new_password_hint'],
-    'L_CONFIRM_PASSWORD' =>  $lang['reg_confirm'],
-    'L_CONFIRM_PASSWORD_HINT' => $lang['confirm_password_hint'],
-    'L_LANG_SELECT'=>$lang['language'],
-    'L_NB_IMAGE_LINE'=>$lang['nb_image_per_row'],
-    'L_NB_ROW_PAGE'=>$lang['nb_row_per_page'],
-    'L_STYLE_SELECT'=>$lang['theme'],
-    'L_RECENT_PERIOD'=>$lang['recent_period'],
-    'L_EXPAND_TREE'=>$lang['auto_expand'],
-    'L_NB_COMMENTS'=>$lang['show_nb_comments'],
-    'L_MAXWIDTH'=>$lang['maxwidth'],
-    'L_MAXHEIGHT'=>$lang['maxheight'],
-    'L_YES'=>$lang['yes'],
-    'L_NO'=>$lang['no'],
-    'L_SUBMIT'=>$lang['submit'],
-    'L_RESET'=>$lang['reset'],
-    'L_RETURN' =>  $lang['home'],
-    'L_RETURN_HINT' =>  $lang['home_hint'],
 
     'U_RETURN' => make_index_url(),
-    
+
     'F_ACTION'=>$url_action,
     ));
 
@@ -241,7 +214,7 @@ foreach (get_pwg_themes() as $pwg_template)
   {
     $selected = '';
   }
-  
+
   $template->assign_block_vars(
     $blockname,
     array(
@@ -267,7 +240,7 @@ foreach (get_languages() as $language_code => $language_name)
   {
     $selected = '';
   }
-  
+
   $template->assign_block_vars(
     $blockname,
     array(

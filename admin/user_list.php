@@ -46,10 +46,10 @@ function get_filtered_user_list()
   global $conf, $page;
 
   $users = array();
-  
+
   // filter
   $filter = array();
-  
+
   if (isset($_GET['username']) and !empty($_GET['username']))
   {
     $username = str_replace('*', '%', $_GET['username']);
@@ -83,7 +83,7 @@ function get_filtered_user_list()
   {
     $order_by = $_GET['order_by'];
   }
-  
+
   $direction = 'ASC';
   if (isset($_GET['direction'])
       and in_array($_GET['direction'], array_keys($page['direction_items'])))
@@ -140,7 +140,7 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
     $user_ids[$i] = $user['id'];
   }
   $user_nums = array_flip($user_ids);
-  
+
   if (count($user_ids) > 0)
   {
     $query = '
@@ -157,7 +157,7 @@ SELECT user_id, group_id
         );
     }
   }
-    
+
   return $users;
 }
 
@@ -220,7 +220,7 @@ $page['filtered_users'] = get_filtered_user_list();
 if (isset($_POST['delete']) or isset($_POST['pref_submit']))
 {
   $collection = array();
-  
+
   switch ($_POST['target'])
   {
     case 'all' :
@@ -272,7 +272,7 @@ if (isset($_POST['delete']) and count($collection) > 0)
         $page['infos'],
         sprintf(
           l10n('%d users deleted'),
-          count($collection)  
+          count($collection)
           )
         );
       foreach ($page['filtered_users'] as $filter_key => $filter_user)
@@ -299,16 +299,16 @@ if (isset($_POST['pref_submit']) and count($collection) > 0)
   if (-1 != $_POST['associate'])
   {
     $datas = array();
-    
+
     $query = '
 SELECT user_id
   FROM '.USER_GROUP_TABLE.'
   WHERE group_id = '.$_POST['associate'].'
 ;';
     $associated = array_from_query($query, 'user_id');
-    
+
     $associable = array_diff($collection, $associated);
-    
+
     if (count($associable) > 0)
     {
       foreach ($associable as $item)
@@ -317,13 +317,13 @@ SELECT user_id
                    array('group_id'=>$_POST['associate'],
                          'user_id'=>$item));
       }
-        
+
       mass_inserts(USER_GROUP_TABLE,
                    array('group_id', 'user_id'),
                    $datas);
     }
   }
-  
+
   if (-1 != $_POST['dissociate'])
   {
     $query = '
@@ -333,23 +333,23 @@ DELETE FROM '.USER_GROUP_TABLE.'
 ';
     pwg_query($query);
   }
-  
+
   // properties to set for the collection (a user list)
   $datas = array();
   $dbfields = array('primary' => array('user_id'), 'update' => array());
-  
+
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
           'maxheight', 'status', 'enabled_high');
-  
+
   $true_false_fields = array('expand', 'show_nb_comments', 'enabled_high');
   if ($conf['allow_adviser'])
   {
     array_push($formfields, 'adviser');
     array_push($true_false_fields, 'adviser');
   }
-  
+
   foreach ($formfields as $formfield)
   {
     // special for true/false fields
@@ -361,23 +361,23 @@ DELETE FROM '.USER_GROUP_TABLE.'
     {
       $test = $formfield.'_action';
     }
-    
+
     if ($_POST[$test] != 'leave')
     {
       array_push($dbfields['update'], $formfield);
     }
   }
-  
+
   // updating elements is useful only if needed...
   if (count($dbfields['update']) > 0)
   {
     $datas = array();
-    
+
     foreach ($collection as $user_id)
     {
       $data = array();
       $data['user_id'] = $user_id;
-      
+
       // TODO : verify if submited values are semanticaly correct
       foreach ($dbfields['update'] as $dbfield)
       {
@@ -404,7 +404,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
 
       array_push($datas, $data);
     }
-    
+
     mass_updates(USER_INFOS_TABLE, $dbfields, $datas);
   }
 
@@ -457,16 +457,12 @@ $template->assign_vars(
   array(
     'L_AUTH_USER'=>$lang['permuser_only_private'],
     'L_GROUP_ADD_USER' => $lang['group_add_user'],
-    'L_SUBMIT'=>$lang['submit'],
     'L_STATUS'=>$lang['user_status'],
-    'L_PASSWORD' => $lang['password'],
-    'L_EMAIL' => $lang['mail_address'],
     'L_ORDER_BY' => $lang['order_by'],
     'L_ACTIONS' => $lang['actions'],
     'L_PROPERTIES' => $lang['properties'],
     'L_PERMISSIONS' => $lang['permissions'],
     'L_USERS_LIST' => $lang['title_liste_users'],
-    'L_LANGUAGE' => $lang['language'],
     'L_NB_IMAGE_LINE' => $lang['nb_image_per_row'],
     'L_NB_LINE_PAGE' => $lang['nb_row_per_page'],
     'L_TEMPLATE' => $lang['theme'],
@@ -475,15 +471,11 @@ $template->assign_vars(
     'L_SHOW_NB_COMMENTS' => $lang['show_nb_comments'],
     'L_MAXWIDTH' => $lang['maxwidth'],
     'L_MAXHEIGHT' => $lang['maxheight'],
-    'L_YES' => $lang['yes'],
-    'L_NO' => $lang['no'],
-    'L_SUBMIT' => $lang['submit'],
-    'L_RESET' => $lang['reset'],
     'L_DELETE' => $lang['user_delete'],
     'L_DELETE_HINT' => $lang['user_delete_hint'],
 
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
-    
+
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @$_GET['username'],
     'F_FILTER_ACTION' => PHPWG_ROOT_PATH.'admin.php'
@@ -634,7 +626,7 @@ foreach (get_pwg_themes() as $pwg_template)
   {
     $selected = '';
   }
-  
+
   $template->assign_block_vars(
     $blockname,
     array(
@@ -660,7 +652,7 @@ foreach (get_languages() as $language_code => $language_name)
   {
     $selected = '';
   }
-  
+
   $template->assign_block_vars(
     $blockname,
     array(
@@ -721,7 +713,7 @@ foreach ($groups as $group_id => $group_name)
   {
     $selected = '';
   }
-    
+
   $template->assign_block_vars(
     $blockname,
     array(
@@ -752,7 +744,7 @@ foreach ($groups as $group_id => $group_name)
   {
     $selected = '';
   }
-    
+
   $template->assign_block_vars(
     $blockname,
     array(
