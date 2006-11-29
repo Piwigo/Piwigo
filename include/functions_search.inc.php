@@ -286,7 +286,15 @@ if (!function_exists('array_intersect_key')) {
    }
 }
 
-
+/**
+ * returns the LIKE sql clause corresponding to the quick search query $q
+ * and the field $field. example q="john bill", field="file" will return
+ * file LIKE "%john%" OR file LIKE "%bill%". Special characters for MySql
+ * full text search (+,<,>) are omitted.
+ * @param string q
+ * @param string field
+ * @return string
+ */
 function get_qsearch_like_clause($q, $field)
 {
   $tokens = preg_split('/[\s,.;!\?]+/', $q);
@@ -318,7 +326,9 @@ function get_qsearch_like_clause($q, $field)
 
 
 /**
- * returns the search results corresponding to a quick search
+ * returns the search results (array of image ids) corresponding to a
+ * quick/query search. A quick/query search returns many items (search is
+ * not strict), but results are sorted by relevance.
  *
  * @param string q
  * @return array
@@ -328,6 +338,9 @@ function get_quick_search_results($q)
   global $user, $page;
   $search_results = array();
 
+  // first search tag names corresponding to the query $q. we could also search
+  // tags later during the big join, but for the sake of the performance and
+  // because tags have only a simple name we do it separately
   $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
   $by_tag_weights=array();
   if (!empty($q_like_clause))
@@ -338,20 +351,21 @@ SELECT id
   WHERE '.$q_like_clause;
     $tag_ids = array_from_query( $query, 'id');
     if (!empty($tag_ids))
-    {
+    { // we got some tags
       $query = '
 SELECT image_id, COUNT(tag_id) AS q
   FROM '.IMAGE_TAG_TABLE.'
   WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';
       $result = pwg_query($query);
-      while ($row = mysql_fetch_array($result))
-      {
+      while ($row = mysql_fetch_assoc($result))
+      { // weight is important when sorting images by relevance
         $by_tag_weights[(int)$row['image_id']] = $row['q'];
       }
     }
   }
 
+  // prepare the big join on images, comments and categories
   $query = '
 SELECT
   i.id, i.file, CAST( CONCAT_WS(" ",
@@ -376,6 +390,8 @@ GROUP BY i.id';
   $query = 'SELECT id, MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS q FROM ('.$query.') AS Y
 WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
 
+  //also inlcude the file name (but avoid full text which is slower because
+  //the filename in pwg doesn't have spaces so full text is meaningless anyway)
   $q_like_clause = get_qsearch_like_clause($q, 'file' );
   if (! empty($q_like_clause) )
   {
@@ -389,22 +405,23 @@ WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
     $by_weights[(int)$row['id']] = $row['q'] ? $row['q'] : 0;
   }
 
+  // finally merge the results (tags and big join) sorted by "relevance"
   foreach ( $by_weights as $image=>$w )
   {
     $by_tag_weights[$image] = 2*$w+ (isset($by_tag_weights[$image])?$by_tag_weights[$image]:0);
   }
 
+  //at this point, found images might contain images not allowed for the user
   if ( empty($by_tag_weights) or isset($page['super_order_by']) )
   {
-    if (! isset($page['super_order_by']) )
-    {
-      arsort($by_tag_weights, SORT_NUMERIC);
-      $search_results['as_is']=1;
-    }
+    // no aditionnal query here for permissions (will be done by section_init
+    // while sorting items as the user requested it)
     $search_results['items'] = array_keys($by_tag_weights);
   }
   else
   {
+    // before returning the result "as is", make sure the user has the
+    // permissions for every item
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
