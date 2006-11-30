@@ -30,8 +30,26 @@
  *
  */
 
+// the picture is commentable if it belongs at least to one category which
+// is commentable
+$page['show_comments'] = false;
+foreach ($related_categories as $category)
+{
+  if ($category['commentable'] == 'true')
+  {
+    $page['show_comments'] = true;
+  }
+}
+
 if ( isset( $_POST['content'] ) and !empty($_POST['content']) )
 {
+  if (!$page['show_comments'])
+  {
+    header('HTTP/1.1 403 Forbidden');
+    header('Status: 403 Forbidden');
+    die('Hacking attempt!');
+  }
+
   $register_comment = true;
   $author = !empty($_POST['author'])?$_POST['author']:$lang['guest'];
   // if a guest try to use the name of an already existing user, he must be
@@ -105,17 +123,6 @@ if ( isset( $_POST['content'] ) and !empty($_POST['content']) )
         'information',
         array('INFORMATION'=>$lang['comment_anti-flood']));
     }
-  }
-}
-
-// the picture is commentable if it belongs at least to one category which
-// is commentable
-$page['show_comments'] = false;
-foreach ($related_categories as $category)
-{
-  if ($category['commentable'] == 'true')
-  {
-    $page['show_comments'] = true;
   }
 }
 
