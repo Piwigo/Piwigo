@@ -628,6 +628,28 @@ function get_language_filepath($filename)
   return false;
 }
 
+/**
+ * returns the auto login key or false on error
+ * @param int user_id
+*/
+function calculate_auto_login_key($user_id)
+{
+  global $conf;
+  $query = '
+SELECT '.$conf['user_fields']['username'].' AS username
+  , '.$conf['user_fields']['password'].' AS password
+FROM '.USERS_TABLE.'
+WHERE '.$conf['user_fields']['id'].' = '.$user_id;
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    $row = mysql_fetch_assoc($result);
+    $key = sha1( $row['username'].$row['password'] );
+    return $key;
+  }
+  return false;
+}
+
 /*
  * Performs all required actions for user login
  * @param int user_id
@@ -640,44 +662,31 @@ function log_user($user_id, $remember_me)
 
   if ($remember_me)
   {
-    // search for an existing auto_login_key
-    $query = '
-SELECT auto_login_key
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
-;';
-
-    $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-    if (empty($auto_login_key))
+    $key = calculate_auto_login_key($user_id);
+    if ($key!==false)
     {
-      $auto_login_key = base64_encode(md5(uniqid(rand(), true)));
-      $query = '
-UPDATE '.USERS_TABLE.'
-  SET auto_login_key=\''.$auto_login_key.'\'
-  WHERE '.$conf['user_fields']['id'].' = '.$user_id.'
-;';
-      pwg_query($query);
-    }
-    $cookie = array('id' => $user_id, 'key' => $auto_login_key);
-    setcookie($conf['remember_me_name'],
-	      serialize($cookie),
-	      time()+$conf['remember_me_length'],
-	      cookie_path()
+      $cookie = array('id' => (int)$user_id, 'key' => $key);
+      setcookie($conf['remember_me_name'],
+	        serialize($cookie),
+	        time()+$conf['remember_me_length'],
+	        cookie_path()
 	      );
+	}
   }
   else
   { // make sure we clean any remember me ...
     setcookie($conf['remember_me_name'], '', 0, cookie_path());
   }
   if ( session_id()!="" )
-  { // this can happpen when the session is expired and auto_login
+  { // we regenerate the session for security reasons
+    // see http://www.acros.si/papers/session_fixation.pdf
     session_regenerate_id();
   }
   else
   {
     session_start();
   }
-  $_SESSION['pwg_uid'] = $user_id;
+  $_SESSION['pwg_uid'] = (int)$user_id;
 
   $user['id'] = $_SESSION['pwg_uid'];
 }
@@ -691,25 +700,17 @@ function auto_login() {
 
   if ( isset( $_COOKIE[$conf['remember_me_name']] ) )
   {
-    // must remove slash added in include/common.inc.php
     $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
-
-    $query = '
-SELECT auto_login_key
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.$cookie['id'].'
-;';
-
-    $auto_login_key = current(mysql_fetch_assoc(pwg_query($query)));
-    if ($auto_login_key == $cookie['key'])
+    if ($cookie!==false)
     {
-      log_user($cookie['id'], true);
-      return true;
+      $key = calculate_auto_login_key($cookie['id']);
+      if ($key!==false and $key===$cookie['key'])
+      {
+        log_user($cookie['id'], true);
+        return true;
+      }
     }
-    else
-    {
-      setcookie($conf['remember_me_name'], '', 0, cookie_path());
-    }
+    setcookie($conf['remember_me_name'], '', 0, cookie_path());
   }
   return false;
 }
