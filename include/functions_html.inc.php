@@ -24,7 +24,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function get_icon($date)
+function get_icon($date, $is_child_date = false)
 {
   global $page, $user, $conf, $lang;
 
@@ -33,16 +33,16 @@ function get_icon($date)
     $date = 'NULL';
   }
 
-  if (isset($page['get_icon_cache'][$date]))
+  if (isset($page['get_icon_cache'][$is_child_date][$date]))
   {
-    return $page['get_icon_cache'][$date];
+    return $page['get_icon_cache'][$is_child_date][$date];
   }
 
   if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $date, $matches))
   {
     // date can be empty, no icon to display
-    $page['get_icon_cache'][$date] = '';
-    return $page['get_icon_cache'][$date];
+    $page['get_icon_cache'][$is_child_date][$date] = '';
+    return $page['get_icon_cache'][$is_child_date][$date];
   }
 
   list($devnull, $year, $month, $day) = $matches;
@@ -51,8 +51,8 @@ function get_icon($date)
   if ($unixtime === false  // PHP 5.1.0 and above
       or $unixtime === -1) // PHP prior to 5.1.0
   {
-    $page['get_icon_cache'][$date] = '';
-    return $page['get_icon_cache'][$date];
+    $page['get_icon_cache'][$is_child_date][$date] = '';
+    return $page['get_icon_cache'][$is_child_date][$date];
   }
 
   $diff = time() - $unixtime;
@@ -61,7 +61,7 @@ function get_icon($date)
   $title = $lang['recent_image'].'&nbsp;';
   if ( $diff < $user['recent_period'] * $day_in_seconds )
   {
-    $icon_url = get_themeconf('icon_dir').'/recent.png';
+    $icon_url = get_themeconf('icon_dir').'/'.($is_child_date ? 'recent_by_child.png' : 'recent.png');
     $title .= $user['recent_period'];
     $title .=  '&nbsp;'.$lang['days'];
     $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
@@ -70,9 +70,9 @@ function get_icon($date)
     $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
   }
 
-  $page['get_icon_cache'][$date] = $output;
+  $page['get_icon_cache'][$is_child_date][$date] = $output;
 
-  return $page['get_icon_cache'][$date];
+  return $page['get_icon_cache'][$is_child_date][$date];
 }
 
 function create_navigation_bar(
@@ -392,7 +392,8 @@ SELECT id,name
  *
  * HTML code generated uses logical list tags ul and each category is an
  * item li. The paramter given is the category informations as an array,
- * used keys are : id, name, nb_images, date_last
+ * used keys are : id, name, nb_images, max_date_last, is_child_date_last,
+ * count_images, count_categories
  *
  * @param array categories
  * @return string
@@ -453,15 +454,27 @@ function get_html_menu_category($categories)
     }
     $menu.= '>'.$category['name'].'</a>';
 
-    if ($category['nb_images'] > 0)
+    // Count of category is main
+    // if not picture on categorie, test on sub-categories
+    if (($category['nb_images'] > 0) or ($category['count_images'] > 0))
     {
-      $menu.= "\n".'<span class="menuInfoCat"';
-      $menu.= ' title="'.$category['nb_images'];
-      $menu.= ' '.$lang['images_available'].'">';
-      $menu.= '['.$category['nb_images'].']';
+      $menu.= "\n".'<span class="';
+      $menu.= ($category['nb_images'] > 0 ? "menuInfoCat"
+                                          : "menuInfoCatByChild").'"';
+      $menu.= ' title="';
+      $menu.= ' '.get_display_images_count
+                  (
+                    $category['nb_images'],
+                    $category['count_images'],
+                    $category['count_categories'],
+                    false
+                  ).'">';
+      $menu.= '['.($category['nb_images'] > 0 ? $category['nb_images']
+                                              : $category['count_images']).']';
       $menu.= '</span>';
-      $menu.= get_icon($category['date_last']);
     }
+
+    $menu.= get_icon($category['max_date_last'], $category['is_child_date_last']);
   }
 
   $menu.= str_repeat("\n</li></ul>",($level));

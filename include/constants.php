@@ -65,6 +65,7 @@ define('WAITING_TABLE', $prefixeTable.'waiting');
 define('IMAGE_METADATA_TABLE', $prefixeTable.'image_metadata');
 define('RATE_TABLE', $prefixeTable.'rate');
 define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
+define('USER_CACHE_CATEGORIES_TABLE', $prefixeTable.'user_cache_categories');
 define('CADDIE_TABLE', $prefixeTable.'caddie');
 define('UPGRADE_TABLE', $prefixeTable.'upgrade');
 define('SEARCH_TABLE', $prefixeTable.'search');

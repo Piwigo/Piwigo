@@ -52,28 +52,30 @@ function check_restrictions($category_id)
 
 function get_categories_menu()
 {
-  global $page,$user;
-
-  $infos = array('');
+  global $page, $user;
 
   $query = '
-SELECT name,id,date_last,nb_images,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE 1 = 1'; // stupid but permit using AND after it !
+SELECT ';
+  // From CATEGORIES_TABLE
+  $query.= '
+  name, id, nb_images, global_rank,';
+  // From USER_CACHE_CATEGORIES_TABLE
+  $query.= '
+  max_date_last, is_child_date_last, count_images, count_categories';
+
+  // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
+  $query.= '
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'];
   if (!$user['expand'])
   {
     $query.= '
-    AND (id_uppercat is NULL';
+    WHERE (id_uppercat is NULL';
     if (isset($page['category']))
     {
       $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
     }
     $query.= ')';
-  }
-  if ($user['forbidden_categories'] != '')
-  {
-    $query.= '
-    AND id NOT IN ('.$user['forbidden_categories'].')';
   }
   $query.= '
 ;';
@@ -82,12 +84,14 @@ SELECT name,id,date_last,nb_images,global_rank
   $cats = array();
   while ($row = mysql_fetch_array($result))
   {
+    $row['is_child_date_last'] = get_boolean($row['is_child_date_last']);
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
 
   return get_html_menu_category($cats);
 }
+
 
 /**
  * Retrieve informations about a category in the database
@@ -352,4 +356,39 @@ function rank_compare($a, $b)
 
   return ($a['rank'] < $b['rank']) ? -1 : 1;
 }
+
+/**
+ * returns display text for information images of category
+ *
+ * @param array categories
+ * @return string
+ */
+function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_categories, $short_message = true)
+{
+  $display_text = '';
+
+  // Count of category is main
+  // if not picture on categorie, test on sub-categories
+  $count = ($cat_nb_images > 0 ? $cat_nb_images : $cat_count_images);
+
+  if ($count > 0)
+  {
+    $display_text.= sprintf(l10n(($count > 1 ? 'images_available' : 'image_available')), $count);
+
+    if ($cat_nb_images > 0)
+    {
+      if (! $short_message)
+      {
+        $display_text.= ' '.l10n('images_available_cpl');
+      }
+    }
+    else
+    {
+      $display_text.= ' '.sprintf(l10n(($cat_count_categories > 1 ? 'images_available_cats' : 'images_available_cat')), $cat_count_categories);
+    }
+  }
+
+  return $display_text;
+}
+
 ?>

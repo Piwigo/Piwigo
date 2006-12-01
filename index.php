@@ -107,8 +107,6 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
-$icon_recent = get_icon(date('Y-m-d'));
-
 if (!isset($page['chronology_field']))
 {
   $chronology_params =
@@ -163,9 +161,7 @@ include(PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
 $template->assign_vars(
   array(
-    'TITLE' => $template_title,
-    'TOP_NUMBER' => $conf['top_number'],	// still used ?
-    'T_RECENT' => $icon_recent,			// still used ?
+    'TITLE' => $template_title
     )
   );
 

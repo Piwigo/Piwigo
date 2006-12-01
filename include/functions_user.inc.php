@@ -272,6 +272,11 @@ SELECT ui.*, uc.*
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
+      update_user_cache_categorie($userdata['id'], $userdata['forbidden_categories']);
+
+      // Set need update are done
+      $userdata['need_update'] = false;
+
       $query = '
 SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -288,12 +293,15 @@ DELETE FROM '.USER_CACHE_TABLE.'
 
       $query = '
 INSERT INTO '.USER_CACHE_TABLE.'
-  (user_id,need_update,forbidden_categories,nb_total_images)
+  (user_id, need_update, forbidden_categories, nb_total_images)
   VALUES
-  ('.$userdata['id'].',\'false\',\''
+  ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\',\''
   .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].')
 ;';
       pwg_query($query);
+    }
+
+    {
     }
   }
 
@@ -437,6 +445,132 @@ SELECT id
   }
 
   return implode(',', $forbidden_array);
+}
+
+/**
+ * update data of user_cache_categorie
+ *
+ * @param int user_id
+ * @return null
+ */
+function update_user_cache_categorie($user_id, $user_forbidden_categories)
+{
+  function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
+  {
+    $date = '';
+    $count_images = 0;
+    $count_categories = 0;
+    do
+    {
+      $cat_id = array_pop($list_cat_id);
+      if (!is_null($cat_id))
+      {
+        // Count images and categories
+        $cats[$cat_id]['count_images'] += $count_images;
+        $cats[$cat_id]['count_categories'] += $count_categories;
+        $count_images = $cats[$cat_id]['count_images'];
+        $count_categories = $cats[$cat_id]['count_categories'] + 1;
+
+        if ((empty($cats[$cat_id]['max_date_last'])) or ($cats[$cat_id]['max_date_last'] < $date))
+        {
+          $cats[$cat_id]['max_date_last'] = $date;
+          $cats[$cat_id]['is_child_date_last'] = true;
+        }
+        else
+        {
+          $date = $cats[$cat_id]['max_date_last'];
+        }
+        $ref_level = substr_count($cats[$cat_id]['global_rank'], '.') + 1;
+      }
+      else
+      {
+        $ref_level = 0;
+      }
+    } while ($level <= $ref_level);
+
+    // Last cat updating must be added to list for next branch
+    if ($ref_level <> 0)
+    {
+      array_push($list_cat_id, $cat_id);
+    }
+  }
+
+  // delete user cache
+  $query = '
+  delete from '.USER_CACHE_CATEGORIES_TABLE.'
+  where user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
+  $query = '
+    select
+      id cat_id, date_last,
+      nb_images, global_rank
+    from '.CATEGORIES_TABLE;
+  if ($user_forbidden_categories != '')
+  {
+    $query.= '
+    where id not in ('.$user_forbidden_categories.')';
+  }
+  $query.= ';';
+
+  $result = pwg_query($query);
+
+  $cats = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    $cats += array($row['cat_id'] => $row);
+  }
+  usort($cats, 'global_rank_compare');
+
+  $ref_level = 0;
+  $level = 0;
+  $list_cat_id = array();
+
+  foreach ($cats as $id => $category)
+  {
+    // Update field
+    $cats[$id]['user_id'] = $user_id;
+    $cats[$id]['is_child_date_last'] = false;
+    $cats[$id]['max_date_last'] = $cats[$id]['date_last'];
+    $cats[$id]['count_images'] = $cats[$id]['nb_images'];
+    $cats[$id]['count_categories'] = 0;
+
+    // Compute
+    $level = substr_count($category['global_rank'], '.') + 1;
+    if ($level > $ref_level)
+    {
+      array_push($list_cat_id, $id);
+    }
+    else
+    {
+      compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
+      array_push($list_cat_id, $id);
+    }
+    $ref_level = $level;
+  }
+
+  $level = 1;
+  compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
+
+  foreach ($cats as $id => $category)
+  {
+    // Convert field
+    $cats[$id]['is_child_date_last'] = boolean_to_string($cats[$id]['is_child_date_last']);
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+  mass_inserts
+  (
+    USER_CACHE_CATEGORIES_TABLE,
+    array
+    (
+      'user_id', 'cat_id', 
+      'is_child_date_last', 'max_date_last', 
+      'count_images', 'count_categories'
+    ),
+    $cats
+  );
 }
 
 /**

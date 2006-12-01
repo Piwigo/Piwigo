@@ -257,6 +257,13 @@ DELETE FROM '.USER_CACHE_TABLE.'
 ;';
   pwg_query($query);
 
+  // deletion of computed cache data linked to the user
+  $query = '
+DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
+  WHERE user_id = '.$user_id.'
+;';
+  pwg_query($query);
+
   // deletion of phpwebgallery specific informations
   $query = '
 DELETE FROM '.USER_INFOS_TABLE.'
@@ -514,41 +521,44 @@ function get_fs_directories($path, $recursive = true)
  */
 function mass_inserts($table_name, $dbfields, $datas)
 {
-  // inserts all found categories
-  $query = '
-INSERT INTO '.$table_name.'
-  ('.implode(',', $dbfields).')
-   VALUES';
-  foreach ($datas as $insert_id => $insert)
+  if (count($datas) != 0)
   {
-    $query.= '
-  ';
-    if ($insert_id > 0)
+    // inserts all found categories
+    $query = '
+  INSERT INTO '.$table_name.'
+    ('.implode(',', $dbfields).')
+     VALUES';
+    foreach ($datas as $insert_id => $insert)
     {
-      $query.= ',';
-    }
-    $query.= '(';
-    foreach ($dbfields as $field_id => $dbfield)
-    {
-      if ($field_id > 0)
+      $query.= '
+    ';
+      if ($insert_id > 0)
       {
         $query.= ',';
       }
+      $query.= '(';
+      foreach ($dbfields as $field_id => $dbfield)
+      {
+        if ($field_id > 0)
+        {
+          $query.= ',';
+        }
 
-      if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
-      {
-        $query.= 'NULL';
+        if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
+        {
+          $query.= 'NULL';
+        }
+        else
+        {
+          $query.= "'".$insert[$dbfield]."'";
+        }
       }
-      else
-      {
-        $query.= "'".$insert[$dbfield]."'";
-      }
+      $query.=')';
     }
-    $query.=')';
-  }
-  $query.= '
+    $query.= '
 ;';
-  pwg_query($query);
+    pwg_query($query);
+  }
 }
 
 /**
@@ -561,119 +571,122 @@ INSERT INTO '.$table_name.'
  */
 function mass_updates($tablename, $dbfields, $datas)
 {
-  // depending on the MySQL version, we use the multi table update or N
-  // update queries
-  $query = 'SELECT VERSION() AS version;';
-  list($mysql_version) = mysql_fetch_array(pwg_query($query));
-  if (count($datas) < 10 or version_compare($mysql_version, '4.0.4') < 0)
+  if (count($datas) != 0)
   {
-    // MySQL is prior to version 4.0.4, multi table update feature is not
-    // available
-    foreach ($datas as $data)
+    // depending on the MySQL version, we use the multi table update or N
+    // update queries
+    $query = 'SELECT VERSION() AS version;';
+    list($mysql_version) = mysql_fetch_array(pwg_query($query));
+    if (count($datas) < 10 or version_compare($mysql_version, '4.0.4') < 0)
     {
+      // MySQL is prior to version 4.0.4, multi table update feature is not
+      // available
+      foreach ($datas as $data)
+      {
+        $query = '
+  UPDATE '.$tablename.'
+    SET ';
+        $is_first = true;
+        foreach ($dbfields['update'] as $num => $key)
+        {
+          if (!$is_first)
+          {
+            $query.= ",\n      ";
+          }
+          $query.= $key.' = ';
+          if (isset($data[$key]) and $data[$key] != '')
+          {
+            $query.= '\''.$data[$key].'\'';
+          }
+          else
+          {
+            $query.= 'NULL';
+          }
+          $is_first = false;
+        }
+        $query.= '
+    WHERE ';
+        foreach ($dbfields['primary'] as $num => $key)
+        {
+          if ($num > 1)
+          {
+            $query.= ' AND ';
+          }
+          $query.= $key.' = \''.$data[$key].'\'';
+        }
+        $query.= '
+  ;';
+        pwg_query($query);
+      }
+    }
+    else
+    {
+      // creation of the temporary table
       $query = '
-UPDATE '.$tablename.'
-  SET ';
-      $is_first = true;
-      foreach ($dbfields['update'] as $num => $key)
+  SHOW FULL COLUMNS FROM '.$tablename.'
+;';
+      $result = pwg_query($query);
+      $columns = array();
+      $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
+      while ($row = mysql_fetch_array($result))
       {
-        if (!$is_first)
+        if (in_array($row['Field'], $all_fields))
         {
-          $query.= ",\n      ";
+          $column = $row['Field'];
+          $column.= ' '.$row['Type'];
+          if (!isset($row['Null']) or $row['Null'] == '')
+          {
+            $column.= ' NOT NULL';
+          }
+          if (isset($row['Default']))
+          {
+            $column.= " default '".$row['Default']."'";
+          }
+          if (isset($row['Collation']) and $row['Collation'] != 'NULL')
+          {
+            $column.= " collate '".$row['Collation']."'";
+          }
+          array_push($columns, $column);
         }
-        $query.= $key.' = ';
-        if (isset($data[$key]) and $data[$key] != '')
-        {
-          $query.= '\''.$data[$key].'\'';
-        }
-        else
-        {
-          $query.= 'NULL';
-        }
-        $is_first = false;
       }
-      $query.= '
-  WHERE ';
-      foreach ($dbfields['primary'] as $num => $key)
-      {
-        if ($num > 1)
-        {
-          $query.= ' AND ';
-        }
-        $query.= $key.' = \''.$data[$key].'\'';
-      }
-      $query.= '
+
+      $temporary_tablename = $tablename.'_'.micro_seconds();
+
+      $query = '
+  CREATE TABLE '.$temporary_tablename.'
+  (
+  '.implode(",\n", $columns).',
+  PRIMARY KEY ('.implode(',', $dbfields['primary']).')
+  )
+;';
+      pwg_query($query);
+      mass_inserts($temporary_tablename, $all_fields, $datas);
+      // update of images table by joining with temporary table
+      $query = '
+  UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
+    SET '.
+        implode(
+          "\n    , ",
+          array_map(
+            create_function('$s', 'return "t1.$s = t2.$s";'),
+            $dbfields['update']
+            )
+          ).'
+    WHERE '.
+        implode(
+          "\n    AND ",
+          array_map(
+            create_function('$s', 'return "t1.$s = t2.$s";'),
+            $dbfields['primary']
+            )
+          ).'
+  ;';
+      pwg_query($query);
+      $query = '
+  DROP TABLE '.$temporary_tablename.'
 ;';
       pwg_query($query);
     }
-  }
-  else
-  {
-    // creation of the temporary table
-    $query = '
-SHOW FULL COLUMNS FROM '.$tablename.'
-;';
-    $result = pwg_query($query);
-    $columns = array();
-    $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
-    while ($row = mysql_fetch_array($result))
-    {
-      if (in_array($row['Field'], $all_fields))
-      {
-        $column = $row['Field'];
-        $column.= ' '.$row['Type'];
-        if (!isset($row['Null']) or $row['Null'] == '')
-        {
-          $column.= ' NOT NULL';
-        }
-        if (isset($row['Default']))
-        {
-          $column.= " default '".$row['Default']."'";
-        }
-        if (isset($row['Collation']) and $row['Collation'] != 'NULL')
-        {
-          $column.= " collate '".$row['Collation']."'";
-        }
-        array_push($columns, $column);
-      }
-    }
-
-    $temporary_tablename = $tablename.'_'.micro_seconds();
-
-    $query = '
-CREATE TABLE '.$temporary_tablename.'
-(
-'.implode(",\n", $columns).',
-PRIMARY KEY ('.implode(',', $dbfields['primary']).')
-)
-;';
-    pwg_query($query);
-    mass_inserts($temporary_tablename, $all_fields, $datas);
-    // update of images table by joining with temporary table
-    $query = '
-UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
-  SET '.
-      implode(
-        "\n    , ",
-        array_map(
-          create_function('$s', 'return "t1.$s = t2.$s";'),
-          $dbfields['update']
-          )
-        ).'
-  WHERE '.
-      implode(
-        "\n    AND ",
-        array_map(
-          create_function('$s', 'return "t1.$s = t2.$s";'),
-          $dbfields['primary']
-          )
-        ).'
-;';
-    pwg_query($query);
-    $query = '
-DROP TABLE '.$temporary_tablename.'
-;';
-    pwg_query($query);
   }
 }
 
@@ -1159,6 +1172,7 @@ SELECT user_id
     USER_INFOS_TABLE,
     USER_ACCESS_TABLE,
     USER_CACHE_TABLE,
+    USER_CACHE_CATEGORIES_TABLE,
     USER_GROUP_TABLE
     );
 

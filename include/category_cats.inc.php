@@ -33,22 +33,28 @@
 
 if ($page['section']=='recent_cats')
 {
+  // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
-SELECT id,name,date_last,representative_picture_id,comment,nb_images,uppercats
-  FROM '.CATEGORIES_TABLE.'
+SELECT
+  id,name, representative_picture_id, comment, nb_images, uppercats,
+  max_date_last, is_child_date_last, count_images, count_categories
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
   WHERE date_last > SUBDATE(
     CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
-  )
-  AND id NOT IN ('.$user['forbidden_categories'].')';
+  );';
 }
 else
 {
+  // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
-SELECT id,name,date_last,representative_picture_id,comment,nb_images
-  FROM '.CATEGORIES_TABLE.'
+SELECT
+  id,name, representative_picture_id, comment, nb_images,
+  max_date_last, is_child_date_last, count_images, count_categories
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
   (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
-    AND id NOT IN ('.$user['forbidden_categories'].')
   ORDER BY rank
 ;';
 }
@@ -59,6 +65,8 @@ $image_ids = array();
 
 while ($row = mysql_fetch_assoc($result))
 {
+  $row['is_child_date_last'] = get_boolean($row['is_child_date_last']);
+
   if (isset($row['representative_picture_id'])
       and is_numeric($row['representative_picture_id']))
   { // if a representative picture is set, it has priority
@@ -145,7 +153,7 @@ if (count($categories) > 0)
       else
       {
         $name = $category['name'];
-        $icon_ts = get_icon(@$category['date_last']);
+        $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
       }
 
       $template->assign_block_vars(
@@ -162,7 +170,12 @@ if (count($categories) > 0)
               'cat_name' => $category['name'],
               )
             ),
-          'CAPTION_NB_IMAGES' => (($category['nb_images'] == 0) ? '' : sprintf("%d ".l10n('pictures'), $category['nb_images'])),
+          'CAPTION_NB_IMAGES' => get_display_images_count
+                                  (
+                                    $category['nb_images'],
+                                    $category['count_images'],
+                                    $category['count_categories']
+                                  ),
           'DESCRIPTION' => @$comment,
           'NAME'  => $name,
           )
@@ -213,7 +226,7 @@ if (count($categories) > 0)
         $template->merge_block_vars(
           'thumbnails.line.thumbnail',
           array(
-            'IMAGE_TS'    => get_icon(@$category['date_last']),
+            'IMAGE_TS'    => get_icon($category['max_date_last'], $category['is_child_date_last']),
            )
          );
       }
