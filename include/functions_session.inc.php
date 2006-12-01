@@ -81,7 +81,7 @@ if (isset($conf['session_save_handler'])
 // cookie_path will return : "/meeting/gallery"
 function cookie_path()
 {
-  if ( isset($_SERVER['REDIRECT_SCRIPT_NAME']) and 
+  if ( isset($_SERVER['REDIRECT_SCRIPT_NAME']) and
        !empty($_SERVER['REDIRECT_SCRIPT_NAME']) )
   {
     $scr = $_SERVER['REDIRECT_SCRIPT_NAME'];
@@ -221,4 +221,49 @@ DELETE
   pwg_query($query);
   return true;
 }
+
+
+/**
+ * persistently stores a variable for the current session
+ * currently we use standard php sessions but it might change
+ * @return boolean true on success
+ * @see pwg_get_session_var, pwg_unset_session_var
+ */
+function pwg_set_session_var($var, $value)
+{
+  if ( !isset($_SESSION) )
+    return false;
+  $_SESSION['pwg_'.$var] = $value;
+  return true;
+}
+
+/**
+ * retrieves the value of a persistent variable for the current session
+ * currently we use standard php sessions but it might change
+ * @return mixed
+ * @see pwg_set_session_var, pwg_unset_session_var
+ */
+function pwg_get_session_var($var, $default = null)
+{
+  if (isset( $_SESSION['pwg_'.$var] ) )
+  {
+    return $_SESSION['pwg_'.$var];
+  }
+  return $default;
+}
+
+/**
+ * deletes a persistent variable for the current session
+ * currently we use standard php sessions but it might change
+ * @return boolean true on success
+ * @see pwg_set_session_var, pwg_get_session_var
+ */
+function pwg_unset_session_var($var)
+{
+  if ( !isset($_SESSION) )
+    return false;
+  unset( $_SESSION['pwg_'.$var] );
+  return true;
+}
+
 ?>

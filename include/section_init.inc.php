@@ -297,15 +297,13 @@ while (isset($tokens[$i]))
 // By default, it is the same as the $user['nb_image_page']
 $page['nb_image_page'] = $user['nb_image_page'];
 
-if (isset($_COOKIE['pwg_image_order'])
-    and is_numeric($_COOKIE['pwg_image_order'])
-    and $_COOKIE['pwg_image_order'] > 0)
+if (pwg_get_session_var('image_order',0) > 0)
 {
   $orders = get_category_preferred_image_orders();
 
   $conf['order_by'] = str_replace(
     'ORDER BY ',
-    'ORDER BY '.$orders[ $_COOKIE['pwg_image_order'] ][1].',',
+    'ORDER BY '.$orders[ pwg_get_session_var('image_order',0) ][1].',',
     $conf['order_by']
     );
   $page['super_order_by'] = true;

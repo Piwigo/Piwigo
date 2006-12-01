@@ -43,19 +43,11 @@ if (isset($_COOKIE[session_name()]))
     setcookie($conf['remember_me_name'], '', 0, cookie_path());
     redirect(make_index_url());
   }
-  elseif (empty($_SESSION['pwg_uid']))
-  { // timeout
-    setcookie(session_name(),'',0,
-        ini_get('session.cookie_path'),
-        ini_get('session.cookie_domain')
-      );
-  }
-  else
+  elseif (!empty($_SESSION['pwg_uid']))
   {
     $user['id'] = $_SESSION['pwg_uid'];
   }
 }
-
 
 // Now check the auto-login
 if ( $user['id']==$conf['guest_id'] )
@@ -63,6 +55,10 @@ if ( $user['id']==$conf['guest_id'] )
   auto_login();
 }
 
+if (session_id()=="")
+{
+  session_start();
+}
 
 // using Apache authentication override the above user search
 if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))

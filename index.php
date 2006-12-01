@@ -40,12 +40,14 @@ check_status(ACCESS_GUEST);
 //---------------------------------------------- change of image display order
 if (isset($_GET['image_order']))
 {
-  setcookie(
-    'pwg_image_order',
-    $_GET['image_order'] > 0 ? $_GET['image_order'] : '',
-    0, cookie_path()
-    );
-
+  if ( (int)$_GET['image_order'] > 0)
+  {
+    pwg_set_session_var('image_order', (int)$_GET['image_order']);
+  }
+  else
+  {
+    pwg_unset_session_var('image_order');
+  }
   redirect(
     duplicate_index_url(
       array(),        // nothing to redefine
@@ -260,10 +262,7 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
   // image order
   $template->assign_block_vars( 'preferred_image_order', array() );
 
-  $order_idx = isset($_COOKIE['pwg_image_order'])
-    ? $_COOKIE['pwg_image_order']
-    : 0
-    ;
+  $order_idx = pwg_get_session_var( 'image_order', 0 );
 
   $orders = get_category_preferred_image_orders();
   for ($i = 0; $i < count($orders); $i++)
