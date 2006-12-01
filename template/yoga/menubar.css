@@ -47,6 +47,11 @@
   font-weight: normal;
 }
 
+#menubar .menuInfoCatByChild {
+  font-size: 80%;
+  font-weight: italic;
+}
+
 #menubar HR {
     display: block;
     margin: 10px auto;
