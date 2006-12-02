@@ -51,6 +51,13 @@ CREATE TABLE '.USER_CACHE_CATEGORIES_TABLE.' (
 ) TYPE=MyISAM;';
 pwg_query($query);
 
+echo "Update table cache ".USER_CACHE_TABLE;
+$query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET need_update = \'true\'
+;';
+pwg_query($query);
+
 echo
 "\n"
 .'"'.$upgrade_description.'"'.' ended'
