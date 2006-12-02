@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
 <meta name="robots" content="index, follow">
-<meta name="generator" content="PhpWebGallery (aka PWG), see www.phpwebgallery.net" />
+<meta name="generator" content="PhpWebGallery (aka PWG), see www.phpwebgallery.net">
 <!-- BEGIN header_meta -->
 <meta name="author" content="{header_meta.INFO_AUTHOR}">
 <meta name="keywords" content="{header_meta.INFO_TAGS}">
