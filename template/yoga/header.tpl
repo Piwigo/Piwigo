@@ -3,7 +3,31 @@
 <html lang="{LANG}" dir="{DIR}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
+<meta name="robots" content="index, follow">
+<meta name="generator" content="PhpWebGallery (aka PWG), see www.phpwebgallery.net" />
+<!-- BEGIN header_meta -->
+<meta name="author" content="{header_meta.INFO_AUTHOR}">
+<meta name="keywords" content="{header_meta.INFO_TAGS}">
+<meta name="description" content="{header_meta.COMMENT}">
+<!-- END header_meta -->
+<title>{GALLERY_TITLE} :: {PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{pwg_root}template-common/favicon.ico">
+<link rel="start" title="{lang:home}" href="{U_HOME}" >
+<link rel="search" title="{lang:search}" href="{pwg_root}search.php" >
+<!-- BEGIN first -->
+<link rel="first" title="{lang:first_page}" href="{first.U_IMG}" >
+<link rel="up" title="{lang:thumbails}" href="{U_UP}" >
+<!-- END first -->
+<!-- BEGIN previous -->
+<link rel="prev" title="{lang:previous_page}" href="{previous.U_IMG}" >
+<!-- END previous -->
+<!-- BEGIN next -->
+<link rel="next" title="{lang:next_page}" href="{next.U_IMG}" >
+<!-- END next -->
+<!-- BEGIN last -->
+<link rel="last" title="{lang:last_page}" href="{last.U_IMG}" >
+<link rel="up" title="{lang:thumbails}" href="{U_UP}" >
+<!-- END last -->
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/layout.css">
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue
 the "text/nonsense" prevents gecko based browsers to load it -->
@@ -21,7 +45,6 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <!-- BEGIN refresh -->
 <meta http-equiv="refresh" content="{REFRESH_TIME};url={U_REFRESH}">
 <!-- END refresh -->
-<title>{GALLERY_TITLE}:{PAGE_TITLE}</title>
 <script type="text/javascript" src="{pwg_root}template-common/scripts.js"></script>
 <!--[if lt IE 7]>
   <style>

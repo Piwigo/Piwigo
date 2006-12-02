@@ -55,6 +55,11 @@ $template->assign_vars(
       ((is_adviser()) ? 'disabled onclick="return false;"' : '')
     ));
 
+// picture header infos
+if (isset($header_infos))
+{
+  $template->assign_block_vars( 'header_meta', $header_infos);
+}
 // refresh
 if ( isset( $refresh ) and intval($refresh) >= 0
     and isset( $url_link ) and isset( $redirect_msg ) )

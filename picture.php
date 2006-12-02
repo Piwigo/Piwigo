@@ -457,7 +457,6 @@ if ( isset($picture['next']['image_url'])
     )
   );
 }
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('picture'=>'picture.tpl'));
 
 //------------------------------------------------------- navigation management
@@ -590,6 +589,7 @@ if ( is_admin() )
 }
 
 //--------------------------------------------------------- picture information
+$header_infos = array();	//for html header use
 // legend
 if (isset($picture['current']['comment'])
     and !empty($picture['current']['comment']))
@@ -599,6 +599,7 @@ if (isset($picture['current']['comment'])
     array(
       'COMMENT_IMG' => nl2br($picture['current']['comment'])
       ));
+  $header_infos['COMMENT'] = strip_tags($picture['current']['comment']);
 }
 
 $infos = array();
@@ -615,6 +616,7 @@ if (!empty($picture['current']['author']))
 //       '&amp;search=author:'.$picture['current']['author']
 //       .'">'.$picture['current']['author'].'</a>';
     $picture['current']['author'];
+  $header_infos['INFO_AUTHOR'] = $picture['current']['author'];
 }
 else
 {
@@ -702,6 +704,7 @@ $result = pwg_query($query);
 if (mysql_num_rows($result) > 0)
 {
   $tags = array();
+  $tag_names = array();
 
   while ($row = mysql_fetch_array($result))
   {
@@ -720,9 +723,11 @@ if (mysql_num_rows($result) > 0)
         )
       .'">'.$row['name'].'</a>'
       );
+    array_push( $tag_names, $row['name'] );
   }
 
   $infos['INFO_TAGS'] = implode(', ', $tags);
+  $header_infos['INFO_TAGS'] = implode(', ', $tag_names);
 }
 else
 {
@@ -773,6 +778,7 @@ if ($metadata_showable and isset($_GET['metadata']))
 //------------------------------------------------------------ log informations
 pwg_log('picture', $page['title'], $picture['current']['file']);
 
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

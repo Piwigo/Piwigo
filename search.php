@@ -173,7 +173,6 @@ get_month_list('end_month', @$_POST['end_month']);
 //
 $title= $lang['search_title'];
 $page['body_id'] = 'theSearchPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('search'=>'search.tpl') );
 
@@ -237,6 +236,7 @@ if (sizeof($errors) != 0)
 }
 //------------------------------------------------------------ log informations
 pwg_log( 'search', $title );
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
