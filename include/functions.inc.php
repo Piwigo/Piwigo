@@ -215,6 +215,34 @@ function get_dirs($directory)
   return $sub_dirs;
 }
 
+/**
+ * returns thumbnail directory name of input diretoty name
+ * make thumbnail directory is necessary
+ * set error messages on array messages
+ *
+ * @param:
+ *  string $dirname
+ *  arrayy $errors
+ * @return bool false on error else string directory name
+ */
+function mkget_thumbnail_dir($dirname, &$errors)
+{
+  $tndir = $dirname.'/thumbnail';
+  if (!is_dir($tndir))
+  {
+    if (!is_writable($dirname))
+    {
+      array_push($errors,
+                 '['.$dirname.'] : '.l10n('no_write_access'));
+      return false;
+    }
+    umask(0000);
+    mkdir($tndir, 0777);
+  }
+
+  return $tndir;
+}
+
 // The get_picture_size function return an array containing :
 //      - $picture_size[0] : final width
 //      - $picture_size[1] : final height

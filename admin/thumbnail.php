@@ -63,7 +63,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
   {
     unset($extension);
   }
-		
+
   if ( isset( $srcImage ) )
   {
     // width/height
@@ -106,20 +106,12 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
       imagecopyresized( $destImage, $srcImage, 0, 0, 0, 0,
                         $destWidth,$destHeight,$srcWidth,$srcHeight );
     }
-    
-    $tndir = $dirname.'/thumbnail';
-    if (!is_dir($tndir))
+
+    if (($tndir = mkget_thumbnail_dir($dirname, $page['errors'])) == false)
     {
-      if (!is_writable($dirname))
-      {
-        array_push($page['errors'],
-                   '['.$dirname.'] : '.$lang['no_write_access']);
-        return false;
-      }
-      umask(0000);
-      mkdir($tndir, 0777);
+      return false;
     }
-    
+
     $dest_file = $tndir.'/'.$conf['prefix_thumbnail'];
     $dest_file.= get_filename_wo_extension($filename);
     $dest_file.= '.'.$tn_ext;

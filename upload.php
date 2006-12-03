@@ -27,6 +27,13 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
+$username = !empty($_POST['username'])?$_POST['username']:$user['username'];
+$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:@$user['mail_address'];
+$name = !empty($_POST['name'])?$_POST['name']:'';
+$author = !empty($_POST['author'])?$_POST['author']:'';
+$date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';
+$comment = !empty($_POST['comment'])?$_POST['comment']:'';
+
 //------------------------------------------------------------------- functions
 // The validate_upload function checks if the image of the given path is valid.
 // A picture is valid when :
@@ -40,15 +47,15 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 function validate_upload( $temp_name, $my_max_file_size,
                           $image_max_width, $image_max_height )
 {
-  global $conf, $lang;
-		
+  global $conf, $lang, $page, $mail_address;
+
   $result = array();
   $result['error'] = array();
   //echo $_FILES['picture']['name']."<br />".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
   if (!in_array($extension, $conf['picture_ext']))
   {
-    array_push( $result['error'], $lang['upload_advise_filetype'] );
+    array_push( $result['error'], l10n('upload_advise_filetype') );
     return $result;
   }
   if ( !isset( $_FILES['picture'] ) )
@@ -59,7 +66,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   else if ( $_FILES['picture']['size'] > $my_max_file_size * 1024 )
   {
     array_push( $result['error'],
-                $lang['upload_advise_filesize'].$my_max_file_size.' KB' );
+                l10n('upload_advise_filesize').$my_max_file_size.' KB' );
   }
   else
   {
@@ -67,7 +74,7 @@ function validate_upload( $temp_name, $my_max_file_size,
     // upload de la photo sous un nom temporaire
     if ( !move_uploaded_file( $_FILES['picture']['tmp_name'], $temp_name ) )
     {
-      array_push( $result['error'], $lang['upload_cannot_upload'] );
+      array_push( $result['error'], l10n('upload_cannot_upload') );
     }
     else
     {
@@ -77,14 +84,14 @@ function validate_upload( $temp_name, $my_max_file_size,
            and $size[0] > $image_max_width )
       {
         array_push( $result['error'],
-                    $lang['upload_advise_width'].$image_max_width.' px' );
+                    l10n('upload_advise_width').$image_max_width.' px' );
       }
       if ( isset( $image_max_height )
            and $image_max_height != ""
            and $size[1] > $image_max_height )
       {
         array_push( $result['error'],
-                    $lang['upload_advise_height'].$image_max_height.' px' );
+                    l10n('upload_advise_height').$image_max_height.' px' );
       }
       // $size[2] == 1 means GIF
       // $size[2] == 2 means JPG
@@ -95,7 +102,7 @@ function validate_upload( $temp_name, $my_max_file_size,
       case 2 : $result['type'] = 'jpg'; break;
       case 3 : $result['type'] = 'png'; break;
       default :
-        array_push( $result['error'], $lang['upload_advise_filetype'] );  
+        array_push( $result['error'], l10n('upload_advise_filetype') );  
       }
     }
   }
@@ -108,8 +115,15 @@ function validate_upload( $temp_name, $my_max_file_size,
   {
     @chmod( $temp_name, 0644);
   }
+
+  //------------------------------------------------------------ log informations
+  pwg_log('upload', 
+          get_cat_display_name($page['cat_name']),
+          $_FILES['picture']['name'].
+          ' ['.$mail_address.'] '.'['.($result ? 'OK' : 'KO').']');
+
   return $result;
-}	
+}
 
 //-------------------------------------------------- access authorization check
 if (is_numeric($_GET['cat']))
@@ -145,21 +159,21 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   $path = $page['cat_dir'].$_FILES['picture']['name'];
   if ( @is_file( $path ) )
   {
-    array_push( $error, $lang['upload_file_exists'] );
+    array_push( $error, l10n('upload_file_exists') );
   }
   // test de la présence des champs obligatoires
   if ( empty($_FILES['picture']['name']))
   {
-    array_push( $error, $lang['upload_filenotfound'] );
+    array_push( $error, l10n('upload_filenotfound') );
   }
   if ( !ereg( "([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
              $_POST['mail_address'] ) )
   {
-    array_push( $error, $lang['reg_err_mail_address'] );
+    array_push( $error, l10n('reg_err_mail_address') );
   }
   if ( empty($_POST['username']) )
   {
-    array_push( $error, $lang['upload_err_username'] );
+    array_push( $error, l10n('upload_err_username') );
   }
   
   $date_creation = '';
@@ -173,7 +187,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     }
     else
     {
-      array_push( $error, $lang['err_date'] );
+      array_push( $error, l10n('err_date') );
     }
   }
   // creation of the "infos" field :
@@ -188,7 +202,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
   if ( !preg_match( '/^[a-zA-Z0-9-_.]+$/', $_FILES['picture']['name'] ) )
   {
-    array_push( $error, $lang['update_wrong_dirname'] );
+    array_push( $error, l10n('update_wrong_dirname') );
   }
   
   if ( sizeof( $error ) == 0 )
@@ -228,15 +242,19 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $row = mysql_fetch_array( $result );
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
-  $path = $page['cat_dir'].'thumbnail/';
-  $path.= $conf['prefix_thumbnail'].$file.'.'.$extension;
-  $result = validate_upload( $path, $conf['upload_maxfilesize'],
-                             $conf['upload_maxwidth_thumbnail'],
-                             $conf['upload_maxheight_thumbnail']  );
-  for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
+
+  if (($path = mkget_thumbnail_dir($page['cat_dir'], $error)) != false)
   {
-    array_push( $error, $result['error'][$j] );
+    $path.= '/'.$conf['prefix_thumbnail'].$file.'.'.$extension;
+    $result = validate_upload( $path, $conf['upload_maxfilesize'],
+                               $conf['upload_maxwidth_thumbnail'],
+                               $conf['upload_maxheight_thumbnail']  );
+    for ( $j = 0; $j < sizeof( $result['error'] ); $j++ )
+    {
+      array_push( $error, $result['error'][$j] );
+    }
   }
+
   if ( sizeof( $error ) == 0 )
   {
     $query = 'update '.WAITING_TABLE;
@@ -251,7 +269,8 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
 //
 // Start output of page
 //
-$title= $lang['upload_title'];
+$title= l10n('upload_title');
+$page['body_id'] = 'theUploadPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('upload'=>'upload.tpl'));
 
@@ -263,23 +282,18 @@ $u_form.= '&amp;waiting_id='.$page['waiting_id'];
 
 if ( isset( $page['waiting_id'] ) )
 {
-  $advise_title=$lang['upload_advise_thumbnail'].$_FILES['picture']['name'];
+  $advise_title=l10n('upload_advise_thumbnail').$_FILES['picture']['name'];
 }
 else
 {
-  $advise_title = $lang['upload_advise'];
+  $advise_title = l10n('upload_advise');
   $advise_title.= get_cat_display_name($page['cat_name']);
 }
 
-$username = !empty($_POST['username'])?$_POST['username']:$user['username'];
-$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:@$user['mail_address'];
-$name = !empty($_POST['name'])?$_POST['name']:'';
-$author = !empty($_POST['author'])?$_POST['author']:'';
-$date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';
-$comment = !empty($_POST['comment'])?$_POST['comment']:'';
-
 $template->assign_vars(
   array(
+    'U_HOME' => make_index_url(),
+
     'ADVISE_TITLE' => $advise_title,
     'NAME' => $username,
     'EMAIL' => $mail_address,
@@ -287,20 +301,7 @@ $template->assign_vars(
     'AUTHOR_IMG' => $author,
     'DATE_IMG' => $date_creation,
     'COMMENT_IMG' => $comment,
-    
-    'L_TITLE' => $lang['upload_title'],
-    'L_USERNAME' => $lang['upload_username'],
-    'L_EMAIL' =>  $lang['mail_address'], 
-    'L_NAME_IMG' =>  $lang['upload_name'], 
-    'L_SUBMIT' =>  $lang['submit'],
-    'L_AUTHOR' =>  $lang['upload_author'], 
-    'L_CREATION_DATE' =>  $lang['upload_creation_date'], 
-    'L_COMMENT' =>  $lang['comment'],
-    'L_RETURN' =>  $lang['home'],
-    'L_RETURN_HINT' =>  $lang['home_hint'],
-    'L_UPLOAD_DONE' =>  $lang['upload_successful'],
-    'L_MANDATORY' =>  $lang['mandatory'],
-    
+
     'F_ACTION' => $u_form,
 
     'U_RETURN' => make_index_url(array('category' => $page['cat'])),
@@ -323,7 +324,7 @@ if ( sizeof( $error ) != 0 )
 //--------------------------------------------------------------------- advises
   if ( !empty($conf['upload_maxfilesize']) )
   {
-    $content = $lang['upload_advise_filesize'];
+    $content = l10n('upload_advise_filesize');
     $content.= $conf['upload_maxfilesize'].' KB';
     $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
   }
@@ -332,45 +333,46 @@ if ( sizeof( $error ) != 0 )
   {
     if ( $conf['upload_maxwidth_thumbnail'] != '' )
     {
-	  $content = $lang['upload_advise_width'];
+      $content = l10n('upload_advise_width');
       $content.= $conf['upload_maxwidth_thumbnail'].' px';
-	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
     if ( $conf['upload_maxheight_thumbnail'] != '' )
     {
-      $content = $lang['upload_advise_height'];
+      $content = l10n('upload_advise_height');
       $content.= $conf['upload_maxheight_thumbnail'].' px';
-	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
   }
   else
   {
     if ( $conf['upload_maxwidth'] != '' )
     {
-      $content = $lang['upload_advise_width'];
+      $content = l10n('upload_advise_width');
       $content.= $conf['upload_maxwidth'].' px';
-	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
     if ( $conf['upload_maxheight'] != '' )
     {
-      $content = $lang['upload_advise_height'];
+      $content = l10n('upload_advise_height');
       $content.= $conf['upload_maxheight'].' px';
-	  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
     }
   }
-  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$lang['upload_advise_filetype']));
+  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>l10n('upload_advise_filetype')));
   
 //----------------------------------------- optionnal username and mail address
   if ( !isset( $page['waiting_id'] ) )
   {
     $template->assign_block_vars('upload_not_successful.fields',array());
-	$template->assign_block_vars('note',array());
+    $template->assign_block_vars('note',array());
   }
 }
 else
 {
   $template->assign_block_vars('upload_successful',array());
 }
+
 //----------------------------------------------------------- html code display
 $template->parse('upload');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
