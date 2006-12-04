@@ -33,7 +33,9 @@ if (!defined('PHPWG_ROOT_PATH'))
 $upgrade_description = 'Add history_guest and login_history to #config';
 
 $query = '
-INSERT INTO '.PREFIX_TABLE."config (param,value,comment) VALUES ('history_admin','false','keep a history of administrator visits on your website');";
+INSERT INTO '.PREFIX_TABLE."config (param,value,comment) VALUES ('history_admin',".
+((isset($conf['history_admin']) and $conf['history_admin']) ? 'true' : 'false').
+",'keep a history of administrator visits on your website');";
 pwg_query($query);
 
 $query = '
