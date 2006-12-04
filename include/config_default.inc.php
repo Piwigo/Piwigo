@@ -72,12 +72,14 @@ $conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
 $conf['slideshow_period'] = 4;
 
 // file_ext : file extensions (case sensitive) authorized
-$conf['file_ext'] = array('jpg','JPG','png','PNG','gif','GIF','mpg','zip',
+$conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
+                          'png','PNG','gif','GIF','mpg','zip',
                           'avi','mp3','ogg');
 
 // picture_ext : file extensions for picture file, must be a subset of
 // file_ext
-$conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG',
+                             'png','PNG','gif','GIF');
 
 // top_number : number of element to display for "best rated" and "most
 // visited" categories

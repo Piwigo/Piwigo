@@ -51,7 +51,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
   // extension of the picture filename
   $extension = get_extension($filename);
 
-  if ($extension == 'jpg' or $extension == 'JPG')
+  if (in_array($extension, array('jpg', 'JPG', 'jpeg', 'JPEG')))
   {
     $srcImage = @imagecreatefromjpeg($path);
   }

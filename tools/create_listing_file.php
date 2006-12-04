@@ -34,11 +34,13 @@ $conf['prefix_thumbnail'] = 'TN-';
 
 // $conf['file_ext'] lists all extensions (case insensitive) allowed for
 // your PhpWebGallery installation
-$conf['file_ext'] = array('jpg','JPG','png','PNG','gif','GIF','mpg','zip',
+$conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
+                          'png','PNG','gif','GIF','mpg','zip',
                           'avi','mp3','ogg');
 
 // $conf['picture_ext'] must be a subset of $conf['file_ext']
-$conf['picture_ext'] = array('jpg','JPG','png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG',
+                             'png','PNG','gif','GIF');
 
 // $conf['version'] is used to verify the compatibility of the generated
 // listing.xml file and the PhpWebGallery version you're running

@@ -116,7 +116,7 @@ if ($outputFormat == "png")
   header("Content-type: image/png");
   ImagePNG($image);
 }
-else if ($outputFormat == "jpg")
+else if (in_array($outputFormat, array("jpg", "jpeg")))
 {
   header("Content-type: image/jpeg");
   Imagejpeg($image);
