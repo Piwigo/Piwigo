@@ -373,7 +373,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
 
   if ($count > 0)
   {
-    $display_text.= sprintf(l10n(($count > 1 ? 'images_available' : 'image_available')), $count);
+    $display_text.= l10n_dec('image_available', 'images_available', $count);
 
     if ($cat_nb_images > 0)
     {
@@ -384,7 +384,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
     }
     else
     {
-      $display_text.= ' '.sprintf(l10n(($cat_count_categories > 1 ? 'images_available_cats' : 'images_available_cat')), $cat_count_categories);
+      $display_text.= ' '.l10n_dec('images_available_cat', 'images_available_cats', $cat_count_categories);
     }
   }
 

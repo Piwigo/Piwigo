@@ -188,7 +188,7 @@ UPDATE '.USER_FEED_TABLE.'
   pwg_query($query);
 }
 
-// build items for new images/albums
+// build items for last images/albums
 $query = '
 SELECT date_available,
       COUNT(DISTINCT id) nb_images,
@@ -211,7 +211,7 @@ foreach($dates as  $date_detail)
   $date = $date_detail['date_available'];
   $exploded_date = explode_mysqldt($date);
   $item = new FeedItem();
-  $item->title = sprintf(l10n('%d new elements'), $date_detail['nb_images']);
+  $item->title = l10n_dec('%d element added', '%d elements added', $date_detail['nb_images']);
   $item->title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
   $item->link = make_index_url(
         array(
@@ -227,7 +227,7 @@ foreach($dates as  $date_detail)
 
   $item->description .=
         '<li>'
-        .sprintf(l10n('%d new elements'), $date_detail['nb_images'])
+        .l10n_dec('%d element added', '%d elements added', $date_detail['nb_images'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
           .l10n('recent_pics_cat').'</a>'
@@ -254,7 +254,8 @@ SELECT DISTINCT id, path, name, tn_ext
 
   $item->description .=
         '<li>'
-        .sprintf(l10n('%d categories updated'), $date_detail['nb_cats'])
+        .l10n_dec('%d category updated', '%d categories updated', 
+                  $date_detail['nb_cats'])
         .'</li>';
   // get some categories ...
   $query = '
@@ -274,7 +275,9 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
     $item->description .=
           '<li>'
           .get_cat_display_name_cache($row['uppercats'])
-          .' ('.sprintf(l10n('%d new elements'), $row['img_count']).')'
+          .' ('.
+          l10n_dec('%d element added', 
+                   '%d elements added', $row['img_count']).')'
           .'</li>';
   }
   $item->description .= '</ul>';

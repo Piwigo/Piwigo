@@ -347,11 +347,11 @@ function news_exists($start, $end)
 /**
  * Formats a news line and adds it to the array (e.g. '5 new elements')
  */
-function add_news_line(&$news, $count, $format, $url='', $add_url=false)
+function add_news_line(&$news, $count, $singular_fmt_key, $plural_fmt_key, $url='', $add_url=false)
 {
   if ($count > 0)
   {
-    $line = sprintf($format, $count);
+    $line = l10n_dec($singular_fmt_key, $plural_fmt_key, $count);
     if ($add_url and !empty($url) )
     {
       $line = '<a href="'.$url.'">'.$line.'</a>';
@@ -381,39 +381,32 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
 
   if (!$exclude_img_cats)
   {
-    $nb_new_elements = nb_new_elements($start, $end);
-    if ($nb_new_elements > 0)
-    {
-      array_push($news, sprintf(l10n('%d new elements'), $nb_new_elements));
-    }
+    add_news_line( $news,
+      nb_new_elements($start, $end), '%d new element', '%d new elements');
   }
 
   if (!$exclude_img_cats)
   {
-    $nb_updated_categories = nb_updated_categories($start, $end);
-    if ($nb_updated_categories > 0)
-    {
-      array_push($news, sprintf(l10n('%d categories updated'),
-                                $nb_updated_categories));
-    }
+    add_news_line( $news,
+      nb_updated_categories($start, $end), '%d category updated', '%d categories updated');
   }
 
   add_news_line( $news,
-      nb_new_comments($start, $end), l10n('%d new comments'),
+      nb_new_comments($start, $end), '%d new comment', '%d new comments',
       get_root_url().'comments.php', $add_url );
 
   if (is_admin())
   {
     add_news_line( $news,
-        nb_unvalidated_comments($end), l10n('%d comments to validate'),
+        nb_unvalidated_comments($end), '%d comment to validate', '%d comments to validate',
         get_root_url().'admin.php?page=comments', $add_url );
 
     add_news_line( $news,
-        nb_new_users($start, $end), l10n('%d new users'),
+        nb_new_users($start, $end), '%d new user', '%d new users',
         get_root_url().'admin.php?page=user_list', $add_url );
 
     add_news_line( $news,
-        nb_waiting_elements(), l10n('%d waiting elements'),
+        nb_waiting_elements(), '%d waiting element', '%d waiting elements',
         get_root_url().'admin.php?page=waiting', $add_url );
   }
 

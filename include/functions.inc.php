@@ -935,6 +935,21 @@ function l10n($key)
 }
 
 /**
+ * returns the prinft value for strings including %d
+ * return is concorded with decimal value (singular, plural)
+ *
+ * @param singular string key
+ * @param plural string key
+ * @param decimal value
+ * @return string
+ */
+function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
+{
+  return sprintf(l10n(($decimal > 1 ? $plural_fmt_key : 
+                                      $singular_fmt_key)), $decimal);
+}
+
+/**
  * Translate string in string ascii7bits
  * It's possible to do that with iconv_substr
  * but this fonction is not avaible on all the providers.
