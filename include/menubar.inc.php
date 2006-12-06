@@ -282,7 +282,7 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'summary',
   array(
-    'TITLE'=>l10n('notification'),
+    'TITLE'=>l10n('RSS feed'),
     'NAME'=>l10n('Notification'),
     'U_SUMMARY'=> get_root_url().'notification.php',
     'REL'=> 'rel="nofollow"'

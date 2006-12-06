@@ -144,29 +144,42 @@ $rss->link = $conf['gallery_url'];
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-$news = news($user['last_check'], $dbnow, true, true);
-
-if (count($news) > 0)
+if ( !isset($_GET['image_only']) )
 {
-  $item = new FeedItem();
-  $item->title = sprintf(l10n('New on %s'), $dbnow);
-  $item->link = $conf['gallery_url'];
+  $news = news($user['last_check'], $dbnow, true, true);
 
-  // content creation
-  $item->description = '<ul>';
-  foreach ($news as $line)
+  if (count($news) > 0)
   {
-    $item->description.= '<li>'.$line.'</li>';
+    $item = new FeedItem();
+    $item->title = sprintf(l10n('New on %s'),
+        format_date($dbnow, 'mysql_datetime') );
+    $item->link = $conf['gallery_url'];
+
+    // content creation
+    $item->description = '<ul>';
+    foreach ($news as $line)
+    {
+      $item->description.= '<li>'.$line.'</li>';
+    }
+    $item->description.= '</ul>';
+    $item->descriptionHtmlSyndicated = true;
+
+    $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
+    $item->author = 'PhpWebGallery notifier';
+    $item->guid= sprintf('%s', $dbnow);;
+
+    $rss->addItem($item);
+
+    $query = '
+UPDATE '.USER_FEED_TABLE.'
+  SET last_check = \''.$dbnow.'\'
+  WHERE id = \''.$_GET['feed'].'\'
+;';
+    pwg_query($query);
   }
-  $item->description.= '</ul>';
-  $item->descriptionHtmlSyndicated = true;
-
-  $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
-  $item->author = 'PhpWebGallery notifier';
-  $item->guid= sprintf('%s', $dbnow);;
-
-  $rss->addItem($item);
-
+}
+else
+{ // update the last check to avoid deletion by maintenance task
   $query = '
 UPDATE '.USER_FEED_TABLE.'
   SET last_check = \''.$dbnow.'\'
@@ -174,7 +187,6 @@ UPDATE '.USER_FEED_TABLE.'
 ;';
   pwg_query($query);
 }
-
 
 // build items for new images/albums
 $query = '

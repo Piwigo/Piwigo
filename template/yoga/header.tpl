@@ -16,7 +16,7 @@
 <link rel="search" title="{lang:search}" href="{pwg_root}search.php" >
 <!-- BEGIN first -->
 <link rel="first" title="{lang:first_page}" href="{first.U_IMG}" >
-<link rel="up" title="{lang:thumbails}" href="{U_UP}" >
+<link rel="up" title="{lang:thumbnails}" href="{U_UP}" >
 <!-- END first -->
 <!-- BEGIN previous -->
 <link rel="prev" title="{lang:previous_page}" href="{previous.U_IMG}" >
@@ -26,7 +26,7 @@
 <!-- END next -->
 <!-- BEGIN last -->
 <link rel="last" title="{lang:last_page}" href="{last.U_IMG}" >
-<link rel="up" title="{lang:thumbails}" href="{U_UP}" >
+<link rel="up" title="{lang:thumbnails}" href="{U_UP}" >
 <!-- END last -->
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/layout.css">
 <!-- the next css is used to fix khtml (Konqueror/Safari) issue

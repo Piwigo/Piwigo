@@ -9,5 +9,6 @@
 
   <p>{lang:The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.}</p>
 
-  <p><a href="{FEED_URL}">{lang:RSS feed}</a></p>
+  <p><a href="{U_FEED_IMAGE_ONLY}">{lang:Image only RSS feed}</a></p>
+  <p><a href="{U_FEED}">{lang:Complete RSS feed}</a></p>
 </div>
