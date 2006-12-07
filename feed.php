@@ -188,30 +188,14 @@ UPDATE '.USER_FEED_TABLE.'
   pwg_query($query);
 }
 
-// build items for last images/albums
-$query = '
-SELECT date_available,
-      COUNT(DISTINCT id) nb_images,
-      COUNT(DISTINCT category_id) nb_cats
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
-  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
-  GROUP BY date_available
-  ORDER BY date_available DESC
-  LIMIT 0,5
-;';
-$result = pwg_query($query);
-$dates = array();
-while ($row = mysql_fetch_assoc($result))
-{
-  array_push($dates, $row);
-}
+$dates = get_recent_post_dates( 5, 6, 6);
 
 foreach($dates as  $date_detail)
 { // for each recent post date we create a feed item
   $date = $date_detail['date_available'];
   $exploded_date = explode_mysqldt($date);
   $item = new FeedItem();
-  $item->title = l10n_dec('%d element added', '%d elements added', $date_detail['nb_images']);
+  $item->title = l10n_dec('%d element added', '%d elements added', $date_detail['nb_elements']);
   $item->title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
   $item->link = make_index_url(
         array(
@@ -227,57 +211,35 @@ foreach($dates as  $date_detail)
 
   $item->description .=
         '<li>'
-        .l10n_dec('%d element added', '%d elements added', $date_detail['nb_images'])
+        .l10n_dec('%d element added', '%d elements added', $date_detail['nb_elements'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
           .l10n('recent_pics_cat').'</a>'
         .')'
         .'</li>';
 
-  // get some thumbnails ...
-  $query = '
-SELECT DISTINCT id, path, name, tn_ext
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
-  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
-    AND date_available="'.$date.'"
-    AND tn_ext IS NOT NULL
-  LIMIT 0,6
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
+  foreach( $date_detail['elements'] as $element )
   {
-    $tn_src = get_thumbnail_url($row);
+    $tn_src = get_thumbnail_url($element);
     $item->description .= '<img src="'.$tn_src.'"/>';
   }
   $item->description .= '...<br/>';
 
-
   $item->description .=
         '<li>'
-        .l10n_dec('%d category updated', '%d categories updated', 
+        .l10n_dec('%d category updated', '%d categories updated',
                   $date_detail['nb_cats'])
         .'</li>';
-  // get some categories ...
-  $query = '
-SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
-  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
-    INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
-  WHERE category_id NOT IN ('.$user['forbidden_categories'].')
-    AND date_available="'.$date.'"
-  GROUP BY category_id
-  ORDER BY img_count DESC
-  LIMIT 0,6
-;';
-  $result = pwg_query($query);
+
   $item->description .= '<ul>';
-  while ($row = mysql_fetch_array($result))
+  foreach( $date_detail['categories'] as $cat )
   {
     $item->description .=
           '<li>'
-          .get_cat_display_name_cache($row['uppercats'])
+          .get_cat_display_name_cache($cat['uppercats'])
           .' ('.
-          l10n_dec('%d element added', 
-                   '%d elements added', $row['img_count']).')'
+          l10n_dec('%d element added',
+                   '%d elements added', $cat['img_count']).')'
           .'</li>';
   }
   $item->description .= '</ul>';

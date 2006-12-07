@@ -413,4 +413,75 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   return $news;
 }
 
+/**
+ * returns information about recently published elements grouped by post date
+ * @param int max_dates maximum returned number of recent dates
+ * @param int max_elements maximum returned number of elements per date
+ * @param int max_cats maximum returned number of categories per date
+ */
+function get_recent_post_dates($max_dates, $max_elements, $max_cats)
+{
+  global $conf, $user;
+
+  $where_sql = 'WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
+
+  $query = '
+SELECT date_available,
+      COUNT(DISTINCT id) nb_elements,
+      COUNT(DISTINCT category_id) nb_cats
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  '.$where_sql.'
+  GROUP BY date_available
+  ORDER BY date_available DESC
+  LIMIT 0,'.$max_dates.'
+;';
+  $result = pwg_query($query);
+  $dates = array();
+  while ($row = mysql_fetch_assoc($result))
+  {
+    array_push($dates, $row);
+  }
+
+  for ($i=0; $i<count($dates); $i++)
+  {
+    if ($max_elements>0)
+    { // get some thumbnails ...
+      $query = '
+SELECT DISTINCT id, path, name, tn_ext
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  '.$where_sql.'
+    AND date_available="'.$dates[$i]['date_available'].'"
+    AND tn_ext IS NOT NULL
+  LIMIT 0,'.$max_elements.'
+;';
+      $dates[$i]['elements'] = array();
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_assoc($result))
+      {
+        array_push($dates[$i]['elements'], $row);
+      }
+    }
+
+    if ($max_cats>0)
+    {// get some categories ...
+      $query = '
+SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
+  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
+    INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
+  '.$where_sql.'
+    AND date_available="'.$dates[$i]['date_available'].'"
+  GROUP BY category_id
+  ORDER BY img_count DESC
+  LIMIT 0,'.$max_cats.'
+;';
+      $dates[$i]['categories'] = array();
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_assoc($result))
+      {
+        array_push($dates[$i]['categories'], $row);
+      }
+    }
+  }
+  return $dates;
+}
 ?>
