@@ -448,6 +448,52 @@ SELECT id
 }
 
 /**
+ * compute data of categories branches
+ *
+ * was internal function of update_user_cache_categorie
+ * move to global because function be redeclare when it's internal
+ */
+function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
+{
+  $date = '';
+  $count_images = 0;
+  $count_categories = 0;
+  do
+  {
+    $cat_id = array_pop($list_cat_id);
+    if (!is_null($cat_id))
+    {
+      // Count images and categories
+      $cats[$cat_id]['count_images'] += $count_images;
+      $cats[$cat_id]['count_categories'] += $count_categories;
+      $count_images = $cats[$cat_id]['count_images'];
+      $count_categories = $cats[$cat_id]['count_categories'] + 1;
+
+      if ((empty($cats[$cat_id]['max_date_last'])) or ($cats[$cat_id]['max_date_last'] < $date))
+      {
+        $cats[$cat_id]['max_date_last'] = $date;
+        $cats[$cat_id]['is_child_date_last'] = true;
+      }
+      else
+      {
+        $date = $cats[$cat_id]['max_date_last'];
+      }
+      $ref_level = substr_count($cats[$cat_id]['global_rank'], '.') + 1;
+    }
+    else
+    {
+      $ref_level = 0;
+    }
+  } while ($level <= $ref_level);
+
+  // Last cat updating must be added to list for next branch
+  if ($ref_level <> 0)
+  {
+    array_push($list_cat_id, $cat_id);
+  }
+}
+
+/**
  * update data of user_cache_categorie
  *
  * @param int user_id
@@ -455,46 +501,6 @@ SELECT id
  */
 function update_user_cache_categorie($user_id, $user_forbidden_categories)
 {
-  function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
-  {
-    $date = '';
-    $count_images = 0;
-    $count_categories = 0;
-    do
-    {
-      $cat_id = array_pop($list_cat_id);
-      if (!is_null($cat_id))
-      {
-        // Count images and categories
-        $cats[$cat_id]['count_images'] += $count_images;
-        $cats[$cat_id]['count_categories'] += $count_categories;
-        $count_images = $cats[$cat_id]['count_images'];
-        $count_categories = $cats[$cat_id]['count_categories'] + 1;
-
-        if ((empty($cats[$cat_id]['max_date_last'])) or ($cats[$cat_id]['max_date_last'] < $date))
-        {
-          $cats[$cat_id]['max_date_last'] = $date;
-          $cats[$cat_id]['is_child_date_last'] = true;
-        }
-        else
-        {
-          $date = $cats[$cat_id]['max_date_last'];
-        }
-        $ref_level = substr_count($cats[$cat_id]['global_rank'], '.') + 1;
-      }
-      else
-      {
-        $ref_level = 0;
-      }
-    } while ($level <= $ref_level);
-
-    // Last cat updating must be added to list for next branch
-    if ($ref_level <> 0)
-    {
-      array_push($list_cat_id, $cat_id);
-    }
-  }
-
   // delete user cache
   $query = '
   delete from '.USER_CACHE_CATEGORIES_TABLE.'
