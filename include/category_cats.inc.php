@@ -148,13 +148,13 @@ if (count($categories) > 0)
       if ($page['section']=='recent_cats')
       {
         $name = get_cat_display_name_cache($category['uppercats'], null, false);
-        $icon_ts = '';
       }
       else
       {
         $name = $category['name'];
-        $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
       }
+
+      $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
 
       $template->assign_block_vars(
         'categories.category',
