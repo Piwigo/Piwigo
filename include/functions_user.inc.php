@@ -272,7 +272,7 @@ SELECT ui.*, uc.*
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
-      update_user_cache_categorie($userdata['id'], $userdata['forbidden_categories']);
+      update_user_cache_categories($userdata['id'], $userdata['forbidden_categories']);
 
       // Set need update are done
       $userdata['need_update'] = false;
@@ -449,9 +449,6 @@ SELECT id
 
 /**
  * compute data of categories branches
- *
- * was internal function of update_user_cache_categorie
- * move to global because function be redeclare when it's internal
  */
 function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
 {
@@ -472,7 +469,6 @@ function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
       if ((empty($cats[$cat_id]['max_date_last'])) or ($cats[$cat_id]['max_date_last'] < $date))
       {
         $cats[$cat_id]['max_date_last'] = $date;
-        $cats[$cat_id]['is_child_date_last'] = true;
       }
       else
       {
@@ -494,37 +490,37 @@ function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
 }
 
 /**
- * update data of user_cache_categorie
+ * update data of user_cache_categories
  *
  * @param int user_id
  * @return null
  */
-function update_user_cache_categorie($user_id, $user_forbidden_categories)
+function update_user_cache_categories($user_id, $user_forbidden_categories)
 {
   // delete user cache
   $query = '
-  delete from '.USER_CACHE_CATEGORIES_TABLE.'
-  where user_id = '.$user_id.'
+DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
+  WHERE user_id = '.$user_id.'
 ;';
   pwg_query($query);
 
   $query = '
-    select
-      id cat_id, date_last,
-      nb_images, global_rank
-    from '.CATEGORIES_TABLE;
+SELECT id cat_id, date_last max_date_last, nb_images count_images, global_rank
+  FROM '.CATEGORIES_TABLE;
   if ($user_forbidden_categories != '')
   {
     $query.= '
-    where id not in ('.$user_forbidden_categories.')';
+    WHERE id NOT IN ('.$user_forbidden_categories.')';
   }
   $query.= ';';
 
   $result = pwg_query($query);
 
   $cats = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
+    $row['user_id'] = $user_id;
+    $row['count_categories'] = 0;
     $cats += array($row['cat_id'] => $row);
   }
   usort($cats, 'global_rank_compare');
@@ -535,13 +531,6 @@ function update_user_cache_categorie($user_id, $user_forbidden_categories)
 
   foreach ($cats as $id => $category)
   {
-    // Update field
-    $cats[$id]['user_id'] = $user_id;
-    $cats[$id]['is_child_date_last'] = false;
-    $cats[$id]['max_date_last'] = $cats[$id]['date_last'];
-    $cats[$id]['count_images'] = $cats[$id]['nb_images'];
-    $cats[$id]['count_categories'] = 0;
-
     // Compute
     $level = substr_count($category['global_rank'], '.') + 1;
     if ($level > $ref_level)
@@ -559,21 +548,14 @@ function update_user_cache_categorie($user_id, $user_forbidden_categories)
   $level = 1;
   compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
 
-  foreach ($cats as $id => $category)
-  {
-    // Convert field
-    $cats[$id]['is_child_date_last'] = boolean_to_string($cats[$id]['is_child_date_last']);
-  }
-
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts
   (
     USER_CACHE_CATEGORIES_TABLE,
     array
     (
-      'user_id', 'cat_id', 
-      'is_child_date_last', 'max_date_last', 
-      'count_images', 'count_categories'
+      'user_id', 'cat_id',
+      'max_date_last', 'count_images', 'count_categories'
     ),
     $cats
   );
@@ -800,7 +782,7 @@ function log_user($user_id, $remember_me)
 {
   global $conf, $user;
 
-  if ($remember_me)
+  if ($remember_me and $conf['authorize_remembering'])
   {
     $key = calculate_auto_login_key($user_id);
     if ($key!==false)

@@ -37,7 +37,7 @@ if ($page['section']=='recent_cats')
   $query = '
 SELECT
   id,name, representative_picture_id, comment, nb_images, uppercats,
-  max_date_last, is_child_date_last, count_images, count_categories
+  date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE date_last > SUBDATE(
@@ -50,7 +50,7 @@ else
   $query = '
 SELECT
   id,name, representative_picture_id, comment, nb_images,
-  max_date_last, is_child_date_last, count_images, count_categories
+  date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
@@ -65,7 +65,8 @@ $image_ids = array();
 
 while ($row = mysql_fetch_assoc($result))
 {
-  $row['is_child_date_last'] = get_boolean($row['is_child_date_last']);
+  $row['is_child_date_last'] = isset($row['date_last']) 
+      and $row['max_date_last']>$row['date_last'];
 
   if (isset($row['representative_picture_id'])
       and is_numeric($row['representative_picture_id']))

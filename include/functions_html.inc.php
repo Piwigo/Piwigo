@@ -26,54 +26,62 @@
 
 function get_icon($date, $is_child_date = false)
 {
-  global $page, $user, $conf, $lang;
+  global $page, $user, $lang;
 
   if (empty($date))
   {
-    $date = 'NULL';
+    return '';
   }
 
-  if (isset($page['get_icon_cache'][$is_child_date][$date]))
+  if (isset($page['get_icon_cache'][$date]))
   {
-    return $page['get_icon_cache'][$is_child_date][$date];
+    if (! $page['get_icon_cache'][$date] )
+      return '';
+    return $page['get_icon_cache']['_icons_'][$is_child_date];
   }
 
   if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $date, $matches))
-  {
-    // date can be empty, no icon to display
-    $page['get_icon_cache'][$is_child_date][$date] = '';
-    return $page['get_icon_cache'][$is_child_date][$date];
+  {// date can be empty, no icon to display
+    $page['get_icon_cache'][$date] = false;
+    return '';
   }
 
   list($devnull, $year, $month, $day) = $matches;
   $unixtime = mktime( 0, 0, 0, $month, $day, $year );
-
   if ($unixtime === false  // PHP 5.1.0 and above
       or $unixtime === -1) // PHP prior to 5.1.0
   {
-    $page['get_icon_cache'][$is_child_date][$date] = '';
-    return $page['get_icon_cache'][$is_child_date][$date];
+    $page['get_icon_cache'][$date] = false;
+    return '';
   }
 
   $diff = time() - $unixtime;
   $day_in_seconds = 24*60*60;
-  $output = '';
-  $title = $lang['recent_image'].'&nbsp;';
+  $page['get_icon_cache'][$date] = false;
   if ( $diff < $user['recent_period'] * $day_in_seconds )
   {
-    $icon_url = get_themeconf('icon_dir').'/'.($is_child_date ? 'recent_by_child.png' : 'recent.png');
-    $title .= $user['recent_period'];
-    $title .=  '&nbsp;'.$lang['days'];
-    $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
-    $icon_url = get_root_url().$icon_url;
-    $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
-    $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
+    if ( !isset($page['get_icon_cache']['_icons_'] ) )
+    {
+      $icons = array(false => 'recent', true => 'recent_by_child' );
+      $title = $lang['recent_image'].'&nbsp;'.$user['recent_period']
+          .'&nbsp;'.$lang['days'];
+      foreach ($icons as $key => $icon)
+      {
+        $icon_url = get_themeconf('icon_dir').'/'.$icon.'.png';
+        $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
+        $icon_url = get_root_url().$icon_url;
+        $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
+        $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
+        $page['get_icon_cache']['_icons_'][$key] = $output;
+      }
+    }
+    $page['get_icon_cache'][$date] = true;
   }
-
-  $page['get_icon_cache'][$is_child_date][$date] = $output;
-
-  return $page['get_icon_cache'][$is_child_date][$date];
+  if (! $page['get_icon_cache'][$date] )
+    return '';
+  return $page['get_icon_cache']['_icons_'][$is_child_date];
 }
+
 
 function create_navigation_bar(
   $url, $nb_element, $start, $nb_element_page, $clean_url = false
@@ -392,7 +400,7 @@ SELECT id,name
  *
  * HTML code generated uses logical list tags ul and each category is an
  * item li. The paramter given is the category informations as an array,
- * used keys are : id, name, nb_images, max_date_last, is_child_date_last,
+ * used keys are : id, name, nb_images, max_date_last, date_last
  * count_images, count_categories
  *
  * @param array categories
@@ -473,8 +481,9 @@ function get_html_menu_category($categories)
                                               : $category['count_images']).']';
       $menu.= '</span>';
     }
-
-    $menu.= get_icon($category['max_date_last'], $category['is_child_date_last']);
+    $child_date_last = isset($category['date_last'])
+        and $category['max_date_last']>$category['date_last'] ;
+    $menu.= get_icon($category['max_date_last'], $child_date_last);
   }
 
   $menu.= str_repeat("\n</li></ul>",($level));

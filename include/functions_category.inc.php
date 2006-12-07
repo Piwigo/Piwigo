@@ -61,7 +61,7 @@ SELECT ';
   name, id, nb_images, global_rank,';
   // From USER_CACHE_CATEGORIES_TABLE
   $query.= '
-  max_date_last, is_child_date_last, count_images, count_categories';
+  date_last, max_date_last, count_images, count_categories';
 
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query.= '
@@ -82,9 +82,8 @@ SELECT ';
 
   $result = pwg_query($query);
   $cats = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
-    $row['is_child_date_last'] = get_boolean($row['is_child_date_last']);
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');

@@ -297,7 +297,6 @@ DROP TABLE IF EXISTS `phpwebgallery_user_cache_categories`;
 CREATE TABLE `phpwebgallery_user_cache_categories` (
   `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
-  `is_child_date_last` enum('true','false') NOT NULL default 'false',
   `max_date_last` datetime default NULL,
   `count_images` mediumint(8) unsigned default 0,
   `count_categories` mediumint(8) unsigned default 0,
