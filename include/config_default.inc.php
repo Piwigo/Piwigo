@@ -224,6 +224,11 @@ $conf['send_bcc_mail_webmaster'] = false;
 // There are webhosting wich not allow email formatted (Lycos, ...)
 $conf['enabled_format_email'] = true;
 
+// default_email_format:
+//  Define the default email format use to send email
+//  Value could be text/plain  or text/html
+$conf['default_email_format'] = 'text/plain';
+
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
 // needed.

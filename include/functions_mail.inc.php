@@ -54,6 +54,7 @@ function get_mail_configuration()
   $conf_mail = array(
     'mail_options' => $conf['mail_options'],
     'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
+    'default_email_format' => $conf['default_email_format']
     );
 
   // we have webmaster id among user list, what's his email address ?
@@ -102,15 +103,26 @@ function format_email($name, $email)
 /**
  * sends an email, using PhpWebGallery specific informations
  */
-function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
+function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $format_infos = 'text/plain', $email_format = null)
 {
-  global $conf, $conf_mail, $lang_info;
+  global $conf, $conf_mail, $lang_info, $user;
 
   $cvt7b_subject = str_translate_to_ascii7bits($subject);
 
   if (!isset($conf_mail))
   {
     $conf_mail = get_mail_configuration();
+  }
+
+  if (is_null($email_format))
+  {
+    $email_format = $conf_mail['default_email_format'];
+  }
+
+  if (($format_infos == 'text/html') and ($email_format == 'text/plain'))
+  {
+    // Todo find function to convert html text to plain text
+    return false;
   }
 
   $to = format_email('', $to);
@@ -126,16 +138,65 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '')
 
   $headers = 'From: '.$from."\n";
   $headers.= 'Reply-To: '.$from."\n";
-  $headers.= 'Content-Type: text/plain;format=flowed;charset="'.$lang_info['charset'].'";';
+  $headers.= 'Content-Type: '.$email_format.';format=flowed;charset="'.$lang_info['charset'].'";';
   $headers.= 'reply-type=original'."\n";
 
   if ($conf_mail['send_bcc_mail_webmaster'])
   {
     $headers.= 'Bcc: '.$conf_mail['formated_email_webmaster']."\n";
   }
-  
-  $content = $infos;
-  $content.= $conf_mail['text_footer'];
+
+  list($tmpl, $thm) = explode('/', $conf['default_template']);
+  $template_mail = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+
+  $content = '';
+
+  if ($email_format == 'text/html')
+  {
+    $template_mail->set_filenames(array('mail_header'=>'mail/header.tpl'));
+
+    $template_mail->assign_vars(
+      array(
+        'BODY_ID' =>
+          isset($page['body_id']) ?
+            $page['body_id'] : '',
+
+        'CONTENT_ENCODING' => $lang_info['charset'],
+        'LANG'=>$lang_info['code'],
+        'DIR'=>$lang_info['direction']
+
+        ));
+
+    $content.= $template_mail->parse('mail_header', true);
+  }
+
+  if (($format_infos == 'text/plain') and ($email_format == 'text/html'))
+  {
+    $content.= '<pre>'.htmlentities($infos).'</pre>';
+  }
+  else
+  {
+    $content.= $infos;
+  }
+
+  if ($email_format == 'text/plain')
+  {
+    $content.= $conf_mail['text_footer'];
+  }
+  else
+  {
+    $template_mail->set_filenames(array('mail_footer'=>'footer.tpl'));
+
+    $template_mail->assign_vars(
+      array(
+        'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
+
+        'L_TITLE_MAIL' => urlencode(l10n('title_send_mail')),
+        'MAIL' => get_webmaster_mail_address()
+        ));
+
+    $content.= $template_mail->parse('mail_footer', true);
+  }
 
   if ($conf_mail['mail_options'])
   {
