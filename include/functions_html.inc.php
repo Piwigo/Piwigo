@@ -481,8 +481,7 @@ function get_html_menu_category($categories)
                                               : $category['count_images']).']';
       $menu.= '</span>';
     }
-    $child_date_last = isset($category['date_last'])
-        and $category['max_date_last']>$category['date_last'] ;
+    $child_date_last = @$category['max_date_last']> @$category['date_last'];
     $menu.= get_icon($category['max_date_last'], $child_date_last);
   }
 
@@ -609,8 +608,7 @@ function access_denied()
   }
   else
   {
-    header('HTTP/1.1 401 Authorization required');
-    header('Status: 401 Authorization required');
+    set_status_header(401);
     redirect($login_url);
   }
 }
@@ -622,8 +620,7 @@ function access_denied()
  */
 function page_not_found($msg, $alternate_url=null)
 {
-  header('HTTP/1.1 404 Not found');
-  header('Status: 404 Not found');
+  set_status_header(404);
   if ($alternate_url==null)
     $alternate_url = make_index_url();
   redirect( $alternate_url,
@@ -679,5 +676,28 @@ function get_tags_content_title()
 
   }
   return $title;
+}
+
+/**
+  Sets the http status header (200,401,...)
+ */
+function set_status_header($code, $text='')
+{
+  if (empty($text))
+  {
+    switch ($code)
+    {
+      case 200: $text='OK';break;
+      case 301: $text='Moved permanently';break;
+      case 302: $text='Moved temporarily';break;
+      case 304: $text='Not modified';break;
+      case 400: $text='Bad request';break;
+      case 401: $text='Authorization required';break;
+      case 403: $text='Forbidden';break;
+      case 404: $text='Not found';break;
+    }
+  }
+  header("HTTP/1.1 $code $text");
+  header("Status: $code $text");
 }
 ?>

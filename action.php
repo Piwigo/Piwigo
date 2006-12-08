@@ -55,8 +55,7 @@ function guess_mime_type($ext)
 
 function do_error( $code, $str )
 {
-  header("HTTP/1.1 $code ");
-  header("Status: $code ");
+  set_status_header( $code );
   echo $str ;
   exit();
 }
@@ -148,8 +147,7 @@ if (!url_is_remote($file))
 
   if ( isset( $_SERVER['HTTP_IF_MODIFIED_SINCE'] ) )
   {
-    header("HTTP/1.1 304 Not modified ");
-    header("Status: 304 Not modified");
+    set_status_header(304);
     foreach ($http_headers as $header)
     {
       header( $header );

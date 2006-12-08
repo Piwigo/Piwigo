@@ -65,8 +65,7 @@ $image_ids = array();
 
 while ($row = mysql_fetch_assoc($result))
 {
-  $row['is_child_date_last'] = isset($row['date_last']) 
-      and $row['max_date_last']>$row['date_last'];
+  $row['is_child_date_last'] = @$row['max_date_last']>@$row['date_last'];
 
   if (isset($row['representative_picture_id'])
       and is_numeric($row['representative_picture_id']))
