@@ -147,12 +147,13 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
   }
 
   list($tmpl, $thm) = explode('/', $conf['default_template']);
-  $template_mail = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
 
   $content = '';
 
   if ($email_format == 'text/html')
   {
+    $template_mail = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+
     $template_mail->set_filenames(array('mail_header'=>'mail/header.tpl'));
 
     $template_mail->assign_vars(
