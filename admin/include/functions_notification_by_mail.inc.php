@@ -324,8 +324,8 @@ function get_mail_content_subscribe_unsubcribe($nbm_user)
   $page['root_path'] = 'http://'.$_SERVER['HTTP_HOST'].cookie_path();
   
   $content .= "___________________________________________________\n\n";
-  $content .= sprintf(l10n('nbm_content_unsubscribe_link'), add_url_params(get_root_url().'/nbm.php', array('unsubscribe' => $nbm_user['check_key'])))."\n";
-  $content .= sprintf(l10n('nbm_content_subscribe_link'), add_url_params(get_root_url().'/nbm.php', array('subscribe' => $nbm_user['check_key'])))."\n";
+  $content .= sprintf(l10n('nbm_content_unsubscribe_link'), add_url_params(get_root_url().'nbm.php', array('unsubscribe' => $nbm_user['check_key'])))."\n";
+  $content .= sprintf(l10n('nbm_content_subscribe_link'), add_url_params(get_root_url().'nbm.php', array('subscribe' => $nbm_user['check_key'])))."\n";
   $content .= sprintf(l10n('nbm_content_subscribe_unsubscribe_contact'), $env_nbm['send_as_mail_address'])."\n";
   $content .= "___________________________________________________\n\n\n\n";
 
