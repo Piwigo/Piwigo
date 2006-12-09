@@ -299,6 +299,13 @@ else
   $start = 0;
 }
 
+// Comments_validation is required and is not admin => Only validated
+$comment_fltr = '';
+if ( $conf['comments_validation'] and !is_admin() )
+{
+  $comment_fltr = 'AND com.validated = \'true\'';
+}
+
 $query = '
 SELECT COUNT(DISTINCT(id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
@@ -308,6 +315,7 @@ SELECT COUNT(DISTINCT(id))
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'].'
+    '.$comment_fltr.'
     AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
@@ -354,6 +362,7 @@ SELECT com.id AS comment_id
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'].'
+    '.$comment_fltr.'
     AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
