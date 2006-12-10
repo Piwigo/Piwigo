@@ -67,15 +67,25 @@ SELECT ';
   $query.= '
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'];
-  if (!$user['expand'])
+  if ($page['filter_mode'])
   {
     $query.= '
-    WHERE (id_uppercat is NULL';
-    if (isset($page['category']))
+where max_date_last > SUBDATE(
+  CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+  }
+  else
+  {
+    // Always expand when filter_mode is activated
+    if (!$user['expand'])
     {
-      $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
+      $query.= '
+      WHERE (id_uppercat is NULL';
+      if (isset($page['category']))
+      {
+        $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
+      }
+      $query.= ')';
     }
-    $query.= ')';
   }
   $query.= '
 ;';

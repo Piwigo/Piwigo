@@ -54,7 +54,14 @@ SELECT
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
-  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
+  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']);
+  if ($page['filter_mode'])
+  {
+    $query.= '
+    AND max_date_last > SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+  }
+  $query.= '
   ORDER BY rank
 ;';
 }
@@ -77,9 +84,22 @@ while ($row = mysql_fetch_assoc($result))
     $query = '
 SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
-    ON ic.category_id = c.id
+    ON ic.category_id = c.id';
+    if ($page['filter_mode'])
+    {
+      $query.= '
+    INNER JOIN '.IMAGES_TABLE.' AS i on ic.image_id = i.id ';
+    }
+    $query.= '
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-    AND c.id NOT IN ('.$user['forbidden_categories'].')
+    AND c.id NOT IN ('.$user['forbidden_categories'].')';
+    if ($page['filter_mode'])
+    {
+      $query.= '
+    AND i.date_available  > SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+    }
+    $query.= '
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -93,10 +113,17 @@ SELECT image_id
   { // searching a random representant among representant of sub-categories
     $query = '
 SELECT representative_picture_id
-  FROM '.CATEGORIES_TABLE.'
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-    AND id NOT IN ('.$user['forbidden_categories'].')
-    AND representative_picture_id IS NOT NULL
+    AND representative_picture_id IS NOT NULL';
+    if ($page['filter_mode'])
+    {
+      $query.= '
+      AND max_date_last > SUBDATE(
+        CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+    }
+    $query.= '
   ORDER BY RAND()
   LIMIT 0,1
 ;';

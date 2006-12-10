@@ -46,8 +46,14 @@ if (count($selection) > 0)
   $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
-  WHERE id IN ('.implode(',', $selection).')
-;';
+  WHERE id IN ('.implode(',', $selection).')';
+  if ($page['filter_mode'])
+  {
+    $query.= '
+    AND date_available  > SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+  }
+  $query.= ';';
   $result = pwg_query($query);
   while ($row = mysql_fetch_assoc($result))
   {

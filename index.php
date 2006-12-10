@@ -106,6 +106,35 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
+if (isset($_GET['filter_mode']))
+{
+  $page['filter_mode'] = ($_GET['filter_mode'] == 'start');
+  pwg_set_session_var('filter_mode', $page['filter_mode']);
+}
+else
+{
+  $page['filter_mode'] = pwg_get_session_var('filter_mode', false);
+}
+
+if ($page['filter_mode'])
+{
+  $template->assign_block_vars(
+    'stop_filter_mode',
+    array(
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_mode' => 'stop'))
+      )
+    );
+}
+else
+{
+  $template->assign_block_vars(
+    'start_filter_mode',
+    array(
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_mode' => 'start'))
+      )
+    );
+}
+
 if (!isset($page['chronology_field']))
 {
   $chronology_params =
