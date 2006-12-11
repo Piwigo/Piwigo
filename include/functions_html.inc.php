@@ -609,7 +609,7 @@ function access_denied()
   else
   {
     set_status_header(401);
-    redirect($login_url);
+    redirect_html($login_url);
   }
 }
 
@@ -623,7 +623,7 @@ function page_not_found($msg, $alternate_url=null)
   set_status_header(404);
   if ($alternate_url==null)
     $alternate_url = make_index_url();
-  redirect( $alternate_url,
+  redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
 <h1 style="text-align:left; font-size:36px;">Page not found</h1><br/>'
 .$msg.'</div>',

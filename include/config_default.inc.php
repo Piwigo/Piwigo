@@ -240,6 +240,9 @@ $conf['check_upgrade_feed'] = true;
 // rate_items: available rates for a picture
 $conf['rate_items'] = array(0,1,2,3,4,5);
 
+// Define default method to use ('http' or 'html' in order to do redirect)
+$conf['default_redirect_method'] = 'http';
+
 // +-----------------------------------------------------------------------+
 // |                               metadata                                |
 // +-----------------------------------------------------------------------+

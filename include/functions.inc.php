@@ -600,7 +600,28 @@ function pwg_debug( $string )
 }
 
 /**
- * Redirects to the given URL
+ * Redirects to the given URL (HTTP method)
+ *
+ * Note : once this function called, the execution doesn't go further
+ * (presence of an exit() instruction.
+ *
+ * @param string $url
+ * @return void
+ */
+function redirect_http( $url )
+{
+  if (ob_get_length () !== FALSE)
+  {
+    ob_clean();
+  }
+  header('Request-URI: '.$url);
+  header('Content-Location: '.$url);
+  header('Location: '.$url);
+  exit();
+}
+
+/**
+ * Redirects to the given URL (HTML method)
  *
  * Note : once this function called, the execution doesn't go further
  * (presence of an exit() instruction.
@@ -610,7 +631,7 @@ function pwg_debug( $string )
  * @param integer $refreh_time
  * @return void
  */
-function redirect( $url , $msg = '', $refresh_time = 0)
+function redirect_html( $url , $msg = '', $refresh_time = 0)
 {
   global $user, $template, $lang_info, $conf, $lang, $t2, $page, $debug;
 
@@ -650,6 +671,32 @@ function redirect( $url , $msg = '', $refresh_time = 0)
   include( PHPWG_ROOT_PATH.'include/page_tail.php' );
 
   exit();
+}
+
+/**
+ * Redirects to the given URL (Switch to HTTP method or HTML method)
+ *
+ * Note : once this function called, the execution doesn't go further
+ * (presence of an exit() instruction.
+ *
+ * @param string $url
+ * @param string $title_msg
+ * @param integer $refreh_time
+ * @return void
+ */
+function redirect( $url , $msg = '', $refresh_time = 0)
+{
+  global $conf;
+
+  // with RefeshTime <> 0, only html must be used
+  if (($conf['default_redirect_method'] == 'http') and ($refresh_time == 0))
+  {
+    redirect_http($url);
+  }
+  else
+  {
+    redirect_html($url, $msg, $refresh_time);
+  }
 }
 
 /**
