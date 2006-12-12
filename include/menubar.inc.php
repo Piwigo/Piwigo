@@ -168,26 +168,22 @@ $template->assign_block_vars(
     'NAME' => $lang['random_cat']
     ));
 
-// Not recent menu when filter is activated
-if (!$page['filter_mode'])
-{
-  // recent pics
-  $template->assign_block_vars(
-    'special_cat',
-    array(
-      'URL' => make_index_url(array('section' => 'recent_pics')),
-      'TITLE' => $lang['recent_pics_cat_hint'],
-      'NAME' => $lang['recent_pics_cat']
-      ));
-  // recent cats
-  $template->assign_block_vars(
-    'special_cat',
-    array(
-      'URL' => make_index_url(array('section' => 'recent_cats')),
-      'TITLE' => $lang['recent_cats_cat_hint'],
-      'NAME' => $lang['recent_cats_cat']
-      ));
-}
+// recent pics
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => make_index_url(array('section' => 'recent_pics')),
+    'TITLE' => $lang['recent_pics_cat_hint'],
+    'NAME' => $lang['recent_pics_cat']
+    ));
+// recent cats
+$template->assign_block_vars(
+  'special_cat',
+  array(
+    'URL' => make_index_url(array('section' => 'recent_cats')),
+    'TITLE' => $lang['recent_cats_cat_hint'],
+    'NAME' => $lang['recent_cats_cat']
+    ));
 
 // calendar
 $template->assign_block_vars(

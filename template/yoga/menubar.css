@@ -12,6 +12,16 @@
     margin: 0; padding: 0; display: block;
 }
 
+#menubar .buttonmenu {
+  margin: 0 2px;
+  width: auto;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+  text-align: center;
+  float: right;
+}
+
 /* H2 properties copied here */
 #menubar DT {
     font-weight: bold; /* default for h2 */
