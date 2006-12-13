@@ -23,7 +23,7 @@
       </tr>
 
       <tr>
-        <td><strong>{lang:Registration date}</strong></td>
+        <td><strong>{lang:Post date}</strong></td>
         <td>{REGISTRATION_DATE}</td>
       </tr>
 
@@ -103,7 +103,7 @@
         <td>{TAG_SELECTION}</td>
       </tr>
 
-      
+
       <tr>
         <td><strong>{lang:Description}</strong></td>
         <td><textarea name="description" class="description">{DESCRIPTION}</textarea></td>

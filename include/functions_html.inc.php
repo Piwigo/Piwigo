@@ -614,6 +614,23 @@ function access_denied()
 }
 
 /**
+ * exits the current script with 403 code
+ * @param string msg a message to display
+ * @param string alternate_url redirect to this url
+ */
+function page_forbidden($msg, $alternate_url=null)
+{
+  set_status_header(403);
+  if ($alternate_url==null)
+    $alternate_url = make_index_url();
+  redirect_html( $alternate_url,
+    '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
+<h1 style="text-align:left; font-size:36px;">Forbidden</h1><br/>'
+.$msg.'</div>',
+    5 );
+}
+
+/**
  * exits the current script with 404 code when a page cannot be found
  * @param string msg a message to display
  * @param string alternate_url redirect to this url

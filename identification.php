@@ -57,8 +57,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   if ($row['password'] == $conf['pass_convert']($_POST['password']))
   {
     $remember_me = false;
-    if ($conf['authorize_remembering']
-        and isset($_POST['remember_me'])
+    if (isset($_POST['remember_me'])
         and $_POST['remember_me'] == 1)
     {
       $remember_me = true;
@@ -85,7 +84,6 @@ $template->set_filenames( array('identification'=>'identification.tpl') );
 
 $template->assign_vars(
   array(
-
     'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
     'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
     'U_HOME' => make_index_url(),
@@ -98,6 +96,11 @@ if ($conf['authorize_remembering'])
 {
   $template->assign_block_vars('remember_me',array());
 }
+if ($conf['allow_user_registration'])
+{
+  $template->assign_block_vars('register',array());
+}
+
 //-------------------------------------------------------------- errors display
 if ( sizeof( $errors ) != 0 )
 {

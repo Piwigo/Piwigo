@@ -4,7 +4,9 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+<!-- BEGIN register -->
       <li><a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
+<!-- END register -->
       <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
     </ul>
     <h2>{lang:Identification}</h2>
@@ -60,8 +62,10 @@ document.login_form.username.focus();
 //--></script>
 
   <p>
-    <a href="{U_REGISTER}"><img src="{themeconf:icon_dir}/register.png" class="button" alt=""> {lang:Register}</a>
-    <a href="{U_LOST_PASSWORD}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt=""> {lang:Forgot your password?}</a>
+<!-- BEGIN register -->
+    <a href="{U_REGISTER}" title="{lang:Create a new account}"><img src="{themeconf:icon_dir}/register.png" class="button" alt=""> {lang:Register}</a>
+<!-- END register -->
+    <a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}"><img src="{themeconf:icon_dir}/lost_password.png" class="button" alt=""> {lang:Forgot your password?}</a>
   </p>
 
 </div> <!-- content -->

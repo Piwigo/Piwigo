@@ -59,6 +59,13 @@
       </label>
     </li>
 
+    <li>
+      <label for="allow_user_registration">
+        <span class="property">{lang:Allow user registration}</span>
+        <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {general.ALLOW_USER_REGISTRATION} />
+      </label>
+    </li>
+
     <br/>
     <li>
       <fieldset>

@@ -181,6 +181,7 @@ FORM.properties LI, FORM#update UL  {
   margin-bottom: 0.5em;
   padding: 0;
   line-height: 1.8em;
+  clear: left;
 }
 
 FORM.properties SPAN.property {

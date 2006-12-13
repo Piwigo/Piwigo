@@ -52,7 +52,8 @@ $general_checkboxes = array(
     'history_admin',
     'history_guest',
     'login_history',
-    'email_admin_on_new_user'
+    'email_admin_on_new_user',
+    'allow_user_registration',
    );
 
 $comments_checkboxes = array(

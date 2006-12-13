@@ -29,6 +29,12 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 //----------------------------------------------------------- user registration
+
+if (!$conf['allow_user_registration'])
+{
+  page_forbidden('User registration closed');
+}
+
 $errors = array();
 if (isset($_POST['submit']))
 {

@@ -206,13 +206,17 @@ $template->assign_block_vars(
 
 if ($user['is_the_guest'])
 {
-  $template->assign_block_vars('register', array());
   $template->assign_block_vars('login', array());
 
   $template->assign_block_vars('quickconnect', array());
   if ($conf['authorize_remembering'])
   {
     $template->assign_block_vars('quickconnect.remember_me', array());
+  }
+  if ($conf['allow_user_registration'])
+  {
+    $template->assign_block_vars('register', array());
+    $template->assign_block_vars('quickconnect.register', array());
   }
 }
 else

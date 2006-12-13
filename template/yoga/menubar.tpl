@@ -79,7 +79,7 @@
     <!-- END hello -->
     <ul>
       <!-- BEGIN register -->
-      <li><a href="{U_REGISTER}" rel="nofollow">{lang:Register}</a></li>
+      <li><a href="{U_REGISTER}" title="{lang:Create a new account}" rel="nofollow">{lang:Register}</a></li>
       <!-- END register -->
       <!-- BEGIN login -->
       <li><a href="{F_IDENTIFY}" rel="nofollow">{lang:Connection}</a></li>
@@ -121,7 +121,9 @@
         </p>
     <ul class="actions">
       <li><a href="{U_LOST_PASSWORD}" title="{lang:Forgot your password?}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/lost_password.png" class="button" alt="{lang:Forgot your password?}"></a></li>
+      <!-- BEGIN register -->
       <li><a href="{U_REGISTER}" title="{lang:Create a new account}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/register.png" class="button" alt="{lang:register}"/></a></li>
+      <!-- END register -->
     </ul>
 
       </fieldset>
