@@ -106,31 +106,64 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
-if (isset($_GET['filter_mode']))
+if (isset($_GET['filter_local_mode']))
 {
-  $page['filter_mode'] = ($_GET['filter_mode'] == 'start');
-  pwg_set_session_var('filter_mode', $page['filter_mode']);
+  $page['filter_local_mode'] = ($_GET['filter_local_mode'] == 'start');
 }
 else
 {
-  $page['filter_mode'] = pwg_get_session_var('filter_mode', false);
+  $page['filter_local_mode'] = pwg_get_session_var('filter_local_mode', false);
 }
 
-if ($page['filter_mode'])
+$page['filter_local_mode'] = (($page['filter_local_mode']) and
+                              ($page['section'] == 'categories') and
+                              (!isset($page['chronology_field'])));
+pwg_set_session_var('filter_local_mode', $page['filter_local_mode']);
+
+if ($page['filter_local_mode'])
 {
   $template->assign_block_vars(
-    'stop_filter_mode',
+    'stop_filter_local_mode',
     array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_mode' => 'stop'))
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_local_mode' => 'stop'))
       )
     );
 }
 else
 {
   $template->assign_block_vars(
-    'start_filter_mode',
+    'start_filter_local_mode',
     array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_mode' => 'start'))
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_local_mode' => 'start'))
+      )
+    );
+}
+
+if (isset($_GET['filter_global_mode']))
+{
+  $user['filter_global_mode'] = ($_GET['filter_global_mode'] == 'start');
+  pwg_set_session_var('filter_global_mode', $user['filter_global_mode']);
+}
+else
+{
+  $user['filter_global_mode'] = pwg_get_session_var('filter_global_mode', false);
+}
+
+if ($user['filter_global_mode'])
+{
+  $template->assign_block_vars(
+    'stop_filter_global_mode',
+    array(
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_global_mode' => 'stop'))
+      )
+    );
+}
+else
+{
+  $template->assign_block_vars(
+    'start_filter_global_mode',
+    array(
+      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_global_mode' => 'start'))
       )
     );
 }

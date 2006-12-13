@@ -143,11 +143,12 @@ function setup_style($style)
   return new Template(PHPWG_ROOT_PATH.'template/'.$style);
 }
 
-function build_user( $user_id, $use_cache )
+function build_user( $user_id, $use_cache, $filter_global_mode = false )
 {
   global $conf;
+
   $user['id'] = $user_id;
-  $user = array_merge( $user, getuserdata($user_id, $use_cache) );
+  $user = array_merge( $user, getuserdata($user_id, $use_cache, $filter_global_mode) );
   if ( $user['id'] == $conf['guest_id'])
   {
     $user['is_the_guest']=true;
@@ -166,6 +167,7 @@ function build_user( $user_id, $use_cache )
   {
     $user['is_the_guest']=false;
   }
+
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
@@ -196,7 +198,7 @@ function build_user( $user_id, $use_cache )
  * @param boolean use_cache
  * @param array
  */
-function getuserdata($user_id, $use_cache)
+function getuserdata($user_id, $use_cache, $filter_global_mode = false )
 {
   global $conf;
 
@@ -265,17 +267,21 @@ SELECT ui.*, uc.*
 
   if ($use_cache)
   {
+    $userdata['filter_global_mode'] = $filter_global_mode;
+
     if (!isset($userdata['need_update'])
         or !is_bool($userdata['need_update'])
-        or $userdata['need_update'] == true)
+        or $userdata['need_update'] == true
+        or $filter_global_mode  // not optimize condition RubTag
+       )
     {
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
-      update_user_cache_categories($userdata['id'], $userdata['forbidden_categories']);
+      update_user_cache_categories($userdata);
 
       // Set need update are done
-      $userdata['need_update'] = false;
+      $userdata['need_update'] = $userdata['filter_global_mode']; // for draft always update RubTag
 
       $query = '
 SELECT COUNT(DISTINCT(image_id)) as total
@@ -492,25 +498,58 @@ function compute_branch_cat_data(&$cats, &$list_cat_id, &$level, &$ref_level)
 /**
  * update data of user_cache_categories
  *
- * @param int user_id
+ * @param array userdata
  * @return null
  */
-function update_user_cache_categories($user_id, $user_forbidden_categories)
+function update_user_cache_categories(&$userdata)
 {
   // delete user cache
   $query = '
 DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
-  WHERE user_id = '.$user_id.'
+  WHERE user_id = '.$userdata['id'].'
 ;';
   pwg_query($query);
 
-  $query = '
+  /*$query = '
 SELECT id cat_id, date_last max_date_last, nb_images count_images, global_rank
   FROM '.CATEGORIES_TABLE;
-  if ($user_forbidden_categories != '')
+  if ($userdata['forbidden_categories'] != '')
   {
     $query.= '
-    WHERE id NOT IN ('.$user_forbidden_categories.')';
+    WHERE id NOT IN ('.$userdata['forbidden_categories'].')';
+  }
+  $query.= ';';*/
+
+
+  $query = '
+SELECT c.id cat_id, date_last max_date_last, nb_images count_images, global_rank';
+
+  if (!$userdata['filter_global_mode'])
+  {
+    $query.= '
+  FROM '.CATEGORIES_TABLE.' as C';
+  }
+  else
+  {
+    // Count by date_available to avoid count null
+    $query.= ', count(date_available) filtered_count_images, max(date_available) max_date_available
+  FROM '.CATEGORIES_TABLE.' as C
+    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
+    ON ic.category_id = c.id LEFT JOIN '.IMAGES_TABLE.' AS i 
+    ON ic.image_id = i.id AND i.date_available  > SUBDATE(
+      CURRENT_DATE,INTERVAL '.$userdata['recent_period'].' DAY)';
+  }
+
+  if ($userdata['forbidden_categories'] != '')
+  {
+    $query.= '
+    WHERE C.id NOT IN ('.$userdata['forbidden_categories'].')';
+  }
+
+  if ($userdata['filter_global_mode'])
+  {
+    $query.= '
+  GROUP BY c.id';
   }
   $query.= ';';
 
@@ -519,8 +558,13 @@ SELECT id cat_id, date_last max_date_last, nb_images count_images, global_rank
   $cats = array();
   while ($row = mysql_fetch_assoc($result))
   {
-    $row['user_id'] = $user_id;
+    $row['user_id'] = $userdata['id'];
     $row['count_categories'] = 0;
+    if ($userdata['filter_global_mode'])
+    {
+      $row['count_images'] = $row['filtered_count_images'];
+      $row['max_date_last'] = $row['max_date_available'];
+    }
     $cats += array($row['cat_id'] => $row);
   }
   usort($cats, 'global_rank_compare');
@@ -547,6 +591,27 @@ SELECT id cat_id, date_last max_date_last, nb_images count_images, global_rank
 
   $level = 1;
   compute_branch_cat_data($cats, $list_cat_id, $level, $ref_level);
+
+  if ($userdata['filter_global_mode'])
+  {
+    $forbidden_cats = array();
+    $forbidden_cats = explode(',', $userdata['forbidden_categories']);
+    $cat_tmp = $cats;
+    $cats = array();
+  
+    foreach ($cat_tmp as $cat_id => $category)
+    {
+      if (empty($category['max_date_last']))
+      {
+        array_push($forbidden_cats, $category['cat_id']);
+      }
+      else
+      {
+        array_push($cats, $category);
+      }
+    }
+    $userdata['forbidden_categories'] = implode(',', array_unique($forbidden_cats));
+  }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts

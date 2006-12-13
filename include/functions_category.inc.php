@@ -67,7 +67,7 @@ SELECT ';
   $query.= '
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'];
-  if ($page['filter_mode'])
+  if ($page['filter_local_mode'])
   {
     $query.= '
 where max_date_last > SUBDATE(
@@ -75,8 +75,8 @@ where max_date_last > SUBDATE(
   }
   else
   {
-    // Always expand when filter_mode is activated
-    if (!$user['expand'])
+    // Always expand when filter_local_mode is activated
+    if (!$user['expand'] and !$user['filter_global_mode'])
     {
       $query.= '
       WHERE (id_uppercat is NULL';

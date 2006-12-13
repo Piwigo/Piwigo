@@ -69,8 +69,20 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
     $user['id'] = get_userid($_SERVER['REMOTE_USER']);
   }
 }
+
+if (isset($_GET['filter_global_mode']))
+{
+  $user['filter_global_mode'] = ($_GET['filter_global_mode'] == 'start');
+  pwg_set_session_var('filter_global_mode', $user['filter_global_mode']);
+}
+else
+{
+  $user['filter_global_mode'] = pwg_get_session_var('filter_global_mode', false);
+}
+
 $user = build_user( $user['id'],
-          ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
+          ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true, // use cache ?
+          $user['filter_global_mode'] // filter_global_mode ?
          );
 
 ?>

@@ -47,7 +47,7 @@ if (count($selection) > 0)
 SELECT *
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $selection).')';
-  if ($page['filter_mode'])
+  if ($page['filter_local_mode'] or $user['filter_global_mode'])
   {
     $query.= '
     AND date_available  > SUBDATE(

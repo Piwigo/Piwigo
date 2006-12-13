@@ -13,12 +13,12 @@
 </dl>
 <!-- END links -->
 <dl id="mbCategories">
-  <!-- BEGIN start_filter_mode -->
-  <a href="{start_filter_mode.URL}" title="{lang:start_filter_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/start_filter_mode.png" class="buttonmenu" alt="{lang:start_filter_mode_hint}"></a>
-  <!-- END start_filter_mode -->
-  <!-- BEGIN stop_filter_mode -->
-  <a href="{stop_filter_mode.URL}" title="{lang:stop_filter_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter_mode.png" class="buttonmenu" alt="{lang:stop_filter_mode_hint}"></a>
-  <!-- END stop_filter_mode -->
+  <!-- BEGIN start_filter_global_mode -->
+  <a href="{start_filter_global_mode.URL}" title="{lang:start_filter_global_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/start_filter_mode.png" class="buttonmenu" alt="{lang:start_filter_global_mode_hint}"></a>
+  <!-- END start_filter_global_mode -->
+  <!-- BEGIN stop_filter_global_mode -->
+  <a href="{stop_filter_global_mode.URL}" title="{lang:stop_filter_global_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter_mode.png" class="buttonmenu" alt="{lang:stop_filter_global_mode_hint}"></a>
+  <!-- END stop_filter_global_mode -->
   <dt><a href="{U_HOME}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}

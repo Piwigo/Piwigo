@@ -55,7 +55,7 @@ SELECT
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
   (!isset($page['category']) ? 'is NULL' : '= '.$page['category']);
-  if ($page['filter_mode'])
+  if ($page['filter_local_mode'])
   {
     $query.= '
     AND max_date_last > SUBDATE(
@@ -85,7 +85,7 @@ while ($row = mysql_fetch_assoc($result))
 SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON ic.category_id = c.id';
-    if ($page['filter_mode'])
+    if ($page['filter_local_mode'] or $user['filter_global_mode'])
     {
       $query.= '
     INNER JOIN '.IMAGES_TABLE.' AS i on ic.image_id = i.id ';
@@ -93,7 +93,7 @@ SELECT image_id
     $query.= '
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
     AND c.id NOT IN ('.$user['forbidden_categories'].')';
-    if ($page['filter_mode'])
+    if ($page['filter_local_mode'] or $user['filter_global_mode'])
     {
       $query.= '
     AND i.date_available  > SUBDATE(
@@ -117,7 +117,7 @@ SELECT representative_picture_id
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
     AND representative_picture_id IS NOT NULL';
-    if ($page['filter_mode'])
+    if ($page['filter_local_mode'] or $user['filter_global_mode'])
     {
       $query.= '
       AND max_date_last > SUBDATE(
