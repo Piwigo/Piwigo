@@ -82,7 +82,8 @@ $template->set_filenames(array('site_manager'=>'admin/site_manager.tpl'));
 // +-----------------------------------------------------------------------+
 // |                        new site creation form                         |
 // +-----------------------------------------------------------------------+
-if (isset($_POST['submit']))
+if (isset($_POST['submit']) and !empty($_POST['galleries_url'])
+    and !is_adviser() )
 {
   $is_remote = url_is_remote( $_POST['galleries_url'] );
   $url = preg_replace('/[\/]*$/', '', $_POST['galleries_url']);
