@@ -9,7 +9,11 @@ if ( isset($_POST['eventTracer_filters']) )
   $v = $_POST['eventTracer_filters'];
   $v = str_replace( "\r\n", "\n", $v );
   $v = str_replace( "\n\n", "\n", $v );
-  $this->my_config['filters'] = explode("\n", $v);
+  $v = stripslashes($v);
+  if (!empty($v))
+    $this->my_config['filters'] = explode("\n", $v);
+  else
+    $this->my_config['filters'] = array();
   $this->my_config['show_args'] = isset($_POST['eventTracer_show_args']);
   $this->save_config();
   global $page;

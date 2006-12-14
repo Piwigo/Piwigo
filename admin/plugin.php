@@ -31,40 +31,25 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 $template->set_filenames(array('plugin' => 'admin/plugin.tpl'));
 
-trigger_action('plugin_admin_menu');
-
-
 if ( isset($page['plugin_admin_menu']) )
 {
-  $template->assign_block_vars('plugin_menu.menu_item',
-      array(
-        'NAME' => l10n('Plugins'),
-        'URL' => PHPWG_ROOT_PATH.'admin.php?page=plugins'
-      )
-    );
-
-  $plug_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section=';
   foreach ($page['plugin_admin_menu'] as $menu)
   {
     if (isset($_GET['section']) and $menu['uid']==$_GET['section'])
     {
       $found_menu=$menu;
+      break;
     }
-    $template->assign_block_vars('plugin_menu.menu_item',
-        array(
-          'NAME' => $menu['title'],
-          'URL' => $plug_base_url.$menu['uid']
-        )
-      );
   }
 }
+
 if ( isset($found_menu) )
 {
+  $template->assign_var('PLUGIN_TITLE', $found_menu['title'] );
   call_user_func(
     $found_menu['function'],
     PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section='.$found_menu['uid'] );

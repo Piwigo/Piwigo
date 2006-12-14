@@ -41,6 +41,7 @@ if ($conf['show_exif'])
 
   if ($exif = @read_exif_data($picture['current']['image_path']))
   {
+    $exif = trigger_event('format_exif_data', $exif, $picture['current'] );
     $template->assign_block_vars(
       'metadata.headline',
       array('TITLE' => 'EXIF Metadata')

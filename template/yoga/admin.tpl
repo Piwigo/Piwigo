@@ -71,6 +71,18 @@
       </ul>
     </dd>
   </dl>
+  <dl>
+    <dt>{lang:Plugins}</dt>
+    <dd>
+      <ul>
+<!-- BEGIN plugin_menu -->
+<!-- BEGIN menu_item -->
+	<li><a href="{plugin_menu.menu_item.URL}">{plugin_menu.menu_item.NAME}</a></li>
+<!-- END menu_item -->
+<!-- END plugin_menu -->
+      </ul>
+    </dd>
+  </dl>
 </div> <!-- menubar -->
 
 <div id="content">

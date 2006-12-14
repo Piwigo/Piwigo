@@ -31,6 +31,7 @@ define('IN_ADMIN', true);
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -57,6 +58,9 @@ else
 {
   $page['page'] = 'intro';
 }
+
+$page['errors'] = array();
+$page['infos']  = array();
 
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
@@ -114,11 +118,31 @@ if ($conf['allow_random_representative'])
     );
 }
 
-//------------------------------------------------------------- content display
-$page['errors'] = array();
-$page['infos']  = array();
+// required before plugin page inclusion
+trigger_action('plugin_admin_menu');
 
 include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
+
+//------------------------------------------------------------- content display
+$template->assign_block_vars('plugin_menu.menu_item',
+    array(
+      'NAME' => l10n('admin'),
+      'URL' => $link_start.'plugins'
+    )
+  );
+if ( isset($page['plugin_admin_menu']) )
+{
+  $plug_base_url = $link_start.'plugin&amp;section=';
+  foreach ($page['plugin_admin_menu'] as $menu)
+  {
+    $template->assign_block_vars('plugin_menu.menu_item',
+        array(
+          'NAME' => $menu['title'],
+          'URL' => $plug_base_url.$menu['uid']
+        )
+      );
+  }
+}
 
 // +-----------------------------------------------------------------------+
 // |                            errors & infos                             |
@@ -126,7 +150,6 @@ include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 
 if (count($page['errors']) != 0)
 {
-  $template->assign_block_vars('errors',array());
   foreach ($page['errors'] as $error)
   {
     $template->assign_block_vars('errors.error',array('ERROR'=>$error));
@@ -135,7 +158,6 @@ if (count($page['errors']) != 0)
 
 if (count($page['infos']) != 0)
 {
-  $template->assign_block_vars('infos',array());
   foreach ($page['infos'] as $info)
   {
     $template->assign_block_vars('infos.info',array('INFO'=>$info));

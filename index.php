@@ -352,8 +352,8 @@ if (isset($page['comment']) and $page['comment'] != '')
 //------------------------------------------------------------ log informations
 pwg_log('category', $page['title']);
 
-trigger_action('loc_end_index');
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+trigger_action('loc_end_index');
 $template->parse('index');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

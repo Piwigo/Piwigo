@@ -137,6 +137,7 @@ or die ( "Could not connect to database" );
 // since basic gallery information is not available
 //
 load_conf_from_db();
+load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
@@ -157,8 +158,6 @@ if ($user['is_the_guest'])
 
 // template instance
 $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
-
-load_plugins();
 
 if ($conf['gallery_locked'])
 {

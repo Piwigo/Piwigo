@@ -31,7 +31,6 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_plugins.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
@@ -161,29 +160,6 @@ foreach ($db_plugins as $db_plugin)
 
 
 $template->set_filenames(array('plugins' => 'admin/plugins.tpl'));
-
-trigger_action('plugin_admin_menu');
-
-$template->assign_block_vars('plugin_menu.menu_item',
-    array(
-      'NAME' => l10n('Plugins'),
-      'URL' => PHPWG_ROOT_PATH.'admin.php?page=plugins'
-    )
-  );
-
-if ( isset($page['plugin_admin_menu']) )
-{
-  $plug_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section=';
-  foreach ($page['plugin_admin_menu'] as $menu)
-  {
-    $template->assign_block_vars('plugin_menu.menu_item',
-        array(
-          'NAME' => $menu['title'],
-          'URL' => $plug_base_url.$menu['uid']
-        )
-      );
-  }
-}
 
 $num=0;
 foreach( $fs_plugins as $plugin_id => $fs_plugin )
