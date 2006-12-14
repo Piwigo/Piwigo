@@ -81,6 +81,7 @@ $template->assign_vars(
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',
     'U_NOTIFICATION_BY_MAIL'=> $link_start.'notification_by_mail',
+    'U_ADVANCED_FEATURE'=> $link_start.'advanced_feature',
     'U_CONFIG_GENERAL'=> $conf_link.'general',
     'U_CONFIG_COMMENTS'=> $conf_link.'comments',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',

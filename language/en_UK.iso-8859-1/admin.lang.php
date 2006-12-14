@@ -494,4 +494,6 @@ $lang['w_day'] = 'Day';
 $lang['waiting'] = 'Waiting';
 $lang['is_default_group'] = 'default';
 $lang['toggle_is_default_group'] = 'Toggle \'default group\' property';
+$lang['Advanced_features'] = 'Advanced features';
+$lang['Elements_not_linked'] = 'Not linked elements';
 ?>

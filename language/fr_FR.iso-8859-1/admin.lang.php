@@ -494,4 +494,6 @@ $lang['w_day'] = 'Jour';
 $lang['waiting'] = 'En attente';
 $lang['is_default_group'] = 'par défaut';
 $lang['toggle_is_default_group'] = 'Inverser la propriété \'groupe par défaut\'';
+$lang['Advanced_features'] = 'Fonctions avancées';
+$lang['Elements_not_linked'] = 'Eléments non liés';
 ?>
