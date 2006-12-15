@@ -145,7 +145,7 @@
 <!-- END metadata -->
 
 <!-- BEGIN rate -->
-<form action="{rate.F_ACTION}" method="post">
+<form action="{rate.F_ACTION}" method="post" id="rateForm">
 <div>{rate.SENTENCE} :
 <!-- BEGIN rate_option -->
 {rate.rate_option.SEPARATOR}
@@ -156,6 +156,7 @@
 <input type="submit" name="rate" value="{rate.rate_option.OPTION}" class="rateButton" />
 <!-- END not_my_rate -->
 <!-- END rate_option -->
+<script type="text/javascript" src="{pwg_root}{themeconf:template_dir}/rating.js"></script>
 </div>
 </form>
 <!-- END rate -->

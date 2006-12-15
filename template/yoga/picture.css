@@ -95,18 +95,28 @@ TABLE.infoTable TD.value UL {
   list-style-type: square;
 }
 
-.rateButton, .rateButtonSelected  {
+.rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
   padding:0;
   border:0;
 }
 
-.rateButton {
+.rateButton, .rateButtonStarFull, .rateButtonStarEmpty {
   cursor: pointer;
 }
 
 .rateButtonSelected {
   font-weight:bold;
   font-size:120%;
+}
+
+.rateButtonStarFull {
+  background: url('icon/star_f.gif') no-repeat center;
+  width: 16px;
+}
+
+.rateButtonStarEmpty {
+  background: url('icon/star_e.gif') no-repeat center;
+  width: 16px;
 }
 
 #comments {
