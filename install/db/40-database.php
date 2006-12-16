@@ -32,7 +32,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 $upgrade_description = 'Add ws_status to #config';
 
-$query = '
+$query = "
 INSERT INTO '.PREFIX_TABLE."config (param,value,comment) VALUES ('ws_status','true','Web Service is active/inactive');";
 pwg_query($query);
 
