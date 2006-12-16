@@ -21,6 +21,9 @@
         <li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
         <li><a href="{U_PLUGINS}">{lang:Plugins}</a></li>
         <li><a href="{U_ADVANCED_FEATURE}">{lang:Advanced_features}</a></li>
+        <!-- BEGIN web_services -->
+	      <li><a href="{web_services.U_WS_CHECKER}">{lang:web_services}</a></li>
+	      <!-- END web_services -->
       </ul>
     </dd>
   </dl>

@@ -108,7 +108,15 @@ $template->assign_vars(
     'L_ADMIN_HINT' => $lang['hint_admin']
     )
   );
-
+if ($conf['allow_web_services'])
+{
+  $template->assign_block_vars(
+    'web_services',
+    array(
+      'U_WS_CHECKER'=> $link_start.'ws_checker',
+      )
+    );
+}
 if ($conf['allow_random_representative'])
 {
   $template->assign_block_vars(
