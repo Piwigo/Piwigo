@@ -40,20 +40,20 @@ include_once(PHPWG_ROOT_PATH.'include/constants.php');
 
 echo "Create table ".WEB_SERVICES_ACCESS_TABLE;
 $query = '
-CREATE TABLE '.WEB_SERVICES_ACCESS_TABLE.' (
+CREATE TABLE '.WEB_SERVICES_ACCESS_TABLE." (
   id smallint(5) unsigned NOT NULL auto_increment,
   name varchar(32) NOT NULL default '',
   access varchar(255) default NULL,
   `start` datetime default NULL,
   `end` datetime default NULL,
   request varchar(255) default NULL,
-  high enum(\'true\',\'false\') NOT NULL default \'true\',
-  normal enum(\'true\',\'false\') NOT NULL default \'true\',
+  high enum('true','false') NOT NULL default 'true',
+  normal enum('true','false') NOT NULL default 'true',
   `limit` smallint(5) unsigned default NULL,
   `comment` varchar(255) default NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY name (name)
-) ENGINE=MyISAM COMMENT=\'Access for Web Services\';';
+) ENGINE=MyISAM COMMENT='Access for Web Services';";
 pwg_query($query);
 
 echo
