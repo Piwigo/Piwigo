@@ -496,4 +496,72 @@ $lang['is_default_group'] = 'par défaut';
 $lang['toggle_is_default_group'] = 'Inverser la propriété \'groupe par défaut\'';
 $lang['Advanced_features'] = 'Fonctions avancées';
 $lang['Elements_not_linked'] = 'Eléments non liés';
+$lang['web_services'] = 'Services Web ';
+$lang['title_wscheck'] = ' Gestion des accès ';
+$lang['ws_set_status'] = ' Environnement ';
+$lang['ws_status'] = ' Statut ';
+$lang['ws_enable'] = ' Actif ';
+$lang['ws_disable'] = ' Inactif ';
+$lang['ws set to'] = ' Modifier temporairement l\'environnement en ';
+$lang['ws_failed_upd'] = ' -> <strong>Opération non réalisée</strong> ';
+$lang['ws_success_upd'] = ' -> Action réalisée correctement ';
+$lang['ws_adding_legend'] = '  Ajout d\'un accès partenaire aux Services Web ';
+$lang['ws_update_legend'] = '  Supprimer / Modifier l\'accès du partenaire sélectionné ';
+$lang['ws_delete_legend'] = '  Supprimer définitivement l\'accès du partenaire sélectionné ';
+//  $lang['ws_default_legend'] = '  Valeurs par défaut en situation de paramètre manquant ';
+//  $lang['ws_default'] = ' Défauts ';
+//  $lang['ws_request'] = ' Requête (Type de demande) ';
+//  $lang['ws_requested_nbr'] = ' Nombre d\'images renvoyées ';
+$lang['ws_random'] = 'Aléatoires';                            /* Random order */
+$lang['ws_list'] = 'Liste d\'id';            /* list on MBt & z0rglub request */
+$lang['ws_maxviewed'] = 'Plus vues';            /* hit > 0 and hit desc order */
+$lang['ws_recent'] = 'Plus récentes';   /* recent = Date_available desc order */
+$lang['ws_highrated'] = 'Mieux notées';        /* avg_rate > 0 and desc order */
+$lang['ws_oldest'] = 'Plus anciennes';            /* Date_available asc order */
+$lang['ws_lessviewed'] = 'Moins vues';                       /* hit asc order */
+$lang['ws_lowrated'] = 'Moins bien notées';             /* avg_rate asc order */
+$lang['ws_undescribed'] = 'Non décrites';              /* description missing */
+$lang['ws_unnamed'] = 'Non renommées';                    /* new name missing */
+$lang['ws_portraits'] = 'Portraits';    /* width < height (portrait oriented) */
+$lang['ws_landscapes'] = 'Paysages';   /* width > height (landscape oriented) */
+$lang['ws_squares'] = 'Carrées';              /* width ~ height (square form) */
+$lang['ws_high_auth'] = ' Autoriser la haute résolution ';
+$lang['ws_normal_auth'] = ' Autoriser la dimension normale ';
+$lang['ws_KeyName'] = ' Partenaire ';
+$lang['ws_Access'] = ' Access ';
+$lang['ws_Start'] = ' Début ';
+$lang['ws_End'] = ' Fin ';
+$lang['ws_Request'] = 'Requête';
+$lang['ws_High'] = ' High ';
+$lang['ws_Normal'] = ' Normal ';
+$lang['ws_Limit'] = ' Limite ';
+$lang['ws_Comment'] = ' Commentaire ';
+//  $lang['Reset filter(s)'] = ' Filtres désactivés ';
+//  $lang['New filter(s)'] = ' Nouveau(x) filtre(s)activé(s) ';
+//  $lang['Not selected / Not confirmed'] = 'Accès non sélectionné ou opération non confirmée';
+$lang['Modify End from Now +'] = 'Modifier la Fin par cet instant + ';
+$lang['Confirmation'] = ' Confirmation ';
+$lang['Delete'] = ' Retrait ';
+$lang['ws_disallowed'] = 'Changement interdit ou déjà effectué';
+$lang['Confidential partner key'] = 'Clé confidentielle';
+$lang['Basis of access key calculation'] = 'Base de calcul de la clé';
+$lang['Target'] = 'Cible';
+$lang['Access: see help text for more'] = 'Accès: voir l\'aide en ligne';
+$lang['Facultative and restrictive option'] = 
+    'Option facultative et restrictive';
+$lang['Postponed availability in days'] = 'Report de disponibilité en jours';
+$lang['Duration in days'] = 'Durée en jours';
+$lang['Restrict access to'] = 'Accès restreint à';
+$lang['High resolution information will be returned to your partner'] = 
+    'Les informations de la haute résolution seront transmises' . 
+    ' à votre partenaire';
+$lang['Normal size information will be returned to your partner'] = 
+    'Les informations de l\'image normale seront transmises à votre partenaire';
+$lang['Returned images limit'] = 'Limite de transmision';
+$lang['Comment to identify your partner clearly'] = 
+   'Commentaire vous permettant d\'identifier votre partenaire facilement';
+$lang['Add this access definition']= 'Ajouter cette définition d\'accès';
+$lang['Web Services availability duration in days'] = 
+   'Durée d\'ouverture des Services Web en jours';
+
 ?>
