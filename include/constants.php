@@ -73,4 +73,5 @@ define('USER_MAIL_NOTIFICATION_TABLE', $prefixeTable.'user_mail_notification');
 define('TAGS_TABLE', $prefixeTable.'tags');
 define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
 define('PLUGINS_TABLE', $prefixeTable.'plugins');
+define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
 ?>
