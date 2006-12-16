@@ -1,0 +1,57 @@
+<h2>Web Service Checker</h2>
+
+<p>Cette page permet de définir les paramètres de votre web service.</p>
+
+<dl>
+
+  <dt>Modification temporaire de l'Environnement</dt>
+
+  <dd>Si le Service Web est autorisé (Configuration avancée => $conf['allow_web_services'])
+  alors vous avez la possibilité de modifier par l'interface d'Administration, l'environnement en Actif ou Inactif quand vous le souhaitez.</dd>
+
+  <dt>Clé confidentielle (Obligatoire)</dt>
+  
+  <dd>Clé unique à partager avec votre partenaire. Doit être assez longue ( 8 caractères par exemple),
+  doit être assez complexe (avec des chiffres, des majuscules et minuscules, et des caractères spéciaux).
+  Par exemple: "P!e2r!k Le G@2l".
+  
+  <strong>Ce champ est masqué en mode conseillé.</strong>
+
+  <dt>Cible (Facultatif)</dt>
+
+  <dd>Soit une liste d'identifiants d'images ceci:<ul><li>
+  list/277,275,142,235,178,190,204,236-238,253,268,276,285,41,73</li><li>
+  une liste de catégories comme : cat/16,32,21</li><li>
+  ou encore une liste de tags : tag/22,61,36 </li></ul>
+  Tout liste d'identifiants sera réduite a sa plus simple expression:<ul><li>
+  list/41,73,142,178,190,204,<strong>235-238</strong>,253,268,<strong>275-277</strong>,285</li></ul>
+
+  </dd>
+
+  <dt>Accès restreint (Facultatif)</dt>
+
+  <dd>Si vous souhaitez limiter votre partenaire à un type de requête particulier.</dd>
+
+  <dt>Limite de transmision </dt>
+
+  <dd>Nombre d'images maximum adressées à votre partenaire à chacune de ses requêtes.</dd>
+
+  <dt>Report de disponibilité </dt>
+
+  <dd>La disponibilité peut être décalée de quelques jours à compter de cet instant. N'oubliez pas que les Services doivent être autorisés et actifs le jour venu.</dd>
+
+  <dt>Durée </dt>
+
+  <dd>A partir de maintenant, indiquez la disponibilité en jours. Si vous reportez la disponibilité au delà de sa durée, le service ne devrait jamais être rendu.</dd>
+
+  <dt>High / Normal </dt>
+
+  <dd>Résultat containdra les informations relatives aux images en haute résolution (pwg_high). Les images Normal(es) suivent le même principe.
+  Si les deux sont à "Non", seulement les informations des miniatures seront adressées à votre partenaire.</dd>
+
+  <dt>Commentaire </dt>
+
+  <dd>Vous permet de décrire qui se trouve derrière ce Service Web, de façon plus claire pour vous.
+  N'oubliez pas qu'un Administrateur en mode conseiller peut lire le contenu de ce commentaire.</dd>
+ 
+</dl>

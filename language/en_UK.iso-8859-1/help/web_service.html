@@ -1,0 +1,56 @@
+<h2>Web Service Checker</h2>
+
+<p>This page let you define all parameters for your web service.</p>
+
+<dl>
+
+  <dt>Environment temporary setting</dt>
+
+  <dd>If Web Service are available (Advanced configuration => $conf['allow_web_services'])
+  then you are able to set it by administration interface as enable or disable when you want.</dd>
+
+  <dt>Confidential partner key (Mandatory)</dt>
+  
+  <dd>Unique key to share with your partner. Keep that one long enough (e.g. 8 characters).
+  Keep it as complex enough (mixed figures, upper and lower case characters, special characters).
+  For example: "P!e2r!k Le G@2l".
+   
+  <strong>Hidden to anyone in adviser mode.</strong>
+
+  <dt>Target (Optional)</dt>
+
+  <dd>Can be an image id list like that:<ul><li>
+  list/277,275,142,235,178,190,204,236-238,253,268,276,285,41,73</li><li>
+  a category id list as : cat/16,32,21</li><li>
+  or a tag id list as: tag/22,61,36 </li></ul>
+  all id list will be reduced to the min list as:<ul><li>
+  list/41,73,142,178,190,204,<strong>235-238</strong>,253,268,<strong>275-277</strong>,285</li></ul>
+  </dd>
+
+  <dt>Restrict access (Optional)</dt>
+
+  <dd>If you want to limit your partner to a specific request.</dd>
+
+  <dt>Returned images limit </dt>
+
+  <dd>Images limit count: to return to your partner for each request.</dd>
+
+  <dt>Postponed availability </dt>
+
+  <dd>Can start in few days from now. Remember Web Service would be available and enable.</dd>
+
+  <dt>Duration </dt>
+
+  <dd>From now, set availability in days. If you postpone over the duration, the service would never be available.</dd>
+
+  <dt>High / Normal </dt>
+
+  <dd>Result contains description for high resolution picture (pwg_high). Normal size picture as well.
+  If both are set to No. Only thumbnail information will be sent to your partner.</dd>
+
+  <dt>Comment </dt>
+
+  <dd>Let you describe who's behind this Web Service, be clear enough.
+  Don't forget that if someone is Admin and Adviser on your website. He can read this comment zone.</dd>
+
+</dl>
