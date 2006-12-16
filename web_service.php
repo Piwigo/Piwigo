@@ -120,11 +120,16 @@ if (isset($_SERVER["HTTP_REFERER"]) and
 
 
 
-// FIXME
-
+// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME
 
 // Check keywords
-//
+// Key and pos are correct
+// &acc=cat/23,25-32&req=landscape&lim=5&tpl=myxml
+
+
+
+
+
 
 // Check requested XML template
 //
@@ -140,7 +145,7 @@ if (isset($_SERVER["HTTP_REFERER"]) and
 
 
 
-
+// Old code below
 
 //------------ Main security strategy ---------------------
 $partner_id = 'default';
