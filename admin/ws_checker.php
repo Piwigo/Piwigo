@@ -145,24 +145,8 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 
-// FIXME would be in migration process but could stay here 
-// Config parameters
-if (!isset($conf['ws_status']))
-{
-  $conf['ws_status'] = false;
-
-  $query = '
-  INSERT INTO '.CONFIG_TABLE.'
-    (param,value,comment)
-    VALUES
-  (\'ws_status\', \'false\', \'Web Service status\' )
-  ;';
-  pwg_query($query);
-}
-
 // accepted queries
 $req_type_list = official_req();
-
 
 //--------------------------------------------------------- update informations
 
