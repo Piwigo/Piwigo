@@ -395,3 +395,23 @@ CREATE TABLE `phpwebgallery_waiting` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
+-- 
+-- Table structure for table `phpwebgallery_ws_access`
+-- 
+
+DROP TABLE IF EXISTS phpwebgallery_ws_access;
+CREATE TABLE phpwebgallery_ws_access (
+  id smallint(5) unsigned NOT NULL auto_increment,
+  name varchar(32) NOT NULL default '',
+  access varchar(255) default NULL,
+  `start` datetime default NULL,
+  `end` datetime default NULL,
+  request varchar(255) default NULL,
+  high enum('true','false') NOT NULL default 'true',
+  normal enum('true','false') NOT NULL default 'true',
+  `limit` smallint(5) unsigned default NULL,
+  `comment` varchar(255) default NULL,
+  PRIMARY KEY  (id),
+  UNIQUE KEY name (name)
+) ENGINE=MyISAM COMMENT='Access for Web Services';
+        
