@@ -7,7 +7,9 @@
 	  contact us on http://phpwebgallery.net to find a solution on how
 	  to show the origin of the script...-->
 
-  {lang:powered_by} <a href="http://www.phpwebgallery.net" class="back">PhpWebGallery</a>
+  <a href="http://www.phpwebgallery.net" class="back" title="{lang:powered_by}">
+  <img src="{pwg_root}{themeconf:icon_dir}/pwg_footer.png" alt="{lang:powered_by}">
+  </a>
   {VERSION}
   <!-- BEGIN contact -->
   - {lang:send_mail}
