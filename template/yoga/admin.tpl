@@ -17,13 +17,6 @@
         <li><a href="{U_SITE_MANAGER}">{lang:Site manager}</a></li>
         <li><a href="{U_HISTORY}">{lang:history}</a></li>
         <li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
-        <li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
-        <li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
-        <li><a href="{U_PLUGINS}">{lang:Plugins}</a></li>
-        <li><a href="{U_ADVANCED_FEATURE}">{lang:Advanced_features}</a></li>
-        <!-- BEGIN web_services -->
-	      <li><a href="{web_services.U_WS_CHECKER}">{lang:web_services}</a></li>
-	      <!-- END web_services -->
       </ul>
     </dd>
   </dl>
@@ -34,6 +27,19 @@
         <li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
         <li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
         <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
+      </ul>
+    </dd>
+  </dl>
+  <dl>
+    <dt>{lang:special_admin_menu}</dt>
+    <dd>
+      <ul>
+        <li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
+        <li><a href="{U_ADVANCED_FEATURE}">{lang:Advanced_features}</a></li>
+        <li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
+        <!-- BEGIN web_services -->
+        <li><a href="{web_services.U_WS_CHECKER}">{lang:web_services}</a></li>
+        <!-- END web_services -->
       </ul>
     </dd>
   </dl>
@@ -54,7 +60,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{lang:pictures}</dt>
+    <dt>{lang:pictures_menu}</dt>
     <dd>
       <ul>
         <li><a href="{U_WAITING}">{lang:waiting}</a></li>

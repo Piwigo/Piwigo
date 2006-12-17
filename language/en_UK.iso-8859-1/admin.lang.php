@@ -565,4 +565,8 @@ $lang['Comment to identify your partner clearly'] =
 $lang['Add this access definition'] = 'Add this access definition';
 $lang['Web Services availability duration in days'] = 
   'Web Services availability duration in days';
+$lang['special_admin_menu'] = 'Specials';
+$lang['pictures_menu'] = 'Pictures';
+
+
 ?>

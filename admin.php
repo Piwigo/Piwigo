@@ -97,7 +97,6 @@ $template->assign_vars(
     'U_COMMENTS'=> $link_start.'comments',
     'U_RATING'=> $link_start.'rating',
     'U_CADDIE'=> $link_start.'element_set&amp;cat=caddie',
-    'U_PLUGINS'=> $link_start.'plugins',
     'U_TAGS'=> $link_start.'tags',
     'U_THUMBNAILS'=> $link_start.'thumbnail',
     'U_USERS'=> $link_start.'user_list',
