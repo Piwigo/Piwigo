@@ -126,4 +126,23 @@ function check_target($list)
   }
   return $list;
 }
+
+
+// FIXME Function which could already exist somewhere else 
+function convert_catlist($cat_ids)
+{
+  $cat_list = implode(',', $cat_ids);
+  $ret_ids = array();
+  $query = '
+  SELECT DISTINCT image_id 
+    FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id in ('.$cat_list.')
+  ;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $ret_ids[] = $row['image_id'];
+  }
+  return $ret_ids;
+}
 ?>

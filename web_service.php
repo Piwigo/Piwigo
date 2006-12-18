@@ -27,7 +27,7 @@
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
-if((!defined("PHPWG_ROOT_PATH")) or (!$conf['allow_web_services']))
+if ( !$conf['allow_web_services'] )
 {
   die('Hacking attempt!');
 }
@@ -53,11 +53,12 @@ if((!defined("PHPWG_ROOT_PATH")) or (!$conf['allow_web_services']))
 
 // Check call process (Keyed call)
 //
-if (!isset($_get['key'])) 
+
+if (!isset($_GET['key'])) 
 {
   die('Hacking attempt!');
 }
-if ( strlen($_get['key']) < 12 )
+if ( strlen($_GET['key']) < 12 )
 {
   die('Invalid key (Length issue)!');
 }
@@ -69,27 +70,29 @@ SELECT value FROM '.CONFIG_TABLE.'
 WHERE param = \'ws_status\'
 ;';
 $active = mysql_fetch_array(pwg_query($query));
-if ($active='false')
+if ( $active['value']=='false' )
 {
   die('Web service is temporary inactive');
 }
 
 // Look for partner_key
 //
-$key = $_get['key'];
+$key = $_GET['key'];
 $key = ( strlen($key) > 20 ) ? substr($key,0,20) : $key;
 $len = strlen($key);
-&hash = 0;
-if (isset($_get['pos']))
+$hash = 0;
+if (isset($_GET['pos']))
 {
-  $hash = (!is_numeric($hash)) ? 0 : $_get['pos'];
+  $hash = (!is_numeric($_GET['pos'])) ? 0 : $_GET['pos'];
   $hash = (int) $hash;
   $hash = $hash % 12; 
 }
 $query = '
-SELECT *
+SELECT `id`, `name`, `access`, `start`, `end`, `request`, 
+  `high`, `normal`, `limit`, `comment` 
   FROM '.WEB_SERVICES_ACCESS_TABLE.'
 ;';
+
 $result = pwg_query($query);
 
 while ($row = mysql_fetch_array($result))
@@ -97,6 +100,7 @@ while ($row = mysql_fetch_array($result))
   if ( substr( md5($row['name']),$hash,$len) == $key )
   {
     $len = 0;
+    $def = $row;
     continue;
   }
 }
@@ -104,8 +108,9 @@ if ( $len > 0 )
 {
   die('Invalid key!');
 }
+
 // $def = Web service already defined partner access
-$def = $row;
+
 //
 // Now, the partner will get a reply in time
 //
@@ -118,14 +123,77 @@ if (isset($_SERVER["HTTP_REFERER"]) and
   $stats_id = ( $pos>0 ) ? substr($stats_id,0,$pos) : $stats_id;
 }
 
-
-
-// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME
-
 // Check keywords
 // Key and pos are correct
 // &acc=cat/23,25-32&req=landscape&lim=5&tpl=myxml
+$req_access ='';
+if (isset($_GET['pos']))
+{
+  $req_access = check_target($_GET['acc']);
+}
+// on one hand $req_access, requested ids 
+$req_type = explode('/',$req_access); 
+$req_ids = explode( ',',$req_type[1] );
+$req_list = expand_id_list( $req_ids ); 
+if ($req_type[0]=='cat')
+{
+  $req_list = convert_catlist($req_list);
+}
+if ($req_type[0]=='tag')
+{
+  $req_list = get_image_ids_for_tags($req_list);
+}
+echo $def['name'].'<br />';
+// on the other hand $def['access'], authorized default ids
+$def_type = explode('/',$def['access']); 
+$def_ids = explode( ',',$def_type[1] );
+$def_list = expand_id_list( $def_ids );
+if ($def_type[0]=='cat')
+{
+  $def_list = convert_catlist($def_list);
+}
+if ($def_type[0]=='tag')
+{
+  $def_list = get_image_ids_for_tags($def_list);
+}
 
+// could be no necessary, a surplus but
+// Filter on forbidden_categories
+$list = implode(',',$def_list);
+
+$ret_ids = array();
+$query = '
+SELECT DISTINCT image_id 
+  FROM '.IMAGE_CATEGORY_TABLE.'
+WHERE  category_id NOT IN ('.$user['forbidden_categories'].') 
+  AND  image_id IN ('.$list.')
+;';
+$result = pwg_query($query);
+while ($row = mysql_fetch_array($result))
+{
+  $ret_ids[] = $row['image_id'];
+}
+
+// 77f1180bd215a0edf66939
+// web_service.php?key=77f1180bd215&pos=3&acc=list/41,73,142,178,190,204,235-238&req=recent&lim=1&tpl=myxml
+
+echo 'temporaire<br />';
+echo '$req_list' . var_dump($req_list);
+
+if (count($req_list)==0)
+{
+  $req_list = $def_list;
+}  
+// 
+  die('FIXME!');
+// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME
+
+// Both may empty
+// Both can be build on differents basis cat/tag/list
+// Both have to be convert in list
+// if no requested ids then is the complete default
+// if some requested ids they must be in the complete default and only those
+// will be transmitted.
 
 
 
