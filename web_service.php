@@ -126,6 +126,11 @@ if (isset($_SERVER["HTTP_REFERER"]) and
 // Check keywords
 // Key and pos are correct
 // &acc=cat/23,25-32&req=landscape&lim=5&tpl=myxml
+
+// Requested id list and authorized id list
+// Both may empty
+// Both can be build on differents basis cat/tag/list
+// Both have to be convert in id list format
 $req_access ='';
 if (isset($_GET['pos']))
 {
@@ -143,7 +148,7 @@ if ($req_type[0]=='tag')
 {
   $req_list = get_image_ids_for_tags($req_list);
 }
-echo $def['name'].'<br />';
+// echo $def['name'].'<br />';
 // on the other hand $def['access'], authorized default ids
 $def_type = explode('/',$def['access']); 
 $def_ids = explode( ',',$def_type[1] );
@@ -157,8 +162,8 @@ if ($def_type[0]=='tag')
   $def_list = get_image_ids_for_tags($def_list);
 }
 
-// could be no necessary, a surplus but
-// Filter on forbidden_categories
+// could be no necessary, a surplus but we are obliged to
+// Filter on forbidden_categories (default can have change from creation time)
 $list = implode(',',$def_list);
 
 $ret_ids = array();
@@ -173,27 +178,84 @@ while ($row = mysql_fetch_array($result))
 {
   $ret_ids[] = $row['image_id'];
 }
+$def_ids = $ret_ids;
 
+// Notice: Filtering on forbidden_categories (from requested id list)
+// is completely superfluous (see few lines below).
+$req_ids = $req_list;
+
+// if no requested ids then is the complete default
+if (count($req_ids)==0)
+{
+  $req_ids = $def_ids;
+} 
+
+// Removing requested ids not in authorized access list
+// if requested ids they must be in the complete default and only those
+// will be assumed. (Including forbidden... )
+$final = array();
+foreach ( $req_ids as $req_id )
+{
+  if ( in_array($req_id, $def_ids) ) 
+  {
+    $final[] = $req_id; 
+  }
+}
+
+$final = array_unique ($final);  
+sort ($final);
+ 
 // 77f1180bd215a0edf66939
 // web_service.php?key=77f1180bd215&pos=3&acc=list/41,73,142,178,190,204,235-238&req=recent&lim=1&tpl=myxml
 
-echo 'temporaire<br />';
-echo '$req_list' . var_dump($req_list);
+$request = (isset($_GET['req']))? $_GET['req']:$def['request'];
+// if type of request is different from the authorized type then force it 
+if ( $def['request'] !== '' and $request !== $def['request'] )
 
-if (count($req_list)==0)
 {
-  $req_list = $def_list;
-}  
+  $request = $def['request'];
+}
+// if it is not an official request then force it
+// (remark that default request can no longer exist 
+// (later an Upgrade, or a remove) so...
+$official = official_req();
+if ( !in_array($request, $official ) )
+{
+  $request = $official[0]; // default request is the first one
+}
+// limit belong default (remember $def['limit'] is always set)
+$limit = (isset($_GET['limit']))? $_GET['limit']:$def['limit'];
+$limit = (is_numeric($limit))? $limit:$def['limit']; 
+$limit = ( $limit < $def['limit'] ) ? $limit:$def['limit'];
+
+// XML template
+$tplfile = (isset($_GET['tpl']))? $_GET['tpl']:'default';
+// FIXME additional controls are maybe needed on $tplfile
+
+
+trigger_action('loc_begin_'.$request);
+$template->set_filenames(array( $tplfile => 'XML/'. $tplfile .'.tpl'));
+
+// Generate the request
+include(PHPWG_ROOT_PATH. 'services/' .$request. '.php');
+
+
+// +-----------------------------------------------------------------------+
+// |                       XML/xhtml code display                          |
+// +-----------------------------------------------------------------------+
+header('Content-Type: text/xml; charset=UTF-8');
+//header('Content-Type: text/html; charset='.$lang_info['charset']);
+$template->parse($tplfile);
+
+// echo '<strong>Trace temporaire<strong><br />';
+// echo '$final:<br />' . var_dump($final);
 // 
-  die('FIXME!');
+die('');
 // FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME// FIXME
 
-// Both may empty
-// Both can be build on differents basis cat/tag/list
-// Both have to be convert in list
-// if no requested ids then is the complete default
-// if some requested ids they must be in the complete default and only those
-// will be transmitted.
+//------------------------------------------------------------ log informations
+pwg_log($request, $stats_id, $tplfile); // or something like that
+
 
 
 
