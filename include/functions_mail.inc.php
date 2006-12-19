@@ -121,7 +121,7 @@ function get_mail_template()
  */
 function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $format_infos = 'text/plain', $email_format = null)
 {
-  global $conf, $conf_mail, $lang_info, $user;
+  global $conf, $conf_mail, $lang_info, $user, $page;
 
   $cvt7b_subject = str_translate_to_ascii7bits($subject);
 
@@ -139,6 +139,12 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
   {
     // Todo find function to convert html text to plain text
     return false;
+  }
+
+  // Compute root_path in order have complete path
+  if ($email_format == 'text/html')
+  {
+    set_make_full_url();
   }
 
   $to = format_email('', $to);
@@ -179,9 +185,8 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
               $page['body_id'] : '',
 
           'CONTENT_ENCODING' => $lang_info['charset'],
-          'LANG'=>$lang_info['code'],
-          'DIR'=>$lang_info['direction']
-
+          'LANG' => $lang_info['code'],
+          'DIR' => $lang_info['direction']
           ));
 
       $conf_mail[$email_format][$lang_info['charset']]['header'] =
@@ -220,7 +225,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
                   $page['gallery_title'] : $conf['gallery_title'],
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
 
-          'L_TITLE_MAIL' => urlencode(l10n('title_send_mail')),
+          'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
           'MAIL' => get_webmaster_mail_address()
           ));
 
@@ -234,6 +239,12 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
   }
 
   $content.= $conf_mail[$email_format][$lang_info['charset']]['footer'];
+  
+   // Undo Compute root_path in order have complete path
+  if ($email_format == 'text/html')
+  {
+    unset_make_full_url();
+  }
 
   if ($conf_mail['mail_options'])
   {

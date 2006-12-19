@@ -312,16 +312,11 @@ function display_counter_info()
 
 function get_mail_content_subscribe_unsubcribe($nbm_user)
 {
-  global $page, $env_nbm;
+  global $env_nbm;
   
   $content = "\n\n\n";
   
-  if ( isset($page['root_path']) )
-  {
-    $save_root_path = $page['root_path'];
-  }
-
-  $page['root_path'] = 'http://'.$_SERVER['HTTP_HOST'].cookie_path();
+  set_make_full_url();
   
   $content .= "___________________________________________________\n\n";
   $content .= sprintf(l10n('nbm_content_unsubscribe_link'), add_url_params(get_root_url().'nbm.php', array('unsubscribe' => $nbm_user['check_key'])))."\n";
@@ -329,14 +324,7 @@ function get_mail_content_subscribe_unsubcribe($nbm_user)
   $content .= sprintf(l10n('nbm_content_subscribe_unsubscribe_contact'), $env_nbm['send_as_mail_address'])."\n";
   $content .= "___________________________________________________\n\n\n\n";
 
-  if (isset($save_root_path))
-  {
-    $page['root_path'] = $save_root_path;
-  }
-  else
-  {
-    unset($page['root_path']);
-  }
+  unset_make_full_url();
 
   return $content;
 }

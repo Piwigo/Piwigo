@@ -396,4 +396,61 @@ function make_section_in_url($params)
 
   return $section_string;
 }
+
+/**
+ * Indicate to build url with full path
+ *
+ * @param null
+ * @return null
+ */
+function set_make_full_url()
+{
+  global $page;
+
+  if (!isset($page['save_root_path']))
+  {
+    if (isset($page['root_path']))
+    {
+      $page['save_root_path']['path'] = $page['root_path'];
+    }
+    $page['save_root_path']['count'] = 1;
+    $page['root_path'] = 'http://'.$_SERVER['HTTP_HOST'].cookie_path();
+  }
+  else
+  {
+    $page['save_root_path']['count'] += 1;
+  }
+}
+
+/**
+ * Restore old parameter to build url with full path
+ *
+ * @param null
+ * @return null
+ */
+function unset_make_full_url()
+{
+  global $page;
+
+  if (isset($page['save_root_path']))
+  {
+    if ($page['save_root_path']['count'] == 1)
+    {
+      if (isset($page['save_root_path']['path']))
+      {
+        $page['root_path'] = $page['save_root_path']['path'];
+      }
+      else
+      {
+        unset($page['root_path']);
+      }
+      unset($page['save_root_path']);
+    }
+    else
+    {
+      $page['save_root_path']['count'] -= 1;
+    }
+  }
+}
+
 ?>
