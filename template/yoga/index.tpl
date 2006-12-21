@@ -27,16 +27,14 @@
       <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
-      <!-- BEGIN start_filter_local_mode -->
-      <li><a href="{start_filter_local_mode.URL}" title="{lang:start_filter_local_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/start_filter_mode.png" class="button" alt="{lang:start_filter_local_mode_hint}"></a></li>
-      <!-- END start_filter_local_mode -->
-      <!-- BEGIN stop_filter_local_mode -->
-      <li><a href="{stop_filter_local_mode.URL}" title="{lang:stop_filter_local_mode_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter_mode.png" class="button" alt="{lang:stop_filter_local_mode_hint}"></a></li>
-      <!-- END stop_filter_local_mode -->
-
       <!-- BEGIN mode_normal -->
       <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
       <!-- END mode_normal -->
+
+      <!-- BEGIN flat_recent_cat -->
+      <li><a href="{flat_recent_cat.URL}" title="{lang:flat_recent_cat_hint}"><img src="{pwg_root}{themeconf:icon_dir}/flat_recent_cat.png" class="button" alt="{lang:flat_recent_cat_hint}"></a></li>
+      <!-- END flat_recent_cat -->
+
       <!-- BEGIN mode_posted -->
       <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
       <!-- END mode_posted -->

@@ -1,7 +1,16 @@
 <?php
 
-$where = ( $user['forbidden_categories'] == '') ? '' :
-  'ic.`category_id` NOT IN ('.$user['forbidden_categories'].')';
+$where = 
+  get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'ic.category_id',
+          'visible_categories' => 'ic.category_id',
+          'visible_images' => 'i.id'
+        ),
+      ''
+    );
 $list = implode(',', $final);
 if ( $where !== '' and $list !== '' )
 {

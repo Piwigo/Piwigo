@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -490,10 +490,9 @@ $lang['maxheight'] = 'Hauteur maximum des images';
 $lang['maxheight_error'] = 'La hauteur maximum des images doit être supérieure à 50';
 $lang['maxwidth'] = 'Largeur maximum des images';
 $lang['maxwidth_error'] = 'La largeur des images doit être supérieure à 50';
-$lang['start_filter_local_mode_hint'] = '[local] afficher que les éléments récents';
-$lang['stop_filter_local_mode_hint'] = '[local] retourner à l\'affichage de tous les éléments';
-$lang['start_filter_global_mode_hint'] = '[global] afficher que les éléments récents';
-$lang['stop_filter_global_mode_hint'] = '[global] retourner à l\'affichage de tous les éléments';
+$lang['flat_recent_cat_hint'] = 'affiche les éléments récents des catégories et des sous-catégories';
+$lang['start_filter_hint'] = 'afficher que les éléments récents';
+$lang['stop_filter_hint'] = 'retourner à l\'affichage de tous les éléments';
 $lang['mode_created_hint'] = 'afficher un calendrier par date de création';
 $lang['mode_normal_hint'] = 'retourner à la vue normale';
 $lang['mode_posted_hint'] = 'afficher un calendrier par date d\'ajout';
@@ -614,4 +613,6 @@ $lang['upload_username'] = 'Nom d\'utilisateur';
 $lang['useful when password forgotten'] = 'utile en cas d\'oubli de mot de passe';
 $lang['w_month'] = 'Mois';
 $lang['yes'] = 'Oui';
+$lang['note_filter_day'] = 'L\'ensemble des éléments est filtré pour n\'afficher que les éléments récents de moins de %d jour.';
+$lang['note_filter_days'] = 'L\'ensemble des éléments est filtré pour n\'afficher que les éléments récents de moins de %d jours.';
 ?>

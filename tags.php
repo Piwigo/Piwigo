@@ -73,7 +73,7 @@ $template->assign_vars(
 // +-----------------------------------------------------------------------+
 
 // find all tags available for the current user
-$tags = get_available_tags(explode(',', $user['forbidden_categories']));
+$tags = get_available_tags();
 
 // we want only the first most represented tags, so we sort them by counter
 // and take the first tags

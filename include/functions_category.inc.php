@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -44,6 +44,8 @@ function check_restrictions($category_id)
 {
   global $user;
 
+  // $filter['visible_categories'] and $filter['visible_images']
+  // are not used because it's not necessary (filter <> restriction)
   if (in_array($category_id, explode(',', $user['forbidden_categories'])))
   {
     access_denied();
@@ -52,7 +54,7 @@ function check_restrictions($category_id)
 
 function get_categories_menu()
 {
-  global $page, $user;
+  global $page, $user, $filter;
 
   $query = '
 SELECT ';
@@ -65,28 +67,34 @@ SELECT ';
 
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query.= '
-  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'];
-  if ($page['filter_local_mode'])
+
+  // Always expand when filter is activated
+  if (!$user['expand'] and !$filter['enabled'])
   {
     $query.= '
-where max_date_last > SUBDATE(
-  CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
+WHERE
+(id_uppercat is NULL';
+    if (isset($page['category']))
+    {
+      $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
+    }
+    $query.= ')';
   }
   else
   {
-    // Always expand when filter_local_mode is activated
-    if (!$user['expand'] and !$user['filter_global_mode'])
-    {
-      $query.= '
-      WHERE (id_uppercat is NULL';
-      if (isset($page['category']))
-      {
-        $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
-      }
-      $query.= ')';
-    }
+    $query.= '
+  '.get_sql_condition_FandF
+    (
+      array
+        (
+          'visible_categories' => 'id',
+        ),
+      'WHERE'
+    );
   }
+
   $query.= '
 ;';
 
@@ -97,6 +105,9 @@ where max_date_last > SUBDATE(
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
+
+  // Update filtered data
+  update_cats_with_filtered_data($cats);
 
   return get_html_menu_category($cats);
 }

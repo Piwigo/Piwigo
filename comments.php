@@ -216,13 +216,16 @@ $template->assign_block_vars(
 
 $query = '
 SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE;
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-    WHERE id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
+  FROM '.CATEGORIES_TABLE.'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'id',
+        'visible_categories' => 'id'
+      ),
+    'WHERE'
+  ).'
 ;';
 display_select_cat_wrapper($query, array(@$_GET['cat']), $blockname, true);
 
@@ -308,13 +311,17 @@ SELECT COUNT(DISTINCT(id))
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'].'
-    AND '.$page['status_clause'];
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-    AND category_id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
+    AND '.$page['status_clause'].'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'ic.image_id'
+      ),
+    'AND'
+  ).'
 ;';
 list($counter) = mysql_fetch_row(pwg_query($query));
 
@@ -354,13 +361,17 @@ SELECT com.id AS comment_id
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
     AND '.$page['keyword_clause'].'
-    AND '.$page['status_clause'];
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-    AND category_id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
+    AND '.$page['status_clause'].'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'ic.image_id'
+      ),
+    'AND'
+  ).'
   GROUP BY comment_id
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])

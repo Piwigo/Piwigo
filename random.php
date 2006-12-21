@@ -45,11 +45,16 @@ $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  '.(
-    $user['forbidden_categories'] != ''
-      ? 'WHERE category_id NOT IN ('.$user['forbidden_categories'].')'
-      : ''
-    ).'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'id'
+      ),
+    'WHERE'
+  ).'
   ORDER BY RAND(NOW())
   LIMIT 0, '.$conf['top_number'].'
 ;';

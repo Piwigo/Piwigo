@@ -72,3 +72,10 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 </div>
 <!-- END header_msgs -->
 <div id="theHeader">{PAGE_BANNER}</div>
+<!-- BEGIN header_notes -->
+<div class="header_notes">
+  <!-- BEGIN header_note -->
+  <P>{header_notes.header_note.HEADER_NOTE}</p>
+  <!-- END header_note -->
+</div>
+<!-- END header_notes -->

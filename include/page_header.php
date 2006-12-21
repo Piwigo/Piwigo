@@ -60,6 +60,18 @@ if (isset($header_infos))
 {
   $template->assign_block_vars( 'header_meta', $header_infos);
 }
+
+// Header notes
+if (count($header_notes) > 0)
+{
+  $template->assign_block_vars('header_notes', array());
+  foreach ($header_notes as $header_note)
+  {
+    $template->assign_block_vars('header_notes.header_note',
+                                 array('HEADER_NOTE' => $header_note));
+  }
+}
+
 // refresh
 if ( isset( $refresh ) and intval($refresh) >= 0
     and isset( $url_link ) and isset( $redirect_msg ) )

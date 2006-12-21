@@ -37,7 +37,7 @@
  * @param array forbidden categories
  * @return array
  */
-function get_available_tags($forbidden_categories = null)
+function get_available_tags()
 {
   // we can find top fatter tags among reachable images
   $tags_query = '
@@ -45,13 +45,25 @@ SELECT tag_id, name, url_name, count(*) counter
   FROM '.IMAGE_TAG_TABLE.'
     INNER JOIN '.TAGS_TABLE.' ON tag_id = id';
 
-  if (!is_null($forbidden_categories))
+  $where_tag_img =
+    get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'image_id'
+        ),
+      'WHERE'
+    );
+
+  if (!is_null($where_tag_img))
   {
     // first we need all reachable image ids
     $images_query = '
 SELECT DISTINCT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id NOT IN ('.implode(',', $forbidden_categories).')
+  '.$where_tag_img.'
 ;';
     $image_ids = array_from_query($images_query, 'image_id');
     if ( empty($image_ids) )

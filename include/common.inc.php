@@ -112,6 +112,7 @@ $page = array();
 $user = array();
 $lang = array();
 $header_msgs = array();
+$header_notes = array();
 
 @include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if (!defined('PHPWG_INSTALLED'))
@@ -226,6 +227,17 @@ if (count($header_msgs) > 0)
     $template->assign_block_vars('header_msgs.header_msg',
                                  array('HEADER_MSG'=>$header_msg));
   }
+}
+
+if (!defined('IN_ADMIN') or !IN_ADMIN)
+{
+  include(PHPWG_ROOT_PATH.'include/functions_filter.inc.php');
+  include(PHPWG_ROOT_PATH.'include/filter.inc.php');
+}
+
+if (isset($conf['header_notes']))
+{
+  $header_notes = array_merge($header_notes, $conf['header_notes']);
 }
 
 // default event handlers

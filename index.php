@@ -106,64 +106,22 @@ if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
   $template_title.= ' ['.$page['cat_nb_images'].']';
 }
 
-if (isset($_GET['filter_local_mode']))
-{
-  $page['filter_local_mode'] = ($_GET['filter_local_mode'] == 'start');
-}
-else
-{
-  $page['filter_local_mode'] = pwg_get_session_var('filter_local_mode', false);
-}
-
-$page['filter_local_mode'] = (($page['filter_local_mode']) and
-                              ($page['section'] == 'categories') and
-                              (!isset($page['chronology_field'])));
-pwg_set_session_var('filter_local_mode', $page['filter_local_mode']);
-
-if ($page['filter_local_mode'])
+if (isset($page['flat_recent_cat']) or isset($page['chronology_field']))
 {
   $template->assign_block_vars(
-    'stop_filter_local_mode',
+    'mode_normal',
     array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_local_mode' => 'stop'))
-      )
-    );
-}
-else
-{
-  $template->assign_block_vars(
-    'start_filter_local_mode',
-    array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_local_mode' => 'start'))
+      'URL' => duplicate_index_url( array(), array('chronology_field', 'start', 'flat_recent_cat') )
       )
     );
 }
 
-if (isset($_GET['filter_global_mode']))
-{
-  $user['filter_global_mode'] = ($_GET['filter_global_mode'] == 'start');
-  pwg_set_session_var('filter_global_mode', $user['filter_global_mode']);
-}
-else
-{
-  $user['filter_global_mode'] = pwg_get_session_var('filter_global_mode', false);
-}
-
-if ($user['filter_global_mode'])
+if (!isset($page['flat_recent_cat']))
 {
   $template->assign_block_vars(
-    'stop_filter_global_mode',
+    'flat_recent_cat',
     array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_global_mode' => 'stop'))
-      )
-    );
-}
-else
-{
-  $template->assign_block_vars(
-    'start_filter_global_mode',
-    array(
-      'URL' => add_url_params(duplicate_index_url(array(), array('start')), array('filter_global_mode' => 'start'))
+      'URL' => duplicate_index_url(array('flat_recent_cat' => $user['recent_period']), array('start', 'chronology_field'))
       )
     );
 }
@@ -179,7 +137,7 @@ if (!isset($page['chronology_field']))
   $template->assign_block_vars(
     'mode_created',
     array(
-      'URL' => duplicate_index_url( $chronology_params, array('start') )
+      'URL' => duplicate_index_url( $chronology_params, array('start', 'flat_recent_cat') )
       )
     );
 
@@ -187,19 +145,12 @@ if (!isset($page['chronology_field']))
   $template->assign_block_vars(
     'mode_posted',
     array(
-      'URL' => duplicate_index_url( $chronology_params, array('start') )
+      'URL' => duplicate_index_url( $chronology_params, array('start', 'flat_recent_cat') )
       )
     );
 }
 else
 {
-  $template->assign_block_vars(
-    'mode_normal',
-    array(
-      'URL' => duplicate_index_url( array(), array('chronology_field','start') )
-      )
-    );
-
   if ($page['chronology_field'] == 'created')
   {
     $chronology_field = 'posted';
@@ -210,7 +161,7 @@ else
   }
   $url = duplicate_index_url(
             array('chronology_field'=>$chronology_field ),
-            array('chronology_date', 'start')
+            array('chronology_date', 'start', 'flat_recent_cat')
           );
   $template->assign_block_vars(
     'mode_'.$chronology_field,

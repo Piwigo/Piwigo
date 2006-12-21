@@ -170,7 +170,17 @@ $ret_ids = array();
 $query = '
 SELECT DISTINCT image_id 
   FROM '.IMAGE_CATEGORY_TABLE.'
-WHERE  category_id NOT IN ('.$user['forbidden_categories'].') 
+WHERE
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'image_id'
+      ),
+    '', true
+  ).'
   AND  image_id IN ('.$list.')
 ;';
 $result = pwg_query($query);
@@ -389,7 +399,16 @@ $query='
        AND i.`height` > 0
        AND i.`representative_ext` IS NULL 
        '.$cat_criterion.'
-       AND c.`id` NOT IN ('.$user['forbidden_categories'].') ';
+       '.get_sql_condition_FandF
+         (
+            array
+             (
+               'forbidden_categories' => 'c.id',
+               'visible_categories' => 'c.id',
+               'visible_images' => 'i.id'
+              ),
+           'AND'
+         );
 
 //     AND c.`agreed_ws` = \'true\' (Obsolete specification replaced by force)
 

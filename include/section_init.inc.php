@@ -267,6 +267,12 @@ while (isset($tokens[$i]))
     $page['start'] = $matches[1];
   }
 
+  if (preg_match('/^flat_recent_cat-(\d+)/', $tokens[$i], $matches))
+  {
+    // indicate a special list of images
+    $page['flat_recent_cat'] = $matches[1];
+  }
+
   if (preg_match('/^(posted|created)/', $tokens[$i] ))
   {
     $chronology_tokens = explode('-', $tokens[$i] );
@@ -325,59 +331,134 @@ if ('categories' == $page['section'])
     $page = array_merge(
       $page,
       array(
-        'comment'          => $result['comment'],
-        'cat_dir'          => $result['dir'],
-        'cat_name'         => $result['name'],
-        'cat_site_id'      => $result['site_id'],
-        'cat_uploadable'   => $result['uploadable'],
-        'cat_commentable'  => $result['commentable'],
-        'cat_id_uppercat'  => $result['id_uppercat'],
-        'uppercats'        => $result['uppercats'],
-
-        'title' => get_cat_display_name($result['name'], '', false),
+        'comment'            => $result['comment'],
+        'cat_dir'            => $result['dir'],
+        'cat_name'           => $result['name'],
+        'cat_site_id'        => $result['site_id'],
+        'cat_uploadable'     => $result['uploadable'],
+        'cat_commentable'    => $result['commentable'],
+        'cat_id_uppercat'    => $result['id_uppercat'],
+        'uppercats'          => $result['uppercats'],
+        'title'             => 
+          get_cat_display_name($result['name'], '', false),
+        'thumbnails_include' => 
+          (($result['nb_images'] > 0) or (isset($page['flat_recent_cat'])))
+          ? 'include/category_default.inc.php'
+          : 'include/category_cats.inc.php'
         )
       );
-
-    if (!isset($page['chronology_field']))
-    {
-      if ( !empty($result['image_order']) and !isset($page['super_order_by']) )
-      {
-      	$conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
-      }
-
-      $query = '
-SELECT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.IMAGES_TABLE.' ON id = image_id
-  WHERE category_id = '.$page['category'].'
-  '.$conf['order_by'].'
-;';
-      $page['items'] = array_from_query($query, 'image_id');
-
-      $page['thumbnails_include'] =
-        $result['nb_images'] > 0
-        ? 'include/category_default.inc.php'
-        : 'include/category_cats.inc.php';
-    } //otherwise the calendar will requery all subitems
   }
   else
   {
     $page['title'] = $lang['no_category'];
-    $page['thumbnails_include'] = 'include/category_cats.inc.php';
+    $page['thumbnails_include'] = 
+      (isset($page['flat_recent_cat']))
+          ? 'include/category_default.inc.php'
+          : 'include/category_cats.inc.php';
   }
+
+  if (isset($page['flat_recent_cat']))
+  {
+    $page['title'] = $lang['recent_pics_cat'].' : '.$page['title'] ;
+  }
+
+  if 
+    (
+      (!isset($page['chronology_field'])) and
+      (
+        (isset($page['category'])) or 
+        (isset($page['flat_recent_cat']))
+      )
+    )
+  {
+    if ( !empty($result['image_order']) and !isset($page['super_order_by']) )
+    {
+      $conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
+    }
+
+    if (isset($page['flat_recent_cat']))
+    {
+      // flat recent categories mode
+        $query = '
+SELECT
+  DISTINCT(ic.image_id)
+FROM '.IMAGES_TABLE.' AS i
+       INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
+       INNER JOIN '.CATEGORIES_TABLE.' AS c ON ic.category_id = c.id
+WHERE
+  date_available  > SUBDATE(
+      CURRENT_DATE,INTERVAL '.$page['flat_recent_cat'].' DAY)'.
+  (isset($page['category']) ? '
+  AND uppercats REGEXP \'(^|,)'.$page['category'].'(,|$)\'' : '' ).'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'image_id'
+      ),
+    'AND'
+  ).'
+;';
+
+      $where_sql = array_from_query($query, 'image_id');
+      if (!empty($where_sql))
+      {
+        $where_sql = 'image_id in ('.implode(',', $where_sql).')';
+      }
+    }
+    else
+    {
+      // Normal mode
+      $where_sql = 'category_id = '.$page['category'];
+    }
+
+    if (!empty($where_sql))
+    {
+      // Main query
+      $query = '
+SELECT image_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON id = image_id
+  WHERE
+    '.$where_sql.'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'image_id'
+      ),
+    'AND'
+  ).'
+  '.$conf['order_by'].'
+;';
+
+      $page['items'] = array_from_query($query, 'image_id');
+    }
+    else
+    {
+      $page['items'] = array();
+    }
+  } //otherwise the calendar will requery all subitems
 }
 // special sections
 else
 {
-  if (!empty($user['forbidden_categories']))
-  {
-    $forbidden =
-      ' category_id NOT IN ('.$user['forbidden_categories'].')';
-  }
-  else
-  {
-    $forbidden = ' 1 = 1';
-  }
+  $forbidden = 
+    get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'image_id'
+        ),
+      'AND'
+    );
+
 // +-----------------------------------------------------------------------+
 // |                            tags section                               |
 // +-----------------------------------------------------------------------+
@@ -400,7 +481,7 @@ else
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE image_id IN ('.implode(',', $items).')
-    AND '.$forbidden.
+    '.$forbidden.
     $conf['order_by'].'
 ;';
       $items = array_unique(
@@ -434,7 +515,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE id IN ('.implode(',', $search_result['items']).')
-    AND '.$forbidden.'
+    '.$forbidden.'
   '.$conf['order_by'].'
 ;';
       $page['items'] = array_from_query($query, 'id');
@@ -464,6 +545,14 @@ SELECT image_id
   FROM '.FAVORITES_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE user_id = '.$user['id'].'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_images' => 'image_id'
+      ),
+    'AND'
+  ).'
   '.$conf['order_by'].'
 ;';
 
@@ -487,7 +576,7 @@ SELECT DISTINCT(id)
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE date_available > \''.
       date('Y-m-d', time() - 60*60*24*$user['recent_period']).'\'
-    AND '.$forbidden.'
+    '.$forbidden.'
   '.$conf['order_by'].'
 ;';
 
@@ -526,7 +615,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE hit > 0
-    AND '.$forbidden.'
+    '.$forbidden.'
     '.$conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
@@ -554,7 +643,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE average_rate IS NOT NULL
-    AND '.$forbidden.'
+    '.$forbidden.'
     '.$conf['order_by'].'
   LIMIT 0, '.$conf['top_number'].'
 ;';
@@ -578,7 +667,7 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE image_id IN ('.implode(',', $page['list']).')
-    AND '.$forbidden.'
+    '.$forbidden.'
   '.$conf['order_by'].'
 ;';
 

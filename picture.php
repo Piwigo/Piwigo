@@ -248,7 +248,15 @@ SELECT category_id,uppercats,commentable,global_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$page['image_id'].'
-    AND category_id NOT IN ('.$user['forbidden_categories'].')
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id'
+      ),
+    'AND'
+  ).'
 ;';
 $result = pwg_query($query);
 $related_categories = array();

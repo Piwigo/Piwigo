@@ -81,12 +81,14 @@ if ( empty($element_info) )
   do_error(404, 'Requested id not found');
 }
 
+// $filter['visible_categories'] and $filter['visible_images']
+// are not used because it's not necessary (filter <> restriction)
 $query='
 SELECT id FROM '.CATEGORIES_TABLE.'
   INNER JOIN '.IMAGE_CATEGORY_TABLE.'
   ON category_id=id
   WHERE image_id='.$id.'
-  AND category_id NOT IN ('.$user['forbidden_categories'].')
+.'get_sql_condition_FandF(array('forbidden_categories' => 'category_id'), 'AND').'
   LIMIT 1
 ;';
 if ( mysql_num_rows(pwg_query($query))<1 )

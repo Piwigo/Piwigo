@@ -30,6 +30,31 @@
 // +-----------------------------------------------------------------------+
 
 /*
+ * get standard sql where in order to 
+ * restict an filter caregories and images
+ *
+ * IMAGE_CATEGORY_TABLE muste named ic in the query
+ *
+ * @param none
+ *
+ * @return string sql where
+ */
+function get_std_sql_where_restrict_filter($prefix_condition, $force_one_condition = false)
+{
+  return get_sql_condition_FandF
+          (
+            array
+              (
+                'forbidden_categories' => 'ic.category_id',
+                'visible_categories' => 'ic.category_id',
+                'visible_images' => 'ic.image_id'
+              ),
+            $prefix_condition,
+            $force_one_condition
+          );
+}
+
+/*
  * Execute custom notification query
  *
  * @param string action ('count' or 'info')
@@ -53,7 +78,7 @@ function custom_notification_query($action, $type, $start, $end)
   WHERE c.image_id = ic.image_id
     AND c.validation_date > \''.$start.'\'
     AND c.validation_date <= \''.$end.'\'
-    AND category_id NOT IN ('.$user['forbidden_categories'].')
+      '.get_std_sql_where_restrict_filter('AND').'
 ;';
       break;
     case 'unvalidated_comments':
@@ -66,18 +91,18 @@ function custom_notification_query($action, $type, $start, $end)
       break;
     case 'new_elements':
       $query = '
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
   WHERE date_available > \''.$start.'\'
     AND date_available <= \''.$end.'\'
-    AND category_id NOT IN ('.$user['forbidden_categories'].')
+      '.get_std_sql_where_restrict_filter('AND').'
 ;';
       break;
     case 'updated_categories':
       $query = '
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON image_id = id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
   WHERE date_available > \''.$start.'\'
     AND date_available <= \''.$end.'\'
-    AND category_id NOT IN ('.$user['forbidden_categories'].')
+      '.get_std_sql_where_restrict_filter('AND').'
 ;';
       break;
     case 'new_users':
@@ -423,13 +448,13 @@ function get_recent_post_dates($max_dates, $max_elements, $max_cats)
 {
   global $conf, $user;
 
-  $where_sql = 'WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
+  $where_sql = get_std_sql_where_restrict_filter('WHERE', true);
 
   $query = '
 SELECT date_available,
       COUNT(DISTINCT id) nb_elements,
       COUNT(DISTINCT category_id) nb_cats
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
   GROUP BY date_available
   ORDER BY date_available DESC
@@ -448,7 +473,7 @@ SELECT date_available,
     { // get some thumbnails ...
       $query = '
 SELECT DISTINCT id, path, name, tn_ext
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
     AND date_available="'.$dates[$i]['date_available'].'"
     AND tn_ext IS NOT NULL
@@ -466,7 +491,7 @@ SELECT DISTINCT id, path, name, tn_ext
     {// get some categories ...
       $query = '
 SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
-  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON i.id=image_id
+  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id=image_id
     INNER JOIN '.CATEGORIES_TABLE.' c ON c.id=category_id
   '.$where_sql.'
     AND date_available="'.$dates[$i]['date_available'].'"

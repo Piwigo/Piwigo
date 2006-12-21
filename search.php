@@ -187,11 +187,7 @@ $template->assign_vars(
     )
   );
 
-$available_tags = get_available_tags(
-      isset($user['forbidden_categories'])
-      ? explode(',', $user['forbidden_categories'])
-      : null
-      );
+$available_tags = get_available_tags();
 
 if (count($available_tags) > 0)
 {
@@ -213,13 +209,16 @@ if (count($available_tags) > 0)
 //------------------------------------------------------------- categories form
 $query = '
 SELECT name,id,date_last,nb_images,global_rank,uppercats
-  FROM '.CATEGORIES_TABLE;
-if ($user['forbidden_categories'] != '')
-{
-  $query.= '
-  WHERE id NOT IN ('.$user['forbidden_categories'].')';
-}
-$query.= '
+  FROM '.CATEGORIES_TABLE.'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'id',
+        'visible_categories' => 'id'
+      ),
+    'WHERE'
+  ).'
 ;';
 
 $selecteds = array();

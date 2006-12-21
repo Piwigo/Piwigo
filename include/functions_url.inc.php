@@ -264,6 +264,11 @@ function add_well_known_params_in_url($url, $params)
     }
   }
 
+  if (isset($params['flat_recent_cat']) and $params['flat_recent_cat'] > 0)
+  {
+    $url.= '/flat_recent_cat-'.$params['flat_recent_cat'];
+  }
+
   if (isset($params['start']) and $params['start'] > 0)
   {
     $url.= '/start-'.$params['start'];

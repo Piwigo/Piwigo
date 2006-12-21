@@ -26,7 +26,7 @@ H3, #the_page, #imageHeaderBar, #imageToolBar A:hover, .row1  {
   background-color: #3f3f3f;
 }
 
-#menubar DL, #content, #imageToolBar {
+#menubar DL, #content, #imageToolBar, .header_notes {
   background-color: #5f5f5f;
 }
 

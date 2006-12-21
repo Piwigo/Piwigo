@@ -15,7 +15,7 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
   background-color: #d3d3d3;
 }
 
-#menubar DL, #content, #imageToolBar {
+#menubar DL, #content, #imageToolBar, .header_notes {
   background-color: #eeeeee;
 }
 

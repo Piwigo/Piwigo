@@ -42,7 +42,16 @@ SELECT
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE date_last > SUBDATE(
     CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
-  );';
+  )
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_categories' => 'id',
+      ),
+    'AND'
+  ).'
+;';
 }
 else
 {
@@ -54,14 +63,15 @@ SELECT
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
-  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']);
-  if ($page['filter_local_mode'])
-  {
-    $query.= '
-    AND max_date_last > SUBDATE(
-      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
-  }
-  $query.= '
+  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_categories' => 'id',
+      ),
+    'AND'
+  ).'
   ORDER BY rank
 ;';
 }
@@ -85,21 +95,18 @@ while ($row = mysql_fetch_assoc($result))
 SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON ic.category_id = c.id';
-    if ($page['filter_local_mode'] or $user['filter_global_mode'])
-    {
-      $query.= '
-    INNER JOIN '.IMAGES_TABLE.' AS i on ic.image_id = i.id ';
-    }
     $query.= '
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-    AND c.id NOT IN ('.$user['forbidden_categories'].')';
-    if ($page['filter_local_mode'] or $user['filter_global_mode'])
-    {
-      $query.= '
-    AND i.date_available  > SUBDATE(
-      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
-    }
-    $query.= '
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'c.id',
+        'visible_categories' => 'c.id',
+        'visible_images' => 'image_id'
+      ),
+    'AND'
+  ).'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -116,14 +123,15 @@ SELECT representative_picture_id
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-    AND representative_picture_id IS NOT NULL';
-    if ($page['filter_local_mode'] or $user['filter_global_mode'])
-    {
-      $query.= '
-      AND max_date_last > SUBDATE(
-        CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
-    }
-    $query.= '
+    AND representative_picture_id IS NOT NULL
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_categories' => 'id',
+      ),
+    'AND'
+  ).'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
@@ -161,6 +169,9 @@ SELECT id, path, tn_ext
 
 if (count($categories) > 0)
 {
+  // Update filtered data
+  update_cats_with_filtered_data($categories);
+
   if ($conf['subcatify'])
   {
     $template->set_filenames(

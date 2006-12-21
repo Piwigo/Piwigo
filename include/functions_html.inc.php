@@ -288,11 +288,12 @@ function get_cat_display_name($cat_informations,
     {
       $output.= '<a class=""';
       $output.= ' href="'
-            .make_index_url(
+            .duplicate_index_url(
                 array(
                   'category'=>$id,
                   'cat_name'=>$name
-                  )
+                  ),
+                array('start')
               )
             .'">';
       $output.= $name.'</a>';

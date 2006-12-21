@@ -335,7 +335,7 @@ function get_qsearch_like_clause($q, $field)
  */
 function get_quick_search_results($q)
 {
-  global $user, $page;
+  global $user, $page, $filter;
   $search_results = array();
 
   // first search tag names corresponding to the query $q. we could also search
@@ -384,7 +384,16 @@ FROM (
   )
     INNER JOIN
   '.CATEGORIES_TABLE.' c on c.id=ic.category_id
-WHERE category_id NOT IN ('.$user['forbidden_categories'].')
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'ic.image_id'
+      ),
+    'WHERE'
+  ).'
 GROUP BY i.id';
 
   $query = 'SELECT id, MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS q FROM ('.$query.') AS Y
@@ -427,8 +436,16 @@ SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
   WHERE id IN ('.implode(',', array_keys($by_tag_weights) ).')
-    AND category_id NOT IN ('.$user['forbidden_categories'].')';
-
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'ic.image_id'
+      ),
+    'AND'
+  );
     $allowed_image_ids = array_from_query( $query, 'id');
     $by_tag_weights = array_intersect_key($by_tag_weights, array_flip($allowed_image_ids));
     arsort($by_tag_weights, SORT_NUMERIC);

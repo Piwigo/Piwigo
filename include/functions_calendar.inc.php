@@ -29,7 +29,7 @@ define('CAL_VIEW_CALENDAR', 'calendar');
 
 function initialize_calendar()
 {
-  global $page, $conf, $user, $template;
+  global $page, $conf, $user, $template, $filter;
 
 //------------------ initialize the condition on items to take into account ---
   $inner_sql = ' FROM ' . IMAGES_TABLE;
@@ -58,7 +58,16 @@ WHERE category_id IN ('.implode(',',$sub_ids).')';
     else
     {
       $inner_sql .= '
-WHERE category_id NOT IN ('.$user['forbidden_categories'].')';
+    '.get_sql_condition_FandF
+      (
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'image_id'
+          ),
+        'WHERE', true
+      );
     }
   }
   else

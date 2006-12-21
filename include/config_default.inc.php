@@ -174,6 +174,10 @@ $conf['show_version'] = true;
 // page.
 $conf['links'] = array();
 
+// List of notes to display on all header page
+// example $conf['header_notes']  = array('Test', 'Hello');
+$conf['header_notes']  = array();
+
 // show_thumbnail_caption : on thumbnails page, show thumbnail captions ?
 $conf['show_thumbnail_caption'] = true;
 
@@ -543,7 +547,7 @@ $conf['nbm_treatment_timeout_default'] = 20;
 $conf['enable_plugins']=true;
 
 // +-----------------------------------------------------------------------+
-// | Set default for Web Service                                              |
+// | Set default for Web Service                                           |
 // +-----------------------------------------------------------------------+
 
 // Web services are accepted
@@ -560,5 +564,18 @@ $conf['enable_plugins']=true;
 // or 15, 10, 7, 5, 1, 0 day(s)
 // 0 it's temporary closed (Useful for one access)
   $conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0); 
+
+// +-----------------------------------------------------------------------+
+// | Filter                                                                |
+// +-----------------------------------------------------------------------+
+// Pages where filter is enabled
+// Other pages cancel current filter
+$conf['filter_pages'] = array
+  (
+    'about.php', 'action.php', 'admin.php', 'comments.php', 
+    'index.php', 'picture.php', 'popuphelp.php', 'profile.php', 
+    'qsearch.php', 'random.php', 'register.php', 'search.php', 
+    'search_rules.php', 'tags.php', 'upload.php'
+  );
 
 ?>

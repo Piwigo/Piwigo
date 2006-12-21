@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -490,10 +490,9 @@ $lang['maxheight'] = 'Maximum height of the pictures';
 $lang['maxheight_error'] = 'Maximum height must be a number superior to 50';
 $lang['maxwidth'] = 'Maximum width of the pictures';
 $lang['maxwidth_error'] = 'Maximum width must be a number superior to 50';
-$lang['start_filter_local_mode_hint'] = '[local] displays only recent elements';
-$lang['stop_filter_local_mode_hint'] = '[local] return to display all elements';
-$lang['start_filter_global_mode_hint'] = '[global] displays only recent elements';
-$lang['stop_filter_global_mode_hint'] = '[global] return to display all elements';
+$lang['flat_recent_cat_hint'] = 'display recent elements of categories and sub-categories';
+$lang['start_filter_hint'] = 'displays only recent elements';
+$lang['stop_filter_hint'] = 'return to display all elements';
 $lang['mode_created_hint'] = 'displays a calendar by creation date';
 $lang['mode_normal_hint'] = 'return to normal view mode';
 $lang['mode_posted_hint'] = 'displays a calendar by date posted';
@@ -613,4 +612,6 @@ $lang['upload_username'] = 'Username';
 $lang['useful when password forgotten'] = 'useful when password forgotten';
 $lang['w_month'] = 'Month';
 $lang['yes'] = 'Yes';
+$lang['note_filter_day'] = 'The whole of the elements are filtered in order to diplay the recent elements of less %s day.';
+$lang['note_filter_days'] = 'The whole of the elements are filtered in order to diplay the recent elements of less %s days.';
 ?>
