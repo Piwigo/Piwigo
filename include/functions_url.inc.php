@@ -419,7 +419,7 @@ function set_make_full_url()
       $page['save_root_path']['path'] = $page['root_path'];
     }
     $page['save_root_path']['count'] = 1;
-    $page['root_path'] = 'http://'.$_SERVER['HTTP_HOST'].cookie_path();
+    $page['root_path'] = get_host_url().cookie_path();
   }
   else
   {

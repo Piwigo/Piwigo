@@ -64,7 +64,6 @@ if (isset($header_infos))
 // Header notes
 if (count($header_notes) > 0)
 {
-  $template->assign_block_vars('header_notes', array());
   foreach ($header_notes as $header_note)
   {
     $template->assign_block_vars('header_notes.header_note',

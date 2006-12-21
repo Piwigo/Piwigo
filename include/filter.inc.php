@@ -33,7 +33,7 @@ $filter = array();
 // $filter['visible_images']: List of visible images
 
 
-$filter['enabled'] = 
+$filter['enabled'] =
   (in_array(basename($_SERVER['SCRIPT_FILENAME']), $conf['filter_pages'])) and
   (
     (isset($_GET['filter']) and ($_GET['filter'] == 'start')) or
@@ -98,7 +98,7 @@ WHERE ';
     $filter['visible_images'] = pwg_get_session_var('filter_visible_images', '');
   }
 
-  $header_notes[] = l10n_dec($lang['note_filter_day'], $lang['note_filter_days'], $user['recent_period']);
+  $header_notes[] = l10n_dec('note_filter_day', 'note_filter_days', $user['recent_period']);
 }
 else
 {

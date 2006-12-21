@@ -88,7 +88,7 @@ SELECT id FROM '.CATEGORIES_TABLE.'
   INNER JOIN '.IMAGE_CATEGORY_TABLE.'
   ON category_id=id
   WHERE image_id='.$id.'
-.'get_sql_condition_FandF(array('forbidden_categories' => 'category_id'), 'AND').'
+'.get_sql_condition_FandF(array('forbidden_categories' => 'category_id'), 'AND').'
   LIMIT 1
 ;';
 if ( mysql_num_rows(pwg_query($query))<1 )

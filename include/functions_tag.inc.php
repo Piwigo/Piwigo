@@ -84,10 +84,8 @@ SELECT DISTINCT image_id
 ;';
 
   $result = pwg_query($tags_query);
-
   $tags = array();
-
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($tags, $row);
   }
@@ -109,10 +107,8 @@ SELECT id AS tag_id,
   FROM '.TAGS_TABLE.'
 ;';
   $result = pwg_query($query);
-
   $tags = array();
-
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     array_push($tags, $row);
   }
@@ -269,7 +265,7 @@ SELECT tag_id, name, url_name, count(*) counter
 
   $result = pwg_query($query);
   $tags = array();
-  while($row = mysql_fetch_array($result))
+  while($row = mysql_fetch_assoc($result))
   {
     array_push($tags, $row);
   }
