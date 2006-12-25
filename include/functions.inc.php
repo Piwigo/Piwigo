@@ -640,6 +640,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
   {
     $user = build_user( $conf['guest_id'], true);
     include_once(get_language_filepath('common.lang.php'));
+    @include_once(get_language_filepath('local.lang.php'));
     list($tmpl, $thm) = explode('/', $conf['default_template']);
     $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
   }

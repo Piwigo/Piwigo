@@ -184,6 +184,7 @@ if (!file_exists(PHPWG_ROOT_PATH.'language/'.$language.'/install.lang.php'))
 }
 
 include( './language/'.$language.'/common.lang.php' );
+// Never: @include( './language/'.$language.'/local.lang.php' );
 include( './language/'.$language.'/admin.lang.php' );
 include( './language/'.$language.'/install.lang.php' );
 //----------------------------------------------------- template initialization

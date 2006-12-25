@@ -254,6 +254,7 @@ function set_user_id_on_env_nbm($user_id)
 
     // language files
     include(get_language_filepath('common.lang.php'));
+    @include(get_language_filepath('local.lang.php'));
     // No test admin because script is checked admin (user selected no)
     // Translations are in admin file too
     include(get_language_filepath('admin.lang.php'));
