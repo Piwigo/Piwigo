@@ -247,13 +247,24 @@ else if ('list' == $tokens[$next_token])
   $next_token++;
 
   $page['list'] = array();
-  if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
+  
+  // No pictures
+  if (empty($tokens[$next_token]))
   {
-    die('wrong format on list GET parameter');
+    // Add dummy element list
+    array_push($page['list'], -1);
   }
-  foreach (explode(',', $tokens[$next_token]) as $image_id)
+  // With pictures list
+  else
   {
-    array_push($page['list'], $image_id);
+    if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
+    {
+      die('wrong format on list GET parameter');
+    }
+    foreach (explode(',', $tokens[$next_token]) as $image_id)
+    {
+      array_push($page['list'], $image_id);
+    }
   }
   $next_token++;
 }
