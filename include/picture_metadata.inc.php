@@ -32,13 +32,8 @@
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 $template->assign_block_vars('metadata', array());
-if ($conf['show_exif'])
+if (($conf['show_exif']) and (function_exists('read_exif_data')))
 {
-  if (!function_exists('read_exif_data'))
-  {
-    die('Exif extension not available, admin should disable exif display');
-  }
-
   if ($exif = @read_exif_data($picture['current']['image_path']))
   {
     $exif = trigger_event('format_exif_data', $exif, $picture['current'] );

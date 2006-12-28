@@ -310,7 +310,7 @@ $conf['show_exif_fields'] = array(
 
 // use_exif: Use EXIF data during database synchronization with files
 // metadata
-$conf['use_exif'] = false;
+$conf['use_exif'] = true;
 
 // use_exif_mapping: same behaviour as use_iptc_mapping
 $conf['use_exif_mapping'] = array(

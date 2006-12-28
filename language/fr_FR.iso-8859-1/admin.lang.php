@@ -565,5 +565,9 @@ $lang['Web Services availability duration in days'] =
    'Durée d\'ouverture des Services Web en jours';
 $lang['special_admin_menu'] = 'Spécials';
 $lang['pictures_menu'] = 'Images';
+$lang['note_check_exif'] = '%s doit être mis à "false" dans votre fichier config_local.inc.php parce que l\'exif n\'est pas supporté.';
+$lang['note_check_more_info'] = 'Allez sur %s ou %s pour plus d\'informations.';
+$lang['note_check_more_info_forum'] = 'le forum';
+$lang['note_check_more_info_wiki'] = 'le wiki';
 
 ?>

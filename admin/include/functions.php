@@ -1888,4 +1888,40 @@ SELECT image_id
 
   associate_images_to_categories($images, $destinations);
 }
+
+/**
+ * Check configuration and add notes on problem
+ *
+ * @param void
+ * @return void
+ */
+function check_conf()
+{
+  global $conf, $header_notes;
+  $count = 0;
+  
+  if (($conf['show_exif']) and (!function_exists('read_exif_data')))
+  {
+    $header_notes[] = sprintf(l10n('note_check_exif'), '$conf[\'show_exif\']');
+    $count++;
+  }
+
+  if (($conf['use_exif']) and (!function_exists('read_exif_data')))
+  {
+    $header_notes[] = sprintf(l10n('note_check_exif'), '$conf[\'use_exif\']');
+    $count++;
+  }
+
+  if ($count != 0)
+  {
+    $header_notes[] =
+      sprintf
+      (
+        l10n('note_check_more_info'),
+        sprintf('<a href="http://forum.phpwebgallery.net/" target="_blank"> %s</a>', l10n('note_check_more_info_forum')),
+        sprintf('<a href="http://phpwebgallery.net/doc/" target="_blank"> %s</a>', l10n('note_check_more_info_wiki'))
+      );
+  }
+}
+
 ?>
