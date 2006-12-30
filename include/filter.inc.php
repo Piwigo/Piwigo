@@ -70,11 +70,9 @@ if ($filter['enabled'])
     // Need to compute dats
     $filter['check_key'] = get_filter_check_key();
     $filter['categories'] = get_computed_categories($user['id'], $user['forbidden_categories'], true, $user['recent_period']);
-    if (count($filter['categories']) > 0)
-    {
-      $filter['visible_categories'] = implode(',', array_keys($filter['categories']));
-    }
-    else
+
+    $filter['visible_categories'] = implode(',', array_keys($filter['categories']));
+    if (empty($filter['visible_categories']))
     {
       // Must be not empty
       $filter['visible_categories'] = -1;
@@ -95,11 +93,9 @@ WHERE ';
     date_available  > SUBDATE(
       CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)';
 
-    if (count($filter['visible_images']) > 0)
-    {
-      $filter['visible_images'] = implode(',', array_from_query($query, 'image_id'));
-    }
-    else
+    $filter['visible_images'] = implode(',', array_from_query($query, 'image_id'));
+
+    if (empty($filter['visible_images']))
     {
       // Must be not empty
       $filter['visible_images'] = -1;
