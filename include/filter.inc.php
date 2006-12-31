@@ -34,13 +34,13 @@ $filter = array();
 
 
 $filter['enabled'] =
-  (in_array(basename($_SERVER['SCRIPT_FILENAME']), $conf['filter_pages'])) and
+  (in_array(script_basename(), $conf['filter_pages'])) and
   (
     (isset($_GET['filter']) and ($_GET['filter'] == 'start')) or
     pwg_get_session_var('filter_enabled', false)
   );
 
-if (in_array(basename($_SERVER['SCRIPT_FILENAME']), $conf['filter_pages']))
+if (in_array(script_basename(), $conf['filter_pages']))
 {
   if (isset($_GET['filter']))
   {

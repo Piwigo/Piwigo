@@ -177,7 +177,7 @@ if ($conf['gallery_locked'])
 }
 
 if ($user['is_the_guest'] and !$conf['guest_access']
-    and !in_array( basename($_SERVER['SCRIPT_FILENAME']),
+    and !in_array( script_basename(),
                       array('identification.php',
                             'password.php',
                             'register.php'
