@@ -570,12 +570,13 @@ $conf['enable_plugins']=true;
 // +-----------------------------------------------------------------------+
 // Pages where filter is enabled
 // Other pages cancel current filter
+// Array of basename without file extention
 $conf['filter_pages'] = array
   (
-    'about.php', 'action.php', 'admin.php', 'comments.php', 
-    'index.php', 'picture.php', 'popuphelp.php', 'profile.php', 
-    'qsearch.php', 'random.php', 'register.php', 'search.php', 
-    'search_rules.php', 'tags.php', 'upload.php'
+    'about', 'action', 'admin', 'comments', 
+    'index', 'picture', 'popuphelp', 'profile', 
+    'qsearch', 'random', 'register', 'search', 
+    'search_rules', 'tags', 'upload'
   );
 
 ?>

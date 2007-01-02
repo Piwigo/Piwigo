@@ -178,9 +178,10 @@ if ($conf['gallery_locked'])
 
 if ($user['is_the_guest'] and !$conf['guest_access']
     and !in_array( script_basename(),
-                      array('identification.php',
-                            'password.php',
-                            'register.php'
+                      // Array of basename without file extention
+                      array('identification',
+                            'password',
+                            'register'
                         )
                   )
     )
