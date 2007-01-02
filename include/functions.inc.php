@@ -970,7 +970,8 @@ SELECT param,value
 
 /**
  * Return basename of the current script
- * Return value are chnage to loawer case
+ * Lower case convertion is applied on return value
+ * Return value is without file extention ".php"
  *
  * @param void
  *
@@ -982,25 +983,17 @@ function script_basename()
   {
     $file_name = $_SERVER['SCRIPT_NAME'];
   }
-  else if (!empty($_SERVER['PHP_SELF']))
-  {
-    $file_name = $_SERVER['PHP_SELF'];
-  }
   else if (!empty($_SERVER['SCRIPT_FILENAME']))
   {
     $file_name = $_SERVER['SCRIPT_FILENAME'];
-  }
-  else if (!empty($_SERVER['PATH_TRANSLATED']))
-  {
-    $file_name = $_SERVER['PATH_TRANSLATED'];
   }
   else
   {
     $file_name = '';
   }
 
-  // $_SERVER return lower string following var ans systems
-  return basename(strtolower($file_name));
+  // $_SERVER return lower string following var and systems
+  return basename(strtolower($file_name), '.php');
 }
 
 ?>

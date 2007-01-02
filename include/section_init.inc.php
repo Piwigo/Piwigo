@@ -86,7 +86,7 @@ $tokens = explode(
 //   );
 
 $next_token = 0;
-if (script_basename() == 'picture.php')
+if (script_basename() == 'picture') // basename without file extention
 { // the first token must be the identifier for the picture
   if ( isset($_GET['image_id'])
        and isset($_GET['cat']) and is_numeric($_GET['cat']) )
@@ -625,7 +625,7 @@ if (isset($page['chronology_field']))
 
 $page['cat_nb_images'] = isset($page['items']) ? count($page['items']) : 0;
 
-if (script_basename() == 'picture.php'
+if (script_basename() == 'picture'
     and !isset($page['image_id']) )
 {
   if ( !empty($page['items']) )
