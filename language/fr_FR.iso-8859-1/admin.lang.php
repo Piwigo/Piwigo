@@ -569,5 +569,7 @@ $lang['note_check_exif'] = '%s doit être mis à "false" dans votre fichier config
 $lang['note_check_more_info'] = 'Allez sur %s ou %s pour plus d\'informations.';
 $lang['note_check_more_info_forum'] = 'le forum';
 $lang['note_check_more_info_wiki'] = 'le wiki';
+$lang['Duplicates'] = 'Fichiers portant le même nom dans plusieurs' .
+    ' catégories physiques';
 
 ?>

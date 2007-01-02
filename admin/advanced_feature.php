@@ -65,6 +65,7 @@ $template->assign_vars(
   array(
 //    'U_ADV_????' => $start_url.'???',
     'U_ADV_ELEMENT_NOT_LINKED' => PHPWG_ROOT_PATH.'admin.php?page=element_set&cat=not_linked',
+    'U_ADV_DUP_FILES' => PHPWG_ROOT_PATH.'admin.php?page=element_set&cat=duplicates',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=advanced_feature'
     )
   );

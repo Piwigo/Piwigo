@@ -9,4 +9,5 @@
 <ul>
 <!--  <li><a href="{U_ADV_????}" {TAG_INPUT_ENABLED}>{lang:update categories informations}</a></li>-->
   <li><a href="{U_ADV_ELEMENT_NOT_LINKED}" {TAG_INPUT_ENABLED}>{lang:Elements_not_linked}</a></li>
+  <li><a href="{U_ADV_DUP_FILES}" {TAG_INPUT_ENABLED}>{lang:Duplicates}</a></li>
 </ul>

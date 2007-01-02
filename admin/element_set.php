@@ -137,7 +137,7 @@ SELECT element_id
 }
 else if ('not_linked' == $_GET['cat'])
 {
-  $page['title'] = 'elements not linked to any virtual categories';
+  $page['title'] = l10n('Elements_not_linked');
   
   // we are searching elements not linked to any virtual category
   $query = '
@@ -162,7 +162,32 @@ SELECT DISTINCT(image_id)
 
   $page['cat_elements_id'] = array_diff($all_elements, $linked_to_virtual);
 }
+else if ('duplicates' == $_GET['cat'])
+{
+  $page['title'] = l10n('Duplicates');
+  
+  // we are searching related elements twice or more to physical categories
+  // 1 - Retrieve Files
+  $query = '
+SELECT DISTINCT(file)
+  FROM '.IMAGES_TABLE.' 
+ GROUP BY file 
+HAVING COUNT(DISTINCT storage_category_id) > 1 
+;';  
 
+  $duplicate_files = array_from_query($query, 'file');
+  $duplicate_files[]='Nofiles';
+  // 2 - Retrives related picture ids
+  $query = '
+SELECT id, file
+  FROM '.IMAGES_TABLE.' 
+WHERE file IN (\''.implode("','", $duplicate_files).'\')
+ORDER BY file, id
+;';
+
+  $page['cat_elements_id'] = array_from_query($query, 'id');
+  $page['cat_elements_id'][] = 0;
+}
 // +-----------------------------------------------------------------------+
 // |                       first element to display                        |
 // +-----------------------------------------------------------------------+

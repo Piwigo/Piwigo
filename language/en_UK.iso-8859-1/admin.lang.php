@@ -571,6 +571,6 @@ $lang['note_check_exif'] = '%s must be to set to false in your config_local.inc.
 $lang['note_check_more_info'] = 'Go to %s or %s for more informations.';
 $lang['note_check_more_info_forum'] = 'the forum';
 $lang['note_check_more_info_wiki'] = 'the wiki';
-
+$lang['Duplicates'] = 'Files with same name in more than one physical category';
 
 ?>
