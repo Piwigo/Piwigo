@@ -162,8 +162,7 @@ if ($conf['gallery_locked'])
 {
   $header_msgs[] = $lang['gallery_locked_message'];
 
-  if ( basename($_SERVER["SCRIPT_FILENAME"]) != 'identification.php'
-      and !is_admin() )
+  if ( script_basename() != 'identification' and !is_admin() )
   {
     //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
     $page['root_path'] = cookie_path();
