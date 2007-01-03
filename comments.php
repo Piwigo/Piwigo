@@ -144,6 +144,10 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
     ')';
 }
 
+// Only validated on 1.6.x
+// on 1.7, admin can see all because he can be validated or rejected comments
+$page['status_clause'] = 'validated="true"';
+
 // +-----------------------------------------------------------------------+
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
@@ -184,8 +188,8 @@ $template->assign_vars(
     'L_COMMENT_TITLE' => $title,
 
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=>@$_GET['keyword'],
-    'F_AUTHOR'=>@$_GET['author'],
+    'F_KEYWORD'=>@htmlentities($_GET['keyword']),
+    'F_AUTHOR'=>@htmlentities($_GET['author']),
 
     'U_HOME' => make_index_url(),
     )
@@ -298,7 +302,8 @@ SELECT COUNT(DISTINCT(id))
   WHERE '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'];
+    AND '.$page['keyword_clause'].'
+    AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
   $query.= '
@@ -340,7 +345,8 @@ SELECT com.id AS comment_id
   WHERE '.$since_options[$page['since']]['clause'].'
     AND '.$page['cat_clause'].'
     AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'];
+    AND '.$page['keyword_clause'].'
+    AND '.$page['status_clause'];
 if ($user['forbidden_categories'] != '')
 {
   $query.= '
