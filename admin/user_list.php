@@ -477,7 +477,7 @@ $template->assign_vars(
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
 
     'F_ADD_ACTION' => $base_url,
-    'F_USERNAME' => @$_GET['username'],
+    'F_USERNAME' => @htmlentities($_GET['username']),
     'F_FILTER_ACTION' => PHPWG_ROOT_PATH.'admin.php'
     ));
 
