@@ -1,0 +1,183 @@
+<?php
+// +-----------------------------------------------------------------------+
+// | PhpWebGallery - a PHP based picture gallery                           |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// +-----------------------------------------------------------------------+
+// | branch        : BSF (Best So Far)
+// | file          : $URL: svn+ssh://rvelices@svn.gna.org/svn/phpwebgallery/trunk/action.php $
+// | last update   : $Date: 2006-12-21 18:49:12 -0500 (Thu, 21 Dec 2006) $
+// | last modifier : $Author: rvelices $
+// | revision      : $Rev: 1678 $
+// +-----------------------------------------------------------------------+
+// | This program is free software; you can redistribute it and/or modify  |
+// | it under the terms of the GNU General Public License as published by  |
+// | the Free Software Foundation                                          |
+// |                                                                       |
+// | This program is distributed in the hope that it will be useful, but   |
+// | WITHOUT ANY WARRANTY; without even the implied warranty of            |
+// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+// | General Public License for more details.                              |
+// |                                                                       |
+// | You should have received a copy of the GNU General Public License     |
+// | along with this program; if not, write to the Free Software           |
+// | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
+// | USA.                                                                  |
+// +-----------------------------------------------------------------------+
+
+define ('PHPWG_ROOT_PATH', './');
+
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
+
+function ws_addDefaultMethods( $arr )
+{
+  include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
+  $service = &$arr[0];
+  $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
+      'retrieves the PWG version');
+
+  $service->addMethod('pwg.categories.getImages', 'ws_categories_getImages',
+      array(
+        'cat_id'=>array('default'=>0, 'flags'=>WS_PARAM_FORCE_ARRAY),
+        'recursive'=>array('default'=>false),
+        'per_page' => array('default'=>100),
+        'page' => array('default'=>0),
+        'order' => array('default'=>null),
+        'f_min_rate' => array( 'default'=> null ),
+        'f_max_rate' => array( 'default'=> null ),
+        'f_min_hit' => array( 'default'=> null ),
+        'f_max_hit' => array( 'default'=> null ),
+        'f_min_date_available' => array( 'default'=> null ),
+        'f_max_date_available' => array( 'default'=> null ),
+        'f_min_date_created' => array( 'default'=> null ),
+        'f_max_date_created' => array( 'default'=> null ),
+        'f_min_ratio' => array( 'default'=> null ),
+        'f_max_ratio' => array( 'default'=> null ),
+        'f_with_thumbnail' => array( 'default'=> false ),
+      ),
+      'Returns elements for the corresponding categories.
+<br/><b>cat_id</b> can be empty if <b>recursive</b> is true. Can be sent as an array.
+<br/><b>order</b> comma separated fields for sorting (file,id, average_rate,...)'
+    );
+
+  $service->addMethod('pwg.categories.getList', 'ws_categories_getList',
+      array(
+        'cat_id' => array('default'=>0),
+        'recursive' => array('default'=>false),
+        'public' => array('default'=>false),
+      ),
+      'retrieves a list of categories' );
+
+  $service->addMethod('pwg.images.getInfo', 'ws_images_getInfo',
+      array('image_id'),
+      'retrieves information about the given photo' );
+
+  $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
+  $service->addMethod('pwg.session.login', 'ws_session_login',
+    array('username', 'password'),
+    'POST method only' );
+  $service->addMethod('pwg.session.logout', 'ws_session_logout', null, '');
+
+  $service->addMethod('pwg.tags.getList', 'ws_tags_getList',
+    array('sort_by_counter' => array('default' =>false) ),
+    'retrieves a list of available tags');
+  $service->addMethod('pwg.tags.getImages', 'ws_tags_getImages',
+      array(
+        'tag_id'=>array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY ),
+        'tag_url_name'=>array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY ),
+        'tag_name'=>array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY ),
+        'tag_mode_and'=>array('default'=>false),
+        'per_page' => array('default'=>100),
+        'page' => array('default'=>0),
+        'order' => array('default'=>null),
+        'f_min_rate' => array( 'default'=> null ),
+        'f_max_rate' => array( 'default'=> null ),
+        'f_min_hit' => array( 'default'=> null ),
+        'f_max_hit' => array( 'default'=> null ),
+        'f_min_date_available' => array( 'default'=> null ),
+        'f_max_date_available' => array( 'default'=> null ),
+        'f_min_date_created' => array( 'default'=> null ),
+        'f_max_date_created' => array( 'default'=> null ),
+        'f_min_ratio' => array( 'default'=> null ),
+        'f_max_ratio' => array( 'default'=> null ),
+        'f_with_thumbnail' => array( 'default'=> false ),
+      ),
+      'Returns elements for the corresponding tags. Note that tag_id, tag_url_name, tag_name an be arrays. Fill at least one of them. '
+    );
+}
+
+add_event_handler('ws_add_methods', 'ws_addDefaultMethods' );
+
+$requestFormat = null;
+$responseFormat = null;
+
+if ( isset($_GET['format']) )
+{
+  $responseFormat = $_GET['format'];
+}
+
+if ( isset($HTTP_RAW_POST_DATA) )
+{
+  $HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
+  if ( strncmp($HTTP_RAW_POST_DATA, '<?xml', 5) == 0 )
+  {
+  }
+  else
+  {
+    $requestFormat = "json";
+  }
+}
+else
+{
+  $requestFormat = "rest";
+}
+
+if ( !isset($responseFormat) and isset($requestFormat) )
+{
+  $responseFormat = $requestFormat;
+}
+
+$service = new PwgServer();
+
+if (!is_null($requestFormat))
+{
+  $handler = null;
+  switch ($requestFormat)
+  {
+    case 'rest':
+      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/rest_handler.php');
+      $handler = new PwgRestRequestHandler();
+      break;
+  }
+  $service->setHandler($requestFormat, $handler);
+}
+
+if (!is_null($responseFormat))
+{
+  $encoder = null;
+  switch ($responseFormat)
+  {
+    case 'rest':
+      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/rest_encoder.php');
+      $encoder = new PwgRestEncoder();
+      break;
+    case 'php':
+      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/php_encoder.php');
+      $encoder = new PwgSerialPhpEncoder();
+      break;
+    case 'json':
+      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/json_encoder.php');
+      $encoder = new PwgJsonEncoder();
+      break;
+    case 'xmlrpc':
+      include_once(PHPWG_ROOT_PATH.'include/ws_protocols/xmlrpc_encoder.php');
+      $encoder = new PwgXmlRpcEncoder();
+      break;
+  }
+  $service->setEncoder($responseFormat, $encoder);
+}
+
+$page['root_path']=get_host_url().cookie_path();
+$service->run();
+
+?>
