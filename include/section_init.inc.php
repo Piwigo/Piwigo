@@ -429,7 +429,7 @@ WHERE
     {
       // Main query
       $query = '
-SELECT image_id
+SELECT distinct image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE
