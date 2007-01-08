@@ -81,12 +81,12 @@ foreach ($cases as $id_adv)
       break;  
       
     Case 4 :
-      $adv[] = 'Show ITPC Data from your picture:';
+      $adv[] = 'Show IPTC Data from your picture:';
       $adv[] = ' 1 - Copy one of your jpg pictures (a public one)' . 
                    ' in ./tools/<br />' . 
                ' 2 - Rename it as sample.jpg.<br />' . 
                ' 3 - Run ./tools/metadata.php<br />' .
-               ' 4 - Analyse results to determine which ITPC fields could be' . 
+               ' 4 - Analyse results to determine which IPTC fields could be' . 
                    ' useful for your visitors.';
       $adv[] = 'Beginners would prefer to keep $conf[\'show_iptc\'] = false;';
       $adv[] = 'Advanced users would take care of $lang values and impacts' . 
@@ -356,12 +356,12 @@ foreach ($cases as $id_adv)
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which ITPC fields ' . 
+               '<br />4 - Analyse results to determine which IPTC fields ' . 
 							 'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to keep $conf[\'use_iptc\'] = false;';
       $adv[] = 'Advanced users make documentation efforts prior ' .
 			         'to upload their pictures.<br />' .
-							 'ITPC fields have to be described in ' .
+							 'IPTC fields have to be described in ' .
 							 '$conf[\'use_iptc_mapping\']';
 			$adv[] = 'In any case, <strong>show</strong>_iptc_mapping and ' .
                '<strong>use</strong>_iptc_mapping must be totally different.';
@@ -374,7 +374,7 @@ foreach ($cases as $id_adv)
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which ITPC fields ' . 
+               '<br />4 - Analyse results to determine which IPTC fields ' . 
 							 'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to keep $conf[\'use_iptc\'] = false;';
       $adv[] = 'Advanced users make documentation efforts prior ' .
