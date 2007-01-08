@@ -88,7 +88,7 @@ if
       $page['page']['plugin_id'] = mysql_escape_string($_GET['plugin_id']);
     }
 
-    $check_db_plugin = get_db_plugins('', $page['page']['plugin_id']);
+    $check_db_plugin = get_db_plugins('active', $page['page']['plugin_id']);
     if (!empty($check_db_plugin))
     {
       $page['page']['type'] = $_GET['page_type'];
