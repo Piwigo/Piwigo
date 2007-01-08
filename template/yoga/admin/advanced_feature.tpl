@@ -7,7 +7,9 @@
 </div>
 
 <ul>
-<!--  <li><a href="{U_ADV_????}" {TAG_INPUT_ENABLED}>{lang:update categories informations}</a></li>-->
-  <li><a href="{U_ADV_ELEMENT_NOT_LINKED}" {TAG_INPUT_ENABLED}>{lang:Elements_not_linked}</a></li>
-  <li><a href="{U_ADV_DUP_FILES}" {TAG_INPUT_ENABLED}>{lang:Duplicates}</a></li>
+  <!-- BEGIN advanced_features -->
+    <!-- BEGIN advanced_feature -->
+      <li><a href="{advanced_features.advanced_feature.URL}" {TAG_INPUT_ENABLED}>{advanced_features.advanced_feature.CAPTION}</a></li>
+    <!-- END advanced_feature -->
+  <!-- END advanced_features -->
 </ul>

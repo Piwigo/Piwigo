@@ -13,7 +13,9 @@ function set_admin_advice()
 
   // This Plugin works only on the Admin page
   if ( isset($page['body_id']) and $page['body_id']=='theAdminPage'
-    and isset($page['page']) and $page['page'] == 'intro' )
+    and isset($page['page']['name']) and $page['page']['name'] == 'intro' 
+    and isset($page['page']['type']) and $page['page']['type'] == 'standard'
+    )
   {
   // Setup Advice Language (Maybe there is already a variable)  
     $advlang = ( isset($user['language']) ) ? 

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -36,7 +36,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// |                                actions                                |
+// | Actions                                                               |
 // +-----------------------------------------------------------------------+
 
 /*$action = (isset($_GET['action']) and !is_adviser()) ? $_GET['action'] : '';
@@ -54,25 +54,64 @@ switch ($action)
 }*/
 
 // +-----------------------------------------------------------------------+
-// |                             template init                             |
+// | Define advanced features                                              |
+// +-----------------------------------------------------------------------+
+
+$advanced_features = array();
+
+// Add advanced features
+/*array_push($advanced_features,
+  array
+  (
+    'CAPTION' => l10n('???'),
+    'URL' => $start_url.'???'
+  ));*/
+
+array_push($advanced_features,
+  array
+  (
+    'CAPTION' => l10n('Elements_not_linked'),
+    'URL' => get_root_url().'admin.php?page=element_set&cat=not_linked'
+  ));
+
+array_push($advanced_features,
+  array
+  (
+    'CAPTION' => l10n('Duplicates'),
+    'URL' => get_root_url().'admin.php?page=element_set&cat=duplicates'
+  ));
+
+//$advanced_features is array of array composed of CAPTION & URL
+$advanced_features = 
+    trigger_event('array_advanced_features', $advanced_features);
+
+// +-----------------------------------------------------------------------+
+// |  Template init                                                        |
 // +-----------------------------------------------------------------------+
 
 $template->set_filenames(array('advanced_feature'=>'admin/advanced_feature.tpl'));
 
-$start_url = PHPWG_ROOT_PATH.'admin.php?page=advanced_feature&amp;action=';
+$start_url = get_root_url().'admin.php?page=advanced_feature&amp;action=';
 
 $template->assign_vars(
-  array(
-//    'U_ADV_????' => $start_url.'???',
-    'U_ADV_ELEMENT_NOT_LINKED' => PHPWG_ROOT_PATH.'admin.php?page=element_set&cat=not_linked',
-    'U_ADV_DUP_FILES' => PHPWG_ROOT_PATH.'admin.php?page=element_set&cat=duplicates',
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=advanced_feature'
-    )
-  );
+  array
+  (
+    'U_HELP' => get_root_url().'popuphelp.php?page=advanced_feature'
+  ));
+
+// advanced_features
+if (count($advanced_features) > 0)
+{
+  foreach ($advanced_features as $advanced_feature)
+  {
+    $template->assign_block_vars('advanced_features.advanced_feature', $advanced_feature);
+  }
+}
 
 // +-----------------------------------------------------------------------+
-// |                           sending html code                           |
+// | Sending html code                                                     |
 // +-----------------------------------------------------------------------+
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'advanced_feature');
+
 ?>

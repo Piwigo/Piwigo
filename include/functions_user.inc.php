@@ -821,19 +821,26 @@ SELECT name
  * PhpWebGallery default language.
  *
  * @param string filename
+ * @param string dirname
  * @return string filepath
  */
-function get_language_filepath($filename)
+function get_language_filepath($filename, $dirname = '')
 {
   global $user, $conf;
+
+  if (empty($dirname))
+  {
+    $dirname = PHPWG_ROOT_PATH;
+  }
+  $dirname .= 'language'.'/';
 
   $directories = array();
   if ( isset($user['language']) )
   {
-    $directories[] = PHPWG_ROOT_PATH.'language/'.$user['language'];
+    $directories[] = $dirname.$user['language'];
   }
-  $directories[] = PHPWG_ROOT_PATH.'language/'.$conf['default_language'];
-  $directories[] = PHPWG_ROOT_PATH.'language/'.PHPWG_DEFAULT_LANGUAGE;
+  $directories[] = $dirname.$conf['default_language'];
+  $directories[] = $dirname.PHPWG_DEFAULT_LANGUAGE;
 
   foreach ($directories as $directory)
   {

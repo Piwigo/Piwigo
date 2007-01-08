@@ -42,15 +42,35 @@ $title = l10n('PhpWebGallery Help');
 $page['page_banner'] = '<h1>'.$title.'</h1>';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
-$template->set_filenames(
-  array(
-    'help_content' => get_language_filepath('help/'.$_GET['page'].'.html')
-    )
-  );
+if 
+  (
+    isset($_GET['page'])
+    and preg_match('/^[a-z_]*$/', $_GET['page'])
+  )
+{
+  $help_content =
+    @file_get_contents(get_language_filepath('help/'.$_GET['page'].'.html'));
+
+  if ($help_content == false)
+  {
+    $help_content = '';
+  }
+
+  $help_content = trigger_event(
+    'get_popup_help_content', $help_content, $_GET['page']);
+}
+else
+{
+  die('Hacking attempt!');
+}
 
 $template->set_filenames(array('popuphelp' => 'popuphelp.tpl'));
 
-$template->assign_var_from_handle('HELP_CONTENT', 'help_content');
+$template->assign_vars(
+  array
+  (
+    'HELP_CONTENT' => $help_content
+  ));
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
@@ -59,4 +79,5 @@ $template->assign_var_from_handle('HELP_CONTENT', 'help_content');
 $template->parse('popuphelp');
 
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
+
 ?>

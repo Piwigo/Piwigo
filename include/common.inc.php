@@ -149,6 +149,7 @@ if (defined('IN_ADMIN') and IN_ADMIN)
 {
   include_once(get_language_filepath('admin.lang.php'));
 }
+trigger_action('loading_lang');
 @include_once(get_language_filepath('local.lang.php'));
 
 // only now we can set the localized username of the guest user (and not in

@@ -33,7 +33,7 @@ register their functions to handle these events. An event is identified by a
 string.
 */
 
-define('PHPWG_PLUGINS_PATH',PHPWG_ROOT_PATH.'plugins/');
+define('PHPWG_PLUGINS_PATH', PHPWG_ROOT_PATH.'plugins/');
 
 define('EVENT_HANDLER_PRIORITY_NEUTRAL', 50);
 

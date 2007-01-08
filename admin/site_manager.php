@@ -205,7 +205,7 @@ SELECT galleries_url
 }
 
 $template->assign_vars( array(
-  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=remote_site',
+  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=site_manager',
   'F_ACTION' => PHPWG_ROOT_PATH.'admin.php'
                 .get_query_string_diff( array('action','site') )
   ) );
@@ -293,6 +293,22 @@ while ($row = mysql_fetch_array($result))
             )
         );
   }
+  
+  $plugin_links = array();
+  //$plugin_links is array of array composed of U_HREF, U_HINT & U_CAPTION
+  $plugin_links = 
+    trigger_event('array_site_manager_plugin_links',
+      $plugin_links, $row['id'], $is_remote);
+
+  // plugin_links
+  if (count($plugin_links) > 0)
+  {
+    foreach ($plugin_links as $plugin_link)
+    {
+      $template->assign_block_vars('sites.site.plugin_links.plugin_link', $plugin_link);
+    }
+  }
+
 }
 
 if ( isset($local_listing_site_url) and !isset($local_listing_site_id) )

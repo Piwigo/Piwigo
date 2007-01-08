@@ -54,15 +54,66 @@ check_conf();
 // |                            variables init                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_GET['page'])
+unset($page['page']);
+
+if 
+  (
+    isset($_GET['page'])
     and preg_match('/^[a-z_]*$/', $_GET['page'])
-    and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php'))
+  )
 {
-  $page['page'] = $_GET['page'];
+  if
+    (
+      (!isset($_GET['page_type']) or $_GET['page_type'] == 'standard')
+      and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php')
+    )
+  {
+    $page['page']['type'] = 'standard';
+    $page['page']['name'] = $_GET['page'];
+  }
+  else if
+    (
+      (isset($_GET['page_type']) and $_GET['page_type'] == 'plugin')
+      and isset($_GET['plugin_id'])
+      and preg_match('/^[a-z_]*$/', $_GET['plugin_id'])
+      and is_file(PHPWG_PLUGINS_PATH.$_GET['plugin_id'].'/admin/'.$_GET['page'].'.php')
+    )
+  {
+    if (function_exists('mysql_real_escape_string'))
+    {
+      $page['page']['plugin_id'] = mysql_real_escape_string($_GET['plugin_id']);
+    }
+    else
+    {
+      $page['page']['plugin_id'] = mysql_escape_string($_GET['plugin_id']);
+    }
+
+    $check_db_plugin = get_db_plugins('', $page['page']['plugin_id']);
+    if (!empty($check_db_plugin))
+    {
+      $page['page']['type'] = $_GET['page_type'];
+      $page['page']['name'] = $_GET['page'];
+    }
+    else
+    {
+      unset($page['page']);
+    }
+    unset($check_db_plugin);
+  }
 }
-else
+
+if (!isset($page['page']))
 {
-  $page['page'] = 'intro';
+  if (isset($_GET['page_type']) and $_GET['page_type'] == 'plugin')
+  {
+    $page['page']['type'] = 'standard';
+    $page['page']['name'] = 'plugins';
+  }
+  else
+  {
+    $page['page']['type'] = 'standard';
+    $page['page']['name'] = 'intro';
+  }
 }
 
 $page['errors'] = array();
@@ -135,7 +186,25 @@ if ($conf['allow_random_representative'])
 // required before plugin page inclusion
 trigger_action('plugin_admin_menu');
 
-include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
+switch($page['page']['type'])
+{
+  case 'standard':
+  {
+    include(PHPWG_ROOT_PATH.'admin/'.$page['page']['name'].'.php');
+    break;
+  }
+  case 'plugin':
+  {
+    include(PHPWG_PLUGINS_PATH.$page['page']['plugin_id'].'/admin/'.$page['page']['name'].'.php');
+    break;
+  }
+  default:
+  {
+    die ("Hacking attempt!");
+    break;
+  }
+}
+
 
 //------------------------------------------------------------- content display
 $template->assign_block_vars('plugin_menu.menu_item',

@@ -50,6 +50,12 @@
       [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_generate}</a>]
       [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_clean}</a>]
     <!-- END remote -->
+    <!-- BEGIN plugin_links -->
+        <br>
+      <!-- BEGIN plugin_link -->
+        [<a href="{sites.site.plugin_links.plugin_link.U_HREF}" title='{sites.site.plugin_links.plugin_link.U_HINT}' {TAG_INPUT_ENABLED}>{sites.site.plugin_links.plugin_link.U_CAPTION}</a>]
+      <!-- END plugin_link -->
+    <!-- END plugin_links -->
   </td></tr>
   <!-- END site -->
 </table>

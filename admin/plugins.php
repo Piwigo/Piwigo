@@ -42,7 +42,15 @@ $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 // +-----------------------------------------------------------------------+
 if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
 {
-  $plugin_id = $_REQUEST['plugin'];
+  if (function_exists('mysql_real_escape_string'))
+  {
+    $plugin_id = mysql_real_escape_string($_REQUEST['plugin']);
+  }
+  else
+  {
+    $plugin_id = mysql_escape_string($_REQUEST['plugin']);
+  }
+
   $crt_db_plugin = get_db_plugins('', $plugin_id);
   if (!empty($crt_db_plugin))
   {
