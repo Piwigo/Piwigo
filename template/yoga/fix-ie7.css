@@ -1,0 +1,21 @@
+/* $Id: fix-ie7.css 1518 2007-01-09 16:26:52Z Vincent $ */
+/* fix IE with another layout for thumbnails */
+
+#content UL.thumbnails SPAN.wrap2 {
+  display: block;
+  position: relative;
+  text-align: left;
+}
+#content UL.thumbnails SPAN.wrap2 A,
+#content UL.thumbnails SPAN.wrap2 SPAN {
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+}
+
+#content UL.thumbnails IMG.thumbnail {
+  position: relative;
+  top: -50%;   
+  margin-top: 2%;
+}

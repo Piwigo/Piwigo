@@ -34,6 +34,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <!--[if lt IE 7]>
   <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/fix-ie5-ie6.css">
 <![endif]-->
+<!--[if gt IE 6]>
+  <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/fix-ie7.css">
+<![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{pwg_root}template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
