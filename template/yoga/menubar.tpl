@@ -14,7 +14,7 @@
 <!-- END links -->
 <dl id="mbCategories">
   <!-- BEGIN start_filter -->
-  <a href="{start_filter.URL}" title="{lang:start_filter_hint}"><img src="{pwg_root}{themeconf:icon_dir}/start_filter.png" class="buttonmenu" alt="{lang:start_filter_hint}"></a>
+  <a href="{start_filter.URL}" title="{lang:start_filter_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/start_filter.png" class="buttonmenu" alt="{lang:start_filter_hint}"></a>
   <!-- END start_filter -->
   <!-- BEGIN stop_filter -->
   <a href="{stop_filter.URL}" title="{lang:stop_filter_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter.png" class="buttonmenu" alt="{lang:stop_filter_hint}"></a>
@@ -34,7 +34,7 @@
       <!-- BEGIN tag -->
       <li>
         <!-- BEGIN add -->
-        <a href="{tags.tag.add.URL}" title="{tags.tag.add.TITLE}"><img src="{pwg_root}{themeconf:icon_dir}/add_tag.png" alt="+"></a>
+        <a href="{tags.tag.add.URL}" title="{tags.tag.add.TITLE}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/add_tag.png" alt="+"></a>
         <!-- END add -->
         <a href="{tags.tag.URL}" class="{tags.tag.CLASS}" title="{tags.tag.TITLE}">{tags.tag.NAME}</a>
       </li>
@@ -49,7 +49,7 @@
   <dd>
     <ul>
       <!-- BEGIN special_cat -->
-      <li><a href="{special_cat.URL}" title="{special_cat.TITLE}">{special_cat.NAME}</a></li>
+      <li><a href="{special_cat.URL}" title="{special_cat.TITLE}" {special_cat.REL}>{special_cat.NAME}</a></li>
       <!-- END special_cat -->
     </ul>
   </dd>

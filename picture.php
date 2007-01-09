@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -427,6 +427,7 @@ if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
       array('slideshow'=>$refresh)
     );
   $redirect_msg = nl2br(l10n('redirect_msg'));
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
 
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
@@ -446,6 +447,10 @@ if ($metadata_showable)
   if ( !isset($_GET['metadata']) )
   {
     $url_metadata = add_url_params( $url_metadata, array('metadata'=>null) );
+  }
+  else
+  {
+    $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
   }
 }
 

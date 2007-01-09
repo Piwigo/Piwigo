@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -60,11 +60,8 @@ $feed_image_only_url=$feed_url.'&amp;image_only';
 
 $title = l10n('Notification');
 $page['body_id'] = 'theNotificationPage';
-$template->assign_block_vars('head_element',
-    array(
-      'CONTENT' => '<meta name="robots" content="noindex,nofollow">'
-      )
-  );
+$page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+
 $template->assign_block_vars('head_element',
     array(
       'CONTENT' => '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'

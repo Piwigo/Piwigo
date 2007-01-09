@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -187,7 +187,8 @@ $template->assign_block_vars(
   array(
     'URL' => get_root_url().'random.php',
     'TITLE' => $lang['random_cat_hint'],
-    'NAME' => $lang['random_cat']
+    'NAME' => $lang['random_cat'],
+    'REL'=> 'rel="nofollow"'
     ));
 
 // recent pics
@@ -196,7 +197,7 @@ $template->assign_block_vars(
   array(
     'URL' => make_index_url(array('section' => 'recent_pics')),
     'TITLE' => $lang['recent_pics_cat_hint'],
-    'NAME' => $lang['recent_pics_cat']
+    'NAME' => $lang['recent_pics_cat'],
     ));
 // recent cats
 $template->assign_block_vars(
@@ -204,7 +205,7 @@ $template->assign_block_vars(
   array(
     'URL' => make_index_url(array('section' => 'recent_cats')),
     'TITLE' => $lang['recent_cats_cat_hint'],
-    'NAME' => $lang['recent_cats_cat']
+    'NAME' => $lang['recent_cats_cat'],
     ));
 
 // calendar
@@ -221,7 +222,8 @@ $template->assign_block_vars(
         )
       ),
     'TITLE' => $lang['calendar_hint'],
-    'NAME' => $lang['calendar']
+    'NAME' => $lang['calendar'],
+    'REL'=> 'rel="nofollow"'
     )
   );
 //--------------------------------------------------------------------- summary

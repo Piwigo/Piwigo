@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -247,7 +247,7 @@ else if ('list' == $tokens[$next_token])
   $next_token++;
 
   $page['list'] = array();
-  
+
   // No pictures
   if (empty($tokens[$next_token]))
   {
@@ -350,9 +350,9 @@ if ('categories' == $page['section'])
         'cat_commentable'    => $result['commentable'],
         'cat_id_uppercat'    => $result['id_uppercat'],
         'uppercats'          => $result['uppercats'],
-        'title'             => 
+        'title'             =>
           get_cat_display_name($result['name'], '', false),
-        'thumbnails_include' => 
+        'thumbnails_include' =>
           (($result['nb_images'] > 0) or (isset($page['flat_recent_cat'])))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php'
@@ -362,7 +362,7 @@ if ('categories' == $page['section'])
   else
   {
     $page['title'] = $lang['no_category'];
-    $page['thumbnails_include'] = 
+    $page['thumbnails_include'] =
       (isset($page['flat_recent_cat']))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php';
@@ -373,11 +373,11 @@ if ('categories' == $page['section'])
     $page['title'] = $lang['recent_pics_cat'].' : '.$page['title'] ;
   }
 
-  if 
+  if
     (
       (!isset($page['chronology_field'])) and
       (
-        (isset($page['category'])) or 
+        (isset($page['category'])) or
         (isset($page['flat_recent_cat']))
       )
     )
@@ -458,7 +458,7 @@ SELECT distinct image_id
 // special sections
 else
 {
-  $forbidden = 
+  $forbidden =
     get_sql_condition_FandF
     (
       array
@@ -727,6 +727,29 @@ SELECT id,file
   {
     $page['image_id'] = -1; // will fail in picture.php
   }
+}
+
+// add meta robots noindex, nofollow to avoid unnecesary robot crawls
+$page['meta_robots']=array();
+if ( isset($page['chronology_field']) or isset($page['flat_recent_cat'])
+      or 'list'==$page['section'] or 'recent_pics'==$page['section'] )
+{
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+}
+elseif ('tags' == $page['section'])
+{
+  if ( count($page['tag_ids'])>1 )
+  {
+    $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+  }
+}
+elseif ('recent_cats'==$page['section'])
+{
+  $page['meta_robots']['nofollow']=1;
+}
+if ( $filter['enabled'] )
+{
+  $page['meta_robots']['noindex']=1;
 }
 
 trigger_action('loc_end_section_init');

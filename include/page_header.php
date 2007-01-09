@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -69,6 +69,18 @@ if (count($header_notes) > 0)
     $template->assign_block_vars('header_notes.header_note',
                                  array('HEADER_NOTE' => $header_note));
   }
+}
+
+if ( !empty($page['meta_robots']) )
+{
+  $template->assign_block_vars('head_element',
+      array(
+          'CONTENT' =>
+              '<meta name="robots" content="'
+              .implode(',', array_keys($page['meta_robots']))
+              .'">'
+        )
+    );
 }
 
 // refresh

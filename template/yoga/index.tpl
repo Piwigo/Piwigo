@@ -32,7 +32,7 @@
       <!-- END mode_normal -->
 
       <!-- BEGIN flat_recent_cat -->
-      <li><a href="{flat_recent_cat.URL}" title="{lang:flat_recent_cat_hint}"><img src="{pwg_root}{themeconf:icon_dir}/flat_recent_cat.png" class="button" alt="{lang:flat_recent_cat_hint}"></a></li>
+      <li><a href="{flat_recent_cat.URL}" title="{lang:flat_recent_cat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat_recent_cat.png" class="button" alt="{lang:flat_recent_cat_hint}"></a></li>
       <!-- END flat_recent_cat -->
 
       <!-- BEGIN mode_posted -->
