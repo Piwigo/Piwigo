@@ -75,7 +75,6 @@ foreach ($cases as $id_adv)
       $adv[] = 'Current value: ' . implode(', ', $conf['file_ext']) . '. ';
       $adv[] = 'Should never contains extensions which can be executed';
       $adv[] = 'on the server side like *.php, *.PHP, *.asp, ...';
-      $adv[] = 'Think about higher value like 4.';
       $cond = ( in_array('php',$conf['file_ext']) );
       $confk = 'file_ext';
       break;  
