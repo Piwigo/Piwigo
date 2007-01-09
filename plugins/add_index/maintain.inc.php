@@ -1,10 +1,4 @@
 <?php
-/*
-Plugin Name: Add Index
-Version: 1.1.0.0
-Description: Add file index.php file on all sub-directories of local galleries pictures. / Ajoute le fichier index.php sur les sous-répertoires de galeries d'images locales.
-Plugin URI: http://www.phpwebgallery.net
-*/
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
@@ -32,23 +26,13 @@ Plugin URI: http://www.phpwebgallery.net
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
-}
-
-if (in_array(script_basename(), array('popuphelp', 'admin')))
-{
-  if (defined('IN_ADMIN') and IN_ADMIN)
+function plugin_uninstall($plugin_id)
+(
+  if ($plugin_id == 'add_index')
   {
-    include_once(dirname(__FILE__).'/'.'main.base.inc.php');
-    include_once(dirname(__FILE__).'/'.'main.admin.inc.php');
+    //$query = 'delete from '.CONFIG_TABLE.' where param in ';
+    //pwg_query($query);
   }
-  else
-  {
-    include_once(dirname(__FILE__).'/'.'main.base.inc.php');
-    include_once(dirname(__FILE__).'/'.'main.normal.inc.php');
-  }
-}
+)
 
 ?>

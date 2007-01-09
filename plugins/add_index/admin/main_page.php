@@ -3,7 +3,7 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
 // | last modifier : $Author: rub $
 // | revision      : $Revision: 1.0.2.0 $
@@ -23,30 +23,14 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// +-----------------------------------------------------------------------+
-// | Here before to modify by user                                         |
-// +-----------------------------------------------------------------------+
-// Name of index file (index.php or index.htm or index.html)
-if (!isset($conf['index']['file_name']))
+if ((!defined('PHPWG_ROOT_PATH')) or (!(defined('IN_ADMIN') and IN_ADMIN)))
 {
-  $conf['index']['file_name'] = 'index.php';
-}
-// Name of index file (index.php or index.htm or index.html)
-if (!isset($conf['index']['source_directory_name']))
-{
-  // Name of the directoty use in order to copy index file
-  $conf['index']['source_directory_name'] = 'include/index.php';
+  die('Hacking attempt!');
 }
 
 // +-----------------------------------------------------------------------+
 // | include                                                               |
 // +-----------------------------------------------------------------------+
-
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die ("Hacking attempt!");
-}
-
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
@@ -101,12 +85,14 @@ function get_add_index_directories($path, $recursive = true)
 // +-----------------------------------------------------------------------+
 // | Main                                                                  |
 // +-----------------------------------------------------------------------+
-$index_file_src=PHPWG_ROOT_PATH.$conf['index']['source_directory_name'];
+// Compute values
+$index_file_src=$conf['add_index_source_directory_path'].$conf['add_index_filename'];
 $overwrite_file=isset($_GET['overwrite']);
 $site_id = (isset($_GET['site_id']) and is_numeric($_GET['site_id']) 
             ? $_GET['site_id'] 
             : 0);
 
+// Init values
 $add_index_results = array();
 $count_copy = 0;
 $count_skip = 0;
@@ -140,7 +126,7 @@ order by
         //echo $galleries_url.'<BR>';
         foreach (get_add_index_directories($galleries_url) as $dir_galleries)
         {
-          $file_dest = $dir_galleries.'/'.$conf['index']['file_name'];
+          $file_dest = $dir_galleries.'/'.$conf['add_index_filename'];
           if ($overwrite_file or !@file_exists($file_dest))
           {
             if (copy($index_file_src, $file_dest))
@@ -174,7 +160,8 @@ order by
     }
   }
 
-  if ($count_copy != 0)
+  // Show always an result, defaut (0 copy, $count_copy == $count_skip == 0)
+  if (($count_copy != 0) or ($count_skip == 0))
   {
     array_push($add_index_results,
       l10n_dec('add_index_nb_copied_file', 'add_index_nb_copied_files',

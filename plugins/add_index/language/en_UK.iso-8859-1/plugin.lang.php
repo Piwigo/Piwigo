@@ -3,7 +3,7 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2007 Ruben ARNAUD - team@phpwebgallery.net              |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -29,6 +29,7 @@
 $lang['Add_Index'] = 'Add "index" files';
 $lang['Advanced_Add_Index'] = 'Add and overwrite "index" files for all local sites';
 $lang['Manager_Add_Index'] = 'add "index"';
+$lang['Menu_Add_Index'] = 'Add "index"';
 
 $lang['add_index_file_copied'] = '%s copied';
 $lang['add_index_file_not_copied'] = '%s not copied';
@@ -40,5 +41,12 @@ $lang['add_index_nb_skipped_files'] = '%d files skipped';
 $lang['add_index_nb_not_copied_file'] = '%d file not copied';
 $lang['add_index_nb_not_copied_files'] = '%d files not copied';
 $lang['add_index_src_file_dont_exists'] = 'Source file %s don\'t esists, cannot duplicate this file';
+
+$lang['add_index_Description_1'] = 'Add "index" files allows to copy "index" file from source directory to all sub-directories of gallerie local sites.';
+$lang['add_index_Description_2'] = '"index" file prevents to list contents of a directory.';
+$lang['add_index_Parameters'] = 'Parameters';
+$lang['add_index_filename'] = 'File name';
+$lang['add_index_source_directory_path'] = 'Path of source directory';
+
 
 ?>

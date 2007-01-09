@@ -1,10 +1,4 @@
 <?php
-/*
-Plugin Name: Add Index
-Version: 1.1.0.0
-Description: Add file index.php file on all sub-directories of local galleries pictures. / Ajoute le fichier index.php sur les sous-répertoires de galeries d'images locales.
-Plugin URI: http://www.phpwebgallery.net
-*/
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
@@ -37,18 +31,35 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-if (in_array(script_basename(), array('popuphelp', 'admin')))
+class NormalAddIndex extends AddIndex
 {
-  if (defined('IN_ADMIN') and IN_ADMIN)
+  function get_popup_help_content($popup_help_content, $page)
   {
-    include_once(dirname(__FILE__).'/'.'main.base.inc.php');
-    include_once(dirname(__FILE__).'/'.'main.admin.inc.php');
-  }
-  else
-  {
-    include_once(dirname(__FILE__).'/'.'main.base.inc.php');
-    include_once(dirname(__FILE__).'/'.'main.normal.inc.php');
+    if (in_array($page, array('advanced_feature', 'site_manager')))
+    {
+      $help_content =
+        @file_get_contents(get_language_filepath('help/'.$page.'.html', $this->path));
+    }
+    else
+    {
+      $help_content = false;
+    }
+
+    if ($help_content == false)
+    {
+      return $popup_help_content;
+    }
+    else
+    {
+      return $popup_help_content.$help_content;
+    }
   }
 }
+
+// Create object
+$add_index = new NormalAddIndex();
+
+// Add events
+add_event_handler('get_popup_help_content', array(&$add_index, 'get_popup_help_content'), EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
 
 ?>

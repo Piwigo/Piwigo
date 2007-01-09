@@ -3,12 +3,13 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2007 Ruben ARNAUD - team@phpwebgallery.net              |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-04-21 23:16:37 +0200 (ven., 21 avr. 2006) $
-// | last modifier : $Author: nikrou $
-// | revision      : $Revision: 1250 $
+// | last update   : $Date: 2006-07-18 23:38:54 +0200 (mar., 18 juil. 2006) $
+// | last modifier : $Author: rub $
+// | revision      : $Revision: 1481 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -25,9 +26,9 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if (!defined('PHPWG_ROOT_PATH'))
+if ((!defined('PHPWG_ROOT_PATH')) or (!(defined('IN_ADMIN') and IN_ADMIN)))
 {
-  die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 
 // +-----------------------------------------------------------------------+
@@ -36,82 +37,40 @@ if (!defined('PHPWG_ROOT_PATH'))
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
-// | Actions                                                               |
+// | Main                                                                  |
 // +-----------------------------------------------------------------------+
+global $template, $conf;
 
-/*$action = (isset($_GET['action']) and !is_adviser()) ? $_GET['action'] : '';
+// +-----------------------------------------------------------------------+
+// | template initialization                                               |
+// +-----------------------------------------------------------------------+
+$template->set_filenames(array('plugin_admin_content' => dirname(__FILE__).'/admin_menu.tpl'));
 
-switch ($action)
+/*
+if ( isset($_POST['eventTracer_filters']) )
 {
-  case '???' :
-  {
-    break;
-  }
-  default :
-  {
-    break;
-  }
-}*/
-
-// +-----------------------------------------------------------------------+
-// | Define advanced features                                              |
-// +-----------------------------------------------------------------------+
-
-$advanced_features = array();
-
-// Add advanced features
-/*array_push($advanced_features,
-  array
-  (
-    'CAPTION' => l10n('???'),
-    'URL' => $start_url.'???'
-  ));*/
-
-array_push($advanced_features,
-  array
-  (
-    'CAPTION' => l10n('Elements_not_linked'),
-    'URL' => get_root_url().'admin.php?page=element_set&amp;cat=not_linked'
-  ));
-
-array_push($advanced_features,
-  array
-  (
-    'CAPTION' => l10n('Duplicates'),
-    'URL' => get_root_url().'admin.php?page=element_set&amp;cat=duplicates'
-  ));
-
-//$advanced_features is array of array composed of CAPTION & URL
-$advanced_features = 
-    trigger_event('get_admin_advanced_features_links', $advanced_features);
-
-// +-----------------------------------------------------------------------+
-// |  Template init                                                        |
-// +-----------------------------------------------------------------------+
-
-$template->set_filenames(array('advanced_feature'=>'admin/advanced_feature.tpl'));
-
-$start_url = get_root_url().'admin.php?page=advanced_feature&amp;action=';
-
-$template->assign_vars(
-  array
-  (
-    'U_HELP' => get_root_url().'popuphelp.php?page=advanced_feature'
-  ));
-
-// advanced_features
-if (count($advanced_features) > 0)
-{
-  foreach ($advanced_features as $advanced_feature)
-  {
-    $template->assign_block_vars('advanced_features.advanced_feature', $advanced_feature);
-  }
+  $v = $_POST['eventTracer_filters'];
+  $v = str_replace( "\r\n", "\n", $v );
+  $v = str_replace( "\n\n", "\n", $v );
+  $v = stripslashes($v);
+  if (!empty($v))
+    $this->my_config['filters'] = explode("\n", $v);
+  else
+    $this->my_config['filters'] = array();
+  $this->my_config['show_args'] = isset($_POST['eventTracer_show_args']);
+  $this->save_config();
+  global $page;
+  array_push($page['infos'], 'event tracer options saved');
 }
+$template->assign_var('EVENT_TRACER_FILTERS', implode("\n", $this->my_config['filters'] ) );
+$template->assign_var('EVENT_TRACER_SHOW_ARGS', $this->my_config['show_args'] ? 'checked="checked"' : '' );*/
+$template->assign_var('filename', $conf['add_index_filename']);
+$template->assign_var('source_directory_path', $conf['add_index_source_directory_path']);
+$template->assign_var('F_ACTION', $my_url);
 
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |
 // +-----------------------------------------------------------------------+
-
-$template->assign_var_from_handle('ADMIN_CONTENT', 'advanced_feature');
+$template->assign_var_from_handle('PLUGIN_ADMIN_CONTENT', 'plugin_admin_content');
 
 ?>

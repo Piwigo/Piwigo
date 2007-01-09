@@ -297,7 +297,7 @@ while ($row = mysql_fetch_array($result))
   $plugin_links = array();
   //$plugin_links is array of array composed of U_HREF, U_HINT & U_CAPTION
   $plugin_links = 
-    trigger_event('array_site_manager_plugin_links',
+    trigger_event('get_admins_site_links',
       $plugin_links, $row['id'], $is_remote);
 
   // plugin_links
