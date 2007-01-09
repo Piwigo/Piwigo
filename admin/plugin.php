@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -33,27 +33,27 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
-$template->set_filenames(array('plugin' => 'admin/plugin.tpl'));
-
-if ( isset($page['plugin_admin_menu']) )
+$section = explode('~', $_GET['section'] );
+if (count($section)!=2)
 {
-  foreach ($page['plugin_admin_menu'] as $menu)
-  {
-    if (isset($_GET['section']) and $menu['uid']==$_GET['section'])
-    {
-      $found_menu=$menu;
-      break;
-    }
-  }
+  die('Invalid plugin URL');
 }
 
-if ( isset($found_menu) )
+$plugin_id = $section[0];
+$check_db_plugin = get_db_plugins('active', $plugin_id );
+if (empty($check_db_plugin))
 {
-  $template->assign_var('PLUGIN_TITLE', $found_menu['title'] );
-  call_user_func(
-    $found_menu['function'],
-    PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section='.$found_menu['uid'] );
+  die('Invalid URL - plugin '.$plugin_id.' not active');
 }
+$section[1]=str_replace('./', '', $section[1]); // no up in dir structure
 
-$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin');
+$filename = PHPWG_PLUGINS_PATH.$plugin_id.'/'.$section[1].'.php';
+if (is_file($filename))
+{
+  include_once($filename);
+}
+else
+{
+  die('Missing '.$filename);
+}
 ?>

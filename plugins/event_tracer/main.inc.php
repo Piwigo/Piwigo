@@ -11,10 +11,12 @@ class EventTracer
 {
   var $me_working;
   var $my_config;
-
-  function EventTracer()
+  var $my_id;
+  
+  function EventTracer($id)
   {
     $this->me_working=0;
+    $this->my_id=$id;
   }
 
   function load_config()
@@ -76,23 +78,24 @@ class EventTracer
     }
   }
 
-  function plugin_admin_menu()
+  function plugin_admin_menu($menu)
   {
-    add_plugin_admin_menu( "Event Tracer", array(&$this, 'do_admin') );
+    array_push($menu,
+        array(
+          'NAME' => 'Event Tracer',
+          'URL' => get_admin_plugin_menu_link($this->my_id, 'tracer_admin')
+        )
+      );
+    return $menu;
   }
-
-  function do_admin($my_url)
-  {
-    include( dirname(__FILE__).'/tracer_admin.php' );
-  }
-
 }
 
-$eventTracer = new EventTracer();
-$eventTracer->load_config();
+$obj = new EventTracer($plugin['id']);
+$obj->load_config();
 
-add_event_handler('plugin_admin_menu', array(&$eventTracer, 'plugin_admin_menu') );
-add_event_handler('pre_trigger_event', array(&$eventTracer, 'on_pre_trigger_event') );
-add_event_handler('post_trigger_event', array(&$eventTracer, 'on_post_trigger_event') );
-add_event_handler('trigger_action', array(&$eventTracer, 'on_trigger_action') );
+add_event_handler('get_admin_plugin_menu_links', array(&$obj, 'plugin_admin_menu') );
+add_event_handler('pre_trigger_event', array(&$obj, 'on_pre_trigger_event') );
+add_event_handler('post_trigger_event', array(&$obj, 'on_post_trigger_event') );
+add_event_handler('trigger_action', array(&$obj, 'on_trigger_action') );
+set_plugin_data($plugin['id'], $obj);
 ?>

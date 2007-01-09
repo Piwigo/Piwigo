@@ -1,4 +1,8 @@
 <!-- $Id: admin_menu.tpl Ruben ARNAUD -->
+<div class="titrePage">
+  <h2>{lang:Add_Index}</h2>
+</div>
+
 <p>{lang:add_index_Description_1}</p>
 <p>{lang:add_index_Description_2}</p>
 

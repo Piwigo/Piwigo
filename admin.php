@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -54,66 +54,15 @@ check_conf();
 // |                            variables init                             |
 // +-----------------------------------------------------------------------+
 
-unset($page['page']);
-
-if 
-  (
-    isset($_GET['page'])
+if (isset($_GET['page'])
     and preg_match('/^[a-z_]*$/', $_GET['page'])
-  )
+    and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php'))
 {
-  if
-    (
-      (!isset($_GET['page_type']) or $_GET['page_type'] == 'standard')
-      and is_file(PHPWG_ROOT_PATH.'admin/'.$_GET['page'].'.php')
-    )
-  {
-    $page['page']['type'] = 'standard';
-    $page['page']['name'] = $_GET['page'];
-  }
-  else if
-    (
-      (isset($_GET['page_type']) and $_GET['page_type'] == 'plugin')
-      and isset($_GET['plugin_id'])
-      and preg_match('/^[a-z_]*$/', $_GET['plugin_id'])
-      and is_file(PHPWG_PLUGINS_PATH.$_GET['plugin_id'].'/admin/'.$_GET['page'].'.php')
-    )
-  {
-    if (function_exists('mysql_real_escape_string'))
-    {
-      $page['page']['plugin_id'] = mysql_real_escape_string($_GET['plugin_id']);
-    }
-    else
-    {
-      $page['page']['plugin_id'] = mysql_escape_string($_GET['plugin_id']);
-    }
-
-    $check_db_plugin = get_db_plugins('active', $page['page']['plugin_id']);
-    if (!empty($check_db_plugin))
-    {
-      $page['page']['type'] = $_GET['page_type'];
-      $page['page']['name'] = $_GET['page'];
-    }
-    else
-    {
-      unset($page['page']);
-    }
-    unset($check_db_plugin);
-  }
+  $page['page'] = $_GET['page'];
 }
-
-if (!isset($page['page']))
+else
 {
-  if (isset($_GET['page_type']) and $_GET['page_type'] == 'plugin')
-  {
-    $page['page']['type'] = 'standard';
-    $page['page']['name'] = 'plugins';
-  }
-  else
-  {
-    $page['page']['type'] = 'standard';
-    $page['page']['name'] = 'intro';
-  }
+  $page['page'] = 'intro';
 }
 
 $page['errors'] = array();
@@ -184,47 +133,22 @@ if ($conf['allow_random_representative'])
 }
 
 // required before plugin page inclusion
-trigger_action('plugin_admin_menu');
-
-switch($page['page']['type'])
-{
-  case 'standard':
-  {
-    include(PHPWG_ROOT_PATH.'admin/'.$page['page']['name'].'.php');
-    break;
-  }
-  case 'plugin':
-  {
-    include(PHPWG_PLUGINS_PATH.$page['page']['plugin_id'].'/admin/'.$page['page']['name'].'.php');
-    break;
-  }
-  default:
-  {
-    die ("Hacking attempt!");
-    break;
-  }
-}
-
-
-//------------------------------------------------------------- content display
-$template->assign_block_vars('plugin_menu.menu_item',
+$plugin_menu_links = array(
     array(
       'NAME' => l10n('admin'),
       'URL' => $link_start.'plugins'
     )
   );
-if ( isset($page['plugin_admin_menu']) )
+$plugin_menu_links = trigger_event('get_admin_plugin_menu_links',
+  $plugin_menu_links );
+
+
+include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
+
+//------------------------------------------------------------- content display
+foreach ($plugin_menu_links as $menu_item)
 {
-  $plug_base_url = $link_start.'plugin&amp;section=';
-  foreach ($page['plugin_admin_menu'] as $menu)
-  {
-    $template->assign_block_vars('plugin_menu.menu_item',
-        array(
-          'NAME' => $menu['title'],
-          'URL' => $plug_base_url.$menu['uid']
-        )
-      );
-  }
+  $template->assign_block_vars('plugin_menu.menu_item', $menu_item);
 }
 
 // +-----------------------------------------------------------------------+

@@ -33,6 +33,7 @@ if ((!defined('PHPWG_ROOT_PATH')) or (!(defined('IN_ADMIN') and IN_ADMIN)))
 
 class AdminAddIndex extends AddIndex
 {
+  var $my_id;
   function load_params()
   {
     global $conf;
@@ -62,7 +63,7 @@ class AdminAddIndex extends AddIndex
       array
       (
         'CAPTION' => l10n('Advanced_Add_Index'),
-        'URL' => get_root_url().'admin.php?page=main_page&amp;page_type=plugin&amp;plugin_id=add_index&amp;overwrite'
+        'URL' => get_admin_plugin_menu_link($this->my_id, 'admin/main_page').'&amp;overwrite'
       ));
 
     return $advanced_features;
@@ -75,7 +76,7 @@ class AdminAddIndex extends AddIndex
       array_push($site_manager_plugin_links,
         array
         (
-          'U_HREF' => get_root_url().'admin.php?page=main_page&amp;page_type=plugin&amp;plugin_id=add_index&amp;site_id='.$site_id,
+          'U_HREF' => get_admin_plugin_menu_link($this->my_id, 'admin/main_page').'&amp;site_id='.$site_id,
           'U_CAPTION' => l10n('Manager_Add_Index'),
           'U_HINT' => l10n('Add_Index')
         ));
@@ -84,20 +85,21 @@ class AdminAddIndex extends AddIndex
     return $site_manager_plugin_links;
   }
 
-  function plugin_admin_menu()
+  function plugin_admin_menu($menu)
   {
-    add_plugin_admin_menu(l10n('Menu_Add_Index'), array(&$this, 'do_plugin_admin_menu'));
+    array_push($menu,
+        array(
+          'NAME' => l10n('Menu_Add_Index'),
+          'URL' => get_admin_plugin_menu_link($this->my_id, 'admin/admin_menu')
+        )
+      );
+    return $menu;
   }
-
-  function do_plugin_admin_menu($my_url)
-  {
-    include_once(dirname(__FILE__).'/admin/'.'admin_menu.php');
-  }
-
 }
 
 // Create object
 $add_index = new AdminAddIndex();
+$add_index->my_id = $plugin['id'];
 
 // Load Add Index parameters
 $add_index->load_params();
@@ -106,6 +108,6 @@ $add_index->load_params();
 add_event_handler('loading_lang', array(&$add_index, 'loading_lang'));
 add_event_handler('get_admin_advanced_features_links', array(&$add_index, 'get_admin_advanced_features_links'));
 add_event_handler('get_admins_site_links', array(&$add_index, 'get_admins_site_links'), EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-add_event_handler('plugin_admin_menu', array(&$add_index, 'plugin_admin_menu') );
+add_event_handler('get_admin_plugin_menu_links', array(&$add_index, 'plugin_admin_menu') );
 
 ?>

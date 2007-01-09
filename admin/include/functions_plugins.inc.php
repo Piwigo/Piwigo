@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -68,36 +68,16 @@ function get_fs_plugins()
   return $plugins;
 }
 
-/*allows plugins to add their content to the administration page*/
-function add_plugin_admin_menu($title, $func)
+/**
+ * Retrieves an url for a plugin page.
+ * @param string plugin_id
+ * @param string page - the php script file name (without .php extension)
+ */
+function get_admin_plugin_menu_link($plugin_id, $page)
 {
-  global $page;
-  if ( is_array( $func) )
-  {
-    $s = '';
-    foreach( $func as $e)
-    {
-      if (is_object($e))
-      {
-        $s.=get_class($e)."\n";
-      }
-      else
-      {
-        $s.=$e;
-      }
-    }
-    $uid = md5( $s );
-  }
-  else
-  {
-    $uid = md5( $func );
-  }
-  $page['plugin_admin_menu'][] =
-    array(
-      'title' => $title,
-      'function' => $func,
-      'uid' => $uid
-    );
+  $url = get_root_url().'admin.php?page=plugin&amp;section='
+    .urlencode($plugin_id .'~'. $page);
+  return $url;
 }
 
 ?>

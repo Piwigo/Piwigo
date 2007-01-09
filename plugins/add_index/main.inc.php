@@ -49,6 +49,7 @@ if (in_array(script_basename(), array('popuphelp', 'admin')))
     include_once(dirname(__FILE__).'/'.'main.base.inc.php');
     include_once(dirname(__FILE__).'/'.'main.normal.inc.php');
   }
+  set_plugin_data($plugin['id'], $add_index);
 }
 
 ?>

@@ -66,11 +66,11 @@ $template->assign_var('EVENT_TRACER_FILTERS', implode("\n", $this->my_config['fi
 $template->assign_var('EVENT_TRACER_SHOW_ARGS', $this->my_config['show_args'] ? 'checked="checked"' : '' );*/
 $template->assign_var('filename', $conf['add_index_filename']);
 $template->assign_var('source_directory_path', $conf['add_index_source_directory_path']);
-$template->assign_var('F_ACTION', $my_url);
+//$template->assign_var('F_ACTION', $my_url);
 
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |
 // +-----------------------------------------------------------------------+
-$template->assign_var_from_handle('PLUGIN_ADMIN_CONTENT', 'plugin_admin_content');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 
 ?>

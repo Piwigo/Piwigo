@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -152,7 +152,6 @@ function trigger_event($event, $data=null)
   return $data;
 }
 
-
 function trigger_action($event, $data=null)
 {
   global $pwg_event_handlers;
@@ -195,6 +194,35 @@ function trigger_action($event, $data=null)
   }
 }
 
+/** Saves some data with the associated plugim id. It can be retrieved later (
+ * during this script lifetime) using get_plugin_data
+ * @param string plugin_id
+ * @param mixed data
+ * returns true on success, false otherwise
+ */
+function set_plugin_data($plugin_id, &$data)
+{
+  global $pwg_loaded_plugins;
+  if ( isset($pwg_loaded_plugins[$plugin_id]) )
+  {
+    $pwg_loaded_plugins[$plugin_id]['plugin_data'] = &$data;
+    return true;
+  }
+  return false;
+}
+
+/** Retrieves plugin data saved previously with set_plugin_data
+ * @param string plugin_id
+ */
+function &get_plugin_data($plugin_id)
+{
+  global $pwg_loaded_plugins;
+  if ( isset($pwg_loaded_plugins[$plugin_id]) )
+  {
+    return $pwg_loaded_plugins[$plugin_id]['plugin_data'];
+  }
+  return null;
+}
 
 /* Returns an array of plugins defined in the database
  * @param string $state optional filter on this state
@@ -235,6 +263,8 @@ function load_plugin($plugin)
   $file_name = PHPWG_PLUGINS_PATH.$plugin['id'].'/main.inc.php';
   if ( file_exists($file_name) )
   {
+    global $pwg_loaded_plugins;
+    $pwg_loaded_plugins[ $plugin['id'] ] = $plugin;
     include_once( $file_name );
   }
 }
@@ -242,7 +272,8 @@ function load_plugin($plugin)
 /*loads all the plugins on startup*/
 function load_plugins()
 {
-  global $conf;
+  global $conf, $pwg_loaded_plugins;
+  $pwg_loaded_plugins = array();
   if ($conf['enable_plugins'])
   {
     $plugins = get_db_plugins('active');
