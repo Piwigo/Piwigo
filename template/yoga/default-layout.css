@@ -26,7 +26,12 @@ H2 {
     text-align: left;
     font-size: 120%;
 }
-
+H5 {
+    margin: 0;
+    padding: 0 1.5em 0 30%;
+    text-align: right;
+    font-size: 90%;
+}
 A {
     text-decoration:none;
     border-bottom: 1px dotted #005e89;

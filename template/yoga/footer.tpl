@@ -1,4 +1,5 @@
 <div id="copyright">
+ <a name="EoP" /> <!-- End of Page -->
  <!-- BEGIN debug -->
  {lang:generation_time} {debug.TIME} ({debug.NB_QUERIES} {lang:sql_queries_in} {debug.SQL_TIME}) -
  <!-- END debug -->
