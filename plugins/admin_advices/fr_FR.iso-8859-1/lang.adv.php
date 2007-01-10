@@ -29,6 +29,8 @@
 //$lang_info['charset'] = 'iso-8859-1';
 //$lang_info['direction'] = 'ltr';
 //$lang_info['code'] = 'fr';
+global $lang;
+$lang['Metadata'] = 'Méta-données';
 foreach ($conf as $key => $value)
 {
   if ( is_string($value) )

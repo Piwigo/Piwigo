@@ -77,8 +77,9 @@ A {
 A:hover {
   border-color: #f92;
 }
-#content {
-  background-color: #eee;
+#content, DIV.content { 
+      /* All div similar to #content can be classified as content */
+  background-color: #eee; 
   border: 1px solid #69c;
   padding: 5px;
 }
