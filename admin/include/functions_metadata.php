@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -65,6 +65,11 @@ function get_sync_iptc_data($file)
       );
   }
 
+  foreach ($iptc as $pwg_key => $value)
+  {
+    $iptc[$pwg_key] = addslashes($iptc[$pwg_key]);
+  }
+
   return $iptc;
 }
 
@@ -83,6 +88,7 @@ function get_sync_exif_data($file)
         $exif[$pwg_key] = $matches[1].'-'.$matches[2].'-'.$matches[3];
       }
     }
+    $exif[$pwg_key] = addslashes($exif[$pwg_key]);
   }
 
   return $exif;
@@ -115,14 +121,6 @@ function update_metadata($files)
     if ($conf['use_exif'])
     {
       $exif = get_sync_exif_data($file);
-
-      if (count($exif) > 0)
-      {
-        foreach (array_keys($exif) as $key)
-        {
-          $data[$key] = addslashes($exif[$key]);
-        }
-      }
     }
 
     if ($conf['use_iptc'])
@@ -146,10 +144,6 @@ function update_metadata($files)
                 tag_id_from_tag_name($tag_name)
                 );
             }
-          }
-          else
-          {
-            $data[$key] = addslashes($iptc[$key]);
           }
         }
       }

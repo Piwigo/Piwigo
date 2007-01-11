@@ -2,13 +2,13 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2006-03-09 23:46:28 +0100 (jeu, 09 mar 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1072 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -155,7 +155,7 @@ if (isset($_POST['add']) and !empty($_POST['add_tag']) and !is_adviser())
   $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
-  WHERE name = \''.pwg_quotemeta($tag_name).'\'
+  WHERE name = \''.$tag_name.'\'
 ;';
   $existing_tags = array_from_query($query, 'id');
 
@@ -166,7 +166,7 @@ SELECT id
       array('name', 'url_name'),
       array(
         array(
-          'name' => pwg_quotemeta($tag_name),
+          'name' => $tag_name,
           'url_name' => str2url($tag_name),
           )
         )
@@ -176,7 +176,7 @@ SELECT id
       $page['infos'],
       sprintf(
         l10n('Tag "%s" was added'),
-        pwg_stripslashes($tag_name)
+        stripslashes($tag_name)
         )
       );
   }
@@ -186,7 +186,7 @@ SELECT id
       $page['errors'],
       sprintf(
         l10n('Tag "%s" already exists'),
-        pwg_stripslashes($tag_name)
+        stripslashes($tag_name)
         )
       );
   }

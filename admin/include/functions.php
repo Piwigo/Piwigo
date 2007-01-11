@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -1687,15 +1687,6 @@ function tag_id_from_tag_name($tag_name)
   if (isset($page['tag_id_from_tag_name_cache'][$tag_name]))
   {
     return $page['tag_id_from_tag_name_cache'][$tag_name];
-  }
-
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $tag_name = mysql_real_escape_string($tag_name);
-  }
-  else
-  {
-    $tag_name = mysql_escape_string($tag_name);
   }
 
   // does the tag already exists?

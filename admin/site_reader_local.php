@@ -2,13 +2,13 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2005-12-03 17:03:58 -0500 (Sat, 03 Dec 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 967 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -201,27 +201,12 @@ function get_element_metadata($file)
 
   if ($conf['use_exif'])
   {
-    $exif = get_sync_exif_data($file);
-
-    if (count($exif) > 0)
-    {
-      foreach (array_keys($exif) as $key)
-      {
-        $data[$key] = addslashes($exif[$key]);
-      }
-    }
+    $data = array_merge($data, get_sync_exif_data($file) );
   }
 
   if ($conf['use_iptc'])
   {
-    $iptc = get_sync_iptc_data($file);
-    if (count($iptc) > 0)
-    {
-      foreach (array_keys($iptc) as $key)
-      {
-        $data[$key] = addslashes($iptc[$key]);
-      }
-    }
+    $data = array_merge($data, get_sync_iptc_data($file) );
   }
 
   return $data;
