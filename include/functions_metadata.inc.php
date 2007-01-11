@@ -36,11 +36,11 @@ function get_iptc_data($filename, $map)
 {
   $result = array();
 
-  // Read IPTC data
-  $iptc = array();
-
   $imginfo = array();
-  getimagesize($filename, $imginfo);
+  if (false == @getimagesize($filename, $imginfo) )
+  {
+    return $result;
+  }
 
   if (isset($imginfo['APP13']))
   {

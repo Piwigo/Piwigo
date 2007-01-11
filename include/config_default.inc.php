@@ -573,10 +573,8 @@ $conf['enable_plugins']=true;
 // Array of basename without file extention
 $conf['filter_pages'] = array
   (
-    'about', 'action', 'admin', 'comments', 
-    'index', 'picture', 'popuphelp', 'profile', 
-    'qsearch', 'random', 'register', 'search', 
-    'search_rules', 'tags', 'upload'
+    'comments', 'index', 'picture', 'qsearch',
+    'random', 'search', 'tags', 'upload'
   );
 
 ?>

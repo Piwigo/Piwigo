@@ -4,10 +4,10 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $URL: svn+ssh://rvelices@svn.gna.org/svn/phpwebgallery/trunk/action.php $
-// | last update   : $Date: 2006-12-21 18:49:12 -0500 (Thu, 21 Dec 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Rev: 1678 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Rev$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -28,8 +28,8 @@
 
 /**
  * returns a "standard" (for our web service) array of sql where clauses that
- * filters the images (images table only) 
- */ 
+ * filters the images (images table only)
+ */
 function ws_std_image_sql_filter( $params, $tbl_name='' )
 {
   $clauses = array();
@@ -82,7 +82,7 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
 
 /**
  * returns a "standard" (for our web service) ORDER BY sql clause for images
- */ 
+ */
 function ws_std_image_sql_order( $params, $tbl_name='' )
 {
   $ret = '';
@@ -104,7 +104,7 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
       case 'rand': case 'random':
         $matches[1][$i] = 'RAND()'; break;
     }
-    $sortable_fields = array('id', 'file', 'name', 'hit', 'average_rate', 
+    $sortable_fields = array('id', 'file', 'name', 'hit', 'average_rate',
       'date_creation', 'date_available', 'RAND()' );
     if ( in_array($matches[1][$i], $sortable_fields) )
     {
@@ -124,11 +124,11 @@ function ws_std_image_sql_order( $params, $tbl_name='' )
 /**
  * returns an array map of urls (thumb/element) for image_row - to be returned
  * in a standard way by different web service methods
- */  
+ */
 function ws_std_get_urls($image_row)
 {
   $ret = array(
-    'tn_url' => get_thumbnail_url($image_row), 
+    'tn_url' => get_thumbnail_url($image_row),
     'element_url' => get_element_url($image_row)
   );
   global $user;
@@ -147,7 +147,7 @@ function ws_getVersion($params, &$service)
 
 /**
  * returns images per category (wb service method)
- */ 
+ */
 function ws_categories_getImages($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
@@ -278,7 +278,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
             'per_page' => $params['per_page'],
             'count' => count($images)
           ),
-       WS_XML_CONTENT => new PwgNamedArray($images, 'image', 
+       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
           array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
       )
     );
@@ -290,12 +290,6 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
 function ws_categories_getList($params, &$service)
 {
   global $user;
-  
-  $query = '
-SELECT id, name, uppercats, global_rank, 
-    max_date_last, count_images AS nb_images, count_categories AS nb_categories
-  FROM '.CATEGORIES_TABLE.'
-   INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id';
 
   $where = array();
   $where[]= 'user_id='.$user['id'];
@@ -317,13 +311,18 @@ SELECT id, name, uppercats, global_rank,
   if ($params['public'])
   {
     $where[] = 'status = "public"';
+    $where[] = 'visible = "true"';
   }
   else
   {
     $where[] = 'id NOT IN ('.$user['forbidden_categories'].')';
   }
 
-  $query .= '
+  $query = '
+SELECT id, name, uppercats, global_rank,
+    max_date_last, count_images AS nb_images, count_categories AS nb_categories
+  FROM '.CATEGORIES_TABLE.'
+   INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
   WHERE '. implode('
     AND ', $where);
   $query .= '
@@ -349,7 +348,7 @@ ORDER BY global_rank';
   usort($cats, 'global_rank_compare');
   return array(
       'categories' =>
-          new PwgNamedArray($cats,'category', 
+          new PwgNamedArray($cats,'category',
             array('id','url','nb_images','nb_categories','max_date_last')
           )
     );
@@ -366,8 +365,13 @@ function ws_images_getInfo($params, &$service)
   }
   $query='
 SELECT * FROM '.IMAGES_TABLE.'
-  WHERE id='.$params['image_id'].'
+  WHERE id='.$params['image_id'].
+    get_sql_condition_FandF(
+      array('visible_images' => 'id'),
+      ' AND'
+    ).'
 LIMIT 1';
+
   $image_row = mysql_fetch_assoc(pwg_query($query));
   if ($image_row==null)
   {
@@ -539,7 +543,7 @@ function ws_session_getStatus($params, &$service)
 function ws_tags_getList($params, &$service)
 {
   global $user;
-  $tags = get_available_tags(explode(',', $user['forbidden_categories']));
+  $tags = get_available_tags();
   if ($params['sort_by_counter'])
   {
     usort($tags, create_function('$a,$b', 'return -$a["counter"]+$b["counter"];') );
@@ -631,7 +635,15 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
   if ( !empty($image_ids))
   {
     $where_clauses = ws_std_image_sql_filter($params);
-    $where_clauses[] = 'category_id NOT IN ('.$user['forbidden_categories'].')';
+    $where_clauses[] = get_sql_condition_FandF(
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'i.id'
+          ),
+        '', true
+      );
     $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
     $order_by = ws_std_image_sql_order($params);
     if (empty($order_by))
@@ -692,8 +704,8 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
               )
             );
       }
-      $image['tags'] = new PwgNamedArray($image_tags, 'tag', 
-              array('id','url_name','url','page_url') 
+      $image['tags'] = new PwgNamedArray($image_tags, 'tag',
+              array('id','url_name','url','page_url')
             );
       array_push($images, $image);
     }
@@ -707,7 +719,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
             'per_page' => $params['per_page'],
             'count' => count($images)
           ),
-       WS_XML_CONTENT => new PwgNamedArray($images, 'image', 
+       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
           array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
       )
     );

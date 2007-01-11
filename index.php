@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -116,7 +116,7 @@ if (isset($page['flat_recent_cat']) or isset($page['chronology_field']))
     );
 }
 
-if (!isset($page['flat_recent_cat']))
+if (!isset($page['flat_recent_cat']) and 'categories'==$page['section'])
 {
   $template->assign_block_vars(
     'flat_recent_cat',

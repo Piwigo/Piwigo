@@ -278,7 +278,8 @@ while (isset($tokens[$i]))
     $page['start'] = $matches[1];
   }
 
-  if (preg_match('/^flat_recent_cat-(\d+)/', $tokens[$i], $matches))
+  if ('categories'==$page['section'] and
+      preg_match('/^flat_recent_cat-(\d+)/', $tokens[$i], $matches))
   {
     // indicate a special list of images
     $page['flat_recent_cat'] = $matches[1];
@@ -325,6 +326,16 @@ if (pwg_get_session_var('image_order',0) > 0)
     );
   $page['super_order_by'] = true;
 }
+
+$forbidden = get_sql_condition_FandF(
+      array
+        (
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'image_id'
+        ),
+      'AND'
+  );
 
 // +-----------------------------------------------------------------------+
 // |                              category                                 |
@@ -401,16 +412,7 @@ WHERE
       CURRENT_DATE,INTERVAL '.$page['flat_recent_cat'].' DAY)'.
   (isset($page['category']) ? '
   AND uppercats REGEXP \'(^|,)'.$page['category'].'(,|$)\'' : '' ).'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'image_id'
-      ),
-    'AND'
-  ).'
+'.$forbidden.'
 ;';
 
       $where_sql = array_from_query($query, 'image_id');
@@ -429,21 +431,12 @@ WHERE
     {
       // Main query
       $query = '
-SELECT distinct image_id
+SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
   WHERE
     '.$where_sql.'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'image_id'
-      ),
-    'AND'
-  ).'
+'.$forbidden.'
   '.$conf['order_by'].'
 ;';
 
@@ -458,18 +451,6 @@ SELECT distinct image_id
 // special sections
 else
 {
-  $forbidden =
-    get_sql_condition_FandF
-    (
-      array
-        (
-          'forbidden_categories' => 'category_id',
-          'visible_categories' => 'category_id',
-          'visible_images' => 'image_id'
-        ),
-      'AND'
-    );
-
 // +-----------------------------------------------------------------------+
 // |                            tags section                               |
 // +-----------------------------------------------------------------------+

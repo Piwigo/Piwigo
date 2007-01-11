@@ -784,7 +784,7 @@ if (isset($_GET['slideshow']))
 
 include(PHPWG_ROOT_PATH.'include/picture_rate.inc.php');
 include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
-//if ($metadata_showable and isset($_GET['metadata']))
+if ($metadata_showable and isset($_GET['metadata']))
 {
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
