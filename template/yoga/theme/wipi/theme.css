@@ -77,7 +77,7 @@ A {
 A:hover {
   border-color: #f92;
 }
-#content {
+#content, .content {
   background-color: #181818;
   border: 1px solid #eee;
   padding: 5px;
