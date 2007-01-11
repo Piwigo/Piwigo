@@ -1,11 +1,10 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -36,21 +35,12 @@ check_status(ACCESS_ADMINISTRATOR);
 $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 
 
-
 // +-----------------------------------------------------------------------+
 // |                     perform requested actions                         |
 // +-----------------------------------------------------------------------+
 if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
 {
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $plugin_id = mysql_real_escape_string($_REQUEST['plugin']);
-  }
-  else
-  {
-    $plugin_id = mysql_escape_string($_REQUEST['plugin']);
-  }
-
+  $plugin_id = $_REQUEST['plugin'];
   $crt_db_plugin = get_db_plugins('', $plugin_id);
   if (!empty($crt_db_plugin))
   {
@@ -61,6 +51,7 @@ if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
     unset($crt_db_plugin);
   }
 
+  $errors = array();
   $file_to_include = PHPWG_PLUGINS_PATH.$plugin_id.'/maintain.inc.php';
 
   switch ( $_REQUEST['action'] )
@@ -68,49 +59,57 @@ if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
     case 'install':
       if ( !empty($crt_db_plugin))
       {
-        die ('CANNOT install - ALREADY INSTALLED');
+        array_push($errors, 'CANNOT install - ALREADY INSTALLED');
+        break;
       }
       $fs_plugins = get_fs_plugins();
       if ( !isset( $fs_plugins[$plugin_id] ) )
       {
-        die ('CANNOT install - NO SUCH PLUGIN');
+        array_push($errors, 'CANNOT install - NO SUCH PLUGIN');
+        break;
       }
-      $query = '
+      if ( file_exists($file_to_include) )
+      {
+        include_once($file_to_include);
+        if ( function_exists('plugin_install') )
+        {
+          plugin_install($plugin_id, $fs_plugins[$plugin_id]['version'], $errors);
+        }
+      }
+      if (empty($errors))
+      {
+        $query = '
 INSERT INTO '.PLUGINS_TABLE.' (id,version) VALUES ("'
 .$plugin_id.'","'.$fs_plugins[$plugin_id]['version'].'"
 )';
-      pwg_query($query);
-
-      // MAYBE TODO HERE = what if we die or we fail ???
-      @include_once($file_to_include);
-      if ( function_exists('plugin_install') )
-      {
-        plugin_install($plugin_id);
+        pwg_query($query);
       }
       break;
-
 
     case 'activate':
       if ( !isset($crt_db_plugin) )
       {
-        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+        array_push($errors, 'CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
       }
       if ($crt_db_plugin['state']!='inactive')
       {
-        die('invalid current state '.$crt_db_plugin['state']);
+        array_push($errors, 'invalid current state '.$crt_db_plugin['state']);
       }
-      $query = '
-UPDATE '.PLUGINS_TABLE.' SET state="active" WHERE id="'.$plugin_id.'"';
-      pwg_query($query);
-
-      // MAYBE TODO HERE = what if we die or we fail ???
-      @include_once($file_to_include);
-      if ( function_exists('plugin_activate') )
+      if ( file_exists($file_to_include) )
       {
-        plugin_activate($plugin_id);
+        include_once($file_to_include);
+        if ( function_exists('plugin_activate') )
+        {
+          plugin_activate($plugin_id, $crt_db_plugin['version'], $errors);
+        }
+      }
+      if (empty($errors))
+      {
+        $query = '
+UPDATE '.PLUGINS_TABLE.' SET state="active" WHERE id="'.$plugin_id.'"';
+        pwg_query($query);
       }
       break;
-
 
     case 'deactivate':
       if ( !isset($crt_db_plugin) )
@@ -125,7 +124,6 @@ UPDATE '.PLUGINS_TABLE.' SET state="active" WHERE id="'.$plugin_id.'"';
 UPDATE '.PLUGINS_TABLE.' SET state="inactive" WHERE id="'.$plugin_id.'"';
       pwg_query($query);
 
-      // MAYBE TODO HERE = what if we die or we fail ???
       @include_once($file_to_include);
       if ( function_exists('plugin_deactivate') )
       {
@@ -142,7 +140,6 @@ UPDATE '.PLUGINS_TABLE.' SET state="inactive" WHERE id="'.$plugin_id.'"';
 DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
       pwg_query($query);
 
-      // MAYBE TODO HERE = what if we die or we fail ???
       @include_once($file_to_include);
       if ( function_exists('plugin_uninstall') )
       {
@@ -150,8 +147,15 @@ DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
       }
       break;
   }
-  // do the redirection so that we allow the plugins to load/unload
-  redirect($my_base_url);
+  if (empty($errors))
+  {
+    // do the redirection so that we allow the plugins to load/unload
+    redirect($my_base_url);
+  }
+  else
+  {
+    $page['errors'] = array_merge($page['errors'], $errors);
+  }
 }
 
 

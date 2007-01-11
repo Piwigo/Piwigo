@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -63,7 +63,7 @@ $since_options = array(
              'clause' => '1=1') // stupid but generic
   );
 
-$page['since'] = isset($_GET['since']) ? $_GET['since'] : 3;
+$page['since'] = isset($_GET['since']) ? $_GET['since'] : 4;
 
 // on which field sorting
 //
@@ -91,43 +91,29 @@ if (isset($_GET['items_number']))
   $page['items_number'] = $_GET['items_number'];
 }
 
+$page['where_clauses'] = array();
+
 // which category to filter on ?
-$page['cat_clause'] = '1=1';
 if (isset($_GET['cat']) and 0 != $_GET['cat'])
 {
-  $page['cat_clause'] =
+  $page['where_clauses'][] =
     'category_id IN ('.implode(',', get_subcat_ids(array($_GET['cat']))).')';
 }
 
 // search a particular author
-$page['author_clause'] = '1=1';
 if (isset($_GET['author']) and !empty($_GET['author']))
 {
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $author = mysql_real_escape_string($_GET['author']);
-  }
-  else
-  {
-    $author = mysql_escape_string($_GET['author']);
-  }
-
-  $page['author_clause'] = 'author = \''.$author.'\'';
+  $page['where_clauses'][] = 'com.author = \''.$_GET['author'].'\'';
 }
 
 // search a substring among comments content
-$page['keyword_clause'] = '1=1';
 if (isset($_GET['keyword']) and !empty($_GET['keyword']))
 {
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $keyword = mysql_real_escape_string($_GET['keyword']);
-  }
-  else
-  {
-    $keyword = mysql_escape_string($_GET['keyword']);
-  }
-  $page['keyword_clause'] =
+  // fors some odd reason comment content is htmlspecialchars in the database 
+  $keyword = addslashes( 
+      htmlspecialchars( stripslashes($_GET['keyword']), ENT_QUOTES) 
+    );
+  $page['where_clauses'][] =
     '('.
     implode(' AND ',
             array_map(
@@ -141,16 +127,24 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
     ')';
 }
 
+$page['where_clauses'][] = $since_options[$page['since']]['clause'];
+
 // which status to filter on ?
-if ( is_admin() )
+if ( !is_admin() )
 {
-  $page['status_clause'] = '1=1';
-}
-else
-{
-  $page['status_clause'] = 'validated="true"';
+  $page['where_clauses'][] = 'validated="true"';
 }
 
+$page['where_clauses'][] = get_sql_condition_FandF
+  (
+    array
+      (
+        'forbidden_categories' => 'category_id',
+        'visible_categories' => 'category_id',
+        'visible_images' => 'ic.image_id'
+      ),
+    '', true
+  );
 
 // +-----------------------------------------------------------------------+
 // |                         comments management                           |
@@ -193,8 +187,8 @@ $template->assign_vars(
     'L_COMMENT_TITLE' => $title,
 
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=>@htmlentities($_GET['keyword']),
-    'F_AUTHOR'=>@htmlentities($_GET['author']),
+    'F_KEYWORD'=>@htmlentities(stripslashes($_GET['keyword'])),
+    'F_AUTHOR'=>@htmlentities(stripslashes($_GET['author'])),
 
     'U_HOME' => make_index_url(),
     )
@@ -307,21 +301,8 @@ SELECT COUNT(DISTINCT(id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-  WHERE '.$since_options[$page['since']]['clause'].'
-    AND '.$page['cat_clause'].'
-    AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'].'
-    AND '.$page['status_clause'].'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'ic.image_id'
-      ),
-    'AND'
-  ).'
+  WHERE '.implode('
+    AND ', $page['where_clauses']).'
 ;';
 list($counter) = mysql_fetch_row(pwg_query($query));
 
@@ -357,21 +338,8 @@ SELECT com.id AS comment_id
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-  WHERE '.$since_options[$page['since']]['clause'].'
-    AND '.$page['cat_clause'].'
-    AND '.$page['author_clause'].'
-    AND '.$page['keyword_clause'].'
-    AND '.$page['status_clause'].'
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'ic.image_id'
-      ),
-    'AND'
-  ).'
+  WHERE '.implode('
+    AND ', $page['where_clauses']).'
   GROUP BY comment_id
   ORDER BY '.$page['sort_by'].' '.$page['sort_order'];
 if ('all' != $page['items_number'])
