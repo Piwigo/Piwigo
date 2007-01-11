@@ -27,12 +27,12 @@
 // +-----------------------------------------------------------------------+
 
 function plugin_uninstall($plugin_id)
-(
+{
   if ($plugin_id == 'add_index')
   {
     //$query = 'delete from '.CONFIG_TABLE.' where param in ';
     //pwg_query($query);
   }
-)
+}
 
 ?>
