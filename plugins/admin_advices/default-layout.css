@@ -1,0 +1,58 @@
+/* $Id$ */
+.content {
+  list-style-type:none; 
+  margin: 0 1em 0 14.5em; 
+  border: 1px solid;
+  padding: 0;
+}
+.content h2 {
+  font-weight: bold; 
+  padding-left: 2em;
+}
+.content h3 {
+  text-align: left; 
+  padding-left: 3em;
+  font-size: 120%;
+}
+.content table tr td {
+  text-align: left; 
+  padding-left: 2em; 
+}
+.pwgmenu {
+  display: table;
+  list-style-type: none;
+  list-style-image: none; /* for firefox */
+  white-space: nowrap; 
+  position: relative;
+  text-decoration : none;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 70%;
+  line-height: 1.1em;
+  width: 66em;
+  margin: 1px 8px;
+  padding: 3px;
+  background: transparent;
+}
+.pwgmenu li {
+  float: left;
+  width: 10em !important;
+  text-align: center;
+  margin: 0 6px;
+  padding: 0;
+
+}
+.pwgmenu a {
+  width: 9em !important;
+  display: block;
+  padding: 4px 8px;
+  background: #69c; /* PWG Graphic charts */
+  color: white;
+  text-align: center;  
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #fff; /* Why bordered? in case of #69c background */ 
+}
+.pwgmenu a:hover {
+  background: #f92;
+  color: white;
+} /* PWG Graphic charts */

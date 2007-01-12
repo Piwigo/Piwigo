@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $URL$
 // | last update   : $Date: 2006-12-21 22:38:20 +0100 (jeu., 4 jan. 2007) $
 // | last modifier : $Author: Vincent $
 // | revision      : $Revision: 1677 $
@@ -30,7 +30,9 @@
 //$lang_info['direction'] = 'ltr';
 //$lang_info['code'] = 'fr';
 global $lang;
+$lang['An_advice_about'] = 'Un nouveau conseil à propos de ';
 $lang['Metadata'] = 'Méta-données';
+
 foreach ($conf as $key => $value)
 {
   if ( is_string($value) )
