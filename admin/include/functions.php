@@ -528,11 +528,16 @@ function mass_inserts($table_name, $dbfields, $datas)
   INSERT INTO '.$table_name.'
     ('.implode(',', $dbfields).')
      VALUES';
-    foreach ($datas as $insert_id => $insert)
+    $first = 1;
+    foreach ($datas as $insert)
     {
       $query.= '
     ';
-      if ($insert_id > 0)
+      if ($first)
+      {
+        $first = 0;
+      }
+      else
       {
         $query.= ',';
       }
@@ -1890,7 +1895,7 @@ function check_conf()
 {
   global $conf, $header_notes;
   $count = 0;
-  
+
   if (($conf['show_exif']) and (!function_exists('read_exif_data')))
   {
     $header_notes[] = sprintf(l10n('note_check_exif'), '$conf[\'show_exif\']');

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -37,7 +37,7 @@ if ($page['section']=='recent_cats')
   $query = '
 SELECT
   id,name, representative_picture_id, comment, nb_images, uppercats,
-  date_last, max_date_last, count_images, count_categories
+  date_last, max_date_last, count_images, count_categories, global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE date_last > SUBDATE(
@@ -151,6 +151,10 @@ SELECT representative_picture_id
   unset($image_id);
 }
 
+if ($page['section']=='recent_cats')
+{
+  usort($categories, 'global_rank_compare');
+}
 if (count($categories) > 0)
 {
   $thumbnail_src_of = array();

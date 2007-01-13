@@ -62,7 +62,7 @@ if (isset($header_infos))
 }
 
 // Header notes
-if (count($header_notes) > 0)
+if ( isset($header_notes) and count($header_notes)>0)
 {
   foreach ($header_notes as $header_note)
   {

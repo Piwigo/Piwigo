@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -293,10 +293,37 @@ class Template {
   function assign_var($varname, $varval)
     {
       $this->_tpldata['.'][0][$varname] = $varval;
-
       return true;
     }
 
+  /**
+   * Root-level variable concatenation. Appends a  string to an existing
+   * variable assignment with the same name.
+   */
+  function concat_var($varname, $varval)
+    {
+      if ( isset($this->_tpldata['.'][0][$varname]) )
+      {
+        $this->_tpldata['.'][0][$varname] .= $varval;
+      }
+      else
+      {
+        $this->_tpldata['.'][0][$varname] = $varval;
+      }
+      return true;
+    }
+
+  /**
+   * Returns a root-level variable value
+   */
+  function get_var($varname, $default=null)
+    {
+      if ( isset($this->_tpldata['.'][0][$varname]) )
+      {
+        return $this->_tpldata['.'][0][$varname];
+      }
+      return $default;
+    }
 
   /**
    * Generates a full path+filename for the given filename, which can either
