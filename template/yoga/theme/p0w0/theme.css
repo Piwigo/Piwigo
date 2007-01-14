@@ -58,16 +58,20 @@ H2, .throw {
   color: #900;
 }
 /* backgrounds */
+
+
 BODY {
   background: #ddd;
   margin: 0px;
   padding: 0px;
 }
+H3, #imageHeaderBar, #imageToolBar A:hover, .row1  {
+  background-color: #fff;
+} 
 
-H3, #the_page, #imageHeaderBar, #imageToolBar A:hover, .row1  {
+#theAdminPage #the_page {
   background-color: #fff;
 }
-
 #imageToolBar, .header_notes {
   background-color: #fff;
 }
@@ -77,8 +81,10 @@ A {
 A:hover {
   border-color: #f92;
 }
+
 #content, DIV.content { 
       /* All div similar to #content can be classified as content */
+
   background-color: #eee; 
   border: 1px solid #69c;
   padding: 5px;

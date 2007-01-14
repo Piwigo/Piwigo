@@ -63,11 +63,13 @@ BODY {
   margin: 0px;
   padding: 0px;
 }
-
-H3, #the_page, #imageHeaderBar, #imageToolBar A:hover, .row1  {
+H3, #imageHeaderBar, #imageToolBar A:hover, .row1  {
   background-color: #222;
 }
 
+#theAdminPage #the_page {
+  background-color: #222;
+}
 #imageToolBar, .header_notes {
   background-color: #333;
 }
