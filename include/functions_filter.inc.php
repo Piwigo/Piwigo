@@ -34,9 +34,9 @@
  */
 function get_filter_check_key()
 {
-  global $user;
-  
-  return $user['id'].$user['recent_period'].date('Ymd');
+  global $user, $filter;
+
+  return $user['id'].$filter['recent_period'].date('Ymd');
 }
 
 /**

@@ -568,15 +568,40 @@ $conf['enable_plugins']=true;
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
 // +-----------------------------------------------------------------------+
-// Pages where filter is enabled
-// Other pages cancel current filter
-// Array of basename without file extention
+// $conf['filter_pages'] contains configuration for each pages
+//   o If values are not defined for a specific page, default value are used
+//   o Array is composed by the basename of each page without extention
+//   o List of value names:
+//     - used: filter function are used
+//       (if false nothing is done [start, cancel, stop, ...]
+//     - cancel: cancel current started filter
+//     - add_notes: add notes about current started filter on the header
+//   o Empty configuration in order to disable completely filter functions
+//     No filter, No icon,...
+//     $conf['filter_pages'] = array();
 $conf['filter_pages'] = array
   (
-    'about', 'action', 'admin', 'comments', 
-    'index', 'picture', 'popuphelp', 'profile', 
-    'qsearch', 'random', 'register', 'search', 
-    'search_rules', 'tags', 'upload'
+    // Default page
+    'default' => array(
+      'used' => true, 'cancel' => false, 'add_notes' => false),
+    // Real pages
+    'index' => array('add_notes' => true),
+    'tags' => array('add_notes' => true),
+    'search' => array('add_notes' => true),
+    'comments' => array('add_notes' => true),
+    'admin' => array('used' => false),
+    'feed' => array('used' => false),
+    'notification' => array('used' => false),
+    'nbm' => array('used' => false),
+    'popuphelp' => array('used' => false),
+    'profile' => array('used' => false),
+    'web_service' => array('used' => false),
+    'ws' => array('used' => false),
+    'identification' => array('cancel' => true),
+    'install' => array('cancel' => true),
+    'password' => array('cancel' => true),
+    'register' => array('cancel' => true),
+    'upgrade_feed' => array('cancel' => true),
   );
 
 ?>

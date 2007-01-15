@@ -231,10 +231,16 @@ if (count($header_msgs) > 0)
   }
 }
 
-if (!defined('IN_ADMIN') or !IN_ADMIN)
+if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
 {
   include(PHPWG_ROOT_PATH.'include/functions_filter.inc.php');
   include(PHPWG_ROOT_PATH.'include/filter.inc.php');
+}
+else
+{
+  // global variable for filter
+  $filter = array();
+  $filter['enabled'] = false;
 }
 
 if (isset($conf['header_notes']))

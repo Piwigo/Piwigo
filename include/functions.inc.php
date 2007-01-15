@@ -1104,4 +1104,32 @@ function script_basename()
   return basename(strtolower($file_name), '.php');
 }
 
+/**
+ * Return value for the current page define on $conf['filter_pages']
+ * Îf value is not defined, default value are returned
+ *
+ * @param value name
+ *
+ * @return filter page value
+ */
+function get_filter_page_value($value_name)
+{
+  global $conf;
+
+  $page_name = script_basename();
+
+  if (isset($conf['filter_pages'][$page_name][$value_name]))
+  {
+    return $conf['filter_pages'][$page_name][$value_name];
+  }
+  else if (isset($conf['filter_pages']['default'][$value_name]))
+  {
+    return $conf['filter_pages']['default'][$value_name];
+  }
+  else
+  {
+    return null;
+  }
+}
+
 ?>

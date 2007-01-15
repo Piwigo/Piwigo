@@ -174,7 +174,10 @@ SELECT id, path, tn_ext
 if (count($categories) > 0)
 {
   // Update filtered data
-  update_cats_with_filtered_data($categories);
+  if (function_exists('update_cats_with_filtered_data'))
+  {
+    update_cats_with_filtered_data($categories);
+  }
 
   if ($conf['subcatify'])
   {

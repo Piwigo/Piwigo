@@ -278,11 +278,11 @@ while (isset($tokens[$i]))
     $page['start'] = $matches[1];
   }
 
-  if ('categories'==$page['section'] and
-      preg_match('/^flat_recent_cat-(\d+)/', $tokens[$i], $matches))
+  if ('categories' == $page['section'] and
+      'flat_cat' == $tokens[$i])
   {
     // indicate a special list of images
-    $page['flat_recent_cat'] = $matches[1];
+    $page['flat_cat'] = true;
   }
 
   if (preg_match('/^(posted|created)/', $tokens[$i] ))
@@ -364,7 +364,7 @@ if ('categories' == $page['section'])
         'title'             =>
           get_cat_display_name($result['name'], '', false),
         'thumbnails_include' =>
-          (($result['nb_images'] > 0) or (isset($page['flat_recent_cat'])))
+          (($result['nb_images'] > 0) or (isset($page['flat_cat'])))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php'
         )
@@ -374,12 +374,12 @@ if ('categories' == $page['section'])
   {
     $page['title'] = $lang['no_category'];
     $page['thumbnails_include'] =
-      (isset($page['flat_recent_cat']))
+      (isset($page['flat_cat']))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php';
   }
 
-  if (isset($page['flat_recent_cat']))
+  if (isset($page['flat_cat']))
   {
     $page['title'] = $lang['recent_pics_cat'].' : '.$page['title'] ;
   }
@@ -389,7 +389,7 @@ if ('categories' == $page['section'])
       (!isset($page['chronology_field'])) and
       (
         (isset($page['category'])) or
-        (isset($page['flat_recent_cat']))
+        (isset($page['flat_cat']))
       )
     )
   {
@@ -398,7 +398,7 @@ if ('categories' == $page['section'])
       $conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
     }
 
-    if (isset($page['flat_recent_cat']))
+    if (isset($page['flat_cat']))
     {
       // flat recent categories mode
         $query = '
@@ -408,10 +408,8 @@ FROM '.IMAGES_TABLE.' AS i
        INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
        INNER JOIN '.CATEGORIES_TABLE.' AS c ON ic.category_id = c.id
 WHERE
-  date_available  > SUBDATE(
-      CURRENT_DATE,INTERVAL '.$page['flat_recent_cat'].' DAY)'.
-  (isset($page['category']) ? '
-  AND uppercats REGEXP \'(^|,)'.$page['category'].'(,|$)\'' : '' ).'
+  '.(isset($page['category']) ? '
+  uppercats REGEXP \'(^|,)'.$page['category'].'(,|$)\'' : '1=1' ).'
 '.$forbidden.'
 ;';
 
@@ -712,7 +710,7 @@ SELECT id,file
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
 $page['meta_robots']=array();
-if ( isset($page['chronology_field']) or isset($page['flat_recent_cat'])
+if ( isset($page['chronology_field']) or isset($page['flat_cat'])
       or 'list'==$page['section'] or 'recent_pics'==$page['section'] )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);

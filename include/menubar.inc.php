@@ -65,25 +65,27 @@ foreach ($conf['links'] as $url => $label)
 }
 
 //------------------------------------------------------------------------ filter
-if ($filter['enabled'])
+if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
 {
-  $template->assign_block_vars(
-    'stop_filter',
-    array(
-      'URL' => add_url_params(make_index_url(array()), array('filter' => 'stop'))
-      )
-    );
+  if ($filter['enabled'])
+  {
+    $template->assign_block_vars(
+      'stop_filter',
+      array(
+        'URL' => add_url_params(make_index_url(array()), array('filter' => 'stop'))
+        )
+      );
+  }
+  else
+  {
+    $template->assign_block_vars(
+      'start_filter',
+      array(
+        'URL' => add_url_params(make_index_url(array()), array('filter' => 'start-'.$user['recent_period']))
+        )
+      );
+  }
 }
-else
-{
-  $template->assign_block_vars(
-    'start_filter',
-    array(
-      'URL' => add_url_params(make_index_url(array()), array('filter' => 'start'))
-      )
-    );
-}
-
 
 //------------------------------------------------------------------------ tags
 if ('tags' == $page['section'])

@@ -107,7 +107,10 @@ WHERE
   usort($cats, 'global_rank_compare');
 
   // Update filtered data
-  update_cats_with_filtered_data($cats);
+  if (function_exists('update_cats_with_filtered_data'))
+  {
+    update_cats_with_filtered_data($cats);
+  }
 
   return get_html_menu_category($cats);
 }
