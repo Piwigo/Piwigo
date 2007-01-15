@@ -81,7 +81,7 @@ if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
     $template->assign_block_vars(
       'start_filter',
       array(
-        'URL' => add_url_params(make_index_url(array()), array('filter' => 'start-'.$user['recent_period']))
+        'URL' => add_url_params(make_index_url(array()), array('filter' => 'start-recent-'.$user['recent_period']))
         )
       );
   }

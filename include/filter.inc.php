@@ -41,7 +41,7 @@ if (!get_filter_page_value('cancel'))
   {
     $filter['matches'] = array();
     $filter['enabled'] = 
-      preg_match('/^start-(\d+)/', $_GET['filter'], $filter['matches']) === 1;
+      preg_match('/^start-recent-(\d+)$/', $_GET['filter'], $filter['matches']) === 1;
   }
   else
   {
