@@ -61,9 +61,13 @@ function set_admin_advice()
       $user['language'] : $conf['default_language']; // en_UK.iso-8859-1
 
     $adv = array();
-
+    if ( !@file_exists(PHPWG_ROOT_PATH 
+         . "plugins/admin_advices/$advlang/lang.adv.php") )
+    {
+      $advlang = 'en_UK.iso-8859-1';
+    }
 //  Include language advices
-    include_once( PHPWG_ROOT_PATH
+    @include_once( PHPWG_ROOT_PATH
       . "plugins/admin_advices/$advlang/lang.adv.php" );
 
 //  If there is an advice

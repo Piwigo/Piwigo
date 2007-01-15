@@ -103,3 +103,43 @@ FIELDSET#generalConf SPAN.property {
 FIELDSET#generalConf TEXTAREA.description {
   width: 70%;
 }
+
+/* PWG Links Menu is fixed Graphic charts */
+.pwgmenu {
+  display: table;
+  list-style-type: none;
+  list-style-image: none; /* for firefox */
+  white-space: nowrap; 
+  position: relative;
+  text-decoration : none;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 70%;
+  line-height: 1.1em;
+  width: 66em;
+  margin: 1px 8px 1px auto;
+  padding: 3px;
+  background: transparent;
+}
+.pwgmenu li {
+  float: left;
+  width: 10em !important;
+  text-align: center;
+  margin: 0 6px;
+  padding: 0;
+
+}
+.pwgmenu a {
+  width: 9em !important;
+  display: block;
+  padding: 4px 8px;
+  background: #69c; /* PWG Graphic charts */
+  color: white;
+  text-align: center;  
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #fff; /* Why bordered? in case of #69c background */ 
+}
+.pwgmenu a:hover {
+  background: #f92;
+  color: white;
+} /* PWG Graphic charts */

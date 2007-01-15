@@ -334,7 +334,7 @@ foreach ($cases as $id_adv)
 						   'their reasons are not really professional.' ;
 			$adv[] = 'Do NOT confuse between <strong>show</strong>_iptc and ' .
                '<strong>use</strong>_iptc (have a look on metadata page ' .
-							 'on our wiki.';
+							 'on our wiki).';
       $cond = $conf['show_iptc'];
       $confk = 'show_iptc';
       break;  
@@ -349,7 +349,7 @@ foreach ($cases as $id_adv)
 							 ' even those ones are NOT empty.';
 			$adv[] = 'Do NOT confuse between <strong>show</strong>_iptc and ' .
                '<strong>use</strong>_iptc (have a look on metadata page ' .
-							 'on our wiki.';
+							 'on our wiki).';
       $cond = $conf['use_iptc'];
       $confk = 'use_iptc';
       break;  
@@ -404,7 +404,7 @@ foreach ($cases as $id_adv)
 						   'their reasons are to protect their knowledge.' ;
 			$adv[] = 'Do NOT confuse between <strong>show</strong>_exif and ' .
                '<strong>use</strong>_exif (have a look on metadata page ' .
-							 'on our wiki.';
+							 'on our wiki).';
       $cond = true;
       $confk = 'show_exif';
       break;	
@@ -419,10 +419,10 @@ foreach ($cases as $id_adv)
       $adv[] = 'Beginners would prefer to let default values.';
       $adv[] = 'Advanced users would take care of $lang values and ' .
 			         'impacts on templates.';
-			$adv[] = 'In any case, <strong>show</strong>_exif_mapping and ' .
+			$adv[] = 'In any case, <strong>show</strong>_exif_fields and ' .
                '<strong>use</strong>_exif_mapping must be totally different.';
       $cond = true;
-      $confk = 'show_exif_mapping';
+      $confk = 'show_exif_fields';
       break;			           
 			 
      Case 34 :
@@ -435,7 +435,7 @@ foreach ($cases as $id_adv)
 							 ' even those ones are NOT empty.';
 			$adv[] = 'Do NOT confuse between <strong>show</strong>_exif and ' .
                '<strong>use</strong>_exif (have a look on metadata page ' .
-							 'on our wiki.';
+							 'on our wiki).';
       $cond = true;
       $confk = 'use_exif';
       break;           						
@@ -451,10 +451,10 @@ foreach ($cases as $id_adv)
       $adv[] = 'Advanced users would carefully chose overrided fields ' .
 			         'prior to synchronize.';
       $adv[] = 'Take care of mentionned fields in metadata synchronization.' .
-               '<br />Mentionned fields would be rewrited with IPTC values ' .
+               '<br />Mentionned fields would be rewrited with EXIF values ' .
 							 ' even those ones are NOT empty.';
-			$adv[] = 'In any case, <strong>show</strong>_iptc_mapping and ' .
-               '<strong>use</strong>_iptc_mapping must be totally different.';
+			$adv[] = 'In any case, <strong>show</strong>_exif_fields and ' .
+               '<strong>use</strong>_exif_mapping must be totally different.';
       $cond = true;
       $confk = 'use_exif_mapping';
       break;			           

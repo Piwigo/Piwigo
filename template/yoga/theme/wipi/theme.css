@@ -10,9 +10,6 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
   background-color: transparent;
   border: 0px;
 }
-#content UL.thumbnailCategories LI {
-  width: 49.7%;		/* 49.8% for 2 per line, 33.3% for 3 per line*/
-}
 H2, .throw {
   color: #eee;
 }

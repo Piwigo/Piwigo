@@ -47,7 +47,7 @@ H2, #menubar DT, .throw  {
 }
 
 /* borders */
-#menubar DL, #content,
+#menubar DL, #content, .content,
 #comments DIV.comment BLOCKQUOTE {
   border: 1px solid #000000;
 }

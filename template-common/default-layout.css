@@ -41,7 +41,7 @@ BODY#theAdminPage #content {
 
 /* Category thumbnails on main page */
 #content UL.thumbnailCategories LI {
-  width: 49.9%;		/* 49.9% for 2 per line, 33.3% for 3 per line*/
+  width: 49.7%;		/* 49.7% for 2 per line, 33.2% for 3 per line*/
 }
 
 /* Set defaults for thumbnails legend */

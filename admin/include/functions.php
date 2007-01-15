@@ -1920,4 +1920,31 @@ function check_conf()
   }
 }
 
+/**
+ * Refer main PhpWebGallery URLs (currently phpwebgallery.net domain)
+ *
+ * @param void
+ * @return array like $conf['links']
+ */
+function pwg_URL()
+{
+  global $lang_info;
+  $urls = array(
+    'WIKI'       => 'http://phpwebgallery.net/doc/',
+    'HOME'       => 'http://phpwebgallery.net/',
+    'DEMO'       => 'http://demo.phpwebgallery.net/',
+    'FORUM'      => 'http://forum.phpwebgallery.net/',
+    'BUGS'       => 'http://bugs.phpwebgallery.net/',
+    'EXTENSIONS' => 'http://phpwebgallery.net/ext',
+    );
+  if ( isset($lang_info['code']) and 
+       in_array($lang_info['code'], array('fr','en')) )
+  { /* current wiki languages are French or English */
+    $urls['WIKI'] =
+      'http://phpwebgallery.net/doc/doku.php?id='.$lang_info['code'].':start';
+    $urls['HOME'] = 'http://phpwebgallery.net/?lang='.$lang_info['code'];
+  }
+  return $urls;
+}
+
 ?>

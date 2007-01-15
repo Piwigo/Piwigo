@@ -20,7 +20,7 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
 }
 
 /* borders */
-#menubar DL, #content, #imageToolBar,
+#menubar DL, #content, #imageToolBar, 
 #comments DIV.comment BLOCKQUOTE {
   border: 1px solid #d3d3d3;
 }

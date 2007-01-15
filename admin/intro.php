@@ -267,6 +267,9 @@ if ($nb_comments > 0)
     );
 }
 
+// Add the PhpWebGallery Official menu
+  $template->assign_block_vars( 'pwgmenu', pwg_URL() );
+  
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

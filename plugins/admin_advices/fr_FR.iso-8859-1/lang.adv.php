@@ -355,7 +355,7 @@ foreach ($cases as $id_adv)
 						 . 'false bien que leurs raisons ne soient guère professionnelles.';
 			$adv[] = 'Ne confondez pas <strong>show</strong>_iptc et ' 
              . '<strong>use</strong>_iptc (consultez la pages de métadonnées '
-						 . 'sur notre wiki.';
+						 . 'sur notre wiki).';
       $cond = $conf['show_iptc'];
       $confk = 'show_iptc';
       break;  
@@ -371,7 +371,7 @@ foreach ($cases as $id_adv)
 						 . 'champs ne seraient pas vides.';
 			$adv[] = 'Ne confondez pas <strong>show</strong>_iptc et ' 
              . '<strong>use</strong>_iptc (consultez la pages de métadonnées '
-						 . 'sur notre wiki.';
+						 . 'sur notre wiki).';
       $cond = $conf['use_iptc'];
       $confk = 'use_iptc';
       break;  
@@ -431,7 +431,7 @@ foreach ($cases as $id_adv)
 						 . 'ceci afin de protéger leur savoir-faire.' ;
 			$adv[] = 'Ne confondez pas <strong>show</strong>_exif et ' 
              . '<strong>use</strong>_exif (consultez la pages de métadonnées '
-						 . 'sur notre wiki.';
+						 . 'sur notre wiki).';
       $cond = true;
       $confk = 'show_exif';
       break;	
@@ -446,11 +446,11 @@ foreach ($cases as $id_adv)
       $adv[] = 'Les débutants laisseront la valeur par défaut.';
       $adv[] = 'Les utilisateurs avancés penseront aux valeurs du tableau ' 
              . '$lang; voire même à l\'impact possible sur les templates.';
-			$adv[] = 'Dans tous les cas, <strong>show</strong>_iptc_mapping et '
-			       . '<strong>use</strong>_iptc_mapping seront '
+			$adv[] = 'Dans tous les cas, <strong>show</strong>_exif_fields et '
+			       . '<strong>use</strong>_exif_mapping seront '
 						 . 'totalement différents.';			       
       $cond = true;
-      $confk = 'show_exif_mapping';
+      $confk = 'show_exif_fields';
       break;			           
 			 
      Case 34 :
@@ -465,7 +465,7 @@ foreach ($cases as $id_adv)
 						 . 'champs ne seraient pas vides.';
 			$adv[] = 'Ne confondez pas <strong>show</strong>_exif et ' 
              . '<strong>use</strong>_exif (consultez la pages de métadonnées '
-						 . 'sur notre wiki.';
+						 . 'sur notre wiki).';
       $cond = true;
       $confk = 'use_exif';
       break;           						
@@ -480,15 +480,15 @@ foreach ($cases as $id_adv)
       $adv[] = 'Les débutants laisseront la valeur par défaut.';
       $adv[] = 'Les utilisateurs avancés penseront aux valeurs du tableau ' 
              . '$lang; voire même à l\'impact possible sur les templates.';
-      $adv[] = 'Les débutants laisseront $conf[\'use_iptc\'] = false;';
+      $adv[] = 'Les débutants laisseront $conf[\'use_exif\'] = false;';
       $adv[] = 'Les utilisateurs avancés feront très attention aux champs '
 			       . 'sélectionnés et modifiés par la synchronisation.';
       $adv[] = 'Faire attention aux champs mentionnés dans la synchronisation '
              . 'des métadonnées.<br />Ces champs pourront être '
 						 . 'écrasés par des valeurs de champs EXIF quand bien même ces ' 
 						 . 'champs ne seraient pas vides.';
-			$adv[] = 'Dans tous les cas, <strong>show</strong>_iptc_mapping et '
-			       . '<strong>use</strong>_iptc_mapping seront '
+			$adv[] = 'Dans tous les cas, <strong>show</strong>_exif_fields et '
+			       . '<strong>use</strong>_exif_mapping seront '
 						 . 'totalement différents.';
       $cond = true;
       $confk = 'use_exif_mapping';

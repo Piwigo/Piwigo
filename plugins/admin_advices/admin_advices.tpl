@@ -4,19 +4,12 @@
   <h2>{lang:An_advice_about} {ADVICE_ABOUT}</h2>
     <h3>{ADVICE_TEXT}</h3>
     <table>
-    <tr><td style="text-align: left; width: 45em;">
+    <tr><td style="text-align: left; width: 50%;">
     <!-- BEGIN More -->
       {More.ADVICE}  <br />
     <!-- END More -->
     <br />
- <ul class="pwgmenu">
-  <li><a href="http://demo.phpwebgallery.net">DEMO</a></li>
-  <li><a href="http://phpwebgallery.net/doc">WIKI / DOC</a></li>
-  <li><a href="http://forum.phpwebgallery.net">FORUM</a></li>
-  <li><a href="http://bugs.phpwebgallery.net">BUGS</a></li>
-  <li><a href="http://phpwebgallery.net/ext">EXTENSIONS</a></li>
-</ul>   
-    </td><td style="text-align: right; width: 155px;">
+    </td><td style="text-align: right; width: 20%;">
     <!-- BEGIN thumbnail -->
     <a href="{thumbnail.U_MODIFY}" alt="{lang:link_info_image}">
     <img class="thumbnail" src="{thumbnail.IMAGE}"
