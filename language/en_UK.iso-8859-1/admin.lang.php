@@ -572,5 +572,11 @@ $lang['note_check_more_info'] = 'Go to %s or %s for more informations.';
 $lang['note_check_more_info_forum'] = 'the forum';
 $lang['note_check_more_info_wiki'] = 'the wiki';
 $lang['Duplicates'] = 'Files with same name in more than one physical category';
+$lang['WIKI'] = 'WIKI / DOC';
+$lang['DEMO'] = 'DEMO';
+$lang['HOME'] = 'HOME';
+$lang['FORUM'] = 'FORUM';
+$lang['BUGS'] = 'BUGS';
+$lang['EXTENSIONS'] = 'EXTENSIONS';
 
 ?>

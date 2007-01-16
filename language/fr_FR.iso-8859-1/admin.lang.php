@@ -571,5 +571,11 @@ $lang['note_check_more_info_forum'] = 'le forum';
 $lang['note_check_more_info_wiki'] = 'le wiki';
 $lang['Duplicates'] = 'Fichiers portant le même nom dans plusieurs' .
     ' catégories physiques';
+$lang['WIKI'] = 'WIKI / DOC';
+$lang['DEMO'] = 'DÉMO';
+$lang['HOME'] = 'ACCUEIL PWG';
+$lang['FORUM'] = 'FORUM';
+$lang['BUGS'] = 'BOGUES';
+$lang['EXTENSIONS'] = 'EXTENSIONS';    
 
 ?>
