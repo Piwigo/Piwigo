@@ -301,7 +301,7 @@ if (isset($page['comment']) and $page['comment'] != '')
   $header_infos['COMMENT'] = strip_tags($page['comment']);
 }
 //------------------------------------------------------------ log informations
-pwg_log('category', $page['title']);
+pwg_log();
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_index');

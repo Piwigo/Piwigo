@@ -411,55 +411,85 @@ function replace_search( $string, $search )
   return $string;
 }
 
-function pwg_log( $file, $category, $picture = '' )
+function pwg_log($image_id = null)
 {
-  global $conf, $user;
+  global $conf, $user, $page;
 
-  if ( is_admin() )
+  if (!$conf['log'])
   {
-    $doit=$conf['history_admin'];
-  }
-  elseif ( $user['is_the_guest'] )
-  {
-    $doit=$conf['history_guest'];
-  }
-  else
-  {
-    $doit = $conf['log'];
+    return false;
   }
 
-  if ($doit)
+  if (is_admin() and !$conf['history_admin'])
   {
-    $login = ($user['id'] == $conf['guest_id'])
-      ? 'guest' : addslashes($user['username']);
-    insert_into_history($login, $file, $category, $picture);
+    return false;
   }
-}
 
-function pwg_log_login( $username )
-{
-  global $conf;
-  if ( $conf['login_history'] )
+  if ($user['is_the_guest'] and !$conf['history_guest'])
   {
-    insert_into_history($username, 'login', '', '');
+    return false;
   }
-}
 
-// inserts a row in the history table
-function insert_into_history( $login, $file, $category, $picture)
-{
+  $tags_string = null;
+  if (isset($page['section']) and $page['section'] == 'tags')
+  {
+    $tag_ids = array();
+    foreach ($page['tags'] as $tag)
+    {
+      array_push($tag_ids, $tag['id']);
+    }
+
+    $tags_string = implode(',', $tag_ids);
+  }
+
+  // here we ask the database the current date and time, and we extract
+  // {year, month, day} from the current date. We could do this during the
+  // insert query with a CURDATE(), CURTIME(), DATE_FORMAT(CURDATE(), '%Y')
+  // ... but I (plg) think it would cost more than a double query and a PHP
+  // extraction.
+  $query = '
+SELECT CURDATE(), CURTIME()
+;';
+  list($curdate, $curtime) = mysql_fetch_row(pwg_query($query));
+
+  list($curyear, $curmonth, $curday) = explode('-', $curdate);
+  list($curhour) = explode(':', $curtime);
+  
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
-  (date,login,IP,file,category,picture)
+  (
+    date,
+    time,
+    year,
+    month,
+    day,
+    hour,
+    user_id,
+    IP,
+    section,
+    category_id,
+    image_id,
+    tag_ids
+  )
   VALUES
-  (NOW(),
-  \''.$login.'\',
-  \''.$_SERVER['REMOTE_ADDR'].'\',
-  \''.addslashes($file).'\',
-  \''.addslashes(strip_tags($category)).'\',
-  \''.addslashes($picture).'\')
+  (
+    \''.$curdate.'\',
+    \''.$curtime.'\',
+    '.$curyear.',
+    '.$curmonth.',
+    '.$curday.',
+    '.$curhour.',
+    '.$user['id'].',
+    \''.$_SERVER['REMOTE_ADDR'].'\',
+    '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
+    '.(isset($page['category']) ? $page['category'] : 'NULL').',
+    '.(isset($image_id) ? $image_id : 'NULL').',
+    '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
+  )
 ;';
   pwg_query($query);
+
+  return true;
 }
 
 // format_date returns a formatted date for display. The date given in
@@ -840,7 +870,13 @@ function get_day_list($blockname, $selection)
   global $template;
 
   $template->assign_block_vars(
-    $blockname, array('SELECTED' => '', 'VALUE' => 0, 'OPTION' => '--'));
+    $blockname,
+    array(
+      'SELECTED' => '',
+      'VALUE' => 0,
+      'OPTION' => '--'
+      )
+    );
 
   for ($i = 1; $i <= 31; $i++)
   {
@@ -850,9 +886,13 @@ function get_day_list($blockname, $selection)
       $selected = 'selected="selected"';
     }
     $template->assign_block_vars(
-      $blockname, array('SELECTED' => $selected,
-                        'VALUE' => $i,
-                        'OPTION' => str_pad($i, 2, '0', STR_PAD_LEFT)));
+      $blockname,
+      array(
+        'SELECTED' => $selected,
+        'VALUE' => $i,
+        'OPTION' => str_pad($i, 2, '0', STR_PAD_LEFT)
+        )
+      );
   }
 }
 
@@ -867,9 +907,12 @@ function get_month_list($blockname, $selection)
   global $template, $lang;
 
   $template->assign_block_vars(
-    $blockname, array('SELECTED' => '',
-                      'VALUE' => 0,
-                      'OPTION' => '------------'));
+    $blockname,
+    array(
+      'SELECTED' => '',
+      'VALUE' => 0,
+      'OPTION' => '------------')
+    );
 
   for ($i = 1; $i <= 12; $i++)
   {
@@ -879,9 +922,12 @@ function get_month_list($blockname, $selection)
       $selected = 'selected="selected"';
     }
     $template->assign_block_vars(
-      $blockname, array('SELECTED' => $selected,
-                        'VALUE' => $i,
-                        'OPTION' => $lang['month'][$i]));
+      $blockname,
+      array(
+        'SELECTED' => $selected,
+        'VALUE' => $i,
+        'OPTION' => $lang['month'][$i])
+      );
   }
 }
 
@@ -1074,6 +1120,46 @@ SELECT param,value
       $conf[ $row['param'] ] = get_boolean($conf[ $row['param'] ]);
     }
   }
+}
+
+/**
+ * Prepends and appends a string at each value of the given array.
+ *
+ * @param array
+ * @param string prefix to each array values
+ * @param string suffix to each array values
+ */
+function prepend_append_array_items($array, $prepend_str, $append_str)
+{
+  array_walk(
+    $array,
+    create_function('&$s', '$s = "'.$prepend_str.'".$s."'.$append_str.'";')
+    );
+
+  return $array;
+}
+
+/**
+ * creates an hashed based on a query, this function is a very common
+ * pattern used here. Among the selected columns fetched, choose one to be
+ * the key, another one to be the value.
+ *
+ * @param string $query
+ * @param string $keyname
+ * @param string $valuename
+ * @return array
+ */
+function simple_hash_from_query($query, $keyname, $valuename)
+{
+  $array = array();
+
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $array[ $row[$keyname] ] = $row[$valuename];
+  }
+
+  return $array;
 }
 
 /**

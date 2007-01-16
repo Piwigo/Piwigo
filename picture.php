@@ -789,7 +789,7 @@ if ($metadata_showable and isset($_GET['metadata']))
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
 //------------------------------------------------------------ log informations
-pwg_log('picture', $page['title'], $picture['current']['file']);
+pwg_log($picture['current']['id']);
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('picture');

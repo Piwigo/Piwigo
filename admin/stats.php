@@ -24,295 +24,466 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-if( !defined("PHPWG_ROOT_PATH") )
+
+if (!defined("PHPWG_ROOT_PATH"))
 {
-	die ("Hacking attempt!");
+  die ("Hacking attempt!");
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
 // +-----------------------------------------------------------------------+
+// | Functions                                                             |
+// +-----------------------------------------------------------------------+
+
+function get_summary($year = null, $month = null, $day = null)
+{
+  $query = '
+SELECT
+    year,
+    month,
+    day,
+    hour,
+    nb_pages
+  FROM '.HISTORY_SUMMARY_TABLE;
+  
+  if (isset($day))
+  {
+    $query.= '
+  WHERE year = '.$year.'
+    AND month = '.$month.'
+    AND day = '.$day.'
+    AND hour IS NOT NULL
+  ORDER BY
+    year ASC,
+    month ASC,
+    day ASC,
+    hour ASC
+;';
+  }
+  elseif (isset($month))
+  {
+    $query.= '
+  WHERE year = '.$year.'
+    AND month = '.$month.'
+    AND day IS NOT NULL
+    AND hour IS NULL
+  ORDER BY
+    year ASC,
+    month ASC,
+    day ASC
+;';
+  }
+  elseif (isset($year))
+  {
+    $query.= '
+  WHERE year = '.$year.'
+    AND month IS NOT NULL
+    AND day IS NULL
+  ORDER BY
+    year ASC,
+    month ASC
+;';   
+  }
+  else
+  {
+    $query.= '
+  WHERE year IS NOT NULL
+    AND month IS NULL
+  ORDER BY
+    year ASC
+;';   
+  }
+
+  $result = pwg_query($query);
+
+  $output = array();
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($output, $row);
+  }
+
+  return $output;
+}
+
+// +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
+
 check_status(ACCESS_ADMINISTRATOR);
 
-$url_img = PHPWG_ROOT_PATH.'admin/images/'; 
-$nls_value_title = $lang['w_month'];
-$group_clause = "DATE_FORMAT(date,'%Y-%m') DESC";
-$where_clause = "1";
+// +-----------------------------------------------------------------------+
+// | Refresh summary from details                                          |
+// +-----------------------------------------------------------------------+
 
-
-if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
-{
-  $url_img .= 'daily_stats.img.php?year='.$_GET['year'].'&amp;month='.$_GET['month'].'&amp;day='.$_GET['day'];
-  $nls_value_title = $lang['w_day'];
-  $group_clause = "DATE_FORMAT(date,'%Y-%m-%d') ASC";
-  $where_clause = "(YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." )";
-}
-elseif (isset($_GET['month']) && isset($_GET['year']) )
-{
-  $url_img .= 'monthly_stats.img.php?year='.$_GET['year'].'&amp;month='.$_GET['month'];
-  $nls_value_title = $lang['w_day'];
-  $group_clause = "DATE_FORMAT(date,'%Y-%m-%d') ASC";
-  $where_clause = "(YEAR(date) = ".$_GET['year']." AND MONTH(date) = ".$_GET['month']." )";
-}
-else 
-{
-  $url_img .= 'global_stats.img.php';
-}
-
-
-//----------------------------------------------------- template initialization
-if (isset($_GET['day']) && isset($_GET['month']) && isset($_GET['year']) )
-{
-  $date_of_day=$_GET['day'].' '.$lang['month'][$_GET['month']].' '.$_GET['year'];
-  $title_page=$lang['stats_day_title'].' : '.$date_of_day;
-  $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
-  $url_back = $url_back;
-  $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
-  $title_day = $date_of_day;
-}
-elseif ( isset($_GET['month']) && isset($_GET['year']) )
-{
-  $date_of_day=$lang['month'][$_GET['month']].' '.$_GET['year'];
-  $title_page=$lang['stats_month_title'].' : '.$date_of_day;
-  $url_back = PHPWG_ROOT_PATH."admin.php?page=stats";
-  $url_back = $url_back;
-  $title_details='<a href='.$url_back.'>'.$lang['stats_day_title'].'</a>';
-  $title_day=$lang['today'];
-}
-else
-{
-  $date_of_day='';
-  $title_page=$lang['stats_title'];
-  $title_details=$lang['stats_month_title'];
-  $title_day=$lang['today'];
-}
-
-
-$template->set_filenames( array('stats'=>'admin/stats.tpl') );
-
-$template->assign_vars(array(
-  'L_VALUE'=>$nls_value_title,
-  'L_PAGES_SEEN'=>$lang['stats_pages_seen'],
-  'L_VISITORS'=>$lang['visitors'],
-  'L_PICTURES'=>$lang['pictures'],
-  'L_STAT_TITLE'=>$lang['stats_title'],
-  'L_STAT_MONTH_TITLE'=>$lang['stats_month_title'],
-  'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
-  'L_STAT_TITLE'=>$title_page,
-  'L_STAT_DETAIL_TITLE'=>$title_details,
-  'L_DATE_TITLE'=>$title_day,
-  'L_STAT_MONTHLY_ALT'=>$lang['stats_global_graph_title'],
-  'L_STAT_HOUR'=>$lang['stats_hour'],
-  'L_STAT_LOGIN'=>$lang['stats_login'],
-  'L_STAT_ADDR'=>$lang['stats_addr'],
-  'L_STAT_CATEGORY'=>$lang['stats_category'],
-  'L_STAT_FILE'=>$lang['stats_file'],
-  'L_STAT_PICTURE'=>$lang['stats_picture'],
-  
-  'IMG_REPORT'=>$url_img
-  ));
-
-//---------------------------------------------------------------- log  history
 $query = '
-SELECT DISTINCT COUNT(*) as p,
-       DAYOFMONTH(date) as d,
-       MONTH(date) as m,
-       YEAR(date) as y
-  FROM '.HISTORY_TABLE.' 
-  WHERE '.$where_clause.'
-  GROUP BY '.$group_clause.';';
+SELECT
+    year,
+    month,
+    day,
+    hour,
+    max(id) AS max_id,
+    COUNT(*) AS nb_pages
+  FROM '.HISTORY_TABLE.'
+  WHERE summarized = \'false\'
+  GROUP BY
+    year ASC,
+    month ASC,
+    day ASC,
+    hour ASC
+;';
+$result = pwg_query($query);
 
-$result = pwg_query( $query );
-$i=0;
-while ( $row = mysql_fetch_array( $result ) )
+$need_update = array();
+
+$max_id = 0;
+$is_first = true;
+$first_time_key = null;
+
+while ($row = mysql_fetch_array($result))
 {
-  $where_clause="";
-  $value = '';
-  if (isset($_GET['month']) && isset($_GET['year']) )
-  {
-    $where_clause = 'DAYOFMONTH(date) = '.$row['d'].'
-    AND MONTH(date) = '.$row['m'].'
-    AND YEAR(date) = '.$row['y'];
-    
-    $week_day =
-      $lang['day'][date('w', mktime(12,0,0,$row['m'],$row['d'],$row['y']))];
+  $time_keys = array(
+    sprintf(
+      '%4u',
+      $row['year']
+      ),
+    sprintf(
+      '%4u.%02u',
+      $row['year'], $row['month']
+      ),
+    sprintf(
+      '%4u.%02u.%02u',
+      $row['year'], $row['month'], $row['day']
+      ),
+    sprintf(
+      '%4u.%02u.%02u.%02u',
+      $row['year'], $row['month'], $row['day'], $row['hour']
+      ),
+    );
 
+  foreach ($time_keys as $time_key)
+  {
+    if (!isset($need_update[$time_key]))
+    {
+      $need_update[$time_key] = 0;
+    }
+    $need_update[$time_key] += $row['nb_pages'];
+  }
+
+  if ($row['max_id'] > $max_id)
+  {
+    $max_id = $row['max_id'];
+  }
+
+  if ($is_first)
+  {
+    $is_first = false;
+    $first_time_key = $time_keys[3];
+  }
+}
+
+// Only the oldest time_key might be already summarized, so we have to
+// update the 4 corresponding lines instead of simply inserting them.
+//
+// For example, if the oldest unsummarized is 2005.08.25.21, the 4 lines
+// that can be updated are:
+//
+// +---------------+----------+
+// | id            | nb_pages |
+// +---------------+----------+
+// | 2005          |   241109 |
+// | 2005.08       |    20133 |
+// | 2005.08.25    |      620 |
+// | 2005.08.25.21 |      151 |
+// +---------------+----------+
+
+$existing_time_keys = array();
+
+if (isset($first_time_key))
+{
+  list($year, $month, $day, $hour) = explode('.', $first_time_key);
+
+  $time_keys = array(
+    sprintf('%4u',                $year),
+    sprintf('%4u.%02u',           $year, $month),
+    sprintf('%4u.%02u.%02u',      $year, $month, $day),
+    sprintf('%4u.%02u.%02u.%02u', $year, $month, $day, $hour),
+    );
+  
+  $query = '
+SELECT
+    id,
+    nb_pages
+  FROM '.HISTORY_SUMMARY_TABLE.'
+  WHERE id IN (\''.implode("', '", $time_keys).'\')
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    $existing_time_keys[ $row['id'] ] = $row['nb_pages'];
+  }
+}
+
+$updates = array();
+$inserts = array();
+
+foreach (array_keys($need_update) as $time_key)
+{
+  $time_tokens = explode('.', $time_key);
+
+  if (isset($existing_time_keys[$time_key]))
+  {
+    array_push(
+      $updates,
+      array(
+        'id'       => $time_key,
+        'nb_pages' => $existing_time_keys[$time_key] + $need_update[$time_key],
+        )
+      );
+  }
+  else
+  {
+    array_push(
+      $inserts,
+      array(
+        'id'       => $time_key,
+        'year'     => $time_tokens[0],
+        'month'    => @$time_tokens[1],
+        'day'      => @$time_tokens[2],
+        'hour'     => @$time_tokens[3],
+        'nb_pages' => $need_update[$time_key],
+        )
+      );
+  }
+}
+
+if (count($updates) > 0)
+{
+  mass_updates(
+    HISTORY_SUMMARY_TABLE,
+    array(
+      'primary' => array('id'),
+      'update'  => array('nb_pages'),
+      ),
+    $updates
+    );
+}
+
+if (count($inserts) > 0)
+{
+  mass_inserts(
+    HISTORY_SUMMARY_TABLE,
+    array_keys($inserts[0]),
+    $inserts
+    );
+}
+
+if ($max_id != 0)
+{
+  $query = '
+UPDATE '.HISTORY_TABLE.'
+  SET summarized = \'true\'
+  WHERE summarized = \'false\'
+    AND id <= '.$max_id.'
+;';
+  pwg_query($query);
+}
+
+// +-----------------------------------------------------------------------+
+// | Page parameters check                                                 |
+// +-----------------------------------------------------------------------+
+
+foreach (array('day', 'month', 'year') as $key)
+{
+  if (isset($_GET[$key]))
+  {
+    $page[$key] = (int)$_GET[$key];
+  }
+}
+
+if (isset($page['day']))
+{
+  if (!isset($page['month']))
+  {
+    die('month is missing in URL');
+  }
+}
+
+if (isset($page['month']))
+{
+  if (!isset($page['year']))
+  {
+    die('year is missing in URL');
+  }
+}
+
+$url_img = PHPWG_ROOT_PATH.'admin/images/stats.img.php';
+
+if (isset($page['year']))
+{
+  $url_img.= '?year='.$page['year'];
+}
+
+if (isset($page['month']))
+{
+  $url_img.= '&amp;month='.$page['month'];
+}
+
+if (isset($page['day']))
+{
+  $url_img.= '&amp;day='.$page['day'];
+}
+
+$summary_lines = get_summary(
+  @$page['year'],
+  @$page['month'],
+  @$page['day']
+  );
+
+// +-----------------------------------------------------------------------+
+// | Display statistics header                                             |
+// +-----------------------------------------------------------------------+
+
+// page title creation
+$title_parts = array();
+
+$url = PHPWG_ROOT_PATH.'admin.php?page=stats';
+
+array_push(
+  $title_parts,
+  '<a href="'.$url.'">'.l10n('Overall').'</a>'
+  );
+
+$period_label = l10n('Year');
+
+if (isset($page['year']))
+{
+  $url.= '&amp;year='.$page['year'];
+
+  array_push(
+    $title_parts,
+    '<a href="'.$url.'">'.sprintf(l10n('Year %d'), $page['year']).'</a>'
+    );
+
+  $period_label = l10n('Month');
+}
+
+if (isset($page['month']))
+{
+  $url.= '&amp;month='.$page['month'];
+
+  array_push(
+    $title_parts,
+    '<a href="'.$url.'">'.$lang['month'][$page['month']].'</a>'
+    );
+
+  $period_label = l10n('Day');
+}
+
+if (isset($page['day']))
+{
+  $url.= '&amp;day='.$page['day'];
+
+  $time = mktime(12, 0, 0, $page['month'], $page['day'], $page['year']);
+  
+  $day_title = sprintf(
+    '%u (%s)',
+    $page['day'],
+    $lang['day'][date('w', $time)]
+    );
+  
+  array_push(
+    $title_parts,
+    '<a href="'.$url.'">'.$day_title.'</a>'
+    );
+
+  $period_label = l10n('Hour');
+}
+
+$template->set_filenames(array('stats'=>'admin/stats.tpl'));
+
+$template->assign_vars(
+  array(
+    'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
+    'SRC_REPORT' => $url_img,
+    'PERIOD_LABEL' => $period_label,
+    )
+  );
+
+// +-----------------------------------------------------------------------+
+// | Display statistic rows                                                |
+// +-----------------------------------------------------------------------+
+
+$i = 1;
+
+foreach ($summary_lines as $line)
+{
+  // echo '<pre>'; print_r($line); echo '</pre>';
+
+  $value = '';
+  
+  if (isset($line['hour']))
+  {
+    $value.= $line['hour'].' '.l10n('hour');
+  }
+  else if (isset($line['day']))
+  {
     $url =
       PHPWG_ROOT_PATH.'admin.php'
       .'?page=stats'
-      .'&amp;year='.$row['y']
-      .'&amp;month='.$row['m']
-      .'&amp;day='.$row['d']
+      .'&amp;year='.$line['year']
+      .'&amp;month='.$line['month']
+      .'&amp;day='.$line['day']
       ;
 
+    $time = mktime(12, 0, 0, $line['month'], $line['day'], $line['year']);
+    
     $value = '<a href="'.$url.'">';
-    $value.= $row['d'].' ('.$week_day.')';
+    $value.= $line['day'].' ('.$lang['day'][date('w', $time)].')';
+    $value.= "</a>";    
+  }
+  else if (isset($line['month']))
+  {
+    $url =
+      PHPWG_ROOT_PATH.'admin.php'
+      .'?page=stats'
+      .'&amp;year='.$line['year']
+      .'&amp;month='.$line['month']
+      ;
+    
+    $value = '<a href="'.$url.'">';
+    $value.= $lang['month'][$line['month']];
     $value.= "</a>";
   }
   else
   {
-    $current_month = $row['y']."-";
-    if ($row['m'] <10) {$current_month.='0';}
-    $current_month .= $row['m'];
-    
-    $where_clause = "DATE_FORMAT(date,'%Y-%m') = '".$current_month."'";
-
+    // at least the year is defined
     $url =
       PHPWG_ROOT_PATH.'admin.php'
       .'?page=stats'
-      .'&amp;year='.$row['y']
-      .'&amp;month='.$row['m']
+      .'&amp;year='.$line['year']
       ;
     
     $value = '<a href="'.$url.'">';
-    $value.= $lang['month'][$row['m']].' '.$row['y'];
-    $value.= "</a>";
+    $value.= $line['year'];
+    $value.= "</a>";    
   }
   
-  // Number of pictures seen
-  $query = '
-SELECT COUNT(*) as p
-    FROM '.HISTORY_TABLE.' 
-    WHERE '.$where_clause.'
-    AND FILE = \'picture\'
-;';
-  $pictures = mysql_fetch_array(pwg_query( $query ));
-  
-  // Number of different visitors
-  $query = '
-SELECT COUNT(*) as p, login
-  FROM '.HISTORY_TABLE.' 
-  WHERE '.$where_clause.'
-  GROUP BY login, IP
-;';
-  $user_results = pwg_query( $query );
-  $nb_visitors = 0;
-  $auth_users = array();
-  while ( $user_array = mysql_fetch_array( $user_results ) )
-  {
-    if ($user_array['login'] == 'guest') 
-	  $nb_visitors += 1;
-	else
-	  array_push($auth_users, $user_array['login']);
-  }
-  $nb_visitors +=count(array_unique($auth_users));
-  $class = ($i % 2)? 'row1':'row2'; $i++;
-  
-  $template->assign_block_vars('statrow',array(
-      'VALUE'=>$value,
-	'PAGES'=>$row['p'],
-	'VISITORS'=>$nb_visitors,
-	'IMAGES'=>$pictures['p'],
-	
-	'T_CLASS'=>$class
-    ));
-}
-$nb_visitors = mysql_num_rows( $result );
-$days = array();
-$max_nb_visitors = 0;
-$max_pages_seen = 0;
-
-//----------------------------------------------------------- stats / jour
-
-if ( isset( $_GET['month'] ) && isset( $_GET['month'] ) && isset( $_GET['day'] ) )
-{  if ($_GET['day'] <10) {$current_day='0';
-  	$current_day.= $_GET['day'];}
-  else {$current_day = $_GET['day'];}
-  if ($_GET['month'] <10) {$current_month='0';
-  	$current_month.= $_GET['month'];}
-  else {$current_month = $_GET['month'];}
-  $current_year = $_GET['year'];
+  $template->assign_block_vars(
+    'statrow',
+    array(
+      'VALUE' => $value,
+      'PAGES' => $line['nb_pages'],
+      
+      'T_CLASS' => ($i++ % 2) ? 'row1' : 'row2'
+      )
+    );
 }
 
-else
-{  $current_date = GetDate();
-  if ($current_date['mday'] <10) {$current_day='0';
-  	$current_day.= $current_date['mday'];}
-  else {$current_day = $current_date['mday'];}
-  if ($current_date['mon'] <10) {$current_month='0';
-  	$current_month.= $current_date['mon'];}
-  else {$current_month = $current_date['mon'];}
-  $current_year = $current_date['year'];  
-}
+// +-----------------------------------------------------------------------+
+// | Sending html code                                                     |
+// +-----------------------------------------------------------------------+
 
-// Set WHERE clause
-$where = ' WHERE DATE_FORMAT(date,\'%Y-%m-%d\') = \''.$current_year."-".$current_month."-".$current_day.'\'';
-  
-// Set LIMIT clause
-$limit = ' LIMIT ';
-$page['start'] = 0;
-if (isset($_GET['start']) and is_numeric($_GET['start'])) $page['start'] = abs($_GET['start']);
-$limit .= $page['start'];
-$limit .= ','.$conf['nb_logs_page'];
-
-$query = '
-SELECT DATE_FORMAT(date,\'%H:%i:%s\') AS hour,
-     login,
-     IP,
-     category,
-     file,
-     picture
-  FROM '.HISTORY_TABLE.
-  $where.'
-  ORDER BY date DESC'.
-  $limit.
-  ';';
-
-
-$result = pwg_query( $query );
-
-$i=0;
- 
-while ( $row = mysql_fetch_array( $result ) )
-{
-  $class = ($i % 2)? 'row1':'row2'; $i++;
-    $template->assign_block_vars('detail',array(
-    'HOUR'=>$row['hour'],
-    'LOGIN'=>$row['login'],
-    'IP'=>$row['IP'],
-    'CATEGORY'=>$row['category'],
-    'FILE'=>$row['file'],
-    'PICTURE'=>$row['picture'],
-    'T_CLASS'=>$class
-  ));
-  }
-
-
-// Get total number of logs
-$query = '
-    SELECT COUNT(date) as nb_logs
-     FROM '.HISTORY_TABLE.
-  $where.'
-    ;';
-
-  $result = pwg_query($query);
-  $row = mysql_fetch_array($result);
-  $page['nb_logs']=$row['nb_logs'];
-
-  //display nav bar
-$url = $_SERVER['PHP_SELF'].'?page=stats';
-$url.= isset($_GET['year']) ? '&amp;year='.$_GET['year'] : '';
-$url.= isset($_GET['month']) ? '&amp;month='.$_GET['month'] : '';
-$url.= isset($_GET['day']) ? '&amp;day='.$_GET['day'] : '';
-
-$page['navigation_bar'] =
-create_navigation_bar(
-  $url,
-  $page['nb_logs'],
-  $page['start'],
-  $conf['nb_logs_page']
-  );
-
-$template->assign_block_vars(
-  'navigation',
-  array(
-    'NAV_BAR' => $page['navigation_bar']
-    )
-  );
-
-//----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>
 

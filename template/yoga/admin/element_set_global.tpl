@@ -159,6 +159,8 @@
     <!-- BEGIN not_in_caddie -->
     <li><label><input type="radio" name="caddie_action" value="add_selected" /> {lang:Add selected elements to caddie}</label></li>
     <!-- END not_in_caddie -->
+
+    <li><label><input type="radio" name="caddie_action" value="export" /> {lang:Export data}</label></li>
   
   </ul>
 

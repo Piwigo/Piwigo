@@ -1,4 +1,4 @@
-1-- MySQL dump 9.11
+-- MySQL dump 9.11
 --
 -- Host: localhost    Database: pwg-bsf
 -- ------------------------------------------------------
@@ -112,13 +112,37 @@ CREATE TABLE `phpwebgallery_groups` (
 
 DROP TABLE IF EXISTS `phpwebgallery_history`;
 CREATE TABLE `phpwebgallery_history` (
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `login` varchar(15) default NULL,
-  `IP` varchar(50) NOT NULL default '',
-  `category` varchar(150) default NULL,
-  `file` varchar(50) default NULL,
-  `picture` varchar(150) default NULL,
-  KEY `history_i1` (`date`)
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `date` date NOT NULL default '0000-00-00',
+  `time` time NOT NULL default '00:00:00',
+  `year` smallint(4) NOT NULL default '0',
+  `month` tinyint(2) NOT NULL default '0',
+  `day` tinyint(2) NOT NULL default '0',
+  `hour` tinyint(2) NOT NULL default '0',
+  `user_id` smallint(5) NOT NULL default '0',
+  `IP` varchar(15) NOT NULL default '',
+  `section` enum('categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats') default NULL,
+  `category_id` smallint(5) default NULL,
+  `tag_ids` varchar(50) default NULL,
+  `image_id` mediumint(8) default NULL,
+  `summarized` enum('true','false') default 'false',
+  PRIMARY KEY  (`id`),
+  KEY `history_i1` (`summarized`)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table `phpwebgallery_history_summary`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_history_summary`;
+CREATE TABLE `phpwebgallery_history_summary` (
+  `id` varchar(13) NOT NULL default '',
+  `year` smallint(4) NOT NULL default '0',
+  `month` tinyint(2) default NULL,
+  `day` tinyint(2) default NULL,
+  `hour` tinyint(2) default NULL,
+  `nb_pages` int(11) default NULL,
+  PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
 --
@@ -298,9 +322,9 @@ CREATE TABLE `phpwebgallery_user_cache_categories` (
   `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   `max_date_last` datetime default NULL,
-  `count_images` mediumint(8) unsigned default 0,
-  `count_categories` mediumint(8) unsigned default 0,
-  PRIMARY KEY  (`user_id`, `cat_id`)
+  `count_images` mediumint(8) unsigned default '0',
+  `count_categories` mediumint(8) unsigned default '0',
+  PRIMARY KEY  (`user_id`,`cat_id`)
 ) TYPE=MyISAM;
 
 --
@@ -395,23 +419,23 @@ CREATE TABLE `phpwebgallery_waiting` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
--- 
+--
 -- Table structure for table `phpwebgallery_ws_access`
--- 
+--
 
-DROP TABLE IF EXISTS phpwebgallery_ws_access;
-CREATE TABLE phpwebgallery_ws_access (
-  id smallint(5) unsigned NOT NULL auto_increment,
-  name varchar(32) NOT NULL default '',
-  access varchar(255) default NULL,
+DROP TABLE IF EXISTS `phpwebgallery_ws_access`;
+CREATE TABLE `phpwebgallery_ws_access` (
+  `id` smallint(5) unsigned NOT NULL auto_increment,
+  `name` varchar(32) NOT NULL default '',
+  `access` varchar(255) default NULL,
   `start` datetime default NULL,
   `end` datetime default NULL,
-  request varchar(255) default NULL,
-  high enum('true','false') NOT NULL default 'true',
-  normal enum('true','false') NOT NULL default 'true',
+  `request` varchar(255) default NULL,
+  `high` enum('true','false') NOT NULL default 'true',
+  `normal` enum('true','false') NOT NULL default 'true',
   `limit` smallint(5) unsigned default NULL,
   `comment` varchar(255) default NULL,
-  PRIMARY KEY  (id),
-  UNIQUE KEY name (name)
-) ENGINE=MyISAM COMMENT='Access for Web Services';
-        
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`)
+) TYPE=MyISAM COMMENT='Access for Web Services';
+

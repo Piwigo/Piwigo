@@ -52,6 +52,7 @@ define('FAVORITES_TABLE', $prefixeTable.'favorites');
 define('GROUP_ACCESS_TABLE', $prefixeTable.'group_access');
 define('GROUPS_TABLE', $prefixeTable.'groups');
 define('HISTORY_TABLE', $prefixeTable.'history');
+define('HISTORY_SUMMARY_TABLE', $prefixeTable.'history_summary');
 define('IMAGE_CATEGORY_TABLE', $prefixeTable.'image_category');
 define('IMAGES_TABLE', $prefixeTable.'images');
 define('SESSIONS_TABLE', $prefixeTable.'sessions');

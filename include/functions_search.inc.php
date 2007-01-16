@@ -27,23 +27,6 @@
 
 
 /**
- * Prepends and appends a string at each value of the given array.
- *
- * @param array
- * @param string prefix to each array values
- * @param string suffix to each array values
- */
-function prepend_append_array_items($array, $prepend_str, $append_str)
-{
-  array_walk(
-    $array,
-    create_function('&$s', '$s = "'.$prepend_str.'".$s."'.$append_str.'";')
-    );
-
-  return $array;
-}
-
-/**
  * returns search rules stored into a serialized array in "search"
  * table. Each search rules set is numericaly identified.
  *

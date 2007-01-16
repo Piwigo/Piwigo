@@ -234,7 +234,6 @@ if (sizeof($errors) != 0)
   }
 }
 //------------------------------------------------------------ log informations
-pwg_log( 'search', $title );
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
