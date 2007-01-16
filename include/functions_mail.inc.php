@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
@@ -224,6 +224,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
             isset($page['gallery_title']) ?
                   $page['gallery_title'] : $conf['gallery_title'],
           'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
+          'PHPWG_URL' => PHPWG_URL,
 
           'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
           'MAIL' => get_webmaster_mail_address()

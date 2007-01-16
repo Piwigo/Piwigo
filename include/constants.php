@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -27,8 +27,8 @@
 
 // Default settings
 define('PHPWG_VERSION', 'Alligator');
-define('PHPWG_URL', 'http://www.phpwebgallery.net');
-define('PHPWG_FORUM_URL', 'http://forum.phpwebgallery.net');
+define('PHPWG_DOMAIN', 'phpwebgallery.net');
+define('PHPWG_URL', 'http://www.'.PHPWG_DOMAIN);
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
 
 // Error codes

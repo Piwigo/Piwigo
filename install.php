@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -363,7 +363,7 @@ $template->assign_vars(
     'L_ADMIN_EMAIL'=>$lang['conf_mail_webmaster'],
     'L_ADMIN_EMAIL_INFO'=>$lang['conf_mail_webmaster_info'],
     'L_SUBMIT'=>$lang['Start_Install'],
-    'L_HELP'=>$lang['install_help'],
+    'L_INSTALL_HELP'=>sprintf($lang['install_help'], 'http://forum.'.PHPWG_DOMAIN.'/'),
     'L_ERR_COPY'=>$lang['step1_err_copy'],
     'L_END_TITLE'=>$lang['install_end_title'],
     'L_END_MESSAGE'=>$lang['install_end_message'],

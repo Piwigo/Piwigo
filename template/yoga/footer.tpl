@@ -5,10 +5,10 @@
  <!-- END debug -->
 
  <!-- Please, do not remove this copyright. If you really want to,
-	  contact us on http://phpwebgallery.net to find a solution on how
-	  to show the origin of the script...-->
+      contact us on http://phpwebgallery.net to find a solution on how
+      to show the origin of the script...-->
 
-  <a href="http://www.phpwebgallery.net" class="back" title="{lang:powered_by}">
+  <a href="{PHPWG_URL}" class="back" title="{lang:powered_by}" onclick="window.open(this.href, ''); return false;">
   <img src="{pwg_root}{themeconf:icon_dir}/pwg_footer.png" alt="{lang:powered_by}">
   </a>
   {VERSION}

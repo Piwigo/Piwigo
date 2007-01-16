@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -54,7 +54,7 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
   else
   {
     $versions = array('current' => PHPWG_VERSION);
-    $lines = @file('http://www.phpwebgallery.net/latest_version');
+    $lines = @file(PHPWG_URL.'/latest_version');
 
     // if the current version is a BSF (development branch) build, we check
     // the first line, for stable versions, we check the second line

@@ -1910,18 +1910,20 @@ function check_conf()
 
   if ($count != 0)
   {
+    $pwg_links = pwg_URL();
+    $link_fmt = '<a href="%s" onclick="window.open(this.href, \'\'); return false;">%s</a>';
     $header_notes[] =
       sprintf
       (
         l10n('note_check_more_info'),
-        sprintf('<a href="http://forum.phpwebgallery.net/" target="_blank"> %s</a>', l10n('note_check_more_info_forum')),
-        sprintf('<a href="http://phpwebgallery.net/doc/" target="_blank"> %s</a>', l10n('note_check_more_info_wiki'))
+        sprintf($link_fmt, $pwg_links['FORUM'], l10n('note_check_more_info_forum')),
+        sprintf($link_fmt, $pwg_links['WIKI'], l10n('note_check_more_info_wiki'))
       );
   }
 }
 
 /**
- * Refer main PhpWebGallery URLs (currently phpwebgallery.net domain)
+ * Refer main PhpWebGallery URLs (currently PHPWG_DOMAIN domain)
  *
  * @param void
  * @return array like $conf['links']
@@ -1930,19 +1932,18 @@ function pwg_URL()
 {
   global $lang_info;
   $urls = array(
-    'WIKI'       => 'http://phpwebgallery.net/doc/',
-    'HOME'       => 'http://phpwebgallery.net/',
-    'DEMO'       => 'http://demo.phpwebgallery.net/',
-    'FORUM'      => 'http://forum.phpwebgallery.net/',
-    'BUGS'       => 'http://bugs.phpwebgallery.net/',
-    'EXTENSIONS' => 'http://phpwebgallery.net/ext',
+    'WIKI'       => 'http://'.PHPWG_DOMAIN.'/doc/',
+    'HOME'       => 'http://'.PHPWG_DOMAIN.'/',
+    'DEMO'       => 'http://demo.'.PHPWG_DOMAIN.'/',
+    'FORUM'      => 'http://forum.'.PHPWG_DOMAIN.'/',
+    'BUGS'       => 'http://bugs.'.PHPWG_DOMAIN.'/',
+    'EXTENSIONS' => 'http://'.PHPWG_DOMAIN.'/ext',
     );
   if ( isset($lang_info['code']) and 
        in_array($lang_info['code'], array('fr','en')) )
   { /* current wiki languages are French or English */
-    $urls['WIKI'] =
-      'http://phpwebgallery.net/doc/doku.php?id='.$lang_info['code'].':start';
-    $urls['HOME'] = 'http://phpwebgallery.net/?lang='.$lang_info['code'];
+    $urls['WIKI'] .= 'doku.php?id='.$lang_info['code'].':start';
+    $urls['HOME'] .= '?lang='.$lang_info['code'];
   }
   return $urls;
 }

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -64,7 +64,7 @@ $lang['step2_pwd'] = 'Webmaster password';
 $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
 $lang['step2_pwd_conf'] = 'Password [confirm]';
 $lang['step2_pwd_conf_info'] = 'verification';
-$lang['install_help'] = 'Need help ? Ask your question on <a href="http://forum.phpwebgallery.net">PhpWebGallery message board</a>.';
+$lang['install_help'] = 'Need help ? Ask your question on <a href="%s">PhpWebGallery message board</a>.';
 $lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
 For security reason, please delete file "install.php"<br />
 Once this file deleted , follow this instructions :

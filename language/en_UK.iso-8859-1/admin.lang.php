@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -572,11 +572,11 @@ $lang['note_check_more_info'] = 'Go to %s or %s for more informations.';
 $lang['note_check_more_info_forum'] = 'the forum';
 $lang['note_check_more_info_wiki'] = 'the wiki';
 $lang['Duplicates'] = 'Files with same name in more than one physical category';
-$lang['WIKI'] = 'WIKI / DOC';
 $lang['DEMO'] = 'DEMO';
 $lang['HOME'] = 'HOME';
 $lang['FORUM'] = 'FORUM';
 $lang['BUGS'] = 'BUGS';
 $lang['EXTENSIONS'] = 'EXTENSIONS';
+$lang['WIKI / DOC'] = 'WIKI / DOC';
 
 ?>

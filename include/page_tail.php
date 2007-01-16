@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -31,6 +31,7 @@ trigger_action('loc_begin_page_tail');
 $template->assign_vars(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
+    'PHPWG_URL' => PHPWG_URL,
 
     'L_TITLE_MAIL' => urlencode($lang['title_send_mail']),
     ));
