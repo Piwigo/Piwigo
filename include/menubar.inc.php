@@ -53,15 +53,32 @@ $template->assign_vars(
   );
 
 //-------------------------------------------------------------- external links
-foreach ($conf['links'] as $url => $label)
+foreach ($conf['links'] as $url => $url_data)
 {
-  $template->assign_block_vars(
-    'links.link',
-    array(
-      'URL' => $url,
-      'LABEL' => $label
-      )
-    );
+  if (!is_array($url_data))
+  {
+    $url_data = array('label' => $url_data);
+  }
+
+  if 
+    (
+      (!isset($url_data['eval_visible']))
+      or
+      (eval($url_data['eval_visible']))
+    )
+  {
+    $template->assign_block_vars(
+      'links.link',
+      array(
+        'URL' => $url,
+        'LABEL' => $url_data['label']
+        )
+      );
+    if (isset($url_data['new_window']) and $url_data['new_window'])
+    {
+      $template->assign_block_vars('links.link.new_window', array('1'=>'1'));
+    }
+  }
 }
 
 //------------------------------------------------------------------------ filter

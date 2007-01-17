@@ -6,7 +6,14 @@
   <dd>
     <ul>
       <!-- BEGIN link -->
-      <li><a href="{links.link.URL}">{links.link.LABEL}</a></li>
+      <li>
+        <a href="{links.link.URL}"
+        <!-- BEGIN new_window -->
+         onclick="window.open(this.href, ''); return false;"
+        <!-- END new_window -->
+        >{links.link.LABEL}
+        </a>
+      </li>
       <!-- END link -->
     </ul>
   </dd>

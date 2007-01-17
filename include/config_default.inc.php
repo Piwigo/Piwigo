@@ -164,11 +164,30 @@ $conf['show_version'] = true;
 // links : list of external links to add in the menu. An example is the best
 // than a long explanation :
 //
-// $conf['links'] = array(
-//   'http://phpwebgallery.net' => 'PWG website',
-//   'http://forum.phpwebgallery.net' => 'PWG forum',
-//   'http://phpwebgallery.net/doc' => 'PWG wiki'
-//   );
+// Simple use:
+//  for each link is associated a label
+//  $conf['links'] = array(
+//    'http://phpwebgallery.net' => 'PWG website',
+//    'http://forum.phpwebgallery.net' => 'PWG forum',
+//    'http://phpwebgallery.net/doc' => 'PWG wiki'
+//    );
+//
+// Advenced use:
+//  You can also used special options. Instead to pass a string like parameter value 
+//  you can pass a array with different optional parameter values
+//  $conf['links'] = array(
+//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => true, 'eval_visible' => 'return true;'),
+//    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
+//    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return $user[\'is_the_guest\'];'),
+//    );
+// 
+// Equivalence:
+//  $conf['links'] = array(
+//    'http://phpwebgallery.net' => 'PWG website',
+//    );
+//  $conf['links'] = array(
+//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'visible' => 'return true;'),
+//    );
 //
 // If the array is empty, the "Links" box won't be displayed on the main
 // page.
