@@ -3,17 +3,17 @@
 
 <h3>{L_STAT_TITLE}</h3>
 
-<img class="image" src="{SRC_REPORT}" alt="{lang:history chart}" />
-
 <table class="table2" id="dailyStats">
   <tr class="throw">
     <th>{PERIOD_LABEL}</th>
     <th>{lang:Pages seen}</th>
+    <th></th>
   </tr>
 <!-- BEGIN statrow -->
-  <tr class="{statrow.T_CLASS}">
-    <td>{statrow.VALUE}</td>
+  <tr>
+    <td style="white-space: nowrap">{statrow.VALUE}</td>
     <td class="number">{statrow.PAGES}</td>
+    <td><div class="statBar" style="width:{statrow.WIDTH}px" /></td>
   </tr>
 <!-- END statrow -->
 </table>

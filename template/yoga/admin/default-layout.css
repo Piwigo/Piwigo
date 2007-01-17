@@ -143,3 +143,10 @@ FIELDSET#generalConf TEXTAREA.description {
   background: #f92;
   color: white;
 } /* PWG Graphic charts */
+
+
+.statBar {
+  height: 10px;
+  background-color: #66f;
+  border: 1px solid black;
+}

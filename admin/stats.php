@@ -317,23 +317,6 @@ if (isset($page['month']))
   }
 }
 
-$url_img = PHPWG_ROOT_PATH.'admin/images/stats.img.php';
-
-if (isset($page['year']))
-{
-  $url_img.= '?year='.$page['year'];
-}
-
-if (isset($page['month']))
-{
-  $url_img.= '&amp;month='.$page['month'];
-}
-
-if (isset($page['day']))
-{
-  $url_img.= '&amp;day='.$page['day'];
-}
-
 $summary_lines = get_summary(
   @$page['year'],
   @$page['month'],
@@ -405,7 +388,6 @@ $template->set_filenames(array('stats'=>'admin/stats.tpl'));
 $template->assign_vars(
   array(
     'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
-    'SRC_REPORT' => $url_img,
     'PERIOD_LABEL' => $period_label,
     )
   );
@@ -414,46 +396,90 @@ $template->assign_vars(
 // | Display statistic rows                                                |
 // +-----------------------------------------------------------------------+
 
-$i = 1;
+$max_width = 400;
 
+$datas = array();
+
+if (isset($page['day']))
+{
+  $key = 'hour';
+  $min_x = 0;
+  $max_x = 23;
+}
+elseif (isset($page['month']))
+{
+  $key = 'day';
+  $min_x = 1;
+  $max_x = date(
+    't',
+    mktime(12, 0, 0, $page['month'], 1, $page['year'])
+    );
+}
+elseif (isset($page['year']))
+{
+  $key = 'month';
+  $min_x = 1;
+  $max_x = 12;
+}
+else
+{
+  $key = 'year';
+}
+
+$max_pages = 1;
 foreach ($summary_lines as $line)
 {
-  // echo '<pre>'; print_r($line); echo '</pre>';
-
-  $value = '';
-  
-  if (isset($line['hour']))
+  if ($line['nb_pages'] > $max_pages)
   {
-    $value.= $line['hour'].' '.l10n('hour');
+    $max_pages = $line['nb_pages'];
   }
-  else if (isset($line['day']))
+
+  $datas[ $line[$key] ] = $line['nb_pages'];
+}
+
+if (!isset($min_x) and !isset($max_x))
+{
+  $min_x = min(array_keys($datas));
+  $max_x = max(array_keys($datas));
+}
+
+for ($i = $min_x; $i <= $max_x; $i++)
+{
+  if (!isset($datas[$i]))
+  {
+    $datas[$i] = 0;
+  }
+
+  $url = null;
+
+  if (isset($page['day']))
+  {
+    $value = $i.' '.l10n('hour');
+  }
+  else if (isset($page['month']))
   {
     $url =
       PHPWG_ROOT_PATH.'admin.php'
       .'?page=stats'
-      .'&amp;year='.$line['year']
-      .'&amp;month='.$line['month']
-      .'&amp;day='.$line['day']
+      .'&amp;year='.$page['year']
+      .'&amp;month='.$page['month']
+      .'&amp;day='.$i
       ;
 
-    $time = mktime(12, 0, 0, $line['month'], $line['day'], $line['year']);
+    $time = mktime(12, 0, 0, $page['month'], $i, $page['year']);
     
-    $value = '<a href="'.$url.'">';
-    $value.= $line['day'].' ('.$lang['day'][date('w', $time)].')';
-    $value.= "</a>";    
+    $value = $i.' ('.$lang['day'][date('w', $time)].')';
   }
-  else if (isset($line['month']))
+  else if (isset($page['year']))
   {
     $url =
       PHPWG_ROOT_PATH.'admin.php'
       .'?page=stats'
-      .'&amp;year='.$line['year']
-      .'&amp;month='.$line['month']
+      .'&amp;year='.$page['year']
+      .'&amp;month='.$i
       ;
     
-    $value = '<a href="'.$url.'">';
-    $value.= $lang['month'][$line['month']];
-    $value.= "</a>";
+    $value = $lang['month'][$i];
   }
   else
   {
@@ -461,21 +487,23 @@ foreach ($summary_lines as $line)
     $url =
       PHPWG_ROOT_PATH.'admin.php'
       .'?page=stats'
-      .'&amp;year='.$line['year']
+      .'&amp;year='.$i
       ;
     
-    $value = '<a href="'.$url.'">';
-    $value.= $line['year'];
-    $value.= "</a>";    
+    $value = $i;
+  }
+
+  if ($datas[$i] != 0 and isset($url))
+  {
+    $value = '<a href="'.$url.'">'.$value.'</a>';
   }
   
   $template->assign_block_vars(
     'statrow',
     array(
       'VALUE' => $value,
-      'PAGES' => $line['nb_pages'],
-      
-      'T_CLASS' => ($i++ % 2) ? 'row1' : 'row2'
+      'PAGES' => $datas[$i],
+      'WIDTH' => ceil(($datas[$i] * $max_width) / $max_pages ),
       )
     );
 }
