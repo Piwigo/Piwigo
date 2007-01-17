@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -622,5 +622,16 @@ $conf['filter_pages'] = array
     'register' => array('cancel' => true),
     'upgrade_feed' => array('cancel' => true),
   );
+
+// +-----------------------------------------------------------------------+
+// | Light slideshow                                                       |
+// +-----------------------------------------------------------------------+
+// $conf['light_slideshow'] indicates to use slideshow.tpl in state of 
+// picture.tpl for slideshow
+// Take care to have slideshow.tpl in all available templates
+// Or set it false.
+// Check if Picture's plugins are compliant with it
+// Every plugin from 1.7 would be design to manage light_slideshow case.
+$conf['light_slideshow'] = true;  
 
 ?>

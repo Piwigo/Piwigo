@@ -456,6 +456,21 @@ if ($metadata_showable)
 
 $page['body_id'] = 'thePicturePage';
 
+//------------------------------------------------------------ light slideshow
+// Warning !!! Warning !!! Warning !!!
+// Notice for plugins writers check if you have to act on the active template
+// like this if ( $page['slideshow'] ) { return false; }
+//
+if ( isset($_GET['slideshow']) and $conf['light_slideshow'] )
+{
+  $page['display_tpl'] = 'slideshow.tpl';
+  $page['slideshow'] = true; 
+  unset($picture['current']['high_url']); 
+}
+else {
+  $page['display_tpl'] = 'picture.tpl';
+  $page['slideshow'] = false;  
+}
 // maybe someone wants a special display (call it before page_header so that they
 // can add stylesheets)
 $element_content = trigger_event('render_element_content',
@@ -470,7 +485,9 @@ if ( isset($picture['next']['image_url'])
     )
   );
 }
-$template->set_filenames(array('picture'=>'picture.tpl'));
+
+$template->set_filenames(array( 'picture' => $page['display_tpl'] ));
+
 
 //------------------------------------------------------- navigation management
 foreach ( array('first','previous','next','last') as $which_image )

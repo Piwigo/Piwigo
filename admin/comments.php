@@ -139,6 +139,7 @@ SELECT c.id, c.image_id, c.date, c.author, c.content, i.path, i.tn_ext
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
   WHERE validated = \'false\'
+  ORDER BY c.date DESC  
 ;';
 $result = pwg_query($query);
 while ($row = mysql_fetch_assoc($result))
