@@ -5,8 +5,8 @@
       to show the origin of the script...-->
 
   <a href="{GALLERY_URL}" class="back">{GALLERY_TITLE}</a> - 
-  <a href="{PHPWG_URL}" class="back" title="{lang:powered_by}" onclick="window.open(this.href, ''); return false;">
-    <img src="{pwg_root}{themeconf:icon_dir}/pwg_footer.png" alt="{lang:powered_by}">
+  <a class="button" href="{PHPWG_URL}" class="back" title="{lang:powered_by}" onclick="window.open(this.href, ''); return false;">
+  <img class="button" src="{pwg_root}{themeconf:icon_dir}/pwg_footer.png" alt="{lang:powered_by}">
   </a>
   {VERSION}
   - {lang:send_mail}
