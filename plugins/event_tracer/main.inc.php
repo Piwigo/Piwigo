@@ -11,12 +11,10 @@ class EventTracer
 {
   var $me_working;
   var $my_config;
-  var $my_id;
   
-  function EventTracer($id)
+  function EventTracer()
   {
     $this->me_working=0;
-    $this->my_id=$id;
   }
 
   function load_config()
@@ -83,14 +81,14 @@ class EventTracer
     array_push($menu,
         array(
           'NAME' => 'Event Tracer',
-          'URL' => get_admin_plugin_menu_link($this->my_id, 'tracer_admin')
+          'URL' => get_admin_plugin_menu_link(dirname(__FILE__).'/tracer_admin.php')
         )
       );
     return $menu;
   }
 }
 
-$obj = new EventTracer($plugin['id']);
+$obj = new EventTracer();
 $obj->load_config();
 
 add_event_handler('get_admin_plugin_menu_links', array(&$obj, 'plugin_admin_menu') );

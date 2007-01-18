@@ -33,27 +33,35 @@ if( !defined("PHPWG_ROOT_PATH") )
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
-$section = explode('~', $_GET['section'] );
-if (count($section)!=2)
+$sections = explode('/', $_GET['section'] );
+for ($i=0; $i<count($sections); $i++)
+{
+  if (empty($sections[$i]) or $sections[$i]=='..')
+  {
+    unset($sections[$i]);
+    $i--;
+  }
+}
+
+if (count($sections)<2)
 {
   die('Invalid plugin URL');
 }
 
-$plugin_id = $section[0];
+$plugin_id = $sections[0];
 $check_db_plugin = get_db_plugins('active', $plugin_id );
 if (empty($check_db_plugin))
 {
   die('Invalid URL - plugin '.$plugin_id.' not active');
 }
-$section[1]=str_replace('./', '', $section[1]); // no up in dir structure
 
-$filename = PHPWG_PLUGINS_PATH.$plugin_id.'/'.$section[1].'.php';
+$filename = PHPWG_PLUGINS_PATH.implode('/', $sections);
 if (is_file($filename))
 {
   include_once($filename);
 }
 else
 {
-  die('Missing '.$filename);
+  die('Missing file '.$filename);
 }
 ?>

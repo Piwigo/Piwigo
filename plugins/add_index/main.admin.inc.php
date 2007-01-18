@@ -33,7 +33,6 @@ if ((!defined('PHPWG_ROOT_PATH')) or (!(defined('IN_ADMIN') and IN_ADMIN)))
 
 class AdminAddIndex extends AddIndex
 {
-  var $my_id;
   function load_params()
   {
     global $conf;
@@ -63,7 +62,7 @@ class AdminAddIndex extends AddIndex
       array
       (
         'CAPTION' => l10n('Advanced_Add_Index'),
-        'URL' => get_admin_plugin_menu_link($this->my_id, 'admin/main_page').'&amp;overwrite'
+        'URL' => get_admin_plugin_menu_link(dirname(__FILE__).'/admin/main_page.php').'&amp;overwrite'
       ));
 
     return $advanced_features;
@@ -76,7 +75,7 @@ class AdminAddIndex extends AddIndex
       array_push($site_manager_plugin_links,
         array
         (
-          'U_HREF' => get_admin_plugin_menu_link($this->my_id, 'admin/main_page').'&amp;site_id='.$site_id,
+          'U_HREF' => get_admin_plugin_menu_link(dirname(__FILE__).'/admin/main_page.php').'&amp;site_id='.$site_id,
           'U_CAPTION' => l10n('Manager_Add_Index'),
           'U_HINT' => l10n('Add_Index')
         ));
@@ -90,7 +89,7 @@ class AdminAddIndex extends AddIndex
     array_push($menu,
         array(
           'NAME' => l10n('Menu_Add_Index'),
-          'URL' => get_admin_plugin_menu_link($this->my_id, 'admin/admin_menu')
+          'URL' => get_admin_plugin_menu_link(dirname(__FILE__).'/admin/admin_menu.php')
         )
       );
     return $menu;
@@ -99,7 +98,6 @@ class AdminAddIndex extends AddIndex
 
 // Create object
 $add_index = new AdminAddIndex();
-$add_index->my_id = $plugin['id'];
 
 // Load Add Index parameters
 $add_index->load_params();

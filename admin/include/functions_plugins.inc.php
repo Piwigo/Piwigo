@@ -70,13 +70,24 @@ function get_fs_plugins()
 
 /**
  * Retrieves an url for a plugin page.
- * @param string plugin_id
- * @param string page - the php script file name (without .php extension)
+ * @param string file - php script full name
  */
-function get_admin_plugin_menu_link($plugin_id, $page)
+function get_admin_plugin_menu_link($file)
 {
-  $url = get_root_url().'admin.php?page=plugin&amp;section='
-    .urlencode($plugin_id .'~'. $page);
+  global $page;
+  $real_file = realpath($file);
+  $url = get_root_url().'admin.php?page=plugin';
+  if (false!==$real_file)
+  {
+    $real_plugin_path = realpath(PHPWG_PLUGINS_PATH);
+    $file = substr($real_file, strlen($real_plugin_path)+1);
+    $file = str_replace('\\', '/', $file);//Windows
+    $url .= '&amp;section='.urlencode($file);
+  }
+  else if (isset($page['errors']))
+  {
+    array_push($page['errors'], 'PLUGIN ERROR: "'.$file.'" is not a valid file');
+  }
   return $url;
 }
 
