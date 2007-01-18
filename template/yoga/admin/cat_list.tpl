@@ -6,13 +6,13 @@
 <form id="addVirtual" action="{F_ACTION}" method="post">
   <p>
     {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
-    <input type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} />
+    <input type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} /> 
+    <a href="#EoP" class="button"><img src="{themeconf:icon_dir}/page_end.png" class="button" alt="{lang:page_end}" /></a> 
   </p>
 </form>
 
 <!-- BEGIN categories -->
 <form id="categoryOrdering" action="{F_ACTION}" method="post">
-  <h5><a href="#EoP">{lang:end_of_page}</a></h5> 
   <ul class="categoryUl">
 
     <!-- BEGIN category -->

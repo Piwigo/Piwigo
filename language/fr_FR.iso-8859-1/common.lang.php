@@ -615,4 +615,6 @@ $lang['w_month'] = 'Mois';
 $lang['yes'] = 'Oui';
 $lang['note_filter_day'] = 'L\'ensemble des éléments est filtré pour n\'afficher que les éléments récents de moins de %d jour.';
 $lang['note_filter_days'] = 'L\'ensemble des éléments est filtré pour n\'afficher que les éléments récents de moins de %d jours.';
+$lang['page_end'] = 'Bas de page';
+
 ?>

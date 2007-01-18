@@ -614,4 +614,6 @@ $lang['w_month'] = 'Month';
 $lang['yes'] = 'Yes';
 $lang['note_filter_day'] = 'The whole of the elements are filtered in order to diplay the recent elements of less %s day.';
 $lang['note_filter_days'] = 'The whole of the elements are filtered in order to diplay the recent elements of less %s days.';
+$lang['page_end'] = 'Page bottom';
+
 ?>
