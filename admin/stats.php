@@ -437,75 +437,78 @@ foreach ($summary_lines as $line)
   $datas[ $line[$key] ] = $line['nb_pages'];
 }
 
-if (!isset($min_x) and !isset($max_x))
+if (!isset($min_x) and !isset($max_x) and count($datas) > 0)
 {
   $min_x = min(array_keys($datas));
   $max_x = max(array_keys($datas));
 }
 
-for ($i = $min_x; $i <= $max_x; $i++)
+if (count($datas) > 0)
 {
-  if (!isset($datas[$i]))
+  for ($i = $min_x; $i <= $max_x; $i++)
   {
-    $datas[$i] = 0;
-  }
-
-  $url = null;
-
-  if (isset($page['day']))
-  {
-    $value = $i.' '.l10n('hour');
-  }
-  else if (isset($page['month']))
-  {
-    $url =
-      PHPWG_ROOT_PATH.'admin.php'
-      .'?page=stats'
-      .'&amp;year='.$page['year']
-      .'&amp;month='.$page['month']
-      .'&amp;day='.$i
-      ;
-
-    $time = mktime(12, 0, 0, $page['month'], $i, $page['year']);
-    
-    $value = $i.' ('.$lang['day'][date('w', $time)].')';
-  }
-  else if (isset($page['year']))
-  {
-    $url =
-      PHPWG_ROOT_PATH.'admin.php'
-      .'?page=stats'
-      .'&amp;year='.$page['year']
-      .'&amp;month='.$i
-      ;
-    
-    $value = $lang['month'][$i];
-  }
-  else
-  {
-    // at least the year is defined
-    $url =
-      PHPWG_ROOT_PATH.'admin.php'
-      .'?page=stats'
-      .'&amp;year='.$i
-      ;
-    
-    $value = $i;
-  }
-
-  if ($datas[$i] != 0 and isset($url))
-  {
-    $value = '<a href="'.$url.'">'.$value.'</a>';
-  }
+    if (!isset($datas[$i]))
+    {
+      $datas[$i] = 0;
+    }
   
-  $template->assign_block_vars(
-    'statrow',
-    array(
-      'VALUE' => $value,
-      'PAGES' => $datas[$i],
-      'WIDTH' => ceil(($datas[$i] * $max_width) / $max_pages ),
-      )
-    );
+    $url = null;
+  
+    if (isset($page['day']))
+    {
+      $value = $i.' '.l10n('hour');
+    }
+    else if (isset($page['month']))
+    {
+      $url =
+        PHPWG_ROOT_PATH.'admin.php'
+        .'?page=stats'
+        .'&amp;year='.$page['year']
+        .'&amp;month='.$page['month']
+        .'&amp;day='.$i
+        ;
+  
+      $time = mktime(12, 0, 0, $page['month'], $i, $page['year']);
+      
+      $value = $i.' ('.$lang['day'][date('w', $time)].')';
+    }
+    else if (isset($page['year']))
+    {
+      $url =
+        PHPWG_ROOT_PATH.'admin.php'
+        .'?page=stats'
+        .'&amp;year='.$page['year']
+        .'&amp;month='.$i
+        ;
+      
+      $value = $lang['month'][$i];
+    }
+    else
+    {
+      // at least the year is defined
+      $url =
+        PHPWG_ROOT_PATH.'admin.php'
+        .'?page=stats'
+        .'&amp;year='.$i
+        ;
+      
+      $value = $i;
+    }
+  
+    if ($datas[$i] != 0 and isset($url))
+    {
+      $value = '<a href="'.$url.'">'.$value.'</a>';
+    }
+    
+    $template->assign_block_vars(
+      'statrow',
+      array(
+        'VALUE' => $value,
+        'PAGES' => $datas[$i],
+        'WIDTH' => ceil(($datas[$i] * $max_width) / $max_pages ),
+        )
+      );
+  }
 }
 
 // +-----------------------------------------------------------------------+
