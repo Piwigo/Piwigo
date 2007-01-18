@@ -7,7 +7,9 @@
   <p>
     {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
     <input type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} /> 
-    <a href="#EoP" class="button"><img src="{themeconf:icon_dir}/page_end.png" class="button" alt="{lang:page_end}" /></a> 
+    <!-- BEGIN eop_link -->
+    <a href="#EoP" class="button"><img src="{themeconf:icon_dir}/page_end.png" class="button" alt="{lang:page_end}" /></a>
+    <!-- END eop_link --> 
   </p>
 </form>
 
