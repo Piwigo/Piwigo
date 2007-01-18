@@ -74,7 +74,7 @@ foreach ($conf['links'] as $url => $url_data)
         'LABEL' => $url_data['label']
         )
       );
-    if (isset($url_data['new_window']) and $url_data['new_window'])
+    if (!isset($url_data['new_window']) or $url_data['new_window'])
     {
       $template->assign_block_vars('links.link.new_window', array('1'=>'1'));
     }

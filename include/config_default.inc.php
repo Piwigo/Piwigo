@@ -176,11 +176,20 @@ $conf['show_version'] = true;
 //  You can also used special options. Instead to pass a string like parameter value 
 //  you can pass a array with different optional parameter values
 //  $conf['links'] = array(
-//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => true, 'eval_visible' => 'return true;'),
+//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
 //    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
 //    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return $user[\'is_the_guest\'];'),
 //    );
-// 
+// Parameters:
+//  'label':
+//    Label to display for the link, must be defined
+//  'new_window':
+//    If true open link on tab/window
+//    [Default value is true if it's not defined]
+//  'eval_visible':
+//    It's php code witch must return if the link is visible or not
+//    [Default value is true if it's not defined]
+//
 // Equivalence:
 //  $conf['links'] = array(
 //    'http://phpwebgallery.net' => 'PWG website',
