@@ -318,7 +318,7 @@ foreach ($categories as $category)
   }
 }
 // Add a link to Page bottom only if needed (10 or more categories)
-if ( $category['rank'] > 9 ) 
+if ( isset($category['rank']) and $category['rank'] > 9 ) 
 {
   $template->assign_block_vars('eop_link', array('ICON'=>'Displayed'));
 }
