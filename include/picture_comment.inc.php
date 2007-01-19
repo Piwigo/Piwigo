@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -29,6 +29,33 @@
  * This file is included by the picture page to manage user comments
  *
  */
+
+if (!function_exists('hash_hmac'))
+{
+function hash_hmac($algo, $data, $key, $raw_output=false)
+{
+  /* md5 and sha1 only */
+  $algo=strtolower($algo);
+  $p=array('md5'=>'H32','sha1'=>'H40');
+  if ( !isset($p[$algo]) or !function_exists($algo) )
+  {
+    $algo = 'md5';
+  }
+  if(strlen($key)>64) $key=pack($p[$algo],$algo($key));
+  if(strlen($key)<64) $key=str_pad($key,64,chr(0));
+
+  $ipad=substr($key,0,64) ^ str_repeat(chr(0x36),64);
+  $opad=substr($key,0,64) ^ str_repeat(chr(0x5C),64);
+
+  $ret = $algo($opad.pack($p[$algo],$algo($ipad.$data)));
+  if ($raw_output)
+  {
+    $ret = pack('H*', $ret);
+  }
+  return $ret;
+}
+}
+
 //returns string action to perform on a new comment: validate, moderate, reject
 function user_comment_check($action, $comment, $picture)
 {
@@ -137,6 +164,15 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     $comment_action='reject';
   }
 
+  $key = explode(':', @$_POST['key']);
+  if ( count($key)!=2
+        or $key[0]>time() or $key[0]<time()-1800 // 30 minutes expiration
+        or hash_hmac('md5', $key[0], $conf['secret_key'])!=$key[1]
+      )
+  {
+    $comment_action='reject';
+  }
+  
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
   { // anti-flood system
     $reference_date = time() - $conf['anti-flood_time'];
@@ -316,7 +352,12 @@ SELECT id,author,date,image_id,content
   if (!$user['is_the_guest']
       or ($user['is_the_guest'] and $conf['comments_forall']))
   {
-    $template->assign_block_vars('comments.add_comment', array());
+    $key = time();
+    $key .= ':'.hash_hmac('md5', $key, $conf['secret_key']);
+    $template->assign_block_vars('comments.add_comment',
+        array(
+          'key' => $key
+        ));
     // display author field if the user is not logged in
     if ($user['is_the_guest'])
     {

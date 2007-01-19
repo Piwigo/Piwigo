@@ -23,6 +23,7 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_admin','
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('login_history','true','keep a history of user logins on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('allow_user_registration','true','allow visitors to register?');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('secret_key', MD5(RAND()), 'a secret key specific to the gallery for internal use');
 -- Notification by mail
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');

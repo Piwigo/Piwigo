@@ -190,7 +190,8 @@
       <!-- BEGIN author_field -->
       <label>{lang:upload_author}<input type="text" name="author"></label>
       <!-- END author_field -->
-      <label>{lang:comment}<textarea name="content" rows="10" cols="80"></textarea></label>
+      <label>{lang:comment}<textarea name="content" rows="5" cols="80"></textarea></label>
+      <input type="hidden" name="key" value="{comments.add_comment.key}" />
       <input type="submit" value="{lang:submit}">
     </fieldset>
   </form>
