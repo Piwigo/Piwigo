@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -39,7 +39,7 @@ include_once(PHPWG_ROOT_PATH.'include/constants.php');
 // +-----------------------------------------------------------------------+
 
 $query = '
-ALTER TABLE '.PREFIX_TABLE.'image_category` DROP INDEX `image_category_i1`;";
+ALTER TABLE '.PREFIX_TABLE.'image_category DROP INDEX `image_category_i1;';
 pwg_query($query);
 
 echo
