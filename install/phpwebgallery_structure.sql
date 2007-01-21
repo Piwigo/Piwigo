@@ -154,7 +154,6 @@ CREATE TABLE `phpwebgallery_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`image_id`,`category_id`),
-  KEY `image_category_i1` (`image_id`),
   KEY `image_category_i2` (`category_id`)
 ) TYPE=MyISAM;
 
