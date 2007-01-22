@@ -179,6 +179,9 @@ $conf['show_version'] = true;
 //    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
 //    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
 //    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return $user[\'is_the_guest\'];'),
+//    'http://download.gna.org/phpwebgallery/' => 
+//      array('label' => 'PopUp', 'new_window' => true, 
+//      'nw_name' => 'PopUp', 'nw_features' => 'width=800,height=450,location=no,status=no,toolbar=no,scrollbars=no,menubar=no'),
 //    );
 // Parameters:
 //  'label':
@@ -186,6 +189,12 @@ $conf['show_version'] = true;
 //  'new_window':
 //    If true open link on tab/window
 //    [Default value is true if it's not defined]
+//  'nw_name':
+//    Name use when new_window is true
+//    [Default value is '' if it's not defined]
+//  'nw_features':
+//    features use when new_window is true
+//    [Default value is '' if it's not defined]
 //  'eval_visible':
 //    It's php code witch must return if the link is visible or not
 //    [Default value is true if it's not defined]

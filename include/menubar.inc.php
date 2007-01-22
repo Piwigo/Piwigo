@@ -76,7 +76,13 @@ foreach ($conf['links'] as $url => $url_data)
       );
     if (!isset($url_data['new_window']) or $url_data['new_window'])
     {
-      $template->assign_block_vars('links.link.new_window', array('1'=>'1'));
+      $template->assign_block_vars(
+        'links.link.new_window', 
+        array(
+          'name' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
+          'features' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
+          )
+        );
     }
   }
 }

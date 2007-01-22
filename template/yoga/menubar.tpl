@@ -9,7 +9,10 @@
       <li>
         <a href="{links.link.URL}"
         <!-- BEGIN new_window -->
-         onclick="window.open(this.href, ''); return false;"
+         onclick="window.open(this.href, 
+                              '{links.link.new_window.name}',
+                              '{links.link.new_window.features}'
+                              ); return false;"
         <!-- END new_window -->
         >{links.link.LABEL}
         </a>
