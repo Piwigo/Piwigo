@@ -499,7 +499,6 @@ $lang['Elements_not_linked'] = 'Not linked elements';
 $lang['web_services'] = 'Web services ';
 $lang['title_wscheck'] = ' Access management ';
 $lang['ws_set_status'] = ' Environment ';
-$lang['ws_status'] = ' Status ';
 $lang['ws_enable'] = ' Enable ';
 $lang['ws_disable'] = ' Disable ';
 $lang['ws set to'] = ' Environment temporary set ';

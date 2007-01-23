@@ -498,7 +498,6 @@ $lang['Elements_not_linked'] = 'Eléments non liés';
 $lang['web_services'] = 'Services Web ';
 $lang['title_wscheck'] = ' Gestion des accès ';
 $lang['ws_set_status'] = ' Environnement ';
-$lang['ws_status'] = ' Statut ';
 $lang['ws_enable'] = ' Actif ';
 $lang['ws_disable'] = ' Inactif ';
 $lang['ws set to'] = ' Modifier temporairement l\'environnement en ';

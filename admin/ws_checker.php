@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
-// | last update   : $Date: 2006-12-15 23:16:37 +0200 (ven., 15 dec. 2006) $
-// | last modifier : $Author: vdigital $
-// | revision      : $Revision: 1658 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -50,56 +50,19 @@ $req_type_list = official_req();
 
 //--------------------------------------------------------- update informations
 
-// Is status temporary changed?
-if (isset($_POST['wss_submit']))
-{
-  $ws_status = get_boolean( $_POST['ws_status'] );      // Requested status
-  $ws_update = $lang['ws_success_upd'];  // Normal update
-  if ($conf['allow_web_services'] == false and $ws_status == true )
-  { /* Set true is disallowed */
-    $ws_status = false;
-    $ws_update = $lang['ws_disallowed'];
-  }
-  if ( $ws_status !== true and $ws_status !== false )
-  { /* Avoiding SQL injection by no change */
-    $ws_status = $conf['ws_status'];
-  }
-  if ($conf['ws_status'] == $ws_status)
-  {
-    $ws_update = $lang['ws_disallowed'];
-  }
-  else
-  {
-    $query = '
-UPDATE '.CONFIG_TABLE.' SET
- value = \''.boolean_to_string($ws_status).'\'
-WHERE param = \'ws_status\' 
- AND value <> \''.boolean_to_string($ws_status).'\' 
-;';
-    pwg_query($query);
-    $conf['ws_status'] = $ws_status;
-  }
-  $template->assign_block_vars(
-    'update_result',
-    array(
-      'UPD_ELEMENT'=> $lang['ws_set_status'].': '.$ws_update,
-      )
-  );
-}
-
-// Next, is a new access required?
+// Is a new access required?
 
 if (isset($_POST['wsa_submit']))
 {
-// Check $_post
+// Check $_post (Some values are commented - maybe a future use)
 $add_partner = htmlspecialchars( $_POST['add_partner'], ENT_QUOTES);
 $add_access = check_target( $_POST['add_access']) ;
-$add_start = ( is_numeric($_POST['add_start']) ) ? $_POST['add_start']:0; 
+$add_start = 0; // ( is_numeric($_POST['add_start']) ) ? $_POST['add_start']:0; 
 $add_end = ( is_numeric($_POST['add_end']) ) ? $_POST['add_end']:0;
 $add_request = ( ctype_alpha($_POST['add_request']) ) ?
   $_POST['add_request']:'';
-$add_high = ( $_POST['add_high'] == 'true' ) ? 'true':'false';
-$add_normal = ( $_POST['add_normal'] == 'true' ) ? 'true':'false';
+$add_high = 'true'; // ( $_POST['add_high'] == 'true' ) ? 'true':'false';
+$add_normal = 'true'; // ( $_POST['add_normal'] == 'true' ) ? 'true':'false';
 $add_limit = ( is_numeric($_POST['add_limit']) ) ? $_POST['add_limit']:1; 
 $add_comment = htmlspecialchars( $_POST['add_comment'], ENT_QUOTES);
 if ( strlen($add_partner) < 8 )
@@ -183,13 +146,9 @@ if (isset($_POST['wsX_submit']))
 }
 
 
-$ws_status = $conf['ws_status'];
+
 $template->assign_vars(
   array(
-    'L_CURRENT_STATUS' => ( $ws_status == true ) ? 
-       $lang['ws_enable']:$lang['ws_disable'],
-    'STATUS_YES' => ( $ws_status == true ) ? '':'checked', 
-    'STATUS_NO' => ( $ws_status == true ) ? 'checked':'', 
     'DEFLT_HIGH_YES' => '',
     'DEFLT_HIGH_NO' => 'checked',
     'DEFLT_NORMAL_YES' => '',
@@ -223,7 +182,6 @@ $template->set_filenames(
     )
   );
 
-$checked = 'checked="checked"';
 $selected = 'selected="selected"';
 $num=0;
 if ( $acc_list > 0 )
@@ -275,19 +233,6 @@ foreach ($req_type_list as $value) {
      )
   );
 }
-
-$columns = array (
-       'ID'               => 'id',
-       'ws_KeyName'       => 'name', 
-       'ws_Access'        => 'ws_access',
-       'ws_Start'         => 'ws_start',
-       'ws_End'           => 'ws_end',
-       'ws_Request'       => 'ws_request',
-       'ws_High'          => 'ws_high',
-       'ws_Normal'        => 'ws_normal',
-       'ws_Limit'         => 'ws_limit',
-       'ws_Comment'       => 'ws_comment',
-);
 
 foreach ($conf['ws_allowed_limit'] as $value) {
   $template->assign_block_vars(

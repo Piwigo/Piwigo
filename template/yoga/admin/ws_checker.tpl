@@ -13,37 +13,6 @@
 </ul>
 <!-- END update_result -->
 
-
-<!-- Set Web Services : Open/Disable -->
-<form method="post" name="ws_status" action="{F_STATUS_ACTION}">
-  <!-- Current status -->
-  <fieldset>
-    <legend>{lang:ws_set_status} : <strong>{L_CURRENT_STATUS}</strong></legend>
-    <table>
-      <tr>
-        <td width="70%">
-          {lang:ws set to}  &nbsp; &nbsp; &nbsp; 
-          <label><input type="radio" name="ws_status" value="true" 
-            {STATUS_YES} /> {lang:ws_enable}
-          </label> &nbsp; &nbsp; &nbsp; 
-          <label><input type="radio" name="ws_status" value="false" 
-            {STATUS_NO} /> {lang:ws_disable}
-          </label>
-        </td>
-        <td width="4%">
-          &nbsp;
-        </td>
-        <td>
-          <input type="submit" value="{lang:submit}"  
-            style="width: 10em; padding-top: 3px;"  
-            name="wss_submit" {TAG_INPUT_ENABLED} />
-        </td>
-      </tr>
-    </table>
-  </fieldset>
-</form>
-
-
 <!-- Add Access -->
 <form method="post" name="adding_access" action="{F_STATUS_ACTION}">
   <!-- Current Default -->
@@ -114,6 +83,7 @@
       </tr>
 
     <!-- Open service is postponed by n days -->
+    <!-- In comment currently
       <tr>
         <td>
           <label for="add_start">{lang:Postponed availability in days}</label>
@@ -129,7 +99,7 @@
             <!-- END add_start -->
           </select>
         </td>
-      </tr>
+      </tr> -->
 
     <!-- Opened service only for n days -->
       <tr>
@@ -150,6 +120,7 @@
       </tr>
 
     <!-- High resolution information will be returned -->
+    <!-- In comment currently
       <tr>
         <td>
           <label for="add_High">{lang:ws_High}</label>
@@ -165,9 +136,10 @@
             value="false" {DEFLT_HIGH_NO} /> {lang:no}
           </label>  
         </td>
-      </tr>
+      </tr> -->
 
     <!-- Normal size information will be returned -->
+    <!-- In comment currently
       <tr>
         <td>
           <label for="add_Normal">{lang:ws_Normal}</label>
@@ -183,7 +155,7 @@
             value="false" {DEFLT_NORMAL_NO} /> {lang:no}
           </label>
         </td>
-      </tr>
+      </tr> -->
 
     <!-- Idendify your partner (name / website / phone) as you want -->
       <tr>
@@ -228,11 +200,11 @@
         <th>&nbsp;</th>
         <th>{lang:ws_KeyName}</th>
         <th>{lang:ws_Access}</th>
-        <th>{lang:ws_Start}</th>
+        <!-- <th>{lang:ws_Start}</th> -->
         <th>{lang:ws_End}</th>
         <th>{lang:ws_Request}</th>
-        <th>{lang:ws_High}</th>
-        <th>{lang:ws_Normal}</th>
+        <!-- <th>{lang:ws_High}</th> -->
+        <!-- <th>{lang:ws_Normal}</th> -->
         <th>{lang:ws_Limit}</th>
         <th>{lang:ws_Comment}</th>
       </tr>
@@ -244,11 +216,11 @@
         </td>
         <td><label for="selection-{acc_list.access.ID}">{acc_list.access.NAME}</label></td>
         <td>{acc_list.access.ACCESS}</td>
-        <td>{acc_list.access.START}</td>
+        <!-- <td>{acc_list.access.START}</td> -->
         <td>{acc_list.access.END}</td>
         <td>{acc_list.access.FORCE}</td>
-        <td>{acc_list.access.HIGH}</td>
-        <td>{acc_list.access.NORMAL}</td>
+        <!-- <td>{acc_list.access.HIGH}</td> -->
+        <!-- <td>{acc_list.access.NORMAL}</td> -->
         <td>{acc_list.access.LIMIT}</td>
         <td>{acc_list.access.COMMENT}</td>
       </tr>
