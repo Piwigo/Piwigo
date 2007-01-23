@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | last update   : $Date$
@@ -288,12 +288,11 @@ function get_cat_display_name($cat_informations,
     {
       $output.= '<a class=""';
       $output.= ' href="'
-            .duplicate_index_url(
+            .make_index_url(
                 array(
                   'category'=>$id,
                   'cat_name'=>$name
-                  ),
-                array('start')
+                  )
               )
             .'">';
       $output.= $name.'</a>';

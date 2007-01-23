@@ -2,8 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -414,12 +414,12 @@ switch ($page['mode'])
 {
   case 'param' :
   {
-    $updated_param_count = 0;
-    // Update param
-    $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
-    while ($nbm_user = mysql_fetch_array($result))
+    if (isset($_POST['param_submit']) and !is_adviser())
     {
-      if (isset($_POST['param_submit']) and !is_adviser())
+      $updated_param_count = 0;
+      // Update param
+      $result = pwg_query('select param, value from '.CONFIG_TABLE.' where param like \'nbm\\_%\'');
+      while ($nbm_user = mysql_fetch_array($result))
       {
         if (isset($_POST[$nbm_user['param']]))
         {
@@ -427,8 +427,8 @@ switch ($page['mode'])
 
           $query = '
 update
-  '.CONFIG_TABLE.'
-set 
+'.CONFIG_TABLE.'
+set
   value = \''. str_replace("\'", "''", $value).'\'
 where
   param = \''.$nbm_user['param'].'\';';
@@ -436,27 +436,11 @@ where
           $updated_param_count += 1;
         }
       }
-
-      $conf[$nbm_user['param']] = $nbm_user['value'];
-
-      // if the parameter is present in $_POST array (if a form is submited), we
-      // override it with the submited value
-      if (isset($_POST[$nbm_user['param']]) and !is_adviser())
-      {
-        $conf[$nbm_user['param']] = stripslashes($_POST[$nbm_user['param']]);
-      }
-
-      // If the field is true or false, the variable is transformed into a
-      // boolean value.
-      if ($conf[$nbm_user['param']] == 'true' or $conf[$nbm_user['param']] == 'false')
-      {
-        $conf[$nbm_user['param']] = get_boolean($conf[$nbm_user['param']]);
-      }
-    }
     
-    if ($updated_param_count != 0)
-    {
       array_push($page['infos'], sprintf(l10n('nbm_updated_param_count'), $updated_param_count));
+
+      // Reload conf with new values
+      load_conf_from_db('param like \'nbm\\_%\'');
     }
   }
   case 'subscribe' :

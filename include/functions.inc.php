@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -1007,7 +1007,7 @@ function l10n($key)
  */
 function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
 {
-  return sprintf(l10n(($decimal > 1 ? $plural_fmt_key : 
+  return sprintf(l10n(($decimal > 1 ? $plural_fmt_key :
                                       $singular_fmt_key)), $decimal);
 }
 
@@ -1094,17 +1094,18 @@ function get_available_upgrade_ids()
  *
  * @return void
  */
-function load_conf_from_db()
+function load_conf_from_db($condition = '')
 {
   global $conf;
 
   $query = '
-SELECT param,value
+SELECT param, value
  FROM '.CONFIG_TABLE.'
+ '.(!empty($condition) ? 'WHERE '.$condition : '').'
 ;';
   $result = pwg_query($query);
 
-  if (mysql_num_rows($result) == 0)
+  if ((mysql_num_rows($result) == 0) and !empty($condition))
   {
     die('No configuration data');
   }

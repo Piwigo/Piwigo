@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -128,7 +128,7 @@ if (isset($_POST['submit']) and !is_adviser())
   if (count($page['errors']) == 0)
   {
     //echo '<pre>'; print_r($_POST); echo '</pre>';
-    $result = pwg_query('SELECT * FROM '.CONFIG_TABLE);
+    $result = pwg_query('SELECT param FROM '.CONFIG_TABLE);
     while ($row = mysql_fetch_array($result))
     {
       if (isset($_POST[$row['param']]))
@@ -153,13 +153,9 @@ UPDATE '.CONFIG_TABLE.'
     }
     array_push($page['infos'], $lang['conf_confirmation']);
   }
-}
 
-//------------------------------------------------------ $conf reinitialization
-$result = pwg_query('SELECT param,value FROM '.CONFIG_TABLE);
-while ($row = mysql_fetch_array($result))
-{
-  $conf[$row['param']] = $row['value'];
+  //------------------------------------------------------ $conf reinitialization
+  load_conf_from_db();
 }
 
 //----------------------------------------------------- template initialization
@@ -186,16 +182,16 @@ switch ($page['section'])
 {
   case 'general' :
   {
-    $lock_yes = ($conf['gallery_locked']=='true')?'checked="checked"':'';
-    $lock_no = ($conf['gallery_locked']=='false')?'checked="checked"':'';
+    $lock_yes = ($conf['gallery_locked']==true)?'checked="checked"':'';
+    $lock_no = ($conf['gallery_locked']==false)?'checked="checked"':'';
 
     $template->assign_block_vars(
       'general',
       array(
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
-        ($conf['rate']=='true'?'RATE_YES':'RATE_NO')=>$html_check,
-        ($conf['rate_anonymous']=='true'
+        ($conf['rate']==true?'RATE_YES':'RATE_NO')=>$html_check,
+        ($conf['rate_anonymous']==true
              ? 'RATE_ANONYMOUS_YES' : 'RATE_ANONYMOUS_NO')=>$html_check,
         'CONF_GALLERY_TITLE' => $conf['gallery_title'],
         'CONF_PAGE_BANNER' => $conf['page_banner'],
@@ -207,7 +203,7 @@ switch ($page['section'])
       $template->merge_block_vars(
           'general',
           array(
-            strtoupper($checkbox) => ($conf[$checkbox]=='true')?$html_check:''
+            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
             )
         );
     }
@@ -226,7 +222,7 @@ switch ($page['section'])
       $template->merge_block_vars(
           'comments',
           array(
-            strtoupper($checkbox) => ($conf[$checkbox]=='true')?$html_check:''
+            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
             )
         );
     }
@@ -234,10 +230,10 @@ switch ($page['section'])
   }
   case 'default' :
   {
-    $show_yes = ($conf['show_nb_comments']=='true')?'checked="checked"':'';
-    $show_no = ($conf['show_nb_comments']=='false')?'checked="checked"':'';
-    $expand_yes = ($conf['auto_expand']=='true')?'checked="checked"':'';
-    $expand_no  = ($conf['auto_expand']=='false')?'checked="checked"':'';
+    $show_yes = ($conf['show_nb_comments']==true)?'checked="checked"':'';
+    $show_no = ($conf['show_nb_comments']==false)?'checked="checked"':'';
+    $expand_yes = ($conf['auto_expand']==true)?'checked="checked"':'';
+    $expand_no  = ($conf['auto_expand']==false)?'checked="checked"':'';
 
     $template->assign_block_vars(
       'default',
