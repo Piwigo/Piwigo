@@ -121,6 +121,17 @@ if (!defined('PHPWG_INSTALLED'))
   exit;
 }
 
+foreach( array(
+  'array_intersect_key', //PHP 5 >= 5.1.0RC1
+  'hash_hmac', //(hash) - enabled by default as of PHP 5.1.2
+  ) as $func)
+{
+  if (!function_exists($func))
+  {
+    include_once(PHPWG_ROOT_PATH . 'include/php_compat/'.$func.'.php');
+  }
+}
+
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 include(PHPWG_ROOT_PATH . 'include/constants.php');

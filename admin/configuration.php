@@ -51,7 +51,6 @@ $general_checkboxes = array(
     'log',
     'history_admin',
     'history_guest',
-    'login_history',
     'email_admin_on_new_user',
     'allow_user_registration',
    );

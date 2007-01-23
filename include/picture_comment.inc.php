@@ -30,32 +30,6 @@
  *
  */
 
-if (!function_exists('hash_hmac'))
-{
-function hash_hmac($algo, $data, $key, $raw_output=false)
-{
-  /* md5 and sha1 only */
-  $algo=strtolower($algo);
-  $p=array('md5'=>'H32','sha1'=>'H40');
-  if ( !isset($p[$algo]) or !function_exists($algo) )
-  {
-    $algo = 'md5';
-  }
-  if(strlen($key)>64) $key=pack($p[$algo],$algo($key));
-  if(strlen($key)<64) $key=str_pad($key,64,chr(0));
-
-  $ipad=substr($key,0,64) ^ str_repeat(chr(0x36),64);
-  $opad=substr($key,0,64) ^ str_repeat(chr(0x5C),64);
-
-  $ret = $algo($opad.pack($p[$algo],$algo($ipad.$data)));
-  if ($raw_output)
-  {
-    $ret = pack('H*', $ret);
-  }
-  return $ret;
-}
-}
-
 //returns string action to perform on a new comment: validate, moderate, reject
 function user_comment_check($action, $comment, $picture)
 {
@@ -166,7 +140,8 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
 
   $key = explode(':', @$_POST['key']);
   if ( count($key)!=2
-        or $key[0]>time() or $key[0]<time()-1800 // 30 minutes expiration
+        or $key[0]>time()-2 // page must have been retrieved more than 2 sec ago
+        or $key[0]<time()-3600 // 60 minutes expiration
         or hash_hmac('md5', $key[0], $conf['secret_key'])!=$key[1]
       )
   {
@@ -257,6 +232,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   }
   else
   {
+    set_status_header(403);
     $template->assign_block_vars('information',
           array('INFORMATION'=>l10n('comment_not_added') )
         );
@@ -354,9 +330,15 @@ SELECT id,author,date,image_id,content
   {
     $key = time();
     $key .= ':'.hash_hmac('md5', $key, $conf['secret_key']);
+    $content = '';
+    if ('reject'===@$comment_action)
+    {
+      $content = htmlspecialchars($comm['content']);
+    }
     $template->assign_block_vars('comments.add_comment',
         array(
-          'key' => $key
+          'KEY' => $key,
+          'CONTENT' => $content
         ));
     // display author field if the user is not logged in
     if ($user['is_the_guest'])

@@ -858,8 +858,9 @@ function get_language_filepath($filename, $dirname = '')
 /**
  * returns the auto login key or false on error
  * @param int user_id
+ * @param string [out] username
 */
-function calculate_auto_login_key($user_id)
+function calculate_auto_login_key($user_id, &$username)
 {
   global $conf;
   $query = '
@@ -871,7 +872,12 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   if (mysql_num_rows($result) > 0)
   {
     $row = mysql_fetch_assoc($result);
-    $key = sha1( $row['username'].$row['password'] );
+    $username = $row['username'];
+    $data = $row['username'].$row['password'];
+    $key = base64_encode(
+      pack('H*', sha1($data))
+      .hash_hmac('md5', $data, $conf['secret_key'],true)
+      );
     return $key;
   }
   return false;
@@ -889,7 +895,7 @@ function log_user($user_id, $remember_me)
 
   if ($remember_me and $conf['authorize_remembering'])
   {
-    $key = calculate_auto_login_key($user_id);
+    $key = calculate_auto_login_key($user_id, $username);
     if ($key!==false)
     {
       $cookie = array('id' => (int)$user_id, 'key' => $key);
@@ -928,17 +934,43 @@ function auto_login() {
   if ( isset( $_COOKIE[$conf['remember_me_name']] ) )
   {
     $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
-    if ($cookie!==false)
+    if ($cookie!==false and is_numeric(@$cookie['id']) )
     {
-      $key = calculate_auto_login_key($cookie['id']);
+      $key = calculate_auto_login_key( $cookie['id'], $username );
       if ($key!==false and $key===$cookie['key'])
       {
         log_user($cookie['id'], true);
+        trigger_action('login_success', $username);
         return true;
       }
     }
     setcookie($conf['remember_me_name'], '', 0, cookie_path());
   }
+  return false;
+}
+
+/**
+ * Tries to login a user given username and password (must be MySql escaped)
+ * return true on success
+ */
+function try_log_user($username, $password, $remember_me)
+{
+  global $conf;
+  // retrieving the encrypted password of the login submitted
+  $query = '
+SELECT '.$conf['user_fields']['id'].' AS id,
+       '.$conf['user_fields']['password'].' AS password
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
+;';
+  $row = mysql_fetch_assoc(pwg_query($query));
+  if ($row['password'] == $conf['pass_convert']($password))
+  {
+    log_user($row['id'], $remember_me);
+    trigger_action('login_success', $username);
+    return true;
+  }
+  trigger_action('login_failure', $username);
   return false;
 }
 

@@ -494,20 +494,8 @@ function ws_session_login($params, &$service)
   {
     return new PwgError(400, "This method requires POST");
   }
-
-  $username = $params['username'];
-  // retrieving the encrypted password of the login submitted
-  $query = '
-SELECT '.$conf['user_fields']['id'].' AS id,
-       '.$conf['user_fields']['password'].' AS password
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
-;';
-  $row = mysql_fetch_assoc(pwg_query($query));
-
-  if ($row['password'] == $conf['pass_convert']($params['password']))
+  if (try_log_user($params['username'], $params['password'],false))
   {
-    log_user($row['id'], false);
     return true;
   }
   return new PwgError(999, 'Invalid username/password');

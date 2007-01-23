@@ -717,5 +717,6 @@ function set_status_header($code, $text='')
   }
   header("HTTP/1.1 $code $text");
   header("Status: $code $text");
+  trigger_action('set_status_header', $code, $text);
 }
 ?>

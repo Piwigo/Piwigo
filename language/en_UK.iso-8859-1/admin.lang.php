@@ -106,7 +106,6 @@ $lang['Link all category elements to a new category'] = 'Link all category eleme
 $lang['Link all category elements to some existing categories'] = 'Link all category elements to some existing categories';
 $lang['Linked categories'] = 'Linked categories';
 $lang['Lock gallery'] = 'Lock gallery';
-$lang['Login history'] = 'User login history';
 $lang['Maintenance'] = 'Maintenance';
 $lang['Manage permissions for a category'] = 'Manage permissions for a category';
 $lang['Manage permissions for group "%s"'] = 'Manage permissions for group "%s"';

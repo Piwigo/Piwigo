@@ -82,10 +82,6 @@
           <li>
             <label><span class="property">{lang:Guests}</span><input type="checkbox" name="history_guest" {general.HISTORY_GUEST} /></label>
           </li>
-
-          <li>
-            <label><span class="property">{lang:Login history}</span><input type="checkbox" name="login_history" {general.LOGIN_HISTORY} /></label>
-          </li>
         </ul>
       </fieldset>
     </li>

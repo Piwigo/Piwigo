@@ -252,23 +252,6 @@ SELECT DISTINCT(id)
   return $items;
 }
 
-
-if (!function_exists('array_intersect_key')) {
-   function array_intersect_key()
-   {
-       $arrs = func_get_args();
-       $result = array_shift($arrs);
-       foreach ($arrs as $array) {
-           foreach ($result as $key => $v) {
-               if (!array_key_exists($key, $array)) {
-                   unset($result[$key]);
-               }
-           }
-       }
-       return $result;
-   }
-}
-
 /**
  * returns the LIKE sql clause corresponding to the quick search query $q
  * and the field $field. example q="john bill", field="file" will return

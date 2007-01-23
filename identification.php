@@ -45,24 +45,9 @@ if ( !empty($_GET['redirect']) )
 if (isset($_POST['login']))
 {
   $redirect_to = isset($_POST['redirect']) ? $_POST['redirect'] : '';
-  $username = mysql_escape_string($_POST['username']);
-  // retrieving the encrypted password of the login submitted
-  $query = '
-SELECT '.$conf['user_fields']['id'].' AS id,
-       '.$conf['user_fields']['password'].' AS password
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username'].' = \''.$username.'\'
-;';
-  $row = mysql_fetch_array(pwg_query($query));
-  if ($row['password'] == $conf['pass_convert']($_POST['password']))
+  $remember_me = isset($_POST['remember_me']) and $_POST['remember_me']==1;
+  if ( try_log_user($_POST['username'], $_POST['password'], $remember_me) )
   {
-    $remember_me = false;
-    if (isset($_POST['remember_me'])
-        and $_POST['remember_me'] == 1)
-    {
-      $remember_me = true;
-    }
-    log_user($row['id'], $remember_me);
     redirect(empty($redirect_to) ? make_index_url() : $redirect_to);
   }
   else
