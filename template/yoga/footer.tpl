@@ -1,5 +1,5 @@
 <div id="copyright">
- <a name="EoP" /> <!-- End of Page -->
+ <a name="EoP"></a> <!-- End of Page -->
  <!-- BEGIN debug -->
  {lang:generation_time} {debug.TIME} ({debug.NB_QUERIES} {lang:sql_queries_in} {debug.SQL_TIME}) -
  <!-- END debug -->
@@ -8,9 +8,9 @@
       contact us on http://phpwebgallery.net to find a solution on how
       to show the origin of the script...-->
 
-  <a class="button" href="{PHPWG_URL}" class="back" title="{lang:powered_by}" onclick="window.open(this.href, ''); return false;">
-  <img class="button" src="{pwg_root}{themeconf:icon_dir}/pwg_footer.png" alt="{lang:powered_by}">
-  </a>
+  {lang:powered_by} 
+  <a href="http://www.phpwebgallery.net" class="PWG">
+  <span class="P">Php</span><span class="W">Web</span><span class="G">Gallery</span></a>
   {VERSION}
   <!-- BEGIN contact -->
   - {lang:send_mail}
