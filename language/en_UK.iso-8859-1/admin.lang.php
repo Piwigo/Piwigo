@@ -166,6 +166,7 @@ $lang['Show info'] = 'Show info';
 $lang['Show number of comments'] = 'Show number of comments';
 $lang['Site manager'] = 'Site manager';
 $lang['Status'] = 'Status';
+$lang['Statistics'] = 'Statistics';
 $lang['Storage category'] = 'Storage category';
 $lang['Submit'] = 'Submit';
 $lang['Sum of rates'] = 'Sum of rates';
