@@ -179,10 +179,8 @@ if ($conf['gallery_locked'])
 
   if ( script_basename() != 'identification' and !is_admin() )
   {
-    //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
-    $page['root_path'] = cookie_path();
     echo $lang['gallery_locked_message']
-      .'<a href="'.get_root_url().'identification.php">.</a>';
+      .'<a href="'.get_absolute_root_url(false).'identification.php">.</a>';
     exit();
   }
 }
@@ -197,9 +195,7 @@ if ($user['is_the_guest'] and !$conf['guest_access']
                   )
     )
 {
-  //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
-  $page['root_path'] = cookie_path();
-  redirect (get_root_url().'identification.php');
+  redirect (get_absolute_root_url(false).'identification.php');
 }
 
 if ($conf['check_upgrade_feed']
@@ -220,10 +216,8 @@ SELECT id
   // which upgrades need to be applied?
   if (count(array_diff($existing, $applied)) > 0)
   {
-    //next line required if PATH_INFO (no ? in url) but won't work for scripts outside PWG
-    $page['root_path'] = cookie_path();
     $header_msgs[] = 'Some database upgrades are missing, '
-      .'<a href="'.get_root_url().'upgrade_feed.php">upgrade now</a>';
+      .'<a href="'.get_absolute_root_url(false).'upgrade_feed.php">upgrade now</a>';
   }
 }
 

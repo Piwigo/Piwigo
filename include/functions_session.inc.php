@@ -111,8 +111,25 @@ function cookie_path()
     $scr = $_SERVER['SCRIPT_NAME'];
   }
   $scr = substr($scr,0,strrpos( $scr,'/'));
+
   // add a trailing '/' if needed
-  return ($scr{strlen($scr)-1} == '/') ? $scr : $scr . '/';
+  $scr .= ($scr{strlen($scr)-1} == '/') ? '' : '/';
+  
+  if ( substr(PHPWG_ROOT_PATH,0,3)=='../')
+  { // this is maybe a plugin inside pwg directory
+    // TODO - what if it is an external script outside PWG ?
+    $scr = $scr.PHPWG_ROOT_PATH;
+    while (1)
+    {
+      $new = preg_replace('#[^/]+/\.\.(/|$)#', '', $scr);
+      if ($new==$scr)
+      {
+        break;
+      }
+      $scr=$new;
+    }
+  }
+  return $scr;
 }
 
 /**

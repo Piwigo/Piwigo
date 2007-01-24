@@ -60,7 +60,7 @@ if (isset($_POST['submit']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
       $username = $_POST['login'];
-      $admin_url = get_host_url().cookie_path()
+      $admin_url = get_absolute_root_url().
         .'admin.php?page=user_list&username='.$username;
 
       $content =

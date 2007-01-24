@@ -38,7 +38,7 @@ function get_root_url()
     $root_url = $page['root_path'];
   }
   else
-  {
+  {// TODO - add HERE the possibility to call PWG functions from external scripts
     $root_url = PHPWG_ROOT_PATH;
   }
   if ( dirname($root_url)!='.' )
@@ -52,17 +52,22 @@ function get_root_url()
 }
 
 /**
- * returns the url of the current host (e.g. http://www.toto.com )
- * TODO: if required by someone, treat https case
+ * returns the absolute url to the root of PWG
+ * @param boolean with_scheme if false - does not add http://toto.com
  */
-function get_host_url()
+function get_absolute_root_url($with_scheme=true)
 {
-  $url = "http://";
-  $url .= $_SERVER['HTTP_HOST'];
-  if ($_SERVER['SERVER_PORT']!=80)
+  // TODO - add HERE the possibility to call PWG functions from external scripts
+  $url = '';
+  if ($with_scheme)
   {
-    $url .= ':'.$_SERVER['SERVER_PORT'];
+    $url .= 'http://'.$_SERVER['HTTP_HOST'];
+    if ($_SERVER['SERVER_PORT']!=80)
+    {
+      $url .= ':'.$_SERVER['SERVER_PORT'];
+    }
   }
+  $url .= cookie_path();
   return $url;
 }
 
@@ -419,7 +424,7 @@ function set_make_full_url()
       $page['save_root_path']['path'] = $page['root_path'];
     }
     $page['save_root_path']['count'] = 1;
-    $page['root_path'] = get_host_url().cookie_path();
+    $page['root_path'] = get_absolute_root_url();
   }
   else
   {

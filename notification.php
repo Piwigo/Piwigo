@@ -51,8 +51,18 @@ INSERT INTO '.USER_FEED_TABLE.'
 ;';
 pwg_query($query);
 
-$feed_url=PHPWG_ROOT_PATH.'feed.php?feed='.$page['feed'];
-$feed_image_only_url=$feed_url.'&amp;image_only';
+
+$feed_url=PHPWG_ROOT_PATH.'feed.php';
+if ($user['is_the_guest'])
+{
+  $feed_image_only_url=$feed_url;
+  $feed_url .= '?feed='.$page['feed'];
+}
+else
+{
+  $feed_url .= '?feed='.$page['feed'];
+  $feed_image_only_url=$feed_url.'&amp;image_only';
+}
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |

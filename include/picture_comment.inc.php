@@ -209,8 +209,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $del_url = get_host_url().cookie_path()
-        .'comments.php?delete='.$comm['id'];
+      $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
       $content =
         'Author: '.$comm['author']."\n"
@@ -221,7 +220,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
       if ($comment_action!='validate')
       {
         $content .=
-          'Validate: '.get_host_url().cookie_path()
+          'Validate: '.get_absolute_root_url()
           .'comments.php?validate='.$comm['id'];
       }
       pwg_mail( get_webmaster_mail_address(), '',

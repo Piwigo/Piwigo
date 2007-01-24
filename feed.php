@@ -88,50 +88,44 @@ function ts_to_iso8601($ts)
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
 
-// clean $user array (include/user.inc.php has been executed)
-$user = array();
+$feed_id= isset($_GET['feed']) ? $_GET['feed'] : '';
+$image_only=isset($_GET['image_only']);
 
 // echo '<pre>'.generate_key(50).'</pre>';
-if (isset($_GET['feed'])
-    and preg_match('/^[A-Za-z0-9]{50}$/', $_GET['feed']))
+if ( !empty($feed_id) )
 {
   $query = '
-SELECT uf.user_id AS id,
-       ui.status,
-       uf.last_check,
-       u.'.$conf['user_fields']['username'].' AS username
-  FROM '.USER_FEED_TABLE.' AS uf
-    INNER JOIN '.USER_INFOS_TABLE.' AS ui
-      ON ui.user_id = uf.user_id
-    INNER JOIN '.USERS_TABLE.' AS u
-      ON u.'.$conf['user_fields']['id'].' = uf.user_id
-  WHERE uf.id = \''.$_GET['feed'].'\'
+SELECT user_id,
+       last_check
+  FROM '.USER_FEED_TABLE.'
+  WHERE id = \''.$feed_id.'\'
 ;';
-  $user = mysql_fetch_array(pwg_query($query));
+  $feed_row = mysql_fetch_assoc(pwg_query($query));
+  if ( empty($feed_row) )
+  {
+    page_not_found('Unknown/missing feed identifier');
+  }
+  if ($feed_row['user_id']!=$user['id'])
+  { // new user
+    $user = array();
+    $user = build_user( $feed_row['user_id'], true );
+  }
 }
-
-if ( empty($user) )
+else
 {
-  page_not_found('Unknown/missing feed identifier');
-}
-
-$user['forbidden_categories'] = calculate_permissions($user['id'],
-                                                      $user['status']);
-if ('' == $user['forbidden_categories'])
-{
-  $user['forbidden_categories'] = '0';
+  $image_only = true;
+  if (!$user['is_the_guest'])
+  {// auto session was created - so switch to guest
+    $user = array();
+    $user = build_user( $conf['guest_id'], true );
+  }
 }
 
 list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
 include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 
-$base_url = get_host_url().cookie_path();
-if ( strrpos($base_url, '/') !== strlen($base_url)-1 )
-{
-  $base_url .= '/';
-}
-$page['root_path']=$base_url;
+set_make_full_url();
 
 $rss = new UniversalFeedCreator();
 
@@ -144,9 +138,9 @@ $rss->link = $conf['gallery_url'];
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
-if ( !isset($_GET['image_only']) )
+if (!$image_only)
 {
-  $news = news($user['last_check'], $dbnow, true, true);
+  $news = news($feed_row['last_check'], $dbnow, true, true);
 
   if (count($news) > 0)
   {
@@ -173,19 +167,22 @@ if ( !isset($_GET['image_only']) )
     $query = '
 UPDATE '.USER_FEED_TABLE.'
   SET last_check = \''.$dbnow.'\'
-  WHERE id = \''.$_GET['feed'].'\'
+  WHERE id = \''.$feed_id.'\'
 ;';
     pwg_query($query);
   }
 }
 else
-{ // update the last check to avoid deletion by maintenance task
-  $query = '
-UPDATE '.USER_FEED_TABLE.'
-  SET last_check = \''.$dbnow.'\'
-  WHERE id = \''.$_GET['feed'].'\'
-;';
-  pwg_query($query);
+{
+  if ( !empty($feed_id) )
+  {// update the last check to avoid deletion by maintenance task
+    $query = '
+  UPDATE '.USER_FEED_TABLE.'
+    SET last_check = \''.$dbnow.'\'
+    WHERE id = \''.$feed_id.'\'
+  ;';
+    pwg_query($query);
+  }
 }
 
 $dates = get_recent_post_dates( 5, 6, 6);
@@ -195,7 +192,7 @@ foreach($dates as  $date_detail)
   $date = $date_detail['date_available'];
   $exploded_date = explode_mysqldt($date);
   $item = new FeedItem();
-  $item->title = l10n_dec('%d element added', '%d elements added', $date_detail['nb_elements']);
+  $item->title = l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements']);
   $item->title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
   $item->link = make_index_url(
         array(
@@ -211,7 +208,7 @@ foreach($dates as  $date_detail)
 
   $item->description .=
         '<li>'
-        .l10n_dec('%d element added', '%d elements added', $date_detail['nb_elements'])
+        .l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements'])
         .' ('
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
           .l10n('recent_pics_cat').'</a>'
@@ -238,8 +235,8 @@ foreach($dates as  $date_detail)
           '<li>'
           .get_cat_display_name_cache($cat['uppercats'])
           .' ('.
-          l10n_dec('%d element added',
-                   '%d elements added', $cat['img_count']).')'
+          l10n_dec('%d new element',
+                   '%d new elements', $cat['img_count']).')'
           .'</li>';
   }
   $item->description .= '</ul>';
