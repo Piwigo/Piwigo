@@ -30,56 +30,94 @@
 // |                           initialization                              |
 // +-----------------------------------------------------------------------+
 
-define('PHPWG_ROOT_PATH','./');
-include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+if (!defined('PHPWG_ROOT_PATH'))
+{//direct script access
+  define('PHPWG_ROOT_PATH','./');
+  include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 
-// +-----------------------------------------------------------------------+
-// | Check Access and exit when user status is not ok                      |
-// +-----------------------------------------------------------------------+
-check_status(ACCESS_CLASSIC);
+  // +-----------------------------------------------------------------------+
+  // | Check Access and exit when user status is not ok                      |
+  // +-----------------------------------------------------------------------+
+  check_status(ACCESS_CLASSIC);
 
-$userdata = $user;
+  $userdata = $user;
+
+  save_profile_from_post($userdata, $errors);
+
+  $title= $lang['customize_page_title'];
+  $page['body_id'] = 'theProfilePage';
+  include(PHPWG_ROOT_PATH.'include/page_header.php');
+
+  load_profile_in_template(
+    get_root_url().'profile.php', // action
+    make_index_url(), // for redirect
+    $userdata );
+
+  $template->assign_var('U_RETURN', make_index_url() );
+
+  // +-----------------------------------------------------------------------+
+  // |                             errors display                            |
+  // +-----------------------------------------------------------------------+
+  if (count($errors) != 0)
+  {
+    $template->assign_block_vars('errors',array());
+    foreach ($errors as $error)
+    {
+      $template->assign_block_vars('errors.error', array('ERROR'=>$error));
+    }
+  }
+  $template->set_filename('profile', 'profile.tpl');
+  $template->parse('profile');
+  include(PHPWG_ROOT_PATH.'include/page_tail.php');
+}
 
 //------------------------------------------------------ update & customization
-$errors = array();
-if (isset($_POST['validate']))
+function save_profile_from_post(&$userdata, &$errors)
 {
+  global $conf;
+  $errors = array();
+  
+  if (!isset($_POST['validate']))
+  {
+    return;
+  }
+
   $int_pattern = '/^\d+$/';
   if (empty($_POST['nb_image_line'])
       or (!preg_match($int_pattern, $_POST['nb_image_line'])))
   {
-    array_push($errors, $lang['nb_image_line_error']);
+    $errors[] = l10n('nb_image_line_error');
   }
 
   if (empty($_POST['nb_line_page'])
       or (!preg_match($int_pattern, $_POST['nb_line_page'])))
   {
-    array_push($errors, $lang['nb_line_page_error']);
+    $errors[] = l10n('nb_line_page_error');
   }
 
   if ($_POST['maxwidth'] != ''
       and (!preg_match($int_pattern, $_POST['maxwidth'])
            or $_POST['maxwidth'] < 50))
   {
-    array_push($errors, $lang['maxwidth_error']);
+    $errors[] = l10n('maxwidth_error');
   }
   if ($_POST['maxheight']
        and (!preg_match($int_pattern, $_POST['maxheight'])
              or $_POST['maxheight'] < 50))
   {
-    array_push($errors, $lang['maxheight_error']);
+    $errors[] = l10n('maxheight_error');
   }
   // periods must be integer values, they represents number of days
   if (!preg_match($int_pattern, $_POST['recent_period'])
       or $_POST['recent_period'] <= 0)
   {
-    array_push($errors, $lang['periods_error']);
+    $errors[] = l10n('periods_error') ;
   }
 
   $mail_error = validate_mail_address($_POST['mail_address']);
   if (!empty($mail_error))
   {
-    array_push($errors, $mail_error);
+    $errors[] = $mail_error;
   }
 
   if (!empty($_POST['use_new_pwd']))
@@ -87,21 +125,22 @@ if (isset($_POST['validate']))
     // password must be the same as its confirmation
     if ($_POST['use_new_pwd'] != $_POST['passwordConf'])
     {
-      array_push($errors,
-                 l10n('New password confirmation does not correspond'));
+      $errors[] = l10n('New password confirmation does not correspond');
     }
 
-    // changing password requires old password
-    $query = '
-SELECT '.$conf['user_fields']['password'].' AS password
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
-;';
-    list($current_password) = mysql_fetch_row(pwg_query($query));
-
-    if ($conf['pass_convert']($_POST['password']) != $current_password)
-    {
-      array_push($errors, l10n('Current password is wrong'));
+    if ( !defined('IN_ADMIN') )
+    {// changing password requires old password
+      $query = '
+  SELECT '.$conf['user_fields']['password'].' AS password
+    FROM '.USERS_TABLE.'
+    WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
+  ;';
+      list($current_password) = mysql_fetch_row(pwg_query($query));
+  
+      if ($conf['pass_convert']($_POST['password']) != $current_password)
+      {
+        $errors[] = l10n('Current password is wrong');
+      }
     }
   }
 
@@ -151,113 +190,96 @@ SELECT '.$conf['user_fields']['password'].' AS password
                  array($data));
 
     // redirection
-    redirect(make_index_url());
+    redirect($_POST['redirect']);
   }
 }
-// +-----------------------------------------------------------------------+
-// |                       page header and options                         |
-// +-----------------------------------------------------------------------+
 
-$title= $lang['customize_page_title'];
-$page['body_id'] = 'theProfilePage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
-$url_action = PHPWG_ROOT_PATH.'profile.php';
-
-//----------------------------------------------------- template initialization
-$template->set_filenames(array('profile_body'=>'profile.tpl'));
-
-$expand = ($userdata['expand'] == 'true') ? 'EXPAND_TREE_YES':'EXPAND_TREE_NO';
-
-$nb_comments =
-($userdata['show_nb_comments'] == 'true') ? 'NB_COMMENTS_YES':'NB_COMMENTS_NO';
-
-$template->assign_vars(
-  array(
-    'USERNAME'=>$userdata['username'],
-    'USERID'=>$userdata['id'],
-    'EMAIL'=>@$userdata['email'],
-    'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
-    'NB_ROW_PAGE'=>$userdata['nb_line_page'],
-    'RECENT_PERIOD'=>$userdata['recent_period'],
-    'MAXWIDTH'=>@$userdata['maxwidth'],
-    'MAXHEIGHT'=>@$userdata['maxheight'],
-
-    $expand=>'checked="checked"',
-    $nb_comments=>'checked="checked"',
-
-    'U_RETURN' => make_index_url(),
-
-    'F_ACTION'=>$url_action,
-    ));
-
-$blockname = 'template_option';
-
-foreach (get_pwg_themes() as $pwg_template)
+function load_profile_in_template($url_action, $url_redirect, $userdata)
 {
-  if (isset($_POST['submit']))
-  {
-    $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
-  }
-  else if ($userdata['template'].'/'.$userdata['theme'] == $pwg_template)
-  {
-    $selected = 'selected="selected"';
-  }
-  else
-  {
-    $selected = '';
-  }
+  global $template;
 
-  $template->assign_block_vars(
-    $blockname,
+  $template->set_filename('profile_content', 'profile_content.tpl');
+
+  $expand = ($userdata['expand'] == 'true') ? 'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+
+  $nb_comments =
+    ($userdata['show_nb_comments'] == 'true') ? 'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+
+  $template->assign_vars(
     array(
-      'VALUE'=> $pwg_template,
-      'CONTENT' => $pwg_template,
-      'SELECTED' => $selected
+      'USERNAME'=>$userdata['username'],
+      'USERID'=>$userdata['id'],
+      'EMAIL'=>@$userdata['email'],
+      'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
+      'NB_ROW_PAGE'=>$userdata['nb_line_page'],
+      'RECENT_PERIOD'=>$userdata['recent_period'],
+      'MAXWIDTH'=>@$userdata['maxwidth'],
+      'MAXHEIGHT'=>@$userdata['maxheight'],
+  
+      $expand=>'checked="checked"',
+      $nb_comments=>'checked="checked"',
+  
+      'REDIRECT' => $url_redirect,
+  
+      'F_ACTION'=>$url_action,
       ));
+
+  $blockname = 'template_option';
+
+  foreach (get_pwg_themes() as $pwg_template)
+  {
+    if (isset($_POST['submit']))
+    {
+      $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
+    }
+    else if ($userdata['template'].'/'.$userdata['theme'] == $pwg_template)
+    {
+      $selected = 'selected="selected"';
+    }
+    else
+    {
+      $selected = '';
+    }
+  
+    $template->assign_block_vars(
+      $blockname,
+      array(
+        'VALUE'=> $pwg_template,
+        'CONTENT' => $pwg_template,
+        'SELECTED' => $selected
+        ));
+  }
+
+  $blockname = 'language_option';
+
+  foreach (get_languages() as $language_code => $language_name)
+  {
+    if (isset($_POST['submit']))
+    {
+      $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
+    }
+    else if ($userdata['language'] == $language_code)
+    {
+      $selected = 'selected="selected"';
+    }
+    else
+    {
+      $selected = '';
+    }
+  
+    $template->assign_block_vars(
+      $blockname,
+      array(
+        'VALUE'=> $language_code,
+        'CONTENT' => $language_name,
+        'SELECTED' => $selected
+        ));
+  }
+  if ( !defined('IN_ADMIN') )
+  {
+    $template->assign_block_vars( 'not_admin', array() );
+  }
+  $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
-
-$blockname = 'language_option';
-
-foreach (get_languages() as $language_code => $language_name)
-{
-  if (isset($_POST['submit']))
-  {
-    $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
-  }
-  else if ($userdata['language'] == $language_code)
-  {
-    $selected = 'selected="selected"';
-  }
-  else
-  {
-    $selected = '';
-  }
-
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE'=> $language_code,
-      'CONTENT' => $language_name,
-      'SELECTED' => $selected
-      ));
-}
-
-// +-----------------------------------------------------------------------+
-// |                             errors display                            |
-// +-----------------------------------------------------------------------+
-if (count($errors) != 0)
-{
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error', array('ERROR'=>$error));
-  }
-}
-// +-----------------------------------------------------------------------+
-// |                           html code display                           |
-// +-----------------------------------------------------------------------+
-$template->assign_block_vars('profile',array());
-$template->parse('profile_body');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

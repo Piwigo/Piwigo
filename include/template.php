@@ -102,6 +102,14 @@ class Template {
     }
 
   /**
+   * Sets the template filename for handle.
+   */
+  function set_filename($handle, $filename)
+    {
+      return $this->set_filenames( array($handle=>$filename) );
+    }
+
+  /**
    * Sets the template filenames for handles. $filename_array should be a
    * hash of handle => filename pairs.
    */
@@ -115,7 +123,16 @@ class Template {
       reset($filename_array);
       while(list($handle, $filename) = each($filename_array))
       {
-        $this->files[$handle] = $this->make_filename($filename);
+        if (is_null($filename))
+        {
+          unset( $this->files[$handle] );
+        }
+        else
+        {
+          $this->files[$handle] = $this->make_filename($filename);
+        }
+        unset($this->compiled_code[$handle]);
+        unset($this->uncompiled_code[$handle]);
       }
 
       return true;

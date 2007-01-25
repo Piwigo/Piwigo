@@ -10,6 +10,7 @@
     <legend>{lang:Add a user}</legend>
     <label>{lang:Username} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{lang:Password} <input type="text" name="password" /></label>
+    <label>{lang:Email address} <input type="text" name="email" /></label>
     <input type="submit" name="submit_add" value="{lang:submit}" {TAG_INPUT_ENABLED} />
   </fieldset>
 </form>
@@ -69,11 +70,11 @@
   <tr class="throw">
     <th>&nbsp;</th>
     <th>{lang:Username}</th>
-    <th>{L_STATUS}</th>
+    <th>{lang:user_status}</th>
     <th>{lang:Email address}</th>
     <th>{lang:Groups}</th>
-    <th>{L_PROPERTIES}</th>
-    <th>{L_ACTIONS}</th>
+    <th>{lang:properties}</th>
+    <th>{lang:actions}</th>
   </tr>
   <!-- BEGIN user -->
   <tr class="{user.CLASS}">
@@ -84,7 +85,8 @@
     <td>{user.GROUPS}</td>
     <td>{user.PROPERTIES}</td>
     <td style="text-align:center;">
-      <a href="{user.U_PERM}"><img src="{themeconf:icon_dir}/permissions.png" class="button" style="border:none" alt="{L_PERMISSIONS}" title="{L_PERMISSIONS}" /></a>
+      <a href="{user.U_PERM}"><img src="{themeconf:icon_dir}/permissions.png" class="button" style="border:none" alt="{lang:permissions}" title="{lang:permissions}" /></a>
+      <a href="{user.U_PROFILE}"><img src="{themeconf:icon_dir}/edit_s.png" class="button" style="border:none" alt="{lang:Profile}" title="{lang:Profile}" /></a>
     </td>
   </tr>
   <!-- END user -->
@@ -104,7 +106,7 @@
 
   <table>
     <tr>
-      <td>{L_STATUS}</td>
+      <td>{lang:Status}</td>
       <td>
         <label><input type="radio" name="status_action" value="leave" checked="checked" /> {lang:leave}</label>
         <label><input type="radio" name="status_action" value="set" id="status_action_set" /> {lang:set to}</label>
@@ -165,7 +167,7 @@
 
 <!-- Properties -->
 <fieldset>
-  <legend>{L_PROPERTIES}</legend>
+  <legend>{lang:properties}</legend>
 
   <table>
 
@@ -190,7 +192,7 @@
 <table>
 
   <tr>
-    <td>{L_NB_IMAGE_LINE}</td>
+    <td>{lang:nb_image_per_row}</td>
     <td>
       <label><input type="radio" name="nb_image_line_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set" /> {lang:set to}</label>
@@ -200,7 +202,7 @@
   </tr>
 
   <tr>
-    <td>{L_NB_LINE_PAGE}</td>
+    <td>{lang:nb_row_per_page}</td>
     <td>
       <label><input type="radio" name="nb_line_page_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="nb_line_page_action" value="set" id="nb_line_page_action_set" /> {lang:set to}</label>
@@ -210,7 +212,7 @@
   </tr>
 
   <tr>
-    <td>{L_TEMPLATE}</td>
+    <td>{lang:theme}</td>
     <td>
       <label><input type="radio" name="template_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="template_action" value="set" id="template_action_set" /> {lang:set to}</label>
@@ -236,7 +238,7 @@
   </tr>
 
   <tr>
-    <td>{L_RECENT_PERIOD}</td>
+    <td>{lang:recent_period}</td>
     <td>
       <label><input type="radio" name="recent_period_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="recent_period_action" value="set" id="recent_period_action_set" /> {lang:set to}</label>
@@ -246,7 +248,7 @@
   </tr>
 
   <tr>
-    <td>{L_EXPAND}</td>
+    <td>{lang:auto_expand}</td>
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked" /> {lang:leave}</label>
       / {lang:set to}
@@ -256,7 +258,7 @@
   </tr>
 
   <tr>
-    <td>{L_SHOW_NB_COMMENTS}</td>
+    <td>{lang:show_nb_comments}</td>
     <td>
       <label><input type="radio" name="show_nb_comments" value="leave" checked="checked" /> {lang:leave}</label>
       / {lang:set to}
@@ -266,7 +268,7 @@
   </tr>
 
   <tr>
-    <td>{L_MAXWIDTH}</td>
+    <td>{lang:maxwidth}</td>
     <td>
       <label><input type="radio" name="maxwidth_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="maxwidth_action" value="unset" /> {lang:unset}</label>
@@ -278,7 +280,7 @@
 
 
   <tr>
-    <td>{L_MAXHEIGHT}</td>
+    <td>{lang:maxheight}</td>
     <td>
       <label><input type="radio" name="maxheight_action" value="leave" checked="checked" /> {lang:leave}</label>
       <label><input type="radio" name="maxheight_action" value="unset" /> {lang:unset}</label>

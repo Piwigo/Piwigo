@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -60,7 +60,7 @@ if (isset($_POST['submit']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
       $username = $_POST['login'];
-      $admin_url = get_absolute_root_url().
+      $admin_url = get_absolute_root_url()
         .'admin.php?page=user_list&username='.$username;
 
       $content =

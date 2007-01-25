@@ -193,7 +193,8 @@ $page['direction_items'] = array(
 
 if (isset($_POST['submit_add']))
 {
-  $page['errors'] = register_user($_POST['login'], $_POST['password'], '');
+  $page['errors'] = register_user(
+    $_POST['login'], $_POST['password'], $_POST['email']);
 
   if (count($page['errors']) == 0)
   {
@@ -455,25 +456,6 @@ else
 
 $template->assign_vars(
   array(
-    'L_AUTH_USER'=>$lang['permuser_only_private'],
-    'L_GROUP_ADD_USER' => $lang['group_add_user'],
-    'L_STATUS'=>$lang['user_status'],
-    'L_ORDER_BY' => $lang['order_by'],
-    'L_ACTIONS' => $lang['actions'],
-    'L_PROPERTIES' => $lang['properties'],
-    'L_PERMISSIONS' => $lang['permissions'],
-    'L_USERS_LIST' => $lang['title_liste_users'],
-    'L_NB_IMAGE_LINE' => $lang['nb_image_per_row'],
-    'L_NB_LINE_PAGE' => $lang['nb_row_per_page'],
-    'L_TEMPLATE' => $lang['theme'],
-    'L_RECENT_PERIOD' => $lang['recent_period'],
-    'L_EXPAND' => $lang['auto_expand'],
-    'L_SHOW_NB_COMMENTS' => $lang['show_nb_comments'],
-    'L_MAXWIDTH' => $lang['maxwidth'],
-    'L_MAXHEIGHT' => $lang['maxheight'],
-    'L_DELETE' => $lang['user_delete'],
-    'L_DELETE_HINT' => $lang['user_delete_hint'],
-
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
 
     'F_ADD_ACTION' => $base_url,
@@ -773,8 +755,8 @@ $template->assign_vars(array('NAVBAR' => $navbar));
 // |                               user list                               |
 // +-----------------------------------------------------------------------+
 
-$profile_url = PHPWG_ROOT_PATH.'admin.php?page=profile&amp;user_id=';
-$perm_url = PHPWG_ROOT_PATH.'admin.php?page=user_perm&amp;user_id=';
+$profile_url = get_root_url().'admin.php?page=profile&amp;user_id=';
+$perm_url = get_root_url().'admin.php?page=user_perm&amp;user_id=';
 
 foreach ($page['filtered_users'] as $num => $local_user)
 {
@@ -814,7 +796,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
       'ID' => $local_user['id'],
       'CHECKED' => $checked,
-      'U_MOD' => $profile_url.$local_user['id'],
+      'U_PROFILE' => $profile_url.$local_user['id'],
       'U_PERM' => $perm_url.$local_user['id'],
       'USERNAME' => $local_user['username'],
       'STATUS' => $lang['user_status_'.$local_user['status']].(($local_user['adviser'] == 'true') ? ' ['.$lang['adviser'].']' : ''),
