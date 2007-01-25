@@ -5,7 +5,7 @@
 
 <ul class="categoryActions">
   <!-- BEGIN jumpto -->
-  <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li>
+  <li><a href="{jumpto.URL}" title="{lang:jump to image}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to image}" /></a></li>
   <!-- END jumpto -->
   <li><a href="{U_SYNC}" title="{lang:synchronize metadata}" {TAG_INPUT_ENABLED}><img src="{themeconf:icon_dir}/sync_metadata.png" class="button" alt="{lang:synchronize}" /></a></li>
 </ul>

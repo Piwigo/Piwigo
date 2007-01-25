@@ -139,15 +139,6 @@ DELETE
 //----------------------------------------------------- template initialization
 $template->set_filenames(array('waiting'=>'admin/waiting.tpl'));
 $template->assign_vars(array(
-  'L_AUTHOR'=>$lang['author'],
-  'L_THUMBNAIL'=>$lang['thumbnail'],
-  'L_DATE'=>$lang['date'],
-  'L_FILE'=>$lang['file'],
-  'L_CATEGORY'=>$lang['category'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_RESET'=>$lang['reset'],
-  'L_DELETE'=>$lang['delete'],
-
   'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])
   ));
 

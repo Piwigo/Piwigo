@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <div id="menubar">
   <dl>
-    <dt>{lang:links}</dt>
+    <dt>{lang:Links}</dt>
     <dd>
       <ul>
         <li><a href="{U_RETURN}">{lang:home}</a></li>

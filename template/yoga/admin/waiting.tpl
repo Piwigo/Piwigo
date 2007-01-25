@@ -4,11 +4,11 @@
 <form action="{F_ACTION}" method="post" id="waiting">
   <table style="width:100%;" >
     <tr class="throw">
-      <th style="width:20%;">{L_CATEGORY}</th>
-      <th style="width:20%;">{L_DATE}</th>
-      <th style="width:20%;">{L_FILE}</th>
-      <th style="width:20%;">{L_THUMBNAIL}</th>
-      <th style="width:20%;">{L_AUTHOR}</th>
+      <th style="width:20%;">{lang:category}</th>
+      <th style="width:20%;">{lang:date}</th>
+      <th style="width:20%;">{lang:file}</th>
+      <th style="width:20%;">{lang:thumbnail}</th>
+      <th style="width:20%;">{lang:Author}</th>
       <th style="width:1px;">&nbsp;</th>
     </tr>
     <!-- BEGIN picture -->

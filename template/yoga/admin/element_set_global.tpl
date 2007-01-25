@@ -89,7 +89,7 @@
     </tr>
     
     <tr>
-      <td>{lang:author}</td>
+      <td>{lang:Author}</td>
       <td>
         <input type="radio" name="author_action" value="leave" checked="checked" /> {lang:leave}
         <input type="radio" name="author_action" value="unset" /> {lang:unset}
@@ -109,7 +109,7 @@
     </tr>
 
     <tr>
-      <td>{lang:creation date}</td>
+      <td>{lang:Creation date}</td>
       <td>
         <input type="radio" name="date_creation_action" value="leave" checked="checked" /> {lang:leave}
         <input type="radio" name="date_creation_action" value="unset" /> {lang:unset}

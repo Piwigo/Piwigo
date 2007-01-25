@@ -21,7 +21,7 @@
     <li class="categoryLi"> <!-- category {category.ID} -->
 
       <ul class="categoryActions">
-        <li><a href="{categories.category.U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li> 
+        <li><a href="{categories.category.U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to category}" /></a></li>
         <li><a href="{categories.category.U_EDIT}" title="{lang:edit category informations}"><img src="{themeconf:icon_dir}/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
         <!-- BEGIN elements -->
         <li><a href="{categories.category.elements.URL}" title="{lang:manage category elements}"><img src="{themeconf:icon_dir}/category_elements.png" class="button" alt="{lang:elements}" /></a></li>

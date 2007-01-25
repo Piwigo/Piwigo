@@ -9,7 +9,7 @@
 <h3>{CATEGORIES_NAV}</h3>
 
 <ul class="categoryActions">
-  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to}" /></a></li>
+  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to category}" /></a></li>
   <!-- BEGIN elements -->
   <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="{themeconf:icon_dir}/category_elements.png" class="button" alt="{lang:elements}" /></a></li>
   <!-- END elements -->

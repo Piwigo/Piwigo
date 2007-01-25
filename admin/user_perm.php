@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -47,8 +47,7 @@ if (isset($_GET['user_id']) and is_numeric($_GET['user_id']))
 }
 else
 {
-  echo l10n('user_id URL parameter is missing');
-  exit();
+  die('user_id URL parameter is missing');
 }
 
 // +-----------------------------------------------------------------------+
