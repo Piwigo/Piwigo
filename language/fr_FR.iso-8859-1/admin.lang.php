@@ -479,6 +479,7 @@ $lang['user_status_normal'] = 'Visiteur';
 $lang['user_status_webmaster'] = 'Webmestre';
 $lang['username'] = 'nom utilisateur';
 $lang['users'] = 'Utilisateurs';
+$lang['virtual_category'] = 'Catégorie virtuelle';
 $lang['visitors'] = 'Visiteurs';
 $lang['w_day'] = 'Jour';
 $lang['waiting'] = 'En attente';

@@ -18,7 +18,11 @@
   <ul class="categoryUl">
 
     <!-- BEGIN category -->
-    <li class="categoryLi"> <!-- category {category.ID} -->
+    <li class="categoryLi
+          <!-- BEGIN virtual -->
+          {categories.category.virtual.CLASS}
+          <!-- END virtual -->
+    "> <!-- category {category.ID} -->
 
       <ul class="categoryActions">
         <li><a href="{categories.category.U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to category}" /></a></li>
@@ -35,7 +39,12 @@
         <!-- END delete -->
       </ul>
 
-      <p><strong><a href="{categories.category.U_CHILDREN}" title="{lang:manage sub-categories}">{categories.category.NAME}</a></strong></p>
+      <p>
+      <strong><a href="{categories.category.U_CHILDREN}" title="{lang:manage sub-categories}">{categories.category.NAME}</a></strong>
+      <!-- BEGIN virtual -->
+      <img src="{themeconf:icon_dir}/virt_category.png" class="button" alt="{lang:virtual_category}" /></a></li>
+      <!-- END virtual -->
+      </p>
 
       <p>
         <label>

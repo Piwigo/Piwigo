@@ -295,6 +295,12 @@ foreach ($categories as $category)
         'URL'=>$self_url.'&amp;delete='.$category['id']
         )
       );
+    $template->assign_block_vars(
+      'categories.category.virtual',
+      array(
+        'CLASS' => 'virtual_cat',
+        )
+      );
   }
 
   if ($category['nb_images'] > 0)
