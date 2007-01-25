@@ -27,6 +27,47 @@
 /**** IMPLEMENTATION OF WEB SERVICE METHODS ***********************************/
 
 /**
+ * ws_add_controls 
+ * returns additionnal controls if requested
+ * usable for 99% of Web Service methods 
+ * 
+ * - Args  
+ * $params: is where clauses
+ * $img_tbl: indicates if phpwebgallery_images is selected
+ * $partner: is the key
+ * $tbl_name: is the alias_name in the query (sometimes called correlation name)
+ * - Logic
+ * Access_control is not active: Return 
+ * Key is incorrect: Return 0 = 1 (False condition for MySQL)  
+ * One of Params doesn't match with type of request: return 0 = 1 again 
+ * Access list(id/cat/tag) is converted in expended image-id list
+ * image-id list: converted to an in-where-clause
+ *   
+ * The additionnal in-where-clause is return
+ */       
+function ws_add_controls( $params, $img_tbl=false, $partner='', $tbl_name='' )
+{
+  global $conf;
+  if ( !$conf['ws_access_control'] )
+  {
+    return ' 1 = 1 '; // No controls are requested 
+  }
+  // Step 1 - Found Partner
+  $query = '
+SELECT FROM '.WEB_SERVICES_ACCESS_TABLE."
+ WHERE `name` = '$partner';";
+$result = pwg_query($query);
+  if ( mysql_num_rows( pwg_query($query) ) = 0 )
+  {     
+    return ' 0 = 1 '; // Unknown partner
+  }
+  // Step 2 - Clauses / Request matching
+  //     Restrict Request has to be redefined first
+  // Step 3 - Target restrict
+  return $addings;
+}
+
+/**
  * returns a "standard" (for our web service) array of sql where clauses that
  * filters the images (images table only)
  */
@@ -76,6 +117,13 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   if ( $params['f_with_thumbnail'] )
   {
     $clauses[] = $tbl_name.'tn_ext IS NOT NULL';
+  }
+  // Squared picture to show to rvelices how to solve that kind of request
+  if ( $params['f_square_ratio'] )
+  {
+    $clauses[] = $tbl_name.'width/'.$tbl_name.'height BETWEEN '
+               . $params['f_square_ratio'] . ' AND '
+               . (2 - $params['f_square_ratio']) ;
   }
   return $clauses;
 }
@@ -200,6 +248,11 @@ SELECT id, name, image_order
     $where_clauses[] = 'category_id IN ('
       .implode(',', array_keys($cats) )
       .')';
+
+// example of ws_add_controls call   
+//  $where_clause[] = 
+//          ws_add_controls call( $params, true, $partner, $tbl_name='i.' );
+    
     $order_by = ws_std_image_sql_order($params, 'i.');
     if (empty($order_by))
     {// TODO check for category order by (image_order)
