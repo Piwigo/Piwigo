@@ -31,7 +31,7 @@
 //  -  Does Web Service working properly?
 //  -  Does any access return something really?
 //     Give a way to check to the webmaster...
-// These questions are one of module name explainations (checker).
+// These questions are one of module name explanations (checker).
 
 if((!defined("PHPWG_ROOT_PATH")) or (!$conf['allow_web_services']))
 {
@@ -39,11 +39,17 @@ if((!defined("PHPWG_ROOT_PATH")) or (!$conf['allow_web_services']))
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
+/**
+ * include ws_functions in only managed from ws_checker but 
+ * if ws_methods would be generalized in the code this one would be promoted
+ * somewhere else... Maybe very soon because it can be in plugins.
+ * */ 
+include_once( PHPWG_ROOT_PATH .'include/ws_functions.inc.php' );
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
-
 
 // accepted queries
 $req_type_list = official_req();
@@ -66,7 +72,7 @@ $add_normal = 'true'; // ( $_POST['add_normal'] == 'true' ) ? 'true':'false';
 $add_limit = ( is_numeric($_POST['add_limit']) ) ? $_POST['add_limit']:1; 
 $add_comment = htmlspecialchars( $_POST['add_comment'], ENT_QUOTES);
 if ( strlen($add_partner) < 8 )
-{
+{ // TODO What? Complete with some MD5...
 }
   $query = '
 INSERT INTO '.WEB_SERVICES_ACCESS_TABLE.' 

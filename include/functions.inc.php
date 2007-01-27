@@ -34,7 +34,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
-include_once( PHPWG_ROOT_PATH .'include/functions_webserv.inc.php' );
 
 //----------------------------------------------------------- generic functions
 

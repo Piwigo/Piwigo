@@ -59,7 +59,7 @@ SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
  WHERE `name` = '$partner'
    AND NOW() <= end; ";
 $result = pwg_query($query);
-  if ( mysql_num_rows( $result ) = 0 )
+  if ( mysql_num_rows( $result ) == 0 )
   {     
     return ' 0 = 1 '; // Unknown partner or Obsolate agreement
   }
@@ -819,6 +819,130 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
           array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
       )
     );
+}
+
+/**
+ * official_req returns the managed requests list in array format
+ * FIXME A New list need to be build for ws_checker.php
+ * returns array of authrorized request/methods
+ * */   
+function official_req()
+{
+return array(
+    'random'                              /* Random order */
+  , 'list'               /* list on MBt & z0rglub request */
+  , 'maxviewed'             /* hit > 0 and hit desc order */
+  , 'recent'        /* recent = Date_available desc order */
+  , 'highrated'            /* avg_rate > 0 and desc order */
+  , 'oldest'                  /* Date_available asc order */
+  , 'lessviewed'                         /* hit asc order */
+  , 'lowrated'                      /* avg_rate asc order */
+  , 'undescribed'                  /* description missing */
+  , 'unnamed'                         /* new name missing */
+  , 'portraits'     /* width < height (portrait oriented) */
+  , 'landscapes'   /* width > height (landscape oriented) */
+  , 'squares'             /* width ~ height (square form) */
+);
+}
+
+/**
+ * expand_id_list($ids) convert a human list expression to a full ordered list
+ * example : expand_id_list( array(5,2-3,2) ) returns array( 2, 3, 5)
+ * */ 
+function expand_id_list($ids)
+{
+    $tid = array();
+    foreach ( $ids as $id )
+    {
+      if ( is_numeric($id) )
+      {
+        $tid[] = (int) $id;
+      }
+      else
+      {
+        $range = explode( '-', $id );
+        if ( is_numeric($range[0]) and is_numeric($range[1]) )
+        {
+          $from = min($range[0],$range[1]);
+          $to = max($range[0],$range[1]);
+          for ($i = $from; $i <= $to; $i++) 
+          {
+            $tid[] = (int) $i;
+          }
+        }
+      }
+    }
+    $result = array_unique ($tid); // remove duplicates...
+    sort ($result);
+    return $result;
+}
+
+/**
+ * check_target($string) verifies and corrects syntax of target parameter
+ * example : check_target(cat/23,24,24,24,25,27) returns cat/23-25,27
+ * */ 
+function check_target($list)
+{
+  if ( $list !== '' )
+  {
+    $type = explode('/',$list); // Find type list
+    if ( !in_array($type[0],array('list','cat','tag') ) )
+    {
+      $type[0] = 'list'; // Assume an id list
+    } 
+    $ids = explode( ',',$type[1] );
+    $list = $type[0] . '/';
+
+    // 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
+
+    $result = expand_id_list( $ids ); 
+
+    // 1,2,3,4,5,6,9,10,11,12,13,21,22, 
+    // I would like
+    // 1-6,9-13,21-22
+    $serial[] = $result[0]; // To be shifted                      
+    foreach ($result as $k => $id)
+    {
+      $next_less_1 = (isset($result[$k + 1]))? $result[$k + 1] - 1:-1;
+      if ( $id == $next_less_1 and end($serial)=='-' )
+      { // nothing to do 
+      }
+      elseif ( $id == $next_less_1 )
+      {
+        $serial[]=$id;
+        $serial[]='-';
+      }
+      else
+      {
+        $serial[]=$id;  // end serie or non serie
+      }
+    }
+    $null = array_shift($serial); // remove first value
+    $list .= array_shift($serial); // add the real first one
+    $separ = ',';
+    foreach ($serial as $id)
+    {
+      $list .= ($id=='-') ? '' : $separ . $id;
+      $separ = ($id=='-') ? '-':','; // add comma except if hyphen
+    }
+  }
+  return $list;
+}
+
+/**
+ * converts a cat-ids array in image-ids array
+ * FIXME Function which should already exist somewhere else
+ * */  
+function get_image_ids_for_cats($cat_ids)
+{
+  $cat_list = implode(',', $cat_ids);
+  $ret_ids = array();
+  $query = '
+  SELECT DISTINCT image_id 
+    FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id in ('.$cat_list.')
+  ;';
+  return $array_from_query($query, 'image_id');
 }
 
 ?>
