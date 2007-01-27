@@ -42,7 +42,7 @@
       <p>
       <strong><a href="{categories.category.U_CHILDREN}" title="{lang:manage sub-categories}">{categories.category.NAME}</a></strong>
       <!-- BEGIN virtual -->
-      <img src="{themeconf:icon_dir}/virt_category.png" class="button" alt="{lang:virtual_category}" /></a></li>
+      <img src="{themeconf:icon_dir}/virt_category.png" class="button" alt="{lang:virtual_category}" />
       <!-- END virtual -->
       </p>
 

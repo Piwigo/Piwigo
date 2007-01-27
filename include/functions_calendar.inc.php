@@ -54,6 +54,15 @@ INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
       }
       $inner_sql .= '
 WHERE category_id IN ('.implode(',',$sub_ids).')';
+      $inner_sql .= '
+    '.get_sql_condition_FandF
+      (
+        array
+          (
+            'visible_images' => 'id'
+          ),
+        'AND', false
+      );
     }
     else
     {
@@ -64,7 +73,7 @@ WHERE category_id IN ('.implode(',',$sub_ids).')';
           (
             'forbidden_categories' => 'category_id',
             'visible_categories' => 'category_id',
-            'visible_images' => 'image_id'
+            'visible_images' => 'id'
           ),
         'WHERE', true
       );

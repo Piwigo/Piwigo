@@ -158,13 +158,6 @@ function ws_std_image_sql_filter( $params, $tbl_name='' )
   {
     $clauses[] = $tbl_name.'tn_ext IS NOT NULL';
   }
-  // Squared picture to show to rvelices how to solve that kind of request
-  if ( $params['f_square_ratio'] )
-  {
-    $clauses[] = $tbl_name.'width/'.$tbl_name.'height BETWEEN '
-               . $params['f_square_ratio'] . ' AND '
-               . (2 - $params['f_square_ratio']) ;
-  }
   return $clauses;
 }
 
