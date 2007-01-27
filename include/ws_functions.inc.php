@@ -32,10 +32,10 @@
  * usable for 99% of Web Service methods 
  * 
  * - Args  
- * $params: is where clauses
- * $img_tbl: indicates if phpwebgallery_images is selected
+ * $method: is the requested method
  * $partner: is the key
  * $tbl_name: is the alias_name in the query (sometimes called correlation name)
+ *            null if !getting picture informations 
  * - Logic
  * Access_control is not active: Return 
  * Key is incorrect: Return 0 = 1 (False condition for MySQL)  
@@ -45,26 +45,66 @@
  *   
  * The additionnal in-where-clause is return
  */       
-function ws_add_controls( $params, $img_tbl=false, $partner='', $tbl_name='' )
+function ws_add_controls( $method, $tbl_name )
 {
-  global $conf;
+  global $conf, $partner;
   if ( !$conf['ws_access_control'] )
   {
     return ' 1 = 1 '; // No controls are requested 
   }
-  // Step 1 - Found Partner
+  
+// Is it an active Partner? 
   $query = '
-SELECT FROM '.WEB_SERVICES_ACCESS_TABLE."
- WHERE `name` = '$partner';";
+SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
+ WHERE `name` = '$partner'
+   AND NOW() <= end; ";
 $result = pwg_query($query);
-  if ( mysql_num_rows( pwg_query($query) ) = 0 )
+  if ( mysql_num_rows( $result ) = 0 )
   {     
-    return ' 0 = 1 '; // Unknown partner
+    return ' 0 = 1 '; // Unknown partner or Obsolate agreement
   }
-  // Step 2 - Clauses / Request matching
-  //     Restrict Request has to be redefined first
-  // Step 3 - Target restrict
-  return $addings;
+  
+  $row = mysql_fetch_array($result);
+
+// Method / Request matching
+// Generic is not ready 
+// For generic you can say... tags. or categories. or images. maybe?
+  $filter = $row['request'];
+  $request_method = substr($method, 0, strlen($filter)) ;
+  if ( $filter !== $filter_method )
+  {
+    return ' 0 = 1'; // Unauthorized method request
+  }
+
+// Target restrict
+// 3 cases: list, cat or tag
+// Behind / we could found img-ids, cat-ids or tag-ids
+  $target = $row['access'];
+  list($type, $str_ids) = explode('/',$target); // Find type list
+
+  $ids = explode( ',',$str_ids );
+// (array) 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
+  $arr_ids = expand_id_list( $ids );
+  $addings = implode(',', $arr_ids); 
+// (string) 1,2,3,4,5,6,9,10,11,12,13,21,22, 
+  if ( $type = 'list')
+  {
+    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
+  }
+  
+  if ( $type = 'cat' )
+  {
+    $addings = implode(',', get_image_ids_for_cats($arr_ids));
+    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
+  }
+  
+  if ( $type = 'tag' )
+  { 
+    $addings = implode(',', get_image_ids_for_tags($arr_ids, 'OR'));
+    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
+  }
+  // Unmanaged new type?
+  return ' 0 = 1 '; // ??? 
 }
 
 /**
@@ -190,6 +230,9 @@ function ws_std_get_urls($image_row)
 
 function ws_getVersion($params, &$service)
 {
+//  Needed for security reason... Maybe???
+//  $where_clause[] = 
+//          ws_add_controls( 'getVersion', null );
   return PHPWG_VERSION;
 }
 
@@ -249,9 +292,9 @@ SELECT id, name, image_order
       .implode(',', array_keys($cats) )
       .')';
 
-// example of ws_add_controls call   
+//  Mandatory 
 //  $where_clause[] = 
-//          ws_add_controls call( $params, true, $partner, $tbl_name='i.' );
+//          ws_add_controls( 'categories.getImages', 'i.' );
     
     $order_by = ws_std_image_sql_order($params, 'i.');
     if (empty($order_by))
@@ -371,6 +414,11 @@ function ws_categories_getList($params, &$service)
     $where[] = 'id NOT IN ('.$user['forbidden_categories'].')';
   }
 
+// To ONLY build external links maybe ???  
+//  $where_clause[] = 
+//          ws_add_controls( 'categories.getList', null );
+// Making links in a Blog...
+
   $query = '
 SELECT id, name, uppercats, global_rank,
     max_date_last, count_images AS nb_images, count_categories AS nb_categories
@@ -416,6 +464,9 @@ function ws_images_getInfo($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
+// Mandatory (No comment)  
+//  $where_clause[] = 
+//          ws_add_controls( 'images.getInfo', '' );  
   $query='
 SELECT * FROM '.IMAGES_TABLE.'
   WHERE id='.$params['image_id'].
@@ -648,7 +699,7 @@ function ws_tags_getImages($params, &$service)
 
   $image_ids = array();
   $image_tag_map = array();
-
+  
   if ( !empty($tag_ids) )
   { // build list of image ids with associated tags per image
     if ($params['tag_mode_and'])
@@ -686,6 +737,10 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
         '', true
       );
     $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
+// Mandatory  
+//  $where_clause[] = 
+//          ws_add_controls( 'tags.getImages', '' );  
+
     $order_by = ws_std_image_sql_order($params);
     if (empty($order_by))
     {

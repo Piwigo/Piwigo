@@ -129,7 +129,7 @@ function check_target($list)
 
 
 // FIXME Function which could already exist somewhere else 
-function convert_catlist($cat_ids)
+function get_image_ids_for_cats($cat_ids)
 {
   $cat_list = implode(',', $cat_ids);
   $ret_ids = array();
@@ -138,11 +138,6 @@ function convert_catlist($cat_ids)
     FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id in ('.$cat_list.')
   ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $ret_ids[] = $row['image_id'];
-  }
-  return $ret_ids;
+  return $array_from_query($query, 'image_id');
 }
 ?>
