@@ -37,8 +37,8 @@
           <label for="Access">{lang:Target}</label>
         </td>
         <td>
-          <input type="text" maxlength="128" size="35" name="add_access"
-            id="add_access" value="{F_ADD_ACCESS}"
+          <input type="text" maxlength="128" size="35" name="add_target"
+            id="add_target" value="{F_ADD_ACCESS}"
             title="{lang:Facultative and restrictive option}" />
           <i><small> ({lang:Access: see help text for more})
           </small></i>
@@ -60,7 +60,7 @@
             </option> 
             <!-- END add_request -->
           </select> 
-          <i><small> ({lang:ws_Request})</small></i>
+          <i><small> ({lang:ws_Methods})</small></i>
         </td>
       </tr>
 
@@ -200,11 +200,8 @@
         <th>&nbsp;</th>
         <th>{lang:ws_KeyName}</th>
         <th>{lang:ws_Access}</th>
-        <!-- <th>{lang:ws_Start}</th> -->
         <th>{lang:ws_End}</th>
         <th>{lang:ws_Request}</th>
-        <!-- <th>{lang:ws_High}</th> -->
-        <!-- <th>{lang:ws_Normal}</th> -->
         <th>{lang:ws_Limit}</th>
         <th>{lang:ws_Comment}</th>
       </tr>
@@ -215,12 +212,9 @@
             value="{acc_list.access.ID}" id="selection-{acc_list.access.ID}" />
         </td>
         <td><label for="selection-{acc_list.access.ID}">{acc_list.access.NAME}</label></td>
-        <td>{acc_list.access.ACCESS}</td>
-        <!-- <td>{acc_list.access.START}</td> -->
+        <td>{acc_list.access.TARGET}</td>
         <td>{acc_list.access.END}</td>
-        <td>{acc_list.access.FORCE}</td>
-        <!-- <td>{acc_list.access.HIGH}</td> -->
-        <!-- <td>{acc_list.access.NORMAL}</td> -->
+        <td>{acc_list.access.REQUEST}</td>
         <td>{acc_list.access.LIMIT}</td>
         <td>{acc_list.access.COMMENT}</td>
       </tr>

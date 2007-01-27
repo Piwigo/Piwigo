@@ -821,21 +821,21 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
  * */   
 function official_req()
 {
-return array(
-    'random'                              /* Random order */
-  , 'list'               /* list on MBt & z0rglub request */
-  , 'maxviewed'             /* hit > 0 and hit desc order */
-  , 'recent'        /* recent = Date_available desc order */
-  , 'highrated'            /* avg_rate > 0 and desc order */
-  , 'oldest'                  /* Date_available asc order */
-  , 'lessviewed'                         /* hit asc order */
-  , 'lowrated'                      /* avg_rate asc order */
-  , 'undescribed'                  /* description missing */
-  , 'unnamed'                         /* new name missing */
-  , 'portraits'     /* width < height (portrait oriented) */
-  , 'landscapes'   /* width > height (landscape oriented) */
-  , 'squares'             /* width ~ height (square form) */
-);
+  $official = array(                  /* Requests are limited to             */
+      'categories.'                          /* all categories. methods */
+    , 'categories.getImages'                 /* <= see */
+    , 'categories.getList'                   /* <= see */
+    , 'images.'                              /* all images. methods */
+    , 'images.getInfo'                       /* <= see */
+    , 'tags.'                                /* all tags. methods */
+    , 'tags.getImages'                       /* <= see */
+    , 'tags.getList'                         /* <= see */
+  );
+  if (function_exists('local_req')) {
+     $local = local_req();
+     return array_merge( $official, $local );
+  }
+  return $official;
 }
 
 /**

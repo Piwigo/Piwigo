@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -62,11 +62,9 @@ if (isset($_POST['wsa_submit']))
 {
 // Check $_post (Some values are commented - maybe a future use)
 $add_partner = htmlspecialchars( $_POST['add_partner'], ENT_QUOTES);
-$add_access = check_target( $_POST['add_access']) ;
-$add_start = 0; // ( is_numeric($_POST['add_start']) ) ? $_POST['add_start']:0; 
+$add_target = check_target( $_POST['add_target']) ;
 $add_end = ( is_numeric($_POST['add_end']) ) ? $_POST['add_end']:0;
-$add_request = ( ctype_alpha($_POST['add_request']) ) ?
-  $_POST['add_request']:'';
+$add_request = htmlspecialchars( $_POST['add_request'], ENT_QUOTES);
 $add_high = 'true'; // ( $_POST['add_high'] == 'true' ) ? 'true':'false';
 $add_normal = 'true'; // ( $_POST['add_normal'] == 'true' ) ? 'true':'false';
 $add_limit = ( is_numeric($_POST['add_limit']) ) ? $_POST['add_limit']:1; 
@@ -79,8 +77,8 @@ INSERT INTO '.WEB_SERVICES_ACCESS_TABLE.'
 ( `name` , `access` , `start` , `end` , `request` , 
   `high` , `normal` , `limit` , `comment` ) 
 VALUES (' . "
-  '$add_partner', '$add_access',
-  ADDDATE( NOW(), INTERVAL $add_start DAY),
+  '$add_partner', '$add_target',
+  NOW(), 
   ADDDATE( NOW(), INTERVAL $add_end DAY),
   '$add_request', '$add_high', '$add_normal', '$add_limit', '$add_comment' );";
 
@@ -207,12 +205,9 @@ while ($row = mysql_fetch_array($result))
        'ID'               => $row['id'],
        'NAME'             => 
          (is_adviser()) ? '*********' : $row['name'],       
-       'ACCESS'           => $row['access'],
-       'START'            => $row['start'],
+       'TARGET'           => $row['access'],
        'END'              => $row['end'],
-       'FORCE'            => $row['request'],
-       'HIGH'             => $row['high'],
-       'NORMAL'           => $row['normal'],
+       'REQUEST'          => $row['request'],
        'LIMIT'            => $row['limit'],
        'COMMENT'          => $row['comment'],
        'SELECTED'         => '',
@@ -234,7 +229,7 @@ foreach ($req_type_list as $value) {
     'add_request',
      array(
        'VALUE'=> $value,
-       'CONTENT' => $lang['ws_'.$value],
+       'CONTENT' => $value,
        'SELECTED' => '',
      )
   );

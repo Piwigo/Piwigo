@@ -114,7 +114,7 @@ $template->assign_vars(
     'L_ADMIN_HINT' => $lang['hint_admin']
     )
   );
-if ($conf['allow_web_services'])
+if ($conf['ws_access_control']) // Do we need to display ws_checker
 {
   $template->assign_block_vars(
     'web_services',
