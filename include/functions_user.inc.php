@@ -160,6 +160,7 @@ function build_user( $user_id, $use_cache )
     $user['recent_period'] = $conf['recent_period'];
     $user['expand'] = $conf['auto_expand'];
     $user['show_nb_comments'] = $conf['show_nb_comments'];
+    $user['show_nb_hits'] = $conf['show_nb_hits'];
     $user['enabled_high'] = $conf['newuser_default_enabled_high'];
   }
   else
@@ -775,6 +776,7 @@ function create_user_infos($user_id)
       'recent_period' => $conf['recent_period'],
       'expand' => boolean_to_string($conf['auto_expand']),
       'show_nb_comments' => boolean_to_string($conf['show_nb_comments']),
+      'show_nb_hits' => boolean_to_string($conf['show_nb_hits']),
       'maxwidth' => $conf['default_maxwidth'],
       'maxheight' => $conf['default_maxheight'],
       'registration_date' => $dbnow,

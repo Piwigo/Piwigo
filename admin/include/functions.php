@@ -1157,6 +1157,8 @@ SELECT user_id
       $insert['expand'] = boolean_to_string($conf['auto_expand']);
       $insert['show_nb_comments'] =
         boolean_to_string($conf['show_nb_comments']);
+      $insert['show_nb_hits'] =
+        boolean_to_string($conf['show_nb_hits']);
       $insert['maxwidth'] = $conf['default_maxwidth'];
       $insert['maxheight'] = $conf['default_maxheight'];
       $insert['registration_date'] = $dbnow;

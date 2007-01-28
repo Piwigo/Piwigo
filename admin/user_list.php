@@ -342,9 +342,10 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'maxheight', 'status', 'enabled_high');
+          'show_nb_hits', 'maxheight', 'status', 'enabled_high');
 
-  $true_false_fields = array('expand', 'show_nb_comments', 'enabled_high');
+  $true_false_fields = array('expand', 'show_nb_comments', 
+                       'show_nb_hits', 'enabled_high');
   if ($conf['allow_adviser'])
   {
     array_push($formfields, 'adviser');
@@ -556,6 +557,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 //   $user['recent_period'] = $conf['recent_period'];
 //   $user['expand'] = $conf['auto_expand'];
 //   $user['show_nb_comments'] = $conf['show_nb_comments'];
+//   $user['show_nb_hits'] = $conf['show_nb_hits'];
 // ---
 
 if (isset($_POST['pref_submit']))
@@ -576,6 +578,10 @@ if (isset($_POST['pref_submit']))
         'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
       'SHOW_NB_COMMENTS_NO' =>
         'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
+      'SHOW_NB_HITS_YES' =>
+        'true' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
+      'SHOW_NB_HITS_NO' =>
+        'false' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
       'ENABLED_HIGH_YES' => 'true' == $_POST['enabled_high'] ? 'checked="checked"' : '',
       'ENABLED_HIGH_NO' => 'false' == $_POST['enabled_high'] ? 'checked="checked"' : '',
       ));

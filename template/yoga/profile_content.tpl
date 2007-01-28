@@ -91,6 +91,11 @@
         <label><input type="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO}> {lang:no}</label>
       </li>
       <li>
+        <span class="property">{lang:show_nb_hits}</span>
+        <label><input type="radio" name="show_nb_hits" value="true" {NB_HITS_YES}> {lang:yes}</label>
+        <label><input type="radio" name="show_nb_hits" value="false" {NB_HITS_NO}> {lang:no}</label>
+      </li>
+      <li>
         <span class="property">
           <label for="maxwidth">{lang:maxwidth}</label>
         </span>

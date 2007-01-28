@@ -104,6 +104,14 @@ foreach ($pictures as $row)
       'CLASS'              => 'thumbElmt',
       )
     );
+  if ($user['show_nb_hits']
+      and isset($page['category']) 
+      and $conf['show_nb_hits'])
+  {
+    $template->assign_block_vars(
+      'thumbnails.line.thumbnail.nb_hits',
+      array('HITS'=> l10n_dec('%d hit', '%d hits', $row['hit'])));
+  }
 
   if ($conf['show_thumbnail_caption'])
   {

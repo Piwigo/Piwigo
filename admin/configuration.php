@@ -232,6 +232,8 @@ switch ($page['section'])
   {
     $show_yes = ($conf['show_nb_comments']==true)?'checked="checked"':'';
     $show_no = ($conf['show_nb_comments']==false)?'checked="checked"':'';
+    $hits_yes = ($conf['show_nb_hits']==true)?'checked="checked"':'';
+    $hits_no = ($conf['show_nb_hits']==false)?'checked="checked"':'';
     $expand_yes = ($conf['auto_expand']==true)?'checked="checked"':'';
     $expand_no  = ($conf['auto_expand']==false)?'checked="checked"':'';
 
@@ -247,7 +249,9 @@ switch ($page['section'])
         'EXPAND_YES'=>$expand_yes,
         'EXPAND_NO'=>$expand_no,
         'SHOW_COMMENTS_YES'=>$show_yes,
-        'SHOW_COMMENTS_NO'=>$show_no
+        'SHOW_COMMENTS_NO'=>$show_no,
+        'SHOW_HITS_YES'=>$hits_yes,
+        'SHOW_HITS_NO'=>$hits_no,
         ));
 
     $blockname = 'default.language_option';

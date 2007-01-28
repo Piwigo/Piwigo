@@ -268,6 +268,16 @@
   </tr>
 
   <tr>
+    <td>{lang:show_nb_hits}</td>
+    <td>
+      <label><input type="radio" name="show_nb_hits" value="leave" checked="checked" /> {lang:leave}</label>
+      / {lang:set to}
+      <label><input type="radio" name="show_nb_hits" value="true" {SHOW_NB_HITS_YES} />{lang:yes}</label>
+      <label><input type="radio" name="show_nb_hits" value="false" {SHOW_NB_HITS_NO} />{lang:no}</label>
+    </td>
+  </tr>
+
+  <tr>
     <td>{lang:maxwidth}</td>
     <td>
       <label><input type="radio" name="maxwidth_action" value="leave" checked="checked" /> {lang:leave}</label>

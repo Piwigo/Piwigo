@@ -172,7 +172,7 @@ function save_profile_from_post(&$userdata, &$errors)
     // update user "additional" informations (specific to PhpWebGallery)
     $fields = array(
       'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
-      'expand', 'show_nb_comments', 'recent_period', 'template'
+      'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'template'
       );
 
     $data = array();
@@ -201,10 +201,16 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->set_filename('profile_content', 'profile_content.tpl');
 
-  $expand = ($userdata['expand'] == 'true') ? 'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+  $expand = ($userdata['expand'] == 'true') ? 
+            'EXPAND_TREE_YES':'EXPAND_TREE_NO';
 
   $nb_comments =
-    ($userdata['show_nb_comments'] == 'true') ? 'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+    ($userdata['show_nb_comments'] == 'true') ? 
+               'NB_COMMENTS_YES':'NB_COMMENTS_NO';
+
+  $nb_hits =
+    ($userdata['show_nb_hits'] == 'true') ? 
+               'NB_HITS_YES':'NB_HITS_NO';
 
   $template->assign_vars(
     array(
@@ -219,6 +225,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   
       $expand=>'checked="checked"',
       $nb_comments=>'checked="checked"',
+      $nb_hits=>'checked="checked"',
   
       'REDIRECT' => $url_redirect,
   

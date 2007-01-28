@@ -194,6 +194,12 @@
     </li>
 
     <li>
+      <span class="property">{lang:show_nb_hits}</span>
+      <label><input type="radio" class="radio" name="show_nb_hits" value="true" {default.SHOW_HITS_YES} />{lang:Yes}</label>
+      <label><input type="radio" class="radio" name="show_nb_hits" value="false" {default.SHOW_HITS_NO} />{lang:No}</label>
+    </li>
+
+    <li>
       <span class="property">
         <label for="default_maxwidth">{lang:Maximum width of the pictures}</label>
       </span>
