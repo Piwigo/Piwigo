@@ -365,6 +365,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `maxheight` smallint(6) default NULL,
   `expand` enum('true','false') NOT NULL default 'false',
   `show_nb_comments` enum('true','false') NOT NULL default 'false',
+  `show_nb_hits` enum('true','false') NOT NULL default 'false',
   `recent_period` tinyint(3) unsigned NOT NULL default '7',
   `template` varchar(255) NOT NULL default 'yoga/clear',
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
