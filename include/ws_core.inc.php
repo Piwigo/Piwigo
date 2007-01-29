@@ -563,8 +563,11 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
     {
       return new PwgError(WS_ERR_MISSING_PARAM, 'Missing parameters: '.implode(',',$missing_params));
     }
-
-    $result = call_user_func_array($callback, array($params, &$this) );
+    $result = trigger_event('ws_invoke_allowed', true, $methodName, $params);
+    if ( strtolower( get_class($result) )!='pwgerror')
+    {
+      $result = call_user_func_array($callback, array($params, &$this) );
+    }
     return $result;
   }
 

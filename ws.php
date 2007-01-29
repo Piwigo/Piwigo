@@ -29,6 +29,9 @@ define ('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 
+/**
+ * event handler that registers standard methods with the web service
+ */
 function ws_addDefaultMethods( $arr )
 {
   include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
@@ -106,11 +109,19 @@ function ws_addDefaultMethods( $arr )
     );
 }
 
-add_event_handler('ws_add_methods', 'ws_addDefaultMethods' );
+add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
 
+
+add_event_handler('ws_invoke_allowed', 'ws_isInvokeAllowed', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
+
+$calling_partner_id = '';
 $requestFormat = null;
 $responseFormat = null;
 
+if ( isset($_GET['partner']) )
+{
+  $calling_partner_id = $_GET['partner'];
+}
 if ( isset($_GET['format']) )
 {
   $responseFormat = $_GET['format'];

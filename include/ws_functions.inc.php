@@ -27,6 +27,30 @@
 /**** IMPLEMENTATION OF WEB SERVICE METHODS ***********************************/
 
 /**
+ * Event handler for method invocation security check. Should return a PwgError
+ * if the preconditions are not satifsied for method invocation.
+ */
+function ws_isInvokeAllowed($res, $methodName, $params)
+{
+  global $conf, $calling_partner_id;
+  if ( !$conf['ws_access_control'])
+  {
+    return $res; // No controls are requested
+  }
+  $query = '
+SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
+ WHERE `name` = '$calling_partner_id'
+   AND NOW() <= end; ";
+  $result = pwg_query($query);
+  $row = mysql_fetch_assoc($result);
+  if ( empty($row) )
+  {
+    return new PwgError(403, 'Partner id does not exist');
+  }
+  return $res;
+}
+
+/**
  * ws_add_controls 
  * returns additionnal controls if requested
  * usable for 99% of Web Service methods 
