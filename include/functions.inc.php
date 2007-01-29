@@ -626,7 +626,8 @@ function get_query_string_diff($rejects = array())
 
 function url_is_remote($url)
 {
-  if (preg_match('/^https?:\/\/[~\/\.\w-]+$/', $url))
+  if ( strncmp($url, 'http://', 7)==0
+    or strncmp($url, 'https://', 8)==0 )
   {
     return true;
   }
