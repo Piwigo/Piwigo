@@ -161,9 +161,6 @@ $conf['tn_height'] = 128;
 // bottom of each page ?
 $conf['show_version'] = true;
 
-// show_nb_hits :  	Show hits count under thumbnails
-// false = never... true = depending on profile...
-$conf['show_nb_hits'] = false;
 
 // links : list of external links to add in the menu. An example is the best
 // than a long explanation :
