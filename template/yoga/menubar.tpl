@@ -22,13 +22,13 @@
   </dd>
 </dl>
 <!-- END links -->
-<dl id="mbCategories">
   <!-- BEGIN start_filter -->
-  <a href="{start_filter.URL}" title="{lang:start_filter_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/start_filter.png" class="buttonmenu" alt="{lang:start_filter_hint}"></a>
+  <a href="{start_filter.URL}" title="{lang:start_filter_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/start_filter.png" class="button" alt="{lang:start_filter_hint}"></a>
   <!-- END start_filter -->
   <!-- BEGIN stop_filter -->
-  <a href="{stop_filter.URL}" title="{lang:stop_filter_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter.png" class="buttonmenu" alt="{lang:stop_filter_hint}"></a>
+  <a href="{stop_filter.URL}" title="{lang:stop_filter_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter.png" class="button" alt="{lang:stop_filter_hint}"></a>
   <!-- END stop_filter -->
+<dl id="mbCategories">
   <dt><a href="{U_HOME}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
@@ -67,12 +67,14 @@
 <dl id="mbMenu">
   <dt>{lang:title_menu}</dt>
   <dd>
-    <ul>
       <!-- BEGIN summary -->
       <!-- BEGIN quick_search -->
       <form action="{pwg_root}qsearch.php" method="get" id="quicksearch"><input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;"></form>
       <script type="text/javascript">var qsearch_prompt="{lang:search}"; document.getElementById('qsearchInput').value=qsearch_prompt;</script>
       <!-- END quick_search -->
+      <!-- END summary -->
+    <ul>
+      <!-- BEGIN summary -->
       <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}" {summary.REL}>{summary.NAME}</a></li>
       <!-- END summary -->
       <!-- BEGIN upload -->

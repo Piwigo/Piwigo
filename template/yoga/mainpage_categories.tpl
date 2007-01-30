@@ -17,7 +17,7 @@
           {categories.category.ICON}
         </h3>
         <p>{categories.category.CAPTION_NB_IMAGES}</p>
-        <p>{categories.category.DESCRIPTION}</p>
+        <p>{categories.category.DESCRIPTION}&nbsp;</p> <!-- &nbsp; to avoid a HTML warning -->
       </div>
     </div>
   </li>

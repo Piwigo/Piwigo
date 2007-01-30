@@ -18,7 +18,7 @@ H2, .throw {
   font-weight: lighter;
 }
 #menubar DT A:hover {
-  color: #111; 
+  color: #69c; 
   font-weight: lighter;
 }
 #menubar .selected  A {
@@ -185,6 +185,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 #content UL.thumbnails SPAN.wrap2:hover {
   border-color: #69c;		/* thumbnails border color when mouse cursor is over it */
+  background-color: #080808;
 }
 #menubar .buttonmenu {
   margin: 0 2px;
@@ -238,10 +239,37 @@ SPAN.calItem, SPAN.calItemEmpty
 label {
 	cursor:pointer
 }
-
+input#qsearchInput { 
+  color: #58c; 
+  background-color: #222;  
+  border: 1px solid #333;
+  padding: 1px 3px;
+}
 .zero { display: none }
-.one { }
-.2nmore { }
+.one { background: transparent; }
+.2nmore { background: transparent; }
+.nb-hits { color: #69c; }
+.nb-comments { color: #f92; }
+
+FORM#quickconnect,
+FORM#quickconnect FIELDSET,
+FORM#quickconnect P,
+FORM#quickconnect UL.actions,
+FORM#quickconnect FIELDSET>UL.actions,
+FORM#quickconnect UL.actions,
+FORM#quickconnect P,
+FORM#quickconnect LABEL {
+  color: #69c;   
+}
+FORM#quickconnect P INPUT,
+FORM#quickconnect INPUT[type=text],
+FORM#quickconnect INPUT[type=password] {
+  width: 85%;
+  color: #58c;   
+  background-color: #222;  
+  border: 1px solid #333;
+  padding: 1px 3px;
+}
 
 /* nice looking month calendar*/
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}

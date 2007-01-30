@@ -12,14 +12,14 @@
     margin: 0; padding: 0; display: block;
 }
 
-#menubar .buttonmenu {
+#menubar .button {
   margin: 0 2px;
   width: auto;
   padding: 0;
   text-indent: 0;
   list-style: none;
   text-align: center;
-  float: right;
+  float: left;
 }
 
 /* H2 properties copied here */
@@ -132,6 +132,9 @@ FORM#quickconnect INPUT.password {
 FORM#quicksearch {
   margin-top: 4px;
   margin-bottom: 1px;
+}
+input#qsearchInput { 
+  width: 90%; 
 }
 
 #menubar #menuTagCloud {

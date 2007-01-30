@@ -248,7 +248,9 @@ SPAN.calItem, SPAN.calItemEmpty
 label {
 	cursor:pointer
 }
-
+input#qsearchInput { 
+  color: #36f; background-color: #cef; 
+}
 .zero { display: none }
 .one { }
 .2nmore { }
