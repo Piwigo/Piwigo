@@ -248,6 +248,11 @@ SPAN.calItem, SPAN.calItemEmpty
 label {
 	cursor:pointer
 }
+
+.zero { display: none }
+.one { }
+.2nmore { }
+
 /* nice looking month calendar*/
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 

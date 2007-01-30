@@ -21,11 +21,17 @@
       <!-- END category_name -->
       {thumbnails.line.thumbnail.IMAGE_TS}
       <!-- BEGIN nb_comments -->
-      <br />{thumbnails.line.thumbnail.nb_comments.NB_COMMENTS} {lang:comments}
+      <span class="{thumbnails.line.thumbnail.nb_comments.CLASS}">
+        <br />
+        {thumbnails.line.thumbnail.nb_comments.NB_COMMENTS}
+      </span>
       <!-- END nb_comments -->
       <!-- BEGIN nb_hits -->
-      <br />{thumbnails.line.thumbnail.nb_hits.HITS}
-      <!-- END nb_comments -->
+      <span class="{thumbnails.line.thumbnail.nb_hits.CLASS}">
+        <br />
+        {thumbnails.line.thumbnail.nb_hits.HITS}
+      </span>
+      <!-- END nb_hits -->
       </span>
     </span>
   </li>

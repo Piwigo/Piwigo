@@ -718,4 +718,17 @@ function set_status_header($code, $text='')
   header("Status: $code $text");
   trigger_action('set_status_header', $code, $text);
 }
+
+/**
+ * set a class to display a counter
+ * .zero .one .2nmore 
+ */
+function set_span_class($count)
+{
+  if ($count > 1) 
+  { 
+    return '2nmore';
+  }
+  return ( $count == 0 ) ? 'zero':'one'; 
+}
 ?>

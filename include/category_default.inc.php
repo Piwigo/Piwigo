@@ -110,7 +110,12 @@ foreach ($pictures as $row)
   {
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_hits',
-      array('HITS'=> l10n_dec('%d hit', '%d hits', $row['hit'])));
+      array(
+      'HITS'=> l10n_dec('%d hit', '%d hits', $row['hit']),
+      'CLASS'=> set_span_class($row['hit']) . ' nb-hits',
+      )
+    );
+    
   }
 
   if ($conf['show_thumbnail_caption'])
@@ -165,7 +170,12 @@ SELECT COUNT(*) AS nb_comments
     $row = mysql_fetch_array(pwg_query($query));
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_comments',
-      array('NB_COMMENTS'=>$row['nb_comments']));
+      array(
+        'NB_COMMENTS'=> l10n_dec('%d comment', '%d comments', 
+                        $row['nb_comments']),
+        'CLASS'=> set_span_class($row['nb_comments']) . ' nb-comments',
+      )
+    );
   }
 
   //plugins need to add/modify sth in this loop ?

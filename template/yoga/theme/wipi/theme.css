@@ -238,6 +238,11 @@ SPAN.calItem, SPAN.calItemEmpty
 label {
 	cursor:pointer
 }
+
+.zero { display: none }
+.one { }
+.2nmore { }
+
 /* nice looking month calendar*/
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 
@@ -246,3 +251,16 @@ TD.calDayCellEmpty { color: silver; }
 .calBackDate { color: #000; }
 .calForeDate { color: #fff; }
 .virtual_cat { background: #222 !important; }
+
+.PWG {
+  font-family: verdana, arial, helvetica, sans-serif !important;
+  font-size: 0.9em;
+  font-weight: normal;
+  letter-spacing: 0px;
+}
+a.PWG { border: 0px; }
+a.PWG .P { color : #f92; }
+a.PWG .W { color : #aaa; }
+a.PWG .G { color : #69c; }
+a.PWG:hover .P { color : #69c; }
+a.PWG:hover .G { color : #f92; }
