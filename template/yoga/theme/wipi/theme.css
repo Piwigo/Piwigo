@@ -35,6 +35,15 @@ H2, .throw {
  content: " _/__"; 
  color: #f92;
 }
+#menubar .button {
+  margin: 0 2px 0px 8px;
+  width: auto;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+  text-align: center;
+  float: left;
+}
 #theAdminPage #menubar DT:before,
 #theAdminPage #menubar DT:after {
  content: ''; 

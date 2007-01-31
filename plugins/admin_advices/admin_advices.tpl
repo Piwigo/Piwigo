@@ -1,9 +1,7 @@
-<!-- $Id$ -->
-
 <div class="content">
   <h2>{lang:An_advice_about} {ADVICE_ABOUT}</h2>
     <h3>{ADVICE_TEXT}</h3>
-    <table>
+    <table summary="Admin advices summary">
     <tr><td style="text-align: left; width: 50%;">
     <!-- BEGIN More -->
       {More.ADVICE}  <br />
@@ -11,7 +9,7 @@
     <br />
     </td><td style="text-align: right; width: 20%;">
     <!-- BEGIN thumbnail -->
-    <a href="{thumbnail.U_MODIFY}" alt="{lang:link_info_image}">
+    <a href="{thumbnail.U_MODIFY}" title="{lang:link_info_image}">
     <img class="thumbnail" src="{thumbnail.IMAGE}"
 	       alt="{thumbnail.IMAGE_ALT}" title="{thumbnail.IMAGE_TITLE}"></a>
     </td><td style="text-align: left;">
