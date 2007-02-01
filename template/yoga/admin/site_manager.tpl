@@ -47,8 +47,9 @@
     <!-- BEGIN remote -->
       <br>
       [<a href="{sites.site.remote.U_TEST}" title="{lang:remote_site_test_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_test}</a>]
-      [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_generate}</a>]
+      [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}" target="_blank" {TAG_INPUT_ENABLED}>{lang:remote_site_generate}</a>]
       [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_clean}</a>]
+      [<a href="{sites.site.remote.U_PROTECT}" title="{lang:remote_site_protect_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_protect}</a>]
     <!-- END remote -->
     <!-- BEGIN plugin_links -->
         <br>
