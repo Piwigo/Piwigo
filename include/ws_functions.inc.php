@@ -51,12 +51,12 @@ SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
 }
 
 /**
- * ws_add_controls 
+ * ws_addControls
  * returns additionnal controls if requested
  * usable for 99% of Web Service methods 
  * 
  * - Args  
- * $method: is the requested method
+ * $methodName: is the requested method
  * $partner: is the key
  * $tbl_name: is the alias_name in the query (sometimes called correlation name)
  *            null if !getting picture informations 
@@ -69,9 +69,9 @@ SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
  *   
  * The additionnal in-where-clause is return
  */       
-function ws_add_controls( $method, $tbl_name )
+function ws_addControls( $methodName, $tbl_name )
 {
-  global $conf, $partner;
+  global $conf, $calling_partner_id, $params;
   if ( !$conf['ws_access_control'] )
   {
     return ' 1 = 1 '; // No controls are requested 
@@ -80,7 +80,7 @@ function ws_add_controls( $method, $tbl_name )
 // Is it an active Partner? 
   $query = '
 SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
- WHERE `name` = '$partner'
+ WHERE `name` = '$calling_partner_id'
    AND NOW() <= end; ";
 $result = pwg_query($query);
   if ( mysql_num_rows( $result ) == 0 )
@@ -94,12 +94,14 @@ $result = pwg_query($query);
 // Generic is not ready 
 // For generic you can say... tags. or categories. or images. maybe?
   $filter = $row['request'];
-  $request_method = substr($method, 0, strlen($filter)) ;
+  $request_method = substr($methodName, 0, strlen($filter)) ;
   if ( $filter !== $filter_method )
   {
     return ' 0 = 1'; // Unauthorized method request
   }
-
+// Overide general object limit   
+  $params['per_page'] = $row['limit'];
+  
 // Target restrict
 // 3 cases: list, cat or tag
 // Behind / we could found img-ids, cat-ids or tag-ids
@@ -247,9 +249,7 @@ function ws_std_get_urls($image_row)
 
 function ws_getVersion($params, &$service)
 {
-//  Needed for security reason... Maybe???
-//  $where_clause[] = 
-//          ws_add_controls( 'getVersion', null );
+//  TODO = Version availability is under control of $conf['show_version']
   return PHPWG_VERSION;
 }
 
@@ -309,9 +309,8 @@ SELECT id, name, image_order
       .implode(',', array_keys($cats) )
       .')';
 
-//  Mandatory 
-//  $where_clause[] = 
-//          ws_add_controls( 'categories.getImages', 'i.' );
+    $where_clause[] =
+          ws_addControls( 'categories.getImages', 'i.' );
     
     $order_by = ws_std_image_sql_order($params, 'i.');
     if (empty($order_by))
@@ -431,11 +430,6 @@ function ws_categories_getList($params, &$service)
     $where[] = 'id NOT IN ('.$user['forbidden_categories'].')';
   }
 
-// To ONLY build external links maybe ???  
-//  $where_clause[] = 
-//          ws_add_controls( 'categories.getList', null );
-// Making links in a Blog...
-
   $query = '
 SELECT id, name, uppercats, global_rank,
     max_date_last, count_images AS nb_images, count_categories AS nb_categories
@@ -481,17 +475,16 @@ function ws_images_getInfo($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
-// Mandatory (No comment)  
-//  $where_clause[] = 
-//          ws_add_controls( 'images.getInfo', '' );  
+ 
   $query='
 SELECT * FROM '.IMAGES_TABLE.'
   WHERE id='.$params['image_id'].
     get_sql_condition_FandF(
       array('visible_images' => 'id'),
       ' AND'
-    ).'
-LIMIT 1';
+    ).' AND '.
+    ws_addControls( 'images.getInfo', '' ).'
+LIMIT 1;';
 
   $image_row = mysql_fetch_assoc(pwg_query($query));
   if ($image_row==null)
@@ -754,9 +747,8 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
         '', true
       );
     $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
-// Mandatory  
-//  $where_clause[] = 
-//          ws_add_controls( 'tags.getImages', '' );  
+    $where_clause[] =
+            ws_addControls( 'tags.getImages', 'i.' );
 
     $order_by = ws_std_image_sql_order($params);
     if (empty($order_by))
