@@ -134,8 +134,9 @@ FORM#quicksearch {
   margin-bottom: 1px;
 }
 input#qsearchInput { 
-  width: 90%; 
+  width: 90%;
 }
+#menubar #mbMenu p { margin: 0px; padding: 0px; }
 
 #menubar #menuTagCloud {
   text-align: center;

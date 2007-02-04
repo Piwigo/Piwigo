@@ -100,4 +100,6 @@ trigger_action('loc_end_page_header');
 
 header('Content-Type: text/html; charset='.$lang_info['charset']);
 $template->parse('header');
+
+trigger_action('loc_after_page_header');
 ?>

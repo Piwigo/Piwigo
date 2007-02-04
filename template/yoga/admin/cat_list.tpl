@@ -15,6 +15,10 @@
 
 <!-- BEGIN categories -->
 <form id="categoryOrdering" action="{F_ACTION}" method="post">
+  <p>
+    <input name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
+    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
+  </p>
   <ul class="categoryUl">
 
     <!-- BEGIN category -->

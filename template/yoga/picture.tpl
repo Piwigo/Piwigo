@@ -192,7 +192,7 @@
       <!-- END author_field -->
       <label>{lang:comment}<textarea name="content" rows="5" cols="80">{comments.add_comment.CONTENT}</textarea></label>
       <input type="hidden" name="key" value="{comments.add_comment.KEY}" />
-      <input type="submit" value="{lang:submit}">
+      <input type="submit" class="submit" value="{lang:submit}">
     </fieldset>
   </form>
   <!-- END add_comment -->
