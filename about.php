@@ -48,7 +48,15 @@ $template->set_filenames(
     'about_content' => get_language_filepath('about.html')
     )
   );
-  
+if ( isset( $themeconf['About']) and $themeconf['About']!=='' )
+{
+  $template->assign_block_vars(
+  'theme',
+  array(
+    'ABOUT' => l10n($themeconf['About']),
+    )
+  );
+}
 $template->assign_vars(
   array(
     'U_HOME' => make_index_url(),

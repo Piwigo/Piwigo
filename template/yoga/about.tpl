@@ -11,5 +11,9 @@
   </div>
 
   {ABOUT_MESSAGE}
-
+  <!-- BEGIN theme -->
+  <ul>
+  <li>{theme.ABOUT}</li>
+  </ul>
+  <!-- END theme -->
 </div>
