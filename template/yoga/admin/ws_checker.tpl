@@ -174,7 +174,7 @@
         <td>
         </td>
         <td>
-          <input type="submit" name="wsa_submit" style="width: 10em; padding-top: 3px;"  
+          <input class="submit" type="submit" name="wsa_submit" style="width: 10em; padding-top: 3px;"
             value="{lang:Submit}" {TAG_INPUT_ENABLED} 
             title="{lang:Add this access definition}" />
         </td>
@@ -229,7 +229,7 @@
     <td>
     <input type="radio" name="delete_confirmation" 
       value="true" />
-    <input type="submit" name="wsX_submit" style="width: 10em; padding-top: 3px;" 
+    <input class="submit" type="submit" name="wsX_submit" style="width: 10em; padding-top: 3px;"
       value="{lang:Delete}" {TAG_INPUT_ENABLED}/>
     </td>
     </tr>
@@ -250,7 +250,7 @@
       </option> 
     <!-- END upd_end -->
     </select> 
-    <input type="submit" name="wsu_submit" style="width: 10em; padding-top: 3px;" 
+    <input class="submit" type="submit" name="wsu_submit" style="width: 10em; padding-top: 3px;"
        value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
     </td>
     <td>

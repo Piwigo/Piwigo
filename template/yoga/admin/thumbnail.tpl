@@ -98,7 +98,7 @@
     </ul>
   </fieldset>
 
-  <p><input type="submit" name="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}/></p>
+  <p><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}/></p>
 </form>
 <!-- END params -->
 

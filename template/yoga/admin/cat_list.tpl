@@ -6,7 +6,7 @@
 <form id="addVirtual" action="{F_ACTION}" method="post">
   <p>
     {L_ADD_VIRTUAL} : <input type="text" name="virtual_name" />
-    <input type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} /> 
+    <input class="submit" type="submit" value="{L_SUBMIT}" name="submitAdd" {TAG_INPUT_ENABLED} />
     <!-- BEGIN eop_link -->
     <a href="#EoP" class="button"><img src="{themeconf:icon_dir}/page_end.png" class="button" alt="{lang:page_end}" /></a>
     <!-- END eop_link --> 
@@ -16,8 +16,8 @@
 <!-- BEGIN categories -->
 <form id="categoryOrdering" action="{F_ACTION}" method="post">
   <p>
-    <input name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
-    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
   </p>
   <ul class="categoryUl">
 
@@ -61,8 +61,8 @@
     <!-- END category -->
   </ul>
   <p>
-    <input name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
-    <input name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrder" type="submit" value="{lang:Save order}" {TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{lang:Order alphanumerically}" {TAG_INPUT_ENABLED} />
   </p>
 
 </form>

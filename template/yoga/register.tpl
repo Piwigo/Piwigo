@@ -54,8 +54,8 @@
   </fieldset>
 
   <p class="bottomButtons">
-    <input type="submit" name="submit" value="{lang:Register}">
-    <input type="reset" value="{lang:Reset}">
+    <input class="submit" type="submit" name="submit" value="{lang:Register}">
+    <input class="submit" type="reset" value="{lang:Reset}">
   </p>
 
 </form>

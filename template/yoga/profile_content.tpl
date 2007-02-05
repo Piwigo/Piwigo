@@ -111,8 +111,8 @@
   </fieldset>
 
   <p class="bottomButtons">
-    <input type="submit" name="validate" value="{lang:submit}">
-    <input type="reset" name="reset" value="{lang:reset}" class="reset">
+    <input class="submit" type="submit" name="validate" value="{lang:submit}">
+    <input class="submit" type="reset" name="reset" value="{lang:reset}" class="reset">
   </p>
 
 </form>

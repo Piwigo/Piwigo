@@ -7,7 +7,7 @@
         <option {category_option_true.SELECTED} value="{category_option_true.VALUE}">{category_option_true.OPTION}</option>
         <!-- END category_option_true -->
       </select>
-      <p><input type="submit" value="&raquo;" name="falsify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+      <p><input class="submit" type="submit" value="&raquo;" name="falsify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
     </td>
 
     <td>
@@ -17,7 +17,7 @@
         <option {category_option_false.SELECTED} value="{category_option_false.VALUE}">{category_option_false.OPTION}</option>
         <!-- END category_option_false -->
       </select>
-      <p><input type="submit" value="&laquo;" name="trueify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+      <p><input class="submit" type="submit" value="&laquo;" name="trueify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
     </td>
   </tr>
 </table>

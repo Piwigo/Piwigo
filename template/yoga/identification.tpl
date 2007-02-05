@@ -54,7 +54,7 @@
     </ul>
   </fieldset>
 
-  <p><input tabindex="4" type="submit" name="login" value="{lang:submit}"></p>
+  <p><input class="submit" tabindex="4" type="submit" name="login" value="{lang:submit}"></p>
 </form>
 
 <script type="text/javascript"><!--

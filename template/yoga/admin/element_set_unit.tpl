@@ -81,8 +81,8 @@
 <!-- END element -->
 
 <p>
-  <input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
-  <input type="reset" value="{lang:Reset}" />
+  <input class="submit" type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="reset" value="{lang:Reset}" />
 </p>
 
 

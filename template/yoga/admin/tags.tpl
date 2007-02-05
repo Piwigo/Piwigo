@@ -22,8 +22,8 @@
     </table>
 
     <p>
-      <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED} />
-      <input type="reset" value="{lang:Reset}" />
+      <input class="submit" type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED} />
+      <input class="submit" type="reset" value="{lang:Reset}" />
     </p>
   </fieldset>
   <!-- END edit_tags -->
@@ -36,7 +36,7 @@
       <input type="text" name="add_tag" />
     </label>
     
-    <p><input type="submit" name="add" value="{lang:Submit}" {TAG_INPUT_ENABLED}/></p>
+    <p><input class="submit" type="submit" name="add" value="{lang:Submit}" {TAG_INPUT_ENABLED}/></p>
   </fieldset>
 
   <fieldset>
@@ -45,8 +45,8 @@
     {TAG_SELECTION}
 
     <p>
-      <input type="submit" name="edit" value="{lang:Edit selected tags}"/>
-      <input type="submit" name="delete" value="{lang:Delete selected tags}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" name="edit" value="{lang:Edit selected tags}"/>
+      <input class="submit" type="submit" name="delete" value="{lang:Delete selected tags}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}/>
     </p>
   </fieldset>
 

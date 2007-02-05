@@ -11,7 +11,7 @@
     <label>{lang:Username} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{lang:Password} <input type="text" name="password" /></label>
     <label>{lang:Email address} <input type="text" name="email" /></label>
-    <input type="submit" name="submit_add" value="{lang:submit}" {TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" name="submit_add" value="{lang:submit}" {TAG_INPUT_ENABLED} />
   </fieldset>
 </form>
 
@@ -58,7 +58,7 @@
   </select>
   </label>
 
-  <input type="submit" name="submit_filter" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="submit" name="submit_filter" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
 
 </fieldset>
 
@@ -98,7 +98,7 @@
 <fieldset>
   <legend>{lang:Deletions}</legend>
   <label><input type="checkbox" name="confirm_deletion" value="1" /> {lang:confirm}</label>
-  <input type="submit" value="{lang:Delete selected users}" name="delete" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="submit" value="{lang:Delete selected users}" name="delete" {TAG_INPUT_ENABLED}/>
 </fieldset>
 
 <fieldset>
@@ -312,8 +312,8 @@
 </p>
 
 <p>
-  <input type="submit" value="{lang:submit}" name="pref_submit" {TAG_INPUT_ENABLED} />
-  <input type="reset" value="{lang:reset}" name="pref_reset" />
+  <input class="submit" type="submit" value="{lang:submit}" name="pref_submit" {TAG_INPUT_ENABLED} />
+  <input class="submit" type="reset" value="{lang:reset}" name="pref_reset" />
 </p>
 
 </form>

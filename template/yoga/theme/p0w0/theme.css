@@ -99,11 +99,7 @@ input.rateButtonSelected,
 TD.calDayCellEmpty,
 SPAN.calItemEmpty { color: silver; }
 .calBackDate { color: #000; }
-input[type="reset"],
-input[type="submit"] {
-  color: #fff;
-  font-weight: bold;
-}
+
 
 /******************************************************************************/
 /* Backgrounds Only */
@@ -138,10 +134,7 @@ H2, #menubar DT, .throw, TD H3,
 }
 input#qsearchInput { background-color: #cde; }
 .virtual_cat { background: #fff !important; }
-input[type="reset"],
-input[type="submit"] {
-  background-color: #369;
-}
+
 /******************************************************************************/
 /* Borders, Margins, Padding Only */
 BODY { margin: 0px;  padding: 0px; }
@@ -218,27 +211,9 @@ A.navThumb, A.navThumb:hover,
 }
 SPAN.calItem, SPAN.calItemEmpty { border: 1px solid gray; }
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
-input[type="reset"],
-input[type="submit"] {
-  border: 1px solid #eef;
-  padding: 5px 5px;
-}
-#addComment input[name="submit"] { padding: 5px 30px; }
 #theAdminPage #content table td { padding: 2px 8px; }
-input[type="text"], input[type="password"], input.button,
-input.submit, input.reset, input.file,
-select, textarea {
-  color: #369;
-  border: 1px solid #369;
-  background-color: #eeeeff;
-}
-
-input:focus, select:focus, textarea:focus /*, INPUT.focus, FORM .focus*/ {
-  background-color: #fff;	
-}
-
 /******************************************************************************/
-/* Display, Visibility and others */
+/* Display, Visibility, buttons and others */
 label { cursor:pointer }
 .zero { display: none }
 .one { }
@@ -248,3 +223,31 @@ label { cursor:pointer }
   display:block;
 }
 #content H2::after { content: leader(dotted) }
+input[type="text"], input[type="password"], input.button,
+input.submit, input.reset, input.file,
+select, textarea {
+  color: #369;
+  border: 1px solid #369;
+  background-color: #eeeeff;
+}
+input.submit[type="reset"]:focus,
+input.submit:focus {
+  background-color: #369;
+}
+input.submit[type="reset"],
+input.submit  {
+	background: url( images/button-bg.png );
+	border: 3px double #369;
+	border-left-color: #cde;
+	border-top-color: #cde;
+  font-weight: bold;
+	color: #fff;
+	padding: 0.25em;
+}
+input.submit[type="reset"]:active,
+input.submit:active {
+	background: #69c;
+	border: 3px double #369;
+	border-left-color: #9ab;
+	border-top-color: #9ab;
+}

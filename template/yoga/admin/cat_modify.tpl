@@ -125,8 +125,8 @@
 </fieldset>
 
 <p style="text-align:center;">
-  <input type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
-  <input type="reset" value="{lang:Reset}" name="reset" />
+  <input class="submit" type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
 </p>
 
 <!-- BEGIN representant -->
@@ -145,11 +145,11 @@
       </td>
       <td>
         <!-- BEGIN set_random -->
-        <p><input type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" {TAG_INPUT_ENABLED}/></p>
+        <p><input class="submit" type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" {TAG_INPUT_ENABLED}/></p>
         <!-- END set_random -->
 
         <!-- BEGIN delete_representant -->
-        <p><input type="submit" name="delete_representant" value="{lang:Delete Representant}" /></p>
+        <p><input class="submit" type="submit" name="delete_representant" value="{lang:Delete Representant}" /></p>
         <!-- END delete_representant -->
       </td>
     </tr>
@@ -183,8 +183,8 @@
   </table>
 
   <p>
-    <input type="submit" value="{lang:Submit}" name="submitAdd" {TAG_INPUT_ENABLED}/>
-    <input type="reset" value="{lang:Reset}" name="reset" />
+    <input class="submit" type="submit" value="{lang:Submit}" name="submitAdd" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
   </p>
 
 </fieldset>

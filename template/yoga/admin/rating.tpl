@@ -27,7 +27,7 @@
       <input type="text" name="display" size="2" value="{DISPLAY}">
     </label>
 
-    <input type="submit" name="submit_filter" value="{lang:Submit}" />
+    <input class="submit" type="submit" name="submit_filter" value="{lang:Submit}" />
     <input type="hidden" name="page" value="rating" />
   </fieldset>
 </form>

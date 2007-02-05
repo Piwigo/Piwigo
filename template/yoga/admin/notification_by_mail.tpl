@@ -17,7 +17,7 @@
   <!-- BEGIN repost -->
   <fieldset>
     <div class="infos">
-      <input type="submit" value="{lang:nbm_repost_submit}" name="{repost.REPOST_SUBMIT_NAME}" {TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" value="{lang:nbm_repost_submit}" name="{repost.REPOST_SUBMIT_NAME}" {TAG_INPUT_ENABLED}/>
     </div>
   </fieldset>
   <!-- END repost -->
@@ -48,8 +48,8 @@
   </fieldset>
 
   <p>
-    <input type="submit" value="{lang:Submit}" name="param_submit" {TAG_INPUT_ENABLED}/>
-    <input type="reset" value="{lang:Reset}" name="param_reset"/>
+    <input class="submit" type="submit" value="{lang:Submit}" name="param_submit" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{lang:Reset}" name="param_reset"/>
   </p>
   <!-- END param -->
 
@@ -105,7 +105,7 @@
     </fieldset>
 
     <p>
-      <input type="submit" value="{lang:nbm_send_submit}" name="send_submit" {TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" value="{lang:nbm_send_submit}" name="send_submit" {TAG_INPUT_ENABLED}/>
     </p>
     <!-- END send_data -->
   <!-- END send -->

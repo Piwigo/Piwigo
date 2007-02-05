@@ -112,8 +112,8 @@
     </table>
 
     <p style="text-align:center;">
-      <input type="submit" value="{lang:Submit}" name="submit" {TAG_INPUT_ENABLED}/>
-      <input type="reset" value="{lang:Reset}" name="reset" />
+      <input class="submit" type="submit" value="{lang:Submit}" name="submit" {TAG_INPUT_ENABLED}/>
+      <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
     </p>
 
   </fieldset>
@@ -133,7 +133,7 @@
             <option {associated_option.SELECTED} value="{associated_option.VALUE}">{associated_option.OPTION}</option>
             <!-- END associated_option -->
           </select>
-          <p><input type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
 
         <td>
@@ -143,7 +143,7 @@
             <option {dissociated_option.SELECTED} value="{dissociated_option.VALUE}">{dissociated_option.OPTION}</option>
             <!-- END dissociated_option -->
           </select>
-          <p><input type="submit" value="&laquo;" name="associate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="associate" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
       </tr>
     </table>
@@ -164,7 +164,7 @@
             <option {elected_option.SELECTED} value="{elected_option.VALUE}">{elected_option.OPTION}</option>
             <!-- END elected_option -->
           </select>
-          <p><input type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
 
         <td>
@@ -174,7 +174,7 @@
             <option {dismissed_option.SELECTED} value="{dismissed_option.VALUE}">{dismissed_option.OPTION}</option>
             <!-- END dismissed_option -->
           </select>
-          <p><input type="submit" value="&laquo;" name="elect" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="elect" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
         </td>
       </tr>
     </table>

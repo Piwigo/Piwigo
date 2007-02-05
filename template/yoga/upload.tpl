@@ -84,7 +84,7 @@
     <!-- END fields -->
     <tr>
       <td colspan="2" align="center">
-      <input name="submit" type="submit" value="{lang:submit}" class="bouton" />
+      <input class="submit" name="submit" type="submit" value="{lang:submit}" class="bouton" />
       </td>
     </tr>
     </table>

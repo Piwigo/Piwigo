@@ -48,7 +48,7 @@
     </ul>
   </fieldset>
 
-  <p><input type="submit" name="submit" value="{lang:Send new password}"></p>
+  <p><input class="submit" type="submit" name="submit" value="{lang:Send new password}"></p>
 </form>
 
 </div> <!-- content -->

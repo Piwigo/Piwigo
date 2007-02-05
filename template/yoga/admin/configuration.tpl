@@ -217,7 +217,7 @@
 <!-- END default -->
 
   <p>
-    <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}>
-    <input type="reset" name="reset" value="{lang:Reset}">
+    <input class="submit" type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" name="reset" value="{lang:Reset}">
   </p>
 </form>

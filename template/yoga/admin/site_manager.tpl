@@ -68,6 +68,6 @@
     <input type="text" name="galleries_url" id="galleries_url" />
   </p>
   <p>
-    <input type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED} />
   </p>
 </form>

@@ -36,10 +36,10 @@
 
   <p class="bottomButtons">
     <input type="hidden" name="list" value="{LIST}" />
-    <input type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
-    <input type="submit" name="validate-all" value="{lang:Validate All}" {TAG_INPUT_ENABLED}/>
-    <input type="submit" name="reject-all" value="{lang:Reject All}" {TAG_INPUT_ENABLED}/>
-    <input type="reset" value="{lang:Reset}" />
+    <input class="submit" type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="submit" name="validate-all" value="{lang:Validate All}" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="submit" name="reject-all" value="{lang:Reject All}" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{lang:Reset}" />
   </p>
 
 </form>
