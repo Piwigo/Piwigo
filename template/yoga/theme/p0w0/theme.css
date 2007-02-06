@@ -17,9 +17,7 @@
 
 /******************************************************************************/
 /* Texts Only */
-BODY, H1, H3, DT, H2, .throw, 
-#copyright,
-#menubar .selected  A { color: #69c; }
+BODY, H1, H3, DT, H2, .throw { color: #369; }
 H2, #menubar DT, .throw, TD H3, #theAdminPage H3, .calForeDate {
   color: #fff;
 }
@@ -32,7 +30,9 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3, .calForeDate {
   color: #f92;
   font-weight: bold;
 }
-#menubar .selected  A:hover,
+#mbIdentification dd p,
+#menubar .selected A { color: #c60; font-weight: bold; }
+#copyright { color: #c60; }
 #content .pageNumberSelected,
 A, INPUT.rateButton, legend { color: #369; }
 A:hover { color: #f92; }
@@ -80,6 +80,9 @@ input.rateButtonSelected,
  letter-spacing: 0em;
 }
 #thePicturePage #comments H2 {
+  color: #69c;
+}
+#content ul.thumbnailCategories li div.thumbnailCategory .description p {
   color: #69c;
 }
 #content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
@@ -250,4 +253,7 @@ input.submit:active {
 	border: 3px double #369;
 	border-left-color: #9ab;
 	border-top-color: #9ab;
+}
+#addComment input.submit  {
+	padding: 4px 40px;
 }
