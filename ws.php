@@ -29,12 +29,18 @@ define ('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 
+if ( !$conf['allow_web_services'] )
+{
+  page_forbidden('Web services are disabled');
+}
+
 /**
  * event handler that registers standard methods with the web service
  */
 function ws_addDefaultMethods( $arr )
 {
   include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
+  global $conf;
   $service = &$arr[0];
   $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
       'retrieves the PWG version');
@@ -43,7 +49,7 @@ function ws_addDefaultMethods( $arr )
       array(
         'cat_id'=>array('default'=>0, 'flags'=>WS_PARAM_FORCE_ARRAY),
         'recursive'=>array('default'=>false),
-        'per_page' => array('default'=>100),
+        'per_page' => array('default'=>100, 'maxValue'=>$conf['ws_max_images_per_page']),
         'page' => array('default'=>0),
         'order' => array('default'=>null),
         'f_min_rate' => array( 'default'=> null ),
@@ -90,7 +96,7 @@ function ws_addDefaultMethods( $arr )
         'tag_url_name'=>array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY ),
         'tag_name'=>array('default'=>null, 'flags'=>WS_PARAM_FORCE_ARRAY ),
         'tag_mode_and'=>array('default'=>false),
-        'per_page' => array('default'=>100),
+        'per_page' => array('default'=>100, 'maxValue'=>$conf['ws_max_images_per_page']),
         'page' => array('default'=>0),
         'order' => array('default'=>null),
         'f_min_rate' => array( 'default'=> null ),

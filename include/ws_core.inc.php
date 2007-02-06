@@ -3,11 +3,10 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $URL: svn+ssh://rvelices@svn.gna.org/svn/phpwebgallery/trunk/action.php $
-// | last update   : $Date: 2006-12-21 18:49:12 -0500 (Thu, 21 Dec 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Rev: 1678 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -142,7 +141,7 @@ class PwgNamedStruct
  * @link        http://php.net/function.array_walk_recursive
  * @author      Tom Buskens <ortega@php.net>
  * @author      Aidan Lister <aidan@php.net>
- * @version     $Revision: 1.7 $
+ * @version     $Revision$
  * @since       PHP 5
  * @require     PHP 4.0.6 (is_callable)
  */
@@ -555,6 +554,10 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
         if ( ($flags&WS_PARAM_FORCE_ARRAY) )
         {
           $this->makeArrayParam( $the_param );
+        }
+        if ( isset($options['maxValue']) and $the_param>$options['maxValue'])
+        {
+          $the_param = $options['maxValue'];
         }
         $params[$name] = $the_param;
       }

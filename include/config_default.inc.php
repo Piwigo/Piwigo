@@ -588,17 +588,19 @@ $conf['enable_plugins']=true;
 // | Set default for Web Service                                           |
 // +-----------------------------------------------------------------------+
 
+// Web services are allowed (true) or completely forbidden (false)
+$conf['allow_web_services'] = true;
+
+// Maximum number of images to be returned foreach call to the web service
+$conf['ws_max_images_per_page'] = 500;
+
 // On Access control false
 // Controls are done on public basis or 
 // if connected on member authorization basis
- 
-  $conf['ws_access_control'] = false;
+$conf['ws_access_control'] = false;
   
 // On Access control true 
 // Additionnal controls are made based on Web Service Access Table
-
-// Web services are accepted
-  $conf['allow_web_services'] = true; 
 
 // Max returned rows number ( > 0 )
   $conf['ws_allowed_limit'] = array(1,2,3,5,10,25);

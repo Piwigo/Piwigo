@@ -7,7 +7,7 @@
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
-// | revision      : $Rev$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -33,7 +33,8 @@
 function ws_isInvokeAllowed($res, $methodName, $params)
 {
   global $conf, $calling_partner_id;
-  if ( !$conf['ws_access_control'])
+  if ( !$conf['ws_access_control']
+       or strpos($methodName,'reflection.')===0 )
   {
     return $res; // No controls are requested
   }
@@ -45,92 +46,88 @@ SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
   $row = mysql_fetch_assoc($result);
   if ( empty($row) )
   {
-    return new PwgError(403, 'Partner id does not exist');
+    return new PwgError(403, 'Partner id does not exist or is expired');
   }
+  if ( !empty($row['request'])
+      and strpos($methodName, $row['request'])==false )
+  {
+    return new PwgError(403, 'Method not allowed');
+  }
+
   return $res;
 }
 
 /**
  * ws_addControls
  * returns additionnal controls if requested
- * usable for 99% of Web Service methods 
- * 
- * - Args  
+ * usable for 99% of Web Service methods
+ *
+ * - Args
  * $methodName: is the requested method
  * $partner: is the key
  * $tbl_name: is the alias_name in the query (sometimes called correlation name)
- *            null if !getting picture informations 
+ *            null if !getting picture informations
  * - Logic
- * Access_control is not active: Return 
- * Key is incorrect: Return 0 = 1 (False condition for MySQL)  
- * One of Params doesn't match with type of request: return 0 = 1 again 
+ * Access_control is not active: Return
+ * Key is incorrect: Return 0 = 1 (False condition for MySQL)
+ * One of Params doesn't match with type of request: return 0 = 1 again
  * Access list(id/cat/tag) is converted in expended image-id list
  * image-id list: converted to an in-where-clause
- *   
+ *
  * The additionnal in-where-clause is return
- */       
-function ws_addControls( $methodName, $tbl_name )
+ */
+function ws_addControls( $methodName, &$params, $tbl_name )
 {
-  global $conf, $calling_partner_id, $params;
-  if ( !$conf['ws_access_control'] )
+  global $conf, $calling_partner_id;
+  if ( !$conf['ws_access_control'] or !isset($calling_partner_id) )
   {
-    return ' 1 = 1 '; // No controls are requested 
+    return '1=1'; // No controls are requested
   }
-  
-// Is it an active Partner? 
+
+// Is it an active Partner?
   $query = '
 SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
  WHERE `name` = '$calling_partner_id'
    AND NOW() <= end; ";
 $result = pwg_query($query);
   if ( mysql_num_rows( $result ) == 0 )
-  {     
-    return ' 0 = 1 '; // Unknown partner or Obsolate agreement
+  {
+    return '0=1'; // Unknown partner or Obsolate agreement
   }
-  
+
   $row = mysql_fetch_array($result);
 
-// Method / Request matching
-// Generic is not ready 
-// For generic you can say... tags. or categories. or images. maybe?
-  $filter = $row['request'];
-  $request_method = substr($methodName, 0, strlen($filter)) ;
-  if ( $filter !== $filter_method )
-  {
-    return ' 0 = 1'; // Unauthorized method request
-  }
-// Overide general object limit   
+// Overide general object limit
   $params['per_page'] = $row['limit'];
-  
+
 // Target restrict
 // 3 cases: list, cat or tag
 // Behind / we could found img-ids, cat-ids or tag-ids
   $target = $row['access'];
   list($type, $str_ids) = explode('/',$target); // Find type list
 
-  $ids = explode( ',',$str_ids );
 // (array) 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
-  $arr_ids = expand_id_list( $ids );
-  $addings = implode(',', $arr_ids); 
-// (string) 1,2,3,4,5,6,9,10,11,12,13,21,22, 
-  if ( $type = 'list')
+  $arr_ids = expand_id_list( explode( ',',$str_ids ) );
+  $addings = implode(',', $arr_ids);
+// (string) 1,2,3,4,5,6,9,10,11,12,13,21,22,
+  if ( $type == 'list')
   {
     return $tbl_name . 'id IN ( ' . $addings . ' ) ';
   }
-  
-  if ( $type = 'cat' )
+
+  if ( $type == 'cat' )
   {
     $addings = implode(',', get_image_ids_for_cats($arr_ids));
     return $tbl_name . 'id IN ( ' . $addings . ' ) ';
   }
-  
-  if ( $type = 'tag' )
-  { 
+
+  if ( $type == 'tag' )
+  {
     $addings = implode(',', get_image_ids_for_tags($arr_ids, 'OR'));
     return $tbl_name . 'id IN ( ' . $addings . ' ) ';
   }
   // Unmanaged new type?
-  return ' 0 = 1 '; // ??? 
+  return ' 0 = 1 '; // ???
 }
 
 /**
@@ -247,14 +244,18 @@ function ws_std_get_urls($image_row)
 }
 
 
+/**
+ * returns PWG version (web service method)
+ */
 function ws_getVersion($params, &$service)
 {
 //  TODO = Version availability is under control of $conf['show_version']
   return PHPWG_VERSION;
 }
 
+
 /**
- * returns images per category (wb service method)
+ * returns images per category (web service method)
  */
 function ws_categories_getImages($params, &$service)
 {
@@ -308,10 +309,12 @@ SELECT id, name, image_order
     $where_clauses[] = 'category_id IN ('
       .implode(',', array_keys($cats) )
       .')';
+    $where_clauses[] = get_sql_condition_FandF( array(
+          'visible_images' => 'i.id'
+        ), null, true
+      );
+    $where_clauses[] = ws_addControls( 'categories.getImages', $params, 'i.' );
 
-    $where_clause[] =
-          ws_addControls( 'categories.getImages', 'i.' );
-    
     $order_by = ws_std_image_sql_order($params, 'i.');
     if (empty($order_by))
     {// TODO check for category order by (image_order)
@@ -396,8 +399,9 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
     );
 }
 
+
 /**
- * returns a list of categories
+ * returns a list of categories (web service method)
  */
 function ws_categories_getList($params, &$service)
 {
@@ -466,6 +470,10 @@ ORDER BY global_rank';
     );
 }
 
+
+/**
+ * returns detailed information for an element (web service method)
+ */
 function ws_images_getInfo($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
@@ -475,7 +483,7 @@ function ws_images_getInfo($params, &$service)
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
- 
+
   $query='
 SELECT * FROM '.IMAGES_TABLE.'
   WHERE id='.$params['image_id'].
@@ -483,7 +491,7 @@ SELECT * FROM '.IMAGES_TABLE.'
       array('visible_images' => 'id'),
       ' AND'
     ).' AND '.
-    ws_addControls( 'images.getInfo', '' ).'
+    ws_addControls( 'images.getInfo', $params, '' ).'
 LIMIT 1;';
 
   $image_row = mysql_fetch_assoc(pwg_query($query));
@@ -600,6 +608,9 @@ SELECT COUNT(rate) AS count
 }
 
 
+/**
+ * perform a login (web service method)
+ */
 function ws_session_login($params, &$service)
 {
   global $conf;
@@ -615,6 +626,10 @@ function ws_session_login($params, &$service)
   return new PwgError(999, 'Invalid username/password');
 }
 
+
+/**
+ * performs a logout (web service method)
+ */
 function ws_session_logout($params, &$service)
 {
   global $user, $conf;
@@ -642,6 +657,9 @@ function ws_session_getStatus($params, &$service)
 }
 
 
+/**
+ * returns a list of tags (web service method)
+ */
 function ws_tags_getList($params, &$service)
 {
   global $user;
@@ -669,6 +687,10 @@ function ws_tags_getList($params, &$service)
   return array('tags' => new PwgNamedArray($tags, 'tag', array('id','url_name','url', 'counter' )) );
 }
 
+
+/**
+ * returns a list of images for tags (web service method)
+ */
 function ws_tags_getImages($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
@@ -709,7 +731,7 @@ function ws_tags_getImages($params, &$service)
 
   $image_ids = array();
   $image_tag_map = array();
-  
+
   if ( !empty($tag_ids) )
   { // build list of image ids with associated tags per image
     if ($params['tag_mode_and'])
@@ -747,8 +769,7 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
         '', true
       );
     $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
-    $where_clause[] =
-            ws_addControls( 'tags.getImages', 'i.' );
+    $where_clauses[] = ws_addControls( 'tags.getImages', $params, 'i.' );
 
     $order_by = ws_std_image_sql_order($params);
     if (empty($order_by))
@@ -830,128 +851,54 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
     );
 }
 
-/**
- * official_req returns the managed requests list in array format
- * FIXME A New list need to be build for ws_checker.php
- * returns array of authrorized request/methods
- * */   
-function official_req()
-{
-  $official = array(                  /* Requests are limited to             */
-      'categories.'                          /* all categories. methods */
-    , 'categories.getImages'                 /* <= see */
-    , 'categories.getList'                   /* <= see */
-    , 'images.'                              /* all images. methods */
-    , 'images.getInfo'                       /* <= see */
-    , 'tags.'                                /* all tags. methods */
-    , 'tags.getImages'                       /* <= see */
-    , 'tags.getList'                         /* <= see */
-  );
-  if (function_exists('local_req')) {
-     $local = local_req();
-     return array_merge( $official, $local );
-  }
-  return $official;
-}
 
 /**
  * expand_id_list($ids) convert a human list expression to a full ordered list
  * example : expand_id_list( array(5,2-3,2) ) returns array( 2, 3, 5)
- * */ 
+ * */
 function expand_id_list($ids)
 {
-    $tid = array();
-    foreach ( $ids as $id )
+  $tid = array();
+  foreach ( $ids as $id )
+  {
+    if ( is_numeric($id) )
     {
-      if ( is_numeric($id) )
+      $tid[] = (int) $id;
+    }
+    else
+    {
+      $range = explode( '-', $id );
+      if ( is_numeric($range[0]) and is_numeric($range[1]) )
       {
-        $tid[] = (int) $id;
-      }
-      else
-      {
-        $range = explode( '-', $id );
-        if ( is_numeric($range[0]) and is_numeric($range[1]) )
+        $from = min($range[0],$range[1]);
+        $to = max($range[0],$range[1]);
+        for ($i = $from; $i <= $to; $i++)
         {
-          $from = min($range[0],$range[1]);
-          $to = max($range[0],$range[1]);
-          for ($i = $from; $i <= $to; $i++) 
-          {
-            $tid[] = (int) $i;
-          }
+          $tid[] = (int) $i;
         }
       }
     }
-    $result = array_unique ($tid); // remove duplicates...
-    sort ($result);
-    return $result;
-}
-
-/**
- * check_target($string) verifies and corrects syntax of target parameter
- * example : check_target(cat/23,24,24,24,25,27) returns cat/23-25,27
- * */ 
-function check_target($list)
-{
-  if ( $list !== '' )
-  {
-    $type = explode('/',$list); // Find type list
-    if ( !in_array($type[0],array('list','cat','tag') ) )
-    {
-      $type[0] = 'list'; // Assume an id list
-    } 
-    $ids = explode( ',',$type[1] );
-    $list = $type[0] . '/';
-
-    // 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
-
-    $result = expand_id_list( $ids ); 
-
-    // 1,2,3,4,5,6,9,10,11,12,13,21,22, 
-    // I would like
-    // 1-6,9-13,21-22
-    $serial[] = $result[0]; // To be shifted                      
-    foreach ($result as $k => $id)
-    {
-      $next_less_1 = (isset($result[$k + 1]))? $result[$k + 1] - 1:-1;
-      if ( $id == $next_less_1 and end($serial)=='-' )
-      { // nothing to do 
-      }
-      elseif ( $id == $next_less_1 )
-      {
-        $serial[]=$id;
-        $serial[]='-';
-      }
-      else
-      {
-        $serial[]=$id;  // end serie or non serie
-      }
-    }
-    $null = array_shift($serial); // remove first value
-    $list .= array_shift($serial); // add the real first one
-    $separ = ',';
-    foreach ($serial as $id)
-    {
-      $list .= ($id=='-') ? '' : $separ . $id;
-      $separ = ($id=='-') ? '-':','; // add comma except if hyphen
-    }
   }
-  return $list;
+  $result = array_unique ($tid); // remove duplicates...
+  sort ($result);
+  return $result;
 }
+
 
 /**
  * converts a cat-ids array in image-ids array
  * FIXME Function which should already exist somewhere else
- * */  
+ * */
 function get_image_ids_for_cats($cat_ids)
 {
   $cat_list = implode(',', $cat_ids);
   $ret_ids = array();
   $query = '
-  SELECT DISTINCT image_id 
+  SELECT DISTINCT image_id
     FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id in ('.$cat_list.')
   ;';
-  return $array_from_query($query, 'image_id');
+  return array_from_query($query, 'image_id');
 }
 
 ?>

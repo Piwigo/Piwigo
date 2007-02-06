@@ -38,13 +38,83 @@ if((!defined("PHPWG_ROOT_PATH")) or (!$conf['allow_web_services']))
   die('Hacking attempt!');
 }
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
 
 /**
- * include ws_functions in only managed from ws_checker but 
- * if ws_methods would be generalized in the code this one would be promoted
- * somewhere else... Maybe very soon because it can be in plugins.
- * */ 
-include_once( PHPWG_ROOT_PATH .'include/ws_functions.inc.php' );
+ * official_req returns the managed requests list in array format
+ * FIXME A New list need to be build for ws_checker.php
+ * returns array of authrorized request/methods
+ * */
+function official_req()
+{
+  $official = array(                  /* Requests are limited to             */
+      'categories.'                          /* all categories. methods */
+    , 'categories.getImages'                 /* <= see */
+    , 'categories.getList'                   /* <= see */
+    , 'images.'                              /* all images. methods */
+    , 'images.getInfo'                       /* <= see */
+    , 'tags.'                                /* all tags. methods */
+    , 'tags.getImages'                       /* <= see */
+    , 'tags.getList'                         /* <= see */
+  );
+  if (function_exists('local_req')) {
+     $local = local_req();
+     return array_merge( $official, $local );
+  }
+  return $official;
+}
+
+/**
+ * check_target($string) verifies and corrects syntax of target parameter
+ * example : check_target(cat/23,24,24,24,25,27) returns cat/23-25,27
+ * */
+function check_target($list)
+{
+  if ( $list !== '' )
+  {
+    $type = explode('/',$list); // Find type list
+    if ( !in_array($type[0],array('list','cat','tag') ) )
+    {
+      $type[0] = 'list'; // Assume an id list
+    }
+    $ids = explode( ',',$type[1] );
+    $list = $type[0] . '/';
+
+    // 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
+
+    $result = expand_id_list( $ids );
+
+    // 1,2,3,4,5,6,9,10,11,12,13,21,22,
+    // I would like
+    // 1-6,9-13,21-22
+    $serial[] = $result[0]; // To be shifted
+    foreach ($result as $k => $id)
+    {
+      $next_less_1 = (isset($result[$k + 1]))? $result[$k + 1] - 1:-1;
+      if ( $id == $next_less_1 and end($serial)=='-' )
+      { // nothing to do
+      }
+      elseif ( $id == $next_less_1 )
+      {
+        $serial[]=$id;
+        $serial[]='-';
+      }
+      else
+      {
+        $serial[]=$id;  // end serie or non serie
+      }
+    }
+    $null = array_shift($serial); // remove first value
+    $list .= array_shift($serial); // add the real first one
+    $separ = ',';
+    foreach ($serial as $id)
+    {
+      $list .= ($id=='-') ? '' : $separ . $id;
+      $separ = ($id=='-') ? '-':','; // add comma except if hyphen
+    }
+  }
+  return $list;
+}
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
