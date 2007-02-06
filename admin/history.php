@@ -5,10 +5,10 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2006-11-29 05:18:11 +0100 (mer, 29 nov 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1620 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -205,7 +205,7 @@ SELECT date, time, user_id, IP, section, category_id, tag_ids, image_id
 ;';
 
   $result = pwg_query($query);
-  $history_lines = array();
+  $history_lines = $user_ids = $category_ids = $image_ids = array();
   while ($row = mysql_fetch_array($result))
   {
     $user_ids[$row['user_id']] = 1;

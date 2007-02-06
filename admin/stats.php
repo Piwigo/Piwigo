@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -345,7 +345,7 @@ if (isset($page['year']))
 
   array_push(
     $title_parts,
-    '<a href="'.$url.'">'.sprintf(l10n('Year %d'), $page['year']).'</a>'
+    '<a href="'.$url.'">'.$page['year'].'</a>'
     );
 
   $period_label = l10n('Month');
@@ -456,7 +456,7 @@ if (count($datas) > 0)
   
     if (isset($page['day']))
     {
-      $value = $i.' '.l10n('hour');
+      $value = sprintf('%02u', $i);
     }
     else if (isset($page['month']))
     {
