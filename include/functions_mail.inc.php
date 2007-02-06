@@ -64,10 +64,6 @@ function get_mail_configuration()
   $conf_mail['formated_email_webmaster'] =
     format_email($conf['gallery_title'], $conf_mail['email_webmaster']);
 
-  // what to display at the bottom of each mail ?
-  $conf_mail['text_footer'] =
-    "\n\n-- \nPhpWebGallery ".($conf['show_version'] ? PHPWG_VERSION : '');
-  
   return $conf_mail;
 }
 
@@ -105,15 +101,26 @@ function format_email($name, $email)
  *
  * @param none
  */
-function get_mail_template()
+function get_mail_template($email_format)
 {
   global $conf;
 
   // for mail, default template are used
   list($tmpl, $thm) = explode('/', $conf['default_template']);
   $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
+  $mail_template->set_rootdir(PHPWG_ROOT_PATH.'template/'.$tmpl.'/mail/'.$email_format);
 
   return $mail_template;
+}
+
+/**
+ * Return string email format (html or not) 
+ *
+ * @param string format
+ */
+function get_str_email_format($is_html)
+{
+  return ($is_html ? 'text/html' : 'text/plain');
 }
 
 /**
@@ -121,7 +128,7 @@ function get_mail_template()
  */
 function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $format_infos = 'text/plain', $email_format = null)
 {
-  global $conf, $conf_mail, $lang_info, $user, $page;
+  global $conf, $conf_mail, $lang_info, $page;
 
   $cvt7b_subject = str_translate_to_ascii7bits($subject);
 
@@ -170,32 +177,48 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
 
   $content = '';
 
-  if (!isset($conf_mail[$email_format][$lang_info['charset']]['header']))
+  if (!isset($conf_mail[$email_format][$lang_info['charset']]))
   {
-    if ($email_format == 'text/html')
+    if (!isset($mail_template))
     {
-      $mail_template = get_mail_template();
-
-      $mail_template->set_filenames(array('mail_header'=>'mail/header.tpl'));
-
-      $mail_template->assign_vars(
-        array(
-          'BODY_ID' =>
-            isset($page['body_id']) ?
-              $page['body_id'] : '',
-
-          'CONTENT_ENCODING' => $lang_info['charset'],
-          'LANG' => $lang_info['code'],
-          'DIR' => $lang_info['direction']
-          ));
-
-      $conf_mail[$email_format][$lang_info['charset']]['header'] =
-        $mail_template->parse('mail_header', true);
+      $mail_template = get_mail_template($email_format);
     }
-    else
-    {
-      $conf_mail[$email_format][$lang_info['charset']]['header'] = '';
-    }
+
+    $mail_template->set_filename('mail_header', 'header.tpl');
+    $mail_template->set_filename('mail_footer', 'footer.tpl');
+
+    $mail_template->assign_vars(
+      array(
+        //Header
+        'BODY_ID' =>
+          isset($page['body_id']) ?
+            $page['body_id'] : '',
+
+        'CONTENT_ENCODING' => $lang_info['charset'],
+        'LANG' => $lang_info['code'],
+        'DIR' => $lang_info['direction'],
+        
+        // Footer
+        'GALLERY_URL' =>
+          isset($page['gallery_url']) ?
+                $page['gallery_url'] : $conf['gallery_url'],
+        'GALLERY_TITLE' =>
+          isset($page['gallery_title']) ?
+                $page['gallery_title'] : $conf['gallery_title'],
+        'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
+        'PHPWG_URL' => PHPWG_URL,
+
+        'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
+        'MAIL' => get_webmaster_mail_address()
+        ));
+
+    // what are displayed on the header of each mail ?
+    $conf_mail[$email_format][$lang_info['charset']]['header'] =
+      $mail_template->parse('mail_header', true);
+
+    // what are displayed on the footer of each mail ?
+    $conf_mail[$email_format][$lang_info['charset']]['footer'] =
+      $mail_template->parse('mail_footer', true);
   }
 
   $content.= $conf_mail[$email_format][$lang_info['charset']]['header'];
@@ -209,36 +232,6 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
     $content.= $infos;
   }
 
-  if (!isset($conf_mail[$email_format][$lang_info['charset']]['footer']))
-  {
-    if ($email_format == 'text/html')
-    {
-      $mail_template->set_filenames(array('mail_footer'=>'mail/footer.tpl'));
-
-      $mail_template->assign_vars(
-        array(
-          'GALLERY_URL' =>
-            isset($page['gallery_url']) ?
-                  $page['gallery_url'] : $conf['gallery_url'],
-          'GALLERY_TITLE' =>
-            isset($page['gallery_title']) ?
-                  $page['gallery_title'] : $conf['gallery_title'],
-          'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
-          'PHPWG_URL' => PHPWG_URL,
-
-          'TITLE_MAIL' => urlencode(l10n('title_send_mail')),
-          'MAIL' => get_webmaster_mail_address()
-          ));
-
-      $conf_mail[$email_format][$lang_info['charset']]['footer'] =
-        $mail_template->parse('mail_footer', true);
-    }
-    else
-    {
-      $conf_mail[$email_format][$lang_info['charset']]['footer'] = $conf_mail['text_footer'];
-    }
-  }
-
   $content.= $conf_mail[$email_format][$lang_info['charset']]['footer'];
   
    // Undo Compute root_path in order have complete path
@@ -246,6 +239,26 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
   {
     unset_make_full_url();
   }
+
+  /*Testing block
+  {
+    global $user;
+    @mkdir(PHPWG_ROOT_PATH.'testmail');
+    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'];
+    if ($format_infos == 'text/plain')
+    {
+      $filename .= '.txt';
+    }
+    else
+    {
+      $filename .= '.html';
+    }
+    $file = fopen($filename, 'w+');
+    fwrite($file, $content);
+    fclose($file);
+    return true;
+  }
+  */
 
   if ($conf_mail['mail_options'])
   {

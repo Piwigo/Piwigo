@@ -2,8 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -203,6 +203,7 @@ function begin_users_env_nbm($is_to_send_mail = false)
   if ($is_to_send_mail)
   {
     // Init mail configuration
+    $env_nbm['email_format'] = get_str_email_format($conf['nbm_send_html_mail']);
     $env_nbm['send_as_name'] = ((isset($conf['nbm_send_mail_as']) and !empty($conf['nbm_send_mail_as'])) ? $conf['nbm_send_mail_as'] : $conf['gallery_title']);
     $env_nbm['send_as_mail_address'] = get_webmaster_mail_address();
     $env_nbm['send_as_mail_formated'] = format_email($env_nbm['send_as_name'], $env_nbm['send_as_mail_address']);
@@ -229,14 +230,34 @@ function end_users_env_nbm()
   $user = $env_nbm['save_user'];
   $lang_info = $env_nbm['save_lang_info'];
   $lang = $env_nbm['save_lang'];
+
+  if ($env_nbm['is_to_send_mail'])
+  {
+    unset($env_nbm['email_format']);
+    unset($env_nbm['send_as_name']);
+    unset($env_nbm['send_as_mail_address']);
+    unset($env_nbm['send_as_mail_formated']);
+    // Don t unset counter
+    //unset($env_nbm['error_on_mail_count']);
+    //unset($env_nbm['sent_mail_count']);
+    unset($env_nbm['msg_info']);
+    unset($env_nbm['msg_error']);
+  }
+
+  unset($env_nbm['save_user']);
+  unset($env_nbm['save_lang_info']);
+  unset($env_nbm['save_lang']);
+  unset($env_nbm['last_language']);
+  unset($env_nbm['is_to_send_mail']);
+
 }
 
 /*
- * Set user_id on nbm enviromnent
+ * Set user on nbm enviromnent
  *
  * Return none
  */
-function set_user_id_on_env_nbm($user_id)
+function set_user_on_env_nbm($user_id, $is_action_send)
 {
   global $user, $lang, $lang_info, $env_nbm;
 
@@ -260,6 +281,24 @@ function set_user_id_on_env_nbm($user_id)
     trigger_action('loading_lang');
     @include(get_language_filepath('local.lang.php'));
   }
+  
+  if ($is_action_send)
+  {
+    $env_nbm['mail_template'] = get_mail_template($env_nbm['email_format']);
+    $env_nbm['mail_template']->set_filename('notification_by_mail', 'admin/notification_by_mail.tpl');
+  }
+}
+
+/*
+ * Unset user on nbm enviromnent
+ *
+ * Return none
+ */
+function unset_user_on_env_nbm()
+{
+  global $env_nbm;
+
+  unset($env_nbm['mail_template']);
 }
 
 /*
@@ -299,36 +338,40 @@ function display_counter_info()
 
   if ($env_nbm['error_on_mail_count'] != 0)
   {
-    array_push($page['errors'], sprintf(l10n('nbm_msg_no_mail_to_send'), $env_nbm['error_on_mail_count']));
+    array_push($page['errors'], l10n_dec('nbm_msg_n_mail_not_send', 'nbm_msg_n_mails_not_send', $env_nbm['error_on_mail_count']));
     if ($env_nbm['sent_mail_count'] != 0)
-      array_push($page['infos'], sprintf(l10n('nbm_msg_n_mails_sent'), $env_nbm['sent_mail_count']));
+      array_push($page['infos'], l10n_dec('nbm_msg_n_mail_sent', 'nbm_msg_n_mails_sent', $env_nbm['sent_mail_count']));
   }
   else
   {
     if ($env_nbm['sent_mail_count'] == 0)
       array_push($page['infos'], l10n('nbm_no_mail_to_send'));
     else
-      array_push($page['infos'], sprintf(l10n('nbm_msg_n_mails_sent'), $env_nbm['sent_mail_count']));
+      array_push($page['infos'], l10n_dec('nbm_msg_n_mail_sent', 'nbm_msg_n_mails_sent', $env_nbm['sent_mail_count']));
   }
 }
 
-function get_mail_content_subscribe_unsubcribe($nbm_user)
+function assign_vars_nbm_mail_content($nbm_user)
 {
   global $env_nbm;
-  
-  $content = "\n\n\n";
-  
+
   set_make_full_url();
-  
-  $content .= "___________________________________________________\n\n";
-  $content .= sprintf(l10n('nbm_content_unsubscribe_link'), add_url_params(get_root_url().'nbm.php', array('unsubscribe' => $nbm_user['check_key'])))."\n";
-  $content .= sprintf(l10n('nbm_content_subscribe_link'), add_url_params(get_root_url().'nbm.php', array('subscribe' => $nbm_user['check_key'])))."\n";
-  $content .= sprintf(l10n('nbm_content_subscribe_unsubscribe_contact'), $env_nbm['send_as_mail_address'])."\n";
-  $content .= "___________________________________________________\n\n\n\n";
+
+  $env_nbm['mail_template']->assign_vars
+  (
+    array
+    (
+      'USERNAME' => $nbm_user['username'],
+
+      'SEND_AS_NAME' => $env_nbm['send_as_name'],
+
+      'UNSUBSCRIBE_LINK' => add_url_params(get_root_url().'nbm.php', array('unsubscribe' => $nbm_user['check_key'])),
+      'SUBSCRIBE_LINK' => add_url_params(get_root_url().'nbm.php', array('subscribe' => $nbm_user['check_key'])),
+      'CONTACT_EMAIL' => $env_nbm['send_as_mail_address']
+    )
+  );
 
   unset_make_full_url();
-
-  return $content;
 }
 
 /*
@@ -386,28 +429,27 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
       if ($nbm_user['mail_address'] != '')
       {
         // set env nbm user
-        set_user_id_on_env_nbm($nbm_user['user_id']);
-
-        $message = '';
+        set_user_on_env_nbm($nbm_user['user_id'], true);
 
         $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('nbm_object_subcribe'): l10n('nbm_object_unsubcribe'));
-        $message .= sprintf(l10n('nbm_content_hello'), $nbm_user['username']).",\n\n";
 
-        if ($is_subscribe)
-        {
-          $message .= l10n($is_admin_request ? 'nbm_content_subscribe_by_admin' : 'nbm_content_subscribe_by_himself');
-        }
-        else
-        {
-          $message .= l10n($is_admin_request ? 'nbm_content_unsubscribe_by_admin' : 'nbm_content_unsubscribe_by_himself');
-        }
+        // Assign current var for nbm mail
+        assign_vars_nbm_mail_content($nbm_user);
 
-        $message .= "\n\n";
-        $message .= l10n('nbm_content_byebye')."\n   ".$env_nbm['send_as_name']."\n\n";
+        $section_action_by = ($is_subscribe ? 'subscribe_by_' : 'unsubscribe_by_');
+        $section_action_by .= ($is_admin_request ? 'admin' : 'himself');
+        $env_nbm['mail_template']->assign_block_vars
+        (
+          $section_action_by, array('DUMMY' => 'dummy')
+        );
 
-        $message .= get_mail_content_subscribe_unsubcribe($nbm_user);
-
-        if (pwg_mail(format_email($nbm_user['username'], $nbm_user['mail_address']), $env_nbm['send_as_mail_formated'], $subject, $message))
+        if (pwg_mail(
+              format_email($nbm_user['username'], $nbm_user['mail_address']),
+              $env_nbm['send_as_mail_formated'],
+              $subject,
+              $env_nbm['mail_template']->parse('notification_by_mail', true),
+              $env_nbm['email_format'], $env_nbm['email_format']
+              ))
         {
           inc_mail_sent_success($nbm_user);
         }
@@ -416,6 +458,10 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
           inc_mail_sent_failed($nbm_user);
           $do_update = false;
         }
+
+        // unset env nbm user
+        unset_user_on_env_nbm();
+
       }
 
       if ($do_update)
@@ -456,10 +502,13 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
 
   }
 
-  array_push($page['infos'], sprintf(l10n('nbm_user_change_enabled_updated_data_count'), $updated_data_count));
+  array_push($page['infos'], l10n_dec('nbm_user_change_enabled_updated_data_count', 'nbm_users_change_enabled_updated_data_count', $updated_data_count));
   if ($error_on_updated_data_count != 0)
   {
-    array_push($page['errors'], sprintf(l10n('nbm_user_change_enabled_error_on_updated_data_count'), $error_on_updated_data_count));
+    array_push($page['errors'],
+      l10n_dec('nbm_user_change_enabled_error_on_updated_data_count',
+               'nbm_users_change_enabled_error_on_updated_data_count',
+               $error_on_updated_data_count));
   }
 
   return $check_key_treated;

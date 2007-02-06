@@ -1,0 +1,3 @@
+
+------------------------
+PhpWebGallery {VERSION}

@@ -1,5 +1,5 @@
 <div id="copyright">
-
+<HR>
  <!-- Please, do not remove this copyright. If you really want to,
       contact us on http://phpwebgallery.net to find a solution on how
       to show the origin of the script...-->

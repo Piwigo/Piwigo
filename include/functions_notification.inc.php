@@ -407,13 +407,15 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   if (!$exclude_img_cats)
   {
     add_news_line( $news,
-      nb_new_elements($start, $end), '%d new element', '%d new elements');
+      nb_new_elements($start, $end), '%d new element', '%d new elements',
+      get_root_url().'index.php?/recent_pics', $add_url );
   }
 
   if (!$exclude_img_cats)
   {
     add_news_line( $news,
-      nb_updated_categories($start, $end), '%d category updated', '%d categories updated');
+      nb_updated_categories($start, $end), '%d category updated', '%d categories updated',
+      get_root_url().'/index.php?/recent_cats', $add_url );
   }
 
   add_news_line( $news,
@@ -509,4 +511,91 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
   }
   return $dates;
 }
+
+/**
+ * returns html description about recently published elements grouped by post date
+ * @param $date_detail: selected date computed by get_recent_post_dates function
+ */
+function get_html_description_recent_post_date($date_detail)
+{
+  global $conf;
+
+  $description = '';
+  
+  $description .=
+        '<li>'
+        .l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements'])
+        .' ('
+        .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
+          .l10n('recent_pics_cat').'</a>'
+        .')'
+        .'</li><br/>';
+
+  foreach($date_detail['elements'] as $element)
+  {
+    $tn_src = get_thumbnail_url($element);
+    $description .= '<img src="'.$tn_src.'"/>';
+  }
+  $description .= '...<br/>';
+
+  $description .=
+        '<li>'
+        .l10n_dec('%d category updated', '%d categories updated',
+                  $date_detail['nb_cats'])
+        .'</li>';
+
+  $description .= '<ul>';
+  foreach($date_detail['categories'] as $cat)
+  {
+    $description .=
+          '<li>'
+          .get_cat_display_name_cache($cat['uppercats'])
+          .' ('.
+          l10n_dec('%d new element',
+                   '%d new elements', $cat['img_count']).')'
+          .'</li>';
+  }
+  $description .= '</ul>';
+
+  return $description;
+}
+
+/**
+ * explodes a MySQL datetime format (2005-07-14 23:01:37) in fields "year",
+ * "month", "day", "hour", "minute", "second".
+ *
+ * @param string mysql datetime format
+ * @return array
+ */
+function explode_mysqldt($mysqldt)
+{
+  $date = array();
+  list($date['year'],
+       $date['month'],
+       $date['day'],
+       $date['hour'],
+       $date['minute'],
+       $date['second'])
+    = preg_split('/[-: ]/', $mysqldt);
+
+  return $date;
+}
+
+/**
+ * returns title about recently published elements grouped by post date
+ * @param $date_detail: selected date computed by get_recent_post_dates function
+ */
+function get_title_recent_post_date($date_detail)
+{
+  global $lang;
+
+  $date = $date_detail['date_available'];
+  $exploded_date = explode_mysqldt($date);
+
+  $title = l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements']);
+  $title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
+
+  return $title;
+}
+
 ?>

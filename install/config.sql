@@ -24,10 +24,11 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_admin','
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('history_guest','true','keep a history of guest visits on your website');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('allow_user_registration','true','allow visitors to register?');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('secret_key', MD5(RAND()), 'a secret key specific to the gallery for internal use');
--- Notification by mail
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_html_mail','true','Send mail on HTML format for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as','','Send mail as param value for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_complementary_mail_content','','Complementary mail content for notification by mail');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_recent_post_dates','true','Send recent post by dates for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_new_user','false','Send an email to the admin when a user registers');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment','false','Send an email to the admin when a valid comment is entered');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment_validation','false','Send an email to the admin when a comment requires validation');

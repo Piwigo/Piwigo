@@ -27,22 +27,39 @@
     <legend>{lang:nbm_title_param}</legend>
     <table>
       <tr>
+        <td><label>{lang:nbm_send_html_mail}</label></td>
+        <td>
+          <label><input type="radio" name="nbm_send_html_mail" value="true"  {param.SEND_HTML_MAIL_YES}/>{lang:yes}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="false" {param.SEND_HTML_MAIL_NO}/>{lang:no}</label>
+        </td>
+      </tr>
+      <tr>
         <td>
           <label for="send_mail_as">{lang:nbm_send_mail_as}</label>
           <br><i><small>{lang:nbm_info_send_mail_as}</small></i>
         </td>
         <td><input type="text" maxlength="35" size="35" name="nbm_send_mail_as" id="send_mail_as" value="{param.SEND_MAIL_AS}"/></td>
       </tr>
-      <tr> 
-        <td><label>{lang:nbm_send_detailed_content} </label></td>
+      <tr>
+        <td><label>{lang:nbm_send_detailed_content}</label></td>
         <td>
           <label><input type="radio" name="nbm_send_detailed_content" value="true"  {param.SEND_DETAILED_CONTENT_YES}/>{lang:yes}</label>
           <label><input type="radio" name="nbm_send_detailed_content" value="false" {param.SEND_DETAILED_CONTENT_NO}/>{lang:no}</label>
         </td>
       </tr>
      <tr>
-        <td><label for="complementary_mail_content">{lang:nbm_complementary_mail_content} </label></td>
+        <td><label for="complementary_mail_content">{lang:nbm_complementary_mail_content}</label></td>
         <td><textarea cols="50" rows="5" name="nbm_complementary_mail_content" id="complementary_mail_content">{param.COMPLEMENTARY_MAIL_CONTENT}</textarea></td>
+      </tr>
+      <tr>
+        <td>
+          <label>{lang:nbm_send_recent_post_dates}</label>
+          <br><i><small>{lang:nbm_info_send_recent_post_dates}</small></i>
+        </td>
+        <td>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="true"  {param.SEND_RECENT_POST_DATES_YES}/>{lang:yes}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {param.SEND_RECENT_POST_DATES_NO}/>{lang:no}</label>
+        </td>
       </tr>
     </table>
   </fieldset>
@@ -98,7 +115,7 @@
       <legend>{lang:nbm_send_options}</legend>
       <table>
        <tr>
-          <td><label for="send_customize_mail_content">{lang:nbm_send_complementary_mail_content} </label></td>
+          <td><label for="send_customize_mail_content">{lang:nbm_send_complementary_mail_content}</label></td>
           <td><textarea cols="50" rows="5" name="send_customize_mail_content" id="send_customize_mail_content">{send.send_data.CUSTOMIZE_MAIL_CONTENT}</textarea></td>
         </tr>
       </table>

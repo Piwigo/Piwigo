@@ -84,7 +84,10 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
       $_POST[$post_keyname] = array_diff($_POST[$post_keyname], $check_key_treated);
 
       $must_repost = true;
-      array_push($page['errors'], sprintf(l10n('nbm_background_treatment_redirect'), $time_refresh));
+      array_push($page['errors'],
+        l10n_dec('nbm_background_treatment_redirect_second', 
+                 'nbm_background_treatment_redirect_seconds',
+                  $time_refresh));
     }
   }
 
@@ -270,17 +273,17 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           }
 
           // set env nbm user
-          set_user_id_on_env_nbm($nbm_user['user_id']);
+          set_user_on_env_nbm($nbm_user['user_id'], $is_action_send);
 
           if ($is_action_send)
           {
+            set_make_full_url();
             // Fill return list of "treated" check_key for 'send'
             array_push($return_list, $nbm_user['check_key']);
-            $message = '';
 
             if ($conf['nbm_send_detailed_content'])
             {
-               $news = news($nbm_user['last_send'], $dbnow);
+               $news = news($nbm_user['last_send'], $dbnow, false, $conf['nbm_send_html_mail']);
                $exist_data = count($news) > 0;
             }
             else
@@ -291,35 +294,96 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
             if ($exist_data)
             {
               $subject = '['.$conf['gallery_title'].']: '.l10n('nbm_object_news');
-              $message .= sprintf(l10n('nbm_content_hello'), $nbm_user['username']).",\n\n";
+
+              // Assign current var for nbm mail
+              assign_vars_nbm_mail_content($nbm_user);
+
+              $end_punct = ($conf['nbm_send_detailed_content'] ? ':' : '.');
 
               if (!is_null($nbm_user['last_send']))
-                $message .= sprintf(l10n('nbm_content_new_elements_between'), $nbm_user['last_send'], $dbnow);
+              {
+                $env_nbm['mail_template']->assign_block_vars
+                (
+                  'content_new_elements_between',
+                  array
+                  (
+                    'DATE_BETWEEN_1' => $nbm_user['last_send'], 
+                    'DATE_BETWEEN_2' => $dbnow,
+                    'END_PUNCT' => $end_punct
+                  )
+                );
+              }
               else
-                $message .= sprintf(l10n('nbm_content_new_elements'), $dbnow);
+              {
+                $env_nbm['mail_template']->assign_block_vars
+                (
+                  'content_new_elements_single',
+                  array
+                  (
+                    'DATE_SINGLE' => $dbnow,
+                    'END_PUNCT' => $end_punct
+                  )
+                );
+              }
 
               if ($conf['nbm_send_detailed_content'])
               {
-                $message .= ":\n";
-
-                foreach ($news as $line)
+                foreach ($news as $data)
                 {
-                  $message .= '  o '.$line."\n";
+                  $env_nbm['mail_template']->assign_block_vars
+                  (
+                    'global_new_line.new_line', array('DATA' => $data)
+                  );
                 }
-                $message .= "\n";
               }
-              else
+
+              if (!empty($customize_mail_content))
               {
-                $message .= ".\n";
+                $env_nbm['mail_template']->assign_block_vars
+                (
+                  'custom', array('CUSTOMIZE_MAIL_CONTENT' => $customize_mail_content)
+                );
               }
 
-              $message .= sprintf(l10n('nbm_content_goto'), $conf['gallery_title'], $conf['gallery_url'])."\n\n";
-              $message .= $customize_mail_content."\n\n";
-              $message .= l10n('nbm_content_byebye')."\n   ".$env_nbm['send_as_name']."\n\n";
+              if ($conf['nbm_send_html_mail'] and $conf['nbm_send_recent_post_dates'])
+              {
+                $recent_post_dates = get_recent_post_dates(7, 5, 9);
+                foreach ($recent_post_dates as $date_detail)
+                {
+                  $env_nbm['mail_template']->assign_block_vars
+                  (
+                    'recent_post.recent_post_block',
+                    array
+                    (
+                      'TITLE' => get_title_recent_post_date($date_detail),
+                      'HTML_DATA' => get_html_description_recent_post_date($date_detail)
+                    )
+                  );
+                }
+              }
 
-              $message .= get_mail_content_subscribe_unsubcribe($nbm_user);
+              $env_nbm['mail_template']->assign_block_vars
+              (
+                'goto',
+                array
+                (
+                  'GALLERY_TITLE' => $conf['gallery_title'],
+                  'GALLERY_URL' => $conf['gallery_url']
+                )
+              );
 
-              if (pwg_mail(format_email($nbm_user['username'], $nbm_user['mail_address']), $env_nbm['send_as_mail_formated'], $subject, $message))
+              $env_nbm['mail_template']->assign_block_vars
+              (
+                'byebye', array('SEND_AS_NAME' => $env_nbm['send_as_name'])
+              );
+
+              if (pwg_mail(
+                    format_email($nbm_user['username'], $nbm_user['mail_address']),
+                    $env_nbm['send_as_mail_formated'],
+                    $subject,
+                    $env_nbm['mail_template']->parse('notification_by_mail', true),
+                    $env_nbm['email_format'], $env_nbm['email_format']
+                    ))
               {
                 inc_mail_sent_success($nbm_user);
 
@@ -331,6 +395,8 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
               {
                 inc_mail_sent_failed($nbm_user);
               }
+
+              unset_make_full_url();
             }
           }
           else
@@ -341,6 +407,9 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
               array_push($return_list, $nbm_user);
             }
           }
+          
+          // unset env nbm user
+          unset_user_on_env_nbm();
         }
 
         // Restore nbm environment
@@ -437,7 +506,9 @@ where
         }
       }
     
-      array_push($page['infos'], sprintf(l10n('nbm_updated_param_count'), $updated_param_count));
+      array_push($page['infos'],
+        l10n_dec('nbm_updated_param_count', 'nbm_updated_params_count',
+          $updated_param_count));
 
       // Reload conf with new values
       load_conf_from_db('param like \'nbm\\_%\'');
@@ -542,10 +613,14 @@ switch ($page['mode'])
     $template->assign_block_vars(
       $page['mode'],
       array(
+        'SEND_HTML_MAIL_YES' => ($conf['nbm_send_html_mail'] ? 'checked="checked"' : ''),
+        'SEND_HTML_MAIL_NO' => (!$conf['nbm_send_html_mail'] ? 'checked="checked"' : ''),
         'SEND_MAIL_AS' => $conf['nbm_send_mail_as'],
         'SEND_DETAILED_CONTENT_YES' => ($conf['nbm_send_detailed_content'] ? 'checked="checked"' : ''),
         'SEND_DETAILED_CONTENT_NO' => (!$conf['nbm_send_detailed_content'] ? 'checked="checked"' : ''),
-        'COMPLEMENTARY_MAIL_CONTENT' => $conf['nbm_complementary_mail_content']
+        'COMPLEMENTARY_MAIL_CONTENT' => $conf['nbm_complementary_mail_content'],
+        'SEND_RECENT_POST_DATES_YES' => ($conf['nbm_send_recent_post_dates'] ? 'checked="checked"' : ''),
+        'SEND_RECENT_POST_DATES_NO' => (!$conf['nbm_send_recent_post_dates'] ? 'checked="checked"' : '')
         ));
     break;
   }

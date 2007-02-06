@@ -34,27 +34,6 @@ include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
 // +-----------------------------------------------------------------------+
 
 /**
- * explodes a MySQL datetime format (2005-07-14 23:01:37) in fields "year",
- * "month", "day", "hour", "minute", "second".
- *
- * @param string mysql datetime format
- * @return array
- */
-function explode_mysqldt($mysqldt)
-{
-  $date = array();
-  list($date['year'],
-       $date['month'],
-       $date['day'],
-       $date['hour'],
-       $date['minute'],
-       $date['second'])
-    = preg_split('/[-: ]/', $mysqldt);
-
-  return $date;
-}
-
-/**
  * creates a Unix timestamp (number of seconds since 1970-01-01 00:00:00
  * GMT) from a MySQL datetime format (2005-07-14 23:01:37)
  *
@@ -185,15 +164,13 @@ else
   }
 }
 
-$dates = get_recent_post_dates( 5, 6, 6);
+$dates = get_recent_post_dates(5, 6, 6);
 
-foreach($dates as  $date_detail)
+foreach($dates as $date_detail)
 { // for each recent post date we create a feed item
-  $date = $date_detail['date_available'];
-  $exploded_date = explode_mysqldt($date);
   $item = new FeedItem();
-  $item->title = l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements']);
-  $item->title .= ' ('.$lang['month'][(int)$exploded_date['month']].' '.$exploded_date['day'].')';
+  $date = $date_detail['date_available'];
+  $item->title = get_title_recent_post_date($date_detail);
   $item->link = make_index_url(
         array(
           'chronology_field' => 'posted',
@@ -206,40 +183,7 @@ foreach($dates as  $date_detail)
   $item->description .=
     '<a href="'.make_index_url().'">'.$conf['gallery_title'].'</a><br/> ';
 
-  $item->description .=
-        '<li>'
-        .l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements'])
-        .' ('
-        .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
-          .l10n('recent_pics_cat').'</a>'
-        .')'
-        .'</li>';
-
-  foreach( $date_detail['elements'] as $element )
-  {
-    $tn_src = get_thumbnail_url($element);
-    $item->description .= '<img src="'.$tn_src.'"/>';
-  }
-  $item->description .= '...<br/>';
-
-  $item->description .=
-        '<li>'
-        .l10n_dec('%d category updated', '%d categories updated',
-                  $date_detail['nb_cats'])
-        .'</li>';
-
-  $item->description .= '<ul>';
-  foreach( $date_detail['categories'] as $cat )
-  {
-    $item->description .=
-          '<li>'
-          .get_cat_display_name_cache($cat['uppercats'])
-          .' ('.
-          l10n_dec('%d new element',
-                   '%d new elements', $cat['img_count']).')'
-          .'</li>';
-  }
-  $item->description .= '</ul>';
+  $item->description .= get_html_description_recent_post_date($date_detail);
 
   $item->descriptionHtmlSyndicated = true;
 
