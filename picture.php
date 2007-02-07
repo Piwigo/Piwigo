@@ -43,13 +43,19 @@ if (isset($page['category']))
 // displayed, and execution is stopped
 if (!in_array($page['image_id'], $page['items']))
 {
-  page_not_found('The requested image does not belong to this image set',
-      duplicate_index_url() );
+  page_not_found(
+    'The requested image does not belong to this image set',
+    duplicate_index_url()
+    );
 }
 
 // add default event handler for rendering element content
-add_event_handler('render_element_content', 'default_picture_content',
-  EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
+add_event_handler(
+  'render_element_content',
+  'default_picture_content',
+  EVENT_HANDLER_PRIORITY_NEUTRAL,
+  2
+  );
 trigger_action('loc_begin_picture');
 
 // this is the default handler that generates the display for the element
@@ -63,10 +69,16 @@ function default_picture_content($content, $element_info)
   { // nothing to do
     return $content;
   }
+  
   global $user;
-  $my_template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'],
-    $user['theme'] );
-  $my_template->set_filenames( array('default_content'=>'picture_content.tpl') );
+  
+  $my_template = new Template(
+    PHPWG_ROOT_PATH.'template/'.$user['template'],
+    $user['theme']
+    );
+  $my_template->set_filenames(
+    array('default_content'=>'picture_content.tpl')
+    );
 
   if (isset($element_info['high_url']))
   {
@@ -88,8 +100,6 @@ function default_picture_content($content, $element_info)
     );
   return $my_template->parse( 'default_content', true);
 }
-
-
 
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
@@ -211,8 +221,10 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'rate' :
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
-      rate_picture($page['image_id'],
-          isset($_POST['rate']) ? $_POST['rate'] : $_GET['rate'] );
+      rate_picture(
+        $page['image_id'],
+        isset($_POST['rate']) ? $_POST['rate'] : $_GET['rate']
+        );
       redirect($url_self);
     }
     case 'delete_comment' :
@@ -395,8 +407,10 @@ if (empty($picture['current']['width']))
 
 if (!empty($picture['current']['width']))
 {
-  list($picture['current']['scaled_width'],$picture['current']['scaled_height']) =
-    get_picture_size(
+  list(
+    $picture['current']['scaled_width'],
+    $picture['current']['scaled_height']
+    ) = get_picture_size(
       $picture['current']['width'],
       $picture['current']['height'],
       @$user['maxwidth'],
@@ -419,8 +433,8 @@ $title =  $picture['current']['name'];
 $refresh = 0;
 if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
 {
-  // $redirect_msg, $refresh, $url_link and $title are required for creating an automated
-  // refresh page in header.tpl
+  // $redirect_msg, $refresh, $url_link and $title are required for creating
+  // an automated refresh page in header.tpl
   $refresh= $_GET['slideshow'];
   $url_link = add_url_params(
       $picture['next']['url'],
@@ -436,12 +450,15 @@ $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 $url_metadata = duplicate_picture_url();
 
 // do we have a plugin that can show metadata for something else than images?
-$metadata_showable = trigger_event('get_element_metadata_available',
-    (
-      ($conf['show_exif'] or $conf['show_iptc'])
-      and isset($picture['current']['image_path'])
+$metadata_showable = trigger_event(
+  'get_element_metadata_available',
+  (
+    ($conf['show_exif'] or $conf['show_iptc'])
+    and isset($picture['current']['image_path'])
     ),
-    $picture['current']['path'] );
+  $picture['current']['path']
+  );
+
 if ($metadata_showable)
 {
   if ( !isset($_GET['metadata']) )
@@ -471,26 +488,30 @@ else {
   $page['display_tpl'] = 'picture.tpl';
   $page['slideshow'] = false;  
 }
-// maybe someone wants a special display (call it before page_header so that they
-// can add stylesheets)
-$element_content = trigger_event('render_element_content',
-                      '', $picture['current'] );
 
-if ( isset($picture['next']['image_url'])
-      and isset($picture['next']['is_picture']) )
+// maybe someone wants a special display (call it before page_header so that
+// they can add stylesheets)
+$element_content = trigger_event(
+  'render_element_content',
+  '',
+  $picture['current']
+  );
+
+if (isset($picture['next']['image_url'])
+    and isset($picture['next']['is_picture']))
 {
-  $template->assign_block_vars( 'prefetch',
+  $template->assign_block_vars(
+    'prefetch',
     array (
       'URL' => $picture['next']['image_url']
-    )
-  );
+      )
+    );
 }
 
 $template->set_filenames(array( 'picture' => $page['display_tpl'] ));
 
-
 //------------------------------------------------------- navigation management
-foreach ( array('first','previous','next','last') as $which_image )
+foreach (array('first','previous','next','last') as $which_image)
 {
   if (isset($picture[$which_image]))
   {
@@ -501,6 +522,13 @@ foreach ( array('first','previous','next','last') as $which_image )
         'IMG' => $picture[$which_image]['thumbnail'],
         'U_IMG' => $picture[$which_image]['url'],
         )
+      );
+  }
+  else
+  {
+    $template->assign_block_vars(
+      $which_image.'_unactive',
+      array()
       );
   }
 }
