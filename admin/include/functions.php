@@ -521,48 +521,73 @@ function get_fs_directories($path, $recursive = true)
  */
 function mass_inserts($table_name, $dbfields, $datas)
 {
+  global $conf;
+
   if (count($datas) != 0)
   {
     // inserts all found categories
-    $query = '
+    $query_begin = '
   INSERT INTO '.$table_name.'
     ('.implode(',', $dbfields).')
      VALUES';
-    $first = 1;
+
+    $first = true;
+    $query_value = array();
+    $query_value_index = 0;
+
     foreach ($datas as $insert)
     {
-      $query.= '
+      $query_value[$query_value_index] .= '
     ';
       if ($first)
       {
-        $first = 0;
+        $first = false;
+	if (strlen($query_value[$query_value_index]) > 6)
+	{
+	  $query_value[$query_value_index] .= ',';
+	}
       }
       else
       {
-        $query.= ',';
+        if (strlen($query_value[$query_value_index]) >= $conf['max_allowed_packet'])
+        {
+          $query_value_index ++;
+          $query_value[$query_value_index] .= '
+    ';
+          $first = true;
+        }
+        else
+        {
+          $query_value[$query_value_index] .= ',';
+        }
       }
-      $query.= '(';
+      $query_value[$query_value_index] .= '(';
       foreach ($dbfields as $field_id => $dbfield)
       {
         if ($field_id > 0)
         {
-          $query.= ',';
+          $query_value[$query_value_index] .= ',';
         }
 
         if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
         {
-          $query.= 'NULL';
+          $query_value[$query_value_index] .= 'NULL';
         }
         else
         {
-          $query.= "'".$insert[$dbfield]."'";
+          $query_value[$query_value_index] .= "'".$insert[$dbfield]."'";
         }
       }
-      $query.=')';
+      $query_value[$query_value_index] .= ')';
     }
-    $query.= '
+    
+    $query_end .= '
 ;';
-    pwg_query($query);
+    foreach ($query_value as $value)
+    {
+      $final_query = $query_begin.$value.$query_end;
+      pwg_query($final_query);
+    }
   }
 }
 
