@@ -312,7 +312,7 @@ function make_section_in_url($params)
 
   if (!isset($params['section']))
   {
-    $params['section'] = 'categories';
+    $params['section'] = 'none';
   }
 
   switch($params['section'])
@@ -396,6 +396,10 @@ function make_section_in_url($params)
 
       $section_string.= '/list/'.implode(',', $params['list']);
 
+      break;
+    }
+    case 'none' :
+    {
       break;
     }
     default :

@@ -212,6 +212,19 @@ $conf['show_version'] = true;
 // page.
 $conf['links'] = array();
 
+// random_index_redirect: list of 'internal' links to use when no section is defined on index.php.
+// An example is the best than a long explanation :
+//
+//  for each link is associated a php condition
+//  '' condition is equivalent to 'return true;'
+//  $conf['random_index_redirect'] = array(
+//    PHPWG_ROOT_PATH.'index.php?/best_rated' => 'return true;',
+//    PHPWG_ROOT_PATH.'index.php?/recent_pics' => 'return $user[\'is_the_guest\'];',
+//    PHPWG_ROOT_PATH.'random.php' => '',
+//    PHPWG_ROOT_PATH.'index.php?/categories' => '',
+//    );
+$conf['random_index_redirect'] = array();
+
 // List of notes to display on all header page
 // example $conf['header_notes']  = array('Test', 'Hello');
 $conf['header_notes']  = array();

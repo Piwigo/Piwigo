@@ -43,7 +43,7 @@ $template->assign_vars(
     'USERNAME' => $user['username'],
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
     'F_IDENTIFY' => get_root_url().'identification.php',
-    'U_HOME' => make_index_url(),
+    'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
     'U_REGISTER' => get_root_url().'register.php',
     'U_LOST_PASSWORD' => get_root_url().'password.php',
     'U_LOGOUT' => get_root_url().'?act=logout',

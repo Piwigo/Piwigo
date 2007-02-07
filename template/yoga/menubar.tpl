@@ -29,7 +29,7 @@
   <a href="{stop_filter.URL}" title="{lang:stop_filter_hint}"><img src="{pwg_root}{themeconf:icon_dir}/stop_filter.png" class="button" alt="{lang:stop_filter_hint}"></a>
   <!-- END stop_filter -->
 <dl id="mbCategories">
-  <dt><a href="{U_HOME}">{lang:Categories}</a></dt>
+  <dt><a href="{U_CATEGORIES}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
     <p class="totalImages">{NB_PICTURE} {lang:total}</p>

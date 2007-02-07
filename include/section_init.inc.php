@@ -51,8 +51,6 @@
 //   'action'   => 'fill_caddie'
 //   );
 
-$page['section'] = 'categories';
-
 // some ISPs set PATH_INFO to empty string or to SCRIPT_FILENAME while in the
 // default apache implementation it is not set
 if ( $conf['question_mark_in_urls']==false and
@@ -267,6 +265,29 @@ else if ('list' == $tokens[$next_token])
     }
   }
   $next_token++;
+}
+else
+{
+  if (!empty($conf['random_index_redirect']))
+  {
+    $random_index_redirect = array();
+    foreach ($conf['random_index_redirect'] as $random_url => $random_url_condition)
+    {
+      if (empty($random_url_condition) or eval($random_url_condition))
+      {
+        $random_index_redirect[] = $random_url;
+      }
+    }
+  }
+
+  if (!empty($random_index_redirect))
+  {
+    redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
+  }
+  else
+  {
+    $page['section'] = 'categories';
+  }
 }
 
 $i = $next_token;
