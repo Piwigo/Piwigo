@@ -135,8 +135,6 @@ $add_partner = htmlspecialchars( $_POST['add_partner'], ENT_QUOTES);
 $add_target = check_target( $_POST['add_target']) ;
 $add_end = ( is_numeric($_POST['add_end']) ) ? $_POST['add_end']:0;
 $add_request = htmlspecialchars( $_POST['add_request'], ENT_QUOTES);
-$add_high = 'true'; // ( $_POST['add_high'] == 'true' ) ? 'true':'false';
-$add_normal = 'true'; // ( $_POST['add_normal'] == 'true' ) ? 'true':'false';
 $add_limit = ( is_numeric($_POST['add_limit']) ) ? $_POST['add_limit']:1; 
 $add_comment = htmlspecialchars( $_POST['add_comment'], ENT_QUOTES);
 if ( strlen($add_partner) < 8 )
@@ -144,13 +142,12 @@ if ( strlen($add_partner) < 8 )
 }
   $query = '
 INSERT INTO '.WEB_SERVICES_ACCESS_TABLE.' 
-( `name` , `access` , `start` , `end` , `request` , 
-  `high` , `normal` , `limit` , `comment` ) 
+( `name` , `access` , `start` , `end` , `request` , `limit` , `comment` )
 VALUES (' . "
   '$add_partner', '$add_target',
   NOW(), 
   ADDDATE( NOW(), INTERVAL $add_end DAY),
-  '$add_request', '$add_high', '$add_normal', '$add_limit', '$add_comment' );";
+  '$add_request', '$add_limit', '$add_comment' );";
 
   pwg_query($query);
   
@@ -223,10 +220,6 @@ if (isset($_POST['wsX_submit']))
 
 $template->assign_vars(
   array(
-    'DEFLT_HIGH_YES' => '',
-    'DEFLT_HIGH_NO' => 'checked',
-    'DEFLT_NORMAL_YES' => '',
-    'DEFLT_NORMAL_NO' => 'checked',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=web_service',    
     )
   );

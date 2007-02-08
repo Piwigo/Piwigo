@@ -1,4 +1,4 @@
-/* $Id: theme.css 1677 2006-12-21 21:38:20Z rub $ */
+/* $Id$ */
 
 /**
  * Color scheme (Remember #6699cc = #69c)
@@ -238,14 +238,18 @@ input.submit:focus {
   background-color: #369;
 }
 input.submit[type="reset"],
-input.submit  {
-	background: url( images/button-bg.png );
-	border: 3px double #369;
-	border-left-color: #cde;
-	border-top-color: #cde;
+input.submit {
+  background-image: url(images/button-bg.png);
+  height:28px;
+  width: 8em;
+  border: 0px;
   font-weight: bold;
 	color: #fff;
-	padding: 0.25em;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-style: outset;
+  border-color: #369;
+	padding: auto 0.25em;
 }
 input.submit[type="reset"]:active,
 input.submit:active {
@@ -255,5 +259,6 @@ input.submit:active {
 	border-top-color: #9ab;
 }
 #addComment input.submit  {
-	padding: 4px 40px;
+  width: 12em;
+  padding: auto 40px;
 }

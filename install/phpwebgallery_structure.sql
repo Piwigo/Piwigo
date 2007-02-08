@@ -431,8 +431,6 @@ CREATE TABLE `phpwebgallery_ws_access` (
   `start` datetime default NULL,
   `end` datetime default NULL,
   `request` varchar(255) default NULL,
-  `high` enum('true','false') NOT NULL default 'true',
-  `normal` enum('true','false') NOT NULL default 'true',
   `limit` smallint(5) unsigned default NULL,
   `comment` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
