@@ -521,60 +521,61 @@ function get_fs_directories($path, $recursive = true)
  */
 function mass_inserts($table_name, $dbfields, $datas)
 {
-  global $conf;
-
   if (count($datas) != 0)
   {
-    // inserts all found categories
-    $query_begin = '
-INSERT INTO '.$table_name.'
-  ('.implode(',', $dbfields).')
-  VALUES';
-
     $first = true;
-    $query_value = '';
-
+     
+    $query = 'SHOW VARIABLES where variable_name = \'max_allowed_packet\';';
+    list(, $packet_size) = mysql_fetch_row(pwg_query($query));
+    $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character
+    
     foreach ($datas as $insert)
     {
+      if (strlen($query) >= $packet_size)
+      {
+        $query .= '
+;';
+        pwg_query($query);
+        $first = true;
+      }
+      
       if ($first)
       {
+        $query = '
+  INSERT INTO '.$table_name.'
+    ('.implode(',', $dbfields).')
+     VALUES';
         $first = false;
       }
       else
       {
-        if (strlen($query_value) >= $conf['max_allowed_packet'])
-        {
-          pwg_query( $query_begin.$query_value );
-          $query_value = '';
-        }
-        else
-        {
-          $query_value .= ',';
-        }
+        $query .= '
+    , ';
       }
-
-      $query_value .= '
-    (';
-
+      
+      $query .= '(';
       foreach ($dbfields as $field_id => $dbfield)
       {
         if ($field_id > 0)
         {
-          $query_value .= ',';
+          $query .= ',';
         }
 
         if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
         {
-          $query_value .= 'NULL';
+          $query .= 'NULL';
         }
         else
         {
-          $query_value .= "'".$insert[$dbfield]."'";
+          $query .= "'".$insert[$dbfield]."'";
         }
       }
-      $query_value .= ')';
+      $query .= ')';
     }
-    pwg_query($query_begin.$query_value);
+    
+    $query .= '
+;';
+    pwg_query($query);
   }
 }
 

@@ -677,12 +677,4 @@ $conf['filter_pages'] = array
 // Every plugin from 1.7 would be design to manage light_slideshow case.
 $conf['light_slideshow'] = true;  
 
-// +-----------------------------------------------------------------------+
-// |                                mysql                                  |
-// +-----------------------------------------------------------------------+
-
-// $conf['max_allowed_packet'] indicates the max size in octets of MySql 
-// request. Used in mass_inserts() function.
-$conf['max_allowed_packet'] = 1000000;
-
 ?>
