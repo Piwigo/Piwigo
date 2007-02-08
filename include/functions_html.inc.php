@@ -286,8 +286,7 @@ function get_cat_display_name($cat_informations,
     }
     elseif ($url == '')
     {
-      $output.= '<a class=""';
-      $output.= ' href="'
+      $output.= '<a href="'
             .make_index_url(
                 array(
                   'category'=>$id,
@@ -299,8 +298,7 @@ function get_cat_display_name($cat_informations,
     }
     else
     {
-      $output.= '<a class=""';
-      $output.= ' href="'.PHPWG_ROOT_PATH.$url.$id.'">';
+      $output.= '<a href="'.PHPWG_ROOT_PATH.$url.$id.'">';
       $output.= $name.'</a>';
     }
   }
@@ -368,8 +366,7 @@ SELECT id,name
     elseif ($url == '')
     {
       $output.= '
-<a class=""
-   href="'
+<a href="'
       .make_index_url(
           array(
             'category'=>$category_id,
@@ -381,8 +378,7 @@ SELECT id,name
     else
     {
       $output.= '
-<a class=""
-   href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$name.'</a>';
+<a href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$name.'</a>';
     }
   }
   if ($replace_space)

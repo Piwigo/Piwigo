@@ -2,13 +2,13 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2005-11-26 21:15:50 +0100 (sam., 26 nov. 2005) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 958 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -408,14 +408,14 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   {
     add_news_line( $news,
       nb_new_elements($start, $end), '%d new element', '%d new elements',
-      get_root_url().'index.php?/recent_pics', $add_url );
+      make_index_url(array('section'=>'recent_pics')), $add_url );
   }
 
   if (!$exclude_img_cats)
   {
     add_news_line( $news,
       nb_updated_categories($start, $end), '%d category updated', '%d categories updated',
-      get_root_url().'/index.php?/recent_cats', $add_url );
+      make_index_url(array('section'=>'recent_cats')), $add_url );
   }
 
   add_news_line( $news,

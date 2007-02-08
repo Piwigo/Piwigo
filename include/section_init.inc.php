@@ -128,7 +128,7 @@ if (script_basename() == 'picture') // basename without file extention
   }
 }
 
-if (0 === strpos($tokens[$next_token], 'categor'))
+if (0 === strpos(@$tokens[$next_token], 'categor'))
 {
   $page['section'] = 'categories';
   $next_token++;
@@ -140,7 +140,7 @@ if (0 === strpos($tokens[$next_token], 'categor'))
     $next_token++;
   }
 }
-else if (0 === strpos($tokens[$next_token], 'tag'))
+else if (0 === strpos(@$tokens[$next_token], 'tag'))
 {
   $page['section'] = 'tags';
   $page['tags'] = array();
@@ -201,32 +201,32 @@ SELECT name, url_name, id
     page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
   }
 }
-else if (0 === strpos($tokens[$next_token], 'fav'))
+else if (0 === strpos(@$tokens[$next_token], 'fav'))
 {
   $page['section'] = 'favorites';
   $next_token++;
 }
-else if ('most_visited' == $tokens[$next_token])
+else if ('most_visited' == @$tokens[$next_token])
 {
   $page['section'] = 'most_visited';
   $next_token++;
 }
-else if ('best_rated' == $tokens[$next_token])
+else if ('best_rated' == @$tokens[$next_token])
 {
   $page['section'] = 'best_rated';
   $next_token++;
 }
-else if ('recent_pics' == $tokens[$next_token])
+else if ('recent_pics' == @$tokens[$next_token])
 {
   $page['section'] = 'recent_pics';
   $next_token++;
 }
-else if ('recent_cats' == $tokens[$next_token])
+else if ('recent_cats' == @$tokens[$next_token])
 {
   $page['section'] = 'recent_cats';
   $next_token++;
 }
-else if ('search' == $tokens[$next_token])
+else if ('search' == @$tokens[$next_token])
 {
   $page['section'] = 'search';
   $next_token++;
@@ -239,7 +239,7 @@ else if ('search' == $tokens[$next_token])
   $page['search'] = $matches[1];
   $next_token++;
 }
-else if ('list' == $tokens[$next_token])
+else if ('list' == @$tokens[$next_token])
 {
   $page['section'] = 'list';
   $next_token++;
@@ -268,7 +268,12 @@ else if ('list' == $tokens[$next_token])
 }
 else
 {
-  if (!empty($conf['random_index_redirect']))
+  $page['section'] = 'categories';
+  if (script_basename() == 'picture')
+  {//access a picture only by id, file or id-file without given section
+    $page['flat_cat'] = true;
+  }
+  elseif (!empty($conf['random_index_redirect']) and empty($tokens[$next_token]) )
   {
     $random_index_redirect = array();
     foreach ($conf['random_index_redirect'] as $random_url => $random_url_condition)
@@ -278,15 +283,10 @@ else
         $random_index_redirect[] = $random_url;
       }
     }
-  }
-
-  if (!empty($random_index_redirect))
-  {
-    redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
-  }
-  else
-  {
-    $page['section'] = 'categories';
+    if (!empty($random_index_redirect))
+    {
+      redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
+    }
   }
 }
 
@@ -300,7 +300,7 @@ while (isset($tokens[$i]))
   }
 
   if ('categories' == $page['section'] and
-      'flat_cat' == $tokens[$i])
+      'flat' == $tokens[$i])
   {
     // indicate a special list of images
     $page['flat_cat'] = true;

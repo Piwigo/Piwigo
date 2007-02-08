@@ -527,67 +527,54 @@ function mass_inserts($table_name, $dbfields, $datas)
   {
     // inserts all found categories
     $query_begin = '
-  INSERT INTO '.$table_name.'
-    ('.implode(',', $dbfields).')
-     VALUES';
+INSERT INTO '.$table_name.'
+  ('.implode(',', $dbfields).')
+  VALUES';
 
     $first = true;
-    $query_value = array();
-    $query_value_index = 0;
+    $query_value = '';
 
     foreach ($datas as $insert)
     {
-      $query_value[$query_value_index] .= '
-    ';
       if ($first)
       {
         $first = false;
-	if (strlen($query_value[$query_value_index]) > 6)
-	{
-	  $query_value[$query_value_index] .= ',';
-	}
       }
       else
       {
-        if (strlen($query_value[$query_value_index]) >= $conf['max_allowed_packet'])
+        if (strlen($query_value) >= $conf['max_allowed_packet'])
         {
-          $query_value_index ++;
-          $query_value[$query_value_index] .= '
-    ';
-          $first = true;
+          pwg_query( $query_begin.$query_value );
+          $query_value = '';
         }
         else
         {
-          $query_value[$query_value_index] .= ',';
+          $query_value .= ',';
         }
       }
-      $query_value[$query_value_index] .= '(';
+
+      $query_value .= '
+    (';
+
       foreach ($dbfields as $field_id => $dbfield)
       {
         if ($field_id > 0)
         {
-          $query_value[$query_value_index] .= ',';
+          $query_value .= ',';
         }
 
         if (!isset($insert[$dbfield]) or $insert[$dbfield] === '')
         {
-          $query_value[$query_value_index] .= 'NULL';
+          $query_value .= 'NULL';
         }
         else
         {
-          $query_value[$query_value_index] .= "'".$insert[$dbfield]."'";
+          $query_value .= "'".$insert[$dbfield]."'";
         }
       }
-      $query_value[$query_value_index] .= ')';
+      $query_value .= ')';
     }
-    
-    $query_end .= '
-;';
-    foreach ($query_value as $value)
-    {
-      $final_query = $query_begin.$value.$query_end;
-      pwg_query($final_query);
-    }
+    pwg_query($query_begin.$query_value);
   }
 }
 

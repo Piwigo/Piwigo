@@ -1,10 +1,10 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -271,7 +271,7 @@ function add_well_known_params_in_url($url, $params)
 
   if (isset($params['flat_cat']))
   {
-    $url.= '/flat_cat';
+    $url.= '/flat';
   }
 
   if (isset($params['start']) and $params['start'] > 0)
