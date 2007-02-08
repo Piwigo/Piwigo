@@ -525,10 +525,13 @@ function mass_inserts($table_name, $dbfields, $datas)
   {
     $first = true;
      
-    $query = 'SHOW VARIABLES where variable_name = \'max_allowed_packet\';';
+    /*$query = 'SHOW VARIABLES where variable_name = \'max_allowed_packet\';';
     list(, $packet_size) = mysql_fetch_row(pwg_query($query));
-    $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character
-    
+    $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character*/
+    /* DON T WORK WITH MySQL 4.1.9 */
+    $packet_size = 1000000;
+    $query = '';
+
     foreach ($datas as $insert)
     {
       if (strlen($query) >= $packet_size)

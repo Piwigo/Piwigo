@@ -103,12 +103,10 @@ function format_email($name, $email)
  */
 function get_mail_template($email_format)
 {
-  global $conf;
+  global $user;
 
-  // for mail, default template are used
-  list($tmpl, $thm) = explode('/', $conf['default_template']);
-  $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
-  $mail_template->set_rootdir(PHPWG_ROOT_PATH.'template/'.$tmpl.'/mail/'.$email_format);
+  $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme']);
+  $mail_template->set_rootdir(PHPWG_ROOT_PATH.'template/'.$user['template'].'/mail/'.$email_format);
 
   return $mail_template;
 }
@@ -128,7 +126,7 @@ function get_str_email_format($is_html)
  */
 function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $format_infos = 'text/plain', $email_format = null)
 {
-  global $conf, $conf_mail, $lang_info, $page;
+  global $conf, $conf_mail, $lang_info, $page, $user;
 
   $cvt7b_subject = str_translate_to_ascii7bits($subject);
 
@@ -177,7 +175,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
 
   $content = '';
 
-  if (!isset($conf_mail[$email_format][$lang_info['charset']]))
+  if (!isset($conf_mail[$email_format][$lang_info['charset']][$user['template']][$user['theme']]))
   {
     if (!isset($mail_template))
     {
@@ -190,10 +188,6 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
     $mail_template->assign_vars(
       array(
         //Header
-        'BODY_ID' =>
-          isset($page['body_id']) ?
-            $page['body_id'] : '',
-
         'CONTENT_ENCODING' => $lang_info['charset'],
         'LANG' => $lang_info['code'],
         'DIR' => $lang_info['direction'],
@@ -213,15 +207,21 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
         ));
 
     // what are displayed on the header of each mail ?
-    $conf_mail[$email_format][$lang_info['charset']]['header'] =
-      $mail_template->parse('mail_header', true);
+    $conf_mail[$email_format]
+      [$lang_info['charset']]
+      [$user['template']][$user['theme']]['header'] =
+        $mail_template->parse('mail_header', true);
 
     // what are displayed on the footer of each mail ?
-    $conf_mail[$email_format][$lang_info['charset']]['footer'] =
-      $mail_template->parse('mail_footer', true);
+    $conf_mail[$email_format]
+      [$lang_info['charset']]
+      [$user['template']][$user['theme']]['footer'] =
+        $mail_template->parse('mail_footer', true);
   }
 
-  $content.= $conf_mail[$email_format][$lang_info['charset']]['header'];
+  $content.= $conf_mail[$email_format]
+              [$lang_info['charset']]
+              [$user['template']][$user['theme']]['header'];
 
   if (($format_infos == 'text/plain') and ($email_format == 'text/html'))
   {
@@ -232,7 +232,9 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
     $content.= $infos;
   }
 
-  $content.= $conf_mail[$email_format][$lang_info['charset']]['footer'];
+  $content.= $conf_mail[$email_format]
+              [$lang_info['charset']]
+              [$user['template']][$user['theme']]['footer'];
   
    // Undo Compute root_path in order have complete path
   if ($email_format == 'text/html')
@@ -257,8 +259,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
     fwrite($file, $content);
     fclose($file);
     return true;
-  }
-  */
+  }*/
 
   if ($conf_mail['mail_options'])
   {

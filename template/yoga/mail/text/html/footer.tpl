@@ -1,3 +1,4 @@
+</div> <!-- content -->
 <div id="copyright">
 <HR>
  <!-- Please, do not remove this copyright. If you really want to,

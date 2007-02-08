@@ -265,6 +265,8 @@ function set_user_on_env_nbm($user_id, $is_action_send)
   $user['id'] = $user_id;
   $user = array_merge($user, getuserdata($user['id'], true));
 
+  list($user['template'], $user['theme']) = explode('/', $user['template']);
+
   if ($env_nbm['last_language'] != $user['language'])
   {
     $env_nbm['last_language'] = $user['language'];

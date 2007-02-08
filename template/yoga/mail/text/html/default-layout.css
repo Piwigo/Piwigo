@@ -1,0 +1,8 @@
+/* $Id$ */
+
+BODY#theMailPage #content
+{
+  margin: 2em;
+  text-align: left;
+}
+

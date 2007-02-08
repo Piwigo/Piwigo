@@ -269,23 +269,34 @@ else if ('list' == @$tokens[$next_token])
 else
 {
   $page['section'] = 'categories';
-  if (script_basename() == 'picture')
-  {//access a picture only by id, file or id-file without given section
-    $page['flat_cat'] = true;
-  }
-  elseif (!empty($conf['random_index_redirect']) and empty($tokens[$next_token]) )
+
+  switch (script_basename())
   {
-    $random_index_redirect = array();
-    foreach ($conf['random_index_redirect'] as $random_url => $random_url_condition)
+    case 'picture':
     {
-      if (empty($random_url_condition) or eval($random_url_condition))
-      {
-        $random_index_redirect[] = $random_url;
-      }
+      //access a picture only by id, file or id-file without given section
+      $page['flat_cat'] = true;
+      break;
     }
-    if (!empty($random_index_redirect))
+    case 'index':
     {
-      redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
+      // No section defined, go to selected url
+      if (!empty($conf['random_index_redirect']) and empty($tokens[$next_token]) )
+      {
+        $random_index_redirect = array();
+        foreach ($conf['random_index_redirect'] as $random_url => $random_url_condition)
+        {
+          if (empty($random_url_condition) or eval($random_url_condition))
+          {
+            $random_index_redirect[] = $random_url;
+          }
+        }
+        if (!empty($random_index_redirect))
+        {
+          redirect($random_index_redirect[mt_rand(0, count($random_index_redirect)-1)]);
+        }
+      }
+      break;
     }
   }
 }
