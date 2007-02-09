@@ -69,9 +69,9 @@ function default_picture_content($content, $element_info)
   { // nothing to do
     return $content;
   }
-  
-  global $user;
-  
+
+  global $user, $page;
+
   $my_template = new Template(
     PHPWG_ROOT_PATH.'template/'.$user['template'],
     $user['theme']
@@ -80,7 +80,7 @@ function default_picture_content($content, $element_info)
     array('default_content'=>'picture_content.tpl')
     );
 
-  if (isset($element_info['high_url']))
+  if ( !isset($page['slideshow']) and isset($element_info['high_url']) )
   {
     $uuid = uniqid(rand());
     $my_template->assign_block_vars(
@@ -429,21 +429,30 @@ $url_slide = add_url_params(
   array( 'slideshow'=>$conf['slideshow_period'] )
   );
 
-$title =  $picture['current']['name'];
-$refresh = 0;
-if ( isset( $_GET['slideshow'] ) and isset($page['next_item']) )
+
+$template->set_filename('picture', 'picture.tpl');
+if ( isset( $_GET['slideshow'] ) )
 {
-  // $redirect_msg, $refresh, $url_link and $title are required for creating
-  // an automated refresh page in header.tpl
-  $refresh= $_GET['slideshow'];
-  $url_link = add_url_params(
-      $picture['next']['url'],
-      array('slideshow'=>$refresh)
-    );
-  $redirect_msg = nl2br(l10n('redirect_msg'));
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
+  $page['slideshow'] = true;
+  if ( $conf['light_slideshow'] )
+  {
+    $template->set_filename('picture', 'slideshow.tpl');
+  }
+  if ( isset($page['next_item']) )
+  {
+    // $redirect_msg, $refresh, $url_link and $title are required for creating
+    // an automated refresh page in header.tpl
+    $refresh= $_GET['slideshow'];
+    $url_link = add_url_params(
+        $picture['next']['url'],
+        array('slideshow'=>$refresh)
+      );
+    $redirect_msg = nl2br(l10n('redirect_msg'));
+  }
 }
 
+$title =  $picture['current']['name'];
 $title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
 
 // metadata
@@ -473,22 +482,6 @@ if ($metadata_showable)
 
 $page['body_id'] = 'thePicturePage';
 
-//------------------------------------------------------------ light slideshow
-// Warning !!! Warning !!! Warning !!!
-// Notice for plugins writers check if you have to act on the active template
-// like this if ( $page['slideshow'] ) { return false; }
-//
-if ( isset($_GET['slideshow']) and $conf['light_slideshow'] )
-{
-  $page['display_tpl'] = 'slideshow.tpl';
-  $page['slideshow'] = true; 
-  unset($picture['current']['high_url']); 
-}
-else {
-  $page['display_tpl'] = 'picture.tpl';
-  $page['slideshow'] = false;  
-}
-
 // maybe someone wants a special display (call it before page_header so that
 // they can add stylesheets)
 $element_content = trigger_event(
@@ -507,8 +500,6 @@ if (isset($picture['next']['image_url'])
       )
     );
 }
-
-$template->set_filenames(array( 'picture' => $page['display_tpl'] ));
 
 //------------------------------------------------------- navigation management
 foreach (array('first','previous','next','last') as $which_image)
@@ -837,6 +828,7 @@ if ($metadata_showable and isset($_GET['metadata']))
 pwg_log($picture['current']['id']);
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
+trigger_action('loc_end_picture');
 $template->parse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
