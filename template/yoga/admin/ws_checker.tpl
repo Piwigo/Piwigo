@@ -261,4 +261,7 @@
 
   </fieldset>
 </form>
+<object data="http://127.0.0.1/phpwebgallery/trunk/ws.php?&method=pwg.getVersion&partner=Public" type="text/html"
+style="width: 660px; height: 230px; position: relative; overflow: auto;">
+</object>
 <!-- END acc_list -->
