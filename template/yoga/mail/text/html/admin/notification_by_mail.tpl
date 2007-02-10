@@ -1,4 +1,4 @@
-<div id="nbm_mail_content">
+<div id="nbm_message">
 <h2>{lang:Notification}</h2>
 <p>{lang:nbm_content_hello_1}{USERNAME}{lang:nbm_content_hello_2}</p>
 
@@ -44,9 +44,7 @@
 </p>
 <!-- BEGIN recent_post -->
 </div>
-</div>
-<div id="content">
-<div id="nbm_mail_recent_post">
+<div id="nbm_recent_post">
   <!-- BEGIN recent_post_block -->
   <h2>{recent_post.recent_post_block.TITLE}</h2>
   {recent_post.recent_post_block.HTML_DATA}
