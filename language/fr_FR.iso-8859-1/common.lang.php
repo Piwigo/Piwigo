@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -489,7 +489,7 @@ $lang['maxheight'] = 'Hauteur maximum des images';
 $lang['maxheight_error'] = 'La hauteur maximum des images doit être supérieure à 50';
 $lang['maxwidth'] = 'Largeur maximum des images';
 $lang['maxwidth_error'] = 'La largeur des images doit être supérieure à 50';
-$lang['flat_cat_hint'] = 'affiche à plat les éléments des catégories et des sous-catégories';
+$lang['flat_hint'] = 'affiche à plat les éléments des catégories et des sous-catégories';
 $lang['start_filter_hint'] = 'afficher que les éléments récents';
 $lang['stop_filter_hint'] = 'retourner à l\'affichage de tous les éléments';
 $lang['mode_created_hint'] = 'afficher un calendrier par date de création';

@@ -275,7 +275,7 @@ else
     case 'picture':
     {
       //access a picture only by id, file or id-file without given section
-      $page['flat_cat'] = true;
+      $page['flat'] = true;
       break;
     }
     case 'index':
@@ -314,7 +314,7 @@ while (isset($tokens[$i]))
       'flat' == $tokens[$i])
   {
     // indicate a special list of images
-    $page['flat_cat'] = true;
+    $page['flat'] = true;
   }
 
   if (preg_match('/^(posted|created)/', $tokens[$i] ))
@@ -396,7 +396,7 @@ if ('categories' == $page['section'])
         'title'             =>
           get_cat_display_name($result['name'], '', false),
         'thumbnails_include' =>
-          (($result['nb_images'] > 0) or (isset($page['flat_cat'])))
+          (($result['nb_images'] > 0) or (isset($page['flat'])))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php'
         )
@@ -406,12 +406,12 @@ if ('categories' == $page['section'])
   {
     $page['title'] = $lang['no_category'];
     $page['thumbnails_include'] =
-      (isset($page['flat_cat']))
+      (isset($page['flat']))
           ? 'include/category_default.inc.php'
           : 'include/category_cats.inc.php';
   }
 
-  if (isset($page['flat_cat']))
+  if (isset($page['flat']))
   {
     $page['title'] = $lang['recent_pics_cat'].' : '.$page['title'] ;
   }
@@ -421,7 +421,7 @@ if ('categories' == $page['section'])
       (!isset($page['chronology_field'])) and
       (
         (isset($page['category'])) or
-        (isset($page['flat_cat']))
+        (isset($page['flat']))
       )
     )
   {
@@ -430,7 +430,7 @@ if ('categories' == $page['section'])
       $conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
     }
 
-    if (isset($page['flat_cat']))
+    if (isset($page['flat']))
     {
       // flat recent categories mode
         $query = '
@@ -742,7 +742,7 @@ SELECT id,file
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
 $page['meta_robots']=array();
-if ( isset($page['chronology_field']) or isset($page['flat_cat'])
+if ( isset($page['chronology_field']) or isset($page['flat'])
       or 'list'==$page['section'] or 'recent_pics'==$page['section'] )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);

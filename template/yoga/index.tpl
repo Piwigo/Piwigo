@@ -31,9 +31,9 @@
       <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
       <!-- END mode_normal -->
 
-      <!-- BEGIN flat_cat -->
-      <li><a href="{flat_cat.URL}" title="{lang:flat_cat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat_cat.png" class="button" alt="{lang:flat_cat_hint}"></a></li>
-      <!-- END flat_cat -->
+      <!-- BEGIN flat -->
+      <li><a href="{flat.URL}" title="{lang:flat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat.png" class="button" alt="{lang:flat_hint}"></a></li>
+      <!-- END flat -->
 
       <!-- BEGIN mode_posted -->
       <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>

@@ -269,7 +269,7 @@ function add_well_known_params_in_url($url, $params)
     }
   }
 
-  if (isset($params['flat_cat']))
+  if (isset($params['flat']))
   {
     $url.= '/flat';
   }
