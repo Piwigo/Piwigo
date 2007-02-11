@@ -534,7 +534,9 @@ function get_html_description_recent_post_date($date_detail)
   foreach($date_detail['elements'] as $element)
   {
     $tn_src = get_thumbnail_url($element);
-    $description .= '<img src="'.$tn_src.'"/>';
+    $description .= '<a href="'.
+                    make_picture_url(array('image_id' => $element['id']))
+                    .'"><img src="'.$tn_src.'"/></a>';
   }
   $description .= '...<br/>';
 
