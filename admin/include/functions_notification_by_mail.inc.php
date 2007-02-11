@@ -384,7 +384,7 @@ function assign_vars_nbm_mail_content($nbm_user)
  *
  * @return check_key list treated
  */
-function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_subscribe = false, $check_key_list = array())
+function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_subscribe = false, $check_key_list = array())
 {
   global $conf, $page, $env_nbm, $conf;
 
@@ -433,7 +433,7 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
         // set env nbm user
         set_user_on_env_nbm($nbm_user['user_id'], true);
 
-        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('nbm_object_subcribe'): l10n('nbm_object_unsubcribe'));
+        $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('nbm_object_subscribe'): l10n('nbm_object_unsubscribe'));
 
         // Assign current var for nbm mail
         assign_vars_nbm_mail_content($nbm_user);
@@ -523,9 +523,9 @@ function do_subscribe_unsubcribe_notification_by_mail($is_admin_request, $is_sub
  *
  * @return check_key list treated
  */
-function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = array())
+function unsubscribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {
-  return do_subscribe_unsubcribe_notification_by_mail($is_admin_request, false, $check_key_list);
+  return do_subscribe_unsubscribe_notification_by_mail($is_admin_request, false, $check_key_list);
 }
 
 /*
@@ -535,9 +535,9 @@ function unsubcribe_notification_by_mail($is_admin_request, $check_key_list = ar
  *
  * @return check_key list treated
  */
-function subcribe_notification_by_mail($is_admin_request, $check_key_list = array())
+function subscribe_notification_by_mail($is_admin_request, $check_key_list = array())
 {
-  return do_subscribe_unsubcribe_notification_by_mail($is_admin_request, true, $check_key_list);
+  return do_subscribe_unsubscribe_notification_by_mail($is_admin_request, true, $check_key_list);
 }
 
 ?>

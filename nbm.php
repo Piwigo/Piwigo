@@ -2,8 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2006-2007   Ruben ARNAUD - team@phpwebgallery.net       |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -49,13 +49,13 @@ $page['infos'] = array();
 if (isset($_GET['subscribe'])
     and preg_match('/^[A-Za-z0-9]{16}$/', $_GET['subscribe']))
 {
-  subcribe_notification_by_mail(false, array($_GET['subscribe']));
+  subscribe_notification_by_mail(false, array($_GET['subscribe']));
 }
 else
 if (isset($_GET['unsubscribe'])
     and preg_match('/^[A-Za-z0-9]{16}$/', $_GET['unsubscribe']))
 {
-  unsubcribe_notification_by_mail(false, array($_GET['unsubscribe']));
+  unsubscribe_notification_by_mail(false, array($_GET['unsubscribe']));
 }
 else
 {

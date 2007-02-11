@@ -188,7 +188,7 @@ order by
     // Insert new nbm_users
     mass_inserts(USER_MAIL_NOTIFICATION_TABLE, array('user_id', 'check_key', 'enabled'), $inserts);
     // Update field enabled with specific function
-    $check_key_treated = do_subscribe_unsubcribe_notification_by_mail
+    $check_key_treated = do_subscribe_unsubscribe_notification_by_mail
     (
       true,
       $conf['nbm_default_value_user_enabled'],
@@ -520,13 +520,13 @@ where
     {
       if (isset($_POST['falsify']) and isset($_POST['cat_true']))
       {
-        $check_key_treated = unsubcribe_notification_by_mail(true, $_POST['cat_true']);
+        $check_key_treated = unsubscribe_notification_by_mail(true, $_POST['cat_true']);
         do_timeout_treatment('cat_true', $check_key_treated);
       }
       else
       if (isset($_POST['trueify']) and isset($_POST['cat_false']))
       {
-        $check_key_treated = subcribe_notification_by_mail(true, $_POST['cat_false']);
+        $check_key_treated = subscribe_notification_by_mail(true, $_POST['cat_false']);
         do_timeout_treatment('cat_false', $check_key_treated);
       }
     }

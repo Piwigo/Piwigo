@@ -73,7 +73,7 @@
   <!-- BEGIN subscribe -->
   <fieldset>
     <legend>{lang:nbm_title_subscribe}</legend>
-    <p><i>{lang:nbm_warning_subscribe_unsubcribe}</i></p>
+    <p><i>{lang:nbm_warning_subscribe_unsubscribe}</i></p>
     {DOUBLE_SELECT}
   </fieldset>
   <!-- END subscribe -->
