@@ -1,4 +1,5 @@
 /* $Id$ */
+/* Theme mail css */
 /* Including like css style on HTML mail */
 
 body{background-color:#444; color:#fff;}

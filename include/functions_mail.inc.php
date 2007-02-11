@@ -208,34 +208,29 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
 
     if ($email_format == 'text/html')
     {
-      if (is_file($mail_template->root.'/default-layout-mail-css.tpl'))
-      {
-        $mail_template->set_filename('mail_css_default_template', 'default-layout-mail-css.tpl');
-        $mail_template->assign_var_from_handle('MAIL_CSS_DEFAULT_TEMPLATE', 'mail_css_default_template');
-      }
-
       $old_root = $mail_template->root;
 
-      $mail_template->root = PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/'.$user['theme'];
-      if (is_file($mail_template->root.'/layout-mail-css.tpl'))
+      if (is_file($mail_template->root.'/global-mail-css.tpl'))
       {
-        $mail_template->set_filename('mail_css_theme', 'layout-mail-css.tpl');
-        $mail_template->assign_var_from_handle('MAIL_CSS_THEME', 'mail_css_theme');
+        $mail_template->set_filename('global_mail_css', 'global-mail-css.tpl');
+        $mail_template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'global_mail_css');
+      }
+
+      $mail_template->root = PHPWG_ROOT_PATH.'template/'.$user['template'].'/theme/'.$user['theme'];
+      if (is_file($mail_template->root.'/mail-css.tpl'))
+      {
+        $mail_template->set_filename('mail_css', 'mail-css.tpl');
+        $mail_template->assign_var_from_handle('MAIL_CSS', 'mail_css');
       }
 
       $mail_template->root = PHPWG_ROOT_PATH.'template-common';
-      if (is_file($mail_template->root.'/local-layout-mail-css.tpl'))
+      if (is_file($mail_template->root.'/local-mail-css.tpl'))
       {
-        $mail_template->set_filename('mail_css_local_template', 'local-layout-mail-css.tpl');
-        $mail_template->assign_var_from_handle('MAIL_CSS_LOCAL_COMMON', 'mail_css_local_template');
+        $mail_template->set_filename('local_mail_css', 'local-mail-css.tpl');
+        $mail_template->assign_var_from_handle('LOCAL_MAIL_CSS', 'local_mail_css');
       }
 
       $mail_template->root = $old_root;
-      if (is_file($mail_template->root.'/local-layout-mail-css.tpl'))
-      {
-        $mail_template->set_filename('mail_css_local_template', 'local-layout-mail-css.tpl');
-        $mail_template->assign_var_from_handle('MAIL_CSS_LOCAL_TEMPLATE', 'mail_css_local_template');
-      }
     }
 
     // what are displayed on the header of each mail ?

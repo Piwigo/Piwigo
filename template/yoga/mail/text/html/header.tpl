@@ -5,10 +5,9 @@
 <title>PhpWebGallery Mail</title>
 <meta http-equiv="Content-Type" content="text/html; charset={CONTENT_ENCODING}">
 <style><!-- /* Mini style for mails */
-{MAIL_CSS_DEFAULT_TEMPLATE}
-{MAIL_CSS_THEME}
-{MAIL_CSS_LOCAL_TEMPLATE}
-{MAIL_CSS_LOCAL_COMMON}
+{GLOBAL_MAIL_CSS}
+{MAIL_CSS}
+{LOCAL_MAIL_CSS}
 --></style>
 </head>
 <body>

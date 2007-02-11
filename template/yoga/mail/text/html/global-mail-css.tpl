@@ -1,4 +1,5 @@
 /* $Id$ */
+/* Global mail css */
 /* Including like css style on HTML mail */
 
 body{background-color:#fff;font-family: Univers, Helvetica, Optima;font-size:12px; margin:0px;padding:0px; color:#369;}
