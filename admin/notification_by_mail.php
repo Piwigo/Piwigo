@@ -273,7 +273,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           }
 
           // set env nbm user
-          set_user_on_env_nbm($nbm_user['user_id'], $is_action_send);
+          set_user_on_env_nbm($nbm_user, $is_action_send);
 
           if ($is_action_send)
           {
@@ -377,13 +377,20 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                 'byebye', array('SEND_AS_NAME' => $env_nbm['send_as_name'])
               );
 
-              if (pwg_mail(
+              if (pwg_mail
+                  (
                     format_email($nbm_user['username'], $nbm_user['mail_address']),
-                    $env_nbm['send_as_mail_formated'],
-                    $subject,
-                    $env_nbm['mail_template']->parse('notification_by_mail', true),
-                    $env_nbm['email_format'], $env_nbm['email_format']
-                    ))
+                    array
+                    (
+                      'from' => $env_nbm['send_as_mail_formated'],
+                      'subject' => $subject,
+                      'email_format' => $env_nbm['email_format'],
+                      'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
+                      'content_format' => $env_nbm['email_format'],
+                      'template' => $nbm_user['template'],
+                      'theme' => $nbm_user['theme']
+                    )
+                  ))
               {
                 inc_mail_sent_success($nbm_user);
 

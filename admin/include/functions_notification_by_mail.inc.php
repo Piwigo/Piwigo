@@ -257,12 +257,12 @@ function end_users_env_nbm()
  *
  * Return none
  */
-function set_user_on_env_nbm($user_id, $is_action_send)
+function set_user_on_env_nbm(&$nbm_user, $is_action_send)
 {
   global $user, $lang, $lang_info, $env_nbm;
 
   $user = array();
-  $user['id'] = $user_id;
+  $user['id'] = $nbm_user['user_id'];
   $user = array_merge($user, getuserdata($user['id'], true));
 
   list($user['template'], $user['theme']) = explode('/', $user['template']);
@@ -286,7 +286,11 @@ function set_user_on_env_nbm($user_id, $is_action_send)
   
   if ($is_action_send)
   {
-    $env_nbm['mail_template'] = get_mail_template($env_nbm['email_format']);
+    $nbm_user['template'] = $user['template'];
+    $nbm_user['theme'] = $user['theme'];
+    $env_nbm['mail_template'] =
+      get_mail_template($env_nbm['email_format'], 
+        array('template' => $nbm_user['template'], 'theme' => $nbm_user['theme']));
     $env_nbm['mail_template']->set_filename('notification_by_mail', 'admin/notification_by_mail.tpl');
   }
 }
@@ -431,7 +435,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
       if ($nbm_user['mail_address'] != '')
       {
         // set env nbm user
-        set_user_on_env_nbm($nbm_user['user_id'], true);
+        set_user_on_env_nbm($nbm_user, true);
 
         $subject = '['.$conf['gallery_title'].']: '.($is_subscribe ? l10n('nbm_object_subscribe'): l10n('nbm_object_unsubscribe'));
 
@@ -445,13 +449,20 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
           $section_action_by, array('DUMMY' => 'dummy')
         );
 
-        if (pwg_mail(
+        if (pwg_mail
+            (
               format_email($nbm_user['username'], $nbm_user['mail_address']),
-              $env_nbm['send_as_mail_formated'],
-              $subject,
-              $env_nbm['mail_template']->parse('notification_by_mail', true),
-              $env_nbm['email_format'], $env_nbm['email_format']
-              ))
+              array
+              (
+                'from' => $env_nbm['send_as_mail_formated'],
+                'subject' => $subject,
+                'email_format' => $env_nbm['email_format'],
+                'content' => $env_nbm['mail_template']->parse('notification_by_mail', true),
+                'content_format' => $env_nbm['email_format'],
+                'template' => $nbm_user['template'],
+                'theme' => $nbm_user['theme']
+              )
+            ))
         {
           inc_mail_sent_success($nbm_user);
         }

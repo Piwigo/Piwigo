@@ -1,1 +1,3 @@
-{FAKE_SIMULATE_EMPTY_FILE}
+-----={BOUNDARY_KEY}
+Content-Type: {CONTENT_TYPE}; charset={CONTENT_ENCODING}; format=flowed;
+Content-Transfer-Encoding: 8bit

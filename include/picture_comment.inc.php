@@ -223,10 +223,8 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
           'Validate: '.get_absolute_root_url()
           .'comments.php?validate='.$comm['id'];
       }
-      pwg_mail( get_webmaster_mail_address(), '',
-          'PWG comment by '.$comm['author'],
-          $content
-          );
+      pwg_mail(get_webmaster_mail_address(),
+        array('subject' => 'PWG comment by '.$comm['author'], 'content' => $content));
     }
   }
   else

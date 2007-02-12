@@ -84,7 +84,8 @@ WHERE '
           ."\n".l10n('Password').': '.$new_password
           ;
 
-        if (pwg_mail($row['email'], '', l10n('password updated'), $infos))
+        if (pwg_mail($row['email'],
+              array('subject' => l10n('password updated'), 'content' => $infos)))
         {
           $data =
             array(
