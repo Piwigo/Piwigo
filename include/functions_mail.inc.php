@@ -167,6 +167,7 @@ function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $for
   $headers.= 'Reply-To: '.$from."\n";
   $headers.= 'Content-Type: '.$email_format.';format=flowed;charset="'.$lang_info['charset'].'";';
   $headers.= 'reply-type=original'."\n";
+  $headers.= 'MIME-Version: 1.0'."\n";
 
   if ($conf_mail['send_bcc_mail_webmaster'])
   {

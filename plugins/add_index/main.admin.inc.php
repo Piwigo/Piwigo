@@ -36,6 +36,7 @@ class AdminAddIndex extends AddIndex
   function load_params()
   {
     global $conf;
+
     // Name of index file (index.php or index.htm or index.html)
     if (!isset($conf['add_index_filename']))
     {
@@ -83,17 +84,6 @@ class AdminAddIndex extends AddIndex
 
     return $site_manager_plugin_links;
   }
-
-  function plugin_admin_menu($menu)
-  {
-    array_push($menu,
-        array(
-          'NAME' => l10n('Menu_Add_Index'),
-          'URL' => get_admin_plugin_menu_link(dirname(__FILE__).'/admin/admin_menu.php')
-        )
-      );
-    return $menu;
-  }
 }
 
 // Create object
@@ -106,6 +96,5 @@ $add_index->load_params();
 add_event_handler('loading_lang', array(&$add_index, 'loading_lang'));
 add_event_handler('get_admin_advanced_features_links', array(&$add_index, 'get_admin_advanced_features_links'));
 add_event_handler('get_admins_site_links', array(&$add_index, 'get_admins_site_links'), EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-add_event_handler('get_admin_plugin_menu_links', array(&$add_index, 'plugin_admin_menu') );
 
 ?>
