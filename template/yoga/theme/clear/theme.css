@@ -49,8 +49,23 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   -moz-border-radius: 4px;	/* round corners with Geko */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
+
 #content UL.thumbnails SPAN.wrap2:hover {
+  background-color: AntiqueWhite;
   border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+  color: black;
+}
+
+#content UL.thumbnailCategories DIV.thumbnailCategory:hover {
+  background-color: AntiqueWhite;
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+  color: black;
+}
+
+#content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
+  background-color: AntiqueWhite;
+  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
+  color: black;
 }
 
 /* links */
