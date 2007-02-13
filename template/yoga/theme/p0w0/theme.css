@@ -241,7 +241,6 @@ input.submit[type="reset"],
 input.submit {
   background-image: url(images/button-bg.png);
   height:28px;
-  width: 8em;
   border: 0px;
   font-weight: bold;
 	color: #fff;
@@ -249,7 +248,7 @@ input.submit {
   border-right-width: 1px;
   border-style: outset;
   border-color: #369;
-	padding: auto 0.25em;
+	padding: auto 2em auto 2em;
 }
 input.submit[type="reset"]:active,
 input.submit:active {
@@ -259,6 +258,5 @@ input.submit:active {
 	border-top-color: #9ab;
 }
 #addComment input.submit  {
-  width: 12em;
-  padding: auto 40px;
+  padding: auto 14em auto 14em;
 }

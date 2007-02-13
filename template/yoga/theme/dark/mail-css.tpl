@@ -10,4 +10,5 @@ color: #69c;}
 h2 { background-color: #ddd;color:#fff48e;background-image: url({pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/images/tableh1_bg.png);}
 img { margin: 16px; border: 16px solid #111; -moz-border-radius: 4px; border-radius: 4px 4px; }
 img:hover { padding: 15px; border: 1px solid yellow;background-color:#444;-moz-border-radius: 4px; border-radius: 4px 4px; }
-a:hover { color: #fff48e; background: transparent; }
+a { color: #fff48e; background: transparent;border-bottom:1px dotted #005e89; }
+a:hover {color: #fff48e;}
