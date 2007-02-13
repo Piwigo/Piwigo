@@ -121,9 +121,7 @@ H2, #menubar DT, .throw, TD H3,
 #content H2 { background-color: #369; }
 #content .infos { background-color: #47a; }
 #content .errors { background-color: #fc5; }
-#thePicturePage #comments H2 {
-  background-color: #eef;
-}
+#thePicturePage #comments H2 { background-color: #eef; }
 #content ul.thumbnailCategories li div.thumbnailCategory .description h3 {
   background-color: #69c;
 }
@@ -153,9 +151,21 @@ A:hover { text-decoration: none; border: 0px; }
   border: 1px solid #369;
   padding: 0px;
 }
-#content H2 {
+#menubar DT, #content H2 {
+  background-image: url(images/button-bg.png);
   border: 0px;
   margin-bottom: 20px;
+}
+#content ul.thumbnailCategories li div.thumbnailCategory .description h3 {
+  background-image: url(images/button-bg.png);
+  border-width: 1px;
+  border-style: outset;
+  border-color: #369;
+}
+#content ul.thumbnailCategories li div.thumbnailCategory .description h3:active
+{
+	background: #69c;
+	border: 1px inset #369;
 }
 #content .errors { border-color: #f92; }
 #imageHeaderBar H2 { border: 0px; }
@@ -240,23 +250,23 @@ input.submit:focus {
 input.submit[type="reset"],
 input.submit {
   background-image: url(images/button-bg.png);
-  height:28px;
-  border: 0px;
+  height:22px;
   font-weight: bold;
 	color: #fff;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
+  border-width: 1px;
   border-style: outset;
   border-color: #369;
-	padding: auto 2em auto 2em;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 input.submit[type="reset"]:active,
 input.submit:active {
 	background: #69c;
-	border: 3px double #369;
-	border-left-color: #9ab;
-	border-top-color: #9ab;
+  height:22px;
+	border: 1px inset #369;
 }
-#addComment input.submit  {
-  padding: auto 14em auto 14em;
+#addComment fieldset input.submit[type="submit"]  {
+  height: 38px;
+  padding-left: 4em;
+  padding-right: 4em;
 }
