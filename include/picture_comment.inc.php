@@ -209,7 +209,6 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $val_url = get_absolute_root_url().'comments.php?validate='.$comm['id'];
       $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
       $content =
@@ -217,14 +216,15 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
         .'Comment: '.$comm['content']."\n"
         .'IP: '.$comm['ip']."\n"
         .'Browser: '.$comm['agent']."\n\n"
-        .'Validate: '.$val_url."\n"
         .'Delete: '.$del_url."\n";
+
       if ($comment_action!='validate')
       {
         $content .=
           'Validate: '.get_absolute_root_url()
           .'comments.php?validate='.$comm['id'];
       }
+
       pwg_mail
       (
         format_email('administrators', get_webmaster_mail_address()),
