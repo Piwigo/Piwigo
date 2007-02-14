@@ -474,7 +474,7 @@ SELECT date_available,
     if ($max_elements>0)
     { // get some thumbnails ...
       $query = '
-SELECT DISTINCT id, path, name, tn_ext
+SELECT DISTINCT id, path, name, tn_ext, file
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
     AND date_available="'.$dates[$i]['date_available'].'"
@@ -535,7 +535,10 @@ function get_html_description_recent_post_date($date_detail)
   {
     $tn_src = get_thumbnail_url($element);
     $description .= '<a href="'.
-                    make_picture_url(array('image_id' => $element['id']))
+                    make_picture_url(array(
+                        'image_id' => $element['id'],
+                        'image_file' => $element['file'],
+                      ))
                     .'"><img src="'.$tn_src.'"/></a>';
   }
   $description .= '...<br/>';

@@ -85,7 +85,7 @@ if (isset($_GET['sort_order']))
 
 // number of items to display
 //
-$page['items_number'] = 5;
+$page['items_number'] = 10;
 if (isset($_GET['items_number']))
 {
   $page['items_number'] = $_GET['items_number'];

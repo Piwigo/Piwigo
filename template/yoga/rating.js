@@ -22,7 +22,11 @@ function makeNiceRatingForm()
     rateButton.initialRateValue = rateButton.value; // save it as a property
 
     rateButton.value = ""; //hide the text IE/Opera
-    rateButton.style.textIndent = "-50px"; //hide the text FF
+    with (rateButton.style)
+    {
+      textIndent = "-50px"; //hide the text FF
+      marginLeft = marginRight = 0;
+    }
 
     if (i!=gRatingButtons.length-1 && rateButton.nextSibling.nodeType == 3 /*TEXT_NODE*/)
       rateButton.parentNode.removeChild(rateButton.nextSibling);

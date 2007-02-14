@@ -15,7 +15,7 @@
       <ul>
         <li><a href="{U_FAQ}">{lang:instructions}</a></li>
         <li><a href="{U_SITE_MANAGER}">{lang:Site manager}</a></li>
-
+        <li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
         <li>
           {lang:history}
           <ul>
@@ -23,8 +23,6 @@
             <li><a href="{U_HISTORY_SEARCH}">{lang:Search}</a></li>
           </ul>
         </li>
-
-        <li><a href="{U_CAT_UPDATE}">{lang:update}</a></li>
       </ul>
     </dd>
   </dl>

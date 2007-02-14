@@ -21,7 +21,7 @@
       {lang:Category}
       <select name="cat">
         <!-- BEGIN category -->
-        <option class="{category.CLASS}" {category.SELECTED} value="{category.VALUE}">{category.OPTION}</option>
+        <option {category.SELECTED} value="{category.VALUE}">{category.OPTION}</option>
         <!-- END category -->
       </select>
     </label>

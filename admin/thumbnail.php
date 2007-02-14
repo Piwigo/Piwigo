@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -192,54 +192,57 @@ $template->assign_vars(array(
 $wo_thumbnails = array();
 $thumbnalized = array();
 
+
 // what is the directory to search in ?
 $query = '
-SELECT galleries_url
-  FROM '.SITES_TABLE.'
-  WHERE id = 1
+SELECT galleries_url FROM '.SITES_TABLE.'
+  WHERE galleries_url NOT LIKE "http://%"
 ;';
-list($galleries_url) = mysql_fetch_array(pwg_query($query));
-$basedir = preg_replace('#/*$#', '', $galleries_url);
-
-$fs = get_fs($basedir);
-// because isset is one hundred time faster than in_array
-$fs['thumbnails'] = array_flip($fs['thumbnails']);
-
-foreach ($fs['elements'] as $path)
+$result = pwg_query($query);
+while ( $row=mysql_fetch_assoc($result) )
 {
-  // only pictures need thumbnails
-  if (in_array(get_extension($path), $conf['picture_ext']))
-  {
-    $dirname = dirname($path);
-    $filename = basename($path);
+  $basedir = preg_replace('#/*$#', '', $row['galleries_url']);
+  $fs = get_fs($basedir);
 
-    // only files matching the authorized filename pattern can be considered
-    // as "without thumbnail"
-    if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
+  // because isset is one hundred time faster than in_array
+  $fs['thumbnails'] = array_flip($fs['thumbnails']);
+
+  foreach ($fs['elements'] as $path)
+  {
+    // only pictures need thumbnails
+    if (in_array(get_extension($path), $conf['picture_ext']))
     {
-      continue;
-    }
-    
-    // searching the element
-    $filename_wo_ext = get_filename_wo_extension($filename);
-    $tn_ext = '';
-    $base_test = $dirname.'/thumbnail/';
-    $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
-    foreach ($conf['picture_ext'] as $ext)
-    {
-      if (isset($fs['thumbnails'][$base_test.$ext]))
+      $dirname = dirname($path);
+      $filename = basename($path);
+  
+      // only files matching the authorized filename pattern can be considered
+      // as "without thumbnail"
+      if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
       {
-        $tn_ext = $ext;
-        break;
+        continue;
+      }
+      
+      // searching the element
+      $filename_wo_ext = get_filename_wo_extension($filename);
+      $tn_ext = '';
+      $base_test = $dirname.'/thumbnail/';
+      $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
+      foreach ($conf['picture_ext'] as $ext)
+      {
+        if (isset($fs['thumbnails'][$base_test.$ext]))
+        {
+          $tn_ext = $ext;
+          break;
+        }
+      }
+      
+      if (empty($tn_ext))
+      {
+        array_push($wo_thumbnails, $path);
       }
     }
-    
-    if (empty($tn_ext))
-    {
-      array_push($wo_thumbnails, $path);
-    }
-  }
-}
+  } // next element
+} // next site id
 // +-----------------------------------------------------------------------+
 // |                         thumbnails creation                           |
 // +-----------------------------------------------------------------------+

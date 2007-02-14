@@ -411,11 +411,6 @@ if ('categories' == $page['section'])
           : 'include/category_cats.inc.php';
   }
 
-  if (isset($page['flat']))
-  {
-    $page['title'] = $lang['recent_pics_cat'].' : '.$page['title'] ;
-  }
-
   if
     (
       (!isset($page['chronology_field'])) and
