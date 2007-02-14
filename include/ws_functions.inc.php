@@ -656,7 +656,6 @@ function ws_session_getStatus($params, &$service)
  */
 function ws_tags_getList($params, &$service)
 {
-  global $user;
   $tags = get_available_tags();
   if ($params['sort_by_counter'])
   {
@@ -687,7 +686,7 @@ function ws_tags_getList($params, &$service)
 function ws_tags_getImages($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-  global $user, $conf;
+  global $conf;
 
   // first build all the tag_ids we are interested in
   $tag_ids = array();
@@ -704,20 +703,14 @@ function ws_tags_getImages($params, &$service)
         in_array($tag['name'], $params['tag_name'])
       or
         in_array($tag['url_name'], $params['tag_url_name'])
+      or
+        in_array($tag['id'], $params['tag_id'])
        )
     {
       $tag_ids[] = $tag['id'];
     }
   }
   unset($tags);
-
-  foreach( $params['tag_id'] as $tag_id )
-  {
-    if ( (int)$tag_id > 0 )
-    {
-      $tag_ids[] = $tag_id;
-    }
-  }
 
   $tag_ids = array_unique( $tag_ids );
 

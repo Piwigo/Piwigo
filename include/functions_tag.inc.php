@@ -258,6 +258,7 @@ SELECT id, name, url_name, count(*) counter
   if ($max_tags>0)
   {
     $query .= '
+  ORDER BY counter DESC
   LIMIT 0,'.$max_tags;
   }
 

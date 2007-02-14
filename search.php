@@ -134,9 +134,9 @@ if (isset($_POST['submit']))
     // thumbnails page and picture page.
     $query ='
 INSERT INTO '.SEARCH_TABLE.'
-  (rules)
+  (rules, last_seen)
   VALUES
-  (\''.serialize($search).'\')
+  (\''.serialize($search).'\', NOW())
 ;';
     pwg_query($query);
 

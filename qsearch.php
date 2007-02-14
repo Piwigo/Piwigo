@@ -37,9 +37,9 @@ $search['q']=$_GET['q'];
 
 $query ='
 INSERT INTO '.SEARCH_TABLE.'
-  (rules)
+  (rules, last_seen)
   VALUES
-  (\''.serialize($search).'\')
+  (\''.serialize($search).'\', NOW() )
 ;';
 pwg_query($query);
 
