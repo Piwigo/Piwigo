@@ -1089,22 +1089,20 @@ function get_email_address_as_display_text($email_address)
 }
 
 /*
- * Compute sql where condition with restrict and filter data
+ * Compute sql where condition with restrict and filter data. "FandF" means
+ * Forbidden and Filters.
  *
- * FandF: Forbidden and Filters
- *
- * @param $condition_fields array: 
- *            keys are condition to aply and 
- *            values are sql field to use
- *            array('forbidden_categories' => 'ic.category_id')
- *        $prefix_condition string:
- *            this value are concatenated if sql is not empty
- *        $force_one_condition:
- *            if there are not condition , use this condition "1 = 1"
+ * @param array condition_fields: read function body
+ * @param string prefix_condition: prefixes sql if condition is not empty
+ * @param boolean force_one_condition: use at least "1 = 1"
  *
  * @return string sql where/conditions
  */
-function get_sql_condition_FandF($condition_fields, $prefix_condition = null, $force_one_condition = false)
+function get_sql_condition_FandF(
+  $condition_fields,
+  $prefix_condition = null,
+  $force_one_condition = false
+  )
 {
   global $user, $filter;
 
@@ -1115,30 +1113,37 @@ function get_sql_condition_FandF($condition_fields, $prefix_condition = null, $f
     switch($condition)
     {
       case 'forbidden_categories':
+      {
         if (!empty($user['forbidden_categories']))
         {
-          $sql_list[] = $field_name.' NOT IN ('.$user['forbidden_categories'].')';
+          $sql_list[] =
+            $field_name.' NOT IN ('.$user['forbidden_categories'].')';
         }
         break;
-
+      }
       case 'visible_categories':
+      {
         if (!empty($filter['visible_categories']))
         {
-          $sql_list[] = $field_name.' IN ('.$filter['visible_categories'].')';
+          $sql_list[] =
+            $field_name.' IN ('.$filter['visible_categories'].')';
         }
         break;
-
+      }
       case 'visible_images':
+      {
         if (!empty($filter['visible_images']))
         {
-          $sql_list[] = $field_name.' IN ('.$filter['visible_images'].')';
+          $sql_list[] =
+            $field_name.' IN ('.$filter['visible_images'].')';
         }
         break;
-
+      }
       default:
+      {
         die('Unknow condition');
         break;
-
+      }
     }
   }
 

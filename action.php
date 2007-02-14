@@ -61,17 +61,17 @@ function do_error( $code, $str )
 }
 
 
-if ( !isset($_GET['id']) or !is_numeric($_GET['id'])
+if (!isset($_GET['id'])
+    or !is_numeric($_GET['id'])
     or !isset($_GET['part'])
     or !in_array($_GET['part'], array('t','e','i','h') ) )
 {
   do_error(400, 'Invalid request - id/part');
 }
 
-$id = $_GET['id'];
 $query = '
 SELECT * FROM '. IMAGES_TABLE.'
-  WHERE id='.$id.'
+  WHERE id='.$_GET['id'].'
 ;';
 
 $result = pwg_query($query);
@@ -84,11 +84,14 @@ if ( empty($element_info) )
 // $filter['visible_categories'] and $filter['visible_images']
 // are not used because it's not necessary (filter <> restriction)
 $query='
-SELECT id FROM '.CATEGORIES_TABLE.'
-  INNER JOIN '.IMAGE_CATEGORY_TABLE.'
-  ON category_id=id
-  WHERE image_id='.$id.'
-'.get_sql_condition_FandF(array('forbidden_categories' => 'category_id'), 'AND').'
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON category_id = id
+  WHERE image_id = '.$_GET['id'].'
+'.get_sql_condition_FandF(
+  array('forbidden_categories' => 'category_id'),
+  '    AND'
+  ).'
   LIMIT 1
 ;';
 if ( mysql_num_rows(pwg_query($query))<1 )
@@ -121,6 +124,11 @@ switch ($_GET['part'])
 if ( empty($file) )
 {
   do_error(404, 'Requested file not found');
+}
+
+if ($_GET['part'] == 'h') {
+  $is_high = true;
+  pwg_log($_GET['id'], $is_high);
 }
 
 $http_headers = array();

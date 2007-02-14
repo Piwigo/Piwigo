@@ -94,6 +94,9 @@ if (isset($_POST['submit']))
       );
   }
 
+  $search['fields']['pictures'] = $_POST['pictures'];
+  $search['fields']['high'] = $_POST['high'];
+  
   // echo '<pre>'; print_r($search); echo '</pre>';
   
   if (!empty($search))
@@ -181,6 +184,46 @@ SELECT rules
       );
   }
 
+  if (isset($page['search']['fields']['pictures']))
+  {
+    $clause = null;
+    
+    if ($page['search']['fields']['pictures'] == 'no')
+    {
+      $clause = 'image_id IS NULL';
+    }
+
+    if ($page['search']['fields']['pictures'] == 'only')
+    {
+      $clause = 'image_id IS NOT NULL';
+    }
+
+    if (isset($clause))
+    {
+      array_push($clauses, $clause);
+    }
+  }
+
+  if (isset($page['search']['fields']['high']))
+  {
+    $clause = null;
+    
+    if ($page['search']['fields']['high'] == 'no')
+    {
+      $clause = "is_high IS NULL or is_high = 'false'";
+    }
+
+    if ($page['search']['fields']['high'] == 'only')
+    {
+      $clause = "is_high = 'true'";
+    }
+
+    if (isset($clause))
+    {
+      array_push($clauses, $clause);
+    }
+  }
+  
   $clauses = prepend_append_array_items($clauses, '(', ')');
 
   $where_separator =
@@ -198,7 +241,16 @@ SELECT COUNT(*)
   list($page['nb_lines']) = mysql_fetch_row(pwg_query($query));
 
   $query = '
-SELECT date, time, user_id, IP, section, category_id, tag_ids, image_id
+SELECT
+    date,
+    time,
+    user_id,
+    IP,
+    section,
+    category_id,
+    tag_ids,
+    image_id,
+    is_high
   FROM '.HISTORY_TABLE.'
   WHERE '.$where_separator.'
   LIMIT '.$page['start'].', '.$conf['nb_logs_page'].'
@@ -298,6 +350,18 @@ SELECT id, IF(name IS NULL, file, name) AS label
         'T_CLASS'   => ($i++ % 2) ? 'row1' : 'row2',
         )
       );
+
+    if (isset($line['image_id']))
+    {
+      if ($line['is_high'] == 'true')
+      {
+        $template->assign_block_vars('detail.high', array());
+      }
+      else
+      {
+        $template->assign_block_vars('detail.no_high', array());
+      }
+    }
   }
 }
 
@@ -351,11 +415,14 @@ if (isset($page['search']))
   if (isset($page['search']['fields']['date-before']))
   {
     $tokens = explode('-', $page['search']['fields']['date-before']);
-    
-     (int)$tokens[0];
-     (int)$tokens[1];
-     (int)$tokens[2];
+
+    $form['end_year']  = (int)$tokens[0];
+    $form['end_month'] = (int)$tokens[1];
+    $form['end_day']   = (int)$tokens[2];
   }
+
+  $form['pictures'] = $page['search']['fields']['pictures'];
+  $form['high'] = $page['search']['fields']['high'];
 }
 else
 {
@@ -364,6 +431,8 @@ else
   $form['start_year']  = $form['end_year']  = date('Y');
   $form['start_month'] = $form['end_month'] = date('n');
   $form['start_day']   = $form['end_day']   = date('j');
+  $form['pictures'] = 'yes';
+  $form['high'] = 'yes';
 }
 
 // start date
@@ -379,6 +448,28 @@ $template->assign_vars(
     'END_YEAR'   => @$form['end_year'],
     )
   );
+
+foreach (array('pictures', 'high') as $block)
+{
+  foreach (array('yes', 'no', 'only') as $item)
+  {
+    $selected = '';
+    
+    if ($item == $form[$block])
+    {
+      $selected = 'selected="selected"';
+    }
+    
+    $template->assign_block_vars(
+      $block.'_option',
+      array(
+        'VALUE' => $item,
+        'CONTENT' => l10n($item),
+        'SELECTED' => $selected,
+        )
+      );
+  }
+}
   
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
