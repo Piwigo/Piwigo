@@ -130,12 +130,7 @@ if ('tags' == $page['section'])
       array(
         'URL' => make_index_url(
           array(
-            'tags' => array(
-              array(
-                'id' => $tag['tag_id'],
-                'url_name' => $tag['url_name'],
-                ),
-              )
+            'tags' => array($tag)
             )
           ),
 
@@ -154,12 +149,7 @@ if ('tags' == $page['section'])
           array(
             'tags' => array_merge(
               $page['tags'],
-              array(
-                array(
-                  'id' => $tag['tag_id'],
-                  'url_name' => $tag['url_name'],
-                  ),
-                )
+              array($tag)
               )
             )
           ),

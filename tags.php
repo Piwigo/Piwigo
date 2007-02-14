@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date: 2006-03-22 02:01:47 +0100 (mer, 22 mar 2006) $
 // | last modifier : $Author: rvelices $
 // | revision      : $Revision: 1092 $
@@ -33,15 +33,15 @@ function counter_compare($a, $b)
 {
   if ($a['counter'] == $b['counter'])
   {
-    return tag_id_compare($a, $b);
+    return id_compare($a, $b);
   }
 
   return ($a['counter'] < $b['counter']) ? +1 : -1;
 }
 
-function tag_id_compare($a, $b)
+function id_compare($a, $b)
 {
-  return ($a['tag_id'] < $b['tag_id']) ? -1 : 1;
+  return ($a['id'] < $b['id']) ? -1 : 1;
 }
 
 // +-----------------------------------------------------------------------+
@@ -94,12 +94,7 @@ foreach ($tags as $tag)
     array(
       'URL' => make_index_url(
         array(
-          'tags' => array(
-            array(
-              'id' => $tag['tag_id'],
-              'url_name' => $tag['url_name'],
-              ),
-            ),
+          'tags' => array($tag),
           )
         ),
 

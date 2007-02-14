@@ -225,12 +225,7 @@ if ( $page['section']=='search' and $page['start']==0 )
       'related_tags.tag', array(
         'URL' => make_index_url(
           array(
-            'tags' => array(
-              array(
-                'id' => $tag['tag_id'],
-                'url_name' => $tag['url_name'],
-                ),
-              )
+            'tags' => array($tag)
             )
           ),
         'NAME' => $tag['name'],

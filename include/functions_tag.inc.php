@@ -2,14 +2,13 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
-// | last update   : $Date: 2006-03-16 23:58:16 +0100 (jeu, 16 mar 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1085 $
-// | revision      : $Revision: 1085 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -41,7 +40,7 @@ function get_available_tags()
 {
   // we can find top fatter tags among reachable images
   $tags_query = '
-SELECT tag_id, name, url_name, count(*) counter
+SELECT id, name, url_name, count(*) counter
   FROM '.IMAGE_TAG_TABLE.'
     INNER JOIN '.TAGS_TABLE.' ON tag_id = id';
 
@@ -57,7 +56,7 @@ SELECT tag_id, name, url_name, count(*) counter
       'WHERE'
     );
 
-  if (!is_null($where_tag_img))
+  if (!empty($where_tag_img))
   {
     // first we need all reachable image ids
     $images_query = '
@@ -101,7 +100,7 @@ SELECT DISTINCT image_id
 function get_all_tags()
 {
   $query = '
-SELECT id AS tag_id,
+SELECT id,
        name,
        url_name
   FROM '.TAGS_TABLE.'
@@ -245,7 +244,7 @@ function get_common_tags($items, $max_tags, $excluded_tag_ids=null)
     return array();
   }
   $query = '
-SELECT tag_id, name, url_name, count(*) counter
+SELECT id, name, url_name, count(*) counter
   FROM '.IMAGE_TAG_TABLE.'
     INNER JOIN '.TAGS_TABLE.' ON tag_id = id
   WHERE image_id IN ('.implode(',', $items).')';
@@ -255,8 +254,7 @@ SELECT tag_id, name, url_name, count(*) counter
     AND tag_id NOT IN ('.implode(',', $excluded_tag_ids).')';
   }
   $query .='
-  GROUP BY tag_id
-  ORDER BY counter DESC';
+  GROUP BY tag_id';
   if ($max_tags>0)
   {
     $query .= '

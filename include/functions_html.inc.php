@@ -558,10 +558,10 @@ function get_html_tag_selection(
       '<li>'
       .'<label>'
       .'<input type="checkbox" name="'.$fieldname.'[]"'
-      .' value="'.$tag['tag_id'].'"'
+      .' value="'.$tag['id'].'"'
       ;
 
-    if (in_array($tag['tag_id'], $selecteds))
+    if (in_array($tag['id'], $selecteds))
     {
       $output.= ' checked="checked"';
     }

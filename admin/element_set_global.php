@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -289,7 +288,7 @@ if (count($all_tags) == 0)
 else
 {
   $add_tag_selection = get_html_tag_selection(
-    get_all_tags(),
+    $all_tags,
     'add_tags'
     );
 }
@@ -304,21 +303,7 @@ $template->assign_vars(
 if (count($page['cat_elements_id']) > 0)
 {
   // remove tags
-  $query = '
-  SELECT tag_id, name, url_name, count(*) counter
-    FROM '.IMAGE_TAG_TABLE.'
-      INNER JOIN '.TAGS_TABLE.' ON tag_id = id
-    WHERE image_id IN ('.implode(',', $page['cat_elements_id']).')
-    GROUP BY tag_id
-  ;';
-  $result = pwg_query($query);
-
-  $tags = array();
-  while($row = mysql_fetch_array($result))
-  {
-    array_push($tags, $row);
-  }
-
+  $tags = get_common_tags($page['cat_elements_id'], -1);
   usort($tags, 'name_compare');
 
   $template->assign_vars(

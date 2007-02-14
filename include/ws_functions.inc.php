@@ -537,29 +537,23 @@ SELECT c.id,c.name,c.uppercats,c.global_rank
   }
 
   //-------------------------------------------------------------- related tags
-  $query = '
-SELECT id, name, url_name
-  FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
-  WHERE image_id = '.$image_row['id'].'
-;';
-  $result = pwg_query($query);
-  $related_tags = array();
-  while ($row = mysql_fetch_assoc($result))
+  $related_tags = get_common_tags( array($image_row['id']), -1 );
+  foreach( $related_tags as $i=>$tag)
   {
-    $row['url'] = make_index_url(
+    $tag['url'] = make_index_url(
         array(
-          'tags' => array($row)
+          'tags' => array($tag)
           )
       );
-    $row['page_url'] = make_picture_url(
+    $tag['page_url'] = make_picture_url(
         array(
           'image_id' => $image_row['id'],
           'image_file' => $image_row['file'],
-          'tags' => array($row),
+          'tags' => array($tag),
           )
       );
-    array_push($related_tags, $row);
+    unset($tag['counter']);
+    $related_tags[$i]=$tag;
   }
   //---------------------------------------------------------- related comments
   $query = '
@@ -674,9 +668,8 @@ function ws_tags_getList($params, &$service)
   }
   for ($i=0; $i<count($tags); $i++)
   {
-    $tags[$i]['id'] = (int)$tags[$i]['tag_id'];
+    $tags[$i]['id'] = (int)$tags[$i]['id'];
     $tags[$i]['counter'] = (int)$tags[$i]['counter'];
-    unset($tags[$i]['tag_id']);
     $tags[$i]['url'] = make_index_url(
         array(
           'section'=>'tags',
@@ -702,19 +695,18 @@ function ws_tags_getImages($params, &$service)
   $tags_by_id = array();
   for( $i=0; $i<count($tags); $i++ )
   {
-    $tags[$i]['tag_id']=(int)$tags[$i]['tag_id'];
-    $tags[$i]['id']=(int)$tags[$i]['tag_id']; //required by make_xxx_url
+    $tags[$i]['id']=(int)$tags[$i]['id'];
   }
   foreach( $tags as $tag )
   {
-    $tags_by_id[ $tag['tag_id'] ] = $tag;
+    $tags_by_id[ $tag['id'] ] = $tag;
     if (
         in_array($tag['name'], $params['tag_name'])
       or
         in_array($tag['url_name'], $params['tag_url_name'])
        )
     {
-      $tag_ids[] = $tag['tag_id'];
+      $tag_ids[] = $tag['id'];
     }
   }
   unset($tags);
