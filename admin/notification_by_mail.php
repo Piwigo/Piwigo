@@ -226,11 +226,6 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
     $is_action_send = ($action == 'send');
 
-    if (!isset($customize_mail_content))
-    {
-      $customize_mail_content = $conf['nbm_complementary_mail_content'];
-    }
-
     // disabled and null mail_address are not selected in the list
     $data_users = get_user_notifications('send', $check_key_list);
 
@@ -243,6 +238,18 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
       if (count($data_users) > 0)
       {
         $datas = array();
+
+        if (!isset($customize_mail_content))
+        {
+          $customize_mail_content = $conf['nbm_complementary_mail_content'];
+        }
+
+        if ($conf['nbm_send_html_mail'] and !(strpos($customize_mail_content, '<') === 0))
+        {
+          // On HTML mail, detects if the content are HTML format.
+          // If it's plain text format, convert content to readable HTML
+          $customize_mail_content = nl2br(htmlentities($customize_mail_content));
+        }
 
         // Prepare message after change language
         if ($is_action_send)

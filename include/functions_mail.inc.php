@@ -3,7 +3,7 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
-// | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
+// | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -25,12 +25,6 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
-
-/**
- * - Extract mail fonctions of password.php
- * - Modify pwg_mail (add pararameters + news fonctionnalities)
- * - Var conf_mail, function get_mail_configuration, format_email, pwg_mail
- */
 
 // +-----------------------------------------------------------------------+
 // |                               functions                               |
@@ -99,7 +93,7 @@ function format_email($name, $email)
 }
 
 /**
- * Return an completed array template/theme
+ * Returns an completed array template/theme
  * completed with $conf['default_template']
  *
  * @params:
@@ -161,12 +155,55 @@ function get_str_email_format($is_html)
 }
 
 /**
+ * Returns email of all administrator
+ *
+ * @return string
+ */
+function get_administrators_email()
+{
+  global $conf;
+
+  $result = array();
+
+  $query = '
+select
+  U.'.$conf['user_fields']['username'].' as username,
+  U.'.$conf['user_fields']['email'].' as mail_address
+from
+  '.USERS_TABLE.' as U,
+  '.USER_INFOS_TABLE.' as I
+where
+  I.user_id =  U.'.$conf['user_fields']['id'].' and
+  I.status in (\'webmaster\',  \'admin\') and
+  '.$conf['user_fields']['email'].' is not null
+order by
+  username
+';
+
+  $datas = pwg_query($query);
+  if (!empty($datas))
+  {
+    while ($admin = mysql_fetch_array($datas))
+    {
+      if (!empty($admin['mail_address']))
+      {
+        array_push($result, format_email($admin['username'], $admin['mail_address']));
+      }
+    }
+  }
+
+  return $result;
+}
+
+/**
  * sends an email, using PhpWebGallery specific informations
  *
  * @param:
  *   - to: Receiver, or receivers of the mail.
  *   - args: function params of mail function:
  *       o from: sender [default value webmaster email]
+ *       o Cc: array of carbon copy receivers of the mail. [default value empty]
+ *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
  *       o subject  [default value 'PhpWebGallery']
  *       o content: content of mail    [default value '']
  *       o content_format: format of mail content  [default value 'text/plain']
@@ -174,7 +211,6 @@ function get_str_email_format($is_html)
  *       o template: template to use [default $conf['default_template']]
  *       o theme: template to use [default $conf['default_template']]
  */
-//function pwg_mail($to, $from = '', $subject = 'PhpWebGallery', $infos = '', $infos_format = 'text/plain', $email_format = null)
 function pwg_mail($to, $args = array())
 {
   global $conf, $conf_mail, $lang_info, $page;
@@ -222,6 +258,11 @@ function pwg_mail($to, $args = array())
     $args['content_format'] = 'text/plain';
   }
 
+  if ($conf_mail['send_bcc_mail_webmaster'])
+  {
+    $args['Bcc'][] = $conf_mail['formated_email_webmaster'];
+  }
+
   if (($args['content_format'] == 'text/html') and ($args['email_format'] == 'text/plain'))
   {
     // Todo find function to convert html text to plain text
@@ -232,15 +273,21 @@ function pwg_mail($to, $args = array())
 
   $headers = 'From: '.$args['from']."\n";
   $headers.= 'Reply-To: '.$args['from']."\n";
+
+  if (!empty($args['Cc']))
+  {
+    $headers.= 'Cc: '.implode(',', $args['Cc'])."\n";
+  }
+
+  if (!empty($args['Bcc']))
+  {
+    $headers.= 'Bcc: '.implode(',', $args['Bcc'])."\n";
+  }
+
   $headers.= 'Content-Type: multipart/alternative;'."\n";
   $headers.= '  boundary="---='.$conf_mail['boundary_key'].'";'."\n";
   $headers.= '  reply-type=original'."\n";
   $headers.= 'MIME-Version: 1.0'."\n";
-
-  if ($conf_mail['send_bcc_mail_webmaster'])
-  {
-    $headers.= 'Bcc: '.$conf_mail['formated_email_webmaster']."\n";
-  }
 
   $content = '';
 

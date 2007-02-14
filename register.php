@@ -70,11 +70,14 @@ if (isset($_POST['submit']))
         .'Browser: '.$_SERVER['HTTP_USER_AGENT']."\n\n"
         .l10n('admin').': '.$admin_url;
 
-      pwg_mail(get_webmaster_mail_address(),
+      pwg_mail
+      (
+        format_email('administrators', get_webmaster_mail_address()),
         array
         (
           'subject' => 'PWG '.l10n('register_title').' '.$username,
-          'content' => $content
+          'content' => $content,
+          'Bcc' => get_administrators_email()
         )
       );
     }
