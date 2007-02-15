@@ -197,19 +197,12 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   $must_show_list = true; // true until calendar generates its own display
   if (script_basename() != 'picture') // basename without file extention
   {
-    $template->assign_block_vars('calendar', array());
-
     if ($calendar->generate_category_content())
     {
-      unset(
-        $page['thumbnails_include'],
-        $page['items']
-        );
-
+      $page['items'] = array();
       $must_show_list = false;
     }
 
-    $template->assign_block_vars( 'calendar.views', array() );
     foreach ($styles as $style => $style_data)
     {
       foreach ($views as $view)
@@ -260,9 +253,11 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     $calendar_title = '<a href="'.$url.'">'
         .$fields[$page['chronology_field']]['label'].'</a>';
     $calendar_title.= $calendar->get_display_name();
-    //this should be an assign_block_vars, but I need to assign 'calendar'
-    //above and at that point I don't have the title yet.
-    $template->_tpldata['calendar.'][0]['TITLE'] = $calendar_title;
+    $template->merge_block_vars('calendar',
+        array(
+          'TITLE' => $calendar_title
+        )
+      );
   } // end category calling
 
   if ($must_show_list)
@@ -293,9 +288,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       $query .= '
   '.$order_by;
     }
-
     $page['items']              = array_from_query($query, 'id');
-    $page['thumbnails_include'] = 'include/category_default.inc.php';
   }
   pwg_debug('end initialize_calendar');
 }

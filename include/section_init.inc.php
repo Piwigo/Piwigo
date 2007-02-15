@@ -33,11 +33,6 @@
  *
  * - $page['items']: ordered list of items to display
  *
- * - $page['cat_nb_images']: number of items in the section (should be equal
- * to count($page['items']))
- *
- * - $page['thumbnails_include']: include page managing thumbnails to
- * display
  */
 
 // "index.php?/category/12-foo/start-24&action=fill_caddie" or
@@ -50,6 +45,8 @@
 //   'start'    => 24
 //   'action'   => 'fill_caddie'
 //   );
+
+$page['items'] = array();
 
 // some ISPs set PATH_INFO to empty string or to SCRIPT_FILENAME while in the
 // default apache implementation it is not set
@@ -364,7 +361,7 @@ $forbidden = get_sql_condition_FandF(
         (
           'forbidden_categories' => 'category_id',
           'visible_categories' => 'category_id',
-          'visible_images' => 'image_id'
+          'visible_images' => 'id'
         ),
       'AND'
   );
@@ -395,20 +392,12 @@ if ('categories' == $page['section'])
         'uppercats'          => $result['uppercats'],
         'title'             =>
           get_cat_display_name($result['name'], '', false),
-        'thumbnails_include' =>
-          (($result['nb_images'] > 0) or (isset($page['flat'])))
-          ? 'include/category_default.inc.php'
-          : 'include/category_cats.inc.php'
         )
       );
   }
   else
   {
     $page['title'] = $lang['no_category'];
-    $page['thumbnails_include'] =
-      (isset($page['flat']))
-          ? 'include/category_default.inc.php'
-          : 'include/category_cats.inc.php';
   }
 
   if
@@ -426,36 +415,24 @@ if ('categories' == $page['section'])
     }
 
     if (isset($page['flat']))
-    {
-      // flat recent categories mode
-        $query = '
-SELECT
-  DISTINCT(ic.image_id)
-FROM '.IMAGES_TABLE.' AS i
-       INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON i.id = ic.image_id
-       INNER JOIN '.CATEGORIES_TABLE.' AS c ON ic.category_id = c.id
-WHERE
-  '.(isset($page['category']) ? '
-  uppercats REGEXP \'(^|,)'.$page['category'].'(,|$)\'' : '1=1' ).'
-'.$forbidden.'
-;';
-
-      $where_sql = array_from_query($query, 'image_id');
-      if (!empty($where_sql))
+    {// flat categories mode
+      if ( isset($page['category']) )
       {
-        $where_sql = 'image_id in ('.implode(',', $where_sql).')';
+        $subcat_ids = get_subcat_ids( array($page['category']) );
+        $where_sql = 'category_id IN ('.implode(',',$subcat_ids).')';
+      }
+      else
+      {
+        $where_sql = '1=1';
       }
     }
     else
-    {
-      // Normal mode
+    {// Normal mode
       $where_sql = 'category_id = '.$page['category'];
     }
 
-    if (!empty($where_sql))
-    {
-      // Main query
-      $query = '
+    // Main query
+    $query = '
 SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON id = image_id
@@ -465,12 +442,7 @@ SELECT DISTINCT(image_id)
   '.$conf['order_by'].'
 ;';
 
-      $page['items'] = array_from_query($query, 'image_id');
-    }
-    else
-    {
-      $page['items'] = array();
-    }
+    $page['items'] = array_from_query($query, 'image_id');
   } //otherwise the calendar will requery all subitems
 }
 // special sections
@@ -513,7 +485,6 @@ SELECT image_id
       array(
         'title' => $title,
         'items' => array_values($items),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -546,7 +517,6 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => $lang['search_result'],
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -578,7 +548,6 @@ SELECT image_id
       array(
         'title' => $lang['favorites'],
         'items' => array_from_query($query, 'image_id'),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -603,7 +572,6 @@ SELECT DISTINCT(id)
         'title' => '<a href="'.duplicate_index_url().'">'
                   .$lang['recent_pics_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -616,7 +584,6 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => $lang['recent_cats_cat'],
-        'thumbnails_include' => 'include/category_cats.inc.php',
         )
       );
   }
@@ -643,7 +610,6 @@ SELECT DISTINCT(id)
         'title' => '<a href="'.duplicate_index_url().'">'
                   .$conf['top_number'].' '.$lang['most_visited_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -670,7 +636,6 @@ SELECT DISTINCT(id)
         'title' => '<a href="'.duplicate_index_url().'">'
                   .$conf['top_number'].' '.$lang['best_rated_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -694,7 +659,6 @@ SELECT DISTINCT(id)
         'title' => '<a href="'.duplicate_index_url().'">'
                     .$lang['random_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
-        'thumbnails_include' => 'include/category_default.inc.php',
         )
       );
   }
@@ -709,8 +673,6 @@ if (isset($page['chronology_field']))
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
 }
-
-$page['cat_nb_images'] = isset($page['items']) ? count($page['items']) : 0;
 
 if (script_basename() == 'picture'
     and !isset($page['image_id']) )

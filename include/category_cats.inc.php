@@ -181,11 +181,7 @@ if (count($categories) > 0)
 
   if ($conf['subcatify'])
   {
-    $template->set_filenames(
-      array(
-        'mainpage_categories' => 'mainpage_categories.tpl',
-        )
-      );
+    $template->set_filename('mainpage_categories', 'mainpage_categories.tpl');
 
     foreach ($categories as $category)
     {
@@ -231,7 +227,7 @@ if (count($categories) > 0)
   }
   else
   {
-    $template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
+    $template->set_filename( 'thumbnails', 'thumbnails.tpl');
     // first line
     $template->assign_block_vars('thumbnails.line', array());
     // current row displayed
@@ -295,7 +291,8 @@ if (count($categories) > 0)
       $conf['level_separator']=$old_level_separator;
     }
 
-    $template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
+    $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
+    unset( $template->_tpldata['thumbnails.'] );//maybe write a func for that
   }
 }
 ?>

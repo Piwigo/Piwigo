@@ -68,12 +68,11 @@ if (isset($page['category']))
   check_restrictions($page['category']);
 }
 
-if (isset($page['cat_nb_images'])
-    and $page['cat_nb_images'] > $user['nb_image_page'])
+if ( count($page['items']) > $user['nb_image_page'])
 {
   $page['navigation_bar'] = create_navigation_bar(
     duplicate_index_url(array(), array('start')),
-    $page['cat_nb_images'],
+    count($page['items']),
     $page['start'],
     $user['nb_image_page'],
     true
@@ -101,9 +100,9 @@ $page['body_id'] = 'theCategoryPage';
 $template->set_filenames( array('index'=>'index.tpl') );
 //-------------------------------------------------------------- category title
 $template_title = $page['title'];
-if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0)
+if ( count($page['items']) > 0)
 {
-  $template_title.= ' ['.$page['cat_nb_images'].']';
+  $template_title.= ' ['.count($page['items']).']';
 }
 
 if (isset($page['flat']) or isset($page['chronology_field']))
@@ -241,9 +240,17 @@ if ( $page['section']=='search' and $page['start']==0 )
 }
 
 //------------------------------------------------------ main part : thumbnails
-if (isset($page['thumbnails_include']))
+if ( 0==$page['start']
+    and !isset($page['flat'])
+    and !isset($page['chronology_field'])
+    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
+  )
 {
-  include(PHPWG_ROOT_PATH.$page['thumbnails_include']);
+  include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
+}
+if ( !empty($page['items']) )
+{
+  include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
 }
 //------------------------------------------------------- category informations
 
@@ -258,7 +265,7 @@ if ($page['navigation_bar'] != '')
     );
 }
 
-if (isset($page['cat_nb_images']) and $page['cat_nb_images'] > 0
+if ( count($page['items']) > 0
     and $page['section'] != 'most_visited'
     and $page['section'] != 'best_rated')
 {

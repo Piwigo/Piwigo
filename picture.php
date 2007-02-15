@@ -453,7 +453,7 @@ if ( isset( $_GET['slideshow'] ) )
 }
 
 $title =  $picture['current']['name'];
-$title_nb = ($page['current_rank'] + 1).'/'.$page['cat_nb_images'];
+$title_nb = ($page['current_rank'] + 1).'/'.count($page['items']);
 
 // metadata
 $url_metadata = duplicate_picture_url();

@@ -405,33 +405,35 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
  */
 function ws_categories_getList($params, &$service)
 {
-  global $user;
+  global $user,$conf;
 
   $where = array();
-  $where[]= 'user_id='.$user['id'];
-  if ($params['cat_id']>0)
+
+  if (!$params['recursive'])
+  {
+    if ($params['cat_id']>0)
+      $where[] = '(id_uppercat='.(int)($params['cat_id']).'
+    OR id='.(int)($params['cat_id']).')';
+    else
+      $where[] = 'id_uppercat IS NULL';
+  }
+  else if ($params['cat_id']>0)
   {
     $where[] = 'uppercats REGEXP \'(^|,)'.
       (int)($params['cat_id'])
       .'(,|$)\'';
   }
 
-  if (!$params['recursive'])
-  {
-    if ($params['cat_id']>0)
-      $where[] = 'id_uppercat='.(int)($params['cat_id']);
-    else
-      $where[] = 'id_uppercat IS NULL';
-  }
-
   if ($params['public'])
   {
     $where[] = 'status = "public"';
     $where[] = 'visible = "true"';
+    $where[]= 'user_id='.$conf['guest_id'];
   }
   else
   {
     $where[] = 'id NOT IN ('.$user['forbidden_categories'].')';
+    $where[]= 'user_id='.$user['id'];
   }
 
   $query = '

@@ -81,8 +81,8 @@
 <!-- END calendar -->
 
 {MONTH_CALENDAR}
-{THUMBNAILS}
 {CATEGORIES}
+{THUMBNAILS}
 
 <!-- BEGIN cat_infos -->
 <!-- BEGIN navigation -->
