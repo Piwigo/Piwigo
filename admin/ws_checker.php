@@ -349,4 +349,6 @@ foreach ($conf['ws_durations'] as $value) {
 //----------------------------------------------------------- sending html code
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'ws_checker');
+
+include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 ?>

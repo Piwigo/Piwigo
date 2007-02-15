@@ -119,44 +119,6 @@
         </td>
       </tr>
 
-    <!-- High resolution information will be returned -->
-    <!-- In comment currently
-      <tr>
-        <td>
-          <label for="add_High">{lang:ws_High}</label>
-          <br />
-        </td>
-        <td>
-          <label><input type="radio" name="add_high" 
-            value="true" {DEFLT_HIGH_YES} 
-            title="{lang:High resolution information will be returned to your partner}"
-            /> {lang:yes}
-          </label> &nbsp; &nbsp; &nbsp; 
-          <label><input type="radio" name="add_high"
-            value="false" {DEFLT_HIGH_NO} /> {lang:no}
-          </label>  
-        </td>
-      </tr> -->
-
-    <!-- Normal size information will be returned -->
-    <!-- In comment currently
-      <tr>
-        <td>
-          <label for="add_Normal">{lang:ws_Normal}</label>
-          <br />
-        </td>
-        <td>
-          <label><input type="radio" name="add_normal" 
-            value="true" {DEFLT_NORMAL_YES} 
-            title="{lang:Normal size information will be returned to your partner}"
-            /> {lang:yes}
-          </label> &nbsp; &nbsp; &nbsp; 
-          <label><input type="radio" name="add_normal"
-            value="false" {DEFLT_NORMAL_NO} /> {lang:no}
-          </label>
-        </td>
-      </tr> -->
-
     <!-- Idendify your partner (name / website / phone) as you want -->
       <tr>
         <td>
