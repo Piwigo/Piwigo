@@ -258,7 +258,7 @@ SELECT
 
   $result = pwg_query($query);
   $history_lines = $user_ids = $category_ids = $image_ids = array();
-  while ($row = mysql_fetch_array($result))
+  while ($row = mysql_fetch_assoc($result))
   {
     $user_ids[$row['user_id']] = 1;
 
@@ -340,13 +340,17 @@ SELECT id, IF(name IS NULL, file, name) AS label
         ,
         'IP'        => $line['IP'],
         'IMAGE'     => isset($line['image_id'])
-          ? $label_of_image[$line['image_id']]
+          ? ( isset($label_of_image[$line['image_id']])
+                ? $label_of_image[$line['image_id']]
+                : 'deleted '.$line['image_id'])
           : $line['image_id'],
         'SECTION'   => $line['section'],
         'CATEGORY'  => isset($line['category_id'])
-          ? $name_of_category[$line['category_id']]
+          ? ( isset($name_of_category[$line['category_id']])
+                ? $name_of_category[$line['category_id']]
+                : 'deleted '.$line['category_id'] )
           : '',
-        'TAG'       => $line['tag_ids'],
+        'TAGS'       => $line['tag_ids'],
         'T_CLASS'   => ($i++ % 2) ? 'row1' : 'row2',
         )
       );

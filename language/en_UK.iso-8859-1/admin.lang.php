@@ -504,7 +504,6 @@ $lang['is_default_group'] = 'default';
 $lang['toggle_is_default_group'] = 'Toggle \'default group\' property';
 $lang['Advanced_features'] = 'Advanced features';
 $lang['Elements_not_linked'] = 'Not linked elements';
-
 $lang['web_services'] = 'Web services ';
 $lang['title_wscheck'] = ' Access management ';
 $lang['ws_set_status'] = ' Environment ';
@@ -516,25 +515,7 @@ $lang['ws_success_upd'] = ' -> Successfully completed ';
 $lang['ws_adding_legend'] = '  Add a new partner access to Web Services ';
 $lang['ws_update_legend'] = '  Revoke / Update selected partner access ';
 $lang['ws_delete_legend'] = '  Revoke selected partner access ';
-//  $lang['ws_default_legend'] = '  Assumed defaults parameters in any missing cases ';
-//  $lang['ws_default'] = ' Default ';
 $lang['ws_Methods'] = ' Methods ';
-//  $lang['ws_requested_nbr'] = ' Number of images per request ';
-$lang['ws_random'] = 'Random';                                /* Random order */
-$lang['ws_list'] = 'Id list';                /* list on MBt & z0rglub request */
-$lang['ws_maxviewed'] = 'Most viewed';          /* hit > 0 and hit desc order */
-$lang['ws_recent'] = 'Most recent';     /* recent = Date_available desc order */
-$lang['ws_highrated'] = 'Best rated';          /* avg_rate > 0 and desc order */
-$lang['ws_oldest'] = 'Oldest';                    /* Date_available asc order */
-$lang['ws_lessviewed'] = 'Less viewed';                      /* hit asc order */
-$lang['ws_lowrated'] = 'Lowest rated';                  /* avg_rate asc order */
-$lang['ws_undescribed'] = 'Undescribed';               /* description missing */
-$lang['ws_unnamed'] = 'Unnamed';                          /* new name missing */
-$lang['ws_portraits'] = 'Portraits';    /* width < height (portrait oriented) */
-$lang['ws_landscapes'] = 'Landscapes'; /* width > height (landscape oriented) */
-$lang['ws_squares'] = 'Squares';              /* width ~ height (square form) */
-$lang['ws_high_auth'] = ' Authorize high resolution ';
-$lang['ws_normal_auth'] = ' Authorize normal size ';
 $lang['ws_KeyName'] = ' Partner ';
 $lang['ws_Access'] = ' Access ';
 $lang['ws_Start'] = ' Start ';
@@ -545,33 +526,24 @@ $lang['ws_Normal'] = ' Normal ';
 $lang['ws_Limit'] = ' Limit ';
 $lang['ws_Comment'] = ' Comment ';
 $lang['ws_disallowed'] = 'This change is disallowed or already done';
-//  $lang['Reset filter(s)'] = ' Reset filter(s) ';
-//  $lang['New filter(s)'] = ' New filter(s) ';
-//  $lang['Not selected / Not confirmed'] = 'Access not selected or unconfirmed action';
 $lang['Modify End from Now +'] = 'Modify End from Now + ';
-$lang['Free comment, use it to identify your partner clearly'] = 
-      ' Free comment, use it to identify your partner clearly ';
+$lang['Free comment, use it to identify your partner clearly'] = ' Free comment, use it to identify your partner clearly ';
 $lang['Confirmation'] = ' Confirmation ';
 $lang['Delete'] = ' Remove ';
 $lang['Confidential partner key'] = 'Confidential partner key';
 $lang['Basis of access key calculation'] = 'Basis of access key calculation';
 $lang['Target'] = 'Target';
 $lang['Access: see help text for more'] = 'Access: see help text for more';
-$lang['Facultative and restrictive option'] = 
-  'Facultative and restrictive option';
+$lang['Facultative and restrictive option'] = 'Facultative and restrictive option';
 $lang['Postponed availability in days'] = 'Postponed availability in days';
 $lang['Duration in days'] = 'Duration in days';
 $lang['Restrict access to'] = 'Restrict access to';
-$lang['High resolution information will be returned to your partner'] = 
-  'High resolution information will be returned to your partner';
-$lang['Normal size information will be returned to your partner'] = 
-  'Normal size information will be returned to your partner';
+$lang['High resolution information will be returned to your partner'] = 'High resolution information will be returned to your partner';
+$lang['Normal size information will be returned to your partner'] = 'Normal size information will be returned to your partner';
 $lang['Returned images limit'] = 'Returned images limit';
-$lang['Comment to identify your partner clearly'] = 
-  'Comment to identify your partner clearly';
+$lang['Comment to identify your partner clearly'] = 'Comment to identify your partner clearly';
 $lang['Add this access definition'] = 'Add this access definition';
-$lang['Web Services availability duration in days'] = 
-  'Web Services availability duration in days';
+$lang['Web Services availability duration in days'] = 'Web Services availability duration in days';
 $lang['special_admin_menu'] = 'Specials';
 $lang['pictures_menu'] = 'Pictures';
 $lang['note_check_exif'] = '%s must be to set to false in your config_local.inc.php file because exif are not supported.';

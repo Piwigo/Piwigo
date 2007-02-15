@@ -74,4 +74,5 @@ $user = build_user( $user['id'],
           ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
          );
 
+trigger_action('user_init', $user);
 ?>
