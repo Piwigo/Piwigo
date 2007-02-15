@@ -605,13 +605,14 @@ SELECT COUNT(*) AS nb_fav
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/favorite.png',
+        'FAVORITE_IMG'  =>
+          get_root_url().get_themeconf('icon_dir').'/favorite.png',
         'FAVORITE_HINT' => $lang['add_favorites_hint'],
         'FAVORITE_ALT'  => $lang['add_favorites_alt'],
         'U_FAVORITE'    => add_url_params(
-                              $url_self,
-                              array('action'=>'add_to_favorites')
-                           ),
+          $url_self,
+          array('action'=>'add_to_favorites')
+          ),
         )
       );
   }
@@ -620,13 +621,14 @@ SELECT COUNT(*) AS nb_fav
     $template->assign_block_vars(
       'favorite',
       array(
-        'FAVORITE_IMG'  => get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
+        'FAVORITE_IMG'  =>
+          get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
         'FAVORITE_HINT' => $lang['del_favorites_hint'],
         'FAVORITE_ALT'  => $lang['del_favorites_alt'],
         'U_FAVORITE'    => add_url_params(
-                              $url_self,
-                              array('action'=>'remove_from_favorites')
-                           )
+          $url_self,
+          array('action'=>'remove_from_favorites')
+          ),
         )
       );
   }
@@ -657,9 +659,9 @@ $infos = array();
 if (!empty($picture['current']['author']))
 {
   $infos['INFO_AUTHOR'] =
-    // FIXME because of search engine partial rewrite, giving the author
-    // name threw GET is not supported anymore. This feature should come
-    // back later, with a better design
+// FIXME because of search engine partial rewrite, giving the author
+// name threw GET is not supported anymore. This feature should come
+// back later, with a better design
 //     '<a href="'.
 //       PHPWG_ROOT_PATH.'category.php?cat=search'.
 //       '&amp;search=author:'.$picture['current']['author']
@@ -677,14 +679,15 @@ if (!empty($picture['current']['date_creation']))
 {
   $val = format_date($picture['current']['date_creation']);
   $url = make_index_url(
-        array(
-          'chronology_field'=>'created',
-          'chronology_style'=>'monthly',
-          'chronology_view'=>'list',
-          'chronology_date' => explode('-', $picture['current']['date_creation'])
-        )
-      );
-  $infos['INFO_CREATION_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
+    array(
+      'chronology_field'=>'created',
+      'chronology_style'=>'monthly',
+      'chronology_view'=>'list',
+      'chronology_date' => explode('-', $picture['current']['date_creation'])
+      )
+    );
+  $infos['INFO_CREATION_DATE'] =
+    '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 }
 else
 {
@@ -694,13 +697,16 @@ else
 // date of availability
 $val = format_date($picture['current']['date_available'], 'mysql_datetime');
 $url = make_index_url(
-      array(
-        'chronology_field'=>'posted',
-        'chronology_style'=>'monthly',
-        'chronology_view'=>'list',
-        'chronology_date'=>explode('-', substr($picture['current']['date_available'],0,10))
+  array(
+    'chronology_field'=>'posted',
+    'chronology_style'=>'monthly',
+    'chronology_view'=>'list',
+    'chronology_date' => explode(
+      '-',
+      substr($picture['current']['date_available'], 0, 10)
       )
-    );
+    )
+  );
 $infos['INFO_POSTED_DATE'] = '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
 
 // size in pixels
