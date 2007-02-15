@@ -194,13 +194,6 @@ SELECT galleries_url
       remote_output($galleries_url.'create_listing_file.php?action=clean');
       break;
     }
-    case 'protect' :
-    {
-      $title = $galleries_url.' : '.l10n('remote_site_protect');
-      $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
-      remote_output($galleries_url.'create_listing_file.php?action=protect');
-      break;
-    }
     case 'delete' :
     {
       delete_site($page['site']);
@@ -274,7 +267,6 @@ while ($row = mysql_fetch_array($result))
          'U_TEST' => $base_url.'test',
          'U_GENERATE' => $row['galleries_url'].'create_listing_file.php?action=generate',
          'U_CLEAN' => $base_url.'clean',
-         'U_PROTECT' => $base_url.'protect'
          )
        );
    }
