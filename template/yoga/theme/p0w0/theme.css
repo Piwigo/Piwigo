@@ -30,6 +30,7 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3, .calForeDate {
   color: #f92;
   font-weight: bold;
 }
+h1 { font-weight: bold; letter-spacing: 0.2em; }
 #mbIdentification dd p,
 #menubar .selected A { color: #c60; font-weight: bold; }
 #copyright { color: #c60; }
@@ -65,7 +66,7 @@ input.rateButtonSelected,
 .browsePath A:hover { color: #fff; }
 #content H2:before, .browsePath:before, .imageNumber:before,
 #imageHeaderBar H2:before {
- content: "____ ";
+ content: "« ";
  font-weight: normal;
  color: #fff;
  font-family: sans-serif;
@@ -73,7 +74,7 @@ input.rateButtonSelected,
 }
 #content H2:after, .browsePath:after, .imageNumber:after,
 #imageHeaderBar H2:after {
- content: " ____";
+ content: " » ";
  color: #fff;
  font-family: sans-serif;
  font-weight: normal;
@@ -83,7 +84,7 @@ input.rateButtonSelected,
   color: #69c;
 }
 #content ul.thumbnailCategories li div.thumbnailCategory .description p {
-  color: #69c;
+  color: #c60;
 }
 #content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   color: #369;
@@ -112,6 +113,7 @@ BODY { background: #cde; }
 #thePicturePage #theImage,
 #theAdminPage #the_page,
 #content, DIV.content { background-color: #dfe8ff; }
+#the_page { background-color: #dfe8ff; }
 #menubar, H3, #imageHeaderBar,
 .row1  { background-color: #eef; }
 H2, #menubar DT, .throw, TD H3,
@@ -119,20 +121,21 @@ H2, #menubar DT, .throw, TD H3,
 #imageHeaderBar, #imageHeaderBar H2,
 #theAdminPage H3 { background-color: #369; }
 #content H2 { background-color: #369; }
-#content .infos { background-color: #47a; }
-#content .errors { background-color: #fc5; }
-#thePicturePage #comments H2 { background-color: #eef; }
+#content .infos { background-color: #47a; ;}
+#content .errors { background-color: #fc5; ;}
+#thePicturePage #comments H2 { background-color: #eef; ;}
 #content ul.thumbnailCategories li div.thumbnailCategory .description h3 {
-  background-color: #69c;
+  background-color: #69c; 
 }
 #content ul.thumbnailCategories li div.thumbnailCategory,
 #content UL.thumbnails SPAN.wrap2 { background-color: #eef; }
 #content ul.thumbnailCategories li div.thumbnailCategory:hover,
 #theImage IMG, .navThumb IMG,
 #content UL.thumbnails SPAN.wrap2:hover { background-color: #fff; }
-.pleaseNote {
-  background: #69c;
+#content UL.thumbnails SPAN.wrap2:active img {
+  outline: 3px ridge #f92;
 }
+.pleaseNote { background: #69c; }
 input#qsearchInput { background-color: #cde; }
 .virtual_cat { background: #fff !important; }
 
@@ -184,8 +187,14 @@ A:hover { text-decoration: none; border: 0px; }
 H2, #imageToolBar {
   border-bottom: 1px solid #fff;
 }
-.navThumb IMG { border: 1px solid #369; padding: 1px }
-#theImage IMG { border: 3px solid #369; margin: 2px auto; padding: 1px }
+.navThumb IMG { border: 1px solid #c60; padding: 1px; opacity: 0.8; }
+.navThumb:hover IMG { border: 1px solid #f92; padding: 1px; opacity: 1; }
+#theImage IMG {
+  border: 3px solid #369;
+  margin: 2px auto;
+  padding: 1px;
+  box-shadow: 0.2em 0.2em #ccc;
+}
 #content UL.thumbnail IMG {
   border: 1px solid #666;
 }
@@ -270,3 +279,5 @@ input.submit:active {
   padding-left: 4em;
   padding-right: 4em;
 }
+A:focus  { outline: none; }
+A:active { outline: none; }
