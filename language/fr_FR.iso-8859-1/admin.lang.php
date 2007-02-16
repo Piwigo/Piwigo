@@ -549,5 +549,20 @@ $lang['FORUM'] = 'FORUM';
 $lang['BUGS'] = 'BOGUES';
 $lang['EXTENSIONS'] = 'EXTENSIONS';
 $lang['WIKI / DOC'] = 'WIKI / DOC';
-
+$lang['Export data'] = 'Exporter les données';
+$lang['Overall'] = 'Vue globale';
+$lang['Year'] = 'Année';
+$lang['Month'] = 'Mois';
+$lang['Day'] = 'Jour';
+$lang['Pages seen'] = 'Pages vues';
+//$lang['only'] = 'uniquement';
+$lang['Pictures'] = 'Images';
+$lang['High quality'] = 'Haute résolution';
+$lang['time'] = 'heure';
+$lang['user'] = 'utilisateur';
+$lang['IP'] = 'IP';
+$lang['image'] = 'images';
+$lang['high quality'] = 'haute résolution';
+$lang['section'] = 'section';
+$lang['tags'] = 'tags';
 ?>

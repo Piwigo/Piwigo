@@ -550,5 +550,21 @@ $lang['FORUM'] = 'FORUM';
 $lang['BUGS'] = 'BUGS';
 $lang['EXTENSIONS'] = 'EXTENSIONS';
 $lang['WIKI / DOC'] = 'WIKI / DOC';
+$lang['Export data'] = 'Export data';
+$lang['Overall'] = 'Overall';
+$lang['Year'] = 'Year';
+$lang['Month'] = 'Month';
+$lang['Day'] = 'Day';
+$lang['Pages seen'] = 'Pages seen';
+//$lang['only'] = 'only';
+$lang['Pictures'] = 'Pictures';
+$lang['High quality'] = 'High quality';
+$lang['time'] = 'time';
+$lang['user'] = 'user';
+$lang['IP'] = 'IP';
+$lang['image'] = '';
+$lang['high quality'] = 'high quality';
+$lang['section'] = 'section';
+$lang['tags'] = 'tags';
 
 ?>
