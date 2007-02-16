@@ -175,6 +175,7 @@ from
 where
   I.user_id =  U.'.$conf['user_fields']['id'].' and
   I.status in (\'webmaster\',  \'admin\') and
+  I.adviser = \'false\' and
   '.$conf['user_fields']['email'].' is not null
 order by
   username
