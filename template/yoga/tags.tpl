@@ -1,4 +1,4 @@
-<!-- $Id: comments.tpl 960 2005-12-03 17:33:38Z chrisaga $ -->
+<!-- $Id$ -->
 <div id="content">
 
   <div class="titrePage">
@@ -12,6 +12,7 @@
     <!-- BEGIN tag -->
     <li><a href="{tag.URL}" class="{tag.CLASS}" title="{tag.TITLE}">{tag.NAME}</a></li>
     <!-- END tag -->
+    <li>&nbsp;</li> <!-- FIXME W3C HTML Conformity said: No empty UL -->
   </ul>
 
 </div> <!-- content -->

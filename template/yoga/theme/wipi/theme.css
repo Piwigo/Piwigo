@@ -196,7 +196,7 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 #content UL.thumbnails SPAN.wrap2:hover,
 #content UL.thumbnailCategories DIV.thumbnailCategory:hover,
 #content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
-  background-color: #f92;
+  background-color: #dfe8ff;
   border-color: #69c;		/* thumbnails border color when mouse cursor is over it */
   color: black;
 }

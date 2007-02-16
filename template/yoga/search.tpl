@@ -126,8 +126,8 @@
   </ul>
 </fieldset>
 <p>
-  <input class="submit" type="submit" name="submit" value="{lang:submit}" class="bouton" />
-  <input class="submit" type="reset" value="{lang:reset}" class="bouton" />
+  <input class="submit" type="submit" name="submit" value="{lang:submit}" />
+  <input class="submit" type="reset" value="{lang:reset}" />
 </p>
 </form>
 

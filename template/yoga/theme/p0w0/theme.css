@@ -66,7 +66,7 @@ input.rateButtonSelected,
 .browsePath A:hover { color: #fff; }
 #content H2:before, .browsePath:before, .imageNumber:before,
 #imageHeaderBar H2:before {
- content: "« ";
+ content: "__ ";
  font-weight: normal;
  color: #fff;
  font-family: sans-serif;
@@ -74,7 +74,7 @@ input.rateButtonSelected,
 }
 #content H2:after, .browsePath:after, .imageNumber:after,
 #imageHeaderBar H2:after {
- content: " » ";
+ content: " __ ";
  color: #fff;
  font-family: sans-serif;
  font-weight: normal;
@@ -238,13 +238,12 @@ TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 /* Display, Visibility, buttons and others */
 label { cursor:pointer }
 .zero { display: none }
-.one { }
-.2nmore { }
+
 #the_page {
   text-align:center;
   display:block;
 }
-#content H2::after { content: leader(dotted) }
+
 input[type="text"], input[type="password"], input.button,
 input.submit, input.reset, input.file,
 select, textarea {

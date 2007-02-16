@@ -717,13 +717,13 @@ function set_status_header($code, $text='')
 
 /**
  * set a class to display a counter
- * .zero .one .2nmore 
+ * .zero .one .plural
  */
 function set_span_class($count)
 {
   if ($count > 1) 
   { 
-    return '2nmore';
+    return 'plural';
   }
   return ( $count == 0 ) ? 'zero':'one'; 
 }
