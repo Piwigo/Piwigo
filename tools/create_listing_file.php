@@ -30,10 +30,11 @@
 // +-----------------------------------------------------------------------+
 
 // ****** Gallery configuration ****** //
-// Srcipt version
+// Script version
 $conf['version'] = 'Alligator';
 
 // URL of main gallery
+// Example : http://www.my.domain/my/directory
 $conf['gallery'] = 'http://';
 
 // prefix for thumbnails in "thumbnail" sub directories
@@ -100,10 +101,10 @@ $conf['thumbnail'] = false;
 $conf['thumbnail_method'] = 'ratio';
 
 // Height in pixels (greater than 0)
-$conf['thumbnail_height'] = 96;
+$conf['thumbnail_height'] = 128;
 
 // Width in pixels (greater than 0)
-$conf['thumbnail_width'] = 96;
+$conf['thumbnail_width'] = 128;
 
 // Ratio between original and thumbnail size (strictly between 0 and 1)
 $conf['thumbnail_ratio'] = 0.2;
