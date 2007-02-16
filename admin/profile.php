@@ -32,14 +32,18 @@ $edit_user = build_user( $_GET['user_id'], false );
 include_once(PHPWG_ROOT_PATH.'profile.php');
 
 
-save_profile_from_post( $edit_user, $errors);
+$errors = array();
+if ( !is_adviser() )
+{
+  save_profile_from_post( $edit_user, $errors);
+}
 
 load_profile_in_template(
   get_root_url().'admin.php?page=profile&amp;user_id='.$edit_user['id'],
   get_root_url().'admin.php?page=user_list',
   $edit_user
   );
-$page['errors'] = array_merge( $page['errors'], $errors);
+$page['errors'] = array_merge($page['errors'], $errors );
 
 $template->set_filename('profile', 'admin/profile.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'profile');

@@ -58,7 +58,7 @@
   </select>
   </label>
 
-  <input class="submit" type="submit" name="submit_filter" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="submit" name="submit_filter" value="{lang:submit}" />
 
 </fieldset>
 

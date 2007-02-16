@@ -82,7 +82,7 @@
     </select>
   </label>
 
-  <input class="submit" type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
+  <input class="submit" type="submit" name="submit" value="{lang:submit}" />
 </fieldset>
 </form>
 

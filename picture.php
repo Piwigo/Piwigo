@@ -748,41 +748,22 @@ $infos['INFO_VISITS'] = $picture['current']['hit'];
 $infos['INFO_FILE'] = $picture['current']['file'];
 
 // tags
-$query = '
-SELECT id, name, url_name
-  FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
-  WHERE image_id = '.$page['image_id'].'
-;';
-$result = pwg_query($query);
-
-if (mysql_num_rows($result) > 0)
+$tags = get_common_tags( array($page['image_id']), -1);
+if ( count($tags) )
 {
-  $tags = array();
-  $tag_names = array();
-
-  while ($row = mysql_fetch_array($result))
+  $infos['INFO_TAGS'] = '';
+  foreach ($tags as $num => $tag)
   {
-    array_push(
-      $tags,
-      '<a href="'
+    $infos['INFO_TAGS'] .= $num ? ' ,' : '';
+    $infos['INFO_TAGS'] .= '<a href="'
       .make_index_url(
         array(
-          'tags' => array(
-            array(
-              'id' => $row['id'],
-              'url_name' => $row['url_name'],
-              ),
-            )
+          'tags' => array($tag)
           )
         )
-      .'">'.$row['name'].'</a>'
-      );
-    array_push( $tag_names, $row['name'] );
+      .'">'.$tag['name'].'</a>';
   }
-
-  $infos['INFO_TAGS'] = implode(', ', $tags);
-  $header_infos['INFO_TAGS'] = implode(', ', $tag_names);
+  $header_infos['INFO_TAGS'] = strip_tags($infos['INFO_TAGS']);
 }
 else
 {

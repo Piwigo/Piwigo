@@ -164,7 +164,7 @@
   
   </ul>
 
-  <p><input class="submit" type="submit" value="{L_SUBMIT}" name="submit_caddie" {TAG_INPUT_ENABLED}/></p>
+  <p><input class="submit" type="submit" value="{L_SUBMIT}" name="submit_caddie" /></p>
 
 </fieldset>
 
