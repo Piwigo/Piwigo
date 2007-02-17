@@ -126,7 +126,7 @@
           <br />
         </td>
         <td>
-          <textarea name="add_comment" id="add_comment" maxlength="255" 
+          <textarea name="add_comment" id="add_comment" 
             rows="4" cols="80">{lang:Comment to identify your partner clearly}</textarea>  
         </td>
       </tr>
@@ -148,12 +148,12 @@
 <!-- BEGIN acc_list -->
 <!-- Access list -->
 <form method="post" name="preferences" action="{F_STATUS_ACTION}">
-  <input type="hidden" name="partner_prev" value="{F_PREV_PARTNER}" />
-  <input type="hidden" name="request_prev" value="{F_PREV_REQUEST}" />
-  <input type="hidden" name="high_prev" value="{F_PREV_HIGH}" />
-  <input type="hidden" name="normal_prev" value="{F_PREV_NORMAL}" />
-  <input type="hidden" name="order_prev" value="{F_PREV_ORDER}" />
-  <input type="hidden" name="dir5n_prev" value="{F_PREV_DIR5N}" />
+  <input type="hidden" name="partner_prev" value="{F_PREV_PARTNER}">
+  <input type="hidden" name="request_prev" value="{F_PREV_REQUEST}">
+  <input type="hidden" name="high_prev" value="{F_PREV_HIGH}">
+  <input type="hidden" name="normal_prev" value="{F_PREV_NORMAL}">
+  <input type="hidden" name="order_prev" value="{F_PREV_ORDER}">
+  <input type="hidden" name="dir5n_prev" value="{F_PREV_DIR5N}">
   <!-- Delete / Update Selected -->
   <fieldset>
     <legend>{lang:ws_update_legend}</legend>
@@ -171,7 +171,7 @@
       <tr class="{acc_list.access.CLASS}">
         <td>
           <input type="radio" name="selection" 
-            value="{acc_list.access.ID}" id="selection-{acc_list.access.ID}" />
+            value="{acc_list.access.ID}" id="selection-{acc_list.access.ID}">
         </td>
         <td><label for="selection-{acc_list.access.ID}">{acc_list.access.NAME}</label></td>
         <td>{acc_list.access.TARGET}</td>
@@ -190,9 +190,9 @@
     </td>
     <td>
     <input type="radio" name="delete_confirmation" 
-      value="true" />
+      value="true">
     <input class="submit" type="submit" name="wsX_submit" style="width: 10em; padding-top: 3px;"
-      value="{lang:Delete}" {TAG_INPUT_ENABLED}/>
+      value="{lang:Delete}" {TAG_INPUT_ENABLED}>
     </td>
     </tr>
     </table>
@@ -213,7 +213,7 @@
     <!-- END upd_end -->
     </select> 
     <input class="submit" type="submit" name="wsu_submit" style="width: 10em; padding-top: 3px;"
-       value="{lang:Submit}" {TAG_INPUT_ENABLED}/>
+       value="{lang:Submit}" {TAG_INPUT_ENABLED}>
     </td>
     <td>
     <i><small> ({lang:Web Services availability duration in days})</small></i>

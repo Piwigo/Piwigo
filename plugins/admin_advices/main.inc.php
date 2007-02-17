@@ -19,7 +19,7 @@ function set_admin_advice_add_css()
       'head_element',
        array(
          'CONTENT' => '<link rel="stylesheet" type="text/css" ' 
-                    . 'href="'.PHPWG_PLUGINS_PATH.'admin_advices/default-layout.css" />',
+                    . 'href="'.PHPWG_PLUGINS_PATH.'admin_advices/default-layout.css">',
        )
      );
     add_event_handler('loc_begin_page_tail', 'set_admin_advice' );

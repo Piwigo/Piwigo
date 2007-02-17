@@ -44,6 +44,7 @@ if ( isset($_GET['lang']) )
 }
 
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
+$my_theme = get_root_url().'template/'.$user['template'].'/theme/'.$user['theme'].'/theme.css';
 
 $themes_html='Theme: <select onchange="document.location = this.options[this.selectedIndex].value;">';
 foreach (get_pwg_themes() as $pwg_template)
@@ -76,7 +77,9 @@ $lang_html .= '</select>';
 <head>
 <title>Controller</title>
 </head>
-
+<link rel="stylesheet" type="text/css" href="<?php
+echo $my_theme;
+?>">
 <body>
 
 <script type="text/javascript">
