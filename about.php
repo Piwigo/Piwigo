@@ -42,18 +42,31 @@ $title= $lang['about_page_title'];
 $page['body_id'] = 'theAboutPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
+/**
+ * set in ./language/en_UK.iso-8859-1/local.lang.php (maybe to create)
+ * for example for clear theme:
+  $lang['Theme: clear'] = 'This is the clear theme based on yoga template. '.
+  ' A standard template/theme of PhpWebgallery.';
+ *
+ * Don't forget php tags !!!
+ *
+ * Another way is to code it thru the theme itself in ./themeconf.inc.php
+ */
+@include(PHPWG_ROOT_PATH.'template/'.$user['template'].
+  '/theme/'.$user['theme'].'/themeconf.inc.php');
+
 $template->set_filenames(
   array(
     'about'=>'about.tpl',
     'about_content' => get_language_filepath('about.html')
     )
   );
-if ( isset( $themeconf['About']) and $themeconf['About']!=='' )
+if ( isset($lang['Theme: '.$user['theme']]) )
 {
   $template->assign_block_vars(
   'theme',
   array(
-    'ABOUT' => l10n($themeconf['About']),
+    'ABOUT' => l10n('Theme: '.$user['theme']),
     )
   );
 }

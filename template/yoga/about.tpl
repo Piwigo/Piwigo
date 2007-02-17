@@ -9,11 +9,10 @@
     </ul>
     <h2>{lang:About}</h2>
   </div>
-
+  <ul>
   {ABOUT_MESSAGE}
   <!-- BEGIN theme -->
-  <ul>
   <li>{theme.ABOUT}</li>
-  </ul>
   <!-- END theme -->
+  </ul>
 </div>
