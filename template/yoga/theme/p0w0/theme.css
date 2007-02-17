@@ -157,7 +157,7 @@ A:hover { text-decoration: none; border: 0px; }
 #menubar DT, #content H2 {
   background-image: url(images/button-bg.png);
   border: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 3px;
 }
 #content ul.thumbnailCategories li div.thumbnailCategory .description h3 {
   background-image: url(images/button-bg.png);
