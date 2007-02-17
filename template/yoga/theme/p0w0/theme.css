@@ -213,7 +213,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 #content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #69c;	/* thumbnails border color and style */
-  -moz-border-radius: 4px;	/* round corners with Geko */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 #content UL.thumbnails SPAN.wrap2:hover {

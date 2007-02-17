@@ -32,8 +32,14 @@
   <dt><a href="{U_CATEGORIES}">{lang:Categories}</a></dt>
   <dd>
     {MENU_CATEGORIES_CONTENT}
+  <!-- BEGIN upload -->
+  <ul><li>
+    <a href="{upload.U_UPLOAD}">{lang:upload_picture}</a>
+  </li></ul>
+  <!-- END upload -->
     <p class="totalImages">{NB_PICTURE} {lang:total}</p>
   </dd>
+
 </dl>
 
 <!-- BEGIN tags -->
@@ -81,9 +87,7 @@
       <!-- BEGIN summary -->
       <li><a href="{summary.U_SUMMARY}" title="{summary.TITLE}" {summary.REL}>{summary.NAME}</a></li>
       <!-- END summary -->
-      <!-- BEGIN upload -->
-      <li><a href="{upload.U_UPLOAD}">{lang:upload_picture}</a></li>
-      <!-- END upload -->
+
     </ul>
   </dd>
 </dl>

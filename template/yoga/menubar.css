@@ -112,7 +112,6 @@ FORM#quickconnect LABEL {
 FORM#quickconnect LABEL {
   margin:0;
   width: 100%;
- -moz-box-sizing: padding-box; /* FIXME in a specific css file for FF */
   box-sizing: border-box; /* CSS3 */
 }
 
