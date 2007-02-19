@@ -81,6 +81,27 @@ function ws_addDefaultMethods( $arr )
       array('image_id'),
       'retrieves information about the given photo' );
 
+  $service->addMethod('pwg.images.search', 'ws_images_search',
+      array(
+        'query'=>array(),
+        'per_page' => array('default'=>100, 'maxValue'=>$conf['ws_max_images_per_page']),
+        'page' => array('default'=>0),
+        'order' => array('default'=>null),
+        'f_min_rate' => array( 'default'=> null ),
+        'f_max_rate' => array( 'default'=> null ),
+        'f_min_hit' => array( 'default'=> null ),
+        'f_max_hit' => array( 'default'=> null ),
+        'f_min_date_available' => array( 'default'=> null ),
+        'f_max_date_available' => array( 'default'=> null ),
+        'f_min_date_created' => array( 'default'=> null ),
+        'f_max_date_created' => array( 'default'=> null ),
+        'f_min_ratio' => array( 'default'=> null ),
+        'f_max_ratio' => array( 'default'=> null ),
+        'f_with_thumbnail' => array( 'default'=> false ),
+      ),
+      'Returns elements for the corresponding query search.'
+    );
+
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
   $service->addMethod('pwg.session.login', 'ws_session_login',
     array('username', 'password'),

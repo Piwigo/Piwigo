@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -301,40 +300,18 @@ function get_qsearch_like_clause($q, $field)
  */
 function get_quick_search_results($q)
 {
-  global $user, $page, $filter;
+  global $page;
   $search_results = array();
-
-  // first search tag names corresponding to the query $q. we could also search
-  // tags later during the big join, but for the sake of the performance and
-  // because tags have only a simple name we do it separately
-  $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
-  $by_tag_weights=array();
-  if (!empty($q_like_clause))
+  $q = trim($q);
+  if (empty($q))
   {
-    $query = '
-SELECT id
-  FROM '.TAGS_TABLE.'
-  WHERE '.$q_like_clause;
-    $tag_ids = array_from_query( $query, 'id');
-    if (!empty($tag_ids))
-    { // we got some tags
-      $query = '
-SELECT image_id, COUNT(tag_id) AS q
-  FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$tag_ids).')
-  GROUP BY image_id';
-      $result = pwg_query($query);
-      while ($row = mysql_fetch_assoc($result))
-      { // weight is important when sorting images by relevance
-        $by_tag_weights[(int)$row['image_id']] = $row['q'];
-      }
-    }
+    $search_results['items'] = array();
+    return $search_results;
   }
-
   // prepare the big join on images, comments and categories
   $query = '
 SELECT
-  i.id, i.file, CAST( CONCAT_WS(" ",
+  i.id, CAST( CONCAT_WS(" ",
     IFNULL(i.name,""),
     IFNULL(i.comment,""),
     IFNULL(GROUP_CONCAT(DISTINCT co.content),""),
@@ -356,7 +333,7 @@ FROM (
       (
         'forbidden_categories' => 'category_id',
         'visible_categories' => 'category_id',
-        'visible_images' => 'ic.image_id'
+        'visible_images' => 'i.id'
       ),
     'WHERE'
   ).'
@@ -365,35 +342,75 @@ GROUP BY i.id';
   $query = 'SELECT id, MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS q FROM ('.$query.') AS Y
 WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
 
-  //also inlcude the file name (but avoid full text which is slower because
-  //the filename in pwg doesn't have spaces so full text is meaningless anyway)
-  $q_like_clause = get_qsearch_like_clause($q, 'file' );
-  if (! empty($q_like_clause) )
-  {
-    $query .= ' OR '.$q_like_clause;
-  }
-
   $by_weights=array();
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
-  {
-    $by_weights[(int)$row['id']] = $row['q'] ? $row['q'] : 0;
+  { // weight is important when sorting images by relevance
+    if ($row['q'])
+    {
+      $by_weights[(int)$row['id']] =  2*$row['q'];
+    }
   }
 
-  // finally merge the results (tags and big join) sorted by "relevance"
-  foreach ( $by_weights as $image=>$w )
+  $permissions_checked = true;
+  // now search the file name separately (not done in full text because slower 
+  // and the filename in pwg doesn't have spaces so full text is meaningless )
+  $q_like_clause = get_qsearch_like_clause($q, 'file' );
+  if (!empty($q_like_clause))
   {
-    $by_tag_weights[$image] = 2*$w+ (isset($by_tag_weights[$image])?$by_tag_weights[$image]:0);
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE '.$q_like_clause.
+      get_sql_condition_FandF
+      (
+        array
+          (
+            'visible_images' => 'id'
+          ),
+        'AND'
+      );
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_assoc($result))
+    { // weight is important when sorting images by relevance
+      $id=(int)$row['id'];
+      @$by_weights[$id] += 2;
+      $permissions_checked = false;
+    }
+  }
+
+  // now search tag names corresponding to the query $q. we could have searched
+  // tags earlier during the big join, but for the sake of the performance and
+  // because tags have only a simple name we do it separately
+  $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
+  if (!empty($q_like_clause))
+  {
+    $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE '.$q_like_clause;
+    $tag_ids = array_from_query( $query, 'id');
+    if (!empty($tag_ids))
+    { // we got some tags
+      $query = '
+SELECT image_id, COUNT(tag_id) AS q
+  FROM '.IMAGE_TAG_TABLE.'
+  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  GROUP BY image_id';
+      $result = pwg_query($query);
+      while ($row = mysql_fetch_assoc($result))
+      { // weight is important when sorting images by relevance
+        $image_id=(int)$row['image_id'];
+        @$by_weights[$image_id] += $row['q'];
+        $permissions_checked = false;
+      }
+    }
   }
 
   //at this point, found images might contain images not allowed for the user
-  if ( empty($by_tag_weights) or isset($page['super_order_by']) )
-  {
-    // no aditionnal query here for permissions (will be done by section_init
-    // while sorting items as the user requested it)
-    $search_results['items'] = array_keys($by_tag_weights);
-  }
-  else
+  if ( !$permissions_checked
+       and !empty($by_weights)
+       and !isset($page['super_order_by']) )
   {
     // before returning the result "as is", make sure the user has the
     // permissions for every item
@@ -401,25 +418,28 @@ WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', array_keys($by_tag_weights) ).')
+  WHERE id IN ('.implode(',', array_keys($by_weights) ).')
 '.get_sql_condition_FandF
   (
     array
       (
         'forbidden_categories' => 'category_id',
         'visible_categories' => 'category_id',
-        'visible_images' => 'ic.image_id'
+        'visible_images' => 'id'
       ),
     'AND'
   );
     $allowed_image_ids = array_from_query( $query, 'id');
-    $by_tag_weights = array_intersect_key($by_tag_weights, array_flip($allowed_image_ids));
-    arsort($by_tag_weights, SORT_NUMERIC);
-    $search_results = array(
-          'items'=>array_keys($by_tag_weights),
-          'as_is'=>1
-        );
+    $by_weights = array_intersect_key($by_weights, array_flip($allowed_image_ids));
+    $permissions_checked = true;
   }
+  arsort($by_weights, SORT_NUMERIC);
+  if ( $permissions_checked )
+  {
+    $search_results['as_is']=1;
+  }
+  
+  $search_results['items'] = array_keys($by_weights);
   return $search_results;
 }
 

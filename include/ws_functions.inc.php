@@ -603,6 +603,118 @@ SELECT COUNT(rate) AS count
   return new PwgNamedStruct('image',$ret, null, array('name','comment') );
 }
 
+/**
+ * returns a list of elements corresponding to a query search
+ */
+function ws_images_search($params, &$service)
+{
+  global $page;
+  $images = array();
+  include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
+  include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+
+  $where_clauses = ws_std_image_sql_filter( $params );
+  $order_by = ws_std_image_sql_order($params);
+
+  if ( !empty($where_clauses) and !empty($order_by) )
+  {
+    $page['super_order_by']=1; // quick_search_result might be faster
+  }
+  $search_result = get_quick_search_results($params['query']);
+
+  global $image_ids; //needed for sorting by rank (usort)
+  if ( ( !isset($search_result['as_is'])
+      or !empty($where_clauses)
+      or !empty($order_by) )
+      and !empty($search_result['items']) )
+  {
+    $where_clauses[] = 'id IN ('
+        .wordwrap(implode(', ', $search_result['items']), 80, "\n")
+        .')';
+    $where_clauses[] = get_sql_condition_FandF(
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'id'
+          ),
+        '', true
+      );
+    $query = '
+SELECT DISTINCT id FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE '.implode('
+    AND ', $where_clauses);
+    if (!empty($order_by))
+    {
+      $query .= '
+  ORDER BY '.$order_by;
+    }
+    $image_ids = array_from_query($query, 'id');
+    global $ranks;
+    $ranks = array_flip( $search_result['items'] );
+    usort(
+      $image_ids,
+      create_function('$i1,$i2', 'global $ranks; return $ranks[$i1]-$ranks[$i2];')
+    );
+    unset ($ranks);
+  }
+  else
+  {
+    $image_ids = $search_result['items'];
+  }
+  
+  $image_ids = array_slice($image_ids,
+    $params['page']*$params['per_page'],
+    $params['per_page'] );
+
+  if ( count($image_ids) )
+  {
+    $query = '
+SELECT * FROM '.IMAGES_TABLE.'
+  WHERE id IN ('
+        .wordwrap(implode(', ', $image_ids), 80, "\n")
+        .')';
+
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_assoc($result))
+    {
+      $image = array();
+      foreach ( array('id', 'width', 'height', 'hit') as $k )
+      {
+        if (isset($row[$k]))
+        {
+          $image[$k] = (int)$row[$k];
+        }
+      }
+      foreach ( array('name', 'file') as $k )
+      {
+        $image[$k] = $row[$k];
+      }
+      $image = array_merge( $image, ws_std_get_urls($row) );
+      array_push($images, $image);
+    }
+
+    $image_ids = array_flip($image_ids);
+    usort(
+        $images,
+        create_function('$i1,$i2', 'global $image_ids; return $image_ids[$i1["id"]]-$image_ids[$i2["id"]];')
+      );
+  }
+
+
+  return array( 'images' =>
+    array (
+      WS_XML_ATTRIBUTES =>
+        array(
+            'page' => $params['page'],
+            'per_page' => $params['per_page'],
+            'count' => count($images)
+          ),
+       WS_XML_CONTENT => new PwgNamedArray($images, 'image',
+          array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
+      )
+    );
+}
 
 /**
  * perform a login (web service method)

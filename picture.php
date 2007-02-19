@@ -754,7 +754,7 @@ if ( count($tags) )
   $infos['INFO_TAGS'] = '';
   foreach ($tags as $num => $tag)
   {
-    $infos['INFO_TAGS'] .= $num ? ' ,' : '';
+    $infos['INFO_TAGS'] .= $num ? ', ' : '';
     $infos['INFO_TAGS'] .= '<a href="'
       .make_index_url(
         array(

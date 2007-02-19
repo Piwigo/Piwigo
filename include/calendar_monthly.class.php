@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -438,14 +438,14 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
       }
       else
       {
-        // first try to guess thumbnail size
+/*        // first try to guess thumbnail size
         if ( !empty($items[$day]['width']) )
         {
           $tn_size = get_picture_size(
                  $items[$day]['width'], $items[$day]['height'],
                  $conf['tn_width'], $conf['tn_height'] );
         }
-        else
+        else*/
         {// item not an image (tn is either mime type or an image)
           $thumb = get_thumbnail_path($items[$day]);
           $tn_size = @getimagesize($thumb);
