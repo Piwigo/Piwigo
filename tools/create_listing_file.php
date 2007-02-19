@@ -1637,7 +1637,7 @@ if ($_SESSION['scan_step'] == 'exit')
 <html>
   <head>
   <?php echo $g_refresh; ?>
-  <title>Manage distant gallery</title>
+  <title>Manage remote gallery</title>
   </head>
     <style type="text/css">
       code {font-weight: bold}
@@ -1661,7 +1661,7 @@ if ($_SESSION['scan_step'] == 'exit')
         <span class="p">Php</span>
         <span class="w">Web</span>
         <span class="g">Gallery</span>
-        &nbsp;distant site<? echo $g_header; ?>
+        &nbsp;remote site<? echo $g_header; ?>
       </fieldset>
       <fieldset>
 <?php echo $g_message; ?>
