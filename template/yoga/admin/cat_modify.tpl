@@ -206,8 +206,8 @@
   </table>
 
   <p>
-    <input type="submit" value="{lang:Submit}" name="submitDestinations" {TAG_INPUT_ENABLED}/>
-    <input type="reset" value="{lang:Reset}" name="reset" />
+    <input class="submit" type="submit" value="{lang:Submit}" name="submitDestinations" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
   </p>
 
 </fieldset>

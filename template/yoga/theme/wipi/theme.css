@@ -29,11 +29,11 @@ H2, .throw {
 }
 #menubar DT:before {
  content: "__\\_ "; 
- color: #69c; 
+ color: #f92;
 }
 #menubar DT:after {
  content: " _/__"; 
- color: #f92;
+ color: #69c;
 }
 #menubar .button {
   margin: 0 2px 0px 8px;
@@ -103,8 +103,13 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
   font-weight: lighter;
   margin-bottom: 20px;
 }
-#content H3 {
-  text-indent: 3em
+#content ul.thumbnailCategories li div.thumbnailCategory .description h3,
+#content h3 { text-align: center; }
+#content ul.thumbnailCategories li div.thumbnailCategory .description p {
+  color: #f92; text-indent: 0em; 
+}
+#content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
+  color: #fff; 
 }
 .browsePath A {
   color: #eee;
@@ -310,8 +315,11 @@ a.PWG:hover .G { color : #f92; }
     border-top: 1px solid #eef;
     border-right: 1px solid #69c;
     border-bottom: 1px solid #69c;
-    border-bottom-right-radius: 44px;
-   -moz-border-radius-bottomright: 44px;
+    border-bottom-right-radius: 12px;
+   -moz-border-radius-bottomright: 12px;
     box-shadow: 5px 5px #69c;
 }
-h3 { height: 23px; padding: 5px 10px 2px; 10px; border-top: 1px solid #eef;}
+#imageToolBar .randomButtons a:hover,
+#imageToolBar .navButtons a:hover { background-color: #111; }
+h2.showtitle, #theImage p.showlegend { display: none }
+* { outline-width: 0px; }

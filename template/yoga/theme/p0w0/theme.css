@@ -54,9 +54,8 @@ input.rateButtonSelected,
   text-indent: 1em;
   font-weight: normal;
 }
-#content H3 {
-  text-indent: 3em
-}
+#content ul.thumbnailCategories li div.thumbnailCategory .description h3,
+#content h3 { text-align: center; }
 .browsePath, .imageNumber,
 #imageHeaderBar H2,
 .browsePath A {
@@ -277,5 +276,4 @@ input.submit:active {
   padding-left: 4em;
   padding-right: 4em;
 }
-A:focus  { outline: none; }
-A:active { outline: none; }
+* { outline: none; }
