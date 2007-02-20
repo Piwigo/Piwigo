@@ -322,6 +322,7 @@ a.PWG:hover .G { color : #f92; }
    -moz-border-radius-bottomright: 12px;
     box-shadow: 5px 5px #69c;
 }
+.statBar { background-color: #e60; }
 #imageToolBar .randomButtons a:hover,
 #imageToolBar .navButtons a:hover { background-color: #111; }
 h2.showtitle, #theImage p.showlegend { display: none }
