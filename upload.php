@@ -117,10 +117,7 @@ function validate_upload( $temp_name, $my_max_file_size,
   }
 
   //------------------------------------------------------------ log informations
-  pwg_log('upload', 
-          get_cat_display_name($page['cat_name']),
-          $_FILES['picture']['name'].
-          ' ['.$mail_address.'] '.'['.($result ? 'OK' : 'KO').']');
+  pwg_log();
 
   return $result;
 }
@@ -128,14 +125,14 @@ function validate_upload( $temp_name, $my_max_file_size,
 //-------------------------------------------------- access authorization check
 if (is_numeric($_GET['cat']))
 {
-  $page['cat'] = $_GET['cat'];
+  $page['category'] = $_GET['cat'];
 }
 
-if (isset($page['cat']))
+if (isset($page['category']))
 {
-  check_restrictions( $page['cat'] );
-  $result = get_cat_info( $page['cat'] );
-  $page['cat_dir']        = get_complete_dir( $page['cat'] );
+  check_restrictions( $page['category'] );
+  $result = get_cat_info( $page['category'] );
+  $page['cat_dir']        = get_complete_dir( $page['category'] );
   $page['cat_site_id']    = $result['site_id'];
   $page['cat_name']       = $result['name'];
   $page['cat_uploadable'] = $result['uploadable'];
@@ -221,7 +218,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query = 'insert into '.WAITING_TABLE;
     $query.= ' (storage_category_id,file,username,mail_address,date,infos)';
     $query.= ' values ';
-    $query.= '('.$page['cat'].",'".$_FILES['picture']['name']."'";
+    $query.= '('.$page['category'].",'".$_FILES['picture']['name']."'";
     $query.= ",'".htmlspecialchars( $_POST['username'], ENT_QUOTES)."'";
     $query.= ",'".$_POST['mail_address']."',".time().",'".$xml_infos."')";
     $query.= ';';
@@ -274,7 +271,7 @@ $page['body_id'] = 'theUploadPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('upload'=>'upload.tpl'));
 
-$u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['cat'];
+$u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['category'];
 if ( isset( $page['waiting_id'] ) )
 {
 $u_form.= '&amp;waiting_id='.$page['waiting_id'];
@@ -304,7 +301,7 @@ $template->assign_vars(
 
     'F_ACTION' => $u_form,
 
-    'U_RETURN' => make_index_url(array('category' => $page['cat'])),
+    'U_RETURN' => make_index_url(array('category' => $page['category'])),
     )
   );
   
