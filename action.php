@@ -127,8 +127,11 @@ if ( empty($file) )
 }
 
 if ($_GET['part'] == 'h') {
-  $is_high = true;
-  pwg_log($_GET['id'], $is_high);
+  pwg_log($_GET['id'], 'high');
+}
+else if ($_GET['part'] == 'e')
+{
+  pwg_log($_GET['id'], 'other');
 }
 
 $http_headers = array();

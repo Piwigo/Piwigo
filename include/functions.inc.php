@@ -410,7 +410,7 @@ function replace_search( $string, $search )
   return $string;
 }
 
-function pwg_log($image_id = null, $is_high = false)
+function pwg_log($image_id = null, $image_type = null)
 {
   global $conf, $user, $page;
 
@@ -468,7 +468,7 @@ INSERT INTO '.HISTORY_TABLE.'
     section,
     category_id,
     image_id,
-    is_high,
+    image_type,
     tag_ids
   )
   VALUES
@@ -484,7 +484,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
     '.(isset($page['category']) ? $page['category'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
-    '.(isset($image_id) ? "'".boolean_to_string($is_high)."'" : 'NULL').',
+    '.(isset($image_id) ? "'".$image_type."'" : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
   )
 ;';

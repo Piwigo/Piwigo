@@ -49,36 +49,14 @@
     </li>
   </ul>
 
-  <ul>
-    <li><label></label></li>
-    <li></li>
-  </ul>
-
   <label>
-    {lang:Pictures}
-    <select name="pictures">
-      <!-- BEGIN pictures_option -->
-      <option
-        value="{pictures_option.VALUE}"
-        {pictures_option.SELECTED}
-      >
-        {pictures_option.CONTENT}
+    {lang:Element type}
+    <select name="types[]" multiple="multiple" size="4">
+      <!-- BEGIN types_option -->
+      <option value="{types_option.VALUE}" {types_option.SELECTED}>
+        {types_option.CONTENT}
       </option>
-      <!-- END pictures_option -->
-    </select>
-  </label>
-
-  <label>
-    {lang:High quality}
-    <select name="high">
-      <!-- BEGIN high_option -->
-      <option
-        value="{high_option.VALUE}"
-        {high_option.SELECTED}
-      >
-        {high_option.CONTENT}
-      </option>
-      <!-- END high_option -->
+      <!-- END types_option -->
     </select>
   </label>
 
@@ -101,7 +79,7 @@
     <th>{lang:user}</th>
     <th>{lang:IP}</th>
     <th>{lang:image}</th>
-    <th>{lang:high quality}</th>
+    <th>{lang:Element type}</th>
     <th>{lang:section}</th>
     <th>{lang:category}</th>
     <th>{lang:tags}</th>
@@ -113,14 +91,7 @@
     <td>{detail.USER}</td>
     <td>{detail.IP}</td>
     <td>{detail.IMAGE}</td>
-    <td>
-  <!-- BEGIN high -->
-      <img src="{themeconf:icon_dir}/check.png" alt="{lang:yes}">
-  <!-- END high -->
-  <!-- BEGIN no_high -->
-      <img src="{themeconf:icon_dir}/uncheck.png" alt="{lang:no}">
-  <!-- END no_high -->
-    </td>
+    <td>{detail.TYPE}</td>
     <td>{detail.SECTION}</td>
     <td>{detail.CATEGORY}</td>
     <td>{detail.TAGS}</td>

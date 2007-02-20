@@ -58,6 +58,8 @@ else
   $page['start'] = 0;
 }
 
+$types = array('none', 'picture', 'high', 'other');
+
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
@@ -94,8 +96,7 @@ if (isset($_POST['submit']))
       );
   }
 
-  $search['fields']['pictures'] = $_POST['pictures'];
-  $search['fields']['high'] = $_POST['high'];
+  $search['fields']['types'] = $_POST['types'];
   
   // echo '<pre>'; print_r($search); echo '</pre>';
   
@@ -184,43 +185,32 @@ SELECT rules
       );
   }
 
-  if (isset($page['search']['fields']['pictures']))
+  if (isset($page['search']['fields']['types']))
   {
-    $clause = null;
+    $local_clauses = array();
     
-    if ($page['search']['fields']['pictures'] == 'no')
-    {
-      $clause = 'image_id IS NULL';
+    foreach ($types as $type) {
+      if (in_array($type, $page['search']['fields']['types'])) {
+        $clause = 'image_type ';
+        if ($type == 'none')
+        {
+          $clause.= 'IS NULL';
+        }
+        else
+        {
+          $clause.= "= '".$type."'";
+        }
+        
+        array_push($local_clauses, $clause);
+      }
     }
-
-    if ($page['search']['fields']['pictures'] == 'only')
-    {
-      $clause = 'image_id IS NOT NULL';
-    }
-
-    if (isset($clause))
-    {
-      array_push($clauses, $clause);
-    }
-  }
-
-  if (isset($page['search']['fields']['high']))
-  {
-    $clause = null;
     
-    if ($page['search']['fields']['high'] == 'no')
+    if (count($local_clauses) > 0)
     {
-      $clause = "is_high IS NULL or is_high = 'false'";
-    }
-
-    if ($page['search']['fields']['high'] == 'only')
-    {
-      $clause = "is_high = 'true'";
-    }
-
-    if (isset($clause))
-    {
-      array_push($clauses, $clause);
+      array_push(
+        $clauses,
+        implode(' OR ', $local_clauses)
+        );
     }
   }
   
@@ -236,8 +226,10 @@ SELECT rules
 SELECT COUNT(*)
   FROM '.HISTORY_TABLE.'
   WHERE '.$where_separator.'
-';
+;';
 
+  // echo '<pre>'.$query.'</pre>';
+  
   list($page['nb_lines']) = mysql_fetch_row(pwg_query($query));
 
   $query = '
@@ -250,7 +242,7 @@ SELECT
     category_id,
     tag_ids,
     image_id,
-    is_high
+    image_type
   FROM '.HISTORY_TABLE.'
   WHERE '.$where_separator.'
   LIMIT '.$page['start'].', '.$conf['nb_logs_page'].'
@@ -344,6 +336,7 @@ SELECT id, IF(name IS NULL, file, name) AS label
                 ? $label_of_image[$line['image_id']]
                 : 'deleted '.$line['image_id'])
           : $line['image_id'],
+        'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
         'CATEGORY'  => isset($line['category_id'])
           ? ( isset($name_of_category[$line['category_id']])
@@ -354,18 +347,6 @@ SELECT id, IF(name IS NULL, file, name) AS label
         'T_CLASS'   => ($i++ % 2) ? 'row1' : 'row2',
         )
       );
-
-    if (isset($line['image_id']))
-    {
-      if ($line['is_high'] == 'true')
-      {
-        $template->assign_block_vars('detail.high', array());
-      }
-      else
-      {
-        $template->assign_block_vars('detail.no_high', array());
-      }
-    }
   }
 }
 
@@ -425,8 +406,7 @@ if (isset($page['search']))
     $form['end_day']   = (int)$tokens[2];
   }
 
-  $form['pictures'] = $page['search']['fields']['pictures'];
-  $form['high'] = $page['search']['fields']['high'];
+  $form['types'] = $page['search']['fields']['types'];
 }
 else
 {
@@ -435,8 +415,7 @@ else
   $form['start_year']  = $form['end_year']  = date('Y');
   $form['start_month'] = $form['end_month'] = date('n');
   $form['start_day']   = $form['end_day']   = date('j');
-  $form['pictures'] = 'yes';
-  $form['high'] = 'yes';
+  $form['types'] = $types;
 }
 
 // start date
@@ -453,26 +432,23 @@ $template->assign_vars(
     )
   );
 
-foreach (array('pictures', 'high') as $block)
+foreach ($types as $option)
 {
-  foreach (array('yes', 'no', 'only') as $item)
+  $selected = '';
+  
+  if (in_array($option, $form['types']))
   {
-    $selected = '';
-    
-    if ($item == $form[$block])
-    {
-      $selected = 'selected="selected"';
-    }
-    
-    $template->assign_block_vars(
-      $block.'_option',
-      array(
-        'VALUE' => $item,
-        'CONTENT' => l10n($item),
-        'SELECTED' => $selected,
-        )
-      );
+    $selected = 'selected="selected"';
   }
+  
+  $template->assign_block_vars(
+    'types_option',
+    array(
+      'VALUE' => $option,
+      'CONTENT' => l10n($option),
+      'SELECTED' => $selected,
+      )
+    );
 }
   
 // +-----------------------------------------------------------------------+

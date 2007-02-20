@@ -812,7 +812,7 @@ if ($metadata_showable and isset($_GET['metadata']))
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
 //------------------------------------------------------------ log informations
-pwg_log($picture['current']['id']);
+pwg_log($picture['current']['id'], 'picture');
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');

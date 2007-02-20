@@ -126,7 +126,7 @@ CREATE TABLE `phpwebgallery_history` (
   `tag_ids` varchar(50) default NULL,
   `image_id` mediumint(8) default NULL,
   `summarized` enum('true','false') default 'false',
-  `is_high` enum('true','false') default NULL,
+  `image_type` enum('picture','high','other') default NULL,
   PRIMARY KEY  (`id`),
   KEY `history_i1` (`summarized`)
 ) TYPE=MyISAM;
