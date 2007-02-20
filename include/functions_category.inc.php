@@ -390,16 +390,12 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
 {
   $display_text = '';
 
-  // Count of category is main
-  // if not picture on categorie, test on sub-categories
-  $count = ($cat_nb_images > 0 ? $cat_nb_images : $cat_count_images);
+  if ($cat_count_images>0)
+  {//at least one image direct or indirect
+    $display_text.= l10n_dec('image_available', 'images_available', $cat_count_images);
 
-  if ($count > 0)
-  {
-    $display_text.= l10n_dec('image_available', 'images_available', $count);
-
-    if ($cat_nb_images > 0)
-    {
+    if ($cat_count_categories==0 or $cat_nb_images>=$cat_count_images)
+    {//no descendant categories or descendants do not contain images
       if (! $short_message)
       {
         $display_text.= ' '.l10n('images_available_cpl');

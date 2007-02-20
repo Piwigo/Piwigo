@@ -458,12 +458,11 @@ function get_html_menu_category($categories)
     }
     $menu.= '>'.$category['name'].'</a>';
 
-    // Count of category is main
-    // if not picture on categorie, test on sub-categories
-    if (($category['nb_images'] > 0) or ($category['count_images'] > 0))
-    {
+    if ( $category['count_images']>0 )
+    {// at least one direct or indirect image
       $menu.= "\n".'<span class="';
-      $menu.= ($category['nb_images'] > 0 ? "menuInfoCat"
+      // at least one image in this category -> class menuInfoCat
+      $menu.= ($category['nb_images'] > 0 ? "menuInfoCat" 
                                           : "menuInfoCatByChild").'"';
       $menu.= ' title="';
       $menu.= ' '.get_display_images_count
@@ -473,8 +472,8 @@ function get_html_menu_category($categories)
                     $category['count_categories'],
                     false
                   ).'">';
-      $menu.= '['.($category['nb_images'] > 0 ? $category['nb_images']
-                                              : $category['count_images']).']';
+      // show total number of images
+      $menu.= '['.$category['count_images'].']';
       $menu.= '</span>';
     }
     $child_date_last = @$category['max_date_last']> @$category['date_last'];

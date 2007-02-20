@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -246,7 +245,12 @@ if (count($categories) > 0)
         array(
           'IMAGE'       => $thumbnail_src_of[ $category['representative_picture_id'] ],
           'IMAGE_ALT'   => $category['name'],
-          'IMAGE_TITLE' => $lang['hint_category'],
+          'IMAGE_TITLE' => get_display_images_count
+                                  (
+                                    $category['nb_images'],
+                                    $category['count_images'],
+                                    $category['count_categories']
+                                  ),
 
           'U_IMG_LINK'  => make_index_url(
             array(
