@@ -74,7 +74,7 @@ H3, #imageHeaderBar, #imageToolBar A:hover, .row1  {
 }
 #theAdminPage h2, #theAdminPage h3 { border-bottom: 1px solid #69c; }
 #theAdminPage #the_page {
-  background-color: #222;
+  background-color: #111;
 }
 #imageToolBar, .header_notes {
   background-color: #333;
@@ -88,6 +88,11 @@ A:hover {
 #content, .content {
   background-color: #181818;
   border: 1px solid #eee;
+  padding: 5px;
+}
+#theAdminPage #the_page #content, #theAdminPage #the_page .content {
+  background-color: #111;
+  border-width: 0px;
   padding: 5px;
 }
 H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
@@ -199,11 +204,9 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 }
 
 #content UL.thumbnails SPAN.wrap2:hover,
-#content UL.thumbnailCategories DIV.thumbnailCategory:hover,
-#content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
-  background-color: #dfe8ff;
+#content UL.thumbnailCategories DIV.thumbnailCategory:hover {
+  background-color: #333;
   border-color: #69c;		/* thumbnails border color when mouse cursor is over it */
-  color: black;
 }
 
 #menubar .buttonmenu {

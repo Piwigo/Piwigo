@@ -3,6 +3,7 @@ Plugin Name: Admin Advices !
 Version: 1.0.0
 Author: PhpWebGallery team
 Description: Give you an advice on the administration page.
+Plugin URI: http://www.phpwebgallery.net
 */
 
 add_event_handler('loc_end_page_header', 'set_admin_advice_add_css' );
