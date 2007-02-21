@@ -689,7 +689,10 @@ function redirect( $url , $msg = '', $refresh_time = 0)
   global $conf;
 
   // with RefeshTime <> 0, only html must be used
-  if (($conf['default_redirect_method'] == 'http') and ($refresh_time == 0))
+  if ($conf['default_redirect_method']=='http'
+      and $refresh_time==0
+      and !headers_sent()
+    )
   {
     redirect_http($url);
   }

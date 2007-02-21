@@ -44,14 +44,14 @@
   <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/last_unactive.png" class="button" alt="{lang:last_page}"></a>
 <!-- END last_unactive -->
 <!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{L_NEXT_IMG}{next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
+  <a class="navButton next" href="{next.U_IMG}" title="{lang:next_page} : {next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
 <!-- END next -->
 <!-- BEGIN next_unactive -->
   <a class="navButton next"><img src="{pwg_root}{themeconf:icon_dir}/right_unactive.png" class="button" alt="{lang:next_page}"></a>
 <!-- END next_unactive -->
-  <a class="navButton up" href="{U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{L_UP_ALT}"></a>
+  <a class="navButton up" href="{U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
 <!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{L_PREV_IMG}{previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
+  <a class="navButton prev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
 <!-- END previous -->
 <!-- BEGIN previous_unactive -->
   <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/left_unactive.png" class="button" alt="{lang:previous_page}"></a>

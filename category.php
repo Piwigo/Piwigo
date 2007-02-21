@@ -56,6 +56,12 @@ if ( isset($_GET['cat']) )
   }
 }
 
-redirect ( make_index_url($url_params) );
+$url = make_index_url($url_params);
+if (!headers_sent())
+{
+  set_status_header(302);
+  redirect_http( $url );
+}
+redirect ( $url );
 
 ?>
