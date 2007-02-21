@@ -494,11 +494,11 @@ $conf['upload_maxwidth'] = 800;
 
 // upload_maxheight_thumbnail: maximum height authorized for the uploaded
 // thumbnails
-$conf['upload_maxheight_thumbnail'] = 100;
+$conf['upload_maxheight_thumbnail'] = 128;
 
 // upload_maxwidth_thumbnail: maximum width authorized for the uploaded
 // thumbnails
-$conf['upload_maxwidth_thumbnail'] = 150;
+$conf['upload_maxwidth_thumbnail'] = 128;
 
 // +-----------------------------------------------------------------------+
 // |                               history                                 |
