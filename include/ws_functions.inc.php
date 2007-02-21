@@ -3,7 +3,6 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -243,6 +242,16 @@ function ws_std_get_urls($image_row)
   return $ret;
 }
 
+/**
+ * returns an array of image attributes that are to be encoded as xml attributes
+ * instead of xml elements
+ */
+function ws_std_get_image_xml_attributes()
+{
+  return array(
+    'id','tn_url','element_url','high_url', 'file','width','height','hit'
+    );
+}
 
 /**
  * returns PWG version (web service method)
@@ -394,7 +403,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
             'count' => count($images)
           ),
        WS_XML_CONTENT => new PwgNamedArray($images, 'image',
-          array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
+          ws_std_get_image_xml_attributes() )
       )
     );
 }
@@ -438,7 +447,8 @@ function ws_categories_getList($params, &$service)
 
   $query = '
 SELECT id, name, uppercats, global_rank,
-    max_date_last, count_images AS nb_images, count_categories AS nb_categories
+    nb_images, count_images AS total_nb_images,
+    date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
   WHERE '. implode('
@@ -457,7 +467,7 @@ ORDER BY global_rank';
           'cat_name' => $row['name'],
           )
       );
-    foreach( array('id','nb_images','nb_categories') as $key)
+    foreach( array('id','nb_images','total_nb_images','nb_categories') as $key)
     {
       $row[$key] = (int)$row[$key];
     }
@@ -467,7 +477,7 @@ ORDER BY global_rank';
   return array(
       'categories' =>
           new PwgNamedArray($cats,'category',
-            array('id','url','nb_images','nb_categories','max_date_last')
+            array('id','url','nb_images','total_nb_images','nb_categories','date_last','max_date_last')
           )
     );
 }
@@ -501,7 +511,7 @@ LIMIT 1;';
   {
     return new PwgError(999, "image_id not found");
   }
-  array_merge( $image_row, ws_std_get_urls($image_row) );
+  $image_row = array_merge( $image_row, ws_std_get_urls($image_row) );
 
   //-------------------------------------------------------- related categories
   $query = '
@@ -600,6 +610,7 @@ SELECT COUNT(rate) AS count
       );
   unset($ret['path']);
   unset($ret['storage_category_id']);
+
   return new PwgNamedStruct('image',$ret, null, array('name','comment') );
 }
 
@@ -711,7 +722,7 @@ SELECT * FROM '.IMAGES_TABLE.'
             'count' => count($images)
           ),
        WS_XML_CONTENT => new PwgNamedArray($images, 'image',
-          array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
+          ws_std_get_image_xml_attributes() )
       )
     );
 }
@@ -945,7 +956,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
             'count' => count($images)
           ),
        WS_XML_CONTENT => new PwgNamedArray($images, 'image',
-          array('id', 'tn_url', 'element_url', 'file','width','height','hit') )
+          ws_std_get_image_xml_attributes() )
       )
     );
 }
