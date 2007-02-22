@@ -1,3 +1,4 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <title>PWG web service explorer</title>
@@ -40,6 +41,7 @@ function dumpError(err)
 }
 
 var gServiceUrl;
+var gCurrentMethodParams;
 
 Ajax.Responders.register({
 
@@ -104,6 +106,7 @@ function pwgChangeUrl()
   setVisibility("methodWrapper", "hidden");
 
   gServiceUrl = $F('ws_url');
+  gCurrentMethodParams = null;
 
   try {
 		var ajaxReq = new Ajax.Request(
@@ -137,6 +140,7 @@ function pwgSelectMethod(method)
   setElementText("methodName", method);
   setVisibility("methodDetailWrapper", "hidden");
   setVisibility("methodWrapper", "visible");
+  gCurrentMethodParams = null;
 
   try {
 
@@ -160,26 +164,29 @@ function onSuccess_getMethodDetails(transport)
 	while (methodParamsElt.tBodies[0].rows.length)
 		methodParamsElt.tBodies[0].deleteRow(methodParamsElt.tBodies[0].rows.length-1);
 
-	if (result.params && result.params.length>0)
-	{
-		for (var i=0; i<result.params.length; i++)
-		{
-			var row = methodParamsElt.tBodies[0].insertRow(-1);
-			var isOptional = result.params[i].optional;
-			var defaultValue = result.params[i].defaultValue == null ? '' : result.params[i].defaultValue;
-
-			row.insertCell(0).innerHTML = result.params[i].name;
-			row.insertCell(1).innerHTML = (isOptional ? 'optional':'required');
-			row.insertCell(2).innerHTML = '<input id="methodParameterSend_'+i+'" type="checkbox" '+(isOptional ? '':'checked="checked"')+'/>';
-			row.insertCell(3).innerHTML = '<input id="methodParameterName_'+i+'" type="hidden" value="'+result.params[i].name+'"/>'
-          +'<input id="methodParameterValue_'+i+'"" value="'+defaultValue+'" style="width:99%" onchange="$(\'methodParameterSend_'+i+'\').checked=true;"/>';
-		}
+	if (result.params)
+  {
+    gCurrentMethodParams = result.params;
+    if (result.params.length>0)
+	  {
+  		for (var i=0; i<result.params.length; i++)
+  		{
+  			var row = methodParamsElt.tBodies[0].insertRow(-1);
+  			var isOptional = result.params[i].optional;
+  			var defaultValue = result.params[i].defaultValue == null ? '' : result.params[i].defaultValue;
+  
+  			row.insertCell(0).innerHTML = result.params[i].name;
+  			row.insertCell(1).innerHTML = (isOptional ? 'optional':'required');
+  			row.insertCell(2).innerHTML = '<input id="methodParameterSend_'+i+'" type="checkbox" '+(isOptional ? '':'checked="checked"')+'/>';
+  			row.insertCell(3).innerHTML = '<input id="methodParameterValue_'+i+'"" value="'+defaultValue+'" style="width:99%" onchange="$(\'methodParameterSend_'+i+'\').checked=true;"/>';
+  		}
+  	}
 	}
 	setElementText("methodDescription", result.description);
 	setVisibility("methodDetailWrapper", "visible");
 }
 
-function pwgInvokeMethod()
+function pwgInvokeMethod( newWindow )
 {
 	var method = document.getElementById('methodName').innerHTML;
 
@@ -189,34 +196,31 @@ function pwgInvokeMethod()
   if (document.getElementById('requestFormat').value == 'get')
   {
     reqUrl += "&method="+method;
-    var i=0;
-    do
+    for ( var i=0; i<gCurrentMethodParams.length; i++)
     {
-      var elt = document.getElementById('methodParameterName_'+i);
-      if (!elt) break;
       if (document.getElementById('methodParameterSend_'+i).checked)
-        reqUrl += '&'+elt.value+'='+$F('methodParameterValue_'+i);
-      i++;
+        reqUrl += '&'+gCurrentMethodParams[i].name+'='+$F('methodParameterValue_'+i);
     }
-    while (1);
-    document.getElementById("invokeFrame").src = reqUrl;
+    if ( !newWindow )
+      document.getElementById("invokeFrame").src = reqUrl;
+    else
+      window.open(reqUrl);
   }
   else
   {
     var form = document.getElementById("invokeForm");
     form.action = reqUrl;
     var t = '<input type="hidden" name="'+'method'+'" value="'+method+'"/>';
-    var i=0;
-    do
+    for ( var i=0; i<gCurrentMethodParams.length; i++)
     {
-      var elt = document.getElementById('methodParameterName_'+i);
-      if (!elt) break;
       if (document.getElementById('methodParameterSend_'+i).checked)
-        t += '<input type="hidden" name="'+elt.value+'" value="'+$F('methodParameterValue_'+i)+'"/>';
-      i++;
+        t += '<input type="hidden" name="'+gCurrentMethodParams[i].name+'" value="'+$F('methodParameterValue_'+i)+'"/>';
     }
-    while (1);
     form.innerHTML = t;
+    if ( !newWindow )
+      form.target = "invokeFrame";
+    else
+      form.target = "_blank";
     form.submit();
   }
   return false;
@@ -226,18 +230,19 @@ function pwgInvokeMethod()
 
 <style>
 #methodListWrapper {
-  width: 16em;
+  width: 13em;
   float: left;
   display: inline;
   visibility: hidden;
 }
 
 #methodList {
-  padding-left: 15px;
+  padding-left: 10px;
+  margin-left: 15px;
 }
 
 #methodWrapper {
-  margin-left: 16.5em;
+  margin-left: 14em;
   visibility: hidden;
 }
 
@@ -255,7 +260,29 @@ function pwgInvokeMethod()
 
 #methodParams {
   border-collapse: collapse;
+  font-size: small;
 }
+
+#methodParams input {
+  font-size: 90%;
+  border: 1px solid black;
+  text-indent: 2px;
+}
+
+
+a {
+  color: #02f;
+  background-color: white;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: white;
+  background-color: #02f;
+  text-decoration: none;
+  cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -279,7 +306,7 @@ function pwgInvokeMethod()
 
 <div>
 
-<div id="methodListWrapper">Methods
+<div id="methodListWrapper"><h2>Methods</h2>
   <ul id="methodList">
     <li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">getVersion</a></li>
   </ul>
@@ -288,55 +315,68 @@ function pwgInvokeMethod()
 <div id="methodWrapper">
   <h2 id="methodName"></h2>
   <div id="methodDetailWrapper">
-    <div id="methodDescription"></div>
+
     <table>
-      <tr>
-        <td>Request format:</td>
-        <td>
-          <select id="requestFormat">
-            <option value="get" selected="selected">GET</option>
-            <option value="post">POST</option>
-          </select>
-        </td>
-      </tr>
-
-      <tr>
-        <td>Response format:</td>
-        <td>
-          <select id="responseFormat">
-            <option value="rest" selected="selected">REST (xml)</option>
-            <option value="json">JSON</option>
-            <option value="php">PHP serial</option>
-            <option value="xmlrpc">XML RPC</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-
-    <div id="methodParamsWrapper">
-    <table id="methodParams"  border="1" cellspacing="0" cellpadding="2px">
-      <thead>
+    <tr style="vertical-align:top">
+    
+    <td>
+      <div id="methodDescription"></div>
+      <table>
         <tr>
-          <td style="width:150px">Parameter</td>
-          <td>Optional</td>
-          <td>Send</td>
-          <td style="width:160px">Value</td>
+          <td>Request format:</td>
+          <td>
+            <select id="requestFormat">
+              <option value="get" selected="selected">GET</option>
+              <option value="post">POST</option>
+            </select>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    </div>
-    <a href="#" onclick="return pwgInvokeMethod()">Invoke</a>
+  
+        <tr>
+          <td>Response format:</td>
+          <td>
+            <select id="responseFormat">
+              <option value="rest" selected="selected">REST (xml)</option>
+              <option value="json">JSON</option>
+              <option value="php">PHP serial</option>
+              <option value="xmlrpc">XML RPC</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <p>
+        <a href="#" onclick="return pwgInvokeMethod(false)">Invoke</a>
+        <a href="#" onclick="return pwgInvokeMethod(true)">Invoke (new Window)</a>
+      </p>
+    </td>
+    
 
-		<div style="display:none">
+    <td>
+      <table id="methodParams"  border="1" cellspacing="0" cellpadding="2px">
+        <thead>
+          <tr>
+            <td style="width:150px">Parameter</td>
+            <td>Optional</td>
+            <td>Send</td>
+            <td style="width:160px">Value</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </td>
+    
+    </tr>
+    </table>
+    
+		<div style="display:none;">
 			<!-- hiddenForm for POST -->
 			<form method="post" action="" target="invokeFrame" id="invokeForm">
 				<input type="submit" value="submit"/>
 			</form>
 		</div>
 
-    <iframe width="100%" height="400px" id="invokeFrame" name="invokeFrame"></iframe>
+    <iframe width="100%" height="400px" id="invokeFrame" name="invokeFrame" style="clear:both"></iframe>
   </div> <!-- methodDetailWrapper -->
 </div> <!-- methodWrapper -->
 

@@ -32,8 +32,19 @@
 function ws_isInvokeAllowed($res, $methodName, $params)
 {
   global $conf, $calling_partner_id;
-  if ( !$conf['ws_access_control']
-       or strpos($methodName,'reflection.')===0 )
+  
+  if ( strpos($methodName,'reflection.')===0 )
+  { // OK for reflection
+    return $res;
+  }
+  
+  if ( !is_autorize_status(ACCESS_GUEST) and
+      strpos($methodName,'pwg.session.')!==0 )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+  
+  if ( !$conf['ws_access_control'] )
   {
     return $res; // No controls are requested
   }
@@ -486,10 +497,69 @@ ORDER BY global_rank';
 /**
  * returns detailed information for an element (web service method)
  */
+function ws_images_addComment($params, &$service)
+{
+  $params['image_id'] = (int)$params['image_id'];
+  $query = '
+SELECT DISTINCT image_id 
+  FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.CATEGORIES_TABLE.' ON category_id=id
+  WHERE commentable="true" 
+    AND image_id='.$params['image_id'].
+    get_sql_condition_FandF(
+      array(
+        'forbidden_categories' => 'id',
+        'visible_categories' => 'id',
+        'visible_images' => 'image_id'
+      ),
+      ' AND'
+    );
+  if ( !mysql_num_rows( pwg_query( $query ) ) )
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+  
+  include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
+  
+  $comm = array(
+    'author' => trim( stripslashes($params['author']) ),
+    'content' => trim( stripslashes($params['content']) ),
+    'image_id' => $params['image_id'],
+   );
+
+  include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
+  
+  $comment_action = insert_user_comment( 
+      $comm, $params['key'], $infos
+    );
+
+  switch ($comment_action)
+  {
+    case 'reject':
+      array_push($infos, l10n('comment_not_added') );
+      return new PwgError(403, implode("\n", $infos) );
+    case 'validate':
+    case 'moderate':
+      $ret = array( 
+          'id' => $comm['id'],
+          'validation' => $comment_action=='validate',
+        );
+      return new PwgNamedStruct(
+          'comment',
+          $ret, 
+          null, array() 
+        );
+    default:
+      return new PwgError(500, "Unknown comment action ".$comment_action );
+  }
+}
+
+/**
+ * returns detailed information for an element (web service method)
+ */
 function ws_images_getInfo($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-  global $user;
+  global $user, $conf;
   $params['image_id'] = (int)$params['image_id'];
   if ( $params['image_id']<=0 )
   {
@@ -515,16 +585,22 @@ LIMIT 1;';
 
   //-------------------------------------------------------- related categories
   $query = '
-SELECT c.id,c.name,c.uppercats,c.global_rank
+SELECT id,name,uppercats,global_rank,commentable
   FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.CATEGORIES_TABLE.' c ON category_id = id
+    INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$image_row['id'].'
     AND category_id NOT IN ('.$user['forbidden_categories'].')
 ;';
   $result = pwg_query($query);
+  $is_commentable = false;
   $related_categories = array();
   while ($row = mysql_fetch_assoc($result))
   {
+    if ($row['commentable']=='true')
+    {
+      $is_commentable = true;
+    }
+    unset($row['commentable']);
     $row['url'] = make_index_url(
         array(
           'category' => $row['id'],
@@ -540,6 +616,7 @@ SELECT c.id,c.name,c.uppercats,c.global_rank
           'cat_name' => $row['name'],
           )
       );
+    $row['id']=(int)$row['id'];
     array_push($related_categories, $row);
   }
   usort($related_categories, 'global_rank_compare');
@@ -565,31 +642,9 @@ SELECT c.id,c.name,c.uppercats,c.global_rank
           )
       );
     unset($tag['counter']);
+    $tag['id']=(int)$tag['id'];
     $related_tags[$i]=$tag;
   }
-  //---------------------------------------------------------- related comments
-  $query = '
-SELECT COUNT(id) nb_comments
-  FROM '.COMMENTS_TABLE.'
-  WHERE image_id = '.$image_row['id'];
-  list($nb_comments) = array_from_query($query, 'nb_comments');
-
-  $query = '
-SELECT id, date, author, content
-  FROM '.COMMENTS_TABLE.'
-  WHERE image_id = '.$image_row['id'].'
-    AND validated="true"';
-  $query .= '
-  ORDER BY date DESC
-  LIMIT 0, 5';
-
-  $result = pwg_query($query);
-  $related_comments = array();
-  while ($row = mysql_fetch_assoc($result))
-  {
-    array_push($related_comments, $row);
-  }
-
   //------------------------------------------------------------- related rates
   $query = '
 SELECT COUNT(rate) AS count
@@ -598,18 +653,86 @@ SELECT COUNT(rate) AS count
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_row['id'].'
 ;';
-  $row = mysql_fetch_assoc(pwg_query($query));
+  $rating = mysql_fetch_assoc(pwg_query($query));
+  $rating['count'] = (int)$rating['count'];
+
+  //---------------------------------------------------------- related comments
+  $related_comments = array();
+  
+  $where_comments = 'image_id = '.$image_row['id'];
+  if ( !is_admin() )
+  {
+    $where_comments .= '
+    AND validated="true"';
+  }
+
+  $query = '
+SELECT COUNT(id) nb_comments
+  FROM '.COMMENTS_TABLE.'
+  WHERE '.$where_comments;
+  list($nb_comments) = array_from_query($query, 'nb_comments');
+  $nb_comments = (int)$nb_comments;
+
+  if ( $nb_comments>0 and $params['comments_per_page']>0 )
+  {
+    $query = '
+SELECT id, date, author, content
+  FROM '.COMMENTS_TABLE.'
+  WHERE '.$where_comments.'
+  ORDER BY date
+  LIMIT '.$params['comments_per_page']*(int)$params['comments_page'].
+    ','.$params['comments_per_page'];
+
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_assoc($result))
+    {
+      $row['id']=(int)$row['id'];
+      array_push($related_comments, $row);
+    }
+  }
+  
+  $comment_post_data = null;
+  if ($is_commentable and 
+      (!$user['is_the_guest']
+        or ($user['is_the_guest'] and $conf['comments_forall'] )
+      )
+      )
+  {
+    include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
+    $comment_post_data['author'] = $user['username'];    
+    $comment_post_data['key'] = get_comment_post_key($params['image_id']);
+  }
 
   $ret = $image_row;
-  $ret['rates'] = array( WS_XML_ATTRIBUTES => $row );
+  foreach ( array('id','width','height','hit','filesize') as $k )
+  {
+    if (isset($ret[$k]))
+    {
+      $ret[$k] = (int)$ret[$k];
+    }
+  }
+  foreach ( array('path', 'storage_category_id') as $k )
+  {
+    unset($ret[$k]);
+  }
+
+  $ret['rates'] = array( WS_XML_ATTRIBUTES => $rating );
   $ret['categories'] = new PwgNamedArray($related_categories, 'category', array('id','url', 'page_url') );
   $ret['tags'] = new PwgNamedArray($related_tags, 'tag', array('id','url_name','url','page_url') );
+  if ( isset($comment_post_data) )
+  {
+    $ret['comment_post'] = array( WS_XML_ATTRIBUTES => $comment_post_data );
+  }
   $ret['comments'] = array(
-     WS_XML_ATTRIBUTES => array('nb_comments' => $nb_comments),
-     WS_XML_CONTENT => new PwgNamedArray($related_comments, 'comment', array('id') )
+     WS_XML_ATTRIBUTES => 
+        array(
+          'page' => $params['comments_page'],
+          'per_page' => $params['comments_per_page'],
+          'count' => count($related_comments),
+          'nb_comments' => $nb_comments,
+        ),
+     WS_XML_CONTENT => new PwgNamedArray($related_comments, 'comment', array('id','date') )
       );
-  unset($ret['path']);
-  unset($ret['storage_category_id']);
 
   return new PwgNamedStruct('image',$ret, null, array('name','comment') );
 }
@@ -768,10 +891,17 @@ function ws_session_logout($params, &$service)
 
 function ws_session_getStatus($params, &$service)
 {
-  global $user;
+  global $user, $lang_info;
   $res = array();
   $res['username'] = $user['is_the_guest'] ? 'guest' : $user['username'];
-  $res['status'] = $user['status'];
+  foreach ( array('status', 'template', 'theme', 'language') as $k )
+  {
+    $res[$k] = $user[$k];
+  }
+  foreach ( array('charset') as $k )
+  {
+    $res[$k] = $lang_info[$k];
+  }
   return $res;
 }
 

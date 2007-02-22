@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -30,46 +29,6 @@
  *
  */
 
-//returns string action to perform on a new comment: validate, moderate, reject
-function user_comment_check($action, $comment, $picture)
-{
-  global $conf,$user;
-
-  if ($action=='reject')
-    return $action;
-
-  $my_action = $conf['comment_spam_reject'] ? 'reject':'moderate';
-  if ($action==$my_action)
-    return $action;
-
-  // we do here only BASIC spam check (plugins can do more)
-  if ( !$user['is_the_guest'] )
-    return $action;
-
-  $link_count = preg_match_all( '/https?:\/\//',
-    $comment['content'], $matches);
-
-  if ( $link_count>$conf['comment_spam_max_links'] )
-    return $my_action;
-
-  if ( isset($comment['ip']) and $conf['comment_spam_check_ip'] )
-  {
-    $rev_ip = implode( '.', array_reverse( explode('.',$comment['ip']) ) );
-    $lookup = $rev_ip . '.sbl-xbl.spamhaus.org.';
-    $res = gethostbyname( $lookup );
-    if ( $lookup != $res )
-      return $my_action;
-  }
-
-  return $action;
-}
-
-
-
-add_event_handler('user_comment_check', 'user_comment_check',
-  EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-
-
 // the picture is commentable if it belongs at least to one category which
 // is commentable
 $page['show_comments'] = false;
@@ -88,161 +47,40 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   {
     die ('Session expired');
   }
-  if (!$conf['comments_validation'] or is_admin())
-  {
-    $comment_action='validate'; //one of validate, moderate, reject
-  }
-  else
-  {
-    $comment_action='moderate'; //one of validate, moderate, reject
-  }
-
-  $_POST['content'] = trim( stripslashes($_POST['content']) );
-
-  if ( $user['is_the_guest'] )
-  {
-    $author = empty($_POST['author'])?'guest':$_POST['author'];
-    // if a guest try to use the name of an already existing user, he must be
-    // rejected
-    if ( $author != 'guest' )
-    {
-      $query = 'SELECT COUNT(*) AS user_exists';
-      $query.= ' FROM '.USERS_TABLE;
-      $query.= ' WHERE '.$conf['user_fields']['username']." = '".$author."'";
-      $query.= ';';
-      $row = mysql_fetch_assoc( pwg_query( $query ) );
-      if ( $row['user_exists'] == 1 )
-      {
-        $template->assign_block_vars(
-          'information',
-          array('INFORMATION'=>$lang['comment_user_exists']));
-        $comment_action='reject';
-      }
-    }
-  }
-  else
-  {
-    $author = $user['username'];
-  }
 
   $comm = array(
-    'author' => $author,
-    'content' => $_POST['content'],
+    'author' => trim( stripslashes(@$_POST['author']) ),
+    'content' => trim( stripslashes($_POST['content']) ),
     'image_id' => $page['image_id'],
-    'ip' => $_SERVER['REMOTE_ADDR'],
-    'agent' => $_SERVER['HTTP_USER_AGENT']
    );
 
-  if ($comment_action!='reject' and empty($comm['content']) )
-  { // empty comment content
-    $comment_action='reject';
-  }
-
-  $key = explode(':', @$_POST['key']);
-  if ( count($key)!=2
-        or $key[0]>time()-2 // page must have been retrieved more than 2 sec ago
-        or $key[0]<time()-3600 // 60 minutes expiration
-        or hash_hmac('md5', $key[0], $conf['secret_key'])!=$key[1]
-      )
-  {
-    $comment_action='reject';
-  }
+  include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
   
-  if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
-  { // anti-flood system
-    $reference_date = time() - $conf['anti-flood_time'];
-    $query = 'SELECT id FROM '.COMMENTS_TABLE;
-    $query.= ' WHERE date > FROM_UNIXTIME('.$reference_date.')';
-    $query.= " AND author = '".$comm['author']."'";
-    $query.= ';';
-    if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
-    {
-      $template->assign_block_vars(
-        'information',
-        array('INFORMATION'=>$lang['comment_anti-flood']));
-      $comment_action='reject';
-    }
-  }
-
-  // perform more spam check
-  $comment_action = trigger_event('user_comment_check',
-      $comment_action, $comm, $picture['current']
+  $comment_action = insert_user_comment( 
+      $comm, @$_POST['key'], $page['image_id'], $infos
     );
 
-  if ( $comment_action!='reject' )
+  switch ($comment_action)
   {
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-
-    $data = $comm;
-    $data['date'] = $dbnow;
-    $data['content'] = addslashes(
-        // this htmlpsecialchars is not good here
-        htmlspecialchars($comm['content'],ENT_QUOTES)
-      );
-
-    if ($comment_action=='validate')
-    {
-      $data['validated'] = 'true';
-      $data['validation_date'] = $dbnow;
-    }
-    else
-    {
-      $data['validated'] = 'false';
-    }
-
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-    $fields = array('author', 'date', 'image_id', 'content', 'validated',
-                    'validation_date');
-    mass_inserts(COMMENTS_TABLE, $fields, array($data));
-    $comm['id'] = mysql_insert_id();
-
-    // information message
-    $message = $lang['comment_added'];
-    if ($comment_action!='validate')
-    {
-      $message.= '<br />'.$lang['comment_to_validate'];
-    }
-    $template->assign_block_vars('information',
-                                 array('INFORMATION'=>$message));
-    if ( ($comment_action=='validate' and $conf['email_admin_on_comment'])
-      or $conf['email_admin_on_comment_validation'] )
-    {
-      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-
-      $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
-
-      $content =
-        'Author: '.$comm['author']."\n"
-        .'Comment: '.$comm['content']."\n"
-        .'IP: '.$comm['ip']."\n"
-        .'Browser: '.$comm['agent']."\n\n"
-        .'Delete: '.$del_url."\n";
-
-      if ($comment_action!='validate')
-      {
-        $content .=
-          'Validate: '.get_absolute_root_url()
-          .'comments.php?validate='.$comm['id'];
-      }
-
-      pwg_mail
-      (
-        format_email('administrators', get_webmaster_mail_address()),
-        array
-        (
-          'subject' => 'PWG comment by '.$comm['author'], 
-          'content' => $content,
-          'Bcc' => get_administrators_email()
-        )
-      );
-    }
+    case 'moderate':
+      array_push( $infos, $lang['comment_to_validate'] );
+    case 'validate':
+      array_push( $infos, $lang['comment_added']);
+      break;
+    case 'reject': 
+      set_status_header(403);
+      array_push($infos, l10n('comment_not_added') );
+      break;
+    default:
+      trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
   }
-  else
+
+  foreach ($infos as $info)
   {
-    set_status_header(403);
-    $template->assign_block_vars('information',
-          array('INFORMATION'=>l10n('comment_not_added') )
-        );
+    $template->assign_block_vars(
+        'information',
+        array( 'INFORMATION'=>$info )
+      );
   }
 
   // allow plugins to notify what's going on
@@ -335,8 +173,8 @@ SELECT id,author,date,image_id,content
   if (!$user['is_the_guest']
       or ($user['is_the_guest'] and $conf['comments_forall']))
   {
-    $key = time();
-    $key .= ':'.hash_hmac('md5', $key, $conf['secret_key']);
+    include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
+    $key = get_comment_post_key($page['image_id']);
     $content = '';
     if ('reject'===@$comment_action)
     {

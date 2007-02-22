@@ -3,7 +3,6 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -40,7 +39,7 @@ if ( !$conf['allow_web_services'] )
 function ws_addDefaultMethods( $arr )
 {
   include_once(PHPWG_ROOT_PATH.'include/ws_functions.inc.php');
-  global $conf;
+  global $conf, $user;
   $service = &$arr[0];
   $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
       'retrieves the PWG version');
@@ -77,8 +76,24 @@ function ws_addDefaultMethods( $arr )
       ),
       'retrieves a list of categories' );
 
+  $service->addMethod('pwg.images.addComment', 'ws_images_addComment',
+      array(
+        'image_id' => array(),
+        'author' => array( 'default' => $user['is_the_guest']? 'guest':$user['username']),
+        'content' => array(),
+        'key' => array(),
+      ),
+      'add a comment to an image' );
+
   $service->addMethod('pwg.images.getInfo', 'ws_images_getInfo',
-      array('image_id'),
+      array(
+        'image_id' => array(),
+        'comments_page' => array('default'=>0 ),
+        'comments_per_page' => array( 
+              'default' => $conf['nb_comment_page'],  
+              'maxValue' => 2*$conf['nb_comment_page'],
+            ),
+      ),
       'retrieves information about the given photo' );
 
   $service->addMethod('pwg.images.search', 'ws_images_search',

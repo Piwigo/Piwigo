@@ -109,10 +109,6 @@ if (isset($_GET['author']) and !empty($_GET['author']))
 // search a substring among comments content
 if (isset($_GET['keyword']) and !empty($_GET['keyword']))
 {
-  // fors some odd reason comment content is htmlspecialchars in the database 
-  $keyword = addslashes( 
-      htmlspecialchars( stripslashes($_GET['keyword']), ENT_QUOTES) 
-    );
   $page['where_clauses'][] =
     '('.
     implode(' AND ',
