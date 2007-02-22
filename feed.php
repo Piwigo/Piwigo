@@ -86,7 +86,6 @@ SELECT user_id,
   }
   if ($feed_row['user_id']!=$user['id'])
   { // new user
-    $user = array();
     $user = build_user( $feed_row['user_id'], true );
   }
 }
@@ -95,10 +94,12 @@ else
   $image_only = true;
   if (!$user['is_the_guest'])
   {// auto session was created - so switch to guest
-    $user = array();
     $user = build_user( $conf['guest_id'], true );
   }
 }
+
+// Check the status now after the user has been loaded
+check_status(ACCESS_GUEST);
 
 list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 

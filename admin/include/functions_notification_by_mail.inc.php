@@ -261,11 +261,7 @@ function set_user_on_env_nbm(&$nbm_user, $is_action_send)
 {
   global $user, $lang, $lang_info, $env_nbm;
 
-  $user = array();
-  $user['id'] = $nbm_user['user_id'];
-  $user = array_merge($user, getuserdata($user['id'], true));
-
-  list($user['template'], $user['theme']) = explode('/', $user['template']);
+  $user = build_user( $nbm_user['user_id'], true );
 
   if ($env_nbm['last_language'] != $user['language'])
   {

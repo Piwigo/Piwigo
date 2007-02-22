@@ -1,9 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -26,6 +25,11 @@
 
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_GUEST);
 
 if (empty($_GET['q']))
 {
