@@ -214,7 +214,9 @@ if (count($categories) > 0)
                                   (
                                     $category['nb_images'],
                                     $category['count_images'],
-                                    $category['count_categories']
+                                    $category['count_categories'],
+                                    true,
+                                    '<BR>'
                                   ),
           'DESCRIPTION' => @$comment,
           'NAME'  => $name,
@@ -249,7 +251,9 @@ if (count($categories) > 0)
                                   (
                                     $category['nb_images'],
                                     $category['count_images'],
-                                    $category['count_categories']
+                                    $category['count_categories'],
+                                    true,
+                                    '<BR>'
                                   ),
 
           'U_IMG_LINK'  => make_index_url(

@@ -470,7 +470,8 @@ function get_html_menu_category($categories)
                     $category['nb_images'],
                     $category['count_images'],
                     $category['count_categories'],
-                    false
+                    false,
+                    ' / '
                   ).'">';
       // show total number of images
       $menu.= '['.$category['count_images'].']';

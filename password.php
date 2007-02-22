@@ -34,6 +34,11 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
 // +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_NONE);
+
+// +-----------------------------------------------------------------------+
 // |                          send a new password                          |
 // +-----------------------------------------------------------------------+
 

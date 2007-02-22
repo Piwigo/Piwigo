@@ -386,16 +386,25 @@ function rank_compare($a, $b)
  * @param array categories
  * @return string
  */
-function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_categories, $short_message = true)
+function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_categories, $short_message = true, $Separator = '\n')
 {
   $display_text = '';
 
-  if ($cat_count_images>0)
-  {//at least one image direct or indirect
+  if ($cat_count_images > 0)
+  {
+    if ($cat_nb_images > 0 and $cat_nb_images < $cat_count_images)
+    {
+      $display_text.= get_display_images_count($cat_nb_images, $cat_nb_images, 0, $short_message, $Separator).$Separator;
+      $cat_count_images-= $cat_nb_images;
+      $cat_nb_images = 0;
+    }
+    
+    //at least one image direct or indirect
     $display_text.= l10n_dec('image_available', 'images_available', $cat_count_images);
 
-    if ($cat_count_categories==0 or $cat_nb_images>=$cat_count_images)
-    {//no descendant categories or descendants do not contain images
+    if ($cat_count_categories == 0 or $cat_nb_images == $cat_count_images)
+    {
+      //no descendant categories or descendants do not contain images
       if (! $short_message)
       {
         $display_text.= ' '.l10n('images_available_cpl');

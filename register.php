@@ -28,6 +28,12 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
+
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status(ACCESS_NONE);
+
 //----------------------------------------------------------- user registration
 
 if (!$conf['allow_user_registration'])

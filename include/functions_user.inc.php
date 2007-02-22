@@ -435,7 +435,7 @@ SELECT cat_id
   $forbidden_array = array_diff($private_array, $authorized_array);
 
   // if user is not an admin, locked categories are forbidden
-  if ( $user_status!='administrator' and $user_status!='webmaster' )
+  if (!is_admin($user_status))
   {
     $query = '
 SELECT id
@@ -981,7 +981,7 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 */
 function get_access_type_status($user_status='')
 {
-  global $user;
+  global $user, $conf;
 
   if ($user_status == '' and isset($user['status']) )
   {
@@ -992,6 +992,21 @@ function get_access_type_status($user_status='')
   switch ($user_status)
   {
     case 'guest':
+    {
+      if
+        (
+          !isset($user) or
+          ($user['id']==$conf['guest_id'] and !$conf['guest_access'])
+        )
+      {
+        $access_type_status = ACCESS_NONE;
+      }
+      else
+      {
+        $access_type_status = ACCESS_GUEST;
+      }
+      break;
+    }
     case 'generic':
     {
       $access_type_status = ACCESS_GUEST;
@@ -1022,18 +1037,9 @@ function get_access_type_status($user_status='')
  * Test does with user status
  * @return bool
 */
-function is_autorize_status($access_type)
+function is_autorize_status($access_type, $user_status = '')
 {
-  global $user, $conf;
-  if (
-      !isset($user) or
-      ($user['id']==$conf['guest_id'] and $conf['guest_access']==false)
-    )
-  {
-    return ACCESS_NONE>=$access_type;
-  }
-
-  return (get_access_type_status() >= $access_type);
+  return (get_access_type_status($user_status) >= $access_type);
 }
 
 /*
@@ -1042,9 +1048,9 @@ function is_autorize_status($access_type)
  * Test does with user status
  * @return none
 */
-function check_status( $access_type )
+function check_status($access_type, $user_status = '')
 {
-  if (!is_autorize_status($access_type) )
+  if (!is_autorize_status($access_type, $user_status))
   {
     access_denied();
   }
@@ -1054,9 +1060,9 @@ function check_status( $access_type )
  * Return if user is an administrator
  * @return bool
 */
-function is_admin()
+ function is_admin($user_status = '')
 {
-  return is_autorize_status(ACCESS_ADMINISTRATOR);
+  return is_autorize_status(ACCESS_ADMINISTRATOR, $user_status);
 }
 
 /*
