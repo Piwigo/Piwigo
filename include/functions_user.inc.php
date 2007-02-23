@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -983,28 +982,25 @@ function get_access_type_status($user_status='')
 {
   global $user, $conf;
 
-  if ($user_status == '' and isset($user['status']) )
+  if (empty($user_status))
   {
-    $user_status = $user['status'];
+    if (isset($user['status']))
+    {
+      $user_status = $user['status'];
+    }
+    else
+    {
+      // swicth to default value
+      $user_status = '';
+    }
   }
 
-  $access_type_status = ACCESS_NONE;
   switch ($user_status)
   {
     case 'guest':
     {
-      if
-        (
-          !isset($user) or
-          ($user['id']==$conf['guest_id'] and !$conf['guest_access'])
-        )
-      {
-        $access_type_status = ACCESS_NONE;
-      }
-      else
-      {
-        $access_type_status = ACCESS_GUEST;
-      }
+      $access_type_status =
+        ($conf['guest_access'] ? ACCESS_GUEST : ACCESS_NONE);
       break;
     }
     case 'generic':
@@ -1026,6 +1022,10 @@ function get_access_type_status($user_status='')
     {
       $access_type_status = ACCESS_WEBMASTER;
       break;
+    }
+    case 'default':
+    {
+      $access_type_status = ACCESS_NONE;
     }
   }
 
