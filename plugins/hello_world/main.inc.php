@@ -1,7 +1,10 @@
 <?php /*
-Plugin Name: Hello World !
-Author: PhpWebGallery team
+Plugin Name: Hello World
+Version: 1.0
 Description: This example plugin changes the page banner for the administration page.
+Plugin URI: http://www.phpwebgallery.net
+Author: PhpWebGallery team
+Author URI: http://www.phpwebgallery.net
 */
 
 add_event_handler('loc_begin_page_header', 'hello_world_begin_header' );

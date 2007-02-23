@@ -464,6 +464,10 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
         {
           $flags |= WS_PARAM_OPTIONAL;
         }
+        if ( $flags & WS_PARAM_FORCE_ARRAY )
+        {
+          $flags |= WS_PARAM_ACCEPT_ARRAY;
+        }
         $options['flags'] = $flags;
         $params[$param] = $options;
       }
@@ -604,6 +608,7 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
       $param_data = array(
         'name' => $name,
         'optional' => ($options['flags']&WS_PARAM_OPTIONAL)?true:false,
+        'acceptArray' => ($options['flags']&WS_PARAM_ACCEPT_ARRAY)?true:false,
         );
       if (isset($options['default']))
       {

@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -119,7 +118,7 @@ if (script_basename() == 'picture') // basename without file extention
       }
       else
       {
-        die('Fatal: picture identifier is missing');
+        bad_request('picture identifier is missing');
       }
     }
   }
@@ -159,7 +158,7 @@ else if (0 === strpos(@$tokens[$next_token], 'tag'))
     }
     else
     {
-      array_push($requested_tag_url_names, "'".$tokens[$i]."'");
+      array_push($requested_tag_url_names, $tokens[$i]);
     }
     $i++;
   }
@@ -167,32 +166,10 @@ else if (0 === strpos(@$tokens[$next_token], 'tag'))
 
   if ( empty($requested_tag_ids) && empty($requested_tag_url_names) )
   {
-    die('Fatal: at least one tag required');
+    bad_request('at least one tag required');
   }
-  // tag infos
-  $query = '
-SELECT name, url_name, id
-  FROM '.TAGS_TABLE.'
-  WHERE ';
-  if ( !empty($requested_tag_ids) )
-  {
-    $query.= 'id IN ('.implode(',', $requested_tag_ids ).')';
-  }
-  if ( !empty($requested_tag_url_names) )
-  {
-    if ( !empty($requested_tag_ids) )
-    {
-      $query.= ' OR ';
-    }
-    $query.= 'url_name IN ('.implode(',', $requested_tag_url_names ).')';
-  }
-  $result = pwg_query($query);
-  $tag_infos = array();
-  while ($row = mysql_fetch_assoc($result))
-  {
-    $tag_infos[ $row['id'] ] = $row;
-    array_push($page['tags'], $row );//we loose given tag order; is it important?
-  }
+
+  $page['tags'] = find_tags($requested_tag_ids, $requested_tag_url_names);
   if ( empty($page['tags']) )
   {
     page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
@@ -228,10 +205,10 @@ else if ('search' == @$tokens[$next_token])
   $page['section'] = 'search';
   $next_token++;
 
-  preg_match('/(\d+)/', $tokens[$next_token], $matches);
+  preg_match('/(\d+)/', @$tokens[$next_token], $matches);
   if (!isset($matches[1]))
   {
-    die('Fatal: search identifier is missing');
+    bad_request('search identifier is missing');
   }
   $page['search'] = $matches[1];
   $next_token++;
@@ -254,7 +231,7 @@ else if ('list' == @$tokens[$next_token])
   {
     if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
     {
-      die('wrong format on list GET parameter');
+      bad_request('wrong format on list GET parameter');
     }
     foreach (explode(',', $tokens[$next_token]) as $image_id)
     {

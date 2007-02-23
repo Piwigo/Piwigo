@@ -1,9 +1,10 @@
-<?php
-/*
+<?php /*
 Plugin Name: Add Index
-Version: 1.1.0.0
+Version: 1.0
 Description: Add file index.php file on all sub-directories of local galleries pictures. / Ajoute le fichier index.php sur les sous-répertoires de galeries d'images locales.
 Plugin URI: http://www.phpwebgallery.net
+Author: PhpWebGallery team
+Author URI: http://www.phpwebgallery.net
 */
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |

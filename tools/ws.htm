@@ -5,22 +5,10 @@
 <script type="text/javascript" src="prototype.js" ></script>
 
 <script type="text/javascript">
-function setElementText(id, text)
-{
-  if (!text) text="";
-  var elt = document.getElementById(id);
-  if (!elt) alert('setElementText '+id);
-  elt.innerHTML = text;
-}
 
 function setVisibility(id, vis)
 {
-  document.getElementById(id).style.visibility = vis;
-}
-
-function clearError()
-{
-  setElementText("error", "");
+  $(id).style.visibility = vis;
 }
 
 function dumpError(err)
@@ -37,11 +25,11 @@ function dumpError(err)
 	 	s += '<br/><small><pre>'+ err.stack + '</pre></small>';
 	 }
 	}
-	setElementText("error", s);
+  $("error").update(s);
 }
 
 var gServiceUrl;
-var gCurrentMethodParams;
+var gCachedMethods;
 
 Ajax.Responders.register({
 
@@ -100,13 +88,14 @@ function pwgGetJsonResult(transport)
 
 function pwgChangeUrl()
 {
-  clearError();
+  $("error").update("");
   setVisibility("methodListWrapper", "hidden");
-  setElementText("methodList", "");
+  $("methodList").update("");
   setVisibility("methodWrapper", "hidden");
+  setVisibility("methodDetailWrapper", "hidden");
 
   gServiceUrl = $F('ws_url');
-  gCurrentMethodParams = null;
+  gCachedMethods = new Hash();
 
   try {
 		var ajaxReq = new Ajax.Request(
@@ -130,29 +119,32 @@ function onSuccess_getMethodList(transport)
 	{
 		ml += '<li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">'+ result.methods[i]+'</a></li>';
 	}
-	setElementText("methodList", ml);
+	$("methodList").update(ml);
 	setVisibility("methodListWrapper", "visible");
 }
 
-function pwgSelectMethod(method)
+function pwgSelectMethod(methodName)
 {
-  clearError();
-  setElementText("methodName", method);
+  $("error").update("");
+  $("methodName").update(methodName);
   setVisibility("methodDetailWrapper", "hidden");
   setVisibility("methodWrapper", "visible");
-  gCurrentMethodParams = null;
 
-  try {
-
-		var ajaxReq = new Ajax.Request(
-				gServiceUrl,
-				{method:'get', parameters:'format=json&method=reflection.getMethodDetails&methodName='+method,
-				 onSuccess: function (r) { onSuccess_getMethodDetails(r); }
-				}
-			)
-  }catch (e)
+  if ( gCachedMethods[methodName] )
+    fillNewMethod( gCachedMethods[methodName] );
+  else
   {
-    dumpError( e );
+    try {
+  		var ajaxReq = new Ajax.Request(
+  				gServiceUrl,
+  				{method:'get', parameters:'format=json&method=reflection.getMethodDetails&methodName='+methodName,
+  				 onSuccess: function (r) { onSuccess_getMethodDetails(r); }
+  				}
+  			)
+    }catch (e)
+    {
+      dumpError( e );
+    }
   }
   return false;
 }
@@ -160,67 +152,90 @@ function pwgSelectMethod(method)
 function onSuccess_getMethodDetails(transport)
 {
 	var result = pwgGetJsonResult(transport);
+  fillNewMethod( gCachedMethods[result.name] = $H(result) );
+}
+
+function fillNewMethod(method)
+{
 	var methodParamsElt = $("methodParams");
 	while (methodParamsElt.tBodies[0].rows.length)
 		methodParamsElt.tBodies[0].deleteRow(methodParamsElt.tBodies[0].rows.length-1);
 
-	if (result.params)
-  {
-    gCurrentMethodParams = result.params;
-    if (result.params.length>0)
-	  {
-  		for (var i=0; i<result.params.length; i++)
+	if (method.params && method.params.length>0)
+	{
+  		for (var i=0; i<method.params.length; i++)
   		{
   			var row = methodParamsElt.tBodies[0].insertRow(-1);
-  			var isOptional = result.params[i].optional;
-  			var defaultValue = result.params[i].defaultValue == null ? '' : result.params[i].defaultValue;
+  			var isOptional = method.params[i].optional;
+  			var acceptArray = method.params[i].acceptArray;
+  			var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
   
-  			row.insertCell(0).innerHTML = result.params[i].name;
-  			row.insertCell(1).innerHTML = (isOptional ? 'optional':'required');
+  			row.insertCell(0).innerHTML = method.params[i].name;
+  			row.insertCell(1).innerHTML = '<span title="parameter is '+(isOptional ? 'optional':'required') +'">'+(isOptional ? '?':'*')+'</span>'
+          + (method.params[i].acceptArray ? ' <span title="parameter can be an array; use | (pipe) character to split values">[ ]</span>':'');
   			row.insertCell(2).innerHTML = '<input id="methodParameterSend_'+i+'" type="checkbox" '+(isOptional ? '':'checked="checked"')+'/>';
   			row.insertCell(3).innerHTML = '<input id="methodParameterValue_'+i+'"" value="'+defaultValue+'" style="width:99%" onchange="$(\'methodParameterSend_'+i+'\').checked=true;"/>';
   		}
-  	}
-	}
-	setElementText("methodDescription", result.description);
+ 	}
+	$("methodDescription").update(method.description);
 	setVisibility("methodDetailWrapper", "visible");
 }
 
 function pwgInvokeMethod( newWindow )
 {
-	var method = document.getElementById('methodName').innerHTML;
+	var methodName = $('methodName').innerHTML;
+	var method = gCachedMethods[methodName];
 
   var reqUrl = gServiceUrl;
   reqUrl += "?format="+$F('responseFormat');
 
-  if (document.getElementById('requestFormat').value == 'get')
+  if ($('requestFormat').value == 'get')
   {
-    reqUrl += "&method="+method;
-    for ( var i=0; i<gCurrentMethodParams.length; i++)
+    reqUrl += "&method="+methodName;
+    for ( var i=0; i<method.params.length; i++)
     {
-      if (document.getElementById('methodParameterSend_'+i).checked)
-        reqUrl += '&'+gCurrentMethodParams[i].name+'='+$F('methodParameterValue_'+i);
+      if (! $('methodParameterSend_'+i).checked)
+        continue;
+
+      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
+      {
+        $F('methodParameterValue_'+i).split('|').each(
+            function(v) {
+              reqUrl += '&'+method.params[i].name+'[]='+v;
+            }
+          );
+      }
+      else
+        reqUrl += '&'+method.params[i].name+'='+$F('methodParameterValue_'+i);
     }
     if ( !newWindow )
-      document.getElementById("invokeFrame").src = reqUrl;
+      $("invokeFrame").src = reqUrl;
     else
       window.open(reqUrl);
   }
   else
   {
-    var form = document.getElementById("invokeForm");
+    var form = $("invokeForm");
     form.action = reqUrl;
-    var t = '<input type="hidden" name="'+'method'+'" value="'+method+'"/>';
-    for ( var i=0; i<gCurrentMethodParams.length; i++)
+    var t = '<input type="hidden" name="'+'method'+'" value="'+methodName+'"/>';
+    for ( var i=0; i<method.params.length; i++)
     {
-      if (document.getElementById('methodParameterSend_'+i).checked)
-        t += '<input type="hidden" name="'+gCurrentMethodParams[i].name+'" value="'+$F('methodParameterValue_'+i)+'"/>';
+      if (! $('methodParameterSend_'+i).checked)
+        continue;
+
+      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
+      {
+        $F('methodParameterValue_'+i).split('|').each(
+            function(v) {
+              t += '<input type="hidden" name="'+method.params[i].name+'[]" value="'+v+'"/>';
+            }
+          );
+      }
+      else
+        t += '<input type="hidden" name="'+method.params[i].name+'" value="'+$F('methodParameterValue_'+i)+'"/>';
     }
     form.innerHTML = t;
-    if ( !newWindow )
-      form.target = "invokeFrame";
-    else
-      form.target = "_blank";
+    form.target = newWindow ? "_blank" : "invokeFrame";
     form.submit();
   }
   return false;
@@ -356,7 +371,7 @@ a:hover {
         <thead>
           <tr>
             <td style="width:150px">Parameter</td>
-            <td>Optional</td>
+            <td>Extra</td>
             <td>Send</td>
             <td style="width:160px">Value</td>
           </tr>

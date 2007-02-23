@@ -41,25 +41,41 @@ function get_fs_plugins()
           and file_exists($path.'/main.inc.php')
           )
       {
-        $plugin = array('name'=>$file, 'version'=>'0', 'uri'=>'', 'description'=>'');
+        $plugin = array(
+            'name'=>$file,
+            'version'=>'0',
+            'uri'=>'',
+            'description'=>'',
+            'author'=>'',
+          );
         $plg_data = implode( '', file($path.'/main.inc.php') );
 
-        if ( preg_match("|Plugin Name: (.*)|i", $plg_data, $val) )
+        if ( preg_match("|Plugin Name: (.*)|", $plg_data, $val) )
         {
           $plugin['name'] = trim( $val[1] );
         }
-        if (preg_match("|Version: (.*)|i", $plg_data, $val))
+        if (preg_match("|Version: (.*)|", $plg_data, $val))
         {
           $plugin['version'] = trim($val[1]);
         }
-        if ( preg_match("|Plugin URI: (.*)|i", $plg_data, $val) )
+        if ( preg_match("|Plugin URI: (.*)|", $plg_data, $val) )
         {
-          $plugin['uri'] = $val[1];
+          $plugin['uri'] = trim($val[1]);
         }
-        if ( preg_match("|Description: (.*)|i", $plg_data, $val) )
+        if ( preg_match("|Description: (.*)|", $plg_data, $val) )
         {
           $plugin['description'] = trim($val[1]);
         }
+        if ( preg_match("|Author: (.*)|", $plg_data, $val) )
+        {
+          $plugin['author'] = trim($val[1]);
+        }
+        if ( preg_match("|Author URI: (.*)|", $plg_data, $val) )
+        {
+          $plugin['author uri'] = trim($val[1]);
+        }
+        // IMPORTANT SECURITY !
+        $plugin = array_map('htmlspecialchars', $plugin);
         $plugins[$file] = $plugin;
       }
     }

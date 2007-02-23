@@ -3,7 +3,6 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -38,9 +37,9 @@ $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 // +-----------------------------------------------------------------------+
 // |                     perform requested actions                         |
 // +-----------------------------------------------------------------------+
-if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
+if ( isset($_GET['action']) and isset($_GET['plugin'])  )
 {
-  $plugin_id = $_REQUEST['plugin'];
+  $plugin_id = $_GET['plugin'];
   $crt_db_plugin = get_db_plugins('', $plugin_id);
   if (!empty($crt_db_plugin))
   {
@@ -54,7 +53,7 @@ if ( isset($_REQUEST['action']) and isset($_REQUEST['plugin'])  )
   $errors = array();
   $file_to_include = PHPWG_PLUGINS_PATH.$plugin_id.'/maintain.inc.php';
 
-  switch ( $_REQUEST['action'] )
+  switch ( $_GET['action'] )
   {
     case 'install':
       if ( !empty($crt_db_plugin))
@@ -89,7 +88,7 @@ INSERT INTO '.PLUGINS_TABLE.' (id,version) VALUES ("'
     case 'activate':
       if ( !isset($crt_db_plugin) )
       {
-        array_push($errors, 'CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+        array_push($errors, 'CANNOT '. $_GET['action'] .' - NOT INSTALLED');
       }
       if ($crt_db_plugin['state']!='inactive')
       {
@@ -114,7 +113,7 @@ UPDATE '.PLUGINS_TABLE.' SET state="active" WHERE id="'.$plugin_id.'"';
     case 'deactivate':
       if ( !isset($crt_db_plugin) )
       {
-        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+        die ('CANNOT '. $_GET['action'] .' - NOT INSTALLED');
       }
       if ($crt_db_plugin['state']!='active')
       {
@@ -134,7 +133,7 @@ UPDATE '.PLUGINS_TABLE.' SET state="inactive" WHERE id="'.$plugin_id.'"';
     case 'uninstall':
       if ( !isset($crt_db_plugin) )
       {
-        die ('CANNOT '. $_REQUEST['action'] .' - NOT INSTALLED');
+        die ('CANNOT '. $_GET['action'] .' - NOT INSTALLED');
       }
       $query = '
 DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
@@ -181,11 +180,25 @@ foreach( $fs_plugins as $plugin_id => $fs_plugin )
   {
     $display_name='<a href="'.$fs_plugin['uri'].'">'.$display_name.'</a>';
   }
+  $desc = $fs_plugin['description'];
+  if (!empty($fs_plugin['author']))
+  {
+    $desc.= ' (<em>';
+    if (!empty($fs_plugin['author uri']))
+    {
+      $desc.= '<a href="'.$fs_plugin['author uri'].'">'.$fs_plugin['author'].'</a>';
+    }
+    else
+    {
+      $desc.= $fs_plugin['author'];
+    }
+    $desc.= '</em>)';
+  }
   $template->assign_block_vars( 'plugins.plugin',
       array(
         'NAME' => $display_name,
         'VERSION' => $fs_plugin['version'],
-        'DESCRIPTION' => $fs_plugin['description'],
+        'DESCRIPTION' => $desc,
         'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
         )
      );
@@ -218,6 +231,7 @@ foreach( $fs_plugins as $plugin_id => $fs_plugin )
               'L_ACTION' => l10n('Uninstall'),
             )
           );
+        $template->assign_block_vars( 'plugins.plugin.action.confirm', array());
         break;
     }
   }
@@ -229,6 +243,7 @@ foreach( $fs_plugins as $plugin_id => $fs_plugin )
           'L_ACTION' => l10n('Install'),
         )
       );
+    $template->assign_block_vars( 'plugins.plugin.action.confirm', array());
   }
 }
 

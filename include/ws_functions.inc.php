@@ -269,8 +269,11 @@ function ws_std_get_image_xml_attributes()
  */
 function ws_getVersion($params, &$service)
 {
-//  TODO = Version availability is under control of $conf['show_version']
-  return PHPWG_VERSION;
+  global $conf;
+  if ($conf['show_version'])
+    return PHPWG_VERSION;
+  else
+    return new PwgError(403, 'Forbidden');
 }
 
 
@@ -336,14 +339,15 @@ SELECT id, name, image_order
     $where_clauses[] = ws_addControls( 'categories.getImages', $params, 'i.' );
 
     $order_by = ws_std_image_sql_order($params, 'i.');
-    if (empty($order_by))
-    {// TODO check for category order by (image_order)
-      $order_by = $conf['order_by'];
-    }
-    else
+    if ( empty($order_by)
+          and count($params['cat_id'])==1
+          and isset($cats[ $params['cat_id'][0] ]['image_order'])
+        )
     {
-      $order_by = 'ORDER BY '.$order_by;
+      $order_by = $cats[ $params['cat_id'][0] ]['image_order'];
     }
+    $order_by = empty($order_by) ? $conf['order_by'] : 'ORDER BY '.$order_by;
+
     $query = '
 SELECT i.*, GROUP_CONCAT(category_id) cat_ids
   FROM '.IMAGES_TABLE.' i
@@ -499,6 +503,10 @@ ORDER BY global_rank';
  */
 function ws_images_addComment($params, &$service)
 {
+  if (!$service->isPost())
+  {
+    return new PwgError(405, "This method requires HTTP POST");
+  }
   $params['image_id'] = (int)$params['image_id'];
   $query = '
 SELECT DISTINCT image_id 
@@ -579,7 +587,7 @@ LIMIT 1;';
   $image_row = mysql_fetch_assoc(pwg_query($query));
   if ($image_row==null)
   {
-    return new PwgError(999, "image_id not found");
+    return new PwgError(404, "image_id not found");
   }
   $image_row = array_merge( $image_row, ws_std_get_urls($image_row) );
 
@@ -859,7 +867,7 @@ function ws_session_login($params, &$service)
 
   if (!$service->isPost())
   {
-    return new PwgError(400, "This method requires POST");
+    return new PwgError(405, "This method requires HTTP POST");
   }
   if (try_log_user($params['username'], $params['password'],false))
   {
@@ -942,32 +950,19 @@ function ws_tags_getImages($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   global $conf;
-
+  
   // first build all the tag_ids we are interested in
-  $tag_ids = array();
-  $tags = get_available_tags();
+  $params['tag_id'] = array_map( 'intval',$params['tag_id'] );
+  $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
   $tags_by_id = array();
-  for( $i=0; $i<count($tags); $i++ )
-  {
-    $tags[$i]['id']=(int)$tags[$i]['id'];
-  }
   foreach( $tags as $tag )
   {
+    $tags['id'] = (int)$tag['id'];
     $tags_by_id[ $tag['id'] ] = $tag;
-    if (
-        in_array($tag['name'], $params['tag_name'])
-      or
-        in_array($tag['url_name'], $params['tag_url_name'])
-      or
-        in_array($tag['id'], $params['tag_id'])
-       )
-    {
-      $tag_ids[] = $tag['id'];
-    }
   }
   unset($tags);
+  $tag_ids = array_keys($tags_by_id);
 
-  $tag_ids = array_unique( $tag_ids );
 
   $image_ids = array();
   $image_tag_map = array();

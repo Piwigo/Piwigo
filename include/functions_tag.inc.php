@@ -271,4 +271,65 @@ SELECT id, name, url_name, count(*) counter
   usort($tags, 'name_compare');
   return $tags;
 }
+
+/**
+ * return a list of tags corresponding to any of ids, url_names, names
+ *
+ * @param array ids
+ * @param array url_names
+ * @param array names
+ * @return array
+ */
+function find_tags($ids, $url_names=array(), $names=array() )
+{
+  $where_clauses = array();
+  if ( !empty($ids) )
+  {
+    $where_clauses[] = 'id IN ('.implode(',', $ids).')';
+  }
+  if ( !empty($url_names) )
+  {
+    $where_clauses[] =
+      'url_name IN ('.
+      implode(
+        ',',
+        array_map(
+          create_function('$s', 'return "\'".$s."\'";'),
+          $url_names
+          )
+        )
+      .')';
+  }
+  if ( !empty($names) )
+  {
+    $where_clauses[] =
+      'name IN ('.
+      implode(
+        ',',
+        array_map(
+          create_function('$s', 'return "\'".$s."\'";'),
+          $names
+          )
+        )
+      .')';
+  }
+  if (empty($where_clauses))
+  {
+    return array();
+  }
+
+  $query = '
+SELECT id, url_name, name
+  FROM '.TAGS_TABLE.'
+  WHERE '. implode( '
+    OR ', $where_clauses);
+
+  $result = pwg_query($query);
+  $tags = array();
+  while ($row = mysql_fetch_assoc($result))
+  {
+    array_push($tags, $row);
+  }
+  return $tags;
+}
 ?>

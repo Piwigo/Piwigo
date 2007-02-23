@@ -1,9 +1,10 @@
-<?php
-/*
+<?php /*
 Plugin Name: Event tracer
 Version: 1.0
 Description: For developers. Shows all calls to trigger_event.
 Plugin URI: http://www.phpwebgallery.net
+Author: PhpWebGallery team
+Author URI: http://www.phpwebgallery.net
 */
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 

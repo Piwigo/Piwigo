@@ -19,7 +19,11 @@
   <td>{plugins.plugin.DESCRIPTION}</td>
   <td>
   <!-- BEGIN action -->
-  <a href="{plugins.plugin.action.U_ACTION}" {TAG_INPUT_ENABLED}>{plugins.plugin.action.L_ACTION}</a>
+  <a href="{plugins.plugin.action.U_ACTION}"
+<!-- BEGIN confirm -->
+    onclick="return confirm('Are you sure?');"
+<!-- END confirm -->
+    {TAG_INPUT_ENABLED}>{plugins.plugin.action.L_ACTION}</a>
   <!-- END action -->
   </td>
 </tr>
