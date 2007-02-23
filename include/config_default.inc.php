@@ -605,7 +605,7 @@ $conf['allow_web_services'] = true;
 // Maximum number of images to be returned foreach call to the web service
 $conf['ws_max_images_per_page'] = 500;
 
-// On Access control false
+// On Access control false / Admim Web Service need Php cURL extension
 // Controls are done on public basis or 
 // if connected on member authorization basis
 $conf['ws_access_control'] = false;

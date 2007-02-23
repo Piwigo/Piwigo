@@ -223,4 +223,7 @@
 
   </fieldset>
 </form>
+<!-- BEGIN ws_status -->
+    <h3>{acc_list.ws_status.VALUE}</h3>
+<!-- END ws_status -->
 <!-- END acc_list -->

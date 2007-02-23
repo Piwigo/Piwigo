@@ -59,8 +59,10 @@ SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
     return new PwgError(403, 'Partner id does not exist or is expired');
   }
   if ( !empty($row['request'])
-      and strpos($methodName, $row['request'])==false )
-  {
+      and strpos($methodName, $row['request'])==false
+      and strpos($methodName, 'session')==false
+      and strpos($methodName, 'getVersion')==false )
+  { // session and getVersion are allowed to diagnose any failure reason
     return new PwgError(403, 'Method not allowed');
   }
 
@@ -114,6 +116,10 @@ $result = pwg_query($query);
 // 3 cases: list, cat or tag
 // Behind / we could found img-ids, cat-ids or tag-ids
   $target = $row['access'];
+  if ( $target == '')
+  {
+    return '1=1'; // No controls are requested
+  }
   list($type, $str_ids) = explode('/',$target); // Find type list
 
 // (array) 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,

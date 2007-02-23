@@ -49,13 +49,15 @@ function official_req()
 {
   $official = array(                  /* Requests are limited to             */
       'categories.'                          /* all categories. methods */
-    , 'categories.getImages'                 /* <= see */
-    , 'categories.getList'                   /* <= see */
+    , 'categories.getImages'
+    , 'categories.getList'
     , 'images.'                              /* all images. methods */
-    , 'images.getInfo'                       /* <= see */
+    , 'images.getInfo'
+    , 'images.addComment'
+    , 'images.search'
     , 'tags.'                                /* all tags. methods */
-    , 'tags.getImages'                       /* <= see */
-    , 'tags.getList'                         /* <= see */
+    , 'tags.getImages'
+    , 'tags.getList'
   );
   if (function_exists('local_req')) {
      $local = local_req();
@@ -125,7 +127,7 @@ check_status(ACCESS_ADMINISTRATOR);
 $req_type_list = official_req();
 
 //--------------------------------------------------------- update informations
-
+$chk_partner = '';
 // Is a new access required?
 
 if (isset($_POST['wsa_submit']))
@@ -150,6 +152,7 @@ VALUES (' . "
   '$add_request', '$add_limit', '$add_comment' );";
 
   pwg_query($query);
+  $chk_partner = $add_partner;
   
   $template->assign_block_vars(
     'update_result',
@@ -261,6 +264,7 @@ if ( $acc_list > 0 )
 while ($row = mysql_fetch_array($result))
 {
   $num++;
+  $chk_partner = ( $chk_partner == '' ) ? $row['name'] : $chk_partner;
   $template->assign_block_vars(
     'acc_list.access',
      array(
@@ -344,6 +348,51 @@ foreach ($conf['ws_durations'] as $value) {
        )
     );
   }
+}
+if ( $chk_partner !== '' )
+{
+  $request = get_absolute_root_url().'ws.php?method=pwg.getVersion&format=rest&'
+           . "partner=$chk_partner" ;
+  $session = curl_init($request);
+  curl_setopt ($session, CURLOPT_POST, true);
+  curl_setopt($session, CURLOPT_HEADER, true);
+  curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+  $response = curl_exec($session);
+  curl_close($session);
+  $status_code = array();
+  preg_match('/\d\d\d/', $response, $status_code);
+  switch( $status_code[0] ) {
+  	case 200:
+      $ws_status = l10n('Web Services under control');
+  		break;
+  	case 503:
+  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                 . 'HTTP status of 503. Service is unavailable. An internal '
+                 . 'problem prevented us from returning data to you.';
+  		break;
+  	case 403:
+  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                 . 'HTTP status of 403. Access is forbidden. You do not have '
+                 . 'permission to access this resource, or are over '
+                 . 'your rate limit.';
+  		break;
+  	case 400:
+  		// You may want to fall through here and read the specific XML error
+  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                 . 'HTTP status of 400. Bad request. The parameters passed '
+                 . 'to the service did not match as expected. The exact '
+                 . 'error is returned in the XML response.';
+  		break;
+  	default:
+  		$ws_status = 'PhpWebGallery Web Services returned an unexpected HTTP '
+                 . 'status of:' . $status_code[0];
+  }
+  $template->assign_block_vars(
+    'acc_list.ws_status',
+     array(
+       'VALUE'=> $ws_status,
+     )
+  );
 }
 
 //----------------------------------------------------------- sending html code

@@ -537,6 +537,7 @@ $lang['Returned images limit'] = 'Returned images limit';
 $lang['Comment to identify your partner clearly'] = 'Comment to identify your partner clearly';
 $lang['Add this access definition'] = 'Add this access definition';
 $lang['Web Services availability duration in days'] = 'Web Services availability duration in days';
+$lang['Web Services under control'] = 'PhpWebGallery Web Services are fully operationals and all requests are under control.';
 $lang['special_admin_menu'] = 'Specials';
 $lang['pictures_menu'] = 'Pictures';
 $lang['note_check_exif'] = '%s must be to set to false in your config_local.inc.php file because exif are not supported.';
