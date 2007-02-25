@@ -4,7 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -228,24 +228,6 @@ function create_navigation_bar(
     }
   }
   return $navbar;
-}
-
-//
-// Pick a language, any language ...
-//
-function language_select($default, $select_name = "language")
-{
-  $available_lang = get_languages();
-
-  $lang_select = '<select name="' . $select_name . '">';
-  foreach ($available_lang as $code => $displayname)
-  {
-    $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
-    $lang_select .= '<option value="' . $code . '"' . $selected . '>' . ucwords($displayname) . '</option>';
-  }
-  $lang_select .= '</select>';
-
-  return $lang_select;
 }
 
 /**

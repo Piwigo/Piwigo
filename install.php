@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -32,6 +31,24 @@ define('PHPWG_ROOT_PATH','./');
 function guess_lang()
 {
   return 'en_UK.iso-8859-1';
+}
+
+//
+// Pick a language, any language ...
+//
+function language_select($default, $select_name = "language")
+{
+  $available_lang = get_languages();
+
+  $lang_select = '<select name="' . $select_name . '" onchange="document.location = \''.PHPWG_ROOT_PATH.'install.php?language=\'+this.options[this.selectedIndex].value;">';
+  foreach ($available_lang as $code => $displayname)
+  {
+    $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
+    $lang_select .= '<option value="'.$code.'" ' . $selected . '>' . ucwords($displayname) . '</option>';
+  }
+  $lang_select .= '</select>';
+
+  return $lang_select;
 }
 
 /**
@@ -99,6 +116,26 @@ if( !get_magic_quotes_gpc() )
       }
     }
     @reset($_POST);
+  }
+
+  if( is_array($_GET) )
+  {
+    while( list($k, $v) = each($_GET) )
+    {
+      if( is_array($_GET[$k]) )
+      {
+        while( list($k2, $v2) = each($_GET[$k]) )
+        {
+          $_GET[$k][$k2] = addslashes($v2);
+        }
+        @reset($_GET[$k]);
+      }
+      else
+      {
+        $_GET[$k] = addslashes($v);
+      }
+    }
+    @reset($_GET);
   }
 
   if( is_array($_COOKIE) )
@@ -172,6 +209,10 @@ include(PHPWG_ROOT_PATH . 'include/template.php');
 if ( isset( $_POST['language'] ))
 {
   $language = strip_tags($_POST['language']);
+}
+elseif ( isset( $_GET['language'] ))
+{
+  $language = strip_tags($_GET['language']);
 }
 else 
 {
