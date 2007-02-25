@@ -5,8 +5,7 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id: install.php 1855 2007-02-25 11:42:25Z rub $
 // | last update   : $Date: 2006-03-23 02:49:04 +0100 (jeu., 23 mars 2006) $
 // | last modifier : $Author: rvelices $
 // | revision      : $Revision: 1094 $

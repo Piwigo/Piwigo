@@ -5,8 +5,7 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -354,7 +353,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
               if ($conf['nbm_send_html_mail'] and $conf['nbm_send_recent_post_dates'])
               {
-                $recent_post_dates = get_recent_post_dates(7, 5, 9);
+                $recent_post_dates = get_recent_post_dates(7, 3, 9);
                 foreach ($recent_post_dates as $date_detail)
                 {
                   $env_nbm['mail_template']->assign_block_vars
