@@ -276,4 +276,8 @@ input.submit:active {
   padding-left: 4em;
   padding-right: 4em;
 }
+#menubar .menuInfoCat, #menubar .menuInfoCatByChild {
+  font-size: 80%;
+  font-style: normal;
+}
 * { outline: none; }

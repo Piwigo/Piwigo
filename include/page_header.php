@@ -52,7 +52,8 @@ $template->assign_vars(
     'DIR'=>$lang_info['direction'],
 
     'TAG_INPUT_ENABLED' =>
-      ((is_adviser()) ? 'disabled onclick="return false;"' : '')
+      ((is_adviser()) ? 'disabled onclick="return false;"' : ''),
+    'U_HOME' => get_absolute_root_url(),
     ));
 
 // picture header infos
