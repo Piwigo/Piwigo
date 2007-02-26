@@ -3,7 +3,6 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2006-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -75,7 +74,7 @@ if ($filter['enabled'])
   {
     // Need to compute dats
     $filter['check_key'] = get_filter_check_key();
-    $filter['categories'] = get_computed_categories($user['id'], $user['forbidden_categories'], true, $filter['recent_period']);
+    $filter['categories'] = get_computed_categories($user, (int)$filter['recent_period']);
 
     $filter['visible_categories'] = implode(',', array_keys($filter['categories']));
     if (empty($filter['visible_categories']))

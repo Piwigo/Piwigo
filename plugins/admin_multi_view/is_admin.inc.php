@@ -13,7 +13,7 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     list($user['template'], $user['theme']) = explode('/', $theme);
   }
   $lang = pwg_get_session_var( 'multiview_lang', '' );
-  if ( !empty($theme) )
+  if ( !empty($lang) )
   {
     $user['language'] = $lang;
   }

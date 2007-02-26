@@ -56,9 +56,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
 
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
   
-  $comment_action = insert_user_comment( 
-      $comm, @$_POST['key'], $page['image_id'], $infos
-    );
+  $comment_action = insert_user_comment($comm, @$_POST['key'], $infos );
 
   switch ($comment_action)
   {

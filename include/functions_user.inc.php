@@ -272,7 +272,7 @@ SELECT ui.*, uc.*
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
-      update_user_cache_categories($userdata['id'], $userdata['forbidden_categories']);
+      update_user_cache_categories($userdata);
 
       // Set need update are done
       $userdata['need_update'] = false;
@@ -533,116 +533,104 @@ function compute_categories_data(&$cats)
 /**
  * get computed array of categories
  *
- * @param int user_id
- * @param list user_forbidden_categories
- * @param bool filter_enabled
- * @param int recent_period
+ * @param array userdata
+ * @param int filter_days number of recent days to filter on or null
  * @return array
  */
-function get_computed_categories($user_id, $user_forbidden_categories, $filter_enabled, $recent_period = 0)
+function get_computed_categories($userdata, $filter_days=null)
 {
-  $query = '
-SELECT
-  c.id cat_id,
-  date_last max_date_last,
-  nb_images count_images,
-  global_rank';
+  $group_by = '';
 
-  if (!$filter_enabled)
+  $query = 'SELECT c.id cat_id, global_rank';
+  if ( !isset($filter_days) )
   {
-    $query.= '
-FROM '.CATEGORIES_TABLE.' as c';
+    $query .= ',
+    date_last cat_date_last,
+    nb_images cat_nb_images
+  FROM '.CATEGORIES_TABLE.' as c';
   }
   else
   {
     // Count by date_available to avoid count null
-    $query.= ',
-  count(date_available) filtered_count_images,
-  max(date_available) max_date_available
-FROM '.CATEGORIES_TABLE.' as c
+    $query .= ',
+    MAX(date_available) cat_date_last,
+    COUNT(date_available) cat_nb_images
+  FROM '.CATEGORIES_TABLE.' as c
     LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
     LEFT JOIN '.IMAGES_TABLE.' AS i
-      ON ic.image_id = i.id AND 
-          i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$recent_period.' DAY)';
+      ON ic.image_id = i.id AND
+          i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$filter_days.' DAY)';
+    $group_by = 'c.id';
   }
 
-  if ($user_forbidden_categories != '')
+  if ( !empty($userdata['forbidden_categories']) )
   {
     $query.= '
-WHERE
-  c.id NOT IN ('.$user_forbidden_categories.')';
+  WHERE c.id NOT IN ('.$userdata['forbidden_categories'].')';
   }
 
-  if ($filter_enabled)
+  if ( !empty($group_by) )
   {
     $query.= '
-GROUP BY
-  c.id';
+  GROUP BY '.$group_by;
   }
-  $query.= ';';
 
   $result = pwg_query($query);
 
   $cats = array();
   while ($row = mysql_fetch_assoc($result))
   {
-    $row['user_id'] = $user_id;
+    $row['user_id'] = $userdata['id'];
     $row['count_categories'] = 0;
-    if ($filter_enabled)
-    {
-      $row['nb_images'] = $row['filtered_count_images'];
-      $row['count_images'] = $row['filtered_count_images'];
-      $row['max_date_last'] = $row['max_date_available'];
-    }
+    $row['count_images'] = $row['cat_nb_images'];
+    $row['max_date_last'] = $row['cat_date_last'];
+
     $cats += array($row['cat_id'] => $row);
   }
   usort($cats, 'global_rank_compare');
 
   compute_categories_data($cats);
 
-  if ($filter_enabled)
+  if ( isset($filter_days) )
   {
     $cat_tmp = $cats;
     $cats = array();
-  
+
     foreach ($cat_tmp as $category)
     {
       if (!empty($category['max_date_last']))
       {
         // Re-init counters
         $category['count_categories'] = 0;
-        $category['nb_images'] = $category['filtered_count_images'];
-        $category['count_images'] = $category['filtered_count_images'];
+        $category['count_images'] = $category['cat_nb_images'];
+        // next line for update_cats_with_filtered_data
+        $category['nb_images'] = $category['cat_nb_images'];
         // Keep category
         $cats[$category['cat_id']] = $category;
-        
       }
     }
     // Compute a second time
     compute_categories_data($cats);
   }
-
   return $cats;
 }
 
 /**
  * update data of user_cache_categories
  *
- * @param int user_id
- * @param list user_forbidden_categories
- * @param bool filter_enabled
+ * @param array userdata
  * @return null
  */
-function update_user_cache_categories($user_id, $user_forbidden_categories)
+function update_user_cache_categories($userdata)
 {
   // delete user cache
   $query = '
 DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
-  WHERE user_id = '.$user_id.'
+  WHERE user_id = '.$userdata['id'].'
 ;';
   pwg_query($query);
 
-  $cats = get_computed_categories($user_id, $user_forbidden_categories, false);
+  $cats = get_computed_categories($userdata, null);
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts
