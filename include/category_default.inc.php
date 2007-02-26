@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -105,8 +104,7 @@ foreach ($pictures as $row)
       )
     );
   if ($user['show_nb_hits']
-      and isset($page['category']) 
-      and $conf['show_nb_hits'])
+      and isset($page['category']))
   {
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_hits',
