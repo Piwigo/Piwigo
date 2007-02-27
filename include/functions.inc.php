@@ -1011,6 +1011,11 @@ function l10n($key)
  */
 function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
 {
+  global $lang_info;
+  if ( $lang_info['zero_plural'] and $decimal == 0 )
+  {
+    return sprintf(l10n($plural_fmt_key), 0);
+  }
   return sprintf(l10n(($decimal > 1 ? $plural_fmt_key :
                                       $singular_fmt_key)), $decimal);
 }

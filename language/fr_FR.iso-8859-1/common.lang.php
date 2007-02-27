@@ -31,7 +31,7 @@ $lang_info['country'] = 'France';
 $lang_info['charset'] = 'iso-8859-1';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
-
+$lang_info['zero_plural'] = false;
 $lang_table_translate_ascii7bits = array(
                                           chr(  0) => chr(0),
                                           chr(  1) => chr(  1),

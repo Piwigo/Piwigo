@@ -269,7 +269,7 @@ input#qsearchInput {
 }
 .zero { display: none }
 .one { background: transparent; }
-.2nmore { background: transparent; }
+.plural { background: transparent; }
 .nb-hits { color: #69c; }
 .nb-comments { color: #f92; }
 
