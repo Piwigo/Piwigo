@@ -36,7 +36,7 @@ check_status(ACCESS_GUEST);
 // access authorization check
 if (isset($page['category']))
 {
-  check_restrictions($page['category']);
+  check_restrictions($page['category']['id']);
 }
 
 // if this image_id doesn't correspond to this category, an error message is
@@ -199,7 +199,7 @@ DELETE FROM '.FAVORITES_TABLE.'
         $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = '.$page['image_id'].'
-  WHERE id = '.$page['category'].'
+  WHERE id = '.$page['category']['id'].'
 ;';
         pwg_query($query);
       }
@@ -420,7 +420,7 @@ if (!empty($picture['current']['width']))
 
 $url_admin =
   get_root_url().'admin.php?page=picture_modify'
-  .'&amp;cat_id='.(isset($page['category']) ? $page['category'] : '')
+  .'&amp;cat_id='.(isset($page['category']) ? $page['category']['id'] : '')
   .'&amp;image_id='.$page['image_id']
 ;
 

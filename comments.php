@@ -205,7 +205,7 @@ $template->assign_block_vars(
     ));
 
 $query = '
-SELECT id,name,uppercats,global_rank
+SELECT id, name, uppercats, global_rank
   FROM '.CATEGORIES_TABLE.'
 '.get_sql_condition_FandF
   (
@@ -398,8 +398,7 @@ SELECT id, name, uppercats
     // link to the full size picture
     $url = make_picture_url(
             array(
-              'category' => $comment['category_id'],
-              'cat_name' => $categories[ $comment['category_id']] ['name'],
+              'category' => $categories[ $comment['category_id'] ],
               'image_id' => $comment['image_id'],
               'image_file' => $elements[$comment['image_id']]['file'],
             )

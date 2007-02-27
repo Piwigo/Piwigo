@@ -65,7 +65,7 @@ if (!isset($page['start']))
 // access authorization check
 if (isset($page['category']))
 {
-  check_restrictions($page['category']);
+  check_restrictions($page['category']['id']);
 }
 
 if ( count($page['items']) > $user['nb_image_page'])
@@ -193,7 +193,7 @@ if (isset($page['category']) and is_admin())
     array(
       'URL' =>
         get_root_url().'admin.php?page=cat_modify'
-        .'&amp;cat_id='.$page['category']
+        .'&amp;cat_id='.$page['category']['id']
       )
     );
 }

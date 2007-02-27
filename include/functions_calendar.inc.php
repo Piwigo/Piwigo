@@ -1,10 +1,9 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -34,17 +33,16 @@ function initialize_calendar()
 //------------------ initialize the condition on items to take into account ---
   $inner_sql = ' FROM ' . IMAGES_TABLE;
 
-  if ($page['section']=='categories' or
-      ( isset($page['category']) and is_numeric($page['category']) ) )
+  if ($page['section']=='categories')
   { // we will regenerate the items by including subcats elements
     $page['items'] = array();
     $inner_sql .= '
 INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id';
 
-    if (isset($page['category']) and is_numeric($page['category']))
+    if ( isset($page['category']) )
     {
       $sub_ids = array_diff(
-        get_subcat_ids(array($page['category'])),
+        get_subcat_ids(array($page['category']['id'])),
         explode(',', $user['forbidden_categories'])
         );
 

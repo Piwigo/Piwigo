@@ -34,15 +34,14 @@
  *
  */
 
-// "index.php?/category/12-foo/start-24&action=fill_caddie" or
-// "index.php/category/12-foo/start-24&action=fill_caddie"
+// "index.php?/category/12-foo/start-24" or
+// "index.php/category/12-foo/start-24"
 // must return :
 //
 // array(
 //   'section'  => 'categories',
-//   'category' => 12,
+//   'category' => array('id'=>12, ...),
 //   'start'    => 24
-//   'action'   => 'fill_caddie'
 //   );
 
 $page['items'] = array();
@@ -87,7 +86,7 @@ if (script_basename() == 'picture') // basename without file extention
   {// url compatibility with versions below 1.6
     $url = make_picture_url( array(
         'section' => 'categories',
-        'category' => $_GET['cat'],
+        'category' => get_cat_info($_GET['cat']),
         'image_id' => $_GET['image_id']
       ) );
     redirect($url);
@@ -360,15 +359,9 @@ if ('categories' == $page['section'])
       $page,
       array(
         'comment'            => $result['comment'],
-        'cat_dir'            => $result['dir'],
-        'cat_name'           => $result['name'],
-        'cat_site_id'        => $result['site_id'],
-        'cat_uploadable'     => $result['uploadable'],
-        'cat_commentable'    => $result['commentable'],
-        'cat_id_uppercat'    => $result['id_uppercat'],
-        'uppercats'          => $result['uppercats'],
+        'category'          => $result,
         'title'             =>
-          get_cat_display_name($result['name'], '', false),
+          get_cat_display_name($result['upper_names'], '', false),
         )
       );
   }
@@ -395,7 +388,7 @@ if ('categories' == $page['section'])
     {// flat categories mode
       if ( isset($page['category']) )
       {
-        $subcat_ids = get_subcat_ids( array($page['category']) );
+        $subcat_ids = get_subcat_ids( array($page['category']['id']) );
         $where_sql = 'category_id IN ('.implode(',',$subcat_ids).')';
       }
       else
@@ -405,7 +398,7 @@ if ('categories' == $page['section'])
     }
     else
     {// Normal mode
-      $where_sql = 'category_id = '.$page['category'];
+      $where_sql = 'category_id = '.$page['category']['id'];
     }
 
     // Main query

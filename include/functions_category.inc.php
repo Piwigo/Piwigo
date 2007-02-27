@@ -77,7 +77,7 @@ WHERE
 (id_uppercat is NULL';
     if (isset($page['category']))
     {
-      $query.= ' OR id_uppercat IN ('.$page['uppercats'].')';
+      $query.= ' OR id_uppercat IN ('.$page['category']['uppercats'].')';
     }
     $query.= ')';
   }
@@ -111,7 +111,7 @@ WHERE
     update_cats_with_filtered_data($cats);
   }
 
-  return get_html_menu_category($cats);
+  return get_html_menu_category($cats, @$page['category'] );
 }
 
 
@@ -134,62 +134,48 @@ WHERE
  */
 function get_cat_info( $id )
 {
-  $infos = array('nb_images','id_uppercat','comment','site_id'
-                 ,'dir','date_last','uploadable','status','visible'
-                 ,'representative_picture_id','uppercats','commentable'
-                 ,'image_order');
-
   $query = '
-SELECT '.implode(',', $infos).'
+SELECT *
   FROM '.CATEGORIES_TABLE.'
   WHERE id = '.$id.'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
-  if (empty($row))
+  $cat = mysql_fetch_assoc(pwg_query($query));
+  if (empty($cat))
     return null;
 
-  $cat = array();
-  foreach ($infos as $info)
+  foreach ($cat as $k => $v)
   {
-    if (isset($row[$info]))
-    {
-      $cat[$info] = $row[$info];
-    }
-    else
-    {
-      $cat[$info] = '';
-    }
     // If the field is true or false, the variable is transformed into a
     // boolean value.
-    if ($cat[$info] == 'true' or $cat[$info] == 'false')
+    if ($cat[$k] == 'true' or $cat[$k] == 'false')
     {
-      $cat[$info] = get_boolean( $cat[$info] );
+      $cat[$k] = get_boolean( $cat[$k] );
     }
   }
   global $conf;
   if ( !( $conf['allow_html_descriptions'] and
           preg_match('/<(div|br|img|script).*>/i', $cat['comment']) ) )
   {
-    $cat['comment'] = nl2br($cat['comment']);
+    $cat['comment'] = nl2br(@$cat['comment']);
   }
 
   $names = array();
   $query = '
-SELECT name,id
+SELECT id, name
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.$cat['uppercats'].')
 ;';
   $result = pwg_query($query);
-  while($row = mysql_fetch_array($result))
+  while($row = mysql_fetch_assoc($result))
   {
-    $names[$row['id']] = $row['name'];
+    $names[$row['id']] = $row;
   }
 
   // category names must be in the same order than uppercats list
-  $cat['name'] = array();
+  $cat['upper_names'] = array();
   foreach (explode(',', $cat['uppercats']) as $cat_id)
   {
-    $cat['name'][$cat_id] = $names[$cat_id];
+    $cat['upper_names'][$cat_id] = $names[$cat_id];
   }
 
   return $cat;
@@ -345,6 +331,11 @@ SELECT DISTINCT(id)
   WHERE ';
   foreach ($ids as $num => $category_id)
   {
+    is_numeric($category_id)
+      or trigger_error(
+        'get_subcat_ids expecting numeric, not '.gettype($category_id),
+        E_USER_WARNING
+      );
     if ($num > 0)
     {
       $query.= '

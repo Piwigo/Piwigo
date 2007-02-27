@@ -3,7 +3,6 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -133,9 +132,11 @@ function make_index_url($params = array())
  * build an index URL with current page parameters, but with redefinitions
  * and removes.
  *
- * duplicate_index_url(array('category' => 12), array('start')) will create
- * an index URL on the current section (categories), but on a redefined
- * category and without the start URL parameter.
+ * duplicate_index_url( array(
+ *   'category' => array('id'=>12, 'name'=>'toto'),
+ *   array('start')
+ * ) will create an index URL on the current section (categories), but on
+ * a redefined category and without the start URL parameter.
  *
  * @param array redefined keys
  * @param array removed keys
@@ -325,19 +326,20 @@ function make_section_in_url($params)
       }
       else
       {
-        $section_string.= '/category/'.$params['category'];
-        if ($conf['category_url_style']=='id-name' and isset($params['cat_name']) )
+        is_array($params['category']) or trigger_error(
+            'make_section_in_url wrong type for category', E_USER_WARNING
+            );
+        is_numeric($params['category']['id']) or trigger_error(
+            'make_section_in_url category id not numeric', E_USER_WARNING
+            );
+        isset($params['category']['name']) or trigger_error(
+            'make_section_in_url category name not set', E_USER_WARNING
+            );
+
+        $section_string.= '/category/'.$params['category']['id'];
+        if ( $conf['category_url_style']=='id-name' )
         {
-          if ( is_string($params['cat_name']) )
-          {
-            $section_string.= '-'.str2url($params['cat_name']);
-          }
-          elseif ( is_array( $params['cat_name'] ) and
-                isset( $params['cat_name'][$params['category']] ) )
-          {
-            $section_string.= '-'
-                .str2url($params['cat_name'][$params['category']]);
-          }
+          $section_string.= '-'.str2url($params['category']['name']);
         }
       }
 

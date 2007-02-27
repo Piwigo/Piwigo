@@ -386,14 +386,12 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
       {
         $url = make_index_url(
                 array(
-                  'category' => $cat_id,
-                  'cat_name' => $cats[$cat_id]['name'],
+                  'category' => $cats[$cat_id],
                   )
                 );
         $page_url = make_picture_url(
                 array(
-                  'category' => $cat_id,
-                  'cat_name' => $cats[$cat_id]['name'],
+                  'category' => $cats[$cat_id],
                   'image_id' => $row['id'],
                   'image_file' => $row['file'],
                   )
@@ -484,8 +482,7 @@ ORDER BY global_rank';
   {
     $row['url'] = make_index_url(
         array(
-          'category' => $row['id'],
-          'cat_name' => $row['name'],
+          'category' => $row
           )
       );
     foreach( array('id','nb_images','total_nb_images','nb_categories') as $key)
@@ -599,7 +596,7 @@ LIMIT 1;';
 
   //-------------------------------------------------------- related categories
   $query = '
-SELECT id,name,uppercats,global_rank,commentable
+SELECT id, name, uppercats, global_rank, commentable
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$image_row['id'].'
@@ -617,8 +614,7 @@ SELECT id,name,uppercats,global_rank,commentable
     unset($row['commentable']);
     $row['url'] = make_index_url(
         array(
-          'category' => $row['id'],
-          'cat_name' => $row['name'],
+          'category' => $row
           )
       );
 
@@ -626,8 +622,7 @@ SELECT id,name,uppercats,global_rank,commentable
         array(
           'image_id' => $image_row['id'],
           'image_file' => $image_row['file'],
-          'category' => $row['id'],
-          'cat_name' => $row['name'],
+          'category' => $row
           )
       );
     $row['id']=(int)$row['id'];

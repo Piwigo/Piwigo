@@ -253,8 +253,8 @@ $template->assign_vars(
     'TAG_SELECTION' => $tag_selection,
 
     'DESCRIPTION' =>
-      isset($_POST['description']) ?
-        stripslashes($_POST['description']) : @$row['comment'],
+      htmlspecialchars( isset($_POST['description']) ?
+        stripslashes($_POST['description']) : @$row['comment'] ),
 
     'F_ACTION' =>
         PHPWG_ROOT_PATH.'admin.php'
@@ -347,7 +347,7 @@ if (isset($_GET['cat_id'])
     array(
       'image_id' => $_GET['image_id'],
       'image_file' => $image_file,
-      'category' => $_GET['cat_id'],
+      'category' => $cache['cat_names'][ $_GET['cat_id'] ],
       )
     );
 }
@@ -359,7 +359,7 @@ else
       array(
         'image_id' => $_GET['image_id'],
         'image_file' => $image_file,
-        'category' => $category,
+        'category' => $cache['cat_names'][ $category ],
         )
       );
     break;

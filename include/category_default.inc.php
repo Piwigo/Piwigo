@@ -157,7 +157,7 @@ foreach ($pictures as $row)
 
   if ($user['show_nb_comments']
       and isset($page['category'])
-      and $page['cat_commentable'])
+      and $page['category']['commentable'])
   {
     $query = '
 SELECT COUNT(*) AS nb_comments

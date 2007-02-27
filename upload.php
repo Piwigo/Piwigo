@@ -132,13 +132,10 @@ if (is_numeric($_GET['cat']))
 if (isset($page['category']))
 {
   check_restrictions( $page['category'] );
-  $result = get_cat_info( $page['category'] );
-  $page['cat_dir']        = get_complete_dir( $page['category'] );
-  $page['cat_site_id']    = $result['site_id'];
-  $page['cat_name']       = $result['name'];
-  $page['cat_uploadable'] = $result['uploadable'];
+  $category = get_cat_info( $page['category'] );
+  $category['cat_dir'] = get_complete_dir( $page['category'] );
   
-  if (url_is_remote($page['cat_dir']) or !$page['cat_uploadable'])
+  if (url_is_remote($category['cat_dir']) or !$category['uploadable'])
   {
     die('Fatal: you take a wrong way, bye bye');
   }
@@ -154,7 +151,7 @@ if ( isset( $_GET['waiting_id'] ) )
 // verfying fields
 if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 {
-  $path = $page['cat_dir'].$_FILES['picture']['name'];
+  $path = $category['cat_dir'].$_FILES['picture']['name'];
   if ( @is_file( $path ) )
   {
     array_push( $error, l10n('upload_file_exists') );
@@ -241,7 +238,7 @@ if ( isset( $_POST['submit'] ) and isset( $_GET['waiting_id'] ) )
   $file = substr ( $row['file'], 0, strrpos ( $row['file'], ".") );
   $extension = get_extension( $_FILES['picture']['name'] );
 
-  if (($path = mkget_thumbnail_dir($page['cat_dir'], $error)) != false)
+  if (($path = mkget_thumbnail_dir($category['cat_dir'], $error)) != false)
   {
     $path.= '/'.$conf['prefix_thumbnail'].$file.'.'.$extension;
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
@@ -285,7 +282,7 @@ if ( isset( $page['waiting_id'] ) )
 else
 {
   $advise_title = l10n('upload_advise');
-  $advise_title.= get_cat_display_name($page['cat_name']);
+  $advise_title.= get_cat_display_name($category['upper_names']);
 }
 
 $template->assign_vars(
@@ -302,7 +299,7 @@ $template->assign_vars(
 
     'F_ACTION' => $u_form,
 
-    'U_RETURN' => make_index_url(array('category' => $page['category'])),
+    'U_RETURN' => make_index_url(array('category' => $category)),
     )
   );
   

@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -172,10 +171,8 @@ if (isset($_GET['parent_id']))
 {
   $navigation.= $conf['level_separator'];
 
-  $current_category = get_cat_info($_GET['parent_id']);
-
-  $navigation.= get_cat_display_name(
-    $current_category['name'],
+  $navigation.= get_cat_display_name_from_id(
+    $_GET['parent_id'],
     $base_url.'&amp;parent_id=',
     false
     );
@@ -277,8 +274,7 @@ foreach ($categories as $category)
 
       'U_JUMPTO'   => make_index_url(
         array(
-          'category' => $category['id'],
-          'cat_name' => $category['name'],
+          'category' => $category
           )
         ),
 

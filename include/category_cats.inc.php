@@ -35,7 +35,7 @@ if ($page['section']=='recent_cats')
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id,name, representative_picture_id, comment, nb_images, uppercats,
+  id, name, representative_picture_id, comment, nb_images, uppercats,
   date_last, max_date_last, count_images, count_categories, global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
@@ -57,12 +57,12 @@ else
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id,name, representative_picture_id, comment, nb_images,
+  id, name, representative_picture_id, comment, nb_images,
   date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
-  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']).'
+  (!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']).'
 '.get_sql_condition_FandF
   (
     array
@@ -206,8 +206,7 @@ if (count($categories) > 0)
 
           'URL'   => make_index_url(
             array(
-              'category' => $category['id'],
-              'cat_name' => $category['name'],
+              'category' => $category
               )
             ),
           'CAPTION_NB_IMAGES' => get_display_images_count
@@ -258,8 +257,7 @@ if (count($categories) > 0)
 
           'U_IMG_LINK'  => make_index_url(
             array(
-              'category' => $category['id'],
-              'cat_name' => $category['name'],
+              'category' => $category
               )
             ),
           'CLASS'       => 'thumbCat',

@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -482,7 +481,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.$user['id'].',
     \''.$_SERVER['REMOTE_ADDR'].'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
-    '.(isset($page['category']) ? $page['category'] : 'NULL').',
+    '.(isset($page['category']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_id) ? "'".$image_type."'" : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'

@@ -38,10 +38,11 @@ if ( isset($_GET['cat']) )
   if ( is_numeric($_GET['cat']) )
   {
     $url_params['section'] = 'categories';
-    $url_params['category'] = $_GET['cat'];
-    $result = get_cat_info($url_params['category']);
+    $result = get_cat_info( $_GET['cat'] );
     if ( !empty($result) )
-      $url_params['cat_name'] = $result['name'];
+    {
+      $url_params['category'] = $result;
+    }
   }
   elseif ( in_array($_GET['cat'],
               array('best_rated','most_visited','recent_pics','recent_cats')

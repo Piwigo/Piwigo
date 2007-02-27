@@ -235,7 +235,7 @@ function create_navigation_bar(
  *
  * categories string returned contains categories as given in the input
  * array $cat_informations. $cat_informations array must be an association
- * of {category_id => category_name}. If url input parameter is null,
+ * of {category_id => array( id, name) }. If url input parameter is null,
  * returns only the categories name without links.
  *
  * @param array cat_informations
@@ -251,8 +251,11 @@ function get_cat_display_name($cat_informations,
 
   $output = '';
   $is_first = true;
-  foreach ($cat_informations as $id => $name)
+  foreach ($cat_informations as $id => $cat)
   {
+    is_array($cat) or trigger_error(
+        'get_cat_display_name wrong type for cat '.$id, E_USER_WARNING
+      );
     if ($is_first)
     {
       $is_first = false;
@@ -264,24 +267,23 @@ function get_cat_display_name($cat_informations,
 
     if ( !isset($url) )
     {
-      $output.= $name;
+      $output.= $cat['name'];
     }
     elseif ($url == '')
     {
       $output.= '<a href="'
             .make_index_url(
                 array(
-                  'category'=>$id,
-                  'cat_name'=>$name
+                  'category' => $cat,
                   )
               )
             .'">';
-      $output.= $name.'</a>';
+      $output.= $cat['name'].'</a>';
     }
     else
     {
       $output.= '<a href="'.PHPWG_ROOT_PATH.$url.$id.'">';
-      $output.= $name.'</a>';
+      $output.= $cat['name'].'</a>';
     }
   }
   if ($replace_space)
@@ -311,18 +313,18 @@ function get_cat_display_name_cache($uppercats,
                                     $url = '',
                                     $replace_space = true)
 {
-  global $cat_names, $conf;
+  global $cache, $conf;
 
-  if (!isset($cat_names))
+  if (!isset($cache['cat_names']))
   {
     $query = '
-SELECT id,name
+SELECT id, name
   FROM '.CATEGORIES_TABLE.'
 ;';
     $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
-      $cat_names[$row['id']] = $row['name'];
+      $cache['cat_names'][$row['id']] = $row;
     }
   }
 
@@ -330,7 +332,7 @@ SELECT id,name
   $is_first = true;
   foreach (explode(',', $uppercats) as $category_id)
   {
-    $name = $cat_names[$category_id];
+    $cat = $cache['cat_names'][$category_id];
 
     if ($is_first)
     {
@@ -343,7 +345,7 @@ SELECT id,name
 
     if ( !isset($url) )
     {
-      $output.= $name;
+      $output.= $cat['name'];
     }
     elseif ($url == '')
     {
@@ -351,16 +353,15 @@ SELECT id,name
 <a href="'
       .make_index_url(
           array(
-            'category'=>$category_id,
-            'cat_name'=>$name
+            'category' => $cat,
             )
         )
-      .'">'.$name.'</a>';
+      .'">'.$cat['name'].'</a>';
     }
     else
     {
       $output.= '
-<a href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$name.'</a>';
+<a href="'.PHPWG_ROOT_PATH.$url.$category_id.'">'.$cat['name'].'</a>';
     }
   }
   if ($replace_space)
@@ -384,20 +385,13 @@ SELECT id,name
  * @param array categories
  * @return string
  */
-function get_html_menu_category($categories)
+function get_html_menu_category($categories, $selected_category)
 {
-  global $page, $lang;
+  global $lang;
 
   $ref_level = 0;
   $level = 0;
   $menu = '';
-
-  // $page_cat value remains 0 for special sections
-  $page_cat = 0;
-  if (isset($page['category']))
-  {
-    $page_cat = $page['category'];
-  }
 
   foreach ($categories as $category)
   {
@@ -419,7 +413,7 @@ function get_html_menu_category($categories)
     $ref_level = $level;
 
     $menu.= "\n\n".'<li';
-    if ($category['id'] == $page_cat)
+    if ($category['id'] == @$selected_category['id'])
     {
       $menu.= ' class="selected"';
     }
@@ -427,14 +421,13 @@ function get_html_menu_category($categories)
 
     $url = make_index_url(
             array(
-              'category'=>$category['id'],
-              'cat_name'=>$category['name']
+              'category' => $category
               )
             );
 
     $menu.= "\n".'<a href="'.$url.'"';
-    if ($page_cat != 0
-        and $category['id'] == $page['cat_id_uppercat'])
+    if ($selected_category!=null
+        and $category['id'] == $selected_category['id_uppercat'])
     {
       $menu.= ' rel="up"';
     }
@@ -509,7 +502,7 @@ function get_cat_display_name_from_id($cat_id,
                                       $replace_space = true)
 {
   $cat_info = get_cat_info($cat_id);
-  return get_cat_display_name($cat_info['name'], $url, $replace_space);
+  return get_cat_display_name($cat_info['upper_names'], $url, $replace_space);
 }
 
 /**

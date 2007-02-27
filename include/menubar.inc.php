@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -333,9 +332,9 @@ $template->assign_block_vars(
     )
   );
 
-if (isset($page['category']) and $page['cat_uploadable'] )
+if (isset($page['category']) and $page['category']['uploadable'] )
 { // upload a picture in the category
-  $url = get_root_url().'upload.php?cat='.$page['category'];
+  $url = get_root_url().'upload.php?cat='.$page['category']['id'];
   $template->assign_block_vars(
     'upload',
     array(
