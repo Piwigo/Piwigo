@@ -3,11 +3,10 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $URL: svn+ssh://rvelices@svn.gna.org/svn/phpwebgallery/trunk/action.php $
-// | last update   : $Date: 2006-12-21 18:49:12 -0500 (Thu, 21 Dec 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Rev: 1678 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -84,15 +83,17 @@ class PwgXmlWriter
   {
     $this->_end_prev(false);
     $value = (string)$value;
-    $need_cdata = (strpos($value, "\r")!==false)?true:false;
-    if ($need_cdata)
-    {
-      $this->_output( '<![CDATA[' . $value . ']]>' );
-    }
-    else
-    {
-      $this->_output( htmlspecialchars( $value ) );
-    }
+    $this->_output( htmlspecialchars( $value ) );
+  }
+
+  function write_cdata($value)
+  {
+    $this->_end_prev(false);
+    $value = (string)$value;
+    $this->_output(
+      '<![CDATA['
+      . str_replace(']]>', ']]&gt;', $value)
+      . ']]>' );
   }
 
   function write_attribute($name, $value)
@@ -163,8 +164,6 @@ class PwgRestEncoder extends PwgResponseEncoder
 </rsp>';
       return $ret;
     }
-
-//parent::flattenResponse($response);
 
     $this->_writer = new PwgXmlWriter();
     $this->encode($response);

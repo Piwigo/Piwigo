@@ -214,60 +214,40 @@ DELETE FROM '.IMAGES_TABLE.'
 function delete_user($user_id)
 {
   global $conf;
+  $tables = array(
+    // destruction of the access linked to the user
+    USER_ACCESS_TABLE,
+    // destruction of data notification by mail for this user
+    USER_MAIL_NOTIFICATION_TABLE,
+    // destruction of data RSS notification for this user
+    USER_FEED_TABLE,
+    // deletion of calculated permissions linked to the user
+    USER_CACHE_TABLE,
+    // deletion of computed cache data linked to the user
+    USER_CACHE_CATEGORIES_TABLE,
+    // destruction of the group links for this user
+    USER_GROUP_TABLE,
+    // destruction of the favorites associated with the user
+    FAVORITES_TABLE,
+    // destruction of the caddie associated with the user
+    CADDIE_TABLE,
+    // deletion of phpwebgallery specific informations
+    USER_INFOS_TABLE,
+    );
 
-  // destruction of the access linked to the user
-  $query = '
-DELETE FROM '.USER_ACCESS_TABLE.'
+  foreach ($tables as $table)
+  {
+    $query = '
+DELETE FROM '.$table.'
   WHERE user_id = '.$user_id.'
 ;';
-  pwg_query($query);
+    pwg_query($query);
+  }
 
-  // destruction of data notification by mail for this user
+  // destruction of the user
   $query = '
-DELETE FROM '.USER_MAIL_NOTIFICATION_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // destruction of data RSS notification for this user
-  $query = '
-DELETE FROM '.USER_FEED_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // destruction of the group links for this user
-  $query = '
-DELETE FROM '.USER_GROUP_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // destruction of the favorites associated with the user
-  $query = '
-DELETE FROM '.FAVORITES_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // deletion of calculated permissions linked to the user
-  $query = '
-DELETE FROM '.USER_CACHE_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // deletion of computed cache data linked to the user
-  $query = '
-DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
-  WHERE user_id = '.$user_id.'
-;';
-  pwg_query($query);
-
-  // deletion of phpwebgallery specific informations
-  $query = '
-DELETE FROM '.USER_INFOS_TABLE.'
-  WHERE user_id = '.$user_id.'
+DELETE FROM '.SESSIONS_TABLE.'
+  WHERE data LIKE "pwg_uid|i:'.(int)$user_id.';%"
 ;';
   pwg_query($query);
 
@@ -524,7 +504,7 @@ function mass_inserts($table_name, $dbfields, $datas)
   if (count($datas) != 0)
   {
     $first = true;
-     
+
     $query = 'SHOW VARIABLES LIKE \'max_allowed_packet\';';
     list(, $packet_size) = mysql_fetch_row(pwg_query($query));
     $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character*/
@@ -539,7 +519,7 @@ function mass_inserts($table_name, $dbfields, $datas)
         pwg_query($query);
         $first = true;
       }
-      
+
       if ($first)
       {
         $query = '
@@ -553,7 +533,7 @@ function mass_inserts($table_name, $dbfields, $datas)
         $query .= '
     , ';
       }
-      
+
       $query .= '(';
       foreach ($dbfields as $field_id => $dbfield)
       {
@@ -573,7 +553,7 @@ function mass_inserts($table_name, $dbfields, $datas)
       }
       $query .= ')';
     }
-    
+
     $query .= '
 ;';
     pwg_query($query);
@@ -1941,11 +1921,11 @@ SELECT tag_id,
       while ($row = mysql_fetch_array($result))
       {
         array_push($all_tag_ids, $row['tag_id']);
-        
+
         if (!isset($tags_of[ $row['image_id'] ])) {
           $tags_of[ $row['image_id'] ] = array();
         }
-        
+
         array_push(
           $tags_of[ $row['image_id'] ],
           $row['tag_id']
@@ -1986,10 +1966,10 @@ SELECT id,
     {
       $xml_string.= "    <tag>".$tag_name_of[$tag_id]."</tag>\n";
     }
-    
+
     $xml_string.= "  </photo>\n";
   }
-  
+
   $xml_string.= '</export>';
   fwrite($fp, $xml_string);
   fclose($fp);
@@ -2048,7 +2028,7 @@ function pwg_URL()
     'BUGS'       => 'http://bugs.'.PHPWG_DOMAIN.'/',
     'EXTENSIONS' => 'http://'.PHPWG_DOMAIN.'/ext',
     );
-  if ( isset($lang_info['code']) and 
+  if ( isset($lang_info['code']) and
        in_array($lang_info['code'], array('fr','en')) )
   { /* current wiki languages are French or English */
     $urls['WIKI'] .= 'doku.php?id='.$lang_info['code'].':start';
