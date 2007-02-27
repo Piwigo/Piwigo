@@ -103,8 +103,7 @@ foreach ($pictures as $row)
       'CLASS'              => 'thumbElmt',
       )
     );
-  if ($user['show_nb_hits']
-      and isset($page['category']))
+  if ($user['show_nb_hits'])
   {
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_hits',
@@ -155,9 +154,7 @@ foreach ($pictures as $row)
       );
   }
 
-  if ($user['show_nb_comments']
-      and isset($page['category'])
-      and $page['category']['commentable'])
+  if ($user['show_nb_comments'])
   {
     $query = '
 SELECT COUNT(*) AS nb_comments

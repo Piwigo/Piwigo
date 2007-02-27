@@ -32,7 +32,7 @@
       <!-- END mode_normal -->
 
       <!-- BEGIN flat -->
-      <li><a href="{flat.URL}" title="{lang:mode_flat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat.png" class="button" alt="{lang:flat_hint}"></a></li>
+      <li><a href="{flat.URL}" title="{lang:mode_flat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat.png" class="button" alt="{lang:mode_flat_hint}"></a></li>
       <!-- END flat -->
 
       <!-- BEGIN mode_posted -->
