@@ -15,8 +15,8 @@
     <dd>
       <ul>
         <li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
-        <li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
         <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
+        <li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
       </ul>
     </dd>
   </dl>
@@ -29,7 +29,6 @@
         <li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
         <li><a href="{U_MOVE}">{lang:Move}</a></li>
         <li><a href="{U_CAT_UPLOAD}">{lang:upload}</a></li>
-        <li><a href="{U_CAT_COMMENTS}">{lang:comments}</a></li>
         <li><a href="{U_CAT_VISIBLE}">{lang:lock}</a></li>
         <li><a href="{U_CAT_STATUS}">{lang:cat_security}</a></li>
         <!-- BEGIN representative -->

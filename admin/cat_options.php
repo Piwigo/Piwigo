@@ -60,16 +60,6 @@ UPDATE '.CATEGORIES_TABLE.'
       pwg_query($query);
       break;
     }
-    case 'comments' :
-    {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \'false\'
-  WHERE id IN ('.implode(',', $_POST['cat_true']).')
-;';
-      pwg_query($query);
-      break;
-    }
     case 'visible' :
     {
       set_cat_visible($_POST['cat_true'], 'false');
@@ -103,16 +93,6 @@ else if (isset($_POST['trueify'])
       $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET uploadable = \'true\'
-  WHERE id IN ('.implode(',', $_POST['cat_false']).')
-;';
-      pwg_query($query);
-      break;
-    }
-    case 'comments' :
-    {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \'true\'
   WHERE id IN ('.implode(',', $_POST['cat_false']).')
 ;';
       pwg_query($query);
@@ -199,27 +179,6 @@ SELECT id,name,uppercats,global_rank
     $template->assign_vars(
       array(
         'L_SECTION' => $lang['cat_upload_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
-        'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
-        )
-      );
-    break;
-  }
-  case 'comments' :
-  {
-    $query_true = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE commentable = \'true\'
-;';
-    $query_false = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE commentable = \'false\'
-;';
-    $template->assign_vars(
-      array(
-        'L_SECTION' => $lang['cat_comments_title'],
         'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
         'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
         )

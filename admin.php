@@ -95,7 +95,6 @@ $template->assign_vars(
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_MOVE'=> $link_start.'cat_move',
     'U_CAT_UPLOAD'=> $opt_link.'upload',
-    'U_CAT_COMMENTS'=> $opt_link.'comments',
     'U_CAT_VISIBLE'=> $opt_link.'visible',
     'U_CAT_STATUS'=> $opt_link.'status',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
