@@ -413,7 +413,7 @@ function pwg_get_sync_iptc_data($file)
     $iptc[$pwg_key] = htmlentities($value);
   }
 
-  $iptc['keywords'] = implode(',', array_unique(explode(',', $iptc['keywords'])));
+  $iptc['keywords'] = isset($iptc['keywords']) ? implode(',', array_unique(explode(',', $iptc['keywords']))) : NULL;
 
   //~ pwg_log('<<<<< pwg_get_sync_iptc_data() returns '.var_export($iptc, TRUE).' <<<<<'."\n");
   return $iptc;
