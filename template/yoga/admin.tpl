@@ -6,7 +6,7 @@
       <ul>
         <li><a href="{U_RETURN}">{lang:home}</a></li>
         <li><a href="{U_FAQ}">{lang:instructions}</a></li>
-        <li><a href="{U_ADMIN}" title="{L_ADMIN_HINT}">{L_ADMIN}</a></li>
+        <li><a href="{U_ADMIN}" title="{lang:hint_admin}">{lang:admin}</a></li>
       </ul>
     </dd>
   </dl>
@@ -34,6 +34,7 @@
         <!-- BEGIN representative -->
         <li><a href="{representative.URL}">{lang:Representative}</a></li>
         <!-- END representative -->
+        <li><a href="{U_PERMALINKS}">{lang:Permalinks}</a></li>
       </ul>
     </dd>
   </dl>

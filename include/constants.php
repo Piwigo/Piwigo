@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -75,4 +74,5 @@ define('TAGS_TABLE', $prefixeTable.'tags');
 define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
 define('PLUGINS_TABLE', $prefixeTable.'plugins');
 define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
+define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 ?>

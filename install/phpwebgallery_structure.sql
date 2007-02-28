@@ -38,8 +38,10 @@ CREATE TABLE `phpwebgallery_categories` (
   `commentable` enum('true','false') NOT NULL default 'true',
   `global_rank` varchar(255) default NULL,
   `image_order` varchar(128) default NULL,
+  `permalink` VARCHAR(64) default NULL,
   PRIMARY KEY  (`id`),
-  KEY `categories_i2` (`id_uppercat`)
+  KEY `categories_i2` (`id_uppercat`),
+  UNIQUE KEY `categories_i3` (`permalink`)
 ) TYPE=MyISAM;
 
 --
@@ -200,6 +202,20 @@ CREATE TABLE `phpwebgallery_images` (
   KEY `images_i4` (`hit`),
   KEY `images_i5` (`date_creation`),
   KEY `images_i1` (`storage_category_id`)
+) TYPE=MyISAM;
+
+--
+-- Table structure for table `phpwebgallery_old_permalinks`
+--
+
+DROP TABLE IF EXISTS `phpwebgallery_old_permalinks`;
+CREATE TABLE `phpwebgallery_old_permalinks` (
+  `cat_id` smallint(5) unsigned NOT NULL,
+  `permalink` VARCHAR(64) NOT NULL,
+  `date_deleted` datetime NOT NULL,
+  `last_hit` datetime default NULL,
+  `hit` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY (`permalink`)
 ) TYPE=MyISAM;
 
 --

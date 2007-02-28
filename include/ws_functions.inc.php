@@ -319,7 +319,7 @@ function ws_categories_getImages($params, &$service)
   $where_clauses[] = 'id NOT IN ('.$user['forbidden_categories'].')';
 
   $query = '
-SELECT id, name, image_order
+SELECT id, name, permalink, image_order
   FROM '.CATEGORIES_TABLE.'
   WHERE '. implode('
     AND ', $where_clauses);
@@ -465,7 +465,7 @@ function ws_categories_getList($params, &$service)
   }
 
   $query = '
-SELECT id, name, uppercats, global_rank,
+SELECT id, name, permalink, uppercats, global_rank,
     nb_images, count_images AS total_nb_images,
     date_last, max_date_last, count_categories AS nb_categories
   FROM '.CATEGORIES_TABLE.'
@@ -596,7 +596,7 @@ LIMIT 1;';
 
   //-------------------------------------------------------- related categories
   $query = '
-SELECT id, name, uppercats, global_rank, commentable
+SELECT id, name, permalink, uppercats, global_rank, commentable
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
   WHERE image_id = '.$image_row['id'].'

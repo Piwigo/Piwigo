@@ -336,10 +336,22 @@ function make_section_in_url($params)
             'make_section_in_url category name not set', E_USER_WARNING
             );
 
-        $section_string.= '/category/'.$params['category']['id'];
-        if ( $conf['category_url_style']=='id-name' )
+        array_key_exists('permalink', $params['category']) or trigger_error(
+            'make_section_in_url category permalink not set', E_USER_WARNING
+            );
+
+        $section_string.= '/category/';
+        if ( empty($params['category']['permalink']) )
         {
-          $section_string.= '-'.str2url($params['category']['name']);
+          $section_string.= $params['category']['id'];
+          if ( $conf['category_url_style']=='id-name' )
+          {
+            $section_string.= '-'.str2url($params['category']['name']);
+          }
+        }
+        else
+        {
+          $section_string.= $params['category']['permalink'];
         }
       }
 

@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -43,6 +42,7 @@ $lang['%d waiting pictures validated'] = '%d waiting pictures validated';
 $lang['A new version of PhpWebGallery is available.'] = 'A new version of PhpWebGallery is available.';
 $lang['Actions'] = 'Actions';
 $lang['Activate'] = 'Activate';
+$lang['Add/delete a permalink'] = 'Add/delete a permalink';
 $lang['Add a tag'] = 'Add a tag';
 $lang['Add a user'] = 'Add a user';
 $lang['Add group'] = 'Add group';
@@ -137,6 +137,12 @@ $lang['Other private categories'] = 'Other private categories';
 $lang['Page banner'] = 'Page banner';
 $lang['Parent category'] = 'Parent category';
 $lang['Path'] = 'Path';
+$lang['Permalink'] = 'Permalink';
+$lang['Permalink_%s_histo_used_by_%s'] = 'Permalink %s has been previously used by category %s. Delete from the permalink history first';
+$lang['Permalink_name_rule'] = 'The permalink name must be composed of a-z, A-Z, 0-9, "-" or "_". It must not be numeric or start with number followed by "-"';
+$lang['Permalink %s is already used by category %s'] = 'Permalink %s is already used by category %s';
+$lang['Permalink history'] = 'Permalink history';
+$lang['Permalinks'] = 'Permalinks';
 $lang['Permission denied'] = 'Permission denied';
 $lang['Permission granted thanks to a group'] = 'Permission granted thanks to a group';
 $lang['Permission granted'] = 'Permission granted';
@@ -159,6 +165,7 @@ $lang['Representation of categories'] = 'Representation of categories';
 $lang['Representative'] = 'Representative';
 $lang['Represents'] = 'Represents';
 $lang['Save order'] = 'Save order';
+$lang['Save to permalink history'] = 'Save to permalink history';
 $lang['Select at least one category'] = 'Select at least one category';
 $lang['Select at least one picture'] = 'Select at least one picture';
 $lang['Select at least one user'] = 'Select at least one user';

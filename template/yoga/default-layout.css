@@ -80,6 +80,12 @@ FORM P {
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
+
+FORM FIELDSET P {
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+
 .small {
 	font-size: 80%;
 }

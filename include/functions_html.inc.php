@@ -234,8 +234,8 @@ function create_navigation_bar(
  * returns the list of categories as a HTML string
  *
  * categories string returned contains categories as given in the input
- * array $cat_informations. $cat_informations array must be an association
- * of {category_id => array( id, name) }. If url input parameter is null,
+ * array $cat_informations. $cat_informations array must be an array
+ * of array( id=>?, name=>?, permalink=>?). If url input parameter is null,
  * returns only the categories name without links.
  *
  * @param array cat_informations
@@ -251,10 +251,10 @@ function get_cat_display_name($cat_informations,
 
   $output = '';
   $is_first = true;
-  foreach ($cat_informations as $id => $cat)
+  foreach ($cat_informations as $cat)
   {
     is_array($cat) or trigger_error(
-        'get_cat_display_name wrong type for cat '.$id, E_USER_WARNING
+        'get_cat_display_name wrong type for category ', E_USER_WARNING
       );
     if ($is_first)
     {
@@ -282,7 +282,7 @@ function get_cat_display_name($cat_informations,
     }
     else
     {
-      $output.= '<a href="'.PHPWG_ROOT_PATH.$url.$id.'">';
+      $output.= '<a href="'.PHPWG_ROOT_PATH.$url.$cat['id'].'">';
       $output.= $cat['name'].'</a>';
     }
   }
@@ -318,14 +318,10 @@ function get_cat_display_name_cache($uppercats,
   if (!isset($cache['cat_names']))
   {
     $query = '
-SELECT id, name
+SELECT id, name, permalink
   FROM '.CATEGORIES_TABLE.'
 ;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
-    {
-      $cache['cat_names'][$row['id']] = $row;
-    }
+    $cache['cat_names'] = hash_from_query($query, 'id');
   }
 
   $output = '';

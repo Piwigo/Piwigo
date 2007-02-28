@@ -369,17 +369,12 @@ SELECT id, name, file, path, tn_ext
   }
 
   // retrieving category informations
-  $categories = array();
   $query = '
-SELECT id, name, uppercats
+SELECT id, name, permalink, uppercats
   FROM '.CATEGORIES_TABLE.'
   WHERE id IN ('.implode(',', $category_ids).')
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_assoc($result))
-  {
-    $categories[$row['id']] = $row;
-  }
+  $categories = hash_from_query($query, 'id');
 
   foreach ($comments as $comment)
   {

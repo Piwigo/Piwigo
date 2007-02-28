@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -107,10 +106,9 @@ $template->assign_vars(
     'U_THUMBNAILS'=> $link_start.'thumbnail',
     'U_USERS'=> $link_start.'user_list',
     'U_GROUPS'=> $link_start.'group_list',
+    'U_PERMALINKS'=> $link_start.'permalinks',
     'U_RETURN'=> make_index_url(),
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
-    'L_ADMIN' => $lang['admin'],
-    'L_ADMIN_HINT' => $lang['hint_admin']
     )
   );
 if ($conf['ws_access_control']) // Do we need to display ws_checker

@@ -1175,6 +1175,26 @@ function simple_hash_from_query($query, $keyname, $valuename)
 }
 
 /**
+ * creates an hashed based on a query, this function is a very common
+ * pattern used here. The key is given as parameter, the value is an associative
+ * array.
+ *
+ * @param string $query
+ * @param string $keyname
+ * @return array
+ */
+function hash_from_query($query, $keyname)
+{
+  $array = array();
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_assoc($result))
+  {
+    $array[ $row[$keyname] ] = $row;
+  }
+  return $array;
+}
+
+/**
  * Return basename of the current script
  * Lower case convertion is applied on return value
  * Return value is without file extention ".php"

@@ -59,7 +59,7 @@ function get_categories_menu()
 SELECT ';
   // From CATEGORIES_TABLE
   $query.= '
-  name, id, nb_images, global_rank,';
+  id, name, permalink, nb_images, global_rank,';
   // From USER_CACHE_CATEGORIES_TABLE
   $query.= '
   date_last, max_date_last, count_images, count_categories';
@@ -159,25 +159,34 @@ SELECT *
     $cat['comment'] = nl2br(@$cat['comment']);
   }
 
-  $names = array();
-  $query = '
-SELECT id, name
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.$cat['uppercats'].')
-;';
-  $result = pwg_query($query);
-  while($row = mysql_fetch_assoc($result))
-  {
-    $names[$row['id']] = $row;
+  $upper_ids = explode(',', $cat['uppercats']);
+  if ( count($upper_ids)==1 )
+  {// no need to make a query for level 1
+    $cat['upper_names'] = array(
+        array(
+          'id' => $cat['id'],
+          'name' => $cat['name'],
+          'permalink' => $cat['permalink'],
+          )
+      );
   }
-
-  // category names must be in the same order than uppercats list
-  $cat['upper_names'] = array();
-  foreach (explode(',', $cat['uppercats']) as $cat_id)
+  else
   {
-    $cat['upper_names'][$cat_id] = $names[$cat_id];
-  }
+    $names = array();
+    $query = '
+  SELECT id, name, permalink
+    FROM '.CATEGORIES_TABLE.'
+    WHERE id IN ('.$cat['uppercats'].')
+  ;';
+    $names = hash_from_query($query, 'id');
 
+    // category names must be in the same order than uppercats list
+    $cat['upper_names'] = array();
+    foreach ($upper_ids as $cat_id)
+    {
+      array_push( $cat['upper_names'], $names[$cat_id]);
+    }
+  }
   return $cat;
 }
 
@@ -308,7 +317,7 @@ function display_select_cat_wrapper($query, $selecteds, $blockname,
   $categories = array();
   if (!empty($result))
   {
-    while ($row = mysql_fetch_array($result))
+    while ($row = mysql_fetch_assoc($result))
     {
       array_push($categories, $row);
     }
@@ -353,6 +362,50 @@ SELECT DISTINCT(id)
     array_push($subcats, $row['id']);
   }
   return $subcats;
+}
+
+/** returns a category id that corresponds to the given permalink (or null)
+ * @param string permalink
+ */
+function get_cat_id_from_permalink( $permalink )
+{
+  $query ='
+SELECT id FROM '.CATEGORIES_TABLE.'
+  WHERE permalink="'.$permalink.'"';
+  $ids = array_from_query($query, 'id');
+  if (!empty($ids))
+  {
+    return $ids[0];
+  }
+  return null;
+}
+
+/** returns a category id that has used before this permalink (or null)
+ * @param string permalink
+ * @param boolean is_hit if true update the usage counters on the old permalinks
+ */
+function get_cat_id_from_old_permalink($permalink, $is_hit)
+{
+  $query='
+SELECT c.id
+  FROM '.OLD_PERMALINKS_TABLE.' op INNER JOIN '.CATEGORIES_TABLE.' c
+    ON op.cat_id=c.id
+  WHERE op.permalink="'.$permalink.'"
+  LIMIT 1';
+  $result = pwg_query($query);
+  $cat_id = null;
+  if ( mysql_num_rows($result) )
+    list( $cat_id ) = mysql_fetch_array($result);
+
+  if ( isset($cat_id) and $is_hit )
+  {
+    $query='
+UPDATE '.OLD_PERMALINKS_TABLE.' SET last_hit=NOW(), hit=hit+1
+  WHERE permalink="'.$permalink.'" AND cat_id='.$cat_id.'
+  LIMIT 1';
+    pwg_query($query);
+  }
+  return $cat_id;
 }
 
 function global_rank_compare($a, $b)

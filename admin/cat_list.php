@@ -138,32 +138,6 @@ SELECT id, name
 }
 
 // +-----------------------------------------------------------------------+
-// |                           Cache management                            |
-// +-----------------------------------------------------------------------+
-$query = '
-SELECT *
-  FROM '.CATEGORIES_TABLE;
-if (!isset($_GET['parent_id']))
-{
-  $query.= '
-  WHERE id_uppercat IS NULL';
-}
-else
-{
-  $query.= '
-  WHERE id_uppercat = '.$_GET['parent_id'];
-}
-$query.= '
-  ORDER BY rank ASC
-;';
-$result = pwg_query($query);
-while ($row = mysql_fetch_assoc($result))
-{
-  $categories[$row['rank']] = $row;
-  $categories[$row['rank']]['nb_subcats'] = 0;
-}
-
-// +-----------------------------------------------------------------------+
 // |                            Navigation path                            |
 // +-----------------------------------------------------------------------+
 
@@ -209,7 +183,7 @@ $tpl = array('cat_first','cat_last');
 $categories = array();
 
 $query = '
-SELECT id, name, dir, rank, nb_images, status
+SELECT id, name, permalink, dir, rank, nb_images, status
   FROM '.CATEGORIES_TABLE;
 if (!isset($_GET['parent_id']))
 {

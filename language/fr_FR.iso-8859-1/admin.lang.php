@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -43,6 +42,7 @@ $lang['%d waiting pictures validated'] = '%d images en attente validées';
 $lang['A new version of PhpWebGallery is available.'] = 'Une nouvelle version de PhpWebGallery est disponible.';
 $lang['Actions'] = 'Actions';
 $lang['Activate'] = 'Activer';
+$lang['Add/delete a permalink'] = 'Ajouter/effacer un lien permanent';
 $lang['Add a tag'] = 'Ajouter un tag';
 $lang['Add a user'] = 'Ajouter un utilisateur';
 $lang['Add group'] = 'Ajouter un groupe';
@@ -137,6 +137,12 @@ $lang['Other private categories'] = 'Autres catégories privées';
 $lang['Page banner'] = 'Bannière des pages';
 $lang['Parent category'] = 'Catégorie parente';
 $lang['Path'] = 'Chemin';
+$lang['Permalink'] = 'Lien permanent';
+$lang['Permalink_%s_histo_used_by_%s'] = 'Le lien permanent %s a été utilisé précédemment par la catégorie %s. Veuillez l\'effacer de l\'historique des liens permanents';
+$lang['Permalink_name_rule'] = 'Le lien permanent ne doit contenir des caractères que parmi "a-zA-Z0-9", "-" ou "_". Il ne doit pas être numérique ou commencer par un nombre suivi par "-"';
+$lang['Permalink %s is already used by category %s'] = 'Le lien permanent %s est dèja utilisé par la catégorie %s';
+$lang['Permalink history'] = 'Historique des liens permanents';
+$lang['Permalinks'] = 'Liens permanents';
 $lang['Permission denied'] = 'Accès interdit';
 $lang['Permission granted thanks to a group'] = 'Accès autorisé grâce à l\'appartenance aux groupes';
 $lang['Permission granted'] = 'Accès autorisé';
@@ -159,6 +165,7 @@ $lang['Representation of categories'] = 'Représentation des catégories';
 $lang['Representative'] = 'Représentant';
 $lang['Represents'] = 'Représente';
 $lang['Save order'] = 'Sauvegarder l\'ordre';
+$lang['Save to permalink history'] = 'Sauvegarder dans l\'historique des liens permanents';
 $lang['Select at least one category'] = 'Sélectionner au moins une catégorie';
 $lang['Select at least one picture'] = 'Sélectionner au moins une image';
 $lang['Select at least one user'] = 'Sélectionner au moins un utilisateur';

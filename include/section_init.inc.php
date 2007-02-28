@@ -107,7 +107,6 @@ if (script_basename() == 'picture') // basename without file extention
       {
         $page['image_file'] = $matches[2];
       }
-
     }
     else
     {
@@ -128,11 +127,39 @@ if (0 === strpos(@$tokens[$next_token], 'categor'))
   $page['section'] = 'categories';
   $next_token++;
 
-  if (isset($tokens[$next_token])
-      and preg_match('/^(\d+)/', $tokens[$next_token], $matches))
+  if (isset($tokens[$next_token]) )
   {
-    $page['category'] = $matches[1];
-    $next_token++;
+    if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
+    {
+      if ( isset($matches[2]) )
+        $page['hit_by']['cat_url_name'] = $matches[2];
+      $page['category'] = $matches[1];
+      $next_token++;
+    }
+    else
+    {
+      if ( strpos($tokens[$next_token], 'created-')!==0
+          and strpos($tokens[$next_token], 'posted-')!==0
+          and $tokens[$next_token] != 'flat')
+      {// try a permalink
+        $cat_id = get_cat_id_from_permalink($tokens[$next_token]);
+        if ( !isset($cat_id) )
+        {//try old permalink
+          $cat_id = get_cat_id_from_old_permalink($tokens[$next_token], true);
+        }
+        if ( isset($cat_id) )
+        {
+          $page['category'] = $cat_id;
+          $page['hit_by']['cat_permalink'] = $tokens[$next_token];
+        }
+        else
+        {
+          page_not_found('Permalink for album not found');
+        }
+        unset($cat_id);
+        $next_token++;
+      }
+    }
   }
 }
 else if (0 === strpos(@$tokens[$next_token], 'tag'))
@@ -688,6 +715,42 @@ elseif ('recent_cats'==$page['section'])
 if ( $filter['enabled'] )
 {
   $page['meta_robots']['noindex']=1;
+}
+
+// see if we need a redirect because of a permalink
+if ( 'categories'==$page['section'] and isset($page['category']) )
+{
+  $need_redirect=false;
+  if ( empty($page['category']['permalink']) )
+  {
+    if ( $conf['category_url_style'] == 'id-name' and
+        @$page['hit_by']['cat_url_name'] !== str2url($page['category']['name']) )
+    {
+      $need_redirect=true;
+    }
+  }
+  else
+  {
+    if ( $page['category']['permalink'] !== @$page['hit_by']['cat_permalink'] )
+    {
+      $need_redirect=true;
+    }
+  }
+
+  if ($need_redirect)
+  {
+    $redirect_url = ( script_basename()=='picture'
+        ? duplicate_picture_url()
+          : duplicate_index_url()
+      );
+    if (!headers_sent())
+    { // this is a permanent redirection
+      set_status_header(302);
+      redirect_http( $redirect_url );
+    }
+    redirect( $redirect_url );
+  }
+  unset( $need_redirect, $page['hit_by'] );
 }
 
 trigger_action('loc_end_section_init');

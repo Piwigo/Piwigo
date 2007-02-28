@@ -1,10 +1,8 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -25,42 +23,49 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-if( !defined("PHPWG_ROOT_PATH") )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  die ("Hacking attempt!");
+  die('Hacking attempt!');
 }
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-check_status(ACCESS_ADMINISTRATOR);
+$upgrade_description = 'add column #categories.permalink and table #old_permalinks';
 
-$sections = explode('/', $_GET['section'] );
-for ($i=0; $i<count($sections); $i++)
-{
-  if (empty($sections[$i]) or $sections[$i]=='..')
-  {
-    unset($sections[$i]);
-    $i--;
-  }
-}
+include_once(PHPWG_ROOT_PATH.'include/constants.php');
 
-if (count($sections)<2)
-{
-  die('Invalid plugin URL');
-}
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
 
-$plugin_id = $sections[0];
-if ( !isset($pwg_loaded_plugins[$plugin_id]) )
-{
-  die('Invalid URL - plugin '.$plugin_id.' not active');
-}
+defined('OLD_PERMALINKS_TABLE') or die('OLD_PERMALINKS_TABLE is not defined');
 
-$filename = PHPWG_PLUGINS_PATH.implode('/', $sections);
-if (is_file($filename))
-{
-  include_once($filename);
-}
-else
-{
-  die('Missing file '.$filename);
-}
+$query = "
+CREATE TABLE `".OLD_PERMALINKS_TABLE."` (
+  `cat_id` smallint(5) unsigned NOT NULL,
+  `permalink` VARCHAR(64) NOT NULL,
+  `date_deleted` datetime NOT NULL,
+  `last_hit` datetime default NULL,
+  `hit` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY (`permalink`)
+) TYPE=MyISAM
+;";
+pwg_query($query);
+
+$query = "
+ALTER TABLE `".CATEGORIES_TABLE."`
+  ADD COLUMN `permalink` VARCHAR(64) default NULL
+;";
+pwg_query($query);
+
+$query = "
+ALTER TABLE `".CATEGORIES_TABLE."`
+  ADD UNIQUE INDEX `categories_i3` (`permalink`)
+;";
+pwg_query($query);
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
+
 ?>

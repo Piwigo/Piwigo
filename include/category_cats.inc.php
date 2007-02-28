@@ -35,7 +35,7 @@ if ($page['section']=='recent_cats')
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id, name, representative_picture_id, comment, nb_images, uppercats,
+  id, name, permalink, representative_picture_id, comment, nb_images, uppercats,
   date_last, max_date_last, count_images, count_categories, global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
@@ -57,7 +57,7 @@ else
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id, name, representative_picture_id, comment, nb_images,
+  id, name, permalink, representative_picture_id, comment, nb_images,
   date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
