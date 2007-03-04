@@ -74,13 +74,6 @@ foreach ($pictures as $row)
 {
   $thumbnail_url = get_thumbnail_url($row);
 
-  // message in title for the thumbnail
-  $thumbnail_title = $row['file'];
-  if (isset($row['filesize']))
-  {
-    $thumbnail_title .= ' : '.$row['filesize'].' KB';
-  }
-
   // link on picture.php page
   $url = duplicate_picture_url(
         array(
@@ -95,7 +88,7 @@ foreach ($pictures as $row)
     array(
       'IMAGE'              => $thumbnail_url,
       'IMAGE_ALT'          => $row['file'],
-      'IMAGE_TITLE'        => $thumbnail_title,
+      'IMAGE_TITLE'        => get_thumbnail_title($row),
       'IMAGE_TS'           => get_icon($row['date_available']),
 
       'U_IMG_LINK'         => $url,

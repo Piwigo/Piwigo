@@ -369,7 +369,7 @@ if (count($page['cat_elements_id']) > 0)
   $template->assign_vars(array('NAV_BAR' => $nav_bar));
 
   $query = '
-SELECT id,path,tn_ext
+SELECT id,path,tn_ext,file,filesize
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
@@ -393,8 +393,8 @@ SELECT id,path,tn_ext
       array(
         'ID' => $row['id'],
         'SRC' => $src,
-        'ALT' => 'TODO',
-        'TITLE' => 'TODO'
+        'ALT' => $row['file'],
+        'TITLE' => get_thumbnail_title($row)
         )
       );
   }

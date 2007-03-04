@@ -819,6 +819,26 @@ function get_thumbnail_location($element_info)
   return $path;
 }
 
+/* returns the title of the thumnail */
+function get_thumbnail_title($element_info)
+{
+  // message in title for the thumbnail
+  if (isset($element_info['file']))
+  {
+    $thumbnail_title = $element_info['file'];
+  }
+  else
+  {
+    $thumbnail_title = '';
+  }
+  
+  if (!empty($element_info['filesize']))
+  {
+    $thumbnail_title .= ' : '.$element_info['filesize'].' KB';
+  }
+
+  return $thumbnail_title;
+}
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
