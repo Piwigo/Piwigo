@@ -41,26 +41,26 @@
   <a class="navButton prev" href="{last.U_IMG}" title="{lang:last_page} : {last.TITLE_IMG}" rel="last"><img src="{pwg_root}{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
 <!-- END last -->
 <!-- BEGIN last_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/last_unactive.png" class="button" alt="{lang:last_page}"></a>
+  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/last_unactive.png" class="button" alt=""></a>
 <!-- END last_unactive -->
 <!-- BEGIN next -->
   <a class="navButton next" href="{next.U_IMG}" title="{lang:next_page} : {next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
 <!-- END next -->
 <!-- BEGIN next_unactive -->
-  <a class="navButton next"><img src="{pwg_root}{themeconf:icon_dir}/right_unactive.png" class="button" alt="{lang:next_page}"></a>
+  <a class="navButton next"><img src="{pwg_root}{themeconf:icon_dir}/right_unactive.png" class="button" alt=""></a>
 <!-- END next_unactive -->
   <a class="navButton up" href="{U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
 <!-- BEGIN previous -->
   <a class="navButton prev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
 <!-- END previous -->
 <!-- BEGIN previous_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/left_unactive.png" class="button" alt="{lang:previous_page}"></a>
+  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/left_unactive.png" class="button" alt=""></a>
 <!-- END previous_unactive -->
 <!-- BEGIN first -->
   <a class="navButton prev" href="{first.U_IMG}" title="{lang:first_page} : {first.TITLE_IMG}" rel="first"><img src="{pwg_root}{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
 <!-- END first -->
 <!-- BEGIN first_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/first_unactive.png" class="button" alt="{lang:first_page}"></a>
+  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/first_unactive.png" class="button" alt=""></a>
 <!-- END first_unactive -->
 </div>
 
