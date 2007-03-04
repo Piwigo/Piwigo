@@ -353,7 +353,8 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 
               if ($conf['nbm_send_html_mail'] and $conf['nbm_send_recent_post_dates'])
               {
-                $recent_post_dates = get_recent_post_dates(7, 3, 9);
+                $recent_post_dates = get_recent_post_dates_array(
+                  $conf['recent_post_dates']['NBM']);
                 foreach ($recent_post_dates as $date_detail)
                 {
                   $env_nbm['mail_template']->assign_block_vars

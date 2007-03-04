@@ -511,6 +511,23 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
   return $dates;
 }
 
+/*
+  Call function get_recent_post_dates but 
+  the parameters to be passed to the function, as an indexed array.
+  
+*/
+function get_recent_post_dates_array($args)
+{
+  return
+    get_recent_post_dates
+    (
+      (empty($args['max_dates']) ? 3 : $args['max_dates']),
+      (empty($args['max_elements']) ? 3 : $args['max_elements']),
+      (empty($args['max_cats']) ? 3 : $args['max_cats'])
+    );
+}
+
+
 /**
  * returns html description about recently published elements grouped by post date
  * @param $date_detail: selected date computed by get_recent_post_dates function

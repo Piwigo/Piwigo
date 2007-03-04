@@ -577,6 +577,12 @@ $conf['nbm_max_treatment_timeout_percent'] = 0.8;
 // nbm_treatment_timeout_default is used by default
 $conf['nbm_treatment_timeout_default'] = 20;
 
+// Parameters used in get_recent_post_dates for the 2 kind of notification
+$conf['recent_post_dates'] = array(
+  'RSS' => array('max_dates' => 5, 'max_elements' => 6, 'max_cats' => 6),
+  'NBM' => array('max_dates' => 7, 'max_elements' => 3, 'max_cats' => 9)
+  );
+
 // +-----------------------------------------------------------------------+
 // | Set default admin layout                                              |
 // +-----------------------------------------------------------------------+
