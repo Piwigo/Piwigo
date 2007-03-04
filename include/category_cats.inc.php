@@ -215,7 +215,7 @@ if (count($categories) > 0)
                                     $category['count_images'],
                                     $category['count_categories'],
                                     true,
-                                    '<BR>'
+                                    '<br />'
                                   ),
           'DESCRIPTION' => @$comment,
           'NAME'  => $name,

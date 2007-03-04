@@ -142,3 +142,5 @@ TD.calDayCellEmpty { color: silver; }
 #content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   display: inline;
 }
+.qsearch { font-size: 80%; font-style: normal; }
+#mbMenu #quicksearch > p { text-align: left; }

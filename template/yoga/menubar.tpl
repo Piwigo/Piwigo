@@ -76,7 +76,7 @@
       <!-- BEGIN summary -->
       <!-- BEGIN quick_search -->
       <form action="{pwg_root}qsearch.php" method="get" id="quicksearch">
-      <p>
+      <p><span class="qsearch">{lang:qsearch}<br /></span>
       <input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;" />
       </p>
       </form>
