@@ -64,16 +64,10 @@ input.rateButtonSelected,
 }
 .browsePath A:hover { color: #fff; }
 #content H2:before, .browsePath:before, .imageNumber:before,
-#imageHeaderBar H2:before {
- content: "__ ";
- font-weight: normal;
- color: #fff;
- font-family: sans-serif;
- letter-spacing: 0em;
-}
+#imageHeaderBar H2:before,
 #content H2:after, .browsePath:after, .imageNumber:after,
 #imageHeaderBar H2:after {
- content: " __ ";
+ content: "   ";
  color: #fff;
  font-family: sans-serif;
  font-weight: normal;
