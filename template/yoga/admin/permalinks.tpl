@@ -5,7 +5,7 @@
   <h2>{lang:Permalinks}</h2>
 </div>
 
-<form method="post">
+<form method="post" action="{F_ACTION}">
 <fieldset><legend>{lang:Add/delete a permalink}</legend>
   <label>Category:
     <select name="cat_id">
@@ -33,15 +33,15 @@
 <h3>{lang:Permalinks}</h3>
 <table class="table2">
   <tr class="throw">
-    <td>Id</td>
-    <td>{lang:Category}</td>
-    <td>{lang:Permalink}</td>
+    <td>Id {SORT_ID}</td>
+    <td>{lang:Category} {SORT_NAME}</td>
+    <td>{lang:Permalink} {SORT_PERMALINK}</td>
   </tr>
 <!-- BEGIN permalink -->
   <tr>
-    <td>{permalink.CAT_ID}</td>
-    <td>{permalink.CAT}</td>
-    <td>{permalink.PERMALINK}</td>
+    <td>{permalink.id}</td>
+    <td>{permalink.name}</td>
+    <td>{permalink.permalink}</td>
   </tr>
 <!-- END permalink -->
 </table>
@@ -49,18 +49,18 @@
 <h3>{lang:Permalink history}</h3>
 <table class="table2">
   <tr class="throw">
-    <td>Id</td>
+    <td>Id {SORT_OLD_CAT_ID}</td>
     <td>{lang:Category}</td>
-    <td>{lang:Permalink}</td>
-    <td>Deleted on</td>
-    <td>Last hit</td>
-    <td>Hit</td>
+    <td>{lang:Permalink} {SORT_OLD_PERMALINK}</td>
+    <td>Deleted on {SORT_OLD_DATE_DELETED}</td>
+    <td>Last hit {SORT_OLD_LAST_HIT}</td>
+    <td>Hit {SORT_OLD_HIT}</td>
     <td></td>
   </tr>
 <!-- BEGIN deleted_permalink -->
   <tr>
     <td>{deleted_permalink.cat_id}</td>
-    <td>{deleted_permalink.display_name}</td>
+    <td>{deleted_permalink.name}</td>
     <td>{deleted_permalink.permalink}</td>
     <td>{deleted_permalink.date_deleted}</td>
     <td>{deleted_permalink.last_hit}</td>

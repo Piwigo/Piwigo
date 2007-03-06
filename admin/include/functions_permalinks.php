@@ -102,12 +102,13 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   
   $sanitized_permalink = preg_replace( '#[^a-zA-Z0-9_-]#', '' ,$permalink);
   if ( $sanitized_permalink != $permalink 
-      or preg_match( '#^(\d)+-?#', $permalink) )
+      or preg_match( '#^(\d)+(-.*)?$#', $permalink) )
   {
     $page['errors'][] = l10n('Permalink_name_rule');
     return false;
   }
   
+  // check if the new permalink is actively used
   $existing_cat_id = get_cat_id_from_permalink( $permalink );
   if ( isset($existing_cat_id) )
   {
@@ -126,35 +127,32 @@ function set_cat_permalink( $cat_id, $permalink, $save )
     }
   }
 
-  if ($save)
+  // check if the new permalink was historically used
+  $old_cat_id = get_cat_id_from_old_permalink($permalink, false);
+  if ( isset($old_cat_id) and $old_cat_id!=$cat_id )
   {
-    $old_cat_id = get_cat_id_from_old_permalink($permalink, false);
-    if ( isset($old_cat_id) )
-    {
-      if ( $old_cat_id!=$cat_id )
-      {
-        $page['errors'][] = 
-          sprintf( 
-            l10n('Permalink_%s_histo_used_by_%s'),
-            $permalink, $old_cat_id
-          );
-        return false;
-      }
-      else
-      {
-        $query = '
-DELETE FROM '.OLD_PERMALINKS_TABLE.'
-  WHERE cat_id='.$cat_id.' AND permalink="'.$permalink.'"';
-        pwg_query($query);
-      }
-    }
+    $page['errors'][] = 
+      sprintf( 
+        l10n('Permalink_%s_histo_used_by_%s'),
+        $permalink, $old_cat_id
+      );
+    return false;
   }
-  
+
   if ( !delete_cat_permalink($cat_id, $save ) )
   {
     return false;
   }
 
+  if ( isset($old_cat_id) )
+  {// the new permalink must not be active and old at the same time
+    assert( $old_cat_id==$cat_id );
+    $query = '
+DELETE FROM '.OLD_PERMALINKS_TABLE.'
+  WHERE cat_id='.$old_cat_id.' AND permalink="'.$permalink.'"';
+    pwg_query($query);
+  }
+  
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET permalink="'.$permalink.'"

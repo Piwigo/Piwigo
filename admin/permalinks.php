@@ -23,6 +23,56 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+function parse_sort_variables(
+    $sortable_by, $default_field,
+    $get_param, $get_rejects,
+    $template_var )
+{
+  global $template;
+  
+  $url_components = parse_url( $_SERVER['REQUEST_URI'] );
+
+  $base_url = $url_components['path'];
+  
+  parse_str($url_components['query'], $vars);
+  $is_first = true;
+  foreach ($vars as $key => $value)
+  {
+    if (!in_array($key, $get_rejects) and $key!=$get_param)
+    {
+      $base_url .= $is_first ? '?' : '&amp;';
+      $is_first = false;
+      $base_url .= $key.'='.urlencode($value);
+    }
+  }
+
+  $ret = array();
+  foreach( $sortable_by as $field)
+  {
+    $url = $base_url;
+    if ( $field !== @$_GET[$get_param] )
+    {
+      if ( !isset($default_field) or $default_field!=$field )
+      { // the first should be the default
+        $url = add_url_params($url, array($get_param=>$field) );
+      }
+      $disp = '&dArr;'; // TODO: an small image is better
+    }
+    else
+    {
+      array_push($ret, $field);
+      $disp = '<em>&dArr;</em>'; // TODO: an small image is better
+    }
+    if ( isset($template_var) )
+    {
+      $template->assign_var( $template_var.strtoupper($field),
+            '<a href="'.$url.'" title="'.l10n('Sort order').'">'.$disp.'</a>'
+         );
+    }
+  }
+  return $ret;
+}
+
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
@@ -48,6 +98,7 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
     array_push($page['errors'], 'Cannot delete the old permalink !');
 }
 
+
 $template->set_filename('permalinks', 'admin/permalinks.tpl' );
 
 $query = '
@@ -59,30 +110,61 @@ FROM '.CATEGORIES_TABLE;
 
 display_select_cat_wrapper( $query, $selected_cat, 'categories', false );
 
+
+// --- generate display of active permalinks -----------------------------------
+$sort_by = parse_sort_variables(
+    array('id', 'name', 'permalink'), 'name',
+    'psf',
+    array('delete_permanent'),
+    'SORT_' );
+
 $query = '
-SELECT id, name, permalink 
+SELECT id, permalink, uppercats, global_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE permalink IS NOT NULL';
+  WHERE permalink IS NOT NULL
+';
+if ( count($sort_by) and
+      ($sort_by[0]=='id' or $sort_by[0]=='permalink')
+    )
+{
+  $query .= ' ORDER BY '.$sort_by[0];
+}
+$categories=array();
 $result=pwg_query($query);
 while ( $row=mysql_fetch_assoc($result) )
 {
-  $display_name = get_cat_display_name( array($row) );
-  $template->assign_block_vars( 'permalink',
-    array(
-      'CAT_ID' => $row['id'],
-      'CAT' => $display_name,
-      'PERMALINK' => $row['permalink'],
-    )
-    );
+  $row['name'] = get_cat_display_name_cache( $row['uppercats'] );
+  $categories[] = $row;
 }
 
-$url_del_base = get_root_url().'admin.php?page=permalinks';
+if ( !count($sort_by) or $sort_by[0]='name')
+{
+  usort($categories, 'global_rank_compare');
+}
+foreach ($categories as $cat)
+{
+  $template->assign_block_vars( 'permalink', $cat );
+}
 
+
+// --- generate display of old permalinks --------------------------------------
+
+$sort_by = parse_sort_variables(
+    array('cat_id','permalink','date_deleted','last_hit','hit'), null,
+    'dpsf',
+    array('delete_permanent'),
+    'SORT_OLD_' );
+
+$url_del_base = get_root_url().'admin.php?page=permalinks';
 $query = 'SELECT * FROM '.OLD_PERMALINKS_TABLE;
+if ( count($sort_by) )
+{
+  $query .= ' ORDER BY '.$sort_by[0];
+}
 $result = pwg_query($query);
 while ( $row=mysql_fetch_assoc($result) )
 {
-  $row['display_name'] = get_cat_display_name_cache($row['cat_id']);
+  $row['name'] = get_cat_display_name_cache($row['cat_id']);
   $row['U_DELETE'] =
       add_url_params(
         $url_del_base,

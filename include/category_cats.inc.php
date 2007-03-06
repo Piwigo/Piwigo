@@ -177,7 +177,7 @@ if (count($categories) > 0)
   {
     update_cats_with_filtered_data($categories);
   }
-
+  trigger_action('loc_begin_index_categories');
   if ($conf['subcatify'])
   {
     $template->set_filename('mainpage_categories', 'mainpage_categories.tpl');
