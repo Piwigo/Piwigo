@@ -36,6 +36,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_notification_by_mail.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
@@ -573,7 +574,6 @@ $template->assign_vars
 (
   array
   (
-    'U_TABSHEET_TITLE' => l10n('nbm_'.$page['mode'].'_mode'),
     'U_HELP' => add_url_params(get_root_url().'popuphelp.php', array('page' => 'notification_by_mail')),
     'F_ACTION'=> $base_url.get_query_string_diff(array())
   )
@@ -581,16 +581,31 @@ $template->assign_vars
 
 if (is_autorize_status(ACCESS_WEBMASTER))
 {
-  $template->assign_block_vars
+  // TabSheet initialization
+  $page['tabsheet'] = array
   (
-    'header_link',
-    array
-    (
-      'PARAM_MODE' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'param')),
-      'SUBSCRIBE_MODE' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'subscribe')),
-      'SEND_MODE' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'send'))
-    )
+    'param' => array
+     (
+      'caption' => l10n('nbm_param_mode'),
+      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), 
+        array('mode' => 'param'))
+     ),
+    'subscribe' => array
+     (
+      'caption' => l10n('nbm_subscribe_mode'),
+      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'subscribe')),
+     ),
+    'send' => array
+     (
+      'caption' => l10n('nbm_send_mode'),
+      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'send'))
+     )
   );
+
+  $page['tabsheet'][$page['mode']]['selected'] = true;
+
+  // Assign tabsheet to template
+  template_assign_tabsheet();
 }
 
 if ($must_repost)

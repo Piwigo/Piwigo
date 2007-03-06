@@ -150,3 +150,27 @@ FIELDSET#generalConf TEXTAREA.description {
   background-color: #66f;
   border: 1px solid black;
 }
+
+/* Tabsheet */
+.tabsheet {
+  display: table;
+  list-style-type: none;
+  list-style-image: none; /* for firefox */
+  white-space: nowrap; 
+  margin-left: auto; margin-right: auto;
+  text-decoration : none;
+  background: transparent;
+}
+
+.tabsheet li {
+  float: left;
+  text-align: center;
+  margin: 0 6px;
+  color: white;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 4px 8px;
+  border: 1px solid #fff;
+}
+
+/* Tabsheet */

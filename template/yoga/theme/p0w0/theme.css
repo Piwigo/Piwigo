@@ -276,3 +276,25 @@ input.submit:active {
 }
 .qsearch { font-size: 80%; font-style: italic; }
 * { outline: none; }
+
+.tabsheet li {
+  background: #369;
+  color: white;
+  border: 1px solid #fff;
+}
+
+.tabsheet a {
+  color: white;
+}
+
+.selected_tab {
+  background: #69c !important;
+}
+
+.tabsheet li:hover {
+  border: 1px solid #f92 !important;
+}
+
+.tabsheet li:hover a:hover {
+  color: #f92;
+}

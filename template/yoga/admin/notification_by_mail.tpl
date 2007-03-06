@@ -3,14 +3,8 @@
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:nbm_send_mail_to_users} [{U_TABSHEET_TITLE}]</h2>
-  <!-- BEGIN header_link -->
-  <h3>
-      <a href="{header_link.PARAM_MODE}">{lang:nbm_param_mode}</a> | 
-      <a href="{header_link.SUBSCRIBE_MODE}">{lang:nbm_subscribe_mode}</a> | 
-      <a href="{header_link.SEND_MODE}">{lang:nbm_send_mode}</a>
-  </h3>
-  <!-- END header_link -->
+  <h2>{lang:nbm_send_mail_to_users} {TABSHEET_TITLE}</h2>
+  {TABSHEET}
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{F_ACTION}">

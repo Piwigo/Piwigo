@@ -144,3 +144,17 @@ TD.calDayCellEmpty { color: silver; }
 }
 .qsearch { font-size: 80%; font-style: normal; }
 #mbMenu #quicksearch > p { text-align: left; }
+
+.tabsheet li {
+  background: #3f3f3f;
+  color: white;
+  border: 1px solid #fff;
+}
+
+.selected_tab {
+  background: #5f5f5f !important;
+}
+
+.tabsheet li:hover {
+  border: 1px solid #FFF48E;
+}
