@@ -122,7 +122,7 @@ DELETE FROM '.CATEGORIES_TABLE.'
 
    $query='
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
-  WHERE cat_id IN ('.implode(',',$cat_ids).')';
+  WHERE cat_id IN ('.implode(',',$ids).')';
   pwg_query($query);
 
   if (isset($counts['del_categories']))
