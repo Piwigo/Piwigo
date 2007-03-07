@@ -557,8 +557,9 @@ SELECT image_id
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE date_available > \''.
-      date('Y-m-d', time() - 60*60*24*$user['recent_period']).'\'
+  WHERE
+    date_available >= SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)
     '.$forbidden.'
   '.$conf['order_by'].'
 ;';

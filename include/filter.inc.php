@@ -95,7 +95,7 @@ WHERE ';
   category_id  IN ('.$filter['visible_categories'].') and';
     }
   $query.= '
-    date_available  > SUBDATE(
+    date_available >= SUBDATE(
       CURRENT_DATE,INTERVAL '.$filter['recent_period'].' DAY)';
 
     $filter['visible_images'] = implode(',', array_from_query($query, 'image_id'));

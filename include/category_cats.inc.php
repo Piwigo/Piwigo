@@ -39,7 +39,7 @@ SELECT
   date_last, max_date_last, count_images, count_categories, global_rank
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
-  WHERE date_last > SUBDATE(
+  WHERE date_last >= SUBDATE(
     CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
   )
 '.get_sql_condition_FandF

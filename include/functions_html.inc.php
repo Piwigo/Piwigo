@@ -55,10 +55,17 @@ function get_icon($date, $is_child_date = false)
     return '';
   }
 
-  $diff = time() - $unixtime;
+  if (!isset($page['get_icon_cache']['unix_timestamp']))
+  {
+    // Use MySql date in order to standardize all recent "actions/queries"
+    list($page['get_icon_cache']['unix_timestamp']) = 
+      mysql_fetch_array(pwg_query('select UNIX_TIMESTAMP(CURRENT_DATE)'));
+  }
+
+  $diff = $page['get_icon_cache']['unix_timestamp'] - $unixtime;
   $day_in_seconds = 24*60*60;
   $page['get_icon_cache'][$date] = false;
-  if ( $diff < $user['recent_period'] * $day_in_seconds )
+  if ( $diff <= $user['recent_period'] * $day_in_seconds )
   {
     if ( !isset($page['get_icon_cache']['_icons_'] ) )
     {
