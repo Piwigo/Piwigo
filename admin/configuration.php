@@ -158,32 +158,6 @@ UPDATE '.CONFIG_TABLE.'
   load_conf_from_db();
 }
 
-if ( $page['section']=='comments' and !is_adviser() )
-{
-  if (isset($_POST['falsify'])
-      and isset($_POST['cat_true'])
-      and count($_POST['cat_true']) > 0)
-  {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \'false\'
-  WHERE id IN ('.implode(',', $_POST['cat_true']).')
-;';
-      pwg_query($query);
-  }
-  if (isset($_POST['trueify'])
-         and isset($_POST['cat_false'])
-         and count($_POST['cat_false']) > 0)
-  {
-      $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET commentable = \'true\'
-  WHERE id IN ('.implode(',', $_POST['cat_false']).')
-;';
-      pwg_query($query);
-  }
-}
-
 //----------------------------------------------------- template initialization
 $template->set_filenames( array('config'=>'admin/configuration.tpl') );
 
@@ -252,19 +226,6 @@ switch ($page['section'])
             )
         );
     }
-    
-    $query_true = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE commentable = \'true\'
-;';
-    $query_false = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE commentable = \'false\'
-;';
-    display_select_cat_wrapper($query_true,array(),'comments.category_option_true');
-    display_select_cat_wrapper($query_false,array(),'comments.category_option_false');
     break;
   }
   case 'default' :

@@ -221,35 +221,3 @@
     <input class="submit" type="reset" name="reset" value="{lang:Reset}">
   </p>
 </form>
-
-
-<!-- BEGIN comments -->
-<form method="post" action="{F_ACTION}" class="properties">
-<fieldset>
-  <legend>{lang:cat_comments_title}</legend>
-  <table class="doubleSelect">
-    <tr>
-      <td>
-        <h3>{lang:authorized}</h3>
-        <select class="categoryList" name="cat_true[]" multiple="multiple" size="30">
-          <!-- BEGIN category_option_true -->
-          <option {comments.category_option_true.SELECTED} value="{comments.category_option_true.VALUE}">{comments.category_option_true.OPTION}</option>
-          <!-- END category_option_true -->
-        </select>
-        <p><input class="submit" type="submit" value="&raquo;" name="falsify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
-      </td>
-
-      <td>
-        <h3>{lang:forbidden}</h3>
-        <select class="categoryList" name="cat_false[]" multiple="multiple" size="30">
-          <!-- BEGIN category_option_false -->
-          <option {comments.category_option_false.SELECTED} value="{comments.category_option_false.VALUE}">{comments.category_option_false.OPTION}</option>
-          <!-- END category_option_false -->
-        </select>
-        <p><input class="submit" type="submit" value="&laquo;" name="trueify" style="font-size:15px;" {TAG_INPUT_ENABLED}/></p>
-      </td>
-    </tr>
-  </table>
-</fieldset>
-</form>
-<!-- END comments -->
