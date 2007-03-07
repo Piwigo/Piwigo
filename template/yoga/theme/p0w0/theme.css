@@ -277,10 +277,14 @@ input.submit:active {
 .qsearch { font-size: 80%; font-style: italic; }
 * { outline: none; }
 
+.tabsheet { border-bottom: 1px solid #369; }
 .tabsheet li {
   background: #369;
   color: white;
   border: 1px solid #fff;
+  border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
+  -moz-border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
+  padding: 5px 4em 2px 4em;
 }
 
 .tabsheet a {
