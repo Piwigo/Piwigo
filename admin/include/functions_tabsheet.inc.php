@@ -4,10 +4,10 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | file          : $Id$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | file          : $Id: functions_tabsheet.inc.php 1874 2007-03-06 02:07:15Z rub $
+// | last update   : $Date: 2007-03-06 03:07:15 +0100 (mar., 06 mars 2007) $
+// | last modifier : $Author: rub $
+// | revision      : $Revision: 1874 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -71,7 +71,4 @@ function template_assign_tabsheet()
   }
 }
 
-//TOTO:Voir pour intégrer U_TABSHEET_TITLE dans les autres tabs 
-//TODO:Selected sans link
-//Remplacer mode par tab_caption
 ?>

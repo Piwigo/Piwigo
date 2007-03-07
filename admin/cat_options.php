@@ -31,6 +31,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -162,6 +163,46 @@ $template->assign_vars(
     'F_ACTION'=>$base_url.$page['section']
    )
  );
+
+// TabSheet initialization
+$opt_link = $link_start.'cat_options&amp;section=';
+$page['tabsheet'] = array
+(
+  'upload' => array
+   (
+    'caption' => l10n('upload'),
+    'url' => $opt_link.'upload'
+   ),
+  'comments' => array
+   (
+    'caption' => l10n('comments'),
+    'url' => $opt_link.'comments'
+   ),
+  'visible' => array
+   (
+    'caption' => l10n('lock'),
+    'url' => $opt_link.'visible'
+   ),
+  'status' => array
+   (
+    'caption' => l10n('cat_security'),
+    'url' => $opt_link.'status'
+   )
+);
+
+if ($conf['allow_random_representative'])
+{
+  $page['tabsheet']['representative'] =
+    array
+    (
+      'caption' => l10n('Representative'),
+      'url' => $opt_link.'representative'
+    );
+}
+$page['tabsheet'][$page['section']]['selected'] = true;
+
+// Assign tabsheet to template
+template_assign_tabsheet();
 
 // +-----------------------------------------------------------------------+
 // |                              form display                             |

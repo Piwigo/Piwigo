@@ -69,7 +69,6 @@ $page['infos']  = array();
 
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
-$opt_link = $link_start.'cat_options&amp;section=';
 //----------------------------------------------------- template initialization
 $title = l10n('PhpWebGallery Administration'); // for include/page_header.php
 $page['page_banner'] = '<h1>'.l10n('PhpWebGallery Administration').'</h1>';
@@ -93,10 +92,6 @@ $template->assign_vars(
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_MOVE'=> $link_start.'cat_move',
-    'U_CAT_UPLOAD'=> $opt_link.'upload',
-    'U_CAT_COMMENTS'=> $opt_link.'comments',
-    'U_CAT_VISIBLE'=> $opt_link.'visible',
-    'U_CAT_STATUS'=> $opt_link.'status',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
     'U_CAT_UPDATE'=> $link_start.'site_update&amp;site=1',
     'U_WAITING'=> $link_start.'waiting',
@@ -118,15 +113,6 @@ if ($conf['ws_access_control']) // Do we need to display ws_checker
     'web_services',
     array(
       'U_WS_CHECKER'=> $link_start.'ws_checker',
-      )
-    );
-}
-if ($conf['allow_random_representative'])
-{
-  $template->assign_block_vars(
-    'representative',
-    array(
-      'URL' => $opt_link.'representative'
       )
     );
 }

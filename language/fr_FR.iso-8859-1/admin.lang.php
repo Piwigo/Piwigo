@@ -414,7 +414,6 @@ $lang['synchronize'] = 'synchroniser';
 $lang['target'] = 'cible';
 $lang['thumbnail'] = 'miniature';
 $lang['title'] = 'titre';
-$lang['title_cat_options'] = 'Options des catégories';
 $lang['title_categories'] = 'Gestion des catégories';
 $lang['title_configuration'] = 'Configuration de PhpWebGallery';
 $lang['title_default'] = 'Administration de PhpWebGallery';

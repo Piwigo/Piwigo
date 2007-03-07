@@ -284,7 +284,7 @@ input.submit:active {
   border: 1px solid #fff;
   border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
   -moz-border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
-  padding: 5px 4em 2px 4em;
+  padding: 5px 2em 2px 2em;
 }
 
 .tabsheet a {

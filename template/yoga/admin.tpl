@@ -28,13 +28,7 @@
         <li><a href="{U_CAT_UPDATE}">{lang:update}</a><br />&nbsp;</li>
         <li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
         <li><a href="{U_MOVE}">{lang:Move}</a></li>
-        <li><a href="{U_CAT_UPLOAD}">{lang:upload}</a></li>
-        <li><a href="{U_CAT_COMMENTS}">{lang:comments}</a></li>
-        <li><a href="{U_CAT_VISIBLE}">{lang:lock}</a></li>
-        <li><a href="{U_CAT_STATUS}">{lang:cat_security}</a></li>
-        <!-- BEGIN representative -->
-        <li><a href="{representative.URL}">{lang:Representative}</a></li>
-        <!-- END representative -->
+        <li><a href="{U_CAT_OPTIONS}">{lang:Batch management}</a></li>
         <li><a href="{U_PERMALINKS}">{lang:Permalinks}</a></li>
       </ul>
     </dd>
