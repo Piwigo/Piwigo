@@ -3,15 +3,14 @@
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:title_configuration}</h2>
+  <h2>{lang:title_configuration} {TABSHEET_TITLE}</h2>
+  {TABSHEET}
 </div>
 
 <form method="post" action="{F_ACTION}" class="properties">
 
 <!-- BEGIN general -->
 <fieldset id="generalConf">
-  <legend>{lang:conf_general_title}</legend>
-
   <ul>
     <li>
       <span class="property">
@@ -91,8 +90,6 @@
 
 <!-- BEGIN comments -->
 <fieldset id="commentsConf">
-  <legend>{lang:conf_comments_title}</legend>
-
   <ul>
     <li>
       <label>
@@ -135,8 +132,6 @@
 <!-- END comments -->
 <!-- BEGIN default -->
 <fieldset id="commentsConf">
-  <legend>{lang:conf_default_title}</legend>
-
   <ul>
     <li>
       <span class="property">

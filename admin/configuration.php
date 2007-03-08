@@ -31,6 +31,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -159,7 +160,32 @@ UPDATE '.CONFIG_TABLE.'
 }
 
 //----------------------------------------------------- template initialization
-$template->set_filenames( array('config'=>'admin/configuration.tpl') );
+$template->set_filename('config', 'admin/configuration.tpl');
+
+// TabSheet initialization
+$page['tabsheet'] = array
+(
+  'general' => array
+   (
+    'caption' => l10n('conf_general_title'),
+    'url' => $conf_link.'general'
+   ),
+  'comments' => array
+   (
+    'caption' => l10n('conf_comments_title'),
+    'url' => $conf_link.'comments'
+   ),
+  'default' => array
+   (
+    'caption' => l10n('conf_default'),
+    'url' => $conf_link.'default'
+   )
+);
+
+$page['tabsheet'][$page['section']]['selected'] = true;
+
+// Assign tabsheet to template
+template_assign_tabsheet();
 
 $action = PHPWG_ROOT_PATH.'admin.php?page=configuration';
 $action.= '&amp;section='.$page['section'];

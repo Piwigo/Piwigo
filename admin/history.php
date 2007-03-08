@@ -48,6 +48,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
 
 if (isset($_GET['start']) and is_numeric($_GET['start']))
 {
@@ -128,7 +129,10 @@ INSERT INTO '.SEARCH_TABLE.'
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('history'=>'admin/history.tpl'));
+$template->set_filename('history', 'admin/history.tpl');
+
+// TabSheet initialization
+history_tabsheet();
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=history';
 

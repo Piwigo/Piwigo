@@ -31,6 +31,7 @@ if (!defined("PHPWG_ROOT_PATH"))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_history.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Functions                                                             |
@@ -383,7 +384,10 @@ if (isset($page['day']))
   $period_label = l10n('Hour');
 }
 
-$template->set_filenames(array('stats'=>'admin/stats.tpl'));
+$template->set_filename('stats', 'admin/stats.tpl');
+
+// TabSheet initialization
+history_tabsheet();
 
 $template->assign_vars(
   array(

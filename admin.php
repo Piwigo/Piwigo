@@ -81,7 +81,6 @@ $template->assign_vars(
   array(
     'U_SITE_MANAGER'=> $link_start.'site_manager',
     'U_HISTORY_STAT'=> $link_start.'stats',
-    'U_HISTORY_SEARCH'=> $link_start.'history',
     'U_FAQ'=> $link_start.'help',
     'U_SITES'=> $link_start.'remote_site',
     'U_MAINTENANCE'=> $link_start.'maintenance',

@@ -15,7 +15,6 @@
     <dd>
       <ul>
         <li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
-        <li><a href="{U_CONFIG_COMMENTS}">{lang:comments}</a></li>
         <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
       </ul>
     </dd>
@@ -60,13 +59,7 @@
     <dt>{lang:special_admin_menu}</dt>
     <dd>
       <ul>
-        <li>
-          {lang:history}
-          <ul>
-            <li><a href="{U_HISTORY_STAT}">{lang:Statistics}</a></li>
-            <li><a href="{U_HISTORY_SEARCH}">{lang:Search}</a></li>
-          </ul>
-        </li>
+        <li><a href="{U_HISTORY_STAT}">{lang:history}</a></li>
         <li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
         <li><a href="{U_ADVANCED_FEATURE}">{lang:Advanced_features}</a></li>
         <!-- BEGIN web_services -->

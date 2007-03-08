@@ -10,7 +10,8 @@
       </a>
     </li>
   </ul>
-  <h2>{lang:History}</h2>
+  <h2>{lang:History} {TABSHEET_TITLE}</h2>
+  {TABSHEET}
 </div>
 
 <form class="filter" method="post" name="filter" action="{F_ACTION}">
