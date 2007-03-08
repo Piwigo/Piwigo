@@ -177,7 +177,7 @@ if (count($categories) > 0)
   {
     update_cats_with_filtered_data($categories);
   }
-  trigger_action('loc_begin_index_categories');
+  trigger_action('loc_begin_index_category_thumbnails', $categories);
   if ($conf['subcatify'])
   {
     $template->set_filename('mainpage_categories', 'mainpage_categories.tpl');
@@ -221,6 +221,10 @@ if (count($categories) > 0)
           'NAME'  => $name,
           )
         );
+        
+      //plugins need to add/modify sth in this loop ?
+      trigger_action('loc_index_category_thumbnail',
+        $category, 'categories.category' );
     }
 
     $template->assign_var_from_handle('CATEGORIES', 'mainpage_categories');
@@ -252,7 +256,7 @@ if (count($categories) > 0)
                                     $category['count_images'],
                                     $category['count_categories'],
                                     true,
-                                    '<BR>'
+                                    '; '
                                   ),
 
           'U_IMG_LINK'  => make_index_url(
@@ -284,6 +288,10 @@ if (count($categories) > 0)
           )
         );
 
+      //plugins need to add/modify sth in this loop ?
+      trigger_action('loc_index_category_thumbnail',
+        $category, 'thumbnails.line.thumbnail' );
+
       // create a new line ?
       if (++$row_number == $user['nb_image_line'])
       {
@@ -300,5 +308,6 @@ if (count($categories) > 0)
     $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
     unset( $template->_tpldata['thumbnails.'] );//maybe write a func for that
   }
+  trigger_action('loc_end_index_category_thumbnails', $categories);
 }
 ?>

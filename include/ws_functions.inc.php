@@ -375,7 +375,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('name', 'file') as $k )
+      foreach ( array('file', 'name', 'comment') as $k )
       {
         $image[$k] = $row[$k];
       }
@@ -829,7 +829,7 @@ SELECT * FROM '.IMAGES_TABLE.'
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('name', 'file') as $k )
+      foreach ( array('file', 'name', 'comment') as $k )
       {
         $image[$k] = $row[$k];
       }
@@ -1035,7 +1035,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
           $image[$k] = (int)$row[$k];
         }
       }
-      foreach ( array('name', 'file') as $k )
+      foreach ( array('file', 'name', 'comment') as $k )
       {
         $image[$k] = $row[$k];
       }

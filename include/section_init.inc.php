@@ -298,6 +298,9 @@ else
       }
       break;
     }
+    default:
+      trigger_error('script_basename "'.script_basename().'" unknown',
+        E_USER_WARNING);
   }
 }
 

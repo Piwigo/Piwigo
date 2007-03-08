@@ -89,10 +89,12 @@ INSERT INTO '.PLUGINS_TABLE.' (id,version) VALUES ("'
       if ( !isset($crt_db_plugin) )
       {
         array_push($errors, 'CANNOT '. $_GET['action'] .' - NOT INSTALLED');
+        break;
       }
       if ($crt_db_plugin['state']!='inactive')
       {
         array_push($errors, 'invalid current state '.$crt_db_plugin['state']);
+        break;
       }
       if ( file_exists($file_to_include) )
       {
