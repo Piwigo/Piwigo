@@ -104,20 +104,11 @@ TD.calDayCellEmpty { color: silver; }
 #qsearchInput { color: #d3d3d3; }
 #qsearchInput:focus { color: #005e89; }
 
-.tabsheet li {
-  background: #ffffff;
-  color: #005e89;
-  border: 1px solid #696969;
-}
-
-.tabsheet a {
-  color: #005e89;
-}
-
-.selected_tab {
-  background: #d3d3d3 !important;
-}
-
-.tabsheet li:hover {
-  border: 1px solid #858460 !important;
-}
+.tabsheet li,
+.tabsheet li a { color: #005e89; }
+.tabsheet li a:hover { color: #858460; }
+.tabsheet li { background-color: #fff; }
+.selected_tab { background-color: #d3d3d3 !important; }
+ul.tabsheet { border-color: #858460; }
+.tabsheet li { border: 1px solid #696969; }
+.tabsheet li:hover { border-color: #858460 !important; }

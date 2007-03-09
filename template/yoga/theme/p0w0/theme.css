@@ -82,11 +82,11 @@ input.rateButtonSelected,
 #content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   color: #369;
 }
-#theAdminPage h3 a,
+.tabsheet li, .tabsheet li a, #theAdminPage h3 a,
 #content div.thumbnailCategory .description h3 a {
   color: #fff;
 }
-#content div.thumbnailCategory .description h3 a:hover {
+.tabsheet li a:hover, #content div.thumbnailCategory .description h3 a:hover {
   color: #f92;
 }
 .pleaseNote {
@@ -96,7 +96,6 @@ input.rateButtonSelected,
 TD.calDayCellEmpty,
 SPAN.calItemEmpty { color: silver; }
 .calBackDate { color: #000; }
-
 
 /******************************************************************************/
 /* Backgrounds Only */
@@ -111,7 +110,7 @@ BODY { background: #cde; }
 .row1  { background-color: #eef; }
 H2, #menubar DT, .throw, TD H3,
 #imageToolBar,
-#imageHeaderBar, #imageHeaderBar H2,
+#imageHeaderBar, #imageHeaderBar H2, .tabsheet li,
 #theAdminPage H3 { background-color: #369; }
 #content H2 { background-color: #369; }
 #content .infos { background-color: #47a; ;}
@@ -128,10 +127,9 @@ H2, #menubar DT, .throw, TD H3,
 #content UL.thumbnails SPAN.wrap2:active img {
   outline: 3px ridge #f92;
 }
-.pleaseNote { background: #69c; }
 input#qsearchInput { background-color: #cde; }
 .virtual_cat { background: #fff !important; }
-
+.pleaseNote, .selected_tab { background-color: #69c !important; }
 /******************************************************************************/
 /* Borders, Margins, Padding Only */
 BODY { margin: 0px;  padding: 0px; }
@@ -226,6 +224,10 @@ A.navThumb, A.navThumb:hover,
 SPAN.calItem, SPAN.calItemEmpty { border: 1px solid gray; }
 TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 #theAdminPage #content table td { padding: 2px 8px; }
+ul.tabsheet { border-color: #369 !important; }
+.tabsheet li { border: 1px solid #fff; }
+.tabsheet li:hover { border-color: #f92 !important; }
+
 /******************************************************************************/
 /* Display, Visibility, buttons and others */
 label { cursor:pointer }
@@ -276,29 +278,3 @@ input.submit:active {
 }
 .qsearch { font-size: 80%; font-style: italic; }
 * { outline: none; }
-
-.tabsheet {
-  border-bottom: 1px solid #369;
-}
-
-.tabsheet li {
-  background: #369;
-  color: white;
-  border: 1px solid #fff;
-}
-
-.tabsheet a {
-  color: white;
-}
-
-.selected_tab {
-  background: #69c !important;
-}
-
-.tabsheet li:hover {
-  border: 1px solid #f92 !important;
-}
-
-.tabsheet li:hover a:hover {
-  color: #f92;
-}

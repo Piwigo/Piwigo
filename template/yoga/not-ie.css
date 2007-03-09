@@ -5,6 +5,7 @@
 
 #content UL.thumbnails SPAN.wrap2 {
   -moz-border-radius: 4px;	/* round corners with Geko */
+  -webkit-border-radius: 4px; /* Safari webkit project */
 }
 #content DIV#comments {
   padding-left: 5px;
@@ -16,4 +17,8 @@ FORM#quickconnect LABEL {
   width: 100%;
  -moz-box-sizing: padding-box !important;
   box-sizing: border-box; /* CSS3 */
+}
+ul.tabsheet li {
+  -moz-border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
+  -webkit-border-radius: 6px 6px 0px 0px; /* Safari webkit project */
 }

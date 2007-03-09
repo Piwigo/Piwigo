@@ -17,6 +17,10 @@ H2, #menubar DT, .throw {
   color: #000000;
 }
 
+.tabsheet li,
+.tabsheet li a { color: #fff; }
+.tabsheet li a:hover { color: #fff48e; }
+
 /* backgrounds */
 BODY {
   background-color: #000000;
@@ -45,6 +49,9 @@ H2, #menubar DT, .throw  {
   background-repeat: repeat-x;
   background-position: center;
 }
+.tabsheet li { background-color: #3f3f3f; }
+
+.selected_tab { background-color: #5f5f5f !important; }
 
 /* borders */
 #menubar DL, #content, .content,
@@ -90,6 +97,9 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   color: black;
 }
 
+ul.tabsheet { border-color: #fff48e; }
+.tabsheet li { border: 1px solid #fff; }
+.tabsheet li:hover { border-color: #fff48e !important; }
 
 /* links */
 A, INPUT.rateButton {
@@ -144,17 +154,3 @@ TD.calDayCellEmpty { color: silver; }
 }
 .qsearch { font-size: 80%; font-style: normal; }
 #mbMenu #quicksearch > p { text-align: left; }
-
-.tabsheet li {
-  background: #3f3f3f;
-  color: white;
-  border: 1px solid #fff;
-}
-
-.selected_tab {
-  background: #5f5f5f !important;
-}
-
-.tabsheet li:hover {
-  border: 1px solid #FFF48E;
-}
