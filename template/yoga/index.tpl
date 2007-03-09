@@ -41,6 +41,7 @@
       <!-- BEGIN mode_created -->
       <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
       <!-- END mode_created -->
+      {PLUGIN_INDEX_ACTIONS}
     </ul>
 
   <h2>{TITLE}</h2>
@@ -62,6 +63,7 @@
 
   </div> <!-- titrePage -->
 
+{PLUGIN_INDEX_CONTENT_BEGIN}
 <!-- BEGIN calendar -->
 <!-- BEGIN navbar -->
 <div class="calendarBar">
@@ -104,5 +106,5 @@
   </ul>
 <!-- END related_tags -->
 
-
+{PLUGIN_INDEX_CONTENT_END}
 </div> <!-- content -->

@@ -155,7 +155,7 @@ SELECT COUNT(*) AS nb_comments
   WHERE image_id = '.$row['id'].'
     AND validated = \'true\'
 ;';
-    $row = mysql_fetch_array(pwg_query($query));
+    list($row['nb_comments']) = mysql_fetch_array(pwg_query($query));
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_comments',
       array(

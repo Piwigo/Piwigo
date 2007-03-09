@@ -70,20 +70,16 @@ function default_picture_content($content, $element_info)
     return $content;
   }
 
-  global $user, $page;
+  global $user, $page, $template;
 
-  $my_template = new Template(
-    PHPWG_ROOT_PATH.'template/'.$user['template'],
-    $user['theme']
-    );
-  $my_template->set_filenames(
+  $template->set_filenames(
     array('default_content'=>'picture_content.tpl')
     );
 
   if ( !isset($page['slideshow']) and isset($element_info['high_url']) )
   {
     $uuid = uniqid(rand());
-    $my_template->assign_block_vars(
+    $template->assign_block_vars(
       'high',
       array(
         'U_HIGH' => $element_info['high_url'],
@@ -91,14 +87,14 @@ function default_picture_content($content, $element_info)
         )
       );
   }
-  $my_template->assign_vars( array(
+  $template->assign_vars( array(
       'SRC_IMG' => $element_info['image_url'],
       'ALT_IMG' => $element_info['file'],
       'WIDTH_IMG' => @$element_info['scaled_width'],
       'HEIGHT_IMG' => @$element_info['scaled_height'],
       )
     );
-  return $my_template->parse( 'default_content', true);
+  return $template->parse( 'default_content', true);
 }
 
 // +-----------------------------------------------------------------------+
@@ -482,13 +478,9 @@ if ($metadata_showable)
 
 $page['body_id'] = 'thePicturePage';
 
-// maybe someone wants a special display (call it before page_header so that
-// they can add stylesheets)
-$element_content = trigger_event(
-  'render_element_content',
-  '',
-  $picture['current']
-  );
+// allow plugins to change what we computed before passing data to template
+$picture = trigger_event('picture_pictures_data', $picture);
+
 
 if (isset($picture['next']['image_url'])
     and isset($picture['next']['is_picture']))
@@ -530,7 +522,6 @@ $template->assign_vars(
     'PICTURE_TITLE' => $picture['current']['name'],
     'PHOTO' => $title_nb,
     'TITLE' => $picture['current']['name'],
-    'ELEMENT_CONTENT' => $element_content,
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
 
@@ -800,6 +791,15 @@ if (isset($_GET['slideshow']))
       )
     );
 }
+
+// maybe someone wants a special display (call it before page_header so that
+// they can add stylesheets)
+$element_content = trigger_event(
+  'render_element_content',
+  '',
+  $picture['current']
+  );
+$template->assign_var( 'ELEMENT_CONTENT', $element_content );
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |
