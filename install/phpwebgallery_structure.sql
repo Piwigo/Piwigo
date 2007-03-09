@@ -38,10 +38,10 @@ CREATE TABLE `phpwebgallery_categories` (
   `commentable` enum('true','false') NOT NULL default 'true',
   `global_rank` varchar(255) default NULL,
   `image_order` varchar(128) default NULL,
-  `permalink` VARCHAR(64) default NULL,
+  `permalink` varchar(64) default NULL,
   PRIMARY KEY  (`id`),
-  KEY `categories_i2` (`id_uppercat`),
-  UNIQUE KEY `categories_i3` (`permalink`)
+  UNIQUE KEY `categories_i3` (`permalink`),
+  KEY `categories_i2` (`id_uppercat`)
 ) TYPE=MyISAM;
 
 --
@@ -196,6 +196,7 @@ CREATE TABLE `phpwebgallery_images` (
   `has_high` enum('true') default NULL,
   `path` varchar(255) NOT NULL default '',
   `storage_category_id` smallint(5) unsigned default NULL,
+  `high_filesize` mediumint(9) unsigned default NULL,
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`average_rate`),
@@ -210,12 +211,12 @@ CREATE TABLE `phpwebgallery_images` (
 
 DROP TABLE IF EXISTS `phpwebgallery_old_permalinks`;
 CREATE TABLE `phpwebgallery_old_permalinks` (
-  `cat_id` smallint(5) unsigned NOT NULL,
-  `permalink` VARCHAR(64) NOT NULL,
-  `date_deleted` datetime NOT NULL,
+  `cat_id` smallint(5) unsigned NOT NULL default '0',
+  `permalink` varchar(64) NOT NULL default '',
+  `date_deleted` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_hit` datetime default NULL,
   `hit` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY (`permalink`)
+  PRIMARY KEY  (`permalink`)
 ) TYPE=MyISAM;
 
 --

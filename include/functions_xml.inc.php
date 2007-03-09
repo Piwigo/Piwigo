@@ -52,7 +52,7 @@ function getContent( $element )
 function getAttribute( $element, $attribute )
 {
 //  echo htmlentities($element).'<br /><br />';
-  $regex = '/^<\w+[^>]*'.$attribute.'\s*=\s*"('.VAL_REG.')"/i';
+  $regex = '/^<\w+[^>]*\b'.$attribute.'\s*=\s*"('.VAL_REG.')"/i';
   if ( preg_match( $regex, $element, $out ) ) 
   {
     return html_entity_decode($out[1], ENT_QUOTES);

@@ -65,7 +65,15 @@
 </fieldset>
 </form>
 
-<h3>{L_DATE_TITLE}</h3>
+<!-- BEGIN summary -->
+<fieldset>
+  <legend>{lang:Summary}</legend>
+
+  <ul>
+    <li>{summary.FILESIZE}</li>
+  </ul>
+</fieldset>
+<!-- END summary -->
 
 <!-- BEGIN navigation -->
 <div class="admin">

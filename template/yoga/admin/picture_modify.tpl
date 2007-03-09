@@ -37,6 +37,13 @@
         <td>{FILESIZE}</td>
       </tr>
 
+<!-- BEGIN high -->
+      <tr>
+        <td><strong>{lang:High filesize}</strong></td>
+        <td>{high.FILESIZE}</td>
+      </tr>
+<!-- END high -->
+
       <tr>
         <td><strong>{lang:Storage category}</strong></td>
         <td>{STORAGE_CATEGORY}</td>

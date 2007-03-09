@@ -105,6 +105,28 @@ function update_metadata($files)
 
   $datas = array();
   $tags_of = array();
+  $has_high_images = array();
+
+  $image_ids = array();
+  foreach ($files as $id => $file)
+  {
+    array_push($image_ids, $id);
+  }
+  
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE has_high = \'true\'
+    AND id IN (
+'.wordwrap(implode(', ', $image_ids), 80, "\n").'
+)
+;';
+
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_array($result))
+  {
+    array_push($has_high_images, $row['id']);
+  }
 
   foreach ($files as $id => $file)
   {
@@ -116,6 +138,13 @@ function update_metadata($files)
     {
       $data['width'] = $image_size[0];
       $data['height'] = $image_size[1];
+    }
+
+    if (in_array($id, $has_high_images))
+    {
+      $high_file = dirname($file).'/pwg_high/'.basename($file);
+
+      $data['high_filesize'] = floor(filesize($high_file)/1024);
     }
   
     if ($conf['use_exif'])
@@ -161,6 +190,7 @@ function update_metadata($files)
         'filesize',
         'width',
         'height',
+        'high_filesize',
         'date_metadata_update'
         );
     

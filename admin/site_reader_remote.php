@@ -47,7 +47,7 @@ function RemoteSiteReader($url, $listing_url)
     'tn_ext', 'representative_ext', 'has_high',
     );
   $this->metadata_attributes = array(
-    'filesize', 'width', 'height'
+    'filesize', 'width', 'height', 'high_filesize'
     );
 
   if (!isset($listing_url))
@@ -88,11 +88,16 @@ function open()
       return false;
     }
 
-    $this->metadata_attributes = array_merge(
-      $this->metadata_attributes,
-      explode(',', getAttribute($info_xml_element, 'metadata'))
-      );
+    $additional_metadata = getAttribute($info_xml_element, 'metadata');
 
+    if ($additional_metadata != '')
+    {
+      $this->metadata_attributes = array_merge(
+        $this->metadata_attributes,
+        explode(',', $additional_metadata)
+        );
+    }
+    
     $this->build_structure($xml_content, '', 0);
 
     return true;
@@ -179,7 +184,7 @@ function get_metadata_attributes()
 }
 
 // returns a hash of attributes (metadata+width,...) for file
-function get_element_metadata($file)
+function get_element_metadata($file, $has_high = false)
 {
   return $this->get_element_attributes(
     $file,

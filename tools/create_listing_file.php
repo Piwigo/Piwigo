@@ -714,6 +714,9 @@ function pwg_scan_file($file_full, &$line)
       if (pwg_get_high($file_dir, $file_base))
       {
         $element['has_high'] = 'true';
+        
+        $high_file = $file_dir.'/'.$conf['high'].'/'.$file_base;
+        $element['high_filesize'] = floor(filesize($high_file) / 1024);
       }
       
       // get EXIF meta datas

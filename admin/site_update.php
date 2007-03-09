@@ -775,9 +775,40 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
   $start = get_moment();
   $datas = array();
   $tags_of = array();
+
+  $has_high_images = array();
+
+  $image_ids = array();
+  foreach ($files as $id => $file)
+  {
+    array_push($image_ids, $id);
+  }
+
+  if (count($image_ids) > 0)
+  {
+    $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE has_high = \'true\'
+    AND id IN (
+'.wordwrap(implode(', ', $image_ids), 80, "\n").'
+)
+;';
+
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      array_push($has_high_images, $row['id']);
+    }
+  }
+  
   foreach ( $files as $id=>$file )
   {
-    $data = $site_reader->get_element_metadata($file);
+    $data = $site_reader->get_element_metadata(
+      $file,
+      in_array($id, $has_high_images)
+      );
+    
     if ( is_array($data) )
     {
       $data['date_metadata_update'] = CURRENT_DATE;
@@ -813,6 +844,8 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
   {
     if (count($datas) > 0)
     {
+      // echo '<pre>', print_r($datas); echo '</pre>';
+      
       mass_updates(
         IMAGES_TABLE,
         // fields

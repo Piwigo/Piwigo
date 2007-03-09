@@ -262,6 +262,18 @@ $template->assign_vars(
     )
   );
 
+if ($row['has_high'] == 'true')
+{
+  $template->assign_block_vars(
+    'high',
+    array(
+      'FILESIZE' => isset($row['high_filesize'])
+        ? $row['high_filesize'].' KB'
+        : l10n('unknown'),
+      )
+    );
+}
+
 // creation date
 unset($day, $month, $year);
 

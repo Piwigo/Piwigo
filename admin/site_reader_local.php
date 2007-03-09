@@ -157,7 +157,7 @@ function get_metadata_attributes()
 {
   global $conf;
 
-  $update_fields = array('filesize', 'width', 'height');
+  $update_fields = array('filesize', 'width', 'height', 'high_filesize');
 
   if ($conf['use_exif'])
   {
@@ -181,7 +181,7 @@ function get_metadata_attributes()
 }
 
 // returns a hash of attributes (metadata+filesize+width,...) for file
-function get_element_metadata($file)
+function get_element_metadata($file, $has_high = false)
 {
   global $conf;
   if (!is_file($file))
@@ -199,6 +199,13 @@ function get_element_metadata($file)
     $data['height'] = $image_size[1];
   }
 
+  if ($has_high)
+  {
+    $high_file = dirname($file).'/pwg_high/'.basename($file);
+    
+    $data['high_filesize'] = floor(filesize($high_file)/1024);
+  }
+  
   if ($conf['use_exif'])
   {
     $data = array_merge($data, get_sync_exif_data($file) );

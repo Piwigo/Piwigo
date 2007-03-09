@@ -227,16 +227,6 @@ SELECT rules
       );
   
   $query = '
-SELECT COUNT(*)
-  FROM '.HISTORY_TABLE.'
-  WHERE '.$where_separator.'
-;';
-
-  // echo '<pre>'.$query.'</pre>';
-  
-  list($page['nb_lines']) = mysql_fetch_row(pwg_query($query));
-
-  $query = '
 SELECT
     date,
     time,
@@ -249,11 +239,20 @@ SELECT
     image_type
   FROM '.HISTORY_TABLE.'
   WHERE '.$where_separator.'
-  LIMIT '.$page['start'].', '.$conf['nb_logs_page'].'
 ;';
 
+  // LIMIT '.$page['start'].', '.$conf['nb_logs_page'].'
+
   $result = pwg_query($query);
-  $history_lines = $user_ids = $category_ids = $image_ids = array();
+
+  $page['nb_lines'] = mysql_num_rows($result);
+  
+  $history_lines = array();
+  $user_ids = array();
+  $category_ids = array();
+  $image_ids = array();
+  $tag_ids = array();
+  
   while ($row = mysql_fetch_assoc($result))
   {
     $user_ids[$row['user_id']] = 1;
@@ -314,17 +313,71 @@ SELECT id, uppercats
   if (count($image_ids) > 0)
   {
     $query = '
-SELECT id, IF(name IS NULL, file, name) AS label
+SELECT
+    id,
+    IF(name IS NULL, file, name) AS label,
+    filesize,
+    high_filesize
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')
 ;';
-    $label_of_image = simple_hash_from_query($query, 'id', 'label');
+    // $label_of_image = simple_hash_from_query($query, 'id', 'label');
+    $label_of_image = array();
+    $filesize_of_image = array();
+    $high_filesize_of_image = array();
+    
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $label_of_image[ $row['id'] ] = $row['label'];
+
+      if (isset($row['filesize']))
+      {
+        $filesize_of_image[ $row['id'] ] = $row['filesize'];
+      }
+
+      if (isset($row['high_filesize']))
+      {
+        $high_filesize_of_image[ $row['id'] ] = $row['high_filesize'];
+      }
+    }
+
+    // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
   }
   
   $i = 0;
+  $first_line = $page['start'] + 1;
+  $last_line = $page['start'] + $conf['nb_logs_page'];
+
+  $total_filesize = 0;
 
   foreach ($history_lines as $line)
   {
+    if (isset($line['image_type']))
+    {
+      if ($line['image_type'] == 'high')
+      {
+        if (isset($high_filesize_of_image[$line['image_id']]))
+        {
+          $total_filesize+= $high_filesize_of_image[$line['image_id']];
+        }
+      }
+      else
+      {
+        if (isset($filesize_of_image[$line['image_id']]))
+        {
+          $total_filesize+= $filesize_of_image[$line['image_id']];
+        }
+      }
+    }
+    
+    $i++;
+    
+    if ($i < $first_line or $i > $last_line)
+    {
+      continue;
+    }
+    
     $template->assign_block_vars(
       'detail',
       array(
@@ -337,9 +390,17 @@ SELECT id, IF(name IS NULL, file, name) AS label
         'IP'        => $line['IP'],
         'IMAGE'     => isset($line['image_id'])
           ? ( isset($label_of_image[$line['image_id']])
-                ? $label_of_image[$line['image_id']]
-                : 'deleted '.$line['image_id'])
-          : $line['image_id'],
+                ? sprintf(
+                    '(%u) %s',
+                    $line['image_id'],
+                    $label_of_image[$line['image_id']]
+                  )
+                : sprintf(
+                    '(%u) deleted ',
+                    $line['image_id']
+                  )
+            )
+          : '',
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
         'CATEGORY'  => isset($line['category_id'])
@@ -348,10 +409,17 @@ SELECT id, IF(name IS NULL, file, name) AS label
                 : 'deleted '.$line['category_id'] )
           : '',
         'TAGS'       => $line['tag_ids'],
-        'T_CLASS'   => ($i++ % 2) ? 'row1' : 'row2',
+        'T_CLASS'   => ($i % 2) ? 'row1' : 'row2',
         )
       );
   }
+
+  $template->assign_block_vars(
+    'summary',
+    array(
+      'FILESIZE' => $total_filesize.' KB',
+      )
+    );
 }
 
 // $groups_string = preg_replace(
