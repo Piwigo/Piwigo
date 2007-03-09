@@ -54,11 +54,4 @@
       </li>
     </ul>
   </dd>
-
-  <dt>{lang:Clock}</dt>
-  <dd>
-    <ul>
-    </ul>
-  </dd>
-
 </dl>
