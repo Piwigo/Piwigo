@@ -840,7 +840,7 @@ function get_thumbnail_title($element_info)
   
   if (!empty($element_info['filesize']))
   {
-    $thumbnail_title .= ' : '.$element_info['filesize'].' KB';
+    $thumbnail_title .= ' : '.l10n_dec('%d Kb', '%d Kb', $element_info['filesize']);
   }
 
   return $thumbnail_title;

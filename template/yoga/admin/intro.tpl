@@ -24,8 +24,8 @@
   <dd>
     <ul>
       <li>{lang:Operating system}: {OS}</li>
-      <li>PHP: {PHP_VERSION} (<a href="{U_PHPINFO}">{lang:Show info}</a>)</li>
-      <li>MySQL: {MYSQL_VERSION}</li>
+      <li>PHP: {PHP_VERSION} (<a href="{U_PHPINFO}">{lang:Show info}</a>)  [{PHP_DATATIME}]</li>
+      <li>MySQL: {MYSQL_VERSION} [{DB_DATATIME}]</li>
     </ul>
   </dd>
 
@@ -52,6 +52,12 @@
         (<a href="{unvalidated.URL}">{unvalidated.INFO}</a>)
         <!-- END unvalidated -->
       </li>
+    </ul>
+  </dd>
+
+  <dt>{lang:Clock}</dt>
+  <dd>
+    <ul>
     </ul>
   </dd>
 

@@ -49,11 +49,14 @@ else
 }
 
 $general_checkboxes = array(
-    'log',
-    'history_admin',
-    'history_guest',
     'email_admin_on_new_user',
     'allow_user_registration',
+   );
+
+$history_checkboxes = array(
+    'log',
+    'history_admin',
+    'history_guest'
    );
 
 $comments_checkboxes = array(
@@ -76,6 +79,14 @@ if (isset($_POST['submit']) and !is_adviser())
         array_push($page['errors'], $lang['conf_gallery_url_error']);
       }
       foreach( $general_checkboxes as $checkbox)
+      {
+        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
+      }
+      break;
+    }
+    case 'history' :
+    {
+      foreach( $history_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
       }
@@ -170,6 +181,11 @@ $page['tabsheet'] = array
     'caption' => l10n('conf_general_title'),
     'url' => $conf_link.'general'
    ),
+  'history' => array
+   (
+    'caption' => l10n('conf_history_title'),
+    'url' => $conf_link.'history'
+   ),
   'comments' => array
    (
     'caption' => l10n('conf_comments_title'),
@@ -228,6 +244,22 @@ switch ($page['section'])
     {
       $template->merge_block_vars(
           'general',
+          array(
+            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
+            )
+        );
+    }
+    break;
+  }
+  case 'history' :
+  {
+    //Necessary for merge_block_vars
+    $template->assign_block_vars('history', array());
+
+    foreach( $history_checkboxes as $checkbox)
+    {
+      $template->merge_block_vars(
+          'history',
           array(
             strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
             )

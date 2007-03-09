@@ -184,6 +184,9 @@ SELECT COUNT(*)
 ;';
 list($nb_comments) = mysql_fetch_row(pwg_query($query));
 
+$php_current_timestamp = date("Y-m-d H:i:s");
+list($db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT CURRENT_TIMESTAMP;'));
+
 $template->assign_vars(
   array(
     'PWG_VERSION' => PHPWG_VERSION,
@@ -205,7 +208,9 @@ $template->assign_vars(
     'DB_GROUPS' => sprintf(l10n('%d groups'), $nb_groups),
     'DB_COMMENTS' => sprintf(l10n('%d comments'), $nb_comments),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
-    'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo'
+    'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
+    'PHP_DATATIME' => $php_current_timestamp,
+    'DB_DATATIME' => $db_current_timestamp,
     )
   );
 

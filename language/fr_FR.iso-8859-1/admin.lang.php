@@ -226,6 +226,7 @@ $lang['conf_comments_title'] = 'Commentaires';
 $lang['conf_confirmation'] = 'Informations enregistrées dans la base de données';
 $lang['conf_default'] = 'Affichage par défaut';
 $lang['conf_default_title'] = 'Affichage par défaut';
+$lang['conf_history_title'] = 'Historique';
 $lang['conf_gallery_url_error'] = 'L\'adresse de la galerie n\'est pas valide.';
 $lang['conf_general_title'] = 'Principale';
 $lang['conf_nb_comment_page_error'] = 'Le nombre de commentaires d\'utilisateurs par page doit être compris entre 5 et 50.';

@@ -64,29 +64,27 @@
         <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {general.ALLOW_USER_REGISTRATION} />
       </label>
     </li>
-
-    <br/>
-    <li>
-      <fieldset>
-        <legend>{lang:History}</legend>
-        <ul>
-          <li>
-            <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {general.LOG} /></label>
-          </li>
-
-          <li>
-            <label><span class="property">{lang:user_status_admin}</span><input type="checkbox" name="history_admin" {general.HISTORY_ADMIN} /></label>
-          </li>
-
-          <li>
-            <label><span class="property">{lang:Guests}</span><input type="checkbox" name="history_guest" {general.HISTORY_GUEST} /></label>
-          </li>
-        </ul>
-      </fieldset>
-    </li>
   </ul>
 </fieldset>
 <!-- END general -->
+
+<!-- BEGIN history -->
+<fieldset id="historyConf">
+  <ul>
+      <li>
+        <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {history.LOG} /></label>
+      </li>
+
+      <li>
+        <label><span class="property">{lang:user_status_admin}</span><input type="checkbox" name="history_admin" {history.HISTORY_ADMIN} /></label>
+      </li>
+
+      <li>
+        <label><span class="property">{lang:Guests}</span><input type="checkbox" name="history_guest" {history.HISTORY_GUEST} /></label>
+      </li>
+  </ul>
+</fieldset>
+<!-- END history -->
 
 <!-- BEGIN comments -->
 <fieldset id="commentsConf">

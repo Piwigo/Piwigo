@@ -428,13 +428,22 @@ function get_html_menu_category($categories, $selected_category)
               )
             );
 
+    $title = get_display_images_count
+                (
+                  $category['nb_images'],
+                  $category['count_images'],
+                  $category['count_categories'],
+                  false,
+                  ' / '
+                );
+
     $menu.= "\n".'<a href="'.$url.'"';
     if ($selected_category!=null
         and $category['id'] == $selected_category['id_uppercat'])
     {
       $menu.= ' rel="up"';
     }
-    $menu.= '>'.$category['name'].'</a>';
+    $menu.= ' title=" '.$title.'">'.$category['name'].'</a>';
 
     if ( $category['count_images']>0 )
     {// at least one direct or indirect image
@@ -442,15 +451,7 @@ function get_html_menu_category($categories, $selected_category)
       // at least one image in this category -> class menuInfoCat
       $menu.= ($category['nb_images'] > 0 ? "menuInfoCat" 
                                           : "menuInfoCatByChild").'"';
-      $menu.= ' title="';
-      $menu.= ' '.get_display_images_count
-                  (
-                    $category['nb_images'],
-                    $category['count_images'],
-                    $category['count_categories'],
-                    false,
-                    ' / '
-                  ).'">';
+      $menu.= ' title=" '.$title.'">';
       // show total number of images
       $menu.= '['.$category['count_images'].']';
       $menu.= '</span>';

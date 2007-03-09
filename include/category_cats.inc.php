@@ -256,7 +256,7 @@ if (count($categories) > 0)
                                     $category['count_images'],
                                     $category['count_categories'],
                                     true,
-                                    '; '
+                                    ' / '
                                   ),
 
           'U_IMG_LINK'  => make_index_url(

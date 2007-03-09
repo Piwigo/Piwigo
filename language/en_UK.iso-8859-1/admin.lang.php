@@ -226,6 +226,7 @@ $lang['conf_comments_title'] = 'Comments';
 $lang['conf_confirmation'] = 'Information data registered in database';
 $lang['conf_default'] = 'Default display';
 $lang['conf_default_title'] = 'Default display';
+$lang['conf_history_title'] = 'History';
 $lang['conf_gallery_url_error'] = 'The gallery URL is not valid.';
 $lang['conf_general_title'] = 'Main';
 $lang['conf_nb_comment_page_error'] = 'The number of comments a page must be between 5 and 50 included.';
