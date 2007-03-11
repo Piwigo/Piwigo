@@ -302,6 +302,14 @@ SELECT
       $image_ids[$row['image_id']] = 1;
     }
 
+    if (isset($row['tag_ids']))
+    {
+      foreach (explode(',', $row['tag_ids']) as $tag_id)
+      {
+        array_push($tag_ids, $tag_id);
+      }
+    }
+
     array_push(
       $history_lines,
       $row
@@ -379,6 +387,26 @@ SELECT
 
     // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
   }
+
+  if (count($tag_ids) > 0)
+  {
+    $tag_ids = array_unique($tag_ids);
+
+    $query = '
+SELECT
+    id,
+    name
+  FROM '.TAGS_TABLE.'
+  WHERE id IN ('.implode(', ', $tag_ids).')
+;';
+    $name_of_tag = array();
+
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $name_of_tag[ $row['id'] ] = $row['name'];
+    }
+  }
   
   $i = 0;
   $first_line = $page['start'] + 1;
@@ -427,6 +455,20 @@ SELECT
     $user_string.= '&amp;search_id='.$page['search_id'];
     $user_string.= '&amp;user_id='.$line['user_id'];
     $user_string.= '">+</a>';
+
+    $tags_string = '';
+    if (isset($line['tag_ids']))
+    {
+      $tags_string = preg_replace(
+        '/(\d+)/e',
+        '$name_of_tag["$1"]',
+        str_replace(
+          ',',
+          ', ',
+          $line['tag_ids']
+          )
+        );
+    }
     
     $template->assign_block_vars(
       'detail',
@@ -455,7 +497,7 @@ SELECT
                 ? $name_of_category[$line['category_id']]
                 : 'deleted '.$line['category_id'] )
           : '',
-        'TAGS'       => $line['tag_ids'],
+        'TAGS'       => $tags_string,
         'T_CLASS'   => ($i % 2) ? 'row1' : 'row2',
         )
       );
@@ -601,7 +643,8 @@ while ($row = mysql_fetch_array($result))
 {
   $selected = '';
 
-  if ($row['id'] == $form['user'])
+  if (isset($form['user'])
+      and $row['id'] == $form['user'])
   {
     $selected = 'selected="selected"';
   }
