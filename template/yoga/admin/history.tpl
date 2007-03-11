@@ -61,6 +61,17 @@
     </select>
   </label>
 
+  <label>
+    {lang:User}
+    <select name="user">
+      <!-- BEGIN user_option -->
+      <option value="{user_option.VALUE}" {user_option.SELECTED}>
+        {user_option.CONTENT}
+      </option>
+      <!-- END user_option -->
+    </select>
+  </label>
+
   <input class="submit" type="submit" name="submit" value="{lang:submit}" />
 </fieldset>
 </form>

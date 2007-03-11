@@ -98,6 +98,8 @@ if (isset($_POST['submit']))
   }
 
   $search['fields']['types'] = $_POST['types'];
+
+  $search['fields']['user'] = $_POST['user'];
   
   // echo '<pre>'; print_r($search); echo '</pre>';
   
@@ -169,6 +171,30 @@ SELECT rules
 
   $page['search'] = unserialize($serialized_rules);
 
+  if (isset($_GET['user_id']))
+  {
+    if (!is_numeric($_GET['user_id']))
+    {
+      die('user_id GET parameter must be an integer value');
+    }
+
+    $page['search']['fields']['user'] = $_GET['user_id'];
+    
+    $query ='
+INSERT INTO '.SEARCH_TABLE.'
+  (rules)
+  VALUES
+  (\''.serialize($page['search']).'\')
+;';
+    pwg_query($query);
+
+    $search_id = mysql_insert_id();
+    
+    redirect(
+      PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
+      );
+  }
+
   // echo '<pre>'; print_r($page['search']); echo '</pre>';
   
   $clauses = array();
@@ -216,6 +242,15 @@ SELECT rules
         implode(' OR ', $local_clauses)
         );
     }
+  }
+
+  if (isset($page['search']['fields']['user'])
+      and $page['search']['fields']['user'] != -1)
+  {
+    array_push(
+      $clauses,
+      'user_id = '.$page['search']['fields']['user']
+      );
   }
   
   $clauses = prepend_append_array_items($clauses, '(', ')');
@@ -377,16 +412,28 @@ SELECT
     {
       continue;
     }
+
+    $user_string = '';
+    if (isset($username_of[$line['user_id']]))
+    {
+      $user_string.= $username_of[$line['user_id']];
+    }
+    else
+    {
+      $user_string.= $line['user_id'];
+    }
+    $user_string.= '&nbsp;<a href="';
+    $user_string.= PHPWG_ROOT_PATH.'admin.php?page=history';
+    $user_string.= '&amp;search_id='.$page['search_id'];
+    $user_string.= '&amp;user_id='.$line['user_id'];
+    $user_string.= '">+</a>';
     
     $template->assign_block_vars(
       'detail',
       array(
         'DATE'      => $line['date'],
         'TIME'      => $line['time'],
-        'USER'      => isset($username_of[$line['user_id']])
-          ? $username_of[$line['user_id']]
-          : $line['user_id']
-        ,
+        'USER'      => $user_string,
         'IP'        => $line['IP'],
         'IMAGE'     => isset($line['image_id'])
           ? ( isset($label_of_image[$line['image_id']])
@@ -479,6 +526,15 @@ if (isset($page['search']))
   }
 
   $form['types'] = $page['search']['fields']['types'];
+
+  if (isset($page['search']['fields']['user']))
+  {
+    $form['user'] = $page['search']['fields']['user'];
+  }
+  else
+  {
+    $form['user'] = null;
+  }
 }
 else
 {
@@ -518,6 +574,43 @@ foreach ($types as $option)
     array(
       'VALUE' => $option,
       'CONTENT' => l10n($option),
+      'SELECTED' => $selected,
+      )
+    );
+}
+
+$template->assign_block_vars(
+  'user_option',
+  array(
+    'VALUE'=> -1,
+    'CONTENT' => '------------',
+    'SELECTED' => ''
+    )
+  );
+
+$query = '
+SELECT
+    '.$conf['user_fields']['id'].' AS id,
+    '.$conf['user_fields']['username'].' AS username
+  FROM '.USERS_TABLE.'
+  ORDER BY username ASC
+;';
+$result = pwg_query($query);
+
+while ($row = mysql_fetch_array($result))
+{
+  $selected = '';
+
+  if ($row['id'] == $form['user'])
+  {
+    $selected = 'selected="selected"';
+  }
+  
+  $template->assign_block_vars(
+    'user_option',
+    array(
+      'VALUE' => $row['id'],
+      'CONTENT' => $row['username'],
       'SELECTED' => $selected,
       )
     );
