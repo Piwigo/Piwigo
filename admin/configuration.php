@@ -41,14 +41,14 @@ check_status(ACCESS_ADMINISTRATOR);
 //-------------------------------------------------------- sections definitions
 if (!isset($_GET['section']))
 {
-  $page['section'] = 'general';
+  $page['section'] = 'main';
 }
 else
 {
   $page['section'] = $_GET['section'];
 }
 
-$general_checkboxes = array(
+$main_checkboxes = array(
     'email_admin_on_new_user',
     'allow_user_registration',
    );
@@ -72,13 +72,13 @@ if (isset($_POST['submit']) and !is_adviser())
   $int_pattern = '/^\d+$/';
   switch ($page['section'])
   {
-    case 'general' :
+    case 'main' :
     {
       if ( !url_is_remote($_POST['gallery_url']) )
       {
         array_push($page['errors'], $lang['conf_gallery_url_error']);
       }
-      foreach( $general_checkboxes as $checkbox)
+      foreach( $main_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
       }
@@ -176,10 +176,10 @@ $template->set_filename('config', 'admin/configuration.tpl');
 // TabSheet initialization
 $page['tabsheet'] = array
 (
-  'general' => array
+  'main' => array
    (
-    'caption' => l10n('conf_general_title'),
-    'url' => $conf_link.'general'
+    'caption' => l10n('conf_main_title'),
+    'url' => $conf_link.'main'
    ),
   'history' => array
    (
@@ -193,7 +193,7 @@ $page['tabsheet'] = array
    ),
   'default' => array
    (
-    'caption' => l10n('conf_default'),
+    'caption' => l10n('conf_display'),
     'url' => $conf_link.'default'
    )
 );
@@ -222,13 +222,13 @@ $html_check='checked="checked"';
 
 switch ($page['section'])
 {
-  case 'general' :
+  case 'main' :
   {
     $lock_yes = ($conf['gallery_locked']==true)?'checked="checked"':'';
     $lock_no = ($conf['gallery_locked']==false)?'checked="checked"':'';
 
     $template->assign_block_vars(
-      'general',
+      'main',
       array(
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
@@ -240,10 +240,10 @@ switch ($page['section'])
         'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
 
-    foreach( $general_checkboxes as $checkbox)
+    foreach( $main_checkboxes as $checkbox)
     {
       $template->merge_block_vars(
-          'general',
+          'main',
           array(
             strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
             )

@@ -14,8 +14,8 @@
     <dt>{lang:config}</dt>
     <dd>
       <ul>
-        <li><a href="{U_CONFIG_GENERAL}">{lang:general}</a></li>
-        <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_default}</a></li>
+        <li><a href="{U_CONFIG_GENERAL}">{lang:conf_general}</a></li>
+        <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_display}</a></li>
       </ul>
     </dd>
   </dl>

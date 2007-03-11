@@ -7,7 +7,7 @@
 
 <form method="post" action="{F_ACTION}">
 <fieldset><legend>{lang:Add/delete a permalink}</legend>
-  <label>Category:
+  <label>{lang:Category}:
     <select name="cat_id">
       <option value="0">------</option>
 <!-- BEGIN categories -->

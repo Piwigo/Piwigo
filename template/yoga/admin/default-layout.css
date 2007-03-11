@@ -97,10 +97,10 @@ FORM#categoryPermissions LI {
   white-space: nowrap;
 }
 
-FIELDSET#generalConf SPAN.property {
+FIELDSET#mainConf SPAN.property {
   width: 25%;
 }
-FIELDSET#generalConf TEXTAREA.description {
+FIELDSET#mainConf TEXTAREA.description {
   width: 70%;
 }
 
