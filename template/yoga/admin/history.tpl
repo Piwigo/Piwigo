@@ -91,7 +91,15 @@
   <legend>{lang:Summary}</legend>
 
   <ul>
+    <li>{summary.NB_LINES}</li>
     <li>{summary.FILESIZE}</li>
+    <li>
+      {summary.USERS}
+      <ul>
+        <li>{summary.MEMBERS}</li>
+        <li>{summary.GUESTS}</li>
+      </ul>
+    </li>
   </ul>
 </fieldset>
 <!-- END summary -->

@@ -465,26 +465,45 @@ SELECT
   $first_line = $page['start'] + 1;
   $last_line = $page['start'] + $conf['nb_logs_page'];
 
-  $total_filesize = 0;
+  $summary['total_filesize'] = 0;
+  $summary['guests_IP'] = array();
 
   foreach ($history_lines as $line)
   {
+    // FIXME when we watch the representative of a non image element, it is
+    // the not the representative filesize that is counted (as it is
+    // unknown) but the non image element filesize. Proposed solution: add
+    // #images.representative_filesize and add 'representative' in the
+    // choices of #history.image_type.
+    
     if (isset($line['image_type']))
     {
       if ($line['image_type'] == 'high')
       {
         if (isset($high_filesize_of_image[$line['image_id']]))
         {
-          $total_filesize+= $high_filesize_of_image[$line['image_id']];
+          $summary['total_filesize']+=
+            $high_filesize_of_image[$line['image_id']];
         }
       }
       else
       {
         if (isset($filesize_of_image[$line['image_id']]))
         {
-          $total_filesize+= $filesize_of_image[$line['image_id']];
+          $summary['total_filesize']+=
+            $filesize_of_image[$line['image_id']];
         }
       }
+    }
+
+    if ($line['user_id'] == $conf['guest_id'])
+    {
+      if (!isset($summary['guests_IP'][ $line['IP'] ]))
+      {
+        $summary['guests_IP'][ $line['IP'] ] = 0;
+      }
+      
+      $summary['guests_IP'][ $line['IP'] ]++;
     }
     
     $i++;
@@ -556,10 +575,54 @@ SELECT
       );
   }
 
+  $summary['nb_guests'] = 0;
+  if (count(array_keys($summary['guests_IP'])) > 0)
+  {
+    $summary['nb_guests'] = count(array_keys($summary['guests_IP']));
+
+    // we delete the "guest" from the $username_of hash so that it is
+    // avoided in next steps
+    unset($username_of[ $conf['guest_id'] ]);
+  }
+  
+  $summary['nb_members'] = count($username_of);
+
+  $member_strings = array();
+  foreach ($username_of as $user_id => $user_name)
+  {
+    $member_string = $user_name.'&nbsp;<a href="';
+    $member_string.= PHPWG_ROOT_PATH.'admin.php?page=history';
+    $member_string.= '&amp;search_id='.$page['search_id'];
+    $member_string.= '&amp;user_id='.$user_id;
+    $member_string.= '">+</a>';
+
+    $member_strings[] = $member_string;
+  }
+  
   $template->assign_block_vars(
     'summary',
     array(
-      'FILESIZE' => $total_filesize.' KB',
+      'NB_LINES' => sprintf(
+        l10n('%d lines filtered'),
+        $page['nb_lines']
+        ),
+      'FILESIZE' => $summary['total_filesize'].' KB',
+      'USERS' => sprintf(
+        l10n('%d users'),
+        $summary['nb_members'] + $summary['nb_guests']
+        ),
+      'MEMBERS' => sprintf(
+        l10n('%d members: %s'),
+        $summary['nb_members'],
+        implode(
+          ', ',
+          $member_strings
+          )
+        ),
+      'GUESTS' => sprintf(
+        l10n('%d guests'),
+        $summary['nb_guests']
+        ),
       )
     );
 }
