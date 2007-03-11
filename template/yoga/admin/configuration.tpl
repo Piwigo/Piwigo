@@ -72,15 +72,15 @@
 <fieldset id="historyConf">
   <ul>
       <li>
-        <label><span class="property">{lang:Users}</span><input type="checkbox" name="log" {history.LOG} /></label>
+        <label><span class="property">{lang:conf_history_guest}</span><input type="checkbox" name="history_guest" {history.HISTORY_GUEST} /></label>
       </li>
 
       <li>
-        <label><span class="property">{lang:user_status_admin}</span><input type="checkbox" name="history_admin" {history.HISTORY_ADMIN} /></label>
+        <label><span class="property">{lang:conf_history_user}</span><input type="checkbox" name="log" {history.LOG} /></label>
       </li>
 
       <li>
-        <label><span class="property">{lang:Guests}</span><input type="checkbox" name="history_guest" {history.HISTORY_GUEST} /></label>
+        <label><span class="property">{lang:conf_history_admin}</span><input type="checkbox" name="history_admin" {history.HISTORY_ADMIN} /></label>
       </li>
   </ul>
 </fieldset>

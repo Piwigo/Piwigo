@@ -3,7 +3,7 @@
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:Batch management} {TABSHEET_TITLE}</h2>
+  <h2>{lang:cat_options_title} {TABSHEET_TITLE}</h2>
   {TABSHEET}
 </div>
 

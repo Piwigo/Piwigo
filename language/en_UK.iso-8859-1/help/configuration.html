@@ -10,10 +10,8 @@ cass="filename">include/config_default.inc.php</span>.</p>
 parameters by theme.</p>
 
 
-<h3>General</h3>
-
+<h3>Main</h3>
 <ul>
-
   <li><strong>Gallery title</strong>: used in RSS feed and notifications by
 email.</li>
 
@@ -31,18 +29,51 @@ page.</li>
   <li><strong>Rating by guests</strong>: Even non registered users can
 rate images.</li>
 
-  <li><strong>History Users</strong>: visits by registrered users on pages <span
-  class="pwgScreen">category.php</span> and <span
-  class="pwgScreen">picture.php</span> will be saved in the
-  <code>history</code> table. Visits will be shown in <span
-  class="pwgScreen">Administration, General, History</span>.</li>
+  <li><strong>Email admin when a new user registers</strong>: Administrators will be received mail for each registration.</li>
 
-  <li><strong>History Administrator</strong>: page visits by administrators
-  will be saved.</li>
+  <li><strong>Allow user registration</strong>: Registration is free for all.</li>
 
-  <li><strong>History Guests</strong>: page visits by guests will be saved.</li>
 </ul>
 
+<h3>History</h3>
+<ul>
+  <p>Visits on pages <span
+  class="pwgScreen">category.php</span> and <span
+  class="pwgScreen">picture.php</span> will be saved in the
+  <code>history</code> table.</p>
+  
+  <p>Visits will be shown in <span
+  class="pwgScreen">Administration, General, History</span>.</p>
+
+  <li><strong>Save page visits by guests</strong>: page visits by guests will be saved.</li>
+
+  <li><strong>Save page visits by users</strong>: visits by registrered users will be saved.</li>
+
+  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be saved.</li>
+
+</ul>
+
+<h3>Comments</h3>
+<ul>
+
+  <li><strong>Comments for all</strong>: Even guest not registered can post
+  comments.</li>
+
+  <li><strong>Number of comments per page</strong>.</li>
+
+  <li><strong>Validation</strong>: an administrator validate users posted
+  comments before they become visible on the site. User comments validation
+  takes place in screen <span class="pwgScreen">Administration, Pictures,
+  Comments</span>.</li>
+
+  <li><strong>Email admin when a valid comment is entered</strong>:
+Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
+
+  <li><strong>Email admin when a comment requires validation</strong>:
+Sends an email to the administrators when a user enters a comment that requires validation by the admin.
+User comments validation takes place in the screen <span class="pwgScreen">Administration, Pictures, Comments</span>.</li>
+
+</ul>
 
 <h3>Default display</h3>
 
@@ -94,26 +125,3 @@ users.</p>
 
 </ul>
 
-
-<h3>User comments</h3>
-
-<ul>
-
-  <li><strong>Comments for all</strong>: Even guest not registered can post
-  comments.</li>
-
-  <li><strong>Number of comments per page</strong>.</li>
-
-  <li><strong>Validation</strong>: an administrator validate users posted
-  comments before they become visible on the site. User comments validation
-  takes place in screen <span class="pwgScreen">Administration, Pictures,
-  Comments</span>.</li>
-
-  <li><strong>Email admin when a valid comment is entered</strong>:
-Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
-
-  <li><strong>Email admin when a comment requires validation</strong>:
-Sends an email to the administrators when a user enters a comment that requires validation by the admin.
-User comments validation takes place in the screen <span class="pwgScreen">Administration, Pictures, Comments</span>.</li>
-
-</ul>

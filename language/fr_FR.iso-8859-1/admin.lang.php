@@ -573,4 +573,8 @@ $lang['image'] = 'images';
 $lang['high quality'] = 'haute résolution';
 $lang['section'] = 'section';
 $lang['tags'] = 'tags';
+$lang['conf_history_guest'] = 'Enregistrer les pages visitées par les invités';
+$lang['conf_history_user'] = 'Enregistrer les pages visitées par les utilisateurs';
+$lang['conf_history_admin'] = 'Enregistrer les pages visitées par les administrateurs';
+$lang['cat_options_title'] = 'Propriétés';
 ?>

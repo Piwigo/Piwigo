@@ -574,5 +574,8 @@ $lang['image'] = '';
 $lang['high quality'] = 'high quality';
 $lang['section'] = 'section';
 $lang['tags'] = 'tags';
-
+$lang['conf_history_guest'] = 'Save page visits by guests';
+$lang['conf_history_user'] = 'Save page visits by users';
+$lang['conf_history_admin'] = 'Save page visits by administrators';
+$lang['cat_options_title'] = 'Properties';
 ?>

@@ -9,8 +9,7 @@ cass="filename">include/config_default.inc.php</span></p>
 <p>Cet écran est divisié en plusieurs sections, regroupant les paramètres
 par thème.</p>
 
-<h3>Général</h3>
-
+<h3>Principale</h3>
 <ul>
 
   <li><strong>Titre de la galerie</strong>: utilisé pour le flux RSS et
@@ -30,22 +29,53 @@ galerie.</li>
   <li><strong>Notation par les visiteurs</strong>: Même les utilisateurs
 non enregistrés peuvent noter les images.</li>
 
-  <li><strong>Historique Utilisateurs</strong>: les visites des pages <span
-class="pwgScreen">index.php</span> et <span
-class="pwgScreen">picture.php</span> par les utilisateurs enregistrés sont
-enregistrées dans la table <code>history</code>. Les visites sont affichées
-dans l'écran <span class="pwgScreen">Administration, Général, Historique</span>.</li>
+  <li><strong>Notifier le webmestre lors de l'inscription d'un utilisateur</strong>: Les administrateurs recevront un courriel à chaque inscription.</li>
 
-  <li><strong>Historique Administrateur</strong>: les visites des pages
-  par les administrateurs sont enregistrées.</li>
+  <li><strong>Permettre l'enregistrement des utilisateurs</strong>: L'inscription est libre pour tous.</li>
 
-  <li><strong>Historique Invités</strong>: les visites des pages
-  par les invités sont enregistrées.</li>
 </ul>
 
+<h3>Historique</h3>
+<ul>
+  <p>les visites des pages <span
+class="pwgScreen">index.php</span> et <span
+class="pwgScreen">picture.php</span> sont
+enregistrées dans la table <code>history</code>.</p>
+
+  <p>Les visites sont affichées dans l'écran <span class="pwgScreen">Administration, Général, Historique</span>.</p>
+
+  <li><strong>Enregistrer les pages visitées par les invités</strong>: les visites des pages par les invités sont enregistrées.</li>
+
+  <li><strong>Enregistrer les pages visitées par les utilisateurs</strong>: les visites des pagespar les utilisateurs enregistrés sont enregistrées.</li>
+
+  <li><strong>Enregistrer les pages visitées par les administrateurs</strong>: les visites des pages par les administrateurs sont enregistrées.</li>
+
+</ul>
+
+<h3>Commentaires</h3>
+<ul>
+
+  <li><strong>Commentaires utilisateur pour tous</strong>: même les
+utilisateurs non enregistrés peuvent enregistrer des commentaires.</li>
+
+  <li><strong>Nombre de commentaires utilisateur par page</strong>.</li>
+
+  <li><strong>Validation</strong>: un administrateur doit valider les
+commentaires utilisateurs avant qu'ils puissent devenir visibles dans la
+partie publique. La validation des commentaires utilisateurs a lieu dans
+l'écran <span class="pwgScreen">Administration, Images,
+Commentaires</span>.</li>
+
+  <li><strong>Notifier le webmestre quand un commentaire est enregistré</strong>:
+Envoi un courriel aux administrateurs lorsqu'un utilisateur enregistre un commentaire qui est validé.</li>
+
+  <li><strong>Notifier le webmestre quand un commentaire requiert sa validation </strong>:
+Envoi un courriel aux administrateurs lorsqu'un utilisateur enregistre un commentaire qui demande une validation de la part des administrateurs.
+La validation des commentaires utilisateurs a lieu dans l'écran <span class="pwgScreen">Administration, Images, Commentaires</span>.</li>
+
+</ul>
 
 <h3>Affichage par défaut</h3>
-
 <p>Modifier les options d'affichage par défaut: pour les visiteurs non
 connectés. Une fois connecté, ces options sont surchargées par celles de
 l'utilisateur, qu'il peut modifier dans l'écran <span
@@ -95,30 +125,5 @@ vos images stockées.</li>
 
   <li><strong>Hauteur maximum des images</strong>: même remarque que pour la
 largeur.</li>
-
-</ul>
-
-
-<h3>Commentaires utilisateur</h3>
-
-<ul>
-
-  <li><strong>Commentaires utilisateur pour tous</strong>: même les
-utilisateurs non enregistrés peuvent enregistrer des commentaires.</li>
-
-  <li><strong>Nombre de commentaires utilisateur par page</strong>.</li>
-
-  <li><strong>Validation</strong>: un administrateur doit valider les
-commentaires utilisateurs avant qu'ils puissent devenir visibles dans la
-partie publique. La validation des commentaires utilisateurs a lieu dans
-l'écran <span class="pwgScreen">Administration, Images,
-Commentaires</span>.</li>
-
-  <li><strong>Notifier le webmestre quand un commentaire est enregistré</strong>:
-Envoi un courriel aux administrateurrs lorsqu'un utilisateur enregistre un commentaire qui est validé.</li>
-
-  <li><strong>Notifier le webmestre quand un commentaire requiert sa validation </strong>:
-Envoi un courriel aux administrateurrs lorsqu'un utilisateur enregistre un commentaire qui demande une validation de la part des administrateurs.
-La validation des commentaires utilisateurs a lieu dans l'écran <span class="pwgScreen">Administration, Images, Commentaires</span>.</li>
 
 </ul>

@@ -27,7 +27,7 @@
         <li><a href="{U_CAT_UPDATE}">{lang:update}</a><br />&nbsp;</li>
         <li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
         <li><a href="{U_MOVE}">{lang:Move}</a></li>
-        <li><a href="{U_CAT_OPTIONS}">{lang:Batch management}</a></li>
+        <li><a href="{U_CAT_OPTIONS}">{lang:cat_options_title}</a></li>
         <li><a href="{U_PERMALINKS}">{lang:Permalinks}</a></li>
       </ul>
     </dd>
