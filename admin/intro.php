@@ -120,7 +120,8 @@ else if (isset($_GET['action']) and 'phpinfo' == $_GET['action'])
 
 $template->set_filenames(array('intro' => 'admin/intro.tpl'));
 
-list($mysql_version) = mysql_fetch_row(pwg_query('SELECT VERSION();'));
+$php_current_timestamp = date("Y-m-d H:i:s");
+list($mysql_version, $db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT VERSION(), CURRENT_TIMESTAMP;'));
 
 $query = '
 SELECT COUNT(*)
@@ -183,9 +184,6 @@ SELECT COUNT(*)
   FROM '.COMMENTS_TABLE.'
 ;';
 list($nb_comments) = mysql_fetch_row(pwg_query($query));
-
-$php_current_timestamp = date("Y-m-d H:i:s");
-list($db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT CURRENT_TIMESTAMP;'));
 
 $template->assign_vars(
   array(
