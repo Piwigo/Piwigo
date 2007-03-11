@@ -72,6 +72,16 @@
     </select>
   </label>
 
+  <label>
+    {lang:Image id}
+    <input name="image_id" value="{IMAGE_ID}" type="text" size="5">
+  </label>
+
+  <label>
+    {lang:File name}
+    <input name="filename" value="{FILENAME}" type="text">
+  </label>
+
   <input class="submit" type="submit" name="submit" value="{lang:submit}" />
 </fieldset>
 </form>

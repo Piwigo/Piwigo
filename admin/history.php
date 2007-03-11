@@ -71,7 +71,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // | Build search criteria and redirect to results                         |
 // +-----------------------------------------------------------------------+
 
-$errors = array();
+$page['errors'] = array();
 $search = array();
 
 if (isset($_POST['submit']))
@@ -100,6 +100,23 @@ if (isset($_POST['submit']))
   $search['fields']['types'] = $_POST['types'];
 
   $search['fields']['user'] = $_POST['user'];
+
+  if (!empty($_POST['image_id']))
+  {
+    $search['fields']['image_id'] = intval($_POST['image_id']);
+  }
+  
+  if (!empty($_POST['filename']))
+  {
+    $search['fields']['filename'] = str_replace(
+      '*',
+      '%',
+      mysql_escape_string($_POST['filename'])
+      );
+  }
+
+  // TODO manage inconsistency of having $_POST['image_id'] and
+  // $_POST['filename'] simultaneously
   
   // echo '<pre>'; print_r($search); echo '</pre>';
   
@@ -123,7 +140,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($errors, $lang['search_one_clause_at_least']);
+    array_push($page['errors'], $lang['search_one_clause_at_least']);
   }
 }
 
@@ -195,6 +212,18 @@ INSERT INTO '.SEARCH_TABLE.'
       );
   }
 
+  
+  if (isset($page['search']['fields']['filename']))
+  {
+    $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+  WHERE file LIKE \''.$page['search']['fields']['filename'].'\'
+;';
+    $page['search']['image_ids'] = array_from_query($query, 'id');
+  }
+  
   // echo '<pre>'; print_r($page['search']); echo '</pre>';
   
   $clauses = array();
@@ -251,6 +280,30 @@ INSERT INTO '.SEARCH_TABLE.'
       $clauses,
       'user_id = '.$page['search']['fields']['user']
       );
+  }
+
+  if (isset($page['search']['fields']['image_id']))
+  {
+    array_push(
+      $clauses,
+      'image_id = '.$page['search']['fields']['image_id']
+      );
+  }
+  
+  if (isset($page['search']['fields']['filename']))
+  {
+    if (count($page['search']['image_ids']) == 0)
+    {
+      // a clause that is always false
+      array_push($clauses, '1 = 2 ');
+    }
+    else
+    {
+      array_push(
+        $clauses,
+        'image_id IN ('.implode(', ', $page['search']['image_ids']).')'
+        );
+    }
   }
   
   $clauses = prepend_append_array_items($clauses, '(', ')');
@@ -511,15 +564,6 @@ SELECT
     );
 }
 
-// $groups_string = preg_replace(
-//     '/(\d+)/e',
-//     "\$groups['$1']",
-//     implode(
-//       ', ',
-//       $local_user['groups']
-//       )
-//     );
-
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
 // +-----------------------------------------------------------------------+
@@ -577,6 +621,9 @@ if (isset($page['search']))
   {
     $form['user'] = null;
   }
+
+  $form['image_id'] = @$page['search']['fields']['image_id'];
+  $form['filename'] = @$page['search']['fields']['filename'];
 }
 else
 {
@@ -599,6 +646,8 @@ $template->assign_vars(
   array(
     'START_YEAR' => @$form['start_year'],
     'END_YEAR'   => @$form['end_year'],
+    'IMAGE_ID' => @$form['image_id'],
+    'FILENAME' => @$form['filename'],
     )
   );
 
