@@ -26,9 +26,9 @@
 <fieldset>
 
   <legend>{lang:Elements}</legend>
-<!--
+
   <div class="navigationBar">{NAV_BAR}</div>
--->
+
   <!-- BEGIN thumbnails -->
   <ul class="thumbnails">
     <!-- BEGIN thumbnail -->
