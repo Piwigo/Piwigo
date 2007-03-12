@@ -196,6 +196,19 @@ order by
   return $result;
 }
 
+/* Return a standard block useful for admin mail */
+function get_block_mail_admin_info()
+{
+  global $user;
+
+  return 
+    "\n"
+    .'Connected user: '.$user['username']."\n"
+    .'IP: '.$_SERVER['REMOTE_ADDR']."\n"
+    .'Browser: '.$_SERVER['HTTP_USER_AGENT']."\n"
+    ."\n";
+}
+
 /**
  * sends an email, using PhpWebGallery specific informations
  *
@@ -373,7 +386,12 @@ function pwg_mail($to, $args = array())
   // Content
   if (($args['content_format'] == 'text/plain') and ($args['email_format'] == 'text/html'))
   {
-    $content.= '<p>'.nl2br(htmlentities($args['content'])).'</p>';
+    $content.= '<p>'.
+                nl2br(
+                  preg_replace("/(http:\/\/)([^\s,]*)/i",
+                               "<a href='$1$2'>$1$2</a>",
+                               htmlentities($args['content']))).
+                '</p>';
   }
   else
   {

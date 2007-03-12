@@ -222,6 +222,36 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     $query.= ';';
     pwg_query( $query );
     $page['waiting_id'] = mysql_insert_id();
+
+    if ($conf['email_admin_on_picture_uploaded'])
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+
+      $waiting_url = get_absolute_root_url().'admin.php?page=waiting';
+
+      $content =
+         'Category: '.get_cat_display_name($category['upper_names'], null, false)."\n"
+        .'Picture name: '.$_FILES['picture']['name']."\n"
+        .'User: '.$_POST['username']."\n"
+        .'Email: '.$_POST['mail_address']."\n"
+        .'Picture name: '.$_POST['name']."\n"
+        .'Author: '.$_POST['author']."\n"
+        .'Creation Date: '.$_POST['date_creation']."\n"
+        .'Comment: '.$_POST['comment']."\n"
+        .get_block_mail_admin_info()
+        .'Waiting page: '.$waiting_url."\n";
+
+      pwg_mail
+      (
+        format_email('administrators', get_webmaster_mail_address()),
+        array
+        (
+          'subject' => 'PWG picture uploaded by '.$_POST['username'],
+          'content' => $content,
+          'Bcc' => get_administrators_email()
+        )
+      );
+    }
   }
 }
 

@@ -67,14 +67,13 @@ if (isset($_POST['submit']))
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
       $username = $_POST['login'];
       $admin_url = get_absolute_root_url()
-        .'admin.php?page=user_list&username='.$username;
+                   .'admin.php?page=user_list&username='.$username;
 
       $content =
-        'User: '.$username."\n"
+         'User: '.$username."\n"
         .'Mail: '.$_POST['mail_address']."\n"
-        .'IP: '.$_SERVER['REMOTE_ADDR']."\n"
-        .'Browser: '.$_SERVER['HTTP_USER_AGENT']."\n\n"
-        .l10n('admin').': '.$admin_url;
+        .get_block_mail_admin_info()
+        .'Admin'.': '.$admin_url;
 
       pwg_mail
       (

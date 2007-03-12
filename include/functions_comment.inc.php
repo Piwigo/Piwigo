@@ -194,20 +194,20 @@ INSERT INTO '.COMMENTS_TABLE.'
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
+      $del_url =
+          get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
       $content =
-        'Author: '.$comm['author']."\n"
+         'Author: '.$comm['author']."\n"
         .'Comment: '.$comm['content']."\n"
-        .'IP: '.$comm['ip']."\n"
-        .'Browser: '.$comm['agent']."\n\n"
+        .get_block_mail_admin_info()
         .'Delete: '.$del_url."\n";
 
       if ($comment_action!='validate')
       {
         $content .=
-          'Validate: '.get_absolute_root_url()
-          .'comments.php?validate='.$comm['id'];
+          'Validate: '
+          .get_absolute_root_url().'comments.php?validate='.$comm['id'];
       }
 
       pwg_mail

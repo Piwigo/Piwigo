@@ -53,7 +53,7 @@
 
     <li>
       <label>
-        <span class="property">{lang:Email admin when a new user registers}</span>
+        <span class="property">{lang:Email administrators when a new user registers}</span>
         <input type="checkbox" name="email_admin_on_new_user" {main.EMAIL_ADMIN_ON_NEW_USER} />
       </label>
     </li>
@@ -64,6 +64,14 @@
         <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {main.ALLOW_USER_REGISTRATION} />
       </label>
     </li>
+
+    <li>
+      <label>
+        <span class="property">{lang:Email administrators when a picture is uploaded}</span>
+        <input type="checkbox" name="email_admin_on_picture_uploaded" {main.EMAIL_ADMIN_ON_PICTURE_UPLOADED} />
+      </label>
+    </li>
+
   </ul>
 </fieldset>
 <!-- END main -->
@@ -113,14 +121,14 @@
 
     <li>
       <label>
-        <span class="property">{lang:Email admin when a valid comment is entered}</span>
+        <span class="property">{lang:Email administrators when a valid comment is entered}</span>
         <input type="checkbox" name="email_admin_on_comment" {comments.EMAIL_ADMIN_ON_COMMENT} />
       </label>
     </li>
 
     <li>
       <label>
-        <span class="property">{lang:Email admin when a comment requires validation}</span>
+        <span class="property">{lang:Email administrators when a comment requires validation}</span>
         <input type="checkbox" name="email_admin_on_comment_validation" {comments.EMAIL_ADMIN_ON_COMMENT_VALIDATION} />
       </label>
     </li>

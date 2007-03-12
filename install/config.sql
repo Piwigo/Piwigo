@@ -29,6 +29,7 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_mail_as
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_detailed_content','true','Send detailed content for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_complementary_mail_content','','Complementary mail content for notification by mail');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('nbm_send_recent_post_dates','true','Send recent post by dates for notification by mail');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_new_user','false','Send an email to the admin when a user registers');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment','false','Send an email to the admin when a valid comment is entered');
-INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment_validation','false','Send an email to the admin when a comment requires validation');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_new_user','false','Send an email to theadministrators when a user registers');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment','false','Send an email to the administrators when a valid comment is entered');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment_validation','false','Send an email to the administrators when a comment requires validation');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_picture_uploaded','false','Send an email to the administrators when a picture is uploaded');

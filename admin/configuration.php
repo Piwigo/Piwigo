@@ -51,6 +51,7 @@ else
 $main_checkboxes = array(
     'email_admin_on_new_user',
     'allow_user_registration',
+    'email_admin_on_picture_uploaded',
    );
 
 $history_checkboxes = array(
