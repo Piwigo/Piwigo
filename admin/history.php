@@ -541,6 +541,28 @@ SELECT
           )
         );
     }
+
+    $image_string = '';
+    if (isset($line['image_id']))
+    {
+      $picture_url = make_picture_url(
+        array(
+          'image_id' => $line['image_id'],
+          )
+        );
+      
+      $image_string = '<a href="'.$picture_url.'">';
+      $image_string.= '('.$line['image_id'].')';
+
+      if (isset($label_of_image[$line['image_id']]))
+      {
+        $image_string.= ' '.$label_of_image[$line['image_id']];
+      }
+      else
+      {
+        $image_string.= ' unknown filename';
+      }
+    }
     
     $template->assign_block_vars(
       'detail',
@@ -549,19 +571,7 @@ SELECT
         'TIME'      => $line['time'],
         'USER'      => $user_string,
         'IP'        => $line['IP'],
-        'IMAGE'     => isset($line['image_id'])
-          ? ( isset($label_of_image[$line['image_id']])
-                ? sprintf(
-                    '(%u) %s',
-                    $line['image_id'],
-                    $label_of_image[$line['image_id']]
-                  )
-                : sprintf(
-                    '(%u) deleted ',
-                    $line['image_id']
-                  )
-            )
-          : '',
+        'IMAGE'     => $image_string,
         'TYPE'      => $line['image_type'],
         'SECTION'   => $line['section'],
         'CATEGORY'  => isset($line['category_id'])
