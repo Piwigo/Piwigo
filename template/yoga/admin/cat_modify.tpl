@@ -212,4 +212,27 @@
 
 </fieldset>
 
+<fieldset id="emailCatInfo">
+  <legend>{lang:Send an information email to group members}</legend>
+
+  <table>
+    <tr>
+      <td>{lang:Group}</td>
+      <td>
+        <select name="group">
+          <!-- BEGIN group_option -->
+          <option value="{group_option.VALUE}">{group_option.OPTION}</option>
+          <!-- END group_option -->
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    <input class="submit" type="submit" value="{lang:Submit}" name="submitEmail" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
+  </p>
+
+</fieldset>
+
 </form>

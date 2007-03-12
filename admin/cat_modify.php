@@ -30,6 +30,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -525,6 +526,98 @@ display_select_cat_wrapper(
   'category_option_destination'
   );
 
+// info by email to an access granted group of category informations
+if (isset($_POST['submitEmail']))
+{
+  $query = '
+SELECT
+    user_id,
+    '.$conf['user_fields']['email'].' AS email
+  FROM '.USER_GROUP_TABLE.'
+    INNER JOIN '.USERS_TABLE.' ON '.$conf['user_fields']['id'].' = user_id
+  WHERE '.$conf['user_fields']['email'].' IS NOT NULL
+    AND group_id = '.$_POST['group'].'
+;';
+  $result = pwg_query($query);
+
+  while ($row = mysql_fetch_array($result))
+  {
+    pwg_mail(
+      $row['email'],
+      array(
+        'content' => get_absolute_root_url().make_index_url(
+          array(
+            'category' => array(
+              'id' => $category['id'],
+              'name' => $category['name'],
+              'permalink' => $category['permalink'],
+              )
+            )
+          ),
+        'subject' => $category['name']
+        )
+      );
+  }
+
+  $query = '
+SELECT
+    name
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.$_POST['group'].'
+;';
+  list($group_name) = mysql_fetch_row(pwg_query($query));
+  
+  array_push(
+    $page['infos'],
+    sprintf(
+      l10n('An information email was sent to group "%s"'),
+      $group_name
+      )
+    );
+}
+
+if ('private' == $category['status'])
+{
+  $query = '
+SELECT
+    group_id
+  FROM '.GROUP_ACCESS_TABLE.'
+  WHERE cat_id = '.$category['id'].'
+;';
+}
+else
+{
+  $query = '
+SELECT
+    id AS group_id
+  FROM '.GROUPS_TABLE.'
+;';
+}
+$group_ids = array_from_query($query, 'group_id');
+
+if (count($group_ids) > 0)
+{
+  $query = '
+SELECT
+    id,
+    name
+  FROM '.GROUPS_TABLE.'
+  WHERE id IN ('.implode(',', $group_ids).')
+  ORDER BY name ASC
+;';
+  $result = pwg_query($query);
+
+  while ($row = mysql_fetch_array($result))
+  {
+    $template->assign_block_vars(
+      'group_option',
+      array(
+        'VALUE' => $row['id'],
+        'OPTION' => $row['name'],
+        )
+      );
+  }
+}
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'categories');
