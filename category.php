@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$

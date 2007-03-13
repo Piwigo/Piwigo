@@ -20,7 +20,7 @@
   <a href="{U_SLIDESHOW}" title="{lang:slideshow}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"></a>
   <a href="{U_METADATA}" title="{lang:picture_show_metadata}"><img src="{pwg_root}{themeconf:icon_dir}/metadata.png" class="button" alt="{lang:picture_show_metadata}"></a>
 <!-- BEGIN representative -->
-  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"/></a>
+  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"></a>
 <!-- END representative -->
 <!-- BEGIN favorite -->
   <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
@@ -32,7 +32,7 @@
   <a href="{U_ADMIN}" title="{lang:link_info_image}"><img src="{pwg_root}{themeconf:icon_dir}/preferences.png" class="button" alt="{lang:link_info_image}"></a>
 <!-- END admin -->
 <!-- BEGIN caddie -->
-  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a>
+  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"></a>
 <!-- END caddie -->
 </div>
 

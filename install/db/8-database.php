@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006 Ruben ARNAUD - team@phpwebgallery.net              |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
