@@ -192,10 +192,8 @@ function begin_users_env_nbm($is_to_send_mail = false)
 
   // Save $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
   $env_nbm['save_user'] = $user;
-  $env_nbm['save_lang_info'] = $lang_info;
-  $env_nbm['save_lang'] = $lang;
-  // Last Language
-  $env_nbm['last_language'] = $user['language'];
+  // Save current language to stack, necessary because $user change during NBM
+  switch_lang_to($user['language']);
 
   $env_nbm['is_to_send_mail'] = $is_to_send_mail;
 
@@ -227,8 +225,8 @@ function end_users_env_nbm()
 
   // Restore $user, $lang_info and $lang arrays (include/user.inc.php has been executed)
   $user = $env_nbm['save_user'];
-  $lang_info = $env_nbm['save_lang_info'];
-  $lang = $env_nbm['save_lang'];
+  // Restore current language to stack, necessary because $user change during NBM
+  switch_lang_back();
 
   if ($env_nbm['is_to_send_mail'])
   {
@@ -244,11 +242,7 @@ function end_users_env_nbm()
   }
 
   unset($env_nbm['save_user']);
-  unset($env_nbm['save_lang_info']);
-  unset($env_nbm['save_lang']);
-  unset($env_nbm['last_language']);
   unset($env_nbm['is_to_send_mail']);
-
 }
 
 /*
@@ -262,23 +256,8 @@ function set_user_on_env_nbm(&$nbm_user, $is_action_send)
 
   $user = build_user( $nbm_user['user_id'], true );
 
-  if ($env_nbm['last_language'] != $user['language'])
-  {
-    $env_nbm['last_language'] = $user['language'];
+  switch_lang_to($user['language']);
 
-    // Re-Init language arrays
-    $lang_info = array();
-    $lang  = array();
-
-    // language files
-    include(get_language_filepath('common.lang.php'));
-    // No test admin because script is checked admin (user selected no)
-    // Translations are in admin file too
-    include(get_language_filepath('admin.lang.php'));
-    trigger_action('loading_lang');
-    @include(get_language_filepath('local.lang.php'));
-  }
-  
   if ($is_action_send)
   {
     $nbm_user['template'] = $user['template'];
@@ -299,6 +278,7 @@ function unset_user_on_env_nbm()
 {
   global $env_nbm;
 
+  switch_lang_back();
   unset($env_nbm['mail_template']);
 }
 

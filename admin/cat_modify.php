@@ -529,35 +529,59 @@ display_select_cat_wrapper(
 // info by email to an access granted group of category informations
 if (isset($_POST['submitEmail']))
 {
-  $query = '
-SELECT
-    user_id,
-    '.$conf['user_fields']['email'].' AS email
-  FROM '.USER_GROUP_TABLE.'
-    INNER JOIN '.USERS_TABLE.' ON '.$conf['user_fields']['id'].' = user_id
-  WHERE '.$conf['user_fields']['email'].' IS NOT NULL
-    AND group_id = '.$_POST['group'].'
-;';
-  $result = pwg_query($query);
+  set_make_full_url();
 
-  while ($row = mysql_fetch_array($result))
+  /* TODO: if $category['representative_picture_id'] 
+    is empty find child representative_picture_id */
+  if (!empty($category['representative_picture_id']))
   {
-    pwg_mail(
-      $row['email'],
-      array(
-        'content' => get_absolute_root_url().make_index_url(
+    $query = '
+SELECT id, file, path, tn_ext
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$category['representative_picture_id'].'
+;';
+
+    $result = pwg_query($query);
+    if (mysql_num_rows($result) > 0)
+    {
+      $element = mysql_fetch_assoc($result);
+
+      $img_url  = '<a href="'.
+                      make_picture_url(array(
+                          'image_id' => $element['id'],
+                          'image_file' => $element['file'],
+                          'category' => $category
+                        ))
+                      .'"><img src="'.get_thumbnail_url($element).'"/></a>';
+    }
+  }
+  
+  if (!isset($img_url))
+  {
+    $img_url = '';
+  }
+
+  // TODO Mettre un array pour traduction subjet
+  pwg_mail_group(
+    $_POST['group'],
+    get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
+    $category['name'],
+    'cat_group_info',
+    array
+    (
+      'IMG_URL' => $img_url,
+      'LINK' => make_index_url(
           array(
             'category' => array(
               'id' => $category['id'],
               'name' => $category['name'],
-              'permalink' => $category['permalink'],
-              )
-            )
-          ),
-        'subject' => $category['name']
-        )
-      );
-  }
+              'permalink' => $category['permalink']
+              ))),
+      'CPL_CONTENT' => '' /* TODO Add text area to add complementary content */
+    ),
+    '' /* TODO Add listbox in order to choose Language selected */);
+
+  unset_make_full_url();
 
   $query = '
 SELECT

@@ -804,14 +804,16 @@ SELECT name
  * return the file path of the given language filename, depending on the
  * availability of the file
  *
- * in descending order of preference: user language, default language,
+ * in descending order of preference: 
+ *   param language, user language, default language
  * PhpWebGallery default language.
  *
  * @param string filename
  * @param string dirname
+ * @param string language
  * @return string filepath
  */
-function get_language_filepath($filename, $dirname = '')
+function get_language_filepath($filename, $dirname = '', $language = '')
 {
   global $user, $conf;
 
@@ -822,7 +824,11 @@ function get_language_filepath($filename, $dirname = '')
   $dirname .= 'language'.'/';
 
   $directories = array();
-  if ( isset($user['language']) )
+  if ( !empty($language) )
+  {
+    $directories[] = $dirname.$language;
+  }
+
   {
     $directories[] = $dirname.$user['language'];
   }

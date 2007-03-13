@@ -209,7 +209,196 @@ function get_block_mail_admin_info()
     ."\n";
 }
 
-/**
+/* 
+ * Switch language to param language
+ * All entries are push on language stack
+ *
+ * @param string language
+ */
+function switch_lang_to($language)
+{
+  global $switch_lang, $user, $lang, $lang_info;
+
+  if (count($switch_lang['stack']) == 0)
+  {
+    $prev_language = $user['language'];
+  }
+  else
+  {
+    $prev_language = end($switch_lang['stack']);
+  }
+
+  $switch_lang['stack'][] = $language;
+
+  if ($prev_language != $language)
+  {
+    if (!isset($switch_lang['language'][$prev_language]))
+    {
+      $switch_lang[$prev_language]['lang_info'] = $lang_info;
+      $switch_lang[$prev_language]['lang'] = $lang;
+    }
+
+    if (!isset($switch_lang['language'][$language]))
+    {
+      // Re-Init language arrays
+      $lang_info = array();
+      $lang  = array();
+
+      // language files
+      include(get_language_filepath('common.lang.php', '', $language));
+      // No test admin because script is checked admin (user selected no)
+      // Translations are in admin file too
+      include(get_language_filepath('admin.lang.php', '', $language));
+      trigger_action('loading_lang');
+      @include(get_language_filepath('local.lang.php', '', $language));
+
+      $switch_lang[$language]['lang_info'] = $lang_info;
+      $switch_lang[$language]['lang'] = $lang;
+    }
+    else
+    {
+      $lang_info = $switch_lang[$language]['lang_info'];
+      $lang = $switch_lang[$language]['lang'];
+    }
+  }
+}
+
+/* 
+ * Switch back language pushed with switch_lang_to function
+ *
+ * @param: none
+ */
+function switch_lang_back()
+{
+  global $switch_lang, $user, $lang, $lang_info;
+
+  $last_language = array_pop($switch_lang['stack']);
+
+  if (count($switch_lang['stack']) > 0)
+  {
+    $language = end($switch_lang['stack']);
+  }
+  else
+  {
+    $language = $user['language'];
+  }
+
+  if ($last_language != $language)
+  {
+    if (!isset($switch_lang['language'][$language]))
+    {
+      $lang_info = $switch_lang[$language]['lang_info'];
+      $lang = $switch_lang[$language]['lang'];
+    }
+  }
+}
+
+/*
+ * send en email to user's group
+ *
+  * @param:
+ *   - group_id: mail are sent to group with this Id
+ *   - email_format: mail format
+ *   - key_subject:  TODO Include translations 
+ *   - tpl_shortname: short template name without extension
+ *   - assign_vars: array used to assign_vars to mail template
+ *   - language_selected: send mail only to user with this selected language
+*/
+function pwg_mail_group(
+  $group_id, $email_format, $key_subject, 
+  $tpl_shortname, $assign_vars = array(), $language_selected = '')
+{
+  global $conf;
+
+  $query = '
+SELECT
+  distinct language, template
+FROM 
+  '.USER_GROUP_TABLE.' as ug 
+  INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
+  INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
+WHERE 
+        '.$conf['user_fields']['email'].' IS NOT NULL
+    AND group_id = '.$group_id;
+
+  if (!empty($language_selected))
+  {
+    $query .= '
+    AND language = \''.$language_selected.'\'';
+  }
+
+    $query .= '
+;';
+
+  $result = pwg_query($query);
+
+  if (mysql_num_rows($result) > 0)
+  {
+    $list = array();
+    while ($row = mysql_fetch_array($result))
+    {
+      list($row['template'], $row['theme']) = explode('/', $row['template']);
+      $list[] = $row;
+    }
+  }
+
+
+  foreach ($list as $elem)
+  {
+    $query = '
+SELECT
+  u.'.$conf['user_fields']['username'].' as username,
+  u.'.$conf['user_fields']['email'].' as mail_address
+FROM 
+  '.USER_GROUP_TABLE.' as ug 
+  INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
+  INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
+WHERE 
+        '.$conf['user_fields']['email'].' IS NOT NULL
+    AND group_id = '.$group_id.'
+    AND language = \''.$elem['language'].'\'
+;';
+
+    $result = pwg_query($query);
+
+    if (mysql_num_rows($result) > 0)
+    {
+      $Bcc = array();
+      while ($row = mysql_fetch_array($result))
+      {
+        if (!empty($row['mail_address']))
+        {
+          array_push($Bcc, format_email($row['username'], $row['mail_address']));
+        }
+      }
+
+      switch_lang_to($elem['language']);
+
+      $mail_template = get_mail_template($email_format, $elem);
+      $mail_template->set_filename($tpl_shortname, $tpl_shortname.'.tpl');
+      $mail_template->assign_vars($assign_vars);
+
+      pwg_mail
+      (
+        '',
+        array
+        (
+          'subject' => $key_subject,
+          'email_format' => $email_format,
+          'content' => $mail_template->parse($tpl_shortname, true),
+          'content_format' => $email_format,
+          'template' => $elem['template'],
+          'theme' => $elem['theme']
+        )
+      );
+
+      switch_lang_back();
+    }
+  }
+}
+
+
+/*
  * sends an email, using PhpWebGallery specific informations
  *
  * @param:
@@ -245,7 +434,10 @@ function pwg_mail($to, $args = array())
     set_make_full_url();
   }
 
-  $to = format_email('', $to);
+  if (!empty($to))
+  {
+    $to = format_email('', $to);
+  }
 
   if (empty($args['from']))
   {
@@ -287,6 +479,10 @@ function pwg_mail($to, $args = array())
 
   $headers = 'From: '.$args['from']."\n";
   $headers.= 'Reply-To: '.$args['from']."\n";
+  if (empty($to))
+  {
+    $headers.= 'To: undisclosed-recipients: ;'."\n";
+  }
 
   if (!empty($args['Cc']))
   {
