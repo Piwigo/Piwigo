@@ -52,16 +52,16 @@
     </li>
 
     <li>
-      <label>
-        <span class="property">{lang:Email administrators when a new user registers}</span>
-        <input type="checkbox" name="email_admin_on_new_user" {main.EMAIL_ADMIN_ON_NEW_USER} />
+      <label for="allow_user_registration">
+        <span class="property">{lang:Allow user registration}</span>
+        <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {main.ALLOW_USER_REGISTRATION} />
       </label>
     </li>
 
     <li>
-      <label for="allow_user_registration">
-        <span class="property">{lang:Allow user registration}</span>
-        <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {main.ALLOW_USER_REGISTRATION} />
+      <label>
+        <span class="property">{lang:Email administrators when a new user registers}</span>
+        <input type="checkbox" name="email_admin_on_new_user" {main.EMAIL_ADMIN_ON_NEW_USER} />
       </label>
     </li>
 

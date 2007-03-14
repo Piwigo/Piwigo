@@ -385,10 +385,13 @@ SELECT id
   $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
   if (!empty($q_like_clause))
   {
+    // search also by url name (without accents)
+    $q_like_clause_url = get_qsearch_like_clause($q, 'url_name' );
     $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
-  WHERE '.$q_like_clause;
+  WHERE '.$q_like_clause.'
+  OR '.$q_like_clause_url;
     $tag_ids = array_from_query( $query, 'id');
     if (!empty($tag_ids))
     { // we got some tags
