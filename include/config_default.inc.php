@@ -279,7 +279,7 @@ $conf['enabled_format_email'] = true;
 // default_email_format:
 //  Define the default email format use to send email
 //  Value could be text/plain  or text/html
-$conf['default_email_format'] = 'text/plain';
+$conf['default_email_format'] = 'text/html';
 
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
