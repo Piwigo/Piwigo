@@ -197,28 +197,27 @@ INSERT INTO '.COMMENTS_TABLE.'
       $del_url =
           get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
-      $content =
-         'Author: '.$comm['author']."\n"
-        .'Comment: '.$comm['content']."\n"
-        .get_block_mail_admin_info()
-        .'Delete: '.$del_url."\n";
+      $keyargs_content = array
+      (
+        get_l10n_args('Author: %s', $comm['author']),
+        get_l10n_args('Comment: %s', $comm['content']),
+        get_l10n_args('', ''),
+        get_l10n_args('Delete: %s', $del_url)
+      );
 
       if ($comment_action!='validate')
       {
-        $content .=
-          'Validate: '
-          .get_absolute_root_url().'comments.php?validate='.$comm['id'];
+        $keyargs_content[] =
+          get_l10n_args('', '');
+        $keyargs_content[] =
+          get_l10n_args('Validate: %s',
+            get_absolute_root_url().'comments.php?validate='.$comm['id']);
       }
 
-      pwg_mail
+      pwg_mail_notification_admins
       (
-        format_email('administrators', get_webmaster_mail_address()),
-        array
-        (
-          'subject' => 'PWG comment by '.$comm['author'], 
-          'content' => $content,
-          'Bcc' => get_administrators_email()
-        )
+        get_l10n_args('Comment by %s', $comm['author']),
+        $keyargs_content
       );
     }
   }

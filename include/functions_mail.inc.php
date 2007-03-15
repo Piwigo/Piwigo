@@ -154,61 +154,6 @@ function get_str_email_format($is_html)
   return ($is_html ? 'text/html' : 'text/plain');
 }
 
-/**
- * Returns email of all administrator
- *
- * @return string
- */
-function get_administrators_email()
-{
-  global $conf;
-
-  $result = array();
-
-  $query = '
-select
-  U.'.$conf['user_fields']['username'].' as username,
-  U.'.$conf['user_fields']['email'].' as mail_address
-from
-  '.USERS_TABLE.' as U,
-  '.USER_INFOS_TABLE.' as I
-where
-  I.user_id =  U.'.$conf['user_fields']['id'].' and
-  I.status in (\'webmaster\',  \'admin\') and
-  I.adviser = \'false\' and
-  '.$conf['user_fields']['email'].' is not null
-order by
-  username
-';
-
-  $datas = pwg_query($query);
-  if (!empty($datas))
-  {
-    while ($admin = mysql_fetch_array($datas))
-    {
-      if (!empty($admin['mail_address']))
-      {
-        array_push($result, format_email($admin['username'], $admin['mail_address']));
-      }
-    }
-  }
-
-  return $result;
-}
-
-/* Return a standard block useful for admin mail */
-function get_block_mail_admin_info()
-{
-  global $user;
-
-  return 
-    "\n"
-    .'Connected user: '.$user['username']."\n"
-    .'IP: '.$_SERVER['REMOTE_ADDR']."\n"
-    .'Browser: '.$_SERVER['HTTP_USER_AGENT']."\n"
-    ."\n";
-}
-
 /* 
  * Switch language to param language
  * All entries are push on language stack
@@ -293,22 +238,105 @@ function switch_lang_back()
   }
 }
 
+/**
+ * Returns email of all administrator
+ *
+ * @return string
+ */
+/*
+ * send en notification email to all administrators
+ * if a administrator is doing action, 
+ * he's be removed to email list
+ *
+ * @param:
+ *   - keyargs_subject: mail subject on l10n_args format
+ *   - keyargs_content: mail content on l10n_args format
+ *
+ * @return boolean (Ok or not)
+ */
+function pwg_mail_notification_admins($keyargs_subject, $keyargs_content)
+{
+  global $conf, $user;
+  $return = true;
+
+  $admins = array();
+
+  $query = '
+select
+  U.'.$conf['user_fields']['username'].' as username,
+  U.'.$conf['user_fields']['email'].' as mail_address
+from
+  '.USERS_TABLE.' as U,
+  '.USER_INFOS_TABLE.' as I
+where
+  I.user_id =  U.'.$conf['user_fields']['id'].' and
+  I.status in (\'webmaster\',  \'admin\') and
+  I.adviser = \'false\' and
+  '.$conf['user_fields']['email'].' is not null and
+  I.user_id <> '.$user['id'].'
+order by
+  username
+';
+
+  $datas = pwg_query($query);
+  if (!empty($datas))
+  {
+    while ($admin = mysql_fetch_array($datas))
+    {
+      if (!empty($admin['mail_address']))
+      {
+        array_push($admins, format_email($admin['username'], $admin['mail_address']));
+      }
+    }
+  }
+
+  $keyargs_content_admin_info = array
+  (
+    get_l10n_args('Connected user: %s', $user['username']),
+    get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
+    get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
+  );
+
+  switch_lang_to($conf['default_language']);
+
+  $return = pwg_mail
+  (
+    '',
+    array
+    (
+      'Bcc' => $admins,
+      'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
+      'content' => 
+         l10n_args($keyargs_content)."\n\n"
+        .l10n_args($keyargs_content_admin_info)."\n",
+      'content_format' => 'text/plain'
+    )
+  ) and $return;
+
+  switch_lang_back();
+
+  return $return;
+}
+
 /*
  * send en email to user's group
  *
-  * @param:
+ * @param:
  *   - group_id: mail are sent to group with this Id
  *   - email_format: mail format
- *   - key_subject:  TODO Include translations 
+ *   - keyargs_subject: mail subject on l10n_args format
  *   - tpl_shortname: short template name without extension
  *   - assign_vars: array used to assign_vars to mail template
  *   - language_selected: send mail only to user with this selected language
-*/
+ *
+ * @return boolean (Ok or not)
+ */
 function pwg_mail_group(
-  $group_id, $email_format, $key_subject, 
+  $group_id, $email_format, $keyargs_subject, 
   $tpl_shortname, $assign_vars = array(), $language_selected = '')
 {
   global $conf;
+  $return = true;
 
   $query = '
 SELECT
@@ -342,7 +370,6 @@ WHERE
     }
   }
 
-
   foreach ($list as $elem)
   {
     $query = '
@@ -375,26 +402,30 @@ WHERE
       switch_lang_to($elem['language']);
 
       $mail_template = get_mail_template($email_format, $elem);
-      $mail_template->set_filename($tpl_shortname, $tpl_shortname.'.tpl');
+      $mail_template->set_filename($tpl_shortname, 
+        (IN_ADMIN ? 'admin/' : '').$tpl_shortname.'.tpl');
       $mail_template->assign_vars($assign_vars);
 
-      pwg_mail
+      $return = pwg_mail
       (
         '',
         array
         (
-          'subject' => $key_subject,
+          'Bcc' => $Bcc,
+          'subject' => l10n_args($keyargs_subject),
           'email_format' => $email_format,
           'content' => $mail_template->parse($tpl_shortname, true),
           'content_format' => $email_format,
           'template' => $elem['template'],
           'theme' => $elem['theme']
         )
-      );
+      ) and $return;
 
       switch_lang_back();
     }
   }
+
+  return $return;
 }
 
 
@@ -413,6 +444,8 @@ WHERE
  *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
  *       o template: template to use [default $conf['default_template']]
  *       o theme: template to use [default $conf['default_template']]
+ *
+ * @return boolean (Ok or not)
  */
 function pwg_mail($to, $args = array())
 {

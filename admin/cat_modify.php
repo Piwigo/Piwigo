@@ -565,7 +565,7 @@ SELECT id, file, path, tn_ext
   pwg_mail_group(
     $_POST['group'],
     get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
-    $category['name'],
+    get_l10n_args('Come to visit %s', $category['name']),
     'cat_group_info',
     array
     (

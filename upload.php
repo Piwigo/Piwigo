@@ -229,27 +229,24 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
 
       $waiting_url = get_absolute_root_url().'admin.php?page=waiting';
 
-      $content =
-         'Category: '.get_cat_display_name($category['upper_names'], null, false)."\n"
-        .'Picture name: '.$_FILES['picture']['name']."\n"
-        .'User: '.$_POST['username']."\n"
-        .'Email: '.$_POST['mail_address']."\n"
-        .'Picture name: '.$_POST['name']."\n"
-        .'Author: '.$_POST['author']."\n"
-        .'Creation Date: '.$_POST['date_creation']."\n"
-        .'Comment: '.$_POST['comment']."\n"
-        .get_block_mail_admin_info()
-        .'Waiting page: '.$waiting_url."\n";
-
-      pwg_mail
+      $keyargs_content = array
       (
-        format_email('administrators', get_webmaster_mail_address()),
-        array
-        (
-          'subject' => 'PWG picture uploaded by '.$_POST['username'],
-          'content' => $content,
-          'Bcc' => get_administrators_email()
-        )
+        get_l10n_args('Category: %s', get_cat_display_name($category['upper_names'], null, false)),
+        get_l10n_args('Picture name: %s', $_FILES['picture']['name']),
+        get_l10n_args('User: %s', $_POST['username']),
+        get_l10n_args('Email: %s', $_POST['mail_address']),
+        get_l10n_args('Picture name: %s', $_POST['name']),
+        get_l10n_args('Author: %s', $_POST['author']),
+        get_l10n_args('Creation date: %s', $_POST['date_creation']),
+        get_l10n_args('Comment: %s', $_POST['comment']),
+        get_l10n_args('', ''),
+        get_l10n_args('Waiting page: %s', $waiting_url)
+      );
+
+      pwg_mail_notification_admins
+      (
+        get_l10n_args('Picture uploaded by %s', $_POST['username']),
+        $keyargs_content
       );
     }
   }

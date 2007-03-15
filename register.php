@@ -69,21 +69,18 @@ if (isset($_POST['submit']))
       $admin_url = get_absolute_root_url()
                    .'admin.php?page=user_list&username='.$username;
 
-      $content =
-         'User: '.$username."\n"
-        .'Mail: '.$_POST['mail_address']."\n"
-        .get_block_mail_admin_info()
-        .'Admin'.': '.$admin_url;
-
-      pwg_mail
+      $keyargs_content = array
       (
-        format_email('administrators', get_webmaster_mail_address()),
-        array
-        (
-          'subject' => 'PWG '.l10n('register_title').' '.$username,
-          'content' => $content,
-          'Bcc' => get_administrators_email()
-        )
+        get_l10n_args('User: %s', $username),
+        get_l10n_args('Email: %s', $_POST['mail_address']),
+        get_l10n_args('', ''),
+        get_l10n_args('Admin: %s', $admin_url)
+      );
+
+      pwg_mail_notification_admins
+      (
+        get_l10n_args('Registration of %s', $username),
+        $keyargs_content
       );
     }
     redirect(make_index_url());

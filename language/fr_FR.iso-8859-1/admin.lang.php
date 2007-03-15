@@ -577,4 +577,8 @@ $lang['conf_history_guest'] = 'Enregistrer les pages visitées par les invités';
 $lang['conf_history_user'] = 'Enregistrer les pages visitées par les utilisateurs';
 $lang['conf_history_admin'] = 'Enregistrer les pages visitées par les administrateurs';
 $lang['cat_options_title'] = 'Propriétés';
+$lang['An information email was sent to group "%s"'] = 'Un mail d\'informations a été envoyé aux membres du groupe';
+$lang['Send an information email to group members'] = 'Envoyer un mail d\'informations aux membres d\'un groupe';
+$lang['Group'] = 'Groupe';
+$lang['Come to visit %s'] = 'Venez visiter %s';
 ?>

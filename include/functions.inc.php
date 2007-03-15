@@ -1018,7 +1018,7 @@ function l10n($key)
 {
   global $lang, $conf;
 
-  if ($conf['debug_l10n'] and !isset($lang[$key]))
+  if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
   {
     echo '[l10n] language key "'.$key.'" is not defined<br />';
   }
@@ -1046,6 +1046,69 @@ function l10n_dec($singular_fmt_key, $plural_fmt_key, $decimal)
           ? $plural_fmt_key
           : $singular_fmt_key
         )), $decimal);
+}
+/*
+ * returns a single element to use with l10n_args
+ *
+ * @param string key: translation key
+ * @param array/string/../number args:
+ *   arguments to use on sprintf($key, args)
+ *   if args is a array, each values are used on sprintf
+ * @return string
+ */
+function get_l10n_args($key, $args)
+{
+  if (is_array($args))
+  {
+    $key_arg = array_merge(array($key), $args);
+  }
+  else
+  {
+    $key_arg = array($key,  $args);
+  }
+  return array('key_args' => $key_arg);
+}
+
+/*
+ * returns a string with formated with l10n_args elements
+ *
+ * @param element/array $key_args: element or array of l10n_args elements
+ * @param $sep: if $key_args is array, 
+ *   separator is used when translated l10n_args elements are concated
+ * @return string
+ */
+function l10n_args($key_args, $sep = "\n")
+{
+  if (is_array($key_args))
+  {
+    foreach ($key_args as $key => $element)
+    {
+      if (isset($result))
+      {
+        $result .= $sep;
+      }
+      else
+      {
+        $result = '';
+      }
+
+      if ($key === 'key_args')
+      {
+        array_unshift($element, l10n(array_shift($element)));
+        $result .= call_user_func_array('sprintf', $element);
+      }
+      else
+      {
+        $result .= l10n_args($element, $sep);
+      }
+    }
+  }
+  else
+  {
+    die('l10n_args: Invalid arguments');
+  }
+
+  return $result;
 }
 
 /**

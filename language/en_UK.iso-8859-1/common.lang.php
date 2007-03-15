@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -615,4 +614,21 @@ $lang['w_month'] = 'Month';
 $lang['yes'] = 'Yes';
 $lang['page_end'] = 'Page bottom';
 $lang['qsearch'] = 'Quick search';
+$lang['Connected user: %s'] = 'Connected user: %s';
+$lang['IP: %s'] = 'IP: %s';
+$lang['Browser: %s'] = 'Browser: %s';
+$lang['Author: %s'] = 'Author: %s';
+$lang['Comment: %s'] = 'Comment: %s';
+$lang['Delete: %s'] = 'Delete: %s';
+$lang['Validate: %s'] = 'Validate: %s';
+$lang['Comment by %s'] = 'Comment by %s';
+$lang['User: %s'] = 'User: %s';
+$lang['Email: %s'] = 'Email: %s';
+$lang['Admin: %s'] = 'Admin: %s';
+$lang['Registration of %s'] = 'Registration of %s';
+$lang['Category: %s'] = 'Category: %s';
+$lang['Picture name: %s'] = 'Picture name: %s';
+$lang['Creation date: %s'] = 'Creation date: %s';
+$lang['Waiting page: %s'] = 'Waiting page: %s';
+$lang['Picture uploaded by %s'] = 'Picture uploaded by %s';
 ?>
