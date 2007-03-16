@@ -72,11 +72,11 @@ BODY {
   margin: 0px;
   padding: 0px;
 }
-H3, #imageHeaderBar, #imageToolBar A:hover, .row1, .tabsheet li  {
+H3, #imageToolBar A:hover, .row1, .tabsheet li  {
   background-color: #222;
 }
 #theAdminPage h2, #theAdminPage h3 { border-bottom: 1px solid #69c; }
-#theAdminPage #the_page {
+#imageHeaderBar, #theAdminPage #the_page {
   background-color: #111;
 }
 #imageToolBar, .header_notes {
@@ -174,6 +174,7 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
 }
 #imageHeaderBar {
   border-top: 1px solid #000;
+  padding: 8px 0px 3px 0px;
 }
 H2, #imageToolBar {
   border-bottom: 1px solid #000;
