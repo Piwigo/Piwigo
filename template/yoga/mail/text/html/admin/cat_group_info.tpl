@@ -2,6 +2,7 @@
 <h2>{lang:Informations}</h2>
 <p>{IMG_URL}</p>
 <p>{lang:hello}</p>
-<p><a href="{LINK}">{LINK}</a></p>
+<p>{lang:Come to discover the category:} <a href="{LINK}">{CAT_NAME}</a></p>
 <p>{CPL_CONTENT}</p>
+<p>{lang:See you soon.}</p>
 </div>

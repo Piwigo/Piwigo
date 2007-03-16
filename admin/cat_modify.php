@@ -283,6 +283,8 @@ $template->assign_vars(
         )
       ),
 
+    'MAIL_CONTENT' => empty($_POST['mail_content'])
+        ? '' : stripslashes($_POST['mail_content']),
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_modify',
 
@@ -565,12 +567,14 @@ SELECT id, file, path, tn_ext
   pwg_mail_group(
     $_POST['group'],
     get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
-    get_l10n_args('Come to visit %s', $category['name']),
+    get_l10n_args('[%s] Come to visit the category %s',
+      array($conf['gallery_title'], $category['name'])),
     'admin',
     'cat_group_info',
     array
     (
       'IMG_URL' => $img_url,
+      'CAT_NAME' => $category['name'],
       'LINK' => make_index_url(
           array(
             'category' => array(
@@ -578,7 +582,8 @@ SELECT id, file, path, tn_ext
               'name' => $category['name'],
               'permalink' => $category['permalink']
               ))),
-      'CPL_CONTENT' => '' /* TODO Add text area to add complementary content */
+      'CPL_CONTENT' => empty($_POST['mail_content'])
+                          ? '' : stripslashes($_POST['mail_content'])
     ),
     '' /* TODO Add listbox in order to choose Language selected */);
 

@@ -582,5 +582,8 @@ $lang['cat_options_title'] = 'Properties';
 $lang['An information email was sent to group "%s"'] = 'An information email was sent to group "%s';
 $lang['Send an information email to group members'] = 'Send an information email to group members';
 $lang['Group'] = 'Group';
-$lang['Come to visit %s'] = 'Come to visit %s';
+$lang['[%s] Come to visit the category %s'] = '[%s] Come to visit the category %s';
+$lang['See you soon.'] = 'See you soon.';
+$lang['Come to discover the category:'] = 'Come to discover the category:';
+$lang['mail_content'] = 'Mail content';
 ?>

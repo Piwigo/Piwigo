@@ -72,15 +72,15 @@
     <tr>
       <td><strong>{L_EDIT_STATUS}</strong>
       <td>
-	  <input type="radio" name="status" value="public" {STATUS_PUBLIC} />{L_STATUS_PUBLIC}
-	  <input type="radio" name="status" value="private" {STATUS_PRIVATE} />{L_STATUS_PRIVATE}
+    <input type="radio" name="status" value="public" {STATUS_PUBLIC} />{L_STATUS_PUBLIC}
+    <input type="radio" name="status" value="private" {STATUS_PRIVATE} />{L_STATUS_PRIVATE}
       </td>
     </tr>
     <tr>
       <td><strong>{L_EDIT_LOCK}</strong>
       <td>
-	  <input type="radio" name="visible" value="false" {LOCKED} />{L_YES}
-	  <input type="radio" name="visible" value="true" {UNLOCKED} />{L_NO}
+    <input type="radio" name="visible" value="false" {LOCKED} />{L_YES}
+    <input type="radio" name="visible" value="true" {UNLOCKED} />{L_NO}
       </td>
     </tr>
     <tr>
@@ -217,7 +217,7 @@
 
   <table>
     <tr>
-      <td>{lang:Group}</td>
+      <td><strong>{lang:Group}</strong></td>
       <td>
         <select name="group">
           <!-- BEGIN group_option -->
@@ -226,6 +226,13 @@
         </select>
       </td>
     </tr>
+    <tr>
+      <td><strong>{lang:mail_content}</strong></td>
+      <td>
+        <textarea cols="50" rows="5" name="mail_content" class="description">{MAIL_CONTENT}</textarea>
+      </td>
+    </tr>
+
   </table>
 
   <p>
