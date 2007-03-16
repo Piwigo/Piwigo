@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id: functions_calendar.inc.php 1900 2007-03-12 22:33:53Z rub $
 // | last update   : $Date: 2006-07-18 23:38:54 +0200 (mar., 18 juil. 2006) $
 // | last modifier : $Author: rub $
 // | revision      : $Revision: 1481 $
@@ -25,9 +24,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// recursive call of index.php
-
-$url = '../index.php';
+// Recursive call
+$url = '../';
 header( 'Request-URI: '.$url );
 header( 'Content-Location: '.$url );
 header( 'Location: '.$url );

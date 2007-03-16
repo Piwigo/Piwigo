@@ -4,10 +4,10 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | file          : $Id$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | file          : $Id: functions_calendar.inc.php 1900 2007-03-12 22:33:53Z rub $
+// | last update   : $Date: 2006-07-18 23:38:54 +0200 (mar., 18 juil. 2006) $
+// | last modifier : $Author: rub $
+// | revision      : $Revision: 1481 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
