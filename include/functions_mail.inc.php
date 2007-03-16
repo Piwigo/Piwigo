@@ -5,8 +5,7 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -290,30 +289,33 @@ order by
     }
   }
 
-  $keyargs_content_admin_info = array
-  (
-    get_l10n_args('Connected user: %s', $user['username']),
-    get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
-    get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
-  );
-
-  switch_lang_to($conf['default_language']);
-
-  $return = pwg_mail
-  (
-    '',
-    array
+  if (count($admins) > 0)
+  {
+    $keyargs_content_admin_info = array
     (
-      'Bcc' => $admins,
-      'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
-      'content' => 
-         l10n_args($keyargs_content)."\n\n"
-        .l10n_args($keyargs_content_admin_info)."\n",
-      'content_format' => 'text/plain'
-    )
-  ) and $return;
+      get_l10n_args('Connected user: %s', $user['username']),
+      get_l10n_args('IP: %s', $_SERVER['REMOTE_ADDR']),
+      get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
+    );
 
-  switch_lang_back();
+    switch_lang_to($conf['default_language']);
+
+    $return = pwg_mail
+    (
+      '',
+      array
+      (
+        'Bcc' => $admins,
+        'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
+        'content' => 
+           l10n_args($keyargs_content)."\n\n"
+          .l10n_args($keyargs_content_admin_info)."\n",
+        'content_format' => 'text/plain'
+      )
+    ) and $return;
+
+    switch_lang_back();
+  }
 
   return $return;
 }
@@ -399,29 +401,32 @@ WHERE
         }
       }
 
-      switch_lang_to($elem['language']);
+      if (count($Bcc) > 0)
+      {
+        switch_lang_to($elem['language']);
 
-      $mail_template = get_mail_template($email_format, $elem);
-      $mail_template->set_filename($tpl_shortname, 
-        (IN_ADMIN ? 'admin/' : '').$tpl_shortname.'.tpl');
-      $mail_template->assign_vars($assign_vars);
+        $mail_template = get_mail_template($email_format, $elem);
+        $mail_template->set_filename($tpl_shortname, 
+          (IN_ADMIN ? 'admin/' : '').$tpl_shortname.'.tpl');
+        $mail_template->assign_vars($assign_vars);
 
-      $return = pwg_mail
-      (
-        '',
-        array
+        $return = pwg_mail
         (
-          'Bcc' => $Bcc,
-          'subject' => l10n_args($keyargs_subject),
-          'email_format' => $email_format,
-          'content' => $mail_template->parse($tpl_shortname, true),
-          'content_format' => $email_format,
-          'template' => $elem['template'],
-          'theme' => $elem['theme']
-        )
-      ) and $return;
+          '',
+          array
+          (
+            'Bcc' => $Bcc,
+            'subject' => l10n_args($keyargs_subject),
+            'email_format' => $email_format,
+            'content' => $mail_template->parse($tpl_shortname, true),
+            'content_format' => $email_format,
+            'template' => $elem['template'],
+            'theme' => $elem['theme']
+          )
+        ) and $return;
 
-      switch_lang_back();
+        switch_lang_back();
+      }
     }
   }
 
@@ -451,6 +456,11 @@ function pwg_mail($to, $args = array())
 {
   global $conf, $conf_mail, $lang_info, $page;
 
+  if (empty($to) and empty($args['Cc']) and empty($args['Bcc']))
+  {
+    return true;
+  }
+  
   if (!isset($conf_mail))
   {
     $conf_mail = get_mail_configuration();
