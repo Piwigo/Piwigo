@@ -5,9 +5,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $URL: svn+ssh://rvelices@svn.gna.org/svn/phpwebgallery/trunk/action.php $
-// | last update   : $Date: 2006-12-21 18:49:12 -0500 (Thu, 21 Dec 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Rev: 1678 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Rev$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

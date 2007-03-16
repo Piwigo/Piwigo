@@ -4,10 +4,10 @@
 // | Copyright (C) 2006-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $Id: functions_filter.inc.php 1651 2006-12-13 00:05:16Z rub $
-// | last update   : $Date: 2006-12-13 01:05:16 +0100 (mer., 13 déc. 2006) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1651 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

@@ -1,4 +1,4 @@
-<!-- $Id: ws_checker.tpl 939 2005-11-17 20:13:36Z VDigital $ -->
+<!-- $Id$ -->
 
 <div class="titrePage">
   <ul class="categoryActions">

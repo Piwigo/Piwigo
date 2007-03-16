@@ -6,9 +6,9 @@
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
-// | last update   : $Date: 2006-03-22 02:01:47 +0100 (mer, 22 mar 2006) $
-// | last modifier : $Author: rvelices $
-// | revision      : $Revision: 1092 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

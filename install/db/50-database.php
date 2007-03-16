@@ -5,10 +5,10 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $Id: 45-database.php 1741 2007-01-22 21:47:03Z vdigital $
-// | last update   : $Date: 2007-01-22 22:47:03 +0100 (lun., 22 janv. 2007) $
-// | last modifier : $Author: vdigital $
-// | revision      : $Revision: 1741 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

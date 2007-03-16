@@ -1,4 +1,4 @@
-<!-- $Id: advanced_feature.tpl 1111 2006-03-28 21:05:12Z rub $ -->
+<!-- $Id$ -->
 <div class="titrePage">
   <ul class="categoryActions">
     <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>

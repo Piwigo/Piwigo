@@ -1,4 +1,4 @@
-<!-- $Id: slideshow.tpl 1672 2006-12-17 11:02:09Z vdigital $ -->
+<!-- $Id$ -->
 <div id="imageHeaderBar">
   <div class="browsePath">
     <!-- BEGIN stop_slideshow -->

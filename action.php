@@ -5,7 +5,7 @@
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $URL$
+// | file          : $URL: svn+ssh://rub@svn.gna.org/svn/phpwebgallery/trunk/action.php $
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Rev$

@@ -5,8 +5,8 @@
 // | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006-2007 Ruben ARNAUD - team@phpwebgallery.net         |
 // +-----------------------------------------------------------------------+
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1.0.2.0 $
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

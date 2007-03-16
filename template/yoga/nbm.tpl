@@ -1,4 +1,4 @@
-<!-- $Id: admin.tpl 1091 2006-03-21 22:58:59Z rub $ -->
+<!-- $Id$ -->
 
 <div id="content">
   <div class="titrePage">
