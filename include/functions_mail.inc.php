@@ -327,6 +327,7 @@ order by
  *   - group_id: mail are sent to group with this Id
  *   - email_format: mail format
  *   - keyargs_subject: mail subject on l10n_args format
+ *   - dirname: short name of directory including template
  *   - tpl_shortname: short template name without extension
  *   - assign_vars: array used to assign_vars to mail template
  *   - language_selected: send mail only to user with this selected language
@@ -335,7 +336,8 @@ order by
  */
 function pwg_mail_group(
   $group_id, $email_format, $keyargs_subject, 
-  $tpl_shortname, $assign_vars = array(), $language_selected = '')
+  $dirname, $tpl_shortname,
+  $assign_vars = array(), $language_selected = '')
 {
   global $conf;
   $return = true;
@@ -407,7 +409,7 @@ WHERE
 
         $mail_template = get_mail_template($email_format, $elem);
         $mail_template->set_filename($tpl_shortname, 
-          (IN_ADMIN ? 'admin/' : '').$tpl_shortname.'.tpl');
+          (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
         $mail_template->assign_vars($assign_vars);
 
         $return = pwg_mail

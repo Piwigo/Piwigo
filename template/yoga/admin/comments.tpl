@@ -1,4 +1,10 @@
-<h2>{lang:User comments validation}</h2>
+<!-- $Id$ -->
+<div class="titrePage">
+  <h2>{lang:waiting} {TABSHEET_TITLE}</h2>
+  {TABSHEET}
+</div>
+
+<h3>{lang:User comments validation}</h3>
 
 <form method="post" action="{F_ACTION}">
   <!-- BEGIN comment -->

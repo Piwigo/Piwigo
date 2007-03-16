@@ -566,6 +566,7 @@ SELECT id, file, path, tn_ext
     $_POST['group'],
     get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
     get_l10n_args('Come to visit %s', $category['name']),
+    'admin',
     'cat_group_info',
     array
     (

@@ -1,5 +1,10 @@
 <!-- $Id$ -->
-<h2>{lang:title_waiting}</h2>
+<div class="titrePage">
+  <h2>{lang:waiting} {TABSHEET_TITLE}</h2>
+  {TABSHEET}
+</div>
+
+<h3>{lang:title_upload}</h3>
 
 <form action="{F_ACTION}" method="post" id="waiting">
   <table style="width:100%;" >

@@ -23,12 +23,14 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/functions_waiting.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -136,7 +138,11 @@ DELETE
 }
 
 //----------------------------------------------------- template initialization
-$template->set_filenames(array('waiting'=>'admin/waiting.tpl'));
+$template->set_filenames(array('upload'=>'admin/upload.tpl'));
+
+// TabSheet initialization
+waiting_tabsheet();
+
 $template->assign_vars(array(
   'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])
   ));
@@ -214,5 +220,5 @@ $template->assign_vars(
   );
 
 //----------------------------------------------------------- sending html code
-$template->assign_var_from_handle('ADMIN_CONTENT', 'waiting');
+$template->assign_var_from_handle('ADMIN_CONTENT', 'upload');
 ?>

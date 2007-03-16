@@ -227,7 +227,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $waiting_url = get_absolute_root_url().'admin.php?page=waiting';
+      $waiting_url = get_absolute_root_url().'admin.php?page=upload';
 
       $keyargs_content = array
       (

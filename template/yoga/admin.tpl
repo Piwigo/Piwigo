@@ -38,7 +38,6 @@
       <ul>
         <li><a href="{U_WAITING}">{lang:waiting}</a></li>
         <li><a href="{U_THUMBNAILS}">{lang:thumbnails}</a></li>
-        <li><a href="{U_COMMENTS}">{lang:comments}</a></li>
         <li><a href="{U_RATING}">{lang:Rating}</a></li>
         <li><a href="{U_TAGS}">{lang:Tags}</a></li>
         <li><a href="{U_CADDIE}">{lang:Caddie}</a></li>
