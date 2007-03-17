@@ -9,6 +9,6 @@ body{background-color:#fff; color:#696969;}
 color: #333;}
 h2 { background-color: #ddd;}
 img { margin: 16px; border: 16px solid #aaa; -moz-border-radius: 4px; border-radius: 4px 4px; }
-img:hover { padding: 15px; border: 1px solid yellow; -moz-border-radius: 4px; border-radius: 4px 4px; }
+img:hover { padding: 15px; border: 1px solid yellow;background-color:#faebd7; -moz-border-radius: 4px; border-radius: 4px 4px; }
 a { color: #369; background: transparent; }
 a:hover { color: #ddd; }
