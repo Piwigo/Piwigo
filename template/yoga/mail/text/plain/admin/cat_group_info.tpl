@@ -1,4 +1,4 @@
-{lang:hello}
+{lang:Hello,}
 
 {lang:Come to discover the category:} {CAT_NAME}
 {LINK}

@@ -583,6 +583,7 @@ $lang['An information email was sent to group "%s"'] = 'An information email was
 $lang['Send an information email to group members'] = 'Send an information email to group members';
 $lang['Group'] = 'Group';
 $lang['[%s] Come to visit the category %s'] = '[%s] Come to visit the category %s';
+$lang['Hello,'] = 'Hello,';
 $lang['See you soon.'] = 'See you soon.';
 $lang['Come to discover the category:'] = 'Come to discover the category:';
 $lang['mail_content'] = 'Mail content';

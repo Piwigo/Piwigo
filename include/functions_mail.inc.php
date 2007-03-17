@@ -369,7 +369,8 @@ WHERE
     $list = array();
     while ($row = mysql_fetch_array($result))
     {
-      list($row['template'], $row['theme']) = explode('/', $row['template']);
+      $row['template_theme'] = $row['template'];
+      list($row['template'], $row['theme']) = explode('/', $row['template_theme']);
       $list[] = $row;
     }
   }
@@ -388,6 +389,7 @@ WHERE
         '.$conf['user_fields']['email'].' IS NOT NULL
     AND group_id = '.$group_id.'
     AND language = \''.$elem['language'].'\'
+    AND template = \''.$elem['template_theme'].'\'
 ;';
 
     $result = pwg_query($query);
