@@ -22,7 +22,7 @@ An event will be logged if its name matches at least one expression in the list.
 
 </fieldset>
 
-<p><input type="submit" value="Submit" /></p>
+<p><input class="submit" type="submit" value="Submit" /></p>
 
 <p><a href="{U_LIST_EVENTS}">Click here to see a complete list of actions and events trigered by this PWG version</a>.</p>
 </form>
