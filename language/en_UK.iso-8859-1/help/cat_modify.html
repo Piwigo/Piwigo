@@ -1,18 +1,15 @@
 <h2>Edit a category</h2>
 
-<p>Modify informations and options of a single category.</p>
-
-<h3>Action links</h3>
-
-<p>This page offers you link to modification page of parent categories and
-action links :</p>
+<h3>Informatons</h3>
 
 <ul>
-  <li>jump to category</li>
-  <li>manage category elements (if category contains elements)</li>
-  <li>manage sub-categories</li>
-  <li>manage permissions (if category is private)</li>
-  <li>delete category (if category is virtual).</li>
+
+  <li><strong>name</strong>: rename the category (a virtual rename in case 
+  of physical category.</li>
+
+  <li><strong>description</strong>: give a general idea of the content,
+  this text will be display under the thumbnail page.</li>
+
 </ul>
 
 <h3>Move</h3>
@@ -40,14 +37,33 @@ changing its parent category.</p>
 
 </ul>
 
-<p>You can also manage these options with multi-categories options
+<p>You can also manage these options with "Properties"
 management screen (screens <span class="pwgScreen">Upload</span>, <span
 class="pwgScreen">Comments</span>, <span class="pwgScreen">Lock</span>,
 <span class="pwgScreen">Public/Private</span>, <span
-class="pwgScreen">Representative</span> in <span
+class="pwgScreen">Representative</span> available from <span
 class="pwgScreen">Administration, Categories, Properties</span>).</p>
 
-<h3>Representation</h3>
+<h3>Sort order</h3>
+
+<p>Choose if the default sort order will be used.</p>
+
+<p>Indicate if this sort order will be applied to subcategories.</p>
+
+<p>Select specific sort by columns to use with this category.</p>
+<ul>
+<li><strong>Creation date</strong>: Picture creation date</li>
+<li><strong>Post date</strong>: Synchronization date</li>
+<li><strong>Average rate (*)</strong>: Average rate could be changed by the visitor</li>
+<li><strong>Most visited (*)</strong>: The current visit change the most visited order</li>
+<li><strong>File name</strong>: Given name in informations field</li>
+<li><strong>Id</strong>: Internal Id (recent categories have an higher id than previous ones.</li>
+
+</ul>
+<p><strong>(*)</strong>Take care and test it your self can give unpredictable results.</p>
+
+
+<h3>Representant</h3>
 
 <p>The representant of the category is the thumbnail displayed to represent
 the category on main page (<span class="pwgScreen">category.php</span>) when
@@ -93,3 +109,33 @@ represented by any element thanks to screen <span class="pwgScreen">Modify
 informations about a picture</span>. The only option on the current screen
 is to <strong>Delete representant</strong> button, after using this button,
 no representant option to set anymore.</p>
+
+<h3>Link all category elements to a new category</h3>
+
+<ul>
+
+<li><strong>Virtual category name</strong>: New category name to be created, 
+all pictures of the current category will be linked to the new one.</li>
+
+<li><strong>Parent category</strong>: Where the new category will be, 
+leave empty to create it from home.</li>
+
+</ul>
+
+<h3>Link all category elements to some existing categories</h3>
+
+<ul>
+
+<li><strong>Categories</strong>: Choose the destination category.</li>
+
+</ul>
+
+<h3>Send an information email to group members</h3>
+
+<ul>
+
+<li><strong>Group</strong>: addressees group</li>
+
+<li><strong>Mail content</strong>: Free text to be sent to them.</li>
+
+</ul>  
