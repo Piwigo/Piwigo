@@ -49,6 +49,8 @@ else
 }
 
 $main_checkboxes = array(
+    'rate',
+    'rate_anonymous',
     'email_admin_on_new_user',
     'allow_user_registration',
     'email_admin_on_picture_uploaded',
@@ -233,9 +235,6 @@ switch ($page['section'])
       array(
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
-        ($conf['rate']==true?'RATE_YES':'RATE_NO')=>$html_check,
-        ($conf['rate_anonymous']==true
-             ? 'RATE_ANONYMOUS_YES' : 'RATE_ANONYMOUS_NO')=>$html_check,
         'CONF_GALLERY_TITLE' => $conf['gallery_title'],
         'CONF_PAGE_BANNER' => $conf['page_banner'],
         'CONF_GALLERY_URL' => $conf['gallery_url'],

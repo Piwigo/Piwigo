@@ -38,17 +38,20 @@
       <label><input type="radio" class="radio" name="gallery_locked" value="true" {main.GALLERY_LOCKED_YES} />{lang:Yes}</label>
       <label><input type="radio" class="radio" name="gallery_locked" value="false" {main.GALLERY_LOCKED_NO} />{lang:No}</label>
     </li>
+  </ul>
+</fieldset>
+
+<fieldset id="mainConfCheck">
+  <ul>
 
     <li>
       <span class="property">{lang:Rating}</span>
-      <label><input type="radio" class="radio" name="rate" value="true" {main.RATE_YES} />{lang:Yes}</label>
-      <label><input type="radio" class="radio" name="rate" value="false" {main.RATE_NO} />{lang:No}</label>
+      <input type="checkbox" name="rate" {main.RATE} />
     </li>
 
     <li>
       <span class="property">{lang:Rating by guests}</span>
-      <label><input type="radio" class="radio" name="rate_anonymous" value="true" {main.RATE_ANONYMOUS_YES} />{lang:Yes}</label>
-      <label><input type="radio" class="radio" name="rate_anonymous" value="false" {main.RATE_ANONYMOUS_NO} />{lang:No}</label>
+      <input type="checkbox" name="rate_anonymous" {main.RATE_ANONYMOUS} />
     </li>
 
     <li>
@@ -71,7 +74,6 @@
         <input type="checkbox" name="email_admin_on_picture_uploaded" {main.EMAIL_ADMIN_ON_PICTURE_UPLOADED} />
       </label>
     </li>
-
   </ul>
 </fieldset>
 <!-- END main -->
@@ -136,8 +138,9 @@
   </ul>
 </fieldset>
 <!-- END comments -->
+
 <!-- BEGIN default -->
-<fieldset id="commentsConf">
+<fieldset id="defaultConf">
   <ul>
     <li>
       <span class="property">

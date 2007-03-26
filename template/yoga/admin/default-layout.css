@@ -48,9 +48,9 @@ FORM#categoryOrdering {
   padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
 }
 FORM#categoryOrdering p {
-	text-align: left;
-	margin-top: 1em;
-	margin-bottom: 1em;
+  text-align: left;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 UL.categoryUl {
   list-style: none;
@@ -97,11 +97,39 @@ FORM#categoryPermissions LI {
   white-space: nowrap;
 }
 
+FIELDSET#mainConfCheck SPAN.property,
+FIELDSET#historyConf SPAN.property,
+FIELDSET#commentsConf SPAN.property {
+  float: right;
+  text-align: left;
+}
+FIELDSET#mainConfCheck INPUT,
+FIELDSET#historyConf INPUT,
+FIELDSET#commentsConf INPUT {
+  float: none;
+}
+
 FIELDSET#mainConf SPAN.property {
   width: 25%;
 }
 FIELDSET#mainConf TEXTAREA.description {
   width: 70%;
+}
+
+FIELDSET#mainConfCheck SPAN.property,
+FIELDSET#historyConf SPAN.property {
+  width: 90%;
+}
+FIELDSET#mainConfCheck INPUT,
+FIELDSET#historyConf INPUT {
+  margin-left: 5%;
+}
+
+FIELDSET#commentsConf SPAN.property {
+  width: 85%;
+}
+FIELDSET#commentsConf INPUT {
+  margin-left: 5%;
 }
 
 /* PWG Links Menu is fixed Graphic charts */
@@ -172,6 +200,6 @@ ul.tabsheet li {
   font-weight: bold;
   padding: 4px 8px;
   border: 1px solid #fff;
-  border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
+  border-radius: 6px 6px 0px 0px; /* round corners with CSS3 compliant browsers */
   padding: 5px 2em 2px 2em;
 }
