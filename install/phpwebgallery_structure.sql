@@ -157,7 +157,7 @@ CREATE TABLE `phpwebgallery_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`image_id`,`category_id`),
-  KEY `image_category` (`category_id`)
+  KEY `image_category_i1` (`category_id`)
 ) TYPE=MyISAM;
 
 --
@@ -402,7 +402,7 @@ CREATE TABLE `phpwebgallery_user_mail_notification` (
   `enabled` enum('true','false') NOT NULL default 'false',
   `last_send` datetime default NULL,
   PRIMARY KEY  (`user_id`),
-  UNIQUE KEY `uidx_check_key` (`check_key`)
+  UNIQUE KEY `user_mail_notification_ui1` (`check_key`)
 ) TYPE=MyISAM;
 
 --
@@ -452,6 +452,6 @@ CREATE TABLE `phpwebgallery_ws_access` (
   `limit` smallint(5) unsigned default NULL,
   `comment` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `ws_access_ui1` (`name`)
 ) TYPE=MyISAM COMMENT='Access for Web Services';
 
