@@ -578,4 +578,15 @@ $lang['Hello,'] = 'Hello,';
 $lang['See you soon.'] = 'See you soon.';
 $lang['Come to discover the category:'] = 'Come to discover the category:';
 $lang['mail_content'] = 'Mail content';
+$lang['none'] = 'none';
+$lang['high'] = 'high';
+$lang['other'] = 'other';
+$lang['Element type'] = 'Element type';
+$lang['User'] = 'User';
+$lang['Image id'] = 'Image id';
+$lang['Summary'] = 'Summary';
+$lang['%d lines filtered'] = '%d lines filtered';
+$lang['%d members: %s'] = '%d members: %s';
+$lang['%d guests'] = '%d guests';
+$lang['Hour'] = 'Hour';
 ?>

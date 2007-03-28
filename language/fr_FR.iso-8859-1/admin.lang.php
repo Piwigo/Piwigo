@@ -577,4 +577,15 @@ $lang['Hello,'] = 'Bonjour,';
 $lang['See you soon.'] = 'A bientôt.';
 $lang['Come to discover the category:'] = 'Venez découvrir la catégorie:';
 $lang['mail_content'] = 'Contenu du mail';
+$lang['none'] = 'aucun';
+$lang['high'] = 'high';
+$lang['other'] = 'autre';
+$lang['Element type'] = "Type d'élément";
+$lang['User'] = 'Utilisateur';
+$lang['Image id'] = 'Identifiant image';
+$lang['Summary'] = 'Résumé';
+$lang['%d lines filtered'] = '%d lignes filtrées';
+$lang['%d members: %s'] = '%d membres: %s';
+$lang['%d guests'] = '%d invités';
+$lang['Hour'] = 'Heure';
 ?>
