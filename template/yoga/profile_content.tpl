@@ -9,6 +9,7 @@
         <span class="property">{lang:Username}</span>
         {USERNAME}
       </li>
+<!-- BEGIN not_special_user -->
       <li>
         <span class="property">
           <label for="mail_address">{lang:Email address}</label>
@@ -36,6 +37,7 @@
         <input type="password" name="passwordConf" id="passwordConf" value="">
       </li>
     </ul>
+<!-- END not_special_user -->
   </fieldset>
 
   <fieldset>

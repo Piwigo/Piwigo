@@ -35,7 +35,7 @@ include_once(PHPWG_ROOT_PATH.'profile.php');
 $errors = array();
 if ( !is_adviser() )
 {
-  save_profile_from_post( $edit_user, $errors);
+  save_profile_from_post($edit_user, $errors);
 }
 
 load_profile_in_template(
@@ -43,7 +43,7 @@ load_profile_in_template(
   get_root_url().'admin.php?page=user_list',
   $edit_user
   );
-$page['errors'] = array_merge($page['errors'], $errors );
+$page['errors'] = array_merge($page['errors'], $errors);
 
 $template->set_filename('profile', 'admin/profile.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'profile');

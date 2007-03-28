@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -547,19 +546,6 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
       ));
 }
 
-// ---
-//   $user['template'] = $conf['default_template'];
-//   $user['nb_image_line'] = $conf['nb_image_line'];
-//   $user['nb_line_page'] = $conf['nb_line_page'];
-//   $user['language'] = $conf['default_language'];
-//   $user['maxwidth'] = $conf['default_maxwidth'];
-//   $user['maxheight'] = $conf['default_maxheight'];
-//   $user['recent_period'] = $conf['recent_period'];
-//   $user['expand'] = $conf['auto_expand'];
-//   $user['show_nb_comments'] = $conf['show_nb_comments'];
-//   $user['show_nb_hits'] = $conf['show_nb_hits'];
-// ---
-
 if (isset($_POST['pref_submit']))
 {
 //  echo '<pre>'; print_r($_POST); echo '</pre>';
@@ -588,13 +574,14 @@ if (isset($_POST['pref_submit']))
 }
 else
 {
+  $default_user = get_default_user_info(true);
   $template->assign_vars(
     array(
-      'NB_IMAGE_LINE' => $conf['nb_image_line'],
-      'NB_LINE_PAGE' => $conf['nb_line_page'],
-      'MAXWIDTH' => @$conf['default_maxwidth'],
-      'MAXHEIGHT' => @$conf['default_maxheight'],
-      'RECENT_PERIOD' => $conf['recent_period'],
+      'NB_IMAGE_LINE' => $default_user['nb_image_line'],
+      'NB_LINE_PAGE' => $default_user['nb_line_page'],
+      'MAXWIDTH' => $default_user['maxwidth'],
+      'MAXHEIGHT' => $default_user['maxheight'],
+      'RECENT_PERIOD' => $default_user['recent_period'],
       ));
 }
 
@@ -606,7 +593,7 @@ foreach (get_pwg_themes() as $pwg_template)
   {
     $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
   }
-  else if ($conf['default_template'] == $pwg_template)
+  else if (get_default_template() == $pwg_template)
   {
     $selected = 'selected="selected"';
   }
@@ -632,7 +619,7 @@ foreach (get_languages() as $language_code => $language_name)
   {
     $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
   }
-  else if ($conf['default_language'] == $language_code)
+  else if (get_default_language() == $language_code)
   {
     $selected = 'selected="selected"';
   }

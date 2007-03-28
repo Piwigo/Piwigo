@@ -79,7 +79,7 @@ function save_profile_from_post(&$userdata, &$errors)
   
   if (!isset($_POST['validate']))
   {
-    return;
+    return false;
   }
 
   $int_pattern = '/^\d+$/';
@@ -114,10 +114,13 @@ function save_profile_from_post(&$userdata, &$errors)
     $errors[] = l10n('periods_error') ;
   }
 
-  $mail_error = validate_mail_address($_POST['mail_address']);
-  if (!empty($mail_error))
+  if (isset($_POST['mail_address']))
   {
-    $errors[] = $mail_error;
+    $mail_error = validate_mail_address($_POST['mail_address']);
+    if (!empty($mail_error))
+    {
+      $errors[] = $mail_error;
+    }
   }
 
   if (!empty($_POST['use_new_pwd']))
@@ -149,25 +152,28 @@ function save_profile_from_post(&$userdata, &$errors)
     // mass_updates function
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 
-    // update common user informations
-    $fields = array($conf['user_fields']['email']);
-
-    $data = array();
-    $data{$conf['user_fields']['id']} = $_POST['userid'];
-    $data{$conf['user_fields']['email']} = $_POST['mail_address'];
-
-    // password is updated only if filled
-    if (!empty($_POST['use_new_pwd']))
+    if (isset($_POST['mail_address']))
     {
-      array_push($fields, $conf['user_fields']['password']);
-      // password is encrpyted with function $conf['pass_convert']
-      $data{$conf['user_fields']['password']} =
-        $conf['pass_convert']($_POST['use_new_pwd']);
+      // update common user informations
+      $fields = array($conf['user_fields']['email']);
+
+      $data = array();
+      $data{$conf['user_fields']['id']} = $_POST['userid'];
+      $data{$conf['user_fields']['email']} = $_POST['mail_address'];
+
+      // password is updated only if filled
+      if (!empty($_POST['use_new_pwd']))
+      {
+        array_push($fields, $conf['user_fields']['password']);
+        // password is encrpyted with function $conf['pass_convert']
+        $data{$conf['user_fields']['password']} =
+          $conf['pass_convert']($_POST['use_new_pwd']);
+      }
+      mass_updates(USERS_TABLE,
+                   array('primary' => array($conf['user_fields']['id']),
+                         'update' => $fields),
+                   array($data));
     }
-    mass_updates(USERS_TABLE,
-                 array('primary' => array($conf['user_fields']['id']),
-                       'update' => $fields),
-                 array($data));
 
     // update user "additional" informations (specific to PhpWebGallery)
     $fields = array(
@@ -190,8 +196,12 @@ function save_profile_from_post(&$userdata, &$errors)
                  array($data));
 
     // redirection
-    redirect($_POST['redirect']);
+    if (!empty($_POST['redirect']))
+    {
+      redirect($_POST['redirect']);
+    }
   }
+  return true;
 }
 
 
@@ -283,10 +293,16 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
         'SELECTED' => $selected
         ));
   }
-  if ( !defined('IN_ADMIN') )
+
+  if (!($userdata['is_the_guest'] or $userdata['is_the_default']))
   {
-    $template->assign_block_vars( 'not_admin', array() );
+    $template->assign_block_vars('not_special_user', array());
+    if ( !defined('IN_ADMIN') )
+    {
+      $template->assign_block_vars( 'not_special_user.not_admin', array() );
+    }
   }
+
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
 ?>

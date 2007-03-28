@@ -136,9 +136,6 @@ $conf['newcat_default_visible'] = true;
 // automatically create private.
 $conf['newcat_default_status'] = 'public';
 
-// newuser_default_enabled_high : at creation, must a user with enabled_high or not
-$conf['newuser_default_enabled_high'] = true;
-
 // level_separator : character string used for separating a category level
 // to the sub level. Suggestions : ' / ', ' &raquo; ', ' &rarr; ', ' - ',
 // ' &gt;'
@@ -463,6 +460,8 @@ $conf['pass_convert'] = create_function('$s', 'return md5($s);');
 
 // guest_id : id of the anonymous user
 $conf['guest_id'] = 2;
+// default_user_id : id of user used for default value
+$conf['default_user_id'] = $conf['guest_id'];
 
 // webmaster_id : webmaster'id.
 $conf['webmaster_id'] = 1;

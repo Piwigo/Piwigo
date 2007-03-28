@@ -93,12 +93,12 @@ function format_email($name, $email)
 
 /**
  * Returns an completed array template/theme
- * completed with $conf['default_template']
+ * completed with get_default_template()
  *
  * @params:
  *   - args: incompleted array of template/theme
- *       o template: template to use [default $conf['default_template']]
- *       o theme: template to use [default $conf['default_template']]
+ *       o template: template to use [default get_default_template()]
+ *       o theme: template to use [default get_default_template()]
  */
 function get_array_template_theme($args = array())
 {
@@ -108,7 +108,7 @@ function get_array_template_theme($args = array())
   
   if (empty($args['template']) or empty($args['theme']))
   {
-    list($res['template'], $res['theme']) = explode('/', $conf['default_template']);
+    list($res['template'], $res['theme']) = explode('/', get_default_template());
   }
 
   if (!empty($args['template']))
@@ -130,8 +130,8 @@ function get_array_template_theme($args = array())
  * @params:
  *   - email_format: mail format
  *   - args: function params of mail function:
- *       o template: template to use [default $conf['default_template']]
- *       o theme: template to use [default $conf['default_template']]
+ *       o template: template to use [default get_default_template()]
+ *       o theme: template to use [default get_default_template()]
  */
 function get_mail_template($email_format, $args = array())
 {
@@ -298,7 +298,7 @@ order by
       get_l10n_args('Browser: %s', $_SERVER['HTTP_USER_AGENT'])
     );
 
-    switch_lang_to($conf['default_language']);
+    switch_lang_to(get_default_language());
 
     $return = pwg_mail
     (
@@ -451,8 +451,8 @@ WHERE
  *       o content: content of mail    [default value '']
  *       o content_format: format of mail content  [default value 'text/plain']
  *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
- *       o template: template to use [default $conf['default_template']]
- *       o theme: template to use [default $conf['default_template']]
+ *       o template: template to use [default get_default_template()]
+ *       o theme: template to use [default get_default_template()]
  *
  * @return boolean (Ok or not)
  */

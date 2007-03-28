@@ -35,7 +35,7 @@ function set_admin_advice()
 
 // Setup Advice Language (Maybe there is already a variable)
   $advlang = ( isset($user['language']) ) ?
-    $user['language'] : $conf['default_language']; // en_UK.iso-8859-1
+    $user['language'] : get_default_language(); // en_UK.iso-8859-1
   $my_path = dirname(__FILE__).'/';
   $adv = array();
   if ( !@file_exists($my_path."$advlang/lang.adv.php") )

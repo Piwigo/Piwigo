@@ -29,48 +29,55 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-$upgrade_description = 'Rename some indexes following PWG naming rules';
+$upgrade_description = 'Change default value on #user_infos for guest';
 
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
+include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
+@include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
 
 // +-----------------------------------------------------------------------+
 // |                            Upgrade content                            |
 // +-----------------------------------------------------------------------+
 
-$query = "
-DROP INDEX image_category ON ".IMAGE_CATEGORY_TABLE."
-;
-";
-pwg_query($query);
+load_conf_from_db();
 
 $query = "
-CREATE INDEX image_category_i1 ON ".IMAGE_CATEGORY_TABLE." (category_id)
-;
-";
+update ".USER_INFOS_TABLE."
+set
+  template = '".$conf['default_template']."',
+  nb_image_line = ".$conf['nb_image_line'].",
+  nb_line_page = ".$conf['nb_line_page'].",
+  language = '".$conf['default_language']."',
+  maxwidth = ".(empty($conf['default_maxwidth']) ? "null" : $conf['default_maxwidth']).",
+  maxheight = ".(empty($conf['default_maxheight']) ? "null" : $conf['default_maxheight']).",
+  recent_period = ".$conf['recent_period'].",
+  expand = '".boolean_to_string($conf['auto_expand'])."',
+  show_nb_comments = '".boolean_to_string($conf['show_nb_comments'])."',
+  show_nb_hits = '".boolean_to_string($conf['show_nb_hits'])."',
+  enabled_high = '".boolean_to_string(
+    (isset($conf['newuser_default_enabled_high']) ? 
+      $conf['newuser_default_enabled_high'] : true))."'
+where
+  user_id = ".$conf['default_user_id'].";";
 pwg_query($query);
 
-$query = "
-DROP INDEX uidx_check_key ON ".USER_MAIL_NOTIFICATION_TABLE."
-;
-";
-pwg_query($query);
 
 $query = "
-CREATE UNIQUE INDEX user_mail_notification_ui1 ON ".USER_MAIL_NOTIFICATION_TABLE." (check_key)
-;
-";
-pwg_query($query);
-
-$query = "
-DROP INDEX name ON ".WEB_SERVICES_ACCESS_TABLE."
-;
-";
-pwg_query($query);
-
-$query = "
-CREATE UNIQUE INDEX ws_access_ui1 ON ".WEB_SERVICES_ACCESS_TABLE." (name)
-;
-";
+delete from ".CONFIG_TABLE."
+where
+  param in
+(
+  'default_template',
+  'nb_image_line',
+  'nb_line_page',
+  'default_language',
+  'default_maxwidth',
+  'default_maxheight',
+  'recent_period',
+  'auto_expand',
+  'show_nb_comments',
+  'show_nb_hits'
+);";
 pwg_query($query);
 
 echo

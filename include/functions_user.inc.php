@@ -147,25 +147,9 @@ function build_user( $user_id, $use_cache )
   global $conf;
   $user['id'] = $user_id;
   $user = array_merge( $user, getuserdata($user_id, $use_cache) );
-  if ( $user['id'] == $conf['guest_id'])
-  {
-    $user['is_the_guest']=true;
-    $user['template'] = $conf['default_template'];
-    $user['nb_image_line'] = $conf['nb_image_line'];
-    $user['nb_line_page'] = $conf['nb_line_page'];
-    $user['language'] = $conf['default_language'];
-    $user['maxwidth'] = $conf['default_maxwidth'];
-    $user['maxheight'] = $conf['default_maxheight'];
-    $user['recent_period'] = $conf['recent_period'];
-    $user['expand'] = $conf['auto_expand'];
-    $user['show_nb_comments'] = $conf['show_nb_comments'];
-    $user['show_nb_hits'] = $conf['show_nb_hits'];
-    $user['enabled_high'] = $conf['newuser_default_enabled_high'];
-  }
-  else
-  {
-    $user['is_the_guest']=false;
-  }
+  $user['is_the_guest'] = ($user['id'] == $conf['guest_id']);
+  $user['is_the_default'] = ($user['id'] == $conf['default_user_id']);
+
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
@@ -726,51 +710,150 @@ SELECT COUNT(*)
   }
 }
 
-/**
- * add user informations based on default values
+/*
+ * Returns a array with default user value
  *
- * @param int user_id
+ * @param convert_str allows to convert string value if necessary
  */
-function create_user_infos($user_id)
+function get_default_user_info($convert_str = true)
 {
-  global $conf;
-
-  list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-
-  if ($user_id == $conf['webmaster_id'])
+  global $page, $conf;
+  
+  if (!isset($page['cache_default_user']))
   {
-    $status = 'webmaster';
+    $query = 'select * from '.USER_INFOS_TABLE.
+            ' where user_id = '.$conf['default_user_id'].';';
+
+    $result = pwg_query($query);
+    $page['cache_default_user'] = mysql_fetch_assoc($result);
   }
-  else if ($user_id == $conf['guest_id'])
+
+  if (is_array($page['cache_default_user']) and $convert_str)
   {
-    $status = 'guest';
+    $default_user = array();
+    foreach ($page['cache_default_user'] as $name => $value)
+    {
+      // If the field is true or false, the variable is transformed into a
+      // boolean value.
+      if ($value == 'true' or $value == 'false')
+      {
+        $default_user[$name] = get_boolean($value);
+      }
+      else
+      {
+        $default_user[$name] = $value;
+      }
+    }
+    return $default_user;
   }
   else
   {
-    $status = 'normal';
+    return $page['cache_default_user'];
+  }
+}
+
+/*
+ * Returns a default user value
+ *
+ * @param value_name: name of value
+ * @param sos_value: value used if don't exist value
+ */
+function get_default_user_value($value_name, $sos_value)
+{
+  $default_user = get_default_user_info(true);
+  if ($default_user === false or !isset($default_user[$value_name]))
+  {
+    return $sos_value;
+  }
+  else
+  {
+   return $default_user[$value_name];
+  }
+}
+
+/*
+ * Returns the default template value
+ *
+ */
+function get_default_template()
+{
+  return get_default_user_value('template', PHPWG_DEFAULT_TEMPLATE);
+}
+
+/*
+ * Returns the default language value
+ *
+ */
+function get_default_language()
+{
+  return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
+}
+
+/**
+ * add user informations based on default values
+ *
+ * @param int user_id / array of user_if
+ */
+function create_user_infos($arg_id)
+{
+  global $conf;
+
+  if (is_array($arg_id))
+  {
+    $user_ids = $arg_id;
+  }
+  else
+  {
+    $user_ids = array();
+    if (is_integer($arg_id))
+    {
+      $user_ids[] = $arg_id;
+    }
   }
 
-  $insert =
-    array(
-      'user_id' => $user_id,
-      'status' => $status,
-      'template' => $conf['default_template'],
-      'nb_image_line' => $conf['nb_image_line'],
-      'nb_line_page' => $conf['nb_line_page'],
-      'language' => $conf['default_language'],
-      'recent_period' => $conf['recent_period'],
-      'expand' => boolean_to_string($conf['auto_expand']),
-      'show_nb_comments' => boolean_to_string($conf['show_nb_comments']),
-      'show_nb_hits' => boolean_to_string($conf['show_nb_hits']),
-      'maxwidth' => $conf['default_maxwidth'],
-      'maxheight' => $conf['default_maxheight'],
-      'registration_date' => $dbnow,
-      'enabled_high' =>
-        boolean_to_string($conf['newuser_default_enabled_high']),
-      );
+  if (!empty($user_ids))
+  {
+    $inserts = array();
+    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
 
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  mass_inserts(USER_INFOS_TABLE, array_keys($insert), array($insert));
+    $default_user = get_default_user_info(false);
+    if ($default_user === false)
+    {
+      // Default on structure are used
+      $default_user = array();
+    }
+    
+
+    foreach ($user_ids as $user_id)
+    {
+      if ($user_id == $conf['webmaster_id'])
+      {
+        $status = 'webmaster';
+      }
+      else if (($user_id == $conf['guest_id']) or 
+               ($user_id == $conf['default_user_id']))
+      {
+        $status = 'guest';
+      }
+      else
+      {
+        $status = 'normal';
+      }
+
+      $insert =
+        array(
+          'user_id' => $user_id,
+          'status' => $status,
+          'registration_date' => $dbnow
+          );
+
+      array_push($inserts, $insert);
+      }
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_inserts(USER_INFOS_TABLE, array_keys($inserts[0]), $inserts);
+
+  }
 }
 
 /**
@@ -823,20 +906,47 @@ function get_language_filepath($filename, $dirname = '', $language = '')
   }
   $dirname .= 'language'.'/';
 
-  $directories = array();
-  if ( !empty($language) )
+  $dir_methods = array();
+
+  if (!empty($language))
   {
-    $directories[] = $dirname.$language;
+    $dir_methods[] = 1;
   }
 
-  {
-    $directories[] = $dirname.$user['language'];
-  }
-  $directories[] = $dirname.$conf['default_language'];
-  $directories[] = $dirname.PHPWG_DEFAULT_LANGUAGE;
+  $dir_methods[] = 2;
+  $dir_methods[] = 3;
+  $dir_methods[] = 4;
 
-  foreach ($directories as $directory)
+  foreach ($dir_methods as $dir_method)
   {
+    switch ($dir_method)
+    {
+      case '1':
+      {
+        $directory = $dirname.$language;
+        break;
+      }
+      case '2':
+      {
+        $directory = $dirname.$user['language'];
+        break;
+      }
+      case '3':
+      {
+        $directory = $dirname.get_default_language();
+        break;
+      }
+      case '4':
+      default:
+      {
+        $directory = $dirname.PHPWG_DEFAULT_LANGUAGE;
+        break;
+      }
+      {
+        $directory = '.';
+      }
+    }
+
     $filepath = $directory.'/'.$filename;
 
     if (file_exists($filepath))

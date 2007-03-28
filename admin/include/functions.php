@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -1142,35 +1141,7 @@ SELECT user_id
 
   if (count($to_create) > 0)
   {
-    $inserts = array();
-
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-
-    foreach ($to_create as $user_id)
-    {
-      $insert = array();
-      $insert['user_id'] = $user_id;
-      $insert['status'] = 'normal';
-      $insert['template'] = $conf['default_template'];
-      $insert['nb_image_line'] = $conf['nb_image_line'];
-      $insert['nb_line_page'] = $conf['nb_line_page'];
-      $insert['language'] = $conf['default_language'];
-      $insert['recent_period'] = $conf['recent_period'];
-      $insert['expand'] = boolean_to_string($conf['auto_expand']);
-      $insert['show_nb_comments'] =
-        boolean_to_string($conf['show_nb_comments']);
-      $insert['show_nb_hits'] =
-        boolean_to_string($conf['show_nb_hits']);
-      $insert['maxwidth'] = $conf['default_maxwidth'];
-      $insert['maxheight'] = $conf['default_maxheight'];
-      $insert['registration_date'] = $dbnow;
-
-      array_push($inserts, $insert);
-    }
-
-    mass_inserts(USER_INFOS_TABLE,
-                 array_keys($inserts[0]),
-                 $inserts);
+    create_user_infos($to_create);
   }
 
   // users present in user related tables must be present in the base user

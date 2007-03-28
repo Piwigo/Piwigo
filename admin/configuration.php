@@ -73,6 +73,7 @@ $comments_checkboxes = array(
 if (isset($_POST['submit']) and !is_adviser())
 {
   $int_pattern = '/^\d+$/';
+
   switch ($page['section'])
   {
     case 'main' :
@@ -113,28 +114,7 @@ if (isset($_POST['submit']) and !is_adviser())
     }
     case 'default' :
     {
-      // periods must be integer values, they represents number of days
-      if (!preg_match($int_pattern, $_POST['recent_period'])
-          or $_POST['recent_period'] <= 0)
-      {
-        array_push($page['errors'], $lang['periods_error']);
-      }
-      // maxwidth
-      if (isset($_POST['default_maxwidth'])
-          and !empty($_POST['default_maxwidth'])
-          and (!preg_match($int_pattern, $_POST['default_maxwidth'])
-               or $_POST['default_maxwidth'] < 50))
-      {
-        array_push($page['errors'], $lang['maxwidth_error']);
-      }
-      // maxheight
-      if (isset($_POST['default_maxheight'])
-          and !empty($_POST['default_maxheight'])
-          and (!preg_match($int_pattern, $_POST['default_maxheight'])
-               or $_POST['default_maxheight'] < 50))
-      {
-        array_push($page['errors'], $lang['maxheight_error']);
-      }
+      // Never go here
       break;
     }
   }
@@ -160,8 +140,8 @@ if (isset($_POST['submit']) and !is_adviser())
 
         $query = '
 UPDATE '.CONFIG_TABLE.'
-  SET value = \''. str_replace("\'", "''", $value).'\'
-  WHERE param = \''.$row['param'].'\'
+SET value = \''. str_replace("\'", "''", $value).'\'
+WHERE param = \''.$row['param'].'\'
 ;';
         pwg_query($query);
       }
@@ -222,6 +202,8 @@ $template->assign_vars(
     ));
 
 $html_check='checked="checked"';
+
+$include_submit_buttons = true;
 
 switch ($page['section'])
 {
@@ -288,91 +270,37 @@ switch ($page['section'])
   }
   case 'default' :
   {
-    $show_yes = ($conf['show_nb_comments']==true)?'checked="checked"':'';
-    $show_no = ($conf['show_nb_comments']==false)?'checked="checked"':'';
-    $hits_yes = ($conf['show_nb_hits']==true)?'checked="checked"':'';
-    $hits_no = ($conf['show_nb_hits']==false)?'checked="checked"':'';
-    $expand_yes = ($conf['auto_expand']==true)?'checked="checked"':'';
-    $expand_no  = ($conf['auto_expand']==false)?'checked="checked"':'';
+    $edit_user = build_user($conf['default_user_id'], false);
+    include_once(PHPWG_ROOT_PATH.'profile.php');
 
-    $template->assign_block_vars(
-      'default',
-      array(
-        'NB_IMAGE_LINE'=>$conf['nb_image_line'],
-        'NB_ROW_PAGE'=>$conf['nb_line_page'],
-        'CONF_RECENT'=>$conf['recent_period'],
-        'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
-        'MAXWIDTH'=>$conf['default_maxwidth'],
-        'MAXHEIGHT'=>$conf['default_maxheight'],
-        'EXPAND_YES'=>$expand_yes,
-        'EXPAND_NO'=>$expand_no,
-        'SHOW_COMMENTS_YES'=>$show_yes,
-        'SHOW_COMMENTS_NO'=>$show_no,
-        'SHOW_HITS_YES'=>$hits_yes,
-        'SHOW_HITS_NO'=>$hits_no,
-        ));
-
-    $blockname = 'default.language_option';
-
-    foreach (get_languages() as $language_code => $language_name)
+    $errors = array();
+    if ( !is_adviser() )
     {
-      if (isset($_POST['submit']))
+      if (save_profile_from_post($edit_user, $errors))
       {
-        $selected =
-          $_POST['default_language'] == $language_code
-            ? 'selected="selected"' : '';
+        // Reload user
+        $edit_user = build_user($conf['default_user_id'], false);
+        array_push($page['infos'], $lang['conf_confirmation']);
       }
-      else if ($conf['default_language'] == $language_code)
-      {
-        $selected = 'selected="selected"';
-      }
-      else
-      {
-        $selected = '';
-      }
-
-      $template->assign_block_vars(
-        $blockname,
-        array(
-          'VALUE'=> $language_code,
-          'CONTENT' => $language_name,
-          'SELECTED' => $selected
-          ));
     }
+    $page['errors'] = array_merge($page['errors'], $errors);
 
-    $blockname = 'default.template_option';
-
-    foreach (get_pwg_themes() as $pwg_template)
-    {
-      if (isset($_POST['submit']))
-      {
-        $selected =
-          $_POST['default_template'] == $pwg_template
-            ? 'selected="selected"' : '';
-      }
-      else if ($conf['default_template'] == $pwg_template)
-      {
-        $selected = 'selected="selected"';
-      }
-      else
-      {
-        $selected = '';
-      }
-
-      $template->assign_block_vars(
-        $blockname,
-        array(
-          'VALUE'=> $pwg_template,
-          'CONTENT' => $pwg_template,
-          'SELECTED' => $selected
-          )
-        );
-    }
-
-
+    load_profile_in_template(
+      $action,
+      '',
+      $edit_user
+      );
+    $template->assign_block_vars('default', array());
+    $include_submit_buttons = false;
     break;
   }
 }
+
+if ($include_submit_buttons)
+{
+  $template->assign_block_vars('include_submit_buttons', array());
+}
+
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'config');
 ?>
