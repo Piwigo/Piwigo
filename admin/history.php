@@ -337,6 +337,7 @@ SELECT
   
   $history_lines = array();
   $user_ids = array();
+  $username_of = array();
   $category_ids = array();
   $image_ids = array();
   $tag_ids = array();
