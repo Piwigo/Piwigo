@@ -726,6 +726,13 @@ function get_default_user_info($convert_str = true)
 
     $result = pwg_query($query);
     $page['cache_default_user'] = mysql_fetch_assoc($result);
+    
+    if ($page['cache_default_user'] !== false)
+    {
+      unset($page['cache_default_user']['user_id']);
+      unset($page['cache_default_user']['status']);
+      unset($page['cache_default_user']['registration_date']);
+    }
   }
 
   if (is_array($page['cache_default_user']) and $convert_str)
@@ -793,8 +800,9 @@ function get_default_language()
  * add user informations based on default values
  *
  * @param int user_id / array of user_if
+ * @param array of values used to override default user values
  */
-function create_user_infos($arg_id)
+function create_user_infos($arg_id, $override_values = null)
 {
   global $conf;
 
@@ -822,7 +830,12 @@ function create_user_infos($arg_id)
       // Default on structure are used
       $default_user = array();
     }
-    
+
+    if (!is_null($override_values))
+    {
+      $default_user = array_merge($default_user, $override_values);
+      print_r($default_user);
+    }
 
     foreach ($user_ids as $user_id)
     {
@@ -840,12 +853,13 @@ function create_user_infos($arg_id)
         $status = 'normal';
       }
 
-      $insert =
+      $insert = array_merge(
+        $default_user,
         array(
           'user_id' => $user_id,
           'status' => $status,
           'registration_date' => $dbnow
-          );
+          ));
 
       array_push($inserts, $insert);
       }

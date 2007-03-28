@@ -589,4 +589,6 @@ $lang['%d lines filtered'] = '%d lines filtered';
 $lang['%d members: %s'] = '%d members: %s';
 $lang['%d guests'] = '%d guests';
 $lang['Hour'] = 'Hour';
+$lang['is_the_guest'] = 'guest';
+$lang['is_the_default'] = 'default values';
 ?>

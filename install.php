@@ -312,13 +312,6 @@ define(\'PHPWG_INSTALLED\', true);
       $table_prefix
       );
 
-    $query = '
-UPDATE '.CONFIG_TABLE.'
-  SET value = \''.$language.'\'
-  WHERE param = \'default_language\'
-;';
-    mysql_query($query);
-
     // fill $conf global array
     load_conf_from_db();
 
@@ -343,14 +336,7 @@ UPDATE '.CONFIG_TABLE.'
       );
     mass_inserts(USERS_TABLE, array_keys($inserts[0]), $inserts);
 
-    create_user_infos(1);
-    create_user_infos(2);
-
-    $query = '
-UPDATE '.USER_INFOS_TABLE.'
-  SET language = \''.$language.'\'
-;';
-    mysql_query($query);
+    create_user_infos(array(1,2), array('language' => $language));
 
     // Available upgrades must be ignored after a fresh installation. To
     // make PWG avoid upgrading, we must tell it upgrades have already been

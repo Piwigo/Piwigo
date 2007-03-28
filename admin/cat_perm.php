@@ -275,7 +275,6 @@ $query = '
 SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['username'].' AS username
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' != '.$conf['guest_id'].'
 ;';
 $result = pwg_query($query);
 while($row = mysql_fetch_array($result))

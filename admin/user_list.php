@@ -103,7 +103,7 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
     LEFT JOIN '.USER_GROUP_TABLE.' AS ug
       ON u.'.$conf['user_fields']['id'].' = ug.user_id
-  WHERE u.'.$conf['user_fields']['id'].' != '.$conf['guest_id'];
+  WHERE u.'.$conf['user_fields']['id'].' > 0';
   if (isset($filter['username']))
   {
     $query.= '
@@ -791,11 +791,19 @@ foreach ($page['filtered_users'] as $num => $local_user)
       'CHECKED' => $checked,
       'U_PROFILE' => $profile_url.$local_user['id'],
       'U_PERM' => $perm_url.$local_user['id'],
-      'USERNAME' => $local_user['username'],
-      'STATUS' => $lang['user_status_'.$local_user['status']].(($local_user['adviser'] == 'true') ? ' ['.$lang['adviser'].']' : ''),
+      'USERNAME' => $local_user['username']
+        .($local_user['id'] == $conf['guest_id']
+          ? '<BR />['.l10n('is_the_guest').']' : '')
+        .($local_user['id'] == $conf['default_user_id']
+          ? '<BR />['.l10n('is_the_default').']' : ''),
+      'STATUS' => $lang['user_status_'.
+        $local_user['status']].(($local_user['adviser'] == 'true')
+        ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
-      'PROPERTIES' => (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true')) ? $lang['is_high_enabled'] : $lang['is_high_disabled']
+      'PROPERTIES' => 
+        (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
+        ? $lang['is_high_enabled'] : $lang['is_high_disabled']
       )
     );
 }
