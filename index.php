@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -228,10 +227,10 @@ if ( $page['section']=='search' and $page['start']==0 )
             )
           ),
         'NAME' => $tag['name'],
-        'TITLE' => sprintf(
-          l10n('%d pictures are also linked to current tags'),
-          $tag['counter']
-          ),
+        'TITLE' => l10n_dec(
+            '%d picture are also linked to current tags',
+            '%d pictures are also linked to current tags',
+            $tag['counter']),
         'CLASS' => 'tagLevel'.$tag['level']
         )
       );

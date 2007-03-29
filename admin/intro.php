@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -191,20 +190,20 @@ $template->assign_vars(
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),
     'MYSQL_VERSION' => $mysql_version,
-    'DB_ELEMENTS' => sprintf(l10n('%d elements'), $nb_elements),
+    'DB_ELEMENTS' => l10n_dec('%d element', '%d elements', $nb_elements),
     'DB_CATEGORIES' =>
-      sprintf(
-        l10n('%d categories including %d physical and %d virtual'),
-        $nb_categories,
-        $nb_physical,
-        $nb_virtual
-        ),
-    'DB_IMAGE_CATEGORY' =>sprintf(l10n('%d associations'), $nb_image_category),
-    'DB_TAGS' => sprintf(l10n('%d tags'), $nb_tags),
-    'DB_IMAGE_TAG' => sprintf(l10n('%d associations'), $nb_image_tag),
-    'DB_USERS' => sprintf(l10n('%d users'), $nb_users),
-    'DB_GROUPS' => sprintf(l10n('%d groups'), $nb_groups),
-    'DB_COMMENTS' => sprintf(l10n('%d comments'), $nb_comments),
+      l10n_dec('cat_inclu_part1_S', 'cat_inclu_part1_P',
+        $nb_categories).
+      l10n_dec('cat_inclu_part2_S', 'cat_inclu_part2_P',
+        $nb_physical).
+      l10n_dec('cat_inclu_part3_S', 'cat_inclu_part3_P',
+        $nb_virtual),
+    'DB_IMAGE_CATEGORY' => l10n_dec('%d association', '%d associations', $nb_image_category),
+    'DB_TAGS' => l10n_dec('%d tag', '%d tags', $nb_tags),
+    'DB_IMAGE_TAG' => l10n_dec('%d association', '%d associations', $nb_image_tag),
+    'DB_USERS' => l10n_dec('%d user', '%d users', $nb_users),
+    'DB_GROUPS' => l10n_dec('%d group', '%d groups', $nb_groups),
+    'DB_COMMENTS' => l10n_dec('%d comment', '%d comments', $nb_comments),
     'U_CHECK_UPGRADE' => PHPWG_ROOT_PATH.'admin.php?action=check_upgrade',
     'U_PHPINFO' => PHPWG_ROOT_PATH.'admin.php?action=phpinfo',
     'PHP_DATATIME' => $php_current_timestamp,

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -270,8 +270,8 @@ if (isset($_POST['delete']) and count($collection) > 0)
       }
       array_push(
         $page['infos'],
-        sprintf(
-          l10n('%d users deleted'),
+        l10n_dec(
+          '%d user deleted', '%d users deleted',
           count($collection)
           )
         );

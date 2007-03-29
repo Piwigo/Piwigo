@@ -89,8 +89,8 @@ UPDATE '.COMMENTS_TABLE.'
 
     array_push(
       $page['infos'],
-      sprintf(
-        l10n('%d user comments validated'),
+      l10n_dec(
+        '%d user comment validated', '%d user comments validated',
         count($to_validate)
         )
       );
@@ -107,8 +107,8 @@ DELETE
 
     array_push(
       $page['infos'],
-      sprintf(
-        l10n('%d user comments rejected'),
+      l10n_dec(
+        '%d user comment rejected', '%d user comments rejected',
         count($to_reject)
         )
       );

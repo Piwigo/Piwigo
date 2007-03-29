@@ -306,6 +306,7 @@ $lang['%d new element'] = '%d nouvel élément';
 $lang['%d new elements'] = '%d nouveaux éléments';
 $lang['%d new user'] = '%d nouvel utilisateur';
 $lang['%d new users'] = '%d nouveaux utilisateurs';
+$lang['%d picture are also linked to current tags'] = '%d image est également liée aux tags courants';
 $lang['%d pictures are also linked to current tags'] = '%d images sont également liées aux tags courants';
 $lang['%d waiting element'] = '%d élément en attente';
 $lang['%d waiting elements'] = '%d éléments en attente';

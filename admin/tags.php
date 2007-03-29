@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -135,11 +134,11 @@ DELETE
   
   array_push(
     $page['infos'],
-    sprintf(
-      l10n('The %d following tags were deleted : %s'),
-      count($tag_names),
+    l10n_dec(
+      'The %d following tag were deleted', 
+      'The %d following tags were deleted',
+      count($tag_names)).' : '.
       implode(', ', $tag_names)
-      )
     );
 }
 

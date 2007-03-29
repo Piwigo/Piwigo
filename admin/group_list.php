@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -195,7 +194,7 @@ SELECT COUNT(*)
       'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
       'NAME' => $row['name'],
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('is_default_group').']' : ''),
-      'MEMBERS' => sprintf(l10n('%d members'), $counter),
+      'MEMBERS' => l10n_dec('%d member', '%d members', $counter),
       'U_MEMBERS' => $members_url.$row['id'],
       'U_DELETE' => $del_url.$row['id'],
       'U_PERM' => $perm_url.$row['id'],

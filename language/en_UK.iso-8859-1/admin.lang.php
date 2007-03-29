@@ -24,17 +24,31 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+$lang['%d association'] = '%d association';
 $lang['%d associations'] = '%d associations';
-$lang['%d categories including %d physical and %d virtual'] = '%d categories including %d physical and %d virtual';
+$lang['cat_inclu_part1_S'] = '%d category including ';
+$lang['cat_inclu_part1_P'] = '%d categories including ';
+$lang['cat_inclu_part2_S'] = '%d physical';
+$lang['cat_inclu_part2_P'] = '%d physical';
+$lang['cat_inclu_part3_S'] = ' and %d virtual';
+$lang['cat_inclu_part3_P'] = ' and %d virtual';
+$lang['%d category moved'] = '%d category moved';
 $lang['%d categories moved'] = '%d categories moved';
-$lang['%d comments'] = '%d comments';
+$lang['%d element'] = '%d element';
 $lang['%d elements'] = '%d elements';
+$lang['%d group'] = '%d group';
 $lang['%d groups'] = '%d groups';
+$lang['%d member'] = '%d member';
 $lang['%d members'] = '%d members';
+$lang['%d tag'] = '%d tag';
 $lang['%d tags'] = '%d tags';
+$lang['%d user comment rejected'] = '%d user comment rejected';
 $lang['%d user comments rejected'] = '%d user comments rejected';
+$lang['%d user comment validated'] = '%d user comment validated';
 $lang['%d user comments validated'] = '%d user comments validated';
+$lang['%d user deleted'] = '%d user deleted';
 $lang['%d users deleted'] = '%d users deleted';
+$lang['%d user'] = '%d user';
 $lang['%d users'] = '%d users';
 $lang['%d waiting for validation'] = '%d waiting for validation';
 $lang['%d waiting pictures rejected'] = '%d waiting pictures rejected';
@@ -173,7 +187,8 @@ $lang['Tag "%s" already exists'] = 'Tag "%s" already exists';
 $lang['Tag "%s" was added'] = 'Tag "%s" was added';
 $lang['Tag selection'] = 'Tag selection';
 $lang['Take selected elements out of caddie'] = 'Take selected elements out of caddie';
-$lang['The %d following tags were deleted : %s'] = 'The %d following tags were deleted : %s';
+$lang['The %d following tag were deleted'] = 'The following tag were deleted';
+$lang['The %d following tags were deleted'] = 'The %d following tags were deleted';
 $lang['Unable to check for upgrade since allow_url_fopen is disabled.'] = 'Unable to check for upgrade since allow_url_fopen is disabled.';
 $lang['Uninstall'] = 'Uninstall';
 $lang['Use default sort order']='Use the default image sort order (defined in the configuration file)';
@@ -585,10 +600,12 @@ $lang['Element type'] = 'Element type';
 $lang['User'] = 'User';
 $lang['Image id'] = 'Image id';
 $lang['Summary'] = 'Summary';
+$lang['%d line filtered'] = '%d line filtered';
 $lang['%d lines filtered'] = '%d lines filtered';
-$lang['%d members: %s'] = '%d members: %s';
+$lang['%d guest'] = '%d guest';
 $lang['%d guests'] = '%d guests';
 $lang['Hour'] = 'Hour';
 $lang['is_the_guest'] = 'guest';
 $lang['is_the_default'] = 'default values';
+$lang['High filesize'] = 'High filesize';
 ?>

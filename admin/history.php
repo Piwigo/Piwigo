@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -613,25 +612,24 @@ SELECT
   $template->assign_block_vars(
     'summary',
     array(
-      'NB_LINES' => sprintf(
-        l10n('%d lines filtered'),
+      'NB_LINES' => l10n_dec(
+        '%d line filtered', '%d lines filtered',
         $page['nb_lines']
         ),
       'FILESIZE' => $summary['total_filesize'].' KB',
-      'USERS' => sprintf(
-        l10n('%d users'),
+      'USERS' => l10n_dec(
+        '%d user', '%d users',
         $summary['nb_members'] + $summary['nb_guests']
         ),
       'MEMBERS' => sprintf(
-        l10n('%d members: %s'),
-        $summary['nb_members'],
+        l10n_dec('%d member', '%d members', $summary['nb_members']).': %s',
         implode(
           ', ',
           $member_strings
           )
         ),
-      'GUESTS' => sprintf(
-        l10n('%d guests'),
+      'GUESTS' => l10n_dec(
+        '%d guest', '%d guests',
         $summary['nb_guests']
         ),
       )

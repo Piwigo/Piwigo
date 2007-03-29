@@ -1465,8 +1465,8 @@ DELETE FROM '.$table.'
 
   array_push(
     $page['infos'],
-    sprintf(
-      l10n('%d categories moved'),
+    l10n_dec(
+      '%d category moved', '%d categories moved',
       count($categories)
       )
     );
