@@ -834,7 +834,6 @@ function create_user_infos($arg_id, $override_values = null)
     if (!is_null($override_values))
     {
       $default_user = array_merge($default_user, $override_values);
-      print_r($default_user);
     }
 
     foreach ($user_ids as $user_id)
