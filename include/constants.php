@@ -25,7 +25,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', 'Alligator');
+define('PHPWG_VERSION', 'branch 1.7');
 define('PHPWG_DOMAIN', 'phpwebgallery.net');
 define('PHPWG_URL', 'http://www.'.PHPWG_DOMAIN);
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK.iso-8859-1');
