@@ -71,7 +71,7 @@ FROM '.USERS_TABLE.' as u
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
 WHERE '
   .$conf['user_fields']['email'].' = \''.$mail_address.'\' AND
-  ui.status not in (\'guest\', \'generic\', \'webmaster\')
+  ui.status not in (\'guest\', \'generic\', \'admin\', \'webmaster\')
 ;';
     $result = pwg_query($query);
 
@@ -132,6 +132,7 @@ WHERE '
     else
     {
       array_push($page['errors'], l10n('No user matches this email address'));
+      array_push($page['errors'], l10n('Administrator, webmaster and special user cannot use this method'));
       array_push($page['errors'], $mailto);
     }
   }

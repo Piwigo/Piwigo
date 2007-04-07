@@ -355,7 +355,7 @@ $lang['New on %s'] = 'New on %s';
 $lang['New password confirmation does not correspond'] = 'New password confirmation does not correspond';
 $lang['New password sent by email'] = 'New password sent by email';
 $lang['No email address'] = 'No email address';
-$lang['No user matches this email address'] = 'No user matches this email address';
+$lang['No user matches this email address'] = 'No classic user matches this email address';
 $lang['Notification'] = 'Notification';
 $lang['Number of items'] = 'Number of items';
 $lang['Original dimensions'] = 'Original dimensions';
@@ -632,4 +632,5 @@ $lang['Picture name: %s'] = 'Picture name: %s';
 $lang['Creation date: %s'] = 'Creation date: %s';
 $lang['Waiting page: %s'] = 'Waiting page: %s';
 $lang['Picture uploaded by %s'] = 'Picture uploaded by %s';
+$lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
 ?>
