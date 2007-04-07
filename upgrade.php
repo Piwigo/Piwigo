@@ -5,9 +5,9 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
-// | last update   : $Date: 2006-11-09 23:13:33 +0100 (jeu, 09 nov 2006) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 1599 $
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
