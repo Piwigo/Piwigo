@@ -159,10 +159,15 @@ include(PHPWG_ROOT_PATH.'include/page_tail.php');
 // +-----------------------------------------------------------------------+
 // |                     order permission refreshment                      |
 // +-----------------------------------------------------------------------+
-
-$query = '
+// Only for pages witch change permissions
+if (in_array($page['page'], array('cat_options', 'cat_perm', 
+    'group_perm', 'site_update', 'user_list', 'user_perm')))
+{
+  $query = '
 UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\'
 ;';
-pwg_query($query);
+  pwg_query($query);
+}
+
 ?>
