@@ -4,10 +4,10 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | file          : $Id: upgrade.php 1900 2007-03-12 22:33:53Z rub $
-// | last update   : $Date: 2006-11-09 23:13:33 +0100 (jeu, 09 nov 2006) $
-// | last modifier : $Author: plg $
-// | revision      : $Revision: 1599 $
+// | file          : $Id$
+// | last update   : $Date$
+// | last modifier : $Author$
+// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
