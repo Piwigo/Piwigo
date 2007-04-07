@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2006 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date: 2006-11-09 23:13:33 +0100 (jeu, 09 nov 2006) $
 // | last modifier : $Author: plg $
 // | revision      : $Revision: 1599 $
@@ -266,7 +265,7 @@ else
 
     array_push(
       $page['infos'],
-      '[security] delete files "upgrade.php", "install.php" and "install"
+      '[security] delete files "upgrade.php", "upgrade_feed.php", "install.php" and "install"
 directory'
       );
 
