@@ -55,6 +55,7 @@ $lang['%d waiting pictures rejected'] = '%d waiting pictures rejected';
 $lang['%d waiting pictures validated'] = '%d waiting pictures validated';
 $lang['A new version of PhpWebGallery is available.'] = 'A new version of PhpWebGallery is available.';
 $lang['Actions'] = 'Actions';
+$lang['Action: '] = 'Action: ';
 $lang['Activate'] = 'Activate';
 $lang['Add/delete a permalink'] = 'Add/delete a permalink';
 $lang['Add a tag'] = 'Add a tag';
