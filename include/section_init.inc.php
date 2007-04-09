@@ -749,7 +749,7 @@ if ( 'categories'==$page['section'] and isset($page['category']) )
       );
     if (!headers_sent())
     { // this is a permanent redirection
-      set_status_header(302);
+      set_status_header(301);
       redirect_http( $redirect_url );
     }
     redirect( $redirect_url );

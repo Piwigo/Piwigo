@@ -146,11 +146,5 @@ TD.calDayCellEmpty { color: silver; }
 .calBackDate { color: #000; }
 .calForeDate { color: #fff; }
 .virtual_cat { background: #3f3f3f !important; }
-#content ul.thumbnailCategories li div.thumbnailCategory .description p {
-  display: none;
-}
-#content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
-  display: inline;
-}
 .qsearch { font-size: 80%; font-style: normal; }
 #mbMenu #quicksearch > p { text-align: left; }

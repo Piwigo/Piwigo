@@ -60,7 +60,7 @@ if ( isset($_GET['cat']) )
 $url = make_index_url($url_params);
 if (!headers_sent())
 {
-  set_status_header(302);
+  set_status_header(301);
   redirect_http( $url );
 }
 redirect ( $url );
