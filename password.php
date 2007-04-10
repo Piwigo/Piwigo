@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -71,7 +70,10 @@ FROM '.USERS_TABLE.' as u
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
 WHERE '
   .$conf['user_fields']['email'].' = \''.$mail_address.'\' AND
-  ui.status not in (\'guest\', \'generic\', \'admin\', \'webmaster\')
+  (
+    ui.status = \'normal\' OR
+    (ui.status in (\'admin\', \'webmaster\') AND ui.adviser = \'true\')
+  )
 ;';
     $result = pwg_query($query);
 
