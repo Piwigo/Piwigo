@@ -160,8 +160,24 @@ include(PHPWG_ROOT_PATH.'include/page_tail.php');
 // |                     order permission refreshment                      |
 // +-----------------------------------------------------------------------+
 // Only for pages witch change permissions
-if (in_array($page['page'], array('cat_options', 'cat_perm', 
-    'group_perm', 'site_update', 'user_list', 'user_perm')))
+if (
+    in_array($page['page'],
+      array(
+        'site_manager', // delete site
+        'site_update',  // ?only POST
+        'cat_list',     // delete cat
+        'cat_modify',   // delete cat; public/private; lock/unlock
+        'cat_move',     // ?only POST
+        'cat_options',  // ?only POST; public/private; lock/unlock
+        'cat_perm',     // ?only POST
+        'element_set',  // ?only POST; associate/dissociate
+        'user_list',    // ?only POST; group assoc
+        'user_perm',
+        'group_perm',
+        'group_list',   // delete group
+      )
+    )
+  )
 {
   $query = '
 UPDATE '.USER_CACHE_TABLE.'
