@@ -137,7 +137,7 @@ while ( $row=mysql_fetch_assoc($result) )
   $categories[] = $row;
 }
 
-if ( !count($sort_by) or $sort_by[0]='name')
+if ( !count($sort_by) or $sort_by[0]=='name')
 {
   usort($categories, 'global_rank_compare');
 }

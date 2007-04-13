@@ -246,6 +246,10 @@ function make_picture_url($params)
     default:
       $url .= $params['image_id'];
   }
+  if ( !isset($params['category'] ) )
+  {// make urls shorter ...
+    unset( $params['flat'] );
+  }
   $url .= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
   return $url;

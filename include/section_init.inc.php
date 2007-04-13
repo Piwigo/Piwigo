@@ -140,6 +140,7 @@ if (0 === strpos(@$tokens[$next_token], 'categor'))
     {
       if ( strpos($tokens[$next_token], 'created-')!==0
           and strpos($tokens[$next_token], 'posted-')!==0
+          and strpos($tokens[$next_token], 'start-')!==0
           and $tokens[$next_token] != 'flat')
       {// try a permalink
         $cat_id = get_cat_id_from_permalink($tokens[$next_token]);
@@ -159,7 +160,15 @@ if (0 === strpos(@$tokens[$next_token], 'categor'))
         unset($cat_id);
         $next_token++;
       }
+      elseif ( script_basename()=='picture' )
+      { //access a picture only by id, file or id-file without given section
+        $page['flat']=true;
+      }
     }
+  }
+  elseif ( script_basename()=='picture' )
+  { //access a picture only by id, file or id-file without given section
+    $page['flat']=true;
   }
 }
 else if (0 === strpos(@$tokens[$next_token], 'tag'))
@@ -314,7 +323,8 @@ while (isset($tokens[$i]))
   }
 
   if ('categories' == $page['section'] and
-      'flat' == $tokens[$i])
+      'flat' == $tokens[$i] and
+      !isset($page['chronology_field']) )
   {
     // indicate a special list of images
     $page['flat'] = true;
@@ -340,6 +350,7 @@ while (isset($tokens[$i]))
       }
       $page['chronology_date'] = $chronology_tokens;
     }
+    unset($page['flat']);
   }
 
   $i++;
