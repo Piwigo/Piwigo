@@ -114,6 +114,8 @@ SELECT id
 ;';
     $dissociables = array_from_query($query, 'id');
 
+  if (!empty($dissociables))
+  {
     $query = '
 DELETE
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -121,6 +123,7 @@ DELETE
     AND image_id IN ('.implode(',', $dissociables).')
 ';
     pwg_query($query);
+  }
 
     update_category($_POST['dissociate']);
   }
