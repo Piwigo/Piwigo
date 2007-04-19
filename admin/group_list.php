@@ -168,7 +168,7 @@ $template->assign_vars(
 $query = '
 SELECT id, name, is_default
   FROM '.GROUPS_TABLE.'
-  ORDER BY id ASC
+  ORDER BY name ASC
 ;';
 $result = pwg_query($query);
 
