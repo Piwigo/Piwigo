@@ -105,7 +105,8 @@ CREATE TABLE `phpwebgallery_groups` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `is_default` enum('true','false') NOT NULL default 'false',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `groups_ui1` (`name`)
 ) TYPE=MyISAM;
 
 --
