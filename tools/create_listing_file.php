@@ -40,11 +40,16 @@ $conf['gallery'] = 'http://';
 // prefix for thumbnails in "thumbnail" sub directories
 $conf['prefix_thumbnail'] = 'TN-';
 
-// $conf['file_ext'] lists all extensions (case insensitive) allowed for your PhpWebGallery installation
-$conf['file_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF','mpg','zip', 'avi','mp3','ogg');
+// $conf['file_ext'] lists all extensions (case insensitive) allowed
+// for your PhpWebGallery installation
+$conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
+                          'png','PNG','gif','GIF','mpg','zip',
+                          'avi','mp3','ogg');
+
 
 // $conf['picture_ext'] must be a subset of $conf['file_ext']
-$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG','png','PNG','gif','GIF');
+$conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG',
+                             'png','PNG','gif','GIF');
 
 // ****** Time limitation functionality ****** //
 // max execution time before refresh in seconds
@@ -55,7 +60,7 @@ $conf['refresh_delay'] = 0;
 
 // ****** EXIF support functionality ****** //
 // $conf['use_exif'] set to true if you want to use Exif information
-$conf['use_exif'] = false;
+$conf['use_exif'] = true;
 
 // use_exif_mapping: same behaviour as use_iptc_mapping
 $conf['use_exif_mapping'] = array(
