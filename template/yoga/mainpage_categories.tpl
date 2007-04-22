@@ -14,6 +14,9 @@
           <a href="{categories.category.URL}">{categories.category.NAME}</a>
           {categories.category.ICON}
         </h3>
+        <!-- BEGIN dates -->
+        <p>{categories.category.dates.INFO}</p>
+        <!-- END dates -->
         <p>{categories.category.CAPTION_NB_IMAGES}</p>
         <p>{categories.category.DESCRIPTION}&nbsp;</p>
       </div>

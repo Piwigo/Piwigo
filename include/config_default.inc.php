@@ -234,6 +234,10 @@ $conf['show_picture_name_on_title'] = true;
 // than thumbnails representing a picture.
 $conf['subcatify'] = true;
 
+// display_fromto: in subcatify mode, display the date creation bounds of a
+// category.
+$conf['display_fromto'] = false;
+
 // allow_random_representative : do you wish PhpWebGallery to search among
 // categories elements a new representative at each reload ?
 //

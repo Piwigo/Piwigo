@@ -77,6 +77,7 @@ SELECT
 
 $result = pwg_query($query);
 $categories = array();
+$category_ids = array();
 $image_ids = array();
 
 while ($row = mysql_fetch_assoc($result))
@@ -146,8 +147,36 @@ SELECT representative_picture_id
     $row['representative_picture_id'] = $image_id;
     array_push($image_ids, $image_id);
     array_push($categories, $row);
+    array_push($category_ids, $row['id']);
   }
   unset($image_id);
+}
+
+if ($conf['display_fromto'])
+{
+  $dates_of_category = array();
+  if (count($category_ids) > 0)
+  {
+    $query = '
+SELECT
+    category_id,
+    MIN(date_creation) AS date_creation_min,
+    MAX(date_creation) AS date_creation_max
+  FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.IMAGES_TABLE.' ON image_id = id
+  WHERE category_id IN ('.implode(',', $category_ids).') 
+  GROUP BY category_id
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_array($result))
+    {
+      $dates_of_category[ $row['category_id'] ] = array(
+        'from' => $row['date_creation_min'],
+        'to'   => $row['date_creation_max'],
+        );
+    }
+    // echo '<pre>'; print_r($dates_of_category); echo '</pre>';
+  }
 }
 
 if ($page['section']=='recent_cats')
@@ -221,7 +250,41 @@ if (count($categories) > 0)
           'NAME'  => $name,
           )
         );
+
+      if ($conf['display_fromto'])
+      {
+        if (isset($dates_of_category[ $category['id'] ]))
+        {
+          $from = $dates_of_category[ $category['id'] ]['from'];
+          $to   = $dates_of_category[ $category['id'] ]['to'];
         
+          if (!empty($from))
+          {
+            $info = '';
+          
+            if ($from == $to)
+            {
+              $info = format_date($from);
+            }
+            else
+            {
+              $info = sprintf(
+                l10n('from %s to %s'),
+                format_date($from),
+                format_date($to)
+                );
+            }
+
+            $template->assign_block_vars(
+              'categories.category.dates',
+              array(
+                'INFO' => $info,
+                )
+              );
+          }
+        }
+      }
+
       //plugins need to add/modify sth in this loop ?
       trigger_action('loc_index_category_thumbnail',
         $category, 'categories.category' );
