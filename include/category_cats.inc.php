@@ -163,8 +163,19 @@ SELECT
     MIN(date_creation) AS date_creation_min,
     MAX(date_creation) AS date_creation_max
   FROM '.IMAGE_CATEGORY_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+      ON category_id = cat_id and user_id = '.$user['id'].'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE category_id IN ('.implode(',', $category_ids).') 
+'.get_sql_condition_FandF
+  (
+    array
+      (
+        'visible_categories' => 'category_id',
+        'visible_images' => 'image_id'
+      ),
+    'AND'
+  ).'
   GROUP BY category_id
 ;';
     $result = pwg_query($query);
