@@ -25,7 +25,7 @@
   </label>
 
   <p>
-    <input type="submit" class="submit" name="set_permalink" value="{lang:submit}"/>
+    <input type="submit" class="submit" name="set_permalink" value="{lang:submit}" {TAG_INPUT_ENABLED}/>
   </p>
   </fieldset>
 </form>
@@ -46,7 +46,7 @@
 <!-- END permalink -->
 </table>
 
-<h3>{lang:Permalink history}</h3>
+<h3>{lang:Permalink history} <a name="old_permalinks"></a></h3>
 <table class="table2">
   <tr class="throw">
     <td>Id {SORT_OLD_CAT_ID}</td>
@@ -65,7 +65,7 @@
     <td>{deleted_permalink.date_deleted}</td>
     <td>{deleted_permalink.last_hit}</td>
     <td>{deleted_permalink.hit}</td>
-    <td><a href="{deleted_permalink.U_DELETE}"><img src="{pwg_root}{themeconf:icon_dir}/delete.png" alt="Delete"></a></td>
+    <td><a href="{deleted_permalink.U_DELETE}" {TAG_INPUT_ENABLED}><img src="{pwg_root}{themeconf:icon_dir}/delete.png" alt="Delete"></a></td>
   </tr>
 <!-- END deleted_permalink -->
 </table>
