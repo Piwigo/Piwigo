@@ -26,7 +26,8 @@
 function parse_sort_variables(
     $sortable_by, $default_field,
     $get_param, $get_rejects,
-    $template_var )
+    $template_var,
+    $anchor = '' )
 {
   global $template;
   
@@ -66,7 +67,7 @@ function parse_sort_variables(
     if ( isset($template_var) )
     {
       $template->assign_var( $template_var.strtoupper($field),
-            '<a href="'.$url.'" title="'.l10n('Sort order').'">'.$disp.'</a>'
+            '<a href="'.$url.$anchor.'" title="'.l10n('Sort order').'">'.$disp.'</a>'
          );
     }
   }
@@ -78,7 +79,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_permalinks.php');
 
 $selected_cat = array();
-if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
+if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 and !is_adviser() )
 {
   $permalink = $_POST['permalink'];
   if ( empty($permalink) )
@@ -87,7 +88,7 @@ if ( isset($_POST['set_permalink']) and $_POST['cat_id']>0 )
     set_cat_permalink($_POST['cat_id'], $permalink, isset($_POST['save']) );
   $selected_cat = array( $_POST['cat_id'] );
 }
-elseif ( isset($_GET['delete_permanent']) )
+elseif ( isset($_GET['delete_permanent']) and !is_adviser() )
 {
   $query = '
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
@@ -153,7 +154,7 @@ $sort_by = parse_sort_variables(
     array('cat_id','permalink','date_deleted','last_hit','hit'), null,
     'dpsf',
     array('delete_permanent'),
-    'SORT_OLD_' );
+    'SORT_OLD_', '#old_permalinks' );
 
 $url_del_base = get_root_url().'admin.php?page=permalinks';
 $query = 'SELECT * FROM '.OLD_PERMALINKS_TABLE;
