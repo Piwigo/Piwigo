@@ -122,171 +122,15 @@ if (script_basename() == 'picture') // basename without file extention
   }
 }
 
-if (0 === strpos(@$tokens[$next_token], 'categor'))
-{
-  $page['section'] = 'categories';
-  $next_token++;
-
-  if (isset($tokens[$next_token]) )
-  {
-    if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
-    {
-      if ( isset($matches[2]) )
-        $page['hit_by']['cat_url_name'] = $matches[2];
-      $page['category'] = $matches[1];
-      $next_token++;
-    }
-    else
-    {
-      if ( strpos($tokens[$next_token], 'created-')!==0
-          and strpos($tokens[$next_token], 'posted-')!==0
-          and strpos($tokens[$next_token], 'start-')!==0
-          and $tokens[$next_token] != 'flat')
-      {// try a permalink
-        $cat_id = get_cat_id_from_permalink($tokens[$next_token]);
-        if ( !isset($cat_id) )
-        {//try old permalink
-          $cat_id = get_cat_id_from_old_permalink($tokens[$next_token], true);
-        }
-        if ( isset($cat_id) )
-        {
-          $page['category'] = $cat_id;
-          $page['hit_by']['cat_permalink'] = $tokens[$next_token];
-        }
-        else
-        {
-          page_not_found('Permalink for album not found');
-        }
-        unset($cat_id);
-        $next_token++;
-      }
-      elseif ( script_basename()=='picture' )
-      { //access a picture only by id, file or id-file without given section
-        $page['flat']=true;
-      }
-    }
-  }
-  elseif ( script_basename()=='picture' )
-  { //access a picture only by id, file or id-file without given section
-    $page['flat']=true;
-  }
-}
-else if (0 === strpos(@$tokens[$next_token], 'tag'))
-{
-  $page['section'] = 'tags';
-  $page['tags'] = array();
-
-  $next_token++;
-  $i = $next_token;
-
-  $requested_tag_ids = array();
-  $requested_tag_url_names = array();
-
-  while (isset($tokens[$i]))
-  {
-    if ( preg_match('/^(created-|posted-|start-(\d)+)/', $tokens[$i]) )
-      break;
-
-    if ( preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches) )
-    {
-      array_push($requested_tag_ids, $matches[1]);
-    }
-    else
-    {
-      array_push($requested_tag_url_names, $tokens[$i]);
-    }
-    $i++;
-  }
-  $next_token = $i;
-
-  if ( empty($requested_tag_ids) && empty($requested_tag_url_names) )
-  {
-    bad_request('at least one tag required');
-  }
-
-  $page['tags'] = find_tags($requested_tag_ids, $requested_tag_url_names);
-  if ( empty($page['tags']) )
-  {
-    page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
-  }
-}
-else if (0 === strpos(@$tokens[$next_token], 'fav'))
-{
-  $page['section'] = 'favorites';
-  $next_token++;
-}
-else if ('most_visited' == @$tokens[$next_token])
-{
-  $page['section'] = 'most_visited';
-  $next_token++;
-}
-else if ('best_rated' == @$tokens[$next_token])
-{
-  $page['section'] = 'best_rated';
-  $next_token++;
-}
-else if ('recent_pics' == @$tokens[$next_token])
-{
-  $page['section'] = 'recent_pics';
-  $next_token++;
-}
-else if ('recent_cats' == @$tokens[$next_token])
-{
-  $page['section'] = 'recent_cats';
-  $next_token++;
-}
-else if ('search' == @$tokens[$next_token])
-{
-  $page['section'] = 'search';
-  $next_token++;
-
-  preg_match('/(\d+)/', @$tokens[$next_token], $matches);
-  if (!isset($matches[1]))
-  {
-    bad_request('search identifier is missing');
-  }
-  $page['search'] = $matches[1];
-  $next_token++;
-}
-else if ('list' == @$tokens[$next_token])
-{
-  $page['section'] = 'list';
-  $next_token++;
-
-  $page['list'] = array();
-
-  // No pictures
-  if (empty($tokens[$next_token]))
-  {
-    // Add dummy element list
-    array_push($page['list'], -1);
-  }
-  // With pictures list
-  else
-  {
-    if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
-    {
-      bad_request('wrong format on list GET parameter');
-    }
-    foreach (explode(',', $tokens[$next_token]) as $image_id)
-    {
-      array_push($page['list'], $image_id);
-    }
-  }
-  $next_token++;
-}
-else
+$page = array_merge( $page, parse_section_url( $tokens, $next_token) );
+if ( !isset($page['section']) )
 {
   $page['section'] = 'categories';
 
   switch (script_basename())
   {
     case 'picture':
-    {
-      //access a picture only by id, file or id-file without given section
-      $page['flat'] = true;
       break;
-    }
     case 'index':
     {
       // No section defined, go to selected url
@@ -313,47 +157,14 @@ else
   }
 }
 
-$i = $next_token;
 
-while (isset($tokens[$i]))
-{
-  if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
-  {
-    $page['start'] = $matches[1];
-  }
+$page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) );
 
-  if ('categories' == $page['section'] and
-      'flat' == $tokens[$i] and
+
+if ( script_basename()=='picture' and 'categories'==$page['section'] and
       !isset($page['chronology_field']) )
-  {
-    // indicate a special list of images
-    $page['flat'] = true;
-  }
-
-  if (preg_match('/^(posted|created)/', $tokens[$i] ))
-  {
-    $chronology_tokens = explode('-', $tokens[$i] );
-
-    $page['chronology_field'] = $chronology_tokens[0];
-
-    array_shift($chronology_tokens);
-    $page['chronology_style'] = $chronology_tokens[0];
-
-    array_shift($chronology_tokens);
-    if ( count($chronology_tokens)>0 )
-    {
-      if ('list'==$chronology_tokens[0] or
-          'calendar'==$chronology_tokens[0])
-      {
-        $page['chronology_view'] = $chronology_tokens[0];
-        array_shift($chronology_tokens);
-      }
-      $page['chronology_date'] = $chronology_tokens;
-    }
-    unset($page['flat']);
-  }
-
-  $i++;
+{ //access a picture only by id, file or id-file without given section
+  $page['flat']=true;
 }
 
 // $page['nb_image_page'] is the number of picture to display on this page
@@ -389,19 +200,12 @@ if ('categories' == $page['section'])
 {
   if (isset($page['category']))
   {
-    $result = get_cat_info($page['category']);
-    if (empty($result))
-    {
-      page_not_found('Requested category does not exist' );
-    }
-
     $page = array_merge(
       $page,
       array(
-        'comment'            => $result['comment'],
-        'category'          => $result,
+        'comment'           => $page['category']['comment'],
         'title'             =>
-          get_cat_display_name($result['upper_names'], '', false),
+          get_cat_display_name($page['category']['upper_names'], '', false),
         )
       );
   }
