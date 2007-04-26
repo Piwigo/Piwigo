@@ -2013,4 +2013,16 @@ function pwg_URL()
   return $urls;
 }
 
+/**
+ * Invalidates cahed data (permissions and category counts) for all users.
+ */
+function invalidate_user_cache()
+{
+  $query = '
+UPDATE '.USER_CACHE_TABLE.'
+  SET need_update = \'true\'
+;';
+  pwg_query($query);
+  trigger_action('invalidate_user_cache');
+}
 ?>

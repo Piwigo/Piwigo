@@ -154,7 +154,6 @@ if (count($page['infos']) != 0)
 }
 
 $template->parse('admin');
-include(PHPWG_ROOT_PATH.'include/page_tail.php');
 
 // +-----------------------------------------------------------------------+
 // |                     order permission refreshment                      |
@@ -179,11 +178,8 @@ if (
     )
   )
 {
-  $query = '
-UPDATE '.USER_CACHE_TABLE.'
-  SET need_update = \'true\'
-;';
-  pwg_query($query);
+  invalidate_user_cache();
 }
 
+include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
