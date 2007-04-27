@@ -223,9 +223,9 @@ if ('categories' == $page['section'])
       )
     )
   {
-    if ( !empty($result['image_order']) and !isset($page['super_order_by']) )
+    if ( !empty($page['category']['image_order']) and !isset($page['super_order_by']) )
     {
-      $conf[ 'order_by' ] = ' ORDER BY '.$result['image_order'];
+      $conf[ 'order_by' ] = ' ORDER BY '.$page['category']['image_order'];
     }
 
     if (isset($page['flat']))
