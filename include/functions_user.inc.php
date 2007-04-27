@@ -44,11 +44,10 @@ function validate_mail_address( $mail_address )
   }
 }
 
-function register_user($login, $password, $mail_address)
+function register_user($login, $password, $mail_address, $errors = array())
 {
   global $lang, $conf;
 
-  $errors = array();
   if ($login == '')
   {
     array_push($errors, $lang['reg_err_login1']);
