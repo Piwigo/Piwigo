@@ -430,6 +430,222 @@ function make_section_in_url($params)
 }
 
 /**
+ * the reverse of make_section_in_url
+ * returns the 'section' (categories/tags/...) and the data associated with it
+ *
+ * Depending on section, other parameters are returned (category/tags/list/...)
+ *
+ * @param array of url tokens to parse
+ * @param int the index in the array of url tokens; in/out
+ * @return array
+ */
+function parse_section_url( $tokens, &$next_token)
+{
+  $page=array();
+  if (0 === strpos(@$tokens[$next_token], 'categor'))
+  {
+    $page['section'] = 'categories';
+    $next_token++;
+
+    if (isset($tokens[$next_token]) )
+    {
+      if (preg_match('/^(\d+)(?:-(.+))?$/', $tokens[$next_token], $matches))
+      {
+        if ( isset($matches[2]) )
+          $page['hit_by']['cat_url_name'] = $matches[2];
+        $page['category'] = $matches[1];
+        $next_token++;
+      }
+      else
+      {
+        if ( strpos($tokens[$next_token], 'created-')!==0
+            and strpos($tokens[$next_token], 'posted-')!==0
+            and strpos($tokens[$next_token], 'start-')!==0
+            and $tokens[$next_token] != 'flat')
+        {// try a permalink
+          $cat_id = get_cat_id_from_permalink($tokens[$next_token]);
+          if ( !isset($cat_id) )
+          {//try old permalink
+            $cat_id = get_cat_id_from_old_permalink($tokens[$next_token], true);
+          }
+          if ( isset($cat_id) )
+          {
+            $page['category'] = $cat_id;
+            $page['hit_by']['cat_permalink'] = $tokens[$next_token];
+          }
+          else
+          {
+            page_not_found('Permalink for album not found');
+          }
+          $next_token++;
+        }
+       }
+    }
+
+    if (isset($page['category']))
+    {
+      $result = get_cat_info($page['category']);
+      if (empty($result))
+      {
+        page_not_found('Requested category does not exist' );
+      }
+      $page['category']=$result;
+    }
+  }
+  else if (0 === strpos(@$tokens[$next_token], 'tag'))
+  {
+    $page['section'] = 'tags';
+    $page['tags'] = array();
+
+    $next_token++;
+    $i = $next_token;
+
+    $requested_tag_ids = array();
+    $requested_tag_url_names = array();
+
+    while (isset($tokens[$i]))
+    {
+      if ( preg_match('/^(created-|posted-|start-(\d)+)/', $tokens[$i]) )
+        break;
+
+      if ( preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches) )
+      {
+        array_push($requested_tag_ids, $matches[1]);
+      }
+      else
+      {
+        array_push($requested_tag_url_names, $tokens[$i]);
+      }
+      $i++;
+    }
+    $next_token = $i;
+
+    if ( empty($requested_tag_ids) && empty($requested_tag_url_names) )
+    {
+      bad_request('at least one tag required');
+    }
+
+    $page['tags'] = find_tags($requested_tag_ids, $requested_tag_url_names);
+    if ( empty($page['tags']) )
+    {
+      page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
+    }
+  }
+  else if (0 === strpos(@$tokens[$next_token], 'fav'))
+  {
+    $page['section'] = 'favorites';
+    $next_token++;
+  }
+  else if ('most_visited' == @$tokens[$next_token])
+  {
+    $page['section'] = 'most_visited';
+    $next_token++;
+  }
+  else if ('best_rated' == @$tokens[$next_token])
+  {
+    $page['section'] = 'best_rated';
+    $next_token++;
+  }
+  else if ('recent_pics' == @$tokens[$next_token])
+  {
+    $page['section'] = 'recent_pics';
+    $next_token++;
+  }
+  else if ('recent_cats' == @$tokens[$next_token])
+  {
+    $page['section'] = 'recent_cats';
+    $next_token++;
+  }
+  else if ('search' == @$tokens[$next_token])
+  {
+    $page['section'] = 'search';
+    $next_token++;
+
+    preg_match('/(\d+)/', @$tokens[$next_token], $matches);
+    if (!isset($matches[1]))
+    {
+      bad_request('search identifier is missing');
+    }
+    $page['search'] = $matches[1];
+    $next_token++;
+  }
+  else if ('list' == @$tokens[$next_token])
+  {
+    $page['section'] = 'list';
+    $next_token++;
+
+    $page['list'] = array();
+
+    // No pictures
+    if (empty($tokens[$next_token]))
+    {
+      // Add dummy element list
+      array_push($page['list'], -1);
+    }
+    // With pictures list
+    else
+    {
+      if (!preg_match('/^\d+(,\d+)*$/', $tokens[$next_token]))
+      {
+        bad_request('wrong format on list GET parameter');
+      }
+      foreach (explode(',', $tokens[$next_token]) as $image_id)
+      {
+        array_push($page['list'], $image_id);
+      }
+    }
+    $next_token++;
+  }
+  return $page;
+}
+
+/**
+ * the reverse of add_well_known_params_in_url
+ * parses start, flat and chronology from url tokens
+*/
+function parse_well_known_params_url($tokens, $i)
+{
+  $page = array();
+  while (isset($tokens[$i]))
+  {
+    if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
+    {
+      $page['start'] = $matches[1];
+    }
+
+    if ( 'flat' == $tokens[$i] )
+    {
+      // indicate a special list of images
+      $page['flat'] = true;
+    }
+
+    if (preg_match('/^(posted|created)/', $tokens[$i] ))
+    {
+      $chronology_tokens = explode('-', $tokens[$i] );
+
+      $page['chronology_field'] = $chronology_tokens[0];
+
+      array_shift($chronology_tokens);
+      $page['chronology_style'] = $chronology_tokens[0];
+
+      array_shift($chronology_tokens);
+      if ( count($chronology_tokens)>0 )
+      {
+        if ('list'==$chronology_tokens[0] or
+            'calendar'==$chronology_tokens[0])
+        {
+          $page['chronology_view'] = $chronology_tokens[0];
+          array_shift($chronology_tokens);
+        }
+        $page['chronology_date'] = $chronology_tokens;
+      }
+    }
+    $i++;
+  }
+  return $page;
+}
+
+/**
  * Indicate to build url with full path
  *
  * @param null
