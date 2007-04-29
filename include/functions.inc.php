@@ -1284,6 +1284,20 @@ function hash_from_query($query, $keyname)
 }
 
 /**
+ * Return is "file_name" argument is candidate to
+ * compute script_basename value
+ *
+ * @param string file_name
+ *
+ * @return boolean is candidate or not?
+ */
+function is_script_basename($file_name)
+{
+  $file_name = basename($file_name);
+  return !empty($file_name);
+}
+
+/**
  * Return basename of the current script
  * Lower case convertion is applied on return value
  * Return value is without file extention ".php"
@@ -1294,11 +1308,11 @@ function hash_from_query($query, $keyname)
  */
 function script_basename()
 {
-  if (!empty($_SERVER['SCRIPT_NAME']))
+  if (is_script_basename($_SERVER['SCRIPT_NAME']))
   {
     $file_name = $_SERVER['SCRIPT_NAME'];
   }
-  else if (!empty($_SERVER['SCRIPT_FILENAME']))
+  else if (is_script_basename($_SERVER['SCRIPT_FILENAME']))
   {
     $file_name = $_SERVER['SCRIPT_FILENAME'];
   }
