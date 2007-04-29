@@ -413,7 +413,10 @@ SELECT
     id,
     IF(name IS NULL, file, name) AS label,
     filesize,
-    high_filesize
+    high_filesize,
+    file,
+    path,
+    tn_ext
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', array_keys($image_ids)).')
 ;';
@@ -421,7 +424,10 @@ SELECT
     $label_of_image = array();
     $filesize_of_image = array();
     $high_filesize_of_image = array();
-    
+    $file_of_image = array();
+    $path_of_image = array();
+    $tn_ext_of_image = array();
+
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
@@ -436,6 +442,10 @@ SELECT
       {
         $high_filesize_of_image[ $row['id'] ] = $row['high_filesize'];
       }
+
+      $file_of_image[ $row['id'] ] = $row['file'];
+      $path_of_image[ $row['id'] ] = $row['path'];
+      $tn_ext_of_image[ $row['id'] ] = $row['tn_ext'];
     }
 
     // echo '<pre>'; print_r($high_filesize_of_image); echo '</pre>';
@@ -551,9 +561,29 @@ SELECT
           )
         );
       
-      $image_string = '<a href="'.$picture_url.'">';
-      $image_string.= '('.$line['image_id'].')';
-
+      // <a class="thumbnail" href="#thumb">(1258)<span><img src="./galleries/category/thumbnail/th-dsc1258.png"></span></a>
+      $element = array(
+           'id' => $line['image_id'],
+           'file' => $file_of_image[$line['image_id']],
+           'path' => $path_of_image[$line['image_id']],
+           'tn_ext' => $tn_ext_of_image[$line['image_id']],
+           );
+      $image_string = '';    
+      if (!isset($conf['history_no_thumb']) or $conf['history_no_thumb']) {
+        $thumb_mode = "over";
+        if (isset($conf['history_no_hover']) and $conf['history_no_hover']) {
+          $thumb_mode = "thumbnail";
+        }
+        $image_string = '<a class="'.$thumb_mode.'" href="#thumb">'    
+                      .'('.$line['image_id'].') <span><img src="'
+                      . get_thumbnail_url( $element ) 
+                      .'"></span></a><a href="'.$picture_url.'">';
+      }
+      else {
+        $image_string= '<a href="'.$picture_url.'">';
+        $image_string.= '('.$line['image_id'].')';
+      }
+      
       if (isset($label_of_image[$line['image_id']]))
       {
         $image_string.= ' '.$label_of_image[$line['image_id']];
