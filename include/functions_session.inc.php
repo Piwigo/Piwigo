@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -73,63 +72,6 @@ if (isset($conf['session_save_handler'])
   }
   session_name($conf['session_name']);
   session_set_cookie_params(0, cookie_path());
-}
-
-// cookie_path returns the path to use for the PhpWebGallery cookie.
-// If PhpWebGallery is installed on :
-// http://domain.org/meeting/gallery/category.php
-// cookie_path will return : "/meeting/gallery"
-function cookie_path()
-{
-  if ( isset($_SERVER['REDIRECT_SCRIPT_NAME']) and
-       !empty($_SERVER['REDIRECT_SCRIPT_NAME']) )
-  {
-    $scr = $_SERVER['REDIRECT_SCRIPT_NAME'];
-  }
-  else if ( isset($_SERVER['REDIRECT_URL']) )
-  { // mod_rewrite is activated for upper level directories. we must set the
-    // cookie to the path shown in the browser otherwise it will be discarded.
-    if ( isset($_SERVER['PATH_INFO']) and !empty($_SERVER['PATH_INFO']) )
-    {
-      $idx = strpos( $_SERVER['REDIRECT_URL'], $_SERVER['PATH_INFO'] );
-      if ($idx !== false)
-      {
-        $scr = substr($_SERVER['REDIRECT_URL'], 0, $idx);
-      }
-      else
-      {//this should never happen
-        $scr='//';
-      }
-    }
-    else
-    {
-      $scr = $_SERVER['REDIRECT_URL'];
-    }
-  }
-  else
-  {
-    $scr = $_SERVER['SCRIPT_NAME'];
-  }
-  $scr = substr($scr,0,strrpos( $scr,'/'));
-
-  // add a trailing '/' if needed
-  $scr .= ($scr{strlen($scr)-1} == '/') ? '' : '/';
-  
-  if ( substr(PHPWG_ROOT_PATH,0,3)=='../')
-  { // this is maybe a plugin inside pwg directory
-    // TODO - what if it is an external script outside PWG ?
-    $scr = $scr.PHPWG_ROOT_PATH;
-    while (1)
-    {
-      $new = preg_replace('#[^/]+/\.\.(/|$)#', '', $scr);
-      if ($new==$scr)
-      {
-        break;
-      }
-      $scr=$new;
-    }
-  }
-  return $scr;
 }
 
 /**

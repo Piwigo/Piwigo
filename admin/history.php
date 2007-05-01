@@ -28,11 +28,6 @@
  * Display filtered history lines
  */
 
-// echo '<pre>$_POST:
-// '; print_r($_POST); echo '</pre>';
-// echo '<pre>$_GET:
-// '; print_r($_GET); echo '</pre>';
-
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
 // +-----------------------------------------------------------------------+
@@ -59,6 +54,7 @@ else
 }
 
 $types = array('none', 'picture', 'high', 'other');
+$display_thumbnails = array('no_display_thumbnail', 'display_thumbnail_classic', 'display_thumbnail_hoverbox');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -113,6 +109,10 @@ if (isset($_POST['submit']))
       mysql_escape_string($_POST['filename'])
       );
   }
+
+  $search['fields']['display_thumbnail'] = $_POST['display_thumbnail'];
+  // Display choise are also save to one cookie
+  pwg_set_cookie_var('history_display_thumbnail', $_POST['display_thumbnail']);
 
   // TODO manage inconsistency of having $_POST['image_id'] and
   // $_POST['filename'] simultaneously
@@ -560,37 +560,52 @@ SELECT
           'image_id' => $line['image_id'],
           )
         );
-      
-      // <a class="thumbnail" href="#thumb">(1258)<span><img src="./galleries/category/thumbnail/th-dsc1258.png"></span></a>
+
       $element = array(
            'id' => $line['image_id'],
            'file' => $file_of_image[$line['image_id']],
            'path' => $path_of_image[$line['image_id']],
            'tn_ext' => $tn_ext_of_image[$line['image_id']],
            );
-      $image_string = '';    
-      if (!isset($conf['history_no_thumb']) or $conf['history_no_thumb']) {
-        $thumb_mode = "over";
-        if (isset($conf['history_no_hover']) and $conf['history_no_hover']) {
-          $thumb_mode = "thumbnail";
-        }
-        $image_string = '<a class="'.$thumb_mode.'" href="#thumb">'    
-                      .'('.$line['image_id'].') <span><img src="'
-                      . get_thumbnail_url( $element ) 
-                      .'"></span></a><a href="'.$picture_url.'">';
-      }
-      else {
-        $image_string= '<a href="'.$picture_url.'">';
-        $image_string.= '('.$line['image_id'].')';
-      }
-      
+
+      $image_title = '('.$line['image_id'].')';
+
       if (isset($label_of_image[$line['image_id']]))
       {
-        $image_string.= ' '.$label_of_image[$line['image_id']];
+        $image_title.= ' '.$label_of_image[$line['image_id']];
       }
       else
       {
-        $image_string.= ' unknown filename';
+        $image_title.= ' unknown filename';
+      }
+
+      $image_string = '';
+
+      switch ($page['search']['fields']['display_thumbnail'])
+      {
+        case 'no_display_thumbnail':
+        {
+          $image_string= '<a href="'.$picture_url.'">'.$image_title.'</a>';
+          break;
+        }
+        case 'display_thumbnail_classic':
+        {
+          $image_string =
+            '<a class="thumbnail" href="'.$picture_url.'">'
+            .'<span><img src="'.get_thumbnail_url($element)
+            .'" alt="'.$image_title.'" title="'.$image_title.'">'
+            .'</span></a>';
+          break;
+        }
+        case 'display_thumbnail_hoverbox':
+        {
+          $image_string =
+            '<a class="over" href="'.$picture_url.'">'
+            .'<span><img src="'.get_thumbnail_url($element)
+            .'" alt="'.$image_title.'" title="'.$image_title.'">'
+            .'</span>'.$image_title.'</a>';
+          break;
+        }
       }
     }
     
@@ -726,6 +741,8 @@ if (isset($page['search']))
 
   $form['image_id'] = @$page['search']['fields']['image_id'];
   $form['filename'] = @$page['search']['fields']['filename'];
+
+  $form['display_thumbnail'] = @$page['search']['fields']['display_thumbnail'];
 }
 else
 {
@@ -735,6 +752,9 @@ else
   $form['start_month'] = $form['end_month'] = date('n');
   $form['start_day']   = $form['end_day']   = date('j');
   $form['types'] = $types;
+  // Hoverbox by default
+  $form['display_thumbnail'] =
+    pwg_get_cookie_var('history_display_thumbnail', $display_thumbnails[2]);
 }
 
 // start date
@@ -809,7 +829,26 @@ while ($row = mysql_fetch_array($result))
       )
     );
 }
+
+foreach ($display_thumbnails as $display_thumbnail)
+{
+  $selected = '';
   
+  if ($display_thumbnail === $form['display_thumbnail'])
+  {
+    $selected = 'selected="selected"';
+  }
+  
+  $template->assign_block_vars(
+    'display_thumbnail',
+    array(
+      'VALUE' => $display_thumbnail,
+      'CONTENT' => l10n($display_thumbnail),
+      'SELECTED' => $selected,
+      )
+    );
+}
+
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+

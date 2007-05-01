@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -59,57 +58,43 @@ function rate_picture($image_id, $rate)
     }
     $anonymous_id = implode ('.', $ip_components);
 
-    if (isset($_COOKIE['pwg_anonymous_rater']))
-    {
-      if ($anonymous_id != $_COOKIE['pwg_anonymous_rater'])
-      { // client has changed his IP adress or he's trying to fool us
-        $query = '
+    $save_anonymous_id = pwg_get_cookie_var('anonymous_rater', $anonymous_id);
+
+    if ($anonymous_id != $save_anonymous_id)
+    { // client has changed his IP adress or he's trying to fool us
+      $query = '
 SELECT element_id
-  FROM '.RATE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-    AND anonymous_id = \''.$anonymous_id.'\'
+FROM '.RATE_TABLE.'
+WHERE user_id = '.$user['id'].'
+  AND anonymous_id = \''.$anonymous_id.'\'
 ;';
-        $already_there = array_from_query($query, 'element_id');
+      $already_there = array_from_query($query, 'element_id');
 
-        if (count($already_there) > 0)
-        {
-          $query = '
+      if (count($already_there) > 0)
+      {
+        $query = '
 DELETE
-  FROM '.RATE_TABLE.'
-  WHERE user_id = '.$user['id'].'
-    AND anonymous_id = \''.$_COOKIE['pwg_anonymous_rater'].'\'
-    AND element_id NOT IN ('.implode(',', $already_there).')
-;';
-           pwg_query($query);
-         }
-
-         $query = '
-UPDATE
-  '.RATE_TABLE.'
-  SET anonymous_id = \'' .$anonymous_id.'\'
-  WHERE user_id = '.$user['id'].'
-    AND anonymous_id = \'' . $_COOKIE['pwg_anonymous_rater'].'\'
+FROM '.RATE_TABLE.'
+WHERE user_id = '.$user['id'].'
+  AND anonymous_id = \''.$save_anonymous_id.'\'
+  AND element_id NOT IN ('.implode(',', $already_there).')
 ;';
          pwg_query($query);
+       }
 
-         setcookie(
-            'pwg_anonymous_rater',
-            $anonymous_id,
-            strtotime('+10 years'),
-            cookie_path()
-           );
-      } // end client changed ip
-    } // end client has cookie
-    else
-    {
-      setcookie(
-          'pwg_anonymous_rater',
-          $anonymous_id,
-          strtotime('+10 years'),
-          cookie_path()
-          );
-    }
+       $query = '
+UPDATE
+'.RATE_TABLE.'
+SET anonymous_id = \'' .$anonymous_id.'\'
+WHERE user_id = '.$user['id'].'
+  AND anonymous_id = \'' . $save_anonymous_id.'\'
+;';
+       pwg_query($query);
+    } // end client changed ip
+
+  pwg_get_cookie_var('anonymous_rater', $anonymous_id);
   } // end anonymous user
+
   $query = '
 DELETE
   FROM '.RATE_TABLE.'

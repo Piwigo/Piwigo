@@ -25,6 +25,7 @@
 // +-----------------------------------------------------------------------+
 
 include_once( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/functions_cookie.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );

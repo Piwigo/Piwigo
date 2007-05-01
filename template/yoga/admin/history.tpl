@@ -84,6 +84,19 @@
 
   <input class="submit" type="submit" name="submit" value="{lang:submit}" />
 </fieldset>
+<fieldset>
+  <legend>{lang:Display}</legend>
+  <ul>
+    <li>
+      {lang:Thumbnails}
+      <select name="display_thumbnail">
+        <!-- BEGIN display_thumbnail -->
+        <option {display_thumbnail.SELECTED} value="{display_thumbnail.VALUE}">{display_thumbnail.CONTENT}</option>
+        <!-- END display_thumbnail -->
+      </select>
+    </li>
+  </ul>
+</fieldset>
 </form>
 
 <!-- BEGIN summary -->
