@@ -162,7 +162,7 @@ $page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) )
 
 
 if ( script_basename()=='picture' and 'categories'==$page['section'] and
-      !isset($page['chronology_field']) )
+      !isset($page['category']) and !isset($page['chronology_field']) )
 { //access a picture only by id, file or id-file without given section
   $page['flat']=true;
 }
