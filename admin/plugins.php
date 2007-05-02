@@ -37,7 +37,7 @@ $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 // +-----------------------------------------------------------------------+
 // |                     perform requested actions                         |
 // +-----------------------------------------------------------------------+
-if ( isset($_GET['action']) and isset($_GET['plugin'])  )
+if ( isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser() )
 {
   $plugin_id = $_GET['plugin'];
   $crt_db_plugin = get_db_plugins('', $plugin_id);
