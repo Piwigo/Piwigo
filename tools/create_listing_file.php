@@ -31,7 +31,7 @@
 
 // ****** Gallery configuration ****** //
 // Script version
-$conf['version'] = 'branch 1.7';
+$conf['version'] = '1.7.0';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
