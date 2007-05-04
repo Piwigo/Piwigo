@@ -154,12 +154,12 @@ $template->assign_vars(array('RELEASE'=>PHPWG_VERSION));
 // |                            upgrade choice                             |
 // +-----------------------------------------------------------------------+
 
+$tables = get_tables();
+$columns_of = get_columns_of($tables);
+
 if (!isset($_GET['version']))
 {
   // find the current release
-  $tables = get_tables();
-  $columns_of = get_columns_of($tables);
-
   if (!in_array('param', $columns_of[PREFIX_TABLE.'config']))
   {
     // we're in branch 1.3, important upgrade, isn't it?
@@ -212,6 +212,11 @@ if (!isset($_GET['version']))
 
 else
 {
+  if (in_array(PREFIX_TABLE.'history_summary', $tables))
+  {
+    die('No database upgrade required, do not refresh the page');
+  }
+    
   $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$_GET['version'].'.php';
   if (is_file($upgrade_file))
   {
