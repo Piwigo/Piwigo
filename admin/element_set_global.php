@@ -114,16 +114,21 @@ SELECT id
 ;';
     $dissociables = array_from_query($query, 'id');
 
-  if (!empty($dissociables))
-  {
-    $query = '
+    if (!empty($dissociables))
+    {
+      $query = '
 DELETE
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id = '.$_POST['dissociate'].'
     AND image_id IN ('.implode(',', $dissociables).')
 ';
-    pwg_query($query);
-  }
+      pwg_query($query);
+
+      $page['cat_elements_id'] = array_diff(
+        $page['cat_elements_id'],
+        $dissociables
+      );
+    }
 
     update_category($_POST['dissociate']);
   }
