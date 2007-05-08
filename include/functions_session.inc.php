@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -87,29 +86,16 @@ function cookie_path()
     $scr = $_SERVER['REDIRECT_SCRIPT_NAME'];
   }
   else if ( isset($_SERVER['REDIRECT_URL']) )
-  { // mod_rewrite is activated for upper level directories. we must set the
+  {
+    // mod_rewrite is activated for upper level directories. we must set the
     // cookie to the path shown in the browser otherwise it will be discarded.
-    if ( isset($_SERVER['PATH_INFO']) and !empty($_SERVER['PATH_INFO']) )
-    {
-      $idx = strpos( $_SERVER['REDIRECT_URL'], $_SERVER['PATH_INFO'] );
-      if ($idx !== false)
-      {
-        $scr = substr($_SERVER['REDIRECT_URL'], 0, $idx);
-      }
-      else
-      {//this should never happen
-        $scr='//';
-      }
-    }
-    else
-    {
-      $scr = $_SERVER['REDIRECT_URL'];
-    }
+    $scr = $_SERVER['REDIRECT_URL'];
   }
   else
   {
     $scr = $_SERVER['SCRIPT_NAME'];
   }
+
   $scr = substr($scr,0,strrpos( $scr,'/'));
 
   // add a trailing '/' if needed
