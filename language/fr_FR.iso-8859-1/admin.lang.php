@@ -610,9 +610,9 @@ $lang['Hour'] = 'Heure';
 $lang['is_the_guest'] = 'invité';
 $lang['is_the_default'] = 'valeurs par défaut';
 $lang['High filesize'] = 'Taille du fichier HR';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';
 $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
 $lang['Thumbnails'] = 'Miniatures';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 ?>

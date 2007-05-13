@@ -609,9 +609,9 @@ $lang['Hour'] = 'Hour';
 $lang['is_the_guest'] = 'guest';
 $lang['is_the_default'] = 'default values';
 $lang['High filesize'] = 'High filesize';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['no_display_thumbnail'] = 'No display';
 $lang['display_thumbnail_classic'] = 'Classic display';
 $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
 $lang['Thumbnails'] = 'Thumbnails';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 ?>

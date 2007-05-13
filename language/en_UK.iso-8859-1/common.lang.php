@@ -632,6 +632,6 @@ $lang['Picture name: %s'] = 'Picture name: %s';
 $lang['Creation date: %s'] = 'Creation date: %s';
 $lang['Waiting page: %s'] = 'Waiting page: %s';
 $lang['Picture uploaded by %s'] = 'Picture uploaded by %s';
-$lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+$lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
 ?>
