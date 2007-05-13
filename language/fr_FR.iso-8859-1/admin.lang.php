@@ -614,5 +614,5 @@ $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';
 $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
 $lang['Thumbnails'] = 'Miniatures';
-
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 ?>

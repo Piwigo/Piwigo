@@ -613,5 +613,5 @@ $lang['no_display_thumbnail'] = 'No display';
 $lang['display_thumbnail_classic'] = 'Classic display';
 $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
 $lang['Thumbnails'] = 'Thumbnails';
-
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 ?>

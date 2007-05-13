@@ -633,4 +633,5 @@ $lang['Creation date: %s'] = 'Date de création: %d';
 $lang['Waiting page: %s'] = 'Page en attente: %s';
 $lang['Picture uploaded by %s'] = 'Image téléchargée par %s';
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrateur, webmestre et utilisateur spécial ne peuvent pas utiliser cette méthode';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 ?>
