@@ -113,7 +113,10 @@ function cookie_path()
   $scr = substr($scr,0,strrpos( $scr,'/'));
 
   // add a trailing '/' if needed
-  $scr .= ($scr{strlen($scr)-1} == '/') ? '' : '/';
+  if ((strlen($scr) == 0) or ($scr{strlen($scr)-1} !== '/'))
+  {
+    $scr .= '/';
+  }
   
   if ( substr(PHPWG_ROOT_PATH,0,3)=='../')
   { // this is maybe a plugin inside pwg directory
