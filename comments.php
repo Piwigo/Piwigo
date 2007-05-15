@@ -117,7 +117,7 @@ if (isset($_GET['keyword']) and !empty($_GET['keyword']))
                 '$s',
                 'return "content LIKE \'%$s%\'";'
                 ),
-              preg_split('/[\s,;]+/', $keyword)
+              preg_split('/[\s,;]+/', $_GET['keyword'] )
               )
       ).
     ')';
