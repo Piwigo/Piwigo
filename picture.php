@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -598,8 +597,8 @@ SELECT COUNT(*) AS nb_fav
       array(
         'FAVORITE_IMG'  =>
           get_root_url().get_themeconf('icon_dir').'/favorite.png',
-        'FAVORITE_HINT' => $lang['add_favorites_hint'],
-        'FAVORITE_ALT'  => $lang['add_favorites_alt'],
+        'FAVORITE_HINT' => l10n('add_favorites_hint'),
+        'FAVORITE_ALT'  => l10n('add_favorites_alt'),
         'U_FAVORITE'    => add_url_params(
           $url_self,
           array('action'=>'add_to_favorites')
@@ -614,8 +613,8 @@ SELECT COUNT(*) AS nb_fav
       array(
         'FAVORITE_IMG'  =>
           get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
-        'FAVORITE_HINT' => $lang['del_favorites_hint'],
-        'FAVORITE_ALT'  => $lang['del_favorites_alt'],
+        'FAVORITE_HINT' => l10n('del_favorites_hint'),
+        'FAVORITE_ALT'  => l10n('del_favorites_alt'),
         'U_FAVORITE'    => add_url_params(
           $url_self,
           array('action'=>'remove_from_favorites')

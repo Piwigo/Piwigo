@@ -5,8 +5,7 @@
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // | Copyright (C) 2006-2007   Ruben ARNAUD - team@phpwebgallery.net       |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -61,15 +60,13 @@ if (isset($_GET['unsubscribe'])
 }
 else
 {
-/*  echo l10n('nbm_unknown_identifier');
-  exit();*/
   array_push($page['errors'], l10n('nbm_unknown_identifier'));
 }
 
 // +-----------------------------------------------------------------------+
 // | template initialization                                               |
 // +-----------------------------------------------------------------------+
-$title = $lang['nbm_item_notification'];
+$title = l10n('nbm_item_notification');
 $page['body_id'] = 'theNBMPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
