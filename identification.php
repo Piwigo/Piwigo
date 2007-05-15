@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -43,7 +42,7 @@ if ( !empty($_GET['redirect']) )
   $redirect_to = urldecode($_GET['redirect']);
   if ( $user['is_the_guest'] )
   {
-    array_push($errors, $lang['access_forbiden']);
+    array_push($errors, l10n('access_forbiden'));
   }
 }
 
@@ -57,7 +56,7 @@ if (isset($_POST['login']))
   }
   else
   {
-    array_push( $errors, $lang['invalid_pwd'] );
+    array_push( $errors, l10n('invalid_pwd') );
   }
 }
 
@@ -65,7 +64,7 @@ if (isset($_POST['login']))
 //
 // Start output of page
 //
-$title = $lang['identification'];
+$title = l10n('identification');
 $page['body_id'] = 'theIdentificationPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 

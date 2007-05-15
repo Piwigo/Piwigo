@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -144,7 +143,7 @@ INSERT INTO '.SEARCH_TABLE.'
   }
   else
   {
-    array_push($errors, $lang['search_one_clause_at_least']);
+    array_push($errors, l10n('search_one_clause_at_least'));
   }
 }
 //----------------------------------------------------------------- redirection
@@ -171,7 +170,7 @@ get_month_list('end_month', @$_POST['end_month']);
 //
 // Start output of page
 //
-$title= $lang['search_title'];
+$title= l10n('search_title');
 $page['body_id'] = 'theSearchPage';
 
 $template->set_filenames( array('search'=>'search.tpl') );

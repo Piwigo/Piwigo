@@ -45,7 +45,7 @@ if (isset($_POST['submit']))
 {
   if ($_POST['password'] != $_POST['password_conf'])
   {
-    array_push($errors, $lang['reg_err_pass']);
+    array_push($errors, l10n('reg_err_pass'));
   }
 
   $errors =
@@ -91,7 +91,7 @@ $email = !empty($_POST['mail_address'])?$_POST['mail_address']:'';
 //
 // Start output of page
 //
-$title= $lang['register_page_title'];
+$title= l10n('register_page_title');
 $page['body_id'] = 'theRegisterPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
