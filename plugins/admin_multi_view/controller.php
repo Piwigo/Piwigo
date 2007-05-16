@@ -8,6 +8,8 @@ if (!is_admin() or !function_exists('multiview_user_init') )
   pwg_unset_session_var( 'multiview_as' );
   pwg_unset_session_var( 'multiview_theme' );
   pwg_unset_session_var( 'multiview_lang' );
+  pwg_unset_session_var( 'multiview_show_queries' );
+  pwg_unset_session_var( 'multiview_debug_l10n' );
 ?>
 <script type="text/javascript">
   window.close();
@@ -43,6 +45,24 @@ if ( isset($_GET['lang']) )
   $refresh_main = true;
 }
 
+if ( isset($_GET['show_queries']) )
+{
+  if ( $_GET['show_queries']> 0 )
+    pwg_set_session_var( 'multiview_show_queries', 1 );
+  else
+    pwg_unset_session_var( 'multiview_show_queries' );
+  $refresh_main = true;
+}
+
+if ( isset($_GET['debug_l10n']) )
+{
+  if ( $_GET['debug_l10n']>0 )
+    pwg_set_session_var( 'multiview_debug_l10n', 1 );
+  else
+    pwg_unset_session_var( 'multiview_debug_l10n' );
+  $refresh_main = true;
+}
+
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
 $my_theme = get_root_url().'template/'.$user['template'].'/theme/'.$user['theme'].'/theme.css';
 
@@ -71,6 +91,26 @@ foreach (get_languages() as $language_code => $language_name)
     .'</option>';
 }
 $lang_html .= '</select>';
+
+$show_queries_html='';
+if (!$conf['show_queries'])
+{
+  $show_queries_html = '<br/>';
+  if ( !pwg_get_session_var( 'multiview_show_queries', 0 ) )
+    $show_queries_html.='<a href="'.$my_url.'?show_queries=1">Show SQL queries</a>';
+  else
+    $show_queries_html.='<a href="'.$my_url.'?show_queries=0">Hide SQL queries</a>';
+}
+
+$debug_l10n_html='';
+if (!$conf['show_queries'])
+{
+  $debug_l10n_html = '<br/>';
+  if ( !pwg_get_session_var( 'multiview_debug_l10n', 0 ) )
+    $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=1">Debug language</a>';
+  else
+    $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=0">Revert debug language</a>';
+}
 ?>
 
 <html>
@@ -103,6 +143,8 @@ View as:
 <br />
 <?php echo $lang_html; ?>
 
+<?php echo $show_queries_html; ?>
+<?php echo $debug_l10n_html; ?>
 
 <script type="text/javascript">
 <?php
