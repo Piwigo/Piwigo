@@ -17,6 +17,11 @@ if (! defined('MULTIVIEW_CONTROLLER') )
   {
     $user['language'] = $lang;
   }
+  global $conf;
+  if (pwg_get_session_var( 'multiview_show_queries', 0 ))
+    $conf['show_queries'] = true;
+  if (pwg_get_session_var( 'multiview_debug_l10n', 0 ))
+    $conf['debug_l10n'] = true;
 }
 
 add_event_handler('loc_end_page_header', 'multiview_loc_end_page_header');
