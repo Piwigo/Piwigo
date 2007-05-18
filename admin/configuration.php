@@ -217,8 +217,8 @@ switch ($page['section'])
       array(
         'GALLERY_LOCKED_YES'=>$lock_yes,
         'GALLERY_LOCKED_NO'=>$lock_no,
-        'CONF_GALLERY_TITLE' => $conf['gallery_title'],
-        'CONF_PAGE_BANNER' => $conf['page_banner'],
+        'CONF_GALLERY_TITLE' => htmlspecialchars($conf['gallery_title']),
+        'CONF_PAGE_BANNER' => htmlspecialchars($conf['page_banner']),
         'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
 
