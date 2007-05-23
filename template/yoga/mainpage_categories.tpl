@@ -14,7 +14,7 @@
           <a href="{categories.category.URL}">{categories.category.NAME}</a>
           {categories.category.ICON}
         </h3>
-        <p>{categories.category.CAPTION_NB_IMAGES}</p>
+        <p>{categories.category.CAPTION_NB_IMAGES}&nbsp;</p>
         <p>{categories.category.DESCRIPTION}&nbsp;</p>
       </div>
     </div>
