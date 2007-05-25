@@ -3,8 +3,7 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -47,7 +46,7 @@ function get_element_url($element_info)
   $url = get_element_location($element_info);
   if ( !url_is_remote($url) )
   {
-    $url = get_root_url().$url;
+    $url = embellish_url(get_root_url().$url);
   }
   // plugins want another url ?
   return trigger_event('get_element_url', $url, $element_info);
@@ -121,7 +120,7 @@ function get_image_url($element_info)
   $url = get_image_location($element_info);
   if ( !url_is_remote($url) )
   {
-    $url = get_root_url().$url;
+    $url = embellish_url(get_root_url().$url);
   }
   return $url;
 }
@@ -179,7 +178,7 @@ function get_high_url($element_info)
   $url = get_high_location($element_info);
   if (!empty($url) and !url_is_remote($url) )
   {
-    $url = get_root_url().$url;
+    $url = embellish_url(get_root_url().$url);
   }
   // plugins want another url ?
   return trigger_event('get_high_url', $url, $element_info);

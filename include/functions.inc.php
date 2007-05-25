@@ -792,8 +792,9 @@ function get_thumbnail_url($element_info)
   $path = get_thumbnail_location($element_info);
   if ( !url_is_remote($path) )
   {
-    $path = get_root_url().$path;
+    $path = embellish_url(get_root_url().$path);
   }
+
   // plugins want another url ?
   $path = trigger_event('get_thumbnail_url', $path, $element_info);
   return $path;

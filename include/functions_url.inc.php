@@ -701,4 +701,15 @@ function unset_make_full_url()
   }
 }
 
+/**
+ * Embellish the url argument
+ *
+ * @param $url
+ * @return $url embellished
+ */
+function embellish_url($url)
+{
+  return str_replace('/./', '/', $url);
+}
+
 ?>
