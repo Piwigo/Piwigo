@@ -614,4 +614,6 @@ $lang['no_display_thumbnail'] = 'No display';
 $lang['display_thumbnail_classic'] = 'Classic display';
 $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
 $lang['Thumbnails'] = 'Thumbnails';
+$lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
+$lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
 ?>

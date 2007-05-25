@@ -615,4 +615,6 @@ $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';
 $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
 $lang['Thumbnails'] = 'Miniatures';
+$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
+$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
 ?>
