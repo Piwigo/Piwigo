@@ -252,15 +252,25 @@ if (isset($_POST['delete']) or isset($_POST['pref_submit']))
 // +-----------------------------------------------------------------------+
 if (isset($_POST['delete']) and count($collection) > 0)
 {
+  if (in_array($conf['guest_id'], $collection))
+  {
+    array_push($page['errors'], l10n('Guest cannot be deleted'));
+  }
+  if (($conf['guest_id'] != $conf['default_user_id']) and 
+      in_array($conf['default_user_id'], $collection))
+  {
+    array_push($page['errors'], l10n('Default user cannot be deleted'));
+  }
   if (in_array($conf['webmaster_id'], $collection))
   {
     array_push($page['errors'], l10n('Webmaster cannot be deleted'));
   }
-  elseif (in_array($user['id'], $collection))
+  if (in_array($user['id'], $collection))
   {
     array_push($page['errors'], l10n('You cannot delete your account'));
   }
-  else
+
+  if (count($page['errors']) == 0)
   {
     if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
     {
@@ -391,16 +401,32 @@ DELETE FROM '.USER_GROUP_TABLE.'
         }
       }
 
-      // Webmaster status must not be changed
-      if ($conf['webmaster_id'] == $user_id and isset($data['status']))
+      // special users checks
+      if
+        (
+          ($conf['webmaster_id'] == $user_id) or
+          ($conf['guest_id'] == $user_id) or
+          ($conf['default_user_id'] == $user_id)
+        )
       {
-        $data['status'] = 'webmaster';
-      }
+        // status must not be changed
+        if (isset($data['status']))
+        {
+          if ($conf['webmaster_id'] == $user_id)
+          {
+            $data['status'] = 'webmaster';
+          }
+          else
+          {
+            $data['status'] = 'guest';
+          }
+        }
 
-      // Webmaster and guest adviser must not be changed
-      if ((($conf['webmaster_id'] == $user_id) or ($conf['guest_id'] == $user_id)) and isset($data['adviser']))
-      {
-        $data['adviser'] = 'false';
+        // could not be adivser
+        if (isset($data['adviser']))
+        {
+          $data['adviser'] = 'false';
+        }
       }
 
       array_push($datas, $data);

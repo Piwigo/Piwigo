@@ -609,4 +609,7 @@ $lang['Hour'] = 'Heure';
 $lang['is_the_guest'] = 'invité';
 $lang['is_the_default'] = 'valeurs par défaut';
 $lang['High filesize'] = 'Taille du fichier HR';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.7.1)
+$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
+$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
 ?>

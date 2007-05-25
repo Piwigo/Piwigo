@@ -608,4 +608,7 @@ $lang['Hour'] = 'Hour';
 $lang['is_the_guest'] = 'guest';
 $lang['is_the_default'] = 'default values';
 $lang['High filesize'] = 'High filesize';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.7.1)
+$lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
+$lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
 ?>
