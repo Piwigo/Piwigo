@@ -30,8 +30,18 @@
 function get_comment_post_key($image_id)
 {
   global $conf;
+  
   $time = time();
-  return $time.':'.hash_hmac('md5', $time.':'.$image_id, $conf['secret_key'] );
+
+  return sprintf(
+    '%s:%s',
+    $time,
+    hash_hmac(
+      'md5',
+      $time.':'.$image_id,
+      $conf['secret_key']
+      )
+    );
 }
 
 //returns string action to perform on a new comment: validate, moderate, reject
