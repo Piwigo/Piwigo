@@ -23,7 +23,11 @@ Upgrade
 1. elements to save :
 
  - file "include/mysql.inc.php"
+ - file "include/config_local.inc.php"
+ - file "template-common/local-layout.css"
+ - file "template/yoga/local-layout.css"
  - directory "galleries"
+ - any optional theme or extension you have intalled
  - your database (create a dump, using PhpMyAdmin for instance)
 
 2. delete all files and directories of your previous installation (but not

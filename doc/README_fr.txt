@@ -22,7 +22,11 @@ Mise à jour
 1. éléments à sauvegarder :
 
  - fichier "include/mysql.inc.php"
+ - fichier "include/config_local.inc.php"
+ - fichier "template-common/local-layout.css"
+ - fichier "template/yoga/local-layout.css"
  - répertoire "galleries"
+ - éventuellement thèmes supplémentaires et extensions
  - votre base de données (en créant un dump, avec PhpMyAdmin par exemple)
 
 2. supprimer tous les fichiers et répertoires de la précédente installation
