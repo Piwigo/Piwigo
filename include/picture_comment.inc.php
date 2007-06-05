@@ -43,7 +43,7 @@ foreach ($related_categories as $category)
 
 if ( $page['show_comments'] and isset( $_POST['content'] ) )
 {
-  if ( $user['is_the_guest'] and !$conf['comments_forall'] )
+  if ( is_a_guest() and !$conf['comments_forall'] )
   {
     die ('Session expired');
   }
@@ -61,9 +61,9 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   switch ($comment_action)
   {
     case 'moderate':
-      array_push( $infos, $lang['comment_to_validate'] );
+      array_push( $infos, l10n('comment_to_validate') );
     case 'validate':
-      array_push( $infos, $lang['comment_added']);
+      array_push( $infos, l10n('comment_added'));
       break;
     case 'reject': 
       set_status_header(403);
@@ -137,7 +137,7 @@ SELECT id,author,date,image_id,content
         'comments.comment',
         array(
           'COMMENT_AUTHOR' => empty($row['author'])
-            ? $lang['guest']
+            ? l10n('guest')
             : $row['author'],
 
           'COMMENT_DATE' => format_date(
@@ -168,8 +168,8 @@ SELECT id,author,date,image_id,content
     }
   }
 
-  if (!$user['is_the_guest']
-      or ($user['is_the_guest'] and $conf['comments_forall']))
+  if (!is_a_guest()
+      or (is_a_guest() and $conf['comments_forall']))
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
     $key = get_comment_post_key($page['image_id']);
@@ -183,8 +183,9 @@ SELECT id,author,date,image_id,content
           'KEY' => $key,
           'CONTENT' => $content
         ));
-    // display author field if the user is not logged in
-    if ($user['is_the_guest'])
+
+    // display author field if the user status is guest or generic
+    if (!is_classic_user())
     {
       $template->assign_block_vars(
         'comments.add_comment.author_field', array()

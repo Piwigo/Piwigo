@@ -702,8 +702,8 @@ SELECT id, date, author, content
   
   $comment_post_data = null;
   if ($is_commentable and 
-      (!$user['is_the_guest']
-        or ($user['is_the_guest'] and $conf['comments_forall'] )
+      (!is_a_guest()
+        or (is_a_guest() and $conf['comments_forall'] )
       )
       )
   {
@@ -884,7 +884,7 @@ function ws_session_login($params, &$service)
 function ws_session_logout($params, &$service)
 {
   global $user, $conf;
-  if (!$user['is_the_guest'])
+  if (!is_a_guest())
   {
     $_SESSION = array();
     session_unset();
@@ -902,7 +902,7 @@ function ws_session_getStatus($params, &$service)
 {
   global $user, $lang_info;
   $res = array();
-  $res['username'] = $user['is_the_guest'] ? 'guest' : $user['username'];
+  $res['username'] = is_a_guest() ? 'guest' : $user['username'];
   foreach ( array('status', 'template', 'theme', 'language') as $k )
   {
     $res[$k] = $user[$k];

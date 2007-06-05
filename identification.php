@@ -40,7 +40,7 @@ $redirect_to = '';
 if ( !empty($_GET['redirect']) )
 {
   $redirect_to = urldecode($_GET['redirect']);
-  if ( $user['is_the_guest'] )
+  if ( is_a_guest() )
   {
     array_push($errors, l10n('access_forbiden'));
   }

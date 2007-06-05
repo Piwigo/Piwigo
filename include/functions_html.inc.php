@@ -574,7 +574,7 @@ function access_denied()
       get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
 
-  if ( isset($user['is_the_guest']) and !$user['is_the_guest'] )
+  if ( isset($user) and !is_a_guest() )
   {
     echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
     echo '<a href="'.get_root_url().'identification.php">'.$lang['identification'].'</a>&nbsp;';

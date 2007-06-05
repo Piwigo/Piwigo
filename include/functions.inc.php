@@ -423,7 +423,7 @@ function pwg_log($image_id = null, $image_type = null)
   {
     $do_log = false;
   }
-  if ($user['is_the_guest'] and !$conf['history_guest'])
+  if (is_a_guest() and !$conf['history_guest'])
   {
     $do_log = false;
   }

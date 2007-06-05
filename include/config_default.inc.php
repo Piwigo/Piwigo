@@ -173,7 +173,7 @@ $conf['show_version'] = true;
 //  $conf['links'] = array(
 //    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
 //    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
-//    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return $user[\'is_the_guest\'];'),
+//    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return is_a_guest();'),
 //    'http://download.gna.org/phpwebgallery/' => 
 //      array('label' => 'PopUp', 'new_window' => true, 
 //      'nw_name' => 'PopUp', 'nw_features' => 'width=800,height=450,location=no,status=no,toolbar=no,scrollbars=no,menubar=no'),
@@ -213,7 +213,7 @@ $conf['links'] = array();
 //  '' condition is equivalent to 'return true;'
 //  $conf['random_index_redirect'] = array(
 //    PHPWG_ROOT_PATH.'index.php?/best_rated' => 'return true;',
-//    PHPWG_ROOT_PATH.'index.php?/recent_pics' => 'return $user[\'is_the_guest\'];',
+//    PHPWG_ROOT_PATH.'index.php?/recent_pics' => 'return is_a_guest();',
 //    PHPWG_ROOT_PATH.'random.php' => '',
 //    PHPWG_ROOT_PATH.'index.php?/categories' => '',
 //    );

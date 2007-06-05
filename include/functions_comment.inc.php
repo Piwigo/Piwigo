@@ -58,7 +58,7 @@ function user_comment_check($action, $comment)
     return $action;
 
   // we do here only BASIC spam check (plugins can do more)
-  if ( !$user['is_the_guest'] )
+  if ( !is_a_guest() )
     return $action;
 
   $link_count = preg_match_all( '/https?:\/\//',
@@ -118,7 +118,8 @@ function insert_user_comment( &$comm, $key, &$infos )
     $comment_action='moderate'; //one of validate, moderate, reject
   }
 
-  if ( $user['is_the_guest'] )
+  // display author field if the user status is guest or generic
+  if (!is_classic_user())
   {
     if ( empty($comm['author']) )
     {

@@ -206,7 +206,7 @@ function save_profile_from_post(&$userdata, &$errors)
 
 function load_profile_in_template($url_action, $url_redirect, $userdata)
 {
-  global $template;
+  global $template, $conf;
 
   $template->set_filename('profile_content', 'profile_content.tpl');
 
@@ -293,7 +293,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
         ));
   }
 
-  if (!($userdata['is_the_guest'] or $userdata['is_the_default']))
+  if (!(in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']))))
   {
     $template->assign_block_vars('not_special_user', array());
     if ( !defined('IN_ADMIN') )

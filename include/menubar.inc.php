@@ -163,7 +163,7 @@ if ('tags' == $page['section'])
 }
 //---------------------------------------------------------- special categories
 // favorites categories
-if ( !$user['is_the_guest'] )
+if ( !is_a_guest() )
 {
   $template->assign_block_vars('username', array());
 
@@ -242,7 +242,7 @@ $template->assign_block_vars(
   );
 //--------------------------------------------------------------------- summary
 
-if ($user['is_the_guest'])
+if (is_a_guest())
 {
   $template->assign_block_vars('login', array());
 

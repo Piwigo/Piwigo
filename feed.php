@@ -91,7 +91,7 @@ SELECT user_id,
 else
 {
   $image_only = true;
-  if (!$user['is_the_guest'])
+  if (!is_a_guest())
   {// auto session was created - so switch to guest
     $user = build_user( $conf['guest_id'], true );
   }

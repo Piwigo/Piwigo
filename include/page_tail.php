@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -38,7 +37,7 @@ $template->assign_vars(
 
 //--------------------------------------------------------------------- contact
 
-if (!$user['is_the_guest'])
+if (!is_a_guest())
 {
   $template->assign_block_vars(
     'contact',

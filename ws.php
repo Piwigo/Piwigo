@@ -80,7 +80,7 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod('pwg.images.addComment', 'ws_images_addComment',
       array(
         'image_id' => array(),
-        'author' => array( 'default' => $user['is_the_guest']? 'guest':$user['username']),
+        'author' => array( 'default' => is_a_guest()? 'guest':$user['username']),
         'content' => array(),
         'key' => array(),
       ),

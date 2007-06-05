@@ -146,8 +146,6 @@ function build_user( $user_id, $use_cache )
   global $conf;
   $user['id'] = $user_id;
   $user = array_merge( $user, getuserdata($user_id, $use_cache) );
-  $user['is_the_guest'] = ($user['id'] == $conf['guest_id']);
-  $user['is_the_default'] = ($user['id'] == $conf['default_user_id']);
 
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
@@ -1015,11 +1013,11 @@ function log_user($user_id, $remember_me)
     {
       $cookie = array('id' => (int)$user_id, 'key' => $key);
       setcookie($conf['remember_me_name'],
-	        serialize($cookie),
-	        time()+$conf['remember_me_length'],
-	        cookie_path()
-	      );
-	}
+            serialize($cookie),
+            time()+$conf['remember_me_length'],
+            cookie_path()
+          );
+    }
   }
   else
   { // make sure we clean any remember me ...
@@ -1090,13 +1088,12 @@ SELECT '.$conf['user_fields']['id'].' AS id,
 }
 
 /*
- * Return access_type definition of uuser
- * Test does with user status
- * @return bool
+ * Return user status used in this library
+ * @return string
 */
-function get_access_type_status($user_status='')
+function get_user_status($user_status)
 {
-  global $user, $conf;
+  global $user;
 
   if (empty($user_status))
   {
@@ -1110,8 +1107,19 @@ function get_access_type_status($user_status='')
       $user_status = '';
     }
   }
+  return $user_status;
+}
 
-  switch ($user_status)
+/*
+ * Return access_type definition of uuser
+ * Test does with user status
+ * @return bool
+*/
+function get_access_type_status($user_status='')
+{
+  global $conf;
+
+  switch (get_user_status($user_status))
   {
     case 'guest':
     {
@@ -1173,7 +1181,25 @@ function check_status($access_type, $user_status = '')
 }
 
 /*
- * Return if user is an administrator
+ * Return if user is only a guest
+ * @return bool
+*/
+ function is_a_guest($user_status = '')
+{
+  return get_user_status($user_status) == 'guest';
+}
+
+/*
+ * Return if user is, at least, a classic user
+ * @return bool
+*/
+ function is_classic_user($user_status = '')
+{
+  return is_autorize_status(ACCESS_CLASSIC, $user_status);
+}
+
+/*
+ * Return if user is, at least, an administrator
  * @return bool
 */
  function is_admin($user_status = '')

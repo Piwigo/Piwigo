@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -165,7 +164,7 @@ trigger_action('loading_lang');
 
 // only now we can set the localized username of the guest user (and not in
 // include/user.inc.php)
-if ($user['is_the_guest'])
+if (is_a_guest())
 {
   $user['username'] = $lang['guest'];
 }
