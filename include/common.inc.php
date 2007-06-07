@@ -243,5 +243,6 @@ if (isset($conf['header_notes']))
 // default event handlers
 add_event_handler('render_comment_content', 'htmlspecialchars');
 add_event_handler('render_comment_content', 'parse_comment_content');
+add_event_handler('render_comment_author', 'strip_tags');
 trigger_action('init');
 ?>

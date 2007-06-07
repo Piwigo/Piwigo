@@ -411,7 +411,7 @@ SELECT id, name, permalink, uppercats
         'U_PICTURE' => $url,
         'TN_SRC' => $thumbnail_src,
         'ALT' => $name,
-        'AUTHOR' => $author,
+        'AUTHOR' => trigger_event('render_comment_author', $author),
         'DATE'=>format_date($comment['date'],'mysql_datetime',true),
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         ));

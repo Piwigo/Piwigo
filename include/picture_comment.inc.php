@@ -136,9 +136,10 @@ SELECT id,author,date,image_id,content
       $template->assign_block_vars(
         'comments.comment',
         array(
-          'COMMENT_AUTHOR' => empty($row['author'])
+          'COMMENT_AUTHOR' => trigger_event('render_comment_author', 
+            empty($row['author'])
             ? $lang['guest']
-            : $row['author'],
+            : $row['author']),
 
           'COMMENT_DATE' => format_date(
             $row['date'],

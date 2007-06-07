@@ -162,7 +162,7 @@ while ($row = mysql_fetch_assoc($result))
           '&amp;image_id='.$row['image_id'],
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
-      'AUTHOR' => $row['author'],
+      'AUTHOR' => trigger_event('render_comment_author', $row['author']),
       'DATE' => format_date($row['date'],'mysql_datetime',true),
       'CONTENT' => trigger_event('render_comment_content',$row['content'])
       )
