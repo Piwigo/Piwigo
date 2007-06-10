@@ -49,10 +49,11 @@ else
 }
 
 $main_checkboxes = array(
+    'allow_user_registration',
+    'obligatory_user_mail_address',
     'rate',
     'rate_anonymous',
     'email_admin_on_new_user',
-    'allow_user_registration',
     'email_admin_on_picture_uploaded',
    );
 

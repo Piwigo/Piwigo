@@ -31,9 +31,10 @@
 // If the mail address doesn't correspond, an error message is returned.
 function validate_mail_address( $mail_address )
 {
-  global $lang;
+  global $lang, $conf;
 
-  if ( $mail_address == '' )
+  if (empty($mail_address) and
+      !($conf['obligatory_user_mail_address'] and in_array(script_basename(), array('register', 'profile'))))
   {
     return '';
   }

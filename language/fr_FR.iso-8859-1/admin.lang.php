@@ -617,4 +617,5 @@ $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
 $lang['Thumbnails'] = 'Miniatures';
 $lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
 $lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
+$lang['obligatory_user_mail_address'] = 'L\'adresse mail est obligatoire pour tous les utilisateurs';
 ?>

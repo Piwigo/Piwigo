@@ -616,4 +616,5 @@ $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
 $lang['Thumbnails'] = 'Thumbnails';
 $lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
 $lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
+$lang['obligatory_user_mail_address'] = 'Mail address is obligatory for all users';
 ?>

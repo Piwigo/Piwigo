@@ -23,3 +23,4 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_n
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment','false','Send an email to the administrators when a valid comment is entered');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_comment_validation','false','Send an email to the administrators when a comment requires validation');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_picture_uploaded','false','Send an email to the administrators when a picture is uploaded');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('obligatory_user_mail_address','false','Mail address is obligatory for users');
