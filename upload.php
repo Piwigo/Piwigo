@@ -124,7 +124,7 @@ function validate_upload( $temp_name, $my_max_file_size,
 }
 
 //-------------------------------------------------- access authorization check
-if (is_numeric($_GET['cat']))
+if (isset($_GET['cat']) and is_numeric($_GET['cat']))
 {
   $page['category'] = $_GET['cat'];
 }
@@ -139,6 +139,9 @@ if (isset($page['category']))
   {
     die('Fatal: you take a wrong way, bye bye');
   }
+}
+else { // $page['category'] may be set by a futur plugin but without it
+  die('Fatal: you take a wrong way, bye bye');
 }
 
 $error = array();
