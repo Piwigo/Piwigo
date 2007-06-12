@@ -244,7 +244,7 @@ if ($nb_waiting > 0)
   $template->assign_block_vars(
     'waiting',
     array(
-      'URL' => PHPWG_ROOT_PATH.'admin.php?page=waiting',
+      'URL' => PHPWG_ROOT_PATH.'admin.php?page=upload',
       'INFO' => sprintf(l10n('%d waiting for validation'), $nb_waiting)
       )
     );
