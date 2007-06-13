@@ -18,6 +18,9 @@
   <!-- END contact -->
 
 </div> <!-- copyright -->
+<!-- BEGIN footer_element -->
+{footer_element.CONTENT}
+<!-- END footer_element -->
 </div> <!-- the_page -->
 
 <!-- BEGIN debug -->
