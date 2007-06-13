@@ -115,6 +115,8 @@ class Template {
    */
   function set_filenames($filename_array)
     {
+      $filename_array = trigger_event('loc_tpl_set_filenames', $filename_array, array(&$this));
+
       if (!is_array($filename_array))
       {
         return false;
@@ -153,6 +155,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
+        trigger_action('loc_before_tpl_pparse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
       }
@@ -176,6 +179,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
+        trigger_action('loc_before_tpl_parse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], true, '_str');
       }
@@ -215,6 +219,7 @@ class Template {
         die("Template->assign_var_from_handle(): Couldn't load template file for handle $handle");
       }
 
+      trigger_action('loc_before_tpl_assign_var_from_handle', $handle, array(&$this));
       // Compile it, with the "no echo statements" option on.
       $_str = "";
       $code = $this->compile($this->uncompiled_code[$handle], true, '_str');
@@ -394,7 +399,7 @@ class Template {
         die("Template->loadfile(): File $filename for handle $handle is empty");
       }
 
-      $this->uncompiled_code[$handle] = $str;
+      $this->uncompiled_code[$handle] = trigger_event('tpl_load_file', $str, $handle, array(&$this));
 
       return true;
     }
