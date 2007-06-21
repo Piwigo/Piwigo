@@ -170,7 +170,21 @@ if (is_a_guest())
 }
 
 // template instance
-$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
+if 
+  (
+      defined('IN_ADMIN') and IN_ADMIN and 
+      isset($user['admin_template']) and
+      isset($user['admin_theme'])
+  )
+{
+  // Admin template
+  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['admin_template'], $user['admin_theme'] );
+}
+else
+{
+  // Classic template
+  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
+}
 
 if ($conf['gallery_locked'])
 {

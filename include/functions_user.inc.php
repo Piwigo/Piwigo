@@ -145,27 +145,24 @@ function setup_style($style)
 function build_user( $user_id, $use_cache )
 {
   global $conf;
+
   $user['id'] = $user_id;
   $user = array_merge( $user, getuserdata($user_id, $use_cache) );
 
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
-  // include template/theme configuration
-  if (defined('IN_ADMIN') and IN_ADMIN)
+  list($user['template'], $user['theme']) = explode('/', $user['template']);
+
+  if (is_admin($user['status']))
   {
-    list($user['template'], $user['theme']) =
+    list($user['admin_template'], $user['admin_theme']) =
       explode
       (
         '/',
         isset($conf['default_admin_layout']) ? $conf['default_admin_layout']
                                              : $user['template']
       );
-    // TODO : replace $conf['admin_layout'] by $user['admin_layout']
-  }
-  else
-  {
-    list($user['template'], $user['theme']) = explode('/', $user['template']);
   }
 
   return $user;
