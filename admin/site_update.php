@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -127,15 +126,20 @@ if (isset($_POST['submit']))
 // |                      directories / categories                         |
 // +-----------------------------------------------------------------------+
 if (isset($_POST['submit'])
-    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files')
-    and !$general_failure)
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
   $counts['new_categories'] = 0;
   $counts['del_categories'] = 0;
   $counts['del_elements'] = 0;
   $counts['new_elements'] = 0;
   $counts['upd_elements'] = 0;
+}
 
+
+if (isset($_POST['submit'])
+    and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files')
+    and !$general_failure)
+{
   $start = get_moment();
   // which categories to update ?
   $cat_ids = array();
