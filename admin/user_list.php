@@ -778,6 +778,7 @@ $template->assign_vars(array('NAVBAR' => $navbar));
 $profile_url = get_root_url().'admin.php?page=profile&amp;user_id=';
 $perm_url = get_root_url().'admin.php?page=user_perm&amp;user_id=';
 
+$visible_user_list = array();
 foreach ($page['filtered_users'] as $num => $local_user)
 {
   // simulate LIMIT $start, $conf['users_page']
@@ -790,6 +791,13 @@ foreach ($page['filtered_users'] as $num => $local_user)
     break;
   }
 
+  $visible_user_list[] = $local_user;
+}
+
+$visible_user_list = trigger_event('loc_visible_user_list', $visible_user_list);
+
+foreach ($visible_user_list as $num => $local_user)
+{
   $groups_string = preg_replace(
     '/(\d+)/e',
     "\$groups['$1']",
@@ -833,6 +841,7 @@ foreach ($page['filtered_users'] as $num => $local_user)
         ? $lang['is_high_enabled'] : $lang['is_high_disabled']
       )
     );
+  trigger_action('loc_assign_block_var_local_user_list', $local_user);
 }
 
 // +-----------------------------------------------------------------------+
