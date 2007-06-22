@@ -74,6 +74,9 @@
     <th>{lang:Email address}</th>
     <th>{lang:Groups}</th>
     <th>{lang:properties}</th>
+    <!-- BEGIN cpl_title_user -->
+    <th>{cpl_title_user.CAPTION}</th>
+    <!-- END cpl_title_user -->
     <th>{lang:actions}</th>
   </tr>
   <!-- BEGIN user -->
@@ -84,9 +87,15 @@
     <td>{user.EMAIL}</td>
     <td>{user.GROUPS}</td>
     <td>{user.PROPERTIES}</td>
+    <!-- BEGIN cpl_user -->
+    <td>{user.cpl_user.DATA}</td>
+    <!-- END cpl_user -->
     <td style="text-align:center;">
       <a href="{user.U_PERM}"><img src="{themeconf:icon_dir}/permissions.png" class="button" style="border:none" alt="{lang:permissions}" title="{lang:permissions}" /></a>
       <a href="{user.U_PROFILE}"><img src="{themeconf:icon_dir}/edit_s.png" class="button" style="border:none" alt="{lang:Profile}" title="{lang:Profile}" /></a>
+      <!-- BEGIN cpl_link_user -->
+      {user.cpl_link_user.DATA}
+      <!-- END cpl_link_user -->
     </td>
   </tr>
   <!-- END user -->
