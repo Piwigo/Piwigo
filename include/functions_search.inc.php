@@ -417,6 +417,7 @@ SELECT image_id, COUNT(tag_id) AS q
   {
     // before returning the result "as is", make sure the user has the
     // permissions for every item
+    global $conf;
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
@@ -431,9 +432,16 @@ SELECT DISTINCT(id)
         'visible_images' => 'id'
       ),
     'AND'
-  );
-    $allowed_image_ids = array_from_query( $query, 'id');
-    $by_weights = array_intersect_key($by_weights, array_flip($allowed_image_ids));
+  ).'
+  '.$conf['order_by'];
+    $allowed_images = array_flip( array_from_query( $query, 'id') );
+    $by_weights = array_intersect_key($by_weights, $allowed_images );
+    $divisor = 4.0 * count($allowed_images);
+    // decrease weight from 0 to 0.25 corresponding to the order
+    foreach ($allowed_images as $id=>$rank )
+    {
+      $by_weights[$id] -=  $rank / $divisor;
+    }
     $permissions_checked = true;
   }
   arsort($by_weights, SORT_NUMERIC);
