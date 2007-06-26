@@ -76,11 +76,11 @@
       <!-- BEGIN summary -->
       <!-- BEGIN quick_search -->
       <form action="{pwg_root}qsearch.php" method="get" id="quicksearch">
-      <p><span class="qsearch">{lang:qsearch}<br /></span>
+      <p>
       <input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;" />
       </p>
       </form>
-      <script type="text/javascript">var qsearch_prompt="{lang:search}"; document.getElementById('qsearchInput').value=qsearch_prompt;</script>
+      <script type="text/javascript">var qsearch_prompt="{lang:qsearch}"; document.getElementById('qsearchInput').value=qsearch_prompt;</script>
       <!-- END quick_search -->
       <!-- END summary -->
     <ul>

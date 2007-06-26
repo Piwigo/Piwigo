@@ -276,7 +276,6 @@ input.submit:active {
   font-size: 80%;
   font-style: normal;
 }
-.qsearch { font-size: 80%; font-style: italic; }
 * { outline: none; }
 
 tr.throw td a { color: #fff; }

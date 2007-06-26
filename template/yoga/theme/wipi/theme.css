@@ -331,7 +331,7 @@ a.PWG:hover .G { color : #f92; }
 #imageToolBar .randomButtons a:hover,
 #imageToolBar .navButtons a:hover { background-color: #111; }
 #menubar .menuInfoCat,
-#menubar .menuInfoCatByChild, .qsearch,
+#menubar .menuInfoCatByChild,
 h2.showtitle, #theImage p.showlegend { display: none }
 * { outline-width: 0px; }
 ul.tabsheet {
