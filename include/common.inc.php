@@ -192,6 +192,8 @@ if ($conf['gallery_locked'])
 
   if ( script_basename() != 'identification' and !is_admin() )
   {
+    set_status_header(503, 'Service Unavailable');
+    @header('Retry-After: 900');
     echo $lang['gallery_locked_message']
       .'<a href="'.get_absolute_root_url(false).'identification.php">.</a>';
     exit();

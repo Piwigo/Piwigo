@@ -44,6 +44,20 @@
 <fieldset id="mainConfCheck">
   <ul>
     <li>
+      <label>
+        <span class="property">{lang:Rating}</span>
+        <input type="checkbox" name="rate" {main.RATE} />
+      </label>
+    </li>
+
+    <li>
+      <label>
+        <span class="property">{lang:Rating by guests}</span>
+        <input type="checkbox" name="rate_anonymous" {main.RATE_ANONYMOUS} />
+      </label>
+    </li>
+
+    <li>
       <label for="allow_user_registration">
         <span class="property">{lang:Allow user registration}</span>
         <input type="checkbox" name="allow_user_registration" id="allow_user_registration" {main.ALLOW_USER_REGISTRATION} />
@@ -55,16 +69,6 @@
         <span class="property">{lang:obligatory_user_mail_address}</span>
         <input type="checkbox" name="obligatory_user_mail_address" id="obligatory_user_mail_address" {main.OBLIGATORY_USER_MAIL_ADDRESS} />
       </label>
-    </li>
-
-    <li>
-      <span class="property">{lang:Rating}</span>
-      <input type="checkbox" name="rate" {main.RATE} />
-    </li>
-
-    <li>
-      <span class="property">{lang:Rating by guests}</span>
-      <input type="checkbox" name="rate_anonymous" {main.RATE_ANONYMOUS} />
     </li>
 
     <li>
