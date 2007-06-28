@@ -364,48 +364,51 @@ SELECT DISTINCT(id)
   return $subcats;
 }
 
-/** returns a category id that corresponds to the given permalink (or null)
- * @param string permalink
+/** finds a matching category id from a potential list of permalinks
+ * @param array permalinks example: holiday holiday/france holiday/france/paris
+ * @param int idx - output of the index in $permalinks that matches
+ * return category id or null if no match
  */
-function get_cat_id_from_permalink( $permalink )
+function get_cat_id_from_permalinks( $permalinks, &$idx )
 {
-  $query ='
-SELECT id FROM '.CATEGORIES_TABLE.'
-  WHERE permalink="'.$permalink.'"';
-  $ids = array_from_query($query, 'id');
-  if (!empty($ids))
+  $in = '';
+  foreach($permalinks as $permalink)
   {
-    return $ids[0];
+    if ( !empty($in) ) $in.=', ';
+    $in .= '"'.$permalink.'"';
   }
-  return null;
-}
-
-/** returns a category id that has used before this permalink (or null)
- * @param string permalink
- * @param boolean is_hit if true update the usage counters on the old permalinks
- */
-function get_cat_id_from_old_permalink($permalink, $is_hit)
-{
-  $query='
-SELECT c.id
+  $query ='
+SELECT c.id, op.permalink, 1 AS is_old
   FROM '.OLD_PERMALINKS_TABLE.' op INNER JOIN '.CATEGORIES_TABLE.' c
     ON op.cat_id=c.id
-  WHERE op.permalink="'.$permalink.'"
-  LIMIT 1';
-  $result = pwg_query($query);
-  $cat_id = null;
-  if ( mysql_num_rows($result) )
-    list( $cat_id ) = mysql_fetch_array($result);
+  WHERE op.permalink IN ('.$in.')
+UNION
+SELECT id, permalink, 0 AS is_old
+  FROM '.CATEGORIES_TABLE.'
+  WHERE permalink IN ('.$in.')
+;';
+  $perma_hash = hash_from_query($query, 'permalink');
 
-  if ( isset($cat_id) and $is_hit )
+  if ( empty($perma_hash) )
+    return null;
+  for ($i=count($permalinks)-1; $i>=0; $i--)
   {
-    $query='
+    if ( isset( $perma_hash[ $permalinks[$i] ] ) )
+    {
+      $idx = $i;
+      $cat_id = $perma_hash[ $permalinks[$i] ]['id'];
+      if ($perma_hash[ $permalinks[$i] ]['is_old'])
+      {
+        $query='
 UPDATE '.OLD_PERMALINKS_TABLE.' SET last_hit=NOW(), hit=hit+1
-  WHERE permalink="'.$permalink.'" AND cat_id='.$cat_id.'
+  WHERE permalink="'.$permalinks[$i].'" AND cat_id='.$cat_id.'
   LIMIT 1';
-    pwg_query($query);
+        pwg_query($query);
+      }
+      return $cat_id;
+    }
   }
-  return $cat_id;
+  return null;
 }
 
 function global_rank_compare($a, $b)

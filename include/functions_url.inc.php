@@ -457,29 +457,44 @@ function parse_section_url( $tokens, &$next_token)
         $next_token++;
       }
       else
-      {
-        if ( strpos($tokens[$next_token], 'created-')!==0
-            and strpos($tokens[$next_token], 'posted-')!==0
+      {// try a permalink
+        $maybe_permalinks = array();
+        $current_token = $next_token;
+        while ( isset($tokens[$current_token])
+            and strpos($tokens[$current_token], 'created-')!==0
+            and strpos($tokens[$current_token], 'posted-')!==0
             and strpos($tokens[$next_token], 'start-')!==0
-            and $tokens[$next_token] != 'flat')
-        {// try a permalink
-          $cat_id = get_cat_id_from_permalink($tokens[$next_token]);
-          if ( !isset($cat_id) )
-          {//try old permalink
-            $cat_id = get_cat_id_from_old_permalink($tokens[$next_token], true);
+            and $tokens[$current_token] != 'flat')
+        {
+          if (empty($maybe_permalinks))
+          {
+            array_push($maybe_permalinks, $tokens[$current_token]);
           }
+          else
+          {
+            array_push($maybe_permalinks,
+                $maybe_permalinks[count($maybe_permalinks)-1]
+                . '/' . $tokens[$current_token]
+              );
+          }
+          $current_token++;
+        }
+
+        if ( count($maybe_permalinks) )
+        {
+          $cat_id = get_cat_id_from_permalinks($maybe_permalinks, $perma_index);
           if ( isset($cat_id) )
           {
+            $next_token += $perma_index+1;
             $page['category'] = $cat_id;
-            $page['hit_by']['cat_permalink'] = $tokens[$next_token];
+            $page['hit_by']['cat_permalink'] = $maybe_permalinks[$perma_index];
           }
           else
           {
             page_not_found('Permalink for album not found');
           }
-          $next_token++;
         }
-       }
+      }
     }
 
     if (isset($page['category']))

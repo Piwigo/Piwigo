@@ -23,6 +23,42 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+/** returns a category id that corresponds to the given permalink (or null)
+ * @param string permalink
+ */
+function get_cat_id_from_permalink( $permalink )
+{
+  $query ='
+SELECT id FROM '.CATEGORIES_TABLE.'
+  WHERE permalink="'.$permalink.'"';
+  $ids = array_from_query($query, 'id');
+  if (!empty($ids))
+  {
+    return $ids[0];
+  }
+  return null;
+}
+
+/** returns a category id that has used before this permalink (or null)
+ * @param string permalink
+ * @param boolean is_hit if true update the usage counters on the old permalinks
+ */
+function get_cat_id_from_old_permalink($permalink)
+{
+  $query='
+SELECT c.id
+  FROM '.OLD_PERMALINKS_TABLE.' op INNER JOIN '.CATEGORIES_TABLE.' c
+    ON op.cat_id=c.id
+  WHERE op.permalink="'.$permalink.'"
+  LIMIT 1';
+  $result = pwg_query($query);
+  $cat_id = null;
+  if ( mysql_num_rows($result) )
+    list( $cat_id ) = mysql_fetch_array($result);
+  return $cat_id;
+}
+
+
 /** deletes the permalink associated with a category
  * returns true on success
  * @param int cat_id the target category id
@@ -48,7 +84,7 @@ SELECT permalink
   }
   if ($save)
   {
-    $old_cat_id = get_cat_id_from_old_permalink($permalink, false);
+    $old_cat_id = get_cat_id_from_old_permalink($permalink);
     if ( isset($old_cat_id) and $old_cat_id!=$cat_id )
     {
       $page['errors'][] = 
@@ -100,7 +136,9 @@ function set_cat_permalink( $cat_id, $permalink, $save )
 {
   global $page, $cache;
   
-  $sanitized_permalink = preg_replace( '#[^a-zA-Z0-9_-]#', '' ,$permalink);
+  $sanitized_permalink = preg_replace( '#[^a-zA-Z0-9_/-]#', '' ,$permalink);
+  $sanitized_permalink = trim($sanitized_permalink, '/');
+  $sanitized_permalink = str_replace('//', '/', $sanitized_permalink);
   if ( $sanitized_permalink != $permalink 
       or preg_match( '#^(\d)+(-.*)?$#', $permalink) )
   {
@@ -128,7 +166,7 @@ function set_cat_permalink( $cat_id, $permalink, $save )
   }
 
   // check if the new permalink was historically used
-  $old_cat_id = get_cat_id_from_old_permalink($permalink, false);
+  $old_cat_id = get_cat_id_from_old_permalink($permalink);
   if ( isset($old_cat_id) and $old_cat_id!=$cat_id )
   {
     $page['errors'][] = 
