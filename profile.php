@@ -194,7 +194,8 @@ function save_profile_from_post(&$userdata, &$errors)
                  array('primary' => array('user_id'), 'update' => $fields),
                  array($data));
 
-    // redirection
+    trigger_action( 'loc_user_profile_updated', $_POST['userid'] );
+    
     if (!empty($_POST['redirect']))
     {
       redirect($_POST['redirect']);

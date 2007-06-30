@@ -241,14 +241,16 @@ DELETE FROM '.COMMENTS_TABLE.'
 }
 
 // incrementation of the number of hits, we do this only if no action
-$query = '
+if (trigger_event('allow_increment_element_hit_count', true) )
+{
+  $query = '
 UPDATE
   '.IMAGES_TABLE.'
   SET hit = hit+1
   WHERE id = '.$page['image_id'].'
 ;';
-pwg_query($query);
-
+  pwg_query($query);
+}
 //---------------------------------------------------------- related categories
 $query = '
 SELECT category_id,uppercats,commentable,global_rank
