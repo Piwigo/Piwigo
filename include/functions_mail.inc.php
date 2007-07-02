@@ -74,11 +74,11 @@ function format_email($name, $email)
 
   if ($conf['enabled_format_email'])
   {
-    $cvt7b_name = str_translate_to_ascii7bits($name);
+    $cvt7b_name = '"'.addslashes(str_translate_to_ascii7bits($name)).'"';
 
     if (strpos($email, '<') === false)
     {
-      return '"'.addslashes($cvt7b_name).'" <'.$email.'>';
+      return $cvt7b_name.' <'.$email.'>';
     }
     else
     {
