@@ -78,7 +78,7 @@ function format_email($name, $email)
 
     if (strpos($email, '<') === false)
     {
-      return $cvt7b_name.' <'.$email.'>';
+      return '"'.addslashes($cvt7b_name).'" <'.$email.'>';
     }
     else
     {
