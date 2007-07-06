@@ -704,10 +704,22 @@ function set_status_header($code, $text='')
       case 401: $text='Authorization required';break;
       case 403: $text='Forbidden';break;
       case 404: $text='Not found';break;
+      case 500: $text='Server error';break;
+      case 503: $text='Service unavailable';break;
     }
   }
-  header("HTTP/1.1 $code $text");
-  header("Status: $code $text");
+	$protocol = $_SERVER["SERVER_PROTOCOL"];
+	if ( ('HTTP/1.1' != $protocol) && ('HTTP/1.0' != $protocol) )
+		$protocol = 'HTTP/1.0';
+
+	if ( version_compare( phpversion(), '4.3.0', '>=' ) )
+  {
+		header( "$protocol $code $text", true, $code );
+	}
+  else
+  {
+		header( "$protocol $code $text" );
+	}
   trigger_action('set_status_header', $code, $text);
 }
 
