@@ -632,6 +632,8 @@ $lang['Picture name: %s'] = 'Nom de l\'image: %s';
 $lang['Creation date: %s'] = 'Date de création: %d';
 $lang['Waiting page: %s'] = 'Page en attente: %s';
 $lang['Picture uploaded by %s'] = 'Image téléchargée par %s';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
+$lang['guest_must_be_guest'] = 'Statut de l\'utilisateur "guest" non conforme, utilisation du statut par défaut. Veuillez prévenir le webmestre.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrateur, webmestre et utilisateur spécial ne peuvent pas utiliser cette méthode';
 ?>
