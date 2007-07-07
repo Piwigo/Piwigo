@@ -380,8 +380,7 @@ class PwgServer
   {
     if ( is_null($this->_responseEncoder) )
     {
-      @header("HTTP/1.1 500 Server error");
-      @header("Status: 500 Server error");
+      set_status_header(500);
       @header("Content-Type: text/plain");
       echo ("Cannot process your request. Unknown response format.
 Request format: ".@$this->_requestFormat." handler:".$this->_requestHandler."
