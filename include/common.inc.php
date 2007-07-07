@@ -187,6 +187,13 @@ else
   $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
 }
 
+if (isset($user['internal_status']['guest_must_be_guest'])
+    and
+    $user['internal_status']['guest_must_be_guest'] === true)
+{
+  $header_msgs[] = l10n('guest_must_be_guest');
+}
+
 if ($conf['gallery_locked'])
 {
   $header_msgs[] = $lang['gallery_locked_message'];

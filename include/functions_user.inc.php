@@ -150,6 +150,12 @@ function build_user( $user_id, $use_cache )
   $user['is_the_guest'] = ($user['id'] == $conf['guest_id']);
   $user['is_the_default'] = ($user['id'] == $conf['default_user_id']);
 
+  if ($user['is_the_guest'] and $user['status'] <> 'guest')
+  {
+    $user['status'] = 'guest';
+    $user['internal_status']['guest_must_be_guest'] = true;
+  }
+
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
