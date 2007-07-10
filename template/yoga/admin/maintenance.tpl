@@ -9,8 +9,12 @@
 <ul>
   <li><a href="{U_MAINT_CATEGORIES}" {TAG_INPUT_ENABLED}>{lang:update categories informations}</a></li>
   <li><a href="{U_MAINT_IMAGES}" {TAG_INPUT_ENABLED}>{lang:update images informations}</a></li>
-  <li><a href="{U_MAINT_HISTORY}" {TAG_INPUT_ENABLED}>{lang:purge history}</a></li>
+  <li><a href="{U_MAINT_DATABASE}" {TAG_INPUT_ENABLED}>{lang:repair and optimize database}</a></li>
+</ul>
+
+<ul>
+  <li><a href="{U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}>{lang:purge history detail}</a></li>
+  <li><a href="{U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}>{lang:purge history summary}</a></li>
   <li><a href="{U_MAINT_SESSIONS}" {TAG_INPUT_ENABLED}>{lang:purge sessions}</a></li>
   <li><a href="{U_MAINT_FEEDS}" {TAG_INPUT_ENABLED}>{lang:purge never used notification feeds}</a></li>
-  <li><a href="{U_MAINT_DATABASE}" {TAG_INPUT_ENABLED}>{lang:repair and optimize database}</a></li>
 </ul>

@@ -59,16 +59,20 @@ switch ($action)
     update_average_rate();
     break;
   }
-  case 'history' :
+  case 'history_detail' :
+  {
+    $query = '
+DELETE
+  FROM '.HISTORY_TABLE.'
+;';
+    pwg_query($query);
+    break;
+  }
+  case 'history_summary' :
   {
     $query = '
 DELETE
   FROM '.HISTORY_SUMMARY_TABLE.'
-;';
-    pwg_query($query);
-    $query = '
-DELETE
-  FROM '.HISTORY_TABLE.'
 ;';
     pwg_query($query);
     break;
@@ -111,7 +115,8 @@ $template->assign_vars(
   array(
     'U_MAINT_CATEGORIES' => $start_url.'categories',
     'U_MAINT_IMAGES' => $start_url.'images',
-    'U_MAINT_HISTORY' => $start_url.'history',
+    'U_MAINT_HISTORY_DETAIL' => $start_url.'history_detail',
+    'U_MAINT_HISTORY_SUMMARY' => $start_url.'history_summary',
     'U_MAINT_SESSIONS' => $start_url.'sessions',
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
