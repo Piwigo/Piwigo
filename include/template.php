@@ -155,7 +155,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
-        trigger_action('loc_before_tpl_pparse', $handle, array(&$this));
+        trigger_action('loc_begin_tpl_pparse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
       }
@@ -179,7 +179,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
-        trigger_action('loc_before_tpl_parse', $handle, array(&$this));
+        trigger_action('loc_begin_tpl_parse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], true, '_str');
       }
@@ -214,21 +214,23 @@ class Template {
    */
   function assign_var_from_handle($varname, $handle)
     {
-      if (!$this->loadfile($handle))
-      {
-        die("Template->assign_var_from_handle(): Couldn't load template file for handle $handle");
-      }
+      trigger_action('loc_begin_tpl_assign_var_from_handle', $varname, $handle, array(&$this));
+      $this->assign_var($varname, $this->parse($handle, true));
+      return true;
+    }
 
-      trigger_action('loc_before_tpl_assign_var_from_handle', $handle, array(&$this));
-      // Compile it, with the "no echo statements" option on.
-      $_str = "";
-      $code = $this->compile($this->uncompiled_code[$handle], true, '_str');
-
-      // evaluate the variable assignment.
-      eval($code);
-      // assign the value of the generated variable to the given varname.
-      $this->assign_var($varname, $_str);
-
+  /**
+   * Concat the uncompiled code for $handle as the value of $varname in the
+   * root-level. This can be used to effectively include a template in the
+   * middle of another template.
+   *
+   * Note that all desired assignments to the variables in $handle should be
+   * done BEFORE calling this function.
+   */
+  function concat_var_from_handle($varname, $handle)
+    {
+      trigger_action('loc_begin_tpl_concat_var_from_handle', $varname, $handle, array(&$this));
+      $this->concat_var($varname, $this->parse($handle, true));
       return true;
     }
 
