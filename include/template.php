@@ -155,7 +155,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
-        trigger_action('loc_before_tpl_pparse', $handle, array(&$this));
+        trigger_action('loc_begin_tpl_pparse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
       }
@@ -179,7 +179,7 @@ class Template {
       // actually compile the template now.
       if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
       {
-        trigger_action('loc_before_tpl_parse', $handle, array(&$this));
+        trigger_action('loc_begin_tpl_parse', $handle, array(&$this));
         // Actually compile the code now.
         $this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle], true, '_str');
       }
@@ -214,7 +214,7 @@ class Template {
    */
   function assign_var_from_handle($varname, $handle)
     {
-      trigger_action('loc_before_tpl_assign_var_from_handle', $varname, $handle, array(&$this));
+      trigger_action('loc_begin_tpl_assign_var_from_handle', $varname, $handle, array(&$this));
       $this->assign_var($varname, $this->parse($handle, true));
       return true;
     }
@@ -229,7 +229,7 @@ class Template {
    */
   function concat_var_from_handle($varname, $handle)
     {
-      trigger_action('loc_before_tpl_concat_var_from_handle', $varname, $handle, array(&$this));
+      trigger_action('loc_begin_tpl_concat_var_from_handle', $varname, $handle, array(&$this));
       $this->concat_var($varname, $this->parse($handle, true));
       return true;
     }
