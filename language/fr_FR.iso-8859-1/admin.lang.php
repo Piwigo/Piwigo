@@ -367,9 +367,6 @@ $lang['permuser_info'] = 'Seules les catégories privées sont listées.';
 $lang['private'] = 'privé';
 $lang['properties'] = 'Propriétés';
 $lang['public'] = 'public';
-$lang['purge history'] = '';
-$lang['purge history detail'] = 'purger le detail de l\'historique';
-$lang['purge history summary'] = 'purger le sommaire de l\'historique';
 $lang['purge never used notification feeds'] = 'purger les flux de notification jamais utilisés';
 $lang['purge sessions'] = 'purger les sessions';
 $lang['randomly represented'] = 'représentant au hasard';
@@ -620,4 +617,6 @@ $lang['Thumbnails'] = 'Miniatures';
 $lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
 $lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
 $lang['obligatory_user_mail_address'] = 'L\'adresse mail est obligatoire pour tous les utilisateurs';
+$lang['purge history detail'] = 'purger le detail de l\'historique';
+$lang['purge history summary'] = 'purger le sommaire de l\'historique';
 ?>
