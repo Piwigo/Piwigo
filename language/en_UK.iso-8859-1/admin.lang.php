@@ -604,16 +604,7 @@ $lang['Hour'] = 'Hour';
 $lang['is_the_guest'] = 'guest';
 $lang['is_the_default'] = 'default values';
 $lang['High filesize'] = 'High filesize';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['no_display_thumbnail'] = 'No display';
-$lang['display_thumbnail_classic'] = 'Classic display';
-$lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
-$lang['Thumbnails'] = 'Thumbnails';
-$lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
-$lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
-$lang['obligatory_user_mail_address'] = 'Mail address is obligatory for all users';
-$lang['purge history detail'] = 'purge history detail';
-$lang['purge history summary'] = 'purge history summary';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['c13y_title'] = 'Check integrity';
 $lang['c13y_Anomaly'] = 'Anomaly';
 $lang['c13y_Correction'] = 'Correction';
@@ -640,4 +631,14 @@ $lang['c13y_webmaster_non_existent'] = 'Main "webmaster" user don\'t exist any m
 $lang['c13y_bad_webmaster_status'] = 'Main "webmaster" user status is incorrect';
 $lang['c13y_user_created'] = 'User "%s" created with "%s" like password';
 $lang['c13y_user_status_updated'] = 'Status of user "%s" updated';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+$lang['no_display_thumbnail'] = 'No display';
+$lang['display_thumbnail_classic'] = 'Classic display';
+$lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
+$lang['Thumbnails'] = 'Thumbnails';
+$lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
+$lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
+$lang['obligatory_user_mail_address'] = 'Mail address is obligatory for all users';
+$lang['purge history detail'] = 'purge history detail';
+$lang['purge history summary'] = 'purge history summary';
 ?>

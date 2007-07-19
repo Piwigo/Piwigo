@@ -605,16 +605,7 @@ $lang['Hour'] = 'Heure';
 $lang['is_the_guest'] = 'invité';
 $lang['is_the_default'] = 'valeurs par défaut';
 $lang['High filesize'] = 'Taille du fichier HR';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['no_display_thumbnail'] = 'Pas d\'affichage';
-$lang['display_thumbnail_classic'] = 'Affichage classique';
-$lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
-$lang['Thumbnails'] = 'Miniatures';
-$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
-$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
-$lang['obligatory_user_mail_address'] = 'L\'adresse mail est obligatoire pour tous les utilisateurs';
-$lang['purge history detail'] = 'purger le detail de l\'historique';
-$lang['purge history summary'] = 'purger le sommaire de l\'historique';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['c13y_title'] = 'Contrôle d\'intégrité';
 $lang['c13y_Anomaly'] = 'Anomalie';
 $lang['c13y_Correction'] = 'Correction';
@@ -641,4 +632,14 @@ $lang['c13y_webmaster_non_existent'] = 'L\'utilisateur "webmestre" principal n\'
 $lang['c13y_bad_webmaster_status'] = 'Le statut de l\'utilisateur "webmestre" principal est incorrect';
 $lang['c13y_user_created'] = 'Utilisateur "%s" créé avec comme mot de passe "%s"';
 $lang['c13y_user_status_updated'] = 'Statut de l\'utilisateur "%s" mis à jour';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+$lang['no_display_thumbnail'] = 'Pas d\'affichage';
+$lang['display_thumbnail_classic'] = 'Affichage classique';
+$lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
+$lang['Thumbnails'] = 'Miniatures';
+$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
+$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
+$lang['obligatory_user_mail_address'] = 'L\'adresse mail est obligatoire pour tous les utilisateurs';
+$lang['purge history detail'] = 'purger le detail de l\'historique';
+$lang['purge history summary'] = 'purger le sommaire de l\'historique';
 ?>
