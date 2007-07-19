@@ -72,29 +72,33 @@ FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   // Always expand when filter is activated
   if (!$user['expand'] and !$filter['enabled'])
   {
-    $query.= '
-WHERE
+    $where = '
 (id_uppercat is NULL';
     if (isset($page['category']))
     {
-      $query.= ' OR id_uppercat IN ('.$page['category']['uppercats'].')';
+      $where .= ' OR id_uppercat IN ('.$page['category']['uppercats'].')';
     }
-    $query.= ')';
+    $where .= ')';
   }
   else
   {
-    $query.= '
+    $where = '
   '.get_sql_condition_FandF
     (
       array
         (
           'visible_categories' => 'id',
         ),
-      'WHERE'
+      null,
+      true
     );
   }
 
+  $where = trigger_event('get_categories_menu_sql_where',
+    $where, $user['expand'], $filter['enabled'] );
+
   $query.= '
+WHERE '.$where.'
 ;';
 
   $result = pwg_query($query);

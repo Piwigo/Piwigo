@@ -394,7 +394,13 @@ function get_html_menu_category($categories, $selected_category)
 
   $ref_level = 0;
   $level = 0;
-  $menu = '';
+
+  $menu = trigger_event('get_html_menu_category', '',
+            $categories, $selected_category);
+  if (strlen($menu))
+  {
+    return $menu;
+  }
 
   foreach ($categories as $category)
   {
@@ -437,13 +443,13 @@ function get_html_menu_category($categories, $selected_category)
                   ' / '
                 );
 
-    $menu.= "\n".'<a href="'.$url.'"';
+    $menu.= '<a href="'.$url.'"';
     if ($selected_category!=null
         and $category['id'] == $selected_category['id_uppercat'])
     {
       $menu.= ' rel="up"';
     }
-    $menu.= ' title=" '.$title.'">'.$category['name'].'</a>';
+    $menu.= ' title="'.$title.'">'.$category['name'].'</a>';
 
     if ( $category['count_images']>0 )
     {// at least one direct or indirect image
