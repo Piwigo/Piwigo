@@ -607,9 +607,35 @@ $lang['Hour'] = 'Hour';
 $lang['is_the_guest'] = 'guest';
 $lang['is_the_default'] = 'default values';
 $lang['High filesize'] = 'High filesize';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.7.1)
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'Guest cannot be deleted';
 $lang['Default user cannot be deleted'] = 'Default user cannot be deleted';
 $lang['purge history detail'] = 'purge history detail';
 $lang['purge history summary'] = 'purge history summary';
+$lang['c13y_title'] = 'Check integrity';
+$lang['c13y_Anomaly'] = 'Anomaly';
+$lang['c13y_Correction'] = 'Correction';
+$lang['c13y_Automatic_correction'] = 'Automatic correction';
+$lang['c13y_Impossible_automatic_correction'] = 'Impossible automatic correction';
+$lang['c13y_Correction_applied_success'] = 'Correction applied with success';
+$lang['c13y_Correction_applied_error'] = 'Correction applied with error';
+$lang['c13y_Apply_selected_corrections'] = 'Apply selected corrections';
+$lang['c13y_anomaly_count'] = '%d anomaly has been detected.';
+$lang['c13y_anomalies_count'] = '%d anomalies has been detected.';
+$lang['c13y_anomaly_corrected_count'] = '%d anomaly has been corrected.';
+$lang['c13y_anomalies_corrected_count'] = '%d anomalies has been detected corrected.';
+$lang['c13y_anomaly_not_corrected_count'] = '%d anomaly hasn\'t been corrected.';
+$lang['c13y_anomalies_not_corrected_count'] = '%d anomalies hasn\'t been corrected.';
+$lang['c13y_more_info'] = 'Go to %s or %s for more informations';
+$lang['c13y_more_info_forum'] = 'the forum';
+$lang['c13y_more_info_wiki'] = 'the wiki';
+$lang['c13y_exif_anomaly'] = '%s value is not correct file because exif are not supported';
+$lang['c13y_exif_correction'] = '%s must be to set to false in your config_local.inc.php file';
+$lang['c13y_guest_non_existent'] = 'Main "guest" user don\'t exist any more';
+$lang['c13y_bad_guest_status'] = 'Main "guest" user status is incorrect';
+$lang['c13y_default_non_existent'] = 'Default user don\'t exist any more';
+$lang['c13y_webmaster_non_existent'] = 'Main "webmaster" user don\'t exist any more';
+$lang['c13y_bad_webmaster_status'] = 'Main "webmaster" user status is incorrect';
+$lang['c13y_user_created'] = 'User "%s" created with "%s" like password';
+$lang['c13y_user_status_updated'] = 'Status of user "%s" updated';
 ?>

@@ -278,4 +278,6 @@ if ($nb_comments > 0)
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'intro');
 
+display_check_integrity();
+
 ?>

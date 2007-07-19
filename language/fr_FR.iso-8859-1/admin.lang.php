@@ -608,9 +608,35 @@ $lang['Hour'] = 'Heure';
 $lang['is_the_guest'] = 'invité';
 $lang['is_the_default'] = 'valeurs par défaut';
 $lang['High filesize'] = 'Taille du fichier HR';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.7.1)
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
 $lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
 $lang['purge history detail'] = 'purger le detail de l\'historique';
 $lang['purge history summary'] = 'purger le sommaire de l\'historique';
+$lang['c13y_title'] = 'Contrôle d\'intégrité';
+$lang['c13y_Anomaly'] = 'Anomalie';
+$lang['c13y_Correction'] = 'Correction';
+$lang['c13y_Automatic_correction'] = 'Correction automatique';
+$lang['c13y_Impossible_automatic_correction'] = 'Correction automatique impossible';
+$lang['c13y_Correction_applied_success'] = 'Correction appliquée avec succés';
+$lang['c13y_Correction_applied_error'] = 'Correction appliquée avec erreur';
+$lang['c13y_Apply_selected_corrections'] = 'Appliquer les corrections sélectionnées';
+$lang['c13y_anomaly_count'] = '%d anomalie a été détecté.';
+$lang['c13y_anomalies_count'] = '%d anomalies ont été détectées.';
+$lang['c13y_anomaly_corrected_count'] = '%d anomalie a été corrigée.';
+$lang['c13y_anomalies_corrected_count'] = '%d anomalies ont été corrigées.';
+$lang['c13y_anomaly_not_corrected_count'] = '%d anomalie n\'a pas pu être corrigée.';
+$lang['c13y_anomalies_not_corrected_count'] = '%d anomalies n\'ont pu être corrigées.';
+$lang['c13y_more_info'] = 'Allez sur %s ou %s pour plus d\'informations';
+$lang['c13y_more_info_forum'] = 'le forum';
+$lang['c13y_more_info_wiki'] = 'le wiki';
+$lang['c13y_exif_anomaly'] = 'La valeur de %s n\'est pas correcte parce que l\'exif n\'est pas supporté';
+$lang['c13y_exif_correction'] = '%s doit être mis à "false" dans votre fichier config_local.inc.php';
+$lang['c13y_guest_non_existent'] = 'L\'utilisateur "invité" principal n\'existe plus';
+$lang['c13y_bad_guest_status'] = 'Le statut de l\'utilisateur "invité" principal est incorrect';
+$lang['c13y_default_non_existent'] = 'L\'utilisateur par défaut n\'existe plus';
+$lang['c13y_webmaster_non_existent'] = 'L\'utilisateur "webmestre" principal n\'existe plus';
+$lang['c13y_bad_webmaster_status'] = 'Le statut de l\'utilisateur "webmestre" principal est incorrect';
+$lang['c13y_user_created'] = 'Utilisateur "%s" créé avec comme mot de passe "%s"';
+$lang['c13y_user_status_updated'] = 'Statut de l\'utilisateur "%s" mis à jour';
 ?>

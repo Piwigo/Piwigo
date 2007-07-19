@@ -1952,42 +1952,6 @@ SELECT id,
 }
 
 /**
- * Check configuration and add notes on problem
- *
- * @param void
- * @return void
- */
-function check_conf()
-{
-  global $conf, $header_notes;
-  $count = 0;
-
-  if (($conf['show_exif']) and (!function_exists('read_exif_data')))
-  {
-    $header_notes[] = sprintf(l10n('note_check_exif'), '$conf[\'show_exif\']');
-    $count++;
-  }
-
-  if (($conf['use_exif']) and (!function_exists('read_exif_data')))
-  {
-    $header_notes[] = sprintf(l10n('note_check_exif'), '$conf[\'use_exif\']');
-    $count++;
-  }
-
-  if ($count != 0)
-  {
-    $pwg_links = pwg_URL();
-    $link_fmt = '<a href="%s" onclick="window.open(this.href, \'\'); return false;">%s</a>';
-    $header_notes[] =
-      sprintf
-      (
-        l10n('note_check_more_info'),
-        sprintf($link_fmt, $pwg_links['FORUM'], l10n('note_check_more_info_forum')),
-        sprintf($link_fmt, $pwg_links['WIKI'], l10n('note_check_more_info_wiki'))
-      );
-  }
-}
-/**
  * Refer main PhpWebGallery URLs (currently PHPWG_DOMAIN domain)
  *
  * @param void
