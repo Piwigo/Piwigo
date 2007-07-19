@@ -606,6 +606,10 @@ $lang['is_the_guest'] = 'invité';
 $lang['is_the_default'] = 'valeurs par défaut';
 $lang['High filesize'] = 'Taille du fichier HR';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
+$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
+$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
+$lang['purge history detail'] = 'purger le detail de l\'historique';
+$lang['purge history summary'] = 'purger le sommaire de l\'historique';
 $lang['c13y_title'] = 'Contrôle d\'intégrité';
 $lang['c13y_Anomaly'] = 'Anomalie';
 $lang['c13y_Correction'] = 'Correction';
@@ -637,9 +641,5 @@ $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';
 $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
 $lang['Thumbnails'] = 'Miniatures';
-$lang['Guest cannot be deleted'] = 'L\'invité ne peut pas être supprimé';
-$lang['Default user cannot be deleted'] = 'L\'utilisateur par défaut ne peut pas être supprimé';
 $lang['obligatory_user_mail_address'] = 'L\'adresse mail est obligatoire pour tous les utilisateurs';
-$lang['purge history detail'] = 'purger le detail de l\'historique';
-$lang['purge history summary'] = 'purger le sommaire de l\'historique';
 ?>
