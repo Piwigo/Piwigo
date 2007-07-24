@@ -1284,20 +1284,6 @@ function hash_from_query($query, $keyname)
 }
 
 /**
- * Return is "file_name" argument is candidate to
- * compute script_basename value
- *
- * @param string file_name
- *
- * @return boolean is candidate or not?
- */
-function is_script_basename($file_name)
-{
-  $file_name = basename($file_name);
-  return !empty($file_name);
-}
-
-/**
  * Return basename of the current script
  * Lower case convertion is applied on return value
  * Return value is without file extention ".php"
@@ -1308,21 +1294,34 @@ function is_script_basename($file_name)
  */
 function script_basename()
 {
-  if (is_script_basename($_SERVER['SCRIPT_NAME']))
+  global $conf;
+
+  foreach (array('SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF') as $value)
   {
-    $file_name = $_SERVER['SCRIPT_NAME'];
-  }
-  else if (is_script_basename($_SERVER['SCRIPT_FILENAME']))
-  {
-    $file_name = $_SERVER['SCRIPT_FILENAME'];
-  }
-  else
-  {
-    $file_name = '';
+    $continue = !empty($_SERVER[$value]);
+    if ($continue)
+    {
+      $filename = strtolower($_SERVER[$value]);
+
+      if ($conf['php_extension_in_urls'])
+      {
+        $continue = get_extension($filename) ===  'php';
+      }
+
+      if ($continue)
+      {
+        $basename = basename($filename, '.php');
+        $continue = !empty($basename);
+      }
+
+      if ($continue)
+      {
+        return $basename;
+      }
+    }
   }
 
-  // $_SERVER return lower string following var and systems
-  return basename(strtolower($file_name), '.php');
+  return '';
 }
 
 /**
