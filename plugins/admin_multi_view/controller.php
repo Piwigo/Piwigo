@@ -11,12 +11,17 @@ if (!is_admin() or !function_exists('multiview_user_init') )
   pwg_unset_session_var( 'multiview_show_queries' );
   pwg_unset_session_var( 'multiview_debug_l10n' );
 ?>
+
 <script type="text/javascript">
   window.close();
 </script>
 <?php
   exit();
 }
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<?php
 
 $refresh_main = false;
 
@@ -64,12 +69,13 @@ if ( isset($_GET['debug_l10n']) )
 }
 
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
-$my_theme = get_root_url().'template/'.$user['template'].'/theme/'.$user['theme'].'/theme.css';
+$my_template = '';
 
 $themes_html='Theme: <select onchange="document.location = this.options[this.selectedIndex].value;">';
 foreach (get_pwg_themes() as $pwg_template)
 {
   $selected = $pwg_template == pwg_get_session_var( 'multiview_theme', $user['template'].'/'.$user['theme'] ) ? 'selected="selected"' : '';
+  $my_template = $selected == '' ? $my_template : $user['template'].'/theme/'.$user['theme'];
   $themes_html .=
     '<option value="'
     .$my_url.'?theme='.$pwg_template
@@ -112,20 +118,24 @@ if (!$conf['show_queries'])
     $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=0">Revert debug language</a>';
 }
 ?>
-
 <html>
 <head>
 <title>Controller</title>
-</head>
-<link rel="stylesheet" type="text/css" href="<?php
-echo $my_theme;
-?>">
-<body>
+<?php 
+// Controller will be displayed  with  the **real admin template** (without Any if it has been removed)
+if ( $my_template !== '') {
+  $my_template = get_root_url().'template/'.$my_template.'/theme.css';
+  echo '<link rel="stylesheet" type="text/css" href="' . $my_template .'">';
+}
+?>
 
+</head>
+<body>
+<div>
 <script type="text/javascript">
 if (window.opener==null) {
   window.close();
-  document.write("<h2>How did you get here ???</h2>");
+  document.write("<"+"h2>How did you get here ???<"+"/h2>");
 }
 </script>
 
@@ -152,7 +162,6 @@ View as:
 window.opener.location = window.opener.location;';
 ?>
 </script>
-
+</div>
 </body>
-
 </html>
