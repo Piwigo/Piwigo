@@ -777,6 +777,7 @@ function pwg_scan_file($file_full, &$line)
   else
   {
     // Here we scan a non picture file : thumbnail and high are unused, representative is optionnal
+    $element['tn_ext'] = pwg_get_thumbnail_ext($file_dir, $file_short, $file_ext, $log);
     $ext = pwg_get_representative_ext($file_dir, $file_short);
     if ($ext != '')
     {
