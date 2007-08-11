@@ -699,7 +699,7 @@ function pwg_scan_file($file_full, &$line)
   $file_dir   = dirname($file_full);
 
   $element['file'] = $file_base;
-  $element['path'] = 'http://'.dirname($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']).substr($file_dir, 1).'/'.$file_base;
+  $element['path'] = dirname($pwg_conf['this_url']).substr($file_dir, 1).'/'.$file_base;
   
   if (in_array($file_ext, $conf['picture_ext']))
   {
@@ -1010,13 +1010,14 @@ function pwg_get_moment()
  */
 function pwg_referer_is_me()
 {
+  global $pwg_conf;
+
   //~ pwg_log('>>>>> pwg_referer_is_me() >>>>>'."\n");
   
   $response = false;
-  $server = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
   $caller = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
 
-  if (strcasecmp($server, $caller) == 0) {
+  if (strcasecmp($pwg_conf['this_url'], $caller) == 0) {
     $response = true;
   }
 
@@ -1177,10 +1178,10 @@ function pwg_generate_start()
   //~ pwg_log('>>>>> pwg_generate_start() >>>>>'."\n");
   //~ pwg_log("GENARATE start >>>\n".var_export($_SESSION['scan_list_fold'], true)."\n".var_export($_SESSION['scan_list_file'], true)."\nGENERATE start >>>\n");
 
-  global $g_listing, $conf;
+  global $g_listing, $pwg_conf, $conf;
   
   // Flush line <informations>
-  $xml_header_url = 'http://'.dirname($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']).'/';
+  $xml_header_url = dirname($pwg_conf['this_url']);
   $xml_header_date = date('Y-m-d');
   $xml_header_version = htmlentities($conf['version']);
   
