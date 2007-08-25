@@ -55,6 +55,9 @@ add_event_handler(
   EVENT_HANDLER_PRIORITY_NEUTRAL,
   2
   );
+// add default event handler for rendering element description
+add_event_handler('render_element_description', 'nl2br');
+
 trigger_action('loc_begin_picture');
 
 // this is the default handler that generates the display for the element
@@ -640,7 +643,9 @@ if (isset($picture['current']['comment'])
   $template->assign_block_vars(
     'legend',
     array(
-      'COMMENT_IMG' => nl2br($picture['current']['comment'])
+      'COMMENT_IMG' =>
+        trigger_event('render_element_description',
+          $picture['current']['comment'])
       ));
   $header_infos['COMMENT'] = strip_tags($picture['current']['comment']);
 }
