@@ -177,6 +177,12 @@ if (count($categories) > 0)
   {
     update_cats_with_filtered_data($categories);
   }
+
+  // add default event handler for rendering category literal description
+  add_event_handler('render_category_literal_description',
+    create_function('$d',
+      'return strip_tags($d, \'<a><br><p><b><i><small><strong><font>\');'));
+
   trigger_action('loc_begin_index_category_thumbnails', $categories);
   if ($conf['subcatify'])
   {
@@ -184,7 +190,6 @@ if (count($categories) > 0)
 
     foreach ($categories as $category)
     {
-      $comment = strip_tags(@$category['comment'], '<a><br><p><b><i><small><strong><font>');
       if ($page['section']=='recent_cats')
       {
         $name = get_cat_display_name_cache($category['uppercats'], null, false);
@@ -217,7 +222,10 @@ if (count($categories) > 0)
                                     true,
                                     '<br />'
                                   ),
-          'DESCRIPTION' => @$comment,
+          'DESCRIPTION' =>
+            trigger_event('render_category_literal_description', 
+              trigger_event('render_category_description', 
+                @$category['comment'])),
           'NAME'  => $name,
           )
         );
