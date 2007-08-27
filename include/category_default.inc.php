@@ -129,7 +129,9 @@ foreach ($pictures as $row)
       }
       case 'most_visited' :
       {
-        $name = '('.$row['hit'].') '.$name;
+        if ( !$user['show_nb_hits']) {
+          $name = '('.$row['hit'].') '.$name;
+        }
         break;
       }
       case 'search' :
