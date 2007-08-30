@@ -61,9 +61,13 @@ function get_absolute_root_url($with_scheme=true)
   if ($with_scheme)
   {
     $url .= 'http://'.$_SERVER['HTTP_HOST'];
-    if ($_SERVER['SERVER_PORT']!=80)
+    if ($_SERVER['SERVER_PORT'] != 80)
     {
-      $url .= ':'.$_SERVER['SERVER_PORT'];
+      $url_port = ':'.$_SERVER['SERVER_PORT'];
+      if (strrchr($url, ':') != $url_port)
+      {
+        $url .= $url_port;
+      }
     }
   }
   $url .= cookie_path();
