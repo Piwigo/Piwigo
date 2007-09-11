@@ -89,7 +89,10 @@ SELECT id
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON category_id = id
   WHERE image_id = '.$_GET['id'].'
 '.get_sql_condition_FandF(
-  array('forbidden_categories' => 'category_id'),
+  array(
+      'forbidden_categories' => 'category_id',
+      'forbidden_images' => 'image_id',
+    ),
   '    AND'
   ).'
   LIMIT 1

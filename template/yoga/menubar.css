@@ -47,6 +47,7 @@
 #menubar UL UL {
     font-size: 100%;
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 #menubar LI.selected A {

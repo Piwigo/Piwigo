@@ -136,7 +136,7 @@ DELETE
   $datas = array();
   $dbfields = array('primary' => array('id'), 'update' => array());
 
-  $formfields = array('author', 'name', 'date_creation');
+  $formfields = array('author', 'name', 'date_creation', 'level');
   foreach ($formfields as $formfield)
   {
     if ($_POST[$formfield.'_action'] != 'leave')
@@ -163,7 +163,6 @@ SELECT id
       if ('set' == $_POST['author_action'])
       {
         $data['author'] = $_POST['author'];
-
         if ('' == $data['author'])
         {
           unset($data['author']);
@@ -173,7 +172,6 @@ SELECT id
       if ('set' == $_POST['name_action'])
       {
         $data['name'] = $_POST['name'];
-
         if ('' == $data['name'])
         {
           unset($data['name']);
@@ -187,6 +185,11 @@ SELECT id
           .'-'.$_POST['date_creation_month']
           .'-'.$_POST['date_creation_day']
           ;
+      }
+
+      if ('set' == $_POST['level_action'])
+      {
+        $data['level'] = $_POST['level'];
       }
 
       array_push($datas, $data);
@@ -345,6 +348,18 @@ else
 }
 $template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
 
+// image level options
+$blockname = 'level_option';
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $level,
+      'CONTENT' => l10n( sprintf('Level %d', $level) ),
+      ));
+}
+
 // +-----------------------------------------------------------------------+
 // |                        global mode thumbnails                         |
 // +-----------------------------------------------------------------------+
@@ -377,7 +392,7 @@ if (count($page['cat_elements_id']) > 0)
   $template->assign_vars(array('NAV_BAR' => $nav_bar));
 
   $query = '
-SELECT id,path,tn_ext,file,filesize
+SELECT id,path,tn_ext,file,filesize,level
   FROM '.IMAGES_TABLE.'
   WHERE id IN ('.implode(',', $page['cat_elements_id']).')
   '.$conf['order_by'].'
@@ -405,6 +420,16 @@ SELECT id,path,tn_ext,file,filesize
         'TITLE' => get_thumbnail_title($row)
         )
       );
+
+    if ( $row['level']>0 )
+    {
+      $template->assign_block_vars('thumbnails.thumbnail.level',
+          array(
+              'LEVEL' => $row['level'],
+              'TITLE' => l10n( sprintf('Level %d', $row['level']) ),
+            )
+        );
+    }
   }
 }
 

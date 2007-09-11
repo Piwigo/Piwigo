@@ -97,7 +97,8 @@ SELECT DISTINCT u.'.$conf['user_fields']['id'].' AS id,
                 u.'.$conf['user_fields']['email'].' AS email,
                 ui.status,
                 ui.adviser,
-                ui.enabled_high
+                ui.enabled_high,
+                ui.level
   FROM '.USERS_TABLE.' AS u
     INNER JOIN '.USER_INFOS_TABLE.' AS ui
       ON u.'.$conf['user_fields']['id'].' = ui.user_id
@@ -256,7 +257,7 @@ if (isset($_POST['delete']) and count($collection) > 0)
   {
     array_push($page['errors'], l10n('Guest cannot be deleted'));
   }
-  if (($conf['guest_id'] != $conf['default_user_id']) and 
+  if (($conf['guest_id'] != $conf['default_user_id']) and
       in_array($conf['default_user_id'], $collection))
   {
     array_push($page['errors'], l10n('Default user cannot be deleted'));
@@ -351,9 +352,10 @@ DELETE FROM '.USER_GROUP_TABLE.'
   $formfields =
     array('nb_image_line', 'nb_line_page', 'template', 'language',
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
-          'show_nb_hits', 'maxheight', 'status', 'enabled_high');
+          'show_nb_hits', 'maxheight', 'status', 'enabled_high',
+          'level');
 
-  $true_false_fields = array('expand', 'show_nb_comments', 
+  $true_false_fields = array('expand', 'show_nb_comments',
                        'show_nb_hits', 'enabled_high');
   if ($conf['allow_adviser'])
   {
@@ -756,6 +758,19 @@ foreach ($groups as $group_id => $group_name)
       ));
 }
 
+// user level options
+$blockname = 'level_option';
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $level,
+      'CONTENT' => l10n( sprintf('Level %d', $level) ),
+      'SELECTED' => $level==$default_user['level'] ? 'selected="selected"' : '',
+      ));
+}
+
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
 // +-----------------------------------------------------------------------+
@@ -818,6 +833,13 @@ foreach ($visible_user_list as $num => $local_user)
     $checked = '';
   }
 
+  $properties = array();
+  $properties[] =
+    (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
+        ? $lang['is_high_enabled'] : $lang['is_high_disabled'];
+
+  $properties[] = l10n( sprintf('Level %d', $local_user['level']) );
+
   $template->assign_block_vars(
     'user',
     array(
@@ -836,9 +858,8 @@ foreach ($visible_user_list as $num => $local_user)
         ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
-      'PROPERTIES' => 
-        (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
-        ? $lang['is_high_enabled'] : $lang['is_high_disabled']
+      'PROPERTIES' => implode( ',', $properties),
+
       )
     );
   trigger_action('loc_assign_block_var_local_user_list', $local_user);

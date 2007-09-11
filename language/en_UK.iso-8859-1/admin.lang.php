@@ -641,4 +641,11 @@ $lang['display_thumbnail_classic'] = 'Classic display';
 $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
 $lang['Thumbnails'] = 'Thumbnails';
 $lang['obligatory_user_mail_address'] = 'Mail address is obligatory for all users';
+$lang['Minimum privacy level'] = 'Minimum privacy level';
+$lang['Privacy level'] = 'Privacy level';
+$lang['Level 0'] = 'Public';
+$lang['Level 1'] = 'Contacts';
+$lang['Level 2'] = 'Friends';
+$lang['Level 4'] = 'Family';
+$lang['Level 8'] = 'Admins';
 ?>

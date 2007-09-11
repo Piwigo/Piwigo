@@ -34,7 +34,11 @@
     <!-- BEGIN thumbnail -->
     <li><span class="wrap1">
         <label>
-          <span class="wrap2"><span>
+          <span class="wrap2">
+			<!-- BEGIN level -->
+			<em class="levelIndicatorB">{thumbnails.thumbnail.level.LEVEL}</em><em class="levelIndicatorF" title="{thumbnails.thumbnail.level.TITLE}">{thumbnails.thumbnail.level.LEVEL}</em>
+			<!-- END level -->
+          <span>
             <img src="{thumbnails.thumbnail.SRC}"
                alt="{thumbnails.thumbnail.ALT}"
                title="{thumbnails.thumbnail.TITLE}"
@@ -132,6 +136,19 @@
                value="{DATE_CREATION_YEAR_VALUE}" />
       </td>
     </tr>
+
+	<tr>
+		<td>{lang:Minimum privacy level}</td>
+		<td>
+			<label><input type="radio" name="level_action" value="leave" checked="checked" />{lang:leave}</label>
+			<label><input type="radio" name="level_action" value="set" id="level_action_set" />{lang:set to}</label>
+			<select onmousedown="document.getElementById('level_action_set').checked = true;" name="level" size="1">
+			<!-- BEGIN level_option -->
+			<option {level_option.SELECTED} value="{level_option.VALUE}">{level_option.CONTENT} ({level_option.VALUE})</option>
+			<!-- END level_option -->
+			</select>
+	  </td>
+	</tr>
 
   </table>
 

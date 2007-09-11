@@ -257,6 +257,22 @@ SELECT ui.*, uc.*
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
+      /* now we build the list of forbidden images (this list does not contain
+      images that are not in at least an authorized category)*/
+      $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
+    AND level>'.$userdata['level'];
+      $forbidden_ids = array_from_query($query, 'id');
+
+      if ( empty($forbidden_ids) )
+      {
+        array_push( $forbidden_ids, 0 );
+      }
+      $userdata['image_access_type'] = 'NOT IN'; //TODO maybe later
+      $userdata['image_access_list'] = implode(',',$forbidden_ids);
+
       update_user_cache_categories($userdata);
 
       // Set need update are done
@@ -269,6 +285,7 @@ SELECT ui.*, uc.*
 SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
+    AND image_id '.$userdata['image_access_type'].' ('.$userdata['image_access_list'].')
 ;';
       list($userdata['nb_total_images']) = mysql_fetch_array(pwg_query($query));
 
@@ -281,10 +298,12 @@ DELETE FROM '.USER_CACHE_TABLE.'
 
       $query = '
 INSERT INTO '.USER_CACHE_TABLE.'
-  (user_id, need_update, forbidden_categories, nb_total_images)
+  (user_id, need_update, forbidden_categories, nb_total_images,
+    image_access_type, image_access_list)
   VALUES
   ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\',\''
-  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].')
+  .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',"'
+  .$userdata['image_access_type'].'","'.$userdata['image_access_list'].'")
 ;';
       pwg_query($query);
     }
@@ -527,26 +546,20 @@ function get_computed_categories($userdata, $filter_days=null)
   $group_by = '';
 
   $query = 'SELECT c.id cat_id, global_rank';
-  if ( !isset($filter_days) )
+  // Count by date_available to avoid count null
+  $query .= ',
+  MAX(date_available) cat_date_last,  COUNT(date_available) cat_nb_images
+FROM '.CATEGORIES_TABLE.' as c
+  LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
+  LEFT JOIN '.IMAGES_TABLE.' AS i
+    ON ic.image_id = i.id
+      AND i.level<='.$userdata['level'];
+
+  if ( isset($filter_days) )
   {
-    $query .= ',
-    date_last cat_date_last,
-    nb_images cat_nb_images
-  FROM '.CATEGORIES_TABLE.' as c';
+    $query .= ' AND i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$filter_days.' DAY)';
   }
-  else
-  {
-    // Count by date_available to avoid count null
-    $query .= ',
-    MAX(date_available) cat_date_last,
-    COUNT(date_available) cat_nb_images
-  FROM '.CATEGORIES_TABLE.' as c
-    LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
-    LEFT JOIN '.IMAGES_TABLE.' AS i
-      ON ic.image_id = i.id AND
-          i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$filter_days.' DAY)';
-    $group_by = 'c.id';
-  }
+  $group_by = 'c.id';
 
   if ( !empty($userdata['forbidden_categories']) )
   {
@@ -719,7 +732,7 @@ SELECT COUNT(*)
 function get_default_user_info($convert_str = true)
 {
   global $page, $conf;
-  
+
   if (!isset($page['cache_default_user']))
   {
     $query = 'select * from '.USER_INFOS_TABLE.
@@ -727,7 +740,7 @@ function get_default_user_info($convert_str = true)
 
     $result = pwg_query($query);
     $page['cache_default_user'] = mysql_fetch_assoc($result);
-    
+
     if ($page['cache_default_user'] !== false)
     {
       unset($page['cache_default_user']['user_id']);
@@ -839,11 +852,13 @@ function create_user_infos($arg_id, $override_values = null)
 
     foreach ($user_ids as $user_id)
     {
+      $level= isset($default_user['level']) ? $default_user['level'] : 0;
       if ($user_id == $conf['webmaster_id'])
       {
         $status = 'webmaster';
+        $level = max( $conf['available_permission_levels'] );
       }
-      else if (($user_id == $conf['guest_id']) or 
+      else if (($user_id == $conf['guest_id']) or
                ($user_id == $conf['default_user_id']))
       {
         $status = 'guest';
@@ -858,11 +873,12 @@ function create_user_infos($arg_id, $override_values = null)
         array(
           'user_id' => $user_id,
           'status' => $status,
-          'registration_date' => $dbnow
+          'registration_date' => $dbnow,
+          'level' => $level
           ));
 
       array_push($inserts, $insert);
-      }
+    }
 
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USER_INFOS_TABLE, array_keys($inserts[0]), $inserts);
@@ -901,7 +917,7 @@ SELECT name
  * return the file path of the given language filename, depending on the
  * availability of the file
  *
- * in descending order of preference: 
+ * in descending order of preference:
  *   param language, user language, default language
  * PhpWebGallery default language.
  *
@@ -1290,14 +1306,38 @@ function get_sql_condition_FandF(
         break;
       }
       case 'visible_images':
-      {
         if (!empty($filter['visible_images']))
         {
           $sql_list[] =
             $field_name.' IN ('.$filter['visible_images'].')';
         }
+        // note there is no break - visible include forbidden
+      case 'forbidden_images':
+        if (
+            !empty($user['image_access_list'])
+            or $user['image_access_type']!='NOT IN'
+            )
+        {
+          $table_prefix=null;
+          if ($field_name=='id')
+          {
+            $table_prefix = '';
+          }
+          elseif ($field_name=='i.id')
+          {
+            $table_prefix = 'i.';
+          }
+          if ( isset($table_prefix) )
+          {
+            $sql_list[]=$table_prefix.'level<='.$user['level'];
+          }
+          else
+          {
+            $sql_list[]=$field_name.' '.$user['image_access_type']
+                .' ('.$user['image_access_list'].')';
+          }
+        }
         break;
-      }
       default:
       {
         die('Unknow condition');

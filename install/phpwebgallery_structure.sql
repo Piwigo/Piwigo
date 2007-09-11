@@ -198,6 +198,7 @@ CREATE TABLE `phpwebgallery_images` (
   `path` varchar(255) NOT NULL default '',
   `storage_category_id` smallint(5) unsigned default NULL,
   `high_filesize` mediumint(9) unsigned default NULL,
+  `level` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`average_rate`),
@@ -328,6 +329,8 @@ CREATE TABLE `phpwebgallery_user_cache` (
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` text,
   `nb_total_images` mediumint(8) unsigned default NULL,
+  `image_access_type` enum('NOT IN','IN') NOT NULL default 'NOT IN',
+  `image_access_list` text default NULL,
   PRIMARY KEY  (`user_id`)
 ) TYPE=MyISAM;
 
@@ -389,6 +392,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `template` varchar(255) NOT NULL default 'yoga/clear',
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `enabled_high` enum('true','false') NOT NULL default 'true',
+  `level` tinyint unsigned NOT NULL default '0',
   UNIQUE KEY `user_infos_ui1` (`user_id`)
 ) TYPE=MyISAM;
 

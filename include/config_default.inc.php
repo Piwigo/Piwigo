@@ -168,14 +168,14 @@ $conf['show_version'] = true;
 //    );
 //
 // Advenced use:
-//  You can also used special options. Instead to pass a string like parameter value 
+//  You can also used special options. Instead to pass a string like parameter value
 //  you can pass a array with different optional parameter values
 //  $conf['links'] = array(
 //    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
 //    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
 //    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return is_a_guest();'),
-//    'http://download.gna.org/phpwebgallery/' => 
-//      array('label' => 'PopUp', 'new_window' => true, 
+//    'http://download.gna.org/phpwebgallery/' =>
+//      array('label' => 'PopUp', 'new_window' => true,
 //      'nw_name' => 'PopUp', 'nw_features' => 'width=800,height=450,location=no,status=no,toolbar=no,scrollbars=no,menubar=no'),
 //    );
 // Parameters:
@@ -262,6 +262,9 @@ $conf['prefix_thumbnail'] = 'TN-';
 // users_page: how many users to display in screen
 // Administration>Identification>Users?
 $conf['users_page'] = 20;
+
+// image level permissions available in the admin interface
+$conf['available_permission_levels'] = array(0,1,2,4,8);
 
 // mail_options: only set it true if you have a send mail warning with
 // "options" parameter missing on mail() function execution.
@@ -614,11 +617,11 @@ $conf['allow_web_services'] = true;
 $conf['ws_max_images_per_page'] = 500;
 
 // On Access control false / Admim Web Service need Php cURL extension
-// Controls are done on public basis or 
+// Controls are done on public basis or
 // if connected on member authorization basis
 $conf['ws_access_control'] = false;
-  
-// On Access control true 
+
+// On Access control true
 // Additionnal controls are made based on Web Service Access Table
 
 // Max returned rows number ( > 0 )
@@ -628,10 +631,10 @@ $conf['ws_access_control'] = false;
 // 0 it's Now(), don't remove that one
   $conf['ws_postponed_start'] = array(0,1,2,3,5,7,14,30); /* In days */
 
-// By default 10, 5, 2, 1 year(s) or 6, 3, 1 month(s) 
+// By default 10, 5, 2, 1 year(s) or 6, 3, 1 month(s)
 // or 15, 10, 7, 5, 1, 0 day(s)
 // 0 it's temporary closed (Useful for one access)
-  $conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0); 
+  $conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0);
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
@@ -675,12 +678,12 @@ $conf['filter_pages'] = array
 // +-----------------------------------------------------------------------+
 // | Light slideshow                                                       |
 // +-----------------------------------------------------------------------+
-// $conf['light_slideshow'] indicates to use slideshow.tpl in state of 
+// $conf['light_slideshow'] indicates to use slideshow.tpl in state of
 // picture.tpl for slideshow
 // Take care to have slideshow.tpl in all available templates
 // Or set it false.
 // Check if Picture's plugins are compliant with it
 // Every plugin from 1.7 would be design to manage light_slideshow case.
-$conf['light_slideshow'] = true;  
+$conf['light_slideshow'] = true;
 
 ?>
