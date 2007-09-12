@@ -8,7 +8,6 @@
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
-// | revision      : $Revision$
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -39,56 +38,42 @@
 function get_available_tags()
 {
   // we can find top fatter tags among reachable images
-  $tags_query = '
-SELECT id, name, url_name, count(*) counter
-  FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id';
-
-  $where_tag_img =
-    get_sql_condition_FandF
+  $query = '
+SELECT tag_id, COUNT(DISTINCT(it.image_id)) counter
+  FROM '.IMAGE_CATEGORY_TABLE.' ic
+    INNER JOIN '.IMAGE_TAG_TABLE.' it ON ic.image_id=it.image_id'.get_sql_condition_FandF
     (
       array
         (
           'forbidden_categories' => 'category_id',
           'visible_categories' => 'category_id',
-          'visible_images' => 'image_id'
+          'visible_images' => 'ic.image_id'
         ),
-      'WHERE'
-    );
+      '
+  WHERE'
+    ).'
+  GROUP BY tag_id';
+  $tag_counters = simple_hash_from_query($query, 'tag_id', 'counter');
 
-  if (!empty($where_tag_img))
+  if ( empty($tag_counters) )
   {
-    // first we need all reachable image ids
-    $images_query = '
-SELECT DISTINCT image_id
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  '.$where_tag_img.'
-;';
-    $image_ids = array_from_query($images_query, 'image_id');
-    if ( empty($image_ids) )
-    {
-      return array();
-    }
-    $tags_query.= '
-  WHERE image_id IN ('.
-      wordwrap(
-        implode(', ', $image_ids),
-        80,
-        "\n"
-        ).')';
+    return array();
   }
 
-  $tags_query.= '
-  GROUP BY tag_id
-;';
-
-  $result = pwg_query($tags_query);
+  $query = '
+SELECT id, name, url_name
+  FROM '.TAGS_TABLE;
+  $result = pwg_query($query);
   $tags = array();
   while ($row = mysql_fetch_assoc($result))
   {
-    array_push($tags, $row);
+    $counter = @$tag_counters[ $row['id'] ];
+    if ( $counter )
+    {
+      $row['counter'] = $counter;
+      array_push($tags, $row);
+    }
   }
-
   return $tags;
 }
 
