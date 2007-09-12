@@ -256,7 +256,7 @@ if (isset($_POST['delete']) and count($collection) > 0)
   {
     array_push($page['errors'], l10n('Guest cannot be deleted'));
   }
-  if (($conf['guest_id'] != $conf['default_user_id']) and 
+  if (($conf['guest_id'] != $conf['default_user_id']) and
       in_array($conf['default_user_id'], $collection))
   {
     array_push($page['errors'], l10n('Default user cannot be deleted'));
@@ -353,7 +353,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
           'recent_period', 'maxwidth', 'expand', 'show_nb_comments',
           'show_nb_hits', 'maxheight', 'status', 'enabled_high');
 
-  $true_false_fields = array('expand', 'show_nb_comments', 
+  $true_false_fields = array('expand', 'show_nb_comments',
                        'show_nb_hits', 'enabled_high');
   if ($conf['allow_adviser'])
   {
@@ -438,11 +438,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
   redirect(
     PHPWG_ROOT_PATH.
     'admin.php'.
-    get_query_string_diff(
-      array(
-        'start'
-        )
-      )
+    get_query_string_diff(array(), false)
     );
 }
 
@@ -836,7 +832,7 @@ foreach ($visible_user_list as $num => $local_user)
         ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
-      'PROPERTIES' => 
+      'PROPERTIES' =>
         (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
         ? $lang['is_high_enabled'] : $lang['is_high_disabled']
       )
