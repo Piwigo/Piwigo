@@ -84,7 +84,7 @@ function do_timeout_treatment($post_keyname, $check_key_treated = array())
 
       $must_repost = true;
       array_push($page['errors'],
-        l10n_dec('nbm_background_treatment_redirect_second', 
+        l10n_dec('nbm_background_treatment_redirect_second',
                  'nbm_background_treatment_redirect_seconds',
                   $time_refresh));
     }
@@ -164,7 +164,7 @@ order by
       // Insert new nbm_users
       array_push
       (
-        $inserts, 
+        $inserts,
         array
         (
           'user_id' => $nbm_user['user_id'],
@@ -175,10 +175,10 @@ order by
 
       array_push
       (
-        $page['infos'], 
+        $page['infos'],
         sprintf(
-          l10n('nbm_user_x_added'), 
-          $nbm_user['username'], 
+          l10n('nbm_user_x_added'),
+          $nbm_user['username'],
           get_email_address_as_display_text($nbm_user['mail_address'])
         )
       );
@@ -203,7 +203,7 @@ order by
         $query = 'delete from '.USER_MAIL_NOTIFICATION_TABLE.' where check_key in ('.implode(",", $quoted_check_key_list).');';
         $result = pwg_query($query);
 
-        redirect($base_url.get_query_string_diff(array()), l10n('nbm_redirect_msg'));
+        redirect($base_url.get_query_string_diff(array(), false), l10n('nbm_redirect_msg'));
       }
     }
   }
@@ -218,7 +218,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
 {
   global $conf, $page, $user, $lang_info, $lang, $env_nbm;
   $return_list = array();
-  
+
   if (in_array($action, array('list_to_send', 'send')))
   {
     list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
@@ -313,7 +313,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                   'content_new_elements_between',
                   array
                   (
-                    'DATE_BETWEEN_1' => $nbm_user['last_send'], 
+                    'DATE_BETWEEN_1' => $nbm_user['last_send'],
                     'DATE_BETWEEN_2' => $dbnow,
                     'END_PUNCT' => $end_punct
                   )
@@ -421,7 +421,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
               array_push($return_list, $nbm_user);
             }
           }
-          
+
           // unset env nbm user
           unset_user_on_env_nbm();
         }
@@ -519,7 +519,7 @@ where
           $updated_param_count += 1;
         }
       }
-    
+
       array_push($page['infos'],
         l10n_dec('nbm_updated_param_count', 'nbm_updated_params_count',
           $updated_param_count));
@@ -586,7 +586,7 @@ if (is_autorize_status(ACCESS_WEBMASTER))
     'param' => array
      (
       'caption' => l10n('nbm_param_mode'),
-      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), 
+      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
         array('mode' => 'param'))
      ),
     'subscribe' => array
@@ -626,7 +626,7 @@ if ($must_repost)
 
   $template->assign_block_vars
   (
-    'repost', 
+    'repost',
       array
       (
         'REPOST_SUBMIT_NAME' => $repost_submit_name

@@ -440,11 +440,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
   redirect(
     PHPWG_ROOT_PATH.
     'admin.php'.
-    get_query_string_diff(
-      array(
-        'start'
-        )
-      )
+    get_query_string_diff(array(), false)
     );
 }
 
@@ -834,11 +830,10 @@ foreach ($visible_user_list as $num => $local_user)
   }
 
   $properties = array();
+  $properties[] = l10n( sprintf('Level %d', $local_user['level']) );
   $properties[] =
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
         ? $lang['is_high_enabled'] : $lang['is_high_disabled'];
-
-  $properties[] = l10n( sprintf('Level %d', $local_user['level']) );
 
   $template->assign_block_vars(
     'user',
@@ -859,7 +854,6 @@ foreach ($visible_user_list as $num => $local_user)
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ',', $properties),
-
       )
     );
   trigger_action('loc_assign_block_var_local_user_list', $local_user);

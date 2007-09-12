@@ -429,7 +429,7 @@ function pwg_log($image_id = null, $image_type = null)
   }
 
   $do_log = trigger_event('pwg_log_allowed', $do_log, $image_id, $image_type);
-  
+
   if (!$do_log)
   {
     return false;
@@ -459,7 +459,7 @@ SELECT CURDATE(), CURTIME()
 
   list($curyear, $curmonth, $curday) = explode('-', $curdate);
   list($curhour) = explode(':', $curtime);
-  
+
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -712,9 +712,10 @@ function redirect( $url , $msg = '', $refresh_time = 0)
  * returns $_SERVER['QUERY_STRING'] whitout keys given in parameters
  *
  * @param array $rejects
+ * @param boolean $escape - if true escape & to &amp; (for html)
  * @returns string
  */
-function get_query_string_diff($rejects = array())
+function get_query_string_diff($rejects=array(), $escape=true)
 {
   $query_string = '';
 
@@ -726,7 +727,7 @@ function get_query_string_diff($rejects = array())
   {
     if (!in_array($key, $rejects))
     {
-      $query_string.= $is_first ? '?' : '&amp;';
+      $query_string.= $is_first ? '?' : ($escape ? '&amp;' : '&' );
       $is_first = false;
       $query_string.= $key.'='.$value;
     }
@@ -839,7 +840,7 @@ function get_thumbnail_title($element_info)
   {
     $thumbnail_title = '';
   }
-  
+
   if (!empty($element_info['filesize']))
   {
     $thumbnail_title .= ' : '.l10n_dec('%d Kb', '%d Kb', $element_info['filesize']);
@@ -1075,7 +1076,7 @@ function get_l10n_args($key, $args)
  * returns a string with formated with l10n_args elements
  *
  * @param element/array $key_args: element or array of l10n_args elements
- * @param $sep: if $key_args is array, 
+ * @param $sep: if $key_args is array,
  *   separator is used when translated l10n_args elements are concated
  * @return string
  */
