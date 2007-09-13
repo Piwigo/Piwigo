@@ -179,7 +179,9 @@ check_status(ACCESS_ADMINISTRATOR);
 
 $page['order_by_items'] = array(
   'id' => $lang['registration_date'],
-  'username' => $lang['Username']
+  'username' => $lang['Username'],
+  'level' => l10n('Privacy level'),
+  'language' => l10n('language'),
   );
 
 $page['direction_items'] = array(
@@ -830,7 +832,10 @@ foreach ($visible_user_list as $num => $local_user)
   }
 
   $properties = array();
-  $properties[] = l10n( sprintf('Level %d', $local_user['level']) );
+  if ( $local_user['level'] != 0 )
+  {
+    $properties[] = l10n( sprintf('Level %d', $local_user['level']) );
+  }
   $properties[] =
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
         ? $lang['is_high_enabled'] : $lang['is_high_disabled'];
@@ -853,7 +858,7 @@ foreach ($visible_user_list as $num => $local_user)
         ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
-      'PROPERTIES' => implode( ',', $properties),
+      'PROPERTIES' => implode( ', ', $properties),
       )
     );
   trigger_action('loc_assign_block_var_local_user_list', $local_user);

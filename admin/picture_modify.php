@@ -75,6 +75,7 @@ if (isset($_POST['submit']) and count($page['errors']) == 0 and !is_adviser())
   $data{'id'} = $_GET['image_id'];
   $data{'name'} = $_POST['name'];
   $data{'author'} = $_POST['author'];
+  $data['level'] = $_POST['level'];
 
   if ($conf['allow_html_descriptions'])
   {
@@ -272,6 +273,20 @@ if ($row['has_high'] == 'true')
         : l10n('unknown'),
       )
     );
+}
+
+// image level options
+$blockname = 'level_option';
+$selected_level = isset($_POST['level']) ? $_POST['level'] : $row['level'];
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $template->assign_block_vars(
+    $blockname,
+    array(
+      'VALUE' => $level,
+      'CONTENT' => l10n( sprintf('Level %d', $level) ),
+      'SELECTED' => ($level==$selected_level ? 'selected="selected"' : ''),
+      ));
 }
 
 // creation date

@@ -116,6 +116,17 @@
         <td><textarea name="description" class="description">{DESCRIPTION}</textarea></td>
       </tr>
 
+	<tr>
+		<td><strong>{lang:Minimum privacy level}</strong></td>
+		<td>
+			<select name="level" size="1">
+			<!-- BEGIN level_option -->
+			<option {level_option.SELECTED} value="{level_option.VALUE}">{level_option.CONTENT} ({level_option.VALUE})</option>
+			<!-- END level_option -->
+			</select>
+	  </td>
+	</tr>
+
     </table>
 
     <p style="text-align:center;">
