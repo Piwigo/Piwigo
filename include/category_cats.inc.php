@@ -163,16 +163,14 @@ SELECT
     MIN(date_creation) AS date_creation_min,
     MAX(date_creation) AS date_creation_max
   FROM '.IMAGE_CATEGORY_TABLE.'
-    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
-      ON category_id = cat_id and user_id = '.$user['id'].'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
-  WHERE category_id IN ('.implode(',', $category_ids).') 
+  WHERE category_id IN ('.implode(',', $category_ids).')
 '.get_sql_condition_FandF
   (
     array
       (
         'visible_categories' => 'category_id',
-        'visible_images' => 'image_id'
+        'visible_images' => 'id'
       ),
     'AND'
   ).'
@@ -186,7 +184,6 @@ SELECT
         'to'   => $row['date_creation_max'],
         );
     }
-    // echo '<pre>'; print_r($dates_of_category); echo '</pre>';
   }
 }
 
@@ -263,8 +260,8 @@ if (count($categories) > 0)
                                     '<br />'
                                   ),
           'DESCRIPTION' =>
-            trigger_event('render_category_literal_description', 
-              trigger_event('render_category_description', 
+            trigger_event('render_category_literal_description',
+              trigger_event('render_category_description',
                 @$category['comment'])),
           'NAME'  => $name,
           )
@@ -276,11 +273,11 @@ if (count($categories) > 0)
         {
           $from = $dates_of_category[ $category['id'] ]['from'];
           $to   = $dates_of_category[ $category['id'] ]['to'];
-        
+
           if (!empty($from))
           {
             $info = '';
-          
+
             if ($from == $to)
             {
               $info = format_date($from);

@@ -5,10 +5,11 @@
 @import "content.css";
 @import "thumbnails.css";
 @import "picture.css";
-@import "popuphelp.css";
 @import "default-layout.css";
 /* Override properties with import local file */
 @import "local-layout.css";
 /* common css */
-@import "../../template-common/layout.css";
+@import "../../template-common/default-layout.css";
+/* Override properties with import local file */
+@import "../../template-common/local-layout.css";
 

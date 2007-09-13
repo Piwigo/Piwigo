@@ -1,7 +1,0 @@
-/* $Id$ */
-
-/* template css */
-@import "default-layout.css";
-/* Override properties with import local file */
-@import "local-layout.css";
-

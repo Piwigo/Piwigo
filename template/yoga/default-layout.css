@@ -215,11 +215,6 @@ FORM.properties SPAN.property {
   padding: 0;
 }
 
-BODY#thePopuphelpPage #copyright {
-  color: green;
-  display: none;
-}
-
 FORM#addComment FIELDSET LABEL {
   clear: both;
 }
@@ -252,7 +247,7 @@ UL.tagSelection LI {
 }
 
 #fullTagCloud {
-  font-size: 140%;
+  font-size: 120%;
   text-align: justify;
   padding: 0;
   margin: 1em 2em 1em 2em;
@@ -263,12 +258,34 @@ UL.tagSelection LI {
   white-space: nowrap;
 }
 
-#content #fullTagCloud {
-  font-size: 120%;
-}
 
 .tagLevel5 { font-size: 150%; }
 .tagLevel4 { font-size: 140%; }
 .tagLevel3 { font-size: 120%; }
 .tagLevel2 { font-size: 100%; }
 .tagLevel1 { font-size: 90%; }
+
+
+/* Popup help page */
+BODY#thePopuphelpPage #copyright {
+  display: none;
+}
+
+BODY#thePopuphelpPage #theHeader P {
+  display: none;
+}
+
+BODY#thePopuphelpPage #content P {
+  text-align: justify;
+  padding: 0.5em;
+}
+
+BODY#thePopuphelpPage #content OL LI,
+BODY#thePopuphelpPage #content UL LI
+{
+  margin-bottom: 0.5em;
+}
+
+BODY#thePopuphelpPage P#pageBottomActions A {
+  border: none;
+}
