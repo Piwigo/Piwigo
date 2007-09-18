@@ -63,11 +63,11 @@ SELECT id, name
   {
     if (function_exists('mysql_real_escape_string'))
     {
-      $tag_name = mysql_real_escape_string($_POST['tag_name-'.$tag_id]);
+      $tag_name = mysql_real_escape_string(stripslashes($_POST['tag_name-'.$tag_id]));
     }
     else
     {
-      $tag_name = mysql_escape_string($_POST['tag_name-'.$tag_id]);
+      $tag_name = mysql_escape_string(stripslashes($_POST['tag_name-'.$tag_id]));
     }
 
     if ($tag_name != $current_name_of[$tag_id])
@@ -148,7 +148,14 @@ DELETE
 
 if (isset($_POST['add']) and !empty($_POST['add_tag']) and !is_adviser())
 {
-  $tag_name = $_POST['add_tag'];
+  if (function_exists('mysql_real_escape_string'))
+  {
+    $tag_name = mysql_real_escape_string(stripslashes($_POST['add_tag']));
+  }
+  else
+  {
+    $tag_name = mysql_escape_string(stripslashes($_POST['add_tag']));
+  }
 
   // does the tag already exists?
   $query = '
