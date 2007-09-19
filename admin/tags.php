@@ -61,14 +61,7 @@ SELECT id, name
   // we must not rename tag with an already existing name
   foreach (explode(',', $_POST['edit_list']) as $tag_id)
   {
-    if (function_exists('mysql_real_escape_string'))
-    {
-      $tag_name = mysql_real_escape_string(stripslashes($_POST['tag_name-'.$tag_id]));
-    }
-    else
-    {
-      $tag_name = mysql_escape_string(stripslashes($_POST['tag_name-'.$tag_id]));
-    }
+    $tag_name = stripslashes($_POST['tag_name-'.$tag_id]);
 
     if ($tag_name != $current_name_of[$tag_id])
     {
@@ -88,7 +81,7 @@ SELECT id, name
           $updates,
           array(
             'id' => $tag_id,
-            'name' => $tag_name,
+            'name' => addslashes($tag_name),
             'url_name' => str2url($tag_name),
             )
           );
@@ -148,14 +141,7 @@ DELETE
 
 if (isset($_POST['add']) and !empty($_POST['add_tag']) and !is_adviser())
 {
-  if (function_exists('mysql_real_escape_string'))
-  {
-    $tag_name = mysql_real_escape_string(stripslashes($_POST['add_tag']));
-  }
-  else
-  {
-    $tag_name = mysql_escape_string(stripslashes($_POST['add_tag']));
-  }
+  $tag_name = $_POST['add_tag'];
 
   // does the tag already exists?
   $query = '
