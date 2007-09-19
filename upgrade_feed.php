@@ -38,6 +38,8 @@ include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 // +-----------------------------------------------------------------------+
 check_upgrade();
 
+prepare_conf_upgrade();
+
 define('PREFIX_TABLE', $prefixeTable);
 define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 

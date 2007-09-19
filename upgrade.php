@@ -37,8 +37,7 @@ include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 
 check_upgrade();
 
-// concerning upgrade, we use the default users table
-$conf['users_table'] = $prefixeTable.'users';
+prepare_conf_upgrade();
 
 include_once(PHPWG_ROOT_PATH.'include/constants.php');
 define('PREFIX_TABLE', $prefixeTable);
@@ -303,6 +302,13 @@ if you encounter any problem.'
     $query = '
 UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\'
+;';
+
+    pwg_query($query);
+    $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'c13y_upgrade\', \'active\')
 ;';
     pwg_query($query);
   }

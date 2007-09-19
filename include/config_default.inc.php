@@ -430,8 +430,10 @@ $conf['die_on_sql_error'] = true;
 // users table ?
 $conf['apache_authentication'] = false;
 
-// users_table: which table is the reference for users? Can be a different
-// table than PhpWebGallery table
+// With $conf['tables'] you can use external tables
+// For example with $conf['tables']['users_table']:
+//   which table is the reference for users? Can be a different
+//   table than PhpWebGallery table
 //
 // If you decide to use another table than the default one, you need to
 // prepare your database by deleting some datas :
@@ -449,7 +451,38 @@ $conf['apache_authentication'] = false;
 //
 // All informations contained in these tables and column are related to
 // phpwebgallery_users table.
-$conf['users_table'] = $prefixeTable.'users';
+
+$conf['tables']['categories_table'] = $prefixeTable.'categories';
+$conf['tables']['comments_table'] = $prefixeTable.'comments';
+$conf['tables']['config_table'] = $prefixeTable.'config';
+$conf['tables']['favorites_table'] = $prefixeTable.'favorites';
+$conf['tables']['group_access_table'] = $prefixeTable.'group_access';
+$conf['tables']['groups_table'] = $prefixeTable.'groups';
+$conf['tables']['history_table'] = $prefixeTable.'history';
+$conf['tables']['history_summary_table'] = $prefixeTable.'history_summary';
+$conf['tables']['image_category_table'] = $prefixeTable.'image_category';
+$conf['tables']['images_table'] = $prefixeTable.'images';
+$conf['tables']['sessions_table'] = $prefixeTable.'sessions';
+$conf['tables']['sites_table'] = $prefixeTable.'sites';
+$conf['tables']['user_access_table'] = $prefixeTable.'user_access';
+$conf['tables']['user_group_table'] = $prefixeTable.'user_group';
+$conf['tables']['users_table'] = $prefixeTable.'users';
+$conf['tables']['user_infos_table'] = $prefixeTable.'user_infos';
+$conf['tables']['user_feed_table'] = $prefixeTable.'user_feed';
+$conf['tables']['waiting_table'] = $prefixeTable.'waiting';
+$conf['tables']['image_metadata_table'] = $prefixeTable.'image_metadata';
+$conf['tables']['rate_table'] = $prefixeTable.'rate';
+$conf['tables']['user_cache_table'] = $prefixeTable.'user_cache';
+$conf['tables']['user_cache_categories_table'] = $prefixeTable.'user_cache_categories';
+$conf['tables']['caddie_table'] = $prefixeTable.'caddie';
+$conf['tables']['upgrade_table'] = $prefixeTable.'upgrade';
+$conf['tables']['search_table'] = $prefixeTable.'search';
+$conf['tables']['user_mail_notification_table'] = $prefixeTable.'user_mail_notification';
+$conf['tables']['tags_table'] = $prefixeTable.'tags';
+$conf['tables']['image_tag_table'] = $prefixeTable.'image_tag';
+$conf['tables']['plugins_table'] = $prefixeTable.'plugins';
+$conf['tables']['web_services_access_table'] = $prefixeTable.'ws_access';
+$conf['tables']['old_permalinks_table'] = $prefixeTable.'old_permalinks';
 
 // user_fields : mapping between generic field names and table specific
 // field names. For example, in PWG, the mail address is names
