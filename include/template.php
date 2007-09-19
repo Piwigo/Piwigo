@@ -296,6 +296,43 @@ class Template {
     }
 
   /**
+   * Block-level variable deletion. Deletes the last block iteration.
+   * if all is true - all blocks are removed
+   * return true if a deletion occured
+   */
+  function delete_block_vars($blockname, $all=false)
+    {
+      $blocks = explode('.', $blockname);
+      $blockcount = count($blocks);
+      $str = '$this->_tpldata';
+      for ($i = 0; $i < $blockcount; $i++)
+      {
+        $str .= '[\'' . $blocks[$i] . '.\']';
+        eval('$lastiteration = isset('.$str.') ? sizeof('.$str.')-1:-1;');
+        if ($lastiteration==-1)
+        {
+          return false;
+        }
+        if ($i==$blockcount-1)
+        {
+          break;
+        }
+        $str .= '[' . $lastiteration . ']';
+      }
+
+      if ($all==true or $lastiteration==0)
+      {
+        $str ='unset('.$str.');';
+      }
+      else
+      {
+        $str ='unset('.$str.'['.$lastiteration.']);';
+      }
+      eval($str);
+      return true;
+    }
+
+  /**
    * Root-level variable assignment. Adds to current assignments, overriding
    * any existing variable assignment with the same name.
    */

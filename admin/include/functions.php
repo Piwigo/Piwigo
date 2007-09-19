@@ -1159,7 +1159,7 @@ SELECT user_id
   foreach ($tables as $table)
   {
     $query = '
-SELECT user_id
+SELECT DISTINCT user_id
   FROM '.$table.'
 ;';
     $to_delete = array_diff(

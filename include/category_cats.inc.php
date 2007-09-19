@@ -385,7 +385,7 @@ if (count($categories) > 0)
     }
 
     $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
-    unset( $template->_tpldata['thumbnails.'] );//maybe write a func for that
+    $template->delete_block_vars('thumbnails', true); // category_default reuse them
   }
   trigger_action('loc_end_index_category_thumbnails', $categories);
 }

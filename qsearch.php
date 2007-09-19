@@ -43,7 +43,7 @@ $query ='
 INSERT INTO '.SEARCH_TABLE.'
   (rules, last_seen)
   VALUES
-  (\''.serialize($search).'\', NOW() )
+  (\''.addslashes(serialize($search)).'\', NOW() )
 ;';
 pwg_query($query);
 
