@@ -223,13 +223,13 @@ if (count($categories) > 0)
                                     '<br />'
                                   ),
           'DESCRIPTION' =>
-            trigger_event('render_category_literal_description', 
-              trigger_event('render_category_description', 
+            trigger_event('render_category_literal_description',
+              trigger_event('render_category_description',
                 @$category['comment'])),
           'NAME'  => $name,
           )
         );
-        
+
       //plugins need to add/modify sth in this loop ?
       trigger_action('loc_index_category_thumbnail',
         $category, 'categories.category' );
@@ -314,7 +314,7 @@ if (count($categories) > 0)
     }
 
     $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
-    unset( $template->_tpldata['thumbnails.'] );//maybe write a func for that
+    $template->delete_block_vars('thumbnails', true); // category_default reuse them
   }
   trigger_action('loc_end_index_category_thumbnails', $categories);
 }
