@@ -49,24 +49,24 @@ function rate_picture($image_id, $rate)
     return;
   }
 
+  $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
+  if (count($ip_components) > 3)
+  {
+    array_pop($ip_components);
+  }
+  $anonymous_id = implode ('.', $ip_components);
+
   if ($user_anonymous)
   {
-    $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
-    if (count($ip_components) > 3)
-    {
-      array_pop($ip_components);
-    }
-    $anonymous_id = implode ('.', $ip_components);
-
     $save_anonymous_id = pwg_get_cookie_var('anonymous_rater', $anonymous_id);
 
     if ($anonymous_id != $save_anonymous_id)
     { // client has changed his IP adress or he's trying to fool us
       $query = '
 SELECT element_id
-FROM '.RATE_TABLE.'
-WHERE user_id = '.$user['id'].'
-  AND anonymous_id = \''.$anonymous_id.'\'
+  FROM '.RATE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND anonymous_id = \''.$anonymous_id.'\'
 ;';
       $already_there = array_from_query($query, 'element_id');
 
@@ -74,34 +74,33 @@ WHERE user_id = '.$user['id'].'
       {
         $query = '
 DELETE
-FROM '.RATE_TABLE.'
-WHERE user_id = '.$user['id'].'
-  AND anonymous_id = \''.$save_anonymous_id.'\'
-  AND element_id NOT IN ('.implode(',', $already_there).')
+  FROM '.RATE_TABLE.'
+  WHERE user_id = '.$user['id'].'
+    AND anonymous_id = \''.$save_anonymous_id.'\'
+    AND element_id IN ('.implode(',', $already_there).')
 ;';
          pwg_query($query);
        }
 
        $query = '
-UPDATE
-'.RATE_TABLE.'
-SET anonymous_id = \'' .$anonymous_id.'\'
-WHERE user_id = '.$user['id'].'
-  AND anonymous_id = \'' . $save_anonymous_id.'\'
+UPDATE '.RATE_TABLE.'
+  SET anonymous_id = \'' .$anonymous_id.'\'
+  WHERE user_id = '.$user['id'].'
+    AND anonymous_id = \'' . $save_anonymous_id.'\'
 ;';
        pwg_query($query);
     } // end client changed ip
 
-  pwg_get_cookie_var('anonymous_rater', $anonymous_id);
+    pwg_set_cookie_var('anonymous_rater', $anonymous_id);
   } // end anonymous user
 
   $query = '
 DELETE
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
-  AND user_id = '.$user['id'].'
+    AND user_id = '.$user['id'].'
 ';
-  if (isset($anonymous_id))
+  if (isset($user_anonymous))
   {
     $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
   }
@@ -113,7 +112,7 @@ INSERT
   VALUES
   ('
     .$user['id'].','
-    .(isset($anonymous_id) ? '\''.$anonymous_id.'\'' : "''").','
+    .'\''.$anonymous_id.'\','
     .$image_id.','
     .$rate
     .',NOW())
