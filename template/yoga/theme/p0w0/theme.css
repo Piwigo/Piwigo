@@ -18,7 +18,7 @@
 /******************************************************************************/
 /* Texts Only */
 BODY, H1, H3, DT, H2, .throw { color: #369; }
-H2, #menubar DT, .throw, TD H3, #theAdminPage H3, .calForeDate {
+H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
   color: #fff;
 }
 #menubar DT, #menubar DT A {
@@ -42,7 +42,6 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 }
 .infoTable,
 #theAdminPage #content,
-#content .navigationBar,
 input#qsearchInput { color: #369; }
 #content .infos { color: #036; }
 #content .errors { color: #900; }
@@ -89,13 +88,7 @@ input.rateButtonSelected,
 .tabsheet li a:hover, #content div.thumbnailCategory .description h3 a:hover {
   color: #f92;
 }
-.pleaseNote {
-  color: #ff9;
-  font-weight: bold;
-}
-TD.calDayCellEmpty,
-SPAN.calItemEmpty { color: silver; }
-.calBackDate { color: #000; }
+
 
 /******************************************************************************/
 /* Backgrounds Only */
@@ -129,7 +122,7 @@ H2, #menubar DT, .throw, TD H3,
 }
 input#qsearchInput { background-color: #cde; }
 .virtual_cat { background: #fff !important; }
-.pleaseNote, .selected_tab { background-color: #69c !important; }
+.selected_tab { background-color: #69c !important; }
 /******************************************************************************/
 /* Borders, Margins, Padding Only */
 BODY { margin: 0px;  padding: 0px; }
@@ -193,7 +186,7 @@ H2, #imageToolBar {
   border: 0px;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.comment  A.illustration IMG,
 #content DIV.thumbnailCategory {
   border: 1px solid #69c;
   background-color: #dfe8ff;
@@ -218,11 +211,6 @@ A.navThumb, A.navThumb:hover,
   padding: 5px 0px 30px 0px;
   margin: 0px;
 }
-.pleaseNote {
-  padding: 1ex;
-}
-SPAN.calItem, SPAN.calItemEmpty { border: 1px solid gray; }
-TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 #theAdminPage #content table td { padding: 2px 8px; }
 ul.tabsheet { border-color: #369 !important; }
 .tabsheet li { border: 1px solid #fff; }

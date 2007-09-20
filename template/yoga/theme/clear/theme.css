@@ -34,7 +34,7 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.comment  A.illustration IMG,
 #content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
@@ -75,29 +75,12 @@ A.navThumb, A.navThumb:hover {
     border-bottom: none;
 }
 
-/* others */
-.pleaseNote {
-    background: #9c9c9c;
-    color: #ffff99;
-    padding: 1ex;
-    font-weight: bold;
-}
-
 /*calendar elements*/
-SPAN.calItemEmpty { color: silver; }
-
 SPAN.calItem, SPAN.calItemEmpty
 {
   border: 1px solid silver;
 }
 
-/* nice looking month calendar*/
-TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid #7E7262;}
-
-TD.calDayCellEmpty { color: silver; }
-
-.calBackDate { color: #000; }
-.calForeDate { color: #fff; }
 .virtual_cat { background: #fff !important; }
 #mbMenu #quicksearch > p { text-align: left; }
 #qsearchInput { color: #d3d3d3; }

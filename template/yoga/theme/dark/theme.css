@@ -10,13 +10,6 @@ H2, #menubar DT, .throw {
   color: #fff48e;
 }
 
-#content .navigationBar {
-  color: #aaaaaa;
-}
-#content .pageNumberSelected {
-  color: #000000;
-}
-
 .tabsheet li,
 .tabsheet li a { color: #fff; }
 .tabsheet li a:hover { color: #fff48e; }
@@ -75,7 +68,7 @@ H2, #menubar DT, #imageToolBar {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.comment  A.illustration IMG,
 #content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
@@ -115,13 +108,6 @@ A.navThumb, A.navThumb:hover {
   border-bottom: none;
 }
 
-/* others */
-.pleaseNote {
-  background: #9c9c9c;
-  color: #ffff99;
-  padding: 1ex;
-  font-weight: bold;
-}
 #the_page {
   border: 1px solid #e0e0e0;
   padding-top: 5px;
@@ -130,20 +116,5 @@ A.navThumb, A.navThumb:hover {
   display:block;
 }
 
-/*calendar elements*/
-SPAN.calItemEmpty { color: silver; }
-
-SPAN.calItem, SPAN.calItemEmpty
-{
-  border: 1px solid gray;
-}
-
-/* nice looking month calendar*/
-TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
-
-TD.calDayCellEmpty { color: silver; }
-
-.calBackDate { color: #000; }
-.calForeDate { color: #fff; }
 .virtual_cat { background: #3f3f3f !important; }
 #mbMenu #quicksearch > p { text-align: left; }

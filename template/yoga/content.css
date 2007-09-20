@@ -36,7 +36,8 @@ BODY#theNBMPage #content
 }
 
 #content .pageNumberSelected {
-    font-style: italic;
+	font-style: italic;
+	font-weight: bold;
 }
 
 #content .additional_info {
@@ -180,6 +181,7 @@ DIV.calImg {
   position: absolute;
   text-align: left;
   vertical-align: top;
+  color: #000;
 }
 
 .calForeDate {
@@ -189,6 +191,7 @@ DIV.calImg {
   position: absolute;
   text-align: left;
   vertical-align: top;
+  color: #fff;
 }
 
 /* Category thumbnails on main page, CSS code inspired from MOD subcatify */

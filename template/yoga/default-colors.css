@@ -1,23 +1,14 @@
 /* $Id$ */
 
 /* others */
-.pleaseNote {
-    background: #9c9c9c;
-    color: #ffff99;
-    padding: 1ex;
-    font-weight: bold;
-}
 
 #imageToolBar * {
     background: inherit;
 }
 
 /* So that non-links are slightly greyed out */
-#content .navigationBar {
-    color: #696969;
-}
-#content .pageNumberSelected {
-    color: #000000;
+#content .navigationBar, SPAN.calItemEmpty, TD.calDayCellEmpty {
+	color: #b0b0b0;
 }
 
 /* Tables & forms */
@@ -68,24 +59,24 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
   padding: 10px 50px 10px 10px;
 }
 
-.errors UL LI
-{
-  font-weight: normal;
-}
-
 /**
  * Informations box in administration
  */
 .infos {
   text-align: left;
+  color: #002000;
   background-color: #98fb98; /* palegreen */
   background-image: url(icon/admin/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
-  color: #006400; /* darkgreen */
   font-weight: bold;
   margin: 5px;
   padding: 10px 50px 10px 10px;
+}
+
+.infos UL LI
+{
+  font-weight: normal;
 }
 
 /**
@@ -117,3 +108,11 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
 LEGEND {
   font-style: italic;
 }
+
+/*calendar*/
+SPAN.calItem, SPAN.calItemEmpty, 
+TD.calDayCellEmpty, TD.calDayCellFull {
+	border: 1px solid gray;
+}
+
+

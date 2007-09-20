@@ -3,8 +3,7 @@
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -133,14 +132,13 @@ class CalendarBase
    *
    * @param array date_components
    * @param array items - hash of items to put in the bar (e.g. 2005,2006)
-   * @param array selected_item - item currently selected (e.g. 2005)
    * @param string class_prefix - html class attribute prefix for span elements
    * @param bool show_any - adds any link to the end of the bar
    * @param bool show_empty - shows all labels even those without items
    * @param array labels - optional labels for items (e.g. Jan,Feb,...)
    * @return string the navigation bar
    */
-  function get_nav_bar_from_items($date_components, $items, $selected_item,
+  function get_nav_bar_from_items($date_components, $items,
                                   $class_prefix, $show_any,
                                   $show_empty=false, $labels=null)
   {
@@ -167,12 +165,7 @@ class CalendarBase
       {
         $label = $labels[$item];
       }
-      if (isset($selected_item) and $item == $selected_item)
-      {
-        $nav_bar .= '<span class="'.$class_prefix.'Sel">';
-        $nav_bar .= $label;
-      }
-      elseif ($nb_images==-1)
+      if ($nb_images==-1)
       {
         $nav_bar .= '<span class="'.$class_prefix.'Empty">';
         $nav_bar .= $label;
@@ -199,22 +192,14 @@ class CalendarBase
           count($date_components)<count($this->calendar_levels)-1 )
     {
       $label = l10n('calendar_any');
-      if (isset($selected_item) and 'any' === $selected_item)
-      {
-        $nav_bar .= '<span class="'.$class_prefix.'Sel">';
-        $nav_bar .= $label;
-      }
-      else
-      {
-        $nav_bar .= '<span class="'.$class_prefix.'">';
-        $url = duplicate_index_url(
-          array('chronology_date'=>array_merge($date_components,array('any'))),
-          array( 'start' )
-            );
-        $nav_bar .= '<a href="'.$url.'">';
-        $nav_bar .= $label;
-        $nav_bar .= '</a>';
-      }
+      $nav_bar .= '<span class="'.$class_prefix.'">';
+      $url = duplicate_index_url(
+        array('chronology_date'=>array_merge($date_components,array('any'))),
+        array( 'start' )
+          );
+      $nav_bar .= '<a href="'.$url.'">';
+      $nav_bar .= $label;
+      $nav_bar .= '</a>';
       $nav_bar.= '</span>';
     }
     return $nav_bar;
@@ -271,7 +256,6 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $nav_bar = $this->get_nav_bar_from_items(
       $dates,
       $level_items,
-      null,
       'calItem',
       true,
       true,

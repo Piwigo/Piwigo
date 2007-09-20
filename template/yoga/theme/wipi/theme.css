@@ -48,9 +48,6 @@ H2, .throw {
 #theAdminPage #menubar DT:after {
  content: ''; 
 }
-#content .navigationBar {
-  color: #aaaaaa;
-}
 #content .pageNumberSelected {
   color: #f92;
 }
@@ -191,7 +188,7 @@ H2, #imageToolBar {
   border: 0px;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG, #infos,
+#content DIV.comment  A.illustration IMG,
 #content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
@@ -238,13 +235,6 @@ A:hover {
 A.navThumb, A.navThumb:hover {
   border-bottom: none;
 }
-/* others */
-.pleaseNote {
-  background: #9c9c9c;
-  color: #ffff99;
-  padding: 1ex;
-  font-weight: bold;
-}
 #the_page {
   border: 1px dotted #f92;
   padding-top: 5px;
@@ -256,13 +246,7 @@ A.navThumb, A.navThumb:hover {
 #copyright {
   color: #69c;
 }
-/*calendar elements*/
-SPAN.calItemEmpty { color: silver; }
 
-SPAN.calItem, SPAN.calItemEmpty
-{
-  border: 1px solid gray;
-}
 label {
 	cursor:pointer
 }
@@ -298,13 +282,7 @@ FORM#quickconnect INPUT[type=password] {
   padding: 1px 3px;
 }
 
-/* nice looking month calendar*/
-TD.calDayCellEmpty, TD.calDayCellFull { border: 1px solid gray;}
 
-TD.calDayCellEmpty { color: silver; }
-
-.calBackDate { color: #000; }
-.calForeDate { color: #fff; }
 .virtual_cat { background: #222 !important; }
 
 .PWG {

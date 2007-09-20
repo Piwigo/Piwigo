@@ -1,6 +1,21 @@
-<!-- BEGIN information -->
-<div class="pleaseNote">{information.INFORMATION}</div>
-<!-- END information -->
+<!-- BEGIN errors -->
+<div class="errors">
+<ul>
+  <!-- BEGIN error -->
+  <li>{errors.error.TEXT}</li>
+  <!-- END error -->
+</ul>
+</div>
+<!-- END errors -->
+<!-- BEGIN infos -->
+<div class="infos">
+<ul>
+  <!-- BEGIN info -->
+  <li>{infos.info.TEXT}</li>
+  <!-- END info -->
+</ul>
+</div>
+<!-- END infos -->
 
 <div id="imageHeaderBar">
   <div class="browsePath">

@@ -257,7 +257,7 @@ function build_global_calendar()
     $nav_bar .= '</span><br>';
 
     $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
-            $year_data['children'], null, 'calCal', false, false, $lang['month'] );
+            $year_data['children'], 'calCal', false, false, $lang['month'] );
 
     $template->assign_block_vars( 'calendar.calbar',
          array( 'BAR' => $nav_bar)
@@ -308,7 +308,7 @@ function build_year_calendar()
     $nav_bar .= '</span><br>';
 
     $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
-                     $month_data['children'], null, 'calCal', false );
+                     $month_data['children'], 'calCal', false );
 
     $template->assign_block_vars( 'calendar.calbar',
          array( 'BAR' => $nav_bar)
