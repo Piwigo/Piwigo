@@ -247,6 +247,9 @@ else
       array_keys($datas[0]),
       $datas
       );
+
+    // Create empty local files to avoid log errors
+    create_empty_local_files();
     
     $page['upgrade_end'] = get_moment();
 
