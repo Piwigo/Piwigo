@@ -39,17 +39,6 @@ function c13y_upgrade($c13y_array)
   
   $result = array();
 
-  if (isset($conf['users_table']))
-  {
-    $result[] = get_c13y(
-      l10n('c13y_upgrade_conf_users_table_msg'),
-      null,
-      null,
-      l10n('c13y_upgrade_conf_users_table_correction').
-      '<BR />'.
-      get_htlm_links_more_info());
-  }
-
   if (count($result) === 0)
   {
     $deactivate_msg_link = 

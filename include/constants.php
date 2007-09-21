@@ -45,36 +45,65 @@ define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
 
 // Table names
-define('CATEGORIES_TABLE', $conf['tables']['categories_table']);
-define('COMMENTS_TABLE', $conf['tables']['comments_table']);
-define('CONFIG_TABLE', $conf['tables']['config_table']);
-define('FAVORITES_TABLE', $conf['tables']['favorites_table']);
-define('GROUP_ACCESS_TABLE', $conf['tables']['group_access_table']);
-define('GROUPS_TABLE', $conf['tables']['groups_table']);
-define('HISTORY_TABLE', $conf['tables']['history_table']);
-define('HISTORY_SUMMARY_TABLE', $conf['tables']['history_summary_table']);
-define('IMAGE_CATEGORY_TABLE', $conf['tables']['image_category_table']);
-define('IMAGES_TABLE', $conf['tables']['images_table']);
-define('SESSIONS_TABLE', $conf['tables']['sessions_table']);
-define('SITES_TABLE', $conf['tables']['sites_table']);
-define('USER_ACCESS_TABLE', $conf['tables']['user_access_table']);
-define('USER_GROUP_TABLE', $conf['tables']['user_group_table']);
-define('USERS_TABLE', $conf['tables']['users_table']);
-define('USER_INFOS_TABLE', $conf['tables']['user_infos_table']);
-define('USER_FEED_TABLE', $conf['tables']['user_feed_table']);
-define('WAITING_TABLE', $conf['tables']['waiting_table']);
-define('IMAGE_METADATA_TABLE', $conf['tables']['image_metadata_table']);
-define('RATE_TABLE', $conf['tables']['rate_table']);
-define('USER_CACHE_TABLE', $conf['tables']['user_cache_table']);
-define('USER_CACHE_CATEGORIES_TABLE', $conf['tables']['user_cache_categories_table']);
-define('CADDIE_TABLE', $conf['tables']['caddie_table']);
-define('UPGRADE_TABLE', $conf['tables']['upgrade_table']);
-define('SEARCH_TABLE', $conf['tables']['search_table']);
-define('USER_MAIL_NOTIFICATION_TABLE', $conf['tables']['user_mail_notification_table']);
-define('TAGS_TABLE', $conf['tables']['tags_table']);
-define('IMAGE_TAG_TABLE', $conf['tables']['image_tag_table']);
-define('PLUGINS_TABLE', $conf['tables']['plugins_table']);
-define('WEB_SERVICES_ACCESS_TABLE', $conf['tables']['web_services_access_table']);
-define('OLD_PERMALINKS_TABLE', $conf['tables']['old_permalinks_table']);
+if (!defined('CATEGORIES_TABLE'))
+  define('CATEGORIES_TABLE', $prefixeTable.'categories');
+if (!defined('COMMENTS_TABLE'))
+  define('COMMENTS_TABLE', $prefixeTable.'comments');
+if (!defined('CONFIG_TABLE'))
+  define('CONFIG_TABLE', $prefixeTable.'config');
+if (!defined('FAVORITES_TABLE'))
+  define('FAVORITES_TABLE', $prefixeTable.'favorites');
+if (!defined('GROUP_ACCESS_TABLE'))
+  define('GROUP_ACCESS_TABLE', $prefixeTable.'group_access');
+if (!defined('GROUPS_TABLE'))
+  define('GROUPS_TABLE', $prefixeTable.'groups');
+if (!defined('HISTORY_TABLE'))
+  define('HISTORY_TABLE', $prefixeTable.'history');
+if (!defined('HISTORY_SUMMARY_TABLE'))
+  define('HISTORY_SUMMARY_TABLE', $prefixeTable.'history_summary');
+if (!defined('IMAGE_CATEGORY_TABLE'))
+  define('IMAGE_CATEGORY_TABLE', $prefixeTable.'image_category');
+if (!defined('IMAGES_TABLE'))
+  define('IMAGES_TABLE', $prefixeTable.'images');
+if (!defined('SESSIONS_TABLE'))
+  define('SESSIONS_TABLE', $prefixeTable.'sessions');
+if (!defined('SITES_TABLE'))
+  define('SITES_TABLE', $prefixeTable.'sites');
+if (!defined('USER_ACCESS_TABLE'))
+  define('USER_ACCESS_TABLE', $prefixeTable.'user_access');
+if (!defined('USER_GROUP_TABLE'))
+  define('USER_GROUP_TABLE', $prefixeTable.'user_group');
+if (!defined('USERS_TABLE'))
+  define('USERS_TABLE', $conf['users_table']);
+if (!defined('USER_INFOS_TABLE'))
+  define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
+if (!defined('USER_FEED_TABLE'))
+  define('USER_FEED_TABLE', $prefixeTable.'user_feed');
+if (!defined('WAITING_TABLE'))
+  define('WAITING_TABLE', $prefixeTable.'waiting');
+if (!defined('RATE_TABLE'))
+  define('RATE_TABLE', $prefixeTable.'rate');
+if (!defined('USER_CACHE_TABLE'))
+  define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
+if (!defined('USER_CACHE_CATEGORIES_TABLE'))
+  define('USER_CACHE_CATEGORIES_TABLE', $prefixeTable.'user_cache_categories');
+if (!defined('CADDIE_TABLE'))
+  define('CADDIE_TABLE', $prefixeTable.'caddie');
+if (!defined('UPGRADE_TABLE'))
+  define('UPGRADE_TABLE', $prefixeTable.'upgrade');
+if (!defined('SEARCH_TABLE'))
+  define('SEARCH_TABLE', $prefixeTable.'search');
+if (!defined('USER_MAIL_NOTIFICATION_TABLE'))
+  define('USER_MAIL_NOTIFICATION_TABLE', $prefixeTable.'user_mail_notification');
+if (!defined('TAGS_TABLE'))
+  define('TAGS_TABLE', $prefixeTable.'tags');
+if (!defined('IMAGE_TAG_TABLE'))
+  define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
+if (!defined('PLUGINS_TABLE'))
+  define('PLUGINS_TABLE', $prefixeTable.'plugins');
+if (!defined('WEB_SERVICES_ACCESS_TABLE'))
+  define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
+if (!defined('OLD_PERMALINKS_TABLE'))
+  define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 
 ?>

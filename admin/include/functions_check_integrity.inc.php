@@ -305,7 +305,7 @@ where
 }
 
 /**
- * Check exif
+ * Do correction user
  *
  * @param user_id, action
  * @return boolean true if ok else false

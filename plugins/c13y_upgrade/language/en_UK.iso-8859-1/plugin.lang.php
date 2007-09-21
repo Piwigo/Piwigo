@@ -26,8 +26,6 @@
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['c13y_upgrade_no_anomaly'] = 'No anomaly detected after application upgrade';
-$lang['c13y_upgrade_conf_users_table_msg'] = '"$conf[\'users_table\']" should not be any more used';
-$lang['c13y_upgrade_conf_users_table_correction'] = '"$conf[\'users_table\']" has been replaced by "$conf[\'tables\'][\'users_table\']"';
 $lang['c13y_upgrade_deactivate'] = 'You can deactivate "Check upgrades" plugin';
 
 ?>

@@ -43,39 +43,40 @@ if you want to upgrade';
 // concerning upgrade, we use the default tables
 function prepare_conf_upgrade()
 {
-  global $conf, $prefixeTable;
+  global $prefixeTable;
 
-  $conf['tables']['categories_table'] = $prefixeTable.'categories';
-  $conf['tables']['comments_table'] = $prefixeTable.'comments';
-  $conf['tables']['config_table'] = $prefixeTable.'config';
-  $conf['tables']['favorites_table'] = $prefixeTable.'favorites';
-  $conf['tables']['group_access_table'] = $prefixeTable.'group_access';
-  $conf['tables']['groups_table'] = $prefixeTable.'groups';
-  $conf['tables']['history_table'] = $prefixeTable.'history';
-  $conf['tables']['history_summary_table'] = $prefixeTable.'history_summary';
-  $conf['tables']['image_category_table'] = $prefixeTable.'image_category';
-  $conf['tables']['images_table'] = $prefixeTable.'images';
-  $conf['tables']['sessions_table'] = $prefixeTable.'sessions';
-  $conf['tables']['sites_table'] = $prefixeTable.'sites';
-  $conf['tables']['user_access_table'] = $prefixeTable.'user_access';
-  $conf['tables']['user_group_table'] = $prefixeTable.'user_group';
-  $conf['tables']['users_table'] = $prefixeTable.'users';
-  $conf['tables']['user_infos_table'] = $prefixeTable.'user_infos';
-  $conf['tables']['user_feed_table'] = $prefixeTable.'user_feed';
-  $conf['tables']['waiting_table'] = $prefixeTable.'waiting';
-  $conf['tables']['image_metadata_table'] = $prefixeTable.'image_metadata';
-  $conf['tables']['rate_table'] = $prefixeTable.'rate';
-  $conf['tables']['user_cache_table'] = $prefixeTable.'user_cache';
-  $conf['tables']['user_cache_categories_table'] = $prefixeTable.'user_cache_categories';
-  $conf['tables']['caddie_table'] = $prefixeTable.'caddie';
-  $conf['tables']['upgrade_table'] = $prefixeTable.'upgrade';
-  $conf['tables']['search_table'] = $prefixeTable.'search';
-  $conf['tables']['user_mail_notification_table'] = $prefixeTable.'user_mail_notification';
-  $conf['tables']['tags_table'] = $prefixeTable.'tags';
-  $conf['tables']['image_tag_table'] = $prefixeTable.'image_tag';
-  $conf['tables']['plugins_table'] = $prefixeTable.'plugins';
-  $conf['tables']['web_services_access_table'] = $prefixeTable.'ws_access';
-  $conf['tables']['old_permalinks_table'] = $prefixeTable.'old_permalinks';
+  // $conf is not used for users tables
+  // define cannot be re-defined
+  define('CATEGORIES_TABLE', $prefixeTable.'categories');
+  define('COMMENTS_TABLE', $prefixeTable.'comments');
+  define('CONFIG_TABLE', $prefixeTable.'config');
+  define('FAVORITES_TABLE', $prefixeTable.'favorites');
+  define('GROUP_ACCESS_TABLE', $prefixeTable.'group_access');
+  define('GROUPS_TABLE', $prefixeTable.'groups');
+  define('HISTORY_TABLE', $prefixeTable.'history');
+  define('HISTORY_SUMMARY_TABLE', $prefixeTable.'history_summary');
+  define('IMAGE_CATEGORY_TABLE', $prefixeTable.'image_category');
+  define('IMAGES_TABLE', $prefixeTable.'images');
+  define('SESSIONS_TABLE', $prefixeTable.'sessions');
+  define('SITES_TABLE', $prefixeTable.'sites');
+  define('USER_ACCESS_TABLE', $prefixeTable.'user_access');
+  define('USER_GROUP_TABLE', $prefixeTable.'user_group');
+  define('USERS_TABLE', $prefixeTable.'users');
+  define('USER_INFOS_TABLE', $prefixeTable.'user_infos');
+  define('USER_FEED_TABLE', $prefixeTable.'user_feed');
+  define('WAITING_TABLE', $prefixeTable.'waiting');
+  define('RATE_TABLE', $prefixeTable.'rate');
+  define('USER_CACHE_TABLE', $prefixeTable.'user_cache');
+  define('USER_CACHE_CATEGORIES_TABLE', $prefixeTable.'user_cache_categories');
+  define('CADDIE_TABLE', $prefixeTable.'caddie');
+  define('UPGRADE_TABLE', $prefixeTable.'upgrade');
+  define('SEARCH_TABLE', $prefixeTable.'search');
+  define('USER_MAIL_NOTIFICATION_TABLE', $prefixeTable.'user_mail_notification');
+  define('TAGS_TABLE', $prefixeTable.'tags');
+  define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
+  define('PLUGINS_TABLE', $prefixeTable.'plugins');
+  define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
+  define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 }
 
 // Create empty local files to avoid log errors
