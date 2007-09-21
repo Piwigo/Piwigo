@@ -78,4 +78,24 @@ function prepare_conf_upgrade()
   $conf['tables']['old_permalinks_table'] = $prefixeTable.'old_permalinks';
 }
 
+// Create empty local files to avoid log errors
+function create_empty_local_files() 
+{
+   $files = 
+      array (
+         PHPWG_ROOT_PATH . 'template-common/local-layout.css',
+         PHPWG_ROOT_PATH . 'template/yoga/local-layout.css'
+         );
+
+   foreach ($files as $path)
+   {
+      if (!file_exists ($path))
+      {
+         $file = @fopen($path, "w");
+         @fwrite($file , '/* You can modify this file */');
+         @fclose($file);
+      }
+   }
+}
+
 ?>
