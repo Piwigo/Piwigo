@@ -278,6 +278,18 @@ $conf['enabled_format_email'] = true;
 //  Value could be text/plain  or text/html
 $conf['default_email_format'] = 'text/html';
 
+// smtp configuration
+// (work if fsockopen function is allowed for smtp port)
+// smtp_host: smtp server host
+//  if null, regular mail function is used
+//   format: hoststring[:port]
+//   exemple: smtp.pwg.net:21
+// smtp_user/smtp_password: user & password for smtp identication
+$conf['smtp_host'] = '';
+$conf['smtp_user'] = '';
+$conf['smtp_password'] = '';
+
+
 // check_upgrade_feed: check if there are database upgrade required. Set to
 // true, a message will strongly encourage you to upgrade your database if
 // needed.
