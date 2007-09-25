@@ -46,7 +46,11 @@ function get_mail_configuration()
   $conf_mail = array(
     'mail_options' => $conf['mail_options'],
     'send_bcc_mail_webmaster' => $conf['send_bcc_mail_webmaster'],
-    'default_email_format' => $conf['default_email_format']
+    'default_email_format' => $conf['default_email_format'],
+    'use_smtp' => !empty($conf['smtp_host']),
+    'smtp_host' => $conf['smtp_host'],
+    'smtp_user' => $conf['smtp_user'],
+    'smtp_password' => $conf['smtp_password']
     );
 
   // we have webmaster id among user list, what's his email address ?
@@ -73,20 +77,24 @@ function format_email($name, $email)
 
   if ($conf['enabled_format_email'])
   {
-    $cvt7b_name = '"'.addslashes(str_translate_to_ascii7bits($name)).'"';
+    // Spring cleaning
+    $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
+    $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
+    // Ascii convertion
+    $cvt_name = '"'.addslashes(str_translate_to_ascii7bits($cvt_name)).'"';
 
-    if (strpos($email, '<') === false)
+    if (strpos($cvt_email, '<') === false)
     {
-      return $cvt7b_name.' <'.$email.'>';
+      return $cvt_name.' <'.$cvt_email.'>';
     }
     else
     {
-      return $cvt7b_name.$email;
+      return $cvt_name.$cvt_email;
     }
   }
   else
   {
-    return $email;
+    return $cvt_email;
   }
 }
 
@@ -436,7 +444,6 @@ WHERE
   return $return;
 }
 
-
 /*
  * sends an email, using PhpWebGallery specific informations
  *
@@ -498,7 +505,10 @@ function pwg_mail($to, $args = array())
   {
     $args['subject'] = 'PhpWebGallery';
   }
-  $cvt7b_subject = str_translate_to_ascii7bits($args['subject']);
+  // Spring cleaning
+  $cvt_subject = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
+  // Ascii convertion
+  $cvt_subject = str_translate_to_ascii7bits($cvt_subject);
 
   if (!isset($args['content']))
   {
@@ -544,6 +554,7 @@ function pwg_mail($to, $args = array())
   $headers.= '  boundary="---='.$conf_mail['boundary_key'].'";'."\n";
   $headers.= '  reply-type=original'."\n";
   $headers.= 'MIME-Version: 1.0'."\n";
+  $headers.= 'X-Mailer: Piwigo Mailer'."\n";
 
   $content = '';
 
@@ -673,15 +684,25 @@ function pwg_mail($to, $args = array())
     return true;
   }*/
 
-  if ($conf_mail['mail_options'])
+  if ($conf_mail['use_smtp'])
   {
-    $options = '-f '.$conf_mail['email_webmaster'];
-    
-    return mail($to, $cvt7b_subject, $content, $headers, $options);
+    include_once( PHPWG_ROOT_PATH.'include/class_smtp_mail.inc.php' );
+    $smtp_mail = new smtp_mail(
+      $conf_mail['smtp_host'], $conf_mail['smtp_user'], $conf_mail['smtp_password'],
+      $conf_mail['email_webmaster']);
+    return $smtp_mail->mail($to, $cvt_subject, $content, $headers);
   }
   else
   {
-    return mail($to, $cvt7b_subject, $content, $headers);
+    if ($conf_mail['mail_options'])
+    {
+      $options = '-f '.$conf_mail['email_webmaster'];
+      return mail($to, $cvt_subject, $content, $headers, $options);
+    }
+    else
+    {
+      return mail($to, $cvt_subject, $content, $headers);
+    }
   }
 }
 
