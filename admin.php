@@ -74,7 +74,6 @@ $conf_link = $link_start.'configuration&amp;section=';
 $title = l10n('PhpWebGallery Administration'); // for include/page_header.php
 $page['page_banner'] = '<h1>'.l10n('PhpWebGallery Administration').'</h1>';
 $page['body_id'] = 'theAdminPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('admin' => 'admin.tpl'));
 
@@ -115,7 +114,7 @@ if ($conf['ws_access_control']) // Do we need to display ws_checker
     );
 }
 
-// required before plugin page inclusion
+//---------------------------------------------------------------- plugin menus
 $plugin_menu_links = array(
     array(
       'NAME' => l10n('admin'),
@@ -124,15 +123,14 @@ $plugin_menu_links = array(
   );
 $plugin_menu_links = trigger_event('get_admin_plugin_menu_links',
   $plugin_menu_links );
-
-
-include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
-
-//------------------------------------------------------------- content display
 foreach ($plugin_menu_links as $menu_item)
 {
   $template->assign_block_vars('plugin_menu.menu_item', $menu_item);
 }
+
+include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
+
+//------------------------------------------------------------- content display
 
 // +-----------------------------------------------------------------------+
 // |                            errors & infos                             |
@@ -154,6 +152,7 @@ if (count($page['infos']) != 0)
   }
 }
 
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('admin');
 
 // +-----------------------------------------------------------------------+
@@ -171,6 +170,7 @@ if (
         'cat_options',  // ?only POST; public/private; lock/unlock
         'cat_perm',     // ?only POST
         'element_set',  // ?only POST; associate/dissociate
+        'picture_modify', // ?only POST; associate/dissociate
         'user_list',    // ?only POST; group assoc
         'user_perm',
         'group_perm',

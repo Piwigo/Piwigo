@@ -231,7 +231,6 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
 
   // retrieve sub-directories fulldirs from the site reader
   $fs_fulldirs = $site_reader->get_full_directories($basedir);
-  //print_r( $fs_fulldirs ); echo "<br>";
 
   // get_full_directories doesn't include the base directory, so if it's a
   // category directory, we need to include it in our array
@@ -352,9 +351,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     $counts['del_categories'] = count($to_delete);
   }
 
-  echo '<!-- scanning dirs : ';
-  echo get_elapsed_time($start, get_moment());
-  echo ' -->'."\n";
+  $template->output .= '<!-- scanning dirs : '
+    . get_elapsed_time($start, get_moment())
+    . ' -->'."\n";
 }
 // +-----------------------------------------------------------------------+
 // |                           files / elements                            |
@@ -366,8 +365,9 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
   $start= $start_files;
 
   $fs = $site_reader->get_elements($basedir);
-  //print_r($fs); echo "<br>";
-  echo '<!-- get_elements: '.get_elapsed_time($start, get_moment())." -->\n";
+  $template->output .= '<!-- get_elements: '
+    . get_elapsed_time($start, get_moment())
+    . " -->\n";
 
   $cat_ids = array_diff(array_keys($db_categories), $to_delete);
 
@@ -571,9 +571,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     $counts['del_elements'] = count($to_delete_elements);
   }
 
-  echo '<!-- scanning files : ';
-  echo get_elapsed_time($start_files, get_moment());
-  echo ' -->'."\n";
+  $template->output .= '<!-- scanning files : '
+    . get_elapsed_time($start_files, get_moment())
+    . ' -->'."\n";
 
   // retrieving informations given by uploaders
   if (!$simulate and count($cat_ids) > 0)
@@ -643,15 +643,15 @@ if (isset($_POST['submit'])
   {
     $start = get_moment();
     update_category('all');
-    echo '<!-- update_category(all) : ';
-    echo get_elapsed_time($start,get_moment());
-    echo ' -->'."\n";
+    $template->output .= '<!-- update_category(all) : '
+      . get_elapsed_time($start,get_moment())
+      . ' -->'."\n";
     $start = get_moment();
     ordering();
     update_global_rank();
-    echo '<!-- ordering categories : ';
-    echo get_elapsed_time($start, get_moment());
-    echo ' -->'."\n";
+    $template->output .= '<!-- ordering categories : '
+      . get_elapsed_time($start, get_moment())
+      . ' -->'."\n";
   }
 
   if ($_POST['sync'] == 'files')
@@ -670,9 +670,9 @@ if (isset($_POST['submit'])
     $files = get_filelist($opts['category_id'], $site_id,
                           $opts['recursive'],
                           false);
-    echo '<!-- get_filelist : ';
-    echo get_elapsed_time($start, get_moment());
-    echo ' -->'."\n";
+    $template->output .= '<!-- get_filelist : '
+      . get_elapsed_time($start, get_moment())
+      . ' -->'."\n";
     $start = get_moment();
 
     $datas = array();
@@ -716,9 +716,9 @@ if (isset($_POST['submit'])
         $datas
         );
     }
-    echo '<!-- update files : ';
-    echo get_elapsed_time($start,get_moment());
-    echo ' -->'."\n";
+    $template->output .= '<!-- update files : '
+      . get_elapsed_time($start,get_moment())
+      . ' -->'."\n";
   }// end if sync files
 }
 
@@ -772,9 +772,9 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
                         $opts['recursive'],
                         $opts['only_new']);
 
-  echo '<!-- get_filelist : ';
-  echo get_elapsed_time($start, get_moment());
-  echo ' -->'."\n";
+  $template->output .= '<!-- get_filelist : '
+    . get_elapsed_time($start, get_moment())
+    . ' -->'."\n";
 
   $start = get_moment();
   $datas = array();
@@ -805,14 +805,14 @@ SELECT id
       array_push($has_high_images, $row['id']);
     }
   }
-  
+
   foreach ( $files as $id=>$file )
   {
     $data = $site_reader->get_element_metadata(
       $file,
       in_array($id, $has_high_images)
       );
-    
+
     if ( is_array($data) )
     {
       $data['date_metadata_update'] = CURRENT_DATE;
@@ -848,8 +848,6 @@ SELECT id
   {
     if (count($datas) > 0)
     {
-      // echo '<pre>', print_r($datas); echo '</pre>';
-      
       mass_updates(
         IMAGES_TABLE,
         // fields
@@ -871,9 +869,9 @@ SELECT id
     set_tags_of($tags_of);
   }
 
-  echo '<!-- metadata update : ';
-  echo get_elapsed_time($start, get_moment());
-  echo ' -->'."\n";
+  $template->output .= '<!-- metadata update : '
+    . get_elapsed_time($start, get_moment())
+    . ' -->'."\n";
 
   $template->assign_block_vars(
     'metadata_result',

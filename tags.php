@@ -59,7 +59,6 @@ check_status(ACCESS_GUEST);
 
 $title= l10n('Tags');
 $page['body_id'] = 'theTagsPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames(array('tags'=>'tags.tpl'));
 $template->assign_vars(
@@ -105,11 +104,7 @@ foreach ($tags as $tag)
     );
 }
 
-// +-----------------------------------------------------------------------+
-// |                           html code display                           |
-// +-----------------------------------------------------------------------+
-
-$template->assign_block_vars('title',array());
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('tags');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
