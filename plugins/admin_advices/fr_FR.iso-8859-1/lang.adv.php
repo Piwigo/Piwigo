@@ -256,8 +256,8 @@ foreach ($cases as $id_adv)
              . 'create_listing_file.php devra être modifié.<br />' 
              . 'Vous devriez avoir un message d\'avertissement pendant la '
              . 'synchronisation dans ce cas.';
-      $adv[] = 'Try to keep the same prefix thru all your sites either ' 
-             . 'local or distants.';
+      $adv[] = 'Essayez de garder le même préfixe de miniatures pour les sites ' 
+             . 'locaux ou distants.';
       $adv[] = 'Conservez ce paramètre dans votre ./include/config_'
              . '<strong>local.inc.php</strong>. <br />'
              . 'Voir la page sur la configuration dans le Wiki pour plus '
@@ -385,7 +385,7 @@ foreach ($cases as $id_adv)
              . 'totalement différents.';
       $cond = true;
       $confk = 'use_iptc_mapping';
-      break;			           
+      break;
       
      Case 31 :
       $adv[] = 'Valeur actuelle : ' 
@@ -403,7 +403,7 @@ foreach ($cases as $id_adv)
              . 'sur notre wiki).';
       $cond = true;
       $confk = 'show_exif';
-      break;	
+      break;
       
      Case 32 :
       $adv[] = 'Comment gérer les EXIF:';
@@ -417,10 +417,10 @@ foreach ($cases as $id_adv)
              . '$lang; voire même à l\'impact possible sur les templates.';
       $adv[] = 'Dans tous les cas, <strong>show</strong>_exif_fields et '
              . '<strong>use</strong>_exif_mapping seront '
-             . 'totalement différents.';			       
+             . 'totalement différents.';
       $cond = true;
       $confk = 'show_exif_fields';
-      break;			           
+      break;
        
      Case 33 :
       $adv[] = 'Valeur actuelle : ' . ( ( $conf['use_exif'] ) ? 'true':'false' )
@@ -437,7 +437,7 @@ foreach ($cases as $id_adv)
              . 'sur notre wiki).';
       $cond = true;
       $confk = 'use_exif';
-      break;           						
+      break;
       
      Case 34 :
       $adv[] = 'Comment gérer les EXIF:';
@@ -461,7 +461,7 @@ foreach ($cases as $id_adv)
              . 'totalement différents.';
       $cond = true;
       $confk = 'use_exif_mapping';
-      break;			                   
+      break;
   }
 }
   

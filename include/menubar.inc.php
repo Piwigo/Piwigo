@@ -153,7 +153,7 @@ if ('tags' == $page['section'])
             )
           ),
         'TITLE' => l10n_dec(
-            '%d picture are also linked to current tags',
+            '%d picture is also linked to current tags',
             '%d pictures are also linked to current tags',
             $tag['counter']),
         )
