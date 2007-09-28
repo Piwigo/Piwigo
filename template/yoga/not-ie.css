@@ -19,6 +19,6 @@ FORM#quickconnect LABEL {
   box-sizing: border-box; /* CSS3 */
 }
 ul.tabsheet li {
-  -moz-border-radius: 6px 6px 0px 0px;	/* round corners with CSS3 compliant browsers */
+  -moz-border-radius: 6px 6px 0px 0px;	/* round corners with Geko */
   -webkit-border-radius: 6px 6px 0px 0px; /* Safari webkit project */
 }

@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -47,7 +46,7 @@ SELECT
     hour,
     nb_pages
   FROM '.HISTORY_SUMMARY_TABLE;
-  
+
   if (isset($day))
   {
     $query.= '
@@ -84,7 +83,7 @@ SELECT
   ORDER BY
     year ASC,
     month ASC
-;';   
+;';
   }
   else
   {
@@ -93,7 +92,7 @@ SELECT
     AND month IS NULL
   ORDER BY
     year ASC
-;';   
+;';
   }
 
   $result = pwg_query($query);
@@ -210,7 +209,7 @@ if (isset($first_time_key))
     sprintf('%4u.%02u.%02u',      $year, $month, $day),
     sprintf('%4u.%02u.%02u.%02u', $year, $month, $day, $hour),
     );
-  
+
   $query = '
 SELECT
     id,
@@ -369,13 +368,13 @@ if (isset($page['day']))
   $url.= '&amp;day='.$page['day'];
 
   $time = mktime(12, 0, 0, $page['month'], $page['day'], $page['year']);
-  
+
   $day_title = sprintf(
     '%u (%s)',
     $page['day'],
     $lang['day'][date('w', $time)]
     );
-  
+
   array_push(
     $title_parts,
     '<a href="'.$url.'">'.$day_title.'</a>'
@@ -455,9 +454,9 @@ if (count($datas) > 0)
     {
       $datas[$i] = 0;
     }
-  
+
     $url = null;
-  
+
     if (isset($page['day']))
     {
       $value = sprintf('%02u', $i);
@@ -471,9 +470,9 @@ if (count($datas) > 0)
         .'&amp;month='.$page['month']
         .'&amp;day='.$i
         ;
-  
+
       $time = mktime(12, 0, 0, $page['month'], $i, $page['year']);
-      
+
       $value = $i.' ('.$lang['day'][date('w', $time)].')';
     }
     else if (isset($page['year']))
@@ -484,7 +483,7 @@ if (count($datas) > 0)
         .'&amp;year='.$page['year']
         .'&amp;month='.$i
         ;
-      
+
       $value = $lang['month'][$i];
     }
     else
@@ -495,15 +494,15 @@ if (count($datas) > 0)
         .'?page=stats'
         .'&amp;year='.$i
         ;
-      
+
       $value = $i;
     }
-  
+
     if ($datas[$i] != 0 and isset($url))
     {
       $value = '<a href="'.$url.'">'.$value.'</a>';
     }
-    
+
     $template->assign_block_vars(
       'statrow',
       array(
@@ -521,4 +520,3 @@ if (count($datas) > 0)
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'stats');
 ?>
-
