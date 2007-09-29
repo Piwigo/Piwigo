@@ -112,6 +112,7 @@ $user = array();
 $lang = array();
 $header_msgs = array();
 $header_notes = array();
+$filter = array();
 
 @include(PHPWG_ROOT_PATH .'include/mysql.inc.php');
 if (!defined('PHPWG_INSTALLED'))
@@ -252,8 +253,6 @@ if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
 }
 else
 {
-  // global variable for filter
-  $filter = array();
   $filter['enabled'] = false;
 }
 
