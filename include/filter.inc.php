@@ -23,9 +23,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// global variable for filter
-$filter = array();
-
 // $filter['enabled']: Filter is enabled
 // $filter['check_key']: Check key to valitade computed filter data
 // $filter['recent_period']: Recent period used to computed filter data
