@@ -212,8 +212,7 @@ A.navThumb, A.navThumb:hover,
   margin: 0px;
 }
 #theAdminPage #content table td { padding: 2px 8px; }
-ul.tabsheet { border-color: #369 !important; }
-.tabsheet li { border: 1px solid #fff; }
+ul.tabsheet, ul.tabsheet li { border-color: #369 !important; }
 .tabsheet li:hover { border-color: #f92 !important; }
 
 /******************************************************************************/

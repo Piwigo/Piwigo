@@ -60,9 +60,6 @@ H2, .throw {
   border-color: #f92;
   color: #900;
 }
-.tabsheet li,
-.tabsheet li a { color: #69c; }
-.tabsheet li a:hover { color: #f92; }
 /* backgrounds */
 BODY {
   background: #111;
@@ -312,16 +309,14 @@ a.PWG:hover .G { color : #f92; }
 #menubar .menuInfoCatByChild,
 h2.showtitle, #theImage p.showlegend { display: none }
 * { outline-width: 0px; }
-ul.tabsheet {
-  border-top: 1px solid #69c !important;
-  border-bottom: 0px !important;
+ul.tabsheet, ul.tabsheet li {
+  border-color: #69c;
 }
-.tabsheet li {
-  border: 1px solid #fff;
+ul.tabsheet li.normal_tab {
   background-image: url(images/tableh1_bg.png);
   background-repeat: repeat-x;
 }
-.tabsheet li:hover { border-color: #f92 !important; }
+ul.tabsheet li.normal_tab:hover { border-color: #f92 }
 ul.tabsheet li {
   -moz-border-radius: 0px 0px 3px 3px;
   border-radius:  0px 0px 12px 12px;

@@ -180,28 +180,30 @@ FIELDSET#commentsConf INPUT {
 }
 
 /* Tabsheet */
-ul.tabsheet {
-  display: table;
-  list-style-type: none;
-  list-style-image: none; /* for firefox */
+UL.tabsheet {
+  list-style: none;
   white-space: nowrap; 
-  margin-left: auto; margin-right: auto;
-  text-decoration : none;
-  background: transparent;
+  text-decoration: none;
   border-bottom: 1px solid #fff;
+  margin-left: 5px; margin-right: 5px;
+  padding: 3px 5px;
 }
 
-ul.tabsheet li {
-  float: left;
-  text-align: center;
-  margin: 0 6px;
-  color: white;
-  font-size: 110%;
-  font-weight: bold;
-  padding: 4px 8px;
+UL.tabsheet LI {
+  display: inline;
+  margin: 0px 6px;
+  font-size: 120%;
+  font-weight: normal;
   border: 1px solid #fff;
-  border-radius: 6px 6px 0px 0px; /* round corners with CSS3 compliant browsers */
-  padding: 5px 2em 2px 2em;
+  border-bottom: none;
+  padding: 3px 2em;
+}
+
+UL.tabsheet LI.selected_tab {
+	font-weight: bold;
+	position: relative;
+	top: 1px;
+	padding-top: 4px;
 }
 
 .over{
