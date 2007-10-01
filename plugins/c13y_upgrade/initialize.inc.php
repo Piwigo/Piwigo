@@ -39,6 +39,26 @@ function c13y_upgrade($c13y_array)
   
   $result = array();
 
+  /* Check user with same e-mail */
+  $query = '
+select count(*)
+from '.USERS_TABLE.'
+group by upper('.$conf['user_fields']['email'].')
+having count(*) > 1
+limit 0,1
+;';
+
+  if (mysql_fetch_array(pwg_query($query)))
+  {
+    $result[] = get_c13y(
+      l10n('c13y_exif_dbl_email_user'),
+      null,
+      null,
+      l10n('c13y_exif_correction_dbl_email_user'));
+  }
+
+
+  /* Check if this plugin must deactivate */
   if (count($result) === 0)
   {
     $deactivate_msg_link = 

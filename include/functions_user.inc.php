@@ -24,46 +24,65 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// validate_mail_address verifies whether the given mail address has the
-// right format. ie someone@domain.com "someone" can contain ".", "-" or
-// even "_". Exactly as "domain". The extension doesn't have to be
-// "com". The mail address can also be empty.
+// validate_mail_address:
+//   o verifies whether the given mail address has the
+//     right format. ie someone@domain.com "someone" can contain ".", "-" or
+//     even "_". Exactly as "domain". The extension doesn't have to be
+//     "com". The mail address can also be empty.
+//   o check if address could be empty
+//   o check if address is not used by a other user
 // If the mail address doesn't correspond, an error message is returned.
-function validate_mail_address( $mail_address )
+// 
+function validate_mail_address($mail_address)
 {
-  global $lang, $conf;
+  global $conf;
 
   if (empty($mail_address) and
       !($conf['obligatory_user_mail_address'] and in_array(script_basename(), array('register', 'profile'))))
   {
     return '';
   }
+
   $regex = '/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*\.[a-z]+$/';
   if ( !preg_match( $regex, $mail_address ) )
   {
-    return $lang['reg_err_mail_address'];
+    return l10n('reg_err_mail_address');
+  }
+  
+  if (defined("PHPWG_INSTALLED") and !empty($mail_address))
+  {
+    $query = '
+select count(*)
+from '.USERS_TABLE.'
+where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
+;';
+    list($count) = mysql_fetch_array(pwg_query($query));
+    if ($count != 0)
+    {
+      return l10n('reg_err_mail_address_dbl');
+    }
   }
 }
 
 function register_user($login, $password, $mail_address, $errors = array())
 {
-  global $lang, $conf;
+  global $conf;
 
   if ($login == '')
   {
-    array_push($errors, $lang['reg_err_login1']);
+    array_push($errors, l10n('reg_err_login1'));
   }
   if (ereg("^.* $", $login))
   {
-    array_push($errors, $lang['reg_err_login2']);
+    array_push($errors, l10n('reg_err_login2'));
   }
   if (ereg("^ .*$", $login))
   {
-    array_push($errors, $lang['reg_err_login3']);
+    array_push($errors, l10n('reg_err_login3'));
   }
   if (get_userid($login))
   {
-    array_push($errors, $lang['reg_err_login5']);
+    array_push($errors, l10n('reg_err_login5'));
   }
   $mail_error = validate_mail_address($mail_address);
   if ('' != $mail_error)

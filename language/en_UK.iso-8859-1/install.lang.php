@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -32,9 +31,6 @@ $lang['step1_title'] = 'Database configuration';
 $lang['step2_title'] = 'Admin configuration';
 $lang['Start_Install'] = 'Start Install';
 $lang['reg_err_mail_address'] = 'mail address must be like xxx@yyy.eee (example : jack@altern.org)';
-$lang['mail_webmaster'] = 'Webmaster mail adress';
-$lang['mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
-$lang['reg_err_mail_address'] = 'e-mail address refused, it must be like name@server.com';
 
 $lang['install_webmaster'] = 'Webmaster login';
 $lang['install_webmaster_info'] = 'It will be shown to the visitors. It is necessary for website administration';
@@ -72,6 +68,6 @@ Once this file deleted , follow this instructions :
 <li>go to the identification page : [ <a href="identification.php">identification</a> ] and use the login/password given for webmaster</li>
 <li>this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories</li>
 </ul>';
-$lang['conf_mail_webmaster'] = 'Webmaster mail adress';
+$lang['conf_mail_webmaster'] = 'Webmaster mail address';
 $lang['conf_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
 ?>

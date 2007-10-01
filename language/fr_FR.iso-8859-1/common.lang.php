@@ -636,4 +636,5 @@ $lang['Picture uploaded by %s'] = 'Image téléchargée par %s';
 $lang['guest_must_be_guest'] = 'Statut de l\'utilisateur "guest" non conforme, utilisation du statut par défaut. Veuillez prévenir le webmestre.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrateur, webmestre et utilisateur spécial ne peuvent pas utiliser cette méthode';
+$lang['reg_err_mail_address_dbl'] = 'un utilisateur utilise déjà cette adresse e-mail';
 ?>

@@ -637,4 +637,5 @@ $lang['guest_must_be_guest'] = 'Bad status for user "guest", using default statu
 $lang['add new elements to caddie'] = 'add new elements to caddie';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
+$lang['reg_err_mail_address_dbl'] = 'a user use already this mail address';
 ?>
