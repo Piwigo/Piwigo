@@ -67,6 +67,7 @@
       <li><label><input type="radio" name="sync" value="dirs" {SYNC_DIRS_CHECKED} /> {lang:update_sync_dirs}</label></li>
       <li><label><input type="radio" name="sync" value="files" {SYNC_ALL_CHECKED} /> {lang:update_sync_all}</label></li>
       <li><label><input type="checkbox" name="display_info" value="1" {DISPLAY_INFO_CHECKED} /> {lang:update_display_info}</label></li>
+      <li><label><input type="checkbox" name="add_to_caddie" value="1" {ADD_TO_CADDIE_CHECKED} /> {lang:add new elements to caddie}</label></li>
     </ul>
   </fieldset>
 

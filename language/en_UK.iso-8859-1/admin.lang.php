@@ -638,4 +638,5 @@ $lang['c13y_webmaster_non_existent'] = 'Main "webmaster" user don\'t exist any m
 $lang['c13y_bad_webmaster_status'] = 'Main "webmaster" user status is incorrect';
 $lang['c13y_user_created'] = 'User "%s" created with "%s" like password';
 $lang['c13y_user_status_updated'] = 'Status of user "%s" updated';
+$lang['add new elements to caddie'] = 'add new elements to caddie';
 ?>
