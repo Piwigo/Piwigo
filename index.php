@@ -86,7 +86,7 @@ else
 if (isset($_GET['caddie']))
 {
   fill_caddie($page['items']);
-  // redirect();
+  redirect(duplicate_index_url());
 }
 
 //----------------------------------------------------- template initialization

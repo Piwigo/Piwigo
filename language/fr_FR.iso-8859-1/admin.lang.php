@@ -636,6 +636,7 @@ $lang['c13y_webmaster_non_existent'] = 'L\'utilisateur "webmestre" principal n\'
 $lang['c13y_bad_webmaster_status'] = 'Le statut de l\'utilisateur "webmestre" principal est incorrect';
 $lang['c13y_user_created'] = 'Utilisateur "%s" créé avec comme mot de passe "%s"';
 $lang['c13y_user_status_updated'] = 'Statut de l\'utilisateur "%s" mis à jour';
+$lang['add new elements to caddie'] = 'ajouter les nouveaux éléments au panier';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';

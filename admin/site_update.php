@@ -485,6 +485,8 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
             'info' => l10n('update_research_added')
             )
           );
+
+        $caddiables[] = $insert['id'];
       }
       else
       {
@@ -530,6 +532,8 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           'info' => l10n('update_research_added')
           )
         );
+
+      $caddiables[] = $insert['id'];
     }
   }
 
@@ -550,6 +554,12 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
         array_keys($insert_links[0]),
         $insert_links
         );
+
+      // add new elements to caddie
+      if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
+      {
+        fill_caddie($caddiables);
+      }
     }
     $counts['new_elements'] = count($inserts);
   }
@@ -955,6 +965,12 @@ if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
     {
       $template->assign_vars(
         array('DISPLAY_INFO_CHECKED'=>'checked="checked"'));
+    }
+
+    if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
+    {
+      $template->assign_vars(
+        array('ADD_TO_CADDIE_CHECKED'=>'checked="checked"'));
     }
 
     if (isset($_POST['subcats-included']) and $_POST['subcats-included'] == 1)
