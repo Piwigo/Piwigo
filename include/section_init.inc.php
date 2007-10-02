@@ -203,7 +203,11 @@ if ('categories' == $page['section'])
     $page = array_merge(
       $page,
       array(
-        'comment'           => $page['category']['comment'],
+        'comment'           =>
+            trigger_event(
+              'render_category_description',
+              $page['category']['comment']
+            ),
         'title'             =>
           get_cat_display_name($page['category']['upper_names'], '', false),
         )
@@ -330,7 +334,8 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $lang['search_result'],
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
+                  .$lang['search_result'].'</a>',
         )
       );
   }
@@ -384,7 +389,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url().'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$lang['recent_pics_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -422,7 +427,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url().'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.$lang['most_visited_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -448,7 +453,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url().'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .$conf['top_number'].' '.$lang['best_rated_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         )
@@ -471,7 +476,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => '<a href="'.duplicate_index_url().'">'
+        'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                     .$lang['random_cat'].'</a>',
         'items' => array_from_query($query, 'id'),
         )

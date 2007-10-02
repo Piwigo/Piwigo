@@ -296,8 +296,7 @@ if (isset($page['comment']) and $page['comment'] != '')
   $template->assign_block_vars(
     'cat_infos.comment',
     array(
-      'COMMENTS' =>
-        trigger_event('render_category_description', $page['comment'])
+      'COMMENTS' => $page['comment']
       )
     );
   $header_infos['COMMENT'] = strip_tags($page['comment']);
