@@ -178,11 +178,6 @@ if (count($categories) > 0)
     update_cats_with_filtered_data($categories);
   }
 
-  // add default event handler for rendering category literal description
-  add_event_handler('render_category_literal_description',
-    create_function('$d',
-      'return strip_tags($d, \'<a><br><p><b><i><small><strong><font>\');'));
-
   trigger_action('loc_begin_index_category_thumbnails', $categories);
   if ($conf['subcatify'])
   {

@@ -58,7 +58,7 @@ function get_icon($date, $is_child_date = false)
   if (!isset($page['get_icon_cache']['unix_timestamp']))
   {
     // Use MySql date in order to standardize all recent "actions/queries"
-    list($page['get_icon_cache']['unix_timestamp']) = 
+    list($page['get_icon_cache']['unix_timestamp']) =
       mysql_fetch_array(pwg_query('select UNIX_TIMESTAMP(CURRENT_DATE)'));
   }
 
@@ -455,7 +455,7 @@ function get_html_menu_category($categories, $selected_category)
     {// at least one direct or indirect image
       $menu.= "\n".'<span class="';
       // at least one image in this category -> class menuInfoCat
-      $menu.= ($category['nb_images'] > 0 ? "menuInfoCat" 
+      $menu.= ($category['nb_images'] > 0 ? "menuInfoCat"
                                           : "menuInfoCatByChild").'"';
       $menu.= ' title=" '.$title.'">';
       // show total number of images
@@ -735,10 +735,32 @@ function set_status_header($code, $text='')
  */
 function set_span_class($count)
 {
-  if ($count > 1) 
-  { 
+  if ($count > 1)
+  {
     return 'plural';
   }
-  return ( $count == 0 ) ? 'zero':'one'; 
+  return ( $count == 0 ) ? 'zero':'one';
+}
+
+/** returns the category comment for rendering in html.
+ * this is an event handler. don't call directly
+ */
+function render_category_description($desc)
+{
+  global $conf;
+  if ( !( $conf['allow_html_descriptions'] and
+          preg_match('/<(div|br|img|script).*>/i', $desc) ) )
+  {
+    $desc = nl2br($desc);
+  }
+  return $desc;
+}
+
+/** returns the category comment for rendering in html textual mode (subcatify)
+ * this is an event handler. don't call directly
+ */
+function render_category_literal_description($desc)
+{
+  return strip_tags($desc, '<span><p><a><br><b><i><small><big><strong><em>');
 }
 ?>

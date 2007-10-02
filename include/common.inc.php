@@ -172,9 +172,9 @@ if ($user['is_the_guest'])
 }
 
 // template instance
-if 
+if
   (
-      defined('IN_ADMIN') and IN_ADMIN and 
+      defined('IN_ADMIN') and IN_ADMIN and
       isset($user['admin_template']) and
       isset($user['admin_theme'])
   )
@@ -261,6 +261,8 @@ if (isset($conf['header_notes']))
 }
 
 // default event handlers
+add_event_handler('render_category_literal_description', 'render_category_literal_description');
+add_event_handler('render_category_description', 'render_category_description');
 add_event_handler('render_comment_content', 'htmlspecialchars');
 add_event_handler('render_comment_content', 'parse_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');

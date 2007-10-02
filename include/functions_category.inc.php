@@ -156,12 +156,6 @@ SELECT *
       $cat[$k] = get_boolean( $cat[$k] );
     }
   }
-  global $conf;
-  if ( !( $conf['allow_html_descriptions'] and
-          preg_match('/<(div|br|img|script).*>/i', $cat['comment']) ) )
-  {
-    $cat['comment'] = nl2br(@$cat['comment']);
-  }
 
   $upper_ids = explode(',', $cat['uppercats']);
   if ( count($upper_ids)==1 )
@@ -445,7 +439,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
       $cat_count_images-= $cat_nb_images;
       $cat_nb_images = 0;
     }
-    
+
     //at least one image direct or indirect
     $display_text.= l10n_dec('image_available', 'images_available', $cat_count_images);
 

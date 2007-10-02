@@ -11,6 +11,7 @@ if (! defined('MULTIVIEW_CONTROLLER') )
   if ( !empty($theme) )
   {
     list($user['template'], $user['theme']) = explode('/', $theme);
+    unset( $user['admin_template'], $user['admin_theme']);
   }
   $lang = pwg_get_session_var( 'multiview_lang', '' );
   if ( !empty($lang) )
