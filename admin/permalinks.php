@@ -30,11 +30,11 @@ function parse_sort_variables(
     $anchor = '' )
 {
   global $template;
-  
+
   $url_components = parse_url( $_SERVER['REQUEST_URI'] );
 
   $base_url = $url_components['path'];
-  
+
   parse_str($url_components['query'], $vars);
   $is_first = true;
   foreach ($vars as $key => $value)
@@ -51,18 +51,24 @@ function parse_sort_variables(
   foreach( $sortable_by as $field)
   {
     $url = $base_url;
+    $disp = '&dArr;'; // TODO: an small image is better
+
     if ( $field !== @$_GET[$get_param] )
     {
       if ( !isset($default_field) or $default_field!=$field )
       { // the first should be the default
         $url = add_url_params($url, array($get_param=>$field) );
       }
-      $disp = '&dArr;'; // TODO: an small image is better
+      elseif (isset($default_field) and !isset($_GET[$get_param]) )
+      {
+        array_push($ret, $field);
+        $disp = '<em>'.$disp.'</em>';
+      }
     }
     else
     {
       array_push($ret, $field);
-      $disp = '<em>&dArr;</em>'; // TODO: an small image is better
+      $disp = '<em>'.$disp.'</em>';
     }
     if ( isset($template_var) )
     {
@@ -103,10 +109,10 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
 $template->set_filename('permalinks', 'admin/permalinks.tpl' );
 
 $query = '
-SELECT 
-  id, 
+SELECT
+  id,
   CONCAT(id, " - ", name, IF(permalink IS NULL, "", " &radic;") ) AS name,
-  uppercats, global_rank 
+  uppercats, global_rank
 FROM '.CATEGORIES_TABLE;
 
 display_select_cat_wrapper( $query, $selected_cat, 'categories', false );
@@ -124,9 +130,7 @@ SELECT id, permalink, uppercats, global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE permalink IS NOT NULL
 ';
-if ( count($sort_by) and
-      ($sort_by[0]=='id' or $sort_by[0]=='permalink')
-    )
+if ( $sort_by[0]=='id' or $sort_by[0]=='permalink' )
 {
   $query .= ' ORDER BY '.$sort_by[0];
 }
@@ -138,7 +142,7 @@ while ( $row=mysql_fetch_assoc($result) )
   $categories[] = $row;
 }
 
-if ( !count($sort_by) or $sort_by[0]=='name')
+if ( $sort_by[0]=='name')
 {
   usort($categories, 'global_rank_compare');
 }
