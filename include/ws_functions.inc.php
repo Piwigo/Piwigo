@@ -32,18 +32,18 @@
 function ws_isInvokeAllowed($res, $methodName, $params)
 {
   global $conf, $calling_partner_id;
-  
+
   if ( strpos($methodName,'reflection.')===0 )
   { // OK for reflection
     return $res;
   }
-  
+
   if ( !is_autorize_status(ACCESS_GUEST) and
       strpos($methodName,'pwg.session.')!==0 )
   {
     return new PwgError(401, 'Access denied');
   }
-  
+
   if ( !$conf['ws_access_control'] )
   {
     return $res; // No controls are requested
@@ -316,7 +316,10 @@ function ws_categories_getImages($params, &$service)
     OR ', $where_clauses) . ')'
       );
   }
-  $where_clauses[] = 'id NOT IN ('.$user['forbidden_categories'].')';
+  $where_clauses[] = get_sql_condition_FandF(
+        array('forbidden_categories' => 'id'),
+        NULL, true
+      );
 
   $query = '
 SELECT id, name, permalink, image_order
@@ -460,7 +463,6 @@ function ws_categories_getList($params, &$service)
   }
   else
   {
-    $where[] = 'id NOT IN ('.$user['forbidden_categories'].')';
     $where[]= 'user_id='.$user['id'];
   }
 
@@ -472,8 +474,6 @@ SELECT id, name, permalink, uppercats, global_rank,
    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
   WHERE '. implode('
     AND ', $where);
-  $query .= '
-ORDER BY global_rank';
 
   $result = pwg_query($query);
 
@@ -512,9 +512,9 @@ function ws_images_addComment($params, &$service)
   }
   $params['image_id'] = (int)$params['image_id'];
   $query = '
-SELECT DISTINCT image_id 
+SELECT DISTINCT image_id
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.CATEGORIES_TABLE.' ON category_id=id
-  WHERE commentable="true" 
+  WHERE commentable="true"
     AND image_id='.$params['image_id'].
     get_sql_condition_FandF(
       array(
@@ -528,9 +528,9 @@ SELECT DISTINCT image_id
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
-  
+
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-  
+
   $comm = array(
     'author' => trim( stripslashes($params['author']) ),
     'content' => trim( stripslashes($params['content']) ),
@@ -538,8 +538,8 @@ SELECT DISTINCT image_id
    );
 
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-  
-  $comment_action = insert_user_comment( 
+
+  $comment_action = insert_user_comment(
       $comm, $params['key'], $infos
     );
 
@@ -550,14 +550,14 @@ SELECT DISTINCT image_id
       return new PwgError(403, implode("\n", $infos) );
     case 'validate':
     case 'moderate':
-      $ret = array( 
+      $ret = array(
           'id' => $comm['id'],
           'validation' => $comment_action=='validate',
         );
       return new PwgNamedStruct(
           'comment',
-          $ret, 
-          null, array() 
+          $ret,
+          null, array()
         );
     default:
       return new PwgError(500, "Unknown comment action ".$comment_action );
@@ -599,8 +599,11 @@ LIMIT 1;';
 SELECT id, name, permalink, uppercats, global_rank, commentable
   FROM '.IMAGE_CATEGORY_TABLE.'
     INNER JOIN '.CATEGORIES_TABLE.' ON category_id = id
-  WHERE image_id = '.$image_row['id'].'
-    AND category_id NOT IN ('.$user['forbidden_categories'].')
+  WHERE image_id = '.$image_row['id'].
+  get_sql_condition_FandF(
+      array( 'forbidden_categories' => 'category_id' ),
+      ' AND'
+    ).'
 ;';
   $result = pwg_query($query);
   $is_commentable = false;
@@ -667,7 +670,7 @@ SELECT COUNT(rate) AS count
 
   //---------------------------------------------------------- related comments
   $related_comments = array();
-  
+
   $where_comments = 'image_id = '.$image_row['id'];
   if ( !is_admin() )
   {
@@ -699,16 +702,16 @@ SELECT id, date, author, content
       array_push($related_comments, $row);
     }
   }
-  
+
   $comment_post_data = null;
-  if ($is_commentable and 
+  if ($is_commentable and
       (!$user['is_the_guest']
         or ($user['is_the_guest'] and $conf['comments_forall'] )
       )
       )
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-    $comment_post_data['author'] = $user['username'];    
+    $comment_post_data['author'] = $user['username'];
     $comment_post_data['key'] = get_comment_post_key($params['image_id']);
   }
 
@@ -733,7 +736,7 @@ SELECT id, date, author, content
     $ret['comment_post'] = array( WS_XML_ATTRIBUTES => $comment_post_data );
   }
   $ret['comments'] = array(
-     WS_XML_ATTRIBUTES => 
+     WS_XML_ATTRIBUTES =>
         array(
           'page' => $params['comments_page'],
           'per_page' => $params['comments_per_page'],
@@ -805,7 +808,7 @@ SELECT DISTINCT id FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON 
   {
     $image_ids = $search_result['items'];
   }
-  
+
   $image_ids = array_slice($image_ids,
     $params['page']*$params['per_page'],
     $params['per_page'] );
@@ -951,7 +954,7 @@ function ws_tags_getImages($params, &$service)
 {
   @include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
   global $conf;
-  
+
   // first build all the tag_ids we are interested in
   $params['tag_id'] = array_map( 'intval',$params['tag_id'] );
   $tags = find_tags($params['tag_id'], $params['tag_url_name'], $params['tag_name']);
@@ -1028,6 +1031,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
     $result = pwg_query($query);
     while ($row = mysql_fetch_assoc($result))
     {
+      $image = array();
       foreach ( array('id', 'width', 'height', 'hit') as $k )
       {
         if (isset($row[$k]))
