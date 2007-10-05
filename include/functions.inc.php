@@ -1115,24 +1115,6 @@ function l10n_args($key_args, $sep = "\n")
 }
 
 /**
- * Translate string in string ascii7bits
- * It's possible to do that with iconv_substr
- * but this fonction is not avaible on all the providers.
- *
- * @param string str
- * @return string
- */
-function str_translate_to_ascii7bits($str)
-{
-  global $lang_table_translate_ascii7bits;
-
-  $src_table = array_keys($lang_table_translate_ascii7bits);
-  $dst_table = array_values($lang_table_translate_ascii7bits);
-
-  return str_replace($src_table , $dst_table, $str);
-}
-
-/**
  * returns the corresponding value from $themeconf if existing. Else, the
  * key is returned
  *

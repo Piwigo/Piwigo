@@ -106,7 +106,11 @@ function format_email($name, $email)
 
     if ($cvt_name!="")
     {
-      $cvt_name = encode_mime_header('"'.$cvt_name.'"').' ';
+      $cvt_name = encode_mime_header(
+                '"'
+                .addcslashes($cvt_name,'"')
+                .'"');
+      $cvt_name .= ' ';
     }
 
     if (strpos($cvt_email, '<') === false)
