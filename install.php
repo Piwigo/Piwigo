@@ -268,7 +268,7 @@ if ( isset( $_POST['install'] ))
     array_push( $errors, $lang['reg_err_mail_address'] );
   else 
   {
-    $error_mail_address = validate_mail_address($admin_mail);
+    $error_mail_address = validate_mail_address(null, $admin_mail);
     if (!empty($error_mail_address))
       array_push( $errors, $error_mail_address );
   }

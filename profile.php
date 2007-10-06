@@ -115,7 +115,9 @@ function save_profile_from_post(&$userdata, &$errors)
 
   if (isset($_POST['mail_address']))
   {
-    $mail_error = validate_mail_address($_POST['mail_address']);
+    // if $_POST and $userdata have are same email
+    // validate_mail_address allows, however, to check email
+    $mail_error = validate_mail_address($userdata['id'], $_POST['mail_address']);
     if (!empty($mail_error))
     {
       $errors[] = $mail_error;

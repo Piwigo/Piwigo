@@ -33,12 +33,13 @@
 //   o check if address is not used by a other user
 // If the mail address doesn't correspond, an error message is returned.
 // 
-function validate_mail_address($mail_address)
+function validate_mail_address($user_id, $mail_address)
 {
   global $conf;
 
   if (empty($mail_address) and
-      !($conf['obligatory_user_mail_address'] and in_array(script_basename(), array('register', 'profile'))))
+      !($conf['obligatory_user_mail_address'] and 
+      in_array(script_basename(), array('register', 'profile'))))
   {
     return '';
   }
@@ -55,6 +56,7 @@ function validate_mail_address($mail_address)
 select count(*)
 from '.USERS_TABLE.'
 where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
+'.(is_numeric($user_id) ? 'and '.$conf['user_fields']['id'].' != \''.$user_id.'\'' : '').'
 ;';
     list($count) = mysql_fetch_array(pwg_query($query));
     if ($count != 0)
@@ -84,7 +86,7 @@ function register_user($login, $password, $mail_address, $errors = array())
   {
     array_push($errors, l10n('reg_err_login5'));
   }
-  $mail_error = validate_mail_address($mail_address);
+  $mail_error = validate_mail_address(null, $mail_address);
   if ('' != $mail_error)
   {
     array_push($errors, $mail_error);
