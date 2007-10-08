@@ -33,10 +33,10 @@ add_event_handler('get_check_integrity', 'c13y_upgrade');
 
 function c13y_upgrade($c13y_array)
 {
-  global $lang, $conf;
+  global $conf;
 
-  include(get_language_filepath('plugin.lang.php', dirname(__FILE__).'/'));
-  
+  load_language('plugin.lang', dirname(__FILE__).'/');
+
   $result = array();
 
   /* Check user with same e-mail */
@@ -61,7 +61,7 @@ limit 0,1
   /* Check if this plugin must deactivate */
   if (count($result) === 0)
   {
-    $deactivate_msg_link = 
+    $deactivate_msg_link =
       '<a href="'.
       PHPWG_ROOT_PATH.
       'admin.php?page=plugins&amp;plugin=c13y_upgrade&amp;action=deactivate'.

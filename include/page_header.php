@@ -46,7 +46,7 @@ $template->assign_vars(
       isset($page['body_id']) ?
         $page['body_id'] : '',
 
-    'CONTENT_ENCODING' => $lang_info['charset'],
+    'CONTENT_ENCODING' => get_pwg_charset(),
     'PAGE_TITLE' => strip_tags($title),
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
@@ -99,7 +99,7 @@ if ( isset( $refresh ) and intval($refresh) >= 0
 
 trigger_action('loc_end_page_header');
 
-header('Content-Type: text/html; charset='.$lang_info['charset']);
+header('Content-Type: text/html; charset='.get_pwg_charset());
 $template->parse('header');
 
 trigger_action('loc_after_page_header');

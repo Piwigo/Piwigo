@@ -19,7 +19,7 @@ foreach ($conf as $key => $value)
   {
     $bool = ($value == 'false') ? false : $value;
     $bool = ($value == 'true') ? true : $bool;
-    $conf[$key] = $bool; 
+    $conf[$key] = $bool;
   }
 }
 
@@ -45,84 +45,84 @@ foreach ($cases as $id_adv)
       $adv[] = 'Your new category will be well prepared.';
       $cond = ($conf['newcat_default_status'] !== 'public');
       $confk = 'newcat_default_status';
-      break;  
-      
+      break;
+
     Case 2 :
       $adv[] = 'Current value: ' . (string) $conf['slideshow_period'] . '.';
       $adv[] = 'This value could be too small for low band connections.';
       $adv[] = 'Think about higher value like 4.';
       $cond = ( $conf['slideshow_period'] < 4 );
       $confk = 'slideshow_period';
-      break;  
-      
+      break;
+
     Case 3 :
       $adv[] = 'Current value: ' . implode(', ', $conf['file_ext']) . '. ';
       $adv[] = 'Should never contains extensions which can be executed';
       $adv[] = 'on the server side like *.php, *.PHP, *.asp, ...';
       $cond = ( in_array('php',$conf['file_ext']) );
       $confk = 'file_ext';
-      break;  
-      
+      break;
+
     Case 4 :
       $adv[] = 'Show IPTC Data from your picture:';
-      $adv[] = ' 1 - Copy one of your jpg pictures (a public one)' . 
-                   ' in ./tools/<br />' . 
-               ' 2 - Rename it as sample.jpg.<br />' . 
+      $adv[] = ' 1 - Copy one of your jpg pictures (a public one)' .
+                   ' in ./tools/<br />' .
+               ' 2 - Rename it as sample.jpg.<br />' .
                ' 3 - Run ./tools/metadata.php<br />' .
-               ' 4 - Analyse results to determine which IPTC fields could be' . 
+               ' 4 - Analyse results to determine which IPTC fields could be' .
                    ' useful for your visitors.';
       $adv[] = 'Beginners would prefer to keep $conf[\'show_iptc\'] = false;';
-      $adv[] = 'Advanced users would take care of $lang values and impacts' . 
+      $adv[] = 'Advanced users would take care of $lang values and impacts' .
         ' on templates.';
       $cond = true;
       $confk = 'show_iptc_mapping';
-      break;  
-  
+      break;
+
      Case 5 :
       $adv[] = 'Current value: ' . (string) $conf['top_number'] . '.';
-      $adv[] = 'This value is maybe too high for low connections, ' . 
+      $adv[] = 'This value is maybe too high for low connections, ' .
                'think about 25-50 depending on your thumbnail sizes.';
       $cond = ( $conf['top_number'] > 50 );
       $confk = 'top_number';
-      break;  
-  
+      break;
+
      Case 6 :
       $adv[] = 'Current value: ' . (string) $conf['top_number'] . '.';
-      $adv[] = 'One? It could be too low for random pictures, ' . 
+      $adv[] = 'One? It could be too low for random pictures, ' .
                'think about 5-10 depending on your thumbnail sizes.';
       $cond = ( $conf['top_number'] < 2 ) ? true : false;
       $confk = 'top_number';
-      break;  
-      
+      break;
+
      Case 7 :
       $adv[] = 'Current value: ' . (string) $conf['anti-flood_time'] . '.';
       $adv[] = 'For normal flow processing, your value is probably too high. ' .
                'Reasonable value is 60 (default).' ;
       $cond = ( $conf['anti-flood_time'] > 100 ) ? true : false;
       $confk = 'anti-flood_time';
-      break;  
-      
+      break;
+
      Case 8 :
       $adv[] = 'Current value: ' . (string) $conf['calendar_datefield'] . '.';
       $adv[] = 'Authorized values are ' .
                "'date_creation' or 'date_available'" .
                ', otherwise you can get unpredictable results.' ;
-      $cond = ( !in_array($conf['calendar_datefield'], 
+      $cond = ( !in_array($conf['calendar_datefield'],
         array('date_creation','date_available')) );
       $confk = 'calendar_datefield';
-      break;  
-      
+      break;
+
      Case 9 :
       // If (iptc or exif) are used and date_creation is updated
       // Then it's Ok, you can use date_creation by default for calendar
       // else ... Advice
       $adv[] = 'Current value: ' . (string) $conf['calendar_datefield'] . '.';
-      $adv[] = "'date_creation'" . ' is NOT filled by ' . 
+      $adv[] = "'date_creation'" . ' is NOT filled by ' .
       'any activated use metadata mapping fields.';
-      $adv[] = 'So activate metadata usage <strong>or</strong> change to ' . 
+      $adv[] = 'So activate metadata usage <strong>or</strong> change to ' .
       '$conf[\'calendar_datefield\'] = \'date_available\'';
       $adv[] = 'Activate metadata usage as you want: <br />' .
-      '1 - $conf[\'use_iptc\'] = true; or $conf[\'use_exif\'] = true; ' . 
+      '1 - $conf[\'use_iptc\'] = true; or $conf[\'use_exif\'] = true; ' .
       'each way will be correct.<br />' .
       '2 - And respectively map:<br />' .
       '$conf[\'use_iptc_mapping\'] = array( ..., \'date_creation\' ' .
@@ -131,68 +131,68 @@ foreach ($cases as $id_adv)
       '$conf[\'use_exif_mapping\'] = array(\'date_creation\' ' .
       '=> \'DateTimeOriginal\', ...<br />' .
       '3 - Finally, a new task is up to you: Metadata synchronization.'  ;
-      $cond2 = ( $conf['use_exif'] and 
+      $cond2 = ( $conf['use_exif'] and
                 isset($conf['use_exif_mapping']['date_creation']) );
       $cond3 = ( $conf['use_iptc'] and
                 isset($conf['use_iptc_mapping']['date_creation']) );
       $cond = ( $conf['calendar_datefield'] == 'date_creation' );
       $cond = ( ($cond2 or $cond3) and $cond ) ? false : true;
       $confk = 'calendar_datefield';
-      break;  
-      
+      break;
+
      Case 10 :
       $adv[] = 'Current value: false.';
       $adv[] = 'Not useful, private status is better, so code ' .
                '$conf[\'newcat_default_visible\'] = true;'  ;
       $cond = !$conf['newcat_default_visible'];
       $confk = 'newcat_default_visible';
-      break;  
-      
+      break;
+
      Case 11 :
       $adv[] = 'Current value: ' . (string) $conf['level_separator'] . '.';
       $adv[] = 'Try something else like $conf[\'level_separator\'] = \'+ \';';
       $cond = ( $conf['level_separator'] == ' / ' );
       $confk = 'level_separator';
-      break;  
-      
+      break;
+
      Case 12 :
       $adv[] = 'Current value: ' . (string) $conf['paginate_pages_around'] . '.';
       $adv[] = 'Usual range is between 2 and 5. To be light, choose ' .
       '$conf[\'paginate_pages_around\'] = 2; <br />' .
       'To offer large jump, choose $conf[\'paginate_pages_around\'] = 7;';
-      $cond = (($conf['paginate_pages_around'] < 2) 
+      $cond = (($conf['paginate_pages_around'] < 2)
             or ($conf['paginate_pages_around'] > 12));
       $confk = 'paginate_pages_around';
-      break;  
+      break;
 
      Case 13 :
       $adv[] = 'Current value: ' . (string) $conf['tn_width'] . '.';
       $adv[] = 'Should be a close value to your thumbnail width.' .
-      $adv[] = 'Usual range is between 96 and 150, ' . 
+      $adv[] = 'Usual range is between 96 and 150, ' .
                'about $conf[\'tn_width\'] = 128;';
-      $cond = (($conf['tn_width'] < 66) 
+      $cond = (($conf['tn_width'] < 66)
             or ($conf['tn_width'] > 180));
       $confk = 'tn_width';
-      break;  
+      break;
 
      Case 14 :
       $adv[] = 'Current value: ' . (string) $conf['tn_height'] . '.';
       $adv[] = 'Should be a close value to your thumbnail height.' .
-      $adv[] = 'Usual range is between 96 and 150, ' . 
+      $adv[] = 'Usual range is between 96 and 150, ' .
                'about $conf[\'tn_height\'] = 128;';
-      $cond = (($conf['tn_height'] < 66) 
+      $cond = (($conf['tn_height'] < 66)
             or ($conf['tn_height'] > 180));
       $confk = 'tn_height';
-      break;  
+      break;
 
      Case 15 :
       $adv[] = 'Thumbnail height and width have to be equal.';
-      $adv[] = 'Choose $conf[\'tn_height\'] = ' . (string) $conf['tn_width'] . 
+      $adv[] = 'Choose $conf[\'tn_height\'] = ' . (string) $conf['tn_width'] .
                ';<br />' .
                'or $conf[\'tn_width\'] = ' . (string) $conf['tn_height'] . ';';
       $cond = ( $conf['tn_height'] !== $conf['tn_width'] );
       $confk = 'tn_height';
-      break;  
+      break;
 
      Case 16 :
       $adv[] = 'Current value: true.';
@@ -200,7 +200,7 @@ foreach ($cases as $id_adv)
                '$conf[\'show_version\'] = false;';
       $cond = $conf['show_version'];
       $confk = 'show_version';
-      break;  
+      break;
 
      Case 17 :
       $adv[] = 'Current value: true.';
@@ -208,7 +208,7 @@ foreach ($cases as $id_adv)
                '$conf[\'show_thumbnail_caption\'] = false;';
       $cond = $conf['show_thumbnail_caption'];
       $confk = 'show_thumbnail_caption';
-      break;  
+      break;
 
      Case 18 :
       $adv[] = 'Current value: true.';
@@ -216,7 +216,7 @@ foreach ($cases as $id_adv)
                '$conf[\'show_picture_name_on_title\'] = false;';
       $cond = $conf['show_picture_name_on_title'];
       $confk = 'show_picture_name_on_title';
-      break;  
+      break;
 
      Case 19 :
       $adv[] = 'Current value: true.';
@@ -224,7 +224,7 @@ foreach ($cases as $id_adv)
                'a look to $conf[\'subcatify\'] = false;';
       $cond = $conf['subcatify'];
       $confk = 'subcatify';
-      break;  
+      break;
 
      Case 20 :
       $adv[] = 'Current value: true.';
@@ -232,13 +232,13 @@ foreach ($cases as $id_adv)
                'but analyze if you can avoid for performance reasons.' ;
       $cond = $conf['allow_random_representative'];
       $confk = 'allow_random_representative';
-      break;  
+      break;
 
      Case 21 :
       $adv[] = 'Current value: ' . (string) $conf['prefix_thumbnail'] . '.';
       $adv[] = 'Be careful your $conf[\'prefix_thumbnail\'] is NOT standard.';
       $adv[] = 'Do NOT change it except if your thumbnails are NOT visible.';
-      $adv[] = 'Distant site may use a different prefix but ' . 
+      $adv[] = 'Distant site may use a different prefix but ' .
                'create_listing_file.php must be modified.<br />' .
                'You will get a warning message during synchronization in ' .
                'that case.';
@@ -250,26 +250,26 @@ foreach ($cases as $id_adv)
                './include/config_<strong>local.inc.php</strong>.';
       $cond = ( $conf['prefix_thumbnail'] !== 'TN-' );
       $confk = 'prefix_thumbnail';
-      break;  
+      break;
 
      Case 22 :
       $adv[] = 'Current value: ' . (string) $conf['users_page'] . '.';
       $adv[] = 'Unless you have a low band connection, you can draw up ' .
-               '$conf[\'users_page\'] to a higher value ' . 
+               '$conf[\'users_page\'] to a higher value ' .
                'if you have more than 20 members.';
       $cond = ( $conf['users_page'] < 21 );
       $confk = 'users_page';
-      break;  
+      break;
 
      Case 23 :
       $adv[] = 'Current value: true.';
       $adv[] = 'Should be false, only few webmasters have to set ' .
                '$conf[\'mail_options\'] = true; <br />' .
-               'A specific advice you can get from an advanced ' . 
+               'A specific advice you can get from an advanced ' .
                'user on our forum in some mailing issues.' ;
       $cond = $conf['mail_options'];
       $confk = 'mail_options';
-      break;  
+      break;
 
      Case 24 :
       $adv[] = 'Current value: true.';
@@ -277,18 +277,18 @@ foreach ($cases as $id_adv)
                '$conf[\'check_upgrade_feed\'] = true; for test purpose.' ;
       $cond = $conf['check_upgrade_feed'];
       $confk = 'check_upgrade_feed';
-      break;  
+      break;
 
      Case 25 :
-      $adv[] = '$conf[\'rate_items\'] has ' . count($conf['rate_items']) 
+      $adv[] = '$conf[\'rate_items\'] has ' . count($conf['rate_items'])
              . 'items.';
       $adv[] = 'Your $conf[\'rate_items\'] would have 4 or 5 items not less.';
       $cond = ( count($conf['rate_items']) < 4 );
       $confk = 'rate_items';
-      break;  
+      break;
 
      Case 26 :
-      $adv[] = '$conf[\'rate_items\'] has ' . count($conf['rate_items']) 
+      $adv[] = '$conf[\'rate_items\'] has ' . count($conf['rate_items'])
              . 'items.';
       $adv[] = 'Your $conf[\'rate_items\'] would have 5 or 6 items not more.';
       $adv[] = 'Check your best rated pictures prior to remove some values.' .
@@ -296,8 +296,8 @@ foreach ($cases as $id_adv)
                '$conf[\'rate_items\'].';
       $cond = ( count($conf['rate_items']) > 6 );
       $confk = 'rate_items';
-      break;  
-       
+      break;
+
      Case 27 :
       $adv[] = 'Current value: true.';
       $adv[] = 'Could be true, think about $conf[\'show_iptc\'] = false;'
@@ -308,12 +308,12 @@ foreach ($cases as $id_adv)
                'on our wiki).';
       $cond = $conf['show_iptc'];
       $confk = 'show_iptc';
-      break;  
-       
+      break;
+
      Case 28 :
       $adv[] = 'Current value: true.';
       $adv[] = 'Documentalists and professionnal photographers would ' .
-               'set it true, but beginners should leave it ' . 
+               'set it true, but beginners should leave it ' .
                'as $conf[\'use_iptc\'] = false;';
       $adv[] = 'Take care of mentionned fields in metadata synchronization.' .
                '<br />Mentionned fields would be rewrited with IPTC values ' .
@@ -323,14 +323,14 @@ foreach ($cases as $id_adv)
                'on our wiki).';
       $cond = $conf['use_iptc'];
       $confk = 'use_iptc';
-      break;  
-       
+      break;
+
      Case 29 :
       $adv[] = 'How to deal with IPTC:';
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which IPTC fields ' . 
+               '<br />4 - Analyse results to determine which IPTC fields ' .
                'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to keep $conf[\'use_iptc\'] = false;';
       $adv[] = 'Advanced users make documentation efforts prior ' .
@@ -341,14 +341,14 @@ foreach ($cases as $id_adv)
                '<strong>use</strong>_iptc_mapping must be totally different.';
       $cond = true;
       $confk = 'use_iptc';
-      break;   
-      
+      break;
+
      Case 30 :
       $adv[] = 'How to deal with IPTC:';
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which IPTC fields ' . 
+               '<br />4 - Analyse results to determine which IPTC fields ' .
                'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to keep $conf[\'use_iptc\'] = false;';
       $adv[] = 'Advanced users make documentation efforts prior ' .
@@ -360,14 +360,14 @@ foreach ($cases as $id_adv)
                '<strong>use</strong>_iptc_mapping must be totally different.';
       $cond = true;
       $confk = 'use_iptc_mapping';
-      break;			           
-      
+      break;
+
      Case 31 :
       $adv[] = 'Current value: ' . ( ( $conf['show_exif'] ) ? 'true':'false' )
              . '.';
       $adv[] = 'Should be true, some information from your camera ' .
                'can be displayed.';
-      $adv[] = 'Think about EXIF information could be different depending ' . 
+      $adv[] = 'Think about EXIF information could be different depending ' .
                'on camera models.<br />' .
                'If you change your camera these fields could be ' .
                'partly different.';
@@ -378,14 +378,14 @@ foreach ($cases as $id_adv)
                'on our wiki).';
       $cond = true;
       $confk = 'show_exif';
-      break;	
-      
+      break;
+
      Case 32 :
       $adv[] = 'How to deal with EXIF:';
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which EXIF fields ' . 
+               '<br />4 - Analyse results to determine which EXIF fields ' .
                'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to let default values.';
       $adv[] = 'Advanced users would take care of $lang values and ' .
@@ -394,8 +394,8 @@ foreach ($cases as $id_adv)
                '<strong>use</strong>_exif_mapping must be totally different.';
       $cond = true;
       $confk = 'show_exif_fields';
-      break;			           
-       
+      break;
+
      Case 33 :
       $adv[] = 'Current value: ' . ( ( $conf['use_exif'] ) ? 'true':'false' )
              . '.';
@@ -409,14 +409,14 @@ foreach ($cases as $id_adv)
                'on our wiki).';
       $cond = true;
       $confk = 'use_exif';
-      break;           						
-      
+      break;
+
      Case 34 :
       $adv[] = 'How to deal with EXIF:';
       $adv[] = '1 - Copy one of your jpg pictures (a public one) in ./tools/' .
                '<br />2 - Rename it as sample.jpg.' .
                '<br />3 - Run ./tools/metadata.php' .
-               '<br />4 - Analyse results to determine which EXIF fields ' . 
+               '<br />4 - Analyse results to determine which EXIF fields ' .
                'could be used to override database fields.';
       $adv[] = 'Beginners would prefer to let default values.';
       $adv[] = 'Advanced users would carefully chose overrided fields ' .
@@ -428,8 +428,8 @@ foreach ($cases as $id_adv)
                '<strong>use</strong>_exif_mapping must be totally different.';
       $cond = true;
       $confk = 'use_exif_mapping';
-      break;			           
+      break;
   }
 }
-  
+
 ?>

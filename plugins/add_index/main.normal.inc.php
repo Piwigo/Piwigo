@@ -36,7 +36,7 @@ class NormalAddIndex extends AddIndex
     if (in_array($page, array('advanced_feature', 'site_manager')))
     {
       $help_content =
-        @file_get_contents(get_language_filepath('help/'.$page.'.html', $this->path));
+        load_language('help/'.$page.'.html', $this->path, '', true);
     }
     else
     {

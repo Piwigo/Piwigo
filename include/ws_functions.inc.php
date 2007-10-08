@@ -910,10 +910,7 @@ function ws_session_getStatus($params, &$service)
   {
     $res[$k] = $user[$k];
   }
-  foreach ( array('charset') as $k )
-  {
-    $res[$k] = $lang_info[$k];
-  }
+  $res['charset'] = get_pwg_charset();
   return $res;
 }
 

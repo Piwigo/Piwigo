@@ -57,7 +57,6 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(
   array(
     'about'=>'about.tpl',
-    'about_content' => get_language_filepath('about.html')
     )
   );
 if ( isset($lang['Theme: '.$user['theme']]) )
@@ -75,8 +74,8 @@ $template->assign_vars(
     )
   );
 
-$template->assign_var_from_handle('ABOUT_MESSAGE', 'about_content');
-  
+$template->assign_var('ABOUT_MESSAGE', load_language('about.html','','',true) );
+
 $template->parse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

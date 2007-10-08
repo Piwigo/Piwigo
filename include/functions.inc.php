@@ -729,9 +729,9 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
   if (!isset($lang_info))
   {
     $user = build_user( $conf['guest_id'], true);
-    include_once(get_language_filepath('common.lang.php'));
+    load_language('common.lang');
     trigger_action('loading_lang');
-    @include_once(get_language_filepath('local.lang.php'));
+    load_language('local.lang');
     list($tmpl, $thm) = explode('/', get_default_template());
     $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
   }
@@ -1422,6 +1422,45 @@ function get_filter_page_value($value_name)
   {
     return null;
   }
+}
+
+/**
+ * returns the character set of data sent to browsers / received from forms
+ */
+function get_pwg_charset()
+{
+  //TEMP CODE
+  global $lang_info;return $lang_info['charset'];
+}
+
+/**
+ * includes a language file or returns the content of a language file
+ * availability of the file
+ *
+ * in descending order of preference:
+ *   param language, user language, default language
+ * PhpWebGallery default language.
+ *
+ * @param string filename
+ * @param string dirname
+ * @param string language
+ * @param bool return_content - if true the file content is returned otherwise
+ *  the file is evaluated as php
+ * @return boolean success status or a string if return_content is true
+ */
+function load_language($filename, $dirname = '', $language = '',
+    $return_content=false)
+{
+  //TEMP CODE
+  if (!$return_content) $filename.='.php';
+  $f = get_language_filepath($filename, $dirname, $language);
+  if ($f === false)
+    return false;
+  if ($return_content)
+    return @file_get_contents($f);
+  global $lang, $lang_info;
+  @include($f);
+  return true;
 }
 
 ?>

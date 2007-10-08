@@ -34,10 +34,11 @@ include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_notification_by_mail.inc.php');
 // Translations are in admin file too
-include(get_language_filepath('admin.lang.php'));
+load_language('admin.lang');
 // Need to update a second time
 trigger_action('loading_lang');
-@include(get_language_filepath('local.lang.php'));
+load_language('local.lang');
+
 
 
 // +-----------------------------------------------------------------------+

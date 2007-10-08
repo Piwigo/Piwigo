@@ -155,13 +155,13 @@ include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
 
 // language files
-include_once(get_language_filepath('common.lang.php'));
+load_language('common.lang');
 if (defined('IN_ADMIN') and IN_ADMIN)
 {
-  include_once(get_language_filepath('admin.lang.php'));
+  load_language('admin.lang');
 }
 trigger_action('loading_lang');
-@include_once(get_language_filepath('local.lang.php'));
+load_language('local.lang');
 
 // only now we can set the localized username of the guest user (and not in
 // include/user.inc.php)

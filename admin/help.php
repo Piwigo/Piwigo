@@ -32,11 +32,5 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-$template->set_filenames(
-  array(
-    'help_content' => get_language_filepath('help.html')
-    )
-  );
-  
-$template->assign_var_from_handle('ADMIN_CONTENT', 'help_content');
+$template->assign_var('ADMIN_CONTENT', load_language('help.html','','',true) );
 ?>

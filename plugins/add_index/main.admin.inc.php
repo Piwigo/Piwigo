@@ -50,9 +50,7 @@ class AdminAddIndex extends AddIndex
 
   function loading_lang()
   {
-    global $lang;
-
-    include(get_language_filepath('plugin.lang.php', $this->path));
+    load_language('plugin.lang', $this->path);
   }
 
   function get_admin_advanced_features_links($advanced_features)

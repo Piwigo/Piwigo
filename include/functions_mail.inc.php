@@ -48,7 +48,7 @@ function encode_mime_header($str)
   $str = str_replace(" ", "_", $str);
 
   global $lang_info;
-  return '=?'.$lang_info['charset'].'?Q?'.$str.'?=';
+  return '=?'.get_pwg_charset().'?Q?'.$str.'?=';
 }
 
 /*
@@ -226,12 +226,12 @@ function switch_lang_to($language)
       $lang  = array();
 
       // language files
-      include(get_language_filepath('common.lang.php', '', $language));
+      load_language('common.lang', '', $language);
       // No test admin because script is checked admin (user selected no)
       // Translations are in admin file too
-      include(get_language_filepath('admin.lang.php', '', $language));
+      load_language('admin.lang', '', $language);
       trigger_action('loading_lang');
-      @include(get_language_filepath('local.lang.php', '', $language));
+      load_language('local.lang', '', $language);
 
       $switch_lang[$language]['lang_info'] = $lang_info;
       $switch_lang[$language]['lang'] = $lang;
@@ -588,7 +588,7 @@ function pwg_mail($to, $args = array())
 
   $content = '';
 
-  if (!isset($conf_mail[$args['email_format']][$lang_info['charset']][$args['template']][$args['theme']]))
+  if (!isset($conf_mail[$args['email_format']][get_pwg_charset()][$args['template']][$args['theme']]))
   {
     if (!isset($mail_template))
     {
@@ -603,7 +603,7 @@ function pwg_mail($to, $args = array())
         //Header
         'BOUNDARY_KEY' => $conf_mail['boundary_key'],
         'CONTENT_TYPE' => $args['email_format'],
-        'CONTENT_ENCODING' => $lang_info['charset'],
+        'CONTENT_ENCODING' => get_pwg_charset(),
         'LANG' => $lang_info['code'],
         'DIR' => $lang_info['direction'],
 
@@ -650,20 +650,20 @@ function pwg_mail($to, $args = array())
 
     // what are displayed on the header of each mail ?
     $conf_mail[$args['email_format']]
-      [$lang_info['charset']]
+      [get_pwg_charset()]
       [$args['template']][$args['theme']]['header'] =
         $mail_template->parse('mail_header', true);
 
     // what are displayed on the footer of each mail ?
     $conf_mail[$args['email_format']]
-      [$lang_info['charset']]
+      [get_pwg_charset()]
       [$args['template']][$args['theme']]['footer'] =
         $mail_template->parse('mail_footer', true);
   }
 
   // Header
   $content.= $conf_mail[$args['email_format']]
-              [$lang_info['charset']]
+              [get_pwg_charset()]
               [$args['template']][$args['theme']]['header'];
 
   // Content
@@ -683,7 +683,7 @@ function pwg_mail($to, $args = array())
 
   // Footer
   $content.= $conf_mail[$args['email_format']]
-              [$lang_info['charset']]
+              [get_pwg_charset()]
               [$args['template']][$args['theme']]['footer'];
 
   // Close boundary
