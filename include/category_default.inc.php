@@ -105,7 +105,7 @@ foreach ($pictures as $row)
       'CLASS'=> set_span_class($row['hit']) . ' nb-hits',
       )
     );
-    
+
   }
 
   if ($conf['show_thumbnail_caption'])
@@ -134,11 +134,6 @@ foreach ($pictures as $row)
 		}
         break;
       }
-      case 'search' :
-      {
-        $name = replace_search($name, $page['search']);
-        break;
-      }
     }
 
     $template->assign_block_vars(
@@ -161,7 +156,7 @@ SELECT COUNT(*) AS nb_comments
     $template->assign_block_vars(
       'thumbnails.line.thumbnail.nb_comments',
       array(
-        'NB_COMMENTS'=> l10n_dec('%d comment', '%d comments', 
+        'NB_COMMENTS'=> l10n_dec('%d comment', '%d comments',
                         $row['nb_comments']),
         'CLASS'=> set_span_class($row['nb_comments']) . ' nb-comments',
       )
