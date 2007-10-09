@@ -32,13 +32,13 @@
 //   o check if address could be empty
 //   o check if address is not used by a other user
 // If the mail address doesn't correspond, an error message is returned.
-// 
+//
 function validate_mail_address($user_id, $mail_address)
 {
   global $conf;
 
   if (empty($mail_address) and
-      !($conf['obligatory_user_mail_address'] and 
+      !($conf['obligatory_user_mail_address'] and
       in_array(script_basename(), array('register', 'profile'))))
   {
     return '';
@@ -49,7 +49,7 @@ function validate_mail_address($user_id, $mail_address)
   {
     return l10n('reg_err_mail_address');
   }
-  
+
   if (defined("PHPWG_INSTALLED") and !empty($mail_address))
   {
     $query = '
@@ -156,11 +156,6 @@ SELECT id
   }
 
   return $errors;
-}
-
-function setup_style($style)
-{
-  return new Template(PHPWG_ROOT_PATH.'template/'.$style);
 }
 
 function build_user( $user_id, $use_cache )

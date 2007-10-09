@@ -27,18 +27,12 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-// Guess an initial language ... 
-function guess_lang()
-{
-  return 'en_UK.iso-8859-1';
-}
-
 //
 // Pick a language, any language ...
 //
 function language_select($default, $select_name = "language")
 {
-  $available_lang = get_languages();
+  $available_lang = get_languages('utf-8');
 
   $lang_select = '<select name="' . $select_name . '" onchange="document.location = \''.PHPWG_ROOT_PATH.'install.php?language=\'+this.options[this.selectedIndex].value;">';
   foreach ($available_lang as $code => $displayname)
@@ -84,6 +78,14 @@ function execute_sqlfile($filepath, $replaced, $replacing)
       // we don't execute "DROP TABLE" queries
       if (!preg_match('/^DROP TABLE/i', $query))
       {
+        global $install_charset_collate;
+        if ( !empty($install_charset_collate) )
+        {
+          if ( preg_match('/^(CREATE TABLE .*)[\s]*;[\s]*/im', $query, $matches) )
+          {
+            $query = $matches[1].' '.$install_charset_collate.';';
+          }
+        }
         mysql_query($query);
       }
       $query = '';
@@ -210,30 +212,21 @@ include(PHPWG_ROOT_PATH . 'include/template.php');
 // Create empty local files to avoid log errors
 create_empty_local_files();
 
-if ( isset( $_POST['language'] ))
+if ( isset( $_REQUEST['language'] ))
 {
-  $language = strip_tags($_POST['language']);
+  $language = strip_tags($_REQUEST['language']);
 }
-elseif ( isset( $_GET['language'] ))
+else
 {
-  $language = strip_tags($_GET['language']);
-}
-else 
-{
-  $language = guess_lang();
+  $language = 'en_UK';
 }
 
-if (!file_exists(PHPWG_ROOT_PATH.'language/'.$language.'/install.lang.php'))
-{
-  $language = 'en_UK.iso-8859-1';
-}
+load_language( 'common.lang', '', $language, false, 'utf-8' );
+load_language( 'admin.lang', '', $language, false, 'utf-8' );
+load_language( 'install.lang', '', $language, false, 'utf-8' );
 
-include( './language/'.$language.'/common.lang.php' );
-// Never: @include( './language/'.$language.'/local.lang.php' );
-include( './language/'.$language.'/admin.lang.php' );
-include( './language/'.$language.'/install.lang.php' );
 //----------------------------------------------------- template initialization
-$template=setup_style('yoga');
+$template=new Template(PHPWG_ROOT_PATH.'template/yoga');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;
 //---------------------------------------------------------------- form analyze
@@ -251,12 +244,28 @@ if ( isset( $_POST['install'] ))
     {
       array_push( $errors, $lang['step1_err_db'] );
     }
+    if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
+    {
+      $pwg_charset='utf-8';
+      $pwg_db_charset='utf8';
+      $install_charset_collate = "DEFAULT CHARACTER SET $pwg_db_charset";
+    }
+    else
+    {
+      $pwg_charset='iso-8859-1';
+      $pwg_db_charset='latin1';
+      $install_charset_collate = '';
+      if ( !array_key_exists($language, get_languages($pwg_charset) ) )
+      {
+        $language='en_UK';
+      }
+    }
   }
   else
   {
     array_push( $errors, $lang['step1_err_server'] );
   }
-  
+
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
     array_push( $errors, $lang['step2_err_login1'] );
@@ -266,13 +275,13 @@ if ( isset( $_POST['install'] ))
     array_push( $errors, $lang['step2_err_pass'] );
   if ( empty($admin_mail))
     array_push( $errors, $lang['reg_err_mail_address'] );
-  else 
+  else
   {
     $error_mail_address = validate_mail_address(null, $admin_mail);
     if (!empty($error_mail_address))
       array_push( $errors, $error_mail_address );
   }
-  
+
   if ( count( $errors ) == 0 )
   {
     $step = 2;
@@ -285,8 +294,12 @@ $cfgHote = \''.$dbhost.'\';
 $prefixeTable = \''.$table_prefix.'\';
 
 define(\'PHPWG_INSTALLED\', true);
+define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
+define(\'DB_CHARSET\', \''.$pwg_db_charset.'\');
+define(\'DB_COLLATE\', \'\');
+
 ?'.'>';
-    
+
     @umask(0111);
     // writing the configuration file
     if ( !($fp = @fopen( $config_file, 'w' )))
@@ -302,7 +315,7 @@ define(\'PHPWG_INSTALLED\', true);
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
-    
+
     // tables creation, based on phpwebgallery_structure.sql
     execute_sqlfile(
       PHPWG_ROOT_PATH.'install/phpwebgallery_structure.sql',
@@ -324,7 +337,7 @@ define(\'PHPWG_INSTALLED\', true);
       'galleries_url' => PHPWG_ROOT_PATH.'galleries/',
       );
     mass_inserts(SITES_TABLE, array_keys($insert), array($insert));
-    
+
     // webmaster admin user
     $inserts = array(
       array(
@@ -370,7 +383,7 @@ define(\'PHPWG_INSTALLED\', true);
 $template->assign_vars(
   array(
     'RELEASE'=>PHPWG_VERSION,
-  
+
     'L_BASE_TITLE'=>$lang['Initial_config'],
     'L_LANG_TITLE'=>$lang['Default_lang'],
     'L_DB_TITLE'=>$lang['step1_title'],
@@ -398,7 +411,7 @@ $template->assign_vars(
     'L_ERR_COPY'=>$lang['step1_err_copy'],
     'L_END_TITLE'=>$lang['install_end_title'],
     'L_END_MESSAGE'=>$lang['install_end_message'],
-    
+
     'F_ACTION'=>'install.php',
     'F_DB_HOST'=>$dbhost,
     'F_DB_USER'=>$dbuser,
@@ -411,8 +424,8 @@ $template->assign_vars(
     'F_ADMIN'=>$admin_name,
     'F_ADMIN_EMAIL'=>$admin_mail,
     'F_LANG_SELECT'=>language_select($language),
-    
-    'T_CONTENT_ENCODING' => $lang_info['charset']
+
+    'T_CONTENT_ENCODING' => 'utf-8'
     ));
 
 //------------------------------------------------------ errors & infos display

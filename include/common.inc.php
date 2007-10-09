@@ -144,6 +144,23 @@ or die ( "Could not connect to database server" );
 mysql_select_db( $cfgBase )
 or die ( "Could not connect to database" );
 
+defined('PWG_CHARSET') and defined('DB_CHARSET')
+  or die('PWG_CHARSET and/or DB_CHARSET is not defined');
+if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
+{
+  if (DB_CHARSET!='')
+  {
+    pwg_query('SET NAMES "'.DB_CHARSET.'"');
+  }
+}
+else
+{
+  if ( strtolower(PWG_CHARSET)!='iso-8859-1' )
+  {
+    die('PWG supports only iso-8859-1 charset on MySql version '.mysql_get_server_info());
+  }
+}
+
 //
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
 // since basic gallery information is not available

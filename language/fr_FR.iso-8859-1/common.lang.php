@@ -27,7 +27,6 @@
 // Langage informations
 $lang_info['language_name'] = 'Français';
 $lang_info['country'] = 'France';
-$lang_info['charset'] = 'iso-8859-1';
 $lang_info['direction'] = 'ltr';
 $lang_info['code'] = 'fr';
 $lang_info['zero_plural'] = false;

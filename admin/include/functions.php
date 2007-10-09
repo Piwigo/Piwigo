@@ -1989,4 +1989,34 @@ UPDATE '.USER_CACHE_TABLE.'
   pwg_query($query);
   trigger_action('invalidate_user_cache');
 }
+
+/**
+ * adds the caracter set to a create table sql query.
+ * all CREATE TABLE queries must call this function
+ * @param string query - the sql query
+ */
+function create_table_add_character_set($query)
+{
+  defined('DB_CHARSET') or die('create_table_add_character_set DB_CHARSET undefined');
+  if ('DB_CHARSET'!='')
+  {
+    if ( version_compare(mysql_get_server_info(), '4.1.0', '<') )
+    {
+      return $query;
+    }
+    $charset_collate = " DEFAULT CHARACTER SET ".DB_CHARSET;
+    if ('DB_COLLATE'!='')
+    {
+      $charset_collate .= " COLLATE ".DB_COLLATE;
+    }
+    $query=trim($query);
+    $query=trim($query, ';');
+    if (preg_match('/^CREATE\s+TABLE/i',$query))
+    {
+      $query.=$charset_collate;
+    }
+    $query .= ';';
+  }
+  return $query;
+}
 ?>

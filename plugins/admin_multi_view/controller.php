@@ -120,8 +120,9 @@ if (!$conf['show_queries'])
 ?>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo get_pwg_charset() ?>">
 <title>Controller</title>
-<?php 
+<?php
 // Controller will be displayed  with  the **real admin template** (without Any if it has been removed)
 if ( $my_template !== '') {
   $my_template = get_root_url().'template/'.$my_template.'/theme.css';

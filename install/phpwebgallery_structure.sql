@@ -382,7 +382,7 @@ CREATE TABLE `phpwebgallery_user_infos` (
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
   `status` enum('webmaster','admin','normal','generic','guest') NOT NULL default 'guest',
   `adviser` enum('true','false') NOT NULL default 'false',
-  `language` varchar(50) NOT NULL default 'en_UK.iso-8859-1',
+  `language` varchar(50) NOT NULL default 'en_UK',
   `maxwidth` smallint(6) default NULL,
   `maxheight` smallint(6) default NULL,
   `expand` enum('true','false') NOT NULL default 'false',
