@@ -410,11 +410,10 @@ WHERE
       list($row['template'], $row['theme']) = explode('/', $row['template_theme']);
       $list[] = $row;
     }
-  }
 
-  foreach ($list as $elem)
-  {
-    $query = '
+    foreach ($list as $elem)
+    {
+      $query = '
 SELECT
   u.'.$conf['user_fields']['username'].' as username,
   u.'.$conf['user_fields']['email'].' as mail_address
@@ -429,44 +428,45 @@ WHERE
     AND template = \''.$elem['template_theme'].'\'
 ;';
 
-    $result = pwg_query($query);
+      $result = pwg_query($query);
 
-    if (mysql_num_rows($result) > 0)
-    {
-      $Bcc = array();
-      while ($row = mysql_fetch_array($result))
+      if (mysql_num_rows($result) > 0)
       {
-        if (!empty($row['mail_address']))
+        $Bcc = array();
+        while ($row = mysql_fetch_array($result))
         {
-          array_push($Bcc, format_email($row['username'], $row['mail_address']));
+          if (!empty($row['mail_address']))
+          {
+            array_push($Bcc, format_email($row['username'], $row['mail_address']));
+          }
         }
-      }
 
-      if (count($Bcc) > 0)
-      {
-        switch_lang_to($elem['language']);
+        if (count($Bcc) > 0)
+        {
+          switch_lang_to($elem['language']);
 
-        $mail_template = get_mail_template($email_format, $elem);
-        $mail_template->set_filename($tpl_shortname,
-          (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
-        $mail_template->assign_vars($assign_vars);
+          $mail_template = get_mail_template($email_format, $elem);
+          $mail_template->set_filename($tpl_shortname,
+            (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
+          $mail_template->assign_vars($assign_vars);
 
-        $return = pwg_mail
-        (
-          '',
-          array
+          $return = pwg_mail
           (
-            'Bcc' => $Bcc,
-            'subject' => l10n_args($keyargs_subject),
-            'email_format' => $email_format,
-            'content' => $mail_template->parse($tpl_shortname, true),
-            'content_format' => $email_format,
-            'template' => $elem['template'],
-            'theme' => $elem['theme']
-          )
-        ) and $return;
+            '',
+            array
+            (
+              'Bcc' => $Bcc,
+              'subject' => l10n_args($keyargs_subject),
+              'email_format' => $email_format,
+              'content' => $mail_template->parse($tpl_shortname, true),
+              'content_format' => $email_format,
+              'template' => $elem['template'],
+              'theme' => $elem['theme']
+            )
+          ) and $return;
 
-        switch_lang_back();
+          switch_lang_back();
+        }
       }
     }
   }
@@ -588,7 +588,10 @@ function pwg_mail($to, $args = array())
 
   $content = '';
 
-  if (!isset($conf_mail[$args['email_format']][get_pwg_charset()][$args['template']][$args['theme']]))
+  // key compose of indexes witch allow ti cache mail data
+  $cache_key = $args['email_format'].'-'.$lang_info['code'].'-'.$args['template'].'-'.$args['theme'];
+
+  if (!isset($conf_mail[$cache_key]))
   {
     if (!isset($mail_template))
     {
@@ -649,22 +652,16 @@ function pwg_mail($to, $args = array())
     }
 
     // what are displayed on the header of each mail ?
-    $conf_mail[$args['email_format']]
-      [get_pwg_charset()]
-      [$args['template']][$args['theme']]['header'] =
-        $mail_template->parse('mail_header', true);
+    $conf_mail[$cache_key]['header'] =
+      $mail_template->parse('mail_header', true);
 
     // what are displayed on the footer of each mail ?
-    $conf_mail[$args['email_format']]
-      [get_pwg_charset()]
-      [$args['template']][$args['theme']]['footer'] =
-        $mail_template->parse('mail_footer', true);
+    $conf_mail[$cache_key]['footer'] =
+      $mail_template->parse('mail_footer', true);
   }
 
   // Header
-  $content.= $conf_mail[$args['email_format']]
-              [get_pwg_charset()]
-              [$args['template']][$args['theme']]['header'];
+  $content.= $conf_mail[$cache_key]['header'];
 
   // Content
   if (($args['content_format'] == 'text/plain') and ($args['email_format'] == 'text/html'))
@@ -682,9 +679,7 @@ function pwg_mail($to, $args = array())
   }
 
   // Footer
-  $content.= $conf_mail[$args['email_format']]
-              [get_pwg_charset()]
-              [$args['template']][$args['theme']]['footer'];
+  $content.= $conf_mail[$cache_key]['footer'];
 
   // Close boundary
   $content.= "\n".'-----='.$conf_mail['boundary_key'].'--'."\n";
@@ -699,7 +694,7 @@ function pwg_mail($to, $args = array())
   {
     global $user;
     @mkdir(PHPWG_ROOT_PATH.'testmail');
-    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'];
+    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
     if ($args['content_format'] == 'text/plain')
     {
       $filename .= '.txt';
