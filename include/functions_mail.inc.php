@@ -28,29 +28,6 @@
 // |                               functions                               |
 // +-----------------------------------------------------------------------+
 
-
-/**
- * Encodes a string using Q form if required (RFC2045)
- * mail headers MUST contain only US-ASCII characters
- */
-function encode_mime_header($str)
-{
-  $x = preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
-  if ($x==0)
-  {
-    return $str;
-  }
-  // Replace every high ascii, control =, ? and _ characters
-  $str = preg_replace('/([\000-\011\013\014\016-\037\075\077\137\177-\377])/e',
-                  "'='.sprintf('%02X', ord('\\1'))", $str);
-
-  // Replace every spaces to _ (more readable than =20)
-  $str = str_replace(" ", "_", $str);
-
-  global $lang_info;
-  return '=?'.$lang_info['charset'].'?Q?'.$str.'?=';
-}
-
 /*
  * Returns an array of mail configuration parameters :
  *
@@ -103,19 +80,12 @@ function format_email($name, $email)
     // Spring cleaning
     $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
     $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
-
-    if ($cvt_name!="")
-    {
-      $cvt_name = encode_mime_header(
-                '"'
-                .addcslashes($cvt_name,'"')
-                .'"');
-      $cvt_name .= ' ';
-    }
+    // Ascii convertion
+    $cvt_name = '"'.addslashes(str_translate_to_ascii7bits($cvt_name)).'"';
 
     if (strpos($cvt_email, '<') === false)
     {
-      return $cvt_name.'<'.$cvt_email.'>';
+      return $cvt_name.' <'.$cvt_email.'>';
     }
     else
     {
@@ -142,7 +112,7 @@ function get_array_template_theme($args = array())
   global $conf;
 
   $res = array();
-
+  
   if (empty($args['template']) or empty($args['theme']))
   {
     list($res['template'], $res['theme']) = explode('/', get_default_template());
@@ -181,7 +151,7 @@ function get_mail_template($email_format, $args = array())
 }
 
 /**
- * Return string email format (html or not)
+ * Return string email format (html or not) 
  *
  * @param string format
  */
@@ -190,7 +160,7 @@ function get_str_email_format($is_html)
   return ($is_html ? 'text/html' : 'text/plain');
 }
 
-/*
+/* 
  * Switch language to param language
  * All entries are push on language stack
  *
@@ -244,7 +214,7 @@ function switch_lang_to($language)
   }
 }
 
-/*
+/* 
  * Switch back language pushed with switch_lang_to function
  *
  * @param: none
@@ -281,7 +251,7 @@ function switch_lang_back()
  */
 /*
  * send en notification email to all administrators
- * if a administrator is doing action,
+ * if a administrator is doing action, 
  * he's be removed to email list
  *
  * @param:
@@ -344,7 +314,7 @@ order by
       (
         'Bcc' => $admins,
         'subject' => '['.$conf['gallery_title'].'] '.l10n_args($keyargs_subject),
-        'content' =>
+        'content' => 
            l10n_args($keyargs_content)."\n\n"
           .l10n_args($keyargs_content_admin_info)."\n",
         'content_format' => 'text/plain'
@@ -372,7 +342,7 @@ order by
  * @return boolean (Ok or not)
  */
 function pwg_mail_group(
-  $group_id, $email_format, $keyargs_subject,
+  $group_id, $email_format, $keyargs_subject, 
   $dirname, $tpl_shortname,
   $assign_vars = array(), $language_selected = '')
 {
@@ -382,11 +352,11 @@ function pwg_mail_group(
   $query = '
 SELECT
   distinct language, template
-FROM
-  '.USER_GROUP_TABLE.' as ug
+FROM 
+  '.USER_GROUP_TABLE.' as ug 
   INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
   INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
-WHERE
+WHERE 
         '.$conf['user_fields']['email'].' IS NOT NULL
     AND group_id = '.$group_id;
 
@@ -410,63 +380,63 @@ WHERE
       list($row['template'], $row['theme']) = explode('/', $row['template_theme']);
       $list[] = $row;
     }
-  }
 
-  foreach ($list as $elem)
-  {
-    $query = '
+    foreach ($list as $elem)
+    {
+      $query = '
 SELECT
   u.'.$conf['user_fields']['username'].' as username,
   u.'.$conf['user_fields']['email'].' as mail_address
-FROM
-  '.USER_GROUP_TABLE.' as ug
+FROM 
+  '.USER_GROUP_TABLE.' as ug 
   INNER JOIN '.USERS_TABLE.' as u  ON '.$conf['user_fields']['id'].' = ug.user_id
   INNER JOIN '.USER_INFOS_TABLE.' as ui  ON ui.user_id = ug.user_id
-WHERE
+WHERE 
         '.$conf['user_fields']['email'].' IS NOT NULL
     AND group_id = '.$group_id.'
     AND language = \''.$elem['language'].'\'
     AND template = \''.$elem['template_theme'].'\'
 ;';
 
-    $result = pwg_query($query);
+      $result = pwg_query($query);
 
-    if (mysql_num_rows($result) > 0)
-    {
-      $Bcc = array();
-      while ($row = mysql_fetch_array($result))
+      if (mysql_num_rows($result) > 0)
       {
-        if (!empty($row['mail_address']))
+        $Bcc = array();
+        while ($row = mysql_fetch_array($result))
         {
-          array_push($Bcc, format_email($row['username'], $row['mail_address']));
+          if (!empty($row['mail_address']))
+          {
+            array_push($Bcc, format_email($row['username'], $row['mail_address']));
+          }
         }
-      }
 
-      if (count($Bcc) > 0)
-      {
-        switch_lang_to($elem['language']);
+        if (count($Bcc) > 0)
+        {
+          switch_lang_to($elem['language']);
 
-        $mail_template = get_mail_template($email_format, $elem);
-        $mail_template->set_filename($tpl_shortname,
-          (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
-        $mail_template->assign_vars($assign_vars);
+          $mail_template = get_mail_template($email_format, $elem);
+          $mail_template->set_filename($tpl_shortname, 
+            (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
+          $mail_template->assign_vars($assign_vars);
 
-        $return = pwg_mail
-        (
-          '',
-          array
+          $return = pwg_mail
           (
-            'Bcc' => $Bcc,
-            'subject' => l10n_args($keyargs_subject),
-            'email_format' => $email_format,
-            'content' => $mail_template->parse($tpl_shortname, true),
-            'content_format' => $email_format,
-            'template' => $elem['template'],
-            'theme' => $elem['theme']
-          )
-        ) and $return;
+            '',
+            array
+            (
+              'Bcc' => $Bcc,
+              'subject' => l10n_args($keyargs_subject),
+              'email_format' => $email_format,
+              'content' => $mail_template->parse($tpl_shortname, true),
+              'content_format' => $email_format,
+              'template' => $elem['template'],
+              'theme' => $elem['theme']
+            )
+          ) and $return;
 
-        switch_lang_back();
+          switch_lang_back();
+        }
       }
     }
   }
@@ -500,7 +470,7 @@ function pwg_mail($to, $args = array())
   {
     return true;
   }
-
+  
   if (!isset($conf_mail))
   {
     $conf_mail = get_mail_configuration();
@@ -538,7 +508,7 @@ function pwg_mail($to, $args = array())
   // Spring cleaning
   $cvt_subject = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
   // Ascii convertion
-  $cvt_subject = encode_mime_header($cvt_subject);
+  $cvt_subject = str_translate_to_ascii7bits($cvt_subject);
 
   if (!isset($args['content']))
   {
@@ -588,7 +558,7 @@ function pwg_mail($to, $args = array())
 
   $content = '';
 
-  if (!isset($conf_mail[$args['email_format']][$lang_info['charset']][$args['template']][$args['theme']]))
+  if (!isset($conf_mail[$args['email_format']][$lang_info['code']][$lang_info['charset']][$args['template']][$args['theme']]))
   {
     if (!isset($mail_template))
     {
@@ -606,7 +576,7 @@ function pwg_mail($to, $args = array())
         'CONTENT_ENCODING' => $lang_info['charset'],
         'LANG' => $lang_info['code'],
         'DIR' => $lang_info['direction'],
-
+        
         // Footer
         'GALLERY_URL' =>
           isset($page['gallery_url']) ?
@@ -650,20 +620,20 @@ function pwg_mail($to, $args = array())
 
     // what are displayed on the header of each mail ?
     $conf_mail[$args['email_format']]
-      [$lang_info['charset']]
+      [$lang_info['code']][$lang_info['charset']]
       [$args['template']][$args['theme']]['header'] =
         $mail_template->parse('mail_header', true);
 
     // what are displayed on the footer of each mail ?
     $conf_mail[$args['email_format']]
-      [$lang_info['charset']]
+      [$lang_info['code']][$lang_info['charset']]
       [$args['template']][$args['theme']]['footer'] =
         $mail_template->parse('mail_footer', true);
   }
 
   // Header
   $content.= $conf_mail[$args['email_format']]
-              [$lang_info['charset']]
+              [$lang_info['code']][$lang_info['charset']]
               [$args['template']][$args['theme']]['header'];
 
   // Content
@@ -683,7 +653,7 @@ function pwg_mail($to, $args = array())
 
   // Footer
   $content.= $conf_mail[$args['email_format']]
-              [$lang_info['charset']]
+              [$lang_info['code']][$lang_info['charset']]
               [$args['template']][$args['theme']]['footer'];
 
   // Close boundary
@@ -699,7 +669,7 @@ function pwg_mail($to, $args = array())
   {
     global $user;
     @mkdir(PHPWG_ROOT_PATH.'testmail');
-    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'];
+    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'].$cvt_subject;
     if ($args['content_format'] == 'text/plain')
     {
       $filename .= '.txt';
