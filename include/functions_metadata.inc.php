@@ -89,6 +89,16 @@ function clean_iptc_value($value)
   // remove binary nulls
   $value = str_replace(chr(0x00), ' ', $value);
 
+  if ( preg_match('/[\x80-\xff]/', $value) )
+  {
+    // apparently mac uses some MacRoman crap encoding. I don't know
+    // how to detect it so a plugin should do the trick.
+    $value = trigger_event('clean_iptc_value', $value);
+    $is_utf8 = seems_utf8($value);
+    $value = convert_charset( $value,
+      $is_utf8 ? 'utf-8' : 'iso-8859-1',
+      get_pwg_charset() );
+  }
   return $value;
 }
 

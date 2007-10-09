@@ -107,7 +107,7 @@ include_once(PHPWG_ROOT_PATH.'include/feedcreator.class.php');
 set_make_full_url();
 
 $rss = new UniversalFeedCreator();
-
+$rss->encoding=get_pwg_charset();
 $rss->title = $conf['gallery_title'];
 $rss->title.= ' (as '.$user['username'].')';
 

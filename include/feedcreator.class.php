@@ -391,7 +391,7 @@ class UniversalFeedCreator extends FeedCreator {
 		$vars = get_object_vars($this);
 		foreach ($vars as $key => $value) {
 			// prevent overwriting of properties "contentType", "encoding"; do not copy "_feed" itself
-			if (!in_array($key, array("_feed", "contentType", "encoding"))) {
+			if (!in_array($key, array("_feed", "contentType"/*PWG, "encoding"*/))) {
 				$this->_feed->{$key} = $this->{$key};
 			}
 		}

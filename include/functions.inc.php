@@ -1499,10 +1499,13 @@ function load_language($filename, $dirname = '', $language = '',
   {
     $languages[] = $language;
   }
-
   if ( !empty($user['language']) )
   {
     $languages[] = $user['language'];
+  }
+  if ( defined('PHPWG_INSTALLED') )
+  {
+    $languages[] = get_default_language();
   }
   $languages[] = PHPWG_DEFAULT_LANGUAGE;
   $languages = array_unique($languages);
