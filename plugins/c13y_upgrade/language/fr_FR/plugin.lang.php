@@ -24,19 +24,10 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Add_Index'] = 'Ajout des fichiers "index"';
-$lang['Advanced_Add_Index'] = 'Ajout et écrasement des fichiers "index" pour tous les sites locaux';
-$lang['Manager_Add_Index'] = 'ajout des "index"';
-
-$lang['add_index_file_copied'] = '%s copié';
-$lang['add_index_file_not_copied'] = '%s non copié';
-$lang['add_index_not_local_site'] = '%s [%d] est un site distant, ce n\'est pas compatible avec l\'ajout de fichiers "index"';
-$lang['add_index_nb_copied_file'] = '%d fichier copié';
-$lang['add_index_nb_copied_files'] = '%d fichiers copiés';
-$lang['add_index_nb_skipped_file'] = '%d fichier à ne pas traiter';
-$lang['add_index_nb_skipped_files'] = '%d fichiers à ne pas traiter';
-$lang['add_index_nb_not_copied_file'] = '%d fichier non copié';
-$lang['add_index_nb_not_copied_files'] = '%d fichiers non copiés';
-$lang['add_index_src_file_dont_exists'] = 'Le fichier source n\'existe pas, la duplication de ce fichier n\'est pas possible';
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+$lang['c13y_upgrade_no_anomaly'] = 'Pas d\'anomalie dÃ©tectÃ©e aprÃ¨s la mise Ã  jour de l\'application';
+$lang['c13y_upgrade_deactivate'] = 'Vous pouvez dÃ©sactiver le plugin "Check upgrades"';
+$lang['c13y_exif_dbl_email_user'] = 'Utilisateurs avec la mÃªme adresse email';
+$lang['c13y_exif_correction_dbl_email_user'] = 'Supprimez les utilisateurs en double';
 
 ?>
