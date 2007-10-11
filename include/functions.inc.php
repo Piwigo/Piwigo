@@ -516,7 +516,9 @@ function get_languages($target_charset = null)
           continue; // the language encoding is not compatible with our charset
       }
       else
-      { // probably english that is the same in all ISO-xxx and UTF-8
+      { // UTF-8
+        $language_name = convert_charset($language_name,
+              'utf-8', $target_charset);
         $languages[$file] = $language_name;
       }
     }
@@ -699,6 +701,17 @@ function pwg_query($query)
     $output.= number_format($page['queries_time'], 3, '.', ' ').' s)';
     $output.= "\n".'(total time      : ';
     $output.= number_format( ($time+$start-$t2), 3, '.', ' ').' s)';
+    if ( $result!=null and preg_match('/\s*SELECT\s+/i',$query) )
+    {
+      $output.= "\n".'(num rows        : ';
+      $output.= mysql_num_rows($result).' )';
+    }
+    elseif ( $result!=null
+      and preg_match('/\s*INSERT|UPDATE|REPLACE|DELETE\s+/i',$query) )
+    {
+      $output.= "\n".'(affected rows   : ';
+      $output.= mysql_affected_rows().' )';
+    }
     $output.= "</pre>\n";
 
     $debug .= $output;
@@ -1529,10 +1542,11 @@ function load_language($filename, $dirname = '', $language = '',
       break;
     }
 
-    // universal language (like Eng) no conversion required
+    // UTF-8 ?
     $f = $dir.'/'.$filename;
     if (file_exists($f))
     {
+      $source_charset = 'utf-8';
       $source_file = $f;
       break;
     }
@@ -1543,19 +1557,6 @@ function load_language($filename, $dirname = '', $language = '',
       if (file_exists($f))
       {
         $source_charset = 'iso-8859-1';
-        $source_file = $f;
-        break;
-      }
-    }
-
-    if ($target_charset=='iso-8859-1' and
-      in_array( substr($language,2), array('en','fr','de','es','it','nl') )
-      )
-    { // we accept conversion from UTF-8 to ISO-8859-1 for backward compatibility ONLY
-      $f = $dir.'.utf-8/'.$filename;
-      if (file_exists($f))
-      {
-        $source_charset = 'utf-8';
         $source_file = $f;
         break;
       }
@@ -1599,8 +1600,8 @@ function load_language($filename, $dirname = '', $language = '',
       }
       else
       {
-        $lang = array_merge( $lang, $load_lang );
-        $lang_info = array_merge( $lang_info, $load_lang_info );
+        $lang = array_merge( $lang, (array)$load_lang );
+        $lang_info = array_merge( $lang_info, (array)$load_lang_info );
       }
       return true;
     }

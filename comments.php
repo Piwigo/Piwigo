@@ -181,8 +181,8 @@ $template->assign_vars(
     'L_COMMENT_TITLE' => $title,
 
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
-    'F_KEYWORD'=>@htmlentities(stripslashes($_GET['keyword'])),
-    'F_AUTHOR'=>@htmlentities(stripslashes($_GET['author'])),
+    'F_KEYWORD'=>@htmlspecialchars(stripslashes($_GET['keyword'])),
+    'F_AUTHOR'=>@htmlspecialchars(stripslashes($_GET['author'])),
 
     'U_HOME' => make_index_url(),
     )

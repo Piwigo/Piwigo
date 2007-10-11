@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>PWG web service explorer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="prototype.js" ></script>
 
 <script type="text/javascript">
@@ -169,7 +170,7 @@ function fillNewMethod(method)
   			var isOptional = method.params[i].optional;
   			var acceptArray = method.params[i].acceptArray;
   			var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
-  
+
   			row.insertCell(0).innerHTML = method.params[i].name;
   			row.insertCell(1).innerHTML = '<span title="parameter is '+(isOptional ? 'optional':'required') +'">'+(isOptional ? '?':'*')+'</span>'
           + (method.params[i].acceptArray ? ' <span title="parameter can be an array; use | (pipe) character to split values">[ ]</span>':'');
@@ -333,7 +334,7 @@ a:hover {
 
     <table>
     <tr style="vertical-align:top">
-    
+
     <td>
       <div id="methodDescription"></div>
       <table>
@@ -346,7 +347,7 @@ a:hover {
             </select>
           </td>
         </tr>
-  
+
         <tr>
           <td>Response format:</td>
           <td>
@@ -364,7 +365,7 @@ a:hover {
         <a href="#" onclick="return pwgInvokeMethod(true)">Invoke (new Window)</a>
       </p>
     </td>
-    
+
 
     <td>
       <table id="methodParams"  border="1" cellspacing="0" cellpadding="2px">
@@ -380,10 +381,10 @@ a:hover {
         </tbody>
       </table>
     </td>
-    
+
     </tr>
     </table>
-    
+
 		<div style="display:none;">
 			<!-- hiddenForm for POST -->
 			<form method="post" action="" target="invokeFrame" id="invokeForm">
