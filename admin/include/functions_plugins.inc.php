@@ -95,7 +95,7 @@ function get_admin_plugin_menu_link($file)
   $url = get_root_url().'admin.php?page=plugin';
   if (false!==$real_file)
   {
-    $real_plugin_path = realpath(PHPWG_PLUGINS_PATH);
+    $real_plugin_path = rtrim(realpath(PHPWG_PLUGINS_PATH), '\\/');
     $file = substr($real_file, strlen($real_plugin_path)+1);
     $file = str_replace('\\', '/', $file);//Windows
     $url .= '&amp;section='.urlencode($file);

@@ -378,4 +378,6 @@ $lang['guest_must_be_guest'] = 'Statut de l\'utilisateur "guest" non conforme, u
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrateur, webmestre et utilisateur spécial ne peuvent pas utiliser cette méthode';
 $lang['reg_err_mail_address_dbl'] = 'un utilisateur utilise déjà cette adresse e-mail';
+$lang['Category results for'] = 'Résultats des catégories pour';
+$lang['Tag results for'] = 'Résultats des tags pour';
 ?>

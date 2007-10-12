@@ -256,6 +256,7 @@ UL.tagSelection LI {
 #fullTagCloud LI {
   display: inline;
   white-space: nowrap;
+  margin: 0 2px;
 }
 
 

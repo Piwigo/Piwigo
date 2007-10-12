@@ -24,7 +24,7 @@
       <!-- END edit -->
 
       <!-- BEGIN search_rules -->
-      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
+      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
       <!-- BEGIN mode_normal -->
@@ -64,6 +64,15 @@
   </div> <!-- titrePage -->
 
 {PLUGIN_INDEX_CONTENT_BEGIN}
+
+<!-- BEGIN category_search_results -->
+<div style="font-size:16px;text-align:left;margin:10px">{lang:Category results for} <strong>{QUERY_SEARCH}</strong> : <em><strong>{category_search_results.CONTENT}</strong></em></div>
+<!-- END category_search_results -->
+<!-- BEGIN tag_search_results -->
+<div style="font-size:16px;text-align:left;margin:10px">{lang:Tag results for} <strong>{QUERY_SEARCH}</strong> : <em><strong>{tag_search_results.CONTENT}</strong></em></div>
+<!-- END tag_search_results -->
+
+
 <!-- BEGIN calendar -->
 <!-- BEGIN navbar -->
 <div class="calendarBar">
@@ -97,14 +106,6 @@
 <!-- END comment -->
 <!-- END cat_infos -->
 
-<!-- BEGIN related_tags -->
-  <ul id="fullTagCloud">
-    <li>{lang:Related tags}:</li>
-    <!-- BEGIN tag -->
-    <li><a href="{related_tags.tag.URL}" class="{related_tags.tag.CLASS}" title="{related_tags.tag.TITLE}">{related_tags.tag.NAME}</a></li>
-    <!-- END tag -->
-  </ul>
-<!-- END related_tags -->
 
 {PLUGIN_INDEX_CONTENT_END}
 </div> <!-- content -->

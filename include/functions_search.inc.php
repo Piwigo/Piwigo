@@ -253,150 +253,194 @@ SELECT DISTINCT(id)
 
 /**
  * returns the LIKE sql clause corresponding to the quick search query $q
- * and the field $field. example q="john bill", field="file" will return
- * file LIKE "%john%" OR file LIKE "%bill%". Special characters for MySql
- * full text search (+,<,>) are omitted.
+ * and the field $field. example q='john bill', field='file' will return
+ * file LIKE '%john%' OR file LIKE '%bill%'. Special characters for MySql full
+ * text search (+,<,>,~) are omitted. The query can contain a phrase:
+ * 'Pierre "New York"' will return LIKE '%Pierre%' OR LIKE '%New York%'.
  * @param string q
  * @param string field
  * @return string
  */
 function get_qsearch_like_clause($q, $field)
 {
-  $tokens = preg_split('/[\s,.;!\?]+/', $q);
-  for ($i=0; $i<count($tokens); $i++)
+  $q = stripslashes($q);
+  $tokens = array();
+  $token_modifiers = array();
+  $crt_token = "";
+  $crt_token_modifier = "";
+  $state = 0;
+
+  for ($i=0; $i<strlen($q); $i++)
   {
-    $tokens[$i]=str_replace('*','%', $tokens[$i]);
-    if (preg_match('/^[+<>]/',$tokens[$i]) )
-      $tokens[$i]=substr($tokens[$i], 1);
-    else if (substr($tokens[$i], 0, 1)=='-')
+    $ch = $q[$i];
+    switch ($state)
     {
-      unset($tokens[$i]);
-      $i--;
+      case 0:
+        if ($ch=='"')
+        {
+          if (strlen($crt_token))
+          {
+            $tokens[] = $crt_token;
+            $token_modifiers[] = $crt_token_modifier;
+            $crt_token = "";
+            $crt_token_modifier = "";
+          }
+          $state=1;
+        }
+        elseif ( $ch=='*' )
+        { // wild card
+          $crt_token .= '%';
+        }
+        elseif ( strcspn($ch, '+-><~')==0 )
+        { //special full text modifier
+          if (strlen($crt_token))
+          {
+            $tokens[] = $crt_token;
+            $token_modifiers[] = $crt_token_modifier;
+            $crt_token = "";
+            $crt_token_modifier = "";
+          }
+          $crt_token_modifier .= $ch;
+        }
+        elseif (preg_match('/[\s,.;!\?]+/', $ch))
+        { // white space
+          if (strlen($crt_token))
+          {
+            $tokens[] = $crt_token;
+            $token_modifiers[] = $crt_token_modifier;
+            $crt_token = "";
+            $crt_token_modifier = "";
+          }
+        }
+        else
+        {
+          $crt_token .= $ch;
+        }
+        break;
+      case 1: // qualified with quotes
+        switch ($ch)
+        {
+          case '"':
+            $tokens[] = $crt_token;
+            $token_modifiers[] = $crt_token_modifier;
+            $crt_token = "";
+            $crt_token_modifier = "";
+            $state=0;
+            break;
+          default:
+            $crt_token .= $ch;
+        }
+        break;
     }
+  }
+  if (strlen($crt_token))
+  {
+    $tokens[] = $crt_token;
+    $token_modifiers[] = $crt_token_modifier;
   }
 
-  if (!empty($tokens))
+  $clauses = array();
+  for ($i=0; $i<count($tokens); $i++)
   {
-    $query = '(';
-    for ($i=0; $i<count($tokens); $i++)
-    {
-      if ($i>0) $query .= 'OR ';
-      $query .= ' '.$field.' LIKE "%'.$tokens[$i].'%" ';
-    }
-    $query .= ')';
-    return $query;
+    $tokens[$i] = trim($tokens[$i], '%');
+    if (strstr($token_modifiers[$i], '-')!==false)
+      continue;
+    if ( strlen($tokens[$i])==0)
+      continue;
+    $clauses[] = $field.' LIKE "%'.addslashes($tokens[$i]).'%"';
   }
-  return null;
+
+  return count($clauses) ? '('.implode(' OR ', $clauses).')' : null;
 }
 
 
 /**
- * returns the search results (array of image ids) corresponding to a
- * quick/query search. A quick/query search returns many items (search is
- * not strict), but results are sorted by relevance.
+ * returns the search results corresponding to a quick/query search.
+ * A quick/query search returns many items (search is not strict), but results
+ * are sorted by relevance unless $page['super_order_by'] is set. Returns:
+ * array (
+ * 'items' => array(85,68,79...)
+ * 'as_is' => 1 (indicates the caller that items are ordered and permissions checked
+ * 'qs'    => array(
+ *    'matching_tags' => array(85,86) - matching tags
+ *    'matching_cats' => array(1,2,3) - matching categories
+ *    'matching_cats_no_images' =>array(99) - matching categories without images
+ *      ))
  *
  * @param string q
+ * @param string images_where optional aditional restriction on images table
  * @return array
  */
-function get_quick_search_results($q)
+function get_quick_search_results($q, $images_where='')
 {
   global $page;
-  $search_results = array();
+  $search_results =
+    array(
+      'items' => array(),
+      'as_is' => 1,
+      'qs' => array('q'=>stripslashes($q)),
+    );
   $q = trim($q);
   if (empty($q))
   {
-    $search_results['items'] = array();
     return $search_results;
   }
-  // prepare the big join on images, comments and categories
-  $query = '
-SELECT
-  i.id, CAST( CONCAT_WS(" ",
-    IFNULL(i.name,""),
-    IFNULL(i.comment,""),
-    IFNULL(GROUP_CONCAT(DISTINCT co.content),""),
-    IFNULL(GROUP_CONCAT(DISTINCT c.dir),""),
-    IFNULL(GROUP_CONCAT(DISTINCT c.name),""),
-    IFNULL(GROUP_CONCAT(DISTINCT c.comment),"") ) AS CHAR) AS ft
-FROM (
-  (
-    '.IMAGES_TABLE.' i LEFT JOIN '.COMMENTS_TABLE.' co on i.id=co.image_id
-  )
-    INNER JOIN
-  '.IMAGE_CATEGORY_TABLE.' ic on ic.image_id=i.id
-  )
-    INNER JOIN
-  '.CATEGORIES_TABLE.' c on c.id=ic.category_id
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'i.id'
-      ),
-    'WHERE'
-  ).'
-GROUP BY i.id';
+  $q_like_field = '@@__db_field__@@'; //something never in a search
+  $q_like_clause = get_qsearch_like_clause($q, $q_like_field );
 
-  $query = 'SELECT id, MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS q FROM ('.$query.') AS Y
-WHERE MATCH(ft) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
+
+  // Step 1 - first we find matches in #images table ===========================
+  $where_clauses='MATCH(i.name, i.comment) AGAINST( "'.$q.'" IN BOOLEAN MODE)';
+  if (!empty($q_like_clause))
+  {
+    $where_clauses .= '
+    OR '. str_replace($q_like_field, 'file', $q_like_clause);
+    $where_clauses = '('.$where_clauses.')';
+  }
+  $where_clauses = array($where_clauses);
+  if (!empty($images_where))
+  {
+    $where_clauses[]='('.$images_where.')';
+  }
+  $where_clauses[] .= get_sql_condition_FandF
+      (
+        array( 'visible_images' => 'i.id' ), null, true
+      );
+  $query = '
+SELECT i.id,
+    MATCH(i.name, i.comment) AGAINST( "'.$q.'" IN BOOLEAN MODE) AS weight
+  FROM '.IMAGES_TABLE.' i
+  WHERE '.implode("\n AND ", $where_clauses);
 
   $by_weights=array();
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   { // weight is important when sorting images by relevance
-    if ($row['q'])
+    if ($row['weight'])
     {
-      $by_weights[(int)$row['id']] =  2*$row['q'];
+      $by_weights[(int)$row['id']] =  2*$row['weight'];
+    }
+    else
+    {//full text does not match but file name match
+      $by_weights[(int)$row['id']] =  2;
     }
   }
 
-  $permissions_checked = true;
-  // now search the file name separately (not done in full text because slower 
-  // and the filename in pwg doesn't have spaces so full text is meaningless )
-  $q_like_clause = get_qsearch_like_clause($q, 'file' );
-  if (!empty($q_like_clause))
-  {
-    $query = '
-SELECT id
-  FROM '.IMAGES_TABLE.'
-  WHERE '.$q_like_clause.
-      get_sql_condition_FandF
-      (
-        array
-          (
-            'visible_images' => 'id'
-          ),
-        'AND'
-      );
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_assoc($result))
-    { // weight is important when sorting images by relevance
-      $id=(int)$row['id'];
-      @$by_weights[$id] += 2;
-      $permissions_checked = false;
-    }
-  }
 
-  // now search tag names corresponding to the query $q. we could have searched
-  // tags earlier during the big join, but for the sake of the performance and
-  // because tags have only a simple name we do it separately
-  $q_like_clause = get_qsearch_like_clause($q, 'CONVERT(name, CHAR)' );
+  // Step 2 - search tags corresponding to the query $q ========================
   if (!empty($q_like_clause))
-  {
-    // search also by url name (without accents)
-    $q_like_clause_url = get_qsearch_like_clause($q, 'url_name' );
+  { // search name and url name (without accents)
     $query = '
 SELECT id
   FROM '.TAGS_TABLE.'
-  WHERE '.$q_like_clause.'
-  OR '.$q_like_clause_url;
+  WHERE ('.str_replace($q_like_field, 'CONVERT(name, CHAR)', $q_like_clause).'
+    OR '.str_replace($q_like_field, 'url_name', $q_like_clause).')';
     $tag_ids = array_from_query( $query, 'id');
     if (!empty($tag_ids))
-    { // we got some tags
+    { // we got some tags; get the images
+      $search_results['qs']['matching_tags']=$tag_ids;
       $query = '
-SELECT image_id, COUNT(tag_id) AS q
+SELECT image_id, COUNT(tag_id) AS weight
   FROM '.IMAGE_TAG_TABLE.'
   WHERE tag_id IN ('.implode(',',$tag_ids).')
   GROUP BY image_id';
@@ -404,53 +448,95 @@ SELECT image_id, COUNT(tag_id) AS q
       while ($row = mysql_fetch_assoc($result))
       { // weight is important when sorting images by relevance
         $image_id=(int)$row['image_id'];
-        @$by_weights[$image_id] += $row['q'];
-        $permissions_checked = false;
+        @$by_weights[$image_id] += $row['weight'];
       }
     }
   }
 
-  //at this point, found images might contain images not allowed for the user
-  if ( !$permissions_checked
-       and !empty($by_weights)
-       and !isset($page['super_order_by']) )
-  {
-    // before returning the result "as is", make sure the user has the
-    // permissions for every item
-    global $conf;
-    $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', array_keys($by_weights) ).')
-'.get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'category_id',
-        'visible_categories' => 'category_id',
-        'visible_images' => 'id'
-      ),
-    'AND'
-  ).'
-  '.$conf['order_by'];
-    $allowed_images = array_flip( array_from_query( $query, 'id') );
-    $by_weights = array_intersect_key($by_weights, $allowed_images );
-    $divisor = 4.0 * count($allowed_images);
-    // decrease weight from 0 to 0.25 corresponding to the order
-    foreach ($allowed_images as $id=>$rank )
+
+  // Step 3 - search categories corresponding to the query $q ==================
+  global $user;
+  $query = '
+SELECT id, nb_images
+  FROM '.CATEGORIES_TABLE.'
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
+  WHERE user_id='.$user['id'].'
+    AND MATCH(name, comment) AGAINST( "'.$q.'" IN BOOLEAN MODE)'.
+  get_sql_condition_FandF (
+      array( 'visible_categories' => 'cat_id' ), "\n    AND"
+    );
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_assoc($result))
+  { // weight is important when sorting images by relevance
+    if ($row['nb_images']==0)
     {
-      $by_weights[$id] -=  $rank / $divisor;
+      $search_results['qs']['matching_cats_no_images'][] = $row['id'];
     }
-    $permissions_checked = true;
+    else
+    {
+      $search_results['qs']['matching_cats'][] = $row['id'];
+    }
   }
-  arsort($by_weights, SORT_NUMERIC);
-  if ( $permissions_checked )
+
+  if ( empty($by_weights) and empty($search_results['qs']['matching_cats']) )
   {
-    $search_results['as_is']=1;
+    return $search_results;
   }
-  
-  $search_results['items'] = array_keys($by_weights);
+
+  // Step 4 - now we have $by_weights ( array image id => weight ) that need
+  // permission checks and/or matching categories to get images from
+  $where_clauses = array();
+  if ( !empty($by_weights) )
+  {
+    $where_clauses[]='i.id IN ('
+      . implode(',', array_keys($by_weights)) . ')';
+  }
+  if ( !empty($search_results['qs']['matching_cats']) )
+  {
+    $where_clauses[]='category_id IN ('.
+      implode(',',$search_results['qs']['matching_cats']).')';
+  }
+  $where_clauses = array( '('.implode("\n    OR ",$where_clauses).')' );
+  if (!empty($images_where))
+  {
+    $where_clauses[]='('.$images_where.')';
+  }
+  $where_clauses[] = get_sql_condition_FandF(
+      array
+        (
+          'forbidden_categories' => 'category_id',
+          'visible_categories' => 'category_id',
+          'visible_images' => 'i.id'
+        ),
+      null,true
+    );
+
+  global $conf;
+  $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.' i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.implode("\n AND ", $where_clauses)."\n".
+  $conf['order_by'];
+
+  $allowed_images = array_from_query( $query, 'id');
+
+  if ( isset($page['super_order_by']) or empty($by_weights) )
+  {
+    $search_results['items'] = $allowed_images;
+    return $search_results;
+  }
+
+  $allowed_images = array_flip( $allowed_images );
+  $divisor = 5.0 * count($allowed_images);
+  foreach ($allowed_images as $id=>$rank )
+  {
+    $weight = isset($by_weights[$id]) ? $by_weights[$id] : 1;
+    $weight -= $rank/$divisor;
+    $allowed_images[$id] = $weight;
+  }
+  arsort($allowed_images, SORT_NUMERIC);
+  $search_results['items'] = array_keys($allowed_images);
   return $search_results;
 }
 
@@ -458,9 +544,10 @@ SELECT DISTINCT(id)
  * returns an array of 'items' corresponding to the search id
  *
  * @param int search id
+ * @param string images_where optional aditional restriction on images table
  * @return array
  */
-function get_search_results($search_id)
+function get_search_results($search_id, $images_where='')
 {
   $search = get_search_array($search_id);
   if ( !isset($search['q']) )
@@ -470,7 +557,7 @@ function get_search_results($search_id)
   }
   else
   {
-    return get_quick_search_results($search['q']);
+    return get_quick_search_results($search['q'], $images_where);
   }
 }
 ?>

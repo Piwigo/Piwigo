@@ -329,6 +329,10 @@ SELECT DISTINCT(id)
     else
     {
       $page['items'] = $search_result['items'];
+      if ( isset($search_result['qs']) )
+      {//save the details of the query search
+        $page['qsearch_details'] = $search_result['qs'];
+      }
     }
 
     $page = array_merge(
@@ -519,7 +523,8 @@ SELECT id,file
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
 $page['meta_robots']=array();
-if ( isset($page['chronology_field']) or isset($page['flat'])
+if ( isset($page['chronology_field'])
+      or ( isset($page['flat']) and isset($page['category']) )
       or 'list'==$page['section'] or 'recent_pics'==$page['section'] )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);

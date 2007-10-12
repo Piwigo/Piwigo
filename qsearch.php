@@ -39,15 +39,31 @@ if (empty($_GET['q']))
 $search = array();
 $search['q']=$_GET['q'];
 
-$query ='
+$query = '
+SElECT id FROM '.SEARCH_TABLE.'
+  WHERE rules = \''.addslashes(serialize($search)).'\'
+;';
+$search_id = array_from_query( $query, 'id');
+if ( !empty($search_id) )
+{
+  $search_id = $search_id[0];
+  $query = '
+UPDATE '.SEARCH_TABLE.'
+  SET last_seen=NOW()
+  WHERE id='.$search_id;
+  pwg_query($query);
+}
+else
+{
+  $query ='
 INSERT INTO '.SEARCH_TABLE.'
   (rules, last_seen)
   VALUES
   (\''.addslashes(serialize($search)).'\', NOW() )
 ;';
-pwg_query($query);
-
-$search_id = mysql_insert_id();
+  pwg_query($query);
+  $search_id = mysql_insert_id();
+}
 
 redirect(
   make_index_url(

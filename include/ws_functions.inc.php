@@ -759,55 +759,19 @@ function ws_images_search($params, &$service)
   include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
   include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 
-  $where_clauses = ws_std_image_sql_filter( $params );
-  $order_by = ws_std_image_sql_order($params);
+  $where_clauses = ws_std_image_sql_filter( $params, 'i.' );
+  $order_by = ws_std_image_sql_order($params, 'i.');
 
-  if ( !empty($where_clauses) and !empty($order_by) )
+  if ( !empty($order_by) )
   {
+    global $conf;
+    $conf['order_by'] = 'ORDER BY '.$order_by;
     $page['super_order_by']=1; // quick_search_result might be faster
   }
-  $search_result = get_quick_search_results($params['query']);
 
-  global $image_ids; //needed for sorting by rank (usort)
-  if ( ( !isset($search_result['as_is'])
-      or !empty($where_clauses)
-      or !empty($order_by) )
-      and !empty($search_result['items']) )
-  {
-    $where_clauses[] = 'id IN ('
-        .wordwrap(implode(', ', $search_result['items']), 80, "\n")
-        .')';
-    $where_clauses[] = get_sql_condition_FandF(
-        array
-          (
-            'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'id'
-          ),
-        '', true
-      );
-    $query = '
-SELECT DISTINCT id FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
-  WHERE '.implode('
-    AND ', $where_clauses);
-    if (!empty($order_by))
-    {
-      $query .= '
-  ORDER BY '.$order_by;
-    }
-    $image_ids = array_from_query($query, 'id');
-    global $ranks;
-    $ranks = array_flip( $search_result['items'] );
-    usort(
-      $image_ids,
-      create_function('$i1,$i2', 'global $ranks; return $ranks[$i1]-$ranks[$i2];')
-    );
-    unset ($ranks);
-  }
-  else
-  {
-    $image_ids = $search_result['items'];
-  }
+  $search_result = get_quick_search_results($params['query'],
+    implode(',', $where_clauses) );
+  $image_ids = $search_result['items'];
 
   $image_ids = array_slice($image_ids,
     $params['page']*$params['per_page'],

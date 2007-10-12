@@ -103,6 +103,7 @@ if ( count($page['items']) > 0)
 {
   $template_title.= ' ['.count($page['items']).']';
 }
+$template->assign_var('TITLE', $template_title);
 
 if (isset($page['flat']) or isset($page['chronology_field']))
 {
@@ -169,12 +170,6 @@ else
 // include menubar
 include(PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
-$template->assign_vars(
-  array(
-    'TITLE' => $template_title
-    )
-  );
-
 if ('search' == $page['section'])
 {
   $template->assign_block_vars(
@@ -199,42 +194,61 @@ if (isset($page['category']) and is_admin())
 
 if (is_admin() and !empty($page['items']) )
 {
-    $template->assign_block_vars(
-      'caddie',
-      array(
-        'URL' =>
-          add_url_params(duplicate_index_url(), array('caddie'=>1) )
-        )
+  $template->assign_block_vars(
+    'caddie',
+    array(
+      'URL' =>
+         add_url_params(duplicate_index_url(), array('caddie'=>1) )
+      )
+    );
+}
+
+if ( $page['section']=='search' and $page['start']==0 and
+    !isset($page['chronology_field']) and isset($page['qsearch_details']) )
+{
+  $template->assign_var('QUERY_SEARCH',
+    htmlspecialchars($page['qsearch_details']['q']) );
+
+  $found_cat_ids = array_merge(
+      (array)@$page['qsearch_details']['matching_cats_no_images'],
+      (array)@$page['qsearch_details']['matching_cats'] );
+  if (count($found_cat_ids))
+  {
+    $hints = array();
+    $query = '
+SELECT id, name, permalink FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',', $found_cat_ids).')
+  ORDER BY name
+  LIMIT 10';
+    $result = pwg_query($query);
+    while ( $row = mysql_fetch_assoc($result) )
+    {
+      $hints[] = get_cat_display_name( array($row) );
+    }
+    $template->assign_block_vars( 'category_search_results',
+        array(
+            'CONTENT' => implode(' &mdash; ', $hints)
+          )
       );
   }
 
-if ( $page['section']=='search' and $page['start']==0 )
-{
-  $tags = get_common_tags($page['items'],
-      $conf['content_tag_cloud_items_number'], null);
-  if ( count($tags)>1 )
+  $tags = find_tags( (array)@$page['qsearch_details']['matching_tags'] );
+  if (count($tags))
   {
-    $template->assign_block_vars('related_tags', array() );
-
-    $tags = add_level_to_tags($tags);
-    foreach ($tags as $tag)
+    usort($tags, 'name_compare');
+    $hints = array();
+    foreach ( $tags as $tag )
     {
-      $template->assign_block_vars(
-      'related_tags.tag', array(
-        'URL' => make_index_url(
-          array(
-            'tags' => array($tag)
-            )
-          ),
-        'NAME' => $tag['name'],
-        'TITLE' => l10n_dec(
-            '%d picture are also linked to current tags',
-            '%d pictures are also linked to current tags',
-            $tag['counter']),
-        'CLASS' => 'tagLevel'.$tag['level']
-        )
-      );
+      $hints[] =
+        '<a href="' . make_index_url(array('tags'=>array($tag))) . '">'
+        .$tag['name']
+        .'</a>';
     }
+    $template->assign_block_vars( 'tag_search_results',
+        array(
+            'CONTENT' => implode(' &mdash; ', $hints)
+          )
+      );
   }
 }
 
@@ -299,7 +313,6 @@ if (isset($page['comment']) and $page['comment'] != '')
       'COMMENTS' => $page['comment']
       )
     );
-  $header_infos['COMMENT'] = strip_tags($page['comment']);
 }
 //------------------------------------------------------------ log informations
 pwg_log();
