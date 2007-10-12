@@ -43,6 +43,7 @@ function c13y_upgrade($c13y_array)
   $query = '
 select count(*)
 from '.USERS_TABLE.'
+where '.$conf['user_fields']['email'].' is not null
 group by upper('.$conf['user_fields']['email'].')
 having count(*) > 1
 limit 0,1

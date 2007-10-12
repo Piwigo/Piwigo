@@ -247,7 +247,7 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
         {
           // On HTML mail, detects if the content are HTML format.
           // If it's plain text format, convert content to readable HTML
-          $customize_mail_content = nl2br(htmlentities($customize_mail_content));
+          $customize_mail_content = nl2br(htmlspecialchars($customize_mail_content));
         }
 
         // Prepare message after change language

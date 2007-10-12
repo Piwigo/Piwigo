@@ -704,6 +704,9 @@ function pwg_mail($to, $args = array())
       $filename .= '.html';
     }
     $file = fopen($filename, 'w+');
+    fwrite($file, $to);
+    fwrite($file, $cvt_subject);
+    fwrite($file, $headers);
     fwrite($file, $content);
     fclose($file);
     return true;
