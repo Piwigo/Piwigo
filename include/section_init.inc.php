@@ -520,7 +520,8 @@ SELECT id,file
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
 $page['meta_robots']=array();
-if ( isset($page['chronology_field']) or isset($page['flat'])
+if ( isset($page['chronology_field'])
+      or ( isset($page['flat']) and isset($page['category']) )
       or 'list'==$page['section'] or 'recent_pics'==$page['section'] )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
@@ -534,8 +535,13 @@ elseif ('tags' == $page['section'])
 }
 elseif ('recent_cats'==$page['section'])
 {
+  $page['meta_robots']['noindex']=1;
+}
+elseif ('search'==$page['section'])
+{
   $page['meta_robots']['nofollow']=1;
 }
+
 if ( $filter['enabled'] )
 {
   $page['meta_robots']['noindex']=1;

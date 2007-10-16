@@ -24,7 +24,7 @@
       <!-- END edit -->
 
       <!-- BEGIN search_rules -->
-      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
+      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
       <!-- BEGIN mode_normal -->
