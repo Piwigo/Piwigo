@@ -241,6 +241,8 @@ function switch_lang_to($language)
       $lang_info = $switch_lang[$language]['lang_info'];
       $lang = $switch_lang[$language]['lang'];
     }
+
+    $user['language'] = $language;
   }
 }
 
@@ -271,6 +273,7 @@ function switch_lang_back()
       $lang_info = $switch_lang[$language]['lang_info'];
       $lang = $switch_lang[$language]['lang'];
     }
+    $user['language'] = $language;
   }
 }
 
@@ -292,6 +295,16 @@ function switch_lang_back()
  */
 function pwg_mail_notification_admins($keyargs_subject, $keyargs_content)
 {
+  // Check arguments
+  if 
+    (
+      empty($keyargs_subject) or
+      empty($keyargs_content)
+    )
+  {
+    return false;
+  }
+
   global $conf, $user;
   $return = true;
 
@@ -376,6 +389,18 @@ function pwg_mail_group(
   $dirname, $tpl_shortname,
   $assign_vars = array(), $language_selected = '')
 {
+  // Check arguments
+  if 
+    (
+      empty($group_id) or
+      empty($email_format) or
+      empty($keyargs_subject) or
+      empty($tpl_shortname)
+    )
+  {
+    return false;
+  }
+
   global $conf;
   $return = true;
 
@@ -448,7 +473,9 @@ WHERE
           $mail_template = get_mail_template($email_format, $elem);
           $mail_template->set_filename($tpl_shortname,
             (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
-          $mail_template->assign_vars($assign_vars);
+
+          $mail_template->assign_vars(
+            trigger_event('mail_group_assign_vars', $assign_vars));
 
           $return = pwg_mail
           (
@@ -478,7 +505,7 @@ WHERE
  * sends an email, using PhpWebGallery specific informations
  *
  * @param:
- *   - to: Receiver, or receivers of the mail.
+ *   - to: receiver(s) of the mail.
  *   - args: function params of mail function:
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
@@ -690,9 +717,62 @@ function pwg_mail($to, $args = array())
     unset_make_full_url();
   }
 
-  /*Testing block
-  {
-    global $user;
+  return
+    trigger_event('send_mail',
+      false, /* Result */
+      trigger_event('send_mail_to', $to),
+      trigger_event('send_mail_subject', $cvt_subject),
+      trigger_event('send_mail_content', $content),
+      trigger_event('send_mail_headers', $headers),
+      $args
+    );
+}
+
+/*
+ * pwg sendmail
+ *
+ * @param:
+ *   - result of other sendmail
+ *   - to: Receiver or receiver(s) of the mail.
+ *   - subject  [default value 'PhpWebGallery']
+ *   - content: content of mail
+ *   - headers: headers of mail
+ *
+ * @return boolean (Ok or not)
+ */
+function pwg_send_mail($result, $to, $subject, $content, $headers)
+{
+ if (!$result)
+ {
+    global $conf_mail;
+
+    if ($conf_mail['use_smtp'])
+    {
+      include_once( PHPWG_ROOT_PATH.'include/class_smtp_mail.inc.php' );
+      $smtp_mail = new smtp_mail(
+        $conf_mail['smtp_host'], $conf_mail['smtp_user'], $conf_mail['smtp_password'],
+        $conf_mail['email_webmaster']);
+      return $smtp_mail->mail($to, $subject, $content, $headers);
+    }
+    else
+    {
+      if ($conf_mail['mail_options'])
+      {
+        $options = '-f '.$conf_mail['email_webmaster'];
+        return mail($to, $subject, $content, $headers, $options);
+      }
+      else
+      {
+        return mail($to, $subject, $content, $headers);
+      }
+    }
+ }
+}
+
+/*Testing block
+function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
+{
+    global $user, $lang_info;
     @mkdir(PHPWG_ROOT_PATH.'testmail');
     $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
     if ($args['content_format'] == 'text/plain')
@@ -705,33 +785,16 @@ function pwg_mail($to, $args = array())
     }
     $file = fopen($filename, 'w+');
     fwrite($file, $to);
-    fwrite($file, $cvt_subject);
+    fwrite($file, $subject);
     fwrite($file, $headers);
     fwrite($file, $content);
     fclose($file);
     return true;
-  }*/
-
-  if ($conf_mail['use_smtp'])
-  {
-    include_once( PHPWG_ROOT_PATH.'include/class_smtp_mail.inc.php' );
-    $smtp_mail = new smtp_mail(
-      $conf_mail['smtp_host'], $conf_mail['smtp_user'], $conf_mail['smtp_password'],
-      $conf_mail['email_webmaster']);
-    return $smtp_mail->mail($to, $cvt_subject, $content, $headers);
-  }
-  else
-  {
-    if ($conf_mail['mail_options'])
-    {
-      $options = '-f '.$conf_mail['email_webmaster'];
-      return mail($to, $cvt_subject, $content, $headers, $options);
-    }
-    else
-    {
-      return mail($to, $cvt_subject, $content, $headers);
-    }
-  }
 }
+add_event_handler('send_mail', 'pwg_send_mail_test', 0, 6);*/
+
+
+add_event_handler('send_mail', 'pwg_send_mail', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);
+trigger_action('functions_mail_included');
 
 ?>

@@ -529,7 +529,7 @@ display_select_cat_wrapper(
   );
 
 // info by email to an access granted group of category informations
-if (isset($_POST['submitEmail']))
+if (isset($_POST['submitEmail']) and !empty($_POST['group']))
 {
   set_make_full_url();
 
@@ -640,7 +640,7 @@ SELECT
   while ($row = mysql_fetch_array($result))
   {
     $template->assign_block_vars(
-      'group_option',
+      'group_mail.group_option',
       array(
         'VALUE' => $row['id'],
         'OPTION' => $row['name'],

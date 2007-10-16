@@ -212,6 +212,7 @@
 
 </fieldset>
 
+<!-- BEGIN group_mail -->
 <fieldset id="emailCatInfo">
   <legend>{lang:Send an information email to group members}</legend>
 
@@ -221,7 +222,7 @@
       <td>
         <select name="group">
           <!-- BEGIN group_option -->
-          <option value="{group_option.VALUE}">{group_option.OPTION}</option>
+          <option value="{group_mail.group_option.VALUE}">{group_mail.group_option.OPTION}</option>
           <!-- END group_option -->
         </select>
       </td>
@@ -241,5 +242,6 @@
   </p>
 
 </fieldset>
+<!-- END group_mail -->
 
 </form>

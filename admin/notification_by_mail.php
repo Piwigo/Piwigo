@@ -210,6 +210,26 @@ order by
 }
 
 /*
+ * Apply global functions to mail content
+ * return customize mail content rendered
+ */
+function render_global_customize_mail_content($customize_mail_content)
+{
+  global $conf;
+
+  if ($conf['nbm_send_html_mail'] and !(strpos($customize_mail_content, '<') === 0))
+  {
+    // On HTML mail, detects if the content are HTML format.
+    // If it's plain text format, convert content to readable HTML
+    return nl2br(htmlspecialchars($customize_mail_content));
+  }
+  else
+  {
+    return $customize_mail_content;
+  }
+}
+
+/*
  * Send mail for notification to all users
  * Return list of "selected" users for 'list_to_send'
  * Return list of "treated" check_key for 'send'
@@ -243,12 +263,9 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
           $customize_mail_content = $conf['nbm_complementary_mail_content'];
         }
 
-        if ($conf['nbm_send_html_mail'] and !(strpos($customize_mail_content, '<') === 0))
-        {
-          // On HTML mail, detects if the content are HTML format.
-          // If it's plain text format, convert content to readable HTML
-          $customize_mail_content = nl2br(htmlspecialchars($customize_mail_content));
-        }
+        $customize_mail_content = 
+          trigger_event('nbm_render_global_customize_mail_content', $customize_mail_content);
+
 
         // Prepare message after change language
         if ($is_action_send)
@@ -343,11 +360,16 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                 }
               }
 
-              if (!empty($customize_mail_content))
+              $nbm_user_customize_mail_content = 
+                trigger_event('nbm_render_user_customize_mail_content',
+                  $customize_mail_content, $nbm_user);
+              if (!empty($nbm_user_customize_mail_content))
               {
                 $env_nbm['mail_template']->assign_block_vars
                 (
-                  'custom', array('CUSTOMIZE_MAIL_CONTENT' => $customize_mail_content)
+                  'custom',
+                  array('CUSTOMIZE_MAIL_CONTENT' =>
+                    $nbm_user_customize_mail_content)
                 );
               }
 
@@ -480,6 +502,14 @@ else
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status(get_tab_status($page['mode']));
+
+
+// +-----------------------------------------------------------------------+
+// | Add event handler                                                     |
+// +-----------------------------------------------------------------------+
+add_event_handler('nbm_render_global_customize_mail_content', 'render_global_customize_mail_content');
+trigger_action('nbm_event_handler_added');
+
 
 // +-----------------------------------------------------------------------+
 // | Insert new users with mails                                           |
