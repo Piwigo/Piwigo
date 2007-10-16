@@ -209,21 +209,16 @@ if ( $page['section']=='search' and $page['start']==0 and
   $template->assign_var('QUERY_SEARCH',
     htmlspecialchars($page['qsearch_details']['q']) );
 
-  $found_cat_ids = array_merge(
+  $cats = array_merge(
       (array)@$page['qsearch_details']['matching_cats_no_images'],
       (array)@$page['qsearch_details']['matching_cats'] );
-  if (count($found_cat_ids))
+  if (count($cats))
   {
+    usort($cats, 'name_compare');
     $hints = array();
-    $query = '
-SELECT id, name, permalink FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.implode(',', $found_cat_ids).')
-  ORDER BY name
-  LIMIT 10';
-    $result = pwg_query($query);
-    while ( $row = mysql_fetch_assoc($result) )
+    foreach ( $cats as $cat )
     {
-      $hints[] = get_cat_display_name( array($row) );
+      $hints[] = get_cat_display_name( array($cat) );
     }
     $template->assign_block_vars( 'category_search_results',
         array(
@@ -232,7 +227,7 @@ SELECT id, name, permalink FROM '.CATEGORIES_TABLE.'
       );
   }
 
-  $tags = find_tags( (array)@$page['qsearch_details']['matching_tags'] );
+  $tags = (array)@$page['qsearch_details']['matching_tags'];
   if (count($tags))
   {
     usort($tags, 'name_compare');

@@ -362,8 +362,8 @@ function get_qsearch_like_clause($q, $field)
  * 'items' => array(85,68,79...)
  * 'as_is' => 1 (indicates the caller that items are ordered and permissions checked
  * 'qs'    => array(
- *    'matching_tags' => array(85,86) - matching tags
- *    'matching_cats' => array(1,2,3) - matching categories
+ *    'matching_tags' => array of matching tags
+ *    'matching_cats' => array of matching categories
  *    'matching_cats_no_images' =>array(99) - matching categories without images
  *      ))
  *
@@ -431,18 +431,18 @@ SELECT i.id,
   if (!empty($q_like_clause))
   { // search name and url name (without accents)
     $query = '
-SELECT id
+SELECT id, name, url_name
   FROM '.TAGS_TABLE.'
   WHERE ('.str_replace($q_like_field, 'CONVERT(name, CHAR)', $q_like_clause).'
     OR '.str_replace($q_like_field, 'url_name', $q_like_clause).')';
-    $tag_ids = array_from_query( $query, 'id');
-    if (!empty($tag_ids))
+    $tags = hash_from_query($query, 'id');
+    if ( !empty($tags) )
     { // we got some tags; get the images
-      $search_results['qs']['matching_tags']=$tag_ids;
+      $search_results['qs']['matching_tags']=$tags;
       $query = '
 SELECT image_id, COUNT(tag_id) AS weight
   FROM '.IMAGE_TAG_TABLE.'
-  WHERE tag_id IN ('.implode(',',$tag_ids).')
+  WHERE tag_id IN ('.implode(',',array_keys($tags)).')
   GROUP BY image_id';
       $result = pwg_query($query);
       while ($row = mysql_fetch_assoc($result))
@@ -457,7 +457,7 @@ SELECT image_id, COUNT(tag_id) AS weight
   // Step 3 - search categories corresponding to the query $q ==================
   global $user;
   $query = '
-SELECT id, nb_images
+SELECT id, name, permalink, nb_images
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id=cat_id
   WHERE user_id='.$user['id'].'
@@ -470,11 +470,11 @@ SELECT id, nb_images
   { // weight is important when sorting images by relevance
     if ($row['nb_images']==0)
     {
-      $search_results['qs']['matching_cats_no_images'][] = $row['id'];
+      $search_results['qs']['matching_cats_no_images'][] = $row;
     }
     else
     {
-      $search_results['qs']['matching_cats'][] = $row['id'];
+      $search_results['qs']['matching_cats'][$row['id']] = $row;
     }
   }
 
@@ -494,7 +494,7 @@ SELECT id, nb_images
   if ( !empty($search_results['qs']['matching_cats']) )
   {
     $where_clauses[]='category_id IN ('.
-      implode(',',$search_results['qs']['matching_cats']).')';
+      implode(',',array_keys($search_results['qs']['matching_cats'])).')';
   }
   $where_clauses = array( '('.implode("\n    OR ",$where_clauses).')' );
   if (!empty($images_where))

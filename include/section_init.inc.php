@@ -538,6 +538,10 @@ elseif ('tags' == $page['section'])
 }
 elseif ('recent_cats'==$page['section'])
 {
+  $page['meta_robots']['noindex']=1;
+}
+elseif ('search'==$page['section'])
+{
   $page['meta_robots']['nofollow']=1;
 }
 if ( $filter['enabled'] )
