@@ -2,7 +2,7 @@
 /*
 Plugin Name: Check upgrades
 Version:
-Description: Check integrity of upgrades / Contrôle d'intégrité des mises à jour
+Description: Check integrity of upgrades / ContrÃ´le d'intÃ©gritÃ© des mises Ã  jour
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team
 Author URI: http://www.phpwebgallery.net
