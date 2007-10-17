@@ -381,4 +381,6 @@ $lang['Administrator, webmaster and special user cannot use this method'] = 'Adm
 $lang['reg_err_mail_address_dbl'] = 'a user use already this mail address';
 $lang['Category results for'] = 'Category results for';
 $lang['Tag results for'] = 'Tag results for';
+$lang['from %s to %s'] = 'from %s to %s';
+
 ?>
