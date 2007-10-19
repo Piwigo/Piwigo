@@ -164,6 +164,7 @@ DELETE FROM '.PLUGINS_TABLE.' WHERE id="'.$plugin_id.'"';
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 $fs_plugins = get_fs_plugins();
+uasort($fs_plugins, 'name_compare');
 $db_plugins = get_db_plugins();
 $db_plugins_by_id=array();
 foreach ($db_plugins as $db_plugin)

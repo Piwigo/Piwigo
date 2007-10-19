@@ -115,14 +115,21 @@ if ($conf['ws_access_control']) // Do we need to display ws_checker
 }
 
 //---------------------------------------------------------------- plugin menus
-$plugin_menu_links = array(
+$plugin_menu_links = trigger_event('get_admin_plugin_menu_links', array() );
+
+function UC_name_compare($a, $b)
+{
+  return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
+}
+usort($plugin_menu_links, 'UC_name_compare');
+
+array_unshift($plugin_menu_links,
     array(
       'NAME' => l10n('admin'),
       'URL' => $link_start.'plugins'
     )
   );
-$plugin_menu_links = trigger_event('get_admin_plugin_menu_links',
-  $plugin_menu_links );
+
 foreach ($plugin_menu_links as $menu_item)
 {
   $template->assign_block_vars('plugin_menu.menu_item', $menu_item);
