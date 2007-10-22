@@ -612,7 +612,7 @@ $lang['High filesize'] = 'Talla del fichero HR';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['Guest cannot be deleted'] = 'El invitado no puede ser suprimido';
 $lang['Default user cannot be deleted'] = 'El utilizador por defecto no puede ser suprimido';
-$lang['purge history detail'] = 'purgar el detail de la reseña histórica';
+$lang['purge history detail'] = 'Purgar el detail de la reseña histórica';
 $lang['purge history summary'] = 'Purgar el sumario de la reseña histórica';
 $lang['c13y_title'] = 'Control de integridad';
 $lang['c13y_Anomaly'] = 'Anomalía';
