@@ -1,0 +1,117 @@
+<h2>Modificar una categoría</h2>
+
+<h3>Informaciones</h3>
+
+<ul>
+
+  <li><strong>nombre</strong>: renombrar la categoría (virtualmente para una categoría física).</li>
+
+  <li><strong>descripción</strong>: dar una idea del contenido de la categoría, esta indicación figurará bajo la página de las miniaturas.</li>
+
+</ul>
+
+<h3>Desplazar</h3>
+
+<p>Si la categoría es virtual, usted puede desplazarlo. Desplazar una categoría significa cambiar su categoría allegada.</p>
+
+<h3>Opciones</h3>
+
+<ul>
+
+  <li><strong>Tipo de acceso</strong>: gestión de los permisos. Si usted devuelve una categoría particular, todas sus categorías chicas se vuelven particulares. Si usted devuelve una categoría pública, todas sus categorías madres se vuelven públicas.</li>
+
+  <li><strong>Encerrar</strong>: la categoría y todas sus categorías chicas se vuelven temporalmente inaccesibles para mantenimiento.</li>
+
+  <li><strong>Comentarios</strong>: autoriza a los utilizadores a comentar los elementos de esta categoría.</li>
+
+  <li><strong>Autorizar el añadido de imágenes</strong>: autoriza a los utilizadores a cargar ficheros. Esta opción está disponible sólo si la categoría es física (y no virtual).</li>
+
+</ul>
+
+<p>Usted puede también administrar estas opciones por la gestión de las "Propiedades"  
+(pantallas <span class="pwgScreen">Añadido</span>, <span
+class="pwgScreen">Comentarios</span>, <span
+class="pwgScreen">Encerrar</span>, <span
+class="pwgScreen">Pública / particular</span>, <span
+class="pwgScreen">Representante</span> Disponibles a partir de <span
+class="pwgScreen">Administración, Categorías, Propiedades</span>).</p>
+
+<h3>Orden de selección</h3>
+
+<p>Utilizar la orden de selección de las imágenes por defecto.</p>
+
+<p>Indicar si la selección también se aplica las subcategorías.</p>
+
+<p>Seleccionar las columnas de la selección que hay que utilizar para esta categoría.</p>
+<ul>
+<li><strong>Data de creación</strong>: data de grabación</li>
+<li><strong>Data de añadido</strong>: data de la sincronización</li>
+<li><strong>Nota media (*)</strong>: la cual logra por mediación podría ser modificada por el visitador</li>
+<li><strong>Más vistas (*)</strong>: La visita corriente puede cambiar la orden de los más vistos</li>
+<li><strong>Nombre del fichero</strong>: Nombre del fichero dado en los campos de informaciones más arriba</li>
+<li><strong>Id</strong>: Id Interna (las categorías recientes tienen la una "Id" más grande que las precedentes).</li>
+
+</ul>
+<p><strong>(*)</strong>Atención: usted hasta somete a un test estas selecciones que pueden dar los resultados imprevisibles.</p>
+
+
+<h3>Representante</h3>
+
+<p>El representante de una categoría es la miniatura fijada para representar la categoría sobre la página principal (<span
+class="pwgScreen">category.php</span>) Cuando una categoría únicamente contiene subcategorías y ningunos elementos directos (como a la raíz)</p>
+
+<p>Existen 4 medios de escoger al representante de una categoría:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Página de fijación de las imágenes</span>: En la barra de los botones de acción, uno de ellos permite escoger el elemento fijado como representante de la categoría fijada. Este botón de acción está disponible sólo para los administradores</li>
+
+  <li><span class="pwgScreen">Modificar las informaciones de una imagen</span>
+en la administración. Esta pantalla puede padecer después <span
+class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestión por lote</span> en él <em>Modo unitario</em>. Ver el ayudante de esta pantalla para los detalles.</li>
+
+  <li><span class="pwgScreen">Administración, Categorías, Propiedades, Representante</span>. Ver el ayudante de esta pantalla para los detalles.</li>
+
+  <li><span class="pwgScreen">Modificar una categoría</span> ( La pantalla presente).</li>
+
+</ul>
+
+<p>La representación depende del parámetro de configuración
+<code>allow_random_representative</code> (ver <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Por defecto (<code>allow_random_representative</code> à false) cada categoría que contiene por lo menos un elemento es representada por un elemento fijo. Una vez fijado (a la creación de la categoría), el representante únicamente cambia cuando el administrador lo pide. Si el representante no conviene, usted puede pedir a <strong>Encontrar a un nuevo representante al azar</strong>.</p>
+
+<p>Si el parámetro de configuración <code>allow_random_representative</code>
+es a true, una categoría que contiene elementos puede no tener representante fijo. Simplemente utilizar el botón <strong>Suprimir al representante</strong>.</p>
+
+<p>Si la categoría no contiene ningún elemento (sino únicamente subcategorías) puede ser representada a pesar de todo por cualquier elemento gracias a la pantalla <span class="pwgScreen">Modificar las informaciones de una imagen</span>. La sola opción de la pantalla presente es el botón
+<strong>Suprimir al representante</strong>.</p>
+
+<h3>Asociar todos los elementos de la categoría con una nueva categoría</h3>
+
+<ul>
+
+<li><strong>Nombre de la categoría virtual</strong>: Nombre de la nueva categoría que hay que crear, todas las imágenes de la categoría corriente serán atadas a la noticia.</li>
+
+<li><strong>Categoría allegada</strong>: Donde la nueva categoría debe estar, dejar vacío para crearle sobre la página inicial.</li>
+
+</ul>
+
+<h3>Asociar todos los elementos de la categoría con categorías existentes</h3>
+
+<ul>
+
+<li><strong>Categorías</strong>: Escoger la categoría de destino.</li>
+
+</ul>
+
+<h3>Enviarles un mail de informaciones a los miembros de un grupo</h3>
+
+<ul>
+
+<li><strong>Grupo</strong>: Grupo de destinatarios</li>
+
+<li><strong>Contenido del mail</strong>: Texto libre de enviarles.</li>
+
+</ul>  
