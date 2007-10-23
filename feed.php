@@ -117,6 +117,7 @@ $rss->link = $conf['gallery_url'];
 // |                            Feed creation                              |
 // +-----------------------------------------------------------------------+
 
+$news = array();
 if (!$image_only)
 {
   $news = news($feed_row['last_check'], $dbnow, true, true);
@@ -151,15 +152,17 @@ UPDATE '.USER_FEED_TABLE.'
     pwg_query($query);
   }
 }
-else
-{
-  if ( !empty($feed_id) )
-  {// update the last check to avoid deletion by maintenance task
+
+if ( !empty($feed_id) and empty($news) )
+{// update the last check from time to time to avoid deletion by maintenance tasks
+  if ( !isset($feed_row['last_check'])
+    or time()-mysqldt_to_ts($feed_row['last_check']) > 30*24*3600 )
+  {
     $query = '
-  UPDATE '.USER_FEED_TABLE.'
-    SET last_check = \''.$dbnow.'\'
-    WHERE id = \''.$feed_id.'\'
-  ;';
+UPDATE '.USER_FEED_TABLE.'
+  SET last_check = DATE_ADD(\''.$dbnow.'\', INTERVAL -15 DAY )
+  WHERE id = \''.$feed_id.'\'
+;';
     pwg_query($query);
   }
 }
