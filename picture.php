@@ -244,7 +244,7 @@ DELETE FROM '.COMMENTS_TABLE.'
 }
 
 // incrementation of the number of hits, we do this only if no action
-if (trigger_event('allow_increment_element_hit_count', true) )
+if (trigger_event('allow_increment_element_hit_count', !isset($_POST['content']) ) )
 {
   $query = '
 UPDATE

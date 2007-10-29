@@ -87,7 +87,11 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
       array_merge($comm, array('action'=>$comment_action) )
     );
 }
-
+elseif ( isset($_POST['content']) )
+{
+  set_status_header(403);
+  die('ugly spammer');
+}
 
 if ($page['show_comments'])
 {

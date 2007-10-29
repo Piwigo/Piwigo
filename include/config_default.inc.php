@@ -94,10 +94,6 @@ $conf['comment_spam_reject'] = true;
 // maximum number of links in a comment before it is qualified spam
 $conf['comment_spam_max_links'] = 3;
 
-// if the ip address of a comenteer is in spamhaus.org block list, the
-// comment is qualified spam
-$conf['comment_spam_check_ip'] = false;
-
 // calendar_datefield : date field of table "images" used for calendar
 // catgory
 $conf['calendar_datefield'] = 'date_creation';

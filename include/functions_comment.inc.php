@@ -30,7 +30,7 @@
 function get_comment_post_key($image_id)
 {
   global $conf;
-  
+
   $time = time();
 
   return sprintf(
@@ -68,20 +68,9 @@ function user_comment_check($action, $comment)
   {
     $link_count++;
   }
-  
+
   if ( $link_count>$conf['comment_spam_max_links'] )
     return $my_action;
-
-  if ( isset($comment['ip']) and $conf['comment_spam_check_ip'] 
-      and $_SERVER["SERVER_ADDR"] != $comment['ip']  
-    )
-  {
-    $rev_ip = implode( '.', array_reverse( explode('.',$comment['ip']) ) );
-    $lookup = $rev_ip . '.sbl-xbl.spamhaus.org.';
-    $res = gethostbyname( $lookup );
-    if ( $lookup != $res )
-      return $my_action;
-  }
 
   return $action;
 }
@@ -100,8 +89,8 @@ add_event_handler('user_comment_check', 'user_comment_check',
 function insert_user_comment( &$comm, $key, &$infos )
 {
   global $conf, $user;
-  
-  $comm = array_merge( $comm, 
+
+  $comm = array_merge( $comm,
     array(
       'ip' => $_SERVER['REMOTE_ADDR'],
       'agent' => $_SERVER['HTTP_USER_AGENT']
@@ -161,7 +150,7 @@ SELECT COUNT(*) AS user_exists
   {
     $comment_action='reject';
   }
-  
+
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
   { // anti-flood system
     $reference_date = time() - $conf['anti-flood_time'];
@@ -192,7 +181,7 @@ INSERT INTO '.COMMENTS_TABLE.'
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
-    '.$comm['image_id'].'      
+    '.$comm['image_id'].'
   )
 ';
 

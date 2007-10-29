@@ -252,7 +252,7 @@ function make_picture_url($params)
   }
   if ( !isset($params['category'] ) )
   {// make urls shorter ...
-    unset( $params['flat'] ); 
+    unset( $params['flat'] );
   }
   $url .= make_section_in_url($params);
   $url = add_well_known_params_in_url($url, $params);
@@ -622,7 +622,7 @@ function parse_section_url( $tokens, &$next_token)
  * the reverse of add_well_known_params_in_url
  * parses start, flat and chronology from url tokens
 */
-function parse_well_known_params_url($tokens, $i)
+function parse_well_known_params_url($tokens, &$i)
 {
   $page = array();
   while (isset($tokens[$i]))
