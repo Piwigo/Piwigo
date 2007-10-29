@@ -55,7 +55,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
    );
 
   include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-  
+
   $comment_action = insert_user_comment($comm, @$_POST['key'], $infos );
 
   switch ($comment_action)
@@ -65,7 +65,7 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
     case 'validate':
       array_push( $infos, $lang['comment_added']);
       break;
-    case 'reject': 
+    case 'reject':
       set_status_header(403);
       array_push($infos, l10n('comment_not_added') );
       break;
@@ -86,7 +86,11 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
       array_merge($comm, array('action'=>$comment_action) )
     );
 }
-
+elseif ( isset($_POST['content']) )
+{
+  set_status_header(403);
+  die('ugly spammer');
+}
 
 if ($page['show_comments'])
 {
@@ -136,7 +140,7 @@ SELECT id,author,date,image_id,content
       $template->assign_block_vars(
         'comments.comment',
         array(
-          'COMMENT_AUTHOR' => trigger_event('render_comment_author', 
+          'COMMENT_AUTHOR' => trigger_event('render_comment_author',
             empty($row['author'])
             ? $lang['guest']
             : $row['author']),
