@@ -92,7 +92,14 @@ if (isset($_POST['submit']))
       );
   }
 
-  $search['fields']['types'] = $_POST['types'];
+  if (empty($_POST['types']))
+  {
+    $search['fields']['types'] = $types;
+  }
+  else
+  {
+    $search['fields']['types'] = $_POST['types'];
+  }
 
   $search['fields']['user'] = $_POST['user'];
 
@@ -195,7 +202,7 @@ SELECT rules
     }
 
     $page['search']['fields']['user'] = $_GET['user_id'];
-    
+
     $query ='
 INSERT INTO '.SEARCH_TABLE.'
   (rules)
@@ -211,137 +218,19 @@ INSERT INTO '.SEARCH_TABLE.'
       );
   }
 
-  
-  if (isset($page['search']['fields']['filename']))
-  {
-    $query = '
-SELECT
-    id
-  FROM '.IMAGES_TABLE.'
-  WHERE file LIKE \''.$page['search']['fields']['filename'].'\'
-;';
-    $page['search']['image_ids'] = array_from_query($query, 'id');
-  }
-  
-  // echo '<pre>'; print_r($page['search']); echo '</pre>';
-  
-  $clauses = array();
+  $data = trigger_event('get_history', array(), $page['search'], $types);
+  usort($data, 'history_compare');
 
-  if (isset($page['search']['fields']['date-after']))
-  {
-    array_push(
-      $clauses,
-      "date >= '".$page['search']['fields']['date-after']."'"
-      );
-  }
+  $page['nb_lines'] = count($data);
 
-  if (isset($page['search']['fields']['date-before']))
-  {
-    array_push(
-      $clauses,
-      "date <= '".$page['search']['fields']['date-before']."'"
-      );
-  }
-
-  if (isset($page['search']['fields']['types']))
-  {
-    $local_clauses = array();
-    
-    foreach ($types as $type) {
-      if (in_array($type, $page['search']['fields']['types'])) {
-        $clause = 'image_type ';
-        if ($type == 'none')
-        {
-          $clause.= 'IS NULL';
-        }
-        else
-        {
-          $clause.= "= '".$type."'";
-        }
-        
-        array_push($local_clauses, $clause);
-      }
-    }
-    
-    if (count($local_clauses) > 0)
-    {
-      array_push(
-        $clauses,
-        implode(' OR ', $local_clauses)
-        );
-    }
-  }
-
-  if (isset($page['search']['fields']['user'])
-      and $page['search']['fields']['user'] != -1)
-  {
-    array_push(
-      $clauses,
-      'user_id = '.$page['search']['fields']['user']
-      );
-  }
-
-  if (isset($page['search']['fields']['image_id']))
-  {
-    array_push(
-      $clauses,
-      'image_id = '.$page['search']['fields']['image_id']
-      );
-  }
-  
-  if (isset($page['search']['fields']['filename']))
-  {
-    if (count($page['search']['image_ids']) == 0)
-    {
-      // a clause that is always false
-      array_push($clauses, '1 = 2 ');
-    }
-    else
-    {
-      array_push(
-        $clauses,
-        'image_id IN ('.implode(', ', $page['search']['image_ids']).')'
-        );
-    }
-  }
-  
-  $clauses = prepend_append_array_items($clauses, '(', ')');
-
-  $where_separator =
-    implode(
-      "\n    AND ",
-      $clauses
-      );
-  
-  $query = '
-SELECT
-    date,
-    time,
-    user_id,
-    IP,
-    section,
-    category_id,
-    tag_ids,
-    image_id,
-    image_type
-  FROM '.HISTORY_TABLE.'
-  WHERE '.$where_separator.'
-;';
-
-  // LIMIT '.$page['start'].', '.$conf['nb_logs_page'].'
-
-  $result = pwg_query($query);
-
-  $page['nb_lines'] = mysql_num_rows($result);
-  
   $history_lines = array();
   $user_ids = array();
   $username_of = array();
   $category_ids = array();
   $image_ids = array();
   $tag_ids = array();
-  
-  while ($row = mysql_fetch_assoc($result))
+
+  foreach ($data as $row)
   {
     $user_ids[$row['user_id']] = 1;
 
