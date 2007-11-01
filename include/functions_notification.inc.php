@@ -29,7 +29,7 @@
 // +-----------------------------------------------------------------------+
 
 /*
- * get standard sql where in order to 
+ * get standard sql where in order to
  * restict an filter caregories and images
  *
  * IMAGE_CATEGORY_TABLE muste named ic in the query
@@ -83,9 +83,8 @@ function custom_notification_query($action, $type, $start, $end)
     case 'unvalidated_comments':
       $query = '
   FROM '.COMMENTS_TABLE.'
-  WHERE date <= \''.$end.'\'
-    AND (validated = \'false\'
-         OR validation_date > \''.$end.'\')
+  WHERE date> \''.$start.'\' AND date <= \''.$end.'\'
+    AND validated = \'false\'
 ;';
       break;
     case 'new_elements':
@@ -226,26 +225,15 @@ function new_comments($start, $end)
  *
  * Comments that are registered and not validated yet on a precise date
  *
- * @param string date (mysql datetime format)
+ * @param string start (mysql datetime format)
+ * @param string end (mysql datetime format)
  * @return count comment ids
  */
-function nb_unvalidated_comments($date)
+function nb_unvalidated_comments($start, $end)
 {
-  return custom_notification_query('count', 'unvalidated_comments', $date, $date);
+  return custom_notification_query('count', 'unvalidated_comments', $start, $end);
 }
 
-/**
- * unvalidated at a precise date
- *
- * Comments that are registered and not validated yet on a precise date
- *
- * @param string date (mysql datetime format)
- * @return array comment ids
- */
-function unvalidated_comments($date)
-{
-  return custom_notification_query('info', 'unvalidated_comments', $start, $end);
-}
 
 /**
  * new elements between two dates, according to authorized categories
@@ -362,7 +350,7 @@ function news_exists($start, $end)
           (nb_new_comments($start, $end) > 0) or
           (nb_new_elements($start, $end) > 0) or
           (nb_updated_categories($start, $end) > 0) or
-          ((is_admin()) and (nb_unvalidated_comments($end) > 0)) or
+          ((is_admin()) and (nb_unvalidated_comments($start, $end) > 0)) or
           ((is_admin()) and (nb_new_users($start, $end) > 0)) or
           ((is_admin()) and (nb_waiting_elements() > 0))
         );
@@ -424,7 +412,7 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
   if (is_admin())
   {
     add_news_line( $news,
-        nb_unvalidated_comments($end), '%d comment to validate', '%d comments to validate',
+        nb_unvalidated_comments($start, $end), '%d comment to validate', '%d comments to validate',
         get_root_url().'admin.php?page=comments', $add_url );
 
     add_news_line( $news,
@@ -513,9 +501,9 @@ SELECT DISTINCT c.uppercats, COUNT(DISTINCT i.id) img_count
 }
 
 /*
-  Call function get_recent_post_dates but 
+  Call function get_recent_post_dates but
   the parameters to be passed to the function, as an indexed array.
-  
+
 */
 function get_recent_post_dates_array($args)
 {
@@ -538,7 +526,7 @@ function get_html_description_recent_post_date($date_detail)
   global $conf;
 
   $description = '';
-  
+
   $description .=
         '<li>'
         .l10n_dec('%d new element', '%d new elements', $date_detail['nb_elements'])
