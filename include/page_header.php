@@ -53,7 +53,7 @@ $template->assign_vars(
 
     'TAG_INPUT_ENABLED' =>
       ((is_adviser()) ? 'disabled onclick="return false;"' : ''),
-    'U_HOME' => get_absolute_root_url(),
+    'U_HOME' => make_index_url(),
     ));
 
 // picture header infos
