@@ -1143,6 +1143,15 @@ function check_status($access_type, $user_status = '')
 }
 
 /*
+ * Return if user is generic
+ * @return bool
+*/
+ function is_generic($user_status = '')
+{
+  return get_user_status($user_status) == 'generic';
+}
+
+/*
  * Return if user is only a guest
  * @return bool
 */
@@ -1151,14 +1160,6 @@ function check_status($access_type, $user_status = '')
   return get_user_status($user_status) == 'guest';
 }
 
-/*
- * Return if user is generic
- * @return bool
-*/
- function is_generic($user_status = '')
-{
-  return get_user_status($user_status) == 'generic';
-}
 /*
  * Return if user is, at least, a classic user
  * @return bool
