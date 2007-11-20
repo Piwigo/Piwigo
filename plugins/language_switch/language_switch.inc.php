@@ -27,6 +27,7 @@ function language_switch()
 {
   global $user, $template, $conf, $lang;
   if (!defined('PHPWG_ROOT_PATH')) { die('Hacking attempt!'); }
+  $same = $user['language'];
   if ( isset( $_GET['lang']) )
   {
     if ( !empty($_GET['lang'] ) and 
@@ -56,12 +57,15 @@ function language_switch()
   { 
     $user['language'] = $_COOKIE['pwg_lang_switch']; 
   }
-
-  load_language('common.lang', '', $user['language']);
-  load_language('local.lang', '', $user['language']);
-  if (defined('IN_ADMIN') and IN_ADMIN)
+// Reload language only if it isn't the same one
+  if ( $same !== $user['language']) 
   {
-    load_language('admin.lang', '', $user['language']);
+    load_language('common.lang', '', $user['language']);
+    load_language('local.lang', '', $user['language']);
+    if (defined('IN_ADMIN') and IN_ADMIN)
+    {
+      load_language('admin.lang', '', $user['language']);
+    }
   }
 }
 //if ( isset( $_GET['lang']) ) { redirect( make_index_url() ); }
