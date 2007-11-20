@@ -189,8 +189,12 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     $comm['id'] = mysql_insert_id();
 
-    if ( ($comment_action=='validate' and $conf['email_admin_on_comment'])
-      or $conf['email_admin_on_comment_validation'] )
+    if
+      (
+        ($comment_action=='validate' and $conf['email_admin_on_comment'])
+        or 
+        ($comment_action!='validate' and $conf['email_admin_on_comment_validation'])
+      )
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
