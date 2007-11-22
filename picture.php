@@ -436,8 +436,15 @@ if ( isset( $_GET['slideshow'] ) )
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
   $page['slideshow'] = true;
   if ( $conf['light_slideshow'] )
-  {
+  { // Change template file
+    // Add local-slideshow.css file if exists
     $template->set_filename('picture', 'slideshow.tpl');
+    $css = get_root_url() . get_themeconf('template_dir') . '/theme/'
+         . get_themeconf('theme') . '/local-slideshow.css';
+    if (file_exists($css))
+    {
+      $template->assign_block_vars('slideshow', array());
+    }
   }
   if ( isset($page['next_item']) )
   {

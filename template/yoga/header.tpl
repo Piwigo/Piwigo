@@ -43,6 +43,9 @@ the "text/nonsense" prevents gecko based browsers to load it -->
 <link rel="stylesheet" type="text/css" media="print" href="{pwg_root}template/{themeconf:template}/print.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/theme.css">
+<!-- BEGIN slideshow -->
+<link rel="stylesheet" type="text/css" href="{pwg_root}template/{themeconf:template}/theme/{themeconf:theme}/local-slideshow.css">
+<!-- END slideshow -->
 {themeconf:local_head}
 <!-- BEGIN prefetch -->
 <link rel="prefetch" href="{prefetch.URL}">
