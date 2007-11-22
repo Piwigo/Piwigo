@@ -697,7 +697,7 @@ function pwg_mail($to, $args = array())
                 nl2br(
                   preg_replace("/(http:\/\/)([^\s,]*)/i",
                                "<a href='$1$2'>$1$2</a>",
-                               htmlentities($args['content']))).
+                               htmlspecialchars($args['content']))).
                 '</p>';
   }
   else
