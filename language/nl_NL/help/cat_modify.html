@@ -1,0 +1,128 @@
+<h2>Een categorie bewerken</h2>
+
+<h3>Informatie</h3>
+
+<ul>
+
+  <li><strong>naam</strong>: hernoem de categorie (een virtuele hernoeming in het geval van een physieke categorie).</li>
+
+  <li><strong>omschrijving</strong>: geef informatie over de inhoud die getoond word in de categorie,
+  deze tekst word onder de thumbnail.</li>
+
+</ul>
+
+<h3>Verplaatsen</h3>
+
+<p>Als het een virtuele categorie is, dan kun je hem verplaatssen. Het verplaatsen van een categorie houd in dat je het ouderschap veranderd.</p>
+
+<h3>Opties</h3>
+
+<ul>
+
+  <li><strong>Toegangs type</strong>: Rechten beheren. Als je een 
+  categorie private maakt, worden alle daaronderliggende (kinder)categorieën worden dan ook private.<br>
+  Als je een categorie publiek maakt, worden alle ouder categorieën zullen dan ook publiek worden.</li>
+
+  <li><strong>Sluiten</strong>: De categorie en zijn sub-categorieë zijn
+  tijdelijk uitgeschakeld voor onderhoud.</li>
+
+  <li><strong>Commentaar</strong>: Machtig gebruikers om commentaar te geven op de elementen in deze categorie.</li>
+
+  <li><strong>Machtiging tot upload</strong>: Machtig gebruikers om bestanden te-uploaden. Deze optie is alleen beschikbaar als de categorie physiek is (niet
+  virtueel).</li>
+
+</ul>
+
+<p>Je kan de opties ook beheren via "Eigenschappen" beheer schermen (scherm <span class="pwgScreen">Upload</span>, <span
+class="pwgScreen">Commentaar</span>, <span class="pwgScreen">Sluiten</span>,
+<span class="pwgScreen">Publiek/Private</span>, <span
+class="pwgScreen">Vertegewoordiging</span> beschikbaar via <span
+class="pwgScreen">Administratie, Categorieën, Eigenschappen</span>).</p>
+
+<h3>Sorteer volgorde</h3>
+
+<p>Kies als de standaard sortering word gebruikt.</p>
+
+<p>Indicatie dat de sortering wort toegepast op de sub-categorieën.</p>
+
+<p>Gebruik specifieke sorteren middels de kolommen in deze categorie.</p>
+<ul>
+<li><strong>Aanmaak datum</strong>: Aanmaak datum foto</li>
+<li><strong>Plaatings datum</strong>: Synchronizatie datum</li>
+<li><strong>Gemiddelde waardering(*)</strong>: Gemiddelde waardering kan gewijzigt worden door een bezoeker</li>
+<li><strong>Most visited (*)</strong>: The current visit change the most visited order</li>
+<li><strong>Bestandsnaam</strong>: Gekozen naam in het informatie veld</li>
+<li><strong>Id</strong>: Interne Id (recente categorieën hoger id dan vorige id's.</li>
+
+</ul>
+<p><strong>(*)</strong>Neem zorg en test het voor uw zelf aangezien het onvoorspelbare resultaten kan geven.</p>
+
+
+<h3>Vertegenwoordiging</h3>
+
+<p>De vertegenwoordiging van de categorie is een indexplaatje "thumbnail" welke getoond word
+om de categorie te tonen op de hoofdpagina (<span class="pwgScreen">category.php</span>) wanneer een
+categorie alleen sub-categorieieën bevat (alleen als root categorie).</p>
+
+<p>Er zijn 4 manieren om een indexplaatje te tonen als weergavevan een categoie :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Picture page</span>: in het aktiemenu, 
+  met een van de knoppen is het mogelijk om een plaatje te kiezen als
+  vertegenwoordiging van een categorie. Deze knop is alleen beschikbaar voor administrators.</li>
+
+  <li><span class="pwgScreen">Verander informatie over een plaatje</span> via de administratie.
+  Je kunt bij dit scherm komen via <span class="pwgScreen">picture.php</span> of 
+  <span class="pwgScreen">Batch management</span> in <em>unit mode</em>. Kijk voor meer info in de documentatie voor meer details.</li>
+
+  <li><span class="pwgScreen">Administratie, Categorieën, Eigenschappen, Thumbnails</span>. Kijk voor meer info in de documentatie voor meer details.</li>
+
+  <li><span class="pwgScreen">Bewerk een categorie</span> (dit scherm).</li>
+
+</ul>
+
+<p>De indexafbeelding is afhankelijk van de configuratie parameter <code>allow_random_representative</code> (zie <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Standaard is <code>allow_random_representative</code> ingesteld op false (onwaar)
+elke categorie die tenminste 1 element bevat is vertegenwoordigd door een vastgestelde afbeelding. 
+Eenmaal ingesteld (Bij het maken van de categorie), kan deze alleen veranderd worden door administrator 
+ die daar dan om verzoekt it. Als de indexafbeelding niet meer bestaat kun je er <strong>willekeurig</strong> een nieuwe aan toewijzen.</p>
+
+<p>Als de configuratie parameter <code>allow_random_representative</code> is
+ingesteld op true (waar), dan is eer geen vaste indexafbeelding. Gebruik gewoon <strong>Verwijder indexafbeelding</strong> knop.</p>
+
+<p>Als de categorie geen elementen bevat (maar alleen sub-categorieën) kan het 
+vertegenwoordigt worden dankzij het scherm <span class="pwgScreen">verander informatie over een afbeelding</span>. De enigste optie 
+op het huidige scherm is <strong>Verwijder vertegenwoordigingsafbeelding</strong> knop, na deze optie te hebben gebruikt is er geen 
+afbeeldingsafbeeldings optie meer om te veranderen.</p>
+
+<h3>Link alle categorie elementen aan een nieuwe categorie</h3>
+
+<ul>
+
+<li><strong>Virtuele categorie naam</strong>: Nieuwe categorie naam aanmaaken, 
+alle afbeeldingen van de huidige categorie zullen gekoppeld worden aan de nieuwecategorie.</li>
+
+<li><strong>Ouder categorie</strong>: Waar de nieuwe moet komen, laat dit leeg om deze in de root te maken.</li>
+
+</ul>
+
+<h3>Link alle categorie elementen aan bestaande categorieën</h3>
+
+<ul>
+
+<li><strong>Categorieën</strong>: Kies de doelcategorie.</li>
+
+</ul>
+
+<h3>Stuur een informatie email naar de groepsleden</h3>
+
+<ul>
+
+<li><strong>Groep</strong>: Geadresseerden groep</li>
+
+<li><strong>Email inhoud</strong>: Vrije tekst om mee te sturen.</li>
+
+</ul>  
