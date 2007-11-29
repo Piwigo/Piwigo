@@ -206,7 +206,8 @@ if ('categories' == $page['section'])
         'comment'           =>
             trigger_event(
               'render_category_description',
-              $page['category']['comment']
+              $page['category']['comment'],
+              'main_page_category_description'
             ),
         'title'             =>
           get_cat_display_name($page['category']['upper_names'], '', false),

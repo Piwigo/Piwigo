@@ -257,7 +257,8 @@ if (count($categories) > 0)
           'DESCRIPTION' =>
             trigger_event('render_category_literal_description',
               trigger_event('render_category_description',
-                @$category['comment'])),
+                @$category['comment'],
+                'subcatify_category_description')),
           'NAME'  => $name,
           )
         );
