@@ -65,7 +65,7 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
 {
   if (!($user['id'] = get_userid($_SERVER['REMOTE_USER'])))
   {
-    register_user($_SERVER['REMOTE_USER'], '', '');
+    register_user($_SERVER['REMOTE_USER'], '', '', false);
     $user['id'] = get_userid($_SERVER['REMOTE_USER']);
   }
 }
