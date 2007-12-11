@@ -52,34 +52,13 @@ if (isset($_POST['submit']))
       register_user($_POST['login'],
                     $_POST['password'],
                     $_POST['mail_address'],
+                    true,
                     $errors);
 
   if (count($errors) == 0)
   {
     $user_id = get_userid($_POST['login']);
-    log_user( $user_id, false);
-
-    if ($conf['email_admin_on_new_user'])
-    {
-      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-      $username = $_POST['login'];
-      $admin_url = get_absolute_root_url()
-                   .'admin.php?page=user_list&username='.$username;
-
-      $keyargs_content = array
-      (
-        get_l10n_args('User: %s', $username),
-        get_l10n_args('Email: %s', $_POST['mail_address']),
-        get_l10n_args('', ''),
-        get_l10n_args('Admin: %s', $admin_url)
-      );
-
-      pwg_mail_notification_admins
-      (
-        get_l10n_args('Registration of %s', $username),
-        $keyargs_content
-      );
-    }
+    log_user($user_id, false);
     redirect(make_index_url());
   }
 }

@@ -66,7 +66,8 @@ where upper('.$conf['user_fields']['email'].') = upper(\''.$mail_address.'\')
   }
 }
 
-function register_user($login, $password, $mail_address, $errors = array())
+function register_user($login, $password, $mail_address,
+  $with_notification = true, $errors = array())
 {
   global $conf;
 
@@ -113,28 +114,29 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
     include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
     mass_inserts(USERS_TABLE, array_keys($insert), array($insert));
 
-  // Assign by default groups
-  {
-    $query = '
+    // Assign by default groups
+    {
+      $query = '
 SELECT id
   FROM '.GROUPS_TABLE.'
   WHERE is_default = \''.boolean_to_string(true).'\'
   ORDER BY id ASC
 ;';
-    $result = pwg_query($query);
+      $result = pwg_query($query);
 
-    $inserts = array();
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push
-      (
-        $inserts,
-        array
+      $inserts = array();
+      while ($row = mysql_fetch_array($result))
+      {
+        array_push
         (
-          'user_id' => $next_id,
-          'group_id' => $row['id']
-        )
-      );
+          $inserts,
+          array
+          (
+            'user_id' => $next_id,
+            'group_id' => $row['id']
+          )
+        );
+      }
     }
 
     if (count($inserts) != 0)
@@ -142,9 +144,30 @@ SELECT id
       include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
       mass_inserts(USER_GROUP_TABLE, array('user_id', 'group_id'), $inserts);
     }
-  }
 
     create_user_infos($next_id);
+
+    if ($with_notification and $conf['email_admin_on_new_user'])
+    {
+      include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+      $username = $_POST['login'];
+      $admin_url = get_absolute_root_url()
+                   .'admin.php?page=user_list&username='.$username;
+
+      $keyargs_content = array
+      (
+        get_l10n_args('User: %s', $username),
+        get_l10n_args('Email: %s', $_POST['mail_address']),
+        get_l10n_args('', ''),
+        get_l10n_args('Admin: %s', $admin_url)
+      );
+
+      pwg_mail_notification_admins
+      (
+        get_l10n_args('Registration of %s', $username),
+        $keyargs_content
+      );
+    }
 
     trigger_action('register_user',
       array(

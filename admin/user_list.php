@@ -196,7 +196,7 @@ $page['direction_items'] = array(
 if (isset($_POST['submit_add']))
 {
   $page['errors'] = register_user(
-    $_POST['login'], $_POST['password'], $_POST['email']);
+    $_POST['login'], $_POST['password'], $_POST['email'], false);
 
   if (count($page['errors']) == 0)
   {
