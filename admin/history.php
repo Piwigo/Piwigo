@@ -441,6 +441,7 @@ SELECT
       if (isset($label_of_image[$line['image_id']]))
       {
         $image_string.= ' '.$label_of_image[$line['image_id']];
+		$image_string.= '</a>';
       }
       else
       {

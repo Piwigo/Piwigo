@@ -27,7 +27,7 @@
   <tr>
     <td style="white-space: nowrap">{statrow.VALUE}</td>
     <td class="number">{statrow.PAGES}</td>
-    <td><div class="statBar" style="width:{statrow.WIDTH}px" /></td>
+    <td><div class="statBar" style="width:{statrow.WIDTH}px"></div></td>
   </tr>
 <!-- END statrow -->
 </table>
