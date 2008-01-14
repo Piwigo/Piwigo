@@ -32,7 +32,7 @@ function get_icon($date, $is_child_date = false)
   {
     return '';
   }
-
+ 
   if (isset($page['get_icon_cache'][$date]))
   {
     if (! $page['get_icon_cache'][$date] )
@@ -40,32 +40,16 @@ function get_icon($date, $is_child_date = false)
     return $page['get_icon_cache']['_icons_'][$is_child_date];
   }
 
-  if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $date, $matches))
-  {// date can be empty, no icon to display
-    $page['get_icon_cache'][$date] = false;
-    return '';
-  }
-
-  list($devnull, $year, $month, $day) = $matches;
-  $unixtime = mktime( 0, 0, 0, $month, $day, $year );
-  if ($unixtime === false  // PHP 5.1.0 and above
-      or $unixtime === -1) // PHP prior to 5.1.0
-  {
-    $page['get_icon_cache'][$date] = false;
-    return '';
-  }
-
-  if (!isset($page['get_icon_cache']['unix_timestamp']))
+  if (!isset($page['get_icon_cache']['sql_recent_date']))
   {
     // Use MySql date in order to standardize all recent "actions/queries"
-    list($page['get_icon_cache']['unix_timestamp']) =
-      mysql_fetch_array(pwg_query('select UNIX_TIMESTAMP(CURRENT_DATE)'));
+    list($page['get_icon_cache']['sql_recent_date']) =
+      mysql_fetch_array(pwg_query('select SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
   }
 
-  $diff = $page['get_icon_cache']['unix_timestamp'] - $unixtime;
-  $day_in_seconds = 24*60*60;
   $page['get_icon_cache'][$date] = false;
-  if ( $diff <= $user['recent_period'] * $day_in_seconds )
+  if ( $date > $page['get_icon_cache']['sql_recent_date'] )
   {
     if ( !isset($page['get_icon_cache']['_icons_'] ) )
     {
@@ -84,11 +68,11 @@ function get_icon($date, $is_child_date = false)
     }
     $page['get_icon_cache'][$date] = true;
   }
+
   if (! $page['get_icon_cache'][$date] )
     return '';
   return $page['get_icon_cache']['_icons_'][$is_child_date];
 }
-
 
 function create_navigation_bar(
   $url, $nb_element, $start, $nb_element_page, $clean_url = false
