@@ -392,16 +392,10 @@ $base_url = PHPWG_ROOT_PATH.'admin.php?page=history';
 
 $template->assign_vars(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=history',
-
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=history'
-    )
-  );
-
-$template->assign_vars(
-  array(
     'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
     'PERIOD_LABEL' => $period_label,
+    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=history',
+    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=history',
     )
   );
 
