@@ -207,9 +207,6 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
-// Create empty local files to avoid log errors
-create_empty_local_files();
-
 if ( isset( $_POST['language'] ))
 {
   $language = strip_tags($_POST['language']);
@@ -302,6 +299,9 @@ define(\'PHPWG_INSTALLED\', true);
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
+
+    // Create empty local files to avoid log errors
+    create_empty_local_files();
     
     // tables creation, based on phpwebgallery_structure.sql
     execute_sqlfile(
