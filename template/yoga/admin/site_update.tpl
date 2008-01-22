@@ -96,7 +96,11 @@
     </select>
     </li>
 
-    <li><label><input type="checkbox" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} /> {lang:search_subcats_included}</label></li>
+    <li><label>
+    <img class="button" src="{themeconf:icon_dir}/check.png" alt="checked checkbox">
+    <input type="HIDDEN" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} />
+{lang:search_subcats_included}</label>
+ / (<strong>Warning</strong>: Locked control, contact our forum if needed).</li>
     </ul>
   </fieldset>
 
