@@ -240,7 +240,20 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     array_push($fs_fulldirs, $basedir);
   }
 
-  $inserts = array();
+  // If $_POST['subcats-included'] != 1 ("Search in subcategories" is unchecked)
+  // $db_fulldirs doesn't include any subdirectories and $fs_fulldirs does
+  // So $fs_fulldirs will be limited to the selected basedir 
+  // (if that one is in $fs_fulldirs)
+  if (!isset($_POST['subcats-included']) or $_POST['subcats-included'] != 1)
+  {
+    $fs_fulldirs = array_intersect($fs_fulldirs, array_keys($db_fulldirs));
+  }
+  // print_r( $fs_fulldirs ); echo "<br>";
+  // print_r( $db_fulldirs ); echo "<br>";
+  // print_r( array_diff($fs_fulldirs, array_keys($db_fulldirs)) ); echo "<br>";
+  // die('That\'s why dirs or files synchronizations were duplicating cats.');
+
+  $inserts = array();  
   // new categories are the directories not present yet in the database
   foreach (array_diff($fs_fulldirs, array_keys($db_fulldirs)) as $fulldir)
   {
