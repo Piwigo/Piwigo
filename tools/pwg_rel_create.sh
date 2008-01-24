@@ -26,7 +26,13 @@ then
   rm -rf $name
 fi
 
-# cvs export -r $tag -d $name phpwebgallery
+if [ -e $version ]
+then
+  rm -rf $version
+fi
+mkdir $version
+
+# cvs export -r $tag -d $version phpwebgallery
 svn export http://svn.gna.org/svn/phpwebgallery/tags/$tag $name
 # creating mysql.inc.php empty and writeable
 touch $name/include/mysql.inc.php
@@ -36,6 +42,7 @@ chmod a+w $name/include/mysql.inc.php
 #   | xargs grep -l 'branch 1.7' \
 #   | xargs perl -pi -e "s/branch 1.7/${version}/g"
 
+cd /tmp/$version
 for ext in zip tar.gz tar.bz2
 do
   file=$name.$ext
@@ -45,6 +52,7 @@ do
   fi
 done
 
-zip -r   $name.zip     $name
-tar -czf $name.tar.gz  $name
-tar -cjf $name.tar.bz2 $name
+zip -r   $name.zip     ../$name
+tar -czf $name.tar.gz  ../$name
+tar -cjf $name.tar.bz2 ../$name
+
