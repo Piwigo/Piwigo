@@ -35,7 +35,7 @@ $conf['version'] = 'branch 1.7';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
-$conf['gallery'] = 'http://';
+$conf['gallery'] = 'http://demo.phpwebgallery.net/';
 
 // prefix for thumbnails in "thumbnail" sub directories
 $conf['prefix_thumbnail'] = 'TN-';
@@ -54,6 +54,11 @@ $conf['picture_ext'] = array('jpg','JPG','jpeg','JPEG',
 // ****** Time limitation functionality ****** //
 // max execution time before refresh in seconds
 $conf['max_execution_time'] = (5*ini_get('max_execution_time'))/6; // 25 seconds with default PHP configuration
+// force the use of refresh method
+// in order to have live informations
+// or
+// to fix system witch are not safe mode but not autorized set_time_limit
+$conf['force_refresh_method'] =  true;
 
 // refresh delay is seconds
 $conf['refresh_delay'] = 0;
@@ -87,9 +92,6 @@ $conf['use_iptc_mapping'] = array(
 // Define if directories have to be protected if they are not
 $conf['protect'] = false;
 
-// index.php content for command 'protect'
-$conf['protect_content'] = '<?php header("Location: '.$conf['gallery'].'") ?>';
-
 // true/false : show/hide warnings
 $conf['protect_warnings'] = true;
 
@@ -122,6 +124,13 @@ $conf['thumbnail_format'] = 'jpeg';
 $conf['thumbs'] = 'thumbnail'; // thumbnails
 $conf['high'] = 'pwg_high'; // high resolution
 $conf['represent'] = 'pwg_representative'; // non pictures representative files
+
+
+// +-----------------------------------------------------------------------+
+// | Overload configurations                                               |
+// +-----------------------------------------------------------------------+
+@include(dirname(__FILE__).'/'.basename(__FILE__, '.php').'_local.inc.php');
+
 
 // +-----------------------------------------------------------------------+
 // |                                Advanced script configuration          |
@@ -877,7 +886,7 @@ function pwg_protect_directories($directory)
         $file = @fopen($dir.'/index.php', 'w');
         if ($file != false)
         {
-          fwrite($file, $conf['protect_content']); // the return code should be verified
+          fwrite($file, $pwg_conf['protect_content']); // the return code should be verified
           $error_log .= '          <code class="success">Success -</code> index.php created in directory <a href="'.$dir.'">'.$dir."</a><br />\n";
         }
         else
@@ -1385,7 +1394,7 @@ function pwg_continue()
   }
   else
   {
-    if ($pwg_conf['safe_mode'])
+    if ($pwg_conf['safe_mode'] or $conf['force_refresh_method'])
     {
       // can not reset the time
       $time_elapsed = pwg_get_moment() - $start_time;
