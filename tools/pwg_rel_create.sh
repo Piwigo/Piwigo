@@ -42,17 +42,20 @@ chmod a+w $name/include/mysql.inc.php
 #   | xargs grep -l 'branch 1.7' \
 #   | xargs perl -pi -e "s/branch 1.7/${version}/g"
 
-cd /tmp/$version
+cd /tmp
 for ext in zip tar.gz tar.bz2
 do
-  file=$name.$ext
+  file=$version/$name.$ext
   if [ -f $file ]
   then
     rm $name
   fi
 done
 
-zip -r   $name.zip     ../$name
-tar -czf $name.tar.gz  ../$name
-tar -cjf $name.tar.bz2 ../$name
 
+zip -r   $version/$name.zip     $name
+tar -czf $version/$name.tar.gz  $name
+tar -cjf $version/$name.tar.bz2 $name
+
+cd /tmp/$version
+md5sum p* >MD5SUMS
