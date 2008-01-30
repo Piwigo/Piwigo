@@ -87,7 +87,7 @@ if (isset($_POST['submit_add']) and !is_adviser())
 {
   if (empty($_POST['groupname']))
   {
-    array_push($page['errors'], $lang['group_add_error1']);
+    array_push($page['errors'], l10n('group_add_error1'));
   }
   if (count($page['errors']) == 0)
   {
@@ -100,7 +100,7 @@ SELECT COUNT(*)
     list($count) = mysql_fetch_row(pwg_query($query));
     if ($count != 0)
     {
-      array_push($page['errors'], $lang['group_add_error2']);
+      array_push($page['errors'], l10n('group_add_error2'));
     }
   }
   if (count($page['errors']) == 0)

@@ -178,15 +178,15 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 $page['order_by_items'] = array(
-  'id' => $lang['registration_date'],
-  'username' => $lang['Username'],
+  'id' => l10n('registration_date'),
+  'username' => l10n('Username'),
   'level' => l10n('Privacy level'),
   'language' => l10n('language'),
   );
 
 $page['direction_items'] = array(
-  'asc' => $lang['ascending'],
-  'desc' => $lang['descending']
+  'asc' => l10n('ascending'),
+  'desc' => l10n('descending')
   );
 
 // +-----------------------------------------------------------------------+
@@ -568,7 +568,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
     $blockname,
     array(
       'VALUE' => $status,
-      'CONTENT' => $lang['user_status_'.$status],
+      'CONTENT' => l10n('user_status_'.$status),
       'SELECTED' => $selected
       ));
 }
@@ -688,7 +688,7 @@ foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
       $blockname,
       array(
         'VALUE' => $status,
-        'CONTENT' => $lang['user_status_'.$status],
+        'CONTENT' => l10n('user_status_'.$status),
         'SELECTED' => $selected
         ));
   }
@@ -838,7 +838,7 @@ foreach ($visible_user_list as $num => $local_user)
   }
   $properties[] =
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
-        ? $lang['is_high_enabled'] : $lang['is_high_disabled'];
+        ? l10n('is_high_enabled') : l10n('is_high_disabled');
 
   $template->assign_block_vars(
     'user',
@@ -853,8 +853,8 @@ foreach ($visible_user_list as $num => $local_user)
           ? '<BR />['.l10n('is_the_guest').']' : '')
         .($local_user['id'] == $conf['default_user_id']
           ? '<BR />['.l10n('is_the_default').']' : ''),
-      'STATUS' => $lang['user_status_'.
-        $local_user['status']].(($local_user['adviser'] == 'true')
+      'STATUS' => l10n('user_status_'.
+        $local_user['status']).(($local_user['adviser'] == 'true')
         ? '<BR />['.l10n('adviser').']' : ''),
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,

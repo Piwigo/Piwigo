@@ -113,7 +113,7 @@ WHERE ';
   }
   pwg_query($query);
 
-  array_push($page['infos'], $lang['editcat_confirm']);
+  array_push($page['infos'], l10n('editcat_confirm'));
 }
 else if (isset($_POST['set_random_representant']))
 {
@@ -262,20 +262,20 @@ $template->assign_vars(
     'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
                               'checked="checked"' : '',
 
-    'L_EDIT_NAME'        => $lang['name'],
-    'L_STORAGE'          => $lang['storage'],
-    'L_REMOTE_SITE'      => $lang['remote_site'],
-    'L_EDIT_COMMENT'     => $lang['description'],
-    'L_EDIT_STATUS'      => $lang['conf_access'],
-    'L_STATUS_PUBLIC'    => $lang['public'],
-    'L_STATUS_PRIVATE'   => $lang['private'],
-    'L_EDIT_LOCK'        => $lang['lock'],
-    'L_EDIT_UPLOADABLE'  => $lang['editcat_uploadable'],
-    'L_EDIT_COMMENTABLE' => $lang['comments'],
-    'L_YES'              => $lang['yes'],
-    'L_NO'               => $lang['no'],
-    'L_SUBMIT'           => $lang['submit'],
-    'L_SET_RANDOM_REPRESENTANT'=>$lang['cat_representant'],
+    'L_EDIT_NAME'        => l10n('name'),
+    'L_STORAGE'          => l10n('storage'),
+    'L_REMOTE_SITE'      => l10n('remote_site'),
+    'L_EDIT_COMMENT'     => l10n('description'),
+    'L_EDIT_STATUS'      => l10n('conf_access'),
+    'L_STATUS_PUBLIC'    => l10n('public'),
+    'L_STATUS_PRIVATE'   => l10n('private'),
+    'L_EDIT_LOCK'        => l10n('lock'),
+    'L_EDIT_UPLOADABLE'  => l10n('editcat_uploadable'),
+    'L_EDIT_COMMENTABLE' => l10n('comments'),
+    'L_YES'              => l10n('yes'),
+    'L_NO'               => l10n('no'),
+    'L_SUBMIT'           => l10n('submit'),
+    'L_SET_RANDOM_REPRESENTANT'=>l10n('cat_representant'),
 
     'U_JUMPTO' => make_index_url(
       array(

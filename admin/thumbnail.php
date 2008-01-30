@@ -119,7 +119,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
     // creation and backup of final picture
     if (!is_writable($tndir))
     {
-      array_push($page['errors'], '['.$tndir.'] : '.$lang['no_write_access']);
+      array_push($page['errors'], '['.$tndir.'] : '.l10n('no_write_access'));
       return false;
     }
     imagejpeg($destImage, $dest_file);
@@ -140,14 +140,14 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
   // error
   else
   {
-    echo $lang['tn_no_support']." ";
+    echo l10n('tn_no_support')." ";
     if ( isset( $extenstion ) )
     {
-      echo $lang['tn_format'].' '.$extension;
+      echo l10n('tn_format').' '.$extension;
     }
     else
     {
-      echo $lang['tn_thisformat'];
+      echo l10n('tn_thisformat');
     }
     exit();
   }
@@ -161,26 +161,26 @@ $stats = array();
 $template->set_filenames( array('thumbnail'=>'admin/thumbnail.tpl') );
 
 $template->assign_vars(array(
-  'L_THUMBNAIL_TITLE'=>$lang['tn_dirs_title'],
-  'L_UNLINK'=>$lang['tn_no_missing'],
-  'L_MISSING_THUMBNAILS'=>$lang['tn_dirs_alone'],
-  'L_RESULTS'=>$lang['tn_results_title'],
-  'L_PATH'=>$lang['path'],
-  'L_FILESIZE'=>$lang['filesize'],
-  'L_GENERATED'=>$lang['tn_results_gen_time'],
-  'L_THUMBNAIL'=>$lang['thumbnail'],
-  'L_PARAMS'=>$lang['tn_params_title'],
-  'L_GD'=>$lang['tn_params_GD'],
-  'L_CREATE'=>$lang['tn_params_create'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_REMAINING'=>$lang['tn_alone_title'],
-  'L_TN_STATS'=>$lang['tn_stats'],
-  'L_TN_NB_STATS'=>$lang['tn_stats_nb'],
-  'L_TN_TOTAL'=>$lang['tn_stats_total'],
-  'L_TN_MAX'=>$lang['tn_stats_max'],
-  'L_TN_MIN'=>$lang['tn_stats_min'],
-  'L_TN_AVERAGE'=>$lang['tn_stats_mean'],
-  'L_ALL'=>$lang['tn_all'],
+  'L_THUMBNAIL_TITLE'=>l10n('tn_dirs_title'),
+  'L_UNLINK'=>l10n('tn_no_missing'),
+  'L_MISSING_THUMBNAILS'=>l10n('tn_dirs_alone'),
+  'L_RESULTS'=>l10n('tn_results_title'),
+  'L_PATH'=>l10n('path'),
+  'L_FILESIZE'=>l10n('filesize'),
+  'L_GENERATED'=>l10n('tn_results_gen_time'),
+  'L_THUMBNAIL'=>l10n('thumbnail'),
+  'L_PARAMS'=>l10n('tn_params_title'),
+  'L_GD'=>l10n('tn_params_GD'),
+  'L_CREATE'=>l10n('tn_params_create'),
+  'L_SUBMIT'=>l10n('submit'),
+  'L_REMAINING'=>l10n('tn_alone_title'),
+  'L_TN_STATS'=>l10n('tn_stats'),
+  'L_TN_NB_STATS'=>l10n('tn_stats_nb'),
+  'L_TN_TOTAL'=>l10n('tn_stats_total'),
+  'L_TN_MAX'=>l10n('tn_stats_max'),
+  'L_TN_MIN'=>l10n('tn_stats_min'),
+  'L_TN_AVERAGE'=>l10n('tn_stats_mean'),
+  'L_ALL'=>l10n('tn_all'),
 
   'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=thumbnail',
   
@@ -254,11 +254,11 @@ if (isset($_POST['submit']))
   // checking criteria
   if (!ereg('^[0-9]{2,3}$', $_POST['width']) or $_POST['width'] < 10)
   {
-    array_push($page['errors'], $lang['tn_err_width'].' 10');
+    array_push($page['errors'], l10n('tn_err_width').' 10');
   }
   if (!ereg('^[0-9]{2,3}$', $_POST['height']) or $_POST['height'] < 10)
   {
-    array_push($page['errors'], $lang['tn_err_height'].' 10');
+    array_push($page['errors'], l10n('tn_err_height').' 10');
   }
   
   // picture miniaturization

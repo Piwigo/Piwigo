@@ -171,8 +171,8 @@ if ( !is_a_guest() )
     'special_cat',
     array(
       'URL' => make_index_url(array('section' => 'favorites')),
-      'TITLE' => $lang['favorite_cat_hint'],
-      'NAME' => $lang['favorite_cat']
+      'TITLE' => l10n('favorite_cat_hint'),
+      'NAME' => l10n('favorite_cat')
       ));
 }
 // most visited
@@ -180,8 +180,8 @@ $template->assign_block_vars(
   'special_cat',
   array(
     'URL' => make_index_url(array('section' => 'most_visited')),
-    'TITLE' => $lang['most_visited_cat_hint'],
-    'NAME' => $lang['most_visited_cat']
+    'TITLE' => l10n('most_visited_cat_hint'),
+    'NAME' => l10n('most_visited_cat')
     ));
 // best rated
 if ($conf['rate'])
@@ -190,8 +190,8 @@ if ($conf['rate'])
     'special_cat',
     array(
       'URL' => make_index_url(array('section' => 'best_rated')),
-      'TITLE' => $lang['best_rated_cat_hint'],
-      'NAME' => $lang['best_rated_cat']
+      'TITLE' => l10n('best_rated_cat_hint'),
+      'NAME' => l10n('best_rated_cat')
       )
     );
 }
@@ -200,8 +200,8 @@ $template->assign_block_vars(
   'special_cat',
   array(
     'URL' => get_root_url().'random.php',
-    'TITLE' => $lang['random_cat_hint'],
-    'NAME' => $lang['random_cat'],
+    'TITLE' => l10n('random_cat_hint'),
+    'NAME' => l10n('random_cat'),
     'REL'=> 'rel="nofollow"'
     ));
 
@@ -210,16 +210,16 @@ $template->assign_block_vars(
   'special_cat',
   array(
     'URL' => make_index_url(array('section' => 'recent_pics')),
-    'TITLE' => $lang['recent_pics_cat_hint'],
-    'NAME' => $lang['recent_pics_cat'],
+    'TITLE' => l10n('recent_pics_cat_hint'),
+    'NAME' => l10n('recent_pics_cat'),
     ));
 // recent cats
 $template->assign_block_vars(
   'special_cat',
   array(
     'URL' => make_index_url(array('section' => 'recent_cats')),
-    'TITLE' => $lang['recent_cats_cat_hint'],
-    'NAME' => $lang['recent_cats_cat'],
+    'TITLE' => l10n('recent_cats_cat_hint'),
+    'NAME' => l10n('recent_cats_cat'),
     ));
 
 // calendar
@@ -235,8 +235,8 @@ $template->assign_block_vars(
            'chronology_view' => 'calendar'
         )
       ),
-    'TITLE' => $lang['calendar_hint'],
-    'NAME' => $lang['calendar'],
+    'TITLE' => l10n('calendar_hint'),
+    'NAME' => l10n('calendar'),
     'REL'=> 'rel="nofollow"'
     )
   );
@@ -293,8 +293,8 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'summary',
   array(
-    'TITLE'=>$lang['hint_search'],
-    'NAME'=>$lang['search'],
+    'TITLE'=>l10n('hint_search'),
+    'NAME'=>l10n('search'),
     'U_SUMMARY'=> get_root_url().'search.php',
     'REL'=> 'rel="search"'
     )
@@ -305,8 +305,8 @@ $template->assign_block_vars( 'summary.quick_search',  array() );
 $template->assign_block_vars(
   'summary',
   array(
-    'TITLE'=>$lang['hint_comments'],
-    'NAME'=>$lang['comments'],
+    'TITLE'=>l10n('hint_comments'),
+    'NAME'=>l10n('comments'),
     'U_SUMMARY'=> get_root_url().'comments.php',
     )
   );
@@ -315,8 +315,8 @@ $template->assign_block_vars(
 $template->assign_block_vars(
   'summary',
   array(
-    'TITLE'     => $lang['about_page_title'],
-    'NAME'      => $lang['About'],
+    'TITLE'     => l10n('about_page_title'),
+    'NAME'      => l10n('About'),
     'U_SUMMARY' => get_root_url().'about.php',
     )
   );

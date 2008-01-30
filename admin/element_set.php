@@ -124,7 +124,7 @@ SELECT image_id
 }
 else if ('caddie' == $_GET['cat'])
 {
-  $page['title'] = $lang['caddie'];
+  $page['title'] = l10n('caddie');
   
   $query = '
 SELECT element_id

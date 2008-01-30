@@ -81,7 +81,7 @@ if (isset($_POST['submit']) and !is_adviser())
     {
       if ( !url_is_remote($_POST['gallery_url']) )
       {
-        array_push($page['errors'], $lang['conf_gallery_url_error']);
+        array_push($page['errors'], l10n('conf_gallery_url_error'));
       }
       foreach( $main_checkboxes as $checkbox)
       {
@@ -105,7 +105,7 @@ if (isset($_POST['submit']) and !is_adviser())
            or $_POST['nb_comment_page'] < 5
            or $_POST['nb_comment_page'] > 50)
       {
-        array_push($page['errors'], $lang['conf_nb_comment_page_error']);
+        array_push($page['errors'], l10n('conf_nb_comment_page_error'));
       }
       foreach( $comments_checkboxes as $checkbox)
       {
@@ -147,7 +147,7 @@ WHERE param = \''.$row['param'].'\'
         pwg_query($query);
       }
     }
-    array_push($page['infos'], $lang['conf_confirmation']);
+    array_push($page['infos'], l10n('conf_confirmation'));
   }
 
   //------------------------------------------------------ $conf reinitialization
@@ -192,10 +192,10 @@ $action.= '&amp;section='.$page['section'];
 
 $template->assign_vars(
   array(
-    'L_YES'=>$lang['yes'],
-    'L_NO'=>$lang['no'],
-    'L_SUBMIT'=>$lang['submit'],
-    'L_RESET'=>$lang['reset'],
+    'L_YES'=>l10n('yes'),
+    'L_NO'=>l10n('no'),
+    'L_SUBMIT'=>l10n('submit'),
+    'L_RESET'=>l10n('reset'),
 
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=configuration',
 
@@ -281,7 +281,7 @@ switch ($page['section'])
       {
         // Reload user
         $edit_user = build_user($conf['default_user_id'], false);
-        array_push($page['infos'], $lang['conf_confirmation']);
+        array_push($page['infos'], l10n('conf_confirmation'));
       }
     }
     $page['errors'] = array_merge($page['errors'], $errors);

@@ -213,7 +213,7 @@ $template->assign_vars(
   array(
     'CATEGORIES_NAV'=>$page['title'],
 
-    'L_SUBMIT'=>$lang['submit'],
+    'L_SUBMIT'=>l10n('submit'),
 
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
 

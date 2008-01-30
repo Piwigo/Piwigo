@@ -54,8 +54,8 @@ function get_icon($date, $is_child_date = false)
     if ( !isset($page['get_icon_cache']['_icons_'] ) )
     {
       $icons = array(false => 'recent', true => 'recent_by_child' );
-      $title = $lang['recent_image'].'&nbsp;'.$user['recent_period']
-          .'&nbsp;'.$lang['days'];
+      $title = l10n('recent_image').'&nbsp;'.$user['recent_period']
+          .'&nbsp;'.l10n('days');
       foreach ($icons as $key => $icon)
       {
         $icon_url = get_themeconf('icon_dir').'/'.$icon.'.png';
@@ -106,12 +106,12 @@ function create_navigation_bar(
     {
       $navbar.=
         '<a href="'.$url.'" rel="start">'
-        .$lang['first_page']
+        .l10n('first_page')
         .'</a>';
     }
     else
     {
-      $navbar.= $lang['first_page'];
+      $navbar.= l10n('first_page');
     }
     $navbar.= ' | ';
     // link on previous page ?
@@ -123,12 +123,12 @@ function create_navigation_bar(
         '<a href="'
         .$url.($previous > 0 ? $start_str.$previous : '')
         .'" rel="prev">'
-        .$lang['previous_page']
+        .l10n('previous_page')
         .'</a>';
     }
     else
     {
-      $navbar.= $lang['previous_page'];
+      $navbar.= l10n('previous_page');
     }
     $navbar.= ' |';
 
@@ -194,12 +194,12 @@ function create_navigation_bar(
 
       $navbar.=
         '<a href="'.$url.$start_str.$next.'" rel="next">'
-        .$lang['next_page']
+        .l10n('next_page')
         .'</a>';
     }
     else
     {
-      $navbar.= $lang['next_page'];
+      $navbar.= l10n('next_page');
     }
 
     $navbar.= ' | ';
@@ -210,12 +210,12 @@ function create_navigation_bar(
 
       $navbar.=
         '<a href="'.$url.$start_str.$temp_start.'" rel="last">'
-        .$lang['last_page']
+        .l10n('last_page')
         .'</a>';
     }
     else
     {
-      $navbar.= $lang['last_page'];
+      $navbar.= l10n('last_page');
     }
   }
   return $navbar;
@@ -566,9 +566,9 @@ function access_denied()
 
   if ( isset($user) and !is_a_guest() )
   {
-    echo '<div style="text-align:center;">'.$lang['access_forbiden'].'<br />';
-    echo '<a href="'.get_root_url().'identification.php">'.$lang['identification'].'</a>&nbsp;';
-    echo '<a href="'.make_index_url().'">'.$lang['home'].'</a></div>';
+    echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br />';
+    echo '<a href="'.get_root_url().'identification.php">'.l10n('identification').'</a>&nbsp;';
+    echo '<a href="'.make_index_url().'">'.l10n('home').'</a></div>';
     exit();
   }
   else

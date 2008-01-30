@@ -154,8 +154,8 @@ $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_options&amp;section=';
 
 $template->assign_vars(
   array(
-    'L_SUBMIT'=>$lang['submit'],
-    'L_RESET'=>$lang['reset'],
+    'L_SUBMIT'=>l10n('submit'),
+    'L_RESET'=>l10n('reset'),
 
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_options',
     
@@ -238,9 +238,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_SECTION' => $lang['cat_upload_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
-        'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
+        'L_SECTION' => l10n('cat_upload_title'),
+        'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
+        'L_CAT_OPTIONS_FALSE' => l10n('forbidden'),
         )
       );
     break;
@@ -259,9 +259,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_SECTION' => $lang['cat_comments_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['authorized'],
-        'L_CAT_OPTIONS_FALSE' => $lang['forbidden'],
+        'L_SECTION' => l10n('cat_comments_title'),
+        'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
+        'L_CAT_OPTIONS_FALSE' => l10n('forbidden'),
         )
       );
     break;
@@ -280,9 +280,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_SECTION' => $lang['cat_lock_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['unlocked'],
-        'L_CAT_OPTIONS_FALSE' => $lang['locked'],
+        'L_SECTION' => l10n('cat_lock_title'),
+        'L_CAT_OPTIONS_TRUE' => l10n('unlocked'),
+        'L_CAT_OPTIONS_FALSE' => l10n('locked'),
         )
       );
     break;
@@ -301,9 +301,9 @@ SELECT id,name,uppercats,global_rank
 ;';
     $template->assign_vars(
       array(
-        'L_SECTION' => $lang['cat_status_title'],
-        'L_CAT_OPTIONS_TRUE' => $lang['cat_public'],
-        'L_CAT_OPTIONS_FALSE' => $lang['cat_private'],
+        'L_SECTION' => l10n('cat_status_title'),
+        'L_CAT_OPTIONS_TRUE' => l10n('cat_public'),
+        'L_CAT_OPTIONS_FALSE' => l10n('cat_private'),
         )
       );
     break;

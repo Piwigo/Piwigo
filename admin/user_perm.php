@@ -134,8 +134,8 @@ $template->assign_vars(
         get_username($page['user']
           )
         ),
-    'L_CAT_OPTIONS_TRUE'=>$lang['authorized'],
-    'L_CAT_OPTIONS_FALSE'=>$lang['forbidden'],
+    'L_CAT_OPTIONS_TRUE'=>l10n('authorized'),
+    'L_CAT_OPTIONS_FALSE'=>l10n('forbidden'),
 
     'F_ACTION' =>
         PHPWG_ROOT_PATH.
