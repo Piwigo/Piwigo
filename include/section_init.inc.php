@@ -217,7 +217,7 @@ if ('categories' == $page['section'])
   }
   else
   {
-    $page['title'] = $lang['no_category'];
+    $page['title'] = l10n('no_category');
   }
 
   if
@@ -337,7 +337,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$lang['search_result'].'</a>',
+                  .l10n('search_result').'</a>',
         )
       );
   }
@@ -367,7 +367,7 @@ SELECT image_id
     $page = array_merge(
       $page,
       array(
-        'title' => $lang['favorites'],
+        'title' => l10n('favorites'),
         'items' => array_from_query($query, 'image_id'),
         )
       );
@@ -392,7 +392,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$lang['recent_pics_cat'].'</a>',
+                  .l10n('recent_pics_cat').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -405,7 +405,7 @@ SELECT DISTINCT(id)
     $page = array_merge(
       $page,
       array(
-        'title' => $lang['recent_cats_cat'],
+        'title' => l10n('recent_cats_cat'),
         )
       );
   }
@@ -430,7 +430,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.$lang['most_visited_cat'].'</a>',
+                  .$conf['top_number'].' '.l10n('most_visited_cat').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -456,7 +456,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                  .$conf['top_number'].' '.$lang['best_rated_cat'].'</a>',
+                  .$conf['top_number'].' '.l10n('best_rated_cat').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );
@@ -479,7 +479,7 @@ SELECT DISTINCT(id)
       $page,
       array(
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
-                    .$lang['random_cat'].'</a>',
+                    .l10n('random_cat').'</a>',
         'items' => array_from_query($query, 'id'),
         )
       );

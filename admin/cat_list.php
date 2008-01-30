@@ -71,7 +71,7 @@ $categories = array();
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
 $navigation = '<a class="" href="'.$base_url.'">';
-$navigation.= $lang['home'];
+$navigation.= l10n('home');
 $navigation.= '</a>';
 
 // +-----------------------------------------------------------------------+
@@ -81,7 +81,7 @@ $navigation.= '</a>';
 if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
-  array_push($page['infos'], $lang['cat_virtual_deleted']);
+  array_push($page['infos'], l10n('cat_virtual_deleted'));
   ordering();
   update_global_rank();
 }
@@ -166,13 +166,13 @@ $template->assign_vars(array(
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
 
-  'L_ADD_VIRTUAL'=>$lang['cat_add'],
-  'L_SUBMIT'=>$lang['submit'],
-  'L_STORAGE'=>$lang['storage'],
-  'L_NB_IMG'=>$lang['pictures'],
-  'L_MOVE_UP'=>$lang['up'],
-  'L_EDIT'=>$lang['edit'],
-  'L_DELETE'=>$lang['delete'],
+  'L_ADD_VIRTUAL'=>l10n('cat_add'),
+  'L_SUBMIT'=>l10n('submit'),
+  'L_STORAGE'=>l10n('storage'),
+  'L_NB_IMG'=>l10n('pictures'),
+  'L_MOVE_UP'=>l10n('up'),
+  'L_EDIT'=>l10n('edit'),
+  'L_DELETE'=>l10n('delete'),
  ));
 
 $tpl = array('cat_first','cat_last');

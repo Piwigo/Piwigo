@@ -157,7 +157,7 @@ VALUES (' . "
   $template->assign_block_vars(
     'update_result',
     array(
-      'UPD_ELEMENT'=> $lang['ws_adding_legend'].$lang['ws_success_upd'],
+      'UPD_ELEMENT'=> l10n('ws_adding_legend').l10n('ws_success_upd'),
       )
   );
 }
@@ -179,14 +179,14 @@ if (isset($_POST['wsu_submit']))
     $template->assign_block_vars(
       'update_result',
       array(
-        'UPD_ELEMENT'=> $lang['ws_update_legend'].$lang['ws_success_upd'],
+        'UPD_ELEMENT'=> l10n('ws_update_legend').l10n('ws_success_upd'),
         )
     );
   } else {
     $template->assign_block_vars(
       'update_result',
       array(
-        'UPD_ELEMENT'=> $lang['ws_update_legend'].$lang['ws_failed_upd'],
+        'UPD_ELEMENT'=> l10n('ws_update_legend').l10n('ws_failed_upd'),
         )
     );
   }
@@ -205,15 +205,15 @@ if (isset($_POST['wsX_submit']))
     $template->assign_block_vars(
       'update_result',
       array(
-        'UPD_ELEMENT'=> $lang['ws_delete_legend'].$lang['ws_success_upd'],
+        'UPD_ELEMENT'=> l10n('ws_delete_legend').l10n('ws_success_upd'),
         )
     );
   } else {
     $template->assign_block_vars(
       'update_result',
       array(
-        'UPD_ELEMENT'=> $lang['Not selected / Not confirmed']
-        .$lang['ws_failed_upd'],
+        'UPD_ELEMENT'=> l10n('Not selected / Not confirmed')
+        .l10n('ws_failed_upd'),
         )
     );
   } 

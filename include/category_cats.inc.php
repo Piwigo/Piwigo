@@ -201,7 +201,7 @@ if (count($categories) > 0)
         array(
           'SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
           'ALT'   => $category['name'],
-          'TITLE' => $lang['hint_category'],
+          'TITLE' => l10n('hint_category'),
           'ICON'  => $icon_ts,
 
           'URL'   => make_index_url(

@@ -177,13 +177,13 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 $page['order_by_items'] = array(
-  'id' => $lang['registration_date'],
-  'username' => $lang['Username']
+  'id' => l10n('registration_date'),
+  'username' => l10n('Username')
   );
 
 $page['direction_items'] = array(
-  'asc' => $lang['ascending'],
-  'desc' => $lang['descending']
+  'asc' => l10n('ascending'),
+  'desc' => l10n('descending')
   );
 
 // +-----------------------------------------------------------------------+
@@ -834,7 +834,7 @@ foreach ($visible_user_list as $num => $local_user)
       'GROUPS' => $groups_string,
       'PROPERTIES' =>
         (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
-        ? $lang['is_high_enabled'] : $lang['is_high_disabled']
+        ? l10n('is_high_enabled') : l10n('is_high_disabled')
       )
     );
   trigger_action('loc_assign_block_var_local_user_list', $local_user);

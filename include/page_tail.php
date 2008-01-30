@@ -33,7 +33,7 @@ $template->assign_vars(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
     'PHPWG_URL' => PHPWG_URL,
 
-    'L_TITLE_MAIL' => urlencode($lang['title_send_mail']),
+    'L_TITLE_MAIL' => urlencode(l10n('title_send_mail')),
     ));
 
 //--------------------------------------------------------------------- contact

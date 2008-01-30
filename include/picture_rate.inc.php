@@ -42,7 +42,7 @@ SELECT COUNT(rate) AS count
   $row = mysql_fetch_array(pwg_query($query));
   if ($row['count'] == 0)
   {
-    $value = $lang['no_rate'];
+    $value = l10n('no_rate');
   }
   else
   {

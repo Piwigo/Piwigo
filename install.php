@@ -242,27 +242,27 @@ if ( isset( $_POST['install'] ))
   {
     if ( @mysql_select_db($_POST['dbname'] ) )
     {
-      array_push( $infos, $lang['step1_confirmation'] );
+      array_push( $infos, l10n('step1_confirmation') );
     }
     else
     {
-      array_push( $errors, $lang['step1_err_db'] );
+      array_push( $errors, l10n('step1_err_db') );
     }
   }
   else
   {
-    array_push( $errors, $lang['step1_err_server'] );
+    array_push( $errors, l10n('step1_err_server') );
   }
   
   $webmaster = trim(preg_replace( '/\s{2,}/', ' ', $admin_name ));
   if ( empty($webmaster))
-    array_push( $errors, $lang['step2_err_login1'] );
+    array_push( $errors, l10n('step2_err_login1') );
   else if ( preg_match( '/[\'"]/', $webmaster ) )
-    array_push( $errors, $lang['step2_err_login3'] );
+    array_push( $errors, l10n('step2_err_login3') );
   if ( $admin_pass1 != $admin_pass2 || empty($admin_pass1) )
-    array_push( $errors, $lang['step2_err_pass'] );
+    array_push( $errors, l10n('step2_err_pass') );
   if ( empty($admin_mail))
-    array_push( $errors, $lang['reg_err_mail_address'] );
+    array_push( $errors, l10n('reg_err_mail_address') );
   else 
   {
     $error_mail_address = validate_mail_address($admin_mail);
@@ -371,33 +371,33 @@ $template->assign_vars(
   array(
     'RELEASE'=>PHPWG_VERSION,
   
-    'L_BASE_TITLE'=>$lang['Initial_config'],
-    'L_LANG_TITLE'=>$lang['Default_lang'],
-    'L_DB_TITLE'=>$lang['step1_title'],
-    'L_DB_HOST'=>$lang['step1_host'],
-    'L_DB_HOST_INFO'=>$lang['step1_host_info'],
-    'L_DB_USER'=>$lang['step1_user'],
-    'L_DB_USER_INFO'=>$lang['step1_user_info'],
-    'L_DB_PASS'=>$lang['step1_pass'],
-    'L_DB_PASS_INFO'=>$lang['step1_pass_info'],
-    'L_DB_NAME'=>$lang['step1_database'],
-    'L_DB_NAME_INFO'=>$lang['step1_database_info'],
-    'L_DB_PREFIX'=>$lang['step1_prefix'],
-    'L_DB_PREFIX_INFO'=>$lang['step1_prefix_info'],
-    'L_ADMIN_TITLE'=>$lang['step2_title'],
-    'L_ADMIN'=>$lang['install_webmaster'],
-    'L_ADMIN_INFO'=>$lang['install_webmaster_info'],
-    'L_ADMIN_PASSWORD'=>$lang['step2_pwd'],
-    'L_ADMIN_PASSWORD_INFO'=>$lang['step2_pwd_info'],
-    'L_ADMIN_CONFIRM_PASSWORD'=>$lang['step2_pwd_conf'],
-    'L_ADMIN_CONFIRM_PASSWORD_INFO'=>$lang['step2_pwd_conf_info'],
-    'L_ADMIN_EMAIL'=>$lang['conf_mail_webmaster'],
-    'L_ADMIN_EMAIL_INFO'=>$lang['conf_mail_webmaster_info'],
-    'L_SUBMIT'=>$lang['Start_Install'],
-    'L_INSTALL_HELP'=>sprintf($lang['install_help'], 'http://forum.'.PHPWG_DOMAIN.'/'),
-    'L_ERR_COPY'=>$lang['step1_err_copy'],
-    'L_END_TITLE'=>$lang['install_end_title'],
-    'L_END_MESSAGE'=>$lang['install_end_message'],
+    'L_BASE_TITLE'=>l10n('Initial_config'),
+    'L_LANG_TITLE'=>l10n('Default_lang'),
+    'L_DB_TITLE'=>l10n('step1_title'),
+    'L_DB_HOST'=>l10n('step1_host'),
+    'L_DB_HOST_INFO'=>l10n('step1_host_info'),
+    'L_DB_USER'=>l10n('step1_user'),
+    'L_DB_USER_INFO'=>l10n('step1_user_info'),
+    'L_DB_PASS'=>l10n('step1_pass'),
+    'L_DB_PASS_INFO'=>l10n('step1_pass_info'),
+    'L_DB_NAME'=>l10n('step1_database'),
+    'L_DB_NAME_INFO'=>l10n('step1_database_info'),
+    'L_DB_PREFIX'=>l10n('step1_prefix'),
+    'L_DB_PREFIX_INFO'=>l10n('step1_prefix_info'),
+    'L_ADMIN_TITLE'=>l10n('step2_title'),
+    'L_ADMIN'=>l10n('install_webmaster'),
+    'L_ADMIN_INFO'=>l10n('install_webmaster_info'),
+    'L_ADMIN_PASSWORD'=>l10n('step2_pwd'),
+    'L_ADMIN_PASSWORD_INFO'=>l10n('step2_pwd_info'),
+    'L_ADMIN_CONFIRM_PASSWORD'=>l10n('step2_pwd_conf'),
+    'L_ADMIN_CONFIRM_PASSWORD_INFO'=>l10n('step2_pwd_conf_info'),
+    'L_ADMIN_EMAIL'=>l10n('conf_mail_webmaster'),
+    'L_ADMIN_EMAIL_INFO'=>l10n('conf_mail_webmaster_info'),
+    'L_SUBMIT'=>l10n('Start_Install'),
+    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), 'http://forum.'.PHPWG_DOMAIN.'/'),
+    'L_ERR_COPY'=>l10n('step1_err_copy'),
+    'L_END_TITLE'=>l10n('install_end_title'),
+    'L_END_MESSAGE'=>l10n('install_end_message'),
     
     'F_ACTION'=>'install.php',
     'F_DB_HOST'=>$dbhost,

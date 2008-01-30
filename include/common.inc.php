@@ -168,7 +168,7 @@ trigger_action('loading_lang');
 // include/user.inc.php)
 if ($user['is_the_guest'])
 {
-  $user['username'] = $lang['guest'];
+  $user['username'] = l10n('guest');
 }
 
 // template instance
@@ -197,11 +197,11 @@ if (isset($user['internal_status']['guest_must_be_guest'])
 
 if ($conf['gallery_locked'])
 {
-  $header_msgs[] = $lang['gallery_locked_message'];
+  $header_msgs[] = l10n('gallery_locked_message');
 
   if ( script_basename() != 'identification' and !is_admin() )
   {
-    echo $lang['gallery_locked_message']
+    echo l10n('gallery_locked_message')
       .'<a href="'.get_absolute_root_url(false).'identification.php">.</a>';
     exit();
   }
@@ -232,7 +232,7 @@ SELECT id
 
 if (is_adviser())
 {
-  $header_msgs[] = $lang['adviser_mode_enabled'];
+  $header_msgs[] = l10n('adviser_mode_enabled');
 }
 
 if (count($header_msgs) > 0)
