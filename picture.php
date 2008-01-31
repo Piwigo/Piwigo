@@ -494,7 +494,7 @@ $picture = trigger_event('picture_pictures_data', $picture);
 
 
 if (isset($picture['next']['image_url'])
-    and isset($picture['next']['is_picture']))
+    and $picture['next']['is_picture'] )
 {
   $template->assign_block_vars(
     'prefetch',
