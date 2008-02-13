@@ -148,6 +148,11 @@ function get_image_location($element_info)
       $ext = get_extension($element_info['path']);
       $path = get_themeconf('mime_icon_dir');
       $path.= strtolower($ext).'.png';
+      if ( !file_exists(PHPWG_ROOT_PATH.$path)
+          and !empty($element_info['tn_ext']) )
+      {
+        $path = get_thumbnail_location($element_info);
+      }
     }
 
   // plugins want another location ?
