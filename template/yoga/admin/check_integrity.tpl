@@ -52,6 +52,7 @@
           <!-- END c13y -->
         </table>
 
+        <p>
           <!-- BEGIN c13y_link_check_uncheck -->
           <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{lang:c13y_check_all}</a>
         / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{lang:c13y_uncheck_all}</a>
@@ -63,6 +64,8 @@
             <!-- END c13y_do_check -->
               return false;">{lang:c13y_check_auto}</a>
           <!-- END c13y_link_check_automatic_correction -->
+        </p>
+
         <p>
           <!-- BEGIN c13y_submit_automatic_correction -->
           <input class="submit" type="submit" value="{lang:c13y_submit_correction}" name="c13y_submit_correction" {TAG_INPUT_ENABLED} />
