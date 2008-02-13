@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -621,7 +621,6 @@ $lang['c13y_Automatic_correction'] = 'Corrección automática';
 $lang['c13y_Impossible_automatic_correction'] = 'Corrección automática imposible';
 $lang['c13y_Correction_applied_success'] = 'Corrección lograda';
 $lang['c13y_Correction_applied_error'] = 'Corrección erronea';
-$lang['c13y_Apply_selected_corrections'] = 'Aplicar las correcciones seleccionadas';
 $lang['c13y_anomaly_count'] = '%d anomalía ha sido detectada.';
 $lang['c13y_anomalies_count'] = '%d anomalías han sido detectadas.';
 $lang['c13y_anomaly_corrected_count'] = '%d anomalía ha sido corregida.';
@@ -654,4 +653,16 @@ $lang['Level 1'] = 'Contactos';
 $lang['Level 2'] = 'Amigos';
 $lang['Level 4'] = 'Familia';
 $lang['Level 8'] = 'Admins';
+/* TODO */ $lang['c13y_maintenance'] = 'Reinitialize check integrity';
+$lang['c13y_check_all'] = 'Todo verificado';
+$lang['c13y_uncheck_all'] = 'Soltar todo';
+/* TODO */ $lang['c13y_check_auto'] = 'Check automatic corrections';
+$lang['c13y_submit_correction'] = 'Aplicar las correcciones seleccionadas';
+/* TODO */ $lang['c13y_submit_ignore'] = 'Ignore selected anomalies';
+/* TODO */ $lang['c13y_submit_refresh'] = 'Refresh';
+/* TODO */ $lang['c13y_ignore_msg1'] = 'The anomaly will be ignored until next application version';
+/* TODO */ $lang['c13y_ignore_msg2'] = 'Correction the anomaly will cancel the fact that it\'s ignored';
+/* TODO */ $lang['c13y_anomaly_ignored_count'] = '%d anomaly has been ignored.';
+/* TODO */ $lang['c13y_anomalies_ignored_count'] = '%d anomalies has been ignored.';
+
 ?>

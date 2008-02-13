@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -29,15 +29,15 @@ if (!defined('PHPWG_ROOT_PATH'))
   die('Hacking attempt!');
 }
 
-add_event_handler('get_check_integrity', 'c13y_upgrade');
+add_event_handler('list_check_integrity', 'c13y_upgrade');
 
-function c13y_upgrade($c13y_array)
+function c13y_upgrade()
 {
   global $conf;
 
   load_language('plugin.lang', dirname(__FILE__).'/');
 
-  $result = array();
+  $can_be_deactivate = true;
 
   /* Check user with same e-mail */
   $query = '
@@ -51,7 +51,8 @@ limit 0,1
 
   if (mysql_fetch_array(pwg_query($query)))
   {
-    $result[] = get_c13y(
+    $can_be_deactivate = false;
+    add_c13y(
       l10n('c13y_exif_dbl_email_user'),
       null,
       null,
@@ -60,7 +61,7 @@ limit 0,1
 
 
   /* Check if this plugin must deactivate */
-  if (count($result) === 0)
+  if ($can_be_deactivate)
   {
     $deactivate_msg_link =
       '<a href="'.
@@ -69,15 +70,13 @@ limit 0,1
       '" onclick="window.open(this.href, \'\'); return false;">'.
       l10n('c13y_upgrade_deactivate').'</a>';
 
-    $result[] = get_c13y(
+    add_c13y(
       l10n('c13y_upgrade_no_anomaly'),
       'c13y_upgrade_correction',
       'deactivate_plugin',
       $deactivate_msg_link
       );
   }
-
-  return array_merge($c13y_array, $result);
 }
 
 function c13y_upgrade_correction($action)

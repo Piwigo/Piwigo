@@ -18,3 +18,7 @@
   <li><a href="{U_MAINT_SESSIONS}" {TAG_INPUT_ENABLED}>{lang:purge sessions}</a></li>
   <li><a href="{U_MAINT_FEEDS}" {TAG_INPUT_ENABLED}>{lang:purge never used notification feeds}</a></li>
 </ul>
+
+<ul>
+  <li><a href="{U_MAINT_C13Y}" {TAG_INPUT_ENABLED}>{lang:c13y_maintenance}</a></li>
+</ul>

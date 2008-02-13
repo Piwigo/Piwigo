@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -97,6 +97,12 @@ DELETE
     do_maintenance_all_tables();
     break;
   }
+  case 'c13y' :
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions_check_integrity.inc.php');
+    c13y_maintenance();
+    break;
+  }
   default :
   {
     break;
@@ -120,6 +126,7 @@ $template->assign_vars(
     'U_MAINT_SESSIONS' => $start_url.'sessions',
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
+    'U_MAINT_C13Y' => $start_url.'c13y',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=maintenance',
     )
   );

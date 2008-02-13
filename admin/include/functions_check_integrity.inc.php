@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -32,30 +32,51 @@
  */
 function check_integrity()
 {
-  global $page, $header_notes;
+  global $page, $header_notes, $conf;
 
-  add_event_handler('get_check_integrity', 'c13y_exif');
-  add_event_handler('get_check_integrity', 'c13y_user');
+  // Ignore list
+  $conf_c13y_ignore = unserialize($conf['c13y_ignore']);
+  if (
+        is_array($conf_c13y_ignore) and
+        isset($conf_c13y_ignore['version']) and
+        ($conf_c13y_ignore['version'] == PHPWG_VERSION) and
+        is_array($conf_c13y_ignore['list'])
+      )
+  {
+    $ignore_list_changed = false;
+    $page['check_integrity']['ignore_list'] = $conf_c13y_ignore['list'];
+  }
+  else
+  {
+    $ignore_list_changed = true;
+    $page['check_integrity']['ignore_list'] = array();
+  }
 
-  $page['check_integrity'] = array();
-  $page['check_integrity'] = trigger_event('get_check_integrity',
-                                $page['check_integrity']);
+  // Retrieve list
+  $page['check_integrity']['list'] = array();
+  $page['check_integrity']['build_ignore_list'] = array();
 
-  if (count($page['check_integrity']) > 0)
+  add_event_handler('list_check_integrity', 'c13y_exif');
+  add_event_handler('list_check_integrity', 'c13y_user');
+  trigger_action('list_check_integrity');
+
+  // Information
+  if (count($page['check_integrity']['list']) > 0)
   {
     $header_notes[] =
       l10n_dec('c13y_anomaly_count', 'c13y_anomalies_count',
-        count($page['check_integrity']));
+        count($page['check_integrity']['list']));
   }
 
+  // Treatments
   if (!is_adviser())
   {
-    if (isset($_POST['c13y_submit']) and isset($_POST['c13y_selection']))
+    if (isset($_POST['c13y_submit_correction']) and isset($_POST['c13y_selection']))
     {
       $corrected_count = 0;
       $not_corrected_count = 0;
 
-      foreach ($page['check_integrity'] as $i => $c13y)
+      foreach ($page['check_integrity']['list'] as $i => $c13y)
       {
         if (!empty($c13y['correction_fct']) and 
             $c13y['is_callable'] and
@@ -74,9 +95,9 @@ function check_integrity()
           {
             $args = array();
           }
-          $page['check_integrity'][$i]['corrected'] = call_user_func_array($c13y['correction_fct'], $args);
+          $page['check_integrity']['list'][$i]['corrected'] = call_user_func_array($c13y['correction_fct'], $args);
           
-          if ($page['check_integrity'][$i]['corrected'])
+          if ($page['check_integrity']['list'][$i]['corrected'])
           {
             $corrected_count += 1;
           }
@@ -100,6 +121,42 @@ function check_integrity()
             $not_corrected_count);
       }
     }
+    else
+    {
+      if (isset($_POST['c13y_submit_ignore']) and isset($_POST['c13y_selection']))
+      {
+        $ignored_count = 0;
+
+        foreach ($page['check_integrity']['list'] as $i => $c13y)
+        {
+          if (in_array($c13y['id'], $_POST['c13y_selection']))
+          {
+            $page['check_integrity']['build_ignore_list'][] = $c13y['id'];
+            $page['check_integrity']['list'][$i]['ignored'] = true;
+            $ignored_count += 1;
+          }
+        }
+
+        if ($ignored_count > 0)
+        {
+          $page['infos'][] =
+            l10n_dec('c13y_anomaly_ignored_count', 'c13y_anomalies_ignored_count',
+              $ignored_count);
+        }
+      }
+    }
+  }
+
+  $ignore_list_changed =
+    (
+      ($ignore_list_changed) or 
+      (count(array_diff($page['check_integrity']['ignore_list'], $page['check_integrity']['build_ignore_list'])) > 0) or
+      (count(array_diff($page['check_integrity']['build_ignore_list'], $page['check_integrity']['ignore_list'])) > 0)
+      );
+
+  if ($ignore_list_changed)
+  {
+    c13y_update_conf($page['check_integrity']['build_ignore_list']);
   }
 }
 
@@ -113,14 +170,18 @@ function display_check_integrity()
 {
   global $template, $page;
 
-  $show_submit = false;
+  $check_automatic_correction = false;
+  $submit_automatic_correction = false;
+  $submit_ignore = false;
 
-  if (isset($page['check_integrity']) and count($page['check_integrity']) > 0)
+  if (isset($page['check_integrity']['list']) and count($page['check_integrity']['list']) > 0)
   {
     $template->set_filenames(array('check_integrity' => 'admin/check_integrity.tpl'));
 
-    foreach ($page['check_integrity'] as $i => $c13y)
+    foreach ($page['check_integrity']['list'] as $i => $c13y)
     {
+      $can_select = false;
+
       $template->assign_block_vars('c13y',
         array(
          'CLASS' => ($i % 2 == 1) ? 'row2' : 'row1',
@@ -128,48 +189,82 @@ function display_check_integrity()
          'ANOMALY' => $c13y['anomaly']
         ));
 
-      if (!empty($c13y['correction_fct']))
+
+      if (isset($c13y['ignored']))
       {
-        if (isset($c13y['corrected']))
+        if ($c13y['ignored'])
         {
-          if ($c13y['corrected'])
-          {
-            $template->assign_block_vars('c13y.correction_success_fct', array());
-          }
-          else
-          {
-            $template->assign_block_vars('c13y.correction_error_fct',
-              array('WIKI_FOROM_LINKS' => get_htlm_links_more_info()));
-          }
-        }
-        else if ($c13y['is_callable'])
-        {
-          $template->assign_block_vars('c13y.correction_fct', array());
-          $show_submit = true;
+          $template->assign_block_vars('c13y.ignore_msg', array());
         }
         else
         {
-          $template->assign_block_vars('c13y.correction_bad_fct', array());
+          die('$c13y[\'ignored\'] cannot be false');
+        }
+      }
+      else
+      {
+        if (!empty($c13y['correction_fct']))
+        {
+          if (isset($c13y['corrected']))
+          {
+            if ($c13y['corrected'])
+            {
+              $template->assign_block_vars('c13y.correction_success_fct', array());
+            }
+            else
+            {
+              $template->assign_block_vars('c13y.correction_error_fct',
+                array('WIKI_FOROM_LINKS' => get_htlm_links_more_info()));
+            }
+          }
+          else if ($c13y['is_callable'])
+          {
+            $template->assign_block_vars('c13y.correction_fct', array());
+            $template->assign_block_vars('c13y_link_check_automatic_correction.c13y_do_check', array('ID' => $c13y['id']));
+            $submit_automatic_correction = true;
+            $can_select = true;
+          }
+          else
+          {
+            $template->assign_block_vars('c13y.correction_bad_fct', array());
+            $can_select = true;
+          }
+        }
+        else
+        {
+          $can_select = true;
+        }
+
+        if (!empty($c13y['correction_fct']) and !empty($c13y['correction_msg']))
+        {
+          $template->assign_block_vars('c13y.br', array());
+        }
+
+        if (!empty($c13y['correction_msg']) and !isset($c13y['corrected']))
+        {
+          $template->assign_block_vars('c13y.correction_msg',
+            array(
+             'DATA' => nl2br($c13y['correction_msg'])
+            ));
         }
       }
 
-      if (!empty($c13y['correction_fct']) and !empty($c13y['correction_msg']))
+      if ($can_select)
       {
-        $template->assign_block_vars('c13y.br', array());
-      }
-
-      if (!empty($c13y['correction_msg']) and !isset($c13y['corrected']))
-      {
-        $template->assign_block_vars('c13y.correction_msg',
-          array(
-           'DATA' => nl2br($c13y['correction_msg'])
-          ));
+        $template->assign_block_vars('c13y.can_select', array());
+        $submit_ignore = true;
       }
     }
 
-    if ($show_submit)
+    if ($submit_automatic_correction)
     {
-      $template->assign_block_vars('c13y_submit', array());
+      $template->assign_block_vars('c13y_submit_automatic_correction', array());
+    }
+
+    if ($submit_ignore)
+    {
+      $template->assign_block_vars('c13y_link_check_uncheck', array());
+      $template->assign_block_vars('c13y_submit_ignore', array());
     }
 
     $template->concat_var_from_handle('ADMIN_CONTENT', 'check_integrity');
@@ -182,16 +277,53 @@ function display_check_integrity()
  * @param anomaly arguments
  * @return c13y anomaly array
  */
-function get_c13y($anomaly, $correction_fct = null, $correction_fct_args = null, $correction_msg = null)
+function add_c13y($anomaly, $correction_fct = null, $correction_fct_args = null, $correction_msg = null)
 {
-  return
-    array(
-      'id' => md5($anomaly.$correction_fct.serialize($correction_fct_args).$correction_msg),
-      'anomaly' => $anomaly,
-      'correction_fct' => $correction_fct,
-      'correction_fct_args' => $correction_fct_args,
-      'correction_msg' => $correction_msg,
-      'is_callable' => is_callable($correction_fct));
+  global $page;
+
+  $id = md5($anomaly.$correction_fct.serialize($correction_fct_args).$correction_msg);
+
+  if (in_array($id, $page['check_integrity']['ignore_list']))
+  {
+    $page['check_integrity']['build_ignore_list'][] = $id;
+  }
+  else
+  {
+    $page['check_integrity']['list'][] =
+      array(
+        'id' => $id,
+        'anomaly' => $anomaly,
+        'correction_fct' => $correction_fct,
+        'correction_fct_args' => $correction_fct_args,
+        'correction_msg' => $correction_msg,
+        'is_callable' => is_callable($correction_fct));
+  }
+}
+
+/**
+ * Update table config
+ *
+ * @param ignore list array
+ * @return void
+ */
+function c13y_update_conf($ignore_list = array())
+{
+  $conf_c13y_ignore =  array();
+  $conf_c13y_ignore['version'] = PHPWG_VERSION;
+  $conf_c13y_ignore['list'] = $ignore_list;
+  $query = 'update '.CONFIG_TABLE.' set value =\''.serialize($conf_c13y_ignore).'\'where param = \'c13y_ignore\';';
+  pwg_query($query);
+}
+
+/**
+ * Apply maintenance
+ *
+ * @param void
+ * @return void
+ */
+function c13y_maintenance()
+{
+  c13y_update_conf();
 }
 
 /**
@@ -216,10 +348,10 @@ function get_htlm_links_more_info()
 /**
  * Check exif
  *
- * @param c13y anomalies array
- * @return c13y anomalies array
+ * @param void
+ * @return void
  */
-function c13y_exif($c13y_array)
+function c13y_exif()
 {
   global $conf;
 
@@ -227,7 +359,7 @@ function c13y_exif($c13y_array)
   {
     if (($conf[$value]) and (!function_exists('read_exif_data')))
     {
-      $c13y_array[] = get_c13y(
+      add_c13y(
         sprintf(l10n('c13y_exif_anomaly'), '$conf[\''.$value.'\']'),
         null,
         null,
@@ -236,17 +368,15 @@ function c13y_exif($c13y_array)
         get_htlm_links_more_info());
     }
   }
-
-  return $c13y_array;
 }
 
 /**
  * Check user
  *
- * @param c13y anomalies array
- * @return c13y anomalies array
+ * @param void
+ * @return void
  */
-function c13y_user($c13y_array)
+function c13y_user()
 {
   global $conf;
 
@@ -290,18 +420,16 @@ where
   {
     if (!array_key_exists($id, $status))
     {
-      $c13y_array[] = get_c13y(l10n($data['l10n_non_existent']), 'c13y_correction_user',
+      add_c13y(l10n($data['l10n_non_existent']), 'c13y_correction_user',
         array('id' => $id, 'action' => 'creation'));
     }
     else
     if (!empty($data['status']) and $status[$id] != $data['status'])
     {
-      $c13y_array[] = get_c13y(l10n($data['l10n_bad_status']), 'c13y_correction_user',
+      add_c13y(l10n($data['l10n_bad_status']), 'c13y_correction_user',
         array('id' => $id, 'action' => 'status'));
     }
   }
-
-  return $c13y_array;
 }
 
 /**

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -622,7 +622,6 @@ $lang['c13y_Automatic_correction'] = 'Automatische correctie';
 $lang['c13y_Impossible_automatic_correction'] = 'Onmogelijke automatische correctie';
 $lang['c13y_Correction_applied_success'] = 'Correctie die met succes is toegepast';
 $lang['c13y_Correction_applied_error'] = 'Correctie die met fout wordt toegepast';
-$lang['c13y_Apply_selected_corrections'] = 'Pas geselecteerde correcties toe';
 $lang['c13y_anomaly_count'] = '%d Onregelmatigheid ontdekt.';
 $lang['c13y_anomalies_count'] = '%d Onregelmatigheden ontdekt.';
 $lang['c13y_anomaly_corrected_count'] = '%d Onregelmatigheid is gecorrigeerd.';
@@ -654,4 +653,16 @@ $lang['Level 1'] = 'Contacten';
 $lang['Level 2'] = 'Vrienden';
 $lang['Level 4'] = 'Familie';
 $lang['Level 8'] = 'Admins';
+/* TODO */ $lang['c13y_maintenance'] = 'Reinitialize check integrity';
+$lang['c13y_check_all'] = 'Selecteer alles';
+$lang['c13y_uncheck_all'] = 'Deselecteer alles';
+/* TODO */ $lang['c13y_check_auto'] = 'Check automatic corrections';
+$lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
+/* TODO */ $lang['c13y_submit_ignore'] = 'Ignore selected anomalies';
+/* TODO */ $lang['c13y_submit_refresh'] = 'Refresh';
+/* TODO */ $lang['c13y_ignore_msg1'] = 'The anomaly will be ignored until next application version';
+/* TODO */ $lang['c13y_ignore_msg2'] = 'Correction the anomaly will cancel the fact that it\'s ignored';
+/* TODO */ $lang['c13y_anomaly_ignored_count'] = '%d anomaly has been ignored.';
+/* TODO */ $lang['c13y_anomalies_ignored_count'] = '%d anomalies has been ignored.';
+
 ?>

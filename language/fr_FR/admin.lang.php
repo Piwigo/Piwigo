@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -617,7 +617,6 @@ $lang['c13y_Automatic_correction'] = 'Correction automatique';
 $lang['c13y_Impossible_automatic_correction'] = 'Correction automatique impossible';
 $lang['c13y_Correction_applied_success'] = 'Correction appliquée avec succés';
 $lang['c13y_Correction_applied_error'] = 'Correction appliquée avec erreur';
-$lang['c13y_Apply_selected_corrections'] = 'Appliquer les corrections sélectionnées';
 $lang['c13y_anomaly_count'] = '%d anomalie a été détecté.';
 $lang['c13y_anomalies_count'] = '%d anomalies ont été détectées.';
 $lang['c13y_anomaly_corrected_count'] = '%d anomalie a été corrigée.';
@@ -650,4 +649,16 @@ $lang['Level 1'] = 'Contacts';
 $lang['Level 2'] = 'Amis';
 $lang['Level 4'] = 'Famille';
 $lang['Level 8'] = 'Admins';
+$lang['c13y_maintenance'] = 'Réinitialiser les contrôles d\'intégrité';
+$lang['c13y_check_all'] = 'Tout cocher';
+$lang['c13y_uncheck_all'] = 'Tout décocher';
+$lang['c13y_check_auto'] = 'Cocher les corrections automatiques';
+$lang['c13y_submit_correction'] = 'Appliquer les corrections sélectionnées';
+$lang['c13y_submit_ignore'] = 'Ignorer les anomalies sélectionnées';
+$lang['c13y_submit_refresh'] = 'Rafraîchir';
+$lang['c13y_ignore_msg1'] = 'L\'anomalie sera ignorée jusqu\'à la prochaine version de l\'application';
+$lang['c13y_ignore_msg2'] = 'La correction de l\'anomalie annulera le fait qu\'elle soit ignorée';
+$lang['c13y_anomaly_ignored_count'] = '%d anomalie a été ignorée.';
+$lang['c13y_anomalies_ignored_count'] = '%d anomalies ont été ignorées.';
+
 ?>
