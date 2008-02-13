@@ -212,3 +212,27 @@
 
 </div>
 <!-- END comments -->
+
+<script type="text/javascript">
+<!-- BEGIN next -->
+var nextUrl = "{next.U_IMG}".replace( "&amp;", "&" );
+<!-- END next -->
+<!-- BEGIN previous -->
+var prevUrl = "{previous.U_IMG}".replace( "&amp;", "&" );
+<!-- END previous -->
+function keypress(e)
+{
+    if(!e) var e=window.event;
+    if (e.altKey) return true;
+    var target = e.target || e.srcElement;
+    if (target && target.type) return true; //an input editable element
+    var keyCode=e.keyCode || e.which;
+    var docElem = document.documentElement;
+    switch(keyCode) {
+        case 63235: case 39: if (nextUrl && (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth) ){window.location=nextUrl; return false; } break;
+        case 63234: case 37: if (prevUrl && (e.ctrlKey || docElem.scrollLeft==0) ){ window.location=prevUrl; return false; } break;
+    }
+    return true;
+}
+document.onkeydown = keypress;
+</script>
