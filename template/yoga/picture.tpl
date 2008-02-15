@@ -229,25 +229,30 @@
 <!-- END comments -->
 
 <script type="text/javascript">
+function keyboardNavigation(e)
+{
+	if(!e) var e=window.event;
+	if (e.altKey) return true;
+	var target = e.target || e.srcElement;
+	if (target && target.type) return true; //an input editable element
+	var keyCode=e.keyCode || e.which;
+	var docElem = document.documentElement;
+	switch(keyCode) {
 <!-- BEGIN next -->
-var nextUrl = "{next.U_IMG}".replace( "&amp;", "&" );
+		case 63235: case 39: if (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth ){window.location="{next.U_IMG}".replace( "&amp;", "&" ); return false; } break;
 <!-- END next -->
 <!-- BEGIN previous -->
-var prevUrl = "{previous.U_IMG}".replace( "&amp;", "&" );
+		case 63234: case 37: if (e.ctrlKey || docElem.scrollLeft==0){ window.location="{previous.U_IMG}".replace("&amp;","&"); return false; } break;
 <!-- END previous -->
-function keypress(e)
-{
-    if(!e) var e=window.event;
-    if (e.altKey) return true;
-    var target = e.target || e.srcElement;
-    if (target && target.type) return true; //an input editable element
-    var keyCode=e.keyCode || e.which;
-    var docElem = document.documentElement;
-    switch(keyCode) {
-        case 63235: case 39: if (nextUrl && (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth) ){window.location=nextUrl; return false; } break;
-        case 63234: case 37: if (prevUrl && (e.ctrlKey || docElem.scrollLeft==0) ){ window.location=prevUrl; return false; } break;
-    }
-    return true;
+<!-- BEGIN first -->
+		/*Home*/case 36: if (e.ctrlKey){window.location="{first.U_IMG}".replace("&amp;","&"); return false; } break;
+<!-- END first -->
+<!-- BEGIN last -->
+		/*End*/case 35: if (e.ctrlKey){window.location="{last.U_IMG}".replace("&amp;","&"); return false; } break;
+<!-- END last -->
+		/*Up*/case 38: if (e.ctrlKey){window.location="{U_UP}".replace("&amp;","&"); return false; } break;
+	}
+	return true;
 }
-document.onkeydown = keypress;
+document.onkeydown=keyboardNavigation;
 </script>
