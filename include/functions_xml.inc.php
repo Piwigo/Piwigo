@@ -2,10 +2,10 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -65,7 +65,7 @@ function encodeAttribute( $attribute, $value )
 {
   return $attribute.'="'.htmlspecialchars($value, ENT_QUOTES).'" ';
 }
-	
+
 // The function getChild returns the first child
 // exemple : getChild( "<table><tr>XXX</tr><tr>YYY</tr></table>", "tr" )
 //           returns "<tr>XXX</tr>"
@@ -74,8 +74,19 @@ function getChild( $document, $node )
   $regex = '/<'.$node.'(\s+'.ATT_REG.'="'.VAL_REG.'")*';
   $regex.= '(\s*\/>|>.*<\/'.$node.'>)/U';
 
-  preg_match( $regex, $document, $out );
-  return $out[0];
+  if
+    (
+      preg_match( $regex, $document, $out )
+      or
+      preg_last_error() == PREG_NO_ERROR
+    )
+  {
+    return $out[0];
+  }
+  else
+  {
+    die('getChild: error ['.preg_last_error().'] with preg_match function');
+  }
 }
 
 // getChildren returns a list of the children identified by the $node
@@ -89,14 +100,31 @@ function getChildren( $document, $node )
   $regex = '/<'.$node.'(\s+'.ATT_REG.'="'.VAL_REG.'")*';
   $regex.= '(\s*\/>|>.*<\/'.$node.'>)/U';
 
-  preg_match_all( $regex, $document, $out );
-  return $out[0];
+  if
+    (
+      preg_match_all( $regex, $document, $out )
+      or
+      preg_last_error() == PREG_NO_ERROR
+    )
+  {
+    return $out[0];
+  }
+  else
+  {
+    die('getChild: error ['.preg_last_error().'] with preg_match_all function');
+  }
 }
-	
+
 // get_CodeXML places the content of a text file in a PHP variable and
 // return it. If the file can't be opened, returns false.
 function getXmlCode( $filename )
 {
+  if (function_exists('ini_set'))
+  {
+    // limit must be growed with php5 and "big" listing file
+    ini_set("pcre.backtrack_limit", pow(2, 32));
+  }
+
   $file = fopen( $filename, 'r' );
   if ( !$file )
   {

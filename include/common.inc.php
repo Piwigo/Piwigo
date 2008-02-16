@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -125,6 +125,7 @@ if (!defined('PHPWG_INSTALLED'))
 foreach( array(
   'array_intersect_key', //PHP 5 >= 5.1.0RC1
   'hash_hmac', //(hash) - enabled by default as of PHP 5.1.2
+  'preg_last_error', // PHP 5 >= 5.2.0
   ) as $func)
 {
   if (!function_exists($func))
