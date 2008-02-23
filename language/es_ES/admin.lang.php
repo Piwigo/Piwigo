@@ -653,16 +653,16 @@ $lang['Level 1'] = 'Contactos';
 $lang['Level 2'] = 'Amigos';
 $lang['Level 4'] = 'Familia';
 $lang['Level 8'] = 'Admins';
-/* TODO */ $lang['c13y_maintenance'] = 'Reinitialize check integrity';
+$lang['c13y_maintenance'] = 'Reinicializar los controles de integridad';
 $lang['c13y_check_all'] = 'Todo verificado';
 $lang['c13y_uncheck_all'] = 'Soltar todo';
-/* TODO */ $lang['c13y_check_auto'] = 'Check automatic corrections';
+$lang['c13y_check_auto'] = 'Puntear las correcciones automáticas';
 $lang['c13y_submit_correction'] = 'Aplicar las correcciones seleccionadas';
-/* TODO */ $lang['c13y_submit_ignore'] = 'Ignore selected anomalies';
-/* TODO */ $lang['c13y_submit_refresh'] = 'Refresh';
-/* TODO */ $lang['c13y_ignore_msg1'] = 'The anomaly will be ignored until next application version';
-/* TODO */ $lang['c13y_ignore_msg2'] = 'Correction the anomaly will cancel the fact that it\'s ignored';
-/* TODO */ $lang['c13y_anomaly_ignored_count'] = '%d anomaly has been ignored.';
-/* TODO */ $lang['c13y_anomalies_ignored_count'] = '%d anomalies has been ignored.';
+$lang['c13y_submit_ignore'] = 'Ignorar las anomalías seleccionadas';
+$lang['c13y_submit_refresh'] = 'Refrescar';
+$lang['c13y_ignore_msg1'] = 'La anomalía será ignorada hasta la versión próxima de la aplicación';
+$lang['c13y_ignore_msg2'] = 'La corrección de la anomalía anulará el hecho de que sea ignorada';
+$lang['c13y_anomaly_ignored_count'] = '%d anomalía ha sido ignorada.';
+$lang['c13y_anomalies_ignored_count'] = '%d anomalías han sido ignoradas.';
 
 ?>
