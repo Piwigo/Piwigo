@@ -608,7 +608,7 @@ INSERT INTO '.HISTORY_TABLE.'
     '.$user['id'].',
     \''.$_SERVER['REMOTE_ADDR'].'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
-    '.(isset($page['category']) ? $page['category']['id'] : 'NULL').',
+    '.(isset($page['category']['id']) ? $page['category']['id'] : 'NULL').',
     '.(isset($image_id) ? $image_id : 'NULL').',
     '.(isset($image_type) ? "'".$image_type."'" : 'NULL').',
     '.(isset($tags_string) ? "'".$tags_string."'" : 'NULL').'
