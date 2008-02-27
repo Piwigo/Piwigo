@@ -78,7 +78,7 @@ function check_integrity()
 
       foreach ($page['check_integrity']['list'] as $i => $c13y)
       {
-        if (!empty($c13y['correction_fct']) and 
+        if (!empty($c13y['correction_fct']) and
             $c13y['is_callable'] and
             in_array($c13y['id'], $_POST['c13y_selection']))
         {
@@ -96,7 +96,7 @@ function check_integrity()
             $args = array();
           }
           $page['check_integrity']['list'][$i]['corrected'] = call_user_func_array($c13y['correction_fct'], $args);
-          
+
           if ($page['check_integrity']['list'][$i]['corrected'])
           {
             $corrected_count += 1;
@@ -149,7 +149,7 @@ function check_integrity()
 
   $ignore_list_changed =
     (
-      ($ignore_list_changed) or 
+      ($ignore_list_changed) or
       (count(array_diff($page['check_integrity']['ignore_list'], $page['check_integrity']['build_ignore_list'])) > 0) or
       (count(array_diff($page['check_integrity']['build_ignore_list'], $page['check_integrity']['ignore_list'])) > 0)
       );
@@ -267,7 +267,7 @@ function display_check_integrity()
       $template->assign_block_vars('c13y_submit_ignore', array());
     }
 
-    $template->concat_var_from_handle('ADMIN_CONTENT', 'check_integrity');
+    $template->concat_var('ADMIN_CONTENT', $template->parse('check_integrity', true) );
   }
 }
 
@@ -392,7 +392,7 @@ function c13y_user()
       'password' => null,
       'l10n_non_existent' => 'c13y_default_non_existent');
   }
-  
+
   $c13y_users[$conf['webmaster_id']] = array(
     'status' => 'webmaster',
     'l10n_non_existent' => 'c13y_webmaster_non_existent',
@@ -403,7 +403,7 @@ select u.'.$conf['user_fields']['id'].' as id, ui.status
 from '.USERS_TABLE.' as u
   left join '.USER_INFOS_TABLE.' as ui
       on u.'.$conf['user_fields']['id'].' = ui.user_id
-where 
+where
   u.'.$conf['user_fields']['id'].' in ('.implode(',', array_keys($c13y_users)).')
 ;';
 
@@ -476,7 +476,7 @@ function c13y_correction_user($id, $action)
               $name .= generate_key(1);
             }
           }
-          
+
           $inserts = array(
             array(
               'id'       => $id,
