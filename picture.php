@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -78,7 +78,7 @@ function default_picture_content($content, $element_info)
     array('default_content'=>'picture_content.tpl')
     );
 
-  if ( !isset($page['slideshow']) and isset($element_info['high_url']) )
+  if ( !$page['slideshow'] and isset($element_info['high_url']) )
   {
     $uuid = uniqid(rand());
     $template->assign_block_vars(
@@ -424,38 +424,65 @@ $url_admin =
   .'&amp;image_id='.$page['image_id']
 ;
 
-$url_slide = add_url_params(
-  $picture['current']['url'],
-  array( 'slideshow'=>$conf['slideshow_period'] )
-  );
+$slideshow_params = array();
+$slideshow_url_params = array();
 
-
-$template->set_filename('picture', 'picture.tpl');
-if ( isset( $_GET['slideshow'] ) )
+if (isset($_GET['slideshow']))
 {
-  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
   $page['slideshow'] = true;
-  if ( $conf['light_slideshow'] )
-  { // Change template file
-    // Add local-slideshow.css file if exists
-    $template->set_filename('picture', 'slideshow.tpl');
-    $css = get_root_url() . get_themeconf('template_dir') . '/theme/'
-         . get_themeconf('theme') . '/local-slideshow.css';
-    if (file_exists($css))
+  $page['meta_robots'] = array('noindex'=>1, 'nofollow'=>1);
+
+  $slideshow_params = decode_slideshow_params($_GET['slideshow']);
+  $slideshow_url_params['slideshow'] = encode_slideshow_params($slideshow_params);
+
+  if ($slideshow_params['play'])
+  {
+    $id_pict_redirect = '';
+    if (isset($page['next_item']))
     {
-      $template->assign_block_vars('slideshow', array());
+      $id_pict_redirect = 'next';
+    }
+    else
+    {
+      if ($slideshow_params['repeat'] and isset($page['first_item']))
+      {
+        $id_pict_redirect = 'first';
+      }
+    }
+
+    if (!empty($id_pict_redirect))
+    {
+      // $redirect_msg, $refresh, $url_link and $title are required for creating
+      // an automated refresh page in header.tpl
+      $refresh = $slideshow_params['period'];
+      $url_link = add_url_params(
+          $picture[$id_pict_redirect]['url'],
+          $slideshow_url_params
+        );
+      $redirect_msg = nl2br(l10n('redirect_msg'));
     }
   }
-  if ( isset($page['next_item']) )
+}
+else
+{
+  $page['slideshow'] = false;
+}
+
+$template->set_filenames(
+  array(
+    'picture' =>
+      (($page['slideshow'] and $conf['light_slideshow']) ? 'slideshow.tpl' : 'picture.tpl'),
+    'nav_buttons' => 'picture_nav_buttons.tpl'));
+
+if ($page['slideshow'])
+{
+  // Add local-slideshow.css file if exists
+  // Not only for ligth
+  $css = get_root_url() . get_themeconf('template_dir') . '/theme/'
+       . get_themeconf('theme') . '/local-slideshow.css';
+  if (file_exists($css))
   {
-    // $redirect_msg, $refresh, $url_link and $title are required for creating
-    // an automated refresh page in header.tpl
-    $refresh= $_GET['slideshow'];
-    $url_link = add_url_params(
-        $picture['next']['url'],
-        array('slideshow'=>$refresh)
-      );
-    $redirect_msg = nl2br(l10n('redirect_msg'));
+    $template->assign_block_vars('slideshow', array());
   }
 }
 
@@ -514,7 +541,10 @@ foreach (array('first','previous','next','last') as $which_image)
       array(
         'TITLE_IMG' => $picture[$which_image]['name'],
         'IMG' => $picture[$which_image]['thumbnail'],
-        'U_IMG' => $picture[$which_image]['url'],
+        // Params slideshow was transmit to navigation buttons
+        'U_IMG' =>
+          add_url_params(
+            $picture[$which_image]['url'], $slideshow_url_params)
         )
       );
   }
@@ -527,6 +557,85 @@ foreach (array('first','previous','next','last') as $which_image)
   }
 }
 
+
+if ($page['slideshow'])
+{
+  //slideshow end
+  $template->assign_block_vars(
+    'stop_slideshow',
+    array(
+      'U_SLIDESHOW' => $picture['current']['url'],
+      )
+    );
+
+  foreach (array('repeat', 'play') as $p)
+  {
+    $template->assign_block_vars(
+      ($slideshow_params[$p] ? 'stop' : 'start').'_'.$p,
+      array(
+        // Params slideshow was transmit to navigation buttons
+        'U_IMG' =>
+          add_url_params(
+            $picture['current']['url'],
+            array('slideshow' =>
+              encode_slideshow_params(
+                array_merge($slideshow_params, 
+                  array($p => ! $slideshow_params[$p]))
+                  )
+                )
+              )
+          )
+      );
+  }
+
+  foreach (array('dec', 'inc') as $op)
+  {
+    $new_period = $slideshow_params['period'] + ((($op == 'dec') ? -1 : 1) * $conf['slideshow_period_step']);
+    $new_slideshow_params =
+      correct_slideshow_params(
+        array_merge($slideshow_params, 
+                  array('period' => $new_period)));
+    $block_period = $op.'_period';
+
+    if ($new_slideshow_params['period'] === $new_period)
+    {
+      $template->assign_block_vars(
+        $block_period,
+        array(
+          // Params slideshow was transmit to navigation buttons
+          'U_IMG' =>
+            add_url_params(
+              $picture['current']['url'],
+              array('slideshow' => encode_slideshow_params($new_slideshow_params)
+                  )
+                )
+              )
+          );
+    }
+    else
+    {
+      $template->assign_block_vars(
+        $block_period.'_unactive',
+        array()
+        );
+    }
+  }
+}
+else
+{
+  $template->assign_block_vars(
+    'start_slideshow',
+    array(
+      'U_SLIDESHOW' =>
+        add_url_params(
+          $picture['current']['url'],
+          array( 'slideshow'=>''))
+      )
+    );
+  $template->assign_block_vars(
+    'thumbnails',array('U_UP' => $url_up));
+}
+
 $template->assign_vars(
   array(
     'SECTION_TITLE' => $page['title'],
@@ -537,10 +646,8 @@ $template->assign_vars(
     'LEVEL_SEPARATOR' => $conf['level_separator'],
 
     'U_HOME' => make_index_url(),
-    'U_UP' => $url_up,
     'U_METADATA' => $url_metadata,
     'U_ADMIN' => $url_admin,
-    'U_SLIDESHOW'=> $url_slide,
     'U_ADD_COMMENT' => $url_self,
     )
   );
@@ -642,7 +749,7 @@ if ( is_admin() )
 }
 
 //--------------------------------------------------------- picture information
-$header_infos = array();	//for html header use
+$header_infos = array(); //for html header use
 // legend
 if (isset($picture['current']['comment'])
     and !empty($picture['current']['comment']))
@@ -789,21 +896,8 @@ foreach ($related_categories as $category)
     );
 }
 
-//slideshow end
-if (isset($_GET['slideshow']))
-{
-  if (!is_numeric($_GET['slideshow']))
-  {
-    $_GET['slideshow'] = $conf['slideshow_period'];
-  }
-
-  $template->assign_block_vars(
-    'stop_slideshow',
-    array(
-      'U_SLIDESHOW' => $picture['current']['url'],
-      )
-    );
-}
+// assign tpl picture_nav_buttons
+$template->assign_var_from_handle('NAV_BUTTONS', 'nav_buttons');
 
 // maybe someone wants a special display (call it before page_header so that
 // they can add stylesheets)

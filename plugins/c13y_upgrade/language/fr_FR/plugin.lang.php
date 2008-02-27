@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -27,7 +27,9 @@
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['c13y_upgrade_no_anomaly'] = 'Pas d\'anomalie détectée après la mise à jour de l\'application';
 $lang['c13y_upgrade_deactivate'] = 'Vous pouvez désactiver le plugin "Check upgrades"';
-$lang['c13y_exif_dbl_email_user'] = 'Utilisateurs avec la même adresse email';
-$lang['c13y_exif_correction_dbl_email_user'] = 'Supprimez les utilisateurs en double';
+$lang['c13y_dbl_email_user'] = 'Utilisateurs avec la même adresse email';
+$lang['c13y_correction_dbl_email_user'] = 'Supprimez les utilisateurs en double';
+$lang['c13y_obsolete_plugin'] = 'Plugin obsolète';
+$lang['c13y_correction_obsolete_plugin'] = 'Le plugin "%s" a été inclus dans cette version de l\'application et vous devez le désinstaller.';
 
 ?>

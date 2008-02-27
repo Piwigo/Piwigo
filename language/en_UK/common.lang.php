@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -382,5 +382,11 @@ $lang['reg_err_mail_address_dbl'] = 'a user use already this mail address';
 $lang['Category results for'] = 'Category results for';
 $lang['Tag results for'] = 'Tag results for';
 $lang['from %s to %s'] = 'from %s to %s';
+$lang['start_play'] = 'Play of slideshow';
+$lang['stop_play'] = 'Pause of slideshow';
+$lang['start_repeat'] = 'Repeat the slideshow';
+$lang['stop_repeat'] = 'Not repeat the slideshow';
+$lang['inc_period'] = 'Increase waiting between pictures';
+$lang['dec_period'] = 'Decrease waiting between pictures';
 
 ?>

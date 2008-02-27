@@ -27,6 +27,10 @@
       <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
       <!-- END search_rules -->
 
+      <!-- BEGIN slideshow -->
+      <li><a href="{slideshow.URL}" title="{lang:slideshow}"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"/></a></li>
+      <!-- END slideshow -->
+
       <!-- BEGIN mode_normal -->
       <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
       <!-- END mode_normal -->

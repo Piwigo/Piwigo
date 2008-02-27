@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -66,6 +66,22 @@ if (count($pictures) > 0)
   $template->assign_block_vars('thumbnails.line', array());
   // current row displayed
   $row_number = 0;
+
+  // define category slideshow url
+  $row = reset($pictures);
+  $page['cat_slideshow_url'] =
+    add_url_params(
+      duplicate_picture_url(
+        array(
+          'image_id' => $row['id'],
+          'image_file' => $row['file']
+        ),
+        array('start')
+      ),
+      array('slideshow' =>
+        (isset($_GET['slideshow']) ? $_GET['slideshow']
+                                   : '' ))
+    );
 }
 
 trigger_action('loc_begin_index_thumbnails', $pictures);

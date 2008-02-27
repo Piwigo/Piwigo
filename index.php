@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -67,7 +67,7 @@ if (isset($page['category']))
   check_restrictions($page['category']['id']);
 }
 
-if ( count($page['items']) > $user['nb_image_page'])
+if (count($page['items']) > $user['nb_image_page'])
 {
   $page['navigation_bar'] = create_navigation_bar(
     duplicate_index_url(array(), array('start')),
@@ -99,7 +99,7 @@ $page['body_id'] = 'theCategoryPage';
 $template->set_filenames( array('index'=>'index.tpl') );
 //-------------------------------------------------------------- category title
 $template_title = $page['title'];
-if ( count($page['items']) > 0)
+if (count($page['items']) > 0)
 {
   $template_title.= ' ['.count($page['items']).']';
 }
@@ -192,7 +192,7 @@ if (isset($page['category']) and is_admin())
     );
 }
 
-if (is_admin() and !empty($page['items']) )
+if (is_admin() and !empty($page['items']))
 {
   $template->assign_block_vars(
     'caddie',
@@ -261,6 +261,21 @@ if ( !empty($page['items']) )
   include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
 }
 //------------------------------------------------------- category informations
+
+// slideshow
+// execute after init thumbs in order to have all picture informations
+if (!empty($page['cat_slideshow_url']))
+{
+  if (isset($_GET['slideshow']))
+  {
+    redirect($page['cat_slideshow_url']);
+  }
+  else
+  {
+    $template->assign_block_vars(
+      'slideshow', array('URL' => $page['cat_slideshow_url']));
+  }
+}
 
 // navigation bar
 if ($page['navigation_bar'] != '')

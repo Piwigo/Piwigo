@@ -30,55 +30,33 @@
 </div>
 
 <div id="imageToolBar">
-
-<div class="randomButtons">
-  <a href="{U_SLIDESHOW}" title="{lang:slideshow}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"></a>
-  <a href="{U_METADATA}" title="{lang:picture_show_metadata}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/metadata.png" class="button" alt="{lang:picture_show_metadata}"></a>
-<!-- BEGIN download -->
-  <a href="{download.U_DOWNLOAD}" title="{lang:download_hint}"><img src="{pwg_root}{themeconf:icon_dir}/save.png" class="button" alt="{lang:download}"></a>
-<!-- END download -->
-  {PLUGIN_PICTURE_ACTIONS}
-<!-- BEGIN favorite -->
-  <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
-<!-- END favorite -->
-<!-- BEGIN representative -->
-  <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"></a>
-<!-- END representative -->
-<!-- BEGIN admin -->
-  <a href="{U_ADMIN}" title="{lang:link_info_image}"><img src="{pwg_root}{themeconf:icon_dir}/preferences.png" class="button" alt="{lang:link_info_image}"></a>
-<!-- END admin -->
-<!-- BEGIN caddie -->
-  <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"></a>
-<!-- END caddie -->
-</div>
-
-<div class="navButtons">
-<!-- BEGIN last -->
-  <a class="navButton prev" href="{last.U_IMG}" title="{lang:last_page} : {last.TITLE_IMG}" rel="last"><img src="{pwg_root}{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
-<!-- END last -->
-<!-- BEGIN last_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/last_unactive.png" class="button" alt=""></a>
-<!-- END last_unactive -->
-<!-- BEGIN next -->
-  <a class="navButton next" href="{next.U_IMG}" title="{lang:next_page} : {next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
-<!-- END next -->
-<!-- BEGIN next_unactive -->
-  <a class="navButton next"><img src="{pwg_root}{themeconf:icon_dir}/right_unactive.png" class="button" alt=""></a>
-<!-- END next_unactive -->
-  <a class="navButton up" href="{U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
-<!-- BEGIN previous -->
-  <a class="navButton prev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
-<!-- END previous -->
-<!-- BEGIN previous_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/left_unactive.png" class="button" alt=""></a>
-<!-- END previous_unactive -->
-<!-- BEGIN first -->
-  <a class="navButton prev" href="{first.U_IMG}" title="{lang:first_page} : {first.TITLE_IMG}" rel="first"><img src="{pwg_root}{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
-<!-- END first -->
-<!-- BEGIN first_unactive -->
-  <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/first_unactive.png" class="button" alt=""></a>
-<!-- END first_unactive -->
-</div>
+  <div class="randomButtons">
+    <!-- BEGIN start_slideshow -->
+      <a href="{start_slideshow.U_SLIDESHOW}" title="{lang:slideshow}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"></a>
+    <!-- END start_slideshow -->
+    <!-- BEGIN stop_slideshow -->
+      <a href="{stop_slideshow.U_SLIDESHOW}" title="{lang:slideshow_stop}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/stop_slideshow.png" class="button" alt="{lang:slideshow_stop}"></a>
+    <!-- END stop_slideshow -->
+      <a href="{U_METADATA}" title="{lang:picture_show_metadata}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/metadata.png" class="button" alt="{lang:picture_show_metadata}"></a>
+    <!-- BEGIN download -->
+      <a href="{download.U_DOWNLOAD}" title="{lang:download_hint}"><img src="{pwg_root}{themeconf:icon_dir}/save.png" class="button" alt="{lang:download}"></a>
+    <!-- END download -->
+      {PLUGIN_PICTURE_ACTIONS}
+    <!-- BEGIN favorite -->
+      <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
+    <!-- END favorite -->
+    <!-- BEGIN representative -->
+      <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"></a>
+    <!-- END representative -->
+    <!-- BEGIN admin -->
+      <a href="{U_ADMIN}" title="{lang:link_info_image}"><img src="{pwg_root}{themeconf:icon_dir}/preferences.png" class="button" alt="{lang:link_info_image}"></a>
+    <!-- END admin -->
+    <!-- BEGIN caddie -->
+      <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"></a>
+    <!-- END caddie -->
+  </div>
+  {NAV_BUTTONS}
+  </div>
 
 </div> <!-- imageToolBar -->
 
@@ -228,31 +206,3 @@
 </div>
 <!-- END comments -->
 
-<script type="text/javascript">
-function keyboardNavigation(e)
-{
-	if(!e) var e=window.event;
-	if (e.altKey) return true;
-	var target = e.target || e.srcElement;
-	if (target && target.type) return true; //an input editable element
-	var keyCode=e.keyCode || e.which;
-	var docElem = document.documentElement;
-	switch(keyCode) {
-<!-- BEGIN next -->
-		case 63235: case 39: if (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth ){window.location="{next.U_IMG}".replace( "&amp;", "&" ); return false; } break;
-<!-- END next -->
-<!-- BEGIN previous -->
-		case 63234: case 37: if (e.ctrlKey || docElem.scrollLeft==0){ window.location="{previous.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END previous -->
-<!-- BEGIN first -->
-		/*Home*/case 36: if (e.ctrlKey){window.location="{first.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END first -->
-<!-- BEGIN last -->
-		/*End*/case 35: if (e.ctrlKey){window.location="{last.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END last -->
-		/*Up*/case 38: if (e.ctrlKey){window.location="{U_UP}".replace("&amp;","&"); return false; } break;
-	}
-	return true;
-}
-document.onkeydown=keyboardNavigation;
-</script>

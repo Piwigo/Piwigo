@@ -41,10 +41,14 @@ function c13y_upgrade()
 
   /* Check user with same e-mail */
   $query = '
-select count(*)
-from '.USERS_TABLE.'
-where '.$conf['user_fields']['email'].' is not null
-group by upper('.$conf['user_fields']['email'].')
+select
+  count(*)
+from
+  '.USERS_TABLE.'
+where
+  '.$conf['user_fields']['email'].' is not null
+group by
+  upper('.$conf['user_fields']['email'].')
 having count(*) > 1
 limit 0,1
 ;';
@@ -53,12 +57,49 @@ limit 0,1
   {
     $can_be_deactivate = false;
     add_c13y(
-      l10n('c13y_exif_dbl_email_user'),
+      l10n('c13y_dbl_email_user'),
       null,
       null,
-      l10n('c13y_exif_correction_dbl_email_user'));
+      l10n('c13y_correction_dbl_email_user'));
   }
 
+  /* Check plugin included in Piwigo sources */
+  $included_plugins = array('dew');
+  $query = '
+select
+  id
+from
+  '.PLUGINS_TABLE.'
+where
+  id in ('.
+    implode(
+      ',',
+      array_map(
+        create_function('$s', 'return "\'".$s."\'";'),
+        $included_plugins
+        )
+      )
+      .')
+;';
+
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_assoc($result))
+  {
+    $can_be_deactivate = false;
+
+    $uninstall_msg_link =
+      '<a href="'.
+      PHPWG_ROOT_PATH.
+      'admin.php?page=plugins&amp;plugin='.$row['id'].'&amp;action=uninstall'.
+      '" onclick="window.open(this.href, \'\'); return false;">'.
+      sprintf(l10n('c13y_correction_obsolete_plugin'), $row['id']).'</a>';
+
+    add_c13y(
+      l10n('c13y_obsolete_plugin'),
+      null,
+      null,
+      $uninstall_msg_link);
+  }
 
   /* Check if this plugin must deactivate */
   if ($can_be_deactivate)

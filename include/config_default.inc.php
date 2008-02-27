@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -65,10 +65,6 @@
 //    will only order pictures by file ascending without taking into account
 //    the date_available
 $conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
-
-// slideshow_period : waiting time in seconds before loading a new page
-// during automated slideshow
-$conf['slideshow_period'] = 4;
 
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
@@ -692,8 +688,20 @@ $conf['filter_pages'] = array
   );
 
 // +-----------------------------------------------------------------------+
-// | Light slideshow                                                       |
+// | Slideshow                                                             |
 // +-----------------------------------------------------------------------+
+// slideshow_period : waiting time in seconds before loading a new page
+// during automated slideshow
+// slideshow_period_min, slideshow_period_max are bounds of slideshow_period
+// slideshow_period_step is the step of navigation between min and max
+$conf['slideshow_period_min'] = 1;
+$conf['slideshow_period_max'] = 10;
+$conf['slideshow_period_step'] = 1;
+$conf['slideshow_period'] = 4;
+
+// slideshow_repeat : slideshow loops on pictures
+$conf['slideshow_repeat'] = true;
+
 // $conf['light_slideshow'] indicates to use slideshow.tpl in state of
 // picture.tpl for slideshow
 // Take care to have slideshow.tpl in all available templates

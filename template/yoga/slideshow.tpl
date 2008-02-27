@@ -10,9 +10,14 @@
   <h2 class="showtitle">{TITLE}</h2>
   <!-- END title -->
 </div>
+
+<div id="imageToolBar">
+  {NAV_BUTTONS}
+</div>
+
 <div id="theImage">
   {ELEMENT_CONTENT}
-<!-- BEGIN legend -->
-<p class="showlegend">{legend.COMMENT_IMG}</p>
-<!-- END legend -->
+  <!-- BEGIN legend -->
+  <p class="showlegend">{legend.COMMENT_IMG}</p>
+  <!-- END legend -->
 </div>

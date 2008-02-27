@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -749,6 +749,8 @@ function redirect_http( $url )
   {
     ob_clean();
   }
+  // default url is on html format
+  $url = html_entity_decode($url);
   header('Request-URI: '.$url);
   header('Content-Location: '.$url);
   header('Location: '.$url);
