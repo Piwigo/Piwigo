@@ -427,6 +427,9 @@ $conf['show_gt'] = true;
 // accessed
 $conf['debug_l10n'] = false;
 
+// activate template debugging - a new window will appear
+$conf['debug_template'] = false;
+
 // die_on_sql_error: if an SQL query fails, should everything stop?
 $conf['die_on_sql_error'] = true;
 
@@ -699,4 +702,7 @@ $conf['filter_pages'] = array
 // Every plugin from 1.7 would be design to manage light_slideshow case.
 $conf['light_slideshow'] = true;
 
+// the local data directory is used to store data such as compiled templates
+// or other plugin variables etc
+$conf['local_data_dir'] = dirname(dirname(__FILE__)).'/_data';
 ?>

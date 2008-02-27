@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -77,7 +77,7 @@ $page['body_id'] = 'theAdminPage';
 
 $template->set_filenames(array('admin' => 'admin.tpl'));
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_SITE_MANAGER'=> $link_start.'site_manager',
     'U_HISTORY_STAT'=> $link_start.'stats',
@@ -102,16 +102,13 @@ $template->assign_vars(
     'U_PERMALINKS'=> $link_start.'permalinks',
     'U_RETURN'=> make_index_url(),
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
+    'TAG_INPUT_ENABLED' =>
+      ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''),
     )
   );
 if ($conf['ws_access_control']) // Do we need to display ws_checker
 {
-  $template->assign_block_vars(
-    'web_services',
-    array(
-      'U_WS_CHECKER'=> $link_start.'ws_checker',
-      )
-    );
+  $template->assign('U_WS_CHECKER', $link_start.'ws_checker' );
 }
 
 //---------------------------------------------------------------- plugin menus
@@ -130,10 +127,7 @@ array_unshift($plugin_menu_links,
     )
   );
 
-foreach ($plugin_menu_links as $menu_item)
-{
-  $template->assign_block_vars('plugin_menu.menu_item', $menu_item);
-}
+$template->assign('plugin_menu_items', $plugin_menu_links);
 
 include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 
@@ -145,22 +139,16 @@ include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
 
 if (count($page['errors']) != 0)
 {
-  foreach ($page['errors'] as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
-  }
+  $template->assign('errors', $page['errors']);
 }
 
 if (count($page['infos']) != 0)
 {
-  foreach ($page['infos'] as $info)
-  {
-    $template->assign_block_vars('infos.info',array('INFO'=>$info));
-  }
+  $template->assign('infos', $page['infos']);
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->parse('admin');
+$template->pparse('admin');
 
 // +-----------------------------------------------------------------------+
 // |                     order permission refreshment                      |

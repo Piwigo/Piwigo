@@ -31,7 +31,7 @@
  * are quite similar.
  */
 
-class Template {
+class TemplateOld {
 
   var $classname = "Template";
 
@@ -65,7 +65,7 @@ class Template {
    * Constructor. Simply sets the root dir.
    *
    */
-  function Template($root = ".", $theme= "")
+  function TemplateOld($root = ".", $theme= "")
     {
       if ( $this->set_rootdir($root) )
       {
@@ -657,4 +657,5 @@ class Template {
     }
 }
 
+include_once(PHPWG_ROOT_PATH.'include/template.class.php');
 ?>

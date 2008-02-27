@@ -197,14 +197,14 @@ foreach( $fs_plugins as $plugin_id => $fs_plugin )
     }
     $desc.= '</em>)';
   }
-  $template->assign_block_vars( 'plugins.plugin',
+  
+  $tpl_plugin =
       array(
         'NAME' => $display_name,
         'VERSION' => $fs_plugin['version'],
         'DESCRIPTION' => $desc,
-        'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
-        )
-     );
+        'actions' => array(),
+        );
 
 
   $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
@@ -214,40 +214,37 @@ foreach( $fs_plugins as $plugin_id => $fs_plugin )
     switch ($db_plugins_by_id[$plugin_id]['state'])
     {
       case 'active':
-        $template->assign_block_vars( 'plugins.plugin.action',
+        $tpl_plugin['actions'][] = 
             array(
               'U_ACTION' => $action_url . '&amp;action=deactivate',
               'L_ACTION' => l10n('Deactivate'),
-            )
-          );
+            );
         break;
       case 'inactive':
-        $template->assign_block_vars( 'plugins.plugin.action',
+        $tpl_plugin['actions'][] =
             array(
               'U_ACTION' => $action_url . '&amp;action=activate',
               'L_ACTION' => l10n('Activate'),
-            )
-          );
-        $template->assign_block_vars( 'plugins.plugin.action',
+            );
+        $tpl_plugin['actions'][] =
             array(
               'U_ACTION' => $action_url . '&amp;action=uninstall',
               'L_ACTION' => l10n('Uninstall'),
-            )
-          );
-        $template->assign_block_vars( 'plugins.plugin.action.confirm', array());
+              'CONFIRM'  => true,
+            );
         break;
     }
   }
   else
   {
-    $template->assign_block_vars( 'plugins.plugin.action',
+    $tpl_plugin['actions'][] =
         array(
           'U_ACTION' => $action_url . '&amp;action=install',
           'L_ACTION' => l10n('Install'),
-        )
-      );
-    $template->assign_block_vars( 'plugins.plugin.action.confirm', array());
+          'CONFIRM'  => true,
+        );
   }
+  $template->append('plugins', $tpl_plugin);
 }
 
 $missing_plugin_ids = array_diff(
@@ -255,22 +252,19 @@ $missing_plugin_ids = array_diff(
   );
 foreach( $missing_plugin_ids as $plugin_id )
 {
-  $template->assign_block_vars( 'plugins.plugin',
+  $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
+
+  $template->append( 'plugins',
       array(
         'NAME' => $plugin_id,
         'VERSION' => $db_plugins_by_id[$plugin_id]['version'],
         'DESCRIPTION' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
-        'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
-        )
-     );
-   $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
-        $template->assign_block_vars( 'plugins.plugin.action',
-            array(
+        'actions' => array ( array (
               'U_ACTION' => $action_url . '&amp;action=uninstall',
               'L_ACTION' => l10n('Uninstall'),
-            )
-          );
-
+          ) )
+        )
+     );
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

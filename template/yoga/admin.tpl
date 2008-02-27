@@ -1,77 +1,75 @@
-<!-- $Id$ -->
+{* $Id$ *}
 <div id="menubar">
   <dl>
-    <dt>{lang:Links}</dt>
+    <dt>{'Links'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_RETURN}">{lang:home}</a></li>
-        <li><a href="{U_FAQ}">{lang:instructions}</a></li>
-        <li><a href="{U_ADMIN}" title="{lang:hint_admin}">{lang:admin}</a></li>
+        <li><a href="{$U_RETURN}">{'home'|@translate}</a></li>
+        <li><a href="{$U_FAQ}">{'instructions'|@translate}</a></li>
+        <li><a href="{$U_ADMIN}" title="{'hint_admin'|@translate}">{'admin'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-    <dt>{lang:config}</dt>
+    <dt>{'config'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_CONFIG_GENERAL}">{lang:conf_general}</a></li>
-        <li><a href="{U_CONFIG_DISPLAY}">{lang:conf_display}</a></li>
+        <li><a href="{$U_CONFIG_GENERAL}">{'conf_general'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_DISPLAY}">{'conf_display'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-    <dt>{lang:Categories}</dt>
+    <dt>{'Categories'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_SITE_MANAGER}">{lang:Site manager}</a></li>
-        <li><a href="{U_CAT_UPDATE}">{lang:update}</a><br />&nbsp;</li>
-        <li><a href="{U_CATEGORIES}">{lang:manage}</a></li>
-        <li><a href="{U_MOVE}">{lang:Move}</a></li>
-        <li><a href="{U_CAT_OPTIONS}">{lang:cat_options_title}</a></li>
-        <li><a href="{U_PERMALINKS}">{lang:Permalinks}</a></li>
+        <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
+        <li><a href="{$U_CAT_UPDATE}">{'update'|@translate}</a><br />&nbsp;</li>
+        <li><a href="{$U_CATEGORIES}">{'manage'|@translate}</a></li>
+        <li><a href="{$U_MOVE}">{'Move'|@translate}</a></li>
+        <li><a href="{$U_CAT_OPTIONS}">{'cat_options_title'|@translate}</a></li>
+        <li><a href="{$U_PERMALINKS}">{'Permalinks'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-    <dt>{lang:pictures_menu}</dt>
+    <dt>{'pictures_menu'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_WAITING}">{lang:waiting}</a></li>
-        <li><a href="{U_THUMBNAILS}">{lang:thumbnails}</a></li>
-        <li><a href="{U_RATING}">{lang:Rating}</a></li>
-        <li><a href="{U_TAGS}">{lang:Tags}</a></li>
-        <li><a href="{U_CADDIE}">{lang:Caddie}</a></li>
+        <li><a href="{$U_WAITING}">{'waiting'|@translate}</a></li>
+        <li><a href="{$U_THUMBNAILS}">{'thumbnails'|@translate}</a></li>
+        <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
+        <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
+        <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-    <dt>{lang:identification}</dt>
+    <dt>{'identification'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_USERS}">{lang:users}</a></li>
-        <li><a href="{U_GROUPS}">{lang:groups}</a></li>
-        <li><a href="{U_NOTIFICATION_BY_MAIL}">{lang:nbm_item_notification}</a></li>
+        <li><a href="{$U_USERS}">{'users'|@translate}</a></li>
+        <li><a href="{$U_GROUPS}">{'groups'|@translate}</a></li>
+        <li><a href="{$U_NOTIFICATION_BY_MAIL}">{'nbm_item_notification'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
   <dl>
-    <dt>{lang:special_admin_menu}</dt>
+    <dt>{'special_admin_menu'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{U_HISTORY_STAT}">{lang:history}</a></li>
-        <li><a href="{U_MAINTENANCE}">{lang:Maintenance}</a></li>
-        <li><a href="{U_ADVANCED_FEATURE}">{lang:Advanced_features}</a></li>
-        <!-- BEGIN web_services -->
-        <li><a href="{web_services.U_WS_CHECKER}">{lang:web_services}</a></li>
-        <!-- END web_services -->
+        <li><a href="{$U_HISTORY_STAT}">{'history'|@translate}</a></li>
+        <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
+        <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced_features'|@translate}</a></li>
+        {if isset($U_WS_CHECKER) }
+        <li><a href="{$U_WS_CHECKER}">{'web_services'|@translate}</a></li>
+        {/if}
         <li>
-          {lang:Plugins}
+          {'Plugins'|@translate}
           <ul>
-<!-- BEGIN plugin_menu -->
-<!-- BEGIN menu_item -->
-      <li><a href="{plugin_menu.menu_item.URL}">{plugin_menu.menu_item.NAME}</a></li>
-<!-- END menu_item -->
-<!-- END plugin_menu -->
+{foreach from=$plugin_menu_items item=menu_item}
+      <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
+{/foreach}
           </ul>
         </li>
       </ul>
@@ -80,25 +78,25 @@
 </div> <!-- menubar -->
 
 <div id="content">
-  <!-- BEGIN errors -->
+  {if isset($errors)}
   <div class="errors">
     <ul>
-      <!-- BEGIN error -->
-      <li>{errors.error.ERROR}</li>
-      <!-- END error -->
+      {foreach from=$errors item=error}
+      <li>{$error}</li>
+      {/foreach}
     </ul>
   </div>
-  <!-- END errors -->
+  {/if}
 
-  <!-- BEGIN infos -->
+  {if isset($infos)}
   <div class="infos">
     <ul>
-      <!-- BEGIN info -->
-      <li>{infos.info.INFO}</li>
-      <!-- END info -->
+      {foreach from=$infos item=info}
+      <li>{$info}</li>
+      {/foreach}
     </ul>
   </div>
-  <!-- END infos -->
+  {/if}
 
-  {ADMIN_CONTENT}
+  {$ADMIN_CONTENT}
 </div>
