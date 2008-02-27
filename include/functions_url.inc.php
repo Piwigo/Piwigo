@@ -46,7 +46,7 @@ function get_root_url()
   }
   else
   {
-    return substr($root_url, 2);
+    return (string)substr($root_url, 2);
   }
 }
 
