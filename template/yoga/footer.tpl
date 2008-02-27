@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div id="copyright">
  <a name="EoP"></a> <!-- End of Page -->
  <!-- BEGIN debug -->

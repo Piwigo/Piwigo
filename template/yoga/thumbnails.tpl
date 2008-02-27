@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 <!-- BEGIN thumbnails -->
 <ul class="thumbnails">

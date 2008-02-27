@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div class="content">
   <h2>{lang:An_advice_about} {ADVICE_ABOUT}</h2>
     <h3>{ADVICE_TEXT}</h3>

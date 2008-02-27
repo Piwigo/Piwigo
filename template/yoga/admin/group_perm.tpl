@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <h2>{TITLE}</h2>
 
 <form method="post" action="{F_ACTION}">

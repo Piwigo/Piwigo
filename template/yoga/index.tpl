@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 {MENUBAR}
 <div id="content">

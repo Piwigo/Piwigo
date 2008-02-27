@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 <div class="titrePage">
   <h2>{lang:waiting} {TABSHEET_TITLE}</h2>

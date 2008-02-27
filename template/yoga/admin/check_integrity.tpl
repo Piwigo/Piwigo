@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 <dl>
   <dt>{lang:c13y_title}</dt>

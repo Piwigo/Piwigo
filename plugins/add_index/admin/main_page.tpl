@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id: notification_by_mail.tpl Ruben ARNAUD -->
 <div class="titrePage">
   <h2>{lang:Add_Index}</h2>

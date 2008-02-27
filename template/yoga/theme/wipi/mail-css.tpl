@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 /* $Id$ */
 /* Theme mail css */
 /* Including like css style on HTML mail */

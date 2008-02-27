@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div id="nbm_message">
 <h2>{lang:Notification}</h2>
 <p>{lang:nbm_content_hello_1}{USERNAME}{lang:nbm_content_hello_2}</p>

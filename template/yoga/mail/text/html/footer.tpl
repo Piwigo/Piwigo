@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 </div> <!-- content -->
 <div id="copyright">
 <HR>

@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div class="titrePage">
   <ul class="categoryActions">
     <li>

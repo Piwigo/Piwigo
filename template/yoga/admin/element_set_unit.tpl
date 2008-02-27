@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <h2>{lang:Batch management}</h2>
 
 <h3>{CATEGORIES_NAV}</h3>

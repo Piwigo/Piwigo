@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id: notification_by_mail.tpl Ruben ARNAUD -->
 <div class="titrePage">
   <ul class="categoryActions">

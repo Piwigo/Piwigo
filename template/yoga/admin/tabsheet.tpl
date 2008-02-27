@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 <ul class="tabsheet">
 <!-- BEGIN tab -->

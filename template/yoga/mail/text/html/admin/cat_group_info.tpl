@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div id="cat_group_info">
 <h2>{lang:Informations}</h2>
 <p>{IMG_URL}</p>

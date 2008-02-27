@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- BEGIN high -->
 <a href="javascript:phpWGOpenWindow('{high.U_HIGH}','{high.UUID}','scrollbars=yes,toolbar=no,status=no,resizable=yes')">
 <!-- END high -->

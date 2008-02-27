@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <h2>{lang:Rating} [{NB_ELEMENTS} {lang:elements}]</h2>
 
 <form action="{F_ACTION}" method="GET" id="update" class="filter">

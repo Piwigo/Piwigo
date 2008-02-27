@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div class="titrePage">
   <h2>Event Tracer</h2>
 </div>

@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 {lang:nbm_content_hello_1}{USERNAME}{lang:nbm_content_hello_2}
 
 <!-- BEGIN subscribe_by_admin -->

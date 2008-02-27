@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 There are {NB_EVENTS} calls to triger_event or triger_action.
 
 <table width="99%" class="table2">

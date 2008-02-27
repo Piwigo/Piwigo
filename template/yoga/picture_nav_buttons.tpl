@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
   <div class="navButtons">
   <!-- BEGIN last -->

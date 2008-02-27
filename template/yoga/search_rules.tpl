@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div id="content">
 <h2>{lang:Search rules}</h2>
 

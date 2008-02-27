@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- BEGIN errors -->
 <div class="errors">
 <ul>

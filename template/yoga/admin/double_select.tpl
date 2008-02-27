@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <table class="doubleSelect">
   <tr>
     <td>

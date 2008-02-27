@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- BEGIN calendar -->
 <!-- $Id$ -->
 <!-- BEGIN thumbnails -->

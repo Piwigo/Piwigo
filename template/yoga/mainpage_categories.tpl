@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- BEGIN categories -->
 <!-- $Id$ -->
 <ul class="thumbnailCategories">

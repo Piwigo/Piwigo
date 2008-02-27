@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div id="registerPage">
 
 <div id="content">

@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <!-- $Id$ -->
 <h2>{lang:title_default}</h2>
 <!-- BEGIN pwgmenu -->

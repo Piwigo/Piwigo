@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <div class="titrePage">
   <h2>{lang:Manage tags}</h2>
 </div>

@@ -1,3 +1,4 @@
+<!-- DEV TAG: not smarty migrated -->
 <form method="post" name="profile" action="{F_ACTION}" id="profile" class="properties">
 
   <fieldset>
