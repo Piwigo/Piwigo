@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $RCSfile$
@@ -31,7 +31,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -157,35 +157,17 @@ WHERE param = \''.$row['param'].'\'
 //----------------------------------------------------- template initialization
 $template->set_filename('config', 'admin/configuration.tpl');
 
+// TabSheet
+$tabsheet = new tabsheet();
 // TabSheet initialization
-$page['tabsheet'] = array
-(
-  'main' => array
-   (
-    'caption' => l10n('conf_main_title'),
-    'url' => $conf_link.'main'
-   ),
-  'history' => array
-   (
-    'caption' => l10n('conf_history_title'),
-    'url' => $conf_link.'history'
-   ),
-  'comments' => array
-   (
-    'caption' => l10n('conf_comments_title'),
-    'url' => $conf_link.'comments'
-   ),
-  'default' => array
-   (
-    'caption' => l10n('conf_display'),
-    'url' => $conf_link.'default'
-   )
-);
-
-$page['tabsheet'][$page['section']]['selected'] = true;
-
+$tabsheet->add('main', l10n('conf_main_title'), $conf_link.'main');
+$tabsheet->add('history', l10n('conf_history_title'), $conf_link.'history');
+$tabsheet->add('comments', l10n('conf_comments_title'), $conf_link.'comments');
+$tabsheet->add('default', l10n('conf_display'), $conf_link.'default');
+// TabSheet selection
+$tabsheet->select($page['section']);
 // Assign tabsheet to template
-template_assign_tabsheet();
+$tabsheet->assign();
 
 $action = PHPWG_ROOT_PATH.'admin.php?page=configuration';
 $action.= '&amp;section='.$page['section'];

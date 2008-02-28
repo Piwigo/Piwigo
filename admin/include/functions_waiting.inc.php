@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -24,31 +24,21 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 function waiting_tabsheet()
 {
   global $page, $link_start;
 
+  // TabSheet
+  $tabsheet = new tabsheet();
   // TabSheet initialization
-  $page['tabsheet'] = array
-  (
-    'comments' => array
-     (
-      'caption' => l10n('comments'),
-      'url' => $link_start.'comments'
-     ),
-    'upload' => array
-     (
-      'caption' => l10n('upload_pictures'),
-      'url' => $link_start.'upload'
-     )
-  );
-
-  $page['tabsheet'][$page['page']]['selected'] = true;
-
+  $tabsheet->add('comments', l10n('comments'), $link_start.'comments');
+  $tabsheet->add('upload', l10n('upload_pictures'), $link_start.'upload');
+  // TabSheet selection
+  $tabsheet->select($page['page']);
   // Assign tabsheet to template
-  template_assign_tabsheet();
+  $tabsheet->assign();
 }
 
 ?>

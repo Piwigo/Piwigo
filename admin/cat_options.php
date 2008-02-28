@@ -30,7 +30,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -159,50 +159,22 @@ $template->assign(
    )
  );
 
+// TabSheet
+$tabsheet = new tabsheet();
 // TabSheet initialization
 $opt_link = $link_start.'cat_options&amp;section=';
-$tabsheet = array
-(
-  'status' => array
-   (
-    'caption' => l10n('cat_security'),
-    'url' => $opt_link.'status'
-   ),
-  'visible' => array
-   (
-    'caption' => l10n('lock'),
-    'url' => $opt_link.'visible'
-   ),
-  'upload' => array
-   (
-    'caption' => l10n('upload'),
-    'url' => $opt_link.'upload'
-   ),
-  'comments' => array
-   (
-    'caption' => l10n('comments'),
-    'url' => $opt_link.'comments'
-   ),
-);
-
+$tabsheet->add('status', l10n('cat_security'), $opt_link.'status');
+$tabsheet->add('visible', l10n('lock'), $opt_link.'visible');
+$tabsheet->add('upload', l10n('upload'), $opt_link.'upload');
+$tabsheet->add('comments', l10n('comments'), $opt_link.'comments');
 if ($conf['allow_random_representative'])
 {
-  $tabsheet['representative'] =
-    array
-    (
-      'caption' => l10n('Representative'),
-      'url' => $opt_link.'representative'
-    );
+  $tabsheet->add('representative', l10n('Representative'), $opt_link.'representative');
 }
-$tabsheet[$page['section']]['selected'] = true;
-
+// TabSheet selection
+$tabsheet->select($page['section']);
 // Assign tabsheet to template
-$template->assign(
-    array(
-      'tabsheet' => $tabsheet,
-      'TABSHEET_TITLE' => $tabsheet[$page['section']]['caption']
-    )
-  );
+$tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
 // |                              form display                             |

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -35,7 +35,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_notification_by_mail.inc.php');
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_notification.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
@@ -610,31 +610,22 @@ $template->assign_vars
 
 if (is_autorize_status(ACCESS_WEBMASTER))
 {
+  // TabSheet
+  $tabsheet = new tabsheet();
   // TabSheet initialization
-  $page['tabsheet'] = array
-  (
-    'param' => array
-     (
-      'caption' => l10n('nbm_param_mode'),
-      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
-        array('mode' => 'param'))
-     ),
-    'subscribe' => array
-     (
-      'caption' => l10n('nbm_subscribe_mode'),
-      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'subscribe')),
-     ),
-    'send' => array
-     (
-      'caption' => l10n('nbm_send_mode'),
-      'url' => add_url_params($base_url.get_query_string_diff(array('mode', 'select')), array('mode' => 'send'))
-     )
-  );
-
-  $page['tabsheet'][$page['mode']]['selected'] = true;
-
+  $tabsheet->add('param', l10n('nbm_param_mode'),
+    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
+        array('mode' => 'param')));
+  $tabsheet->add('subscribe', l10n('nbm_subscribe_mode'),
+    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
+      array('mode' => 'subscribe')));
+  $tabsheet->add('send', l10n('nbm_send_mode'),
+    add_url_params($base_url.get_query_string_diff(array('mode', 'select')),
+      array('mode' => 'send')));
+  // TabSheet selection
+  $tabsheet->select($page['mode']);
   // Assign tabsheet to template
-  template_assign_tabsheet();
+  $tabsheet->assign();
 }
 
 if ($must_repost)

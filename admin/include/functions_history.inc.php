@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -24,31 +24,21 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-include_once(PHPWG_ROOT_PATH.'admin/include/functions_tabsheet.inc.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 
 function history_tabsheet()
 {
   global $page, $link_start;
 
+  // TabSheet
+  $tabsheet = new tabsheet();
   // TabSheet initialization
-  $page['tabsheet'] = array
-  (
-    'stats' => array
-     (
-      'caption' => l10n('Statistics'),
-      'url' => $link_start.'stats'
-     ),
-    'history' => array
-     (
-      'caption' => l10n('Search'),
-      'url' => $link_start.'history'
-     )
-  );
-
-  $page['tabsheet'][$page['page']]['selected'] = true;
-
+  $tabsheet->add('stats', l10n('Statistics'), $link_start.'stats');
+  $tabsheet->add('history', l10n('Search'), $link_start.'history');
+  // TabSheet selection
+  $tabsheet->select($page['page']);
   // Assign tabsheet to template
-  template_assign_tabsheet();
+  $tabsheet->assign();
 }
 
 function history_compare($a, $b)
