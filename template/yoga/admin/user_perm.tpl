@@ -1,22 +1,23 @@
-<!-- DEV TAG: not smarty migrated -->
-<h2>{TITLE}</h2>
+{* $Id$ *}
+<h2>{$TITLE}</h2>
 
-<!-- BEGIN groups -->
+{if isset($categories_because_of_groups) }
 <fieldset>
-  <legend>{lang:Categories authorized thanks to group associations}</legend>
+  <legend>{'Categories authorized thanks to group associations'|@translate}</legend>
 
   <ul>
-    <!-- BEGIN category -->
-    <li>{groups.category.NAME}</li>
-    <!-- END category -->
+    {foreach from=$categories_because_of_groups item=cat }
+    <li>{$cat}</li>
+    {/foreach}
   </ul>
 </fieldset>
-<!-- END groups -->
+{/if}
+
 
 <fieldset>
-  <legend>{lang:Other private categories}</legend>
+  <legend>{'Other private categories'|@translate}</legend>
 
-  <form method="post" action="{F_ACTION}">
-    {DOUBLE_SELECT}
+  <form method="post" action="{$F_ACTION}">
+    {$DOUBLE_SELECT}
   </form>
 </fieldset>

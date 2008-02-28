@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -126,7 +125,7 @@ $template->set_filenames(
     )
   );
 
-$template->assign_vars(
+$template->assign(
   array(
     'TITLE' =>
       sprintf(
@@ -161,8 +160,6 @@ $result = pwg_query($query);
 
 if (mysql_num_rows($result) > 0)
 {
-  $template->assign_block_vars('groups', array());
-
   $cats = array();
   while ($row = mysql_fetch_array($result))
   {
@@ -173,11 +170,9 @@ if (mysql_num_rows($result) > 0)
 
   foreach ($cats as $category)
   {
-    $template->assign_block_vars(
-      'groups.category',
-      array(
-        'NAME' => get_cat_display_name_cache($category['uppercats'], null, false)
-        )
+    $template->append(
+      'categories_because_of_groups',
+      get_cat_display_name_cache($category['uppercats'], null, false)
       );
   }
 }
