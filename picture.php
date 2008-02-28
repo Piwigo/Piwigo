@@ -633,7 +633,7 @@ else
       )
     );
   $template->assign_block_vars(
-    'thumbnails',array('U_UP' => $url_up));
+    'up',array('U_URL' => $url_up));
 }
 
 $template->assign_vars(

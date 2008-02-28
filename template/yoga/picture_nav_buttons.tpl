@@ -19,9 +19,9 @@
   <!-- BEGIN stop_play -->
     <a class="navButton play" href="{stop_play.U_IMG}" title="{lang:stop_play}" rel="play"><img src="{pwg_root}{themeconf:icon_dir}/pause.png" class="button" alt="{lang:stop_play}"></a>
   <!-- END stop_play -->
-  <!-- BEGIN thumbnails -->
-    <a class="navButton up" href="{thumbnails.U_UP}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
-  <!-- END thumbnails -->
+  <!-- BEGIN up -->
+    <a class="navButton up" href="{up.U_URL}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
+  <!-- END up -->
   <!-- BEGIN previous -->
     <a class="navButton prev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
   <!-- END previous -->
@@ -76,9 +76,9 @@ function keyboardNavigation(e)
 <!-- BEGIN last -->
     /*End*/case 35: if (e.ctrlKey){window.location="{last.U_IMG}".replace("&amp;","&"); return false; } break;
 <!-- END last -->
-<!-- BEGIN thumbnails -->
-    /*Up*/case 38: if (e.ctrlKey){window.location="{thumbnails.U_UP}".replace("&amp;","&"); return false; } break;
-<!-- END thumbnails -->
+<!-- BEGIN up -->
+    /*Up*/case 38: if (e.ctrlKey){window.location="{up.U_UP}".replace("&amp;","&"); return false; } break;
+<!-- END up -->
 <!-- BEGIN start_play -->
     /*Pause*/case 32: {window.location="{start_play.U_IMG}".replace("&amp;","&"); return false; } break;
 <!-- END start_play -->
