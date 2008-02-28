@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -36,14 +36,14 @@ include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 check_status(ACCESS_GUEST);
 
 $sort_order = array(
-  'descending' => 'DESC',
-  'ascending' => 'ASC'
+  'DESC' => l10n('descending'),
+  'ASC'  => l10n('ascending')
   );
 
 // sort_by : database fields proposed for sorting comments list
 $sort_by = array(
-  'date' => 'comment date',
-  'image_id' => 'picture'
+  'date' => l10n('comment date'),
+  'image_id' => l10n('picture')
   );
 
 // items_number : list of number of items to display per page
@@ -75,11 +75,11 @@ if (isset($_GET['sort_by']))
 
 // order to sort
 //
-$page['sort_order'] = $sort_order['descending'];
+$page['sort_order'] = 'DESC';
 // if the form was submitted, it overloads default behaviour
 if (isset($_GET['sort_order']))
 {
-  $page['sort_order'] = $sort_order[$_GET['sort_order']];
+  $page['sort_order'] = $_GET['sort_order'];
 }
 
 // number of items to display
@@ -176,15 +176,11 @@ $title= l10n('title_comments');
 $page['body_id'] = 'theCommentsPage';
 
 $template->set_filenames(array('comments'=>'comments.tpl'));
-$template->assign_vars(
+$template->assign(
   array(
-    'L_COMMENT_TITLE' => $title,
-
     'F_ACTION'=>PHPWG_ROOT_PATH.'comments.php',
     'F_KEYWORD'=>@htmlspecialchars(stripslashes($_GET['keyword'])),
     'F_AUTHOR'=>@htmlspecialchars(stripslashes($_GET['author'])),
-
-    'U_HOME' => make_index_url(),
     )
   );
 
@@ -193,14 +189,7 @@ $template->assign_vars(
 // +-----------------------------------------------------------------------+
 
 // Search in a particular category
-$blockname = 'category';
-
-$template->assign_block_vars(
-  $blockname,
-  array('SELECTED' => '',
-        'VALUE'=> 0,
-        'OPTION' => '------------'
-    ));
+$blockname = 'categories';
 
 $query = '
 SELECT id, name, uppercats, global_rank
@@ -218,64 +207,33 @@ SELECT id, name, uppercats, global_rank
 display_select_cat_wrapper($query, array(@$_GET['cat']), $blockname, true);
 
 // Filter on recent comments...
-$blockname = 'since_option';
-
+$tpl_var=array();
 foreach ($since_options as $id => $option)
 {
-  $selected = ($id == $page['since']) ? 'selected="selected"' : '';
-
-  $template->assign_block_vars(
-    $blockname,
-    array('SELECTED' => $selected,
-          'VALUE'=> $id,
-          'CONTENT' => $option['label']
-      ));
+  $tpl_var[ $id ] = $option['label'];
 }
+$template->assign( 'since_options', $tpl_var);
+$template->assign( 'since_options_selected', $page['since']);
 
 // Sort by
-$blockname = 'sort_by_option';
-
-foreach ($sort_by as $key => $value)
-{
-  $selected = ($key == $page['sort_by']) ? 'selected="selected"' : '';
-
-  $template->assign_block_vars(
-    $blockname,
-    array('SELECTED' => $selected,
-          'VALUE'=> $key,
-          'CONTENT' => l10n($value)
-      ));
-}
+$template->assign( 'sort_by_options', $sort_by);
+$template->assign( 'sort_by_options_selected', $page['sort_by']);
 
 // Sorting order
-$blockname = 'sort_order_option';
+$template->assign( 'sort_order_options', $sort_order);
+$template->assign( 'sort_order_options_selected', $page['sort_order']);
 
-foreach (array_keys($sort_order) as $option)
-{
-  $selected = ($option == $page['sort_order']) ? 'selected="selected"' : '';
-
-  $template->assign_block_vars(
-    $blockname,
-    array('SELECTED' => $selected,
-          'VALUE'=> $option,
-          'CONTENT' => l10n($option)
-      ));
-}
 
 // Number of items
 $blockname = 'items_number_option';
-
+$tpl_var=array();
 foreach ($items_number as $option)
 {
-  $selected = ($option == $page['items_number']) ? 'selected="selected"' : '';
-
-  $template->assign_block_vars(
-    $blockname,
-    array('SELECTED' => $selected,
-          'VALUE'=> $option,
-          'CONTENT' => is_numeric($option) ? $option : l10n($option)
-      ));
+  $tpl_var[ $option ] = is_numeric($option) ? $option : l10n($option);
 }
+$template->assign( 'item_number_options', $tpl_var);
+$template->assign( 'item_number_options_selected', $page['items_number']);
+
 
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
@@ -310,7 +268,7 @@ $navbar = create_navigation_bar($url,
                                 $page['items_number'],
                                 '');
 
-$template->assign_vars(array('NAVBAR' => $navbar));
+$template->assign('NAVBAR', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                        last comments display                          |
@@ -403,8 +361,7 @@ SELECT id, name, permalink, uppercats
       $author = l10n('guest');
     }
 
-    $template->assign_block_vars(
-      'comment',
+    $tpl_comment =
       array(
         'U_PICTURE' => $url,
         'TN_SRC' => $thumbnail_src,
@@ -412,35 +369,29 @@ SELECT id, name, permalink, uppercats
         'AUTHOR' => trigger_event('render_comment_author', $author),
         'DATE'=>format_date($comment['date'],'mysql_datetime',true),
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
-        ));
+        );
 
     if ( is_admin() )
     {
       $url = get_root_url().'comments.php'.get_query_string_diff(array('delete','validate'));
-      $template->assign_block_vars(
-        'comment.action_delete',
-        array(
-          'U_DELETE' => add_url_params($url,
+      $tpl_comment['U_DELETE'] = add_url_params($url,
                           array('delete'=>$comment['comment_id'])
-                         ),
-          ));
+                         );
+
       if ($comment['validated'] != 'true')
       {
-        $template->assign_block_vars(
-          'comment.action_validate',
-          array(
-            'U_VALIDATE' => add_url_params($url,
+        $tpl_comment['U_VALIDATE'] = add_url_params($url,
                             array('validate'=>$comment['comment_id'])
-                           ),
-            ));
+                           );
       }
     }
+    $template->append('comments', $tpl_comment);
   }
 }
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->parse('comments');
+$template->pparse('comments');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

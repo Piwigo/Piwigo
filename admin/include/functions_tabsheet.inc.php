@@ -41,34 +41,24 @@
 function template_assign_tabsheet()
 {
   global $page, $template;
+//THIS SHOULD BE DEPRECATED ?
+  
+  $template->set_filename('tabsheet', 'admin/tabsheet.tpl');
+  $template->assign('tabsheet', $page['tabsheet']);
 
-  if (count($page['tabsheet']) > 0)
+  foreach ($page['tabsheet'] as $tab_name => $tab)
   {
-    $template->set_filename('tabsheet', 'admin/tabsheet.tpl');
-
-    foreach ($page['tabsheet'] as $tab_name => $tab)
+    $is_selected = isset($tab['selected']) and $tab['selected'] === true;
+    if ($is_selected)
     {
-      $is_selected = isset($tab['selected']) and $tab['selected'] === true;
-      $template->assign_block_vars
-      (
-        'tab',
-        array
-        (
-          'CLASSNAME' => ($is_selected ? 'selected_tab' : 'normal_tab'),
-          'URL' => $tab['url'],
-          'CAPTION' => $tab['caption']
-        )
-      );
-
-      if ($is_selected)
-      {
-        $template->assign_vars(
-          array('TABSHEET_TITLE' => '['.$tab['caption'].']'));
-      }
+      $template->assign_vars(
+        array('TABSHEET_TITLE' => '['.$tab['caption'].']'));
+      break;
     }
-
-    $template->assign_var_from_handle('TABSHEET', 'tabsheet');
   }
+
+  $template->assign_var_from_handle('TABSHEET', 'tabsheet');
+  $template->clear_assign('tabsheet');
 }
 
 ?>

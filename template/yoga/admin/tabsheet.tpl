@@ -1,7 +1,8 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
+{if isset($tabsheet) and count($tabsheet)}
 <ul class="tabsheet">
-<!-- BEGIN tab -->
-  <li class="{tab.CLASSNAME}"><a href="{tab.URL}">{tab.CAPTION}</a></li>
-<!-- END tab -->
+{foreach from=$tabsheet item=tab}
+  <li class="{if isset($tab.selected) and $tab.selected}selected_tab{else}normal_tab{/if}"><a href="{$tab.url}">{$tab.caption}</a></li>
+{/foreach}
 </ul>
+{/if}

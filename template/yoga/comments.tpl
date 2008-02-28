@@ -1,38 +1,34 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div id="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:User comments}</h2>
+    <h2>{'User comments'|@translate}</h2>
   </div>
 
-<form class="filter" action="{F_ACTION}" method="get">
+<form class="filter" action="{$F_ACTION}" method="get">
 
   <fieldset>
-    <legend>{lang:Filter}</legend>
+    <legend>{'Filter'|@translate}</legend>
 
-    <label>{lang:Keyword}<input type="text" name="keyword" value="{F_KEYWORD}" /></label>
+    <label>{'Keyword'|@translate}<input type="text" name="keyword" value="{$F_KEYWORD}" /></label>
 
-    <label>{lang:Author}<input type="text" name="author" value="{F_AUTHOR}" /></label>
+    <label>{'Author'|@translate}<input type="text" name="author" value="{$F_AUTHOR}" /></label>
 
     <label>
-      {lang:Category}
+      {'Category'|@translate}
       <select name="cat">
-        <!-- BEGIN category -->
-        <option {category.SELECTED} value="{category.VALUE}">{category.OPTION}</option>
-        <!-- END category -->
+        <option value="0">------------</option>
+        {html_options options=$categories selected=$categories_selected}
       </select>
     </label>
 
     <label>
-      {lang:Since}
+      {'Since'|@translate}
       <select name="since">
-        <!-- BEGIN since_option -->
-        <option {since_option.SELECTED} value="{since_option.VALUE}">{since_option.CONTENT}</option>
-        <!-- END since_option -->
+        {html_options options=$since_options selected=$since_options_selected}
       </select>
     </label>
 
@@ -40,66 +36,64 @@
 
   <fieldset>
 
-    <legend>{lang:Display}</legend>
+    <legend>{'Display'|@translate}</legend>
 
     <label>
-      {lang:Sort by}
+      {'Sort by'|@translate}
       <select name="sort_by">
-        <!-- BEGIN sort_by_option -->
-        <option value="{sort_by_option.VALUE}" {sort_by_option.SELECTED} >{sort_by_option.CONTENT}</option>
-        <!-- END sort_by_option -->
+        {html_options options=$sort_by_options selected=$sort_by_options_selected}
       </select>
     </label>
 
     <label>
-      {lang:Sort order}
+      {'Sort order'|@translate}
       <select name="sort_order">
-        <!-- BEGIN sort_order_option -->
-        <option value="{sort_order_option.VALUE}" {sort_order_option.SELECTED} >{sort_order_option.CONTENT}</option>
-        <!-- END sort_order_option -->
+        {html_options options=$sort_order_options selected=$sort_order_options_selected}
       </select>
     </label>
 
     <label>
-      {lang:Number of items}
+      {'Number of items'|@translate}
       <select name="items_number">
-        <!-- BEGIN items_number_option -->
-        <option value="{items_number_option.VALUE}" {items_number_option.SELECTED} >{items_number_option.CONTENT}</option>
-        <!-- END items_option -->
+        {html_options options=$item_number_options selected=$item_number_options_selected}
       </select>
     </label>
 
   </fieldset>
 
-  <p><input class="submit" type="submit" value="{lang:Filter and display}"></p>
+  <p><input class="submit" type="submit" value="{'Filter and display'|@translate}"></p>
 
 </form>
 
-<div class="navigationBar">{NAVBAR}</div>
+<div class="navigationBar">{$NAVBAR}</div>
 
+{if isset($comments)}
 <div id="comments">
 
-  <!-- BEGIN comment -->
+  {foreach from=$comments item=comment}
   <div class="comment">
-    <a class="illustration" href="{comment.U_PICTURE}"><img src="{comment.TN_SRC}" alt="{comment.ALT}" /></a>
-    <p class="commentHeader"><span class="author">{comment.AUTHOR}</span> - <span class="date">{comment.DATE}</span>
-    <!-- BEGIN action_delete -->
-    <a href="{comment.action_delete.U_DELETE}" title="{lang:comments_del}">
-      <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{lang:delete}]"/>
+    <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}" alt="{$comment.ALT}" /></a>
+    <p class="commentHeader"><span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
+
+    {if isset($comment.U_DELETE)}
+    <a href="{$comment.U_DELETE}" title="{'comments_del'|@translate}">
+      <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/>
     </a>
-    <!-- END action_delete -->
-    <!-- BEGIN action_validate -->
-    <a href="{comment.action_validate.U_VALIDATE}" title="validate this comment">
-      <img src="{pwg_root}{themeconf:icon_dir}/validate_s.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[validate]"/>
+    {/if}
+
+    {if isset($comment.U_VALIDATE)}
+    <a href="{$comment.U_VALIDATE}" title="validate this comment">
+      <img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[validate]"/>
     </a>
-    <!-- END action_validate -->
+    {/if}
+
     </p>
-    <blockquote>{comment.CONTENT}</blockquote>
+    <blockquote>{$comment.CONTENT}</blockquote>
     <hr class="separation">
   </div>
-
-  <!-- END comment -->
-
+  
+  {/foreach}
 </div>
+{/if}
 
 </div> <!-- content -->

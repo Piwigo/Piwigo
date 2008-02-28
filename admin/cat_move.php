@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -64,14 +64,9 @@ if (isset($_POST['submit']))
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
+$template->set_filename('cat_move', 'admin/cat_move.tpl');
 
-$template->set_filenames(
-  array(
-    'cat_move' => 'admin/cat_move.tpl'
-    )
-  );
-
-$template->assign_vars(
+$template->assign(
   array(
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_move',
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=cat_move',
@@ -87,21 +82,10 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NULL
 ;';
-
 display_select_cat_wrapper(
   $query,
   array(),
-  'category_option_selection'
-  );
-
-$blockname = 'category_option_parent';
-
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> 0,
-    'OPTION' => '------------'
-    )
+  'category_to_move_options'
   );
 
 $query = '
@@ -112,7 +96,7 @@ SELECT id,name,uppercats,global_rank
 display_select_cat_wrapper(
   $query,
   array(),
-  $blockname
+  'category_parent_options'
   );
 
 // +-----------------------------------------------------------------------+

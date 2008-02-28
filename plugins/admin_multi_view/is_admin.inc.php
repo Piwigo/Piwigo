@@ -23,6 +23,8 @@ if (! defined('MULTIVIEW_CONTROLLER') )
     $conf['show_queries'] = true;
   if (pwg_get_session_var( 'multiview_debug_l10n', 0 ))
     $conf['debug_l10n'] = true;
+  if (pwg_get_session_var( 'multiview_debug_template', 0 ))
+    $conf['debug_template'] = true;
 }
 
 add_event_handler('loc_end_page_header', 'multiview_loc_end_page_header');

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -64,16 +64,11 @@ $search = get_search_array($_GET['search_id']);
 
 if (isset($search['q']))
 {
-  $template->assign_block_vars(
-    'words',
-    array(
-      'CONTENT' => $search['q']
-        )
-    );
+  $template->append( 'search_words', $search['q'] );
 }
 else
 {
-  $template->assign_vars(
+  $template->assign(
     array(
       'INTRODUCTION'
         => 'OR' == $search['mode']
@@ -85,56 +80,38 @@ else
 
 if (isset($search['fields']['allwords']))
 {
-  $template->assign_block_vars(
-    'words',
-    array(
-      'CONTENT' => sprintf(
+  $template->append( 'search_words',
+      sprintf(
         l10n('searched words : %s'),
         join(', ', $search['fields']['allwords']['words'])
         )
-      )
-    );
+      );
 }
 
 if (isset($search['fields']['tags']))
 {
-  $template->assign_block_vars(
-    'tags',
-    array(
-      'LIST_INTRO' => ($search['fields']['tags']['mode'] == 'AND')
-        ? l10n('All tags must match')
-        : l10n('At least one tag must match')
-      )
-    );
-
+  $template->assign('SEARCH_TAGS_MODE', $search['fields']['tags']['mode']);
+  
   $query = '
 SELECT name
   FROM '.TAGS_TABLE.'
   WHERE id IN ('.implode(',', $search['fields']['tags']['words']).')
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $template->assign_block_vars(
-      'tags.tag',
-      array(
-        'NAME' => $row['name'],
-        )
-      );
-  }
+  $template->assign(
+      'search_tags',
+      array_from_query($query, 'name')
+    );
 }
 
 if (isset($search['fields']['author']))
 {
-  $template->assign_block_vars(
-    'words',
-    array(
-      'CONTENT' => sprintf(
+  $template->append(
+    'search_words',
+     sprintf(
           l10n('author(s) : %s'),
           join(', ', $search['fields']['author']['words'])
         )
-      )
-    );
+      );
 }
 
 if (isset($search['fields']['cat']))
@@ -148,13 +125,6 @@ if (isset($search['fields']['cat']))
   {
     $cat_ids = $search['fields']['cat']['words'];
   }
-
-  $template->assign_block_vars(
-    'categories',
-    array(
-      'LIST_INTRO' => l10n('Categories'),
-      )
-    );
 
   $query = '
 SELECT id, uppercats, global_rank
@@ -177,15 +147,13 @@ SELECT id, uppercats, global_rank
 
   foreach ($categories as $category)
   {
-    $template->assign_block_vars(
-      'categories.category',
-      array(
-        'NAME' => get_cat_display_name_cache(
+    $template->append(
+      'search_categories',
+      get_cat_display_name_cache(
           $category['uppercats'],
           null,                      // no url on category names
           false                    // no blank replacement
           )
-        )
       );
   }
 }
@@ -219,23 +187,20 @@ foreach (array('date_available', 'date_creation') as $datefield)
 
   if (isset($search['fields'][ $keys['date'] ]))
   {
-    $template->assign_block_vars(
-      $datefield,
-      array(
-        'CONTENT' => sprintf(
+    $template->assign(
+      strtoupper($datefield),
+      sprintf(
           l10n($lang_items['date']),
           format_date($search['fields'][ $keys['date'] ])
-          ),
-        )
+          )
       );
   }
   elseif (isset($search['fields'][ $keys['before'] ])
           and isset($search['fields'][ $keys['after'] ]))
   {
-    $template->assign_block_vars(
-      $datefield,
-      array(
-        'CONTENT' => sprintf(
+    $template->assign(
+      strtoupper($datefield),
+      sprintf(
           l10n($lang_items['period']),
 
           format_date($search['fields'][ $keys['after'] ]['date']),
@@ -243,36 +208,31 @@ foreach (array('date_available', 'date_creation') as $datefield)
 
           format_date($search['fields'][ $keys['before'] ]['date']),
           inc_exc_str($search['fields'][ $keys['before'] ]['inc'])
-          ),
-        )
+          )
       );
   }
   elseif (isset($search['fields'][ $keys['before'] ]))
   {
-    $template->assign_block_vars(
-      $datefield,
-      array(
-        'CONTENT' => sprintf(
+    $template->assign(
+      strtoupper($datefield),
+      sprintf(
           l10n($lang_items['before']),
 
           format_date($search['fields'][ $keys['before'] ]['date']),
           inc_exc_str($search['fields'][ $keys['before'] ]['inc'])
-          ),
-        )
+          )
       );
   }
   elseif (isset($search['fields'][ $keys['after'] ]))
   {
-    $template->assign_block_vars(
-      $datefield,
-      array(
-        'CONTENT' => sprintf(
+    $template->assign(
+      strtoupper($datefield),
+      sprintf(
           l10n($lang_items['after']),
 
           format_date($search['fields'][ $keys['after'] ]['date']),
           inc_exc_str($search['fields'][ $keys['after'] ]['inc'])
           )
-        )
       );
   }
 }
@@ -281,6 +241,6 @@ foreach (array('date_available', 'date_creation') as $datefield)
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 
-$template->parse('search_rules');
+$template->pparse('search_rules');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

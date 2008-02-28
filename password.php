@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -146,54 +146,23 @@ WHERE '
 
 $title = l10n('Forgot your password?');
 $page['body_id'] = 'thePasswordPage';
-include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->set_filenames(array('password'=>'password.tpl'));
 
-$template->assign_vars(
-  array(
-    'U_HOME' => make_index_url(),
+$template->set_filenames(array('password'=>'password.tpl'));
+$template->assign( array(
+    'F_ACTION'=> get_root_url().'password.php'
     )
   );
-
 // +-----------------------------------------------------------------------+
 // |                        infos & errors display                         |
 // +-----------------------------------------------------------------------+
-
-if (count($page['errors']) != 0)
-{
-  $template->assign_block_vars('errors', array());
-  
-  foreach ($page['errors'] as $error)
-  {
-    $template->assign_block_vars(
-      'errors.error',
-      array(
-        'ERROR' => $error
-        )
-      );
-  }
-}
-
-if (count($page['infos']) != 0)
-{
-  $template->assign_block_vars('infos', array());
-  
-  foreach ($page['infos'] as $info)
-  {
-    $template->assign_block_vars(
-      'infos.info',
-      array(
-        'INFO' => $info
-        )
-      );
-  }
-}
+$template->assign('errors', $page['errors']);
+$template->assign('infos', $page['infos']);
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
-
-$template->parse('password');
+include(PHPWG_ROOT_PATH.'include/page_header.php');
+$template->pparse('password');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 
 ?>

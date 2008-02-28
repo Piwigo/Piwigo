@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -115,27 +114,23 @@ list($nb_images) = mysql_fetch_row(pwg_query($query));
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('rating'=>'admin/rating.tpl'));
+$template->set_filename('rating', 'admin/rating.tpl');
 
-$template->assign_vars(
+$template->assign(
   array(
     'NAVBAR' => create_navigation_bar(
       PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start','del')),
       $nb_images,
       $start,
       $elements_per_page
-      )
-    )
-  );
-
-
-$template->assign_vars(
-  array(
+      ),
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php',
     'DISPLAY' => $elements_per_page,
-    'NB_ELEMENTS' => $nb_images
+    'NB_ELEMENTS' => $nb_images,
     )
   );
+
+
 
 $available_order_by= array(
     array(l10n('Rate date'), 'recently_rated DESC'),
@@ -151,45 +146,23 @@ $available_order_by= array(
 
 for ($i=0; $i<count($available_order_by); $i++)
 {
-  $template->assign_block_vars(
-    'order_by',
-    array(
-      'VALUE' => $i,
-      'CONTENT' => $available_order_by[$i][0],
-      'SELECTED' => $i==$order_by_index ? 'SELECTED' : ''
-      )
+  $template->append(
+    'order_by_options',
+    $available_order_by[$i][0]
     );
 }
+$template->assign('order_by_options_selected', array($order_by_index) );
+
 
 $user_options = array(
-  array(
-    'value' => 'all',
-    'content' => l10n('all'),
-    ),
-  array(
-    'value' => 'user',
-    'content' => l10n('Users'),
-    ),
-  array(
-    'value' => 'guest',
-    'content' => l10n('Guests'),
-    ),
+  'all'   => l10n('all'),
+  'user'  => l10n('Users'),
+  'guest' => l10n('Guests'),
   );
 
-foreach ($user_options as $user_option)
-{
-  $template->assign_block_vars(
-    'user_option',
-    array(
-      'VALUE' => $user_option['value'],
-      'CONTENT' => $user_option['content'],
-      'SELECTED' =>
-        (isset($_GET['users']) and $_GET['users'] == $user_option['value'])
-        ? 'selected="selected"'
-        : '',
-      )
-    );
-}
+$template->assign('user_options', $user_options );
+$template->assign('user_options_selected', array(@$_GET['users']) );
+
 
 $query = '
 SELECT i.id,
@@ -217,6 +190,7 @@ while ($row = mysql_fetch_assoc($result))
   array_push($images, $row);
 }
 
+$template->assign( 'images', array() );
 foreach ($images as $image)
 {
   $thumbnail_src = get_thumbnail_url($image);
@@ -231,18 +205,17 @@ ORDER BY date DESC;';
   $result = pwg_query($query);
   $nb_rates = mysql_num_rows($result);
 
-  $template->assign_block_vars('image',
+  $tpl_image = 
      array(
        'U_THUMB' => $thumbnail_src,
        'U_URL' => $image_url,
        'AVG_RATE' => $image['average_rate'],
        'STD_RATE' => $image['std_rates'],
        'SUM_RATE' => $image['sum_rates'],
-       'NB_RATES' =>  $image['nb_rates'],
-       'NB_RATES_TOTAL' =>  $nb_rates,
+       'NB_RATES' => (int)$image['nb_rates'],
+       'NB_RATES_TOTAL' => (int)$nb_rates,
        'FILE' => $image['file'],
-       'NB_RATES_PLUS1' => $nb_rates+1,
-     )
+       'rates'  => array()
    );
 
   while ($row = mysql_fetch_array($result))
@@ -270,17 +243,17 @@ ORDER BY date DESC;';
       $user .= '('.$row['anonymous_id'].')';
     }
 
-    $template->assign_block_vars('image.rate',
+    $tpl_image['rates'][] =
        array(
          'DATE' => format_date($row['date']),
          'RATE' => $row['rate'],
          'USER' => $user,
          'U_DELETE' => $url_del
-       )
      );
   }
+  $template->append( 'images', $tpl_image );
 }
-//print_r($template->_tpldata);
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+

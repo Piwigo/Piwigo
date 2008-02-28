@@ -57,8 +57,6 @@
     <!-- END caddie -->
   </div>
   {NAV_BUTTONS}
-  </div>
-
 </div> <!-- imageToolBar -->
 
 <div id="theImage">

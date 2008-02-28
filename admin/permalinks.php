@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -72,7 +72,7 @@ function parse_sort_variables(
     }
     if ( isset($template_var) )
     {
-      $template->assign_var( $template_var.strtoupper($field),
+      $template->assign( $template_var.strtoupper($field),
             '<a href="'.$url.$anchor.'" title="'.l10n('Sort order').'">'.$disp.'</a>'
          );
     }
@@ -146,11 +146,7 @@ if ( $sort_by[0]=='name')
 {
   usort($categories, 'global_rank_compare');
 }
-foreach ($categories as $cat)
-{
-  $template->assign_block_vars( 'permalink', $cat );
-}
-
+$template->assign( 'permalinks', $categories );
 
 // --- generate display of old permalinks --------------------------------------
 
@@ -167,6 +163,7 @@ if ( count($sort_by) )
   $query .= ' ORDER BY '.$sort_by[0];
 }
 $result = pwg_query($query);
+$deleted_permalinks=array();
 while ( $row=mysql_fetch_assoc($result) )
 {
   $row['name'] = get_cat_display_name_cache($row['cat_id']);
@@ -175,10 +172,10 @@ while ( $row=mysql_fetch_assoc($result) )
         $url_del_base,
         array( 'delete_permanent'=> $row['permalink'] )
       );
-  $template->assign_block_vars( 'deleted_permalink', $row );
+  $deleted_permalinks[] = $row;
 }
-
-$template->assign_var('U_HELP', get_root_url().'popuphelp.php?page=permalinks');
+$template->assign('deleted_permalinks', $deleted_permalinks);
+$template->assign('U_HELP', get_root_url().'popuphelp.php?page=permalinks');
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'permalinks');
 ?>

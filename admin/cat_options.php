@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -149,24 +149,30 @@ $template->set_filenames(
     )
   );
 
-$page['section'] = isset($_GET['section']) ? $_GET['section'] : 'upload';
+$page['section'] = isset($_GET['section']) ? $_GET['section'] : 'status';
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_options&amp;section=';
 
-$template->assign_vars(
+$template->assign(
   array(
-    'L_SUBMIT'=>l10n('submit'),
-    'L_RESET'=>l10n('reset'),
-
     'U_HELP' => PHPWG_ROOT_PATH.'/popuphelp.php?page=cat_options',
-    
     'F_ACTION'=>$base_url.$page['section']
    )
  );
 
 // TabSheet initialization
 $opt_link = $link_start.'cat_options&amp;section=';
-$page['tabsheet'] = array
+$tabsheet = array
 (
+  'status' => array
+   (
+    'caption' => l10n('cat_security'),
+    'url' => $opt_link.'status'
+   ),
+  'visible' => array
+   (
+    'caption' => l10n('lock'),
+    'url' => $opt_link.'visible'
+   ),
   'upload' => array
    (
     'caption' => l10n('upload'),
@@ -177,31 +183,26 @@ $page['tabsheet'] = array
     'caption' => l10n('comments'),
     'url' => $opt_link.'comments'
    ),
-  'visible' => array
-   (
-    'caption' => l10n('lock'),
-    'url' => $opt_link.'visible'
-   ),
-  'status' => array
-   (
-    'caption' => l10n('cat_security'),
-    'url' => $opt_link.'status'
-   )
 );
 
 if ($conf['allow_random_representative'])
 {
-  $page['tabsheet']['representative'] =
+  $tabsheet['representative'] =
     array
     (
       'caption' => l10n('Representative'),
       'url' => $opt_link.'representative'
     );
 }
-$page['tabsheet'][$page['section']]['selected'] = true;
+$tabsheet[$page['section']]['selected'] = true;
 
 // Assign tabsheet to template
-template_assign_tabsheet();
+$template->assign(
+    array(
+      'tabsheet' => $tabsheet,
+      'TABSHEET_TITLE' => $tabsheet[$page['section']]['caption']
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                              form display                             |
@@ -236,7 +237,7 @@ SELECT id,name,uppercats,global_rank
     AND dir IS NOT NULL
     AND site_id = 1
 ;';
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_SECTION' => l10n('cat_upload_title'),
         'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
@@ -257,7 +258,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE commentable = \'false\'
 ;';
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_SECTION' => l10n('cat_comments_title'),
         'L_CAT_OPTIONS_TRUE' => l10n('authorized'),
@@ -278,7 +279,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE visible = \'false\'
 ;';
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_SECTION' => l10n('cat_lock_title'),
         'L_CAT_OPTIONS_TRUE' => l10n('unlocked'),
@@ -299,7 +300,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE status = \'private\'
 ;';
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_SECTION' => l10n('cat_status_title'),
         'L_CAT_OPTIONS_TRUE' => l10n('cat_public'),
@@ -321,7 +322,7 @@ SELECT id,name,uppercats,global_rank
   WHERE nb_images != 0
     AND representative_picture_id IS NULL
 ;';
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_SECTION' => l10n('Representative'),
         'L_CAT_OPTIONS_TRUE' => l10n('singly represented'),

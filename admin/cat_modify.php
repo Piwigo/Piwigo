@@ -43,8 +43,6 @@ if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
   $_GET['cat_id'] = '-1';
 }
 
-$template->set_filenames( array('categories'=>'admin/cat_modify.tpl') );
-
 //--------------------------------------------------------- form criteria check
 if (isset($_POST['submit']))
 {
@@ -208,6 +206,7 @@ foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 
 $category['is_virtual'] = empty($category['dir']) ? true : false;
 
+
 // Navigation path
 $url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
 
@@ -217,27 +216,9 @@ $navigation = get_cat_display_name_cache(
   );
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
-$status = ($category['status']=='public')?'STATUS_PUBLIC':'STATUS_PRIVATE';
-$lock = ($category['visible']=='true')?'UNLOCKED':'LOCKED';
-
-if ($category['commentable'] == 'true')
-{
-  $commentable = 'COMMENTABLE_TRUE';
-}
-else
-{
-  $commentable = 'COMMENTABLE_FALSE';
-}
-if ($category['uploadable'] == 'true')
-{
-  $uploadable = 'UPLOADABLE_TRUE';
-}
-else
-{
-  $uploadable = 'UPLOADABLE_FALSE';
-}
 
 //----------------------------------------------------- template initialization
+$template->set_filename( 'categories', 'admin/cat_modify.tpl');
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
 $cat_list_url = $base_url.'cat_list';
@@ -248,34 +229,23 @@ if (!empty($category['id_uppercat']))
   $self_url.= '&amp;parent_id='.$category['id_uppercat'];
 }
 
-$template->assign_vars(
+$template->assign(
   array(
     'CATEGORIES_NAV'     => $navigation,
-    'CAT_NAME'           => $category['name'],
-    'CAT_COMMENT'        => $category['comment'],
+    'CAT_NAME'           => @htmlspecialchars($category['name']),
+    'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
 
-    $status              => 'checked="checked"',
-    $lock                => 'checked="checked"',
-    $commentable         => 'checked="checked"',
-    $uploadable          => 'checked="checked"',
+    'status_values'     => array('public','private'),
+    'false_true'        => array('false', 'true'),
+    'no_yes'            => array('no','yes'),
+
+    'CAT_STATUS'        => $category['status'],
+    'CAT_VISIBLE'       => $category['visible'],
+    'CAT_COMMENTABLE'   => $category['commentable'],
+    'CAT_UPLOADABLE'    => $category['uploadable'],
 
     'IMG_ORDER_DEFAULT'  => empty($category['image_order']) ?
                               'checked="checked"' : '',
-
-    'L_EDIT_NAME'        => l10n('name'),
-    'L_STORAGE'          => l10n('storage'),
-    'L_REMOTE_SITE'      => l10n('remote_site'),
-    'L_EDIT_COMMENT'     => l10n('description'),
-    'L_EDIT_STATUS'      => l10n('conf_access'),
-    'L_STATUS_PUBLIC'    => l10n('public'),
-    'L_STATUS_PRIVATE'   => l10n('private'),
-    'L_EDIT_LOCK'        => l10n('lock'),
-    'L_EDIT_UPLOADABLE'  => l10n('editcat_uploadable'),
-    'L_EDIT_COMMENTABLE' => l10n('comments'),
-    'L_YES'              => l10n('yes'),
-    'L_NO'               => l10n('no'),
-    'L_SUBMIT'           => l10n('submit'),
-    'L_SET_RANDOM_REPRESENTANT'=>l10n('cat_representant'),
 
     'U_JUMPTO' => make_index_url(
       array(
@@ -295,32 +265,44 @@ $template->assign_vars(
 
 if ('private' == $category['status'])
 {
-  $template->assign_block_vars(
-    'permissions',
-    array(
-      'URL'=>$base_url.'cat_perm&amp;cat='.$category['id']
-        )
+  $template->assign( 'U_MANAGE_PERMISSIONS',
+      $base_url.'cat_perm&amp;cat='.$category['id']
     );
 }
 
 // manage category elements link
 if ($category['nb_images'] > 0)
 {
-  $template->assign_block_vars(
-    'elements',
-    array(
-      'URL'=>$base_url.'element_set&amp;cat='.$category['id']
-      )
+  $template->assign( 'U_MANAGE_ELEMENTS',
+        $base_url.'element_set&amp;cat='.$category['id']
     );
 }
 
-// image order management
-$matches = array();
-if ( !empty( $category['image_order'] ) )
+if ($category['is_virtual'])
 {
-  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
-    $category['image_order'], $matches);
+  $template->assign(
+    array(
+      'U_DELETE' => $self_url.'&amp;delete='.$category['id'],
+      )
+    );
 }
+else
+{
+  $category['cat_full_dir'] = get_complete_dir($_GET['cat_id']);
+  $template->assign(
+    array(
+      'CAT_FULL_DIR'       => preg_replace('/\/$/',
+                                    '',
+                                    $category['cat_full_dir'] )
+      )
+    );
+  if (!url_is_remote($category['cat_full_dir']) )
+  {
+    $template->assign('SHOW_UPLOADABLE', true);
+  }
+}
+
+// image order management
 
 $sort_fields = array(
   '' => '',
@@ -332,49 +314,39 @@ $sort_fields = array(
   'id' => 'Id',
   );
 
+$sort_directions = array(
+  'ASC' => l10n('ascending'),
+  'DESC' => l10n('descending'),
+  );
+
+$template->assign( 'image_order_field_options', $sort_fields);
+$template->assign( 'image_order_direction_options', $sort_directions);
+
+$matches = array();
+if ( !empty( $category['image_order'] ) )
+{
+  preg_match_all('/([a-z_]+) *(?:(asc|desc)(?:ending)?)? *(?:, *|$)/i',
+    $category['image_order'], $matches);
+}
+
 for ($i=0; $i<3; $i++) // 3 fields
 {
-  $template->assign_block_vars('image_order', array('NUMBER'=>$i+1) );
-  foreach ($sort_fields as $sort_field => $name)
+  $tpl_image_order_select = array(
+      'ID' => $i+1,
+      'FIELD' => array(''),
+      'DIRECTION' => array('ASC'),
+    );
+  
+  if ( isset($matches[1][$i]) )
   {
-    $selected='';
-    if ( isset($matches[1][$i]) and $matches[1][$i]==$sort_field )
-    {
-      $selected='selected="selected"';
-    }
-    elseif ( empty($sort_field) )
-    {
-      $selected='selected="selected"';
-    }
-
-    $template->assign_block_vars('image_order.field',
-      array(
-        'SELECTED' => $selected,
-        'VALUE' => $sort_field,
-        'OPTION' => $name
-        )
-      );
+    $tpl_image_order_select['FIELD'] = array($matches[1][$i]);
   }
-
-  $template->assign_block_vars('image_order.order',
-    array(
-      'SELECTED' =>
-        ( empty($matches[2][$i]) or strcasecmp($matches[2][$i],'ASC')==0 )
-          ? 'selected="selected"' : '',
-      'VALUE' => 'ASC',
-      'OPTION' => 'Ascending'
-      )
-    );
-
-  $template->assign_block_vars('image_order.order',
-    array(
-      'SELECTED' =>
-        ( isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0 )
-          ? 'selected="selected"' : '',
-      'VALUE' => 'DESC',
-      'OPTION' => 'Descending'
-      )
-    );
+  
+  if (isset($matches[2][$i]) and strcasecmp($matches[2][$i],'DESC')==0)
+  {
+    $tpl_image_order_select['DIRECTION'] = array('DESC');
+  }
+  $template->append( 'image_orders', $tpl_image_order_select);
 }
 
 
@@ -382,7 +354,7 @@ for ($i=0; $i<3; $i++) // 3 fields
 if ($category['nb_images'] > 0
     or !empty($category['representative_picture_id']))
 {
-  $template->assign_block_vars('representant', array());
+  $tpl_representant = array();
 
   // picture to display : the identified representant or the generic random
   // representant ?
@@ -398,24 +370,15 @@ SELECT id,tn_ext,path
     $url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
 
-    $template->assign_block_vars(
-      'representant.picture',
+    $tpl_representant['picture'] =
       array(
         'SRC' => $src,
         'URL' => $url
-        )
       );
-  }
-  else // $category['nb_images'] > 0
-  {
-    $template->assign_block_vars('representant.random', array());
   }
 
   // can the admin choose to set a new random representant ?
-  if ($category['nb_images'] > 0)
-  {
-    $template->assign_block_vars('representant.set_random', array());
-  }
+  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['nb_images']>0) ? true : false;
 
   // can the admin delete the current representant ?
   if (
@@ -425,44 +388,16 @@ SELECT id,tn_ext,path
     ($category['nb_images'] == 0
      and !empty($category['representative_picture_id'])))
   {
-    $template->assign_block_vars('representant.delete_representant', array());
+    $tpl_representant['ALLOW_DELETE'] = true;
   }
+  $template->assign('representant', $tpl_representant);
 }
 
-if (!$category['is_virtual'])
+if ($category['is_virtual'])
 {
-  $template->assign_block_vars(
-    'storage',
-    array('CATEGORY_DIR'=>preg_replace('/\/$/',
-                                       '',
-                                       get_complete_dir($category['id']))));
-}
-else
-{
-  $template->assign_block_vars(
-    'delete',
-    array(
-      'URL'=>$self_url.'&amp;delete='.$category['id']
-      )
-    );
-
-  $template->assign_block_vars('move', array());
-
   // the category can be moved in any category but in itself, in any
   // sub-category
   $unmovables = get_subcat_ids(array($category['id']));
-
-  $blockname = 'move.parent_option';
-
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'SELECTED'
-        => empty($category['id_uppercat']) ? 'selected="selected"' : '',
-      'VALUE'=> 0,
-      'OPTION' => '------------'
-      )
-    );
 
   $query = '
 SELECT id,name,uppercats,global_rank
@@ -473,47 +408,22 @@ SELECT id,name,uppercats,global_rank
   display_select_cat_wrapper(
     $query,
     empty($category['id_uppercat']) ? array() : array($category['id_uppercat']),
-    $blockname
+    'move_cat_options'
     );
 }
 
-$category['cat_dir'] = get_complete_dir($_GET['cat_id']);
-if (is_numeric($category['site_id']) and url_is_remote($category['cat_dir']) )
-{
-  $query = '
-SELECT galleries_url
-  FROM '.SITES_TABLE.'
-  WHERE id = '.$category['site_id'].'
-;';
-  list($galleries_url) = mysql_fetch_array(pwg_query($query));
-  $template->assign_block_vars('server', array('SITE_URL' => $galleries_url));
-}
 
-if (!$category['is_virtual'] and !url_is_remote($category['cat_dir']) )
-{
-  $template->assign_block_vars('upload' ,array());
-}
-
-$blockname = 'category_option_parent';
-
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> 0,
-    'OPTION' => '------------'
-    )
-  );
-
+// create virtual in parent and link
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
 ;';
-
 display_select_cat_wrapper(
   $query,
   array(),
-  $blockname
+  'create_new_parent_options'
   );
+
 
 // destination categories
 $query = '
@@ -521,11 +431,10 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE id != '.$category['id'].'
 ;';
-
 display_select_cat_wrapper(
   $query,
   array(),
-  'category_option_destination'
+  'category_destination_options'
   );
 
 // info by email to an access granted group of category informations
@@ -635,18 +544,9 @@ SELECT
   WHERE id IN ('.implode(',', $group_ids).')
   ORDER BY name ASC
 ;';
-  $result = pwg_query($query);
-
-  while ($row = mysql_fetch_array($result))
-  {
-    $template->assign_block_vars(
-      'group_mail.group_option',
-      array(
-        'VALUE' => $row['id'],
-        'OPTION' => $row['name'],
-        )
-      );
-  }
+  $template->assign('group_mail_options',
+      simple_hash_from_query($query, 'id', 'name')
+    );
 }
 
 //----------------------------------------------------------- sending html code

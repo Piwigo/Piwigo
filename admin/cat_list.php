@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -154,7 +154,7 @@ if (isset($_GET['parent_id']))
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filenames(array('categories'=>'admin/cat_list.tpl'));
+$template->set_filename('categories', 'admin/cat_list.tpl');
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
 if (isset($_GET['parent_id']))
@@ -162,20 +162,11 @@ if (isset($_GET['parent_id']))
   $form_action.= '&amp;parent_id='.$_GET['parent_id'];
 }
 
-$template->assign_vars(array(
+$template->assign(array(
   'CATEGORIES_NAV'=>$navigation,
   'F_ACTION'=>$form_action,
-
-  'L_ADD_VIRTUAL'=>l10n('cat_add'),
-  'L_SUBMIT'=>l10n('submit'),
-  'L_STORAGE'=>l10n('storage'),
-  'L_NB_IMG'=>l10n('pictures'),
-  'L_MOVE_UP'=>l10n('up'),
-  'L_EDIT'=>l10n('edit'),
-  'L_DELETE'=>l10n('delete'),
  ));
 
-$tpl = array('cat_first','cat_last');
 // +-----------------------------------------------------------------------+
 // |                          Categories display                           |
 // +-----------------------------------------------------------------------+
@@ -220,16 +211,11 @@ SELECT id_uppercat, COUNT(*) AS nb_subcats
   {
     $categories[$row['id_uppercat']]['nb_subcats'] = $row['nb_subcats'];
   }
-
-  $template->assign_block_vars('categories', array());
 }
 
+$template->assign('categories', array());
 foreach ($categories as $category)
 {
-  // TODO : not used anymore ?
-  //$images_folder = PHPWG_ROOT_PATH.'template/';
-  //$images_folder.= $user['template'].'/admin/images';
-
   $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
   $cat_list_url = $base_url.'cat_list';
 
@@ -239,8 +225,7 @@ foreach ($categories as $category)
     $self_url.= '&amp;parent_id='.$_GET['parent_id'];
   }
 
-  $template->assign_block_vars(
-    'categories.category',
+  $tpl_cat =
     array(
       'NAME'       => $category['name'],
       'ID'         => $category['id'],
@@ -254,49 +239,27 @@ foreach ($categories as $category)
 
       'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
       'U_EDIT'     => $base_url.'cat_modify&amp;cat_id='.$category['id'],
-      )
+      
+      'IS_VIRTUAL' => empty($category['dir'])
     );
 
   if (empty($category['dir']))
   {
-    $template->assign_block_vars(
-      'categories.category.delete',
-      array(
-        'URL'=>$self_url.'&amp;delete='.$category['id']
-        )
-      );
-    $template->assign_block_vars(
-      'categories.category.virtual',
-      array(
-        'CLASS' => 'virtual_cat',
-        )
-      );
+    $tpl_cat['U_DELETE'] = $self_url.'&amp;delete='.$category['id'];
   }
 
   if ($category['nb_images'] > 0)
   {
-    $template->assign_block_vars(
-      'categories.category.elements',
-      array(
-        'URL'=>$base_url.'element_set&amp;cat='.$category['id']
-        )
-      );
+    $tpl_cat['U_MANAGE_ELEMENTS']=
+      $base_url.'element_set&amp;cat='.$category['id'];
   }
 
   if ('private' == $category['status'])
   {
-    $template->assign_block_vars(
-      'categories.category.permissions',
-      array(
-        'URL'=>$base_url.'cat_perm&amp;cat='.$category['id']
-        )
-      );
+    $tpl_cat['U_MANAGE_PERMISSIONS']=
+      $base_url.'cat_perm&amp;cat='.$category['id'];
   }
-}
-// Add a link to Page bottom only if needed (10 or more categories)
-if ( isset($category['rank']) and $category['rank'] > 9 ) 
-{
-  $template->assign_block_vars('eop_link', array('ICON'=>'Displayed'));
+  $template->append('categories', $tpl_cat);
 }
 // +-----------------------------------------------------------------------+
 // |                          sending html code                            |

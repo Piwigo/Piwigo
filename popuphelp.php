@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -64,9 +64,9 @@ else
   die('Hacking attempt!');
 }
 
-$template->set_filenames(array('popuphelp' => 'popuphelp.tpl'));
+$template->set_filename('popuphelp','popuphelp.tpl');
 
-$template->assign_vars(
+$template->assign(
   array
   (
     'HELP_CONTENT' => $help_content
@@ -76,7 +76,7 @@ $template->assign_vars(
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 
-$template->parse('popuphelp');
+$template->pparse('popuphelp');
 
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -160,29 +160,28 @@ if (isset($_POST['submit']) and count($errors) == 0)
 }
 //----------------------------------------------------- template initialization
 
-// start date
-get_day_list('start_day', @$_POST['start_day']);
-get_month_list('start_month', @$_POST['start_month']);
-// end date
-get_day_list('end_day', @$_POST['end_day']);
-get_month_list('end_month', @$_POST['end_month']);
-
 //
 // Start output of page
 //
 $title= l10n('search_title');
 $page['body_id'] = 'theSearchPage';
 
-$template->set_filenames( array('search'=>'search.tpl') );
+$template->set_filename('search' ,'search.tpl' );
 
-$template->assign_vars(
+$month_list = $lang['month'];
+$month_list[0]='------------';
+ksort($month_list);
+
+$template->assign(
   array(
-    'TODAY_DAY' => date('d', time()),
-    'TODAY_MONTH' => date('m', time()),
-    'TODAY_YEAR' => date('Y', time()),
-    'S_SEARCH_ACTION' => 'search.php',
+    'F_SEARCH_ACTION' => 'search.php',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
-    'U_HOME' => make_index_url(),
+    
+    'month_list' => $month_list,
+    'START_DAY_SELECTED' => @$_POST['start_day'],
+    'START_MONTH_SELECTED' => @$_POST['start_month'],
+    'END_DAY_SELECTED' => @$_POST['end_day'],
+    'END_MONTH_SELECTED' => @$_POST['end_month'],
     )
   );
 
@@ -192,16 +191,13 @@ if (count($available_tags) > 0)
 {
   usort( $available_tags, 'name_compare');
 
-  $template->assign_block_vars('tags', array());
-  
-  $template->assign_vars(
-    array(
-      'TAG_SELECTION' => get_html_tag_selection(
+  $template->assign(
+    'TAG_SELECTION',
+    get_html_tag_selection(
         $available_tags,
         'tags',
         isset($_POST['tags']) ? $_POST['tags'] : array()
-        ),
-      )
+        )
     );
 }
 
@@ -219,21 +215,15 @@ SELECT name,id,date_last,nb_images,global_rank,uppercats
     'WHERE'
   ).'
 ;';
-
-$selecteds = array();
-display_select_cat_wrapper($query, $selecteds, 'category_option', false);
+display_select_cat_wrapper($query, array(), 'category_options', false);
 
 //-------------------------------------------------------------- errors display
 if (sizeof($errors) != 0)
 {
-  $template->assign_block_vars('errors',array());
-  foreach ($errors as $error)
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$error));
-  }
+  $template->assign('errors', $errors);
 }
 //------------------------------------------------------------ log informations
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->parse('search');
+$template->pparse('search');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

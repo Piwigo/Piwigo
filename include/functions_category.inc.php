@@ -278,6 +278,7 @@ function display_select_categories($categories,
 {
   global $template;
 
+  // TODO - remove from here after old template removed
   foreach ($categories as $category)
   {
     $selected = '';
@@ -299,13 +300,34 @@ function display_select_categories($categories,
       $option.= '- '.$category['name'];
     }
 
-    $template->assign_block_vars(
+    $template->_old->assign_block_vars(
       $blockname,
       array('SELECTED'=>$selected,
             'VALUE'=>$category['id'],
             'OPTION'=>$option
         ));
   }
+  // TODO - remove until here after old template removed
+  $tpl_cats = array();
+  foreach ($categories as $category)
+  {
+    if ($fullname)
+    {
+      $option = get_cat_display_name_cache($category['uppercats'],
+                                           null,
+                                           false);
+    }
+    else
+    {
+      $option = str_repeat('&nbsp;',
+                           (3 * substr_count($category['global_rank'], '.')));
+      $option.= '- '.$category['name'];
+    }
+    $tpl_cats[ $category['id'] ] = $option;
+  }
+
+  $template->smarty->assign( $blockname, $tpl_cats);
+  $template->smarty->assign( $blockname.'_selected', $selecteds);
 }
 
 function display_select_cat_wrapper($query, $selecteds, $blockname,

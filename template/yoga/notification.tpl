@@ -1,15 +1,15 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div id="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:Notification}</h2>
+    <h2>{'Notification'|@translate}</h2>
   </div>
 
-  <p>{lang:The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.}</p>
+  <p>{'The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'|@translate}</p>
 
-  <p><a href="{U_FEED_IMAGE_ONLY}">{lang:Image only RSS feed}</a></p>
-  <p><a href="{U_FEED}">{lang:Complete RSS feed}</a></p>
+  <p><a href="{$U_FEED_IMAGE_ONLY}">{'Image only RSS feed'|@translate}</a></p>
+  <p><a href="{$U_FEED}">{'Complete RSS feed'|@translate}</a></p>
 </div>

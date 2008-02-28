@@ -10,6 +10,7 @@ if (!is_admin() or !function_exists('multiview_user_init') )
   pwg_unset_session_var( 'multiview_lang' );
   pwg_unset_session_var( 'multiview_show_queries' );
   pwg_unset_session_var( 'multiview_debug_l10n' );
+  pwg_unset_session_var( 'multiview_debug_template' );
 ?>
 
 <script type="text/javascript">
@@ -68,6 +69,16 @@ if ( isset($_GET['debug_l10n']) )
   $refresh_main = true;
 }
 
+
+if ( isset($_GET['debug_template']) )
+{
+  if ( $_GET['debug_template']>0 )
+    pwg_set_session_var( 'multiview_debug_template', 1 );
+  else
+    pwg_unset_session_var( 'multiview_debug_template' );
+  $refresh_main = true;
+}
+
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
 $my_template = '';
 
@@ -109,7 +120,7 @@ if (!$conf['show_queries'])
 }
 
 $debug_l10n_html='';
-if (!$conf['show_queries'])
+if (!$conf['debug_l10n'])
 {
   $debug_l10n_html = '<br/>';
   if ( !pwg_get_session_var( 'multiview_debug_l10n', 0 ) )
@@ -117,6 +128,17 @@ if (!$conf['show_queries'])
   else
     $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=0">Revert debug language</a>';
 }
+
+$debug_template_html='';
+if (!$conf['debug_template'])
+{
+  $debug_template_html = '<br/>';
+  if ( !pwg_get_session_var( 'multiview_debug_template', 0 ) )
+    $debug_template_html.='<a href="'.$my_url.'?debug_template=1">Debug template</a>';
+  else
+    $debug_template_html.='<a href="'.$my_url.'?debug_template=0">Revert debug template</a>';
+}
+
 ?>
 <html>
 <head>
@@ -156,6 +178,7 @@ View as:
 
 <?php echo $show_queries_html; ?>
 <?php echo $debug_l10n_html; ?>
+<?php echo $debug_template_html; ?>
 
 <script type="text/javascript">
 <?php

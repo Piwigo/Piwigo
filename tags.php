@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -61,11 +60,6 @@ $title= l10n('Tags');
 $page['body_id'] = 'theTagsPage';
 
 $template->set_filenames(array('tags'=>'tags.tpl'));
-$template->assign_vars(
-  array(
-    'U_HOME' => make_index_url(),
-    )
-  );
 
 // +-----------------------------------------------------------------------+
 // |                        tag cloud construction                         |
@@ -88,8 +82,8 @@ usort($tags, 'name_compare');
 // display sorted tags
 foreach ($tags as $tag)
 {
-  $template->assign_block_vars(
-    'tag',
+  $template->append(
+    'tags',
     array(
       'URL' => make_index_url(
         array(
@@ -105,6 +99,6 @@ foreach ($tags as $tag)
 }
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->parse('tags');
+$template->pparse('tags');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

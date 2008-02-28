@@ -1,248 +1,229 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:title_edit_cat}</h2>
+  <h2>{'title_edit_cat'|@translate}</h2>
 </div>
 
-<h3>{CATEGORIES_NAV}</h3>
+<h3>{$CATEGORIES_NAV}</h3>
 
 <ul class="categoryActions">
-  <li><a href="{U_JUMPTO}" title="{lang:jump to category}"><img src="{themeconf:icon_dir}/category_jump-to.png" class="button" alt="{lang:jump to category}" /></a></li>
-  <!-- BEGIN elements -->
-  <li><a href="{elements.URL}" title="{lang:manage category elements}"><img src="{themeconf:icon_dir}/category_elements.png" class="button" alt="{lang:elements}" /></a></li>
-  <!-- END elements -->
-  <li><a href="{U_CHILDREN}" title="{lang:manage sub-categories}"><img src="{themeconf:icon_dir}/category_children.png" class="button" alt="{lang:sub-categories}" /></a></li>
-  <!-- BEGIN permissions -->
-  <li><a href="{permissions.URL}" title="{lang:edit category permissions}" ><img src="{themeconf:icon_dir}/category_permissions.png" class="button" alt="{lang:permissions}" /></a></li>
-  <!-- END permissions -->
-  <!-- BEGIN delete -->
-  <li><a href="{delete.URL}" title="{lang:delete category}" onclick="return confirm('{lang:Are you sure?}');"><img src="{themeconf:icon_dir}/category_delete.png" class="button" alt="{lang:delete}" /></a></li>
-  <!-- END delete -->
+  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
+  {if isset($U_MANAGE_ELEMENTS) }
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
+  {/if}
+  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
+  {if isset($U_MANAGE_PERMISSIONS) }
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
+  {/if}
+  {if isset($U_DELETE) }
+  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
+  {/if}
 </ul>
 
-<form action="{F_ACTION}" method="POST" id="catModify">
+<form action="{$F_ACTION}" method="POST" id="catModify">
 
 <fieldset>
-  <legend>{lang:Informations}</legend>
+  <legend>{'Informations'|@translate}</legend>
   <table>
-    <!-- BEGIN server -->
+
+    {if isset($CAT_FULL_DIR) }
     <tr>
-      <td><strong>{L_REMOTE_SITE}</strong></td>
-      <td>{server.SITE_URL}</td>
+      <td><strong>{'storage'|@translate}</strong></td>
+      <td class="row1">{$CAT_FULL_DIR}</td>
     </tr>
-    <!-- END server -->
-    <!-- BEGIN storage -->
+    {/if}
+    
     <tr>
-      <td><strong>{L_STORAGE}</strong></td>
-      <td class="row1">{storage.CATEGORY_DIR}</td>
-    </tr>
-    <!-- END storage -->
-    <tr>
-      <td><strong>{L_EDIT_NAME}</strong></td>
+      <td><strong>{'name'|@translate}</strong></td>
       <td>
-        <input type="text" name="name" value="{CAT_NAME}" maxlength="60"/>
+        <input type="text" name="name" value="{$CAT_NAME}" maxlength="60"/>
       </td>
     </tr>
     <tr>
-      <td><strong>{L_EDIT_COMMENT}</strong></td>
+      <td><strong>{'description'|@translate}</strong></td>
       <td>
-        <textarea cols="50" rows="5" name="comment" class="description">{CAT_COMMENT}</textarea>
+        <textarea cols="50" rows="5" name="comment" class="description">{$CAT_COMMENT}</textarea>
       </td>
     </tr>
   </table>
 </fieldset>
 
-<!-- BEGIN move -->
+{if isset($move_cat_options) }
 <fieldset id="move">
-  <legend>{lang:Move}</legend>
-  {lang:Parent category}
+  <legend>{'Move'|@translate}</legend>
+  {'Parent category'|@translate}
   <select class="categoryDropDown" name="parent">
-    <!-- BEGIN parent_option -->
-    <option class="{move.parent_option.CLASS}" {move.parent_option.SELECTED} value="{move.parent_option.VALUE}">{move.parent_option.OPTION}</option>
-    <!-- END parent_option -->
+    <option value="0">------------</option>
+    {html_options options=$move_cat_options selected=$move_cat_options_selected }
   </select>
 </fieldset>
-<!-- END move -->
+{/if}
 
 <fieldset id="options">
-  <legend>{lang:Options}</legend>
+  <legend>{'Options'|@translate}</legend>
   <table>
     <tr>
-      <td><strong>{L_EDIT_STATUS}</strong>
+      <td><strong>{'conf_access'|@translate}</strong>
       <td>
-    <input type="radio" name="status" value="public" {STATUS_PUBLIC} />{L_STATUS_PUBLIC}
-    <input type="radio" name="status" value="private" {STATUS_PRIVATE} />{L_STATUS_PRIVATE}
+        {html_radios name='status' values=$status_values output=$status_values|translate selected=$CAT_STATUS}
       </td>
     </tr>
     <tr>
-      <td><strong>{L_EDIT_LOCK}</strong>
+      <td><strong>{'lock'|@translate}</strong>
       <td>
-    <input type="radio" name="visible" value="false" {LOCKED} />{L_YES}
-    <input type="radio" name="visible" value="true" {UNLOCKED} />{L_NO}
+        {html_radios name='visible' values=$false_true output=$no_yes|translate selected=$CAT_VISIBLE}
       </td>
     </tr>
     <tr>
-      <td><strong>{L_EDIT_COMMENTABLE}</strong>
+      <td><strong>{'comments'|@translate}</strong>
       <td>
-          <input type="radio" name="commentable" value="true" {COMMENTABLE_TRUE} />{L_YES}
-          <input type="radio"  name="commentable" value="false" {COMMENTABLE_FALSE} />{L_NO}
+        {html_radios name='commentable' values=$false_true output=$no_yes|translate selected=$CAT_COMMENTABLE}
       </td>
     </tr>
-    <!-- BEGIN upload -->
+    {if isset($SHOW_UPLOADABLE) }
     <tr>
-      <td><strong>{L_EDIT_UPLOADABLE}</strong>
+      <td><strong>{'editcat_uploadable'|@translate}</strong>
       <td>
-          <input type="radio" name="uploadable" value="true" {UPLOADABLE_TRUE} />{L_YES}
-          <input type="radio" name="uploadable" value="false" {UPLOADABLE_FALSE} />{L_NO}
+        {html_radios name='uploadable' values=$false_true output=$no_yes|translate selected=$CAT_UPLOADABLE}
       </td>
     </tr>
-    <!-- END upload -->
+    {/if}
   </table>
 </fieldset>
 
 <fieldset id="image_order">
-  <legend>{lang:Sort order}</legend>
-  <input type="checkbox" name="image_order_default" id="image_order_default" {IMG_ORDER_DEFAULT} />
-  <label for="image_order_default">{lang:Use default sort order}</label>
+  <legend>{'Sort order'|@translate}</legend>
+  <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT} />
+  <label for="image_order_default">{'Use default sort order'|@translate}</label>
   <br/>
   <input type="checkbox" name="image_order_subcats" id="image_order_subcats" />
-  <label for="image_order_subcats">{lang:Apply to subcategories}</label>
+  <label for="image_order_subcats">{'Apply to subcategories'|@translate}</label>
   <br/>
-  <!-- BEGIN image_order -->
-    <select name="order_field_{image_order.NUMBER}">
-    <!-- BEGIN field -->
-      <option value="{image_order.field.VALUE}" {image_order.field.SELECTED}>{image_order.field.OPTION}</option>
-    <!-- END field -->
+  
+  {foreach from=$image_orders item=order}
+    <select name="order_field_{$order.ID}">
+      {html_options options=$image_order_field_options selected=$order.FIELD }}
     </select>
-    <select name="order_direction_{image_order.NUMBER}">
-    <!-- BEGIN order -->
-      <option value="{image_order.order.VALUE}" {image_order.order.SELECTED}>{image_order.order.OPTION}</option>
-    <!-- END order -->
+    <select name="order_direction_{$order.ID}">
+      {html_options options=$image_order_direction_options selected=$order.DIRECTION }}
     </select><br/>
-  <!-- END image_order -->
+  {/foreach}
+  
 </fieldset>
 
 <p style="text-align:center;">
-  <input class="submit" type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
-  <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
+  <input class="submit" type="submit" value="{'submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
+  <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
 </p>
 
-<!-- BEGIN representant -->
+{if isset($representant) }
 <fieldset id="representant">
-  <legend>{lang:Representant}</legend>
+  <legend>{'Representant'|@translate}</legend>
   <table>
     <tr>
       <td align="center">
-        <!-- BEGIN picture -->
-        <a href="{representant.picture.URL}"><img src="{representant.picture.SRC}" alt="" class="miniature" /></a>
-        <!-- END picture -->
-
-        <!-- BEGIN random -->
-        <img src="{themeconf:icon_dir}/category_representant_random.png" class="button" alt="{lang:Random picture}" class="miniature" />
-        <!-- END random -->
+        {if isset($representant.picture) }
+        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature" /></a>
+        {else}
+        <img src="{$themeconf.icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
+        {/if}
       </td>
       <td>
-        <!-- BEGIN set_random -->
-        <p><input class="submit" type="submit" name="set_random_representant" value="{L_SET_RANDOM_REPRESENTANT}" {TAG_INPUT_ENABLED}/></p>
-        <!-- END set_random -->
+        {if $representant.ALLOW_SET_RANDOM }
+        <p><input class="submit" type="submit" name="set_random_representant" value="{'cat_representant'|@translate}" {$TAG_INPUT_ENABLED}/></p>
+        {/if}
 
-        <!-- BEGIN delete_representant -->
-        <p><input class="submit" type="submit" name="delete_representant" value="{lang:Delete Representant}" /></p>
-        <!-- END delete_representant -->
+        {if isset($representant.ALLOW_DELETE) }
+        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}" /></p>
+        {/if}
       </td>
     </tr>
   </table>
 </fieldset>
-<!-- END representant -->
+{/if}
 
 </form>
 
-<form action="{F_ACTION}" method="POST" id="links">
+<form action="{$F_ACTION}" method="POST" id="links">
 
 <fieldset id="linkAllNew">
-  <legend>{lang:Link all category elements to a new category}</legend>
+  <legend>{'Link all category elements to a new category'|@translate}</legend>
 
   <table>
     <tr>
-      <td>{lang:Virtual category name}</td>
+      <td>{'Virtual category name'|@translate}</td>
       <td><input type="text" name="virtual_name"></td>
     </tr>
 
     <tr>
-      <td>{lang:Parent category}</td>
+      <td>{'Parent category'|@translate}</td>
       <td>
         <select class="categoryDropDown" name="parent">
-          <!-- BEGIN category_option_parent -->
-          <option {category_option_parent.SELECTED} value="{category_option_parent.VALUE}">{category_option_parent.OPTION}</option>
-          <!-- END category_option_parent -->
+          <option value="0">------------</option>
+          {html_options options=$create_new_parent_options }
         </select>
       </td>
     </tr>
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{lang:Submit}" name="submitAdd" {TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
   </p>
 
 </fieldset>
 
 <fieldset id="linkAllExist">
-  <legend>{lang:Link all category elements to some existing categories}</legend>
+  <legend>{'Link all category elements to some existing categories'|@translate}</legend>
 
   <table>
     <tr>
-      <td>{lang:Categories}</td>
+      <td>{'Categories'|@translate}</td>
       <td>
         <select class="categoryList" name="destinations[]" multiple="multiple" size="5">
-          <!-- BEGIN category_option_destination -->
-          <option {category_option_destination.SELECTED} value="{category_option_destination.VALUE}">{category_option_destination.OPTION}</option>
-          <!-- END category_option_destination -->
+          {html_options options=$category_destination_options }
         </select>
       </td>
     </tr>
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{lang:Submit}" name="submitDestinations" {TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations" {$TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
   </p>
 
 </fieldset>
 
-<!-- BEGIN group_mail -->
+{if isset($group_mail_options)}
 <fieldset id="emailCatInfo">
-  <legend>{lang:Send an information email to group members}</legend>
+  <legend>{'Send an information email to group members'|@translate}</legend>
 
   <table>
     <tr>
-      <td><strong>{lang:Group}</strong></td>
+      <td><strong>{'Group'|@translate}</strong></td>
       <td>
         <select name="group">
-          <!-- BEGIN group_option -->
-          <option value="{group_mail.group_option.VALUE}">{group_mail.group_option.OPTION}</option>
-          <!-- END group_option -->
+          {html_options options=$group_mail_options}
         </select>
       </td>
     </tr>
     <tr>
-      <td><strong>{lang:mail_content}</strong></td>
+      <td><strong>{'mail_content'|@translate}</strong></td>
       <td>
-        <textarea cols="50" rows="5" name="mail_content" class="description">{MAIL_CONTENT}</textarea>
+        <textarea cols="50" rows="5" name="mail_content" class="description">{$MAIL_CONTENT}</textarea>
       </td>
     </tr>
 
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{lang:Submit}" name="submitEmail" {TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{lang:Reset}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail" {$TAG_INPUT_ENABLED}/>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
   </p>
 
 </fieldset>
-<!-- END group_mail -->
+{/if}
 
 </form>

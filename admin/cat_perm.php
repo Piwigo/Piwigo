@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -72,12 +72,6 @@ SELECT id
 // |                           form submission                             |
 // +-----------------------------------------------------------------------+
 
-if (isset($_POST) and false)
-{
-  echo '<pre>';
-  print_r($_POST);
-  echo '</pre>';
-}
 
 if (isset($_POST['deny_groups_submit'])
          and isset($_POST['deny_groups'])
@@ -202,7 +196,7 @@ SELECT user_id, cat_id
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('cat_perm'=>'admin/cat_perm.tpl'));
+$template->set_filename('cat_perm', 'admin/cat_perm.tpl');
 
 $template->assign_vars(
   array(
@@ -230,43 +224,23 @@ SELECT id, name
   FROM '.GROUPS_TABLE.'
   ORDER BY name ASC
 ;';
-$result = pwg_query($query);
+$groups = simple_hash_from_query($query, 'id', 'name');
+$template->assign('all_groups', $groups);
 
-while ($row = mysql_fetch_array($result))
-{
-  $groups[$row['id']] = $row['name'];
-}
-
+// groups granted to access the category
 $query = '
 SELECT group_id
   FROM '.GROUP_ACCESS_TABLE.'
   WHERE cat_id = '.$page['cat'].'
 ;';
 $group_granted_ids = array_from_query($query, 'group_id');
+$template->assign('group_granted_ids', $group_granted_ids);
 
-// groups granted to access the category
-foreach ($group_granted_ids as $group_id)
-{
-  $template->assign_block_vars(
-    'group_granted',
-    array(
-      'NAME'=>$groups[$group_id],
-      'ID'=>$group_id
-      )
-    );
-}
 
 // groups denied
-foreach (array_diff(array_keys($groups), $group_granted_ids) as $group_id)
-{
-  $template->assign_block_vars(
-    'group_denied',
-    array(
-      'NAME'=>$groups[$group_id],
-      'ID'=>$group_id
-      )
-    );
-}
+$template->assign('group_denied_ids',
+      array_diff(array_keys($groups), $group_granted_ids)
+  );
 
 // users...
 $users = array();
@@ -276,11 +250,9 @@ SELECT '.$conf['user_fields']['id'].' AS id,
        '.$conf['user_fields']['username'].' AS username
   FROM '.USERS_TABLE.'
 ;';
-$result = pwg_query($query);
-while($row = mysql_fetch_array($result))
-{
-  $users[$row['id']] = $row['username'];
-}
+$users = simple_hash_from_query($query, 'id', 'username');
+$template->assign('all_users', $users);
+
 
 $query = '
 SELECT user_id
@@ -289,16 +261,9 @@ SELECT user_id
 ;';
 $user_granted_direct_ids = array_from_query($query, 'user_id');
 
-foreach ($user_granted_direct_ids as $user_id)
-{
-  $template->assign_block_vars(
-    'user_granted',
-    array(
-      'NAME'=>$users[$user_id],
-      'ID'=>$user_id
-      )
-    );
-}
+$template->assign('user_granted_direct_ids', $user_granted_direct_ids);
+
+
 
 $user_granted_indirect_ids = array();
 if (count($group_granted_ids) > 0)
@@ -335,41 +300,27 @@ SELECT user_id, group_id
   
   foreach ($user_granted_indirect_ids as $user_id)
   {
-    $group = '';
-    
     foreach ($granted_groups as $group_id => $group_users)
     {
       if (in_array($user_id, $group_users))
       {
-        $group = $groups[$group_id];
+        $template->append(
+          'user_granted_indirects',
+          array(
+            'USER'=>$users[$user_id],
+            'GROUP'=>$groups[$group_id]
+            )
+          );
         break;
       }
     }
-    
-    $template->assign_block_vars(
-      'user_granted_indirect',
-      array(
-        'NAME'=>$users[$user_id],
-        'GROUP'=>$group
-        )
-      );
   }
 }
 
 $user_denied_ids = array_diff(array_keys($users),
                               $user_granted_indirect_ids,
                               $user_granted_direct_ids);
-
-foreach ($user_denied_ids as $user_id)
-{
-  $template->assign_block_vars(
-    'user_denied',
-    array(
-      'NAME'=>$users[$user_id],
-      'ID'=>$user_id
-      )
-    );
-}
+$template->assign('user_denied_ids', $user_denied_ids);
 
 
 // +-----------------------------------------------------------------------+

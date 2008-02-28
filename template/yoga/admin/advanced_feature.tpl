@@ -1,16 +1,13 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:Advanced_features}</h2>
+  <h2>{'Advanced_features'|@translate}</h2>
 </div>
 
 <ul>
-  <!-- BEGIN advanced_features -->
-    <!-- BEGIN advanced_feature -->
-      <li><a href="{advanced_features.advanced_feature.URL}" {TAG_INPUT_ENABLED}>{advanced_features.advanced_feature.CAPTION}</a></li>
-    <!-- END advanced_feature -->
-  <!-- END advanced_features -->
+  {foreach from=$advanced_features item=feature}
+    <li><a href="{$feature.URL}" {$TAG_INPUT_ENABLED}>{$feature.CAPTION}</a></li>
+  {/foreach}
 </ul>

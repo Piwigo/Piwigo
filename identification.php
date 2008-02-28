@@ -70,37 +70,27 @@ include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('identification'=>'identification.tpl') );
 
-$template->assign_vars(
+$template->assign(
   array(
-    'U_REGISTER' => PHPWG_ROOT_PATH.'register.php',
-    'U_LOST_PASSWORD' => PHPWG_ROOT_PATH.'password.php',
-    'U_HOME' => make_index_url(),
+    'U_LOST_PASSWORD' => get_root_url().'password.php',
     'U_REDIRECT' => $redirect_to,
 
-    'F_LOGIN_ACTION' => PHPWG_ROOT_PATH.'identification.php'
+    'F_LOGIN_ACTION' => get_root_url().'identification.php',
+    'authorize_remembering' => $conf['authorize_remembering'],
     ));
 
-if ($conf['authorize_remembering'])
-{
-  $template->assign_block_vars('remember_me',array());
-}
 if ($conf['allow_user_registration'])
 {
-  $template->assign_block_vars('register',array());
+  $template->assign('U_REGISTER', get_root_url().'register.php' );
 }
 
 //-------------------------------------------------------------- errors display
 if ( sizeof( $errors ) != 0 )
 {
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
-  }
+  $template->assign('errors', $errors);
 }
-//-------------------------------------------------------------- visit as guest
-$template->assign_block_vars('free_access',array());
+
 //----------------------------------------------------------- html code display
-$template->parse('identification');
+$template->pparse('identification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

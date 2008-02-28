@@ -1,19 +1,19 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div id="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:Tags}</h2>
+    <h2>{'Tags'|@translate}</h2>
   </div>
 
+  {if isset($tags)}
   <ul id="fullTagCloud">
-    <!-- BEGIN tag -->
-    <li><a href="{tag.URL}" class="{tag.CLASS}" title="{tag.TITLE}">{tag.NAME}</a></li>
-    <!-- END tag -->
-    <li>&nbsp;</li> <!-- FIXME W3C HTML Conformity said: No empty UL -->
+    {foreach from=$tags item=tag}
+    <li><a href="{$tag.URL}" class="{$tag.CLASS}" title="{$tag.TITLE}">{$tag.NAME}</a></li>
+    {/foreach}
   </ul>
+  {/if}
 
 </div> <!-- content -->

@@ -1,57 +1,56 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div id="content">
-<h2>{lang:Search rules}</h2>
+<h2>{'Search rules'|@translate}</h2>
 
-<p>{INTRODUCTION}</p>
+{if isset($INTRODUCTION) }
+<p>{$INTRODUCTION}</p>
+{/if}
 
 <ul>
 
-  <!-- BEGIN words -->
-  <li>{words.CONTENT}</li>
-  <!-- END words -->
+  {if isset($search_words) }
+  {foreach from=$search_words item=v}
+  <li>{$v}</li>
+  {/foreach}
+  {/if}
 
-  <!-- BEGIN tags -->
+  {if isset($SEARCH_TAGS_MODE) }
   <li>
-    <p>{tags.LIST_INTRO}</p>
-
+    <p>{if 'AND'==$SEARCH_TAGS_MODE}{'All tags must match'|@translate}{else}{'At least one tag must match'|@translate}{/if}</p>
     <ul>
-      <!-- BEGIN tag -->
-      <li>{tags.tag.NAME}</li>
-      <!-- END tag -->
+      {foreach from=$search_tags item=v}
+      <li>{$v}</li>
+      {/foreach}
     </ul>
   </li>
-  <!-- END tags -->
+  {/if}
   
-  <!-- BEGIN author -->
-  <li>{author.CONTENT}</li>
-  <!-- END author -->
+  {if isset($DATE_CREATION) }
+  <li>{$DATE_CREATION}</li>
+  {/if}
 
-  <!-- BEGIN date_creation -->
-  <li>{date_creation.CONTENT}</li>
-  <!-- END date_creation -->
+  {if isset($DATE_AVAILABLE) }
+  <li>{$DATE_AVAILABLE}</li>
+  {/if}
 
-  <!-- BEGIN date_available -->
-  <li>{date_available.CONTENT}</li>
-  <!-- END date_available -->
-
-  <!-- BEGIN categories -->
+  {if isset($search_categories) }
   <li>
-    <p>{categories.LIST_INTRO}</p>
+    <p>{'Categories'|@translate}</p>
 
     <ul>
-      <!-- BEGIN category -->
-      <li>{categories.category.NAME}</li>
-      <!-- END category -->
+      {foreach from=$search_categories item=v}
+      <li>{$v}</li>
+      {/foreach}
     </ul>
   </li>
-  <!-- END categories -->
+  {/if}
   
 </ul>
 
 </div> <!-- content -->
 
 <p id="pageBottomActions">
-  <a href="#" onclick="window.close();" title="{lang:Close this window}">
-    <img src="{themeconf:icon_dir}/exit.png" class="button" alt="close">
+  <a href="#" onclick="window.close();" title="{'Close this window'|@translate}">
+    <img src="{$themeconf.icon_dir}/exit.png" class="button" alt="close">
   </a>
 </p>

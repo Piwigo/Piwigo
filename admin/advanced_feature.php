@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -89,24 +88,18 @@ $advanced_features =
 // |  Template init                                                        |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('advanced_feature'=>'admin/advanced_feature.tpl'));
+$template->set_filename('advanced_feature', 'admin/advanced_feature.tpl');
 
 $start_url = get_root_url().'admin.php?page=advanced_feature&amp;action=';
 
-$template->assign_vars(
+$template->assign(
   array
   (
     'U_HELP' => get_root_url().'popuphelp.php?page=advanced_feature'
   ));
 
 // advanced_features
-if (count($advanced_features) > 0)
-{
-  foreach ($advanced_features as $advanced_feature)
-  {
-    $template->assign_block_vars('advanced_features.advanced_feature', $advanced_feature);
-  }
-}
+$template->assign('advanced_features', $advanced_features);
 
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |

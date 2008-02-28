@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -61,21 +61,13 @@ $template->set_filenames(
   );
 if ( isset($lang['Theme: '.$user['theme']]) )
 {
-  $template->assign_block_vars(
-  'theme',
-  array(
-    'ABOUT' => l10n('Theme: '.$user['theme']),
-    )
-  );
+  $template->assign(
+    'THEME_ABOUT',l10n('Theme: '.$user['theme'])
+    );
 }
-$template->assign_vars(
-  array(
-    'U_HOME' => make_index_url(),
-    )
-  );
 
-$template->assign_var('ABOUT_MESSAGE', load_language('about.html','','',true) );
+$template->assign('ABOUT_MESSAGE', load_language('about.html','','',true) );
 
-$template->parse('about');
+$template->pparse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

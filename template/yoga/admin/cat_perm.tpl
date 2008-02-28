@@ -1,66 +1,68 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:Manage permissions for a category}</h2>
+  <h2>{'Manage permissions for a category'|@translate}</h2>
 </div>
 
-<h3>{CATEGORIES_NAV}</h3>
+<h3>{$CATEGORIES_NAV}</h3>
 
-<form action="{F_ACTION}" method="post" id="categoryPermissions">
+<form action="{$F_ACTION}" method="post" id="categoryPermissions">
 
-  <h4>{lang:Groups}</h4>
+  <h4>{'Groups'|@translate}</h4>
 
   <fieldset>
-    <legend>{lang:Permission granted}</legend>
+    <legend>{'Permission granted'|@translate}</legend>
     <ul>
-      <!-- BEGIN group_granted -->
-      <li><label><input type="checkbox" name="deny_groups[]" value="{group_granted.ID}" /> {group_granted.NAME}</label></li>
-      <!-- END group_granted -->
+      {foreach from=$group_granted_ids item=id}
+      <li><label><input type="checkbox" name="deny_groups[]" value="{$id}" /> {$all_groups[$id]}</label></li>
+      {/foreach}
     </ul>
-    <input class="submit" type="submit" name="deny_groups_submit" value="{lang:Deny selected groups}" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="submit" name="deny_groups_submit" value="{'Deny selected groups'|@translate}" {$TAG_INPUT_ENABLED}/>
   </fieldset>
 
   <fieldset>
-    <legend>{lang:Permission denied}</legend>
+    <legend>{'Permission denied'|@translate}</legend>
     <ul>
-      <!-- BEGIN group_denied -->
-      <li><label><input type="checkbox" name="grant_groups[]" value="{group_denied.ID}"> {group_denied.NAME}</label></li>
-      <!-- END group_denied -->
+      {foreach from=$group_denied_ids item=id}
+      <li><label><input type="checkbox" name="grant_groups[]" value="{$id}"> {$all_groups[$id]}</label></li>
+      {/foreach}
     </ul>
-    <input class="submit" type="submit" name="grant_groups_submit" value="{lang:Grant selected groups}" {TAG_INPUT_ENABLED}/>
+    <input class="submit" type="submit" name="grant_groups_submit" value="{'Grant selected groups'|@translate}" {$TAG_INPUT_ENABLED}/>
   </fieldset>
 
-  <h4>{lang:Users}</h4>
-  
-  <fieldset>
-    <legend>{lang:Permission granted}</legend>
-    <ul>
-      <!-- BEGIN user_granted -->
-      <li><label><input type="checkbox" name="deny_users[]" value="{user_granted.ID}" /> {user_granted.NAME}</label></li>
-      <!-- END user_granted -->
-    </ul>
-    <input class="submit" type="submit" name="deny_users_submit" value="{lang:Deny selected users}" {TAG_INPUT_ENABLED}/>
-  </fieldset>
+  <h4>{'Users'|@translate}</h4>
 
   <fieldset>
-    <legend>{lang:Permission granted thanks to a group}</legend>
+    <legend>{'Permission granted'|@translate}</legend>
     <ul>
-      <!-- BEGIN user_granted_indirect -->
-      <li>{user_granted_indirect.NAME} ({user_granted_indirect.GROUP})</li>
-      <!-- END user_granted_indirect -->
+      {foreach from=$user_granted_direct_ids item=id}
+      <li><label><input type="checkbox" name="deny_users[]" value="{$id}" /> {$all_users[$id]}</label></li>
+      {/foreach}
     </ul>
+    <input class="submit" type="submit" name="deny_users_submit" value="{'Deny selected users'|@translate}" {$TAG_INPUT_ENABLED}/>
   </fieldset>
 
   <fieldset>
-    <legend>{lang:Permission denied}</legend>
+    <legend>{'Permission granted thanks to a group'|@translate}</legend>
+    {if isset($user_granted_indirects) }
     <ul>
-      <!-- BEGIN user_denied -->
-      <li><label><input type="checkbox" name="grant_users[]" value="{user_denied.ID}"> {user_denied.NAME}</label></li>
-      <!-- END user_denied -->
+      {foreach from=$user_granted_indirects item=user_group}
+      <li>{$user_group.USER} ({$user_group.GROUP})</li>
+      {/foreach}
     </ul>
-    <input class="submit" type="submit" name="grant_users_submit" value="{lang:Grant selected users}" {TAG_INPUT_ENABLED}/>
+    {/if}
+  </fieldset>
+
+  <fieldset>
+    <legend>{'Permission denied'|@translate}</legend>
+    <ul>
+      {foreach from=$user_denied_ids item=id}
+      <li><label><input type="checkbox" name="grant_users[]" value="{$id}"> {$all_users[$id]}</label></li>
+      {/foreach}
+    </ul>
+    <input class="submit" type="submit" name="grant_users_submit" value="{'Grant selected users'|@translate}" {$TAG_INPUT_ENABLED}/>
   </fieldset>
 
 </form>
