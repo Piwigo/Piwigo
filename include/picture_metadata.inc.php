@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -31,15 +30,15 @@
  */
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
-$template->assign_block_vars('metadata', array());
 if (($conf['show_exif']) and (function_exists('read_exif_data')))
 {
   if ($exif = @read_exif_data($picture['current']['image_path']))
   {
     $exif = trigger_event('format_exif_data', $exif, $picture['current'] );
-    $template->assign_block_vars(
-      'metadata.headline',
-      array('TITLE' => 'EXIF Metadata')
+
+    $tpl_meta = array(
+        'TITLE' => 'EXIF Metadata',
+        'lines' => array(),
       );
 
     foreach ($conf['show_exif_fields'] as $field)
@@ -53,14 +52,7 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
           {
             $key = $lang['exif_field_'.$field];
           }
-
-          $template->assign_block_vars(
-            'metadata.line',
-            array(
-              'KEY' => $key,
-              'VALUE' => $exif[$field]
-              )
-            );
+          $tpl_meta['lines'][$key] = $exif[$field];
         }
       }
       else
@@ -73,19 +65,14 @@ if (($conf['show_exif']) and (function_exists('read_exif_data')))
           {
             $key = $lang['exif_field_'.$tokens[1]];
           }
-
-          $template->assign_block_vars(
-            'metadata.line',
-            array(
-              'KEY' => $key,
-              'VALUE' => $exif[$tokens[0]][$tokens[1]]
-              )
-            );
+          $tpl_meta['lines'][$key] = $exif[$tokens[0]][$tokens[1]];
         }
       }
     }
+    $template->append('metadata', $tpl_meta);
   }
 }
+
 if ($conf['show_iptc'])
 {
   $iptc = get_iptc_data($picture['current']['image_path'],
@@ -93,27 +80,21 @@ if ($conf['show_iptc'])
 
   if (count($iptc) > 0)
   {
-    $template->assign_block_vars(
-      'metadata.headline',
-      array('TITLE' => 'IPTC Metadata')
+    $tpl_meta = array(
+        'TITLE' => 'IPTC Metadata',
+        'lines' => array(),
       );
-  }
 
-  foreach ($iptc as $field => $value)
-  {
-    $key = $field;
-    if (isset($lang[$field]))
+    foreach ($iptc as $field => $value)
     {
-      $key = $lang[$field];
+      $key = $field;
+      if (isset($lang[$field]))
+      {
+        $key = $lang[$field];
+      }
+      $tpl_meta['lines'][$key] = $value;
     }
-
-    $template->assign_block_vars(
-      'metadata.line',
-      array(
-        'KEY' => $key,
-        'VALUE' => $value
-        )
-      );
+    $template->append('metadata', $tpl_meta);
   }
 }
 

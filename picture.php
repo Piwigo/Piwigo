@@ -81,7 +81,7 @@ function default_picture_content($content, $element_info)
   if ( !$page['slideshow'] and isset($element_info['high_url']) )
   {
     $uuid = uniqid(rand());
-    $template->assign_block_vars(
+    $template->assign(
       'high',
       array(
         'U_HIGH' => $element_info['high_url'],
@@ -89,7 +89,7 @@ function default_picture_content($content, $element_info)
         )
       );
   }
-  $template->assign_vars( array(
+  $template->assign( array(
       'SRC_IMG' => $element_info['image_url'],
       'ALT_IMG' => $element_info['file'],
       'WIDTH_IMG' => @$element_info['scaled_width'],
@@ -472,19 +472,8 @@ $template->set_filenames(
   array(
     'picture' =>
       (($page['slideshow'] and $conf['light_slideshow']) ? 'slideshow.tpl' : 'picture.tpl'),
-    'nav_buttons' => 'picture_nav_buttons.tpl'));
+    ));
 
-if ($page['slideshow'])
-{
-  // Add local-slideshow.css file if exists
-  // Not only for ligth
-  $css = get_root_url() . get_themeconf('template_dir') . '/theme/'
-       . get_themeconf('theme') . '/local-slideshow.css';
-  if (file_exists($css))
-  {
-    $template->assign_block_vars('slideshow', array());
-  }
-}
 
 $title =  $picture['current']['name'];
 $title_nb = ($page['current_rank'] + 1).'/'.count($page['items']);
@@ -523,36 +512,25 @@ $picture = trigger_event('picture_pictures_data', $picture);
 if (isset($picture['next']['image_url'])
     and $picture['next']['is_picture'] )
 {
-  $template->assign_block_vars(
-    'prefetch',
-    array (
-      'URL' => $picture['next']['image_url']
-      )
-    );
+  $template->assign('U_PREFETCH', $picture['next']['image_url'] );
 }
 
 //------------------------------------------------------- navigation management
-foreach (array('first','previous','next','last') as $which_image)
+foreach (array('first','previous','next','last', 'current') as $which_image)
 {
   if (isset($picture[$which_image]))
   {
-    $template->assign_block_vars(
+    $template->assign(
       $which_image,
       array(
-        'TITLE_IMG' => $picture[$which_image]['name'],
-        'IMG' => $picture[$which_image]['thumbnail'],
+        'TITLE' => $picture[$which_image]['name'],
+        'THUMB_SRC' => $picture[$which_image]['thumbnail'],
         // Params slideshow was transmit to navigation buttons
         'U_IMG' =>
           add_url_params(
-            $picture[$which_image]['url'], $slideshow_url_params)
+            $picture[$which_image]['url'], $slideshow_url_params),
+        'U_DOWNLOAD' => @$picture['current']['download_url'],
         )
-      );
-  }
-  else
-  {
-    $template->assign_block_vars(
-      $which_image.'_unactive',
-      array()
       );
   }
 }
@@ -560,32 +538,41 @@ foreach (array('first','previous','next','last') as $which_image)
 
 if ($page['slideshow'])
 {
+  // Add local-slideshow.css file if exists
+  // Not only for ligth
+  $css = PHPWG_ROOT_PATH . get_themeconf('template_dir') . '/theme/'
+       . get_themeconf('theme') . '/local-slideshow.css';
+  if (file_exists($css))
+  {
+    //TODO CORRECT THIS $template->assign_block_vars('slideshow', array());
+  }
+
+  $tpl_slideshow = array();
+
   //slideshow end
-  $template->assign_block_vars(
-    'stop_slideshow',
+  $template->assign(
     array(
-      'U_SLIDESHOW' => $picture['current']['url'],
+      'U_SLIDESHOW_STOP' => $picture['current']['url'],
       )
     );
 
   foreach (array('repeat', 'play') as $p)
   {
-    $template->assign_block_vars(
-      ($slideshow_params[$p] ? 'stop' : 'start').'_'.$p,
-      array(
-        // Params slideshow was transmit to navigation buttons
-        'U_IMG' =>
+    $var_name =
+      'U_'
+      .($slideshow_params[$p] ? 'STOP_' : 'START_')
+      .strtoupper($p);
+
+    $tpl_slideshow[$var_name] =
           add_url_params(
             $picture['current']['url'],
             array('slideshow' =>
               encode_slideshow_params(
-                array_merge($slideshow_params, 
+                array_merge($slideshow_params,
                   array($p => ! $slideshow_params[$p]))
-                  )
                 )
               )
-          )
-      );
+          );
   }
 
   foreach (array('dec', 'inc') as $op)
@@ -593,105 +580,73 @@ if ($page['slideshow'])
     $new_period = $slideshow_params['period'] + ((($op == 'dec') ? -1 : 1) * $conf['slideshow_period_step']);
     $new_slideshow_params =
       correct_slideshow_params(
-        array_merge($slideshow_params, 
+        array_merge($slideshow_params,
                   array('period' => $new_period)));
-    $block_period = $op.'_period';
 
     if ($new_slideshow_params['period'] === $new_period)
     {
-      $template->assign_block_vars(
-        $block_period,
-        array(
-          // Params slideshow was transmit to navigation buttons
-          'U_IMG' =>
+      $var_name = 'U_'.strtoupper($op).'_PERIOD';
+      $tpl_slideshow[$var_name] =
             add_url_params(
               $picture['current']['url'],
               array('slideshow' => encode_slideshow_params($new_slideshow_params)
                   )
-                )
-              )
           );
     }
-    else
-    {
-      $template->assign_block_vars(
-        $block_period.'_unactive',
-        array()
-        );
-    }
   }
+  $template->assign('slideshow', $tpl_slideshow );
 }
 else
 {
-  $template->assign_block_vars(
-    'start_slideshow',
+  $template->assign(
     array(
-      'U_SLIDESHOW' =>
+      'U_SLIDESHOW_START' =>
         add_url_params(
           $picture['current']['url'],
           array( 'slideshow'=>''))
       )
     );
-  $template->assign_block_vars(
-    'up',array('U_URL' => $url_up));
 }
 
-$template->assign_vars(
+$template->assign(
   array(
     'SECTION_TITLE' => $page['title'],
-    'PICTURE_TITLE' => $picture['current']['name'],
     'PHOTO' => $title_nb,
-    'TITLE' => $picture['current']['name'],
+    'SHOW_PICTURE_NAME_ON_TITLE' => $conf['show_picture_name_on_title'],
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
+    
+    'FILE_PICTURE_NAV_BUTTONS' => 'picture_nav_buttons.tpl',
 
     'U_HOME' => make_index_url(),
+    'U_UP' => $url_up,
     'U_METADATA' => $url_metadata,
-    'U_ADMIN' => $url_admin,
-    'U_ADD_COMMENT' => $url_self,
     )
   );
 
-if ($conf['show_picture_name_on_title'])
-{
-  $template->assign_block_vars('title', array());
-}
 
 //------------------------------------------------------- upper menu management
 
-// download link
-if ( isset($picture['current']['download_url']) )
-{
-  $template->assign_block_vars(
-    'download',
-    array(
-      'U_DOWNLOAD' => $picture['current']['download_url']
-      )
-    );
-}
-
-// button to set the current picture as representative
-if (is_admin() and isset($page['category']))
-{
-  $template->assign_block_vars(
-    'representative',
-    array(
-      'URL' => add_url_params($url_self,
-                  array('action'=>'set_as_representative')
-               )
-      )
-    );
-}
-
-// caddie button
+// admin links
 if (is_admin())
 {
-  $template->assign_block_vars(
-    'caddie',
+  if (isset($page['category']))
+  {
+    $template->assign(
+      array(
+        'U_SET_AS_REPRESENTATIVE' => add_url_params($url_self,
+                    array('action'=>'set_as_representative')
+                 )
+        )
+      );
+  }
+  
+  $template->assign(
     array(
-      'URL' => add_url_params($url_self,
+      'U_CADDIE' => add_url_params($url_self,
                   array('action'=>'add_to_caddie')
-               )
+               ),
+      'U_ADMIN' => $url_admin,
       )
     );
 }
@@ -711,7 +666,7 @@ SELECT COUNT(*) AS nb_fav
 
   if ($row['nb_fav'] == 0)
   {
-    $template->assign_block_vars(
+    $template->assign(
       'favorite',
       array(
         'FAVORITE_IMG'  =>
@@ -727,7 +682,7 @@ SELECT COUNT(*) AS nb_fav
   }
   else
   {
-    $template->assign_block_vars(
+    $template->assign(
       'favorite',
       array(
         'FAVORITE_IMG'  =>
@@ -742,11 +697,6 @@ SELECT COUNT(*) AS nb_fav
       );
   }
 }
-//------------------------------------ admin link for information modifications
-if ( is_admin() )
-{
-  $template->assign_block_vars('admin', array());
-}
 
 //--------------------------------------------------------- picture information
 $header_infos = array(); //for html header use
@@ -754,13 +704,11 @@ $header_infos = array(); //for html header use
 if (isset($picture['current']['comment'])
     and !empty($picture['current']['comment']))
 {
-  $template->assign_block_vars(
-    'legend',
-    array(
-      'COMMENT_IMG' =>
+  $template->assign(
+      'COMMENT_IMG',
         trigger_event('render_element_description',
           $picture['current']['comment'])
-      ));
+      );
   $header_infos['COMMENT'] = strip_tags($picture['current']['comment']);
 }
 
@@ -780,10 +728,6 @@ if (!empty($picture['current']['author']))
     $picture['current']['author'];
   $header_infos['INFO_AUTHOR'] = $picture['current']['author'];
 }
-else
-{
-  $infos['INFO_AUTHOR'] = l10n('N/A');
-}
 
 // creation date
 if (!empty($picture['current']['date_creation']))
@@ -799,10 +743,6 @@ if (!empty($picture['current']['date_creation']))
     );
   $infos['INFO_CREATION_DATE'] =
     '<a href="'.$url.'" rel="nofollow">'.$val.'</a>';
-}
-else
-{
-  $infos['INFO_CREATION_DATE'] = l10n('N/A');
 }
 
 // date of availability
@@ -836,20 +776,12 @@ if ($picture['current']['is_picture'] and isset($picture['current']['width']) )
       $picture['current']['width'].'*'.$picture['current']['height'];
   }
 }
-else
-{
-  $infos['INFO_DIMENSIONS'] = l10n('N/A');
-}
 
 // filesize
 if (!empty($picture['current']['filesize']))
 {
   $infos['INFO_FILESIZE'] =
     sprintf(l10n('%d Kb'), $picture['current']['filesize']);
-}
-else
-{
-  $infos['INFO_FILESIZE'] = l10n('N/A');
 }
 
 // number of visits
@@ -858,46 +790,45 @@ $infos['INFO_VISITS'] = $picture['current']['hit'];
 // file
 $infos['INFO_FILE'] = $picture['current']['file'];
 
-// tags
+$template->assign($infos);
+
+// related tags
 $tags = get_common_tags( array($page['image_id']), -1);
 if ( count($tags) )
 {
-  $infos['INFO_TAGS'] = '';
-  foreach ($tags as $num => $tag)
+  foreach ($tags as $tag)
   {
-    $infos['INFO_TAGS'] .= $num ? ', ' : '';
-    $infos['INFO_TAGS'] .= '<a href="'
-      .make_index_url(
+    $template->append(
+        'related_tags',
         array(
-          'tags' => array($tag)
+          'ID'    => $tag['id'],
+          'NAME'  => $tag['name'],
+          'U_TAG' => make_index_url(
+                      array(
+                        'tags' => array($tag)
+                        )
+                      ),
+          'U_TAG_IMAGE' => duplicate_picture_url(
+                      array(
+                        'section' => 'tags',
+                        'tags' => array($tag)
+                        )
+                    )
           )
-        )
-      .'">'.$tag['name'].'</a>';
+      );
   }
-  $header_infos['INFO_TAGS'] = strip_tags($infos['INFO_TAGS']);
 }
-else
-{
-  $infos['INFO_TAGS'] = l10n('N/A');
-}
-
-$template->assign_vars($infos);
 
 // related categories
 foreach ($related_categories as $category)
 {
-  $template->assign_block_vars(
-    'category',
-    array(
-      'LINE' => count($related_categories) > 3
+  $template->append(
+    'related_categories',
+      count($related_categories) > 3
         ? get_cat_display_name_cache($category['uppercats'])
         : get_cat_display_name_from_id($category['category_id'])
-      )
     );
 }
-
-// assign tpl picture_nav_buttons
-$template->assign_var_from_handle('NAV_BUTTONS', 'nav_buttons');
 
 // maybe someone wants a special display (call it before page_header so that
 // they can add stylesheets)
@@ -906,7 +837,7 @@ $element_content = trigger_event(
   '',
   $picture['current']
   );
-$template->assign_var( 'ELEMENT_CONTENT', $element_content );
+$template->assign( 'ELEMENT_CONTENT', $element_content );
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |
@@ -923,6 +854,6 @@ pwg_log($picture['current']['id'], 'picture');
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');
-$template->parse('picture');
+$template->pparse('picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

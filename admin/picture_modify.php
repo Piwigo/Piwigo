@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -224,7 +224,7 @@ else
     '</p>';
 }
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_SYNC' =>
         PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
@@ -265,29 +265,27 @@ $template->assign_vars(
 
 if ($row['has_high'] == 'true')
 {
-  $template->assign_block_vars(
-    'high',
-    array(
-      'FILESIZE' => isset($row['high_filesize'])
+  $template->assign(
+    'HIGH_FILESIZE',
+    isset($row['high_filesize'])
         ? $row['high_filesize'].' KB'
-        : l10n('unknown'),
-      )
+        : l10n('unknown')
     );
 }
 
 // image level options
-$blockname = 'level_option';
-$selected_level = isset($_POST['level']) ? $_POST['level'] : $row['level'];
+$tpl_options = array();
 foreach ($conf['available_permission_levels'] as $level)
 {
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $level,
-      'CONTENT' => l10n( sprintf('Level %d', $level) ),
-      'SELECTED' => ($level==$selected_level ? 'selected="selected"' : ''),
-      ));
+  $tpl_options[$level] = l10n( sprintf('Level %d', $level) ).' ('.$level.')';
 }
+$selected_level = isset($_POST['level']) ? $_POST['level'] : $row['level'];
+$template->assign(
+    array(
+      'level_options'=> $tpl_options,
+      'level_options_selected' => array($selected_level)
+    )
+  );
 
 // creation date
 unset($day, $month, $year);
@@ -308,9 +306,21 @@ else
 {
   list($year, $month, $day) = array('', 0, 0);
 }
-get_day_list('date_creation_day', $day);
+
+
 get_month_list('date_creation_month', $month);
-$template->assign_vars(array('DATE_CREATION_YEAR_VALUE' => $year));
+$month_list = $lang['month'];
+$month_list[0]='------------';
+ksort($month_list);
+
+$template->assign(
+    array(
+      'DATE_CREATION_DAY_VALUE' => $day,
+      'DATE_CREATION_MONTH_VALUE' => $month,
+      'DATE_CREATION_YEAR_VALUE' => $year,
+      'month_list' => $month_list,
+      )
+    );
 
 $query = '
 SELECT category_id, uppercats
@@ -321,27 +331,22 @@ SELECT category_id, uppercats
 ;';
 $result = pwg_query($query);
 
-if (mysql_num_rows($result) > 1)
-{
-  $template->assign_block_vars('links', array());
-}
-
 while ($row = mysql_fetch_array($result))
 {
   $name =
     get_cat_display_name_cache(
       $row['uppercats'],
-      PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
+      get_root_url().'admin.php?page=cat_modify&amp;cat_id=',
       false
       );
 
   if ($row['category_id'] == $storage_category_id)
   {
-    $template->assign_vars(array('STORAGE_CATEGORY' => $name));
+    $template->assign('STORAGE_CATEGORY', $name);
   }
   else
   {
-    $template->assign_block_vars('links.category', array('NAME' => $name));
+    $template->append('related_categories', $name);
   }
 }
 
@@ -395,12 +400,7 @@ else
 
 if (isset($url_img))
 {
-  $template->assign_block_vars(
-    'jumpto',
-    array(
-      'URL' => $url_img
-      )
-    );
+  $template->assign( 'U_JUMPTO', $url_img );
 }
 
 // associate to another category ?
@@ -411,7 +411,7 @@ SELECT id,name,uppercats,global_rank
   WHERE image_id = '.$_GET['image_id'].'
     AND id != '.$storage_category_id.'
 ;';
-display_select_cat_wrapper($query, array(), 'associated_option');
+display_select_cat_wrapper($query, array(), 'associated_options');
 
 $result = pwg_query($query);
 $associateds = array($storage_category_id);
@@ -424,7 +424,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE id NOT IN ('.implode(',', $associateds).')
 ;';
-display_select_cat_wrapper($query, array(), 'dissociated_option');
+display_select_cat_wrapper($query, array(), 'dissociated_options');
 
 // representing
 $query = '
@@ -432,7 +432,7 @@ SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
   WHERE representative_picture_id = '.$_GET['image_id'].'
 ;';
-display_select_cat_wrapper($query, array(), 'elected_option');
+display_select_cat_wrapper($query, array(), 'elected_options');
 
 $query = '
 SELECT id,name,uppercats,global_rank
@@ -440,7 +440,7 @@ SELECT id,name,uppercats,global_rank
   WHERE representative_picture_id != '.$_GET['image_id'].'
     OR representative_picture_id IS NULL
 ;';
-display_select_cat_wrapper($query, array(), 'dismissed_option');
+display_select_cat_wrapper($query, array(), 'dismissed_options');
 
 //----------------------------------------------------------- sending html code
 

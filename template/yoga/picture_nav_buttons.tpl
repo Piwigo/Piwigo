@@ -1,90 +1,101 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
   <div class="navButtons">
-  <!-- BEGIN last -->
-    <a class="navButton prev" href="{last.U_IMG}" title="{lang:last_page} : {last.TITLE_IMG}" rel="last"><img src="{pwg_root}{themeconf:icon_dir}/last.png" class="button" alt="{lang:last_page}"></a>
-  <!-- END last -->
-  <!-- BEGIN last_unactive -->
-    <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/last_unactive.png" class="button" alt=""></a>
-  <!-- END last_unactive -->
-  <!-- BEGIN next -->
-    <a class="navButton next" href="{next.U_IMG}" title="{lang:next_page} : {next.TITLE_IMG}" rel="next"><img src="{pwg_root}{themeconf:icon_dir}/right.png" class="button" alt="{lang:next_page}"></a>
-  <!-- END next -->
-  <!-- BEGIN next_unactive -->
-    <a class="navButton next"><img src="{pwg_root}{themeconf:icon_dir}/right_unactive.png" class="button" alt=""></a>
-  <!-- END next_unactive -->
-  <!-- BEGIN start_play -->
-    <a class="navButton play" href="{start_play.U_IMG}" title="{lang:start_play}" rel="play"><img src="{pwg_root}{themeconf:icon_dir}/play.png" class="button" alt="{lang:start_play}"></a>
-  <!-- END start_play -->
-  <!-- BEGIN stop_play -->
-    <a class="navButton play" href="{stop_play.U_IMG}" title="{lang:stop_play}" rel="play"><img src="{pwg_root}{themeconf:icon_dir}/pause.png" class="button" alt="{lang:stop_play}"></a>
-  <!-- END stop_play -->
-  <!-- BEGIN up -->
-    <a class="navButton up" href="{up.U_URL}" title="{lang:thumbnails}" rel="up"><img src="{pwg_root}{themeconf:icon_dir}/up.png" class="button" alt="{lang:thumbnails}"></a>
-  <!-- END up -->
-  <!-- BEGIN previous -->
-    <a class="navButton prev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev"><img src="{pwg_root}{themeconf:icon_dir}/left.png" class="button" alt="{lang:previous_page}"></a>
-  <!-- END previous -->
-  <!-- BEGIN previous_unactive -->
-    <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/left_unactive.png" class="button" alt=""></a>
-  <!-- END previous_unactive -->
-  <!-- BEGIN first -->
-    <a class="navButton prev" href="{first.U_IMG}" title="{lang:first_page} : {first.TITLE_IMG}" rel="first"><img src="{pwg_root}{themeconf:icon_dir}/first.png" class="button" alt="{lang:first_page}"></a>
-  <!-- END first -->
-  <!-- BEGIN first_unactive -->
-    <a class="navButton prev"><img src="{pwg_root}{themeconf:icon_dir}/first_unactive.png" class="button" alt=""></a>
-  <!-- END first_unactive -->
-  <!-- BEGIN start_repeat -->
-    <a class="navButton repeat" href="{start_repeat.U_IMG}" title="{lang:start_repeat}" rel="repeat"><img src="{pwg_root}{themeconf:icon_dir}/start_repeat.png" class="button" alt="{lang:start_repeat}"></a>
-  <!-- END start_repeat -->
-  <!-- BEGIN stop_repeat -->
-    <a class="navButton repeat" href="{stop_repeat.U_IMG}" title="{lang:stop_repeat}" rel="repeat"><img src="{pwg_root}{themeconf:icon_dir}/stop_repeat.png" class="button" alt="{lang:stop_repeat}"></a>
-  <!-- END stop_repeat -->
-  <!-- BEGIN inc_period -->
-    <a class="navButton inc_period" href="{inc_period.U_IMG}" title="{lang:inc_period}" rel="repeat"><img src="{pwg_root}{themeconf:icon_dir}/inc_period.png" class="button" alt="{lang:inc_period}"></a>
-  <!-- END inc_period -->
-  <!-- BEGIN inc_period_unactive -->
-    <a class="navButton inc_period" <img src="{pwg_root}{themeconf:icon_dir}/inc_period_unactive.png" class="button" alt=""></a>
-  <!-- END inc_period_unactive -->
-  <!-- BEGIN dec_period -->
-    <a class="navButton dec_period" href="{dec_period.U_IMG}" title="{lang:dec_period}" rel="repeat"><img src="{pwg_root}{themeconf:icon_dir}/dec_period.png" class="button" alt="{lang:dec_period}"></a>
-  <!-- END dec_period -->
-  <!-- BEGIN dec_period_unactive -->
-    <a class="navButton dec_period" <img src="{pwg_root}{themeconf:icon_dir}/dec_period_unactive.png" class="button" alt=""></a>
-  <!-- END dec_period_unactive -->
+  
+{if isset($last)}
+	<a class="navButton prev" href="{$last.U_IMG}" title="{'last_page'|@translate} : {$last.TITLE}" rel="last"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last.png" class="button" alt="{'last_page'|@translate}"></a>
+{else}
+	<a class="navButton prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/last_unactive.png" class="button" alt=""></a>
+{/if}
+  
+{if isset($next)}
+	<a class="navButton next" href="{$next.U_IMG}" title="{'next_page'|@translate} : {$next.TITLE}" rel="next"><img src="{$ROOT_URL}{$themeconf.icon_dir}/right.png" class="button" alt="{'next_page'|@translate}"></a>
+{else}
+	<a class="navButton next"><img src="{$ROOT_URL}{$themeconf.icon_dir}/right_unactive.png" class="button" alt=""></a>
+{/if}
+
+{if isset($slideshow.U_START_PLAY)}
+	<a class="navButton play" href="{$slideshow.U_START_PLAY}" title="{'start_play'|@translate}" rel="play"><img src="{$ROOT_URL}{$themeconf.icon_dir}/play.png" class="button" alt="{'start_play'|@translate}"></a>
+{/if}
+
+{if isset($slideshow.U_STOP_PLAY)}
+	<a class="navButton play" href="{$slideshow.U_STOP_PLAY}" title="{'stop_play'|@translate}" rel="play"><img src="{$ROOT_URL}{$themeconf.icon_dir}/pause.png" class="button" alt="{'stop_play'|@translate}"></a>
+{/if}
+
+{if isset($U_UP) and !isset($slideshow)}
+	<a class="navButton up" href="{$U_UP}" title="{'thumbnails'|@translate}" rel="up"><img src="{$ROOT_URL}{$themeconf.icon_dir}/up.png" class="button" alt="{'thumbnails'|@translate}"></a>
+{/if}
+  
+{if isset($previous)}
+	<a class="navButton prev" href="{$previous.U_IMG}" title="{'previous_page'|@translate} : {$previous.TITLE}" rel="prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/left.png" class="button" alt="{'previous_page'|@translate}"></a>
+{else}
+	<a class="navButton prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/left_unactive.png" class="button" alt=""></a>
+{/if}
+  
+{if isset($first)}
+	<a class="navButton prev" href="{$first.U_IMG}" title="{'first_page'|@translate} : {$first.TITLE}" rel="first"><img src="{$ROOT_URL}{$themeconf.icon_dir}/first.png" class="button" alt="{'first_page'|@translate}"></a>
+{else}
+	<a class="navButton prev"><img src="{$ROOT_URL}{$themeconf.icon_dir}/first_unactive.png" class="button" alt=""></a>
+{/if}
+
+
+{if isset($slideshow.U_START_REPEAT)}
+	<a class="navButton repeat" href="{$slideshow.U_START_REPEAT}" title="{'start_repeat'|@translate}" rel="repeat"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_repeat.png" class="button" alt="{'start_repeat'|@translate}"></a>
+{/if}
+
+{if isset($slideshow.U_STOP_REPEAT)}
+	<a class="navButton repeat" href="{$slideshow.U_STOP_REPEAT}" title="{'stop_repeat'|@translate}" rel="repeat"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_repeat.png" class="button" alt="{'stop_repeat'|@translate}"></a>
+{/if}
+
+{if isset($slideshow)}
+{if isset($slideshow.U_INC_PERIOD)}
+	<a class="navButton inc_period" href="{$slideshow.U_INC_PERIOD}" title="{'inc_period'|@translate}" rel="repeat"><img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period.png" class="button" alt="{'inc_period'|@translate}"></a>
+{else}
+	<a class="navButton inc_period"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/inc_period_unactive.png" class="button" alt=""></a>
+{/if}
+
+{if isset($slideshow.U_DEC_PERIOD)}
+	<a class="navButton dec_period" href="{$slideshow.U_DEC_PERIOD}" title="{'dec_period'|@translate}" rel="repeat"><img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period.png" class="button" alt="{'dec_period'|@translate}"></a>
+{else}
+	<a class="navButton dec_period"> <img src="{$ROOT_URL}{$themeconf.icon_dir}/dec_period_unactive.png" class="button" alt=""></a>
+{/if}
+{/if}
+
   </div>
 
 <script type="text/javascript">
+{literal}
 function keyboardNavigation(e)
 {
-  if(!e) var e=window.event;
-  if (e.altKey) return true;
-  var target = e.target || e.srcElement;
-  if (target && target.type) return true; //an input editable element
-  var keyCode=e.keyCode || e.which;
-  var docElem = document.documentElement;
-  switch(keyCode) {
-<!-- BEGIN next -->
-    case 63235: case 39: if (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth ){window.location="{next.U_IMG}".replace( "&amp;", "&" ); return false; } break;
-<!-- END next -->
-<!-- BEGIN previous -->
-    case 63234: case 37: if (e.ctrlKey || docElem.scrollLeft==0){ window.location="{previous.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END previous -->
-<!-- BEGIN first -->
-    /*Home*/case 36: if (e.ctrlKey){window.location="{first.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END first -->
-<!-- BEGIN last -->
-    /*End*/case 35: if (e.ctrlKey){window.location="{last.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END last -->
-<!-- BEGIN up -->
-    /*Up*/case 38: if (e.ctrlKey){window.location="{up.U_UP}".replace("&amp;","&"); return false; } break;
-<!-- END up -->
-<!-- BEGIN start_play -->
-    /*Pause*/case 32: {window.location="{start_play.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END start_play -->
-<!-- BEGIN stop_play -->
-    /*Play*/case 32: {window.location="{stop_play.U_IMG}".replace("&amp;","&"); return false; } break;
-<!-- END stop_play -->
+	if(!e) var e=window.event;
+	if (e.altKey) return true;
+	var target = e.target || e.srcElement;
+	if (target && target.type) return true; //an input editable element
+	var keyCode=e.keyCode || e.which;
+	var docElem = document.documentElement;
+	switch(keyCode) {
+{/literal}
+{if isset($next)}
+	case 63235: case 39: if (e.ctrlKey || docElem.scrollLeft==docElem.scrollWidth-docElem.clientWidth ){ldelim}window.location="{$next.U_IMG}".replace( "&amp;", "&" ); return false; } break;
+{/if}
+{if isset($previous)}
+	case 63234: case 37: if (e.ctrlKey || docElem.scrollLeft==0){ldelim}window.location="{$previous.U_IMG|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
+{if isset($first)}
+	/*Home*/case 36: if (e.ctrlKey){ldelim}window.location="{$first.U_IMG|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
+{if isset($last)}
+	/*End*/case 35: if (e.ctrlKey){ldelim}window.location="{$last.U_IMG|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
+{if isset($U_UP) and !isset($slideshow)}
+    /*Up*/case 38: if (e.ctrlKey){ldelim}window.location="{$U_UP|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
+
+{if isset($slideshow.U_START_PLAY)}
+    /*Pause*/case 32: {ldelim}window.location="{$slideshow.U_START_PLAY|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
+{if isset($slideshow.U_STOP_PLAY)}
+    /*Play*/case 32: {ldelim}window.location="{$slideshow.U_STOP_PLAY|@escape:jasvascript}".replace("&amp;","&"); return false; } break;
+{/if}
   }
   return true;
 }

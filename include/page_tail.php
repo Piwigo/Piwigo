@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -31,19 +31,14 @@ $template->assign_vars(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
     'PHPWG_URL' => PHPWG_URL,
-
-    'L_TITLE_MAIL' => urlencode(l10n('title_send_mail')),
     ));
 
 //--------------------------------------------------------------------- contact
 
 if (!is_a_guest())
 {
-  $template->assign_block_vars(
-    'contact',
-    array(
-      'MAIL' => get_webmaster_mail_address()
-      )
+  $template->assign(
+    'CONTACT_MAIL', get_webmaster_mail_address()
     );
 }
 
@@ -71,16 +66,11 @@ if ($conf['show_queries'])
   $debug_vars = array_merge($debug_vars, array('QUERIES_LIST' => $debug) );
 }
 
-if ( !empty($debug_vars) )
-{
-  $template->assign_block_vars('debug',$debug_vars );
-}
+$template->assign('debug', $debug_vars );
 
 trigger_action('loc_end_page_tail');
 //
 // Generate the page
 //
-$template->parse('tail');
-
-$template->p();
+$template->pparse('tail');
 ?>

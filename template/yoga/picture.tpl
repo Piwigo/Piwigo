@@ -1,207 +1,230 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- BEGIN errors -->
+{* $Id$ *}
+{if isset($errors)}
 <div class="errors">
-<ul>
-  <!-- BEGIN error -->
-  <li>{errors.error.TEXT}</li>
-  <!-- END error -->
-</ul>
+  <ul>
+    {foreach from=$errors item=error}
+    <li>{$error}</li>
+    {/foreach}
+  </ul>
 </div>
-<!-- END errors -->
-<!-- BEGIN infos -->
+{/if}
+
+{if isset($infos)}
 <div class="infos">
-<ul>
-  <!-- BEGIN info -->
-  <li>{infos.info.TEXT}</li>
-  <!-- END info -->
-</ul>
+  <ul>
+    {foreach from=$infos item=info}
+    <li>{$info}</li>
+    {/foreach}
+  </ul>
 </div>
-<!-- END infos -->
+{/if}
 
 <div id="imageHeaderBar">
   <div class="browsePath">
-    <a href="{U_HOME}" rel="home">{lang:home}</a>
-    {LEVEL_SEPARATOR}{SECTION_TITLE}
-    {LEVEL_SEPARATOR}{PICTURE_TITLE}
+    <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
+    {$LEVEL_SEPARATOR}{$SECTION_TITLE}
+    {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
-  <div class="imageNumber">{PHOTO}</div>
-  <!-- BEGIN title -->
-  <h2>{TITLE}</h2>
-  <!-- END title -->
+  <div class="imageNumber">{$PHOTO}</div>
+  {if $SHOW_PICTURE_NAME_ON_TITLE }
+  <h2>{$current.TITLE}</h2>
+  {/if}
 </div>
 
 <div id="imageToolBar">
   <div class="randomButtons">
-    <!-- BEGIN start_slideshow -->
-      <a href="{start_slideshow.U_SLIDESHOW}" title="{lang:slideshow}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"></a>
-    <!-- END start_slideshow -->
-    <!-- BEGIN stop_slideshow -->
-      <a href="{stop_slideshow.U_SLIDESHOW}" title="{lang:slideshow_stop}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/stop_slideshow.png" class="button" alt="{lang:slideshow_stop}"></a>
-    <!-- END stop_slideshow -->
-      <a href="{U_METADATA}" title="{lang:picture_show_metadata}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/metadata.png" class="button" alt="{lang:picture_show_metadata}"></a>
-    <!-- BEGIN download -->
-      <a href="{download.U_DOWNLOAD}" title="{lang:download_hint}"><img src="{pwg_root}{themeconf:icon_dir}/save.png" class="button" alt="{lang:download}"></a>
-    <!-- END download -->
-      {PLUGIN_PICTURE_ACTIONS}
-    <!-- BEGIN favorite -->
-      <a href="{favorite.U_FAVORITE}" title="{favorite.FAVORITE_HINT}"><img src="{favorite.FAVORITE_IMG}" class="button" alt="{favorite.FAVORITE_ALT}"></a>
-    <!-- END favorite -->
-    <!-- BEGIN representative -->
-      <a href="{representative.URL}" title="{lang:set as category representative}"><img src="{pwg_root}{themeconf:icon_dir}/representative.png" class="button" alt="{lang:representative}"></a>
-    <!-- END representative -->
-    <!-- BEGIN admin -->
-      <a href="{U_ADMIN}" title="{lang:link_info_image}"><img src="{pwg_root}{themeconf:icon_dir}/preferences.png" class="button" alt="{lang:link_info_image}"></a>
-    <!-- END admin -->
-    <!-- BEGIN caddie -->
-      <a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"></a>
-    <!-- END caddie -->
+    {if isset($U_SLIDESHOW_START) }
+      <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
+    {/if}
+    {if isset($U_SLIDESHOW_STOP) }
+      <a href="{$U_SLIDESHOW_STOP}" title="{'slideshow_stop'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'slideshow_stop'|@translate}"></a>
+    {/if}
+      <a href="{$U_METADATA}" title="{'picture_show_metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="{'picture_show_metadata'|@translate}"></a>
+    {if isset($current.U_DOWNLOAD) }
+      <a href="{$current.U_DOWNLOAD}" title="{'download_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
+    {/if}
+    {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
+    {if isset($favorite) }
+      <a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="{$favorite.FAVORITE_ALT}"></a>
+    {/if}
+    {if !empty($U_SET_AS_REPRESENTATIVE) }
+      <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
+    {/if}
+    {if isset($U_ADMIN) }
+      <a href="{$U_ADMIN}" title="{'link_info_image'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'link_info_image'|@translate}"></a>
+    {/if}
+    {if isset($U_CADDIE) }
+      <a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
+    {/if}
   </div>
-  {NAV_BUTTONS}
+  {include file=$FILE_PICTURE_NAV_BUTTONS}
 </div> <!-- imageToolBar -->
 
 <div id="theImage">
-{ELEMENT_CONTENT}
-<!-- BEGIN legend -->
-<p>{legend.COMMENT_IMG}</p>
-<!-- END legend -->
-<!-- BEGIN stop_slideshow -->
+{$ELEMENT_CONTENT}
+
+{if isset($COMMENT_IMG)}
+<p>{$COMMENT_IMG}</p>
+{/if}
+
+{if isset($U_SLIDESHOW_STOP) }
 <p>
-  [ <a href="{stop_slideshow.U_SLIDESHOW}">{lang:slideshow_stop}</a> ]
+  [ <a href="{$U_SLIDESHOW_STOP}">{'slideshow_stop'|@translate}</a> ]
 </p>
-<!-- END stop_slideshow -->
+{/if}
+
 </div>
 
-<!-- BEGIN previous -->
-<a class="navThumb" id="thumbPrev" href="{previous.U_IMG}" title="{lang:previous_page} : {previous.TITLE_IMG}" rel="prev">
-  <img src="{previous.IMG}" class="thumbLink" id="linkPrev" alt="{previous.TITLE_IMG}">
+{if isset($previous) }
+<a class="navThumb" id="thumbPrev" href="{$previous.U_IMG}" title="{'previous_page'|@translate} : {$previous.TITLE}" rel="prev">
+  <img src="{$previous.THUMB_SRC}" class="thumbLink" id="linkPrev" alt="{$previous.TITLE}">
 </a>
-<!-- END previous -->
-<!-- BEGIN next -->
-<a class="navThumb" id="thumbNext" href="{next.U_IMG}" title="{lang:next_page} : {next.TITLE_IMG}" rel="next">
-  <img src="{next.IMG}" class="thumbLink" id="linkNext" alt="{next.TITLE_IMG}">
+{/if}
+{if isset($next) }
+<a class="navThumb" id="thumbNext" href="{$next.U_IMG}" title="{'next_page'|@translate} : {$next.TITLE}" rel="next">
+  <img src="{$next.THUMB_SRC}" class="thumbLink" id="linkNext" alt="{$next.TITLE}">
 </a>
-<!-- END next -->
+{/if}
 
 <table class="infoTable" summary="Some info about this picture">
   <tr>
-    <td class="label">{lang:Author}</td>
-    <td class="value">{INFO_AUTHOR}</td>
+    <td class="label">{'Author'|@translate}</td>
+    <td class="value">{if isset($INFO_AUTHOR)}{$INFO_AUTHOR}{else}{'N/A'|@translate}{/if}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Created on}</td>
-    <td class="value">{INFO_CREATION_DATE}</td>
+    <td class="label">{'Created on'|@translate}</td>
+    <td class="value">{if isset($INFO_CREATION_DATE)}{$INFO_CREATION_DATE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Posted on}</td>
-    <td class="value">{INFO_POSTED_DATE}</td>
+    <td class="label">{'Posted on'|@translate}</td>
+    <td class="value">{$INFO_POSTED_DATE}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Dimensions}</td>
-    <td class="value">{INFO_DIMENSIONS}</td>
+    <td class="label">{'Dimensions'|@translate}</td>
+    <td class="value">{if isset($INFO_DIMENSIONS)}{$INFO_DIMENSIONS}{else}{'N/A'|@translate}{/if}</td>
   </tr>
   <tr>
-    <td class="label">{lang:File}</td>
-    <td class="value">{INFO_FILE}</td>
+    <td class="label">{'File'|@translate}</td>
+    <td class="value">{$INFO_FILE}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Filesize}</td>
-    <td class="value">{INFO_FILESIZE}</td>
+    <td class="label">{'Filesize'|@translate}</td>
+    <td class="value">{if isset($INFO_FILESIZE)}{$INFO_FILESIZE}{else}{'N/A'|@translate}{/if}</td>
   </tr>
   <tr>
-    <td class="label">{lang:Tags}</td>
-    <td class="value">{INFO_TAGS}</td>
-  </tr>
-  <tr>
-    <td class="label">{lang:Categories}</td>
+    <td class="label">{'Tags'|@translate}</td>
     <td class="value">
-      <ul>
-        <!-- BEGIN category -->
-        <li>{category.LINE}</li>
-        <!-- END category -->
-      </ul>
+      {if isset($related_tags)}
+        {foreach from=$related_tags item=tag name=tag_loop}
+        {if !$smarty.foreach.tag_loop.first}, {/if}
+        <a href="{$tag.U_TAG}">{$tag.NAME}</a>
+        {/foreach}
+      {/if}
     </td>
   </tr>
   <tr>
-    <td class="label">{lang:Visits}</td>
-    <td class="value">{INFO_VISITS}</td>
+    <td class="label">{'Categories'|@translate}</td>
+    <td class="value">
+      {if isset($related_categories)}
+      <ul>
+        {foreach from=$related_categories item=cat}
+        <li>{$cat}</li>
+        {/foreach}
+      </ul>
+      {/if}
+    </td>
   </tr>
-  <!-- BEGIN info_rate -->
   <tr>
-    <td class="label">{lang:Average rate}</td>
-    <td class="value">{info_rate.CONTENT}</td>
+    <td class="label">{'Visits'|@translate}</td>
+    <td class="value">{$INFO_VISITS}</td>
   </tr>
-  <!-- END info_rate -->
+  {if isset($rate_summary) }
+  <tr>
+    <td class="label">{'Average rate'|@translate}</td>
+    <td class="value">
+    {if $rate_summary.count}
+      {assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
+      {$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
+    {else}
+      {'no_rate'|@translate}
+    {/if}
+    </td>
+  </tr>
+  {/if}
 </table>
 
-<!-- BEGIN metadata -->
+{if isset($metadata)}
 <table class="infoTable" summary="Some more (technical) info about this picture">
-  <!-- BEGIN headline -->
+{foreach from=$metadata item=meta}
   <tr>
-    <th colspan="2">{metadata.headline.TITLE}</th>
+    <th colspan="2">{$meta.TITLE}</th>
   </tr>
-  <!-- END headline -->
-  <!-- BEGIN line -->
+  {foreach from=$meta.lines item=value key=label}
   <tr>
-    <td class="label">{metadata.line.KEY}</td>
-    <td class="value">{metadata.line.VALUE}</td>
+    <td class="label">{$label}</td>
+    <td class="value">{$value}</td>
   </tr>
-  <!-- END line -->
+  {/foreach}
+{/foreach}
 </table>
-<!-- END metadata -->
+{/if}
 
-<!-- BEGIN rate -->
-<form action="{rate.F_ACTION}" method="post" id="rateForm">
-<div>{rate.SENTENCE} :
-<!-- BEGIN rate_option -->
-{rate.rate_option.SEPARATOR}
-<!-- BEGIN my_rate -->
-<input type="button" name="rate" value="{rate.rate_option.OPTION}" class="rateButtonSelected" />
-<!-- END my_rate -->
-<!-- BEGIN not_my_rate -->
-<input type="submit" name="rate" value="{rate.rate_option.OPTION}" class="rateButton" />
-<!-- END not_my_rate -->
-<!-- END rate_option -->
-<script type="text/javascript" src="{pwg_root}{themeconf:template_dir}/rating.js"></script>
+{if isset($rating)}
+<form action="{$rating.F_ACTION}" method="post" id="rateForm">
+<div>
+{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}
+:
+{foreach from=$rating.marks item=mark name=rate_loop}
+{if !$smarty.foreach.rate_loop.first} | {/if}
+{if $mark==$rating.USER_RATE}
+  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" />
+{else}
+  <input type="submit" name="rate" value="{$mark}" class="rateButton" />
+{/if}
+{/foreach}
+<script type="text/javascript" src="{$ROOT_URL}{$themeconf.template_dir}/rating.js"></script>
 </div>
 </form>
-<!-- END rate -->
+{/if}
 
 <hr class="separation">
 
-<!-- BEGIN comments -->
+{if isset($COMMENT_COUNT)}
 <div id="comments">
-  <h2>[{comments.NB_COMMENT}] {lang:comments_title}</h2>
+  <h2>[{$COMMENT_COUNT}] {'comments_title'|@translate}</h2>
 
-  <div class="navigationBar">{comments.NAV_BAR}</div>
+  <div class="navigationBar">{$COMMENT_NAV_BAR}</div>
 
-  <!-- BEGIN comment -->
+  {if isset($comments)}
+  {foreach from=$comments item=comment}
   <div class="comment">
-    <!-- BEGIN delete -->
+    {if isset($comment.U_DELETE)}
     <p class="userCommentDelete">
-    <a href="{comments.comment.delete.U_COMMENT_DELETE}" title="{lang:comments_del}">
-      <img src="{pwg_root}{themeconf:icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{lang:delete}]"/>
+    <a href="{$comment.U_DELETE}" title="{'comments_del'|@translate}">
+      <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/>
     </a>
     </p>
-    <!-- END delete -->
-    <p class="commentInfo"><span class="author">{comments.comment.COMMENT_AUTHOR}</span> - {comments.comment.COMMENT_DATE}</p>
-    <blockquote>{comments.comment.COMMENT}</blockquote>
+    {/if}
+    <p class="commentInfo"><span class="author">{$comment.AUTHOR}</span> - {$comment.DATE}</p>
+    <blockquote>{$comment.CONTENT}</blockquote>
   </div>
-  <!-- END comment -->
+  {/foreach}
+  {/if}
 
-  <!-- BEGIN add_comment -->
-  <form  method="post" action="{U_ADD_COMMENT}" class="filter" id="addComment">
+  {if isset($comment_add)}
+  <form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
     <fieldset>
-      <legend>{lang:comments_add}</legend>
-      <!-- BEGIN author_field -->
-      <label>{lang:upload_author}<input type="text" name="author"></label>
-      <!-- END author_field -->
-      <label>{lang:comment}<textarea name="content" rows="5" cols="80">{comments.add_comment.CONTENT}</textarea></label>
-      <input type="hidden" name="key" value="{comments.add_comment.KEY}" />
-      <input class="submit" type="submit" value="{lang:submit}">
+      <legend>{'comments_add'|@translate}</legend>
+      {if $comment_add.SHOW_AUTHOR}
+      <label>{'upload_author'|@translate}<input type="text" name="author"></label>
+      {/if}
+      <label>{'comment'|@translate}<textarea name="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
+      <input type="hidden" name="key" value="{$comment_add.KEY}" />
+      <input class="submit" type="submit" value="{'submit'|@translate}">
     </fieldset>
   </form>
-  <!-- END add_comment -->
+  {/if}
 
 </div>
-<!-- END comments -->
+{/if} {*comments*}
 

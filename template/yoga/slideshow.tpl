@@ -1,24 +1,23 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div id="imageHeaderBar">
   <div class="browsePath">
-    <!-- BEGIN stop_slideshow -->
-    [ <a href="{stop_slideshow.U_SLIDESHOW}">{lang:slideshow_stop}</a> ]
-    <!-- END stop_slideshow -->
+    {if isset($U_SLIDESHOW_STOP) }
+    [ <a href="{$U_SLIDESHOW_STOP}">{'slideshow_stop'|@translate}</a> ]
+    {/if}
   </div>
-  <div class="imageNumber">{PHOTO}</div>
-  <!-- BEGIN title -->
-  <h2 class="showtitle">{TITLE}</h2>
-  <!-- END title -->
+  <div class="imageNumber">{$PHOTO}</div>
+  {if $SHOW_PICTURE_NAME_ON_TITLE }
+  <h2 class="showtitle">{$current.TITLE}</h2>
+  {/if}
 </div>
 
 <div id="imageToolBar">
-  {NAV_BUTTONS}
+  {include file=$FILE_PICTURE_NAV_BUTTONS}
 </div>
 
 <div id="theImage">
-  {ELEMENT_CONTENT}
-  <!-- BEGIN legend -->
-  <p class="showlegend">{legend.COMMENT_IMG}</p>
-  <!-- END legend -->
+  {$ELEMENT_CONTENT}
+  {if isset($COMMENT_IMG)}
+  <p class="showlegend">{$COMMENT_IMG}</p>
+  {/if}
 </div>

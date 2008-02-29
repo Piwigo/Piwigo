@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -35,24 +34,12 @@ if ($conf['rate'])
   $query = '
 SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
-     , ROUND(STD(rate),2) AS STD
+     , ROUND(STD(rate),2) AS std
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
   $row = mysql_fetch_array(pwg_query($query));
-  if ($row['count'] == 0)
-  {
-    $value = l10n('no_rate');
-  }
-  else
-  {
-    $value = sprintf(
-      l10n('%.2f (rated %d times, standard deviation = %.2f)'),
-      $row['average'],
-      $row['count'],
-      $row['STD']
-      );
-  }
+  $template->assign('rate_summary', $row);
 
   $user_rate = null;
   if ($conf['rate_anonymous'] or is_autorize_status(ACCESS_CLASSIC) )
@@ -83,37 +70,17 @@ SELECT COUNT(rate) AS count
       }
     }
 
-    $template->assign_block_vars(
-      'rate',
-      array(
-        'SENTENCE' =>isset($user_rate) ? l10n('update_rate') : l10n('new_rate'),
-        'F_ACTION' => add_url_params(
+    $template->assign(
+        'rating',
+        array(
+          'F_ACTION' => add_url_params(
                         $url_self,
                         array('action'=>'rate')
-                      )
+                      ),
+          'USER_RATE'=> $user_rate,
+          'marks'    => $conf['rate_items']
         )
       );
-
-    $template->assign_block_vars('info_rate', array('CONTENT' => $value));
-
-    foreach ($conf['rate_items'] as $num => $mark)
-    {
-      $template->assign_block_vars(
-        'rate.rate_option',
-        array(
-          'OPTION'    => $mark,
-          'SEPARATOR' => ($num > 0 ? '|' : ''),
-          )
-        );
-      if (isset($user_rate) and $user_rate==$mark)
-      {
-        $template->assign_block_vars('rate.rate_option.my_rate', array() );
-      }
-      else
-      {
-        $template->assign_block_vars('rate.rate_option.not_my_rate', array() );
-      }
-    }
   }
 }
 

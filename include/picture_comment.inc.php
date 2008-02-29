@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -73,14 +73,10 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
       trigger_error('Invalid comment action '.$comment_action, E_USER_WARNING);
   }
 
-  $block_var = ($comment_action=='reject') ? 'errors.error' : 'infos.info';
-  foreach ($infos as $info)
-  {
-    $template->assign_block_vars(
-        $block_var,
-        array( 'TEXT'=>$info )
-      );
-  }
+  $template->assign(
+      ($comment_action=='reject') ? 'errors' : 'infos',
+      $infos
+    );
 
   // allow plugins to notify what's going on
   trigger_action( 'user_comment_insertion',
@@ -108,7 +104,7 @@ if ($page['show_comments'])
     $page['start'] = 0;
   }
 
-  $page['navigation_bar'] = create_navigation_bar(
+  $navigation_bar = create_navigation_bar(
     duplicate_picture_url(array(), array('start')),
     $row['nb_comments'],
     $page['start'],
@@ -116,11 +112,10 @@ if ($page['show_comments'])
     true // We want a clean URL
     );
 
-  $template->assign_block_vars(
-    'comments',
+  $template->assign(
     array(
-      'NB_COMMENT' => $row['nb_comments'],
-      'NAV_BAR' => $page['navigation_bar'],
+      'COMMENT_COUNT' => $row['nb_comments'],
+      'COMMENT_NAV_BAR' => $navigation_bar,
       )
     );
 
@@ -138,39 +133,33 @@ SELECT id,author,date,image_id,content
 
     while ($row = mysql_fetch_array($result))
     {
-      $template->assign_block_vars(
-        'comments.comment',
+      $tpl_comment = 
         array(
-          'COMMENT_AUTHOR' => trigger_event('render_comment_author',
+          'AUTHOR' => trigger_event('render_comment_author',
             empty($row['author'])
             ? l10n('guest')
             : $row['author']),
 
-          'COMMENT_DATE' => format_date(
+          'DATE' => format_date(
             $row['date'],
             'mysql_datetime',
             true),
 
-          'COMMENT' => trigger_event('render_comment_content',$row['content']),
-          )
+          'CONTENT' => trigger_event('render_comment_content',$row['content']),
         );
 
       if (is_admin())
       {
-        $template->assign_block_vars(
-          'comments.comment.delete',
-          array(
-            'U_COMMENT_DELETE' =>
-              add_url_params(
-                    $url_self,
-                    array(
-                      'action'=>'delete_comment',
-                      'comment_to_delete'=>$row['id']
-                    )
-                )
-            )
-          );
+        $tpl_comment['U_DELETE'] =
+            add_url_params(
+                  $url_self,
+                  array(
+                    'action'=>'delete_comment',
+                    'comment_to_delete'=>$row['id']
+                  )
+              );
       }
+      $template->append('comments', $tpl_comment);
     }
   }
 
@@ -184,19 +173,13 @@ SELECT id,author,date,image_id,content
     {
       $content = htmlspecialchars($comm['content']);
     }
-    $template->assign_block_vars('comments.add_comment',
+    $template->assign('comment_add',
         array(
+          'F_ACTION' => $url_self,
           'KEY' => $key,
-          'CONTENT' => $content
+          'CONTENT' => $content,
+          'SHOW_AUTHOR' => !is_classic_user()
         ));
-
-    // display author field if the user status is guest or generic
-    if (!is_classic_user())
-    {
-      $template->assign_block_vars(
-        'comments.add_comment.author_field', array()
-        );
-    }
   }
 }
 
