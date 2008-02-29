@@ -228,7 +228,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
     array(
       'USERNAME'=>$userdata['username'],
       'USERID'=>$userdata['id'],
-      'EMAIL'=>@$userdata['email'],
+      'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
       'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
       'NB_ROW_PAGE'=>$userdata['nb_line_page'],
       'RECENT_PERIOD'=>$userdata['recent_period'],

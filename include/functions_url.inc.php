@@ -60,7 +60,15 @@ function get_absolute_root_url($with_scheme=true)
   $url = '';
   if ($with_scheme)
   {
-    $url .= 'http://'.$_SERVER['HTTP_HOST'];
+    if (empty($_SERVER['HTTPS']))
+    {
+      $url .= 'http://';
+    }
+    else
+    {
+      $url .= 'https://';
+    }
+    $url .= $_SERVER['HTTP_HOST'];
     if ($_SERVER['SERVER_PORT'] != 80)
     {
       $url_port = ':'.$_SERVER['SERVER_PORT'];
