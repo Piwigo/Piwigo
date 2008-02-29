@@ -184,7 +184,7 @@ SELECT COUNT(*)
 ;';
 list($nb_comments) = mysql_fetch_row(pwg_query($query));
 
-$template->assign_vars(
+$template->assign(
   array(
     'PWG_VERSION' => PHPWG_VERSION,
     'OS' => PHP_OS,
@@ -219,7 +219,7 @@ SELECT MIN(date_available)
 ;';
   list($first_date) = mysql_fetch_row(pwg_query($query));
 
-  $template->assign_block_vars(
+  $template->assign(
     'first_added',
     array(
       'DB_DATE' =>
@@ -241,7 +241,7 @@ list($nb_waiting) = mysql_fetch_row(pwg_query($query));
 
 if ($nb_waiting > 0)
 {
-  $template->assign_block_vars(
+  $template->assign(
     'waiting',
     array(
       'URL' => PHPWG_ROOT_PATH.'admin.php?page=upload',
@@ -260,7 +260,7 @@ list($nb_comments) = mysql_fetch_row(pwg_query($query));
 
 if ($nb_comments > 0)
 {
-  $template->assign_block_vars(
+  $template->assign(
     'unvalidated',
     array(
       'URL' => PHPWG_ROOT_PATH.'admin.php?page=comments',
@@ -270,7 +270,7 @@ if ($nb_comments > 0)
 }
 
 // Add the PhpWebGallery Official menu
-  $template->assign_block_vars( 'pwgmenu', pwg_URL() );
+  $template->assign( 'pwgmenu', pwg_URL() );
   
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
