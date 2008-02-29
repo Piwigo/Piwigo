@@ -838,7 +838,7 @@ function create_user_infos($arg_id, $override_values = null)
   else
   {
     $user_ids = array();
-    if (is_integer($arg_id))
+    if (is_numeric($arg_id))
     {
       $user_ids[] = $arg_id;
     }
@@ -1233,7 +1233,7 @@ function get_email_address_as_display_text($email_address)
   }
   else
   {
-    if (is_adviser())
+    if (script_basename() == 'admin' and is_adviser())
     {
       return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
     }
