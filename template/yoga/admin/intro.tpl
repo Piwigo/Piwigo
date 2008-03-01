@@ -1,4 +1,4 @@
-<!-- $Id$ -->
+{* $Id$ *}
 <h2>{'title_default'|@translate}</h2>
 {if isset($pwgmenu)}
 <ul class="pwgmenu">
