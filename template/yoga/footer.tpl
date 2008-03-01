@@ -20,7 +20,7 @@
   {/if}
 
 </div> <!-- copyright -->
-{if isset($footer_elemets)}
+{if isset($footer_elements)}
 {foreach from=$footer_elements item=v}
 {$v}
 {/foreach}
