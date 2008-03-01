@@ -71,6 +71,15 @@ function register_user($login, $password, $mail_address,
     array_push($errors, $mail_error);
   }
 
+  $errors = trigger_event('register_user_check',
+              $errors,
+              array(
+                'login'=>$login,
+                'password'=>$password,
+                'email'=>$mail_address,
+              )
+            ); 
+
   // if no error until here, registration of the user
   if (count($errors) == 0)
   {
@@ -1233,7 +1242,7 @@ function get_email_address_as_display_text($email_address)
   }
   else
   {
-    if (script_basename() == 'admin' and is_adviser())
+    if (defined('IN_ADMIN') and is_adviser())
     {
       return 'adviser.mode@'.$_SERVER['SERVER_NAME'];
     }
