@@ -254,8 +254,6 @@ input#qsearchInput {
   padding: 1px 3px;
 }
 .zero { display: none }
-.one { background: transparent; }
-.plural { background: transparent; }
 .nb-hits { color: #69c; }
 .nb-comments { color: #f92; }
 

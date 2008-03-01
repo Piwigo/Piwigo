@@ -288,7 +288,7 @@ if (count($categories) > 0)
           }
         }
       }//fromto
-      
+
       $template->append( 'category_thumbnails', $tpl_var);
 
 
@@ -302,10 +302,6 @@ if (count($categories) > 0)
   else
   {
     $template->set_filename( 'thumbnails', 'thumbnails.tpl');
-    // first line
-    $template->assign_block_vars('thumbnails.line', array());
-    // current row displayed
-    $row_number = 0;
 
     if ($page['section']=='recent_cats')
     {
@@ -315,8 +311,7 @@ if (count($categories) > 0)
 
     foreach ($categories as $category)
     {
-      $template->assign_block_vars(
-        'thumbnails.line.thumbnail',
+      $tpl_var =
         array(
           'IMAGE'       => $thumbnail_src_of[ $category['representative_picture_id'] ],
           'IMAGE_ALT'   => $category['name'],
@@ -335,8 +330,7 @@ if (count($categories) > 0)
               )
             ),
           'CLASS'       => 'thumbCat',
-          )
-        );
+          );
       if ($page['section']=='recent_cats')
       {
         $name = get_cat_display_name_cache($category['uppercats'], null, false);
@@ -344,30 +338,16 @@ if (count($categories) > 0)
       else
       {
         $name = $category['name'];
-        $template->merge_block_vars(
-          'thumbnails.line.thumbnail',
-          array(
-            'IMAGE_TS'    => get_icon($category['max_date_last'], $category['is_child_date_last']),
-           )
-         );
+        $tpl_var['IMAGE_TS'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
       }
-      $template->assign_block_vars(
-        'thumbnails.line.thumbnail.category_name',
-        array(
-          'NAME' => $name
-          )
-        );
+      $tpl_var['CATEGORY_NAME']=$name;
+
+      $template->append('thumbnails', $tpl_var);
 
       //plugins need to add/modify sth in this loop ?
       trigger_action('loc_index_category_thumbnail',
-        $category, 'thumbnails.line.thumbnail' );
+        $category, 'thumbnails' );
 
-      // create a new line ?
-      if (++$row_number == $user['nb_image_line'])
-      {
-        $template->assign_block_vars('thumbnails.line', array());
-        $row_number = 0;
-      }
     }
 
     if ( isset($old_level_separator) )
@@ -376,7 +356,6 @@ if (count($categories) > 0)
     }
 
     $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
-    $template->delete_block_vars('thumbnails', true); // category_default reuse them
   }
   trigger_action('loc_end_index_category_thumbnails', $categories);
 }

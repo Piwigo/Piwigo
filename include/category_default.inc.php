@@ -62,11 +62,6 @@ SELECT *
 $template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
 if (count($pictures) > 0)
 {
-  // first line
-  $template->assign_block_vars('thumbnails.line', array());
-  // current row displayed
-  $row_number = 0;
-
   // define category slideshow url
   $row = reset($pictures);
   $page['cat_slideshow_url'] =
@@ -82,6 +77,8 @@ if (count($pictures) > 0)
         (isset($_GET['slideshow']) ? $_GET['slideshow']
                                    : '' ))
     );
+
+    $template->clear_assign('thumbnails'); // category_default reuse them
 }
 
 trigger_action('loc_begin_index_thumbnails', $pictures);
@@ -99,8 +96,7 @@ foreach ($pictures as $row)
         array('start')
       );
 
-  $template->assign_block_vars(
-    'thumbnails.line.thumbnail',
+  $tpl_var =
     array(
       'IMAGE'              => $thumbnail_url,
       'IMAGE_ALT'          => $row['file'],
@@ -110,18 +106,15 @@ foreach ($pictures as $row)
       'U_IMG_LINK'         => $url,
 
       'CLASS'              => 'thumbElmt',
-      )
-    );
-  if ($user['show_nb_hits'])
-  {
-    $template->assign_block_vars(
-      'thumbnails.line.thumbnail.nb_hits',
-      array(
-      'HITS'=> l10n_dec('%d hit', '%d hits', $row['hit']),
-      'CLASS'=> set_span_class($row['hit']) . ' nb-hits',
-      )
     );
 
+  if ($user['show_nb_hits'])
+  {
+    $tpl_var['nb_hits'] =
+      array(
+      'HITS'=> $row['hit'],
+      'CLASS'=> set_span_class($row['hit']),
+      );
   }
 
   if ($conf['show_thumbnail_caption'])
@@ -152,12 +145,7 @@ foreach ($pictures as $row)
       }
     }
 
-    $template->assign_block_vars(
-      'thumbnails.line.thumbnail.element_name',
-      array(
-        'NAME' => $name
-        )
-      );
+    $tpl_var['ELEMENT_NAME'] = $name;
   }
 
   if ($user['show_nb_comments'])
@@ -169,25 +157,17 @@ SELECT COUNT(*) AS nb_comments
     AND validated = \'true\'
 ;';
     list($row['nb_comments']) = mysql_fetch_array(pwg_query($query));
-    $template->assign_block_vars(
-      'thumbnails.line.thumbnail.nb_comments',
+    $tpl_var['nb_comments'] =
       array(
-        'NB_COMMENTS'=> l10n_dec('%d comment', '%d comments',
-                        $row['nb_comments']),
-        'CLASS'=> set_span_class($row['nb_comments']) . ' nb-comments',
-      )
-    );
+        'NB_COMMENTS'=> $row['nb_comments'],
+        'CLASS'=> set_span_class($row['nb_comments']),
+      );
   }
+
+  $template->append('thumbnails', $tpl_var);
 
   //plugins need to add/modify sth in this loop ?
-  trigger_action('loc_index_thumbnail', $row, 'thumbnails.line.thumbnail' );
-
-  // create a new line ?
-  if (++$row_number == $user['nb_image_line'])
-  {
-    $template->assign_block_vars('thumbnails.line', array());
-    $row_number = 0;
-  }
+  trigger_action('loc_index_thumbnail', $row, 'thumbnails' );
 }
 
 trigger_action('loc_end_index_thumbnails', $pictures);

@@ -1,43 +1,41 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
-<!-- BEGIN thumbnails -->
-<ul class="thumbnails">
-  <!-- BEGIN line -->
-  <!-- BEGIN thumbnail -->
-  <li class="{thumbnails.line.thumbnail.CLASS}">
-    <span class="wrap1">
-      <span class="wrap2">
-        <a href="{thumbnails.line.thumbnail.U_IMG_LINK}">
-            <img class="thumbnail" src="{thumbnails.line.thumbnail.IMAGE}"
-	    alt="{thumbnails.line.thumbnail.IMAGE_ALT}"
-	    title="{thumbnails.line.thumbnail.IMAGE_TITLE}">
-        </a>
-      </span>
-      <span class="thumbLegend">
-      <!-- BEGIN element_name -->
-      {thumbnails.line.thumbnail.element_name.NAME}
-      <!-- END element_name -->
-      <!-- BEGIN category_name -->
-      [{thumbnails.line.thumbnail.category_name.NAME}]
-      <!-- END category_name -->
-      {thumbnails.line.thumbnail.IMAGE_TS}
-      <!-- BEGIN nb_comments -->
-      <span class="{thumbnails.line.thumbnail.nb_comments.CLASS}">
-        <br />
-        {thumbnails.line.thumbnail.nb_comments.NB_COMMENTS}
-      </span>
-      <!-- END nb_comments -->
-      <!-- BEGIN nb_hits -->
-      <span class="{thumbnails.line.thumbnail.nb_hits.CLASS}">
-        <br />
-        {thumbnails.line.thumbnail.nb_hits.HITS}
-      </span>
-      <!-- END nb_hits -->
-      </span>
-    </span>
-  </li>
-  <!-- END thumbnail -->
-  <!-- END line -->
+{* $Id$ *}
 
+{if !empty($thumbnails)}
+<ul class="thumbnails">
+{foreach from=$thumbnails item=thumbnail}
+	<li class="{$thumbnail.CLASS}">
+	<span class="wrap1">
+		<span class="wrap2">
+		<a href="{$thumbnail.U_IMG_LINK}">
+			<img class="thumbnail" src="{$thumbnail.IMAGE}"
+		alt="{$thumbnail.IMAGE_ALT}"
+		title="{$thumbnail.IMAGE_TITLE}">
+		</a>
+		</span>
+		<span class="thumbLegend">
+
+		{if !empty($thumbnail.ELEMENT_NAME)}{$thumbnail.ELEMENT_NAME}{/if}
+		{if !empty($thumbnail.CATEGORY_NAME)}{$thumbnail.CATEGORY_NAME}{/if}
+		{if !empty($thumbnail.IMAGE_TS)}{$thumbnail.IMAGE_TS}{/if}
+		
+		{if !empty($thumbnail.nb_comments)}
+		<span class="{$thumbnail.nb_comments.CLASS} nb-comments">
+		<br />
+		{$pwg->l10n_dec('%d comment', '%d comments',$thumbnail.nb_comments.NB_COMMENTS)}
+		</span>
+		{/if}
+		
+		{if !empty($thumbnail.nb_hits)}
+		<span class="{$thumbnail.nb_hits.CLASS} nb-hits">
+		<br />
+		{$pwg->l10n_dec('%d hit', '%d hits',$thumbnail.nb_hits.HITS)}
+		</span>
+		{/if}
+		</span>
+	</span>
+	</li>
+{/foreach}
 </ul>
-<!-- END thumbnails --> 
+{/if}
+
+
