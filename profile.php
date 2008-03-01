@@ -41,6 +41,8 @@ if (!defined('PHPWG_ROOT_PATH'))
 
   $userdata = $user;
 
+  trigger_action('loc_begin_profile');
+
   save_profile_from_post($userdata, $errors);
 
   $title= l10n('customize_page_title');
@@ -66,6 +68,7 @@ if (!defined('PHPWG_ROOT_PATH'))
     }
   }
   $template->set_filename('profile', 'profile.tpl');
+  trigger_action('loc_end_profile');
   $template->parse('profile');
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
