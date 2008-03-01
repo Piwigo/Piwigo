@@ -99,8 +99,9 @@ DELETE
   }
   case 'c13y' :
   {
-    include_once(PHPWG_ROOT_PATH.'admin/include/functions_check_integrity.inc.php');
-    c13y_maintenance();
+    include_once(PHPWG_ROOT_PATH.'admin/include/check_integrity.class.php');
+    $c13y = new check_integrity();
+    $c13y->maintenance();
     break;
   }
   default :

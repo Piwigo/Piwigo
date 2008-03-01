@@ -61,13 +61,6 @@ else
 $page['errors'] = array();
 $page['infos']  = array();
 
-
-if ($page['page'] == 'intro')
-{
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions_check_integrity.inc.php');
-  check_integrity();
-}
-
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 //----------------------------------------------------- template initialization

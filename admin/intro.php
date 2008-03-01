@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -30,6 +30,8 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/check_integrity.class.php');
+include_once(PHPWG_ROOT_PATH.'admin/include/c13y_internal.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -271,13 +273,19 @@ if ($nb_comments > 0)
 
 // Add the PhpWebGallery Official menu
   $template->assign( 'pwgmenu', pwg_URL() );
-  
+
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
 // +-----------------------------------------------------------------------+
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'intro');
 
-display_check_integrity();
+// Check integrity
+$c13y = new check_integrity();
+// add internal checks
+new c13y_internal();
+// check and display
+$c13y->check();
+$c13y->display();
 
 ?>

@@ -31,7 +31,7 @@ if (!defined('PHPWG_ROOT_PATH'))
 
 add_event_handler('list_check_integrity', 'c13y_upgrade');
 
-function c13y_upgrade()
+function c13y_upgrade($c13y)
 {
   global $conf;
 
@@ -56,7 +56,7 @@ limit 0,1
   if (mysql_fetch_array(pwg_query($query)))
   {
     $can_be_deactivate = false;
-    add_c13y(
+    $c13y->add_anomaly(
       l10n('c13y_dbl_email_user'),
       null,
       null,
@@ -94,7 +94,7 @@ where
       '" onclick="window.open(this.href, \'\'); return false;">'.
       sprintf(l10n('c13y_correction_obsolete_plugin'), $row['id']).'</a>';
 
-    add_c13y(
+    $c13y->add_anomaly(
       l10n('c13y_obsolete_plugin'),
       null,
       null,
@@ -111,7 +111,7 @@ where
       '" onclick="window.open(this.href, \'\'); return false;">'.
       l10n('c13y_upgrade_deactivate').'</a>';
 
-    add_c13y(
+    $c13y->add_anomaly(
       l10n('c13y_upgrade_no_anomaly'),
       'c13y_upgrade_correction',
       'deactivate_plugin',
