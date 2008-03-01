@@ -74,7 +74,7 @@
           <!-- BEGIN c13y_submit_ignore -->
           <input class="submit" type="submit" value="{lang:c13y_submit_ignore}" name="c13y_submit_ignore" {TAG_INPUT_ENABLED} />
           <!-- END c13y_submit_ignore -->
-          <input class="submit" type="submit" value="{lang:c13y_submit_refresh}" name="c13y_submit_refresh" {TAG_INPUT_ENABLED} />
+          <input class="submit" type="submit" value="{lang:c13y_submit_refresh}" name="c13y_submit_refresh" />
         </p>
 
       </fieldset>

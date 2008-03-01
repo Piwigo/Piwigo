@@ -239,10 +239,14 @@ class Template {
     if ($is_new)
     {
       $this->smarty->assign( 'ROOT_URL', get_root_url() );
+      $this->smarty->assign( 'TAG_INPUT_ENABLED',
+        ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
       $v = $this->smarty->fetch($this->files[$handle], null, null, false);
     }
     else
     {
+      $this->_old->assign_vars(array('TAG_INPUT_ENABLED' =>
+        ((is_adviser()) ? 'disabled onclick="return false;"' : '')));
       $this->_old->set_filename( $handle, $this->files[$handle] );
       $v = $this->_old->parse($handle, true);
     }

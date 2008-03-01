@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | branch        : BSF (Best So Far)
 // | file          : $Id$
@@ -52,8 +52,6 @@ $template->assign_vars(
     'LANG'=>$lang_info['code'],
     'DIR'=>$lang_info['direction'],
 
-    'TAG_INPUT_ENABLED' =>
-      ((is_adviser()) ? 'disabled onclick="return false;"' : ''),
     'U_HOME' => make_index_url(),
     ));
 

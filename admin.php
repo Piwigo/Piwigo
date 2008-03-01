@@ -94,9 +94,7 @@ $template->assign(
     'U_GROUPS'=> $link_start.'group_list',
     'U_PERMALINKS'=> $link_start.'permalinks',
     'U_RETURN'=> make_index_url(),
-    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
-    'TAG_INPUT_ENABLED' =>
-      ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''),
+    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php'
     )
   );
 if ($conf['ws_access_control']) // Do we need to display ws_checker
