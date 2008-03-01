@@ -103,25 +103,21 @@ if (count($page['items']) > 0)
 {
   $template_title.= ' ['.count($page['items']).']';
 }
-$template->assign_var('TITLE', $template_title);
+$template->assign('TITLE', $template_title);
 
 if (isset($page['flat']) or isset($page['chronology_field']))
 {
-  $template->assign_block_vars(
-    'mode_normal',
-    array(
-      'URL' => duplicate_index_url( array(), array('chronology_field', 'start', 'flat') )
-      )
+  $template->assign(
+    'U_MODE_NORMAL',
+    duplicate_index_url( array(), array('chronology_field', 'start', 'flat') )
     );
 }
 
 if (!isset($page['flat']) and 'categories' == $page['section'])
 {
-  $template->assign_block_vars(
-    'flat',
-    array(
-      'URL' => duplicate_index_url(array('flat' => ''), array('start', 'chronology_field'))
-      )
+  $template->assign(
+    'U_MODE_FLAT',
+    duplicate_index_url(array('flat' => ''), array('start', 'chronology_field'))
     );
 }
 
@@ -133,19 +129,15 @@ if (!isset($page['chronology_field']))
           'chronology_style' => 'monthly',
           'chronology_view' => 'list',
       );
-  $template->assign_block_vars(
-    'mode_created',
-    array(
-      'URL' => duplicate_index_url( $chronology_params, array('start', 'flat') )
-      )
+  $template->assign(
+    'U_MODE_CREATED',
+    duplicate_index_url( $chronology_params, array('start', 'flat') )
     );
 
   $chronology_params['chronology_field'] = 'posted';
-  $template->assign_block_vars(
-    'mode_posted',
-    array(
-      'URL' => duplicate_index_url( $chronology_params, array('start', 'flat') )
-      )
+  $template->assign(
+    'U_MODE_POSTED',
+    duplicate_index_url( $chronology_params, array('start', 'flat') )
     );
 }
 else
@@ -162,9 +154,9 @@ else
             array('chronology_field'=>$chronology_field ),
             array('chronology_date', 'start', 'flat')
           );
-  $template->assign_block_vars(
-    'mode_'.$chronology_field,
-    array('URL' => $url )
+  $template->assign(
+      'U_MODE_'.strtoupper($chronology_field),
+      $url
     );
 }
 // include menubar
@@ -172,41 +164,33 @@ include(PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
 if ('search' == $page['section'])
 {
-  $template->assign_block_vars(
-    'search_rules',
-    array(
-      'URL' => get_root_url().'search_rules.php?search_id='.$page['search'],
-      )
+  $template->assign(
+    'U_SEARCH_RULES',
+    get_root_url().'search_rules.php?search_id='.$page['search']
     );
 }
 
 if (isset($page['category']) and is_admin())
 {
-  $template->assign_block_vars(
-    'edit',
-    array(
-      'URL' =>
-        get_root_url().'admin.php?page=cat_modify'
+  $template->assign(
+    'U_EDIT',
+     get_root_url().'admin.php?page=cat_modify'
         .'&amp;cat_id='.$page['category']['id']
-      )
     );
 }
 
 if (is_admin() and !empty($page['items']))
 {
-  $template->assign_block_vars(
-    'caddie',
-    array(
-      'URL' =>
-         add_url_params(duplicate_index_url(), array('caddie'=>1) )
-      )
+  $template->assign(
+    'U_CADDIE',
+     add_url_params(duplicate_index_url(), array('caddie'=>1) )
     );
 }
 
 if ( $page['section']=='search' and $page['start']==0 and
     !isset($page['chronology_field']) and isset($page['qsearch_details']) )
 {
-  $template->assign_var('QUERY_SEARCH',
+  $template->assign('QUERY_SEARCH',
     htmlspecialchars($page['qsearch_details']['q']) );
 
   $cats = array_merge(
@@ -220,11 +204,7 @@ if ( $page['section']=='search' and $page['start']==0 and
     {
       $hints[] = get_cat_display_name( array($cat) );
     }
-    $template->assign_block_vars( 'category_search_results',
-        array(
-            'CONTENT' => implode(' &mdash; ', $hints)
-          )
-      );
+    $template->assign( 'category_search_results', $hints);
   }
 
   $tags = (array)@$page['qsearch_details']['matching_tags'];
@@ -239,11 +219,7 @@ if ( $page['section']=='search' and $page['start']==0 and
         .$tag['name']
         .'</a>';
     }
-    $template->assign_block_vars( 'tag_search_results',
-        array(
-            'CONTENT' => implode(' &mdash; ', $hints)
-          )
-      );
+    $template->assign( 'tag_search_results', $hints);
   }
 }
 
@@ -272,29 +248,18 @@ if (!empty($page['cat_slideshow_url']))
   }
   else
   {
-    $template->assign_block_vars(
-      'slideshow', array('URL' => $page['cat_slideshow_url']));
+    $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
   }
 }
 
 // navigation bar
-if ($page['navigation_bar'] != '')
-{
-  $template->assign_block_vars(
-    'cat_infos.navigation',
-    array(
-      'NAV_BAR' => $page['navigation_bar'],
-      )
-    );
-}
+$template->assign( 'NAV_BAR', $page['navigation_bar'] );
 
 if ( count($page['items']) > 0
     and $page['section'] != 'most_visited'
     and $page['section'] != 'best_rated')
 {
   // image order
-  $template->assign_block_vars( 'preferred_image_order', array() );
-
   $order_idx = pwg_get_session_var( 'image_order', 0 );
 
   $orders = get_category_preferred_image_orders();
@@ -302,12 +267,12 @@ if ( count($page['items']) > 0
   {
     if ($orders[$i][2])
     {
-      $template->assign_block_vars(
-        'preferred_image_order.order',
+      $template->append(
+        'image_orders',
         array(
           'DISPLAY' => $orders[$i][0],
           'URL' => add_url_params( duplicate_index_url(), array('image_order'=>$i) ),
-          'SELECTED_OPTION' => ($order_idx==$i ? 'SELECTED' : ''),
+          'SELECTED' => ($order_idx==$i ? true:false),
           )
         );
     }
@@ -317,18 +282,13 @@ if ( count($page['items']) > 0
 // category comment
 if (isset($page['comment']) and $page['comment'] != '')
 {
-  $template->assign_block_vars(
-    'cat_infos.comment',
-    array(
-      'COMMENTS' => $page['comment']
-      )
-    );
+  $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
 }
 //------------------------------------------------------------ log informations
 pwg_log();
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_index');
-$template->parse('index');
+$template->pparse('index');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

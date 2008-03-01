@@ -1057,7 +1057,7 @@ class Smarty
         } else {
             // var non-existant, return valid reference
             $_tmp = null;
-            return $_tmp;   
+            return $_tmp;
         }
     }
 
@@ -1116,7 +1116,7 @@ class Smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-        
+
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
@@ -1292,11 +1292,19 @@ class Smarty
 
         if ($display) {
             if (isset($_smarty_results)) { echo $_smarty_results; }
+        }
+
+        if ($this->debugging) {
+            // capture time for debugging info
+            $_params = array();
+            require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
+            $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
+        }
+
+        if ($display) {
             if ($this->debugging) {
                 // capture time for debugging info
                 $_params = array();
-                require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
-                $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime($_params, $this) - $_debug_start_time);
                 require_once(SMARTY_CORE_DIR . 'core.display_debug_console.php');
                 echo smarty_core_display_debug_console($_params, $this);
             }
@@ -1932,10 +1940,10 @@ class Smarty
     {
         return eval($code);
     }
-    
+
     /**
      * Extracts the filter name from the given callback
-     * 
+     *
      * @param callback $function
      * @return string
      */
@@ -1950,7 +1958,7 @@ class Smarty
 			return $function;
 		}
 	}
-    
+
     /**#@-*/
 
 }

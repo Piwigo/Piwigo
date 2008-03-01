@@ -223,21 +223,6 @@ class Template {
    */
   function parse($handle, $return=false)
   {
-    return $this->_pparse_or_parse($handle, $return, false);
-  }
-
-  /**
-   * Load the file for the handle, eventually compile the file and run the compiled
-   * code. This will print out the results of executing the template.
-   */
-  function pparse($handle)
-  {
-    $this->_pparse_or_parse($handle, false, true);
-  }
-
-
-  /*private*/ function _pparse_or_parse($handle, $return, $immediate_display)
-  {
     if ( !isset($this->files[$handle]) )
     {
       die("Template->parse(): Couldn't load template file for handle $handle");
@@ -253,31 +238,54 @@ class Template {
 
     if ($is_new)
     {
-      $this->smarty->assign( 'pwg_root', get_root_url() ); //deprecated
       $this->smarty->assign( 'ROOT_URL', get_root_url() );
-      if ($immediate_display)
-        $this->p();
-      $v = $this->smarty->fetch($this->files[$handle], null, null, $immediate_display ? true : false);
-      if ($immediate_display)
-        return;
+      $v = $this->smarty->fetch($this->files[$handle], null, null, false);
     }
     else
     {
       $this->_old->set_filename( $handle, $this->files[$handle] );
       $v = $this->_old->parse($handle, true);
     }
-    if ($return==false)
+    if ($return)
     {
-      $this->output .= $v;
+      return $v;
     }
-    return $v;
+    $this->output .= $v;
   }
 
-  /** flushes current output */
-  function p()
+  /**
+   * Load the file for the handle, eventually compile the file and run the compiled
+   * code. This will print out the results of executing the template.
+   */
+  function pparse($handle)
   {
+    $this->parse($handle, false);
     echo $this->output;
     $this->output='';
+
+  }
+
+
+  /** flushes the output */
+  function p()
+  {
+    $start = get_moment();
+
+    echo $this->output;
+    $this->output='';
+
+    if ($this->smarty->debugging)
+    {
+      global $t2;
+      $this->smarty->assign(
+        array(
+        'AAAA_DEBUG_OUTPUT_TIME__' => get_elapsed_time($start, get_moment()),
+        'AAAA_DEBUG_TOTAL_TIME__' => get_elapsed_time($t2, get_moment())
+        )
+        );
+      require_once(SMARTY_CORE_DIR . 'core.display_debug_console.php');
+      echo smarty_core_display_debug_console(null, $this->smarty);
+    }
   }
 
   /**
@@ -313,6 +321,12 @@ class Template {
   function append($tpl_var, $value=null, $merge=false)
   {
     $this->smarty->append( $tpl_var, $value, $merge );
+  }
+
+  /** see smarty get_template_vars http://www.smarty.net/manual/en/api.get_template_vars.php */
+  function &get_template_vars($name=null)
+  {
+    return $this->smarty->get_template_vars( $name );
   }
 
   /** see smarty append http://www.smarty.net/manual/en/api.clear_assign.php */

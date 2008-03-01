@@ -44,15 +44,20 @@ if (!is_a_guest())
 
 //------------------------------------------------------------- generation time
 $debug_vars = array();
+
+if ($conf['show_queries'])
+{
+  $debug_vars = array_merge($debug_vars, array('QUERIES_LIST' => $debug) );
+}
+
 if ($conf['show_gt'])
 {
-  $time = get_elapsed_time($t2, get_moment());
-
   if (!isset($page['count_queries']))
   {
     $page['count_queries'] = 0;
     $page['queries_time'] = 0;
   }
+  $time = get_elapsed_time($t2, get_moment());
 
   $debug_vars = array_merge($debug_vars,
     array('TIME' => $time,
@@ -61,16 +66,12 @@ if ($conf['show_gt'])
           );
 }
 
-if ($conf['show_queries'])
-{
-  $debug_vars = array_merge($debug_vars, array('QUERIES_LIST' => $debug) );
-}
-
 $template->assign('debug', $debug_vars );
 
 trigger_action('loc_end_page_tail');
 //
 // Generate the page
 //
-$template->pparse('tail');
+$template->parse('tail');
+$template->p();
 ?>

@@ -1,116 +1,117 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
-{MENUBAR}
+{* $Id$ *}
+{$MENUBAR}
 <div id="content">
   <div class="titrePage">
     <ul class="categoryActions">
       <li>&nbsp;</li>
-      <!-- BEGIN preferred_image_order -->
+      {if !empty($image_orders) }
       <li>
-      {lang:Sort order}:
+      {'Sort order'|@translate}:
       <select onchange="document.location = this.options[this.selectedIndex].value;">
-        <!-- BEGIN order -->
-        <option value="{preferred_image_order.order.URL}" {preferred_image_order.order.SELECTED_OPTION}>{preferred_image_order.order.DISPLAY}</option>
-        <!-- END order -->
+        {foreach from=$image_orders item=image_order }
+        <option value="{$image_order.URL}"{if $image_order.SELECTED} selected="selected"{/if}}>{$image_order.DISPLAY}</option>
+        {/foreach}
       </select>
       </li>
-      <!-- END preferred_image_order -->
+      {/if}
 
-      <!-- BEGIN caddie -->
-      <li><a href="{caddie.URL}" title="{lang:add to caddie}"><img src="{pwg_root}{themeconf:icon_dir}/caddie_add.png" class="button" alt="{lang:caddie}"/></a></li>
-      <!-- END caddie -->
+      {if isset($U_CADDIE) }
+      <li><a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"/></a></li>
+      {/if}
 
-      <!-- BEGIN edit -->
-      <li><a href="{edit.URL}" title="{lang:edit category informations}"><img src="{pwg_root}{themeconf:icon_dir}/category_edit.png" class="button" alt="{lang:edit}"/></a></li>
-      <!-- END edit -->
+      {if isset($U_EDIT) }
+      <li><a href="{$U_EDIT}" title="{'edit category informations'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"/></a></li>
+      {/if}
 
-      <!-- BEGIN search_rules -->
-      <li><a href="{search_rules.URL}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{lang:Search rules}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
-      <!-- END search_rules -->
+      {if isset($U_SEARCH_RULES) }
+      <li><a href="{$U_SEARCH_RULES}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
+      {/if}
 
-      <!-- BEGIN slideshow -->
-      <li><a href="{slideshow.URL}" title="{lang:slideshow}"><img src="{pwg_root}{themeconf:icon_dir}/slideshow.png" class="button" alt="{lang:slideshow}"/></a></li>
-      <!-- END slideshow -->
+      {if isset($U_SLIDESHOW) }
+      <li><a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/slideshow.png" class="button" alt="{'slideshow'|@translate}"/></a></li>
+      {/if}
 
-      <!-- BEGIN mode_normal -->
-      <li><a href="{mode_normal.URL}" title="{lang:mode_normal_hint}"><img src="{pwg_root}{themeconf:icon_dir}/normal_mode.png" class="button" alt="{lang:mode_normal_hint}"></a></li>
-      <!-- END mode_normal -->
+      {if isset($U_MODE_FLAT) }
+      <li><a href="{$U_MODE_FLAT}" title="{'mode_flat_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/flat.png" class="button" alt="{'mode_flat_hint'|@translate}"></a></li>
+      {/if}
 
-      <!-- BEGIN flat -->
-      <li><a href="{flat.URL}" title="{lang:mode_flat_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/flat.png" class="button" alt="{lang:mode_flat_hint}"></a></li>
-      <!-- END flat -->
+      {if isset($U_MODE_NORMAL) }
+      <li><a href="{$U_MODE_NORMAL}" title="{'mode_normal_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/normal_mode.png" class="button" alt="{'mode_normal_hint'|@translate}"></a></li>
+      {/if}
 
-      <!-- BEGIN mode_posted -->
-      <li><a href="{mode_posted.URL}" title="{lang:mode_posted_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar.png" class="button" alt="{lang:mode_posted_hint}"></a></li>
-      <!-- END mode_posted -->
-      <!-- BEGIN mode_created -->
-      <li><a href="{mode_created.URL}" title="{lang:mode_created_hint}" rel="nofollow"><img src="{pwg_root}{themeconf:icon_dir}/calendar_created.png" class="button" alt="{lang:mode_created_hint}"></a></li>
-      <!-- END mode_created -->
-      {PLUGIN_INDEX_ACTIONS}
+      {if isset($U_MODE_POSTED) }
+      <li><a href="{$U_MODE_POSTED}" title="{'mode_posted_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar.png" class="button" alt="{'mode_posted_hint'|@translate}"></a></li>
+      {/if}
+      
+      {if isset($U_MODE_CREATED) }
+      <li><a href="{$U_MODE_CREATED}" title="{'mode_created_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar_created.png" class="button" alt="{'mode_created_hint'|@translate}"></a></li>
+      {/if}
+      
+      {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
     </ul>
 
-  <h2>{TITLE}</h2>
-  <!-- BEGIN calendar -->
-  <!-- BEGIN views -->
-  <div class="calendarViews">{lang:calendar_view}:
+  <h2>{$TITLE}</h2>
+
+  {if isset($chronology_views) }
+  <div class="calendarViews">{'calendar_view'|@translate}:
     <select onchange="document.location = this.options[this.selectedIndex].value;">
-    <!-- BEGIN view -->
-      <option value="{calendar.views.view.VALUE}" {calendar.views.view.SELECTED}>{calendar.views.view.CONTENT}</option>
-    <!-- END view -->
+      {foreach from=$chronology_views item=view}
+      <option value="{$view.VALUE}"{if $view.SELECTED} selected="selected"{/if}}>{$view.CONTENT}</option>
+      {/foreach}
     </select>
   </div>
-  <!-- END views -->
-  <!-- END calendar -->
+  {/if}
 
-  <!-- BEGIN calendar -->
-  <h2>{calendar.TITLE}</h2>
-  <!-- END calendar -->
+  {if isset($chronology.TITLE) }
+  <h2>{$chronology.TITLE}</h2>
+  {/if}
 
   </div> <!-- titrePage -->
 
-{PLUGIN_INDEX_CONTENT_BEGIN}
+{if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
-<!-- BEGIN category_search_results -->
-<div style="font-size:16px;text-align:left;margin:10px">{lang:Category results for} <strong>{QUERY_SEARCH}</strong> : <em><strong>{category_search_results.CONTENT}</strong></em></div>
-<!-- END category_search_results -->
-<!-- BEGIN tag_search_results -->
-<div style="font-size:16px;text-align:left;margin:10px">{lang:Tag results for} <strong>{QUERY_SEARCH}</strong> : <em><strong>{tag_search_results.CONTENT}</strong></em></div>
-<!-- END tag_search_results -->
-
-
-<!-- BEGIN calendar -->
-<!-- BEGIN navbar -->
-<div class="calendarBar">
-<!-- BEGIN prev -->
-	<div style="float:left">&laquo; <a href="{calendar.navbar.prev.URL}">{calendar.navbar.prev.LABEL}</a></div>
-<!-- END prev -->
-<!-- BEGIN next -->
-	<div style="float:right"><a href="{calendar.navbar.next.URL}">{calendar.navbar.next.LABEL}</a> &raquo;</div>
-<!-- END next -->
-	{calendar.navbar.BAR}&nbsp;
+{if !empty($category_search_results) }
+<div style="font-size:16px;text-align:left;margin:10px">{'Category results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+  <em><strong>
+  {foreach from=$category_search_results item=res name=res_loop}
+  {if !$smarty.foreach.res_loop.first} &mdash; {/if}
+  {$res}
+  {/foreach}
+  </strong></em>
 </div>
-<!-- END navbar -->
+{/if}
 
-<!-- BEGIN calbar -->
-<div class="calendarCalBar">{calendar.calbar.BAR}</div>
-<!-- END calbar -->
-<!-- END calendar -->
+{if !empty($tag_search_results) }
+<div style="font-size:16px;text-align:left;margin:10px">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+  <em><strong>
+  {foreach from=$tag_search_results item=res name=res_loop}
+  {if !$smarty.foreach.res_loop.first} &mdash; {/if}
+  {$res}
+  {/foreach}
+  </strong></em>
+</div>
+{/if}
 
-{MONTH_CALENDAR}
-{CATEGORIES}
-{THUMBNAILS}
+{if isset($FILE_CHRONOLOGY_VIEW) }
+{include file=$FILE_CHRONOLOGY_VIEW}
+{/if}
 
-<!-- BEGIN cat_infos -->
-<!-- BEGIN navigation -->
+{if !empty($CATEGORIES) }{$CATEGORIES}{/if}
+{if !empty($THUMBNAILS) }{$THUMBNAILS}{/if}
+
+
+{if !empty($NAV_BAR) }
 <div class="navigationBar">
-{cat_infos.navigation.NAV_BAR}
+  {$NAV_BAR}
 </div>
-<!-- END navigation -->
-<!-- BEGIN comment -->
-<div class="additional_info">{cat_infos.comment.COMMENTS}</div>
-<!-- END comment -->
-<!-- END cat_infos -->
+{/if}
+
+{if !empty($CONTENT_DESCRIPTION) }
+<div class="additional_info">
+  {$CONTENT_DESCRIPTION}
+</div>
+{/if}
 
 
-{PLUGIN_INDEX_CONTENT_END}
+{if !empty($PLUGIN_INDEX_CONTENT_END) }{$PLUGIN_INDEX_CONTENT_END}{/if}
 </div> <!-- content -->

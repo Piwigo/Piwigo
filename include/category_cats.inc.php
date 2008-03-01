@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -233,12 +233,11 @@ if (count($categories) > 0)
 
       $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
 
-      $template->assign_block_vars(
-        'categories.category',
+      $tpl_var =
         array(
-          'SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
+          'ID'    => $category['id'],
+          'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
           'ALT'   => $category['name'],
-          'TITLE' => l10n('hint_category'),
           'ICON'  => $icon_ts,
 
           'URL'   => make_index_url(
@@ -260,8 +259,7 @@ if (count($categories) > 0)
                 @$category['comment'],
                 'subcatify_category_description')),
           'NAME'  => $name,
-          )
-        );
+          );
 
       if ($conf['display_fromto'])
       {
@@ -286,16 +284,13 @@ if (count($categories) > 0)
                 format_date($to)
                 );
             }
-
-            $template->assign_block_vars(
-              'categories.category.dates',
-              array(
-                'INFO' => $info,
-                )
-              );
+            $tpl_var['INFO_DATES'] = $info;
           }
         }
-      }
+      }//fromto
+      
+      $template->append( 'category_thumbnails', $tpl_var);
+
 
       //plugins need to add/modify sth in this loop ?
       trigger_action('loc_index_category_thumbnail',

@@ -71,16 +71,22 @@ function generate_category_content()
   $view_type = $page['chronology_view'];
   if ($view_type==CAL_VIEW_CALENDAR)
   {
+    global $template;
+    $tpl_var = array();
     if ( count($page['chronology_date'])==0 )
     {//case A: no year given - display all years+months
-      if ($this->build_global_calendar())
+      if ($this->build_global_calendar($tpl_var))
+      {
+        $template->assign('chronology_calendar', $tpl_var);
         return true;
+      }
     }
 
     if ( count($page['chronology_date'])==1 )
     {//case B: year given - display all days in given year
-      if ($this->build_year_calendar())
+      if ($this->build_year_calendar($tpl_var))
       {
+        $template->assign('chronology_calendar', $tpl_var);
         $this->build_nav_bar(CYEAR); // years
         return true;
       }
@@ -88,9 +94,10 @@ function generate_category_content()
 
     if ( count($page['chronology_date'])==2 )
     {//case C: year+month given - display a nice month calendar
-      $this->build_month_calendar();
-      //$this->build_nav_bar(CYEAR); // years
-      //$this->build_nav_bar(CMONTH); // month
+      if ( $this->build_month_calendar($tpl_var) )
+      {
+        $template->assign('chronology_calendar', $tpl_var);
+      }
       $this->build_next_prev();
       return true;
     }
@@ -98,7 +105,6 @@ function generate_category_content()
 
   if ($view_type==CAL_VIEW_LIST or count($page['chronology_date'])==3)
   {
-    $has_nav_bar = false;
     if ( count($page['chronology_date'])==0 )
     {
       $this->build_nav_bar(CYEAR); // years
@@ -213,7 +219,7 @@ function get_all_days_in_month($year, $month)
   return $nb_days;
 }
 
-function build_global_calendar()
+function build_global_calendar(&$tpl_var)
 {
   global $page;
   assert( count($page['chronology_date']) == 0 );
@@ -246,27 +252,27 @@ function build_global_calendar()
     return false;
   }
 
-  global $lang, $template;
+  global $lang;
   foreach ( $items as $year=>$year_data)
   {
     $chronology_date = array( $year );
     $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
-    $nav_bar = '<span class="calCalHead"><a href="'.$url.'">'.$year.'</a>';
-    $nav_bar .= ' ('.$year_data['nb_images'].')';
-    $nav_bar .= '</span><br>';
-
-    $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
+    $nav_bar = $this->get_nav_bar_from_items( $chronology_date,
             $year_data['children'], 'calCal', false, false, $lang['month'] );
 
-    $template->assign_block_vars( 'calendar.calbar',
-         array( 'BAR' => $nav_bar)
-         );
+    $tpl_var['calendar_bars'][] =
+      array(
+        'U_HEAD'  => $url,
+        'NB_IMAGES' => $year_data['nb_images'],
+        'HEAD_LABEL' => $year,
+        'NAV_BAR' => $nav_bar,
+      );
   }
   return true;
 }
 
-function build_year_calendar()
+function build_year_calendar(&$tpl_var)
 {
   global $page;
   assert( count($page['chronology_date']) == 1 );
@@ -296,29 +302,28 @@ function build_year_calendar()
     $page['chronology_date'][CMONTH] = $m;
     return false;
   }
-  global $lang, $template;
+  global $lang;
   foreach ( $items as $month=>$month_data)
   {
     $chronology_date = array( $page['chronology_date'][CYEAR], $month );
     $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
-    $nav_bar = '<span class="calCalHead"><a href="'.$url.'">';
-    $nav_bar .= $lang['month'][$month].'</a>';
-    $nav_bar .= ' ('.$month_data['nb_images'].')';
-    $nav_bar .= '</span><br>';
-
-    $nav_bar .= $this->get_nav_bar_from_items( $chronology_date,
+    $nav_bar = $this->get_nav_bar_from_items( $chronology_date,
                      $month_data['children'], 'calCal', false );
 
-    $template->assign_block_vars( 'calendar.calbar',
-         array( 'BAR' => $nav_bar)
-         );
+    $tpl_var['calendar_bars'][] =
+      array(
+        'U_HEAD'  => $url,
+        'NB_IMAGES' => $month_data['nb_images'],
+        'HEAD_LABEL' => $lang['month'][$month],
+        'NAV_BAR' => $nav_bar,
+      );
   }
   return true;
 
 }
 
-function build_month_calendar()
+function build_month_calendar(&$tpl_var)
 {
   global $page;
   $query='SELECT DISTINCT(DAYOFMONTH('.$this->date_field.')) as period,
@@ -358,7 +363,7 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
     $items[$day]['dow'] = $row['dow'];
   }
 
-  global $lang, $template, $conf;
+  global $lang, $conf;
 
   if ( !empty($items)
       and $conf['calendar_month_cell_width']>0
@@ -389,36 +394,15 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
     $cell_width = $conf['calendar_month_cell_width'];
     $cell_height = $conf['calendar_month_cell_height'];
 
-    $template->set_filenames(
-      array(
-        'month_calendar'=>'month_calendar.tpl',
-        )
-      );
-
-    $template->assign_block_vars('calendar.thumbnails',
-        array(
-           'WIDTH'=>$cell_width,
-           'HEIGHT'=>$cell_height,
-          )
-      );
-
-    //fill the heading with day names
-    $template->assign_block_vars('calendar.thumbnails.head', array());
-    foreach( $wday_labels as $d => $label)
-    {
-      $template->assign_block_vars('calendar.thumbnails.head.col',
-                    array('LABEL'=>$label)
-                  );
-    }
-
-    $template->assign_block_vars('calendar.thumbnails.row', array());
+    $tpl_weeks    = array();
+    $tpl_crt_week = array();
 
     //fill the empty days in the week before first day of this month
     for ($i=0; $i<$first_day_dow; $i++)
     {
-      $template->assign_block_vars('calendar.thumbnails.row.col', array());
-      $template->assign_block_vars('calendar.thumbnails.row.col.blank', array());
+      $tpl_crt_week[] = array();
     }
+
     for ( $day = 1;
           $day <= $this->get_all_days_in_month(
             $page['chronology_date'][CYEAR], $page['chronology_date'][CMONTH]
@@ -428,28 +412,22 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
       $dow = ($first_day_dow + $day-1)%7;
       if ($dow==0 and $day!=1)
       {
-        $template->assign_block_vars('calendar.thumbnails.row', array());
+        $tpl_weeks[]    = $tpl_crt_week; // add finished week to week list
+        $tpl_crt_week   = array(); // start new week
       }
-      $template->assign_block_vars('calendar.thumbnails.row.col', array());
+
       if ( !isset($items[$day]) )
-      {
-        $template->assign_block_vars('calendar.thumbnails.row.col.empty',
-              array('LABEL'=>$day));
+      {// empty day
+        $tpl_crt_week[]   =
+          array(
+              'DAY' => $day
+            );
       }
       else
       {
-/*        // first try to guess thumbnail size
-        if ( !empty($items[$day]['width']) )
-        {
-          $tn_size = get_picture_size(
-                 $items[$day]['width'], $items[$day]['height'],
-                 $conf['tn_width'], $conf['tn_height'] );
-        }
-        else*/
-        {// item not an image (tn is either mime type or an image)
-          $thumb = get_thumbnail_path($items[$day]);
-          $tn_size = @getimagesize($thumb);
-        }
+        $thumb = get_thumbnail_path($items[$day]);
+        $tn_size = @getimagesize($thumb);
+
         $tn_width = $tn_size[0];
         $tn_height = $tn_size[1];
 
@@ -459,21 +437,21 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
         $ratio_w = $tn_width/$cell_width;
         $ratio_h = $tn_height/$cell_height;
 
-
         $pos_top=$pos_left=0;
-        $img_width=$img_height='';
+        $css_style = '';
+
         if ( $ratio_w>1 and $ratio_h>1)
         {// cell completely smaller than the thumbnail so we will let the browser
          // resize the thumbnail
           if ($ratio_w > $ratio_h )
           {// thumbnail ratio compared to cell -> wide format
-            $img_height = 'height="'.$cell_height.'"';
+            $css_style = 'height:'.$cell_height.'px;';
             $browser_img_width = $cell_height*$tn_width/$tn_height;
             $pos_left = ($browser_img_width-$cell_width)/2;
           }
           else
           {
-            $img_width = 'width="'.$cell_width.'"';
+            $css_style = 'width:'.$cell_width.'px;';
             $browser_img_height = $cell_width*$tn_height/$tn_width;
             $pos_top = ($browser_img_height-$cell_height)/2;
           }
@@ -484,7 +462,6 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
           $pos_top = ($tn_height-$cell_height)/2;
         }
 
-        $css_style = '';
         if ( round($pos_left)!=0)
         {
           $css_style.='left:'.round(-$pos_left).'px;';
@@ -505,64 +482,32 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
           );
         $alt = $wday_labels[$dow] . ' ' . $day.
                ' ('.sprintf("%d ".l10n('pictures'), $items[$day]['nb_images']).')';
-        $template->assign_block_vars('calendar.thumbnails.row.col.full',
-              array(
-                'LABEL'     => $day,
-                'IMAGE'     => $items[$day]['tn_url'],
-                'U_IMG_LINK'=> $url,
-                'STYLE'     => $css_style,
-                'IMG_WIDTH' => $img_width,
-                'IMG_HEIGHT'=> $img_height,
-                'IMAGE_ALT' => $alt,
-              )
+
+        $tpl_crt_week[]   =
+          array(
+              'DAY' => $day,
+              'IMAGE'     => $items[$day]['tn_url'],
+              'U_IMG_LINK'=> $url,
+              'IMAGE_STYLE'     => $css_style,
+              'IMAGE_ALT' => $alt,
             );
       }
     }
     //fill the empty days in the week after the last day of this month
     while ( $dow<6 )
     {
-      $template->assign_block_vars('calendar.thumbnails.row.col', array());
-      $template->assign_block_vars('calendar.thumbnails.row.col.blank', array());
+      $tpl_crt_week[] = array();
       $dow++;
     }
-    $template->assign_var_from_handle('MONTH_CALENDAR', 'month_calendar');
-  }
-  else
-  {
-    $template->assign_block_vars('thumbnails', array());
-    $template->assign_block_vars('thumbnails.line', array());
-    foreach ( $items as $day=>$data)
-    {
-      $url = duplicate_index_url(
-          array(
-            'chronology_date' =>
-              array(
-                $page['chronology_date'][CYEAR],
-                $page['chronology_date'][CMONTH],
-                $day
-              )
-          )
-        );
+    $tpl_weeks[]    = $tpl_crt_week;
 
-      $thumbnail_title = $lang['day'][$data['dow']] . ' ' . $day;
-      $name = $thumbnail_title .' ('.$data['nb_images'].')';
-
-      $template->assign_block_vars(
-          'thumbnails.line.thumbnail',
-          array(
-            'IMAGE'=>$data['tn_url'],
-            'IMAGE_ALT'=>$data['file'],
-            'IMAGE_TITLE'=>$thumbnail_title,
-            'U_IMG_LINK'=>$url
-           )
+    $tpl_var['month_view'] =
+        array(
+           'CELL_WIDTH'   => $cell_width,
+           'CELL_HEIGHT' => $cell_height,
+           'wday_labels' => $wday_labels,
+           'weeks' => $tpl_weeks,
           );
-      $template->assign_block_vars(
-          'thumbnails.line.thumbnail.category_name',
-          array(
-            'NAME' => $name
-            )
-          );
-    }
   }
 
   return true;

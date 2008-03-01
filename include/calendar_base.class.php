@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -35,8 +35,6 @@ class CalendarBase
   //
   var $calendar_levels;
 
-  var $has_nav_bar;
-
   /**
    * Initialize the calendar
    * @param string inner_sql used for queries (INNER JOIN or normal)
@@ -53,7 +51,6 @@ class CalendarBase
       $this->date_field = 'date_creation';
     }
     $this->inner_sql = $inner_sql;
-    $this->has_nav_bar = false;
   }
 
   function get_display_name()
@@ -262,13 +259,12 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
       isset($labels) ? $labels : $this->calendar_levels[$level]['labels']
       );
 
-    $template->assign_block_vars(
-      'calendar.navbar',
+    $template->append(
+      'chronology_navigation_bars',
       array(
-        'BAR' => $nav_bar,
+        'CONTENT' => $nav_bar,
         )
       );
-    $this->has_nav_bar = true;
   }
 
   /**
@@ -311,39 +307,46 @@ GROUP BY period';
     }
     $current_rank = $upper_items_rank[$current];
 
-    if (!$this->has_nav_bar and
-        ($current_rank>0 or $current_rank < count($upper_items)-1 ) )
-    {
-      $template->assign_block_vars( 'calendar.navbar', array() );
-    }
-
+    $tpl_var = array();
+    
     if ( $current_rank>0 )
     { // has previous
       $prev = $upper_items[$current_rank-1];
       $chronology_date = explode('-', $prev);
-      $template->assign_block_vars(
-        'calendar.navbar.prev',
+      $tpl_var['previous'] =
         array(
           'LABEL' => $this->get_date_nice_name($prev),
           'URL' => duplicate_index_url(
                 array('chronology_date'=>$chronology_date), array('start')
                 )
-          )
         );
     }
+    
     if ( $current_rank < count($upper_items)-1 )
     { // has next
       $next = $upper_items[$current_rank+1];
       $chronology_date = explode('-', $next);
-      $template->assign_block_vars(
-        'calendar.navbar.next',
+      $tpl_var['next'] =
         array(
           'LABEL' => $this->get_date_nice_name($next),
           'URL' => duplicate_index_url(
                 array('chronology_date'=>$chronology_date), array('start')
                 )
-          )
         );
+    }
+    
+    if ( !empty($tpl_var) )
+    {
+      $existing = & $template->get_template_vars('chronology_navigation_bars');
+      if ( !empty($existing) )
+      {
+        $existing[ sizeof($existing)-1 ] =
+          array_merge( $existing[ sizeof($existing)-1 ], $tpl_var);
+      }
+      else
+      {
+        $template->append( 'chronology_navigation_bars', $tpl_var );
+      }
     }
   }
 }

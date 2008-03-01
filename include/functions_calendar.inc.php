@@ -200,6 +200,9 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       $page['items'] = array();
       $must_show_list = false;
     }
+    
+    $page['comment'] = '';
+    $template->assign('FILE_CHRONOLOGY_VIEW', 'month_calendar.tpl');
 
     foreach ($styles as $style => $style_data)
     {
@@ -207,7 +210,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       {
         if ( $style_data['view_calendar'] or $view != CAL_VIEW_CALENDAR)
         {
-          $selected = '';
+          $selected = false;
 
           if ($style!=$cal_style)
           {
@@ -231,11 +234,11 @@ WHERE id IN (' . implode(',',$page['items']) .')';
 
           if ($style==$cal_style and $view==$page['chronology_view'] )
           {
-            $selected = 'SELECTED';
+            $selected = true;
           }
 
-          $template->assign_block_vars(
-            'calendar.views.view',
+          $template->append(
+            'chronology_views',
             array(
               'VALUE' => $url,
               'CONTENT' => l10n('chronology_'.$style.'_'.$view),
@@ -251,7 +254,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
     $calendar_title = '<a href="'.$url.'">'
         .$fields[$page['chronology_field']]['label'].'</a>';
     $calendar_title.= $calendar->get_display_name();
-    $template->merge_block_vars('calendar',
+    $template->assign('chronology',
         array(
           'TITLE' => $calendar_title
         )

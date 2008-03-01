@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -36,18 +36,12 @@ $template->set_filenames(
 
 trigger_action('loc_begin_menubar');
 
-$template->assign_vars(
+$template->assign(
   array(
     'NB_PICTURE' => $user['nb_total_images'],
-    'USERNAME' => $user['username'],
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
-    'F_IDENTIFY' => get_root_url().'identification.php',
     'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
-    'U_REGISTER' => get_root_url().'register.php',
     'U_LOST_PASSWORD' => get_root_url().'password.php',
-    'U_LOGOUT' => get_root_url().'?act=logout',
-    'U_ADMIN'=> get_root_url().'admin.php',
-    'U_PROFILE'=> get_root_url().'profile.php',
     )
   );
 
@@ -59,30 +53,27 @@ foreach ($conf['links'] as $url => $url_data)
     $url_data = array('label' => $url_data);
   }
 
-  if 
+  if
     (
       (!isset($url_data['eval_visible']))
       or
       (eval($url_data['eval_visible']))
     )
   {
-    $template->assign_block_vars(
-      'links.link',
-      array(
+    $tpl_var = array(
         'URL' => $url,
         'LABEL' => $url_data['label']
-        )
       );
+
     if (!isset($url_data['new_window']) or $url_data['new_window'])
     {
-      $template->assign_block_vars(
-        'links.link.new_window', 
+      $tpl_var['new_window'] =
         array(
-          'name' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
-          'features' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
-          )
+          'NAME' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
+          'FEATURES' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
         );
     }
+    $template->append('links', $tpl_var);
   }
 }
 
@@ -91,26 +82,22 @@ if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
 {
   if ($filter['enabled'])
   {
-    $template->assign_block_vars(
-      'stop_filter',
-      array(
-        'URL' => add_url_params(make_index_url(array()), array('filter' => 'stop'))
-        )
+    $template->assign(
+      'U_STOP_FILTER',
+      add_url_params(make_index_url(array()), array('filter' => 'stop'))
       );
   }
   else
   {
-    $template->assign_block_vars(
-      'start_filter',
-      array(
-        'URL' => add_url_params(make_index_url(array()), array('filter' => 'start-recent-'.$user['recent_period']))
-        )
+    $template->assign(
+      'U_START_FILTER',
+      add_url_params(make_index_url(array()), array('filter' => 'start-recent-'.$user['recent_period']))
       );
   }
 }
 
 //------------------------------------------------------------------------ tags
-if ('tags' == $page['section'])
+if ('tags' == @$page['section'])
 {
   // display tags associated to currently tagged items, less current tags
   $tags = array();
@@ -124,10 +111,10 @@ if ('tags' == $page['section'])
 
   foreach ($tags as $tag)
   {
-    $template->assign_block_vars(
-      'tags.tag',
+    $template->append(
+      'related_tags',
       array(
-        'URL' => make_index_url(
+        'U_TAG' => make_index_url(
           array(
             'tags' => array($tag)
             )
@@ -135,40 +122,30 @@ if ('tags' == $page['section'])
 
         'NAME' => $tag['name'],
 
-        'TITLE' => l10n('See pictures linked to this tag only'),
+        'CLASS' => 'tagLevel'.$tag['level'],
 
-        'CLASS' => 'tagLevel'.$tag['level']
-        )
-      );
+        'add' => array(
 
-    $template->assign_block_vars(
-      'tags.tag.add',
-      array(
-        'URL' => make_index_url(
-          array(
-            'tags' => array_merge(
-              $page['tags'],
-              array($tag)
-              )
+            'URL' => make_index_url(
+              array(
+                'tags' => array_merge(
+                  $page['tags'],
+                  array($tag)
+                  )
+                )
+              ),
+            'COUNTER' => $tag['counter'],
             )
-          ),
-        'TITLE' => l10n_dec(
-            '%d picture are also linked to current tags',
-            '%d pictures are also linked to current tags',
-            $tag['counter']),
         )
       );
-
   }
 }
 //---------------------------------------------------------- special categories
 // favorites categories
 if ( !is_a_guest() )
 {
-  $template->assign_block_vars('username', array());
-
-  $template->assign_block_vars(
-    'special_cat',
+  $template->append(
+    'special_categories',
     array(
       'URL' => make_index_url(array('section' => 'favorites')),
       'TITLE' => l10n('favorite_cat_hint'),
@@ -176,8 +153,8 @@ if ( !is_a_guest() )
       ));
 }
 // most visited
-$template->assign_block_vars(
-  'special_cat',
+$template->append(
+  'special_categories',
   array(
     'URL' => make_index_url(array('section' => 'most_visited')),
     'TITLE' => l10n('most_visited_cat_hint'),
@@ -186,8 +163,8 @@ $template->assign_block_vars(
 // best rated
 if ($conf['rate'])
 {
-  $template->assign_block_vars(
-    'special_cat',
+  $template->append(
+    'special_categories',
     array(
       'URL' => make_index_url(array('section' => 'best_rated')),
       'TITLE' => l10n('best_rated_cat_hint'),
@@ -196,8 +173,8 @@ if ($conf['rate'])
     );
 }
 // random
-$template->assign_block_vars(
-  'special_cat',
+$template->append(
+  'special_categories',
   array(
     'URL' => get_root_url().'random.php',
     'TITLE' => l10n('random_cat_hint'),
@@ -206,16 +183,16 @@ $template->assign_block_vars(
     ));
 
 // recent pics
-$template->assign_block_vars(
-  'special_cat',
+$template->append(
+  'special_categories',
   array(
     'URL' => make_index_url(array('section' => 'recent_pics')),
     'TITLE' => l10n('recent_pics_cat_hint'),
     'NAME' => l10n('recent_pics_cat'),
     ));
 // recent cats
-$template->assign_block_vars(
-  'special_cat',
+$template->append(
+  'special_categories',
   array(
     'URL' => make_index_url(array('section' => 'recent_cats')),
     'TITLE' => l10n('recent_cats_cat_hint'),
@@ -223,8 +200,8 @@ $template->assign_block_vars(
     ));
 
 // calendar
-$template->assign_block_vars(
-  'special_cat',
+$template->append(
+  'special_categories',
   array(
     'URL' =>
       make_index_url(
@@ -244,44 +221,43 @@ $template->assign_block_vars(
 
 if (is_a_guest())
 {
-  $template->assign_block_vars('login', array());
+  $template->assign(
+      array(
+        'U_IDENTIFY' => get_root_url().'identification.php',
+        'AUTHORIZE_REMEMBERING' => $conf['authorize_remembering']
+      )
+    );
 
-  $template->assign_block_vars('quickconnect', array());
-  if ($conf['authorize_remembering'])
-  {
-    $template->assign_block_vars('quickconnect.remember_me', array());
-  }
   if ($conf['allow_user_registration'])
   {
-    $template->assign_block_vars('register', array());
-    $template->assign_block_vars('quickconnect.register', array());
+    $template->assign( 'U_REGISTER', get_root_url().'register.php');
   }
 }
 else
 {
-  $template->assign_block_vars('hello', array());
+  $template->assign('USERNAME', $user['username']);
 
   if (is_autorize_status(ACCESS_CLASSIC))
   {
-    $template->assign_block_vars('profile', array());
+    $template->assign('U_PROFILE', get_root_url().'profile.php');
   }
 
   // the logout link has no meaning with Apache authentication : it is not
   // possible to logout with this kind of authentication.
   if (!$conf['apache_authentication'])
   {
-    $template->assign_block_vars('logout', array());
+    $template->assign('U_LOGOUT', get_root_url().'?act=logout');
   }
 
   if (is_admin())
   {
-    $template->assign_block_vars('admin', array());
+    $template->assign('U_ADMIN', get_root_url().'admin.php');
   }
 }
 
 // tags link
-$template->assign_block_vars(
-  'summary',
+$template->append(
+  'summaries',
   array(
     'TITLE' => l10n('See available tags'),
     'NAME' => l10n('Tags'),
@@ -290,8 +266,8 @@ $template->assign_block_vars(
   );
 
 // search link
-$template->assign_block_vars(
-  'summary',
+$template->append(
+  'summaries',
   array(
     'TITLE'=>l10n('hint_search'),
     'NAME'=>l10n('search'),
@@ -299,11 +275,10 @@ $template->assign_block_vars(
     'REL'=> 'rel="search"'
     )
   );
-$template->assign_block_vars( 'summary.quick_search',  array() );
 
 // comments link
-$template->assign_block_vars(
-  'summary',
+$template->append(
+  'summaries',
   array(
     'TITLE'=>l10n('hint_comments'),
     'NAME'=>l10n('comments'),
@@ -312,8 +287,8 @@ $template->assign_block_vars(
   );
 
 // about link
-$template->assign_block_vars(
-  'summary',
+$template->append(
+  'summaries',
   array(
     'TITLE'     => l10n('about_page_title'),
     'NAME'      => l10n('About'),
@@ -322,8 +297,8 @@ $template->assign_block_vars(
   );
 
 // notification
-$template->assign_block_vars(
-  'summary',
+$template->append(
+  'summaries',
   array(
     'TITLE'=>l10n('RSS feed'),
     'NAME'=>l10n('Notification'),
@@ -335,12 +310,7 @@ $template->assign_block_vars(
 if (isset($page['category']) and $page['category']['uploadable'] )
 { // upload a picture in the category
   $url = get_root_url().'upload.php?cat='.$page['category']['id'];
-  $template->assign_block_vars(
-    'upload',
-    array(
-      'U_UPLOAD'=> $url
-      )
-    );
+  $template->assign('U_UPLOAD', $url);
 }
 
 trigger_action('loc_end_menubar');
