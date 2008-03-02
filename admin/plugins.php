@@ -151,26 +151,26 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
         }
       }
         break;
-			
+      
     case 'delete':
-			if (!pm_deltree(PHPWG_PLUGINS_PATH . $plugin_id))
+      if (!deltree(PHPWG_PLUGINS_PATH . $plugin_id))
       {
-        send_pm_trash(PHPWG_PLUGINS_PATH . $plugin_id);
+        send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
       }
       break;
   }
   if (empty($errors))
-	{
-		$my_base_url .= isset($_GET['upgrade']) ?
+  {
+    $my_base_url .= isset($_GET['upgrade']) ?
       '&plugin='.$plugin_id.'&upgrade='.$_GET['upgrade'].'&reactivate=true':'';
 
-		$my_base_url .= isset($_GET['upgradestatus']) ?
+    $my_base_url .= isset($_GET['upgradestatus']) ?
       '&plugin='.$plugin_id.'&upgradestatus='.$_GET['upgradestatus']:'';
 
-		redirect($my_base_url);
+    redirect($my_base_url);
     }
-	else
-	{
+  else
+  {
     $page['errors'] = array_merge($page['errors'], $errors);
   }
 }

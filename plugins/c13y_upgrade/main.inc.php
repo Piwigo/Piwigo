@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Check upgrades
-Version:
+Version: 1.8
 Description: Check integrity of upgrades / Contrôle d'intégrité des mises à jour
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team

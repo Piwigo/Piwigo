@@ -1,6 +1,6 @@
 <?php /*
 Plugin Name: Event tracer
-Version: 1.0
+Version: 1.8
 Description: For developers. Shows all calls to trigger_event.
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team

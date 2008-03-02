@@ -80,7 +80,7 @@ foreach($fs_plugins as $plugin_id => $fs_plugin)
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc);
 
-	$action_url = htmlentities($my_base_url) . '&amp;plugin=' . $plugin_id;
+  $action_url = htmlentities($my_base_url) . '&amp;plugin=' . $plugin_id;
 
   if (isset($db_plugins_by_id[$plugin_id]))
   { 
@@ -109,7 +109,7 @@ foreach($fs_plugins as $plugin_id => $fs_plugin)
         array('U_ACTION' => $action_url . '&amp;action=install',
               'L_ACTION' => l10n('Install'),
               'CONFIRM' => l10n('Are you sure?'));
-	  $tpl_plugin['actions'][] = 
+    $tpl_plugin['actions'][] = 
         array('U_ACTION' => $action_url . '&amp;action=delete',
                 'L_ACTION' => l10n('plugins_delete'),
                 'CONFIRM' => l10n('plugins_confirm_delete'));

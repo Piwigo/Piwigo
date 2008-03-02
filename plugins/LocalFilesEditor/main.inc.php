@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: LocalFiles Editor
-Version: 1.0
-Description: Edit local files from administration panel
-Plugin URI: http://www.phpwebgallery.net
+Version: 1.8
+Description: Edit local files from administration panel / Editeur de fichiers locaux
+Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=144
 Author: PhpWebGallery team
 Author URI: http://www.phpwebgallery.net
 */

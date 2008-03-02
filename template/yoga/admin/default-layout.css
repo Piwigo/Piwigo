@@ -200,10 +200,10 @@ UL.tabsheet LI {
 }
 
 UL.tabsheet LI.selected_tab {
-	font-weight: bold;
-	position: relative;
-	top: 1px;
-	padding-top: 4px;
+  font-weight: bold;
+  position: relative;
+  top: 1px;
+  padding-top: 4px;
 }
 
 .over{

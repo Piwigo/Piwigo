@@ -34,46 +34,46 @@ $template->set_filenames(array('plugins' => 'admin/plugins_update.tpl'));
 //-----------------------------------------------------------automatic upgrade
 if (isset($_GET['upgrade']) and isset($_GET['plugin']) and !is_adviser())
 {
-	include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
+  include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
 
-	$upgrade_status  = extract_plugin_files('upgrade',
-											$_GET['upgrade'],
-											$_GET['plugin']);
+  $upgrade_status  = extract_plugin_files('upgrade',
+                      $_GET['upgrade'],
+                      $_GET['plugin']);
 
-	$my_base_url .= isset($_GET['reactivate']) ? '&action=activate' : '';
+  $my_base_url .= isset($_GET['reactivate']) ? '&action=activate' : '';
 
-	redirect($my_base_url.'&plugin='.$_GET['plugin'].'&upgradestatus='.$upgrade_status);
+  redirect($my_base_url.'&plugin='.$_GET['plugin'].'&upgradestatus='.$upgrade_status);
 }
 
 
 //--------------------------------------------------------------upgrade result
 if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 {
-	switch ($_GET['upgradestatus'])
-	{
-	case 'ok':
-		array_push($page['infos'],
+  switch ($_GET['upgradestatus'])
+  {
+  case 'ok':
+    array_push($page['infos'],
                sprintf(l10n('plugins_upgrade_ok'),
                $fs_plugins[$_GET['plugin']]['name']));
-		break;
+    break;
 
-	case 'temp_path_error':
-		array_push($page['errors'], l10n('plugins_temp_path_error'));	
-		break;
-	
-	case 'dl_archive_error':
-		array_push($page['errors'], l10n('plugins_dl_archive_error'));	
-		break;
+  case 'temp_path_error':
+    array_push($page['errors'], l10n('plugins_temp_path_error'));  
+    break;
+  
+  case 'dl_archive_error':
+    array_push($page['errors'], l10n('plugins_dl_archive_error'));  
+    break;
 
-	case 'archive_error':
-		array_push($page['errors'], l10n('plugins_archive_error'));	
-		break;
+  case 'archive_error':
+    array_push($page['errors'], l10n('plugins_archive_error'));  
+    break;
 
-	default:
-		array_push($page['errors'],
+  default:
+    array_push($page['errors'],
                sprintf(l10n('plugins_extract_error'),
-               $_GET['upgradestatus']));	
-	}
+               $_GET['upgradestatus']));  
+  }
 }
 
 
@@ -84,75 +84,75 @@ $plugins_infos = check_server_plugins();
 
 if ($plugins_infos !== false)
 {
-	foreach($fs_plugins as $plugin_id => $fs_plugin)
-	{
-		if (isset($fs_plugin['extension'])
+  foreach($fs_plugins as $plugin_id => $fs_plugin)
+  {
+    if (isset($fs_plugin['extension'])
       and isset($plugins_infos[$fs_plugin['extension']]))
-		{
-			$plugin_info = $plugins_infos[$fs_plugin['extension']];
-			
-			$ext_desc = nl2br(htmlspecialchars(strip_tags(
+    {
+      $plugin_info = $plugins_infos[$fs_plugin['extension']];
+      
+      $ext_desc = nl2br(htmlspecialchars(strip_tags(
                     utf8_encode($plugin_info['ext_description']))));
-			
-			$ver_desc = sprintf(l10n('plugins_description'),
-							$plugin_info['version'],
-							date('Y-m-d', $plugin_info['date']),
-							nl2br(htmlspecialchars(strip_tags(
+      
+      $ver_desc = sprintf(l10n('plugins_description'),
+              $plugin_info['version'],
+              date('Y-m-d', $plugin_info['date']),
+              nl2br(htmlspecialchars(strip_tags(
                 utf8_encode($plugin_info['description'])))));
-		
-			if ($plugin_info['version'] == $fs_plugin['version'])
-			{
-				// Plugin is up to date
-				$template->append('plugins_uptodate',
-							array('URL' => $fs_plugin['uri'],
-								'NAME' => $fs_plugin['name'],
-								'EXT_DESC' => $ext_desc,
-								'VERSION' => $fs_plugin['version'],
-								'VER_DESC' => $ver_desc));
-			}
-			else
-			{
-				// Plugin need upgrade
-				$url_auto_update = htmlentities($my_base_url)
-					. '&amp;plugin=' . $plugin_id
-					. (
+    
+      if ($plugin_info['version'] == $fs_plugin['version'])
+      {
+        // Plugin is up to date
+        $template->append('plugins_uptodate',
+              array('URL' => $fs_plugin['uri'],
+                'NAME' => $fs_plugin['name'],
+                'EXT_DESC' => $ext_desc,
+                'VERSION' => $fs_plugin['version'],
+                'VER_DESC' => $ver_desc));
+      }
+      else
+      {
+        // Plugin need upgrade
+        $url_auto_update = htmlentities($my_base_url)
+          . '&amp;plugin=' . $plugin_id
+          . (
               (isset($db_plugins_by_id[$plugin_id]) 
                 and $db_plugins_by_id[$plugin_id]['state'] == 'active' 
                 and $plugin_id != PLUGINSMANAGER_DIR) ? 
                   '&amp;action=deactivate' : ''
             )
-					. '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
-					. '%2Frevision-' . $plugin_info['id_revision']
+          . '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
+          . '%2Frevision-' . $plugin_info['id_revision']
           . '%2F' . $plugin_info['url'];
-				
-				$url_download = PEM_URL.'/upload/extension-'. $fs_plugin['extension']
-						. '/revision-' . $plugin_info['id_revision']
-						. '/' . $plugin_info['url'];
-							
-				$template->append('plugins_not_uptodate',
-					array('EXT_NAME' => $fs_plugin['name'],
-						'EXT_URL' => $fs_plugin['uri'],
-						'EXT_DESC' => $ext_desc,
-						'VERSION' => $fs_plugin['version'],
-						'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin_info['id_revision'],
-						'NEW_VERSION' => $plugin_info['version'],
-						'NEW_VER_DESC' => $ver_desc,
-						'URL_UPDATE' => $url_auto_update,
-						'URL_DOWNLOAD' => $url_download));
-			}
-		}
-		else 
-		{
-			// Can't check plugin
-			$template->append('plugins_cant_check',
-					array('NAME' => $fs_plugin['name'],
-						'VERSION' => $fs_plugin['version']));
-		}
-	}
+        
+        $url_download = PEM_URL.'/upload/extension-'. $fs_plugin['extension']
+            . '/revision-' . $plugin_info['id_revision']
+            . '/' . $plugin_info['url'];
+              
+        $template->append('plugins_not_uptodate',
+          array('EXT_NAME' => $fs_plugin['name'],
+            'EXT_URL' => $fs_plugin['uri'],
+            'EXT_DESC' => $ext_desc,
+            'VERSION' => $fs_plugin['version'],
+            'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin_info['id_revision'],
+            'NEW_VERSION' => $plugin_info['version'],
+            'NEW_VER_DESC' => $ver_desc,
+            'URL_UPDATE' => $url_auto_update,
+            'URL_DOWNLOAD' => $url_download));
+      }
+    }
+    else 
+    {
+      // Can't check plugin
+      $template->append('plugins_cant_check',
+          array('NAME' => $fs_plugin['name'],
+            'VERSION' => $fs_plugin['version']));
+    }
+  }
 }
 else
 {
-	array_push($page['errors'], l10n('plugins_server_error'));
+  array_push($page['errors'], l10n('plugins_server_error'));
 }
 
 ?>

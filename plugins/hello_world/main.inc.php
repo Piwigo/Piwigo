@@ -1,6 +1,6 @@
 <?php /*
 Plugin Name: Hello World
-Version: 1.0
+Version: 1.8
 Description: This example plugin changes the page banner for the administration page.
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team

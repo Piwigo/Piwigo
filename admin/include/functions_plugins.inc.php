@@ -182,18 +182,24 @@ function extract_plugin_files($action, $source, $dest)
         {
           // we search main.inc.php in archive
           if (basename($file['filename']) == 'main.inc.php'
-            and (!isset($main_filepath) or strlen($file['filename']) < strlen($main_filepath)))
+            and (!isset($main_filepath)
+            or strlen($file['filename']) < strlen($main_filepath)))
           {
             $main_filepath = $file['filename'];
           }
         }
-      
         if (isset($main_filepath))
         {
           $root = dirname($main_filepath); // main.inc.php path in archive
-          if ($action == 'upgrade') $extract_path = PHPWG_PLUGINS_PATH . $dest;
-          else $extract_path = PHPWG_PLUGINS_PATH . ($root == '.' ? 'extension_' . $dest : basename($root));
-        
+          if ($action == 'upgrade')
+          {          
+            $extract_path = PHPWG_PLUGINS_PATH.$dest;
+          }
+          else
+          {
+            $extract_path = PHPWG_PLUGINS_PATH 
+                . ($root == '.' ? 'extension_' . $dest : basename($root));
+          }
           if($result = $zip->extract(PCLZIP_OPT_PATH, $extract_path,
                                      PCLZIP_OPT_REMOVE_PATH, $root,
                                      PCLZIP_OPT_REPLACE_NEWER))
@@ -226,7 +232,7 @@ function extract_plugin_files($action, $source, $dest)
  * delete $path directory
  * @param string - path
  */
-function pm_deltree($path)
+function deltree($path)
 {
   if (is_dir($path))
   {
@@ -236,8 +242,14 @@ function pm_deltree($path)
       if ($file != '.' and $file != '..')
       {
         $pathfile = $path . '/' . $file;
-        if (is_dir($pathfile)) pm_deltree($pathfile);
-        else @unlink($pathfile);
+        if (is_dir($pathfile))
+        {
+          deltree($pathfile);
+        }
+        else
+        {
+          @unlink($pathfile);
+        }
       }
     }
     closedir($fh);
@@ -250,7 +262,7 @@ function pm_deltree($path)
  * send $path to trash directory
   * @param string - path
  */
-function send_pm_trash($path)
+function send_to_trash($path)
 {
   $trash_path = PHPWG_PLUGINS_PATH . 'trash';
   if (!is_dir($trash_path))

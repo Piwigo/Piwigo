@@ -1,8 +1,8 @@
 <?php /*
 Plugin Name: Language Switch
-Version: 1.0
+Version: 1.8
 Description: Switch to another language from flags on your gallery home page.
-Plugin URI: http://www.phpwebgallery.net
+Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=123
 Author: PhpWebGallery team
 Author URI: http://www.phpwebgallery.net
 */

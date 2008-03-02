@@ -1,6 +1,6 @@
 <?php /*
 Plugin Name: Admin Advices
-Version: 1.0
+Version: 1.8
 Description: Give you an advice on the administration page.
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team

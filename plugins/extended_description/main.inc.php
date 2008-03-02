@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Extended Description
-Version: 1.8.a
+Version: 1.8
 Description: Allow multilanguage description / Permet d'avoir des descriptions mutilingues
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=175
 Author: PhpWebGallery team
