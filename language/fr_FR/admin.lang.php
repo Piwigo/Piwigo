@@ -661,4 +661,30 @@ $lang['c13y_ignore_msg2'] = 'La correction de l\'anomalie annulera le fait qu\'e
 $lang['c13y_anomaly_ignored_count'] = '%d anomalie a été ignorée.';
 $lang['c13y_anomalies_ignored_count'] = '%d anomalies ont été ignorées.';
 
+$lang['plugins_need_update'] = 'Plugins necessitant une mise à jour';
+$lang['plugins_dontneed_update'] = 'Plugins à jour';
+$lang['plugins_cant_check'] = 'Impossible de vérifier les plugins suivant';
+$lang['plugins_actual_version'] = 'Version<br>actuelle';
+$lang['plugins_new_version'] = 'Version<br>disponible';
+$lang['plugins_auto_update'] = 'Mise à jour automatique';
+$lang['plugins_auto_install'] = 'Installation automatique';
+$lang['plugins_download'] = 'Télécharger le fichier';
+$lang['plugins_description'] = '<b>Version:</b> %s<br><br><b>Date:</b> %s<br><br>%s';
+$lang['plugins_tab_list'] = 'Liste des plugins';
+$lang['plugins_tab_update'] = 'Vérifier les mises à jour';
+$lang['plugins_tab_new'] = 'Autres plugins disponibles';
+$lang['plugins_delete'] = 'Supprimer';
+$lang['plugins_confirm_install'] = 'Etes-vous sûr de vouloir installer ce plugin?';
+$lang['plugins_confirm_delete'] = 'Etes-vous sûr de vouloir supprimer ce plugin?';
+$lang['plugins_confirm_upgrade'] = 'Etes-vous sur de vouloir installer cette mise à jour? Vous devez vérifiez que cette mise à jour ne nécessite pas de désinstallation.';
+$lang['plugins_upgrade_ok'] = '%s a été mis à jour avec succès.';
+$lang['plugins_install_ok'] = 'Le plugin a été copié avec succès.';
+$lang['plugins_install_need_activate'] = 'Rendez-vous dans la liste des plugins pour l\'installer et l\'activer.';
+$lang['plugins_temp_path_error'] = 'Impossible de créer un fichier temporaire.';
+$lang['plugins_dl_archive_error'] = 'Impossible de récupérer l\'archive.';
+$lang['plugins_archive_error'] = 'Impossible de lire ou d\'extraire l\'archive.';
+$lang['plugins_extract_error'] = 'Une erreur est survenue pendant l\'extraction des fichiers (%s).';
+$lang['plugins_check_chmod'] = 'Vérifiez les permissions du dossier "plugins" et de ses sous-dossiers (CHMOD).';
+$lang['plugins_server_error'] = 'Impossible de se connecter au serveur.';
+
 ?>

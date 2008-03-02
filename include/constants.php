@@ -28,6 +28,7 @@
 define('PHPWG_VERSION', 'Butterfly');
 define('PHPWG_DOMAIN', 'phpwebgallery.net');
 define('PHPWG_URL', 'http://www.'.PHPWG_DOMAIN);
+define('PEM_URL', PHPWG_URL . '/ext');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'yoga/clear');
 

@@ -659,4 +659,30 @@ $lang['c13y_ignore_msg2'] = 'Correction the anomaly will cancel the fact that it
 $lang['c13y_anomaly_ignored_count'] = '%d anomaly has been ignored.';
 $lang['c13y_anomalies_ignored_count'] = '%d anomalies has been ignored.';
 
+$lang['plugins_need_update'] = 'Plugins which need upgrade';
+$lang['plugins_dontneed_update'] = 'Plugins up to date';
+$lang['plugins_cant_check'] = 'Plugin versions can\'t be checked';
+$lang['plugins_actual_version'] = 'Current<br>version';
+$lang['plugins_new_version'] = 'Available<br>version';
+$lang['plugins_auto_update'] = 'Automatic upgrade';
+$lang['plugins_auto_install'] = 'Automatic installation';
+$lang['plugins_download'] = 'Download file';
+$lang['plugins_description'] = '<b>Version:</b> %s<br><br><b>Date:</b> %s<br><br>%s';
+$lang['plugins_tab_list'] = 'Plugins list';
+$lang['plugins_tab_update'] = 'Check for updates';
+$lang['plugins_tab_new'] = 'Other plugins';
+$lang['plugins_delete'] = 'Delete';
+$lang['plugins_confirm_delete'] = 'Are you sure you want to delete this plugin?';
+$lang['plugins_confirm_install'] = 'Are you sure you want to install this plugin?';
+$lang['plugins_confirm_upgrade'] = 'Are you sur to install this upgrade? You must verify if this version does not need uninstallation.';
+$lang['plugins_upgrade_ok'] = '%s has been successfully upgraded.';
+$lang['plugins_install_ok'] = 'Plugin has been successfully copied';
+$lang['plugins_install_need_activate'] = 'You might go to plugin list to install and activate it.';
+$lang['plugins_temp_path_error'] = 'Can\'t create temporary file.';
+$lang['plugins_dl_archive_error'] = 'Can\'t download archive.';
+$lang['plugins_archive_error'] = 'Can\'t read or extract archive.';
+$lang['plugins_extract_error'] = 'An error occured during extraction (%s).';
+$lang['plugins_check_chmod'] = 'Please check "plugins" folder and sub-folders permissions (CHMOD).';
+$lang['plugins_server_error'] = 'Can\'t connect to server.';
+
 ?>

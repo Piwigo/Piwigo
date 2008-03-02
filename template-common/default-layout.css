@@ -49,3 +49,34 @@ BODY#theAdminPage #content {
   display: block;	/* display: none; if you don't want legend */
   height: 4em;		/* legend height (don't set auto to be Gecko friendly)*/
 }
+
+/* Tooltips*/
+.tooltip {
+   position: relative;
+}
+
+.tooltip span {
+   display: none;
+}
+
+.tooltip:hover {
+	cursor: pointer;
+	z-index: 500;
+}
+
+.tooltip:hover span {
+	display: inline;
+	position: absolute;
+	top: 30px;
+	left: -50px;
+	width: 400px;
+
+	font-size: 11px;
+	text-decoration: none;
+	text-align: justify;
+	background-color: #FFFFCC;
+	color: #444444;
+	
+	padding: 10px;
+	border: 1px solid Black;
+}
