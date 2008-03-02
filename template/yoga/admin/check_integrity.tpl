@@ -1,81 +1,82 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <dl>
-  <dt>{lang:c13y_title}</dt>
+  <dt>{'c13y_title'|@translate}</dt>
   <dd>
     <ul>
-      <form method="post" name="c13y" id="c13y" action="{F_c13y_ACTION}">
+      <form method="post" name="c13y" id="c13y" action="{$F_C13Y_ACTION}">
       <fieldset>
         <table class="table2">
           <tr class="throw">
             <th></th>
-            <th>{lang:c13y_Anomaly}</th>
-            <th>{lang:c13y_Correction}</th>
+            <th>{'c13y_Anomaly'|@translate}</th>
+            <th>{'c13y_Correction'|@translate}</th>
           </tr>
-          <!-- BEGIN c13y -->
-          <tr class="{c13y.CLASS}">
-            <td>
-              <!-- BEGIN can_select -->
-              <input type="checkbox" name="c13y_selection[]" value="{c13y.ID}" {c13y.CHECKED} id="c13y_selection-{c13y.ID}" /><label for="c13y_selection-{c13y.ID}"></label>
-              <!-- END can_select -->
-            </td>
-            <td><label for="c13y_selection-{c13y.ID}">{c13y.ANOMALY}</label></td>
-            <td>
-              <label for="c13y_selection-{c13y.ID}">
-                <!-- BEGIN ignore_msg -->
-                {lang:c13y_ignore_msg1}
-                <br />
-                {lang:c13y_ignore_msg2}
-                <!-- END ignore_msg -->
-                <!-- BEGIN correction_fct -->
-                {lang:c13y_Automatic_correction}
-                <!-- END correction_fct -->
-                <!-- BEGIN correction_bad_fct -->
-                {lang:c13y_Impossible_automatic_correction}
-                <!-- END correction_bad_fct -->
-                <!-- BEGIN correction_success_fct -->
-                {lang:c13y_Correction_applied_success}
-                <!-- END correction_success_fct -->
-                <!-- BEGIN correction_error_fct -->
-                {lang:c13y_Correction_applied_error}
-                <BR />
-                {c13y.correction_error_fct.WIKI_FOROM_LINKS}
-                <!-- END correction_error_fct -->
-                <!-- BEGIN br -->
-                <br />
-                <!-- END br -->
-                <!-- BEGIN correction_msg -->
-                {c13y.correction_msg.DATA}
-                <!-- END correction_msg -->
-              </label>
-            </td>
-          </tr>
-          <!-- END c13y -->
+          {if isset($c13y_list)}
+            {foreach from=$c13y_list item=c13y name=c13y_loop}
+              <tr class="{if $smarty.foreach.c13y_loop.index is odd}row1{else}row2{/if}">
+                <td>
+                  {if $c13y.can_select}
+                    <input type="checkbox" name="c13y_selection[]" value="{$c13y.ID}" {$c13y.CHECKED} id="c13y_selection-{$c13y.ID}" /><label for="c13y_selection-{$c13y.ID}"></label>
+                  {/if}
+                </td>
+                <td><label for="c13y_selection-{$c13y.ID}">{$c13y.ANOMALY}</label></td>
+                <td>
+                  <label for="c13y_selection-{$c13y.ID}">
+                    {if $c13y.show_ignore_msg}
+                      {'c13y_ignore_msg1'|@translate}
+                      <br />
+                      {'c13y_ignore_msg2'|@translate}
+                    {/if}
+                    {if $c13y.show_correction_fct}
+                      {'c13y_Automatic_correction'|@translate}
+                    {/if}
+                    {if $c13y.show_correction_bad_fct}
+                      {'c13y_Impossible_automatic_correction'|@translate}
+                    {/if}
+                    {if $c13y.show_correction_success_fct}
+                      {'c13y_Correction_applied_success'|@translate}
+                    {/if}
+                    {if !empty($c13y.correction_error_fct)}
+                      {'c13y_Correction_applied_error'|@translate}
+                      <br />
+                      {$c13y.c13y.correction_error_fct}
+                    {/if}
+                    {if !empty($c13y.correction_msg)}
+                      {if $c13y.show_correction_success_fct or !empty($c13y.correction_error_fct) or $c13y.show_correction_fct or $c13y.show_correction_bad_fct }
+                        <br />
+                      {/if}
+                      {$c13y.correction_msg|@nl2br}
+                    {/if}
+                  </label>
+                </td>
+              </tr>
+            {/foreach}
+          {/if}
         </table>
 
         <p>
-          <!-- BEGIN c13y_link_check_uncheck -->
-          <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{lang:c13y_check_all}</a>
-        / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{lang:c13y_uncheck_all}</a>
-          <!-- END c13y_link_check_uncheck -->
-          <!-- BEGIN c13y_link_check_automatic_correction -->
-          / <a href="#" onclick="DeselectAll(document.getElementById('c13y'));
-            <!-- BEGIN c13y_do_check -->
-              document.getElementById('c13y_selection-{c13y_link_check_automatic_correction.c13y_do_check.ID}').checked = true;
-            <!-- END c13y_do_check -->
-              return false;">{lang:c13y_check_auto}</a>
-          <!-- END c13y_link_check_automatic_correction -->
+          {if $c13y_show_submit_ignore}
+              <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{'c13y_check_all'|@translate}</a>
+            / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{'c13y_uncheck_all'|@translate}</a>
+          {/if}
+          {if isset($c13y_do_check)}
+            / <a href="#" onclick="DeselectAll(document.getElementById('c13y'));
+            {foreach from=$c13y_do_check item=ID}
+              document.getElementById('c13y_selection-{$ID}').checked = true;
+            {/foreach}
+            return false;">{'c13y_check_auto'|@translate}</a>
+          {/if}
         </p>
 
         <p>
-          <!-- BEGIN c13y_submit_automatic_correction -->
-          <input class="submit" type="submit" value="{lang:c13y_submit_correction}" name="c13y_submit_correction" {TAG_INPUT_ENABLED} />
-          <!-- END c13y_submit_automatic_correction -->
-          <!-- BEGIN c13y_submit_ignore -->
-          <input class="submit" type="submit" value="{lang:c13y_submit_ignore}" name="c13y_submit_ignore" {TAG_INPUT_ENABLED} />
-          <!-- END c13y_submit_ignore -->
-          <input class="submit" type="submit" value="{lang:c13y_submit_refresh}" name="c13y_submit_refresh" />
-        </p>
+          {if $c13y_show_submit_automatic_correction}
+            <input class="submit" type="submit" value="{'c13y_submit_correction'|@translate}" name="c13y_submit_correction" {$TAG_INPUT_ENABLED} />
+          {/if}
+          {if $c13y_show_submit_ignore}
+            <input class="submit" type="submit" value="{'c13y_submit_ignore'|@translate}" name="c13y_submit_ignore" {$TAG_INPUT_ENABLED} />
+          {/if}
+          <input class="submit" type="submit" value="{'c13y_submit_refresh'|@translate}" name="c13y_submit_refresh" />
+          </p>
 
       </fieldset>
       </form>

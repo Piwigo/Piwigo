@@ -192,20 +192,23 @@ class check_integrity
       foreach ($this->retrieve_list as $i => $c13y)
       {
         $can_select = false;
-
-        $template->assign_block_vars('c13y',
-          array(
-           'CLASS' => ($i % 2 == 1) ? 'row2' : 'row1',
+        $c13y_display = array(
            'ID' => $c13y['id'],
-           'ANOMALY' => $c13y['anomaly']
-          ));
-
+           'ANOMALY' => $c13y['anomaly'],
+           'show_ignore_msg' => false,
+           'show_correction_success_fct' => false,
+           'correction_error_fct' => '',
+           'show_correction_fct' => false,
+           'correction_error_fct' => '',
+           'show_correction_bad_fct' => false,
+           'correction_msg' => ''
+          );
 
         if (isset($c13y['ignored']))
         {
           if ($c13y['ignored'])
           {
-            $template->assign_block_vars('c13y.ignore_msg', array());
+            $c13y_display['show_ignore_msg'] = true;
           }
           else
           {
@@ -220,24 +223,23 @@ class check_integrity
             {
               if ($c13y['corrected'])
               {
-                $template->assign_block_vars('c13y.correction_success_fct', array());
+                $c13y_display['show_correction_success_fct'] = true;
               }
               else
               {
-                $template->assign_block_vars('c13y.correction_error_fct',
-                  array('WIKI_FOROM_LINKS' => $this->get_htlm_links_more_info()));
+                $c13y_display['correction_error_fct'] = $this->get_htlm_links_more_info();
               }
             }
             else if ($c13y['is_callable'])
             {
-              $template->assign_block_vars('c13y.correction_fct', array());
-              $template->assign_block_vars('c13y_link_check_automatic_correction.c13y_do_check', array('ID' => $c13y['id']));
+              $c13y_display['show_correction_fct'] = true;
+              $template->append('c13y_do_check', $c13y['id']);
               $submit_automatic_correction = true;
               $can_select = true;
             }
             else
             {
-              $template->assign_block_vars('c13y.correction_bad_fct', array());
+              $c13y_display['show_correction_bad_fct'] = true;
               $can_select = true;
             }
           }
@@ -246,39 +248,25 @@ class check_integrity
             $can_select = true;
           }
 
-          if (!empty($c13y['correction_fct']) and !empty($c13y['correction_msg']))
-          {
-            $template->assign_block_vars('c13y.br', array());
-          }
-
           if (!empty($c13y['correction_msg']) and !isset($c13y['corrected']))
           {
-            $template->assign_block_vars('c13y.correction_msg',
-              array(
-               'DATA' => nl2br($c13y['correction_msg'])
-              ));
+            $c13y_display['correction_msg'] = $c13y['correction_msg'];
           }
         }
 
+        $c13y_display['can_select'] = $can_select;
         if ($can_select)
         {
-          $template->assign_block_vars('c13y.can_select', array());
           $submit_ignore = true;
         }
+        
+        $template->append('c13y_list', $c13y_display);
       }
 
-      if ($submit_automatic_correction)
-      {
-        $template->assign_block_vars('c13y_submit_automatic_correction', array());
-      }
+      $template->assign('c13y_show_submit_automatic_correction', $submit_automatic_correction);
+      $template->assign('c13y_show_submit_ignore', $submit_ignore);
 
-      if ($submit_ignore)
-      {
-        $template->assign_block_vars('c13y_link_check_uncheck', array());
-        $template->assign_block_vars('c13y_submit_ignore', array());
-      }
-
-      $template->concat_var('ADMIN_CONTENT', $template->parse('check_integrity', true) );
+      $template->assign_var_from_handle('ADMIN_CONTENT', 'check_integrity');
     }
   }
 
