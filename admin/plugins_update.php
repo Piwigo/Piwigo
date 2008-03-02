@@ -117,8 +117,7 @@ if ($plugins_infos !== false)
           . '&amp;plugin=' . $plugin_id
           . (
               (isset($db_plugins_by_id[$plugin_id]) 
-                and $db_plugins_by_id[$plugin_id]['state'] == 'active' 
-                and $plugin_id != PLUGINSMANAGER_DIR) ? 
+                and $db_plugins_by_id[$plugin_id]['state'] == 'active') ? 
                   '&amp;action=deactivate' : ''
             )
           . '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
