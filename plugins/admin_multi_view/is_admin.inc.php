@@ -42,9 +42,6 @@ if ( theController.location.toString()=="about:blank" || !theController.location
 }
 </script>';
 
-  $template->assign_block_vars( 'head_element', array(
-    'CONTENT' => $js
-      )
-    );
+  $template->append( 'head_elements', $js );
 }
 ?>

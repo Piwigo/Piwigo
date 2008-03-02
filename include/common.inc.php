@@ -257,12 +257,8 @@ if (is_adviser())
 
 if (count($header_msgs) > 0)
 {
-  $template->assign_block_vars('header_msgs',array());
-  foreach ($header_msgs as $header_msg)
-  {
-    $template->assign_block_vars('header_msgs.header_msg',
-                                 array('HEADER_MSG'=>$header_msg));
-  }
+  $template->assign('header_msgs', $header_msgs);
+  $header_msgs=array();
 }
 
 if (!empty($conf['filter_pages']) and get_filter_page_value('used'))

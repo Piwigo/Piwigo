@@ -71,10 +71,8 @@ $title = l10n('Notification');
 $page['body_id'] = 'theNotificationPage';
 $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 
-$template->assign_block_vars('head_element',
-    array(
-      'CONTENT' => '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'
-      )
+$template->append('head_elements',
+    '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'
   );
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');

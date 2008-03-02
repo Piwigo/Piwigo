@@ -4,7 +4,6 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -32,7 +31,7 @@ $template->set_filenames(array('header'=>'header.tpl'));
 
 trigger_action('loc_begin_page_header');
 
-$template->assign_vars(
+$template->assign(
   array(
     'GALLERY_TITLE' =>
       isset($page['gallery_title']) ?
@@ -55,31 +54,19 @@ $template->assign_vars(
     'U_HOME' => make_index_url(),
     ));
 
-// picture header infos
-if (isset($header_infos))
-{
-  $template->assign_block_vars( 'header_meta', $header_infos);
-}
 
 // Header notes
-if ( isset($header_notes) and count($header_notes)>0)
+if ( !empty($header_notes) )
 {
-  foreach ($header_notes as $header_note)
-  {
-    $template->assign_block_vars('header_notes.header_note',
-                                 array('HEADER_NOTE' => $header_note));
-  }
+  $template->assign('header_notes',$header_notes);
 }
 
 if ( !empty($page['meta_robots']) )
 {
-  $template->assign_block_vars('head_element',
-      array(
-          'CONTENT' =>
-              '<meta name="robots" content="'
-              .implode(',', array_keys($page['meta_robots']))
-              .'">'
-        )
+  $template->append('head_elements',
+        '<meta name="robots" content="'
+        .implode(',', array_keys($page['meta_robots']))
+        .'">'
     );
 }
 
@@ -87,13 +74,14 @@ if ( !empty($page['meta_robots']) )
 if ( isset( $refresh ) and intval($refresh) >= 0
     and isset( $url_link ) and isset( $redirect_msg ) )
 {
-  $template->assign_vars(
+  $template->assign(
     array(
-      'U_REDIRECT_MSG' => $redirect_msg,
-      'REFRESH_TIME' => $refresh,
-      'U_REFRESH' => $url_link
+      'REDIRECT_MSG' => $redirect_msg,
+      'page_refresh' => array(
+            'TIME' => $refresh,
+            'U_REFRESH' => $url_link
+          )
       ));
-  $template->assign_block_vars('refresh', array());
 }
 
 trigger_action('loc_end_page_header');

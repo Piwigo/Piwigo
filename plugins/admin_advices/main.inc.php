@@ -17,12 +17,10 @@ function set_admin_advice_add_css()
     and $page['page'] == 'intro'
     )
   {// This Plugin works only on the Admin page
-    $template->assign_block_vars(
-      'head_element',
-       array(
-         'CONTENT' => '<link rel="stylesheet" type="text/css" ' 
-                    . 'href="'.PHPWG_PLUGINS_PATH.'admin_advices/default-layout.css">',
-       )
+    $template->append(
+      'head_elements',
+      '<link rel="stylesheet" type="text/css" '
+                    . 'href="'.PHPWG_PLUGINS_PATH.'admin_advices/default-layout.css">'
      );
     add_event_handler('loc_begin_page_tail', 'set_admin_advice' );
   }
@@ -55,7 +53,7 @@ function set_admin_advice()
 // Random Thumbnail
     $query = '
 SELECT *
-FROM '.IMAGES_TABLE.' 
+FROM '.IMAGES_TABLE.'
 ORDER BY RAND(NOW())
 LIMIT 0, 1
 ;';
@@ -67,13 +65,13 @@ LIMIT 0, 1
                   .'&amp;image_id='.$row['id'];
       $url_check = get_themeconf('icon_dir').'/';
       $url_uncheck = $url_check . 'uncheck';
-      $url_check .= 'check'; 
-      $picture_id = $row['id']; 
+      $url_check .= 'check';
+      $picture_id = $row['id'];
       $query = '
-SELECT * FROM '.IMAGE_TAG_TABLE.' 
+SELECT * FROM '.IMAGE_TAG_TABLE.'
 WHERE image_id =  ' . $picture_id .'
 ;';
-      $tag_count = mysql_num_rows(mysql_query($query)); 
+      $tag_count = mysql_num_rows(mysql_query($query));
       $template->assign_block_vars(
         'thumbnail',
          array(
@@ -93,7 +91,7 @@ WHERE image_id =  ' . $picture_id .'
            'TAGS'               => ($tag_count == 0) ?
                                    $url_uncheck : $url_check,
            'NUM_TAGS'           => (string) $tag_count,
-           'U_MODIFY'           => $url_modify,     
+           'U_MODIFY'           => $url_modify,
          )
        );
     }
