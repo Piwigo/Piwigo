@@ -61,11 +61,7 @@ if (!defined('PHPWG_ROOT_PATH'))
   // +-----------------------------------------------------------------------+
   if (count($errors) != 0)
   {
-    $template->assign_block_vars('errors',array());
-    foreach ($errors as $error)
-    {
-      $template->assign_block_vars('errors.error', array('ERROR'=>$error));
-    }
+    $template->assign('errors', $errors);
   }
   $template->set_filename('profile', 'profile.tpl');
   trigger_action('loc_end_profile');
@@ -216,18 +212,12 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->set_filename('profile_content', 'profile_content.tpl');
 
-  $expand = ($userdata['expand'] == 'true') ? 
-            'EXPAND_TREE_YES':'EXPAND_TREE_NO';
+  $template->assign('radio_options',
+    array(
+      'true' => l10n('yes'),
+      'false' => l10n('no')));
 
-  $nb_comments =
-    ($userdata['show_nb_comments'] == 'true') ? 
-               'NB_COMMENTS_YES':'NB_COMMENTS_NO';
-
-  $nb_hits =
-    ($userdata['show_nb_hits'] == 'true') ? 
-               'NB_HITS_YES':'NB_HITS_NO';
-
-  $template->assign_vars(
+  $template->assign(
     array(
       'USERNAME'=>$userdata['username'],
       'USERID'=>$userdata['id'],
@@ -237,75 +227,38 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'RECENT_PERIOD'=>$userdata['recent_period'],
       'MAXWIDTH'=>@$userdata['maxwidth'],
       'MAXHEIGHT'=>@$userdata['maxheight'],
-  
-      $expand=>'checked="checked"',
-      $nb_comments=>'checked="checked"',
-      $nb_hits=>'checked="checked"',
-  
+      'EXPAND' =>$userdata['expand'] ? 'true' : 'false',
+      'NB_COMMENTS'=>$userdata['show_nb_comments'] ? 'true' : 'false',
+      'NB_HITS'=>$userdata['show_nb_hits'] ? 'true' : 'false',
       'REDIRECT' => $url_redirect,
-  
       'F_ACTION'=>$url_action,
       ));
 
-  $blockname = 'template_option';
-
   foreach (get_pwg_themes() as $pwg_template)
   {
-    if (isset($_POST['submit']))
+    if (isset($_POST['submit'])
+      or $userdata['template'].'/'.$userdata['theme'] == $pwg_template)
     {
-      $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
+      $template->assign('template_selection', $pwg_template);
     }
-    else if ($userdata['template'].'/'.$userdata['theme'] == $pwg_template)
-    {
-      $selected = 'selected="selected"';
-    }
-    else
-    {
-      $selected = '';
-    }
-  
-    $template->assign_block_vars(
-      $blockname,
-      array(
-        'VALUE'=> $pwg_template,
-        'CONTENT' => $pwg_template,
-        'SELECTED' => $selected
-        ));
+    $template_options[$pwg_template] = $pwg_template;
   }
-
-  $blockname = 'language_option';
+  $template->assign('template_options', $template_options);
 
   foreach (get_languages() as $language_code => $language_name)
   {
-    if (isset($_POST['submit']))
+    if (isset($_POST['submit']) or $userdata['language'] == $language_code)
     {
-      $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
+      $template->assign('language_selection', $language_code);
     }
-    else if ($userdata['language'] == $language_code)
-    {
-      $selected = 'selected="selected"';
-    }
-    else
-    {
-      $selected = '';
-    }
-  
-    $template->assign_block_vars(
-      $blockname,
-      array(
-        'VALUE'=> $language_code,
-        'CONTENT' => $language_name,
-        'SELECTED' => $selected
-        ));
+    $language_options[$language_code] = $language_name;
   }
+  $template->assign('language_options', $language_options);
 
   if (!(in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']))))
   {
-    $template->assign_block_vars('not_special_user', array());
-    if ( !defined('IN_ADMIN') )
-    {
-      $template->assign_block_vars( 'not_special_user.not_admin', array() );
-    }
+    $template->assign('not_special_user', true);
+    $template->assign('in_admin', defined('IN_ADMIN'));
   }
 
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');

@@ -1,22 +1,22 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div id="content">
 
-<!-- BEGIN errors -->
+{if isset($errors)}
 <div class="errors">
   <ul>
-    <!-- BEGIN error -->
-    <li>{errors.error.ERROR}</li>
-    <!-- END error -->
+    {foreach from=$errors item=error}
+    <li>{$error}</li>
+    {/foreach}
   </ul>
 </div>
-<!-- END errors -->
+{/if}
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:Profile}</h2>
+    <h2>{'Profile'|@translate}</h2>
   </div>
 
-{PROFILE_CONTENT}
+{$PROFILE_CONTENT}
 </div> <!-- content -->

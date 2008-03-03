@@ -1,121 +1,110 @@
-<!-- DEV TAG: not smarty migrated -->
-<form method="post" name="profile" action="{F_ACTION}" id="profile" class="properties">
+{* $Id$ *}
+<form method="post" name="profile" action="{$F_ACTION}" id="profile" class="properties">
 
   <fieldset>
-    <legend>{lang:register_title}</legend>
-    <input type="hidden" name="userid" value="{USERID}" />
-    <input type="hidden" name="redirect" value="{REDIRECT}" />
+    <legend>{'register_title'|@translate}</legend>
+    <input type="hidden" name="userid" value="{$USERID}" />
+    <input type="hidden" name="redirect" value="{$REDIRECT}" />
     <ul>
       <li>
-        <span class="property">{lang:Username}</span>
-        {USERNAME}
+        <span class="property">{'Username'|@translate}</span>
+        {$USERNAME}
       </li>
-<!-- BEGIN not_special_user -->
+{if isset($not_special_user)}
       <li>
         <span class="property">
-          <label for="mail_address">{lang:Email address}</label>
+          <label for="mail_address">{'Email address'|@translate}</label>
         </span>
-        <input type="text" name="mail_address" id="mail_address" value="{EMAIL}">
+        <input type="text" name="mail_address" id="mail_address" value="{$EMAIL}">
       </li>
-<!-- BEGIN not_admin -->
+{if !$in_admin}
       <li>
         <span class="property">
-          <label for="password">{lang:Password}</label>
+          <label for="password">{'Password'|@translate}</label>
         </span>
         <input type="password" name="password" id="password" value="">
       </li>
-<!-- END not_admin -->
+{/if}
       <li>
         <span class="property">
-          <label for="use_new_pwd">{lang:new_password}</label>
+          <label for="use_new_pwd">{'new_password'|@translate}</label>
         </span>
         <input type="password" name="use_new_pwd" id="use_new_pwd" value="">
       </li>
       <li>
         <span class="property">
-          <label for="passwordConf">{lang:Confirm Password}</label>
+          <label for="passwordConf">{'Confirm Password'|@translate}</label>
         </span>
         <input type="password" name="passwordConf" id="passwordConf" value="">
       </li>
     </ul>
-<!-- END not_special_user -->
+{/if}
   </fieldset>
 
   <fieldset>
-    <legend>{lang:preferences}</legend>
+    <legend>{'preferences'|@translate}</legend>
 
     <ul>
       <li>
         <span class="property">
-          <label for="nb_image_line">{lang:nb_image_per_row}</label>
+          <label for="nb_image_line">{'nb_image_per_row'|@translate}</label>
         </span>
-        <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{NB_IMAGE_LINE}">
+        <input type="text" size="3" maxlength="2" name="nb_image_line" id="nb_image_line" value="{$NB_IMAGE_LINE}">
       </li>
       <li>
         <span class="property">
-          <label for="nb_line_page">{lang:nb_row_per_page}</label>
+          <label for="nb_line_page">{'nb_row_per_page'|@translate}</label>
         </span>
-        <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{NB_ROW_PAGE}" >
+        <input type="text" size="3" maxlength="2" name="nb_line_page" id="nb_line_page" value="{$NB_ROW_PAGE}" >
       </li>
       <li>
         <span class="property">
-          <label for="template">{lang:theme}</label>
+          <label for="template">{'theme'|@translate}</label>
         </span>
-        <select name="template" id="template">
-          <!-- BEGIN template_option -->
-          <option value="{template_option.VALUE}" {template_option.SELECTED}>{template_option.CONTENT}</option>
-          <!-- END template_option -->
-        </select>
+        {html_options name=template options=$template_options selected=$template_selection}
       </li>
       <li>
         <span class="property">
-          <label for="language">{lang:language}</label>
+          <label for="language">{'language'|@translate}</label>
         </span>
-        <select name="language" id="language">
-          <!-- BEGIN language_option -->
-          <option value="{language_option.VALUE}" {language_option.SELECTED}>{language_option.CONTENT}</option>
-          <!-- END language_option -->
-        </select>
+        {html_options name=language options=$language_options selected=$language_selection}
       </li>
       <li>
         <span class="property">
-          <label for="recent_period">{lang:recent_period}</label>
+          <label for="recent_period">{'recent_period'|@translate}</label>
         </span>
-        <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{RECENT_PERIOD}">
+        <input type="text" size="3" maxlength="2" name="recent_period" id="recent_period" value="{$RECENT_PERIOD}">
       </li>
       <li>
-        <span class="property">{lang:auto_expand}</span>
-        <label><input type="radio" name="expand" value="true" {EXPAND_TREE_YES}> {lang:yes}</label>
-        <label><input type="radio" name="expand" value="false" {EXPAND_TREE_NO}> {lang:no}</label>
+        <span class="property">{'auto_expand'|@translate}</span>
+        {html_radios name='expand' options=$radio_options selected=$EXPAND}
       </li>
       <li>
-        <span class="property">{lang:show_nb_comments}</span>
-        <label><input type="radio" name="show_nb_comments" value="true" {NB_COMMENTS_YES}> {lang:yes}</label>
-        <label><input type="radio" name="show_nb_comments" value="false" {NB_COMMENTS_NO}> {lang:no}</label>
+        <span class="property">{'show_nb_comments'|@translate}</span>
+        {html_radios name='show_nb_comments' options=$radio_options selected=$NB_COMMENTS}
       </li>
       <li>
-        <span class="property">{lang:show_nb_hits}</span>
-        <label><input type="radio" name="show_nb_hits" value="true" {NB_HITS_YES}> {lang:yes}</label>
-        <label><input type="radio" name="show_nb_hits" value="false" {NB_HITS_NO}> {lang:no}</label>
+        <span class="property">{'show_nb_hits'|@translate}</span>
+        {html_radios name='show_nb_hits' options=$radio_options selected=$NB_HITS}
       </li>
       <li>
         <span class="property">
-          <label for="maxwidth">{lang:maxwidth}</label>
+          <label for="maxwidth">{'maxwidth'|@translate}</label>
         </span>
-        <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{MAXWIDTH}">
+        <input type="text" size="4" maxlength="4" name="maxwidth" id="maxwidth" value="{$MAXWIDTH}">
       </li>
       <li>
         <span class="property">
-          <label for="maxheight">{lang:maxheight}</label>
+          <label for="maxheight">{'maxheight'|@translate}</label>
         </span>
-        <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{MAXHEIGHT}">
+        <input type="text" size="4" maxlength="4" name="maxheight" id="maxheight" value="{$MAXHEIGHT}">
       </li>
     </ul>
   </fieldset>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" name="validate" value="{lang:submit}">
-    <input class="submit" type="reset" name="reset" value="{lang:reset}">
+    <input class="submit" type="submit" name="validate" value="{'submit'|@translate}">
+    <input class="submit" type="reset" name="reset" value="{'reset'|@translate}">
   </p>
 
 </form>
