@@ -27,24 +27,6 @@
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
-//
-// Pick a language, any language ...
-//
-function language_select($default, $select_name = "language")
-{
-  $available_lang = get_languages('utf-8');
-
-  $lang_select = '<select name="' . $select_name . '" onchange="document.location = \''.PHPWG_ROOT_PATH.'install.php?language=\'+this.options[this.selectedIndex].value;">';
-  foreach ($available_lang as $code => $displayname)
-  {
-    $selected = ( strtolower($default) == strtolower($code) ) ? ' selected="selected"' : '';
-    $lang_select .= '<option value="'.$code.'" ' . $selected . '>' . ucwords($displayname) . '</option>';
-  }
-  $lang_select .= '</select>';
-
-  return $lang_select;
-}
-
 /**
  * loads an sql file and executes all queries
  *
@@ -209,13 +191,22 @@ include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
-if ( isset( $_REQUEST['language'] ))
+if (isset($_GET['language']))
 {
-  $language = strip_tags($_REQUEST['language']);
+  $language = strip_tags($_GET['language']);
 }
 else
 {
   $language = 'en_UK';
+  // Try to get browser language
+  foreach (get_languages('utf-8') as $language_code => $language_name)
+  {
+    if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
+    {
+      $language = $language_code;
+      break;
+    }
+  }
 }
 
 load_language( 'common.lang', '', $language, false, 'utf-8' );
@@ -223,7 +214,7 @@ load_language( 'admin.lang', '', $language, false, 'utf-8' );
 load_language( 'install.lang', '', $language, false, 'utf-8' );
 
 //----------------------------------------------------- template initialization
-$template=new Template(PHPWG_ROOT_PATH.'template/yoga');
+$template=new Template(PHPWG_ROOT_PATH.'template/yoga', 'clear');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;
 //---------------------------------------------------------------- form analyze
@@ -303,12 +294,7 @@ define(\'DB_COLLATE\', \'\');
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $template->assign_block_vars(
-        'error_copy',
-        array(
-          'FILE_CONTENT' => $html_content,
-          )
-        );
+      $template->assign('error_copy', $html_content);
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
@@ -380,80 +366,45 @@ define(\'DB_COLLATE\', \'\');
   }
 }
 
-$template->assign_vars(
+//------------------------------------------------------ start template output
+foreach (get_languages('utf-8') as $language_code => $language_name)
+{
+  if ($language == $language_code)
+  {
+    $template->assign('language_selection', $language_code);
+  }
+  $languages_options[$language_code] = $language_name;
+}
+$template->assign('language_options', $languages_options);
+
+$template->assign(
   array(
+    'T_CONTENT_ENCODING' => 'utf-8',
     'RELEASE'=>PHPWG_VERSION,
-
-    'L_BASE_TITLE'=>l10n('Initial_config'),
-    'L_LANG_TITLE'=>l10n('Default_lang'),
-    'L_DB_TITLE'=>l10n('step1_title'),
-    'L_DB_HOST'=>l10n('step1_host'),
-    'L_DB_HOST_INFO'=>l10n('step1_host_info'),
-    'L_DB_USER'=>l10n('step1_user'),
-    'L_DB_USER_INFO'=>l10n('step1_user_info'),
-    'L_DB_PASS'=>l10n('step1_pass'),
-    'L_DB_PASS_INFO'=>l10n('step1_pass_info'),
-    'L_DB_NAME'=>l10n('step1_database'),
-    'L_DB_NAME_INFO'=>l10n('step1_database_info'),
-    'L_DB_PREFIX'=>l10n('step1_prefix'),
-    'L_DB_PREFIX_INFO'=>l10n('step1_prefix_info'),
-    'L_ADMIN_TITLE'=>l10n('step2_title'),
-    'L_ADMIN'=>l10n('install_webmaster'),
-    'L_ADMIN_INFO'=>l10n('install_webmaster_info'),
-    'L_ADMIN_PASSWORD'=>l10n('step2_pwd'),
-    'L_ADMIN_PASSWORD_INFO'=>l10n('step2_pwd_info'),
-    'L_ADMIN_CONFIRM_PASSWORD'=>l10n('step2_pwd_conf'),
-    'L_ADMIN_CONFIRM_PASSWORD_INFO'=>l10n('step2_pwd_conf_info'),
-    'L_ADMIN_EMAIL'=>l10n('conf_mail_webmaster'),
-    'L_ADMIN_EMAIL_INFO'=>l10n('conf_mail_webmaster_info'),
-    'L_SUBMIT'=>l10n('Start_Install'),
-    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), 'http://forum.'.PHPWG_DOMAIN.'/'),
-    'L_ERR_COPY'=>l10n('step1_err_copy'),
-    'L_END_TITLE'=>l10n('install_end_title'),
-    'L_END_MESSAGE'=>l10n('install_end_message'),
-
-    'F_ACTION'=>'install.php',
+    'F_ACTION' => 'install.php?language=' . $language,
     'F_DB_HOST'=>$dbhost,
     'F_DB_USER'=>$dbuser,
     'F_DB_NAME'=>$dbname,
-    'F_DB_PREFIX' => (
-      $table_prefix != DEFAULT_PREFIX_TABLE
-      ? $table_prefix
-      : DEFAULT_PREFIX_TABLE
-      ),
+    'F_DB_PREFIX' => $table_prefix,
     'F_ADMIN'=>$admin_name,
     'F_ADMIN_EMAIL'=>$admin_mail,
-    'F_LANG_SELECT'=>language_select($language),
-
-    'T_CONTENT_ENCODING' => 'utf-8'
+    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), 'http://forum.'.PHPWG_DOMAIN.'/'),
     ));
 
 //------------------------------------------------------ errors & infos display
-if ( sizeof( $errors ) != 0 )
+if (count($errors) != 0)
 {
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
-  }
+  $template->assign('errors', $errors);
 }
 
-if ( sizeof( $infos ) != 0 )
+if (count($infos) != 0 )
 {
-  $template->assign_block_vars('infos',array());
-  for ( $i = 0; $i < sizeof( $infos ); $i++ )
-  {
-    $template->assign_block_vars('infos.info',array('INFO'=>$infos[$i]));
-  }
+  $template->assign('infos', $infos);
 }
 
-if ($step ==1)
+if ($step == 1)
 {
-  $template->assign_block_vars('install',array());
-}
-else
-{
-  $template->assign_block_vars('install_end',array());
+  $template->assign('install', true);
 }
 
 //----------------------------------------------------------- html code display

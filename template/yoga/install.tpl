@@ -1,12 +1,13 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="fr">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset={T_CONTENT_ENCODING}">
+<meta http-equiv="Content-Type" content="text/html; charset={$T_CONTENT_ENCODING}">
 <meta http-equiv="Content-script-type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<title>PhpWebGallery {RELEASE}</title>
+<title>PhpWebGallery {$RELEASE}</title>
+{literal}
 <style type="text/css">
 
 body, input, select {
@@ -106,123 +107,127 @@ td.row {
   border:1px solid red;
 }
 </style>
+{/literal}
 </head>
 <body>
   <table style="width:100%;height:100%">
     <tr align="center" valign="middle">
     <td>
-    <div class="title">PhpWebGallery {RELEASE}</div>
+    <div class="title">PhpWebGallery {$RELEASE}</div>
       <table class="table1">
-      <!-- BEGIN errors -->
+      {if isset($errors)}
       <tr>
       <td class="contenucellule" colspan="3">
         <div class="errors">
         <ul>
-          <!-- BEGIN error -->
-          <li>{errors.error.ERROR}</li>
-          <!-- END error -->
+          {foreach from=$errors item=error}
+          <li>{$error}</li>
+          {/foreach}
         </ul>
         </div>
       </td>
       </tr>
-      <!-- END errors -->
-      <!-- BEGIN infos -->
+      {/if}
+      {if isset($infos)}
       <tr>
       <td class="contenucellule" colspan="3">
         <div class="infos">
         <ul>
-          <!-- BEGIN info -->
-          <li>{infos.info.INFO}</li>
-          <!-- END info -->
+          {foreach from=$infos item=info}
+          <li>{$info}</li>
+          {/foreach}
         </ul>
         </div>
       </td>
       </tr>
-      <!-- END infos -->
+      {/if}
     <tr>
     <td class="contenucellule">
 
-<!-- BEGIN error_copy -->
-{L_ERR_COPY} :
+{if isset($error_copy)}
+{'step1_err_copy'|@translate} :
 <br />-----------------------------------------------------<br />
-<div class="error_copy">{error_copy.FILE_CONTENT}</div>
+<div class="error_copy">{$error_copy}</div>
 -----------------------------------------------------<br />
-<!-- END error_copy -->
-<!-- BEGIN install -->
-<form method="POST" action="{F_ACTION}" name="install_form">
+{/if}
+
+{if isset($install)}
+<form method="POST" action="{$F_ACTION}" name="install_form">
   <table>
     <tr>
-      <th colspan="3">{L_BASE_TITLE}</th>
+      <th colspan="3">{'Initial_config'|@translate}</th>
     </tr>
     <tr>
-      <td style="width:30%;">{L_LANG_TITLE}</td>
+      <td style="width:30%;">{'Default_lang'|@translate}</td>
       <td colspan="2" align="left">
-    {F_LANG_SELECT}
+    <select name="language" onchange="document.location = 'install.php?language='+this.options[this.selectedIndex].value;">
+    {html_options options=$language_options selected=$language_selection}
+    </select>
       </td>
     </tr>
     <tr>
       <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <th colspan="3">{L_DB_TITLE}</th>
+      <th colspan="3">{'step1_title'|@translate}</th>
     </tr>
     <tr>
-      <td>{L_DB_HOST}</td>
-      <td align=center><input type="text" name="dbhost" value="{F_DB_HOST}" /></td>
-      <td class="row">{L_DB_HOST_INFO}</td>
+      <td>{'step1_host'|@translate}</td>
+      <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}" /></td>
+      <td class="row">{'step1_host_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_DB_USER}</td>
-      <td align=center><input type="text" name="dbuser" value="{F_DB_USER}" /></td>
-      <td class="row">{L_DB_USER_INFO}</td>
+      <td>{'step1_user'|@translate}</td>
+      <td align=center><input type="text" name="dbuser" value="{$F_DB_USER}" /></td>
+      <td class="row">{'step1_user_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_DB_PASS}</td>
+      <td>{'step1_pass'|@translate}</td>
       <td align=center><input type="password" name="dbpasswd" value="" /></td>
-      <td class="row">{L_DB_PASS_INFO}</td>
+      <td class="row">{'step1_pass_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_DB_NAME}</td>
-      <td align=center><input type="text" name="dbname" value="{F_DB_NAME}" /></td>
-      <td class="row">{L_DB_NAME_INFO}</td>
+      <td>{'step1_database'|@translate}</td>
+      <td align=center><input type="text" name="dbname" value="{$F_DB_NAME}" /></td>
+      <td class="row">{'step1_database_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_DB_PREFIX}</td>
-      <td align=center><input type="text" name="prefix" value="{F_DB_PREFIX}" /></td>
-      <td class="row">{L_DB_PREFIX_INFO}</td>
+      <td>{'step1_prefix'|@translate}</td>
+      <td align=center><input type="text" name="prefix" value="{$F_DB_PREFIX}" /></td>
+      <td class="row">{'step1_prefix_info'|@translate}</td>
     </tr>
     <tr>
      <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
-      <th colspan="3">{L_ADMIN_TITLE}</th>
+      <th colspan="3">{'step2_title'|@translate}</th>
     </tr>
     <tr>
-      <td>{L_ADMIN}</td>
-      <td align="center"><input type="text" name="admin_name" value="{F_ADMIN}" /></td>
-      <td class="row">{L_ADMIN_INFO}</td>
+      <td>{'install_webmaster'|@translate}</td>
+      <td align="center"><input type="text" name="admin_name" value="{$F_ADMIN}" /></td>
+      <td class="row">{'install_webmaster_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_ADMIN_PASSWORD}</td>
+      <td>{'step2_pwd'|@translate}</td>
       <td align="center"><input type="password" name="admin_pass1" value="" /></td>
-      <td class="row">{L_ADMIN_PASSWORD_INFO}</td>
+      <td class="row">{'step2_pwd_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_ADMIN_CONFIRM_PASSWORD}</td>
+      <td>{'step2_pwd_conf'|@translate}</td>
       <td align="center"><input type="password" name="admin_pass2" value="" /></td>
-      <td class="row">{L_ADMIN_CONFIRM_PASSWORD_INFO}</td>
+      <td class="row">{'step2_pwd_conf_info'|@translate}</td>
     </tr>
     <tr>
-      <td>{L_ADMIN_EMAIL}</td>
-      <td align="center"><input type="text" name="admin_mail" value="{F_ADMIN_EMAIL}" /></td>
-      <td class="row">{L_ADMIN_EMAIL_INFO}</td>
+      <td>{'conf_mail_webmaster'|@translate}</td>
+      <td align="center"><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}" /></td>
+      <td class="row">{'conf_mail_webmaster_info'|@translate}</td>
     </tr>
     <tr>
       <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
       <td colspan="3" align="center">
-        <input class="submit" type="submit" name="install" value="{L_SUBMIT}" />
+        <input class="submit" type="submit" name="install" value="{'Start_Install'|@translate}" />
       </td>
     </tr>
     <tr>
@@ -230,21 +235,19 @@ td.row {
     </tr>
   </table>
 </form>
-<!-- END install -->
-
-<!-- BEGIN install_end -->
+{else}
 <div class="infos_title">
-{L_END_TITLE}
+{'install_end_title'|@translate}
 </div>
 <div class="infos">
-{L_END_MESSAGE}
+{'install_end_message'|@translate}
 </div>
-<!-- END install_end -->
+{/if}
 
               </td>
             </tr>
           </table>
-          <div class="header">{L_INSTALL_HELP}</div>
+          <div class="header">{$L_INSTALL_HELP}</div>
         </td>
       </tr>
     </table>

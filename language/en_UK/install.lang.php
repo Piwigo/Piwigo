@@ -40,7 +40,7 @@ $lang['step1_err_db'] = 'Connection to server succeed, but it was impossible to 
 $lang['step1_err_server'] = 'Can\'t connect to server';
 $lang['step1_err_copy_2'] = 'The next step of the installation is now possible';
 $lang['step1_err_copy_next'] = 'next step';
-$lang['step1_err_copy'] = 'Copy the text between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
+$lang['step1_err_copy'] = 'Copy the text in red between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
 
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
