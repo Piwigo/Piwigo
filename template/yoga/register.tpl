@@ -1,62 +1,62 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div id="registerPage">
 
 <div id="content">
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:return to homepage}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:Registration}</h2>
+    <h2>{'Registration'|@translate}</h2>
   </div>
 
-  <!-- BEGIN errors -->
+{if isset($errors)}
   <div class="errors">
     <ul>
-      <!-- BEGIN error -->
-      <li>{errors.error.ERROR}</li>
-      <!-- END error -->
+      {foreach from=$errors item=error}
+      <li>{$error}</li>
+      {/foreach}
     </ul>
   </div>
-  <!-- END errors -->
+{/if}
 
-<form method="post" action="{F_ACTION}" class="properties" name="register_form">
+<form method="post" action="{$F_ACTION}" class="properties" name="register_form">
   <fieldset>
-    <legend>{lang:Enter your personnal informations}</legend>
+    <legend>{'Enter your personnal informations'|@translate}</legend>
 
     <ul>
       <li>
         <span class="property">
-          <label for="login">* {lang:Username}</label>
+          <label for="login">* {'Username'|@translate}</label>
         </span>
-        <input type="text" name="login" id="login" value="{F_LOGIN}" >
+        <input type="text" name="login" id="login" value="{$F_LOGIN}" >
       </li>
       <li>
         <span class="property">
-          <label for="password">* {lang:Password}</label>
+          <label for="password">* {'Password'|@translate}</label>
         </span>
         <input type="password" name="password" id="password" >
       </li>
       <li>
         <span class="property">
-          <label for="password_conf">* {lang:Confirm Password}</label>
+          <label for="password_conf">* {'Confirm Password'|@translate}</label>
         </span>
         <input type="password" name="password_conf" id="password_conf" >
       </li>
       <li>
         <span class="property">
-          <label for="mail_address">{lang:Mail address}</label>
+          <label for="mail_address">{'Mail address'|@translate}</label>
         </span>
-        <input type="text" name="mail_address" id="mail_address" value="{F_EMAIL}" >
-        ({lang:useful when password forgotten})
+        <input type="text" name="mail_address" id="mail_address" value="{$F_EMAIL}" >
+        ({'useful when password forgotten'|@translate})
       </li>
     </ul>
 
   </fieldset>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" name="submit" value="{lang:Register}">
-    <input class="submit" type="reset" value="{lang:Reset}">
+    <input class="submit" type="submit" name="submit" value="{'Register'|@translate}">
+    <input class="submit" type="reset" value="{'Reset'|@translate}">
   </p>
 
 </form>

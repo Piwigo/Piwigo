@@ -75,7 +75,7 @@ $page['body_id'] = 'theRegisterPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 
 $template->set_filenames( array('register'=>'register.tpl') );
-$template->assign_vars(array(
+$template->assign(array(
   'U_HOME' => make_index_url(),
 
   'F_ACTION' => 'register.php',
@@ -84,13 +84,9 @@ $template->assign_vars(array(
   ));
 
 //-------------------------------------------------------------- errors display
-if ( sizeof( $errors ) != 0 )
+if (count($errors) != 0)
 {
-  $template->assign_block_vars('errors',array());
-  for ( $i = 0; $i < sizeof( $errors ); $i++ )
-  {
-    $template->assign_block_vars('errors.error',array('ERROR'=>$errors[$i]));
-  }
+  $template->assign('errors', $errors);
 }
 
 $template->parse('register');

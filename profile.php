@@ -54,7 +54,7 @@ if (!defined('PHPWG_ROOT_PATH'))
     make_index_url(), // for redirect
     $userdata );
 
-  $template->assign_var('U_HOME', make_index_url() );
+  $template->assign('U_HOME', make_index_url());
 
   // +-----------------------------------------------------------------------+
   // |                             errors display                            |
