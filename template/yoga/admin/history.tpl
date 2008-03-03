@@ -1,158 +1,151 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
     <li>
       <a
-        href="{U_HELP}"
+        href="{$U_HELP}"
         onclick="popuphelp(this.href); return false;"
-        title="{lang:Help}"
+        title="{'Help'|@translate}"
       >
-        <img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)">
+        <img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)">
       </a>
     </li>
   </ul>
-  <h2>{lang:History} {TABSHEET_TITLE}</h2>
-  {TABSHEET}
+  <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
+  {$TABSHEET}
 </div>
 
-<form class="filter" method="post" name="filter" action="{F_ACTION}">
+<form class="filter" method="post" name="filter" action="{$F_ACTION}">
 <fieldset>
-  <legend>{lang:Filter}</legend>
+  <legend>{'Filter'|@translate}</legend>
   <ul>
-    <li><label>{lang:search_date_from}</label></li>
+    <li><label>{'search_date_from'|@translate}</label></li>
     <li>
       <select name="start_day">
-        <!-- BEGIN start_day -->
-        <option {start_day.SELECTED} value="{start_day.VALUE}">{start_day.OPTION}</option>
-        <!-- END start_day -->
+      	<option value="0">--</option>
+        {section name=day start=1 loop=31}
+          <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$START_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
+        {/section}
       </select>
       <select name="start_month">
-        <!-- BEGIN start_month -->
-        <option {start_month.SELECTED} value="{start_month.VALUE}">{start_month.OPTION}</option>
-        <!-- END start_month -->
+      	{html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
-      <input name="start_year" value="{START_YEAR}" type="text" size="4" maxlength="4" >
+      <input name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
     </li>
   </ul>
   <ul>
-    <li><label>{lang:search_date_to}</label></li>
+    <li><label>{'search_date_to'|@translate}</label></li>
     <li>
       <select name="end_day">
-        <!-- BEGIN end_day -->
-        <option {end_day.SELECTED} value="{end_day.VALUE}">{end_day.OPTION}</option>
-        <!-- END end_day -->
+      	<option value="0">--</option>
+        {section name=day start=1 loop=31}
+          <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$END_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
+        {/section}
       </select>
       <select name="end_month">
-        <!-- BEGIN end_month -->
-        <option {end_month.SELECTED} value="{end_month.VALUE}">{end_month.OPTION}</option>
-        <!-- END end_month -->
+      	{html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
-      <input name="end_year" value="{END_YEAR}" type="text" size="4" maxlength="4" >
+      <input name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
     </li>
   </ul>
 
   <label>
-    {lang:Element type}
+    {'Element type'|@translate}
     <select name="types[]" multiple="multiple" size="4">
-      <!-- BEGIN types_option -->
-      <option value="{types_option.VALUE}" {types_option.SELECTED}>
-        {types_option.CONTENT}
-      </option>
-      <!-- END types_option -->
+    	{html_options values=$type_option_values output=$type_option_values|translate selected=$type_option_selected}
     </select>
   </label>
 
   <label>
-    {lang:User}
+    {'User'|@translate}
     <select name="user">
-      <!-- BEGIN user_option -->
-      <option value="{user_option.VALUE}" {user_option.SELECTED}>
-        {user_option.CONTENT}
-      </option>
-      <!-- END user_option -->
+    	<option value="-1">------------</option>
+    	{html_options options=$user_options selected=$user_options_selected}
     </select>
   </label>
 
   <label>
-    {lang:Image id}
-    <input name="image_id" value="{IMAGE_ID}" type="text" size="5">
+    {'Image id'|@translate}
+    <input name="image_id" value="{$IMAGE_ID}" type="text" size="5">
   </label>
 
   <label>
-    {lang:File name}
-    <input name="filename" value="{FILENAME}" type="text">
+    {'File name'|@translate}
+    <input name="filename" value="{$FILENAME}" type="text">
   </label>
 
-  <input class="submit" type="submit" name="submit" value="{lang:submit}" />
+  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" />
 </fieldset>
 <fieldset>
-  <legend>{lang:Display}</legend>
+  <legend>{'Display'|@translate}</legend>
   <ul>
     <li>
-      {lang:Thumbnails}
+      {'Thumbnails'|@translate}
       <select name="display_thumbnail">
-        <!-- BEGIN display_thumbnail -->
-        <option {display_thumbnail.SELECTED} value="{display_thumbnail.VALUE}">{display_thumbnail.CONTENT}</option>
-        <!-- END display_thumbnail -->
+      	{html_options values=$display_thumbnail_values output=$display_thumbnail_values|translate selected=$display_thumbnail_selected}
       </select>
     </li>
   </ul>
 </fieldset>
 </form>
 
-<!-- BEGIN summary -->
+{if isset($search_summary)}
 <fieldset>
-  <legend>{lang:Summary}</legend>
+  <legend>{'Summary'|@translate}</legend>
 
   <ul>
-    <li>{summary.NB_LINES}</li>
-    <li>{summary.FILESIZE}</li>
+    <li>{$search_summary.NB_LINES}, {$search_summary.FILESIZE}</li>
     <li>
-      {summary.USERS}
+      {$search_summary.USERS}
       <ul>
-        <li>{summary.MEMBERS}</li>
-        <li>{summary.GUESTS}</li>
+        <li>{$search_summary.MEMBERS}</li>
+        <li>{$search_summary.GUESTS}</li>
       </ul>
     </li>
   </ul>
 </fieldset>
-<!-- END summary -->
+{/if}
 
-<!-- BEGIN navigation -->
-<div class="admin">
-{navigation.NAVBAR}
+
+{if !empty($NAV_BAR)}
+<div class="navigationBar">
+	{$NAV_BAR}
 </div>
-<!-- END navigation -->
+{/if}
+
 
 <table class="table2" id="detailedStats">
-  <tr class="throw">
-    <th>{lang:date}</th>
-    <th>{lang:time}</th>
-    <th>{lang:user}</th>
-    <th>{lang:IP}</th>
-    <th>{lang:image}</th>
-    <th>{lang:Element type}</th>
-    <th>{lang:section}</th>
-    <th>{lang:category}</th>
-    <th>{lang:tags}</th>
-  </tr>
-<!-- BEGIN detail -->
-  <tr class="{detail.T_CLASS}">
-    <td class="hour">{detail.DATE}</td>
-    <td class="hour">{detail.TIME}</td>
-    <td>{detail.USER}</td>
-    <td>{detail.IP}</td>
-    <td>{detail.IMAGE}</td>
-    <td>{detail.TYPE}</td>
-    <td>{detail.SECTION}</td>
-    <td>{detail.CATEGORY}</td>
-    <td>{detail.TAGS}</td>
-  </tr>
-<!-- END detail -->
+<tr class="throw">
+	<th>{'date'|@translate}</th>
+	<th>{'time'|@translate}</th>
+	<th>{'user'|@translate}</th>
+	<th>{'IP'|@translate}</th>
+	<th>{'image'|@translate}</th>
+	<th>{'Element type'|@translate}</th>
+	<th>{'section'|@translate}</th>
+	<th>{'category'|@translate}</th>
+	<th>{'tags'|@translate}</th>
+</tr>
+{if !empty($search_results) }
+{foreach from=$search_results item=detail name=res_loop}
+<tr class="{if $smarty.foreach.res_loop.index is odd}row1{else}row2{/if}">
+	<td class="hour">{$detail.DATE}</td>
+	<td class="hour">{$detail.TIME}</td>
+	<td>{$detail.USER}</td>
+	<td>{$detail.IP}</td>
+	<td>{$detail.IMAGE}</td>
+	<td>{$detail.TYPE}</td>
+	<td>{$detail.SECTION}</td>
+	<td>{$detail.CATEGORY}</td>
+	<td>{$detail.TAGS}</td>
+</tr>
+{/foreach}
+{/if}
 </table>
 
-<!-- BEGIN navigation -->
-<div class="admin">
-{navigation.NAVBAR}
+
+{if !empty($NAV_BAR)}
+<div class="navigationBar">
+	{$NAV_BAR}
 </div>
-<!-- END navigation -->
+{/if}

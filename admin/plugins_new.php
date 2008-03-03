@@ -52,66 +52,66 @@ if (isset($_GET['installstatus']))
   case 'ok':
     array_push($page['infos'], l10n('plugins_install_ok'), l10n('plugins_install_need_activate'));
     break;
-  
+
   case 'temp_path_error':
-    array_push($page['errors'], l10n('plugins_temp_path_error'));  
+    array_push($page['errors'], l10n('plugins_temp_path_error'));
     break;
-  
+
   case 'dl_archive_error':
-    array_push($page['errors'], l10n('plugins_dl_archive_error'));  
+    array_push($page['errors'], l10n('plugins_dl_archive_error'));
     break;
 
   case 'archive_error':
-    array_push($page['errors'], l10n('plugins_archive_error'));  
+    array_push($page['errors'], l10n('plugins_archive_error'));
     break;
 
   default:
-    array_push($page['errors'], sprintf(l10n('plugins_extract_error'), $_GET['installstatus']), l10n('plugins_check_chmod'));  
+    array_push($page['errors'], sprintf(l10n('plugins_extract_error'), $_GET['installstatus']), l10n('plugins_check_chmod'));
   }
 }
 
 
 //----------------------------------------------------------------sort options
 $order = isset($_GET['order']) ? $_GET['order'] : 'date';
-        
-$template->assign('order', 
+
+$template->assign('order',
     array(htmlentities($my_base_url.'&order=date') => l10n('Post date'),
           htmlentities($my_base_url.'&order=name') => l10n('Name'),
           htmlentities($my_base_url.'&order=author') => l10n('Author')));
-          
+
 $template->assign('selected', htmlentities($my_base_url.'&order=').$order);
 
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins_infos = check_server_plugins(true);
+$plugins_infos = check_server_plugins($fs_plugins, true);
 if ($plugins_infos !== false)
 {
   if ($order == 'date') krsort($plugins_infos);
   else uasort($plugins_infos, 'extension_'.$order.'_compare');
-  
+
   foreach($plugins_infos as $plugin)
   {
     $ext_desc = nl2br(htmlspecialchars(strip_tags(
                   utf8_encode($plugin['ext_description']))));
-    
+
     $ver_desc = sprintf(l10n('plugins_description'),
             $plugin['version'],
             date('Y-m-d', $plugin['date']),
             nl2br(htmlspecialchars(strip_tags(
               utf8_encode($plugin['description'])))));
-  
+
     $url_auto_install = htmlentities($my_base_url)
         . '&amp;extension=' . $plugin['id_extension']
         . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
         . '%2Frevision-' . $plugin['id_revision'] . '%2F'
         .  str_replace(' ', '%20',$plugin['url']);
-    
+
     $url_download = PEM_URL .'/upload/extension-'.$plugin['id_extension']
         . '/revision-' . $plugin['id_revision']
         . '/' . $plugin['url'];
-          
+
     $template->append('plugins',
         array('EXT_NAME' => $plugin['ext_name'],
           'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin['id_extension'],

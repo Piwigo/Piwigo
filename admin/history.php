@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -107,7 +107,7 @@ if (isset($_POST['submit']))
   {
     $search['fields']['image_id'] = intval($_POST['image_id']);
   }
-  
+
   if (!empty($_POST['filename']))
   {
     $search['fields']['filename'] = str_replace(
@@ -123,9 +123,9 @@ if (isset($_POST['submit']))
 
   // TODO manage inconsistency of having $_POST['image_id'] and
   // $_POST['filename'] simultaneously
-  
+
   // echo '<pre>'; print_r($search); echo '</pre>';
-  
+
   if (!empty($search))
   {
     // register search rules in database, then they will be available on
@@ -139,7 +139,7 @@ INSERT INTO '.SEARCH_TABLE.'
     pwg_query($query);
 
     $search_id = mysql_insert_id();
-    
+
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
       );
@@ -159,21 +159,10 @@ $template->set_filename('history', 'admin/history.tpl');
 // TabSheet initialization
 history_tabsheet();
 
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=history';
-
-$template->assign_vars(
+$template->assign(
   array(
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=history',
-
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=history'
-    )
-  );
-
-$template->assign_vars(
-  array(
-    'TODAY_DAY'   => date('d', time()),
-    'TODAY_MONTH' => date('m', time()),
-    'TODAY_YEAR'  => date('Y', time()),
+    'F_ACTION' => get_root_url().'admin.php?page=history'
     )
   );
 
@@ -212,7 +201,7 @@ INSERT INTO '.SEARCH_TABLE.'
     pwg_query($query);
 
     $search_id = mysql_insert_id();
-    
+
     redirect(
       PHPWG_ROOT_PATH.'admin.php?page=history&search_id='.$search_id
       );
@@ -286,7 +275,7 @@ SELECT id, uppercats
     $uppercats_of = simple_hash_from_query($query, 'id', 'uppercats');
 
     $name_of_category = array();
-    
+
     foreach ($uppercats_of as $category_id => $uppercats)
     {
       $name_of_category[$category_id] = get_cat_display_name_cache(
@@ -359,7 +348,7 @@ SELECT
       $name_of_tag[ $row['id'] ] = $row['name'];
     }
   }
-  
+
   $i = 0;
   $first_line = $page['start'] + 1;
   $last_line = $page['start'] + $conf['nb_logs_page'];
@@ -374,7 +363,7 @@ SELECT
     // unknown) but the non image element filesize. Proposed solution: add
     // #images.representative_filesize and add 'representative' in the
     // choices of #history.image_type.
-    
+
     if (isset($line['image_type']))
     {
       if ($line['image_type'] == 'high')
@@ -401,12 +390,12 @@ SELECT
       {
         $summary['guests_IP'][ $line['IP'] ] = 0;
       }
-      
+
       $summary['guests_IP'][ $line['IP'] ]++;
     }
-    
+
     $i++;
-    
+
     if ($i < $first_line or $i > $last_line)
     {
       continue;
@@ -497,9 +486,9 @@ SELECT
         }
       }
     }
-    
-    $template->assign_block_vars(
-      'detail',
+
+    $template->append(
+      'search_results',
       array(
         'DATE'      => $line['date'],
         'TIME'      => $line['time'],
@@ -514,7 +503,6 @@ SELECT
                 : 'deleted '.$line['category_id'] )
           : '',
         'TAGS'       => $tags_string,
-        'T_CLASS'   => ($i % 2) ? 'row1' : 'row2',
         )
       );
   }
@@ -528,23 +516,23 @@ SELECT
     // avoided in next steps
     unset($username_of[ $conf['guest_id'] ]);
   }
-  
+
   $summary['nb_members'] = count($username_of);
 
   $member_strings = array();
   foreach ($username_of as $user_id => $user_name)
   {
     $member_string = $user_name.'&nbsp;<a href="';
-    $member_string.= PHPWG_ROOT_PATH.'admin.php?page=history';
+    $member_string.= get_root_url().'admin.php?page=history';
     $member_string.= '&amp;search_id='.$page['search_id'];
     $member_string.= '&amp;user_id='.$user_id;
     $member_string.= '">+</a>';
 
     $member_strings[] = $member_string;
   }
-  
-  $template->assign_block_vars(
-    'summary',
+
+  $template->assign(
+    'search_summary',
     array(
       'NB_LINES' => l10n_dec(
         '%d line filtered', '%d lines filtered',
@@ -577,18 +565,13 @@ SELECT
 if (isset($page['search_id']))
 {
   $navbar = create_navigation_bar(
-    PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start')),
+    get_root_url().'admin.php'.get_query_string_diff(array('start')),
     $page['nb_lines'],
     $page['start'],
     $conf['nb_logs_page']
     );
 
-  $template->assign_block_vars(
-    'navigation',
-    array(
-      'NAVBAR' => $navbar
-      )
-    );
+  $template->assign('NAV_BAR', $navbar);
 }
 
 // +-----------------------------------------------------------------------+
@@ -602,7 +585,7 @@ if (isset($page['search']))
   if (isset($page['search']['fields']['date-after']))
   {
     $tokens = explode('-', $page['search']['fields']['date-after']);
-    
+
     $form['start_year']  = (int)$tokens[0];
     $form['start_month'] = (int)$tokens[1];
     $form['start_day']   = (int)$tokens[2];
@@ -646,49 +629,35 @@ else
     pwg_get_cookie_var('history_display_thumbnail', $display_thumbnails[2]);
 }
 
-// start date
-get_day_list('start_day', @$form['start_day']);
-get_month_list('start_month', @$form['start_month']);
-// end date
-get_day_list('end_day', @$form['end_day']);
-get_month_list('end_month', @$form['end_month']);
 
-$template->assign_vars(
+$month_list = $lang['month'];
+$month_list[0]='------------';
+ksort($month_list);
+
+$template->assign(
   array(
-    'START_YEAR' => @$form['start_year'],
-    'END_YEAR'   => @$form['end_year'],
     'IMAGE_ID' => @$form['image_id'],
     'FILENAME' => @$form['filename'],
+
+    'month_list' => $month_list,
+
+    'START_DAY_SELECTED' => @$form['start_day'],
+    'START_MONTH_SELECTED' => @$form['start_month'],
+    'START_YEAR' => @$form['start_year'],
+
+    'END_DAY_SELECTED' => @$form['end_day'],
+    'END_MONTH_SELECTED' => @$form['end_month'],
+    'END_YEAR'   => @$form['end_year'],
     )
   );
 
-foreach ($types as $option)
-{
-  $selected = '';
-  
-  if (in_array($option, $form['types']))
-  {
-    $selected = 'selected="selected"';
-  }
-  
-  $template->assign_block_vars(
-    'types_option',
+$template->assign(
     array(
-      'VALUE' => $option,
-      'CONTENT' => l10n($option),
-      'SELECTED' => $selected,
-      )
-    );
-}
-
-$template->assign_block_vars(
-  'user_option',
-  array(
-    'VALUE'=> -1,
-    'CONTENT' => '------------',
-    'SELECTED' => ''
+      'type_option_values' => $types,
+      'type_option_selected' => $form['types']
     )
   );
+
 
 $query = '
 SELECT
@@ -697,46 +666,19 @@ SELECT
   FROM '.USERS_TABLE.'
   ORDER BY username ASC
 ;';
-$result = pwg_query($query);
+$template->assign(
+  array(
+    'user_options' => simple_hash_from_query($query, 'id','username'),
+    'user_options_selected' => array(@$form['user'])
+  )
+);
 
-while ($row = mysql_fetch_array($result))
-{
-  $selected = '';
-
-  if (isset($form['user'])
-      and $row['id'] == $form['user'])
-  {
-    $selected = 'selected="selected"';
-  }
-  
-  $template->assign_block_vars(
-    'user_option',
-    array(
-      'VALUE' => $row['id'],
-      'CONTENT' => $row['username'],
-      'SELECTED' => $selected,
-      )
-    );
-}
-
-foreach ($display_thumbnails as $display_thumbnail)
-{
-  $selected = '';
-  
-  if ($display_thumbnail === $form['display_thumbnail'])
-  {
-    $selected = 'selected="selected"';
-  }
-  
-  $template->assign_block_vars(
-    'display_thumbnail',
-    array(
-      'VALUE' => $display_thumbnail,
-      'CONTENT' => l10n($display_thumbnail),
-      'SELECTED' => $selected,
-      )
-    );
-}
+$template->assign(
+  array(
+      'display_thumbnail_values' => $display_thumbnails,
+      'display_thumbnail_selected' => array($form['display_thumbnail']),
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |

@@ -388,14 +388,14 @@ $template->set_filename('stats', 'admin/stats.tpl');
 // TabSheet initialization
 history_tabsheet();
 
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=history';
+$base_url = get_root_url().'admin.php?page=history';
 
-$template->assign_vars(
+$template->assign(
   array(
     'L_STAT_TITLE' => implode($conf['level_separator'], $title_parts),
     'PERIOD_LABEL' => $period_label,
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=history',
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=history',
+    'U_HELP' => get_root_url().'popuphelp.php?page=history',
+    'F_ACTION' => $base_url,
     )
   );
 
@@ -468,7 +468,7 @@ if (count($datas) > 0)
     else if (isset($page['month']))
     {
       $url =
-        PHPWG_ROOT_PATH.'admin.php'
+        get_root_url().'admin.php'
         .'?page=stats'
         .'&amp;year='.$page['year']
         .'&amp;month='.$page['month']
@@ -482,7 +482,7 @@ if (count($datas) > 0)
     else if (isset($page['year']))
     {
       $url =
-        PHPWG_ROOT_PATH.'admin.php'
+        get_root_url().'admin.php'
         .'?page=stats'
         .'&amp;year='.$page['year']
         .'&amp;month='.$i
@@ -494,7 +494,7 @@ if (count($datas) > 0)
     {
       // at least the year is defined
       $url =
-        PHPWG_ROOT_PATH.'admin.php'
+        get_root_url().'admin.php'
         .'?page=stats'
         .'&amp;year='.$i
         ;
@@ -507,8 +507,8 @@ if (count($datas) > 0)
       $value = '<a href="'.$url.'">'.$value.'</a>';
     }
 
-    $template->assign_block_vars(
-      'statrow',
+    $template->append(
+      'statrows',
       array(
         'VALUE' => $value,
         'PAGES' => $datas[$i],

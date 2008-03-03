@@ -1,34 +1,38 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
+
 <div class="titrePage">
   <ul class="categoryActions">
     <li>
       <a
-        href="{U_HELP}"
+        href="{$U_HELP}"
         onclick="popuphelp(this.href); return false;"
-        title="{lang:Help}"
+        title="{'Help'|@translate}"
       >
-        <img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)">
+        <img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)">
       </a>
     </li>
   </ul>
-  <h2>{lang:History} {TABSHEET_TITLE}</h2>
-  {TABSHEET}
+  <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
+  {$TABSHEET}
 </div>
 
-<h3>{L_STAT_TITLE}</h3>
+<h3>{$L_STAT_TITLE}</h3>
 
 <table class="table2" id="dailyStats">
-  <tr class="throw">
-    <th>{PERIOD_LABEL}</th>
-    <th>{lang:Pages seen}</th>
-    <th></th>
-  </tr>
-<!-- BEGIN statrow -->
-  <tr>
-    <td style="white-space: nowrap">{statrow.VALUE}</td>
-    <td class="number">{statrow.PAGES}</td>
-    <td><div class="statBar" style="width:{statrow.WIDTH}px"></div></td>
-  </tr>
-<!-- END statrow -->
+	<tr class="throw">
+		<th>{$PERIOD_LABEL}</th>
+		<th>{'Pages seen'|@translate}</th>
+		<th></th>
+	</tr>
+
+{if not empty($statrows)}
+{foreach from=$statrows item=row}
+	<tr>
+		<td style="white-space: nowrap">{$row.VALUE}</td>
+		<td class="number">{$row.PAGES}</td>
+		<td><div class="statBar" style="width:{$row.WIDTH}px"></div></td>
+	</tr>
+{/foreach}
+{/if}
+
 </table>

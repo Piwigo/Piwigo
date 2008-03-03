@@ -1,3 +1,3 @@
-<!-- DEV TAG: not smarty migrated -->
-<p>{U_REDIRECT_MSG}</p>
-<p><a href="{U_REFRESH}">{lang:click_to_redirect}</a></p>
+{* $Id$ *}
+<p>{$REDIRECT_MSG}</p>
+<p><a href="{$refresh.U_REFRESH}">{'click_to_redirect'|@translate}</a></p>

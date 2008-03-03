@@ -12,7 +12,7 @@
     <td>{'Name'|@translate}</td>
     <td>{'plugins_actual_version'|@translate}</td>
     <td>{'plugins_new_version'|@translate}</td>
-    <td>{'plugins_action'|@translate}</td>
+    <td>{'Actions'|@translate}</td>
   </tr>
 </thead>
 {foreach from=$plugins_not_uptodate item=plugin name=plugins_loop}

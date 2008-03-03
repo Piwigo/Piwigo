@@ -136,10 +136,8 @@ function sort_plugins_by_state($plugins, $db_plugins_by_id)
  * Retrieve PEM server datas
  * @param bool (true for retrieve new extensions)
  */
-function check_server_plugins($newext=false)
+function check_server_plugins(& $fs_plugins, $newext=false)
 {
-  global $fs_plugins;
-  
   foreach($fs_plugins as $plugin_id => $fs_plugin)
   {
     if (!empty($fs_plugin['uri']) and strpos($fs_plugin['uri'] , 'extension_view.php?eid='))
@@ -150,7 +148,7 @@ function check_server_plugins($newext=false)
       $fs_plugins[$plugin_id]['extension'] = $extension;
     }
   }
-  
+
   $url = PEM_URL . '/uptodate.php?version=' . rawurlencode(PHPWG_VERSION) . '&extensions=' . implode(',', $plugins_to_check);
   $url .= $newext ? '&newext=Plugin' : '';
 
@@ -170,7 +168,6 @@ function check_server_plugins($newext=false)
  */
 function extract_plugin_files($action, $source, $dest)
 {
-  global $archive;
   if ($archive = tempnam( PHPWG_PLUGINS_PATH, 'zip'))
   {
     if (@copy(PEM_URL . str_replace(' ', '%20', $source), $archive))
@@ -192,12 +189,12 @@ function extract_plugin_files($action, $source, $dest)
         {
           $root = dirname($main_filepath); // main.inc.php path in archive
           if ($action == 'upgrade')
-          {          
+          {
             $extract_path = PHPWG_PLUGINS_PATH.$dest;
           }
           else
           {
-            $extract_path = PHPWG_PLUGINS_PATH 
+            $extract_path = PHPWG_PLUGINS_PATH
                 . ($root == '.' ? 'extension_' . $dest : basename($root));
           }
           if($result = $zip->extract(PCLZIP_OPT_PATH, $extract_path,
@@ -222,7 +219,7 @@ function extract_plugin_files($action, $source, $dest)
     else $status = 'dl_archive_error';
   }
   else $status = 'temp_path_error';
-  
+
   @unlink($archive);
   return $status;
 }
