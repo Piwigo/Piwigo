@@ -1,25 +1,25 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:Maintenance}</h2>
+  <h2>{'Maintenance'|@translate}</h2>
 </div>
 
 <ul>
-  <li><a href="{U_MAINT_CATEGORIES}" {TAG_INPUT_ENABLED}>{lang:update categories informations}</a></li>
-  <li><a href="{U_MAINT_IMAGES}" {TAG_INPUT_ENABLED}>{lang:update images informations}</a></li>
-  <li><a href="{U_MAINT_DATABASE}" {TAG_INPUT_ENABLED}>{lang:repair and optimize database}</a></li>
+  <li><a href="{$U_MAINT_CATEGORIES}" {$TAG_INPUT_ENABLED}>{'update categories informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_IMAGES}" {$TAG_INPUT_ENABLED}>{'update images informations'|@translate}</a></li>
+  <li><a href="{$U_MAINT_DATABASE}" {$TAG_INPUT_ENABLED}>{'repair and optimize database'|@translate}</a></li>
 </ul>
 
 <ul>
-  <li><a href="{U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}>{lang:purge history detail}</a></li>
-  <li><a href="{U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}>{lang:purge history summary}</a></li>
-  <li><a href="{U_MAINT_SESSIONS}" {TAG_INPUT_ENABLED}>{lang:purge sessions}</a></li>
-  <li><a href="{U_MAINT_FEEDS}" {TAG_INPUT_ENABLED}>{lang:purge never used notification feeds}</a></li>
+  <li><a href="{$U_MAINT_HISTORY_DETAIL}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>{'purge history detail'|@translate}</a></li>
+  <li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>{'purge history summary'|@translate}</a></li>
+  <li><a href="{$U_MAINT_SESSIONS}" {$TAG_INPUT_ENABLED}>{'purge sessions'|@translate}</a></li>
+  <li><a href="{$U_MAINT_FEEDS}" {$TAG_INPUT_ENABLED}>{'purge never used notification feeds'|@translate}</a></li>
+  <li><a href="{$U_MAINT_COMPILED_TEMPLATES}" {$TAG_INPUT_ENABLED}>{'Purge compiled templates'|@translate}</a></li>
 </ul>
 
 <ul>
-  <li><a href="{U_MAINT_C13Y}" {TAG_INPUT_ENABLED}>{lang:c13y_maintenance}</a></li>
+  <li><a href="{$U_MAINT_C13Y}" {$TAG_INPUT_ENABLED}>{'c13y_maintenance'|@translate}</a></li>
 </ul>

@@ -104,6 +104,12 @@ DELETE
     $c13y->maintenance();
     break;
   }
+  case 'compiled-templates' :
+  {
+    $template->smarty->clear_compiled_tpl();
+    file_put_contents($template->smarty->compile_dir.'/index.htm', '');
+    break;
+  }
   default :
   {
     break;
@@ -116,9 +122,9 @@ DELETE
 
 $template->set_filenames(array('maintenance'=>'admin/maintenance.tpl'));
 
-$start_url = PHPWG_ROOT_PATH.'admin.php?page=maintenance&amp;action=';
+$start_url = get_root_url().'admin.php?page=maintenance&amp;action=';
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_MAINT_CATEGORIES' => $start_url.'categories',
     'U_MAINT_IMAGES' => $start_url.'images',
@@ -128,6 +134,7 @@ $template->assign_vars(
     'U_MAINT_FEEDS' => $start_url.'feeds',
     'U_MAINT_DATABASE' => $start_url.'database',
     'U_MAINT_C13Y' => $start_url.'c13y',
+    'U_MAINT_COMPILED_TEMPLATES' => $start_url.'compiled-templates',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=maintenance',
     )
   );

@@ -112,15 +112,6 @@
       <input type="radio" name="subcats-included" value="0" />{'no'|@translate}
     </label></li>
   </ul>
-  <ul>
-    <li><label>{'search_sort'|@translate}</label></li>
-    <li><label>
-      <input type="radio" name="sd" value="AND" />{'search_ascending'|@translate}
-    </label></li>
-    <li><label>
-      <input type="radio" name="sd" value="d" checked="checked" />{'search_descending'|@translate}
-    </label></li>
-  </ul>
 </fieldset>
 <p>
   <input class="submit" type="submit" name="submit" value="{'submit'|@translate}" />
