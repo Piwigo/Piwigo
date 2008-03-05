@@ -2,9 +2,8 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
 // | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
@@ -160,31 +159,8 @@ $stats = array();
 // +-----------------------------------------------------------------------+
 $template->set_filenames( array('thumbnail'=>'admin/thumbnail.tpl') );
 
-$template->assign_vars(array(
-  'L_THUMBNAIL_TITLE'=>l10n('tn_dirs_title'),
-  'L_UNLINK'=>l10n('tn_no_missing'),
-  'L_MISSING_THUMBNAILS'=>l10n('tn_dirs_alone'),
-  'L_RESULTS'=>l10n('tn_results_title'),
-  'L_PATH'=>l10n('path'),
-  'L_FILESIZE'=>l10n('filesize'),
-  'L_GENERATED'=>l10n('tn_results_gen_time'),
-  'L_THUMBNAIL'=>l10n('thumbnail'),
-  'L_PARAMS'=>l10n('tn_params_title'),
-  'L_GD'=>l10n('tn_params_GD'),
-  'L_CREATE'=>l10n('tn_params_create'),
-  'L_SUBMIT'=>l10n('submit'),
-  'L_REMAINING'=>l10n('tn_alone_title'),
-  'L_TN_STATS'=>l10n('tn_stats'),
-  'L_TN_NB_STATS'=>l10n('tn_stats_nb'),
-  'L_TN_TOTAL'=>l10n('tn_stats_total'),
-  'L_TN_MAX'=>l10n('tn_stats_max'),
-  'L_TN_MIN'=>l10n('tn_stats_min'),
-  'L_TN_AVERAGE'=>l10n('tn_stats_mean'),
-  'L_ALL'=>l10n('tn_all'),
-
+$template->assign(array(
   'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=thumbnail',
-  
-  'T_STYLE'=>$user['template']
   ));
 // +-----------------------------------------------------------------------+
 // |                   search pictures without thumbnails                  |
@@ -303,33 +279,19 @@ if (isset($_POST['submit']))
         $min = array_shift($times);
       }
       
-      $template->assign_block_vars(
-        'results',
+      $tpl_var = 
         array(
           'TN_NB'=>count($infos),
           'TN_TOTAL'=>number_format($sum, 2, '.', ' ').' ms',
           'TN_MAX'=>number_format($max, 2, '.', ' ').' ms',
           'TN_MIN'=>number_format($min, 2, '.', ' ').' ms',
-          'TN_AVERAGE'=>number_format($average, 2, '.', ' ').' ms'
-          ));
+          'TN_AVERAGE'=>number_format($average, 2, '.', ' ').' ms',
+          'elements' => array()
+          );
       
       foreach ($infos as $i => $info)
       {
-        if ($info['time'] == $max)
-        {
-          $class = 'worst_gen_time';
-        }
-        else if ($info['time'] == $min)
-        {
-          $class = 'best_gen_time';
-        }
-        else
-        {
-          $class = '';
-        }
-        
-        $template->assign_block_vars(
-          'results.picture',
+        $tpl_var['elements'][] =
           array(
             'PATH'=>$info['path'],
             'TN_FILE_IMG'=>$info['tn_file'],
@@ -337,10 +299,9 @@ if (isset($_POST['submit']))
             'TN_WIDTH_IMG'=>$info['tn_width'],
             'TN_HEIGHT_IMG'=>$info['tn_height'],
             'GEN_TIME'=>number_format($info['time'], 2, '.', ' ').' ms',
-            
-            'T_CLASS'=>$class
-            ));
+            );
       }
+      $template->assign('results', $tpl_var);
     }
   }
 }
@@ -351,55 +312,42 @@ $remainings = array_diff($wo_thumbnails, $thumbnalized);
 
 if (count($remainings) > 0)
 {
-  $form_url = PHPWG_ROOT_PATH.'admin.php?page=thumbnail';
+  $form_url = get_root_url().'admin.php?page=thumbnail';
   $gd = !empty($_POST['gd']) ? $_POST['gd'] : 2;
   $width = !empty($_POST['width']) ? $_POST['width'] : $conf['tn_width'];
   $height = !empty($_POST['height']) ? $_POST['height'] : $conf['tn_height'];
   $n = !empty($_POST['n']) ? $_POST['n'] : 5;
   
-  $gdlabel = 'GD'.$gd.'_CHECKED';
-  $nlabel = 'n_'.$n.'_CHECKED';
-  
-  $template->assign_block_vars(
+  $template->assign(
     'params',
     array(
-      'F_ACTION'=>$form_url,
-      $gdlabel=>'checked="checked"',
-      $nlabel=>'checked="checked"',
+      'F_ACTION'=> $form_url,
+      'GD_SELECTED' => $gd,
+      'N_SELECTED' => $n,
       'WIDTH_TN'=>$width,
       'HEIGHT_TN'=>$height
       ));
 
-  $template->assign_block_vars(
-    'remainings',
-    array('TOTAL_IMG'=>count($remainings)));
+  $template->assign(
+    'TOTAL_NB_REMAINING',
+    count($remainings));
 
-  $num = 1;
   foreach ($remainings as $path)
   {
-    $class = ($num % 2) ? 'row1' : 'row2';
     list($width, $height) = getimagesize($path);
     $size = floor(filesize($path) / 1024).' KB';
 
-    $template->assign_block_vars(
-      'remainings.remaining',
+    $template->append(
+      'remainings',
       array(
-        'NB_IMG'=>($num),
         'PATH'=>$path,
         'FILESIZE_IMG'=>$size,
         'WIDTH_IMG'=>$width,
         'HEIGHT_IMG'=>$height,
-        
-        'T_CLASS'=>$class
         ));
-
-    $num++;
   }
 }
-else
-{
-  $template->assign_block_vars('warning', array());
-}
+
 // +-----------------------------------------------------------------------+
 // |                           return to admin                             |
 // +-----------------------------------------------------------------------+
