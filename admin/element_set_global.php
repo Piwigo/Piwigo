@@ -205,15 +205,13 @@ SELECT id
 $template->set_filenames(
   array('element_set_global' => 'admin/element_set_global.tpl'));
 
-$base_url = PHPWG_ROOT_PATH.'admin.php';
+$base_url = get_root_url().'admin.php';
 
 // $form_action = $base_url.'?page=element_set_global';
 
-$template->assign_vars(
+$template->assign(
   array(
     'CATEGORIES_NAV'=>$page['title'],
-
-    'L_SUBMIT'=>l10n('submit'),
 
     'U_DISPLAY'=>$base_url.get_query_string_diff(array('display')),
 
@@ -231,47 +229,22 @@ $template->assign_vars(
 // |                            caddie options                             |
 // +-----------------------------------------------------------------------+
 
-if ('caddie' == $_GET['cat'])
-{
-  $template->assign_block_vars('in_caddie', array());
-}
-else
-{
-  $template->assign_block_vars('not_in_caddie', array());
-}
+$template->assign('IN_CADDIE', 'caddie' == $_GET['cat'] ? true : false );
 
 // +-----------------------------------------------------------------------+
 // |                           global mode form                            |
 // +-----------------------------------------------------------------------+
 
 // Virtualy associate a picture to a category
-$blockname = 'associate_option';
-
-$template->assign_block_vars(
-  $blockname,
-  array('SELECTED' => '',
-        'VALUE'=> 0,
-        'OPTION' => '------------'
-    ));
-
 $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
 ;';
-display_select_cat_wrapper($query, array(), $blockname, true);
+display_select_cat_wrapper($query, array(), 'associate_options', true);
 
 // Dissociate from a category : categories listed for dissociation can
 // only represent virtual links. Links to physical categories can't be
 // broken
-$blockname = 'dissociate_option';
-
-$template->assign_block_vars(
-  $blockname,
-  array('SELECTED' => '',
-        'VALUE'=> 0,
-        'OPTION' => '------------'
-    ));
-
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
@@ -284,32 +257,22 @@ SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
     AND ic.image_id = i.id
     AND ic.category_id != i.storage_category_id
 ;';
-  display_select_cat_wrapper($query, array(), $blockname, true);
+  display_select_cat_wrapper($query, array(), 'dissociate_options', true);
 }
 
 $all_tags = get_all_tags();
 
-if (count($all_tags) == 0)
-{
-  $add_tag_selection =
-    '<p>'.
-    l10n('No tag defined. Use Administration>Pictures>Tags').
-    '</p>';
-}
-else
-{
-  $add_tag_selection = get_html_tag_selection(
-    $all_tags,
-    'add_tags'
+if (count($all_tags) > 0)
+{// add tags
+  $template->assign(
+    array(
+      'ADD_TAG_SELECTION' => get_html_tag_selection(
+                              $all_tags,
+                              'add_tags'
+                              ),
+      )
     );
 }
-
-// add tags
-$template->assign_vars(
-  array(
-    'ADD_TAG_SELECTION' => $add_tag_selection,
-    )
-  );
 
 if (count($page['cat_elements_id']) > 0)
 {
@@ -317,48 +280,45 @@ if (count($page['cat_elements_id']) > 0)
   $tags = get_common_tags($page['cat_elements_id'], -1);
   usort($tags, 'name_compare');
 
-  $template->assign_vars(
+  $template->assign(
     array(
       'DEL_TAG_SELECTION' => get_html_tag_selection($tags, 'del_tags'),
       )
     );
 }
+
 // creation date
 $day =
 empty($_POST['date_creation_day']) ? date('j') : $_POST['date_creation_day'];
-get_day_list('date_creation_day', $day);
 
-if (!empty($_POST['date_creation_month']))
-{
-  $month = $_POST['date_creation_month'];
-}
-else
-{
-  $month = date('n');
-}
-get_month_list('date_creation_month', $month);
+$month =
+empty($_POST['date_creation_month']) ? date('n') : $_POST['date_creation_month'];
 
-if (!empty($_POST['date_creation_year']))
-{
-  $year = $_POST['date_creation_year'];
-}
-else
-{
-  $year = date('Y');
-}
-$template->assign_vars(array('DATE_CREATION_YEAR_VALUE'=>$year));
+$year =
+empty($_POST['date_creation_year']) ? date('Y') : $_POST['date_creation_year'];
+
+$month_list = $lang['month'];
+$month_list[0]='------------';
+ksort($month_list);
+$template->assign( array(
+      'month_list'         => $month_list,
+      'DATE_CREATION_DAY'  => (int)$day,
+      'DATE_CREATION_MONTH'=> (int)$month,
+      'DATE_CREATION_YEAR' => (int)$year,
+    )
+  );
 
 // image level options
-$blockname = 'level_option';
+$tpl_options = array();
 foreach ($conf['available_permission_levels'] as $level)
 {
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $level,
-      'CONTENT' => l10n( sprintf('Level %d', $level) ),
-      ));
+  $tpl_options[$level] = l10n( sprintf('Level %d', $level) );
 }
+$template->assign(
+    array(
+      'level_options'=> $tpl_options,
+    )
+  );
 
 // +-----------------------------------------------------------------------+
 // |                        global mode thumbnails                         |
@@ -389,7 +349,7 @@ if (count($page['cat_elements_id']) > 0)
     $page['start'],
     $page['nb_images']
     );
-  $template->assign_vars(array('NAV_BAR' => $nav_bar));
+  $template->assign('NAV_BAR', $nav_bar);
 
   $query = '
 SELECT id,path,tn_ext,file,filesize,level
@@ -402,34 +362,21 @@ SELECT id,path,tn_ext,file,filesize,level
   $result = pwg_query($query);
 
   // template thumbnail initialization
-  if (mysql_num_rows($result) > 0)
-  {
-    $template->assign_block_vars('thumbnails', array());
-  }
 
   while ($row = mysql_fetch_assoc($result))
   {
     $src = get_thumbnail_url($row);
 
-    $template->assign_block_vars(
-      'thumbnails.thumbnail',
+    $template->append(
+      'thumbnails',
       array(
         'ID' => $row['id'],
-        'SRC' => $src,
-        'ALT' => $row['file'],
-        'TITLE' => get_thumbnail_title($row)
+        'TN_SRC' => $src,
+        'FILE' => $row['file'],
+        'TITLE' => get_thumbnail_title($row),
+        'LEVEL' => $row['level']
         )
       );
-
-    if ( $row['level']>0 )
-    {
-      $template->assign_block_vars('thumbnails.thumbnail.level',
-          array(
-              'LEVEL' => $row['level'],
-              'TITLE' => l10n( sprintf('Level %d', $row['level']) ),
-            )
-        );
-    }
   }
 }
 

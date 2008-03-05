@@ -1,152 +1,150 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
-<h2>{lang:Batch management}</h2>
+{* $Id$ *}
 
-<h3>{CATEGORIES_NAV}</h3>
+<h2>{'Batch management'|@translate}</h2>
+
+<h3>{$CATEGORIES_NAV}</h3>
 
 <p style="text-align:center;">
-  {lang:global mode}
-  | <a href="{U_UNIT_MODE}">{lang:unit mode}</a>
+  {'global mode'|@translate}
+  | <a href="{$U_UNIT_MODE}">{'unit mode'|@translate}</a>
 </p>
 
 <fieldset>
 
-  <legend>{lang:Display options}</legend>
+  <legend>{'Display options'|@translate}</legend>
 
-  <p>{lang:elements per page}:
-      <a href="{U_DISPLAY}&amp;display=20">20</a>
-    | <a href="{U_DISPLAY}&amp;display=50">50</a>
-    | <a href="{U_DISPLAY}&amp;display=100">100</a>
-    | <a href="{U_DISPLAY}&amp;display=all">{lang:all}</a>
+  <p>{'elements per page'|@translate}:
+      <a href="{$U_DISPLAY}&amp;display=20">20</a>
+    | <a href="{$U_DISPLAY}&amp;display=50">50</a>
+    | <a href="{$U_DISPLAY}&amp;display=100">100</a>
+    | <a href="{$U_DISPLAY}&amp;display=all">{'all'|@translate}</a>
   </p>
 
 </fieldset>
 
-<form action="{F_ACTION}" method="post">
+<form action="{$F_ACTION}" method="post">
 
 <fieldset>
 
-  <legend>{lang:Elements}</legend>
+  <legend>{'Elements'|@translate}</legend>
 
-  <div class="navigationBar">{NAV_BAR}</div>
+  {if !empty($NAV_BAR)}<div class="navigationBar">{$NAV_BAR}</div>{/if}
 
-  <!-- BEGIN thumbnails -->
+{if !empty($thumbnails)}
   <ul class="thumbnails">
-    <!-- BEGIN thumbnail -->
+    {foreach from=$thumbnails item=thumbnail}
     <li><span class="wrap1">
         <label>
           <span class="wrap2">
-			<!-- BEGIN level -->
-			<em class="levelIndicatorB">{thumbnails.thumbnail.level.LEVEL}</em><em class="levelIndicatorF" title="{thumbnails.thumbnail.level.TITLE}">{thumbnails.thumbnail.level.LEVEL}</em>
-			<!-- END level -->
+			{if $thumbnail.LEVEL > 0}
+			<em class="levelIndicatorB">{$thumbnail.LEVEL}</em>
+      <em class="levelIndicatorF" title="{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}">{$thumbnail.LEVEL}</em>
+			{/if}
           <span>
-            <img src="{thumbnails.thumbnail.SRC}"
-               alt="{thumbnails.thumbnail.ALT}"
-               title="{thumbnails.thumbnail.TITLE}"
+            <img src="{$thumbnail.TN_SRC}"
+               alt="{$thumbnail.FILE}"
+               title="{$thumbnail.TITLE}"
                class="thumbnail" />
           </span></span>
-          <input type="checkbox" name="selection[]" value="{thumbnails.thumbnail.ID}" />
+          <input type="checkbox" name="selection[]" value="{$thumbnail.ID}" />
         </label>
         </span>
     </li>
-    <!-- END thumbnail -->
+    {/foreach}
   </ul>
-  <!-- END thumbnails -->
+{/if}
 
 </fieldset>
 
 <fieldset>
 
-  <legend>{lang:Form}</legend>
+  <legend>{'Form'|@translate}</legend>
 
   <table>
 
     <tr>
-      <td>{lang:associate to category}</td>
+      <td>{'associate to category'|@translate}</td>
       <td>
-       <select style="width:400px" name="associate" size="1">
-         <!-- BEGIN associate_option -->
-         <option {associate_option.SELECTED} value="{associate_option.VALUE}">{associate_option.OPTION}</option>
-         <!-- END associate_option -->
+        <select style="width:400px" name="associate" size="1">
+          <option value="0">------------</option>
+          {html_options options=$associate_options }
        </select>
       </td>
     </tr>
 
     <tr>
-      <td>{lang:dissociate from category}</td>
+      <td>{'dissociate from category'|@translate}</td>
       <td>
         <select style="width:400px" name="dissociate" size="1">
-          <!-- BEGIN dissociate_option -->
-          <option {dissociate_option.SELECTED} value="{dissociate_option.VALUE}">{dissociate_option.OPTION}</option>
-          <!-- END dissociate_option -->
+          <option value="0">------------</option>
+          {if !empty($dissociate_options)}{html_options options=$dissociate_options }{/if}
         </select>
       </td>
     </tr>
 
     <tr>
-      <td>{lang:add tags}</td>
-      <td>{ADD_TAG_SELECTION}</td>
+      <td>{'add tags'|@translate}</td>
+      <td>{if !empty($ADD_TAG_SELECTION)}{$ADD_TAG_SELECTION}{else}<p>{'No tag defined. Use Administration>Pictures>Tags'|@translate}</p>{/if}</td>
     </tr>
 
+    {if !empty($DEL_TAG_SELECTION)}
     <tr>
-      <td>{lang:remove tags}</td>
-      <td>{DEL_TAG_SELECTION}</td>
+      <td>{'remove tags'|@translate}</td>
+      <td>{$DEL_TAG_SELECTION}</td>
     </tr>
+    {/if}
     
     <tr>
-      <td>{lang:Author}</td>
+      <td>{'Author'|@translate}</td>
       <td>
-        <input type="radio" name="author_action" value="leave" checked="checked" /> {lang:leave}
-        <input type="radio" name="author_action" value="unset" /> {lang:unset}
-        <input type="radio" name="author_action" value="set" id="author_action_set" /> {lang:set to}
-        <input onmousedown="document.getElementById('author_action_set').checked = true;" type="text" name="author" value="" />
+        <label><input type="radio" name="author_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
+        <label><input type="radio" name="author_action" value="unset" /> {'unset'|@translate}</label>
+        <label><input type="radio" name="author_action" value="set" id="author_action_set" /> {'set to'|@translate}</label>
+        <input onchange="document.getElementById('author_action_set').checked = true;" type="text" name="author" value="" />
       </td>
     </tr>
 
     <tr>
-      <td>{lang:title}</td>
+      <td>{'title'|@translate}</td>
       <td>
-        <input type="radio" name="name_action" value="leave" checked="checked" /> {lang:leave}
-        <input type="radio" name="name_action" value="unset" /> {lang:unset}
-        <input type="radio" name="name_action" value="set" id="name_action_set" /> {lang:set to}
-        <input onmousedown="document.getElementById('name_action_set').checked = true;" type="text" name="name" value="" />
+        <label><input type="radio" name="name_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
+        <label><input type="radio" name="name_action" value="unset" /> {'unset'|@translate}</label>
+        <label><input type="radio" name="name_action" value="set" id="name_action_set" /> {'set to'|@translate}</label>
+        <input onchange="document.getElementById('name_action_set').checked = true;" type="text" name="name" value="" />
       </td>
     </tr>
 
     <tr>
-      <td>{lang:Creation date}</td>
+      <td>{'Creation date'|@translate}</td>
       <td>
-        <input type="radio" name="date_creation_action" value="leave" checked="checked" /> {lang:leave}
-        <input type="radio" name="date_creation_action" value="unset" /> {lang:unset}
-        <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {lang:set to}
-        <select onmousedown="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
-          <!-- BEGIN date_creation_day -->
-          <option {date_creation_day.SELECTED} value="{date_creation_day.VALUE}">{date_creation_day.OPTION}</option>
-          <!-- END date_creation_day -->
+        <label><input type="radio" name="date_creation_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
+        <label><input type="radio" name="date_creation_action" value="unset" /> {'unset'|@translate}</label>
+        <label><input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {'set to'|@translate}</label>
+        <select onchange="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
+         	<option value="0">--</option>
+          {section name=day start=1 loop=31}
+            <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
+          {/section}
         </select>
-        <select onmousedown="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_month">
-          <!-- BEGIN date_creation_month -->
-          <option {date_creation_month.SELECTED} value="{date_creation_month.VALUE}">{date_creation_month.OPTION}</option>
-          <!-- END date_creation_month -->
+        <select onchange="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_month">
+          {html_options options=$month_list selected=$DATE_CREATION_MONTH}
         </select>
-        <input onmousedown="document.getElementById('date_creation_action_set').checked = true;"
+        <input onchange="document.getElementById('date_creation_action_set').checked = true;"
                name="date_creation_year"
                type="text"
                size="4"
                maxlength="4"
-               value="{DATE_CREATION_YEAR_VALUE}" />
+               value="{$DATE_CREATION_YEAR}" />
       </td>
     </tr>
 
 	<tr>
-		<td>{lang:Minimum privacy level}</td>
+		<td>{'Minimum privacy level'|@translate}</td>
 		<td>
-			<label><input type="radio" name="level_action" value="leave" checked="checked" />{lang:leave}</label>
-			<label><input type="radio" name="level_action" value="set" id="level_action_set" />{lang:set to}</label>
-			<select onmousedown="document.getElementById('level_action_set').checked = true;" name="level" size="1">
-			<!-- BEGIN level_option -->
-			<option {level_option.SELECTED} value="{level_option.VALUE}">{level_option.CONTENT} ({level_option.VALUE})</option>
-			<!-- END level_option -->
+			<label><input type="radio" name="level_action" value="leave" checked="checked" />{'leave'|@translate}</label>
+			<label><input type="radio" name="level_action" value="set" id="level_action_set" />{'set to'|@translate}</label>
+			<select onchange="document.getElementById('level_action_set').checked = true;" name="level" size="1">
+			  {html_options options=$level_options}
 			</select>
 	  </td>
 	</tr>
@@ -154,35 +152,33 @@
   </table>
 
   <p>
-    {lang:target}
-    <label><input type="radio" name="target" value="all" /> {lang:all}</label>
-    <label><input type="radio" name="target" value="selection" checked="checked" /> {lang:selection}</label>
+    {'target'|@translate}
+    <label><input type="radio" name="target" value="all" /> {'all'|@translate}</label>
+    <label><input type="radio" name="target" value="selection" checked="checked" /> {'selection'|@translate}</label>
   </p>
 
     
-  <p><input class="submit" type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/></p>
+  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/></p>
 
 </fieldset>
 
 <fieldset>
 
-  <legend>{lang:Caddie management}</legend>
+  <legend>{'Caddie management'|@translate}</legend>
 
   <ul style="list-style-type:none;">
-    <!-- BEGIN in_caddie -->
-    <li><label><input type="radio" name="caddie_action" value="empty_all" /> {lang:Empty caddie}</label></li>
-    <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {lang:Take selected elements out of caddie}</label></li>
-    <!-- END in_caddie -->
+    {if ($IN_CADDIE)}
+    <li><label><input type="radio" name="caddie_action" value="empty_all" /> {'Empty caddie'|@translate}</label></li>
+    <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {'Take selected elements out of caddie'|@translate}</label></li>
+    {else}
+    <li><label><input type="radio" name="caddie_action" value="add_selected" /> {'Add selected elements to caddie'|@translate}</label></li>
+    {/if}
 
-    <!-- BEGIN not_in_caddie -->
-    <li><label><input type="radio" name="caddie_action" value="add_selected" /> {lang:Add selected elements to caddie}</label></li>
-    <!-- END not_in_caddie -->
-
-    <li><label><input type="radio" name="caddie_action" value="export" /> {lang:Export data}</label></li>
+    <li><label><input type="radio" name="caddie_action" value="export" /> {'Export data'|@translate}</label></li>
   
   </ul>
 
-  <p><input class="submit" type="submit" value="{L_SUBMIT}" name="submit_caddie" /></p>
+  <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit_caddie" /></p>
 
 </fieldset>
 

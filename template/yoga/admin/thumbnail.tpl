@@ -1,130 +1,123 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:title_thumbnails}</h2>
+  <h2>{'title_thumbnails'|@translate}</h2>
 </div>
 
-<!-- BEGIN results -->
-<div class="admin">{L_RESULTS}</div>
+{if isset($results) }
+<div class="admin">{'tn_results_title'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
-    <td>{L_PATH}</td>
-    <td>{L_THUMBNAIL}</td>
-    <td>{L_GENERATED}</td>
-    <td>{L_FILESIZE}</td>
-    <td>{L_WIDTH}</td>
-    <td>{L_HEIGHT}</td>
+    <td>{'path'|@translate}</td>
+    <td>{'thumbnail'|@translate}</td>
+    <td>{'tn_results_gen_time'|@translate}</td>
+    <td>{'filesize'|@translate}</td>
+    <td>{'Dimensions'|@translate}</td>
   </tr>
-  <!-- BEGIN picture -->
-  <tr class="{results.picture.T_CLASS}">
-    <td>{results.picture.PATH}</td>
-    <td><img src="{results.picture.TN_FILE_IMG}" /></td>
-    <td style="text-align:right;" class="{results.picture.T_CLASS}">{results.picture.GEN_TIME}</td>
-    <td style="text-align:right;">{results.picture.TN_FILESIZE_IMG}</td>
-    <td style="text-align:right;">{results.picture.TN_WIDTH_IMG}</td>
-    <td style="text-align:right;">{results.picture.TN_HEIGHT_IMG}</td>
+  {foreach from=$results.elements item=elt}
+  <tr>
+    <td>{$elt.PATH}</td>
+    <td><img src="{$elt.TN_FILE_IMG}" /></td>
+    <td style="text-align:right;">{$elt.GEN_TIME}</td>
+    <td style="text-align:right;">{$elt.TN_FILESIZE_IMG}</td>
+    <td style="text-align:right;">{$elt.TN_WIDTH_IMG} x {$elt.TN_HEIGHT_IMG}</td>
   </tr>
-  <!-- END picture -->
+  {/foreach}
 </table>
 
 <table class="table2">
   <tr class="throw">
-    <td colspan="2">{L_TN_STATS}</td>
+    <td colspan="2">{'tn_stats'|@translate}</td>
   </tr>
   <tr>
-    <td>{L_TN_NB_STATS}</td>
-    <td style="text-align:center;">{results.TN_NB}</td>
+    <td>{'tn_stats_nb'|@translate}</td>
+    <td style="text-align:center;">{$results.TN_NB}</td>
   </tr>
   <tr>
-    <td>{L_TN_TOTAL}</td>
-    <td style="text-align:right;">{results.TN_TOTAL}</td>
+    <td>{'tn_stats_total'|@translate}</td>
+    <td style="text-align:right;">{$results.TN_TOTAL}</td>
   </tr>
   <tr>
-    <td>{L_TN_MAX}</td>
-    <td style="text-align:right;" class="worst_gen_time">{results.TN_MAX}</td>
+    <td>{'tn_stats_max'|@translate}</td>
+    <td style="text-align:right;">{$results.TN_MAX}</td>
   </tr>
   <tr>
-    <td>{L_TN_MIN}</td>
-    <td style="text-align:right;" class="best_gen_time">{results.TN_MIN}</td>
+    <td>{'tn_stats_min'|@translate}</td>
+    <td style="text-align:right;">{$results.TN_MIN}</td>
   </tr>
   <tr>
-    <td>{L_TN_AVERAGE}</td>
-    <td style="text-align:right;">{results.TN_AVERAGE}</td>
+    <td>{'tn_stats_mean'|@translate}</td>
+    <td style="text-align:right;">{$results.TN_AVERAGE}</td>
   </tr>
 </table>
 <br />
-<!-- END results -->
+{/if}
 
-<!-- BEGIN params -->
-<form method="post" action="{params.F_ACTION}" class="properties">
+{if isset($params) }
+<form method="post" action="{$params.F_ACTION}" class="properties">
 
   <fieldset>
-    <legend>{L_PARAMS}</legend>
+    <legend>{'tn_params_title'|@translate}</legend>
 
     <ul>
       <li>
-        <span class="property">{L_GD}</span>
+        <span class="property">{'tn_params_GD'|@translate}</span>
 	<label>
-          <input type="radio" name="gd" value="2" {params.GD2_CHECKED} />2.x
+          <input type="radio" name="gd" value="2" {if $params.GD_SELECTED==2}checked="checked"{/if} />2.x
         </label>
         <label>
-          <input type="radio" name="gd" value="1" {params.GD1_CHECKED} />1.x
+          <input type="radio" name="gd" value="1" {if $params.GD_SELECTED==1}checked="checked"{/if} />1.x
         </label>
       </li>
 
       <li>
         <span class="property">
-          <label for="width">{lang:maximum width}</label>
+          <label for="width">{'maximum width'|@translate}</label>
         </span>
-	<input type="text" id="width" name="width" value="{params.WIDTH_TN}" />
+	<input type="text" id="width" name="width" value="{$params.WIDTH_TN}" />
       </li>
 
       <li>
         <span class="property">
-          <label for="height">{lang:maximum height}</label>
+          <label for="height">{'maximum height'|@translate}</label>
         </span>
-	<input type="text" id="height" name="height" value="{params.HEIGHT_TN}" />
+	<input type="text" id="height" name="height" value="{$params.HEIGHT_TN}" />
       </li>
 
       <li>
-        <span class="property">{lang:Number of thumbnails to create}</span>
-	<label><input type="radio" name="n" value="5"   {params.n_5_CHECKED} /> 5</label>
-	<label><input type="radio" name="n" value="10"  {params.n_10_CHECKED} /> 10</label>
-	<label><input type="radio" name="n" value="20"  {params.n_20_CHECKED} /> 20</label>
-	<label><input type="radio" name="n" value="all" {params.n_all_CHECKED} /> {L_ALL}</label>
+        <span class="property">{'Number of thumbnails to create'|@translate}</span>
+	<label><input type="radio" name="n" value="5"   {if $params.N_SELECTED==5}checked="checked"{/if} /> 5</label>
+	<label><input type="radio" name="n" value="10"  {if $params.N_SELECTED==10}checked="checked"{/if} /> 10</label>
+	<label><input type="radio" name="n" value="20"  {if $params.N_SELECTED==20}checked="checked"{/if} /> 20</label>
+	<label><input type="radio" name="n" value="all" {if $params.N_SELECTED=='all'}checked="checked"{/if} /> {'tn_all'|@translate}</label>
       </li>
     </ul>
   </fieldset>
 
-  <p><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" {TAG_INPUT_ENABLED}/></p>
+  <p><input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/></p>
 </form>
-<!-- END params -->
+{/if} {*isset params*}
 
-<!-- BEGIN warning -->
-<div style="text-align:center;font-weight:bold;margin:10px;"> [ {L_UNLINK} ]</div>
-<!-- END warning -->
-
-<!-- BEGIN remainings -->
-<div class="admin">{remainings.TOTAL_IMG} {L_REMAINING}</div>
+{if !empty($remainings) }
+<div class="admin">{$TOTAL_NB_REMAINING} {'tn_alone_title'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
     <td>&nbsp;</td>
-    <td style="width:60%;">{L_PATH}</td>
-    <td>{L_FILESIZE}</td>
-    <td>{L_WIDTH}</td>
-    <td>{L_HEIGHT}</td>
+    <td style="width:60%;">{'path'|@translate}</td>
+    <td>{'filesize'|@translate}</td>
+    <td>{'Dimensions'|@translate}</td>
   </tr>
-  <!-- BEGIN remaining -->
-  <tr class="{remainings.remaining.T_CLASS}">
-    <td>{remainings.remaining.NB_IMG}</td>
-    <td><div style="margin-left:10px;">{remainings.remaining.PATH}</div></td>
-    <td><div style="margin-left:10px;">{remainings.remaining.FILESIZE_IMG}</div></td>
-    <td><div style="margin-left:10px;">{remainings.remaining.WIDTH_IMG}</div></td>
-    <td><div style="margin-left:10px;">{remainings.remaining.HEIGHT_IMG}</div></td>
+  {foreach from=$remainings item=elt name=remain_loop}
+  <tr class="{if $smarty.foreach.remain_loop.index is odd}row1{else}row2{/if}">
+    <td>{$smarty.foreach.remain_loop.iteration}</td>
+    <td><div style="margin-left:10px;">{$elt.PATH}</div></td>
+    <td><div style="margin-left:10px;">{$elt.FILESIZE_IMG}</div></td>
+    <td><div style="margin-left:10px;">{$elt.WIDTH_IMG} x {$elt.HEIGHT_IMG}</div></td>
   </tr>
-  <!-- END remaining -->
+  {/foreach}
 </table>
-<!-- END remainings -->
+{else}
+<div style="text-align:center;font-weight:bold;margin:10px;"> [ {'tn_no_missing'|@translate} ]</div>
+{/if}

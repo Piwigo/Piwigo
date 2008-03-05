@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -124,9 +124,9 @@ $template->set_filenames(array('comments'=>'admin/comments.tpl'));
 // TabSheet initialization
 waiting_tabsheet();
 
-$template->assign_vars(
+$template->assign(
   array(
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=comments'
+    'F_ACTION' => get_root_url().'admin.php?page=comments'
     )
   );
 
@@ -154,8 +154,8 @@ while ($row = mysql_fetch_assoc($result))
         'tn_ext'=>@$row['tn_ext']
         )
      );
-  $template->assign_block_vars(
-    'comment',
+  $template->append(
+    'comments',
     array(
       'U_PICTURE' =>
           PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
@@ -171,11 +171,7 @@ while ($row = mysql_fetch_assoc($result))
   array_push($list, $row['id']);
 }
 
-$template->assign_vars(
-  array(
-    'LIST' => implode(',', $list)
-    )
-  );
+$template->assign('LIST', implode(',', $list) );
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |

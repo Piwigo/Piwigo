@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -49,7 +48,7 @@ check_status(ACCESS_ADMINISTRATOR);
 
 if (isset($_POST['submit']))
 {
-  $collection = explode(',', $_POST['list']);
+  $collection = explode(',', $_POST['element_ids']);
 
   $datas = array();
 
@@ -134,13 +133,13 @@ $template->set_filenames(
 
 $base_url = PHPWG_ROOT_PATH.'admin.php';
 
-// $form_action = $base_url.'?page=element_set_global';
+$month_list = $lang['month'];
+$month_list[0]='------------';
+ksort($month_list);
 
-$template->assign_vars(
+$template->assign(
   array(
     'CATEGORIES_NAV'=>$page['title'],
-
-    'L_SUBMIT'=>l10n('submit'),
 
     'U_ELEMENTS_PAGE'
     =>$base_url.get_query_string_diff(array('display','start')),
@@ -152,6 +151,8 @@ $template->assign_vars(
     .'&amp;mode=global',
 
     'F_ACTION'=>$base_url.get_query_string_diff(array()),
+    
+    'month_list' => $month_list
     )
   );
 
@@ -186,7 +187,7 @@ if (count($page['cat_elements_id']) > 0)
     $page['start'],
     $page['nb_images']
     );
-  $template->assign_vars(array('NAV_BAR' => $nav_bar));
+  $template->assign(array('NAV_BAR' => $nav_bar));
 
   // tags
   $all_tags = get_all_tags();
@@ -223,7 +224,7 @@ SELECT tag_id
     }
     else
     {
-      list($year,$month,$day) = array('','','');
+      list($year,$month,$day) = array('',0,0);
     }
 
     if (count($all_tags) > 0)
@@ -242,32 +243,30 @@ SELECT tag_id
         '</p>';
     }
 
-    $template->assign_block_vars(
-      'element',
+    $template->append(
+      'elements',
       array(
+        'ID' => $row['id'],
+        'TN_SRC' => $src,
         'LEGEND' =>
           !empty($row['name']) ?
             $row['name'] : get_name_from_file($row['file']),
         'U_EDIT' =>
             PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
             '&amp;image_id='.$row['id'],
-        'ID' => $row['id'],
-        'FILENAME' => $row['path'],
-        'TN_SRC' => $src,
         'NAME' => @$row['name'],
         'AUTHOR' => @$row['author'],
         'DESCRIPTION' => @$row['comment'],
         'DATE_CREATION_YEAR' => $year,
+        'DATE_CREATION_MONTH' => (int)$month,
+        'DATE_CREATION_DAY' => (int)$day,
 
         'TAG_SELECTION' => $tag_selection,
         )
       );
-
-    get_day_list('element.date_creation_day', $day);
-    get_month_list('element.date_creation_month', $month);
   }
 
-  $template->assign_vars(array('IDS_LIST' => implode(',', $element_ids)));
+  $template->assign('ELEMENT_IDS', implode(',', $element_ids));
 }
 
 // +-----------------------------------------------------------------------+

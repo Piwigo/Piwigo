@@ -49,6 +49,7 @@ else
 }
 
 $main_checkboxes = array(
+    'gallery_locked',
     'allow_user_registration',
     'obligatory_user_mail_address',
     'rate',
@@ -169,37 +170,23 @@ $tabsheet->select($page['section']);
 // Assign tabsheet to template
 $tabsheet->assign();
 
-$action = PHPWG_ROOT_PATH.'admin.php?page=configuration';
+$action = get_root_url().'admin.php?page=configuration';
 $action.= '&amp;section='.$page['section'];
 
 $template->assign_vars(
   array(
-    'L_YES'=>l10n('yes'),
-    'L_NO'=>l10n('no'),
-    'L_SUBMIT'=>l10n('submit'),
-    'L_RESET'=>l10n('reset'),
-
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=configuration',
+    'U_HELP' => get_root_url().'popuphelp.php?page=configuration',
 
     'F_ACTION'=>$action
     ));
-
-$html_check='checked="checked"';
-
-$include_submit_buttons = true;
 
 switch ($page['section'])
 {
   case 'main' :
   {
-    $lock_yes = ($conf['gallery_locked']==true)?'checked="checked"':'';
-    $lock_no = ($conf['gallery_locked']==false)?'checked="checked"':'';
-
-    $template->assign_block_vars(
+    $template->assign(
       'main',
       array(
-        'GALLERY_LOCKED_YES'=>$lock_yes,
-        'GALLERY_LOCKED_NO'=>$lock_no,
         'CONF_GALLERY_TITLE' => htmlspecialchars($conf['gallery_title']),
         'CONF_PAGE_BANNER' => htmlspecialchars($conf['page_banner']),
         'CONF_GALLERY_URL' => $conf['gallery_url'],
@@ -207,11 +194,12 @@ switch ($page['section'])
 
     foreach( $main_checkboxes as $checkbox)
     {
-      $template->merge_block_vars(
+      $template->append(
           'main',
           array(
-            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
-            )
+            $checkbox => $conf[$checkbox]
+            ),
+          true
         );
     }
     break;
@@ -219,22 +207,21 @@ switch ($page['section'])
   case 'history' :
   {
     //Necessary for merge_block_vars
-    $template->assign_block_vars('history', array());
-
     foreach( $history_checkboxes as $checkbox)
     {
-      $template->merge_block_vars(
+      $template->append(
           'history',
           array(
-            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
-            )
+            $checkbox => $conf[$checkbox]
+            ),
+          true
         );
     }
     break;
   }
   case 'comments' :
   {
-    $template->assign_block_vars(
+    $template->assign(
       'comments',
       array(
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
@@ -242,11 +229,12 @@ switch ($page['section'])
 
     foreach( $comments_checkboxes as $checkbox)
     {
-      $template->merge_block_vars(
+      $template->append(
           'comments',
           array(
-            strtoupper($checkbox) => ($conf[$checkbox]==true)?$html_check:''
-            )
+            $checkbox => $conf[$checkbox]
+            ),
+          true
         );
     }
     break;
@@ -273,15 +261,9 @@ switch ($page['section'])
       '',
       $edit_user
       );
-    $template->assign_block_vars('default', array());
-    $include_submit_buttons = false;
+    $template->assign('default', array());
     break;
   }
-}
-
-if ($include_submit_buttons)
-{
-  $template->assign_block_vars('include_submit_buttons', array());
 }
 
 //----------------------------------------------------------- sending html code

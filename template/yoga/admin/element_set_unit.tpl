@@ -1,90 +1,93 @@
-<!-- DEV TAG: not smarty migrated -->
-<h2>{lang:Batch management}</h2>
+{* $Id$ *}
 
-<h3>{CATEGORIES_NAV}</h3>
+<h2>{'Batch management'|@translate}</h2>
+
+<h3>{$CATEGORIES_NAV}</h3>
 
 <p style="text-align:center;">
-  <a href="{U_GLOBAL_MODE}">{lang:global mode}</a>
-  | {lang:unit mode}
+  <a href="{$U_GLOBAL_MODE}">{'global mode'|@translate}</a>
+  | {'unit mode'|@translate}
 </p>
 
-<form action="{F_ACTION}" method="POST">
+<form action="{$F_ACTION}" method="POST">
 <fieldset>
-
-  <legend>{lang:Display options}</legend>
-  <input type="hidden" name="list" value="{IDS_LIST}" />
-  <p>{lang:elements per page} :
-      <a href="{U_ELEMENTS_PAGE}&amp;display=5">5</a>
-    | <a href="{U_ELEMENTS_PAGE}&amp;display=10">10</a>
-    | <a href="{U_ELEMENTS_PAGE}&amp;display=50">50</a>
-    | <a href="{U_ELEMENTS_PAGE}&amp;display=all">{lang:all}</a>
+  <legend>{'Display options'|@translate}</legend>
+  <p>{'elements per page'|@translate} :
+      <a href="{$U_ELEMENTS_PAGE}&amp;display=5">5</a>
+    | <a href="{$U_ELEMENTS_PAGE}&amp;display=10">10</a>
+    | <a href="{$U_ELEMENTS_PAGE}&amp;display=50">50</a>
+    | <a href="{$U_ELEMENTS_PAGE}&amp;display=all">{'all'|@translate}</a>
   </p>
 
 </fieldset>
 
-<div class="navigationBar">{NAV_BAR}</div>
+{if !empty($NAV_BAR) }
+<div class="navigationBar">{$NAV_BAR}</div>
+{/if}
 
-<!-- BEGIN element -->
+{if !empty($elements) }
+<input type="hidden" name="element_ids" value="{$ELEMENT_IDS}" />
+{foreach from=$elements item=element}
 <fieldset class="elementEdit">
-  <legend>{element.LEGEND}</legend>
+  <legend>{$element.LEGEND}</legend>
 
-  <a href="{element.U_EDIT}"><img src="{element.TN_SRC}" alt="" class="miniature" title="{lang:Edit all picture informations}" /></a>
+  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit all picture informations'|@translate}" /></a>
 
   <table>
 
     <tr>
-      <td><strong>{lang:Name}</strong></td>
-      <td><input type="text" name="name-{element.ID}" value="{element.NAME}" /></td>
+      <td><strong>{'Name'|@translate}</strong></td>
+      <td><input type="text" name="name-{$element.ID}" value="{$element.NAME}" /></td>
     </tr>
 
     <tr>
-      <td><strong>{lang:Author}</strong></td>
-      <td><input type="text" name="author-{element.ID}" value="{element.AUTHOR}" /></td>
+      <td><strong>{'Author'|@translate}</strong></td>
+      <td><input type="text" name="author-{$element.ID}" value="{$element.AUTHOR}" /></td>
     </tr>
 
     <tr>
-      <td><strong>{lang:Creation date}</strong></td>
+      <td><strong>{'Creation date'|@translate}</strong></td>
       <td>
-        <label><input type="radio" name="date_creation_action-{element.ID}" value="unset" /> {lang:unset}</label>
-        <input type="radio" name="date_creation_action-{element.ID}" value="set" id="date_creation_action_set-{element.ID}" /> {lang:set to}
-        <select onmousedown="document.getElementById('date_creation_action_set-{element.ID}').checked = true;" name="date_creation_day-{element.ID}">
-          <!-- BEGIN date_creation_day -->
-          <option {element.date_creation_day.SELECTED} value="{element.date_creation_day.VALUE}">{element.date_creation_day.OPTION}</option>
-          <!-- END date_creation_day -->
+        <label><input type="radio" name="date_creation_action-{$element.ID}" value="unset" /> {'unset'|@translate}</label>
+        <label><input type="radio" name="date_creation_action-{$element.ID}" value="set" id="date_creation_action_set-{$element.ID}" /> {'set to'|@translate}</label>
+
+        <select onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;" name="date_creation_day-{$element.ID}">
+         	<option value="0">--</option>
+           {section name=day start=1 loop=31}
+             <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$element.DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
+           {/section}
         </select>
-        <select onmousedown="document.getElementById('date_creation_action_set-{element.ID}').checked = true;" name="date_creation_month-{element.ID}">
-          <!-- BEGIN date_creation_month -->
-          <option {element.date_creation_month.SELECTED} value="{element.date_creation_month.VALUE}">{element.date_creation_month.OPTION}</option>
-          <!-- END date_creation_month -->
+        <select onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;" name="date_creation_month-{$element.ID}">
+          {html_options options=$month_list selected=$element.DATE_CREATION_MONTH}
         </select>
-        <input onmousedown="document.getElementById('date_creation_action_set-{element.ID}').checked = true;"
-               name="date_creation_year-{element.ID}"
+        <input onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;"
+               name="date_creation_year-{$element.ID}"
                type="text"
                size="4"
                maxlength="4"
-               value="{element.DATE_CREATION_YEAR}" />
+               value="{$element.DATE_CREATION_YEAR}" />
       </td>
     </tr>
 
     <tr>
-      <td><strong>{lang:Tags}</strong></td>
-      <td>{element.TAG_SELECTION}</td>
+      <td><strong>{'Tags'|@translate}</strong></td>
+      <td>{$element.TAG_SELECTION}</td>
     </tr>
 
     <tr>
-      <td><strong>{lang:Description}</strong></td>
-      <td><textarea name="description-{element.ID}" class="description">{element.DESCRIPTION}</textarea></td>
+      <td><strong>{'Description'|@translate}</strong></td>
+      <td><textarea name="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
     </tr>
 
   </table>
 
 </fieldset>
-<!-- END element -->
+{/foreach}
 
 <p>
-  <input class="submit" type="submit" value="{L_SUBMIT}" name="submit" {TAG_INPUT_ENABLED}/>
-  <input class="submit" type="reset" value="{lang:Reset}" />
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
+  <input class="submit" type="reset" value="{'Reset'|@translate}" />
 </p>
-
+{/if}
 
 </form>
