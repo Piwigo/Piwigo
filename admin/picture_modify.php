@@ -308,7 +308,6 @@ else
 }
 
 
-get_month_list('date_creation_month', $month);
 $month_list = $lang['month'];
 $month_list[0]='------------';
 ksort($month_list);
