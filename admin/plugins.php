@@ -35,6 +35,34 @@ $my_base_url = PHPWG_ROOT_PATH.'admin.php?page=plugins';
 
 
 // +-----------------------------------------------------------------------+
+// |                     Sections definitions                              |
+// +-----------------------------------------------------------------------+
+if (empty($_GET['section']))
+{
+  $page['section'] = 'list';
+}
+else
+{
+  $page['section'] = $_GET['section'];
+}
+
+$tab_link = $my_base_url . '&amp;section=';
+
+// TabSheet
+$tabsheet = new tabsheet();
+// TabSheet initialization
+$tabsheet->add('list', l10n('plugins_tab_list'), $tab_link.'list');
+$tabsheet->add('update', l10n('plugins_tab_update'), $tab_link.'update');
+$tabsheet->add('new', l10n('plugins_tab_new'), $tab_link.'new');
+// TabSheet selection
+$tabsheet->select($page['section']);
+// Assign tabsheet to template
+$tabsheet->assign();
+
+$my_base_url .= '&section=' . $page['section'];
+
+
+// +-----------------------------------------------------------------------+
 // |                     perform requested actions                         |
 // +-----------------------------------------------------------------------+
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
@@ -153,7 +181,11 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
         break;
       
     case 'delete':
-      if (!deltree(PHPWG_PLUGINS_PATH . $plugin_id))
+      if (!empty($crt_db_plugin))
+      {
+        array_push($errors, 'CANNOT delete - PLUGIN IS INSTALLED');
+      }
+      elseif (!deltree(PHPWG_PLUGINS_PATH . $plugin_id))
       {
         send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
       }
@@ -174,34 +206,6 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     $page['errors'] = array_merge($page['errors'], $errors);
   }
 }
-
-
-// +-----------------------------------------------------------------------+
-// |                     Sections definitions                              |
-// +-----------------------------------------------------------------------+
-if (empty($_GET['section']))
-{
-  $page['section'] = 'list';
-}
-else
-{
-  $page['section'] = $_GET['section'];
-}
-
-$tab_link = $my_base_url . '&amp;section=';
-
-// TabSheet
-$tabsheet = new tabsheet();
-// TabSheet initialization
-$tabsheet->add('list', l10n('plugins_tab_list'), $tab_link.'list');
-$tabsheet->add('update', l10n('plugins_tab_update'), $tab_link.'update');
-$tabsheet->add('new', l10n('plugins_tab_new'), $tab_link.'new');
-// TabSheet selection
-$tabsheet->select($page['section']);
-// Assign tabsheet to template
-$tabsheet->assign();
-
-$my_base_url .= '&section=' . $page['section'];
 
 
 // +-----------------------------------------------------------------------+

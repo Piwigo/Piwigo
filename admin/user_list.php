@@ -450,7 +450,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
 // |                              groups list                              |
 // +-----------------------------------------------------------------------+
 
-$groups = array();
+$groups[-1] = '------------';
 
 $query = '
 SELECT id, name
@@ -481,7 +481,7 @@ else
   $start = 0;
 }
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
 
@@ -490,93 +490,42 @@ $template->assign_vars(
     'F_FILTER_ACTION' => PHPWG_ROOT_PATH.'admin.php'
     ));
 
-if (isset($_GET['id']))
-{
-  $template->assign_block_vars('session', array('ID' => $_GET['id']));
-}
-
 // Hide radio-button if not allow to assign adviser
 if ($conf['allow_adviser'])
 {
-  $template->assign_block_vars('adviser', array());
+  $template->assign('adviser', true);
 }
 
-foreach ($page['order_by_items'] as $item => $label)
-{
-  $selected = (isset($_GET['order_by']) and $_GET['order_by'] == $item) ?
-    'selected="selected"' : '';
-  $template->assign_block_vars(
-    'order_by',
-    array(
-      'VALUE' => $item,
-      'CONTENT' => $label,
-      'SELECTED' => $selected
-      ));
-}
-
-foreach ($page['direction_items'] as $item => $label)
-{
-  $selected = (isset($_GET['direction']) and $_GET['direction'] == $item) ?
-    'selected="selected"' : '';
-  $template->assign_block_vars(
-    'direction',
-    array(
-      'VALUE' => $item,
-      'CONTENT' => $label,
-      'SELECTED' => $selected
-      ));
-}
-
-$blockname = 'group_option';
-
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> -1,
-    'CONTENT' => '------------',
-    'SELECTED' => ''
-    ));
-
-foreach ($groups as $group_id => $group_name)
-{
-  $selected = (isset($_GET['group']) and $_GET['group'] == $group_id) ?
-    'selected="selected"' : '';
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $group_id,
-      'CONTENT' => $group_name,
-      'SELECTED' => $selected
-      ));
-}
-
-$blockname = 'status_option';
-
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> -1,
-    'CONTENT' => '------------',
-    'SELECTED' => ''
-    ));
-
+// Filter status options
+$status_options[-1] = '------------';
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
-  $selected = (isset($_GET['status']) and $_GET['status'] == $status) ?
-    'selected="selected"' : '';
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $status,
-      'CONTENT' => l10n('user_status_'.$status),
-      'SELECTED' => $selected
-      ));
+  $status_options[$status] = l10n('user_status_'.$status);
 }
+$template->assign('status_options', $status_options);
+$template->assign('status_selected',
+    isset($_GET['status']) ? $_GET['status'] : '');
+
+// Filter group options
+$template->assign('group_options', $groups);
+$template->assign('group_selected',
+    isset($_GET['group']) ? $_GET['group'] : '');
+
+// Filter order options
+$template->assign('order_options', $page['order_by_items']);
+$template->assign('order_selected',
+    isset($_GET['order_by']) ? $_GET['order_by'] : '');
+
+// Filter direction options
+$template->assign('direction_options', $page['direction_items']);
+$template->assign('direction_selected',
+    isset($_GET['direction']) ? $_GET['direction'] : '');
+
 
 if (isset($_POST['pref_submit']))
 {
 //  echo '<pre>'; print_r($_POST); echo '</pre>';
-  $template->assign_vars(
+  $template->assign(
     array(
       'ADVISER_YES' => 'true' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
       'ADVISER_NO' => 'false' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
@@ -587,22 +536,28 @@ if (isset($_POST['pref_submit']))
       'RECENT_PERIOD' => $_POST['recent_period'],
       'EXPAND_YES' => 'true' == $_POST['expand'] ? 'checked="checked"' : '',
       'EXPAND_NO' => 'false' == $_POST['expand'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_YES' =>
-        'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_NO' =>
-        'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
-      'SHOW_NB_HITS_YES' =>
-        'true' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
-      'SHOW_NB_HITS_NO' =>
-        'false' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_YES' => 'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
+      'SHOW_NB_COMMENTS_NO' => 'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
+      'SHOW_NB_HITS_YES' => 'true' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
+      'SHOW_NB_HITS_NO' => 'false' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
       'ENABLED_HIGH_YES' => 'true' == $_POST['enabled_high'] ? 'checked="checked"' : '',
       'ENABLED_HIGH_NO' => 'false' == $_POST['enabled_high'] ? 'checked="checked"' : '',
+      
+      'STATUS_ACTION_SET' => 'set' == $_POST['status_action'] ? 'checked="checked"' : '',
+      'LEVEL_ACTION_SET' => 'set' == $_POST['level_action'] ? 'checked="checked"' : '',
+      'NB_IMAGE_LINE_ACTION_SET' => 'set' == $_POST['nb_image_line_action'] ? 'checked="checked"' : '',
+      'NB_LINE_PAGE_ACTION_SET' => 'set' == $_POST['nb_line_page_action'] ? 'checked="checked"' : '',
+      'TEMPLATE_ACTION_SET' => 'set' == $_POST['template_action'] ? 'checked="checked"' : '',
+      'LANGUAGE_ACTION_SET' => 'set' == $_POST['language_action'] ? 'checked="checked"' : '',
+      'RECENT_PERIOD_ACTION_SET' => 'set' == $_POST['recent_period_action'] ? 'checked="checked"' : '',
+      'MAXWIDTH_ACTION_SET' => 'set' == $_POST['maxwidth_action'] ? 'checked="checked"' : '',
+      'MAXHEIGHT_ACTION_SET' => 'set' == $_POST['maxheight_action'] ? 'checked="checked"' : '',
       ));
 }
 else
 {
   $default_user = get_default_user_info(true);
-  $template->assign_vars(
+  $template->assign(
     array(
       'NB_IMAGE_LINE' => $default_user['nb_image_line'],
       'NB_LINE_PAGE' => $default_user['nb_line_page'],
@@ -612,162 +567,45 @@ else
       ));
 }
 
-$blockname = 'template_option';
+// Template Options
+$template->assign('template_options', get_pwg_themes());
+$template->assign('template_selected', 
+    isset($_POST['pref_submit']) ? $_POST['template'] : get_default_template());
 
-foreach (get_pwg_themes() as $pwg_template)
-{
-  if (isset($_POST['pref_submit']))
-  {
-    $selected = $_POST['template']==$pwg_template ? 'selected="selected"' : '';
-  }
-  else if (get_default_template() == $pwg_template)
-  {
-    $selected = 'selected="selected"';
-  }
-  else
-  {
-    $selected = '';
-  }
+// Language options
+$template->assign('language_options', get_languages());
+$template->assign('language_selected', 
+    isset($_POST['pref_submit']) ? $_POST['language'] : get_default_language());
 
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE'=> $pwg_template,
-      'CONTENT' => $pwg_template,
-      'SELECTED' => $selected
-      ));
-}
-
-$blockname = 'language_option';
-
-foreach (get_languages() as $language_code => $language_name)
-{
-  if (isset($_POST['pref_submit']))
-  {
-    $selected = $_POST['language']==$language_code ? 'selected="selected"':'';
-  }
-  else if (get_default_language() == $language_code)
-  {
-    $selected = 'selected="selected"';
-  }
-  else
-  {
-    $selected = '';
-  }
-
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE'=> $language_code,
-      'CONTENT' => $language_name,
-      'SELECTED' => $selected
-      ));
-}
-
-$blockname = 'pref_status_option';
-
+// Status options
 foreach (get_enums(USER_INFOS_TABLE, 'status') as $status)
 {
-  if (isset($_POST['pref_submit']))
-  {
-    $selected = $_POST['status'] == $status ? 'selected="selected"' : '';
-  }
-  else if ('normal' == $status)
-  {
-    $selected = 'selected="selected"';
-  }
-  else
-  {
-    $selected = '';
-  }
-
   // Only status <= can be assign
   if (is_autorize_status(get_access_type_status($status)))
   {
-    $template->assign_block_vars(
-      $blockname,
-      array(
-        'VALUE' => $status,
-        'CONTENT' => l10n('user_status_'.$status),
-        'SELECTED' => $selected
-        ));
+    $pref_status_options[$status] = l10n('user_status_'.$status);
   }
 }
+$template->assign('pref_status_options', $pref_status_options);
+$template->assign('pref_status_selected', 
+    isset($_POST['pref_submit']) ? $_POST['status'] : 'normal');
 
-// associate
-$blockname = 'associate_option';
+// associate and dissociate options
+$template->assign('association_options', $groups);
+$template->assign('associate_selected',
+    isset($_POST['pref_submit']) ? $_POST['associate'] : '');
+$template->assign('dissociate_selected',
+    isset($_POST['pref_submit']) ? $_POST['dissociate'] : '');
 
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> -1,
-    'CONTENT' => '------------',
-    'SELECTED' => ''
-    ));
-
-foreach ($groups as $group_id => $group_name)
-{
-  if (isset($_POST['pref_submit']))
-  {
-    $selected = $_POST['associate'] == $group_id ? 'selected="selected"' : '';
-  }
-  else
-  {
-    $selected = '';
-  }
-
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $group_id,
-      'CONTENT' => $group_name,
-      'SELECTED' => $selected
-      ));
-}
-
-// dissociate
-$blockname = 'dissociate_option';
-
-$template->assign_block_vars(
-  $blockname,
-  array(
-    'VALUE'=> -1,
-    'CONTENT' => '------------',
-    'SELECTED' => ''
-    ));
-
-foreach ($groups as $group_id => $group_name)
-{
-  if (isset($_POST['pref_submit']))
-  {
-    $selected = $_POST['dissociate'] == $group_id ? 'selected="selected"' : '';
-  }
-  else
-  {
-    $selected = '';
-  }
-
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $group_id,
-      'CONTENT' => $group_name,
-      'SELECTED' => $selected
-      ));
-}
 
 // user level options
-$blockname = 'level_option';
 foreach ($conf['available_permission_levels'] as $level)
 {
-  $template->assign_block_vars(
-    $blockname,
-    array(
-      'VALUE' => $level,
-      'CONTENT' => l10n( sprintf('Level %d', $level) ),
-      'SELECTED' => $level==$default_user['level'] ? 'selected="selected"' : '',
-      ));
+  $level_options[$level] = l10n(sprintf('Level %d', $level));
 }
+$template->assign('level_options', $level_options);
+$template->assign('level_selected', 
+    isset($_POST['pref_submit']) ? $_POST['level'] : $default_user['level']);
 
 // +-----------------------------------------------------------------------+
 // |                            navigation bar                             |
@@ -782,7 +620,7 @@ $navbar = create_navigation_bar(
   $conf['users_page']
   );
 
-$template->assign_vars(array('NAVBAR' => $navbar));
+$template->assign('NAVBAR', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                               user list                               |
@@ -840,10 +678,9 @@ foreach ($visible_user_list as $num => $local_user)
     (isset($local_user['enabled_high']) and ($local_user['enabled_high'] == 'true'))
         ? l10n('is_high_enabled') : l10n('is_high_disabled');
 
-  $template->assign_block_vars(
-    'user',
+  $template->append(
+    'users',
     array(
-      'CLASS' => ($num % 2 == 1) ? 'row2' : 'row1',
       'ID' => $local_user['id'],
       'CHECKED' => $checked,
       'U_PROFILE' => $profile_url.$local_user['id'],
@@ -861,7 +698,7 @@ foreach ($visible_user_list as $num => $local_user)
       'PROPERTIES' => implode( ', ', $properties),
       )
     );
-  trigger_action('loc_assign_block_var_local_user_list', $local_user);
+  trigger_action('loc_append_user_list', $local_user);
 }
 
 // +-----------------------------------------------------------------------+
