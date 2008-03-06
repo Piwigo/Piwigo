@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -158,7 +158,7 @@ $template->assign('order',
       $url.'&amp;order=name' => l10n('Name'),
       $url.'&amp;order=status' => l10n('Status'),
       $url.'&amp;order=author' => l10n('Author'),
-      $url.'&amp;order=id' => l10n('Id'),
+      $url.'&amp;order=id' => 'Id',
     )
   );
 
