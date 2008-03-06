@@ -85,6 +85,93 @@ function get_fs_plugins()
 }
 
 /**
+ * Activates a plugin. It will be loaded only on the next page ...
+ * @param string $plugin_id the plugin to activate
+ * @param array $errors errors to be returned
+ */
+function activate_plugin($plugin_id, &$errors)
+{
+  // the plugin_id must exist in the DB as inactive
+  $db_plugins = get_db_plugins('', $plugin_id);
+  if (!empty($db_plugins))
+  {
+    $crt_db_plugin = $db_plugins[0];
+    if ($crt_db_plugin['state'] != 'inactive')
+    {
+      array_push($errors, 'CANNOT ACTIVATE - INVALID CURRENT STATE ' . $crt_db_plugin['state']);
+      return false;
+    }
+  }
+  else
+  {
+    array_push($errors, 'CANNOT ACTIVATE - NOT INSTALLED');
+    return false;
+  }
+
+  // now try to activate it
+  $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+  if (file_exists($file_to_include))
+  {
+    include_once($file_to_include);
+    if (function_exists('plugin_activate'))
+    {
+      plugin_activate($plugin_id, $crt_db_plugin['version'], $errors);
+    }
+  }
+  if (empty($errors))
+  {
+    $query = '
+UPDATE ' . PLUGINS_TABLE . ' SET state="active" WHERE id="' . $plugin_id . '"';
+    pwg_query($query);
+    return true;
+  }
+  return false;
+}
+
+
+/**
+ * Deactivates a plugin. It will be unloaded only on the next page ...
+ * @param string $plugin_id the plugin to activate
+ * @param array $errors errors to be returned
+ */
+function deactivate_plugin($plugin_id, &$errors)
+{
+  // the plugin_id must exist in the DB as inactive
+  $db_plugins = get_db_plugins('', $plugin_id);
+  if (!empty($db_plugins))
+  {
+    $crt_db_plugin = $db_plugins[0];
+    if ($crt_db_plugin['state'] != 'active')
+    {
+      array_push($errors, 'CANNOT DEACTIVATE - INVALID CURRENT STATE ' . $crt_db_plugin['state']);
+      return false;
+    }
+  }
+  else
+  {
+    array_push($errors, 'CANNOT DEACTIVATE - NOT INSTALLED');
+    return false;
+  }
+
+  // now try to deactivate it
+  $query = '
+UPDATE ' . PLUGINS_TABLE . ' SET state="inactive" WHERE id="' . $plugin_id . '"';
+  pwg_query($query);
+
+  $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+  if (file_exists($file_to_include))
+  {
+    include_once($file_to_include);
+    if (function_exists('plugin_deactivate'))
+    {
+      plugin_deactivate($plugin_id);
+    }
+  }
+  return true;
+}
+
+
+/**
  * Retrieves an url for a plugin page.
  * @param string file - php script full name
  */
@@ -287,11 +374,22 @@ function extension_name_compare($a, $b)
 {
   return strcmp(strtolower($a['ext_name']), strtolower($b['ext_name']));
 }
+
 function extension_author_compare($a, $b)
 {
   $r = strcmp(strtolower($a['author']), strtolower($b['author']));
   if ($r == 0) return extension_name_compare($a, $b);
   else return $r;
+}
+
+function plugin_author_compare($a, $b)
+{
+  return strcasecmp( $a['author'], $b['author']);
+}
+
+function plugin_version_compare($a, $b)
+{
+  return version_compare( $a['version'], $b['version']);
 }
 
 ?>

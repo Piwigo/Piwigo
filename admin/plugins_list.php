@@ -28,28 +28,162 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
-$template->set_filenames(array('plugins' => 'admin/plugins_list.tpl'));
 
-//----------------------------------------------------------------sort options
-$order = isset($_GET['order']) ? $_GET['order'] : 'name';
+// +-----------------------------------------------------------------------+
+// |                     perform requested actions                         |
+// +-----------------------------------------------------------------------+
+if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
+{
+  $plugin_id = $_GET['plugin'];
+  $crt_db_plugin = get_db_plugins('', $plugin_id);
+  if (!empty($crt_db_plugin))
+  {
+      $crt_db_plugin = $crt_db_plugin[0];
+  }
+  else
+  {
+    unset($crt_db_plugin);
+  }
 
-$template->assign('order', 
-    array(htmlentities($my_base_url.'&order=name') => l10n('Name'),
-          htmlentities($my_base_url.'&order=status') => l10n('Status')
-    )
-  );
-          
-$template->assign('selected', htmlentities($my_base_url.'&order=').$order);
+  $errors = array();
+  $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+
+  switch ($_GET['action'])
+  {
+    case 'install':
+      if (!empty($crt_db_plugin))
+      {
+        array_push($errors, 'CANNOT install - ALREADY INSTALLED');
+        break;
+      }
+      $fs_plugins = get_fs_plugins();
+      if (!isset($fs_plugins[$plugin_id]))
+      {
+        array_push($errors, 'CANNOT install - NO SUCH PLUGIN');
+        break;
+      }
+      if (file_exists($file_to_include))
+      {
+        include_once($file_to_include);
+        if (function_exists('plugin_install'))
+        {
+          plugin_install($plugin_id, $fs_plugins[$plugin_id]['version'], $errors);
+        }
+      }
+      if (empty($errors))
+      {
+        $query = '
+INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES ("'
+. $plugin_id . '","' . $fs_plugins[$plugin_id]['version'] . '"
+)';
+        pwg_query($query);
+      }
+      break;
+
+    case 'activate':
+      activate_plugin($plugin_id, $errors);
+      break;
+    case 'deactivate':
+      deactivate_plugin($plugin_id, $errors);
+      break;
+
+    case 'uninstall':
+      if (!isset($crt_db_plugin))
+      {
+        die ('CANNOT ' . $_GET['action'] . ' - NOT INSTALLED');
+      }
+      $query = '
+DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
+      pwg_query($query);
+      if (file_exists($file_to_include))
+      {
+        include_once($file_to_include);
+        if (function_exists('plugin_uninstall'))
+        {
+          plugin_uninstall($plugin_id);
+        }
+      }
+        break;
+
+    case 'delete':
+      if (!empty($crt_db_plugin))
+      {
+        array_push($errors, 'CANNOT delete - PLUGIN IS INSTALLED');
+      }
+      elseif (!deltree(PHPWG_PLUGINS_PATH . $plugin_id))
+      {
+        send_to_trash(PHPWG_PLUGINS_PATH . $plugin_id);
+      }
+      break;
+  }
+  if (empty($errors))
+  {
+    redirect(
+        get_root_url()
+        .'admin.php'
+        .get_query_string_diff( array('action', 'plugin') )
+      );
+  }
+  else
+  {
+     $page['errors'] = array_merge($page['errors'], $errors);
+  }
+}
+
+
+$fs_plugins = get_fs_plugins();
+$db_plugins = get_db_plugins();
+$db_plugins_by_id = array();
+foreach ($db_plugins as $db_plugin)
+{
+  $db_plugins_by_id[$db_plugin['id']] = $db_plugin;
+}
 
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 
-if ($order == 'status')
+$template->set_filenames(array('plugins' => 'admin/plugins_list.tpl'));
+
+$base_url = get_root_url().'admin.php';
+
+//----------------------------------------------------------------sort options
+$selected_order = isset($_GET['order']) ? $_GET['order'] : 'name';
+
+$url = $base_url.get_query_string_diff( array('action', 'plugin', 'order'));
+
+$template->assign('order',
+    array(
+      $url.'&amp;order=name' => l10n('Name'),
+      $url.'&amp;order=status' => l10n('Status'),
+      $url.'&amp;order=author' => l10n('Author'),
+      $url.'&amp;order=id' => l10n('Id'),
+    )
+  );
+
+$template->assign('selected', $url.'&amp;order='.$selected_order);
+
+switch ($selected_order)
 {
-  $fs_plugins = sort_plugins_by_state($fs_plugins, $db_plugins_by_id);
+  case 'name':
+    uasort($fs_plugins, 'name_compare');
+    break;
+  case 'id':
+    uksort($fs_plugins, 'strcasecmp');
+    break;
+  case 'author':
+    uasort($fs_plugins, 'plugin_author_compare');
+    break;
+  case 'status':
+    $fs_plugins = sort_plugins_by_state($fs_plugins, $db_plugins_by_id);
+    break;
 }
+
+
+//--------------------------------------------------------------display plugins
+
+$url = $base_url.get_query_string_diff( array('action', 'plugin') );
 
 foreach($fs_plugins as $plugin_id => $fs_plugin)
 {
@@ -80,23 +214,23 @@ foreach($fs_plugins as $plugin_id => $fs_plugin)
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc);
 
-  $action_url = htmlentities($my_base_url) . '&amp;plugin=' . $plugin_id;
+  $action_url = $url.'&amp;plugin='.$plugin_id;
 
   if (isset($db_plugins_by_id[$plugin_id]))
-  { 
+  {
     switch ($db_plugins_by_id[$plugin_id]['state'])
     {
       case 'active':
-        $tpl_plugin['actions'][] = 
+        $tpl_plugin['actions'][] =
             array('U_ACTION' => $action_url . '&amp;action=deactivate',
                   'L_ACTION' => l10n('Deactivate'));
         break;
 
       case 'inactive':
-        $tpl_plugin['actions'][] = 
+        $tpl_plugin['actions'][] =
             array('U_ACTION' => $action_url . '&amp;action=activate',
                   'L_ACTION' => l10n('Activate'));
-        $tpl_plugin['actions'][] = 
+        $tpl_plugin['actions'][] =
             array('U_ACTION' => $action_url . '&amp;action=uninstall',
                   'L_ACTION' => l10n('Uninstall'),
                   'CONFIRM' => l10n('Are you sure?'));
@@ -105,11 +239,11 @@ foreach($fs_plugins as $plugin_id => $fs_plugin)
   }
   else
   {
-    $tpl_plugin['actions'][] = 
+    $tpl_plugin['actions'][] =
         array('U_ACTION' => $action_url . '&amp;action=install',
               'L_ACTION' => l10n('Install'),
               'CONFIRM' => l10n('Are you sure?'));
-    $tpl_plugin['actions'][] = 
+    $tpl_plugin['actions'][] =
         array('U_ACTION' => $action_url . '&amp;action=delete',
                 'L_ACTION' => l10n('plugins_delete'),
                 'CONFIRM' => l10n('plugins_confirm_delete'));
@@ -123,7 +257,7 @@ $missing_plugin_ids = array_diff(
 
 foreach($missing_plugin_ids as $plugin_id)
 {
-  $action_url = $my_base_url.'&amp;plugin='.$plugin_id;
+  $action_url = $url.'&amp;plugin='.$plugin_id;
 
   $template->append( 'plugins',
       array(
@@ -138,4 +272,5 @@ foreach($missing_plugin_ids as $plugin_id)
      );
 }
 
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

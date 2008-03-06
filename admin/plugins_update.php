@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -26,6 +26,16 @@
 if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
+}
+
+$fs_plugins = get_fs_plugins();
+$my_base_url= get_root_url().'admin.php'.get_query_string_diff( array('upgrade', 'plugin', 'reactivate', 'action', 'upgradestatus') );
+
+$db_plugins = get_db_plugins();
+$db_plugins_by_id = array();
+foreach ($db_plugins as $db_plugin)
+{
+  $db_plugins_by_id[$db_plugin['id']] = $db_plugin;
 }
 
 $template->set_filenames(array('plugins' => 'admin/plugins_update.tpl'));
@@ -113,7 +123,7 @@ if ($plugins_infos !== false)
       else
       {
         // Plugin need upgrade
-        $url_auto_update = htmlentities($my_base_url)
+        $url_auto_update = $my_base_url
           . '&amp;plugin=' . $plugin_id
           . (
               (isset($db_plugins_by_id[$plugin_id])
@@ -154,4 +164,5 @@ else
   array_push($page['errors'], l10n('plugins_server_error'));
 }
 
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>

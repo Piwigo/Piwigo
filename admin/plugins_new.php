@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -27,6 +27,11 @@ if( !defined("PHPWG_ROOT_PATH") )
 {
   die ("Hacking attempt!");
 }
+
+
+$fs_plugins = get_fs_plugins();
+$my_base_url= get_root_url().'admin.php'.get_query_string_diff( array('install', 'extension', 'installstatus', 'order') );
+
 
 $template->set_filenames(array('plugins' => 'admin/plugins_new.tpl'));
 
@@ -75,11 +80,11 @@ if (isset($_GET['installstatus']))
 $order = isset($_GET['order']) ? $_GET['order'] : 'date';
 
 $template->assign('order',
-    array(htmlentities($my_base_url.'&order=date') => l10n('Post date'),
-          htmlentities($my_base_url.'&order=name') => l10n('Name'),
-          htmlentities($my_base_url.'&order=author') => l10n('Author')));
+    array($my_base_url.'&amp;order=date' => l10n('Post date'),
+          $my_base_url.'&amp;order=name' => l10n('Name'),
+          $my_base_url.'&amp;order=author' => l10n('Author')));
 
-$template->assign('selected', htmlentities($my_base_url.'&order=').$order);
+$template->assign('selected', $my_base_url.'&amp;order='.$order);
 
 
 // +-----------------------------------------------------------------------+
@@ -102,7 +107,7 @@ if ($plugins_infos !== false)
             nl2br(htmlspecialchars(strip_tags(
               utf8_encode($plugin['description'])))));
 
-    $url_auto_install = htmlentities($my_base_url)
+    $url_auto_install = $my_base_url
         . '&amp;extension=' . $plugin['id_extension']
         . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
         . '%2Frevision-' . $plugin['id_revision'] . '%2F'
@@ -129,4 +134,5 @@ else
   array_push($page['errors'], l10n('plugins_server_error'));
 }
 
+$template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');
 ?>
