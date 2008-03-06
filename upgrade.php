@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -147,7 +147,7 @@ function print_time($message)
 
 $template = new Template(PHPWG_ROOT_PATH.'template/yoga');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
-$template->assign_vars(array('RELEASE'=>PHPWG_VERSION));
+$template->assign('RELEASE', PHPWG_VERSION);
 
 // +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
@@ -179,7 +179,7 @@ if (!isset($_GET['version']))
   {
     $current_release = '1.5.0';
   }
-  else if (!in_array(PREFIX_TABLE.'history_summary', $tables))
+  else if ( !in_array(PREFIX_TABLE.'history_summary', $tables) )
   {
     if (!in_array('auto_login_key', $columns_of[PREFIX_TABLE.'user_infos']))
     {
@@ -195,7 +195,7 @@ if (!isset($_GET['version']))
     die('No upgrade required, the database structure is up to date');
   }
   
-  $template->assign_block_vars(
+  $template->assign(
     'introduction',
     array(
       'CURRENT_RELEASE' => $current_release,
@@ -215,7 +215,7 @@ else
   {
     die('No database upgrade required, do not refresh the page');
   }
-    
+
   $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$_GET['version'].'.php';
   if (is_file($upgrade_file))
   {
@@ -249,10 +249,10 @@ else
 
     // Create empty local files to avoid log errors
     create_empty_local_files();
-    
+
     $page['upgrade_end'] = get_moment();
 
-    $template->assign_block_vars(
+    $template->assign(
       'upgrade',
       array(
         'VERSION' => $_GET['version'],
@@ -290,18 +290,8 @@ define(\'PHPWG_IN_UPGRADE\', true);
 if you encounter any problem.'
       );
     
-    $template->assign_block_vars('upgrade.infos', array());
+    $template->assign('infos', $page['infos']);
     
-    foreach ($page['infos'] as $info)
-    {
-      $template->assign_block_vars(
-        'upgrade.infos.info',
-        array(
-          'CONTENT' => $info,
-          )
-        );
-    }
-
     $query = '
 UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\'

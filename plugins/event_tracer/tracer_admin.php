@@ -21,9 +21,9 @@ if ( isset($_POST['eventTracer_filters']) )
   global $page;
   array_push($page['infos'], 'event tracer options saved');
 }
-$template->assign_var('EVENT_TRACER_FILTERS', implode("\n", $me->my_config['filters'] ) );
-$template->assign_var('EVENT_TRACER_SHOW_ARGS', $me->my_config['show_args'] ? 'checked="checked"' : '' );
-$template->assign_var('U_LIST_EVENTS', get_admin_plugin_menu_link(dirname(__FILE__).'/event_list.php'));
+$template->assign('EVENT_TRACER_FILTERS', implode("\n", $me->my_config['filters'] ) );
+$template->assign('EVENT_TRACER_SHOW_ARGS', $me->my_config['show_args'] ? 'checked="checked"' : '' );
+$template->assign('U_LIST_EVENTS', get_admin_plugin_menu_link(dirname(__FILE__).'/event_list.php'));
 
 //$template->assign_var('EVENT_TRACER_F_ACTION', $my_url);
 

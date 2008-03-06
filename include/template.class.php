@@ -84,8 +84,11 @@ class Template {
     $this->smarty->assign_by_ref( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
 
-    include($root.'/theme/'.$theme.'/themeconf.inc.php');
-    $this->smarty->assign('themeconf', $themeconf);
+    if ( !empty($theme) )
+    {
+      include($root.'/theme/'.$theme.'/themeconf.inc.php');
+      $this->smarty->assign('themeconf', $themeconf);
+    }
 
     $this->_old = & new TemplateOld($root, $theme);
   }

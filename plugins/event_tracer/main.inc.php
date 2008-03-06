@@ -1,6 +1,6 @@
 <?php /*
 Plugin Name: Event tracer
-Version: 1.8
+Version: 1.8.a
 Description: For developers. Shows all calls to trigger_event.
 Plugin URI: http://www.phpwebgallery.net
 Author: PhpWebGallery team
@@ -18,9 +18,20 @@ class EventTracer
     $this->me_working=0;
   }
 
+  function get_config_file_dir()
+  {
+    global $conf;
+    return $conf['local_data_dir'].'/plugins/';
+  }
+
+  function get_config_file_name()
+  {
+    return basename(dirname(__FILE__)).'.dat';
+  }
+
   function load_config()
   {
-    $x = @file_get_contents( dirname(__FILE__).'/data.dat' );
+    $x = @file_get_contents( $this->get_config_file_dir().$this->get_config_file_name() );
     if ($x!==false)
     {
       $c = unserialize($x);
@@ -38,7 +49,9 @@ class EventTracer
 
   function save_config()
   {
-    $file = fopen( dirname(__FILE__).'/data.dat', 'w' );
+    $dir = $this->get_config_file_dir();
+    @mkdir($dir);
+    $file = fopen( $dir.$this->get_config_file_name(), 'w' );
     fwrite($file, serialize($this->my_config) );
     fclose( $file );
   }

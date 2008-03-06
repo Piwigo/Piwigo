@@ -67,16 +67,17 @@ global $template;
 
 $url = get_admin_plugin_menu_link(__FILE__);
 
-$template->assign_vars( array(
+$template->assign( array(
   'NB_EVENTS' => count($events),
   'U_SORT0' => add_url_params($url, array('sort'=>0) ),
   'U_SORT1' => add_url_params($url, array('sort'=>1) ),
   'U_SORT2' => add_url_params($url, array('sort'=>2) ),
   ) );
 
+$template->assign('events', array());
 foreach ($events as $e)
 {
-  $template->assign_block_vars( 'event', array(
+  $template->append( 'events', array(
     'TYPE' => $e[0],
     'NAME' => $e[1],
     'FILE' => $e[2],

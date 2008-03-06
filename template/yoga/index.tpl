@@ -56,7 +56,7 @@
   <div class="calendarViews">{'calendar_view'|@translate}:
     <select onchange="document.location = this.options[this.selectedIndex].value;">
       {foreach from=$chronology_views item=view}
-      <option value="{$view.VALUE}"{if $view.SELECTED} selected="selected"{/if}}>{$view.CONTENT}</option>
+      <option value="{$view.VALUE}"{if $view.SELECTED} selected="selected"{/if}>{$view.CONTENT}</option>
       {/foreach}
     </select>
   </div>
