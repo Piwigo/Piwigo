@@ -28,7 +28,7 @@
       {/if}
 
       {if isset($U_SLIDESHOW) }
-      <li><a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/slideshow.png" class="button" alt="{'slideshow'|@translate}"/></a></li>
+      <li><a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"/></a></li>
       {/if}
 
       {if isset($U_MODE_FLAT) }

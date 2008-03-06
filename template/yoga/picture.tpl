@@ -34,7 +34,7 @@
 <div id="imageToolBar">
   <div class="randomButtons">
     {if isset($U_SLIDESHOW_START) }
-      <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
+      <a href="{$U_SLIDESHOW_START}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"></a>
     {/if}
     {if isset($U_SLIDESHOW_STOP) }
       <a href="{$U_SLIDESHOW_STOP}" title="{'slideshow_stop'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'slideshow_stop'|@translate}"></a>
