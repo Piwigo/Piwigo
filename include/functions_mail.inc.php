@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -175,8 +175,9 @@ function get_mail_template($email_format, $args = array())
   $args = get_array_template_theme($args);
 
   $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$args['template'], $args['theme']);
-  $mail_template->set_rootdir(PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format);
-
+  $mail_template->_old->set_rootdir(PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format);
+  $mail_template->smarty->template_dir = PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format;
+  
   return $mail_template;
 }
 

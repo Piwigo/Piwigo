@@ -690,16 +690,16 @@ switch ($page['mode'])
 
     $data_users = get_user_notifications('subscribe');
     
-    $opt_true=array();
-    $opt_true_selected=array();
-    $opt_false=array();
-    $opt_false_selected=array();
+    $opt_true = array();
+    $opt_true_selected = array();
+    $opt_false = array();
+    $opt_false_selected = array();
     foreach ($data_users as $nbm_user)
     {
-      if ( get_boolean($nbm_user['enabled']) )
+      if (get_boolean($nbm_user['enabled']))
       {
         $opt_true[ $nbm_user['check_key'] ] = $nbm_user['username'].'['.get_email_address_as_display_text($nbm_user['mail_address']).']';
-        if ((isset($_POST['falsify']) and isset($_POST['cat_true']) and in_array($nbm_user['check_key'], $_POST['cat_true'])) )
+        if ((isset($_POST['falsify']) and isset($_POST['cat_true']) and in_array($nbm_user['check_key'], $_POST['cat_true'])))
         {
           $opt_true_selected[] = $nbm_user['check_key'];
         }
@@ -717,7 +717,7 @@ switch ($page['mode'])
         'category_option_true'          => $opt_true,
         'category_option_true_selected' => $opt_true_selected,
         'category_option_false'         => $opt_false,
-        'category_option_true'          => $opt_false_selected,
+        'category_option_true_selected' => $opt_false_selected,
         )
     );
     break;
