@@ -33,30 +33,73 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 $template->set_filenames(array('plugins' => 'admin/plugins_new.tpl'));
 
 $order = isset($_GET['order']) ? $_GET['order'] : 'date';
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
 
-$plugins = new plugins($page['page'], $order);
+$plugins = new plugins();
 
 //------------------------------------------------------automatic installation
 if (isset($_GET['install']) and isset($_GET['extension']) and !is_adviser())
 {
-  $plugins->install($_GET['install'], $_GET['extension']);
+  $install_status =
+    $plugins->extract_plugin_files('install', $_GET['install'], $_GET['extension']);
+
+  redirect($base_url.'&installstatus='.$install_status);
 }
 
 //--------------------------------------------------------------install result
 if (isset($_GET['installstatus']))
 {
-  $plugins->get_result($_GET['installstatus']);
+  switch ($_GET['installstatus'])
+  {
+    case 'ok':
+      array_push($page['infos'],
+        l10n('plugins_install_ok'),
+        l10n('plugins_install_need_activate'));
+      break;
+
+    case 'temp_path_error':
+      array_push($page['errors'], l10n('plugins_temp_path_error'));
+      break;
+
+    case 'dl_archive_error':
+      array_push($page['errors'], l10n('plugins_dl_archive_error'));
+      break;
+
+    case 'archive_error':
+      array_push($page['errors'], l10n('plugins_archive_error'));
+      break;
+
+    default:
+      array_push($page['errors'],
+        sprintf(l10n('plugins_extract_error'), $_GET['installstatus']),
+        l10n('plugins_check_chmod'));
+  }  
 }
+
+//--------------------------------------------------------------------Tabsheet
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$link = get_root_url().'admin.php?page=';
+$tabsheet = new tabsheet();
+$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
+$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
+$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
+$tabsheet->select($page['page']);
+$tabsheet->assign();
+
+//---------------------------------------------------------------Order options
+$link .= $page['page'].'&amp;order=';
+$template->assign('order_options',
+  array(
+    $link.'date' => l10n('Post date'),
+    $link.'name' => l10n('Name'),
+    $link.'author' => l10n('Author')));
+$template->assign('order_selected', $link.$order);
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins->tabsheet();
-$plugins->check_server_plugins();
-$plugins->set_order_options(array(
-    'date' => l10n('Post date'),
-    'name' => l10n('Name'),
-    'author' => l10n('Author')));
+$plugins->get_server_plugins(true);
+$plugins->sort_server_plugins($order);
 
 if ($plugins->server_plugins !== false)
 {
@@ -71,7 +114,7 @@ if ($plugins->server_plugins !== false)
             nl2br(htmlspecialchars(strip_tags(
               utf8_encode($plugin['description'])))));
 
-    $url_auto_install = $plugins->html_base_url
+    $url_auto_install = htmlentities($base_url)
       . '&amp;extension=' . $plugin['id_extension']
       . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
       . '%2Frevision-' . $plugin['id_revision'] . '%2F'

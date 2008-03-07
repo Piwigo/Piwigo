@@ -26,71 +26,28 @@
 
 class plugins
 {
-  var $page = '';
-  var $order = '';
-  var $my_base_url = '';
-  var $html_base_url = '';
   var $fs_plugins = array();
   var $db_plugins_by_id = array();
   var $server_plugins = array();
 
-  function plugins($page='', $order='')
+  /**
+   * Initialize $fs_plugins and $db_plugins_by_id
+  */
+  function plugins()
   {
-    $this->page = $page;
-    $this->order = $order;
-
-    $this->my_base_url = get_root_url().'admin.php?page='.$this->page;
-    if (!empty($this->order))
-    {
-      $this->my_base_url .= '&order=' . $this->order;
-    }
-    $this->html_base_url = htmlentities($this->my_base_url);
-
     $this->get_fs_plugins();
+
     foreach (get_db_plugins() as $db_plugin)
     {
       $this->db_plugins_by_id[$db_plugin['id']] = $db_plugin;
     }
   }
 
-  /**
-   * Assign tabsheet
-   */
-  function tabsheet()
-  {
-    include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-    $link = PHPWG_ROOT_PATH.'admin.php?page=';
-
-    $tabsheet = new tabsheet();
-    $tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
-    $tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
-    $tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
-    $tabsheet->select($this->page);
-    $tabsheet->assign();
-  }
-
-  /**
-   * Set order
-  *  @param array - order options
-   */
-  function set_order_options($options)
-  {
-    global $template;
-
-    $link = get_root_url().'admin.php?page='.$this->page.'&amp;order=';
-    foreach($options as $key => $value)
-    {
-      $tpl_options[$link . $key] = $value;
-    }
-    $template->assign('order_options', $tpl_options);
-    $template->assign('order_selected', $link . $this->order);
-  }
-  
  /**
    * Perform requested actions
   *  @param string - action
   * @param string - plugin id
-  * @param string - errors
+  * @param array - errors
   */
   function perform_action($action, $plugin_id, $errors=array())
   {
@@ -219,7 +176,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
   }
 
   /**
-  *  Returns an array of plugins defined in the plugin directory
+  *  Get plugins defined in the plugin directory
   */  
   function get_fs_plugins()
   {
@@ -282,12 +239,15 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
   }
 
   /**
-   * sort fs_plugins
+   * Sort fs_plugins
    */
-  function sort_fs_plugins()
+  function sort_fs_plugins($order='name')
   {
-    switch ($this->order)
+    switch ($order)
     {
+      case 'name':
+        uasort($this->fs_plugins, 'name_compare');
+        break;
       case 'status':
         $this->sort_plugins_by_state();
         break;
@@ -297,17 +257,15 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
       case 'id':
         uksort($this->fs_plugins, 'strcasecmp');
         break;
-      default: //sort by plugin name
-        uasort($this->fs_plugins, 'name_compare');
     }
   }
 
   /**
-   * Retrieve PEM server datas
+   * Retrieve PEM server datas to $server_plugins
    */
-  function check_server_plugins()
+  function get_server_plugins($new=false)
   {
-    foreach($this->fs_plugins as $plugin_id => $fs_plugin)
+    foreach($this->fs_plugins as $fs_plugin)
     {
       if (isset($fs_plugin['extension']))
       {
@@ -315,72 +273,36 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
       }
     }
     $url = PEM_URL . '/uptodate.php?version=' . rawurlencode(PHPWG_VERSION) . '&extensions=' . implode(',', $plugins_to_check);
-    $url .= $this->page == 'plugins_new' ? '&newext=Plugin' : '';
+    $url .= $new ? '&newext=Plugin' : '';
 
     if (!empty($plugins_to_check) and $source = @file_get_contents($url))
     {
       $this->server_plugins = @unserialize($source);
-      switch ($this->order)
-      {
-        case 'name':
-          uasort($this->server_plugins, array($this, 'extension_name_compare'));
-          break;
-        case 'author':
-          uasort($this->server_plugins, array($this, 'extension_author_compare'));
-          break;
-        default: // sort by id desc
-          krsort($this->server_plugins);
-      }
     }
     else
     {
       $this->server_plugins = false;
     }
   }
-
- /**
-   * Upgrade plugin
-  *  @param string - archive URL
-  * @param string - plugin id
-  */
-  function upgrade($source, $plugin_id)
-  {
-    if (isset($this->db_plugins_by_id[$plugin_id])
-      and $this->db_plugins_by_id[$plugin_id]['state'] == 'active')
-    {
-      $this->perform_action('deactivate', $plugin_id);
-
-      redirect(
-        $this->my_base_url
-        . '&upgrade=' . $source
-        . '&plugin=' . $plugin_id
-        . '&reactivate=true');
-    }
-
-    include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
-    $upgrade_status = $this->extract_plugin_files('upgrade', $source, $plugin_id);
-
-    if (isset($_GET['reactivate']))
-    {
-      $this->perform_action('activate', $plugin_id);
-    }
-    redirect($this->my_base_url.'&plugin='.$plugin_id.'&upgradestatus='.$upgrade_status);
-  }
-
-
+  
   /**
-   * Install plugin
-  *  @param string - archive URL
-  * @param string - extension id
-  */
-  function install($source, $extension)
+   * Sort $server_plugins
+   */
+  function sort_server_plugins($order='date')
   {
-    include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
-    $install_status = $this->extract_plugin_files('install', $source, $extension);
-
-    redirect($this->my_base_url.'&installstatus='.$install_status);
+    switch ($order)
+    {
+      case 'date':
+        krsort($this->server_plugins);
+        break;
+      case 'name':
+        uasort($this->server_plugins, array($this, 'extension_name_compare'));
+        break;
+      case 'author':
+        uasort($this->server_plugins, array($this, 'extension_author_compare'));
+        break;
+    }
   }
-
 
   /**
    * Extract plugin files from archive
@@ -394,6 +316,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     {
       if (@copy(PEM_URL . str_replace(' ', '%20', $source), $archive))
       {
+        include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
         $zip = new PclZip($archive);
         if ($list = $zip->listContent())
         {
@@ -447,50 +370,6 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
   }
   
   /**
-   * get install or upgrade result
-   */
-  function get_result($result, $plugin='')
-  {
-    global $page;
-
-    switch ($result)
-    {
-      case 'ok':
-        if ($this->page == 'plugins_update')
-        {
-          array_push($page['infos'],
-             sprintf(
-                l10n('plugins_upgrade_ok'),
-                $this->fs_plugins[$plugin]['name']));
-        }
-        else
-        {
-          array_push($page['infos'],
-            l10n('plugins_install_ok'),
-            l10n('plugins_install_need_activate'));
-        }
-        break;
-
-      case 'temp_path_error':
-        array_push($page['errors'], l10n('plugins_temp_path_error'));
-        break;
-
-      case 'dl_archive_error':
-        array_push($page['errors'], l10n('plugins_dl_archive_error'));
-        break;
-
-      case 'archive_error':
-        array_push($page['errors'], l10n('plugins_archive_error'));
-        break;
-
-      default:
-        array_push($page['errors'],
-          sprintf(l10n('plugins_extract_error'), $result),
-          l10n('plugins_check_chmod'));
-    }  
-  }
-
-  /**
    * delete $path directory
    * @param string - path
    */
@@ -521,7 +400,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
 
   /**
    * send $path to trash directory
-    * @param string - path
+   * @param string - path
    */
   function send_to_trash($path)
   {

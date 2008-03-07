@@ -32,25 +32,81 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'admin/plugins_update.tpl'));
 
-$plugins = new plugins($page['page']);
+$base_url = get_root_url().'admin.php?page='.$page['page'];
+
+$plugins = new plugins();
 
 //-----------------------------------------------------------automatic upgrade
 if (isset($_GET['upgrade']) and isset($_GET['plugin']) and !is_adviser())
 {
-  $plugins->upgrade($_GET['upgrade'], $_GET['plugin']);
+  $plugin_id = $_GET['plugin'];
+
+  if (isset($plugins->db_plugins_by_id[$plugin_id])
+    and $plugins->db_plugins_by_id[$plugin_id]['state'] == 'active')
+  {
+    $plugins->perform_action('deactivate', $plugin_id);
+
+    redirect($base_url
+      . '&upgrade=' . $_GET['upgrade']
+      . '&plugin=' . $plugin_id
+      . '&reactivate=true');
+  }
+
+  $upgrade_status =
+    $plugins->extract_plugin_files('upgrade', $_GET['upgrade'], $plugin_id);
+
+  if (isset($_GET['reactivate']))
+  {
+    $plugins->perform_action('activate', $plugin_id);
+  }
+  redirect($base_url.'&plugin='.$plugin_id.'&upgradestatus='.$upgrade_status);
 }
 
 //--------------------------------------------------------------upgrade result
 if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 {
-  $plugins->get_result($_GET['upgradestatus'], $_GET['plugin']);
+  switch ($_GET['upgradestatus'])
+  {
+    case 'ok':
+      array_push($page['infos'],
+         sprintf(
+            l10n('plugins_upgrade_ok'),
+            $plugins->fs_plugins[$_GET['plugin']]['name']));
+      break;
+
+    case 'temp_path_error':
+      array_push($page['errors'], l10n('plugins_temp_path_error'));
+      break;
+
+    case 'dl_archive_error':
+      array_push($page['errors'], l10n('plugins_dl_archive_error'));
+      break;
+
+    case 'archive_error':
+      array_push($page['errors'], l10n('plugins_archive_error'));
+      break;
+
+    default:
+      array_push($page['errors'],
+        sprintf(l10n('plugins_extract_error'), $_GET['installstatus']),
+        l10n('plugins_check_chmod'));
+  }  
 }
+
+//--------------------------------------------------------------------Tabsheet
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$link = get_root_url().'admin.php?page=';
+$tabsheet = new tabsheet();
+$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
+$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
+$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
+$tabsheet->select($page['page']);
+$tabsheet->assign();
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins->tabsheet();
-$plugins->check_server_plugins();
+$plugins->get_server_plugins();
 
 if ($plugins->server_plugins !== false)
 {
@@ -82,7 +138,7 @@ if ($plugins->server_plugins !== false)
       else
       {
         // Plugin need upgrade
-        $url_auto_update = $plugins->html_base_url
+        $url_auto_update = $base_url
           . '&amp;plugin=' . $plugin_id
           . '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
           . '%2Frevision-' . $plugin_info['id_revision']

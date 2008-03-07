@@ -33,28 +33,44 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 $template->set_filenames(array('plugins' => 'admin/plugins_list.tpl'));
 
 $order = isset($_GET['order']) ? $_GET['order'] : 'name';
-$plugins = new plugins($page['page'], $order);
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
+
+$plugins = new plugins();
 
 //--------------------------------------------------perform requested actions
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 {
   $page['errors'] =
     $plugins->perform_action($_GET['action'], $_GET['plugin'], $page['errors']);
-    
-  if (empty($page['errors'])) redirect($plugins->my_base_url);
+
+  if (empty($page['errors'])) redirect($base_url);
 }
+
+//--------------------------------------------------------------------Tabsheet
+include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+$link = get_root_url().'admin.php?page=';
+$tabsheet = new tabsheet();
+$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
+$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
+$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
+$tabsheet->select($page['page']);
+$tabsheet->assign();
+
+//---------------------------------------------------------------Order options
+$link .= $page['page'].'&amp;order=';
+$template->assign('order_options',
+  array(
+    $link.'name' => l10n('Name'),
+    $link.'status' => l10n('Status'),
+    $link.'author' => l10n('Author'),
+    $link.'id' => 'Id'));
+$template->assign('order_selected', $link.$order);
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins->tabsheet();
-$plugins->sort_fs_plugins();
-$plugins->set_order_options(array(
-    'name' => l10n('Name'),
-    'status' => l10n('Status'),
-    'author' => l10n('Author'),
-    'id' => 'Id'));
-  
+$plugins->sort_fs_plugins($order);
+
 foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
 {
   $display_name = $fs_plugin['name'];
@@ -84,7 +100,7 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc);
 
-  $action_url = $plugins->html_base_url . '&amp;plugin=' . $plugin_id;
+  $action_url = htmlentities($base_url).'&amp;plugin='.$plugin_id;
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   { 
@@ -127,7 +143,7 @@ $missing_plugin_ids = array_diff(
 
 foreach($missing_plugin_ids as $plugin_id)
 {
-  $action_url = $plugins->html_base_url.'&amp;plugin='.$plugin_id;
+  $action_url = htmlentities($base_url).'&amp;plugin='.$plugin_id;
 
   $template->append( 'plugins',
       array(
