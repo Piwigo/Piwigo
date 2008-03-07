@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -28,75 +28,39 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
-
-$fs_plugins = get_fs_plugins();
-$my_base_url= get_root_url().'admin.php'.get_query_string_diff( array('install', 'extension', 'installstatus', 'order') );
-
+include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'admin/plugins_new.tpl'));
 
+$order = isset($_GET['order']) ? $_GET['order'] : 'date';
+
+$plugins = new plugins($page['page'], $order);
 
 //------------------------------------------------------automatic installation
 if (isset($_GET['install']) and isset($_GET['extension']) and !is_adviser())
 {
-  include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
-
-  $install_status  = extract_plugin_files('install',
-                      $_GET['install'],
-                      $_GET['extension']);
-
-  redirect($my_base_url . '&installstatus=' . $install_status);
+  $plugins->install($_GET['install'], $_GET['extension']);
 }
-
 
 //--------------------------------------------------------------install result
 if (isset($_GET['installstatus']))
 {
-  switch ($_GET['installstatus'])
-  {
-  case 'ok':
-    array_push($page['infos'], l10n('plugins_install_ok'), l10n('plugins_install_need_activate'));
-    break;
-
-  case 'temp_path_error':
-    array_push($page['errors'], l10n('plugins_temp_path_error'));
-    break;
-
-  case 'dl_archive_error':
-    array_push($page['errors'], l10n('plugins_dl_archive_error'));
-    break;
-
-  case 'archive_error':
-    array_push($page['errors'], l10n('plugins_archive_error'));
-    break;
-
-  default:
-    array_push($page['errors'], sprintf(l10n('plugins_extract_error'), $_GET['installstatus']), l10n('plugins_check_chmod'));
-  }
+  $plugins->get_result($_GET['installstatus']);
 }
-
-
-//----------------------------------------------------------------sort options
-$order = isset($_GET['order']) ? $_GET['order'] : 'date';
-
-$template->assign('order',
-    array($my_base_url.'&amp;order=date' => l10n('Post date'),
-          $my_base_url.'&amp;order=name' => l10n('Name'),
-          $my_base_url.'&amp;order=author' => l10n('Author')));
-
-$template->assign('selected', $my_base_url.'&amp;order='.$order);
-
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins_infos = check_server_plugins($fs_plugins, true);
-if ($plugins_infos !== false)
-{
-  if ($order == 'date') krsort($plugins_infos);
-  else uasort($plugins_infos, 'extension_'.$order.'_compare');
+$plugins->tabsheet();
+$plugins->check_server_plugins();
+$plugins->set_order_options(array(
+    'date' => l10n('Post date'),
+    'name' => l10n('Name'),
+    'author' => l10n('Author')));
 
-  foreach($plugins_infos as $plugin)
+if ($plugins->server_plugins !== false)
+{
+  foreach($plugins->server_plugins as $plugin)
   {
     $ext_desc = nl2br(htmlspecialchars(strip_tags(
                   utf8_encode($plugin['ext_description']))));
@@ -107,15 +71,15 @@ if ($plugins_infos !== false)
             nl2br(htmlspecialchars(strip_tags(
               utf8_encode($plugin['description'])))));
 
-    $url_auto_install = $my_base_url
-        . '&amp;extension=' . $plugin['id_extension']
-        . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
-        . '%2Frevision-' . $plugin['id_revision'] . '%2F'
-        .  str_replace(' ', '%20',$plugin['url']);
+    $url_auto_install = $plugins->html_base_url
+      . '&amp;extension=' . $plugin['id_extension']
+      . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
+      . '%2Frevision-' . $plugin['id_revision'] . '%2F'
+      .  str_replace(' ', '%20',$plugin['url']);
 
     $url_download = PEM_URL .'/upload/extension-'.$plugin['id_extension']
-        . '/revision-' . $plugin['id_revision']
-        . '/' . $plugin['url'];
+      . '/revision-' . $plugin['id_revision']
+      . '/' . str_replace(' ', '%20',$plugin['url']);
 
     $template->append('plugins',
         array('EXT_NAME' => $plugin['ext_name'],

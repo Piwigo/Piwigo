@@ -44,7 +44,7 @@
   <tr class="{if $smarty.foreach.plugins_loop.index is odd}row1{else}row2{/if}">
     <td><a href="{$plugin.URL}" onclick="window.open(this.href); return false;" class="tooltip">{$plugin.NAME}
         <span>{$plugin.EXT_DESC}</span></a></td>
-    <td style="text-align:center;"><span class="tooltip">{$plugin.VERSION}<span>{$plugin.VER_DESC}</span></span></td>
+    <td style="text-align:center;">{$plugin.VERSION}</td>
   </tr>
 {/foreach}
 </table>

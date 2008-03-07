@@ -1,7 +1,7 @@
 <?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -28,115 +28,69 @@ if( !defined("PHPWG_ROOT_PATH") )
   die ("Hacking attempt!");
 }
 
-$fs_plugins = get_fs_plugins();
-$my_base_url= get_root_url().'admin.php'.get_query_string_diff( array('upgrade', 'plugin', 'reactivate', 'action', 'upgradestatus') );
-
-$db_plugins = get_db_plugins();
-$db_plugins_by_id = array();
-foreach ($db_plugins as $db_plugin)
-{
-  $db_plugins_by_id[$db_plugin['id']] = $db_plugin;
-}
+include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
 $template->set_filenames(array('plugins' => 'admin/plugins_update.tpl'));
 
+$plugins = new plugins($page['page']);
 
 //-----------------------------------------------------------automatic upgrade
 if (isset($_GET['upgrade']) and isset($_GET['plugin']) and !is_adviser())
 {
-  include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
-
-  $upgrade_status  = extract_plugin_files('upgrade',
-                      $_GET['upgrade'],
-                      $_GET['plugin']);
-
-  $my_base_url .= isset($_GET['reactivate']) ? '&action=activate' : '';
-
-  redirect($my_base_url.'&plugin='.$_GET['plugin'].'&upgradestatus='.$upgrade_status);
+  $plugins->upgrade($_GET['upgrade'], $_GET['plugin']);
 }
-
 
 //--------------------------------------------------------------upgrade result
 if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 {
-  switch ($_GET['upgradestatus'])
-  {
-  case 'ok':
-    array_push($page['infos'],
-               sprintf(l10n('plugins_upgrade_ok'),
-               $fs_plugins[$_GET['plugin']]['name']));
-    break;
-
-  case 'temp_path_error':
-    array_push($page['errors'], l10n('plugins_temp_path_error'));
-    break;
-
-  case 'dl_archive_error':
-    array_push($page['errors'], l10n('plugins_dl_archive_error'));
-    break;
-
-  case 'archive_error':
-    array_push($page['errors'], l10n('plugins_archive_error'));
-    break;
-
-  default:
-    array_push($page['errors'],
-               sprintf(l10n('plugins_extract_error'),
-               $_GET['upgradestatus']));
-  }
+  $plugins->get_result($_GET['upgradestatus'], $_GET['plugin']);
 }
-
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins_infos = check_server_plugins($fs_plugins);
+$plugins->tabsheet();
+$plugins->check_server_plugins();
 
-if ($plugins_infos !== false)
+if ($plugins->server_plugins !== false)
 {
-  foreach($fs_plugins as $plugin_id => $fs_plugin)
+  foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
     if (isset($fs_plugin['extension'])
-      and isset($plugins_infos[$fs_plugin['extension']]))
+      and isset($plugins->server_plugins[$fs_plugin['extension']]))
     {
-      $plugin_info = $plugins_infos[$fs_plugin['extension']];
+      $plugin_info = $plugins->server_plugins[$fs_plugin['extension']];
 
       $ext_desc = nl2br(htmlspecialchars(strip_tags(
                     utf8_encode($plugin_info['ext_description']))));
 
       $ver_desc = sprintf(l10n('plugins_description'),
-              $plugin_info['version'],
-              date('Y-m-d', $plugin_info['date']),
-              nl2br(htmlspecialchars(strip_tags(
-                utf8_encode($plugin_info['description'])))));
+          $plugin_info['version'],
+          date('Y-m-d', $plugin_info['date']),
+          nl2br(htmlspecialchars(strip_tags(
+              utf8_encode($plugin_info['description'])))));
 
-      if ($plugin_info['version'] == $fs_plugin['version'])
+      if ($plugins->plugin_version_compare($fs_plugin, $plugin_info) >= 0)
       {
         // Plugin is up to date
         $template->append('plugins_uptodate',
               array('URL' => $fs_plugin['uri'],
                 'NAME' => $fs_plugin['name'],
                 'EXT_DESC' => $ext_desc,
-                'VERSION' => $fs_plugin['version'],
-                'VER_DESC' => $ver_desc));
+                'VERSION' => $fs_plugin['version']));
       }
       else
       {
         // Plugin need upgrade
-        $url_auto_update = $my_base_url
+        $url_auto_update = $plugins->html_base_url
           . '&amp;plugin=' . $plugin_id
-          . (
-              (isset($db_plugins_by_id[$plugin_id])
-                and $db_plugins_by_id[$plugin_id]['state'] == 'active') ?
-                  '&amp;action=deactivate' : ''
-            )
           . '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
           . '%2Frevision-' . $plugin_info['id_revision']
-          . '%2F' . $plugin_info['url'];
+          . '%2F' . str_replace(' ', '%20',$plugin_info['url']);
 
         $url_download = PEM_URL.'/upload/extension-'. $fs_plugin['extension']
-            . '/revision-' . $plugin_info['id_revision']
-            . '/' . $plugin_info['url'];
+          . '/revision-' . $plugin_info['id_revision']
+          . '/' . str_replace(' ', '%20',$plugin_info['url']);
 
         $template->append('plugins_not_uptodate',
           array('EXT_NAME' => $fs_plugin['name'],

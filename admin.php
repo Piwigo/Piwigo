@@ -114,7 +114,7 @@ usort($plugin_menu_links, 'UC_name_compare');
 array_unshift($plugin_menu_links,
     array(
       'NAME' => l10n('admin'),
-      'URL' => $link_start.'plugins'
+      'URL' => $link_start.'plugins_list'
     )
   );
 

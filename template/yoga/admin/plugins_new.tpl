@@ -5,7 +5,7 @@
 
 {'Sort order'|@translate} : 
   <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:120px">
-        {html_options options=$order selected=$selected}
+        {html_options options=$order_options selected=$order_selected}
   </select>
 
 {if isset($plugins)}
