@@ -1,6 +1,6 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div class="titrePage">
-  <h2>{lang:Profile}</h2>
+  <h2>{'Profile'|@translate}</h2>
 </div>
 
-{PROFILE_CONTENT}
+{$PROFILE_CONTENT}

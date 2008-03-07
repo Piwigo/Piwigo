@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -154,11 +153,9 @@ VALUES (' . "
   pwg_query($query);
   $chk_partner = $add_partner;
   
-  $template->assign_block_vars(
-    'update_result',
-    array(
-      'UPD_ELEMENT'=> l10n('ws_adding_legend').l10n('ws_success_upd'),
-      )
+  $template->append(
+    'update_results',
+    l10n('ws_adding_legend').l10n('ws_success_upd')
   );
 }
 
@@ -176,18 +173,14 @@ if (isset($_POST['wsu_submit']))
     SET '.$settxt.'
     WHERE id = '.$uid.'; ';
     pwg_query($query);
-    $template->assign_block_vars(
-      'update_result',
-      array(
-        'UPD_ELEMENT'=> l10n('ws_update_legend').l10n('ws_success_upd'),
-        )
+    $template->append(
+      'update_results',
+      l10n('ws_update_legend').l10n('ws_success_upd')
     );
   } else {
-    $template->assign_block_vars(
-      'update_result',
-      array(
-        'UPD_ELEMENT'=> l10n('ws_update_legend').l10n('ws_failed_upd'),
-        )
+    $template->append(
+      'update_results',
+      l10n('ws_update_legend').l10n('ws_failed_upd')
     );
   }
 }
@@ -202,19 +195,14 @@ if (isset($_POST['wsX_submit']))
     $query = 'DELETE FROM '.WEB_SERVICES_ACCESS_TABLE.'
                WHERE id = '.$uid.'; ';
     pwg_query($query);
-    $template->assign_block_vars(
-      'update_result',
-      array(
-        'UPD_ELEMENT'=> l10n('ws_delete_legend').l10n('ws_success_upd'),
-        )
+    $template->append(
+      'update_results',
+      l10n('ws_delete_legend').l10n('ws_success_upd')
     );
   } else {
-    $template->assign_block_vars(
-      'update_result',
-      array(
-        'UPD_ELEMENT'=> l10n('Not selected / Not confirmed')
-        .l10n('ws_failed_upd'),
-        )
+    $template->append(
+      'update_results',
+      l10n('Not selected / Not confirmed').l10n('ws_failed_upd')
     );
   } 
 }
@@ -252,23 +240,14 @@ $template->set_filenames(
     )
   );
 
-$selected = 'selected="selected"';
-$num=0;
-if ( $acc_list > 0 )
-{
-  $template->assign_block_vars(
-    'acc_list', array() );
-}
 
 // Access List
 while ($row = mysql_fetch_array($result))
 {
-  $num++;
   $chk_partner = ( $chk_partner == '' ) ? $row['name'] : $chk_partner;
-  $template->assign_block_vars(
-    'acc_list.access',
+  $template->append(
+    'access_list',
      array(
-       'CLASS' => ($num % 2 == 1) ? 'row1' : 'row2',
        'ID'               => $row['id'],
        'NAME'             => 
          (is_adviser()) ? '*********' : $row['name'],       
@@ -277,45 +256,17 @@ while ($row = mysql_fetch_array($result))
        'REQUEST'          => $row['request'],
        'LIMIT'            => $row['limit'],
        'COMMENT'          => $row['comment'],
-       'SELECTED'         => '',
      )
   );
 }
 
-$template->assign_block_vars(
-  'add_request',
-   array(
-     'VALUE'=> '',
-     'CONTENT' => '',
-     'SELECTED' => $selected,
-   )
-);
-foreach ($req_type_list as $value) {
+$template->assign('add_requests', $req_type_list);
 
-  $template->assign_block_vars(
-    'add_request',
-     array(
-       'VALUE'=> $value,
-       'CONTENT' => $value,
-       'SELECTED' => '',
-     )
-  );
-}
-
-foreach ($conf['ws_allowed_limit'] as $value) {
-  $template->assign_block_vars(
-    'add_limit',
-     array(
-       'VALUE'=> $value,
-       'CONTENT' => $value,
-       'SELECTED' => ($conf['ws_allowed_limit'][0] == $value) ? $selected:'',
-     )
-  );
-}
+$template->assign('add_limits', $conf['ws_allowed_limit'] );
 
 // Postponed Start Date 
 // By default 0, 1, 2, 3, 5, 7, 14 or 30 days
-foreach ($conf['ws_postponed_start'] as $value) {
+/*foreach ($conf['ws_postponed_start'] as $value) {
   $template->assign_block_vars(
     'add_start',
      array(
@@ -324,75 +275,58 @@ foreach ($conf['ws_postponed_start'] as $value) {
        'SELECTED' => ($conf['ws_postponed_start'][0] == $value) ? $selected:'',
      )
   );
-}
+}*/
 
 // Durations (Allowed Web Services Period)
 // By default 10, 5, 2, 1 year(s) or 6, 3, 1 month(s) or 15, 10, 7, 5, 1, 0 day(s)
-foreach ($conf['ws_durations'] as $value) {
-  $template->assign_block_vars(
-    'add_end',
-     array(
-       'VALUE'=> $value,
-       'CONTENT' => $value,
-       'SELECTED' => ($conf['ws_durations'][3] == $value) ? $selected:'',
-     )
-  );
-  if ( $acc_list > 0 )
-  {
-    $template->assign_block_vars(
-      'acc_list.upd_end',
-       array(
-         'VALUE'=> $value,
-         'CONTENT' => $value,
-         'SELECTED' => ($conf['ws_durations'][3] == $value) ? $selected:'',
-       )
-    );
-  }
-}
+$template->assign('add_ends', $conf['ws_durations']);
+
 if ( $chk_partner !== '' )
 {
-  $request = get_absolute_root_url().'ws.php?method=pwg.getVersion&format=rest&'
-           . "partner=$chk_partner" ;
-  $session = curl_init($request);
-  curl_setopt ($session, CURLOPT_POST, true);
-  curl_setopt($session, CURLOPT_HEADER, true);
-  curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-  $response = curl_exec($session);
-  curl_close($session);
-  $status_code = array();
-  preg_match('/\d\d\d/', $response, $status_code);
-  switch( $status_code[0] ) {
-  	case 200:
-      $ws_status = l10n('Web Services under control');
-  		break;
-  	case 503:
-  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
-                 . 'HTTP status of 503. Service is unavailable. An internal '
-                 . 'problem prevented us from returning data to you.';
-  		break;
-  	case 403:
-  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
-                 . 'HTTP status of 403. Access is forbidden. You do not have '
-                 . 'permission to access this resource, or are over '
-                 . 'your rate limit.';
-  		break;
-  	case 400:
-  		// You may want to fall through here and read the specific XML error
-  		$ws_status = 'PhpWebGallery Web Services failed and returned an '
-                 . 'HTTP status of 400. Bad request. The parameters passed '
-                 . 'to the service did not match as expected. The exact '
-                 . 'error is returned in the XML response.';
-  		break;
-  	default:
-  		$ws_status = 'PhpWebGallery Web Services returned an unexpected HTTP '
-                 . 'status of:' . $status_code[0];
+  if (function_exists('curl_init'))
+  {
+    $request = get_absolute_root_url().'ws.php?method=pwg.getVersion&format=rest&'
+             . "partner=$chk_partner" ;
+    $session = curl_init($request);
+    curl_setopt ($session, CURLOPT_POST, true);
+    curl_setopt($session, CURLOPT_HEADER, true);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($session);
+    curl_close($session);
+    $status_code = array();
+    preg_match('/\d\d\d/', $response, $status_code);
+    switch( $status_code[0] ) {
+    	case 200:
+        $ws_status = l10n('Web Services under control');
+    		break;
+    	case 503:
+    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                   . 'HTTP status of 503. Service is unavailable. An internal '
+                   . 'problem prevented us from returning data to you.';
+    		break;
+    	case 403:
+    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                   . 'HTTP status of 403. Access is forbidden. You do not have '
+                   . 'permission to access this resource, or are over '
+                   . 'your rate limit.';
+    		break;
+    	case 400:
+    		// You may want to fall through here and read the specific XML error
+    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+                   . 'HTTP status of 400. Bad request. The parameters passed '
+                   . 'to the service did not match as expected. The exact '
+                   . 'error is returned in the XML response.';
+    		break;
+    	default:
+    		$ws_status = 'PhpWebGallery Web Services returned an unexpected HTTP '
+                   . 'status of:' . $status_code[0];
+    }
   }
-  $template->assign_block_vars(
-    'acc_list.ws_status',
-     array(
-       'VALUE'=> $ws_status,
-     )
-  );
+  else
+  {
+    $ws_status = 'Cannot check - curl not installed';
+  }
+  $template->assign( 'WS_STATUS', $ws_status );
 }
 
 //----------------------------------------------------------- sending html code

@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -143,7 +143,7 @@ $template->set_filenames(array('upload'=>'admin/upload.tpl'));
 // TabSheet initialization
 waiting_tabsheet();
 
-$template->assign_vars(array(
+$template->assign(array(
   'F_ACTION'=>str_replace( '&', '&amp;', $_SERVER['REQUEST_URI'])
   ));
 
@@ -156,7 +156,6 @@ $query.= " WHERE validated = 'false'";
 $query.= ' ORDER BY storage_category_id';
 $query.= ';';
 $result = pwg_query( $query );
-$i = 0;
 while ( $row = mysql_fetch_array( $result ) )
 {
   if ( !isset( $cat_names[$row['storage_category_id']] ) )
@@ -169,13 +168,9 @@ while ( $row = mysql_fetch_array( $result ) )
       get_cat_display_name($cat['upper_names']);
   }
   $preview_url = PHPWG_ROOT_PATH.$cat_names[$row['storage_category_id']]['dir'].$row['file'];
-  $class='row1';
-  if ( $i++ % 2== 0 ) $class='row2';
 
-  $template->assign_block_vars(
-    'picture',
+  $tpl_var =
     array(
-      'WAITING_CLASS'=>$class,
       'CATEGORY_IMG'=>$cat_names[$row['storage_category_id']]['display_name'],
       'ID_IMG'=>$row['id'],
       'DATE_IMG' => date('Y-m-d H:i:s', $row['date']),
@@ -186,7 +181,6 @@ while ( $row = mysql_fetch_array( $result ) )
       'PREVIEW_URL_IMG'=>$preview_url,
       'UPLOAD_EMAIL'=>get_email_address_as_display_text($row['mail_address']),
       'UPLOAD_USERNAME'=>$row['username']
-      )
     );
 
   // is there an existing associated thumnail ?
@@ -198,26 +192,20 @@ while ( $row = mysql_fetch_array( $result ) )
 	$url = $cat_names[$row['storage_category_id']]['dir'];
     $url.= 'thumbnail/'.$thumbnail;
 
-    $template->assign_block_vars(
-      'picture.thumbnail',
+    $tpl_var['thumbnail'] =
       array(
         'PREVIEW_URL_TN_IMG' => $url,
         'FILE_TN_IMG' =>
           (strlen($thumbnail) > 10) ?
             (substr($thumbnail, 0, 10)).'...' : $thumbnail,
         'FILE_TN_TITLE' => $thumbnail
-        )
       );
   }
-
+  $template->append('pictures', $tpl_var);
   array_push($list, $row['id']);
 }
 
-$template->assign_vars(
-  array(
-    'LIST' => implode(',', $list)
-    )
-  );
+$template->assign('LIST',implode(',', $list) );
 
 //----------------------------------------------------------- sending html code
 $template->assign_var_from_handle('ADMIN_CONTENT', 'upload');
