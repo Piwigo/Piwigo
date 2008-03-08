@@ -56,8 +56,8 @@
 
         <p>
           {if $c13y_show_submit_ignore}
-              <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{'c13y_check_all'|@translate}</a>
-            / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{'c13y_uncheck_all'|@translate}</a>
+              <a href="#" onclick="SelectAll(document.getElementById('c13y')); return false;">{'Check all'|@translate}</a>
+            / <a href="#" onclick="DeselectAll(document.getElementById('c13y')); return false;">{'Uncheck all'|@translate}</a>
           {/if}
           {if isset($c13y_do_check)}
             / <a href="#" onclick="DeselectAll(document.getElementById('c13y'));

@@ -6,9 +6,9 @@
 <form id="addVirtual" action="{$F_ACTION}" method="post">
   <p>
     {'cat_add'|@translate} : <input type="text" name="virtual_name" />
-    <input class="submit" type="submit" value="{'submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED} />
     {if count($categories)>9 }
-    <a href="#EoP" class="button"><img src="{$themeconf.icon_dir}/page_end.png" class="button" alt="{'page_end'|@translate}" /></a>
+    <a href="#EoP" class="button"><img src="{$themeconf.icon_dir}/page_end.png" class="button" alt="page_end" /></a>
     {/if}
   </p>
 </form>

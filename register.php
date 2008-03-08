@@ -70,7 +70,7 @@ $email = !empty($_POST['mail_address'])?$_POST['mail_address']:'';
 //
 // Start output of page
 //
-$title= l10n('register_page_title');
+$title= l10n('Registration');
 $page['body_id'] = 'theRegisterPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 

@@ -172,7 +172,7 @@ UPDATE '.COMMENTS_TABLE.'
 // |                       page header and options                         |
 // +-----------------------------------------------------------------------+
 
-$title= l10n('title_comments');
+$title= l10n('User comments');
 $page['body_id'] = 'theCommentsPage';
 
 $template->set_filenames(array('comments'=>'comments.tpl'));

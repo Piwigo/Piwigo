@@ -24,8 +24,8 @@
       <tr>
         <td><label>{lang:nbm_send_html_mail}</label></td>
         <td>
-          <label><input type="radio" name="nbm_send_html_mail" value="true"  {param.SEND_HTML_MAIL_YES}/>{lang:yes}</label>
-          <label><input type="radio" name="nbm_send_html_mail" value="false" {param.SEND_HTML_MAIL_NO}/>{lang:no}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="true"  {param.SEND_HTML_MAIL_YES}/>{lang:Yes}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="false" {param.SEND_HTML_MAIL_NO}/>{lang:No}</label>
         </td>
       </tr>
       <tr>
@@ -38,8 +38,8 @@
       <tr>
         <td><label>{lang:nbm_send_detailed_content}</label></td>
         <td>
-          <label><input type="radio" name="nbm_send_detailed_content" value="true"  {param.SEND_DETAILED_CONTENT_YES}/>{lang:yes}</label>
-          <label><input type="radio" name="nbm_send_detailed_content" value="false" {param.SEND_DETAILED_CONTENT_NO}/>{lang:no}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="true"  {param.SEND_DETAILED_CONTENT_YES}/>{lang:Yes}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="false" {param.SEND_DETAILED_CONTENT_NO}/>{lang:No}</label>
         </td>
       </tr>
      <tr>
@@ -52,8 +52,8 @@
           <br><i><small>{lang:nbm_info_send_recent_post_dates}</small></i>
         </td>
         <td>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="true"  {param.SEND_RECENT_POST_DATES_YES}/>{lang:yes}</label>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {param.SEND_RECENT_POST_DATES_NO}/>{lang:no}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="true"  {param.SEND_RECENT_POST_DATES_YES}/>{lang:Yes}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {param.SEND_RECENT_POST_DATES_NO}/>{lang:No}</label>
         </td>
       </tr>
     </table>
@@ -101,8 +101,8 @@
         <!-- END user_send_mail -->
       </table>
       <p>
-          <a href="#" onclick="SelectAll(document.getElementById('notification_by_mail')); return false;">{lang:nbm_send_check_all}</a>
-        / <a href="#" onclick="DeselectAll(document.getElementById('notification_by_mail')); return false;">{lang:nbm_send_uncheck_all}</a>
+          <a href="#" onclick="SelectAll(document.getElementById('notification_by_mail')); return false;">{lang:Check all}</a>
+        / <a href="#" onclick="DeselectAll(document.getElementById('notification_by_mail')); return false;">{lang:Uncheck all}</a>
       </p>
     </fieldset>
 

@@ -34,7 +34,7 @@
   </label>
 
   <label>
-  {'Order by'|@translate}
+  {'Sort by'|@translate}
   {html_options name=order_by options=$order_options selected=$order_selected}
   </label>
 
@@ -62,7 +62,7 @@
     {foreach from=$cpl_title_user item=title}
     <th>{$title}</th>
     {/foreach}
-    <th>{'actions'|@translate}</th>
+    <th>{'Actions'|@translate}</th>
   </tr>
   {foreach from=$users item=user name=users_loop}
   <tr class="{if $smarty.foreach.users_loop.index is odd}row1{else}row2{/if}">
@@ -116,8 +116,8 @@
       <td>
         <label><input type="radio" name="adviser" value="leave" checked="checked" /> {'leave'|@translate}</label>
         / {'set to'|@translate}
-        <label><input type="radio" name="adviser" value="true"  {$ADVISER_YES} />{'yes'|@translate}</label>
-        <label><input type="radio" name="adviser" value="false" {$ADVISER_NO}  />{'no'|@translate}</label>
+        <label><input type="radio" name="adviser" value="true"  {$ADVISER_YES} />{'Yes'|@translate}</label>
+        <label><input type="radio" name="adviser" value="false" {$ADVISER_NO}  />{'No'|@translate}</label>
       </td>
     </tr>
     {/if}
@@ -160,8 +160,8 @@
       <td>
         <label><input type="radio" name="enabled_high" value="leave" checked="checked" /> {'leave'|@translate}</label>
         / {'set to'|@translate}
-        <label><input type="radio" name="enabled_high" value="true"  {$ENABLED_HIGH_YES} />{'yes'|@translate}</label>
-        <label><input type="radio" name="enabled_high" value="false" {$ENABLED_HIGH_NO}  />{'no'|@translate}</label>
+        <label><input type="radio" name="enabled_high" value="true"  {$ENABLED_HIGH_YES} />{'Yes'|@translate}</label>
+        <label><input type="radio" name="enabled_high" value="false" {$ENABLED_HIGH_NO}  />{'No'|@translate}</label>
       </td>
     </tr>
 
@@ -243,8 +243,8 @@
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="expand" value="true"  {$EXPAND_YES} />{'yes'|@translate}</label>
-      <label><input type="radio" name="expand" value="false" {$EXPAND_NO}  />{'no'|@translate}</label>
+      <label><input type="radio" name="expand" value="true"  {$EXPAND_YES} />{'Yes'|@translate}</label>
+      <label><input type="radio" name="expand" value="false" {$EXPAND_NO}  />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -253,8 +253,8 @@
     <td>
       <label><input type="radio" name="show_nb_comments" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="show_nb_comments" value="true" {$SHOW_NB_COMMENTS_YES} />{'yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_comments" value="false" {$SHOW_NB_COMMENTS_NO} />{'no'|@translate}</label>
+      <label><input type="radio" name="show_nb_comments" value="true" {$SHOW_NB_COMMENTS_YES} />{'Yes'|@translate}</label>
+      <label><input type="radio" name="show_nb_comments" value="false" {$SHOW_NB_COMMENTS_NO} />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -263,8 +263,8 @@
     <td>
       <label><input type="radio" name="show_nb_hits" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="show_nb_hits" value="true" {$SHOW_NB_HITS_YES} />{'yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_hits" value="false" {$SHOW_NB_HITS_NO} />{'no'|@translate}</label>
+      <label><input type="radio" name="show_nb_hits" value="true" {$SHOW_NB_HITS_YES} />{'Yes'|@translate}</label>
+      <label><input type="radio" name="show_nb_hits" value="false" {$SHOW_NB_HITS_NO} />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -303,8 +303,8 @@
 </p>
 
 <p>
-  <input class="submit" type="submit" value="{'submit'|@translate}" name="pref_submit" {$TAG_INPUT_ENABLED} />
-  <input class="submit" type="reset" value="{'reset'|@translate}" name="pref_reset" />
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="pref_submit" {$TAG_INPUT_ENABLED} />
+  <input class="submit" type="reset" value="{'Reset'|@translate}" name="pref_reset" />
 </p>
 
 </form>

@@ -2,22 +2,21 @@
 <form method="post" name="profile" action="{$F_ACTION}" id="profile" class="properties">
 
   <fieldset>
-    <legend>{'register_title'|@translate}</legend>
-    <input type="hidden" name="userid" value="{$USERID}" />
+    <legend>{'Registration'|@translate}</legend>
     <input type="hidden" name="redirect" value="{$REDIRECT}" />
     <ul>
       <li>
         <span class="property">{'Username'|@translate}</span>
         {$USERNAME}
       </li>
-{if isset($not_special_user)}
+{if not $SPECIAL_USER} {* can modify password + email*}
       <li>
         <span class="property">
           <label for="mail_address">{'Email address'|@translate}</label>
         </span>
         <input type="text" name="mail_address" id="mail_address" value="{$EMAIL}">
       </li>
-{if !$in_admin}
+{if not $IN_ADMIN} {* admins do not need old password*}
       <li>
         <span class="property">
           <label for="password">{'Password'|@translate}</label>
@@ -103,8 +102,8 @@
   </fieldset>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" name="validate" value="{'submit'|@translate}">
-    <input class="submit" type="reset" name="reset" value="{'reset'|@translate}">
+    <input class="submit" type="submit" name="validate" value="{'Submit'|@translate}">
+    <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
 
 </form>

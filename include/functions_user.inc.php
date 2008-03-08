@@ -96,7 +96,7 @@ function register_user($login, $password, $mail_address,
   $errors = trigger_event('register_user_check',
               $errors,
               array(
-                'login'=>$login,
+                'username'=>$login,
                 'password'=>$password,
                 'email'=>$mail_address,
               )
@@ -159,13 +159,12 @@ SELECT id
     if ($with_notification and $conf['email_admin_on_new_user'])
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-      $username = $_POST['login'];
       $admin_url = get_absolute_root_url()
-                   .'admin.php?page=user_list&username='.$username;
+                   .'admin.php?page=user_list&username='.$login;
 
       $keyargs_content = array
       (
-        get_l10n_args('User: %s', $username),
+        get_l10n_args('User: %s', $login),
         get_l10n_args('Email: %s', $_POST['mail_address']),
         get_l10n_args('', ''),
         get_l10n_args('Admin: %s', $admin_url)
@@ -173,7 +172,7 @@ SELECT id
 
       pwg_mail_notification_admins
       (
-        get_l10n_args('Registration of %s', $username),
+        get_l10n_args('Registration of %s', $login),
         $keyargs_content
       );
     }

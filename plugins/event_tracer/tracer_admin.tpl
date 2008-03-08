@@ -8,7 +8,7 @@ The event tracer is a developer tool that logs in the footer of the window all c
 You can use this plugin to see what events is PhpWebGallery calling.
 <b>Note that $conf['show_queries'] must be true.</b>
 </p>
-<form method="post" action="{$EVENT_TRACER_F_ACTION}" class="general">
+<form method="post" action="" class="general">
 <fieldset>
 	<legend>Event Tracer</legend>
 

@@ -28,7 +28,7 @@
       {/if}
 
       {if isset($U_SLIDESHOW) }
-      <li><a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"/></a></li>
+      <li><a href="{$U_SLIDESHOW}" title="{'slideshow'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_slideshow.png" class="button" alt="{'slideshow'|@translate}"/></a></li>
       {/if}
 
       {if isset($U_MODE_FLAT) }
@@ -68,7 +68,7 @@
 
   </div> <!-- titrePage -->
 
-{if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
+{if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results) }
 <div style="font-size:16px;text-align:left;margin:10px">{'Category results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :

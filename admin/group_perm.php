@@ -47,8 +47,7 @@ if (isset($_GET['group_id']) and is_numeric($_GET['group_id']))
 }
 else
 {
-  echo l10n('group_id URL parameter is missing');
-  exit();
+  die('group_id URL parameter is missing');
 }
 
 // +-----------------------------------------------------------------------+
@@ -93,19 +92,19 @@ SELECT id
   // an error (in SQL statement), so we need to know which categories are
   // accesible
   $authorized_ids = array();
-    
+
   $query = '
 SELECT cat_id
   FROM '.GROUP_ACCESS_TABLE.'
   WHERE group_id = '.$page['group'].'
 ;';
   $result = pwg_query($query);
-  
+
   while ($row = mysql_fetch_array($result))
   {
     array_push($authorized_ids, $row['cat_id']);
   }
-  
+
   $inserts = array();
   $to_autorize_ids = array_diff($private_uppercats, $authorized_ids);
   foreach ($to_autorize_ids as $to_autorize_id)
@@ -144,14 +143,14 @@ $template->assign_vars(
     'L_CAT_OPTIONS_TRUE'=>l10n('authorized'),
     'L_CAT_OPTIONS_FALSE'=>l10n('forbidden'),
     'L_CAT_OPTIONS_INFO'=>l10n('permuser_info'),
-    
+
     'F_ACTION' =>
         PHPWG_ROOT_PATH.
         'admin.php?page=group_perm&amp;group_id='.
         $page['group']
     )
   );
-  
+
 // only private categories are listed
 $query_true = '
 SELECT id,name,uppercats,global_rank

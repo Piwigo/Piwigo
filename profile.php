@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -54,8 +54,6 @@ if (!defined('PHPWG_ROOT_PATH'))
     make_index_url(), // for redirect
     $userdata );
 
-  $template->assign('U_HOME', make_index_url());
-
   // +-----------------------------------------------------------------------+
   // |                             errors display                            |
   // +-----------------------------------------------------------------------+
@@ -70,14 +68,24 @@ if (!defined('PHPWG_ROOT_PATH'))
 }
 
 //------------------------------------------------------ update & customization
-function save_profile_from_post(&$userdata, &$errors)
+function save_profile_from_post($userdata, &$errors)
 {
   global $conf;
   $errors = array();
-  
+
   if (!isset($_POST['validate']))
   {
     return false;
+  }
+
+  $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
+  if ($special_user)
+  {
+    unset($_POST['mail_address'],
+          $_POST['password'],
+          $_POST['use_new_pwd'],
+          $_POST['passwordConf']
+          );
   }
 
   $int_pattern = '/^\d+$/';
@@ -158,7 +166,7 @@ function save_profile_from_post(&$userdata, &$errors)
       $fields = array($conf['user_fields']['email']);
 
       $data = array();
-      $data{$conf['user_fields']['id']} = $_POST['userid'];
+      $data{$conf['user_fields']['id']} = $userdata['id'];
       $data{$conf['user_fields']['email']} = $_POST['mail_address'];
 
       // password is updated only if filled
@@ -182,7 +190,7 @@ function save_profile_from_post(&$userdata, &$errors)
       );
 
     $data = array();
-    $data['user_id'] = $_POST['userid'];
+    $data['user_id'] = $userdata['id'];
 
     foreach ($fields as $field)
     {
@@ -195,7 +203,7 @@ function save_profile_from_post(&$userdata, &$errors)
                  array('primary' => array('user_id'), 'update' => $fields),
                  array($data));
 
-    trigger_action( 'loc_user_profile_updated', $_POST['userid'] );
+    trigger_action( 'save_profile_from_post', $userdata['id'] );
     
     if (!empty($_POST['redirect']))
     {
@@ -214,13 +222,12 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->assign('radio_options',
     array(
-      'true' => l10n('yes'),
-      'false' => l10n('no')));
+      'true' => l10n('Yes'),
+      'false' => l10n('No')));
 
   $template->assign(
     array(
       'USERNAME'=>$userdata['username'],
-      'USERID'=>$userdata['id'],
       'EMAIL'=>get_email_address_as_display_text(@$userdata['email']),
       'NB_IMAGE_LINE'=>$userdata['nb_image_line'],
       'NB_ROW_PAGE'=>$userdata['nb_line_page'],
@@ -255,12 +262,13 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
   }
   $template->assign('language_options', $language_options);
 
-  if (!(in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']))))
-  {
-    $template->assign('not_special_user', true);
-    $template->assign('in_admin', defined('IN_ADMIN'));
-  }
+  $special_user = in_array($userdata['id'], array($conf['guest_id'], $conf['default_user_id']));
+  $template->assign('SPECIAL_USER', $special_user);
+  $template->assign('IN_ADMIN', defined('IN_ADMIN'));
 
+  // allow plugins to add their own form data to content
+  trigger_action( 'load_profile_in_template', $userdata );
+  
   $template->assign_var_from_handle('PROFILE_CONTENT', 'profile_content');
 }
 ?>
