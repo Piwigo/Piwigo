@@ -45,13 +45,13 @@
     {/if}
     {if isset($PLUGIN_PICTURE_ACTIONS)}{$PLUGIN_PICTURE_ACTIONS}{/if}
     {if isset($favorite) }
-      <a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="{$favorite.FAVORITE_ALT}"></a>
+      <a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{$favorite.FAVORITE_HINT}"></a>
     {/if}
     {if !empty($U_SET_AS_REPRESENTATIVE) }
       <a href="{$U_SET_AS_REPRESENTATIVE}" title="{'set as category representative'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/representative.png" class="button" alt="{'representative'|@translate}"></a>
     {/if}
     {if isset($U_ADMIN) }
-      <a href="{$U_ADMIN}" title="{'link_info_image'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'link_info_image'|@translate}"></a>
+      <a href="{$U_ADMIN}" title="{'link_info_image'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
     {/if}
     {if isset($U_CADDIE) }
       <a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
@@ -220,7 +220,7 @@
       {/if}
       <label>{'comment'|@translate}<textarea name="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
       <input type="hidden" name="key" value="{$comment_add.KEY}" />
-      <input class="submit" type="submit" value="{'submit'|@translate}">
+      <input class="submit" type="submit" value="{'Submit'|@translate}">
     </fieldset>
   </form>
   {/if}

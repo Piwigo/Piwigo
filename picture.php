@@ -672,7 +672,6 @@ SELECT COUNT(*) AS nb_fav
         'FAVORITE_IMG'  =>
           get_root_url().get_themeconf('icon_dir').'/favorite.png',
         'FAVORITE_HINT' => l10n('add_favorites_hint'),
-        'FAVORITE_ALT'  => l10n('add_favorites_alt'),
         'U_FAVORITE'    => add_url_params(
           $url_self,
           array('action'=>'add_to_favorites')
@@ -688,7 +687,6 @@ SELECT COUNT(*) AS nb_fav
         'FAVORITE_IMG'  =>
           get_root_url().get_themeconf('icon_dir').'/del_favorite.png',
         'FAVORITE_HINT' => l10n('del_favorites_hint'),
-        'FAVORITE_ALT'  => l10n('del_favorites_alt'),
         'U_FAVORITE'    => add_url_params(
           $url_self,
           array('action'=>'remove_from_favorites')

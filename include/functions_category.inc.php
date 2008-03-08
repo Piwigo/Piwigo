@@ -466,7 +466,7 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
     }
 
     //at least one image direct or indirect
-    $display_text.= l10n_dec('image_available', 'images_available', $cat_count_images);
+    $display_text.= l10n_dec('%d element', '%d elements', $cat_count_images);
 
     if ($cat_count_categories == 0 or $cat_nb_images == $cat_count_images)
     {

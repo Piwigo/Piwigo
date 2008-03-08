@@ -1084,7 +1084,7 @@ function l10n($key)
 
   if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
   {
-    echo '[l10n] language key "'.$key.'" is not defined<br />';
+    trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_NOTICE);
   }
 
   return isset($lang[$key]) ? $lang[$key] : $key;

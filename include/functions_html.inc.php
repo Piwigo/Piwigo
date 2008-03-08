@@ -26,7 +26,7 @@
 
 function get_icon($date, $is_child_date = false)
 {
-  global $page, $user, $lang;
+  global $page, $user;
 
   if (empty($date))
   {
@@ -54,8 +54,10 @@ function get_icon($date, $is_child_date = false)
     if ( !isset($page['get_icon_cache']['_icons_'] ) )
     {
       $icons = array(false => 'recent', true => 'recent_by_child' );
-      $title = l10n('recent_image').'&nbsp;'.$user['recent_period']
-          .'&nbsp;'.l10n('days');
+      $title = sprintf(
+        l10n('elements posted during the last %d days'),
+        $user['recent_period']
+        );
       foreach ($icons as $key => $icon)
       {
         $icon_url = get_themeconf('icon_dir').'/'.$icon.'.png';
@@ -78,7 +80,7 @@ function create_navigation_bar(
   $url, $nb_element, $start, $nb_element_page, $clean_url = false
   )
 {
-  global $lang, $conf;
+  global $conf;
 
   $pages_around = $conf['paginate_pages_around'];
   $start_str = $clean_url ? '/start-' :
@@ -374,8 +376,6 @@ SELECT id, name, permalink
  */
 function get_html_menu_category($categories, $selected_category)
 {
-  global $lang;
-
   $ref_level = 0;
   $level = 0;
 
@@ -558,7 +558,7 @@ function name_compare($a, $b)
  */
 function access_denied()
 {
-  global $user, $lang;
+  global $user;
 
   $login_url =
       get_root_url().'identification.php?redirect='
@@ -649,7 +649,7 @@ function get_tags_content_title()
           )
         )
       .'" title="'
-      .l10n('See pictures linked to this tag only')
+      .l10n('See elements linked to this tag only')
       .'">'
       .$page['tags'][$i]['name']
       .'</a>';

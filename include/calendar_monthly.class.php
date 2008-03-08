@@ -480,16 +480,16 @@ SELECT id, file,tn_ext,path, width, height, DAYOFWEEK('.$this->date_field.')-1 a
                 )
             )
           );
-        $alt = $wday_labels[$dow] . ' ' . $day.
-               ' ('.sprintf("%d ".l10n('pictures'), $items[$day]['nb_images']).')';
 
         $tpl_crt_week[]   =
           array(
-              'DAY' => $day,
-              'IMAGE'     => $items[$day]['tn_url'],
-              'U_IMG_LINK'=> $url,
-              'IMAGE_STYLE'     => $css_style,
-              'IMAGE_ALT' => $alt,
+              'DAY'         => $day,
+              'DOW'         => $dow,
+              'NB_ELEMENTS' => $items[$day]['nb_images'],
+              'IMAGE'       => $items[$day]['tn_url'],
+              'U_IMG_LINK'  => $url,
+              'IMAGE_STYLE' => $css_style,
+              'IMAGE_ALT'   => $items[$day]['file'],
             );
       }
     }

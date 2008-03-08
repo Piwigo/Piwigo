@@ -36,7 +36,7 @@
     <a href="{$U_UPLOAD}">{'upload_picture'|@translate}</a>
   </li></ul>
   {/if}
-		<p class="totalImages">{$NB_PICTURE} {'total'|@translate}</p>
+		<p class="totalImages">{$pwg->l10n_dec('%d element', '%d elements', $NB_PICTURE)}</p>
   </dd>
 </dl>
 
@@ -50,12 +50,12 @@
 		<li>
 		{if !empty($tag.add) }
 			<a href="{$tag.add.URL}" 
-				title="{$pwg->l10n_dec('%d picture are also linked to current tags', '%d pictures are also linked to current tags', $tag.add.COUNTER)}" 
+				title="{$pwg->l10n_dec('%d element are also linked to current tags', '%d elements are also linked to current tags', $tag.add.COUNTER)}"
 				rel="nofollow">
 				<img src="{$ROOT_URL}{$themeconf.icon_dir}/add_tag.png" alt="+" />
 			</a>
 		{/if}
-		<a href="{$tag.U_TAG}" class="{$tag.CLASS}" title="{'See pictures linked to this tag only'|@translate}">{$tag.NAME}</a>
+		<a href="{$tag.U_TAG}" class="{$tag.CLASS}" title="{'See elements linked to this tag only'|@translate}">{$tag.NAME}</a>
 		</li>
 		{/foreach}
 		</ul>
@@ -146,7 +146,7 @@
 		</label>
 		{/if}
 		<p>
-		 <input class="submit" type="submit" name="login" value="{'submit'|@translate}">
+		 <input class="submit" type="submit" name="login" value="{'Submit'|@translate}">
 		</p>
 		
 		<ul class="actions">

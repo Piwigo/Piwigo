@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -103,7 +103,7 @@ function validate_upload( $temp_name, $my_max_file_size,
       case 2 : $result['type'] = 'jpg'; break;
       case 3 : $result['type'] = 'png'; break;
       default :
-        array_push( $result['error'], l10n('upload_advise_filetype') );  
+        array_push( $result['error'], l10n('upload_advise_filetype') );
       }
     }
   }
@@ -134,14 +134,14 @@ if (isset($page['category']))
   check_restrictions( $page['category'] );
   $category = get_cat_info( $page['category'] );
   $category['cat_dir'] = get_complete_dir( $page['category'] );
-  
+
   if (url_is_remote($category['cat_dir']) or !$category['uploadable'])
   {
-    die('Fatal: you take a wrong way, bye bye');
+    page_forbidden('upload not allowed');
   }
 }
 else { // $page['category'] may be set by a futur plugin but without it
-  die('Fatal: you take a wrong way, bye bye');
+  bad_request('invalid parameters');
 }
 
 $error = array();
@@ -173,7 +173,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, l10n('upload_err_username') );
   }
-  
+
   $date_creation = '';
   if ( !empty($_POST['date_creation']) )
   {
@@ -202,7 +202,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, l10n('update_wrong_dirname') );
   }
-  
+
   if ( sizeof( $error ) == 0 )
   {
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
@@ -315,10 +315,8 @@ else
   $advise_title.= get_cat_display_name($category['upper_names']);
 }
 
-$template->assign_vars(
+$template->assign(
   array(
-    'U_HOME' => make_index_url(),
-
     'ADVISE_TITLE' => $advise_title,
     'NAME' => $username,
     'EMAIL' => $mail_address,
@@ -332,26 +330,18 @@ $template->assign_vars(
     'U_RETURN' => make_index_url(array('category' => $category)),
     )
   );
-  
+
+$template->assign('errors', $error);
+$template->assign('UPLOAD_SUCCESSFUL', $page['upload_successful'] );
+
 if ( !$page['upload_successful'] )
 {
-  $template->assign_block_vars('upload_not_successful',array());
-//-------------------------------------------------------------- errors display
-if ( sizeof( $error ) != 0 )
-{
-  $template->assign_block_vars('upload_not_successful.errors',array());
-  for ( $i = 0; $i < sizeof( $error ); $i++ )
-  {
-    $template->assign_block_vars('upload_not_successful.errors.error',array('ERROR'=>$error[$i]));
-  }
-}
-
 //--------------------------------------------------------------------- advises
   if ( !empty($conf['upload_maxfilesize']) )
   {
     $content = l10n('upload_advise_filesize');
     $content.= $conf['upload_maxfilesize'].' KB';
-    $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+    $template->append('advises', $content);
   }
 
   if ( isset( $page['waiting_id'] ) )
@@ -360,13 +350,13 @@ if ( sizeof( $error ) != 0 )
     {
       $content = l10n('upload_advise_width');
       $content.= $conf['upload_maxwidth_thumbnail'].' px';
-      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight_thumbnail'] != '' )
     {
       $content = l10n('upload_advise_height');
       $content.= $conf['upload_maxheight_thumbnail'].' px';
-      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->append('advises', $content);
     }
   }
   else
@@ -375,27 +365,22 @@ if ( sizeof( $error ) != 0 )
     {
       $content = l10n('upload_advise_width');
       $content.= $conf['upload_maxwidth'].' px';
-      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->append('advises', $content);
     }
     if ( $conf['upload_maxheight'] != '' )
     {
       $content = l10n('upload_advise_height');
       $content.= $conf['upload_maxheight'].' px';
-      $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>$content));
+      $template->append('advises', $content);
     }
   }
-  $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>l10n('upload_advise_filetype')));
-  
+  $template->append('advises', l10n('upload_advise_filetype'));
+
 //----------------------------------------- optionnal username and mail address
   if ( !isset( $page['waiting_id'] ) )
   {
-    $template->assign_block_vars('upload_not_successful.fields',array());
-    $template->assign_block_vars('note',array());
+    $template->assign('SHOW_FORM_FIELDS', true);
   }
-}
-else
-{
-  $template->assign_block_vars('upload_successful',array());
 }
 
 //----------------------------------------------------------- html code display
