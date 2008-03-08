@@ -78,7 +78,7 @@ function save_profile_from_post(&$userdata, &$errors)
 {
   global $conf;
   $errors = array();
-  
+
   if (!isset($_POST['validate']))
   {
     return false;
@@ -141,7 +141,7 @@ function save_profile_from_post(&$userdata, &$errors)
     WHERE '.$conf['user_fields']['id'].' = \''.$userdata['id'].'\'
   ;';
       list($current_password) = mysql_fetch_row(pwg_query($query));
-  
+
       if ($conf['pass_convert']($_POST['password']) != $current_password)
       {
         $errors[] = l10n('Current password is wrong');
@@ -160,7 +160,7 @@ function save_profile_from_post(&$userdata, &$errors)
       $fields = array($conf['user_fields']['email']);
 
       $data = array();
-      $data{$conf['user_fields']['id']} = $_POST['userid'];
+      $data{$conf['user_fields']['id']} = $userdata['id'];
       $data{$conf['user_fields']['email']} = $_POST['mail_address'];
 
       // password is updated only if filled
@@ -184,7 +184,7 @@ function save_profile_from_post(&$userdata, &$errors)
       );
 
     $data = array();
-    $data['user_id'] = $_POST['userid'];
+    $data['user_id'] = $userdata['id'];
 
     foreach ($fields as $field)
     {
@@ -213,15 +213,15 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
 
   $template->set_filename('profile_content', 'profile_content.tpl');
 
-  $expand = ($userdata['expand'] == 'true') ? 
+  $expand = ($userdata['expand'] == 'true') ?
             'EXPAND_TREE_YES':'EXPAND_TREE_NO';
 
   $nb_comments =
-    ($userdata['show_nb_comments'] == 'true') ? 
+    ($userdata['show_nb_comments'] == 'true') ?
                'NB_COMMENTS_YES':'NB_COMMENTS_NO';
 
   $nb_hits =
-    ($userdata['show_nb_hits'] == 'true') ? 
+    ($userdata['show_nb_hits'] == 'true') ?
                'NB_HITS_YES':'NB_HITS_NO';
 
   $template->assign_vars(
@@ -234,13 +234,13 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
       'RECENT_PERIOD'=>$userdata['recent_period'],
       'MAXWIDTH'=>@$userdata['maxwidth'],
       'MAXHEIGHT'=>@$userdata['maxheight'],
-  
+
       $expand=>'checked="checked"',
       $nb_comments=>'checked="checked"',
       $nb_hits=>'checked="checked"',
-  
+
       'REDIRECT' => $url_redirect,
-  
+
       'F_ACTION'=>$url_action,
       ));
 
@@ -260,7 +260,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
     {
       $selected = '';
     }
-  
+
     $template->assign_block_vars(
       $blockname,
       array(
@@ -286,7 +286,7 @@ function load_profile_in_template($url_action, $url_redirect, $userdata)
     {
       $selected = '';
     }
-  
+
     $template->assign_block_vars(
       $blockname,
       array(
