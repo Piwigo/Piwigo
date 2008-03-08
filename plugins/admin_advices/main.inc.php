@@ -33,12 +33,12 @@ function set_admin_advice()
 
 // Setup Advice Language (Maybe there is already a variable)
   $advlang = ( isset($user['language']) ) ?
-    $user['language'] : get_default_language(); // en_UK.iso-8859-1
+    $user['language'] : get_default_language(); // en_UK
   $my_path = dirname(__FILE__).'/';
   $adv = array();
   if ( !@file_exists($my_path."$advlang/lang.adv.php") )
   {
-    $advlang = 'en_UK.iso-8859-1';
+    $advlang = 'en_UK';
   }
 //  Include language advices
   @include_once( $my_path."$advlang/lang.adv.php" );
@@ -63,55 +63,42 @@ LIMIT 0, 1
     {
       $url_modify = get_root_url().'admin.php?page=picture_modify'
                   .'&amp;image_id='.$row['id'];
-      $url_check = get_themeconf('icon_dir').'/';
-      $url_uncheck = $url_check . 'uncheck';
-      $url_check .= 'check';
-      $picture_id = $row['id'];
       $query = '
 SELECT * FROM '.IMAGE_TAG_TABLE.'
-WHERE image_id =  ' . $picture_id .'
+WHERE image_id =  ' . $row['id'] .'
 ;';
       $tag_count = mysql_num_rows(mysql_query($query));
-      $template->assign_block_vars(
-        'thumbnail',
+      $template->assign('thumbnail',
          array(
            'IMAGE'              => get_thumbnail_url($row),
            'IMAGE_ALT'          => $row['file'],
            'IMAGE_TITLE'        => $row['name'],
            'METADATA'           => (empty($row['date_metadata_update'])) ?
-                                   $url_uncheck : $url_check,
+                                   'un' : '',
            'NAME'               => (empty($row['name'])) ?
-                                   $url_uncheck : $url_check,
+                                   'un' : '',
            'COMMENT'            => (empty($row['comment'])) ?
-                                   $url_uncheck : $url_check,
+                                   'un' : '',
            'AUTHOR'             => (empty($row['author'])) ?
-                                   $url_uncheck : $url_check,
+                                   'un' : '',
            'CREATE_DATE'        => (empty($row['date_creation'])) ?
-                                   $url_uncheck : $url_check,
+                                   'un' : '',
            'TAGS'               => ($tag_count == 0) ?
-                                   $url_uncheck : $url_check,
-           'NUM_TAGS'           => (string) $tag_count,
+                                   'un' : '',
+           'NUM_TAGS'           => $tag_count,
            'U_MODIFY'           => $url_modify,
          )
        );
     }
     $advice_text = array_shift($adv);
-    $template->assign_vars(
+    $template->assign(
       array(
         'ADVICE_ABOUT' => '$conf[' . "'$confk'] ",
         'ADVICE_TEXT'  => $advice_text,
          )
       );
-    foreach ($adv as $advice)
-    {
-        $template->assign_block_vars(
-          'More',
-          array(
-            'ADVICE' => $advice
-            )
-          );
-    }
-  $template->parse('admin_advice');
+  $template->assign('More', $adv );
+  $template->pparse('admin_advice');
   }
 }
 ?>

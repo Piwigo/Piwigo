@@ -2,13 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-//$lang_info['language_name'] = 'English';
-//$lang_info['country'] = ''Great Britain';
-//$lang_info['charset'] = 'iso-8859-1';
-//$lang_info['direction'] = 'ltr';
-//$lang_info['code'] = 'en';
+
 global $lang;
 $lang['An_advice_about'] = 'A new advice about';
 $lang['Metadata'] = 'Metadata';
