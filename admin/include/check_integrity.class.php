@@ -193,8 +193,8 @@ class check_integrity
       {
         $can_select = false;
         $c13y_display = array(
-           'ID' => $c13y['id'],
-           'ANOMALY' => $c13y['anomaly'],
+           'id' => $c13y['id'],
+           'anomaly' => $c13y['anomaly'],
            'show_ignore_msg' => false,
            'show_correction_success_fct' => false,
            'correction_error_fct' => '',
@@ -266,7 +266,8 @@ class check_integrity
       $template->assign('c13y_show_submit_automatic_correction', $submit_automatic_correction);
       $template->assign('c13y_show_submit_ignore', $submit_ignore);
 
-      $template->assign_var_from_handle('ADMIN_CONTENT', 'check_integrity');
+      $template->concat_var('ADMIN_CONTENT', $template->parse('check_integrity', true));
+
     }
   }
 

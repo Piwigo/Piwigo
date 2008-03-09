@@ -16,12 +16,12 @@
               <tr class="{if $smarty.foreach.c13y_loop.index is odd}row1{else}row2{/if}">
                 <td>
                   {if $c13y.can_select}
-                    <input type="checkbox" name="c13y_selection[]" value="{$c13y.ID}" {$c13y.CHECKED} id="c13y_selection-{$c13y.ID}" /><label for="c13y_selection-{$c13y.ID}"></label>
+                    <input type="checkbox" name="c13y_selection[]" value="{$c13y.id}" id="c13y_selection-{$c13y.id}" /><label for="c13y_selection-{$c13y.id}"></label>
                   {/if}
                 </td>
-                <td><label for="c13y_selection-{$c13y.ID}">{$c13y.ANOMALY}</label></td>
+                <td><label for="c13y_selection-{$c13y.id}">{$c13y.anomaly}</label></td>
                 <td>
-                  <label for="c13y_selection-{$c13y.ID}">
+                  <label for="c13y_selection-{$c13y.id}">
                     {if $c13y.show_ignore_msg}
                       {'c13y_ignore_msg1'|@translate}
                       <br />
