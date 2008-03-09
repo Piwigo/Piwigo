@@ -74,7 +74,7 @@ function register_user($login, $password, $mail_address,
   $errors = trigger_event('register_user_check',
               $errors,
               array(
-                'login'=>$login,
+                'username'=>$login,
                 'password'=>$password,
                 'email'=>$mail_address,
               )
