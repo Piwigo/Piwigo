@@ -41,23 +41,16 @@ $plugins = new plugins();
 if (isset($_GET['action']) and isset($_GET['plugin']) and !is_adviser())
 {
   $page['errors'] =
-    $plugins->perform_action($_GET['action'], $_GET['plugin'], $page['errors']);
+    $plugins->perform_action($_GET['action'], $_GET['plugin']);
 
   if (empty($page['errors'])) redirect($base_url);
 }
 
 //--------------------------------------------------------------------Tabsheet
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-$link = get_root_url().'admin.php?page=';
-$tabsheet = new tabsheet();
-$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
-$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
-$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
-$tabsheet->select($page['page']);
-$tabsheet->assign();
+set_plugins_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
-$link .= $page['page'].'&amp;order=';
+$link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
 $template->assign('order_options',
   array(
     $link.'name' => l10n('Name'),

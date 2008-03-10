@@ -94,21 +94,14 @@ if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 }
 
 //--------------------------------------------------------------------Tabsheet
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-$link = get_root_url().'admin.php?page=';
-$tabsheet = new tabsheet();
-$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
-$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
-$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
-$tabsheet->select($page['page']);
-$tabsheet->assign();
+set_plugins_tabsheet($page['page']);
 
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 $plugins->get_server_plugins();
 
-if ($plugins->server_plugins !== false)
+if (is_array($plugins->server_plugins))
 {
   foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
@@ -126,7 +119,7 @@ if ($plugins->server_plugins !== false)
           nl2br(htmlspecialchars(strip_tags(
               utf8_encode($plugin_info['description'])))));
 
-      if ($plugins->plugin_version_compare($fs_plugin, $plugin_info) >= 0)
+      if ($plugins->plugin_version_compare($fs_plugin, $plugin_info))
       {
         // Plugin is up to date
         $template->append('plugins_uptodate',

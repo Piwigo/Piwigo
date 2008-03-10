@@ -63,7 +63,7 @@
 </thead>
 {foreach from=$plugins_cant_check item=plugin name=plugins_loop}
   <tr class="{if $smarty.foreach.plugins_loop.index is odd}row1{else}row2{/if}">
-    <td>&nbsp;{$plugin.NAME}&nbsp;</td>
+    <td>{$plugin.NAME}</td>
     <td style="text-align:center;">{$plugin.VERSION}</td>
   </tr>
 {/foreach}

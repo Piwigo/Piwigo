@@ -77,20 +77,14 @@ if (isset($_GET['installstatus']))
 }
 
 //--------------------------------------------------------------------Tabsheet
-include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
-$link = get_root_url().'admin.php?page=';
-$tabsheet = new tabsheet();
-$tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
-$tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
-$tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
-$tabsheet->select($page['page']);
-$tabsheet->assign();
+set_plugins_tabsheet($page['page']);
 
 //---------------------------------------------------------------Order options
-$link .= $page['page'].'&amp;order=';
+$link = get_root_url().'admin.php?page='.$page['page'].'&amp;order=';
 $template->assign('order_options',
   array(
     $link.'date' => l10n('Post date'),
+    $link.'revision' => l10n('plugins_revisions'),
     $link.'name' => l10n('Name'),
     $link.'author' => l10n('Author')));
 $template->assign('order_selected', $link.$order);
@@ -99,10 +93,11 @@ $template->assign('order_selected', $link.$order);
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
 $plugins->get_server_plugins(true);
-$plugins->sort_server_plugins($order);
 
-if ($plugins->server_plugins !== false)
+if (is_array($plugins->server_plugins))
 {
+  $plugins->sort_server_plugins($order);
+
   foreach($plugins->server_plugins as $plugin)
   {
     $ext_desc = nl2br(htmlspecialchars(strip_tags(
@@ -130,6 +125,7 @@ if ($plugins->server_plugins !== false)
           'EXT_DESC' => $ext_desc,
           'VERSION' => $plugin['version'],
           'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin['id_revision'],
+          'DATE' => date('Y-m-d', $plugin['date']),
           'VER_DESC' => $ver_desc,
           'AUTHOR' => $plugin['author'],
           'URL_INSTALL' => $url_auto_install,

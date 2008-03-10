@@ -46,4 +46,22 @@ function get_admin_plugin_menu_link($file)
   }
   return $url;
 }
+
+/**
+ * Set tabsheet for plugins pages.
+ * @param string selected page.
+ */
+function set_plugins_tabsheet($selected)
+{
+  include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+
+  $link = get_root_url().'admin.php?page=';
+
+  $tabsheet = new tabsheet();
+  $tabsheet->add('plugins_list', l10n('plugins_tab_list'), $link.'plugins_list');
+  $tabsheet->add('plugins_update', l10n('plugins_tab_update'), $link.'plugins_update');
+  $tabsheet->add('plugins_new', l10n('plugins_tab_new'), $link.'plugins_new');
+  $tabsheet->select($selected);
+  $tabsheet->assign();
+}
 ?>

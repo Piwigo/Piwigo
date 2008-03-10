@@ -4,7 +4,7 @@
 </div>
 
 {'Sort order'|@translate} : 
-  <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:120px">
+  <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:150px">
         {html_options options=$order_options selected=$order_selected}
   </select>
 
@@ -15,6 +15,7 @@
   <tr class="throw">
     <td>{'Name'|@translate}</td>
     <td>{'Version'|@translate}</td>
+    <td>{'Date'|@translate}</td>
     <td>{'Author'|@translate}</td>
     <td>{'Actions'|@translate}</td>
   </tr>
@@ -25,6 +26,7 @@
       <span>{$plugin.EXT_DESC}</span></a></td>
     <td style="text-align:center;"><a href="{$plugin.VERSION_URL}" onclick="window.open(this.href); return false;" class="tooltip">{$plugin.VERSION}
       <span>{$plugin.VER_DESC}</span></a></td>
+    <td>{$plugin.DATE}</td>
     <td>{$plugin.AUTHOR}</td>
     <td style="text-align:center;"><a href="{$plugin.URL_INSTALL}" onclick="return confirm('{'plugins_confirm_install'|@translate|@escape:javascript}');">{'plugins_auto_install'|@translate}</a>
       / <a href="{$plugin.URL_DOWNLOAD}">{'plugins_download'|@translate}</a>

@@ -10,7 +10,7 @@
   <table style="width:99%;" >
     <tr class="throw">
       <th style="width:20%;">{'category'|@translate}</th>
-      <th style="width:20%;">{'date'|@translate}</th>
+      <th style="width:20%;">{'Date'|@translate}</th>
       <th style="width:20%;">{'file'|@translate}</th>
       <th style="width:20%;">{'thumbnail'|@translate}</th>
       <th style="width:20%;">{'Author'|@translate}</th>

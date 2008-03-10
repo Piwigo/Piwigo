@@ -116,7 +116,7 @@
 
 <table class="table2" id="detailedStats">
 <tr class="throw">
-	<th>{'date'|@translate}</th>
+	<th>{'Date'|@translate}</th>
 	<th>{'time'|@translate}</th>
 	<th>{'user'|@translate}</th>
 	<th>{'IP'|@translate}</th>

@@ -28,7 +28,7 @@ class plugins
 {
   var $fs_plugins = array();
   var $db_plugins_by_id = array();
-  var $server_plugins = array();
+  var $server_plugins;
 
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
@@ -49,13 +49,15 @@ class plugins
   * @param string - plugin id
   * @param array - errors
   */
-  function perform_action($action, $plugin_id, $errors=array())
+  function perform_action($action, $plugin_id)
   {
     if (isset($this->db_plugins_by_id[$plugin_id]))
     {
       $crt_db_plugin = $this->db_plugins_by_id[$plugin_id];
     }
     $file_to_include = PHPWG_PLUGINS_PATH . $plugin_id . '/maintain.inc.php';
+
+    $errors = array();
 
     switch ($action)
     {
@@ -279,10 +281,6 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     {
       $this->server_plugins = @unserialize($source);
     }
-    else
-    {
-      $this->server_plugins = false;
-    }
   }
   
   /**
@@ -294,6 +292,9 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     {
       case 'date':
         krsort($this->server_plugins);
+        break;
+      case 'revision':
+        usort($this->server_plugins, array($this, 'extension_revision_compare'));
         break;
       case 'name':
         uasort($this->server_plugins, array($this, 'extension_name_compare'));
@@ -427,9 +428,18 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
    */
   function plugin_version_compare($a, $b)
   {
-    $r = version_compare($a['version'], $b['version']);
-    if ($r == 0) return strcasecmp($a['version'], $b['version']);
-    else return $r;
+    $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
+    $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
+
+    $array = preg_replace($pattern, $replacement, array($a['version'], $b['version']));
+
+    return version_compare($array[0], $array[1], '>=');
+  }
+
+  function extension_revision_compare($a, $b)
+  {
+    if ($a['date'] < $b['date']) return 1;
+    else return -1;
   }
 
   function extension_name_compare($a, $b)
