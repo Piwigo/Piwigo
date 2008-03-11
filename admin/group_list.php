@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -154,10 +154,10 @@ UPDATE '.GROUPS_TABLE.'
 
 $template->set_filenames(array('group_list' => 'admin/group_list.tpl'));
 
-$template->assign_vars(
+$template->assign(
   array(
-    'F_ADD_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=group_list',
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=group_list',
+    'F_ADD_ACTION' => get_root_url().'admin.php?page=group_list',
+    'U_HELP' => get_root_url().'popuphelp.php?page=group_list',
     )
   );
 
@@ -172,13 +172,12 @@ SELECT id, name, is_default
 ;';
 $result = pwg_query($query);
 
-$admin_url = PHPWG_ROOT_PATH.'admin.php?page=';
+$admin_url = get_root_url().'admin.php?page=';
 $perm_url    = $admin_url.'group_perm&amp;group_id=';
 $del_url     = $admin_url.'group_list&amp;delete=';
 $members_url = $admin_url.'user_list&amp;group=';
 $toggle_is_default_url     = $admin_url.'group_list&amp;toggle_is_default=';
 
-$num = 0;
 while ($row = mysql_fetch_array($result))
 {
   $query = '
@@ -188,10 +187,9 @@ SELECT COUNT(*)
 ;';
   list($counter) = mysql_fetch_row(pwg_query($query));
   
-  $template->assign_block_vars(
-    'group',
+  $template->append(
+    'groups',
     array(
-      'CLASS' => ($num++ % 2 == 1) ? 'row2' : 'row1',
       'NAME' => $row['name'],
       'IS_DEFAULT' => (get_boolean($row['is_default']) ? ' ['.l10n('is_default_group').']' : ''),
       'MEMBERS' => l10n_dec('%d member', '%d members', $counter),

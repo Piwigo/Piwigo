@@ -1,8 +1,8 @@
-<!-- DEV TAG: not smarty migrated -->
-<h2>{TITLE}</h2>
+{* $Id *}
+<h2>{$TITLE}</h2>
 
-<form method="post" action="{F_ACTION}">
-  {DOUBLE_SELECT}
+<form method="post" action="{$F_ACTION}">
+  {$DOUBLE_SELECT}
 </form>
 
-<p>{lang:Only private categories are listed}</p>
+<p>{'Only private categories are listed'|@translate}</p>

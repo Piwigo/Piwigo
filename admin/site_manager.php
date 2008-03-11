@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -50,15 +49,14 @@ function remote_output($url)
 
   if($lines = @file($url))
   {
-    $template->assign_block_vars('remote_output', array());
     // cleaning lines from HTML tags
     foreach ($lines as $line)
     {
       $line = trim(strip_tags($line));
       if (preg_match('/^PWG-([A-Z]+)-/', $line, $matches))
       {
-        $template->assign_block_vars(
-          'remote_output.remote_line',
+        $template->append(
+          'remote_output',
           array(
             'CLASS' => 'remote'.ucfirst(strtolower($matches[1])),
             'CONTENT' => $line
@@ -117,7 +115,7 @@ SELECT COUNT(id) AS count
         $clf_url = $url.'create_listing_file.php';
         $clf_url.= '?action=test';
         $clf_url.= '&version='.PHPWG_VERSION;
-        if ($lines = @file($clf_url))
+        if ( ($lines = @file($clf_url)) !== false)
         {
           $first_line = strip_tags($lines[0]);
           if (!preg_match('/^PWG-INFO-2:/', $first_line))
@@ -176,21 +174,18 @@ SELECT galleries_url
     case 'generate' :
     {
       $title = $galleries_url.' : '.l10n('remote_site_generate');
-      $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=generate');
       break;
     }
     case 'test' :
     {
       $title = $galleries_url.' : '.l10n('remote_site_test');
-      $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=test&version='.PHPWG_VERSION);
       break;
     }
     case 'clean' :
     {
       $title = $galleries_url.' : '.l10n('remote_site_clean');
-      $template->assign_vars(array('REMOTE_SITE_TITLE'=>$title));
       remote_output($galleries_url.'create_listing_file.php?action=clean');
       break;
     }
@@ -204,9 +199,9 @@ SELECT galleries_url
   }
 }
 
-$template->assign_vars( array(
-  'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=site_manager',
-  'F_ACTION' => PHPWG_ROOT_PATH.'admin.php'
+$template->assign( array(
+  'U_HELP'    => get_root_url().'popuphelp.php?page=site_manager',
+  'F_ACTION'  => get_root_url().'admin.php'
                 .get_query_string_diff( array('action','site') )
   ) );
 
@@ -235,10 +230,6 @@ SELECT s.*, COUNT(c.id) AS nb_categories, SUM(c.nb_images) AS nb_images
 ';';
 $result = pwg_query($query);
 
-if (mysql_num_rows($result) > 0)
-{
-  $template->assign_block_vars('sites', array());
-}
 while ($row = mysql_fetch_array($result))
 {
   $is_remote = url_is_remote($row['galleries_url']);
@@ -250,78 +241,61 @@ while ($row = mysql_fetch_array($result))
   $update_url = PHPWG_ROOT_PATH.'admin.php';
   $update_url.= '?page=site_update';
   $update_url.= '&amp;site='.$row['id'];
-  $template->assign_block_vars(
-    'sites.site',
+  
+  $tpl_var =
     array(
       'NAME' => $row['galleries_url'],
       'TYPE' => l10n( $is_remote ? 'site_remote' : 'site_local' ),
       'CATEGORIES' => $row['nb_categories'],
       'IMAGES' => isset($row['nb_images']) ? $row['nb_images'] : 0,
       'U_SYNCHRONIZE' => $update_url
-     )
-   );
+     );
+     
    if ($is_remote)
    {
-     $template->assign_block_vars('sites.site.remote',
+     $tpl_var['remote'] =
        array(
          'U_TEST' => $base_url.'test',
          'U_GENERATE' => $row['galleries_url'].'create_listing_file.php?action=generate',
          'U_CLEAN' => $base_url.'clean',
-         )
-       );
+         );
    }
 
   if ($row['id'] != 1)
   {
-    $template->assign_block_vars( 'sites.site.delete',
-      array('U_DELETE' => $base_url.'delete') );
+    $tpl_var['U_DELETE'] = $base_url.'delete';
   }
+
+  $plugin_links = array();
+  //$plugin_links is array of array composed of U_HREF, U_HINT & U_CAPTION
+  $plugin_links =
+    trigger_event('get_admins_site_links',
+      $plugin_links, $row['id'], $is_remote);
+  $tpl_var['plugin_links'] = $plugin_links;
+
+  $template->append('sites', $tpl_var);
 
   if ( isset($local_listing_site_url) and
        $row['galleries_url']==$local_listing_site_url )
   {
     $local_listing_site_id = $row['id'];
-    $template->assign_block_vars( 'local_listing',
+    $template->assign( 'local_listing',
         array(
           'URL' =>  $local_listing_site_url,
+          'U_SYNCHRONIZE' => $update_url.'&amp;local_listing=1'
         )
       );
-
-    $template->assign_block_vars( 'local_listing.update',
-          array(
-            'U_SYNCHRONIZE' => $update_url.'&amp;local_listing=1'
-            )
-        );
   }
-  
-  $plugin_links = array();
-  //$plugin_links is array of array composed of U_HREF, U_HINT & U_CAPTION
-  $plugin_links = 
-    trigger_event('get_admins_site_links',
-      $plugin_links, $row['id'], $is_remote);
-
-  // plugin_links
-  if (count($plugin_links) > 0)
-  {
-    foreach ($plugin_links as $plugin_link)
-    {
-      $template->assign_block_vars('sites.site.plugin_links.plugin_link', $plugin_link);
-    }
-  }
-
 }
 
 if ( isset($local_listing_site_url) and !isset($local_listing_site_id) )
 {
-  $template->assign_block_vars( 'local_listing',
+  $template->assign( 'local_listing',
       array(
         'URL' =>  $local_listing_site_url,
+        'CREATE' => true
       )
     );
-
-  $template->assign_block_vars( 'local_listing.create',
-        array('NAME' => $local_listing_site_url)
-      );
 }
 
 

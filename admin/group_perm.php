@@ -2,10 +2,9 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2005 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -132,7 +131,7 @@ $template->set_filenames(
     )
   );
 
-$template->assign_vars(
+$template->assign(
   array(
     'TITLE' =>
       sprintf(
@@ -142,10 +141,9 @@ $template->assign_vars(
         ),
     'L_CAT_OPTIONS_TRUE'=>l10n('authorized'),
     'L_CAT_OPTIONS_FALSE'=>l10n('forbidden'),
-    'L_CAT_OPTIONS_INFO'=>l10n('permuser_info'),
 
     'F_ACTION' =>
-        PHPWG_ROOT_PATH.
+        get_root_url().
         'admin.php?page=group_perm&amp;group_id='.
         $page['group']
     )

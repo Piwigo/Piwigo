@@ -1,73 +1,73 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:Site manager}</h2>
+  <h2>{'Site manager'|@translate}</h2>
 </div>
 
-<!-- BEGIN remote_output -->
+{if not empty($remote_output)}
 <div class="remoteOutput">
   <ul>
-    <!-- BEGIN remote_line -->
-    <li class="{remote_output.remote_line.CLASS}">{remote_output.remote_line.CONTENT}</li>
-    <!-- END remote_line -->
+    {foreach from=$remote_output item=remote_line}
+    <li class="{$remote_line.CLASS}">{$remote_line.CONTENT}</li>
+    {/foreach}
   </ul>
 </div>
-<!-- END remote_output -->
+{/if}
 
-<!-- BEGIN local_listing -->
-{lang:remote_site_local_found} {local_listing.URL}
-<!-- BEGIN create -->
-<form action="" method="post">
+{if isset($local_listing)}
+{'remote_site_local_found'|@translate} {$local_listing.URL}
+{if isset($local_listing.CREATE)}
+<form action="{$F_ACTION}" method="post">
   <p>
-    {lang:remote_site_local_create}:
+    {'remote_site_local_create'|@translate}:
     <input type="hidden" name="no_check" value="1"/>
-    <input type="hidden" name="galleries_url" value="{local_listing.URL}" />
-    <input type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED} />
+    <input type="hidden" name="galleries_url" value="{$local_listing.URL}" />
+    <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
   </p>
 </form>
-<!-- END create -->
-<!-- BEGIN update -->
-<a href="{local_listing.update.U_SYNCHRONIZE}" title="{lang:remote_site_local_update}">{lang:site_synchronize}</a>
-<!-- END update -->
-<!-- END local_listing -->
+{/if}
+{if isset($local_listing.U_SYNCHRONIZE)}
+&nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'remote_site_local_update'|@translate}">{'site_synchronize'|@translate}</a>
+<br/><br/>
+{/if}
+{/if}
 
-<!-- BEGIN sites -->
+{if not empty($sites)}
 <table border="1" cellpadding="0" cellspacing="0">
-  <!-- BEGIN site -->
-  <tr align="left"><td>
-    <a href="{sites.site.NAME}">{sites.site.NAME}</a><br>({sites.site.TYPE}, {sites.site.CATEGORIES} {lang:Categories}, {sites.site.IMAGES} {lang:picture}s)
+  {foreach from=$sites item=site}
+  <tr style="text-align:left"><td>
+    <a href="{$site.NAME}">{$site.NAME}</a><br/>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d element','%d elements',$site.IMAGES)})
   </td><td>
-    [<a href="{sites.site.U_SYNCHRONIZE}" title="{lang:site_synchronize_hint}">{lang:site_synchronize}</a>]
-    <!-- BEGIN delete -->
-      [<a href="{sites.site.delete.U_DELETE}" onclick="return confirm('{lang:Are you sure?}');"
-                title="{lang:site_delete_hint}" {TAG_INPUT_ENABLED}>{lang:site_delete}</a>]
-    <!-- END delete -->
-    <!-- BEGIN remote -->
-      <br>
-      [<a href="{sites.site.remote.U_TEST}" title="{lang:remote_site_test_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_test}</a>]
-      [<a href="{sites.site.remote.U_GENERATE}" title="{lang:remote_site_generate_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_generate}</a>]
-      [<a href="{sites.site.remote.U_CLEAN}" title="{lang:remote_site_clean_hint}" {TAG_INPUT_ENABLED}>{lang:remote_site_clean}</a>]
-    <!-- END remote -->
-    <!-- BEGIN plugin_links -->
+    [<a href="{$site.U_SYNCHRONIZE}" title="{'site_synchronize_hint'|@translate}">{'site_synchronize'|@translate}</a>]
+    {if isset($site.U_DELETE)}
+      [<a href="{$site.U_DELETE}" onclick="return confirm('{'Are you sure?'|@translate|escape:'javascript'}');"
+                title="{'site_delete_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'site_delete'|@translate}</a>]
+    {/if}
+    {if isset($site.remote)}
+      <br/>
+      [<a href="{$site.remote.U_TEST}" title="{'remote_site_test_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_test'|@translate}</a>]
+      [<a href="{$site.remote.U_GENERATE}" title="{'remote_site_generate_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_generate'|@translate}</a>]
+      [<a href="{$site.remote.U_CLEAN}" title="{'remote_site_clean_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_clean'|@translate}</a>]
+    {/if}
+    {if not empty($site.plugin_links)}
         <br>
-      <!-- BEGIN plugin_link -->
-        [<a href="{sites.site.plugin_links.plugin_link.U_HREF}" title='{sites.site.plugin_links.plugin_link.U_HINT}' {TAG_INPUT_ENABLED}>{sites.site.plugin_links.plugin_link.U_CAPTION}</a>]
-      <!-- END plugin_link -->
-    <!-- END plugin_links -->
+      {foreach from=$site.plugin_links item=plugin_link}
+        [<a href="{$plugin_link.U_HREF}" title='{$plugin_link.U_HINT}' {$TAG_INPUT_ENABLED}>{$plugin_link.U_CAPTION}</a>]
+      {/foreach}
+    {/if}
   </td></tr>
-  <!-- END site -->
+  {/foreach}
 </table>
-<!-- END sites -->
+{/if}
 
-<form action="{F_ACTION}" method="post">
+<form action="{$F_ACTION}" method="post">
   <p>
-    <label for="galleries_url" >{lang:site_create}</label>
+    <label for="galleries_url" >{'site_create'|@translate}</label>
     <input type="text" name="galleries_url" id="galleries_url" />
   </p>
   <p>
-    <input class="submit" type="submit" name="submit" value="{lang:submit}" {TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
   </p>
 </form>
