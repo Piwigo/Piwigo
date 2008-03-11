@@ -215,25 +215,24 @@ if (count($categories) > 0)
     update_cats_with_filtered_data($categories);
   }
 
+  $template->set_filename('index_category_thumbnails', 'mainpage_categories.tpl');
+
   trigger_action('loc_begin_index_category_thumbnails', $categories);
-  if ($conf['subcatify'])
+
+  foreach ($categories as $category)
   {
-    $template->set_filename('mainpage_categories', 'mainpage_categories.tpl');
-
-    foreach ($categories as $category)
+    if ($page['section']=='recent_cats')
     {
-      if ($page['section']=='recent_cats')
-      {
-        $name = get_cat_display_name_cache($category['uppercats'], null, false);
-      }
-      else
-      {
-        $name = $category['name'];
-      }
+      $name = get_cat_display_name_cache($category['uppercats'], null, false);
+    }
+    else
+    {
+      $name = $category['name'];
+    }
 
-      $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
+    $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
 
-      $tpl_var =
+    $tpl_var =
         array(
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
@@ -259,104 +258,44 @@ if (count($categories) > 0)
                 @$category['comment'],
                 'subcatify_category_description')),
           'NAME'  => $name,
-          );
+        );
 
-      if ($conf['display_fromto'])
+    if ($conf['display_fromto'])
+    {
+      if (isset($dates_of_category[ $category['id'] ]))
       {
-        if (isset($dates_of_category[ $category['id'] ]))
+        $from = $dates_of_category[ $category['id'] ]['from'];
+        $to   = $dates_of_category[ $category['id'] ]['to'];
+
+        if (!empty($from))
         {
-          $from = $dates_of_category[ $category['id'] ]['from'];
-          $to   = $dates_of_category[ $category['id'] ]['to'];
+          $info = '';
 
-          if (!empty($from))
+          if ($from == $to)
           {
-            $info = '';
-
-            if ($from == $to)
-            {
-              $info = format_date($from);
-            }
-            else
-            {
-              $info = sprintf(
-                l10n('from %s to %s'),
-                format_date($from),
-                format_date($to)
-                );
-            }
-            $tpl_var['INFO_DATES'] = $info;
+            $info = format_date($from);
           }
+          else
+          {
+            $info = sprintf(
+              l10n('from %s to %s'),
+              format_date($from),
+              format_date($to)
+              );
+          }
+          $tpl_var['INFO_DATES'] = $info;
         }
-      }//fromto
-
-      $template->append( 'category_thumbnails', $tpl_var);
-
-
-      //plugins need to add/modify sth in this loop ?
-      trigger_action('loc_index_category_thumbnail',
-        $category, 'categories.category' );
-    }
-
-    $template->assign_var_from_handle('CATEGORIES', 'mainpage_categories');
-  }
-  else
-  {
-    $template->set_filename( 'thumbnails', 'thumbnails.tpl');
-
-    if ($page['section']=='recent_cats')
-    {
-      $old_level_separator = $conf['level_separator'];
-      $conf['level_separator'] = '<br />';
-    }
-
-    foreach ($categories as $category)
-    {
-      $tpl_var =
-        array(
-          'IMAGE'       => $thumbnail_src_of[ $category['representative_picture_id'] ],
-          'IMAGE_ALT'   => $category['name'],
-          'IMAGE_TITLE' => get_display_images_count
-                                  (
-                                    $category['nb_images'],
-                                    $category['count_images'],
-                                    $category['count_categories'],
-                                    true,
-                                    ' / '
-                                  ),
-
-          'U_IMG_LINK'  => make_index_url(
-            array(
-              'category' => $category
-              )
-            ),
-          'CLASS'       => 'thumbCat',
-          );
-      if ($page['section']=='recent_cats')
-      {
-        $name = get_cat_display_name_cache($category['uppercats'], null, false);
       }
-      else
-      {
-        $name = $category['name'];
-        $tpl_var['IMAGE_TS'] = get_icon($category['max_date_last'], $category['is_child_date_last']);
-      }
-      $tpl_var['CATEGORY_NAME']=$name;
+    }//fromto
 
-      $template->append('thumbnails', $tpl_var);
+    //plugins need to add/modify sth in this loop ?
+    $tpl_var = trigger_event('loc_index_category_thumbnail',
+                  $tpl_var, $category );
 
-      //plugins need to add/modify sth in this loop ?
-      trigger_action('loc_index_category_thumbnail',
-        $category, 'thumbnails' );
-
-    }
-
-    if ( isset($old_level_separator) )
-    {
-      $conf['level_separator']=$old_level_separator;
-    }
-
-    $template->assign_var_from_handle('CATEGORIES', 'thumbnails');
+    $template->append( 'category_thumbnails', $tpl_var);
   }
+
   trigger_action('loc_end_index_category_thumbnails', $categories);
+  $template->assign_var_from_handle('CATEGORIES', 'index_category_thumbnails');
 }
 ?>

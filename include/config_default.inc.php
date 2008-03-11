@@ -222,10 +222,6 @@ $conf['show_thumbnail_caption'] = true;
 // name ?
 $conf['show_picture_name_on_title'] = true;
 
-// subcatify: display thumbnails representing a category a different way
-// than thumbnails representing a picture.
-$conf['subcatify'] = true;
-
 // display_fromto: in subcatify mode, display the date creation bounds of a
 // category.
 $conf['display_fromto'] = false;

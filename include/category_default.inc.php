@@ -58,8 +58,6 @@ SELECT *
   usort($pictures, 'rank_compare');
 }
 
-// template thumbnail initialization
-$template->set_filenames( array( 'thumbnails' => 'thumbnails.tpl',));
 if (count($pictures) > 0)
 {
   // define category slideshow url
@@ -78,8 +76,21 @@ if (count($pictures) > 0)
                                    : '' ))
     );
 
-    $template->clear_assign('thumbnails'); // category_default reuse them
+  if ($user['show_nb_comments'])
+  {
+    $query = '
+SELECT image_id, COUNT(*) AS nb_comments
+  FROM '.COMMENTS_TABLE.'
+  WHERE validated = \'true\'
+    AND image_id IN ('.implode(',', $selection).')
+  GROUP BY image_id
+;';
+    $nb_comments_of = simple_hash_from_query($query, 'image_id', 'nb_comments');
+  }
 }
+
+// template thumbnail initialization
+$template->set_filenames( array( 'index_thumbnails' => 'thumbnails.tpl',));
 
 trigger_action('loc_begin_index_thumbnails', $pictures);
 
@@ -98,23 +109,17 @@ foreach ($pictures as $row)
 
   $tpl_var =
     array(
-      'IMAGE'              => $thumbnail_url,
-      'IMAGE_ALT'          => $row['file'],
-      'IMAGE_TITLE'        => get_thumbnail_title($row),
-      'IMAGE_TS'           => get_icon($row['date_available']),
-
-      'U_IMG_LINK'         => $url,
-
-      'CLASS'              => 'thumbElmt',
+      'ID'            => $row['id'],
+      'IMAGE'         => $thumbnail_url,
+      'IMAGE_ALT'     => $row['file'],
+      'IMAGE_TITLE'   => get_thumbnail_title($row),
+      'IMAGE_TS'      => get_icon($row['date_available']),
+      'U_IMG_LINK'    => $url,
     );
 
   if ($user['show_nb_hits'])
   {
-    $tpl_var['nb_hits'] =
-      array(
-      'HITS'=> $row['hit'],
-      'CLASS'=> set_span_class($row['hit']),
-      );
+    $tpl_var['NB_HITS'] = $row['hit'];
   }
 
   if ($conf['show_thumbnail_caption'])
@@ -148,30 +153,21 @@ foreach ($pictures as $row)
     $tpl_var['ELEMENT_NAME'] = $name;
   }
 
-  if ($user['show_nb_comments'])
+  if ( isset($nb_comments_of) )
   {
-    $query = '
-SELECT COUNT(*) AS nb_comments
-  FROM '.COMMENTS_TABLE.'
-  WHERE image_id = '.$row['id'].'
-    AND validated = \'true\'
-;';
-    list($row['nb_comments']) = mysql_fetch_array(pwg_query($query));
-    $tpl_var['nb_comments'] =
-      array(
-        'NB_COMMENTS'=> $row['nb_comments'],
-        'CLASS'=> set_span_class($row['nb_comments']),
-      );
+    $row['nb_comments'] = isset($nb_comments_of[$row['id']])
+        ? (int)$nb_comments_of[$row['id']] : 0;
+    $tpl_var['NB_COMMENTS'] = $row['nb_comments'];
   }
 
-  $template->append('thumbnails', $tpl_var);
-
   //plugins need to add/modify sth in this loop ?
-  trigger_action('loc_index_thumbnail', $row, 'thumbnails' );
+  $tpl_var = trigger_event('loc_index_thumbnail', $tpl_var, $row);
+
+  $template->append('thumbnails', $tpl_var);
 }
 
 trigger_action('loc_end_index_thumbnails', $pictures);
-$template->assign_var_from_handle('THUMBNAILS', 'thumbnails');
+$template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 
 pwg_debug('end include/category_default.inc.php');
 ?>
