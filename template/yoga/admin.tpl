@@ -33,7 +33,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'pictures_menu'|@translate}</dt>
+    <dt>{'Pictures'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_WAITING}">{'waiting'|@translate}</a></li>
@@ -58,7 +58,7 @@
     <dt>{'special_admin_menu'|@translate}</dt>
     <dd>
       <ul>
-        <li><a href="{$U_HISTORY_STAT}">{'history'|@translate}</a></li>
+        <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced_features'|@translate}</a></li>
         {if isset($U_WS_CHECKER) }

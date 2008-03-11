@@ -34,7 +34,7 @@ function waiting_tabsheet()
   $tabsheet = new tabsheet();
   // TabSheet initialization
   $tabsheet->add('comments', l10n('comments'), $link_start.'comments');
-  $tabsheet->add('upload', l10n('upload_pictures'), $link_start.'upload');
+  $tabsheet->add('upload', l10n('Pictures'), $link_start.'upload');
   // TabSheet selection
   $tabsheet->select($page['page']);
   // Assign tabsheet to template
