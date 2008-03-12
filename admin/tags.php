@@ -190,7 +190,7 @@ SELECT id
 
 $template->set_filenames(array('tags' => 'admin/tags.tpl'));
 
-$template->assign_vars(
+$template->assign(
   array(
     'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=tags'
     )
@@ -200,7 +200,7 @@ $template->assign_vars(
 // |                             form creation                             |
 // +-----------------------------------------------------------------------+
 
-$template->assign_vars(
+$template->assign(
   array(
     'TAG_SELECTION' => get_html_tag_selection(
       get_all_tags(),
@@ -211,10 +211,9 @@ $template->assign_vars(
 
 if (isset($_POST['edit']) and isset($_POST['tags']))
 {
-  $template->assign_block_vars(
-    'edit_tags',
+  $template->assign(
     array(
-      'LIST' => implode(',', $_POST['tags']),
+      'EDIT_TAGS_LIST' => implode(',', $_POST['tags']),
       )
     );
 
@@ -231,8 +230,8 @@ SELECT id, name
 
   foreach ($_POST['tags'] as $tag_id)
   {
-    $template->assign_block_vars(
-      'edit_tags.tag',
+    $template->append(
+      'tags',
       array(
         'ID' => $tag_id,
         'NAME' => $name_of[$tag_id],

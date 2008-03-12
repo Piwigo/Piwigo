@@ -1,53 +1,53 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 <div class="titrePage">
-  <h2>{lang:Manage tags}</h2>
+  <h2>{'Manage tags'|@translate}</h2>
 </div>
 
-<form action="{F_ACTION}" method="post">
+<form action="{$F_ACTION}" method="post">
 
-  <!-- BEGIN edit_tags -->
+  {if isset($EDIT_TAGS_LIST)}
   <fieldset>
-    <legend>{lang:Edit tags}</legend>
-    <input type="hidden" name="edit_list" value="{edit_tags.LIST}" />
+    <legend>{'Edit tags'|@translate}</legend>
+    <input type="hidden" name="edit_list" value="{$EDIT_TAGS_LIST}" />
     <table class="table2">
       <tr class="throw">
-        <th>{lang:Current name}</th>
-        <th>{lang:New name}</th>
+        <th>{'Current name'|@translate}</th>
+        <th>{'New name'|@translate}</th>
       </tr>
-      <!-- BEGIN tag -->
+      {foreach from=$tags item=tag}
       <tr>
-        <td>{edit_tags.tag.NAME}</td>
-        <td><input type="text" name="tag_name-{edit_tags.tag.ID}" value="{edit_tags.tag.NAME}" /></td>
+        <td>{$tag.NAME}</td>
+        <td><input type="text" name="tag_name-{$tag.ID}" value="{$tag.NAME}" /></td>
       </tr>
-      <!-- END tag -->
+      {/foreach}
     </table>
 
     <p>
-      <input class="submit" type="submit" name="submit" value="{lang:Submit}" {TAG_INPUT_ENABLED} />
-      <input class="submit" type="reset" value="{lang:Reset}" />
+      <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
+      <input class="submit" type="reset" value="{'Reset'|@translate}" />
     </p>
   </fieldset>
-  <!-- END edit_tags -->
+  {/if}
 
   <fieldset>
-    <legend>{lang:Add a tag}</legend>
+    <legend>{'Add a tag'|@translate}</legend>
 
     <label>
-      {lang:New tag}
+      {'New tag'|@translate}
       <input type="text" name="add_tag" />
     </label>
     
-    <p><input class="submit" type="submit" name="add" value="{lang:Submit}" {TAG_INPUT_ENABLED}/></p>
+    <p><input class="submit" type="submit" name="add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/></p>
   </fieldset>
 
   <fieldset>
-    <legend>{lang:Tag selection}</legend>
+    <legend>{'Tag selection'|@translate}</legend>
     
-    {TAG_SELECTION}
+    {$TAG_SELECTION}
 
     <p>
-      <input class="submit" type="submit" name="edit" value="{lang:Edit selected tags}"/>
-      <input class="submit" type="submit" name="delete" value="{lang:Delete selected tags}" onclick="return confirm('{lang:Are you sure?}');" {TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" name="edit" value="{'Edit selected tags'|@translate}"/>
+      <input class="submit" type="submit" name="delete" value="{'Delete selected tags'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}/>
     </p>
   </fieldset>
 
