@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -351,9 +351,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
     $counts['del_categories'] = count($to_delete);
   }
 
-  $template->output .= '<!-- scanning dirs : '
+  $template->append('footer_elements', '<!-- scanning dirs : '
     . get_elapsed_time($start, get_moment())
-    . ' -->'."\n";
+    . ' -->' );
 }
 // +-----------------------------------------------------------------------+
 // |                           files / elements                            |
@@ -365,9 +365,9 @@ if (isset($_POST['submit']) and $_POST['sync'] == 'files'
   $start= $start_files;
 
   $fs = $site_reader->get_elements($basedir);
-  $template->output .= '<!-- get_elements: '
+  $template->append('footer_elements', '<!-- get_elements: '
     . get_elapsed_time($start, get_moment())
-    . " -->\n";
+    . ' -->' );
 
   $cat_ids = array_diff(array_keys($db_categories), $to_delete);
 
@@ -581,9 +581,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
     $counts['del_elements'] = count($to_delete_elements);
   }
 
-  $template->output .= '<!-- scanning files : '
+  $template->append('footer_elements', '<!-- scanning files : '
     . get_elapsed_time($start_files, get_moment())
-    . ' -->'."\n";
+    . ' -->' );
 
   // retrieving informations given by uploaders
   if (!$simulate and count($cat_ids) > 0)
@@ -653,15 +653,15 @@ if (isset($_POST['submit'])
   {
     $start = get_moment();
     update_category('all');
-    $template->output .= '<!-- update_category(all) : '
+    $template->append('footer_elements', '<!-- update_category(all) : '
       . get_elapsed_time($start,get_moment())
-      . ' -->'."\n";
+      . ' -->' );
     $start = get_moment();
     ordering();
     update_global_rank();
-    $template->output .= '<!-- ordering categories : '
+    $template->append('footer_elements', '<!-- ordering categories : '
       . get_elapsed_time($start, get_moment())
-      . ' -->'."\n";
+      . ' -->');
   }
 
   if ($_POST['sync'] == 'files')
@@ -680,9 +680,9 @@ if (isset($_POST['submit'])
     $files = get_filelist($opts['category_id'], $site_id,
                           $opts['recursive'],
                           false);
-    $template->output .= '<!-- get_filelist : '
+    $template->append('footer_elements', '<!-- get_filelist : '
       . get_elapsed_time($start, get_moment())
-      . ' -->'."\n";
+      . ' -->');
     $start = get_moment();
 
     $datas = array();
@@ -726,9 +726,9 @@ if (isset($_POST['submit'])
         $datas
         );
     }
-    $template->output .= '<!-- update files : '
+    $template->append('footer_elements', '<!-- update files : '
       . get_elapsed_time($start,get_moment())
-      . ' -->'."\n";
+      . ' -->');
   }// end if sync files
 }
 
@@ -738,7 +738,7 @@ if (isset($_POST['submit'])
 if (isset($_POST['submit'])
     and ($_POST['sync'] == 'dirs' or $_POST['sync'] == 'files'))
 {
-  $template->assign_block_vars(
+  $template->assign(
     'update_result',
     array(
       'NB_NEW_CATEGORIES'=>$counts['new_categories'],
@@ -782,9 +782,9 @@ if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
                         $opts['recursive'],
                         $opts['only_new']);
 
-  $template->output .= '<!-- get_filelist : '
+  $template->append('footer_elements', '<!-- get_filelist : '
     . get_elapsed_time($start, get_moment())
-    . ' -->'."\n";
+    . ' -->');
 
   $start = get_moment();
   $datas = array();
@@ -879,11 +879,11 @@ SELECT id
     set_tags_of($tags_of);
   }
 
-  $template->output .= '<!-- metadata update : '
+  $template->append('footer_elements', '<!-- metadata update : '
     . get_elapsed_time($start, get_moment())
-    . ' -->'."\n";
+    . ' -->');
 
-  $template->assign_block_vars(
+  $template->assign(
     'metadata_result',
     array(
       'NB_ELEMENTS_DONE' => count($datas),
@@ -910,74 +910,29 @@ if ($site_is_remote and !isset($_POST['submit']) )
   $used_metadata.= ' + ...';
 }
 
-$template->assign_vars(
+$template->assign(
   array(
     'SITE_URL'=>$site_url,
-    'U_SITE_MANAGER'=> PHPWG_ROOT_PATH.'admin.php?page=site_manager',
+    'U_SITE_MANAGER'=> get_root_url().'admin.php?page=site_manager',
     'L_RESULT_UPDATE'=>$result_title.l10n('update_part_research'),
     'L_RESULT_METADATA'=>$result_title.l10n('update_result_metadata'),
-    'METADATA_LIST' => $used_metadata
+    'METADATA_LIST' => $used_metadata,
+    'U_HELP' => get_root_url().'popuphelp.php?page=synchronize',
     ));
 
-$template->assign_vars(
-  array(
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=synchronize'
-    )
-  );
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
 // +-----------------------------------------------------------------------+
 if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
 {
-  $template->assign_block_vars('introduction', array());
-
   if (isset($simulate) and $simulate)
   {
-    switch ($_POST['sync'])
-    {
-      case 'dirs' :
-      {
-        $template->assign_vars(
-          array('SYNC_DIRS_CHECKED'=>'checked="checked"'));
-        break;
-      }
-      case 'files' :
-      {
-        $template->assign_vars(
-          array('SYNC_ALL_CHECKED'=>'checked="checked"'));
-        break;
-      }
-      case 'metadata_new' :
-      {
-        $template->assign_vars(
-          array('SYNC_META_NEW_CHECKED'=>'checked="checked"'));
-        break;
-      }
-      case 'metadata_all' :
-      {
-        $template->assign_vars(
-          array('SYNC_META_ALL_CHECKED'=>'checked="checked"'));
-        break;
-      }
-    }
-
-    if (isset($_POST['display_info']) and $_POST['display_info'] == 1)
-    {
-      $template->assign_vars(
-        array('DISPLAY_INFO_CHECKED'=>'checked="checked"'));
-    }
-
-    if (isset($_POST['add_to_caddie']) and $_POST['add_to_caddie'] == 1)
-    {
-      $template->assign_vars(
-        array('ADD_TO_CADDIE_CHECKED'=>'checked="checked"'));
-    }
-
-    if (isset($_POST['subcats-included']) and $_POST['subcats-included'] == 1)
-    {
-      $template->assign_vars(
-        array('SUBCATS_INCLUDED_CHECKED'=>'checked="checked"'));
-    }
+    $tpl_introduction = array(
+        'sync'  => $_POST['sync'],
+        'display_info' => isset($_POST['display_info']) and $_POST['display_info']==1,
+        'add_to_caddie' => isset($_POST['add_to_caddie']) and $_POST['add_to_caddie']==1,
+        'subcats_included' => isset($_POST['subcats-included']) and $_POST['subcats-included']==1,
+      );
 
     if (isset($_POST['cat']) and is_numeric($_POST['cat']))
     {
@@ -990,12 +945,17 @@ if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
   }
   else
   {
-    $template->assign_vars(
-      array('SYNC_DIRS_CHECKED' => 'checked="checked"',
-            'SUBCATS_INCLUDED_CHECKED'=>'checked="checked"'));
+    $tpl_introduction = array(
+        'sync'  => 'dirs',
+        'display_info' => false,
+        'add_to_caddie' => false,
+        'subcats_included' => true,
+      );
 
     $cat_selected = array();
   }
+
+  $template->assign('introduction', $tpl_introduction);
 
   $query = '
 SELECT id,name,uppercats,global_rank
@@ -1004,17 +964,16 @@ SELECT id,name,uppercats,global_rank
 ;';
   display_select_cat_wrapper($query,
                              $cat_selected,
-                             'introduction.category_option',
+                             'category_options',
                              false);
 }
 
 if (count($errors) > 0)
 {
-  $template->assign_block_vars('sync_errors', array());
   foreach ($errors as $error)
   {
-    $template->assign_block_vars(
-      'sync_errors.error',
+    $template->append(
+      'sync_errors',
       array(
         'ELEMENT' => $error['path'],
         'LABEL' => $error['type'].' ('.$error_labels[$error['type']][0].')'
@@ -1023,24 +982,23 @@ if (count($errors) > 0)
 
   foreach ($error_labels as $error_type=>$error_description)
   {
-    $template->assign_block_vars(
-      'sync_errors.error_caption',
+    $template->append(
+      'sync_error_captions',
       array(
         'TYPE' => $error_type,
         'LABEL' => $error_description[1]
         ));
   }
-
 }
+
 if (count($infos) > 0
     and isset($_POST['display_info'])
     and $_POST['display_info'] == 1)
 {
-  $template->assign_block_vars('sync_infos', array());
   foreach ($infos as $info)
   {
-    $template->assign_block_vars(
-      'sync_infos.info',
+    $template->append(
+      'sync_infos',
       array(
         'ELEMENT' => $info['path'],
         'LABEL' => $info['info']

@@ -1,111 +1,108 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{U_HELP}" onclick="popuphelp(this.href); return false;" title="{lang:Help}"><img src="{themeconf:icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
-  <h2>{lang:title_update}: <a href="{SITE_URL}">{SITE_URL}</a></h2>
+  <h2>{'title_update'|@translate}: <a href="{$SITE_URL}">{$SITE_URL}</a></h2>
 </div>
 
-<!-- BEGIN update_result -->
-<h3>{L_RESULT_UPDATE}</h3>
+{if isset($update_result)}
+<h3>{$L_RESULT_UPDATE}</h3>
 <ul>
-  <li class="update_summary_new">{update_result.NB_NEW_CATEGORIES} {lang:update_nb_new_categories}</li>
-  <li class="update_summary_new">{update_result.NB_NEW_ELEMENTS} {lang:update_nb_new_elements}</li>
-  <li class="update_summary_del">{update_result.NB_DEL_CATEGORIES} {lang:update_nb_del_categories}</li>
-  <li class="update_summary_del">{update_result.NB_DEL_ELEMENTS} {lang:update_nb_del_elements}</li>
-  <li>{update_result.NB_UPD_ELEMENTS} {lang:update_nb_upd_elements}</li>
-  <li class="update_summary_err">{update_result.NB_ERRORS} {lang:update_nb_errors}</li>
+  <li class="update_summary_new">{$update_result.NB_NEW_CATEGORIES} {'update_nb_new_categories'|@translate}</li>
+  <li class="update_summary_new">{$update_result.NB_NEW_ELEMENTS} {'update_nb_new_elements'|@translate}</li>
+  <li class="update_summary_del">{$update_result.NB_DEL_CATEGORIES} {'update_nb_del_categories'|@translate}</li>
+  <li class="update_summary_del">{$update_result.NB_DEL_ELEMENTS} {'update_nb_del_elements'|@translate}</li>
+  <li>{$update_result.NB_UPD_ELEMENTS} {'update_nb_upd_elements'|@translate}</li>
+  <li class="update_summary_err">{$update_result.NB_ERRORS} {'update_nb_errors'|@translate}</li>
 </ul>
-<!-- END update_result -->
+{/if}
 
-<!-- BEGIN metadata_result -->
-<h3>{L_RESULT_METADATA}</h3>
+{if isset($metadata_result)}
+<h3>{$L_RESULT_METADATA}</h3>
 <ul>
-  <li>{metadata_result.NB_ELEMENTS_DONE} {lang:update_nb_elements_metadata_sync}</li>
-  <li>{metadata_result.NB_ELEMENTS_CANDIDATES} {lang:update_nb_elements_metadata_available}</li>
-  <li>{lang:update_used_metadata} : {METADATA_LIST}</li>
+  <li>{$metadata_result.NB_ELEMENTS_DONE} {'update_nb_elements_metadata_sync'|@translate}</li>
+  <li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'update_nb_elements_metadata_available'|@translate}</li>
+  <li>{'update_used_metadata'|@translate} : {$METADATA_LIST}</li>
 </ul>
-<!-- END metadata_result -->
+{/if}
 
 
-<!-- BEGIN sync_errors -->
-<h3>{lang:update_error_list_title}</h3>
+{if not empty($sync_errors)}
+<h3>{'update_error_list_title'|@translate}</h3>
 <div class="errors">
 <ul>
-  <!-- BEGIN error -->
-  <li>[{sync_errors.error.ELEMENT}] {sync_errors.error.LABEL}</li>
-  <!-- END error -->
+  {foreach from=$sync_errors item=error}
+  <li>[{$error.ELEMENT}] {$error.LABEL}</li>
+  {/foreach}
 </ul>
 </div>
-<h3>{lang:update_errors_caption}</h3>
+<h3>{'update_errors_caption'|@translate}</h3>
 <ul>
-  <!-- BEGIN error_caption -->
-  <li><strong>{sync_errors.error_caption.TYPE}</strong>: {sync_errors.error_caption.LABEL}</li>
-  <!-- END error_caption -->
+  {foreach from=$sync_error_captions item=caption}
+  <li><strong>{$caption.TYPE}</strong>: {$caption.LABEL}</li>
+  {/foreach}
 </ul>
-<!-- END sync_errors -->
+{/if}
 
-<!-- BEGIN sync_infos -->
-<h3>{lang:update_infos_title}</h3>
+{if not empty($sync_infos)}
+<h3>{'update_infos_title'|@translate}</h3>
 <div class="infos">
 <ul>
-  <!-- BEGIN info -->
-  <li>[{sync_infos.info.ELEMENT}] {sync_infos.info.LABEL}</li>
-  <!-- END sync_infos -->
+  {foreach from=$sync_infos item=info}
+  <li>[{$info.ELEMENT}] {$info.LABEL}</li>
+  {/foreach}
 </ul>
 </div>
-<!-- END infos -->
+{/if}
 
-<!-- BEGIN introduction -->
-<h3>{lang:update_default_title}</h3>
-<form action="{F_ACTION}" method="post" id="update">
+{if isset($introduction)}
+<h3>{'update_default_title'|@translate}</h3>
+<form action="" method="post" id="update">
 
   <fieldset id="syncFiles">
-    <legend>{lang:update_sync_files}</legend>
+    <legend>{'update_sync_files'|@translate}</legend>
     <ul>
-      <li><label><input type="radio" name="sync" value="dirs" {SYNC_DIRS_CHECKED} /> {lang:update_sync_dirs}</label></li>
-      <li><label><input type="radio" name="sync" value="files" {SYNC_ALL_CHECKED} /> {lang:update_sync_all}</label></li>
-      <li><label><input type="checkbox" name="display_info" value="1" {DISPLAY_INFO_CHECKED} /> {lang:update_display_info}</label></li>
-      <li><label><input type="checkbox" name="add_to_caddie" value="1" {ADD_TO_CADDIE_CHECKED} /> {lang:add new elements to caddie}</label></li>
+      <li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}/> {'update_sync_dirs'|@translate}</label></li>
+      <li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}/> {'update_sync_all'|@translate}</label></li>
+      <li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}/> {'update_display_info'|@translate}</label></li>
+      <li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}/> {'add new elements to caddie'|@translate}</label></li>
     </ul>
   </fieldset>
 
   <fieldset id="syncMetadata">
-    <legend>{lang:update_sync_metadata}</legend>
-    {lang:update_used_metadata} : {METADATA_LIST}.<br/>
+    <legend>{'update_sync_metadata'|@translate}</legend>
+    {'update_used_metadata'|@translate} : {$METADATA_LIST}.<br/>
     <ul>
-      <li><label><input type="radio" name="sync" value="metadata_new" {SYNC_META_NEW_CHECKED} /> {lang:update_sync_metadata_new}</label></li>
-      <li><label><input type="radio" name="sync" value="metadata_all" {SYNC_META_ALL_CHECKED} /> {lang:update_sync_metadata_all}</label></li>
+      <li><label><input type="radio" name="sync" value="metadata_new" {if 'metadata_new'==$introduction.sync}checked="checked"{/if}/> {'update_sync_metadata_new'|@translate}</label></li>
+      <li><label><input type="radio" name="sync" value="metadata_all" {if 'metadata_all'==$introduction.sync}checked="checked"{/if}/> {'update_sync_metadata_all'|@translate}</label></li>
     </ul>
   </fieldset>
 
   <fieldset id="syncSimulate">
     <legend></legend>
-    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {TAG_INPUT_ENABLED} /> {lang:update_simulate}</label></li></ul>
+    <ul><li><label><input type="checkbox" name="simulate" value="1" checked="checked" {$TAG_INPUT_ENABLED} /> {'update_simulate'|@translate}</label></li></ul>
   </fieldset>
 
   <fieldset id="catSubset">
-    <legend>{lang:update_cats_subset}</legend>
+    <legend>{'update_cats_subset'|@translate}</legend>
     <ul>
     <li>
     <select class="categoryList" name="cat" size="10">
-      <!-- BEGIN category_option -->
-      <option {introduction.category_option.SELECTED} value="{introduction.category_option.VALUE}">{introduction.category_option.OPTION}</option>
-      <!-- END category_option -->
+      {html_options options=$category_options selected=$category_options_selected}
     </select>
     </li>
 
-    <li><label><input type="checkbox" name="subcats-included" value="1" {SUBCATS_INCLUDED_CHECKED} /> {lang:search_subcats_included}</label></li>
+    <li><label><input type="checkbox" name="subcats-included" value="1" {if $introduction.subcats_included}checked="checked"{/if}/> {'search_subcats_included'|@translate}</label></li>
     </ul>
   </fieldset>
 
   <p class="bottomButtons">
-    <input class="submit" type="submit" value="{lang:submit}" name="submit" />
-    <input class="submit" type="reset"  value="{lang:reset}"  name="reset"  />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" />
+    <input class="submit" type="reset"  value="{'Reset'|@translate}"  name="reset"  />
   </p>
 </form>
-<!-- END introduction -->
+{/if}{*isset $introduction*}
 
-<a href="{U_SITE_MANAGER}">{lang:Site manager}</a>
+<p><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></p>
