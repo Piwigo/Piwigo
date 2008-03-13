@@ -1,4 +1,4 @@
-<!-- DEV TAG: not smarty migrated -->
+{* $Id$ *}
 
 ------------------------
-PhpWebGallery {VERSION}
+PhpWebGallery {$VERSION}

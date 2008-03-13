@@ -106,8 +106,7 @@ DELETE
   }
   case 'compiled-templates' :
   {
-    $template->smarty->clear_compiled_tpl();
-    file_put_contents($template->smarty->compile_dir.'/index.htm', '');
+    $template->delete_compiled_templates();
     break;
   }
   default :

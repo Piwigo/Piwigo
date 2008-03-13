@@ -78,7 +78,6 @@ class Template {
 
     $this->smarty->compile_dir = $compile_dir;
 
-    $this->smarty->template_dir = $root;
     $this->smarty->register_function( 'lang', array('Template', 'fn_l10n') );
 
     $this->smarty->assign_by_ref( 'pwg', new PwgTemplateAdapter() );
@@ -91,6 +90,41 @@ class Template {
     }
 
     $this->_old = & new TemplateOld($root, $theme);
+
+    $this->set_template_dir($root);
+  }
+
+  /**
+   * Sets the template root directory for this Template object.
+   */
+  function set_template_dir($dir)
+  {
+    $this->_old->set_rootdir($dir);
+    $this->smarty->template_dir = $dir;
+
+    $real_dir = realpath($dir);
+    $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
+    $this->smarty->compile_id = sprintf('%08X', $compile_id );
+  }
+
+  /**
+   * Gets the template root directory for this Template object.
+   */
+  function get_template_dir()
+  {
+    return $this->smarty->template_dir;
+  }
+
+  /**
+   * Deletes all compiled templates.
+   */
+  function delete_compiled_templates()
+  {
+      $save_compile_id = $this->smarty->compile_id;
+      $this->smarty->compile_id = null;
+      $this->smarty->clear_compiled_tpl();
+      $this->smarty->compile_id = $save_compile_id;
+      file_put_contents($this->smarty->compile_dir.'/index.htm', '');
   }
 
   /** DEPRECATED */

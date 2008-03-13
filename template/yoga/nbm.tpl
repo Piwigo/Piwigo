@@ -1,32 +1,31 @@
-<!-- DEV TAG: not smarty migrated -->
-<!-- $Id$ -->
+{* $Id$ *}
 
 <div id="content">
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{U_HOME}" title="{lang:Go through the gallery as a visitor}"><img src="{themeconf:icon_dir}/home.png" class="button" alt="{lang:home}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
-    <h2>{lang:nbm_item_notification}</h2>
+    <h2>{'nbm_item_notification'|@translate}</h2>
   </div>
 
-  <!-- BEGIN errors -->
+  {if not empty($errors)}
   <div class="errors">
     <ul>
-      <!-- BEGIN error -->
-      <li>{errors.error.ERROR}</li>
-      <!-- END error -->
+      {foreach from=$errors item=error}
+      <li>{$error}</li>
+      {/foreach}
     </ul>
   </div>
-  <!-- END errors -->
+  {/if}
 
-  <!-- BEGIN infos -->
+  {if not empty($infos)}
   <div class="infos">
     <ul>
-      <!-- BEGIN info -->
-      <li>{infos.info.INFO}</li>
-      <!-- END info -->
+      {foreach from=$infos item=info}
+      <li>{$info}</li>
+      {/foreach}
     </ul>
   </div>
-  <!-- END infos -->
+  {/if}
 
 </div>

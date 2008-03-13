@@ -170,14 +170,12 @@ function get_array_template_theme($args = array())
  *       o template: template to use [default get_default_template()]
  *       o theme: template to use [default get_default_template()]
  */
-function get_mail_template($email_format, $args = array())
+function & get_mail_template($email_format, $args = array())
 {
   $args = get_array_template_theme($args);
 
   $mail_template = new Template(PHPWG_ROOT_PATH.'template/'.$args['template'], $args['theme']);
-  $mail_template->_old->set_rootdir(PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format);
-  $mail_template->smarty->template_dir = PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format;
-  
+  $mail_template->set_template_dir(PHPWG_ROOT_PATH.'template/'.$args['template'].'/mail/'.$email_format);
   return $mail_template;
 }
 
@@ -297,7 +295,7 @@ function switch_lang_back()
 function pwg_mail_notification_admins($keyargs_subject, $keyargs_content)
 {
   // Check arguments
-  if 
+  if
     (
       empty($keyargs_subject) or
       empty($keyargs_content)
@@ -391,7 +389,7 @@ function pwg_mail_group(
   $assign_vars = array(), $language_selected = '')
 {
   // Check arguments
-  if 
+  if
     (
       empty($group_id) or
       empty($email_format) or
@@ -475,7 +473,7 @@ WHERE
           $mail_template->set_filename($tpl_shortname,
             (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
 
-          $mail_template->assign_vars(
+          $mail_template->assign(
             trigger_event('mail_group_assign_vars', $assign_vars));
 
           $return = pwg_mail
@@ -629,7 +627,7 @@ function pwg_mail($to, $args = array())
     $mail_template->set_filename('mail_header', 'header.tpl');
     $mail_template->set_filename('mail_footer', 'footer.tpl');
 
-    $mail_template->assign_vars(
+    $mail_template->assign(
       array(
         //Header
         'BOUNDARY_KEY' => $conf_mail['boundary_key'],
@@ -654,29 +652,27 @@ function pwg_mail($to, $args = array())
 
     if ($args['email_format'] == 'text/html')
     {
-      $old_root = $mail_template->root;
-
-      if (is_file($mail_template->root.'/global-mail-css.tpl'))
+      if (is_file($mail_template->get_template_dir().'/global-mail-css.tpl'))
       {
-        $mail_template->set_filename('global_mail_css', 'global-mail-css.tpl');
-        $mail_template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'global_mail_css');
+        $mail_template->set_filename('css', 'global-mail-css.tpl');
+        $mail_template->assign_var_from_handle('GLOBAL_MAIL_CSS', 'css');
       }
 
-      $mail_template->root = PHPWG_ROOT_PATH.'template/'.$args['template'].'/theme/'.$args['theme'];
-      if (is_file($mail_template->root.'/mail-css.tpl'))
+      $root_abs_path = dirname(dirname(__FILE__));
+
+      $file = $root_abs_path.'/template/'.$args['template'].'/theme/'.$args['theme'].'/mail-css.tpl';
+      if (is_file($file))
       {
-        $mail_template->set_filename('mail_css', 'mail-css.tpl');
-        $mail_template->assign_var_from_handle('MAIL_CSS', 'mail_css');
+        $mail_template->set_filename('css', $file);
+        $mail_template->assign_var_from_handle('MAIL_CSS', 'css');
       }
 
-      $mail_template->root = PHPWG_ROOT_PATH.'template-common';
-      if (is_file($mail_template->root.'/local-mail-css.tpl'))
+      $file = $root_abs_path.'/template-common/local-mail-css.tpl';
+      if (is_file($file))
       {
-        $mail_template->set_filename('local_mail_css', 'local-mail-css.tpl');
-        $mail_template->assign_var_from_handle('LOCAL_MAIL_CSS', 'local_mail_css');
+        $mail_template->set_filename('css', $file);
+        $mail_template->assign_var_from_handle('LOCAL_MAIL_CSS', 'css');
       }
-
-      $mail_template->root = $old_root;
     }
 
     // what are displayed on the header of each mail ?
@@ -770,12 +766,13 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
  }
 }
 
-/*Testing block
-function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
+/*Testing block*/
+/*function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
 {
-    global $user, $lang_info;
-    @mkdir(PHPWG_ROOT_PATH.'testmail');
-    $filename = PHPWG_ROOT_PATH.'testmail/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
+    global $conf, $user, $lang_info;
+    $dir = $conf['local_data_dir'].'/tmp';
+    @mkdir( $dir );
+    $filename = $dir.'/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
     if ($args['content_format'] == 'text/plain')
     {
       $filename .= '.txt';
@@ -785,14 +782,14 @@ function pwg_send_mail_test($result, $to, $subject, $content, $headers, $args)
       $filename .= '.html';
     }
     $file = fopen($filename, 'w+');
-    fwrite($file, $to);
-    fwrite($file, $subject);
+    fwrite($file, $to ."\n");
+    fwrite($file, $subject ."\n");
     fwrite($file, $headers);
     fwrite($file, $content);
     fclose($file);
-    return true;
+    return $result;
 }
-add_event_handler('send_mail', 'pwg_send_mail_test', 0, 6);*/
+add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 6);*/
 
 
 add_event_handler('send_mail', 'pwg_send_mail', EVENT_HANDLER_PRIORITY_NEUTRAL, 5);

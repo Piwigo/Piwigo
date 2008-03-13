@@ -1,9 +1,9 @@
-<!-- DEV TAG: not smarty migrated -->
-{lang:Hello,}
+{* $Id$ *}
+{'Hello,'|@translate}
 
-{lang:Come to discover the category:} {CAT_NAME}
-{LINK}
+{'Come to discover the category:'|@translate} {$CAT_NAME}
+{$LINK}
 
-{CPL_CONTENT}
+{$CPL_CONTENT}
 
-{lang:See you soon.}
+{'See you soon.'|@translate}
