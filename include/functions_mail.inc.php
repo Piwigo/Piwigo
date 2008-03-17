@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -98,11 +98,13 @@ function format_email($name, $email)
 {
   global $conf;
 
+  // Spring cleaning
+  $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
+
   if ($conf['enabled_format_email'])
   {
     // Spring cleaning
     $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
-    $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
 
     if ($cvt_name!="")
     {
@@ -747,8 +749,8 @@ function pwg_mail($to, $args = array())
  */
 function pwg_send_mail($result, $to, $subject, $content, $headers)
 {
- if (!$result)
- {
+  if (!$result)
+  {
     global $conf_mail;
 
     if ($conf_mail['use_smtp'])
@@ -771,7 +773,11 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
         return mail($to, $subject, $content, $headers);
       }
     }
- }
+  }
+  else
+  {
+    return $result;
+  }
 }
 
 /*Testing block
