@@ -321,43 +321,33 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
               // Assign current var for nbm mail
               assign_vars_nbm_mail_content($nbm_user);
 
-              $end_punct = ($conf['nbm_send_detailed_content'] ? ':' : '.');
-
               if (!is_null($nbm_user['last_send']))
               {
-                $env_nbm['mail_template']->assign_block_vars
+                $env_nbm['mail_template']->assign
                 (
                   'content_new_elements_between',
                   array
                   (
                     'DATE_BETWEEN_1' => $nbm_user['last_send'],
                     'DATE_BETWEEN_2' => $dbnow,
-                    'END_PUNCT' => $end_punct
                   )
                 );
               }
               else
               {
-                $env_nbm['mail_template']->assign_block_vars
+                $env_nbm['mail_template']->assign
                 (
                   'content_new_elements_single',
                   array
                   (
                     'DATE_SINGLE' => $dbnow,
-                    'END_PUNCT' => $end_punct
                   )
                 );
               }
 
               if ($conf['nbm_send_detailed_content'])
               {
-                foreach ($news as $data)
-                {
-                  $env_nbm['mail_template']->assign_block_vars
-                  (
-                    'global_new_line.new_line', array('DATA' => $data)
-                  );
-                }
+                $env_nbm['mail_template']->assign('global_new_lines', $news);
               }
 
               $nbm_user_customize_mail_content = 
@@ -365,11 +355,9 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                   $customize_mail_content, $nbm_user);
               if (!empty($nbm_user_customize_mail_content))
               {
-                $env_nbm['mail_template']->assign_block_vars
+                $env_nbm['mail_template']->assign
                 (
-                  'custom',
-                  array('CUSTOMIZE_MAIL_CONTENT' =>
-                    $nbm_user_customize_mail_content)
+                  'custom_mail_content', $nbm_user_customize_mail_content
                 );
               }
 
@@ -379,9 +367,9 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                   $conf['recent_post_dates']['NBM']);
                 foreach ($recent_post_dates as $date_detail)
                 {
-                  $env_nbm['mail_template']->assign_block_vars
+                  $env_nbm['mail_template']->append
                   (
-                    'recent_post.recent_post_block',
+                    'recent_posts',
                     array
                     (
                       'TITLE' => get_title_recent_post_date($date_detail),
@@ -391,19 +379,14 @@ function do_action_send_mail_notification($action = 'list_to_send', $check_key_l
                 }
               }
 
-              $env_nbm['mail_template']->assign_block_vars
+              $env_nbm['mail_template']->assign
               (
-                'goto',
                 array
                 (
-                  'GALLERY_TITLE' => $conf['gallery_title'],
-                  'GALLERY_URL' => $conf['gallery_url']
+                  'GOTO_GALLERY_TITLE' => $conf['gallery_title'],
+                  'GOTO_GALLERY_URL' => $conf['gallery_url'],
+                  'SEND_AS_NAME'      => $env_nbm['send_as_name'],
                 )
-              );
-
-              $env_nbm['mail_template']->assign_block_vars
-              (
-                'byebye', array('SEND_AS_NAME' => $env_nbm['send_as_name'])
               );
 
               if (pwg_mail

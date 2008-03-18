@@ -11,7 +11,7 @@ TABLE.table2 {
 }
 
 TABLE.table2 TD, TABLE.table2 TH {
-  padding: 4px 8px;
+  padding: 0 0.8em;
 }
 
 TABLE.table2 TR {

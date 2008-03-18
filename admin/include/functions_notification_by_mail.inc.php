@@ -337,7 +337,7 @@ function assign_vars_nbm_mail_content($nbm_user)
 
   set_make_full_url();
 
-  $env_nbm['mail_template']->assign_vars
+  $env_nbm['mail_template']->assign
   (
     array
     (
@@ -418,10 +418,7 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
         $section_action_by = ($is_subscribe ? 'subscribe_by_' : 'unsubscribe_by_');
         $section_action_by .= ($is_admin_request ? 'admin' : 'himself');
-        $env_nbm['mail_template']->assign_block_vars
-        (
-          $section_action_by, array('DUMMY' => 'dummy')
-        );
+        $env_nbm['mail_template']->assign( $section_action_by, true );
 
         if (pwg_mail
             (

@@ -269,7 +269,7 @@ class Template {
     $params = array('resource_name' => $this->files[$handle], 'quiet'=>true, 'get_source'=>true);
     if ( $this->smarty->_fetch_resource_info($params) )
     {
-      if (!preg_match('~{(/(if|section|foreach))|\$[a-zA-Z_]+}~', @$params['source_content']) )
+      if (!preg_match('~{(/(if|section|foreach))|ldelim|\$[a-zA-Z_]+}~', @$params['source_content']) )
         $is_new = false;
     }
 
