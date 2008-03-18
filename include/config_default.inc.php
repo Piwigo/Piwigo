@@ -262,16 +262,14 @@ $conf['mail_options'] = false;
 // or test.
 $conf['send_bcc_mail_webmaster'] = false;
 
-// enabled_format_email:
-//  on true email will be formatted with name and address
-//  on false email will be only address
-// There are webhosting wich not allow email formatted (Lycos, ...)
-$conf['enabled_format_email'] = true;
-
 // default_email_format:
 //  Define the default email format use to send email
 //  Value could be text/plain  or text/html
 $conf['default_email_format'] = 'text/html';
+
+// define the name of sender mail:
+// If value is empty, gallery title is used
+$conf['mail_sender_name'] = '';
 
 // smtp configuration
 // (work if fsockopen function is allowed for smtp port)

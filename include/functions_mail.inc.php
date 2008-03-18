@@ -52,6 +52,18 @@ function encode_mime_header($str)
 }
 
 /*
+ * Returns the name of the mail sender :
+ *
+ * @return string
+ */
+function get_mail_sender_name()
+{
+  global $conf;
+
+  return (empty($conf['mail_sender_name']) ? $conf['gallery_title'] : $conf['mail_sender_name']);
+}
+
+/*
  * Returns an array of mail configuration parameters :
  *
  * - mail_options: see $conf['mail_options']
@@ -81,7 +93,7 @@ function get_mail_configuration()
 
   // name of the webmaster is the title of the gallery
   $conf_mail['formated_email_webmaster'] =
-    format_email($conf['gallery_title'], $conf_mail['email_webmaster']);
+    format_email(get_mail_sender_name(), $conf_mail['email_webmaster']);
 
   $conf_mail['boundary_key'] = generate_key(32);
 
@@ -96,38 +108,48 @@ function get_mail_configuration()
  */
 function format_email($name, $email)
 {
-  global $conf;
-
   // Spring cleaning
   $cvt_email = trim(preg_replace('#[\n\r]+#s', '', $email));
+  $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
 
-  if ($conf['enabled_format_email'])
+  if ($cvt_name!="")
   {
-    // Spring cleaning
-    $cvt_name = trim(preg_replace('#[\n\r]+#s', '', $name));
+    $cvt_name = encode_mime_header(
+              '"'
+              .addcslashes($cvt_name,'"')
+              .'"');
+    $cvt_name .= ' ';
+  }
 
-    if ($cvt_name!="")
-    {
-      $cvt_name = encode_mime_header(
-                '"'
-                .addcslashes($cvt_name,'"')
-                .'"');
-      $cvt_name .= ' ';
-    }
-
-    if (strpos($cvt_email, '<') === false)
-    {
-      return $cvt_name.'<'.$cvt_email.'>';
-    }
-    else
-    {
-      return $cvt_name.$cvt_email;
-    }
+  if (strpos($cvt_email, '<') === false)
+  {
+    return $cvt_name.'<'.$cvt_email.'>';
   }
   else
   {
-    return $cvt_email;
+    return $cvt_name.$cvt_email;
   }
+}
+
+/**
+ * Returns an email address list with minimal email string
+ *
+ * @param string with email list (email separated by comma)
+ */
+function get_strict_email_list($email_list)
+{
+  $result = array();
+  $list = explode(',', $email_list);
+  foreach ($list as $email)
+  {
+    if (strpos($email, '<') !== false)
+    {
+       $email = preg_replace('/.*<(.*)>.*/i', '$1', $email);
+    }
+    $result[] = trim($email);
+  }
+
+  return implode(',', $result);
 }
 
 /**
@@ -506,7 +528,7 @@ WHERE
  * sends an email, using PhpWebGallery specific informations
  *
  * @param:
- *   - to: receiver(s) of the mail.
+ *   - to: receiver(s) of the mail (list separated by comma).
  *   - args: function params of mail function:
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
@@ -543,11 +565,6 @@ function pwg_mail($to, $args = array())
   if ($args['email_format'] == 'text/html')
   {
     set_make_full_url();
-  }
-
-  if (!empty($to))
-  {
-    $to = format_email('', $to);
   }
 
   if (empty($args['from']))
@@ -596,6 +613,10 @@ function pwg_mail($to, $args = array())
   if (empty($to))
   {
     $headers.= 'To: undisclosed-recipients: ;'."\n";
+  }
+  else
+  {
+    $headers.= 'To: '.$to."\n";
   }
 
   if (!empty($args['Cc']))
@@ -719,7 +740,7 @@ function pwg_mail($to, $args = array())
   return
     trigger_event('send_mail',
       false, /* Result */
-      trigger_event('send_mail_to', $to),
+      trigger_event('send_mail_to', get_strict_email_list($to)),
       trigger_event('send_mail_subject', $cvt_subject),
       trigger_event('send_mail_content', $content),
       trigger_event('send_mail_headers', $headers),
