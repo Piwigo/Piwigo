@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -121,21 +121,26 @@ class smtp_mail
       $this->server_write('MAIL FROM: <'.$this->email_webmaster.'>'."\r\n");
       $this->server_parse('250');
 
-      $to_header = 'To: ';
+      if (preg_match('/^\s*to\s*:.*/mi', $headers) === 0)
+      {
+        $to_header = 'To: '.implode(',', array_map(create_function('$email','return "<".$email.">";'), $recipients));
+      }
+      else
+      {
+        $to_header = '';
+      }
 
       @reset($recipients);
       while (list(, $email) = @each($recipients))
       {
         $this->server_write('RCPT TO: <'.$email.'>'."\r\n");
         $this->server_parse('250');
-
-        $to_header .= '<'.$email.'>, ';
       }
 
       $this->server_write('DATA'."\r\n");
       $this->server_parse('354');
 
-      $this->server_write('Subject: '.$subject."\r\n".$to_header."\r\n".$headers."\r\n\r\n".$message."\r\n");
+      $this->server_write('Subject: '.$subject."\r\n".(empty($to_header) ? "" : $to_header."\r\n").$headers."\r\n\r\n".$message."\r\n");
       $this->server_write('.'."\r\n");
       $this->server_parse('250');
 
