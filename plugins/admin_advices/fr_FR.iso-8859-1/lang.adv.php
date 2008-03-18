@@ -154,7 +154,7 @@ foreach ($cases as $id_adv)
       
      Case 11 :
       $adv[] = 'Valeur actuelle : ' . (string) $conf['level_separator'] . '.';
-      $adv[] = 'Vous pouvez toujours essayer un autre séparateur commme :'
+      $adv[] = 'Vous pouvez toujours essayer un autre séparateur comme :'
              . '<br />$conf[\'level_separator\'] = \'+ \';';
       $cond = ( $conf['level_separator'] == ' / ' );
       $confk = 'level_separator';
