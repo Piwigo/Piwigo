@@ -64,7 +64,7 @@ limit 0,1
   }
 
   /* Check plugin included in Piwigo sources */
-  $included_plugins = array('dew');
+  $included_plugins = array('dew', 'UpToDate', 'PluginsManager');
   $query = '
 select
   id
@@ -90,7 +90,7 @@ where
     $uninstall_msg_link =
       '<a href="'.
       PHPWG_ROOT_PATH.
-      'admin.php?page=plugins&amp;plugin='.$row['id'].'&amp;action=uninstall'.
+      'admin.php?page=plugins_list&amp;plugin='.$row['id'].'&amp;action=uninstall'.
       '" onclick="window.open(this.href, \'\'); return false;">'.
       sprintf(l10n('c13y_correction_obsolete_plugin'), $row['id']).'</a>';
 
