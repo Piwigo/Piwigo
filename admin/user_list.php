@@ -440,7 +440,7 @@ DELETE FROM '.USER_GROUP_TABLE.'
   }
 
   redirect(
-    PHPWG_ROOT_PATH.
+    get_root_url().
     'admin.php'.
     get_query_string_diff(array(), false)
     );
@@ -483,11 +483,11 @@ else
 
 $template->assign(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=user_list',
+    'U_HELP' => get_root_url().'popuphelp.php?page=user_list',
 
     'F_ADD_ACTION' => $base_url,
     'F_USERNAME' => @htmlentities($_GET['username']),
-    'F_FILTER_ACTION' => PHPWG_ROOT_PATH.'admin.php'
+    'F_FILTER_ACTION' => get_root_url().'admin.php'
     ));
 
 // Hide radio-button if not allow to assign adviser
@@ -524,34 +524,13 @@ $template->assign('direction_selected',
 
 if (isset($_POST['pref_submit']))
 {
-//  echo '<pre>'; print_r($_POST); echo '</pre>';
   $template->assign(
     array(
-      'ADVISER_YES' => 'true' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
-      'ADVISER_NO' => 'false' == (isset($_POST['adviser']) and $_POST['adviser']) ? 'checked="checked"' : '',
       'NB_IMAGE_LINE' => $_POST['nb_image_line'],
       'NB_LINE_PAGE' => $_POST['nb_line_page'],
       'MAXWIDTH' => $_POST['maxwidth'],
       'MAXHEIGHT' => $_POST['maxheight'],
       'RECENT_PERIOD' => $_POST['recent_period'],
-      'EXPAND_YES' => 'true' == $_POST['expand'] ? 'checked="checked"' : '',
-      'EXPAND_NO' => 'false' == $_POST['expand'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_YES' => 'true' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
-      'SHOW_NB_COMMENTS_NO' => 'false' == $_POST['show_nb_comments'] ? 'checked="checked"' : '',
-      'SHOW_NB_HITS_YES' => 'true' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
-      'SHOW_NB_HITS_NO' => 'false' == $_POST['show_nb_hits'] ? 'checked="checked"' : '',
-      'ENABLED_HIGH_YES' => 'true' == $_POST['enabled_high'] ? 'checked="checked"' : '',
-      'ENABLED_HIGH_NO' => 'false' == $_POST['enabled_high'] ? 'checked="checked"' : '',
-      
-      'STATUS_ACTION_SET' => 'set' == $_POST['status_action'] ? 'checked="checked"' : '',
-      'LEVEL_ACTION_SET' => 'set' == $_POST['level_action'] ? 'checked="checked"' : '',
-      'NB_IMAGE_LINE_ACTION_SET' => 'set' == $_POST['nb_image_line_action'] ? 'checked="checked"' : '',
-      'NB_LINE_PAGE_ACTION_SET' => 'set' == $_POST['nb_line_page_action'] ? 'checked="checked"' : '',
-      'TEMPLATE_ACTION_SET' => 'set' == $_POST['template_action'] ? 'checked="checked"' : '',
-      'LANGUAGE_ACTION_SET' => 'set' == $_POST['language_action'] ? 'checked="checked"' : '',
-      'RECENT_PERIOD_ACTION_SET' => 'set' == $_POST['recent_period_action'] ? 'checked="checked"' : '',
-      'MAXWIDTH_ACTION_SET' => 'set' == $_POST['maxwidth_action'] ? 'checked="checked"' : '',
-      'MAXHEIGHT_ACTION_SET' => 'set' == $_POST['maxheight_action'] ? 'checked="checked"' : '',
       ));
 }
 else
@@ -645,9 +624,11 @@ foreach ($page['filtered_users'] as $num => $local_user)
   $visible_user_list[] = $local_user;
 }
 
+// allow plugins to fill template var plugin_user_list_column_titles and 
+// plugin_columns/plugin_actions for each user in the list
 $visible_user_list = trigger_event('loc_visible_user_list', $visible_user_list);
 
-foreach ($visible_user_list as $num => $local_user)
+foreach ($visible_user_list as $local_user)
 {
   $groups_string = preg_replace(
     '/(\d+)/e',
@@ -696,9 +677,10 @@ foreach ($visible_user_list as $num => $local_user)
       'EMAIL' => get_email_address_as_display_text($local_user['email']),
       'GROUPS' => $groups_string,
       'PROPERTIES' => implode( ', ', $properties),
+      'plugin_columns' => isset($local_user['plugin_columns']) ? $local_user['plugin_columns'] : array(),
+      'plugin_actions' => isset($local_user['plugin_actions']) ? $local_user['plugin_actions'] : array(),
       )
     );
-  trigger_action('loc_append_user_list', $local_user);
 }
 
 // +-----------------------------------------------------------------------+

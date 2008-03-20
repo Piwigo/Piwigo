@@ -12,7 +12,7 @@
     <label>{'Username'|@translate} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{'Password'|@translate} <input type="text" name="password" /></label>
     <label>{'Email address'|@translate} <input type="text" name="email" /></label>
-    <input class="submit" type="submit" name="submit_add" value="{'submit'|@translate}" {$TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
   </fieldset>
 </form>
 
@@ -43,13 +43,13 @@
   {html_options name=direction options=$direction_options selected=$direction_selected}
   </label>
 
-  <input class="submit" type="submit" value="{'submit'|@translate}" />
+  <input class="submit" type="submit" value="{'Submit'|@translate}" />
 
 </fieldset>
 
 </form>
 
-<form method="post" name="preferences" action="{$F_PREF_ACTION}">
+<form method="post" name="preferences" action="">
 
 <table class="table2">
   <tr class="throw">
@@ -59,9 +59,11 @@
     <th>{'Email address'|@translate}</th>
     <th>{'Groups'|@translate}</th>
     <th>{'properties'|@translate}</th>
-    {foreach from=$cpl_title_user item=title}
+    {if not empty($plugin_user_list_column_titles)}
+    {foreach from=$plugin_user_list_column_titles item=title}
     <th>{$title}</th>
     {/foreach}
+    {/if}
     <th>{'Actions'|@translate}</th>
   </tr>
   {foreach from=$users item=user name=users_loop}
@@ -72,13 +74,13 @@
     <td>{$user.EMAIL}</td>
     <td>{$user.GROUPS}</td>
     <td>{$user.PROPERTIES}</td>
-    {foreach from=$cpl_user[$smarty.foreach.users_loop.index] item=data}
+    {foreach from=$user.plugin_columns item=data}
     <td>{$data}</td>
     {/foreach}
     <td style="text-align:center;">
       <a href="{$user.U_PERM}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/permissions.png" class="button" style="border:none" alt="{'permissions'|@translate}" title="{'permissions'|@translate}" /></a>
       <a href="{$user.U_PROFILE}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/edit_s.png" class="button" style="border:none" alt="{'Profile'|@translate}" title="{'Profile'|@translate}" /></a>
-      {foreach from=$cpl_link_user[$smarty.foreach.users_loop.index] item=data}
+      {foreach from=$user.plugin_actions item=data}
       {$data}
       {/foreach}
       </td>
@@ -103,8 +105,8 @@
       <td>{'Status'|@translate}</td>
       <td>
         <label><input type="radio" name="status_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-        <label><input type="radio" name="status_action" value="set" id="status_action_set" {$STATUS_ACTION_SET} /> {'set to'|@translate}</label>
-        <select onmousedown="document.getElementById('status_action_set').checked = true;" name="status" size="1">
+        <label><input type="radio" name="status_action" value="set" id="status_action_set" /> {'set to'|@translate}</label>
+        <select onchange="document.getElementById('status_action_set').checked = true;" name="status" size="1">
           {html_options options=$pref_status_options selected=$pref_status_selected}
         </select>
       </td>
@@ -116,8 +118,8 @@
       <td>
         <label><input type="radio" name="adviser" value="leave" checked="checked" /> {'leave'|@translate}</label>
         / {'set to'|@translate}
-        <label><input type="radio" name="adviser" value="true"  {$ADVISER_YES} />{'Yes'|@translate}</label>
-        <label><input type="radio" name="adviser" value="false" {$ADVISER_NO}  />{'No'|@translate}</label>
+        <label><input type="radio" name="adviser" value="true"  />{'Yes'|@translate}</label>
+        <label><input type="radio" name="adviser" value="false" />{'No'|@translate}</label>
       </td>
     </tr>
     {/if}
@@ -160,8 +162,8 @@
       <td>
         <label><input type="radio" name="enabled_high" value="leave" checked="checked" /> {'leave'|@translate}</label>
         / {'set to'|@translate}
-        <label><input type="radio" name="enabled_high" value="true"  {$ENABLED_HIGH_YES} />{'Yes'|@translate}</label>
-        <label><input type="radio" name="enabled_high" value="false" {$ENABLED_HIGH_NO}  />{'No'|@translate}</label>
+        <label><input type="radio" name="enabled_high" value="true"  />{'Yes'|@translate}</label>
+        <label><input type="radio" name="enabled_high" value="false" />{'No'|@translate}</label>
       </td>
     </tr>
 
@@ -169,8 +171,8 @@
 		<td>{'Privacy level'|@translate}</td>
 		<td>
 			<label><input type="radio" name="level_action" value="leave" checked="checked" />{'leave'|@translate}</label>
-			<label><input type="radio" name="level_action" value="set" id="level_action_set" {$LEVEL_ACTION_SET} />{'set to'|@translate}</label>
-			<select onmousedown="document.getElementById('level_action_set').checked = true;" name="level" size="1">
+			<label><input type="radio" name="level_action" value="set" id="level_action_set" />{'set to'|@translate}</label>
+			<select onchange="document.getElementById('level_action_set').checked = true;" name="level" size="1">
 			  {html_options options=$level_options selected=$level_selected}
 			</select>
 	  </td>
@@ -190,7 +192,7 @@
     <td>{'nb_image_per_row'|@translate}</td>
     <td>
       <label><input type="radio" name="nb_image_line_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-      <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set" {$NB_IMAGE_LINE_ACTION_SET} /> {'set to'|@translate}</label>
+      <label><input type="radio" name="nb_image_line_action" value="set" id="nb_image_line_action_set"  /> {'set to'|@translate}</label>
       <input onmousedown="document.getElementById('nb_image_line_action_set').checked = true;"
              size="3" maxlength="2" type="text" name="nb_image_line" value="{$NB_IMAGE_LINE}" />
     </td>
@@ -200,7 +202,7 @@
     <td>{'nb_row_per_page'|@translate}</td>
     <td>
       <label><input type="radio" name="nb_line_page_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-      <label><input type="radio" name="nb_line_page_action" value="set" id="nb_line_page_action_set" {$NB_LINE_PAGE_ACTION_SET} /> {'set to'|@translate}</label>
+      <label><input type="radio" name="nb_line_page_action" value="set" id="nb_line_page_action_set" /> {'set to'|@translate}</label>
       <input onmousedown="document.getElementById('nb_line_page_action_set').checked = true;"
              size="3" maxlength="2" type="text" name="nb_line_page" value="{$NB_LINE_PAGE}" />
     <td>
@@ -210,8 +212,8 @@
     <td>{'theme'|@translate}</td>
     <td>
       <label><input type="radio" name="template_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-      <label><input type="radio" name="template_action" value="set" id="template_action_set" {$TEMPLATE_ACTION_SET} /> {'set to'|@translate}</label>
-      <select onmousedown="document.getElementById('template_action_set').checked = true;" name="template" size="1">
+      <label><input type="radio" name="template_action" value="set" id="template_action_set" /> {'set to'|@translate}</label>
+      <select onchange="document.getElementById('template_action_set').checked = true;" name="template" size="1">
         {html_options values=$template_options output=$template_options selected=$template_selected}
       </select>
     </td>
@@ -221,8 +223,8 @@
     <td>{'language'|@translate}</td>
     <td>
       <label><input type="radio" name="language_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-      <label><input type="radio" name="language_action" value="set" id="language_action_set" {$LANGUAGE_ACTION_SET} /> {'set to'|@translate}</label>
-      <select onmousedown="document.getElementById('language_action_set').checked = true;" name="language" size="1">
+      <label><input type="radio" name="language_action" value="set" id="language_action_set" /> {'set to'|@translate}</label>
+      <select onchange="document.getElementById('language_action_set').checked = true;" name="language" size="1">
         {html_options options=$language_options selected=$language_selected}
       </select>
     </td>
@@ -232,7 +234,7 @@
     <td>{'recent_period'|@translate}</td>
     <td>
       <label><input type="radio" name="recent_period_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-      <label><input type="radio" name="recent_period_action" value="set" id="recent_period_action_set" {$RECENT_PERIOD_ACTION_SET} /> {'set to'|@translate}</label>
+      <label><input type="radio" name="recent_period_action" value="set" id="recent_period_action_set"  /> {'set to'|@translate}</label>
       <input onmousedown="document.getElementById('recent_period_action_set').checked = true;"
              type="text" size="3" maxlength="2" name="recent_period" value="{$RECENT_PERIOD}" />
     </td>
@@ -243,8 +245,8 @@
     <td>
       <label><input type="radio" name="expand" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="expand" value="true"  {$EXPAND_YES} />{'Yes'|@translate}</label>
-      <label><input type="radio" name="expand" value="false" {$EXPAND_NO}  />{'No'|@translate}</label>
+      <label><input type="radio" name="expand" value="true"  />{'Yes'|@translate}</label>
+      <label><input type="radio" name="expand" value="false" />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -253,8 +255,8 @@
     <td>
       <label><input type="radio" name="show_nb_comments" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="show_nb_comments" value="true" {$SHOW_NB_COMMENTS_YES} />{'Yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_comments" value="false" {$SHOW_NB_COMMENTS_NO} />{'No'|@translate}</label>
+      <label><input type="radio" name="show_nb_comments" value="true" />{'Yes'|@translate}</label>
+      <label><input type="radio" name="show_nb_comments" value="false" />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -263,8 +265,8 @@
     <td>
       <label><input type="radio" name="show_nb_hits" value="leave" checked="checked" /> {'leave'|@translate}</label>
       / {'set to'|@translate}
-      <label><input type="radio" name="show_nb_hits" value="true" {$SHOW_NB_HITS_YES} />{'Yes'|@translate}</label>
-      <label><input type="radio" name="show_nb_hits" value="false" {$SHOW_NB_HITS_NO} />{'No'|@translate}</label>
+      <label><input type="radio" name="show_nb_hits" value="true" />{'Yes'|@translate}</label>
+      <label><input type="radio" name="show_nb_hits" value="false" />{'No'|@translate}</label>
     </td>
   </tr>
 
@@ -273,7 +275,7 @@
     <td>
       <label><input type="radio" name="maxwidth_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
       <label><input type="radio" name="maxwidth_action" value="unset" /> {'unset'|@translate}</label>
-      <label><input type="radio" name="maxwidth_action" value="set" id="maxwidth_action_set" {$MAXWIDTH_ACTION_SET} /> {'set to'|@translate}</label>
+      <label><input type="radio" name="maxwidth_action" value="set" id="maxwidth_action_set" /> {'set to'|@translate}</label>
       <input onmousedown="document.getElementById('maxwidth_action_set').checked = true;"
              type="text" size="4" maxlength="4" name="maxwidth" value="{$MAXWIDTH}" />
     </td>
@@ -285,7 +287,7 @@
     <td>
       <label><input type="radio" name="maxheight_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
       <label><input type="radio" name="maxheight_action" value="unset" /> {'unset'|@translate}</label>
-      <label><input type="radio" name="maxheight_action" value="set" id="maxheight_action_set" {$MAXHEIGHT_ACTION_SET} /> {'set to'|@translate}</label>
+      <label><input type="radio" name="maxheight_action" value="set" id="maxheight_action_set" /> {'set to'|@translate}</label>
       <input onmousedown="document.getElementById('maxheight_action_set').checked = true;"
              type="text" size="4" maxlength="4" name="maxheight" value="{$MAXHEIGHT}" />
     </td>

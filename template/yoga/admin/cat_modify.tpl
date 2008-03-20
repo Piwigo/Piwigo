@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{'title_edit_cat'|@translate}</h2>
 </div>
@@ -11,14 +11,14 @@
 <ul class="categoryActions">
   <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
   {/if}
-  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
+  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
   {/if}
   {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
+  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
   {/if}
 </ul>
 
@@ -73,20 +73,20 @@
     <tr>
       <td><strong>{'lock'|@translate}</strong>
       <td>
-        {html_radios name='visible' values=$false_true output=$no_yes|translate selected=$CAT_VISIBLE}
+        {html_radios name='visible' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
       </td>
     </tr>
     <tr>
       <td><strong>{'comments'|@translate}</strong>
       <td>
-        {html_radios name='commentable' values=$false_true output=$no_yes|translate selected=$CAT_COMMENTABLE}
+        {html_radios name='commentable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_COMMENTABLE}
       </td>
     </tr>
     {if isset($SHOW_UPLOADABLE) }
     <tr>
       <td><strong>{'editcat_uploadable'|@translate}</strong>
       <td>
-        {html_radios name='uploadable' values=$false_true output=$no_yes|translate selected=$CAT_UPLOADABLE}
+        {html_radios name='uploadable' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_UPLOADABLE}
       </td>
     </tr>
     {/if}
@@ -114,7 +114,7 @@
 </fieldset>
 
 <p style="text-align:center;">
-  <input class="submit" type="submit" value="{'submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
   <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
 </p>
 
@@ -127,7 +127,7 @@
         {if isset($representant.picture) }
         <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature" /></a>
         {else}
-        <img src="{$themeconf.icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
+        <img src="{$ROOT_URL}{$themeconf.icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
         {/if}
       </td>
       <td>

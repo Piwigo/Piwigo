@@ -582,7 +582,7 @@ $template->set_filenames
   )
 );
 
-$template->assign_vars
+$template->assign
 (
   array
   (
@@ -628,43 +628,30 @@ if ($must_repost)
     $repost_submit_name = 'send_submit';
   }
 
-  $template->assign_block_vars
-  (
-    'repost',
-      array
-      (
-        'REPOST_SUBMIT_NAME' => $repost_submit_name
-      )
-    );
+  $template->assign('REPOST_SUBMIT_NAME', $repost_submit_name);
 }
 
 switch ($page['mode'])
 {
   case 'param' :
   {
-    $template->assign_block_vars(
+    $template->assign(
       $page['mode'],
       array(
-        'SEND_HTML_MAIL_YES' => ($conf['nbm_send_html_mail'] ? 'checked="checked"' : ''),
-        'SEND_HTML_MAIL_NO' => (!$conf['nbm_send_html_mail'] ? 'checked="checked"' : ''),
+        'SEND_HTML_MAIL' => $conf['nbm_send_html_mail'],
         'SEND_MAIL_AS' => $conf['nbm_send_mail_as'],
-        'SEND_DETAILED_CONTENT_YES' => ($conf['nbm_send_detailed_content'] ? 'checked="checked"' : ''),
-        'SEND_DETAILED_CONTENT_NO' => (!$conf['nbm_send_detailed_content'] ? 'checked="checked"' : ''),
+        'SEND_DETAILED_CONTENT' => $conf['nbm_send_detailed_content'],
         'COMPLEMENTARY_MAIL_CONTENT' => $conf['nbm_complementary_mail_content'],
-        'SEND_RECENT_POST_DATES_YES' => ($conf['nbm_send_recent_post_dates'] ? 'checked="checked"' : ''),
-        'SEND_RECENT_POST_DATES_NO' => (!$conf['nbm_send_recent_post_dates'] ? 'checked="checked"' : '')
+        'SEND_RECENT_POST_DATES' => $conf['nbm_send_recent_post_dates'],
         ));
     break;
   }
 
   case 'subscribe' :
   {
-    $template->assign_block_vars(
-      $page['mode'],
-      array(
-        ));
+    $template->assign( $page['mode'], true );
 
-    $template->assign_vars(
+    $template->assign(
       array(
         'L_CAT_OPTIONS_TRUE' => l10n('nbm_subscribe_col'),
         'L_CAT_OPTIONS_FALSE' => l10n('nbm_unsubscribe_col')
@@ -700,41 +687,35 @@ switch ($page['mode'])
         'category_option_true'          => $opt_true,
         'category_option_true_selected' => $opt_true_selected,
         'category_option_false'         => $opt_false,
-        'category_option_true_selected' => $opt_false_selected,
+        'category_option_false_selected' => $opt_false_selected,
         )
     );
+    $template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
     break;
   }
 
   case 'send' :
   {
-    $template->assign_block_vars($page['mode'], array());
+    $tpl_var = array('users'=> array() );
 
     $data_users = do_action_send_mail_notification('list_to_send');
 
-    if  (count($data_users) == 0)
-    {
-      $template->assign_block_vars($page['mode'].'.send_empty', array());
-    }
-    else
-    {
-      $template->assign_block_vars(
-        $page['mode'].'.send_data',
-        array(
-          'CUSTOMIZE_MAIL_CONTENT' => isset($_POST['send_customize_mail_content']) ? stripslashes($_POST['send_customize_mail_content']) : $conf['nbm_complementary_mail_content']
-          ));
+    $tpl_var['CUSTOMIZE_MAIL_CONTENT'] = 
+      isset($_POST['send_customize_mail_content']) 
+        ? stripslashes($_POST['send_customize_mail_content']) 
+        : $conf['nbm_complementary_mail_content'];
 
-      foreach ($data_users as $num => $nbm_user)
+    if  (count($data_users))
+    {
+      foreach ($data_users as $nbm_user)
       {
         if (
             (!$must_repost) or // Not timeout, normal treatment
             (($must_repost) and in_array($nbm_user['check_key'], $_POST['send_selection']))  // Must be repost, show only user to send
             )
         {
-          $template->assign_block_vars(
-            $page['mode'].'.send_data.user_send_mail',
+          $tpl_var['users'][] = 
             array(
-              'CLASS' => ($num % 2 == 1) ? 'nbm_user2' : 'nbm_user1',
               'ID' => $nbm_user['check_key'],
               'CHECKED' =>  ( // not check if not selected,  on init select<all
                               isset($_POST['send_selection']) and // not init
@@ -743,11 +724,11 @@ switch ($page['mode'])
               'USERNAME'=> $nbm_user['username'],
               'EMAIL' => get_email_address_as_display_text($nbm_user['mail_address']),
               'LAST_SEND'=> $nbm_user['last_send']
-              ));
+              );
         }
       }
     }
-
+    $template->assign($page['mode'], $tpl_var);
     break;
   }
 }
@@ -755,7 +736,6 @@ switch ($page['mode'])
 // +-----------------------------------------------------------------------+
 // | Sending html code                                                     |
 // +-----------------------------------------------------------------------+
-$template->assign_var_from_handle('DOUBLE_SELECT', 'double_select');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'notification_by_mail');
 
 ?>

@@ -27,7 +27,7 @@ $template->set_filenames(array('tail'=>'footer.tpl'));
 
 trigger_action('loc_begin_page_tail');
 
-$template->assign_vars(
+$template->assign(
   array(
     'VERSION' => $conf['show_version'] ? PHPWG_VERSION : '',
     'PHPWG_URL' => PHPWG_URL,

@@ -3,8 +3,8 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}" rel="home"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+      <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}" rel="home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
     <h2>{'Search'|@translate}</h2>
   </div>
@@ -106,16 +106,16 @@
   <ul>
     <li><label>{'search_subcats_included'|@translate}</label></li>
     <li><label>
-      <input type="radio" name="subcats-included" value="1" checked="checked" />{'yes'|@translate}
+      <input type="radio" name="subcats-included" value="1" checked="checked" />{'Yes'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="subcats-included" value="0" />{'no'|@translate}
+      <input type="radio" name="subcats-included" value="0" />{'No'|@translate}
     </label></li>
   </ul>
 </fieldset>
 <p>
-  <input class="submit" type="submit" name="submit" value="{'submit'|@translate}" />
-  <input class="submit" type="reset" value="{'reset'|@translate}" />
+  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" />
+  <input class="submit" type="reset" value="{'Reset'|@translate}" />
 </p>
 </form>
 

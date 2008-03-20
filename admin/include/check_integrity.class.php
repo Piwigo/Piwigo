@@ -259,14 +259,14 @@ class check_integrity
         {
           $submit_ignore = true;
         }
-        
+
         $template->append('c13y_list', $c13y_display);
       }
 
       $template->assign('c13y_show_submit_automatic_correction', $submit_automatic_correction);
       $template->assign('c13y_show_submit_ignore', $submit_ignore);
 
-      $template->concat_var('ADMIN_CONTENT', $template->parse('check_integrity', true));
+      $template->concat('ADMIN_CONTENT', $template->parse('check_integrity', true));
 
     }
   }

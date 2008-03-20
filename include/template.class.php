@@ -78,10 +78,9 @@ class Template {
 
     $this->smarty->compile_dir = $compile_dir;
 
-    $this->smarty->register_function( 'lang', array('Template', 'fn_l10n') );
-
     $this->smarty->assign_by_ref( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
+    $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
 
     if ( !empty($theme) )
     {
@@ -127,7 +126,6 @@ class Template {
       file_put_contents($this->smarty->compile_dir.'/index.htm', '');
   }
 
-  /** DEPRECATED */
   function get_themeconf($val)
   {
     $tc = $this->smarty->get_template_vars('themeconf');
@@ -181,18 +179,6 @@ class Template {
     !is_array( $varname ) || die('assign_var parameter name is array');
     $this->assign( $varname, $varval );
   }
-
-  /**
-   * Inserts the uncompiled code for $handle as the value of $varname in the
-   * root-level. This can be used to effectively include a template in the
-   * middle of another template.
-   * This is equivalent to assign($varname, $this->parse($handle, true))
-   */
-  function assign_var_from_handle($varname, $handle)
-    {
-      $this->assign($varname, $this->parse($handle, true));
-      return true;
-    }
 
   /**
    * DEPRECATED - backward compatibility only
@@ -252,6 +238,66 @@ class Template {
     $this->_old->merge_block_vars($blockname, $vararray);
     return true;
   }
+
+  /** see smarty assign http://www.smarty.net/manual/en/api.assign.php */
+  function assign($tpl_var, $value = null)
+  {
+    $this->smarty->assign( $tpl_var, $value );
+
+    if ( is_array($tpl_var) )
+      $this->_old->assign_vars( $tpl_var );
+    else
+      $this->_old->assign_var( $tpl_var, $value );
+  }
+  
+  /**
+   * Inserts the uncompiled code for $handle as the value of $varname in the
+   * root-level. This can be used to effectively include a template in the
+   * middle of another template.
+   * This is equivalent to assign($varname, $this->parse($handle, true))
+   */
+  function assign_var_from_handle($varname, $handle)
+  {
+    $this->assign($varname, $this->parse($handle, true));
+    return true;
+  }
+
+  /** see smarty append http://www.smarty.net/manual/en/api.append.php */
+  function append($tpl_var, $value=null, $merge=false)
+  {
+    $this->smarty->append( $tpl_var, $value, $merge );
+  }
+
+  /**
+   * Root-level variable concatenation. Appends a  string to an existing
+   * variable assignment with the same name.
+   */
+  function concat($tpl_var, $value)
+  {
+    $old_val = & $this->smarty->get_template_vars($tpl_var);
+    if ( isset($old_val) )
+    {
+      $old_val .= $value;
+      $this->_old->concat_var( $tpl_var, $value );
+    }
+    else
+    {
+      $this->assign($tpl_var, $value);
+    }
+  }
+
+  /** see smarty append http://www.smarty.net/manual/en/api.clear_assign.php */
+  function clear_assign($tpl_var)
+  {
+    $this->smarty->clear_assign( $tpl_var );
+  }
+
+  /** see smarty get_template_vars http://www.smarty.net/manual/en/api.get_template_vars.php */
+  function &get_template_vars($name=null)
+  {
+    return $this->smarty->get_template_vars( $name );
+  }
+
 
   /**
    * Load the file for the handle, eventually compile the file and run the compiled
@@ -330,64 +376,21 @@ class Template {
   }
 
   /**
-   * Root-level variable concatenation. Appends a  string to an existing
-   * variable assignment with the same name.
-   */
-  function concat_var($tpl_var, $value)
-  {
-    $old_val = & $this->smarty->get_template_vars($tpl_var);
-    if ( isset($old_val) )
-    {
-      $old_val .= $value;
-      $this->_old->concat_var( $tpl_var, $value );
-    }
-    else
-    {
-      $this->assign($tpl_var, $value);
-    }
-  }
-
-  /** see smarty assign http://www.smarty.net/manual/en/api.assign.php */
-  function assign($tpl_var, $value = null)
-  {
-    $this->smarty->assign( $tpl_var, $value );
-
-    if ( is_array($tpl_var) )
-      $this->_old->assign_vars( $tpl_var );
-    else
-      $this->_old->assign_var( $tpl_var, $value );
-  }
-
-  /** see smarty append http://www.smarty.net/manual/en/api.append.php */
-  function append($tpl_var, $value=null, $merge=false)
-  {
-    $this->smarty->append( $tpl_var, $value, $merge );
-  }
-
-  /** see smarty get_template_vars http://www.smarty.net/manual/en/api.get_template_vars.php */
-  function &get_template_vars($name=null)
-  {
-    return $this->smarty->get_template_vars( $name );
-  }
-
-  /** see smarty append http://www.smarty.net/manual/en/api.clear_assign.php */
-  function clear_assign($tpl_var)
-  {
-    $this->smarty->clear_assign( $tpl_var );
-  }
-
-  /*static*/ function fn_l10n($params, &$smarty)
-  {
-    return l10n($params['t']);
-  }
-
-  /**
-   * translate variable modifiers - translates a text to the currently loaded
+   * translate variable modifier - translates a text to the currently loaded
    * language
    */
   /*static*/ function mod_translate($text)
   {
     return l10n($text);
+  }
+
+  /**
+   * explode variable modifier - similar to php explode
+   * 'Yes;No'|@explode:';' -> array('Yes', 'No')    
+   */
+  /*static*/ function mod_explode($text, $delimiter=',')
+  {
+    return explode($delimiter, $text);
   }
 }
 

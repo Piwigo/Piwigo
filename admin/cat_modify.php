@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -208,19 +208,17 @@ $category['is_virtual'] = empty($category['dir']) ? true : false;
 
 
 // Navigation path
-$url = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=';
-
 $navigation = get_cat_display_name_cache(
   $category['uppercats'],
-  PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='
+  get_root_url().'admin.php?page=cat_modify&amp;cat_id='
   );
 
-$form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
+$form_action = get_root_url().'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
 
 //----------------------------------------------------- template initialization
 $template->set_filename( 'categories', 'admin/cat_modify.tpl');
 
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=';
+$base_url = get_root_url().'admin.php?page=';
 $cat_list_url = $base_url.'cat_list';
 
 $self_url = $cat_list_url;
@@ -236,8 +234,6 @@ $template->assign(
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
 
     'status_values'     => array('public','private'),
-    'false_true'        => array('false', 'true'),
-    'no_yes'            => array('no','yes'),
 
     'CAT_STATUS'        => $category['status'],
     'CAT_VISIBLE'       => $category['visible'],
@@ -256,7 +252,7 @@ $template->assign(
     'MAIL_CONTENT' => empty($_POST['mail_content'])
         ? '' : stripslashes($_POST['mail_content']),
     'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_modify',
+    'U_HELP' => get_root_url().'popuphelp.php?page=cat_modify',
 
     'F_ACTION' => $form_action,
     )
@@ -367,7 +363,7 @@ SELECT id,tn_ext,path
 ;';
     $row = mysql_fetch_array(pwg_query($query));
     $src = get_thumbnail_url($row);
-    $url = PHPWG_ROOT_PATH.'admin.php?page=picture_modify';
+    $url = get_root_url().'admin.php?page=picture_modify';
     $url.= '&amp;image_id='.$category['representative_picture_id'];
 
     $tpl_representant['picture'] =

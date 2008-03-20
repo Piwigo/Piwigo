@@ -1,4 +1,4 @@
-<?php 
+<?php
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
@@ -30,13 +30,13 @@ function language_switch()
   $same = $user['language'];
   if ( isset( $_GET['lang']) )
   {
-    if ( !empty($_GET['lang'] ) and 
+    if ( !empty($_GET['lang'] ) and
       file_exists( PHPWG_ROOT_PATH.'language/'
       . $_GET['lang'].'/common.lang.php') )
     {
       if (is_a_guest() or is_generic())
       {
-        setcookie( 'pwg_lang_switch', $_GET['lang'], 
+        setcookie( 'pwg_lang_switch', $_GET['lang'],
           time()+60*60*24*30, cookie_path() );
       }
       else
@@ -54,11 +54,11 @@ function language_switch()
 // Guest or generic members will use their cookied language !
   if ((is_a_guest() or is_generic())
     and isset( $_COOKIE['pwg_lang_switch'] ) )
-  { 
-    $user['language'] = $_COOKIE['pwg_lang_switch']; 
+  {
+    $user['language'] = $_COOKIE['pwg_lang_switch'];
   }
 // Reload language only if it isn't the same one
-  if ( $same !== $user['language']) 
+  if ( $same !== $user['language'])
   {
     load_language('common.lang', '', $user['language']);
     load_language('local.lang', '', $user['language']);
@@ -70,7 +70,7 @@ function language_switch()
 }
 //if ( isset( $_GET['lang']) ) { redirect( make_index_url() ); }
 
-function Lang_flags() 
+function Lang_flags()
 {
   global $user, $template;
   $available_lang = get_languages();
@@ -79,15 +79,15 @@ function Lang_flags()
     $qlc_url = add_url_params( make_index_url(), array( 'lang' => $code ) );
     $qlc_alt = ucwords( $displayname );
     $qlc_title =  $qlc_alt;
-    $qlc_img =  PHPWG_PLUGINS_PATH.'language_switch/icons/'
+    $qlc_img =  'plugins/language_switch/icons/'
        . $code . '.gif';
-  
-    if ( $code !== $user['language'] and file_exists($qlc_img) )
+
+    if ( $code !== $user['language'] and file_exists(PHPWG_ROOT_PATH.$qlc_img) )
     {
-      $template -> concat_var( 'PLUGIN_INDEX_ACTIONS',
-        '<li><a href="' . $qlc_url . '" ><img src="' . $qlc_img . '" alt="'
+      $template->concat( 'PLUGIN_INDEX_ACTIONS',
+        '<li><a href="' . $qlc_url . '" ><img src="' . get_root_url().$qlc_img . '" alt="'
         . $qlc_alt . '" title="'
-        . $qlc_title . '" style="border: 1px solid #000000; ' 
+        . $qlc_title . '" style="border: 1px solid #000000; '
         . ' margin: 0px 2px;" /></a></li>');
     }
   }
