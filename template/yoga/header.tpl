@@ -9,7 +9,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}template-common/favicon.ico">
 
 <link rel="start" title="{'home'|@translate}" href="{$U_HOME}" >
-<link rel="search" title="{'search'|@translate}" href="{$ROOT_URL}search.php" >
+<link rel="search" title="{'Search'|@translate}" href="{$ROOT_URL}search.php" >
 {if isset($first.U_IMG)   }<link rel="first" title="{'first_page'|@translate}" href="{$first.U_IMG}" >{/if}
 {if isset($previous.U_IMG)}<link rel="prev" title="{'previous_page'|@translate}" href="{$previous.U_IMG}" >{/if}
 {if isset($next.U_IMG)    }<link rel="next" title="{'next_page'|@translate}" href="{$next.U_IMG}" >{/if}
