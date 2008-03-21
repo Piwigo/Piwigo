@@ -4,8 +4,7 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | branch        : BSF (Best So Far)
-// | file          : $RCSfile$
+// | file          : $Id$
 // | last update   : $Date$
 // | last modifier : $Author$
 // | revision      : $Revision$
@@ -173,10 +172,9 @@ $tabsheet->assign();
 $action = get_root_url().'admin.php?page=configuration';
 $action.= '&amp;section='.$page['section'];
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_HELP' => get_root_url().'popuphelp.php?page=configuration',
-
     'F_ACTION'=>$action
     ));
 

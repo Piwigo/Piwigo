@@ -75,21 +75,19 @@ $template->append('head_elements',
     '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'
   );
 
-include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('notification'=>'notification.tpl'));
 
-$template->assign_vars(
+$template->assign(
   array(
     'U_FEED' => $feed_url,
     'U_FEED_IMAGE_ONLY' => $feed_image_only_url,
-    'U_HOME' => make_index_url(),
     )
   );
 
 // +-----------------------------------------------------------------------+
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
-
+include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->parse('notification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 

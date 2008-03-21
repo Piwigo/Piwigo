@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div class="titrePage">
   <ul class="categoryActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{'Permalinks'|@translate}</h2>
 </div>
@@ -24,7 +24,7 @@
   </label>
 
   <p>
-    <input type="submit" class="submit" name="set_permalink" value="{'submit'|@translate}" {$TAG_INPUT_ENABLED}/>
+    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/>
   </p>
   </fieldset>
 </form>
@@ -36,8 +36,8 @@
     <td>{'Category'|@translate} {$SORT_NAME}</td>
     <td>{'Permalink'|@translate} {$SORT_PERMALINK}</td>
   </tr>
-{foreach from=$permalinks item=permalink}
-  <tr>
+{foreach from=$permalinks item=permalink name="permalink_loop"}
+  <tr class="{if $smarty.foreach.permalink_loop.index is odd}row1{else}row2{/if}">
     <td>{$permalink.id}</td>
     <td>{$permalink.name}</td>
     <td>{$permalink.permalink}</td>
@@ -64,7 +64,7 @@
     <td>{$permalink.date_deleted}</td>
     <td>{$permalink.last_hit}</td>
     <td>{$permalink.hit}</td>
-    <td><a href="{$permalink.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" alt="Delete"></a></td>
+    <td><a href="{$permalink.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" alt="[{'delete'|@translate}]" class="button"></a></td>
   </tr>
 {/foreach}
 </table>

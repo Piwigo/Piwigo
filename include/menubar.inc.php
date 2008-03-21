@@ -270,7 +270,7 @@ $template->append(
   'summaries',
   array(
     'TITLE'=>l10n('hint_search'),
-    'NAME'=>l10n('search'),
+    'NAME'=>l10n('Search'),
     'U_SUMMARY'=> get_root_url().'search.php',
     'REL'=> 'rel="search"'
     )

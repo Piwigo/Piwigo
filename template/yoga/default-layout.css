@@ -9,7 +9,7 @@ BODY {
 }
 
 #the_page {
-    /* Just in case another template needs an inner frame */
+	/* Just in case another template needs an inner frame */
 }
 
 H1 {
@@ -21,29 +21,24 @@ H1 {
 }
 
 H2 {
-    margin: 0;
-    padding: 5px 0.5em 5px 0.5em;
-    text-align: left;
-    font-size: 120%;
+	margin: 0;
+	padding: 5px 0.5em 5px 0.5em;
+	text-align: left;
+	font-size: 120%;
 }
-H5 {
-    margin: 0;
-    padding: 0 1.5em 0 30%;
-    text-align: right;
-    font-size: 90%;
-}
+
 A {
-    text-decoration:none;
-    border-bottom: 1px dotted #005e89;
+	text-decoration:none;
+	border-bottom: 1px dotted #005e89;
 }
 A:hover {
-    border-bottom: 1px solid #858460;
+	border-bottom: 1px solid #858460;
 }
 A.button, A.button:hover { 
-  border: 0; 
+	border: 0; 
 }
 IMG {
-    border: none;
+	border: none;
 }
 
 HR.separation {
@@ -210,19 +205,6 @@ FORM.properties SPAN.property {
   margin-bottom: 0.5em;
 }
 
-#theHeader P {
-  margin-top: 0;
-  padding: 0;
-}
-
-FORM#addComment FIELDSET LABEL {
-  clear: both;
-}
-
-FORM#addComment FIELDSET INPUT[type="hidden"] {
-  display: none;
-}
-
 /* button tools */
 UL.actions {
   text-indent: 0;
@@ -269,10 +251,6 @@ UL.tagSelection LI {
 
 /* Popup help page */
 BODY#thePopuphelpPage #copyright {
-  display: none;
-}
-
-BODY#thePopuphelpPage #theHeader P {
   display: none;
 }
 

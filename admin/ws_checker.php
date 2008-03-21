@@ -209,9 +209,9 @@ if (isset($_POST['wsX_submit']))
 
 
 
-$template->assign_vars(
+$template->assign(
   array(
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=web_service',    
+    'U_HELP' => get_root_url().'popuphelp.php?page=web_service',    
     )
   );
 

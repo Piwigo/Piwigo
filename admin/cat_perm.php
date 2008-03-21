@@ -198,15 +198,15 @@ SELECT user_id, cat_id
 
 $template->set_filename('cat_perm', 'admin/cat_perm.tpl');
 
-$template->assign_vars(
+$template->assign(
   array(
     'CATEGORIES_NAV' =>
       get_cat_display_name_from_id(
         $page['cat'],
         'admin.php?page=cat_modify&amp;cat_id='
         ),
-    'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=cat_perm',
-    'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=cat_perm&amp;cat='.$page['cat']
+    'U_HELP' => get_root_url().'popuphelp.php?page=cat_perm',
+    'F_ACTION' => get_root_url().'admin.php?page=cat_perm&amp;cat='.$page['cat']
     )
   );
 

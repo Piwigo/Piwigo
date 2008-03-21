@@ -3,11 +3,11 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
+      <li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
       {if isset($U_REGISTER) }
-      <li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$themeconf.icon_dir}/register.png" class="button" alt="{'register'|@translate}"/></a></li>
+      <li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"/></a></li>
       {/if}
-      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
     </ul>
     <h2>{'Identification'|@translate}</h2>
   </div>
@@ -54,7 +54,7 @@
     </ul>
   </fieldset>
 
-  <p><input class="submit" tabindex="4" type="submit" name="login" value="{'submit'|@translate}"></p>
+  <p><input class="submit" tabindex="4" type="submit" name="login" value="{'Submit'|@translate}"></p>
 </form>
 
 <script type="text/javascript"><!--
@@ -63,9 +63,9 @@ document.login_form.username.focus();
 
   <p>
     {if isset($U_REGISTER) }
-    <a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$themeconf.icon_dir}/register.png" class="button" alt=""> {'Register'|@translate}</a>
+    <a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"> {'Register'|@translate}</a>
     {/if}
-    <a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$themeconf.icon_dir}/lost_password.png" class="button" alt=""> {'Forgot your password?'|@translate}</a>
+    <a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"> {'Forgot your password?'|@translate}</a>
   </p>
 
 </div> <!-- content -->
