@@ -32,7 +32,7 @@ function get_icon($date, $is_child_date = false)
   {
     return '';
   }
- 
+
   if (isset($page['get_icon_cache'][$date]))
   {
     if (! $page['get_icon_cache'][$date] )
@@ -711,19 +711,6 @@ function set_status_header($code, $text='')
 		header( "$protocol $code $text" );
 	}
   trigger_action('set_status_header', $code, $text);
-}
-
-/**
- * set a class to display a counter
- * .zero .one .plural
- */
-function set_span_class($count)
-{
-  if ($count > 1)
-  {
-    return 'plural';
-  }
-  return ( $count == 0 ) ? 'zero':'one';
 }
 
 /** returns the category comment for rendering in html.

@@ -189,7 +189,7 @@ include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions.php');
 include(PHPWG_ROOT_PATH . 'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH . 'include/template.php');
+include(PHPWG_ROOT_PATH . 'include/template.class.php');
 
 if (isset($_GET['language']))
 {

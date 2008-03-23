@@ -134,10 +134,10 @@ class tabsheet
     $template->assign('tabsheet_selected', $this->selected);
 
     $selected_tab = $this->get_selected();
-    
+
     if (isset($selected_tab))
     {
-      $template->assign_vars(
+      $template->assign(
         array($this->titlename => '['.$selected_tab['caption'].']'));
     }
 

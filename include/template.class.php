@@ -25,7 +25,7 @@
 // +-----------------------------------------------------------------------+
 
 
-require 'smarty/libs/Smarty.class.php';
+require_once 'smarty/libs/Smarty.class.php';
 
 // migrate lang:XXX
 //    sed "s/{lang:\([^}]\+\)}/{\'\1\'|@translate}/g" my_template.tpl
@@ -40,8 +40,6 @@ require 'smarty/libs/Smarty.class.php';
 class Template {
 
   var $smarty;
-
-  var $_old;
 
   var $output = '';
 
@@ -88,8 +86,6 @@ class Template {
       $this->smarty->assign('themeconf', $themeconf);
     }
 
-    $this->_old = & new TemplateOld($root, $theme);
-
     $this->set_template_dir($root);
   }
 
@@ -98,7 +94,6 @@ class Template {
    */
   function set_template_dir($dir)
   {
-    $this->_old->set_rootdir($dir);
     $this->smarty->template_dir = $dir;
 
     $real_dir = realpath($dir);
@@ -162,94 +157,12 @@ class Template {
     return true;
   }
 
-  /**
-   * DEPRECATED - backward compatibility only; use assign
-   */
-  function assign_vars($vararray)
-  {
-    is_array( $vararray ) || die('assign_vars parameter not array');
-    $this->assign( $vararray );
-  }
-
-  /**
-   * DEPRECATED - backward compatibility only; use assign
-   */
-  function assign_var($varname, $varval)
-  {
-    !is_array( $varname ) || die('assign_var parameter name is array');
-    $this->assign( $varname, $varval );
-  }
-
-  /**
-   * DEPRECATED - backward compatibility only
-   */
-  function assign_block_vars($blockname, $vararray)
-  {
-    if (strstr($blockname, '.')!==false)
-    {
-      $blocks = explode('.', $blockname);
-      $blockcount = sizeof($blocks) - 1;
-      $root_var = & $this->smarty->get_template_vars();
-
-      $str = '$root_var';
-      for ($i = 0; $i < $blockcount; $i++)
-      {
-        $str .= '[\'' . $blocks[$i] . '\']';
-        eval('$lastiteration = isset('.$str.') ? sizeof('.$str.')-1:0;');
-        $str .= '[' . $lastiteration . ']';
-      }
-      $str .= '[\'' . $blocks[$blockcount] . '\'][] = $vararray;';
-      eval($str);
-    }
-    else
-      $this->smarty->append( $blockname, $vararray );
-
-    $this->_old->assign_block_vars($blockname, $vararray);
-  }
-
-  /**
-   * DEPRECATED - backward compatibility only
-   */
-  function merge_block_vars($blockname, $vararray)
-  {
-    if (strstr($blockname, '.')!==false)
-    {
-      $blocks = explode('.', $blockname);
-      $blockcount = count($blocks);
-      $root_var = & $this->smarty->get_template_vars();
-
-      $str = '$root_var';
-      for ($i = 0; $i < $blockcount; $i++)
-      {
-        $str .= '[\'' . $blocks[$i] . '\']';
-        eval('$lastiteration = isset('.$str.') ? sizeof('.$str.')-1:-1;');
-        if ($lastiteration==-1)
-        {
-          return false;
-        }
-        $str .= '[' . $lastiteration . ']';
-      }
-      $str = $str.'=array_merge('.$str.', $vararray);';
-      eval($str);
-    }
-    else
-      $this->smarty->append( $blockname, $vararray, true );
-
-    $this->_old->merge_block_vars($blockname, $vararray);
-    return true;
-  }
-
   /** see smarty assign http://www.smarty.net/manual/en/api.assign.php */
   function assign($tpl_var, $value = null)
   {
     $this->smarty->assign( $tpl_var, $value );
-
-    if ( is_array($tpl_var) )
-      $this->_old->assign_vars( $tpl_var );
-    else
-      $this->_old->assign_var( $tpl_var, $value );
   }
-  
+
   /**
    * Inserts the uncompiled code for $handle as the value of $varname in the
    * root-level. This can be used to effectively include a template in the
@@ -278,7 +191,6 @@ class Template {
     if ( isset($old_val) )
     {
       $old_val .= $value;
-      $this->_old->concat_var( $tpl_var, $value );
     }
     else
     {
@@ -311,28 +223,10 @@ class Template {
       die("Template->parse(): Couldn't load template file for handle $handle");
     }
 
-    $is_new = true;
-    $params = array('resource_name' => $this->files[$handle], 'quiet'=>true, 'get_source'=>true);
-    if ( $this->smarty->_fetch_resource_info($params) )
-    {
-      if (!preg_match('~{(/(if|section|foreach))|ldelim|\$[a-zA-Z_]+}~', @$params['source_content']) )
-        $is_new = false;
-    }
-
-    if ($is_new)
-    {
-      $this->smarty->assign( 'ROOT_URL', get_root_url() );
-      $this->smarty->assign( 'TAG_INPUT_ENABLED',
-        ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
-      $v = $this->smarty->fetch($this->files[$handle], null, null, false);
-    }
-    else
-    {
-      $this->_old->assign_vars(array('TAG_INPUT_ENABLED' =>
-        ((is_adviser()) ? 'disabled onclick="return false;"' : '')));
-      $this->_old->set_filename( $handle, $this->files[$handle] );
-      $v = $this->_old->parse($handle, true);
-    }
+    $this->smarty->assign( 'ROOT_URL', get_root_url() );
+    $this->smarty->assign( 'TAG_INPUT_ENABLED',
+      ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
+    $v = $this->smarty->fetch($this->files[$handle], null, null, false);
     if ($return)
     {
       return $v;
@@ -386,7 +280,7 @@ class Template {
 
   /**
    * explode variable modifier - similar to php explode
-   * 'Yes;No'|@explode:';' -> array('Yes', 'No')    
+   * 'Yes;No'|@explode:';' -> array('Yes', 'No')
    */
   /*static*/ function mod_explode($text, $delimiter=',')
   {

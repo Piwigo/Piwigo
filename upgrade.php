@@ -29,7 +29,7 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH.'include/template.php');
+include(PHPWG_ROOT_PATH.'include/template.class.php');
 
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
@@ -71,7 +71,7 @@ flush();
 function get_tables()
 {
   $tables = array();
-  
+
   $query = '
 SHOW TABLES
 ;';
@@ -120,7 +120,7 @@ DESC '.$table.'
 function print_time($message)
 {
   global $last_time;
-  
+
   $new_time = get_moment();
   echo '<pre>['.get_elapsed_time($last_time, $new_time).']';
   echo ' '.$message;
@@ -194,7 +194,7 @@ if (!isset($_GET['version']))
   {
     die('No upgrade required, the database structure is up to date');
   }
-  
+
   $template->assign(
     'introduction',
     array(
@@ -289,9 +289,9 @@ define(\'PHPWG_IN_UPGRADE\', true);
       'Perform a maintenance check in [Administration>General>Maintenance]
 if you encounter any problem.'
       );
-    
+
     $template->assign('infos', $page['infos']);
-    
+
     $query = '
 UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\'

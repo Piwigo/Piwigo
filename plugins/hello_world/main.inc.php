@@ -26,7 +26,7 @@ function hello_world_begin_header()
 function hello_world_end_header()
 {
   global $template, $page;
-  $template->assign_var( 'PAGE_BANNER',
+  $template->assign( 'PAGE_BANNER',
     '<h1>"'.$page['page_banner'].'" from PhpWebGallery plugin!</h1>');
 }
 
