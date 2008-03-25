@@ -26,6 +26,7 @@
 
 define('PHPWG_ROOT_PATH', '../../');
 include_once(PHPWG_ROOT_PATH . 'include/common.inc.php');
+include_once(LOCALEDIT_PATH.'functions.inc.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 if (isset($_GET['file']))
@@ -37,19 +38,33 @@ if (isset($_GET['file']))
   }
     
   $template->set_filename('show_default', dirname(__FILE__) . '/show_default.tpl');
-    
-  $file = file_get_contents(PHPWG_ROOT_PATH . $path);
-    
-  $template->assign(array('DEFAULT_CONTENT' => nl2br($file)));
   
+  // Editarea
+  if (!isset($conf['editarea_options']) or $conf['editarea_options'] !== false)
+  {
+    $editarea = array(
+      'syntax' => 'php',
+      'start_highlight' => true,
+      'is_editable' => false,
+      'language' => substr($user['language'], 0, 2));
+
+    $template->assign('editarea', array(
+      'URL' => LOCALEDIT_PATH . 'editarea/edit_area_full.js',
+      'OPTIONS' => $editarea));
+  }
+
+  $file = file_get_contents(PHPWG_ROOT_PATH . $path);
+
+  $template->assign(array('DEFAULT_CONTENT' => $file));
+
   $title = $path;
   $page['page_banner'] = '<h1>'.str_replace('/', ' / ', $path).'</h1>';
   $page['body_id'] = 'thePopuphelpPage';
 
   include(PHPWG_ROOT_PATH.'include/page_header.php');
-  
+
   $template->pparse('show_default');
-  
+
   include(PHPWG_ROOT_PATH.'include/page_tail.php');
 }
 

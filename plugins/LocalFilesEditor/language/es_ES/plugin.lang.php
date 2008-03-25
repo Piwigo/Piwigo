@@ -39,7 +39,8 @@ $lang['locfiledit_save_file'] = 'Registrar el fichero';
 $lang['locfiledit_choose_file'] = 'Escoja un fichero que hay que editar';
 $lang['locfiledit_edit'] = 'Editar';
 $lang['locfiledit_restore'] = 'Cargar el fichero de salvaguardia';
-$lang['locfiledit_restore_confirm'] = '¿ Desea cargar el fichero de salvaguardia?\nUsted deberá luego hacer clic Registrar para restaurarlo.';
+$lang['locfiledit_restore_confirm'] = '¿ Desea cargar el fichero de salvaguardia?
+Usted deberá luego hacer clic Registrar para restaurarlo.';
 $lang['locfiledit_bak_loaded1'] = 'Fichero cargado de salvaguardia';
 $lang['locfiledit_bak_loaded2'] = 'Usted debe registrarlo para salvaguardarlo.';
 $lang['locfiledit_syntax_error'] = '¡ Error de sintaxis! Imposible registrar el fichero.';

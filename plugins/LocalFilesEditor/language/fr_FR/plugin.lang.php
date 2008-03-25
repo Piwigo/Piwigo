@@ -39,7 +39,8 @@ $lang['locfiledit_save_file'] = 'Enregistrer le fichier';
 $lang['locfiledit_choose_file'] = 'Choisissez un fichier à éditer';
 $lang['locfiledit_edit'] = 'Editer';
 $lang['locfiledit_restore'] = 'Charger le fichier de sauvegarde';
-$lang['locfiledit_restore_confirm'] = 'Souaitez-vous charger le fichier de sauvegarde?\nVous devrez ensuite cliquer sur Enregistrer pour le restaurer.';
+$lang['locfiledit_restore_confirm'] = 'Souaitez-vous charger le fichier de sauvegarde?
+Vous devrez ensuite cliquer sur Enregistrer pour le restaurer.';
 $lang['locfiledit_bak_loaded1'] = 'Fichier de sauvegarde chargé';
 $lang['locfiledit_bak_loaded2'] = 'Vous devez l\'enregistrer pour le sauvegarder.';
 $lang['locfiledit_syntax_error'] = 'Erreur de syntaxe! Impossible d\'enregistrer le fichier.';

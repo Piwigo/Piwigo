@@ -24,25 +24,50 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['locfiledit_onglet_localconf'] = 'Local config';
-$lang['locfiledit_onglet_css'] = 'CSS';
-$lang['locfiledit_onglet_tpl'] = 'Templates';
-$lang['locfiledit_onglet_lang'] = 'Languages';
-$lang['locfiledit_onglet_plug'] = 'Personal Plugin';
-$lang['locfiledit_cant_save'] = 'Current file isn\'t writeable. Check if a directory "include/" is writeable (chmod).';
-$lang['locfiledit_newfile'] = "/* File is not existing and will be created by LocalFiles Editor. */";
-$lang['locfiledit_save_config'] = 'File written successfully.';
-$lang['locfiledit_show_default'] = 'Display reference file: ';
-$lang['locfiledit_save_bak'] = 'Backup copy will be created on save.';
-$lang['locfiledit_saved_bak'] = 'Backup file created (%s)';
-$lang['locfiledit_save_file'] = 'Save file';
-$lang['locfiledit_choose_file'] = 'Choose the file to be edited';
-$lang['locfiledit_edit'] = 'Edit';
-$lang['locfiledit_restore'] = 'Restore the backup file';
-$lang['locfiledit_restore_confirm'] = 'Please confirm?
-Restore won\'t be effective till next save.';
-$lang['locfiledit_bak_loaded1'] = 'Backup file loaded.';
-$lang['locfiledit_bak_loaded2'] = 'You must save file to restore it.';
-$lang['locfiledit_syntax_error'] = 'Syntax error! File can\'t be saved.';
+/**
+ * returns $code if php syntax is correct
+ * else return false
+ *
+ * @param string php code
+ */
+function eval_syntax($code)
+{
+    $code = str_replace(array('<?php', '?>'), '', $code);
+    $b = 0;
+    foreach (token_get_all($code) as $token)
+	{
+        if ('{' == $token) ++$b;
+        else if ('}' == $token) --$b;
+    }
+    if ($b) return false;
+    else
+	{
+        ob_start();
+        $eval = eval('if(0){' . $code . '}');
+        ob_end_clean();
+        if ($eval === false) return false;
+        else return '<?php' . $code . '?>';
+    }
+}
+
+/**
+ * returns true or false if $str is bool
+  * returns $str if $str is integer
+ * else "$str"
+ *
+ * @param string
+ */
+function editarea_quote($value)
+{
+  switch (gettype($value))
+  {
+    case "boolean":
+      return $value ? 'true' : 'false';
+    case "integer":
+      return $value;
+    default:
+      return '"'.$value.'"';
+  }
+}
 
 ?>

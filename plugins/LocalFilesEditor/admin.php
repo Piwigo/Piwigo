@@ -26,35 +26,9 @@
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
+include_once(LOCALEDIT_PATH.'functions.inc.php');
 load_language('plugin.lang', LOCALEDIT_PATH);
 $my_base_url = get_admin_plugin_menu_link(__FILE__);
-
-/**
- * returns $code if php syntax is correct
- * else return false
- *
- * @param string php code
- */
-function eval_syntax($code)
-{
-    $code = str_replace(array('<?php', '?>'), '', $code);
-    $b = 0;
-    foreach (token_get_all($code) as $token)
-	{
-        if ('{' == $token) ++$b;
-        else if ('}' == $token) --$b;
-    }
-    if ($b) return false;
-    else
-	{
-        ob_start();
-        $eval = eval('if(0){' . $code . '}');
-        ob_end_clean();
-        if ($eval === false) return false;
-        else return '<?php' . $code . '?>';
-    }
-}
-
 
 // +-----------------------------------------------------------------------+
 // |                            Tabssheet
@@ -101,6 +75,16 @@ Author:
 Author URI:
 */\n\n\n\n\n?>";
 
+// Editarea options
+$editarea = array(
+  'start_highlight' => true,
+  'language' => substr($user['language'], 0, 2),
+  'toolbar' => 'search,fullscreen, |,select_font, |, undo, redo, change_smooth_selection, highlight, reset_highlight, |, help');
+if (isset($conf['editarea_options']) and is_array($conf['editarea_options']))
+{
+  $editarea = array_merge($editarea, $conf['editarea_options']);
+}
+
 // Edit selected file for CSS, template and language
 if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
 {
@@ -127,8 +111,8 @@ switch ($page['tab'])
         array('SHOW_DEFAULT' => LOCALEDIT_PATH
                 . 'show_default.php?file=include/config_default.inc.php',
               'FILE' => 'config_default.inc.php')));
+    $editarea['syntax'] = 'php';
     break;
-
 
   case 'css':
     $template_dir = PHPWG_ROOT_PATH . 'template';
@@ -154,8 +138,8 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
+    $editarea['syntax'] = 'css';
     break;
-
   
   case 'tpl':
     $template_dir = PHPWG_ROOT_PATH . 'template';
@@ -181,8 +165,8 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
+    $editarea['syntax'] = 'html';
     break;
-
 
   case 'lang':
     $options[] = '----------------------';
@@ -207,12 +191,14 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
+    $editarea['syntax'] = 'php';
     break;
     
   case 'plug':
     $edited_file = PHPWG_PLUGINS_PATH . "PersonalPlugin/main.inc.php";
     $content_file = file_exists($edited_file) ?
       file_get_contents($edited_file) : $new_file['plug'];
+    $editarea['syntax'] = 'php';
     break;
 }
 
@@ -306,6 +292,14 @@ if (!empty($edited_file))
   {
     $template->assign('restore', true);
   }
+}
+
+// Editarea
+if (!isset($conf['editarea_options']) or $conf['editarea_options'] !== false)
+{
+  $template->assign('editarea', array(
+    'URL' => LOCALEDIT_PATH . 'editarea/edit_area_full.js',
+    'OPTIONS' => $editarea));
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
