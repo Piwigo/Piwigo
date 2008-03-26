@@ -3,112 +3,90 @@
 /* text color */
 BODY, H1, H3, DT,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
-  color:#e0e0e0;
+	color:#d0d0d0;
 }
 
 H2, #menubar DT, .throw {
-  color: #fff48e;
+	color: #fff48e;
 }
 
 
 /* backgrounds */
-BODY {
-  background-color: #000000;
+
+BODY, H3, #imageHeaderBar, #imageToolBar A:hover, .row1, UL.tabsheet LI.normal_tab {
+	background-color: #2f2f2f;
 }
 
-H3, #the_page, #imageHeaderBar, #imageToolBar A:hover, .row1  {
-  background-color: #3f3f3f;
+#menubar DL, #content, #imageToolBar, .header_notes, .content, UL.tabsheet LI.selected_tab {
+	background-color: #505050;
 }
 
-#menubar DL, #content, #imageToolBar, .header_notes, .content {
-  background-color: #5f5f5f;
-}
-
-H2, #menubar DT, .throw  {
-  background-image: url(images/tableh1_bg.png);
+H2, #menubar DT, .throw {
+	background-image: url(images/tableh1_bg.png);
 }
 
 #imageHeaderBar H2 {
-  background-image: none;
-  background-color: transparent;
-  border: none;
+	background-image: none;
+	background-color: transparent;
+	border: none;
 }
 
 #imageHeaderBar {
-  background-image: url(images/tableh2_bg.png);
-  background-repeat: repeat-x;
-  background-position: center;
+	background-image: url(images/tableh2_bg.png);
+	background-repeat: repeat-x;
+	background-position: center;
 }
-
-UL.tabsheet LI.normal_tab { background-color: #3f3f3f; }
-UL.tabsheet LI.selected_tab { background-color: #5f5f5f; }
 
 /* borders */
 #menubar DL, #content, .content,
 #comments DIV.comment BLOCKQUOTE {
-  border: 1px solid #000000;
+	border: 1px solid #000000;
 }
 
 #imageHeaderBar {
-  border-top: 1px solid #000000;
+	border-top: 1px solid #000000;
 }
 H2, #menubar DT, #imageToolBar {
-  border-bottom: 1px solid #000000;
+	border-bottom: 1px solid #000000;
 }
 
 #theImage IMG {
-  border-color: #000000;
-}
-
-#content UL.thumbnail IMG {
-  border: 1px solid #a0a0a0;
+	border-color: #000000;
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
 #content DIV.comment  A.illustration IMG,
 #content DIV.thumbnailCategory {
-  border: 1px solid gray;
+	border: 1px solid gray;
 }
 
 #comments DIV.comment BLOCKQUOTE {
-  border-left: 2px solid #696969;
+	border-left: 2px solid #696969;
 }
 
 #content UL.thumbnails SPAN.wrap2 {
-  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
-  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 
 #content UL.thumbnails SPAN.wrap2:hover,
 #content UL.thumbnailCategories DIV.thumbnailCategory:hover,
 #content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
-  background-color: #faebd7;
-  border-color: yellow;		/* thumbnails border color when mouse cursor is over it */
-  color: black;
+	background-color: #faebd7;
+	border-color: yellow;	/* thumbnails border color when mouse cursor is over it */
+	color: black;
 }
 
 UL.tabsheet LI.normal_tab:hover { border-color: #fff48e; }
 
 /* links */
 A, INPUT.rateButton {
-  color: #FFFFFF;
+	color: #FFFFFF;
+	border: none;
 }
 
 A:hover {
-  color: #FFF48E;
+	color: #FFF48E;
 }
 
-#imageToolBar A, #imageToolBar A:hover,
-A.navThumb, A.navThumb:hover {
-  border-bottom: none;
-}
-
-#the_page {
-  border: 1px solid #e0e0e0;
-  padding-top: 5px;
-  padding-bottom:30px;
-  text-align:center;
-  display:block;
-}
-
-.virtual_cat { background: #3f3f3f !important; }
+.virtual_cat { background: #3f3f3f; }

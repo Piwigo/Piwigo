@@ -449,55 +449,17 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       continue;
     }
 
-    // 2 cases : the element is a picture or not. Indeed, for a picture
-    // thumbnail is mandatory and for non picture element, thumbnail and
-    // representative are optionnal
-    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] ) )
-    {
-      // if we found a thumnbnail corresponding to our picture...
-      if (isset($fs[$path]['tn_ext']))
-      {
-        $insert = array(
-          'id'             => $next_element_id++,
-          'file'           => $filename,
-          'date_available' => CURRENT_DATE,
-          'tn_ext'         => $fs[$path]['tn_ext'],
-          'path'           => $path,
-          'storage_category_id' => $db_fulldirs[$dirname],
-          );
-
-        array_push(
-          $inserts,
-          $insert
-          );
-
-        array_push(
-          $insert_links,
-          array(
-            'image_id'    => $insert{'id'},
-            'category_id' => $insert['storage_category_id'],
-            )
-          );
-        array_push(
-          $infos,
-          array(
-            'path' => $insert{'path'},
-            'info' => l10n('update_research_added')
-            )
-          );
-
-        $caddiables[] = $insert['id'];
-      }
-      else
-      {
-        array_push(
-          $errors,
-          array(
-            'path' => $path,
-            'type' => 'PWG-UPDATE-2'
-            )
-          );
-      }
+    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] ) 
+          and !isset($fs[$path]['tn_ext']) )
+    { // For a picture thumbnail is mandatory and for non picture element, 
+      // thumbnail and representative are optionnal
+      array_push(
+        $errors,
+        array(
+          'path' => $path,
+          'type' => 'PWG-UPDATE-2'
+          )
+        );
     }
     else
     {
@@ -511,6 +473,11 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           : null,
         'storage_category_id' => $db_fulldirs[$dirname],
         );
+        
+      if ( $_POST['privacy_level']!=0 )
+      {
+        $insert['level'] = $_POST['privacy_level'];
+      }
 
       array_push(
         $inserts,
@@ -932,6 +899,7 @@ if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
         'display_info' => isset($_POST['display_info']) and $_POST['display_info']==1,
         'add_to_caddie' => isset($_POST['add_to_caddie']) and $_POST['add_to_caddie']==1,
         'subcats_included' => isset($_POST['subcats-included']) and $_POST['subcats-included']==1,
+        'privacy_level_selected' => (int)@$_POST['privacy_level'],
       );
 
     if (isset($_POST['cat']) and is_numeric($_POST['cat']))
@@ -950,9 +918,16 @@ if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
         'display_info' => false,
         'add_to_caddie' => false,
         'subcats_included' => true,
+        'privacy_level_selected' => 0,
       );
 
     $cat_selected = array();
+  }
+
+  $tpl_introduction['privacy_level_options']=array();
+  foreach ($conf['available_permission_levels'] as $level)
+  {
+    $tpl_introduction['privacy_level_options'][$level] = l10n( sprintf('Level %d', $level) );
   }
 
   $template->assign('introduction', $tpl_introduction);

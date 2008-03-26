@@ -3,7 +3,7 @@
 /* others */
 
 #imageToolBar * {
-    background: inherit;
+	background: inherit;
 }
 
 /* So that non-links are slightly greyed out */
@@ -69,14 +69,8 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
   background-image: url(icon/admin/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
-  font-weight: bold;
   margin: 5px;
   padding: 10px 50px 10px 10px;
-}
-
-.infos UL LI
-{
-  font-weight: normal;
 }
 
 /**
