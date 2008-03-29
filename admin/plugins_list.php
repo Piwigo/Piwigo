@@ -33,7 +33,7 @@ include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 $template->set_filenames(array('plugins' => 'admin/plugins_list.tpl'));
 
 $order = isset($_GET['order']) ? $_GET['order'] : 'name';
-$base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
+$base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;order='.$order;
 
 $plugins = new plugins();
 
@@ -93,10 +93,11 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
           'VERSION' => $fs_plugin['version'],
           'DESCRIPTION' => $desc);
 
-  $action_url = htmlentities($base_url).'&amp;plugin='.$plugin_id;
+  $action_url = $base_url.'&amp;plugin='.$plugin_id;
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
-  { 
+  {
+    $tpl_plugin['STATE'] = $plugins->db_plugins_by_id[$plugin_id]['state'];
     switch ($plugins->db_plugins_by_id[$plugin_id]['state'])
     {
       case 'active':
@@ -136,7 +137,7 @@ $missing_plugin_ids = array_diff(
 
 foreach($missing_plugin_ids as $plugin_id)
 {
-  $action_url = htmlentities($base_url).'&amp;plugin='.$plugin_id;
+  $action_url = $base_url.'&amp;plugin='.$plugin_id;
 
   $template->append( 'plugins',
       array(
