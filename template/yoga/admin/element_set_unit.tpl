@@ -53,7 +53,7 @@
 
         <select onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;" name="date_creation_day-{$element.ID}">
          	<option value="0">--</option>
-           {section name=day start=1 loop=31}
+           {section name=day start=1 loop=32}
              <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$element.DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
            {/section}
         </select>

@@ -122,7 +122,7 @@
         <label><input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {'set to'|@translate}</label>
         <select onchange="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
          	<option value="0">--</option>
-          {section name=day start=1 loop=31}
+          {section name=day start=1 loop=32}
             <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
           {/section}
         </select>

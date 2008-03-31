@@ -63,7 +63,7 @@
     <li>
       <select name="start_day">
           <option value="0">--</option>
-        {section name=day start=1 loop=31}
+        {section name=day start=1 loop=32}
           <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$START_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
@@ -81,7 +81,7 @@
     <li>
       <select name="end_day">
           <option value="0">--</option>
-        {section name=day start=1 loop=31}
+        {section name=day start=1 loop=32}
           <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$END_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
