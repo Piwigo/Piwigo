@@ -110,13 +110,11 @@ TABLE.infoTable TD.value UL {
 }
 
 .rateButtonStarFull {
-  background: url('icon/star_f.gif') no-repeat center;
-  width: 16px;
+	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:-16px center; width:16px;
 }
 
 .rateButtonStarEmpty {
-  background: url('icon/star_e.gif') no-repeat center;
-  width: 16px;
+	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
 }
 
 #comments {
