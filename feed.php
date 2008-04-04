@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -138,7 +138,7 @@ if (!$image_only)
     $item->description.= '</ul>';
     $item->descriptionHtmlSyndicated = true;
 
-    $item->date = ts_to_iso8601(mysqldt_to_ts($dbnow));
+    $item->date = mysqldt_to_ts($dbnow);
     $item->author = 'PhpWebGallery notifier';
     $item->guid= sprintf('%s', $dbnow);;
 
@@ -190,13 +190,16 @@ foreach($dates as $date_detail)
 
   $item->descriptionHtmlSyndicated = true;
 
-  $item->date = ts_to_iso8601(mysqldt_to_ts($date));
+  $item->date = mysqldt_to_ts($date);
   $item->author = 'PhpWebGallery notifier';
   $item->guid= sprintf('%s', 'pics-'.$date);;
 
   $rss->addItem($item);
 }
 
+$fileName= $conf['local_data_dir'].'/tmp';
+@mkdir($fileName); // just in case
+$fileName.='/feed.xml';
 // send XML feed
-echo $rss->saveFeed('RSS2.0', '', true);
+echo $rss->saveFeed('RSS2.0', $fileName, true);
 ?>

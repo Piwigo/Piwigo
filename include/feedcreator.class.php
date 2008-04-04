@@ -156,7 +156,7 @@ echo $rss->saveFeed("RSS1.0", "news/feed.xml");
 **************************************************************************/
 
 // your local timezone, set to "" to disable or for GMT
-define("TIME_ZONE","+01:00");
+define("TIME_ZONE","+00:00");
 
 
 

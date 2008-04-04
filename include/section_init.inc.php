@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | PhpWebGallery - a PHP based picture gallery                           |
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Copyright (C) 2003-2008 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
 // | file          : $Id$
 // | last update   : $Date$
@@ -286,15 +286,13 @@ else
     if (!empty($items) )
     {
       $query = '
-SELECT image_id
+SELECT DISTINCT image_id
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE image_id IN ('.implode(',', $items).')
     '.$forbidden.
     $conf['order_by'].'
 ;';
-      $items = array_unique(
-        array_from_query($query, 'image_id')
-        );
+      $items =  array_from_query($query, 'image_id');
     }
 
     $title = get_tags_content_title();
@@ -303,7 +301,7 @@ SELECT image_id
       $page,
       array(
         'title' => $title,
-        'items' => array_values($items),
+        'items' => $items,
         )
       );
   }
