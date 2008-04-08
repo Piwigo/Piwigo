@@ -287,15 +287,13 @@ else
     if (!empty($items) )
     {
       $query = '
-SELECT image_id
+SELECT DISTINCT(image_id)
   FROM '.IMAGE_CATEGORY_TABLE.' INNER JOIN '.IMAGES_TABLE.' ON image_id=id
   WHERE image_id IN ('.implode(',', $items).')
     '.$forbidden.
     $conf['order_by'].'
 ;';
-      $items = array_unique(
-        array_from_query($query, 'image_id')
-        );
+      $items = array_from_query($query, 'image_id');
     }
 
     $title = get_tags_content_title();
@@ -304,7 +302,7 @@ SELECT image_id
       $page,
       array(
         'title' => $title,
-        'items' => array_values($items),
+        'items' => $items,
         )
       );
   }

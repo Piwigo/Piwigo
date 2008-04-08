@@ -524,7 +524,7 @@ function parse_section_url( $tokens, &$next_token)
       {
         array_push($requested_tag_ids, $matches[1]);
       }
-      else
+      elseif ( !empty($tokens[$i]) )
       {
         array_push($requested_tag_url_names, $tokens[$i]);
       }
