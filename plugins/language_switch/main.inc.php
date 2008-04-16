@@ -20,6 +20,7 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 /*
 Plugin Name: Language Switch
 Version: 1.8
@@ -28,6 +29,7 @@ Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=123
 Author: PhpWebGallery team
 Author URI: http://www.phpwebgallery.net
 */
+
 include_once(PHPWG_PLUGINS_PATH.'language_switch/language_switch.inc.php');
 add_event_handler('loading_lang', 'language_switch' );
 add_event_handler('loc_end_index', 'Lang_flags' );
