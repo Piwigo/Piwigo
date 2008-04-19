@@ -62,8 +62,6 @@ DELETE FROM '.SITES_TABLE.'
 // The function works recursively.
 function delete_categories($ids)
 {
-  global $counts;
-
   if (count($ids) == 0)
   {
     return;
@@ -124,10 +122,6 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
   WHERE cat_id IN ('.implode(',',$ids).')';
   pwg_query($query);
 
-  if (isset($counts['del_categories']))
-  {
-    $counts['del_categories']+= count($ids);
-  }
   trigger_action('delete_categories', $ids);
 }
 
@@ -138,8 +132,6 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
 //    - all the favorites associated to elements
 function delete_elements($ids)
 {
-  global $counts;
-
   if (count($ids) == 0)
   {
     return;
@@ -201,10 +193,6 @@ DELETE FROM '.IMAGES_TABLE.'
 ;';
   pwg_query($query);
 
-  if (isset($counts['del_elements']))
-  {
-    $counts['del_elements']+= count($ids);
-  }
   trigger_action('delete_elements', $ids);
 }
 
@@ -578,9 +566,7 @@ function mass_updates($tablename, $dbfields, $datas)
   {
     // depending on the MySQL version, we use the multi table update or N
     // update queries
-    $query = 'SELECT VERSION() AS version;';
-    list($mysql_version) = mysql_fetch_array(pwg_query($query));
-    if (count($datas) < 10 or version_compare($mysql_version, '4.0.4') < 0)
+    if (count($datas) < 10 or version_compare(mysql_get_server_info(), '4.0.4') < 0)
     {
       // MySQL is prior to version 4.0.4, multi table update feature is not
       // available
@@ -1187,48 +1173,36 @@ DELETE
  */
 function update_uppercats()
 {
-  $uppercat_ids = array();
-
   $query = '
-SELECT id, id_uppercat
+SELECT id, id_uppercat, uppercats
   FROM '.CATEGORIES_TABLE.'
 ;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $uppercat_ids[$row['id']] =
-      !empty($row['id_uppercat']) ? $row['id_uppercat'] : 'NULL';
-  }
-
-  // uppercats array associates a category id to the list of uppercats id.
-  $uppercats = array();
-
-  foreach (array_keys($uppercat_ids) as $id)
-  {
-    $uppercats[$id] = array();
-
-    $uppercat = $id;
-
-    while ($uppercat != 'NULL')
-    {
-      array_push($uppercats[$id], $uppercat);
-      $uppercat = $uppercat_ids[$uppercat];
-    }
-  }
+  $cat_map = hash_from_query($query, 'id');
 
   $datas = array();
-
-  foreach ($uppercats as $id => $list)
+  foreach ($cat_map as $id => $cat)
   {
-    array_push(
-      $datas,
-      array(
-        'id' => $id,
-        'uppercats' => implode(',', array_reverse($list))
-        )
-      );
-  }
+    $upper_list = array();
 
+    $uppercat = $id;
+    while ($uppercat)
+    {
+      array_push($upper_list, $uppercat);
+      $uppercat = $cat_map[$uppercat]['id_uppercat'];
+    }
+
+    $new_uppercats = implode(',', array_reverse($upper_list));
+    if ($new_uppercats != $cat['uppercats'])
+    {
+      array_push(
+        $datas,
+        array(
+          'id' => $id,
+          'uppercats' => $new_uppercats
+          )
+        );
+    }
+  }
   $fields = array('primary' => array('id'), 'update' => array('uppercats'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
