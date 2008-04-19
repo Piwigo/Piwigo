@@ -188,11 +188,6 @@ SELECT tag_id
 ;';
 $selected_tags = array_from_query($query, 'tag_id');
 
-// Navigation path
-
-$date = isset($_POST['date_creation']) && empty($page['errors'])
-?$_POST['date_creation']:date_convert_back(@$row['date_creation']);
-
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
@@ -224,7 +219,7 @@ else
 $template->assign(
   array(
     'U_SYNC' =>
-        PHPWG_ROOT_PATH.'admin.php?page=picture_modify'.
+        get_root_url().'admin.php?page=picture_modify'.
         '&amp;image_id='.$_GET['image_id'].
         (isset($_GET['cat_id']) ? '&amp;cat_id='.$_GET['cat_id'] : '').
         '&amp;sync_metadata=1',
@@ -246,8 +241,6 @@ $template->assign(
 
     'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
 
-    'CREATION_DATE' => $date,
-
     'TAG_SELECTION' => $tag_selection,
 
     'DESCRIPTION' =>
@@ -255,7 +248,7 @@ $template->assign(
         stripslashes($_POST['description']) : @$row['comment'] ),
 
     'F_ACTION' =>
-        PHPWG_ROOT_PATH.'admin.php'
+        get_root_url().'admin.php'
         .get_query_string_diff(array('sync_metadata'))
     )
   );
