@@ -632,6 +632,7 @@ $lang['plugins_archive_error'] = 'Impossible de lire ou d\'extraire l\'archive.'
 $lang['plugins_extract_error'] = 'Une erreur est survenue pendant l\'extraction des fichiers (%s).';
 $lang['plugins_check_chmod'] = 'Vérifiez les permissions du dossier "plugins" et de ses sous-dossiers (CHMOD).';
 $lang['plugins_server_error'] = 'Impossible de se connecter au serveur.';
-
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Purge compiled templates'] = 'Purger les templates compilés';
+$lang['Caddie is currently empty'] = 'Le panier est actuellement vide.';
 ?>

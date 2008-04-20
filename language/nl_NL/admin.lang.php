@@ -640,5 +640,7 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 /* TODO */ $lang['plugins_check_chmod'] = 'Please check "plugins" folder and sub-folders permissions (CHMOD).';
 /* TODO */ $lang['plugins_server_error'] = 'Can\'t connect to server.';
 
+// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 /* TODO */ $lang['Purge compiled templates'] = 'Purge compiled templates';
+/* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
 ?>
