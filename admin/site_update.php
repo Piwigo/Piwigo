@@ -446,9 +446,9 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
       continue;
     }
 
-    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] ) 
+    if ( isset( $conf['flip_picture_ext'][get_extension($filename)] )
           and !isset($fs[$path]['tn_ext']) )
-    { // For a picture thumbnail is mandatory and for non picture element, 
+    { // For a picture thumbnail is mandatory and for non picture element,
       // thumbnail and representative are optionnal
       array_push(
         $errors,
@@ -470,7 +470,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
           : null,
         'storage_category_id' => $db_fulldirs[$dirname],
         );
-        
+
       if ( $_POST['privacy_level']!=0 )
       {
         $insert['level'] = $_POST['privacy_level'];
@@ -621,7 +621,6 @@ if (isset($_POST['submit'])
       . get_elapsed_time($start,get_moment())
       . ' -->' );
     $start = get_moment();
-    ordering();
     update_global_rank();
     $template->append('footer_elements', '<!-- ordering categories : '
       . get_elapsed_time($start, get_moment())

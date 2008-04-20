@@ -67,7 +67,7 @@ ALTER TABLE phpwebgallery_categories
 ALTER TABLE phpwebgallery_categories
   ADD COLUMN commentable enum('true','false') NOT NULL default 'true'
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_categories
   ADD COLUMN global_rank varchar(255) default NULL
@@ -87,7 +87,7 @@ ALTER TABLE phpwebgallery_comments
 UPDATE phpwebgallery_comments
   SET date_temp = date
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_comments
   CHANGE COLUMN date date datetime NOT NULL default '0000-00-00 00:00:00'
@@ -122,7 +122,7 @@ ALTER TABLE phpwebgallery_history
 UPDATE phpwebgallery_history
   SET date_temp = date
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_history
   CHANGE COLUMN date date datetime NOT NULL default '0000-00-00 00:00:00'
@@ -203,7 +203,7 @@ ALTER TABLE phpwebgallery_images
 ALTER TABLE phpwebgallery_images
   ADD INDEX images_i5 (date_creation)
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_sessions
   DROP COLUMN ip
@@ -218,7 +218,7 @@ ALTER TABLE phpwebgallery_sessions
 UPDATE phpwebgallery_sessions
   SET expiration_temp = expiration
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_sessions
   CHANGE COLUMN expiration expiration datetime NOT NULL default '0000-00-00 00:00:00'
@@ -233,7 +233,7 @@ UPDATE phpwebgallery_sessions
 ALTER TABLE phpwebgallery_sessions
   DROP COLUMN expiration_temp
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_sites
   DROP INDEX galleries_url
@@ -247,7 +247,7 @@ ALTER TABLE phpwebgallery_sites
   "
 DROP TABLE phpwebgallery_user_category
 ;",
-  
+
   "
 ALTER TABLE phpwebgallery_users
   DROP COLUMN long_period
@@ -272,7 +272,7 @@ ALTER TABLE phpwebgallery_users
 ALTER TABLE phpwebgallery_users
   ADD UNIQUE users_ui1 (username)
 ;",
-  
+
   "
 CREATE TABLE phpwebgallery_rate (
   user_id smallint(5) unsigned NOT NULL default '0',
@@ -338,7 +338,7 @@ $indexes_of = array(
 foreach (array_keys($indexes_of) as $table)
 {
   $existing_indexes = array();
-  
+
   $query = '
 SHOW INDEX
   FROM '.PREFIX_TABLE.$table.'
@@ -525,7 +525,6 @@ mass_inserts(
   );
 
 // refresh calculated datas
-ordering();
 update_global_rank();
 update_category();
 
@@ -583,7 +582,7 @@ $page['infos'] = array_merge(
   $page['infos'],
   array(
     'all sub-categories of private categories become private',
-    
+
     'user permissions and group permissions have been erased',
 
     'only thumbnails prefix and webmaster mail address have been saved from

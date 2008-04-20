@@ -57,7 +57,7 @@ function save_categories_order($categories)
   $fields = array('primary' => array('id'), 'update' => array('rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
-  update_global_rank(@$_GET['parent_id']);
+  update_global_rank();
 }
 
 // +-----------------------------------------------------------------------+
@@ -66,8 +66,8 @@ function save_categories_order($categories)
 
 $categories = array();
 
-$base_url = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
-$navigation = '<a class="" href="'.$base_url.'">';
+$base_url = get_root_url().'admin.php?page=cat_list';
+$navigation = '<a href="'.$base_url.'">';
 $navigation.= l10n('home');
 $navigation.= '</a>';
 
@@ -79,7 +79,6 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
   array_push($page['infos'], l10n('cat_virtual_deleted'));
-  ordering();
   update_global_rank();
 }
 // request to add a virtual category
@@ -236,7 +235,7 @@ foreach ($categories as $category)
 
       'U_CHILDREN' => $cat_list_url.'&amp;parent_id='.$category['id'],
       'U_EDIT'     => $base_url.'cat_modify&amp;cat_id='.$category['id'],
-      
+
       'IS_VIRTUAL' => empty($category['dir'])
     );
 

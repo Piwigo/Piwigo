@@ -665,69 +665,72 @@ function mass_updates($tablename, $dbfields, $datas)
 }
 
 /**
- * updates the global_rank of categories under the given id_uppercat
- *
- * @param int id_uppercat
+ * order categories (update categories.rank and global_rank database fields)
+ * so that rank field are consecutive integers starting at 1 for each child
  * @return void
  */
-function update_global_rank($id_uppercat = 'all')
+function update_global_rank()
 {
   $query = '
-SELECT id,rank
+SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat, uppercats, rank, global_rank
   FROM '.CATEGORIES_TABLE.'
+  ORDER BY id_uppercat,rank,name
 ;';
-  $result = pwg_query($query);
-  $ranks_array = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    $ranks_array[$row['id']] = $row['rank'];
-  }
 
-  // which categories to update ?
-  $uppercats_array = array();
+  $cat_map = array();
 
-  $query = '
-SELECT id,uppercats
-  FROM '.CATEGORIES_TABLE;
-  if (is_numeric($id_uppercat))
-  {
-    $query.= '
-  WHERE uppercats REGEXP \'(^|,)'.$id_uppercat.'(,|$)\'
-    AND id != '.$id_uppercat.'
-';
-  }
-  $query.= '
-;';
+  $current_rank = 0;
+  $current_uppercat = '';
+
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
-    $uppercats_array[$row['id']] =  $row['uppercats'];
+    if ($row['id_uppercat'] != $current_uppercat)
+    {
+      $current_rank = 0;
+      $current_uppercat = $row['id_uppercat'];
+    }
+    ++$current_rank;
+    $cat =
+      array(
+        'rank' =>        $current_rank,
+        'rank_changed' =>$current_rank!=$row['rank'],
+        'global_rank' => $row['global_rank'],
+        'uppercats' =>   $row['uppercats'],
+        );
+    $cat_map[ $row['id'] ] = $cat;
   }
 
   $datas = array();
-  foreach ($uppercats_array as $id => $uppercats)
+
+  foreach( $cat_map as $id=>$cat )
   {
-    array_push(
-      $datas,
-      array(
-        'id'          => $id,
-        'global_rank' => preg_replace(
+    $new_global_rank = preg_replace(
           '/(\d+)/e',
-          "\$ranks_array['$1']",
-          str_replace(',', '.', $uppercats)
-          ),
-        )
-      );
+          "\$cat_map['$1']['rank']",
+          str_replace(',', '.', $cat['uppercats'] )
+          );
+    if ( $cat['rank_changed']
+      or $new_global_rank!=$cat['global_rank']
+      )
+    {
+      $datas[] = array(
+          'id' => $id,
+          'rank' => $cat['rank'],
+          'global_rank' => $new_global_rank,
+        );
+    }
   }
 
   mass_updates(
     CATEGORIES_TABLE,
     array(
       'primary' => array('id'),
-      'update'  => array('global_rank')
+      'update'  => array('rank', 'global_rank')
       ),
     $datas
     );
+  return count($datas);
 }
 
 /**
@@ -873,43 +876,6 @@ SELECT image_id
       ),
     $datas
     );
-}
-
-/**
- * order categories (update categories.rank and global_rank database fields)
- *
- * the purpose of this function is to give a rank for all categories
- * (insides its sub-category), even the newer that have none at te
- * beginning. For this, ordering function selects all categories ordered by
- * rank ASC then name ASC for each uppercat.
- *
- * @returns void
- */
-function ordering()
-{
-  $current_rank = 0;
-  $current_uppercat = '';
-
-  $query = '
-SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat
-  FROM '.CATEGORIES_TABLE.'
-  ORDER BY id_uppercat,rank,name
-;';
-  $result = pwg_query($query);
-  $datas = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    if ($row['id_uppercat'] != $current_uppercat)
-    {
-      $current_rank = 0;
-      $current_uppercat = $row['id_uppercat'];
-    }
-    $data = array('id' => $row['id'], 'rank' => ++$current_rank);
-    array_push($datas, $data);
-  }
-
-  $fields = array('primary' => array('id'), 'update' => array('rank'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
 }
 
 /**
@@ -1352,7 +1318,6 @@ UPDATE '.CATEGORIES_TABLE.'
   pwg_query($query);
 
   update_uppercats();
-  ordering();
   update_global_rank();
 
   // status and related permissions management
