@@ -242,7 +242,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
 
   // If $_POST['subcats-included'] != 1 ("Search in subcategories" is unchecked)
   // $db_fulldirs doesn't include any subdirectories and $fs_fulldirs does
-  // So $fs_fulldirs will be limited to the selected basedir 
+  // So $fs_fulldirs will be limited to the selected basedir
   // (if that one is in $fs_fulldirs)
   if (!isset($_POST['subcats-included']) or $_POST['subcats-included'] != 1)
   {
@@ -253,7 +253,7 @@ SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
   // print_r( array_diff($fs_fulldirs, array_keys($db_fulldirs)) ); echo "<br>";
   // die('That\'s why dirs or files synchronizations were duplicating cats.');
 
-  $inserts = array();  
+  $inserts = array();
   // new categories are the directories not present yet in the database
   foreach (array_diff($fs_fulldirs, array_keys($db_fulldirs)) as $fulldir)
   {
@@ -670,7 +670,6 @@ if (isset($_POST['submit'])
     echo get_elapsed_time($start,get_moment());
     echo ' -->'."\n";
     $start = get_moment();
-    ordering();
     update_global_rank();
     echo '<!-- ordering categories : ';
     echo get_elapsed_time($start, get_moment());
@@ -828,14 +827,14 @@ SELECT id
       array_push($has_high_images, $row['id']);
     }
   }
-  
+
   foreach ( $files as $id=>$file )
   {
     $data = $site_reader->get_element_metadata(
       $file,
       in_array($id, $has_high_images)
       );
-    
+
     if ( is_array($data) )
     {
       $data['date_metadata_update'] = CURRENT_DATE;
@@ -872,7 +871,7 @@ SELECT id
     if (count($datas) > 0)
     {
       // echo '<pre>', print_r($datas); echo '</pre>';
-      
+
       mass_updates(
         IMAGES_TABLE,
         // fields

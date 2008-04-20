@@ -48,7 +48,6 @@ switch ($action)
   {
     update_uppercats();
     update_category('all');
-    ordering();
     update_global_rank();
     invalidate_user_cache();
     break;

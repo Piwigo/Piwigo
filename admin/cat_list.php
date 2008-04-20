@@ -60,7 +60,7 @@ function save_categories_order($categories)
   $fields = array('primary' => array('id'), 'update' => array('rank'));
   mass_updates(CATEGORIES_TABLE, $fields, $datas);
 
-  update_global_rank(@$_GET['parent_id']);
+  update_global_rank();
 }
 
 // +-----------------------------------------------------------------------+
@@ -82,7 +82,6 @@ if (isset($_GET['delete']) and is_numeric($_GET['delete']) and !is_adviser())
 {
   delete_categories(array($_GET['delete']));
   array_push($page['infos'], l10n('cat_virtual_deleted'));
-  ordering();
   update_global_rank();
 }
 // request to add a virtual category
@@ -294,7 +293,7 @@ foreach ($categories as $category)
   }
 }
 // Add a link to Page bottom only if needed (10 or more categories)
-if ( isset($category['rank']) and $category['rank'] > 9 ) 
+if ( isset($category['rank']) and $category['rank'] > 9 )
 {
   $template->assign_block_vars('eop_link', array('ICON'=>'Displayed'));
 }
