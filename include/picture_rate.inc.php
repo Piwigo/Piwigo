@@ -28,14 +28,21 @@
 
 if ($conf['rate'])
 {
-  $query = '
+  if ( NULL != $picture['current']['average_rate'] )
+  {
+    $query = '
 SELECT COUNT(rate) AS count
      , ROUND(AVG(rate),2) AS average
      , ROUND(STD(rate),2) AS std
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$picture['current']['id'].'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
+    $row = mysql_fetch_array(pwg_query($query));
+  }
+  else
+  { // avg rate null -> no rate -> no need to query db
+    $row = array( 'count'=>0, 'average'=>NULL, 'std'=>NULL );
+  }
   $template->assign('rate_summary', $row);
 
   $user_rate = null;

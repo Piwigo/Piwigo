@@ -612,7 +612,7 @@ $template->assign(
     'SHOW_PICTURE_NAME_ON_TITLE' => $conf['show_picture_name_on_title'],
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
-    
+
     'FILE_PICTURE_NAV_BUTTONS' => 'picture_nav_buttons.tpl',
 
     'U_HOME' => make_index_url(),
@@ -637,7 +637,7 @@ if (is_admin())
         )
       );
   }
-  
+
   $template->assign(
     array(
       'U_CADDIE' => add_url_params($url_self,
@@ -815,14 +815,37 @@ if ( count($tags) )
 }
 
 // related categories
-foreach ($related_categories as $category)
-{
+if ( count($related_categories)==1 and
+    isset($page['category']) and
+    $related_categories[0]['category_id']==$page['category']['id'] )
+{ // no need to go to db, we have all the info
   $template->append(
-    'related_categories',
-      count($related_categories) > 3
-        ? get_cat_display_name_cache($category['uppercats'])
-        : get_cat_display_name_from_id($category['category_id'])
+      'related_categories',
+      get_cat_display_name( $page['category']['upper_names'] )
     );
+}
+else
+{ // use only 1 sql query to get names for all related categories
+  $ids = array();
+  foreach ($related_categories as $category)
+  {// add all uppercats to $ids
+    $ids = array_merge($ids, explode(',', $category['uppercats']) );
+  }
+  $ids = array_unique($ids);
+  $query = '
+SELECT id, name, permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',',$ids).')';
+  $cat_map = hash_from_query($query, 'id');
+  foreach ($related_categories as $category)
+  {
+    $cats = array();
+    foreach ( explode(',', $category['uppercats']) as $id )
+    {
+      $cats[] = $cat_map[$id];
+    }
+    $template->append('related_categories', get_cat_display_name($cats) );
+  }
 }
 
 // maybe someone wants a special display (call it before page_header so that
