@@ -770,17 +770,39 @@ else
 
 $template->assign_vars($infos);
 
+
 // related categories
-foreach ($related_categories as $category)
-{
+if ( count($related_categories)==1 and
+    isset($page['category']) and
+    $related_categories[0]['category_id']==$page['category']['id'] )
+{ // no need to go to db, we have all the info
   $template->assign_block_vars(
-    'category',
-    array(
-      'LINE' => count($related_categories) > 3
-        ? get_cat_display_name_cache($category['uppercats'])
-        : get_cat_display_name_from_id($category['category_id'])
-      )
+      'category',
+      array('LINE'=>get_cat_display_name( $page['category']['upper_names'] ))
     );
+}
+else
+{ // use only 1 sql query to get names for all related categories
+  $ids = array();
+  foreach ($related_categories as $category)
+  {// add all uppercats to $ids
+    $ids = array_merge($ids, explode(',', $category['uppercats']) );
+  }
+  $ids = array_unique($ids);
+  $query = '
+SELECT id, name, permalink
+  FROM '.CATEGORIES_TABLE.'
+  WHERE id IN ('.implode(',',$ids).')';
+  $cat_map = hash_from_query($query, 'id');
+  foreach ($related_categories as $category)
+  {
+    $cats = array();
+    foreach ( explode(',', $category['uppercats']) as $id )
+    {
+      $cats[] = $cat_map[$id];
+    }
+    $template->assign_block_vars('category', array('LINE'=>get_cat_display_name($cats) ) );
+  }
 }
 
 //slideshow end
