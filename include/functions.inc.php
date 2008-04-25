@@ -564,19 +564,6 @@ function pwg_log($image_id = null, $image_type = null)
     $tags_string = implode(',', $tag_ids);
   }
 
-  // here we ask the database the current date and time, and we extract
-  // {year, month, day} from the current date. We could do this during the
-  // insert query with a CURDATE(), CURTIME(), DATE_FORMAT(CURDATE(), '%Y')
-  // ... but I (plg) think it would cost more than a double query and a PHP
-  // extraction.
-  $query = '
-SELECT CURDATE(), CURTIME()
-;';
-  list($curdate, $curtime) = mysql_fetch_row(pwg_query($query));
-
-  list($curyear, $curmonth, $curday) = explode('-', $curdate);
-  list($curhour) = explode(':', $curtime);
-
   $query = '
 INSERT INTO '.HISTORY_TABLE.'
   (
@@ -596,12 +583,12 @@ INSERT INTO '.HISTORY_TABLE.'
   )
   VALUES
   (
-    \''.$curdate.'\',
-    \''.$curtime.'\',
-    '.$curyear.',
-    '.$curmonth.',
-    '.$curday.',
-    '.$curhour.',
+    CURDATE(),
+    CURTIME(),
+    YEAR( CURDATE() ),
+    MONTH( CURDATE() ),
+    DAYOFMONTH( CURDATE() ),
+    HOUR( CURTIME() ),
     '.$user['id'].',
     \''.$_SERVER['REMOTE_ADDR'].'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',
