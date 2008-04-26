@@ -439,3 +439,8 @@ background:transparent none repeat-y scroll right top; border-bottom:0px; }
 #theAdminPage #the_page #content, #theAdminPage #the_page .content { /*theme.css (line 91)*/
 background-color:#111111; border-width:0px; padding:5px 35px 5px 5px; }
 body#theAdminPage #menubar dl.selected dd { padding-bottom: 145px; }
+.header_notes {/*default-colors.cs... (line 91)*/
+background-image:url(icon/note.png); background-position:left top;
+background-repeat:no-repeat; border:1px solid #AAAAAA;
+font-weight:bold; margin:14px; padding:5px 0px 0px;
+position:absolute; right:31px; text-align:center; top:96px;  width:50%; }
