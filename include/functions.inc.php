@@ -868,6 +868,7 @@ function url_is_remote($url)
  */
 function get_pwg_themes()
 {
+  global $conf;
   $themes = array();
 
   $template_dir = PHPWG_ROOT_PATH.'template';
@@ -876,6 +877,7 @@ function get_pwg_themes()
   {
     foreach (get_dirs($template_dir.'/'.$template.'/theme') as $theme)
     {
+      if ( ($template.'/'.$theme) != $conf['admin_layout'] )
       array_push($themes, $template.'/'.$theme);
     }
   }

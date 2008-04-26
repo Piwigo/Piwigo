@@ -205,12 +205,7 @@ function build_user( $user_id, $use_cache )
   if (is_admin($user['status']))
   {
     list($user['admin_template'], $user['admin_theme']) =
-      explode
-      (
-        '/',
-        isset($conf['default_admin_layout']) ? $conf['default_admin_layout']
-                                             : $user['template']
-      );
+      explode ('/', $conf['admin_layout']);
   }
 
   list($user['template'], $user['theme']) = explode('/', $user['template']);

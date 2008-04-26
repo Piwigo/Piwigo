@@ -593,25 +593,13 @@ $conf['recent_post_dates'] = array(
   );
 
 // +-----------------------------------------------------------------------+
-// | Set default admin layout                                              |
+// | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+
 
-// Must be user setable in future
-// Default value of admin layout
-// Step 1, default_admin_layout is not defined
-//        null value, user_layout is used for admin layout
-//        defined value, this value are used for admin layout
-// Next on step 2, default_admin_layout will be used
-//                 if there are not checked like admin layout
-// stored on user informations
-//$conf['default_admin_layout']='yoga/dark';
+$conf['admin_layout'] = 'yoga/admin';
 
 // should we load the active plugins ? true=Yes, false=No
 $conf['enable_plugins']=true;
-
-// +-----------------------------------------------------------------------+
-// | Set default for Web Service                                           |
-// +-----------------------------------------------------------------------+
 
 // Web services are allowed (true) or completely forbidden (false)
 $conf['allow_web_services'] = true;
@@ -624,20 +612,18 @@ $conf['ws_max_images_per_page'] = 500;
 // if connected on member authorization basis
 $conf['ws_access_control'] = false;
 
-// On Access control true
 // Additionnal controls are made based on Web Service Access Table
-
 // Max returned rows number ( > 0 )
-  $conf['ws_allowed_limit'] = array(1,2,3,5,10,25);
+$conf['ws_allowed_limit'] = array(1,2,3,5,10,25);
 
 // By default can be delayed by 0, 1, 2, 3, 5, 7, 14 or 30 days
 // 0 it's Now(), don't remove that one
-  $conf['ws_postponed_start'] = array(0,1,2,3,5,7,14,30); /* In days */
+$conf['ws_postponed_start'] = array(0,1,2,3,5,7,14,30); /* In days */
 
 // By default 10, 5, 2, 1 year(s) or 6, 3, 1 month(s)
 // or 15, 10, 7, 5, 1, 0 day(s)
 // 0 it's temporary closed (Useful for one access)
-  $conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0);
+$conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0);
 
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |

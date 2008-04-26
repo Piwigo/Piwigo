@@ -1,7 +1,8 @@
 {* $Id$ *}
+<div id="post-header"></div>
 <div id="menubar">
   <dl>
-    <dt>{'Links'|@translate}</dt>
+    <dt class="rdion">{'Links'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_RETURN}">{'home'|@translate}</a></li>
@@ -11,7 +12,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'config'|@translate}</dt>
+    <dt class="rdion">{'config'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'conf_general'|@translate}</a></li>
@@ -20,7 +21,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'Categories'|@translate}</dt>
+    <dt class="rdion">{'Categories'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
@@ -33,7 +34,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'Pictures'|@translate}</dt>
+    <dt class="rdion">{'Pictures'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_WAITING}">{'waiting'|@translate}</a></li>
@@ -45,7 +46,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'identification'|@translate}</dt>
+    <dt class="rdion">{'identification'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_USERS}">{'users'|@translate}</a></li>
@@ -55,7 +56,7 @@
     </dd>
   </dl>
   <dl>
-    <dt>{'special_admin_menu'|@translate}</dt>
+    <dt class="rdion">{'special_admin_menu'|@translate}</dt>
     <dd>
       <ul>
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
