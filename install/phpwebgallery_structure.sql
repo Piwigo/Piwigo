@@ -266,7 +266,7 @@ CREATE TABLE `phpwebgallery_search` (
 DROP TABLE IF EXISTS `phpwebgallery_sessions`;
 CREATE TABLE `phpwebgallery_sessions` (
   `id` varchar(255) binary NOT NULL default '',
-  `data` text NOT NULL,
+  `data` mediumtext NOT NULL,
   `expiration` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
@@ -327,10 +327,10 @@ DROP TABLE IF EXISTS `phpwebgallery_user_cache`;
 CREATE TABLE `phpwebgallery_user_cache` (
   `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
-  `forbidden_categories` text,
+  `forbidden_categories` mediumtext,
   `nb_total_images` mediumint(8) unsigned default NULL,
   `image_access_type` enum('NOT IN','IN') NOT NULL default 'NOT IN',
-  `image_access_list` text default NULL,
+  `image_access_list` mediumtext default NULL,
   PRIMARY KEY  (`user_id`)
 ) TYPE=MyISAM;
 

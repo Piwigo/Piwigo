@@ -26,7 +26,6 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH.'include/template.php');
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 
 // +-----------------------------------------------------------------------+
@@ -71,7 +70,7 @@ echo count($to_apply).' upgrades to apply';
 foreach ($to_apply as $upgrade_id)
 {
   unset($upgrade_description);
-  
+
   echo "\n\n";
   echo '=== upgrade '.$upgrade_id."\n";
 
