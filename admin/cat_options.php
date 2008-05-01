@@ -286,10 +286,9 @@ SELECT id,name,uppercats,global_rank
   WHERE representative_picture_id IS NOT NULL
 ;';
     $query_false = '
-SELECT id,name,uppercats,global_rank
-  FROM '.CATEGORIES_TABLE.'
-  WHERE nb_images != 0
-    AND representative_picture_id IS NULL
+SELECT DISTINCT id,name,uppercats,global_rank
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=category_id
+  WHERE representative_picture_id IS NULL
 ;';
     $template->assign(
       array(

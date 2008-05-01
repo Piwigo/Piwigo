@@ -173,7 +173,7 @@ $template->assign(
   array(
     'F_SEARCH_ACTION' => 'search.php',
     'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=search',
-    
+
     'month_list' => $month_list,
     'START_DAY_SELECTED' => @$_POST['start_day'],
     'START_MONTH_SELECTED' => @$_POST['start_month'],
@@ -200,7 +200,7 @@ if (count($available_tags) > 0)
 
 //------------------------------------------------------------- categories form
 $query = '
-SELECT name,id,date_last,nb_images,global_rank,uppercats
+SELECT id,name,global_rank,uppercats
   FROM '.CATEGORIES_TABLE.'
 '.get_sql_condition_FandF
   (

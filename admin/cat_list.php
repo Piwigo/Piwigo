@@ -170,7 +170,7 @@ $template->assign(array(
 $categories = array();
 
 $query = '
-SELECT id, name, permalink, dir, rank, nb_images, status
+SELECT id, name, permalink, dir, rank, status
   FROM '.CATEGORIES_TABLE;
 if (!isset($_GET['parent_id']))
 {
@@ -185,34 +185,23 @@ else
 $query.= '
   ORDER BY rank ASC
 ;';
-$result = pwg_query($query);
-while ($row = mysql_fetch_array($result))
-{
-  $categories[$row['id']] = $row;
-  // by default, let's consider there is no sub-categories. This will be
-  // calculated after.
-  $categories[$row['id']]['nb_subcats'] = 0;
-}
+$categories = hash_from_query($query, 'id');
 
-if (count($categories) > 0)
+// get the categories containing images directly 
+$categories_with_images = array();
+if ( count($categories) )
 {
   $query = '
-SELECT id_uppercat, COUNT(*) AS nb_subcats
-  FROM '. CATEGORIES_TABLE.'
-  WHERE id_uppercat IN ('.implode(',', array_keys($categories)).')
-  GROUP BY id_uppercat
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $categories[$row['id_uppercat']]['nb_subcats'] = $row['nb_subcats'];
-  }
+SELECT DISTINCT category_id 
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id IN ('.implode(',', array_keys($categories)).')';
+  $categories_with_images = array_flip( array_from_query($query, 'category_id') );
 }
 
 $template->assign('categories', array());
+$base_url = get_root_url().'admin.php?page=';
 foreach ($categories as $category)
 {
-  $base_url = PHPWG_ROOT_PATH.'admin.php?page=';
   $cat_list_url = $base_url.'cat_list';
 
   $self_url = $cat_list_url;
@@ -244,7 +233,7 @@ foreach ($categories as $category)
     $tpl_cat['U_DELETE'] = $self_url.'&amp;delete='.$category['id'];
   }
 
-  if ($category['nb_images'] > 0)
+  if ( array_key_exists($category['id'], $categories_with_images) )
   {
     $tpl_cat['U_MANAGE_ELEMENTS']=
       $base_url.'element_set&amp;cat='.$category['id'];

@@ -220,11 +220,18 @@ if ( is_file(PHPWG_ROOT_PATH.'listing.xml') )
 }
 
 $query = '
-SELECT s.*, COUNT(c.id) AS nb_categories, SUM(c.nb_images) AS nb_images
-  FROM '.SITES_TABLE.' AS s LEFT JOIN '.CATEGORIES_TABLE.' AS c
-  ON s.id=c.site_id
-  GROUP BY s.id'.
-';';
+SELECT c.site_id, COUNT(DISTINCT c.id) AS nb_categories, COUNT(i.id) AS nb_images
+  FROM '.CATEGORIES_TABLE.' AS c LEFT JOIN '.IMAGES_TABLE.' AS i
+  ON c.id=i.storage_category_id 
+  WHERE c.site_id IS NOT NULL
+  GROUP BY c.site_id
+;';
+$sites_detail = hash_from_query($query, 'site_id'); 
+
+$query = '
+SELECT *
+  FROM '.SITES_TABLE.'
+;';
 $result = pwg_query($query);
 
 while ($row = mysql_fetch_array($result))
@@ -243,8 +250,8 @@ while ($row = mysql_fetch_array($result))
     array(
       'NAME' => $row['galleries_url'],
       'TYPE' => l10n( $is_remote ? 'site_remote' : 'site_local' ),
-      'CATEGORIES' => $row['nb_categories'],
-      'IMAGES' => isset($row['nb_images']) ? $row['nb_images'] : 0,
+      'CATEGORIES' => (int)@$sites_detail[$row['id']]['nb_categories'],
+      'IMAGES' => (int)@$sites_detail[$row['id']]['nb_images'],
       'U_SYNCHRONIZE' => $update_url
      );
      

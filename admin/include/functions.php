@@ -251,175 +251,72 @@ DELETE FROM '.USERS_TABLE.'
 }
 
 /**
- * updates calculated informations about a set of categories : date_last and
- * nb_images. It also verifies that the representative picture is really
- * linked to the category. Optionnaly recursive.
+ * Verifies that the representative picture really exists in the db and
+ * picks up a random represantive if possible and based on config.
  *
  * @param mixed category id
- * @param boolean recursive
  * @returns void
  */
-function update_category($ids = 'all', $recursive = false)
+function update_category($ids = 'all')
 {
   global $conf;
 
-  // retrieving all categories to update
-  $cat_ids = array();
-
-  $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE;
-  if (is_array($ids))
+  if ($ids=='all')
   {
-    if ($recursive)
+    $where_cats = '1=1';
+  }
+  elseif ( !is_array($ids) )
+  {
+    $where_cats = '%s='.$ids;
+  }
+  else
+  {
+    if (count($ids) == 0)
     {
-      foreach ($ids as $num => $id)
-      {
-        if ($num == 0)
-        {
-          $query.= '
-  WHERE ';
-        }
-        else
-        {
-          $query.= '
-  OR    ';
-        }
-        $query.= 'uppercats REGEXP \'(^|,)'.$id.'(,|$)\'';
-      }
+      return false;
     }
-    else
-    {
-      $query.= '
-  WHERE id IN ('.wordwrap(implode(', ', $ids), 80, "\n").')';
-    }
+    $where_cats = '%s IN('.wordwrap(implode(', ', $ids), 120, "\n").')';
   }
-  $query.= '
-;';
-  $cat_ids = array_unique(array_from_query($query, 'id'));
-
-  if (count($cat_ids) == 0)
-  {
-    return false;
-  }
-
-  // calculate informations about categories retrieved
+  
+  // find all categories where the setted representative is not possible :
+  // the picture does not exist
   $query = '
-SELECT category_id,
-       COUNT(image_id) AS nb_images,
-       MAX(date_available) AS date_last
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = image_id
-  WHERE category_id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-  GROUP BY category_id
-;';
-  $result = pwg_query($query);
-  $datas = array();
-  $query_ids = array();
-  while ( $row = mysql_fetch_array( $result ) )
-  {
-    array_push($query_ids, $row['category_id']);
-
-    array_push(
-      $datas,
-      array(
-        'id'        => $row['category_id'],
-        'date_last' => $row['date_last'],
-        'nb_images' => $row['nb_images']
-        )
-      );
-  }
-  // if all links between a category and elements have disappeared, no line
-  // is returned but the update must be done !
-  foreach (array_diff($cat_ids, $query_ids) as $id)
-  {
-    array_push($datas, array('id' => $id, 'nb_images' => 0));
-  }
-
-  $fields = array('primary' => array('id'),
-                  'update'  => array('date_last', 'nb_images'));
-  mass_updates(CATEGORIES_TABLE, $fields, $datas);
-
-  // representative pictures
-  if (count($cat_ids) > 0)
-  {
-    // find all categories where the setted representative is not possible :
-    // the picture does not exist
-    $query = '
-SELECT c.id
+SELECT DISTINCT c.id
   FROM '.CATEGORIES_TABLE.' AS c LEFT JOIN '.IMAGES_TABLE.' AS i
     ON c.representative_picture_id = i.id
   WHERE representative_picture_id IS NOT NULL
-    AND c.id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+    AND '.sprintf($where_cats, 'c.id').'
     AND i.id IS NULL
 ;';
-    $wrong_representant = array_from_query($query, 'id');
+  $wrong_representant = array_from_query($query, 'id');
 
-    if ($conf['allow_random_representative'])
-    {
-      if (count($wrong_representant) > 0)
-      {
-        $query = '
+  if (count($wrong_representant) > 0)
+  {
+    $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET representative_picture_id = NULL
-  WHERE id IN ('.wordwrap(implode(', ', $wrong_representant), 80, "\n").')
+  WHERE id IN ('.wordwrap(implode(', ', $wrong_representant), 120, "\n").')
 ;';
-        pwg_query($query);
-      }
-    }
-    else
-    {
-      $to_null = array();
-      $to_rand = array();
+    pwg_query($query);
+  }
 
-      if (count($wrong_representant) > 0)
-      {
-        // among the categories with an unknown representant, we dissociate
-        // categories containing pictures and categories containing no
-        // pictures. Indeed, the representant must set to NULL if no picture
-        // in the category and set to a random picture otherwise.
-        $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
-  WHERE id IN ('.wordwrap(implode(', ', $wrong_representant), 80, "\n").')
-    AND nb_images = 0
-;';
-        $to_null = array_from_query($query, 'id');
-        $to_rand = array_diff($wrong_representant, $to_null);
-      }
-
-      if (count($to_null) > 0)
-      {
-        $query = '
-UPDATE '.CATEGORIES_TABLE.'
-  SET representative_picture_id = NULL
-  WHERE id IN ('.wordwrap(implode(', ', $to_null), 80, "\n").')
-;';
-        pwg_query($query);
-      }
-
-      // If the random representant is not allowed, we need to find
-      // categories with elements and with no representant. Those categories
-      // must be added to the list of categories to set to a random
-      // representant.
-      $query = '
-SELECT id
-  FROM '.CATEGORIES_TABLE.'
+  if (!$conf['allow_random_representative'])
+  {
+    // If the random representant is not allowed, we need to find
+    // categories with elements and with no representant. Those categories
+    // must be added to the list of categories to set to a random
+    // representant.
+    $query = '
+SELECT DISTINCT id
+  FROM '.CATEGORIES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.'
+    ON id = category_id
   WHERE representative_picture_id IS NULL
-    AND nb_images != 0
-    AND id IN ('.wordwrap(implode(', ', $cat_ids), 80, "\n").')
+    AND '.sprintf($where_cats, 'category_id').'
 ;';
-      $to_rand =
-        array_unique(
-          array_merge(
-            $to_rand,
-            array_from_query($query, 'id')
-            )
-          );
-
-      if (count($to_rand) > 0)
-      {
-        set_random_representant($to_rand);
-      }
+    $to_rand = array_from_query($query, 'id');
+    if (count($to_rand) > 0)
+    {
+      set_random_representant($to_rand);
     }
   }
 }

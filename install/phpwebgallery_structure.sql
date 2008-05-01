@@ -22,8 +22,6 @@ CREATE TABLE `phpwebgallery_caddie` (
 DROP TABLE IF EXISTS `phpwebgallery_categories`;
 CREATE TABLE `phpwebgallery_categories` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
-  `date_last` datetime default NULL,
-  `nb_images` mediumint(8) unsigned NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
   `id_uppercat` smallint(5) unsigned default NULL,
   `comment` text,
@@ -342,7 +340,9 @@ DROP TABLE IF EXISTS `phpwebgallery_user_cache_categories`;
 CREATE TABLE `phpwebgallery_user_cache_categories` (
   `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
+  `date_last` datetime default NULL,
   `max_date_last` datetime default NULL,
+  `nb_images` mediumint(8) unsigned NOT NULL default '0',
   `count_images` mediumint(8) unsigned default '0',
   `count_categories` mediumint(8) unsigned default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)

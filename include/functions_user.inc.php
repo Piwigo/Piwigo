@@ -582,12 +582,10 @@ function compute_categories_data(&$cats)
  */
 function get_computed_categories($userdata, $filter_days=null)
 {
-  $group_by = '';
-
   $query = 'SELECT c.id cat_id, global_rank';
   // Count by date_available to avoid count null
   $query .= ',
-  MAX(date_available) cat_date_last,  COUNT(date_available) cat_nb_images
+  MAX(date_available) date_last, COUNT(date_available) nb_images
 FROM '.CATEGORIES_TABLE.' as c
   LEFT JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON ic.category_id = c.id
   LEFT JOIN '.IMAGES_TABLE.' AS i
@@ -598,7 +596,6 @@ FROM '.CATEGORIES_TABLE.' as c
   {
     $query .= ' AND i.date_available > SUBDATE(CURRENT_DATE,INTERVAL '.$filter_days.' DAY)';
   }
-  $group_by = 'c.id';
 
   if ( !empty($userdata['forbidden_categories']) )
   {
@@ -606,11 +603,8 @@ FROM '.CATEGORIES_TABLE.' as c
   WHERE c.id NOT IN ('.$userdata['forbidden_categories'].')';
   }
 
-  if ( !empty($group_by) )
-  {
-    $query.= '
-  GROUP BY '.$group_by;
-  }
+  $query.= '
+  GROUP BY c.id';
 
   $result = pwg_query($query);
 
@@ -619,8 +613,8 @@ FROM '.CATEGORIES_TABLE.' as c
   {
     $row['user_id'] = $userdata['id'];
     $row['count_categories'] = 0;
-    $row['count_images'] = $row['cat_nb_images'];
-    $row['max_date_last'] = $row['cat_date_last'];
+    $row['count_images'] = (int)$row['nb_images'];
+    $row['max_date_last'] = $row['date_last'];
 
     $cats += array($row['cat_id'] => $row);
   }
@@ -639,9 +633,7 @@ FROM '.CATEGORIES_TABLE.' as c
       {
         // Re-init counters
         $category['count_categories'] = 0;
-        $category['count_images'] = $category['cat_nb_images'];
-        // next line for update_cats_with_filtered_data
-        $category['nb_images'] = $category['cat_nb_images'];
+        $category['count_images'] = (int)$category['nb_images'];
         // Keep category
         $cats[$category['cat_id']] = $category;
       }
@@ -676,7 +668,7 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
     array
     (
       'user_id', 'cat_id',
-      'max_date_last', 'count_images', 'count_categories'
+      'date_last', 'max_date_last', 'nb_images', 'count_images', 'count_categories'
     ),
     $cats
   );

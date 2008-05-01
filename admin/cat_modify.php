@@ -203,6 +203,12 @@ foreach (array('comment','dir','site_id', 'id_uppercat') as $nullable)
 
 $category['is_virtual'] = empty($category['dir']) ? true : false;
 
+$query = 'SELECT DISTINCT category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE category_id = '.$_GET['cat_id'].'
+  LIMIT 1';
+$result = pwg_query($query);
+$category['has_images'] = mysql_num_rows($result)>0 ? true : false;
 
 // Navigation path
 $navigation = get_cat_display_name_cache(
@@ -264,7 +270,7 @@ if ('private' == $category['status'])
 }
 
 // manage category elements link
-if ($category['nb_images'] > 0)
+if ($category['has_images'])
 {
   $template->assign( 'U_MANAGE_ELEMENTS',
         $base_url.'element_set&amp;cat='.$category['id']
@@ -344,7 +350,7 @@ for ($i=0; $i<3; $i++) // 3 fields
 
 
 // representant management
-if ($category['nb_images'] > 0
+if ($category['has_images']
     or !empty($category['representative_picture_id']))
 {
   $tpl_representant = array();
@@ -371,14 +377,14 @@ SELECT id,tn_ext,path
   }
 
   // can the admin choose to set a new random representant ?
-  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['nb_images']>0) ? true : false;
+  $tpl_representant['ALLOW_SET_RANDOM'] = ($category['has_images']) ? true : false;
 
   // can the admin delete the current representant ?
   if (
-    ($category['nb_images'] > 0
+    ($category['has_images']
      and $conf['allow_random_representative'])
     or
-    ($category['nb_images'] == 0
+    (!$category['has_images']
      and !empty($category['representative_picture_id'])))
   {
     $tpl_representant['ALLOW_DELETE'] = true;

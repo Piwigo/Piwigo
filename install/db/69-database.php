@@ -21,43 +21,38 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-/**
- * Get a check key for filtered data
- * Check key are composed of elements witch force to compute data
- *
- * @param null
- * @return strinf check_key
- */
-function get_filter_check_key()
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  global $user, $filter;
-
-  return $user['id'].$filter['recent_period'].date('Ymd');
+  die('Hacking attempt!');
 }
 
-/**
- * update data of categories with filtered values
- *
- * @param array list of categories
- * @return null
- */
-function update_cats_with_filtered_data(&$cats)
-{
-  global $filter;
+$upgrade_description = 'Move #categories.date_last and nb_images to #user_cache_categories';
 
-  if ($filter['enabled'])
-  {
-    $upd_fields = array('date_last', 'max_date_last', 'count_images', 'count_categories', 'nb_images');
+include_once(PHPWG_ROOT_PATH.'include/constants.php');
 
-    foreach ($cats as $cat_id => $category)
-    {
-      foreach ($upd_fields as $upd_field)
-      {
-        $cats[$cat_id][$upd_field] = $filter['categories'][$category['id']][$upd_field];
-      }
-    }
-  }
-}
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
+
+$query = '
+ALTER TABLE '.USER_CACHE_CATEGORIES_TABLE.'
+  ADD COLUMN date_last datetime default NULL AFTER cat_id,
+  ADD COLUMN nb_images mediumint(8) unsigned NOT NULL default 0 AFTER max_date_last';
+pwg_query($query);
+
+$query = '
+ALTER TABLE '.CATEGORIES_TABLE.'
+  DROP COLUMN date_last,
+  DROP COLUMN nb_images
+  ';
+pwg_query($query);
+
+invalidate_user_cache(); // just to force recalculation
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
 
 ?>
