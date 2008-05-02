@@ -51,13 +51,17 @@ $main_checkboxes = array(
     'rate',
     'rate_anonymous',
     'email_admin_on_new_user',
-    'email_admin_on_picture_uploaded',
    );
 
 $history_checkboxes = array(
     'log',
     'history_admin',
     'history_guest'
+   );
+
+$upload_checkboxes = array(
+    'upload_link_everytime',
+    'email_admin_on_picture_uploaded',
    );
 
 $comments_checkboxes = array(
@@ -105,6 +109,14 @@ if (isset($_POST['submit']) and !is_adviser())
         array_push($page['errors'], l10n('conf_nb_comment_page_error'));
       }
       foreach( $comments_checkboxes as $checkbox)
+      {
+        $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
+      }
+      break;
+    }
+    case 'upload' :
+    {
+      foreach( $upload_checkboxes as $checkbox)
       {
         $_POST[$checkbox] = empty($_POST[$checkbox])?'false':'true';
       }
@@ -160,6 +172,7 @@ $tabsheet = new tabsheet();
 $tabsheet->add('main', l10n('conf_main_title'), $conf_link.'main');
 $tabsheet->add('history', l10n('conf_history_title'), $conf_link.'history');
 $tabsheet->add('comments', l10n('conf_comments_title'), $conf_link.'comments');
+$tabsheet->add('upload', l10n('conf_upload_title'), $conf_link.'upload');
 $tabsheet->add('default', l10n('conf_display'), $conf_link.'default');
 // TabSheet selection
 $tabsheet->select($page['section']);
@@ -187,7 +200,7 @@ switch ($page['section'])
         'CONF_GALLERY_URL' => $conf['gallery_url'],
         ));
 
-    foreach( $main_checkboxes as $checkbox)
+    foreach ($main_checkboxes as $checkbox)
     {
       $template->append(
           'main',
@@ -202,7 +215,7 @@ switch ($page['section'])
   case 'history' :
   {
     //Necessary for merge_block_vars
-    foreach( $history_checkboxes as $checkbox)
+    foreach ($history_checkboxes as $checkbox)
     {
       $template->append(
           'history',
@@ -222,10 +235,32 @@ switch ($page['section'])
         'NB_COMMENTS_PAGE'=>$conf['nb_comment_page'],
         ));
 
-    foreach( $comments_checkboxes as $checkbox)
+    foreach ($comments_checkboxes as $checkbox)
     {
       $template->append(
           'comments',
+          array(
+            $checkbox => $conf[$checkbox]
+            ),
+          true
+        );
+    }
+    break;
+  }
+  case 'upload' :
+  {
+    $template->assign(
+      'upload',
+      array(
+        'upload_user_access_options'=> get_user_access_level_html_options(ACCESS_GUEST),
+        'upload_user_access_options_selected' => array($conf['upload_user_access'])
+        )
+      );
+    //Necessary for merge_block_vars
+    foreach ($upload_checkboxes as $checkbox)
+    {
+      $template->append(
+          'upload',
           array(
             $checkbox => $conf[$checkbox]
             ),

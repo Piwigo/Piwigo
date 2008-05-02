@@ -306,7 +306,6 @@ $lang['title_send_mail'] = 'commentaar op je site';
 $lang['today'] = 'vandaag';
 $lang['update_rate'] = 'Werk je beoordeling bij';
 $lang['update_wrong_dirname'] = 'verkeerde bestandsnaam';
-$lang['upload_advise'] = 'Kies een afbeelding om in een categorie te plaatsen : ';
 $lang['upload_advise_filesize'] = 'het bestandsformaat mag niet te groot zijn : ';
 $lang['upload_advise_filetype'] = 'de afbeelding moet een extensie hebbben die eindigt op jpg, gif of png';
 $lang['upload_advise_height'] = 'de hoogte van de afbeelding mag niet te groot zijn : ';
@@ -364,4 +363,6 @@ $lang['%d element are also linked to current tags'] = '%d image are also linked 
 $lang['%d elements are also linked to current tags'] = '%d images are also linked to current tags';
 $lang['See elements linked to this tag only'] = 'Toon afbeelding gelinkt met deze tag';
 $lang['elements posted during the last %d days'] = 'afbeelding binnen de %d dagen';
+$lang['Choose an image'] = 'Kies een afbeelding om';
+
 ?>

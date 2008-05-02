@@ -643,4 +643,14 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 /* TODO */ $lang['Purge compiled templates'] = 'Purge compiled templates';
 /* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
+/* TODO */ $lang['conf_upload_title'] = 'Upload';
+/* TODO */ $lang['Show upload link every time'] = 'Show upload link every time';
+/* TODO */ $lang['User access level to upload'] = 'User access level to upload';
+/* TODO */ $lang['ACCESS_0'] = 'Free access';
+/* TODO */ $lang['ACCESS_1'] = 'Access to all';
+/* TODO */ $lang['ACCESS_2'] = 'Access to subscribed';
+/* TODO */ $lang['ACCESS_3'] = 'Access to administrators';
+/* TODO */ $lang['ACCESS_4'] = 'Access to webmasters';
+/* TODO */ $lang['ACCESS_5'] = 'No access';
+
 ?>

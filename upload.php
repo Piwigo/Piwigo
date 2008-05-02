@@ -20,17 +20,32 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+
 define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 
-check_status(ACCESS_GUEST);
+// +-----------------------------------------------------------------------+
+// | Includes                                                              |
+// +-----------------------------------------------------------------------+
+include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/upload.class.php');
 
-$username = !empty($_POST['username'])?$_POST['username']:$user['username'];
-$mail_address = !empty($_POST['mail_address'])?$_POST['mail_address']:@$user['mail_address'];
-$name = !empty($_POST['name'])?$_POST['name']:'';
-$author = !empty($_POST['author'])?$_POST['author']:'';
-$date_creation = !empty($_POST['date_creation'])?$_POST['date_creation']:'';
-$comment = !empty($_POST['comment'])?$_POST['comment']:'';
+// +-----------------------------------------------------------------------+
+// | Check Access and exit when user status is not ok                      |
+// +-----------------------------------------------------------------------+
+check_status($conf['upload_user_access']);
+
+// +-----------------------------------------------------------------------+
+// | Create upload object                                                  |
+// +-----------------------------------------------------------------------+
+$upload = new Upload();
+
+
+$username = !empty($_POST['username']) ? $_POST['username']:(is_classic_user() ? $user['username'] : '');
+$mail_address = !empty($_POST['mail_address']) ? $_POST['mail_address'] : (is_classic_user() ? $user['email'] : '');
+$name = !empty($_POST['name']) ? $_POST['name'] : '';
+$author = !empty($_POST['author']) ? $_POST['author'] : (is_classic_user() ? $user['username'] : '');
+$date_creation = !empty($_POST['date_creation']) ? $_POST['date_creation'] : '';
+$comment = !empty($_POST['comment']) ? $_POST['comment'] : '';
 
 //------------------------------------------------------------------- functions
 // The validate_upload function checks if the image of the given path is valid.
@@ -121,24 +136,42 @@ function validate_upload( $temp_name, $my_max_file_size,
 }
 
 //-------------------------------------------------- access authorization check
+if (isset($_POST['category']) and is_numeric($_POST['category']))
+{
+  $page['category'] = $_POST['category'];
+}
+else
 if (isset($_GET['cat']) and is_numeric($_GET['cat']))
 {
   $page['category'] = $_GET['cat'];
 }
-
-if (isset($page['category']))
+else
 {
-  check_restrictions( $page['category'] );
-  $category = get_cat_info( $page['category'] );
-  $category['cat_dir'] = get_complete_dir( $page['category'] );
+  $page['category'] = null;
+}
+
+if (! empty($page['category']))
+{
+  check_restrictions($page['category']);
+  $category = get_cat_info($page['category']);
+  $category['cat_dir'] = get_complete_dir($page['category']);
 
   if (url_is_remote($category['cat_dir']) or !$category['uploadable'])
   {
     page_forbidden('upload not allowed');
   }
 }
-else { // $page['category'] may be set by a futur plugin but without it
-  bad_request('invalid parameters');
+else
+{
+  if (isset($_POST['submit']))
+  {
+    // $page['category'] may be set by a futur plugin but without it
+    bad_request('invalid parameters');
+  }
+  else
+  {
+    $category = null;
+  }
 }
 
 $error = array();
@@ -147,6 +180,7 @@ if ( isset( $_GET['waiting_id'] ) )
 {
   $page['waiting_id'] = $_GET['waiting_id'];
 }
+
 //-------------------------------------------------------------- picture upload
 // verfying fields
 if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
@@ -296,6 +330,25 @@ $page['body_id'] = 'theUploadPage';
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->set_filenames(array('upload'=>'upload.tpl'));
 
+// Load category list
+$query = '
+SELECT
+  id, name, uppercats, global_rank
+FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
+WHERE
+  uploadable = \'true\'
+  '.get_sql_condition_FandF
+    (
+      array
+        (
+          'visible_categories' => 'id',
+        ),
+      'AND'
+    ).'
+;';
+display_select_cat_wrapper($query, array($page['category']), 'categories');
+
 $u_form = PHPWG_ROOT_PATH.'upload.php?cat='.$page['category'];
 if ( isset( $page['waiting_id'] ) )
 {
@@ -304,12 +357,11 @@ $u_form.= '&amp;waiting_id='.$page['waiting_id'];
 
 if ( isset( $page['waiting_id'] ) )
 {
-  $advise_title=l10n('upload_advise_thumbnail').$_FILES['picture']['name'];
+  $advise_title = l10n('upload_advise_thumbnail').$_FILES['picture']['name'];
 }
 else
 {
-  $advise_title = l10n('upload_advise');
-  $advise_title.= get_cat_display_name($category['upper_names']);
+  $advise_title = l10n('Choose an image');
 }
 
 $template->assign(

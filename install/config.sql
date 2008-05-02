@@ -25,3 +25,5 @@ INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_c
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('email_admin_on_picture_uploaded','false','Send an email to the administrators when a picture is uploaded');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('obligatory_user_mail_address','false','Mail address is obligatory for users');
 INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('c13y_ignore',null,'List of ignored anomalies');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('upload_link_everytime','false','Show upload link every time');
+INSERT INTO phpwebgallery_config (param,value,comment) VALUES ('upload_user_access',2 /*ACCESS_CLASSIC*/,'User access level to upload');

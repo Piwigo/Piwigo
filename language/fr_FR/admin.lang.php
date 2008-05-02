@@ -635,4 +635,14 @@ $lang['plugins_server_error'] = 'Impossible de se connecter au serveur.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Purge compiled templates'] = 'Purger les templates compilés';
 $lang['Caddie is currently empty'] = 'Le panier est actuellement vide.';
+$lang['conf_upload_title'] = 'Téléchargement';
+$lang['Show upload link every time'] = 'Afficher le lien d\'ajout d\'image tout le temps';
+$lang['User access level to upload'] = 'Niveau d\'accès utilisateur pour télécharger';
+$lang['ACCESS_0'] = 'Accès libre';
+$lang['ACCESS_1'] = 'Accès à tous';
+$lang['ACCESS_2'] = 'Accès aux inscrits';
+$lang['ACCESS_3'] = 'Accès aux administrateurs';
+$lang['ACCESS_4'] = 'Accès aux webmestres';
+$lang['ACCESS_5'] = 'Pas d\'accès';
+
 ?>

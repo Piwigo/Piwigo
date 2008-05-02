@@ -39,6 +39,7 @@ $template->assign(
     'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
     'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
     'U_LOST_PASSWORD' => get_root_url().'password.php',
+    'U_UPLOAD' => get_upload_menu_link()
     )
   );
 
@@ -304,12 +305,7 @@ $template->append(
     )
   );
 
-if (isset($page['category']) and $page['category']['uploadable'] )
-{ // upload a picture in the category
-  $url = get_root_url().'upload.php?cat='.$page['category']['id'];
-  $template->assign('U_UPLOAD', $url);
-}
-
 trigger_action('loc_end_menubar');
 $template->assign_var_from_handle('MENUBAR', 'menubar');
+
 ?>

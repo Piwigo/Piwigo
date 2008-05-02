@@ -634,5 +634,15 @@ $lang['plugins_check_chmod'] = 'Please check "plugins" folder and sub-folders pe
 $lang['plugins_server_error'] = 'Can\'t connect to server.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Purge compiled templates'] = 'Purge compiled templates';
-/* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
+$lang['Caddie is currently empty'] = 'Caddie is currently empty';
+$lang['conf_upload_title'] = 'Upload';
+$lang['Show upload link every time'] = 'Show upload link every time';
+$lang['User access level to upload'] = 'User access level to upload';
+$lang['ACCESS_0'] = 'Free access';
+$lang['ACCESS_1'] = 'Access to all';
+$lang['ACCESS_2'] = 'Access to subscribed';
+$lang['ACCESS_3'] = 'Access to administrators';
+$lang['ACCESS_4'] = 'Access to webmasters';
+$lang['ACCESS_5'] = 'No access';
+
 ?>

@@ -306,7 +306,6 @@ $lang['title_send_mail'] = 'Una opinión sobre esta pagina';
 $lang['today'] = 'hoy';
 $lang['update_rate'] = 'Actualizar nota';
 $lang['update_wrong_dirname'] = 'Mal nombre de repertorio';
-$lang['upload_advise'] = 'Elegir una imagen para agregar en esta categoría : ';
 $lang['upload_advise_filesize'] = 'El peso de la imagen debe sobrepasar : ';
 $lang['upload_advise_filetype'] = 'El tamaño de la imagen debe ser jpg, png ou gif';
 $lang['upload_advise_height'] = 'La altura de la imagen no debe sobrepasar : ';
@@ -364,4 +363,6 @@ $lang['%d element are also linked to current tags'] = '%d imagen es también vin
 $lang['%d elements are also linked to current tags'] = '%d imagenes son igualmente vinculadas a los tags corrientes';
 $lang['See elements linked to this tag only'] = 'Ver las imágenes relacionadas únicamente a este tag';
 $lang['elements posted during the last %d days'] = 'esta imagen tiene menos de %d dias';
+$lang['Choose an image'] = 'Elegir una imagen';
+
 ?>

@@ -306,7 +306,6 @@ $lang['title_send_mail'] = 'A comment on your site';
 $lang['today'] = 'today';
 $lang['update_rate'] = 'Update your rating';
 $lang['update_wrong_dirname'] = 'wrong filename';
-$lang['upload_advise'] = 'Choose an image to place in the category : ';
 $lang['upload_advise_filesize'] = 'the filesize of the picture must not exceed : ';
 $lang['upload_advise_filetype'] = 'the picture must be to the fileformat jpg, gif or png';
 $lang['upload_advise_height'] = 'the height of the picture must not exceed : ';
@@ -364,4 +363,6 @@ $lang['%d element are also linked to current tags'] = '%d image is also linked t
 $lang['%d elements are also linked to current tags'] = '%d images are also linked to current tags';
 $lang['See elements linked to this tag only'] = 'See images linked to this tag only';
 $lang['elements posted during the last %d days'] = 'images posted during the last %d days';
+$lang['Choose an image'] = 'Choose an image';
+
 ?>

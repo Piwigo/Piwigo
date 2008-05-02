@@ -24,7 +24,7 @@
 define ('PHPWG_ROOT_PATH', './');
 
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-check_status(ACCESS_NONE);
+check_status(ACCESS_FREE);
 include_once(PHPWG_ROOT_PATH.'include/ws_core.inc.php');
 
 if ( !$conf['allow_web_services'] )

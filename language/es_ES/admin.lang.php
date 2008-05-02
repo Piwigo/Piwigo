@@ -639,5 +639,15 @@ $lang['plugins_check_chmod'] = 'Verifique los autorizaciones del expediente " pl
 $lang['plugins_server_error'] = 'Imposible conectarse al servidor.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Purge compiled templates'] = 'Purgar el templates compilado';
-$lang['Caddie is currently empty'] = 'Caddie is currently empty';
+/* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
+/* TODO */ $lang['conf_upload_title'] = 'Upload';
+/* TODO */ $lang['Show upload link every time'] = 'Show upload link every time';
+/* TODO */ $lang['User access level to upload'] = 'User access level to upload';
+/* TODO */ $lang['ACCESS_0'] = 'Free access';
+/* TODO */ $lang['ACCESS_1'] = 'Access to all';
+/* TODO */ $lang['ACCESS_2'] = 'Access to subscribed';
+/* TODO */ $lang['ACCESS_3'] = 'Access to administrators';
+/* TODO */ $lang['ACCESS_4'] = 'Access to webmasters';
+/* TODO */ $lang['ACCESS_5'] = 'No access';
+
 ?>

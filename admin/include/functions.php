@@ -1837,4 +1837,20 @@ function create_table_add_character_set($query)
   }
   return $query;
 }
+
+/**
+ * Returns array use on template with html_options method
+ * @param Min and Max access to use
+ * @return array of user access level
+ */
+function get_user_access_level_html_options($MinLevelAccess = ACCESS_FREE, $MaxLevelAccess = ACCESS_CLOSED)
+{
+  $tpl_options = array();
+  for ($level = $MinLevelAccess; $level <= $MaxLevelAccess; $level++)
+  {
+    $tpl_options[$level] = l10n(sprintf('ACCESS_%d', $level));
+  }
+  return $tpl_options;
+}
+
 ?>

@@ -35,50 +35,57 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" align="center" style="padding:10px;">
+      <td colspan="2" align="center">
       <input name="picture" type="file" value="" />
       </td>
     </tr>
     {if isset($SHOW_FORM_FIELDS) and $SHOW_FORM_FIELDS}
-    <!-- username  -->
+    <!-- category -->
     <tr>
-      <td class="menu">{'Username'|@translate} <span style="color:red;">*</span></td>
-      <td align="left" style="padding:10px;">
+      <td>{'Category'|@translate}</td>
+      <td>
+        {html_options name="category" options=$categories selected=$categories_selected}
+      </td>
+    </tr>
+    <!-- username -->
+    <tr>
+      <td>{'Username'|@translate} <span style="color:red;">*</span></td>
+      <td>
       <input name="username" type="text" value="{$NAME}" />
       </td>
     </tr>
-    <!-- mail address  -->
+    <!-- mail address -->
     <tr>
-      <td class="menu">{'mail_address'|@translate} <span style="color:red;">*</span></td>
-      <td align="left" style="padding:10px;">
+      <td>{'mail_address'|@translate} <span style="color:red;">*</span></td>
+      <td>
       <input name="mail_address" type="text" value="{$EMAIL}" />
       </td>
     </tr>
-    <!-- name of the picture  -->
+    <!-- name of the picture -->
     <tr>
-      <td class="menu">{'upload_name'|@translate}</td>
-      <td align="left" style="padding:10px;">
+      <td>{'upload_name'|@translate}</td>
+      <td>
       <input name="name" type="text" value="{$NAME_IMG}" />
       </td>
     </tr>
-    <!-- author  -->
+    <!-- author -->
     <tr>
-      <td class="menu">{'upload_author'|@translate}</td>
-      <td align="left" style="padding:10px;">
+      <td>{'upload_author'|@translate}</td>
+      <td>
       <input name="author" type="text" value="{$AUTHOR_IMG}" />
       </td>
     </tr>
-    <!-- date of creation  -->
+    <!-- date of creation -->
     <tr>
-      <td class="menu">{'Creation date'|@translate} (DD/MM/YYYY)</td>
-      <td align="left" style="padding:10px;">
+      <td>{'Creation date'|@translate} (DD/MM/YYYY)</td>
+      <td>
       <input name="date_creation" type="text" value="{$DATE_IMG}" />
       </td>
     </tr>
-    <!-- comment  -->
+    <!-- comment -->
     <tr>
-      <td class="menu">{'comment'|@translate}</td>
-      <td align="left" style="padding:10px;">
+      <td>{'comment'|@translate}</td>
+      <td>
        <textarea name="comment" rows="3" cols="40" style="overflow:auto">{$COMMENT_IMG}</textarea>
       </td>
     </tr>

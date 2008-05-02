@@ -452,4 +452,59 @@ function get_display_images_count($cat_nb_images, $cat_count_images, $cat_count_
   return $display_text;
 }
 
+/**
+ * returns the link of upload menu
+ *
+ * @param null
+ * @return string or null
+ */
+function get_upload_menu_link()
+{
+  global $conf, $page, $user;
+
+  $show_link = false;
+  $arg_link = null;
+
+  if (is_autorize_status($conf['upload_user_access']))
+  {
+    if (isset($page['category']) and $page['category']['uploadable'] )
+    {
+      // upload a picture in the category
+      $show_link = true;
+      $arg_link = 'cat='.$page['category']['id'];
+    }
+    else
+    if ($conf['upload_link_everytime'])
+    {
+      // upload a picture in the category
+      $query = '
+SELECT
+  1
+FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  ON id = cat_id and user_id = '.$user['id'].'
+WHERE
+  uploadable = \'true\'
+  '.get_sql_condition_FandF
+    (
+      array
+        (
+          'visible_categories' => 'id',
+        ),
+      'AND'
+    ).'
+LIMIT 1';
+
+      $show_link = mysql_num_rows(pwg_query($query)) <> 0;
+    }
+  }
+  if ($show_link)
+  {
+    return get_root_url().'upload.php'.(empty($arg_link) ? '' : '?'.$arg_link);
+  }
+  else
+  {
+    return;
+  }
+}
+
 ?>

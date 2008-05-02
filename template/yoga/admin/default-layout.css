@@ -99,13 +99,15 @@ FORM#categoryPermissions LI {
 
 FIELDSET#mainConfCheck SPAN.property,
 FIELDSET#historyConf SPAN.property,
-FIELDSET#commentsConf SPAN.property {
+FIELDSET#commentsConf SPAN.property,
+FIELDSET#uploadConf SPAN.property {
   float: right;
   text-align: left;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
-FIELDSET#commentsConf INPUT {
+FIELDSET#commentsConf INPUT,
+FIELDSET#uploadConf INPUT {
   float: none;
 }
 
@@ -121,15 +123,19 @@ FIELDSET#historyConf SPAN.property {
   width: 90%;
 }
 FIELDSET#mainConfCheck INPUT,
-FIELDSET#historyConf INPUT {
+FIELDSET#historyConf INPUT,
+FIELDSET#commentsConf INPUT,
+FIELDSET#uploadConf SELECT,
+FIELDSET#uploadConf INPUT {
   margin-left: 5%;
 }
 
 FIELDSET#commentsConf SPAN.property {
   width: 85%;
 }
-FIELDSET#commentsConf INPUT {
-  margin-left: 5%;
+
+FIELDSET#uploadConf SPAN.property {
+  width: 75%;
 }
 
 /* PWG Links Menu is fixed Graphic charts */

@@ -39,7 +39,7 @@ function inc_exc_str($is_included)
 
 define('PHPWG_ROOT_PATH','./');
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
-check_status(ACCESS_NONE);
+check_status(ACCESS_FREE);
 include_once( PHPWG_ROOT_PATH.'include/functions_search.inc.php' );
 
 $page['body_id'] = 'thePopuphelpPage';

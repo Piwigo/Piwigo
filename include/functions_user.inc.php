@@ -1088,7 +1088,7 @@ function get_user_status($user_status)
 }
 
 /*
- * Return access_type definition of uuser
+ * Return access_type definition of user
  * Test does with user status
  * @return bool
 */
@@ -1101,7 +1101,7 @@ function get_access_type_status($user_status='')
     case 'guest':
     {
       $access_type_status =
-        ($conf['guest_access'] ? ACCESS_GUEST : ACCESS_NONE);
+        ($conf['guest_access'] ? ACCESS_GUEST : ACCESS_FREE);
       break;
     }
     case 'generic':
@@ -1126,7 +1126,7 @@ function get_access_type_status($user_status='')
     }
     default:
     {
-      $access_type_status = ACCESS_NONE;
+      $access_type_status = ACCESS_FREE;
       break;
     }
   }

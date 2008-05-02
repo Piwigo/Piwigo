@@ -36,11 +36,12 @@ define('CRITICAL_MESSAGE', 203);
 define('CRITICAL_ERROR', 204);
 
 // Access codes
-define('ACCESS_NONE', 0);
+define('ACCESS_FREE', 0);
 define('ACCESS_GUEST', 1);
 define('ACCESS_CLASSIC', 2);
 define('ACCESS_ADMINISTRATOR', 3);
 define('ACCESS_WEBMASTER', 4);
+define('ACCESS_CLOSED', 5);
 
 // Table names
 if (!defined('CATEGORIES_TABLE'))
