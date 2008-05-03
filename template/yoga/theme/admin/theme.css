@@ -71,7 +71,7 @@ H3, #imageToolBar A:hover, .row1, .tabsheet li  {
 }
 #theAdminPage h2, #theAdminPage h3 { border-bottom: 1px solid #69c; }
 #imageHeaderBar, #theAdminPage #the_page {
-  background-color: #111;
+  background-color: transparent;
 }
 #imageToolBar, .header_notes {
   background-color: #333;
@@ -89,7 +89,7 @@ A:hover {
   padding: 5px;
 }
 #theAdminPage #the_page #content, #theAdminPage #the_page .content {
-  background-color: #111;
+  background-color: transparent;
   border-width: 0px;
   padding: 5px;
 }
@@ -137,18 +137,18 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
   border: none;
 }
 #thePicturePage #the_page {
-  background-color: #111;
+  background-color: transparent;
 }
 #thePicturePage #imageHeaderBar {
   background-image: url(images/tableh2_bg.png);
   background-repeat: repeat-x;
 }
 #thePicturePage #imageToolBar {
-  background-color: #111;
+  background-color: transparent;
   border-bottom: 2px solid #69c;
 }
 #thePicturePage #theImage {
-  background-color: #111;
+  background-color: transparent;
   margin: 0px;
   padding: 3px 0px 15px 0px;
 }
@@ -302,7 +302,7 @@ a.PWG:hover .G { color : #f92; }
 }
 .statBar { background-color: #e60; }
 #imageToolBar .randomButtons a:hover,
-#imageToolBar .navButtons a:hover { background-color: #111; }
+#imageToolBar .navButtons a:hover { background-color: transparent; }
 #menubar .menuInfoCat,
 #menubar .menuInfoCatByChild,
 h2.showtitle, #theImage p.showlegend { display: none }
@@ -329,18 +329,18 @@ body#theAdminPage #menubar {
 body#theAdminPage #content, #theAdminPage #the_page .content { /*default-layout.cs... (line 1)*/
 list-style-type:none; padding: 0pt;
  /*default-layout.cs... (line 23) */
-margin: 0pt 0pt 0pt 13.5em; background: transparent url(images/content-bg.png) 
+margin: 0pt 0pt 0pt 200px; background: transparent url(images/content-bg.png) 
   repeat-y scroll right top;}
 #theAdminPage #menubar ul { list-style-image:url(images/list-image.png); }
 #theAdminPage #menubar ul:hover { list-style-image:url(images/list-hover.png); }
 a, input.rateButton, legend { color:#777; }
 #menubar a { border-bottom:0; text-decoration:none; font-style: italic;}
 body#theAdminPage #theHeader { 
-  background:#111 url(images/logo23.jpg) no-repeat top left; height:105px; 
+  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat 230px top; height:105px; 
 }
 body#theAdminPage #post-header { 
-  background: transparent url(images/tableh1_bg.png) repeat-x top left;
-  width: 100%; height: 4px;
+  background-color: transparent;
+  width: 60%; height: 4px; margin-left:40%;
 }
 #theHeader h1 { /*default-layout.cs... (line 204) */
  font-size:220%; line-height:4em; margin:auto 2em auto auto; text-align:right;
@@ -373,29 +373,25 @@ width:9em !important;
 -moz-border-radius-bottomright:0px;
 border-bottom:0;
 border-right:0;
-border-top:1px solid #222;
-background: transparent url(images/pre-menubar-bg.png) no-repeat scroll left top;
+border-top:0px solid #222;
+background-color: transparent;
 }
 #theAdminPage #menubar dt.pre-menubar {
 background:transparent none no-repeat scroll left top;
 height: 22px; overflow: hidden; margin: 0px;
 }
 .pwgmenu { /*theme.css (line 335)*/
-background:transparent;
-display:table;
+background:transparent url(images/header_bottom.png) repeat-x scroll left 25px;
+float:right;
 font-family:verdana,arial,helvetica,sans-serif;
 font-size:70%;
 line-height:1.1em;
 list-style-image:none;
 list-style-type:none;
-margin:1px 8px 1px 00;
-padding:3px;
-position:relative;
-right:-406px;
-text-decoration:none;
-top:-93px;
-white-space:nowrap;
-width:636px;
+margin:1px 8px 1px 0pt;
+padding:3px 3px 3px 101px;
+text-decoration:none; top:-35px;
+width:587px;
 }
 .pwgmenu li { /*default-layout.cs... (line 151)*/
 float:left;
@@ -405,17 +401,17 @@ text-align:center;
 width:126px !important;
 }
 .pwgmenu a { /*theme.css (line 344)*/
-background:#FF3366 url(images/select_bt.png) repeat scroll left top;
+background:transparent url(images/onglet_inactif_transp.png) no-repeat scroll left 3px;
 border:0pt none;
-color:#CCCCCC;
+color:#FF3333;
 display:block;
-font-size:140%;
-height:15px;
-padding:15px 0pt 0pt;
-text-align:center;
-text-decoration:none;
-width:126px !important;
+font-size:40%; height:33px;
+padding:3px 0pt 5px 10pt; text-align:left;
+text-decoration:none; width:126px !important;
 }
+.pwgmenu a:hover { /*theme.css (line 344)*/
+background:transparent url(images/onglet_actif_transp.png) no-repeat scroll left 2px;
+color: #ff7700; }
 #content h2:before, #content h2:after, 
 #menubar DT:before, #menubar DT:after { content: ""; }
 #theHeader h1 { /*theme.css (line 345) */ color:#202127; }
@@ -429,18 +425,28 @@ font-weight:bold; margin-right:30px; padding-left:2em; }
 background: transparent none; margin-right:30px; font-weight: lighter;}
 #theAdminPage h2 { /* theme.css (line 72) */ border-bottom:0px; }
 body#theAdminPage { /*theme.css (line 324) */
-background:#111111 url(images/menubar-bg.png) repeat-y scroll left top;}
+background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;}
 #theAdminPage #the_page { /*theme.css (line 73)*/
-background:transparent url(images/content-bg.png) repeat-y scroll right top; }
+background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
 #the_page { /*theme.css (line 348)*/ padding-bottom:30px;}
 #content, .content {background-color:transparent;}
 body#theAdminPage #menubar {  /* theme.css (line 324) */
-background:transparent none repeat-y scroll right top; border-bottom:0px; }
+background:transparent none repeat-y scroll right top; border-bottom:0px; margin-top:150px;}
 #theAdminPage #the_page #content, #theAdminPage #the_page .content { /*theme.css (line 91)*/
-background-color:#111111; border-width:0px; padding:5px 35px 5px 5px; }
+background-color:transparent; border-width:0px; padding:5px 35px 5px 5px; }
 body#theAdminPage #menubar dl.selected dd { padding-bottom: 145px; }
 .header_notes {/*default-colors.cs... (line 91)*/
 background-image:url(icon/note.png); background-position:left top;
-background-repeat:no-repeat; border:1px solid #AAAAAA;
-font-weight:bold; margin:14px; padding:5px 0px 0px;
-position:absolute; right:31px; text-align:center; top:96px;  width:50%; }
+background-repeat:no-repeat; border:1px solid #AAAAAA; font-weight:bold;
+margin:14px; padding:5px 0px 0px; position:absolute; right:31px;
+text-align:center; top:96px; width:502px; }
+#theAdminPage #menubar dl.selected {/*theme.css (line 372)*/
+background:transparent url(images/menubar-top.png) no-repeat scroll left top;
+}
+#theAdminPage #menubar dl {/*theme.css (line 372)*/
+background:transparent url(images/menubar-top.png) no-repeat scroll left top; width: 198px;
+}
+#theAdminPage #menubar dt { background: none; left:10px; position:relative; text-align:left; top:-10px;}
+#theAdminPage #menubar dd { background: transparent url(images/menubar-detail.png) repeat-y top left; 
+margin: 0px 0px 0px 4px; padding: 0px;}
+span.bg { background-color: #111111; padding-right: 3px; }

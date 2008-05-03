@@ -504,12 +504,7 @@ $lang['Web Services availability duration in days'] = 'Web Services availability
 $lang['Web Services under control'] = 'PhpWebGallery Web Services are fully operationals and all requests are under control.';
 $lang['special_admin_menu'] = 'Specials';
 $lang['Duplicates'] = 'Files with same name in more than one physical category';
-$lang['DEMO'] = 'DEMO';
-$lang['HOME'] = 'HOME';
-$lang['FORUM'] = 'FORUM';
-$lang['BUGS'] = 'BUGS';
-$lang['EXTENSIONS'] = 'EXTENSIONS';
-$lang['WIKI / DOC'] = 'WIKI / DOC';
+
 $lang['Export data'] = 'Export data';
 $lang['Overall'] = 'Overall';
 $lang['Year'] = 'Year';
@@ -632,7 +627,7 @@ $lang['plugins_archive_error'] = 'Can\'t read or extract archive.';
 $lang['plugins_extract_error'] = 'An error occured during extraction (%s).';
 $lang['plugins_check_chmod'] = 'Please check "plugins" folder and sub-folders permissions (CHMOD).';
 $lang['plugins_server_error'] = 'Can\'t connect to server.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+
 $lang['Purge compiled templates'] = 'Purge compiled templates';
 $lang['Caddie is currently empty'] = 'Caddie is currently empty';
 $lang['conf_upload_title'] = 'Upload';
@@ -645,4 +640,10 @@ $lang['ACCESS_3'] = 'Access to administrators';
 $lang['ACCESS_4'] = 'Access to webmasters';
 $lang['ACCESS_5'] = 'No access';
 
+$lang['DEMO'] = 'Demo';
+$lang['HOME'] = 'Piwigo home';
+$lang['FORUM'] = 'Support';
+$lang['BUGS'] = 'Bugs';
+$lang['EXTENSIONS'] = 'Extensions';
+$lang['WIKI / DOC'] = 'Documentation';
 ?>

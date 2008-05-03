@@ -1,16 +1,5 @@
 {* $Id$ *}
 <h2>{'title_default'|@translate}</h2>
-{if isset($pwgmenu)}
-<ul class="pwgmenu">
-  <!-- Keep Doctype XHTML Strict acceptable even in Admin -->
-  <!-- New window is open if Js available (Webmasters accept it usually) --> 
-  <li><a href="{$pwgmenu.HOME}" onclick="window.open(this.href, ''); return false;">{'HOME'|@translate}</a></li>
-  <li><a href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); return false;">{'WIKI / DOC'|@translate}</a></li>
-  <li><a href="{$pwgmenu.FORUM}" onclick="window.open(this.href, ''); return false;">{'FORUM'|@translate}</a></li>
-  <li><a href="{$pwgmenu.BUGS}" onclick="window.open(this.href, ''); return false;">{'BUGS'|@translate}</a></li>
-  <li><a href="{$pwgmenu.EXTENSIONS}" onclick="window.open(this.href, ''); return false;">{'EXTENSIONS'|@translate}</a></li>
-</ul>   
-{/if}
 <dl>
   <dt>{'PhpWebGallery version'|@translate}</dt>
   <dd>

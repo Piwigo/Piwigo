@@ -135,6 +135,9 @@ if (count($page['infos']) != 0)
   $template->assign('infos', $page['infos']);
 }
 
+// Add the PhpWebGallery Official menu
+  $template->assign( 'pwgmenu', pwg_URL() );
+  
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('admin');
 

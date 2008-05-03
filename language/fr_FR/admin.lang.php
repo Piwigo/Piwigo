@@ -504,12 +504,7 @@ $lang['Web Services availability duration in days'] = 'Durée d\'ouverture des S
 $lang['Web Services under control'] = 'Les Services Web de PhpWebGallery sont totalement operationnels et toutes les requêtes sont contrôlées.';
 $lang['special_admin_menu'] = 'Spéciales';
 $lang['Duplicates'] = 'Fichiers portant le même nom dans plusieurs catégories physiques';
-$lang['DEMO'] = 'DÉMO';
-$lang['HOME'] = 'ACCUEIL PWG';
-$lang['FORUM'] = 'FORUM';
-$lang['BUGS'] = 'BOGUES';
-$lang['EXTENSIONS'] = 'EXTENSIONS';
-$lang['WIKI / DOC'] = 'WIKI / DOC';
+
 $lang['Export data'] = 'Exporter les données';
 $lang['Overall'] = 'Vue globale';
 $lang['Year'] = 'Année';
@@ -632,9 +627,15 @@ $lang['plugins_archive_error'] = 'Impossible de lire ou d\'extraire l\'archive.'
 $lang['plugins_extract_error'] = 'Une erreur est survenue pendant l\'extraction des fichiers (%s).';
 $lang['plugins_check_chmod'] = 'Vérifiez les permissions du dossier "plugins" et de ses sous-dossiers (CHMOD).';
 $lang['plugins_server_error'] = 'Impossible de se connecter au serveur.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+
 $lang['Purge compiled templates'] = 'Purger les templates compilés';
 $lang['Caddie is currently empty'] = 'Le panier est actuellement vide.';
+$lang['DEMO'] = 'Démo';
+$lang['HOME'] = 'Accueil Piwigo';
+$lang['FORUM'] = 'Support';
+$lang['BUGS'] = 'Bogues';
+$lang['EXTENSIONS'] = 'Extensions';
+$lang['WIKI / DOC'] = 'Documentation';
 $lang['conf_upload_title'] = 'Téléchargement';
 $lang['Show upload link every time'] = 'Afficher le lien d\'ajout d\'image tout le temps';
 $lang['User access level to upload'] = 'Niveau d\'accès utilisateur pour télécharger';

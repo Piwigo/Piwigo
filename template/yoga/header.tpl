@@ -67,7 +67,14 @@
 {/if}
 
 <div id="theHeader">{$PAGE_BANNER}</div>
-
+{if isset($pwgmenu)}
+<ul class="pwgmenu">
+  <li><a href="{$pwgmenu.HOME}" onclick="window.open(this.href, ''); return false;"><span class="bg">{'HOME'|@translate}<span></a></li>
+  <li><a href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); return false;"><span class="bg">{'WIKI / DOC'|@translate}<span></a></li>
+  <li><a href="{$pwgmenu.FORUM}" onclick="window.open(this.href, ''); return false;"><span class="bg">{'FORUM'|@translate}<span></a></li>
+  <li><a href="{$pwgmenu.EXTENSIONS}" onclick="window.open(this.href, ''); return false;"><span class="bg">{'EXTENSIONS'|@translate}<span></a></li>
+</ul>   
+{/if}
 {if not empty($header_notes)}
 <div class="header_notes">
 	{foreach from=$header_notes item=elt}

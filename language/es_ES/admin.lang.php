@@ -509,12 +509,7 @@ $lang['note_check_more_info'] = 'Vaya sobre %s or %s para más informaciones.';
 $lang['note_check_more_info_forum'] = 'el foro';
 $lang['note_check_more_info_wiki'] = 'el wiki';
 $lang['Duplicates'] = 'Ficheros que llevan el mismo nombre en varias categorías físicas';
-$lang['DEMO'] = 'DEMO';
-$lang['HOME'] = 'ACOGIDA PWG';
-$lang['FORUM'] = 'FORO';
-$lang['BUGS'] = 'BUGS';
-$lang['EXTENSIONS'] = 'EXTENSIONES';
-$lang['WIKI / DOC'] = 'WIKI / DOC';
+
 $lang['Export data'] = 'Exportar los datos';
 $lang['Overall'] = 'Vista global';
 $lang['Year'] = 'Año';
@@ -637,7 +632,7 @@ $lang['plugins_archive_error'] = 'Imposible leer o extraer el archivo.';
 $lang['plugins_extract_error'] = 'Un error sobrevino durante la extracción de los ficheros (%s).';
 $lang['plugins_check_chmod'] = 'Verifique los autorizaciones del expediente " plugins " y de sus subexpedientes (CHMOD).';
 $lang['plugins_server_error'] = 'Imposible conectarse al servidor.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+/* TODO */
 $lang['Purge compiled templates'] = 'Purgar el templates compilado';
 /* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
 /* TODO */ $lang['conf_upload_title'] = 'Upload';
@@ -650,4 +645,10 @@ $lang['Purge compiled templates'] = 'Purgar el templates compilado';
 /* TODO */ $lang['ACCESS_4'] = 'Access to webmasters';
 /* TODO */ $lang['ACCESS_5'] = 'No access';
 
+$lang['DEMO'] = 'Demo';
+$lang['HOME'] = 'Acogida Piwigo';
+$lang['FORUM'] = 'Ayuda';
+$lang['BUGS'] = 'Bugs';
+$lang['EXTENSIONS'] = 'Extensiones';
+$lang['WIKI / DOC'] = 'Documentación';
 ?>
