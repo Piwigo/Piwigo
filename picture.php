@@ -35,9 +35,11 @@ if (isset($page['category']))
   check_restrictions($page['category']['id']);
 }
 
+$page['rank_of'] = array_flip($page['items']);
+
 // if this image_id doesn't correspond to this category, an error message is
 // displayed, and execution is stopped
-if (!in_array($page['image_id'], $page['items']))
+if ( !isset($page['rank_of'][$page['image_id']]) )
 {
   page_not_found(
     'The requested image does not belong to this image set',
@@ -99,8 +101,6 @@ function default_picture_content($content, $element_info)
 // +-----------------------------------------------------------------------+
 // |                            initialization                             |
 // +-----------------------------------------------------------------------+
-
-$page['rank_of'] = array_flip($page['items']);
 
 // caching first_rank, last_rank, current_rank in the displayed
 // section. This should also help in readability.
@@ -867,11 +867,11 @@ if ($metadata_showable and isset($_GET['metadata']))
 {
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
-//------------------------------------------------------------ log informations
-pwg_log($picture['current']['id'], 'picture');
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');
 $template->pparse('picture');
+//------------------------------------------------------------ log informations
+pwg_log($picture['current']['id'], 'picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>
