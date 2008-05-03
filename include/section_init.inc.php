@@ -237,9 +237,28 @@ if ('categories' == $page['section'])
     if (isset($page['flat']))
     {// flat categories mode
       if ( isset($page['category']) )
-      {
-        $subcat_ids = get_subcat_ids( array($page['category']['id']) );
+      { // get all allowed sub-categories
+        $query = '
+SELECT id
+  FROM '.CATEGORIES_TABLE.'
+  WHERE
+    uppercats LIKE "'.$page['category']['uppercats'].',%" '
+    .get_sql_condition_FandF(
+      array
+        (
+          'forbidden_categories' => 'id',
+          'visible_categories' => 'id',
+        ),
+      "\n  AND"
+          );
+        $subcat_ids = array_from_query($query, 'id');
+        $subcat_ids[] = $page['category']['id'];
         $where_sql = 'category_id IN ('.implode(',',$subcat_ids).')';
+        // remove categories from forbidden because just checked above
+        $forbidden = get_sql_condition_FandF(
+              array( 'visible_images' => 'id' ),
+              'AND'
+          );
       }
       else
       {
@@ -502,13 +521,29 @@ if (script_basename() == 'picture'
     $query = '
 SELECT id,file
   FROM '.IMAGES_TABLE .'
-  WHERE id IN ('.implode(',',$page['items']).')
-  AND file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"'
-;
+  WHERE file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"';
+    if ( count($page['items']) < 500)
+    {// for very large item sets do not add IN - because slow
+      $query .= '
+  AND id IN ('.implode(',',$page['items']).')
+  LIMIT 0,1';
+    }
     $result = pwg_query($query);
-    if (mysql_num_rows($result)>0)
+    switch (mysql_num_rows($result))
     {
-      list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
+      case 0: break;
+      case 1:
+        list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
+        break;
+      default: // more than 1 file name match
+        while ($row = mysql_fetch_row($result) )
+        {
+          if ( in_array($row[0], $page['items']) )
+          {
+            list($page['image_id'], $page['image_file']) = $row;
+            break;
+          }
+        }
     }
   }
   if ( !isset($page['image_id']) )

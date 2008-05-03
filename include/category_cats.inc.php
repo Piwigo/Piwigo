@@ -57,7 +57,7 @@ else
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id, name, permalink, representative_picture_id, comment, nb_images,
+  id, name, permalink, representative_picture_id, comment, nb_images, uppercats,
   date_last, max_date_last, count_images, count_categories
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
@@ -95,8 +95,8 @@ SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON ic.category_id = c.id';
     $query.= '
-  WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-'.get_sql_condition_FandF
+  WHERE uppercats LIKE \''.$row['uppercats'].',%\''
+  .get_sql_condition_FandF
   (
     array
       (
@@ -104,7 +104,7 @@ SELECT image_id
         'visible_categories' => 'c.id',
         'visible_images' => 'image_id'
       ),
-    'AND'
+    "\n  AND"
   ).'
   ORDER BY RAND()
   LIMIT 0,1
@@ -121,15 +121,15 @@ SELECT image_id
 SELECT representative_picture_id
   FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
-  WHERE uppercats REGEXP \'(^|,)'.$row['id'].'(,|$)\'
-    AND representative_picture_id IS NOT NULL
-'.get_sql_condition_FandF
+  WHERE uppercats LIKE \''.$row['uppercats'].',%\'
+    AND representative_picture_id IS NOT NULL'
+  .get_sql_condition_FandF
   (
     array
       (
         'visible_categories' => 'id',
       ),
-    'AND'
+    "\n  AND"
   ).'
   ORDER BY RAND()
   LIMIT 0,1
