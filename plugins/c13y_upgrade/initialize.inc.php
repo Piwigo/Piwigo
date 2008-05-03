@@ -104,7 +104,7 @@ where
     $deactivate_msg_link =
       '<a href="'.
       PHPWG_ROOT_PATH.
-      'admin.php?page=plugins&amp;plugin=c13y_upgrade&amp;action=deactivate'.
+      'admin.php?page=plugins_list&amp;plugin=c13y_upgrade&amp;action=deactivate'.
       '" onclick="window.open(this.href, \'\'); return false;">'.
       l10n('c13y_upgrade_deactivate').'</a>';
 
