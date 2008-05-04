@@ -13,8 +13,11 @@ function selected_admin_menu()
       case 'site_update':
       case 'cat_list':
       case 'cat_modify':
+      case 'cat_move':
+      case 'cat_options':      
       case 'element_set':
       case 'cat_perm':
+      case 'permalinks':
       case 'picture_modify':
         if (isset($_GET['cat']) and $_GET['cat']='caddie') {
           return 3;
@@ -33,7 +36,7 @@ function selected_admin_menu()
       case 'history':
       case 'maintenance':
       case 'advanced_feature':
-      case 'wd_checker':
+      case 'ws_checker':
       case 'plugins_list':
       case 'plugin':
         return 5;

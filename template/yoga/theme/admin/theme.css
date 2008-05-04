@@ -217,10 +217,10 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   text-align: center;
   float: left;
 }
-/* links */
-A, INPUT.rateButton, legend {
-  color: #69c;
-}
+
+
+
+
 
 A:hover {
   color: #f92;
@@ -292,14 +292,14 @@ a.PWG .W { color : #aaa; }
 a.PWG .G { color : #69c; }
 a.PWG:hover .P { color : #69c; }
 a.PWG:hover .G { color : #f92; }
-#menubar DT {
-    border-top: 1px solid #eef;
-    border-right: 1px solid #69c;
-    border-bottom: 1px solid #69c;
-    border-bottom-right-radius: 12px;
-   -moz-border-radius-bottomright: 12px;
-    box-shadow: 5px 5px #69c;
-}
+
+
+
+
+
+
+
+
 .statBar { background-color: #e60; }
 #imageToolBar .randomButtons a:hover,
 #imageToolBar .navButtons a:hover { background-color: transparent; }
@@ -327,10 +327,10 @@ body#theAdminPage #menubar {
   border-bottom: #ccc ridge 2px; width:13.5em; padding: 0; margin: 0;
 }
 body#theAdminPage #content, #theAdminPage #the_page .content { /*default-layout.cs... (line 1)*/
-list-style-type:none; padding: 0pt;
+list-style-type:none; padding: 0px;
  /*default-layout.cs... (line 23) */
-margin: 0pt 0pt 0pt 200px; background: transparent url(images/content-bg.png) 
-  repeat-y scroll right top;}
+margin: 0px 0px 0px 200px; background-color: transparent;}
+
 #theAdminPage #menubar ul { list-style-image:url(images/list-image.png); }
 #theAdminPage #menubar ul:hover { list-style-image:url(images/list-hover.png); }
 a, input.rateButton, legend { color:#777; }
@@ -346,13 +346,13 @@ body#theAdminPage #post-header {
  font-size:220%; line-height:4em; margin:auto 2em auto auto; text-align:right;
 }
 #the_page { /*theme.css (line 235) */
-border:0; display:block; margin:0px; padding-bottom:10px;
-padding-top:0px; text-align:center; 
+border:0; display:block; margin:0px; padding-bottom:0px;
+padding-top:0px; text-align:center; min-height: 100%; position:relative;
 }
 .pwgmenu { /* default-layout.cs... (line 136) */
 background:transparent none repeat scroll 0%;
 display:table; font-family:verdana,arial,helvetica,sans-serif;
-font-size:70%; line-height:1.1em; list-style-image:none;
+font-size: 8px; line-height:1.1em; list-style-image:none;
 list-style-type:none; margin:1px 8px 1px auto;
 padding:3px; position:relative;
 text-decoration:none; top:-100px;
@@ -369,13 +369,13 @@ text-align:center;
 text-decoration:none;
 width:9em !important;
 }
-#theAdminPage #menubar dt { /*theme.css (line 295)*/
--moz-border-radius-bottomright:0px;
-border-bottom:0;
-border-right:0;
-border-top:0px solid #222;
-background-color: transparent;
-}
+
+
+
+
+
+
+
 #theAdminPage #menubar dt.pre-menubar {
 background:transparent none no-repeat scroll left top;
 height: 22px; overflow: hidden; margin: 0px;
@@ -384,29 +384,29 @@ height: 22px; overflow: hidden; margin: 0px;
 background:transparent url(images/header_bottom.png) repeat-x scroll left 25px;
 float:right;
 font-family:verdana,arial,helvetica,sans-serif;
-font-size:70%;
+font-size:8px;
 line-height:1.1em;
 list-style-image:none;
 list-style-type:none;
-margin:1px 8px 1px 0pt;
+margin:1px 8px 1px 0px;
 padding:3px 3px 3px 101px;
 text-decoration:none; top:-35px;
 width:587px;
 }
 .pwgmenu li { /*default-layout.cs... (line 151)*/
 float:left;
-margin:0;
-padding:0pt;
+margin:0px;
+padding:0px;
 text-align:center;
 width:126px !important;
 }
 .pwgmenu a { /*theme.css (line 344)*/
 background:transparent url(images/onglet_inactif_transp.png) no-repeat scroll left 3px;
-border:0pt none;
+border:0px none;
 color:#FF3333;
 display:block;
-font-size:40%; height:33px;
-padding:3px 0pt 5px 10pt; text-align:left;
+font-size:8px; height:33px;
+padding:3px 0px 5px 13px; text-align:left;
 text-decoration:none; width:126px !important;
 }
 .pwgmenu a:hover { /*theme.css (line 344)*/
@@ -414,7 +414,7 @@ background:transparent url(images/onglet_actif_transp.png) no-repeat scroll left
 color: #ff7700; }
 #content h2:before, #content h2:after, 
 #menubar DT:before, #menubar DT:after { content: ""; }
-#theHeader h1 { /*theme.css (line 345) */ color:#202127; }
+#theHeader h1 { /*theme.css (line 345) */ color:#441100; }
 #content h2 { /*theme.css (line 100)*/
 letter-spacing:0.1em; margin-right:45px; text-align:right; color: #777777; 
 text-transform:none; }
@@ -428,10 +428,11 @@ body#theAdminPage { /*theme.css (line 324) */
 background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;}
 #theAdminPage #the_page { /*theme.css (line 73)*/
 background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
-#the_page { /*theme.css (line 348)*/ padding-bottom:30px;}
+#the_page { /*theme.css (line 348)*/ padding-bottom:0px;}
 #content, .content {background-color:transparent;}
 body#theAdminPage #menubar {  /* theme.css (line 324) */
-background:transparent none repeat-y scroll right top; border-bottom:0px; margin-top:150px;}
+background:transparent none repeat-y scroll right top; border-bottom:0px; margin-top:110px;
+float: none; position: absolute; left: 0px; top: 160px;}
 #theAdminPage #the_page #content, #theAdminPage #the_page .content { /*theme.css (line 91)*/
 background-color:transparent; border-width:0px; padding:5px 35px 5px 5px; }
 body#theAdminPage #menubar dl.selected dd { padding-bottom: 145px; }
@@ -440,13 +441,28 @@ background-image:url(icon/note.png); background-position:left top;
 background-repeat:no-repeat; border:1px solid #AAAAAA; font-weight:bold;
 margin:14px; padding:5px 0px 0px; position:absolute; right:31px;
 text-align:center; top:96px; width:502px; }
-#theAdminPage #menubar dl.selected {/*theme.css (line 372)*/
-background:transparent url(images/menubar-top.png) no-repeat scroll left top;
-}
 #theAdminPage #menubar dl {/*theme.css (line 372)*/
 background:transparent url(images/menubar-top.png) no-repeat scroll left top; width: 198px;
+border:0;     box-shadow: none;
+}
+#theAdminPage #menubar dl.selected {/*theme.css (line 372)*/
+background:transparent url(images/menubar-top.png) no-repeat scroll left top;
 }
 #theAdminPage #menubar dt { background: none; left:10px; position:relative; text-align:left; top:-10px;}
 #theAdminPage #menubar dd { background: transparent url(images/menubar-detail.png) repeat-y top left; 
 margin: 0px 0px 0px 4px; padding: 0px;}
 span.bg { background-color: #111111; padding-right: 3px; }
+html, body {
+height:100%;
+}
+ul.tabsheet li.normal_tab, ul.tabsheet li.selected_tab { 
+background: transparent none repeat-x top left; 
+border:0; }
+ul.tabsheet { border:0; 
+background: transparent url(images/internal_onglet.png) repeat-x bottom left; }
+ul.tabsheet a { border:0; font-size: 12px; 
+font-family: verdana,arial,helvetica,sans-serif; line-height: 14px;  }
+ul.tabsheet li.selected_tab > a {  color: #ff3333; }
+ul.tabsheet, ul.tabsheet li { border-bottom: #eee solid 1px; }
+ul.tabsheet li.selected_tab {
+font-weight:bold; padding-top:0px; position:relative; top:0px; }
