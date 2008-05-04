@@ -93,7 +93,7 @@ SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON ic.category_id = c.id';
     $query.= '
-  WHERE uppercats LIKE \''.$row['uppercats'].',%\''
+  WHERE (c.id='.$row['id'].' OR uppercats LIKE \''.$row['uppercats'].',%\')'
   .get_sql_condition_FandF
   (
     array
