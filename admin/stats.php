@@ -115,19 +115,15 @@ check_status(ACCESS_ADMINISTRATOR);
 
 $query = '
 SELECT
-    year,
-    month,
-    day,
-    hour,
-    max(id) AS max_id,
+    date,
+    HOUR(time) AS hour,
+    MAX(id) AS max_id,
     COUNT(*) AS nb_pages
   FROM '.HISTORY_TABLE.'
   WHERE summarized = \'false\'
   GROUP BY
-    year ASC,
-    month ASC,
-    day ASC,
-    hour ASC
+    date ASC,
+    HOUR(time) ASC
 ;';
 $result = pwg_query($query);
 
@@ -140,21 +136,12 @@ $first_time_key = null;
 while ($row = mysql_fetch_array($result))
 {
   $time_keys = array(
+    substr($row['date'], 0, 4), //yyyy
+    substr($row['date'], 0, 7), //yyyy-mm
+    substr($row['date'], 0, 10),//yyyy-mm-dd
     sprintf(
-      '%4u',
-      $row['year']
-      ),
-    sprintf(
-      '%4u.%02u',
-      $row['year'], $row['month']
-      ),
-    sprintf(
-      '%4u.%02u.%02u',
-      $row['year'], $row['month'], $row['day']
-      ),
-    sprintf(
-      '%4u.%02u.%02u.%02u',
-      $row['year'], $row['month'], $row['day'], $row['hour']
+      '%s-%02u',
+      $row['date'], $row['hour']
       ),
     );
 
@@ -189,69 +176,73 @@ while ($row = mysql_fetch_array($result))
 // | id            | nb_pages |
 // +---------------+----------+
 // | 2005          |   241109 |
-// | 2005.08       |    20133 |
-// | 2005.08.25    |      620 |
-// | 2005.08.25.21 |      151 |
+// | 2005-08       |    20133 |
+// | 2005-08-25    |      620 |
+// | 2005-08-25-21 |      151 |
 // +---------------+----------+
 
-$existing_time_keys = array();
-
-if (isset($first_time_key))
-{
-  list($year, $month, $day, $hour) = explode('.', $first_time_key);
-
-  $time_keys = array(
-    sprintf('%4u',                $year),
-    sprintf('%4u.%02u',           $year, $month),
-    sprintf('%4u.%02u.%02u',      $year, $month, $day),
-    sprintf('%4u.%02u.%02u.%02u', $year, $month, $day, $hour),
-    );
-
-  $query = '
-SELECT
-    id,
-    nb_pages
-  FROM '.HISTORY_SUMMARY_TABLE.'
-  WHERE id IN (\''.implode("', '", $time_keys).'\')
-;';
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    $existing_time_keys[ $row['id'] ] = $row['nb_pages'];
-  }
-}
 
 $updates = array();
 $inserts = array();
 
-foreach (array_keys($need_update) as $time_key)
+if (isset($first_time_key))
 {
-  $time_tokens = explode('.', $time_key);
+  list($year, $month, $day, $hour) = explode('-', $first_time_key);
 
-  if (isset($existing_time_keys[$time_key]))
-  {
-    array_push(
-      $updates,
-      array(
-        'id'       => $time_key,
-        'nb_pages' => $existing_time_keys[$time_key] + $need_update[$time_key],
+  $query = '
+SELECT *
+  FROM '.HISTORY_SUMMARY_TABLE.'
+  WHERE year='.$year.'
+    AND ( month IS NULL
+      OR ( month='.$month.'
+        AND ( day is NULL 
+          OR (day='.$day.'
+            AND (hour IS NULL OR hour='.$hour.')
+          )
         )
-      );
-  }
-  else
+      )
+    )
+;';
+  $result = pwg_query($query);
+  while ($row = mysql_fetch_assoc($result))
   {
-    array_push(
+    $key = sprintf('%4u', $row['year']);
+    if ( isset($row['month']) )
+    {
+      $key .= sprintf('-%02u', $row['month']);
+      if ( isset($row['day']) )
+      {
+        $key .= sprintf('-%02u', $row['day']);
+        if ( isset($row['hour']) )
+        {
+          $key .= sprintf('-%02u', $row['hour']);
+        }
+      }
+    }
+
+    if (isset($need_update[$key]))
+    {
+      $row['nb_pages'] += $need_update[$key];
+      array_push($updates, $row);
+      unset($need_update[$key]);
+    }
+  }
+}
+
+foreach ($need_update as $time_key => $nb_pages)
+{
+  $time_tokens = explode('-', $time_key);
+
+  array_push(
       $inserts,
       array(
-        'id'       => $time_key,
         'year'     => $time_tokens[0],
         'month'    => @$time_tokens[1],
         'day'      => @$time_tokens[2],
         'hour'     => @$time_tokens[3],
-        'nb_pages' => $need_update[$time_key],
+        'nb_pages' => $nb_pages,
         )
       );
-  }
 }
 
 if (count($updates) > 0)
@@ -259,7 +250,7 @@ if (count($updates) > 0)
   mass_updates(
     HISTORY_SUMMARY_TABLE,
     array(
-      'primary' => array('id'),
+      'primary' => array('year','month','day','hour'),
       'update'  => array('nb_pages'),
       ),
     $updates

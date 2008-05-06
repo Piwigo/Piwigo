@@ -569,10 +569,6 @@ INSERT INTO '.HISTORY_TABLE.'
   (
     date,
     time,
-    year,
-    month,
-    day,
-    hour,
     user_id,
     IP,
     section,
@@ -585,10 +581,6 @@ INSERT INTO '.HISTORY_TABLE.'
   (
     CURDATE(),
     CURTIME(),
-    YEAR( CURDATE() ),
-    MONTH( CURDATE() ),
-    DAYOFMONTH( CURDATE() ),
-    HOUR( CURTIME() ),
     '.$user['id'].',
     \''.$_SERVER['REMOTE_ADDR'].'\',
     '.(isset($page['section']) ? "'".$page['section']."'" : 'NULL').',

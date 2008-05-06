@@ -116,10 +116,6 @@ CREATE TABLE `phpwebgallery_history` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `date` date NOT NULL default '0000-00-00',
   `time` time NOT NULL default '00:00:00',
-  `year` smallint(4) NOT NULL default '0',
-  `month` tinyint(2) NOT NULL default '0',
-  `day` tinyint(2) NOT NULL default '0',
-  `hour` tinyint(2) NOT NULL default '0',
   `user_id` smallint(5) NOT NULL default '0',
   `IP` varchar(15) NOT NULL default '',
   `section` enum('categories','tags','search','list','favorites','most_visited','best_rated','recent_pics','recent_cats') default NULL,
@@ -138,13 +134,12 @@ CREATE TABLE `phpwebgallery_history` (
 
 DROP TABLE IF EXISTS `phpwebgallery_history_summary`;
 CREATE TABLE `phpwebgallery_history_summary` (
-  `id` varchar(13) NOT NULL default '',
   `year` smallint(4) NOT NULL default '0',
   `month` tinyint(2) default NULL,
   `day` tinyint(2) default NULL,
   `hour` tinyint(2) default NULL,
   `nb_pages` int(11) default NULL,
-  PRIMARY KEY  (`id`)
+  UNIQUE KEY history_summary_ymdh (`year`,`month`,`day`,`hour`)
 ) TYPE=MyISAM;
 
 --

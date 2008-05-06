@@ -277,7 +277,7 @@ function update_category($ids = 'all')
     }
     $where_cats = '%s IN('.wordwrap(implode(', ', $ids), 120, "\n").')';
   }
-  
+
   // find all categories where the setted representative is not possible :
   // the picture does not exist
   $query = '
@@ -394,15 +394,15 @@ function mass_inserts($table_name, $dbfields, $datas)
       if ($first)
       {
         $query = '
-  INSERT INTO '.$table_name.'
-    ('.implode(',', $dbfields).')
-     VALUES';
+INSERT INTO '.$table_name.'
+  ('.implode(',', $dbfields).')
+  VALUES';
         $first = false;
       }
       else
       {
         $query .= '
-    , ';
+  , ';
       }
 
       $query .= '(';
@@ -452,8 +452,8 @@ function mass_updates($tablename, $dbfields, $datas)
       foreach ($datas as $data)
       {
         $query = '
-  UPDATE '.$tablename.'
-    SET ';
+UPDATE '.$tablename.'
+  SET ';
         $is_first = true;
         foreach ($dbfields['update'] as $key)
         {
@@ -473,7 +473,7 @@ function mass_updates($tablename, $dbfields, $datas)
           $is_first = false;
         }
         $query.= '
-    WHERE ';
+  WHERE ';
 
         $is_first = true;
         foreach ($dbfields['primary'] as $key)
@@ -482,11 +482,18 @@ function mass_updates($tablename, $dbfields, $datas)
           {
             $query.= ' AND ';
           }
-          $query.= $key.' = \''.$data[$key].'\'';
+          if ( isset($data[$key]) )
+          {
+            $query.= $key.' = \''.$data[$key].'\'';
+          }
+          else
+          {
+            $query.= $key.' IS NULL';
+          }
           $is_first = false;
         }
         $query.= '
-  ;';
+;';
         pwg_query($query);
       }
     }
@@ -494,7 +501,7 @@ function mass_updates($tablename, $dbfields, $datas)
     {
       // creation of the temporary table
       $query = '
-  SHOW FULL COLUMNS FROM '.$tablename.'
+SHOW FULL COLUMNS FROM '.$tablename.'
 ;';
       $result = pwg_query($query);
       $columns = array();
@@ -505,13 +512,20 @@ function mass_updates($tablename, $dbfields, $datas)
         {
           $column = $row['Field'];
           $column.= ' '.$row['Type'];
-          if (!isset($row['Null']) or $row['Null'] == '')
+
+          $nullable = true;
+          if (!isset($row['Null']) or $row['Null'] == '' or $row['Null']=='NO')
           {
             $column.= ' NOT NULL';
+            $nullable = false;
           }
           if (isset($row['Default']))
           {
             $column.= " default '".$row['Default']."'";
+          }
+          elseif ($nullable)
+          {
+            $column.= " default NULL";
           }
           if (isset($row['Collation']) and $row['Collation'] != 'NULL')
           {
@@ -527,15 +541,16 @@ function mass_updates($tablename, $dbfields, $datas)
   CREATE TABLE '.$temporary_tablename.'
   (
   '.implode(",\n", $columns).',
-  PRIMARY KEY ('.implode(',', $dbfields['primary']).')
+  UNIQUE KEY the_key ('.implode(',', $dbfields['primary']).')
   )
 ;';
+
       pwg_query($query);
       mass_inserts($temporary_tablename, $all_fields, $datas);
       // update of images table by joining with temporary table
       $query = '
-  UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
-    SET '.
+UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
+  SET '.
         implode(
           "\n    , ",
           array_map(
@@ -543,7 +558,7 @@ function mass_updates($tablename, $dbfields, $datas)
             $dbfields['update']
             )
           ).'
-    WHERE '.
+  WHERE '.
         implode(
           "\n    AND ",
           array_map(
@@ -554,7 +569,7 @@ function mass_updates($tablename, $dbfields, $datas)
   ;';
       pwg_query($query);
       $query = '
-  DROP TABLE '.$temporary_tablename.'
+DROP TABLE '.$temporary_tablename.'
 ;';
       pwg_query($query);
     }
