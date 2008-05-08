@@ -43,13 +43,15 @@ class Template {
   // Hash of filenames for each template handle.
   var $files = array();
 
+  // used by html_head smarty block to add content before </head>
+  var $html_head_elements = array();
+
   function Template($root = ".", $theme= "")
   {
     global $conf;
 
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
-    //$this->smarty->force_compile = true;
 
     if ( isset($conf['compiled_template_dir'] ) )
     {
@@ -76,6 +78,11 @@ class Template {
     $this->smarty->assign_by_ref( 'pwg', new PwgTemplateAdapter() );
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
+    $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
+    if ( $conf['compiled_template_cache_language'] )
+    {
+      $this->smarty->register_prefilter( array(&$this, 'prefilter_language') );
+    }
 
     if ( !empty($theme) )
     {
@@ -95,7 +102,7 @@ class Template {
 
     $real_dir = realpath($dir);
     $compile_id = crc32( $real_dir===false ? $dir : $real_dir);
-    $this->smarty->compile_id = sprintf('%08X', $compile_id );
+    $this->smarty->compile_id = base_convert($compile_id, 10, 36 );
   }
 
   /**
@@ -223,7 +230,21 @@ class Template {
     $this->smarty->assign( 'ROOT_URL', get_root_url() );
     $this->smarty->assign( 'TAG_INPUT_ENABLED',
       ((is_adviser()) ? 'disabled="disabled" onclick="return false;"' : ''));
+
+    global $conf, $lang_info;
+    if ( $conf['compiled_template_cache_language'] and isset($lang_info['code']) )
+    {
+      $save_compile_id = $this->smarty->compile_id;
+      $this->smarty->compile_id .= '.'.$lang_info['code'];
+    }
+    
     $v = $this->smarty->fetch($this->files[$handle], null, null, false);
+    
+    if (isset ($save_compile_id) )
+    {
+      $this->smarty->compile_id = $save_compile_id;
+    }
+     
     if ($return)
     {
       return $v;
@@ -238,19 +259,31 @@ class Template {
   function pparse($handle)
   {
     $this->parse($handle, false);
-    echo $this->output;
-    $this->output='';
-
+    $this->flush();
   }
 
+  function flush()
+  {
+    if ( count($this->html_head_elements) )
+    {
+      $search = "\n</head>";
+      $pos = strpos( $this->output, $search );
+      if ($pos !== false)
+      {
+        $this->output = substr_replace( $this->output, "\n".implode( "\n", $this->html_head_elements ), $pos, 0 );
+      } //else maybe error or warning ?
+      $this->html_head_elements = array();
+    }
+    echo $this->output;
+    $this->output='';
+  }
 
   /** flushes the output */
   function p()
   {
     $start = get_moment();
 
-    echo $this->output;
-    $this->output='';
+    $this->flush();
 
     if ($this->smarty->debugging)
     {
@@ -282,6 +315,47 @@ class Template {
   /*static*/ function mod_explode($text, $delimiter=',')
   {
     return explode($delimiter, $text);
+  }
+  
+  /**
+   * This smarty "html_head" block allows to add content just before
+   * </head> element in the output after the head has been parsed. This is
+   * handy in order to respect strict standards when <style> and <link>
+   * html elements must appear in the <head> element           
+   */
+  function block_html_head($params, $content, &$smarty, &$repeat)
+  {
+    $content = trim($content);
+    if ( !empty($content) )
+    { // second call
+      if ( empty($this->output) )
+      {//page header not parsed yet
+        $this->append('head_elements', $content);
+      }
+      else
+      {
+        $this->html_head_elements[] = $content;
+      }
+    }
+  }
+  
+  /**
+   * Smarty prefilter to allow caching (whenever possible) language strings 
+   * from templates.
+   */
+  function prefilter_language($source, &$smarty)
+  {
+    global $lang;
+    $ldq = preg_quote($this->smarty->left_delimiter, '~');
+    $rdq = preg_quote($this->smarty->right_delimiter, '~');
+    
+    $regex = "~$ldq *\'([^'$]+)\'\|@translate *$rdq~";
+    $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? $lang[\'$1\'] : \'$0\'', $source);
+
+    $regex = "~$ldq *\'([^'$]+)\'\|@translate\|~";
+    $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? \'{\'.var_export($lang[\'$1\'],true).\'|\' : \'$0\'', $source);
+
+    return $source;
   }
 }
 

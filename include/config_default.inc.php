@@ -690,4 +690,11 @@ $conf['light_slideshow'] = true;
 // the local data directory is used to store data such as compiled templates
 // or other plugin variables etc
 $conf['local_data_dir'] = dirname(dirname(__FILE__)).'/_data';
+
+// if true, some language strings are replaced during template compilation
+// (insted of template output). this results in better performance. however
+// any change in the language file will not be propagated until you purge
+// the compiled templates from the admin / maintenance menu
+$conf['compiled_template_cache_language'] = false;
+
 ?>

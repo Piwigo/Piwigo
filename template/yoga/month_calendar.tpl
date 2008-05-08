@@ -36,7 +36,13 @@
  {/foreach}
  </tr>
  </thead>
-
+{html_head} {*add the style to html head for strict standard compliance*}
+<style type="text/css">
+TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
+  width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px;
+}
+</style>
+{/html_head}
  {foreach from=$chronology_calendar.month_view.weeks item=week}
  <tr>
  	{foreach from=$week item=day}
@@ -44,16 +50,16 @@
  		{if isset($day.IMAGE)}
  			<td class="calDayCellFull">
 	 			<div class="calBackDate">{$day.DAY}</div><div class="calForeDate">{$day.DAY}</div>
-	 			<div class="calImg" style="width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px;">
+	 			<div class="calImg">
 					<a href="{$day.U_IMG_LINK}">
 			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$pwg->l10n_dec('%d element','%d elements', $day.NB_ELEMENTS)}" />
 					</a>
 				</div>
  		{else}
- 			<td class="calDayCellEmpty" style="width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px;">{$day.DAY}
+ 			<td class="calDayCellEmpty">{$day.DAY}
  		{/if}
  	{else}
- 		<td class="calDayCellBlank" style="width:{$chronology_calendar.month_view.CELL_WIDTH}px;height:{$chronology_calendar.month_view.CELL_HEIGHT}px;">
+ 		<td class="calDayCellBlank">
  	{/if}
  	</td>
  	{/foreach} {*day in week*}
