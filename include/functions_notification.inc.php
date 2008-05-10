@@ -421,7 +421,7 @@ function news($start, $end, $exclude_img_cats=false, $add_url=false)
 
     add_news_line( $news,
         nb_waiting_elements(), '%d waiting element', '%d waiting elements',
-        get_root_url().'admin.php?page=waiting', $add_url );
+        get_root_url().'admin.php?page=upload', $add_url );
   }
 
   return $news;
