@@ -5,22 +5,22 @@
 -- Server version	4.0.24_Debian-10-log
 
 --
--- Table structure for table `phpwebgallery_caddie`
+-- Table structure for table `piwigo_caddie`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_caddie`;
-CREATE TABLE `phpwebgallery_caddie` (
+DROP TABLE IF EXISTS `piwigo_caddie`;
+CREATE TABLE `piwigo_caddie` (
   `user_id` smallint(5) NOT NULL default '0',
   `element_id` mediumint(8) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`element_id`)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_categories`
+-- Table structure for table `piwigo_categories`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_categories`;
-CREATE TABLE `phpwebgallery_categories` (
+DROP TABLE IF EXISTS `piwigo_categories`;
+CREATE TABLE `piwigo_categories` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `id_uppercat` smallint(5) unsigned default NULL,
@@ -43,11 +43,11 @@ CREATE TABLE `phpwebgallery_categories` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_comments`
+-- Table structure for table `piwigo_comments`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_comments`;
-CREATE TABLE `phpwebgallery_comments` (
+DROP TABLE IF EXISTS `piwigo_comments`;
+CREATE TABLE `piwigo_comments` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -61,11 +61,11 @@ CREATE TABLE `phpwebgallery_comments` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_config`
+-- Table structure for table `piwigo_config`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_config`;
-CREATE TABLE `phpwebgallery_config` (
+DROP TABLE IF EXISTS `piwigo_config`;
+CREATE TABLE `piwigo_config` (
   `param` varchar(40) NOT NULL default '',
   `value` text,
   `comment` varchar(255) default NULL,
@@ -73,33 +73,33 @@ CREATE TABLE `phpwebgallery_config` (
 ) TYPE=MyISAM COMMENT='configuration table';
 
 --
--- Table structure for table `phpwebgallery_favorites`
+-- Table structure for table `piwigo_favorites`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_favorites`;
-CREATE TABLE `phpwebgallery_favorites` (
+DROP TABLE IF EXISTS `piwigo_favorites`;
+CREATE TABLE `piwigo_favorites` (
   `user_id` smallint(5) NOT NULL default '0',
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`image_id`)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_group_access`
+-- Table structure for table `piwigo_group_access`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_group_access`;
-CREATE TABLE `phpwebgallery_group_access` (
+DROP TABLE IF EXISTS `piwigo_group_access`;
+CREATE TABLE `piwigo_group_access` (
   `group_id` smallint(5) unsigned NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`group_id`,`cat_id`)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_groups`
+-- Table structure for table `piwigo_groups`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_groups`;
-CREATE TABLE `phpwebgallery_groups` (
+DROP TABLE IF EXISTS `piwigo_groups`;
+CREATE TABLE `piwigo_groups` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `is_default` enum('true','false') NOT NULL default 'false',
@@ -108,11 +108,11 @@ CREATE TABLE `phpwebgallery_groups` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_history`
+-- Table structure for table `piwigo_history`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_history`;
-CREATE TABLE `phpwebgallery_history` (
+DROP TABLE IF EXISTS `piwigo_history`;
+CREATE TABLE `piwigo_history` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `date` date NOT NULL default '0000-00-00',
   `time` time NOT NULL default '00:00:00',
@@ -129,11 +129,11 @@ CREATE TABLE `phpwebgallery_history` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_history_summary`
+-- Table structure for table `piwigo_history_summary`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_history_summary`;
-CREATE TABLE `phpwebgallery_history_summary` (
+DROP TABLE IF EXISTS `piwigo_history_summary`;
+CREATE TABLE `piwigo_history_summary` (
   `year` smallint(4) NOT NULL default '0',
   `month` tinyint(2) default NULL,
   `day` tinyint(2) default NULL,
@@ -143,11 +143,11 @@ CREATE TABLE `phpwebgallery_history_summary` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_image_category`
+-- Table structure for table `piwigo_image_category`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_image_category`;
-CREATE TABLE `phpwebgallery_image_category` (
+DROP TABLE IF EXISTS `piwigo_image_category`;
+CREATE TABLE `piwigo_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`image_id`,`category_id`),
@@ -155,11 +155,11 @@ CREATE TABLE `phpwebgallery_image_category` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_image_tag`
+-- Table structure for table `piwigo_image_tag`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_image_tag`;
-CREATE TABLE `phpwebgallery_image_tag` (
+DROP TABLE IF EXISTS `piwigo_image_tag`;
+CREATE TABLE `piwigo_image_tag` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `tag_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`image_id`,`tag_id`),
@@ -167,11 +167,11 @@ CREATE TABLE `phpwebgallery_image_tag` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_images`
+-- Table structure for table `piwigo_images`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_images`;
-CREATE TABLE `phpwebgallery_images` (
+DROP TABLE IF EXISTS `piwigo_images`;
+CREATE TABLE `piwigo_images` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
   `file` varchar(255) NOT NULL default '',
   `date_available` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -201,11 +201,11 @@ CREATE TABLE `phpwebgallery_images` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_old_permalinks`
+-- Table structure for table `piwigo_old_permalinks`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_old_permalinks`;
-CREATE TABLE `phpwebgallery_old_permalinks` (
+DROP TABLE IF EXISTS `piwigo_old_permalinks`;
+CREATE TABLE `piwigo_old_permalinks` (
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   `permalink` varchar(64) NOT NULL default '',
   `date_deleted` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -215,11 +215,11 @@ CREATE TABLE `phpwebgallery_old_permalinks` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_plugins`
+-- Table structure for table `piwigo_plugins`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_plugins`;
-CREATE TABLE `phpwebgallery_plugins` (
+DROP TABLE IF EXISTS `piwigo_plugins`;
+CREATE TABLE `piwigo_plugins` (
   `id` varchar(64) binary NOT NULL default '',
   `state` enum('inactive','active') NOT NULL default 'inactive',
   `version` varchar(64) NOT NULL default '0',
@@ -227,11 +227,11 @@ CREATE TABLE `phpwebgallery_plugins` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_rate`
+-- Table structure for table `piwigo_rate`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_rate`;
-CREATE TABLE `phpwebgallery_rate` (
+DROP TABLE IF EXISTS `piwigo_rate`;
+CREATE TABLE `piwigo_rate` (
   `user_id` smallint(5) NOT NULL default '0',
   `element_id` mediumint(8) unsigned NOT NULL default '0',
   `anonymous_id` varchar(45) NOT NULL default '',
@@ -241,11 +241,11 @@ CREATE TABLE `phpwebgallery_rate` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_search`
+-- Table structure for table `piwigo_search`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_search`;
-CREATE TABLE `phpwebgallery_search` (
+DROP TABLE IF EXISTS `piwigo_search`;
+CREATE TABLE `piwigo_search` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `last_seen` date default NULL,
   `rules` text,
@@ -253,11 +253,11 @@ CREATE TABLE `phpwebgallery_search` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_sessions`
+-- Table structure for table `piwigo_sessions`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_sessions`;
-CREATE TABLE `phpwebgallery_sessions` (
+DROP TABLE IF EXISTS `piwigo_sessions`;
+CREATE TABLE `piwigo_sessions` (
   `id` varchar(255) binary NOT NULL default '',
   `data` mediumtext NOT NULL,
   `expiration` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -265,11 +265,11 @@ CREATE TABLE `phpwebgallery_sessions` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_sites`
+-- Table structure for table `piwigo_sites`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_sites`;
-CREATE TABLE `phpwebgallery_sites` (
+DROP TABLE IF EXISTS `piwigo_sites`;
+CREATE TABLE `piwigo_sites` (
   `id` tinyint(4) NOT NULL auto_increment,
   `galleries_url` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
@@ -277,11 +277,11 @@ CREATE TABLE `phpwebgallery_sites` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_tags`
+-- Table structure for table `piwigo_tags`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_tags`;
-CREATE TABLE `phpwebgallery_tags` (
+DROP TABLE IF EXISTS `piwigo_tags`;
+CREATE TABLE `piwigo_tags` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(255) binary NOT NULL default '',
   `url_name` varchar(255) binary NOT NULL default '',
@@ -290,11 +290,11 @@ CREATE TABLE `phpwebgallery_tags` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_upgrade`
+-- Table structure for table `piwigo_upgrade`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_upgrade`;
-CREATE TABLE `phpwebgallery_upgrade` (
+DROP TABLE IF EXISTS `piwigo_upgrade`;
+CREATE TABLE `piwigo_upgrade` (
   `id` varchar(20) NOT NULL default '',
   `applied` datetime NOT NULL default '0000-00-00 00:00:00',
   `description` varchar(255) default NULL,
@@ -302,22 +302,22 @@ CREATE TABLE `phpwebgallery_upgrade` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_access`
+-- Table structure for table `piwigo_user_access`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_access`;
-CREATE TABLE `phpwebgallery_user_access` (
+DROP TABLE IF EXISTS `piwigo_user_access`;
+CREATE TABLE `piwigo_user_access` (
   `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`cat_id`)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_cache`
+-- Table structure for table `piwigo_user_cache`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_cache`;
-CREATE TABLE `phpwebgallery_user_cache` (
+DROP TABLE IF EXISTS `piwigo_user_cache`;
+CREATE TABLE `piwigo_user_cache` (
   `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
   `forbidden_categories` mediumtext,
@@ -328,11 +328,11 @@ CREATE TABLE `phpwebgallery_user_cache` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_cache_categories`
+-- Table structure for table `piwigo_user_cache_categories`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_cache_categories`;
-CREATE TABLE `phpwebgallery_user_cache_categories` (
+DROP TABLE IF EXISTS `piwigo_user_cache_categories`;
+CREATE TABLE `piwigo_user_cache_categories` (
   `user_id` smallint(5) NOT NULL default '0',
   `cat_id` smallint(5) unsigned NOT NULL default '0',
   `date_last` datetime default NULL,
@@ -344,11 +344,11 @@ CREATE TABLE `phpwebgallery_user_cache_categories` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_feed`
+-- Table structure for table `piwigo_user_feed`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_feed`;
-CREATE TABLE `phpwebgallery_user_feed` (
+DROP TABLE IF EXISTS `piwigo_user_feed`;
+CREATE TABLE `piwigo_user_feed` (
   `id` varchar(50) binary NOT NULL default '',
   `user_id` smallint(5) NOT NULL default '0',
   `last_check` datetime default NULL,
@@ -356,22 +356,22 @@ CREATE TABLE `phpwebgallery_user_feed` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_group`
+-- Table structure for table `piwigo_user_group`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_group`;
-CREATE TABLE `phpwebgallery_user_group` (
+DROP TABLE IF EXISTS `piwigo_user_group`;
+CREATE TABLE `piwigo_user_group` (
   `user_id` smallint(5) NOT NULL default '0',
   `group_id` smallint(5) unsigned NOT NULL default '0',
   PRIMARY KEY  (`group_id`,`user_id`)
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_infos`
+-- Table structure for table `piwigo_user_infos`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_infos`;
-CREATE TABLE `phpwebgallery_user_infos` (
+DROP TABLE IF EXISTS `piwigo_user_infos`;
+CREATE TABLE `piwigo_user_infos` (
   `user_id` smallint(5) NOT NULL default '0',
   `nb_image_line` tinyint(1) unsigned NOT NULL default '5',
   `nb_line_page` tinyint(3) unsigned NOT NULL default '3',
@@ -392,11 +392,11 @@ CREATE TABLE `phpwebgallery_user_infos` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_user_mail_notification`
+-- Table structure for table `piwigo_user_mail_notification`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_user_mail_notification`;
-CREATE TABLE `phpwebgallery_user_mail_notification` (
+DROP TABLE IF EXISTS `piwigo_user_mail_notification`;
+CREATE TABLE `piwigo_user_mail_notification` (
   `user_id` smallint(5) NOT NULL default '0',
   `check_key` varchar(16) binary NOT NULL default '',
   `enabled` enum('true','false') NOT NULL default 'false',
@@ -406,11 +406,11 @@ CREATE TABLE `phpwebgallery_user_mail_notification` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_users`
+-- Table structure for table `piwigo_users`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_users`;
-CREATE TABLE `phpwebgallery_users` (
+DROP TABLE IF EXISTS `piwigo_users`;
+CREATE TABLE `piwigo_users` (
   `id` smallint(5) NOT NULL auto_increment,
   `username` varchar(100) binary NOT NULL default '',
   `password` varchar(32) default NULL,
@@ -420,11 +420,11 @@ CREATE TABLE `phpwebgallery_users` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_waiting`
+-- Table structure for table `piwigo_waiting`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_waiting`;
-CREATE TABLE `phpwebgallery_waiting` (
+DROP TABLE IF EXISTS `piwigo_waiting`;
+CREATE TABLE `piwigo_waiting` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `storage_category_id` smallint(5) unsigned NOT NULL default '0',
   `file` varchar(255) NOT NULL default '',
@@ -438,11 +438,11 @@ CREATE TABLE `phpwebgallery_waiting` (
 ) TYPE=MyISAM;
 
 --
--- Table structure for table `phpwebgallery_ws_access`
+-- Table structure for table `piwigo_ws_access`
 --
 
-DROP TABLE IF EXISTS `phpwebgallery_ws_access`;
-CREATE TABLE `phpwebgallery_ws_access` (
+DROP TABLE IF EXISTS `piwigo_ws_access`;
+CREATE TABLE `piwigo_ws_access` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL default '',
   `access` varchar(255) default NULL,

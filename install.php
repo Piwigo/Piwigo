@@ -142,7 +142,7 @@ if( !get_magic_quotes_gpc() )
 
 //----------------------------------------------------- variable initialization
 
-define('DEFAULT_PREFIX_TABLE', 'phpwebgallery_');
+define('DEFAULT_PREFIX_TABLE', 'piwigo_');
 
 // Obtain various vars
 $dbhost = (!empty($_POST['dbhost'])) ? $_POST['dbhost'] : 'localhost';
@@ -172,10 +172,10 @@ $config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
 if (@file_exists($config_file))
 {
   include($config_file);
-  // Is PhpWebGallery already installed ?
+  // Is Piwigo already installed ?
   if (defined("PHPWG_INSTALLED"))
   {
-    die('PhpWebGallery is already installed');
+    die('Piwigo is already installed');
   }
 }
 
@@ -299,9 +299,9 @@ define(\'DB_COLLATE\', \'\');
     // Create empty local files to avoid log errors
     create_empty_local_files();
 
-    // tables creation, based on phpwebgallery_structure.sql
+    // tables creation, based on piwigo_structure.sql
     execute_sqlfile(
-      PHPWG_ROOT_PATH.'install/phpwebgallery_structure.sql',
+      PHPWG_ROOT_PATH.'install/piwigo_structure.sql',
       DEFAULT_PREFIX_TABLE,
       $table_prefix
       );

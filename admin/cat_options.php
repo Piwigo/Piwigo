@@ -128,7 +128,7 @@ UPDATE '.CATEGORIES_TABLE.'
     case 'representative' :
     {
       // theoretically, all categories in $_POST['cat_false'] contain at
-      // least one element, so PhpWebGallery can find a representant.
+      // least one element, so Piwigo can find a representant.
       set_random_representant($_POST['cat_false']);
       break;
     }

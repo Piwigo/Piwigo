@@ -466,7 +466,7 @@ function str2url($str)
   return $res;
 }
 
-//-------------------------------------------- PhpWebGallery specific functions
+//-------------------------------------------- Piwigo specific functions
 
 /**
  * returns an array with a list of {language_code => language_name}
@@ -913,7 +913,7 @@ function get_thumbnail_url($element_info)
 }
 
 /* returns the relative path of the thumnail with regards to to the root
-of phpwebgallery (not the current page!).This function is not intended to be
+of piwigo (not the current page!).This function is not intended to be
 called directly from code.*/
 function get_thumbnail_location($element_info)
 {
@@ -1391,7 +1391,7 @@ function get_pwg_charset()
  *
  * in descending order of preference:
  *   param language, user language, default language
- * PhpWebGallery default language.
+ * Piwigo default language.
  *
  * @param string filename
  * @param string dirname

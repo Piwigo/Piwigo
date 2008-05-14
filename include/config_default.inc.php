@@ -140,7 +140,7 @@ $conf['tn_width'] = 128;
 // tn_height : default height for thumbnails creation
 $conf['tn_height'] = 128;
 
-// show_version : shall the version of PhpWebGallery be displayed at the
+// show_version : shall the version of Piwigo be displayed at the
 // bottom of each page ?
 $conf['show_version'] = true;
 
@@ -151,7 +151,7 @@ $conf['show_version'] = true;
 // Simple use:
 //  for each link is associated a label
 //  $conf['links'] = array(
-//    'http://phpwebgallery.net' => 'PWG website',
+//    'http://piwigo.org' => 'PWG website',
 //    'http://forum.phpwebgallery.net' => 'PWG forum',
 //    'http://phpwebgallery.net/doc' => 'PWG wiki'
 //    );
@@ -160,7 +160,7 @@ $conf['show_version'] = true;
 //  You can also used special options. Instead to pass a string like parameter value
 //  you can pass a array with different optional parameter values
 //  $conf['links'] = array(
-//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
+//    'http://piwigo.org' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
 //    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
 //    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return is_a_guest();'),
 //    'http://download.gna.org/phpwebgallery/' =>
@@ -185,10 +185,10 @@ $conf['show_version'] = true;
 //
 // Equivalence:
 //  $conf['links'] = array(
-//    'http://phpwebgallery.net' => 'PWG website',
+//    'http://piwigo.org' => 'PWG website',
 //    );
 //  $conf['links'] = array(
-//    'http://phpwebgallery.net' => array('label' => 'PWG website', 'new_window' => false, 'visible' => 'return true;'),
+//    'http://piwigo.org' => array('label' => 'PWG website', 'new_window' => false, 'visible' => 'return true;'),
 //    );
 //
 // If the array is empty, the "Links" box won't be displayed on the main
@@ -223,7 +223,7 @@ $conf['show_picture_name_on_title'] = true;
 // category.
 $conf['display_fromto'] = false;
 
-// allow_random_representative : do you wish PhpWebGallery to search among
+// allow_random_representative : do you wish Piwigo to search among
 // categories elements a new representative at each reload ?
 //
 // If false, an element is randomly or manually chosen to represent its
@@ -321,9 +321,9 @@ $conf['show_iptc_mapping'] = array(
 // metadata
 $conf['use_iptc'] = false;
 
-// use_iptc_mapping : in which IPTC fields will PhpWebGallery find image
+// use_iptc_mapping : in which IPTC fields will Piwigo find image
 // information ? This setting is used during metadata synchronisation. It
-// associates a phpwebgallery_images column name to a IPTC key
+// associates a piwigo_images column name to a IPTC key
 $conf['use_iptc_mapping'] = array(
   'keywords'        => '2#025',
   'date_creation'   => '2#055',
@@ -429,24 +429,24 @@ $conf['die_on_sql_error'] = true;
 $conf['apache_authentication'] = false;
 
 // users_table: which table is the reference for users? Can be a different
-// table than PhpWebGallery table
+// table than Piwigo table
 //
 // If you decide to use another table than the default one, you need to
 // prepare your database by deleting some datas :
 //
-// delete from phpwebgallery_user_access;
-// delete from phpwebgallery_user_cache;
-// delete from phpwebgallery_user_feed;
-// delete from phpwebgallery_user_group;
-// delete from phpwebgallery_user_infos;
-// delete from phpwebgallery_sessions;
-// delete from phpwebgallery_rate;
-// update phpwebgallery_images set average_rate = NULL;
-// delete from phpwebgallery_caddie;
-// delete from phpwebgallery_favorites;
+// delete from piwigo_user_access;
+// delete from piwigo_user_cache;
+// delete from piwigo_user_feed;
+// delete from piwigo_user_group;
+// delete from piwigo_user_infos;
+// delete from piwigo_sessions;
+// delete from piwigo_rate;
+// update piwigo_images set average_rate = null;
+// delete from piwigo_caddie;
+// delete from piwigo_favorites;
 //
 // All informations contained in these tables and column are related to
-// phpwebgallery_users table.
+// piwigo_users table.
 $conf['users_table'] = $prefixeTable.'users';
 
 // Other tables can be changed, if you define associated constants

@@ -69,72 +69,72 @@ mysql_query($query);
 $queries = array(
 
   "
-ALTER TABLE phpwebgallery_categories
+ALTER TABLE piwigo_categories
   CHANGE COLUMN date_last date_last datetime default NULL
 ;",
 
   "
-ALTER TABLE phpwebgallery_comments
+ALTER TABLE piwigo_comments
   ADD COLUMN validation_date datetime default NULL
 ;",
 
   "
-UPDATE phpwebgallery_comments
+UPDATE piwigo_comments
   SET validation_date = date
 ",
 
   "
-ALTER TABLE phpwebgallery_comments
+ALTER TABLE piwigo_comments
   ADD INDEX comments_i1 (image_id)
 ;",
 
   "
-ALTER TABLE phpwebgallery_comments
+ALTER TABLE piwigo_comments
   ADD INDEX comments_i2 (validation_date)
 ;",
 
   "
-ALTER TABLE phpwebgallery_favorites
+ALTER TABLE piwigo_favorites
   CHANGE COLUMN user_id user_id smallint(5) NOT NULL default '0'
 ;",
 
   "
-ALTER TABLE phpwebgallery_images
+ALTER TABLE piwigo_images
   CHANGE COLUMN date_available
     date_available datetime NOT NULL default '0000-00-00 00:00:00'
 ;",
 
   "
-ALTER TABLE phpwebgallery_rate
+ALTER TABLE piwigo_rate
   CHANGE COLUMN user_id user_id smallint(5) NOT NULL default '0'
 ;",
 
   "
-ALTER TABLE phpwebgallery_sessions
+ALTER TABLE piwigo_sessions
   CHANGE COLUMN user_id user_id smallint(5) NOT NULL default '0'
 ;",
 
   "
-ALTER TABLE phpwebgallery_user_access
+ALTER TABLE piwigo_user_access
   CHANGE COLUMN user_id user_id smallint(5) NOT NULL default '0'
 ;",
 
   "
-DROP TABLE phpwebgallery_user_forbidden
+DROP TABLE piwigo_user_forbidden
 ;",
 
   "
-ALTER TABLE phpwebgallery_user_group
+ALTER TABLE piwigo_user_group
  CHANGE COLUMN user_id user_id smallint(5) NOT NULL default '0'
 ;",
 
   "
-ALTER TABLE phpwebgallery_users
+ALTER TABLE piwigo_users
   CHANGE COLUMN id id smallint(5) NOT NULL auto_increment
 ;",
 
   "
-CREATE TABLE phpwebgallery_caddie (
+CREATE TABLE piwigo_caddie (
   user_id smallint(5) NOT NULL default '0',
   element_id mediumint(8) NOT NULL default '0',
   PRIMARY KEY  (user_id,element_id)
@@ -142,7 +142,7 @@ CREATE TABLE phpwebgallery_caddie (
 ;",
 
   "
-CREATE TABLE phpwebgallery_user_cache (
+CREATE TABLE piwigo_user_cache (
   user_id smallint(5) NOT NULL default '0',
   need_update enum('true','false') NOT NULL default 'true',
   forbidden_categories text,
@@ -151,7 +151,7 @@ CREATE TABLE phpwebgallery_user_cache (
 ;",
 
   "
-CREATE TABLE phpwebgallery_user_feed (
+CREATE TABLE piwigo_user_feed (
   id varchar(50) binary NOT NULL default '',
   user_id smallint(5) NOT NULL default '0',
   last_check datetime default NULL,
@@ -160,7 +160,7 @@ CREATE TABLE phpwebgallery_user_feed (
 ;",
 
   "
-CREATE TABLE phpwebgallery_user_infos (
+CREATE TABLE piwigo_user_infos (
   user_id smallint(5) NOT NULL default '0',
   nb_image_line tinyint(1) unsigned NOT NULL default '5',
   nb_line_page tinyint(3) unsigned NOT NULL default '3',
@@ -180,11 +180,11 @@ CREATE TABLE phpwebgallery_user_infos (
 
 foreach ($queries as $query)
 {
-  $query = str_replace('phpwebgallery_', PREFIX_TABLE, $query);
+  $query = str_replace('piwigo_', PREFIX_TABLE, $query);
   pwg_query($query);
 }
 
-// user datas migration from phpwebgallery_users to phpwebgallery_user_infos
+// user datas migration from piwigo_users to piwigo_user_infos
 $query = '
 SELECT *
   FROM '.USERS_TABLE.'
@@ -253,7 +253,7 @@ INSERT INTO ".CONFIG_TABLE."
   VALUES
   (
     'gallery_title',
-    'PhpWebGallery demonstration site',
+    'Piwigo demonstration site',
     'Title at top of each page and for RSS feed'
   )
 ;",
@@ -273,7 +273,7 @@ INSERT INTO ".CONFIG_TABLE."
 
 foreach ($queries as $query)
 {
-  $query = str_replace('phpwebgallery_', PREFIX_TABLE, $query);
+  $query = str_replace('piwigo_', PREFIX_TABLE, $query);
   pwg_query($query);
 }
 

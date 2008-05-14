@@ -293,29 +293,29 @@ if ( $chk_partner !== '' )
     $status_code = array();
     preg_match('/\d\d\d/', $response, $status_code);
     switch( $status_code[0] ) {
-    	case 200:
+      case 200:
         $ws_status = l10n('Web Services under control');
-    		break;
-    	case 503:
-    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+        break;
+      case 503:
+        $ws_status = 'Piwigo Web Services failed and returned an '
                    . 'HTTP status of 503. Service is unavailable. An internal '
                    . 'problem prevented us from returning data to you.';
-    		break;
-    	case 403:
-    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+        break;
+      case 403:
+        $ws_status = 'Piwigo Web Services failed and returned an '
                    . 'HTTP status of 403. Access is forbidden. You do not have '
                    . 'permission to access this resource, or are over '
                    . 'your rate limit.';
-    		break;
-    	case 400:
-    		// You may want to fall through here and read the specific XML error
-    		$ws_status = 'PhpWebGallery Web Services failed and returned an '
+        break;
+      case 400:
+        // You may want to fall through here and read the specific XML error
+        $ws_status = 'Piwigo Web Services failed and returned an '
                    . 'HTTP status of 400. Bad request. The parameters passed '
                    . 'to the service did not match as expected. The exact '
                    . 'error is returned in the XML response.';
-    		break;
-    	default:
-    		$ws_status = 'PhpWebGallery Web Services returned an unexpected HTTP '
+        break;
+      default:
+        $ws_status = 'Piwigo Web Services returned an unexpected HTTP '
                    . 'status of:' . $status_code[0];
     }
   }

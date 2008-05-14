@@ -23,10 +23,10 @@
 
 function check_upgrade()
 {
-  // Is PhpWebGallery already installed ?
+  // Is Piwigo already installed ?
   if (!defined('PHPWG_IN_UPGRADE') or !PHPWG_IN_UPGRADE)
   {
-    $message = 'PhpWebGallery is not in upgrade mode. In include/mysql.inc.php,
+    $message = 'Piwigo is not in upgrade mode. In include/mysql.inc.php,
 insert line
 <pre style="background-color:lightgray">
 define(\'PHPWG_IN_UPGRADE\', true);

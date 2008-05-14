@@ -188,7 +188,7 @@ SELECT *
 // get_complete_dir returns the concatenation of get_site_url and
 // get_local_dir
 // Example : "pets > rex > 1_year_old" is on the the same site as the
-// PhpWebGallery files and this category has 22 for identifier
+// Piwigo files and this category has 22 for identifier
 // get_complete_dir(22) returns "./galleries/pets/rex/1_year_old/"
 function get_complete_dir( $category_id )
 {
@@ -197,7 +197,7 @@ function get_complete_dir( $category_id )
 
 // get_local_dir returns an array with complete path without the site url
 // Example : "pets > rex > 1_year_old" is on the the same site as the
-// PhpWebGallery files and this category has 22 for identifier
+// Piwigo files and this category has 22 for identifier
 // get_local_dir(22) returns "pets/rex/1_year_old/"
 function get_local_dir( $category_id )
 {

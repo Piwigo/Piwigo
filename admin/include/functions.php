@@ -220,7 +220,7 @@ function delete_user($user_id)
     FAVORITES_TABLE,
     // destruction of the caddie associated with the user
     CADDIE_TABLE,
-    // deletion of phpwebgallery specific informations
+    // deletion of piwigo specific informations
     USER_INFOS_TABLE,
     );
 
@@ -1694,11 +1694,11 @@ SELECT image_id
 }
 
 /**
- * Create an XML file with PhpWebGallery informations about a list of
+ * Create an XML file with Piwigo informations about a list of
  * pictures.
  *
  * The goal of the export feature is to make easier the reading of
- * informations related to pictures outside of PhpWebGallery.
+ * informations related to pictures outside of Piwigo.
  *
  * @param array image_ids
  */
@@ -1785,7 +1785,7 @@ SELECT id,
 }
 
 /**
- * Refer main PhpWebGallery URLs (currently PHPWG_DOMAIN domain)
+ * Refer main Piwigo URLs (currently PHPWG_DOMAIN domain)
  *
  * @param void
  * @return array like $conf['links']

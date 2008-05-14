@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 /*
-Events and event handlers are the core of PhpWebGallery plugin management.
+Events and event handlers are the core of Piwigo plugin management.
 Plugins are addons that are found in plugins subdirectory. If activated, PWG
 will include the index.php of each plugin.
 Events are triggered by PWG core code. Plugins (or even PWG itself) can

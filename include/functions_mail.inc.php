@@ -67,7 +67,7 @@ function get_mail_sender_name()
  * - send_bcc_mail_webmaster: see $conf['send_bcc_mail_webmaster']
  * - email_webmaster: mail corresponding to $conf['webmaster_id']
  * - formated_email_webmaster: the name of webmaster is $conf['gallery_title']
- * - text_footer: PhpWebGallery and version
+ * - text_footer: Piwigo and version
  *
  * @return array
  */
@@ -522,7 +522,7 @@ WHERE
 }
 
 /*
- * sends an email, using PhpWebGallery specific informations
+ * sends an email, using Piwigo specific informations
  *
  * @param:
  *   - to: receiver(s) of the mail (list separated by comma).
@@ -530,7 +530,7 @@ WHERE
  *       o from: sender [default value webmaster email]
  *       o Cc: array of carbon copy receivers of the mail. [default value empty]
  *       o Bcc: array of blind carbon copy receivers of the mail. [default value empty]
- *       o subject  [default value 'PhpWebGallery']
+ *       o subject  [default value 'Piwigo']
  *       o content: content of mail    [default value '']
  *       o content_format: format of mail content  [default value 'text/plain']
  *       o email_format: global mail format  [default value $conf_mail['default_email_format']]
@@ -575,7 +575,7 @@ function pwg_mail($to, $args = array())
 
   if (empty($args['subject']))
   {
-    $args['subject'] = 'PhpWebGallery';
+    $args['subject'] = 'Piwigo';
   }
   // Spring cleaning
   $cvt_subject = trim(preg_replace('#[\n\r]+#s', '', $args['subject']));
@@ -751,7 +751,7 @@ function pwg_mail($to, $args = array())
  * @param:
  *   - result of other sendmail
  *   - to: Receiver or receiver(s) of the mail.
- *   - subject  [default value 'PhpWebGallery']
+ *   - subject  [default value 'Piwigo']
  *   - content: content of mail
  *   - headers: headers of mail
  *

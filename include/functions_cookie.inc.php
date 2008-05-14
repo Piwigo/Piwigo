@@ -21,8 +21,8 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// cookie_path returns the path to use for the PhpWebGallery cookie.
-// If PhpWebGallery is installed on :
+// cookie_path returns the path to use for the Piwigo cookie.
+// If Piwigo is installed on :
 // http://domain.org/meeting/gallery/category.php
 // cookie_path will return : "/meeting/gallery"
 function cookie_path()

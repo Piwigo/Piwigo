@@ -31,13 +31,13 @@ $conf['version'] = 'branch 1.7';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
-$conf['gallery'] = 'http://demo.phpwebgallery.net/';
+$conf['gallery'] = 'http://demo.piwigo.net/';
 
 // prefix for thumbnails in "thumbnail" sub directories
 $conf['prefix_thumbnail'] = 'TN-';
 
 // $conf['file_ext'] lists all extensions (case insensitive) allowed
-// for your PhpWebGallery installation
+// for your Piwigo installation
 $conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
                           'png','PNG','gif','GIF','mpg','zip',
                           'avi','mp3','ogg');
@@ -74,9 +74,9 @@ $conf['use_exif_mapping'] = array(
 // to false
 $conf['use_iptc'] = false;
 
-// use_iptc_mapping : in which IPTC fields will PhpWebGallery find image
+// use_iptc_mapping : in which IPTC fields will Piwigo find image
 // information ? This setting is used during metadata synchronisation. It
-// associates a phpwebgallery_images column name to a IPTC key
+// associates a piwigo_images column name to a IPTC key
 $conf['use_iptc_mapping'] = array(
   'keywords'        => '2#025',
   'date_creation'   => '2#055',
@@ -1121,7 +1121,7 @@ function pwg_test_exit()
     }
     else
     {
-      exit('<pre>PWG-ERROR-4: PhpWebGallery versions differs</pre>');
+      exit('<pre>PWG-ERROR-4: Piwigo versions differs</pre>');
     }
   }
   
@@ -1661,7 +1661,7 @@ if ($_SESSION['scan_step'] == 'exit')
     <style type="text/css">
       code {font-weight: bold}
       img {border-style: none; vertical-align: middle}
-      ul {list-style-image: url(<?php echo $pwg_conf['icon_dir']; ?>add_tag.png)}      
+      ul {list-style-image: url(<?php echo $pwg_conf['icon_dir']; ?>add_tag.png)}
       .success {color: green}
       .warning {color: orange}
       .failure {color: red}
@@ -1677,9 +1677,9 @@ if ($_SESSION['scan_step'] == 'exit')
   <body>
     <div class="content">
       <fieldset class="header">
-        <span class="p">Php</span>
-        <span class="w">Web</span>
-        <span class="g">Gallery</span>
+        <span class="p">Pi</span>
+        <span class="w">wi</span>
+        <span class="g">go</span>
         &nbsp;remote site<? echo $g_header; ?>
       </fieldset>
       <fieldset>
@@ -1687,7 +1687,7 @@ if ($_SESSION['scan_step'] == 'exit')
       </fieldset>
       <fieldset class="footer">
         <div class="pwg_block">
-          Powered by <a href="http://www.phpwebgallery.net" class="pwg"><span class="p">Php</span><span class="w">Web</span><span class="g">Gallery</span></a>
+          Powered by <a href="http://piwigo.org" class="pwg"><span class="p">Pi</span><span class="w">wi</span><span class="g">go</span></a>
         </div>
         <?php echo $g_footer; ?>
       </fieldset>
