@@ -139,7 +139,11 @@ $pwg_conf['icon_dir'] = $conf['gallery'].'/template/yoga/icon/';
 $pwg_conf['scan_action'] = array('clean', 'test', 'generate');
 
 // url of this script
-$pwg_conf['this_url'] = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'];
+$pwg_conf['this_url'] = 
+    (empty($_SERVER['HTTPS']) ? 'http://' : 'https://')
+    .str_replace(':'.$_SERVER['SERVER_PORT'], '', $_SERVER['HTTP_HOST'])
+    .($_SERVER['SERVER_PORT'] != 80 ? ':'.$_SERVER['SERVER_PORT'] : '')
+    .$_SERVER['PHP_SELF'];
 
 // list of reserved directory names
 $pwg_conf['reserved_directory_names'] = array($conf['thumbs'], $conf['high'], $conf['represent'], ".", "..", ".svn");
