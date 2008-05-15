@@ -26,18 +26,20 @@ if (!is_admin() or !function_exists('multiview_user_init') )
 
 $refresh_main = false;
 
-if ( isset($_GET['view_guest']) )
+if ( isset($_GET['view_as']) )
 {
-  pwg_set_session_var( 'multiview_as', $conf['guest_id'] );
+  if ( is_adviser() and $user['id']!=$_GET['view_as'] and $conf['guest_id']!=$_GET['view_as'])
+    die('security error');
+  pwg_set_session_var( 'multiview_as', (int)$_GET['view_as'] );
+  // user change resets theme/lang
+  pwg_unset_session_var( 'multiview_theme' );
+  pwg_unset_session_var( 'multiview_lang' );
   $refresh_main = true;
 }
-elseif ( isset($_GET['view_admin']) )
-{
-  pwg_unset_session_var('multiview_as');
-  $refresh_main = true;
-}
-$view_as = pwg_get_session_var( 'multiview_as', 0 );
-
+if (pwg_get_session_var( 'multiview_as', $user['id']) != $user['id'] )
+  $view_as_user = build_user( pwg_get_session_var( 'multiview_as',0), false);
+else
+  $view_as_user = $user;
 
 if ( isset($_GET['theme']) )
 {
@@ -80,13 +82,45 @@ if ( isset($_GET['debug_template']) )
 }
 
 $my_url = get_root_url().'plugins/'.basename(dirname(__FILE__)).'/'.basename(__FILE__);
-$my_template = '';
 
-$themes_html='Theme: <select onchange="document.location = this.options[this.selectedIndex].value;">';
+// +-----------------------------------------------------------------------+
+// | users                                                                 |
+$query = '
+SELECT '.$conf['user_fields']['id'].' AS id,'.$conf['user_fields']['username'].' AS username
+FROM '.USERS_TABLE;
+if (is_adviser())
+{
+  $query .='
+  WHERE '.$conf['user_fields']['id']. ' IN ('.$user['id'].','.$conf['guest_id'].')
+';
+}
+$query .='
+  ORDER BY CONVERT('.$conf['user_fields']['username'].',CHAR)
+;';
+$user_map = simple_hash_from_query($query, 'id', 'username');
+
+$users_html = '<select onchange="document.location = this.options[this.selectedIndex].value;">';
+foreach( $user_map as $id=>$username)
+{
+  $selected = ($id==$view_as_user['id']) ? 'selected="selected"' : '';
+  $users_html .=
+    '<option value="'
+    .$my_url.'?view_as='.$id
+    .'" '.$selected.'>'
+    .$username
+    .'</option>';
+}
+$users_html.= '</select>';
+
+
+// +-----------------------------------------------------------------------+
+// | templates                                                             |
+$my_template = '';
+$themes_html='<select onchange="document.location = this.options[this.selectedIndex].value;">';
 foreach (get_pwg_themes() as $pwg_template)
 {
-  $selected = $pwg_template == pwg_get_session_var( 'multiview_theme', $user['template'].'/'.$user['theme'] ) ? 'selected="selected"' : '';
-  $my_template = $selected == '' ? $my_template : $user['template'].'/theme/'.$user['theme'];
+  $selected = $pwg_template == pwg_get_session_var( 'multiview_theme', $view_as_user['template'].'/'.$view_as_user['theme'] ) ? 'selected="selected"' : '';
+  $my_template = $selected == '' ? $my_template : $view_as_user['template'].'/theme/'.$view_as_user['theme'];
   $themes_html .=
     '<option value="'
     .$my_url.'?theme='.$pwg_template
@@ -96,10 +130,12 @@ foreach (get_pwg_themes() as $pwg_template)
 }
 $themes_html .= '</select>';
 
-$lang_html='Language: <select onchange="document.location = this.options[this.selectedIndex].value;">';
+// +-----------------------------------------------------------------------+
+// | language                                                              |
+$lang_html='<select onchange="document.location = this.options[this.selectedIndex].value;">';
 foreach (get_languages() as $language_code => $language_name)
 {
-  $selected = $language_code == pwg_get_session_var( 'multiview_lang', $user['language'] ) ? 'selected="selected"' : '';
+  $selected = $language_code == pwg_get_session_var( 'multiview_lang', $view_as_user['language'] ) ? 'selected="selected"' : '';
   $lang_html .=
     '<option value="'
     .$my_url.'?lang='.$language_code
@@ -109,30 +145,33 @@ foreach (get_languages() as $language_code => $language_name)
 }
 $lang_html .= '</select>';
 
+// +-----------------------------------------------------------------------+
+// | show queries                                                          |
 $show_queries_html='';
 if (!$conf['show_queries'])
 {
-  $show_queries_html = '<br/>';
   if ( !pwg_get_session_var( 'multiview_show_queries', 0 ) )
     $show_queries_html.='<a href="'.$my_url.'?show_queries=1">Show SQL queries</a>';
   else
     $show_queries_html.='<a href="'.$my_url.'?show_queries=0">Hide SQL queries</a>';
 }
 
+// +-----------------------------------------------------------------------+
+// | debug language                                                        |
 $debug_l10n_html='';
 if (!$conf['debug_l10n'])
 {
-  $debug_l10n_html = '<br/>';
   if ( !pwg_get_session_var( 'multiview_debug_l10n', 0 ) )
     $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=1">Debug language</a>';
   else
     $debug_l10n_html.='<a href="'.$my_url.'?debug_l10n=0">Revert debug language</a>';
 }
 
+// +-----------------------------------------------------------------------+
+// | debug template                                                        |
 $debug_template_html='';
 if (!$conf['debug_template'])
 {
-  $debug_template_html = '<br/>';
   if ( !pwg_get_session_var( 'multiview_debug_template', 0 ) )
     $debug_template_html.='<a href="'.$my_url.'?debug_template=1">Debug template</a>';
   else
@@ -162,23 +201,14 @@ if (window.opener==null) {
 }
 </script>
 
-View as:
-<?php
-  if ($view_as)
-    echo '<a href="'.$my_url.'?view_admin">admin</a>';
-  else
-    echo '<a href="'.$my_url.'?view_guest">guest</a>';
-?>
+<table>
+<tr><td>User</td><td><?php echo $users_html; ?></td></tr>
 
-<br />
-<?php echo $themes_html; ?>
+<tr><td>Theme</td><td><?php echo $themes_html; ?></td></tr>
 
-<br />
-<?php echo $lang_html; ?>
-
-<?php echo $show_queries_html; ?>
-<?php echo $debug_l10n_html; ?>
-<?php echo $debug_template_html; ?>
+<tr><td>Lang</td><td><?php echo $lang_html; ?></td></tr>
+</table>
+<?php echo implode( "<br/>\n", array($show_queries_html, $debug_l10n_html, $debug_template_html) ); ?>
 
 <script type="text/javascript">
 <?php
