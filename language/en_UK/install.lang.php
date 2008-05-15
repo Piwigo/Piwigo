@@ -57,8 +57,8 @@ $lang['step2_pwd'] = 'Webmaster password';
 $lang['step2_pwd_info'] = 'Keep it confidential, it enables you to access administration panel';
 $lang['step2_pwd_conf'] = 'Password [confirm]';
 $lang['step2_pwd_conf_info'] = 'verification';
-$lang['install_help'] = 'Need help ? Ask your question on <a href="%s">PhpWebGallery message board</a>.';
-$lang['install_end_message'] = 'The configuration of PhpWebGallery is finished, here is the next step<br /><br />
+$lang['install_help'] = 'Need help ? Ask your question on <a href="%s">Piwigo message board</a>.';
+$lang['install_end_message'] = 'The configuration of Piwigo is finished, here is the next step<br /><br />
 For security reason, please delete file "install.php"<br />
 Once this file deleted , follow this instructions :
 <ul>

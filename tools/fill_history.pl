@@ -20,7 +20,7 @@ if (defined($opt{help}))
 {
   print <<FIN;
 
-Fill the user comments table of PhpWebGallery.
+Fill the user comments table of Piwigo.
 
 Usage: pwg_fill_comments.pl --dbname=<database_name>
                             --dbuser=<username>
@@ -50,7 +50,7 @@ foreach my $option (qw/dbname dbuser dbpass start_date end_date/) {
   }
 }
 
-$opt{prefix} = 'phpwebgallery_' if (not defined $opt{prefix});
+$opt{prefix} = 'piwigo_' if (not defined $opt{prefix});
 my $dbh = DBI->connect(
     'DBI:mysql:'.$opt{dbname},
     $opt{dbuser},

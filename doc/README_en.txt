@@ -1,8 +1,8 @@
 =============
-PhpWebGallery
+Piwigo
 =============
 
-http://phpwebgallery.net
+http://piwigo.org
 
 
 Installation
@@ -65,9 +65,9 @@ Newsletter
 
 https://gna.org/mail/?group=phpwebgallery
 
-It is *highly* recommended to subscribe to PhpWebGallery newsletter. This is
+It is *highly* recommended to subscribe to Piwigo newsletter. This is
 extremely low-traffic, but will provide you with announcements of new
-PhpWebGallery releases and serious bug notification. You will find available
+Piwigo releases and serious bug notification. You will find available
 mailing lists at this URL :
 
 No spam, no commercial use.

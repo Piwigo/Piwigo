@@ -97,7 +97,6 @@ $lang['Number of items'] = 'Aantal items';
 $lang['Original dimensions'] = 'Originele dimenties';
 $lang['Password forgotten'] = 'Wachtwoord vergeten';
 $lang['Password'] = 'Wachtwoord';
-$lang['PhpWebGallery Help'] = 'PhpWebGallery Help';
 $lang['Post date'] = 'Plaatsings datum';
 $lang['Posted on'] = 'Geplaatst op';
 $lang['Profile'] = 'Profiel';
@@ -126,7 +125,7 @@ $lang['Username'] = 'Gebruikersnaam';
 $lang['Visits'] = 'Bezoeken';
 $lang['Webmaster'] = 'Webmaster';
 $lang['Week %d'] = 'Week %d';
-$lang['about_page_title'] = 'Over PhpWebGallery';
+$lang['about_page_title'] = 'Over Piwigo';
 $lang['access_forbiden'] = 'Je hebt geen rechten tot de opgevraagde pagina';
 $lang['add to caddie'] = 'Toevoegen aan caddie';
 $lang['add_favorites_hint'] = 'voeg deze afbeelding toe aan jou favorieten';
@@ -364,5 +363,6 @@ $lang['%d elements are also linked to current tags'] = '%d images are also linke
 $lang['See elements linked to this tag only'] = 'Toon afbeelding gelinkt met deze tag';
 $lang['elements posted during the last %d days'] = 'afbeelding binnen de %d dagen';
 $lang['Choose an image'] = 'Kies een afbeelding om';
+$lang['Piwigo Help'] = 'Piwigo Help';
 
 ?>

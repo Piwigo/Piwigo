@@ -1,8 +1,8 @@
 =============
-PhpWebGallery
+Piwigo
 =============
 
-http://phpwebgallery.net
+http://piwigo.org
 
 Installation
 ============
@@ -67,7 +67,7 @@ Newsletter
 https://gna.org/mail/?group=phpwebgallery
 
 Il est *fortement* recommandé de souscrire à la newsletter de
-PhpWebGallery. Très peu de mails sont envoyés, mais les informations sont
+Piwigo. Très peu de mails sont envoyés, mais les informations sont
 importantes : nouvelles versions de l'application, notification de bugs
 importants (relatifs à la sécurité). Vous trouverez les listes de
 discussions disponibles sur la page suivante :

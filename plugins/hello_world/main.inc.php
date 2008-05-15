@@ -25,9 +25,9 @@
 Plugin Name: Hello World
 Version: 1.8
 Description: This example plugin changes the page banner for the administration page.
-Plugin URI: http://www.phpwebgallery.net
-Author: PhpWebGallery team
-Author URI: http://www.phpwebgallery.net
+Plugin URI: http://piwigo.org
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 add_event_handler('loc_begin_page_header', 'hello_world_begin_header' );
@@ -50,7 +50,7 @@ function hello_world_end_header()
 {
   global $template, $page;
   $template->assign( 'PAGE_BANNER',
-    '<h1>"'.$page['page_banner'].'" from PhpWebGallery plugin!</h1>');
+    '<h1>"'.$page['page_banner'].'" from Piwigo plugin!</h1>');
 }
 
 ?>

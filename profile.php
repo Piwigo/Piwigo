@@ -180,7 +180,7 @@ function save_profile_from_post($userdata, &$errors)
                    array($data));
     }
 
-    // update user "additional" informations (specific to PhpWebGallery)
+    // update user "additional" informations (specific to Piwigo)
     $fields = array(
       'nb_image_line', 'nb_line_page', 'language', 'maxwidth', 'maxheight',
       'expand', 'show_nb_comments', 'show_nb_hits', 'recent_period', 'template'

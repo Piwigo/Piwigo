@@ -1,10 +1,10 @@
 {* $Id$ *}
 <h2>{'title_default'|@translate}</h2>
 <dl>
-  <dt>{'PhpWebGallery version'|@translate}</dt>
+  <dt>{'Piwigo version'|@translate}</dt>
   <dd>
     <ul>
-      <li>PhpWebGallery {$PWG_VERSION}</li>
+      <li>Piwigo {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
     </ul>
   </dd>

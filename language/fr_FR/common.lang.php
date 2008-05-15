@@ -97,7 +97,6 @@ $lang['Number of items'] = 'Nombre d\'élément';
 $lang['Original dimensions'] = 'Dimensions d\'origine';
 $lang['Password forgotten'] = 'Mot de passe oublié';
 $lang['Password'] = 'Mot de passe';
-$lang['PhpWebGallery Help'] = 'Aide de PhpWebGallery';
 $lang['Post date'] = 'Date d\'ajout';
 $lang['Posted on'] = 'Ajoutée le';
 $lang['Profile'] = 'Profil';
@@ -126,7 +125,7 @@ $lang['Username'] = 'Nom d\'utilisateur';
 $lang['Visits'] = 'Visites';
 $lang['Webmaster'] = 'Webmestre';
 $lang['Week %d'] = 'Semaine %d';
-$lang['about_page_title'] = 'À propos de PhpWebGallery';
+$lang['about_page_title'] = 'À propos de Piwigo';
 $lang['access_forbiden'] = 'Vous n\'êtes pas autorisé sur la page demandée';
 $lang['add to caddie'] = 'ajouter au panier';
 $lang['add_favorites_hint'] = 'ajouter cette image à vos favoris';
@@ -364,5 +363,6 @@ $lang['%d elements are also linked to current tags'] = '%d images sont égalemen
 $lang['See elements linked to this tag only'] = 'Voir les images liées uniquement à ce tag';
 $lang['elements posted during the last %d days'] = 'images ajoutées au cours de %d derniers jours';
 $lang['Choose an image'] = 'Choisir une image à ajouter';
+$lang['Piwigo Help'] = 'Aide de Piwigo';
 
 ?>

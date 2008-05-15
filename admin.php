@@ -61,8 +61,8 @@ $page['infos']  = array();
 $link_start = PHPWG_ROOT_PATH.'admin.php?page=';
 $conf_link = $link_start.'configuration&amp;section=';
 //----------------------------------------------------- template initialization
-$title = l10n('PhpWebGallery Administration'); // for include/page_header.php
-$page['page_banner'] = '<h1>'.l10n('PhpWebGallery Administration').'</h1>';
+$title = l10n('Piwigo Administration'); // for include/page_header.php
+$page['page_banner'] = '<h1>'.l10n('Piwigo Administration').'</h1>';
 $page['body_id'] = 'theAdminPage';
 
 $template->set_filenames(array('admin' => 'admin.tpl'));

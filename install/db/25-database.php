@@ -30,7 +30,7 @@ $upgrade_description = 'reinitialize page_banner';
 
 $query = '
 UPDATE '.PREFIX_TABLE.'config
-  SET value = \'<h1>PhpWebGallery demonstration site</h1><p>My photos web site</p>\'
+  SET value = \'<h1>Piwigo demonstration site</h1><p>My photos web site</p>\'
   WHERE param = \'page_banner\'
 ;';
 pwg_query($query);

@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 Piwigo team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -26,8 +26,8 @@ Plugin Name: LocalFiles Editor
 Version: 1.8
 Description: Edit local files from administration panel / Editeur de fichiers locaux
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=144
-Author: PhpWebGallery team
-Author URI: http://www.phpwebgallery.net
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');

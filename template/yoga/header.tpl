@@ -4,7 +4,7 @@
 <html lang="{$LANG}" dir="{$DIR}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={$CONTENT_ENCODING}">
-<meta name="generator" content="PhpWebGallery (aka PWG), see www.phpwebgallery.net">
+<meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}template-common/favicon.ico">
 

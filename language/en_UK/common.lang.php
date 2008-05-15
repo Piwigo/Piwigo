@@ -97,7 +97,6 @@ $lang['Number of items'] = 'Number of items';
 $lang['Original dimensions'] = 'Original dimensions';
 $lang['Password forgotten'] = 'Password forgotten';
 $lang['Password'] = 'Password';
-$lang['PhpWebGallery Help'] = 'PhpWebGallery Help';
 $lang['Post date'] = 'Post date';
 $lang['Posted on'] = 'Posted on';
 $lang['Profile'] = 'Profile';
@@ -126,7 +125,7 @@ $lang['Username'] = 'Username';
 $lang['Visits'] = 'Visits';
 $lang['Webmaster'] = 'Webmaster';
 $lang['Week %d'] = 'Week %d';
-$lang['about_page_title'] = 'About PhpWebGallery';
+$lang['about_page_title'] = 'About Piwigo';
 $lang['access_forbiden'] = 'You are not authorized to access the requested page';
 $lang['add to caddie'] = 'add to caddie';
 $lang['add_favorites_hint'] = 'add this image to your favorites';
@@ -364,5 +363,6 @@ $lang['%d elements are also linked to current tags'] = '%d images are also linke
 $lang['See elements linked to this tag only'] = 'See images linked to this tag only';
 $lang['elements posted during the last %d days'] = 'images posted during the last %d days';
 $lang['Choose an image'] = 'Choose an image';
+$lang['Piwigo Help'] = 'Piwigo Help';
 
 ?>

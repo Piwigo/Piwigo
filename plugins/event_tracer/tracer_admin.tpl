@@ -5,7 +5,7 @@
 
 <p>
 The event tracer is a developer tool that logs in the footer of the window all calls to trigger_event method.
-You can use this plugin to see what events is PhpWebGallery calling.
+You can use this plugin to see what events is Piwigo calling.
 <b>Note that $conf['show_queries'] must be true.</b>
 </p>
 <form method="post" action="" class="general">

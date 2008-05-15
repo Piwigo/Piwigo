@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset={$T_CONTENT_ENCODING}">
 <meta http-equiv="Content-script-type" content="text/javascript">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<title>PhpWebGallery {$RELEASE}</title>
+<title>Piwigo {$RELEASE}</title>
 {literal}
 <style type="text/css">
 
@@ -113,7 +113,7 @@ td.row {
   <table style="width:100%;height:100%">
     <tr align="center" valign="middle">
     <td>
-    <div class="title">PhpWebGallery {$RELEASE}</div>
+    <div class="title">Piwigo {$RELEASE}</div>
       <table class="table1">
       {if isset($errors)}
       <tr>

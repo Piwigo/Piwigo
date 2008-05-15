@@ -57,8 +57,8 @@ $lang['step2_pwd'] = 'Webmaster wachtwoord';
 $lang['step2_pwd_info'] = 'Hou dit vertrouwlijk, dit geeft toegang tot de beheermodule';
 $lang['step2_pwd_conf'] = 'Wachtwoord [bevestigen]';
 $lang['step2_pwd_conf_info'] = 'verificatie';
-$lang['install_help'] = 'Hulp nodig ? stel een vraag op het <a href="%s" target="_blank">PhpWebGallery forum</a>.';
-$lang['install_end_message'] = 'Het installeren van PhpWebGallery is klaar, de volgende stap is<br /><br />het verwijderen van "install.php" dit is om de veiligheid te waarborgen<br />
+$lang['install_help'] = 'Hulp nodig ? stel een vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
+$lang['install_end_message'] = 'Het installeren van Piwigo is klaar, de volgende stap is<br /><br />het verwijderen van "install.php" dit is om de veiligheid te waarborgen<br />
 Vervolg de instructies nadat "install.php" is verwijderd:<ul><li>Ga naar de Indentificatie pagina: [ <a href="identification.php">Indentificatie</a> ] gebruik hiervoor het eerder opgegeven gebruikersnaam met wachtwoord</li>
 <li>Deze gebruikersnaam geeft u toegang tot de beheermenu zodat u afbeeldingen op uw website kan plaatsen</li></ul>';
 

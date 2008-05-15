@@ -93,14 +93,14 @@ if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
     {
       array_push(
         $page['infos'],
-        l10n('A new version of PhpWebGallery is available.')
+        l10n('A new version of Piwigo is available.')
         );
     }
     else
     {
       array_push(
         $page['infos'],
-        l10n('You are running the latest version of PhpWebGallery.')
+        l10n('You are running the latest version of Piwigo.')
         );
     }
   }

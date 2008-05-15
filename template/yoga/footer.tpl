@@ -6,12 +6,12 @@
  {/if}
 
  {* Please, do not remove this copyright. If you really want to,
-      contact us on http://phpwebgallery.net to find a solution on how
+      contact us on http://piwigo.org to find a solution on how
       to show the origin of the script...
   *}
 
   {'powered_by'|@translate}
-  <a href="http://www.phpwebgallery.net" class="PWG">
+  <a href="http://piwigo.org" class="PWG">
   <span class="P">Php</span><span class="W">Web</span><span class="G">Gallery</span></a>
   {$VERSION}
   {if isset($CONTACT_MAIL)}

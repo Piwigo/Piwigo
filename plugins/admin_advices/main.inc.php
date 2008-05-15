@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 Piwigo team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -25,9 +25,9 @@
 Plugin Name: Admin Advices
 Version: 1.8
 Description: Give you an advice on the administration page.
-Plugin URI: http://www.phpwebgallery.net
-Author: PhpWebGallery team
-Author URI: http://www.phpwebgallery.net
+Plugin URI: http://piwigo.org
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 add_event_handler('loc_end_page_header', 'set_admin_advice_add_css' );

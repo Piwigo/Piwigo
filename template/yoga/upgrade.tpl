@@ -4,15 +4,15 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"  />
-    <title>PhpWebGallery : Upgrade to {$RELEASE}</title>
+    <title>Piwigo : Upgrade to {$RELEASE}</title>
   </head>
 
   <body>
     {if isset($introduction)}
-    <h1>Welcome to PhpWebGallery upgrade page.</h1>
+    <h1>Welcome to Piwigo upgrade page.</h1>
 
     <p>This page proposes to upgrade your database corresponding to your old
-version of PhpWebGallery to the current version. The upgrade assistant
+version of Piwigo to the current version. The upgrade assistant
 thinks you are currently running a
 <strong>release {$introduction.CURRENT_RELEASE}</strong> (or equivalent).</p>
 

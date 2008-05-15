@@ -4,7 +4,7 @@
 # |                            pwg_rel_create.sh                             |
 # +--------------------------------------------------------------------------+
 # | author        : Pierrick LE GALL <http://le-gall.net/pierrick>           |
-# | project       : PhpWebGallery                                            |
+# | project       : Piwigo                                                   |
 # +--------------------------------------------------------------------------+
 
 if [ $# -lt 2 ]

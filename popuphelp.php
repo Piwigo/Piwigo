@@ -34,7 +34,7 @@ include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 check_status(ACCESS_GUEST);
 
 $page['body_id'] = 'thePopuphelpPage';
-$title = l10n('PhpWebGallery Help');
+$title = l10n('Piwigo Help');
 $page['page_banner'] = '<h1>'.$title.'</h1>';
 $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 include(PHPWG_ROOT_PATH.'include/page_header.php');

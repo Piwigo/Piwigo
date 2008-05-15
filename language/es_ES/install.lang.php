@@ -54,8 +54,8 @@ $lang['step2_pwd'] = 'Palabra de paso';
 $lang['step2_pwd_info'] = 'Debe quedar confidencial, permite acceder al tabla de administración.';
 $lang['step2_pwd_conf'] = 'Palabra de paso [Confirmar]';
 $lang['step2_pwd_conf_info'] = 'Comprobación';
-$lang['step1_err_copy'] = 'Copie el texto en rojo entre las rayas y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio " include " a la base del lugar donde usted instaló a PhpWebGallery (el fichero mysql.inc.php debe contener SÓLO lo que está en azul entre las rayas, ninguna vuelta a la línea o espacio es autorizado)';
-$lang['install_help'] = '¿ Necesidad de ayudante? Plantee su cuestión sobre él <a href="%s">foro de PhpWebGallery</a>.';
+$lang['step1_err_copy'] = 'Copie el texto en rojo entre las rayas y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio " include " a la base del lugar donde usted instaló a Piwigo (el fichero mysql.inc.php debe contener SÓLO lo que está en azul entre las rayas, ninguna vuelta a la línea o espacio es autorizado)';
+$lang['install_help'] = '¿ Necesidad de ayudante? Plantee su cuestión sobre él <a href="%s">foro de Piwigo</a>.';
 $lang['install_end_message'] = 'La configuración de la aplicación correctamente se celebró, coloca en la etapa próxima<br /><br />
 Por medida de seguridad, gracias por suprimir el fichero "install.php"<br />
 La vez suprimido este fichero, por favor seguir estas indicaciones:

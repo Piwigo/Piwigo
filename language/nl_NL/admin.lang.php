@@ -21,7 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
 $lang['%d association'] = '%d associatie';
 $lang['%d associations'] = '%d associaties';
 $lang['cat_inclu_part1_S'] = '%d categorie inclusief ';
@@ -49,7 +48,6 @@ $lang['%d users'] = '%d gebruikers';
 $lang['%d waiting for validation'] = '%d wachten op bevestiging';
 $lang['%d waiting pictures rejected'] = '%d plaatje\'s afgewezen';
 $lang['%d waiting pictures validated'] = '%d plaatje\'s toegestaan';
-$lang['A new version of PhpWebGallery is available.'] = 'Een nieuwere versie van PhpWebGallery is beschikbaar.';
 $lang['Actions'] = 'Acties';
 $lang['Activate'] = 'Activatie';
 $lang['Add/delete a permalink'] = 'toevoegen/verwijderen van een permalink';
@@ -147,8 +145,6 @@ $lang['Permalinks'] = 'Permalinks';
 $lang['Permission denied'] = 'Toegang gewijgerd';
 $lang['Permission granted thanks to a group'] = 'Rechten toegekend door een groep';
 $lang['Permission granted'] = 'Toegang toegestaan';
-$lang['PhpWebGallery Administration'] = 'PhpWebGallery Beheer';
-$lang['PhpWebGallery version'] = 'PhpWebGallery versie';
 $lang['Picture informations updated'] = 'afbeeldings informatie bijgewerkt';
 $lang['Plugins'] = 'Plugins';
 $lang['Position'] = 'Positie';
@@ -195,7 +191,6 @@ $lang['Virtual categories to move'] = 'Virtuele categorien om te verplaatsen';
 $lang['Virtual category name'] = 'Virtuele categorie naam';
 $lang['Webmaster cannot be deleted'] = 'Webmaster kan niet verwijderd worden';
 $lang['You are running on development sources, no check possible.'] = 'Je werkt op basis van ontwikkelins bronnen, geen controle mogelijk.';
-$lang['You are running the latest version of PhpWebGallery.'] = 'Je hebt de laatste versie van PhpWebGallery.';
 $lang['You cannot delete your account'] = "Je kan je account niet verwijderen";
 $lang['You cannot move a category in its own sub category'] = 'Je kan een categorie niet verplaatsen in zijn eigen sub categorie';
 $lang['You need to confirm deletion'] = 'Je moet de verwijdering bevestigen';
@@ -387,8 +382,8 @@ $lang['target'] = 'doel';
 $lang['thumbnail'] = 'thumbnail';
 $lang['title'] = 'titel';
 $lang['title_categories'] = 'Categorie beheer';
-$lang['title_configuration'] = 'PhpWebGallery configuratie';
-$lang['title_default'] = 'PhpWebGallery beheer';
+$lang['title_configuration'] = 'Piwigo configuratie';
+$lang['title_default'] = 'Piwigo beheer';
 $lang['title_edit_cat'] = 'Bewerk een categorie';
 $lang['title_groups'] = 'Groepsbeheer';
 $lang['title_liste_users'] = 'Gebruikerslijst';
@@ -424,8 +419,8 @@ $lang['update'] = 'Synchronizeer';
 $lang['update_cats_subset'] = 'Alleen naar de bestaande categoriën terugbrengen';
 $lang['update_default_title'] = 'Kies een optie';
 $lang['update_display_info'] = 'toon maximale informatie (toegevoegde categoriën en elementen, verwijderde categoriën en elementen)';
-$lang['update_err_pwg_version_differs'] = 'PhpWebGallery versie verschild op de remote site';
-$lang['update_err_pwg_version_differs_info'] = 'Versie van create_listing_file.php op de remote site en PhpWebGallery moeten gelijk zijn';
+$lang['update_err_pwg_version_differs'] = 'Piwigo versie verschild op de remote site';
+$lang['update_err_pwg_version_differs_info'] = 'Versie van create_listing_file.php op de remote site en Piwigo moeten gelijk zijn';
 $lang['update_err_remote_listing_not_found'] = 'listing.xml file is niet gevonden';
 $lang['update_err_remote_listing_not_found_info'] = 'listing.xml file is niet gevonden op de remote site. Het bestand word gegenereerd door het commando "genereer listing" in de Site manager';
 $lang['update_error_list_title'] = 'Fouten lijst';
@@ -503,7 +498,7 @@ $lang['Returned images limit'] = 'Teruggekeerde beeldengrens';
 $lang['Comment to identify your partner clearly'] = 'Commentaar om je partner te identificeren';
 $lang['Add this access definition'] = 'Toevoegen toegangs defenitie';
 $lang['Web Services availability duration in days'] = 'Web Services beschikbaar in aantal dagen';
-$lang['Web Services under control'] = 'PhpWebGallery Web Services zijn volledig operationeel en alle verzoeken worden uitgevoerd.';
+$lang['Web Services under control'] = 'Piwigo Web Services zijn volledig operationeel en alle verzoeken worden uitgevoerd.';
 $lang['special_admin_menu'] = 'Speciaal';
 $lang['note_check_exif'] = '%s moet ingesteld zijn op false in je config_local.inc.php omdat exif niet ondersteund wordt.';
 $lang['note_check_more_info'] = 'Ga naar %s of %s voor meer informatie.';
@@ -607,7 +602,6 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 /* TODO */ $lang['c13y_ignore_msg2'] = 'Correction the anomaly will cancel the fact that it\'s ignored';
 /* TODO */ $lang['c13y_anomaly_ignored_count'] = '%d anomaly has been ignored.';
 /* TODO */ $lang['c13y_anomalies_ignored_count'] = '%d anomalies has been ignored.';
-
 /* TODO */ $lang['plugins_need_update'] = 'Plugins which need upgrade';
 /* TODO */ $lang['plugins_dontneed_update'] = 'Plugins up to date';
 /* TODO */ $lang['plugins_cant_check'] = 'Plugin versions can\'t be checked';
@@ -634,7 +628,6 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 /* TODO */ $lang['plugins_extract_error'] = 'An error occured during extraction (%s).';
 /* TODO */ $lang['plugins_check_chmod'] = 'Please check "plugins" folder and sub-folders permissions (CHMOD).';
 /* TODO */ $lang['plugins_server_error'] = 'Can\'t connect to server.';
-
 /* TODO */ $lang['Purge compiled templates'] = 'Purge compiled templates';
 /* TODO */ $lang['Caddie is currently empty'] = 'Caddie is currently empty';
 /* TODO */ $lang['DEMO'] = 'Demo';
@@ -652,5 +645,9 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 /* TODO */ $lang['ACCESS_3'] = 'Access to administrators';
 /* TODO */ $lang['ACCESS_4'] = 'Access to webmasters';
 /* TODO */ $lang['ACCESS_5'] = 'No access';
+$lang['A new version of Piwigo is available.'] = 'Een nieuwere versie van Piwigo is beschikbaar.';
+$lang['Piwigo Administration'] = 'Piwigo Beheer';
+$lang['Piwigo version'] = 'Piwigo versie';
+$lang['You are running the latest version of Piwigo.'] = 'Je hebt de laatste versie van Piwigo.';
 
 ?>

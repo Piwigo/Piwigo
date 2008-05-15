@@ -1,4 +1,4 @@
 {* $Id$ *}
 
 ------------------------
-PhpWebGallery {$VERSION}
+Piwigo {$VERSION}
