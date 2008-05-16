@@ -256,8 +256,8 @@ foreach ($cases as $id_adv)
              . 'create_listing_file.php devra être modifié.<br />' 
              . 'Vous devriez avoir un message d\'avertissement pendant la '
              . 'synchronisation dans ce cas.';
-      $adv[] = 'Try to keep the same prefix thru all your sites either ' 
-             . 'local or distants.';
+      $adv[] = 'Essayez de garder le même préfixe de miniatures pour les sites '
+             . 'locaux ou distants.';
       $adv[] = 'Conservez ce paramètre dans votre ./include/config_'
              . '<strong>local.inc.php</strong>. <br />'
              . 'Voir la page sur la configuration dans le Wiki pour plus '
