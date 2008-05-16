@@ -643,4 +643,7 @@ $lang['A new version of Piwigo is available.'] = 'A new version of Piwigo is ava
 $lang['Piwigo Administration'] = 'Piwigo Administration';
 $lang['Piwigo version'] = 'Piwigo version';
 $lang['You are running the latest version of Piwigo.'] = 'You are running the latest version of Piwigo.';
+$lang['c13y_version_anomaly'] = 'The version of %s [%s] installed is not compatible with the version required [%s]';
+$lang['c13y_version_correction'] = 'You need to upgrade your system to take full advantage of the application else the application will not work correctly see not at all';
+
 ?>

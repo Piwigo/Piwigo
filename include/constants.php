@@ -29,6 +29,10 @@ define('PEM_URL', 'http://' . PHPWG_DOMAIN . '/ext');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'yoga/clear');
 
+// Required versions
+define('REQUIRED_PHP_VERSION', '5.0.0');
+define('REQUIRED_MYSQL_VERSION', '4.1.22');
+
 // Error codes
 define('GENERAL_MESSAGE', 200);
 define('GENERAL_ERROR', 202);

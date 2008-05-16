@@ -25,14 +25,45 @@ class c13y_internal
 {
   function c13y_internal()
   {
+    add_event_handler('list_check_integrity', array(&$this, 'c13y_version'));
     add_event_handler('list_check_integrity', array(&$this, 'c13y_exif'));
     add_event_handler('list_check_integrity', array(&$this, 'c13y_user'));
   }
 
   /**
+   * Check version
+   *
+   * @param c13y object
+   * @return void
+   */
+  function c13y_version($c13y)
+  {
+    $check_list = array();
+
+    $check_list[] = array('type' => 'PHP', 'current' => phpversion(), 'required' => REQUIRED_PHP_VERSION);
+
+    list($mysql_version) = mysql_fetch_row(pwg_query('SELECT VERSION();'));
+    $check_list[] = array('type' => 'MySQL', 'current' => $mysql_version, 'required' => REQUIRED_MYSQL_VERSION);
+
+    foreach ($check_list as $elem)
+    {
+      if (version_compare($elem['current'], $elem['required'], '<'))
+      {
+        $c13y->add_anomaly(
+          sprintf(l10n('c13y_version_anomaly'), $elem['type'], $elem['current'], $elem['required']),
+          null,
+          null,
+          l10n('c13y_version_correction')
+          .'<BR />'.
+          $c13y->get_htlm_links_more_info());
+      }
+    }
+  }
+
+  /**
    * Check exif
    *
-   * @param void
+   * @param c13y object
    * @return void
    */
   function c13y_exif($c13y)
@@ -57,7 +88,7 @@ class c13y_internal
   /**
    * Check user
    *
-   * @param void
+   * @param c13y object
    * @return void
    */
   function c13y_user($c13y)
