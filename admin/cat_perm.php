@@ -231,12 +231,13 @@ SELECT group_id
   WHERE cat_id = '.$page['cat'].'
 ;';
 $group_granted_ids = array_from_query($query, 'group_id');
+$group_granted_ids = order_by_name($group_granted_ids, $groups);
 $template->assign('group_granted_ids', $group_granted_ids);
 
 
 // groups denied
 $template->assign('group_denied_ids',
-      array_diff(array_keys($groups), $group_granted_ids)
+    order_by_name(array_diff(array_keys($groups), $group_granted_ids), $groups)
   );
 
 // users...
@@ -257,7 +258,7 @@ SELECT user_id
   WHERE cat_id = '.$page['cat'].'
 ;';
 $user_granted_direct_ids = array_from_query($query, 'user_id');
-
+$user_granted_direct_ids = order_by_name($user_granted_direct_ids, $users);
 $template->assign('user_granted_direct_ids', $user_granted_direct_ids);
 
 
@@ -294,7 +295,8 @@ SELECT user_id, group_id
   
   $user_granted_indirect_ids = array_diff($user_granted_by_group_ids,
                                           $user_granted_direct_ids);
-  
+  $user_granted_indirect_ids = 
+    order_by_name($user_granted_indirect_ids, $users);  
   foreach ($user_granted_indirect_ids as $user_id)
   {
     foreach ($granted_groups as $group_id => $group_users)
@@ -317,6 +319,7 @@ SELECT user_id, group_id
 $user_denied_ids = array_diff(array_keys($users),
                               $user_granted_indirect_ids,
                               $user_granted_direct_ids);
+$user_denied_ids = order_by_name($user_denied_ids, $users);
 $template->assign('user_denied_ids', $user_denied_ids);
 
 
