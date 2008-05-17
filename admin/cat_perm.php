@@ -243,7 +243,7 @@ SELECT group_id
   WHERE cat_id = '.$page['cat'].'
 ;';
 $group_granted_ids = array_from_query($query, 'group_id');
-
+$group_granted_ids = order_by_name($group_granted_ids, $groups);
 // groups granted to access the category
 foreach ($group_granted_ids as $group_id)
 {
@@ -255,9 +255,10 @@ foreach ($group_granted_ids as $group_id)
       )
     );
 }
-
+$group_denied_ids = array_diff(array_keys($groups), $group_granted_ids);
+$group_denied_ids = order_by_name($group_denied_ids, $groups);
 // groups denied
-foreach (array_diff(array_keys($groups), $group_granted_ids) as $group_id)
+foreach ($group_denied_ids as $group_id)
 {
   $template->assign_block_vars(
     'group_denied',
@@ -288,7 +289,7 @@ SELECT user_id
   WHERE cat_id = '.$page['cat'].'
 ;';
 $user_granted_direct_ids = array_from_query($query, 'user_id');
-
+$user_granted_direct_ids = order_by_name($user_granted_direct_ids, $users);
 foreach ($user_granted_direct_ids as $user_id)
 {
   $template->assign_block_vars(
@@ -332,7 +333,8 @@ SELECT user_id, group_id
   
   $user_granted_indirect_ids = array_diff($user_granted_by_group_ids,
                                           $user_granted_direct_ids);
-  
+  $user_granted_indirect_ids = 
+    order_by_name($user_granted_indirect_ids, $users);
   foreach ($user_granted_indirect_ids as $user_id)
   {
     $group = '';
@@ -359,7 +361,7 @@ SELECT user_id, group_id
 $user_denied_ids = array_diff(array_keys($users),
                               $user_granted_indirect_ids,
                               $user_granted_direct_ids);
-
+$user_denied_ids = order_by_name($user_denied_ids, $users);
 foreach ($user_denied_ids as $user_id)
 {
   $template->assign_block_vars(
@@ -371,6 +373,19 @@ foreach ($user_denied_ids as $user_id)
     );
 }
 
+// Warning: this function breaks original keys
+// This function should be move in the futur to ./include/functions_html.inc
+function order_by_name($element_ids,$name)
+{
+  $ordered_element_ids = array();
+  foreach ($element_ids as $k_id => $element_id)
+  {
+    $key = strtolower($name[$element_id]) .'-'. $name[$element_id] .'-'. $k_id;
+    $ordered_element_ids[$key] = $element_id;
+  }
+  ksort($ordered_element_ids);
+  return $ordered_element_ids;
+}
 
 // +-----------------------------------------------------------------------+
 // |                           sending html code                           |
