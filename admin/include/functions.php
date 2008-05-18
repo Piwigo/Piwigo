@@ -1496,7 +1496,8 @@ DELETE
 function tag_id_from_tag_name($tag_name)
 {
   global $page;
-
+  
+  $tag_name = trim($tag_name);
   if (isset($page['tag_id_from_tag_name_cache'][$tag_name]))
   {
     return $page['tag_id_from_tag_name_cache'][$tag_name];
