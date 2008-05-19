@@ -650,6 +650,6 @@ $lang['Piwigo Administration'] = 'Administración de Piwigo';
 $lang['Piwigo version'] = 'Versión de Piwigo';
 $lang['You are running the latest version of Piwigo.'] = 'Usted utiliza la última versión de Piwigo.';
 /* TODO */ $lang['c13y_version_anomaly'] = 'The version of %s [%s] installed is not compatible with the version required [%s]';
-/* TODO */ $lang['c13y_version_correction'] = 'You need to upgrade your system to take full advantage of the application else the application will not work correctly see not at all';
+/* TODO */ $lang['c13y_version_correction'] = 'You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all';
 
 ?>
