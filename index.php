@@ -167,7 +167,8 @@ else
     );
 }
 // include menubar
-include(PHPWG_ROOT_PATH.'include/menubar.inc.php');
+include(trigger_event('menubar_file',
+  PHPWG_ROOT_PATH.'include/menubar.inc.php'));
 
 $template->assign_vars(
   array(
