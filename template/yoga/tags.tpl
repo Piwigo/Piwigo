@@ -1,5 +1,5 @@
 {* $Id$ *}
-<div id="content">
+<div id="content" class="content">
 
   <div class="titrePage">
     <ul class="categoryActions">

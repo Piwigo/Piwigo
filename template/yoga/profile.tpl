@@ -1,5 +1,5 @@
 {* $Id$ *}
-<div id="content">
+<div id="content" class="content">
 
 {if isset($errors)}
 <div class="errors">

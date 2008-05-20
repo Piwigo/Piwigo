@@ -1,4 +1,4 @@
-#menubar, #content .navigationBar, UL.categoryActions, #content DIV.calendarViews, .calendarBar,
+#menubar, .content .navigationBar, UL.categoryActions, .content DIV.calendarViews, .calendarBar,
 #imageToolBar, .navThumb, #addComment {
     display: none;
 }
@@ -9,6 +9,6 @@ BODY {
     background: #ffffff;
 }
 
-#content {
+.content {
     margin: 0;
 }

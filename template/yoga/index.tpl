@@ -1,6 +1,7 @@
 {* $Id$ *}
 {$MENUBAR}
-<div id="content">
+{if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
+<div id="content" class="content">
   <div class="titrePage">
     <ul class="categoryActions">
       <li>&nbsp;</li>
@@ -112,6 +113,7 @@
 </div>
 {/if}
 
-
 {if !empty($PLUGIN_INDEX_CONTENT_END) }{$PLUGIN_INDEX_CONTENT_END}{/if}
 </div> <!-- content -->
+
+{if !empty($PLUGIN_INDEX_CONTENT_AFTER)}{$PLUGIN_INDEX_CONTENT_AFTER}{/if}

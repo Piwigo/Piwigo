@@ -1,5 +1,5 @@
 {* $Id$ *}
-<div id="content">
+<div id="content" class="content">
 <h2>{'Search rules'|@translate}</h2>
 
 {if isset($INTRODUCTION) }

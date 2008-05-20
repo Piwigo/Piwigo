@@ -48,14 +48,14 @@ H2, .throw {
 #theAdminPage #menubar DT:after {
  content: ''; 
 }
-#content .pageNumberSelected {
+.content .pageNumberSelected {
   color: #f92;
 }
-#content .infos {
+.content .infos {
   background-color: #69c;
   color: #036;
 }
-#content .errors {
+.content .errors {
   background-color: #fc5;
   border-color: #f92;
   color: #900;
@@ -83,12 +83,12 @@ A {
 A:hover {
   border-color: #f92;
 }
-#content, .content {
+.content {
   background-color: #181818;
   border: 1px solid #eee;
   padding: 5px;
 }
-#theAdminPage #the_page #content, #theAdminPage #the_page .content {
+#theAdminPage #the_page .content {
   background-color: transparent;
   border-width: 0px;
   padding: 5px;
@@ -97,7 +97,7 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
   background-image: url(images/tableh1_bg.png);
   background-repeat: repeat-x;
 }
-#content H2 {
+.content H2 {
   background: none;
   border: 0px;
   letter-spacing: -0.05em; 
@@ -106,25 +106,25 @@ H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
   font-weight: lighter;
   margin-bottom: 20px;
 }
-#content ul.thumbnailCategories li div.thumbnailCategory .description h3,
-#content h3 { text-align: center; }
-#content ul.thumbnailCategories li div.thumbnailCategory .description p {
+.content ul.thumbnailCategories li div.thumbnailCategory .description h3,
+.content h3 { text-align: center; }
+.content ul.thumbnailCategories li div.thumbnailCategory .description p {
   color: #f92; text-indent: 0em; 
 }
-#content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
+.content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   color: #fff; 
 }
 .browsePath A {
   color: #eee;
 }
-#content H2:before, .browsePath:before, .imageNumber:before,
+.content H2:before, .browsePath:before, .imageNumber:before,
 #imageHeaderBar H2:before {
  content: "____\\_ "; 
  color: #69c; 
  font-family: Times, Zapf-Chancery, Cottonwood, Helvetica;
  letter-spacing: 0em; 
 }
-#content H2:after, .browsePath:after, .imageNumber:after,
+.content H2:after, .browsePath:after, .imageNumber:after,
 #imageHeaderBar H2:after {
  content: " _/____"; 
  color: #f92;
@@ -178,18 +178,18 @@ H2, #imageToolBar {
   border-color: #fff;
 }
 
-#content UL.thumbnail IMG {
+.content UL.thumbnail IMG {
   border: 1px solid #a0a0a0;
 }
 .illustration A {
   border: 0px;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG,
-#content DIV.thumbnailCategory {
+.content DIV.comment  A.illustration IMG,
+.content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
-#content DIV.thumbnailCategory {
+.content DIV.thumbnailCategory {
   border: 1px solid #69c;
   margin: 8px 4px;
 }
@@ -197,13 +197,13 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   border-left: 2px solid #696969;
 }
 
-#content UL.thumbnails SPAN.wrap2 {
+.content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 
-#content UL.thumbnails SPAN.wrap2:hover,
-#content UL.thumbnailCategories DIV.thumbnailCategory:hover {
+.content UL.thumbnails SPAN.wrap2:hover,
+.content UL.thumbnailCategories DIV.thumbnailCategory:hover {
   background-color: #333;
   border-color: #69c;		/* thumbnails border color when mouse cursor is over it */
 }
@@ -326,7 +326,7 @@ body#theAdminPage #menubar {
   repeat-y scroll right top;
   border-bottom: #ccc ridge 2px; width:13.5em; padding: 0; margin: 0;
 }
-body#theAdminPage #content, #theAdminPage #the_page .content { /*default-layout.cs... (line 1)*/
+body#theAdminPage .content { /*default-layout.cs... (line 1)*/
 list-style-type:none; padding: 0px;
  /*default-layout.cs... (line 23) */
 margin: 0px 0px 0px 200px; background-color: transparent;}
@@ -412,13 +412,13 @@ text-decoration:none; width:126px !important;
 .pwgmenu a:hover { /*theme.css (line 344)*/
 background:transparent url(images/onglet_actif_transp.png) no-repeat scroll left 2px;
 color: #ff7700; }
-#content h2:before, #content h2:after, 
+.content h2:before, .content h2:after, 
 #menubar DT:before, #menubar DT:after { content: ""; }
 #theHeader h1 { /*theme.css (line 345) */ color:#441100; }
-#content h2 { /*theme.css (line 100)*/
+.content h2 { /*theme.css (line 100)*/
 letter-spacing:0.1em; margin-right:45px; text-align:right; color: #777777; 
 text-transform:none; }
-#content dl, dd { /*content.css (line 52) */ margin:5px; }
+.content dl, dd { /*content.css (line 52) */ margin:5px; }
 .content h2 { /* default-layout.cs... (line 6) */
 font-weight:bold; margin-right:30px; padding-left:2em; }
 #theAdminPage h3 { /* theme.css (line 96) */
@@ -429,11 +429,11 @@ background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;}
 #theAdminPage #the_page { /*theme.css (line 73)*/
 background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
 #the_page { /*theme.css (line 348)*/ padding-bottom:0px;}
-#content, .content {background-color:transparent;}
+.content {background-color:transparent;}
 body#theAdminPage #menubar {  /* theme.css (line 324) */
 background:transparent none repeat-y scroll right top; border-bottom:0px; margin-top:110px;
 float: none; position: absolute; left: 0px; top: 160px;}
-#theAdminPage #the_page #content, #theAdminPage #the_page .content { /*theme.css (line 91)*/
+#theAdminPage #the_page .content { /*theme.css (line 91)*/
 background-color:transparent; border-width:0px; padding:5px 35px 5px 5px; }
 body#theAdminPage #menubar dl.selected dd { padding-bottom: 145px; }
 .header_notes {/*default-colors.cs... (line 91)*/

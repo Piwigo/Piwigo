@@ -31,6 +31,7 @@
   {/if}
 </div>
 
+{if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
 <div id="imageToolBar">
   <div class="randomButtons">
     {if isset($U_SLIDESHOW_START) }
@@ -226,3 +227,4 @@
 </div>
 {/if} {*comments*}
 
+{if !empty($PLUGIN_PICTURE_AFTER)}{$PLUGIN_PICTURE_AFTER}{/if}

@@ -16,4 +16,4 @@ Content-Transfer-Encoding: 8bit
 </head>
 <body>
 <div id="the_page">
-<div id="content">
+<div id="content" class="content">

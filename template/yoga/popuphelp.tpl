@@ -1,5 +1,5 @@
 {* $Id$ *}
-<div id="content">
+<div id="content" class="content">
 {$HELP_CONTENT}
 </div> <!-- content -->
 

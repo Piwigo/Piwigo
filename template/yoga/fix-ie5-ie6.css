@@ -7,12 +7,12 @@
 H1, #theHeader {
   width: 100%;	/* <- useless but seems to make IE6 happy */
 }
-#content {
+.content {
   height: 1em;	/* for IE6 it's like min-height */
 }
 
 /* fix category thumbnails on main page */
-#content UL.thumbnailCategories {
+.content UL.thumbnailCategories {
   width: 99%;	/* buggy IE box model */
 }
 

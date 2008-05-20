@@ -17,7 +17,7 @@ BODY, H3, #imageHeaderBar, #imageToolBar A:hover, .row1, UL.tabsheet LI.normal_t
 	background-color: #2f2f2f;
 }
 
-#menubar DL, #content, #imageToolBar, .header_notes, .content, UL.tabsheet LI.selected_tab {
+#menubar DL, .content, #imageToolBar, .header_notes, UL.tabsheet LI.selected_tab {
 	background-color: #505050;
 }
 
@@ -38,7 +38,7 @@ H2, #menubar DT, .throw {
 }
 
 /* borders */
-#menubar DL, #content, .content,
+#menubar DL, .content,
 #comments DIV.comment BLOCKQUOTE {
 	border: 1px solid #000000;
 }
@@ -55,8 +55,8 @@ H2, #menubar DT, #imageToolBar {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-#content DIV.comment  A.illustration IMG,
-#content DIV.thumbnailCategory {
+.content DIV.comment  A.illustration IMG,
+.content DIV.thumbnailCategory {
 	border: 1px solid gray;
 }
 
@@ -64,14 +64,14 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 	border-left: 2px solid #696969;
 }
 
-#content UL.thumbnails SPAN.wrap2 {
+.content UL.thumbnails SPAN.wrap2 {
 	border: 1px solid #aaaaaa;	/* thumbnails border color and style */
 	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
 
-#content UL.thumbnails SPAN.wrap2:hover,
-#content UL.thumbnailCategories DIV.thumbnailCategory:hover,
-#content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
+.content UL.thumbnails SPAN.wrap2:hover,
+.content UL.thumbnailCategories DIV.thumbnailCategory:hover,
+.content UL.thumbnailCategories DIV.thumbnailCategory:hover A {
 	background-color: #faebd7;
 	border-color: yellow;	/* thumbnails border color when mouse cursor is over it */
 	color: black;

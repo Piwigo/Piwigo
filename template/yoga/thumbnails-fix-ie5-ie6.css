@@ -1,26 +1,26 @@
 /* $Id$ */
 /* fix IE with another layout for thumbnails */
-#content UL.thumbnails SPAN.wrap2 {
+.content UL.thumbnails SPAN.wrap2 {
   display: block;
   position: relative;
   text-align: left;
 }
-#content UL.thumbnails SPAN.wrap2 A,
-#content UL.thumbnails SPAN.wrap2 SPAN {
+.content UL.thumbnails SPAN.wrap2 A,
+.content UL.thumbnails SPAN.wrap2 SPAN {
   overflow: visible;
   position: absolute;
   top: 50%;
   text-align: center;
 }
 
-#content UL.thumbnails IMG.thumbnail {
+.content UL.thumbnails IMG.thumbnail {
   position: relative;
   top: -50%;
   /*\*//*/
     margin-top: -40%;
   /**/
 }
-#content UL.thumbnails INPUT {
+.content UL.thumbnails INPUT {
   position: absolute;
   left: 2px;
   top: 2px;  /* same as other browsers but not so pretty */

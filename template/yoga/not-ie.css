@@ -3,11 +3,11 @@
 /* All directives not supported by IE */
 /* can be overiden in any theme but not hidden to IE */
 
-#content UL.thumbnails SPAN.wrap2 {
+.content UL.thumbnails SPAN.wrap2 {
   -moz-border-radius: 4px;	/* round corners with Geko */
   -webkit-border-radius: 4px; /* Safari webkit project */
 }
-#content DIV#comments {
+.content DIV#comments {
   padding-left: 5px;
   padding-right: 5px;
   -moz-box-sizing: padding-box !important;

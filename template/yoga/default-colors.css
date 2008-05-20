@@ -7,7 +7,7 @@
 }
 
 /* So that non-links are slightly greyed out */
-#content .navigationBar, SPAN.calItemEmpty, TD.calDayCellEmpty {
+.content .navigationBar, SPAN.calItemEmpty, TD.calDayCellEmpty {
 	color: #b0b0b0;
 }
 
