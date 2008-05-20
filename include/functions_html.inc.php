@@ -104,7 +104,7 @@ function create_navigation_bar(
     if ($cur_page != 1)
     {
       $navbar.=
-        '<a href="'.$url.'" rel="start">'
+        '<a href="'.$url.'" rel="first">'
         .l10n('first_page')
         .'</a>';
     }
