@@ -14,12 +14,12 @@ function selected_admin_menu()
       case 'cat_list':
       case 'cat_modify':
       case 'cat_move':
-      case 'cat_options':      
+      case 'cat_options':
       case 'element_set':
       case 'cat_perm':
       case 'permalinks':
       case 'picture_modify':
-        if (isset($_GET['cat']) and $_GET['cat']='caddie') {
+        if (isset($_GET['cat']) and $_GET['cat']=='caddie') {
           return 3;
         }
         return 2;
@@ -40,7 +40,7 @@ function selected_admin_menu()
       case 'plugins_list':
       case 'plugin':
         return 5;
-    } 
+    }
   }
   return 0;
 }

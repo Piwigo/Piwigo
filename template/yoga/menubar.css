@@ -144,8 +144,6 @@ input#qsearchInput {
 
 #menubar #menuTagCloud LI
 {
-  display: inline;	/* FF doesn't see the inline-block below */
+  display: inline;
   white-space: nowrap;	/* No line break in the LI but Opera set nowrap to */
-  display: inline-block;/* the whole UL, inline-block fix it.              */
-  /* IE wants inline in fix-ie5-ie6.css */
 }

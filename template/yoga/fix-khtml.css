@@ -10,5 +10,11 @@
     top: -1px;		/* move the container up by the same amount */
     margin-bottom: 5px; 
 }
+
+#menubar #menuTagCloud LI
+{
+  display: inline-block;/* required for Safari 3.1 - otherwise overflows on the right */
+}
+
 /* end Safari/Konqueror */
 

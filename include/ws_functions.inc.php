@@ -865,7 +865,7 @@ function ws_session_logout($params, &$service)
 
 function ws_session_getStatus($params, &$service)
 {
-  global $user, $lang_info;
+  global $user;
   $res = array();
   $res['username'] = is_a_guest() ? 'guest' : $user['username'];
   foreach ( array('status', 'template', 'theme', 'language') as $k )

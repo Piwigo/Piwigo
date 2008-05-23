@@ -365,10 +365,9 @@ function get_cat_id_from_permalinks( $permalinks, &$idx )
     $in .= '"'.$permalink.'"';
   }
   $query ='
-SELECT c.id, op.permalink, 1 AS is_old
-  FROM '.OLD_PERMALINKS_TABLE.' op INNER JOIN '.CATEGORIES_TABLE.' c
-    ON op.cat_id=c.id
-  WHERE op.permalink IN ('.$in.')
+SELECT cat_id AS id, permalink, 1 AS is_old
+  FROM '.OLD_PERMALINKS_TABLE.'
+  WHERE permalink IN ('.$in.')
 UNION
 SELECT id, permalink, 0 AS is_old
   FROM '.CATEGORIES_TABLE.'

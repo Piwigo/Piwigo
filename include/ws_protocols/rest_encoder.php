@@ -152,7 +152,6 @@ class PwgRestEncoder extends PwgResponseEncoder
 {
   function encodeResponse($response)
   {
-    global $lang_info;
     $respClass = strtolower( get_class($response) );
     if ($respClass=='pwgerror')
     {
