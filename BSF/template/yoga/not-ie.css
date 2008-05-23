@@ -1,0 +1,24 @@
+/* $Id$ */
+
+/* All directives not supported by IE */
+/* can be overiden in any theme but not hidden to IE */
+
+.content UL.thumbnails SPAN.wrap2 {
+  -moz-border-radius: 4px;	/* round corners with Geko */
+  -webkit-border-radius: 4px; /* Safari webkit project */
+}
+.content DIV#comments {
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-box-sizing: padding-box !important;
+}
+FORM#quickconnect LABEL {
+  margin:0;
+  width: 100%;
+ -moz-box-sizing: padding-box !important;
+  box-sizing: border-box; /* CSS3 */
+}
+ul.tabsheet li {
+  -moz-border-radius: 6px 6px 0px 0px;	/* round corners with Geko */
+  -webkit-border-radius: 6px 6px 0px 0px; /* Safari webkit project */
+}

@@ -1,0 +1,51 @@
+<h2>Maintenance</h2>
+
+<p>Pour optimiser le temps de génération des pages, Piwigo utilise
+des informations en cache. Par exemple, au lieu de compter le nombre
+d'éléments contenus dans chaque catégorie à chaque rechargement de page,
+cette information est stockée dans la base de données. En théorie, cette
+information doit toujours être correcte, mais parfois une erreur peut
+survenir et l'information en cache devient fausse.</p>
+
+<p>Des informations deviennent inutiles avec le temps. Les supprimer de la
+base de données libère de l'espace disque.</p>
+
+<ul>
+
+  <li><strong>Mettre à jour les informations des catégories:</strong> Pour
+chaque catégorie, les informations à controller et/ou mettre à jour sont les
+suivantes: liste des catégories mères, nombre d'éléments, date du dernier
+élément, position parmi les catégories soeur, position dans l'arbre complet
+des catégories. Cette action vérifie également la cohérence des
+représentants.</li>
+
+  <li><strong>Mettre à jour les informations des images:</strong> Pour
+chaque image, les informations à mettre à jour sont: chemin complet vers le
+fichier, note moyenne. <em>Attention</em>: ne pas confondre avec les
+méta-données qui sont synchronisées sur l'écran <span
+class="pwgScreen">Administration, Catégories, Synchroniser</span> ou sur
+l'écran <span class="pwgScreen">Modifier les informations d'une image</span>
+(accessible depuis la page de visualisation d'une image <span
+class="pwgScreen">picture.php</span>).</li>
+
+  <li><strong>Réparer et optimiser la base de données:</strong>
+Pour chaque tables de la base de données PhpWegGallery, les opérations de ré-ordonnancement, de réparation et d'optimisation sont effectuées.
+  </li>
+
+</ul>
+
+<ul>
+  <li><strong>Purger le detail de l'historique:</strong> Supprime toutes les lignes de
+la table <code>history</code>. L'écran <span
+class="pwgScreen">Administration, Spéciales, Historique</span> ne montre alors
+plus aucune information sur le passé. <em>Attention</em>: toutes les données
+seront perdues et il n'existe aucun moyen de les récupérer.</li>
+
+  <li><strong>Purger le sommaire de l'historique:</strong> Supprime toutes les informations sommaires (obtenues à partir de detail de l'historique) .</li>
+
+  <li><strong>Purger les sessions:</strong> Supprimer les sessions
+expirées..</li>
+
+  <li><strong>Purger les flux de notification jamais utilisés</strong></li>
+
+</ul>

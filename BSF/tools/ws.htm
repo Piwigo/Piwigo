@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>PWG web service explorer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="prototype.js" ></script>
+
+<script type="text/javascript">
+
+function setVisibility(id, vis)
+{
+  $(id).style.visibility = vis;
+}
+
+function dumpError(err)
+{
+	var s= 'Error ';
+	if ('string' === typeof err )
+	 s += err;
+	else
+	{
+    s += err.name+'<br/>';
+	 s += err.message;
+	 if (err.stack!=null)
+	 {//mozilla only
+	 	s += '<br/><small><pre>'+ err.stack + '</pre></small>';
+	 }
+	}
+  $("error").update(s);
+}
+
+var gServiceUrl;
+var gCachedMethods;
+
+Ajax.Responders.register({
+
+onException: function(req, err) {
+	try {
+		document.pwgError = err;
+		dumpError(err);
+	}
+	catch (e)
+	{
+		alert (err);
+		alert (err.message);
+	}
+},
+
+onComplete: function(req, transport) {
+	if (!req.responseIsSuccess())
+	{
+		var s = 'Completion failure\n' + transport.status + ' ' + transport.statusText;
+		if (transport.status>=300)
+		{
+			s += '\n';
+			s += transport.responseText.substr(0,1000);
+		}
+		dumpError(s);
+	}
+ }
+}
+);
+
+
+function pwgGetJsonResult(transport)
+{
+  var resp;
+  try {
+		eval('resp = ' + transport.responseText);
+	}
+	catch (e)
+	{
+		var s = e.message;
+		s += '\n' + transport.responseText.substr(0,1000).escapeHTML();
+		throw new Error( s );
+	}
+  if (resp==null || resp.result==null || resp.stat==null || resp.stat!='ok')
+  {
+    var s = 'JSON evaluation error';
+    if (resp)
+    {
+			if (resp.stat!=null) s+= '\n'+resp.stat;
+      if (resp.message!=null) s+= '\n'+ resp.message;
+    }
+    throw new Error(s);
+  }
+  return resp.result;
+}
+
+function pwgChangeUrl()
+{
+  $("error").update("");
+  setVisibility("methodListWrapper", "hidden");
+  $("methodList").update("");
+  setVisibility("methodWrapper", "hidden");
+  setVisibility("methodDetailWrapper", "hidden");
+
+  gServiceUrl = $F('ws_url');
+  gCachedMethods = new Hash();
+
+  try {
+		var ajaxReq = new Ajax.Request(
+				gServiceUrl,
+				{method:'get', parameters:'format=json&method=reflection.getMethodList',
+				 onSuccess: function (r) { onSuccess_getMethodList(r); }
+				}
+			)
+  }catch (e)
+  {
+    dumpError(e);
+  }
+  return false;
+}
+
+function onSuccess_getMethodList(transport)
+{
+	var result = pwgGetJsonResult(transport);
+	var ml = '';
+	for (var i=0; i<result.methods.length; i++)
+	{
+		ml += '<li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">'+ result.methods[i]+'</a></li>';
+	}
+	$("methodList").update(ml);
+	setVisibility("methodListWrapper", "visible");
+}
+
+function pwgSelectMethod(methodName)
+{
+  $("error").update("");
+  $("methodName").update(methodName);
+  setVisibility("methodDetailWrapper", "hidden");
+  setVisibility("methodWrapper", "visible");
+
+  if ( gCachedMethods[methodName] )
+    fillNewMethod( gCachedMethods[methodName] );
+  else
+  {
+    try {
+  		var ajaxReq = new Ajax.Request(
+  				gServiceUrl,
+  				{method:'get', parameters:'format=json&method=reflection.getMethodDetails&methodName='+methodName,
+  				 onSuccess: function (r) { onSuccess_getMethodDetails(r); }
+  				}
+  			)
+    }catch (e)
+    {
+      dumpError( e );
+    }
+  }
+  return false;
+}
+
+function onSuccess_getMethodDetails(transport)
+{
+	var result = pwgGetJsonResult(transport);
+  fillNewMethod( gCachedMethods[result.name] = $H(result) );
+}
+
+function fillNewMethod(method)
+{
+	var methodParamsElt = $("methodParams");
+	while (methodParamsElt.tBodies[0].rows.length)
+		methodParamsElt.tBodies[0].deleteRow(methodParamsElt.tBodies[0].rows.length-1);
+
+	if (method.params && method.params.length>0)
+	{
+  		for (var i=0; i<method.params.length; i++)
+  		{
+  			var row = methodParamsElt.tBodies[0].insertRow(-1);
+  			var isOptional = method.params[i].optional;
+  			var acceptArray = method.params[i].acceptArray;
+  			var defaultValue = method.params[i].defaultValue == null ? '' : method.params[i].defaultValue;
+
+  			row.insertCell(0).innerHTML = method.params[i].name;
+  			row.insertCell(1).innerHTML = '<span title="parameter is '+(isOptional ? 'optional':'required') +'">'+(isOptional ? '?':'*')+'</span>'
+          + (method.params[i].acceptArray ? ' <span title="parameter can be an array; use | (pipe) character to split values">[ ]</span>':'');
+  			row.insertCell(2).innerHTML = '<input id="methodParameterSend_'+i+'" type="checkbox" '+(isOptional ? '':'checked="checked"')+'/>';
+  			row.insertCell(3).innerHTML = '<input id="methodParameterValue_'+i+'"" value="'+defaultValue+'" style="width:99%" onchange="$(\'methodParameterSend_'+i+'\').checked=true;"/>';
+  		}
+ 	}
+	$("methodDescription").update(method.description);
+	setVisibility("methodDetailWrapper", "visible");
+}
+
+function pwgInvokeMethod( newWindow )
+{
+	var methodName = $('methodName').innerHTML;
+	var method = gCachedMethods[methodName];
+
+  var reqUrl = gServiceUrl;
+  reqUrl += "?format="+$F('responseFormat');
+
+  if ($('requestFormat').value == 'get')
+  {
+    reqUrl += "&method="+methodName;
+    for ( var i=0; i<method.params.length; i++)
+    {
+      if (! $('methodParameterSend_'+i).checked)
+        continue;
+
+      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
+      {
+        $F('methodParameterValue_'+i).split('|').each(
+            function(v) {
+              reqUrl += '&'+method.params[i].name+'[]='+v;
+            }
+          );
+      }
+      else
+        reqUrl += '&'+method.params[i].name+'='+$F('methodParameterValue_'+i);
+    }
+    if ( !newWindow )
+      $("invokeFrame").src = reqUrl;
+    else
+      window.open(reqUrl);
+  }
+  else
+  {
+    var form = $("invokeForm");
+    form.action = reqUrl;
+    var t = '<input type="hidden" name="'+'method'+'" value="'+methodName+'"/>';
+    for ( var i=0; i<method.params.length; i++)
+    {
+      if (! $('methodParameterSend_'+i).checked)
+        continue;
+
+      if ( method.params[i].acceptArray &&  $F('methodParameterValue_'+i).split('|').length > 1 )
+      {
+        $F('methodParameterValue_'+i).split('|').each(
+            function(v) {
+              t += '<input type="hidden" name="'+method.params[i].name+'[]" value="'+v+'"/>';
+            }
+          );
+      }
+      else
+        t += '<input type="hidden" name="'+method.params[i].name+'" value="'+$F('methodParameterValue_'+i)+'"/>';
+    }
+    form.innerHTML = t;
+    form.target = newWindow ? "_blank" : "invokeFrame";
+    form.submit();
+  }
+  return false;
+}
+</script>
+
+
+<style>
+#methodListWrapper {
+  width: 13em;
+  float: left;
+  display: inline;
+  visibility: hidden;
+}
+
+#methodList {
+  padding-left: 10px;
+  margin-left: 15px;
+}
+
+#methodWrapper {
+  margin-left: 14em;
+  visibility: hidden;
+}
+
+#methodName {
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+
+
+#error {
+  height: 90px;
+  overflow: scroll;
+  color: red;
+}
+
+#methodParams {
+  border-collapse: collapse;
+  font-size: small;
+}
+
+#methodParams input {
+  font-size: 90%;
+  border: 1px solid black;
+  text-indent: 2px;
+}
+
+
+a {
+  color: #02f;
+  background-color: white;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: white;
+  background-color: #02f;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div>
+ <label>PWG Web service url
+  <input name="ws_url" id="ws_url" size="64"/>
+<script type="text/javascript">
+  var match = document.location.toString().match(/^(https?.*\/)tools\/ws\.html?$/);
+  if (match!=null) $('ws_url').value = match[1]+'ws.php';
+</script>
+ </label>
+ <a href="#" onclick="return pwgChangeUrl();">Go!</a>
+</div>
+
+<div id="error">
+</div>
+
+<div>
+
+<div id="methodListWrapper"><h2>Methods</h2>
+  <ul id="methodList">
+    <li><a href="#" onclick="return pwgSelectMethod(this.innerHTML)">getVersion</a></li>
+  </ul>
+</div>
+
+<div id="methodWrapper">
+  <h2 id="methodName"></h2>
+  <div id="methodDetailWrapper">
+
+    <table>
+    <tr style="vertical-align:top">
+
+    <td>
+      <div id="methodDescription"></div>
+      <table>
+        <tr>
+          <td>Request format:</td>
+          <td>
+            <select id="requestFormat">
+              <option value="get" selected="selected">GET</option>
+              <option value="post">POST</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Response format:</td>
+          <td>
+            <select id="responseFormat">
+              <option value="rest" selected="selected">REST (xml)</option>
+              <option value="json">JSON</option>
+              <option value="php">PHP serial</option>
+              <option value="xmlrpc">XML RPC</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <p>
+        <a href="#" onclick="return pwgInvokeMethod(false)">Invoke</a>
+        <a href="#" onclick="return pwgInvokeMethod(true)">Invoke (new Window)</a>
+      </p>
+    </td>
+
+
+    <td>
+      <table id="methodParams"  border="1" cellspacing="0" cellpadding="2px">
+        <thead>
+          <tr>
+            <td style="width:150px">Parameter</td>
+            <td>Extra</td>
+            <td>Send</td>
+            <td style="width:160px">Value</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </td>
+
+    </tr>
+    </table>
+
+		<div style="display:none;">
+			<!-- hiddenForm for POST -->
+			<form method="post" action="" target="invokeFrame" id="invokeForm">
+				<input type="submit" value="submit"/>
+			</form>
+		</div>
+
+    <iframe width="100%" height="400px" id="invokeFrame" name="invokeFrame" style="clear:both"></iframe>
+  </div> <!-- methodDetailWrapper -->
+</div> <!-- methodWrapper -->
+
+</div>
+
+</body>
+</html>

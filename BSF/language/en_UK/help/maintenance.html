@@ -1,0 +1,46 @@
+<h2>Maintenance</h2>
+
+<p>To optimize page generation time, Piwigo uses cached
+information. For example, instead of counting the number of pictures
+contained in each category at each page reload, this information is stored
+in the database. In theory, this information should always be correct, but
+sometimes an error can occur and cached information becomes wrong.</p>
+
+<p>Some informations become useless with time. Deleting this useless
+information from database make you save disk space.</p>
+
+<ul>
+
+  <li><strong>Update categories informations:</strong> For each category,
+  informations to update or control are the following : list of parent
+  categories, number of pictures, date of the last picture, position among
+  brother categories, position among all categories. This action also checks
+  the coherence of representative picture.</li>
+
+  <li><strong>Update images informations:</strong> For each picture,
+  informations to update are : full path to file, average
+  rate. <em>Warning</em>: do not get confuse with metadata informations
+  which can be synchronized from <span class="pwgScreen">Administration,
+  Categories, Synchronize</span> or by reaching the modification screen of a
+  single picture (through <span class="pwgScreen">Picture</span> for
+  example).</li>
+
+  <li><strong>Repair and optimize database:</strong>
+  For each table, re-odrer, repair and optimize operations are done.
+  </li>
+</ul>
+
+<ul>
+  <li><strong>Purge history detail:</strong> Delete all lines from
+  <code>history</code> table. Screen <span class="pwgScreen">Administration,
+  Specials, History</span> shows no informations anymore on past
+  history. <em>Warning</em>: all data will be lost and there is no way to
+  get informations back.</li>
+
+  <li><strong>Purge history summary:</strong> Delete all the summary information about visit history. This summary is calculated from the history detail.</li>
+
+  <li><strong>Purge sessions:</strong> Delete expired user sessions.</li>
+
+  <li><strong>Purge never used notification feeds</strong></li>
+
+</ul>

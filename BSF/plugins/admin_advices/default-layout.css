@@ -1,0 +1,19 @@
+.content {
+  list-style-type:none; 
+  margin: 0 1em 0 14.5em; 
+  padding: 0 0 15px 0;
+}
+.content h2 {
+  font-weight: bold; 
+  padding-left: 2em;
+}
+.content h3 {
+  text-align: left; 
+  padding-left: 3em;
+  font-size: 120%;
+}
+.content table tr td {
+  text-align: left; 
+  padding-left: 2em; 
+}
+

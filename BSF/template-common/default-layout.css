@@ -1,0 +1,82 @@
+/* $Id$ */
+
+/* Set the width of the menubar for the galery */
+#menubar {
+  width: 18em;
+}
+.content {
+  margin-left: 20em;  /* = #menubar width + 2em */
+}
+/* Set minimum width of the page before getting a scrollbar */
+/* IE5 and IE6 don't get that */
+BODY {
+  min-width: 60em;  /* ~ 3* #menubar width */
+}
+BODY#thePopuphelpPage {
+  min-width: 0;
+}
+
+/* Set the width of the menubar for the admin section */
+BODY#theAdminPage #menubar {
+  width: 12.5em;
+}
+BODY#theAdminPage .content {
+  margin-left: 14.5em;  /* = #menubar width + 2em */
+}
+
+/* Set some sizes according to your maximum thumbnail width and height */
+.content UL.thumbnails SPAN,
+.content UL.thumbnails SPAN.wrap2 A,
+.content UL.thumbnails LABEL,
+.content DIV.thumbnailCategory DIV.illustration {
+  width: 140px;      /* max thumbnail width + 2px */
+}
+.content UL.thumbnails SPAN.wrap2,
+.content DIV.thumbnailCategory DIV.description {
+  height: 140px;    /* max thumbnail height + 2px */
+}
+.content DIV.comment BLOCKQUOTE {
+  margin-left: 150px;    /*maximum thumbnail width + ~10px */
+}
+
+/* Category thumbnails on main page */
+.content UL.thumbnailCategories LI {
+  width: 49.7%;    /* 49.7% for 2 per line, 33.2% for 3 per line*/
+}
+
+/* Set defaults for thumbnails legend */
+.content UL.thumbnails SPAN.thumbLegend {
+  display: block;  /* display: none; if you don't want legend */
+  height: 4em;    /* legend height (don't set auto to be Gecko friendly)*/
+}
+
+/* Tooltips*/
+.tooltip {
+   position: relative;
+}
+
+.tooltip span {
+   display: none;
+}
+
+.tooltip:hover {
+  cursor: pointer;
+  z-index: 500;
+}
+
+.tooltip:hover span {
+  display: inline;
+  position: absolute;
+  top: 30px;
+  left: -50px;
+  width: 400px;
+
+  font-size: 11px;
+  text-decoration: none;
+  text-align: justify;
+  background-color: #FFFFCC;
+  color: #444444;
+  
+  padding: 10px;
+  border: 1px solid Black;
+}

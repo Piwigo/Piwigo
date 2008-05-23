@@ -1,0 +1,50 @@
+=====================================
+ Piwigo release creation guide
+=====================================
+
+Technical creation
+==================
+
+I take release 1.7.0 as an example. In URLs "plg" is my personnal Gna!
+username, so use yours.
+
+- tag creation tags/release-1_7_0 :
+
+$ svn copy \
+  -r 1999 \
+  -m "Create release 1.7.0 from branch 1.7 r1999" \
+  svn+ssh://plg@svn.gna.org/svn/phpwebgallery/branch/branch-1_7 \
+  svn+ssh://plg@svn.gna.org/svn/phpwebgallery/tags/release-1_7_0
+
+- checkout new Subversion release 1.7.0
+
+$ svn co svn+ssh://plg@svn.gna.org/svn/phpwebgallery/tags/release-1_7_0 1.7.0
+$ cd 1.7.0
+
+- in include/config_default.inc.php, change the following parameters:
+  - $conf['check_upgrade_feed'] = false;
+  - $conf['show_version'] = false;
+  - $conf['show_gt'] = false;
+  - $conf['die_on_sql_error'] = false;
+
+- in include/constants.php, change the PHPWG_VERSION to 1.7.0
+
+- commit your changes to tags/release-1_7_0, with the following comment:
+
+> New version 1.7.0 hard coded.
+> 
+> Stable release required modifications: don't show version and generation
+> time in footer, don't check the upgrade feed, don't die on sql errors.
+
+$ svn commit
+
+- create the release (pwg_rel_create.sh is in tools directory)
+
+$ mkdir /tmp/1.7.0
+$ cd /tmp/1.7.0
+$ pwg_rel_create.sh release-1_7_0 1.7.0
+$ md5sum p* > MD5SUMS
+
+- upload the release to Gna! download area
+
+$ scp -r /tmp/1.7.0 plg@download.gna.org:/upload/phpwebgallery/release/1.7/

@@ -1,0 +1,42 @@
+<public:attach event="oncontentready"  onevent="fixElements()" />
+
+<script langage=javascript>
+
+function setFocusStyle()
+{
+  window.event.srcElement.className += ' focus';
+}
+
+function setBlurStyle()
+{
+  window.event.srcElement.className = window.event.srcElement.className.replace( ' focus', ' nofocus');
+}
+
+function setClassFromType()
+{
+  this.className += ' ' + this.type;
+}
+
+function fixElements()
+{
+  for ( var i=0; i<this.elements.length; i++ )
+  {
+    var elem=this.elements[i];
+    switch ( elem.tagName )
+    {
+      case "INPUT":
+        elem.className += ' ' + elem.type;
+        if ( (elem.type != "radio") && (elem.type != "checkbox") )
+        { /* setting focus/nofocus on those is a mess to handle in css */
+          elem.attachEvent( 'onfocus', setFocusStyle );
+          elem.attachEvent( 'onblur', setBlurStyle );
+        }
+      break;
+      case "SELECT":
+      case "TEXTAREA":
+        elem.attachEvent( 'onfocus', setFocusStyle );
+        elem.attachEvent( 'onblur', setBlurStyle );
+    }
+  }
+}
+</script>

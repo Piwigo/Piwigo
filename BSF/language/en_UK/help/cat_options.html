@@ -1,0 +1,36 @@
+<h2>Category options</h2>
+
+<p>This screen lets the administrator manage categories option for many
+categories at once.</p>
+
+<dl>
+
+  <dt>Upload</dt>
+  <dd>Make categories uploadable for gallery visitors. Only non virtual and
+  non remote categories are shown.</dd>
+
+  <dt>Comments</dt>
+  <dd>Authorize users to add comments on selected categories.
+Selects the categories which are commentable. 
+An image is commentable if it belongs to at least one category that is commentable.</dd>
+
+  <dt>Lock</dt>
+  <dd>Selected categories will temporary been disabled for maintenance. If
+  you lock a category, all its child categories become locked. If you unlock
+  a category, all its parent categories become unlocked.</dd>
+
+  <dt>Public / private</dt>
+  <dd>Manage authorizations for selected categories. Selected categories are
+  private : you will need to authorize users and/or groups to access to
+  them. If you make a category private, all its child categories becomes
+  private. If you make a category public, all its parent categories becomes
+  public</dd>
+
+  <dt>Representative</dt>
+  <dd>This option can be managed only if you set configuration parameter
+  <code>allow_random_representative</code> (see <span
+  class="filename">include/config_defaults.inc.php</span>) to
+  <em>true</em>. Each category can be randomly represented or singly
+  represented (by a unique picture).</dd>
+
+</dl>

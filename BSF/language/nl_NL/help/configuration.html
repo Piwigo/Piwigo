@@ -1,0 +1,105 @@
+<h2>Configuratie</h2>
+
+<p>Dit scherm geeft de administrator de mogenlijkheid tot basisconfiguratie. Dit scherm toont namelijk slechts eenvoudige 
+configuratieparameters die zouden moeten zijn genoeg voor de overgrote meerderheid van beheerders. Als je de andere mogelijkheden wilt zien
+(geavanceerde) over de configuratie parameters, lees dan <span cass="filename">include/config_default.inc.php</span>.</p>
+
+<p>Dit scherm wordt verdeeld in verscheidene secties, hergroeperend configuratieparameters per thema.</p>
+
+
+<h3>Begin</h3>
+<ul>
+  <li><strong>Gallerie titel</strong>: word gebruikt in RSS meldingen en meldingen per email.</li>
+
+  <li><strong>Pagina banner</strong>: word getoond op elke publieke pagina.</li>
+
+  <li><strong>Gallerie URL</strong>: word gebruikt voor de RSS meldingen.</li>
+
+  <li><strong>Sluit gallery</strong>: Sluit de hele gallerie voor onderhoud. Alleen administrators kunnen de gallerie nog bereiken.</li>
+
+  <li><strong>Waardering</strong>: Waarderings optie is ingeschakeld.</li>
+
+  <li><strong>Waardering door gasten</strong>: Niet geregisteerde gebruikers kunnen ook hun waardering geven aan afbeeldingen.</li>
+
+  <li><strong>Sta registratie toe</strong>: Registratie is gratis voor iedereen.</li>
+
+  <li><strong>Email adres is verplicht voor alle gebruikers</strong>: Email adres word gecontroleerd bij registratie of profiel update uitgezonderd als de actie word uitgevoerd op de administratie scherm.</li>
+
+  <li><strong>Email admins wanneer een nieuwe gebruiker zich registreerd</strong>: Administrators ontvangen een mailtje bij elke registratie.</li>
+
+</ul>
+
+<h3>Geschiedenis</h3>
+<ul>
+  <p>Bezoek op de pagina's <span class="pwgScreen">category.php</span> en <span class="pwgScreen">picture.php</span> worden opgeslagen in de <code>history</code> tabel.</p>
+  
+  <p>Bezoek word getoond in <span class="pwgScreen">Administratie, Speciaal, Geschiedenis</span>.</p>
+
+  <li><strong>Bewaar pagina bezoek door gasten</strong>: pagina bezoek van gasten wordt opgeslagen.</li>
+
+  <li><strong>Bewaar pagina bezoek door gebruikers</strong>: pagina bezoek van geregistreerde gebruikers wordt opgeslagen.</li>
+
+  <li><strong>Bewaar pagina bezoek door administrators</strong>: pagina bezoek van administrators wordt opgeslagen.</li>
+
+</ul>
+
+<h3>Commentaar</h3>
+<ul>
+
+  <li><strong>Commentaar door iedereen</strong>: Ook gasten kunnen commentaar plaatsen.</li>
+
+  <li><strong>Aantal commentaren per per pagina</strong>.</li>
+
+  <li><strong>Validatie</strong>: een administrator valideerd de door gebruikers geplaatste commentaren voordat deze zichtbaar wordt op de website.
+   Valideren van gebruikers commentaar gebeurd via het scherm <span class="pwgScreen">Administratie, Afbeeldingen, Commentaar</span>.</li>
+
+  <li><strong>Email admins when a valid comment is entered</strong>:
+Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
+
+  <li><strong>Email admins wanneer een commentaar validatie nodig heeft</strong>:
+Stuurt de administrator een bericht dat een gebruiker een p[merking heeft geplaatst die nog gevalideerd moet worden door de administrator.
+Gebruikers commentaar valideren gaat via het scherm <span class="pwgScreen">Administratie, Afbeeldingen, Commentaren</span>.</li>
+
+</ul>
+
+<!--TODO --><h3>Upload</h3>
+<ul>
+<!--TODO -->  <li><strong>Show upload link every time</strong>: If exists uploadeable categories, add link will be show for each categoy.</li>
+<!--TODO -->  <li><strong>User access level to upload</strong>: Allows to restrict upload by users</li>
+  <li><strong>Email admins wanneer een afbeelding is ge-upload</strong>: Administrators ontvangen een mailtje voor elke ge-uploade bestand door gebruikers.</li>
+</ul>
+
+<h3>Standaard weergave</h3>
+
+<p>Hier kan je de weergave aan passen die als standaard worden ingesteld, die je gast ziet als hij zich niet heeft aangemeld. Eenmaal aangemeld worden deze 
+opties overschreven door de gebruikers eigen opties (aanpasbaar in <span class="pwgScreen">profiel</span>).</p>
+
+<p>Het is mogelijk om de weergave opties voor alle gebruikers aan te passen, via scherm <span class="pwgScreen">Administratie, Identificatie, Gebruikers</span>, waar de opties voor de geslecteerde lijst van gebruikers word getoond.</p>
+
+<ul>
+
+  <li><strong>Talen</strong>: betreft slechts Piwigo labels. De namen van de categorie, de bestandsnamen en alle beschrijvingen vallen hier buiten.</li>
+
+  <li><strong>Aantal afbeeldingen per rij</strong></li>
+
+  <li><strongAantal afbeeldingen per pagina</strong></li>
+
+  <li><strong>aangezichts thema</strong></li>
+
+  <li><strong>Recente periode</strong>: per dag. Periode waarin de foto aangeduid moet worden als nieuw. Moet meer dan 1 dag zijn.</li>
+
+  <li><strong>Toon alle categorieën</strong>: Toon standaard alle categorieën in het menu? <em>Warning</em>: deze optie is een server belastende optie 
+en toont mogelijk een erg groot menu als je categorie erg veel sub categorieën bevat.</li>
+
+  <li><strong>Aantal commentaren tonen</strong>: Het aantal commentaren zichtbaar bij een afbeelding op de thumbnails pagina. Zware belasting.</li>
+
+  <li><strong>Toon aantal hits</strong>: Toon het aantal keren dat een afbeelding bekeken is, onder de afbeelding op de thumbnails pagina. 
+  Allen mogelijk als de geavanceerde configuratie parameter is: <br />  $conf['show_nb_hits'] = true; <br />
+  Opmerking: standaars is dit false.</li>
+
+  <li><strong>Maximale breedte van de afbeeldingen</strong>: maximale toonbare breedte. Als de afbeeldingen groter zijn dan deze instelling, worden ze verkleind op het scherm.  Als je deze optie gebruikt, denk er dan over na om de afbeelding aan te passen voor je ze plaatst op je gallery.</li>
+
+  <li><strong>Maximale hoogte van de afbeeldingen</strong>: Zelfde als hierboven.</li>
+
+</ul>
+

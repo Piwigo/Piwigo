@@ -1,0 +1,241 @@
+/* $Id$ */
+.content {
+    margin-right: 1em;
+    margin-bottom: 1em; /* when it's longer than menu bar */
+}
+
+BODY#theCommentsPage .content,
+BODY#theUploadPage .content,
+BODY#theRegisterPage .content,
+BODY#theIdentificationPage .content,
+BODY#theProfilePage .content,
+BODY#theSearchPage .content,
+BODY#theAboutPage .content,
+BODY#thePopuphelpPage .content,
+BODY#thePasswordPage .content,
+BODY#theNotificationPage .content,
+BODY#theTagsPage .content,
+BODY#theNBMPage .content
+{
+  margin: 1em;
+}
+
+.content H3 {
+    margin-bottom: 1ex;
+}
+
+.content H2 { margin-bottom: 3px;} /*<- for IE otherwise calendar select is displaced to middle of page*/
+
+.content H3 {
+    text-align: center;
+}
+
+.content .navigationBar, .content .additional_info {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.content .pageNumberSelected {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.content .additional_info {
+    font-size: 110%;
+}
+
+.content FORM {
+    text-align: left;
+}
+
+/* content defaults */
+.content DL, DD { margin: 10px; }
+.content DT {
+  margin-bottom: 5px;
+  font-style: italic;
+  font-size: 110%;
+}
+
+/* actions */
+UL.categoryActions {
+  margin: 0 2px;
+  width: auto;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.content DIV.titrePage UL.categoryActions {
+  float: right;
+  text-align: center;
+}
+
+.content DIV.titrePage {
+  padding: 0 0 3px;
+}
+
+.content UL.categoryActions LI {
+  display: inline;
+}
+
+.content UL.categoryActions A IMG, UL.categoryActions A {
+  border: none;
+  margin-bottom: -5px;
+}
+
+/* User comments */
+
+.content DIV#comments {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.content DIV.comment {
+  margin: 0 0 0.5em 0;
+  padding: 0;
+  overflow: hidden; /* these 2 lines keep the floating child in the DIV */
+  width: 100%;	    /* don't ask why. It's a very usefull trick         */
+}
+
+.content DIV.comment A.illustration {
+  display: block;
+  float: left;
+  margin: 0.5em 0 0 0.5em;
+}
+
+.content DIV.comment P.commentHeader {
+  text-align: right;
+  margin: 0.5em 0.5em 0 0;
+}
+
+.content DIV.comment UL.actions {
+  text-align: center;
+  margin: 0.2em;
+}
+
+.content DIV.comment BLOCKQUOTE {
+  margin-right: 0.5em;
+  overflow: visible; /*avoid a very strange margin behaviour (all browsers) */
+}
+
+/* begin chronology/calendar elements*/
+.content DIV.calendarViews {
+  display: block;
+  float: right;
+  margin: 2px 0 0;
+}
+
+.content DIV.calendarBar { margin: 8px 4px; }
+
+SPAN.calItem, SPAN.calItemEmpty {
+  font-weight: bold;
+  margin: 0 1px;
+}
+
+SPAN.calItem A { border:0 }
+
+.content DIV.calendarCalBar {
+  margin: 10px 10px;
+  text-align: left;
+}
+
+SPAN.calCalHead {
+  font-weight: bold;
+  font-size: 110%;
+  margin: 0 2px;
+}
+
+SPAN.calCal { margin: 0 2px; }
+
+/* nice looking month calendar*/
+TABLE.calMonth {
+  border: none;
+  border-collapse: collapse;
+  margin-bottom: 10px;	/*<-IE ignores this */
+}
+
+TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank {
+  text-align:left;
+  vertical-align: top;
+  font: bold 18px Arial, Helvetica, sans-serif;
+}
+
+TD.calDayHead { font: bold 12px Arial, Helvetica, sans-serif; }
+
+DIV.calImg {
+  overflow: hidden;
+  vertical-align: bottom;
+  z-index: 1;
+  position: relative; /*<- this required by IE*/
+}
+
+.calImg img {
+  position: relative;
+  border: 0;
+}
+
+.calBackDate {
+  padding-left: 4px;
+  padding-top: 0px;
+  z-index: 2;
+  position: absolute;
+  text-align: left;
+  vertical-align: top;
+  color: #000;
+}
+
+.calForeDate {
+  padding-left: 5px;
+  padding-top: 1px;
+  z-index: 3;
+  position: absolute;
+  text-align: left;
+  vertical-align: top;
+  color: #fff;
+}
+
+/* Category thumbnails on main page, CSS code inspired from MOD subcatify */
+.content UL.thumbnailCategories {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.content UL.thumbnailCategories LI {
+  margin:0;
+  padding:0;
+  float:left;
+}
+
+.content DIV.thumbnailCategory {
+  display:block;
+  padding: 2px 0px 0px 2px;
+  margin: 5px;
+}
+
+.content DIV.thumbnailCategory DIV.description {
+  font-size: 90%;
+  overflow: auto;
+  /*width: inherit;*/
+}
+
+.content DIV.thumbnailCategory DIV.description H3 {
+  text-align: left;
+  background: transparent;
+  margin: 0;
+  padding: 0.1em;
+  font-size: 120%;
+}
+
+.content DIV.thumbnailCategory DIV.description P {
+  margin: 0;
+}
+
+.content DIV.thumbnailCategory DIV.illustration {
+  text-align: left;
+  margin: 2px 0 0 2px;
+  float: left;
+}
