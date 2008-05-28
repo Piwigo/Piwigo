@@ -567,6 +567,13 @@ $conf['content_tag_cloud_items_number'] = 12;
 // CSS class tagLevelX.
 $conf['tags_levels'] = 5;
 
+// tags_default_display_mode: group tags by letter or display a tag cloud by
+// default? 'letters' or 'cloud'.
+$conf['tags_default_display_mode'] = 'cloud';
+
+// tag_letters_column_number: how many columns to display tags by letter
+$conf['tag_letters_column_number'] = 4;
+
 // +-----------------------------------------------------------------------+
 // | Notification by mail                                                  |
 // +-----------------------------------------------------------------------+

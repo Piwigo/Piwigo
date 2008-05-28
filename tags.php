@@ -58,12 +58,106 @@ $page['body_id'] = 'theTagsPage';
 
 $template->set_filenames(array('tags'=>'tags.tpl'));
 
-// +-----------------------------------------------------------------------+
-// |                        tag cloud construction                         |
-// +-----------------------------------------------------------------------+
+$page['display_mode'] = $conf['tags_default_display_mode'];
+if (isset($_GET['display_mode']))
+{
+  if (in_array($_GET['display_mode'], array('cloud', 'letters')))
+  {
+    $page['display_mode'] = $_GET['display_mode'];
+  }
+}
+
+$template->assign(
+  array(
+    'U_CLOUD' => get_root_url().'tags.php?display_mode=cloud',
+    'U_LETTERS' => get_root_url().'tags.php?display_mode=letters',
+    'display_mode' => $page['display_mode'],
+    )
+  );
 
 // find all tags available for the current user
 $tags = get_available_tags();
+
+// +-----------------------------------------------------------------------+
+// |                       letter groups construction                      |
+// +-----------------------------------------------------------------------+
+
+if ($page['display_mode'] == 'letters') {
+  // we want tags diplayed in alphabetic order
+  usort($tags, 'name_compare');
+
+  $current_letter = null;
+  $is_first_tag = true;
+  $nb_tags = count($tags);
+  $current_column_tags = 0;
+
+  $letter = array(
+    'tags' => array()
+    );
+
+  foreach ($tags as $tag)
+  {
+    $tag_letter = strtoupper(substr($tag['name'], 0, 1));
+
+    if ($is_first_tag) {
+      $current_letter = $tag_letter;
+      $letter['TITLE'] = $tag_letter;
+      $is_first_tag = false;
+    }
+
+    //lettre precedente differente de la lettre suivante
+    if ($tag_letter !== $current_letter)
+    {
+      if ($current_column_tags > $nb_tags/$conf['tag_letters_column_number'])
+      {
+        $letter['CHANGE_COLUMN'] = true;
+        $current_column_tags = 0;
+      }
+
+      $letter['TITLE'] = $current_letter;
+
+      $template->append(
+        'letters',
+        $letter
+        );
+      
+      $current_letter = $tag_letter;
+      $letter = array(
+        'tags' => array()
+        );
+    }
+
+    array_push(
+      $letter['tags'],
+      array(
+        'URL' => make_index_url(
+          array(
+            'tags' => array($tag),
+            )
+          ),
+        'NAME' => $tag['name'],
+        'COUNTER' => $tag['counter'],
+        )
+      );
+    
+    $current_column_tags++;
+  }
+
+  // flush last letter
+  if (count($letter['tags']) > 0)
+  {
+    $letter['CHANGE_COLUMN'] = false;
+    $letter['TITLE'] = $current_letter;
+    $template->append(
+      'letters',
+      $letter
+      );
+  }
+}
+
+// +-----------------------------------------------------------------------+
+// |                        tag cloud construction                         |
+// +-----------------------------------------------------------------------+
 
 // we want only the first most represented tags, so we sort them by counter
 // and take the first tags
