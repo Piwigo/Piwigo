@@ -69,6 +69,9 @@ if ($conf['apache_authentication'] and isset($_SERVER['REMOTE_USER']))
 $user = build_user( $user['id'],
           ( defined('IN_ADMIN') and IN_ADMIN ) ? false : true // use cache ?
          );
-
+if (is_a_guest() or is_generic())
+{
+  $user['language'] = get_default_language();
+}
 trigger_action('user_init', $user);
 ?>

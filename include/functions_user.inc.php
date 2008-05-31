@@ -838,7 +838,32 @@ function get_default_template()
  */
 function get_default_language()
 {
-  return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
+  global $conf;
+  if (isset($conf['browser_language']) and $conf['browser_language'])
+  {
+    return get_browser_language();
+  }
+  else
+  {
+    return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
+  }
+}
+
+/*
+ * Returns the browser language value
+ *
+ */
+function get_browser_language()
+{
+  $browser_language = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+  foreach (get_languages() as $language_code => $language_name)
+  {
+    if (substr($language_code, 0, 2) == $browser_language)
+    {
+      return $language_code;
+    }
+  }
+  return PHPWG_DEFAULT_LANGUAGE;
 }
 
 /**
@@ -898,6 +923,7 @@ function create_user_infos($arg_id, $override_values = null)
       {
         $status = 'normal';
       }
+      $default_user['language'] = get_default_language();
 
       $insert = array_merge(
         $default_user,
