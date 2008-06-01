@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div class="titrePage">
-  <h2>{'waiting'|@translate} {$TABSHEET_TITLE}</h2>
   {$TABSHEET}
+  <h2>{'waiting'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
 <h3>{'title_upload'|@translate}</h3>

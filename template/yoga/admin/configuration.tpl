@@ -1,10 +1,10 @@
 {* $Id$ *}
 <div class="titrePage">
+  {$TABSHEET}
   <ul class="categoryActions">
     <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{'title_configuration'|@translate} {$TABSHEET_TITLE}</h2>
-  {$TABSHEET}
 </div>
 
 <form method="post" action="{$F_ACTION}" class="properties">

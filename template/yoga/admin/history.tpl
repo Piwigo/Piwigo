@@ -1,5 +1,6 @@
 {* $Id$ *}
 <div class="titrePage">
+  {$TABSHEET}
   <ul class="categoryActions">
     <li>
       <a
@@ -12,7 +13,6 @@
     </li>
   </ul>
   <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
-  {$TABSHEET}
 </div>
 
 <form class="filter" method="post" name="filter" action="{$F_ACTION}">

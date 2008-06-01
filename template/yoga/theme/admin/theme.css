@@ -66,10 +66,10 @@ BODY {
   margin: 0px;
   padding: 0px;
 }
-H3, #imageToolBar A:hover, .row1, .tabsheet li  {
+H3, #imageToolBar A:hover, .row1 {
   background-color: #222;
 }
-#theAdminPage h2, #theAdminPage h3 { border-bottom: 1px solid #69c; }
+#theAdminPage h2, #theAdminPage h3 { color: #777; }
 #imageHeaderBar, #theAdminPage #the_page {
   background-color: transparent;
 }
@@ -88,13 +88,13 @@ A:hover {
   border: 1px solid #eee;
   padding: 5px;
 }
-#theAdminPage #the_page .content {
-  background-color: transparent;
-  border-width: 0px;
-  padding: 5px;
-}
-H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
-  background-image: url(images/tableh1_bg.png);
+
+
+
+
+
+H2, .throw, TD H3, #theAdminPage H3 {
+  background-image: url(images/fillet.png);
   background-repeat: repeat-x;
 }
 .content H2 {
@@ -187,7 +187,7 @@ H2, #imageToolBar {
 FIELDSET, INPUT, SELECT, TEXTAREA,
 .content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
-  border: 1px solid gray;
+  border: 1px solid #333;
 }
 .content DIV.thumbnailCategory {
   border: 1px solid #69c;
@@ -241,7 +241,9 @@ A.navThumb, A.navThumb:hover {
   margin: 2px;
 }
 #copyright {
-  color: #69c;
+color:#777;
+margin:60px 0px;
+text-align:center;
 }
 
 label {
@@ -280,18 +282,14 @@ FORM#quickconnect INPUT[type=password] {
 
 .virtual_cat { background: #222 !important; }
 
-.PWG {
+.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 0.9em;
   font-weight: normal;
   letter-spacing: 0px;
 }
-a.PWG { border: 0px; }
-a.PWG .P { color : #f92; }
-a.PWG .W { color : #aaa; }
-a.PWG .G { color : #69c; }
-a.PWG:hover .P { color : #69c; }
-a.PWG:hover .G { color : #f92; }
+a.Piwigo { border: 0px; color : #f36; text-decoration: none; border: 0px; color: #f36; }
+
 
 
 
@@ -307,39 +305,42 @@ a.PWG:hover .G { color : #f92; }
 #menubar .menuInfoCatByChild,
 h2.showtitle, #theImage p.showlegend { display: none }
 * { outline-width: 0px; }
-ul.tabsheet, ul.tabsheet li {
-  border-color: #69c;
-}
-ul.tabsheet li.normal_tab {
-  background-image: url(images/tableh1_bg.png);
-  background-repeat: repeat-x;
-}
+
+
+
+
+
+
+
+
 ul.tabsheet li.normal_tab:hover { border-color: #f92 }
-ul.tabsheet li {
-  -moz-border-radius: 0px 0px 3px 3px;
-  border-radius:  0px 0px 12px 12px;
-  -webkit-border-radius: 0px 0px 3px 3px;
-}
+
+
+
+
+
 /* New in 1.8 : Special Admin */
 body#theAdminPage #menubar { 
   background: transparent url(images/menubar-bg.png) 
   repeat-y scroll right top;
   border-bottom: #ccc ridge 2px; width:13.5em; padding: 0; margin: 0;
 }
-body#theAdminPage .content { /*default-layout.cs... (line 1)*/
-list-style-type:none; padding: 0px;
- /*default-layout.cs... (line 23) */
-margin: 0px 0px 0px 200px; background-color: transparent;}
 
-#theAdminPage #menubar ul { list-style-image:url(images/list-image.png); }
-#theAdminPage #menubar ul:hover { list-style-image:url(images/list-hover.png); }
+
+
+
+
+#theAdminPage #menubar ul { color: #333; margin:9px 0pt 3px 9px; }
+#theAdminPage #menubar ul:hover { color: #850; }
+#theAdminPage #menubar li:hover { color: #F36; }
+#theAdminPage #menubar li { margin: 0px 0px 0px 6px; }
 a, input.rateButton, legend { color:#777; }
-#menubar a { border-bottom:0; text-decoration:none; font-style: italic;}
+#menubar a { border-bottom:0; text-decoration:none; font-size: 11px; }
 body#theAdminPage #theHeader { 
-  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat 230px top; height:105px; 
+  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; height:105px; 
 }
 body#theAdminPage #post-header { 
-  background-color: transparent;
+  background-color: transparent; display:none;
   width: 60%; height: 4px; margin-left:40%;
 }
 #theHeader h1 { /*default-layout.cs... (line 204) */
@@ -349,26 +350,26 @@ body#theAdminPage #post-header {
 border:0; display:block; margin:0px; padding-bottom:0px;
 padding-top:0px; text-align:center; min-height: 100%; position:relative;
 }
-.pwgmenu { /* default-layout.cs... (line 136) */
-background:transparent none repeat scroll 0%;
-display:table; font-family:verdana,arial,helvetica,sans-serif;
-font-size: 8px; line-height:1.1em; list-style-image:none;
-list-style-type:none; margin:1px 8px 1px auto;
-padding:3px; position:relative;
-text-decoration:none; top:-100px;
-white-space:nowrap; width:66em;
-}
-.pwgmenu a { /* default-layout.cs... (line 159) */
-background:#f36 none repeat scroll 0%;
-border:1px solid #FFFFFF;
-color:white;
-display:block;
-font-weight:bold;
-padding:4px 8px;
-text-align:center;
-text-decoration:none;
-width:9em !important;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -380,41 +381,10 @@ width:9em !important;
 background:transparent none no-repeat scroll left top;
 height: 22px; overflow: hidden; margin: 0px;
 }
-.pwgmenu { /*theme.css (line 335)*/
-background:transparent url(images/header_bottom.png) repeat-x scroll left 25px;
-float:right;
-font-family:verdana,arial,helvetica,sans-serif;
-font-size:8px;
-line-height:1.1em;
-list-style-image:none;
-list-style-type:none;
-margin:1px 8px 1px 0px;
-padding:3px 3px 3px 101px;
-text-decoration:none; top:-35px;
-width:587px;
-}
-.pwgmenu li { /*default-layout.cs... (line 151)*/
-float:left;
-margin:0px;
-padding:0px;
-text-align:center;
-width:126px !important;
-}
-.pwgmenu a { /*theme.css (line 344)*/
-background:transparent url(images/onglet_inactif_transp.png) no-repeat scroll left 3px;
-border:0px none;
-color:#FF3333;
-display:block;
-font-size:8px; height:33px;
-padding:3px 0px 5px 13px; text-align:left;
-text-decoration:none; width:126px !important;
-}
-.pwgmenu a:hover { /*theme.css (line 344)*/
-background:transparent url(images/onglet_actif_transp.png) no-repeat scroll left 2px;
-color: #ff7700; }
+.pwgmenu { display:none; }
 .content h2:before, .content h2:after, 
 #menubar DT:before, #menubar DT:after { content: ""; }
-#theHeader h1 { /*theme.css (line 345) */ color:#441100; }
+#theHeader h1 { /*theme.css (line 345) */ color:#441100; display:none;}
 .content h2 { /*theme.css (line 100)*/
 letter-spacing:0.1em; margin-right:45px; text-align:right; color: #777777; 
 text-transform:none; }
@@ -423,46 +393,73 @@ text-transform:none; }
 font-weight:bold; margin-right:30px; padding-left:2em; }
 #theAdminPage h3 { /* theme.css (line 96) */
 background: transparent none; margin-right:30px; font-weight: lighter;}
-#theAdminPage h2 { /* theme.css (line 72) */ border-bottom:0px; }
+#theAdminPage h2 { /* theme.css (line 72) */ border-bottom:0px none;
+color:#333; display:block; font-size:36px; margin:0px; overflow:hidden;
+position:relative; right:0px; text-align:right; top:-50px; 
+width:920px !important; }
 body#theAdminPage { /*theme.css (line 324) */
 background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;}
 #theAdminPage #the_page { /*theme.css (line 73)*/
 background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
 #the_page { /*theme.css (line 348)*/ padding-bottom:0px;}
-.content {background-color:transparent;}
+
 body#theAdminPage #menubar {  /* theme.css (line 324) */
-background:transparent none repeat-y scroll right top; border-bottom:0px; margin-top:110px;
-float: none; position: absolute; left: 0px; top: 160px;}
-#theAdminPage #the_page .content { /*theme.css (line 91)*/
-background-color:transparent; border-width:0px; padding:5px 35px 5px 5px; }
-body#theAdminPage #menubar dl.selected dd { padding-bottom: 145px; }
+background:transparent url(images/admin_v2_menuBox-bottom.png) no-repeat scroll left bottom;
+border-bottom:0px none; float:none; left:0px; margin:100px 35px; min-height:423px;
+position:absolute; top:0px; width:207px; }
+#theAdminPage #the_page .content { 
+ background: #222 url(images/fillet.png) repeat-x top left; min-height: 424px;
+ border-width:0px; padding: 0px 5px 0px 0px; list-style-type:none; margin: 0px 10px 0px 248px; }
+
+body#theAdminPage #menubar dl.selected dd { padding-bottom: 110px; }
+
 .header_notes {/*default-colors.cs... (line 91)*/
 background-image:url(icon/note.png); background-position:left top;
 background-repeat:no-repeat; border:1px solid #AAAAAA; font-weight:bold;
 margin:14px; padding:5px 0px 0px; position:absolute; right:31px;
 text-align:center; top:96px; width:502px; }
 #theAdminPage #menubar dl {/*theme.css (line 372)*/
-background:transparent url(images/menubar-top.png) no-repeat scroll left top; width: 198px;
+background:transparent url(images/menubar-top.png) no-repeat scroll left top; width: 207px;
 border:0;     box-shadow: none;
 }
 #theAdminPage #menubar dl.selected {/*theme.css (line 372)*/
 background:transparent url(images/menubar-top.png) no-repeat scroll left top;
 }
-#theAdminPage #menubar dt { background: none; left:10px; position:relative; text-align:left; top:-10px;}
+#theAdminPage #menubar dt { background: none; left:10px; position:relative; text-align:left; top:-15px; font-size: 14px;}
 #theAdminPage #menubar dd { background: transparent url(images/menubar-detail.png) repeat-y top left; 
-margin: 0px 0px 0px 4px; padding: 0px;}
-span.bg { background-color: #111111; padding-right: 3px; }
+margin: 0px; padding: 0px;}
+span.bg { background-color: #222; padding-left: 3px; }
 html, body {
 height:100%;
 }
 ul.tabsheet li.normal_tab, ul.tabsheet li.selected_tab { 
-background: transparent none repeat-x top left; 
-border:0; }
-ul.tabsheet { border:0; 
-background: transparent url(images/internal_onglet.png) repeat-x bottom left; }
-ul.tabsheet a { border:0; font-size: 12px; 
+border: 0; padding:0px; }
+ul.tabsheet a { 
+background: transparent url(images/inactive_tab.png) no-repeat scroll left top; 
+width:145px !important;}
+ul.tabsheet a { border:0; font-size: 8px; 
 font-family: verdana,arial,helvetica,sans-serif; line-height: 14px;  }
-ul.tabsheet li.selected_tab > a {  color: #ff3333; }
-ul.tabsheet, ul.tabsheet li { border-bottom: #eee solid 1px; }
-ul.tabsheet li.selected_tab {
-font-weight:bold; padding-top:0px; position:relative; top:0px; }
+
+ul.tabsheet { 
+background-color:transparent; border:0pt none; display:table;
+float:right; font-family:verdana,arial,helvetica,sans-serif;
+font-size:8px; line-height:1.1em; list-style-image:none;
+margin: 0px; padding:0px;
+position:relative; text-decoration:none;
+top:-2px; white-space:nowrap; width:730px; }
+ul.tabsheet li {
+float:right; margin:0px; padding:0px; text-align:right; overflow: hidden;
+width:136px !important; }
+ul.tabsheet a { 
+background:transparent url(images/inactive_tab.png) no-repeat scroll left 4px;
+border:0px none; color:#777777; display:block; font-size:8px; text-transform:capitalize;
+font-weight:bold; height:33px; overflow:hidden; padding:18px 30px 5px 0px;
+text-align:right; text-decoration:none; width:122px !important; }
+ul.tabsheet a:hover, .tabsheet li.selected_tab  a { 
+background:transparent url(images/active_tab.png) no-repeat scroll left 0px;
+color: #F36; }
+#menubar a { color: #555; border-bottom: 1px dotted #777;}
+#menubar .selected a { color: #850; border-bottom: 1px dotted #a72;}
+#menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
+fieldset#uploadConf input { margin-left:5%; width:160px; }
+table.table2 th { padding:3px 0.8em; }

@@ -1,6 +1,6 @@
 <div class="titrePage">
-  <h2>{'Plugins'|@translate}</h2>
 {$TABSHEET}
+  <h2>{'Plugins'|@translate}</h2>
 </div>
 
 {if isset($plugins_not_uptodate)}

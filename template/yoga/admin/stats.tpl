@@ -1,6 +1,7 @@
 {* $Id$ *}
 
 <div class="titrePage">
+  {$TABSHEET}
   <ul class="categoryActions">
     <li>
       <a
@@ -13,7 +14,6 @@
     </li>
   </ul>
   <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
-  {$TABSHEET}
 </div>
 
 <h3>{$L_STAT_TITLE}</h3>

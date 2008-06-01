@@ -1,11 +1,11 @@
 {* $Id$ *}
 
 <div class="titrePage">
+  {$TABSHEET}
   <ul class="categoryActions">
     <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   <h2>{'nbm_send_mail_to_users'|@translate} {$TABSHEET_TITLE}</h2>
-  {$TABSHEET}
 </div>
 
 <form method="post" name="notification_by_mail" id="notification_by_mail" action="{$F_ACTION}">

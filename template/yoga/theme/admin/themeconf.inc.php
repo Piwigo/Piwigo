@@ -24,6 +24,7 @@ function selected_admin_menu()
         }
         return 2;
       case 'comments':
+      case 'upload':
       case 'thumbnail':
       case 'rating':
       case 'tags':
@@ -63,7 +64,7 @@ $themeconf = array(
   jQuery().ready(function(){
     jQuery(\'#menubar\').accordion({
       header: "dt.rdion",
-      event: "mouseover",
+      event: "click",
       active: '. selected_admin_menu() . '
     });
   });
