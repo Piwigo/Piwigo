@@ -44,10 +44,6 @@ H2, .throw {
   text-align: center;
   float: left;
 }
-#theAdminPage #menubar DT:before,
-#theAdminPage #menubar DT:after {
- content: ''; 
-}
 .content .pageNumberSelected {
   color: #f92;
 }
@@ -69,8 +65,8 @@ BODY {
 H3, #imageToolBar A:hover, .row1, .tabsheet li  {
   background-color: #222;
 }
-#theAdminPage h2, #theAdminPage h3 { border-bottom: 1px solid #69c; }
-#imageHeaderBar, #theAdminPage #the_page {
+
+#imageHeaderBar {
   background-color: #111;
 }
 #imageToolBar, .header_notes {
@@ -88,12 +84,8 @@ A:hover {
   border: 1px solid #eee;
   padding: 5px;
 }
-#theAdminPage #the_page .content {
-  background-color: #111;
-  border-width: 0px;
-  padding: 5px;
-}
-H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
+
+H2, #menubar DT, .throw, TD H3 {
   background-image: url(images/tableh1_bg.png);
   background-repeat: repeat-x;
 }

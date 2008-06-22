@@ -1,6 +1,6 @@
 {* $Id$ *}
 <div id="menubar">
-  <dl>
+  <dl class="first">
     <dt class="rdion">{'Links'|@translate}</dt>
     <dd>
       <ul>
@@ -8,9 +8,9 @@
         <li><a href="{$U_FAQ}">{'instructions'|@translate}</a></li>
         <li><a href="{$U_ADMIN}" title="{'hint_admin'|@translate}">{'admin'|@translate}</a></li>
 {if isset($pwgmenu)}
-        <li><a href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); 
+        <li class="external"><a href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); 
           return false;">{'WIKI / DOC'|@translate}</a></li>
-        <li><a href="{$pwgmenu.FORUM}" onclick="window.open(this.href, '');
+        <li class="external"><a href="{$pwgmenu.FORUM}" onclick="window.open(this.href, '');
           return false;">{'FORUM'|@translate}</a></li>
 {/if}
         

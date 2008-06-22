@@ -18,7 +18,7 @@
 /******************************************************************************/
 /* Texts Only */
 BODY, H1, H3, DT, H2, .throw { color: #369; }
-H2, #menubar DT, .throw, TD H3, #theAdminPage H3 {
+H2, #menubar DT, .throw, TD H3 {
   color: #fff;
 }
 #menubar DT, #menubar DT A {
@@ -41,7 +41,6 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
   color:#69c;
 }
 .infoTable,
-#theAdminPage .content,
 input#qsearchInput { color: #369; }
 .content .infos { color: #036; }
 .content .errors { color: #900; }
@@ -81,7 +80,7 @@ input.rateButtonSelected,
 .content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   color: #369;
 }
-.tabsheet li, .tabsheet li a, #theAdminPage h3 a,
+.tabsheet li, .tabsheet li a,
 .content div.thumbnailCategory .description h3 a {
   color: #fff;
 }
@@ -96,7 +95,6 @@ BODY { background: #cde; }
 .header_notes,
 #thePicturePage #the_page,
 #thePicturePage #theImage,
-#theAdminPage #the_page,
 .content { background-color: #dfe8ff; }
 #the_page { background-color: #dfe8ff; }
 #menubar, H3, #imageHeaderBar,
@@ -104,7 +102,6 @@ BODY { background: #cde; }
 H2, #menubar DT, .throw, TD H3,
 #imageToolBar,
 #imageHeaderBar, #imageHeaderBar H2, .tabsheet li,
-#theAdminPage H3 { background-color: #369; }
 .content H2 { background-color: #369; }
 .content .infos { background-color: #47a; ;}
 .content .errors { background-color: #fc5; ;}
@@ -211,7 +208,6 @@ A.navThumb, A.navThumb:hover,
   padding: 5px 0px 30px 0px;
   margin: 0px;
 }
-#theAdminPage .content table td { padding: 2px 8px; }
 ul.tabsheet, ul.tabsheet li { border-color: #369 !important; }
 .tabsheet li:hover { border-color: #f92 !important; }
 

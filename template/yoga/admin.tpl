@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div id="post-header"></div>
 <div id="menubar">
-  <dl>
+  <dl class="topmenu">
     <dt class="rdion">{'Links'|@translate}</dt>
     <dd>
       <ul>

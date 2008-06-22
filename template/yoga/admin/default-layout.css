@@ -1,8 +1,4 @@
 /* $Id: */
-BODY#theAdminPage #theHeader P {
-  display: none;
-}
-
 /* History tables */
 TABLE.table2 {
   border: 1px solid black;

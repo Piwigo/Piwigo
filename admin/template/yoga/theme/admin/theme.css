@@ -193,7 +193,8 @@ background: transparent url(../../../../../template/yoga/icon/note.png) no-repea
 border:0; font-weight:bold;
 padding:5px 60px 0 0; position:absolute; right:0;
 text-align:right; top:90px; width:550px; }
-
+/*.content div.titrePage ul.categoryActions {
+position:absolute; right:12px; top:110px; } */
 fieldset#uploadConf input { margin-left:5%; width:160px; }
 table.table2 th { padding:3px 30px; }
 table.table2 tr.throw { text-align: center; }
@@ -205,9 +206,9 @@ background-color:transparent; border:0; display:table;
 float:right; font-family:verdana,arial,helvetica,sans-serif;
 font-size:8px; line-height:14px; list-style-image:none;
 margin: 0; padding: 0; position:relative; text-decoration:none;
-top:-2px; white-space:nowrap; width:730px; }
+top:-2px; white-space:nowrap; width:710px; }
 .tabsheet li {
-float:right; margin: 0; padding: 0; text-align:right; overflow: hidden;
+float:left; margin: 0; padding: 0; text-align:right; overflow: hidden;
 width:136px !important; border: 0; }
 .tabsheet a { 
 background:transparent url(images/inactive_tab.png) no-repeat scroll left 3px;
@@ -222,7 +223,7 @@ color: #F36; }
 #menubar {
 background:transparent url(images/admin_v2_menuBox-bottom.png) no-repeat scroll left bottom;
 border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:423px; padding: 0;
-position:absolute; top: 0; width:190px; display: inline;
+position:absolute; top: 0; width:207px; display: inline;
 text-align: left; /*  "be nice to IE5" rule */ }
 #menubar .selected a { color: #f70; border-bottom: 1px dotted #a72; }
 #menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
@@ -230,14 +231,18 @@ text-align: left; /*  "be nice to IE5" rule */ }
 background: transparent url(images/menubar-detail.png) repeat-y top left; 
 margin: 0; padding: 0; height:232px; display:block; }
 #menubar dl {
-background:transparent url(images/menubar-top.png) no-repeat scroll left top; 
+background:transparent url(images/admin_v2_menuBox-top_Y_n3.png) no-repeat scroll left top; 
 width: 207px; border:0; margin: 0; padding: 0; display: block; }
+#menubar dl.first {
+background:transparent url(images/menubar-top.png) no-repeat scroll left top; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; 
 position:relative; padding: 5px; top:-15px; font-size: 14px; }
 #menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
 color: #555; border-bottom: 1px dotted #777;}
 #menubar li { margin: 0 0 0 6px; }
 #menubar li:hover { color: #F36; }
+#menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
+#menubar li.external:hover { list-style-image:url(images/external_active.png); }
 #menubar ul { color: #333; margin:9px 0pt 3px 9px; 
   list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
 #menubar ul:hover { color: #850; }
