@@ -1,0 +1,243 @@
+/* $Id$ */
+/* text color */
+BODY, H3, DT,
+INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+  color:#e0e0e0;
+}
+H2, .throw {
+  color: #eee;
+}
+.content .infos {
+  background-color: #69c;
+  color: #036;
+}
+.content .errors {
+  background-color: #fc5;
+  border-color: #f92;
+  color: #900;
+}
+/* backgrounds */
+body {
+  background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;
+  margin: 0; padding: 0;
+}
+H3, #imageToolBar A:hover, .row1 {
+  background-color: #222;
+}
+#theAdminPage h2, #theAdminPage h3 { color: #777; }
+A {
+  border-color: #69c;
+}
+A:hover {
+  border-color: #f92;
+}
+.content {
+  background-color: #181818;
+  border: 1px solid #eee;
+  padding: 5px;
+}
+H2, .throw, TD H3, #theAdminPage H3 {
+  background-image: url(images/fillet.png);
+  background-repeat: repeat-x;
+}
+.content H2 {
+  background: none;
+  border: 0;
+  letter-spacing: -0.05em; 
+  text-indent: 1em;
+  text-transform:	uppercase;
+  font-weight: lighter;
+  margin-bottom: 20px;
+}
+.content h3 { text-align: center; }
+.browsePath A {
+  color: #eee;
+}
+/* borders */
+#comments DIV.comment BLOCKQUOTE {
+  border: 1px solid #000;
+}
+#imageHeaderBar {
+  border-top: 1px solid #000;
+  padding: 8px 0 3px 0;
+}
+H2, #imageToolBar {
+  border-bottom: 1px solid #000;
+}
+
+#theImage IMG {
+  border-color: #fff;
+}
+
+.content UL.thumbnail IMG {
+  border: 1px solid #a0a0a0;
+}
+.illustration A {
+  border: 0;
+}
+FIELDSET, INPUT, SELECT, TEXTAREA,
+.content DIV.comment  A.illustration IMG,
+#comments DIV.comment BLOCKQUOTE {
+  border-left: 2px solid #696969;
+}
+
+.content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+
+.content UL.thumbnails SPAN.wrap2:hover  {
+  margin: 0 2px;
+  width: auto;
+  padding: 0;
+  text-indent: 0;
+  list-style: none;
+  text-align: center;
+  float: left;
+}
+A:hover {
+  color: #f92;
+}
+
+#imageToolBar A, #imageToolBar A:hover {
+  border-bottom: none;
+}
+A.navThumb, A.navThumb:hover {
+  border-bottom: none;
+}
+#copyright {
+color:#777;
+margin:60px 0;
+text-align:center;
+}
+
+label {
+	cursor:pointer
+}
+input#qsearchInput { 
+  color: #58c; 
+  background-color: #222;  
+  border: 1px solid #333;
+  padding: 1px 3px;
+}
+.zero { display: none }
+.nb-hits { color: #69c; }
+.nb-comments { color: #f92; }
+
+FORM#quickconnect,
+FORM#quickconnect FIELDSET,
+FORM#quickconnect P,
+FORM#quickconnect UL.actions,
+FORM#quickconnect FIELDSET>UL.actions,
+FORM#quickconnect UL.actions,
+FORM#quickconnect P,
+FORM#quickconnect LABEL {
+  color: #69c;   
+}
+FORM#quickconnect P INPUT,
+FORM#quickconnect INPUT[type=text],
+FORM#quickconnect INPUT[type=password] {
+  width: 85%;
+  color: #58c;   
+  background-color: #222;  
+  border: 1px solid #333;
+  padding: 1px 3px;
+}
+
+.virtual_cat { background: #222 !important; }
+
+.Piwigo {
+  font-family: verdana, arial, helvetica, sans-serif !important;
+  font-size: 0.9em;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+a.Piwigo { border: 0; color : #f36; text-decoration: none; border: 0; color: #f36; }
+
+.statBar { background-color: #e60; }
+#imageToolBar .randomButtons a:hover,
+#imageToolBar .navButtons a:hover { background-color: transparent; }
+* { outline-width: 0; }
+
+
+/* New in 1.8 : Special Admin */
+
+a, input.rateButton, legend { color:#777; }
+#theHeader { 
+  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; height:105px; 
+}
+
+.content h2:before, .content h2:after, 
+.content h2 { /*theme.css (line 100)*/
+letter-spacing:0.1em; margin-right:45px; text-align:right; color: #777777; 
+text-transform:none; }
+.content dl, dd { /*content.css (line 52) */ margin:5px; }
+.content h2 { /* default-layout.cs... (line 6) */
+font-weight:bold; margin-right:30px; padding-left:2em; }
+#theAdminPage h3 { /* theme.css (line 96) */
+background: transparent none; margin-right:30px; font-weight: lighter;}
+#theAdminPage h2 { border:0; color:#333; display:block;
+font-size:36px; margin:0pt 20px 0pt 220px;
+min-height:95px; overflow:hidden; padding:0pt; position:relative;
+right:0pt; text-align:right; top:-100px; width:770px; }
+#the_page { 
+background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; 
+border:0; display:block; margin: 0; padding-bottom: 0;
+padding-top: 0; min-height: 100%; position:relative;
+}
+.content { 
+ background: #222 url(images/fillet.png) repeat-x top left; min-height: 424px;
+ border-width: 0; padding: 0 5px 0 0; list-style-type:none; margin: 0 10px 0 248px; }
+.header_notes {
+background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
+border:0; font-weight:bold;
+padding:5px 60px 0 0; position:absolute; right:0;
+text-align:right; top:90px; width:550px; }
+
+fieldset#uploadConf input { margin-left:5%; width:160px; }
+table.table2 th { padding:3px 30px; }
+table.table2 tr.throw { text-align: center; }
+html, body { height:100%; }
+
+/* tabsheets are often used in admin  pages => No specific css files */
+.tabsheet { 
+background-color:transparent; border:0; display:table; 
+float:right; font-family:verdana,arial,helvetica,sans-serif;
+font-size:8px; line-height:14px; list-style-image:none;
+margin: 0; padding: 0; position:relative; text-decoration:none;
+top:-2px; white-space:nowrap; width:730px; }
+.tabsheet li {
+float:right; margin: 0; padding: 0; text-align:right; overflow: hidden;
+width:136px !important; border: 0; }
+.tabsheet a { 
+background:transparent url(images/inactive_tab.png) no-repeat scroll left 3px;
+border: 0 none; color:#777777; display:block; font-size:8px; text-transform:capitalize;
+font-weight:bold; height:33px; overflow:hidden; padding:18px 30px 5px 0;  line-height: 18px;
+text-align:right; text-decoration:none; width:122px !important; }
+.tabsheet a:hover, .tabsheet li.selected_tab  a { 
+background:transparent url(images/active_tab.png) no-repeat scroll left 1px;
+color: #F36; }
+
+/* menubar is on all admin pages => No specific css file */
+#menubar {
+background:transparent url(images/admin_v2_menuBox-bottom.png) no-repeat scroll left bottom;
+border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:423px; padding: 0;
+position:absolute; top: 0; width:190px; display: inline;
+text-align: left; /*  "be nice to IE5" rule */ }
+#menubar .selected a { color: #f70; border-bottom: 1px dotted #a72; }
+#menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
+#menubar dd { 
+background: transparent url(images/menubar-detail.png) repeat-y top left; 
+margin: 0; padding: 0; height:232px; display:block; }
+#menubar dl {
+background:transparent url(images/menubar-top.png) no-repeat scroll left top; 
+width: 207px; border:0; margin: 0; padding: 0; display: block; }
+#menubar dt { margin: 0; display: block; background: none; left:10px; 
+position:relative; padding: 5px; top:-15px; font-size: 14px; }
+#menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
+color: #555; border-bottom: 1px dotted #777;}
+#menubar li { margin: 0 0 0 6px; }
+#menubar li:hover { color: #F36; }
+#menubar ul { color: #333; margin:9px 0pt 3px 9px; 
+  list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
+#menubar ul:hover { color: #850; }

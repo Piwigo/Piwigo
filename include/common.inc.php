@@ -195,7 +195,8 @@ if
   )
 {
   // Admin template
-  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['admin_template'], $user['admin_theme'] );
+  //$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['admin_template'], $user['admin_theme'] );
+  $template = new Template(PHPWG_ROOT_PATH.'admin/template/'.$user['admin_template'], $user['admin_theme'] );
 }
 else
 {

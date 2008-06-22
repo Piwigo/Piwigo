@@ -16,14 +16,6 @@ BODY#thePopuphelpPage {
   min-width: 0;
 }
 
-/* Set the width of the menubar for the admin section */
-BODY#theAdminPage #menubar {
-  width: 12.5em;
-}
-BODY#theAdminPage .content {
-  margin-left: 14.5em;  /* = #menubar width + 2em */
-}
-
 /* Set some sizes according to your maximum thumbnail width and height */
 .content UL.thumbnails SPAN,
 .content UL.thumbnails SPAN.wrap2 A,

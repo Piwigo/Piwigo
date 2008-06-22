@@ -1,7 +1,7 @@
 {if isset($ADVICE_ABOUT)}
 <div class="content">
-  <h2>{'An_advice_about'|@translate} {$ADVICE_ABOUT}</h2>
-    <h3>{$ADVICE_TEXT}</h3>
+  <h3>{'An_advice_about'|@translate} {$ADVICE_ABOUT}</h3>
+    <h4>{$ADVICE_TEXT}</h4>
     <table summary="Admin advices summary">
     <tr><td style="text-align: left; width: 50%;">
     {foreach from=$More item=advice}
