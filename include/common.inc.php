@@ -189,19 +189,21 @@ if (is_a_guest())
 // template instance
 if
   (
-      defined('IN_ADMIN') and IN_ADMIN and
-      isset($user['admin_template']) and
-      isset($user['admin_theme'])
+      defined('IN_ADMIN') and IN_ADMIN 
   )
 {
   // Admin template
   //$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['admin_template'], $user['admin_theme'] );
-  $template = new Template(PHPWG_ROOT_PATH.'admin/template/'.$user['admin_template'], $user['admin_theme'] );
+  list($user['admin_template'], $user['admin_theme']) =
+    explode ('/', $conf['admin_layout']);
+  $template = new Template(PHPWG_ROOT_PATH.'admin/template/' 
+    . $user['admin_template'], $user['admin_theme'] );
 }
 else
 {
   // Classic template
-  $template = new Template(PHPWG_ROOT_PATH.'template/'.$user['template'], $user['theme'] );
+  $template = new Template(PHPWG_ROOT_PATH.'template/'
+    . $user['template'], $user['theme'] );
 }
 
 if (isset($user['internal_status']['guest_must_be_guest'])
