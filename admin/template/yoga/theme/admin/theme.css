@@ -186,7 +186,7 @@ border:0; display:block; margin: 0; padding-bottom: 0;
 padding-top: 0; min-height: 100%; position:relative;
 }
 .content { 
- background: #222 url(images/fillet.png) repeat-x top left; min-height: 424px;
+ background: #222 url(images/fillet.png) repeat-x top left; min-height: 420px;
  border-width: 0; padding: 0 5px 0 0; list-style-type:none; margin: 0 10px 0 248px; }
 .header_notes {
 background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
@@ -221,8 +221,8 @@ color: #F36; }
 
 /* menubar is on all admin pages => No specific css file */
 #menubar {
-background:transparent url(images/admin_v2_menuBox-bottom.png) no-repeat scroll left bottom;
-border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:423px; padding: 0;
+background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
+border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:432px; padding: 0;
 position:absolute; top: 0; width:207px; display: inline;
 text-align: left; /*  "be nice to IE5" rule */ }
 #menubar .selected a { color: #f70; border-bottom: 1px dotted #a72; }
@@ -231,10 +231,10 @@ text-align: left; /*  "be nice to IE5" rule */ }
 background: transparent url(images/menubar-detail.png) repeat-y top left; 
 margin: 0; padding: 0; height:232px; display:block; }
 #menubar dl {
-background:transparent url(images/admin_v2_menuBox-top_Y_n3.png) no-repeat scroll left top; 
+background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top; 
 width: 207px; border:0; margin: 0; padding: 0; display: block; }
 #menubar dl.first {
-background:transparent url(images/menubar-top.png) no-repeat scroll left top; }
+background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; 
 position:relative; padding: 5px; top:-15px; font-size: 14px; }
 #menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
