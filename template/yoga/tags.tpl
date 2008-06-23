@@ -36,12 +36,12 @@
       {foreach from=$letter.tags item=tag}
       <tr class="tagLine">
         <td><a href="{$tag.URL}">{$tag.NAME}</a></td>
-        <td class="nbEntries"><strong>{$tag.COUNTER}</strong> {'photos'|@translate}</td>
+        <td class="nbEntries">{$pwg->l10n_dec('%d element', '%d elements', $tag.COUNTER)}</td>
       </tr>
       {/foreach}
     </table>
   </fieldset>
-      {if $letter.CHANGE_COLUMN}
+      {if $letter.CHANGE_COLUMN|@default:false}
       </td>
       <td valign="top">
       {/if}
