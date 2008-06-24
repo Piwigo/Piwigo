@@ -24,6 +24,7 @@ body {
 H3, #imageToolBar A:hover, .row1 {
   background-color: #222;
 }
+.row2 { background-color:#111; }
 #theAdminPage h2, #theAdminPage h3 { color: #777; }
 A {
   border-color: #69c;
@@ -124,26 +125,6 @@ input#qsearchInput {
 .nb-hits { color: #69c; }
 .nb-comments { color: #f92; }
 
-FORM#quickconnect,
-FORM#quickconnect FIELDSET,
-FORM#quickconnect P,
-FORM#quickconnect UL.actions,
-FORM#quickconnect FIELDSET>UL.actions,
-FORM#quickconnect UL.actions,
-FORM#quickconnect P,
-FORM#quickconnect LABEL {
-  color: #69c;   
-}
-FORM#quickconnect P INPUT,
-FORM#quickconnect INPUT[type=text],
-FORM#quickconnect INPUT[type=password] {
-  width: 85%;
-  color: #58c;   
-  background-color: #222;  
-  border: 1px solid #333;
-  padding: 1px 3px;
-}
-
 .virtual_cat { background: #222 !important; }
 
 .Piwigo {
@@ -177,16 +158,22 @@ font-weight:bold; margin-right:30px; padding-left:2em; }
 #theAdminPage h3 { /* theme.css (line 96) */
 background: transparent none; margin-right:30px; font-weight: lighter;}
 #theAdminPage h2 { border:0; color:#333; display:block;
-font-size:36px; margin:0pt 20px 0pt 220px;
+font-size:32px; letter-spacing:0.8px; margin:0pt 20px 0pt 220px;
 min-height:95px; overflow:hidden; padding:0pt; position:relative;
 right:0pt; text-align:right; top:-100px; width:770px; }
 #the_page { 
-background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; 
+/*background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; */
 border:0; display:block; margin: 0; padding-bottom: 0;
 padding-top: 0; min-height: 100%; position:relative;
 }
+#leaves { 
+background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; 
+border:0; display:block; margin: 0; padding: 0; min-width: 539px;
+min-height: 220px; position:absolute; left:0px; bottom:0px; z-index: 999;
+}
+#content { background: #222 url(images/fillet.png) repeat-x top left; }
 .content { 
- background: #222 url(images/fillet.png) repeat-x top left; min-height: 420px;
+ min-height: 420px; color: #ccc;
  border-width: 0; padding: 0 5px 0 0; list-style-type:none; margin: 0 10px 0 248px; }
 .header_notes {
 background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
@@ -199,7 +186,11 @@ fieldset#uploadConf input { margin-left:5%; width:160px; }
 table.table2 th { padding:3px 30px; }
 table.table2 tr.throw { text-align: center; }
 html, body { height:100%; }
-
+.content div.titrePage { height:55px; }
+table.table2 { margin:0pt auto; }
+.sort { display:block; padding:8px 5px 0px 1px; }
+input.text, input.button, input.submit, input.reset, input.file, select, textarea {
+color:#444; }
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet { 
 background-color:transparent; border:0; display:table; 
@@ -225,8 +216,8 @@ background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left b
 border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:432px; padding: 0;
 position:absolute; top: 0; width:207px; display: inline;
 text-align: left; /*  "be nice to IE5" rule */ }
-#menubar .selected a { color: #f70; border-bottom: 1px dotted #a72; }
-#menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
+#menubar .selected a { color: #f70; border-bottom: 1px dotted #f36; }
+#menubar .selected a:hover { color: #f33; border-bottom: 1px solid #f36;}
 #menubar dd { 
 background: transparent url(images/menubar-detail.png) repeat-y top left; 
 margin: 0; padding: 0; height:232px; display:block; }
@@ -235,14 +226,14 @@ background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top;
 width: 207px; border:0; margin: 0; padding: 0; display: block; }
 #menubar dl.first {
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
-#menubar dt { margin: 0; display: block; background: none; left:10px; 
-position:relative; padding: 5px; top:-15px; font-size: 14px; }
+#menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
+position:relative; padding: 5px; top:-10px; font-size: 13px; color: #666; }
 #menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
-color: #555; border-bottom: 1px dotted #777;}
+color: #F70; border-bottom: 1px dotted #777;}
 #menubar li { margin: 0 0 0 6px; }
-#menubar li:hover { color: #F36; }
+/*#menubar li:hover { color: #F36; }*/
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }
 #menubar ul { color: #333; margin:9px 0pt 3px 9px; 
   list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
-#menubar ul:hover { color: #850; }
+/*#menubar ul:hover { color: #850; }*/

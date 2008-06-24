@@ -35,5 +35,7 @@
 </div> <!-- the_page -->
 
 {if isset($debug.QUERIES_LIST)}{$debug.QUERIES_LIST}{/if}
+<div id="leaves">
+</div>
 </body>
 </html>
