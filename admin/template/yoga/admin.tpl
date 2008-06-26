@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div id="menubar">
   <dl class="first">
-    <dt class="rdion">{'Links'|@translate}</dt>
+    <dt class="rdion"><span>{'Links'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_RETURN}">{'home'|@translate}</a></li>
@@ -18,7 +18,7 @@
     </dd>
   </dl>
   <dl>
-    <dt class="rdion">{'config'|@translate}</dt>
+    <dt class="rdion"><span>{'config'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'conf_general'|@translate}</a></li>
@@ -27,7 +27,7 @@
     </dd>
   </dl>
   <dl>
-    <dt class="rdion">{'Categories'|@translate}</dt>
+    <dt class="rdion"><span>{'Categories'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
@@ -40,7 +40,7 @@
     </dd>
   </dl>
   <dl>
-    <dt class="rdion">{'Pictures'|@translate}</dt>
+    <dt class="rdion"><span>{'Pictures'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_WAITING}">{'waiting'|@translate}</a></li>
@@ -52,7 +52,7 @@
     </dd>
   </dl>
   <dl>
-    <dt class="rdion">{'identification'|@translate}</dt>
+    <dt class="rdion"><span>{'identification'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_USERS}">{'users'|@translate}</a></li>
@@ -62,7 +62,7 @@
     </dd>
   </dl>
   <dl>
-    <dt class="rdion">{'special_admin_menu'|@translate}</dt>
+    <dt class="rdion"><span>{'special_admin_menu'|@translate}&nbsp;</span></dt>
     <dd>
       <ul>
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
