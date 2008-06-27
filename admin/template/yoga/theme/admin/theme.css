@@ -149,6 +149,15 @@ background:transparent url(images/bottom-left-bg.png) no-repeat fixed left botto
 border:0; display:block; margin: 0; padding: 0; min-width: 539px;
 min-height: 220px; position:absolute; left:0px; bottom:0px; z-index: 999;
 }
+/* show it to stripy */
+#leaves { background-image: none; min-height: 0px; }
+#copyright {
+background:transparent url(images/bottom-left-bg.png) no-repeat scroll left bottom;
+color:#777777;
+margin:60px 0pt;
+min-height:220px;
+text-align:center;
+}
 #content { background: #222 url(images/fillet.png) repeat-x top left; }
 .content { 
  min-height: 420px; color: #ccc;
