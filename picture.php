@@ -28,6 +28,7 @@ define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_session.inc.php');
 
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
@@ -48,6 +49,19 @@ if ( !isset($page['rank_of'][$page['image_id']]) )
     'The requested image does not belong to this image set',
     duplicate_index_url()
     );
+}
+
+// There is cookie, so we must handle it at the beginning
+if ( isset($_GET['metadata']) )
+{
+  if ( pwg_get_session_var('show_metadata') == null )
+	{
+		pwg_set_session_var('show_metadata', 1, 86400, cookie_path());
+	} else {
+  	pwg_unset_session_var('show_metadata');
+
+	}
+
 }
 
 // add default event handler for rendering element content
@@ -458,6 +472,8 @@ $title_nb = ($page['current_rank'] + 1).'/'.count($page['items']);
 
 // metadata
 $url_metadata = duplicate_picture_url();
+$url_metadata = add_url_params( $url_metadata, array('metadata'=>null) );
+
 
 // do we have a plugin that can show metadata for something else than images?
 $metadata_showable = trigger_event(
@@ -469,17 +485,11 @@ $metadata_showable = trigger_event(
   $picture['current']['path']
   );
 
-if ($metadata_showable)
+if ( $metadata_showable and pwg_get_session_var('show_metadata') )
 {
-  if ( !isset($_GET['metadata']) )
-  {
-    $url_metadata = add_url_params( $url_metadata, array('metadata'=>null) );
-  }
-  else
-  {
-    $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
-  }
+  $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
+
 
 $page['body_id'] = 'thePicturePage';
 
@@ -770,14 +780,13 @@ else
 
 $template->assign_vars($infos);
 
-
 // related categories
 if ( count($related_categories)==1 and
     isset($page['category']) and
     $related_categories[0]['category_id']==$page['category']['id'] )
 { // no need to go to db, we have all the info
   $template->assign_block_vars(
-      'category',
+    'category',
       array('LINE'=>get_cat_display_name( $page['category']['upper_names'] ))
     );
 }
@@ -836,7 +845,7 @@ $template->assign_var( 'ELEMENT_CONTENT', $element_content );
 
 include(PHPWG_ROOT_PATH.'include/picture_rate.inc.php');
 include(PHPWG_ROOT_PATH.'include/picture_comment.inc.php');
-if ($metadata_showable and isset($_GET['metadata']))
+if ($metadata_showable and pwg_get_session_var('show_metadata') <> null )
 {
   include(PHPWG_ROOT_PATH.'include/picture_metadata.inc.php');
 }
