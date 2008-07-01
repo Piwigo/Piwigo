@@ -550,6 +550,11 @@ function name_compare($a, $b)
   return strcmp(strtolower($a['name']), strtolower($b['name']));
 }
 
+function tag_alpha_compare($a, $b)
+{
+  return strcmp(strtolower($a['url_name']), strtolower($b['url_name']));
+}
+
 /**
  * exits the current script (either exit or redirect)
  */
@@ -732,7 +737,7 @@ function render_category_literal_description($desc)
   return strip_tags($desc, '<span><p><a><br><b><i><small><big><strong><em>');
 }
 
-/** returns the argument_ids array with new sequenced keys based on related 
+/** returns the argument_ids array with new sequenced keys based on related
  * names. Sequence is not case sensitive.
  * Warning: By definition, this function breaks original keys
  */

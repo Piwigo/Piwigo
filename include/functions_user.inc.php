@@ -838,32 +838,7 @@ function get_default_template()
  */
 function get_default_language()
 {
-  global $conf;
-  if (isset($conf['browser_language']) and $conf['browser_language'])
-  {
-    return get_browser_language();
-  }
-  else
-  {
-    return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
-  }
-}
-
-/*
- * Returns the browser language value
- *
- */
-function get_browser_language()
-{
-  $browser_language = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
-  foreach (get_languages() as $language_code => $language_name)
-  {
-    if (substr($language_code, 0, 2) == $browser_language)
-    {
-      return $language_code;
-    }
-  }
-  return PHPWG_DEFAULT_LANGUAGE;
+  return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
 }
 
 /**
@@ -923,7 +898,6 @@ function create_user_infos($arg_id, $override_values = null)
       {
         $status = 'normal';
       }
-      $default_user['language'] = get_default_language();
 
       $insert = array_merge(
         $default_user,
@@ -974,9 +948,10 @@ SELECT name
 /**
  * returns the auto login key or false on error
  * @param int user_id
+ * @param time_t time 
  * @param string [out] username
 */
-function calculate_auto_login_key($user_id, &$username)
+function calculate_auto_login_key($user_id, $time, &$username)
 {
   global $conf;
   $query = '
@@ -989,7 +964,7 @@ WHERE '.$conf['user_fields']['id'].' = '.$user_id;
   {
     $row = mysql_fetch_assoc($result);
     $username = $row['username'];
-    $data = $row['username'].$row['password'];
+    $data = $time.$row['username'].$row['password'];
     $key = base64_encode(
       pack('H*', sha1($data))
       .hash_hmac('md5', $data, $conf['secret_key'],true)
@@ -1011,12 +986,13 @@ function log_user($user_id, $remember_me)
 
   if ($remember_me and $conf['authorize_remembering'])
   {
-    $key = calculate_auto_login_key($user_id, $username);
+    $now = time();
+    $key = calculate_auto_login_key($user_id, $now, $username);
     if ($key!==false)
     {
-      $cookie = array('id' => (int)$user_id, 'key' => $key);
+      $cookie = $user_id.'-'.$now.'-'.$key;
       setcookie($conf['remember_me_name'],
-            serialize($cookie),
+            $cookie,
             time()+$conf['remember_me_length'],
             cookie_path()
           );
@@ -1049,13 +1025,17 @@ function auto_login() {
 
   if ( isset( $_COOKIE[$conf['remember_me_name']] ) )
   {
-    $cookie = unserialize(stripslashes($_COOKIE[$conf['remember_me_name']]));
-    if ($cookie!==false and is_numeric(@$cookie['id']) )
+    $cookie = explode('-', stripslashes($_COOKIE[$conf['remember_me_name']]));
+    if ( count($cookie)===3 
+        and is_numeric(@$cookie[0]) /*user id*/
+        and is_numeric(@$cookie[1]) /*time*/
+        and time()-$conf['remember_me_length']<=@$cookie[1]
+        and time()>=@$cookie[1] /*cookie generated in the past*/ )
     {
-      $key = calculate_auto_login_key( $cookie['id'], $username );
-      if ($key!==false and $key===$cookie['key'])
+      $key = calculate_auto_login_key( $cookie[0], $cookie[1], $username );
+      if ($key!==false and $key===$cookie[2])
       {
-        log_user($cookie['id'], true);
+        log_user($cookie[0], true);
         trigger_action('login_success', $username);
         return true;
       }

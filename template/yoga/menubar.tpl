@@ -21,10 +21,10 @@
 {/if}{*links*}
 
   {if isset($U_START_FILTER)}
-  <a href="{$U_START_FILTER}" title="{'start_filter_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_filter.png" class="button" alt="{'start_filter_hint'|@translate}"></a>
+  <a href="{$U_START_FILTER}" title="{'start_filter_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/start_filter.png" class="button" alt="start filter"></a>
   {/if}
   {if isset($U_STOP_FILTER)}
-  <a href="{$U_STOP_FILTER}" title="{'stop_filter_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_filter.png" class="button" alt="{'stop_filter_hint'|@translate}"></a>
+  <a href="{$U_STOP_FILTER}" title="{'stop_filter_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_filter.png" class="button" alt="stop filter"></a>
   {/if}
 
 <dl id="mbCategories">
@@ -48,14 +48,14 @@
     <ul id="menuTagCloud">
     {foreach from=$related_tags item=tag}
     <li>
-    {if !empty($tag.add) }
-      <a href="{$tag.add.URL}" 
-        title="{$pwg->l10n_dec('%d element are also linked to current tags', '%d elements are also linked to current tags', $tag.add.COUNTER)}"
+    {if !empty($tag.U_ADD) }
+      <a href="{$tag.U_ADD}" 
+        title="{$pwg->l10n_dec('%d element are also linked to current tags', '%d elements are also linked to current tags', $tag.counter)}"
         rel="nofollow">
         <img src="{$ROOT_URL}{$themeconf.icon_dir}/add_tag.png" alt="+" />
       </a>
     {/if}
-    <a href="{$tag.U_TAG}" class="{$tag.CLASS}" title="{'See elements linked to this tag only'|@translate}">{$tag.NAME}</a>
+    <a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{'See elements linked to this tag only'|@translate}">{$tag.name}</a>
     </li>
     {/foreach}
     </ul>

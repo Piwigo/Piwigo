@@ -20,7 +20,7 @@
   {if $display_mode == 'cloud'}
   <ul id="fullTagCloud">
     {foreach from=$tags item=tag}
-    <li><a href="{$tag.URL}" class="{$tag.CLASS}" title="{$tag.TITLE}">{$tag.NAME}</a></li>
+    <li><a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{$tag.counter}">{$tag.name}</a></li>
     {/foreach}
   </ul>
   {/if}
@@ -35,8 +35,8 @@
     <table class="tagLetterContent">
       {foreach from=$letter.tags item=tag}
       <tr class="tagLine">
-        <td><a href="{$tag.URL}">{$tag.NAME}</a></td>
-        <td class="nbEntries">{$pwg->l10n_dec('%d element', '%d elements', $tag.COUNTER)}</td>
+        <td><a href="{$tag.URL}">{$tag.name}</a></td>
+        <td class="nbEntries">{$pwg->l10n_dec('%d element', '%d elements', $tag.counter)}</td>
       </tr>
       {/foreach}
     </table>

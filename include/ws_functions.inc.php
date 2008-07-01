@@ -889,7 +889,7 @@ function ws_tags_getList($params, &$service)
   }
   else
   {
-    usort($tags, 'name_compare');
+    usort($tags, 'tag_alpha_compare');
   }
   for ($i=0; $i<count($tags); $i++)
   {

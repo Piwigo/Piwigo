@@ -59,7 +59,7 @@ SELECT tag_id, COUNT(DISTINCT(it.image_id)) counter
   }
 
   $query = '
-SELECT id, name, url_name
+SELECT *
   FROM '.TAGS_TABLE;
   $result = pwg_query($query);
   $tags = array();
@@ -83,9 +83,7 @@ SELECT id, name, url_name
 function get_all_tags()
 {
   $query = '
-SELECT id,
-       name,
-       url_name
+SELECT *
   FROM '.TAGS_TABLE.'
 ;';
   $result = pwg_query($query);
@@ -95,7 +93,7 @@ SELECT id,
     array_push($tags, $row);
   }
 
-  usort($tags, 'name_compare');
+  usort($tags, 'tag_alpha_compare');
 
   return $tags;
 }
@@ -227,9 +225,9 @@ function get_common_tags($items, $max_tags, $excluded_tag_ids=null)
     return array();
   }
   $query = '
-SELECT id, name, url_name, count(*) counter
+SELECT t.*, count(*) counter
   FROM '.IMAGE_TAG_TABLE.'
-    INNER JOIN '.TAGS_TABLE.' ON tag_id = id
+    INNER JOIN '.TAGS_TABLE.' t ON tag_id = id
   WHERE image_id IN ('.implode(',', $items).')';
   if (!empty($excluded_tag_ids))
   {
@@ -256,7 +254,7 @@ SELECT id, name, url_name, count(*) counter
   {
     array_push($tags, $row);
   }
-  usort($tags, 'name_compare');
+  usort($tags, 'tag_alpha_compare');
   return $tags;
 }
 
@@ -307,7 +305,7 @@ function find_tags($ids, $url_names=array(), $names=array() )
   }
 
   $query = '
-SELECT id, url_name, name
+SELECT *
   FROM '.TAGS_TABLE.'
   WHERE '. implode( '
     OR ', $where_clauses);

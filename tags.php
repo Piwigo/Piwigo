@@ -84,12 +84,12 @@ $tags = get_available_tags();
 
 if ($page['display_mode'] == 'letters') {
   // we want tags diplayed in alphabetic order
-  usort($tags, 'name_compare');
+  usort($tags, 'tag_alpha_compare');
 
   $current_letter = null;
-  $is_first_tag = true;
   $nb_tags = count($tags);
-  $current_column_tags = 0;
+  $current_column = 1;
+  $current_tag_idx = 0;
 
   $letter = array(
     'tags' => array()
@@ -97,21 +97,21 @@ if ($page['display_mode'] == 'letters') {
 
   foreach ($tags as $tag)
   {
-    $tag_letter = strtoupper(substr($tag['name'], 0, 1));
+    $tag_letter = strtoupper(substr($tag['url_name'], 0, 1));
 
-    if ($is_first_tag) {
+    if ($current_tag_idx==0) {
       $current_letter = $tag_letter;
       $letter['TITLE'] = $tag_letter;
-      $is_first_tag = false;
     }
 
     //lettre precedente differente de la lettre suivante
     if ($tag_letter !== $current_letter)
     {
-      if ($current_column_tags > $nb_tags/$conf['tag_letters_column_number'])
+      if ($current_column<$conf['tag_letters_column_number']
+          and $current_tag_idx > $current_column*$nb_tags/$conf['tag_letters_column_number'] )
       {
         $letter['CHANGE_COLUMN'] = true;
-        $current_column_tags = 0;
+        $current_column++;
       }
 
       $letter['TITLE'] = $current_letter;
@@ -120,7 +120,7 @@ if ($page['display_mode'] == 'letters') {
         'letters',
         $letter
         );
-      
+
       $current_letter = $tag_letter;
       $letter = array(
         'tags' => array()
@@ -129,18 +129,19 @@ if ($page['display_mode'] == 'letters') {
 
     array_push(
       $letter['tags'],
-      array(
-        'URL' => make_index_url(
-          array(
-            'tags' => array($tag),
-            )
-          ),
-        'NAME' => $tag['name'],
-        'COUNTER' => $tag['counter'],
+      array_merge(
+        $tag,
+        array(
+          'URL' => make_index_url(
+            array(
+              'tags' => array($tag),
+              )
+            ),
+          )
         )
       );
-    
-    $current_column_tags++;
+
+    $current_tag_idx++;
   }
 
   // flush last letter
@@ -168,23 +169,22 @@ $tags = array_slice($tags, 0, $conf['full_tag_cloud_items_number']);
 $tags = add_level_to_tags($tags);
 
 // we want tags diplayed in alphabetic order
-usort($tags, 'name_compare');
+usort($tags, 'tag_alpha_compare');
 
 // display sorted tags
 foreach ($tags as $tag)
 {
   $template->append(
     'tags',
-    array(
-      'URL' => make_index_url(
-        array(
-          'tags' => array($tag),
-          )
-        ),
-
-      'NAME' => $tag['name'],
-      'TITLE' => $tag['counter'],
-      'CLASS' => 'tagLevel'.$tag['level'],
+    array_merge(
+      $tag,
+      array(
+        'URL' => make_index_url(
+          array(
+            'tags' => array($tag),
+            )
+          ),
+        )
       )
     );
 }

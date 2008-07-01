@@ -186,7 +186,7 @@ $available_tags = get_available_tags();
 
 if (count($available_tags) > 0)
 {
-  usort( $available_tags, 'name_compare');
+  usort( $available_tags, 'tag_alpha_compare');
 
   $template->assign(
     'TAG_SELECTION',

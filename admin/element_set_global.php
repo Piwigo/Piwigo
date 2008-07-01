@@ -275,7 +275,6 @@ if (count($page['cat_elements_id']) > 0)
 {
   // remove tags
   $tags = get_common_tags($page['cat_elements_id'], -1);
-  usort($tags, 'name_compare');
 
   $template->assign(
     array(

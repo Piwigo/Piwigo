@@ -111,29 +111,23 @@ if ('tags' == @$page['section'])
   {
     $template->append(
       'related_tags',
-      array(
-        'U_TAG' => make_index_url(
-          array(
-            'tags' => array($tag)
-            )
-          ),
+      array_merge( $tag,
+        array(
+          'URL' => make_index_url(
+            array(
+              'tags' => array($tag)
+              )
+            ),
 
-        'NAME' => $tag['name'],
-
-        'CLASS' => 'tagLevel'.$tag['level'],
-
-        'add' => array(
-
-            'URL' => make_index_url(
-              array(
-                'tags' => array_merge(
-                  $page['tags'],
-                  array($tag)
+          'U_ADD' => make_index_url(
+                array(
+                  'tags' => array_merge(
+                    $page['tags'],
+                    array($tag)
+                    )
                   )
-                )
-              ),
-            'COUNTER' => $tag['counter'],
-            )
+                ),
+          )
         )
       );
   }
