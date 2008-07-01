@@ -1,0 +1,51 @@
+<h2>Manutenzione</h2>
+
+<p>Per ottimizzare il tempo di generazione di pagina, PhpWebGallery usa
+delle informazioni dalla cache. Per esempio, invece di contare il numero
+d'immagini contenute in ogni categoria ad ogni ricarica, queste informazioni
+sono immagazzinate nella base dati. In teoria, questa informazione dovrebbe
+essere sempre corretta, ma a volte si può verificare un errore e l'informazione
+della cache diventa errata. </p>
+
+<p>Alcune informazioni diventano inutili col tempo. Cancellare queste
+informazioni inutili dalla base base permette di liberare spazio sul disco.</p>
+
+<ul>
+
+  <li><strong>Aggiornare le informazioni delle categorie:</strong> Per ogni
+categoria, le informazioni da aggiornare o controllare sono le seguenti:
+elenco delle categorie madri, numero di immagini, data dell'ultima immagine,
+posizione fra delle categorie di stesso livello, posizione tra categorie madri
+e categorie figlie. Quest'azione controlla anche la coerenza delle immagini
+rappresentative.</li>
+
+  <li><strong>Aggiornare le informazioni delle immagini:</strong> Per ogni
+immagine, le informazioni di aggiornare sono: il percorso completo verso
+il file, il voto medio. <em>Attenzione</em>: da non confondere con i metadati
+sincronizzabili tramite lo schermo <span class="pwgScreen">Amministrazione,
+Categorie, Sincronizzare</span> o sullo schermo <span class="pwgScreen">Modificare
+le informazioni dell'immagine</span> (accessibile dalla pagina di visualizzazione
+di un'immagine<span class="pwgScreen">picture.php</span>).</li>
+
+  <li><strong>Riparare e ottimizzare la base dati:</strong>
+Per ogni tabella vengono realizzate le operazioni di riordinamento, riparazione
+ed ottimizzazione.</li>
+
+</ul>
+
+<ul>
+  <li><strong>Ripulire i dettagli della cronologia:</strong> Cancella tutte le righe
+dalla tabella <code>history</code>. Lo schermo <span
+class="pwgScreen">Amministrazione, Speciale, Cronologia</span> non mostra più
+nessuna informazione passata. <em>Attenzione</em>: Tutte le informazioni saranno
+definitivamente perse e non sarà più possibile recuperarle.</li>
+
+  <li><strong>Ripulire il sommario della cronologia:</strong> Cancella tutte le
+informazioni del sommario (ottenute dal dettaglio della cronologia) .</li>
+
+  <li><strong>Ripulire le sessioni:</strong> Cancella tutte le sessioni
+scadute.</li>
+
+  <li><strong>Ripulire i flussi di notifica mai usati</strong></li>
+
+</ul>

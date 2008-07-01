@@ -1,0 +1,145 @@
+<h2>Modificare una categoria</h2>
+
+<h3>Informazioni</h3>
+
+<ul>
+
+  <li><strong>nome</strong>: rinominare la categoria (virtualmente per 
+  una categoria fisica).</li>
+
+  <li><strong>descrizione</strong>: dare un'idea generale del contenuto,
+  questo testo apparirà in fondo della pagina delle miniature.</li>
+
+</ul>
+
+<h3>Muover</h3>
+
+<p>Se la categoria è virtuale, potete spostarla. Muovere una categoria
+significa cambiarne la categoria parente.</p>
+
+<h3>Opzioni</h3>
+
+<ul>
+
+  <li><strong>Tipo di accesso</strong>: Gestione dei permessi. Se rendete 
+una categoria privata, tutte le categorie figlie diventono private. Se rendete 
+una categoria pubblica, tutte le categorie parenti diventono pubbliche.</li>
+
+  <li><strong>Blocco</strong>: Per causa di manutenzione, le categorie e tutte 
+le sottocategorie diventano temporaneamente inaccessibili.</li>
+
+  <li><strong>Commenti</strong>: Autorizzare gli utenti a commentare 
+gli elementi della categoria.</li>
+
+  <li><strong>Autorizzare l'upload</strong>: Autorizzare gli utenti
+a caricare dei file. Questa opzione è disponibile solo se la categoria è 
+una categoria fisica (non virtuale).</li>
+
+</ul>
+
+<p>Potete anche gestire queste opzioni con la gestione delle "Proprietà"
+(schermo <span class="pwgScreen">Upload</span>, <span
+class="pwgScreen">Commenti</span>, <span
+class="pwgScreen">Blocco</span>, <span
+class="pwgScreen">Pubblico/Privato</span>, <span
+class="pwgScreen">Rappresentativa</span> disponibile in <span
+class="pwgScreen">Amministrazione, Categorie, Proprietà</span>).</p>
+
+<h3>Ordine d'apparizione</h3>
+
+<p>Scegliere se il tipo di ordinamento predefinito sarà usato.</p>
+
+<p>Indicare se quest'ordinamento sarà applicato alle sottocategorie.</p>
+
+<p>Scegliere le colonne per l'ordinamento da usare su questa categoria.</p>
+<ul>
+<li><strong>Data di creazione</strong>: Data di creazione dell'immagine</li>
+<li><strong>Aggiunto il</strong>: Data di sincronizzazione</li>
+<li><strong>Voto medio (*)</strong>: Voto che potrebbe essere modificato da un utente</li>
+<li><strong>Le più viste (*)</strong>: La visita in corso potrebbe modificare l'ordine delle più viste</li>
+<li><strong>Nome file</strong>: Nome inserito nei campi precedenti</li>
+<li><strong>Id</strong>: Id interno(le categorie le più recenti hanno un "Id" più grande delle precedenti.</li>
+
+</ul>
+<p><strong>(*)</strong>Attenzione: Effettuare qualche test, l'ordinamento scelto potrebbe darvi qualche sorpresa.</p>
+
+
+<h3>Rappresentante</h3>
+
+<p>Il rappresentante di una categoria è la miniatura che appare
+per rappresentare la categoria sulla pagina principale (<span
+class="pwgScreen">category.php</span>) quando la categoria contine solo 
+delle sottocategorie e non direttamente delle immagini(come alla radice).</p>
+
+<p>Esistono quattro modi per scegliere il rappresentante di una categoria:</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Pagina di visualizzazione delle immagini</span>: nella barra delle azioni,
+  uno dei pulsanti permette di scegliere l'elemento visualizzato come rappresentante
+  per la categoria visualizzata. Il pulsante in questione è visibile solo agli
+  amministratori.</li>
+
+  <li><span class="pwgScreen">Modicare le informazioni di un'imagine</span> in
+  amministrazione. Questo schermo può essere raggiunto tramite <span
+  class="pwgScreen">picture.php</span> o <span class="pwgScreen">Gestione per
+  lotti</span> con il <em>modo unitario</em>. Per i dettagli, vedi l'aiuto
+  per questa schermata.</li>
+
+  <li><span class="pwgScreen">Amministrazione, Categorie, Proprietà
+  Rappresentante</span>. Per i dettagli, vedi l'aiuto per questa schermata.</li>
+
+  <li><span class="pwgScreen">Modificare categoria</span> (questa schermata).</li>
+
+</ul>
+
+<p>Il rappresentante dipende dal parametro di configurazione
+<code>allow_random_representative</code> (vedi <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>Di default (<code>allow_random_representative</code> a false) ogni
+categoria, contenente almeno un elemento, è rappresentata da un elemento fisso.
+Una volta fissato (alla creazione della categoria), il rappresentante cambia
+solo se lo decide l'amministratore. Se il rappresentante non vi conviene,
+potete chiedere di <strong>Trovare un rappresentante a caso</strong>.</p>
+
+<p>Se il parametro di configurazione <code>allow_random_representative</code>
+e a vero, una categoria contenente degli elementi può non avere un rappresentante
+fisso. Usare semplicemente il pulsante <strong>Cancellare
+rappresentante</strong>.</p>
+
+<p>Se la categoria non contiene nessun elemento (ma solo sottocategorie)
+può comunque essere rappresentata da un qualsiasi elemento. Per ciò usare
+la schermata <span class="pwgScreen">Modicare le informazioni di
+un'immagine</span>. L'unica opzione di questa schermata è il pulsante
+<strong>Cancellare rappresentante</strong>.</p>
+
+<h3>Associare tutti gli elementi di una categoria ad una nuova categoria</h3>
+
+<ul>
+
+<li><strong>Nome della categoria virtuale</strong>: Nome della nuova categoria da creare, 
+tutti gli elementi dell'attuale categoria verranno associati alla nuova categoria.</li>
+
+<li><strong>Categoria madre</strong>: Là dove deve essere creata la nuova categoria, 
+lasciare vuoto per crearla alla radice del sito (nella "Home page").</li>
+
+</ul>
+
+<h3>Associare tutti gli elementi della categoria attuale a delle categorie esistenti</h3>
+
+<ul>
+
+<li><strong>Categorie</strong>: Scegliere la categoria di destinazione.</li>
+
+</ul>
+
+<h3>Inviare una email d'informazione ai membri del gruppo</h3>
+
+<ul>
+
+<li><strong>Gruppo</strong>: Gruppo dei destinatari</li>
+
+<li><strong>Contenuto della email</strong>: Testo libero da mandare.</li>
+
+</ul>

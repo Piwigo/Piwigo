@@ -1,0 +1,125 @@
+<h2>Configurazione</h2>
+
+<p>Questo schermo permette di gestire la configurazione di base. 
+Infatti, questo schermo mostra soltanto i parametri che dovrebbero 
+bastare per la maggiore parte degli amministratori. Se volete 
+vedere gli altri numerosi parametri di configurazione, leggete il file <span
+cass="filename">include/config_default.inc.php</span>.</p>
+
+<p>Questo schermo è diviso in diverse sezioni, raggruppando i parametri 
+di configurazione per tema.</p>
+
+<h3>Principale</h3>
+<ul>
+
+  <li><strong>Titolo della galleria</strong>: usato per i flussi RSS e 
+la notifica via email.</li>
+
+  <li><strong>Banner delle pagine</strong>: Codilce HTML presente in alto
+su tutte le pagine.</li>
+
+  <li><strong>URL della galleria</strong>: usato per i flussi RSS.</li>
+
+  <li><strong>Blocco galleria</strong>: Bloccare la galleria per 
+la manutenzione. Solo gli amministratori avranno accesso alla galleria.</li>
+
+  <li><strong>Voto</strong>: Il voto delle immagini è possibile.</li>
+
+  <li><strong>Voto degli utenti</strong>: Anche gli ospiti (utenti non registrati)
+possono dare un voto alle immagini.</li>
+
+  <li><strong>Notificare gli amministratori quando un nuovo utente si iscrive</strong>: Gli amministratori vengono avvisati ad ogni nuovo iscritto.</li>
+
+  <li><strong>Autorizzare l'iscrizione di nuovi utenti</strong>: Iscrizione libera per tutti.</li>
+
+  <li><strong>Notificare agli amministratori quando un immagine è caricata</strong>: Gli amministratori verranno avvisati della messa a disposizione di una nuova immagine.</li>
+
+</ul>
+
+<h3>Cronologia</h3>
+<ul>
+  <p>le visite delle pagine <span
+class="pwgScreen">category.php</span> e <span
+class="pwgScreen">picture.php</span> sono
+registrate nella tabella <code>history</code> table.</p>
+  
+  <p>Le visite sono visualizzate nello schermo <span class="pwgScreen">Amministrazione, Speciale, Cronologia</span>.</p>
+
+  <li><strong>Registrare le pagine visitate dagli ospiti</strong>: le pagini visitate dagli ospiti sono registrate.</li>
+
+  <li><strong>Registrare le pagine visitate dagli utenti</strong>: le pagini visitate dagli utenti sono registrate.</li>
+
+  <li><strong>Registrare le pagine visitate dagli amministratori</strong>: le pagini visitate dagli amministratori sono registrate.</li>
+
+</ul>
+
+<h3>Commenti</h3>
+<ul>
+
+  <li><strong>Commenti utenti per tutti</strong>: anche gli ospiti 
+possono registrare i commenti.</li>
+
+  <li><strong>Numero di commenti utente per pagina</strong>.</li>
+
+  <li><strong>Convalida</strong>: un amministratore deve autorizzare 
+i commenti utenti prima che questi possano essere visibili nella parte pubblica. 
+La convalida dei commenti utente avviene nello schermo <span 
+class="pwgScreen">Amministrazione, Immagini, Commenti</span>.</li>
+
+  <li><strong>Notificare agli amministratori quando un commento è registrato</strong>:
+Invio di una email agli amministratori quando un utente registra un commento.</li>
+
+  <li><strong>Notificare agli amministratori quando un commento richiede la convalida</strong>:
+Invio di una email agli amministratori quando un utente registra un commento che necessita la convalida.
+La convalida dei commenti utente ha luogo nello schermo <span class="pwgScreen">Amministrazione, Immagine, Commenti</span>.</li>
+
+</ul>
+
+<h3>Visualizzazione di default</h3>
+<p>Modificare le opzioni di visualizzazione di default per gli utenti non 
+collegati. Una volta effettuato il collegamento, queste opzioni sono personalizzabili 
+(modificabile su <span class="pwgScreen">profilo</span>).</p>
+
+<p>È possibile cambiare le impostazioni per gli utenti esistenti,
+in quest'altro schermo: <span class="pwgScreen">Amministrazion,
+Identificazione, Utenti</span>, dove potete cambiare le impostazioni 
+degli utenti.</p>
+
+<ul>
+
+  <li><strong>Lingua</strong>: Solo per i titoli della galleria.
+Le categorie, nome delle immagini e descrizioni non sono compresi
+nella traduzione.</li>
+
+  <li><strong>Numero d'immagini per riga</strong></li>
+
+  <li><strong>Numero di righe per pagina</strong></li>
+
+  <li><strong>Tema del'interfaccia</strong></li>
+
+  <li><strong>Periodo recente</strong>: in giorni. Periodo durante il quale
+un'immagine è considerata come recente. Questo periodo deve essere superiore
+a 1 giorno.</li>
+
+  <li><strong>Espandere le categorie</strong>: Espandere di default tutte
+le categorie nel menu? <em>Attenzion</em>: questa opzione è consumatrice
+di risorse se avete molte categorie e sottocategorie.</li>
+
+  <li><strong>Mostrare il numero di commenti</strong>: Mostrare il numero
+di commenti sotto ogni miniatura. Consuma delle risorse.</li>
+
+  <li><strong>Mostrare il numero di visite</strong>: visualizza il numero 
+di visualizzazioni del immagine sotto la miniatura. 
+Valido solo se il parametro è : <br />
+$conf['show_nb_hits'] = true; <br />
+N.B.: Di default il parametro è a false.</li>
+
+  <li><strong>Larghezza massima delle immagini</strong>: di visualizzazione.
+Se l'immagine è più larga, allora quest'ultima verra ridimensionata.
+Se pensate che sia necessario cambiare questo parametro allora sarebbe meglio
+ridimensionare le immagini.</li>
+
+  <li><strong>Altezza massima delle immagini</strong>: stessi consigli che
+la voce precedente.</li>
+
+</ul>
