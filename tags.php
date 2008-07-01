@@ -91,16 +91,19 @@ foreach ($tags as $tag)
 {
   $template->assign_block_vars(
     'tag',
-    array(
-      'URL' => make_index_url(
-        array(
-          'tags' => array($tag),
-          )
-        ),
+    array_merge(
+      $tag,
+      array(
+        'URL' => make_index_url(
+          array(
+            'tags' => array($tag),
+            )
+          ),
 
-      'NAME' => $tag['name'],
-      'TITLE' => $tag['counter'],
-      'CLASS' => 'tagLevel'.$tag['level'],
+        'NAME' => $tag['name'],
+        'TITLE' => $tag['counter'],
+        'CLASS' => 'tagLevel'.$tag['level'],
+        )
       )
     );
 }
