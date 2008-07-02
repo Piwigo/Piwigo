@@ -59,7 +59,7 @@ foreach ($conf['links'] as $url => $url_data)
     $url_data = array('label' => $url_data);
   }
 
-  if 
+  if
     (
       (!isset($url_data['eval_visible']))
       or
@@ -76,7 +76,7 @@ foreach ($conf['links'] as $url => $url_data)
     if (!isset($url_data['new_window']) or $url_data['new_window'])
     {
       $template->assign_block_vars(
-        'links.link.new_window', 
+        'links.link.new_window',
         array(
           'name' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
           'features' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
@@ -126,18 +126,21 @@ if ('tags' == $page['section'])
   {
     $template->assign_block_vars(
       'tags.tag',
-      array(
-        'URL' => make_index_url(
-          array(
-            'tags' => array($tag)
-            )
-          ),
+      array_merge(
+        $tag,
+        array(
+          'URL' => make_index_url(
+            array(
+              'tags' => array($tag)
+              )
+            ),
 
-        'NAME' => $tag['name'],
+          'NAME' => $tag['name'],
 
-        'TITLE' => l10n('See pictures linked to this tag only'),
+          'TITLE' => l10n('See pictures linked to this tag only'),
 
-        'CLASS' => 'tagLevel'.$tag['level']
+          'CLASS' => 'tagLevel'.$tag['level']
+          )
         )
       );
 
