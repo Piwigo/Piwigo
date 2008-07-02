@@ -104,6 +104,8 @@
     </ul>
   </div>
   {/if}
+  {if isset($TABSHEET)}
   {$TABSHEET}
+  {/if}
   {$ADMIN_CONTENT}
 </div>
