@@ -1,6 +1,5 @@
 {* $Id$ *}
 <div class="titrePage">
-  {$TABSHEET}
   <ul class="categoryActions">
     <li>
       <a

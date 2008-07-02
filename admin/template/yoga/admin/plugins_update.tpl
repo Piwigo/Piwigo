@@ -1,5 +1,4 @@
 <div class="titrePage">
-{$TABSHEET}
   <h2>{'Plugins'|@translate}</h2>
 </div>
 

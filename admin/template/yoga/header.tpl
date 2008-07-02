@@ -43,6 +43,7 @@
 </head>
 
 <body id="{$BODY_ID}">
+<div id="headbranch"></div> {* Dummy block for double background management *}
 <div id="the_page">
 
 {if not empty($header_msgs)}

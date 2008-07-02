@@ -104,6 +104,6 @@
     </ul>
   </div>
   {/if}
-
+  {$TABSHEET}
   {$ADMIN_CONTENT}
 </div>

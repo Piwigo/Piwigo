@@ -1,7 +1,6 @@
 /* $Id$ */
 /* .Content  is on every pages so it is common and it will no longer be a specific css */
 .content { margin-right: 1em; margin-bottom: 1em; }
-.content h3 { margin-bottom: 1ex; text-align: center; }
 .content h2 { margin-bottom: 3px;}
 .content .navigationBar { margin: 10px 0; text-align: center; }
 .content form { text-align: left; }

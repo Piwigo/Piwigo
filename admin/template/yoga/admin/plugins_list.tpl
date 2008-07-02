@@ -1,5 +1,4 @@
 <div class="titrePage">
-{$TABSHEET}
 <span class="sort">
 {'Sort order'|@translate} : 
   <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:200px">

@@ -1,6 +1,6 @@
 {* $Id$ *}
 <h2>{'title_default'|@translate}</h2>
-<dl>
+<dl style="padding-top: 30px;">
   <dt>{'Piwigo version'|@translate}</dt>
   <dd>
     <ul>

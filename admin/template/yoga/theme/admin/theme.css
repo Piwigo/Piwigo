@@ -1,174 +1,95 @@
 /* $Id$ */
 /* text color */
-BODY, H3, DT, H2, .throw,
-INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
+body, h3, dt, h2, .throw, .content,
+input.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
   color:#ccc; }
+input.text, input.button, input.submit, input.reset, input.file, select, textarea {
+color:#444; }  
+input.rateButton, legend, #theAdminPage h3 { color: #777; }
+#theAdminPage h2 { color: #333; }
+/* common */
 .content .infos {
-  color: #f33; border:0pt none; font-weight:bold; background-color: transparent;
-  padding:5px 0px 0pt 20pt; position:absolute; left:210px;
-  text-align:left; top:100px; width:550px; }
+  color: #f33; border:0pt none; font-weight:bold; background-color: #222;
+  padding:5px 0px 0pt 20pt; position:absolute; left:248px; min-height: 48px;
+  text-align:left; top:110px; width:550px; z-index: 2; }
 .content .infos li { list-style-type:none; }
 .content .errors {
-  background-color: #fc5;
-  border-color: #f92;
-  color: #900;
-}
-/* backgrounds */
-body {
-  background:#111111 url(images/top-left-bg.png) no-repeat scroll left top;
-  margin: 0; padding: 0;
-}
-H3, #imageToolBar A:hover, .row1 {
-  background-color: #222;
-}
-.row2 { background-color:#111; }
-#theAdminPage h2, #theAdminPage h3 { color: #777; }
-
-.content {
-  background-color: #181818;
-  border: 1px solid #eee;
-  padding: 5px;
-}
-H2, .throw, TD H3, #theAdminPage H3 {
-  background-image: url(images/fillet.png);
-  background-repeat: repeat-x;
-}
-.content H2 {
-  background: none;
-  border: 0;
-  letter-spacing: -0.05em; 
-  text-indent: 1em;
-  text-transform:	uppercase;
-  font-weight: lighter;
-  margin-bottom: 20px;
-}
-.content h3 { text-align: center; }
-.browsePath A {
-  color: #eee;
-}
-/* borders */
-#comments DIV.comment BLOCKQUOTE {
-  border: 1px solid #000;
-}
-#imageHeaderBar {
-  border-top: 1px solid #000;
-  padding: 8px 0 3px 0;
-}
-H2, #imageToolBar {
-  border-bottom: 1px solid #000;
-}
-
-#theImage IMG {
-  border-color: #fff;
-}
-
-.content UL.thumbnail IMG {
-  border: 1px solid #a0a0a0;
-}
-.illustration A {
-  border: 0;
-}
-FIELDSET, INPUT, SELECT, TEXTAREA,
-.content DIV.comment  A.illustration IMG,
-#comments DIV.comment BLOCKQUOTE {
-  border-left: 2px solid #696969;
-}
-
-.content UL.thumbnails SPAN.wrap2 {
-  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
-  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
-}
-
-.content UL.thumbnails SPAN.wrap2:hover  {
-  margin: 0 2px;
-  width: auto;
-  padding: 0;
-  text-indent: 0;
-  list-style: none;
-  text-align: center;
-  float: left;
-}
-
-#imageToolBar A, #imageToolBar A:hover {
-  border-bottom: none;
-}
-A.navThumb, A.navThumb:hover {
-  border-bottom: none;
-}
-#copyright {
-color:#777;
-margin:60px 0;
-text-align:center;
-}
-
-label {
-	cursor:pointer
-}
-
-.virtual_cat { background: #222 !important; }
-
-a.Piwigo {
-  font-family: verdana, arial, helvetica, sans-serif !important;
-  font-size: 11px; font-weight: normal; letter-spacing: 0;
-  color : #f36; text-decoration: none; border: 0; color: #f36; }
-
-.statBar { background-color: #e60; }
-#imageToolBar .randomButtons a:hover,
-#imageToolBar .navButtons a:hover { background-color: transparent; }
-* { outline-width: 0; }
-
-
-/* New in 1.8 : Special Admin */
-a { color:#f70; border-color: #FF3363; }
-a:hover { color: #f33; border-color: #FF3363; }
-input.rateButton, legend { color:#777; }
-#theHeader { 
-  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; height:105px; 
-}
-
-.content h2:before, .content h2:after, 
-.content h2 { /*theme.css (line 100)*/
-letter-spacing:0.1em; margin-right:45px; text-align:right; color: #777777; 
-text-transform:none; }
-.content dl, dd { /*content.css (line 52) */ margin:5px; }
-.content h2 { /* default-layout.cs... (line 6) */
-font-weight:bold; margin-right:30px; padding-left:2em; }
-#theAdminPage h3 { /* theme.css (line 96) */
-background: transparent none; margin-right:30px; font-weight: lighter;}
-#theAdminPage h2 { border:0; color:#333; display:block;
-font-size:32px; letter-spacing:0.8px; margin:0pt 20px 0pt 220px;
-min-height:95px; overflow:hidden; padding:0pt; position:relative;
-right:0pt; text-align:right; top:-100px; width:770px; }
-#the_page { 
-/*background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; */
-border:0; display:block; margin: 0; padding-bottom: 0;
-padding-top: 0; min-height: 100%; position:relative;
-}
-#leaves { 
-background:transparent url(images/bottom-left-bg.png) no-repeat fixed left bottom; 
-border:0; display:block; margin: 0; padding: 0; min-width: 539px;
-min-height: 220px; position:absolute; left:0px; bottom:0px; z-index: 0;
-}
-#content { background: #222 url(images/fillet.png) repeat-x top left; }
-.content { 
- min-height: 420px; color: #ccc;
- border-width: 0; padding: 0 5px 0 0; margin: 0 10px 0 248px; }
+  color: #900; border:0pt none; font-weight:bold; background-color: #222;
+  padding:5px 0px 0pt 20pt; position:absolute; left:248px; min-height: 48px;
+  text-align:left; top:110px; width:550px; z-index: 3; }
+#copyright { color:#777; margin:60px auto 15px 240px; text-align:center; }
 .header_notes {
 background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
 border:0; font-weight:bold;
 padding:5px 60px 0 0; position:absolute; right:0;
 text-align:right; top:90px; width:550px; }
-/*.content div.titrePage ul.categoryActions {
-position:absolute; right:12px; top:110px; } */
+
+/* backgrounds */
+html, body { min-height: 100%; }
+body {
+  background:#111111 url(images/bottom-left-bg.png) no-repeat fixed left bottom;
+  margin: 0; padding: 0;
+}
+#the_page { 
+border:0; display:block; margin: 0; padding-bottom: 0; z-index: 1; top:0px;
+padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; }
+#headbranch { 
+background:transparent url(images/top-left-bg.png) no-repeat scroll left top; 
+border:0; display:block; margin: 0; padding: 0; width: 233px;
+height: 240px; position:absolute; left:0px; top:0px; z-index: 0; }
+
+#theHeader { 
+  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; 
+  min-height:105px; }
+h3, #imageToolBar a:hover, .row1, .content { background-color: #222; }
+.row2 { background-color:#111; }
+#content { background: #222 url(images/fillet.png) repeat-x top left; }
+.content { min-height: 466px; padding:0px 5px 5px 5px; margin: 0 10px 0 248px; z-index:99; }
+.content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
+ text-align:right; background:none; border: 0; }
+.content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
+.content h2:before, .content h2:after, 
+.content h2 { 
+letter-spacing:0.1em; margin-right:30px; text-align:right; color: #777; 
+text-transform:none; font-weight:bold; padding-left:20px; }
+.content dl, dd { margin:5px; }
+.content div.titrePage { height:55px; }
+
+.throw, td h3 {
+ background-image: url(images/fillet.png); background-repeat: repeat-x; }
+.browsePath a { color: #eee; }
+/* borders */ /* TODO */
+INPUT, SELECT, TEXTAREA { border-left: 2px solid #696969; }
+.content UL.thumbnails SPAN.wrap2 {
+  border: 1px solid #aaaaaa;	/* thumbnails border color and style */
+  border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
+}
+.content UL.thumbnails SPAN.wrap2:hover  {
+  margin: 0 2px; width: auto; padding: 0; text-indent: 0;
+  list-style: none; text-align: center; float: left; }
+
+label { cursor:pointer }
+.virtual_cat { background: #222 !important; }
+a.Piwigo {
+  font-family: verdana, arial, helvetica, sans-serif !important;
+  font-size: 11px; font-weight: normal; letter-spacing: 0;
+  color : #f36; text-decoration: none; border: 0; color: #f36; }
+
+* { outline-width: 0; }
+a { color:#f70; border-color: #FF3363; }
+a:hover { color: #f33; border-color: #FF3363; }
+
+#theAdminPage h2 { display:block; font-size:28px; letter-spacing:-1px; 
+margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
+right:0; text-align:right; top:0; width:770px; }
+
+
 fieldset#uploadConf input { margin-left:5%; width:160px; }
 table.table2 th { padding:3px 30px; }
 table.table2 tr.throw { text-align: center; }
-html, body { height:100%; }
-.content div.titrePage { height:55px; }
 table.table2 { margin:0pt auto; }
 .sort { display:block; padding:8px 5px 0px 1px; }
-input.text, input.button, input.submit, input.reset, input.file, select, textarea {
-color:#444; }
+
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet { 
 background-color:transparent; border:0; display:table; 
@@ -195,9 +116,8 @@ background:transparent url(images/active_tab_letters.png) no-repeat scroll left 
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
-border: 0; float:none; left: 0; margin:100px 5px 5px 35px; min-height:432px; padding: 0;
-position:absolute; top: 0; width:207px; display: inline; z-index: 1;
-text-align: left; /*  "be nice to IE5" rule */ }
+border:0; display:inline; float:left; left:0; margin: 0 0 0 35px; min-height:468px;
+padding:0; width:207px; z-index:99; text-align: left; /*  "be nice to IE5" rule */ }
 #menubar .selected a { color: #f70; border-color: #f36; }
 #menubar .selected a:hover { color: #f33; border-bottom: 1px solid #f33;}
 #menubar dd { 
@@ -205,18 +125,16 @@ background: transparent url(images/menubar-detail.png) repeat-y top left;
 margin: 0; padding: 0; height:232px; display:block; }
 #menubar dl {
 background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top; 
-width: 207px; border:0; margin: 0; padding: 0; display: block; }
+width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; }
 #menubar dl.first {
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
 position:relative; padding: 5px; top:-10px; font-size: 13px; color: #666; }
-#menubar dt  span { background-color: #111; }
+#menubar dt  span { background-color: #111; cursor:pointer; }
 #menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
 color: #F70; border-bottom: 1px dotted #777;}
 #menubar li { margin: 0 0 0 6px; }
-/*#menubar li:hover { color: #F36; }*/
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }
 #menubar ul { color: #333; margin:9px 0pt 3px 9px; 
   list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
-/*#menubar ul:hover { color: #850; }*/

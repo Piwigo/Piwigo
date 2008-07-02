@@ -12,7 +12,6 @@ editAreaLoader.init({ldelim}
 
 <div class="titrePage">
   <h2>LocalFiles Editor</h2>
-  {$TABSHEET}
 </div>
 
 <form method="post" class="properties" action="" ENCTYPE="multipart/form-data">
