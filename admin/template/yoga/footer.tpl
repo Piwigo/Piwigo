@@ -32,9 +32,14 @@
 {$v}
 {/foreach}
 {/if}
+{if isset($debug.QUERIES_LIST)}
+<div id="debug">
+{$debug.QUERIES_LIST}
+</div>
 </div> <!-- the_page -->
 
-{if isset($debug.QUERIES_LIST)}{$debug.QUERIES_LIST}{/if}
+
+{/if}
 </div>
 </body>
 </html>

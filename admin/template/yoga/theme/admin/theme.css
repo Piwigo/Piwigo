@@ -112,7 +112,7 @@ color: #F36; }
 background:transparent url(images/inactive_tab_letters.png) no-repeat scroll left 0px; }
 .tabsheet a:hover span, .tabsheet li.selected_tab  a  span { 
 background:transparent url(images/active_tab_letters.png) no-repeat scroll left 0px; }
-
+#debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
