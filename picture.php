@@ -25,7 +25,6 @@ define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-include_once(PHPWG_ROOT_PATH.'include/functions_session.inc.php');
 
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
@@ -530,14 +529,17 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
   {
     $template->assign(
       $which_image,
-      array(
-        'TITLE' => $picture[$which_image]['name'],
-        'THUMB_SRC' => $picture[$which_image]['thumbnail'],
-        // Params slideshow was transmit to navigation buttons
-        'U_IMG' =>
-          add_url_params(
-            $picture[$which_image]['url'], $slideshow_url_params),
-        'U_DOWNLOAD' => @$picture['current']['download_url'],
+      array_merge(
+        $picture[$which_image],
+        array(
+          'TITLE' => $picture[$which_image]['name'],
+          'THUMB_SRC' => $picture[$which_image]['thumbnail'],
+          // Params slideshow was transmit to navigation buttons
+          'U_IMG' =>
+            add_url_params(
+              $picture[$which_image]['url'], $slideshow_url_params),
+          'U_DOWNLOAD' => @$picture['current']['download_url'],
+          )
         )
       );
   }
@@ -806,21 +808,21 @@ if ( count($tags) )
   {
     $template->append(
         'related_tags',
-        array(
-          'ID'    => $tag['id'],
-          'NAME'  => $tag['name'],
-          'U_TAG' => make_index_url(
+        array_merge( $tag,
+          array(
+            'URL' => make_index_url(
                       array(
                         'tags' => array($tag)
                         )
                       ),
-          'U_TAG_IMAGE' => duplicate_picture_url(
+            'U_TAG_IMAGE' => duplicate_picture_url(
                       array(
                         'section' => 'tags',
                         'tags' => array($tag)
                         )
                     )
           )
+        )
       );
   }
 }
@@ -868,6 +870,10 @@ $element_content = trigger_event(
   );
 $template->assign( 'ELEMENT_CONTENT', $element_content );
 
+if (is_admin())
+{
+  $template->assign('available_permission_levels', $conf['available_permission_levels']);
+}
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |
 // +-----------------------------------------------------------------------+

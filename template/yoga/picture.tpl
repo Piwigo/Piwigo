@@ -117,7 +117,7 @@
     <td class="value">
       {if isset($related_tags)}
         {foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}
-        <a href="{$tag.U_TAG}">{$tag.NAME}</a>{/foreach}
+        <a href="{$tag.URL}">{$tag.name}</a>{/foreach}
       {/if}
     </td>
   </tr>
@@ -137,6 +137,32 @@
     <td class="label">{'Visits'|@translate}</td>
     <td class="value">{$INFO_VISITS}</td>
   </tr>
+  {if isset($available_permission_levels) }
+  <tr>
+    <td class="label">{'Privacy level'|@translate}:</td>
+    <td class="value"> 
+<script type="text/javascript">
+{literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
+{
+selectElement.disabled = true;
+var y = new PwgWS(rootUrl);
+
+y.callService(
+  "pwg.images.setPrivacyLevel", {image_id: id, level:level} ,
+  {
+    onFailure: function(num, text) { selectElement.disabled = false; alert(num + " " + text); },
+    onSuccess: function(result) { selectElement.disabled = false; }
+  }
+  );
+}{/literal}
+</script>
+    <select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
+    {foreach from=$available_permission_levels item=level}
+        <option value="{$level}"{if $current.level==$level} selected="selected"{/if}>{$pwg->l10n($pwg->sprintf('Level %d',$level))}</option>
+    {/foreach}
+    </select>
+  </td></tr>
+  {/if}
   {if isset($rate_summary) }
   <tr>
     <td class="label">{'Average rate'|@translate}</td>

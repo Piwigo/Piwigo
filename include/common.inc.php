@@ -172,7 +172,7 @@ include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
 // language files
 load_language('common.lang');
-if (defined('IN_ADMIN') and IN_ADMIN)
+if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
 {
   load_language('admin.lang');
 }

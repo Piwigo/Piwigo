@@ -824,6 +824,35 @@ SELECT * FROM '.IMAGES_TABLE.'
     );
 }
 
+function ws_images_setPrivacyLevel($params, &$service)
+{
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+  if ( empty($params['image_id']) )
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+  global $conf;
+  if ( !in_array( (int)$params['level'], $conf['available_permission_levels']) )
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid level");
+  }
+  $query = '
+UPDATE '.IMAGES_TABLE.'
+  SET level='.(int)$params['level'].'
+  WHERE id IN ('.implode(',',$params['image_id']).')';
+  $result = pwg_query($query);
+  $affected_rows = mysql_affected_rows();
+  if ($affected_rows)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    invalidate_user_cache();
+  }
+  return $affected_rows;
+}
+
 /**
  * perform a login (web service method)
  */

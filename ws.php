@@ -115,6 +115,12 @@ function ws_addDefaultMethods( $arr )
       ),
       'Returns elements for the corresponding query search.'
     );
+  $service->addMethod('pwg.images.setPrivacyLevel', 'ws_images_setPrivacyLevel',
+      array(
+        'image_id' => array('flags'=>WS_PARAM_FORCE_ARRAY),
+        'level' => array('maxValue'=>$conf['available_permission_levels']),
+      ),
+      'sets the privacy levels for the images' );
 
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
   $service->addMethod('pwg.session.login', 'ws_session_login',
