@@ -36,10 +36,7 @@
 <div id="debug">
 {$debug.QUERIES_LIST}
 </div>
-</div> <!-- the_page -->
-
-
 {/if}
-</div>
+</div> <!-- the_page -->
 </body>
 </html>
