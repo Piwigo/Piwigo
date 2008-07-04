@@ -51,9 +51,9 @@
     <td>Id {$SORT_OLD_CAT_ID}</td>
     <td>{'Category'|@translate}</td>
     <td>{'Permalink'|@translate} {$SORT_OLD_PERMALINK}</td>
-    <td>Deleted on {$SORT_OLD_DATE_DELETED}</td>
-    <td>Last hit {$SORT_OLD_LAST_HIT}</td>
-    <td>Hit {$SORT_OLD_HIT}</td>
+    <td>{'Deleted on'|@translate} {$SORT_OLD_DATE_DELETED}</td>
+    <td>{'Last hit'|@translate} {$SORT_OLD_LAST_HIT}</td>
+    <td>{'Hit'|@translate} {$SORT_OLD_HIT}</td>
     <td></td>
   </tr>
 {foreach from=$deleted_permalinks item=permalink}

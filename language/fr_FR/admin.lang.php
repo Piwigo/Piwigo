@@ -572,7 +572,7 @@ $lang['c13y_bad_webmaster_status'] = 'Le statut de l\'utilisateur "webmestre" pr
 $lang['c13y_user_created'] = 'Utilisateur "%s" créé avec comme mot de passe "%s"';
 $lang['c13y_user_status_updated'] = 'Statut de l\'utilisateur "%s" mis à jour';
 $lang['add new elements to caddie'] = 'ajouter les nouveaux éléments au panier';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['no_display_thumbnail'] = 'Pas d\'affichage';
 $lang['display_thumbnail_classic'] = 'Affichage classique';
 $lang['display_thumbnail_hoverbox'] = 'Affichage lors du survol';
@@ -645,5 +645,8 @@ $lang['Piwigo version'] = 'Version de Piwigo';
 $lang['You are running the latest version of Piwigo.'] = 'Vous utilisez la dernière version de Piwigo.';
 $lang['c13y_version_anomaly'] = 'La version de %s [%s] installée n\'est pas compatible avec la version requise [%s]';
 $lang['c13y_version_correction'] = 'Vous devez mettre à jour votre système pour profiter pleinement de l\'application sinon l\'application ne fonctionnera pas correctement, voire pas du tout';
+$lang['Deleted on'] = 'Effacé le';
+$lang['Last hit'] =  'Dernier accès';
+$lang['Hits'] = 'Utilisations';
 
 ?>

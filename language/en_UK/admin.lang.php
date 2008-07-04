@@ -572,7 +572,7 @@ $lang['c13y_bad_webmaster_status'] = 'Main "webmaster" user status is incorrect'
 $lang['c13y_user_created'] = 'User "%s" created with "%s" like password';
 $lang['c13y_user_status_updated'] = 'Status of user "%s" updated';
 $lang['add new elements to caddie'] = 'add new elements to caddie';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['no_display_thumbnail'] = 'No display';
 $lang['display_thumbnail_classic'] = 'Classic display';
 $lang['display_thumbnail_hoverbox'] = 'Hoverbox display';
@@ -645,5 +645,8 @@ $lang['Piwigo version'] = 'Piwigo version';
 $lang['You are running the latest version of Piwigo.'] = 'You are running the latest version of Piwigo.';
 $lang['c13y_version_anomaly'] = 'The version of %s [%s] installed is not compatible with the version required [%s]';
 $lang['c13y_version_correction'] = 'You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all';
+$lang['Deleted on'] = 'Deleted on';
+$lang['Last hit'] =  'Last hit';
+$lang['Hits'] = 'Hits';
 
 ?>
