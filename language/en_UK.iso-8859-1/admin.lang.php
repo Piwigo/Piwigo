@@ -639,4 +639,9 @@ $lang['c13y_bad_webmaster_status'] = 'Main "webmaster" user status is incorrect'
 $lang['c13y_user_created'] = 'User "%s" created with "%s" like password';
 $lang['c13y_user_status_updated'] = 'Status of user "%s" updated';
 $lang['add new elements to caddie'] = 'add new elements to caddie';
+// --------- Starting below: New or revised $lang ---- from version 1.7.2
+$lang['Deleted on'] = 'Deleted on';
+$lang['Last hit'] =  'Last hit';
+$lang['Hits'] = 'Hits';
+
 ?>

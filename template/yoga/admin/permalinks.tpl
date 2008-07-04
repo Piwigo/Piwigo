@@ -52,9 +52,9 @@
     <td>Id {SORT_OLD_CAT_ID}</td>
     <td>{lang:Category}</td>
     <td>{lang:Permalink} {SORT_OLD_PERMALINK}</td>
-    <td>Deleted on {SORT_OLD_DATE_DELETED}</td>
-    <td>Last hit {SORT_OLD_LAST_HIT}</td>
-    <td>Hit {SORT_OLD_HIT}</td>
+    <td>{lang:Deleted on} {SORT_OLD_DATE_DELETED}</td>
+    <td>{Lang:Last hit} {SORT_OLD_LAST_HIT}</td>
+    <td>{Lang:Hits} {SORT_OLD_HIT}</td>
     <td></td>
   </tr>
 <!-- BEGIN deleted_permalink -->

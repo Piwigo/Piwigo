@@ -640,4 +640,8 @@ $lang['c13y_bad_webmaster_status'] = 'Le statut de l\'utilisateur "webmestre" pr
 $lang['c13y_user_created'] = 'Utilisateur "%s" créé avec comme mot de passe "%s"';
 $lang['c13y_user_status_updated'] = 'Statut de l\'utilisateur "%s" mis à jour';
 $lang['add new elements to caddie'] = 'ajouter les nouveaux éléments au panier';
+// --------- Starting below: New or revised $lang ---- from version 1.7.2
+$lang['Deleted on'] = 'Effacé le';
+$lang['Last hit'] =  'Dernier accès';
+$lang['Hits'] = 'Utilisations';
 ?>
