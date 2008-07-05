@@ -153,7 +153,7 @@ function pwgSelectMethod(methodName)
 function onSuccess_getMethodDetails(transport)
 {
 	var result = pwgGetJsonResult(transport);
-  fillNewMethod( gCachedMethods[result.name] = $H(result) );
+  fillNewMethod( gCachedMethods[result.name] = result );
 }
 
 function fillNewMethod(method)

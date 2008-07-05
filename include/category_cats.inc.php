@@ -88,54 +88,60 @@ while ($row = mysql_fetch_assoc($result))
   }
   else if ($conf['allow_random_representative'])
   {// searching a random representant among elements in sub-categories
-    $query = '
+    if ($row['count_images']>0)
+    {
+      $query = '
 SELECT image_id
   FROM '.CATEGORIES_TABLE.' AS c INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic
     ON ic.category_id = c.id';
-    $query.= '
+      $query.= '
   WHERE (c.id='.$row['id'].' OR uppercats LIKE \''.$row['uppercats'].',%\')'
-  .get_sql_condition_FandF
-  (
-    array
-      (
-        'forbidden_categories' => 'c.id',
-        'visible_categories' => 'c.id',
-        'visible_images' => 'image_id'
-      ),
-    "\n  AND"
-  ).'
+    .get_sql_condition_FandF
+    (
+      array
+        (
+          'forbidden_categories' => 'c.id',
+          'visible_categories' => 'c.id',
+          'visible_images' => 'image_id'
+        ),
+      "\n  AND"
+    ).'
   ORDER BY RAND()
   LIMIT 0,1
 ;';
-    $subresult = pwg_query($query);
-    if (mysql_num_rows($subresult) > 0)
-    {
-      list($image_id) = mysql_fetch_row($subresult);
+      $subresult = pwg_query($query);
+      if (mysql_num_rows($subresult) > 0)
+      {
+        list($image_id) = mysql_fetch_row($subresult);
+      }
     }
   }
   else
   { // searching a random representant among representant of sub-categories
-    $query = '
-SELECT representative_picture_id
-  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
-  ON id = cat_id and user_id = '.$user['id'].'
-  WHERE uppercats LIKE \''.$row['uppercats'].',%\'
-    AND representative_picture_id IS NOT NULL'
-  .get_sql_condition_FandF
-  (
-    array
-      (
-        'visible_categories' => 'id',
-      ),
-    "\n  AND"
-  ).'
-  ORDER BY RAND()
-  LIMIT 0,1
-;';
-    $subresult = pwg_query($query);
-    if (mysql_num_rows($subresult) > 0)
+    if ($row['count_categories']>0 and $row['count_images']>0)
     {
-      list($image_id) = mysql_fetch_row($subresult);
+      $query = '
+  SELECT representative_picture_id
+    FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+    ON id = cat_id and user_id = '.$user['id'].'
+    WHERE uppercats LIKE \''.$row['uppercats'].',%\'
+      AND representative_picture_id IS NOT NULL'
+    .get_sql_condition_FandF
+    (
+      array
+        (
+          'visible_categories' => 'id',
+        ),
+      "\n  AND"
+    ).'
+    ORDER BY RAND()
+    LIMIT 0,1
+  ;';
+      $subresult = pwg_query($query);
+      if (mysql_num_rows($subresult) > 0)
+      {
+        list($image_id) = mysql_fetch_row($subresult);
+      }
     }
   }
 

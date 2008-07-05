@@ -235,9 +235,9 @@ if ('categories' == $page['section'])
       if ( isset($page['category']) )
       { // get all allowed sub-categories
         $query = '
-SELECT id 
+SELECT id
   FROM '.CATEGORIES_TABLE.'
-  WHERE 
+  WHERE
     uppercats LIKE "'.$page['category']['uppercats'].',%" '
     .get_sql_condition_FandF(
       array
@@ -394,6 +394,15 @@ SELECT image_id
 // +-----------------------------------------------------------------------+
   else if ($page['section'] == 'recent_pics')
   {
+    if ( !isset($page['super_order_by']) )
+    {
+      $conf['order_by'] = str_replace(
+        'ORDER BY ',
+        'ORDER BY date_available DESC,',
+        $conf['order_by']
+        );
+    }
+
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
@@ -523,7 +532,7 @@ SELECT id,file
   FROM '.IMAGES_TABLE .'
   WHERE file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"';
     if ( count($page['items']) < 500)
-    {// for very large item sets do not add IN - because slow 
+    {// for very large item sets do not add IN - because slow
       $query .= '
   AND id IN ('.implode(',',$page['items']).')
   LIMIT 0,1';
@@ -533,7 +542,7 @@ SELECT id,file
     {
       case 0: break;
       case 1:
-        list($page['image_id'], $page['image_file']) = mysql_fetch_row($result); 
+        list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
         break;
       default: // more than 1 file name match
         while ($row = mysql_fetch_row($result) )
