@@ -151,7 +151,13 @@ SELECT id
       mass_inserts(USER_GROUP_TABLE, array('user_id', 'group_id'), $inserts);
     }
 
-    create_user_infos($next_id);
+    $override = null;
+    if ($with_notification and $conf['browser_language'])
+    {
+      if ( !get_browser_language($override['language']) )
+        $override=null;
+    }
+    create_user_infos($next_id, $override);
 
     if ($with_notification and $conf['email_admin_on_new_user'])
     {
@@ -838,32 +844,25 @@ function get_default_template()
  */
 function get_default_language()
 {
-  global $conf;
-  if (isset($conf['browser_language']) and $conf['browser_language'])
-  {
-    return get_browser_language();
-  }
-  else
-  {
-    return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
-  }
+  return get_default_user_value('language', PHPWG_DEFAULT_LANGUAGE);
 }
 
 /**
-  * Returns the browser language value
+  * Returns true if the browser language value is set into param $lang
   *
   */
-function get_browser_language()
+function get_browser_language(&$lang)
 {
   $browser_language = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
   foreach (get_languages() as $language_code => $language_name)
   {
     if (substr($language_code, 0, 2) == $browser_language)
     {
-      return $language_code;
+      $lang = $language_code;
+      return true;
     }
   }
-  return PHPWG_DEFAULT_LANGUAGE;
+  return false;
 }
 
 /**
@@ -923,7 +922,6 @@ function create_user_infos($arg_id, $override_values = null)
       {
         $status = 'normal';
       }
-      $default_user['language'] = get_default_language();
 
       $insert = array_merge(
         $default_user,
