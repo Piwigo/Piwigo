@@ -394,6 +394,15 @@ SELECT image_id
 // +-----------------------------------------------------------------------+
   else if ($page['section'] == 'recent_pics')
   {
+    if ( !isset($page['super_order_by']) )
+    {
+      $conf['order_by'] = str_replace(
+        'ORDER BY ',
+        'ORDER BY date_available DESC,',
+        $conf['order_by']
+        );
+    }
+
     $query = '
 SELECT DISTINCT(id)
   FROM '.IMAGES_TABLE.'
