@@ -6,13 +6,13 @@
 .content form { text-align: left; }
 .content dt { margin-bottom: 5px; font-style: italic;
   font-size: 110%; }
-ul.categoryActions { margin: 0 2px; width: auto;
+.content ul.categoryActions a img, ul.categoryActions a { 
+border:0; margin-bottom:-5px; }  
+ul.categoryActions { margin: 0 2px; width: auto; list-style-position:outside;
   padding: 0; text-indent: 0; list-style: none; text-align: center; }
 .content div.titrePage ul.categoryActions { float: right; }
 .content div.titrePage { padding: 0 0 3px; }
 .content ul.categoryActions li { display: inline; }
-.content ul.categoryActions a img, ul.categoryActions a {
-  border: none; margin-bottom: -5px; }
 .content div.comment { margin: 0 0 0.5em 0; padding: 0; 
   overflow: hidden; width: 100%;	/* don't ask why. It's a very usefull trick  */ }
 .content div.comment a.illustration {

@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/layout.css">
 <!--[if lt IE 7]>
-	<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/fix-ie5-ie6.css">
+  <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/fix-ie5-ie6.css">
 <![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{$ROOT_URL}template/{$themeconf.template}/print.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/default-colors.css">
@@ -26,39 +26,39 @@
 <script type="text/javascript" src="{$ROOT_URL}template-common/scripts.js"></script>
 <!--[if lt IE 7]>
 <style>
-	{* only because we need {$ROOT_URL} otherwise use fix-ie5-ie6.css *}
-	BODY {ldelim} behavior:url("{$ROOT_URL}template-common/csshover.htc"); }
-	A IMG, .button, .icon {ldelim}
-		behavior:url("{$ROOT_URL}template-common/tooltipfix.htc");
-	}
-	FORM {ldelim} behavior: url("{$ROOT_URL}template-common/inputfix.htc"); }
+  {* only because we need {$ROOT_URL} otherwise use fix-ie5-ie6.css *}
+  BODY {ldelim} behavior:url("{$ROOT_URL}template-common/csshover.htc"); }
+  A IMG, .button, .icon {ldelim}
+    behavior:url("{$ROOT_URL}template-common/tooltipfix.htc");
+  }
+  FORM {ldelim} behavior: url("{$ROOT_URL}template-common/inputfix.htc"); }
 </style>
 <script type="text/javascript" src="{$ROOT_URL}template-common/pngfix.js"></script>
 <![endif]-->
 
 {if not empty($head_elements)}
-	{foreach from=$head_elements item=elt}{$elt}{/foreach}
+  {foreach from=$head_elements item=elt}{$elt}{/foreach}
 {/if}
 
 </head>
 
-<body id="{$BODY_ID}">
-<div id="headbranch"></div> {* Dummy block for double background management *}
+<body id="{$BODY_ID}" class="png">
+<div id="headbranch" class="png"></div> {* Dummy block for double background management *}
 <div id="the_page">
 
 {if not empty($header_msgs)}
 <div class="header_msgs">
-	{foreach from=$header_msgs item=elt}
-	<p>{$elt}</p>
-	{/foreach}
+  {foreach from=$header_msgs item=elt}
+  {$elt}
+  {/foreach}
 </div>
 {/if}
 
-<div id="theHeader">{*$PAGE_BANNER*}</div>
+<div id="theHeader" class="png">{*$PAGE_BANNER*}</div>
 {if not empty($header_notes)}
 <div class="header_notes">
-	{foreach from=$header_notes item=elt}
-	<p>{$elt}</p>
-  	{/foreach}
+  {foreach from=$header_notes item=elt}
+  {$elt}
+  {/foreach}
 </div>
 {/if}

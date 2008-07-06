@@ -1,8 +1,8 @@
 {* $Id$ *}
-<div id="menubar">
-  <dl class="first">
+<div id="menubar" class="png">
+  <dl class="first png">
     <dt class="rdion"><span>{'Links'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_RETURN}">{'home'|@translate}</a></li>
         <li><a href="{$U_FAQ}">{'instructions'|@translate}</a></li>
@@ -17,18 +17,18 @@
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="png">
     <dt class="rdion"><span>{'config'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'conf_general'|@translate}</a></li>
         <li><a href="{$U_CONFIG_DISPLAY}">{'conf_display'|@translate}</a></li>
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="png">
     <dt class="rdion"><span>{'Categories'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
         <li><a href="{$U_CAT_UPDATE}">{'update'|@translate}</a><br />&nbsp;</li>
@@ -39,9 +39,9 @@
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="png">
     <dt class="rdion"><span>{'Pictures'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_WAITING}">{'waiting'|@translate}</a></li>
         <li><a href="{$U_THUMBNAILS}">{'thumbnails'|@translate}</a></li>
@@ -51,9 +51,9 @@
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="png">
     <dt class="rdion"><span>{'identification'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_USERS}">{'users'|@translate}</a></li>
         <li><a href="{$U_GROUPS}">{'groups'|@translate}</a></li>
@@ -61,9 +61,9 @@
       </ul>
     </dd>
   </dl>
-  <dl>
+  <dl class="png">
     <dt class="rdion"><span>{'special_admin_menu'|@translate}&nbsp;</span></dt>
-    <dd>
+    <dd class="png">
       <ul>
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
@@ -84,7 +84,7 @@
   </dl>
 </div> <!-- menubar -->
 
-<div id="content" class="content">
+<div id="content" class="content png">
   {if isset($errors)}
   <div class="errors">
     <ul>
@@ -106,6 +106,11 @@
   {/if}
   {if isset($TABSHEET)}
   {$TABSHEET}
+  {/if}
+  {if isset($U_HELP)}
+  <ul class="HelpActions">
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+  </ul>
   {/if}
   {$ADMIN_CONTENT}
 </div>

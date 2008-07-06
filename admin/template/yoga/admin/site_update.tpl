@@ -1,9 +1,6 @@
 {* $Id$ *}
 
 <div class="titrePage">
-  <ul class="categoryActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-  </ul>
   <h2>{'title_update'|@translate}: <a href="{$SITE_URL}">{$SITE_URL}</a></h2>
 </div>
 

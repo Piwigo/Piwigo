@@ -10,7 +10,7 @@ function correctPNG()
    for(var i=0; i<document.images.length; i++)
       {
       var img = document.images[i]
-      if (img.className == "button" || img.className == "icon")
+      if (img.className == "button" || img.className == "icon"  || img.className == "png")
           {
 	  var imgName = img.src.toUpperCase()
 	  if (imgName.substring(imgName.length-3, imgName.length) == "PNG")
