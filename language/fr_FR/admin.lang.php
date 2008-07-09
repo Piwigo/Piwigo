@@ -648,5 +648,5 @@ $lang['c13y_version_correction'] = 'Vous devez mettre à jour votre système pou
 $lang['Deleted on'] = 'Effacé le';
 $lang['Last hit'] =  'Dernier accès';
 $lang['Hits'] = 'Utilisations';
-
+$lang['GD library is missing'] = 'la bibliothèque GD est manquante';
 ?>

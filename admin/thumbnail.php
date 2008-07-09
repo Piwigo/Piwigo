@@ -151,6 +151,12 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
 
 $pictures = array();
 $stats = array();
+
+if (!function_exists('gd_info'))
+{
+  array_push($page['errors'], l10n('GD library is missing'));
+}
+
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
