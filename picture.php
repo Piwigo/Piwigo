@@ -45,10 +45,79 @@ $page['rank_of'] = array_flip($page['items']);
 // displayed, and execution is stopped
 if ( !isset($page['rank_of'][$page['image_id']]) )
 {
-  page_not_found(
-    'The requested image does not belong to this image set',
-    duplicate_index_url()
-    );
+  $query = '
+SELECT id, file
+  FROM '.IMAGES_TABLE.'
+  WHERE ';
+  if ($page['image_id']>0)
+  {
+    $query .= 'id = '.$page['image_id'];
+  }
+  else
+  {// url given by file name
+    assert( !empty($page['image_file']) );
+    $query .= 'file LIKE "' . $page['image_file'] . '.%" ESCAPE "|" LIMIT 1';
+  }
+  if ( ! ( $row = mysql_fetch_array(pwg_query($query)) ) )
+  {// element does not exist
+    page_not_found( 'The requested image does not exist',
+      duplicate_index_url()
+      );
+  }
+
+  list($page['image_id'], $page['image_file']) =  $row;
+  if ( !isset($page['rank_of'][$page['image_id']]) )
+  {// the image can still be non accessible (filter/cat perm) and/or not in the set
+    global $filter;
+    if ( !empty($filter['visible_images']) and
+      !in_array($page['image_id'], explode(',',$filter['visible_images']) ) )
+    {
+      page_not_found( 'The requested image is filtered',
+          duplicate_index_url()
+        );
+    }
+    if ('categories'==$page['section'] and !isset($page['category']) )
+    {// flat view - all items
+      access_denied();
+    }
+    else
+    {// try to see if we can access it differently
+      $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE id='.$page['image_id']
+        . get_sql_condition_FandF(
+            array('forbidden_categories' => 'category_id'),
+            " AND"
+          ).'
+  LIMIT 1';
+      if ( mysql_num_rows( pwg_query($query) ) == 0 )
+      {
+        access_denied();
+      }
+      else
+      {
+        if ('best_rated'==$page['section'])
+        {
+          $page['rank_of'][$page['image_id']] = count($page['items']);
+          array_push($page['items'], $page['image_id'] );
+        }
+        else
+        {
+          $url = make_picture_url(
+              array(
+                'image_id' => $page['image_id'],
+                'image_file' => $page['image_file'],
+                'section' => 'categories',
+                'flat' => true,
+              )
+            );
+          set_status_header( 'recent_pics'==$page['section'] ? 301 : 302);
+          redirect_http( $url );
+        }
+      }
+    }
+  }
 }
 
 // There is cookie, so we must handle it at the beginning

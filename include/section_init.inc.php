@@ -96,6 +96,10 @@ if (script_basename() == 'picture') // basename without file extention
   if ( is_numeric($token) )
   {
     $page['image_id'] = $token;
+    if ($page['image_id']==0)
+    {
+      bad_request('invalid picture identifier');
+    }
   }
   else
   {
@@ -525,40 +529,7 @@ if (isset($page['chronology_field']))
 if (script_basename() == 'picture'
     and !isset($page['image_id']) )
 {
-  if ( !empty($page['items']) )
-  {
-    $query = '
-SELECT id,file
-  FROM '.IMAGES_TABLE .'
-  WHERE file LIKE "' . $page['image_file'] . '.%" ESCAPE "|"';
-    if ( count($page['items']) < 500)
-    {// for very large item sets do not add IN - because slow
-      $query .= '
-  AND id IN ('.implode(',',$page['items']).')
-  LIMIT 0,1';
-    }
-    $result = pwg_query($query);
-    switch (mysql_num_rows($result))
-    {
-      case 0: break;
-      case 1:
-        list($page['image_id'], $page['image_file']) = mysql_fetch_row($result);
-        break;
-      default: // more than 1 file name match
-        while ($row = mysql_fetch_row($result) )
-        {
-          if ( in_array($row[0], $page['items']) )
-          {
-            list($page['image_id'], $page['image_file']) = $row;
-            break;
-          }
-        }
-    }
-  }
-  if ( !isset($page['image_id']) )
-  {
-    $page['image_id'] = -1; // will fail in picture.php
-  }
+  $page['image_id'] = 0; // more work in picture.php
 }
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
