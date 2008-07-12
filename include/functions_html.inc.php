@@ -246,6 +246,13 @@ function get_cat_display_name($cat_informations,
     is_array($cat) or trigger_error(
         'get_cat_display_name wrong type for category ', E_USER_WARNING
       );
+
+    $cat['name'] = trigger_event(
+      'render_category_name',
+      $cat['name'],
+      'get_cat_display_name'
+      );
+
     if ($is_first)
     {
       $is_first = false;
@@ -319,6 +326,12 @@ SELECT id, name, permalink
   foreach (explode(',', $uppercats) as $category_id)
   {
     $cat = $cache['cat_names'][$category_id];
+
+    $cat['name'] = trigger_event(
+      'render_category_name',
+      $cat['name'],
+      'get_cat_display_name_cache'
+      );
 
     if ($is_first)
     {
@@ -430,7 +443,13 @@ function get_html_menu_category($categories, $selected_category)
     {
       $menu.= ' rel="up"';
     }
-    $menu.= ' title="'.$title.'">'.$category['name'].'</a>';
+    $menu.= ' title="'.$title.'">';
+    $menu.= trigger_event(
+      'render_category_name',
+      $category['name'],
+      'get_html_menu_category'
+      );
+    $menu.= '</a>';
 
     if ( $category['count_images']>0 )
     {// at least one direct or indirect image

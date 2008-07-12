@@ -224,6 +224,12 @@ if (count($categories) > 0)
 
   foreach ($categories as $category)
   {
+    $category['name'] = trigger_event(
+        'render_category_name',
+        $category['name'],
+        'subcatify_category_name'
+        );
+
     if ($page['section']=='recent_cats')
     {
       $name = get_cat_display_name_cache($category['uppercats'], null, false);
@@ -239,7 +245,7 @@ if (count($categories) > 0)
         array(
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
-          'ALT'   => $category['name'],
+          'ALT'   => strip_tags($category['name']),
           'ICON'  => $icon_ts,
 
           'URL'   => make_index_url(
