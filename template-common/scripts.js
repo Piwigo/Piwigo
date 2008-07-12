@@ -4,11 +4,11 @@ var len = formulaire.elements.length;
 var i=0;
 for( i = 0; i < len; i++)
 {
-  if ( formulaire.elements[i].type=='checkbox'
-	   && formulaire.elements[i].name != 'copie')
-  {
-	formulaire.elements[i].checked = true;
-  }
+	if ( formulaire.elements[i].type=='checkbox'
+		&& formulaire.elements[i].name != 'copie')
+	{
+		formulaire.elements[i].checked = true;
+	}
 }
 }
 
@@ -18,11 +18,11 @@ var len = formulaire.elements.length;
 var i=0;
 for( i = 0; i < len; i++)
 {
-  if ( formulaire.elements[i].type=='checkbox'
-	   && formulaire.elements[i].name != 'copie')
-  {
+	if ( formulaire.elements[i].type=='checkbox'
+		&& formulaire.elements[i].name != 'copie')
+	{
 	formulaire.elements[i].checked = false;
-  }
+	}
 }
 }
 
@@ -32,44 +32,42 @@ var len = formulaire.elements.length;
 var i=0;
 for( i=0; i<len; i++)
 {
-  if ( formulaire.elements[i].type=='checkbox'
-	   && formulaire.elements[i].name != 'copie')
-  {
+	if ( formulaire.elements[i].type=='checkbox'
+		&& formulaire.elements[i].name != 'copie')
+	{
 	formulaire.elements[i].checked = !formulaire.elements[i].checked;
-  }
+	}
 }
 }
 
 function phpWGOpenWindow(theURL,winName,features)
 {
-  img = new Image();
-  img.src = theURL;
-  if (img.complete)
-  {
-    var width=img.width +40;
-    var height=img.height +40;
-  }
-  else
-  {
-    var width=640;
-    var height=480;
-    img.onload = resizeWindowToFit;
-  }
-  newWin = window.open(theURL,winName,features+',left=2,top=1,width=' + width + ',height=' + height);
+	img = new Image();
+	img.src = theURL;
+	if (img.complete)
+	{
+		var width=img.width +40;
+		var height=img.height +40;
+	}
+	else
+	{
+		var width=640;
+		var height=480;
+		img.onload = resizeWindowToFit;
+	}
+	newWin = window.open(theURL,winName,features+',left=2,top=1,width=' + width + ',height=' + height);
 }
 
 function resizeWindowToFit()
 {
-  newWin.resizeTo( img.width+50, img.height+100);
+	newWin.resizeTo( img.width+50, img.height+100);
 }
 
 function popuphelp(url)
 {
-  window.open(
-    url,
-    'dc_popup',
-    'alwaysRaised=yes,dependent=yes,toolbar=no,height=420,width=500,menubar=no,resizable=yes,scrollbars=yes,status=no'
-  );
+	window.open( url, 'dc_popup',
+		'alwaysRaised=yes,dependent=yes,toolbar=no,height=420,width=500,menubar=no,resizable=yes,scrollbars=yes,status=no'
+	);
 }
 
 
@@ -154,7 +152,7 @@ PwgWS.prototype = {
 			}
 			catch (e)
 			{
-				this.dispatchError( 200, e.message + '\n' + transport.responseText.substr(0,256).escapeHTML() );
+				this.dispatchError( 200, e.message + '\n' + transport.responseText.substr(0,512) );
 			}
 			if (resp!=null)
 			{

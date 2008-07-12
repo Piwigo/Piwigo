@@ -54,9 +54,25 @@
     {if isset($U_ADMIN) }
       <a href="{$U_ADMIN}" title="{'link_info_image'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/preferences.png" class="button" alt="{'edit'|@translate}"></a>
     {/if}
-    {if isset($U_CADDIE) }
-      <a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
-    {/if}
+    {if isset($U_CADDIE) }{*caddie management BEGIN*}
+<script type="text/javascript">
+{literal}function addToCadie(aElement, rootUrl, id)
+{
+if (aElement.disabled) return;
+aElement.disabled=true; 
+var y = new PwgWS(rootUrl);
+
+y.callService(
+  "pwg.caddie.add", {image_id: id} ,
+  {
+    onFailure: function(num, text) { alert(num + " " + text); document.location=aElement.href; },
+    onSuccess: function(result) { aElement.disabled = false; }
+  }
+  );
+}{/literal}
+</script>
+      <a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
+    {/if}{*caddie management END*}
   </div>
   {include file=$FILE_PICTURE_NAV_BUTTONS}
 </div> <!-- imageToolBar -->

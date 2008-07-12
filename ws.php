@@ -43,6 +43,12 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
       'retrieves the PWG version');
 
+  $service->addMethod('pwg.caddie.add', 'ws_caddie_add', 
+      array(
+        'image_id'=> array( 'flags'=>WS_PARAM_FORCE_ARRAY ),
+      ),
+      'adds the elements to the caddie');
+
   $service->addMethod('pwg.categories.getImages', 'ws_categories_getImages',
       array(
         'cat_id'=>array('default'=>0, 'flags'=>WS_PARAM_FORCE_ARRAY),

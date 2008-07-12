@@ -280,6 +280,34 @@ function ws_getVersion($params, &$service)
     return new PwgError(403, 'Forbidden');
 }
 
+function ws_caddie_add($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+  if ( empty($params['image_id']) )
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+  global $user;
+  $query = '
+SELECT id
+  FROM '.IMAGES_TABLE.' LEFT JOIN '.CADDIE_TABLE.' ON id=element_id AND user_id='.$user['id'].'
+  WHERE id IN ('.implode(',',$params['image_id']).')
+    AND element_id IS NULL';
+  $datas = array();
+  foreach ( array_from_query($query, 'id') as $id )
+  {
+    array_push($datas, array('element_id'=>$id, 'user_id'=>$user['id']) );
+  }
+  if (count($datas))
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_inserts(CADDIE_TABLE, array('element_id','user_id'), $datas);
+  }
+  return count($datas);
+}
 
 /**
  * returns images per category (web service method)
