@@ -241,7 +241,12 @@ foreach ($categories as $category)
   $template->assign_block_vars(
     'categories.category',
     array(
-      'NAME'       => $category['name'],
+      'NAME'       => 
+        trigger_event(
+          'render_category_name',
+          $category['name'],
+          'admin_cat_list'
+          ),
       'ID'         => $category['id'],
       'RANK'       => $category['rank']*10,
 

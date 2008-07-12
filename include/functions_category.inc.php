@@ -296,7 +296,14 @@ function display_select_categories($categories,
     {
       $option = str_repeat('&nbsp;',
                            (3 * substr_count($category['global_rank'], '.')));
-      $option.= '- '.$category['name'];
+      $option.= '- ';
+      $option.= strip_tags(
+        trigger_event(
+          'render_category_name',
+          $category['name'],
+          'display_select_categories'
+          )
+        );
     }
 
     $template->assign_block_vars(

@@ -185,6 +185,12 @@ if (count($categories) > 0)
 
     foreach ($categories as $category)
     {
+      $category['name'] = trigger_event(
+        'render_category_name',
+        $category['name'],
+        'subcatify_category_name'
+        );
+
       if ($page['section']=='recent_cats')
       {
         $name = get_cat_display_name_cache($category['uppercats'], null, false);
@@ -200,7 +206,7 @@ if (count($categories) > 0)
         'categories.category',
         array(
           'SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
-          'ALT'   => $category['name'],
+          'ALT'   => strip_tags($category['name']),
           'TITLE' => l10n('hint_category'),
           'ICON'  => $icon_ts,
 
@@ -249,11 +255,17 @@ if (count($categories) > 0)
 
     foreach ($categories as $category)
     {
+      $category['name'] = trigger_event(
+        'render_category_name',
+        $category['name'],
+        'thumbnail_category_name'
+        );
+
       $template->assign_block_vars(
         'thumbnails.line.thumbnail',
         array(
           'IMAGE'       => $thumbnail_src_of[ $category['representative_picture_id'] ],
-          'IMAGE_ALT'   => $category['name'],
+          'IMAGE_ALT'   => strip_tags($category['name']),
           'IMAGE_TITLE' => get_display_images_count
                                   (
                                     $category['nb_images'],
