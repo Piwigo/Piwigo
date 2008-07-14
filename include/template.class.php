@@ -145,22 +145,44 @@ class Template {
    */
   function set_filenames($filename_array)
   {
+    global $conf; 
     if (!is_array($filename_array))
     {
       return false;
     }
-
     reset($filename_array);
+    $tpl_extension = isset($conf['extents_for_templates']) ?
+      unserialize($conf['extents_for_templates']) : array();
     while(list($handle, $filename) = each($filename_array))
     {
       if (is_null($filename))
         unset( $this->files[$handle] );
       else
-        $this->files[$handle] = $filename;
+      {
+        if (!isset($this->files[$handle])) $this->files[$handle] = $filename;
+        foreach ($tpl_extension as $file => $conditions)
+        {
+          $localtpl = './template-extension/' . $file;
+          if ($handle == $conditions[0] and 
+             (stripos(implode('/',array_flip($_GET)),$conditions[1])>0 
+              or $conditions[1] == 'N/A')
+              and file_exists($localtpl))
+          { /* examples: Are best_rated, created-monthly-calendar, list, ... set? */
+              $this->files[$handle] = '../.' . $localtpl; 
+              /* assign their tpl-extension */
+              /* For test purpose: Do advanced users need a php access? */
+              // $localphp = '../.' . substr($localtpl,0,-3).'php';
+              // if (file_exists($localphp)) @include_once($localphp);
+          }
+        }
+      }
     }
     return true;
   }
-
+  function on_extension($key, $tlpname)
+  {
+    return $tplname;
+  }
   /** see smarty assign http://www.smarty.net/manual/en/api.assign.php */
   function assign($tpl_var, $value = null)
   {

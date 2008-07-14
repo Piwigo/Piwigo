@@ -23,6 +23,7 @@
       <ul>
         <li><a href="{$U_CONFIG_GENERAL}">{'conf_general'|@translate}</a></li>
         <li><a href="{$U_CONFIG_DISPLAY}">{'conf_display'|@translate}</a></li>
+        <li><a href="{$U_CONFIG_EXTENTS}">{'conf_extents'|@translate}</a></li>
       </ul>
     </dd>
   </dl>

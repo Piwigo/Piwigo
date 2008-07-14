@@ -8,6 +8,7 @@ function selected_admin_menu()
   {
     switch ($_GET['page']) {
       case 'configuration':
+      case 'extend_for_templates':
         return 1;
       case 'site_manager':
       case 'site_update':

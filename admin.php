@@ -78,6 +78,7 @@ $template->assign(
     'U_ADVANCED_FEATURE'=> $link_start.'advanced_feature',
     'U_CONFIG_GENERAL'=> $link_start.'configuration',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
+    'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',

@@ -649,4 +649,12 @@ $lang['Deleted on'] = 'Deleted on';
 $lang['Last hit'] =  'Last hit';
 $lang['Hits'] = 'Hits';
 $lang['GD library is missing'] = 'GD library is missing';
+$lang['conf_extents'] = 'Templates';
+$lang['extend_for_templates'] = 'Extend for templates';
+$lang['Replacement of original templates'] = 
+ 'Replacement of original templates by customized templates from template-extension subfolder';
+$lang['Replacers'] = 'Replacers (customized templates)';
+$lang['Original templates'] = 'Original templates';
+$lang['Optional URL keyword'] = 'Optional URL keyword';
+$lang['Templates recorded.'] = 'Templates configuration has been recorded.';
 ?>
