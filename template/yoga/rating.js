@@ -21,7 +21,7 @@ function makeNiceRatingForm()
     var rateButton = gRatingButtons[i];
     rateButton.initialRateValue = rateButton.value; // save it as a property
 
-    rateButton.value = ""; //hide the text IE/Opera
+    if (navigator.userAgent.indexOf('AppleWebKit/') == -1 ) rateButton.value = ""; //hide the text IE/Opera - breaks safari
     with (rateButton.style)
     {
       textIndent = "-50px"; //hide the text FF
