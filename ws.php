@@ -43,7 +43,7 @@ function ws_addDefaultMethods( $arr )
   $service->addMethod('pwg.getVersion', 'ws_getVersion', null,
       'retrieves the PWG version');
 
-  $service->addMethod('pwg.caddie.add', 'ws_caddie_add', 
+  $service->addMethod('pwg.caddie.add', 'ws_caddie_add',
       array(
         'image_id'=> array( 'flags'=>WS_PARAM_FORCE_ARRAY ),
       ),
@@ -94,12 +94,19 @@ function ws_addDefaultMethods( $arr )
       array(
         'image_id' => array(),
         'comments_page' => array('default'=>0 ),
-        'comments_per_page' => array( 
-              'default' => $conf['nb_comment_page'],  
+        'comments_per_page' => array(
+              'default' => $conf['nb_comment_page'],
               'maxValue' => 2*$conf['nb_comment_page'],
             ),
       ),
       'retrieves information about the given photo' );
+
+  $service->addMethod('pwg.images.rate', 'ws_images_rate',
+      array(
+        'image_id' => array(),
+        'rate' =>     array(),
+      ),
+      'rate the image' );
 
   $service->addMethod('pwg.images.search', 'ws_images_search',
       array(

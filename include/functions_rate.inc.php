@@ -36,14 +36,14 @@ function rate_picture($image_id, $rate)
       or !$conf['rate']
       or !in_array($rate, $conf['rate_items']))
   {
-    return;
+    return false;
   }
 
   $user_anonymous = is_autorize_status(ACCESS_CLASSIC) ? false : true;
 
   if ($user_anonymous and !$conf['rate_anonymous'])
   {
-    return;
+    return false;
   }
 
   $ip_components = explode('.', $_SERVER["REMOTE_ADDR"]);
@@ -118,17 +118,20 @@ INSERT
 
   // update of images.average_rate field
   $query = '
-SELECT ROUND(AVG(rate),2) AS average_rate
+SELECT COUNT(rate) AS count
+     , ROUND(AVG(rate),2) AS average
+     , ROUND(STD(rate),2) AS stdev
   FROM '.RATE_TABLE.'
   WHERE element_id = '.$image_id.'
 ;';
-  $row = mysql_fetch_array(pwg_query($query));
+  $row = mysql_fetch_assoc(pwg_query($query));
   $query = '
 UPDATE '.IMAGES_TABLE.'
-  SET average_rate = '.$row['average_rate'].'
+  SET average_rate = '.$row['average'].'
   WHERE id = '.$image_id.'
 ;';
   pwg_query($query);
+  return $row;
 }
 
 ?>

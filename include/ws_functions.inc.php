@@ -775,6 +775,41 @@ SELECT id, date, author, content
   return new PwgNamedStruct('image',$ret, null, array('name','comment') );
 }
 
+
+/**
+ * rates the image_id in the parameter
+ */
+function ws_images_Rate($params, &$service)
+{
+  $image_id = (int)$params['image_id'];
+  $query = '
+SELECT DISTINCT id FROM '.IMAGES_TABLE.'
+  INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+  WHERE id='.$image_id
+  .get_sql_condition_FandF(
+    array(
+        'forbidden_categories' => 'category_id',
+        'forbidden_images' => 'id',
+      ),
+    '    AND'
+    ).'
+    LIMIT 1';
+  if ( mysql_num_rows( pwg_query($query) )==0 )
+  {
+    return new PwgError(404, "Invalid image_id or access denied" );
+  }
+  $rate = (int)$params['rate'];
+  include_once(PHPWG_ROOT_PATH.'include/functions_rate.inc.php');
+  $res = rate_picture( $image_id, $rate );
+  if ($res==false)
+  {
+    global $conf;
+    return new PwgError( 403, "Forbidden or rate not in ". implode(',',$conf['rate_items']));
+  }
+  return $res;
+}
+
+
 /**
  * returns a list of elements corresponding to a query search
  */

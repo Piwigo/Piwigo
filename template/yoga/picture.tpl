@@ -162,7 +162,6 @@ y.callService(
 {
 selectElement.disabled = true;
 var y = new PwgWS(rootUrl);
-
 y.callService(
   "pwg.images.setPrivacyLevel", {image_id: id, level:level} ,
   {
@@ -182,7 +181,7 @@ y.callService(
   {if isset($rate_summary) }
   <tr>
     <td class="label">{'Average rate'|@translate}</td>
-    <td class="value">
+    <td class="value" id="ratingSummary">
     {if $rate_summary.count}
       {assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
       {$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
@@ -213,7 +212,7 @@ y.callService(
 {if isset($rating)}
 <form action="{$rating.F_ACTION}" method="post" id="rateForm">
 <div>
-{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}
+<span id="updateRate">{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}</span>
 :
 {foreach from=$rating.marks item=mark name=rate_loop}
 {if !$smarty.foreach.rate_loop.first} | {/if}
@@ -224,6 +223,11 @@ y.callService(
 {/if}
 {/foreach}
 <script type="text/javascript" src="{$ROOT_URL}{$themeconf.template_dir}/rating.js"></script>
+<script type="text/javascript">
+makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id}, 
+updateRateText: "{'update_rate'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
+ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
+</script>
 </div>
 </form>
 {/if}
