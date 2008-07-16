@@ -86,6 +86,16 @@
 </div> <!-- menubar -->
 
 <div id="content" class="content png">
+
+  {if isset($TABSHEET)}
+  {$TABSHEET}
+  {/if}
+  {if isset($U_HELP)}
+  <ul class="HelpActions">
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+  </ul>
+  {/if}
+  
   {if isset($errors)}
   <div class="errors">
     <ul>
@@ -105,13 +115,6 @@
     </ul>
   </div>
   {/if}
-  {if isset($TABSHEET)}
-  {$TABSHEET}
-  {/if}
-  {if isset($U_HELP)}
-  <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-  </ul>
-  {/if}
+
   {$ADMIN_CONTENT}
 </div>

@@ -9,14 +9,12 @@ input.rateButton, legend, #theAdminPage h3 { color: #777; }
 #theAdminPage h2 { color: #333; }
 /* common */
 .content .infos {
-  color: #f33; border:0pt none; font-weight:bold; background-color: #222;
-  padding:5px 0px 0pt 20pt; position:absolute; left:248px; min-height: 48px;
-  text-align:left; top:110px; width:550px; z-index: 2; }
-.content .infos li { list-style-type:none; }
+  color: #3f6; border:0pt none; background-color: transparent;
+  padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
+.content .infos li, .content .errors li { list-style-type:none; }
 .content .errors {
-  color: #900; border:0pt none; font-weight:bold; background-color: #222;
-  padding:5px 0px 0pt 20pt; position:absolute; left:248px; min-height: 48px;
-  text-align:left; top:110px; width:550px; z-index: 3; }
+  color: #f70; border:0pt none; font-weight:bold; background-color: transparent;
+  padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 #copyright { color:#777; margin:60px auto 0px 240px; text-align:center; 
 padding-bottom: 15px;
 /* background:transparent url(images/tuft_of_grass-bg.png) no-repeat scroll left bottom;  */}
@@ -84,7 +82,7 @@ a:hover { color: #f33; border-color: #FF3363; }
 #theAdminPage h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
-
+.header_msgs { background-color:transparent; }
 .HelpActions a { border:0; margin:4px 14px 0 0; position:absolute; right:0; }
 .HelpActions li {list-style-image:none; list-style-position:outside; 
 list-style-type:none; text-align:center; text-indent:0pt; }
