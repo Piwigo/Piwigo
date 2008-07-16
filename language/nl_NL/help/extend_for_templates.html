@@ -1,0 +1,98 @@
+<h2>Extend for templates configuration</h2>
+
+<h3>Goal</h3>
+<p>Define replacement conditions for each template from template-extension
+(template called "replacer").</p>
+
+<p>"original template" from ./template/yoga (or any other than yoga)
+ will be replaced by a "replacer" if the replacer is linked to this "original template"
+ (and optionally, when the requested URL contains an "optional URL keyword").</p>
+
+<p>"Optional URL keywords" are those you can find after the module name in URLs.</p>
+
+<p>Therefore "Optional URL keywords" can be an active "permalink" 
+(see permalinks in our documentation for further explanation).</p>
+
+<p>Read: `<a href="#warnings">Warning</a>` usage conditions.</p>
+
+<h3>What are template extensions?</h3>
+
+<p>This configuration tool is powerfull for beginners and advanced users.
+By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
+ the distributed .tpl files ("original template") with a different name 
+ ("replacer").
+ 
+ "Original templates", current original supported templates are:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Where can I find "original templates"?</h3>
+
+<p>Distributed original templates are in template/yoga/ 
+(don't edit them in place for upgrade perspectives). So with "original templates", 
+any webmaster can create his "replacers (customized templates)".</p>
+
+<h3>Where should I save "replacers"?</h3>
+
+<p><strong>Replacers (customized templates)</strong> must be placed in the 
+template-extension folder (or its subfolders).
+Replacers can have any filename with the .tpl extension. For example: <span
+class="filename">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>How can I activate my "replacers"?</h3>
+<p>An <strong>original template</strong> should be assigned to each
+ <strong>replacer (customized templates)</strong> to activate the related replacements.
+ This is the goal of "Extend for templates" in the Configuration Administration menu.</p>
+
+<p>If you select an <strong>optional URL keyword</strong> then replacements 
+will be operate only on pages with this keyword. For example: <span
+  class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
+  
+<p>Advanced users will use permalinks as <strong>optional URL 
+  keyword</strong>. </p>
+<h3>How can I deactivate my "replacers"?</h3>
+<ul>
+<li>Unselect related "Original templates".</li>
+<li>By FTP delete of "replacers".</li>
+</ul>
+<a name="warnings"></a>
+<h3>Warnings</h3>
+<ul>
+
+  <li><strong>Original template</strong> must be the "original" template 
+  otherwise you could have unpredictable results!</li>
+
+  <li>On several <strong>replacers (customized templates)</strong> with the
+  same<strong>Original template</strong> and the same <strong>optional URL 
+  keyword</strong> only the last replacer is active.</li>
+
+  <li>Unselected <strong>optional URL keyword</strong> will active the replacer
+  on any template usage. As previous point, order can override previous
+  selected replacers.</li>
+
+  <li>Subfolders:
+Subfolders are ignored but they are usefull to change current order.<br />
+distributed-samples: for test purpose are distributed! 
+<strong>Don't edit them</strong> create your own ones.
+</li>
+
+  <li>On delete of a replacer the <strong>Original template</strong> is 
+  immediately reactivated.</li>
+
+</ul>

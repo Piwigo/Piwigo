@@ -1,28 +1,28 @@
-<h2>Extend for templates configuration</h2>
+<h2>Configuration pour "étendre" les templates</h2>
 
-<h3>Goal</h3>
-<p>Define replacement conditions for each template from template-extension
-(template called "replacer").</p>
+<h3>Objectif</h3>
+<p>Définir les conditions de remplacement de chaque template (modèle) à partir de template-extension
+(template appelé "replacer" (remplaçant)).</p>
 
-<p>"original template" from ./template/yoga (or any other than yoga)
- will be replaced by a "replacer" if the replacer is linked to this "original template"
- (and optionally, when the requested URL contains an "optional URL keyword").</p>
+<p>Les "Templates d'origine" provenant de ./template/yoga (ou de tout autre dossier que "yoga")
+ sont remplacés par un remplaçant si celui-ci est lié à son template d'origine
+ (et de façon facultative, quand l'adresse (URL) demandée contient un URL contains un "Paramètre facultatif de l'URL").</p>
 
-<p>"Optional URL keywords" are those you can find after the module name in URLs.</p>
+<p>Les "Paramètres facultatif de l'URL" sont ceux que vous pouvez trouver après le nom du module dans l'adresse (URL).</p>
 
-<p>Therefore "Optional URL keywords" can be an active "permalink" 
-(see permalinks in our documentation for further explanation).</p>
+<p>Ainsi un "Paramètre facultatif de l'URL" peut être un "permalink" (lien permanent) actif
+(voir les permalinks dans notre documentation pour plus d'information).</p>
 
-<p>Read: `<a href="#warnings">Warning</a>` usage conditions.</p>
+<p>Lire les `<a href="#warnings">mises en garde</a>` sur les conditions d'utilisation.</p>
 
-<h3>What are template extensions?</h3>
+<h3>Qu'est-ce que les extensions des modèles?</h3>
 
-<p>This configuration tool is powerfull for beginners and advanced users.
-By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
- the distributed .tpl files ("original template") with a different name 
- ("replacer").
+<p>Cet outil de configuration est à la fois puissant pour les débutants et pour les utilisateurs avancés.
+Par FTP, dans le dossier template-extension, le Webmaster pourra dupliquer une bonne partie des fichiers
+ .tpl distribués ("Templates d'origine") avec un nom différent  
+ ("replacer" (remplaçant)).
  
- "Original templates", current original supported templates are:</p>
+ "Templates d'origine", actuellement les modèles d'origine supportés sont:</p>
 <ul>
   <li><span class="filename">index.tpl</span></li>
   <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
@@ -41,58 +41,59 @@ By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
-<h3>Where can I find "original templates"?</h3>
+<h3>Où puis-je trouver les "Templates d'origine"?</h3>
 
-<p>Distributed original templates are in template/yoga/ 
-(don't edit them in place for upgrade perspectives). So with "original templates", 
-any webmaster can create his "replacers (customized templates)".</p>
+<p>Les modèles distribués d'origine sont dans template/yoga/ 
+(ne pas les modifier directement à cet endroit pour des raisons d'évolution). Ainsi à partir des "templates d'origine", 
+tout webmaster pourra créer ses "replacers (modèles personalisés)".</p>
 
-<h3>Where should I save "replacers"?</h3>
+<h3>Où dois-je enregistrer les "remplaçants"?</h3>
 
-<p><strong>Replacers (customized templates)</strong> must be placed in the 
-template-extension folder (or its subfolders).
-Replacers can have any filename with the .tpl extension. For example: <span
+<p>Les <strong>Replacers (templates modifiés)</strong> peuvent être placés dans le dossier 
+template-extension (ou ses sous-dossiers).
+Les remplaçants peuvent avoir n'importe quel nom de fichier avec l'extension .tpl. Par exemple: <span
 class="filename">template-extension/my-extension/video.tpl</span>.</p>
 
 
-<h3>How can I activate my "replacers"?</h3>
-<p>An <strong>original template</strong> should be assigned to each
- <strong>replacer (customized templates)</strong> to activate the related replacements.
- This is the goal of "Extend for templates" in the Configuration Administration menu.</p>
+<h3>Comment puis-je activer mes "remplaçants"?</h3>
+<p>Un <strong>template d'origine</strong> devrait être associé à chaque
+ <strong>replacer (modèle modifié)</strong> à fin d'activer les remplacements correspondants.
+ Activer les remplaçants est la fonction de "Etendre les templates" dans les menus de Configuration de l'Administration.</p>
 
-<p>If you select an <strong>optional URL keyword</strong> then replacements 
-will be operate only on pages with this keyword. For example: <span
+<p>Si vous sélectionnez un <strong>Paramètre facultatif de l'URL</strong> alors les remplacements 
+ne seront réalisés que sur les pages utilisant ce mot clé. Par exemple: <span
   class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
   
-<p>Advanced users will use permalinks as <strong>optional URL 
-  keyword</strong>. </p>
-<h3>How can I deactivate my "replacers"?</h3>
+<p>Les utilisateurs avancés utiliseront les permalinks (permaliens, liens permanents) en tant que 
+<strong>paramètre facultatif de l'URL</strong>. </p>
+
+<h3>Comment puis-je désactiver mes "replacers"?</h3>
 <ul>
-<li>Unselect related "Original templates".</li>
-<li>By FTP delete of "replacers".</li>
+<li>Déselectionner le "template d'origine".</li>
+<li>Par FTP supprimer le "remplaçant".</li>
 </ul>
 <a name="warnings"></a>
-<h3>Warnings</h3>
+<h3>Mises en garde</h3>
 <ul>
 
-  <li><strong>Original template</strong> must be the "original" template 
-  otherwise you could have unpredictable results!</li>
+  <li>Le <strong>template d'origine</strong> doit être le véritable template "d'origine"
+  autrement vous pourriez avoir des résultats imprévisibles!</li>
 
-  <li>On several <strong>replacers (customized templates)</strong> with the
-  same<strong>Original template</strong> and the same <strong>optional URL 
-  keyword</strong> only the last replacer is active.</li>
+  <li>Si plusieurs <strong>remplaçants (templates modofiés)</strong> ont le même
+  <strong>template d'origine</strong> et le même <strong>paramètre facultatif
+  de l'URL</strong> alors seulement le dernier remplaçant sera actif.</li>
 
-  <li>Unselected <strong>optional URL keyword</strong> will active the replacer
-  on any template usage. As previous point, order can override previous
-  selected replacers.</li>
+  <li>Ne pas sélectionner de <strong>paramètre facultatif de l'URL</strong> 
+  activera le template de remplacement à chaque utilisation du template.
+  Comme mentionné ci-dessus, l'ordre peut inhiber les remplaçants précédents.</li>
 
-  <li>Subfolders:
-Subfolders are ignored but they are usefull to change current order.<br />
-distributed-samples: for test purpose are distributed! 
-<strong>Don't edit them</strong> create your own ones.
+  <li>Sous-dossiers:
+  Les sous-dossiers sont ignorés mais ils sont utiles pour modifier l'ordre des remplaçants.<br />
+distributed-samples: pour vos tests sont distributés! 
+<strong>Ne pas les modifier</strong>, créez les votres!
 </li>
 
-  <li>On delete of a replacer the <strong>Original template</strong> is 
-  immediately reactivated.</li>
+  <li>A la suppression d'un remplaçant le <strong>template d'origine</strong> sera 
+  immédiatement réactivé.</li>
 
 </ul>

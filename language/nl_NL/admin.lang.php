@@ -651,5 +651,16 @@ $lang['Piwigo version'] = 'Piwigo versie';
 $lang['You are running the latest version of Piwigo.'] = 'Je hebt de laatste versie van Piwigo.';
 /* TODO */ $lang['c13y_version_anomaly'] = 'The version of %s [%s] installed is not compatible with the version required [%s]';
 /* TODO */ $lang['c13y_version_correction'] = 'You need to upgrade your system to take full advantage of the application else the application will not work correctly, or not at all';
-
+/* TODO */ $lang['Deleted on'] = 'Deleted on';
+/* TODO */ $lang['Last hit'] =  'Last hit';
+/* TODO */ $lang['Hits'] = 'Hits';
+/* TODO */ $lang['GD library is missing'] = 'GD library is missing';
+/* TODO */ $lang['conf_extents'] = 'Templates';
+/* TODO */ $lang['extend_for_templates'] = 'Extend for templates';
+/* TODO */ $lang['Replacement of original templates'] = 
+ 'Replacement of original templates by customized templates from template-extension subfolder';
+/* TODO */ $lang['Replacers'] = 'Replacers (customized templates)';
+/* TODO */ $lang['Original templates'] = 'Original templates';
+/* TODO */ $lang['Optional URL keyword'] = 'Optional URL keyword';
+/* TODO */ $lang['Templates recorded.'] = 'Templates configuration has been recorded.';
 ?>
