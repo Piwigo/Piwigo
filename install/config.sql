@@ -27,3 +27,4 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('obligatory_user_mail_ad
 INSERT INTO piwigo_config (param,value,comment) VALUES ('c13y_ignore',null,'List of ignored anomalies');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_link_everytime','false','Show upload link every time');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('upload_user_access',2 /*ACCESS_CLASSIC*/,'User access level to upload');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('extents_for_templates','a:0:{}','Actived template-extension(s)');

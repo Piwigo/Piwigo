@@ -177,7 +177,7 @@ foreach ($tpl_extension as $file => $conditions)
 }
 foreach ($new_extensions as $file)
 {
-  $tpl_extension[$file] = array('N/A' => 'N/A');
+  $tpl_extension[$file] = array('N/A', 'N/A');
 }
 
 $template->set_filenames(array('extend_for_templates'
