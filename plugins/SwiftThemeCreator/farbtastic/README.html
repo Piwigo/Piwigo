@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head><title>Farbtastic: jQuery color picker plug-in</title></head>
+<body>
+        <h1 class="title">Farbtastic: jQuery color picker plug-in</h1>
+    <div class="content"><p>Farbtastic is a <a href="http://www.jquery.com/">jQuery</a> plug-in that can add one or more color picker widgets into a page. Each widget is then linked to an existing element (e.g. a text field) and will update the element's value when a color is selected.</p>
+
+<p>Farbtastic uses layered transparent PNGs to render a saturation/luminance gradient inside of a hue circle. No Flash or pixel-sized divs are used.</p>
+
+<p>Farbtastic was written by <a href="http://www.acko.net/dev/farbtastic">Steven Wittens</a> and is licensed under the GPL.</p>
+
+<h2>Basic Usage</h2>
+<ol>
+<li>Include farbtastic.js and farbtastic.css in your HTML:<br />
+<div class="codeblock"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;farbtastic.js&quot;&gt;&lt;/script&gt;<br />&lt;link rel=&quot;stylesheet&quot; href=&quot;farbtastic.css&quot; type=&quot;text/css&quot; /&gt;</code></div>
+</li>
+<li>Add a placeholder div and a text field to your HTML, and give each an ID:<br />
+<div class="codeblock"><code>&lt;form&gt;&lt;input type=&quot;text&quot; id=&quot;color&quot; name=&quot;color&quot; value=&quot;#123456&quot; /&gt;&lt;/form&gt;<br />&lt;div id=&quot;colorpicker&quot;&gt;&lt;/div&gt;</code></div>
+</li>
+<li>Add a ready() handler to the document which initializes the color picker and link it to the text field with the following syntax:<br />
+<div class="codeblock"><code>&lt;script type=&quot;text/javascript&quot;&gt;<br />&nbsp; $(document).ready(function() {<br />&nbsp; &nbsp; $(&#039;#colorpicker&#039;).farbtastic(&#039;#color&#039;);<br />&nbsp; });<br />&lt;/script&gt;</code></div>
+</li>
+</ol>
+<p>See demo1.html and demo2.html for an example (jquery.js is not included!).</p>
+<h2>Styling</h2>
+<p>The color picker is a block-level element and is 195x195 pixels large. You can control the position by styling your placeholder (e.g. floating it).</p>
+<p>Note that the black/white gradients inside wheel.png and mask.png were generated programmatically and cannot be recreated easily in an image editing program.</p>
+<h2>Advanced Usage</h2>
+<h3>jQuery Method</h3>
+<dl>
+<dt>$(...).farbtastic()<br />
+$(...).farbtastic(callback)</dt>
+<dd>This creates color pickers in the selected objects. <code>callback</code> is optional and can be a:</p>
+<ul>
+<li><em>DOM Node</em>, <em>jQuery object</em> or <em>jQuery selector</em>: the color picker will be linked to the selected element(s) by syncing the value (for form elements) and color (all elements).</li>
+<li><em>Function</em>: this function will be called whenever the user chooses a different color.</dd>
+</dl>
+<h3>Object</h3>
+<dl>
+<dt>$.farbtastic(placeholder)<br />
+$.farbtastic(placeholder, callback)<br />
+</dt>
+<dd>Invoking <code>$.farbtastic(placeholder)</code> is the same as using <code>$(placeholder).farbtastic()</code> except that the Farbtastic object is returned instead of the jQuery object. This allows you to use the Farbtastic methods and properties below.</p>
+<p>Note that there is only one Farbtastic object per placeholder. If you call <code>$.farbtastic(placeholder)</code> twice <em>with the same placeholder</em>, you will get the same object back each time.</p>
+<p>The optional <code>callback</code> argument behaves exactly as for the jQuery method.<br />
+</dd>
+</dl>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt>.linkTo(callback)</dt>
+<dd>Allows you to set a new callback. Any existing callbacks are removed. See above for the meaning of <code>callback</code>.</dd>
+<dt>.setColor(string)</dt>
+<dd>Sets the picker color to the given color in hex representation.</dd>
+<dt>.setColor([h, s, l])</dt>
+<dd>Sets the picker color to the given color in normalized HSL (0..1 scale).</dd>
+</dl>
+<h3>Properties</h3>
+<dl>
+<dt>.linked</dt>
+<dd>The elements (jQuery object) or callback function this picker is linked to.</dd>
+<dt>.color</dt>
+<dd>Current color in hex representation.</dd>
+<dt>.hsl</dt>
+<dd>Current color in normalized HSL.</dd>
+</dl>
+</div>
+</body>
+</html>
