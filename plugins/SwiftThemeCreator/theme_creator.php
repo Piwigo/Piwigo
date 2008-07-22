@@ -43,6 +43,28 @@ function stc_hex2rgb($color)
   }
   return array(hexdec($r), hexdec($g), hexdec($b));
 }
+/*
+ * lighten returns array of x% of lighter RGB values
+ */
+function lighten( $r, $g, $b, $percent)
+{
+  $r = min(round($r+(($percent*(255-$r))/100)),255);
+  $g = min(round($g+(($percent*(255-$g))/100)),255);
+  $b = min(round($b+(($percent*(255-$b))/100)),255);
+  return sprintf('#%02X%02X%02X', $r, $g, $b);
+}
+/*
+ * darken returns array of x% of darker RGB values
+ */
+function darken( $r, $g, $b, $percent)
+{
+  $r = max(round($r-(($percent*$r)/100)),0);
+  $g = max(round($g-(($percent*$g)/100)),0);
+  $b = max(round($b-(($percent*$b)/100)),0);
+  return sprintf('#%02X%02X%02X', $r, $g, $b);
+}
+
+
 $errors = array();
 $infos = array();
 $available_templates = array();
@@ -115,15 +137,16 @@ if (isset($_POST['submit']) and (!is_adviser()))
        l10n('Insufficient colour difference between Internal links and background. dif=') . $dif); 
 
   // 3 - Directory control
-  $templatedir = PHPWG_ROOT_PATH . 'template/' 
+  $main['templatedir'] = PHPWG_ROOT_PATH . 'template/' 
                . $available_templates[$_POST['template']];
-  $themedir = $templatedir . '/' . $main['newtheme'];
+  $main['newtpl'] = $available_templates[$_POST['template']];
+  $themedir = $main['templatedir'] . '/' . $main['newtheme'];
   if (is_dir(  $themedir )) 
     array_push($errors,
        '['.$themedir.'] : '.l10n('Invalid theme: This theme exists already (no override available).')); 
-  elseif (!is_writable($templatedir))
+  elseif (!is_writable($main['templatedir']))
     array_push($errors,
-       '['.$templatedir.'] : '.l10n('no_write_access'));
+       '['.$main['templatedir'].'] : '.l10n('no_write_access'));
 
   // 4 - Picture URL control
   if ( $_POST['background'] == 'fixed' and (is_dir($_POST['picture_url'])
@@ -132,18 +155,54 @@ if (isset($_POST['submit']) and (!is_adviser()))
        l10n('Header picture is not found, check its path and name.')); 
   
   // 5 - Expected Width and Height limits control
-  if ( !(is_numeric($_POST['picture_width']) and ($_POST['picture_width'] < 12 
-       or $_POST['picture_width'] > 4096 )) )
+  if ( !(ctype_digit($_POST['picture_width']) and $_POST['picture_width'] > 11 
+       and $_POST['picture_width'] < 4097 ) )
     array_push($errors,
        '['.$_POST['picture_width'].'] : ' 
        . l10n('incorrect width value [12-4096].')); 
-  if ( !(is_numeric($_POST['picture_height']) and ($_POST['picture_height'] < 12 
-       or $_POST['picture_height'] > 200 )) )
+  if ( !(ctype_digit($_POST['picture_height']) and $_POST['picture_height'] > 11 
+       and $_POST['picture_height'] < 201 ) )
     array_push($errors,
-       '['.$_POST['picture_width'].'] : '
-       . l10n('incorrect width value [12-4096].')); 
+       '['.$_POST['picture_height'].'] : '
+       . l10n('incorrect width value [12-200].')); 
        
   // 6 - Generate missing colors values
+  list($r1,$g1,$b1) = stc_hex2rgb($main['color'][0]);
+  if ((( (($r1+1)/256)*(($g1+1)/256)*(($b1+1)/256) ) * 1000 ) < 125 )
+       $main['color6'] = lighten( $r1, $g1, $b1, 10);
+  else $main['color6'] = darken( $r1, $g1, $b1, 10);
+  list($r1,$g1,$b1) = stc_hex2rgb($main['color'][4]);
+  if ((( (($r1+1)/256)*(($g1+1)/256)*(($b1+1)/256) ) * 1000 ) < 125 )
+       $main['color7'] = lighten( $r1, $g1, $b1, 10);
+  else $main['color7'] = darken( $r1, $g1, $b1, 10);
+  
+  /* en gros reste à faire:
+   * creation des différents fichiers
+   */
+
+  // Go ahead 
+  if (count($errors) == 0) {
+    umask(0000);
+    // mkdir($themedir, 0777);
+    if (!is_dir(  $themedir ))
+        array_push($errors,
+          l10n('Theme directory creation failure: it can\'t be created (for now en attendant la suite 8-) ).'));
+  }
+
+  /*
+   * Build themeconf.inc.php
+   **/
+  $plugin_tpl = new Template();
+  $plugin_tpl->set_filenames(array('themeconf'=>
+  dirname(__FILE__) . '/themeconf.inc.tpl'));
+  $plugin_tpl->assign('main',$main);
+  $main['themeconf_inc_php'] = $plugin_tpl->parse('themeconf', true);
+
+  // Smarty trace
+  $plugin_tpl->assign('main',$main);
+  
+  // Interesting Graphic Charter
+  // http://accessites.org/site/2006/08/visual-vs-structural/
 
   /*
    * Build background image for titrePage or definition list (in #menubar)
@@ -169,22 +228,9 @@ if (isset($_POST['submit']) and (!is_adviser()))
     imagedestroy ($img);
     imagedestroy ($dest);
   }
-  /* en gros reste à faire:
-   * creation de la directory 
-   * creation des différents fichiers
-   * parse pour theme.css et ecriture directe pour les autres  
-   */
-  // Lors du parse si le second arg est à true, on récupère le résultat
-  // http://www.barelyfitz.com/projects/csscolor/csscolor.zip
 
-  // Go ahead 
-  if (count($errors) == 0) {
-    umask(0000);
-    // mkdir($themedir, 0777);
-    if (!is_dir(  $themedir ))
-        array_push($errors,
-          l10n('Theme directory creation failure: it can\'t be created (for now en attendant la suite 8-) ).'));
-  }
+
+
   $swift_theme_creator->save_theme_config();  
 }
 
