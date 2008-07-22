@@ -320,6 +320,7 @@ DROP TABLE IF EXISTS `piwigo_user_cache`;
 CREATE TABLE `piwigo_user_cache` (
   `user_id` smallint(5) NOT NULL default '0',
   `need_update` enum('true','false') NOT NULL default 'true',
+  `cache_update_time` integer unsigned NOT NULL default 0,
   `forbidden_categories` mediumtext,
   `nb_total_images` mediumint(8) unsigned default NULL,
   `image_access_type` enum('NOT IN','IN') NOT NULL default 'NOT IN',

@@ -299,6 +299,11 @@ SELECT ui.*, uc.*
         or !is_bool($userdata['need_update'])
         or $userdata['need_update'] == true)
     {
+      $userdata['cache_update_time'] = time();
+
+      // Set need update are done
+      $userdata['need_update'] = false;
+
       $userdata['forbidden_categories'] =
         calculate_permissions($userdata['id'], $userdata['status']);
 
@@ -320,12 +325,6 @@ SELECT DISTINCT(id)
 
       update_user_cache_categories($userdata);
 
-      // Set need update are done
-      $userdata['need_update'] = false;
-
-      // Indicate update done
-      $userdata['need_update_done'] = true;
-
       $query = '
 SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -343,19 +342,15 @@ DELETE FROM '.USER_CACHE_TABLE.'
 
       $query = '
 INSERT INTO '.USER_CACHE_TABLE.'
-  (user_id, need_update, forbidden_categories, nb_total_images,
+  (user_id, need_update, cache_update_time, forbidden_categories, nb_total_images,
     image_access_type, image_access_list)
   VALUES
-  ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\',\''
+  ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\','
+  .$userdata['cache_update_time'].',\''
   .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',"'
   .$userdata['image_access_type'].'","'.$userdata['image_access_list'].'")
 ;';
       pwg_query($query);
-    }
-    else
-    {
-      // Indicate update not done
-      $userdata['need_update_done'] = false;
     }
   }
 

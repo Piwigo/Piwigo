@@ -21,30 +21,26 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-
-
-/**
- * update data of categories with filtered values
- *
- * @param array list of categories
- * @return null
- */
-function update_cats_with_filtered_data(&$cats)
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  global $filter;
-
-  if ($filter['enabled'])
-  {
-    $upd_fields = array('date_last', 'max_date_last', 'count_images', 'count_categories', 'nb_images');
-
-    foreach ($cats as $cat_id => $category)
-    {
-      foreach ($upd_fields as $upd_field)
-      {
-        $cats[$cat_id][$upd_field] = $filter['categories'][$category['id']][$upd_field];
-      }
-    }
-  }
+  die('Hacking attempt!');
 }
+
+$upgrade_description = 'Add #user_cache.cache_update_time';
+
+
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
+
+$query = '
+ALTER TABLE '.USER_CACHE_TABLE.' ADD COLUMN `cache_update_time` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER need_update';
+pwg_query($query);
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
 
 ?>
