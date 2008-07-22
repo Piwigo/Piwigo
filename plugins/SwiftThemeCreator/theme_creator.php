@@ -131,7 +131,18 @@ if (isset($_POST['submit']) and (!is_adviser()))
     array_push($errors,
        l10n('Header picture is not found, check its path and name.')); 
   
-  // 5 - Width and Height control
+  // 5 - Expected Width and Height limits control
+  if ( !(is_numeric($_POST['picture_width']) and ($_POST['picture_width'] < 12 
+       or $_POST['picture_width'] > 4096 )) )
+    array_push($errors,
+       '['.$_POST['picture_width'].'] : ' 
+       . l10n('incorrect width value [12-4096].')); 
+  if ( !(is_numeric($_POST['picture_height']) and ($_POST['picture_height'] < 12 
+       or $_POST['picture_height'] > 200 )) )
+    array_push($errors,
+       '['.$_POST['picture_width'].'] : '
+       . l10n('incorrect width value [12-4096].')); 
+       
   // 6 - Generate missing colors values
 
   /*

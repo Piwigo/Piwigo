@@ -1,46 +1,35 @@
 /* $Id$ */
 /* text color */
 body, h3, dt, h2, .throw, .content,
-input.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
-  color:#ccc; }
+input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#ccc; }
 input.text, input.button, input.submit, input.reset, input.file, select, textarea {
 color:#444; }  
 input.rateButton, legend, #theAdminPage h3 { color: #777; }
 #theAdminPage h2 { color: #333; }
-/* common */
-.content .infos {
-  color: #3f6; border:0pt none; background-color: transparent;
-  padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
+
+.content .infos { color: #3f6; border:0pt none; background-color: transparent;
+padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 .content .infos li, .content .errors li { list-style-type:none; }
-.content .errors {
-  color: #f70; border:0pt none; font-weight:bold; background-color: transparent;
-  padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
+.content .errors { color: #f70; border:0pt none; background-color: transparent;
+padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
 #copyright { color:#777; margin:60px auto 0px 240px; text-align:center; 
-padding-bottom: 15px;
-/* background:transparent url(images/tuft_of_grass-bg.png) no-repeat scroll left bottom;  */}
+padding-bottom: 15px; }
 .header_notes {
 background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
 border:0; font-weight:bold; min-height: 48px;
 padding:15px 60px 0 0; position:absolute; right:0;
 text-align:right; top:90px; width:550px;  }
 
-/* backgrounds */
 html, body { min-height: 100%; }
-body {
-  background:#111111 url(images/bottom-left-bg.png) no-repeat fixed left bottom;
-  margin: 0; padding: 0;
-}
-#the_page { 
-border:0; display:block; margin: 0; padding-bottom: 0; z-index: 1; top:0px;
+body { margin: 0; padding: 0;
+background:#111111 url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
+#the_page { margin: 0; padding: 0; z-index: 1; top:0px;
 padding-top: 0; min-height: 100%; width:100%; position:absolute; left:0px; }
-#headbranch { 
-background:transparent url(images/top-left-bg.png) no-repeat scroll left top; 
-border:0; display:block; margin: 0; padding: 0; width: 233px;
-height: 240px; position:absolute; left:0px; top:0px; z-index: 0; }
-
-#theHeader { 
-  background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; 
-  min-height:105px; }
+#headbranch { width: 233px; height: 240px; margin: 0; padding: 0;
+position:absolute; left:0px; top:0px; z-index: 0; 
+background:transparent url(images/top-left-bg.png) no-repeat scroll left top; }
+#theHeader { min-height:105px; margin: 0; padding: 0;
+background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scroll 245px top; }
 h3, #imageToolBar a:hover, .row1, .content { background-color: #222; }
 .row2 { background-color:#111; }
 #content { background: #222 url(images/fillet.png) repeat-x top left; min-height: 466px; }
