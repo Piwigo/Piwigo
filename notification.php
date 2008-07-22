@@ -68,9 +68,6 @@ $title = l10n('Notification');
 $page['body_id'] = 'theNotificationPage';
 $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 
-$template->append('head_elements',
-    '<link rel="alternate" type="application/rss+xml" href="'.$feed_url.'">'
-  );
 
 $template->set_filenames(array('notification'=>'notification.tpl'));
 
@@ -85,7 +82,7 @@ $template->assign(
 // |                           html code display                           |
 // +-----------------------------------------------------------------------+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
-$template->parse('notification');
+$template->pparse('notification');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 
 ?>

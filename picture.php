@@ -42,7 +42,7 @@ $page['rank_of'] = array_flip($page['items']);
 if ( !isset($page['rank_of'][$page['image_id']]) )
 {
   $query = '
-SELECT id, file, level 
+SELECT id, file, level
   FROM '.IMAGES_TABLE.'
   WHERE ';
   if ($page['image_id']>0)
@@ -68,7 +68,7 @@ SELECT id, file, level
   if ( !isset($page['rank_of'][$page['image_id']]) )
   {// the image can still be non accessible (filter/cat perm) and/or not in the set
     global $filter;
-    if ( !empty($filter['visible_images']) and 
+    if ( !empty($filter['visible_images']) and
       !in_array($page['image_id'], explode(',',$filter['visible_images']) ) )
     {
       page_not_found( 'The requested image is filtered',
@@ -779,7 +779,6 @@ SELECT COUNT(*) AS nb_fav
 }
 
 //--------------------------------------------------------- picture information
-$header_infos = array(); //for html header use
 // legend
 if (isset($picture['current']['comment'])
     and !empty($picture['current']['comment']))
@@ -789,7 +788,6 @@ if (isset($picture['current']['comment'])
         trigger_event('render_element_description',
           $picture['current']['comment'])
       );
-  $header_infos['COMMENT'] = strip_tags($picture['current']['comment']);
 }
 
 $infos = array();
@@ -806,7 +804,6 @@ if (!empty($picture['current']['author']))
 //       '&amp;search=author:'.$picture['current']['author']
 //       .'">'.$picture['current']['author'].'</a>';
     $picture['current']['author'];
-  $header_infos['INFO_AUTHOR'] = $picture['current']['author'];
 }
 
 // creation date
