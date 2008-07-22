@@ -110,7 +110,7 @@ You can update later the result as you need.'|@translate}
 
   <tr>
     <td style="padding-right:20px;">
-      {'Picture address (URL)'|@translate}
+      {'Picture relative local path'|@translate}
     </td><td>
     <label>
     <input class="radio" type="radio" value="fixed" name="background"

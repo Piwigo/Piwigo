@@ -45,6 +45,13 @@ function stc_hex2rgb($color)
 }
 $errors = array();
 $infos = array();
+$available_templates = array();
+$template_dir = PHPWG_ROOT_PATH.'template';
+foreach (get_dirs($template_dir) as $dir)
+{
+  array_push($available_templates, $dir);
+}
+
 // +-----------------------------------------------------------------------+
 // |                            selected templates                         |
 // +-----------------------------------------------------------------------+
@@ -108,12 +115,6 @@ if (isset($_POST['submit']) and (!is_adviser()))
        l10n('Insufficient colour difference between Internal links and background. dif=') . $dif); 
 
   // 3 - Directory control
-  $available_templates = array();
-  $template_dir = PHPWG_ROOT_PATH.'template';
-  foreach (get_dirs($template_dir) as $dir)
-  {
-    array_push($available_templates, $dir);
-  }
   $templatedir = PHPWG_ROOT_PATH . 'template/' 
                . $available_templates[$_POST['template']];
   $themedir = $templatedir . '/' . $main['newtheme'];
@@ -125,40 +126,45 @@ if (isset($_POST['submit']) and (!is_adviser()))
        '['.$templatedir.'] : '.l10n('no_write_access'));
 
   // 4 - Picture URL control
+  if ( $_POST['background'] == 'fixed' and (is_dir($_POST['picture_url'])
+      or !is_file($_POST['picture_url'])) )
+    array_push($errors,
+       l10n('Header picture is not found, check its path and name.')); 
+  
   // 5 - Width and Height control
   // 6 - Generate missing colors values
-
-
-  // Lors du parse si le second arg est à true, on récupère le résultat
-  // http://www.barelyfitz.com/projects/csscolor/csscolor.zip
 
   /*
    * Build background image for titrePage or definition list (in #menubar)
    **/
-  $img = imagecreatefrompng(dirname(__FILE__) . '/titrePage-bg.png');
-  $dest = imagecreate(1, 64);
-  for ($i=0; $i<256; $i++) {
-    imagecolorallocate($dest, $i, $i, $i); 
+  if (function_exists('imagecreatefrompng'))
+  {
+    $img = imagecreatefrompng(dirname(__FILE__) . '/titrePage-bg.png');
+    $dest = imagecreate(1, 64);
+    for ($i=0; $i<256; $i++) {
+      imagecolorallocate($dest, $i, $i, $i); 
+    }
+    imagecopy($dest, $img, 0, 0, 0, 0, 1, 64);
+    list($r1,$g1,$b1) = stc_hex2rgb($main['color'][4]);
+    for ($i = 0; $i < 256; $i++) {
+      imagecolorset($dest, $i, min($i * $r1 / 255, 255), 
+                     min($i * $g1 / 255, 255), 
+                     min($i * $b1 / 255, 255));
+    }
+    // to be tested imagecopymerge($dest,$img,0,0,0,0,1,64,33);
+    
+    // Uncomment to create the header stc.png
+    // imagepng( $dest, dirname(__FILE__) . '/stc.png', 9 );
+    imagedestroy ($img);
+    imagedestroy ($dest);
   }
-  imagecopy($dest, $img, 0, 0, 0, 0, 1, 64);
-  list($r1,$g1,$b1) = stc_hex2rgb($main['color'][4]);
-  for ($i = 0; $i < 256; $i++) {
-    imagecolorset($dest, $i, min($i * $r1 / 255, 255), 
-                   min($i * $g1 / 255, 255), 
-                   min($i * $b1 / 255, 255));
-  }
-  // to be tested imagecopymerge($dest,$img,0,0,0,0,1,64,33);
-  
-  // Uncomment to create the header stc.png
-  // imagepng( $dest, dirname(__FILE__) . '/stc.png', 9 );
-  imagedestroy ($img);
-  imagedestroy ($dest);
-
   /* en gros reste à faire:
    * creation de la directory 
    * creation des différents fichiers
    * parse pour theme.css et ecriture directe pour les autres  
    */
+  // Lors du parse si le second arg est à true, on récupère le résultat
+  // http://www.barelyfitz.com/projects/csscolor/csscolor.zip
 
   // Go ahead 
   if (count($errors) == 0) {
@@ -230,8 +236,7 @@ display_select_cat_wrapper($query,array(),'src_category');
 if (isset($_POST['src_category'])) $main['src_category'] = 
     $_POST['src_category'];
 
-$main['picture_url'] = get_absolute_root_url() 
-                     . 'plugins/SwiftThemeCreator/sample.jpg';
+$main['picture_url'] = PHPWG_ROOT_PATH . 'plugins/SwiftThemeCreator/sample.jpg';
 if (isset($swift_theme_creator->picture_url)) 
     $main['picture_url'] = $swift_theme_creator->picture_url;
 if (isset($_POST['picture_url'])) $main['picture_url'] = $_POST['picture_url'];
