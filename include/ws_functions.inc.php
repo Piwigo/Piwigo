@@ -823,29 +823,32 @@ function ws_images_search($params, &$service)
   $where_clauses = ws_std_image_sql_filter( $params, 'i.' );
   $order_by = ws_std_image_sql_order($params, 'i.');
 
+  $super_order_by = false;
   if ( !empty($order_by) )
   {
     global $conf;
     $conf['order_by'] = 'ORDER BY '.$order_by;
-    $page['super_order_by']=1; // quick_search_result might be faster
+    $super_order_by=true; // quick_search_result might be faster
   }
 
   $search_result = get_quick_search_results($params['query'],
-    implode(',', $where_clauses) );
-  $image_ids = $search_result['items'];
+      $super_order_by,
+      implode(',', $where_clauses)
+    );
 
-  $image_ids = array_slice($image_ids,
-    $params['page']*$params['per_page'],
-    $params['per_page'] );
+  $image_ids = array_slice(
+      $search_result['items'],
+      $params['page']*$params['per_page'],
+      $params['per_page']
+    );
 
   if ( count($image_ids) )
   {
     $query = '
 SELECT * FROM '.IMAGES_TABLE.'
-  WHERE id IN ('
-        .wordwrap(implode(', ', $image_ids), 80, "\n")
-        .')';
+  WHERE id IN ('.implode(',', $image_ids).')';
 
+    $image_ids = array_flip($image_ids);
     $result = pwg_query($query);
     while ($row = mysql_fetch_assoc($result))
     {
@@ -862,14 +865,10 @@ SELECT * FROM '.IMAGES_TABLE.'
         $image[$k] = $row[$k];
       }
       $image = array_merge( $image, ws_std_get_urls($row) );
-      array_push($images, $image);
+      $images[$image_ids[$image['id']]] = $image;
     }
-
-    $image_ids = array_flip($image_ids);
-    usort(
-        $images,
-        create_function('$i1,$i2', 'global $image_ids; return $image_ids[$i1["id"]]-$image_ids[$i2["id"]];')
-      );
+    ksort($images, SORT_NUMERIC);
+    $images = array_values($images);
   }
 
 

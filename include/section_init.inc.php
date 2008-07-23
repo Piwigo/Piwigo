@@ -332,31 +332,16 @@ SELECT DISTINCT image_id
   {
     include_once( PHPWG_ROOT_PATH .'include/functions_search.inc.php' );
 
-    $search_result = get_search_results($page['search']);
-    if ( !empty($search_result['items']) and !isset($search_result['as_is']) )
-    {
-      $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE id IN ('.implode(',', $search_result['items']).')
-    '.$forbidden.'
-  '.$conf['order_by'].'
-;';
-      $page['items'] = array_from_query($query, 'id');
-    }
-    else
-    {
-      $page['items'] = $search_result['items'];
-      if ( isset($search_result['qs']) )
-      {//save the details of the query search
-        $page['qsearch_details'] = $search_result['qs'];
-      }
+    $search_result = get_search_results($page['search'], @$page['super_order_by'] );
+    if ( isset($search_result['qs']) )
+    {//save the details of the query search
+      $page['qsearch_details'] = $search_result['qs'];
     }
 
     $page = array_merge(
       $page,
       array(
+        'items' => $search_result['items'],
         'title' => '<a href="'.duplicate_index_url(array('start'=>0)).'">'
                   .l10n('search_result').'</a>',
         )
@@ -378,7 +363,7 @@ SELECT image_id
   (
     array
       (
-        'visible_images' => 'image_id'
+        'visible_images' => 'id'
       ),
     'AND'
   ).'

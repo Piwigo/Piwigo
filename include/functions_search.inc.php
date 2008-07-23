@@ -194,22 +194,21 @@ function get_sql_search_clause($search)
  * @param array search
  * @return array
  */
-function get_regular_search_results($search)
+function get_regular_search_results($search, $images_where)
 {
+  global $conf;
+  $forbidden = get_sql_condition_FandF(
+        array
+          (
+            'forbidden_categories' => 'category_id',
+            'visible_categories' => 'category_id',
+            'visible_images' => 'id'
+          ),
+        "\n  AND"
+    );
+
   $items = array();
-
-  $search_clause = get_sql_search_clause($search);
-
-  if (!empty($search_clause))
-  {
-    $query = '
-SELECT DISTINCT(id)
-  FROM '.IMAGES_TABLE.'
-    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
-  WHERE '.$search_clause.'
-;';
-    $items = array_from_query($query, 'id');
-  }
+  $tag_items = array();
 
   if (isset($search['fields']['tags']))
   {
@@ -217,13 +216,38 @@ SELECT DISTINCT(id)
       $search['fields']['tags']['words'],
       $search['fields']['tags']['mode']
       );
+  }
 
+  $search_clause = get_sql_search_clause($search);
+
+  if (!empty($search_clause))
+  {
+    $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.' i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE '.$search_clause;
+    if (!empty($images_where))
+    {
+      $query .= "\n  AND ".$images_where;
+    }
+    if (empty($tag_items) or $search['mode']=='AND')
+    { // directly use forbidden and order by
+      $query .= $forbidden.'
+  '.$conf['order_by'];
+    }
+    $items = array_from_query($query, 'id');
+  }
+
+  if ( !empty($tag_items) )
+  {
+    $need_permission_check = false;
     switch ($search['mode'])
     {
       case 'AND':
-      {
         if (empty($search_clause))
         {
+          $need_permission_check = true;
           $items = $tag_items;
         }
         else
@@ -231,17 +255,34 @@ SELECT DISTINCT(id)
           $items = array_intersect($items, $tag_items);
         }
         break;
-      }
       case 'OR':
-      {
+        $before_count = count($items);
         $items = array_unique(
           array_merge(
             $items,
             $tag_items
             )
           );
+        if ( $before_count < count($items) )
+        {
+          $need_permission_check = true;
+        }
         break;
+    }
+    if ($need_permission_check and count($items) )
+    {
+      $query = '
+SELECT DISTINCT(id)
+  FROM '.IMAGES_TABLE.' i
+    INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id = ic.image_id
+  WHERE id IN ('.implode(',', $items).') '.$forbidden;
+      if (!empty($images_where))
+      {
+        $query .= "\n  AND ".$images_where;
       }
+      $query .= '
+  '.$conf['order_by'];
+      $items = array_from_query($query, 'id');
     }
   }
 
@@ -354,10 +395,9 @@ function get_qsearch_like_clause($q, $field)
 /**
  * returns the search results corresponding to a quick/query search.
  * A quick/query search returns many items (search is not strict), but results
- * are sorted by relevance unless $page['super_order_by'] is set. Returns:
+ * are sorted by relevance unless $super_order_by is true. Returns:
  * array (
  * 'items' => array(85,68,79...)
- * 'as_is' => 1 (indicates the caller that items are ordered and permissions checked
  * 'qs'    => array(
  *    'matching_tags' => array of matching tags
  *    'matching_cats' => array of matching categories
@@ -365,16 +405,15 @@ function get_qsearch_like_clause($q, $field)
  *      ))
  *
  * @param string q
+ * @param bool super_order_by
  * @param string images_where optional aditional restriction on images table
  * @return array
  */
-function get_quick_search_results($q, $images_where='')
+function get_quick_search_results($q, $super_order_by, $images_where='')
 {
-  global $page;
   $search_results =
     array(
       'items' => array(),
-      'as_is' => 1,
       'qs' => array('q'=>stripslashes($q)),
     );
   $q = trim($q);
@@ -518,7 +557,7 @@ SELECT DISTINCT(id)
 
   $allowed_images = array_from_query( $query, 'id');
 
-  if ( isset($page['super_order_by']) or empty($by_weights) )
+  if ( $super_order_by or empty($by_weights) )
   {
     $search_results['items'] = $allowed_images;
     return $search_results;
@@ -544,17 +583,17 @@ SELECT DISTINCT(id)
  * @param string images_where optional aditional restriction on images table
  * @return array
  */
-function get_search_results($search_id, $images_where='')
+function get_search_results($search_id, $super_order_by, $images_where='')
 {
   $search = get_search_array($search_id);
   if ( !isset($search['q']) )
   {
-    $result['items'] = get_regular_search_results($search);
+    $result['items'] = get_regular_search_results($search, $images_where);
     return $result;
   }
   else
   {
-    return get_quick_search_results($search['q'], $images_where);
+    return get_quick_search_results($search['q'], $super_order_by, $images_where);
   }
 }
 ?>

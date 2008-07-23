@@ -666,7 +666,6 @@ $conf['filter_pages'] = array
     'nbm' => array('used' => false),
     'popuphelp' => array('used' => false),
     'profile' => array('used' => false),
-    'web_service' => array('used' => false),
     'ws' => array('used' => false),
     'identification' => array('cancel' => true),
     'install' => array('cancel' => true),
