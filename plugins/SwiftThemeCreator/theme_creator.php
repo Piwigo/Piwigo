@@ -175,10 +175,6 @@ if (isset($_POST['submit']) and (!is_adviser()))
   if ((( (($r1+1)/256)*(($g1+1)/256)*(($b1+1)/256) ) * 1000 ) < 125 )
        $main['color7'] = lighten( $r1, $g1, $b1, 10);
   else $main['color7'] = darken( $r1, $g1, $b1, 10);
-  
-  /* en gros reste à faire:
-   * creation des différents fichiers
-   */
 
   // Go ahead 
   if (count($errors) == 0) {
@@ -189,6 +185,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
           l10n('Theme directory creation failure: it can\'t be created (for now en attendant la suite 8-) ).'));
   }
 
+  $main['ldelim'] = '{ldelim}';
   /*
    * Build themeconf.inc.php
    **/
@@ -197,6 +194,13 @@ if (isset($_POST['submit']) and (!is_adviser()))
   dirname(__FILE__) . '/themeconf.inc.tpl'));
   $plugin_tpl->assign('main',$main);
   $main['themeconf_inc_php'] = $plugin_tpl->parse('themeconf', true);
+  /*
+   * Build mail-css.tpl
+   **/  
+  $plugin_tpl->set_filenames(array('mailcss'=>
+  dirname(__FILE__) . '/mail-css.tpl2'));
+  $plugin_tpl->assign('main',$main);
+  $main['mail-css.tpl'] = $plugin_tpl->parse('mailcss', true);  
 
   // Smarty trace
   $plugin_tpl->assign('main',$main);
@@ -229,6 +233,10 @@ if (isset($_POST['submit']) and (!is_adviser()))
     imagedestroy ($dest);
   }
 
+  
+  /* All logic is there
+   * On "todo" : Create files and uncomment some previous statements.
+   */
 
 
   $swift_theme_creator->save_theme_config();  

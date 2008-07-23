@@ -1,0 +1,18 @@
+/* Theme {$main.newtheme} mail css */
+
+body {$main.ldelim} background-color:{$main.colour1}; color:{$main.colour2};}
+#the_page {$main.ldelim} background: {$main.colour1} url({ldelim}$ROOT_URL}template/{ldelim}$themeconf.template}/mail/text/html/images/mailbody-bg.png) repeat-y scroll left top;}
+#content {$main.ldelim} background: transparent url({ldelim}$ROOT_URL}template/{ldelim}$themeconf.template}/mail/text/html/images/header-bg.png) no-repeat scroll left top;}
+#copyright {$main.ldelim} background: transparent url({ldelim}$ROOT_URL}template/{ldelim}$themeconf.template}/mail/text/html/images/footer-bg.png) no-repeat scroll left bottom;
+color: {$main.colour2};}
+h2 {$main.ldelim} background-color: {$main.colour7};color:#eee;background-image: url({ldelim}$ROOT_URL}template/{ldelim}$themeconf.template}/theme/{ldelim}$themeconf.theme}/images/tableh1_bg.png);}
+img {$main.ldelim} margin: 16px; padding:15px;border:1px solid #eee; -moz-border-radius: 4px; border-radius: 4px 4px; }
+img:hover {$main.ldelim} border:1px solid {$main.colour2}; -moz-border-radius: 4px; border-radius: 4px 4px; }
+a {$main.ldelim} color: {$main.colour2}; background: transparent; }
+a:hover {$main.ldelim} color: {$main.colour3}; }
+a.PWG {$main.ldelim} border: 0px; }
+a.PWG .P {$main.ldelim} color : {$main.colour3}; }
+a.PWG .W {$main.ldelim} color : {$main.colour5}; }
+a.PWG .G {$main.ldelim} color : {$main.colour2}; }
+a.PWG:hover .P {$main.ldelim} color : {$main.colour2}; }
+a.PWG:hover .G {$main.ldelim} color : {$main.colour3}; }
