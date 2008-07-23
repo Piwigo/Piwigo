@@ -6,7 +6,7 @@
           don't be confusing with the public page footer
 
 *}
-<div id="copyright" class="png">
+<div id="copyright">
  <a name="EoP"></a> <!-- End of ADMIN Page -->
  {if isset($debug.TIME) }
  {'generation_time'|@translate} {$debug.TIME} ({$debug.NB_QUERIES} {'sql_queries_in'|@translate} {$debug.SQL_TIME}) -

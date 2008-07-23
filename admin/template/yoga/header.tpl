@@ -42,8 +42,8 @@
 
 </head>
 
-<body id="{$BODY_ID}" class="png">
-<div id="headbranch" class="png"></div> {* Dummy block for double background management *}
+<body id="{$BODY_ID}">
+<div id="headbranch"></div> {* Dummy block for double background management *}
 <div id="the_page">
 
 {if not empty($header_msgs)}
@@ -54,7 +54,7 @@
 </div>
 {/if}
 
-<div id="theHeader" class="png">{*$PAGE_BANNER*}</div>
+<div id="theHeader">{*$PAGE_BANNER*}</div>
 {if not empty($header_notes)}
 <div class="header_notes">
   {foreach from=$header_notes item=elt}
