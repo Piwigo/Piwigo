@@ -24,7 +24,7 @@
 /* Ajouter le lien au menu de l'admin */
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 if (!defined('IN_ADMIN') or !IN_ADMIN) die('Hacking attempt!');
-
+define(STC_PATH, PHPWG_PLUGINS_PATH.'SwiftThemeCreator/');
 /*
  * stc_hex2rgb convert any string to array of RGB values
  */
@@ -68,11 +68,10 @@ function darken( $r, $g, $b, $percent)
  */
 function stc_newfile( $filename, $data )
 {
-  $fp = fopen($filename, 'w');
-  if ($fp)
-  {
+  $fp = @fopen($filename, 'w');
+  if ($fp) {
     $ret = fwrite($fp, $data); 
-    fclose($fp);
+    @fclose($fp);
     return $ret;
   }
   return false;
@@ -136,24 +135,26 @@ if (isset($_POST['submit']) and (!is_adviser()))
             . 'text and background. dif=') . $dif); 
 
   // 2.2 - Background and Internal links control
-  list($r1,$g1,$b1) = stc_hex2rgb($main['color'][0]);
-  list($r2,$g2,$b2) = stc_hex2rgb($main['color'][2]);
-  // Background and Internal links "brightness" difference control:
-  $dif = abs( ( (($r1*299)+($g1*587)+($b1*114)) / 1000 )
-          - ( (($r2*299)+($g2*587)+($b2*114)) / 1000 ));
-  if ( $dif < 65 )
+  if (isset($do_it))
+  {
+    list($r1,$g1,$b1) = stc_hex2rgb($main['color'][0]);
+    list($r2,$g2,$b2) = stc_hex2rgb($main['color'][2]);
+    // Background and Internal links "brightness" difference control:
+    $dif = abs( ( (($r1*299)+($g1*587)+($b1*114)) / 1000 )
+            - ( (($r2*299)+($g2*587)+($b2*114)) / 1000 ));
+    if ( $dif < 65 )
+        array_push($errors,
+         l10n('Insufficient brightness difference between ' 
+              . 'Internal links and background. dif=') . $dif); 
+    // Background and Internal links "colour" difference control:
+    $dif = (max($r1, $r2) - min($r1, $r2)) 
+       + (max($g1, $g2) - min($g1, $g2)) 
+       + (max($b1, $b2) - min($b1, $b2));
+    if ( $dif < 200 )
       array_push($errors,
-       l10n('Insufficient brightness difference between ' 
-            . 'Internal links and background. dif=') . $dif); 
-  // Background and Internal links "colour" difference control:
-  $dif = (max($r1, $r2) - min($r1, $r2)) 
-     + (max($g1, $g2) - min($g1, $g2)) 
-     + (max($b1, $b2) - min($b1, $b2));
-  if ( $dif < 200 )
-    array_push($errors,
-       l10n('Insufficient colour difference between ' 
-            . 'Internal links and background. dif=') . $dif); 
-
+         l10n('Insufficient colour difference between ' 
+              . 'Internal links and background. dif=') . $dif); 
+  }
   // 3 - Directory control
   $main['templatedir'] = PHPWG_ROOT_PATH . 'template/' 
                . $available_templates[$_POST['template']];
@@ -198,7 +199,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
   // Go ahead 
   if (count($errors) == 0) {
     umask(0000);
-    mkdir($themedir, 0777);
+    @mkdir($themedir, 0705);
     if (!is_dir(  $themedir ))
         array_push($errors,
           l10n('Theme directory creation failure: ' 
@@ -210,7 +211,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
        **/
       $plugin_tpl = new Template();
       $plugin_tpl->set_filenames(array('themeconf'=>
-      dirname(__FILE__) . '/themeconf.inc.tpl'));
+      STC_PATH . 'themeconf.inc.tpl'));
       $plugin_tpl->assign('main',$main);
       $main['themeconf_inc_php'] = $plugin_tpl->parse('themeconf', true);
       $r = stc_newfile( $themedir . '/themeconf.inc.php', 
@@ -219,7 +220,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
        * Build mail-css.tpl
        **/  
       $plugin_tpl->set_filenames(array('mailcss'=>
-      dirname(__FILE__) . '/mail-css.tpl2'));
+      STC_PATH . 'mail-css.tpl2'));
       $plugin_tpl->assign('main',$main);
       $main['mail-css.tpl'] = $plugin_tpl->parse('mailcss', true);  
       $r = $r && stc_newfile( $themedir . '/mail-css.tpl', 
@@ -228,7 +229,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
        * Build theme.css
        **/  
       $plugin_tpl->set_filenames(array('theme'=>
-      dirname(__FILE__) . '/theme.tpl'));
+      STC_PATH . 'theme.tpl'));
       $plugin_tpl->assign('main',$main);
       $main['theme.css'] = $plugin_tpl->parse('theme', true);  
       $r = $r && stc_newfile( $themedir . '/theme.css', 
@@ -238,7 +239,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
        **/
       if (function_exists('imagecreatefrompng'))
       {
-        $img = imagecreatefrompng(dirname(__FILE__) . '/titrePage-bg.png');
+        $img = imagecreatefrompng(STC_PATH . '/titrePage-bg.png');
         $dest = imagecreate(1, 64);
         for ($i=0; $i<256; $i++) {
           imagecolorallocate($dest, $i, $i, $i); 
@@ -255,7 +256,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
         imagedestroy ($img);
         imagedestroy ($dest);
       }
-      else @copy( dirname(__FILE__) 
+      else @copy( STC_PATH
                  . '/titrePage-bg.png', $themedir . '/stc.png');      
       if ($r == false) {
         array_push($errors,
@@ -273,7 +274,7 @@ if (isset($_POST['submit']) and (!is_adviser()))
       }
     }
   }
-  
+  // TODO       ********   HEADER   *********
   // Interesting Graphic Charter
   // http://accessites.org/site/2006/08/visual-vs-structural/
 
@@ -283,7 +284,12 @@ if (isset($_POST['submit']) and (!is_adviser()))
 // +-----------------------------------------------------------------------+
 // |                            reset values
 // +-----------------------------------------------------------------------+
-
+if (isset($_POST['reset']) and (!is_adviser())) {
+  $main = array();
+  $swift_theme_creator->theme_config = $main;
+  $swift_theme_creator->save_theme_config();  
+  redirect( get_admin_plugin_menu_link(dirname(__FILE__).'/theme_creator.php'));
+}
 // To be implemented delete $main save and redirect
 
 // Don't forget to re-read because some statements are superfluous

@@ -145,5 +145,8 @@ You can update later the result as you need.'|@translate}
 </table>
 </fieldset>
 
-<p><input name="submit" class="submit" type="submit" value="{'Submit'|@translate}" /></p>
+<p>
+<input name="reset" class="submit" type="submit" value="{'Reset'|@translate}" /> &nbsp; 
+<input name="submit" class="submit" type="submit" value="{'Submit'|@translate}" />
+</p>
 </form>
