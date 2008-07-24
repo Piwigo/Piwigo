@@ -28,7 +28,6 @@ include_once( PHPWG_ROOT_PATH .'include/functions_user.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_session.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_category.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_xml.inc.php' );
-include_once( PHPWG_ROOT_PATH .'include/functions_group.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
