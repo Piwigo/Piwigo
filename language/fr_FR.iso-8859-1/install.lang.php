@@ -69,4 +69,7 @@ Un fois ce fichier supprimé, veuillez suivre ces indications :
 </ul>';
 $lang['conf_mail_webmaster'] = 'Adresse e-mail de l\'Administrateur';
 $lang['conf_mail_webmaster_info'] = 'Les visiteurs pourront vous contacter par ce mail';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
+// --------- Starting below: New or revised $lang ---- from version 1.7.2
+// --------- Starting below: New or revised $lang ---- from version 1.7.3
 ?>

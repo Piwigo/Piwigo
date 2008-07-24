@@ -643,5 +643,5 @@ $lang['add new elements to caddie'] = 'add new elements to caddie';
 $lang['Deleted on'] = 'Deleted on';
 $lang['Last hit'] =  'Last hit';
 $lang['Hits'] = 'Hits';
-
+// --------- Starting below: New or revised $lang ---- from version 1.7.3
 ?>

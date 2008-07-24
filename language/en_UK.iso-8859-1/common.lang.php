@@ -376,4 +376,6 @@ $lang['Waiting page: %s'] = 'Waiting page: %s';
 $lang['Picture uploaded by %s'] = 'Picture uploaded by %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['guest_must_be_guest'] = 'Bad status for user "guest", using default status. Please notify the webmaster.';
+// --------- Starting below: New or revised $lang ---- from version 1.7.2
+// --------- Starting below: New or revised $lang ---- from version 1.7.3
 ?>

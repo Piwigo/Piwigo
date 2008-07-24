@@ -644,4 +644,5 @@ $lang['add new elements to caddie'] = 'ajouter les nouveaux éléments au panier';
 $lang['Deleted on'] = 'Effacé le';
 $lang['Last hit'] =  'Dernier accès';
 $lang['Hits'] = 'Utilisations';
+// --------- Starting below: New or revised $lang ---- from version 1.7.3
 ?>

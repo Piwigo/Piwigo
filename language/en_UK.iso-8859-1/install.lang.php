@@ -74,4 +74,7 @@ Once this file deleted , follow this instructions :
 </ul>';
 $lang['conf_mail_webmaster'] = 'Webmaster mail adress';
 $lang['conf_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
+// --------- Starting below: New or revised $lang ---- from version 1.7.1
+// --------- Starting below: New or revised $lang ---- from version 1.7.2
+// --------- Starting below: New or revised $lang ---- from version 1.7.3
 ?>
