@@ -1,0 +1,7 @@
+/* $Id$ */
+legend.thumbLegend { padding: 0 5px; color: #24919c; font-style:italic; font-size: 7px; }
+fieldset.wrap1 { width: 96px; min-width: 96px; padding: 0; 
+margin: 5px; display: inline;}
+.wrap2 { display: block; padding: 4px 15px 10px 15px; border: 0;}
+a.wrap2:hover { border: 0; background-color: #000; }
+img.thumbnail { display: block; margin: 2px auto; }
