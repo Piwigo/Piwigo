@@ -128,12 +128,16 @@ function ws_addDefaultMethods( $arr )
       ),
       'Returns elements for the corresponding query search.'
     );
-  $service->addMethod('pwg.images.setPrivacyLevel', 'ws_images_setPrivacyLevel',
-      array(
-        'image_id' => array('flags'=>WS_PARAM_FORCE_ARRAY),
-        'level' => array('maxValue'=>$conf['available_permission_levels']),
+  
+  $service->addMethod(
+    'pwg.images.setPrivacyLevel',
+    'ws_images_setPrivacyLevel',
+    array(
+      'image_id' => array('flags'=>WS_PARAM_FORCE_ARRAY),
+      'level' => array('maxValue'=>$conf['available_permission_levels']),
       ),
-      'sets the privacy levels for the images' );
+    'sets the privacy levels for the images'
+    );
 
   $service->addMethod('pwg.session.getStatus', 'ws_session_getStatus', null, '' );
   $service->addMethod('pwg.session.login', 'ws_session_login',
@@ -166,6 +170,20 @@ function ws_addDefaultMethods( $arr )
         'f_with_thumbnail' => array( 'default'=> false ),
       ),
       'Returns elements for the corresponding tags. Note that tag_id, tag_url_name, tag_name an be arrays. Fill at least one of them. '
+    );
+
+  $service->addMethod(
+    'pwg.images.add',
+    'ws_images_add',
+    array(
+      'name',
+      'category_id',
+      'file_content',
+      'file_sum',
+      'thumbnail_content',
+      'thumbnail_sum'
+      ),
+    'POST method only'
     );
 }
 
