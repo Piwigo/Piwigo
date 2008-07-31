@@ -1,7 +1,14 @@
 /* $Id$ */
-legend.thumbLegend { padding: 0 5px; color: #24919c; font-style:italic; font-size: 7px; }
-fieldset.wrap1 { width: 96px; min-width: 96px; padding: 0; 
+.thumbLegend { padding: 0 6px; color: #24919c; font-style:italic; font-size: 7px; }
+.fld1 { width: 96px; min-width: 96px; padding: 0; 
 margin: 5px; display: inline;}
-.wrap2 { display: block; padding: 4px 15px 10px 15px; border: 0;}
-a.wrap2:hover { border: 0; background-color: #000; }
-img.thumbnail { display: block; margin: 2px auto; }
+.lap2 { display: block; padding: 4px 15px 10px 15px; border: 0;}
+.fld1:hover { background-color: #000; }
+.fld1 a:hover { border:0; }
+.thumbnail { margin: 2px auto; }
+/* Advanced hacks for IE 7 */
+*+html .thumbnail { display: inline; margin: 0 auto; }
+*+html .lap2 span { position: relative; top: 50%; margin: 0 auto; }
+*+html .lap2 { display: inline; position: relative; top: 0%; }
+*+html .fld1 { width: auto; padding: 6px 0 6px 0; margin-top: 0px;}
+*+html .thumbLegend { font-size: 10px; }

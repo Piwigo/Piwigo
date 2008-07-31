@@ -5,12 +5,12 @@
 <ul class="thumbnails">
 {foreach from=$thumbnails item=thumbnail}
 	<li>
-	<fieldset class="wrap1">
+	<fieldset class="fld1">
 		<legend class="thumbLegend">
 		{if !empty($thumbnail.ELEMENT_NAME)}{$thumbnail.ELEMENT_NAME}{/if}
 		</legend>
-		<a href="{$thumbnail.U_IMG_LINK}" class="wrap2">
-			<img class="thumbnail" src="{$thumbnail.IMAGE}" alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}" />
+		<a href="{$thumbnail.U_IMG_LINK}" class="lap2">
+			<span><img class="thumbnail" src="{$thumbnail.IMAGE}" alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}" /></span>
 		</a>
   </fieldset>
 	</li>
