@@ -170,18 +170,6 @@ class Template {
           { /* examples: Are best_rated, created-monthly-calendar, list, ... set? */
               $this->files[$handle] = '../.' . $localtpl; 
               /* assign their tpl-extension */
-              /* For test purpose: Do advanced users need a php access? */
-              // $localphp = '../.' . substr($localtpl,0,-3).'php';
-              // if (file_exists($localphp)) @include_once($localphp);
-              
-              /* Does it have a samename.css available */
-              $localcss = substr($localtpl,0,-3).'css';
-              if (file_exists($localcss))
-              {
-                $this->html_head_elements[] = 
-                '<link rel="stylesheet" type="text/css" href="'
-                . substr($localcss, 2) . '">';
-              }
           }
         }
       }
