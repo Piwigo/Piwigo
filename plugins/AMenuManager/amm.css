@@ -1,0 +1,4 @@
+
+.littlefont { font-size:90%; }
+table.littlefont th { text-align:center; padding:3px;padding-left:9px;padding-right:9px; }
+table.littlefont td { text-align:left; padding:0px;padding-left:3px;padding-right:3px; }
