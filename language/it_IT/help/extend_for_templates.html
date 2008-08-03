@@ -1,98 +1,97 @@
-<h2>Extend for templates configuration</h2>
+<h2>Configurazione per "l'estenzione" dei templates</h2>
 
-<h3>Goal</h3>
-<p>Define replacement conditions for each template from template-extension
-(template called "replacer").</p>
+<h3>Scopo</h3>
+<p>Definire le condizioni di sostituzione per ogni template (modello) dalla directory template-extension
+(template chiamato il "replacer" (rimpiazzante)).</p>
 
-<p>"original template" from ./template/yoga (or any other than yoga)
- will be replaced by a "replacer" if the replacer is linked to this "original template"
- (and optionally, when the requested URL contains an "optional URL keyword").</p>
+<p>I "templates originali" da ./template/yoga (o qualunque altra directory che yoga) sarà sostituito 
+da un rimpiazzante se quest'ultimo è collegato al "template originale" (e in modo facoltativo, 
+quando l'URL richiesta contiene un "parametro facoltativo del'URL").</p>
 
-<p>"Optional URL keywords" are those you can find after the module name in URLs.</p>
+<p>I "parametri facoltativi del'URL" sono quelli che potete trovare dopo il nome del modulo nel indirizzo (URL).</p>
 
-<p>Therefore "Optional URL keywords" can be an active "permalink" 
-(see permalinks in our documentation for further explanation).</p>
+<p>Quindi un "parametro facoltativo del'URL" può essere un "permalink" attivo (per maggiore informazioni 
+vedere i permalinks della nostra documentazione).</p>
 
-<p>Read: `<a href="#warnings">Warning</a>` usage conditions.</p>
+<p>Leggere: `<a href="#warnings">Avvertimenti</a> sulle condizioni d'uso.</p>
 
-<h3>What are template extensions?</h3>
+<h3>Che cosa sono le estensioni di template?</h3>
 
-<p>This configuration tool is powerfull for beginners and advanced users.
-By FTP, in the template-extension folder, the Webmaster can duplicate a lot of
- the distributed .tpl files ("original template") with a different name 
- ("replacer").
- 
- "Original templates", current original supported templates are:</p>
+<p>Quest'attrezzo di configurazione è potente per i principianti ma anche per gli esperti.
+Trammite FTP, nella directory template-estensione, il Webmaster può duplicare i file .tpl 
+("template originali") con un nome diverso (rimpiazzante).
+
+ "Template originali", attualmente i modelli d'origine sopportati sono:</p>
 <ul>
   <li><span class="filename">index.tpl</span></li>
-  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> e/o <span class="filename">thumbnails.tpl</span></li>
   <li><span class="filename">menubar.tpl</span></li>
-  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
-  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <li><span class="filename">header.tpl</span> e/o <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> e/o <span class="filename">picture.tpl</span></li>
   <!-- <li><span class="filename">slideshow.tpl</span></li> -->
-  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">profile.tpl</span> e/o <span class="filename">profile_content.tpl</span></li>
   <li><span class="filename">tags.tpl</span></li>
   <li><span class="filename">upload.tpl</span></li>
   <li><span class="filename">about.tpl</span></li>
-  <li><span class="filename">popuphelp.tpl</span></li>
-  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
-  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
-  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span>	</li>
+  <li><span class="filename">search.tpl</span> e/o <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> e/o <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> e/o <span class="filename">register.tpl</span></li>
   <li><span class="filename">redirect.tpl</span></li>
 </ul>
 
-<h3>Where can I find "original templates"?</h3>
+<h3>Dove posso trovare i "templates originali"?</h3>
 
-<p>Distributed original templates are in template/yoga/ 
-(don't edit them in place for upgrade perspectives). So with "original templates", 
-any webmaster can create his "replacers (customized templates)".</p>
+<p>I templates originali sono in template/yoga/
+(non modificare i templetes originali per evitare problemi durante gli aggiornamenti futuri). Dunque con
+i "templates originali", il webmaster può creare il suo "replacers (modelli personalizzati)".</p>
 
-<h3>Where should I save "replacers"?</h3>
+<h3>Dove posso salvare i "rimpiazzanti"?</h3>
 
-<p><strong>Replacers (customized templates)</strong> must be placed in the 
-template-extension folder (or its subfolders).
-Replacers can have any filename with the .tpl extension. For example: <span
+<p><strong>I templates personalizzati</strong> possono essere salvati nella directory 
+template-extension (o sotto directory).
+I "rimpiazzanti" possono avere qualunque nome con l'estenzione .tpl. Per esempio: <span
 class="filename">template-extension/my-extension/video.tpl</span>.</p>
 
 
-<h3>How can I activate my "replacers"?</h3>
-<p>An <strong>original template</strong> should be assigned to each
- <strong>replacer (customized templates)</strong> to activate the related replacements.
- This is the goal of "Extend for templates" in the Configuration Administration menu.</p>
+<h3>Come posso attivare i miei "rimpiazzanti"?</h3>
+<p>Un <strong>template originale</strong> dovrebbe essere assegnato a 
+ <strong>un replacer (modello personalizzato)</strong> per potere attivare i rimpiazzanti associati.
+ Attivare i rimpiazzanti è la funzione "Estende i templetes" nel menu di Configurazione del Amministrazione.</p>
 
-<p>If you select an <strong>optional URL keyword</strong> then replacements 
-will be operate only on pages with this keyword. For example: <span
+<p>Se selezionate un <strong>Parametro facoltativo del URL</strong> i rimpiazzanti saranno utilizzati 
+unicamente sulle pagine con questa parola chiave. Per esempio: <span
   class="pwgScreen">index.php?/<strong>most_visited</strong></span></p>
   
-<p>Advanced users will use permalinks as <strong>optional URL 
-  keyword</strong>. </p>
-<h3>How can I deactivate my "replacers"?</h3>
+<p>Gli utenti esperti useranno i permalinks come <strong>parametro facoltativo del URL</strong>. </p>
+
+<h3>Come posso disattivare mio "rimpiazzante"?</h3>
 <ul>
-<li>Unselect related "Original templates".</li>
-<li>By FTP delete of "replacers".</li>
+<li>Deselezzionare il "templete originale".</li>
+<li>Con l'FTP cancellare il "rimpiazzante".</li>
 </ul>
 <a name="warnings"></a>
-<h3>Warnings</h3>
+<h3>Avvertenze</h3>
 <ul>
 
-  <li><strong>Original template</strong> must be the "original" template 
-  otherwise you could have unpredictable results!</li>
+  <li>Il <strong>templete d'origine</strong> deve essere il vero templete "originale"
+  altrimenti potrete avere dei risultati innattesi!</li>
 
-  <li>On several <strong>replacers (customized templates)</strong> with the
-  same<strong>Original template</strong> and the same <strong>optional URL 
-  keyword</strong> only the last replacer is active.</li>
+  <li>Se diversi <strong>replacers (templetes personalizzati)</strong> hanno lo stesso 
+  <strong>templete originale</strong> e lo stesso <strong>parametro facoltativo del URL</strong> 
+  solo l'ultimo rimpiazzante satà attivo.</li>
 
-  <li>Unselected <strong>optional URL keyword</strong> will active the replacer
-  on any template usage. As previous point, order can override previous
-  selected replacers.</li>
+  <li>Non selezionare <strong>il parametro facoltativo del URL</strong> 
+  attiverà il rimpiazzante ad ogni uso del templete.
+  Come detto precedente, l'ordine può annullare i rimpiazzanti precedenti.</li>
 
-  <li>Subfolders:
-Subfolders are ignored but they are usefull to change current order.<br />
-distributed-samples: for test purpose are distributed! 
-<strong>Don't edit them</strong> create your own ones.
+  <li>Le sotto directory:
+  Le sotto directory sono ignorate ma sono utili per cambiare l'ordine dei rimpiazzanti.<br />
+distributed-samples: sono distribuite per le vostre prove! 
+<strong>Non modificateli</strong>, create i vostri! 
 </li>
 
-  <li>On delete of a replacer the <strong>Original template</strong> is 
-  immediately reactivated.</li>
+  <li>Alla cancellazione di un rimpiazzante il <strong>templete originale</strong>
+  è immediatamente riattivato.</li>
 
 </ul>
