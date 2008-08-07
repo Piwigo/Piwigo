@@ -3,7 +3,7 @@
 
   //global var ; need to not have to initialize them every time a value is changed
   var objlang;
-  var objnames = new Array('iamm_links_title');
+  var objnames = new Array('iamm_randompicture_title');
   var objinput = new Array();   //input text from form => objinput[name]
   var objhidden = new Array();  //input hidden from form => objhidden[name][lang]
 
@@ -37,10 +37,11 @@
 
   function do_translation()
   {
-    var inputid = document.getElementById('iamm_links_title');
+    var inputid = document.getElementById('iamm_randompicture_title');
     var tolang = objlang.options[objlang.options.selectedIndex].value.substr(0,2);
 
     google_translate(inputid.value, '{/literal}{$datas.fromlang}{literal}', tolang, inputid, 'value', apply_changes, inputid.id);
+
   }
 
 
@@ -49,8 +50,7 @@
 
 
 
-<h3><span style="font-weight:normal"><a href="{$datas.lnk_list}" title="{'g002_configlinks'|@translate}">{'g002_linkslist'|@translate} </span></a> / {'g002_configlinks'|@translate}
-</h3>
+<h3>{'g002_configrandompic'|@translate}</h3>
 
 
 <form method="post" action="" class="general">
@@ -59,8 +59,8 @@
 
     {if isset($datas.language_list) and count($datas.language_list)}
       {foreach from=$datas.language_list key=name item=language_row}
-        <input type="hidden" name="famm_links_title_{$language_row.LANG}"
-                id="iamm_links_title_{$language_row.LANG}" value="{$language_row.MENUBARTIT}">
+        <input type="hidden" name="famm_randompicture_title_{$language_row.LANG}"
+                id="iamm_randompicture_title_{$language_row.LANG}" value="{$language_row.MENUBARTIT}">
       {/foreach}
     {/if}
 
@@ -68,7 +68,7 @@
       <tr>
         <td>{'g002_setting_block_active'|@translate}</td>
         <td>
-          <select name="famm_links_active" id="iamm_links_active">
+          <select name="famm_randompicture_active" id="iamm_randompicture_active">
             {html_options values=$datas.yesno_values output=$datas.yesno_labels selected=$datas.active_selected}
           </select>
         </td>
@@ -77,7 +77,7 @@
       <tr>
         <td>{'g002_setting_block_title'|@translate}</td>
         <td>
-          <input type="text" id="iamm_links_title" value="" maxlength="50" onkeyup="apply_changes('iamm_links_title');" onblur="apply_changes('iamm_links_title');"/>
+          <input type="text" id="iamm_randompicture_title" value="" maxlength="50" onkeyup="apply_changes('iamm_randompicture_title');" onblur="apply_changes('iamm_randompicture_title');"/>
           <select onchange="change_lang();" id="islang">
             {html_options values=$datas.language_list_values output=$datas.language_list_labels selected=$datas.lang_selected}
           </select><br>
@@ -92,21 +92,30 @@
 
     </table>
 
-
   </fieldset>
 
   <fieldset>
-    <legend>{'g002_setting_link_links'|@translate}</legend>
-    <table class="formtable">
-      <tr>
-        <td>{'g002_setting_link_show_icon'|@translate}</td>
-        <td>
-          <select name="famm_links_show_icons" id="iamm_links_show_icons">
-            {html_options values=$datas.yesno_values output=$datas.yesno_labels selected=$datas.show_icons_selected}
-          </select>
-        </td>
-      </tr>
-    </table>
+    <legend>{'g002_setting_randompic_aboutpicture'|@translate}</legend>
+      <table class="formclass">
+        <tr>
+          <td>{'g002_setting_randompic_showname'|@translate}</td>
+          <td>
+            <select name="famm_randompicture_showname" id="iamm_randompicture_showname">
+              {html_options values=$datas.show_values output=$datas.show_labels selected=$datas.showname_selected}
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>{'g002_setting_randompic_showcomment'|@translate}</td>
+          <td>
+            <select name="famm_randompicture_showcomment" id="iamm_randompicture_showcomment">
+              {html_options values=$datas.show_values output=$datas.show_labels selected=$datas.showcomment_selected}
+            </select>
+          </td>
+        </tr>
+
+      </table>
   </fieldset>
 
   <p>

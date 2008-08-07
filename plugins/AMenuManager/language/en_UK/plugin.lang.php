@@ -38,11 +38,12 @@ $lang['g002_createthelink'] = 'Add link';
 $lang['g002_editthelink'] = 'Edit link';
 
 $lang['g002_configlinks'] = 'Links settings';
-$lang['g002_setting_link_block_menu'] = 'Menu integration';
 $lang['g002_setting_link_links']='Links';
 $lang['g002_setting_link_show_icon'] = 'Display links representative picture';
-$lang['g002_setting_link_block_active'] = 'Display block in menu';
-$lang['g002_setting_link_block_title'] = 'Block title';
+
+$lang['g002_setting_block_menu'] = 'Menu integration';
+$lang['g002_setting_block_active'] = 'Display block in menu';
+$lang['g002_setting_block_title'] = 'Block title';
 $lang['g002_apply'] = 'Apply';
 
 $lang['g002_sectionslist'] = 'Menu\'s blocks';
@@ -53,6 +54,36 @@ $lang['g002_yesno_n'] = 'No';
 $lang['g002_owner'] = 'Owner';
 $lang['g002_sectionid'] = 'Identifier';
 $lang['g002_name'] = 'Label';
+
+$lang['g002_translate'] = 'Translate with Google Translate';
+
+$lang['g002_configrandompic'] = 'Random picture settings';
+$lang['g002_setting_randompic_aboutpicture'] = 'Displayed datas';
+$lang['g002_setting_randompic_showname'] = 'Show picture\'s name';
+$lang['g002_setting_randompic_showcomment'] = 'Show picure\'s comment';
+$lang['g002_show_n'] = 'No';
+$lang['g002_show_o'] = 'Display over the picture';
+$lang['g002_show_u'] = 'Display under thpicture';
+
+$lang['g002_personalisedlist'] = "Liste of personalised blocks";
+$lang['g002_notitle'] = '[No title]';
+$lang['g002_title'] = 'Title';
+$lang['g002_sections'] = 'blocks';
+$lang['g002_section'] = 'block';
+$lang['g002_nosections'] = 'No blocks';
+$lang['g002_addsection'] = 'Add a new block';
+$lang['g002_createofpersonalised'] = 'Create a new personalized block';
+$lang['g002_editofpersonalised'] = 'Modify a personalized block';
+$lang['g002_setting_block_langchoice'] = 'Lang choice';
+$lang['g002_setting_personalised_content'] = 'Block\'s content';
+$lang['g002_setting_personalised_properties'] = 'Properties';
+$lang['g002_setting_personalised_nfo'] = 'Description';
+
+$lang['g002_all_languages'] = "All languages";
+
+$lang['g002_modmenu'] = '\'menu\' block';
+$lang['g002_modspecial'] = '\'special\' block';
+$lang['g002_labelmenu'] = 'Menu\'s label';
 
 
 ?>

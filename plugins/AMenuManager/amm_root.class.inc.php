@@ -26,7 +26,7 @@ class AMM_root extends common_plugin
     $this->plugin_name_files="amm";
     parent::__construct($prefixeTable, $filelocation);
 
-    $list=array('urls');
+    $list=array('urls', 'personalised');
     $this->set_tables_list($list);
   }
 
@@ -43,7 +43,28 @@ class AMM_root extends common_plugin
       'amm_links_show_icons' => 'y',
       'amm_links_active' => 'y',
       'amm_links_title' => array(),
-      'amm_sections_visible' => array()
+      'amm_sections_visible' => array(),
+      'amm_randompicture_active' => 'n',
+      'amm_randompicture_showname' => 'n',     //n:no, o:over, u:under
+      'amm_randompicture_showcomment' => 'n',   //n:no, o:over, u:under
+      'amm_randompicture_title' => array(),
+      'amm_sections_modspecial' => array(
+        'favorite_cat' => 'y',
+        'most_visited_cat' => 'y',
+        'best_rated_cat' => 'y',
+        'random_cat' => 'y',
+        'recent_pics_cat' => 'y',
+        'recent_cats_cat' => 'y',
+        'calendar' => 'y'
+      ),
+      'amm_sections_modmenu' => array(
+        'qsearch' => 'y',
+        'Tags' => 'y',
+        'Search' => 'y',
+        'comments' => 'y',
+        'About' => 'y',
+        'Notification' => 'y'
+      )
     );
 
     $languages=get_languages();
@@ -51,11 +72,13 @@ class AMM_root extends common_plugin
     {
       if($key=='fr_FR')
       {
-        $this->my_config['amm_links_title'][$key]='Liens';
+        $this->my_config['amm_links_title'][$key]=base64_encode('Liens');
+        $this->my_config['amm_randompicture_title'][$key]=base64_encode('Une image au hasard');
       }
       else
       {
-        $this->my_config['amm_links_title'][$key]='Links';
+        $this->my_config['amm_links_title'][$key]=base64_encode('Links');
+        $this->my_config['amm_randompicture_title'][$key]=base64_encode('A random picture');
       }
     }
 
@@ -66,6 +89,22 @@ class AMM_root extends common_plugin
     }
   }
 
+  public function load_config()
+  {
+    global $menu;
+
+    parent::load_config();
+
+    $sections=$menu->registered();
+    foreach($sections as $key => $val)
+    {
+      if(!isset($this->my_config['amm_sections_visible'][$key]))
+      {
+        $this->my_config['amm_sections_visible'][$key]='y';
+      }
+    }
+    
+  }
 
   // return an array of urls (each url is an array)
   protected function get_urls($only_visible=false)
@@ -82,6 +121,7 @@ class AMM_root extends common_plugin
     {
       while($row=mysql_fetch_array($result))
       {
+        $row['label']=stripslashes($row['label']);
         $returned[]=$row;
       }
     }
@@ -105,6 +145,40 @@ class AMM_root extends common_plugin
     }
     return($returned);
   }
+
+  // return an array of sections (each section is an array)
+  protected function get_sections($only_visible=false, $lang="", $only_with_content=true)
+  {
+    global $user;
+
+    if($lang=="")
+    {
+      $lang=$user['language'];
+    }
+
+    $returned=array();
+    $sql="SELECT * FROM ".$this->tables['personalised']."
+WHERE (lang = '*' OR lang = '".$lang."') ";
+    if($only_visible)
+    {
+      $sql.=" AND visible = 'y' ";
+    }
+    if($only_with_content)
+    {
+      $sql.=" AND content != '' ";
+    }
+    $sql.=" ORDER BY id, lang DESC ";
+    $result=pwg_query($sql);
+    if($result)
+    {
+      while($row=mysql_fetch_array($result))
+      {
+        $returned[]=$row;
+      }
+    }
+    return($returned);
+  }
+
 
 
 } // amm_root  class

@@ -110,7 +110,30 @@ if ('tags' == @$page['section'])
 
 
 //---------------------------------------------------------- special categories
-// favorites categories
+/*
+  ** note for usage with Menu class **
+  items of Special section are defined with a named key rather than a
+  numeric key
+
+  Example :
+    $datas['special']=array(
+      'favorite_cat' => array( ... ),
+      'most_visited_cat' => array( ... ),
+      'best_rated_cat' => array( ... ),
+      [...]
+    );
+
+  This permits to easily find datas and modify content with a callback on the
+  'loc_begin_menubar' event.
+
+  Example :
+    $section_special=$menu->section('mbSpecial');
+    unset($section['ITEMS']['favorite_cat']);
+    $menu->replace($section_special);
+
+    this code permit to remove the items "favorite_cat" from the
+    section "mbSpecial"
+*/
 $datas['special']=array();
 if ( !is_a_guest() )
 {
@@ -213,16 +236,25 @@ else
 
 
 //--------------------------------------------------------------- menu summaries
+/*
+  ** note for usage with Menu class **
+  items of menu section are defined with a named key rather than a numeric key
+
+  see notes from "sepcial categories" for more informations
+*/
 $datas['menu']=array();
+//qsearch input zone visible y/n ; if set to 'n' the qsearch zone isn't visible
+$datas['menu']['qsearch']='y';
+
 // tags link
-$datas['menu']['tags']=array(
+$datas['menu']['Tags']=array(
     'TITLE' => l10n('See available tags'),
     'NAME' => l10n('Tags'),
     'U_SUMMARY'=> get_root_url().'tags.php',
   );
 
 // search link
-$datas['menu']['search']=array(
+$datas['menu']['Search']=array(
     'TITLE'=>l10n('hint_search'),
     'NAME'=>l10n('Search'),
     'U_SUMMARY'=> get_root_url().'search.php',
@@ -237,14 +269,14 @@ $datas['menu']['comments']=array(
   );
 
 // about link
-$datas['menu']['about']=array(
+$datas['menu']['About']=array(
     'TITLE'     => l10n('about_page_title'),
     'NAME'      => l10n('About'),
     'U_SUMMARY' => get_root_url().'about.php',
   );
 
 // notification
-$datas['menu']['notification']=array(
+$datas['menu']['Notification']=array(
     'TITLE'=>l10n('RSS feed'),
     'NAME'=>l10n('Notification'),
     'U_SUMMARY'=> get_root_url().'notification.php',

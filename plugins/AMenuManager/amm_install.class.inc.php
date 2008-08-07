@@ -47,8 +47,18 @@
   `visible` char(1) NOT NULL default 'y',
   PRIMARY KEY  (`id`),
   KEY `order_key` (`position`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1",
+
+"CREATE TABLE  `".$this->tables['personalised']."` (
+  `id` int(11) NOT NULL default '0',
+  `lang` varchar(5) NOT NULL default '',
+  `title` varchar(50) NOT NULL default '',
+  `content` text NOT NULL,
+  `visible` char(1) NOT NULL default 'y',
+  `nfo` varchar(25) NOT NULL default '',
+  PRIMARY KEY  (`id`,`lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1"
-      );
+);
       //$table_def array
 
       $result=$this->tablef->create_tables($tables_def);

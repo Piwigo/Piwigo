@@ -20,9 +20,11 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 include_once(PHPWG_PLUGINS_PATH.'grum_plugins_classes-2/css.class.inc.php');
 include_once(PHPWG_PLUGINS_PATH.'grum_plugins_classes-2/ajax.class.inc.php');
 include_once(PHPWG_PLUGINS_PATH.'grum_plugins_classes-2/genericjs.class.inc.php');
+include_once(PHPWG_PLUGINS_PATH.'grum_plugins_classes-2/translate.class.inc.php');
 
 class AMM_AIP extends AMM_root
 { 
+  protected $google_translate;
   protected $tabsheet;
   protected $css;   //the css object
   protected $ajax;
@@ -51,6 +53,7 @@ class AMM_AIP extends AMM_root
                           $this->page_link.'&amp;fAMM_tabsheet=personnalblock');
     $this->css = new css(dirname($this->filelocation).'/'.$this->plugin_name_files.".css");
     $this->ajax = new Ajax();
+    $this->google_translate = new translate();
   }
 
 
@@ -115,7 +118,8 @@ class AMM_AIP extends AMM_root
           }
           else
           {
-            $this->display_links_manage_page($_REQUEST['action']);
+            ($_REQUEST['action']=='modify')?$urlid=$_REQUEST['fItem']:$urlid=0;
+            $this->display_links_manage_page($_REQUEST['action'], $urlid);
           }
           break;
         case 'config':
@@ -123,7 +127,7 @@ class AMM_AIP extends AMM_root
           {
             if(!$this->adviser_abort())
             {
-              $this->action_modify_config();
+              $this->action_links_modify_config();
             }
           }
           $this->display_links_config_page();
@@ -133,15 +137,46 @@ class AMM_AIP extends AMM_root
     elseif($_REQUEST['fAMM_tabsheet']=='randompict')
     {
       $page_nfo=l10n('g002_randompict_nfo');
+      if($post_action=='config')
+      {
+        if(!$this->adviser_abort())
+        {
+          $this->action_randompic_modify_config();
+        }
+      }
+      $this->display_randompic_config_page();
     }
     elseif($_REQUEST['fAMM_tabsheet']=='personnalblock')
     {
       $page_nfo=l10n('g002_personnalblock_nfo');
+
+      switch($_REQUEST['action'])
+      {
+        case 'list':
+          $this->display_personalised_list_page();
+          break;
+        case 'create':
+        case 'modify':
+          if($post_action==$_REQUEST['action'])
+          {
+            if(!$this->adviser_abort())
+            {
+              $this->action_create_modify_personalised();
+            }
+            $this->display_personalised_list_page();
+          }
+          else
+          {
+            ($_REQUEST['action']=='modify')?$sectionid=$_REQUEST['fItem']:$sectionid=0;
+            $this->display_personalised_manage_page($_REQUEST['action'], $sectionid);
+          }
+          break;
+      }
     }
     elseif($_REQUEST['fAMM_tabsheet']=='setmenu')
     {
       $page_nfo=l10n('g002_setmenu_nfo');
-      $this->display_sections_list_page();
+      $this->display_sections_list_page($_REQUEST['action']);
     }
 
     $template->assign('page_nfo', $page_nfo);
@@ -184,14 +219,35 @@ class AMM_AIP extends AMM_root
         case 'links_delete':
           $result=$this->ajax_amm_links_delete($_REQUEST['fItem']);
           break;
-        case 'sections_list':
-          $result=$this->ajax_amm_section_list();
+        case 'setmenu_list_sections_list':
+          $result=$this->ajax_amm_setmenu_list_section_list();
           break;
-        case 'sections_position':
-          $result=$this->ajax_amm_section_position($_REQUEST['fItem'], $_REQUEST['fPosition']);
+        case 'setmenu_list_sections_position':
+          $result=$this->ajax_amm_setmenu_list_section_position($_REQUEST['fItem'], $_REQUEST['fPosition']);
           break;
-        case 'sections_showhide':
-          $result=$this->ajax_amm_section_showhide($_REQUEST['fItem']);
+        case 'setmenu_list_sections_showhide':
+          $result=$this->ajax_amm_setmenu_list_section_showhide($_REQUEST['fItem']);
+          break;
+
+        case 'setmenu_modmenu_sections_list':
+          $result=$this->ajax_amm_setmenu_mod_section_list('amm_sections_modmenu');
+          break;
+        case 'setmenu_modmenu_sections_showhide':
+          $result=$this->ajax_amm_setmenu_mod_section_showhide('amm_sections_modmenu', $_REQUEST['fItem']);
+          break;
+
+        case 'setmenu_modspecial_sections_list':
+          $result=$this->ajax_amm_setmenu_mod_section_list('amm_sections_modspecial');
+          break;
+        case 'setmenu_modspecial_sections_showhide':
+          $result=$this->ajax_amm_setmenu_mod_section_showhide('amm_sections_modspecial', $_REQUEST['fItem']);
+          break;
+
+        case 'personalised_list':
+          $result=$this->ajax_amm_personalised_list();
+          break;
+        case 'personalised_delete':
+          $result=$this->ajax_amm_personalised_delete($_REQUEST['fItem']);
           break;
       }
       //$template->
@@ -210,7 +266,9 @@ class AMM_AIP extends AMM_root
       $_REQUEST['fAMM_tabsheet']='setmenu';
     }
 
-    if(($_REQUEST['fAMM_tabsheet']=='links') and !isset($_REQUEST['action']))
+    if((($_REQUEST['fAMM_tabsheet']=='links') or
+        ($_REQUEST['fAMM_tabsheet']=='personnalblock') or
+        ($_REQUEST['fAMM_tabsheet']=='setmenu')) and !isset($_REQUEST['action']))
     {
       $_REQUEST['action']='list';
     }
@@ -268,7 +326,8 @@ class AMM_AIP extends AMM_root
       'AMM_AJAX_URL_LIST' => $this->page_link."&ajaxfct=",
       'show_icons_selected' => $this->my_config['amm_links_show_icons'],
       'active_selected' => $this->my_config['amm_links_active'],
-      'lang_selected' => $user['language']
+      'lang_selected' => $user['language'],
+      'fromlang' => substr($user['language'],0,2)
     );
 
     $template_datas['language_list'] = array();
@@ -327,7 +386,7 @@ class AMM_AIP extends AMM_root
       $template_datas=array(
         'id' => $urlid,
         'modeedit' => 'modify',
-        'label' => $url['label'],
+        'label' => htmlentities($url['label'], ENT_QUOTES, 'UTF-8'),
         'url' => $url['url'],
         'icons_selected' => $url['icon'],
         'mode_selected' => $url['mode'],
@@ -397,33 +456,291 @@ class AMM_AIP extends AMM_root
   /*
     manage urls config save into database 
   */
-  protected function action_modify_config()
+  protected function action_links_modify_config()
   {
     $this->my_config['amm_links_show_icons']=$_POST['famm_links_show_icons'];
     $this->my_config['amm_links_active']=$_POST['famm_links_active'];
     $languages=get_languages();
     foreach($languages as $key => $val)
     {
-      $this->my_config['amm_links_title'][$key]=base64_encode(stripslashes($_POST['famm_links_title_'.$key]));
+      $this->my_config['amm_links_title'][$key]=base64_encode($_POST['famm_links_title_'.$key]);
     }
     $this->save_config();
   }
 
   /*
+    manage randompic config save into database
+  */
+  protected function action_randompic_modify_config()
+  {
+    $this->my_config['amm_randompicture_active']=$_POST['famm_randompicture_active'];
+    $this->my_config['amm_randompicture_showname']=$_POST['famm_randompicture_showname'];
+    $this->my_config['amm_randompicture_showcomment']=$_POST['famm_randompicture_showcomment'];
+    $languages=get_languages();
+    foreach($languages as $key => $val)
+    {
+      $this->my_config['amm_randompicture_title'][$key]=base64_encode(stripslashes($_POST['famm_randompicture_title_'.$key]));
+    }
+    $this->save_config();
+  }
+
+
+
+  /*
     manage display for sections table page
   */
-  private function display_sections_list_page()
+  private function display_sections_list_page($action)
   {
     global $template, $user;
     $template->set_filename('body_page',
-                            dirname($this->filelocation).'/admin/amm_sectionslist.tpl');
+                            dirname($this->filelocation).'/admin/amm_sections.tpl');
+
+    switch($action)
+    {
+      case 'list':
+        $tmp_list=array(
+          array('separator' => '', 'link' => '', 'label' => 'g002_sectionslist'),
+          array('separator' => ' / ', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=modmenu', 'label' => 'g002_modmenu'),
+          array('separator' => ' / ', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=modspecial', 'label' => 'g002_modspecial')
+        );
+        break;
+      case 'modmenu':
+        $tmp_list=array(
+          array('separator' => '', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=list', 'label' => 'g002_sectionslist'),
+          array('separator' => ' / ', 'link' => '', 'label' => 'g002_modmenu'),
+          array('separator' => ' / ', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=modspecial', 'label' => 'g002_modspecial')
+        );
+        break;
+      case 'modspecial':
+        $tmp_list=array(
+          array('separator' => '', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=list', 'label' => 'g002_sectionslist'),
+          array('separator' => ' / ', 'link' => $this->page_link.'&amp;fAMM_tabsheet=setmenu&amp;action=modmenu', 'label' => 'g002_modmenu'),
+          array('separator' => ' / ', 'link' => '', 'label' => 'g002_modspecial')
+        );
+        break;
+    }
 
     $template_datas=array(
-      'AMM_AJAX_URL_LIST' => $this->page_link."&ajaxfct=",
+      'AMM_AJAX_URL_LIST' => $this->page_link."&ajaxfct=setmenu_".$action."_",
+      'LIST' => $tmp_list
     );
     
     $template->assign("datas", $template_datas);
     $template->assign_var_from_handle('AMM_BODY_PAGE', 'body_page');
+  }
+
+
+  /*
+    manage display for randompic config page
+  */
+  private function display_randompic_config_page()
+  {
+    global $template, $user;
+    $template->set_filename('body_page',
+                            dirname($this->filelocation).'/admin/amm_randompicconfig.tpl');
+
+    $template_datas=array(
+      'lnk_list' => $this->page_link.'&amp;fAMM_tabsheet=links',
+      'active_selected' => $this->my_config['amm_randompicture_active'],
+      'showname_selected' => $this->my_config['amm_randompicture_showname'],
+      'showcomment_selected' => $this->my_config['amm_randompicture_showcomment'],
+      'lang_selected' => $user['language'],
+      'fromlang' => substr($user['language'],0,2)
+    );
+
+    $template_datas['language_list'] = array();
+    foreach($this->my_config['amm_randompicture_title'] as $key => $val)
+    {
+      $template_datas['language_list'][] = array(
+        'LANG' => $key,
+        'MENUBARTIT' => htmlentities(base64_decode($val), ENT_QUOTES, 'UTF-8')
+      );
+    }
+
+
+
+    $lang=get_languages();
+    foreach($lang as $key => $val)
+    {
+      $template_datas['language_list_values'][] = $key;
+      $template_datas['language_list_labels'][] = $val;
+    }
+
+
+    $template_datas['yesno_values'] = array('y','n');
+    $template_datas['yesno_labels'][] = l10n('g002_yesno_y');
+    $template_datas['yesno_labels'][] = l10n('g002_yesno_n');
+
+    $template_datas['show_values'] = array('n', 'o', 'u');
+    $template_datas['show_labels'][] = l10n('g002_show_n');
+    $template_datas['show_labels'][] = l10n('g002_show_o');
+    $template_datas['show_labels'][] = l10n('g002_show_u');
+
+    
+    $template->assign("datas", $template_datas);
+    $template->assign_var_from_handle('AMM_BODY_PAGE', 'body_page');
+  }
+
+
+
+
+
+
+
+  /*
+    manage display for personalised sections list page
+  */
+  private function display_personalised_list_page()
+  {
+    global $template, $user;
+    $template->set_filename('body_page',
+                            dirname($this->filelocation).'/admin/amm_personalisedlist.tpl');
+
+    $sql="SELECT COUNT(DISTINCT ID) as countid FROM ".$this->tables['personalised'];
+    $result=pwg_query($sql);
+    if($result)
+    {
+      $tmp=mysql_fetch_row($result);
+      $tmp=$tmp[0];
+    }
+    else
+    {
+      $tmp=0;
+    }
+
+    if($tmp==0)
+    {
+      $tmp=l10n("g002_nosections");
+    }
+    elseif($tmp==1)
+    {
+      $tmp="1 ".l10n("g002_section");
+    }
+    else
+    {
+      $tmp=$tmp." ".l10n("g002_sections");
+    }
+
+
+    $template_datas=array(
+      'lnk_create' => $this->page_link.'&amp;fAMM_tabsheet=personnalblock&amp;action=create',
+      'AMM_AJAX_URL_LIST' => $this->page_link."&ajaxfct=",
+      'nbsections' => $tmp
+    );
+    
+    $template->assign("datas", $template_datas);
+    $template->assign_var_from_handle('AMM_BODY_PAGE', 'body_page');
+  }
+
+
+
+  /*
+    manage display for personalised sections create/modify page
+  */
+  private function display_personalised_manage_page($modeedit = 'create', $sectionid=0)
+  {
+    global $template, $user;
+    $template->set_filename('body_page',
+                            dirname($this->filelocation).'/admin/amm_personalisedlist_edit.tpl');
+
+    $template_datas=array();
+
+    $lang=get_languages();
+    $lang['all']=l10n('g002_all_languages');
+    foreach($lang as $key => $val)
+    {
+      $template_datas['language_list_values'][] = $key;
+      $template_datas['language_list_labels'][] = $val;
+      $template_datas['language_list'][$key]=array(
+        'LANG' => $key,
+        'MENUBARTIT' => '',
+        'MENUBARCONTENT' => ''
+      );
+    }
+
+
+    if($modeedit=='modify')
+    {
+      $sections=$this->get_personalised($sectionid);
+
+      $template_datas['id'] = $sectionid;
+      $template_datas['modeedit'] = 'modify';
+      $template_datas['visible_selected'] = $sections[0]['visible'];
+      $template_datas['nfo'] = htmlentities($sections[0]['nfo'], ENT_QUOTES, 'UTF-8');
+
+      foreach($sections as $key => $val)
+      {
+        $lang=($val['lang']=='*')?'all':$val['lang'];
+        $template_datas['language_list'][$lang] = array(
+          'LANG' => $lang,
+          'MENUBARTIT' => htmlentities($val['title'], ENT_QUOTES, 'UTF-8'),
+          'MENUBARCONTENT' => htmlentities($val['content'], ENT_QUOTES, 'UTF-8'),
+        );
+      }
+    }
+    else
+    {
+      $template_datas['nfo'] = '';
+      $template_datas['id'] = '';
+      $template_datas['modeedit'] = 'create';
+      $template_datas['visible_selected'] = 'y';
+    }
+
+    $template_datas['lang_selected'] = $user['language'];
+
+    $template_datas['personalised_list'] = $this->page_link.'&amp;fAMM_tabsheet=personnalblock';
+    $template_datas['yesno_values'] = array('y','n');
+    $template_datas['yesno_labels'][] = l10n('g002_yesno_y');
+    $template_datas['yesno_labels'][] = l10n('g002_yesno_n');
+
+    $template->assign("datas", $template_datas);
+    $template->assign_var_from_handle('AMM_BODY_PAGE', 'body_page');
+  }
+
+  /*
+    manage create/modify pesonalised sections into database and display result
+  */
+  protected function action_create_modify_personalised()
+  {
+    global $menu, $user;
+
+    if($_POST['famm_modeedit']=='create')
+    {
+      $id=$this->get_personalised_id();
+    }
+    else
+    {
+      $id=$_POST['famm_id'];
+    }
+    $languages=get_languages();
+    $languages['all']='*';
+    foreach($languages as $key => $val)
+    {
+      $datas=array(
+        'id' => $id,
+        'lang' => ($key=='all')?'*':$key,
+        'visible' => $_POST['famm_personalised_visible'],
+        'nfo' => ($_POST['famm_personalised_nfo']=='')?$_POST['famm_personalised_title_'.$user['language']]:$_POST['famm_personalised_nfo'],
+        'title' => $_POST['famm_personalised_title_'.$key],
+        'content' => $_POST['famm_personalised_content_'.$key]
+      );
+      switch($_POST['famm_modeedit'])
+      {
+        case 'create':
+          $this->add_personalised($datas);
+          break;
+        case 'modify':
+          $this->modify_personalised($datas);
+      }
+    }
+
+    if($_POST['famm_modeedit']=='create')
+    {
+      $menu->register('mbAMM_personalised'.$id, ($_POST['famm_personalised_nfo']=='')?$_POST['famm_personalised_title_'.$user['language']]:$_POST['famm_personalised_nfo'], 0, 'AMM');
+    }
+
+
+
   }
 
 
@@ -460,6 +777,7 @@ class AMM_AIP extends AMM_root
     if($result)
     {
       $returned=mysql_fetch_array($result);
+      //$returned['label']=stripslashes($returned['label']);
     }
     return($returned);
   }
@@ -495,7 +813,7 @@ class AMM_AIP extends AMM_root
   {
     $numurl=$this->get_count_url();
     $sql="INSERT INTO ".$this->tables['urls']." (id, label, url, mode, icon, position, visible)
-          VALUES ('', '".addslashes($datas['label'])."', '".$datas['url']."', '".$datas['mode']."',
+          VALUES ('', '".$datas['label']."', '".$datas['url']."', '".$datas['mode']."',
                   '".$datas['icon']."', '".$numurl."', '".$datas['visible']."')";
     return(pwg_query($sql));
   }
@@ -503,7 +821,7 @@ class AMM_AIP extends AMM_root
   // modify an url
   private function modify_url($datas)
   {
-    $sql="UPDATE ".$this->tables['urls']." SET label = '".addslashes($datas['label'])."',
+    $sql="UPDATE ".$this->tables['urls']." SET label = '".$datas['label']."',
           url = '".$datas['url']."', mode = '".$datas['mode']."', icon = '".$datas['icon']."',
           visible = '".$datas['visible']."'
           WHERE id = '".$datas['id']."'";
@@ -516,6 +834,67 @@ class AMM_AIP extends AMM_root
     $sql="UPDATE ".$this->tables['urls']." SET visible = '".$visible."'
           WHERE id = '".$urlid."'";
     return(pwg_query($sql));
+  }
+
+  /* ---------------------------------------------------------------------------
+    functions to manage sections tables
+  --------------------------------------------------------------------------- */
+  // protected function get_sections($only_visible=false, $lang="")
+  // => defined in root class
+
+  // return properties of a given section (return each languages)
+  private function get_personalised($section_id)
+  {
+    $returned=array();
+    $sql="SELECT * FROM ".$this->tables['personalised']." WHERE id = '".$section_id."'";
+    $result=pwg_query($sql);
+    if($result)
+    {
+      while($returned[]=mysql_fetch_array($result));
+    }
+    return($returned);
+  }
+
+  // delete a section
+  private function delete_personalised($section_id)
+  {
+    $sql="DELETE FROM ".$this->tables['personalised']." WHERE id = '".$section_id."' ";
+    return(pwg_query($sql));
+  }
+
+  // add a section 
+  private function add_personalised($datas)
+  {
+    $sql="INSERT INTO ".$this->tables['personalised']." (id, lang, title, content, visible, nfo)
+          VALUES ('".$datas['id']."', '".$datas['lang']."', '".$datas['title']."', '".$datas['content']."', '".$datas['visible']."', '".$datas['nfo']."')";
+    return(pwg_query($sql));
+  }
+
+  // modify a section
+  private function modify_personalised($datas)
+  {
+    $sql="UPDATE ".$this->tables['personalised']." SET title = '".$datas['title']."',
+          content = '".$datas['content']."',  visible = '".$datas['visible']."',
+          nfo = '".$datas['nfo']."'
+          WHERE id = '".$datas['id']."'
+          AND lang = '".$datas['lang']."'";
+    return(pwg_query($sql));
+  }
+
+  // return the next personalised id
+  private function get_personalised_id()
+  {
+    $sql='SELECT MAX(ID) FROM '.$this->tables['personalised'];
+    $result=pwg_query($sql);
+    if($result)
+    {
+      $row=mysql_fetch_row($result);
+      if(is_array($row))
+      {
+        return($row[0]+1);
+      }
+    }
+    return(0);
   }
 
 
@@ -582,7 +961,7 @@ class AMM_AIP extends AMM_root
 
 
   // return a html formatted list of menu's sections
-  private function ajax_amm_section_list()
+  private function ajax_amm_setmenu_list_section_list()
   {
     global $menu;
     $local_tpl = new Template(AMM_PATH."admin/", "");
@@ -614,26 +993,115 @@ class AMM_AIP extends AMM_root
   }
 
   // move item to the specified position
-  private function ajax_amm_section_position($urlid, $position)
+  private function ajax_amm_setmenu_list_section_position($urlid, $position)
   {
     global $menu;
 
     $menu->register_position($urlid, $position);
-    return($this->ajax_amm_section_list());
+    return($this->ajax_amm_setmenu_list_section_list());
   }
 
-  // move item to the specified position
-  private function ajax_amm_section_showhide($urlid)
+  // show/hide item to the specified position
+  private function ajax_amm_setmenu_list_section_showhide($urlid)
   {
-    global $menu;
-
     $switchvisible=array('y'=>'n', 'n'=>'y');
 
     $this->my_config['amm_sections_visible'][$urlid]=$switchvisible[$this->my_config['amm_sections_visible'][$urlid]];
     $this->save_config();
 
-    return($this->ajax_amm_section_list());
+    return($this->ajax_amm_setmenu_list_section_list());
   }
+
+  // return a html formatted list of personalised sections
+  private function ajax_amm_personalised_list()
+  {
+    global $template, $user;
+    $local_tpl = new Template(AMM_PATH."admin/", "");
+    $local_tpl->set_filename('body_page',
+                  dirname($this->filelocation).'/admin/amm_personalisedlist_detail.tpl');
+
+    $template_datas['sections']=array();
+
+    $sections=$this->get_sections(false, '', false);
+    $is_done=array();
+    foreach($sections as $key => $val)
+    {
+      if(!isset($is_done[$val['id']]))
+      {
+        $template_datas['sections'][]=array(
+          'title' => ($val['title']!='')?$val['title']:l10n('g002_notitle'),
+          'edit' => $this->page_link.'&amp;fAMM_tabsheet=personnalblock&amp;action=modify&amp;fItem='.$val['id'],
+          'ID' => $val['id'],
+          'visible' => l10n('g002_yesno_'.$val['visible']),
+          'nfo' => $val['nfo']
+        );
+        $is_done[$val['id']]='';
+      }
+    }
+
+    $themeconf=array(
+      'icon_dir' => $template->get_themeconf('icon_dir')
+    );
+
+    $local_tpl->assign('themeconf', $themeconf);
+    $local_tpl->assign('datas', $template_datas);
+    $local_tpl->assign('plugin', array('PATH' => AMM_PATH));
+
+    return($local_tpl->parse('body_page', true));
+  }
+
+  // delete a section and returns a html formatted list 
+  private function ajax_amm_personalised_delete($sectionid)
+  {
+    global $menu;
+
+    if(!$this->adviser_abort())
+    {
+      $this->delete_personalised($sectionid);
+      $menu->unregister('mbAMM_personalised'.$sectionid);
+    }
+    return($this->ajax_amm_personalised_list());
+  }
+
+
+
+
+  // return a html formatted list of special menu sections items
+  private function ajax_amm_setmenu_mod_section_list($menuname)
+  {
+    $local_tpl = new Template(AMM_PATH."admin/", "");
+    $local_tpl->set_filename('body_page',
+                  dirname($this->filelocation).'/admin/amm_sectionsmod_detail.tpl');
+
+    $template_datas = array('LIST' => array());
+    foreach($this->my_config[$menuname] as $key => $val)
+    {
+      $template_datas['LIST'][] = array(
+        'ID' => base64_encode($key),
+        'LABEL' => $key,
+        'VISIBLE' => 'g002_yesno_'.$val
+      );
+    }
+
+    $local_tpl->assign('datas', $template_datas);
+    $local_tpl->assign('plugin', array('PATH' => AMM_PATH));
+
+    return($local_tpl->parse('body_page', true));
+  }
+
+
+  // move item to the specified position
+  private function ajax_amm_setmenu_mod_section_showhide($menuname, $urlid)
+  {
+    $switchvisible=array('y'=>'n', 'n'=>'y');
+
+    $this->my_config[$menuname][base64_decode($urlid)]=$switchvisible[$this->my_config[$menuname][base64_decode($urlid)]];
+    $this->save_config();
+
+    return($this->ajax_amm_setmenu_mod_section_list($menuname));
+  }
+
+
 
 
 } // AMM_AIP class

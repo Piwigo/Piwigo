@@ -1,9 +1,9 @@
 <?php
 
 /* -----------------------------------------------------------------------------
-  class name: menu, blocks 
-  class version: 1.0
-  date: 2008-07-25
+  classes names : menu, section 
+  class version : 1.0
+  date : 2008-07-25
 
   ------------------------------------------------------------------------------
   Author     : Grum
@@ -56,6 +56,7 @@
     unregister($id)
     registered()
     apply()
+    get_registered_filename()
  
   How to use Menu class :
     1/ create an instance
@@ -99,14 +100,24 @@ class Menu
   protected $registered_sections=array();
   protected $registered_file="registered.dat";
 
-  public function Menu()
+  public function Menu($registered_path='')
   {
+    if($registered_path!='')
+    {
+      $this->registered_file=$registered_path.$this->registered_file;
+    }
     $this->load_registered();
   }
 
   /*
     public functions
   */
+  public function get_registered_filename()
+  {
+    // return filename of file for maintain of registered sections
+    return($this->registered_file);
+  }
+
   public function add($section_datas)
   {
     // add a section to the menu ; datas can be made with the Section class
