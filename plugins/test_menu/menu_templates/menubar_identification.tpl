@@ -35,18 +35,18 @@
 
   <label>
     {'Username'|@translate}
-    <input type="text" name="username" size="15" value="">
+    <input type="text" name="username" size="15" value="" id="iusername">
   </label>
 
   <label>
     {'Password'|@translate}
-    <input type="password" name="password" size="15">
+    <input type="password" name="password" size="15" id="ipassword">
   </label>
 
   {if $section.ITEMS.AUTHORIZE_REMEMBERING}
   <label>
     {'remember_me'|@translate}
-    <input type="checkbox" name="remember_me" value="1">
+    <input type="checkbox" name="remember_me" value="1" id="iremember_me">
   </label>
   {/if}
   <p>

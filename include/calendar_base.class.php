@@ -137,9 +137,9 @@ class CalendarBase
                                   $class_prefix, $show_any,
                                   $show_empty=false, $labels=null)
   {
-    global $conf, $page;
+    global $conf, $page, $template;
 
-    $nav_bar = '';
+    $nav_bar_datas=array();
 
     if ($conf['calendar_show_empty'] and $show_empty and !empty($labels) )
     {
@@ -162,42 +162,48 @@ class CalendarBase
       }
       if ($nb_images==-1)
       {
-        $nav_bar .= '<span class="'.$class_prefix.'Empty">';
-        $nav_bar .= $label;
+        $tmp_datas=array(
+          'classname' => $class_prefix."Empty",
+          'label'=> $label
+        );
       }
       else
       {
-        $nav_bar .= '<span class="'.$class_prefix.'">';
         $url = duplicate_index_url(
           array('chronology_date'=>array_merge($date_components,array($item))),
           array( 'start' )
             );
-        $nav_bar .= '<a href="'.$url.'">';
-        $nav_bar .= $label;
-        $nav_bar .= '</a>';
+        $tmp_datas=array(
+          'classname' => $class_prefix,
+          'label'=> $label,
+          'url' => $url
+        );
       }
       if ($nb_images > 0)
       {
-        $nav_bar .= '('.$nb_images.')';
+        $tmp_datas['nb_images']=$nb_images;
       }
-      $nav_bar.= '</span>';
+      $nav_bar_datas[]=$tmp_datas;
+      
     }
 
     if ($conf['calendar_show_any'] and $show_any and count($items)>1 and
           count($date_components)<count($this->calendar_levels)-1 )
     {
-      $label = l10n('calendar_any');
-      $nav_bar .= '<span class="'.$class_prefix.'">';
       $url = duplicate_index_url(
         array('chronology_date'=>array_merge($date_components,array('any'))),
         array( 'start' )
           );
-      $nav_bar .= '<a href="'.$url.'">';
-      $nav_bar .= $label;
-      $nav_bar .= '</a>';
-      $nav_bar.= '</span>';
+      $nav_bar_datas[]=array(
+        'label' => l10n('calendar_any'),
+        'classname' => $class_prefix,
+        'url' => $url
+      );
     }
-    return $nav_bar;
+
+    $template->set_filenames( array( 'nav_bar' => 'calendar_navbar.tpl',));
+    $template->assign('datas', $nav_bar_datas);
+    return($template->parse('nav_bar', true));
   }
 
   /**

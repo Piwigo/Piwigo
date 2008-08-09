@@ -286,7 +286,7 @@ $datas['menu']['Notification']=array(
 
 
 
-$section = new Section('mbLinks', 'links', MENU_TEMPLATES_PATH.'menubar_links.tpl');
+$section = new Section('mbLinks', 'Links', MENU_TEMPLATES_PATH.'menubar_links.tpl');
 $section->set_items($datas['links']);
 $menu->add($section->get());
 
