@@ -97,7 +97,7 @@ DELETE
   WHERE element_id = '.$image_id.'
     AND user_id = '.$user['id'].'
 ';
-  if (isset($user_anonymous))
+  if ($user_anonymous)
   {
     $query.= ' AND anonymous_id = \''.$anonymous_id.'\'';
   }
