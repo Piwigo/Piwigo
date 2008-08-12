@@ -121,7 +121,7 @@ $adv['c'][18] = $conf['show_picture_name_on_title'];
 $adv['v'][18] = sprintf($lang['current'], 'true');
 
 $adv['n'][19] = 'subcatify';
-$adv['c'][19] = $conf['subcatify'];
+/* $adv['c'][19] = $conf['subcatify']; No longer exist */
 $adv['v'][19] = sprintf($lang['current'], 'true');
 
 $adv['n'][20] = 'allow_random_representative';
