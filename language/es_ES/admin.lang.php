@@ -663,4 +663,6 @@ $lang['You are running the latest version of Piwigo.'] = 'Usted utiliza la últi
 /* TODO */ $lang['Original templates'] = 'Original templates';
 /* TODO */ $lang['Optional URL keyword'] = 'Optional URL keyword';
 /* TODO */ $lang['Templates recorded.'] = 'Templates configuration has been recorded.';
+/* TODO */ $lang['Optimizations completed'] = 'All optimizations have been successfully completed.';
+/* TODO */ $lang['Optimizations errors'] = 'Optimizations have been completed with some errors.';
 ?>

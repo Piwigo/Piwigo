@@ -657,4 +657,6 @@ $lang['Replacers'] = 'Replacers (customized templates)';
 $lang['Original templates'] = 'Original templates';
 $lang['Optional URL keyword'] = 'Optional URL keyword';
 $lang['Templates recorded.'] = 'Templates configuration has been recorded.';
+$lang['Optimizations completed'] = 'All optimizations have been successfully completed.';
+$lang['Optimizations errors'] = 'Optimizations have been completed with some errors.';
 ?>

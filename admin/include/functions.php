@@ -1576,7 +1576,7 @@ DELETE
  */
 function do_maintenance_all_tables()
 {
-  global $prefixeTable;
+  global $prefixeTable, $page;
 
   $all_tables = array();
 
@@ -1590,7 +1590,7 @@ function do_maintenance_all_tables()
 
   // Repair all tables
   $query = 'REPAIR TABLE '.implode(', ', $all_tables).';';
-  pwg_query($query);
+  $mysql_rc = pwg_query($query);
 
   // Re-Order all tables
   foreach ($all_tables as $table_name)
@@ -1610,14 +1610,27 @@ function do_maintenance_all_tables()
     if (count($all_primary_key) != 0)
     {
       $query = 'ALTER TABLE '.$table_name.' ORDER BY '.implode(', ', $all_primary_key).';';
-      pwg_query($query);
+      $mysql_rc = $mysql_rc && pwg_query($query);
     }
   }
 
   // Optimize all tables
   $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables).';';
-  pwg_query($query);
-
+  $mysql_rc = $mysql_rc && pwg_query($query);
+  if ($mysql_rc) 
+  {
+    array_push(
+          $page['infos'],
+          l10n('Optimization completed')
+          );
+  }
+  else
+  {
+    array_push(
+          $page['errors'],
+          l10n('Optimizations errors')
+          );
+  }
 }
 
 /**
