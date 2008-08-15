@@ -259,22 +259,22 @@ ORDER BY date DESC;';
 
     if ( isset($users[$row['user_id']]) )
     {
-      $user = $users[$row['user_id']];
+      $user_rate = $users[$row['user_id']];
     }
     else
     {
-      $user = '? '. $row['user_id'];
+      $user_rate = '? '. $row['user_id'];
     }
     if ( strlen($row['anonymous_id'])>0 )
     {
-      $user .= '('.$row['anonymous_id'].')';
+      $user_rate .= '('.$row['anonymous_id'].')';
     }
 
     $template->assign_block_vars('image.rate',
        array(
          'DATE' => format_date($row['date']),
          'RATE' => $row['rate'],
-         'USER' => $user,
+         'USER' => $user_rate,
          'U_DELETE' => $url_del
        )
      );
