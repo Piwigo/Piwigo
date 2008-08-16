@@ -189,14 +189,14 @@ if (is_a_guest())
 // template instance
 if
   (
-      defined('IN_ADMIN') and IN_ADMIN 
+      defined('IN_ADMIN') and IN_ADMIN
   )
 {
   // Admin template
   //$template = new Template(PHPWG_ROOT_PATH.'template/'.$user['admin_template'], $user['admin_theme'] );
   list($user['admin_template'], $user['admin_theme']) =
     explode ('/', $conf['admin_layout']);
-  $template = new Template(PHPWG_ROOT_PATH.'admin/template/' 
+  $template = new Template(PHPWG_ROOT_PATH.'admin/template/'
     . $user['admin_template'], $user['admin_theme'] );
 }
 else
@@ -263,7 +263,6 @@ if (count($header_msgs) > 0)
 
 if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
 {
-  include(PHPWG_ROOT_PATH.'include/functions_filter.inc.php');
   include(PHPWG_ROOT_PATH.'include/filter.inc.php');
 }
 else

@@ -126,6 +126,7 @@ WHERE ';
   {
     $header_notes[] = l10n_dec('note_filter_day', 'note_filter_days', $filter['recent_period']);
   }
+  include_once(PHPWG_ROOT_PATH.'include/functions_filter.inc.php');
 }
 else
 {

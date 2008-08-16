@@ -145,7 +145,7 @@ class Template {
    */
   function set_filenames($filename_array)
   {
-    global $conf; 
+    global $conf;
     if (!is_array($filename_array))
     {
       return false;
@@ -159,16 +159,16 @@ class Template {
         unset( $this->files[$handle] );
       else
       {
-        if (!isset($this->files[$handle])) $this->files[$handle] = $filename;
+        $this->files[$handle] = $filename;
         foreach ($tpl_extension as $file => $conditions)
         {
           $localtpl = './template-extension/' . $file;
-          if ($handle == $conditions[0] and 
-             (stripos(implode('/',array_flip($_GET)),$conditions[1])>0 
+          if ($handle == $conditions[0] and
+             (stripos(implode('/',array_flip($_GET)),$conditions[1])>0
               or $conditions[1] == 'N/A')
               and file_exists($localtpl))
           { /* examples: Are best_rated, created-monthly-calendar, list, ... set? */
-              $this->files[$handle] = '../.' . $localtpl; 
+              $this->files[$handle] = '../.' . $localtpl;
               /* assign their tpl-extension */
           }
         }
@@ -176,10 +176,7 @@ class Template {
     }
     return true;
   }
-  function on_extension($key, $tlpname)
-  {
-    return $tplname;
-  }
+
   /** see smarty assign http://www.smarty.net/manual/en/api.assign.php */
   function assign($tpl_var, $value = null)
   {
@@ -256,14 +253,14 @@ class Template {
       $save_compile_id = $this->smarty->compile_id;
       $this->smarty->compile_id .= '.'.$lang_info['code'];
     }
-    
+
     $v = $this->smarty->fetch($this->files[$handle], null, null, false);
-    
+
     if (isset ($save_compile_id) )
     {
       $this->smarty->compile_id = $save_compile_id;
     }
-     
+
     if ($return)
     {
       return $v;
@@ -335,12 +332,12 @@ class Template {
   {
     return explode($delimiter, $text);
   }
-  
+
   /**
    * This smarty "html_head" block allows to add content just before
    * </head> element in the output after the head has been parsed. This is
    * handy in order to respect strict standards when <style> and <link>
-   * html elements must appear in the <head> element           
+   * html elements must appear in the <head> element
    */
   function block_html_head($params, $content, &$smarty, &$repeat)
   {
@@ -357,9 +354,9 @@ class Template {
       }
     }
   }
-  
+
   /**
-   * Smarty prefilter to allow caching (whenever possible) language strings 
+   * Smarty prefilter to allow caching (whenever possible) language strings
    * from templates.
    */
   function prefilter_language($source, &$smarty)
@@ -367,7 +364,7 @@ class Template {
     global $lang;
     $ldq = preg_quote($this->smarty->left_delimiter, '~');
     $rdq = preg_quote($this->smarty->right_delimiter, '~');
-    
+
     $regex = "~$ldq *\'([^'$]+)\'\|@translate *$rdq~";
     $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? $lang[\'$1\'] : \'$0\'', $source);
 
