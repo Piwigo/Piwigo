@@ -67,13 +67,15 @@ if (isset($_GET['display_mode']))
   }
 }
 
-$template->assign(
-  array(
-    'U_CLOUD' => get_root_url().'tags.php?display_mode=cloud',
-    'U_LETTERS' => get_root_url().'tags.php?display_mode=letters',
-    'display_mode' => $page['display_mode'],
-    )
-  );
+foreach (array('cloud', 'letters') as $mode)
+{
+  $template->assign(
+    'U_'.strtoupper($mode),
+    get_root_url().'tags.php'. ($conf['tags_default_display_mode']==$mode ? '' : '?display_mode='.$mode)
+    );
+}
+
+$template->assign( 'display_mode', $page['display_mode'] );
 
 // find all tags available for the current user
 $tags = get_available_tags();

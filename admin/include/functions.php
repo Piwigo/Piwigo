@@ -356,6 +356,7 @@ function get_fs_directories($path, $recursive = true)
           }
         }
       }
+      closedir($contents);
     }
   }
 
@@ -1496,7 +1497,7 @@ DELETE
 function tag_id_from_tag_name($tag_name)
 {
   global $page;
-  
+
   $tag_name = trim($tag_name);
   if (isset($page['tag_id_from_tag_name_cache'][$tag_name]))
   {
@@ -1617,7 +1618,7 @@ function do_maintenance_all_tables()
   // Optimize all tables
   $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables).';';
   $mysql_rc = $mysql_rc && pwg_query($query);
-  if ($mysql_rc) 
+  if ($mysql_rc)
   {
     array_push(
           $page['infos'],

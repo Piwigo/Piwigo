@@ -344,12 +344,10 @@ class PwgServer
   var $_responseEncoder;
   var $_responseFormat;
 
-  var $_methods;
-  var $_methodSignatures;
+  var $_methods = array();
 
   function PwgServer()
   {
-    $methods = array();
   }
 
   /**
@@ -435,9 +433,6 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
    */
   function addMethod($methodName, $callback, $params=array(), $description, $include_file='')
   {
-    $this->_methods[$methodName] = $callback;
-    $this->_methodDescriptions[$methodName] = $description;
-
     if (!is_array($params))
     {
       $params = array();
@@ -469,7 +464,13 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
         $params[$param] = $options;
       }
     }
-    $this->_methodSignatures[$methodName] = $params;
+
+    $this->_methods[$methodName] = array(
+      'callback'    => $callback,
+      'description' => $description,
+      'signature'   => $params,
+      'include'     => $include_file,
+      );
   }
 
   function hasMethod($methodName)
@@ -479,13 +480,13 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
 
   function getMethodDescription($methodName)
   {
-    $desc = @$this->_methodDescriptions[$methodName];
+    $desc = @$this->_methods[$methodName]['description'];
     return isset($desc) ? $desc : '';
   }
 
   function getMethodSignature($methodName)
   {
-    $signature = @$this->_methodSignatures[$methodName];
+    $signature = @$this->_methods[$methodName]['signature'];
     return isset($signature) ? $signature : array();
   }
 
@@ -517,15 +518,15 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
    */
   function invoke($methodName, $params)
   {
-    $callback = @$this->_methods[$methodName];
+    $method = @$this->_methods[$methodName];
 
-    if ( $callback==null )
+    if ( $method==null )
     {
       return new PwgError(WS_ERR_INVALID_METHOD, 'Method name "'.$methodName.'" is not valid');
     }
 
     // parameter check and data coercion !
-    $signature = @$this->_methodSignatures[$methodName];
+    $signature = $method['signature'];
     $missing_params = array();
     foreach($signature as $name=>$options)
     {
@@ -570,7 +571,11 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
     $result = trigger_event('ws_invoke_allowed', true, $methodName, $params);
     if ( strtolower( get_class($result) )!='pwgerror')
     {
-      $result = call_user_func_array($callback, array($params, &$this) );
+      if ( !empty($method['include']) )
+      {
+        include_once( $method['include'] );
+      }
+      $result = call_user_func_array($method['callback'], array($params, &$this) );
     }
     return $result;
   }
