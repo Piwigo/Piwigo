@@ -9,7 +9,7 @@ $lang['g002_error_invalid_ajax_call'] = "Chiamata alla funzione invalida !";
 
 $lang['g002_setmenu'] = 'Gestione del menu';
 $lang['g002_addlinks'] = 'Links';
-$lang['g002_randompict'] = 'Immagine aleatoira';
+$lang['g002_randompict'] = 'Immagini a caso';
 $lang['g002_personnalblock'] = 'Menu personalizzato';
 
 $lang['g002_setmenu_nfo'] = 'Gestione della visualizzazione delle sezioni visualizzate nel menu';
@@ -38,11 +38,12 @@ $lang['g002_createthelink'] = 'Aggiungere un link';
 $lang['g002_editthelink'] = 'Modifica di un link';
 
 $lang['g002_configlinks'] = 'Configurazione dei links';
-$lang['g002_setting_link_block_menu'] = 'Integrazione nel menu';
 $lang['g002_setting_link_links']='Links';
 $lang['g002_setting_link_show_icon'] = 'Visualizzare le icône dei links';
-$lang['g002_setting_link_block_active'] = 'Visualizzare la sezione nel menu';
-$lang['g002_setting_link_block_title'] = 'Titolo della sezione nel menu';
+
+$lang['g002_setting_block_menu'] = 'Integrazione nel menu';
+$lang['g002_setting_block_active'] = 'Visualizzare la sezione nel menu';
+$lang['g002_setting_block_title'] = 'Titolo della sezione nel menu';
 $lang['g002_apply'] = 'Applicare';
 
 $lang['g002_sectionslist'] = 'Sezioni del menu';
@@ -54,5 +55,34 @@ $lang['g002_owner'] = 'Proprietario';
 $lang['g002_sectionid'] = 'Id';
 $lang['g002_name'] = 'Etichetta';
 
+$lang['g002_translate'] = 'Tradurre con Google Translate';
+
+$lang['g002_configrandompic'] = 'Configurazione del\'immagine aleatoria';
+$lang['g002_setting_randompic_aboutpicture'] = 'Dati visualizzati';
+$lang['g002_setting_randompic_showname'] = 'Visualizzare il nome della foto';
+$lang['g002_setting_randompic_showcomment'] = 'Visualizzare i commenti della foto';
+$lang['g002_show_n'] = 'No';
+$lang['g002_show_o'] = 'Mostra sopra la foto';
+$lang['g002_show_u'] = 'Mostra sotto la foto';
+
+$lang['g002_personalisedlist'] = 'Lista delle selezioni personalizzate';
+$lang['g002_notitle'] = '[Nessun\' titolo]';
+$lang['g002_title'] = 'Titolo';
+$lang['g002_sections'] = 'sezzioni';
+$lang['g002_section'] = 'sezzione';
+$lang['g002_nosections'] = 'Nessuna sezzione';
+$lang['g002_addsection'] = 'Aggiungere una sezzione';
+$lang['g002_createofpersonalised'] = 'Aggiunta d\'una sezzione personalizzata';
+$lang['g002_editofpersonalised'] = 'Modifica d\'una sezzione personalizzata';
+$lang['g002_setting_block_langchoice'] = 'Scelta della lingua';
+$lang['g002_setting_personalised_content'] = 'Contenuto della sezzione';
+$lang['g002_setting_personalised_properties'] = 'Proprietà';
+$lang['g002_setting_personalised_nfo'] = 'Description';
+
+$lang['g002_all_languages'] = 'Tutte le lingue';
+
+$lang['g002_modspecial'] = 'Sezzione \'speciale\'';
+$lang['g002_modmenu'] = 'Sezzione \'menu\'';
+$lang['g002_labelmenu'] = 'Titolo del menu';
 
 ?>
