@@ -33,7 +33,7 @@ class NormalAddIndex extends AddIndex
     if (in_array($page, array('advanced_feature', 'site_manager')))
     {
       $help_content =
-        load_language('help/'.$page.'.html', $this->path, '', true);
+        load_language('help/'.$page.'.html', $this->path, array('return'=>true) );
     }
     else
     {

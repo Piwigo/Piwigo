@@ -58,25 +58,22 @@
   border-style: solid;
 }
 
-.navThumb {
-    margin-top: 2px;
-}
-#thumbPrev {
-    float: left;
-}
-
-#thumbNext {
-    float: right;
-}
-
 #linkPrev {
-    margin-right: 10px;
-    margin-left: 5px;
+	float: left;
 }
 
 #linkNext {
-    margin-right: 5px;
-    margin-left: 10px;
+	float: right;
+}
+
+#linkPrev IMG {
+	margin-right: 10px;
+	margin-left: 5px;
+}
+
+#linkNext IMG {
+	margin-right: 5px;
+	margin-left: 10px;
 }
 
 TABLE.infoTable .value {
@@ -96,17 +93,17 @@ TABLE.infoTable TD.value UL {
 }
 
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
-  padding:0;
-  border:0;
+	padding:0;
+	border:0;
 }
 
 .rateButton, .rateButtonStarFull, .rateButtonStarEmpty {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .rateButtonSelected {
-  font-weight:bold;
-  font-size:120%;
+	font-weight:bold;
+	font-size:120%;
 }
 
 .rateButtonStarFull {

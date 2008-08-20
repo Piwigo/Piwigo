@@ -177,7 +177,7 @@ if ( is_admin() || (defined('IN_ADMIN') and IN_ADMIN) )
   load_language('admin.lang');
 }
 trigger_action('loading_lang');
-load_language('local.lang');
+load_language('local.lang', '', array('no_fallback'=>true) );
 
 // only now we can set the localized username of the guest user (and not in
 // include/user.inc.php)

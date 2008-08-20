@@ -246,12 +246,12 @@ function switch_lang_to($language)
       $lang  = array();
 
       // language files
-      load_language('common.lang', '', $language);
+      load_language('common.lang', '', array('language'=>$language) );
       // No test admin because script is checked admin (user selected no)
       // Translations are in admin file too
-      load_language('admin.lang', '', $language);
+      load_language('admin.lang', '', array('language'=>$language) );
       trigger_action('loading_lang');
-      load_language('local.lang', '', $language);
+      load_language('local.lang', '', array('language'=>$language, 'no_fallback'=>true));
 
       $switch_lang[$language]['lang_info'] = $lang_info;
       $switch_lang[$language]['lang'] = $lang;

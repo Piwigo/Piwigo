@@ -28,5 +28,5 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 // +-----------------------------------------------------------------------+
 check_status(ACCESS_ADMINISTRATOR);
 
-$template->assign('ADMIN_CONTENT', load_language('help.html','','',true) );
+$template->assign('ADMIN_CONTENT', load_language('help.html','',array('return'=>true)) );
 ?>

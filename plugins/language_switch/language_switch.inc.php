@@ -57,11 +57,11 @@ function language_switch()
 // Reload language only if it isn't the same one
   if ( $same !== $user['language'])
   {
-    load_language('common.lang', '', $user['language']);
-    load_language('local.lang', '', $user['language']);
+    load_language('common.lang', '', array('language'=>$user['language']) );
+    load_language('local.lang', '', array('language'=>$user['language'], 'no_fallback'=>true) );
     if (defined('IN_ADMIN') and IN_ADMIN)
     {
-      load_language('admin.lang', '', $user['language']);
+      load_language('admin.lang', '', array('language'=>$user['language']) );
     }
   }
 }

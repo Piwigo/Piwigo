@@ -63,7 +63,7 @@ if ( isset($lang['Theme: '.$user['theme']]) )
     );
 }
 
-$template->assign('ABOUT_MESSAGE', load_language('about.html','','',true) );
+$template->assign('ABOUT_MESSAGE', load_language('about.html','', array('return'=>true)) );
 
 $template->pparse('about');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');

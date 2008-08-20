@@ -239,62 +239,6 @@ function mkget_thumbnail_dir($dirname, &$errors)
   return $tndir;
 }
 
-// The get_picture_size function return an array containing :
-//      - $picture_size[0] : final width
-//      - $picture_size[1] : final height
-// The final dimensions are calculated thanks to the original dimensions and
-// the maximum dimensions given in parameters.  get_picture_size respects
-// the width/height ratio
-function get_picture_size( $original_width, $original_height,
-                           $max_width, $max_height )
-{
-  $width = $original_width;
-  $height = $original_height;
-  $is_original_size = true;
-
-  if ( $max_width != "" )
-  {
-    if ( $original_width > $max_width )
-    {
-      $width = $max_width;
-      $height = floor( ( $width * $original_height ) / $original_width );
-    }
-  }
-  if ( $max_height != "" )
-  {
-    if ( $original_height > $max_height )
-    {
-      $height = $max_height;
-      $width = floor( ( $height * $original_width ) / $original_height );
-      $is_original_size = false;
-    }
-  }
-  if ( is_numeric( $max_width ) and is_numeric( $max_height )
-       and $max_width != 0 and $max_height != 0 )
-  {
-    $ratioWidth = $original_width / $max_width;
-    $ratioHeight = $original_height / $max_height;
-    if ( ( $ratioWidth > 1 ) or ( $ratioHeight > 1 ) )
-    {
-      if ( $ratioWidth < $ratioHeight )
-      {
-        $width = floor( $original_width / $ratioHeight );
-        $height = $max_height;
-      }
-      else
-      {
-        $width = $max_width;
-        $height = floor( $original_height / $ratioWidth );
-      }
-      $is_original_size = false;
-    }
-  }
-  $picture_size = array();
-  $picture_size[0] = $width;
-  $picture_size[1] = $height;
-  return $picture_size;
-}
-
 /* Returns true if the string appears to be encoded in UTF-8. (from wordpress)
  * @param string Str
  */
@@ -752,7 +696,7 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
     $user = build_user( $conf['guest_id'], true);
     load_language('common.lang');
     trigger_action('loading_lang');
-    load_language('local.lang');
+    load_language('local.lang', '', array('no_fallback'=>true) );
     list($tmpl, $thm) = explode('/', get_default_template());
     $template = new Template(PHPWG_ROOT_PATH.'template/'.$tmpl, $thm);
   }
@@ -1394,17 +1338,19 @@ function get_pwg_charset()
  *
  * @param string filename
  * @param string dirname
- * @param string language
- * @param bool return_content - if true the file content is returned otherwise
- *  the file is evaluated as php
- * @return boolean success status or a string if return_content is true
+ * @param mixed options can contain
+ *     language - language to load (if empty uses user language)
+ *     return - if true the file content is returned otherwise the file is evaluated as php
+ *     target_charset -
+ *     no_fallback - the language must be respected
+ * @return boolean success status or a string if options['return'] is true
  */
-function load_language($filename, $dirname = '', $language = '',
-    $return_content=false, $target_charset=null)
+function load_language($filename, $dirname = '',
+    $options = array() )
 {
   global $user;
 
-  if (!$return_content)
+  if (! @$options['return'] )
   {
     $filename .= '.php'; //MAYBE to do .. load .po and .mo localization files
   }
@@ -1415,24 +1361,32 @@ function load_language($filename, $dirname = '', $language = '',
   $dirname .= 'language/';
 
   $languages = array();
-  if ( !empty($language) )
+  if ( !empty($options['language']) )
   {
-    $languages[] = $language;
+    $languages[] = $options['language'];
   }
   if ( !empty($user['language']) )
   {
     $languages[] = $user['language'];
   }
-  if ( defined('PHPWG_INSTALLED') )
+  if ( ! @$options['no_fallback'] )
   {
-    $languages[] = get_default_language();
+    if ( defined('PHPWG_INSTALLED') )
+    {
+      $languages[] = get_default_language();
+    }
+    $languages[] = PHPWG_DEFAULT_LANGUAGE;
   }
-  $languages[] = PHPWG_DEFAULT_LANGUAGE;
+
   $languages = array_unique($languages);
 
-  if ( empty($target_charset) )
+  if ( empty($options['target_charset']) )
   {
     $target_charset = get_pwg_charset();
+  }
+  else
+  {
+    $target_charset = $options['target_charset'];
   }
   $target_charset = strtolower($target_charset);
   $source_charset = '';
@@ -1472,7 +1426,7 @@ function load_language($filename, $dirname = '', $language = '',
 
   if ( !empty($source_file) )
   {
-    if (!$return_content)
+    if (! @$options['return'] )
     {
       @include($source_file);
       $load_lang = @$lang;

@@ -46,7 +46,7 @@ if
   )
 {
   $help_content =
-    load_language('help/'.$_GET['page'].'.html', '', '', true);
+    load_language('help/'.$_GET['page'].'.html', '', array('return'=>true) );
 
   if ($help_content == false)
   {
