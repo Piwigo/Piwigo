@@ -20,13 +20,12 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
 }
 
 /* borders */
-#menubar DL, .content, #imageToolBar, 
-#comments DIV.comment BLOCKQUOTE {
+#menubar DL, .content, #imageToolBar {
   border: 1px solid #d3d3d3;
 }
 
 #theImage IMG {
-  border-color: #d3d3d3;
+  border: 3px solid #d3d3d3;
 }
 
 .content UL.thumbnail IMG {
@@ -37,11 +36,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 .content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
   border: 1px solid gray;
-}
-
-#comments DIV.comment BLOCKQUOTE {
-  border-left: 2px solid #696969;
-  background-color: #eee;
 }
 
 .content UL.thumbnails SPAN.wrap2 {
@@ -82,7 +76,6 @@ SPAN.calItem, SPAN.calItemEmpty
 }
 
 .virtual_cat { background: #fff !important; }
-#mbMenu #quicksearch > p { text-align: left; }
 #qsearchInput { color: #d3d3d3; }
 #qsearchInput:focus { color: #005e89; }
 

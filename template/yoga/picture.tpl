@@ -178,6 +178,7 @@ y.callService(
     </select>
   </td></tr>
   {/if}
+
   {if isset($rate_summary) }
   <tr>
     <td class="label">{'Average rate'|@translate}</td>
@@ -191,6 +192,35 @@ y.callService(
     </td>
   </tr>
   {/if}
+  
+{if isset($rating)}
+	<tr>
+		<td class="label">
+			<span id="updateRate">{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}</span>
+		</td>
+		<td class="value">
+			<form action="{$rating.F_ACTION}" method="post" id="rateForm" style="margin:0;">
+			<div>&nbsp;
+			{foreach from=$rating.marks item=mark name=rate_loop}
+			{if !$smarty.foreach.rate_loop.first} | {/if}
+			{if isset($rating.USER_RATE) && $mark==$rating.USER_RATE}
+			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" />
+			{else}
+			  <input type="submit" name="rate" value="{$mark}" class="rateButton" />
+			{/if}
+			{/foreach}
+			<script type="text/javascript" src="{$ROOT_URL}{$themeconf.template_dir}/rating.js"></script>
+			<script type="text/javascript">
+			makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
+			updateRateText: "{'update_rate'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
+			ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
+			</script>
+			</div>
+			</form>
+		</td>
+	</tr>
+{/if}
+
 </table>
 
 {if isset($metadata)}
@@ -209,28 +239,6 @@ y.callService(
 </table>
 {/if}
 
-{if isset($rating)}
-<form action="{$rating.F_ACTION}" method="post" id="rateForm">
-<div>
-<span id="updateRate">{if isset($rating.USER_RATE)}{'update_rate'|@translate}{else}{'new_rate'|@translate}{/if}</span>
-:
-{foreach from=$rating.marks item=mark name=rate_loop}
-{if !$smarty.foreach.rate_loop.first} | {/if}
-{if isset($rating.USER_RATE) && $mark==$rating.USER_RATE}
-  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" />
-{else}
-  <input type="submit" name="rate" value="{$mark}" class="rateButton" />
-{/if}
-{/foreach}
-<script type="text/javascript" src="{$ROOT_URL}{$themeconf.template_dir}/rating.js"></script>
-<script type="text/javascript">
-makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id}, 
-updateRateText: "{'update_rate'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),
-ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@translate|@escape:'javascript'}", ratingSummaryElement: document.getElementById("ratingSummary") {rdelim} );
-</script>
-</div>
-</form>
-{/if}
 
 <hr class="separation">
 
@@ -241,19 +249,7 @@ ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@transla
   <div class="navigationBar">{$COMMENT_NAV_BAR}</div>
 
   {if isset($comments)}
-  {foreach from=$comments item=comment}
-  <div class="comment">
-    {if isset($comment.U_DELETE)}
-    <p class="userCommentDelete">
-    <a href="{$comment.U_DELETE}" title="{'comments_del'|@translate}">
-      <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/>
-    </a>
-    </p>
-    {/if}
-    <p class="commentInfo"><span class="author">{$comment.AUTHOR}</span> - {$comment.DATE}</p>
-    <blockquote>{$comment.CONTENT}</blockquote>
-  </div>
-  {/foreach}
+		{include file='comment_list.tpl'}
   {/if}
 
   {if isset($comment_add)}
@@ -272,5 +268,7 @@ ratingSummaryText: "{'%.2f (rated %d times, standard deviation = %.2f)'|@transla
 
 </div>
 {/if} {*comments*}
+
+
 
 {if !empty($PLUGIN_PICTURE_AFTER)}{$PLUGIN_PICTURE_AFTER}{/if}

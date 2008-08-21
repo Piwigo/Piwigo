@@ -55,11 +55,6 @@
   </fieldset>
 
   <p><input class="submit" tabindex="4" type="submit" name="login" value="{'Submit'|@translate}"></p>
-</form>
-
-<script type="text/javascript"><!--
-document.login_form.username.focus();
-//--></script>
 
   <p>
     {if isset($U_REGISTER) }
@@ -67,5 +62,11 @@ document.login_form.username.focus();
     {/if}
     <a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"> {'Forgot your password?'|@translate}</a>
   </p>
+
+</form>
+
+<script type="text/javascript"><!--
+document.login_form.username.focus();
+//--></script>
 
 </div> <!-- content -->

@@ -1,19 +1,18 @@
 /* $Id$ */
 BODY {
-  margin: 5px;
-  padding: 0;
-  font-size: 0.8em;
-  font-family:  Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
-  text-align: center; /* be nice to IE5 */
+	margin: 5px;
+	padding: 0;
+	font-size: 0.8em;
+	font-family:  Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
 }
 
 
 H1 {
-  text-align: center;
-  font-size: 150%;
-  font-weight: bold;
-  padding: 0;
-  margin: 0.5em 0 1em 0;
+	text-align: center;
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 0.5em 0 1em 0;
 }
 
 H2 {
@@ -38,33 +37,31 @@ IMG {
 }
 
 HR.separation {
-  visibility: hidden;
-  clear: both;
+	visibility: hidden;
+	clear: both;
 }
 
 #copyright {
-    clear: both;
-    font-size: 83%;
-    text-align: center;
-    margin: 0 0 10px 0;
+	clear: both;
+	font-size: 83%;
+	text-align: center;
+	margin: 0 0 10px 0;
 }
 
 /** General defaults **/
 INPUT, SELECT {
-  margin: 0;
-  font-size: 1em;	/* <= some browsers don't set it correctly */
+	margin: 0;
+	font-size: 1em;	/* <= some browsers don't set it correctly */
 }
-UL, DL, LI { text-align: left;}
-TABLE {			/* horizontaly centered */
-  margin-left: auto;
-  margin-right: auto;
+
+TABLE {	/* horizontaly centered */
+	margin-left: auto;
+	margin-right: auto;
 }
-/* for debugging purpose */
-PRE { text-align:left; }
 
 /** forms **/
 
-FORM { padding: 0em; }
+FORM { padding: 0; margin: 0; }
 
 FORM P {
 	text-align: center;
@@ -78,20 +75,14 @@ FORM FIELDSET P {
 }
 
 TEXTAREA.description {
-  height: 6em;
-  width: 40em;
-  overflow: auto;
+	height: 6em;
+	width: 40em;
+	overflow: auto;
 }
 
 SELECT.categoryList {
-  height: 20em;
-  width: auto;
-}
-
-DIV.comment BLOCKQUOTE {
-  padding: 0.5em;
-  overflow: auto;	/* no solution for IE6 */
-  min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
+	height: 20em;
+	width: auto;
 }
 
 
@@ -101,9 +92,9 @@ DIV.comment BLOCKQUOTE {
  * Use a SPAN to group objects in line
  */
 FIELDSET {
-  padding: 1em;
-  margin: 1em;
-  overflow: hidden; /* <- makes Opera happy */
+	padding: 1em;
+	margin: 1em;
+	overflow: hidden; /* <- makes Opera happy */
 }
 
 FORM.filter FIELDSET UL {
@@ -111,26 +102,26 @@ FORM.filter FIELDSET UL {
 }
 FORM.filter FIELDSET UL,
 FORM.filter FIELDSET LABEL {
-  display: block;
-  float: left;
-  margin-right: 1em;
-  padding: 0;
+	display: block;
+	float: left;
+	margin-right: 1em;
+	padding: 0;
 }
 
 FORM.filter FIELDSET LI {
-  list-style: none;
-  margin-bottom: 0.5em;
+	list-style: none;
+	margin-bottom: 0.5em;
 }
 
 FORM.filter FIELDSET LI LABEL {
-  display: inline;
-  float: none;
+	display: inline;
+	float: none;
 }
 
 FORM.filter FIELDSET UL.tagSelection LABEL {
-  display: inline;
-  float: none;
-  margin-right:0.5em;/*reduce from above*/
+	display: inline;
+	float: none;
+	margin-right:0.5em;/*reduce from above*/
 }
 
 /* cannot use FIELDSET>LABEL because of IE<=6 */
@@ -185,52 +176,48 @@ FORM.properties LI {
 }
 
 FORM.properties SPAN.property {
-  font-weight: bold;
-  float: left;
-  width: 50%;
-  text-align: right;
-  margin: 0;
-  padding: 0 0.5em 0 0;
-}
-
-#theHeader H1 {
-  margin-bottom: 0.5em;
+	font-weight: bold;
+	float: left;
+	width: 50%;
+	text-align: right;
+	margin: 0;
+	padding: 0 0.5em 0 0;
 }
 
 /* button tools */
 UL.actions {
-  text-indent: 0;
-  list-style: none;
+	text-indent: 0;
+	list-style: none;
 }
-UL.actions  LI {
-  display: inline;
+UL.actions LI {
+	display: inline;
 }
-UL.actions  A {
-  border: none;
+UL.actions A, UL.actions IMG {
+	border: none;
 }
 
 UL.tagSelection {
-  width: 99%;
-  margin: 1em 0 1em 0;
-  padding: 0;
+	width: 99%;
+	margin: 1em 0 1em 0;
+	padding: 0;
 }
 
 UL.tagSelection LI {
-  display: inline;
-  white-space: nowrap;
+	display: inline;
+	white-space: nowrap;
 }
 
 #fullTagCloud {
-  font-size: 120%;
-  text-align: justify;
-  padding: 0;
-  margin: 1em 2em 1em 2em;
+	font-size: 120%;
+	text-align: justify;
+	padding: 0;
+	margin: 1em 2em 1em 2em;
 }
 
 #fullTagCloud LI {
-  display: inline;
-  white-space: nowrap;
-  margin: 0 2px;
+	display: inline;
+	white-space: nowrap;
+	margin: 0 2px;
 }
 
 
@@ -243,51 +230,50 @@ UL.tagSelection LI {
 
 /* Popup help page */
 BODY#thePopuphelpPage #copyright {
-  display: none;
+	display: none;
 }
 
 BODY#thePopuphelpPage .content P {
-  text-align: justify;
-  padding: 0.5em;
+	text-align: justify;
+	padding: 0.5em;
 }
 
 BODY#thePopuphelpPage .content OL LI,
 BODY#thePopuphelpPage .content UL LI
 {
-  margin-bottom: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 BODY#thePopuphelpPage P#pageBottomActions A {
-  border: none;
+	border: none;
 }
 
 TR.tagLine {
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+	border-bottom: 1px solid #ddd;
 }
 TD.nbEntries {
-  text-align: right;
-  font-style: italic;
-  font-size: 90%;
+	text-align: right;
+	font-style: italic;
+	font-size: 90%;
 }
 
 FIELDSET.tagLetter {
-  border: 1px solid #d3d3d3;
-  width: 200px;
-  margin: 0.5em;
-  padding: 10px;
+	border: 1px solid #d3d3d3;
+	width: 200px;
+	margin: 0.5em;
+	padding: 10px;
 }
 
 LEGEND.tagLetterLegend {
-  border: 1px solid #d3d3d3;
-  font-size:120%;
-  font-weight: bold;
-  padding: 0 5px;
-  font-style: normal;
+	border: 1px solid #d3d3d3;
+	font-size:120%;
+	font-weight: bold;
+	padding: 0 5px;
+	font-style: normal;
 }
 
 TABLE.tagLetterContent {
-  width:100%;
-  font-size:80%;
-  border-collapse : collapse;
+	width:100%;
+	font-size:80%;
+	border-collapse : collapse;
 }

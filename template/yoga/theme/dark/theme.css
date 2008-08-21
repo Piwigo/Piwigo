@@ -38,8 +38,7 @@ H2, #menubar DT, .throw {
 }
 
 /* borders */
-#menubar DL, .content,
-#comments DIV.comment BLOCKQUOTE {
+#menubar DL, .content{
 	border: 1px solid #000000;
 }
 
@@ -50,18 +49,10 @@ H2, #menubar DT, #imageToolBar {
 	border-bottom: 1px solid #000000;
 }
 
-#theImage IMG {
-	border-color: #000000;
-}
-
 FIELDSET, INPUT, SELECT, TEXTAREA,
 .content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
 	border: 1px solid gray;
-}
-
-#comments DIV.comment BLOCKQUOTE {
-	border-left: 2px solid #696969;
 }
 
 .content UL.thumbnails SPAN.wrap2 {

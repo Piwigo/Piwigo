@@ -80,8 +80,8 @@
   <dt>{'title_menu'|@translate}</dt>
   <dd>
     <form action="{$ROOT_URL}qsearch.php" method="get" id="quicksearch">
-      <p>
-        <input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;" />
+      <p style="margin:0;padding:0"> {*this <p> is for html validation only - does not affect positioning*}
+        <input type="text" name="q" id="qsearchInput" onfocus="if (value==qsearch_prompt) value='';" onblur="if (value=='') value=qsearch_prompt;" style="width:90%"/>
       </p>
     </form>
     <script type="text/javascript">var qsearch_prompt="{'qsearch'|@translate|@escape:'javascript'}"; document.getElementById('qsearchInput').value=qsearch_prompt;</script>
@@ -125,36 +125,35 @@
   </ul>
   
   {if isset($U_IDENTIFY)}
-  <form method="post" action="{$U_IDENTIFY}" class="filter" id="quickconnect">
+  <form method="post" action="{$U_IDENTIFY}" id="quickconnect">
   <fieldset>
     <legend>{'Quick connect'|@translate}</legend>
+		<div>
+			<label for="username">{'Username'|@translate}</label><br/>
+			<input type="text" name="username" id="username" value="" style="width:99%">
+		</div>
 
-    <label>
-      {'Username'|@translate}
-      <input type="text" name="username" size="15" value="">
-    </label>
+		<div><label for="password">{'Password'|@translate}</label>
+		  <br/>
+			<input type="password" name="password" id="password" style="width:99%">
+		</div>
 
-    <label>
-      {'Password'|@translate}
-      <input type="password" name="password" size="15">
-    </label>
+		{if $AUTHORIZE_REMEMBERING}
+		<div><label>
+			{'remember_me'|@translate}
+			<input type="checkbox" name="remember_me" value="1">
+		</label></div>
+		{/if}
 
-    {if $AUTHORIZE_REMEMBERING}
-    <label>
-      {'remember_me'|@translate}
-      <input type="checkbox" name="remember_me" value="1">
-    </label>
-    {/if}
-    <p>
-     <input class="submit" type="submit" name="login" value="{'Submit'|@translate}">
-    </p>
-    
-    <ul class="actions">
-      <li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
-      {if isset($U_REGISTER)}
-      <li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"/></a></li>
-      {/if}
-    </ul>
+		<div>
+			<ul class="actions">
+				<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
+				{if isset($U_REGISTER)}
+				<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"/></a></li>
+				{/if}
+			</ul>
+			<input class="submit" type="submit" name="login" value="{'Submit'|@translate}">
+		</div>
 
   </fieldset>
   </form>

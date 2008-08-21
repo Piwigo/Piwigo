@@ -162,9 +162,6 @@ A:hover { text-decoration: none; border: 0px; }
   border-top: 2px solid #69c;
   border-bottom: 1px solid #369;
 }
-#comments DIV.comment BLOCKQUOTE {
-  border: 1px solid #fff;
-}
 H2, #imageToolBar {
   border-bottom: 1px solid #fff;
 }
@@ -215,11 +212,6 @@ ul.tabsheet, ul.tabsheet li { border-color: #369 !important; }
 /* Display, Visibility, buttons and others */
 label { cursor:pointer }
 .zero { display: none }
-
-#the_page {
-  text-align:center;
-  display:block;
-}
 
 input[type="text"], input[type="password"], input.button,
 input.submit, input.reset, input.file,

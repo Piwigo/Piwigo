@@ -46,16 +46,13 @@
 
 #theImage {
     clear: left;
+    text-align: center;
 }
 
 #theImage>IMG {
-    display: block;
-    margin: 0 auto;
-}
-
-#theImage IMG {
-  border-width: 3px;
-  border-style: solid;
+	display: block;
+	margin: 0 auto;
+	border: none;
 }
 
 #linkPrev {
@@ -76,20 +73,16 @@
 	margin-left: 10px;
 }
 
-TABLE.infoTable .value {
-    text-align: left;
-}
-
 TABLE.infoTable .label {
-    font-weight: bold;
-    text-align: right;
-    padding-right: 0.5em;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 0.5em;
 }
 
 TABLE.infoTable TD.value UL {
-  margin: 0;
-  padding: 0 0 0 1.5em;
-  list-style-type: square;
+	margin: 0;
+	padding: 0 0 0 1.5em;
+	list-style-type: square;
 }
 
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
@@ -114,27 +107,3 @@ TABLE.infoTable TD.value UL {
 	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
 }
 
-#comments {
-  text-align: left;
-}
-
-#comments .comment {
-  margin: 1em 0;
-}
-
-#comments P {
-  margin: 0 0.5em 0 1em;
-}
-
-#comments .author {
-  font-weight: bold;
-}
-
-#thePicturePage #comments BLOCKQUOTE {
-  margin: 0.5em 1em 1em 4em;
-}
-
-#comments P.userCommentDelete {
-  float: right;
-  margin: 0 0.5em 0 0;
-}

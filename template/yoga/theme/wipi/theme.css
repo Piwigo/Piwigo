@@ -155,9 +155,6 @@ H2, #menubar DT, .throw, TD H3 {
 }
 
 /* borders */
-#comments DIV.comment BLOCKQUOTE {
-  border: 1px solid #000;
-}
 #imageHeaderBar {
   border-top: 1px solid #000;
   padding: 8px 0px 3px 0px;
@@ -167,7 +164,7 @@ H2, #imageToolBar {
 }
 
 #theImage IMG {
-  border-color: #fff;
+  border: 3px solid #fff;
 }
 
 .content UL.thumbnail IMG {
@@ -184,9 +181,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 .content DIV.thumbnailCategory {
   border: 1px solid #69c;
   margin: 8px 4px;
-}
-#comments DIV.comment BLOCKQUOTE {
-  border-left: 2px solid #696969;
 }
 
 .content UL.thumbnails SPAN.wrap2 {
@@ -228,8 +222,6 @@ A.navThumb, A.navThumb:hover {
   border: 1px dotted #f92;
   padding-top: 5px;
   padding-bottom:30px;
-  text-align:center;
-  display:block;
   margin: 2px;
 }
 #copyright {
@@ -251,22 +243,17 @@ input#qsearchInput {
 
 FORM#quickconnect,
 FORM#quickconnect FIELDSET,
-FORM#quickconnect P,
+FORM#quickconnect DIV,
 FORM#quickconnect UL.actions,
-FORM#quickconnect FIELDSET>UL.actions,
-FORM#quickconnect UL.actions,
-FORM#quickconnect P,
 FORM#quickconnect LABEL {
   color: #69c;   
 }
-FORM#quickconnect P INPUT,
+FORM#quickconnect DIV INPUT,
 FORM#quickconnect INPUT[type=text],
 FORM#quickconnect INPUT[type=password] {
-  width: 85%;
   color: #58c;   
   background-color: #222;  
   border: 1px solid #333;
-  padding: 1px 3px;
 }
 
 

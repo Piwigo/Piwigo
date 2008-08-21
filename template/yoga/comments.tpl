@@ -69,31 +69,9 @@
 
 {if isset($comments)}
 <div id="comments">
-
-  {foreach from=$comments item=comment}
-  <div class="comment">
-    <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}" alt="{$comment.ALT}" /></a>
-    <p class="commentHeader"><span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
-
-    {if isset($comment.U_DELETE)}
-    <a href="{$comment.U_DELETE}" title="{'comments_del'|@translate}">
-      <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/>
-    </a>
-    {/if}
-
-    {if isset($comment.U_VALIDATE)}
-    <a href="{$comment.U_VALIDATE}" title="validate this comment">
-      <img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[validate]"/>
-    </a>
-    {/if}
-
-    </p>
-    <blockquote>{$comment.CONTENT}</blockquote>
-    <hr class="separation">
-  </div>
-  
-  {/foreach}
+	{include file='comment_list.tpl'}
 </div>
 {/if}
 
 </div> <!-- content -->
+

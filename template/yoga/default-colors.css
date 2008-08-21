@@ -16,91 +16,89 @@
 /* IE <= 6 is so bad with this that you can't merge with the following rule */
 INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
 INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
-  color:black;
-  background-color: #d3d3d3;	/* lightgrey */
+	color:black;
+	background-color: #d3d3d3;	/* lightgrey */
 }
 
 INPUT.text, INPUT.password, INPUT.button,
 INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
-  color:black;
-  background-color: #d3d3d3;	/* lightgrey */
+	color:black;
+	background-color: #d3d3d3;	/* lightgrey */
 }
 
 INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
-  background-color: #f5f5f5;	/* whitesmoke */
+	background-color: #f5f5f5;	/* whitesmoke */
 }
 
 /* some theme set a border on INPUT  which is not pretty for radio/checkbox */
 INPUT[type="radio"], INPUT[type="checkbox"] {
-  border: none;	/* <= Opera needs this */
+	border: none;	/* <= Opera needs this */
 }
 
 INPUT.radio, INPUT.checkbox {
-  border: none;	/* <= IE6 needs this */
+	border: none;	/* <= IE6 needs this */
 }
 
 /* rate buttons displayed like links */
 INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rateButtonStarEmpty {
-  color:inherit;
-  background-color:transparent;	/* Konqueror doesn't accept transparent here */
+	color:inherit;
+	background-color:transparent;	/* Konqueror doesn't accept transparent here */
 }
 
 .errors { /* Errors display */
-  color: red;
-  background-color: #ffe1e1;
-  font-weight: bold;
-  text-align: left;
-  margin: 5px;
-  border: 1px solid red;
-  background-image: url(icon/admin/errors.png);
-  background-repeat: no-repeat;
-  background-position: top right;
-  padding: 10px 50px 10px 10px;
+	color: red;
+	background-color: #ffe1e1;
+	font-weight: bold;
+	margin: 5px;
+	border: 1px solid red;
+	background-image: url(icon/admin/errors.png);
+	background-repeat: no-repeat;
+	background-position: top right;
+	padding: 10px 50px 10px 10px;
 }
 
 /**
  * Informations box in administration
  */
 .infos {
-  text-align: left;
-  color: #002000;
-  background-color: #98fb98; /* palegreen */
-  background-image: url(icon/admin/infos.png);
-  background-repeat: no-repeat;
-  background-position: top right;
-  margin: 5px;
-  padding: 10px 50px 10px 10px;
+	color: #002000;
+	background-color: #98fb98; /* palegreen */
+	background-image: url(icon/admin/infos.png);
+	background-repeat: no-repeat;
+	background-position: top right;
+	margin: 5px;
+	padding: 10px 50px 10px 10px;
 }
 
 /**
  * Header message like upgrade or adviser mode
  */
 .header_msgs {
-  text-align:center;
-  font-weight: bold;
-  color:#696969;	/* dimgray */
-  background-color: #d3d3d3;
-  margin: 1px;
-  padding: 1px;
+	text-align:center;
+	font-weight: bold;
+	color:#696969;	/* dimgray */
+	background-color: #d3d3d3;
+	margin: 1px;
+	padding: 1px;
 }
 
 /**
  * Header notes box in public/administration
  */
 .header_notes {
-  border: 1px solid #aaaaaa; /* border color and style */
-  text-align: center;
-  background-image: url(icon/note.png);
-  background-repeat: no-repeat;
-  background-position: top left;
-  font-weight: bold;
-  margin: 14px;
-  padding: 5px 00px 0px 0px;
+	border: 1px solid #aaaaaa; /* border color and style */
+	text-align: center;
+	background-image: url(icon/note.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+	font-weight: bold;
+	margin: 14px;
+	padding: 5px 00px 0px 0px;
 }
 
 LEGEND {
-  font-style: italic;
+	font-style: italic;
 }
 
 /*calendar*/
