@@ -33,13 +33,13 @@
     {/if}
     
     <tr>
-      <td><strong>{'name'|@translate}</strong></td>
+      <td><strong>{'Name'|@translate}</strong></td>
       <td>
         <input type="text" name="name" value="{$CAT_NAME}" maxlength="60"/>
       </td>
     </tr>
     <tr>
-      <td><strong>{'description'|@translate}</strong></td>
+      <td><strong>{'Description'|@translate}</strong></td>
       <td>
         <textarea cols="50" rows="5" name="comment" class="description">{$CAT_COMMENT}</textarea>
       </td>

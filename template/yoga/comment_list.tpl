@@ -13,7 +13,7 @@
 			<ul class="actions" style="float:right">
 				{if isset($comment.U_DELETE)}
 				<li>
-					<a href="{$comment.U_DELETE}" title="{'comments_del'|@translate}">
+					<a href="{$comment.U_DELETE}" title="{'delete this comment'|@translate}">
 						<img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" alt="[delete]" />
 					</a>
 				</li>
