@@ -73,24 +73,6 @@ UL.categoryActions {
 	margin-bottom: -5px;
 }
 
-/* User comments */
-
-DIV#comments {
-	padding-left: 5px;
-	padding-right: 5px;
-}
-
-DIV#comments HR {
-	clear:both;
-}
-
-DIV#comments DIV.comment A.illustration {
-	display: block;
-	float: left;
-	margin: 0.5em 1em 0 0.5em;
-	width: 140px;
-}
-
 /* begin chronology/calendar elements*/
 .content DIV.calendarViews {
 	display: block;
@@ -208,4 +190,15 @@ DIV.calImg {
 	text-align: left;
 	margin: 2px 0 0 2px;
 	float: left;
+}
+
+
+/* User comments */
+DIV#comments {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+DIV#comments DIV.description {
+	font-size: 100%;
 }

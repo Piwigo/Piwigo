@@ -79,9 +79,10 @@ class Template {
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
+    $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
-      $this->smarty->register_prefilter( array(&$this, 'prefilter_language') );
+      $this->smarty->register_prefilter( array('Template', 'prefilter_language') );
     }
 
     if ( !empty($theme) )
@@ -355,15 +356,38 @@ class Template {
     }
   }
 
+  /*static */ function prefilter_white_space($source, &$smarty)
+  {
+    $ld = $smarty->left_delimiter;
+    $rd = $smarty->right_delimiter;
+    $ldq = preg_quote($ld, '#');
+    $rdq = preg_quote($rd, '#');
+
+    $regex = array();
+    $tags = array('if', 'foreach', 'section');
+    foreach($tags as $tag)
+    {
+      array_push($regex, "#^\s+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
+      array_push($regex, "#^\s+($ldq/$tag$rdq)\s*$#m");
+    }
+    $tags = array('include', 'else', 'html_head');
+    foreach($tags as $tag)
+    {
+      array_push($regex, "#^\s+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
+    }
+    $source = preg_replace( $regex, "$1", $source);
+    return $source;
+  }
+
   /**
    * Smarty prefilter to allow caching (whenever possible) language strings
    * from templates.
    */
-  function prefilter_language($source, &$smarty)
+  /*static */ function prefilter_language($source, &$smarty)
   {
     global $lang;
-    $ldq = preg_quote($this->smarty->left_delimiter, '~');
-    $rdq = preg_quote($this->smarty->right_delimiter, '~');
+    $ldq = preg_quote($smarty->left_delimiter, '~');
+    $rdq = preg_quote($smarty->right_delimiter, '~');
 
     $regex = "~$ldq *\'([^'$]+)\'\|@translate *$rdq~";
     $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? $lang[\'$1\'] : \'$0\'', $source);

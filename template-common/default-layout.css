@@ -27,9 +27,6 @@ BODY#thePopuphelpPage {
 .content DIV.thumbnailCategory DIV.description {
   height: 140px;    /* max thumbnail height + 2px */
 }
-DIV#comments DIV.comment A.illustration {
-	width: 140px; /*maximum thumbnail width + ~5px */
-}
 
 
 /* Category thumbnails on main page */

@@ -3,16 +3,16 @@
 /* text color */
 BODY, H1, H2, H3, DT,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
-  color:#696969;	/* dimgray */
+	color:#696969;	/* dimgray */
 }
 
 /* backgrounds */
-BODY, H3, .throw {
-  background-color: #ffffff;	/* white */
+BODY, H3 {
+	background-color: #ffffff;	/* white */
 }
 
-H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
-  background-color: #d3d3d3;
+H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover {
+	background-color: #d3d3d3;
 }
 
 #menubar DL, .content, #imageToolBar, .header_notes {
@@ -33,7 +33,6 @@ H2, #menubar DT, #imageHeaderBar, #imageToolBar A:hover, .row1 {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
@@ -80,8 +79,3 @@ SPAN.calItem, SPAN.calItemEmpty
 #qsearchInput:focus { color: #005e89; }
 
 
-UL.tabsheet LI.normal_tab { background-color: #d3d3d3; }
-UL.tabsheet LI.selected_tab { background-color: #eeeeee; }
-
-UL.tabsheet, UL.tabsheet LI {border-color: gray;}
-UL.tabsheet LI.normal_tab:hover { border-color: black; }

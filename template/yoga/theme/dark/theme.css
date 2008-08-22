@@ -6,22 +6,22 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#d0d0d0;
 }
 
-H2, #menubar DT, .throw {
+H2, #menubar DT {
 	color: #fff48e;
 }
 
 
 /* backgrounds */
 
-BODY, H3, #imageHeaderBar, #imageToolBar A:hover, .row1, UL.tabsheet LI.normal_tab {
+BODY, H3, #imageHeaderBar, #imageToolBar A:hover {
 	background-color: #2f2f2f;
 }
 
-#menubar DL, .content, #imageToolBar, .header_notes, UL.tabsheet LI.selected_tab {
+#menubar DL, .content, #imageToolBar, .header_notes {
 	background-color: #505050;
 }
 
-H2, #menubar DT, .throw {
+H2, #menubar DT {
 	background-image: url(images/tableh1_bg.png);
 }
 
@@ -50,7 +50,6 @@ H2, #menubar DT, #imageToolBar {
 }
 
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
 	border: 1px solid gray;
 }
@@ -68,7 +67,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
 	color: black;
 }
 
-UL.tabsheet LI.normal_tab:hover { border-color: #fff48e; }
 
 /* links */
 A, INPUT.rateButton {

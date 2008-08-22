@@ -10,7 +10,7 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
   background-color: transparent;
   border: 0px;
 }
-H2, .throw {
+H2 {
   color: #eee;
 }
 #menubar DT, #menubar DT A {
@@ -62,7 +62,7 @@ BODY {
   margin: 0px;
   padding: 0px;
 }
-H3, #imageToolBar A:hover, .row1, .tabsheet li  {
+H3, #imageToolBar A:hover {
   background-color: #222;
 }
 
@@ -72,7 +72,6 @@ H3, #imageToolBar A:hover, .row1, .tabsheet li  {
 #imageToolBar, .header_notes {
   background-color: #333;
 }
-.selected_tab { background-color: eee !important; }
 A {
   border-color: #69c;
 }
@@ -85,7 +84,7 @@ A:hover {
   padding: 5px;
 }
 
-H2, #menubar DT, .throw, TD H3 {
+H2, #menubar DT, TD H3 {
   background-image: url(images/tableh1_bg.png);
   background-repeat: repeat-x;
 }
@@ -145,7 +144,7 @@ H2, #menubar DT, .throw, TD H3 {
   padding: 3px 0px 15px 0px;
 }
 
-#thePicturePage #comments H2 {
+#thePicturePage #comments H3 {
   background-image: none;
   background-color: #222;
   border-top: 2px solid #69c;
@@ -174,7 +173,6 @@ H2, #imageToolBar {
   border: 0px;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
   border: 1px solid gray;
 }
@@ -194,15 +192,6 @@ FIELDSET, INPUT, SELECT, TEXTAREA,
   border-color: #69c;		/* thumbnails border color when mouse cursor is over it */
 }
 
-#menubar .buttonmenu {
-  margin: 0 2px;
-  width: auto;
-  padding: 0;
-  text-indent: 0;
-  list-style: none;
-  text-align: center;
-  float: left;
-}
 /* links */
 A, INPUT.rateButton, legend {
   color: #69c;
@@ -286,16 +275,3 @@ a.PWG:hover .G { color : #f92; }
 #menubar .menuInfoCatByChild,
 h2.showtitle, #theImage p.showlegend { display: none }
 * { outline-width: 0px; }
-ul.tabsheet, ul.tabsheet li {
-  border-color: #69c;
-}
-ul.tabsheet li.normal_tab {
-  background-image: url(images/tableh1_bg.png);
-  background-repeat: repeat-x;
-}
-ul.tabsheet li.normal_tab:hover { border-color: #f92 }
-ul.tabsheet li {
-  -moz-border-radius: 0px 0px 3px 3px;
-  border-radius:  0px 0px 12px 12px;
-  -webkit-border-radius: 0px 0px 3px 3px;
-}

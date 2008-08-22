@@ -17,8 +17,8 @@
 
 /******************************************************************************/
 /* Texts Only */
-BODY, H1, H3, DT, H2, .throw { color: #369; }
-H2, #menubar DT, .throw, TD H3 {
+BODY, H1, H3, DT, H2 { color: #369; }
+H2, #menubar DT, TD H3 {
   color: #fff;
 }
 #menubar DT, #menubar DT A {
@@ -71,7 +71,7 @@ input.rateButtonSelected,
  font-weight: normal;
  letter-spacing: 0em;
 }
-#thePicturePage #comments H2 {
+#thePicturePage #comments H3 {
   color: #69c;
 }
 .content ul.thumbnailCategories li div.thumbnailCategory .description p {
@@ -80,11 +80,10 @@ input.rateButtonSelected,
 .content ul.thumbnailCategories li div.thumbnailCategory .description p + p {
   color: #369;
 }
-.tabsheet li, .tabsheet li a,
 .content div.thumbnailCategory .description h3 a {
   color: #fff;
 }
-.tabsheet li a:hover, .content div.thumbnailCategory .description h3 a:hover {
+.content div.thumbnailCategory .description h3 a:hover {
   color: #f92;
 }
 
@@ -97,15 +96,14 @@ BODY { background: #cde; }
 #thePicturePage #theImage,
 .content { background-color: #dfe8ff; }
 #the_page { background-color: #dfe8ff; }
-#menubar, H3, #imageHeaderBar,
-.row1  { background-color: #eef; }
-H2, #menubar DT, .throw, TD H3,
+#menubar, H3, #imageHeaderBar { background-color: #eef; }
+H2, #menubar DT, TD H3,
 #imageToolBar,
-#imageHeaderBar, #imageHeaderBar H2, .tabsheet li,
+#imageHeaderBar, #imageHeaderBar H2,
 .content H2 { background-color: #369; }
 .content .infos { background-color: #47a; ;}
 .content .errors { background-color: #fc5; ;}
-#thePicturePage #comments H2 { background-color: #eef; ;}
+#thePicturePage #comments H3 { background-color: #eef; ;}
 .content ul.thumbnailCategories li div.thumbnailCategory .description h3 {
   background-color: #69c; 
 }
@@ -119,7 +117,6 @@ H2, #menubar DT, .throw, TD H3,
 }
 input#qsearchInput { background-color: #cde; }
 .virtual_cat { background: #fff !important; }
-.selected_tab { background-color: #69c !important; }
 /******************************************************************************/
 /* Borders, Margins, Padding Only */
 BODY { margin: 0px;  padding: 0px; }
@@ -158,7 +155,7 @@ A:hover { text-decoration: none; border: 0px; }
   margin: 0px;
   padding: 3px 0px 15px 0px;
 }
-#thePicturePage #comments H2 {
+#thePicturePage #comments H3 {
   border-top: 2px solid #69c;
   border-bottom: 1px solid #369;
 }
@@ -180,7 +177,6 @@ H2, #imageToolBar {
   border: 0px;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA,
-.content DIV.comment  A.illustration IMG,
 .content DIV.thumbnailCategory {
   border: 1px solid #69c;
   background-color: #dfe8ff;
@@ -205,8 +201,6 @@ A.navThumb, A.navThumb:hover,
   padding: 5px 0px 30px 0px;
   margin: 0px;
 }
-ul.tabsheet, ul.tabsheet li { border-color: #369 !important; }
-.tabsheet li:hover { border-color: #f92 !important; }
 
 /******************************************************************************/
 /* Display, Visibility, buttons and others */
@@ -253,5 +247,3 @@ input.submit:active {
 }
 * { outline: none; }
 
-tr.throw td a { color: #fff; }
-tr.throw td a:focus { color: #f92; }

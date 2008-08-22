@@ -244,28 +244,29 @@ y.callService(
 
 {if isset($COMMENT_COUNT)}
 <div id="comments">
-  <h2>[{$COMMENT_COUNT}] {'comments_title'|@translate}</h2>
+	<h3>[{$COMMENT_COUNT}] {'comments_title'|@translate}</h3>
 
-  <div class="navigationBar">{$COMMENT_NAV_BAR}</div>
+	{if !empty($COMMENT_NAV_BAR)}
+	<div class="navigationBar">{$COMMENT_NAV_BAR}</div>
+	{/if}
 
-  {if isset($comments)}
-		{include file='comment_list.tpl'}
-  {/if}
+	{if isset($comments)}
+		{include file='comment_list.tpl' comment_separator=true}
+	{/if}
 
-  {if isset($comment_add)}
-  <form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
-    <fieldset>
-      <legend>{'comments_add'|@translate}</legend>
-      {if $comment_add.SHOW_AUTHOR}
-      <label>{'upload_author'|@translate}<input type="text" name="author"></label>
-      {/if}
-      <label>{'comment'|@translate}<textarea name="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
-      <input type="hidden" name="key" value="{$comment_add.KEY}" />
-      <input class="submit" type="submit" value="{'Submit'|@translate}">
-    </fieldset>
-  </form>
-  {/if}
-
+	{if isset($comment_add)}
+	<form  method="post" action="{$comment_add.F_ACTION}" class="filter" id="addComment">
+	<fieldset>
+		<legend>{'comments_add'|@translate}</legend>
+		{if $comment_add.SHOW_AUTHOR}
+		<label>{'upload_author'|@translate}<input type="text" name="author"></label>
+		{/if}
+		<label>{'comment'|@translate}<textarea name="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
+		<input type="hidden" name="key" value="{$comment_add.KEY}" />
+		<input class="submit" type="submit" value="{'Submit'|@translate}">
+	</fieldset>
+	</form>
+	{/if}
 </div>
 {/if} {*comments*}
 
