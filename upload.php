@@ -103,7 +103,7 @@ function validate_upload( $temp_name, $my_max_file_size,
       case 2 : $result['type'] = 'jpg'; break;
       case 3 : $result['type'] = 'png'; break;
       default :
-        array_push( $result['error'], l10n('upload_advise_filetype') );  
+        array_push( $result['error'], l10n('upload_advise_filetype') );
       }
     }
   }
@@ -134,7 +134,7 @@ if (isset($page['category']))
   check_restrictions( $page['category'] );
   $category = get_cat_info( $page['category'] );
   $category['cat_dir'] = get_complete_dir( $page['category'] );
-  
+
   if (url_is_remote($category['cat_dir']) or !$category['uploadable'])
   {
     die('Fatal: you take a wrong way, bye bye');
@@ -173,7 +173,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, l10n('upload_err_username') );
   }
-  
+
   $date_creation = '';
   if ( !empty($_POST['date_creation']) )
   {
@@ -191,7 +191,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   // creation of the "infos" field :
   // <infos author="Pierrick LE GALL" comment="my comment"
   //        date_creation="2004-08-14" name="" />
-  $xml_infos = '<infos';
+  $xml_infos = '<infos ';
   $xml_infos.= encodeAttribute('author', $_POST['author']);
   $xml_infos.= encodeAttribute('comment', $_POST['comment']);
   $xml_infos.= encodeAttribute('date_creation', $date_creation);
@@ -202,7 +202,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   {
     array_push( $error, l10n('update_wrong_dirname') );
   }
-  
+
   if ( sizeof( $error ) == 0 )
   {
     $result = validate_upload( $path, $conf['upload_maxfilesize'],
@@ -332,7 +332,7 @@ $template->assign_vars(
     'U_RETURN' => make_index_url(array('category' => $category)),
     )
   );
-  
+
 if ( !$page['upload_successful'] )
 {
   $template->assign_block_vars('upload_not_successful',array());
@@ -385,7 +385,7 @@ if ( sizeof( $error ) != 0 )
     }
   }
   $template->assign_block_vars('upload_not_successful.advise',array('ADVISE'=>l10n('upload_advise_filetype')));
-  
+
 //----------------------------------------- optionnal username and mail address
   if ( !isset( $page['waiting_id'] ) )
   {
