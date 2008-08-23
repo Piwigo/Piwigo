@@ -222,7 +222,7 @@ if ( isset( $_POST['submit'] ) and !isset( $_GET['waiting_id'] ) )
   // creation of the "infos" field :
   // <infos author="Pierrick LE GALL" comment="my comment"
   //        date_creation="2004-08-14" name="" />
-  $xml_infos = '<infos';
+  $xml_infos = '<infos ';
   $xml_infos.= encodeAttribute('author', $_POST['author']);
   $xml_infos.= encodeAttribute('comment', $_POST['comment']);
   $xml_infos.= encodeAttribute('date_creation', $date_creation);

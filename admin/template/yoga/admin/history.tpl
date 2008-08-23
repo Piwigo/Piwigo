@@ -62,18 +62,14 @@
     <input name="filename" value="{$FILENAME}" type="text">
   </label>
 
+  <label>
+    {'Thumbnails'|@translate}
+    <select name="display_thumbnail">
+      {html_options values=$display_thumbnail_values output=$display_thumbnail_values|translate selected=$display_thumbnail_selected}
+    </select>
+  </label>
+
   <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" />
-</fieldset>
-<fieldset>
-  <legend>{'Display'|@translate}</legend>
-  <ul>
-    <li>
-      {'Thumbnails'|@translate}
-      <select name="display_thumbnail">
-        {html_options values=$display_thumbnail_values output=$display_thumbnail_values|translate selected=$display_thumbnail_selected}
-      </select>
-    </li>
-  </ul>
 </fieldset>
 </form>
 
