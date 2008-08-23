@@ -102,6 +102,10 @@ if( !get_magic_quotes_gpc() )
     @reset($_COOKIE);
   }
 }
+if ( !empty($_SERVER["PATH_INFO"]) )
+{
+  $_SERVER["PATH_INFO"] = addslashes($_SERVER["PATH_INFO"]);
+}
 
 //
 // Define some basic configuration arrays this also prevents malicious
@@ -141,10 +145,8 @@ include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 include(PHPWG_ROOT_PATH . 'include/template.php');
 
 // Database connection
-mysql_connect( $cfgHote, $cfgUser, $cfgPassword )
-or die ( "Could not connect to database server" );
-mysql_select_db( $cfgBase )
-or die ( "Could not connect to database" );
+@mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) or my_error( 'mysql_connect', true );
+@mysql_select_db( $cfgBase ) or my_error( 'mysql_select_db', true );
 
 //
 // Setup gallery wide options, if this fails then we output a CRITICAL_ERROR

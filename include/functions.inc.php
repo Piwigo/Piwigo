@@ -629,7 +629,7 @@ function pwg_query($query)
   global $conf,$page,$debug,$t2;
 
   $start = get_moment();
-  $result = mysql_query($query) or my_error($query."\n");
+  ($result = mysql_query($query)) or my_error($query, $conf['die_on_sql_error']);
 
   $time = get_moment() - $start;
 
@@ -924,25 +924,32 @@ function get_thumbnail_title($element_info)
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
-function my_error($header)
+
+function my_error($header, $die)
 {
-  global $conf;
+  $error = $header;
+  $error.= "\n[mysql error ".mysql_errno().'] '.mysql_error()."\n";
 
-  $error = '<pre>';
-  $error.= $header;
-  $error.= '[mysql error '.mysql_errno().'] ';
-  $error.= mysql_error();
-  $error.= '</pre>';
+  if (function_exists('debug_backtrace'))
+  {
+    $bt = debug_backtrace();
+    for ($i=0; $i<count($bt); $i++)
+    {
+      $error .= "#$i\t".@$bt[$i]['function']." ".@$bt[$i]['file']."(".@@$bt[$i]['line'].")\n";
+    }
+  }
 
-  if ($conf['die_on_sql_error'])
+  if ($die)
   {
-    die($error);
+    @set_status_header(500);
+    echo( str_repeat( ' ', 300)."\n"); //IE doesn't error output if below a size
   }
-  else
-  {
-    echo $error;
-  }
+  echo("<pre>");
+  trigger_error($error, $die ? E_USER_ERROR : E_USER_WARNING);
+  !$die || die($error); // just in case the handler didnt die
+  echo("</pre>");
 }
+
 
 /**
  * creates an array based on a query, this function is a very common pattern
