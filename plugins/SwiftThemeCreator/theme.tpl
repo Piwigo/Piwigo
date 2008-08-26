@@ -9,16 +9,16 @@ INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {ldelim}
 H2, #menubar DT, .throw,
 A, INPUT.rateButton {ldelim} color: {$main.color3}; }
 
-UL.tabsheet LI.normal_tab:hover {ldelim} border: 1px solid {$main.color4}; }
+UL.tabsheet LI.normal_tab:hover {ldelim} border: 1px solid {$main.color3}; }
 A:hover {ldelim} 	color: {$main.color4}; }
 
 .content UL.thumbnails SPAN.wrap2:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover,
 .content UL.thumbnailCategories DIV.thumbnailCategory:hover A {ldelim}
- color: {$main.color4}; border: 1px solid {$main.color5}; background-color: {$main.color6}; }
+ color: {$main.color4}; border: 1px solid {$main.color4}; background-color: {$main.color6}; }
 
 #menubar DL, .content, #comments DIV.comment BLOCKQUOTE,
-#imageHeaderBar, H2, #menubar DT, #imageToolBar {ldelim} border: 1px solid {$main.color5}; }
+#imageHeaderBar, H2, #menubar DT, #imageToolBar {ldelim} border: 1px solid {$main.color4}; }
 
 #menubar DL, .content, #imageToolBar, .header_notes, UL.tabsheet LI.selected_tab {ldelim}
 	background-color: {$main.color6}; }

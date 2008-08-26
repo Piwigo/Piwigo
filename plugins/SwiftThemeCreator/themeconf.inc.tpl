@@ -14,6 +14,12 @@ $themeconf = array(
   'admin_icon_dir' => 'template/{$main.newtpl}/icon/admin',
   'mime_icon_dir' => 'template/{$main.newtpl}/icon/mimetypes/',
   'local_head' => '<!-- coming soon -->',
+  /* Swift Theme Creator parameters */
+  'stc_category' => {$main.src_category},
+  'stc_background' => '{$main.background}',
+  'stc_background_mode' => '{$main.background_mode}',
+  'stc_width' => '{$main.picture_width}',
+  'stc_height' => '{$main.picture_height}',
 );
 if ( !isset($lang['Theme: {$main.newtheme}']) )
 
