@@ -38,44 +38,19 @@ class AMM_PIP extends AMM_root
   */
   public function init_events()
   {
-    add_event_handler('loc_begin_menubar', array(&$this, 'modify_menu') );
+    //TODELETE: add_event_handler('loc_begin_menubar', array(&$this, 'modify_menu') );
+    parent::init_events();
+    add_event_handler('blockmanager_apply', array(&$this, 'blockmanager_apply') );
   }
 
-  /* ---------------------------------------------------------------------------
-  protected classe functions
-  --------------------------------------------------------------------------- */
-  public function modify_menu()
+  public function blockmanager_apply( $menu_ref_arr )
   {
-    global $menu, $user;
-
-
-    /*
-      Add a new section (links)
-    */
-    $urls=$this->get_urls(true);
-    if(($this->my_config['amm_links_active']=='y')and(count($urls)>0))
-    {
-      if($this->my_config['amm_links_show_icons']=='y')
-      {
-        for($i=0;$i<count($urls);$i++)
-        {
-          $urls[$i]['icon']=AMM_PATH."links_pictures/".$urls[$i]['icon'];
-        }
-      }
-
-      $section = new Section('mbAMM_links', base64_decode($this->my_config['amm_links_title'][$user['language']]), dirname(__FILE__).'/menu_templates/menubar_links.tpl');
-      $section->set_items(array(
-        'LINKS' => $urls,
-        'icons' => $this->my_config['amm_links_show_icons']
-      ));
-      $menu->add($section->get());
-    }
-
+    $menu = & $menu_ref_arr[0];
 
     /*
       Add a new random picture section
     */
-    if($this->my_config['amm_randompicture_active']=='y')
+    if ( ($block = $menu->get_block( 'mbAMM_randompict' ) ) != null )
     {
       $sql="SELECT i.id as image_id, i.file as image_file, i.comment, i.path, i.tn_ext, c.id as catid, c.name, c.permalink, RAND() as rndvalue, i.name as imgname
 FROM ".CATEGORIES_TABLE." c, ".IMAGES_TABLE." i, ".IMAGE_CATEGORY_TABLE." ic
@@ -95,17 +70,43 @@ LIMIT 0,1
           'name' => $nfo['name'],
           'permalink' => $nfo['permalink']
         );
-
-        $section = new Section('mbAMM_randompict', base64_decode($this->my_config['amm_randompicture_title'][$user['language']]), dirname(__FILE__).'/menu_templates/menubar_randompic.tpl');
-        $section->set_items(array(
+        global $user;
+        $block->set_title(  base64_decode($this->my_config['amm_randompicture_title'][$user['language']]) );
+        $block->template = dirname(__FILE__).'/menu_templates/menubar_randompic.tpl';
+        $block->data = array(
           'LINK' => make_picture_url($nfo),
           'IMG' => get_thumbnail_url($nfo),
           'IMGNAME' => $nfo['imgname'],
           'IMGCOMMENT' => $nfo['comment'],
           'SHOWNAME' => $this->my_config['amm_randompicture_showname'],
           'SHOWCOMMENT' => $this->my_config['amm_randompicture_showcomment']
-        ));
-        $menu->add($section->get());
+        );
+      }
+    }
+
+    /*
+      Add a new section (links)
+    */
+    if ( ($block = $menu->get_block( 'mbAMM_links' ) ) != null )
+    {
+      $urls=$this->get_urls(true);
+      if ( count($urls)>0 )
+      {
+        if($this->my_config['amm_links_show_icons']=='y')
+        {
+          for($i=0;$i<count($urls);$i++)
+          {
+            $urls[$i]['icon']=get_root_url().'plugins/'.AMM_DIR."/links_pictures/".$urls[$i]['icon'];
+          }
+        }
+        
+        $block->set_title( base64_decode($this->my_config['amm_links_title'][$user['language']]) );
+        $block->template = dirname(__FILE__).'/menu_templates/menubar_links.tpl';
+
+        $block->data = array(
+          'LINKS' => $urls,
+          'icons' => $this->my_config['amm_links_show_icons']
+        );
       }
     }
 
@@ -121,46 +122,34 @@ LIMIT 0,1
       {
         if(!isset($id_done[$val['id']]))
         {
-          $section = new Section('mbAMM_personalised'.$val['id'], $val['title'], dirname(__FILE__).'/menu_templates/menubar_personalised.tpl');
-          $section->set_items(array(
-            'CONTENT' => stripslashes($val['content'])));
-          $menu->add($section->get());
-
+          if ( ($block = $menu->get_block( 'mbAMM_personalised'.$val['id'] ) ) != null )
+          {
+            $block->set_title( $val['title'] );
+            $block->template = dirname(__FILE__).'/menu_templates/menubar_personalised.tpl';
+            $block->data = stripslashes($val['content']);
+          }
           $id_done[$val['id']]="";
         }
-      }
-    }
-
-
-    /*
-      Hide sections
-    */
-    foreach($this->my_config['amm_sections_visible'] as $key => $val)
-    {
-      if($val=='n')
-      {
-        $menu->remove($key);
       }
     }
 
     /*
       hide items from special & menu sections
     */
-    foreach(array('mbMenu' => 'amm_sections_modmenu', 'mbSpecial' =>'amm_sections_modspecial') as $key0 => $val0)
+    foreach(array('mbMenu' => 'amm_sections_modmenu', 'mbSpecials' =>'amm_sections_modspecials') as $key0 => $val0)
     {
-      $section_menu=$menu->section($key0);
-      foreach($this->my_config[$val0] as $key => $val)
+      if ( ($block = $menu->get_block( $key0 ) ) != null )
       {
-        if($val=='n')
+        foreach($this->my_config[$val0] as $key => $val)
         {
-          unset($section_menu['ITEMS'][$key]);
+          if($val=='n')
+          {
+            unset( $block->data[$key] );
+          }
         }
       }
-      $menu->replace($section_menu);
     }
-
-  }
-
+	}
 
 } // AMM_PIP class
 

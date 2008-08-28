@@ -37,33 +37,28 @@ class AMM_root extends common_plugin
   /* this function initialize var $my_config with default values */
   public function init_config()
   {
-    global $menu;
-
     $this->my_config=array(
       'amm_links_show_icons' => 'y',
-      'amm_links_active' => 'y',
       'amm_links_title' => array(),
-      'amm_sections_visible' => array(),
-      'amm_randompicture_active' => 'n',
       'amm_randompicture_showname' => 'n',     //n:no, o:over, u:under
       'amm_randompicture_showcomment' => 'n',   //n:no, o:over, u:under
       'amm_randompicture_title' => array(),
-      'amm_sections_modspecial' => array(
-        'favorite_cat' => 'y',
-        'most_visited_cat' => 'y',
-        'best_rated_cat' => 'y',
-        'random_cat' => 'y',
-        'recent_pics_cat' => 'y',
-        'recent_cats_cat' => 'y',
+      'amm_sections_modspecials' => array(
+        'favorites' => 'y',
+        'most_visited' => 'y',
+        'best_rated' => 'y',
+        'random' => 'y',
+        'recent_pics' => 'y',
+        'recent_cats' => 'y',
         'calendar' => 'y'
       ),
       'amm_sections_modmenu' => array(
         'qsearch' => 'y',
-        'Tags' => 'y',
-        'Search' => 'y',
+        'tags' => 'y',
+        'search' => 'y',
         'comments' => 'y',
-        'About' => 'y',
-        'Notification' => 'y'
+        'about' => 'y',
+        'notification' => 'y'
       )
     );
 
@@ -82,28 +77,39 @@ class AMM_root extends common_plugin
       }
     }
 
-    $sections=$menu->registered();
-    foreach($sections as $key => $val)
-    {
-      $this->my_config['amm_sections_visible'][$key]='y';
-    }
   }
 
   public function load_config()
   {
-    global $menu;
-
     parent::load_config();
+  }
 
-    $sections=$menu->registered();
-    foreach($sections as $key => $val)
+  public function init_events()
+  {
+    add_event_handler('blockmanager_register_blocks', array(&$this, 'register_blocks') );
+  }
+
+  public function register_blocks( $menu_ref_arr )
+  {
+    $menu = & $menu_ref_arr[0];
+    if ($menu->get_id() != 'menubar')
+      return;
+    $menu->register_block( new RegisteredBlock( 'mbAMM_randompict', 'Random pictures', 'AMM'));
+    $menu->register_block( new RegisteredBlock( 'mbAMM_links', 'Links', 'AMM'));
+
+    $sections=$this->get_sections(true);
+    if(count($sections))
     {
-      if(!isset($this->my_config['amm_sections_visible'][$key]))
+      $id_done=array();
+      foreach($sections as $key => $val)
       {
-        $this->my_config['amm_sections_visible'][$key]='y';
+        if(!isset($id_done[$val['id']]))
+        {
+          $menu->register_block( new RegisteredBlock( 'mbAMM_personalised'.$val['id'], $val['title'], 'AMM'));
+          $id_done[$val['id']]="";
+        }
       }
     }
-    
   }
 
   // return an array of urls (each url is an array)

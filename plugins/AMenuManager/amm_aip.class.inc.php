@@ -189,7 +189,6 @@ class AMM_AIP extends AMM_root
   */
   public function init_events()
   {
-    add_event_handler('menubar_file', array(&$this, 'plugin_public_menu') );
     add_event_handler('loc_end_page_header', array(&$this->css, 'apply_CSS'));
   }
 
@@ -237,10 +236,10 @@ class AMM_AIP extends AMM_root
           break;
 
         case 'setmenu_modspecial_sections_list':
-          $result=$this->ajax_amm_setmenu_mod_section_list('amm_sections_modspecial');
+          $result=$this->ajax_amm_setmenu_mod_section_list('amm_sections_modspecials');
           break;
         case 'setmenu_modspecial_sections_showhide':
-          $result=$this->ajax_amm_setmenu_mod_section_showhide('amm_sections_modspecial', $_REQUEST['fItem']);
+          $result=$this->ajax_amm_setmenu_mod_section_showhide('amm_sections_modspecials', $_REQUEST['fItem']);
           break;
 
         case 'personalised_list':
@@ -325,7 +324,6 @@ class AMM_AIP extends AMM_root
       'lnk_list' => $this->page_link.'&amp;fAMM_tabsheet=links',
       'AMM_AJAX_URL_LIST' => $this->page_link."&ajaxfct=",
       'show_icons_selected' => $this->my_config['amm_links_show_icons'],
-      'active_selected' => $this->my_config['amm_links_active'],
       'lang_selected' => $user['language'],
       'fromlang' => substr($user['language'],0,2)
     );
@@ -459,7 +457,6 @@ class AMM_AIP extends AMM_root
   protected function action_links_modify_config()
   {
     $this->my_config['amm_links_show_icons']=$_POST['famm_links_show_icons'];
-    $this->my_config['amm_links_active']=$_POST['famm_links_active'];
     $languages=get_languages();
     foreach($languages as $key => $val)
     {
@@ -473,7 +470,6 @@ class AMM_AIP extends AMM_root
   */
   protected function action_randompic_modify_config()
   {
-    $this->my_config['amm_randompicture_active']=$_POST['famm_randompicture_active'];
     $this->my_config['amm_randompicture_showname']=$_POST['famm_randompicture_showname'];
     $this->my_config['amm_randompicture_showcomment']=$_POST['famm_randompicture_showcomment'];
     $languages=get_languages();
@@ -541,7 +537,6 @@ class AMM_AIP extends AMM_root
 
     $template_datas=array(
       'lnk_list' => $this->page_link.'&amp;fAMM_tabsheet=links',
-      'active_selected' => $this->my_config['amm_randompicture_active'],
       'showname_selected' => $this->my_config['amm_randompicture_showname'],
       'showcomment_selected' => $this->my_config['amm_randompicture_showcomment'],
       'lang_selected' => $user['language'],
@@ -702,7 +697,7 @@ class AMM_AIP extends AMM_root
   */
   protected function action_create_modify_personalised()
   {
-    global $menu, $user;
+    global $user;
 
     if($_POST['famm_modeedit']=='create')
     {
@@ -733,14 +728,6 @@ class AMM_AIP extends AMM_root
           $this->modify_personalised($datas);
       }
     }
-
-    if($_POST['famm_modeedit']=='create')
-    {
-      $menu->register('mbAMM_personalised'.$id, ($_POST['famm_personalised_nfo']=='')?$_POST['famm_personalised_title_'.$user['language']]:$_POST['famm_personalised_nfo'], 0, 'AMM');
-    }
-
-
-
   }
 
 
@@ -812,8 +799,8 @@ class AMM_AIP extends AMM_root
   private function add_url($datas)
   {
     $numurl=$this->get_count_url();
-    $sql="INSERT INTO ".$this->tables['urls']." (id, label, url, mode, icon, position, visible)
-          VALUES ('', '".$datas['label']."', '".$datas['url']."', '".$datas['mode']."',
+    $sql="INSERT INTO ".$this->tables['urls']." (label, url, mode, icon, position, visible)
+          VALUES ('".$datas['label']."', '".$datas['url']."', '".$datas['mode']."',
                   '".$datas['icon']."', '".$numurl."', '".$datas['visible']."')";
     return(pwg_query($sql));
   }
@@ -1053,12 +1040,9 @@ class AMM_AIP extends AMM_root
   // delete a section and returns a html formatted list 
   private function ajax_amm_personalised_delete($sectionid)
   {
-    global $menu;
-
     if(!$this->adviser_abort())
     {
       $this->delete_personalised($sectionid);
-      $menu->unregister('mbAMM_personalised'.$sectionid);
     }
     return($this->ajax_amm_personalised_list());
   }

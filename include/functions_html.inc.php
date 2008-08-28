@@ -772,4 +772,18 @@ function order_by_name($element_ids,$name)
   return $ordered_element_ids;
 }
 
+/*event handler for menu*/
+function register_default_menubar_blocks( $menu_ref_arr )
+{
+  $menu = & $menu_ref_arr[0];
+  if ($menu->get_id() != 'menubar')
+    return;
+  $menu->register_block( new RegisteredBlock( 'mbLinks', 'Links', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbCategories', 'Categories', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbTags', 'Related tags', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbSpecials', 'special_categories', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbMenu', 'title_menu', 'piwigo'));
+  $menu->register_block( new RegisteredBlock( 'mbIdentification', 'identification', 'piwigo') );
+}
+
 ?>

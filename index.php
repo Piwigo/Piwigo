@@ -157,8 +157,7 @@ else
     );
 }
 // include menubar
-include(trigger_event('menubar_file',
-  PHPWG_ROOT_PATH.'include/menubar.inc.php'));
+include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
 if ('search' == $page['section'])
 {

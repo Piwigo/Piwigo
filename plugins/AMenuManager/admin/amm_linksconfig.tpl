@@ -66,15 +66,6 @@
 
     <table class="formtable">
       <tr>
-        <td>{'g002_setting_block_active'|@translate}</td>
-        <td>
-          <select name="famm_links_active" id="iamm_links_active">
-            {html_options values=$datas.yesno_values output=$datas.yesno_labels selected=$datas.active_selected}
-          </select>
-        </td>
-      </tr>
-
-      <tr>
         <td>{'g002_setting_block_title'|@translate}</td>
         <td>
           <input type="text" id="iamm_links_title" value="" maxlength="50" onkeyup="apply_changes('iamm_links_title');" onblur="apply_changes('iamm_links_title');"/>

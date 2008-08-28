@@ -283,5 +283,6 @@ add_event_handler('render_category_description', 'render_category_description');
 add_event_handler('render_comment_content', 'htmlspecialchars');
 add_event_handler('render_comment_content', 'parse_comment_content');
 add_event_handler('render_comment_author', 'strip_tags');
+add_event_handler('blockmanager_register_blocks', 'register_default_menubar_blocks', EVENT_HANDLER_PRIORITY_NEUTRAL-1);
 trigger_action('init');
 ?>

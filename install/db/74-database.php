@@ -1,13 +1,10 @@
 <?php
 // +-----------------------------------------------------------------------+
-// | PhpWebGallery - a PHP based picture gallery                           |
-// | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
-// | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
+// | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | file          : $Id: index.php 1912 2007-03-16 06:30:07Z rub $
-// | last update   : $Date: 2007-03-16 07:30:07 +0100 (ven, 16 mar 2007) $
-// | last modifier : $Author: rub $
-// | revision      : $Revision: 1912 $
+// | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
+// | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |
@@ -24,10 +21,28 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-// Recursive call
-$url = '../';
-header( 'Request-URI: '.$url );
-header( 'Content-Location: '.$url );
-header( 'Location: '.$url );
-exit();
+if (!defined('PHPWG_ROOT_PATH'))
+{
+  die('Hacking attempt!');
+}
+
+$upgrade_description = 'Add blk_menubar config';
+
+include_once(PHPWG_ROOT_PATH.'include/constants.php');
+
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
+
+$query = "
+INSERT INTO ".CONFIG_TABLE." (param,value,comment) VALUES ('blk_menubar','','Menubar options');
+";
+pwg_query($query);
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
+
 ?>

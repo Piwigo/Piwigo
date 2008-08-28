@@ -79,6 +79,7 @@ $template->assign(
     'U_CONFIG_GENERAL'=> $link_start.'configuration',
     'U_CONFIG_DISPLAY'=> $conf_link.'default',
     'U_CONFIG_EXTENTS'=> $link_start.'extend_for_templates',
+    'U_CONFIG_MENUBAR'=> $link_start.'menubar',
     'U_CATEGORIES'=> $link_start.'cat_list',
     'U_MOVE'=> $link_start.'cat_move',
     'U_CAT_OPTIONS'=> $link_start.'cat_options',
@@ -138,7 +139,7 @@ if (count($page['infos']) != 0)
 
 // Add the Piwigo Official menu
   $template->assign( 'pwgmenu', pwg_URL() );
-  
+
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 $template->pparse('admin');
 

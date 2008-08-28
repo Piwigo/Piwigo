@@ -9,6 +9,7 @@ function selected_admin_menu()
     switch ($_GET['page']) {
       case 'configuration':
       case 'extend_for_templates':
+      case 'menubar':
         return 1;
       case 'site_manager':
       case 'site_update':
@@ -55,7 +56,7 @@ $themeconf = array(
   'admin_icon_dir' => 'template/yoga/icon/admin',
   'mime_icon_dir' => 'template/yoga/icon/mimetypes/',
   'local_head' => '
-<!-- New template location for admin -->   
+<!-- New template location for admin -->
 <!-- Admin Accordion Menus -->
   <script type="text/javascript" src="template-common/lib/jquery.js"></script>
   <script type="text/javascript" src="template-common/lib/chili-1.7.pack.js"></script>

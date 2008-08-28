@@ -25,281 +25,278 @@
  * This file is included by the main page to show the menu bar
  *
  */
-$template->set_filenames(
-  array(
-    'menubar' => 'menubar.tpl',
-    )
-  );
 
-trigger_action('loc_begin_menubar');
+include_once(PHPWG_ROOT_PATH.'include/block.class.php');
 
-$template->assign(
-  array(
-    'NB_PICTURE' => $user['nb_total_images'],
-    'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
-    'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
-    'U_LOST_PASSWORD' => get_root_url().'password.php',
-    'U_UPLOAD' => get_upload_menu_link()
-    )
-  );
+initialize_menu();
 
-//-------------------------------------------------------------- external links
-foreach ($conf['links'] as $url => $url_data)
+function initialize_menu()
 {
-  if (!is_array($url_data))
+  global $page, $conf, $user, $template, $filter;
+
+  $menu = new BlockManager("menubar");
+  $menu->load_registered_blocks();
+  $menu->prepare_display();
+
+//--------------------------------------------------------------- external links
+  if ( ($block=$menu->get_block('mbLinks')) and !empty($conf['links']) )
   {
-    $url_data = array('label' => $url_data);
+    $data = array();
+    foreach ($conf['links'] as $url => $url_data)
+    {
+      if (!is_array($url_data))
+      {
+        $url_data = array('label' => $url_data);
+      }
+
+      if
+        (
+          (!isset($url_data['eval_visible']))
+          or
+          (eval($url_data['eval_visible']))
+        )
+      {
+        $tpl_var = array(
+            'URL' => $url,
+            'LABEL' => $url_data['label']
+          );
+
+        if (!isset($url_data['new_window']) or $url_data['new_window'])
+        {
+          $tpl_var['new_window'] =
+            array(
+              'NAME' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
+              'FEATURES' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
+            );
+        }
+        $data[] = $tpl_var;
+      }
+    }
+    $block->template = 'menubar_links.tpl';
+    $block->data = $data;
   }
 
-  if
-    (
-      (!isset($url_data['eval_visible']))
-      or
-      (eval($url_data['eval_visible']))
-    )
+//-------------------------------------------------------------- categories
+  $block = $menu->get_block('mbCategories');
+//------------------------------------------------------------------------ filter
+  if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
   {
-    $tpl_var = array(
-        'URL' => $url,
-        'LABEL' => $url_data['label']
-      );
-
-    if (!isset($url_data['new_window']) or $url_data['new_window'])
+    if ($filter['enabled'])
     {
-      $tpl_var['new_window'] =
-        array(
-          'NAME' => (isset($url_data['nw_name']) ? $url_data['nw_name'] : ''),
-          'FEATURES' => (isset($url_data['nw_features']) ? $url_data['nw_features'] : '')
+      $template->assign(
+        'U_STOP_FILTER',
+        add_url_params(make_index_url(array()), array('filter' => 'stop'))
         );
     }
-    $template->append('links', $tpl_var);
+    else
+    {
+      $template->assign(
+        'U_START_FILTER',
+        add_url_params(make_index_url(array()), array('filter' => 'start-recent-'.$user['recent_period']))
+        );
+    }
   }
-}
 
-//------------------------------------------------------------------------ filter
-if (!empty($conf['filter_pages']) and get_filter_page_value('used'))
-{
-  if ($filter['enabled'])
+  if ( $block!=null )
+  {
+    $block->data = array(
+      'NB_PICTURE' => $user['nb_total_images'],
+      'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
+      'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
+      'U_UPLOAD' => get_upload_menu_link()
+    );
+    $block->template = 'menubar_categories.tpl';
+  }
+
+//------------------------------------------------------------------------ tags
+  $block = $menu->get_block('mbTags');
+  if ( $block!=null and 'tags'==@$page['section'] and !empty($page['items']) )
+  {
+    $tags = get_common_tags($page['items'],
+          $conf['menubar_tag_cloud_items_number'], $page['tag_ids']);
+    $tags = add_level_to_tags($tags);
+
+    foreach ($tags as $tag)
+    {
+      $block->data[] =
+        array_merge( $tag,
+          array(
+            'URL' => make_index_url(
+              array(
+                'tags' => array($tag)
+                )
+              ),
+            'U_ADD' => make_index_url(
+                  array(
+                    'tags' => array_merge(
+                      $page['tags'],
+                      array($tag)
+                      )
+                    )
+                  ),
+            )
+        );
+    }
+    $block->template = 'menubar_tags.tpl';
+  }
+
+//----------------------------------------------------------- special categories
+  if ( ($block = $menu->get_block('mbSpecials')) != null )
+  {
+    if ( !is_a_guest() )
+    {// favorites
+      $block->data['favorites'] =
+        array(
+          'URL' => make_index_url(array('section' => 'favorites')),
+          'TITLE' => l10n('favorite_cat_hint'),
+          'NAME' => l10n('favorite_cat')
+          );
+    }
+
+    $block->data['most_visited'] =
+      array(
+        'URL' => make_index_url(array('section' => 'most_visited')),
+        'TITLE' => l10n('most_visited_cat_hint'),
+        'NAME' => l10n('most_visited_cat')
+      );
+
+    if ($conf['rate'])
+    {
+       $block->data['best_rated'] =
+        array(
+          'URL' => make_index_url(array('section' => 'best_rated')),
+          'TITLE' => l10n('best_rated_cat_hint'),
+          'NAME' => l10n('best_rated_cat')
+        );
+    }
+
+    $block->data['random'] =
+      array(
+        'URL' => get_root_url().'random.php',
+        'TITLE' => l10n('random_cat_hint'),
+        'NAME' => l10n('random_cat'),
+        'REL'=> 'rel="nofollow"'
+      );
+
+    $block->data['recent_pics'] =
+      array(
+        'URL' => make_index_url(array('section' => 'recent_pics')),
+        'TITLE' => l10n('recent_pics_cat_hint'),
+        'NAME' => l10n('recent_pics_cat'),
+      );
+
+    $block->data['recent_cats'] =
+      array(
+        'URL' => make_index_url(array('section' => 'recent_cats')),
+        'TITLE' => l10n('recent_cats_cat_hint'),
+        'NAME' => l10n('recent_cats_cat'),
+      );
+
+
+    $block->data['calendar'] =
+      array(
+        'URL' =>
+          make_index_url(
+            array(
+              'chronology_field' => ($conf['calendar_datefield']=='date_available'
+                                      ? 'posted' : 'created'),
+               'chronology_style'=> 'monthly',
+               'chronology_view' => 'calendar'
+            )
+          ),
+        'TITLE' => l10n('calendar_hint'),
+        'NAME' => l10n('calendar'),
+        'REL'=> 'rel="nofollow"'
+      );
+    $block->template = 'menubar_specials.tpl';
+  }
+
+
+//---------------------------------------------------------------------- summary
+  if ( ($block=$menu->get_block('mbMenu')) != null )
+  {
+    // tags link
+    $block->data['tags'] =
+      array(
+        'TITLE' => l10n('See available tags'),
+        'NAME' => l10n('Tags'),
+        'URL'=> get_root_url().'tags.php',
+      );
+
+    // search link
+    $block->data['search'] =
+      array(
+        'TITLE'=>l10n('hint_search'),
+        'NAME'=>l10n('Search'),
+        'URL'=> get_root_url().'search.php',
+        'REL'=> 'rel="search"'
+      );
+
+    // comments link
+    $block->data['comments'] =
+      array(
+        'TITLE'=>l10n('hint_comments'),
+        'NAME'=>l10n('comments'),
+        'URL'=> get_root_url().'comments.php',
+      );
+
+    // about link
+    $block->data['about'] =
+      array(
+        'TITLE'     => l10n('about_page_title'),
+        'NAME'      => l10n('About'),
+        'URL' => get_root_url().'about.php',
+      );
+
+    // notification
+    $block->data['rss'] =
+      array(
+        'TITLE'=>l10n('RSS feed'),
+        'NAME'=>l10n('Notification'),
+        'URL'=> get_root_url().'notification.php',
+        'REL'=> 'rel="nofollow"'
+      );
+    $block->template = 'menubar_menu.tpl';
+  }
+
+
+//--------------------------------------------------------------- identification
+  if (is_a_guest())
   {
     $template->assign(
-      'U_STOP_FILTER',
-      add_url_params(make_index_url(array()), array('filter' => 'stop'))
+        array(
+          'U_LOGIN' => get_root_url().'identification.php',
+          'AUTHORIZE_REMEMBERING' => $conf['authorize_remembering']
+        )
       );
+    if ($conf['allow_user_registration'])
+    {
+      $template->assign( 'U_REGISTER', get_root_url().'register.php');
+    }
   }
   else
   {
-    $template->assign(
-      'U_START_FILTER',
-      add_url_params(make_index_url(array()), array('filter' => 'start-recent-'.$user['recent_period']))
-      );
-  }
-}
+    $template->assign('USERNAME', $user['username']);
+    if (is_autorize_status(ACCESS_CLASSIC))
+    {
+      $template->assign('U_PROFILE', get_root_url().'profile.php');
+    }
 
-//------------------------------------------------------------------------ tags
-if ('tags' == @$page['section'])
-{
-  // display tags associated to currently tagged items, less current tags
-  $tags = array();
-  if ( !empty($page['items']) )
+    // the logout link has no meaning with Apache authentication : it is not
+    // possible to logout with this kind of authentication.
+    if (!$conf['apache_authentication'])
+    {
+      $template->assign('U_LOGOUT', get_root_url().'?act=logout');
+    }
+    if (is_admin())
+    {
+      $template->assign('U_ADMIN', get_root_url().'admin.php');
+    }
+  }
+  if ( ($block=$menu->get_block('mbIdentification')) != null )
   {
-    $tags = get_common_tags($page['items'],
-        $conf['menubar_tag_cloud_items_number'], $page['tag_ids']);
+    $block->template = 'menubar_identification.tpl';
   }
-
-  $tags = add_level_to_tags($tags);
-
-  foreach ($tags as $tag)
-  {
-    $template->append(
-      'related_tags',
-      array_merge( $tag,
-        array(
-          'URL' => make_index_url(
-            array(
-              'tags' => array($tag)
-              )
-            ),
-
-          'U_ADD' => make_index_url(
-                array(
-                  'tags' => array_merge(
-                    $page['tags'],
-                    array($tag)
-                    )
-                  )
-                ),
-          )
-        )
-      );
-  }
+  $menu->apply('MENUBAR',  'menubar.tpl' );
 }
-//---------------------------------------------------------- special categories
-// favorites categories
-if ( !is_a_guest() )
-{
-  $template->append(
-    'special_categories',
-    array(
-      'URL' => make_index_url(array('section' => 'favorites')),
-      'TITLE' => l10n('favorite_cat_hint'),
-      'NAME' => l10n('favorite_cat')
-      ));
-}
-// most visited
-$template->append(
-  'special_categories',
-  array(
-    'URL' => make_index_url(array('section' => 'most_visited')),
-    'TITLE' => l10n('most_visited_cat_hint'),
-    'NAME' => l10n('most_visited_cat')
-    ));
-// best rated
-if ($conf['rate'])
-{
-  $template->append(
-    'special_categories',
-    array(
-      'URL' => make_index_url(array('section' => 'best_rated')),
-      'TITLE' => l10n('best_rated_cat_hint'),
-      'NAME' => l10n('best_rated_cat')
-      )
-    );
-}
-// random
-$template->append(
-  'special_categories',
-  array(
-    'URL' => get_root_url().'random.php',
-    'TITLE' => l10n('random_cat_hint'),
-    'NAME' => l10n('random_cat'),
-    'REL'=> 'rel="nofollow"'
-    ));
-
-// recent pics
-$template->append(
-  'special_categories',
-  array(
-    'URL' => make_index_url(array('section' => 'recent_pics')),
-    'TITLE' => l10n('recent_pics_cat_hint'),
-    'NAME' => l10n('recent_pics_cat'),
-    ));
-// recent cats
-$template->append(
-  'special_categories',
-  array(
-    'URL' => make_index_url(array('section' => 'recent_cats')),
-    'TITLE' => l10n('recent_cats_cat_hint'),
-    'NAME' => l10n('recent_cats_cat'),
-    ));
-
-// calendar
-$template->append(
-  'special_categories',
-  array(
-    'URL' =>
-      make_index_url(
-        array(
-          'chronology_field' => ($conf['calendar_datefield']=='date_available'
-                                  ? 'posted' : 'created'),
-           'chronology_style'=> 'monthly',
-           'chronology_view' => 'calendar'
-        )
-      ),
-    'TITLE' => l10n('calendar_hint'),
-    'NAME' => l10n('calendar'),
-    'REL'=> 'rel="nofollow"'
-    )
-  );
-//--------------------------------------------------------------------- summary
-
-if (is_a_guest())
-{
-  $template->assign(
-      array(
-        'U_IDENTIFY' => get_root_url().'identification.php',
-        'AUTHORIZE_REMEMBERING' => $conf['authorize_remembering']
-      )
-    );
-
-  if ($conf['allow_user_registration'])
-  {
-    $template->assign( 'U_REGISTER', get_root_url().'register.php');
-  }
-}
-else
-{
-  $template->assign('USERNAME', $user['username']);
-
-  if (is_autorize_status(ACCESS_CLASSIC))
-  {
-    $template->assign('U_PROFILE', get_root_url().'profile.php');
-  }
-
-  // the logout link has no meaning with Apache authentication : it is not
-  // possible to logout with this kind of authentication.
-  if (!$conf['apache_authentication'])
-  {
-    $template->assign('U_LOGOUT', get_root_url().'?act=logout');
-  }
-
-  if (is_admin())
-  {
-    $template->assign('U_ADMIN', get_root_url().'admin.php');
-  }
-}
-
-// tags link
-$template->append(
-  'summaries',
-  array(
-    'TITLE' => l10n('See available tags'),
-    'NAME' => l10n('Tags'),
-    'U_SUMMARY'=> get_root_url().'tags.php',
-    )
-  );
-
-// search link
-$template->append(
-  'summaries',
-  array(
-    'TITLE'=>l10n('hint_search'),
-    'NAME'=>l10n('Search'),
-    'U_SUMMARY'=> get_root_url().'search.php',
-    'REL'=> 'rel="search"'
-    )
-  );
-
-// comments link
-$template->append(
-  'summaries',
-  array(
-    'TITLE'=>l10n('hint_comments'),
-    'NAME'=>l10n('comments'),
-    'U_SUMMARY'=> get_root_url().'comments.php',
-    )
-  );
-
-// about link
-$template->append(
-  'summaries',
-  array(
-    'TITLE'     => l10n('about_page_title'),
-    'NAME'      => l10n('About'),
-    'U_SUMMARY' => get_root_url().'about.php',
-    )
-  );
-
-// notification
-$template->append(
-  'summaries',
-  array(
-    'TITLE'=>l10n('RSS feed'),
-    'NAME'=>l10n('Notification'),
-    'U_SUMMARY'=> get_root_url().'notification.php',
-    'REL'=> 'rel="nofollow"'
-    )
-  );
-
-trigger_action('loc_end_menubar');
-$template->assign_var_from_handle('MENUBAR', 'menubar');
-
 ?>

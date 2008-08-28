@@ -1,8 +1,8 @@
 
 <!-- personalised menu bar -->
-{if $section.NAME!=""}
-  <dt>{$section.NAME|@translate}</dt>
+{if $block->get_title() !="" }
+  <dt>{$block->get_title()}</dt>
 {/if}
 <dd>
-    {if $section.ITEMS.CONTENT!=""}{$section.ITEMS.CONTENT}{/if}
+    {$block->data}
 </dd>

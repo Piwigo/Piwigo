@@ -1845,7 +1845,7 @@ UPDATE '.USER_CACHE_TABLE.'
  */
 function create_table_add_character_set($query)
 {
-  defined('DB_CHARSET') or die('create_table_add_character_set DB_CHARSET undefined');
+  defined('DB_CHARSET') or trigger_error('create_table_add_character_set DB_CHARSET undefined', E_USER_ERROR);
   if ('DB_CHARSET'!='')
   {
     if ( version_compare(mysql_get_server_info(), '4.1.0', '<') )
@@ -1853,17 +1853,34 @@ function create_table_add_character_set($query)
       return $query;
     }
     $charset_collate = " DEFAULT CHARACTER SET ".DB_CHARSET;
-    if ('DB_COLLATE'!='')
+    if (DB_COLLATE!='')
     {
       $charset_collate .= " COLLATE ".DB_COLLATE;
     }
-    $query=trim($query);
-    $query=trim($query, ';');
-    if (preg_match('/^CREATE\s+TABLE/i',$query))
+    if ( is_array($query) )
     {
-      $query.=$charset_collate;
+      foreach( $query as $id=>$q)
+      {
+        $q=trim($q);
+        $q=trim($q, ';');
+        if (preg_match('/^CREATE\s+TABLE/i',$q))
+        {
+          $q.=$charset_collate;
+        }
+        $q .= ';';
+        $query[$id] = $q;
+      }
     }
-    $query .= ';';
+    else
+    {
+      $query=trim($query);
+      $query=trim($query, ';');
+      if (preg_match('/^CREATE\s+TABLE/i',$query))
+      {
+        $query.=$charset_collate;
+      }
+      $query .= ';';
+    }
   }
   return $query;
 }

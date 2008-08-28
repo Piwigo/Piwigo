@@ -43,9 +43,9 @@ define('AMM_PATH' , PHPWG_PLUGINS_PATH . AMM_DIR . '/');
 
 define('AMM_VERSION' , '1.0.0'); // => ne pas oublier la version dans l'entête !!
 
-global $prefixeTable, $menu;
+global $prefixeTable;
 
-if(basename($_SERVER["PHP_SELF"])=='admin.php')
+if(defined('IN_ADMIN'))
 {
   //AMM admin part loaded and active only if in admin page
   include_once("amm_aim.class.inc.php");
