@@ -70,7 +70,7 @@
     <tr>
       <td><strong>{'lock'|@translate}</strong>
       <td>
-        {html_radios name='visible' values='false,true'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
+        {html_radios name='visible' values='true,false'|@explode output='No,Yes'|@explode|translate selected=$CAT_VISIBLE}
       </td>
     </tr>
     <tr>

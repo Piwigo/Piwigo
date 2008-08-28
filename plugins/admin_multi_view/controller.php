@@ -30,7 +30,10 @@ if ( isset($_GET['view_as']) )
 {
   if ( is_adviser() and $user['id']!=$_GET['view_as'] and $conf['guest_id']!=$_GET['view_as'])
     die('security error');
-  pwg_set_session_var( 'multiview_as', (int)$_GET['view_as'] );
+  if ($user['id']===$_GET['view_as'])
+    pwg_unset_session_var( 'multiview_as' );
+  else
+    pwg_set_session_var( 'multiview_as', (int)$_GET['view_as'] );
   // user change resets theme/lang
   pwg_unset_session_var( 'multiview_theme' );
   pwg_unset_session_var( 'multiview_lang' );

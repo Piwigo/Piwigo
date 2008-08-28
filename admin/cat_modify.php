@@ -37,45 +37,13 @@ check_status(ACCESS_ADMINISTRATOR);
 //---------------------------------------------------------------- verification
 if ( !isset( $_GET['cat_id'] ) || !is_numeric( $_GET['cat_id'] ) )
 {
-  $_GET['cat_id'] = '-1';
+  trigger_error( 'missing cat_id param', E_USER_ERROR);
 }
 
 //--------------------------------------------------------- form criteria check
 if (isset($_POST['submit']))
 {
-  $data =
-    array(
-      'id' => $_GET['cat_id'],
-      'name' => @$_POST['name'],
-      'commentable' => $_POST['commentable'],
-      'uploadable' =>
-        isset($_POST['uploadable']) ? $_POST['uploadable'] : 'false',
-      'comment' =>
-        $conf['allow_html_descriptions'] ?
-          @$_POST['comment'] : strip_tags(@$_POST['comment'])
-      );
-
-  mass_updates(
-    CATEGORIES_TABLE,
-    array(
-      'primary' => array('id'),
-      'update' => array_diff(array_keys($data), array('id'))
-      ),
-    array($data)
-    );
-
-  set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
-  set_cat_status(array($_GET['cat_id']), $_POST['status']);
-
-  if (isset($_POST['parent']))
-  {
-    move_categories(
-      array($_GET['cat_id']),
-      $_POST['parent']
-      );
-  }
-
-  $image_order = '';
+  $image_order = null;
   if ( !isset($_POST['image_order_default']) )
   {
     for ($i=1; $i<=3; $i++)
@@ -94,27 +62,61 @@ if (isset($_POST['submit']))
       }
     }
   }
-  $image_order = empty($image_order) ? 'null' : "'$image_order'";
-  $query = '
-UPDATE '.CATEGORIES_TABLE.' SET image_order='.$image_order.'
-WHERE ';
+
+  $data =
+    array(
+      'id' => $_GET['cat_id'],
+      'name' => @$_POST['name'],
+      'commentable' => $_POST['commentable'],
+      'uploadable' =>
+        isset($_POST['uploadable']) ? $_POST['uploadable'] : 'false',
+      'comment' =>
+        $conf['allow_html_descriptions'] ?
+          @$_POST['comment'] : strip_tags(@$_POST['comment']),
+      'image_order' => $image_order,
+      );
+
+  mass_updates(
+    CATEGORIES_TABLE,
+    array(
+      'primary' => array('id'),
+      'update' => array_diff(array_keys($data), array('id'))
+      ),
+    array($data)
+    );
+
+  // retrieve cat infos before continuing (following updates are expensive)
+  $cat_info = get_cat_info($_GET['cat_id']);
+
   if (isset($_POST['image_order_subcats']))
   {
-    $query .= 'uppercats REGEXP \'(^|,)'.$_GET['cat_id'].'(,|$)\'';
+    $query = '
+UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':"'$image_order'").'
+  WHERE uppercats LIKE "'.$cat_info['uppercats'].',%"';
+    pwg_query($query);
   }
-  else
+
+  if ($cat_info['visible'] != get_boolean( $_POST['visible'] ) )
   {
-    $query .= 'id='.$_GET['cat_id'].';';
+    set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   }
-  pwg_query($query);
+  if ($cat_info['status'] != get_boolean( $_POST['status'] ) )
+  {
+    set_cat_status(array($_GET['cat_id']), $_POST['status']);
+  }
+
+  if (isset($_POST['parent']) and $cat_info['id_uppercat'] != $_POST['parent'])
+  {
+    move_categories( array($_GET['cat_id']), $_POST['parent'] );
+  }
 
   array_push($page['infos'], l10n('editcat_confirm'));
 }
-else if (isset($_POST['set_random_representant']))
+elseif (isset($_POST['set_random_representant']))
 {
   set_random_representant(array($_GET['cat_id']));
 }
-else if (isset($_POST['delete_representant']))
+elseif (isset($_POST['delete_representant']))
 {
   $query = '
 UPDATE '.CATEGORIES_TABLE.'
@@ -123,7 +125,7 @@ UPDATE '.CATEGORIES_TABLE.'
 ;';
   pwg_query($query);
 }
-else if (isset($_POST['submitAdd']))
+elseif (isset($_POST['submitAdd']))
 {
   $output_create = create_virtual_category(
     $_POST['virtual_name'],
@@ -159,7 +161,7 @@ else if (isset($_POST['submitAdd']))
       );
   }
 }
-else if (isset($_POST['submitDestinations'])
+elseif (isset($_POST['submitDestinations'])
          and isset($_POST['destinations'])
          and count($_POST['destinations']) > 0)
 {
