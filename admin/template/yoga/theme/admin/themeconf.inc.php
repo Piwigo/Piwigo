@@ -58,11 +58,9 @@ $themeconf = array(
   'local_head' => '
 <!-- New template location for admin -->
 <!-- Admin Accordion Menus -->
-  <script type="text/javascript" src="template-common/lib/jquery.js"></script>
-  <script type="text/javascript" src="template-common/lib/chili-1.7.pack.js"></script>
-  <script type="text/javascript" src="template-common/lib/jquery.easing.js"></script>
-  <script type="text/javascript" src="template-common/lib/jquery.dimensions.js"></script>
-  <script type="text/javascript" src="template-common/jquery.accordion.js"></script>
+  <script type="text/javascript" src="template-common/lib/jquery.packed.js"></script>
+  <script type="text/javascript" src="template-common/lib/ui/ui.core.packed.js"></script>
+  <script type="text/javascript" src="template-common/lib/ui/ui.accordion.packed.js"></script>
   <script type="text/javascript">
   jQuery().ready(function(){
     jQuery(\'#menubar\').accordion({

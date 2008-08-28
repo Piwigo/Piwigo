@@ -178,7 +178,7 @@ background-color: transparent;
 z-index: 50;
 }
 
-.over span{ /*CSS for enlarged image*/
+.over SPAN{ /*CSS for enlarged image*/
 position: absolute;
 background-color: #eee;
 padding: 5px;
@@ -189,15 +189,47 @@ color: black;
 text-decoration: none;
 }
 
-.over span img{ /*CSS for enlarged image*/
+.over SPAN IMG{ /*CSS for enlarged image*/
 border-width: 0;
 padding: 2px;
 }
 
-.over:hover span{ /*CSS for enlarged image on hover*/
+.over:hover SPAN{ /*CSS for enlarged image on hover*/
 visibility: visible;
 top: 0;
 left: 60px; /*position where enlarged image should offset horizontally */
+}
+
+
+/* Tooltips*/
+.tooltip {
+	position: relative;
+}
+
+.tooltip SPAN {
+	display: none;
+}
+
+.tooltip:hover {
+	cursor: pointer;
+	z-index: 500;
+}
+
+.tooltip:hover SPAN {
+	display: inline;
+	position: absolute;
+	top: 30px;
+	left: -50px;
+	width: 400px;
+
+	font-size: 11px;
+	text-decoration: none;
+	text-align: justify;
+	background-color: #FFFFCC;
+	color: #444444;
+
+	padding: 10px;
+	border: 1px solid Black;
 }
 
 BODY {
@@ -461,9 +493,6 @@ BODY#thePopuphelpPage .content UL LI
   margin-bottom: 0.5em;
 }
 
-BODY#thePopuphelpPage P#pageBottomActions A {
-  border: none;
-}
 
 TR.tagLine {
   border-bottom: 1px solid #ddd;

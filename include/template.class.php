@@ -241,7 +241,7 @@ class Template {
   {
     if ( !isset($this->files[$handle]) )
     {
-      die("Template->parse(): Couldn't load template file for handle $handle");
+      trigger_error("Template->parse(): Couldn't load template file for handle $handle", E_USER_ERROR);
     }
 
     $this->smarty->assign( 'ROOT_URL', get_root_url() );
@@ -367,13 +367,13 @@ class Template {
     $tags = array('if', 'foreach', 'section');
     foreach($tags as $tag)
     {
-      array_push($regex, "#^\s+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
-      array_push($regex, "#^\s+($ldq/$tag$rdq)\s*$#m");
+      array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
+      array_push($regex, "#^[ \t]+($ldq/$tag$rdq)\s*$#m");
     }
     $tags = array('include', 'else', 'html_head');
     foreach($tags as $tag)
     {
-      array_push($regex, "#^\s+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
+      array_push($regex, "#^[ \t]+($ldq$tag"."[^$ld$rd]*$rdq)\s*$#m");
     }
     $source = preg_replace( $regex, "$1", $source);
     return $source;
