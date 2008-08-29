@@ -446,7 +446,6 @@ $lang['update_sync_dirs'] = 'répertoires uniquement';
 $lang['update_sync_files'] = 'synchroniser la structure des fichiers avec la base de données';
 $lang['update_sync_metadata'] = 'synchroniser les informations des éléments dans la base de données à partir des méta-données des fichiers';
 $lang['update_sync_metadata_all'] = 'même les éléments déjà synchronisés';
-$lang['update_sync_metadata_new'] = 'uniquement les éléments jamais synchronisés';
 $lang['update_used_metadata'] = 'Méta-données employées';
 $lang['update_wrong_dirname_info'] = 'Le nom des répertoires et des fichiers ne doit être constitué que de lettres, de chiffres, de "-", "_" et "."';
 $lang['update_wrong_dirname_short'] = 'nom de fichier erroné';
@@ -649,8 +648,7 @@ $lang['Hits'] = 'Utilisations';
 $lang['GD library is missing'] = 'la bibliothèque GD est manquante';
 $lang['conf_extents'] = 'Templates (modèles)';
 $lang['extend_for_templates'] = 'Etendre les templates';
-$lang['Replacement of original templates'] =
- 'Remplacement des templates d\'origine par vos templates adaptés du dossier template-extension';
+$lang['Replacement of original templates'] = 'Remplacement des templates d\'origine par vos templates adaptés du dossier template-extension';
 $lang['Replacers'] = 'Remplaçants (templates modifiés)';
 $lang['Original templates'] = 'Templates d\'origine';
 $lang['Optional URL keyword'] = 'Paramètre facultatif de l\'URL';
@@ -660,4 +658,6 @@ $lang['Optimizations errors'] = 'Certaines optimisations se sont terminées avec
 $lang['delete this comment'] = 'supprimer ce commentaire';
 $lang['link_info_image'] = 'Modifier les informations';
 $lang['edit category informations'] = 'éditer les informations de cette catégorie';
+$lang['nothing'] = 'rien';
+/* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
 ?>

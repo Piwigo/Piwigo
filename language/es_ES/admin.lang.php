@@ -447,7 +447,6 @@ $lang['update_sync_dirs'] = 'repertorios únicamente';
 $lang['update_sync_files'] = 'sincronizar la estructura de los ficheros con la base de datos';
 $lang['update_sync_metadata'] = 'sincronizar las informaciones de los elementos en la base de datos a partir de los méta-datos de los ficheros';
 $lang['update_sync_metadata_all'] = 'hasta los elementos ya sincronizados';
-$lang['update_sync_metadata_new'] = 'unicamente los elementos jamás sincronizados';
 $lang['update_used_metadata'] = 'Méta-datos empleadas';
 $lang['update_wrong_dirname_info'] = 'El nombre de los repertorios y de los ficheros debe estar constituido sólo por letras, por cifras, de "-", "_" y "."';
 $lang['update_wrong_dirname_short'] = 'nombre de fichero erróneo';
@@ -666,4 +665,6 @@ $lang['You are running the latest version of Piwigo.'] = 'Usted utiliza la últi
 $lang['delete this comment'] = 'Borrar este comentario';
 $lang['link_info_image'] = 'Modificar las informaciones';
 $lang['edit category informations'] = 'editar las informaciones de esta categoría';
+$lang['nothing'] = 'nada';
+/* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
 ?>

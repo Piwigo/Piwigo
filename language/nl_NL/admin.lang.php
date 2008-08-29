@@ -447,7 +447,6 @@ $lang['update_sync_dirs'] = 'alleen mappen';
 $lang['update_sync_files'] = 'synchronizeer bestanden met de database';
 $lang['update_sync_metadata'] = 'synchronizeer bestands metadata met de database element informatie';
 $lang['update_sync_metadata_all'] = 'ook reeds synchronizeerde elementen';
-$lang['update_sync_metadata_new'] = 'alleen nooit gesynchronizeerde elementen';
 $lang['update_used_metadata'] = 'Gebruikte metadata';
 $lang['update_wrong_dirname_info'] = 'De naam van de mappen en bestanden moeten bestaan uit letters, "-", "_" of "."';
 $lang['update_wrong_dirname_short'] = 'verkeerde bestandsnaam';
@@ -666,4 +665,6 @@ $lang['You are running the latest version of Piwigo.'] = 'Je hebt de laatste ver
 $lang['delete this comment'] = 'verwijder dit commentaar';
 $lang['link_info_image'] = 'Aanpassen informatie';
 $lang['edit category informations'] = 'bewerk categorie informatie';
+/* TODO */ $lang['nothing'] = 'nothing';
+/* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
 ?>

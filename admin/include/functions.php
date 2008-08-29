@@ -377,7 +377,7 @@ function mass_inserts($table_name, $dbfields, $datas)
   {
     $first = true;
 
-    $query = 'SHOW VARIABLES LIKE \'max_allowed_packet\';';
+    $query = 'SHOW VARIABLES LIKE \'max_allowed_packet\'';
     list(, $packet_size) = mysql_fetch_row(pwg_query($query));
     $packet_size = $packet_size - 2000; // The last list of values MUST not exceed 2000 character*/
     $query = '';
@@ -386,8 +386,6 @@ function mass_inserts($table_name, $dbfields, $datas)
     {
       if (strlen($query) >= $packet_size)
       {
-        $query .= '
-;';
         pwg_query($query);
         $first = true;
       }
@@ -425,57 +423,53 @@ INSERT INTO '.$table_name.'
       }
       $query .= ')';
     }
-
-    $query .= '
-;';
     pwg_query($query);
   }
 }
 
+define('MASS_UPDATES_SKIP_EMPTY', 1);
 /**
  * updates multiple lines in a table
  *
  * @param string table_name
  * @param array dbfields
  * @param array datas
+ * @param int flags - if MASS_UPDATES_SKIP_EMPTY - empty values do not overwrite existing ones
  * @return void
  */
-function mass_updates($tablename, $dbfields, $datas)
+function mass_updates($tablename, $dbfields, $datas, $flags=0)
 {
-  if (count($datas) != 0)
-  {
-    // depending on the MySQL version, we use the multi table update or N
-    // update queries
-    if (count($datas) < 10 or version_compare(mysql_get_server_info(), '4.0.4') < 0)
+  if (count($datas) == 0)
+    return;
+  // depending on the MySQL version, we use the multi table update or N update queries
+  if (count($datas) < 10 or version_compare(mysql_get_server_info(), '4.0.4') < 0)
+  { // MySQL is prior to version 4.0.4, multi table update feature is not available
+    foreach ($datas as $data)
     {
-      // MySQL is prior to version 4.0.4, multi table update feature is not
-      // available
-      foreach ($datas as $data)
-      {
-        $query = '
+      $query = '
 UPDATE '.$tablename.'
   SET ';
-        $is_first = true;
-        foreach ($dbfields['update'] as $key)
+      $is_first = true;
+      foreach ($dbfields['update'] as $key)
+      {
+        $separator = $is_first ? '' : ",\n    ";
+
+        if (isset($data[$key]) and $data[$key] != '')
         {
-          if (!$is_first)
-          {
-            $query.= ",\n      ";
-          }
-          $query.= $key.' = ';
-          if (isset($data[$key]) and $data[$key] != '')
-          {
-            $query.= '\''.$data[$key].'\'';
-          }
-          else
-          {
-            $query.= 'NULL';
-          }
-          $is_first = false;
+          $query.= $separator.$key.' = \''.$data[$key].'\'';
         }
+        else
+        {
+          if ($flags & MASS_UPDATES_SKIP_EMPTY )
+            continue; // next field
+          $query.= "$separator$key = NULL";
+        }
+        $is_first = false;
+      }
+      if (!$is_first)
+      {// only if one field at least updated
         $query.= '
   WHERE ';
-
         $is_first = true;
         foreach ($dbfields['primary'] as $key)
         {
@@ -493,87 +487,83 @@ UPDATE '.$tablename.'
           }
           $is_first = false;
         }
-        $query.= '
-;';
         pwg_query($query);
       }
-    }
-    else
+    } // foreach update
+  } // if mysql_ver or count<X
+  else
+  {
+    // creation of the temporary table
+    $query = '
+SHOW FULL COLUMNS FROM '.$tablename;
+    $result = pwg_query($query);
+    $columns = array();
+    $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
+    while ($row = mysql_fetch_array($result))
     {
-      // creation of the temporary table
-      $query = '
-SHOW FULL COLUMNS FROM '.$tablename.'
-;';
-      $result = pwg_query($query);
-      $columns = array();
-      $all_fields = array_merge($dbfields['primary'], $dbfields['update']);
-      while ($row = mysql_fetch_array($result))
+      if (in_array($row['Field'], $all_fields))
       {
-        if (in_array($row['Field'], $all_fields))
+        $column = $row['Field'];
+        $column.= ' '.$row['Type'];
+
+        $nullable = true;
+        if (!isset($row['Null']) or $row['Null'] == '' or $row['Null']=='NO')
         {
-          $column = $row['Field'];
-          $column.= ' '.$row['Type'];
-
-          $nullable = true;
-          if (!isset($row['Null']) or $row['Null'] == '' or $row['Null']=='NO')
-          {
-            $column.= ' NOT NULL';
-            $nullable = false;
-          }
-          if (isset($row['Default']))
-          {
-            $column.= " default '".$row['Default']."'";
-          }
-          elseif ($nullable)
-          {
-            $column.= " default NULL";
-          }
-          if (isset($row['Collation']) and $row['Collation'] != 'NULL')
-          {
-            $column.= " collate '".$row['Collation']."'";
-          }
-          array_push($columns, $column);
+          $column.= ' NOT NULL';
+          $nullable = false;
         }
+        if (isset($row['Default']))
+        {
+          $column.= " default '".$row['Default']."'";
+        }
+        elseif ($nullable)
+        {
+          $column.= " default NULL";
+        }
+        if (isset($row['Collation']) and $row['Collation'] != 'NULL')
+        {
+          $column.= " collate '".$row['Collation']."'";
+        }
+        array_push($columns, $column);
       }
+    }
 
-      $temporary_tablename = $tablename.'_'.micro_seconds();
+    $temporary_tablename = $tablename.'_'.micro_seconds();
 
-      $query = '
-  CREATE TABLE '.$temporary_tablename.'
-  (
-  '.implode(",\n", $columns).',
+    $query = '
+CREATE TABLE '.$temporary_tablename.'
+(
+  '.implode(",\n  ", $columns).',
   UNIQUE KEY the_key ('.implode(',', $dbfields['primary']).')
-  )
-;';
+)';
 
-      pwg_query($query);
-      mass_inserts($temporary_tablename, $all_fields, $datas);
-      // update of images table by joining with temporary table
-      $query = '
+    pwg_query($query);
+    mass_inserts($temporary_tablename, $all_fields, $datas);
+    if ( $flags & MASS_UPDATES_SKIP_EMPTY )
+      $func_set = create_function('$s', 'return "t1.$s = IFNULL(t2.$s, t1.$s)";');
+    else
+      $func_set = create_function('$s', 'return "t1.$s = t2.$s";');
+
+    // update of images table by joining with temporary table
+    $query = '
 UPDATE '.$tablename.' AS t1, '.$temporary_tablename.' AS t2
   SET '.
-        implode(
-          "\n    , ",
-          array_map(
-            create_function('$s', 'return "t1.$s = t2.$s";'),
-            $dbfields['update']
-            )
-          ).'
+      implode(
+        "\n    , ",
+        array_map($func_set,$dbfields['update'])
+        ).'
   WHERE '.
-        implode(
-          "\n    AND ",
-          array_map(
-            create_function('$s', 'return "t1.$s = t2.$s";'),
-            $dbfields['primary']
-            )
-          ).'
-  ;';
-      pwg_query($query);
-      $query = '
-DROP TABLE '.$temporary_tablename.'
-;';
-      pwg_query($query);
-    }
+      implode(
+        "\n    AND ",
+        array_map(
+          create_function('$s', 'return "t1.$s = t2.$s";'),
+          $dbfields['primary']
+          )
+        );
+    pwg_query($query);
+    $query = '
+DROP TABLE '.$temporary_tablename;
+    pwg_query($query);
   }
 }
 
@@ -587,8 +577,7 @@ function update_global_rank()
   $query = '
 SELECT id, if(id_uppercat is null,\'\',id_uppercat) AS id_uppercat, uppercats, rank, global_rank
   FROM '.CATEGORIES_TABLE.'
-  ORDER BY id_uppercat,rank,name
-;';
+  ORDER BY id_uppercat,rank,name';
 
   $cat_map = array();
 
@@ -657,6 +646,7 @@ function set_cat_visible($categories, $value)
 {
   if (!in_array($value, array('true', 'false')))
   {
+    trigger_error("set_cat_visible invalid param $value", E_USER_WARNING);
     return false;
   }
 
@@ -667,8 +657,7 @@ function set_cat_visible($categories, $value)
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET visible = \'true\'
-  WHERE id IN ('.implode(',', $uppercats).')
-;';
+  WHERE id IN ('.implode(',', $uppercats).')';
     pwg_query($query);
   }
   // locking a category   => all its child categories become locked
@@ -678,8 +667,7 @@ UPDATE '.CATEGORIES_TABLE.'
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET visible = \'false\'
-  WHERE id IN ('.implode(',', $subcats).')
-;';
+  WHERE id IN ('.implode(',', $subcats).')';
     pwg_query($query);
   }
 }
@@ -695,6 +683,7 @@ function set_cat_status($categories, $value)
 {
   if (!in_array($value, array('public', 'private')))
   {
+    trigger_error("set_cat_status invalid param $value", E_USER_WARNING);
     return false;
   }
 
@@ -716,8 +705,7 @@ UPDATE '.CATEGORIES_TABLE.'
     $query = '
 UPDATE '.CATEGORIES_TABLE.'
   SET status = \'private\'
-  WHERE id IN ('.implode(',', $subcats).')
-;';
+  WHERE id IN ('.implode(',', $subcats).')';
     pwg_query($query);
   }
 }
@@ -1582,7 +1570,7 @@ function do_maintenance_all_tables()
   $all_tables = array();
 
   // List all tables
-  $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\';';
+  $query = 'SHOW TABLES LIKE \''.$prefixeTable.'%\'';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -1590,7 +1578,7 @@ function do_maintenance_all_tables()
   }
 
   // Repair all tables
-  $query = 'REPAIR TABLE '.implode(', ', $all_tables).';';
+  $query = 'REPAIR TABLE '.implode(', ', $all_tables);
   $mysql_rc = pwg_query($query);
 
   // Re-Order all tables
@@ -1616,7 +1604,7 @@ function do_maintenance_all_tables()
   }
 
   // Optimize all tables
-  $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables).';';
+  $query = 'OPTIMIZE TABLE '.implode(', ', $all_tables);
   $mysql_rc = $mysql_rc && pwg_query($query);
   if ($mysql_rc)
   {
@@ -1832,8 +1820,7 @@ function invalidate_user_cache()
 {
   $query = '
 UPDATE '.USER_CACHE_TABLE.'
-  SET need_update = \'true\'
-;';
+  SET need_update = \'true\'';
   pwg_query($query);
   trigger_action('invalidate_user_cache');
 }

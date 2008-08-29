@@ -446,7 +446,6 @@ $lang['update_sync_dirs'] = 'only directories';
 $lang['update_sync_files'] = 'synchronize files structure with database';
 $lang['update_sync_metadata'] = 'synchronize files metadata with database elements informations';
 $lang['update_sync_metadata_all'] = 'even already synchronized elements';
-$lang['update_sync_metadata_new'] = 'only never synchronized elements';
 $lang['update_used_metadata'] = 'Used metadata';
 $lang['update_wrong_dirname_info'] = 'The name of directories and files must be composed of letters, figures, "-", "_" or "."';
 $lang['update_wrong_dirname_short'] = 'wrong filename';
@@ -660,4 +659,6 @@ $lang['Optimizations errors'] = 'Optimizations have been completed with some err
 $lang['delete this comment'] = 'delete this comment';
 $lang['link_info_image'] = 'Modify information';
 $lang['edit category informations'] = 'edit category informations';
+$lang['nothing'] = 'nothing';
+$lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
 ?>

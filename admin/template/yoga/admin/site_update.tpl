@@ -58,25 +58,34 @@
 <h3>{'update_default_title'|@translate}</h3>
 <form action="" method="post" id="update">
 
-  <fieldset id="syncFiles">
-    <legend>{'update_sync_files'|@translate}</legend>
-    <ul>
-      <li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}/> {'update_sync_dirs'|@translate}</label></li>
-      <li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}/> {'update_sync_all'|@translate}</label></li>
-      <li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}/> {'update_display_info'|@translate}</label></li>
-      <li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}/> {'add new elements to caddie'|@translate}</label></li>
-      <li><label>{'Minimum privacy level'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>
-    </ul>
-  </fieldset>
+	<fieldset id="syncFiles">
+		<legend>{'update_sync_files'|@translate}</legend>
+		<ul>
+			<li><label><input type="radio" name="sync" value="" {if empty($introduction.sync)}checked="checked"{/if}/> {'nothing'|@translate}</label></li>
+			<li><label><input type="radio" name="sync" value="dirs" {if 'dirs'==$introduction.sync}checked="checked"{/if}/> {'update_sync_dirs'|@translate}</label></li>
 
-  <fieldset id="syncMetadata">
-    <legend>{'update_sync_metadata'|@translate}</legend>
-    {'update_used_metadata'|@translate} : {$METADATA_LIST}.<br/>
-    <ul>
-      <li><label><input type="radio" name="sync" value="metadata_new" {if 'metadata_new'==$introduction.sync}checked="checked"{/if}/> {'update_sync_metadata_new'|@translate}</label></li>
-      <li><label><input type="radio" name="sync" value="metadata_all" {if 'metadata_all'==$introduction.sync}checked="checked"{/if}/> {'update_sync_metadata_all'|@translate}</label></li>
-    </ul>
-  </fieldset>
+			<li><label><input type="radio" name="sync" value="files" {if 'files'==$introduction.sync}checked="checked"{/if}/> {'update_sync_all'|@translate}</label>
+				<ul style="padding-left:3em">
+					<li><label><input type="checkbox" name="display_info" value="1" {if $introduction.display_info}checked="checked"{/if}/> {'update_display_info'|@translate}</label></li>
+					<li><label><input type="checkbox" name="add_to_caddie" value="1" {if $introduction.add_to_caddie}checked="checked"{/if}/> {'add new elements to caddie'|@translate}</label></li>
+					<li><label>{'Minimum privacy level'|@translate} <select name="privacy_level">{html_options options=$introduction.privacy_level_options selected=$introduction.privacy_level_selected}</select></label></li>
+				</ul>
+			</li>
+		</ul>
+	</fieldset>
+
+	<fieldset id="syncMetadata">
+		<legend>{'update_sync_metadata'|@translate}</legend>
+		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}/> {'synchronize metadata'|@translate} ({$METADATA_LIST})</label></li>
+		<ul style="padding-left:3em">
+	  		<li>
+	  			<label><input type="checkbox" name="meta_all" {if $introduction.meta_all}checked="checked"{/if}/> {'update_sync_metadata_all'|@translate}</label>
+	  		</li>
+	  		<li>
+	  			<label><input type="checkbox" name="meta_empty_overrides" {if $introduction.meta_empty_overrides}checked="checked"{/if}/> {'overrides existing values with empty ones'|@translate}</label>
+	  		</li>
+		</ul>
+	</fieldset>
 
   <fieldset id="syncSimulate">
     <legend></legend>

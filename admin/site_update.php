@@ -42,8 +42,7 @@ $site_id = $_GET['site'];
 $query='
 SELECT galleries_url
   FROM '.SITES_TABLE.'
-  WHERE id = '.$site_id.'
-;';
+  WHERE id = '.$site_id;
 list($site_url) = mysql_fetch_row(pwg_query($query));
 if (!isset($site_url))
 {
@@ -139,8 +138,6 @@ if (isset($_POST['submit'])
 {
   $start = get_moment();
   // which categories to update ?
-  $cat_ids = array();
-
   $query = '
 SELECT id, uppercats, global_rank, status, visible
   FROM '.CATEGORIES_TABLE.'
@@ -161,15 +158,7 @@ SELECT id, uppercats, global_rank, status, visible
 ';
     }
   }
-  $query.= '
-;';
-  $result = pwg_query($query);
-
-  $db_categories = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    $db_categories[$row['id']] = $row;
-  }
+  $db_categories = hash_from_query($query, 'id');
 
   // get categort full directories in an array for comparison with file
   // system directory tree
@@ -194,8 +183,7 @@ SELECT id, uppercats, global_rank, status, visible
 
   $query = '
 SELECT id
-  FROM '.CATEGORIES_TABLE.'
-;';
+  FROM '.CATEGORIES_TABLE;
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -206,8 +194,7 @@ SELECT id
   $query = '
 SELECT id_uppercat, MAX(rank)+1 AS next_rank
   FROM '.CATEGORIES_TABLE.'
-  GROUP BY id_uppercat
-;';
+  GROUP BY id_uppercat';
   $result = pwg_query($query);
   while ($row = mysql_fetch_array($result))
   {
@@ -222,8 +209,7 @@ SELECT id_uppercat, MAX(rank)+1 AS next_rank
   // next category id available
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_id
-  FROM '.CATEGORIES_TABLE.'
-;';
+  FROM '.CATEGORIES_TABLE;
   list($next_id) = mysql_fetch_array(pwg_query($query));
 
   // retrieve sub-directories fulldirs from the site reader
@@ -388,13 +374,8 @@ SELECT id, path
         implode(', ', $cat_ids),
         80,
         "\n"
-        ).')
-;';
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $db_elements[$row['id']] = $row['path'];
-    }
+        ).')';
+    $db_elements = simple_hash_from_query($query, 'id', 'path');
 
     // searching the unvalidated waiting elements (they must not be taken into
     // account)
@@ -403,8 +384,7 @@ SELECT file,storage_category_id
   FROM '.WAITING_TABLE.'
   WHERE storage_category_id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-    AND validated = \'false\'
-;';
+    AND validated = \'false\'';
     $result = pwg_query($query);
     while ($row = mysql_fetch_array($result))
     {
@@ -421,8 +401,7 @@ SELECT file,storage_category_id
   // next element id available
   $query = '
 SELECT IF(MAX(id)+1 IS NULL, 1, MAX(id)+1) AS next_element_id
-  FROM '.IMAGES_TABLE.'
-;';
+  FROM '.IMAGES_TABLE;
   list($next_element_id) = mysql_fetch_array(pwg_query($query));
 
   $start = get_moment();
@@ -564,8 +543,7 @@ SELECT id,file,storage_category_id,infos
   FROM '.WAITING_TABLE.'
   WHERE storage_category_id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
-    AND validated = \'true\'
-;';
+    AND validated = \'true\'';
     $result = pwg_query($query);
 
     $datas = array();
@@ -585,8 +563,7 @@ SELECT id,file,storage_category_id,infos
 SELECT id
   FROM '.IMAGES_TABLE.'
   WHERE storage_category_id = '.$row['storage_category_id'].'
-    AND file = \''.$row['file'].'\'
-;';
+    AND file = \''.$row['file'].'\'';
       list($data['id']) = mysql_fetch_array(pwg_query($query));
 
       foreach ($fields['update'] as $field)
@@ -723,18 +700,11 @@ if (isset($_POST['submit'])
 // +-----------------------------------------------------------------------+
 // |                          synchronize metadata                         |
 // +-----------------------------------------------------------------------+
-if (isset($_POST['submit']) and preg_match('/^metadata/', $_POST['sync'])
+if (isset($_POST['submit']) and isset($_POST['sync_meta'])
          and !$general_failure)
 {
   // sync only never synchronized files ?
-  if ($_POST['sync'] == 'metadata_new')
-  {
-    $opts['only_new'] = true;
-  }
-  else
-  {
-    $opts['only_new'] = false;
-  }
+  $opts['only_new'] = isset($_POST['meta_all']) ? false : true;
   $opts['category_id'] = '';
   $opts['recursive'] = true;
 
@@ -776,14 +746,8 @@ SELECT id
   WHERE has_high = \'true\'
     AND id IN (
 '.wordwrap(implode(', ', $image_ids), 80, "\n").'
-)
-;';
-
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      array_push($has_high_images, $row['id']);
-    }
+)';
+    $has_high_images = array_from_query($query, 'id' );
   }
 
   foreach ( $files as $id=>$file )
@@ -843,7 +807,8 @@ SELECT id
               array('date_metadata_update'))
             )
           ),
-        $datas
+        $datas,
+        isset($_POST['meta_empty_overrides']) ? 0 : MASS_UPDATES_SKIP_EMPTY
         );
     }
     set_tags_of($tags_of);
@@ -893,58 +858,61 @@ $template->assign(
 // +-----------------------------------------------------------------------+
 // |                        introduction : choices                         |
 // +-----------------------------------------------------------------------+
-if (!isset($_POST['submit']) or (isset($simulate) and $simulate))
+if (isset($_POST['submit']))
 {
-  if (isset($simulate) and $simulate)
-  {
-    $tpl_introduction = array(
-        'sync'  => $_POST['sync'],
-        'display_info' => isset($_POST['display_info']) and $_POST['display_info']==1,
-        'add_to_caddie' => isset($_POST['add_to_caddie']) and $_POST['add_to_caddie']==1,
-        'subcats_included' => isset($_POST['subcats-included']) and $_POST['subcats-included']==1,
-        'privacy_level_selected' => (int)@$_POST['privacy_level'],
-      );
+  $tpl_introduction = array(
+      'sync'  => $_POST['sync'],
+      'sync_meta'  => isset($_POST['sync_meta']) ? true : false,
+      'display_info' => isset($_POST['display_info']) and $_POST['display_info']==1,
+      'add_to_caddie' => isset($_POST['add_to_caddie']) and $_POST['add_to_caddie']==1,
+      'subcats_included' => isset($_POST['subcats-included']) and $_POST['subcats-included']==1,
+      'privacy_level_selected' => (int)@$_POST['privacy_level'],
+      'meta_all'  => isset($_POST['meta_all']) ? true : false,
+      'meta_empty_overrides'  => isset($_POST['meta_empty_overrides']) ? true : false,
+    );
 
-    if (isset($_POST['cat']) and is_numeric($_POST['cat']))
-    {
-      $cat_selected = array($_POST['cat']);
-    }
-    else
-    {
-      $cat_selected = array();
-    }
+  if (isset($_POST['cat']) and is_numeric($_POST['cat']))
+  {
+    $cat_selected = array($_POST['cat']);
   }
   else
   {
-    $tpl_introduction = array(
-        'sync'  => 'dirs',
-        'display_info' => false,
-        'add_to_caddie' => false,
-        'subcats_included' => true,
-        'privacy_level_selected' => 0,
-      );
-
     $cat_selected = array();
   }
+}
+else
+{
+  $tpl_introduction = array(
+      'sync'  => 'dirs',
+      'sync_meta'  => true,
+      'display_info' => false,
+      'add_to_caddie' => false,
+      'subcats_included' => true,
+      'privacy_level_selected' => 0,
+      'meta_all'  => false,
+      'meta_empty_overrides'  => false,
+    );
 
-  $tpl_introduction['privacy_level_options']=array();
-  foreach ($conf['available_permission_levels'] as $level)
-  {
-    $tpl_introduction['privacy_level_options'][$level] = l10n( sprintf('Level %d', $level) );
-  }
+  $cat_selected = array();
+}
 
-  $template->assign('introduction', $tpl_introduction);
+$tpl_introduction['privacy_level_options']=array();
+foreach ($conf['available_permission_levels'] as $level)
+{
+  $tpl_introduction['privacy_level_options'][$level] = l10n( sprintf('Level %d', $level) );
+}
 
-  $query = '
+$template->assign('introduction', $tpl_introduction);
+
+$query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
-  WHERE site_id = '.$site_id.'
-;';
-  display_select_cat_wrapper($query,
-                             $cat_selected,
-                             'category_options',
-                             false);
-}
+  WHERE site_id = '.$site_id;
+display_select_cat_wrapper($query,
+                           $cat_selected,
+                           'category_options',
+                           false);
+
 
 if (count($errors) > 0)
 {
