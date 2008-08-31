@@ -64,14 +64,14 @@ a.Piwigo {
 a { color:#f70; border-color: #FF3363; }
 a:hover { color: #f33; border-color: #FF3363; }
 
-#theAdminPage h2 { display:block; font-size:28px; letter-spacing:-1px; 
+h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
 .header_msgs { background-color:transparent; }
 .HelpActions a { border:0; margin:4px 14px 0 0; position:absolute; right:0; }
 .HelpActions li {list-style-image:none; list-style-position:outside; 
 list-style-type:none; text-align:center; text-indent:0pt; }
-fieldset#uploadConf input { margin:0 5px 0 110px; width:160px; }
+
 table.table2 th { padding:3px 30px; }
 table.table2 tr.throw { text-align: center; }
 table.table2 { margin:0pt auto; }
@@ -90,7 +90,7 @@ width:136px !important; border: 0; }
 .tabsheet a { 
 background:transparent url(images/inactive_tab.png) no-repeat scroll left 5px;
 border: 0 none; color:#777777; display:block; font-size:11px; text-transform:capitalize;
-font-weight:bold; height:33px; overflow:hidden; padding:12px 30px 5px 0;  line-height: 18px;
+font-weight:bold; height:28px; overflow:hidden; padding:12px 30px 5px 0;  line-height: 18px;
 text-align:right; text-decoration:none; width:122px !important; }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { 
 background:transparent url(images/active_tab.png) no-repeat scroll left 5px;
@@ -103,25 +103,25 @@ background:transparent url(images/active_tab_letters.png) no-repeat scroll left 
 /* menubar is on all admin pages => No specific css file */
 #menubar {
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
-border:0; display:inline; float:left; left:0; margin: 0 0 0 35px; min-height:468px;
-padding:0; width:207px; z-index:99; text-align: left; /*  "be nice to IE5" rule */ }
-#menubar .selected a { color: #f70; border-color: #f36; }
+border:0; display:inline; float:left; left:0; margin: 0 0 0 35px; min-height:477px; height:477px;
+padding:0; width:207px; z-index:99; text-align: left; }
+#menubar .selected a { color: #f70; border-color: #f36;}
 #menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
 #menubar dd { 
 background: transparent url(images/menubar-detail.png) repeat-y top left; 
-margin: 0; padding: 0; height:232px; display:block; }
+margin: 10px 0 0 0; padding: 0; height:232px; }
 #menubar dl {
 background:transparent url(images/menuBoxTop_new.png) no-repeat scroll left top; 
 width: 207px; border:0; margin: 0; padding: 0; display: block; min-height:35px; }
-#menubar dl.first {
+#menubar dl.first { 
 background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
-position:relative; padding: 5px; top:-10px; font-size: 13px; color: #666; }
+position:relative; padding: 5px 1px 4px 5px; top:-10px; font-size: 13px; color: #666; }
 #menubar dt  span { background-color: #111; cursor:pointer; }
 #menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
 color: #F70; border-bottom: 1px dotted #777;}
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }
-#menubar ul { color: #333; margin:9px 0pt 3px 9px; 
+#menubar ul { color: #333; margin:10px 0pt 3px 9px; 
   list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }

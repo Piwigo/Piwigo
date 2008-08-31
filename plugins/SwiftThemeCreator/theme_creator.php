@@ -257,13 +257,16 @@ if (!isset($_POST['reset']))
    * Header background controls
    */
   $main['subphase'] = 'fixed background controls'; 
+  if (isset($_POST['picture_url'])) $main['picture_url'] = $_POST['picture_url'];
+  if (isset($_POST['background_mode'])) 
+      $main['background_mode'] = $_POST['background_mode'];  
   if (isset($_POST['background'])) $main['background'] = $_POST['background'];
   // Fixed
-  if ( $main['background'] == 'fixed' and isset($_POST['picture_url'])) {
-    if ( is_dir($_POST['picture_url'])
-        or !is_file($_POST['picture_url']) )
+  if ( $main['background'] == 'fixed') {
+    if ( is_dir($main['picture_url'])
+        or !is_file($main['picture_url']) )
       array_push($errors, l10n('Header picture is not found, check its path and name.')); 
-    $extension = substr($_POST['picture_url'],strrpos($_POST['picture_url'],'.')+1);
+    $extension = substr($main['picture_url'],strrpos($main['picture_url'],'.')+1);
     if (!in_array($extension, array('jpg','jpeg','png')))
       array_push($errors, l10n('Compliant extensions are .jpg, .jpeg or .png.')); 
   }
@@ -315,6 +318,19 @@ if (!isset($_POST['reset']))
 // |                            Build files                                |
 // +-----------------------------------------------------------------------+
 $main['phase'] = 'Files building';
+if (!function_exists('imagecreatetruecolor') or !function_exists('imagefilter')) {
+  array_push($errors, l10n('Some Php Graphic resources are missing.' 
+        . ' Sorry for the inconvenience, but Swift Theme Creator couldn\'t work in such case.')); 
+  array_push($infos, l10n('This plugin requires PHP 5.2.5 or later' 
+        . ' and compiled against graphic library GD 2.0.1 or later.'));
+  array_push($infos, l10n('On this server, PHP is:'). phpversion());
+  if (function_exists('gd_info')) {
+    $GD = gd_info();            
+    array_push($infos, l10n('and graphic library is:').$GD['GD Version']);
+  }
+  else array_push($infos, l10n('graphic library version is not available.'));
+  $main['background'] = 'off';
+}
 if ((isset($_POST['submit']) or $main['simulate'] ) and (!is_adviser()))
 {
   /*
@@ -387,55 +403,54 @@ if ((isset($_POST['submit']) or $main['simulate'] ) and (!is_adviser()))
            AND ic.image_id = i.id
          ORDER BY RAND(' . $main['random'] . ')
          LIMIT 0,1');
-      if($result) list($main['pic_path']) = mysql_fetch_array($result);
-      else $main['pic_path'] = 
-           PHPWG_ROOT_PATH . 'plugins/SwiftThemeCreator/simul/header.jpg';
-      $main['pic_ext'] = substr($main['pic_path'],strrpos($main['pic_path'],'.')+1);
-      if ($main['pic_ext']=='png')
-        $img = imagecreatefrompng($main['pic_path']);
-      elseif (in_array($main['pic_ext'],array('jpg','jpeg'))) 
-              $img = imagecreatefromjpeg($main['pic_path']);
-      else $img = imagecreatefromjpeg(PHPWG_ROOT_PATH 
-                   . 'plugins/SwiftThemeCreator/simul/header.jpg');
-      imagejpeg( $img, $themedir . '/header.jpg', 90 );
-      imagedestroy ($img);
+        if($result) list($main['pic_path']) = mysql_fetch_array($result);
+        else $main['pic_path'] = 
+             PHPWG_ROOT_PATH . 'plugins/SwiftThemeCreator/simul/header.jpg';
+        $main['pic_ext'] = substr($main['pic_path'],strrpos($main['pic_path'],'.')+1);
+        if ($main['pic_ext']=='png')
+          $img = imagecreatefrompng($main['pic_path']);
+        elseif (in_array($main['pic_ext'],array('jpg','jpeg'))) 
+                $img = imagecreatefromjpeg($main['pic_path']);
+        else $img = imagecreatefromjpeg(PHPWG_ROOT_PATH 
+                     . 'plugins/SwiftThemeCreator/simul/header.jpg');
+        imagejpeg( $img, $themedir . '/header.jpg', 90 );
+        imagedestroy ($img);
       }
       if (isset($_POST['background']) and $_POST['background'] == 'fixed')
       {
-        if (function_exists('imagecreatefromjpeg'))
-        {
-          $hdr = imagecreatetruecolor ($main['picture_width'], $main['picture_height']);
-          imagecolorset ( $hdr, 0, $r2, $g2, $b2 );
-          if ($extension == 'png') $img = imagecreatefrompng($_POST['picture_url']);
-          else $img = imagecreatefromjpeg($_POST['picture_url']);
-          imagecopymerge ( $hdr, $img, 0, 0, 0, 0, $main['picture_width'], $main['picture_height'], 60 );
-          imagedestroy ($img);
-          if ($main['colorize']) imagefilter($hdr, IMG_FILTER_COLORIZE, $r, $g, $b);
-          if ($main['brightness']) imagefilter($hdr, IMG_FILTER_BRIGHTNESS, $delta);
-          if ($main['contrast']) imagefilter($hdr, IMG_FILTER_CONTRAST, 20);
-          imagejpeg( $hdr, $themedir . '/header.jpg', 90 );
-          imagedestroy ($hdr);
-        }
-        else @copy( $_POST['picture_url'], $themedir . '/header.jpg');      
-      }
-      /*
-       * Build background image for titrePage or definition list (in #menubar)
-       **/
-      if (function_exists('imagecreatefrompng'))
-      {
-        $hdr = imagecreatetruecolor (1, 38);
+        $main['subphase'] = 'Fixed background';
+        $hdr = imagecreatetruecolor ($main['picture_width'], $main['picture_height']);
         imagecolorset ( $hdr, 0, $r2, $g2, $b2 );
-        $img = imagecreatefrompng(STC_PATH . '/titrePage-bg.png');
-        imagecopymerge ( $hdr, $img, 0, 0, 0, 0, 1, 38, 60 );
+        if ($extension == 'png') $img = imagecreatefrompng($main['picture_url']);
+        else $img = imagecreatefromjpeg($main['picture_url']);
+        imagecopymerge ( $hdr, $img, 0, 0, 0, 0, $main['picture_width'], $main['picture_height'], 60 );
         imagedestroy ($img);
         if ($main['colorize']) imagefilter($hdr, IMG_FILTER_COLORIZE, $r, $g, $b);
         if ($main['brightness']) imagefilter($hdr, IMG_FILTER_BRIGHTNESS, $delta);
         if ($main['contrast']) imagefilter($hdr, IMG_FILTER_CONTRAST, 20);
-        imagepng( $hdr, $themedir . '/stc.png', 9 );
-        imagedestroy ($hdr);
+        imagejpeg( $hdr, $themedir . '/header.jpg', 90 );
+          imagedestroy ($hdr);
       }
-      else @copy( STC_PATH
-                 . '/titrePage-bg.png', $themedir . '/stc.png');      
+      /*
+       * Build background image for titrePage or definition list (in #menubar)
+       **/
+      $main['subphase'] = 'Headbars background'; 
+      $hdr = imagecreatetruecolor (1, 38);
+      imagecolorset ( $hdr, 0, $r2, $g2, $b2 );
+      $img = imagecreatefrompng(STC_PATH . '/titrePage-bg.png');
+      imagecopymerge ( $hdr, $img, 0, 0, 0, 0, 1, 38, 60 );
+      imagedestroy ($img);
+      if ($main['colorize']) imagefilter($hdr, IMG_FILTER_COLORIZE, $r, $g, $b);
+      if ($main['brightness']) imagefilter($hdr, IMG_FILTER_BRIGHTNESS, $delta);
+      if ($main['contrast']) imagefilter($hdr, IMG_FILTER_CONTRAST, 20);
+      imagepng( $hdr, $themedir . '/stc.png', 9 );
+      imagedestroy ($hdr);
+
+      /*
+       * Errors and cleaning or Congratulations
+       **/
+      $main['phase'] = 'Congratulation';
+      $main['subphase'] = 'cleaning';
       if ($rfs == false) {
         array_push($errors,
           l10n('Theme files creation failure: theme should be deleted.'));
@@ -507,18 +522,6 @@ $template->assign('background_options',
     'random' => l10n('24H Random'),
     'fixed' => l10n('Fixed URL'),
   ));
-$main['picture_url'] = PHPWG_ROOT_PATH . 'plugins/SwiftThemeCreator/sample.jpg';
-if (isset($swift_theme_creator->picture_url)) 
-    $main['picture_url'] = $swift_theme_creator->picture_url;
-if (isset($_POST['picture_url'])) $main['picture_url'] = $_POST['picture_url'];
-
-if (isset($_POST['picture_width'])) 
-    $main['picture_width'] = $_POST['picture_width'];
-if (isset($_POST['picture_height'])) 
-    $main['picture_height'] = $_POST['picture_height'];
-
-if (isset($_POST['background_mode'])) 
-      $main['background_mode'] = $_POST['background_mode'];
 $template->assign('background_mode_options',
   array(
     'as' => l10n('As is'),

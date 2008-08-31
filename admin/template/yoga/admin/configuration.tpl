@@ -6,24 +6,24 @@
 <form method="post" action="{$F_ACTION}" class="properties">
 
 {if isset($main)}
-<fieldset id="mainConf">
+<fieldset>
   <ul>
     <li>
-      <span class="property">
+      <span class="property m38">
         <label for="gallery_title">{'Gallery title'|@translate}</label>
       </span>
       <input type="text" maxlength="255" size="50" name="gallery_title" id="gallery_title" value="{$main.CONF_GALLERY_TITLE}" />
     </li>
 
     <li>
-      <span class="property">
+      <span class="property m38">
         <label for="page_banner">{'Page banner'|@translate}</label>
       </span>
       <textarea class="description" name="page_banner" id="page_banner">{$main.CONF_PAGE_BANNER}</textarea>
     </li>
 
     <li>
-      <span class="property">
+      <span class="property m38">
         <label for="gallery_url">{'Gallery URL'|@translate}</label>
       </span>
       <input type="text" maxlength="255" size="50" name="gallery_url" id="gallery_url" value="{$main.CONF_GALLERY_URL}" />
@@ -31,7 +31,7 @@
   </ul>
 </fieldset>
 
-<fieldset id="mainConfCheck">
+<fieldset>
   <ul>
 
     <li>
@@ -80,7 +80,7 @@
 {/if}
 
 {if isset($history)}
-<fieldset id="historyConf">
+<fieldset>
   <ul>
       <li>
         <label><span class="property">{'conf_history_guest'|@translate}</span><input type="checkbox" name="history_guest" {if ($history.history_guest)}checked="checked"{/if} /></label>
@@ -99,7 +99,7 @@
 
 
 {if isset($comments)}
-<fieldset id="commentsConf">
+<fieldset>
   <ul>
     <li>
       <label>
@@ -142,7 +142,7 @@
 {/if}
 
 {if isset($upload)}
-<fieldset id="uploadConf">
+<fieldset>
   <ul>
     <li>
       <label><span class="property">{'Show upload link every time'|@translate}</span>
@@ -150,7 +150,7 @@
     </li>
     <li>
       <label><span class="property">{'User access level to upload'|@translate}</span>
-      {html_options name="upload_user_access" options=$upload.upload_user_access_options selected=$upload.upload_user_access_options_selected}
+      {html_options class="widefield" name="upload_user_access" options=$upload.upload_user_access_options selected=$upload.upload_user_access_options_selected}
     </li>
     <li>
       <label>
