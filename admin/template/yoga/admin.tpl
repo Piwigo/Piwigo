@@ -75,7 +75,7 @@
         {/if}
         <li>
           {'Plugins'|@translate}
-          <ul>
+          <ul {* TODO conditional class="scroll" *}>
 {foreach from=$plugin_menu_items item=menu_item}
       <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
 {/foreach}

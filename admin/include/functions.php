@@ -1807,7 +1807,7 @@ function pwg_URL()
   if ( isset($lang_info['code']) and
        in_array($lang_info['code'], array('fr','en')) )
   { /* current wiki languages are French or English */
-    $urls['WIKI'] .= 'doku.php?id='.$lang_info['code'].':start';
+    $urls['WIKI'] .= 'doku.php?id='.$lang_info['code'].':'.$lang_info['code'];
     $urls['HOME'] .= '?lang='.$lang_info['code'];
   }
   return $urls;
