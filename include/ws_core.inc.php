@@ -52,6 +52,8 @@ class PwgError
 
   function PwgError($code, $codeText)
   {
+    set_status_header($code, $codeText);
+
     $this->_code = $code;
     $this->_codeText = $codeText;
   }
