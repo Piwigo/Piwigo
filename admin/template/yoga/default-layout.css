@@ -10,13 +10,17 @@ TABLE.table2 {
 }
 
 TABLE.table2 TD {
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 TABLE.table2 TR {
   text-align: left;
 }
 
+table.table2 thead td { padding:7px 20px 3px 20px; }
+table.table2 tr.throw { text-align: center; }
+table.table2 { margin:0pt auto; }
+.sort { display:block; padding:8px 5px 0px 1px; }
 
 
 .hour {

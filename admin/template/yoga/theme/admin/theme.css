@@ -73,11 +73,6 @@ right:0; text-align:right; top:0; width:770px; }
 .HelpActions li {list-style-image:none; list-style-position:outside; 
 list-style-type:none; text-align:center; text-indent:0pt; }
 
-table.table2 th { padding:3px 30px; }
-table.table2 tr.throw { text-align: center; }
-table.table2 { margin:0pt auto; }
-.sort { display:block; padding:8px 5px 0px 1px; }
-
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet { 
 background-color:transparent; border:0; display:table; 

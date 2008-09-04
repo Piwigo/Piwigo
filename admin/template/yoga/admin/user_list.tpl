@@ -48,21 +48,24 @@
 
 <form method="post" name="preferences" action="">
 
-<table class="table2">
-  <tr class="throw">
-    <th>&nbsp;</th>
-    <th>{'Username'|@translate}</th>
-    <th>{'user_status'|@translate}</th>
-    <th>{'Email address'|@translate}</th>
-    <th>{'Groups'|@translate}</th>
-    <th>{'properties'|@translate}</th>
-    {if not empty($plugin_user_list_column_titles)}
-    {foreach from=$plugin_user_list_column_titles item=title}
-    <th>{$title}</th>
-    {/foreach}
-    {/if}
-    <th>{'Actions'|@translate}</th>
-  </tr>
+<table class="table2" width="97%">
+  <thead>
+    <tr class="throw">
+      <td>&nbsp;</td>
+      <td>{'Username'|@translate}</td>
+      <td>{'user_status'|@translate}</td>
+      <td>{'Email address'|@translate}</td>
+      <td>{'Groups'|@translate}</td>
+      <td>{'properties'|@translate}</td>
+      {if not empty($plugin_user_list_column_titles)}
+      {foreach from=$plugin_user_list_column_titles item=title}
+      <td>{$title}</td>
+      {/foreach}
+      {/if}
+      <td>{'Actions'|@translate}</td>
+    </tr>
+  </thead>
+
   {foreach from=$users item=user name=users_loop}
   <tr class="{if $smarty.foreach.users_loop.index is odd}row1{else}row2{/if}">
     <td><input type="checkbox" name="selection[]" value="{$user.ID}" {$user.CHECKED} id="selection-{$user.ID}" /></td>
