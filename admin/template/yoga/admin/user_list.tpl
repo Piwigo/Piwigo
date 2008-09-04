@@ -307,3 +307,18 @@
 </p>
 
 </form>
+
+<script type="text/javascript">// <![CDATA[
+{literal}jQuery("form:last").submit( function() {
+	if ( jQuery("input[name=target][value=selection]:checked", this).length > 0 )
+	if ( jQuery("input[name=selection]:checked", this).length == 0)
+	{
+		alert( {/literal}"{'Select at least one user'|@translate|escape:javascript}"{literal} );
+		return false;
+	}
+	return true;
+}
+);{/literal}
+// ]]>
+</script>
+ 

@@ -918,14 +918,18 @@ UPDATE '.IMAGES_TABLE.'
 function ws_images_add($params, &$service)
 {
   global $conf;
-  
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
   // name
   // category_id
   // file_content
   // file_sum
   // thumbnail_content
   // thumbnail_sum
-  
+
   // $fh_log = fopen('/tmp/php.log', 'w');
   // fwrite($fh_log, time()."\n");
   // fwrite($fh_log, 'input:  '.$params['file_sum']."\n");
@@ -934,7 +938,7 @@ function ws_images_add($params, &$service)
   // current date
   list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
-  
+
   $upload_dir = sprintf(
     PHPWG_ROOT_PATH.'upload/%s/%s/%s',
     $year,
@@ -942,8 +946,8 @@ function ws_images_add($params, &$service)
     $day
     );
 
-  fwrite($fh_log, $upload_dir."\n");
-  
+  //fwrite($fh_log, $upload_dir."\n");
+
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
@@ -954,7 +958,7 @@ function ws_images_add($params, &$service)
   $random_string = substr($params['file_sum'], 0, 8);
 
   $filename_wo_ext = $date_string.'-'.$random_string;
-  
+
   $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
   $fh_file = fopen($file_path, 'w');
   fwrite($fh_file, base64_decode($params['file_content']));
@@ -967,7 +971,7 @@ function ws_images_add($params, &$service)
     umask(0000);
     mkdir($thumbnail_dir, 0777);
   }
-  
+
   $thumbnail_path = sprintf(
     '%s/%s%s.%s',
     $thumbnail_dir,
@@ -1011,7 +1015,7 @@ function ws_images_add($params, &$service)
     array_keys($insert),
     array($insert)
     );
-  
+
   // fclose($fh_log);
 }
 

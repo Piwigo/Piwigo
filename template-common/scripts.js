@@ -120,10 +120,10 @@ PwgWS.prototype = {
 				if ( typeof parameters[property] == 'object' && parameters[property])
 				{
 					for (var i=0; i<parameters[property].length; i++)
-						url += "&"+property+"[]="+parameters[property][i];
+						url += "&"+property+"[]="+encodeURIComponent(parameters[property][i]);
 				}
 				else
-					url += "&"+property+"="+parameters[property];
+					url += "&"+property+"="+encodeURIComponent(parameters[property]);
 			}
 		}
 		this.transport.open(this.options.method, url, this.options.async);
@@ -150,8 +150,7 @@ PwgWS.prototype = {
 			try {
 				eval('resp = ' + transport.responseText);
 			}
-			catch (e)
-			{
+			catch (e) {
 				this.dispatchError( 200, e.message + '\n' + transport.responseText.substr(0,512) );
 			}
 			if (resp!=null)
