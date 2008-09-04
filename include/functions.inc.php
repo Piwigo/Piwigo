@@ -185,7 +185,7 @@ function get_filename_wo_extension( $filename )
 }
 
 /**
- * returns an array contening sub-directories, excluding "CVS"
+ * returns an array contening sub-directories, excluding ".svn"
  *
  * @param string $dir
  * @return array
@@ -193,7 +193,6 @@ function get_filename_wo_extension( $filename )
 function get_dirs($directory)
 {
   $sub_dirs = array();
-
   if ($opendir = opendir($directory))
   {
     while ($file = readdir($opendir))
@@ -201,14 +200,61 @@ function get_dirs($directory)
       if ($file != '.'
           and $file != '..'
           and is_dir($directory.'/'.$file)
-          and $file != 'CVS'
-    and $file != '.svn')
+          and $file != '.svn')
       {
         array_push($sub_dirs, $file);
       }
     }
+    closedir($opendir);
   }
   return $sub_dirs;
+}
+
+define('MKGETDIR_NONE', 0);
+define('MKGETDIR_RECURSIVE', 1);
+define('MKGETDIR_DIE_ON_ERROR', 2);
+define('MKGETDIR_PROTECT_INDEX', 4);
+define('MKGETDIR_PROTECT_HTACCESS', 8);
+define('MKGETDIR_DEFAULT', 7);
+/**
+ * creates directory if not exists; ensures that directory is writable
+ * @param:
+ *  string $dir
+ *  int $flags combination of MKGETDIR_xxx
+ * @return bool false on error else true
+ */
+function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
+{
+  if ( !is_dir($dir) )
+  {
+    $umask = umask(0);
+    $mkd = @mkdir($dir, 0755, ($flags&MKGETDIR_RECURSIVE) ? true:false );
+    umask($umask);
+    if ($mkd==false)
+    {
+      !($flags&MKGETDIR_DIE_ON_ERROR) or trigger_error( "$dir ".l10n('no_write_access'), E_USER_ERROR);
+      return false;
+    }
+    if( $flags&MKGETDIR_PROTECT_HTACCESS )
+    {
+      $file = $dir.'/.htaccess';
+      file_exists($file) or @file_put_contents( $file, 'deny from all' );
+    }
+    if( $flags&MKGETDIR_PROTECT_INDEX )
+    {
+      $file = $dir.'/index.htm';
+      file_exists($file) or @file_put_contents( $file, 'Not allowed!' );
+    }
+  }
+  if ( !is_writable($dir) )
+  {
+    if ( !is_writable($dir) )
+    {
+      !($flags&MKGETDIR_DIE_ON_ERROR) or trigger_error( "$dir ".l10n('no_write_access'), E_USER_ERROR);
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -224,18 +270,12 @@ function get_dirs($directory)
 function mkget_thumbnail_dir($dirname, &$errors)
 {
   $tndir = $dirname.'/thumbnail';
-  if (!is_dir($tndir))
+  if (! mkgetdir($tn_dir, MKGETDIR_NONE) )
   {
-    if (!is_writable($dirname))
-    {
-      array_push($errors,
-                 '['.$dirname.'] : '.l10n('no_write_access'));
-      return false;
-    }
-    umask(0000);
-    mkdir($tndir, 0777);
+    array_push($errors,
+          '['.$dirname.'] : '.l10n('no_write_access'));
+    return false;
   }
-
   return $tndir;
 }
 

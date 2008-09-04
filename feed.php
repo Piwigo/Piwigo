@@ -195,7 +195,7 @@ foreach($dates as $date_detail)
 }
 
 $fileName= $conf['local_data_dir'].'/tmp';
-@mkdir($fileName); // just in case
+mkgetdir($fileName); // just in case
 $fileName.='/feed.xml';
 // send XML feed
 echo $rss->saveFeed('RSS2.0', $fileName, true);

@@ -36,7 +36,7 @@ class EventTracer
 {
   var $me_working;
   var $my_config;
-  
+
   function EventTracer()
   {
     $this->me_working=0;
@@ -74,7 +74,7 @@ class EventTracer
   function save_config()
   {
     $dir = $this->get_config_file_dir();
-    @mkdir($dir);
+    @mkgetdir($dir);
     $file = fopen( $dir.$this->get_config_file_name(), 'w' );
     fwrite($file, serialize($this->my_config) );
     fclose( $file );

@@ -795,22 +795,24 @@ function pwg_send_mail($result, $to, $subject, $content, $headers)
 {
     global $conf, $user, $lang_info;
     $dir = $conf['local_data_dir'].'/tmp';
-    @mkdir( $dir );
-    $filename = $dir.'/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
-    if ($args['content_format'] == 'text/plain')
+    if ( mkgetdir( $dir,  MKGETDIR_DEFAULT&~MKGETDIR_DIE_ON_ERROR) )
     {
-      $filename .= '.txt';
+      $filename = $dir.'/mail.'.$user['username'].'.'.$lang_info['code'].'.'.$args['template'].'.'.$args['theme'];
+      if ($args['content_format'] == 'text/plain')
+      {
+        $filename .= '.txt';
+      }
+      else
+      {
+        $filename .= '.html';
+      }
+      $file = fopen($filename, 'w+');
+      fwrite($file, $to ."\n");
+      fwrite($file, $subject ."\n");
+      fwrite($file, $headers);
+      fwrite($file, $content);
+      fclose($file);
     }
-    else
-    {
-      $filename .= '.html';
-    }
-    $file = fopen($filename, 'w+');
-    fwrite($file, $to ."\n");
-    fwrite($file, $subject ."\n");
-    fwrite($file, $headers);
-    fwrite($file, $content);
-    fclose($file);
     return $result;
 }
 add_event_handler('send_mail', 'pwg_send_mail_test', EVENT_HANDLER_PRIORITY_NEUTRAL+10, 6);*/

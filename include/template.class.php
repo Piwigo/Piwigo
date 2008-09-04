@@ -53,25 +53,8 @@ class Template {
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
 
-    if ( isset($conf['compiled_template_dir'] ) )
-    {
-      $compile_dir = $conf['compiled_template_dir'];
-    }
-    else
-    {
-      $compile_dir = $conf['local_data_dir'];
-      if ( !is_dir($compile_dir) )
-      {
-        mkdir( $compile_dir, 0777);
-        file_put_contents($compile_dir.'/index.htm', '');
-      }
-      $compile_dir .= '/templates_c';
-    }
-    if ( !is_dir($compile_dir) )
-    {
-      mkdir( $compile_dir, 0777 );
-      file_put_contents($compile_dir.'/index.htm', '');
-    }
+    $compile_dir = $conf['local_data_dir'].'/templates_c';
+    mkgetdir( $compile_dir );
 
     $this->smarty->compile_dir = $compile_dir;
 
@@ -123,7 +106,7 @@ class Template {
       $this->smarty->compile_id = null;
       $this->smarty->clear_compiled_tpl();
       $this->smarty->compile_id = $save_compile_id;
-      file_put_contents($this->smarty->compile_dir.'/index.htm', '');
+      file_put_contents($this->smarty->compile_dir.'/index.htm', 'Not allowed!');
   }
 
   function get_themeconf($val)
