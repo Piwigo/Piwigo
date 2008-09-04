@@ -64,10 +64,28 @@ if ($opt{action} eq 'pwg.images.add') {
         name => $opt{name},
     };
 
-    $result = $ua->post(
+    my $response = $ua->post(
         $conf{base_url}.'/ws.php?partner='.$conf{partner_key}.'&format=json',
         $form
     );
+
+    print "-" x 50, "\n";
+    printf("response code    : %u\n", $response->code);
+    printf("response message : %s\n", $response->message);
+    print "-" x 50, "\n";
+    print "\n";
+
+#     use Data::Dumper;
+#     print Dumper($response);
+
+    if ($response->is_success) {
+        print "upload successful\n";
+    }
+    else {
+        warn 'A problem has occured during upload', "\n";
+        warn $response->decoded_content, "\n";
+        die $response->status_line;
+    }
 }
 
 if ($opt{action} eq 'pwg.tags.list') {
