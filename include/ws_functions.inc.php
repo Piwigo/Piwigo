@@ -939,6 +939,7 @@ function ws_images_add($params, &$service)
   list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
 
+  // upload directory hierarchy
   $upload_dir = sprintf(
     PHPWG_ROOT_PATH.'upload/%s/%s/%s',
     $year,
@@ -948,30 +949,40 @@ function ws_images_add($params, &$service)
 
   //fwrite($fh_log, $upload_dir."\n");
 
+  // create the upload directory tree if not exists
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
     mkdir($upload_dir, 0777, $recursive);
   }
 
+  // compute file path
   $date_string = preg_replace('/[^\d]/', '', $dbnow);
   $random_string = substr($params['file_sum'], 0, 8);
-
   $filename_wo_ext = $date_string.'-'.$random_string;
-
   $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
+
+  // dump the photo file
   $fh_file = fopen($file_path, 'w');
   fwrite($fh_file, base64_decode($params['file_content']));
   fclose($fh_file);
 
-  // check dumped file md5sum with expected md5sum
+  // check dumped file md5sum against expected md5sum
+  $dumped_md5 = md5_file($file_path);
+  if ($dumped_md5 != $params['file_sum']) {
+    return new PwgError(500, 'file transfert failed');
+  }
 
+  // thumbnail directory is a subdirectory of the photo file, hard coded
+  // "thumbnail"
   $thumbnail_dir = $upload_dir.'/thumbnail';
   if (!is_dir($thumbnail_dir)) {
     umask(0000);
     mkdir($thumbnail_dir, 0777);
   }
 
+  // thumbnail path, the filename may use a prefix and the extension is
+  // always "jpg" (no matter what the real file format is)
   $thumbnail_path = sprintf(
     '%s/%s%s.%s',
     $thumbnail_dir,
@@ -979,11 +990,17 @@ function ws_images_add($params, &$service)
     $filename_wo_ext,
     'jpg'
     );
+
+  // dump the thumbnail
   $fh_thumbnail = fopen($thumbnail_path, 'w');
   fwrite($fh_thumbnail, base64_decode($params['thumbnail_content']));
   fclose($fh_thumbnail);
 
   // check dumped thumbnail md5
+  $dumped_md5 = md5_file($thumbnail_path);
+  if ($dumped_md5 != $params['thumbnail_sum']) {
+    return new PwgError(500, 'thumbnail transfert failed');
+  }
 
   // fwrite($fh_log, 'output: '.md5_file($file_path)."\n");
   // fwrite($fh_log, 'output: '.md5_file($thumbnail_path)."\n");
@@ -1015,6 +1032,8 @@ function ws_images_add($params, &$service)
     array_keys($insert),
     array($insert)
     );
+
+  invalidate_user_cache();
 
   // fclose($fh_log);
 }
