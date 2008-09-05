@@ -115,10 +115,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
   $views = array(CAL_VIEW_LIST,CAL_VIEW_CALENDAR);
 
   // Retrieve calendar field
-  if ( !isset( $fields[ $page['chronology_field'] ] ) )
-  {
-    die('bad chronology field');
-  }
+  isset( $fields[ $page['chronology_field'] ] ) or fatal_error('bad chronology field');
 
   // Retrieve style
   if ( !isset( $styles[ $page['chronology_style'] ] ) )
@@ -198,7 +195,7 @@ WHERE id IN (' . implode(',',$page['items']) .')';
       $page['items'] = array();
       $must_show_list = false;
     }
-    
+
     $page['comment'] = '';
     $template->assign('FILE_CHRONOLOGY_VIEW', 'month_calendar.tpl');
 

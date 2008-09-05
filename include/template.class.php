@@ -224,7 +224,7 @@ class Template {
   {
     if ( !isset($this->files[$handle]) )
     {
-      trigger_error("Template->parse(): Couldn't load template file for handle $handle", E_USER_ERROR);
+      fatal_error("Template->parse(): Couldn't load template file for handle $handle");
     }
 
     $this->smarty->assign( 'ROOT_URL', get_root_url() );

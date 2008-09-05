@@ -232,7 +232,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
     umask($umask);
     if ($mkd==false)
     {
-      !($flags&MKGETDIR_DIE_ON_ERROR) or trigger_error( "$dir ".l10n('no_write_access'), E_USER_ERROR);
+      !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
       return false;
     }
     if( $flags&MKGETDIR_PROTECT_HTACCESS )
@@ -250,7 +250,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
   {
     if ( !is_writable($dir) )
     {
-      !($flags&MKGETDIR_DIE_ON_ERROR) or trigger_error( "$dir ".l10n('no_write_access'), E_USER_ERROR);
+      !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
       return false;
     }
   }
@@ -945,29 +945,17 @@ function get_thumbnail_title($element_info)
 
 // my_error returns (or send to standard output) the message concerning the
 // error occured for the last mysql query.
-
 function my_error($header, $die)
 {
-  $error = $header;
-  $error.= "\n[mysql error ".mysql_errno().'] '.mysql_error()."\n";
-
-  if (function_exists('debug_backtrace'))
-  {
-    $bt = debug_backtrace();
-    for ($i=0; $i<count($bt); $i++)
-    {
-      $error .= "#$i\t".@$bt[$i]['function']." ".@$bt[$i]['file']."(".@@$bt[$i]['line'].")\n";
-    }
-  }
+  $error = "[mysql error ".mysql_errno().'] '.mysql_error()."\n";
+  $error .= $header;
 
   if ($die)
   {
-    @set_status_header(500);
-    echo( str_repeat( ' ', 300)."\n"); //IE doesn't error output if below a size
+    fatal_error($error);
   }
   echo("<pre>");
-  trigger_error($error, $die ? E_USER_ERROR : E_USER_WARNING);
-  !$die || die($error); // just in case the handler didnt die
+  trigger_error($error, E_USER_WARNING);
   echo("</pre>");
 }
 
@@ -1137,7 +1125,7 @@ function l10n_args($key_args, $sep = "\n")
   }
   else
   {
-    die('l10n_args: Invalid arguments');
+    fatal_error('l10n_args: Invalid arguments');
   }
 
   return $result;
@@ -1221,7 +1209,7 @@ SELECT param, value
 
   if ((mysql_num_rows($result) == 0) and !empty($condition))
   {
-    die('No configuration data');
+    fatal_error('No configuration data');
   }
 
   while ($row = mysql_fetch_array($result))
@@ -1371,7 +1359,7 @@ function get_filter_page_value($value_name)
  */
 function get_pwg_charset()
 {
-  defined('PWG_CHARSET') or die('load_language PWG_CHARSET undefined');
+  defined('PWG_CHARSET') or fatal_error('load_language PWG_CHARSET undefined');
   return PWG_CHARSET;
 }
 

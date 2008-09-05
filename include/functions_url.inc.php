@@ -219,10 +219,8 @@ function duplicate_picture_url($redefined = array(), $removed = array())
 function make_picture_url($params)
 {
   global $conf;
-  if (!isset($params['image_id']))
-  {
-    die('make_picture_url: image_id is a required parameter');
-  }
+
+  isset($params['image_id']) or fatal_error('make_picture_url: image_id is a required parameter');
 
   $url = get_root_url().'picture';
   if ($conf['php_extension_in_urls'])
@@ -375,7 +373,7 @@ function make_section_in_url($params)
     {
       if (!isset($params['tags']) or count($params['tags']) == 0)
       {
-        die('make_section_in_url: require at least one tag');
+        fatal_error('make_section_in_url: require at least one tag');
       }
 
       $section_string.= '/tags';
@@ -406,24 +404,14 @@ function make_section_in_url($params)
     }
     case 'search' :
     {
-      if (!isset($params['search']))
-      {
-        die('make_section_in_url: require a search identifier');
-      }
-
+      isset($params['search']) or fatal_error('make_section_in_url: require a search identifier');
       $section_string.= '/search/'.$params['search'];
-
       break;
     }
     case 'list' :
     {
-      if (!isset($params['list']))
-      {
-        die('make_section_in_url: require a list of items');
-      }
-
+      isset($params['list']) or fatal_error('make_section_in_url: require a list of items');
       $section_string.= '/list/'.implode(',', $params['list']);
-
       break;
     }
     case 'none' :

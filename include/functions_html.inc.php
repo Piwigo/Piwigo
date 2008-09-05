@@ -650,6 +650,44 @@ function page_not_found($msg, $alternate_url=null)
     5 );
 }
 
+/**
+ * exits the current script with 500 http code
+ * this method can be called at any time (does not use template/language/user etc...)
+ * @param string msg a message to display
+ */
+function fatal_error($msg)
+{
+  $btrace_msg = '';
+  if (function_exists('debug_backtrace'))
+  {
+    $bt = debug_backtrace();
+    for ($i=1; $i<count($bt); $i++)
+    {
+      $class = isset($bt[$i]['class']) ? (@$bt[$i]['class'].'::') : '';
+      $btrace_msg .= "#$i\t".$class.@$bt[$i]['function'].' '.@$bt[$i]['file']."(".@$bt[$i]['line'].")\n";
+    }
+    $btrace_msg = trim($btrace_msg);
+    $msg .= "\n";
+  }
+
+  $display = "<h1>Piwigo encountered a non recoverable error</h1>
+<pre style='font-size:larger;background:white;color:red;padding:1em;margin:0;clear:both;display:block;width:auto;height:auto;overflow:auto'>
+<b>$msg</b>
+$btrace_msg
+</pre>\n";
+
+  @set_status_header(500);
+  echo $display.str_repeat( ' ', 300); //IE doesn't error output if below a size
+
+  if ( function_exists('ini_set') )
+  {// if possible turn off error display (we display it)
+    ini_set('display_errors', false);
+  }
+  error_reporting( E_ALL );
+  trigger_error( strip_tags($msg).$btrace_msg, E_USER_ERROR );
+  die(0); // just in case
+}
+
 /* returns the title to be displayed above thumbnails on tag page
  */
 function get_tags_content_title()
