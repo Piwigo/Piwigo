@@ -13,13 +13,6 @@
 
 /* Tables & forms */
 
-/* IE <= 6 is so bad with this that you can't merge with the following rule */
-INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
-INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
-  color:black;
-  background-color: #d3d3d3;	/* lightgrey */
-}
-
 INPUT.text, INPUT.password, INPUT.button,
 INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {

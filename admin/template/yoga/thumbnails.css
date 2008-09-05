@@ -30,8 +30,8 @@
   left: 2px; top: 2px;
 }
 UL.thumbnails .levelIndicatorB {
-display:block; position:absolute; z-index:100;padding:0px 0 0 14px; color:black; font-weight:bold; fontsize:120%;
+display:block; position:absolute; z-index:100;padding:0px 0 0 14px; color:black; font-weight:bold; font-size:120%;
 }
 UL.thumbnails .levelIndicatorF {
-display:block; position:absolute; z-index:101;padding:1px 0 0 15px; color:white; font-weight:bold; fontsize:120%;
+display:block; position:absolute; z-index:101;padding:1px 0 0 15px; color:white; font-weight:bold; font-size:120%;
 }

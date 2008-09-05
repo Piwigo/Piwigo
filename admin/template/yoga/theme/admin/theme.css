@@ -2,8 +2,9 @@
 /* text color */
 body, h3, dt, h2, .throw, .content,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#ccc; }
-input.text, input.button, input.submit, input.reset, input.file, select, textarea {
-color:#111; }  
+INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
+INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"], select, textarea {
+color:#111; background-color: #eee; }  
 input.rateButton, legend, #theAdminPage h3 { color: #777; }
 #theAdminPage h2 { color: #333; }
 
@@ -49,7 +50,8 @@ text-transform:none; font-weight:bold; padding-left:20px; }
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 .browsePath a { color: #eee; }
 /* borders */ /* TODO */
-INPUT, SELECT, TEXTAREA { border-left: 2px solid #696969; }
+INPUT, SELECT, TEXTAREA { border-left: 2px inset #696969; 
+cursor:text; text-indent:4px; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */

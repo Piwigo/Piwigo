@@ -97,11 +97,46 @@ FORM#categoryPermissions LI {
   display:inline;
   white-space: nowrap;
 }
-.property {
-  width: 60%;
+
+FIELDSET#mainConfCheck SPAN.property,
+FIELDSET#historyConf SPAN.property,
+FIELDSET#commentsConf SPAN.property,
+FIELDSET#uploadConf SPAN.property {
+  float: right;
+  text-align: left;
 }
-TEXTAREA.description {
+FIELDSET#mainConfCheck INPUT,
+FIELDSET#historyConf INPUT,
+FIELDSET#commentsConf INPUT,
+FIELDSET#uploadConf INPUT {
+  float: none;
+}
+
+FIELDSET#mainConf SPAN.property {
+  width: 25%;
+}
+FIELDSET#mainConf TEXTAREA.description {
   width: 70%;
+}
+
+FIELDSET#mainConfCheck SPAN.property,
+FIELDSET#historyConf SPAN.property {
+  width: 90%;
+}
+FIELDSET#mainConfCheck INPUT,
+FIELDSET#historyConf INPUT,
+FIELDSET#commentsConf INPUT,
+FIELDSET#uploadConf SELECT,
+FIELDSET#uploadConf INPUT {
+  margin-left: 5%;
+}
+
+FIELDSET#commentsConf SPAN.property {
+  width: 85%;
+}
+
+FIELDSET#uploadConf SPAN.property {
+  width: 73%;
 }
 
 .statBar {
@@ -284,7 +319,7 @@ FORM FIELDSET P {
 
 TEXTAREA.description {
   height: 12em;
-  width: 60%;
+  width: 40em;
   overflow: auto;
 }
 
@@ -392,13 +427,10 @@ FORM.properties LI, FORM#update UL  {
 FORM.properties SPAN.property {
   font-weight: bold;
   float: left;
-  width: 60%;
+  width: 50%;
   text-align: right;
   margin: 0;
   padding: 0 0.5em 0 0;
-}
-.m38 {
-  width: 38% !important;
 }
 
 #theHeader H1 {
@@ -499,4 +531,3 @@ TABLE.tagLetterContent {
   width:100%;
   font-size:80%;
   border-collapse : collapse;
-}
