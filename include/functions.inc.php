@@ -270,7 +270,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
 function mkget_thumbnail_dir($dirname, &$errors)
 {
   $tndir = $dirname.'/thumbnail';
-  if (! mkgetdir($tn_dir, MKGETDIR_NONE) )
+  if (! mkgetdir($tndir, MKGETDIR_NONE) )
   {
     array_push($errors,
           '['.$dirname.'] : '.l10n('no_write_access'));
