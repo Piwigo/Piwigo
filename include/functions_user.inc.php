@@ -41,7 +41,10 @@ function validate_mail_address($user_id, $mail_address)
     return '';
   }
 
-  $regex = '/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)*\.[a-z]+$/';
+  $atom   = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]';   // before  arobase
+  $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // domain name  
+  $regex = '/^' . $atom . '+' . '(\.' . $atom . '+)*' . '@' . '(' . $domain . '{1,63}\.)+' . $domain . '{2,63}$/i';
+
   if ( !preg_match( $regex, $mail_address ) )
   {
     return l10n('reg_err_mail_address');
