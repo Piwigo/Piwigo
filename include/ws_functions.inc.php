@@ -966,6 +966,7 @@ function ws_images_add($params, &$service)
   $fh_file = fopen($file_path, 'w');
   fwrite($fh_file, base64_decode($params['file_content']));
   fclose($fh_file);
+  chmod($file_path, 0644);
 
   // check dumped file md5sum against expected md5sum
   $dumped_md5 = md5_file($file_path);
@@ -995,6 +996,7 @@ function ws_images_add($params, &$service)
   $fh_thumbnail = fopen($thumbnail_path, 'w');
   fwrite($fh_thumbnail, base64_decode($params['thumbnail_content']));
   fclose($fh_thumbnail);
+  chmod($thumbnail_path, 0644);
 
   // check dumped thumbnail md5
   $dumped_md5 = md5_file($thumbnail_path);
