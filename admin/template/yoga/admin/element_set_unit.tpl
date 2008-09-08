@@ -91,3 +91,15 @@
 {/if}
 
 </form>
+
+<script type="text/javascript">// <![CDATA[
+{literal}$(document).ready(function() {
+	$(".elementEdit img").fadeTo("slow", 0.6); // Opacity on page load
+	$(".elementEdit img").hover(function(){
+		$(this).fadeTo("slow", 1.0); // Opacity on hover
+	},function(){
+   		$(this).fadeTo("slow", 0.6); // Opacity on mouseout
+	});
+});{/literal}
+// ]]>
+</script>

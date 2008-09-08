@@ -60,4 +60,14 @@
     </ul>
   </div>
 </div>
-
+<script type="text/javascript">// <![CDATA[
+{literal}$(document).ready(function() {
+	$("img.thumbnail").fadeTo("slow", 0.6); // Opacity on page load
+	$("img.thumbnail").hover(function(){
+		$(this).fadeTo("slow", 1.0); // Opacity on hover
+	},function(){
+   		$(this).fadeTo("slow", 0.6); // Opacity on mouseout
+	});
+});{/literal}
+// ]]>
+</script>

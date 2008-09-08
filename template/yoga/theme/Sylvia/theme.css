@@ -1,5 +1,10 @@
 /* $Id$ */
 
+
+
+.content div.thumbnailCategory { height: 180px !important; /* Usable range 172px-250px , optimal : Thumbnail height + 30px */ }
+
+
 /* text color */
 BODY, H1, H3, DT,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
@@ -13,7 +18,7 @@ H2, #menubar DT {
 
 /* backgrounds */
 
-/* H3, */ #imageHeaderBar, #imageToolBar A:hover { background-color: #111; }
+/* H3, */ #imageHeaderBar, #imageToolBar A:hover { background-color: transparent; }
 
 body {
 background:#111111 url(images/bottom-left-bg.jpg) no-repeat fixed left bottom;
@@ -58,18 +63,21 @@ min-height:466px; }
 .content { border: 1px solid #000000; border-top: 0; margin:21px 7px 0 290px; padding-top:7px; }
 .content h2 { margin:0; padding:0px 10px 15px 15px; border:0;}
 #content ul.thumbnailCategories li {
-background:transparent url(images/cat_inactiv_bottom-right.gif) no-repeat scroll right bottom; 
-width:49%; margin: 0; padding:0; }
-.content div.thumbnailCategory { background:transparent url(images/cat_inactiv_bottom-left.gif) no-repeat scroll left bottom; 
-padding: 0; margin:0; height: 180px !important; }
-#content .thumbnailCategory div.illustration { background:transparent url(images/cat_inactiv_top-left.gif) no-repeat scroll left top; 
-padding: 0 0 0 10px; margin:-6px 0 0 0; }
-.content .thumbnailCategory div.illustration a { display: block; margin: 20px 5px 12px 12px; }
-#content .thumbnailCategory div.description { background:transparent url(images/cat_inactiv_top-right.gif) no-repeat scroll right top;
-margin:14px 0 0; overflow-y:hidden; padding:0 8px 0 20px; }
+background:#222 url(images/cat_bottom-right.gif) no-repeat scroll right bottom; 
+width:47%; margin: 0 12px; padding:0; }
+.content div.thumbnailCategory { background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
+padding: 0; margin:0; }
+#content .thumbnailCategory div.illustration { background:transparent url(images/cat_top-left.gif) no-repeat scroll left top; 
+padding: 0 0 0 10px; margin: 0; }
+.content .thumbnailCategory div.illustration a { display: block; margin: 0; padding:15px 0 0 10px; }
+#content .thumbnailCategory div.description { background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
+margin:0; padding:15px 0 0 20px; }
+#content .thumbnailCategory div.description p { overvflow: hidden; }
 
-#imageHeaderBar { 	border-top: 1px solid #000000; }
-#content.content .thumbnailCategory div.description H3 { margin: 15px 6px 3px 15px; }
+#content.content .thumbnailCategory div.description H3 { display: block; margin: 0; }
+#content ul.thumbnailCategories li:hover { background-color:#111; } 
+#imageHeaderBar .imageNumber { margin-right:170px; }
+#imageHeaderBar .browsePath { margin-left:125px; }
 H2, #imageToolBar {
 	border-bottom: 1px solid #000000;
 }
@@ -92,12 +100,12 @@ FIELDSET, INPUT, SELECT, TEXTAREA {
 
 /* links */
 A, INPUT.rateButton {
-	color: #f70;
+	color: #f70; outline: none;
 	border: none;
 }
 
-A:hover {
-	color: #f33; border: 0;
+A:hover, A:active {
+	color: #f33; border: 0; outline: none;
 }
 
 .virtual_cat { background: #3f3f3f; }
