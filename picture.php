@@ -622,15 +622,6 @@ foreach (array('first','previous','next','last', 'current') as $which_image)
 
 if ($page['slideshow'])
 {
-  // Add local-slideshow.css file if exists
-  // Not only for ligth
-  $css = PHPWG_ROOT_PATH . get_themeconf('template_dir') . '/theme/'
-       . get_themeconf('theme') . '/local-slideshow.css';
-  if (file_exists($css))
-  {
-    //TODO CORRECT THIS $template->assign_block_vars('slideshow', array());
-  }
-
   $tpl_slideshow = array();
 
   //slideshow end

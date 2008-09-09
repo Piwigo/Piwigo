@@ -1,4 +1,18 @@
 {* $Id$ *}
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js" }
+{known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.accordion.packed.js" }
+
+<script type="text/javascript">
+jQuery().ready(function(){ldelim}
+  jQuery('#menubar').accordion({ldelim}
+    header: "dt.rdion",
+    event: "click",
+    active: {$themeconf.selected_admin_menu}
+  });
+});
+</script>
+
 <div id="menubar">
   <dl class="first">
     <dt class="rdion"><span>{'Links'|@translate}&nbsp;</span></dt>

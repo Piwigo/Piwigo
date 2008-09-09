@@ -51,24 +51,10 @@ function selected_admin_menu()
 $themeconf = array(
   'template' => 'yoga',
   'theme' => 'admin',
-  'template_dir' => 'admin/template/yoga',
   'icon_dir' => 'template/yoga/icon',
   'admin_icon_dir' => 'template/yoga/icon/admin',
   'mime_icon_dir' => 'template/yoga/icon/mimetypes/',
-  'local_head' => '
-<!-- New template location for admin -->
-<!-- Admin Accordion Menus -->
-  <script type="text/javascript" src="template-common/lib/jquery.packed.js"></script>
-  <script type="text/javascript" src="template-common/lib/ui/ui.core.packed.js"></script>
-  <script type="text/javascript" src="template-common/lib/ui/ui.accordion.packed.js"></script>
-  <script type="text/javascript">
-  jQuery().ready(function(){
-    jQuery(\'#menubar\').accordion({
-      header: "dt.rdion",
-      event: "click",
-      active: '. selected_admin_menu() . '
-    });
-  });
-  </script>'
+  'selected_admin_menu' => selected_admin_menu(),
+  'local_head' => '',
 );
 ?>

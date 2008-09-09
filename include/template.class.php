@@ -62,6 +62,7 @@ class Template {
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
+    $this->smarty->register_function('known_script', array(&$this, 'func_known_script'), false );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
@@ -336,6 +337,37 @@ class Template {
       {
         $this->html_head_elements[] = $content;
       }
+    }
+  }
+
+ /**
+   * This smarty "known_script" functions allows to insert well known java scripts
+   * such as prototype, jquery, etc... only once. Examples:
+   * {known_script id="jquery" src="{$ROOT_URL}template-common/lib/jquery.packed.js"}
+   */
+  function func_known_script($params, &$smarty )
+  {
+    if (!isset($params['id']))
+    {
+        $smarty->trigger_error("known_script: missing 'id' parameter");
+        return;
+    }
+    $id = $params['id'];
+    if (! isset( $this->known_scripts[$id] ) )
+    {
+      if (!isset($params['src']))
+      {
+          $smarty->trigger_error("known_script: missing 'src' parameter");
+          return;
+      }
+      $this->known_scripts[$id] = $params['src'];
+      $content = '<script type="text/javascript" src="'.$params['src'].'"></script>';
+      if (isset($params['now']) and $params['now'] and empty($this->output) )
+      {
+        return $content;
+      }
+      $repeat = false;
+      $this->block_html_head(null, $content, $smarty, $repeat);
     }
   }
 

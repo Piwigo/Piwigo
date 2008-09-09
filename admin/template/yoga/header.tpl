@@ -3,7 +3,7 @@
 
 
           Warning : This is the admin pages header only 
-          don't be confusing with the public page header
+          don't confuse with the public page header
 
 *}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -22,6 +22,7 @@
 <link rel="stylesheet" type="text/css" media="print" href="{$ROOT_URL}template/{$themeconf.template}/print.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/theme.css">
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js" now=1} {*jQuery is always available by default*}
 {$themeconf.local_head}
 <script type="text/javascript" src="{$ROOT_URL}template-common/scripts.js"></script>
 <!--[if lt IE 7]>

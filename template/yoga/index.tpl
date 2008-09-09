@@ -10,7 +10,7 @@
       {'Sort order'|@translate}:
       <select onchange="document.location = this.options[this.selectedIndex].value;">
         {foreach from=$image_orders item=image_order }
-        <option value="{$image_order.URL}"{if $image_order.SELECTED} selected="selected"{/if}}>{$image_order.DISPLAY}</option>
+        <option value="{$image_order.URL}"{if $image_order.SELECTED} selected="selected"{/if}>{$image_order.DISPLAY}</option>
         {/foreach}
       </select>
       </li>
