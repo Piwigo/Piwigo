@@ -209,7 +209,7 @@ y.callService(
 			  <input type="submit" name="rate" value="{$mark}" class="rateButton" />
 			{/if}
 			{/foreach}
-			<script type="text/javascript" src="{$ROOT_URL}{$themeconf.template_dir}/rating.js"></script>
+			<script type="text/javascript" src="{$ROOT_URL}template/{$themeconf.template}/rating.js"></script>
 			<script type="text/javascript">
 			makeNiceRatingForm( {ldelim}rootUrl: '{$ROOT_URL|@escape:"javascript"}', image_id: {$current.id},
 			updateRateText: "{'update_rate'|@translate|@escape:'javascript'}", updateRateElement: document.getElementById("updateRate"),

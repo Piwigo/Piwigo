@@ -52,7 +52,9 @@ SELECT id, file, level
   else
   {// url given by file name
     assert( !empty($page['image_file']) );
-    $query .= 'file LIKE "' . $page['image_file'] . '.%" ESCAPE "|" LIMIT 1';
+    $query .= 'file LIKE "' .
+      str_replace(array('_','%'), array('/_','/%'), $page['image_file'] ).
+      '.%" ESCAPE "/" LIMIT 1';
   }
   if ( ! ( $row = mysql_fetch_array(pwg_query($query)) ) )
   {// element does not exist

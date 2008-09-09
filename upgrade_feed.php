@@ -42,10 +42,14 @@ define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 // |                         Database connection                           |
 // +-----------------------------------------------------------------------+
 
-mysql_connect($cfgHote, $cfgUser, $cfgPassword)
-or die("Could not connect to database server");
-mysql_select_db($cfgBase)
-or die("Could not connect to database");
+mysql_connect($cfgHote, $cfgUser, $cfgPassword) or die("Could not connect to database server");
+mysql_select_db($cfgBase) or die("Could not connect to database");
+if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
+    and defined('DB_CHARSET') and DB_CHARSET!='' )
+{
+  pwg_query('SET NAMES "'.DB_CHARSET.'"');
+}
+
 
 // +-----------------------------------------------------------------------+
 // |                              Upgrades                                 |

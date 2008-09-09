@@ -298,6 +298,11 @@ define(\'DB_COLLATE\',  \'\');
   define('DB_CHARSET',  $db_charset);
   define('DB_COLLATE',  '');
 
+  if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') and DB_CHARSET!='' )
+  {
+    pwg_query('SET NAMES "'.DB_CHARSET.'"');
+  }
+
   echo $upgrade_log;
   $fp = @fopen( PHPWG_ROOT_PATH.'upgrade65.log', 'w' );
   if ($fp)
