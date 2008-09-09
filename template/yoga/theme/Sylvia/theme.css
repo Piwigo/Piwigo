@@ -64,7 +64,7 @@ min-height:466px; }
 .content h2 { margin:0; padding:0px 10px 15px 15px; border:0;}
 #content ul.thumbnailCategories li {
 background:#222 url(images/cat_bottom-right.gif) no-repeat scroll right bottom; 
-width:47%; margin: 0 12px; padding:0; }
+width:49%; margin: 0; padding:0; }
 .content div.thumbnailCategory { background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
 padding: 0; margin:0; }
 #content .thumbnailCategory div.illustration { background:transparent url(images/cat_top-left.gif) no-repeat scroll left top; 
