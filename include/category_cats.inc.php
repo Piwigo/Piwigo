@@ -32,9 +32,8 @@ if ($page['section']=='recent_cats')
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id, name, permalink, representative_picture_id, comment, nb_images, uppercats,
-  date_last, max_date_last, count_images, count_categories, global_rank
-  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  c.*, nb_images, date_last, max_date_last, count_images, count_categories
+  FROM '.CATEGORIES_TABLE.' c INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE date_last >= SUBDATE(
     CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY
@@ -54,9 +53,8 @@ else
   // $user['forbidden_categories'] including with USER_CACHE_CATEGORIES_TABLE
   $query = '
 SELECT
-  id, name, permalink, representative_picture_id, comment, nb_images, uppercats,
-  date_last, max_date_last, count_images, count_categories
-  FROM '.CATEGORIES_TABLE.' INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
+  c.*, nb_images, date_last, max_date_last, count_images, count_categories
+  FROM '.CATEGORIES_TABLE.' c INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.'
   ON id = cat_id and user_id = '.$user['id'].'
   WHERE id_uppercat '.
   (!isset($page['category']) ? 'is NULL' : '= '.$page['category']['id']).'
@@ -245,8 +243,8 @@ if (count($categories) > 0)
         array(
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
-          'ALT'   => strip_tags($category['name']),
-          'ICON'  => $icon_ts,
+          'TN_ALT'   => strip_tags($category['name']),
+          'ICON_TS'  => $icon_ts,
 
           'URL'   => make_index_url(
             array(

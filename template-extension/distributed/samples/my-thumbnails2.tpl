@@ -7,10 +7,10 @@
 	<li>
 	<fieldset class="fld1">
 		<legend class="thumbLegend">
-		{if !empty($thumbnail.ELEMENT_NAME)}{$thumbnail.ELEMENT_NAME}{/if}
+		{if !empty($thumbnail.NAME)}{$thumbnail.NAME}{/if}
 		</legend>
-		<a href="{$thumbnail.U_IMG_LINK}" class="lap2">
-			<span><img class="thumbnail" src="{$thumbnail.IMAGE}" alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}" /></span>
+		<a href="{$thumbnail.URL}" class="lap2">
+			<span><img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}" /></span>
 		</a>
   </fieldset>
 	</li>

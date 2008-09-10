@@ -107,11 +107,11 @@ foreach ($pictures as $row)
   $tpl_var =
     array(
       'ID'            => $row['id'],
-      'IMAGE'         => $thumbnail_url,
-      'IMAGE_ALT'     => $row['file'],
-      'IMAGE_TITLE'   => get_thumbnail_title($row),
-      'IMAGE_TS'      => get_icon($row['date_available']),
-      'U_IMG_LINK'    => $url,
+      'TN_SRC'         => $thumbnail_url,
+      'TN_ALT'     => $row['file'],
+      'TN_TITLE'   => get_thumbnail_title($row),
+      'ICON_TS'      => get_icon($row['date_available']),
+      'URL'    => $url,
     );
 
   if ($user['show_nb_hits'])
@@ -147,7 +147,7 @@ foreach ($pictures as $row)
       }
     }
 
-    $tpl_var['ELEMENT_NAME'] = $name;
+    $tpl_var['NAME'] = $name;
   }
 
   if ( isset($nb_comments_of) )

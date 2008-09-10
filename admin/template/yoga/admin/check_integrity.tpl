@@ -3,7 +3,7 @@
   <dt>{'c13y_title'|@translate}</dt>
   <dd>
     <ul>
-      <form method="post" name="c13y" id="c13y" action="{$F_C13Y_ACTION}">
+      <form method="post" name="c13y" id="c13y" action="">
       <fieldset>
         <table class="table2">
           <tr class="throw">

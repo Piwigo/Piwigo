@@ -3,7 +3,7 @@
 </div>
 {if isset($extents)}
 <h4>{'Replacement of original templates'|@translate}</h4>
-<form method="post" name="extend_for_templates" id="extend_for_templates" action="{$F_ACTION}">
+<form method="post" name="extend_for_templates" id="extend_for_templates" action="">
   <table class="table2">
     <tr class="throw">
       <th>{'Replacers'|@translate}</th>

@@ -266,6 +266,7 @@ function initialize_menu()
     $template->assign(
         array(
           'U_LOGIN' => get_root_url().'identification.php',
+          'U_LOST_PASSWORD' => get_root_url().'password.php',
           'AUTHORIZE_REMEMBERING' => $conf['authorize_remembering']
         )
       );

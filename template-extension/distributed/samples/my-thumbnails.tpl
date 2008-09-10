@@ -6,14 +6,14 @@
 	<li>
 	<span class="wrap1">
 		<span class="wrap2">
-		<a href="{$thumbnail.U_IMG_LINK}">
-			<img class="thumbnail" src="{$thumbnail.IMAGE}" alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}" />
+		<a href="{$thumbnail.URL}">
+			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}" />
 		</a>
 		</span>
 		<span class="thumbLegend" style="color:#F36;">
     &copy; 2008 Piwigo<br />
-		{if !empty($thumbnail.ELEMENT_NAME)}{$thumbnail.ELEMENT_NAME}{/if}
-		{if !empty($thumbnail.IMAGE_TS)}{$thumbnail.IMAGE_TS}{/if}
+		{if !empty($thumbnail.NAME)}{$thumbnail.NAME}{/if}
+		{if !empty($thumbnail.ICON_TS)}{$thumbnail.ICON_TS}{/if}
 
 		{if isset($thumbnail.NB_COMMENTS)}
 		<span class="{if 0==$thumbnail.NB_COMMENTS}zero {/if}nb-comments">

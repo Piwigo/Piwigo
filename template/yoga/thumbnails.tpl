@@ -6,15 +6,13 @@
 	<li>
 	<span class="wrap1">
 		<span class="wrap2">
-		<a href="{$thumbnail.U_IMG_LINK}">
-			<img class="thumbnail" src="{$thumbnail.IMAGE}" alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}" />
+		<a href="{$thumbnail.URL}">
+			<img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}" />
 		</a>
 		</span>
 		<span class="thumbLegend">
-
-		{if !empty($thumbnail.ELEMENT_NAME)}{$thumbnail.ELEMENT_NAME}{/if}
-		{if !empty($thumbnail.IMAGE_TS)}{$thumbnail.IMAGE_TS}{/if}
-
+		{$thumbnail.NAME|@default}
+		{$thumbnail.ICON_TS}
 		{if isset($thumbnail.NB_COMMENTS)}
 		<span class="{if 0==$thumbnail.NB_COMMENTS}zero {/if}nb-comments">
 		<br />
