@@ -10,7 +10,7 @@ use Getopt::Long;
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s category_id=i name=s/
+    qw/action=s file=s thumbnail=s category_id=i name=s rank=i/
 );
 
 our $ua = LWP::UserAgent->new;
@@ -61,6 +61,7 @@ if ($opt{action} eq 'pwg.images.add') {
         thumbnail_content => $thumbnail_content,
         category_id => $opt{category_id},
         name => $opt{name},
+        rank => defined($opt{rank}) ? $opt{rank} : 1,
     };
 
     my $response = $ua->post(

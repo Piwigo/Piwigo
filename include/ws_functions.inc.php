@@ -828,6 +828,7 @@ function ws_images_add($params, &$service)
   // file_sum
   // thumbnail_content
   // thumbnail_sum
+  // rank
 
   // $fh_log = fopen('/tmp/php.log', 'w');
   // fwrite($fh_log, time()."\n");
@@ -926,7 +927,8 @@ function ws_images_add($params, &$service)
 
   $insert = array(
     'category_id' => $params['category_id'],
-    'image_id'=> $image_id,
+    'image_id' => $image_id,
+    'rank' => $params['rank'],
     );
   mass_inserts(
     IMAGE_CATEGORY_TABLE,

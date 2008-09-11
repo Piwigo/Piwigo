@@ -181,7 +181,8 @@ function ws_addDefaultMethods( $arr )
       'file_content',
       'file_sum',
       'thumbnail_content',
-      'thumbnail_sum'
+      'thumbnail_sum',
+      'rank',
       ),
     'POST method only'
     );
