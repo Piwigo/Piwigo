@@ -274,8 +274,13 @@ if ('private' == $category['status'])
 // manage category elements link
 if ($category['has_images'])
 {
-  $template->assign( 'U_MANAGE_ELEMENTS',
-        $base_url.'element_set&amp;cat='.$category['id']
+  $template->assign(
+    'U_MANAGE_ELEMENTS',
+    $base_url.'element_set&amp;cat='.$category['id']
+    );
+  $template->assign(
+    'U_MANAGE_RANKS',
+    $base_url.'element_set_ranks&amp;cat_id='.$category['id']
     );
 }
 
@@ -313,6 +318,7 @@ $sort_fields = array(
   'hit' => l10n('most_visited_cat'),
   'file' => l10n('File name'),
   'id' => 'Id',
+  'rank' => l10n('Rank'),
   );
 
 $sort_directions = array(

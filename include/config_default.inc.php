@@ -63,6 +63,16 @@
 //    the date_available
 $conf['order_by'] = ' ORDER BY date_available DESC, file ASC, id ASC';
 
+// order_by_inside_category : inside a category, images can also be ordered
+// by rank. A manually defined rank on each image for the category.
+//
+// In addition to fields of #images table, you can use the
+// #image_category.rank column
+//
+// $conf['order_by_inside_category'] = ' ORDER BY rank';
+// will sort images by the manually defined rank of images in this category.
+$conf['order_by_inside_category'] = $conf['order_by'];
+
 // file_ext : file extensions (case sensitive) authorized
 $conf['file_ext'] = array('jpg','JPG','jpeg','JPEG',
                           'png','PNG','gif','GIF','mpg','zip',

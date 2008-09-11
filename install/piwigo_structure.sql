@@ -150,6 +150,7 @@ DROP TABLE IF EXISTS `piwigo_image_category`;
 CREATE TABLE `piwigo_image_category` (
   `image_id` mediumint(8) unsigned NOT NULL default '0',
   `category_id` smallint(5) unsigned NOT NULL default '0',
+  `rank` mediumint(8) unsigned default NULL,
   PRIMARY KEY  (`image_id`,`category_id`),
   KEY `image_category_i1` (`category_id`)
 ) TYPE=MyISAM;

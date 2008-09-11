@@ -260,16 +260,19 @@ if ( count($page['items']) > 0
   $order_idx = pwg_get_session_var( 'image_order', 0 );
 
   $orders = get_category_preferred_image_orders();
-  for ($i = 0; $i < count($orders); $i++)
+  foreach ($orders as $order_id => $order)
   {
-    if ($orders[$i][2])
+    if ($order[2])
     {
       $template->append(
         'image_orders',
         array(
-          'DISPLAY' => $orders[$i][0],
-          'URL' => add_url_params( duplicate_index_url(), array('image_order'=>$i) ),
-          'SELECTED' => ($order_idx==$i ? true:false),
+          'DISPLAY' => $order[0],
+          'URL' => add_url_params(
+            duplicate_index_url(),
+            array('image_order' => $order_id)
+            ),
+          'SELECTED' => ($order_idx == $order_id ? true:false),
           )
         );
     }

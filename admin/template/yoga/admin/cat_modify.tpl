@@ -9,6 +9,7 @@
   <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
   {if isset($U_MANAGE_ELEMENTS) }
   <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_RANKS}" title="{'manage element ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}" /></a></li>
   {/if}
   <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }

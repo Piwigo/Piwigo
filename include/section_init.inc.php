@@ -172,16 +172,40 @@ if ( script_basename()=='picture' and 'categories'==$page['section'] and
 // By default, it is the same as the $user['nb_image_page']
 $page['nb_image_page'] = $user['nb_image_page'];
 
+// if flat mode is active, we must consider the image set as a standard set
+// and not as a category set because we can't use the #image_category.rank :
+// displayed images are not directly linked to the displayed category
+if ('categories' == $page['section'] and !isset($page['flat']))
+{
+  $conf['order_by'] = $conf['order_by_inside_category'];
+}
+
 if (pwg_get_session_var('image_order',0) > 0)
 {
+  $image_order_id = pwg_get_session_var('image_order');
+  
   $orders = get_category_preferred_image_orders();
 
-  $conf['order_by'] = str_replace(
-    'ORDER BY ',
-    'ORDER BY '.$orders[ pwg_get_session_var('image_order',0) ][1].',',
-    $conf['order_by']
+  // the current session stored image_order might be not compatible with
+  // current image set, for example if the current image_order is the rank
+  // and that we are displaying images related to a tag.
+  //
+  // In case of incompatibility, the session stored image_order is removed.
+  if ($orders[$image_order_id][2])
+  {
+    $conf['order_by'] = str_replace(
+      'ORDER BY ',
+      'ORDER BY '.$orders[$image_order_id][1].',',
+      $conf['order_by']
     );
-  $page['super_order_by'] = true;
+    $page['super_order_by'] = true;
+
+  }
+  else
+  {
+    pwg_unset_session_var('image_order');
+    $page['super_order_by'] = false;
+  }
 }
 
 $forbidden = get_sql_condition_FandF(

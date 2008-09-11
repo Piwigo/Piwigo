@@ -257,15 +257,21 @@ SELECT galleries_url
 // returns an array of image orders available for users/visitors
 function get_category_preferred_image_orders()
 {
-  global $conf;
+  global $conf, $page;
+  
   return array(
     array(l10n('default_sort'), '', true),
     array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
     array(l10n('most_visited_cat'), 'hit DESC', true),
     array(l10n('Creation date'), 'date_creation DESC', true),
     array(l10n('Post date'), 'date_available DESC', true),
-    array(l10n('File name'), 'file ASC', true)
-  );
+    array(l10n('File name'), 'file ASC', true),
+    array(
+      l10n('Rank'),
+      'rank ASC',
+      ('categories' == $page['section'] and !isset($page['flat']))
+      )
+    );
 }
 
 function display_select_categories($categories,
