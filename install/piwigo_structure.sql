@@ -438,22 +438,3 @@ CREATE TABLE `piwigo_waiting` (
   `infos` text,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
-
---
--- Table structure for table `piwigo_ws_access`
---
-
-DROP TABLE IF EXISTS `piwigo_ws_access`;
-CREATE TABLE `piwigo_ws_access` (
-  `id` smallint(5) unsigned NOT NULL auto_increment,
-  `name` varchar(32) NOT NULL default '',
-  `access` varchar(255) default NULL,
-  `start` datetime default NULL,
-  `end` datetime default NULL,
-  `request` varchar(255) default NULL,
-  `limit` smallint(5) unsigned default NULL,
-  `comment` varchar(255) default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `ws_access_ui1` (`name`)
-) TYPE=MyISAM COMMENT='Access for Web Services';
-
