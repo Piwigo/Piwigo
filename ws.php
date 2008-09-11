@@ -128,7 +128,7 @@ function ws_addDefaultMethods( $arr )
       ),
       'Returns elements for the corresponding query search.'
     );
-  
+
   $service->addMethod(
     'pwg.images.setPrivacyLevel',
     'ws_images_setPrivacyLevel',
@@ -192,14 +192,9 @@ add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
 
 add_event_handler('ws_invoke_allowed', 'ws_isInvokeAllowed', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
 
-$calling_partner_id = '';
 $requestFormat = null;
 $responseFormat = null;
 
-if ( isset($_GET['partner']) )
-{
-  $calling_partner_id = $_GET['partner'];
-}
 if ( isset($_GET['format']) )
 {
   $responseFormat = $_GET['format'];

@@ -84,9 +84,6 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced_features'|@translate}</a></li>
-        {if isset($U_WS_CHECKER) }
-        <li><a href="{$U_WS_CHECKER}">{'web_services'|@translate}</a></li>
-        {/if}
         <li>
           {'Plugins'|@translate}
           <ul {* TODO conditional class="scroll" *}>

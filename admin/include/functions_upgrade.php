@@ -71,14 +71,13 @@ function prepare_conf_upgrade()
   define('TAGS_TABLE', $prefixeTable.'tags');
   define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
   define('PLUGINS_TABLE', $prefixeTable.'plugins');
-  define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
   define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 }
 
 // Create empty local files to avoid log errors
-function create_empty_local_files() 
+function create_empty_local_files()
 {
-   $files = 
+   $files =
       array (
          PHPWG_ROOT_PATH . 'template-common/local-layout.css',
          PHPWG_ROOT_PATH . 'template/yoga/local-layout.css'

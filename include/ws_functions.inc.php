@@ -42,106 +42,7 @@ function ws_isInvokeAllowed($res, $methodName, $params)
     return new PwgError(401, 'Access denied');
   }
 
-  if ( !$conf['ws_access_control'] )
-  {
-    return $res; // No controls are requested
-  }
-  $query = '
-SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
- WHERE `name` = '$calling_partner_id'
-   AND NOW() <= end; ";
-  $result = pwg_query($query);
-  $row = mysql_fetch_assoc($result);
-  if ( empty($row) )
-  {
-    return new PwgError(403, 'Partner id does not exist or is expired');
-  }
-  if ( !empty($row['request'])
-      and strpos($methodName, $row['request'])==false
-      and strpos($methodName, 'session')==false
-      and strpos($methodName, 'getVersion')==false )
-  { // session and getVersion are allowed to diagnose any failure reason
-    return new PwgError(403, 'Method not allowed');
-  }
-
   return $res;
-}
-
-/**
- * ws_addControls
- * returns additionnal controls if requested
- * usable for 99% of Web Service methods
- *
- * - Args
- * $methodName: is the requested method
- * $partner: is the key
- * $tbl_name: is the alias_name in the query (sometimes called correlation name)
- *            null if !getting picture informations
- * - Logic
- * Access_control is not active: Return
- * Key is incorrect: Return 0 = 1 (False condition for MySQL)
- * One of Params doesn't match with type of request: return 0 = 1 again
- * Access list(id/cat/tag) is converted in expended image-id list
- * image-id list: converted to an in-where-clause
- *
- * The additionnal in-where-clause is return
- */
-function ws_addControls( $methodName, &$params, $tbl_name )
-{
-  global $conf, $calling_partner_id;
-  if ( !$conf['ws_access_control'] or !isset($calling_partner_id) )
-  {
-    return '1=1'; // No controls are requested
-  }
-
-// Is it an active Partner?
-  $query = '
-SELECT * FROM '.WEB_SERVICES_ACCESS_TABLE."
- WHERE `name` = '$calling_partner_id'
-   AND NOW() <= end; ";
-$result = pwg_query($query);
-  if ( mysql_num_rows( $result ) == 0 )
-  {
-    return '0=1'; // Unknown partner or Obsolate agreement
-  }
-
-  $row = mysql_fetch_array($result);
-
-// Overide general object limit
-  $params['per_page'] = $row['limit'];
-
-// Target restrict
-// 3 cases: list, cat or tag
-// Behind / we could found img-ids, cat-ids or tag-ids
-  $target = $row['access'];
-  if ( $target == '')
-  {
-    return '1=1'; // No controls are requested
-  }
-  list($type, $str_ids) = explode('/',$target); // Find type list
-
-// (array) 1,2,21,3,22,4,5,9-12,6,11,12,13,2,4,6,
-  $arr_ids = expand_id_list( explode( ',',$str_ids ) );
-  $addings = implode(',', $arr_ids);
-// (string) 1,2,3,4,5,6,9,10,11,12,13,21,22,
-  if ( $type == 'list')
-  {
-    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
-  }
-
-  if ( $type == 'cat' )
-  {
-    $addings = implode(',', get_image_ids_for_cats($arr_ids));
-    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
-  }
-
-  if ( $type == 'tag' )
-  {
-    $addings = implode(',', get_image_ids_for_tags($arr_ids, 'OR'));
-    return $tbl_name . 'id IN ( ' . $addings . ' ) ';
-  }
-  // Unmanaged new type?
-  return ' 0 = 1 '; // ???
 }
 
 /**
@@ -371,7 +272,6 @@ SELECT id, name, permalink, image_order
           'visible_images' => 'i.id'
         ), null, true
       );
-    $where_clauses[] = ws_addControls( 'categories.getImages', $params, 'i.' );
 
     $order_by = ws_std_image_sql_order($params, 'i.');
     if ( empty($order_by)
@@ -609,9 +509,8 @@ SELECT * FROM '.IMAGES_TABLE.'
     get_sql_condition_FandF(
       array('visible_images' => 'id'),
       ' AND'
-    ).' AND '.
-    ws_addControls( 'images.getInfo', $params, '' ).'
-LIMIT 1;';
+    ).'
+LIMIT 1';
 
   $image_row = mysql_fetch_assoc(pwg_query($query));
   if ($image_row==null)
@@ -1183,7 +1082,6 @@ SELECT image_id, GROUP_CONCAT(tag_id) tag_ids
         '', true
       );
     $where_clauses[] = 'id IN ('.implode(',',$image_ids).')';
-    $where_clauses[] = ws_addControls( 'tags.getImages', $params, 'i.' );
 
     $order_by = ws_std_image_sql_order($params);
     if (empty($order_by))
@@ -1264,56 +1162,6 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
           ws_std_get_image_xml_attributes() )
       )
     );
-}
-
-
-/**
- * expand_id_list($ids) convert a human list expression to a full ordered list
- * example : expand_id_list( array(5,2-3,2) ) returns array( 2, 3, 5)
- * */
-function expand_id_list($ids)
-{
-  $tid = array();
-  foreach ( $ids as $id )
-  {
-    if ( is_numeric($id) )
-    {
-      $tid[] = (int) $id;
-    }
-    else
-    {
-      $range = explode( '-', $id );
-      if ( is_numeric($range[0]) and is_numeric($range[1]) )
-      {
-        $from = min($range[0],$range[1]);
-        $to = max($range[0],$range[1]);
-        for ($i = $from; $i <= $to; $i++)
-        {
-          $tid[] = (int) $i;
-        }
-      }
-    }
-  }
-  $result = array_unique ($tid); // remove duplicates...
-  sort ($result);
-  return $result;
-}
-
-
-/**
- * converts a cat-ids array in image-ids array
- * FIXME Function which should already exist somewhere else
- * */
-function get_image_ids_for_cats($cat_ids)
-{
-  $cat_list = implode(',', $cat_ids);
-  $ret_ids = array();
-  $query = '
-  SELECT DISTINCT image_id
-    FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE category_id in ('.$cat_list.')
-  ;';
-  return array_from_query($query, 'image_id');
 }
 
 ?>

@@ -104,8 +104,6 @@ if (!defined('IMAGE_TAG_TABLE'))
   define('IMAGE_TAG_TABLE', $prefixeTable.'image_tag');
 if (!defined('PLUGINS_TABLE'))
   define('PLUGINS_TABLE', $prefixeTable.'plugins');
-if (!defined('WEB_SERVICES_ACCESS_TABLE'))
-  define('WEB_SERVICES_ACCESS_TABLE', $prefixeTable.'ws_access');
 if (!defined('OLD_PERMALINKS_TABLE'))
   define('OLD_PERMALINKS_TABLE', $prefixeTable.'old_permalinks');
 

@@ -96,10 +96,6 @@ $template->assign(
     'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php'
     )
   );
-if ($conf['ws_access_control']) // Do we need to display ws_checker
-{
-  $template->assign('U_WS_CHECKER', $link_start.'ws_checker' );
-}
 
 //---------------------------------------------------------------- plugin menus
 $plugin_menu_links = trigger_event('get_admin_plugin_menu_links', array() );

@@ -39,7 +39,6 @@ function selected_admin_menu()
       case 'history':
       case 'maintenance':
       case 'advanced_feature':
-      case 'ws_checker':
       case 'plugins_list':
       case 'plugin':
         return 5;

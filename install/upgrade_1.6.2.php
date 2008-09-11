@@ -169,6 +169,7 @@ CREATE TABLE `".PREFIX_TABLE."user_cache_categories` (
 ) TYPE=MyISAM
 ;",
 
+/* TABLE DROPPED BEFORE Butterfly/Piwigo release - see later DROP IF EXISTS
 "
 CREATE TABLE `".PREFIX_TABLE."ws_access` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -182,7 +183,7 @@ CREATE TABLE `".PREFIX_TABLE."ws_access` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `ws_access_ui1` (`name`)
 ) TYPE=MyISAM COMMENT='Access for Web Services'
-;",
+;",*/
 
 "
 INSERT INTO ".PREFIX_TABLE."config

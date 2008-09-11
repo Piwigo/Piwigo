@@ -618,24 +618,6 @@ $conf['allow_web_services'] = true;
 // Maximum number of images to be returned foreach call to the web service
 $conf['ws_max_images_per_page'] = 500;
 
-// On Access control false / Admim Web Service need Php cURL extension
-// Controls are done on public basis or
-// if connected on member authorization basis
-$conf['ws_access_control'] = false;
-
-// Additionnal controls are made based on Web Service Access Table
-// Max returned rows number ( > 0 )
-$conf['ws_allowed_limit'] = array(1,2,3,5,10,25);
-
-// By default can be delayed by 0, 1, 2, 3, 5, 7, 14 or 30 days
-// 0 it's Now(), don't remove that one
-$conf['ws_postponed_start'] = array(0,1,2,3,5,7,14,30); /* In days */
-
-// By default 10, 5, 2, 1 year(s) or 6, 3, 1 month(s)
-// or 15, 10, 7, 5, 1, 0 day(s)
-// 0 it's temporary closed (Useful for one access)
-$conf['ws_durations'] = array(3650,1825,730,365,182,91,30,15,10,7,5,1,0);
-
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
 // +-----------------------------------------------------------------------+
