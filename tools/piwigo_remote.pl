@@ -18,7 +18,6 @@ $ua->cookie_jar({});
 
 my %conf;
 $conf{base_url} = 'http://localhost/~pierrick/piwigo/trunk';
-$conf{partner_key} = 'youhou';
 $conf{response_format} = 'json';
 $conf{username} = 'pierrick';
 $conf{password} = 'z0rglub';
@@ -37,7 +36,7 @@ my $form = {
 };
 
 $result = $ua->post(
-    $conf{base_url}.'/ws.php?partner='.$conf{partner_key}.'&format=json',
+    $conf{base_url}.'/ws.php?format=json',
     $form
 );
 
@@ -65,7 +64,7 @@ if ($opt{action} eq 'pwg.images.add') {
     };
 
     my $response = $ua->post(
-        $conf{base_url}.'/ws.php?partner='.$conf{partner_key}.'&format=json',
+        $conf{base_url}.'/ws.php?format=json',
         $form
     );
 
@@ -123,10 +122,6 @@ sub pwg_ws_get_query {
     my %params = @_;
 
     my $query = $conf{base_url}.'/ws.php?format='.$conf{response_format};
-
-    if (defined $conf{partner_key}) {
-        $query .= '&partner='.$conf{partner_key};
-    }
 
     foreach my $key (keys %params) {
         $query .= '&'.$key.'='.$params{$key};
