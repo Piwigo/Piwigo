@@ -338,7 +338,7 @@ $lang['Waiting page: %s'] = 'Page en attente: %s';
 $lang['Picture uploaded by %s'] = 'Image téléchargée par %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['guest_must_be_guest'] = 'Statut de l\'utilisateur "guest" non conforme, utilisation du statut par défaut. Veuillez prévenir le webmestre.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrateur, webmestre et utilisateur spécial ne peuvent pas utiliser cette méthode';
 $lang['reg_err_mail_address_dbl'] = 'un utilisateur utilise déjà cette adresse e-mail';
 $lang['Category results for'] = 'Résultats des catégories pour';
@@ -361,5 +361,9 @@ $lang['See elements linked to this tag only'] = 'Voir les images liées uniqueme
 $lang['elements posted during the last %d days'] = 'images ajoutées au cours de %d derniers jours';
 $lang['Choose an image'] = 'Choisir une image à ajouter';
 $lang['Piwigo Help'] = 'Aide de Piwigo';
-
+$lang['Rank'] = 'Rang';
+$lang['group by letters'] = 'regrouper par lettres';
+$lang['letters'] = 'lettres';
+$lang['show tag cloud'] = 'montrer le nuage de tags';
+$lang['cloud'] = 'nuage';
 ?>

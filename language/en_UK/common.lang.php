@@ -338,7 +338,7 @@ $lang['Waiting page: %s'] = 'Waiting page: %s';
 $lang['Picture uploaded by %s'] = 'Picture uploaded by %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
 $lang['guest_must_be_guest'] = 'Bad status for user "guest", using default status. Please notify the webmaster.';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly (2.0)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Administrator, webmaster and special user cannot use this method';
 $lang['reg_err_mail_address_dbl'] = 'a user use already this mail address';
 $lang['Category results for'] = 'Category results for';
@@ -361,5 +361,9 @@ $lang['See elements linked to this tag only'] = 'See images linked to this tag o
 $lang['elements posted during the last %d days'] = 'images posted during the last %d days';
 $lang['Choose an image'] = 'Choose an image';
 $lang['Piwigo Help'] = 'Piwigo Help';
-
+$lang['Rank'] = 'Rank';
+$lang['group by letters'] = 'group by letters';
+$lang['letters'] = 'letters';
+$lang['show tag cloud'] = 'show tag cloud';
+$lang['cloud'] = 'cloud';
 ?>

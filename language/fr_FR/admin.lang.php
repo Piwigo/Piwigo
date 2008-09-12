@@ -630,4 +630,10 @@ $lang['link_info_image'] = 'Modifier les informations';
 $lang['edit category informations'] = 'éditer les informations de cette catégorie';
 $lang['nothing'] = 'rien';
 /* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+$lang['manage image ranks'] = 'gérer l\'ordre des images';
+$lang['Manage image ranks'] = 'Gérer l\'ordre des images';
+$lang['Edit ranks'] = 'Modifier les ordres';
+$lang['No element in this category'] = 'Aucun élément dans cette catégorie';
+$lang['Images manual order was saved'] = 'L\'ordre manuel des images a été sauvé';
+$lang['ranks'] = 'rangs';
 ?>
