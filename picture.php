@@ -536,14 +536,13 @@ if (isset($_GET['slideshow']))
 
     if (!empty($id_pict_redirect))
     {
-      // $redirect_msg, $refresh, $url_link and $title are required for creating
+      // $refresh, $url_link and $title are required for creating
       // an automated refresh page in header.tpl
       $refresh = $slideshow_params['period'];
       $url_link = add_url_params(
           $picture[$id_pict_redirect]['url'],
           $slideshow_url_params
         );
-      $redirect_msg = nl2br(l10n('redirect_msg'));
     }
   }
 }

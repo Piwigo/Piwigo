@@ -378,12 +378,10 @@ class PwgServer
   {
     if ( is_null($this->_responseEncoder) )
     {
-      set_status_header(500);
+      set_status_header(400);
       @header("Content-Type: text/plain");
       echo ("Cannot process your request. Unknown response format.
-Request format: ".@$this->_requestFormat." handler:".$this->_requestHandler."
-Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
-    ");
+Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseFormat."\n");
       var_export($this);
       die(0);
     }
@@ -391,7 +389,7 @@ Response format: ".@$this->_responseFormat." encoder:".$this->_responseEncoder."
     if ( is_null($this->_requestHandler) )
     {
       $this->sendResponse(
-        new PwgError(500, 'Unknown request format')
+        new PwgError(400, 'Unknown request format')
         );
       return;
     }

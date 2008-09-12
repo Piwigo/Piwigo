@@ -1,6 +1,13 @@
 {* $Id$ *}
-<h2>{$REDIRECT_MSG}</h2>
-<p style="text-align:center; margin: 2em">
+{html_head}
+<style type="text/css">#the_page {ldelim}text-align:center;} </style>
+{/html_head}
+
+<div>
+	{$REDIRECT_MSG}
+</div>
+
+<p style="margin: 2em">
 	<a href="{$page_refresh.U_REFRESH}">
 		{'click_to_redirect'|@translate}
 	</a>

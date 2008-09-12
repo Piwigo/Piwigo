@@ -21,69 +21,34 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//
-// Start output of page
-//
-$template->set_filenames(array('header'=>'header.tpl'));
-
-trigger_action('loc_begin_page_header');
-
-$template->assign(
-  array(
-    'GALLERY_TITLE' =>
-      isset($page['gallery_title']) ?
-        $page['gallery_title'] : $conf['gallery_title'],
-
-    'PAGE_BANNER' =>
-      trigger_event('render_page_banner',
-        isset($page['page_banner']) ?
-          $page['page_banner'] : $conf['page_banner']),
-
-    'BODY_ID' =>
-      isset($page['body_id']) ?
-        $page['body_id'] : '',
-
-    'CONTENT_ENCODING' => get_pwg_charset(),
-    'PAGE_TITLE' => strip_tags($title),
-    'LANG'=>$lang_info['code'],
-    'DIR'=>$lang_info['direction'],
-
-    'U_HOME' => make_index_url(),
-    ));
-
-
-// Header notes
-if ( !empty($header_notes) )
+if (!defined('PHPWG_ROOT_PATH'))
 {
-  $template->assign('header_notes',$header_notes);
+  die('Hacking attempt!');
 }
 
-if ( !empty($page['meta_robots']) )
-{
-  $template->append('head_elements',
-        '<meta name="robots" content="'
-        .implode(',', array_keys($page['meta_robots']))
-        .'">'
-    );
-}
+$upgrade_description = 'images.file categories.permalink old_permalinks.permalink - become binary';
 
-// refresh
-if ( isset( $refresh ) and intval($refresh) >= 0
-    and isset( $url_link ) )
-{
-  $template->assign(
-    array(
-      'page_refresh' => array(
-            'TIME' => $refresh,
-            'U_REFRESH' => $url_link
-          )
-      ));
-}
+// +-----------------------------------------------------------------------+
+// |                            Upgrade content                            |
+// +-----------------------------------------------------------------------+
 
-trigger_action('loc_end_page_header');
+$query = 'ALTER TABLE '.CATEGORIES_TABLE.'
+  MODIFY COLUMN permalink varchar(64) binary default NULL';
+pwg_query($query);
 
-header('Content-Type: text/html; charset='.get_pwg_charset());
-$template->parse('header');
+$query = 'ALTER TABLE '.OLD_PERMALINKS_TABLE.'
+  MODIFY COLUMN permalink varchar(64) binary NOT NULL default ""';
+pwg_query($query);
 
-trigger_action('loc_after_page_header');
+$query = 'ALTER TABLE '.IMAGES_TABLE.'
+  MODIFY COLUMN file varchar(255) binary NOT NULL default ""';
+pwg_query($query);
+
+
+echo
+"\n"
+.'"'.$upgrade_description.'"'.' ended'
+."\n"
+;
+
 ?>

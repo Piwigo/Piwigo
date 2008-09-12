@@ -30,7 +30,7 @@ class PwgRestRequestHandler
     $param_array = $service->isPost() ? $_POST : $_GET;
     foreach ($param_array as $name => $value)
     {
-      if ($name=='format' or $name=='partner')
+      if ($name=='format')
         continue; // ignore - special keys
       if ($name=='method')
       {
@@ -45,7 +45,7 @@ class PwgRestRequestHandler
     if ( empty($method) )
     {
       $service->sendResponse(
-          new PwgError(400, 'Missing "method" name')
+          new PwgError(WS_ERR_INVALID_METHOD, 'Missing "method" name')
         );
       return;
     }

@@ -290,7 +290,7 @@ INPUT, SELECT {
   margin: 0;
   font-size: 1em;	/* <= some browsers don't set it correctly */
 }
-UL, DL { text-align: left;}
+UL, DL, OL { text-align: left;}
 TABLE {			/* horizontaly centered */
   margin-left: auto;
   margin-right: auto;

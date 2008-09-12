@@ -62,7 +62,7 @@ class Template {
     $this->smarty->register_modifier( 'translate', array('Template', 'mod_translate') );
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
-    $this->smarty->register_function('known_script', array(&$this, 'func_known_script'), false );
+    $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {

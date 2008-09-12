@@ -90,6 +90,11 @@ function pwg_session_close()
   return true;
 }
 
+function get_remote_addr_session_hash()
+{
+	return vsprintf( "%02X%02X", explode('.',$_SERVER['REMOTE_ADDR']) );
+}
+
 /**
  * this function returns
  * a string corresponding to the value of the variable save in the session
@@ -102,7 +107,7 @@ function pwg_session_read($session_id)
   $query = '
 SELECT data
   FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$session_id.'\'
+  WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
 ;';
   $result = pwg_query($query);
   if ($result)
@@ -128,7 +133,7 @@ function pwg_session_write($session_id, $data)
 UPDATE '.SESSIONS_TABLE.'
   SET expiration = now(),
   data = \''.$data.'\'
-  WHERE id = \''.$session_id.'\'
+  WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
 ;';
   pwg_query($query);
   if ( mysql_affected_rows()>0 )
@@ -138,7 +143,7 @@ UPDATE '.SESSIONS_TABLE.'
   $query = '
 INSERT INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
-  VALUES(\''.$session_id.'\',\''.$data.'\',now())
+  VALUES(\''.get_remote_addr_session_hash().$session_id.'\',\''.$data.'\',now())
 ;';
   mysql_query($query);
   return true;
@@ -154,7 +159,7 @@ function pwg_session_destroy($session_id)
   $query = '
 DELETE
   FROM '.SESSIONS_TABLE.'
-  WHERE id = \''.$session_id.'\'
+  WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
 ;';
   pwg_query($query);
   return true;

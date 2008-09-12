@@ -258,8 +258,9 @@ SELECT galleries_url
 function get_category_preferred_image_orders()
 {
   global $conf, $page;
-  
-  return array(
+
+  return trigger_event('get_category_preferred_image_orders',
+    array(
     array(l10n('default_sort'), '', true),
     array(l10n('Average rate'), 'average_rate DESC', $conf['rate']),
     array(l10n('most_visited_cat'), 'hit DESC', true),
@@ -269,9 +270,9 @@ function get_category_preferred_image_orders()
     array(
       l10n('Rank'),
       'rank ASC',
-      ('categories' == $page['section'] and !isset($page['flat']))
+      ('categories' == @$page['section'] and !isset($page['flat']))
       )
-    );
+    ));
 }
 
 function display_select_categories($categories,

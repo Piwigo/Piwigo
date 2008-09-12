@@ -352,6 +352,10 @@ function get_qsearch_like_clause($q, $field)
         }
         else
         {
+          if ( strcspn($ch, '%_')==0)
+          {// escape LIKE specials %_
+            $ch = '\\'.$ch;
+          }
           $crt_token .= $ch;
         }
         break;
@@ -366,6 +370,10 @@ function get_qsearch_like_clause($q, $field)
             $state=0;
             break;
           default:
+            if ( strcspn($ch, '%_')==0)
+            {// escape LIKE specials %_
+            	$ch = '\\'.$ch;
+            }
             $crt_token .= $ch;
         }
         break;

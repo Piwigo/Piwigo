@@ -44,11 +44,9 @@ letter-spacing:0.1em; margin-right:30px; text-align:right; color: #777;
 text-transform:none; font-weight:bold; padding-left:20px; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:55px; }
-.content ol li { text-align: left; }
 .instructions { text-align: left; padding: 20px 20px 0 20px; }
 .throw, td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
-.browsePath a { color: #eee; }
 /* borders */ /* TODO */
 INPUT, SELECT, TEXTAREA { border-left: 2px inset #696969; 
 cursor:text; text-indent:4px; }

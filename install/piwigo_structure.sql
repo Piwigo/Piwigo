@@ -36,7 +36,7 @@ CREATE TABLE `piwigo_categories` (
   `commentable` enum('true','false') NOT NULL default 'true',
   `global_rank` varchar(255) default NULL,
   `image_order` varchar(128) default NULL,
-  `permalink` varchar(64) default NULL,
+  `permalink` varchar(64) binary default NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `categories_i3` (`permalink`),
   KEY `categories_i2` (`id_uppercat`)
@@ -174,7 +174,7 @@ CREATE TABLE `piwigo_image_tag` (
 DROP TABLE IF EXISTS `piwigo_images`;
 CREATE TABLE `piwigo_images` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `file` varchar(255) NOT NULL default '',
+  `file` varchar(255) binary NOT NULL default '',
   `date_available` datetime NOT NULL default '0000-00-00 00:00:00',
   `date_creation` date default NULL,
   `tn_ext` varchar(4) default '',
@@ -208,7 +208,7 @@ CREATE TABLE `piwigo_images` (
 DROP TABLE IF EXISTS `piwigo_old_permalinks`;
 CREATE TABLE `piwigo_old_permalinks` (
   `cat_id` smallint(5) unsigned NOT NULL default '0',
-  `permalink` varchar(64) NOT NULL default '',
+  `permalink` varchar(64) binary NOT NULL default '',
   `date_deleted` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_hit` datetime default NULL,
   `hit` int(10) unsigned NOT NULL default '0',

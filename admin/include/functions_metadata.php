@@ -28,9 +28,9 @@ $page['datefields'] = array('date_creation', 'date_available');
 function get_sync_iptc_data($file)
 {
   global $conf, $page;
-  
+
   $map = $conf['use_iptc_mapping'];
-  
+
   $iptc = get_iptc_data($file, $map);
 
   foreach ($iptc as $pwg_key => $value)
@@ -108,7 +108,7 @@ function update_metadata($files)
   {
     array_push($image_ids, $id);
   }
-  
+
   $query = '
 SELECT id
   FROM '.IMAGES_TABLE.'
@@ -118,18 +118,14 @@ SELECT id
 )
 ;';
 
-  $result = pwg_query($query);
-  while ($row = mysql_fetch_array($result))
-  {
-    array_push($has_high_images, $row['id']);
-  }
+  $has_high_images = array_from_query($query, 'id');
 
   foreach ($files as $id => $file)
   {
     $data = array();
     $data['id'] = $id;
     $data['filesize'] = floor(filesize($file)/1024);
-  
+
     if ($image_size = @getimagesize($file))
     {
       $data['width'] = $image_size[0];
@@ -142,7 +138,7 @@ SELECT id
 
       $data['high_filesize'] = floor(filesize($high_file)/1024);
     }
-  
+
     if ($conf['use_exif'])
     {
       $exif = get_sync_exif_data($file);
@@ -161,7 +157,7 @@ SELECT id
             {
               $tags_of[$id] = array();
             }
-            
+
             foreach (explode(',', $iptc[$key]) as $tag_name)
             {
               array_push(
@@ -178,7 +174,7 @@ SELECT id
 
     array_push($datas, $data);
   }
-  
+
   if (count($datas) > 0)
   {
     $update_fields =
@@ -189,7 +185,7 @@ SELECT id
         'high_filesize',
         'date_metadata_update'
         );
-    
+
     if ($conf['use_exif'])
     {
       $update_fields =
@@ -198,7 +194,7 @@ SELECT id
           array_keys($conf['use_exif_mapping'])
           );
     }
-    
+
     if ($conf['use_iptc'])
     {
       $update_fields =
@@ -217,7 +213,8 @@ SELECT id
         'primary' => array('id'),
         'update'  => array_unique($update_fields)
         ),
-      $datas
+      $datas,
+      MASS_UPDATES_SKIP_EMPTY
       );
   }
 
@@ -234,12 +231,12 @@ SELECT id
  * @param boolean only newly added files ?
  * @return array
  */
-function get_filelist($category_id = '', $site_id=1, $recursive = false, 
+function get_filelist($category_id = '', $site_id=1, $recursive = false,
                       $only_new = false)
 {
   // filling $cat_ids : all categories required
   $cat_ids = array();
-  
+
   $query = '
 SELECT id
   FROM '.CATEGORIES_TABLE.'
@@ -292,7 +289,7 @@ SELECT id, path
   {
     $files[$row['id']] = $row['path'];
   }
-  
+
   return $files;
 }
 ?>

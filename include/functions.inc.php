@@ -747,13 +747,8 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
 
   if (empty($msg))
   {
-    $redirect_msg = l10n('redirect_msg');
+    $msg = nl2br(l10n('redirect_msg'));
   }
-  else
-  {
-    $redirect_msg = $msg;
-  }
-  $redirect_msg = nl2br($redirect_msg);
 
   $refresh = $refresh_time;
   $url_link = $url;
@@ -764,6 +759,8 @@ function redirect_html( $url , $msg = '', $refresh_time = 0)
   include( PHPWG_ROOT_PATH.'include/page_header.php' );
 
   $template->set_filenames( array( 'redirect' => 'redirect.tpl' ) );
+  $template->assign('REDIRECT_MSG', $msg);
+
   $template->parse('redirect');
 
   include( PHPWG_ROOT_PATH.'include/page_tail.php' );
