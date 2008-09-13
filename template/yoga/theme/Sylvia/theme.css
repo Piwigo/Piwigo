@@ -1,23 +1,16 @@
 /* $Id$ */
 
-
-
+.content div.thumbnailCategory div.illustration { width:190px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ }
 .content div.thumbnailCategory { height: 180px !important; /* Usable range 172px-250px , optimal : Thumbnail height + 30px */ }
 
+/*  Sylvia Theme is close to the Roma Admin theme */
 
-/* text color */
 BODY, H1, H3, DT,
-INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
-	color:#d0d0d0;
-}
+INPUT.rateButtonSelected { color:#d0d0d0; }
 
-H2, #menubar DT {
-	color: #fff48e;
-}
-
+H2, #menubar DT { color: #fff48e; }
 
 /* backgrounds */
-
 /* H3, */ #imageHeaderBar, #imageToolBar A:hover { background-color: transparent; }
 
 body {
@@ -71,7 +64,7 @@ padding: 0; margin:0; }
 padding: 0 0 0 10px; margin: 0; }
 .content .thumbnailCategory div.illustration a { display: block; margin: 0; padding:15px 0 0 10px; }
 #content .thumbnailCategory div.description { background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
-margin:0; padding:15px 0 0 20px; }
+margin:0; padding:15px 0 0 0; }
 #content .thumbnailCategory div.description p { overvflow: hidden; }
 
 #content.content .thumbnailCategory div.description H3 { display: block; margin: 0; }
