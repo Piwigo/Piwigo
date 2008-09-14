@@ -116,7 +116,7 @@ else if (isset($_GET['action']) and 'phpinfo' == $_GET['action'])
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('intro' => 'admin/intro.tpl'));
+$template->set_filenames(array('intro' => 'intro.tpl'));
 
 $php_current_timestamp = date("Y-m-d H:i:s");
 list($mysql_version, $db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT VERSION(), CURRENT_TIMESTAMP;'));
