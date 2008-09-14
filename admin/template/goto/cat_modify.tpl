@@ -6,17 +6,17 @@
 <h3>{$CATEGORIES_NAV}</h3>
 
 <ul class="categoryActions">
-  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
-  <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}" /></a></li>
   {/if}
-  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
+  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
   {/if}
   {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
+  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
   {/if}
 </ul>
 
@@ -125,7 +125,7 @@
         {if isset($representant.picture) }
         <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature" /></a>
         {else}
-        <img src="{$ROOT_URL}{$themeconf.icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
         {/if}
       </td>
       <td>

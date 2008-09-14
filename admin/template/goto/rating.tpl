@@ -55,7 +55,7 @@
     <td>{$rate.RATE}</td>
     <td><b>{$rate.USER}</b></td>
     <td><span class="date">{$rate.DATE}</span></td>
-    <td><a href="{$rate.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/></a></td>
+    <td><a href="{$rate.U_DELETE}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/delete.png" class="button" style="border:none;vertical-align:middle; margin-left:5px;" alt="[{'delete'|@translate}]"/></a></td>
 </tr>
 {/foreach} {*rates*}
 {/foreach} {*images*}

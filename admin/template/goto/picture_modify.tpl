@@ -5,9 +5,9 @@
 
 <ul class="categoryActions">
   {if isset($U_JUMPTO) }
-  <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}" /></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}" /></a></li>
   {/if}
-  <li><a href="{$U_SYNC}" title="{'synchronize metadata'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}" /></a></li>
+  <li><a href="{$U_SYNC}" title="{'synchronize metadata'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}" /></a></li>
 </ul>
 
 <form action="{$F_ACTION}" method="post" id="properties">

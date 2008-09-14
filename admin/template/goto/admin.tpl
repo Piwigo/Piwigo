@@ -104,7 +104,7 @@ jQuery().ready(function(){ldelim}
   {/if}
   {if isset($U_HELP)}
   <ul class="HelpActions">
-    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
+    <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/help.png" class="button" alt="(?)"></a></li>
   </ul>
   {/if}
   
