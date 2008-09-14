@@ -48,8 +48,11 @@ text-transform:none; font-weight:bold; padding-left:20px; }
 .throw, td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 /* borders */ /* TODO */
-INPUT, SELECT, TEXTAREA { border-left: 2px inset #696969; 
-cursor:text; text-indent:4px; }
+INPUT, SELECT, TEXTAREA { border-left: 2px inset #696969; text-indent:4px; }
+INPUT.bigbutton { background: #111 url(images/rapid_local_synchro.png) no-repeat scroll left top; 
+width: 600px; height: 120px; color:#f70; font-size: 36px; text-align: left; padding: 0 0 0 30px;
+border: 0; cursor: auto; }
+INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; cursor: pointer; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
@@ -62,7 +65,7 @@ a.Piwigo {
   color : #f36; text-decoration: none; border: 0; color: #f36; }
 
 * { outline-width: 0; }
-a { color:#f70; border-color: #FF3363; }
+a { color:#f70; border-color: #FF3363; cursor: auto; }
 a:hover { color: #f33; border-color: #FF3363; }
 
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
