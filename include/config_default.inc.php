@@ -617,7 +617,7 @@ $conf['recent_post_dates'] = array(
 // | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+
 
-$conf['admin_layout'] = 'wigo/roma';
+$conf['admin_layout'] = 'goto/roma';
 
 // should we load the active plugins ? true=Yes, false=No
 $conf['enable_plugins']=true;

@@ -126,7 +126,7 @@ SELECT id, date_creation
 // +-----------------------------------------------------------------------+
 
 $template->set_filenames(
-  array('element_set_unit' => 'admin/element_set_unit.tpl'));
+  array('element_set_unit' => 'element_set_unit.tpl'));
 
 $base_url = PHPWG_ROOT_PATH.'admin.php';
 

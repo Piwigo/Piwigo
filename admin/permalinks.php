@@ -104,7 +104,7 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
 }
 
 
-$template->set_filename('permalinks', 'admin/permalinks.tpl' );
+$template->set_filename('permalinks', 'permalinks.tpl' );
 
 $query = '
 SELECT

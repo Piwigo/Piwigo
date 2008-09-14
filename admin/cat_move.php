@@ -61,7 +61,7 @@ if (isset($_POST['submit']))
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filename('cat_move', 'admin/cat_move.tpl');
+$template->set_filename('cat_move', 'cat_move.tpl');
 
 $template->assign(
   array(

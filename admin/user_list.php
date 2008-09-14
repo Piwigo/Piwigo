@@ -465,7 +465,7 @@ while ($row = mysql_fetch_array($result))
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('user_list'=>'admin/user_list.tpl'));
+$template->set_filenames(array('user_list'=>'user_list.tpl'));
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=user_list';
 

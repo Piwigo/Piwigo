@@ -181,7 +181,7 @@ foreach ($new_extensions as $file)
 }
 
 $template->set_filenames(array('extend_for_templates'
-     => 'admin/extend_for_templates.tpl'));
+     => 'extend_for_templates.tpl'));
 
 $base_url = PHPWG_ROOT_PATH.'admin.php?page=extend_for_templates';
 

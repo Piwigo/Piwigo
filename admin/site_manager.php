@@ -72,7 +72,7 @@ function remote_output($url)
 // +-----------------------------------------------------------------------+
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
-$template->set_filenames(array('site_manager'=>'admin/site_manager.tpl'));
+$template->set_filenames(array('site_manager'=>'site_manager.tpl'));
 
 // +-----------------------------------------------------------------------+
 // |                        new site creation form                         |

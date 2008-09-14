@@ -200,7 +200,7 @@ SELECT id
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(
-  array('element_set_global' => 'admin/element_set_global.tpl'));
+  array('element_set_global' => 'element_set_global.tpl'));
 
 $base_url = get_root_url().'admin.php';
 

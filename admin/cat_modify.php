@@ -221,7 +221,7 @@ $navigation = get_cat_display_name_cache(
 $form_action = get_root_url().'admin.php?page=cat_modify&amp;cat_id='.$_GET['cat_id'];
 
 //----------------------------------------------------- template initialization
-$template->set_filename( 'categories', 'admin/cat_modify.tpl');
+$template->set_filename( 'categories', 'cat_modify.tpl');
 
 $base_url = get_root_url().'admin.php?page=';
 $cat_list_url = $base_url.'cat_list';

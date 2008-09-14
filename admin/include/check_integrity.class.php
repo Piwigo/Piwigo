@@ -184,7 +184,7 @@ class check_integrity
 
     if (isset($this->retrieve_list) and count($this->retrieve_list) > 0)
     {
-      $template->set_filenames(array('check_integrity' => 'admin/check_integrity.tpl'));
+      $template->set_filenames(array('check_integrity' => 'check_integrity.tpl'));
 
       foreach ($this->retrieve_list as $i => $c13y)
       {

@@ -48,10 +48,10 @@ function selected_admin_menu()
 }
 
 $themeconf = array(
-  'template' => 'wigo',
-  'theme' => 'roma',
+  'template' => 'goto', /* Goto Admin template */
+  'theme' => 'roma',    /* "roma" is the foundation theme of Piwigo */
   'icon_dir' => 'template/yoga/icon',
-  'admin_icon_dir' => 'template/yoga/icon/admin',
+  'admin_icon_dir' => 'admin/template/goto/icon',
   'mime_icon_dir' => 'template/yoga/icon/mimetypes/',
   'selected_admin_menu' => selected_admin_menu(),
   'local_head' => '',

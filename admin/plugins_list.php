@@ -28,7 +28,7 @@ if( !defined("PHPWG_ROOT_PATH") )
 
 include_once(PHPWG_ROOT_PATH.'admin/include/plugins.class.php');
 
-$template->set_filenames(array('plugins' => 'admin/plugins_list.tpl'));
+$template->set_filenames(array('plugins' => 'plugins_list.tpl'));
 
 $order = isset($_GET['order']) ? $_GET['order'] : 'name';
 $base_url = get_root_url().'admin.php?page='.$page['page'].'&amp;order='.$order;

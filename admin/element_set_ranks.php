@@ -103,7 +103,7 @@ if (isset($_POST['submit']))
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 $template->set_filenames(
-  array('element_set_ranks' => 'admin/element_set_ranks.tpl')
+  array('element_set_ranks' => 'element_set_ranks.tpl')
   );
 
 $base_url = get_root_url().'admin.php';

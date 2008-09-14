@@ -157,6 +157,6 @@ foreach ($mb_conf as $id => $pos )
       )
      );
 }
-$template->set_filename( 'menubar_admin_content', 'admin/menubar.tpl' );
+$template->set_filename( 'menubar_admin_content', 'menubar.tpl' );
 $template->assign_var_from_handle( 'ADMIN_CONTENT', 'menubar_admin_content');
 ?>

@@ -185,7 +185,7 @@ SELECT id
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('tags' => 'admin/tags.tpl'));
+$template->set_filenames(array('tags' => 'tags.tpl'));
 
 $template->assign(
   array(

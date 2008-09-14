@@ -574,8 +574,8 @@ $template->set_filenames
 (
   array
   (
-    'double_select' => 'admin/double_select.tpl',
-    'notification_by_mail'=>'admin/notification_by_mail.tpl'
+    'double_select' => 'double_select.tpl',
+    'notification_by_mail'=>'notification_by_mail.tpl'
   )
 );
 

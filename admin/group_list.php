@@ -149,7 +149,7 @@ UPDATE '.GROUPS_TABLE.'
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('group_list' => 'admin/group_list.tpl'));
+$template->set_filenames(array('group_list' => 'group_list.tpl'));
 
 $template->assign(
   array(

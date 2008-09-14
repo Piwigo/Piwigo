@@ -150,7 +150,7 @@ if (isset($_GET['parent_id']))
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filename('categories', 'admin/cat_list.tpl');
+$template->set_filename('categories', 'cat_list.tpl');
 
 $form_action = PHPWG_ROOT_PATH.'admin.php?page=cat_list';
 if (isset($_GET['parent_id']))

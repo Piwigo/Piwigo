@@ -135,7 +135,7 @@ DELETE
 }
 
 //----------------------------------------------------- template initialization
-$template->set_filenames(array('upload'=>'admin/upload.tpl'));
+$template->set_filenames(array('upload'=>'upload.tpl'));
 
 // TabSheet initialization
 waiting_tabsheet();

@@ -111,7 +111,7 @@ list($nb_images) = mysql_fetch_row(pwg_query($query));
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filename('rating', 'admin/rating.tpl');
+$template->set_filename('rating', 'rating.tpl');
 
 $template->assign(
   array(

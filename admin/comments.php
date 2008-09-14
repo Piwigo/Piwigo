@@ -116,7 +116,7 @@ DELETE
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('comments'=>'admin/comments.tpl'));
+$template->set_filenames(array('comments'=>'comments.tpl'));
 
 // TabSheet initialization
 waiting_tabsheet();

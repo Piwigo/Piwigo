@@ -160,7 +160,7 @@ if (!function_exists('gd_info'))
 // +-----------------------------------------------------------------------+
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
-$template->set_filenames( array('thumbnail'=>'admin/thumbnail.tpl') );
+$template->set_filenames( array('thumbnail'=>'thumbnail.tpl') );
 
 $template->assign(array(
   'U_HELP' => PHPWG_ROOT_PATH.'popuphelp.php?page=thumbnail',

@@ -126,7 +126,7 @@ class tabsheet
   {
     global $template;
 
-    $template->set_filename('tabsheet', 'admin/tabsheet.tpl');
+    $template->set_filename('tabsheet', 'tabsheet.tpl');
     $template->assign('tabsheet', $this->sheets);
     $template->assign('tabsheet_selected', $this->selected);
 

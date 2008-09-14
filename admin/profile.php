@@ -41,6 +41,6 @@ load_profile_in_template(
   );
 $page['errors'] = array_merge($page['errors'], $errors);
 
-$template->set_filename('profile', 'admin/profile.tpl');
+$template->set_filename('profile', 'profile.tpl');
 $template->assign_var_from_handle('ADMIN_CONTENT', 'profile');
 ?>

@@ -141,8 +141,8 @@ UPDATE '.CATEGORIES_TABLE.'
 
 $template->set_filenames(
   array(
-    'cat_options' => 'admin/cat_options.tpl',
-    'double_select' => 'admin/double_select.tpl'
+    'cat_options' => 'cat_options.tpl',
+    'double_select' => 'double_select.tpl'
     )
   );
 

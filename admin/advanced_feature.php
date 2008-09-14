@@ -85,7 +85,7 @@ $advanced_features =
 // |  Template init                                                        |
 // +-----------------------------------------------------------------------+
 
-$template->set_filename('advanced_feature', 'admin/advanced_feature.tpl');
+$template->set_filename('advanced_feature', 'advanced_feature.tpl');
 
 $start_url = get_root_url().'admin.php?page=advanced_feature&amp;action=';
 

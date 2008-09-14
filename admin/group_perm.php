@@ -123,8 +123,8 @@ SELECT cat_id
 
 $template->set_filenames(
   array(
-    'group_perm' => 'admin/group_perm.tpl',
-    'double_select' => 'admin/double_select.tpl'
+    'group_perm' => 'group_perm.tpl',
+    'double_select' => 'double_select.tpl'
     )
   );
 

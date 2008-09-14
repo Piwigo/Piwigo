@@ -194,7 +194,7 @@ $selected_tags = array_from_query($query, 'tag_id');
 
 $template->set_filenames(
   array(
-    'picture_modify' => 'admin/picture_modify.tpl'
+    'picture_modify' => 'picture_modify.tpl'
     )
   );
 

@@ -117,8 +117,8 @@ SELECT cat_id
 
 $template->set_filenames(
   array(
-    'user_perm' => 'admin/user_perm.tpl',
-    'double_select' => 'admin/double_select.tpl'
+    'user_perm' => 'user_perm.tpl',
+    'double_select' => 'double_select.tpl'
     )
   );
 

@@ -371,7 +371,7 @@ if (isset($page['day']))
   $period_label = l10n('Hour');
 }
 
-$template->set_filename('stats', 'admin/stats.tpl');
+$template->set_filename('stats', 'stats.tpl');
 
 // TabSheet initialization
 history_tabsheet();

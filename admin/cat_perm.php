@@ -193,7 +193,7 @@ SELECT user_id, cat_id
 // |                       template initialization                         |
 // +-----------------------------------------------------------------------+
 
-$template->set_filename('cat_perm', 'admin/cat_perm.tpl');
+$template->set_filename('cat_perm', 'cat_perm.tpl');
 
 $template->assign(
   array(

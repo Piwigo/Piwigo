@@ -115,7 +115,7 @@ DELETE
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filenames(array('maintenance'=>'admin/maintenance.tpl'));
+$template->set_filenames(array('maintenance'=>'maintenance.tpl'));
 
 $start_url = get_root_url().'admin.php?page=maintenance&amp;action=';
 

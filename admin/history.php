@@ -151,7 +151,7 @@ INSERT INTO '.SEARCH_TABLE.'
 // |                             template init                             |
 // +-----------------------------------------------------------------------+
 
-$template->set_filename('history', 'admin/history.tpl');
+$template->set_filename('history', 'history.tpl');
 
 // TabSheet initialization
 history_tabsheet();

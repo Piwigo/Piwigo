@@ -830,7 +830,7 @@ SELECT id
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
-$template->set_filenames(array('update'=>'admin/site_update.tpl'));
+$template->set_filenames(array('update'=>'site_update.tpl'));
 $result_title = '';
 if (isset($simulate) and $simulate)
 {

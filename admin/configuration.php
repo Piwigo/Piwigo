@@ -164,7 +164,7 @@ WHERE param = \''.$row['param'].'\'
 }
 
 //----------------------------------------------------- template initialization
-$template->set_filename('config', 'admin/configuration.tpl');
+$template->set_filename('config', 'configuration.tpl');
 
 // TabSheet
 $tabsheet = new tabsheet();
