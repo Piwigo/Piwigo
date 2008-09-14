@@ -851,7 +851,14 @@ function get_default_language()
   */
 function get_browser_language(&$lang)
 {
-  $browser_language = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+  if (!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+  {
+    $browser_language = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+  }
+  else
+  {
+    $browser_language = '';
+  }
   foreach (get_languages() as $language_code => $language_name)
   {
     if (substr($language_code, 0, 2) == $browser_language)
