@@ -304,7 +304,7 @@ class Template {
    * translate variable modifier - translates a text to the currently loaded
    * language
    */
-  /*static*/ function mod_translate($text)
+  static function mod_translate($text)
   {
     return l10n($text);
   }
@@ -313,7 +313,7 @@ class Template {
    * explode variable modifier - similar to php explode
    * 'Yes;No'|@explode:';' -> array('Yes', 'No')
    */
-  /*static*/ function mod_explode($text, $delimiter=',')
+  static function mod_explode($text, $delimiter=',')
   {
     return explode($delimiter, $text);
   }
@@ -371,7 +371,7 @@ class Template {
     }
   }
 
-  /*static */ function prefilter_white_space($source, &$smarty)
+  static function prefilter_white_space($source, &$smarty)
   {
     $ld = $smarty->left_delimiter;
     $rd = $smarty->right_delimiter;
@@ -398,7 +398,7 @@ class Template {
    * Smarty prefilter to allow caching (whenever possible) language strings
    * from templates.
    */
-  /*static */ function prefilter_language($source, &$smarty)
+  static function prefilter_language($source, &$smarty)
   {
     global $lang;
     $ldq = preg_quote($smarty->left_delimiter, '~');
