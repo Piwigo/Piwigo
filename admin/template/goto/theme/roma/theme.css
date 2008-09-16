@@ -1,17 +1,17 @@
 /* $Id$ */
 /* text color */
-body, h3, dt, h2, .throw, .content,
-input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#ccc; }
+body, h3, dt, h2, .throw, .content, label,
+input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }
 INPUT[type="text"], INPUT[type="password"], INPUT[type="button"],
 INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"], select, textarea {
-color:#111; background-color: #eee; }  
+color:#444; background-color: #eee; }  
 input.rateButton, legend, #theAdminPage h3 { color: #777; }
 #theAdminPage h2 { color: #333; }
 
-.content .infos { color: #3f6; border:0pt none; background-color: transparent;
+.content .infos { color: #3f6; border:0; background-color: transparent;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 .content .infos li, .content .errors li { list-style-type:none; }
-.content .errors { color: #f70; border:0pt none; background-color: transparent;
+.content .errors { color: #f70; border:0; background-color: transparent;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
 #copyright { color:#777; margin:60px auto 0px 240px; text-align:center; 
 padding-bottom: 15px; }
@@ -45,19 +45,25 @@ text-transform:none; font-weight:bold; padding-left:20px; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:55px; }
 .instructions { text-align: left; padding: 20px 20px 0 20px; }
+.instructions  h3 { text-align: center; margin: 30px 0 0 0; }
 .throw, td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 /* borders */ /* TODO */
-INPUT, SELECT, TEXTAREA { border-left: 2px inset #696969; text-indent:4px; }
-TEXTAREA { cursor:text; }
+fieldset { border: 1px solid #666; }
+INPUT, SELECT, TEXTAREA { border-left: 2px inset #666; text-indent:4px; }
+TEXTAREA { cursor:text; font-family:Univers,Helvetica,Optima,"Bitstream Vera Sans",sans-serif; font-size: 13px; }
 INPUT.bigbutton { background: #111 url(images/rapid_local_synchro.png) no-repeat scroll left top; 
 width: 600px; height: 120px; color:#f70; font-size: 36px; text-align: left; padding: 0 0 0 30px;
 border: 0; }
-INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; cursor: pointer; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
 }
+.tagSelection label { padding-right:12px; }
+ul.thumbnails input { border:3px double #f70; color:#222; font-size:10px; margin:0; }
+INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { color:#f33; cursor: pointer; }
+INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; cursor: pointer; }
+.throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
 .virtual_cat { background: #222 !important; }
 a.Piwigo {
@@ -76,7 +82,7 @@ right:0; text-align:right; top:0; width:770px; }
 .HelpActions a { border:0; margin:4px 14px 0 0; position:absolute; right:0; }
 .HelpActions li {list-style-image:none; list-style-position:outside; 
 list-style-type:none; text-align:center; text-indent:0pt; }
-
+#content.content div.comment a.illustration{ margin-right: 30px;}
 /* tabsheets are often used in admin  pages => No specific css files */
 .tabsheet { 
 background-color:transparent; border:0; display:table; float:right; 
@@ -94,7 +100,7 @@ text-align:right; text-decoration:none; margin: 0 4px 0 0; }
 background:transparent url(images/active_tab2.png) no-repeat scroll right 5px; }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; 
 background:transparent url(images/active_tab.png) no-repeat scroll left 5px; }
-.tabsheet a span { background-color: #222; }
+.tabsheet a span { background-color: #222; font-size: 10px; }
 
 #debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
@@ -108,8 +114,8 @@ padding:0; width:207px; z-index:99; text-align: left; }
  scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
  scrollbar-arrow-color: #ff3333; }
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
-#menubar .selected a { color: #f70; border-color: #f36;}
-#menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f36;}
+#menubar .selected a { color: #f70; }
+#menubar .selected a:hover { color: #f36; border-bottom: 1px solid #f33;}
 #menubar dd { 
 background: transparent url(images/menubar-detail.png) repeat-y top left; 
 margin: 10px 0 0 0; padding: 0; height:232px; }
@@ -121,8 +127,8 @@ background:transparent url(images/menubar-top.png) no-repeat scroll left 1px; }
 #menubar dt { margin: 0; display: block; background: none; left:10px; font-weight:bold;
 position:relative; padding: 5px 1px 4px 5px; top:-10px; font-size: 13px; color: #666; }
 #menubar dt  span { background-color: #111; cursor:pointer; }
-#menubar a { border-bottom:0; text-decoration:none; font-size: 12px;
-color: #F70; border-bottom: 1px dotted #777;}
+#menubar a { text-decoration:none; font-size: 12px;
+color: #F70; border-bottom: 1px dotted #F70;}
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }
