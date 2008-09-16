@@ -50,9 +50,14 @@ text-transform:none; font-weight:bold; padding-left:20px; }
 fieldset { border: 1px solid #666; }
 INPUT, SELECT, TEXTAREA { border-left: 2px inset #666; text-indent:4px; }
 TEXTAREA { cursor:text; font-family:Univers,Helvetica,Optima,"Bitstream Vera Sans",sans-serif; font-size: 13px; }
-INPUT.bigbutton { background: #111 url(images/rapid_local_synchro.png) no-repeat scroll left top; 
-width: 600px; height: 120px; color:#f70; font-size: 36px; text-align: left; padding: 0 0 0 30px;
-border: 0; }
+.bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top;
+border:0; color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; }
+.bigbutton input { background: transparent none no-repeat scroll left top; 
+position: relative; top: 0; left: 0; width:625px; height: 161px; border: 0;}
+.bigtext { border:0; height:161px; left:273px; position:relative; top:-124px; width:225px; 
+font-family: FlorenceSans, Helvetica,Optima,"Bitstream Vera Sans",sans-serif; font-weight: bold;}
+*+html  .bigtext { left: 65px; }
+.bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */

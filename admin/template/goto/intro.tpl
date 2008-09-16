@@ -55,5 +55,5 @@
 <input type="hidden" name="sync_meta" checked="checked"/>
 <input type="hidden" name="simulate" value="0" />
 <input type="hidden" name="subcats-included" value="1" checked="checked"/>
-<input class="bigbutton" type="submit" value="{'Rapid local synchronization'|@translate}" name="submit" />
+<div class="bigbutton"><input type="submit" value="" name="submit"/><div class="bigtext">{'Quick Local Synchronization'|@translate}</div></div>
 </form>
