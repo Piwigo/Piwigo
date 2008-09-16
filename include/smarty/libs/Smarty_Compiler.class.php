@@ -21,12 +21,12 @@
  * @link http://smarty.php.net/
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.6.19
+ * @version 2.6.20
  * @copyright 2001-2005 New Digital Group, Inc.
  * @package Smarty
  */
 
-/* $Id$ */
+/* $Id: Smarty_Compiler.class.php 2773 2008-08-12 18:17:51Z Uwe.Tews $ */
 
 /**
  * Template compiling class
@@ -1363,9 +1363,14 @@ class Smarty_Compiler extends Smarty {
                     /* If last token was a ')', we operate on the parenthesized
                        expression. The start of the expression is on the stack.
                        Otherwise, we operate on the last encountered token. */
-                    if ($tokens[$i-1] == ')')
+                    if ($tokens[$i-1] == ')') {
                         $is_arg_start = array_pop($is_arg_stack);
-                    else
+                        if ($is_arg_start != 0) {
+                            if (preg_match('~^' . $this->_func_regexp . '$~', $tokens[$is_arg_start-1])) {
+                                $is_arg_start--;
+                            } 
+                        } 
+                    } else
                         $is_arg_start = $i-1;
                     /* Construct the argument for 'is' expression, so it knows
                        what to operate on. */

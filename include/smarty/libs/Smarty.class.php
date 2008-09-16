@@ -27,10 +27,10 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.6.19
+ * @version 2.6.20
  */
 
-/* $Id$ */
+/* $Id: Smarty.class.php 2722 2007-06-18 14:29:00Z danilo $ */
 
 /**
  * DIR_SEP isn't used anymore, but third party apps might
@@ -464,7 +464,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.6.19';
+    var $_version              = '2.6.20';
 
     /**
      * current template inclusion depth
@@ -1057,7 +1057,7 @@ class Smarty
         } else {
             // var non-existant, return valid reference
             $_tmp = null;
-            return $_tmp;
+            return $_tmp;   
         }
     }
 
@@ -1116,7 +1116,7 @@ class Smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-
+        
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
@@ -1940,10 +1940,10 @@ class Smarty
     {
         return eval($code);
     }
-
+    
     /**
      * Extracts the filter name from the given callback
-     *
+     * 
      * @param callback $function
      * @return string
      */
@@ -1958,7 +1958,7 @@ class Smarty
 			return $function;
 		}
 	}
-
+    
     /**#@-*/
 
 }
