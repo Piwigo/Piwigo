@@ -17,17 +17,17 @@
       <img class="thumbnail" src="{$thumbnail.IMAGE}"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"></a>
       </td><td style="text-align: left;">
-      <img src="{$themeconf.icon_dir}/{$thumbnail.NAME}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.NAME}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Name'|@translate}<br />
-      <img src="{$themeconf.icon_dir}/{$thumbnail.COMMENT}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.COMMENT}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Description'|@translate}<br />
-      <img src="{$themeconf.icon_dir}/{$thumbnail.AUTHOR}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.AUTHOR}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Author'|@translate}<br />
-      <img src="{$themeconf.icon_dir}/{$thumbnail.CREATE_DATE}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.CREATE_DATE}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Creation date'|@translate}<br />
-      <img src="{$themeconf.icon_dir}/{$thumbnail.METADATA}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.METADATA}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Metadata'|@translate}<br />
-      <img src="{$themeconf.icon_dir}/{$thumbnail.TAGS}check.png"
+      <img src="{$themeconf.admin_icon_dir}/{$thumbnail.TAGS}check.png"
            alt="{$thumbnail.IMAGE_ALT}" title="{$thumbnail.IMAGE_TITLE}"> {'Tags'|@translate} ({$thumbnail.NUM_TAGS})
     {/if}
     </td>

@@ -61,7 +61,7 @@
 {if not empty($header_msgs)}
 <div class="header_msgs">
 	{foreach from=$header_msgs item=elt}
-	<p>{$elt}</p>
+	{$elt}<br />
 	{/foreach}
 </div>
 {/if}

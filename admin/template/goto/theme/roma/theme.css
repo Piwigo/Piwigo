@@ -7,7 +7,6 @@ INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"], select, textarea 
 color:#444; background-color: #eee; }  
 input.rateButton, legend, #theAdminPage h3 { color: #777; }
 #theAdminPage h2 { color: #333; }
-
 .content .infos { color: #3f6; border:0; background-color: transparent;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 .content .infos li, .content .errors li { list-style-type:none; }
@@ -15,12 +14,10 @@ padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
 #copyright { color:#777; margin:60px auto 0px 240px; text-align:center; 
 padding-bottom: 15px; }
-.header_notes {
-background: transparent url(../../../../../template/yoga/icon/note.png) no-repeat right top;
+.header_notes { background: transparent url(../../icon/note.png) no-repeat right top;
 border:0; font-weight:bold; min-height: 48px;
 padding:15px 60px 0 0; position:absolute; right:0;
 text-align:right; top:90px; width:550px;  }
-
 html, body { min-height: 100%; }
 body { margin: 0; padding: 0;
 background:#111111 url(images/bottom-left-bg.png) no-repeat fixed left bottom; }
@@ -34,7 +31,7 @@ background:transparent url(images/piwigo_logo_sombre_214x100.png) no-repeat scro
 h3, #imageToolBar a:hover, .row1, .content { background-color: #222; }
 .row2 { background-color:#111; }
 #content { background: #222 url(images/fillet.png) repeat-x top left; min-height: 466px; }
-.content { padding:0px 5px 5px 5px; margin: 0 10px 0 248px; z-index:99; }
+.content { padding:5px 5px 5px 5px; margin: 0 10px 0 248px; z-index:99; }
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
  text-align:right; background:none; border: 0; }
 .content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
@@ -44,7 +41,8 @@ letter-spacing:0.1em; margin-right:30px; text-align:right; color: #777;
 text-transform:none; font-weight:bold; padding-left:20px; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:55px; }
-.instructions { text-align: left; padding: 20px 20px 0 20px; }
+.instructions { height:450px; overflow:scroll; padding:0 20px 0; text-align:left; }
+.instructions { overflow-y:scroll; overflow-x:hidden; }
 .instructions  h3 { text-align: center; margin: 30px 0 0 0; }
 .throw, td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
@@ -70,16 +68,16 @@ a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #f36; text-decoration: none; border: 0; color: #f36; }
-
 * { outline-width: 0; }
 a { color:#f70; border-color: #FF3363; }
 a:hover { color: #f33; border-color: #FF3363; }
-
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
-.header_msgs { background-color:transparent; }
-.HelpActions a { border:0; margin:4px 14px 0 0; position:absolute; right:0; }
+.header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
+border:0; color:#333; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
+text-align:center; top:0; width:100%; z-index:99; }
+.HelpActions a { border:0; margin:-14px 14px 0 0; position:absolute; right:0; }
 .HelpActions li {list-style-image:none; list-style-position:outside; 
 list-style-type:none; text-align:center; text-indent:0pt; }
 #content.content div.comment a.illustration{ margin-right: 30px;}
@@ -89,19 +87,18 @@ background-color:transparent; border:0; display:table; float:right;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px; line-height:14px; 
 list-style-image:none; padding: 0; position:relative; text-decoration:none;
 top:-2px; white-space:nowrap; margin: 0 28px 0 0;}
-.tabsheet li { float:left; margin: 0 8px; text-align:right; overflow: hidden; 
-background:transparent url(images/inactive_tab2.png) no-repeat scroll right 5px; }
+.tabsheet li { background:transparent url(images/inactive_tab2.png) no-repeat scroll right 0;
+float:left; margin:0 5px; overflow:hidden; text-align:right; }
 .tabsheet a { 
-background:transparent url(images/inactive_tab.png) no-repeat scroll left 5px;
+background:transparent url(images/inactive_tab.png) no-repeat scroll left 0px;
 color:#777; display:block; font-size:11px; text-transform:capitalize; border:0;
-font-weight:bold; height:28px; overflow:hidden; padding:12px 7px 5px 18px; line-height: 18px;
+font-weight:bold; height:28px; overflow:hidden; padding:7px 7px 5px 18px; line-height: 18px;
 text-align:right; text-decoration:none; margin: 0 4px 0 0; }
 .tabsheet li:hover, .tabsheet li.selected_tab  { 
-background:transparent url(images/active_tab2.png) no-repeat scroll right 5px; }
+background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; 
-background:transparent url(images/active_tab.png) no-repeat scroll left 5px; }
-.tabsheet a span { background-color: #222; font-size: 10px; }
-
+background:transparent url(images/active_tab.png) no-repeat scroll left 0px; }
+.tabsheet a span { background-color:#222; display:block; font-size:10px; padding:0 3px; }
 #debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
