@@ -539,7 +539,7 @@ $lang['c13y_bad_webmaster_status'] = 'Lo statuto del\'utente "webmestre" princip
 $lang['c13y_user_created'] = 'L\'utente "%s" creato con la password "%s"';
 $lang['c13y_user_status_updated'] = 'Statuto del\'utente "%s" aggiornato';
 $lang['add new elements to caddie'] = 'aggiungere i nuovi elementi al cestino';
-// --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
+// --------- Starting below: New or revised $lang ---- from Butterfly
 $lang['no_display_thumbnail'] = 'Nessuna visualizzazione';
 $lang['display_thumbnail_classic'] = 'Visualizzazione classica';
 $lang['display_thumbnail_hoverbox'] = 'Visualizzazione durante il passaggio del mouse';
@@ -628,6 +628,12 @@ $lang['Optimizations errors'] = 'Ottimizzazioni concluse con errori.';
 $lang['delete this comment'] = 'cancellare commenti';
 $lang['link_info_image'] = 'Modifica le informazioni';
 $lang['edit category informations'] = 'Modificare le informazioni della categoria';
-/* TODO */ $lang['nothing'] = 'nothing';
-/* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+$lang['nothing'] = 'niente';
+$lang['overrides existing values with empty ones'] = 'sovrascrivere i valori esistenti con i nuovi anche vuoti';
+$lang['manage image ranks'] = 'gestire l\'ordinamento delle immagini';
+$lang['Manage image ranks'] = 'Gestire l\'ordinamento delle immagini';
+$lang['Edit ranks'] = 'Modificare gli ordini';
+$lang['No element in this category'] = 'Nessun\'elemento in questa categoria';
+$lang['Images manual order was saved'] = 'L\'ordinamento manuale delle immagini è stato salvato';
+$lang['ranks'] = 'rangs';
 ?>
