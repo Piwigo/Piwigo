@@ -4,7 +4,6 @@
 <div id="content" class="content">
   <div class="titrePage">
     <ul class="categoryActions">
-      <li>&nbsp;</li>
       {if !empty($image_orders) }
       <li>
       {'Sort order'|@translate}:

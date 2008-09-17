@@ -54,8 +54,7 @@ TEXTAREA { cursor:text; font-family:Univers,Helvetica,Optima,"Bitstream Vera San
 border:0; color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; }
 .bigbutton input { background: transparent none no-repeat scroll left top; 
 position: relative; top: 0; left: 0; width:625px; height: 161px; border: 0;}
-.bigtext { border:0; height:161px; left:273px; position:relative; top:-124px; width:225px; 
-font-family: FlorenceSans, Helvetica,Optima,"Bitstream Vera Sans",sans-serif; font-weight: bold;}
+.bigtext { border:0; height:161px; left:273px; position:relative; top:-124px; width:225px; font-weight: bold;}
 *+html  .bigtext { left: 65px; }
 .bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
 .content UL.thumbnails SPAN.wrap2 {
@@ -92,18 +91,18 @@ background-color:transparent; border:0; display:table; float:right;
 font-family:verdana,arial,helvetica,sans-serif; font-size:8px; line-height:14px; 
 list-style-image:none; padding: 0; position:relative; text-decoration:none;
 top:-2px; white-space:nowrap; margin: 0 28px 0 0;}
-.tabsheet li { background:transparent url(images/inactive_tab2.png) no-repeat scroll right 0;
+.tabsheet li { background:transparent url(images/inactive_tab.png) no-repeat scroll left 0;
 float:left; margin:0 5px; overflow:hidden; text-align:right; }
 .tabsheet a { 
-background:transparent url(images/inactive_tab.png) no-repeat scroll left 0px;
+background:transparent url(images/inactive_tab2.png) no-repeat scroll right 0px;
 color:#777; display:block; font-size:11px; text-transform:capitalize; border:0;
-font-weight:bold; height:28px; overflow:hidden; padding:7px 7px 5px 18px; line-height: 18px;
-text-align:right; text-decoration:none; margin: 0 4px 0 0; }
+font-weight:bold; height:18px; overflow:hidden; padding:7px 7px 5px 18px; line-height: 18px;
+text-align:right; text-decoration:none; margin: 0; }
 .tabsheet li:hover, .tabsheet li.selected_tab  { 
-background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
-.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36; 
 background:transparent url(images/active_tab.png) no-repeat scroll left 0px; }
-.tabsheet a span { background-color:#222; display:block; font-size:10px; padding:0 3px; }
+.tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36;
+background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
+.tabsheet a span { background-color:#222; display:block; font-size:10px; padding:0 5px 0 1px; }
 #debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
