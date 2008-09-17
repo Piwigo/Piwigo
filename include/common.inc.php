@@ -228,9 +228,7 @@ if ($conf['gallery_locked'])
   }
 }
 
-if ($conf['check_upgrade_feed']
-    and defined('PHPWG_IN_UPGRADE')
-    and PHPWG_IN_UPGRADE)
+if ($conf['check_upgrade_feed'])
 {
 
   // retrieve already applied upgrades
