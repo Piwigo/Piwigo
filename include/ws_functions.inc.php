@@ -364,6 +364,20 @@ function ws_categories_getList($params, &$service)
 {
   global $user,$conf;
 
+  $query = '
+SELECT
+    category_id,
+    MAX(rank) AS max_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE rank IS NOT NULL
+  GROUP BY category_id
+;';
+  $max_image_rank_of = simple_hash_from_query(
+    $query,
+    'category_id',
+    'max_rank'
+    );
+
   $where = array();
 
   if (!$params['recursive'])
@@ -415,14 +429,30 @@ SELECT id, name, permalink, uppercats, global_rank,
     {
       $row[$key] = (int)$row[$key];
     }
+
+    if (isset($max_image_rank_of[ $row['id'] ]))
+    {
+      $row['images_max_rank'] = $max_image_rank_of[ $row['id'] ];
+    }
+    
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');
   return array(
-      'categories' =>
-          new PwgNamedArray($cats,'category',
-            array('id','url','nb_images','total_nb_images','nb_categories','date_last','max_date_last')
-          )
+    'categories' => new PwgNamedArray(
+      $cats,
+      'category',
+      array(
+        'id',
+        'url',
+        'nb_images',
+        'total_nb_images',
+        'nb_categories',
+        'date_last',
+        'max_date_last',
+        'images_max_rank',
+        )
+      )
     );
 }
 
