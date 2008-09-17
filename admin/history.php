@@ -116,7 +116,8 @@ if (isset($_POST['submit']))
 
   $search['fields']['display_thumbnail'] = $_POST['display_thumbnail'];
   // Display choise are also save to one cookie
-  pwg_set_cookie_var('history_display_thumbnail', $_POST['display_thumbnail']);
+  $cookie_val = ($_POST['display_thumbnail']!=$display_thumbnails[2] and in_array($_POST['display_thumbnail'], $display_thumbnails)) ? $_POST['display_thumbnail']:null;
+  pwg_set_cookie_var('history_display_thumbnail', $cookie_val, strtotime('+1 month') );
 
   // TODO manage inconsistency of having $_POST['image_id'] and
   // $_POST['filename'] simultaneously

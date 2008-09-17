@@ -35,7 +35,7 @@
  *
  * @return string sql where
  */
-function get_std_sql_where_restrict_filter($prefix_condition, $force_one_condition = false)
+function get_std_sql_where_restrict_filter($prefix_condition, $img_field='ic.image_id', $force_one_condition = false)
 {
   return get_sql_condition_FandF
           (
@@ -43,7 +43,7 @@ function get_std_sql_where_restrict_filter($prefix_condition, $force_one_conditi
               (
                 'forbidden_categories' => 'ic.category_id',
                 'visible_categories' => 'ic.category_id',
-                'visible_images' => 'ic.image_id'
+                'visible_images' => $img_field
               ),
             $prefix_condition,
             $force_one_condition
@@ -89,7 +89,7 @@ function custom_notification_query($action, $type, $start, $end)
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
   WHERE date_available > \''.$start.'\'
     AND date_available <= \''.$end.'\'
-      '.get_std_sql_where_restrict_filter('AND').'
+      '.get_std_sql_where_restrict_filter('AND', 'id').'
 ;';
       break;
     case 'updated_categories':
@@ -97,7 +97,7 @@ function custom_notification_query($action, $type, $start, $end)
   FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON image_id = id
   WHERE date_available > \''.$start.'\'
     AND date_available <= \''.$end.'\'
-      '.get_std_sql_where_restrict_filter('AND').'
+      '.get_std_sql_where_restrict_filter('AND', 'id').'
 ;';
       break;
     case 'new_users':
@@ -434,13 +434,13 @@ function get_recent_post_dates($max_dates, $max_elements, $max_cats)
 {
   global $conf, $user;
 
-  $where_sql = get_std_sql_where_restrict_filter('WHERE', true);
+  $where_sql = get_std_sql_where_restrict_filter('WHERE', 'i.id', true);
 
   $query = '
 SELECT date_available,
       COUNT(DISTINCT id) nb_elements,
       COUNT(DISTINCT category_id) nb_cats
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
+  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
   GROUP BY date_available
   ORDER BY date_available DESC
@@ -459,7 +459,7 @@ SELECT date_available,
     { // get some thumbnails ...
       $query = '
 SELECT DISTINCT id, path, name, tn_ext, file
-  FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
+  FROM '.IMAGES_TABLE.' i INNER JOIN '.IMAGE_CATEGORY_TABLE.' AS ic ON id=image_id
   '.$where_sql.'
     AND date_available="'.$dates[$i]['date_available'].'"
     AND tn_ext IS NOT NULL

@@ -35,7 +35,7 @@ define( 'WS_PARAM_ACCEPT_ARRAY',  0x010000 );
 define( 'WS_PARAM_FORCE_ARRAY',   0x030000 );
 define( 'WS_PARAM_OPTIONAL',      0x040000 );
 
-define( 'WS_ERR_INVALID_METHOD',  1001 );
+define( 'WS_ERR_INVALID_METHOD',  501 );
 define( 'WS_ERR_MISSING_PARAM',   1002 );
 define( 'WS_ERR_INVALID_PARAM',   1003 );
 
@@ -47,12 +47,15 @@ define( 'WS_XML_CONTENT', 'content_xml_');
  */
 class PwgError
 {
-  var $_code;
-  var $_codeText;
+  private $_code;
+  private $_codeText;
 
   function PwgError($code, $codeText)
   {
-    set_status_header($code, $codeText);
+    if ($code>=400 and $code<600)
+    {
+      set_status_header($code, $codeText);
+    }
 
     $this->_code = $code;
     $this->_codeText = $codeText;
@@ -80,7 +83,7 @@ class PwgNamedArray
    * @param xmlAttributes array of sub-item attributes that will be encoded as
    *      xml attributes instead of xml child elements
    */
-  function PwgNamedArray(&$arr, $itemName, $xmlAttributes=array() )
+  function PwgNamedArray($arr, $itemName, $xmlAttributes=array() )
   {
     $this->_content = $arr;
     $this->_itemName = $itemName;
@@ -134,52 +137,6 @@ class PwgNamedStruct
 
 
 /**
- * Replace array_walk_recursive()
- *
- * @category    PHP
- * @package     PHP_Compat
- * @link        http://php.net/function.array_walk_recursive
- * @author      Tom Buskens <ortega@php.net>
- * @author      Aidan Lister <aidan@php.net>
- * @version     $Revision$
- * @since       PHP 5
- * @require     PHP 4.0.6 (is_callable)
- */
-if (!function_exists('array_walk_recursive')) {
-    function array_walk_recursive(&$input, $funcname)
-    {
-        if (!is_callable($funcname)) {
-            if (is_array($funcname)) {
-                $funcname = $funcname[0] . '::' . $funcname[1];
-            }
-            user_error('array_walk_recursive() Not a valid callback ' . $user_func,
-                E_USER_WARNING);
-            return;
-        }
-
-        if (!is_array($input)) {
-            user_error('array_walk_recursive() The argument should be an array',
-                E_USER_WARNING);
-            return;
-        }
-
-        $args = func_get_args();
-
-        foreach ($input as $key => $item) {
-            if (is_array($item)) {
-                array_walk_recursive($item, $funcname, $args);
-                $input[$key] = $item;
-            } else {
-                $args[0] = &$item;
-                $args[1] = &$key;
-                call_user_func_array($funcname, $args);
-                $input[$key] = $item;
-            }
-        }
-    }
-}
-
-/**
  * Abstract base class for request handlers.
  */
 class PwgRequestHandler
@@ -209,7 +166,7 @@ class PwgResponseEncoder
    * returns true if the parameter is a 'struct' (php array type whose keys are
    * NOT consecutive integers starting with 0)
    */
-  function is_struct(&$data)
+  static function is_struct(&$data)
   {
     if (is_array($data) )
     {
@@ -225,7 +182,7 @@ class PwgResponseEncoder
    * removes all XML formatting from $response (named array, named structs, etc)
    * usually called by every response encoder, except rest xml.
    */
-  function flattenResponse(&$response)
+  static function flattenResponse(&$response)
   {
     PwgResponseEncoder::_mergeAttributesAndContent($response);
     PwgResponseEncoder::_removeNamedArray($response);
@@ -239,7 +196,7 @@ class PwgResponseEncoder
     PwgResponseEncoder::_mergeAttributesAndContent($response);
   }
 
-  /*private*/ function _remove_named_callback(&$value, $key)
+  private static function _remove_named_callback(&$value, $key)
   {
     do
     {
@@ -251,7 +208,7 @@ class PwgResponseEncoder
     while ($changed);
   }
 
-  /*private*/ function _mergeAttributesAndContent(&$value)
+  private static function _mergeAttributesAndContent(&$value)
   {
     if ( !is_array($value) )
       return;
@@ -310,7 +267,7 @@ class PwgResponseEncoder
     return $ret;
   }
 
-  /*private*/ function _removeNamedArray(&$value)
+  private static function _removeNamedArray(&$value)
   {
     if ( strtolower( get_class($value) ) =='pwgnamedarray')
     {
@@ -320,7 +277,7 @@ class PwgResponseEncoder
     return 0;
   }
 
-  /*private*/ function _removeNamedStruct(&$value)
+  private static function _removeNamedStruct(&$value)
   {
     if ( strtolower( get_class($value) ) =='pwgnamedstruct')
     {
@@ -388,9 +345,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
 
     if ( is_null($this->_requestHandler) )
     {
-      $this->sendResponse(
-        new PwgError(400, 'Unknown request format')
-        );
+      $this->sendResponse( new PwgError(400, 'Unknown request format') );
       return;
     }
 
@@ -583,7 +538,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
   /**
    * WS reflection method implementation: lists all available methods
    */
-  /*static*/ function ws_getMethodList($params, &$service)
+  static function ws_getMethodList($params, &$service)
   {
     return array('methods' => new PwgNamedArray( array_keys($service->_methods),'method' ) );
   }
@@ -591,7 +546,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
   /**
    * WS reflection method implementation: gets information about a given method
    */
-  /*static*/ function ws_getMethodDetails($params, &$service)
+  static function ws_getMethodDetails($params, &$service)
   {
     $methodName = $params['methodName'];
     if (!$service->hasMethod($methodName))

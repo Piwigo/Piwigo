@@ -585,16 +585,17 @@ function access_denied()
       get_root_url().'identification.php?redirect='
       .urlencode(urlencode($_SERVER['REQUEST_URI']));
 
+  set_status_header(401);
   if ( isset($user) and !is_a_guest() )
   {
     echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br />';
     echo '<a href="'.get_root_url().'identification.php">'.l10n('identification').'</a>&nbsp;';
     echo '<a href="'.make_index_url().'">'.l10n('home').'</a></div>';
+    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
   else
   {
-    set_status_header(401);
     redirect_html($login_url);
   }
 }
@@ -677,7 +678,7 @@ $btrace_msg
 </pre>\n";
 
   @set_status_header(500);
-  echo $display.str_repeat( ' ', 300); //IE doesn't error output if below a size
+  echo $display.str_repeat( ' ', 300); //IE6 doesn't error output if below a size
 
   if ( function_exists('ini_set') )
   {// if possible turn off error display (we display it)
@@ -754,6 +755,7 @@ function set_status_header($code, $text='')
       case 403: $text='Forbidden';break;
       case 404: $text='Not found';break;
       case 500: $text='Server error';break;
+      case 501: $text='Not implemented';break;
       case 503: $text='Service unavailable';break;
     }
   }

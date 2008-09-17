@@ -223,6 +223,7 @@ if ($conf['gallery_locked'])
     @header('Retry-After: 900');
     echo l10n('gallery_locked_message')
       .'<a href="'.get_absolute_root_url(false).'identification.php">.</a>';
+    echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
 }

@@ -36,15 +36,15 @@ function cookie_path()
   {
     // mod_rewrite is activated for upper level directories. we must set the
     // cookie to the path shown in the browser otherwise it will be discarded.
-    if 
-      ( 
+    if
+      (
         isset($_SERVER['PATH_INFO']) and !empty($_SERVER['PATH_INFO']) and
         ($_SERVER['REDIRECT_URL'] !== $_SERVER['PATH_INFO']) and
         (substr($_SERVER['REDIRECT_URL'],-strlen($_SERVER['PATH_INFO']))
             == $_SERVER['PATH_INFO'])
       )
     {
-      $scr = substr($_SERVER['REDIRECT_URL'], 0, 
+      $scr = substr($_SERVER['REDIRECT_URL'], 0,
         strlen($_SERVER['REDIRECT_URL'])-strlen($_SERVER['PATH_INFO']));
     }
     else
@@ -64,7 +64,7 @@ function cookie_path()
   {
     $scr .= '/';
   }
-  
+
   if ( substr(PHPWG_ROOT_PATH,0,3)=='../')
   { // this is maybe a plugin inside pwg directory
     // TODO - what if it is an external script outside PWG ?
@@ -87,12 +87,20 @@ function cookie_path()
  * @return boolean true on success
  * @see pwg_get_cookie_var
  */
-function pwg_set_cookie_var($var, $value)
+function pwg_set_cookie_var($var, $value, $expire=null)
 {
-  $_COOKIE['pwg_'.$var] = $value;
-  return
-    setcookie('pwg_'.$var, $value, 
-      strtotime('+10 years'), cookie_path());
+  if ($value==null or $expire===0)
+  {
+    unset($_COOKIE['pwg_'.$var]);
+    return setcookie('pwg_'.$var, false, 0, cookie_path());
+
+  }
+  else
+  {
+    $_COOKIE['pwg_'.$var] = $value;
+    $expire = is_numeric($expire) ? $expire : strtotime('+10 years');
+    return setcookie('pwg_'.$var, $value, $expire, cookie_path());
+  }
 }
 
 /**
