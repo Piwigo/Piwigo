@@ -550,13 +550,14 @@ else
 {
   $page['slideshow'] = false;
 }
-
-$template->set_filenames(
-  array(
-    'picture' =>
-      (($page['slideshow'] and $conf['light_slideshow']) ? 'slideshow.tpl' : 'picture.tpl'),
-    ));
-
+if ($page['slideshow'] and $conf['light_slideshow'])
+{
+  $template->set_filenames( array('slideshow' => 'slideshow.tpl'));
+}
+else
+{
+  $template->set_filenames( array('picture' => 'picture.tpl'));
+}
 
 $title =  $picture['current']['name'];
 $title_nb = ($page['current_rank'] + 1).'/'.count($page['items']);
@@ -948,7 +949,14 @@ if ($metadata_showable and pwg_get_session_var('show_metadata') <> null )
 
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_picture');
-$template->pparse('picture');
+if ($page['slideshow'] and $conf['light_slideshow'])
+{
+  $template->pparse('slideshow');
+}
+else
+{
+  $template->pparse('picture');
+}
 //------------------------------------------------------------ log informations
 pwg_log($picture['current']['id'], 'picture');
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
