@@ -174,9 +174,6 @@
       {else}
       <li><label><input type="radio" name="caddie_action" value="add_selected" /> {'Add selected elements to caddie'|@translate}</label></li>
       {/if}
-
-      <li><label><input type="radio" name="caddie_action" value="export" /> {'Export data'|@translate}</label></li>
-
     </ul>
 
     <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit_caddie" /></p>

@@ -468,7 +468,6 @@ $lang['Elements_not_linked'] = 'Elementos no atados';
 $lang['special_admin_menu'] = 'Clases de matemáticas superiores';
 $lang['Duplicates'] = 'Ficheros que llevan el mismo nombre en varias categorías físicas';
 
-$lang['Export data'] = 'Exportar los datos';
 $lang['Overall'] = 'Vista global';
 $lang['Year'] = 'Año';
 $lang['Month'] = 'Mes';

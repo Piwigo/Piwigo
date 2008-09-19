@@ -468,7 +468,6 @@ $lang['Elements_not_linked'] = 'Elementi sciolti';
 $lang['special_admin_menu'] = 'Speciale';
 $lang['Duplicates'] = 'File con stesso nome in più di una categoria fisica';
 
-$lang['Export data'] = 'Esportare i dati';
 $lang['Overall'] = 'Vista globale';
 $lang['Year'] = 'Anno';
 $lang['Month'] = 'Mese';

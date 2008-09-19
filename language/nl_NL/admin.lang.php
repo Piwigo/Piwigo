@@ -468,7 +468,6 @@ $lang['Elements_not_linked'] = 'Niet gelinkte elementen';
 $lang['special_admin_menu'] = 'Speciaal';
 $lang['Duplicates'] = 'Bestanden met de zelfde naam in meer dan één physieke categorie';
 
-$lang['Export data'] = 'Exporteer data';
 $lang['Overall'] = 'Totaal';
 $lang['Year'] = 'Jaar';
 $lang['Month'] = 'Maand';
