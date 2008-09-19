@@ -50,13 +50,13 @@ text-transform:none; font-weight:bold; padding-left:20px; }
 fieldset { border: 1px solid #666; }
 INPUT, SELECT, TEXTAREA { border-left: 2px inset #666; text-indent:4px; }
 TEXTAREA { cursor:text; font-family:Univers,Helvetica,Optima,"Bitstream Vera Sans",sans-serif; font-size: 13px; }
-.bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top;
-border:0; color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; }
-.bigbutton input { background: transparent none no-repeat scroll left top; 
-position: relative; top: 0; left: 0; width:625px; height: 161px; border: 0;}
-.bigtext { border:0; height:161px; left:273px; position:relative; top:-124px; width:225px; font-weight: bold;}
-*+html  .bigtext { left: 65px; }
+.bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
+color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; }
+.bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
 .bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
+.bigbutton input { background-color:transparent; border:0; display:block; height:161px; left:-20px;
+position:relative; top:-70px; width:625px; z-index: 99;}
+.bigbutton input:hover { cursor:pointer; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
@@ -64,7 +64,7 @@ position: relative; top: 0; left: 0; width:625px; height: 161px; border: 0;}
 .tagSelection label { padding-right:12px; }
 ul.thumbnails input { border:3px double #f70; color:#222; font-size:10px; margin:0; }
 INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { color:#f33; cursor: pointer; }
-INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; cursor: pointer; }
+INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
 .virtual_cat { background: #222 !important; }
@@ -74,7 +74,7 @@ a.Piwigo {
   color : #f36; text-decoration: none; border: 0; color: #f36; }
 * { outline-width: 0; }
 a { color:#f70; border-color: #FF3363; }
-a:hover { color: #f33; border-color: #FF3363; }
+a:hover { color: #f33; border-color: #FF3363;  cursor: pointer; }
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
@@ -136,3 +136,5 @@ color: #F70; border-bottom: 1px dotted #F70;}
   list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
+*+html  .bigtext { left: 65px; }
+*+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-110px; }
