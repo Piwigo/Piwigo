@@ -19,14 +19,18 @@
   <a href="mailto:{$CONTACT_MAIL}?subject={'title_send_mail'|@translate|@escape:url}">{'Webmaster'|@translate}</a>
   {/if}
 
-</div> <!-- copyright -->
+
 {if isset($footer_elements)}
 {foreach from=$footer_elements item=v}
 {$v}
 {/foreach}
 {/if}
 </div> <!-- the_page -->
-
-{if isset($debug.QUERIES_LIST)}{$debug.QUERIES_LIST}{/if}
+{if isset($debug.QUERIES_LIST)}
+<div id="debug">
+{$debug.QUERIES_LIST}
+</div>
+{/if}
+</div> <!-- copyright -->
 </body>
 </html>

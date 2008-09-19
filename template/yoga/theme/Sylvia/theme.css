@@ -1,6 +1,8 @@
 /* $Id$ */
-.content div.thumbnailCategory div.illustration { width:190px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ }
+.content div.thumbnailCategory div.illustration { width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ }
 .content div.thumbnailCategory { height: 180px !important; /* Usable range 172px-250px , optimal : Thumbnail height + 30px */ }
+.content div.thumbnailCategory div.description .text { height: 130px !important; /* -42px than previous one */ }
+
 /*  Sylvia Theme is close to the Roma Admin theme */
 BODY, H1, H3, DT, INPUT.rateButtonSelected { color:#ddd; }
 H2, #menubar DT { color: #666; }
@@ -52,7 +54,13 @@ padding: 0; margin:0; }
 padding: 0 0 0 10px; margin: 0; }
 .content .thumbnailCategory div.illustration a { display: block; margin: 0; padding:20px 0 0 8px; }
 #content .thumbnailCategory div.description { background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
-margin:0; padding:15px 10px 3px 0; overflow: hidden; }
+margin: 0; padding:15px 10px 3px 0; overflow: hidden; }
+#content .thumbnailCategory div.description .text { margin: 10px 2px 0 0; padding:-10px 0 5px 0; 
+overflow: auto; overflow-x: hidden;  /* Only IE family supports colored scrollbar */
+ scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
+ scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
+ scrollbar-arrow-color: #f70; }
+.content div.thumbnailCategory div.description p.dates { margin: 0 15px 0 15px; text-align: right; }
 #content.content .thumbnailCategory div.description H3 { display: block; margin: 0; }
 #content ul.thumbnailCategories li:hover { background-color:#111; } 
 #imageHeaderBar .imageNumber { margin-right:170px; }

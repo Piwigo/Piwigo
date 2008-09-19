@@ -28,4 +28,3 @@
 	</li>
 {/foreach}
 </ul>
-

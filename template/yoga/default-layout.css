@@ -274,3 +274,4 @@ TABLE.tagLetterContent {
 	border-collapse : collapse;
 }
 #theHeader {text-align: center;}
+#debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
