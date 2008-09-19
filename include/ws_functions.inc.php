@@ -364,20 +364,6 @@ function ws_categories_getList($params, &$service)
 {
   global $user,$conf;
 
-  $query = '
-SELECT
-    category_id,
-    MAX(rank) AS max_rank
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
-  GROUP BY category_id
-;';
-  $max_image_rank_of = simple_hash_from_query(
-    $query,
-    'category_id',
-    'max_rank'
-    );
-
   $where = array();
 
   if (!$params['recursive'])
@@ -429,11 +415,6 @@ SELECT id, name, permalink, uppercats, global_rank,
     {
       $row[$key] = (int)$row[$key];
     }
-
-    if (isset($max_image_rank_of[ $row['id'] ]))
-    {
-      $row['images_max_rank'] = $max_image_rank_of[ $row['id'] ];
-    }
     
     array_push($cats, $row);
   }
@@ -450,7 +431,6 @@ SELECT id, name, permalink, uppercats, global_rank,
         'nb_categories',
         'date_last',
         'max_date_last',
-        'images_max_rank',
         )
       )
     );
@@ -862,6 +842,7 @@ function ws_images_add($params, &$service)
 
   // $fh_log = fopen('/tmp/php.log', 'w');
   // fwrite($fh_log, time()."\n");
+  // fwrite($fh_log, 'input rank :'.$params['rank']."\n");
   // fwrite($fh_log, 'input:  '.$params['file_sum']."\n");
   // fwrite($fh_log, 'input:  '.$params['thumbnail_sum']."\n");
 
@@ -958,8 +939,25 @@ function ws_images_add($params, &$service)
   $insert = array(
     'category_id' => $params['category_id'],
     'image_id' => $image_id,
-    'rank' => $params['rank'],
     );
+
+  if ('auto' == $params['rank'])
+  {
+    $query = '
+SELECT
+    MAX(rank) AS max_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE rank IS NOT NULL
+    AND category_id = '.$params['category_id'].'
+;';
+    $row = mysql_fetch_assoc(pwg_query($query));
+    $insert['rank'] = isset($row['max_rank']) ? $row['max_rank']+1 : 1;
+  }
+  else if (is_numeric($params['rank']))
+  {
+    $insert['rank'] = (int)$params['rank'];
+  }
+  
   mass_inserts(
     IMAGE_CATEGORY_TABLE,
     array_keys($insert),
