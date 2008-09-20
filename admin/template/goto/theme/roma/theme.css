@@ -67,7 +67,8 @@ INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { color:#f33; cursor: po
 INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; }
 label { cursor:pointer }
-.virtual_cat { background: #222 !important; }
+.categoryLi { background: #222 }
+.virtual_cat { background: #333 !important; }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;

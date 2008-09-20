@@ -1,4 +1,26 @@
 {* $Id$ *}
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js" }
+{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.sortable.packed.js" }
+
+<script type="text/javascript">
+  jQuery().ready(function(){ldelim}
+    jQuery(".catPos").hide();
+    jQuery('.categoryUl').sortable({ldelim}
+      axis: "y",
+      cursor: "move",
+      opacity: 0.8
+    });
+    jQuery("#categoryOrdering").submit(function(){ldelim}
+      ar = jQuery('.categoryUl').sortable('toArray');
+      for(i=0;i<ar.length;i++) {ldelim}
+        cat = ar[i].split('cat_');
+        document.getElementsByName('catOrd[' + cat[1] + ']')[0].value = i;
+      }
+    });
+  });
+</script>
+
 <h2>{'title_categories'|@translate}</h2>
 
 <h3>{$CATEGORIES_NAV}</h3>
@@ -22,7 +44,7 @@
   <ul class="categoryUl">
 
     {foreach from=$categories item=category}
-    <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}">
+    <li class="categoryLi{if $category.IS_VIRTUAL} virtual_cat{/if}" id="cat_{$category.ID}">
       <!-- category {$category.ID} -->
       <ul class="categoryActions">
         <li><a href="{$category.U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
@@ -46,7 +68,7 @@
       {/if}
       </p>
 
-      <p>
+      <p class="catPos">
         <label>
           {'Position'|@translate} :
           <input type="text" size="4" name="catOrd[{$category.ID}]" maxlength="4" value="{$category.RANK}" />

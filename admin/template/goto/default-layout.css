@@ -60,6 +60,7 @@ UL.categoryUl {
 }
 
 LI.categoryLi {
+  width: 100%;
   border: 1px solid gray;
   padding: 0px 5px;
   margin-bottom: 5px;
