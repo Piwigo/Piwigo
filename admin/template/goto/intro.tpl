@@ -59,5 +59,4 @@
 <span class="bigtext">{'Quick Local Synchronization'|@translate}</></span>
 <input type="submit" value="" name="submit"/>
 </span>
-
 </form>
