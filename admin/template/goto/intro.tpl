@@ -14,7 +14,8 @@
   <dd>
     <ul>
       <li>{'Operating system'|@translate}: {$OS}</li>
-      <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
+      <li>PHP: {$PHP_VERSION} (<a href="{$U_PHPINFO}" onclick="window.open(this.href, ''); 
+          return false;">{'Show info'|@translate}</a>)  [{$PHP_DATATIME}]</li>
       <li>MySQL: {$MYSQL_VERSION} [{$DB_DATATIME}]</li>
     </ul>
   </dd>
