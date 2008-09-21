@@ -798,24 +798,14 @@ SELECT id, dir
   FROM '.CATEGORIES_TABLE.'
   WHERE dir IS NOT NULL
 ;';
-  $result = pwg_query($query);
-  $cat_dirs = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    $cat_dirs[$row['id']] = $row['dir'];
-  }
+  $cat_dirs = simple_hash_from_query($query, 'id', 'dir');
 
   // caching galleries_url
   $query = '
 SELECT id, galleries_url
   FROM '.SITES_TABLE.'
 ;';
-  $result = pwg_query($query);
-  $galleries_url = array();
-  while ($row = mysql_fetch_array($result))
-  {
-    $galleries_url[$row['id']] = $row['galleries_url'];
-  }
+  $galleries_url = simple_hash_from_query($query, 'id', 'galleries_url');
 
   // categories : id, site_id, uppercats
   $categories = array();
@@ -823,7 +813,8 @@ SELECT id, galleries_url
   $query = '
 SELECT id, uppercats, site_id
   FROM '.CATEGORIES_TABLE.'
-  WHERE id IN (
+  WHERE dir IS NOT NULL
+    AND id IN (
 '.wordwrap(implode(', ', $cat_ids), 80, "\n").')
 ;';
   $result = pwg_query($query);

@@ -23,11 +23,10 @@
 
 include_once(PHPWG_ROOT_PATH.'/include/functions_metadata.inc.php');
 
-$page['datefields'] = array('date_creation', 'date_available');
 
 function get_sync_iptc_data($file)
 {
-  global $conf, $page;
+  global $conf;
 
   $map = $conf['use_iptc_mapping'];
 
@@ -35,7 +34,7 @@ function get_sync_iptc_data($file)
 
   foreach ($iptc as $pwg_key => $value)
   {
-    if (in_array($pwg_key, $page['datefields']))
+    if (in_array($pwg_key, array('date_creation', 'date_available')))
     {
       if (preg_match('/(\d{4})(\d{2})(\d{2})/', $value, $matches))
       {
@@ -71,13 +70,13 @@ function get_sync_iptc_data($file)
 
 function get_sync_exif_data($file)
 {
-  global $conf, $page;
+  global $conf;
 
   $exif = get_exif_data($file, $conf['use_exif_mapping']);
 
   foreach ($exif as $pwg_key => $value)
   {
-    if (in_array($pwg_key, $page['datefields']))
+    if (in_array($pwg_key, array('date_creation', 'date_available')))
     {
       if (preg_match('/^(\d{4}).(\d{2}).(\d{2})/', $value, $matches))
       {
