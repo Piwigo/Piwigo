@@ -43,6 +43,7 @@ margin:0; }
 #menubar #mbIdentification .button { height:24px; right:0px; top:0px; }
 #menubar #mbIdentification fieldset { border:0; margin:0 24px 0 23px; }
 #menubar #mbIdentification legend { display: none; }
+#menubar #menuTagCloud { margin: 0; padding: 0 8px 0 16px; }
 #content { background:#222 url(images/fillet.gif) repeat-x scroll left top; min-height:466px; }
 .content { border: 1px solid #000; border-top: 0; margin:21px 7px 0 290px; padding-top:7px; }
 .content h2 { margin:0; padding:0px 10px 15px 15px; border:0;}

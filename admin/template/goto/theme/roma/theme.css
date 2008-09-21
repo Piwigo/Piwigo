@@ -55,8 +55,8 @@ color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 
 position:relative;  z-index: 50;}
 .bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
 .bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
-.bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top;
-border:0; display:block; height:161px; left:-20px; position:relative; top:-70px; width:625px; z-index: 99;}
+.bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top; border:0;
+display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; }
 .bigbutton input:hover { cursor:pointer; }
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
@@ -139,4 +139,4 @@ color: #F70; border-bottom: 1px dotted #F70;}
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
 *+html  .bigtext { left: 65px; }
-*+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-110px; }
+*+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }
