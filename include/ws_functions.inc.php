@@ -436,6 +436,62 @@ SELECT id, name, permalink, uppercats, global_rank,
     );
 }
 
+/**
+ * returns the list of categories as you can see them in administration (web
+ * service method).
+ *
+ * Only admin can run this method and permissions are not taken into
+ * account.
+ */
+function ws_categories_getAdminList($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $query = '
+SELECT
+    category_id,
+    COUNT(*) AS counter
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  GROUP BY category_id
+;';
+  $nb_images_of = simple_hash_from_query($query, 'category_id', 'counter');
+
+  $query = '
+SELECT
+    id,
+    name,
+    uppercats,
+    global_rank
+  FROM '.CATEGORIES_TABLE.'
+;';
+  $result = pwg_query($query);
+  $cats = array();
+
+  while ($row = mysql_fetch_assoc($result))
+  {
+    $id = $row['id'];
+    $row['nb_images'] = isset($nb_images_of[$id]) ? $nb_images_of[$id] : 0;
+    array_push($cats, $row);
+  }   
+  
+  usort($cats, 'global_rank_compare');
+  return array(
+    'categories' => new PwgNamedArray(
+      $cats,
+      'category',
+      array(
+        'id',
+        'nb_images',
+        'name',
+        'uppercats',
+        'global_rank',
+        )
+      )
+    );
+}
 
 /**
  * returns detailed information for an element (web service method)

@@ -186,6 +186,13 @@ function ws_addDefaultMethods( $arr )
       ),
     'POST method only'
     );
+
+  $service->addMethod(
+    'pwg.categories.getAdminList',
+    'ws_categories_getAdminList',
+    array(),
+    'administration method only'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
