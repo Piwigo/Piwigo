@@ -9,7 +9,7 @@
     <label>{'Username'|@translate} <input type="text" name="login" maxlength="50" size="20" /></label>
     <label>{'Password'|@translate} <input type="text" name="password" /></label>
     <label>{'Email address'|@translate} <input type="text" name="email" /></label>
-    <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
+    <label>&nbsp; <input class="submit" type="submit" name="submit_add" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} /></label>
   </fieldset>
 </form>
 
@@ -40,7 +40,10 @@
   {html_options name=direction options=$direction_options selected=$direction_selected}
   </label>
 
+  <label>
+  &nbsp;
   <input class="submit" type="submit" value="{'Submit'|@translate}" />
+  </label>
 
 </fieldset>
 

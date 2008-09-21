@@ -20,7 +20,7 @@ TABLE.table2 TR {
 table.table2 thead td { padding:7px 20px 3px 20px; }
 table.table2 tr.throw { text-align: center; }
 table.table2 { margin:0pt auto; }
-.sort { display:block; padding:8px 5px 0px 1px; }
+.sort { display:block; padding:8px 5px 0px 1px; clear: right; text-align:left; }
 
 
 .hour {
@@ -409,7 +409,7 @@ FORM.filter FIELDSET P
 }
 
 FORM.filter INPUT[type="submit"] {
-  margin-top: 1em;
+  margin-top: 5px;
 }
 
 FORM.properties UL, FORM#update UL {

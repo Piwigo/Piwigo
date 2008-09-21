@@ -22,9 +22,9 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_FAQ}">{'instructions'|@translate}</a></li>
         <li><a href="{$U_ADMIN}" title="{'hint_admin'|@translate}">{'admin'|@translate}</a></li>
 {if isset($pwgmenu)}
-        <li class="external"><a href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); 
+        <li class="external"><a class="external" href="{$pwgmenu.WIKI}" onclick="window.open(this.href, ''); 
           return false;">{'WIKI / DOC'|@translate}</a></li>
-        <li class="external"><a href="{$pwgmenu.FORUM}" onclick="window.open(this.href, '');
+        <li class="external"><a class="external" href="{$pwgmenu.FORUM}" onclick="window.open(this.href, '');
           return false;">{'FORUM'|@translate}</a></li>
 {/if}
         
