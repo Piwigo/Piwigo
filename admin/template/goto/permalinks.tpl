@@ -3,7 +3,7 @@
   <h2>{'Permalinks'|@translate}</h2>
 </div>
 
-<form method="post" action="{$F_ACTION}">
+<form method="post" action="">
 <fieldset><legend>{'Add/delete a permalink'|@translate}</legend>
   <label>{'Category'|@translate}:
     <select name="cat_id">
