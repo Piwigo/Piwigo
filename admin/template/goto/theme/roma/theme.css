@@ -35,10 +35,10 @@ h3, #imageToolBar a:hover, .row1, .content { background-color: #222; }
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
  text-align:right; background:none; border: 0; }
 .content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
-.content h2:before, .content h2:after, 
+/*.content h2:before, .content h2:after, */ 
 .content h2 { 
-letter-spacing:0.1em; margin-right:30px; text-align:right; color: #777; 
-text-transform:none; font-weight:bold; padding-left:20px; }
+letter-spacing:2px; margin-right:30px; text-align:right; color: #777; 
+text-transform:none; font-weight:bold; padding-left:20px; width:54%; }
 .content dl, dd { margin:5px; }
 .content div.titrePage { height:55px; }
 .instructions { height:450px; overflow:scroll; padding:0 20px 0; text-align:left; }
