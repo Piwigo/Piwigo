@@ -37,7 +37,7 @@
 		<td>{'site_local'|@translate} / {'site_remote'|@translate}</td>
 		<td>{'Actions'|@translate}</td>
 	</tr>
-  {foreach from=$sites item=site}
+  {foreach from=$sites item=site name=site}
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
     <a href="{$site.NAME}">{$site.NAME}</a><br/>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d element','%d elements',$site.IMAGES)})
   </td><td>
