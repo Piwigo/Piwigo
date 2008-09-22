@@ -6,6 +6,7 @@
 <script type="text/javascript">
   jQuery().ready(function(){ldelim}
     jQuery(".catPos").hide();
+    jQuery(".drag_button").show();
     jQuery('.categoryUl').sortable({ldelim}
       axis: "y",
       cursor: "move",
@@ -62,6 +63,7 @@
       </ul>
 
       <p>
+      <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}"/>
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}">{$category.NAME}</a></strong>
       {if $category.IS_VIRTUAL}
       <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'virtual_category'|@translate}" />

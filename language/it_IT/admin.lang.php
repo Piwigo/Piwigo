@@ -635,4 +635,5 @@ $lang['Edit ranks'] = 'Modificare gli ordini';
 $lang['No element in this category'] = 'Nessun\'elemento in questa categoria';
 $lang['Images manual order was saved'] = 'L\'ordinamento manuale delle immagini è stato salvato';
 $lang['ranks'] = 'rangs';
+/* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
 ?>

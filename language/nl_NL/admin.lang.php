@@ -631,4 +631,5 @@ $lang['link_info_image'] = 'Aanpassen informatie';
 $lang['edit category informations'] = 'bewerk categorie informatie';
 /* TODO */ $lang['nothing'] = 'nothing';
 /* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+/* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
 ?>
