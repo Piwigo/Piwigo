@@ -10,7 +10,7 @@ use Getopt::Long;
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s category_id=i name=s rank=s/
+    qw/action=s file=s thumbnail=s categories=s define=s%/
 );
 
 our $ua = LWP::UserAgent->new;
@@ -59,10 +59,12 @@ if ($opt{action} eq 'pwg.images.add') {
         file_content => $file_content,
         thumbnail_sum => $thumbnail_sum,
         thumbnail_content => $thumbnail_content,
-        category_id => $opt{category_id},
-        name => $opt{name},
-        rank => defined($opt{rank}) ? $opt{rank} : 'auto',
+        categories => $opt{categories},
     };
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
 
     my $response = $ua->post(
         $conf{base_url}.'/ws.php?format=json',

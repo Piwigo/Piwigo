@@ -974,6 +974,8 @@ function ws_images_add($params, &$service)
   // fwrite($fh_log, 'output: '.md5_file($file_path)."\n");
   // fwrite($fh_log, 'output: '.md5_file($thumbnail_path)."\n");
 
+  list($width, $height) = getimagesize($file_path);
+  
   // database registration
   $insert = array(
     'file' => $filename_wo_ext.'.jpg',
@@ -981,7 +983,26 @@ function ws_images_add($params, &$service)
     'tn_ext' => 'jpg',
     'name' => $params['name'],
     'path' => $file_path,
+    'filesize' => floor(filesize($file_path)/1024),
+    'width' => $width,
+    'height' => $height,
     );
+
+  $info_columns = array(
+    'name',
+    'author',
+    'comment',
+    'level',
+    'date_creation',
+    );
+
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $insert[$key] = $params[$key];
+    }
+  }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
   mass_inserts(
@@ -992,34 +1013,99 @@ function ws_images_add($params, &$service)
 
   $image_id = mysql_insert_id();
 
-  $insert = array(
-    'category_id' => $params['category_id'],
-    'image_id' => $image_id,
-    );
-
-  if ('auto' == $params['rank'])
+  // let's add links between the image and the categories
+  //
+  // $params['categories'] should look like 123,12;456,auto;789 which means:
+  //
+  // 1. associate with category 123 on rank 12
+  // 2. associate with category 456 on automatic rank
+  // 3. associate with category 789 on automatic rank
+  if (isset($params['categories']))
   {
-    $query = '
+    $cat_ids = array();
+    $rank_on_category = array();
+    $search_current_ranks = false;
+    
+    $tokens = explode(';', $params['categories']);
+    foreach ($tokens as $token)
+    {
+      list($cat_id, $rank) = explode(',', $token);
+
+      array_push($cat_ids, $cat_id);
+      
+      if (!isset($rank))
+      {
+        $rank = 'auto';
+      }
+      $rank_on_category[$cat_id] = $rank;
+
+      if ($rank == 'auto')
+      {
+        $search_current_ranks = true;
+      }
+    }
+
+    $cat_ids = array_unique($cat_ids);
+
+    if (count($cat_ids) > 0)
+    {
+      if ($search_current_ranks)
+      {
+        $query = '
 SELECT
+    category_id,
     MAX(rank) AS max_rank
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE rank IS NOT NULL
-    AND category_id = '.$params['category_id'].'
+    AND category_id IN ('.implode(',', $cat_ids).')
+  GROUP BY category_id
 ;';
-    $row = mysql_fetch_assoc(pwg_query($query));
-    $insert['rank'] = isset($row['max_rank']) ? $row['max_rank']+1 : 1;
+        $current_rank_of = simple_hash_from_query(
+          $query,
+          'category_id',
+          'max_rank'
+          );
+
+        foreach ($cat_ids as $cat_id)
+        {
+          if ('auto' == $rank_on_category[$cat_id])
+          {
+          $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
+          }
+        }
+      }
+
+      $inserts = array();
+
+      foreach ($cat_ids as $cat_id)
+      {
+        array_push(
+          $inserts,
+          array(
+            'image_id' => $image_id,
+            'category_id' => $cat_id,
+            'rank' => $rank_on_category[$cat_id],
+            )
+          );
+      }
+
+      mass_inserts(
+        IMAGE_CATEGORY_TABLE,
+        array_keys($inserts[0]),
+        $inserts
+        );
+    }
   }
-  else if (is_numeric($params['rank']))
+
+  // and now, let's create tag associations
+  if (isset($params['tag_ids']))
   {
-    $insert['rank'] = (int)$params['rank'];
+    set_tags(
+      explode(',', $params['tag_ids']),
+      $image_id
+      );
   }
   
-  mass_inserts(
-    IMAGE_CATEGORY_TABLE,
-    array_keys($insert),
-    array($insert)
-    );
-
   invalidate_user_cache();
 
   // fclose($fh_log);
@@ -1249,5 +1335,4 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
       )
     );
 }
-
 ?>

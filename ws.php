@@ -176,15 +176,23 @@ function ws_addDefaultMethods( $arr )
     'pwg.images.add',
     'ws_images_add',
     array(
-      'name',
-      'category_id',
-      'file_content',
-      'file_sum',
-      'thumbnail_content',
-      'thumbnail_sum',
-      'rank',
+      'file_content' => array(),
+      'file_sum' => array(),
+      'thumbnail_content' => array(),
+      'thumbnail_sum' => array(),
+      'name' => array('default' => null),
+      'author' => array('default' => null),
+      'date_creation' => array('default' => null),
+      'comment' => array('default' => null),
+      'categories' => array('default' => null),
+      'tag_ids' => array('default' => null),
+      'level' => array(
+        'default' => 0,
+        'maxValue' => $conf['available_permission_levels']
+        ),
       ),
-    'POST method only'
+    'POST method only.
+<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
     );
 
   $service->addMethod(
