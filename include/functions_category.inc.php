@@ -270,7 +270,7 @@ function get_category_preferred_image_orders()
     array(
       l10n('Rank'),
       'rank ASC',
-      ('categories' == @$page['section'] and !isset($page['flat']))
+      ('categories' == @$page['section'] and !isset($page['flat']) and !isset($page['chronology_field']) )
       )
     ));
 }

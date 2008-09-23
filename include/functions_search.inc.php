@@ -299,7 +299,7 @@ SELECT DISTINCT(id)
  * @param string field
  * @return string
  */
-function get_qsearch_like_clause($q, $field)
+function get_qsearch_like_clause($q, $field, $before='%', $after='%')
 {
   $q = stripslashes($q);
   $tokens = array();
@@ -393,7 +393,7 @@ function get_qsearch_like_clause($q, $field)
       continue;
     if ( strlen($tokens[$i])==0)
       continue;
-    $clauses[] = $field.' LIKE "%'.addslashes($tokens[$i]).'%"';
+    $clauses[] = $field.' LIKE "'.$before.addslashes($tokens[$i]).$after.'"';
   }
 
   return count($clauses) ? '('.implode(' OR ', $clauses).')' : null;

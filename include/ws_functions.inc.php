@@ -29,7 +29,7 @@
  */
 function ws_isInvokeAllowed($res, $methodName, $params)
 {
-  global $conf, $calling_partner_id;
+  global $conf;
 
   if ( strpos($methodName,'reflection.')===0 )
   { // OK for reflection
@@ -415,7 +415,7 @@ SELECT id, name, permalink, uppercats, global_rank,
     {
       $row[$key] = (int)$row[$key];
     }
-    
+
     array_push($cats, $row);
   }
   usort($cats, 'global_rank_compare');

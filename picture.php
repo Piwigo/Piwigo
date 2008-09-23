@@ -126,12 +126,10 @@ if ( isset($_GET['metadata']) )
 {
   if ( pwg_get_session_var('show_metadata') == null )
 	{
-		pwg_set_session_var('show_metadata', 1, 86400, cookie_path());
+		pwg_set_session_var('show_metadata', 1 );
 	} else {
   	pwg_unset_session_var('show_metadata');
-
 	}
-
 }
 
 // add default event handler for rendering element content
