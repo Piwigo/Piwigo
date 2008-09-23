@@ -91,7 +91,7 @@ TABLE.doubleSelect TD {
 }
 
 TABLE.doubleSelect SELECT.categoryList {
-  width: 100%;
+  width: 100%; max-width: 100%; overflow-x: auto; /* Bug 532 */
 }
 
 FORM#categoryPermissions LI {
