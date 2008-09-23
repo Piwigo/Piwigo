@@ -113,7 +113,6 @@ SELECT id
     )
 ;';
     $dissociables = array_from_query($query, 'id');
-    echo '<pre>'; print_r($dissociables); echo '</pre>';
 
     if (!empty($dissociables))
     {
@@ -125,10 +124,15 @@ DELETE
 ';
       pwg_query($query);
 
-      $page['cat_elements_id'] = array_diff(
-        $page['cat_elements_id'],
-        $dissociables
-      );
+      // we remove the dissociated images if we are currently displaying the
+      // category to dissociate from.
+      if (is_numeric($_GET['cat']) and $_POST['dissociate'] == $_GET['cat'])
+      {
+        $page['cat_elements_id'] = array_diff(
+          $page['cat_elements_id'],
+          $dissociables
+          );
+      }
     }
 
     update_category($_POST['dissociate']);
