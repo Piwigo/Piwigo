@@ -177,7 +177,12 @@ SELECT *
 ;';
 $row = mysql_fetch_array(pwg_query($query));
 
-$storage_category_id = $row['storage_category_id'];
+$storage_category_id = null;
+if (!empty($row['storage_category_id']))
+{
+  $storage_category_id = $row['storage_category_id'];
+}
+
 $image_file = $row['file'];
 
 // tags
@@ -397,13 +402,22 @@ $query = '
 SELECT id,name,uppercats,global_rank
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id = category_id
-  WHERE image_id = '.$_GET['image_id'].'
-    AND id != '.$storage_category_id.'
+  WHERE image_id = '.$_GET['image_id'];
+if (isset($storage_category_id))
+{
+  $query.= '
+    AND id != '.$storage_category_id;
+}
+$query.= '
 ;';
 display_select_cat_wrapper($query, array(), 'associated_options');
 
 $result = pwg_query($query);
-$associateds = array($storage_category_id);
+$associateds = array();
+if (isset($storage_category_id))
+{
+  array_push($associateds, $storage_category_id);
+}
 while ($row = mysql_fetch_array($result))
 {
   array_push($associateds, $row['id']);

@@ -1057,6 +1057,7 @@ function update_path()
   $query = '
 SELECT DISTINCT(storage_category_id)
   FROM '.IMAGES_TABLE.'
+  WHERE storage_category_id IS NOT NULL
 ;';
   $cat_ids = array_from_query($query, 'storage_category_id');
   $fulldirs = get_fulldirs($cat_ids);

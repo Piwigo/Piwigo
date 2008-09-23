@@ -107,9 +107,13 @@ SELECT id
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
   WHERE category_id = '.$_POST['dissociate'].'
     AND id IN ('.implode(',', $collection).')
-    AND category_id != storage_category_id
+    AND (
+      category_id != storage_category_id
+      OR storage_category_id IS NULL
+    )
 ;';
     $dissociables = array_from_query($query, 'id');
+    echo '<pre>'; print_r($dissociables); echo '</pre>';
 
     if (!empty($dissociables))
     {
@@ -245,14 +249,19 @@ display_select_cat_wrapper($query, array(), 'associate_options', true);
 if (count($page['cat_elements_id']) > 0)
 {
   $query = '
-SELECT DISTINCT(category_id) AS id, c.name, uppercats, global_rank
-  FROM '.IMAGE_CATEGORY_TABLE.' AS ic,
-       '.CATEGORIES_TABLE.' AS c,
-       '.IMAGES_TABLE.' AS i
+SELECT
+    DISTINCT(category_id) AS id,
+    c.name,
+    c.uppercats,
+    c.global_rank
+  FROM '.IMAGE_CATEGORY_TABLE.' AS ic
+    JOIN '.CATEGORIES_TABLE.' AS c ON c.id = ic.category_id
+    JOIN '.IMAGES_TABLE.' AS i ON i.id = ic.image_id
   WHERE ic.image_id IN ('.implode(',', $page['cat_elements_id']).')
-    AND ic.category_id = c.id
-    AND ic.image_id = i.id
-    AND ic.category_id != i.storage_category_id
+    AND (
+      ic.category_id != i.storage_category_id
+      OR i.storage_category_id IS NULL
+    )
 ;';
   display_select_cat_wrapper($query, array(), 'dissociate_options', true);
 }
