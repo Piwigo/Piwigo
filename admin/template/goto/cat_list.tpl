@@ -7,9 +7,9 @@
   jQuery().ready(function(){ldelim}
     jQuery(".catPos").hide();
     jQuery(".drag_button").show();
-    jQuery('.categoryUl').sortable({ldelim}
+    jQuery(".categoryLi").css("cursor","move");
+    jQuery(".categoryUl").sortable({ldelim}
       axis: "y",
-      cursor: "move",
       opacity: 0.8
     });
     jQuery("#categoryOrdering").submit(function(){ldelim}
