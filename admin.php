@@ -93,7 +93,8 @@ $template->assign(
     'U_GROUPS'=> $link_start.'group_list',
     'U_PERMALINKS'=> $link_start.'permalinks',
     'U_RETURN'=> make_index_url(),
-    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php'
+    'U_ADMIN'=> PHPWG_ROOT_PATH.'admin.php',
+    'U_PLUGINS'=> $link_start.'plugins_list',
     )
   );
 
@@ -105,14 +106,6 @@ function UC_name_compare($a, $b)
   return strcmp(strtolower($a['NAME']), strtolower($b['NAME']));
 }
 usort($plugin_menu_links, 'UC_name_compare');
-
-array_unshift($plugin_menu_links,
-    array(
-      'NAME' => l10n('admin'),
-      'URL' => $link_start.'plugins_list'
-    )
-  );
-
 $template->assign('plugin_menu_items', $plugin_menu_links);
 
 include(PHPWG_ROOT_PATH.'admin/'.$page['page'].'.php');
