@@ -75,3 +75,5 @@ border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ }
 background-color: #111; border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ }
 A, INPUT.rateButton { color: #f70; outline: none; border: none;}
 A:hover, A:active { color: #f33; border: 0; outline: none; }
+
+#debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
