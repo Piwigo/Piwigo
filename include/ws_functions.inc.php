@@ -1335,4 +1335,26 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
       )
     );
 }
+
+function ws_categories_add($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $creation_output = create_virtual_category(
+    $params['name'],
+    $params['parent']
+    );
+
+  if (isset($creation_output['error']))
+  {
+    return new PwgError(500, $creation_output['error']);
+  }
+  
+  return $creation_output;
+}
 ?>

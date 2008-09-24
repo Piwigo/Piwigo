@@ -201,6 +201,16 @@ function ws_addDefaultMethods( $arr )
     array(),
     'administration method only'
     );
+
+  $service->addMethod(
+    'pwg.categories.add',
+    'ws_categories_add',
+    array(
+      'name' => array(),
+      'parent' => array('default' => null),
+      ),
+    'administration method only'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

@@ -116,6 +116,22 @@ if ($opt{action} eq 'pwg.tags.list') {
     print $t;
 }
 
+if ($opt{action} eq 'pwg.categories.add') {
+    $form = {
+        method => 'pwg.categories.add',
+        name => $opt{define}{name},
+        parent => $opt{define}{parent},
+    };
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    use Data::Dumper;
+    print Dumper(from_json($response->content));
+}
+
 $query = pwg_ws_get_query(
     method => 'pwg.session.logout'
 );
