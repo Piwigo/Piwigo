@@ -245,9 +245,6 @@ FORM#quickconnect INPUT[type=password] {
   border: 1px solid #333;
 }
 
-
-.virtual_cat { background: #222 !important; }
-
 .PWG {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 0.9em;

@@ -116,7 +116,6 @@ H2, #menubar DT, TD H3,
   outline: 3px ridge #f92;
 }
 input#qsearchInput { background-color: #cde; }
-.virtual_cat { background: #fff !important; }
 /******************************************************************************/
 /* Borders, Margins, Padding Only */
 BODY { margin: 0px;  padding: 0px; }

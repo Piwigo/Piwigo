@@ -74,8 +74,5 @@ SPAN.calItem, SPAN.calItemEmpty
   border: 1px solid silver;
 }
 
-.virtual_cat { background: #fff !important; }
 #qsearchInput { color: #d3d3d3; }
 #qsearchInput:focus { color: #005e89; }
-
-
