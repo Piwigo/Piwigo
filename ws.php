@@ -211,6 +211,13 @@ function ws_addDefaultMethods( $arr )
       ),
     'administration method only'
     );
+
+  $service->addMethod(
+    'pwg.tags.getAdminList',
+    'ws_tags_getAdminList',
+    array(),
+    'administration method only'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

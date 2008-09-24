@@ -116,6 +116,26 @@ if ($opt{action} eq 'pwg.tags.list') {
     print $t;
 }
 
+if ($opt{action} eq 'pwg.tags.getAdminList') {
+    $query = pwg_ws_get_query(
+        method => 'pwg.tags.getAdminList'
+    );
+
+    $result = $ua->get($query);
+    my $tags = from_json($result->content)->{result}{tags};
+
+    foreach my $tag (@{$tags}) {
+        # print join(',', keys %{$tag}), "\n"; exit();
+        printf(
+            '{%u} %s ',
+            $tag->{id},
+            $tag->{name}
+        );
+    }
+
+    print "\n";
+}
+
 if ($opt{action} eq 'pwg.categories.add') {
     $form = {
         method => 'pwg.categories.add',

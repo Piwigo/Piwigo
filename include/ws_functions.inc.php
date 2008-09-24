@@ -1192,6 +1192,33 @@ function ws_tags_getList($params, &$service)
   return array('tags' => new PwgNamedArray($tags, 'tag', array('id','url_name','url', 'counter' )) );
 }
 
+/**
+ * returns the list of tags as you can see them in administration (web
+ * service method).
+ *
+ * Only admin can run this method and permissions are not taken into
+ * account.
+ */
+function ws_tags_getAdminList($params, &$service)
+{
+  if (!is_admin())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+  
+  $tags = get_all_tags();
+  return array(
+    'tags' => new PwgNamedArray(
+      $tags,
+      'tag',
+      array(
+        'name',
+        'id',
+        'url_name',
+        )
+      )
+    );
+}
 
 /**
  * returns a list of images for tags (web service method)
