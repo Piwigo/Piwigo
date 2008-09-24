@@ -64,6 +64,7 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_RATING}">{'Rating'|@translate}</a></li>
         <li><a href="{$U_TAGS}">{'Tags'|@translate}</a></li>
         <li><a href="{$U_CADDIE}">{'Caddie'|@translate}</a></li>
+        <li><a href="{$U_RECENT_SET}">{'recent_pics_cat'|@translate}</a></li>
       </ul>
     </dd>
   </dl>

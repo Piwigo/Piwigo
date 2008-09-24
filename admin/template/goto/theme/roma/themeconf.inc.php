@@ -17,14 +17,15 @@ function selected_admin_menu()
       case 'cat_modify':
       case 'cat_move':
       case 'cat_options':
-      case 'element_set':
       case 'cat_perm':
       case 'permalinks':
-      case 'picture_modify':
-        if (isset($_GET['cat']) and $_GET['cat']=='caddie') {
-          return 3;
-        }
         return 2;
+      case 'element_set':
+        if (isset($_GET['cat']) and is_numeric($_GET['cat']) ) {
+          return 2;
+        }
+      case 'picture_modify':
+        return 3;
       case 'comments':
       case 'upload':
       case 'thumbnail':

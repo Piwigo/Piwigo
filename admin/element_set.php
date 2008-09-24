@@ -24,9 +24,9 @@
 /**
  * Management of elements set. Elements can belong to a category or to the
  * user caddie.
- * 
+ *
  */
- 
+
 if (!defined('PHPWG_ROOT_PATH'))
 {
   die('Hacking attempt!');
@@ -102,7 +102,7 @@ DELETE
 
 // To element_set_(global|unit).php, we must provide the elements id of the
 // managed category in $page['cat_elements_id'] array.
-
+$page['cat_elements_id'] = array();
 if (is_numeric($_GET['cat']))
 {
   $page['title'] =
@@ -111,7 +111,7 @@ if (is_numeric($_GET['cat']))
       PHPWG_ROOT_PATH.'admin.php?page=cat_modify&amp;cat_id=',
       false
       );
-  
+
   $query = '
 SELECT image_id
   FROM '.IMAGE_CATEGORY_TABLE.'
@@ -122,7 +122,7 @@ SELECT image_id
 else if ('caddie' == $_GET['cat'])
 {
   $page['title'] = l10n('caddie');
-  
+
   $query = '
 SELECT element_id
   FROM '.CADDIE_TABLE.'
@@ -133,7 +133,7 @@ SELECT element_id
 else if ('not_linked' == $_GET['cat'])
 {
   $page['title'] = l10n('Elements_not_linked');
-  
+
   // we are searching elements not linked to any virtual category
   $query = '
 SELECT id
@@ -159,37 +159,46 @@ SELECT DISTINCT(image_id)
 
     $page['cat_elements_id'] = array_diff($all_elements, $linked_to_virtual);
   }
-  else
-  {
-    $page['cat_elements_id'] = array();
-  }
 }
 else if ('duplicates' == $_GET['cat'])
 {
   $page['title'] = l10n('Duplicates');
-  
+
   // we are searching related elements twice or more to physical categories
   // 1 - Retrieve Files
   $query = '
 SELECT DISTINCT(file)
-  FROM '.IMAGES_TABLE.' 
- GROUP BY file 
-HAVING COUNT(DISTINCT storage_category_id) > 1 
-;';  
+  FROM '.IMAGES_TABLE.'
+ GROUP BY file
+HAVING COUNT(DISTINCT storage_category_id) > 1
+;';
 
   $duplicate_files = array_from_query($query, 'file');
   $duplicate_files[]='Nofiles';
   // 2 - Retrives related picture ids
   $query = '
 SELECT id, file
-  FROM '.IMAGES_TABLE.' 
+  FROM '.IMAGES_TABLE.'
 WHERE file IN (\''.implode("','", $duplicate_files).'\')
 ORDER BY file, id
 ;';
 
   $page['cat_elements_id'] = array_from_query($query, 'id');
-  $page['cat_elements_id'][] = 0;
 }
+elseif ('recent'== $_GET['cat'])
+{
+  $page['title'] = l10n('recent_pics_cat');
+  $query = 'SELECT MAX(date_available) AS date
+  FROM '.IMAGES_TABLE;
+  if ($row=mysql_fetch_array( pwg_query($query) ) )
+  {
+    $query = 'SELECT id
+  FROM '.IMAGES_TABLE.'
+  WHERE date_available BETWEEN DATE_SUB("'.$row['date'].'", INTERVAL 1 DAY) AND "'.$row['date'].'"';
+    $page['cat_elements_id'] = array_from_query($query, 'id');
+  }
+}
+
 // +-----------------------------------------------------------------------+
 // |                       first element to display                        |
 // +-----------------------------------------------------------------------+
