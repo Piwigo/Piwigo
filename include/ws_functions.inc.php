@@ -902,6 +902,18 @@ function ws_images_add($params, &$service)
   // fwrite($fh_log, 'input:  '.$params['file_sum']."\n");
   // fwrite($fh_log, 'input:  '.$params['thumbnail_sum']."\n");
 
+  // does the image already exists ?
+  $query = '
+SELECT
+    COUNT(*) AS counter
+  FROM '.IMAGES_TABLE.'
+  WHERE md5sum = \''.$params['file_sum'].'\'
+;';
+  list($counter) = mysql_fetch_row(pwg_query($query));
+  if ($counter != 0) {
+    return new PwgError(500, 'file already exists');
+  }
+
   // current date
   list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
   list($year, $month, $day) = preg_split('/[^\d]/', $dbnow, 4);
@@ -986,6 +998,7 @@ function ws_images_add($params, &$service)
     'filesize' => floor(filesize($file_path)/1024),
     'width' => $width,
     'height' => $height,
+    'md5sum' => $params['file_sum'],
     );
 
   $info_columns = array(

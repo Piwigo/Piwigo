@@ -193,6 +193,7 @@ CREATE TABLE `piwigo_images` (
   `storage_category_id` smallint(5) unsigned default NULL,
   `high_filesize` mediumint(9) unsigned default NULL,
   `level` tinyint unsigned NOT NULL default '0',
+  `md5sum` char(32) default NULL,
   PRIMARY KEY  (`id`),
   KEY `images_i2` (`date_available`),
   KEY `images_i3` (`average_rate`),
