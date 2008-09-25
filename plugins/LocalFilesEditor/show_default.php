@@ -24,6 +24,7 @@
 define('PHPWG_ROOT_PATH', '../../');
 include_once(PHPWG_ROOT_PATH . 'include/common.inc.php');
 include_once(LOCALEDIT_PATH.'functions.inc.php');
+load_language('plugin.lang', LOCALEDIT_PATH);
 check_status(ACCESS_ADMINISTRATOR);
 
 if (isset($_GET['file']))
@@ -37,22 +38,20 @@ if (isset($_GET['file']))
   $template->set_filename('show_default', dirname(__FILE__) . '/show_default.tpl');
   
   // Editarea
-  if (!isset($conf['editarea_options']) or $conf['editarea_options'] !== false)
-  {
-    $editarea = array(
-      'syntax' => 'php',
-      'start_highlight' => true,
-      'is_editable' => false,
-      'language' => substr($user['language'], 0, 2));
-
-    $template->assign('editarea', array(
-      'URL' => LOCALEDIT_PATH . 'editarea/edit_area_full.js',
-      'OPTIONS' => $editarea));
-  }
+  $editarea_options = array(
+    'syntax' => 'php',
+    'start_highlight' => true,
+    'allow_toggle' => false,
+    'is_editable' => false,
+    'language' => substr($user['language'], 0, 2));
 
   $file = file_get_contents(PHPWG_ROOT_PATH . $path);
-
-  $template->assign(array('DEFAULT_CONTENT' => $file));
+  
+  $template->assign(array(
+    'DEFAULT_CONTENT' => $file,
+    'LOCALEDIT_PATH' => LOCALEDIT_PATH,
+    'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'on',
+    'EDITAREA_OPTIONS' => $editarea_options));
 
   $title = $path;
   $page['page_banner'] = '<h1>'.str_replace('/', ' / ', $path).'</h1>';

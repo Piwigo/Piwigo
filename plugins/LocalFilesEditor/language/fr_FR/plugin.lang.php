@@ -27,7 +27,7 @@ $lang['locfiledit_onglet_tpl'] = 'Templates';
 $lang['locfiledit_onglet_lang'] = 'Langues';
 $lang['locfiledit_onglet_plug'] = 'Plugin Personnel';
 $lang['locfiledit_cant_save'] = 'Impossible d\'écrire le fichier. Vérifiez les permissions (chmod) du dossier "include/".';
-$lang['locfiledit_newfile'] = "/* Le fichier n'existe pas et sera créé lors de l'enregistrement par LocalFiles Editor. */";
+$lang['locfiledit_newfile'] = 'Le fichier n\'existe pas et sera créé lors de l\'enregistrement par LocalFiles Editor';
 $lang['locfiledit_save_config'] = 'Le fichier a été enregistré.';
 $lang['locfiledit_show_default'] = 'Afficher le fichier ';
 $lang['locfiledit_save_bak'] = 'Une copie de sauvegarde du fichier sera créée lors de l\'enregistrement';
@@ -41,5 +41,15 @@ Vous devrez ensuite cliquer sur Enregistrer pour le restaurer.';
 $lang['locfiledit_bak_loaded1'] = 'Fichier de sauvegarde chargé';
 $lang['locfiledit_bak_loaded2'] = 'Vous devez l\'enregistrer pour le sauvegarder.';
 $lang['locfiledit_syntax_error'] = 'Erreur de syntaxe! Impossible d\'enregistrer le fichier.';
+$lang['locfiledit_enable_editarea'] = 'Activer Editarea';
+$lang['locfiledit_disable_editarea'] = 'Désactiver Editarea';
+$lang['locfiledit_new_tpl'] = 'Créer un nouveau fichier';
+$lang['locfiledit_new_filename'] = 'Nom du fichier';
+$lang['locfiledit_model'] = 'Modèle';
+$lang['locfiledit_empty_page'] = 'Page vierge';
+$lang['locfiledit_parent_directory'] = 'Dossier parent';
+$lang['locfiledit_filename_error'] = 'Caractères interdits dans le nom du fichier.';
+$lang['locfiledit_file_already_exists'] = 'Le fichier existe déjà.';
+$lang['locfiledit_model_error'] = 'Veuillez sélectionner un modèle.';
 
 ?>

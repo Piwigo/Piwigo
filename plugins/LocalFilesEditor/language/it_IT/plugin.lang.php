@@ -27,7 +27,7 @@ $lang['locfiledit_onglet_tpl'] = 'Templates';
 $lang['locfiledit_onglet_lang'] = 'Lingue';
 $lang['locfiledit_onglet_plug'] = 'Plugin Personale';
 $lang['locfiledit_cant_save'] = 'Impossibile di scrivere il file. Verificare i permessi (chmod) della directory.';
-$lang['locfiledit_newfile'] = "/* Il file non esiste e sarà creato durante la fase di registrazione con LocalFiles Editor. */";
+$lang['locfiledit_newfile'] = 'Il file non esiste e sarà creato durante la fase di registrazione con LocalFiles Editor';
 $lang['locfiledit_save_config'] = 'Il file è stato salvato.';
 $lang['locfiledit_show_default'] = 'Visualizzare il file ';
 $lang['locfiledit_save_bak'] = 'Una copia di backup del file sarà creata durante la fase di registrazione';
@@ -40,5 +40,15 @@ $lang['locfiledit_restore_confirm'] = 'Volete caricare il file di backup? Dovret
 $lang['locfiledit_bak_loaded1'] = 'Copia di backup caricata';
 $lang['locfiledit_bak_loaded2'] = 'Dovete registrarlo per salvarlo.';
 $lang['locfiledit_syntax_error'] = 'Errore di sintassi! Impossible di registrare il file.';
+/* TODO */ $lang['locfiledit_enable_editarea'] = 'Enable Editarea';
+/* TODO */ $lang['locfiledit_disable_editarea'] = 'Disable Editarea';
+/* TODO */$lang['locfiledit_new_tpl'] = 'Créer un nouveau fichier';
+/* TODO */$lang['locfiledit_new_filename'] = 'Nom du fichier';
+/* TODO */$lang['locfiledit_model'] = 'Modèle';
+/* TODO */$lang['locfiledit_empty_page'] = 'Page vierge';
+/* TODO */$lang['locfiledit_parent_directory'] = 'Dossier parent';
+/* TODO */$lang['locfiledit_filename_error'] = 'Caractères interdits dans le nom du fichier.';
+/* TODO */$lang['locfiledit_file_already_exists'] = 'Le fichier existe déjà.';
+/* TODO */$lang['locfiledit_model_error'] = 'Veuillez sélectionner un modèle.';
 
 ?>

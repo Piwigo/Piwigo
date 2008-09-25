@@ -1,13 +1,40 @@
-{if isset($editarea)}
-<script type="text/javascript" src="{$editarea.URL}"></script>
+{* $Id$ *}
+{html_head}<link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">{/html_head}
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
+{known_script id="editarea" src=$LOCALEDIT_PATH|@cat:"editarea/edit_area_full.js"}
 <script type="text/javascript">
-editAreaLoader.init({ldelim}
-	id: "text"
-	{foreach from=$editarea.OPTIONS key=option item=value}
-  , {$option}: {$value|editarea_quote}
-  {/foreach}
-{rdelim});
-</script>
-{/if}
+var editarea = "{$LOAD_EDITAREA}";
 
-<textarea rows="30" id="text" cols="90">{$DEFAULT_CONTENT}</textarea>
+function loadEditarea() {ldelim} 
+  editAreaLoader.init({ldelim}
+    id: "text"
+    {foreach from=$EDITAREA_OPTIONS key=option item=value}
+    , {$option}: {$value|editarea_quote}
+    {/foreach}
+  });
+  jQuery("#showedit").hide();
+  jQuery("#hideedit").show();
+}
+
+function unloadEditarea() {ldelim} 
+  editAreaLoader.delete_instance("text");
+  jQuery("#hideedit").hide();
+  jQuery("#showedit").show();
+}
+</script>
+
+<div id="LocalFilesEditor">
+
+<textarea id="text" rows="30" cols="90">{$DEFAULT_CONTENT}</textarea>
+
+<div id="editarea_buttons">
+<a href="javascript:loadEditarea();" id="showedit">[{'locfiledit_enable_editarea'|@translate}]</a>
+<a href="javascript:unloadEditarea();" id="hideedit">[{'locfiledit_disable_editarea'|@translate}]</a>
+</div>
+
+</div>
+
+<script type="text/javascript">
+jQuery("#editarea_buttons").show();
+if (editarea == "on") loadEditarea();
+</script>

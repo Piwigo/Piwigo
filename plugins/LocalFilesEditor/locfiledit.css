@@ -1,0 +1,34 @@
+#LocalFilesEditor {
+  text-align: center;
+  margin: 0 2em;
+}
+
+#LocalFilesEditor .top_right  {
+  float: right;
+  margin-right: 1%;
+}
+
+#LocalFilesEditor B {
+  float: left;
+}
+
+#LocalFilesEditor TEXTAREA {
+  margin: 0.5em 0;
+  width: 99.5%;
+  float: left;
+}
+
+#LocalFilesEditor #editarea_buttons {
+  width: 100%;
+  float: left;
+  text-align: left;
+  display: none;
+}
+
+#LocalFilesEditor #hideedit {
+  display: none;
+}
+
+#LocalFilesEditor TD {
+  padding: 0.5em;
+}

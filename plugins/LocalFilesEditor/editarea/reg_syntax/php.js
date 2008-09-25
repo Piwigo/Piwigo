@@ -11,7 +11,7 @@ editAreaLoader.load_syntax["php"] = {
 			'return', 'break', 'continue'
 		]
 		,'reserved' : [
-			'_GET', '_POST', '_SERVER', '_FILES', '_ENV', '_COOKIE', '_REQUEST',
+			'_GET', '_POST', '_SESSION', '_SERVER', '_FILES', '_ENV', '_COOKIE', '_REQUEST',
 			'null', '__LINE__', '__FILE__',
 			'false', '&lt;?php', '?&gt;', '&lt;?',
 			'&lt;script language', '&lt;/script&gt;',
@@ -71,5 +71,86 @@ editAreaLoader.load_syntax["php"] = {
 		,'REGEXPS' : {
 			'variables' : 'color: #E0BD54;'
 		}		
+	}
+	,'AUTO_COMPLETION' :  {
+		"default": {	// the name of this definition group. It's posisble to have different rules inside the same definition file
+			"REGEXP": { "before_word": "[^a-zA-Z0-9_]|^"	// \\s|\\.|
+						,"possible_words_letters": "[a-zA-Z0-9_\$]+"
+						,"letter_after_word_must_match": "[^a-zA-Z0-9_]|$"
+						,"prefix_separator": "\\-\\>|\\:\\:"
+					}
+			,"CASE_SENSITIVE": true
+			,"MAX_TEXT_LENGTH": 100		// the maximum length of the text being analyzed before the cursor position
+			,"KEYWORDS": {
+					'': [	// the prefix of thoses items
+						/**
+						 * 0 : the keyword the user is typing
+						 * 1 : (optionnal) the string inserted in code ("{@}" being the new position of the cursor, "§" beeing the equivalent to the value the typed string indicated if the previous )
+						 * 		If empty the keyword will be displayed
+						 * 2 : (optionnal) the text that appear in the suggestion box (if empty, the string to insert will be displayed)
+						 */
+						 ['$_POST']
+			    		,['$_GET']
+			    		,['$_SESSION']
+			    		,['$_SERVER']
+			    		,['$_FILES']
+			    		,['$_ENV']
+			    		,['$_COOKIE']
+			    		,['$_REQUEST']
+			    		// magic methods
+			    		,['__construct', '§( {@} )']
+			    		,['__destruct', '§( {@} )']
+			    		,['__sleep', '§( {@} )']
+			    		,['__wakeup', '§( {@} )']
+			    		,['__toString', '§( {@} )']
+			    		// include
+			    		,['include', '§ "{@}";']
+			    		,['include_once', '§ "{@}";']
+			    		,['require', '§ "{@}";']
+			    		,['require_once', '§ "{@}";']
+			    		// statements
+			    		,['for', '§( {@} )']
+			    		,['foreach', '§( {@} )']
+			    		,['if', '§( {@} )']
+			    		,['elseif', '§( {@} )']
+			    		,['while', '§( {@} )']
+			    		,['switch', '§( {@} )']
+			    		,['break']
+			    		,['case']
+			    		,['continue']
+			    		,['do']
+			    		,['else']
+			    		,['endif']
+			    		,['endswitch']
+			    		,['endwhile']
+			    		,['return']
+			    		// function
+			    		,['unset', '§( {@} )']
+					]
+				}
+			}
+		,"live": {	
+			
+			// class NAME: /class\W+([a-z]+)\W+/gi
+			// method: /^(public|private|protected)?\s*function\s+([a-z][a-z0-9\_]*)\s*(\([^\{]*\))/gmi
+			// static: /^(public|private|protected)?\s+static\s+(public|private|protected)?\s*function\s+([a-z][a-z0-9\_]*)\s*(\([^\{]*\))/gmi 
+			// attributes: /(\$this\-\>|(?:var|public|protected|private)\W+\$)([a-z0-9\_]+)(?!\()\b/gi 
+			// 		v1 : /(\$this\-\>|var\W+|public\W+|protected\W+|private\W+)([a-z0-9\_]+)\W*(=|;)/gi 
+			// var type: /(\$(this\-\>)?[a-z0-9\_]+)\s*\=\s*new\s+([a-z0-9\_])+/gi 
+			
+			
+			"REGEXP": { "before_word": "[^a-zA-Z0-9_]|^"	// \\s|\\.|
+						,"possible_words_letters": "[a-zA-Z0-9_\$]+"
+						,"letter_after_word_must_match": "[^a-zA-Z0-9_]|$"
+						,"prefix_separator": "\\-\\>"
+					}
+			,"CASE_SENSITIVE": true
+			,"MAX_TEXT_LENGTH": 100		// the maximum length of the text being analyzed before the cursor position
+			,"KEYWORDS": {
+					'$this': [	// the prefix of thoses items
+						['test']
+					]
+				}
+			}
 	}
 };

@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 Piwigo team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -21,26 +21,23 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*
-Plugin Name: Check upgrades
-Version: 2.0
-Description: Check integrity of upgrades / Contrôle d'intégrité des mises à jour
-Plugin URI: http://piwigo.org
-Author: Piwigo team
-Author URI: http://piwigo.org
-*/
-
-if (!defined('PHPWG_ROOT_PATH'))
+function plugin_install()
 {
-  die('Hacking attempt!');
+  global $prefixeTable;
+
+  $query = '
+INSERT INTO ' . CONFIG_TABLE . ' (param,value,comment)
+VALUES ("LocalFilesEditor" , "off" , "LocalFiles Editor plugin parameters");';
+
+  pwg_query($query);
 }
 
-if (in_array(script_basename(), array('popuphelp', 'admin')))
+function plugin_uninstall()
 {
-  if (defined('IN_ADMIN') and IN_ADMIN)
-  {
-   include_once(dirname(__FILE__).'/initialize.inc.php');
-  }
+  global $prefixeTable;
+
+  $query = 'DELETE FROM ' . CONFIG_TABLE . ' WHERE param="LocalFilesEditor" LIMIT 1;';
+  pwg_query($query);
 }
 
 ?>

@@ -1,9 +1,11 @@
 <?php
 /*
 Plugin Name: Advanced Menu Manager
-Version: 1.0.0
+Version: 2.0
 Description: Gestion avancée du menu / Advanced management of menu
-Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=
+Plugin URI: http://piwigo.org
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 /*

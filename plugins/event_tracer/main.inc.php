@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Event tracer
-Version: 1.8.a
+Version: 2.0
 Description: For developers. Shows all calls to trigger_event.
 Plugin URI: http://piwigo.org
 Author: Piwigo team

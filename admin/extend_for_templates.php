@@ -36,39 +36,6 @@
  */
 
 // +-----------------------------------------------------------------------+
-// |                              functions                                |
-// +-----------------------------------------------------------------------+
-
-/**
- * returns a list of templates currently available in template-extension
- *
- * Each .tpl file is extracted from template-extension.
- *
- * @return array
- */
-function get_extents($start='')
-{
-  if ($start == '') { $start = './template-extension'; }
-  $dir = opendir($start);
-  $extents = array();
-
-  while (($file = readdir($dir)) !== false)
-  {
-    if ( $file == '.' or $file == '..' or $file == '.svn') continue;
-    $path = $start . '/' . $file;
-    if (is_dir($path))
-    {
-      $extents = array_merge($extents, get_extents($path));
-    }
-    elseif ( !is_link($path) and file_exists($path) 
-            and strripos($path,'.tpl') > 0 )
-    {
-      $extents[] = substr($path, 21);
-    }
-  }
-  return $extents;
-}
-// +-----------------------------------------------------------------------+
 //                            initialization                              |
 // +-----------------------------------------------------------------------+
 

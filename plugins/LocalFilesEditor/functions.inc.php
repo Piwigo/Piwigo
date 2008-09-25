@@ -29,22 +29,25 @@
  */
 function eval_syntax($code)
 {
-    $code = str_replace(array('<?php', '?>'), '', $code);
+  $code = str_replace(array('<?php', '?>'), '', $code);
+  if (function_exists('token_get_all'))
+  {
     $b = 0;
     foreach (token_get_all($code) as $token)
-	{
-        if ('{' == $token) ++$b;
-        else if ('}' == $token) --$b;
+    {
+      if ('{' == $token) ++$b;
+      else if ('}' == $token) --$b;
     }
     if ($b) return false;
     else
-	{
-        ob_start();
-        $eval = eval('if(0){' . $code . '}');
-        ob_end_clean();
-        if ($eval === false) return false;
-        else return '<?php' . $code . '?>';
+    {
+      ob_start();
+      $eval = eval('if(0){' . $code . '}');
+      ob_end_clean();
+      if ($eval === false) return false;
     }
+  }
+  return '<?php' . $code . '?>';
 }
 
 /**
@@ -65,6 +68,47 @@ function editarea_quote($value)
     default:
       return '"'.$value.'"';
   }
+}
+
+/**
+ * returns bak file for restore
+ * @param string
+ */
+function get_bak_file($file)
+{
+  if (get_extension($file) == 'php')
+  {
+    return substr_replace($file, '.bak', strrpos($file , '.'), 0);
+  }
+  else
+  {
+    return $file . '.bak';
+  }
+}
+
+/**
+ * returns dirs and subdirs
+ * retun array
+ * @param string
+ */
+function get_rec_dirs($path='')
+{
+  $options = array();
+  if (is_dir($path))
+  {
+    $fh = opendir($path);
+    while ($file = readdir($fh))
+    {
+      $pathfile = $path . '/' . $file;
+      if ($file != '.' and $file != '..' and $file != '.svn' and is_dir($pathfile))
+      {
+        $options[$pathfile] = str_replace(array('./', '/'), array('', ' / '), $pathfile);
+        $options = array_merge($options, get_rec_dirs($pathfile));
+      }
+    }
+    closedir($fh);
+  }
+  return $options;
 }
 
 ?>

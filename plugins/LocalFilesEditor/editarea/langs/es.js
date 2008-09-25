@@ -57,5 +57,6 @@ syntax_pas: "Pascal",
 syntax_brainfuck: "Brainfuck",
 syntax_sql: "SQL",
 syntax_ruby: "Ruby",
+syntax_coldfusion: "Coldfusion",
 close_tab: "Close file"
 };

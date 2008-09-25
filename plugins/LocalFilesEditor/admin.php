@@ -58,11 +58,12 @@ $tabsheet->assign();
 // +-----------------------------------------------------------------------+
 // |                            Variables init
 // +-----------------------------------------------------------------------+
-$edited_file = '';
+$edited_file = isset($_POST['edited_file']) ? $_POST['edited_file'] : '';
 $content_file = '';
-$new_file['localconf'] = "<?php\n\n".l10n('locfiledit_newfile')."\n\n\n\n\n?>";
-$new_file['css'] = l10n('locfiledit_newfile') . "\n\n";
-$new_file['lang'] = "<?php\n\n" . l10n('locfiledit_newfile') . "\n\n\n\n\n?>";
+$new_file['localconf'] = "<?php\n\n/* ".l10n('locfiledit_newfile')." */\n\n\n\n\n?>";
+$new_file['css'] = "/* " . l10n('locfiledit_newfile') . " */\n\n";
+$new_file['tpl'] = "{* " . l10n('locfiledit_newfile') . " *}\n\n";
+$new_file['lang'] = $new_file['localconf'];
 $new_file['plug'] = "<?php\n/*
 Plugin Name: " . l10n('locfiledit_onglet_plug') . "
 Version: 1.0
@@ -71,16 +72,14 @@ Plugin URI: http://www.phpwebgallery.net
 Author:
 Author URI:
 */\n\n\n\n\n?>";
+$newfile_page = isset($_GET['newfile']) ? true : false;
 
 // Editarea options
-$editarea = array(
-  'start_highlight' => true,
+$editarea_options = array(
   'language' => substr($user['language'], 0, 2),
+  'start_highlight' => true,
+  'allow_toggle' => false,
   'toolbar' => 'search,fullscreen, |,select_font, |, undo, redo, change_smooth_selection, highlight, reset_highlight, |, help');
-if (isset($conf['editarea_options']) and is_array($conf['editarea_options']))
-{
-  $editarea = array_merge($editarea, $conf['editarea_options']);
-}
 
 // Edit selected file for CSS, template and language
 if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
@@ -90,13 +89,39 @@ if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
     file_get_contents($edited_file) : $new_file[$page['tab']];
 }
 
+// Edit new tpl file
+if (isset($_POST['create_tpl']))
+{
+  $filename = $_POST['tpl_name'];
+  if (get_extension($filename) != 'tpl')
+  {
+    $filename .= '.tpl';
+  }
+  if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
+  {
+    array_push($page['errors'], l10n('locfiledit_filename_error'));
+    $newfile_page = true;
+  }
+  if (is_numeric($_POST['tpl_model']) and $_POST['tpl_model'] != '0')
+  {
+    array_push($page['errors'], l10n('locfiledit_model_error'));
+    $newfile_page = true;
+  }
+  if (file_exists($_POST['tpl_parent'] . '/' . $filename))
+  {
+    array_push($page['errors'], l10n('locfiledit_file_already_exists'));
+    $newfile_page = true;
+  }
+  if (!$newfile_page)
+  {
+    $edited_file = $_POST['tpl_parent'] . '/' . $filename;
+    $content_file = ($_POST['tpl_model'] == '0') ? $new_file['tpl'] : file_get_contents($_POST['tpl_model']);
+  }
+}
 
 // +-----------------------------------------------------------------------+
 // |                            Process tabsheet
 // +-----------------------------------------------------------------------+
-$options[] = l10n('locfiledit_choose_file');
-$selected = 0; 
-
 switch ($page['tab'])
 {
   case 'localconf':
@@ -108,11 +133,13 @@ switch ($page['tab'])
         array('SHOW_DEFAULT' => LOCALEDIT_PATH
                 . 'show_default.php?file=include/config_default.inc.php',
               'FILE' => 'config_default.inc.php')));
-    $editarea['syntax'] = 'php';
+    $editarea_options['syntax'] = 'php';
     break;
 
   case 'css':
     $template_dir = PHPWG_ROOT_PATH . 'template';
+    $selected = 0; 
+    $options[] = l10n('locfiledit_choose_file');
     $options[] = '----------------------';
     $value = PHPWG_ROOT_PATH . "template-common/local-layout.css";
     $options[$value] = 'template-common / local-layout.css';
@@ -135,37 +162,110 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
-    $editarea['syntax'] = 'css';
+    $editarea_options['syntax'] = 'css';
     break;
   
   case 'tpl':
-    $template_dir = PHPWG_ROOT_PATH . 'template';
-    foreach (get_dirs($template_dir) as $pwg_template)
+    // New file form creation
+    if ($newfile_page and !is_adviser())
     {
-      $dir = $template_dir . '/' . $pwg_template . '/';
-      $options[] = '----------------------';
-      if (is_dir($dir) and $content = opendir($dir))
+      $filename = isset($_POST['tpl_name']) ? $_POST['tpl_name'] : '';
+      $selected['model'] = isset($_POST['tpl_model']) ? $_POST['tpl_model'] : '0';
+      $selected['parent'] = isset($_POST['tpl_parent']) ? $_POST['tpl_parent'] : PHPWG_ROOT_PATH . 'template-extension';
+
+      // Parent directories list
+      $options['parent'] = array(PHPWG_ROOT_PATH . 'template-extension' => 'template-extension');
+      $options['parent'] = array_merge($options['parent'], get_rec_dirs(PHPWG_ROOT_PATH . 'template-extension'));
+
+      // Model list
+      $eligible_templates = array(
+          'about.tpl',
+          'identification.tpl',
+          'mainpage_categories.tpl',
+          'thumbnails.tpl',
+          'redirect.tpl',
+          // 'menubar.tpl' 
+          'header.tpl',
+          'footer.tpl',
+          'index.tpl',
+          'nbm.tpl',
+          'notification.tpl',
+          'picture_content.tpl',
+          'picture.tpl',
+          'popuphelp.tpl',
+          'profile.tpl',
+          'profile_content.tpl',
+          'register.tpl',
+          'search.tpl',
+          'search_rules.tpl',
+          'slideshow.tpl',
+          'tags.tpl',
+          'upload.tpl');
+
+      $options['model'][] = l10n('locfiledit_empty_page');
+      $options['model'][] = '----------------------';
+      foreach (get_extents() as $pwg_template)
       {
-        while ($node = readdir($content))
+        $value = PHPWG_ROOT_PATH . 'template-extension/' . $pwg_template;
+        $options['model'][$value] =  'template-extension / ' . str_replace('/', ' / ', $pwg_template);
+      }
+      $template_dir = PHPWG_ROOT_PATH . 'template';
+      foreach (get_dirs($template_dir) as $pwg_template)
+      {
+        if (count($options['model']) > 2)
         {
-          if (is_file($dir . $node)
-            and strtolower(get_extension($node)) == 'tpl'
-            and !strpos($node , '.bak.tpl'))
+          $options['model'][] = '----------------------';
+        }
+        $dir = $template_dir . '/' . $pwg_template . '/';
+        if (is_dir($dir) and $content = opendir($dir))
+        {
+          while ($node = readdir($content))
           {
-            $value = $dir . $node;
-            $options[$value] = $pwg_template . ' / ' . $node;
-            if ($edited_file == $value) $selected = $value;
+            if (is_file($dir . $node) and in_array($node, $eligible_templates))
+            {
+              $value = $dir . $node;
+              $options['model'][$value] = $pwg_template . ' / ' . $node;
+            }
           }
         }
       }
+      // Assign variables to template
+      $template->assign('create_tpl', array(
+        'NEW_FILE_NAME' => $filename,
+        'MODEL_OPTIONS' => $options['model'],
+        'MODEL_SELECTED' => $selected['model'],
+        'PARENT_OPTIONS' => $options['parent'],
+        'PARENT_SELECTED' => $selected['parent']));
+      break;
+    }
+    // List existing template extensions
+    $template_dir = PHPWG_ROOT_PATH . 'template-extension';
+    $selected = 0; 
+    $options[] = l10n('locfiledit_choose_file');
+    $options[] = '----------------------';
+    foreach (get_extents() as $pwg_template)
+    {
+      $value = './template-extension/' . $pwg_template;
+      $options[$value] =  str_replace('/', ' / ', $pwg_template);
+      if ($edited_file == $value) $selected = $value;
+    }
+    if ($selected == 0 and !empty($edited_file))
+    {
+      $options[$edited_file] =  str_replace(array('./template-extension/', '/'), array('', ' / '), $edited_file);
+      $selected = $edited_file;
     }
     $template->assign('css_lang_tpl', array(
-        'OPTIONS' => $options,
-        'SELECTED' => $selected));
-    $editarea['syntax'] = 'html';
+      'OPTIONS' => $options,
+      'SELECTED' => $selected,
+      'NEW_FILE_URL' => $my_base_url.'&amp;tab=tpl&amp;newfile',
+      'NEW_FILE_CLASS' => empty($edited_file) ? '' : 'top_right'));
+
+    $editarea_options['syntax'] = 'html';
     break;
 
   case 'lang':
+    $selected = 0; 
+    $options[] = l10n('locfiledit_choose_file');
     $options[] = '----------------------';
     foreach (get_languages() as $language_code => $language_name)
     {
@@ -188,17 +288,16 @@ switch ($page['tab'])
     $template->assign('css_lang_tpl', array(
         'OPTIONS' => $options,
         'SELECTED' => $selected));
-    $editarea['syntax'] = 'php';
+    $editarea_options['syntax'] = 'php';
     break;
     
   case 'plug':
     $edited_file = PHPWG_PLUGINS_PATH . "PersonalPlugin/main.inc.php";
     $content_file = file_exists($edited_file) ?
       file_get_contents($edited_file) : $new_file['plug'];
-    $editarea['syntax'] = 'php';
+    $editarea_options['syntax'] = 'php';
     break;
 }
-
 
 // +-----------------------------------------------------------------------+
 // |                           Load backup file
@@ -206,14 +305,11 @@ switch ($page['tab'])
 if (isset($_POST['restore']) and !is_adviser())
 {
   $edited_file = $_POST['edited_file'];
-  $content_file = file_get_contents(
-      substr_replace($edited_file , '.bak' , strrpos($edited_file ,'.') , 0));
-
+  $content_file = file_get_contents(get_bak_file($edited_file));
   array_push($page['infos'],
-             l10n('locfiledit_bak_loaded1'),
-             l10n('locfiledit_bak_loaded2'));
+    l10n('locfiledit_bak_loaded1'),
+    l10n('locfiledit_bak_loaded2'));
 }
-
 
 // +-----------------------------------------------------------------------+
 // |                            Save file
@@ -232,33 +328,21 @@ if (isset($_POST['submit']) and !is_adviser())
   }
 	else
 	{
-    if ($page['tab'] == 'plug'
-      and !is_dir(PHPWG_PLUGINS_PATH . 'PersonalPlugin'))
+    if ($page['tab'] == 'plug' and !is_dir(PHPWG_PLUGINS_PATH . 'PersonalPlugin'))
     {
       @mkdir(PHPWG_PLUGINS_PATH . "PersonalPlugin");
     }
     if (file_exists($edited_file))
     {
-      @copy($edited_file,
-        substr_replace($edited_file,
-                       '.bak',
-                       strrpos($edited_file , '.'),
-                       0)
-      );
+      @copy($edited_file, get_bak_file($edited_file));
+      array_push($page['infos'], sprintf(l10n('locfiledit_saved_bak'), substr(get_bak_file($edited_file), 2)));
     }
     
     if ($file = @fopen($edited_file , "w"))
 		{
       @fwrite($file , $content_file);
       @fclose($file);
-      array_push($page['infos'],
-        l10n('locfiledit_save_config'),
-        sprintf(l10n('locfiledit_saved_bak'),
-           substr(substr_replace($edited_file,
-                      '.bak',
-                      strrpos($edited_file , '.'),
-                      0),
-                  2)));
+      array_unshift($page['infos'], l10n('locfiledit_save_config'));
     }
 		else
     {
@@ -266,7 +350,6 @@ if (isset($_POST['submit']) and !is_adviser())
     }
   }
 }
-
 
 // +-----------------------------------------------------------------------+
 // |                            template initialization
@@ -284,20 +367,22 @@ if (!empty($edited_file))
     array('EDITED_FILE' => $edited_file,
           'CONTENT_FILE' => htmlspecialchars($content_file),
           'FILE_NAME' => trim($edited_file, './\\')));
-  if (file_exists(
-        substr_replace($edited_file ,'.bak',strrpos($edited_file , '.'),0)))
+  if (file_exists(get_bak_file($edited_file)))
   {
     $template->assign('restore', true);
   }
+  if (file_exists($edited_file))
+  {
+    $template->assign('restore_infos', true);
+  }
+  
 }
 
-// Editarea
-if (!isset($conf['editarea_options']) or $conf['editarea_options'] !== false)
-{
-  $template->assign('editarea', array(
-    'URL' => LOCALEDIT_PATH . 'editarea/edit_area_full.js',
-    'OPTIONS' => $editarea));
-}
+$template->assign(array(
+  'F_ACTION' => PHPWG_ROOT_PATH.'admin.php?page=plugin&amp;section=LocalFilesEditor%2Fadmin.php&amp;tab=' . $page['tab'],
+  'LOCALEDIT_PATH' => LOCALEDIT_PATH,
+  'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'off',
+  'EDITAREA_OPTIONS' => $editarea_options));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 

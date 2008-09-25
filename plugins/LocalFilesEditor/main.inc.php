@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: LocalFiles Editor
-Version: 1.8
+Version: 2.0
 Description: Edit local files from administration panel / Editeur de fichiers locaux
 Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=144
 Author: Piwigo team
@@ -35,10 +35,10 @@ define('LOCALEDIT_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/'
 
 function localfiles_admin_menu($menu)
 {
-    array_push($menu, array(
-      'NAME' => 'LocalFiles Editor',
-      'URL' => get_admin_plugin_menu_link(LOCALEDIT_PATH . 'admin.php')));
-    return $menu;
+  array_push($menu, array(
+    'NAME' => 'LocalFiles Editor',
+    'URL' => get_admin_plugin_menu_link(LOCALEDIT_PATH . 'admin.php')));
+  return $menu;
 }
 
 add_event_handler('get_admin_plugin_menu_links', 'localfiles_admin_menu');

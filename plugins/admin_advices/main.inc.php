@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Admin Advices
-Version: 1.8
+Version: 2.0
 Description: Give you an advice on the administration page.
 Plugin URI: http://piwigo.org
 Author: Piwigo team

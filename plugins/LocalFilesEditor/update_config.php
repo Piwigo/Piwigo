@@ -3,7 +3,7 @@
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
 // | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
-// | Copyright(C) 2003-2008 Piwigo team    http://phpwebgallery.net |
+// | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
@@ -21,26 +21,26 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/*
-Plugin Name: Check upgrades
-Version: 2.0
-Description: Check integrity of upgrades / Contrôle d'intégrité des mises à jour
-Plugin URI: http://piwigo.org
-Author: Piwigo team
-Author URI: http://piwigo.org
-*/
+define('PHPWG_ROOT_PATH', '../../');
+include_once(PHPWG_ROOT_PATH . 'include/common.inc.php');
+include_once(LOCALEDIT_PATH.'functions.inc.php');
+check_status(ACCESS_ADMINISTRATOR);
 
-if (!defined('PHPWG_ROOT_PATH'))
-{
-  die('Hacking attempt!');
-}
+$possible_values = array('on', 'off');
 
-if (in_array(script_basename(), array('popuphelp', 'admin')))
+if (isset($_POST['editarea']) and in_array($_POST['editarea'], $possible_values))
 {
-  if (defined('IN_ADMIN') and IN_ADMIN)
+  if (!isset($conf['LocalFilesEditor']))
   {
-   include_once(dirname(__FILE__).'/initialize.inc.php');
+    include_once(LOCALEDIT_PATH.'maintain.inc.php');
+    plugin_install();
   }
+  $query = '
+UPDATE ' . CONFIG_TABLE . '
+SET value = "' . $_POST['editarea'] . '"
+WHERE param="LocalFilesEditor"
+LIMIT 1';
+  pwg_query($query);
 }
 
 ?>

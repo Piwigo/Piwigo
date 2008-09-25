@@ -1,9 +1,11 @@
 <?php
 /*
 Plugin Name: Grum Plugins Classes.2
-Version: 2.0.0
+Version: 2.0
 Description: Collection de classes partagées entre mes plugins (existants, ou à venir) / Partaged classes between my plugins (actuals or futures)
-Plugin URI: http://phpwebgallery.net/ext/extension_view.php?eid=199
+Plugin URI: http://piwigo.org
+Author: Piwigo team
+Author URI: http://piwigo.org
 */
 
 /*

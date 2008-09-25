@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Swift Theme Creator
-Version: 1.8
+Version: 2.0
 Description: Create new theme elements which can be manually updated later.
 Plugin URI: http://piwigo.org
 Author: Piwigo team
