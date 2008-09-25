@@ -205,38 +205,6 @@ top: 0;
 left: 60px; /*position where enlarged image should offset horizontally */
 }
 
-
-/* Tooltips*/
-.tooltip {
-	position: relative;
-}
-
-.tooltip SPAN {
-	display: none;
-}
-
-.tooltip:hover {
-	cursor: pointer;
-	z-index: 500;
-}
-
-.tooltip:hover SPAN {
-	display: inline;
-	position: absolute;
-	top: 30px;
-	left: -50px;
-	width: 400px;
-
-	font-size: 11px;
-	text-decoration: none;
-	text-align: justify;
-	background-color: #FFFFCC;
-	color: #444444;
-
-	padding: 10px;
-	border: 1px solid Black;
-}
-
 BODY {
   margin: 5px;
   padding: 0;
@@ -531,4 +499,25 @@ LEGEND.tagLetterLegend {
 TABLE.tagLetterContent {
   width:100%;
   font-size:80%;
-  border-collapse : collapse; }
+  border-collapse : collapse;
+}
+
+/* jQuery tooltips */
+.cluetip-default #cluetip-outer {
+  position: relative;
+  border: 1px solid #111111;
+  color: #dddddd;
+  background-color: #222222;
+  text-align: left;
+}
+.cluetip-default h3#cluetip-title {
+  margin: 0 0 5px;
+  padding: 8px;
+  color: #666666;
+  background-color: #d3d3d3;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.cluetip-default #cluetip-inner {
+  padding: 10px;
+}

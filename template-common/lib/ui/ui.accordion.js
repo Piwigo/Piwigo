@@ -111,7 +111,7 @@ function completed(cancel) {
 			overflow: ""
 		});
 	}
-	instance.trigger('change', null, options.data);
+	$(this).triggerHandler("accordionchange", [$.event.fix({type: 'accordionchange', target: instance.element[0]}), options.data], options.change);
 }
 
 function toggle(toShow, toHide, data, clickedActive, down) {
@@ -201,11 +201,12 @@ function clickHandler(event) {
 	// find elements to show and hide
 	var toShow = clicked.next(),
 		toHide = options.active.next(),
+		//data = [clicked, options.active, toShow, toHide],
 		data = {
 			options: options,
-			newHeader: clickedActive && !options.alwaysOpen ? $([]) : clicked,
+			newHeader: clicked,
 			oldHeader: options.active,
-			newContent: clickedActive && !options.alwaysOpen ? $([]) : toShow,
+			newContent: toShow,
 			oldContent: toHide
 		},
 		down = options.headers.index( options.active[0] ) > options.headers.index( clicked[0] );
@@ -217,7 +218,7 @@ function clickHandler(event) {
 };
 
 function findActive(headers, selector) {
-	return selector
+	return selector != undefined
 		? typeof selector == "number"
 			? headers.filter(":eq(" + selector + ")")
 			: headers.not(headers.not(selector))
