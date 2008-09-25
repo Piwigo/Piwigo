@@ -103,6 +103,8 @@ WHERE '.$where.'
   while ($row = mysql_fetch_assoc($result))
   {
     array_push($cats, $row);
+    if ($row['id']==@$page['category']['id']) //save the number of subcats for later optim
+      $page['category']['count_categories'] = $row['count_categories'];
   }
   usort($cats, 'global_rank_compare');
 

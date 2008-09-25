@@ -156,8 +156,6 @@ else
       $url
     );
 }
-// include menubar
-include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
 
 if ('search' == $page['section'])
 {
@@ -220,35 +218,6 @@ if ( $page['section']=='search' and $page['start']==0 and
   }
 }
 
-//------------------------------------------------------ main part : thumbnails
-if ( 0==$page['start']
-    and !isset($page['flat'])
-    and !isset($page['chronology_field'])
-    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
-  )
-{
-  include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
-}
-if ( !empty($page['items']) )
-{
-  include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
-}
-//------------------------------------------------------- category informations
-
-// slideshow
-// execute after init thumbs in order to have all picture informations
-if (!empty($page['cat_slideshow_url']))
-{
-  if (isset($_GET['slideshow']))
-  {
-    redirect($page['cat_slideshow_url']);
-  }
-  else
-  {
-    $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
-  }
-}
-
 // navigation bar
 $template->assign( 'NAV_BAR', $page['navigation_bar'] );
 
@@ -284,6 +253,40 @@ if (isset($page['comment']) and $page['comment'] != '')
 {
   $template->assign('CONTENT_DESCRIPTION', $page['comment'] );
 }
+
+// include menubar
+include( PHPWG_ROOT_PATH.'include/menubar.inc.php');
+
+//------------------------------------------------------ main part : thumbnails
+if ( 0==$page['start']
+    and !isset($page['flat'])
+    and !isset($page['chronology_field'])
+    and ('recent_cats'==$page['section'] or 'categories'==$page['section'])
+    and (!isset($page['category']['count_categories']) or $page['category']['count_categories']>0 )
+  )
+{
+  include(PHPWG_ROOT_PATH.'include/category_cats.inc.php');
+}
+if ( !empty($page['items']) )
+{
+  include(PHPWG_ROOT_PATH.'include/category_default.inc.php');
+}
+//------------------------------------------------------- category informations
+
+// slideshow
+// execute after init thumbs in order to have all picture informations
+if (!empty($page['cat_slideshow_url']))
+{
+  if (isset($_GET['slideshow']))
+  {
+    redirect($page['cat_slideshow_url']);
+  }
+  else
+  {
+    $template->assign('U_SLIDESHOW', $page['cat_slideshow_url']);
+  }
+}
+
 //------------------------------------------------------------ log informations
 pwg_log();
 
