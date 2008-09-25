@@ -5,7 +5,7 @@
 <script type="text/javascript">
 jQuery().ready(function(){ldelim}
   jQuery('.cluetip').cluetip({ldelim}
-    width: 450,
+    width: 300,
     splitTitle: '|'
   });
 });
