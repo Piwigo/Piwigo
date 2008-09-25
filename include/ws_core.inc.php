@@ -369,7 +369,7 @@ Request format: ".@$this->_requestFormat." Response format: ".@$this->_responseF
     $encodedResponse = $this->_responseEncoder->encodeResponse($response);
     $contentType = $this->_responseEncoder->getContentType();
 
-    @header('Content-Type: '.$contentType);
+    @header('Content-Type: '.$contentType.'; charset='.get_pwg_charset());
     print_r($encodedResponse);
   }
 

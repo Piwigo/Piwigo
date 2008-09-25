@@ -24,7 +24,7 @@
 	{/foreach}
 </table>
 <p>
-	<input type="submit" name="submit" value="{'Submit'|@translate}" >
-	<input type="submit" name="reset" value="{'Reset'|@translate}" >
+	<input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/>
+	<input type="submit" name="reset" value="{'Reset'|@translate}" {$TAG_INPUT_ENABLED}/>
 </p>
 </form>

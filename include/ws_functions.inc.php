@@ -475,8 +475,8 @@ SELECT
     $id = $row['id'];
     $row['nb_images'] = isset($nb_images_of[$id]) ? $nb_images_of[$id] : 0;
     array_push($cats, $row);
-  }   
-  
+  }
+
   usort($cats, 'global_rank_compare');
   return array(
     'categories' => new PwgNamedArray(
@@ -721,7 +721,7 @@ SELECT id, date, author, content
 
   $ret['rates'] = array( WS_XML_ATTRIBUTES => $rating );
   $ret['categories'] = new PwgNamedArray($related_categories, 'category', array('id','url', 'page_url') );
-  $ret['tags'] = new PwgNamedArray($related_tags, 'tag', array('id','url_name','url','page_url') );
+  $ret['tags'] = new PwgNamedArray($related_tags, 'tag', array('id','url_name','url','name','page_url') );
   if ( isset($comment_post_data) )
   {
     $ret['comment_post'] = array( WS_XML_ATTRIBUTES => $comment_post_data );
@@ -975,7 +975,7 @@ function ws_images_add($params, &$service)
   // fwrite($fh_log, 'output: '.md5_file($thumbnail_path)."\n");
 
   list($width, $height) = getimagesize($file_path);
-  
+
   // database registration
   $insert = array(
     'file' => $filename_wo_ext.'.jpg',
@@ -1025,14 +1025,14 @@ function ws_images_add($params, &$service)
     $cat_ids = array();
     $rank_on_category = array();
     $search_current_ranks = false;
-    
+
     $tokens = explode(';', $params['categories']);
     foreach ($tokens as $token)
     {
       list($cat_id, $rank) = explode(',', $token);
 
       array_push($cat_ids, $cat_id);
-      
+
       if (!isset($rank))
       {
         $rank = 'auto';
@@ -1105,7 +1105,7 @@ SELECT
       $image_id
       );
   }
-  
+
   invalidate_user_cache();
 
   // fclose($fh_log);
@@ -1189,7 +1189,7 @@ function ws_tags_getList($params, &$service)
         )
       );
   }
-  return array('tags' => new PwgNamedArray($tags, 'tag', array('id','url_name','url', 'counter' )) );
+  return array('tags' => new PwgNamedArray($tags, 'tag', array('id','url_name','url', 'name', 'counter' )) );
 }
 
 /**
@@ -1205,7 +1205,7 @@ function ws_tags_getAdminList($params, &$service)
   {
     return new PwgError(401, 'Access denied');
   }
-  
+
   $tags = get_all_tags();
   return array(
     'tags' => new PwgNamedArray(
@@ -1365,7 +1365,7 @@ LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
 
 function ws_categories_add($params, &$service)
 {
-  if (!is_admin())
+  if (!is_admin() or is_adviser())
   {
     return new PwgError(401, 'Access denied');
   }
@@ -1381,7 +1381,7 @@ function ws_categories_add($params, &$service)
   {
     return new PwgError(500, $creation_output['error']);
   }
-  
+
   return $creation_output;
 }
 ?>
