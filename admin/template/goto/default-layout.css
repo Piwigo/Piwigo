@@ -40,9 +40,6 @@ TABLE#detailedStats {
 }
 
 /* categoryOrdering */
-SELECT.categoryList {
-  width: 100%;
-}
 
 FORM#categoryOrdering {
   padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
@@ -87,11 +84,17 @@ TABLE.doubleSelect {
 
 TABLE.doubleSelect TD {
   padding: 0 5px;
-  width: 50%;
+  /* width: 50%; relative width does't work with horizontal scroll */
+  display: table-cell; width:300px; min-width:300px; max-width:300px;
+}
+
+.hscroll {
+ overflow-x:scroll; width:100%; min-width:100%; max-width:100%;
+ overflow: -moz-scrollbars-horizontal; border-style: solid; border-width: 1px;
 }
 
 TABLE.doubleSelect SELECT.categoryList {
-  width: 100%; max-width: 100%; overflow-x: auto; /* Bug 532 */
+  height:250px; border:0;
 }
 
 FORM#categoryPermissions LI {
@@ -145,33 +148,6 @@ FIELDSET#uploadConf SPAN.property {
   background-color: #ff7700;
   border: 1px solid black;
 }
-
-/* Tabsheet */  /*
-.tabsheet {
-  list-style: none;
-  white-space: nowrap; 
-  text-decoration: none;
-  border-bottom: 1px solid #fff;
-  margin-left: 5px; margin-right: 5px;
-  padding: 3px 5px;
-}
-
-.tabsheet LI {
-  display: inline;
- margin: 0px 6px;
-  font-size: 120%;
-  font-weight: normal;
-  border: 1px solid #fff;
-  border-bottom: none;
-  padding: 3px 2em;
-}
-
-.tabsheet LI.selected_tab {
-  font-weight: bold;
-  position: relative;
-  top: 1px;
-  padding-top: 4px;
-} */
 
 .over{
 position: relative;
@@ -290,11 +266,6 @@ TEXTAREA.description {
   height: 12em;
   width: 40em;
   overflow: auto;
-}
-
-SELECT.categoryList {
-  height: 20em;
-  width: auto;
 }
 
 DIV.comment BLOCKQUOTE {
@@ -520,4 +491,13 @@ TABLE.tagLetterContent {
 }
 .cluetip-default #cluetip-inner {
   padding: 10px;
+}
+
+/* hack  tout sauf IE7 */
+html>/**/body TABLE.doubleSelect SELECT.categoryList {
+  min-width: 100%; 
+}
+/* Only IE7 */
+*+html  .right {
+  left: -320px; position: relative; z-index: 99;
 }
