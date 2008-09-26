@@ -60,10 +60,9 @@ WHERE c.status='public'
 ORDER BY rndvalue
 LIMIT 0,1
 ";
-      $result=pwg_query($sql);
-      if($result)
+      $result = pwg_query($sql);
+      if($result and $nfo = mysql_fetch_array($result))
       {
-        $nfo = mysql_fetch_array($result);
         $nfo['section']='category';
         $nfo['category']=array(
           'id' => $nfo['catid'],
