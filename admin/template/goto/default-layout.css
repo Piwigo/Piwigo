@@ -40,7 +40,10 @@ TABLE#detailedStats {
 }
 
 /* categoryOrdering */
-
+SELECT.categoryList {
+  width: 100%;
+}
+ 
 FORM#categoryOrdering {
   padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
   padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
@@ -84,17 +87,11 @@ TABLE.doubleSelect {
 
 TABLE.doubleSelect TD {
   padding: 0 5px;
-  /* width: 50%; relative width does't work with horizontal scroll */
-  display: table-cell; width:300px; min-width:300px; max-width:300px;
-}
-
-.hscroll {
- overflow-x:scroll; width:100%; min-width:100%; max-width:100%;
- overflow: -moz-scrollbars-horizontal; border-style: solid; border-width: 1px;
+  width: 50%; 
 }
 
 TABLE.doubleSelect SELECT.categoryList {
-  height:250px; border:0;
+  width: 100%; max-width: 100%; overflow-x: auto;
 }
 
 FORM#categoryPermissions LI {
@@ -266,6 +263,11 @@ TEXTAREA.description {
   height: 12em;
   width: 40em;
   overflow: auto;
+}
+
+SELECT.categoryList {
+  height: 20em;
+  width: auto; 
 }
 
 DIV.comment BLOCKQUOTE {
@@ -491,13 +493,4 @@ TABLE.tagLetterContent {
 }
 .cluetip-default #cluetip-inner {
   padding: 10px;
-}
-
-/* hack  tout sauf IE7 */
-html>/**/body TABLE.doubleSelect SELECT.categoryList {
-  min-width: 100%; 
-}
-/* Only IE7 */
-*+html  .right {
-  left: -320px; position: relative; z-index: 99;
 }
