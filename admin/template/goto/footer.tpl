@@ -41,7 +41,7 @@
 <script type="text/javascript">
   // All admin textarea are resizable
   jQuery().ready(function(){
-    jQuery("TEXTAREA").resizable({
+    jQuery("TEXTAREA, .categoryList").resizable({
       handles: "all",
       animate: true,
       animateDuration: "slow",
