@@ -25,6 +25,7 @@
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js" now=1} {*jQuery is always available by default*}
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
 {known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.resizable.packed.js"}
+{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/growfield/jquery.growfield.js"}
 {$themeconf.local_head}
 <script type="text/javascript" src="{$ROOT_URL}template-common/scripts.js"></script>
 <!--[if lt IE 7]>

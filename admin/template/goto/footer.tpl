@@ -39,10 +39,12 @@
 <!-- Begin of JS -->
 {literal}
 <script type="text/javascript">
-  // All admin textarea are resizable
   jQuery().ready(function(){
-    jQuery("TEXTAREA, .categoryList").resizable({
-      handles: "all",
+    // Auto size for all text area
+    jQuery("TEXTAREA").growfield();
+    // All admin categoryList are resizable
+    jQuery(".doubleSelect, .categoryList").resizable({
+      knobHandles: false,
       animate: true,
       animateDuration: "slow",
       animateEasing: "swing",

@@ -18,22 +18,3 @@
     </td>
   </tr>
 </table>
-
-{literal}
-<script type="text/javascript">
-jQuery().ready(function(){
-  jQuery(".doubleSelect SELECT.categoryList").resizable({ 
-    handles: "w,e",
-    knobHandles: false,
-    animate: true, 
-    animateDuration: "slow",
-    animateEasing: "swing",
-    preventDefault: true,
-    preserveCursor: true,
-    autoHide: true,
-    ghost: true 
-
-  });
-});
-</script>
-{/literal}
