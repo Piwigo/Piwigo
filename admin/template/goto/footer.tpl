@@ -42,17 +42,6 @@
   jQuery().ready(function(){
     // Auto size for all text area
     jQuery("TEXTAREA").growfield();
-    // All admin categoryList are resizable
-    jQuery(".doubleSelect, .categoryList").resizable({
-      knobHandles: false,
-      animate: true,
-      animateDuration: "slow",
-      animateEasing: "swing",
-      preventDefault: true,
-      preserveCursor: true,
-      autoHide: true,
-      ghost: true
-    });
   });
 </script>
 {/literal}
