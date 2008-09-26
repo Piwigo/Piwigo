@@ -18,7 +18,7 @@ body {
   margin: 5px;
   padding: 0;
   font-size: 0.8em;
-  font-family:  Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
+  font-family: Arial,Helvetica,sans-serif;
 }
 
 body, table, input, form, select {
