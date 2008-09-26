@@ -153,45 +153,20 @@ y.callService(
     <td class="label">{'Visits'|@translate}</td>
     <td class="value">{$INFO_VISITS}</td>
   </tr>
-  {if isset($available_permission_levels) }
-  <tr>
-    <td class="label">{'Privacy level'|@translate}:</td>
-    <td class="value"> 
-<script type="text/javascript">
-{literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
-{
-selectElement.disabled = true;
-var y = new PwgWS(rootUrl);
-y.callService(
-  "pwg.images.setPrivacyLevel", {image_id: id, level:level} ,
-  {
-    onFailure: function(num, text) { selectElement.disabled = false; alert(num + " " + text); },
-    onSuccess: function(result) { selectElement.disabled = false; }
-  }
-  );
-}{/literal}
-</script>
-    <select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
-    {foreach from=$available_permission_levels item=level}
-        <option value="{$level}"{if $current.level==$level} selected="selected"{/if}>{$pwg->l10n($pwg->sprintf('Level %d',$level))}</option>
-    {/foreach}
-    </select>
-  </td></tr>
-  {/if}
 
-  {if isset($rate_summary) }
-  <tr>
-    <td class="label">{'Average rate'|@translate}</td>
-    <td class="value" id="ratingSummary">
-    {if $rate_summary.count}
-      {assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
-      {$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
-    {else}
-      {'no_rate'|@translate}
-    {/if}
-    </td>
-  </tr>
-  {/if}
+{if isset($rate_summary) }
+	<tr>
+		<td class="label">{'Average rate'|@translate}</td>
+		<td class="value" id="ratingSummary">
+		{if $rate_summary.count}
+			{assign var='rate_text' value='%.2f (rated %d times, standard deviation = %.2f)'|@translate }
+			{$pwg->sprintf($rate_text, $rate_summary.average, $rate_summary.count, $rate_summary.std) }
+		{else}
+			{'no_rate'|@translate}
+		{/if}
+		</td>
+	</tr>
+{/if}
   
 {if isset($rating)}
 	<tr>
@@ -204,9 +179,9 @@ y.callService(
 			{foreach from=$rating.marks item=mark name=rate_loop}
 			{if !$smarty.foreach.rate_loop.first} | {/if}
 			{if isset($rating.USER_RATE) && $mark==$rating.USER_RATE}
-			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" />
+			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" title="{$mark}" />
 			{else}
-			  <input type="submit" name="rate" value="{$mark}" class="rateButton" />
+			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}" />
 			{/if}
 			{/foreach}
 			<script type="text/javascript" src="{$ROOT_URL}template/{$themeconf.template}/rating.js"></script>
@@ -219,6 +194,32 @@ y.callService(
 			</form>
 		</td>
 	</tr>
+{/if}
+
+{if isset($available_permission_levels) }
+	<tr>
+		<td class="label">{'Privacy level'|@translate}:</td>
+		<td class="value"> 
+<script type="text/javascript">
+{literal}function setPrivacyLevel(selectElement, rootUrl, id, level)
+{
+selectElement.disabled = true;
+var y = new PwgWS(rootUrl);
+y.callService(
+	"pwg.images.setPrivacyLevel", {image_id: id, level:level} ,
+	{
+		onFailure: function(num, text) { selectElement.disabled = false; alert(num + " " + text); },
+		onSuccess: function(result) { selectElement.disabled = false; }
+	}
+	);
+}{/literal}
+</script>
+	<select onchange="setPrivacyLevel(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}, this.options[selectedIndex].value)">
+	{foreach from=$available_permission_levels item=level}
+		<option value="{$level}"{if $current.level==$level} selected="selected"{/if}>{$pwg->l10n($pwg->sprintf('Level %d',$level))}</option>
+	{/foreach}
+	</select>
+	</td></tr>
 {/if}
 
 </table>
