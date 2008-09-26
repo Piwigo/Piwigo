@@ -152,6 +152,9 @@ color: #F70; border-bottom: 1px dotted #F70;}
   color: #ff3363;
   background-color: #111;
 }
+
+.ui-resizable-handle { border-color: #f36 !important; }
+
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
 *+html  .bigtext { left: 65px; }
