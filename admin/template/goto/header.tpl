@@ -23,6 +23,8 @@
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/theme.css">
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js" now=1} {*jQuery is always available by default*}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
+{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.resizable.packed.js"}
 {$themeconf.local_head}
 <script type="text/javascript" src="{$ROOT_URL}template-common/scripts.js"></script>
 <!--[if lt IE 7]>

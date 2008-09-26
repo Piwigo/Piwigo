@@ -1,10 +1,7 @@
 {* $Id$ *}
 {* 
-
-
           Warning : This is the admin pages footer only 
           don't be confusing with the public page footer
-
 *}
 <div id="copyright">
  <a name="EoP"></a> <!-- End of ADMIN Page -->
@@ -38,5 +35,26 @@
 </div>
 {/if}
 </div> <!-- the_page -->
+
+<!-- Begin of JS -->
+{literal}
+<script type="text/javascript">
+  // All admin textarea are resizable
+  jQuery().ready(function(){
+    jQuery("TEXTAREA").resizable({
+      handles: "all",
+      animate: true,
+      animateDuration: "slow",
+      animateEasing: "swing",
+      preventDefault: true,
+      preserveCursor: true,
+      autoHide: true,
+      ghost: true
+    });
+  });
+</script>
+{/literal}
+<!-- End of JS -->
+
 </body>
 </html>
