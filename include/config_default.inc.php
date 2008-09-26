@@ -613,6 +613,9 @@ $conf['recent_post_dates'] = array(
   'NBM' => array('max_dates' => 7, 'max_elements' => 3, 'max_cats' => 9)
   );
 
+// the author shown in the RSS feed <author> element
+$conf['rss_feed_author'] = 'Piwigo notifier';
+
 // +-----------------------------------------------------------------------+
 // | Set admin layout                                                      |
 // +-----------------------------------------------------------------------+

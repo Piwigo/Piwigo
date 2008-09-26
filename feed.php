@@ -136,7 +136,7 @@ if (!$image_only)
     $item->descriptionHtmlSyndicated = true;
 
     $item->date = mysqldt_to_ts($dbnow);
-    $item->author = 'Piwigo notifier';
+    $item->author = $conf['rss_feed_author'];
     $item->guid= sprintf('%s', $dbnow);;
 
     $rss->addItem($item);
@@ -188,7 +188,7 @@ foreach($dates as $date_detail)
   $item->descriptionHtmlSyndicated = true;
 
   $item->date = mysqldt_to_ts($date);
-  $item->author = 'Piwigo notifier';
+  $item->author = $conf['rss_feed_author'];
   $item->guid= sprintf('%s', 'pics-'.$date);;
 
   $rss->addItem($item);
