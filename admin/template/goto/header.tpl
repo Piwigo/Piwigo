@@ -19,7 +19,6 @@
 <!--[if lt IE 7]>
   <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/fix-ie5-ie6.css">
 <![endif]-->
-<link rel="stylesheet" type="text/css" media="print" href="{$ROOT_URL}template/{$themeconf.template}/print.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/theme.css">
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js" now=1} {*jQuery is always available by default*}
@@ -41,7 +40,9 @@
 <![endif]-->
 
 {if not empty($head_elements)}
-  {foreach from=$head_elements item=elt}{$elt}{/foreach}
+{foreach from=$head_elements item=elt}
+{$elt}
+{/foreach}
 {/if}
 
 </head>

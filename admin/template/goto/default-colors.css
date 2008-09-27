@@ -1,10 +1,5 @@
 /* $Id$ */
 
-/* others */
-
-#imageToolBar * {
-	background: inherit;
-}
 
 /* So that non-links are slightly greyed out */
 .content .navigationBar {
@@ -33,12 +28,6 @@ INPUT.radio, INPUT.checkbox {
   border: none;	/* <= IE6 needs this */
 }
 
-/* rate buttons displayed like links */
-INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rateButtonStarEmpty {
-  color:inherit;
-  background-color:transparent;	/* Konqueror doesn't accept transparent here */
-}
-
 .errors { /* Errors display */
   color: red;
   background-color: #ffe1e1;
@@ -46,7 +35,7 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
   text-align: left;
   margin: 5px;
   border: 1px solid red;
-  background-image: url(icon/admin/errors.png);
+  background-image: url(icon/errors.png);
   background-repeat: no-repeat;
   background-position: top right;
   padding: 10px 50px 10px 10px;
@@ -59,7 +48,7 @@ INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rate
   text-align: left;
   color: #002000;
   background-color: #98fb98; /* palegreen */
-  background-image: url(icon/admin/infos.png);
+  background-image: url(icon/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
   margin: 5px;

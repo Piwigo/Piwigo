@@ -1,7 +1,6 @@
 /* $Id$ */
 /* Issues in IE from 5 to 6 only not to be used with IE7                      */
 
-@import "thumbnails-fix-ie5-ie6.css";
 
 /* to avoid vanishing objects in IE6 */
 H1, #theHeader {

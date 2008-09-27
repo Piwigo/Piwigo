@@ -36,7 +36,6 @@
 {/if}
 </div> <!-- the_page -->
 
-<!-- Begin of JS -->
 {literal}
 <script type="text/javascript">
   jQuery().ready(function(){
@@ -47,7 +46,6 @@
   });
 </script>
 {/literal}
-<!-- End of JS -->
 
 </body>
 </html>
