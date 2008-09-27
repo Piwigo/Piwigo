@@ -68,7 +68,7 @@ display:block; height:85px; left:225px; position:relative; top:-42px; width:313p
 }
 .tagSelection label { padding-right:12px; }
 ul.thumbnails input { border:3px double #999; color:#999; font-size:10px; margin:0; background-color:#444; text-align: center;}
-INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { color:#f33; cursor: pointer; }
+INPUT[type="submit"]:hover , INPUT[type="reset"]:hover  { cursor: pointer; }
 INPUT.bigbutton:hover { background-color: #222;  color:#f33; border: 0; }
 .throw  { font-size: 120%; line-height: 26px; padding-top: 10px; font-weight: bold; color: #ff3363; }
 label { cursor:pointer }
@@ -78,9 +78,9 @@ a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #f36; text-decoration: none; border: 0; color: #f36; }
-* { outline-width: 0; }
-a { color:#f70; outline: none; border-color: #f70; }
-a:hover, a:active { color: #f33; border-color: #FF3363; outline: none;  cursor: pointer; }
+input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
+a { color:#f70; border-color: #f70; }
+a:hover, a:active { color: #f33; border-color: #FF3363; cursor: pointer; }
 
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
