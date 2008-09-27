@@ -4,7 +4,7 @@
 .content div.thumbnailCategory div.description .text { height: 130px !important; /* -42px than previous one */ }
 
 /*  Sylvia Theme is close to the Roma Admin theme */
-BODY, H1, H3, DT, INPUT.rateButtonSelected { color:#ddd; }
+BODY, H1, H3, DT, INPUT.rateButtonSelected { color:#666; }
 H2, #menubar DT { color: #666; }
 #imageHeaderBar, #imageToolBar A:hover { background-color: transparent; }
 BODY { background:#111 url(images/bottom-left-bg.jpg) no-repeat fixed left bottom;
@@ -27,7 +27,7 @@ margin:14px 0 0 0; padding:0 0 22px; width: 231px; min-width: 231px; border: 0; 
 #menubar .illustration  { background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom;
 margin:0; }
 #menubar DT A { font-size: 100%; }
-#menubar UL { color: #333; font-size: 16px; line-height: 13px; }
+#menubar UL { color: #333; font-size: 16px; line-height: 15px; }
 #menubar LI { padding-left: 12px; }
 #menubar A, .menuInfoCat { font-size: 13px; }
 #menubar form { background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom; margin:0; }
@@ -67,13 +67,15 @@ overflow: auto; overflow-x:hidden; padding:0 0 5px;  /* Only IE family supports 
 #imageHeaderBar .imageNumber { margin-right:170px; }
 #imageHeaderBar .browsePath { margin-left:125px; }
 H2 { border-bottom: 1px solid #000000; }
-FIELDSET, INPUT, SELECT, TEXTAREA { 	border: 1px solid #666; }
+FIELDSET, INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
+INPUT, select, textarea { color:#999; background-color: #444; } 
+input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
 .content UL.thumbnails SPAN.wrap2 {
 border: 1px solid #666;	/* thumbnails border color and style */
 border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ }
 .content UL.thumbnails SPAN.wrap2:hover { color: #666;
 background-color: #111; border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ }
-A, INPUT.rateButton { color: #f70; outline: none; border: none;}
-A:hover, A:active { color: #f33; border: 0; outline: none; }
+A, INPUT.rateButton { color:#f70; outline: none; border-color: #f70; }
+A:hover, A:active { color: #f33; border-color: #FF3363; outline: none;  cursor: pointer; }
 
 #debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
