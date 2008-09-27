@@ -387,7 +387,7 @@ CREATE TABLE `piwigo_user_infos` (
   `show_nb_comments` enum('true','false') NOT NULL default 'false',
   `show_nb_hits` enum('true','false') NOT NULL default 'false',
   `recent_period` tinyint(3) unsigned NOT NULL default '7',
-  `template` varchar(255) NOT NULL default 'yoga/clear',
+  `template` varchar(255) NOT NULL default 'yoga/Sylvia',
   `registration_date` datetime NOT NULL default '0000-00-00 00:00:00',
   `enabled_high` enum('true','false') NOT NULL default 'true',
   `level` tinyint unsigned NOT NULL default '0',
