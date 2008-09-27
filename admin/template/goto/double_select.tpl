@@ -27,7 +27,7 @@
   jQuery().ready(function(){
     jQuery(".doubleSelect select.categoryList").resizable({
     handles: "w,e",
-    animate: true, 
+    animate: true,
     animateDuration: "slow",
     animateEasing: "swing",
     preventDefault: true,

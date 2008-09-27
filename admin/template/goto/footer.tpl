@@ -41,7 +41,9 @@
 <script type="text/javascript">
   jQuery().ready(function(){
     // Auto size for all text area
-    jQuery("TEXTAREA").growfield();
+    jQuery("TEXTAREA").growfield({
+      animate: false
+    });
   });
 </script>
 {/literal}
