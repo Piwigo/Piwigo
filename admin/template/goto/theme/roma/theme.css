@@ -78,7 +78,7 @@ a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #f36; text-decoration: none; border: 0; color: #f36; }
-input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
+*, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 a { color:#f70; border-color: #f70; }
 a:hover, a:active { color: #f33; border-color: #FF3363; cursor: pointer; }
 

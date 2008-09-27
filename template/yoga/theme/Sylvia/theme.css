@@ -69,7 +69,7 @@ overflow: auto; overflow-x:hidden; padding:0 0 5px;  /* Only IE family supports 
 H2 { border-bottom: 1px solid #000000; }
 FIELDSET, INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
 INPUT, select, textarea { color:#999; background-color: #444; } 
-input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
+*, *:focus, *:active, input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
 .content UL.thumbnails SPAN.wrap2 {
 border: 1px solid #666;	/* thumbnails border color and style */
 border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ }
