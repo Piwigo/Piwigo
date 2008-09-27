@@ -1,4 +1,14 @@
 {* $Id$ *}
+{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
+
+<script type="text/javascript">
+  jQuery().ready(function(){ldelim}
+    jQuery("textarea").growfield({ldelim}
+      animate: false
+    });
+  });
+</script>
+
 <h2>{'title_picmod'|@translate}</h2>
 
 <img src="{$TN_SRC}" alt="{'thumbnail'|@translate}" class="thumbnail" />

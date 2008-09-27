@@ -1,4 +1,14 @@
 {* $Id$ *}
+{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
+
+<script type="text/javascript">
+  jQuery().ready(function(){ldelim}
+    jQuery("textarea").growfield({ldelim}
+      animate: false
+    });
+  });
+</script>
+
 <div class="titrePage">
   <h2>{'title_configuration'|@translate} {$TABSHEET_TITLE}</h2>
 </div>

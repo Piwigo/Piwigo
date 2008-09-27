@@ -36,16 +36,5 @@
 {/if}
 </div> <!-- the_page -->
 
-{literal}
-<script type="text/javascript">
-  jQuery().ready(function(){
-    // Auto size for all text area
-    jQuery("TEXTAREA").growfield({
-      animate: false
-    });
-  });
-</script>
-{/literal}
-
 </body>
 </html>
