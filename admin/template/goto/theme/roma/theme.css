@@ -145,7 +145,24 @@ color: #F70; border-bottom: 1px dotted #F70;}
 /* jQuery tooltips */
 .cluetip-default #cluetip-outer { border-color: #666; color: #666; background-color: #222; }
 .cluetip-default h3#cluetip-title { color: #ff3363; background-color: #111; }
+/* jQuery ui resizable */
+.ui-resizable { position: relative; }
+.ui-wrapper { border: 0; }
+.ui-wrapper input, .ui-wrapper textarea { border: 0; }
 
+/* Global handle styles */
+.ui-resizable-handle { position: absolute; display: none; font-size: 0.1px; }
+.ui-resizable .ui-resizable-handle { display: block; }
+body .ui-resizable-disabled .ui-resizable-handle { display: none; } /* use 'body' to make it more specific (css order) */
+body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body' to make it more specific (css order) */
+.ui-resizable-n { cursor: n-resize; height: 6px; width: 100%; top: 0px; left: 0px; background: transparent url(images/resizable-n.gif) no-repeat scroll center top; }
+.ui-resizable-s { cursor: s-resize; height: 6px; width: 100%; bottom: 0px; left: 0px; background: transparent url(images/resizable-s.gif) no-repeat scroll center top; }
+.ui-resizable-e { cursor: e-resize; width: 6px; right: 0px; top: 0px; height: 100%; background: transparent url(images/resizable-e.gif) no-repeat scroll right center; }
+.ui-resizable-w { cursor: w-resize; width: 6px; left: 0px; top: 0px; height: 100%; background: transparent url(images/resizable-w.gif) no-repeat scroll right center; }
+.ui-resizable-se { cursor: se-resize; width: 9px; height: 9px; right: 0px; bottom: 0px; background: transparent url(images/resizable-se.gif); }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: 0px; bottom: 0px; background: transparent url(images/resizable-sw.gif); }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); 
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
 *+html  .bigtext { left: 65px; }
