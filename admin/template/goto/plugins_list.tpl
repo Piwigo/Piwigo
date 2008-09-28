@@ -19,19 +19,7 @@
     <td>{'Actions'|@translate}</td>
   </tr>
 </thead>
-{html_head} {*add the style to html head for strict standard compliance*}
-<style type="text/css">
-TABLE.table2 TR TD.pluginState {ldelim}
-  padding-left:16px;
-}
-TABLE.table2 TR TD.active {ldelim}
-  background: url({$ROOT_URL}{$themeconf.admin_icon_dir}/plugin_active.gif) no-repeat center left
-}
-TABLE.table2 TR TD.inactive {ldelim}
-  background: url({$ROOT_URL}{$themeconf.admin_icon_dir}/plugin_inactive.gif) no-repeat center left
-}
-</style>
-{/html_head}
+
 {foreach from=$plugins item=plugin name=plugins_loop}
 	<tr class="{if $smarty.foreach.plugins_loop.index is odd}row1{else}row2{/if}">
 	<td class="pluginState{if not empty($plugin.STATE)} {$plugin.STATE}{/if}">

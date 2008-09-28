@@ -39,6 +39,21 @@ TABLE#detailedStats {
   width: 99%;
 }
 
+/* Plugins tables */
+TABLE.table2 TR TD.pluginState {
+  padding-left: 16px;
+}
+
+TABLE.table2 TR TD.active {
+  background: url(icon/plugin_active.gif) no-repeat center left;
+  background-color: inherit; /* IE need it */
+}
+
+TABLE.table2 TR TD.inactive {
+  background: url(icon/plugin_inactive.gif) no-repeat center left;
+  background-color: inherit; /* IE need it */
+}
+
 /* categoryOrdering */
 SELECT.categoryList {
   width: 100%;
