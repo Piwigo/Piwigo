@@ -514,18 +514,14 @@ function pwg_log($image_id = null, $image_type = null)
 {
   global $conf, $user, $page;
 
-  $do_log = true;
-  if (!$conf['log'])
+  $do_log = $conf['log'];
+  if (is_admin())
   {
-    $do_log = false;
+    $do_log = $conf['history_admin'];
   }
-  if (is_admin() and !$conf['history_admin'])
+  if (is_a_guest())
   {
-    $do_log = false;
-  }
-  if (is_a_guest() and !$conf['history_guest'])
-  {
-    $do_log = false;
+    $do_log = $conf['history_guest'];
   }
 
   $do_log = trigger_event('pwg_log_allowed', $do_log, $image_id, $image_type);
