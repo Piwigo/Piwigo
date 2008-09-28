@@ -24,7 +24,10 @@
       <input type="text" name="display" size="2" value="{$DISPLAY}">
     </label>
 
+    <label>
+      &nbsp;
     <input class="submit" type="submit" name="submit_filter" value="{'Submit'|@translate}" />
+    </label>
     <input type="hidden" name="page" value="rating" />
   </fieldset>
 </form>

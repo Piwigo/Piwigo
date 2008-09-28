@@ -6,7 +6,7 @@ INPUT, select, textarea { color:#999; background-color: #444; }
 /* INPUT[type="checkbox"], INPUT[type="radio"]
 { color:#999; background-color: #eee; }  */
 INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666; background-color: #444; padding: 1px 15px; }
-input.rateButton, legend, #theAdminPage h3 { color: #666; }
+input.rateButton, legend, h3 { color: #666; }
 #theAdminPage h2 { color: #333; }
 .content .infos { color: #f70; border:0; background-color: transparent;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
@@ -36,6 +36,7 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #222; }
 .content { padding:5px 5px 5px 5px; margin: 0 10px 0 248px; z-index:99; }
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
  text-align:right; background:none; border: 0; }
+.content h3 ~ h3{ margin-top: 40px; }
 .content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
 /*.content h2:before, .content h2:after, */ 
 .content h2 { 
