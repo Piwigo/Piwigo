@@ -31,7 +31,6 @@ include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when it is not ok                               |
 // +-----------------------------------------------------------------------+
-check_upgrade();
 
 prepare_conf_upgrade();
 
