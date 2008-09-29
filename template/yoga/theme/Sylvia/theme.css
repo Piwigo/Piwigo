@@ -79,7 +79,7 @@ border: 1px solid #666;	/* thumbnails border color and style */
 border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ }
 .content UL.thumbnails SPAN.wrap2:hover { color: #666;
 background-color: #111; border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ }
-A, INPUT.rateButton { color:#f70; border-color: #f70; }
-A:hover, A:active { color: #f33; border-color: #FF3363; cursor: pointer; }
+A, INPUT.rateButton { color:#f70; border: 0px solid #f70; }
+A:hover, A:active { color: #f33; border: 0px solid #FF3363; cursor: pointer; }
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 #debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
