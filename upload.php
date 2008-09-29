@@ -27,18 +27,11 @@ define('PHPWG_ROOT_PATH','./');
 // | Includes                                                              |
 // +-----------------------------------------------------------------------+
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
-include_once(PHPWG_ROOT_PATH.'include/upload.class.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
 // +-----------------------------------------------------------------------+
 check_status($conf['upload_user_access']);
-
-// +-----------------------------------------------------------------------+
-// | Create upload object                                                  |
-// +-----------------------------------------------------------------------+
-$upload = new Upload();
-
 
 $username = !empty($_POST['username']) ? $_POST['username']:(is_classic_user() ? $user['username'] : '');
 $mail_address = !empty($_POST['mail_address']) ? $_POST['mail_address'] : (is_classic_user() ? $user['email'] : '');
