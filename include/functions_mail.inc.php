@@ -406,7 +406,7 @@ order by
  */
 function pwg_mail_group(
   $group_id, $email_format, $keyargs_subject,
-  $dirname, $tpl_shortname,
+  $tpl_shortname,
   $assign_vars = array(), $language_selected = '')
 {
   // Check arguments
@@ -491,8 +491,7 @@ WHERE
           switch_lang_to($elem['language']);
 
           $mail_template = get_mail_template($email_format, $elem);
-          $mail_template->set_filename($tpl_shortname,
-            (empty($dirname) ? '' : $dirname.'/').$tpl_shortname.'.tpl');
+          $mail_template->set_filename($tpl_shortname, $tpl_shortname.'.tpl');
 
           $mail_template->assign(
             trigger_event('mail_group_assign_vars', $assign_vars));
