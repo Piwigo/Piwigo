@@ -485,7 +485,6 @@ SELECT id, file, path, tn_ext
     get_str_email_format(true), /* TODO add a checkbox in order to choose format*/
     get_l10n_args('[%s] Come to visit the category %s',
       array($conf['gallery_title'], $category['name'])),
-    'admin',
     'cat_group_info',
     array
     (
