@@ -329,14 +329,7 @@ class Template {
     $content = trim($content);
     if ( !empty($content) )
     { // second call
-      if ( empty($this->output) )
-      {//page header not parsed yet
-        $this->append('head_elements', $content);
-      }
-      else
-      {
-        $this->html_head_elements[] = $content;
-      }
+      $this->html_head_elements[] = $content;
     }
   }
 
