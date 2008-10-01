@@ -2,7 +2,9 @@
 {known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.datepicker.js"}
 {known_script id="jquery.ui.datepicker-$lang_info.code" src=$ROOT_URL|@cat:"template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
 
+{html_head}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/datepicker.css">
+{/html_head}
 
 {literal}
 <script type="text/javascript">
@@ -89,7 +91,7 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
         function updateLinked(date) {
             if (date.length == 0)
             {
-              $(year).val("0");
+              $(year).val("");
               $(month).val("0");
               $(day).val("0");
             }
@@ -120,5 +122,3 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
 }
 </script>
 {/literal}
-
-
