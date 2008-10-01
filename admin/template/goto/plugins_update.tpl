@@ -18,7 +18,7 @@ jQuery().ready(function(){ldelim}
 {if isset($plugins_not_uptodate)}
 <br>
 <b>{'plugins_need_update'|@translate}</b>
-<table class="table2">
+<table class="table2 plugins">
 <thead>
   <tr class="throw">
     <td>{'Name'|@translate}</td>
@@ -43,7 +43,7 @@ jQuery().ready(function(){ldelim}
 {if isset($plugins_uptodate)}
 <br>
 <b>{'plugins_dontneed_update'|@translate}</b>
-<table class="table2">
+<table class="table2 plugins">
 <thead>
   <tr class="throw">
     <td>{'Name'|@translate}</td>
@@ -63,7 +63,7 @@ jQuery().ready(function(){ldelim}
 {if isset($plugins_cant_check)}
 <br>
 <b>{'plugins_cant_check'|@translate}</b>
-<table class="table2">
+<table class="table2 plugins">
 <thead>
   <tr class="throw">
     <td>{'Name'|@translate}</td>

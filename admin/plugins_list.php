@@ -89,42 +89,16 @@ foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   $tpl_plugin =
     array('NAME' => $display_name,
           'VERSION' => $fs_plugin['version'],
-          'DESCRIPTION' => $desc);
-
-  $action_url = $base_url.'&amp;plugin='.$plugin_id;
+          'DESCRIPTION' => $desc,
+          'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id);
 
   if (isset($plugins->db_plugins_by_id[$plugin_id]))
   {
     $tpl_plugin['STATE'] = $plugins->db_plugins_by_id[$plugin_id]['state'];
-    switch ($plugins->db_plugins_by_id[$plugin_id]['state'])
-    {
-      case 'active':
-        $tpl_plugin['actions'][] =
-            array('U_ACTION' => $action_url . '&amp;action=deactivate',
-                  'L_ACTION' => l10n('Deactivate'));
-        break;
-
-      case 'inactive':
-        $tpl_plugin['actions'][] =
-            array('U_ACTION' => $action_url . '&amp;action=activate',
-                  'L_ACTION' => l10n('Activate'));
-        $tpl_plugin['actions'][] =
-            array('U_ACTION' => $action_url . '&amp;action=uninstall',
-                  'L_ACTION' => l10n('Uninstall'),
-                  'CONFIRM' => l10n('Are you sure?'));
-        break;
-    }
   }
   else
   {
-    $tpl_plugin['actions'][] =
-        array('U_ACTION' => $action_url . '&amp;action=install',
-              'L_ACTION' => l10n('Install'),
-              'CONFIRM' => l10n('Are you sure?'));
-    $tpl_plugin['actions'][] =
-        array('U_ACTION' => $action_url . '&amp;action=delete',
-              'L_ACTION' => l10n('plugins_delete'),
-              'CONFIRM' => l10n('plugins_confirm_delete'));
+    $tpl_plugin['STATE'] = 'uninstalled';
   }
   $template->append('plugins', $tpl_plugin);
 }
@@ -142,12 +116,10 @@ foreach($missing_plugin_ids as $plugin_id)
         'NAME' => $plugin_id,
         'VERSION' => $plugins->db_plugins_by_id[$plugin_id]['version'],
         'DESCRIPTION' => "ERROR: THIS PLUGIN IS MISSING BUT IT IS INSTALLED! UNINSTALL IT NOW !",
-        'actions' => array ( array (
-              'U_ACTION' => $action_url . '&amp;action=uninstall',
-              'L_ACTION' => l10n('Uninstall'),
-          ) )
-        )
-     );
+        'U_ACTION' => $base_url.'&amp;plugin='.$plugin_id,
+        'STATE' => 'missing'
+      )
+    );
 }
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugins');

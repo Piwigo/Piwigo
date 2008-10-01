@@ -40,19 +40,30 @@ TABLE#detailedStats {
 }
 
 /* Plugins tables */
-TABLE.table2 TR TD.pluginState {
-  padding-left: 16px;
-}
+TABLE.plugins a { border: 0; }
+TABLE.plugins TR TD { padding: 4px 10px; }
+TABLE.plugins TR TD.pluginState { padding: 4px 16px; }
 
-TABLE.table2 TR TD.active {
+TABLE.plugins TR TD.active {
   background: url(icon/plugin_active.gif) no-repeat center left;
   background-color: inherit; /* IE need it */
 }
 
-TABLE.table2 TR TD.inactive {
+TABLE.plugins TR TD.inactive {
   background: url(icon/plugin_inactive.gif) no-repeat center left;
   background-color: inherit; /* IE need it */
 }
+
+TABLE.plugins ul.pluginsActions {
+  float: left;
+  padding: 0;
+  margin: 0;
+  width: 60px;
+  list-style: none;
+  text-align: center;
+}
+
+TABLE.plugins ul.pluginsActions li { display: inline; }
 
 /* categoryOrdering */
 SELECT.categoryList {

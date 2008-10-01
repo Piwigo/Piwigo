@@ -12,17 +12,18 @@ jQuery().ready(function(){ldelim}
 </script>
 
 <div class="titrePage">
-  <h2>{'Plugins'|@translate}</h2>
-</div>
-
+<span class="sort">
 {'Sort order'|@translate} : 
   <select onchange="document.location = this.options[this.selectedIndex].value;" style="width:150px">
         {html_options options=$order_options selected=$order_selected}
   </select>
+</span>
+  <h2>{'Plugins'|@translate}</h2>
+</div>
 
 {if isset($plugins)}
 <br>
-<table class="table2">
+<table class="table2 plugins">
 <thead>
   <tr class="throw">
     <td>{'Name'|@translate}</td>
