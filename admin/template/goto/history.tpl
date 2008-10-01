@@ -1,4 +1,14 @@
 {* $Id$ *}
+
+{include file='include/datepicker.inc.tpl'}
+
+{literal}
+<script type="text/javascript">
+  pwg_initialization_datepicker("select[name=start_day]", "select[name=start_month]", "input[name=start_year]", "input[name=start_linked_date]", null, "input[name=end_linked_date]");
+  pwg_initialization_datepicker("select[name=end_day]", "select[name=end_month]", "input[name=end_year]", "input[name=end_linked_date]", "input[name=start_linked_date]", null);
+</script>
+{/literal}
+
 <div class="titrePage">
   <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
@@ -19,6 +29,7 @@
       {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
       <input name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
+      <input name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
   </ul>
   <ul>
@@ -34,6 +45,7 @@
       {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
       <input name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
+      <input name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
   </ul>
 

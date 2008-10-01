@@ -71,6 +71,7 @@
         {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
       <input name="start_year" type="text" size="4" maxlength="4" >
+      <input name="start_linked_dates" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
       <a href="#" onClick="document.search.start_day.value={$smarty.now|date_format:"%d"};document.search.start_month.value={$smarty.now|date_format:"%m"};document.search.start_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
@@ -89,6 +90,7 @@
         {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
       <input name="end_year" type="text" size="4" maxlength="4" >
+      <input name="end_linked_dates" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
       <a href="#" onClick="document.search.end_day.value={$smarty.now|date_format:"%d"};document.search.end_month.value={$smarty.now|date_format:"%m"};document.search.end_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>

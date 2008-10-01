@@ -1,5 +1,13 @@
 {* $Id$ *}
 
+{include file='include/datepicker.inc.tpl'}
+
+{literal}
+<script type="text/javascript">
+  pwg_initialization_datepicker("select[name=date_creation_day]", "select[name=date_creation_month]", "input[name=date_creation_year]", "input[name=date_creation_linked_date]");
+</script>
+{/literal}
+
 <h2>{'Batch management'|@translate}</h2>
 
 <h3>{$CATEGORIES_NAV}</h3>
@@ -136,6 +144,7 @@
                  size="4"
                  maxlength="4"
                  value="{$DATE_CREATION_YEAR}" />
+          <input name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
         </td>
       </tr>
 

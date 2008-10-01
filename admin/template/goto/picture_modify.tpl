@@ -1,4 +1,13 @@
 {* $Id$ *}
+
+{include file='include/datepicker.inc.tpl'}
+
+{literal}
+<script type="text/javascript">
+  pwg_initialization_datepicker("select[name=date_creation_day]", "select[name=date_creation_month]", "input[name=date_creation_year]", "input[name=date_creation_linked_date]");
+</script>
+{/literal}
+
 {known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
 
 <script type="text/javascript">
@@ -111,6 +120,7 @@
                  size="4"
                  maxlength="4"
                  value="{$DATE_CREATION_YEAR_VALUE}" />
+          <input name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
         </td>
       </tr>
 

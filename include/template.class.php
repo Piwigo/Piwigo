@@ -48,7 +48,7 @@ class Template {
 
   function Template($root = ".", $theme= "")
   {
-    global $conf;
+    global $conf, $lang_info;
 
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
@@ -74,6 +74,8 @@ class Template {
       include($root.'/theme/'.$theme.'/themeconf.inc.php');
       $this->smarty->assign('themeconf', $themeconf);
     }
+
+    $this->smarty->assign('lang_info', $lang_info);
 
     $this->set_template_dir($root);
   }
