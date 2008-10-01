@@ -218,6 +218,15 @@ function ws_addDefaultMethods( $arr )
     array(),
     'administration method only'
     );
+
+  $service->addMethod(
+    'pwg.tags.add',
+    'ws_tags_add',
+    array(
+      'name' => array(),
+      ),
+    'administration method only'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

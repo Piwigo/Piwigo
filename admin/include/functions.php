@@ -1816,4 +1816,49 @@ function get_extents($start='')
   return $extents;
 }
 
+function create_tag($tag_name)
+{
+  $tag_name = mysql_real_escape_string($tag_name);
+  
+  // does the tag already exists?
+  $query = '
+SELECT id
+  FROM '.TAGS_TABLE.'
+  WHERE name = \''.$tag_name.'\'
+;';
+  $existing_tags = array_from_query($query, 'id');
+
+  if (count($existing_tags) == 0)
+  {
+    mass_inserts(
+      TAGS_TABLE,
+      array('name', 'url_name'),
+      array(
+        array(
+          'name' => $tag_name,
+          'url_name' => str2url($tag_name),
+          )
+        )
+      );
+
+    $inserted_id = mysql_insert_id();
+
+    return array(
+      'info' => sprintf(
+        l10n('Tag "%s" was added'),
+        stripslashes($tag_name)
+        ),
+      'id' => $inserted_id,
+      );
+  }
+  else
+  {
+    return array(
+      'error' => sprintf(
+        l10n('Tag "%s" already exists'),
+        stripslashes($tag_name)
+        )
+      );
+  }
+}
 ?>

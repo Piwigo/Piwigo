@@ -1397,4 +1397,23 @@ function ws_categories_add($params, &$service)
 
   return $creation_output;
 }
+
+function ws_tags_add($params, &$service)
+{
+  if (!is_admin() or is_adviser())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+
+  $creation_output = create_tag($params['name']);
+
+  if (isset($creation_output['error']))
+  {
+    return new PwgError(500, $creation_output['error']);
+  }
+
+  return $creation_output;
+}
 ?>
