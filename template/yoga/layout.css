@@ -13,3 +13,5 @@
 /* Override properties with import local file */
 @import "../../template-common/local-layout.css";
 
+@import "default-colors.css";
+

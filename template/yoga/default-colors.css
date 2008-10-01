@@ -43,7 +43,7 @@ INPUT.radio, INPUT.checkbox {
 /* rate buttons displayed like links */
 INPUT.rateButton, INPUT.rateButtonSelected, INPUT.rateButtonStarFull, INPUT.rateButtonStarEmpty {
 	color:inherit;
-	background-color:transparent;	/* Konqueror doesn't accept transparent here */
+	background-color:transparent !important;	/* Konqueror doesn't accept transparent here */
 }
 
 .errors { /* Errors display */

@@ -29,9 +29,7 @@ A {
 A:hover {
 	border-bottom: 1px solid #858460;
 }
-A.button, A.button:hover { 
-	border: 0; 
-}
+
 IMG {
 	border: none;
 }

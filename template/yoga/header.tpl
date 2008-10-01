@@ -29,7 +29,6 @@
 	<link rel="stylesheet" href="{$ROOT_URL}template/{$themeconf.template}/not-ie.css" type="text/css">
 <!--> <![endif]-->
 <link rel="stylesheet" type="text/css" media="print" href="{$ROOT_URL}template/{$themeconf.template}/print.css">
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}template/{$themeconf.template}/default-colors.css">
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}template/{$themeconf.template}/theme/{$themeconf.theme}/theme.css">
 {$themeconf.local_head}
 {if isset($U_PREFETCH)          }<link rel="prefetch" href="{$U_PREFETCH}">{/if}

@@ -1,43 +1,43 @@
 /* $Id$ */
 #imageHeaderBar {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  margin-top: 4px;
-  overflow: hidden;
-  width: 100%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-top: 4px;
+	overflow: hidden;
+	width: 100%;
 }
 
 #imageHeaderBar .browsePath {
-  float: left;
-  margin-left: 10px;
+	float: left;
+	margin-left: 10px;
 }
 
 #imageHeaderBar .imageNumber {
-  float: right;
-  margin-right: 10px;
+	float: right;
+	margin-right: 10px;
 }
 
 #imageHeaderBar H2 {
-  text-align: center;
-  padding: 0;
-  clear: both;
+	text-align: center;
+	padding: 0;
+	clear: both;
 }
 
 #imageToolBar {
-  text-align: center;
-  position: relative;
-  clear: both;
-  margin-bottom: 4px;
-  padding: 0;
+	text-align: center;
+	position: relative;
+	clear: both;
+	margin-bottom: 4px;
+	padding: 0;
 }
 
 #imageToolBar {
-    height: 28px;
+	height: 28px;
 }
 #imageToolBar A, #imageToolBar IMG {
-    display: block;
-    border: none;
-    margin: 0; padding: 0;
+	display: block;
+	border: none;
+	margin: 0; padding: 0;
 }
 #imageToolBar A { width: 48px; }
 #imageToolBar IMG { margin: 2px auto; }
@@ -45,8 +45,8 @@
 #imageToolBar .navButtons    A { float: right; }
 
 #theImage {
-    clear: left;
-    text-align: center;
+	clear: left;
+	text-align: center;
 }
 
 #theImage>IMG {
