@@ -1,7 +1,5 @@
 {* $Id$ *}
 
-{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
-
 {include file='include/autosize.inc.tpl'}
 
 <div class="titrePage">

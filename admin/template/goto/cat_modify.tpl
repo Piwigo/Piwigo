@@ -1,13 +1,6 @@
 {* $Id$ *}
-{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
 
-<script type="text/javascript">
-  jQuery().ready(function(){ldelim}
-    jQuery("textarea").growfield({ldelim}
-      animate: false
-    });
-  });
-</script>
+{include file='include/autosize.inc.tpl'}
 
 <div class="titrePage">
   <h2>{'title_edit_cat'|@translate}</h2>

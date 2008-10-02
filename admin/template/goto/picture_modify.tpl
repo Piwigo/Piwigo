@@ -1,5 +1,6 @@
 {* $Id$ *}
 
+{include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
 {literal}
@@ -7,16 +8,6 @@
   pwg_initialization_datepicker("select[name=date_creation_day]", "select[name=date_creation_month]", "input[name=date_creation_year]", "input[name=date_creation_linked_date]");
 </script>
 {/literal}
-
-{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
-
-<script type="text/javascript">
-  jQuery().ready(function(){ldelim}
-    jQuery("textarea").growfield({ldelim}
-      animate: false
-    });
-  });
-</script>
 
 <h2>{'title_picmod'|@translate}</h2>
 

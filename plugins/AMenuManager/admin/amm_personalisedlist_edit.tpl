@@ -1,3 +1,7 @@
+{* $Id $ *}
+
+{include file='include/autosize.inc.tpl'}
+
 {literal}
 <script type="text/javascript">
 

@@ -1,16 +1,7 @@
 {* $Id$ *}
 
+{include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
-
-{known_script id="jquery.growfield" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.growfield.packed.js"}
-
-<script type="text/javascript">
-  jQuery().ready(function(){ldelim}
-    jQuery("textarea").growfield({ldelim}
-      animate: false
-    });
-  });
-</script>
 
 <h2>{'Batch management'|@translate}</h2>
 
