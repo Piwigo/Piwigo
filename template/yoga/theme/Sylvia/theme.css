@@ -66,12 +66,19 @@ overflow: auto; overflow-x:hidden; padding:0 0 5px;  /* Only IE family supports 
 #content ul.thumbnailCategories li:hover { background-color:#111; } 
 #imageHeaderBar .imageNumber { margin-right:170px; }
 #imageHeaderBar .browsePath { margin-left:125px; }
+.infos { color: #f70; border:0; background-color: transparent; margin-left:125px;
+padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
+.infos li, .errors li { list-style-type:none; }
+.errors { color: #f30; border:0; background-color: transparent; margin-left:125px;
+padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
+
 H2 { border-bottom: 1px solid #000000; }
 #qsearchInput { background-color: #111; border-color: #222; color: #222;}
 FIELDSET, INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
 input[type="text"], input[type="password"], input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
 background-color:#444; color:#999; } /* stupid Line but needed  due to inpact on other themes and deadline of Piwigo 2.0 */
 INPUT, select, textarea { color:#999; background-color: #444; }
+input[type="button"].rateButtonStarEmpty, input[type="button"].rateButtonStarFull, { background-color: transparent; }
 #qsearchInput:focus,
 input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
 .content UL.thumbnails SPAN.wrap2 {
