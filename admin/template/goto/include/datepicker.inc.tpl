@@ -1,5 +1,7 @@
 {* $Id$ *}
-{known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.datepicker.js"}
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
+{known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.datepicker.packed.js"}
 {known_script id="jquery.ui.datepicker-$lang_info.code" src=$ROOT_URL|@cat:"template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
 
 {html_head}
@@ -30,18 +32,8 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
     m = array_date[1];
     d = array_date[2];
 
-    var daysInMonth = 32 - new Date($(year).val(), $(month).val() - 1, 32).getDate();
-
-    $(day + " option").attr("disabled", "");
-    $(day + " option:gt(" + (daysInMonth) +")").attr("disabled", "disabled");
-
-    if ($(day).val() > daysInMonth) {
-        $(day).val(daysInMonth);
-    }
-
     $(linked_date).val(pwg_get_fmt_datepicker(day, month, year));
 
-    cancel = false;
     if ((min_linked_date != null) && ($(min_linked_date).datepicker("getDate") != null))
     {
       cancel = ($(min_linked_date).datepicker("getDate") > $(linked_date).datepicker("getDate"));
@@ -50,7 +42,11 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
     {
       cancel = ($(max_linked_date).datepicker("getDate") < $(linked_date).datepicker("getDate"));
     }
-    
+    else
+    {
+      cancel = false;
+    }
+
     if (cancel)
     {
       $(year).val(y);
@@ -58,6 +54,12 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
       $(day).val(d);
       // check again
       pwg_check_date();
+    }
+    else
+    {
+      var daysInMonth = 32 - new Date($(year).val(), $(month).val() - 1, 32).getDate();
+      $(day + " option").attr("disabled", "");
+      $(day + " option:gt(" + (daysInMonth) +")").attr("disabled", "disabled");
     }
   }
 
@@ -82,7 +84,6 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
             }
             else
             {
-              console.log("none");
               return {};
             }
         },
@@ -117,6 +118,9 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
       {
         pwg_check_date();
       });
+
+    // In order to desable element of list
+    pwg_check_date();
    });
 
 }
