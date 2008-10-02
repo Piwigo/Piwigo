@@ -1,4 +1,4 @@
-<dt>{$block->get_title()|@translate}</dt>
+<dt>{'Related tags'|@translate}</dt>
 <dd>
 	<ul id="menuTagCloud">
 		{foreach from=$block->data item=tag}

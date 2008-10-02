@@ -1,4 +1,4 @@
-<dt>{$block->get_title()|@translate}</dt>
+<dt>{'Links'|@translate}</dt>
 <dd>
 	<ul>
 		{foreach from=$block->data item=link}

@@ -1,4 +1,4 @@
-<dt>{$block->get_title()|@translate}</dt>
+<dt>{'identification'|@translate}</dt>
 <dd>
 	{if isset($USERNAME)}
 	<p>{'hello'|@translate}&nbsp;{$USERNAME}&nbsp;!</p>
@@ -41,9 +41,9 @@
 	</div>
 
 	{if $AUTHORIZE_REMEMBERING}
-	<div><label>
+	<div><label for="remember_me">
 	{'remember_me'|@translate}
-	<input type="checkbox" name="remember_me" value="1">
+	<input type="checkbox" name="remember_me" id="remember_me" value="1">
 	</label></div>
 	{/if}
 

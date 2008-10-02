@@ -405,6 +405,9 @@ class Template {
     $regex = "~$ldq *\'([^'$]+)\'\|@translate\|~";
     $source = preg_replace( $regex.'e', 'isset($lang[\'$1\']) ? \'{\'.var_export($lang[\'$1\'],true).\'|\' : \'$0\'', $source);
 
+    $regex = "~($ldq *assign +var=.+ +value=)\'([^'$]+)\'\|@translate~e";
+    $source = preg_replace( $regex, 'isset($lang[\'$2\']) ? \'$1\'.var_export($lang[\'$2\'],true) : \'$0\'', $source);
+
     return $source;
   }
 }
