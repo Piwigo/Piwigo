@@ -23,7 +23,7 @@ margin:0 0 5px 40px; padding:0; width: 231px; min-width: 231px; border: 0; min-h
 #menubar DT { background-color:#111; border:0; display:inline; margin-left:8px; text-align:left; }
 #menubar DD { background:transparent url(images/menuBox_bottom.gif) no-repeat scroll left bottom;
 margin:14px 0 0 0; padding:0 0 22px; width: 231px; min-width: 231px; border: 0; overflow-x: hidden;}
-#menubar UL, #menubar p, 
+#menubar UL, #menubar #mbCategories p, 
 #menubar .illustration  { background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom;
 margin:0; }
 #menubar DT A { font-size: 100%; }
