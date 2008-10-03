@@ -212,8 +212,7 @@ UL.tagSelection LI {
 	margin: 1em 2em 1em 2em;
 }
 
-#fullTagCloud LI {
-	display: inline;
+#fullTagCloud SPAN {
 	white-space: nowrap;
 	margin: 0 2px;
 }

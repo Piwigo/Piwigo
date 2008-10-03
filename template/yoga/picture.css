@@ -29,11 +29,9 @@
 	clear: both;
 	margin-bottom: 4px;
 	padding: 0;
-}
-
-#imageToolBar {
 	height: 28px;
 }
+
 #imageToolBar A, #imageToolBar IMG {
 	display: block;
 	border: none;

@@ -1,29 +1,29 @@
 {* $Id$ *}
 <div id="content" class="content">
 
-  <div class="titrePage">
-    <ul class="categoryActions">
-{if $display_mode == 'letters'}
-      <li><a href="{$U_CLOUD}" title="{'show tag cloud'|@translate}"><img src="{$themeconf.icon_dir}/tag_cloud.png" class="button" alt="{'cloud'|@translate}"/></a></li>
-{/if}
+	<div class="titrePage">
+		<ul class="categoryActions">
+		{if $display_mode == 'letters'}
+			<li><a href="{$U_CLOUD}" title="{'show tag cloud'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_cloud.png" class="button" alt="{'cloud'|@translate}"/></a></li>
+		{/if}
 
-{if $display_mode == 'cloud'}
-      <li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}"><img src="{$themeconf.icon_dir}/tag_letters.png" class="button" alt="{'letters'|@translate}"/></a></li>
-{/if}
+		{if $display_mode == 'cloud'}
+			<li><a href="{$U_LETTERS}" title="{'group by letters'|@translate}" rel="nofollow"><img src="{$themeconf.icon_dir}/tag_letters.png" class="button" alt="{'letters'|@translate}"/></a></li>
+		{/if}
 
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
-    </ul>
-    <h2>{'Tags'|@translate}</h2>
+			<li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+		</ul>
+		<h2>{'Tags'|@translate}</h2>
   </div>
 
 {if isset($tags)}
-  {if $display_mode == 'cloud'}
-  <ul id="fullTagCloud">
-    {foreach from=$tags item=tag}
-    <li><a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{$tag.counter}">{$tag.name}</a></li>
-    {/foreach}
-  </ul>
-  {/if}
+	{if $display_mode == 'cloud'}
+	<div id="fullTagCloud">
+		{foreach from=$tags item=tag}
+		<span><a href="{$tag.URL}" class="tagLevel{$tag.level}" title="{$tag.counter}">{$tag.name}</a></span>
+		{/foreach}
+	</div>
+	{/if}
 
   {if $display_mode == 'letters'}
   <table>

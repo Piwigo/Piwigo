@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Issues in IE from 5 to 6 only not to be used with IE7                      */
+/* Issues in IE from 5 to 6 only not to be used with IE7 */
 
 /* fix IE with another layout for thumbnails */
 .content UL.thumbnails SPAN.wrap2 {
@@ -22,12 +22,6 @@
     margin-top: -40%;
   /**/
 }
-.content UL.thumbnails INPUT {
-  position: absolute;
-  left: 2px;
-  top: 2px;  /* same as other browsers but not so pretty */
-}
-
 
 /* to avoid vanishing objects in IE6 */
 H1, #theHeader {
