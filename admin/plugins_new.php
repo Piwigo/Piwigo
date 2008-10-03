@@ -36,10 +36,9 @@ $base_url = get_root_url().'admin.php?page='.$page['page'].'&order='.$order;
 $plugins = new plugins();
 
 //------------------------------------------------------automatic installation
-if (isset($_GET['install']) and isset($_GET['extension']) and !is_adviser())
+if (isset($_GET['revision']) and isset($_GET['extension']) and !is_adviser())
 {
-  $install_status =
-    $plugins->extract_plugin_files('install', $_GET['install'], $_GET['extension']);
+  $install_status = $plugins->extract_plugin_files('install', $_GET['revision'], $_GET['extension']);
 
   redirect($base_url.'&installstatus='.$install_status);
 }
@@ -90,44 +89,38 @@ $template->assign('order_selected', $link.$order);
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins->get_server_plugins(true);
-
-if (is_array($plugins->server_plugins))
+if ($plugins->get_server_plugins(true))
 {
   $plugins->sort_server_plugins($order);
 
   foreach($plugins->server_plugins as $plugin)
   {
-    $ext_desc = nl2br(htmlspecialchars(strip_tags(
-                  utf8_encode($plugin['ext_description']))));
+    /* Need to remove this lines for final release : piwigo website will be utf8 only */
+    $plugin['extension_description'] = utf8_encode($plugin['extension_description']);
+    $plugin['revision_description'] = utf8_encode($plugin['revision_description']);
+
+    list($date, ) = explode(' ', $plugin['revision_date']);
 
     $ver_desc = sprintf(l10n('plugins_description'),
-            $plugin['version'],
-            date('Y-m-d', $plugin['date']),
-            nl2br(htmlspecialchars(strip_tags(
-              utf8_encode($plugin['description'])))));
+      $plugin['revision_name'],
+      $date,
+      $plugin['revision_description']);
 
     $url_auto_install = htmlentities($base_url)
-      . '&amp;extension=' . $plugin['id_extension']
-      . '&amp;install=%2Fupload%2Fextension-' . $plugin['id_extension']
-      . '%2Frevision-' . $plugin['id_revision'] . '%2F'
-      .  str_replace(' ', '%20',$plugin['url']);
+      . '&amp;revision=' . $plugin['revision_id']
+      . '&amp;extension=' . $plugin['extension_id'];
 
-    $url_download = PEM_URL .'/upload/extension-'.$plugin['id_extension']
-      . '/revision-' . $plugin['id_revision']
-      . '/' . str_replace(' ', '%20',$plugin['url']);
-
-    $template->append('plugins',
-        array('EXT_NAME' => $plugin['ext_name'],
-          'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin['id_extension'],
-          'EXT_DESC' => $ext_desc,
-          'VERSION' => $plugin['version'],
-          'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin['id_revision'],
-          'DATE' => date('Y-m-d', $plugin['date']),
-          'VER_DESC' => $ver_desc,
-          'AUTHOR' => $plugin['author'],
-          'URL_INSTALL' => $url_auto_install,
-          'URL_DOWNLOAD' => $url_download));
+    $template->append('plugins', array(
+      'EXT_NAME' => $plugin['extension_name'],
+      'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin['extension_id'],
+      'EXT_DESC' => $plugin['extension_description'],
+      'VERSION' => $plugin['revision_name'],
+      'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin['revision_id'],
+      'DATE' => $date,
+      'VER_DESC' => $ver_desc,
+      'AUTHOR' => $plugin['author_name'],
+      'URL_INSTALL' => $url_auto_install,
+      'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));
   }
 }
 else

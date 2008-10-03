@@ -264,6 +264,33 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
    */
   function get_server_plugins($new=false)
   {
+    // Retrieve PEM versions
+    $version = PHPWG_VERSION;
+    $versions_to_check = array();
+    $url = PEM_URL . '/api/get_version_list.php?category_id=12&format=php';
+    if ($source = @file_get_contents($url)
+      and $pem_versions = @unserialize($source))
+    {
+      if (!preg_match('/^\d+\.\d+\.\d+/', $version))
+      {
+        $version = $pem_versions[0]['name'];
+      }
+      $branch = substr($version, 0, strrpos($version, '.'));
+      foreach ($pem_versions as $pem_version)
+      {
+        if (strpos($pem_version['name'], $branch) === 0)
+        {
+          $versions_to_check[] = $pem_version['id'];
+        }
+      }
+    }
+    if (empty($versions_to_check))
+    {
+      return false;
+    }
+
+    // Plugins to check
+    $plugins_to_check = array();
     foreach($this->fs_plugins as $fs_plugin)
     {
       if (isset($fs_plugin['extension']))
@@ -271,12 +298,23 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
         $plugins_to_check[] = $fs_plugin['extension'];
       }
     }
-    $url = PEM_URL . '/uptodate.php?version=' . rawurlencode(PHPWG_VERSION) . '&extensions=' . implode(',', $plugins_to_check);
-    $url .= $new ? '&newext=Plugin' : '';
 
-    if (!empty($plugins_to_check) and $source = @file_get_contents($url))
+    // Retrieve PEM plugins infos
+    $url = PEM_URL . '/api/get_revision_list.php?category_id=12&format=php&last_revision_only=true';
+    $url .= '&version=' . implode(',', $versions_to_check);
+    if (!empty($plugins_to_check))
     {
-      $this->server_plugins = @unserialize($source);
+      $url .= $new ? '&extension_exclude=' : '&extension_include=';
+      $url .= implode(',', $plugins_to_check);
+    }
+    if ($source = @file_get_contents($url)
+      and $pem_plugins = @unserialize($source))
+    {
+      foreach ($pem_plugins as $plugin)
+      {
+        $this->server_plugins[$plugin['extension_id']] = $plugin;
+      }
+      return true;
     }
   }
   
@@ -306,13 +344,15 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
    * Extract plugin files from archive
    * @param string - install or upgrade
    *  @param string - archive URL
-    * @param string - destination path
+    * @param string - plugin id or extension id
    */
-  function extract_plugin_files($action, $source, $dest)
+  function extract_plugin_files($action, $revision, $dest)
   {
     if ($archive = tempnam( PHPWG_PLUGINS_PATH, 'zip'))
     {
-      if (@copy(PEM_URL . str_replace(' ', '%20', $source), $archive))
+      $url = PEM_URL . '/download.php?rid=' . $revision;
+      $url .= '&origin=piwigo_' . $action;
+      if (@copy($url, $archive))
       {
         include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
         $zip = new PclZip($archive);
@@ -333,7 +373,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
             $root = dirname($main_filepath); // main.inc.php path in archive
             if ($action == 'upgrade')
             {
-              $extract_path = PHPWG_PLUGINS_PATH.$dest;
+              $extract_path = PHPWG_PLUGINS_PATH . $dest;
             }
             else
             {
@@ -428,25 +468,25 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     $pattern = array('/([a-z])/ei', '/\.+/', '/\.\Z|\A\./');
     $replacement = array( "'.'.intval('\\1', 36).'.'", '.', '');
 
-    $array = preg_replace($pattern, $replacement, array($a['version'], $b['version']));
+    $array = preg_replace($pattern, $replacement, array($a, $b));
 
     return version_compare($array[0], $array[1], '>=');
   }
 
   function extension_revision_compare($a, $b)
   {
-    if ($a['date'] < $b['date']) return 1;
+    if ($a['revision_date'] < $b['revision_date']) return 1;
     else return -1;
   }
 
   function extension_name_compare($a, $b)
   {
-    return strcmp(strtolower($a['ext_name']), strtolower($b['ext_name']));
+    return strcmp(strtolower($a['extension_name']), strtolower($b['extension_name']));
   }
 
   function extension_author_compare($a, $b)
   {
-    $r = strcasecmp($a['author'], $b['author']);
+    $r = strcasecmp($a['author_name'], $b['author_name']);
     if ($r == 0) return $this->extension_name_compare($a, $b);
     else return $r;
   }

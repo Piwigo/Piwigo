@@ -35,9 +35,10 @@ $base_url = get_root_url().'admin.php?page='.$page['page'];
 $plugins = new plugins();
 
 //-----------------------------------------------------------automatic upgrade
-if (isset($_GET['upgrade']) and isset($_GET['plugin']) and !is_adviser())
+if (isset($_GET['plugin']) and isset($_GET['revision']) and !is_adviser())
 {
   $plugin_id = $_GET['plugin'];
+  $revision = $_GET['revision'];
 
   if (isset($plugins->db_plugins_by_id[$plugin_id])
     and $plugins->db_plugins_by_id[$plugin_id]['state'] == 'active')
@@ -45,13 +46,12 @@ if (isset($_GET['upgrade']) and isset($_GET['plugin']) and !is_adviser())
     $plugins->perform_action('deactivate', $plugin_id);
 
     redirect($base_url
-      . '&upgrade=' . $_GET['upgrade']
+      . '&revision=' . $revision
       . '&plugin=' . $plugin_id
       . '&reactivate=true');
   }
 
-  $upgrade_status =
-    $plugins->extract_plugin_files('upgrade', $_GET['upgrade'], $plugin_id);
+  $upgrade_status = $plugins->extract_plugin_files('upgrade', $revision, $plugin_id);
 
   if (isset($_GET['reactivate']))
   {
@@ -97,9 +97,7 @@ set_plugins_tabsheet($page['page']);
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-$plugins->get_server_plugins();
-
-if (is_array($plugins->server_plugins))
+if ($plugins->get_server_plugins())
 {
   foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {
@@ -108,55 +106,51 @@ if (is_array($plugins->server_plugins))
     {
       $plugin_info = $plugins->server_plugins[$fs_plugin['extension']];
 
-      $ext_desc = nl2br(htmlspecialchars(strip_tags(
-                    utf8_encode($plugin_info['ext_description']))));
+      /* Need to remove this lines for final release : piwigo website will be utf8 only */
+      $plugin_info['extension_description'] = utf8_encode($plugin_info['extension_description']);
+      $plugin_info['revision_description'] = utf8_encode($plugin_info['revision_description']);
+
+      list($date, ) = explode(' ', $plugin_info['revision_date']);
 
       $ver_desc = sprintf(l10n('plugins_description'),
-          $plugin_info['version'],
-          date('Y-m-d', $plugin_info['date']),
-          nl2br(htmlspecialchars(strip_tags(
-              utf8_encode($plugin_info['description'])))));
+        $plugin_info['revision_name'],
+        $date,
+        $plugin_info['revision_description']);
 
-      if ($plugins->plugin_version_compare($fs_plugin, $plugin_info))
+      if ($plugins->plugin_version_compare($fs_plugin['version'], $plugin_info['revision_name']))
       {
         // Plugin is up to date
-        $template->append('plugins_uptodate',
-              array('URL' => $fs_plugin['uri'],
-                'NAME' => $fs_plugin['name'],
-                'EXT_DESC' => $ext_desc,
-                'VERSION' => $fs_plugin['version']));
+        $template->append('plugins_uptodate', array(
+          'URL' => $fs_plugin['uri'],
+          'NAME' => $fs_plugin['name'],
+          'EXT_DESC' => $plugin_info['extension_description'],
+          'VERSION' => $fs_plugin['version']));
       }
       else
       {
         // Plugin need upgrade
         $url_auto_update = $base_url
-          . '&amp;plugin=' . $plugin_id
-          . '&amp;upgrade=%2Fupload%2Fextension-' . $fs_plugin['extension']
-          . '%2Frevision-' . $plugin_info['id_revision']
-          . '%2F' . str_replace(' ', '%20',$plugin_info['url']);
+          . '&amp;revision=' . $plugin_info['revision_id']
+          . '&amp;plugin=' . $plugin_id;
 
-        $url_download = PEM_URL.'/upload/extension-'. $fs_plugin['extension']
-          . '/revision-' . $plugin_info['id_revision']
-          . '/' . str_replace(' ', '%20',$plugin_info['url']);
-
-        $template->append('plugins_not_uptodate',
-          array('EXT_NAME' => $fs_plugin['name'],
-            'EXT_URL' => $fs_plugin['uri'],
-            'EXT_DESC' => $ext_desc,
-            'VERSION' => $fs_plugin['version'],
-            'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin_info['id_revision'],
-            'NEW_VERSION' => $plugin_info['version'],
-            'NEW_VER_DESC' => $ver_desc,
-            'URL_UPDATE' => $url_auto_update,
-            'URL_DOWNLOAD' => $url_download));
+        $template->append('plugins_not_uptodate', array(
+          'EXT_NAME' => $fs_plugin['name'],
+          'EXT_URL' => $fs_plugin['uri'],
+          'EXT_DESC' => $plugin_info['extension_description'],
+          'VERSION' => $fs_plugin['version'],
+          'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin_info['revision_id'],
+          'NEW_VERSION' => $plugin_info['revision_name'],
+          'NEW_VER_DESC' => $ver_desc,
+          'URL_UPDATE' => $url_auto_update,
+          'URL_DOWNLOAD' => $plugin_info['download_url'] . '&amp;origin=piwigo_download'));
       }
     }
     else
     {
       // Can't check plugin
-      $template->append('plugins_cant_check',
-          array('NAME' => $fs_plugin['name'],
-            'VERSION' => $fs_plugin['version']));
+      $template->append('plugins_cant_check', array(
+        'NAME' => $fs_plugin['name'],
+        'VERSION' => $fs_plugin['version']));
     }
   }
 }

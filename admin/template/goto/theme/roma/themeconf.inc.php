@@ -41,6 +41,8 @@ function selected_admin_menu()
       case 'maintenance':
       case 'advanced_feature':
       case 'plugins_list':
+      case 'plugins_update':
+      case 'plugins_new':
       case 'plugin':
         return 5;
     }
