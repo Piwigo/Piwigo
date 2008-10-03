@@ -43,6 +43,9 @@ class Template {
   // Hash of filenames for each template handle.
   var $files = array();
 
+  // Template extents filenames for each template handle.
+  var $extents = array();
+
   // used by html_head smarty block to add content before </head>
   var $html_head_elements = array();
 
@@ -78,6 +81,12 @@ class Template {
     $this->smarty->assign('lang_info', $lang_info);
 
     $this->set_template_dir($root);
+
+    if (isset($conf['extents_for_templates']))
+    {
+      $tpl_extents = unserialize($conf['extents_for_templates']);
+      $this->set_extents($tpl_extents, './template-extension/', true);
+    }
   }
 
   /**
@@ -132,33 +141,69 @@ class Template {
    */
   function set_filenames($filename_array)
   {
-    global $conf;
     if (!is_array($filename_array))
     {
       return false;
     }
     reset($filename_array);
-    $tpl_extension = isset($conf['extents_for_templates']) ?
-      unserialize($conf['extents_for_templates']) : array();
     while(list($handle, $filename) = each($filename_array))
     {
       if (is_null($filename))
-        unset( $this->files[$handle] );
+      {
+        unset($this->files[$handle]);
+      }
+      elseif (isset($this->extents[$handle]))
+      {
+        $this->files[$handle] = $this->extents[$handle];
+      }
       else
       {
         $this->files[$handle] = $filename;
-        foreach ($tpl_extension as $file => $conditions)
-        {
-          $localtpl = './template-extension/' . $file;
-          if ($handle == $conditions[0] and
-             (stripos(implode('/',array_flip($_GET)),$conditions[1])>0
-              or $conditions[1] == 'N/A')
-              and file_exists($localtpl))
-          { /* examples: Are best_rated, created-monthly-calendar, list, ... set? */
-              $this->files[$handle] = '../.' . $localtpl;
-              /* assign their tpl-extension */
-          }
-        }
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Sets template extention filename for handles.
+   */
+  function set_extent($filename, $param, $dir='', $overwrite=true)
+  {
+    return $this->set_extents(array($filename => $param), $dir, $overwrite);
+  }
+
+  /**
+   * Sets template extentions filenames for handles. 
+   * $filename_array should be an hash of filename => array( handle, param) or filename => handle
+   */
+  function set_extents($filename_array, $dir='', $overwrite=true)
+  {
+    if (!is_array($filename_array))
+    {
+      return false;
+    }
+    foreach ($filename_array as $filename => $value)
+    {
+      if (is_array($value))
+      {
+        $handle = $value[0];
+        $param = $value[1];
+      }
+      elseif (is_string($value))
+      {
+        $handle = $value;
+        $param = 'N/A';
+      }
+      else
+      {
+        return false;
+      }
+
+      if ((stripos(implode('/',array_flip($_GET)), $param) > 0 or $param == 'N/A')
+        and (!isset($this->extents[$handle]) or $overwrite)
+        and file_exists($dir . $filename))
+      {
+        $this->extents[$handle] = realpath($dir . $filename);
       }
     }
     return true;

@@ -133,6 +133,7 @@ function delete_elements($ids)
   {
     return;
   }
+  trigger_action('begin_delete_elements', $ids);
 
   // destruction of the comments on the image
   $query = '
