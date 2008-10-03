@@ -1819,8 +1819,6 @@ function get_extents($start='')
 
 function create_tag($tag_name)
 {
-  $tag_name = mysql_real_escape_string($tag_name);
-  
   // does the tag already exists?
   $query = '
 SELECT id
