@@ -1395,6 +1395,8 @@ function ws_categories_add($params, &$service)
     return new PwgError(500, $creation_output['error']);
   }
 
+  invalidate_user_cache();
+  
   return $creation_output;
 }
 
