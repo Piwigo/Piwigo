@@ -1,175 +1,173 @@
 /* $Id$ */
-/* $Id: */
-BODY #theHeader P { display: none; }
 
 /* History tables */
 TABLE.table2 {
-  border: 1px solid black;
-  margin: 1em auto;
-  padding: 0;
+	border: 1px solid black;
+	margin: 1em auto;
+	padding: 0;
 }
 
 TABLE.table2 TD {
-  padding: 0 20px;
+	padding: 0 5px;
 }
 
 TABLE.table2 TR {
-  text-align: left;
+	text-align: left;
 }
 
-table.table2 thead td { padding:7px 20px 3px 20px; }
-table.table2 tr.throw { text-align: center; }
-table.table2 { margin:0pt auto; }
+TABLE.table2 THEAD TD { padding:7px 10px 3px 10px; }
+TABLE.table2 TR.throw { text-align: center; }
+TABLE.table2 { margin:0pt auto; }
 .sort { display:block; padding:8px 5px 0px 1px; clear: right; text-align:left; }
 
 
 .hour {
-  white-space: pre;
+	white-space: pre;
 }
 
 .number {
-  text-align: right;
+	text-align: right;
 }
 
 TABLE#dailyStats {
-  width: 60%;
+	width: 60%;
 }
 
 TABLE#detailedStats {
-  width: 99%;
+	width: 99%;
 }
 
 /* Plugins tables */
-TABLE.plugins a { border: 0; }
+TABLE.plugins A { border: 0; }
 TABLE.plugins TR TD { padding: 4px 10px; }
 TABLE.plugins TR TD.pluginState { padding: 4px 16px; }
 
 TABLE.plugins TR TD.active {
-  background: url(icon/plugin_active.gif) no-repeat center left;
-  background-color: inherit; /* IE need it */
+	background: url(icon/plugin_active.gif) no-repeat center left;
+	background-color: inherit; /* IE need it */
 }
 
 TABLE.plugins TR TD.inactive {
-  background: url(icon/plugin_inactive.gif) no-repeat center left;
-  background-color: inherit; /* IE need it */
+	background: url(icon/plugin_inactive.gif) no-repeat center left;
+	background-color: inherit; /* IE need it */
 }
 
 TABLE.plugins ul.pluginsActions {
-  float: left;
-  padding: 0;
-  margin: 0;
-  width: 60px;
-  list-style: none;
-  text-align: center;
+	float: left;
+	padding: 0;
+	margin: 0;
+	width: 60px;
+	list-style: none;
+	text-align: center;
 }
 
 TABLE.plugins ul.pluginsActions li { display: inline; }
 
 /* categoryOrdering */
 SELECT.categoryList {
-  width: 100%;
+	width: 100%;
 }
  
 FORM#categoryOrdering {
-  padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
-  padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+	padding-left: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
+	padding-right: 1em; /* same as FIELDSET margin (there is no fieldset in this form) */
 }
 FORM#categoryOrdering p {
-  text-align: left;
-  margin-top: 1em;
-  margin-bottom: 1em;
+	text-align: left;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 UL.categoryUl {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 LI.categoryLi {
-  width: 100%;
-  border: 1px solid gray;
-  padding: 0px 5px;
-  margin-bottom: 5px;
+	width: 100%;
+	border: 1px solid gray;
+	padding: 0px 5px;
+	margin-bottom: 5px;
 }
 
 FORM#categoryOrdering UL.categoryActions {
-  float: right;
-  margin-top: 5px;
+	float: right;
+	margin-top: 5px;
 }
 /* */
 
 FORM#catModify TABLE { width: auto; }
 
 FIELDSET.elementEdit A {
-  display: block;
-  float: right;
+	display: block;
+	float: right;
 }
 
 TABLE.doubleSelect {
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
 }
 
 TABLE.doubleSelect TD {
-  padding: 0 3px;
-  width: 50%; 
+	padding: 0 3px;
+	width: 50%;
 }
 
 TABLE.doubleSelect SELECT.categoryList {
-  width: 100%; max-width: 100%; overflow-x: auto;
+	width: 100%; max-width: 100%; overflow-x: auto;
 }
 
 FORM#categoryPermissions LI {
-  display:inline;
-  white-space: nowrap;
+	display:inline;
+	white-space: nowrap;
 }
 
 FIELDSET#mainConfCheck SPAN.property,
 FIELDSET#historyConf SPAN.property,
 FIELDSET#commentsConf SPAN.property,
 FIELDSET#uploadConf SPAN.property {
-  float: right;
-  text-align: left;
+	float: right;
+	text-align: left;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
 FIELDSET#commentsConf INPUT,
 FIELDSET#uploadConf INPUT {
-  float: none;
+	float: none;
 }
 
 FIELDSET#mainConf SPAN.property {
-  width: 25%;
+	width: 25%;
 }
 FIELDSET#mainConf TEXTAREA.description {
-  width: 70%;
+	width: 70%;
 }
 
 FIELDSET#mainConfCheck SPAN.property,
 FIELDSET#historyConf SPAN.property {
-  width: 90%;
+	width: 90%;
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
 FIELDSET#commentsConf INPUT,
 FIELDSET#uploadConf SELECT,
 FIELDSET#uploadConf INPUT {
-  margin-left: 5%;
+	margin-left: 5%;
 }
 
 FIELDSET#commentsConf SPAN.property {
-  width: 85%;
+	width: 85%;
 }
 
 FIELDSET#uploadConf SPAN.property {
-  width: 73%;
+	width: 73%;
 }
 
 .statBar {
-  height: 10px;
-  background-color: #ff7700;
-  border: 1px solid black;
+	height: 10px;
+	background-color: #ff7700;
+	border: 1px solid black;
 }
 
 .over{
@@ -205,19 +203,19 @@ left: 60px; /*position where enlarged image should offset horizontally */
 }
 
 BODY {
-  margin: 5px;
-  padding: 0;
-  font-size: 0.8em;
-  font-family:  Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
-  text-align: center; /* be nice to IE5 */
+	margin: 5px;
+	padding: 0;
+	font-size: 0.8em;
+	font-family: Univers, Helvetica, Optima, "Bitstream Vera Sans", sans-serif;
+	text-align: center; /* be nice to IE5 */
 }
 
 H1 {
-  text-align: center;
-  font-size: 150%;
-  font-weight: bold;
-  padding: 0;
-  margin: 0.5em 0 1em 0;
+	text-align: center;
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 0.5em 0 1em 0;
 }
 
 H2 {
@@ -242,26 +240,26 @@ IMG {
 }
 
 HR.separation {
-  visibility: hidden;
-  clear: both;
+	visibility: hidden;
+	clear: both;
 }
 
 #copyright {
-    clear: both;
-    font-size: 83%;
-    text-align: center;
-    margin: 0 0 10px 0;
+	clear: both;
+	font-size: 83%;
+	text-align: center;
+	margin: 0 0 10px 0;
 }
 
 /** General defaults **/
 INPUT, SELECT {
-  margin: 0;
-  font-size: 1em;	/* <= some browsers don't set it correctly */
+	margin: 0;
+	font-size: 1em;	/* <= some browsers don't set it correctly */
 }
 UL, DL, OL { text-align: left;}
-TABLE {			/* horizontaly centered */
-  margin-left: auto;
-  margin-right: auto;
+TABLE { /* horizontaly centered */
+	margin-left: auto;
+	margin-right: auto;
 }
 /* for debugging purpose */
 PRE { text-align:left; }
@@ -286,20 +284,20 @@ FORM FIELDSET P {
 }
 
 TEXTAREA.description {
-  height: 12em;
-  width: 40em;
-  overflow: auto;
+	height: 6em;
+	width: 40em;
+	overflow: auto;
 }
 
 SELECT.categoryList {
-  height: 20em;
-  width: auto; 
+	height: 20em;
+	width: auto;
 }
 
 DIV.comment BLOCKQUOTE {
-  padding: 0.5em;
-  overflow: auto;	/* no solution for IE6 */
-  min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
+	padding: 0.5em;
+	overflow: auto;	/* no solution for IE6 */
+	min-height: 2.75em;	/* fix a Gecko bug whith scrollbar and 1 line only */
 }
 
 
@@ -309,36 +307,36 @@ DIV.comment BLOCKQUOTE {
  * Use a SPAN to group objects in line
  */
 FIELDSET {
-  padding: 1em;
-  margin: 1em;
-  overflow: hidden; /* <- makes Opera happy */
+	padding: 1em;
+	margin: 1em;
+	overflow: hidden; /* <- makes Opera happy */
 }
 
 FORM.filter FIELDSET UL {
-  margin: 0;
+	margin: 0;
 }
 FORM.filter FIELDSET UL,
 FORM.filter FIELDSET LABEL {
-  display: block;
-  float: left;
-  margin-right: 1em;
-  padding: 0;
+	display: block;
+	float: left;
+	margin-right: 1em;
+	padding: 0;
 }
 
 FORM.filter FIELDSET LI {
-  list-style: none;
-  margin-bottom: 0.5em;
+	list-style: none;
+	margin-bottom: 0.5em;
 }
 
 FORM.filter FIELDSET LI LABEL {
-  display: inline;
-  float: none;
+	display: inline;
+	float: none;
 }
 
 FORM.filter FIELDSET UL.tagSelection LABEL {
-  display: inline;
-  float: none;
-  margin-right:0.5em;/*reduce from above*/
+	display: inline;
+	float: none;
+	margin-right:0.5em;/*reduce from above*/
 }
 
 /* cannot use FIELDSET>LABEL because of IE<=6 */
@@ -346,8 +344,8 @@ FORM.filter FIELDSET LABEL INPUT,
 FORM.filter FIELDSET LABEL SELECT,
 FORM.filter FIELDSET LABEL SPAN,
 FORM.filter FIELDSET LABEL TEXTAREA {
-  display: block;
-  margin: 0.5em 0;
+	display: block;
+	margin: 0.5em 0;
 }
 FORM.filter FIELDSET * LABEL INPUT,
 FORM.filter FIELDSET * LABEL SELECT,
@@ -355,168 +353,96 @@ FORM.filter FIELDSET * LABEL TEXTAREA,
 FORM.filter FIELDSET LABEL SPAN INPUT,
 FORM.filter FIELDSET LABEL SPAN SELECT,
 FORM.filter FIELDSET LABEL SPAN TEXTAREA {
-  display: inline;
-  vertical-align: top;
-  margin: 0 0.5em 0 0;
+	display: inline;
+	vertical-align: top;
+	margin: 0 0.5em 0 0;
 }
 
 FORM.filter FIELDSET UL.tagSelection LI LABEL INPUT {
-  margin-right:0;
+	margin-right:0;
 }
 
 /* following declaration is important to avoid strange FF behaviour */
 FORM.filter FIELDSET LABEL SPAN SELECT {
-  margin: 0;
+	margin: 0;
 }
 
 FORM.filter FIELDSET P
 {
-  clear: left;
-  display: block;
+	clear: left;
+	display: block;
 }
 
 FORM.filter INPUT[type="submit"] {
-  margin-top: 5px;
+	margin-top: 5px;
 }
 
 FORM.properties UL, FORM#update UL {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
-FORM.properties LI, FORM#update UL  {
-  margin-bottom: 0.5em;
-  padding: 0;
-  line-height: 1.8em;
-  clear: left;
+FORM.properties LI, FORM#update UL {
+	margin-bottom: 0.5em;
+	padding: 0;
+	line-height: 1.8em;
+	clear: left;
 }
 
 FORM.properties SPAN.property {
-  font-weight: bold;
-  float: left;
-  width: 50%;
-  text-align: right;
-  margin: 0;
-  padding: 0 0.5em 0 0;
+	font-weight: bold;
+	float: left;
+	width: 50%;
+	text-align: right;
+	margin: 0;
+	padding: 0 0.5em 0 0;
 }
 
 #theHeader H1 {
-  margin-bottom: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 /* button tools */
 UL.actions {
-  text-indent: 0;
-  list-style: none;
+	text-indent: 0;
+	list-style: none;
 }
-UL.actions  LI {
-  display: inline;
+UL.actions LI {
+	display: inline;
 }
-UL.actions  A {
-  border: none;
+UL.actions A {
+	border: none;
 }
 
 UL.tagSelection {
-  width: 99%;
-  margin: 1em 0 1em 0;
-  padding: 0;
+	width: 99%;
+	margin: 1em 0 1em 0;
+	padding: 0;
 }
 
 UL.tagSelection LI {
-  display: inline;
-  white-space: nowrap;
+	display: inline;
+	white-space: nowrap;
 }
 
-#fullTagCloud {
-  font-size: 120%;
-  text-align: justify;
-  padding: 0;
-  margin: 1em 2em 1em 2em;
-}
-
-#fullTagCloud LI {
-  display: inline;
-  white-space: nowrap;
-  margin: 0 2px;
-}
-
-
-.tagLevel5 { font-size: 150%; }
-.tagLevel4 { font-size: 140%; }
-.tagLevel3 { font-size: 120%; }
-.tagLevel2 { font-size: 100%; }
-.tagLevel1 { font-size: 90%; }
-
-
-/* Popup help page */
-BODY#thePopuphelpPage #copyright {
-  display: none;
-}
-
-BODY#thePopuphelpPage .content P {
-  text-align: justify;
-  padding: 0.5em;
-}
-
-BODY#thePopuphelpPage .content OL LI,
-BODY#thePopuphelpPage .content UL LI
-{
-  margin-bottom: 0.5em;
-}
-
-
-TR.tagLine {
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-}
-TR.tagLine:hover {
-  background-color: #fff;
-}
-TD.nbEntries {
-  text-align: right;
-  font-style: italic;
-  font-size: 90%;
-}
-
-FIELDSET.tagLetter {
-  border: 1px solid #d3d3d3;
-  width: 200px;
-  margin: 0.5em;
-  padding: 10px;
-}
-
-LEGEND.tagLetterLegend {
-  border: 1px solid #d3d3d3;
-  font-size:120%;
-  font-weight: bold;
-  padding: 0 5px;
-  color: #555;
-  font-style: normal;
-}
-
-TABLE.tagLetterContent {
-  width:100%;
-  font-size:80%;
-  border-collapse : collapse;
-}
 
 /* jQuery tooltips */
 .cluetip-default #cluetip-outer {
-  position: relative;
-  border: 1px solid #111111;
-  color: #dddddd;
-  background-color: #222222;
-  text-align: left;
+	position: relative;
+	border: 1px solid #111111;
+	color: #dddddd;
+	background-color: #222222;
+	text-align: left;
 }
 .cluetip-default h3#cluetip-title {
-  margin: 0 0 5px;
-  padding: 8px;
-  color: #666666;
-  background-color: #d3d3d3;
-  font-size: 1.1em;
-  font-weight: bold;
+	margin: 0 0 5px;
+	padding: 8px;
+	color: #666666;
+	background-color: #d3d3d3;
+	font-size: 1.1em;
+	font-weight: bold;
 }
 .cluetip-default #cluetip-inner {
-  padding: 10px;
+	padding: 10px;
 }
