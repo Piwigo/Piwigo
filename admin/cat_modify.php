@@ -100,7 +100,7 @@ UPDATE '.CATEGORIES_TABLE.' SET image_order='.(isset($image_order) ? 'NULL':"'$i
   {
     set_cat_visible(array($_GET['cat_id']), $_POST['visible']);
   }
-  if ($cat_info['status'] != get_boolean( $_POST['status'] ) )
+  if ($cat_info['status'] != $_POST['status'] )
   {
     set_cat_status(array($_GET['cat_id']), $_POST['status']);
   }
