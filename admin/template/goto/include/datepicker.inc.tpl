@@ -107,7 +107,7 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
         },
       showOn: "both",
 {/literal}
-      buttonImage: "{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/images/calendar.gif", 
+      buttonImage: "{$ROOT_URL}admin/template/{$themeconf.template}/icon/datepicker.png", 
 {literal}
       buttonImageOnly: true
       });
