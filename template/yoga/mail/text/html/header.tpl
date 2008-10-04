@@ -4,7 +4,7 @@ Content-Type: {$CONTENT_TYPE}; charset="{$CONTENT_ENCODING}";
 Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="{$LANG}" dir="{$DIR}">
+<html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
 <title>Piwigo Mail</title>
 <meta http-equiv="Content-Type" content="text/html; charset={$CONTENT_ENCODING}">

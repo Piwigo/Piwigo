@@ -1,7 +1,7 @@
 {* $Id$ *}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="{$LANG}" dir="{$DIR}">
+<html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={$CONTENT_ENCODING}">
 <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">

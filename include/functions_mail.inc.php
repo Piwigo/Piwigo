@@ -652,8 +652,6 @@ function pwg_mail($to, $args = array())
         'BOUNDARY_KEY' => $conf_mail['boundary_key'],
         'CONTENT_TYPE' => $args['email_format'],
         'CONTENT_ENCODING' => get_pwg_charset(),
-        'LANG' => $lang_info['code'],
-        'DIR' => $lang_info['direction'],
 
         // Footer
         'GALLERY_URL' =>

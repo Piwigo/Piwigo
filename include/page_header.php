@@ -45,8 +45,6 @@ $template->assign(
 
     'CONTENT_ENCODING' => get_pwg_charset(),
     'PAGE_TITLE' => strip_tags($title),
-    'LANG'=>$lang_info['code'],
-    'DIR'=>$lang_info['direction'],
 
     'U_HOME' => make_index_url(),
     ));
