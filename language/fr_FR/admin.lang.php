@@ -637,4 +637,5 @@ $lang['Images manual order was saved'] = 'L\'ordre manuel des images a été sau
 $lang['ranks'] = 'rangs';
 $lang['Drag to re-order'] = 'Cliquer-glisser pour ré-organiser';
 $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Impossible de se connecter au server car la fonction allow_url_fopen est désactivée.';
+$lang['Quick Local Synchronization'] = 'Synchronisation Rapide';
 ?>

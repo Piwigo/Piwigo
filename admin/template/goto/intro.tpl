@@ -48,7 +48,8 @@
 </dl>
 
 
-<form name="QuickSynchro" action="{$U_CAT_UPDATE}" method="post" id="update" style="display: block; text-align:right;">
+<form name="QuickSynchro" action="{$U_CAT_UPDATE}" method="post" id="QuickSynchro" style="display: block; text-align:right;">
+<div>
 <input type="hidden" name="sync" value="files" checked="checked" />
 <input type="hidden" name="display_info" value="1" checked="checked" />
 <input type="hidden" name="add_to_caddie" value="1" checked="checked" />
@@ -56,8 +57,9 @@
 <input type="hidden" name="sync_meta" checked="checked"/>
 <input type="hidden" name="simulate" value="0" />
 <input type="hidden" name="subcats-included" value="1" checked="checked"/>
-<span class="bigbutton">
-<span class="bigtext">{'Quick Local Synchronization'|@translate}</></span>
-<input type="submit" value="" name="submit"/>
-</span>
+</div>
+<div class="bigbutton">
+<span class="bigtext">{'Quick Local Synchronization'|@translate}</span>
+<input type="submit" value="" name="submit">
+</div>
 </form>

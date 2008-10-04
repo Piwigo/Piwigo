@@ -637,4 +637,5 @@ $lang['Images manual order was saved'] = 'L\'ordinamento manuale delle immagini 
 $lang['ranks'] = 'rangs';
 /* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
 /* TODO */ $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Unable to retrieve server informations since allow_url_fopen is disabled.';
+/* TODO */ $lang['Quick Local Synchronization'] = 'Quick Local Synchronization';
 ?>
