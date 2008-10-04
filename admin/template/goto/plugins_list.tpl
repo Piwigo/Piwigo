@@ -43,8 +43,16 @@
           <img src="{$themeconf.admin_icon_dir}/plug_activate.png" alt="{'Activate'|@translate}" title="{'Activate'|@translate}" />
         </a>
       </li>
+      <li>
+        <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">
+          <img src="{$themeconf.admin_icon_dir}/plug_uninstall.png" alt="{'Uninstall'|@translate}" title="{'Uninstall'|@translate}" />
+        </a>
+      </li>
     {/if}
-    {if $plugin.STATE == 'inactive' or $plugin.STATE == 'missing'}
+    {if $plugin.STATE == 'missing'}
+      <li>
+          <img src="{$themeconf.admin_icon_dir}/plug_deactivate_grey.png" alt="{'Deactivate'|@translate}" title="{'Deactivate'|@translate}" />
+      </li>
       <li>
         <a href="{$plugin.U_ACTION}&amp;action=uninstall" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');">
           <img src="{$themeconf.admin_icon_dir}/plug_uninstall.png" alt="{'Uninstall'|@translate}" title="{'Uninstall'|@translate}" />
@@ -65,7 +73,7 @@
           <img src="{$themeconf.admin_icon_dir}/plug_delete.png" alt="{'plugins_delete'|@translate}" title="{'plugins_delete'|@translate}">
         </a>
       </li>
-    {elseif $plugin.STATE != 'missing'}
+    {else}
       <li>
         <img src="{$themeconf.admin_icon_dir}/plug_delete_grey.png" alt="{'plugins_delete'|@translate}" title="{'plugins_delete'|@translate}" />
       </li>

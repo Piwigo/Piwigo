@@ -84,12 +84,14 @@ jQuery().ready(function(){ldelim}
         <li><a href="{$U_HISTORY_STAT}">{'History'|@translate}</a></li>
         <li><a href="{$U_MAINTENANCE}">{'Maintenance'|@translate}</a></li>
         <li><a href="{$U_ADVANCED_FEATURE}">{'Advanced_features'|@translate}</a></li>
-        <li><a href="{$U_PLUGINS}">{'Plugins'|@translate}</a> 
+        <li><a href="{$U_PLUGINS}">{'Plugins'|@translate}</a>
+        {if !empty($plugin_menu_items)}
           <ul class="scroll">
           {foreach from=$plugin_menu_items item=menu_item}
             <li><a href="{$menu_item.URL}">{$menu_item.NAME}</a></li>
           {/foreach}
           </ul>
+        {/if}
         </li>
       </ul>
     </dd>
