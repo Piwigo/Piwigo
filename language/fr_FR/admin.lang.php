@@ -628,7 +628,7 @@ $lang['delete this comment'] = 'supprimer ce commentaire';
 $lang['link_info_image'] = 'Modifier les informations';
 $lang['edit category informations'] = 'éditer les informations de cette catégorie';
 $lang['nothing'] = 'rien';
-/* TODO */ $lang['overrides existing values with empty ones'] = 'overrides existing values with empty ones';
+$lang['overrides existing values with empty ones'] = 'écraser les données existantes avec des données vides';
 $lang['manage image ranks'] = 'gérer l\'ordre des images';
 $lang['Manage image ranks'] = 'Gérer l\'ordre des images';
 $lang['Edit ranks'] = 'Modifier l\'ordre';
@@ -636,4 +636,5 @@ $lang['No element in this category'] = 'Aucun élément dans cette catégorie';
 $lang['Images manual order was saved'] = 'L\'ordre manuel des images a été sauvé';
 $lang['ranks'] = 'rangs';
 $lang['Drag to re-order'] = 'Cliquer-glisser pour ré-organiser';
+$lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Impossible de se connecter au server car la fonction allow_url_fopen est désactivée.';
 ?>

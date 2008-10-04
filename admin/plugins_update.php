@@ -97,7 +97,11 @@ set_plugins_tabsheet($page['page']);
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-if ($plugins->get_server_plugins())
+if (!ini_get('allow_url_fopen'))
+{
+  array_push($page['errors'], l10n('Unable to connect to PEM server since allow_url_fopen is disabled.'));
+}
+elseif ($plugins->get_server_plugins())
 {
   foreach($plugins->fs_plugins as $plugin_id => $fs_plugin)
   {

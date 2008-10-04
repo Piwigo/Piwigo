@@ -636,4 +636,5 @@ $lang['No element in this category'] = 'Nessun\'elemento in questa categoria';
 $lang['Images manual order was saved'] = 'L\'ordinamento manuale delle immagini è stato salvato';
 $lang['ranks'] = 'rangs';
 /* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
+/* TODO */ $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Unable to retrieve server informations since allow_url_fopen is disabled.';
 ?>
