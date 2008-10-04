@@ -47,6 +47,7 @@ margin:0; }
 #content { background:#222 url(images/fillet.gif) repeat-x scroll left top; min-height:466px; }
 .content { border: 1px solid #000; border-top: 0; margin:21px 7px 0 290px; padding-top:7px; }
 .content h2 { margin:0; padding:0px 10px 15px 15px; border:0;}
+#menubar form { background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom; margin:0; }
 #content ul.thumbnailCategories li {
 background:#222 url(images/cat_bottom-right.gif) no-repeat scroll right bottom; width:49%; margin: 0; padding:0; }
 .content div.thumbnailCategory { background:transparent url(images/cat_bottom-left.gif) no-repeat scroll left bottom; 
@@ -71,7 +72,8 @@ padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 .infos li, .errors li { list-style-type:none; }
 .errors { color: #f30; border:0; background-color: transparent; margin-left:125px;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
-
+#menubar #menuTagCloud { background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom;
+margin:0; padding: 0 12px; }
 H2 { border-bottom: 1px solid #000000; }
 #qsearchInput { background-color: #111; border-color: #222; color: #222;}
 FIELDSET, INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
