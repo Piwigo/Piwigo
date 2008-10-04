@@ -30,6 +30,7 @@
 			<span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
 			<blockquote>{$comment.CONTENT}</blockquote>
 		</div>
+    <div class="border">{* Sylvia needs that stupid dummy block *}&nbsp;</div>
 	</div>
 	{if isset($comment_separator)}
 	<hr/>
