@@ -5,7 +5,7 @@
 {known_script id="jquery.ui.datepicker-$lang_info.code" src=$ROOT_URL|@cat:"template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
 
 {html_head}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/theme/{$themeconf.theme}/datepicker.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}admin/template/{$themeconf.template}/datepicker.css">
 {/html_head}
 
 {literal}
