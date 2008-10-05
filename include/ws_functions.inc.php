@@ -1120,7 +1120,7 @@ SELECT
         {
           if ('auto' == $rank_on_category[$cat_id])
           {
-          $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
+            $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
           }
         }
       }
@@ -1144,6 +1144,8 @@ SELECT
         array_keys($inserts[0]),
         $inserts
         );
+
+      update_category($cat_ids);
     }
   }
 
