@@ -107,9 +107,10 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
         },
       showOn: "both",
 {/literal}
-      buttonImage: "{$ROOT_URL}admin/template/{$themeconf.template}/icon/datepicker.png", 
+      buttonImage: "{$ROOT_URL}admin/template/{$themeconf.template}/icon/datepicker.png",
 {literal}
-      buttonImageOnly: true
+      buttonImageOnly: true,
+      buttonText: ""
       });
 
     // Check showed controls
