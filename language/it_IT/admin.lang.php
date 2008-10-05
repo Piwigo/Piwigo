@@ -631,11 +631,11 @@ $lang['nothing'] = 'niente';
 $lang['overrides existing values with empty ones'] = 'sovrascrivere i valori esistenti con i nuovi anche vuoti';
 $lang['manage image ranks'] = 'gestire l\'ordinamento delle immagini';
 $lang['Manage image ranks'] = 'Gestire l\'ordinamento delle immagini';
-$lang['Edit ranks'] = 'Modificare gli ordini';
+$lang['Edit ranks'] = 'Modificare l\'ordine';
 $lang['No element in this category'] = 'Nessun\'elemento in questa categoria';
 $lang['Images manual order was saved'] = 'L\'ordinamento manuale delle immagini è stato salvato';
 $lang['ranks'] = 'rangs';
-/* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
-/* TODO */ $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Unable to retrieve server informations since allow_url_fopen is disabled.';
-/* TODO */ $lang['Quick Local Synchronization'] = 'Quick Local Synchronization';
+$lang['Drag to re-order'] = 'Clicca e trascina per riorganizzare';
+$lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Impossibile di connettersi al server perche la funzione allow_url_fopen è disattivata.';
+$lang['Quick Local Synchronization'] = 'Sincronizzazione rapida';
 ?>

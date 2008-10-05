@@ -36,19 +36,20 @@ $lang['locfiledit_save_file'] = 'Registrare il file';
 $lang['locfiledit_choose_file'] = 'Scegliere un file da editare';
 $lang['locfiledit_edit'] = 'Editare';
 $lang['locfiledit_restore'] = 'Caricare il file di backup';
-$lang['locfiledit_restore_confirm'] = 'Volete caricare il file di backup? Dovrete in seguito cliccare sù Registrare per restaurarlo.';
+$lang['locfiledit_restore_confirm'] = 'Volete caricare il file di backup?
+Dovrete in seguito cliccare sù Registrare per restaurarlo.';
 $lang['locfiledit_bak_loaded1'] = 'Copia di backup caricata';
 $lang['locfiledit_bak_loaded2'] = 'Dovete registrarlo per salvarlo.';
 $lang['locfiledit_syntax_error'] = 'Errore di sintassi! Impossible di registrare il file.';
-/* TODO */ $lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-/* TODO */ $lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-/* TODO */$lang['locfiledit_new_tpl'] = 'Créer un nouveau fichier';
-/* TODO */$lang['locfiledit_new_filename'] = 'Nom du fichier';
-/* TODO */$lang['locfiledit_model'] = 'Modèle';
-/* TODO */$lang['locfiledit_empty_page'] = 'Page vierge';
-/* TODO */$lang['locfiledit_parent_directory'] = 'Dossier parent';
-/* TODO */$lang['locfiledit_filename_error'] = 'Caractères interdits dans le nom du fichier.';
-/* TODO */$lang['locfiledit_file_already_exists'] = 'Le fichier existe déjà.';
-/* TODO */$lang['locfiledit_model_error'] = 'Veuillez sélectionner un modèle.';
+$lang['locfiledit_enable_editarea'] = 'Attivare Editarea';
+$lang['locfiledit_disable_editarea'] = 'Disattivare Editarea';
+$lang['locfiledit_new_tpl'] = 'Creare un nuovo file';
+$lang['locfiledit_new_filename'] = 'Nom file';
+$lang['locfiledit_model'] = 'Modello';
+$lang['locfiledit_empty_page'] = 'Pagina vergine';
+$lang['locfiledit_parent_directory'] = 'Directory parente';
+$lang['locfiledit_filename_error'] = 'Caratteri vietati nel nome del file.';
+$lang['locfiledit_file_already_exists'] = 'Il file esiste già.';
+$lang['locfiledit_model_error'] = 'Selezionare un modello.';
 
 ?>
