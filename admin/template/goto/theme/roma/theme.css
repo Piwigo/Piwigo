@@ -3,6 +3,7 @@
 body, h3, dt, h2, .throw, .content, label,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }
 INPUT, select, textarea { color:#999; background-color: #444; }  
+input[type="radio"], input[type="checkbox"] { background-color: transparent; }  
 /* INPUT[type="checkbox"], INPUT[type="radio"]
 { color:#999; background-color: #eee; }  */
 INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666; background-color: #444; padding: 1px 15px; }
@@ -164,6 +165,14 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: 0px; bottom: 0px; background: transparent url(images/resizable-sw.gif); }
 .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: 0px; top: 0px; background: transparent url(images/resizable-nw.gif); }
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: 0px; top: 0px; background: transparent url(images/resizable-ne.gif); }
+#ui-datepicker-div .ui-datepicker-control, #ui-datepicker-div  a { background: #111; color: #f70 !important; }
+#ui-datepicker-div .ui-datepicker-days-row { background: #444;}
+#ui-datepicker-div .ui-datepicker-current-day { background: #222;}
+#ui-datepicker-div .ui-datepicker-week-end-cell, #ui-datepicker-div .ui-datepicker-week-end-cell  a { background: #222; color: #ff3363; }
+#ui-datepicker-div .ui-datepicker-title-row { background: #111;}
+#ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #ff3363; }
+#ui-datepicker-div  a:hover { color: #ff3363 !important; border: 0; background: #111 !important; }
+#ui-datepicker-div .ui-datepicker-header select { color:#999; font-weight:normal; }
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
 *+html  .bigtext { left: 70px; }
