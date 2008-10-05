@@ -124,7 +124,7 @@ order by
         //echo $galleries_url.'<BR>';
         foreach (get_add_index_directories($galleries_url) as $dir_galleries)
         {
-          $file_dest = $dir_galleries.'/'.$conf['add_index_filename'];
+          $file_dest = str_replace('//', '/', $dir_galleries.'/'.$conf['add_index_filename']);
           if ($overwrite_file or !@file_exists($file_dest))
           {
             if (copy($index_file_src, $file_dest))
@@ -191,10 +191,7 @@ $template->set_filenames(array('main_page' => dirname(__FILE__).'/main_page.tpl'
 
 if (count($add_index_results) != 0)
 {
-  foreach ($add_index_results as $result)
-  {
-    $template->assign_block_vars('add_index_results.result', array('RESULT' => $result));
-  }
+  $template->assign('add_index_results', $add_index_results);
 }
 
 // +-----------------------------------------------------------------------+
