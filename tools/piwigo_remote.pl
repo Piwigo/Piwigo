@@ -6,11 +6,12 @@ use warnings;
 use JSON;
 use LWP::UserAgent;
 use Getopt::Long;
+use Encode qw/is_utf8 decode/;
 
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s categories=s define=s%/
+    qw/action=s file=s thumbnail=s high=s categories=s define=s%/
 );
 
 our $ua = LWP::UserAgent->new;
@@ -61,6 +62,11 @@ if ($opt{action} eq 'pwg.images.add') {
         thumbnail_content => $thumbnail_content,
         categories => $opt{categories},
     };
+
+    if (defined $opt{high}) {
+        $form->{high_content} = encode_base64(read_file($opt{high}));
+        $form->{high_sum} = file_md5_hex($opt{high});
+    }
 
     foreach my $key (keys %{ $opt{define} }) {
         $form->{$key} = $opt{define}{$key};

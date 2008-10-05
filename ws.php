@@ -180,6 +180,8 @@ function ws_addDefaultMethods( $arr )
       'file_sum' => array(),
       'thumbnail_content' => array(),
       'thumbnail_sum' => array(),
+      'high_content' => array('default' => null),
+      'high_sum' => array('default' => null),
       'name' => array('default' => null),
       'author' => array('default' => null),
       'date_creation' => array('default' => null),

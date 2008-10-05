@@ -950,7 +950,7 @@ SELECT
   // check dumped file md5sum against expected md5sum
   $dumped_md5 = md5_file($file_path);
   if ($dumped_md5 != $params['file_sum']) {
-    return new PwgError(500, 'file transfert failed');
+    return new PwgError(500, 'file transfer failed');
   }
 
   // thumbnail directory is a subdirectory of the photo file, hard coded
@@ -980,11 +980,42 @@ SELECT
   // check dumped thumbnail md5
   $dumped_md5 = md5_file($thumbnail_path);
   if ($dumped_md5 != $params['thumbnail_sum']) {
-    return new PwgError(500, 'thumbnail transfert failed');
+    return new PwgError(500, 'thumbnail transfer failed');
   }
 
-  // fwrite($fh_log, 'output: '.md5_file($file_path)."\n");
-  // fwrite($fh_log, 'output: '.md5_file($thumbnail_path)."\n");
+  // high resolution
+  if (isset($params['high_content']))
+  {
+    // high resolution directory is a subdirectory of the photo file, hard
+    // coded "pwg_high"
+    $high_dir = $upload_dir.'/pwg_high';
+    if (!is_dir($high_dir)) {
+      umask(0000);
+      mkdir($high_dir, 0777);
+    }
+
+    // high resolution path, same name as web size file
+    $high_path = sprintf(
+      '%s/%s.%s',
+      $high_dir,
+      $filename_wo_ext,
+      'jpg'
+      );
+
+    // dump the high resolution file
+    $fh_high = fopen($high_path, 'w');
+    fwrite($fh_high, base64_decode($params['high_content']));
+    fclose($fh_high);
+    chmod($high_path, 0644);
+
+    // check dumped thumbnail md5
+    $dumped_md5 = md5_file($high_path);
+    if ($dumped_md5 != $params['high_sum']) {
+      return new PwgError(500, 'high resolution transfer failed');
+    }
+
+    $high_filesize = floor(filesize($high_path)/1024);
+  }
 
   list($width, $height) = getimagesize($file_path);
 
@@ -1015,6 +1046,12 @@ SELECT
     {
       $insert[$key] = $params[$key];
     }
+  }
+
+  if (isset($params['high_content']))
+  {
+    $insert['has_high'] = 'true';
+    $insert['high_filesize'] = $high_filesize;
   }
 
   include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
