@@ -40,6 +40,91 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 check_status(ACCESS_ADMINISTRATOR);
 
 // +-----------------------------------------------------------------------+
+// |                         deletion form submission                      |
+// +-----------------------------------------------------------------------+
+
+if (isset($_POST['delete']))
+{
+  if (isset($_POST['confirm_deletion']) and 1 == $_POST['confirm_deletion'])
+  {
+    $collection = array();
+
+    switch ($_POST['target_deletion'])
+    {
+      case 'all' :
+      {
+        $collection = $page['cat_elements_id'];
+        break;
+      }
+      case 'selection' :
+      {
+        if (!isset($_POST['selection']) or count($_POST['selection']) == 0)
+        {
+          array_push($page['errors'], l10n('Select at least one picture'));
+        }
+        else
+        {
+          $collection = $_POST['selection'];
+        }
+        break;
+      }
+    }
+
+    // filter selection on photos that have no storage_category_id (ie that
+    // were added via pLoader)
+    if (count($collection) > 0)
+    {
+      $query = '
+SELECT
+    id
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $collection).')
+    AND storage_category_id IS NULL
+;';
+      $deletables = array_from_query($query, 'id');
+
+      if (count($deletables) > 0)
+      {
+        // what will be the categories to update? (to avoid orphan on
+        // representative_picture_id)
+        $query = '
+SELECT
+    category_id
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE image_id IN ('.implode(',', $deletables).')
+;';
+        $categories_to_update = array_from_query($query, 'category_id');
+          
+        $physical_deletion = true;
+        delete_elements($deletables, $physical_deletion);
+
+        update_category($categories_to_update);
+
+        array_push(
+          $page['infos'],
+          sprintf(
+            l10n_dec(
+              '%d photo was deleted',
+              '%d photos were deleted',
+              count($deletables)
+              ),
+            count($deletables)
+            )
+          );
+      }
+      else
+      {
+        array_push($page['errors'], l10n('No photo can be deleted'));
+      }
+    }
+  }
+  else
+  {
+    array_push($page['errors'], l10n('You need to confirm deletion'));
+  }
+}
+
+// +-----------------------------------------------------------------------+
 // |                       global mode form submission                     |
 // +-----------------------------------------------------------------------+
 
@@ -235,6 +320,30 @@ $template->assign(
 // +-----------------------------------------------------------------------+
 
 $template->assign('IN_CADDIE', 'caddie' == $_GET['cat'] ? true : false );
+
+// +-----------------------------------------------------------------------+
+// |                            deletion form                              |
+// +-----------------------------------------------------------------------+
+
+// we can only remove photos that have no storage_category_id, in other
+// word, it currently (Butterfly) means that the photo was added with
+// pLoader
+if (count($page['cat_elements_id']) > 0)
+{
+  $query = '
+SELECT
+    COUNT(*)
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $page['cat_elements_id']).')
+    AND storage_category_id IS NULL
+;';
+  list($counter) = mysql_fetch_row(pwg_query($query));
+
+  if ($counter > 0)
+  {
+    $template->assign('show_delete_form', true);
+  }
+}
 
 // +-----------------------------------------------------------------------+
 // |                           global mode form                            |

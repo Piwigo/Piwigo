@@ -127,13 +127,52 @@ DELETE FROM '.OLD_PERMALINKS_TABLE.'
 //    - all the comments related to elements
 //    - all the links between categories and elements
 //    - all the favorites associated to elements
-function delete_elements($ids)
+function delete_elements($ids, $physical_deletion=false)
 {
   if (count($ids) == 0)
   {
     return;
   }
   trigger_action('begin_delete_elements', $ids);
+
+  if ($physical_deletion)
+  {
+    include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+    
+    // we can currently delete physically only photo with no
+    // storage_category_id (added via pLoader)
+    //
+    // we assume that the element is a photo, with no representative
+    $query = '
+SELECT
+    id,
+    path,
+    tn_ext,
+    has_high
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $ids).')
+    AND storage_category_id IS NULL
+;';
+    $result = pwg_query($query);
+    while ($row = mysql_fetch_assoc($result))
+    {
+      $file_path = $row['path'];
+      $thumbnail_path = get_thumbnail_path($row);
+      $high_path = null;
+      if (isset($row['has_high']) and get_boolean($row['has_high']))
+      {
+        $high_path = get_high_path($row);
+      }
+
+      foreach (array($file_path, $thumbnail_path, $high_path) as $path)
+      {
+        if (isset($path) and !unlink($path))
+        {
+          die('"'.$path.'" cannot be removed');
+        }
+      }
+    }
+  }
 
   // destruction of the comments on the image
   $query = '

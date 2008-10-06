@@ -65,6 +65,22 @@
 
   </fieldset>
 
+  {if $show_delete_form}
+  <fieldset>
+    <legend>{'Deletions'|@translate}</legend>
+    <p style="font-style:italic">{'Note: Only deletes photos added with pLoader'|@translate}</p>
+    <p>
+      {'target'|@translate}
+      <label><input type="radio" name="target_deletion" value="all" /> {'all'|@translate}</label>
+      <label><input type="radio" name="target_deletion" value="selection" checked="checked" /> {'selection'|@translate}</label>
+    </p>
+    <p>
+    <label><input type="checkbox" name="confirm_deletion" value="1" /> {'confirm'|@translate}</label>
+    <input class="submit" type="submit" value="{'Delete selected photos'|@translate}" name="delete" {$TAG_INPUT_ENABLED}/>
+    </p>
+  </fieldset>
+  {/if}
+
   <fieldset>
 
     <legend>{'Form'|@translate}</legend>
