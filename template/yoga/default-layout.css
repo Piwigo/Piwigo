@@ -230,6 +230,7 @@ BODY#thePopuphelpPage #copyright {
 	display: none;
 }
 
+#theNotificationPage p { padding: 0.5em; }
 BODY#thePopuphelpPage .content P {
 	text-align: justify;
 	padding: 0.5em;
@@ -272,3 +273,6 @@ TABLE.tagLetterContent {
 }
 
 #theHeader {text-align: center;}
+
+#theNotificationPage dl,
+#thePopuphelpPage dl { margin: 0 25px 25px; }

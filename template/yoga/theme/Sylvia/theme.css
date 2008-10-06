@@ -37,7 +37,8 @@ margin:0; }
 #menubar #mbIdentification UL, #menubar #mbIdentification p, 
 #menubar #mbIdentification .illustration  { background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; }
 #menubar #mbIdentification form { background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; }
-#menubar #mbIdentification  .actions, #menubar ul ul, #menubar #mbIdentification form  p { background-image:none; }
+#menubar #mbIdentification  .actions, #menubar li ul, #menubar #mbIdentification form  p { 
+background:transparent none repeat-y scroll left bottom; }
 #menubar #mbIdentification p { padding: 2px 16px 0; margin: 0;}
 #menubar p { padding: 16px 16px 0; }
 #menubar .button { position:relative; right:9px; top:12px; height:16px; }
@@ -97,3 +98,5 @@ A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer;
 #theImage A, .illustration A, A.navThumb, A.navThumb { border-bottom-width: 0; }
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 #debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
+.rateButtonStarFull { 	background-image: url('icon/rating-stars.gif'); }
+.rateButtonStarEmpty { background-image: url('icon/rating-stars.gif'); }

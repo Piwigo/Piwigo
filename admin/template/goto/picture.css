@@ -1,4 +1,6 @@
 /* $Id$ */
+
+/* Maybe some cleanup has to be done there  TODO */
 #imageHeaderBar {
   padding-top: 2px;
   padding-bottom: 2px;
@@ -93,28 +95,6 @@ TABLE.infoTable TD.value UL {
   margin: 0;
   padding: 0 0 0 1.5em;
   list-style-type: square;
-}
-
-.rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
-  padding:0;
-  border:0;
-}
-
-.rateButton, .rateButtonStarFull, .rateButtonStarEmpty {
-  cursor: pointer;
-}
-
-.rateButtonSelected {
-  font-weight:bold;
-  font-size:120%;
-}
-
-.rateButtonStarFull {
-	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:-16px center; width:16px;
-}
-
-.rateButtonStarEmpty {
-	background: url('icon/rating-stars.gif') no-repeat scroll; background-position:0 center; width:16px;
 }
 
 #comments {

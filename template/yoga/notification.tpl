@@ -14,6 +14,12 @@
 
   <p>{'The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'|@translate}</p>
 
-  <p><a href="{$U_FEED_IMAGE_ONLY}">{'Image only RSS feed'|@translate}</a></p>
-  <p><a href="{$U_FEED}">{'Complete RSS feed'|@translate}</a></p>
+  <dl>
+    <dt>
+      <a href="{$U_FEED_IMAGE_ONLY}">{'Image only RSS feed'|@translate}</a><br /><br />
+    </dt>
+    <dt>
+      <a href="{$U_FEED}">{'Complete RSS feed'|@translate}</a>
+    </dt>
+  </dl>
 </div>
