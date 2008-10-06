@@ -37,6 +37,7 @@ button.ui-datepicker-trigger {
 img.ui-datepicker-trigger {
 	margin: 2px;
 	vertical-align: middle;
+	cursor : pointer;
 }
 .ui-datepicker-prompt {
 	float: left;
