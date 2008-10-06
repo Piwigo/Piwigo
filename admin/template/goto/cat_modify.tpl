@@ -45,7 +45,7 @@
     <tr>
       <td><strong>{'Description'|@translate}</strong></td>
       <td>
-        <textarea cols="50" rows="5" name="comment" class="description">{$CAT_COMMENT}</textarea>
+        <textarea cols="50" rows="5" name="comment" id="comment" class="description">{$CAT_COMMENT}</textarea>
       </td>
     </tr>
   </table>
@@ -213,7 +213,7 @@
     <tr>
       <td><strong>{'mail_content'|@translate}</strong></td>
       <td>
-        <textarea cols="50" rows="5" name="mail_content" class="description">{$MAIL_CONTENT}</textarea>
+        <textarea cols="50" rows="5" name="mail_content" id="mail_content" class="description">{$MAIL_CONTENT}</textarea>
       </td>
     </tr>
 

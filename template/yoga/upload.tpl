@@ -86,7 +86,7 @@
     <tr>
       <td>{'comment'|@translate}</td>
       <td>
-       <textarea name="comment" rows="3" cols="40" style="overflow:auto">{$COMMENT_IMG}</textarea>
+       <textarea name="comment" id="comment" rows="3" cols="40" style="overflow:auto">{$COMMENT_IMG}</textarea>
       </td>
     </tr>
     {/if}

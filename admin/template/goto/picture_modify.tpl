@@ -123,7 +123,7 @@
 
       <tr>
         <td><strong>{'Description'|@translate}</strong></td>
-        <td><textarea name="description" class="description">{$DESCRIPTION}</textarea></td>
+        <td><textarea name="description" id="description" class="description">{$DESCRIPTION}</textarea></td>
       </tr>
 
   <tr>

@@ -22,7 +22,7 @@
 <div id="imageHeaderBar">
   <div class="browsePath">
     <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
-    {$LEVEL_SEPARATOR}{$SECTION_TITLE}
+    {if $SECTION_TITLE != 'no_category'|@translate}{$LEVEL_SEPARATOR}{$SECTION_TITLE}{/if}
     {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
   <div class="imageNumber">{$PHOTO}</div>
@@ -262,7 +262,7 @@ y.callService(
 		{if $comment_add.SHOW_AUTHOR}
 		<label>{'upload_author'|@translate}<input type="text" name="author"></label>
 		{/if}
-		<label>{'comment'|@translate}<textarea name="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
+		<label>{'comment'|@translate}<textarea name="content" id="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}" />
 		<input class="submit" type="submit" value="{'Submit'|@translate}">
 	</fieldset>

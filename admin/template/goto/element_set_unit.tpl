@@ -83,7 +83,7 @@
 
     <tr>
       <td><strong>{'Description'|@translate}</strong></td>
-      <td><textarea name="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
+      <td><textarea name="description-{$element.ID}" id="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
     </tr>
 
   </table>
