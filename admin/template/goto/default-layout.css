@@ -446,3 +446,8 @@ UL.tagSelection LI {
 .cluetip-default #cluetip-inner {
 	padding: 10px;
 }
+
+/* jQuery datepicker */
+img.ui-datepicker-trigger {
+	cursor : pointer;
+}
