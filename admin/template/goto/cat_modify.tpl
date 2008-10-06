@@ -105,7 +105,7 @@
   
   {foreach from=$image_orders item=order}
     <select name="order_field_{$order.ID}">
-      {html_options options=$image_order_field_options selected=$order.FIELD }}
+      {html_options options=$image_order_field_options selected=$order.FIELD }
     </select>
     <select name="order_direction_{$order.ID}">
       {html_options options=$image_order_direction_options selected=$order.DIRECTION }}
