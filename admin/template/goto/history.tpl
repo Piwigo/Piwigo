@@ -4,8 +4,8 @@
 
 {literal}
 <script type="text/javascript">
-  pwg_initialization_datepicker("select[name=start_day]", "select[name=start_month]", "input[name=start_year]", "input[name=start_linked_date]", null, "input[name=end_linked_date]");
-  pwg_initialization_datepicker("select[name=end_day]", "select[name=end_month]", "input[name=end_year]", "input[name=end_linked_date]", "input[name=start_linked_date]", null);
+  pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
+  pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
 </script>
 {/literal}
 
@@ -19,33 +19,33 @@
   <ul>
     <li><label>{'search_date_from'|@translate}</label></li>
     <li>
-      <select name="start_day">
+      <select id="start_day" name="start_day">
         <option value="0">--</option>
         {section name=day start=1 loop=32}
         <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$START_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
-      <select name="start_month">
+      <select id="start_month" name="start_month">
       {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
-      <input name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
-      <input name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="start_year" name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
+      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
   </ul>
   <ul>
     <li><label>{'search_date_to'|@translate}</label></li>
     <li>
-      <select name="end_day">
+      <select id="end_day" name="end_day">
         <option value="0">--</option>
         {section name=day start=1 loop=32}
         <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$END_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
-      <select name="end_month">
+      <select id="end_month" name="end_month">
       {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
-      <input name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
-      <input name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="end_year" name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
+      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
   </ul>
 

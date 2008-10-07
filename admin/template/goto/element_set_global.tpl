@@ -4,7 +4,7 @@
 
 {literal}
 <script type="text/javascript">
-  pwg_initialization_datepicker("select[name=date_creation_day]", "select[name=date_creation_month]", "input[name=date_creation_year]", "input[name=date_creation_linked_date]");
+  pwg_initialization_datepicker("#date_creation_day", "#date_creation_month", "#date_creation_year", "#date_creation_linked_date", "#date_creation_action_set");
 </script>
 {/literal}
 
@@ -145,22 +145,22 @@
           <label><input type="radio" name="date_creation_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
           <label><input type="radio" name="date_creation_action" value="unset" /> {'unset'|@translate}</label>
           <label><input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {'set to'|@translate}</label>
-          <select onchange="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_day">
+          <select id="date_creation_day" name="date_creation_day">
              <option value="0">--</option>
             {section name=day start=1 loop=32}
               <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
             {/section}
           </select>
-          <select onchange="document.getElementById('date_creation_action_set').checked = true;" name="date_creation_month">
+          <select id="date_creation_month" name="date_creation_month">
             {html_options options=$month_list selected=$DATE_CREATION_MONTH}
           </select>
-          <input onchange="document.getElementById('date_creation_action_set').checked = true;"
+          <input id="date_creation_year"
                  name="date_creation_year"
                  type="text"
                  size="4"
                  maxlength="4"
                  value="{$DATE_CREATION_YEAR}" />
-          <input name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
+          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
         </td>
       </tr>
 

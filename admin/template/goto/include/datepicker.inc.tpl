@@ -20,10 +20,21 @@ function pwg_get_fmt_datepicker(day, month, year)
 // initialize controls
 // day, month, year: selectors of visible date controls
 // linked_date: selector of hidden linked dates control
+// checked_on_change: selector of control to change "checked" attribut
 // min_linked_date: selector of hidden linked date control witch give min value
 // max_linked_date: selector of hidden linked date control witch give max value
-function pwg_initialization_datepicker(day, month, year, linked_date, min_linked_date, max_linked_date)
+function pwg_initialization_datepicker(day, month, year, linked_date, checked_on_change, min_linked_date, max_linked_date)
 {
+  // Action on change date value
+  function pwg_on_date_change()
+  {
+    pwg_check_date();
+    if (checked_on_change != null)
+    {
+      $(checked_on_change).attr("checked", "true");
+    }
+  }
+
   // Prevent selection of invalid dates through the select controls 
   function pwg_check_date()
   {
@@ -103,7 +114,7 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
               $(month).val(array_date[1]);
               $(day).val(array_date[2]);
             }
-            pwg_check_date();
+            pwg_on_date_change();
         },
       showOn: "both",
 {/literal}
@@ -117,10 +128,11 @@ function pwg_initialization_datepicker(day, month, year, linked_date, min_linked
     jQuery(day + ", " + month + ", " + year).change(
       function ()
       {
-        pwg_check_date();
+        pwg_on_date_change();
       });
 
     // In order to desable element of list
+    // In order to init linked input
     pwg_check_date();
    });
 

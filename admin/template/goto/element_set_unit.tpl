@@ -54,24 +54,24 @@
         <label><input type="radio" name="date_creation_action-{$element.ID}" value="unset" /> {'unset'|@translate}</label>
         <label><input type="radio" name="date_creation_action-{$element.ID}" value="set" id="date_creation_action_set-{$element.ID}" /> {'set to'|@translate}</label>
 
-        <select onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;" name="date_creation_day-{$element.ID}">
+        <select id="date_creation_day-{$element.ID}" name="date_creation_day-{$element.ID}">
          	<option value="0">--</option>
            {section name=day start=1 loop=32}
              <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$element.DATE_CREATION_DAY}selected="selected"{/if}>{$smarty.section.day.index}</option>
            {/section}
         </select>
-        <select onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;" name="date_creation_month-{$element.ID}">
+        <select id="date_creation_month-{$element.ID}" name="date_creation_month-{$element.ID}">
           {html_options options=$month_list selected=$element.DATE_CREATION_MONTH}
         </select>
-        <input onmousedown="document.getElementById('date_creation_action_set-{$element.ID}').checked = true;"
+        <input id="date_creation_year-{$element.ID}"
                name="date_creation_year-{$element.ID}"
                type="text"
                size="4"
                maxlength="4"
                value="{$element.DATE_CREATION_YEAR}" />
-        <input name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled"/>
+        <input id="date_creation_linked_date-{$element.ID}" name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled"/>
         <script type="text/javascript">
-          pwg_initialization_datepicker("select[name=date_creation_day-{$element.ID}]", "select[name=date_creation_month-{$element.ID}]", "input[name=date_creation_year-{$element.ID}]", "input[name=date_creation_linked_date-{$element.ID}]");
+          pwg_initialization_datepicker("#date_creation_day-{$element.ID}", "#date_creation_month-{$element.ID}", "#date_creation_year-{$element.ID}", "#date_creation_linked_date-{$element.ID}", "#date_creation_action_set-{$element.ID}");
         </script>
       </td>
     </tr>
