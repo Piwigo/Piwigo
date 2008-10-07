@@ -173,6 +173,25 @@ if ($opt{action} eq 'pwg.tags.add') {
     print Dumper(from_json($response->content));
 }
 
+if ($opt{action} eq 'pwg.images.exist') {
+    $form = {
+        method => $opt{action},
+    };
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    use Data::Dumper;
+    print Dumper(from_json($response->content)->{result});
+    # print Dumper($response);
+}
+
 $query = pwg_ws_get_query(
     method => 'pwg.session.logout'
 );

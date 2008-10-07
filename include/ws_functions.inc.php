@@ -1457,4 +1457,43 @@ function ws_tags_add($params, &$service)
 
   return $creation_output;
 }
+
+function ws_images_exist($params, &$service)
+{
+  if (!is_admin() or is_adviser())
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  // search among photos the list of photos already added, based on md5sum
+  // list
+  $md5sums = preg_split(
+    '/[\s,;\|]/',
+    $params['md5sum_list'],
+    -1,
+    PREG_SPLIT_NO_EMPTY
+    );
+  
+  $query = '
+SELECT
+    id,
+    md5sum
+  FROM '.IMAGES_TABLE.'
+  WHERE md5sum IN (\''.implode("','", $md5sums).'\')  
+;';
+  $id_of_md5 = simple_hash_from_query($query, 'md5sum', 'id');
+
+  $result = array();
+  
+  foreach ($md5sums as $md5sum)
+  {
+    $result[$md5sum] = null;
+    if (isset($id_of_md5[$md5sum]))
+    {
+      $result[$md5sum] = $id_of_md5[$md5sum];
+    }
+  }
+
+  return $result;
+}
 ?>

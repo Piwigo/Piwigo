@@ -229,6 +229,15 @@ function ws_addDefaultMethods( $arr )
       ),
     'administration method only'
     );
+
+  $service->addMethod(
+    'pwg.images.exist',
+    'ws_images_exist',
+    array(
+      'md5sum_list'=> array(),
+      ),
+    'check existence of a photo list'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');
