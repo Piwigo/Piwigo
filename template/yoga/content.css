@@ -109,11 +109,13 @@ TABLE.calMonth {
 
 TD.calDayCellFull, TD.calDayCellEmpty, TD.calDayCellBlank {
 	vertical-align: top;
-	font: bold 18px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 TD.calDayHead {
-	font: bold 12px;
+  font-weight: bold;
+  font-size: 12px;
 	text-align: center;
 }
 
