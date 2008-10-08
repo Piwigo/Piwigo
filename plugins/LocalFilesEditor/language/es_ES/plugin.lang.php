@@ -41,15 +41,15 @@ Usted deberá luego hacer clic Registrar para restaurarlo.';
 $lang['locfiledit_bak_loaded1'] = 'Fichero cargado de salvaguardia';
 $lang['locfiledit_bak_loaded2'] = 'Usted debe registrarlo para salvaguardarlo.';
 $lang['locfiledit_syntax_error'] = '¡ Error de sintaxis! Imposible registrar el fichero.';
-/* TODO */ $lang['locfiledit_enable_editarea'] = 'Enable Editarea';
-/* TODO */ $lang['locfiledit_disable_editarea'] = 'Disable Editarea';
-/* TODO */$lang['locfiledit_new_tpl'] = 'Créer un nouveau fichier';
-/* TODO */$lang['locfiledit_new_filename'] = 'Nom du fichier';
-/* TODO */$lang['locfiledit_model'] = 'Modèle';
-/* TODO */$lang['locfiledit_empty_page'] = 'Page vierge';
-/* TODO */$lang['locfiledit_parent_directory'] = 'Dossier parent';
-/* TODO */$lang['locfiledit_filename_error'] = 'Caractères interdits dans le nom du fichier.';
-/* TODO */$lang['locfiledit_file_already_exists'] = 'Le fichier existe déjà.';
-/* TODO */$lang['locfiledit_model_error'] = 'Veuillez sélectionner un modèle.';
+$lang['locfiledit_enable_editarea'] = 'Acelerar Editarea';
+$lang['locfiledit_disable_editarea'] = 'Desactivar Editarea ';
+$lang['locfiledit_new_tpl'] = 'Crear un nuevo fichero ';
+$lang['locfiledit_new_filename'] = 'Nombre del fichero ';
+$lang['locfiledit_model'] = 'Modelo ';
+$lang['locfiledit_empty_page'] = 'Página virgen';
+$lang['locfiledit_parent_directory'] = 'Expediente allegado';
+$lang['locfiledit_filename_error'] = 'Carácteres prohibidos en el nombre del fichero.';
+$lang['locfiledit_file_already_exists'] = 'El fichero ya existe.';
+$lang['locfiledit_model_error'] = 'Por favor, seleccione un modelo.';
 
 ?>

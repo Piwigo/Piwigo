@@ -26,7 +26,8 @@ $lang['c13y_upgrade_no_anomaly'] = 'Ninguna anomalía detectada después de la p
 $lang['c13y_upgrade_deactivate'] = 'Usted puede desactivar el plugin Check upgrades';
 $lang['c13y_dbl_email_user'] = 'Utilizadores con la misma dirección e-mail';
 $lang['c13y_correction_dbl_email_user'] = 'Suprima a los utilizadores en duplicado';
-/* TODO */ $lang['c13y_obsolete_plugin'] = 'Obsolete plugin';
-/* TODO */ $lang['c13y_correction_obsolete_plugin'] = '"%s" plugin has been included in this application version and you must uninstall it.';
+$lang['c13y_obsolete_plugin'] = 'Plugin obsoleto';
+$lang['c13y_correction_obsolete_plugin'] = 'El plugin "%s" ha sido incluido en esta versión de la aplicación y usted debe desinstalarlo.';
+
 
 ?>
