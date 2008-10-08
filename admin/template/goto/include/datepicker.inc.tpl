@@ -35,13 +35,67 @@ function pwg_initialization_datepicker(day, month, year, linked_date, checked_on
     }
   }
 
-  // Prevent selection of invalid dates through the select controls 
-  function pwg_check_date()
+  // In order to desable element of list
+  function pwg_disabled_selection()
   {
     array_date = $(linked_date).val().split('-');
     y = array_date[0];
     m = array_date[1];
-    d = array_date[2];
+
+    // Init list
+    $(day + " option").attr("disabled", "");
+    $(month + " option").attr("disabled", "");
+
+    var daysInMonth = 32 - new Date(y, m - 1, 32).getDate();
+    $(day + " option:gt(" + (daysInMonth) +")").attr("disabled", "disabled");
+
+    if ((min_linked_date != null) && ($(min_linked_date).datepicker("getDate") != null))
+    {
+      date_cmp = min_linked_date;
+      op_cmp = "lt";
+    }
+    else if ((max_linked_date != null) && ($(max_linked_date).datepicker("getDate") != null))
+    {
+      date_cmp = max_linked_date;
+      op_cmp = "gt";
+    }
+    else
+    {
+      date_cmp = null;
+      op_cmp = null;
+    }
+
+    if (op_cmp != null)
+    {
+      array_date = $(date_cmp).val().split('-');
+      y_cmp = array_date[0];
+      m_cmp = array_date[1];
+      d_cmp = array_date[2];
+      
+      if (y == y_cmp)
+      {
+        $(month + " option:" + op_cmp + "(" + (m_cmp) +")").attr("disabled", "disabled");
+        if (op_cmp ==  "lt")
+        {
+            $(month + " option:eq(" + (0) +")").attr("disabled", "");
+        }
+
+        if (m == m_cmp)
+        {
+          $(day + " option:" + op_cmp + "(" + (d_cmp) +")").attr("disabled", "disabled");
+          if (op_cmp ==  "lt")
+          {
+            $(day + " option:eq(" + (0) +")").attr("disabled", "");
+          }
+        }
+      }
+    }
+  }
+
+  // Prevent selection of invalid dates through the select controls 
+  function pwg_check_date()
+  {
+    last_date = $(linked_date).val();
 
     $(linked_date).val(pwg_get_fmt_datepicker(day, month, year));
 
@@ -60,17 +114,12 @@ function pwg_initialization_datepicker(day, month, year, linked_date, checked_on
 
     if (cancel)
     {
-      $(year).val(y);
-      $(month).val(m);
-      $(day).val(d);
+      array_date = last_date.split('-');
+      $(year).val(array_date[0]);
+      $(month).val(array_date[1]);
+      $(day).val(array_date[2]);
       // check again
       pwg_check_date();
-    }
-    else
-    {
-      var daysInMonth = 32 - new Date($(year).val(), $(month).val() - 1, 32).getDate();
-      $(day + " option").attr("disabled", "");
-      $(day + " option:gt(" + (daysInMonth) +")").attr("disabled", "disabled");
     }
   }
 
@@ -131,7 +180,13 @@ function pwg_initialization_datepicker(day, month, year, linked_date, checked_on
         pwg_on_date_change();
       });
 
-    // In order to desable element of list
+    // Check showed controls
+    jQuery(day + ", " + month + ", " + year).focus(
+      function ()
+      {
+        pwg_disabled_selection();
+      });
+
     // In order to init linked input
     pwg_check_date();
    });
