@@ -37,8 +37,7 @@ margin:0; }
 #menubar #mbIdentification UL, #menubar #mbIdentification p, 
 #menubar #mbIdentification .illustration  { background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; }
 #menubar #mbIdentification form { background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; }
-#menubar #mbIdentification  .actions, #menubar li ul, #menubar #mbIdentification form  p { 
-background:transparent none repeat-y scroll left bottom; }
+#menubar #mbIdentification  .actions, #menubar li ul, #menubar #mbIdentification form  p { background:transparent none repeat-y scroll left bottom; }
 #menubar #mbIdentification p { padding: 2px 16px 0; margin: 0;}
 #menubar p { padding: 16px 16px 0; }
 #menubar .button { position:relative; right:9px; top:12px; height:16px; }
