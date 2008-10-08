@@ -61,17 +61,17 @@
   <ul>
     <li><label>{'search_date_from'|@translate}</label></li>
     <li>
-      <select name="start_day">
+      <select id="start_day" name="start_day">
           <option value="0">--</option>
         {section name=day start=1 loop=32}
           <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$START_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
-      <select name="start_month">
+      <select id="start_month" name="start_month">
         {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
-      <input name="start_year" type="text" size="4" maxlength="4" >
-      <input name="start_linked_dates" type="hidden" size="10" disabled="disabled"/>
+      <input id="start_year" name="start_year" type="text" size="4" maxlength="4" >
+      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
       <a href="#" onClick="document.search.start_day.value={$smarty.now|date_format:"%d"};document.search.start_month.value={$smarty.now|date_format:"%m"};document.search.start_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
@@ -80,17 +80,17 @@
   <ul>
     <li><label>{'search_date_to'|@translate}</label></li>
     <li>
-      <select name="end_day">
+      <select id="end_day" name="end_day">
           <option value="0">--</option>
         {section name=day start=1 loop=32}
           <option value="{$smarty.section.day.index}" {if $smarty.section.day.index==$END_DAY_SELECTED}selected="selected"{/if}>{$smarty.section.day.index}</option>
         {/section}
       </select>
-      <select name="end_month">
+      <select id="end_month" name="end_month">
         {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
-      <input name="end_year" type="text" size="4" maxlength="4" >
-      <input name="end_linked_dates" type="hidden" size="10" disabled="disabled"/>
+      <input id="end_year" name="end_year" type="text" size="4" maxlength="4" >
+      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
       <a href="#" onClick="document.search.end_day.value={$smarty.now|date_format:"%d"};document.search.end_month.value={$smarty.now|date_format:"%m"};document.search.end_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
