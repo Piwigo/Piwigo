@@ -633,7 +633,12 @@ $lang['Edit ranks'] = 'Modificar la orden';
 $lang['No element in this category'] = 'Ningún elemento en esta categoría';
 $lang['Images manual order was saved'] = 'La orden manual de las imágenes ha sido salvada';
 $lang['ranks'] = 'Filas';
-/* TODO */ $lang['Drag to re-order'] = 'Drag to re-order';
-/* TODO */ $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Unable to retrieve server informations since allow_url_fopen is disabled.';
-/* TODO */ $lang['Quick Local Synchronization'] = 'Quick Local Synchronization';
+$lang['Drag to re-order'] = 'Hacer clic deslizar para reorganizar';
+$lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Imposible conectarse en el server porque la función allow_url_fopen es desactivada.';
+$lang['Quick Local Synchronization'] = 'Sincronización Rápida';
+$lang['No photo can be deleted'] = 'Ninguna foto puede ser suprimida';
+$lang['Note: Only deletes photos added with pLoader'] = 'Nota: las únicas las fotos aumentadas vía pLoader pueden ser suprimidas';
+$lang['Delete selected photos'] = 'Suprimir las fotos';
+$lang['%d photo was deleted'] = '%d foto ha sido suprimida';
+$lang['%d photos were deleted'] = '%d fotos han sido suprimidas';
 ?>
