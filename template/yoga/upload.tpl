@@ -36,7 +36,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-      <input name="picture" type="file" value="" />
+      <input class="file" name="picture" type="file" value="" />
       </td>
     </tr>
     {if isset($SHOW_FORM_FIELDS) and $SHOW_FORM_FIELDS}
@@ -105,6 +105,6 @@
   {/if}
   
   {if isset($SHOW_FORM_FIELDS) and $SHOW_FORM_FIELDS}
-  <div style="text-align:left;"><span style="color:red;">*</span> : {'mandatory'|@translate}</div>
+  <div style="text-align:left; margin-left:20px;"><span style="color:red;">*</span> : {'mandatory'|@translate}</div>
   {/if}
 </div> <!-- content -->
