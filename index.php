@@ -287,11 +287,10 @@ if (!empty($page['cat_slideshow_url']))
   }
 }
 
-//------------------------------------------------------------ log informations
-pwg_log();
-
 include(PHPWG_ROOT_PATH.'include/page_header.php');
 trigger_action('loc_end_index');
 $template->pparse('index');
+//------------------------------------------------------------ log informations
+pwg_log();
 include(PHPWG_ROOT_PATH.'include/page_tail.php');
 ?>

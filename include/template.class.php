@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 
-require_once 'smarty/libs/Smarty.class.php';
+require_once(PHPWG_ROOT_PATH.'include/smarty/libs/Smarty.class.php');
 
 // migrate lang:XXX
 //    sed "s/{lang:\([^}]\+\)}/{\'\1\'|@translate}/g" my_template.tpl
@@ -173,7 +173,7 @@ class Template {
   }
 
   /**
-   * Sets template extentions filenames for handles. 
+   * Sets template extentions filenames for handles.
    * $filename_array should be an hash of filename => array( handle, param) or filename => handle
    */
   function set_extents($filename_array, $dir='', $overwrite=true)
@@ -329,8 +329,6 @@ class Template {
   /** flushes the output */
   function p()
   {
-    $start = get_moment();
-
     $this->flush();
 
     if ($this->smarty->debugging)
@@ -338,7 +336,6 @@ class Template {
       global $t2;
       $this->smarty->assign(
         array(
-        'AAAA_DEBUG_OUTPUT_TIME__' => get_elapsed_time($start, get_moment()),
         'AAAA_DEBUG_TOTAL_TIME__' => get_elapsed_time($t2, get_moment())
         )
         );
