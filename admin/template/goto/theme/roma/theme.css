@@ -119,7 +119,7 @@ background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
 background:transparent url(images/menuBoxBottom_new.png) no-repeat scroll left bottom;
 border:0; display:inline; float:left; left:0; margin: 0 0 0 35px; min-height:475px; height:475px; /* should be 477 */
 padding:0; width:207px; z-index:99; text-align: left; }
-#menubar ul.scroll { height:185px; margin-right:10px; overflow-y:auto; 
+#menubar ul.scroll { height:163px; margin-right:10px; overflow-y:auto; 
  /* Only IE family supports colored scrollbar */
  scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
  scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
@@ -142,9 +142,8 @@ color: #F70; border-bottom: 0px dotted #F70;}
 #menubar li { margin: 0 0 0 6px; }
 #menubar li.external { list-style-image:url(images/external_inactive.png); padding:10px 0px 0pt 10px; }
 #menubar li.external:hover { list-style-image:url(images/external_active.png); }
-#menubar ul { color: #333; margin:10px 0pt 3px 9px; 
-  list-style-type: square; list-style-position: inside; padding: 0 0 0 2px; }
-  
+#menubar ul { color: #333; margin:0 0 0 9px; line-height: 16px;
+  list-style-type: square; list-style-position: inside; padding: 0; }
 /* jQuery tooltips */
 .cluetip-default #cluetip-outer { border-color: #666; color: #666; background-color: #222; }
 .cluetip-default h3#cluetip-title { color: #ff3363; background-color: #111; }

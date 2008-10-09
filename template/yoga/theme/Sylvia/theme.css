@@ -68,8 +68,6 @@ overflow: auto; overflow-x:hidden; padding:0 0 5px;  /* Only IE family supports 
 .content div.thumbnailCategory div.description p.dates { margin: 0 15px 0 15px; text-align: right; }
 #content.content .thumbnailCategory div.description H3 { display: block; margin: 0; }
 #content ul.thumbnailCategories li:hover { background-color:#111; } 
-#imageHeaderBar .imageNumber { margin-right:170px; }
-#imageHeaderBar .browsePath { margin-left:125px; }
 .infos { color: #f70; border:0; background-color: transparent; margin-left:125px;
 padding:5px 0px 0pt 10pt; min-height: 48px; text-align:left; }
 .infos li, .errors li { list-style-type:none; }
@@ -95,6 +93,9 @@ background-color: #111; border:1px solid #ff3363;	/* thumbnails border color whe
 A, INPUT.rateButton { color:#f70; border-width: 0; }
 A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer; }
 #theImage A, .illustration A, A.navThumb, A.navThumb { border-bottom-width: 0; }
+#imageToolBar { padding:0 7%; }
+#imageHeaderBar .imageNumber { margin-right:7%; }
+#imageHeaderBar .browsePath { margin-left:7%; }
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 #debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
 .rateButtonStarFull { 	background-image: url('icon/rating-stars.gif'); }
