@@ -262,7 +262,7 @@ y.callService(
 		{if $comment_add.SHOW_AUTHOR}
 		<label>{'upload_author'|@translate}<input type="text" name="author"></label>
 		{/if}
-		<label>{'comment'|@translate}<textarea name="content" id="content" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
+		<label>{'comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
 		<input type="hidden" name="key" value="{$comment_add.KEY}" />
 		<input class="submit" type="submit" value="{'Submit'|@translate}">
 	</fieldset>
