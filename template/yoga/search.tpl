@@ -1,4 +1,17 @@
 {* $Id$ *}
+
+{* Example of datepicker
+{include file='include/datepicker.inc.tpl'}
+
+{literal}
+<script type="text/javascript">
+  pwg_initialization_datepicker("#start_day", "#start_month", "#start_year", "#start_linked_date", null, null, "#end_linked_date");
+  pwg_initialization_datepicker("#end_day", "#end_month", "#end_year", "#end_linked_date", null, "#start_linked_date", null);
+ jQuery().ready(function(){ $(".date_today").hide(); });
+</script>
+{/literal}
+*}
+
 <div id="content" class="content">
 
   <div class="titrePage">
@@ -74,7 +87,7 @@
       <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
-      <a href="#" onClick="document.search.start_day.value={$smarty.now|date_format:"%d"};document.search.start_month.value={$smarty.now|date_format:"%m"};document.search.start_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
+      <a class="date_today" href="#" onClick="document.search.start_day.value={$smarty.now|date_format:"%d"};document.search.start_month.value={$smarty.now|date_format:"%m"};document.search.start_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
     </li>
   </ul>
   <ul>
@@ -93,7 +106,7 @@
       <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
     </li>
     <li>
-      <a href="#" onClick="document.search.end_day.value={$smarty.now|date_format:"%d"};document.search.end_month.value={$smarty.now|date_format:"%m"};document.search.end_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
+      <a class="date_today" href="#" onClick="document.search.end_day.value={$smarty.now|date_format:"%d"};document.search.end_month.value={$smarty.now|date_format:"%m"};document.search.end_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
     </li>
   </ul>
 </fieldset>
