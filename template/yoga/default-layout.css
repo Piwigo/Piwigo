@@ -276,3 +276,8 @@ TABLE.tagLetterContent {
 
 #theNotificationPage dl,
 #thePopuphelpPage dl { margin: 0 25px 25px; }
+
+/* jQuery datepicker */
+img.ui-datepicker-trigger {
+	cursor : pointer;
+}

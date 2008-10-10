@@ -13,7 +13,7 @@
 function pwg_initialization_datepicker(day, month, year, linked_date, checked_on_change, min_linked_date, max_linked_date)
 {ldelim}
   return pwg_common_initialization_datepicker(
-    "{$ROOT_URL}admin/template/{$themeconf.template}/icon/datepicker.png",
+    "{$ROOT_URL}{$themeconf.icon_dir}/datepicker.png",
     day, month, year, linked_date, checked_on_change, min_linked_date, max_linked_date);
 }
 </script>
