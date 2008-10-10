@@ -25,7 +25,7 @@ class plugins
 {
   var $fs_plugins = array();
   var $db_plugins_by_id = array();
-  var $server_plugins;
+  var $server_plugins = array();
 
   /**
    * Initialize $fs_plugins and $db_plugins_by_id
@@ -302,14 +302,19 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     // Retrieve PEM plugins infos
     $url = PEM_URL . '/api/get_revision_list.php?category_id=12&format=php&last_revision_only=true';
     $url .= '&version=' . implode(',', $versions_to_check);
+
     if (!empty($plugins_to_check))
     {
       $url .= $new ? '&extension_exclude=' : '&extension_include=';
       $url .= implode(',', $plugins_to_check);
     }
-    if ($source = @file_get_contents($url)
-      and $pem_plugins = @unserialize($source))
+    if ($source = @file_get_contents($url))
     {
+      $pem_plugins = @unserialize($source);
+      if (!is_array($pem_plugins))
+      {
+        return false;
+      }
       foreach ($pem_plugins as $plugin)
       {
         $this->server_plugins[$plugin['extension_id']] = $plugin;
