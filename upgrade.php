@@ -26,7 +26,6 @@ define('PHPWG_ROOT_PATH', './');
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
-include(PHPWG_ROOT_PATH.'include/template.class.php');
 
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');

@@ -79,7 +79,7 @@ Function.prototype.pwgBind = function() {
 	return function() { return __method.apply(object, args); }
 }
 
-PwgWS = function(urlRoot)
+function PwgWS(urlRoot)
 {
 	this.urlRoot = urlRoot;
 	this.options = {

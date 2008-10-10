@@ -30,6 +30,7 @@ include_once( PHPWG_ROOT_PATH .'include/functions_html.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_tag.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_url.inc.php' );
 include_once( PHPWG_ROOT_PATH .'include/functions_plugins.inc.php' );
+include_once( PHPWG_ROOT_PATH .'include/template.class.php');
 
 //----------------------------------------------------------- generic functions
 
@@ -69,7 +70,7 @@ function get_enums($table, $field)
 function get_boolean( $string )
 {
   $boolean = true;
-  if ( preg_match( '/^false$/i', $string ) )
+  if ( 'false' == strtolower($string) )
   {
     $boolean = false;
   }
@@ -86,14 +87,7 @@ function boolean_to_string($var)
 {
   if (is_bool($var))
   {
-    if ($var)
-    {
-      return 'true';
-    }
-    else
-    {
-      return 'false';
-    }
+    return $var ? 'true' : 'false';
   }
   else
   {
