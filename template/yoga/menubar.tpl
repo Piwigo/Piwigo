@@ -4,7 +4,7 @@
 	{if ( not empty($block->template) or not empty($block->raw_content) )}
 	<dl id="{$id}">
 		{if not empty($block->template)}
-		{include file=$block->template }
+		{known_template id=$id file=$block->template }
 		{else}
 		{$block->raw_content|@default}
 		{/if}
