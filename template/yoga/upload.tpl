@@ -1,5 +1,10 @@
 {* $Id$ *}
 
+{* Example of resizeable *}
+{*
+{include file='include/autosize.inc.tpl'}
+*}
+
 <div id="content" class="content">
 
   <div class="titrePage">

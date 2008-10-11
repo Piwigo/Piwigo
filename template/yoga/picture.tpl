@@ -1,4 +1,10 @@
 {* $Id$ *}
+
+{* Example of resizeable *}
+{*
+{include file='include/autosize.inc.tpl'}
+*}
+
 {if isset($errors)}
 <div class="errors">
   <ul>
