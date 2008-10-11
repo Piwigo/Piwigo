@@ -238,6 +238,27 @@ function ws_addDefaultMethods( $arr )
       ),
     'check existence of a photo list'
     );
+
+  $service->addMethod(
+    'pwg.images.setInfo',
+    'ws_images_setInfo',
+    array(
+      'image_id' => array(),
+      
+      'name' => array('default' => null),
+      'author' => array('default' => null),
+      'date_creation' => array('default' => null),
+      'comment' => array('default' => null),
+      'categories' => array('default' => null),
+      'tag_ids' => array('default' => null),
+      'level' => array(
+        'default' => 0,
+        'maxValue' => $conf['available_permission_levels']
+        ),
+      ),
+    'POST method only. Admin only
+<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
+    );
 }
 
 add_event_handler('ws_add_methods', 'ws_addDefaultMethods');

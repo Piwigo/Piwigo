@@ -18,7 +18,7 @@ our $ua = LWP::UserAgent->new;
 $ua->cookie_jar({});
 
 my %conf;
-$conf{base_url} = 'http://localhost/~pierrick/piwigo/trunk';
+$conf{base_url} = 'http://localhost/~pierrick/piwigo/2.0';
 $conf{response_format} = 'json';
 $conf{username} = 'pierrick';
 $conf{password} = 'z0rglub';
@@ -190,6 +190,25 @@ if ($opt{action} eq 'pwg.images.exist') {
     use Data::Dumper;
     print Dumper(from_json($response->content)->{result});
     # print Dumper($response);
+}
+
+if ($opt{action} eq 'pwg.images.setInfo') {
+    $form = {
+        method => $opt{action},
+    };
+
+    foreach my $key (keys %{ $opt{define} }) {
+        $form->{$key} = $opt{define}{$key};
+    }
+
+    my $response = $ua->post(
+        $conf{base_url}.'/ws.php?format=json',
+        $form
+    );
+
+    use Data::Dumper;
+    # print Dumper(from_json($response->content)->{result});
+    print Dumper($response);
 }
 
 $query = pwg_ws_get_query(

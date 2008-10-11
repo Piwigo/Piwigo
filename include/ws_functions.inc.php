@@ -1064,89 +1064,9 @@ SELECT
   $image_id = mysql_insert_id();
 
   // let's add links between the image and the categories
-  //
-  // $params['categories'] should look like 123,12;456,auto;789 which means:
-  //
-  // 1. associate with category 123 on rank 12
-  // 2. associate with category 456 on automatic rank
-  // 3. associate with category 789 on automatic rank
   if (isset($params['categories']))
   {
-    $cat_ids = array();
-    $rank_on_category = array();
-    $search_current_ranks = false;
-
-    $tokens = explode(';', $params['categories']);
-    foreach ($tokens as $token)
-    {
-      list($cat_id, $rank) = explode(',', $token);
-
-      array_push($cat_ids, $cat_id);
-
-      if (!isset($rank))
-      {
-        $rank = 'auto';
-      }
-      $rank_on_category[$cat_id] = $rank;
-
-      if ($rank == 'auto')
-      {
-        $search_current_ranks = true;
-      }
-    }
-
-    $cat_ids = array_unique($cat_ids);
-
-    if (count($cat_ids) > 0)
-    {
-      if ($search_current_ranks)
-      {
-        $query = '
-SELECT
-    category_id,
-    MAX(rank) AS max_rank
-  FROM '.IMAGE_CATEGORY_TABLE.'
-  WHERE rank IS NOT NULL
-    AND category_id IN ('.implode(',', $cat_ids).')
-  GROUP BY category_id
-;';
-        $current_rank_of = simple_hash_from_query(
-          $query,
-          'category_id',
-          'max_rank'
-          );
-
-        foreach ($cat_ids as $cat_id)
-        {
-          if ('auto' == $rank_on_category[$cat_id])
-          {
-            $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
-          }
-        }
-      }
-
-      $inserts = array();
-
-      foreach ($cat_ids as $cat_id)
-      {
-        array_push(
-          $inserts,
-          array(
-            'image_id' => $image_id,
-            'category_id' => $cat_id,
-            'rank' => $rank_on_category[$cat_id],
-            )
-          );
-      }
-
-      mass_inserts(
-        IMAGE_CATEGORY_TABLE,
-        array_keys($inserts[0]),
-        $inserts
-        );
-
-      update_category($cat_ids);
-    }
+    ws_add_image_category_relations($image_id, $params['categories']);
   }
 
   // and now, let's create tag associations
@@ -1495,5 +1415,182 @@ SELECT
   }
 
   return $result;
+}
+
+function ws_images_setInfo($params, &$service)
+{
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  // name
+  // category_id
+  // file_content
+  // file_sum
+  // thumbnail_content
+  // thumbnail_sum
+  
+  $params['image_id'] = (int)$params['image_id'];
+  if ($params['image_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
+  }
+
+  $query='
+SELECT *
+  FROM '.IMAGES_TABLE.'
+  WHERE id = '.$params['image_id'].'
+;';
+
+  $image_row = mysql_fetch_assoc(pwg_query($query));
+  if ($image_row == null)
+  {
+    return new PwgError(404, "image_id not found");
+  }
+
+  // database registration
+  $update = array(
+    'id' => $params['image_id'],
+    );
+
+  $info_columns = array(
+    'name',
+    'author',
+    'comment',
+    'level',
+    'date_creation',
+    );
+
+  $perform_update = false;
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $perform_update = true;
+      $update[$key] = $params[$key];
+    }
+  }
+
+  if ($perform_update)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_updates(
+      IMAGES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update'  => array_diff(array_keys($update), array('id'))
+        ),
+      array($update)
+      );
+  }
+  
+  if (isset($params['categories']))
+  {
+    ws_add_image_category_relations(
+      $params['image_id'],
+      $params['categories']
+      );
+  }
+
+  // and now, let's create tag associations
+  if (isset($params['tag_ids']))
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    add_tags(
+      explode(',', $params['tag_ids']),
+      array($params['image_id'])
+      );
+  }
+
+  invalidate_user_cache();
+}
+
+function ws_add_image_category_relations($image_id, $categories_string)
+{
+  // let's add links between the image and the categories
+  //
+  // $params['categories'] should look like 123,12;456,auto;789 which means:
+  //
+  // 1. associate with category 123 on rank 12
+  // 2. associate with category 456 on automatic rank
+  // 3. associate with category 789 on automatic rank
+  $cat_ids = array();
+  $rank_on_category = array();
+  $search_current_ranks = false;
+
+  $tokens = explode(';', $categories_string);
+  foreach ($tokens as $token)
+  {
+    list($cat_id, $rank) = explode(',', $token);
+
+    array_push($cat_ids, $cat_id);
+
+    if (!isset($rank))
+    {
+      $rank = 'auto';
+    }
+    $rank_on_category[$cat_id] = $rank;
+
+    if ($rank == 'auto')
+    {
+      $search_current_ranks = true;
+    }
+  }
+
+  $cat_ids = array_unique($cat_ids);
+
+  if (count($cat_ids) > 0)
+  {
+    if ($search_current_ranks)
+    {
+      $query = '
+SELECT
+    category_id,
+    MAX(rank) AS max_rank
+  FROM '.IMAGE_CATEGORY_TABLE.'
+  WHERE rank IS NOT NULL
+    AND category_id IN ('.implode(',', $cat_ids).')
+  GROUP BY category_id
+;';
+      $current_rank_of = simple_hash_from_query(
+        $query,
+        'category_id',
+        'max_rank'
+        );
+
+      foreach ($cat_ids as $cat_id)
+      {
+        if ('auto' == $rank_on_category[$cat_id])
+        {
+          $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
+        }
+      }
+    }
+
+    $inserts = array();
+
+    foreach ($cat_ids as $cat_id)
+    {
+      array_push(
+        $inserts,
+        array(
+          'image_id' => $image_id,
+          'category_id' => $cat_id,
+          'rank' => $rank_on_category[$cat_id],
+          )
+        );
+    }
+
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_inserts(
+      IMAGE_CATEGORY_TABLE,
+      array_keys($inserts[0]),
+      $inserts
+      );
+
+    update_category($cat_ids);
+  }
 }
 ?>
