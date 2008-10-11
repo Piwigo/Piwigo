@@ -1,5 +1,7 @@
 {* $Id$ *}
 
+{include file='include/resize.inc.tpl'}
+
 <div class="titrePage">
   <h2>{'Move categories'|@translate}</h2>
 </div>

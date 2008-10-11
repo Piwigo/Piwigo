@@ -1,21 +1,6 @@
 {* $Id$ *}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
-{known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.resizable.packed.js"}
 
-<script type="text/javascript">
-  jQuery().ready(function(){ldelim}
-    jQuery(".doubleSelect select.categoryList").resizable({ldelim}
-    handles: "w,e",
-    animate: true,
-    animateDuration: "slow",
-    animateEasing: "swing",
-    preventDefault: true,
-    preserveCursor: true,
-    autoHide: true,
-    ghost: true
-    });
-  });
-</script>
+{include file='include/dbselect.inc.tpl'}
 
 <table class="doubleSelect">
   <tr>

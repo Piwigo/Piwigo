@@ -1,6 +1,7 @@
 {* $Id$ *}
 
 {include file='include/autosize.inc.tpl'}
+{include file='include/resize.inc.tpl'}
 
 <div class="titrePage">
   <h2>{'title_edit_cat'|@translate}</h2>
