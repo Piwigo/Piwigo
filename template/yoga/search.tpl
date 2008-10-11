@@ -1,6 +1,12 @@
 {* $Id$ *}
 
-{* Example of datepicker
+{* Example of resizeable *}
+{*
+{include file='include/resize.inc.tpl'}
+*}
+
+{* Example of datepicker *}
+{*
 {include file='include/datepicker.inc.tpl'}
 
 {literal}

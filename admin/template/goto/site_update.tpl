@@ -1,5 +1,7 @@
 {* $Id$ *}
 
+{include file='include/resize.inc.tpl'}
+
 <div class="titrePage">
   <h2>{'title_update'|@translate}: <a href="{$SITE_URL}">{$SITE_URL}</a></h2>
 </div>

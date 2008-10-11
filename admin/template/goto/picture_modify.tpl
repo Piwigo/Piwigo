@@ -1,6 +1,7 @@
 {* $Id$ *}
 
 {include file='include/autosize.inc.tpl'}
+{include file='include/dbselect.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}
 
 {literal}
