@@ -1,0 +1,99 @@
+<h2>Konfiguration zu "erweitern" die Templates</h2>
+
+<h3>Ziel</h3>
+<p>Festlegung der Bedingungen, die zur Ersetzung des Templates (Vorlage) ab Template-Erweiterung
+(Template "replacer" (Stellvertreter)).</p>
+
+<p>"Templates Ursprungs" aus./template/yoga (oder einem anderen Ordner wie "yoga")
+  durch einen Stellvertreter, wenn dieser im Zusammenhang mit seiner ursprünglichen Vorlage
+  (und auf freiwilliger Basis, wenn die Adresse (URL) beantragt enthält eine URL contains eine optionale Parameter in der URL ").</p>
+
+<p>Die "optionale Parameter in der URL" sind die das sie finden nach dem Namen des Moduls in die Adresse (URL).</p>
+
+<p>So ein "Optionale Parameter in der URL" kann ein "permalink" aktiv
+(siehe permalinks in unserer Dokumentation für weitere Informationen).</p>
+
+<p>Lesen Sie die `<a href="#warnings">Warnungen</a>` zu den Nutzungsbedingungen.</p>
+
+<h3>Was sind Template-Erweiterungen?</h3>
+
+<p>Diese Konfiguration ist ein leistungsfähiges Werkzeug für Einsteiger und fortgeschrittene Anwender.
+Mit dem FTP, in der Vorlage-Erweiterung Ordner, der Webmaster kann Duplikat eine Menge von
+  der verteilt. tpl-Dateien ( "Original-Vorlage") mit einem anderen Namen
+  ( "Replacer").
+ 
+  "Original-Vorlagen", aktuelle Original-Vorlagen unterstützt werden:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> and/or <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> and/or <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> and/or <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> and/or <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> and/or <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> and/or <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> and/or <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Wo finde ich "Original-Vorlagen"?</h3>
+
+<p>Verteilte Original-Vorlagen sind in template /yoga/
+(nicht bearbeiten sie im Ort für Upgrade Perspektiven). Also mit "Original-Vorlagen",
+jeder Webmaster kann seine "replacers (benutzerdefinierte Vorlagen)".</p>
+
+<h3>Wo kann ich sparen "replacers"?</h3>
+
+<p><strong>Replacers (benutzerdefinierte Vorlagen)</strong> sind in der
+Template-Erweiterung Ordner (oder in seinen Unterordnern).
+Replacers kann eine beliebige Datei mit der Erweiterung. Tpl-Erweiterung. Zum Beispiel: <span
+class="Dateiname">template-extension/my-extension/video.tpl</span>.</p>
+
+
+<h3>Wie aktiviere ich meine "Ersatz"?</h3>
+<p>Ein <strong>Original-Vorlage</strong> sollte für jede
+  <strong>Replacer (benutzerdefinierte Vorlagen)</strong>, um die damit verbundenen Ersatz.
+  Dies ist das Ziel der "Extend für Vorlagen" in der Konfiguration Administration Menü.</p>
+
+<p>Wenn Sie ein <strong>optional URL Keyword</strong>, dann Ersatz
+werden jeweils nur auf Seiten mit diesem Keyword. Zum Beispiel: <span 
+class="pwgScreen">index.php? /<strong> most_visited</strong></span></p>
+  
+<p>Advanced-User nutzen werden Dauerlinks als <strong>optional URL
+   Keyword</strong>.</p>
+
+<h3>Wie kann ich deaktivieren meine "replacers"?</h3>
+<ul>
+<li>Ausschluss der "Template Herkunft".</li>
+<li>Per FTP löschen "ersetzt".</li>
+</ul>
+<a name="warnings"></a>
+<h3>Warnhinweise</h3>
+<ul>
+
+  <li><strong>Original-Vorlage</strong> muss das "Original"-Vorlage
+   ansonsten können unvorhersehbare Ergebnisse!</li>
+
+  <li>Auf mehreren <strong>replacers (benutzerdefinierte Vorlagen)</strong> mit dem
+   gleichen <strong>Original-Vorlage</strong> und die gleichen <strong>optional URL
+   Keyword</strong> nur die letzte Replacer aktiv ist.</li>
+
+  <li>Nicht selektierte <strong>optional URL Keyword</strong> wird die aktive Replacer
+   auf jeder Vorlage Nutzung. Wie vorherigen Punkt, um können vorherigen
+   ausgewählten replacers.</li>
+
+  <li>Unterordner:
+Unterordner werden ignoriert, aber sie sind nützlich, eine Änderung der derzeitigen Reihenfolge. <br />
+distributed-Proben: für Test-Zwecke verteilt werden!
+<strong>nicht bearbeiten</strong> Erstellen Sie Ihren eigenen sind.
+</li>
+
+  <li>Am löschen eines Replacer <strong>der Original-Vorlage</strong> ist
+   sofort reaktiviert.</li>
+
+</ul>

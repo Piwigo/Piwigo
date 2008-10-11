@@ -1,0 +1,51 @@
+<h2>Wartung</h2>
+
+<p>Für die Zeit der Erzeugung der Seiten, verwendet Piwigo
+Informationen im Cache. Zum Beispiel statt, die Zahl
+der Elemente in jeder Kategorie in jeder Seite neu zu laden,
+Diese Information wird in der Datenbank. In der Theorie, die
+Information muss immer korrekt, aber manchmal kann ein Fehler
+auftreten, und die Informationen im Cache wird falsch.</p>
+
+<p>Informationen werden mit der Zeit unbrauchbar. Sie von der
+Datenbank gibt den Speicherplatz frei.</p>
+
+<ul>
+
+   <li><strong>aktualisieren die Informationen der Kategorien:</strong> Für
+jeder Kategorie, die Informationen zu kontrollieren und / oder zu aktualisieren, werden die
+folgenden: Liste der Kategorien Mütter, Anzahl der Elemente, Datum der letzten
+Element, unter den Kategorien Schwester, Position in der kompletten Baum
+Kategorien. Diese Aktion stellt sicher, auch die Kohärenz der
+Vertreter.</li>
+
+   <li><strong>aktualisieren die Informationen der Bilder:</strong> Für
+jedes Bild, die Informationen zu aktualisieren sind: kompletten Pfad zu dem
+Datei, Durchschnittsnote. <em>Achtung</em>: nicht zu verwechseln mit den
+Meta-Daten synchronisiert werden, die auf dem Bildschirm <span
+class = "pwgScreen">Verwaltung, Kategorien, synchronisieren</span> oder auf
+<span class="pwgScreen">dem Bildschirm bearbeiten Informationen eines Bildes</span>
+(zugänglich von der Seite zur Darstellung eines Bildes<span
+class = "pwgScreen">picture.php</span>).</li>
+
+   <li><strong>Reparieren und Optimierung der Datenbank:</strong>
+Für jede Tabelle der Datenbank PhpWegGallery, die von neu ordnen, Reparatur und Optimierung durchgeführt werden.
+   </li>
+
+</ul>
+
+<ul>
+   <li><strong>das Löschen des Verlaufs detail:</strong> Löscht alle Zeilen
+Tabelle <code>history</code>. Der Bildschirm <span
+class = "pwgScreen">Verwaltung, Sonderangebote, Geschichte</span> zeigt dann
+keine Informationen mehr über die Vergangenheit. <em>Achtung</em>: alle Daten
+gehen verloren, und es gibt keine Möglichkeit, diese wiederherzustellen.</li>
+
+   <li><strong>Löschen der Inhalt der Geschichte:</strong> Entfernt alle Informationen (aus der historischen detail).</li>
+
+   <li><strong>Löschen Sitzungen:</strong> "Löschen"-Sitzungen
+Abgelaufene ..</li>
+
+   <li><strong>Löschen von Arbeitsabläufen Anmeldung genutzt</strong></li>
+
+</ul>
