@@ -1,0 +1,134 @@
+<h2>Konfiguration</h2>
+
+<p>Dieser Bildschirm ermöglicht die Konfiguration einfach. Denn nur dann, wenn
+zeigten die Konfigurationseinstellungen, die ausreichen, um die Mehrheit
+Administratoren. Wenn Sie möchten, die Liste der vielen (und
+Fortgeschrittene) Einstellungen, lesen Sie die Datei <span
+class="filename">include/config_default.inc.php</span></p>
+
+<p>Dieser Bildschirm ist in mehrere Abschnitte, in denen die Einstellungen
+Thema durch.</p>
+
+<h3>Hauptsächlich</h3>
+<ul>
+
+  <li><strong>Titel der Galerie</strong>: für die RSS-Feeds und
+E-Mail-Benachrichtigung.</li>
+
+  <li><strong>Seiten Banner</strong>: HTML-Code angezeigt, im oberen Teil der
+Seiten.</li>
+
+  <li><strong>URL der Galerie</strong>: für die RSS-Feeds.</li>
+
+  <li><strong>Sperren der Galerie</strong>: Sperren der gesamten
+Galerie für Wartungsarbeiten. Nur Administratoren können den Zugriff auf die
+Galerie.</li>
+
+  <li><strong>Rating</strong>: Die Bewertung der Fotos ist möglich.</li>
+
+  <li><strong>Rating von den Besuchern</strong>: Auch nicht registrierte Benutzer können Bilder Satz.</li>
+
+  <li><strong>Lassen Sie Benutzer-Registrierung</strong>: Die Registrierung ist kostenlos für alle.</li>
+
+  <li><strong>E-Mail-Adresse ist obligatorisch für alle Nutzer</strong>: E-Mail-Adresse wird überprüft bei der Registrierung oder Profil aktualisieren, außer wenn die Maßnahme erfolgt auf Verwaltung Teil.</li>
+
+  <li><strong>E-Mail-Administratoren, wenn ein neuer Benutzer registriert</strong>: Administratoren werden erhalten für jede Registrierung.</li>
+
+</ul>
+
+<h3>Historisches</h3>
+  <p>	
+Besuche auf den Seiten <span
+class="pwgScreen">index.php</span> und <span
+class="pwgScreen">picture.php</span> werden in der
+   <code>History</code> Tabelle.</p>
+
+  <p>Besuche werden in <span class="pwgScreen">Administration, Specials, Geschichte</span>.</p>
+<ul>
+  <li><strong>Seite speichern Besuche von Gästen</strong>: Seite Besuche von Gästen werden gespeichert.</li>
+
+  <li><strong>Seite speichern Besuche von Nutzern</strong>: Besuche von registrered Benutzer gespeichert werden.</li>
+
+  <li><strong>Seite speichern Besuche von Administratoren</strong>: Seite Besuche von Administratoren gespeichert werden.</li>
+
+</ul>
+
+<h3>Kommentare</h3>
+<ul>
+
+  <li><strong>Kommentare für alle</strong>: Auch nicht registrierte Gäste können nach
+   Bemerkungen.</li>
+
+  <li><strong>Anzahl der Kommentare pro Seite</strong>.</li>
+
+  <li><strong>Validierung</strong>: Ein Administrator muss die Validierung
+Benutzer Kommentare bevor sie sichtbar in der
+öffentlichen Teil. Die Validierung der Benutzer Kommentare erfolgt in
+dem Bildschirm <span class="pwgScreen">Verwaltung, Bilder,
+Kommentare</span>.</li>
+
+  <li><strong>Administratoren benachrichtigen, wenn ein Kommentar eingetragen is</strong>:
+Sende eine E-Mail an den Administrator, wenn ein Benutzer registriert ist, die einen Kommentar validiert.</li>
+
+  <li><strong>Administratoren benachrichtigen, wenn ein Kommentar der Gültigkeitsprüfung erforderlich </strong>:
+Sende eine E-Mail an den Administrator, wenn ein Benutzer einen Kommentar registriert, die eine Validierung der Administratoren.
+Die Validierung der Benutzer Bewertungen erfolgt auf dem Bildschirm <span class="pwgScreen">Verwaltung, Bilder, Kommentare</span>.</li>
+
+</ul>
+
+<h3>Upload</h3>
+<ul>
+  <li><strong>Show-Upload-Link jedes Mal</strong>: Wenn vorhanden uploadeable Kategorien, fügen Link wird zeigen, für jede Kategorie.</li>
+  <li><strong>User-Ebene Zugang zum Hochladen</strong>: Ermöglicht zu beschränken, Upload von den Nutzern</li>
+  <li><strong>E-Mail-Verwaltung, wenn ein Bild hochgeladen</strong>: Administratoren werden erhalten für jede E-Mail Bild hochgeladen von einem Benutzer.</li>
+</ul>
+
+<h3>Standardansicht</h3>
+<p>Ändern der Standardansicht: für die Besucher nicht
+verbunden. Nachdem Sie sich angemeldet haben, diese Optionen sind überlastet durch die von
+Benutzer, es kann auf dem Bildschirm <span
+class="pwgScreen"> Profil</span>.</p>
+
+<p>Es ist möglich, diese Optionen, um die vorhandenen Benutzer,
+aber es handelt sich um einen anderen Bildschirm: <span class="pwgScreen">Verwaltung,
+Identifikation, Benutzer</span>, in dem Sie können diese
+Optionen für eine Liste der ausgewählten Benutzer.</p>
+
+<ul>
+
+  <li><strong>Sprache</strong>: nur die Labels
+Piwigo. Die Namen der Kategorien, Bild und Beschreibung sind
+nicht lokalisiert (zB mehrsprachig).</li>
+
+  <li><strong>Anzahl der Bilder pro Zeile</strong></li>
+
+  <li><strong>Anzahl der Zeilen pro Seite</strong></li>
+
+  <li><strong>Interface Thema</strong></li>
+
+  <li><strong>Jüngster Zeit</strong>: Mit dem Tag. Frist, innerhalb eines Bildes ist
+   gezeigt, wie neue. Müssen überlegen 1 Tag.</li>
+
+  <li><strong>Erweitern Sie alle Kategorien</strong>: Erweitern Sie alle Kategorien von
+   standardmäßig in das Menü? <em>Warnung</em>: diese Option ist Ressourcen verbrauchen
+   und Mai eine große angezeigt, sofern Sie eine Kategorie Baum ist enthält viele
+   Kategorien.</li>
+
+  <li><strong>Zeige die Anzahl der Kommentare</strong>: Anzeige der Anzahl der Kommentare
+   für jedes Bild auf die Vorschaubilder Seite. Resource sein.</li>
+
+  <li><strong>Anzeige der Treffer zählen</strong>: Display beobachtet Treffer auf das Bild
+   nur im Rahmen seiner Thumbnail auf die Vorschaubilder Seite.
+   Nur wenn Advanced Configuration Parameter ist: <br/>
+   $conf [ 'show_nb_hits'] = true; <br/>
+   Hinweis: Es ist false per Default.</li>
+
+  <li><strong>Maximale Breite der Bilder</strong>: maximal angezeigt
+   Breite. Wenn Bilder sind größer als diese Einstellung, werden sie auf die Größe
+   Anzeige. Wenn man bedenkt, Füllung diese Option, die Sie besser prüfen
+   Änderung der Breite der Sie Ihre Bilder statt.</li>
+
+  <li><strong>Maximale Höhe der Bilder</strong>: gleichen Bemerkungen wie für
+   vorherige Einstellung.</li>
+
+</ul>

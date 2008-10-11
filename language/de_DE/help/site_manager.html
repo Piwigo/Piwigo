@@ -1,0 +1,56 @@
+<h2>Remote-Sites</h2>
+
+<p>Piwigo bietet die Möglichkeit, mehrere Websites für
+Speichern der Dateien, aus denen Ihre Galerie. Dies kann nützlich sein, wenn
+Ihre Galerie befindet sich auf einem Speicherplatz begrenzt ist und Sie
+haben viele Dateien zu zeigen.</p>
+
+
+<ol>
+
+   <li>Sie die Datei <span
+class = "filename">tools / create_listing_file.php</span> durch eine Änderung der
+Abschnitt Parameter wie <code>$ conf [ 'prefix_thumbnail']</code> oder
+<code>$ conf [ 'use_exif']</code>.</li>
+
+   <li>die Datei <span
+class = "filename">tools / create_listing_file.php</span> geändert auf Ihrer Website
+Remote, im selben Verzeichnis wie die Vertreter Ihrer Verzeichnisse
+Kategorien (wie das Verzeichnis <span class="filename">Galerien</span> von
+dieser Seite) per FTP. Zum Beispiel, dass Sie Zugriff auf <span
+class = "filename">http://exemple.com/galleries/create_listing_file.php</span>.</li>
+
+   <li>Bewußt auf <span class="pwgScreen">Verwaltung, Kategorien,
+Betreiber der Seite</span>. Verlangen eine neue Website, zB <span
+class = "filename"> http://exemple.com/galleries</span>.</li>
+
+   <li>
+
+     <p>eine neue Remote-Site gespeichert wird. 4 Aktionen möglich:</p>
+
+     <ol>
+
+       <li><strong>die Liste</strong>: startet eine Remote-Abfrage für
+Generieren Sie die Remote-Liste</li>
+
+       <li><strong>synchronisieren</strong>: Gibt die Remote-Datei <span
+class = "filename">listing.xml</span> und synchronisiert mit der Datenbank
+Ort</li>
+
+       <li><strong>reinigen</strong>: Der Remote-Datei von
+List</li>
+
+       <li><strong>zerstören</strong>: Der Standort (und alle Elemente
+die damit verbundenen) in der Datenbank</li>
+
+     </ol>
+
+   </li>
+
+</ol>
+
+<!--<p>Sie können auch ausführen, indem Sie
+Sie <span class="filename">listing.xml</span> in der Hand und in der
+Verschieben Ihrem Stammverzeichnis. Sich auf <span
+class = "pwgScreen">Verwaltung, Kategorien, Remote-Sites</span>:
+Piwigo erkennt die Datei und bietet damit einverstanden sind.</p> -->
