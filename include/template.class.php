@@ -66,6 +66,7 @@ class Template {
     $this->smarty->register_modifier( 'explode', array('Template', 'mod_explode') );
     $this->smarty->register_block('html_head', array(&$this, 'block_html_head') );
     $this->smarty->register_function('known_script', array(&$this, 'func_known_script') );
+    $this->smarty->register_function('known_template', array(&$this, 'func_known_template') );
     $this->smarty->register_prefilter( array('Template', 'prefilter_white_space') );
     if ( $conf['compiled_template_cache_language'] )
     {
@@ -406,6 +407,34 @@ class Template {
       $repeat = false;
       $this->block_html_head(null, $content, $smarty, $repeat);
     }
+  }
+
+ /**
+   * This smarty "known_template" functions allows to include template
+   * If extent[$params['id']] exists, include template extension
+   * else include $params[$file]
+   */  
+  function func_known_template($params, &$smarty )
+  {
+    if (!isset($params['file']))
+    {
+      $smarty->trigger_error("known_template: missing 'file' parameter");
+      return;
+    }
+
+    if (isset($params['id']) and isset($this->extents[$params['id']]))
+    {
+      $file = $this->extents[$params['id']];
+    }
+    else
+    {
+      $file = $params['file'];
+    }
+
+    return $smarty->_smarty_include(array(
+             'smarty_include_tpl_file' => $file,
+             'smarty_include_vars' => array()
+             ));
   }
 
   static function prefilter_white_space($source, &$smarty)
