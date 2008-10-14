@@ -105,4 +105,4 @@ background-color:#ff3363; color:#222; border-color: #ff3363; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 background-color:#999; border-color: #666; }
 /* IE6... Hacks: */
-/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ =======
+/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ 
