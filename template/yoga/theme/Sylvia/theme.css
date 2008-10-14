@@ -100,5 +100,9 @@ A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer;
 .rateButtonStarFull { 	background-image: url('icon/rating-stars.gif'); }
 .rateButtonStarEmpty { background-image: url('icon/rating-stars.gif'); }
 #menubar #mbIdentification fieldset div input[type="text"] { margin: 0 0 3px; width: 174px; display: inline; }
+input[type="button"], input[type="submit"], input[type="reset"] {
+background-color:#ff3363; color:#222; border-color: #ff3363; }
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+background-color:#999; border-color: #666; }
 /* IE6... Hacks: */
-/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ 
+/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ =======

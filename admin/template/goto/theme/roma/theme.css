@@ -56,14 +56,6 @@ fieldset { border: 1px solid #999; }
 INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
 input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
 TEXTAREA { cursor:text; font-size: 13px; }
-.bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
-color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; 
-position:relative;  z-index: 50;}
-.bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
-.bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
-.bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top; border:0;
-display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;}
-.bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;}
 .content UL.thumbnails SPAN.wrap2 {
   border: 1px solid #aaaaaa;	/* thumbnails border color and style */
   border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */
@@ -173,6 +165,18 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #ff3363; }
 #ui-datepicker-div  a:hover { color: #ff3363 !important; border: 0; background: #111 !important; }
 #ui-datepicker-div .ui-datepicker-header select { color:#999; font-weight:normal; }
+input[type="button"], input[type="submit"], input[type="reset"] {
+background-color:#ff3363; color:#222; border-color: #ff3363; }
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+background-color:#999; border-color: #666; }
+.bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
+color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; 
+position:relative;  z-index: 50;}
+.bigtext { display:block; font-weight:bold; left:225px; position:relative; top:35px; width:320px;  z-index: 55; cursor:pointer; }
+.bigbutton:hover { background:transparent url(images/quickLocalSync_hover.png) no-repeat scroll left top; color: #000; }
+.bigbutton input { background:transparent url(images/transparent.gif) repeat scroll left top; border:0;
+display:block; height:85px; left:225px; position:relative; top:-42px; width:313px; z-index:99; padding:0;}
+.bigbutton input:hover { cursor:pointer; background:transparent url(images/transparent.gif) repeat scroll left top; border:0; padding:0;}
 /* hacks */
 html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers */
 *+html  .bigtext { left: 70px; }
