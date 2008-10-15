@@ -110,7 +110,7 @@ if (isset($_POST['submit']))
     $search['fields']['filename'] = str_replace(
       '*',
       '%',
-      mysql_escape_string($_POST['filename'])
+      mysql_real_escape_string($_POST['filename'])
       );
   }
 

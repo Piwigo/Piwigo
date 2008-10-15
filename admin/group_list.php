@@ -107,7 +107,7 @@ SELECT COUNT(*)
 INSERT INTO '.GROUPS_TABLE.'
   (name)
   VALUES
-  (\''.mysql_escape_string($_POST['groupname']).'\')
+  (\''.mysql_real_escape_string($_POST['groupname']).'\')
 ;';
     pwg_query($query);
 

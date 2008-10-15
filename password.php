@@ -56,7 +56,7 @@ if (isset($_POST['submit']))
   }
   else if (isset($_POST['mail_address']) and !empty($_POST['mail_address']))
   {
-    $mail_address = mysql_escape_string($_POST['mail_address']);
+    $mail_address = mysql_real_escape_string($_POST['mail_address']);
     
     $query = '
 SELECT '.$conf['user_fields']['id'].' AS id
