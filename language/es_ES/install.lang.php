@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['install_message'] = 'Mensaje';
+$lang['Installation'] = 'Instalación';
 $lang['Initial_config'] = 'Configuración de Base';
 $lang['Default_lang'] = 'Lengua por defecto de la galería';
 $lang['step1_title'] = 'Configuración de la Base de datos';
@@ -54,15 +54,13 @@ $lang['step2_pwd'] = 'Palabra de paso';
 $lang['step2_pwd_info'] = 'Debe quedar confidencial, permite acceder al tabla de administración.';
 $lang['step2_pwd_conf'] = 'Palabra de paso [Confirmar]';
 $lang['step2_pwd_conf_info'] = 'Comprobación';
-$lang['step1_err_copy'] = 'Copie el texto en rojo entre las rayas y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio " include " a la base del lugar donde usted instaló a Piwigo (el fichero mysql.inc.php debe contener SÓLO lo que está en azul entre las rayas, ninguna vuelta a la línea o espacio es autorizado)';
+$lang['step1_err_copy'] = 'Copie el texto en rosa entre las rayas y pegúelo en el fichero mysql.inc.php que se encuentra en el repertorio " include " a la base del lugar donde usted instaló a Piwigo (el fichero mysql.inc.php debe contener SÓLO lo que está en rosa entre las rayas, ninguna vuelta a la línea o espacio es autorizado)';
 $lang['install_help'] = '¿ Necesidad de ayudante? Plantee su cuestión sobre él <a href="%s">foro de Piwigo</a>.';
 $lang['install_end_message'] = 'La configuración de la aplicación correctamente se celebró, coloca en la etapa próxima<br /><br />
 Por medida de seguridad, gracias por suprimir el fichero "install.php"<br />
-La vez suprimido este fichero, por favor seguir estas indicaciones:
-<ul>
-<li>Vaya sobre la página de identificación : [ <a href="./identification.php">identificación</a> ] Y conéctese con pseudo dado para el webmaster</li>
-<li>Éste le permite acceder a la parte administración y a las instrucciones para colocar las imágenes en los repertorios.</li>
-</ul>';
+La vez suprimido este fichero, por favor seguir estas indicaciones:<br />
+* Vaya sobre la página de identificación : [ <a href="./identification.php">identificación</a> ] Y conéctese con pseudo dado para el webmaster<br />
+* Éste le permite acceder a la parte administración y a las instrucciones para colocar las imágenes en los repertorios.';
 $lang['conf_mail_webmaster'] = 'Dirige e-mail del Administrador';
 $lang['conf_mail_webmaster_info'] = 'Los visitadores podrán ponerse en contacto con usted por este mail';
 ?>

@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['install_message'] = 'Message';
+$lang['Installation'] = 'Installation';
 $lang['Initial_config'] = 'Basic configuration';
 $lang['Default_lang'] = 'Default gallery language';
 $lang['step1_title'] = 'Database configuration';
@@ -37,7 +37,7 @@ $lang['step1_err_db'] = 'Connection to server succeed, but it was impossible to 
 $lang['step1_err_server'] = 'Can\'t connect to server';
 $lang['step1_err_copy_2'] = 'The next step of the installation is now possible';
 $lang['step1_err_copy_next'] = 'next step';
-$lang['step1_err_copy'] = 'Copy the text in red between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in blue, no line return or space character)';
+$lang['step1_err_copy'] = 'Copy the text in pink between hyphens and paste it into the file "include/mysql.inc.php"(Warning : mysql.inc.php must only contain what is in pink, no line return or space character)';
 
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
@@ -60,11 +60,9 @@ $lang['step2_pwd_conf_info'] = 'verification';
 $lang['install_help'] = 'Need help ? Ask your question on <a href="%s">Piwigo message board</a>.';
 $lang['install_end_message'] = 'The configuration of Piwigo is finished, here is the next step<br /><br />
 For security reason, please delete file "install.php"<br />
-Once this file deleted , follow this instructions :
-<ul>
-<li>go to the identification page : [ <a href="identification.php">identification</a> ] and use the login/password given for webmaster</li>
-<li>this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories</li>
-</ul>';
+Once this file deleted , follow this instructions :<br />
+* go to the identification page : [ <a href="identification.php">identification</a> ] and use the login/password given for webmaster<br />
+* this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories';
 $lang['conf_mail_webmaster'] = 'Webmaster mail address';
 $lang['conf_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
 ?>

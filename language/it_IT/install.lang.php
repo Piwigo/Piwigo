@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['install_message'] = 'Messaggio';
+$lang['Installation'] = 'Installazione';
 $lang['Initial_config'] = 'Configurazione di base';
 $lang['Default_lang'] = 'Linguaggio di default della galleria';
 $lang['step1_title'] = 'Configurazione della base dati';
@@ -54,15 +54,13 @@ $lang['step2_pwd'] = 'Password';
 $lang['step2_pwd_info'] = 'da conservare con cura. Permette l\'accesso al pannello di amministrazione';
 $lang['step2_pwd_conf'] = 'Password [confermare]';
 $lang['step2_pwd_conf_info'] = 'verifica';
-$lang['step1_err_copy'] = 'Copiate il testo in blu tra i trattini e mettetelo nel file mysql.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato PhpWebGallery (il file mysql.inc.php non deve contenere altro che ciò che è in blu tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
+$lang['step1_err_copy'] = 'Copiate il testo in rosa tra i trattini e mettetelo nel file mysql.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato PhpWebGallery (il file mysql.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
 $lang['install_help'] = 'Bisogno di aiuto? Visitate il <a href="%s">forum di PhpWebGallery</a>.';
 $lang['install_end_message'] = 'La configurazione di PhpWebGallery è conclusa. Procedete al prossimo step<br /><br />
 Per ragioni di sicurezza vi consigliamo di cancellare il file "install.php"<br />
-Una volta che il file è stato cancellato seguire le istruzioni:
-<ul>
-<li>collegatevi alla pagina di accesso: [ <a href="identification.php">Accedi ora</a> ] e usate il vostro nome utente e password del Webmaster</li>
-<li>a questo punto sarete abilitati all\'accesso al pannello di amministrazione in cui troverete le istruzioni per l\'inserimento delle immagini nelle vostre directory</li>
-</ul>';
+Una volta che il file è stato cancellato seguire le istruzioni:<br />
+* collegatevi alla pagina di accesso: [ <a href="identification.php">Accedi ora</a> ] e usate il vostro nome utente e password del Webmaster<br />
+* a questo punto sarete abilitati all\'accesso al pannello di amministrazione in cui troverete le istruzioni per l\'inserimento delle immagini nelle vostre directory';
 $lang['conf_mail_webmaster'] = 'Indirizzo email del Amministratore';
 $lang['conf_mail_webmaster_info'] = 'i visitatori potranno contattarvi utilizzando questo indirizzo email';
 ?>

@@ -21,6 +21,12 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+//------------------------------------------------- check php version
+if (version_compare(PHP_VERSION, '5', '<'))
+{
+  die('Piwigo requires PHP 5 or above.');
+}
+
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
@@ -210,7 +216,7 @@ load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
 
 //----------------------------------------------------- template initialization
-$template=new Template(PHPWG_ROOT_PATH.'template/yoga', 'clear');
+$template=new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;
 //---------------------------------------------------------------- form analyze
@@ -290,7 +296,10 @@ define(\'DB_COLLATE\', \'\');
     {
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
-      $template->assign('error_copy', $html_content);
+      $error_copy = l10n('step1_err_copy');
+      $error_copy .= '<br />--------------------------------------------------------------------<br />';
+      $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
+      $error_copy .= '<br />--------------------------------------------------------------------<br />';
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);
@@ -388,6 +397,19 @@ $template->assign(
     ));
 
 //------------------------------------------------------ errors & infos display
+if ($step == 1)
+{
+  $template->assign('install', true);
+}
+else
+{
+  array_push($infos, l10n('install_end_message'));
+
+  if (isset($error_copy))
+  {
+    array_push($errors, $error_copy);
+  }
+}
 if (count($errors) != 0)
 {
   $template->assign('errors', $errors);
@@ -396,11 +418,6 @@ if (count($errors) != 0)
 if (count($infos) != 0 )
 {
   $template->assign('infos', $infos);
-}
-
-if ($step == 1)
-{
-  $template->assign('install', true);
 }
 
 //----------------------------------------------------------- html code display
