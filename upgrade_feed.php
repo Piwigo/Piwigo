@@ -21,6 +21,12 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
+//check php version
+if (version_compare(PHP_VERSION, '5', '<'))
+{
+  die('Piwigo requires PHP 5 or above.');
+}
+
 define('PHPWG_ROOT_PATH', './');
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');

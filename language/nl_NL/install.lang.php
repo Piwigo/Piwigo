@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['install_message'] = 'Bericht';
+$lang['Installation'] = 'Installatie';
 $lang['Initial_config'] = 'Basis configuratie';
 $lang['Default_lang'] = 'Standaard gallery taal';
 $lang['step1_title'] = 'Database configuratie';
@@ -37,7 +37,7 @@ $lang['step1_err_db'] = 'De verbinding met de server is geslaagd, maar het is ni
 $lang['step1_err_server'] = 'Geen verbinding met de server';
 $lang['step1_err_copy_2'] = 'Het is nu mogelijk om verder te gaan met de volgende stap van de installatie';
 $lang['step1_err_copy_next'] = 'volgende stap';
-$lang['step1_err_copy'] = 'Kopieer de tekst tussen de lijnen en plak deze in het bestand "include/mysql.inc.php"(Waarschuwing: mysql.inc.php mag alleen het blauwe gedeelte bevatten, geen return of extra spatie). Dit moet alleen wanneer dit bestand geen schrijfrechten';
+$lang['step1_err_copy'] = 'Kopieer de tekst tussen de lijnen en plak deze in het bestand "include/mysql.inc.php"(Waarschuwing: mysql.inc.php mag alleen het roze gedeelte bevatten, geen return of extra spatie). Dit moet alleen wanneer dit bestand geen schrijfrechten';
 
 $lang['step1_host'] = 'MySQL host';
 $lang['step1_host_info'] = 'localhost, sql.multimania.com, toto.freesurf.fr';
@@ -59,9 +59,9 @@ $lang['step2_pwd_conf'] = 'Wachtwoord [bevestigen]';
 $lang['step2_pwd_conf_info'] = 'verificatie';
 $lang['install_help'] = 'Hulp nodig ? stel een vraag op het <a href="%s" target="_blank">Piwigo forum</a>.';
 $lang['install_end_message'] = 'Het installeren van Piwigo is klaar, de volgende stap is<br /><br />het verwijderen van "install.php" dit is om de veiligheid te waarborgen<br />
-Vervolg de instructies nadat "install.php" is verwijderd:<ul><li>Ga naar de Indentificatie pagina: [ <a href="identification.php">Indentificatie</a> ] gebruik hiervoor het eerder opgegeven gebruikersnaam met wachtwoord</li>
-<li>Deze gebruikersnaam geeft u toegang tot de beheermenu zodat u afbeeldingen op uw website kan plaatsen</li></ul>';
-
+Vervolg de instructies nadat "install.php" is verwijderd:<br />
+* Ga naar de Indentificatie pagina: [ <a href="identification.php">Indentificatie</a> ] gebruik hiervoor het eerder opgegeven gebruikersnaam met wachtwoord<br />
+* Deze gebruikersnaam geeft u toegang tot de beheermenu zodat u afbeeldingen op uw website kan plaatsen';
 $lang['conf_mail_webmaster'] = 'Webmaster email adres';
 $lang['conf_mail_webmaster_info'] = 'Het is mogelijk dat bezoekers contact opnemen met de beheerder middels e-mail';
 ?>

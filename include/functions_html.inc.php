@@ -671,7 +671,8 @@ function fatal_error($msg)
     $msg .= "\n";
   }
 
-  $display = "<h1>Piwigo encountered a non recoverable error</h1>
+  $display = "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<h1>Piwigo encountered a non recoverable error</h1>
 <pre style='font-size:larger;background:white;color:red;padding:1em;margin:0;clear:both;display:block;width:auto;height:auto;overflow:auto'>
 <b>$msg</b>
 $btrace_msg

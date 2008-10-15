@@ -21,7 +21,7 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['install_message'] = 'Anzeige';
+$lang['Installation'] = 'Installation';
 $lang['Initial_config'] = 'Base-Konfiguration';
 $lang['Default_lang'] = 'Standardsprache der Galerie';
 $lang['step1_title'] = 'Konfiguration der Datenbank';
@@ -54,15 +54,13 @@ $lang['step2_pwd'] = 'Passwort';
 $lang['step2_pwd_info'] = 'Sie bleiben vertraulich, es ermöglicht den Zugang zum Administration.';
 $lang['step2_pwd_conf'] = 'Passwort [Bestätigung]';
 $lang['step2_pwd_conf_info'] = 'Prüfung';
-$lang['step1_err_copy'] = 'Kopieren Sie den Text in roter zwischen Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" (Warnung: mysql.inc.php müssen nur enthalten, was in blau, keine Zeile zurück oder Leerzeichen)';
+$lang['step1_err_copy'] = 'Kopieren Sie den Text in rosaen zwischen Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" (Warnung: mysql.inc.php müssen nur enthalten, was in rosa, keine Zeile zurück oder Leerzeichen)';
 $lang['install_help'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Frage auf der <a href="%s"> Forum Piwigo </ a>.';
 $lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der nächste Schritt<br /><br />
 Aus Sicherheitsgründen, bitte löschen Datei "install.php"<br />
-Sobald diese Datei gelöscht, folgen Sie dieser Anleitung:
-<ul>
-<li>Gehen Sie auf die Identifizierung Seite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster</li>
-<li>diesem Login ermöglicht Ihnen den Zugang zu den Verwaltungs-Panel und den Anweisungen, um Platz Bilder in Ihre Verzeichnisse.</li>
-</ul>';
+Sobald diese Datei gelöscht, folgen Sie dieser Anleitung:<br />
+* Gehen Sie auf die Identifizierung Seite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster<br />
+* diesem Login ermöglicht Ihnen den Zugang zu den Verwaltungs-Panel und den Anweisungen, um Platz Bilder in Ihre Verzeichnisse.';
 $lang['conf_mail_webmaster'] = 'Webmaster Mail-Adresse';
 $lang['conf_mail_webmaster_info'] = 'Besucher können sich nicht Kontakt Site Administrator mit diesem E-Mail';
 ?>
