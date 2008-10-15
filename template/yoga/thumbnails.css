@@ -2,7 +2,7 @@
 
 /* Thumbnails customization */
 .content UL.thumbnails SPAN.thumbLegend {
-	font-size: 80%;  /* font size */
+	font-size: 90%;
 	overflow: hidden;/* oversized legend is clipped */
 }
 

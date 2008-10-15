@@ -40,7 +40,7 @@ margin:0; }
 #menubar #mbIdentification  .actions, #menubar li ul, #menubar #mbIdentification form  p { background:transparent none repeat-y scroll left bottom; }
 #menubar #mbIdentification p { padding: 2px 16px 0; margin: 0;}
 #menubar p { padding: 16px 16px 0; }
-#menubar .button { position:relative; right:9px; top:12px; height:16px; }
+#menubar .button { position:relative; right:9px; top:16px; height:16px; }
 #menubar #mbIdentification .button { height:24px; right:0px; top:-40px; }
 #menubar #mbIdentification fieldset { border:0; margin:0 24px 0 23px; }
 #menubar #mbIdentification legend { display: none; }
