@@ -1213,7 +1213,7 @@ function pwg_generate_start()
   $xml_header .= ' generation_date="'.$xml_header_date.'"';
   $xml_header .= ' phpwg_version="'.$xml_header_version.'"';
   $xml_header .= ' metadata="'.$xml_header_metadata.'"';
-  $xml_header .= ' url="'.$xml_header_url.'"';
+  $xml_header .= ' url="'.$xml_header_url.'/"';
   $xml_header .= '>'."\n";
   
   fwrite($g_listing, $xml_header);
