@@ -29,7 +29,7 @@ TD {
   height: 2.5em;
 }
 
-.sql_content {
+.sql_content, .infos a {
   color: #ff3363;
 }
 </style>

@@ -49,14 +49,7 @@ function get_filtered_user_list()
   if (isset($_GET['username']) and !empty($_GET['username']))
   {
     $username = str_replace('*', '%', $_GET['username']);
-    if (function_exists('mysql_real_escape_string'))
-    {
-      $filter['username'] = mysql_real_escape_string($username);
-    }
-    else
-    {
-      $filter['username'] = mysql_escape_string($username);
-    }
+    $filter['username'] = mysql_real_escape_string($username);
   }
 
   if (isset($_GET['group'])

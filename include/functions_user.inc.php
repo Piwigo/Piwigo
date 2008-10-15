@@ -115,7 +115,7 @@ SELECT MAX('.$conf['user_fields']['id'].') + 1
     $insert =
       array(
         $conf['user_fields']['id'] => $next_id,
-        $conf['user_fields']['username'] => mysql_escape_string($login),
+        $conf['user_fields']['username'] => mysql_real_escape_string($login),
         $conf['user_fields']['password'] => $conf['pass_convert']($password),
         $conf['user_fields']['email'] => $mail_address
         );
@@ -716,7 +716,7 @@ function get_userid($username)
 {
   global $conf;
 
-  $username = mysql_escape_string($username);
+  $username = mysql_real_escape_string($username);
 
   $query = '
 SELECT '.$conf['user_fields']['id'].'

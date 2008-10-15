@@ -59,7 +59,7 @@ $lang['install_help'] = 'Besoin d\'aide ? Posez votre question sur le <a href="%
 $lang['install_end_message'] = 'La configuration de l\'application s\'est correctement déroulée, place à la prochaine étape<br /><br />
 Par mesure de sécurité, merci de supprimer le fichier "install.php"<br />
 Un fois ce fichier supprimé, veuillez suivre ces indications :<br />
-* allez sur la page d\'identification : [ <a href="./identification.php">identification</a> ] et connectez-vous avec le pseudo donné pour le webmasterbr<br />
+* allez sur la page d\'identification : [ <a href="./identification.php">identification</a> ] et connectez-vous avec le pseudo donné pour le webmaster<br />
 * celui-ci vous permet d\'accéder à la partie administration et aux instructions pour placer les images dans les répertoires.';
 $lang['conf_mail_webmaster'] = 'Adresse e-mail de l\'Administrateur';
 $lang['conf_mail_webmaster_info'] = 'Les visiteurs pourront vous contacter par ce mail';
