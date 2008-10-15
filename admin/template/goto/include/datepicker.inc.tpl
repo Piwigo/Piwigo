@@ -1,9 +1,15 @@
 {* $Id$ *}
+
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
 {known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.datepicker.packed.js"}
-{known_script id="jquery.ui.datepicker-$lang_info.code" src=$ROOT_URL|@cat:"template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
 {known_script id="datepicker.js" src=$ROOT_URL|@cat:"template-common/datepicker.js"}
+
+{assign var="datepicker_language" value="template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
+
+{if "PHPWG_ROOT_PATH"|@constant|@cat:$datepicker_language|@file_exists}
+{known_script id="jquery.ui.datepicker-$lang_info.code" src=$ROOT_URL|@cat:$datepicker_language}
+{/if}
 
 {html_head}
 <link rel="stylesheet" type="text/css" href="{$ROOT_URL}template-common/lib/ui/ui.datepicker.css">
