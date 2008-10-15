@@ -166,9 +166,9 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div  a:hover { color: #ff3363 !important; border: 0; background: #111 !important; }
 #ui-datepicker-div .ui-datepicker-header select { color:#999; font-weight:normal; }
 input[type="button"], input[type="submit"], input[type="reset"] {
-background-color:#ff3363; color:#222; border-color: #ff3363; }
+color:#ff3363; background-color:#222; border-color: #ff3363; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-background-color:#999; border-color: #666; }
+color:#999; border-color: #666; }
 .bigbutton { background:transparent url(images/quickLocalSync_inactiv.png) no-repeat scroll left top; display: block;
 color:#111; font-size:28px; height:161px; margin: 0 20px 0 auto; padding:0 18px 0; text-align:center; width:625px; 
 position:relative;  z-index: 50;}
