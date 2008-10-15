@@ -88,7 +88,7 @@ border: 1px solid #666;	/* thumbnails border color and style */
 border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ }
 .content UL.thumbnails SPAN.wrap2:hover { color: #666;
 background-color: #111; border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ }
-#comments ul.actions li, #comments ul.actions li:hover { background:transparent none; padding: 0 22px; clear:both; }
+#comments ul.actions li, #comments ul.actions li:hover { background:transparent none; padding: 0 22px; clear:both; list-style-type:none; }
 A, INPUT.rateButton { color:#f70; border-width: 0; }
 A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer; }
 #theImage A, .illustration A, A.navThumb, A.navThumb { border-bottom-width: 0; }
@@ -101,8 +101,8 @@ A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer;
 .rateButtonStarEmpty { background-image: url('icon/rating-stars.gif'); }
 #menubar #mbIdentification fieldset div input[type="text"] { margin: 0 0 3px; width: 174px; display: inline; }
 input[type="button"], input[type="submit"], input[type="reset"] {
-background-color:#ff3363; color:#222; border-color: #ff3363; }
+color:#ff3363; background-color:#222; border-color: #ff3363; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-background-color:#999; border-color: #666; }
+color:#999; border-color: #666; }
 /* IE6... Hacks: */
 /*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ 
