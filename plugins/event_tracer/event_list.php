@@ -16,7 +16,7 @@ function get_php_files($path, $to_ignore=array(), $recursive=true )
           if ( $recursive and is_dir($path.'/'.$node) )
           {
             $files = array_merge($files, get_php_files($path.'/'.$node, $to_ignore));
-            
+
           }
           if ( is_file($path.'/'.$node) )
           {
@@ -43,7 +43,7 @@ foreach ($files as $file)
   $code = preg_replace( '#\?'.'>.*<\?php#m', '', $code);
   $code = preg_replace( '#\/\*.*\*\/#m', '', $code);
   $code = preg_replace( '#\/\/.*#', '', $code);
-  
+
   $count = preg_match_all(
     '#[^a-zA-Z_$-]trigger_(action|event)\s*\(\s*([^,)]+)#m',
     $code, $matches
@@ -57,7 +57,7 @@ foreach ($files as $file)
   }
 }
 
-$sort= isset($_GET['sort']) ? $_GET['sort'] : 1;
+$sort= isset($_GET['sort']) ? (int)$_GET['sort'] : 1;
 usort(
   $events,
   create_function( '$a,$b', 'return $a['.$sort.']>$b['.$sort.'];' )
