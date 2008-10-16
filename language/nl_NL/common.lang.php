@@ -160,7 +160,6 @@ $lang['comment_to_validate'] = 'Een beheerder moet je commentaar goedkeuren voor
 $lang['comment_user_exists'] = 'Deze gebruikersnaam is al in gebruik';
 $lang['comments'] = 'Commentaar';
 $lang['comments_add'] = 'voeg commentaar toe';
-$lang['comments_title'] = 'Commentaar van gebruikers van deze website';
 $lang['created after %s (%s)'] = 'Gemaakt na %s (%s)';
 $lang['created before %s (%s)'] = 'Gemaakt voor %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'Gemaakt tussen %s (%s) en %s (%s)';

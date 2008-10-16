@@ -28,7 +28,7 @@
 <div id="imageHeaderBar">
   <div class="browsePath">
     <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
-    {if $SECTION_TITLE != 'no_category'|@translate}{$LEVEL_SEPARATOR}{$SECTION_TITLE}{/if}
+    {if !$IS_HOME}{$LEVEL_SEPARATOR}{$SECTION_TITLE}{/if}
     {$LEVEL_SEPARATOR}{$current.TITLE}
   </div>
   <div class="imageNumber">{$PHOTO}</div>
@@ -80,7 +80,7 @@ y.callService(
       <a href="{$U_CADDIE}" onclick="addToCadie(this, '{$ROOT_URL|@escape:'javascript'}', {$current.id}); return false;" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"></a>
     {/if}{*caddie management END*}
   </div>
-  {include file=$FILE_PICTURE_NAV_BUTTONS}
+  {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div> <!-- imageToolBar -->
 
 <div id="theImage">
@@ -251,7 +251,7 @@ y.callService(
 
 {if isset($COMMENT_COUNT)}
 <div id="comments">
-	<h3>[{$COMMENT_COUNT}] {'comments_title'|@translate}</h3>
+	<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
 
 	{if !empty($COMMENT_NAV_BAR)}
 	<div class="navigationBar">{$COMMENT_NAV_BAR}</div>

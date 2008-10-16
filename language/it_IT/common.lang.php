@@ -160,7 +160,6 @@ $lang['comment_to_validate'] = 'Un amministratore deve autorizzare il tuo commen
 $lang['comment_user_exists'] = 'Questo nome utente esiste già';
 $lang['comments'] = 'Commenti';
 $lang['comments_add'] = 'Aggiunti un commento';
-$lang['comments_title'] = 'Commenti degli utenti';
 $lang['created after %s (%s)'] = 'creata dopo il %s (%s)';
 $lang['created before %s (%s)'] = 'creata prima del %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'creata tra il %s (%s) e il %s (%s)';

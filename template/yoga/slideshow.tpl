@@ -12,7 +12,7 @@
 </div>
 
 <div id="imageToolBar">
-  {include file=$FILE_PICTURE_NAV_BUTTONS}
+  {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
 </div>
 
 <div id="theImage">

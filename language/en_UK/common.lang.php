@@ -160,7 +160,6 @@ $lang['comment_to_validate'] = 'An administrator must authorize your comment bef
 $lang['comment_user_exists'] = 'This login is already used by another user';
 $lang['comments'] = 'Comments';
 $lang['comments_add'] = 'Add a comment';
-$lang['comments_title'] = 'Comments from the users of the site';
 $lang['created after %s (%s)'] = 'created after %s (%s)';
 $lang['created before %s (%s)'] = 'created before %s (%s)';
 $lang['created between %s (%s) and %s (%s)'] = 'created between %s (%s) and %s (%s)';
