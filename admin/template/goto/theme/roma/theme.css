@@ -78,7 +78,7 @@ a { color:#f70; border-width: 0; }
 a:hover, a:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer; }
 
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
-margin:0 20px; height:95px; overflow:hidden; padding:0; position:absolute; 
+margin:0 20px; height:104px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
 .header_msgs { background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
 border:0; color:#333; font-size:24px; height:30px; left:0; margin:0; padding:10px 0 0; position:absolute;
@@ -165,6 +165,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #ff3363; }
 #ui-datepicker-div  a:hover { color: #ff3363 !important; border: 0; background: #111 !important; }
 #ui-datepicker-div .ui-datepicker-header select { color:#999; font-weight:normal; }
+INPUT[type="text"].large  { width: 317px; }
 input[type="button"], input[type="submit"], input[type="reset"] {
 color:#ff3363; background-color:#222; border-color: #ff3363; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {

@@ -125,7 +125,7 @@
           <label><input type="radio" name="author_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
           <label><input type="radio" name="author_action" value="unset" /> {'unset'|@translate}</label>
           <label><input type="radio" name="author_action" value="set" id="author_action_set" /> {'set to'|@translate}</label>
-          <input onchange="document.getElementById('author_action_set').checked = true;" type="text" name="author" value="" />
+          <input onchange="document.getElementById('author_action_set').checked = true;" type="text" class="large" name="author" value="" />
         </td>
       </tr>
 
@@ -135,7 +135,7 @@
           <label><input type="radio" name="name_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
           <label><input type="radio" name="name_action" value="unset" /> {'unset'|@translate}</label>
           <label><input type="radio" name="name_action" value="set" id="name_action_set" /> {'set to'|@translate}</label>
-          <input onchange="document.getElementById('name_action_set').checked = true;" type="text" name="name" value="" />
+          <input onchange="document.getElementById('name_action_set').checked = true;" type="text" class="large" name="name" value="" />
         </td>
       </tr>
 
