@@ -40,7 +40,7 @@
     <tr>
       <td><strong>{'Name'|@translate}</strong></td>
       <td>
-        <input type="text" name="name" value="{$CAT_NAME}" maxlength="60"/>
+        <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60"/>
       </td>
     </tr>
     <tr>
@@ -156,7 +156,7 @@
   <table>
     <tr>
       <td>{'Virtual category name'|@translate}</td>
-      <td><input type="text" name="virtual_name"></td>
+      <td><input type="text" class="large" name="virtual_name"></td>
     </tr>
 
     <tr>

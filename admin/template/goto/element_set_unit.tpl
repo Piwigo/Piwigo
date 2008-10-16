@@ -40,12 +40,12 @@
 
     <tr>
       <td><strong>{'Name'|@translate}</strong></td>
-      <td><input type="text" name="name-{$element.ID}" value="{$element.NAME}" /></td>
+      <td><input type="text" class="large" name="name-{$element.ID}" value="{$element.NAME}" /></td>
     </tr>
 
     <tr>
       <td><strong>{'Author'|@translate}</strong></td>
-      <td><input type="text" name="author-{$element.ID}" value="{$element.AUTHOR}" /></td>
+      <td><input type="text" class="large" name="author-{$element.ID}" value="{$element.AUTHOR}" /></td>
     </tr>
 
     <tr>

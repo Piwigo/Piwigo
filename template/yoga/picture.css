@@ -83,6 +83,8 @@ TABLE.infoTable TD.value UL {
 	list-style-type: square;
 }
 
+.thumbnailCategories li { list-style: none; }
+
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
 	padding:0;
 	border:0;

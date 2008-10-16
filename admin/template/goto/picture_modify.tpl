@@ -84,12 +84,12 @@
 
       <tr>
         <td><strong>{'Name'|@translate}</strong></td>
-        <td><input type="text" name="name" value="{$NAME}" /></td>
+        <td><input type="text" class="large" name="name" value="{$NAME}" /></td>
       </tr>
 
       <tr>
         <td><strong>{'Author'|@translate}</strong></td>
-        <td><input type="text" name="author" value="{$AUTHOR}" /></td>
+        <td><input type="text" class="large" name="author" value="{$AUTHOR}" /></td>
       </tr>
 
       <tr>
