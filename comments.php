@@ -65,7 +65,7 @@ $page['since'] = isset($_GET['since']) ? $_GET['since'] : 4;
 //
 $page['sort_by'] = 'date';
 // if the form was submitted, it overloads default behaviour
-if (isset($_GET['sort_by']))
+if (isset($_GET['sort_by']) and isset($sort_by[$_GET['sort_by']]) )
 {
   $page['sort_by'] = $_GET['sort_by'];
 }
@@ -74,7 +74,7 @@ if (isset($_GET['sort_by']))
 //
 $page['sort_order'] = 'DESC';
 // if the form was submitted, it overloads default behaviour
-if (isset($_GET['sort_order']))
+if (isset($_GET['sort_order']) and isset($sort_order[$_GET['sort_order']]))
 {
   $page['sort_order'] = $_GET['sort_order'];
 }
