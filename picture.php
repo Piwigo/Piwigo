@@ -686,10 +686,9 @@ $template->assign(
     'SECTION_TITLE' => $page['title'],
     'PHOTO' => $title_nb,
     'SHOW_PICTURE_NAME_ON_TITLE' => $conf['show_picture_name_on_title'],
+    'IS_HOME' => ('categories'==$page['section'] and !isset($page['category']) ),
 
     'LEVEL_SEPARATOR' => $conf['level_separator'],
-
-    'FILE_PICTURE_NAV_BUTTONS' => 'picture_nav_buttons.tpl',
 
     'U_HOME' => make_index_url(),
     'U_UP' => $url_up,
