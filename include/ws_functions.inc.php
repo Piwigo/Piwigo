@@ -1107,17 +1107,9 @@ function ws_session_login($params, &$service)
  */
 function ws_session_logout($params, &$service)
 {
-  global $user, $conf;
   if (!is_a_guest())
   {
-    $_SESSION = array();
-    session_unset();
-    session_destroy();
-    setcookie(session_name(),'',0,
-        ini_get('session.cookie_path'),
-        ini_get('session.cookie_domain')
-      );
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    logout_user();
   }
   return true;
 }
@@ -1355,7 +1347,7 @@ function ws_categories_add($params, &$service)
   }
 
   invalidate_user_cache();
-  
+
   return $creation_output;
 }
 
@@ -1393,18 +1385,18 @@ function ws_images_exist($params, &$service)
     -1,
     PREG_SPLIT_NO_EMPTY
     );
-  
+
   $query = '
 SELECT
     id,
     md5sum
   FROM '.IMAGES_TABLE.'
-  WHERE md5sum IN (\''.implode("','", $md5sums).'\')  
+  WHERE md5sum IN (\''.implode("','", $md5sums).'\')
 ;';
   $id_of_md5 = simple_hash_from_query($query, 'md5sum', 'id');
 
   $result = array();
-  
+
   foreach ($md5sums as $md5sum)
   {
     $result[$md5sum] = null;
@@ -1431,7 +1423,7 @@ function ws_images_setInfo($params, &$service)
   // file_sum
   // thumbnail_content
   // thumbnail_sum
-  
+
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] <= 0)
   {
@@ -1485,7 +1477,7 @@ SELECT *
       array($update)
       );
   }
-  
+
   if (isset($params['categories']))
   {
     ws_add_image_category_relations(

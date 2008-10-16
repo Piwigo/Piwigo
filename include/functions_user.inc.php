@@ -1013,16 +1013,28 @@ function log_user($user_id, $remember_me)
     if ($key!==false)
     {
       $cookie = $user_id.'-'.$now.'-'.$key;
-      setcookie($conf['remember_me_name'],
+      if (version_compare(PHP_VERSION, '5.2', '>=') )
+      {
+        setcookie($conf['remember_me_name'],
             $cookie,
             time()+$conf['remember_me_length'],
-            cookie_path()
+            cookie_path(),ini_get('session.cookie_domain'),ini_get('session.cookie_secure'),
+            ini_get('session.cookie_httponly')
           );
+      }
+      else
+      {
+        setcookie($conf['remember_me_name'],
+            $cookie,
+            time()+$conf['remember_me_length'],
+            cookie_path(),ini_get('session.cookie_domain'),ini_get('session.cookie_secure')
+          );
+      }
     }
   }
   else
   { // make sure we clean any remember me ...
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    setcookie($conf['remember_me_name'], '', 0, cookie_path(),ini_get('session.cookie_domain'));
   }
   if ( session_id()!="" )
   { // we regenerate the session for security reasons
@@ -1062,7 +1074,7 @@ function auto_login() {
         return true;
       }
     }
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    setcookie($conf['remember_me_name'], '', 0, cookie_path(),ini_get('session.cookie_domain'));
   }
   return false;
 }
@@ -1090,6 +1102,20 @@ SELECT '.$conf['user_fields']['id'].' AS id,
   }
   trigger_action('login_failure', $username);
   return false;
+}
+
+/** Performs all the cleanup on user logout */
+function logout_user()
+{
+  global $conf;
+  $_SESSION = array();
+  session_unset();
+  session_destroy();
+  setcookie(session_name(),'',0,
+      ini_get('session.cookie_path'),
+      ini_get('session.cookie_domain')
+    );
+  setcookie($conf['remember_me_name'], '', 0, cookie_path(),ini_get('session.cookie_domain'));
 }
 
 /*

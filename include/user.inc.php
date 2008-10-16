@@ -29,14 +29,7 @@ if (isset($_COOKIE[session_name()]))
   session_start();
   if (isset($_GET['act']) and $_GET['act'] == 'logout')
   { // logout
-    $_SESSION = array();
-    session_unset();
-    session_destroy();
-    setcookie(session_name(),'',0,
-        ini_get('session.cookie_path'),
-        ini_get('session.cookie_domain')
-      );
-    setcookie($conf['remember_me_name'], '', 0, cookie_path());
+    logout_user();
     redirect(make_index_url());
   }
   elseif (!empty($_SESSION['pwg_uid']))

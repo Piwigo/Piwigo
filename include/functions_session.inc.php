@@ -66,6 +66,7 @@ if (isset($conf['session_save_handler'])
     ini_set('session.use_cookies', $conf['session_use_cookies']);
     ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
     ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+    ini_set('session.cookie_httponly', 1);
   }
   session_name($conf['session_name']);
   session_set_cookie_params(0, cookie_path());
