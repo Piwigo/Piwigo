@@ -343,5 +343,5 @@ WHERE
 pwg_query($query);
 
 // now we upgrade from 1.7.0
-// include_once(PHPWG_ROOT_PATH.'install/upgrade_1.7.0.php');
+include_once(PHPWG_ROOT_PATH.'install/upgrade_1.7.0.php');
 ?>

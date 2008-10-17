@@ -196,6 +196,10 @@ if (!isset($_GET['version']))
       $current_release = '1.6.2';
     }
   }
+  else if (!in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
+  {
+    $current_release = '1.7.0';
+  }
   else
   {
     die('No upgrade required, the database structure is up to date');
@@ -217,7 +221,7 @@ if (!isset($_GET['version']))
 
 else
 {
-  if (in_array(PREFIX_TABLE.'history_summary', $tables))
+  if (in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
   {
     die('No database upgrade required, do not refresh the page');
   }
@@ -229,29 +233,6 @@ else
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
-
-    // Available upgrades must be ignored after a fresh installation. To
-    // make PWG avoid upgrading, we must tell it upgrades have already been
-    // made.
-    list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
-    define('CURRENT_DATE', $dbnow);
-    $datas = array();
-    foreach (get_available_upgrade_ids() as $upgrade_id)
-    {
-      array_push(
-        $datas,
-        array(
-          'id'          => $upgrade_id,
-          'applied'     => CURRENT_DATE,
-          'description' => 'upgrade included in migration',
-          )
-        );
-    }
-    mass_inserts(
-      UPGRADE_TABLE,
-      array_keys($datas[0]),
-      $datas
-      );
 
     // Create empty local files to avoid log errors
     create_empty_local_files();
@@ -298,18 +279,7 @@ if you encounter any problem.'
 
     $template->assign('infos', $page['infos']);
 
-    $query = '
-UPDATE '.USER_CACHE_TABLE.'
-  SET need_update = \'true\'
-;';
-
-    pwg_query($query);
-    $query = '
-REPLACE INTO '.PLUGINS_TABLE.'
-  (id, state)
-  VALUES (\'c13y_upgrade\', \'active\')
-;';
-    pwg_query($query);
+    invalidate_user_cache();
   }
   else
   {
