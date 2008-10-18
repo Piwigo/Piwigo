@@ -99,7 +99,7 @@ function add_url_params($url, $params)
       if ($is_first)
       {
         $is_first = false;
-        $url .= ( strstr($url, '?')===false ) ? '?' :'&amp;';
+        $url .= ( strpos($url, '?')===false ) ? '?' :'&amp;';
       }
       else
       {
@@ -245,7 +245,7 @@ function make_picture_url($params)
       if ( isset($params['image_file']) )
       {
         $fname_wo_ext = get_filename_wo_extension($params['image_file']);
-        if (! preg_match('/^\d+(-|$)/', $fname_wo_ext) )
+        if ( ord($fname_wo_ext)>ord('9') or !preg_match('/^\d+(-|$)/', $fname_wo_ext) )
         {
           $url .= $fname_wo_ext;
           break;
@@ -440,7 +440,7 @@ function make_section_in_url($params)
 function parse_section_url( $tokens, &$next_token)
 {
   $page=array();
-  if (0 === strpos(@$tokens[$next_token], 'categor'))
+  if (strncmp(@$tokens[$next_token], 'categor', 7)==0 )
   {
     $page['section'] = 'categories';
     $next_token++;
@@ -505,7 +505,7 @@ function parse_section_url( $tokens, &$next_token)
       $page['category']=$result;
     }
   }
-  else if (0 === strpos(@$tokens[$next_token], 'tag'))
+  elseif ( 'tags' == @$tokens[$next_token] )
   {
     $page['section'] = 'tags';
     $page['tags'] = array();
@@ -518,7 +518,9 @@ function parse_section_url( $tokens, &$next_token)
 
     while (isset($tokens[$i]))
     {
-      if ( preg_match('/^(created-|posted-|start-(\d)+)/', $tokens[$i]) )
+      if (strpos($tokens[$i], 'created-')===0
+           or strpos($tokens[$i], 'posted-')===0
+           or strpos($tokens[$i], 'start-')===0 )
         break;
 
       if ( preg_match('/^(\d+)(?:-(.*))?/', $tokens[$i], $matches) )
@@ -544,32 +546,32 @@ function parse_section_url( $tokens, &$next_token)
       page_not_found('Requested tag does not exist', get_root_url().'tags.php' );
     }
   }
-  else if (0 === strpos(@$tokens[$next_token], 'fav'))
+  elseif ( 'favorites' == @$tokens[$next_token] )
   {
     $page['section'] = 'favorites';
     $next_token++;
   }
-  else if ('most_visited' == @$tokens[$next_token])
+  elseif ('most_visited' == @$tokens[$next_token])
   {
     $page['section'] = 'most_visited';
     $next_token++;
   }
-  else if ('best_rated' == @$tokens[$next_token])
+  elseif ('best_rated' == @$tokens[$next_token])
   {
     $page['section'] = 'best_rated';
     $next_token++;
   }
-  else if ('recent_pics' == @$tokens[$next_token])
+  elseif ('recent_pics' == @$tokens[$next_token])
   {
     $page['section'] = 'recent_pics';
     $next_token++;
   }
-  else if ('recent_cats' == @$tokens[$next_token])
+  elseif ('recent_cats' == @$tokens[$next_token])
   {
     $page['section'] = 'recent_cats';
     $next_token++;
   }
-  else if ('search' == @$tokens[$next_token])
+  elseif ('search' == @$tokens[$next_token])
   {
     $page['section'] = 'search';
     $next_token++;
@@ -582,7 +584,7 @@ function parse_section_url( $tokens, &$next_token)
     $page['search'] = $matches[1];
     $next_token++;
   }
-  else if ('list' == @$tokens[$next_token])
+  elseif ('list' == @$tokens[$next_token])
   {
     $page['section'] = 'list';
     $next_token++;
@@ -621,18 +623,12 @@ function parse_well_known_params_url($tokens, &$i)
   $page = array();
   while (isset($tokens[$i]))
   {
-    if (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
-    {
-      $page['start'] = $matches[1];
-    }
-
     if ( 'flat' == $tokens[$i] )
     {
       // indicate a special list of images
       $page['flat'] = true;
     }
-
-    if (preg_match('/^(posted|created)/', $tokens[$i] ))
+    elseif (strpos($tokens[$i], 'created-')===0 or strpos($tokens[$i], 'posted-')===0)
     {
       $chronology_tokens = explode('-', $tokens[$i] );
 
@@ -652,6 +648,10 @@ function parse_well_known_params_url($tokens, &$i)
         }
         $page['chronology_date'] = $chronology_tokens;
       }
+    }
+    elseif (preg_match('/^start-(\d+)/', $tokens[$i], $matches))
+    {
+      $page['start'] = $matches[1];
     }
     $i++;
   }

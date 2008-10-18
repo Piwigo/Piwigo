@@ -81,7 +81,7 @@ function create_navigation_bar(
 
   $pages_around = $conf['paginate_pages_around'];
   $start_str = $clean_url ? '/start-' :
-    ( ( strstr($url, '?')===false ? '?':'&amp;') . 'start=' );
+    ( ( strpos($url, '?')===false ? '?':'&amp;') . 'start=' );
 
   $navbar = '';
 
@@ -781,8 +781,7 @@ function set_status_header($code, $text='')
 function render_category_description($desc)
 {
   global $conf;
-  if ( !( $conf['allow_html_descriptions'] and
-          preg_match('/<(div|br|img|script).*>/i', $desc) ) )
+  if ( !$conf['allow_html_descriptions'] )
   {
     $desc = nl2br($desc);
   }

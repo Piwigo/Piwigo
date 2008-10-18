@@ -65,10 +65,7 @@ else
 }
 
 // deleting first "/" if displayed
-$tokens = explode(
-  '/',
-  preg_replace('#^/#', '', $rewritten)
-  );
+$tokens = explode('/', ltrim($rewritten, '/') );
 // $tokens = array(
 //   0 => category,
 //   1 => 12-foo,
@@ -183,7 +180,7 @@ if ('categories' == $page['section'] and !isset($page['flat']))
 if (pwg_get_session_var('image_order',0) > 0)
 {
   $image_order_id = pwg_get_session_var('image_order');
-  
+
   $orders = get_category_preferred_image_orders();
 
   // the current session stored image_order might be not compatible with
@@ -339,12 +336,10 @@ SELECT DISTINCT image_id
       $items =  array_from_query($query, 'image_id');
     }
 
-    $title = get_tags_content_title();
-
     $page = array_merge(
       $page,
       array(
-        'title' => $title,
+        'title' => get_tags_content_title(),
         'items' => $items,
         )
       );
