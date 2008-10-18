@@ -32,19 +32,19 @@
       {/if}
 
       {if isset($U_MODE_FLAT) }
-      <li><a href="{$U_MODE_FLAT}" title="{'mode_flat_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/flat.png" class="button" alt="{'mode_flat_hint'|@translate}"></a></li>
+      <li><a href="{$U_MODE_FLAT}" title="{'mode_flat_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/flat.png" class="button" alt="{'mode_flat_hint'|@translate}" /></a></li>
       {/if}
 
       {if isset($U_MODE_NORMAL) }
-      <li><a href="{$U_MODE_NORMAL}" title="{'mode_normal_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/normal_mode.png" class="button" alt="{'mode_normal_hint'|@translate}"></a></li>
+      <li><a href="{$U_MODE_NORMAL}" title="{'mode_normal_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/normal_mode.png" class="button" alt="{'mode_normal_hint'|@translate}" /></a></li>
       {/if}
 
       {if isset($U_MODE_POSTED) }
-      <li><a href="{$U_MODE_POSTED}" title="{'mode_posted_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar.png" class="button" alt="{'mode_posted_hint'|@translate}"></a></li>
+      <li><a href="{$U_MODE_POSTED}" title="{'mode_posted_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar.png" class="button" alt="{'mode_posted_hint'|@translate}" /></a></li>
       {/if}
       
       {if isset($U_MODE_CREATED) }
-      <li><a href="{$U_MODE_CREATED}" title="{'mode_created_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar_created.png" class="button" alt="{'mode_created_hint'|@translate}"></a></li>
+      <li><a href="{$U_MODE_CREATED}" title="{'mode_created_hint'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/calendar_created.png" class="button" alt="{'mode_created_hint'|@translate}" /></a></li>
       {/if}
       
       {if !empty($PLUGIN_INDEX_ACTIONS)}{$PLUGIN_INDEX_ACTIONS}{/if}
@@ -71,7 +71,7 @@
 {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
 {if !empty($category_search_results) }
-<div style="font-size:16px;text-align:left;margin:10px">{'Category results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<div style="font-size:16px;margin:10px 16px">{'Category results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
   <em><strong>
   {foreach from=$category_search_results item=res name=res_loop}
   {if !$smarty.foreach.res_loop.first} &mdash; {/if}
@@ -82,7 +82,7 @@
 {/if}
 
 {if !empty($tag_search_results) }
-<div style="font-size:16px;text-align:left;margin:10px">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+<div style="font-size:16px;margin:10px 16px">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
   <em><strong>
   {foreach from=$tag_search_results item=res name=res_loop}
   {if !$smarty.foreach.res_loop.first} &mdash; {/if}
