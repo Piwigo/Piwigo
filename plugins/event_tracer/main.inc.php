@@ -34,12 +34,11 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 class EventTracer
 {
-  var $me_working;
   var $my_config;
+  var $trigger_counts = array();
 
   function EventTracer()
   {
-    $this->me_working=0;
   }
 
   function get_config_file_dir()
@@ -67,6 +66,7 @@ class EventTracer
     {
       $this->my_config['filters'] = array( '.*' );
       $this->my_config['show_args'] = false;
+      $this->my_config['show_registered'] = true;
       $this->save_config();
     }
   }
@@ -82,6 +82,7 @@ class EventTracer
 
   function on_pre_trigger_event($event_info)
   {
+    @$this->trigger_counts[$event_info['event']]++;
     $this->dump('pre_trigger_event', $event_info);
   }
   function on_post_trigger_event($event_info)
@@ -91,7 +92,41 @@ class EventTracer
 
   function on_trigger_action($event_info)
   {
+   @$this->trigger_counts[$event_info['event']]++;
     $this->dump('trigger_action', $event_info);
+  }
+
+  function on_page_tail()
+  {
+    if (1 || @$this->my_config['show_registered'])
+    {
+      global $debug, $pwg_event_handlers;
+      $out = '';
+      foreach ($pwg_event_handlers as $event => $prio_array)
+      {
+        $out .= $event.' '.intval(@$this->trigger_counts[$event])." calls\n";
+        foreach ($prio_array as $prio => $handlers)
+        {
+          foreach ($handlers as $handler)
+          {
+            $out .= "\t$prio ";
+            if ( is_array($handler['function']) )
+            {
+              if ( is_string($handler['function'][0]) )
+                $out .= $handler['function'][0].'::';
+              else
+                $out .= @get_class($handler['function'][0]).'->';
+              $out .= $handler['function'][1];
+            }
+            else
+             $out .= $handler['function'];
+            $out .= "\n";
+          }
+        }
+        $out .= "\n";
+      }
+      $debug .= '<pre>'.$out.'</pre>';
+    }
   }
 
   function dump($event, $event_info)
@@ -108,7 +143,7 @@ class EventTracer
         }
         else
           $s = '';
-        pwg_debug($event.' "'.$event_info['event'].'" '.($s) );
+        pwg_debug($event.' "'.$event_info['event'].'" '.($this->trigger_counts[$event_info['event']]).' calls '.($s) );
         break;
       }
     }
@@ -132,6 +167,7 @@ $obj->load_config();
 add_event_handler('get_admin_plugin_menu_links', array(&$obj, 'plugin_admin_menu') );
 add_event_handler('pre_trigger_event', array(&$obj, 'on_pre_trigger_event') );
 add_event_handler('post_trigger_event', array(&$obj, 'on_post_trigger_event') );
+add_event_handler('loc_begin_page_tail', array(&$obj, 'on_page_tail') );
 add_event_handler('trigger_action', array(&$obj, 'on_trigger_action') );
 set_plugin_data($plugin['id'], $obj);
 ?>
