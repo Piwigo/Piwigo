@@ -187,6 +187,7 @@ function ws_caddie_add($params, &$service)
   {
     return new PwgError(401, 'Access denied');
   }
+  $params['image_id'] = array_map( 'intval',$params['image_id'] );
   if ( empty($params['image_id']) )
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
@@ -291,7 +292,7 @@ SELECT i.*, GROUP_CONCAT(category_id) cat_ids
     AND ', $where_clauses).'
 GROUP BY i.id
 '.$order_by.'
-LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
+LIMIT '.(int)($params['per_page']*$params['page']).','.(int)$params['per_page'];
 
     $result = pwg_query($query);
     while ($row = mysql_fetch_assoc($result))
@@ -683,8 +684,8 @@ SELECT id, date, author, content
   FROM '.COMMENTS_TABLE.'
   WHERE '.$where_comments.'
   ORDER BY date
-  LIMIT '.$params['comments_per_page']*(int)$params['comments_page'].
-    ','.$params['comments_per_page'];
+  LIMIT '.(int)($params['comments_per_page']*$params['comments_page']).
+    ','.(int)$params['comments_per_page'];
 
     $result = pwg_query($query);
     while ($row = mysql_fetch_assoc($result))
@@ -857,6 +858,7 @@ function ws_images_setPrivacyLevel($params, &$service)
   {
     return new PwgError(401, 'Access denied');
   }
+  $params['image_id'] = array_map( 'intval',$params['image_id'] );
   if ( empty($params['image_id']) )
   {
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
@@ -1342,7 +1344,7 @@ SELECT DISTINCT i.* FROM '.IMAGES_TABLE.' i
   WHERE '. implode('
     AND ', $where_clauses).'
 '.$order_by.'
-LIMIT '.$params['per_page']*$params['page'].','.$params['per_page'];
+LIMIT '.(int)($params['per_page']*$params['page']).','.(int)$params['per_page'];
 
     $result = pwg_query($query);
     while ($row = mysql_fetch_assoc($result))

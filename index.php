@@ -197,7 +197,7 @@ if ( $page['section']=='search' and $page['start']==0 and
     $hints = array();
     foreach ( $cats as $cat )
     {
-      $hints[] = get_cat_display_name( array($cat) );
+      $hints[] = get_cat_display_name( array($cat), '', false );
     }
     $template->assign( 'category_search_results', $hints);
   }

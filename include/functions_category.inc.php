@@ -273,7 +273,8 @@ function get_category_preferred_image_orders()
       l10n('Rank'),
       'rank ASC',
       ('categories' == @$page['section'] and !isset($page['flat']) and !isset($page['chronology_field']) )
-      )
+      ),
+    array( l10n('permissions'), 'level DESC', is_admin() )
     ));
 }
 
