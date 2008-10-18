@@ -12,13 +12,21 @@ You can use this plugin to see what events is Piwigo calling.
 <fieldset>
 	<legend>Event Tracer</legend>
 
-<label>Show event argument
+<label>Show event arguments
 	<input type="checkbox" name="eventTracer_show_args" {$EVENT_TRACER_SHOW_ARGS} />
 </label>
+
 <br/>
+
 <label>Fill below a list of regular expressions (one per line).
 An event will be logged if its name matches at least one expression in the list.
 	<textarea name="eventTracer_filters" id="eventTracer_filters"rows="10" cols="80">{$EVENT_TRACER_FILTERS}</textarea>
+</label>
+
+<br/>
+
+<label>Show all registered handlers
+	<input type="checkbox" name="eventTracer_show_registered" {$EVENT_TRACER_SHOW_REGISTERED} />
 </label>
 
 </fieldset>
