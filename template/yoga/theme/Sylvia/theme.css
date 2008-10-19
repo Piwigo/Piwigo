@@ -59,10 +59,7 @@ padding: 0 0 0 10px; margin: 0; }
 #content .thumbnailCategory div.description { background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 margin: 0; padding:15px 10px 3px 0; overflow: hidden; }
 #content .thumbnailCategory div.description .text { display:block; margin:10px 2px 0 0;
-overflow: auto; overflow-x:hidden; padding:0 0 5px;  /* Only IE family supports colored scrollbar */
- scrollbar-face-color: #222; scrollbar-shadow-color: #444; scrollbar-highlight-color: #000;
- scrollbar-3dlight-color: #292929; scrollbar-darkshadow-color: #333; scrollbar-track-color: #111;
- scrollbar-arrow-color: #f70; }
+overflow: auto; overflow-x:hidden; padding:0 0 5px; }
 .content div.thumbnailCategory div.description p.dates { margin: 0 15px 0 15px; text-align: right; }
 #content.content .thumbnailCategory div.description H3 { display: block; margin: 0; }
 #content ul.thumbnailCategories li:hover { background-color:#111; } 
@@ -95,8 +92,8 @@ A:hover, A:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer;
 #imageToolBar { padding:0 7%; }
 #imageHeaderBar .imageNumber { margin-right:7%; }
 #imageHeaderBar .browsePath { margin-left:7%; }
-*, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
-#debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; word-wrap:break-word;}
+*, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; }
+#debug { margin: 15px 15px 5px 248px; font-size:12px; clear: both; }
 .rateButtonStarFull { 	background-image: url('icon/rating-stars.gif'); }
 .rateButtonStarEmpty { background-image: url('icon/rating-stars.gif'); }
 #menubar #mbIdentification fieldset div input[type="text"] { margin: 0 0 3px; width: 174px; display: inline; }
@@ -104,5 +101,3 @@ input[type="button"], input[type="submit"], input[type="reset"] {
 color:#ff3363; background-color:#222; border-color: #ff3363; }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 color:#999; border-color: #666; }
-/* IE6... Hacks: */
-/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ 
