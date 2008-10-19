@@ -235,6 +235,7 @@ if (!empty($category['id_uppercat']))
 $template->assign(
   array(
     'CATEGORIES_NAV'     => $navigation,
+    'CAT_ID'             => $category['id'],
     'CAT_NAME'           => @htmlspecialchars($category['name']),
     'CAT_COMMENT'        => @htmlspecialchars($category['comment']),
 
