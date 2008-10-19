@@ -1,0 +1,12 @@
+#content.thumbnailCategory div.description .text {
+	scrollbar-face-color:#222;
+	scrollbar-shadow-color:#444;
+	scrollbar-highlight-color:#000;
+	scrollbar-darkshadow-color:#333;
+	scrollbar-track-color:#111;
+	scrollbar-arrow-color:#f70;
+}
+
+#debug { word-wrap:break-word; }
+/* IE6... Hacks: */
+/*\*/ * html #menubar #mbIdentification .button { margin-right:25px; } /* */ 

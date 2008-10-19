@@ -251,8 +251,9 @@ y.callService(
 
 {if isset($COMMENT_COUNT)}
 <div id="comments">
-	<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
-
+  {if $COMMENT_COUNT > 0}
+		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
+  {/if}
 	{if !empty($COMMENT_NAV_BAR)}
 	<div class="navigationBar">{$COMMENT_NAV_BAR}</div>
 	{/if}
