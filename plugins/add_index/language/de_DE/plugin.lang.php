@@ -21,17 +21,17 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Add_Index'] = 'Hinzufügen "Index"-Dateien';
-$lang['Advanced_Add_Index'] = 'Hinzufügen und überschreiben "Index"-Dateien für alle lokalen Standorte';
-$lang['Manager_Add_Index'] = 'Hinzufügen "Index"';
+$lang['Add_Index'] = 'HinzufÃ¼gen "Index"-Dateien';
+$lang['Advanced_Add_Index'] = 'HinzufÃ¼gen und Ã¼berschreiben "Index"-Dateien fÃ¼r alle lokalen Standorte';
+$lang['Manager_Add_Index'] = 'HinzufÃ¼gen "Index"';
 
 $lang['add_index_file_copied'] = '%s kopiert';
 $lang['add_index_file_not_copied'] = '%s nicht kopiert';
-$lang['add_index_not_local_site'] = '%s [%d] ist eine Remote-Website. Es ist kompatibel mit hinzufügen "Index"-Dateien.';
+$lang['add_index_not_local_site'] = '%s [%d] ist eine Remote-Website. Es ist kompatibel mit hinzufÃ¼gen "Index"-Dateien.';
 $lang['add_index_nb_copied_file'] = '%d Datei kopiert';
 $lang['add_index_nb_copied_files'] = '%d Dateien kopiert';
-$lang['add_index_nb_skipped_file'] = '%d Datei übersprungen';
-$lang['add_index_nb_skipped_files'] = '%d Dateien übersprungen';
+$lang['add_index_nb_skipped_file'] = '%d Datei Ã¼bersprungen';
+$lang['add_index_nb_skipped_files'] = '%d Dateien Ã¼bersprungen';
 $lang['add_index_nb_not_copied_file'] = '%d Datei nicht kopiert';
 $lang['add_index_nb_not_copied_files'] = '%d Dateien nicht kopiert';
 $lang['add_index_src_file_dont_exists'] = 'Quelldatei %s ist nicht vorhanden, kann nicht duplizieren diese Datei';

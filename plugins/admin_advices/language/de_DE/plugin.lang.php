@@ -22,136 +22,136 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['An_advice_about'] = 'Ein neues Gutachten über';
-$lang['contribute'] = 'wie Sie beitragen können'; 
+$lang['An_advice_about'] = 'Ein neues Gutachten Ã¼ber';
+$lang['contribute'] = 'wie Sie beitragen kÃ¶nnen'; 
 $lang['navigation'] = 'Navigation';
 $lang['Metadata'] = 'Metadaten';
 $lang['current'] =  'Aktueller Wert: %s.';
-$lang['TN-height&width'] = 'Thumbnail Höhe und Breite müssen gleich sein.';
+$lang['TN-height&width'] = 'Thumbnail HÃ¶he und Breite mÃ¼ssen gleich sein.';
 $lang['Adv_case'][0] = array( /* **contribute */
- 'Wenn Sie mit Ihrem eigenen Beitrag "Trick", danke für die Veröffentlichung',
+ 'Wenn Sie mit Ihrem eigenen Beitrag "Trick", danke fÃ¼r die VerÃ¶ffentlichung',
  'auf den Forum von Piwigo (oder durch private Nachricht an einen der Entwickler),', 
- 'und wir würden gerne um es innerhalb nächste Veröffentlichung.', );
+ 'und wir wÃ¼rden gerne um es innerhalb nÃ¤chste VerÃ¶ffentlichung.', );
 $lang['Adv_case'][1] = array( /* newcat_default_status */
  'Versuchen $conf[\'newcat_default_status\'] = \'private\',',
- 'Sie werden mehr Zeit haben zu beschreiben und überprüfen Sie Ihre Bilder.',
- 'Zeit zu entscheiden zwischen privaten und öffentlichen Status.',
- 'Wenn Sie privat wählen, Zeit zu vertreiben Genehmigung.',
+ 'Sie werden mehr Zeit haben zu beschreiben und Ã¼berprÃ¼fen Sie Ihre Bilder.',
+ 'Zeit zu entscheiden zwischen privaten und Ã¶ffentlichen Status.',
+ 'Wenn Sie privat wÃ¤hlen, Zeit zu vertreiben Genehmigung.',
  'Ihre neue Kategorie wird gut vorbereitet.', );
 $lang['Adv_case'][2] = array( /* slideshow_period */
- 'Dieser Wert könnte zu klein für niedrige Band-Verbindungen.',
- 'Denken Sie an höheren Wert wie 4.', );
+ 'Dieser Wert kÃ¶nnte zu klein fÃ¼r niedrige Band-Verbindungen.',
+ 'Denken Sie an hÃ¶heren Wert wie 4.', );
 $lang['Adv_case'][3] = array( /* file_ext */
- 'Sollte nie enthält Erweiterungen die ausgeführt werden können',
+ 'Sollte nie enthÃ¤lt Erweiterungen die ausgefÃ¼hrt werden kÃ¶nnen',
  'auf der Server-Seite wie *.php, *.php, *.asp,...', );
 $lang['Adv_case'][4] = array( /* show_iptc_mapping */
  'Zeige die IPTC-Daten von Ihrem Bild:',
- ' 1 - Kopieren Sie eines Ihrer jpg Bilder (eine öffentliches) in ./tools/',
+ ' 1 - Kopieren Sie eines Ihrer jpg Bilder (eine Ã¶ffentliches) in ./tools/',
  ' 2 - Benennen Sie es als sample.jpg.',
- ' 3 - Führen Sie ./tools/metadata.php',
- ' 4 - Ergebnisse analysieren um festzustellen welche IPTC-Felder nützlich sein könnte für Ihre Besucher.',
- 'Anfänger würde es vorziehen $conf[\'show_iptc\'] = false,',
- 'Fortgeschrittene Benutzer würde kümmern $lang Werte und Auswirkungen auf die Vorlagen.', );
+ ' 3 - FÃ¼hren Sie ./tools/metadata.php',
+ ' 4 - Ergebnisse analysieren um festzustellen welche IPTC-Felder nÃ¼tzlich sein kÃ¶nnte fÃ¼r Ihre Besucher.',
+ 'AnfÃ¤nger wÃ¼rde es vorziehen $conf[\'show_iptc\'] = false,',
+ 'Fortgeschrittene Benutzer wÃ¼rde kÃ¼mmern $lang Werte und Auswirkungen auf die Vorlagen.', );
 $lang['Adv_case'][5] = array( /* top_number */
- 'Dieser Wert ist vielleicht zu hoch für niedrige Verbindungen hat, kann man 25-50 abhängig von Ihrem Thumbnail-Größen.', );
+ 'Dieser Wert ist vielleicht zu hoch fÃ¼r niedrige Verbindungen hat, kann man 25-50 abhÃ¤ngig von Ihrem Thumbnail-GrÃ¶ÃŸen.', );
 $lang['Adv_case'][6] = array( /* top_number */
- 'Ein? Es könnte sein zu niedrig für Zufalls-Bilder hat kann man 5-10 abhängig von Ihrem Thumbnail-Größen.',  );
+ 'Ein? Es kÃ¶nnte sein zu niedrig fÃ¼r Zufalls-Bilder hat kann man 5-10 abhÃ¤ngig von Ihrem Thumbnail-GrÃ¶ÃŸen.',  );
 $lang['Adv_case'][7] = array( /* anti-flood_time */
- 'Für normale Flow-Verarbeitung, Ihr Wert ist wahrscheinlich zu hoch. Angemessenen Wert ist 60 (Standard).' , );
+ 'FÃ¼r normale Flow-Verarbeitung, Ihr Wert ist wahrscheinlich zu hoch. Angemessenen Wert ist 60 (Standard).' , );
 $lang['Adv_case'][8] = array( /* calendar_datefield */
- 'Autorisierten Werte sind ' ."'date_creation' oder 'date_available'" . ', Sonst können Sie unvorhersehbare Ergebnisse.' , );
+ 'Autorisierten Werte sind ' ."'date_creation' oder 'date_available'" . ', Sonst kÃ¶nnen Sie unvorhersehbare Ergebnisse.' , );
 $lang['Adv_case'][9] = array( /* calendar_datefield */
- "'date_creation'" . ' ist NICHT gefüllt von jedem aktiviert Verwendung von Metadaten-Mapping Felder aus.',
- 'So aktivieren Metadaten Nutzung <strong>oder</strong> ändern bis zu $conf[\'calendar_datefield\']=\'date_available\'',
+ "'date_creation'" . ' ist NICHT gefÃ¼llt von jedem aktiviert Verwendung von Metadaten-Mapping Felder aus.',
+ 'So aktivieren Metadaten Nutzung <strong>oder</strong> Ã¤ndern bis zu $conf[\'calendar_datefield\']=\'date_available\'',
  'Aktivieren Sie Metadaten-Nutzung wie Sie wollen: ',
  '1 - $conf[\'use_iptc\'] = true, or $conf[\'use_exif\'] = true, jeder Weg wird korrekt.',
- '2 - Jeweils zu den einzelnen Änderungen:',
+ '2 - Jeweils zu den einzelnen Ã„nderungen:',
  '$conf[\'use_iptc_mapping\'] = array( ..., \'date_creation\'  => \'2#055\', ...',
  'oder/und:',
  '$conf[\'use_exif_mapping\'] = array(\'date_creation\' => \'DateTimeOriginal\', ...',
- '3 - Schließlich, eine neue Aufgabe liegt an Ihnen: Metadata-Synchronisierung.', );
+ '3 - SchlieÃŸlich, eine neue Aufgabe liegt an Ihnen: Metadata-Synchronisierung.', );
 $lang['Adv_case'][10] = array( /* newcat_default_visible */
  'Nicht sinnvoll, privaten Status ist besser, so dass Code $conf[\'newcat_default_visible\'] = true,', );
 $lang['Adv_case'][11] = array( /* level_separator */
  'Probieren Sie etwas anderes wie $conf[\'level_separator\'] = \'+ \',',  );
 $lang['Adv_case'][12] = array( /* paginate_pages_around */
- 'Üblichen Bereich liegt zwischen 2 und 5. Mehr leichter, wählen Sie $conf[\'paginate_pages_around\'] = 2, ',
- 'So bieten große Sprung, wählen Sie $conf[\'paginate_pages_around\'] = 7,', );
+ 'Ãœblichen Bereich liegt zwischen 2 und 5. Mehr leichter, wÃ¤hlen Sie $conf[\'paginate_pages_around\'] = 2, ',
+ 'So bieten groÃŸe Sprung, wÃ¤hlen Sie $conf[\'paginate_pages_around\'] = 7,', );
 $lang['Adv_case'][13] = array( /* tn_width */
- 'Sollte eine enge Wert auf Ihre Thumbnail-Breite. Üblichen Bereich liegt zwischen 96 und 150, über $conf[\'tn_width\'] = 128,', );
+ 'Sollte eine enge Wert auf Ihre Thumbnail-Breite. Ãœblichen Bereich liegt zwischen 96 und 150, Ã¼ber $conf[\'tn_width\'] = 128,', );
 $lang['Adv_case'][14] = array( /* tn_height */
- 'Sollte eine enge Wert auf Ihre Thumbnail-Höhe. Üblichen Bereich liegt zwischen 96 und 150, über $conf[\'tn_height\'] = 128,', );
+ 'Sollte eine enge Wert auf Ihre Thumbnail-HÃ¶he. Ãœblichen Bereich liegt zwischen 96 und 150, Ã¼ber $conf[\'tn_height\'] = 128,', );
 $lang['Adv_case'][15] = array( /* tn_height */
- 'Thumbnail Höhe und Breite müssen gleich sein.',
- 'Wählen $conf[\'tn_height\'] = $conf[\'tn_width\'],',
+ 'Thumbnail HÃ¶he und Breite mÃ¼ssen gleich sein.',
+ 'WÃ¤hlen $conf[\'tn_height\'] = $conf[\'tn_width\'],',
  'oder $conf[\'tn_width\'] = $conf[\'tn_height\'],', );
 $lang['Adv_case'][16] = array( /* show_version */
- 'Aus Sicherheitsgründen, setzen Sie bitte $conf[\'show_version\'] = false,', );
+ 'Aus SicherheitsgrÃ¼nden, setzen Sie bitte $conf[\'show_version\'] = false,', );
 $lang['Adv_case'][17] = array( /* show_thumbnail_caption */
- 'Für eine leichtere Galerie müssen nur einen Blick bis zu $conf[\'show_thumbnail_caption\'] = false,', );
+ 'FÃ¼r eine leichtere Galerie mÃ¼ssen nur einen Blick bis zu $conf[\'show_thumbnail_caption\'] = false,', );
 $lang['Adv_case'][18] = array( /* show_picture_name_on_title */
- 'Für eine leichtere Galerie müssen nur einen Blick bis zu $conf[\'show_picture_name_on_title\'] = false,', );
+ 'FÃ¼r eine leichtere Galerie mÃ¼ssen nur einen Blick bis zu $conf[\'show_picture_name_on_title\'] = false,', );
 $lang['Adv_case'][19] = array( /* subcatify */
  'Wenn Sie keine Kategorie-Beschreibungen haben, nur einen Blick bis zu $conf[\'subcatify\'] = false,', );
 $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Verlassen $conf[\'allow_random_representative\'] = true, ',
- 'aber analysieren, wenn Sie können verhindern, dass für Performance-Gründen.' , );
+ 'aber analysieren, wenn Sie kÃ¶nnen verhindern, dass fÃ¼r Performance-GrÃ¼nden.' , );
 $lang['Adv_case'][21] = array( /* prefix_thumbnail */
  'Seien Sie vorsichtig, Ihre $conf[\'prefix_thumbnail\'] ist NICHT Standard.',
- 'Ändern sich NICHT, es sei denn, Ihr Thumbnails sind NICHT sichtbar.',
- 'Entfernten Standort übertragen verwenden Sie ein anderes Präfix aber create_listing_file.php muss geändert werden.',
- 'Sie erhalten eine Warnmeldung während der Synchronisierung in diesem Fall.',
- 'Versuchen Sie den gleichen Präfix durch alle Ihre Websites entweder lokal oder distants.',
+ 'Ã„ndern sich NICHT, es sei denn, Ihr Thumbnails sind NICHT sichtbar.',
+ 'Entfernten Standort Ã¼bertragen verwenden Sie ein anderes PrÃ¤fix aber create_listing_file.php muss geÃ¤ndert werden.',
+ 'Sie erhalten eine Warnmeldung wÃ¤hrend der Synchronisierung in diesem Fall.',
+ 'Versuchen Sie den gleichen PrÃ¤fix durch alle Ihre Websites entweder lokal oder distants.',
  'Halten Sie diesen Parameter in Ihrer ./include/config_ <strong>local.inc.php</strong>',
  'Auf unserer Wiki Konfiguration Seite finden Sie weitere Informationen zum ./include/config_<strong>local.inc.php</strong>.', );
 $lang['Adv_case'][22] = array( /* users_page */
- 'Es sei denn, Sie haben ein niedriges Band-Anschluss besitzen, können erstellt $conf[\'users_page\'] auf einen höheren Wert, wenn Sie mehr als 20 Mitglieder.', );
+ 'Es sei denn, Sie haben ein niedriges Band-Anschluss besitzen, kÃ¶nnen erstellt $conf[\'users_page\'] auf einen hÃ¶heren Wert, wenn Sie mehr als 20 Mitglieder.', );
 $lang['Adv_case'][23] = array( /* mail_options */
  'Sollte falsch, nur wenige Webmaster haben um $conf[\'mail_options\'] = true, ',
- 'Eine spezifische Beratung können Sie von einem fortgeschrittenen Benutzer auf unserem Forum in einigen Mailing-Fragen.', );
+ 'Eine spezifische Beratung kÃ¶nnen Sie von einem fortgeschrittenen Benutzer auf unserem Forum in einigen Mailing-Fragen.', );
 $lang['Adv_case'][24] = array( /* check_upgrade_feed */
- 'Sollte falsch, nur PWG dev Team haben um $conf[\'check_upgrade_feed\'] = true, für Test-Zwecke.' , );
+ 'Sollte falsch, nur PWG dev Team haben um $conf[\'check_upgrade_feed\'] = true, fÃ¼r Test-Zwecke.' , );
 $lang['Adv_case'][25] = array( /* rate_items */
- 'Ihr $conf[\'rate_items\'] hätte es 4 oder 5 Posten, nicht weniger', );
+ 'Ihr $conf[\'rate_items\'] hÃ¤tte es 4 oder 5 Posten, nicht weniger', );
 $lang['Adv_case'][26] = array( /* rate_items */
- 'Ihr $conf[\'rate_items\'] hätte 5 oder 6 Posten, nicht mehr.',
- 'Überprüfen Sie Ihre besten bewertet Bilder vor um einige Werte.',
- 'Reduzieren Sie übermäßige Einschätzung des Hotels und ändern Sie Ihre $conf[\'rate_items\'].', );
+ 'Ihr $conf[\'rate_items\'] hÃ¤tte 5 oder 6 Posten, nicht mehr.',
+ 'ÃœberprÃ¼fen Sie Ihre besten bewertet Bilder vor um einige Werte.',
+ 'Reduzieren Sie Ã¼bermÃ¤ÃŸige EinschÃ¤tzung des Hotels und Ã¤ndern Sie Ihre $conf[\'rate_items\'].', );
 $lang['Adv_case'][27] = array( /* show_iptc */
- 'Könnte wahr sein, denken Sie etwa $conf[\'show_iptc\'] = false,',
- 'Einige professionelle Fotografen wählen Sie falsche ihre Gründe dafür sind nicht wirklich professionell.' ,
+ 'KÃ¶nnte wahr sein, denken Sie etwa $conf[\'show_iptc\'] = false,',
+ 'Einige professionelle Fotografen wÃ¤hlen Sie falsche ihre GrÃ¼nde dafÃ¼r sind nicht wirklich professionell.' ,
  'NICHT zu verwechseln zwischen <strong>show</strong>_iptc und <strong>use</strong>_iptc (werfen Sie einen Blick auf Metadaten-Seite auf unserem Wiki).', );
 $lang['Adv_case'][28] = array( /* use_iptc */
- 'Dokumentare und professionellen Fotografen würde es stimmt, aber Anfänger sollten es als $conf[\'use_iptc\'] = false,',
+ 'Dokumentare und professionellen Fotografen wÃ¼rde es stimmt, aber AnfÃ¤nger sollten es als $conf[\'use_iptc\'] = false,',
  'Achten Sie darauf, der Hinweise auf Bereiche, in Metadaten-Synchronisierung.',
- 'Genannten Bereichen wäre rewrited mit IPTC-Werte selbst in denjenigen sind NICHT leer.',
+ 'Genannten Bereichen wÃ¤re rewrited mit IPTC-Werte selbst in denjenigen sind NICHT leer.',
  'NICHT zu verwechseln zwischen <strong>show</strong>_iptc und <strong>use</strong>_iptc (werfen Sie einen Blick auf Metadaten-Seite auf unserem Wiki).', );
 $lang['Adv_case'][29] = array( /* use_iptc */
  'Der Umgang mit IPTC:',
- '1 - Kopieren Sie eines Ihrer jpg Bilder (eine öffentliche eins) in ./tools/',
+ '1 - Kopieren Sie eines Ihrer jpg Bilder (eine Ã¶ffentliche eins) in ./tools/',
  '2 - Benennen Sie es als sample.jpg.',
  '3 - Start ./tools/metadata.php', 
- '4 - Ergebnisse analysieren, um festzustellen welche IPTC-Felder genutzt werden könnte um Datenbank-Felder.',
- 'Anfänger würde es vorziehen $conf[\'use_iptc\'] = false,',
+ '4 - Ergebnisse analysieren, um festzustellen welche IPTC-Felder genutzt werden kÃ¶nnte um Datenbank-Felder.',
+ 'AnfÃ¤nger wÃ¼rde es vorziehen $conf[\'use_iptc\'] = false,',
  'Fortgeschrittene Benutzer machen Dokumentation Anstrengungen vor dem Upload ihrer Bilder.',
- 'IPTC-Felder müssen ausgefüllt werden beschrieben in $conf[\'use_iptc_mapping\']',
- 'Auf jedem Fall, <strong>show</strong>_iptc_mapping und <strong>use</strong>_iptc_mapping muss völlig anders aus.', );
+ 'IPTC-Felder mÃ¼ssen ausgefÃ¼llt werden beschrieben in $conf[\'use_iptc_mapping\']',
+ 'Auf jedem Fall, <strong>show</strong>_iptc_mapping und <strong>use</strong>_iptc_mapping muss vÃ¶llig anders aus.', );
 $lang['Adv_case'][30] = array( /* use_iptc_mapping */
  'Der Umgang mit IPTC:',
  'Achten Sie darauf, der Hinweise auf Bereiche, in Metadaten-Synchronisierung.',
- 'Genannten Bereichen wäre rewrited mit IPTC-Werte selbst in denjenigen sind NICHT leer.',
- 'Auf jedem Fall, <strong>show</strong>_iptc_mapping und <strong>use</strong>_iptc_mapping muss völlig anders aus.', );
+ 'Genannten Bereichen wÃ¤re rewrited mit IPTC-Werte selbst in denjenigen sind NICHT leer.',
+ 'Auf jedem Fall, <strong>show</strong>_iptc_mapping und <strong>use</strong>_iptc_mapping muss vÃ¶llig anders aus.', );
 $lang['Adv_case'][31] = array( /* show_exif */
  'Sollte wahr sein, einige Informationen von Ihrer Kamera angezeigt werden kann.',
- 'Denken Sie über EXIF-Informationen könnten werden verschiedene nach Kamera-Modelle.',
- 'Wenn Sie ändern Ihre Kamera diesen Bereichen könnte zum Teil anders.',
- 'Viele professionelle Fotografen wählen Sie falsch, ihre Gründe dafür sind zum Schutz ihres Wissens.' ,
+ 'Denken Sie Ã¼ber EXIF-Informationen kÃ¶nnten werden verschiedene nach Kamera-Modelle.',
+ 'Wenn Sie Ã¤ndern Ihre Kamera diesen Bereichen kÃ¶nnte zum Teil anders.',
+ 'Viele professionelle Fotografen wÃ¤hlen Sie falsch, ihre GrÃ¼nde dafÃ¼r sind zum Schutz ihres Wissens.' ,
  'NICHT zu verwechseln zwischen <strong>show</strong>_exif und <strong>use</strong>_exif (werfen Sie einen Blick auf Metadaten-Seite auf unserem Wiki).', );
 $lang['Adv_case'][32] = array( /* use_exif */
- 'Dokumentare und professionellen Fotografen würde es stimmt, aber Anfänger sollten den Standardwert.',
+ 'Dokumentare und professionellen Fotografen wÃ¼rde es stimmt, aber AnfÃ¤nger sollten den Standardwert.',
  'Achten Sie darauf der Hinweise auf Bereiche in Metadaten-Synchronisierung.',
- 'Genannten Bereichen wäre rewrited mit EXIF-Werte selbst in denjenigen sind NICHT leer.',
+ 'Genannten Bereichen wÃ¤re rewrited mit EXIF-Werte selbst in denjenigen sind NICHT leer.',
  'NICHT zu verwechseln zwischen <strong>show</strong>_exif und <strong>use</strong>_exif (werfen Sie einen Blick auf Metadaten-Seite auf unserem Wiki).', );
 $lang['Adv_case'][33] = array( /* **navigation */
- 'Sie können mit der Tastatur Pfeile zum Navigieren zwischen den Bildern.', );
+ 'Sie kÃ¶nnen mit der Tastatur Pfeile zum Navigieren zwischen den Bildern.', );
 ?>
