@@ -934,7 +934,21 @@ SELECT
   if (!is_dir($upload_dir)) {
     umask(0000);
     $recursive = true;
-    mkdir($upload_dir, 0777, $recursive);
+    if (!@mkdir($upload_dir, 0777, $recursive))
+    {
+      return new PwgError(500, 'error during directory creation');
+    }
+  }
+
+  if (!is_writable($upload_dir))
+  {
+    // last chance to make the directory writable
+    @chmod($upload_dir, 0777);
+
+    if (!is_writable($upload_dir))
+    {
+      return new PwgError(500, 'directory has no write access');
+    }
   }
 
   // compute file path
@@ -945,7 +959,10 @@ SELECT
 
   // dump the photo file
   $fh_file = fopen($file_path, 'w');
-  fwrite($fh_file, base64_decode($params['file_content']));
+  if (!fwrite($fh_file, base64_decode($params['file_content'])))
+  {
+    return new PwgError(500, 'error while writing file');
+  }
   fclose($fh_file);
   chmod($file_path, 0644);
 
@@ -960,7 +977,21 @@ SELECT
   $thumbnail_dir = $upload_dir.'/thumbnail';
   if (!is_dir($thumbnail_dir)) {
     umask(0000);
-    mkdir($thumbnail_dir, 0777);
+    if (!@mkdir($thumbnail_dir, 0777))
+    {
+      return new PwgError(500, 'error during thumbnail directory creation');
+    }
+  }
+
+  if (!is_writable($thumbnail_dir))
+  {
+    // last chance to make the directory writable
+    @chmod($thumbnail_dir, 0777);
+
+    if (!is_writable($thumbnail_dir))
+    {
+      return new PwgError(500, 'thumbnail directory has no write access');
+    }
   }
 
   // thumbnail path, the filename may use a prefix and the extension is
@@ -975,7 +1006,10 @@ SELECT
 
   // dump the thumbnail
   $fh_thumbnail = fopen($thumbnail_path, 'w');
-  fwrite($fh_thumbnail, base64_decode($params['thumbnail_content']));
+  if (!fwrite($fh_thumbnail, base64_decode($params['thumbnail_content'])))
+  {
+    return new PwgError(500, 'error while writing thumbnail');
+  }
   fclose($fh_thumbnail);
   chmod($thumbnail_path, 0644);
 
@@ -993,9 +1027,23 @@ SELECT
     $high_dir = $upload_dir.'/pwg_high';
     if (!is_dir($high_dir)) {
       umask(0000);
-      mkdir($high_dir, 0777);
+      if (!@mkdir($high_dir, 0777))
+      {
+        return new PwgError(500, 'error during high directory creation');
+      }
     }
 
+    if (!is_writable($high_dir))
+    {
+      // last chance to make the directory writable
+      @chmod($high_dir, 0777);
+      
+      if (!is_writable($high_dir))
+      {
+        return new PwgError(500, 'high directory has no write access');
+      }
+    }
+    
     // high resolution path, same name as web size file
     $high_path = sprintf(
       '%s/%s.%s',
@@ -1006,7 +1054,10 @@ SELECT
 
     // dump the high resolution file
     $fh_high = fopen($high_path, 'w');
-    fwrite($fh_high, base64_decode($params['high_content']));
+    if (!fwrite($fh_high, base64_decode($params['high_content'])))
+    {
+      return new PwgError(500, 'error while writing high');
+    }
     fclose($fh_high);
     chmod($high_path, 0644);
 
