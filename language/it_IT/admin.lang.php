@@ -638,9 +638,9 @@ $lang['ranks'] = 'rangs';
 $lang['Drag to re-order'] = 'Clicca e trascina per riorganizzare';
 $lang['Unable to retrieve server informations since allow_url_fopen is disabled.'] = 'Impossibile di connettersi al server perche la funzione allow_url_fopen è disattivata.';
 $lang['Quick Local Synchronization'] = 'Sincronizzazione rapida';
-/* TODO */ $lang['No photo can be deleted'] = 'No photo can be deleted';
-/* TODO */ $lang['Note: Only deletes photos added with pLoader'] = 'Note: Only deletes photos added with pLoader';
-/* TODO */ $lang['Delete selected photos'] = 'Delete selected photos';
-/* TODO */ $lang['%d photo was deleted'] = '%d photo was deleted';
-/* TODO */ $lang['%d photos were deleted'] = '%d photos were deleted';
+$lang['No photo can be deleted'] = 'Nessuna foto può essere soppressa';
+$lang['Note: Only deletes photos added with pLoader'] = 'Nota: solo le foto agiunte con pLoader possono essere rimosse';
+$lang['Delete selected photos'] = 'Cancellare le foto';
+$lang['%d photo was deleted'] = '%d foto cancellata';
+$lang['%d photos were deleted'] = '%d foto cancellate';
 ?>
