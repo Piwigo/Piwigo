@@ -151,7 +151,7 @@ function print_time($message)
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
 
-$template = new Template(PHPWG_ROOT_PATH.'template/yoga');
+$template = new Template(PHPWG_ROOT_PATH.'admin/template/goto');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign('RELEASE', PHPWG_VERSION);
 
@@ -233,6 +233,24 @@ else
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
+
+    // Plugins deactivation
+    if (in_array(PREFIX_TABLE.'plugins', $tables))
+    {
+      $query = '
+UPDATE '.PREFIX_TABLE.'plugins SET state="inactive" WHERE state="active"
+;';
+      mysql_query($query);
+
+      if (mysql_affected_rows() > 0)
+      {
+        array_push(
+          $page['infos'],
+          'As a precaution, all activated plugins have been deactivated.
+You must check for plugins upgrade before reactiving them.'
+        );
+      }
+    }
 
     // Create empty local files to avoid log errors
     create_empty_local_files();
