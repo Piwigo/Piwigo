@@ -55,6 +55,7 @@ class Template {
 
     $this->smarty = new Smarty;
     $this->smarty->debugging = $conf['debug_template'];
+    $this->smarty->compile_check=$conf['template_compile_check'];
 
     $compile_dir = $conf['local_data_dir'].'/templates_c';
     mkgetdir( $compile_dir );
@@ -205,7 +206,7 @@ class Template {
     }
     return true;
   }
-  
+
   /** return template extension if exists  */
   function get_extent($filename='', $handle='')
   {

@@ -1027,7 +1027,7 @@ function l10n($key)
 
   if ($conf['debug_l10n'] and !isset($lang[$key]) and !empty($key))
   {
-    trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_NOTICE);
+    trigger_error('[l10n] language key "'.$key.'" is not defined', E_USER_WARNING);
   }
 
   return isset($lang[$key]) ? $lang[$key] : $key;
@@ -1346,7 +1346,7 @@ function get_filter_page_value($value_name)
  */
 function get_pwg_charset()
 {
-  defined('PWG_CHARSET') or fatal_error('load_language PWG_CHARSET undefined');
+  defined('PWG_CHARSET') or fatal_error('PWG_CHARSET undefined');
   return PWG_CHARSET;
 }
 
@@ -1417,12 +1417,15 @@ function load_language($filename, $dirname = '',
   {
     $dir = $dirname.$language;
 
-    // exact charset match - no conversion required
-    $f = $dir.'.'.$target_charset.'/'.$filename;
-    if (file_exists($f))
+    if ($target_charset!='utf-8')
     {
-      $source_file = $f;
-      break;
+      // exact charset match - no conversion required
+      $f = $dir.'.'.$target_charset.'/'.$filename;
+      if (file_exists($f))
+      {
+        $source_file = $f;
+        break;
+      }
     }
 
     // UTF-8 ?
