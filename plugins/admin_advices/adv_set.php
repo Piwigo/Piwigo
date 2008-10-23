@@ -152,7 +152,7 @@ $adv['n'][26] = 'rate_items';
 $adv['c'][26] = ( count($conf['rate_items']) > 6 );
 $adv['v'][26] = sprintf($lang['current'], $conf['rate_items']);
 
-$adv['n'][27] = $conf['show_iptc'];
+$adv['n'][27] = 'show_iptc';
 $adv['c'][27] = $conf['show_iptc'];
 $adv['v'][27] = sprintf($lang['current'], 'true');
 
