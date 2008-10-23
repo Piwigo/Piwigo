@@ -22,7 +22,9 @@
 // +-----------------------------------------------------------------------+
 
 add_event_handler('loc_end_page_header', 'set_admin_advice_add_css' );
-
+// pour faciliter le debug :o)
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', true);
 // Add a XHTML tag in HEAD section
 function set_admin_advice_add_css()
 {
