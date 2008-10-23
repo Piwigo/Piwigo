@@ -172,4 +172,10 @@ $adv['v'][32] = sprintf($lang['current'], (($conf['use_exif'])? 'true':'false' )
 
 $adv['n'][33] = '**' . $lang['navigation'];
 
+$adv['n'][34] = 'compiled_template_cache_language';
+$adv['v'][34] = sprintf($lang['current'], (($conf['compiled_template_cache_language'])? 'true':'false' ));
+
+$adv['n'][35] = 'template_compile_check';
+$adv['v'][35] = sprintf($lang['current'], (($conf['template_compile_check'])? 'true':'false' ));
+
 ?>
