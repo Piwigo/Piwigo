@@ -154,4 +154,16 @@ $lang['Adv_case'][32] = array( /* use_exif */
  'NICHT zu verwechseln zwischen <strong>show</strong>_exif und <strong>use</strong>_exif (werfen Sie einen Blick auf Metadaten-Seite auf unserem Wiki).', );
 $lang['Adv_case'][33] = array( /* **navigation */
  'Sie können mit der Tastatur Pfeile zum Navigieren zwischen den Bildern.', );
+$lang['Adv_case'][34] = array( /* compiled_template_cache_language */
+ 'Should be false, translation will be done at user request time.',
+ 'If you are using one language (you kept only one subdirectory language)',
+ 'or through a plugin you forced all user to have the same language,',
+ 'you should consider to set it true.',
+ 'Setting it true, template @translate are done at compilation time.' );
+$lang['Adv_case'][35] = array( /* template_compile_check */
+ 'Default is true, template changes are detected and the template is compiled.',
+ 'If you are not updating template any more for several days, ',
+ 'you should consider to set it false.',
+ 'Choosing false, template changes are not detected, this improves response time.',
+ 'Anyway Specials > Maintenance > Purge compiled templates, is recommended after this $conf change.' );
 ?>
