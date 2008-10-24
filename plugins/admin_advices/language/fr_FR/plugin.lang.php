@@ -157,11 +157,9 @@ $lang['Adv_case'][32] = array( /* use_exif */
 $lang['Adv_case'][33] = array( /* **navigation */
  'Vous pouvez utiliser les flèches du clavier pour naviguer entre les images.', );
 $lang['Adv_case'][34] = array( /* compiled_template_cache_language */
- 'Devrait être à false, la traduction sera effectuée au moment de la demande de l\'utilisateur.',
- 'Si vous n\'utilisez qu\'une seule langue (vous n\'aurez conservé qu\'un sous-répertoire language)',
- 'ou via un plugin si vous forcez tous les utilisateurs a utiliser le même langage,',
- 'vous devriez envisager la valeur true.',
- 'Positionné à true, les @translate des templates seront réalisés au moment de la compilation.' );
+ 'Devrait être à true, la traduction sera effectuée au moment de la compilation.',
+ 'Si vous modifiez les fichiers langues (traducteurs), vous devriez envisager la valeur false.',
+ 'Positionné à false, les @translate des templates seront traités à chaque utilisation.' );
 $lang['Adv_case'][35] = array( /* template_compile_check */
  'Par défaut à true, toute modification de template est détectée et le template modifié est recompilé.',
  'Si vous ne modifiez plus vos templates pendant plusieurs jours, ',
