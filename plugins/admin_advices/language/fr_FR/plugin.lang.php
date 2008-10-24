@@ -93,8 +93,9 @@ $lang['Adv_case'][17] = array( /* show_thumbnail_caption */
  'Pour une galerie moins chargée, faites le test de $conf[\'show_thumbnail_caption\'] = false,', );
 $lang['Adv_case'][18] = array( /* show_picture_name_on_title */
  'Pour une galerie moins chargée, faites le test de $conf[\'show_picture_name_on_title\'] = false,', );
-$lang['Adv_case'][19] = array( /* subcatify */
- 'Si aucune de vos catégories ne possède de description alors essayez $conf[\'subcatify\'] = false;', );
+$lang['Adv_case'][19] = array( /* tags_default_display_mode */
+ 'Par défaut à \'cloud\' (nuage), plus un "tag" est utilisé plus il sera écrit en grand.',
+ 'Vous pouvez changer l\'affichage des "tags", $conf[\'tags_default_display_mode\'] = \'letters\'', );
 $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Laissez $conf[\'allow_random_representative\'] = true, ',
  'mais étudiez comment vous pourriez l\'éviter pour des raisons de performance.' , );

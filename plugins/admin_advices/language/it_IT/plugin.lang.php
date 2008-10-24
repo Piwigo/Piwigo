@@ -93,8 +93,7 @@ $lang['Adv_case'][17] = array( /* show_thumbnail_caption */
  'Per una galleria meno "carica", provate con $conf[\'show_thumbnail_caption\'] = false,', );
 $lang['Adv_case'][18] = array( /* show_picture_name_on_title */
  'Per una galleria meno "carica", provate con $conf[\'show_picture_name_on_title\'] = false,', );
-$lang['Adv_case'][19] = array( /* subcatify */
- 'Se nessuna delle vostre categorie ha una descrizzione provate $conf[\'subcatify\'] = false,', );
+
 $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Lasciate pure $conf[\'allow_random_representative\'] = true, ',
  'ma provate a vedere come evitarlo per raggioni di performance.' , );
@@ -166,4 +165,7 @@ $lang['Adv_case'][35] = array( /* template_compile_check */
  'you should consider to set it false.',
  'Choosing false, template changes are not detected, this improves response time.',
  'Anyway Specials > Maintenance > Purge compiled templates, is recommended after this $conf change.' );
+ $lang['Adv_case'][19] = array( /* tags_default_display_mode */
+ '\'cloud\' by default, importance of tags is shown with font size.',
+ 'You can change the tags page, $conf[\'tags_default_display_mode\'] = \'letters\'', );
 ?>

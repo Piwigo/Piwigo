@@ -91,8 +91,9 @@ $lang['Adv_case'][17] = array( /* show_thumbnail_caption */
  'For a lighter gallery just have a look to $conf[\'show_thumbnail_caption\'] = false,', );
 $lang['Adv_case'][18] = array( /* show_picture_name_on_title */
  'For a lighter gallery just have a look to $conf[\'show_picture_name_on_title\'] = false,', );
-$lang['Adv_case'][19] = array( /* subcatify */
- 'If you do NOT have any category descriptions just have a look to $conf[\'subcatify\'] = false,', );
+$lang['Adv_case'][19] = array( /* tags_default_display_mode */
+ '\'cloud\' by default, importance of tags is shown with font size.',
+ 'You can change the tags page, $conf[\'tags_default_display_mode\'] = \'letters\'', );
 $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Leave $conf[\'allow_random_representative\'] = true, ',
  'but analyze if you can avoid for performance reasons.' , );

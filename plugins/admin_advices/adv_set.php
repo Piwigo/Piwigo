@@ -120,9 +120,9 @@ $adv['n'][18] = 'show_picture_name_on_title';
 $adv['c'][18] = $conf['show_picture_name_on_title'];
 $adv['v'][18] = sprintf($lang['current'], 'true');
 
-$adv['n'][19] = 'subcatify';
-/* $adv['c'][19] = $conf['subcatify']; No longer exist */
-$adv['v'][19] = sprintf($lang['current'], 'true');
+$adv['n'][19] = 'tags_default_display_mode';
+$adv['c'][15] = ( $conf['tags_default_display_mode'] == 'cloud' );
+$adv['v'][19] = sprintf($lang['current'], "'".$conf['tags_default_display_mode']."'");
 
 $adv['n'][20] = 'allow_random_representative';
 $adv['c'][20] = $conf['allow_random_representative'];
