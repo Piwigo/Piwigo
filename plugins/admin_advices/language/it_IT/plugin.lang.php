@@ -93,7 +93,9 @@ $lang['Adv_case'][17] = array( /* show_thumbnail_caption */
  'Per una galleria meno "carica", provate con $conf[\'show_thumbnail_caption\'] = false,', );
 $lang['Adv_case'][18] = array( /* show_picture_name_on_title */
  'Per una galleria meno "carica", provate con $conf[\'show_picture_name_on_title\'] = false,', );
-
+$lang['Adv_case'][19] = array( /* tags_default_display_mode */
+ 'Di default impostato a \'cloud\' (nuvola), più un "tag" è utilizzato più sarà scritto in grande.',
+ 'Potete modificare la visualizzazione dei tags, $conf[\'tags_default_display_mode\'] = \'letters\'', );
 $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Lasciate pure $conf[\'allow_random_representative\'] = true, ',
  'ma provate a vedere come evitarlo per raggioni di performance.' , );
@@ -119,11 +121,11 @@ $lang['Adv_case'][26] = array( /* rate_items */
  'Verificate le foto le più votate prima di togliere certi valori.',
  'Ridurre certi valori eccessivi e modificate il vostro $conf[\'rate_items\'].', );
 $lang['Adv_case'][27] = array( /* show_iptc */
- 'Puo essere a true, scegliete piuttosto $conf[\'show_iptc\'] = false,',
+ 'Puo essere a "true", scegliete piuttosto $conf[\'show_iptc\'] = false,',
  'Come certi fotografi professioali scegliete false anche se le loro raggioni non sono per forsa professionali.' ,
  'Non confondere <strong>show</strong>_iptc e <strong>use</strong>_iptc (consultate le pagine sui metadati nel WIKI).', );
 $lang['Adv_case'][28] = array( /* use_iptc */
- 'I documentaristi e fotografi professionnali lo regolerebbero a true, ma i principianti dovrebbero lasciarlo a $conf[\'use_iptc\'] = false,',
+ 'I documentaristi e fotografi professionnali lo regolerebbero a "true", ma i principianti dovrebbero lasciarlo a $conf[\'use_iptc\'] = false,',
  'Attenti ai campi mensionati durante la sincronizzazione dei metadati.',
  'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti'.,
  'Non confondere <strong>show</strong>_iptc e <strong>use</strong>_iptc (consultate le pagine sui metadati nel WIKI).', );
@@ -143,29 +145,26 @@ $lang['Adv_case'][30] = array( /* use_iptc_mapping */
  'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti'.,
  'In tutti i casi, <strong>show</strong>_iptc_mapping e <strong>use</strong>_iptc_mapping saranno totalmente diversi.', );
 $lang['Adv_case'][31] = array( /* show_exif */
- 'Dovrebbe essere a true, certe informazioni della vostra macchina fotografica potrebbero essere visualizzate.',
+ 'Dovrebbe essere a "true", certe informazioni della vostra macchina fotografica potrebbero essere visualizzate.',
  'Le informazioni EXIF possono essere diverse a seconda del modello della macchina fotografica.',
  'Se cambiate macchina fotografica, le informazioni visualizzate potrebbero cambiare.',
  'Parecchi fotografi professionali sceglieranno "false", per proteggere il loro lavoro.' ,
  'Non confondere <strong>show</strong>_iptc e <strong>use</strong>_iptc (consultate le pagine sui metadati nel WIKI).', );
 $lang['Adv_case'][32] = array( /* use_exif */
- 'I documentaristi e fotografi professionnali lo regolerebbero a true, ma i principianti dovrebbero lasciare il valore di default.',
+ 'I documentaristi e fotografi professionnali lo regolerebbero a "true", ma i principianti dovrebbero lasciare il valore di default.',
  'Take care of mentionned fields in metadata synchronization.',
  'I campi menzionati potrebbero essere sovrascritti con i valori dei campi EXIF anche se non sono vuoti'.,
  'Non confondere <strong>show</strong>_exif e <strong>use</strong>_exif (consultate le pagine sui metadati nel WIKI).', );
 $lang['Adv_case'][33] = array( /* **navigation */
  'Potrete usare le frecce della tastiera per navigare tra le foto.', );
 $lang['Adv_case'][34] = array( /* compiled_template_cache_language */
- 'Should be true, translation will be done at compilation time.',
- 'If you are modifying a language (translators), you should consider to set it false.',
- 'Setting it false, template @translate function are called at usage time.' );
+ 'Doverbbe essere a "true", la traduzione sarà eseguta al momento della compilazione.',
+ 'Se modificate i files lingua (traduzioni), dovreste impostare il parametro a "false".',
+ 'Impostato a "false", i "@translate" dei template saranno trattati ad ogni uso.' );
 $lang['Adv_case'][35] = array( /* template_compile_check */
- 'Default is true, template changes are detected and the template is compiled.',
- 'If you are not updating template any more for several days, ',
- 'you should consider to set it false.',
- 'Choosing false, template changes are not detected, this improves response time.',
- 'Anyway Specials > Maintenance > Purge compiled templates, is recommended after this $conf change.' );
- $lang['Adv_case'][19] = array( /* tags_default_display_mode */
- '\'cloud\' by default, importance of tags is shown with font size.',
- 'You can change the tags page, $conf[\'tags_default_display_mode\'] = \'letters\'', );
+ 'Di default a "true", ogni modifica di template è rilevata e il template modificato è compilato.',
+ 'Se non modificate i vostri template per qualche giorno, ',
+ 'dovreste penasre ad impostarlo a "false".',
+ 'Scelgliendo "false", le modifiche di template non saranno più rilevate, ciò amegliora i tempi di risposta.',
+ 'Comunque Speciale > Manutezione > Spurgare i templates compilati, è consigliato dopo una modifica di $conf.' );
 ?>
