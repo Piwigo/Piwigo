@@ -97,9 +97,10 @@ top:-2px; white-space:nowrap; margin: 0 28px 0 0;}
 float:left; margin:0 2px 0 5px; overflow:hidden; text-align:right; }
 .tabsheet a { 
 background:transparent url(images/inactive_tab2.png) no-repeat scroll right 0px;
-color:#666; display:block; font-size:11px; text-transform:capitalize; border:0;
+color:#666; display:block; font-size:11px; border:0;
 font-weight:bold; height:18px; overflow:hidden; padding:8px 7px 5px 18px; line-height: 18px;
 text-align:right; text-decoration:none; margin: 0; }
+.tabsheet a:first-letter { text-transform:capitalize; }
 .tabsheet li:hover, .tabsheet li.selected_tab  { 
 background:transparent url(images/active_tab.png) no-repeat scroll left 0px; }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36;
