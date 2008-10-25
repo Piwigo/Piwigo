@@ -298,6 +298,13 @@ if you encounter any problem.'
     $template->assign('infos', $page['infos']);
 
     invalidate_user_cache();
+
+    $query = '
+REPLACE INTO '.PLUGINS_TABLE.'
+  (id, state)
+  VALUES (\'c13y_upgrade\', \'active\')
+;';
+    pwg_query($query);
   }
   else
   {
