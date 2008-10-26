@@ -299,6 +299,8 @@ if you encounter any problem.'
 
     invalidate_user_cache();
 
+    // c13y_upgrade plugin means "check integrity after upgrade", so it
+    // becomes useful just after an upgrade
     $query = '
 REPLACE INTO '.PLUGINS_TABLE.'
   (id, state)
