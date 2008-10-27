@@ -217,7 +217,7 @@ function initialize_menu()
   {
     // quick search block will be displayed only if data['qsearch'] is set
     // to "yes"
-    $block->data['qsearch']='yes';
+    $block->data['qsearch']=true;
 
     // tags link
     $block->data['tags'] =
