@@ -94,4 +94,50 @@ function create_empty_local_files()
    }
 }
 
+// Deactivate all non-standard plugins
+function deactivate_non_standard_plugins()
+{
+  global $page;
+
+  $standard_plugins = array(
+    'add_index',
+    'admin_advices',
+    'admin_multi_view',
+    'c13y_upgrade',
+    'event_tracer',
+    'language_switch',
+    'LocalFilesEditor'
+    );
+
+  $query = '
+SELECT id
+FROM '.PREFIX_TABLE.'plugins
+WHERE state = "active"
+AND id NOT IN ("' . implode('","', $standard_plugins) . '")
+;';
+
+  $result = pwg_query($query);
+  $plugins = array();
+  while ($row = mysql_fetch_assoc($result))
+  {
+    array_push($plugins, $row['id']);
+  }
+
+  if (!empty($plugins))
+  {
+    $query = '
+UPDATE '.PREFIX_TABLE.'plugins
+SET state="inactive"
+WHERE id IN ("' . implode('","', $plugins) . '")
+;';
+    mysql_query($query);
+
+    array_push(
+      $page['infos'],
+      'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:
+<pre>' . implode(', ', $plugins) . '</pre>'
+      );
+  }
+}
+
 ?>

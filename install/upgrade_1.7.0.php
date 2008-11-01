@@ -33,7 +33,6 @@ else
   }
 }
 
-define('PREFIX_TABLE', $prefixeTable);
 define('UPGRADES_PATH', PHPWG_ROOT_PATH.'install/db');
 
 list($dbnow) = mysql_fetch_row(pwg_query('SELECT NOW();'));
@@ -68,15 +67,19 @@ foreach ($to_apply as $upgrade_id)
     array(
       'id' => $upgrade_id,
       'applied' => CURRENT_DATE,
-      'description' => '[migration from 1.7.0 to '.RELEASE.'] not applied',
+      'description' => '[migration from 1.7.0 to '.PHPWG_VERSION.'] not applied',
       )
     );
 }
-mass_inserts(
-  '`'.UPGRADE_TABLE.'`',
-  array_keys($inserts[0]),
-  $inserts
-  );
+
+if (!empty($inserts))
+{
+  mass_inserts(
+    '`'.UPGRADE_TABLE.'`',
+    array_keys($inserts[0]),
+    $inserts
+    );
+}
 
 // +-----------------------------------------------------------------------+
 // |                          Perform upgrades                             |
@@ -106,7 +109,7 @@ for ($upgrade_id = 61; ; $upgrade_id++)
 INSERT INTO `'.PREFIX_TABLE.'upgrade`
   (id, applied, description)
   VALUES
-  (\''.$upgrade_id.'\', NOW(), \'[migration from 1.7.0 to '.RELEASE.'] '.$upgrade_description.'\')
+  (\''.$upgrade_id.'\', NOW(), \'[migration from 1.7.0 to '.PHPWG_VERSION.'] '.$upgrade_description.'\')
 ;';
   pwg_query($query);
 }
