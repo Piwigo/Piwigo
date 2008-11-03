@@ -132,11 +132,8 @@ WHERE id IN ("' . implode('","', $plugins) . '")
 ;';
     mysql_query($query);
 
-    array_push(
-      $page['infos'],
-      'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:
-<pre>' . implode(', ', $plugins) . '</pre>'
-      );
+    array_push($page['infos'],
+      l10n('deactivated plugins') . '<pre>' . implode(', ', $plugins) . '</pre>');
   }
 }
 

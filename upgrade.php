@@ -148,12 +148,47 @@ function print_time($message)
 // }
 
 // +-----------------------------------------------------------------------+
+// |                             language                                  |
+// +-----------------------------------------------------------------------+
+if (isset($_GET['language']))
+{
+  $language = strip_tags($_GET['language']);
+}
+else
+{
+  $language = 'en_UK';
+  // Try to get browser language
+  foreach (get_languages('utf-8') as $language_code => $language_name)
+  {
+    if (substr($language_code,0,2) == @substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2))
+    {
+      $language = $language_code;
+      break;
+    }
+  }
+}
+
+load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
+load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
+load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
+
+// +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
 
-$template = new Template(PHPWG_ROOT_PATH.'admin/template/goto');
+$template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign('RELEASE', PHPWG_VERSION);
+
+foreach (get_languages('utf-8') as $language_code => $language_name)
+{
+  if ($language == $language_code)
+  {
+    $template->assign('language_selection', $language_code);
+  }
+  $languages_options[$language_code] = $language_name;
+}
+$template->assign('language_options', $languages_options);
 
 // +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
@@ -210,7 +245,7 @@ if (!isset($_GET['version']))
     array(
       'CURRENT_RELEASE' => $current_release,
       'RUN_UPGRADE_URL' =>
-        PHPWG_ROOT_PATH.'upgrade.php?version='.$current_release,
+        PHPWG_ROOT_PATH.'upgrade.php?version='.$current_release.'&amp;language='.$language,
       )
     );
 }
@@ -263,24 +298,10 @@ else
         )
       );
 
-    array_push(
-      $page['infos'],
-      '[security] delete files "upgrade.php", "upgrade_feed.php", "install.php" and "install"
-directory'
-      );
-
-    array_push(
-      $page['infos'],
-      'in include/mysql.inc.php, remove
-<pre style="background-color:lightgray">
-define(\'PHPWG_IN_UPGRADE\', true);
-</pre>'
-      );
-
-    array_push(
-      $page['infos'],
-      'Perform a maintenance check in [Administration>General>Maintenance]
-if you encounter any problem.'
+    array_push($page['infos'],
+      l10n('delete upgrade files'),
+      l10n('remove line from mysql.inc.php') . '<pre>define(\'PHPWG_IN_UPGRADE\', true);</pre>',
+      l10n('perform a maintenance check')
       );
 
     $template->assign('infos', $page['infos']);
