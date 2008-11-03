@@ -21,19 +21,18 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/* TODO */
-$lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
-$lang['Statistics'] = 'Statistics';
-$lang['total upgrade time'] = 'total upgrade time';
-$lang['total SQL time'] = 'total SQL time';
-$lang['SQL queries'] = 'SQL queries';
-$lang['Upgrade informations'] = 'Upgrade informations';
-$lang['delete upgrade files'] = '[Security] Delete files "upgrade.php", "upgrade_feed.php", "install.php" and "install" directory';
-$lang['remove line from mysql.inc.php'] = 'In include/mysql.inc.php, remove:';
-$lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>General>Maintenance] if you encounter any problem.';
-$lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
+$lang['Upgrade'] = 'Puesta al día';
+$lang['introduction message'] = 'Esta página le propone poner al día la base de dato correspondiente a su antigua versión de piwigo hacia la nueva versión.
+El asistente de postura al día piensa en la versión actual es un <strong> versión %s </strong> (o equivalente). ';
+$lang['Upgrade from %s to %s'] = 'Puesta al día por la versión %s a %s';
+$lang['Statistics'] = 'Estadísticas';
+$lang['total upgrade time'] = 'tiempo total de la puesta al día';
+$lang['total SQL time'] = 'tiempo total de la demanda SQL';
+$lang['SQL queries'] = 'número de demanda SQL';
+$lang['Upgrade informations'] = 'Informaciones sobre la puesta al día';
+$lang['delete upgrade files'] = '[Seguridad] Borre los ficheros "upgrade.php", "upgrade_feed.php", "install.php" así como el expediente "install"';
+$lang['remove line from mysql.inc.php'] = 'En el fichero include/mysql.inc.php, borre la línea siguiente:';
+$lang['perform a maintenance check'] = 'Por favor, efectúes un mantenimiento en [Administración>Especiales>Mantenimiento] si usted encuentra problemas.';
+$lang['deactivated plugins'] = 'Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas posturas al día antes de reactivarlas:';
 
 ?>
