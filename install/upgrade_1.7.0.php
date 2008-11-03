@@ -85,6 +85,7 @@ if (!empty($inserts))
 // |                          Perform upgrades                             |
 // +-----------------------------------------------------------------------+
 
+ob_start();
 echo '<pre>';
 
 for ($upgrade_id = 61; ; $upgrade_id++)
@@ -115,6 +116,7 @@ INSERT INTO `'.PREFIX_TABLE.'upgrade`
 }
 
 echo '</pre>';
+ob_clean();
 
 // now we upgrade from 2.0.0
 // include_once(PHPWG_ROOT_PATH.'install/upgrade_2.0.0.php');
