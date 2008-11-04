@@ -211,12 +211,6 @@ function build_user( $user_id, $use_cache )
   // calculation of the number of picture to display per page
   $user['nb_image_page'] = $user['nb_image_line'] * $user['nb_line_page'];
 
-  if (is_admin($user['status']))
-  {
-    list($user['admin_template'], $user['admin_theme']) =
-      explode ('/', $conf['admin_layout']);
-  }
-
   list($user['template'], $user['theme']) = explode('/', $user['template']);
 
   return $user;
@@ -1373,14 +1367,7 @@ function get_sql_condition_FandF(
   }
   else
   {
-    if ($force_one_condition)
-    {
-      $sql = '1 = 1';
-    }
-    else
-    {
-      $sql = '';
-    }
+    $sql = $force_one_condition ? '1 = 1' : '';
   }
 
   if (isset($prefix_condition) and !empty($sql))

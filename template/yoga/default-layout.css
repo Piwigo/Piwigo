@@ -46,7 +46,6 @@ HR.separation {
 	margin: 0 0 10px 0;
 }
 
-/** General defaults **/
 INPUT, SELECT {
 	margin: 0;
 	font-size: 1em;	/* <= some browsers don't set it correctly */
@@ -57,7 +56,6 @@ TABLE {	/* horizontaly centered */
 	margin-right: auto;
 }
 
-/** forms **/
 
 FORM { padding: 0; margin: 0; }
 
@@ -70,12 +68,6 @@ FORM P {
 FORM FIELDSET P {
 	margin-top: 1em;
 	margin-bottom: 0;
-}
-
-TEXTAREA.description {
-	height: 6em;
-	width: 40em;
-	overflow: auto;
 }
 
 SELECT.categoryList {
@@ -274,10 +266,10 @@ TABLE.tagLetterContent {
 
 #theHeader {text-align: center;}
 
-#theNotificationPage dl,
-#thePopuphelpPage dl { margin: 0 25px 25px; }
-#content #comments ul.thumbnailCategories li { width:99%; }
+#theNotificationPage DL,
+#thePopuphelpPage DL { margin: 0 25px 25px; }
+#content #comments UL.thumbnailCategories LI { width:99%; }
 /* jQuery datepicker */
-img.ui-datepicker-trigger {
+IMG.ui-datepicker-trigger {
 	cursor : pointer;
 }

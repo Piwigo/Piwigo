@@ -33,12 +33,6 @@ define('PHPWG_DEFAULT_TEMPLATE', 'yoga/Sylvia');
 define('REQUIRED_PHP_VERSION', '5.0.0');
 define('REQUIRED_MYSQL_VERSION', '4.1.22');
 
-// Error codes
-define('GENERAL_MESSAGE', 200);
-define('GENERAL_ERROR', 202);
-define('CRITICAL_MESSAGE', 203);
-define('CRITICAL_ERROR', 204);
-
 // Access codes
 define('ACCESS_FREE', 0);
 define('ACCESS_GUEST', 1);
