@@ -1,7 +1,7 @@
 /* $Id$ */
 
 /* text color */
-BODY, H1, H3, DT,
+BODY, H1, H3,
 INPUT.rateButtonSelected /* <= why IE doesn't inherit this ? */ {
 	color:#d0d0d0;
 }

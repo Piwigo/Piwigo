@@ -55,18 +55,12 @@
 
 #linkPrev {
 	float: left;
-}
-
-#linkNext {
-	float: right;
-}
-
-#linkPrev IMG {
 	margin-right: 10px;
 	margin-left: 5px;
 }
 
-#linkNext IMG {
+#linkNext {
+	float: right;
 	margin-right: 5px;
 	margin-left: 10px;
 }
@@ -83,7 +77,7 @@ TABLE.infoTable TD.value UL {
 	list-style-type: square;
 }
 
-.thumbnailCategories li { list-style: none; }
+.thumbnailCategories LI { list-style: none; }
 
 .rateButton, .rateButtonSelected, .rateButtonStarFull, .rateButtonStarEmpty  {
 	padding:0;
