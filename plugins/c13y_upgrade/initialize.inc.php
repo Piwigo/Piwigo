@@ -34,7 +34,7 @@ function c13y_upgrade($c13y)
 
   load_language('plugin.lang', dirname(__FILE__).'/');
 
-  $can_be_deactivate = true;
+  $to_deactivate = true;
 
   /* Check user with same e-mail */
   $query = '
@@ -52,7 +52,7 @@ limit 0,1
 
   if (mysql_fetch_array(pwg_query($query)))
   {
-    $can_be_deactivate = false;
+    $to_deactivate = false;
     $c13y->add_anomaly(
       l10n('c13y_dbl_email_user'),
       null,
@@ -82,7 +82,7 @@ where
   $result = pwg_query($query);
   while ($row = mysql_fetch_assoc($result))
   {
-    $can_be_deactivate = false;
+    $to_deactivate = false;
 
     $uninstall_msg_link =
       '<a href="'.
@@ -98,45 +98,19 @@ where
       $uninstall_msg_link);
   }
 
-  /* Check if this plugin must deactivate */
-  if ($can_be_deactivate)
+  /* Check if this plugin must be deactivate */
+  if ($to_deactivate)
   {
-    $deactivate_msg_link =
-      '<a href="'.
-      PHPWG_ROOT_PATH.
-      'admin.php?page=plugins_list&amp;plugin=c13y_upgrade&amp;action=deactivate'.
-      '" onclick="window.open(this.href, \'\'); return false;">'.
-      l10n('c13y_upgrade_deactivate').'</a>';
-
-    $c13y->add_anomaly(
-      l10n('c13y_upgrade_no_anomaly'),
-      'c13y_upgrade_correction',
-      'deactivate_plugin',
-      $deactivate_msg_link
-      );
-  }
-}
-
-function c13y_upgrade_correction($action)
-{
-  $result = false;
-
-  switch ($action)
-  {
-    case 'deactivate_plugin':
-      {
-        $query = '
+    $query = '
 REPLACE INTO '.PLUGINS_TABLE.'
 (id, state)
 VALUES (\'c13y_upgrade\', \'inactive\')
 ;';
-        pwg_query($query);
-        $result = true;
-      }
-      break;
-  }
+    pwg_query($query);
 
-  return $result;
+  global $page;
+  $page['infos'][] = l10n('c13y_upgrade_no_anomaly');
+  }
 }
 
 ?>

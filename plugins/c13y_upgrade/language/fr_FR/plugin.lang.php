@@ -22,8 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
-$lang['c13y_upgrade_no_anomaly'] = 'Pas d\'anomalie détectée après la mise à jour de l\'application';
-$lang['c13y_upgrade_deactivate'] = 'Vous pouvez désactiver le plugin "Check upgrades"';
+$lang['c13y_upgrade_no_anomaly'] = 'Pas d\'anomalie détectée après la mise à jour de l\'application, le plugin "Check upgrades" a été désactivé.';
 $lang['c13y_dbl_email_user'] = 'Utilisateurs avec la même adresse email';
 $lang['c13y_correction_dbl_email_user'] = 'Supprimez les utilisateurs en double';
 $lang['c13y_obsolete_plugin'] = 'Plugin obsolète';
