@@ -54,7 +54,7 @@ $lang['Adv_case'][4] = array( /* show_iptc_mapping */
  'Les utilisateurs avancés penseront aux valeurs du tableau $lang; voire même à l\'impact possible sur les templates.', );
 $lang['Adv_case'][5] = array( /* top_number */
  'Cette valeur pourrait être trop grande pour des connexions bas débit.', 
- 'Pensez à une valeur située entre 25-50 en fonction de la taille de vos minitures.', );
+ 'Pensez à une valeur située entre 25-50 en fonction de la taille de vos miniatures.', );
 $lang['Adv_case'][6] = array( /* top_number */
  'Une seule? Au moins pour les images aléatoires, pensez autour de 5-10 selon la tailles de vos miniatures.', );
 $lang['Adv_case'][7] = array( /* anti-flood_time */
@@ -147,12 +147,12 @@ $lang['Adv_case'][30] = array( /* use_iptc_mapping */
 $lang['Adv_case'][31] = array( /* show_exif */
  'Devrait être à true, certaines informations propres à votre appareil pourront être affichées.',
  'Pensez au fait que les informations EXIF peuvent être différentes suivant les modèles d\'appareil.',
- 'Si vous changez votre appareil ces champs pourraient en partie differents.',
- 'Beaucoup de photographes professionnels choissent false, ceci afin de protéger leur savoir-faire.' ,
+ 'Si vous changez votre appareil ces champs pourraient en partie différents.',
+ 'Beaucoup de photographes professionnels choisissent false, ceci afin de protéger leur savoir-faire.' ,
  'Ne confondez pas <strong>show</strong>_exif et <strong>use</strong>_exif (consultez les pages sur les métadonnées de notre wiki).', );
 $lang['Adv_case'][32] = array( /* use_exif */
-'Les documentalistes et photographes professionnels préfèreront la valeur true, mais les débutants laisseront la valeur par défaut.',
- 'Take care of mentionned fields in metadata synchronization.',
+ 'Les documentalistes et photographes professionnels préfèreront la valeur true, mais les débutants laisseront la valeur par défaut.',
+ 'Occupez-vous des champs mentionnés dans la synchronisation des métadonnées.',
  'Les champs indiqués pourront être écrasés par des valeurs de champs EXIF quand bien même ces champs ne seraient pas vides.',
  'Ne confondez pas <strong>show</strong>_exif et <strong>use</strong>_exif (consultez les pages sur les métadonnées de notre wiki).', );
 $lang['Adv_case'][33] = array( /* **navigation */
