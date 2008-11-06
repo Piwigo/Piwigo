@@ -23,17 +23,11 @@
 
 function check_upgrade()
 {
-  // Is Piwigo already installed ?
-  if (!defined('PHPWG_IN_UPGRADE') or !PHPWG_IN_UPGRADE)
+  if (defined('PHPWG_IN_UPGRADE'))
   {
-    $message = 'Piwigo is not in upgrade mode. In include/mysql.inc.php,
-insert line
-<pre style="background-color:lightgray">
-define(\'PHPWG_IN_UPGRADE\', true);
-</pre>
-if you want to upgrade';
-    die($message);
+    return PHPWG_IN_UPGRADE;
   }
+  return false;
 }
 
 // concerning upgrade, we use the default tables
@@ -137,4 +131,47 @@ WHERE id IN ("' . implode('","', $plugins) . '")
   }
 }
 
+// Check access rights
+function check_upgrade_access_rights($current_release, $username, $password)
+{
+  global $conf, $page;
+
+  if (version_compare($current_release, '1.5.0', '<'))
+  {
+    $query = '
+SELECT password, status
+FROM '.PREFIX_TABLE.'users
+WHERE username = "'.$username.'"
+;';
+  }
+  else
+  {
+    $query = '
+SELECT u.password, ui.status
+FROM '.$conf['users_table'].' AS u
+INNER JOIN '.PREFIX_TABLE.'user_infos AS ui
+ON u.id = ui.user_id
+WHERE '.$conf['user_fields']['username'].'="'.$username.'"
+;';
+  }
+  $row = mysql_fetch_assoc(mysql_query($query));
+
+  if (!isset($conf['pass_convert']))
+  {
+    $conf['pass_convert'] = create_function('$s', 'return md5($s);');
+  }
+
+  if ($row['password'] != $conf['pass_convert']($_POST['password']))
+  {
+    array_push($page['errors'], l10n('invalid_pwd'));
+  }
+  elseif ($row['status'] != 'admin' and $row['status'] != 'webmaster')
+  {
+    array_push($page['errors'], l10n('You do not have access rights to run upgrade'));
+  }
+  else
+  {
+    define('PHPWG_IN_UPGRADE', true);
+  }
+}
 ?>

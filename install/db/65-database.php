@@ -129,8 +129,8 @@ SELECT language, COUNT(user_id) AS count FROM '.USER_INFOS_TABLE.'
   $result = pwg_query($query);
   while ( $row=mysql_fetch_assoc($result) )
   {
-    $lang = $row["language"];
-    $lang_def = explode('.', $lang);
+    $language = $row["language"];
+    $lang_def = explode('.', $language);
     if ( count($lang_def)==2 )
     {
       $new_lang = $lang_def[0];
@@ -141,12 +141,12 @@ SELECT language, COUNT(user_id) AS count FROM '.USER_INFOS_TABLE.'
       $new_lang = 'en_UK';
       $charset = 'iso-8859-1';
     }
-    $all_langs[$lang] = array(
+    $all_langs[$language] = array(
       'count' => $row['count'],
       'new_lang' => $new_lang,
       'charset' => $charset,
       );
-    $upgrade_log .= ">>user_lang\t".$lang."\t".$row['count']."\n";
+    $upgrade_log .= ">>user_lang\t".$language."\t".$row['count']."\n";
   }
   $upgrade_log .= "\n";
 

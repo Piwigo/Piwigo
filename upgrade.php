@@ -29,6 +29,11 @@ if (version_compare(PHP_VERSION, '5', '<'))
 
 define('PHPWG_ROOT_PATH', './');
 
+if (!file_exists(PHPWG_ROOT_PATH.'include/mysql.inc.php'))
+{
+  die('Could not find include/mysql.inc.php file.');
+}
+
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
 include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
@@ -36,8 +41,6 @@ include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
 include(PHPWG_ROOT_PATH.'include/mysql.inc.php');
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
-
-check_upgrade();
 
 prepare_conf_upgrade();
 
@@ -53,18 +56,6 @@ if ( version_compare(mysql_get_server_info(), '4.1.0', '>=')
   pwg_query('SET NAMES "'.DB_CHARSET.'"');
 }
 
-// +-----------------------------------------------------------------------+
-// |                            tricky output                              |
-// +-----------------------------------------------------------------------+
-echo '<!-- This is an HTML comment given in order to make IE outputs';
-echo ' the code.'."\n";
-echo ' Indeed, IE doesn\'t start to send output until a limit';
-echo ' of XXX bytes '."\n";
-echo str_repeat( ' ', 80 )."\n";
-echo str_repeat( ' ', 80 )."\n";
-echo str_repeat( ' ', 80 )."\n";
-echo '-->'."\n";
-flush();
 // +-----------------------------------------------------------------------+
 // |                              functions                                |
 // +-----------------------------------------------------------------------+
@@ -168,9 +159,9 @@ else
   }
 }
 
-load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
-load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
-load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
+load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
+load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
+load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
@@ -180,16 +171,6 @@ $template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
 $template->assign('RELEASE', PHPWG_VERSION);
 
-foreach (get_languages('utf-8') as $language_code => $language_name)
-{
-  if ($language == $language_code)
-  {
-    $template->assign('language_selection', $language_code);
-  }
-  $languages_options[$language_code] = $language_name;
-}
-$template->assign('language_options', $languages_options);
-
 // +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
 // +-----------------------------------------------------------------------+
@@ -197,74 +178,63 @@ $template->assign('language_options', $languages_options);
 $tables = get_tables();
 $columns_of = get_columns_of($tables);
 
-if (!isset($_GET['version']))
+// find the current release
+if (!in_array('param', $columns_of[PREFIX_TABLE.'config']))
 {
-  // find the current release
-  if (!in_array('param', $columns_of[PREFIX_TABLE.'config']))
+  // we're in branch 1.3, important upgrade, isn't it?
+  if (in_array(PREFIX_TABLE.'user_category', $tables))
   {
-    // we're in branch 1.3, important upgrade, isn't it?
-    if (in_array(PREFIX_TABLE.'user_category', $tables))
-    {
-      $current_release = '1.3.1';
-    }
-    else
-    {
-      $current_release = '1.3.0';
-    }
-  }
-  else if (!in_array(PREFIX_TABLE.'user_cache', $tables))
-  {
-    $current_release = '1.4.0';
-  }
-  else if (!in_array(PREFIX_TABLE.'tags', $tables))
-  {
-    $current_release = '1.5.0';
-  }
-  else if ( !in_array(PREFIX_TABLE.'history_summary', $tables) )
-  {
-    if (!in_array('auto_login_key', $columns_of[PREFIX_TABLE.'user_infos']))
-    {
-      $current_release = '1.6.0';
-    }
-    else
-    {
-      $current_release = '1.6.2';
-    }
-  }
-  else if (!in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
-  {
-    $current_release = '1.7.0';
+    $current_release = '1.3.1';
   }
   else
   {
-    die('No upgrade required, the database structure is up to date');
+    $current_release = '1.3.0';
   }
-
-  $template->assign(
-    'introduction',
-    array(
-      'CURRENT_RELEASE' => $current_release,
-      'RUN_UPGRADE_URL' =>
-        PHPWG_ROOT_PATH.'upgrade.php?version='.$current_release.'&amp;language='.$language,
-      )
-    );
+}
+else if (!in_array(PREFIX_TABLE.'user_cache', $tables))
+{
+  $current_release = '1.4.0';
+}
+else if (!in_array(PREFIX_TABLE.'tags', $tables))
+{
+  $current_release = '1.5.0';
+}
+else if ( !in_array(PREFIX_TABLE.'history_summary', $tables) )
+{
+  if (!in_array('auto_login_key', $columns_of[PREFIX_TABLE.'user_infos']))
+  {
+    $current_release = '1.6.0';
+  }
+  else
+  {
+    $current_release = '1.6.2';
+  }
+}
+else if (!in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
+{
+  $current_release = '1.7.0';
+}
+else
+{
+  die('No upgrade required, the database structure is up to date');
 }
 
 // +-----------------------------------------------------------------------+
 // |                            upgrade launch                             |
 // +-----------------------------------------------------------------------+
+$page['infos'] = array();
+$page['errors'] = array();
 
-else
+if (isset($_POST['username']) and isset($_POST['password']))
 {
-  if (in_array('md5sum', $columns_of[PREFIX_TABLE.'images']))
-  {
-    die('No database upgrade required, do not refresh the page');
-  }
+  check_upgrade_access_rights($current_release, $_POST['username'], $_POST['password']);
+}
 
-  $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$_GET['version'].'.php';
+if (isset($_POST['submit']) and check_upgrade())
+{
+  $upgrade_file = PHPWG_ROOT_PATH.'install/upgrade_'.$current_release.'.php';
   if (is_file($upgrade_file))
   {
-    $page['infos'] = array();
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
@@ -283,7 +253,7 @@ else
     $template->assign(
       'upgrade',
       array(
-        'VERSION' => $_GET['version'],
+        'VERSION' => $current_release,
         'TOTAL_TIME' => get_elapsed_time(
           $page['upgrade_start'],
           $page['upgrade_end']
@@ -300,11 +270,8 @@ else
 
     array_push($page['infos'],
       l10n('delete upgrade files'),
-      l10n('remove line from mysql.inc.php') . '<pre>define(\'PHPWG_IN_UPGRADE\', true);</pre>',
       l10n('perform a maintenance check')
       );
-
-    $template->assign('infos', $page['infos']);
 
     invalidate_user_cache();
 
@@ -317,10 +284,41 @@ REPLACE INTO '.PLUGINS_TABLE.'
 ;';
     pwg_query($query);
   }
-  else
+}
+
+// +-----------------------------------------------------------------------+
+// |                          start template output                        |
+// +-----------------------------------------------------------------------+
+else
+{
+  foreach (get_languages('utf-8') as $language_code => $language_name)
   {
-    die('Hacking attempt');
+    if ($language == $language_code)
+    {
+      $template->assign('language_selection', $language_code);
+    }
+    $languages_options[$language_code] = $language_name;
   }
+  $template->assign('language_options', $languages_options);
+
+  $template->assign('introduction', array(
+    'CURRENT_RELEASE' => $current_release,
+    'F_ACTION' => 'upgrade.php?language=' . $language));
+
+  if (!check_upgrade())
+  {
+    $template->assign('login', true);
+  }
+}
+
+if (count($page['errors']) != 0)
+{
+  $template->assign('errors', $page['errors']);
+}
+
+if (count($page['infos']) != 0)
+{
+  $template->assign('infos', $page['infos']);
 }
 
 // +-----------------------------------------------------------------------+
