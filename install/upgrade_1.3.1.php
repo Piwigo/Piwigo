@@ -591,7 +591,7 @@ previous configuration',
     'in include/mysql.inc.php, before
 <pre style="background-color:lightgray">?&gt;</pre>
 insert
-<pre style="background-color:lightgray">define(\'PHPWG_INSTALLED\', true);<pre>'
+<pre style="background-color:lightgray">define(\'PHPWG_INSTALLED\', true);</pre>'
     )
   );
 

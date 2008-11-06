@@ -116,7 +116,7 @@ INSERT INTO `'.PREFIX_TABLE.'upgrade`
 }
 
 echo '</pre>';
-ob_clean();
+ob_end_clean();
 
 // now we upgrade from 2.0.0
 // include_once(PHPWG_ROOT_PATH.'install/upgrade_2.0.0.php');

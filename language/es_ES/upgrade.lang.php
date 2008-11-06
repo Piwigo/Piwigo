@@ -21,18 +21,19 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Puesta al día';
-$lang['introduction message'] = 'Esta página le propone poner al día la base de dato correspondiente a su antigua versión de piwigo hacia la nueva versión.
-El asistente de postura al día piensa en la versión actual es un <strong> versión %s </strong> (o equivalente). ';
-$lang['Upgrade from %s to %s'] = 'Puesta al día por la versión %s a %s';
-$lang['Statistics'] = 'Estadísticas';
-$lang['total upgrade time'] = 'tiempo total de la puesta al día';
+$lang['Upgrade'] = 'Puesta al dÃ­a';
+$lang['introduction message'] = 'Esta pÃ¡gina le propone poner al dÃ­a la base de dato correspondiente a su antigua versiÃ³n de piwigo hacia la nueva versiÃ³n.
+El asistente de postura al dÃ­a piensa en la versiÃ³n actual es un <strong> versiÃ³n %s </strong> (o equivalente). ';
+$lang['Upgrade from %s to %s'] = 'Puesta al dÃ­a por la versiÃ³n %s a %s';
+$lang['Statistics'] = 'EstadÃ­sticas';
+$lang['total upgrade time'] = 'tiempo total de la puesta al dÃ­a';
 $lang['total SQL time'] = 'tiempo total de la demanda SQL';
-$lang['SQL queries'] = 'número de demanda SQL';
-$lang['Upgrade informations'] = 'Informaciones sobre la puesta al día';
-$lang['delete upgrade files'] = '[Seguridad] Borre los ficheros "upgrade.php", "upgrade_feed.php", "install.php" así como el expediente "install"';
-$lang['remove line from mysql.inc.php'] = 'En el fichero include/mysql.inc.php, borre la línea siguiente:';
-$lang['perform a maintenance check'] = 'Por favor, efectúes un mantenimiento en [Administración>Especiales>Mantenimiento] si usted encuentra problemas.';
-$lang['deactivated plugins'] = 'Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas posturas al día antes de reactivarlas:';
+$lang['SQL queries'] = 'nÃºmero de demanda SQL';
+$lang['Upgrade informations'] = 'Informaciones sobre la puesta al dÃ­a';
+$lang['delete upgrade files'] = '[Seguridad] Borre los ficheros "upgrade.php", "upgrade_feed.php", "install.php" asÃ­ como el expediente "install"';
+$lang['perform a maintenance check'] = 'Por favor, efectÃºes un mantenimiento en [AdministraciÃ³n>Especiales>Mantenimiento] si usted encuentra problemas.';
+$lang['deactivated plugins'] = 'Por precauciÃ³n, el plugins siguiente han sido desactivados. Verifique si existen unas posturas al dÃ­a antes de reactivarlas:';
+/*TODO*/$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
+/*TODO*/$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
 
 ?>

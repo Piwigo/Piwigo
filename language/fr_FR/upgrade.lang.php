@@ -23,7 +23,8 @@
 
 $lang['Upgrade'] = 'Mise à jour';
 $lang['introduction message'] = 'Cette page vous propose de mettre à jour la base de donnée correspondante à votre ancienne version de piwigo vers la nouvelle version.
-L\'assistant de mise à jour pense la version actuelle est une <strong>version %s</strong> (ou équivalente).';
+L\'assistant de mise à jour pense que la version actuelle est une <strong>version %s</strong> (ou équivalente).';
+$lang['upgrade login message'] = 'Seul un adminitrateur peut lancer la mise à jour: veuillez vous identifier ci-dessous.';
 $lang['Upgrade from %s to %s'] = 'Mise à jour de la version %s à %s';
 $lang['Statistics'] = 'Statistiques';
 $lang['total upgrade time'] = 'temps total de la mise à jour';
@@ -31,8 +32,9 @@ $lang['total SQL time'] = 'temps total des requêtes SQL';
 $lang['SQL queries'] = 'nombre de requêtes SQL';
 $lang['Upgrade informations'] = 'Informations sur la mise à jour';
 $lang['delete upgrade files'] = '[Sécurité] Effacez les fichiers "upgrade.php", "upgrade_feed.php", "install.php" ainsi que le dossier "install"';
-$lang['remove line from mysql.inc.php'] = 'Dans le fichier include/mysql.inc.php, effacez la ligne suivante:';
 $lang['perform a maintenance check'] = 'Veuillez effectuer une maintenance dans [Administration>Spéciales>Maintenance] si vous rencontrez des problèmes.';
 $lang['deactivated plugins'] = 'Par précaution, les plugins suivants ont été désactivés. Vérifiez s\'il existe des mises à jour avant de les réactiver:';
+$lang['upgrade login message'] = 'Seul un adminitrateur peut lancer la mise à jour: veuillez vous identifier ci-dessous.';
+$lang['You do not have access rights to run upgrade'] = 'Vous n\'avez pas les droits necessaires pour lancer la mise à jour.';
 
 ?>
