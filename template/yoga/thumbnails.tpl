@@ -11,7 +11,7 @@
 		</a>
 		</span>
 		<span class="thumbLegend">
-		{$thumbnail.NAME|@default}
+		{if isset($thumbnail.NAME)}{$thumbnail.NAME}{/if}
 		{$thumbnail.ICON_TS}
 		{if isset($thumbnail.NB_COMMENTS)}
 		<span class="{if 0==$thumbnail.NB_COMMENTS}zero {/if}nb-comments">
