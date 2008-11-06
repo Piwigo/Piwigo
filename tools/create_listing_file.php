@@ -796,6 +796,7 @@ function pwg_scan_file($file_full, &$line)
     {
       $element['representative_ext'] = $ext;
     }
+  $element['filesize'] = floor(filesize($file_full) / 1024);
   }
   
   if (strlen($error_log) == 0)
