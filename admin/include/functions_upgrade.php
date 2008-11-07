@@ -136,11 +136,16 @@ function check_upgrade_access_rights($current_release, $username, $password)
 {
   global $conf, $page;
 
+  if(!get_magic_quotes_gpc())
+  {
+    $username = mysql_real_escape_string($username);
+  }
+
   if (version_compare($current_release, '1.5.0', '<'))
   {
     $query = '
 SELECT password, status
-FROM '.PREFIX_TABLE.'users
+FROM '.USERS_TABLE.'
 WHERE username = "'.$username.'"
 ;';
   }
@@ -149,8 +154,8 @@ WHERE username = "'.$username.'"
     $query = '
 SELECT u.password, ui.status
 FROM '.$conf['users_table'].' AS u
-INNER JOIN '.PREFIX_TABLE.'user_infos AS ui
-ON u.id = ui.user_id
+INNER JOIN '.USER_INFOS_TABLE.' AS ui
+ON u.'.$conf['user_fields']['id'].'=ui.user_id
 WHERE '.$conf['user_fields']['username'].'="'.$username.'"
 ;';
   }
