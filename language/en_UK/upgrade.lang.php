@@ -36,4 +36,9 @@ $lang['deactivated plugins'] = 'As a precaution, following plugins have been dea
 $lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
 $lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
 
+// Upgrade infoformations from upgrade_1.3.1.php
+$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
+$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
+
 ?>

@@ -578,23 +578,42 @@ UPDATE '.CATEGORIES_TABLE.'
   pwg_query($query);
 }
 
+// load the config file
+$config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
+$config_file_contents = @file_get_contents($config_file);
+if ($config_file_contents === false)
+{
+  die('CANNOT LOAD '.$config_file);
+}
+$php_end_tag = strrpos($config_file_contents, '?'.'>');
+if ($php_end_tag === false)
+{
+  die('CANNOT FIND PHP END TAG IN '.$config_file);
+}
+if (!is_writable($config_file))
+{
+  die('FILE NOT WRITABLE '.$config_file);
+}
+
+// Insert define('PHPWG_INSTALLED', true); in mysql.inc.php
+$config_file_contents =
+    substr($config_file_contents, 0, $php_end_tag).'
+define(\'PHPWG_INSTALLED\', true);
+'.substr($config_file_contents, $php_end_tag);
+
+$fp = @fopen( $config_file, 'w' );
+@fputs($fp, $config_file_contents, strlen($config_file_contents));
+@fclose($fp);
+
+// Send infos
 $page['infos'] = array_merge(
   $page['infos'],
   array(
-    'all sub-categories of private categories become private',
-
-    'user permissions and group permissions have been erased',
-
-    'only thumbnails prefix and webmaster mail address have been saved from
-previous configuration',
-
-    'in include/mysql.inc.php, before
-<pre style="background-color:lightgray">?&gt;</pre>
-insert
-<pre style="background-color:lightgray">define(\'PHPWG_INSTALLED\', true);</pre>'
+    l10n('all sub-categories of private categories become private'),
+    l10n('user permissions and group permissions have been erased'),
+    l10n('only thumbnails prefix and webmaster mail saved')
     )
   );
-
 
 // now we upgrade from 1.4.0
 include_once(PHPWG_ROOT_PATH.'install/upgrade_1.4.0.php');
