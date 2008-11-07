@@ -112,6 +112,23 @@ foreach ($pictures as $row)
       'TN_TITLE'   => get_thumbnail_title($row),
       'ICON_TS'      => get_icon($row['date_available']),
       'URL'    => $url,
+
+   /* Fields for template-extension usage */
+      'FILE_PATH' => $row['path'],
+      'FILE_POSTED' => format_date($row['date_available'], 'mysql_datetime'),
+      'FILE_CREATED' => (empty($row['date_creation'])) ? 
+        '-': format_date($row['date_creation'], 'mysql_datetime'),
+      'FILE_DESC' => (empty($row['comment'])) ? '-' : $row['comment'],
+      'FILE_AUTHOR' => (empty($row['author'])) ? '-' : $row['author'],
+      'FILE_HIT' => $row['hit'],
+      'FILE_SIZE' => (empty($row['filesize'])) ? '-' : $row['filesize'],
+      'FILE_WIDTH' => (empty($row['width'])) ? '-' : $row['width'],
+      'FILE_HEIGHT' => (empty($row['height'])) ? '-' : $row['height'],
+      'FILE_METADATE' => (empty($row['date_metadata_update'])) ? 
+        '-': format_date($row['date_metadata_update'], 'mysql_datetime'),
+      'FILE_RATE' => (empty($row['rate'])) ? '-' : $row['rate'], 
+      'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ? 
+                true:false, /* lack of include/functions_picture.inc.php */
     );
 
   if ($user['show_nb_hits'])
