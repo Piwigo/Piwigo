@@ -38,7 +38,7 @@ BODY {
 	min-width: 100%; 
 }
 #mbIdentification p, .totalImages { 
-	color: #333; 
+	color:#333; 
 }
 .header_msgs { 
 	background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
@@ -102,7 +102,7 @@ BODY {
 	font-size: 100%; 
 }
 #menubar UL { 
-	color: #333; 
+	color:#333; 
 	font-size: 16px; 
 	line-height: 15px; 
 }
@@ -227,7 +227,7 @@ BODY {
 	background-color:#111; 
 } 
 .infos { 
-	color: #f70; 
+	color:#f70; 
 	border:0; 
 	background-color: transparent; 
 	margin-left:125px;
@@ -239,7 +239,7 @@ BODY {
 	list-style-type:none; 
 }
 .errors { 
-	color: #f30; 
+	color:#f30; 
 	border:0; 
 	background-color: transparent; 
 	margin-left:125px;
@@ -257,8 +257,8 @@ H2 {
 	border-bottom: 1px solid #000000; 
 }
 #qsearchInput { 
-	border-color: #222; 
-	color: #222;
+	border-color:#222; 
+	color:#222;
 }
 FIELDSET, INPUT, SELECT, TEXTAREA { 
 	border: 1px solid #666; 
@@ -269,22 +269,22 @@ input[type="text"], input[type="password"], input[type="button"], input[type="su
 } /* stupid Line but needed  due to inpact on other themes and deadline of Piwigo 2.0 */
 INPUT, select, textarea { 
 	color:#999; 
-	background-color: #444; 
+	background-color:#444; 
 }
 input[type="radio"], input[type="checkbox"], input[type="button"].rateButtonStarEmpty, input[type="button"].rateButtonStarFull { 
 	background-color: transparent; 
 }
 #qsearchInput:focus, input:focus, select:focus, textarea:focus, input.focus, form .focus { 
 	background-color:#444;
-	color: #999; 
+	color:#999; 
 }
 .content UL.thumbnails SPAN.wrap2 {
 	border: 1px solid #666;	/* thumbnails border color and style */
 	border-radius: 4px 4px;	/* round corners with CSS3 compliant browsers */ 
 }
 .content UL.thumbnails SPAN.wrap2:hover { 
-	color: #666;
-	background-color: #111; 
+	color:#666;
+	background-color:#111; 
 	border:1px solid #ff3363;	/* thumbnails border color when mouse cursor is over it */ 
 }
 #comments ul.actions li, #comments ul.actions li:hover { 
@@ -298,7 +298,7 @@ A, INPUT.rateButton {
 	border-width: 0; 
 }
 A:hover, A:active { 
-	color: #f33; 
+	color:#f33; 
 	border-bottom: 1px solid #f33; 
 	cursor: pointer; 
 }
@@ -333,9 +333,9 @@ A:hover, A:active {
 input[type="button"], input[type="submit"], input[type="reset"] {
 	color:#ff3363; 
 	background-color:#222; 
-	border-color: #ff3363; 
+	border-color:#ff3363; 
 }
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
 	color:#999; 
-	border-color: #666; 
+	border-color:#666; 
 }
