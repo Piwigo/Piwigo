@@ -33,12 +33,12 @@ $lang['Upgrade informations'] = 'Informaciones sobre la puesta al día';
 $lang['delete upgrade files'] = '[Seguridad] Borre los ficheros "upgrade.php", "upgrade_feed.php", "install.php" así como el expediente "install"';
 $lang['perform a maintenance check'] = 'Por favor, efectúes un mantenimiento en [Administración>Especiales>Mantenimiento] si usted encuentra problemas.';
 $lang['deactivated plugins'] = 'Por precaución, el plugins siguiente han sido desactivados. Verifique si existen unas posturas al día antes de reactivarlas:';
-/*TODO*/$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-/*TODO*/$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
+$lang['upgrade login message'] = 'Sólo un administrador puede lanzar la puesta al día: por favor, identifiqúese más abajo.';
+$lang['You do not have access rights to run upgrade'] = 'Usted no tiene los derechos necessaires para lanzar la puesta al día.';
 
 // Upgrade informations from upgrade_1.3.1.php
-/*TODO*/$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
-/*TODO*/$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
-/*TODO*/$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
+$lang['all sub-categories of private categories become private'] = 'Todas las subcategorías de categorías privadas se vuelven privadas';
+$lang['user permissions and group permissions have been erased'] = 'Los autorizaciones de los usuarios y de los grupos han sido borrados';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Sólo el prefijo de las miniaturas y el email electrónico del webmestre han sido salvaguardados por la configuración precedente';
 
 ?>
