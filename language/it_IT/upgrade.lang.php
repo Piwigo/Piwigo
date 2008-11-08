@@ -21,26 +21,25 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/* TODO */
-$lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-$lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
-$lang['Statistics'] = 'Statistics';
-$lang['total upgrade time'] = 'total upgrade time';
-$lang['total SQL time'] = 'total SQL time';
-$lang['SQL queries'] = 'SQL queries';
-$lang['Upgrade informations'] = 'Upgrade informations';
-$lang['delete upgrade files'] = '[Security] Delete files "upgrade.php", "upgrade_feed.php", "install.php" and "install" directory';
-$lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.';
-$lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
+$lang['Upgrade'] = 'Aggiornamento';
+$lang['introduction message'] = 'Questa pagina vi propone di aggiornare la vostra base dati corrispondente alla vecchia versione verso la nuova versione.
+L\'assistente all\'aggiornamento ha identificato il vostro prodotto come essendo una <strong>versione %s</strong> (o equivalente).';
+$lang['upgrade login message'] = 'Solo un\'amministratore può eseguire l\'aggiornamento: identificatevi.';
+$lang['Upgrade from %s to %s'] = 'Aggiornamento dalla versione %s alla %s';
+$lang['Statistics'] = 'Statistiche';
+$lang['total upgrade time'] = 'tempo totale per aggiornamento';
+$lang['total SQL time'] = 'tempo totale delle esecuzioni SQL';
+$lang['SQL queries'] = 'numero delle esecuzioni SQL';
+$lang['Upgrade informations'] = 'Informazioni sul\'aggiornamento';
+$lang['delete upgrade files'] = '[Sicurezza] Cancellare i files "upgrade.php", "upgrade_feed.php", "install.php" e la directory "install"';
+$lang['perform a maintenance check'] = 'Se riscontrate dei problemi, effettuare una manutezione in [Amministrazione>Speciale>Manutenzione].';
+$lang['deactivated plugins'] = 'Per precauzione, i plugins sono stati disattivati. Verificate se non esistono degli aggiornamenti prima di riattivarli:';
+$lang['upgrade login message'] = 'Solo un\'amministratore può eseguire l\'aggiornamento: identificatevi.';
+$lang['You do not have access rights to run upgrade'] = 'Non avete le autorizzazioni necessarie per effettuare l\'aggiornamento';
 
-// Upgrade infoformations from upgrade_1.3.1.php
-$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
-$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
+// Upgrade informations  from upgrade_1.3.1.php
+$lang['all sub-categories of private categories become private'] = 'Tutte le sotto categorie delle categorie private diventono private';
+$lang['user permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Solo il prefisso delle miniature e l\'email del webmaster sono stati salvati dalla precedente configurazione';
 
-?>
+?>	
