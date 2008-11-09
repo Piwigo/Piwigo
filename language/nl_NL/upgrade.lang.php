@@ -25,7 +25,6 @@
 $lang['Upgrade'] = 'Upgrade';
 $lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
 The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
 $lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
 $lang['Statistics'] = 'Statistics';
 $lang['total upgrade time'] = 'total upgrade time';
@@ -38,7 +37,7 @@ $lang['deactivated plugins'] = 'As a precaution, following plugins have been dea
 $lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
 $lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
 
-// Upgrade infoformations from upgrade_1.3.1.php
+// Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
 $lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
 $lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
