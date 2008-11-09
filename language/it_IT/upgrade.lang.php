@@ -24,7 +24,6 @@
 $lang['Upgrade'] = 'Aggiornamento';
 $lang['introduction message'] = 'Questa pagina vi propone di aggiornare la vostra base dati corrispondente alla vecchia versione verso la nuova versione.
 L\'assistente all\'aggiornamento ha identificato il vostro prodotto come essendo una <strong>versione %s</strong> (o equivalente).';
-$lang['upgrade login message'] = 'Solo un\'amministratore può eseguire l\'aggiornamento: identificatevi.';
 $lang['Upgrade from %s to %s'] = 'Aggiornamento dalla versione %s alla %s';
 $lang['Statistics'] = 'Statistiche';
 $lang['total upgrade time'] = 'tempo totale per aggiornamento';
@@ -37,9 +36,9 @@ $lang['deactivated plugins'] = 'Per precauzione, i plugins sono stati disattivat
 $lang['upgrade login message'] = 'Solo un\'amministratore può eseguire l\'aggiornamento: identificatevi.';
 $lang['You do not have access rights to run upgrade'] = 'Non avete le autorizzazioni necessarie per effettuare l\'aggiornamento';
 
-// Upgrade informations  from upgrade_1.3.1.php
+// Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'Tutte le sotto categorie delle categorie private diventono private';
 $lang['user permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
 $lang['only thumbnails prefix and webmaster mail saved'] = 'Solo il prefisso delle miniature e l\'email del webmaster sono stati salvati dalla precedente configurazione';
 
-?>	
+?>
