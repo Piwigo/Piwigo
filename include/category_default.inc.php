@@ -117,7 +117,7 @@ foreach ($pictures as $row)
       'FILE_PATH' => $row['path'],
       'FILE_POSTED' => format_date($row['date_available'], 'mysql_datetime'),
       'FILE_CREATED' => (empty($row['date_creation'])) ? 
-        '-': format_date($row['date_creation'], 'us'),
+        '-': format_date($row['date_creation'], 'mysql_date'),
       'FILE_DESC' => (empty($row['comment'])) ? '-' : $row['comment'],
       'FILE_AUTHOR' => (empty($row['author'])) ? '-' : $row['author'],
       'FILE_HIT' => $row['hit'],
@@ -125,7 +125,7 @@ foreach ($pictures as $row)
       'FILE_WIDTH' => (empty($row['width'])) ? '-' : $row['width'],
       'FILE_HEIGHT' => (empty($row['height'])) ? '-' : $row['height'],
       'FILE_METADATE' => (empty($row['date_metadata_update'])) ? 
-        '-': format_date($row['date_metadata_update'], 'us'),
+        '-': format_date($row['date_metadata_update'], 'mysql_date'),
       'FILE_RATE' => (empty($row['rate'])) ? '-' : $row['rate'], 
       'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ? 
                 true:false, /* lack of include/functions_picture.inc.php */
