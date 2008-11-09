@@ -601,6 +601,14 @@ function format_date($date, $type = 'us', $show_time = false)
         array($out[1],$out[2],$out[3],$out[4],$out[5],$out[6]);
       break;
     }
+    case 'mysql_date' :
+    {
+      preg_match('/^(\d{4})-(\d{2})-(\d{2})$/',
+                 $date, $out);
+      list($year,$month,$day) =
+        array($out[1],$out[2],$out[3]);
+      break;
+    }
   }
   $formated_date = '';
   // before 1970, Microsoft Windows can't mktime
