@@ -441,6 +441,11 @@ $conf['compiled_template_cache_language'] = false;
 // better performance.
 $conf['template_compile_check'] = true;
 
+// this permit to show the php errors reporting (see INI 'error_reporting'
+// for possible values)
+// gives an empty value '' to deactivate
+$conf['show_php_errors'] = E_ALL;
+
 // +-----------------------------------------------------------------------+
 // |                            authentication                             |
 // +-----------------------------------------------------------------------+

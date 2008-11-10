@@ -92,6 +92,13 @@ foreach( array(
 
 include(PHPWG_ROOT_PATH . 'include/config_default.inc.php');
 @include(PHPWG_ROOT_PATH. 'include/config_local.inc.php');
+
+if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
+{
+  ini_set('error_reporting', $conf['show_php_errors']);
+  ini_set('display_errors', true);
+}
+
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
 
