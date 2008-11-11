@@ -199,7 +199,7 @@ else if (!in_array(PREFIX_TABLE.'tags', $tables))
 {
   $current_release = '1.5.0';
 }
-else if ( !in_array(PREFIX_TABLE.'history_summary', $tables) )
+else if ( !in_array(PREFIX_TABLE.'plugins', $tables) )
 {
   if (!in_array('auto_login_key', $columns_of[PREFIX_TABLE.'user_infos']))
   {
