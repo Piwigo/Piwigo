@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 // Default settings
-define('PHPWG_VERSION', '2.0');
+define('PHPWG_VERSION', '2.0.0RC4');
 define('PHPWG_DOMAIN', 'phpwebgallery.net');
 define('PHPWG_URL', 'http://www.'.PHPWG_DOMAIN);
 define('PEM_URL', 'http://' . PHPWG_DOMAIN . '/ext_new'); /* need to be changed on final release */
