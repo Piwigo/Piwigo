@@ -595,15 +595,8 @@ if (!is_writable($config_file))
   die('FILE NOT WRITABLE '.$config_file);
 }
 
-// Insert define('PHPWG_INSTALLED', true); in mysql.inc.php
-$config_file_contents =
-    substr($config_file_contents, 0, $php_end_tag).'
-define(\'PHPWG_INSTALLED\', true);
-'.substr($config_file_contents, $php_end_tag);
-
-$fp = @fopen( $config_file, 'w' );
-@fputs($fp, $config_file_contents, strlen($config_file_contents));
-@fclose($fp);
+// changes to write in mysql.inc.php
+array_push($mysql_changes, 'define(\'PHPWG_INSTALLED\', true);');
 
 // Send infos
 $page['infos'] = array_merge(

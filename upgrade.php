@@ -29,9 +29,17 @@ if (version_compare(PHP_VERSION, '5', '<'))
 
 define('PHPWG_ROOT_PATH', './');
 
-if (!file_exists(PHPWG_ROOT_PATH.'include/mysql.inc.php'))
+// load config file
+$config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
+$config_file_contents = @file_get_contents($config_file);
+if ($config_file_contents === false)
 {
-  die('Could not find include/mysql.inc.php file.');
+  die('Cannot load '.$config_file);
+}
+$php_end_tag = strrpos($config_file_contents, '?'.'>');
+if ($php_end_tag === false)
+{
+  die('Cannot find php end tag in '.$config_file);
 }
 
 include_once(PHPWG_ROOT_PATH.'include/functions.inc.php');
@@ -224,6 +232,7 @@ else
 // +-----------------------------------------------------------------------+
 $page['infos'] = array();
 $page['errors'] = array();
+$mysql_changes = array();
 
 if (isset($_POST['username']) and isset($_POST['password']))
 {
@@ -238,6 +247,23 @@ if (isset($_POST['submit']) and check_upgrade())
     $page['upgrade_start'] = get_moment();
     $conf['die_on_sql_error'] = false;
     include($upgrade_file);
+
+    // Something to add in mysql.inc.php?
+    if (!empty($mysql_changes))
+    {
+      $config_file_contents = 
+        substr($config_file_contents, 0, $php_end_tag) . "\r\n"
+        . implode("\r\n\r\n" , $mysql_changes) . "\r\n"
+        . substr($config_file_contents, $php_end_tag);
+
+      if (!@file_put_contents($config_file, $config_file_contents))
+      {
+        array_push($page['infos'],
+          l10n('in include/mysql.inc.php, before ?>, insert:') . '
+<p><textarea rows="5" cols="40">'.implode("\r\n\r\n" , $mysql_changes).'</textarea></p>'
+          );
+      }
+    }
 
     // Plugins deactivation
     if (in_array(PREFIX_TABLE.'plugins', $tables))
@@ -269,7 +295,6 @@ if (isset($_POST['submit']) and check_upgrade())
       );
 
     array_push($page['infos'],
-      l10n('delete upgrade files'),
       l10n('perform a maintenance check')
       );
 

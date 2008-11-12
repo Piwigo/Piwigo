@@ -30,11 +30,11 @@ $lang['total upgrade time'] = 'total upgrade time';
 $lang['total SQL time'] = 'total SQL time';
 $lang['SQL queries'] = 'SQL queries';
 $lang['Upgrade informations'] = 'Upgrade informations';
-$lang['delete upgrade files'] = '[Security] Delete files "upgrade.php", "upgrade_feed.php", "install.php" and "install" directory';
 $lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.';
 $lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
 $lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
 $lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
+$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, before <b>?></b>, insert:';
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
