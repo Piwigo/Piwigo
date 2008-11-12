@@ -57,8 +57,6 @@ $lang['step2_pwd_conf_info'] = 'Prüfung';
 $lang['step1_err_copy'] = 'Kopieren Sie den Text in rosaen zwischen Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" (Warnung: mysql.inc.php müssen nur enthalten, was in rosa, keine Zeile zurück oder Leerzeichen)';
 $lang['install_help'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Frage auf der <a href="%s"> Forum Piwigo </ a>.';
 $lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der nächste Schritt<br /><br />
-Aus Sicherheitsgründen, bitte löschen Datei "install.php"<br />
-Sobald diese Datei gelöscht, folgen Sie dieser Anleitung:<br />
 * Gehen Sie auf die Identifizierung Seite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster<br />
 * diesem Login ermöglicht Ihnen den Zugang zu den Verwaltungs-Panel und den Anweisungen, um Platz Bilder in Ihre Verzeichnisse.';
 $lang['conf_mail_webmaster'] = 'Webmaster Mail-Adresse';
