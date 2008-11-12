@@ -22,6 +22,7 @@
 
 table { margin: 0px; }
 td {  padding: 3px 10px; }
+textarea { margin-left: 20px; }
 </style>
 {/literal}
 <title>Piwigo {$RELEASE} - {'Upgrade'|@translate}</title>

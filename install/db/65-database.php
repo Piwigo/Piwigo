@@ -102,25 +102,6 @@ if ( !defined('PWG_CHARSET') )
   $upgrade_log = '';
 
 // +-----------------------------------------------------------------------+
-// load the config file
-  $config_file = PHPWG_ROOT_PATH.'include/mysql.inc.php';
-  $config_file_contents = @file_get_contents($config_file);
-  if ($config_file_contents === false)
-  {
-    die('CANNOT LOAD '.$config_file);
-  }
-  $php_end_tag = strrpos($config_file_contents, '?'.'>');
-  if ($php_end_tag === false)
-  {
-    die('CANNOT FIND PHP END TAG IN '.$config_file);
-  }
-  if (!is_writable($config_file))
-  {
-    die('FILE NOT WRITABLE '.$config_file);
-  }
-
-
-// +-----------------------------------------------------------------------+
 // load all the user languages
   $all_langs=array();
   $query='
@@ -274,17 +255,12 @@ ALTER TABLE t1 CHANGE c1 c1 TEXT CHARACTER SET utf8;
 
 
 // +-----------------------------------------------------------------------+
-// write the result to file and update #user_infos.language
-  $config_file_contents =
-    substr($config_file_contents, 0, $php_end_tag).'
-define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
+// changes to write in mysql.inc.php
+  array_push($mysql_changes,
+'define(\'PWG_CHARSET\', \''.$pwg_charset.'\');
 define(\'DB_CHARSET\',  \''.$db_charset.'\');
-define(\'DB_COLLATE\',  \'\');
-'.substr($config_file_contents, $php_end_tag);
-
-  $fp = @fopen( $config_file, 'w' );
-  @fputs($fp, $config_file_contents, strlen($config_file_contents));
-  @fclose($fp);
+define(\'DB_COLLATE\',  \'\');'
+  );
 
   foreach ($all_langs as $old_lang=>$lang_data)
   {
