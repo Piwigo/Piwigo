@@ -59,8 +59,6 @@ $lang['step2_pwd_conf'] = 'Password [confirm]';
 $lang['step2_pwd_conf_info'] = 'verification';
 $lang['install_help'] = 'Need help ? Ask your question on <a href="%s">Piwigo message board</a>.';
 $lang['install_end_message'] = 'The configuration of Piwigo is finished, here is the next step<br /><br />
-For security reason, please delete file "install.php"<br />
-Once this file deleted , follow this instructions :<br />
 * go to the identification page : [ <a href="identification.php">identification</a> ] and use the login/password given for webmaster<br />
 * this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories';
 $lang['conf_mail_webmaster'] = 'Webmaster mail address';

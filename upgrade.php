@@ -253,14 +253,14 @@ if (isset($_POST['submit']) and check_upgrade())
     {
       $config_file_contents = 
         substr($config_file_contents, 0, $php_end_tag) . "\r\n"
-        . implode("\r\n\r\n" , $mysql_changes) . "\r\n"
+        . implode("\r\n" , $mysql_changes) . "\r\n"
         . substr($config_file_contents, $php_end_tag);
 
       if (!@file_put_contents($config_file, $config_file_contents))
       {
         array_push($page['infos'],
           l10n('in include/mysql.inc.php, before ?>, insert:') . '
-<p><textarea rows="5" cols="40">'.implode("\r\n\r\n" , $mysql_changes).'</textarea></p>'
+<p><textarea rows="4" cols="40">'.implode("\r\n" , $mysql_changes).'</textarea></p>'
           );
       }
     }
