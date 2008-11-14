@@ -41,11 +41,11 @@ $lang['step1_host_info'] = 'localhost, sql.multimania.com, pluto.libero.it';
 $lang['step1_user'] = 'Utente';
 $lang['step1_user_info'] = 'nome utente di login alla base dati fornito dal tuo provider';
 $lang['step1_pass'] = 'Password';
-$lang['step1_pass_info'] = 'la password di accesso alla base dati fornita dal tuo provider';
+$lang['step1_pass_info'] = 'La password di accesso alla base dati fornita dal tuo provider';
 $lang['step1_database'] = 'Nome della base dati';
 $lang['step1_database_info'] = 'fornitovi dal provider';
 $lang['step1_prefix'] = 'Prefisso delle tabelle della base dati';
-$lang['step1_prefix_info'] = 'le tabelle della base dati lo avranno come prefisso (permette di gestire meglio le tabelle)';
+$lang['step1_prefix_info'] = 'Le tabelle della base dati lo avranno come prefisso (permette di gestire meglio le tabelle)';
 $lang['step2_err_login1'] = 'Inserire un nome utente per il webmaster';
 $lang['step2_err_login3'] = 'Il nome utente del webmaster non può contenere caratteri come \' o "';
 $lang['step2_err_pass'] = 'Reinserire la password';
@@ -54,9 +54,9 @@ $lang['step2_pwd'] = 'Password';
 $lang['step2_pwd_info'] = 'da conservare con cura. Permette l\'accesso al pannello di amministrazione';
 $lang['step2_pwd_conf'] = 'Password [confermare]';
 $lang['step2_pwd_conf_info'] = 'verifica';
-$lang['step1_err_copy'] = 'Copiate il testo in rosa tra i trattini e mettetelo nel file mysql.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato PhpWebGallery (il file mysql.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
-$lang['install_help'] = 'Bisogno di aiuto? Visitate il <a href="%s">forum di PhpWebGallery</a>.';
-$lang['install_end_message'] = 'La configurazione di PhpWebGallery è conclusa. Procedete al prossimo step<br /><br />
+$lang['step1_err_copy'] = 'Copiate il testo in rosa trà i trattini e mettetelo nel file mysql.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato Piwigo (il file mysql.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
+$lang['install_help'] = 'Bisogno di aiuto? Visitate il <a href="%s">forum di Piwigo</a>.';
+$lang['install_end_message'] = 'La configurazione di Piwigo è conclusa. Procedete al prossimo step<br /><br />
 * collegatevi alla pagina di accesso: [ <a href="identification.php">Accedi ora</a> ] e usate il vostro nome utente e password del Webmaster<br />
 * a questo punto sarete abilitati all\'accesso al pannello di amministrazione in cui troverete le istruzioni per l\'inserimento delle immagini nelle vostre directory';
 $lang['conf_mail_webmaster'] = 'Indirizzo email del Amministratore';
