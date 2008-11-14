@@ -17,15 +17,15 @@ caricata "galleries/prova_categoria".</li>
 
   <li>Accedete alla vostra Piwigo come amministratore.</li>
 
-  <li>Andare su <span class="pwgScreen">Amministrazione -> Immagini -> Miniature</span>. 
-Piwigo troverà le immagini nella directory "prova_categoria" senza miniature 
-e chiederà di crearle.</li>
+  <li>Andare su <span class="pwgScreen">Amministrazione -> Immagini
+-> Miniature</span>. Piwigo troverà le miniature mancanti nella
+directory "prova_categoria" e le creerà in automatico.</li>
 
-  <li>Andare su <span class="pwgScreen">Amministrazione -> Generale -> Sincronizza</span>.
-Selezionare l'opzione "directory + file", deselezionare "effettuare solo una simulazione" 
-ed avviare la sincronizzazione.</li>
+  <li>Andare su <span class="pwgScreen">Amministrazione -> Generale
+-> Sincronizza</span>. Selezionare l'opzione "directory + file", deselezionare
+"effettuare solo una simulazione" ed avviare la sincronizzazione.</li>
 
-  <li>Fatto!!! Avete creato una categoria chiamata "prova_categoria" alla base 
+  <li>Fatto!!! Avete creato una categoria chiamata "prova_categoria" alla base
 della Vostra galleria.</li>
   
 </ol>
@@ -37,7 +37,7 @@ della Vostra galleria.</li>
   <li>
 
     <p>Nella directory "galleries" si trovano le categorie di Piwigo.
-Qui di seguito potete vedere lo schema di un albero di una piccola galleria 
+Qui di seguito potete vedere lo schema di un albero di una piccola galleria
 (ma che usa moltissime funzionalità:</p>
   
 <pre>
@@ -76,40 +76,44 @@ Qui di seguito potete vedere lo schema di un albero di una piccola galleria
 
   </li>
   
-  <li>In linea di massima, una categoria è rappresentata da una directory che si trova 
-a qualsiasi livello della directory "galleries" di Piwigo. Le categorie possono, a loro volta,
-contenere sottolivelli. Nell'esempio qui sopra, categoria-1.1.1.1 
-si trova al 4° livello di profondità.</li>
+  <li>In linea di massima, una categoria è rappresentata da una directory
+che si trova a qualsiasi livello della directory "galleries" di
+Piwigo. Ogni categoria può contenere altretanti sottolivelli che
+si desidera. Nell'esempio qui sopra, categoria-1.1.1.1 si trova al 4 livello
+di profondità.</li>
 
-  <li>Un elemento è invece rappresentato da un file. Un file può essere elemento 
-di Piwigo se la sua estensione è tra quelle previste tra le possibilità 
-configurate nel file <code>file_ext</code> (vedi file <span class="filename">include
-/config_default.inc.php</span>). Un file è considerato come immagine se la sua 
-estensione si trova tra quelle previste nel file <code>picture_ext</code>.</li>
+  <li>Un elemento è invece rappresentato da un file. Un file può essere un
+elemento di Piwigo se la sua estensione è tra quelle previste tra
+le possibilità previste nel parametro di configuarzione <code>file_ext</code>
+(vedi file <span class="filename">include/config_default.inc.php</span>).
+Un file è considerato come un immagine se la sua estensione si trova tra
+quelle previste nel file <code>picture_ext</code>.</li>
 
-  <li>Ogni elemento immagine deve essere associato ad una miniatura (vedi la sezione 
-più in basso riguardante le miniature)</li>
+  <li>Ogni elemento di tipo immagine deve essere associato ad una miniatura
+(vedi la sezione più in basso riguardante le miniature)</li>
 
-  <li>Gli elementi di tipo immagine possono avere un'immagine associata in alta 
-qualità. Come per il file <span class="filename">matrimonio.jpg</span> 
-nell'esempio proposto. Nessun prefisso è necessario.</li>
+  <li>Gli elementi di tipo immagine possono avere un'immagine associata
+in alta qualità. Come per il file <span class="filename">matrimonio.jpg</span>
+nell'esempio proposto. Nessun prefisso è necessario prima del nome del
+file.</li>
 
-  <li>Gli elementi che non sono immagini (video, suoni, file di testo o quant'altro...) 
-sono generalmente rappresentati con un'icona corrispondente all'estensione del file.
-In modo opzionale è possibile associare una miniatura e un file rappresentativo 
-(come per il file <span class="filename">video.avi</span> nell'esempio proposto).</li>
+  <li>Gli elementi che non sono delle immagini (video, suoni, file di testo o
+quant'altro...) sono generalmente rappresentati con un'icona corrispondente
+all'estensione del file. In modo opzionale è possibile associare una miniatura
+e un file rappresentativo (come per il file <span class="filename">video.avi</span>
+nell'esempio proposto).</li>
 
-  <li><em>Attenzione</em>: il nome delle directory o del file deve essere composto 
-da lettere, numeri o caratteri come "-", "_" o ".". Nessuno spazio nè caratteri 
-con gli accenti.</li>
+  <li><em>Attenzione</em>: il nome delle directory o del file deve essere
+composto da lettere, numeri o caratteri come "-", "_" o ".". Nessuno spazio
+ne caratteri con gli accenti.</li>
 
-  <li><em>Consiglio</em>: una categoria può contenere elementi e sottocategorie 
-nello stesso tempo. Ad ogni modo è altamente consigliato di scegliere per ciascuna 
-categoria quelle che contengono elementi <strong>e</strong> quelle che invece 
-contengono sottocategorie.</li>
+  <li><em>Consiglio</em>: una categoria può contenere elementi e
+sottocategorie nello stesso tempo. Ad ogni modo è altamente consigliato di
+scegliere per ciascuna categoria quelle che contengono elementi <strong>e</strong>
+quelle che invece contengono sottocategorie.</li>
 
-  <li>Una volta che i file, le miniature e i file rappresentativi sono 
-correttamente piazzati nelle directory, andare nello schermo <span 
+  <li>Una volta che i file, le miniature e i file rappresentativi sono
+correttamente piazzati nelle directory, andare nello schermo <span
 class="pwgScreen">Amministrazione -> Generale -> Sincronizza</span>.</li>
 
 </ul>
@@ -118,33 +122,31 @@ class="pwgScreen">Amministrazione -> Generale -> Sincronizza</span>.</li>
 
 <ul>
 
-  <li>Come detto prima, ciascun elemento immagine deve essere associato 
+  <li>Come detto prima, ciascun elemento immagine deve essere associato
 ad una miniatura.</li>
 
-  <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni 
-directory che rappresenta una categoria. La miniatura è un file di tipo 
-immagine (stesso nome dell'immagine che rappresenta) con un prefisso 
-che può essere personalizzato dal parametro di configurazione 
-<code>prefix_thumbnail</code> (vedi <span class="filename">include/
-config.inc.php</span>).</li>
+  <li>Le miniature si trovano nella sottodirectory "thumbnail" di ogni
+directory che rappresenta una categoria. La miniatura è un file di tipo
+immagine (stesso nome del file) con un prefisso che può essere
+personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
+(vedi <span class="filename">include/config.inc.php</span>).</li>
 
-  <li>Non è necessario che le miniature abbiano la stessa estensione 
-dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere 
+  <li>Non è necessario che le miniature abbiano la stessa estensione
+dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere
 come miniatura un'immagine ".GIF").</li>
 
-  <li>È altamente consigliato di usare un software esterno (come ThumbClic 
-o PhpMyVignettes, vedi il sito di presentazione di Piwigo) per la 
+  <li>È altamente consigliato di usare un software esterno (come ThumbClic
+o PhpMyVignettes, vedi il sito di presentazione di Piwigo) per la
 creazione delle miniature.</li>
 
-  <li>È anche possibile usare la creazione delle miniature integrata a 
-Piwigo, ma ciò non è raccomandato in quanto la qualità delle 
-miniature può essere scadente e il processo potrebbe utilizzare troppe 
-risorse del server (ciò può essere un problema nel caso in cui si 
-usa un servizio di web hosting gratuito.</li>
+  <li>È anche possibile usare la creazione delle miniature integrata a
+Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
+può essere scadente ed il processo potrebbe utilizzare troppe risorse del
+server (ciò può essere un problema per un servizio di web hosting gratuito.</li>
 
-  <li>Se decidete di usare il server per la creazione delle miniature 
-è necessario dare i diritti di scrittura su tutte le directory e 
-sottodirectory per tutte le categorie di utenti (utente, gruppo, 
+  <li>Se decidete di usare il server per la creazione delle miniature
+è necessario dare i diritti di scrittura su tutte le directory e
+sottodirectory per tutte le categorie di utenti (utente, gruppo,
 altri).</li>
 
 </ul>
@@ -153,18 +155,17 @@ altri).</li>
 
 <ul>
 
-  <li>È possibile impedire l'accesso alle categorie. Le categorie 
-possono essere pubbliche o private. I permessi (per i gruppi e utenti) 
+  <li>È possibile impedire l'accesso alle categorie. Le categorie
+possono essere pubbliche o private. I permessi (per i gruppi e utenti)
 possono essere configurati solo se la categoria è privata.</li>
-  
 
-  <li>Potete rendere una categoria privata modificandola da <span 
+  <li>Potete rendere una categoria privata modificandola da <span
 class="pwgScreen">Amministrazione -> Categorie -> Gestire -> Modificare</span>
-o selezionando l'opzione nell'albero delle categorie <span 
+o selezionando l'opzione nell'albero delle categorie <span
 class="pwgScreen">Amministrazione -> Categorie -> Pubblica/Privata</span>).</li>
 
-  <li>Una volta che certe categorie sono impostate come private, potete gestire 
-i permessi per i gruppi e utenti (<span class="pwgScreen">
+  <li>Una volta che certe categorie sono impostate come private, potete
+gestire i permessi per i gruppi e utenti (<span class="pwgScreen">
 Amministrazione -> Identificazione</span>).</li>
 
 </ul>
@@ -173,16 +174,16 @@ Amministrazione -> Identificazione</span>).</li>
 
 <ul>
 
-  <li>Piwigo permette di gestire gruppi di utenti. Può essere molto utile 
-per gestire permessi di accesso comune su categorie private.</li>
+  <li>Piwigo permette di gestire dei gruppi di utenti. Può essere molto
+utile per gestire permessi di accesso comune su categorie private.</li>
 
-  <li>È possibile creare gruppi in <span class="pwgScreen">
-Amministrazione -> Identificazione -> Gruppi</span> ed associarci degli utenti.</li>
+  <li>È possibile creare gruppi in <span class="pwgScreen">Amministrazione
+-> Identificazione -> Gruppi</span> e associarci degli utenti.</li>
 
-  <li>Un utente può appartenere a gruppi diversi. L'autorizzazione è 
-prioritaria rispetto alla proibizione. Ad esempio se l'utente "pippo" 
-appartiene ai gruppi "famiglia" e "amici" e, tra questi gruppi, solo il gruppo 
-"famiglia" può vedere la categoria "Natale 2006", ne consegue che l'utente 
+  <li>Un utente può appartenere a diversi gruppi. L'autorizzazione è
+prioritaria rispetto alla proibizione. Ad esempio se l'utente "pippo"
+appartiene ai gruppi "famiglia" e "amici" e, tra questi gruppi, solo il gruppo
+"famiglia" può vedere la categoria "Natale 2006", ne consegue che l'utente
 "pippo" sarà abilitato a visionare la categoria "Natale 2006".</li>
 
 </ul>
@@ -195,17 +196,17 @@ appartiene ai gruppi "famiglia" e "amici" e, tra questi gruppi, solo il gruppo
 
   <li>autorizzare il caricamento in ogni categoria (<span 
 class="pwgScreen"> Amministrazione -> Categorie -> Gestire -> Modificare</span> 
-oppure <span class="pwgScreen">Amministrazione -> Categorie -> Proprietà 
+oppure <span class="pwgScreen">Amministrazione -> Categorie -> Proprietà
 -> Aggiungere immagine</span>).</li>
 
-  <li>dare i diritti di scrittura (per tutti gli utenti) sulle directory 
+  <li>dare i diritti di scrittura (per tutti gli utenti) sulle directory
 delle categorie autorizzate a l'aggiunta di file</li>
 
 </ol>
 
-  <p>Il file caricati dagli utenti non sono visibili direttamente sul sito 
-in quanto devono essere convalidati da un amministratore. A questo scopo 
-un amministratore deve recarsi in <span class="pwgScreen">Amministrazione 
+  <p>Il file caricati dagli utenti non sono visibili direttamente sul sito
+in quanto devono essere convalidati da un amministratore. A questo scopo
+un amministratore deve recarsi in <span class="pwgScreen">Amministrazione
 -> Immagini -> In attesa</span> per convalidare o rifiutare i file proposti.
 È poi necessario sincronizzare il filesystem con la base dati.</p>
 
@@ -214,20 +215,20 @@ un amministratore deve recarsi in <span class="pwgScreen">Amministrazione
 
 <ul>
 
-  <li>Piwigo dissocia le categorie che contengono le immagini da quelle 
+  <li>Piwigo dissocia le categorie che contengono le immagini da quelle
 che le visualizzano.</li>
 
-  <li>Di default, gli elementi sono presenti solo nelle categorie reali 
+  <li>Di default, gli elementi sono presenti solo nelle categorie reali
 che corrispondono alle directory sul server.</li>
 
-  <li>Per legare un elemento a una categoria, è sufficente associarlo sulla pagina 
-di modifica dell'elemento (un link esiste verso la pagina quando siete collegati 
-come amministratore), sulla pagina di gestione degli elementi della categoria 
+  <li>Per legare un elemento a una categoria, è sufficente associarlo sulla pagina
+di modifica del elemento (un link esiste verso la pagina quando siete collegati
+come amministratore), sulla pagina di gestione degli elementi della categoria
 o grazie al cestino.</li>
 
-  <li>Usando questo stesso principio è possibile creare delle categorie virtuali : 
-nessuna directory fisica corrisponde a queste nuove categorie. È possibile creare 
-le categorie virtuali da <span class="pwgScreen">Amministrazione -> Categorie 
+  <li>Usando questo stesso principio è possibile creare delle categorie virtuali :
+nessuna directory fisica corrisponde a queste nuove categorie. È possibile creare
+le categorie virtuali da <span class="pwgScreen">Amministrazione -> Categorie
 -> Gestire</span>.</li>
 
 </ul>
@@ -236,15 +237,15 @@ le categorie virtuali da <span class="pwgScreen">Amministrazione -> Categorie
 
 <ul>
 
-  <li>Dopo aver creato la Vostra galleria, modificatene le proprietà 
-di visualizzazione di default da <span class="pwgScreen">Amministrazione 
--> Configurazione -> Visualizzazione di default</span>. In questo modo 
+  <li>Dopo aver creato la Vostra galleria, modificatene le proprietà
+di visualizzazione di default da <span class="pwgScreen">Amministrazione
+-> Configurazione -> Visualizzazione di default</span>. In questo modo
 ogni nuovo utente visualizzerrà la galleria con le stesse impostazioni.</li>
 
-  <li>Per qualsiasi altra domanda, non esitare a visitare il 
-<a href="http://forum.phpwebgallery.net">forum</a> disponibile sul sito ufficiale di 
-<a href="http://www.phpwebgallery.net">Piwigo</a> sul quale troverete 
-anche un'ampia <a href="http://phpwebgallery.net/doc">documentazione</a> in cui 
+  <li>Per qualsiasi altra domanda, non esitare a visitare il
+<a href="http://forum.phpwebgallery.net">forum</a> disponibile sul sito ufficiale di
+<a href="http://www.phpwebgallery.net">Piwigo</a> sul quale troverete
+anche un'ampia <a href="http://phpwebgallery.net/doc">documentazione</a> in cui
 potrete trovare risposte ai vostri dubbi.</li>
 
 </ul>

@@ -140,7 +140,7 @@ $lang['became available before %s (%s)'] = 'disponibile prima del %s (%s)';
 $lang['became available between %s (%s) and %s (%s)'] = 'disponibile tra %s (%s) e il %s (%s)';
 $lang['became available on %s'] = 'disponibile il %s';
 $lang['best_rated_cat'] = 'Le più votate';
-$lang['best_rated_cat_hint'] = 'Mostra gli elementi più votati';
+$lang['best_rated_cat_hint'] = 'Mostra gli elementi i più votati';
 $lang['caddie'] = 'Cestino';
 $lang['calendar'] = 'Calendario';
 $lang['calendar_any'] = 'Tutto';
@@ -186,7 +186,7 @@ $lang['favorite_cat'] = 'Le mie preferite';
 $lang['favorite_cat_hint'] = 'Mostra le mie foto preferite';
 $lang['favorites'] = 'Preferite';
 $lang['first_page'] = 'Primo';
-$lang['gallery_locked_message'] = 'La galleria è chisa per manutenzione. Tornare più tardi.';
+$lang['gallery_locked_message'] = 'La galleria è chiusa per manutenzione. Tornare più tardi.';
 $lang['generation_time'] = 'Pagina generata in';
 $lang['guest'] = 'ospite';
 $lang['hello'] = 'Ciao';
@@ -336,7 +336,7 @@ $lang['Creation date: %s'] = 'Data di creazione: %d';
 $lang['Waiting page: %s'] = 'Pagina in attesa: %s';
 $lang['Picture uploaded by %s'] = 'Immagine caricata da %s';
 // --------- Starting below: New or revised $lang ---- from version 1.7.1
-$lang['guest_must_be_guest'] = 'Lo status del\'utente "guest" non è conforme, viene usato lo status di default. Vogliate avvertirne i webmestre.';
+$lang['guest_must_be_guest'] = 'Lo status del\'utente "guest" non è conforme, viene usato lo status di default. Vogliate avvertire il webmaster.';
 // --------- Starting below: New or revised $lang ---- from Butterfly (1.8)
 $lang['Administrator, webmaster and special user cannot use this method'] = 'Amministratore, webmaster et utente speciale non possono utilizzare questo metodo';
 $lang['reg_err_mail_address_dbl'] = 'un utente usa già questo indirizzo mail';
