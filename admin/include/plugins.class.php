@@ -268,8 +268,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     $version = PHPWG_VERSION;
     $versions_to_check = array();
     $url = PEM_URL . '/api/get_version_list.php?category_id=12&format=php';
-    if ($source = @file_get_contents($url)
-      and $pem_versions = @unserialize($source))
+    if (fetchRemote($url, $result) and $pem_versions = @unserialize($result))
     {
       if (!preg_match('/^\d+\.\d+\.\d+/', $version))
       {
@@ -308,9 +307,9 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
       $url .= $new ? '&extension_exclude=' : '&extension_include=';
       $url .= implode(',', $plugins_to_check);
     }
-    if ($source = @file_get_contents($url))
+    if (fetchRemote($url, $result))
     {
-      $pem_plugins = @unserialize($source);
+      $pem_plugins = @unserialize($result);
       if (!is_array($pem_plugins))
       {
         return false;
@@ -321,6 +320,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
       }
       return true;
     }
+    return false;
   }
   
   /**
@@ -357,8 +357,10 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     {
       $url = PEM_URL . '/download.php?rid=' . $revision;
       $url .= '&origin=piwigo_' . $action;
-      if (@copy($url, $archive))
+
+      if ($handle = @fopen($archive, 'wb') and fetchRemote($url, $handle))
       {
+        fclose($handle);
         include(PHPWG_ROOT_PATH.'admin/include/pclzip.lib.php');
         $zip = new PclZip($archive);
         if ($list = $zip->listContent())

@@ -127,7 +127,7 @@ WHERE id IN ("' . implode('","', $plugins) . '")
     mysql_query($query);
 
     array_push($page['infos'],
-      l10n('deactivated plugins') . '<pre>' . implode(', ', $plugins) . '</pre>');
+      l10n('deactivated plugins').'<br /><br /><i>'.implode(', ', $plugins).'</i><br />');
   }
 }
 
