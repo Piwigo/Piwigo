@@ -89,11 +89,7 @@ $template->assign('order_selected', $link.$order);
 // +-----------------------------------------------------------------------+
 // |                     start template output                             |
 // +-----------------------------------------------------------------------+
-if (!ini_get('allow_url_fopen'))
-{
-  array_push($page['errors'], l10n('Unable to retrieve server informations since allow_url_fopen is disabled.'));
-}
-elseif ($plugins->get_server_plugins(true))
+if ($plugins->get_server_plugins(true))
 {
   $plugins->sort_server_plugins($order);
 

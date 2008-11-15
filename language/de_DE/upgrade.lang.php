@@ -21,25 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/* TODO */
 $lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
-$lang['Statistics'] = 'Statistics';
-$lang['total upgrade time'] = 'total upgrade time';
-$lang['total SQL time'] = 'total SQL time';
-$lang['SQL queries'] = 'SQL queries';
-$lang['Upgrade informations'] = 'Upgrade informations';
-$lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.';
-$lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, before <b>?></b>, insert:';
+$lang['introduction message'] = 'Diese Seite schlägt vor aktualisieren Ihre Datenbank von Ihre alte Version von Piwigo auf die aktuelle Version.
+Der Upgrade-Assistent denkt Sie derzeit ein <strong>Freigabe %s</strong> (oder gleichwertig).';
+$lang['Upgrade from %s to %s'] = 'Upgrade von Version %s bis %s';
+$lang['Statistics'] = 'Statistik';
+$lang['total upgrade time'] = 'insgesamt Upgrade-Zeit';
+$lang['total SQL time'] = 'insgesamt SQL-Zeit';
+$lang['SQL queries'] = 'SQL-Abfragen';
+$lang['Upgrade informations'] = 'Upgrade-Informationen';
+$lang['perform a maintenance check'] = 'Führen Sie einen Wartungs-Check am [Administration> Specials> Wartung], wenn Sie auf ein Problem stoßen';
+$lang['deactivated plugins'] = 'Als Vorsichtsmaßnahme folgenden Plugins wurden deaktiviert. Sie müssen prüfen, ob Plugins aktualisieren, bevor sie reactiving:';
+$lang['upgrade login message'] = 'Nur Administrator können Upgrade ausführen : Bitte melden Sie sich an unter.';
+$lang['You do not have access rights to run upgrade'] = 'Sie haben nicht das Recht auf Zugang zum Upgrade ausführen';
+$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, vor <b>?></b>, wird Folgendes eingefügt:';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
-$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
+$lang['all sub-categories of private categories become private'] = 'Alle Unter-Kategorien von privaten Gruppen wirden privaten';
+$lang['user permissions and group permissions have been erased'] = 'Benutzer und Gruppen Berechtigungen wurden gelöscht';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Nur Miniaturansichten Präfix und Webmaster Mail-Adresse gespeichert wurden aus früheren Konfiguration';
 
 ?>

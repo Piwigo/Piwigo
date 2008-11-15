@@ -1922,4 +1922,112 @@ function cat_admin_access($category_id)
   return true;
 }
 
+/**
+ * Retrieve data from external URL
+ *
+ * @param string $src: URL
+ * @param global $dest: can be a file ressource or string
+ * @return bool
+ */
+function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
+{
+  is_resource($dest) or $dest = '';
+
+  // Try curl to read remote file
+  if (function_exists('curl_init'))
+  {
+    $ch = @curl_init();
+    @curl_setopt($ch, CURLOPT_URL, $src);
+    @curl_setopt($ch, CURLOPT_HEADER, 0);
+    @curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+    is_resource($dest) ?
+      @curl_setopt($ch, CURLOPT_FILE, $dest):
+      @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $content = @curl_exec($ch);
+    @curl_close($ch);
+    if ($content !== false)
+    {
+      is_resource($dest) or $dest = $content;
+      return true;
+    }
+  }
+
+  // Try file_get_contents to read remote file
+  if (ini_get('allow_url_fopen'))
+  {
+    $content = @file_get_contents($src);
+    if ($content !== false)
+    {
+      is_resource($dest) ? @fwrite($dest, $content) : $dest = $content;
+      return true;
+    }
+  }
+
+  // Try fsockopen to read remote file
+  if ($step > 3)
+  {
+    return false;
+  }
+
+  $src = parse_url($src);
+  $host = $src['host'];
+  $path = isset($src['path']) ? $src['path'] : '/';
+  $path .= isset($src['query']) ? '?'.$src['query'] : '';
+  
+  if (($s = @fsockopen($host,80,$errno,$errstr,5)) === false)
+  {
+    return false;
+  }
+
+  fwrite($s,
+    "GET ".$path." HTTP/1.0\r\n"
+    ."Host: ".$host."\r\n"
+    ."User-Agent: ".$user_agent."\r\n"
+    ."Accept: */*\r\n"
+    ."\r\n"
+  );
+
+  $i = 0;
+  $in_content = false;
+  while (!feof($s))
+  {
+    $line = fgets($s);
+
+    if (rtrim($line,"\r\n") == '' && !$in_content)
+    {
+      $in_content = true;
+      $i++;
+      continue;
+    }
+    if ($i == 0)
+    {
+      if (!preg_match('/HTTP\/(\\d\\.\\d)\\s*(\\d+)\\s*(.*)/',rtrim($line,"\r\n"), $m))
+      {
+        fclose($s);
+        return false;
+      }
+      $status = (integer) $m[2];
+      if ($status < 200 || $status >= 400)
+      {
+        fclose($s);
+        return false;
+      }
+    }
+    if (!$in_content)
+    {
+      if (preg_match('/Location:\s+?(.+)$/',rtrim($line,"\r\n"),$m))
+      {
+        fclose($s);
+        return fetchRemote(trim($m[1]),$dest,$user_agent,$step+1);
+      }
+      $i++;
+      continue;
+    }
+    is_resource($dest) ? @fwrite($dest, $line) : $dest .= $line;
+    $i++;
+  }
+  fclose($s);
+  return true;
+}
+
 ?>

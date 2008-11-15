@@ -42,17 +42,14 @@ check_status(ACCESS_ADMINISTRATOR);
 // Check for upgrade : code inspired from punbb
 if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 {
-  if (!ini_get('allow_url_fopen'))
+  if (!fetchRemote(PHPWG_URL.'/latest_version', $result))
   {
-    array_push(
-      $page['errors'],
-      l10n('Unable to check for upgrade since allow_url_fopen is disabled.')
-      );
+    array_push($page['errors'], l10n('Unable to check for upgrade.'));
   }
   else
   {
     $versions = array('current' => PHPWG_VERSION);
-    $lines = @file(PHPWG_URL.'/latest_version');
+    $lines = @explode("\r\n", $result);
 
     // if the current version is a BSF (development branch) build, we check
     // the first line, for stable versions, we check the second line
