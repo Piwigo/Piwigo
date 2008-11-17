@@ -114,8 +114,13 @@ DELETE FROM '.CATEGORIES_TABLE.'
 ;';
   pwg_query($query);
 
-   $query='
+  $query='
 DELETE FROM '.OLD_PERMALINKS_TABLE.'
+  WHERE cat_id IN ('.implode(',',$ids).')';
+  pwg_query($query);
+
+  $query='
+DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
   WHERE cat_id IN ('.implode(',',$ids).')';
   pwg_query($query);
 
