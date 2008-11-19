@@ -1780,7 +1780,7 @@ UPDATE '.USER_CACHE_TABLE.'
   SET need_update = \'true\';';
     pwg_query($query);
   }
-  trigger_action('invalidate_user_cache');
+  trigger_action('invalidate_user_cache', $full);
 }
 
 /**
