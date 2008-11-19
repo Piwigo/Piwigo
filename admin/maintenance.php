@@ -46,7 +46,7 @@ switch ($action)
     update_uppercats();
     update_category('all');
     update_global_rank();
-    invalidate_user_cache();
+    invalidate_user_cache(true);
     break;
   }
   case 'images' :
