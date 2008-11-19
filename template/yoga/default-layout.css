@@ -268,7 +268,7 @@ TABLE.tagLetterContent {
 
 #theNotificationPage DL,
 #thePopuphelpPage DL { margin: 0 25px 25px; }
-#content #comments UL.thumbnailCategories LI { width:99%; }
+.content #comments UL.thumbnailCategories LI { width:99%; }
 /* jQuery datepicker */
 IMG.ui-datepicker-trigger {
 	cursor : pointer;

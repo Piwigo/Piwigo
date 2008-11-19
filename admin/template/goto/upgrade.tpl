@@ -104,6 +104,10 @@ textarea { margin-left: 20px; }
   <li>{$info}</li>
   {/foreach}
 </ul>
+
+<form action="index.php" method="post">
+<p><input type="submit" name="submit" value="{'home'|@translate}"/></p>
+</form>
 {/if}
 
 </div> {* content *}

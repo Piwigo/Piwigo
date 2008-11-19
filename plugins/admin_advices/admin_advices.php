@@ -157,7 +157,7 @@ LIMIT 0, 1
 SELECT * FROM '.IMAGE_TAG_TABLE.'
 WHERE image_id =  ' . $row['id'] .'
 ;';
-      $tag_count = mysql_num_rows(mysql_query($query));
+      $tag_count = mysql_num_rows(pwg_query($query));
       $template->assign('thumbnail',
          array(
            'IMAGE'              => get_thumbnail_url($row),

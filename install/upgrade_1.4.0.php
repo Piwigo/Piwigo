@@ -64,7 +64,7 @@ DELETE
    \'authorize_remembering\'
    )
 ;';
-mysql_query($query);
+pwg_query($query);
 
 $queries = array(
 

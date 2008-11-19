@@ -71,7 +71,7 @@ function execute_sqlfile($filepath, $replaced, $replacing)
             $query = $matches[1].' '.$install_charset_collate.';';
           }
         }
-        mysql_query($query);
+        pwg_query($query);
       }
       $query = '';
     }
