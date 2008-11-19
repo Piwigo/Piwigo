@@ -31,7 +31,7 @@ $lang['TN-height&width'] = 'Altezza e lunghezza delle miniature dovrebbero esser
 $lang['Adv_case'][0] = array( /* **contribute */
  'Se volete contribuire con i vostri propri "trucchi", pubblicateli pure',
  'sul forum di Piwigo (o inviateli per posta agli sviluppatori),',
- 'e saremmo felici di aggiungerli nella la prossima versione.',);
+ 'e saremmo felici d\'aggiungerli nella la prossima versione.',);
 $lang['Adv_case'][1] = array( /* newcat_default_status */
  'Trovate $conf[\'newcat_default_status\'] = \'private\',',
  'Avrete più tempo per descrivere e controllare le vostre immagini.',
@@ -62,7 +62,7 @@ $lang['Adv_case'][7] = array( /* anti-flood_time */
 $lang['Adv_case'][8] = array( /* calendar_datefield */
  'I valori autorizzati sono ' . "'date_creation' o 'date_available'" . ', tutt\'altro valore può dare risultato inaspettato.' , );
 $lang['Adv_case'][9] = array( /* calendar_datefield */
- "'date_creation'" . ' é vuoto. Nessun\' campo dei metadati (use_) n\'attualizza la base.',
+ "'date_creation'" . ' é vuoto. Nessun campo dei metadati (use_) n\'attualizza la base.',
  'O attivate l\'uso dei metatati activate <strong>o</strong> cambiate a $conf[\'calendar_datefield\'] = \'date_available\'',
  'Attivate l\'uso dei metadati semplicemente con :',
  '1 - $conf[\'use_iptc\'] = true, o $conf[\'use_exif\'] = true; le due sonuzioni possono essere usate.',
@@ -78,7 +78,7 @@ $lang['Adv_case'][11] = array( /* level_separator */
 $lang['Adv_case'][12] = array( /* paginate_pages_around */
  'I valore di default si trovano tra 2 e 5. Per un sito con un interfacia "leggera" scegliere : ',
  '$conf[\'paginate_pages_around\'] = 2;',
- 'Al fine di offrire più accessi diretti, scegliere : $conf[\'paginate_pages_around\'] = 7,', );
+ 'Al fine d\'offrire più accessi diretti, scegliere : $conf[\'paginate_pages_around\'] = 7,', );
 $lang['Adv_case'][13] = array( /* tn_width */
  'Deve essere un valore vicino alla larghezza delle vostre miniature. I valori di default sono tra 96 e 150, come $conf[\'tn_width\'] = 128,', );
 $lang['Adv_case'][14] = array( /* tn_height */
@@ -100,13 +100,13 @@ $lang['Adv_case'][20] = array( /* allow_random_representative */
  'Lasciate pure $conf[\'allow_random_representative\'] = true, ',
  'ma provate a vedere come evitarlo per raggioni di performance.' , );
 $lang['Adv_case'][21] = array( /* prefix_thumbnail */
- 'Attenzione, il vostro $conf[\'prefix_thumbnail\'] non é di default.',
+ 'Attenzione, il vostro $conf[\'prefix_thumbnail\'] non è di default.',
  'Non dovete cambiarlo eccetto se le vostre miniature non sono visibili'.,
  'Il sito distante potrebbe usare un prefisso diverso, il create_listing_file.php dovrà essere modificato'.,
- 'In questo caso, dovreste avere un messaggio di avvertimento durante la sincronizzazione'.,
+ 'In questo caso, dovreste avere un messaggio d\'avvertimento durante la sincronizzazione'.,
  'Provate a mantenere lo stesso prefisso per tutti i siti sia locali che distanti'.,
  'Tenere questo parametro nel vostro ./include/config_<strong>locale.inc.php</strong>',
- 'Vedere la pagina di configurazione nel WIKI per maggiore informazioni di su ./include/config_<strong>locale.inc.php</strong>. ',);
+ 'Vedere la pagina di configurazione nel WIKI per maggiore informazioni su ./include/config_<strong>locale.inc.php</strong>. ',);
 $lang['Adv_case'][22] = array( /* users_page */
  'Se avete una conessione a banda larga potete aumentare $conf[\'users_page\'] sopra tutto se avete più di 20 utenti registrati.', );
 $lang['Adv_case'][23] = array( /* mail_options */
@@ -160,11 +160,11 @@ $lang['Adv_case'][33] = array( /* **navigation */
 $lang['Adv_case'][34] = array( /* compiled_template_cache_language */
  'Doverbbe essere a "true", la traduzione sarà eseguta al momento della compilazione.',
  'Se modificate i files lingua (traduzioni), dovreste impostare il parametro a "false".',
- 'Impostato a "false", i "@translate" dei template saranno trattati ad ogni uso.' );
+ 'Impostato a "false", i "@translate" dei templates saranno trattati ad ogni uso.' );
 $lang['Adv_case'][35] = array( /* template_compile_check */
- 'Di default a "true", ogni modifica di template è rilevata e il template modificato è compilato.',
- 'Se non modificate i vostri template per qualche giorno, ',
+ 'Di default a "true", ogni modifica sui templates è rilevata e il template modificato è compilato.',
+ 'Se non modificate i vostri templates per qualche giorno, ',
  'dovreste penasre ad impostarlo a "false".',
- 'Scelgliendo "false", le modifiche di template non saranno più rilevate, ciò amegliora i tempi di risposta.',
+ 'Scelgliendo "false", le modifiche dei templates non saranno più rilevate, ciò amegliora i tempi di risposta.',
  'Comunque Speciale > Manutezione > Spurgare i templates compilati, è consigliato dopo una modifica di $conf.' );
 ?>
