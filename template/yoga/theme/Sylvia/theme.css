@@ -109,6 +109,9 @@ BODY {
 #menubar LI { 
 	padding-left: 12px; 
 }
+#menubar LI UL {
+  background: transparent url(images/transparent.gif);
+}
 #menubar A, .menuInfoCat { 
 	font-size: 13px; 
 }
@@ -128,7 +131,7 @@ BODY {
 #menubar #mbIdentification form { 
 	background:transparent url(images/menuId_sides.gif) repeat-y scroll left bottom; 
 }
-#menubar #mbIdentification  .actions, #menubar li ul, #menubar #mbIdentification form  p { 
+#menubar #mbIdentification  .actions, #menubar #mbIdentification form  p { 
 	background:transparent none repeat-y scroll left bottom; 
 }
 #menubar #mbIdentification p { 
@@ -161,7 +164,7 @@ BODY {
 	padding: 0 8px 0 16px; 
 }
 
-#content { 
+.content { 
 	background:#222 url(images/fillet.gif) repeat-x scroll left top; 
 	min-height:466px; 
 }

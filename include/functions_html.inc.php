@@ -588,6 +588,7 @@ function access_denied()
   set_status_header(401);
   if ( isset($user) and !is_a_guest() )
   {
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
     echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br />';
     echo '<a href="'.get_root_url().'identification.php">'.l10n('identification').'</a>&nbsp;';
     echo '<a href="'.make_index_url().'">'.l10n('home').'</a></div>';

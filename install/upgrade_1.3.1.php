@@ -42,7 +42,7 @@ $query = '
 SELECT prefix_thumbnail, mail_webmaster
   FROM '.PREFIX_TABLE.'config
 ;';
-$save = mysql_fetch_array(mysql_query($query));
+$save = mysql_fetch_array(pwg_query($query));
 
 $queries = array(
   "

@@ -124,10 +124,10 @@ UPDATE '.PREFIX_TABLE.'plugins
 SET state="inactive"
 WHERE id IN ("' . implode('","', $plugins) . '")
 ;';
-    mysql_query($query);
+    pwg_query($query);
 
     array_push($page['infos'],
-      l10n('deactivated plugins').'<br /><br /><i>'.implode(', ', $plugins).'</i><br />');
+      l10n('deactivated plugins').'<p><i>'.implode(', ', $plugins).'</i></p>');
   }
 }
 
@@ -159,7 +159,7 @@ ON u.'.$conf['user_fields']['id'].'=ui.user_id
 WHERE '.$conf['user_fields']['username'].'="'.$username.'"
 ;';
   }
-  $row = mysql_fetch_assoc(mysql_query($query));
+  $row = mysql_fetch_assoc(pwg_query($query));
 
   if (!isset($conf['pass_convert']))
   {

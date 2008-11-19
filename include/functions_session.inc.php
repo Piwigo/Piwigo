@@ -146,7 +146,7 @@ INSERT INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
   VALUES(\''.get_remote_addr_session_hash().$session_id.'\',\''.$data.'\',now())
 ;';
-  mysql_query($query);
+  pwg_query($query);
   return true;
 }
 

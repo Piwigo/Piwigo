@@ -80,7 +80,7 @@ function get_tables()
   $query = '
 SHOW TABLES
 ;';
-  $result = mysql_query($query);
+  $result = pwg_query($query);
 
   while ($row = mysql_fetch_row($result))
   {
@@ -107,7 +107,7 @@ function get_columns_of($tables)
     $query = '
 DESC '.$table.'
 ;';
-    $result = mysql_query($query);
+    $result = pwg_query($query);
 
     $columns_of[$table] = array();
 
