@@ -298,8 +298,6 @@ if (isset($_POST['submit']) and check_upgrade())
       l10n('perform a maintenance check')
       );
 
-    invalidate_user_cache();
-
     // c13y_upgrade plugin means "check integrity after upgrade", so it
     // becomes useful just after an upgrade
     $query = '
@@ -308,6 +306,14 @@ REPLACE INTO '.PLUGINS_TABLE.'
   VALUES (\'c13y_upgrade\', \'active\')
 ;';
     pwg_query($query);
+
+    // Delete cache data
+    invalidate_user_cache(true);
+    $template->delete_compiled_templates();
+
+    // Tables Maintenance
+    do_maintenance_all_tables();
+
   }
 }
 

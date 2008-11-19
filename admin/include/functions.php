@@ -1762,12 +1762,24 @@ function pwg_URL()
 /**
  * Invalidates cahed data (permissions and category counts) for all users.
  */
-function invalidate_user_cache()
+function invalidate_user_cache($full = true)
 {
-  $query = '
+  if ($full)
+  {
+    $query = '
+TRUNCATE TABLE '.USER_CACHE_CATEGORIES_TABLE.';';
+    pwg_query($query);
+    $query = '
+TRUNCATE TABLE '.USER_CACHE_TABLE.';';
+    pwg_query($query);
+  }
+  else
+  {
+    $query = '
 UPDATE '.USER_CACHE_TABLE.'
-  SET need_update = \'true\'';
-  pwg_query($query);
+  SET need_update = \'true\';';
+    pwg_query($query);
+  }
   trigger_action('invalidate_user_cache');
 }
 
