@@ -34,6 +34,6 @@ $lang['add_index_nb_skipped_file'] = '%d file non trattato';
 $lang['add_index_nb_skipped_files'] = '%d files non trattati';
 $lang['add_index_nb_not_copied_file'] = '%d file non copiato';
 $lang['add_index_nb_not_copied_files'] = '%d files non copiati';
-$lang['add_index_src_file_dont_exists'] = 'Il file sorgente non esiste, impossibile di dupplicarlo';
+$lang['add_index_src_file_dont_exists'] = 'Il file sorgente non esiste, impossibile dupplicarlo';
 
 ?>
