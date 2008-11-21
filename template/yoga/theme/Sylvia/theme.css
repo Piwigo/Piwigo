@@ -41,7 +41,7 @@ BODY {
 	color:#333; 
 }
 .header_msgs { 
-	background:transparent url(images/header_msgs-bg.gif) repeat scroll right top;
+	background:transparent url(images/header_msgs-bg.gif) repeat scroll left top;
 	border:0; 
 	color:#333; 
 	font-size:24px; 
@@ -54,16 +54,17 @@ BODY {
 	width:100%; 
 	z-index:99; 
 }
-.header_notes { 
-	border:0; 
-	color:#333; 
-	margin:0; 
-	padding:12px 44px 0 0; 
+.header_notes {
+	background:transparent url(images/header_msgs-bg.gif) repeat scroll left top;
+	border:0 none;
+	color:#333;
+	font-size:16px;
+	margin:0;
+	padding:0;
 	position:absolute;
-	right:9px; 
-	top:48px; 
-	z-index:99; 
-	background-position: right top; 
+	top:0;
+	width:100%;
+	z-index:99;
 }
 #menubar DL { 
 	background:transparent url(images/menuBox_top.gif) no-repeat scroll left top;
