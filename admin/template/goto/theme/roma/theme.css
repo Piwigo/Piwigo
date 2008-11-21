@@ -10,7 +10,7 @@ INPUT[type="submit"], INPUT[type="reset"]  { color:#999; border: 1px solid #666;
 input.rateButton, legend, h3 { color: #666; }
 #theAdminPage h2 { color: #333; }
 .content .infos { color: #f70; border:0; background-color: transparent;
-padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; }
+padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; background-position:left top;}
 .content .infos li, .content .errors li { list-style-type:none; }
 .content .errors { color: #f30; border:0; background-color: transparent;
 padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
