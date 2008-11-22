@@ -141,7 +141,13 @@ function check_upgrade_access_rights($current_release, $username, $password)
     $username = mysql_real_escape_string($username);
   }
 
-  if (version_compare($current_release, '1.5.0', '<'))
+  if (version_compare($current_release, '2.0', '<'))
+  {
+    $username = utf8_decode($username);
+    $password = utf8_decode($password);
+  }
+
+  if (version_compare($current_release, '1.5', '<'))
   {
     $query = '
 SELECT password, status
@@ -166,7 +172,7 @@ WHERE '.$conf['user_fields']['username'].'="'.$username.'"
     $conf['pass_convert'] = create_function('$s', 'return md5($s);');
   }
 
-  if ($row['password'] != $conf['pass_convert']($_POST['password']))
+  if ($row['password'] != $conf['pass_convert']($password))
   {
     array_push($page['errors'], l10n('invalid_pwd'));
   }

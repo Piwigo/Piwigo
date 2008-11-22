@@ -1948,6 +1948,10 @@ function cat_admin_access($category_id)
  */
 function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
 {
+  // After 3 redirections, return false
+  if ($step > 3) return false;
+
+  // Initialize $dest
   is_resource($dest) or $dest = '';
 
   // Try curl to read remote file
@@ -1955,16 +1959,20 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
   {
     $ch = @curl_init();
     @curl_setopt($ch, CURLOPT_URL, $src);
-    @curl_setopt($ch, CURLOPT_HEADER, 0);
+    @curl_setopt($ch, CURLOPT_HEADER, 1);
     @curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-    is_resource($dest) ?
-      @curl_setopt($ch, CURLOPT_FILE, $dest):
-      @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $content = @curl_exec($ch);
+    $header_length = @curl_getinfo($ch, CURLINFO_HEADER_SIZE);
     @curl_close($ch);
     if ($content !== false)
     {
-      is_resource($dest) or $dest = $content;
+      if (preg_match('/Location:\s+?(.+)/', substr($content, 0, $header_length), $m))
+      {
+        return fetchRemote($m[1], $dest, $user_agent, $step+1);
+      }
+      $content = substr($content, $header_length);
+      is_resource($dest) ? @fwrite($dest, $content) : $dest = $content;
       return true;
     }
   }
@@ -1981,11 +1989,6 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
   }
 
   // Try fsockopen to read remote file
-  if ($step > 3)
-  {
-    return false;
-  }
-
   $src = parse_url($src);
   $host = $src['host'];
   $path = isset($src['path']) ? $src['path'] : '/';

@@ -131,18 +131,7 @@ SELECT data
 function pwg_session_write($session_id, $data)
 {
   $query = '
-UPDATE '.SESSIONS_TABLE.'
-  SET expiration = now(),
-  data = \''.$data.'\'
-  WHERE id = \''.get_remote_addr_session_hash().$session_id.'\'
-;';
-  pwg_query($query);
-  if ( mysql_affected_rows()>0 )
-  {
-    return true;
-  }
-  $query = '
-INSERT INTO '.SESSIONS_TABLE.'
+REPLACE INTO '.SESSIONS_TABLE.'
   (id,data,expiration)
   VALUES(\''.get_remote_addr_session_hash().$session_id.'\',\''.$data.'\',now())
 ;';
