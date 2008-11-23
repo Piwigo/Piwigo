@@ -1948,6 +1948,21 @@ function cat_admin_access($category_id)
  */
 function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
 {
+  // Try to retrieve data from local file?
+  if (!url_is_remote($src))
+  {
+    $content = @file_get_contents($src);
+    if ($content !== false)
+    {
+      is_resource($dest) ? @fwrite($dest, $content) : $dest = $content;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
   // After 3 redirections, return false
   if ($step > 3) return false;
 
@@ -1964,8 +1979,9 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
     @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $content = @curl_exec($ch);
     $header_length = @curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $status = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
     @curl_close($ch);
-    if ($content !== false)
+    if ($content !== false and $status >= 200 and $status < 400)
     {
       if (preg_match('/Location:\s+?(.+)/', substr($content, 0, $header_length), $m))
       {

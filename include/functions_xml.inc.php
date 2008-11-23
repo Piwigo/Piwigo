@@ -121,18 +121,11 @@ function getXmlCode( $filename )
     ini_set("pcre.backtrack_limit", pow(2, 32));
   }
 
-  $file = fopen( $filename, 'r' );
-  if ( !$file )
+  if (!fetchRemote($filename, $xml_content))
   {
     return false;
   }
 
-  $xml_content = '';
-  while ( !feof( $file ) )
-  {
-    $xml_content .= fgets( $file, 1024 );
-  }
-  fclose( $file );
   $xml_content = str_replace( "\n", '', $xml_content );
   $xml_content = str_replace( "\t", '', $xml_content );
 

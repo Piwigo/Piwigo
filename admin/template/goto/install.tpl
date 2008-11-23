@@ -145,6 +145,12 @@ TD {
     </tr>
   </table>
 </form>
+{else}
+<p>
+  <br />
+  <input type="button" name="index" value="{'home'|@translate}" onClick="document.location = 'index.php';"/>
+  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="document.location = 'identification.php';"/>
+</p>
 {/if}
 </div> {* content *}
 <div style="text-align: center">{$L_INSTALL_HELP}</div>
