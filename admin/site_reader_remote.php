@@ -48,7 +48,7 @@ function RemoteSiteReader($url, $listing_url)
 
   if (!isset($listing_url))
   {
-    $this->listing_url = $this->site_url.'/listing.xml';
+    $this->listing_url = $this->site_url.'listing.xml';
   }
   else
   {
@@ -65,11 +65,10 @@ function open()
 {
   global $errors;
 
-  if (@fopen($this->listing_url, 'r'))
+  if ($xml_content = getXmlCode($this->listing_url))
   {
     $this->site_dirs = array();
     $this->site_files = array();
-    $xml_content = getXmlCode($this->listing_url);
     $info_xml_element = getChild($xml_content, 'informations');
     if (getAttribute($info_xml_element , 'phpwg_version') != PHPWG_VERSION)
     {

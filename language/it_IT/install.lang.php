@@ -57,7 +57,7 @@ $lang['step2_pwd_conf_info'] = 'verifica';
 $lang['step1_err_copy'] = 'Copiate il testo in rosa trà i trattini e mettetelo nel file mysql.inc.php che si trova nella directory "include" alla base del vostro sito dove aveto installato Piwigo (il file mysql.inc.php non deve contenere altro che ciò che è in rosa tra i trattini, nessun ritorno a capo o spazio è autorizzato)';
 $lang['install_help'] = 'Bisogno di un aiuto? Visitate il <a href="%s">forum di Piwigo</a>.';
 $lang['install_end_message'] = 'La configurazione di Piwigo è conclusa. Procedete al prossimo step<br /><br />
-* collegatevi alla pagina d\'accesso: [ <a href="identification.php">Accedi ora</a> ] e usate il vostro nome utente e password del Webmaster<br />
+* collegatevi alla pagina d\'accesso e usate il vostro nome utente e password del Webmaster<br />
 * a questo punto sarete abilitati all\'accesso al pannello di amministrazione in cui troverete le istruzioni per l\'inserimento delle immagini nelle vostre directory';
 $lang['conf_mail_webmaster'] = 'Indirizzo email del Amministratore';
 $lang['conf_mail_webmaster_info'] = 'i visitatori potranno contattarvi utilizzando questo indirizzo email';

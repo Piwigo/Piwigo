@@ -25,6 +25,8 @@
 </div>
 {/if}
 
+{if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
+
 <div id="imageHeaderBar">
   <div class="browsePath">
     <a href="{$U_HOME}" rel="home">{'home'|@translate}</a>
@@ -37,7 +39,6 @@
   {/if}
 </div>
 
-{if !empty($PLUGIN_PICTURE_BEFORE)}{$PLUGIN_PICTURE_BEFORE}{/if}
 <div id="imageToolBar">
   <div class="randomButtons">
     {if isset($U_SLIDESHOW_START) }
@@ -277,7 +278,5 @@ y.callService(
 	{/if}
 </div>
 {/if} {*comments*}
-
-
 
 {if !empty($PLUGIN_PICTURE_AFTER)}{$PLUGIN_PICTURE_AFTER}{/if}

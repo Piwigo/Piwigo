@@ -44,8 +44,9 @@ function remote_output($url)
 {
   global $template, $page;
 
-  if($lines = @file($url))
+  if (fetchRemote($url, $result))
   {
+    $lines = explode("\r\n", $result);
     // cleaning lines from HTML tags
     foreach ($lines as $line)
     {
@@ -112,8 +113,9 @@ SELECT COUNT(id) AS count
         $clf_url = $url.'create_listing_file.php';
         $clf_url.= '?action=test';
         $clf_url.= '&version='.PHPWG_VERSION;
-        if ( ($lines = @file($clf_url)) !== false)
+        if (fetchRemote($clf_url, $result))
         {
+          $lines = explode("\r\n", $result);
           $first_line = strip_tags($lines[0]);
           if (!preg_match('/^PWG-INFO-2:/', $first_line))
           {
