@@ -93,6 +93,10 @@ if ((isset($_POST['edit'])) and !is_numeric($_POST['file_to_edit']))
 if (isset($_POST['create_tpl']))
 {
   $filename = $_POST['tpl_name'];
+  if (empty($filename))
+  {
+    array_push($page['errors'], l10n('locfiledit_empty_filename'));
+  }
   if (get_extension($filename) != 'tpl')
   {
     $filename .= '.tpl';
@@ -100,19 +104,20 @@ if (isset($_POST['create_tpl']))
   if (!preg_match('/^[a-zA-Z0-9-_.]+$/', $filename))
   {
     array_push($page['errors'], l10n('locfiledit_filename_error'));
-    $newfile_page = true;
   }
   if (is_numeric($_POST['tpl_model']) and $_POST['tpl_model'] != '0')
   {
     array_push($page['errors'], l10n('locfiledit_model_error'));
-    $newfile_page = true;
   }
   if (file_exists($_POST['tpl_parent'] . '/' . $filename))
   {
     array_push($page['errors'], l10n('locfiledit_file_already_exists'));
+  }
+  if (!empty($page['errors']))
+  {
     $newfile_page = true;
   }
-  if (!$newfile_page)
+  else
   {
     $edited_file = $_POST['tpl_parent'] . '/' . $filename;
     $content_file = ($_POST['tpl_model'] == '0') ? $new_file['tpl'] : file_get_contents($_POST['tpl_model']);
