@@ -185,7 +185,7 @@ BODY {
 	background:transparent url(images/menuBox_sides.gif) repeat-y scroll left bottom; 
 	margin:0; 
 }
-#content ul.thumbnailCategories li {
+.content ul.thumbnailCategories li {
 	background:#222 url(images/cat_bottom-right.gif) no-repeat scroll right bottom; 
 	width:49%; 
 	margin: 0; 
@@ -196,23 +196,23 @@ BODY {
 	padding: 0; 
 	margin:0; 
 }
-#content .thumbnailCategory div.illustration { 
+.content .thumbnailCategory div.illustration { 
 	background:transparent url(images/cat_top-left.gif) no-repeat scroll left top; 
 	padding: 0 0 0 10px; 
-	margin: 0; 
+	margin: 0 !important; 
 }
 .content .thumbnailCategory div.illustration a { 
 	display: block; 
 	margin: 0; 
 	padding:20px 0 0 8px; 
 }
-#content .thumbnailCategory div.description { 
+.content .thumbnailCategory div.description { 
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
-	overflow: hidden; 
+	overflow: hidden !important; 
 }
-#content .thumbnailCategory div.description .text { 
+.content .thumbnailCategory div.description .text { 
 	display:block; 
 	margin:10px 2px 0 0;
 	overflow: auto; 
@@ -223,11 +223,10 @@ BODY {
 	margin: 0 15px 0 15px; 
 	text-align: right; 
 }
-#content.content .thumbnailCategory div.description H3 { 
+.content .thumbnailCategory div.description H3 { 
 	display: block; 
-	margin: 0; 
 }
-#content ul.thumbnailCategories li:hover { 
+.content ul.thumbnailCategories li:hover { 
 	background-color:#111; 
 } 
 .infos { 

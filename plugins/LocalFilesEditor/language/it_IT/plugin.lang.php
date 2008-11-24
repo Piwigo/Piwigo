@@ -51,5 +51,6 @@ $lang['locfiledit_parent_directory'] = 'Directory parente';
 $lang['locfiledit_filename_error'] = 'Caratteri vietati nel nome del file.';
 $lang['locfiledit_file_already_exists'] = 'Il file esiste già.';
 $lang['locfiledit_model_error'] = 'Selezionare un modello.';
+/* TODO */ $lang['locfiledit_empty_filename'] = 'You must fill file name.';
 
 ?>

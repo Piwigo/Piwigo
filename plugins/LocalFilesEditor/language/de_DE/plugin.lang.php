@@ -51,5 +51,6 @@ $lang['locfiledit_parent_directory'] = 'Eltern-Verzeichnis';
 $lang['locfiledit_filename_error'] = 'Verboten Zeichen in Dateinamen.';
 $lang['locfiledit_file_already_exists'] = 'Datei ist bereits vorhanden.';
 $lang['locfiledit_model_error'] = 'Sie müssen ein Modell wählen.';
+/* TODO */ $lang['locfiledit_empty_filename'] = 'You must fill file name.';
 
 ?>
