@@ -343,3 +343,4 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 	color:#999; 
 	border-color:#666; 
 }
+.titrePage img.button[alt="x"] { margin: 0 3px 3px; }
