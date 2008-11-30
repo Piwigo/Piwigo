@@ -30,9 +30,22 @@
 function eval_syntax($code)
 {
   $code = str_replace(array('<?php', '?>'), '', $code);
-  if (!@eval('return true;' . $code))
+  if (function_exists('token_get_all'))
   {
-    return false;
+    $b = 0;
+    foreach (token_get_all($code) as $token)
+    {
+      if ('{' == $token) ++$b;
+      else if ('}' == $token) --$b;
+    }
+    if ($b) return false;
+    else
+    {
+      ob_start();
+      $eval = eval('if(0){' . $code . '}');
+      ob_end_clean();
+      if ($eval === false) return false;
+    }
   }
   return '<?php' . $code . '?>';
 }
