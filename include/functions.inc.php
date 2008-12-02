@@ -1540,4 +1540,18 @@ function convert_charset($str, $source_charset, $dest_charset)
   }
   return $str; //???
 }
+
+/**
+ * makes sure a index.htm protects the directory from browser file listing
+ *
+ * @param string dir directory
+ */
+function secure_directory($dir)
+{
+  $file = $dir.'/index.htm';
+  if (!file_exists($file))
+  {
+    @file_put_contents($file, 'Not allowed!');
+  }
+}
 ?>

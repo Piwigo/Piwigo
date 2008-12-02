@@ -951,6 +951,8 @@ SELECT
     }
   }
 
+  secure_directory($upload_dir);
+
   // compute file path
   $date_string = preg_replace('/[^\d]/', '', $dbnow);
   $random_string = substr($params['file_sum'], 0, 8);
@@ -993,6 +995,8 @@ SELECT
       return new PwgError(500, 'thumbnail directory has no write access');
     }
   }
+
+  secure_directory($thumbnail_dir);
 
   // thumbnail path, the filename may use a prefix and the extension is
   // always "jpg" (no matter what the real file format is)
@@ -1043,6 +1047,8 @@ SELECT
         return new PwgError(500, 'high directory has no write access');
       }
     }
+    
+    secure_directory($high_dir);
     
     // high resolution path, same name as web size file
     $high_path = sprintf(
