@@ -1574,7 +1574,7 @@ function ws_add_image_category_relations($image_id, $categories_string)
   $tokens = explode(';', $categories_string);
   foreach ($tokens as $token)
   {
-    list($cat_id, $rank) = explode(',', $token);
+    @list($cat_id, $rank) = explode(',', $token);
 
     array_push($cat_ids, $cat_id);
 
