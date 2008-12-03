@@ -1613,6 +1613,11 @@ SELECT
 
       foreach ($cat_ids as $cat_id)
       {
+        if (!isset($current_rank_of[$cat_id]))
+        {
+          $current_rank_of[$cat_id] = 0;
+        }
+        
         if ('auto' == $rank_on_category[$cat_id])
         {
           $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;
