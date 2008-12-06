@@ -9,6 +9,7 @@
       <th>{'Replacers'|@translate}</th>
       <th>{'Original templates'|@translate}</th>
       <th>{'Optional URL keyword'|@translate}</th>
+      <th>{'Bound template'|@translate}</th>
     </tr>
     {foreach from=$extents item=tpl name=extent_loop}
     <tr class="{if $smarty.foreach.extent_loop.index is odd}row1{else}row2{/if}">
@@ -21,6 +22,9 @@
       </td>
       <td>
         {html_options name=url[] output=$tpl.url_parameter values=$tpl.url_parameter selected=$tpl.selected_url}
+      </td>
+      <td>
+        {html_options name=bound[] output=$tpl.bound_tpl values=$tpl.bound_tpl selected=$tpl.selected_bound}
       </td>
     </tr>
     {/foreach}

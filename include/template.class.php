@@ -186,11 +186,13 @@ class Template {
       {
         $handle = $value[0];
         $param = $value[1];
+        $tpl = $value[2];
       }
       elseif (is_string($value))
       {
         $handle = $value;
         $param = 'N/A';
+        $tpl = 'N/A';
       }
       else
       {
@@ -198,6 +200,7 @@ class Template {
       }
 
       if ((stripos(implode('/',array_flip($_GET)), $param) > 0 or $param == 'N/A')
+        and (preg_match('/'.preg_quote($tpl,'/').'$/', $this->get_template_dir()) or $tpl == 'N/A')
         and (!isset($this->extents[$handle]) or $overwrite)
         and file_exists($dir . $filename))
       {

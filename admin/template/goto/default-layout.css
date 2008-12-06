@@ -7,7 +7,7 @@ TABLE.table2 {
 	padding: 0;
 }
 
-TABLE.table2 TD {
+TABLE.table2 TD, TABLE.table2 TH {
 	padding: 0 5px;
 }
 

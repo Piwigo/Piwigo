@@ -644,4 +644,5 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Bitte beachten: Nur üb
 $lang['Delete selected photos'] = 'Fotos löschen';
 $lang['%d photo was deleted'] = '%d Foto wurde gelöscht';
 $lang['%d photos were deleted'] = '%d Fotos wurden gelöscht';
+/* TODO */ $lang['Bound template'] = 'Bound template';
 ?>
