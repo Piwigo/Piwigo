@@ -639,4 +639,5 @@ $lang['edit category informations'] = 'bewerk categorie informatie';
 /* TODO */ $lang['Delete selected photos'] = 'Delete selected photos';
 /* TODO */ $lang['%d photo was deleted'] = '%d photo was deleted';
 /* TODO */ $lang['%d photos were deleted'] = '%d photos were deleted';
+/* TODO */ $lang['Bound template'] = 'Bound template';
 ?>

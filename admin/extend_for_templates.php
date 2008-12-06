@@ -102,7 +102,13 @@ $eligible_templates = array(
     'slideshow.tpl'              => 'slideshow',
     'tags.tpl'                   => 'tags',
     'upload.tpl'                 => 'upload',);
-  $flip_templates = array_flip($eligible_templates);
+
+$flip_templates = array_flip($eligible_templates);
+
+$available_templates = array_merge(
+  array('N/A' => '----------'),
+  get_dirs(PHPWG_ROOT_PATH.'template'));
+
 // +-----------------------------------------------------------------------+
 // |                            selected templates                         |
 // +-----------------------------------------------------------------------+
@@ -118,9 +124,11 @@ if (isset($_POST['submit']) and !is_adviser())
     $handle = $eligible_templates[$original];
     $url_keyword = $_POST['url'][$i];
     if ($url_keyword == '----------') $url_keyword = 'N/A';
+    $bound_tpl = $_POST['bound'][$i];
+    if ($bound_tpl == '----------') $bound_tpl = 'N/A';
     if ($handle != 'N/A')
     {
-      $replacements[$newtpl] = array($handle, $url_keyword);
+      $replacements[$newtpl] = array($handle, $url_keyword, $bound_tpl);
     }
     $i++;
   }
@@ -150,7 +158,7 @@ foreach ($tpl_extension as $file => $conditions)
 }
 foreach ($new_extensions as $file)
 {
-  $tpl_extension[$file] = array('N/A', 'N/A');
+  $tpl_extension[$file] = array('N/A', 'N/A', 'N/A');
 }
 
 $template->set_filenames(array('extend_for_templates'
@@ -167,14 +175,17 @@ foreach ($tpl_extension as $file => $conditions)
 {
   $handle = $conditions[0];
   $url_keyword = $conditions[1];
+  $bound_tpl = $conditions[2];
   {  
   $template->append('extents',
     array(
-      'replacer'      => $file,
-      'url_parameter' => $relevant_parameters,
-      'original_tpl'  => array_keys($eligible_templates),
-      'selected_tpl'  => $flip_templates[$handle],
-      'selected_url'  => $url_keyword,)
+      'replacer'       => $file,
+      'url_parameter'  => $relevant_parameters,
+      'original_tpl'   => array_keys($eligible_templates),
+      'bound_tpl'          => $available_templates,
+      'selected_tpl'   => $flip_templates[$handle],
+      'selected_url'   => $url_keyword,
+      'selected_bound' => $bound_tpl,)
       );
   }
 }
