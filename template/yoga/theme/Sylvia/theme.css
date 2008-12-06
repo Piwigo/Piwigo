@@ -271,6 +271,10 @@ input[type="text"], input[type="password"], input[type="button"], input[type="su
 	background-color:#444; 
 	color:#999; 
 } /* stupid Line but needed  due to inpact on other themes and deadline of Piwigo 2.0 */
+input[type="file"] {
+	background-color:#222; 
+	border: 1px solid #666;
+}
 INPUT, select, textarea { 
 	color:#999; 
 	background-color:#444; 
