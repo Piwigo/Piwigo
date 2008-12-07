@@ -166,6 +166,7 @@ body .ui-resizable-autohide .ui-resizable-handle { display: none; } /* use 'body
 #ui-datepicker-div .ui-datepicker-title-row .ui-datepicker-week-end-cell a { color: #ff3363; }
 #ui-datepicker-div  a:hover { color: #ff3363 !important; border: 0; background: #111 !important; }
 #ui-datepicker-div .ui-datepicker-header select { color:#999; font-weight:normal; }
+td img.ui-datepicker-trigger { margin:-3px 5px 2px; }
 INPUT[type="text"].large  { width: 317px; }
 input[type="button"], input[type="submit"], input[type="reset"] {
 color:#ff3363; background-color:#222; border-color: #ff3363; }
