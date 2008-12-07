@@ -374,7 +374,7 @@ FORM.filter FIELDSET P
 }
 
 FORM.filter INPUT[type="submit"] {
-	margin-top: 5px;
+	margin-top: 1.8em;
 }
 
 FORM.properties UL, FORM#update UL {
