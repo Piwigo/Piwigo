@@ -31,7 +31,8 @@
     {'cat_add'|@translate} : <input type="text" name="virtual_name" />
     <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED} />
     {if count($categories)>9 }
-    <a href="#EoP" class="button"><img src="{$themeconf.admin_icon_dir}/page_end.png" class="button" alt="page_end" /></a>
+    <a href="#EoP" class="button" style="border:0;">
+		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" class="button" alt="page_end" style="margin-bottom:-0.6em;"/></a>
     {/if}
   </p>
 </form>
