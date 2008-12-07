@@ -13,11 +13,11 @@
     <a class="illustration" href="{$comment.U_PICTURE}"><img src="{$comment.TN_SRC}" /></a>
     <p class="commentHeader"><strong>{$comment.AUTHOR}</strong> - <em>{$comment.DATE}</em></p>
     <blockquote>{$comment.CONTENT}</blockquote>
+  </div>
     <ul class="actions">
       <li><label><input type="radio" name="action-{$comment.ID}" value="reject" />{'Reject'|@translate}</label></li>
       <li><label><input type="radio" name="action-{$comment.ID}" value="validate" />{'Validate'|@translate}</label></li>
     </ul>
-  </div>
   {/foreach}
 
   <p class="bottomButtons">
