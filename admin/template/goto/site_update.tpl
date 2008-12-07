@@ -57,7 +57,7 @@
 {/if}
 
 {if isset($introduction)}
-<h3>{'update_default_title'|@translate}</h3>
+<h4>{'update_default_title'|@translate}</h4>
 <form action="" method="post" id="update">
 
 	<fieldset id="syncFiles">
