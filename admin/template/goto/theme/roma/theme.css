@@ -36,7 +36,7 @@ h3, #imageToolBar a:hover, .row2, .content { background-color: #222; }
 #content { background: #222 url(images/fillet.png) repeat-x top left; min-height: 466px; margin-top: 9px; }
 .content { padding:5px 5px 5px 5px; margin: 0 10px 0 248px; z-index:99; }
 .content h3 { font-size:20px; letter-spacing:-0.4px; margin:0 20px 12px 0;
- text-align:right; background:none; border: 0; }
+ text-align:center; background:none; border: 0; }
 .content h3 ~ h3{ margin-top: 40px; }
 .content h4 { font-size:14px; text-align:left; padding:3px; margin: 2px;}
 /*.content h2:before, .content h2:after, */ 
