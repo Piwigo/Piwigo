@@ -7,7 +7,7 @@
 <div class="admin">{'tn_results_title'|@translate}</div>
 <table style="width:100%;">
   <tr class="throw">
-    <td>{'path'|@translate}</td>
+    <td>{'Path'|@translate}</td>
     <td>{'thumbnail'|@translate}</td>
     <td>{'tn_results_gen_time'|@translate}</td>
     <td>{'filesize'|@translate}</td>
@@ -102,7 +102,7 @@
 <table style="width:100%;">
   <tr class="throw">
     <td>&nbsp;</td>
-    <td style="width:60%;">{'path'|@translate}</td>
+    <td style="width:60%;">{'Path'|@translate}</td>
     <td>{'filesize'|@translate}</td>
     <td>{'Dimensions'|@translate}</td>
   </tr>

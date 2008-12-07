@@ -8,12 +8,12 @@
 <form action="{$F_ACTION}" method="post" id="waiting">
   <table style="width:99%;" >
     <tr class="throw">
-      <th style="width:20%;">{'category'|@translate}</th>
-      <th style="width:20%;">{'Date'|@translate}</th>
-      <th style="width:20%;">{'file'|@translate}</th>
-      <th style="width:20%;">{'thumbnail'|@translate}</th>
-      <th style="width:20%;">{'Author'|@translate}</th>
-      <th style="width:1px;">&nbsp;</th>
+      <td style="width:20%;">{'category'|@translate}</td>
+      <td style="width:20%;">{'Date'|@translate}</td>
+      <td style="width:20%;">{'file'|@translate}</td>
+      <td style="width:20%;">{'thumbnail'|@translate}</td>
+      <td style="width:20%;">{'Author'|@translate}</td>
+      <td style="width:1px;">&nbsp;</td>
     </tr>
     
     {if not empty($pictures) }
