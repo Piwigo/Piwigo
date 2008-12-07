@@ -76,7 +76,7 @@ a.Piwigo {
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 a { color:#f70; border-width: 0; }
 a:hover, a:active { color: #f33; border-bottom: 1px solid #f33; cursor: pointer; }
-
+.content .navigationBar {color:#666;}
 h2 { display:block; font-size:28px; letter-spacing:-1px; 
 margin:0 20px; height:104px; overflow:hidden; padding:0; position:absolute; 
 right:0; text-align:right; top:0; width:770px; }
