@@ -95,7 +95,7 @@ font-family:verdana,arial,helvetica,sans-serif; font-size:8px; line-height:14px;
 list-style-image:none; padding: 0; position:relative; text-decoration:none;
 top:-2px; white-space:nowrap; margin: 0 28px 0 0;}
 .tabsheet li { background:transparent url(images/inactive_tab.png) no-repeat scroll left 0;
-float:left; margin:0 2px 0 5px; overflow:hidden; text-align:right; }
+float:left; margin:0 2px 0 0; overflow:hidden; text-align:right; }
 .tabsheet a { 
 background:transparent url(images/inactive_tab2.png) no-repeat scroll right 0px;
 color:#666; display:block; font-size:11px; border:0;
