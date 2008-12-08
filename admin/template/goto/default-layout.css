@@ -150,18 +150,22 @@ FIELDSET#historyConf SPAN.property {
 }
 FIELDSET#mainConfCheck INPUT,
 FIELDSET#historyConf INPUT,
-FIELDSET#commentsConf INPUT,
-FIELDSET#uploadConf SELECT,
-FIELDSET#uploadConf INPUT {
+FIELDSET#commentsConf INPUT {
 	margin-left: 5%;
 }
-
+FIELDSET#uploadConf SELECT {
+	float: right;
+	margin: 2px 10px 0px;
+}
+FIELDSET#uploadConf INPUT {
+	float: right;
+	margin: 5px 10px 0px;
+}
+FIELDSET#uploadConf SPAN.property {
+	width: 65%;
+}
 FIELDSET#commentsConf SPAN.property {
 	width: 85%;
-}
-
-FIELDSET#uploadConf SPAN.property {
-	width: 73%;
 }
 
 .statBar {
