@@ -52,7 +52,7 @@ font-size:14px; line-height:21px; }
 /* .throw, */ td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 /* borders */ 
-fieldset { border: 1px solid #999; }
+fieldset { border: 1px solid #666; }
 INPUT, SELECT, TEXTAREA { border: 1px solid #666; }
 input:focus, select:focus, textarea:focus, input.focus, form .focus { background-color:#444;color: #999; }
 TEXTAREA { cursor:text; font-size: 13px; }
