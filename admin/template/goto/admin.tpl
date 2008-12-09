@@ -46,7 +46,7 @@ jQuery().ready(function(){ldelim}
     <dd>
       <ul>
         <li><a href="{$U_SITE_MANAGER}">{'Site manager'|@translate}</a></li>
-        <li><a href="{$U_CAT_UPDATE}">{'update'|@translate}</a><br />&nbsp;</li>
+        <li><a href="{$U_CAT_UPDATE}">{'update'|@translate}</a></li>
         <li><a href="{$U_CATEGORIES}">{'manage'|@translate}</a></li>
         <li><a href="{$U_MOVE}">{'Move'|@translate}</a></li>
         <li><a href="{$U_CAT_OPTIONS}">{'cat_options_title'|@translate}</a></li>
