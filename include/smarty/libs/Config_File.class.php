@@ -17,15 +17,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @link http://smarty.php.net/
- * @version 2.6.20
+ * For questions, help, comments, discussion, etc., please join the
+ * Smarty mailing list. Send a blank e-mail to
+ * smarty-discussion-subscribe@googlegroups.com 
+ *
+ * @link http://www.smarty.net/
+ * @version 2.6.19-dev
  * @copyright Copyright: 2001-2005 New Digital Group, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
  */
 
-/* $Id: Config_File.class.php 2702 2007-03-08 19:11:22Z mohrt $ */
+/* $Id: Config_File.class.php 2786 2008-09-18 21:04:38Z Uwe.Tews $ */
 
 /**
  * Config file reading class
