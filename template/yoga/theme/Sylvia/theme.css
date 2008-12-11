@@ -302,6 +302,14 @@ input[type="radio"], input[type="checkbox"], input[type="button"].rateButtonStar
 	clear:both; 
 	list-style-type:none; 
 }
+span.calItem {
+	border:1px solid #666; 
+	margin:0 5px; 
+	padding:2px 5px 0 8px;
+}
+span.calItemEmpty, td.calDayCellEmpty, td.calDayCellFull {
+	border:1px solid #666;
+}
 A, INPUT.rateButton { 
 	color:#f70; 
 	border-width: 0; 
