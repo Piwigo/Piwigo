@@ -250,7 +250,7 @@ BODY {
 .errors { 
 	color:#f33; 
 	border:0; 
-	background-color: transparent; 
+	background: transparent url(icon/errors.png) no-repeat scroll right top; 
 	margin-left:125px;
 	padding:5px 0px 0pt 10pt; 
 	min-height: 48px; 
