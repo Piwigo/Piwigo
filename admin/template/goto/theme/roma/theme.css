@@ -51,6 +51,10 @@ text-transform:none; font-weight:bold; padding-left:20px; width:54%; }
 font-size:14px; line-height:21px; }
 .instructions { overflow-y:scroll; overflow-x:hidden; }
 .instructions  h3 { text-align: center; margin: 30px 0 0 0; }
+.content ul.thumbnails span.wrap2:hover { background-color:#111; border:1px solid #FF3363; color:#666; }
+.content ul.thumbnails span.wrap2 { border:1px solid #666; padding: 4px; }
+.content ul.thumbnails span.wrap2 { -moz-border-radius-bottomleft:4px; -moz-border-radius-bottomright:4px; -moz-border-radius-topleft:4px; -moz-border-radius-topright:4px; }
+.content ul.thumbnails span.wrap1 { margin:0 12px 5px; }
 /* .throw, */ td h3 {
  background-image: url(images/fillet.png); background-repeat: repeat-x; }
 /* borders */ 

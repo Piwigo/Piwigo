@@ -3,7 +3,7 @@
 
 /* So that non-links are slightly greyed out */
 .content .navigationBar {
-	color: #b0b0b0;
+	color: #999;
 }
 
 /* Tables & forms */
@@ -11,12 +11,12 @@
 INPUT.text, INPUT.password, INPUT.button,
 INPUT.submit, INPUT.reset, INPUT.file,
 SELECT, TEXTAREA {
-  color:black;
-  background-color: #d3d3d3;	/* lightgrey */
+  color:#999;
+  background-color: #666;	
 }
 
 INPUT:focus, SELECT:focus, TEXTAREA:focus, INPUT.focus, FORM .focus {
-  background-color: #f5f5f5;	/* whitesmoke */
+  background-color: #444;	/* whitesmoke */
 }
 
 /* some theme set a border on INPUT  which is not pretty for radio/checkbox */
@@ -29,12 +29,12 @@ INPUT.radio, INPUT.checkbox {
 }
 
 .errors { /* Errors display */
-  color: red;
-  background-color: #ffe1e1;
+  color: #f30;
+  background-color: transparent;
   font-weight: bold;
   text-align: left;
   margin: 5px;
-  border: 1px solid red;
+  border: 1px solid #666;
   background-image: url(icon/errors.png);
   background-repeat: no-repeat;
   background-position: top right;
@@ -46,8 +46,8 @@ INPUT.radio, INPUT.checkbox {
  */
 .infos {
   text-align: left;
-  color: #002000;
-  background-color: #98fb98; /* palegreen */
+  color: #f70;
+  background-color: transparent; 
   background-image: url(icon/infos.png);
   background-repeat: no-repeat;
   background-position: top right;
@@ -61,8 +61,8 @@ INPUT.radio, INPUT.checkbox {
 .header_msgs {
   text-align:center;
   font-weight: bold;
-  color:#696969;	/* dimgray */
-  background-color: #d3d3d3;
+  color:#333;
+  background-color: transparent;
   margin: 1px;
   padding: 1px;
 }
@@ -71,7 +71,7 @@ INPUT.radio, INPUT.checkbox {
  * Header notes box in public/administration
  */
 .header_notes {
-  border: 1px solid #aaaaaa; /* border color and style */
+  border: 1px solid #666; 
   text-align: center;
   background-image: url(icon/note.png);
   background-repeat: no-repeat;

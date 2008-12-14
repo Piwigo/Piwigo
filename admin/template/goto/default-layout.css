@@ -2,7 +2,7 @@
 
 /* History tables */
 TABLE.table2 {
-	border: 1px solid black;
+	border: 1px solid #111;
 	margin: 1em auto;
 	padding: 0;
 }
@@ -85,7 +85,7 @@ UL.categoryUl {
 
 LI.categoryLi {
 	width: 100%;
-	border: 1px solid gray;
+	border: 1px solid #666;
 	padding: 0px 5px;
 	margin-bottom: 5px;
 }
@@ -171,7 +171,7 @@ FIELDSET#commentsConf SPAN.property {
 .statBar {
 	height: 10px;
 	background-color: #ff7700;
-	border: 1px solid black;
+	border: 1px solid #666;
 }
 
 .over{
@@ -186,10 +186,10 @@ z-index: 50;
 
 .over SPAN{ /*CSS for enlarged image*/
 position: absolute;
-background-color: #eee;
+background-color: #222;
 padding: 5px;
 left: -1000px;
-border: 1px solid #69c;
+border: 1px solid #ff3363;
 visibility: hidden;
 color: black;
 text-decoration: none;
@@ -231,10 +231,10 @@ H2 {
 
 A {
 	text-decoration:none;
-	border-bottom: 1px dotted #005e89;
+	border-bottom: 0;
 }
 A:hover {
-	border-bottom: 1px solid #858460;
+	border-bottom: 1px solid #FF3363;
 }
 A.button, A.button:hover { 
 	border: 0; 
