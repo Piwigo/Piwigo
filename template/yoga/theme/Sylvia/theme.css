@@ -232,6 +232,9 @@ BODY {
 .content ul.thumbnailCategories li:hover { 
 	background-color:#111; 
 } 
+.content .navigationBar {
+	color:#666;
+}
 .infos { 
 	color:#f70; 
 	border:0; 
