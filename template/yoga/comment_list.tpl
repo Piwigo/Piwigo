@@ -1,8 +1,8 @@
 {* $Id$ *}
 <ul class="thumbnailCategories">
-{foreach from=$comments item=comment}
+{foreach from=$comments item=comment name=comment_loop}
 <li>
-	<div class="thumbnailCategory">
+	<div class="thumbnailCategory {if $smarty.foreach.comment_loop.index is odd}odd{else}even{/if}">
     {if isset($comment.TN_SRC)}
     <div class="illustration">
       <a href="{$comment.U_PICTURE}">
