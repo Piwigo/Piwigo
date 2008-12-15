@@ -390,3 +390,26 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 #addComment fieldset  label {
   color: #666;
 }
+#theCommentsPage .content ul.thumbnailCategories li,
+#theCommentsPage .content div.thumbnailCategory ,
+#theCommentsPage .content div.thumbnailCategory div.description,
+#theCommentsPage .content .thumbnailCategory div.illustration { 
+	background-image: none;
+}
+#theCommentsPage .content div.thumbnailCategory {
+	padding: 15px 2px 6px 12px; 
+	border: 1px solid #666; 
+}
+#theCommentsPage .content .odd { 
+	background-color: #222; 
+	border-top:0 !important; 
+}
+#theCommentsPage .content .even { 
+	background-color: #111; 
+}
+#theCommentsPage .content ul.thumbnailCategories li:hover { 
+	background-color: transparent; 
+}
+#theCommentsPage div#comments {
+	padding: 0 0 5px 10px;
+}
