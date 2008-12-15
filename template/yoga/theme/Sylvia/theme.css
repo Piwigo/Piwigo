@@ -367,4 +367,26 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 	border-color:#666; 
 }
 .titrePage img.button[alt="x"] { margin: 0 3px 3px; }
-fieldset { border: 1px solid #666; background-color: #222; }
+
+#thePicturePage .thumbnailCategory {
+	padding: 15px 2px 6px 12px; 
+	border: 1px solid #666; 
+}
+#thePicturePage .thumbnailCategory  .date, #thePicturePage .thumbnailCategory  .author {
+	font-weight:bold;
+}
+#thePicturePage .thumbnailCategories { 
+	padding-left: 12px; 
+	padding-right: 12px; 
+}
+#thePicturePage .odd { 
+	background-color: #222; 
+	border-top:0 !important; 
+}
+#addComment fieldset {
+  color: #f70;
+	border-color: #f70;
+}
+#addComment fieldset  label {
+  color: #666;
+}
