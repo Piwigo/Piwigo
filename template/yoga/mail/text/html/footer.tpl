@@ -7,8 +7,8 @@
       to show the origin of the script...*}
 
   {'powered_by'|@translate}
-  <a href="http://piwigo.org" class="PWG">
-  <span class="P">Pi</span><span class="W">wi</span><span class="G">go</span></a>
+  <a href="http://piwigo.org" class="Piwigo">
+  <span class="Piwigo">Piwigo</span></a>
   {$VERSION}
   - {'send_mail'|@translate}
   <a href="mailto:{$MAIL}?subject={$TITLE_MAIL}">{'Webmaster'|@translate}</a>
