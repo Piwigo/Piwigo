@@ -78,9 +78,9 @@ label { cursor:pointer }
 a.Piwigo {
   font-family: verdana, arial, helvetica, sans-serif !important;
   font-size: 11px; font-weight: normal; letter-spacing: 0;
-  color : #FF3300; text-decoration: none; border: 0; }
-a.Piwigo:hover { 
-  border-bottom: 1px solid #FF3363; 
+  color : #F33; text-decoration: none; border: 0; }
+a.Piwigo:hover  span.Piwigo  { 
+  border-bottom: 1px solid #FF3363; color: #F30;
 }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
