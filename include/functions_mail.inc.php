@@ -710,7 +710,7 @@ function pwg_mail($to, $args = array())
     $content.= '<p>'.
                 nl2br(
                   preg_replace("/(http:\/\/)([^\s,]*)/i",
-                               "<a href='$1$2'>$1$2</a>",
+                               "<a href='$1$2' class='thumblnk'>$1$2</a>",
                                htmlspecialchars($args['content']))).
                 '</p>';
   }
