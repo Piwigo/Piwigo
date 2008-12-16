@@ -10,4 +10,7 @@ h2 {ldelim} color:#f70;background: transparent url({$ROOT_URL}template/{$themeco
 img {ldelim} margin: 16px; border: 16px solid #444; -moz-border-radius: 4px; border-radius: 4px 4px; }
 img:hover {ldelim} padding: 15px; border: 0; background-color:#222;-moz-border-radius: 4px; border-radius: 4px 4px; }
 a {ldelim} color: #f70; background-color: transparent; border:0; text-decoration: none;}
-a:hover {ldelim} color: #F30; border-bottom: 1px solid #FF3363;}
+a:hover {ldelim} color: #F33; border-bottom: 1px solid #FF3363;}
+a.thumblnk:hover {ldelim} border:0;}
+a.Piwigo {ldelim} font-family: verdana, arial, helvetica, sans-serif; color : #F33; text-decoration: none; border: 0; }
+a.Piwigo:hover {ldelim} border-bottom: 1px solid #FF3363; }
