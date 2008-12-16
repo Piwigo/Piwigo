@@ -318,7 +318,7 @@ A, INPUT.rateButton {
 	border-width: 0; 
 }
 A:hover, A:active { 
-	color:#f30; 
+	color:#f33; 
 	border-bottom: 1px solid #FF3363; 
 	cursor: pointer; 
 }
@@ -327,7 +327,7 @@ a.Piwigo {
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #F33; text-decoration: none; border: 0; }
 a.Piwigo:hover  span.Piwigo  { 
-  border-bottom: 1px solid #FF3363; color: #F30;
+  border-bottom: 1px solid #FF3363; 
 }
 #theImage A, .illustration A, A.navThumb, A.navThumb { 
 	border-bottom-width: 0; 

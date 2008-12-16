@@ -12,7 +12,7 @@ input.rateButton, legend, h3 { color: #666; }
 .content .infos { color: #f70; border:0; background-color: transparent;
 padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; background-position:left top;}
 .content .infos li, .content .errors li { list-style-type:none; }
-.content .errors { color: #f30; border:0; background-color: transparent;
+.content .errors { color: #f33; border:0; background-color: transparent;
 padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; }
 #copyright { color:#666; margin:60px auto 0px 240px; text-align:center; 
 padding-bottom: 15px; }
@@ -80,12 +80,12 @@ a.Piwigo {
   font-size: 11px; font-weight: normal; letter-spacing: 0;
   color : #F33; text-decoration: none; border: 0; }
 a.Piwigo:hover  span.Piwigo  { 
-  border-bottom: 1px solid #FF3363; color: #F30;
+  border-bottom: 1px solid #FF3363; 
 }
 
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
 a { color:#f70; border-width: 0; }
-a:hover, a:active { color: #f30; border-bottom: 1px solid #FF3363; cursor: pointer; }
+a:hover, a:active { color: #f33; border-bottom: 1px solid #FF3363; cursor: pointer; }
 .content .navigationBar {color:#666;}
 ul.actions, .content form#waiting  {text-align:center;}
 h2 { display:block; font-size:28px; letter-spacing:-1px; 

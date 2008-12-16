@@ -29,7 +29,7 @@ INPUT.radio, INPUT.checkbox {
 }
 
 .errors { /* Errors display */
-  color: #f30;
+  color: #f33;
   background-color: transparent;
   font-weight: bold;
   text-align: left;
