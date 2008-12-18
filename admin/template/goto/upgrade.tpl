@@ -30,6 +30,7 @@ textarea { margin-left: 20px; }
 
 <body>
 <div id="headbranch"></div> {* Dummy block for double background management *}
+<div id="the_page">
 <div id="theHeader"></div>
 <div id="content" class="content">
 
@@ -111,5 +112,6 @@ textarea { margin-left: 20px; }
 {/if}
 
 </div> {* content *}
+</div> {* the_page *}
 </body>
 </html>
