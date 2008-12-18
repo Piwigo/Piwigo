@@ -53,7 +53,7 @@ $lang['Adv_case'][4] = array( /* show_iptc_mapping */
  'I principianti lasceranno $conf[\'show_iptc\'] = false,',
  'Gli utenti più sperimentati si occuperanno dei valori della tabella $lang e degli impatti sui templates.', );
 $lang['Adv_case'][5] = array( /* top_number */
- 'Questo valore è forse troppo alto per i collegamenti a bassa velocità.'
+ 'Questo valore è forse troppo alto per i collegamenti a bassa velocità.',
  'Pensate ad un valore tra 25-50 in funzione della taglia delle miniature.', );
 $lang['Adv_case'][6] = array( /* top_number */
  'Una sola? Almeno per le "immagini a caso", pensate ad un valore tra 5-10 circa in funzione della taglia delle miniature.',  );
@@ -101,10 +101,10 @@ $lang['Adv_case'][20] = array( /* allow_random_representative */
  'ma provate a vedere come evitarlo per raggioni di performance.' , );
 $lang['Adv_case'][21] = array( /* prefix_thumbnail */
  'Attenzione, il vostro $conf[\'prefix_thumbnail\'] non è di default.',
- 'Non dovete cambiarlo eccetto se le vostre miniature non sono visibili'.,
- 'Il sito distante potrebbe usare un prefisso diverso, il create_listing_file.php dovrà essere modificato'.,
- 'In questo caso, dovreste avere un messaggio d\'avvertimento durante la sincronizzazione'.,
- 'Provate a mantenere lo stesso prefisso per tutti i siti sia locali che distanti'.,
+ 'Non dovete cambiarlo eccetto se le vostre miniature non sono visibili',
+ 'Il sito distante potrebbe usare un prefisso diverso, il create_listing_file.php dovrà essere modificato',
+ 'In questo caso, dovreste avere un messaggio d\'avvertimento durante la sincronizzazione',
+ 'Provate a mantenere lo stesso prefisso per tutti i siti sia locali che distanti',
  'Tenere questo parametro nel vostro ./include/config_<strong>locale.inc.php</strong>',
  'Vedere la pagina di configurazione nel WIKI per maggiore informazioni su ./include/config_<strong>locale.inc.php</strong>. ',);
 $lang['Adv_case'][22] = array( /* users_page */
@@ -127,7 +127,7 @@ $lang['Adv_case'][27] = array( /* show_iptc */
 $lang['Adv_case'][28] = array( /* use_iptc */
  'I documentaristi e fotografi professionnali lo regolerebbero a "true", ma i principianti dovrebbero lasciarlo a $conf[\'use_iptc\'] = false,',
  'Attenti ai campi mensionati durante la sincronizzazione dei metadati.',
- 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti'.,
+ 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti',
  'Non confondere <strong>show</strong>_iptc e <strong>use</strong>_iptc (consultate le pagine sui metadati nel WIKI).', );
 $lang['Adv_case'][29] = array( /* use_iptc */
  'Come gestire i IPTC:',
@@ -142,7 +142,7 @@ $lang['Adv_case'][29] = array( /* use_iptc */
 $lang['Adv_case'][30] = array( /* use_iptc_mapping */
  'Come gestire i IPTC:',
  'Attenti ai campi mensionati durante la sincronizzazione dei metadati.',
- 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti'.,
+ 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi IPTC anche se non sono vuoti',
  'In tutti i casi, <strong>show</strong>_iptc_mapping e <strong>use</strong>_iptc_mapping saranno totalmente diversi.', );
 $lang['Adv_case'][31] = array( /* show_exif */
  'Dovrebbe essere a "true", certe informazioni della vostra macchina fotografica potrebbero essere visualizzate.',
@@ -153,7 +153,7 @@ $lang['Adv_case'][31] = array( /* show_exif */
 $lang['Adv_case'][32] = array( /* use_exif */
  'I documentaristi e fotografi professionnali lo regolerebbero a "true", ma i principianti dovrebbero lasciare il valore di default.',
  'Take care of mentionned fields in metadata synchronization.',
- 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi EXIF anche se non sono vuoti'.,
+ 'I campi menzionati potrebbero essere sovrascritti con i valori dei campi EXIF anche se non sono vuoti',
  'Non confondere <strong>show</strong>_exif e <strong>use</strong>_exif (consultate le pagine sui metadati nel WIKI).', );
 $lang['Adv_case'][33] = array( /* **navigation */
  'Potrete usare le frecce della tastiera per navigare tra le foto.', );
