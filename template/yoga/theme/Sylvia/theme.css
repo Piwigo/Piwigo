@@ -413,3 +413,6 @@ input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hove
 #theCommentsPage div#comments {
 	padding: 0 0 5px 10px;
 }
+tr.tagLine, fieldset.tagLetter, legend.tagLetterLegend {
+	border-color: #666666;
+}
