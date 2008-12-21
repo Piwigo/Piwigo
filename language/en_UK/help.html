@@ -1,8 +1,19 @@
 <div class="instructions">
 <h2>Help</h2>
 
-<h3>Quick start</h3>
-
+<div id="instructionQuickStart" class="instructionBlock">
+  <div
+    id="quickStart_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('quickStart_header', 'quickStart_content')"
+  >
+    Quick Start
+  </div>
+  <div
+    id="quickStart_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ol>
   
   <li>Create a local directory "test_category".</li>
@@ -29,9 +40,22 @@
 your gallery.</li>
   
 </ol>
+  </div> <!-- quickStart_content -->
+</div> <!-- instructionQuickStart -->
 
-<h3>Adding elements</h3>
-
+<div id="instructionAddPhotos" class="instructionBlock">
+  <div
+    id="addPhotos_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('addPhotos_header', 'addPhotos_content')"
+  >
+    Adding elements
+  </div>
+  <div
+    id="addPhotos_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>
@@ -114,9 +138,22 @@ containing sub-categories.</li>
   Synchronize</span></li>
 
 </ul>
+  </div> <!-- addPhotos_content --> 
+</div> <!-- instructionAddPhotos -->
 
-<h3>Thumbnails</h3>
-
+<div id="instructionThumbnails" class="instructionBlock">
+  <div
+    id="thumbnails_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('thumbnails_header', 'thumbnails_content')"
+  >
+    Thumbnails
+  </div>
+  <div
+    id="thumbnails_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>As said earlier, each element of picture type must be associated with
@@ -143,9 +180,22 @@ containing sub-categories.</li>
   "thumbnail" for ugo (user, group, other).</li>
 
 </ul>
+  </div> <!-- thumbnails_content --> 
+</div> <!-- instructionThumbnails -->
 
-<h3>Access authorization</h3>
-
+<div id="instructionPermissions" class="instructionBlock">
+  <div
+    id="permissions_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
+  >
+    Permissions
+  </div>
+  <div
+    id="permissions_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>You can forbid access to categories. Categories can be "public" or
@@ -178,9 +228,22 @@ containing sub-categories.</li>
   </li>
 
 </ul>
+  </div> <!-- permissions_content --> 
+</div> <!-- instructionPermissions -->
 
-<h3>Users Groups</h3>
-
+<div id="instructionGroups" class="instructionBlock">
+  <div
+    id="groups_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('groups_header', 'groups_content')"
+  >
+    Groups
+  </div>
+  <div
+    id="groups_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>Piwigo is able to manage groups of users. It can be very useful
@@ -196,9 +259,22 @@ containing sub-categories.</li>
   "jack" will be able to see "Christmas 2003".</li>
 
 </ul>
+  </div> <!-- groups_content --> 
+</div> <!-- instructionGroups -->
 
-<h3>Files upload by users</h3>
-
+<div id="instructionUpload" class="instructionBlock">
+  <div
+    id="upload_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('upload_header', 'upload_content')"
+  >
+    Upload by users
+  </div>
+  <div
+    id="upload_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <p>Piwigo offers the possibility for users to upload images. in
 order to do it:</p>
 
@@ -217,10 +293,22 @@ must be validated by an administrator. For that purpose, an administrator
 must go in <span class="pwgScreen">Administration, Pictures, Waiting</span>
 in order to validate or to refuse the files proposed, then to synchronize
 filesystem with database.</p>
+  </div> <!-- upload_content --> 
+</div> <!-- instructionUpload -->
 
-
-<h3>Links between elements and categories, virtual categories</h3>
-
+<div id="instructionCategoryLinks" class="instructionBlock">
+  <div
+    id="categoryLinks_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
+  >
+    Links between elements and categories, virtual categories
+  </div>
+  <div
+    id="categoryLinks_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>Piwigo dissociates categories where elements are stored and
@@ -239,9 +327,22 @@ filesystem with database.</p>
   in <span class="pwgScreen">Administration, Categories, Manage</span>.</li>
 
 </ul>
+  </div> <!-- categoryLinks_content --> 
+</div> <!-- instructionCategoryLinks -->
 
-<h3>Miscellanous informations</h3>
-
+<div id="instructionMisc" class="instructionBlock">
+  <div
+    id="misc_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('misc_header', 'misc_content')"
+  >
+    Miscellanous informations
+  </div>
+  <div
+    id="misc_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
   <li>As soon as you created your gallery, modify default display properties
@@ -257,4 +358,7 @@ filesystem with database.</p>
   documentation</a> for further reading.</li>
 
 </ul>
+  </div> <!-- misc_content --> 
+</div> <!-- instructionMisc -->
+
 </div>
