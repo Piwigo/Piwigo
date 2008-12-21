@@ -60,13 +60,13 @@
         <span class="property">
           <label for="template">{'theme'|@translate}</label>
         </span>
-        {html_options name=template options=$template_options selected=$template_selection}
+        {html_options id=template name=template options=$template_options selected=$template_selection}
       </li>
       <li>
         <span class="property">
           <label for="language">{'language'|@translate}</label>
         </span>
-        {html_options name=language options=$language_options selected=$language_selection}
+        {html_options id=language name=language options=$language_options selected=$language_selection}
       </li>
       <li>
         <span class="property">
