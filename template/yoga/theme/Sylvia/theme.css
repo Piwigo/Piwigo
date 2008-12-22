@@ -38,6 +38,10 @@ BODY {
 	width: 100%; 
 	min-width: 100%; 
 }
+#theHeader { 
+	min-height:100px;
+	height:100px; 
+}
 #mbIdentification p, .totalImages { 
 	color:#333; 
 }
