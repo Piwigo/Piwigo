@@ -49,11 +49,13 @@ text-transform:none; font-weight:bold; padding-left:20px; width:54%; }
 .content div.titrePage { height:55px; }
 
 .instructions { text-align:left;}
+.instructions LI { margin-bottom:5px; }
 .instructionBlock {border: 1px solid #666; margin: 5px; overflow: hidden;}
 .instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {font-size:110%; cursor: pointer; overflow: hidden; background-repeat: no-repeat; background-position: left center; padding-left: 20px; background-color: #111; padding: 5px 20px; color: #ff3363;}
 .instructionBlockHeaderCollapsed { background-image: url(../../icon/expand.png);}
 .instructionBlockHeaderExpanded { background-image: url(../../icon/collapse.png);}
 .instructionBlockContent { padding:5px;}
+SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
 .content ul.thumbnails span.wrap2:hover { background-color:#111; border:1px solid #FF3363; color:#666; }
 .content ul.thumbnails span.wrap2 { border:1px solid #666; padding: 4px; }

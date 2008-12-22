@@ -1,67 +1,68 @@
 <div class="instructions">
 <h2>Help</h2>
 
-<div id="instructionQuickStart" class="instructionBlock">
+<div id="instructionPLoader" class="instructionBlock">
   <div
-    id="quickStart_header"
+    id="pLoader_header"
     class="instructionBlockHeaderCollapsed"
-    onclick="blockToggleDisplay('quickStart_header', 'quickStart_content')"
+    onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
   >
-    Quick Start
+    Add photos, the pLoader way
   </div>
   <div
-    id="quickStart_content"
+    id="pLoader_content"
     class="instructionBlockContent"
     style="display:none"
   >
+    <ol>
+      <li>Create a directory "upload" next to directory "galleries" in your Piwigo installation, with write access.</li>
+      <li>Install pLoader on your computer, start it and fill the connection settings : your gallery URL, your username and password.</li>
+      <li>Drag'n drop photos from your directory browser into pLoader photo selection.</li>
+      <li>Create a category and select it.</li>
+      <li>Select some photos.</li>
+      <li>Click on the green arrow to transfer photos in your gallery</li>
+    </ol>
+Congratulations! You have successfuly created the first category of your photo gallery.
+  </div> <!-- pLoader_content -->
+</div> <!-- instructionPLoader -->
+
+<div id="instructionFTP" class="instructionBlock">
+  <div
+    id="FTP_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
+  >
+    Add photos, the FTP way
+  </div>
+  <div
+    id="FTP_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+
+<h3>Quick Start</h3>
+
 <ol>
-  
-  <li>Create a local directory "test_category".</li>
+  <li>Create a directory on your computer.</li>  
 
-  <li>Copy pictures in "test_category".</li>
+  <li>Copy some photos inside this directory, resize them for web display.</li>
 
-  <li>Open an FTP connection to this remote gallery.</li>
+  <li>With a FTP client, copy your directory in the "gallerie" directory of your Piwigo installation.</li>
 
-  <li>Upload local directory "test_category" into your remote directory
-  names "galleries". Set authorizations to 777 on directory
-  "galleries/test_category".</li>
+  <li>Logon your gallery and go to <span class="pwgScreen">Administration, Pictures, Thumbnails</span> to create missing thumbnails.</li>
 
-  <li>Connect to your Piwigo as an admin.</li>
-
-  <li>Go to <span class="pwgScreen">Administration, Pictures,
-  Thumbnails</span>. Piwigo find the picture from "test_category"
-  without thumbnails. Ask to create thumbnails.</li>
-
-  <li>Go to <span class="pwgScreen">Administration, Categories,
-  Synchronize</span>. Check "directories + files" option, uncheck "only
-  perform a simulation" and submit the synchronization.</li>
-
-  <li>Job's done. You've created a category "test_category" at the root of
-your gallery.</li>
-  
+  <li>Go to <span class="pwgScreen">Administration, Links, Administration</span> and click on the big Synchronization button.</li>
 </ol>
-  </div> <!-- quickStart_content -->
-</div> <!-- instructionQuickStart -->
 
-<div id="instructionAddPhotos" class="instructionBlock">
-  <div
-    id="addPhotos_header"
-    class="instructionBlockHeaderCollapsed"
-    onclick="blockToggleDisplay('addPhotos_header', 'addPhotos_content')"
-  >
-    Adding elements
-  </div>
-  <div
-    id="addPhotos_content"
-    class="instructionBlockContent"
-    style="display:none"
-  >
+Congratulations! You have successfuly created the first category of your photo gallery.
+
+<h3>Directories and files organization</h3>
 <ul>
 
   <li>
 
     <p>Category directories are in the Piwigo directory
-    "galleries". Here follow the directory tree of a very small gallery (but
+    "galleries". Here follows the directory tree of a very small gallery (but
     using many features) :</p>
 
     <pre>
@@ -100,10 +101,7 @@ your gallery.</li>
 
   </li>
   
-  <li>Basically, a category is represented by a directory at any level in
-  Piwigo directory "galleries". Each category can contain as many
-  sub-level as you wish. In the example above, category-1.1.1.1 is at level
-  4 of deepness.</li>
+  <li>Each directory under "galleries" produces a category. There is no limit on deepness.</li>
 
   <li>Basically, an element is represented by a file. A file can be a
   Piwigo element if its extenstion is among <code>file_ext</code>
@@ -116,8 +114,7 @@ your gallery.</li>
   about thumbnails)</li>
 
   <li>Picture elements can have a high quality file associated. As for
-  wedding.jpgin the example above. No prefix on the high quality picture is
-  required.</li>
+  wedding.jpg in the example above. No prefix on the high quality picture.</li>
 
   <li>Non picture elements (video, sounds, file texts, what you want...) are
   by default represented by an icon corresponding to the filename
@@ -128,60 +125,31 @@ your gallery.</li>
 of letters, figures, "-", "_" or ".". No blank space, no accentuated
 characters</li>
 
-  <li><em>Advise</em> : a category can contain elements and sub-categories
-in the same time. Nerverthless, you are strongly advised for each category
-to choose between category containing elements <strong>or</strong> category
-containing sub-categories.</li>
-
   <li>Once files, thumbnails and representatives are correctly placed in the
   directories, go to : <span class="pwgScreen">Administration, Categories,
   Synchronize</span></li>
 
 </ul>
-  </div> <!-- addPhotos_content --> 
-</div> <!-- instructionAddPhotos -->
 
-<div id="instructionThumbnails" class="instructionBlock">
-  <div
-    id="thumbnails_header"
-    class="instructionBlockHeaderCollapsed"
-    onclick="blockToggleDisplay('thumbnails_header', 'thumbnails_content')"
-  >
-    Thumbnails
-  </div>
-  <div
-    id="thumbnails_content"
-    class="instructionBlockContent"
-    style="display:none"
-  >
+<h3>Thumbnails</h3>
 <ul>
 
-  <li>As said earlier, each element of picture type must be associated with
-  a thumbnail.</li>
+  <li>Each photo must have its thumbnail.</li>
 
   <li>Thumbnails are stored in the sub-directory "thumbnail" of the category
-  directory. The thumbnail is a picture (same filename extensions possible
-  than picture files) which filename is prefixed by the configured
-  "Thumbnail prefix" (see admin panel, Configuration, General).</li>
+  directory. The thumbnail has the same filename as the corresponding photo, with <em>TN-</em> as prefix.</li>
 
-  <li>Thumbnails don't need to have the same extension as their associated
-  picture (a picture with .jpg extension can have a thumbnail in .GIF
-  extention for instance).</li>
+  <li><em>Advise</em>: use an external module for thumbnails creation.</li>
 
-  <li>Advise: use an external module for thumbnails creation.</li>
+  <li>Even if it is not recommended (image quality, web server resource load), you can use <span
+  class="pwgScreen">Administration, Pictures, Thumbnails</span> page to create thumbnails.</li>
 
-  <li>You can also use the thumbnail creation page (<span
-  class="pwgScreen">Administration, Pictures, Thumbnails</span>), but it is
-  not recommended. Indeed, thumbnail quality may be poor and it uses a high
-  CPU load which can be a problem if you use free web hosting.</li>
-
-  <li>If you choose to use your hosting provider to create thumbnails, you
-  must give write rights on all category directories and sub-directories
-  "thumbnail" for ugo (user, group, other).</li>
+  <li>Give write access on all category directories.</li>
 
 </ul>
-  </div> <!-- thumbnails_content --> 
-</div> <!-- instructionThumbnails -->
+
+  </div> <!-- FTP_content -->
+</div> <!-- instructionFTP -->
 
 <div id="instructionPermissions" class="instructionBlock">
   <div
@@ -198,9 +166,7 @@ containing sub-categories.</li>
   >
 <ul>
 
-  <li>You can forbid access to categories. Categories can be "public" or
-  "private". Permissions (for groups and users) can be set only if the
-  category is private.</li>
+  <li>You can forbid access to categories. Switch the category access type to "private" if you want to manage permissions.</li>
 
   <li>You can set a category to private by editing a single category (<span
   class="pwgScreen">Administration, Categories, Manage, edit</span>) or by
@@ -210,18 +176,18 @@ containing sub-categories.</li>
   <li>
 
     <p>Once the category is private, you can manage permissions for groups
-    and users through 3 screens :</p>
+    and users with 3 screens:</p>
 
     <ul>
 
       <li><span class="pwgScreen">Administration, Identification, Users,
-      permissions action (one link per user)</span></li>
+      permissions action</span> (one link per user)</li>
 
       <li><span class="pwgScreen">Administration, Identification, Groups,
-      permissions action (one link per group)</span></li>
+      permissions action</span> (one link per group)</li>
 
       <li><span class="pwgScreen">Administration, Categories, Manage, edit
-      category permissions action (one link per category)</span></li>
+      category permissions action</span> (one link per category)</li>
 
     </ul>
 
@@ -246,16 +212,15 @@ containing sub-categories.</li>
   >
 <ul>
 
-  <li>Piwigo is able to manage groups of users. It can be very useful
-  to have common permission access for private categories.</li>
+  <li>Groups is a convenient way to set permissions for a list of users.</li>
 
-  <li>You can create groups in <span class="pwgScreen">Administration,
+  <li>Create groups in <span class="pwgScreen">Administration,
   Identification, Groups</span> and associate users to this group in <span
   class="pwgScreen">Administration, Identication, Users</span>.</li>
 
-  <li>A user can belong to several groups. The authorization is stronger
-  than prohibition : if user "jack" belongs to groups "family" and
-  "friends", and that only group "family" can see category "Christmas 2003",
+  <li>A user can belong to several groups. Authorization is stronger
+  than forbiddance : if user "jack" belongs to groups "family" and
+  "friends", and that only group "family" can see category "Christmas 2003" category then
   "jack" will be able to see "Christmas 2003".</li>
 
 </ul>
@@ -275,24 +240,21 @@ containing sub-categories.</li>
     class="instructionBlockContent"
     style="display:none"
   >
-<p>Piwigo offers the possibility for users to upload images. in
-order to do it:</p>
+<p>Users can upload their photos too.</p>
 
 <ol>
 
-  <li>authorize upload on any categories (<span
+  <li>Authorize upload on any categories (<span
   class="pwgScreen">Administration, Categories, Manage, edit</span> or <span
-  class="pwgScreen">Administration panel, Categories, Properties, Upload</span>)</li>
+  class="pwgScreen">Administration, Categories, Properties, Upload</span>).</li>
 
-  <li>give write rights on directories for ugo (user, group, other)</li>
+  <li>Give write access on corresponding directories.</li>
 
 </ol>
 
-<p>Files uploaded by users are not directly visible on the website, they
-must be validated by an administrator. For that purpose, an administrator
-must go in <span class="pwgScreen">Administration, Pictures, Waiting</span>
-in order to validate or to refuse the files proposed, then to synchronize
-filesystem with database.</p>
+<p>Photos uploaded by users are not directly visible on the website. An administrator
+must validate uploaded photos in <span class="pwgScreen">Administration, Pictures, Waiting</span>
+screen and launch a synchronization process.</p>
   </div> <!-- upload_content --> 
 </div> <!-- instructionUpload -->
 
@@ -311,20 +273,11 @@ filesystem with database.</p>
   >
 <ul>
 
-  <li>Piwigo dissociates categories where elements are stored and
-  categories where they are shown.</li>
+  <li>Photos are displayed in the category corresponding to the file directory.</li>
 
-  <li>By default, elements are shown only in their real categories : the
-  ones corresponding to directories on the web server.</li>
+  <li>You can also display a picture in several categories, without duplicating the file on your web server. Associate the photo to any category from the photo editing screen (that any administrator can reach from the photo page on the gallery side).</li>
 
-  <li>To link an element to a category, you just have to make the
-  association on the page of element edition (link to this screen on
-  picture.php logged as an administrator) or on the informations of all
-  elements of a category.</li>
-
-  <li>Using this principle, it is possible to create virtual categories : no
-  directory coresponds to this category. You can create virtual categories
-  in <span class="pwgScreen">Administration, Categories, Manage</span>.</li>
+  <li>Virtual categories are based on this concept: they have no corresponding directory. Create virtual categories from <span class="pwgScreen">Administration, Categories, Manage</span>.</li>
 
 </ul>
   </div> <!-- categoryLinks_content --> 
@@ -346,16 +299,11 @@ filesystem with database.</p>
 <ul>
 
   <li>As soon as you created your gallery, modify default display properties
-  in <span class="pwgScreen">Administration panel, Configuration,
-  Default</span>. Indeed, every new registered user will have by default the
-  same display properties.</li>
+  in <span class="pwgScreen">Administration, Configuration,
+  Default</span>. Every new registered user will use these default configuration settings.</li>
 
-  <li>If you have any question, do not hesitate to take a look at the forum
-  or ask a question there. The <a
-  href="http://forum.phpwebgallery.net">forum</a> (message board) is
-  available on the presentation site of Piwigo. Check the <a
-  href="http://phpwebgallery.net/doc/">official Piwigo
-  documentation</a> for further reading.</li>
+  <li>If you have any question, Piwigo community will welcome you on <a
+  href="http://forum.phpwebgallery.net">its forum</a>.</li>
 
 </ul>
   </div> <!-- misc_content --> 
