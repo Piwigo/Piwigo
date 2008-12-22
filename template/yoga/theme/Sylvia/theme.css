@@ -39,8 +39,8 @@ BODY {
 	min-width: 100%; 
 }
 #theHeader { 
-	min-height:100px;
-	height:100px; 
+	min-height:110px;
+	height:110px; 
 }
 #mbIdentification p, .totalImages { 
 	color:#333; 
