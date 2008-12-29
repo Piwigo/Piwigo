@@ -5,45 +5,41 @@
 
 <ol>
 
-  <li>Schaffung eines lokalen Verzeichnis "categorie_test".</li>
+  <li>Erstellen Sie auf ihrem Computer einen Ordner "Testkategorie".</li>
 
-  <li>Füllen Sie das répetoire "categorie_test" mit Fotos.</li>
+  <li>Füllen Sie den Ordner "Testkategorie" mit Fotos.</li>
 
-  <li>Öffnet eine FTP-Verbindung auf der Remote-Galerie.</li>
+  <li>Öffnen Sie eine FTP-Verbindung zu ihrer installierten Piwigo-Gallerie</li>
 
-  <li>Download das lokale Verzeichnis "categorie_test" in das Remote-Verzeichnis "Galerien". Geben, alle Rechte (777) zu einem neuen Verzeichnis "Galerien / categorie_test".</li>
+  <li>Upload des Ordners "Testkategorie" in das Remote-Verzeichnis "galleries" und Geben Sie dem Ordner alle Rechte per CHMOD (777) </li>
 
-  <li>Eine Verbindung zu Ihrer Installation von Piwigo als
-Administrator.</li>
+  <li>Rufen Sie in ihrem Webbrowser ihre Gallerie auf und melden Sie sich als Administrator an</li>
 
-  <li>Sich auf <span class="pwgScreen">Verwaltung, Bilder,
-Miniaturen</span>. Fragen zu schaffen, die Miniaturansichten fehlen nach der Prüfung
-von Piwigo.</li>
+  <li>Gehen Sie in die <span class="pwgScreen">Verwaltung, Bilder,
+Thumbnails</span>. Die Gallerie wird nach fehlenden Thumbnails suchen und ihnen anbieten, diese zu erstellen. Erstellen Sie diese.</li>
 
-  <li>Sich auf <span class="pwgScreen"> Verwaltung, Kategorien,
-Synchronisieren </span>. Kontrollkästchen "Verzeichnisse + Dateien" entfernen "simulieren
-nur "ein und bestätigen Sie die Synchronisierung.</li>
+  <li>Gehen Sie auf <span class="pwgScreen"> Verwaltung, Kategorien,
+Synchronisieren </span>. Kontrollkästchen "Ordner + Dateien"  wählen, "nur Simulation"  aus und bestätigen Sie die Synchronisierung.</li>
 
-  <li>Und das ist es. Sie schaffen die Kategorie "categorie_test" an der Wurzel
-Ihre Galerie.</li>
+  <li>Geschafft, Sie haben soeben die erste Testkategorie in ihrer Gallerie erstellt.</li>
   
 </ol>
 
-<h3>Zusätze von Elementen</h3>
+<h3>Weitere Elemente hinzufügen</h3>
 
 <ul>
 
   <li>
 
-    <p>Die Verzeichnisse, die die Kategorien sind in dem Verzeichnis
-"Galerien". Unten der Baum Verzeichnis eine sehr kleine Galerie
+    <p>Die Ordner ihrer Kategorien sind in dem Verzeichnis
+"Galerien". Hier sehen Sie ein Beispielverzeichnisbaum einer kleinen Galerie
 (aber mit vielen Features): </p>
   
 <pre>
 .
 | - Admin
 | - Doc
-| - Galerien
+| - Galleries
 | | - Kategorie-1
 | | | - Kategorie-1.1
 | | | | - Kategorie-1.1.1
@@ -75,78 +71,69 @@ Ihre Galerie.</li>
 
   </li>
   
-<li>Allgemeinen eine Kategorie wird durch ein Verzeichnis zu
-jeder Ebene unter dem Verzeichnis "Galerien" Ihrer Anlage
-von Piwigo. Jede Kategorie kann beliebig viele Ebenen, die unter -
-gewünscht. In dem obigen Beispiel, Kategorie-1.1.1.1 ist auf einem Niveau 4
-Tiefe.</li>
+<li>Jede Kategorie wird erstellt durch einen Unterordner im im Ordner 
+"Galleries". Diesr kann durch beliebig viele Unterordner erweitert werden.
+Im obigen Beispiel, Kategorie-1.1.1.1 ist auf dem Niveau 4</li>
 
-   <li>Allgemeinen ein Element wird durch eine Datei. Eine Datei
-kann ein Element für Piwigo, wenn die Erweiterung des Dateinamens ist
-aus der Liste der Konfigurationsparameter <code>file_ext</code> (siehe
-<span class="filename">Datei include / config.inc.php</span>). Eine Datei
-werden kann, wenn ein Bild von der Erweiterung der Konfigurationsparameter
-<code>picture_ext</code>.</li>
+   <li>Jedes Element besteht aus einer Datei. 
+   Eine Datei zählt als Element für Piwigo, wenn die Erweiterung des Dateinamens in den
+   Konfigurationsparametern festgelegt ist <code>file_ext</code> (siehe
+   <span class="filename">Datei include / config.inc.php</span>). 
+   Eine Datei zählt als Bild, wenn die Dateiendung mit dem Konfigurationsparameter
+   <code>picture_ext</code> festgelegt wird.</li>
 
-   <li>Elemente vom Typ Bild müssen eine Miniaturbild (siehe
-Abschnitt der Miniaturansicht an).</li>
+   <li>Elemente vom Typ Bild müssen ein Thumbnail (kleines Vorschaubild) (siehe
+Abschnitt Thumbnails) besitzen.</li>
 
-   <li>Elemente vom Typ Bild können Bilder im Grossformat
-Partner. Wie für die Datei <span class="filename">Hochzeit.jpg</span>
-im obigen Beispiel. Braucht man keine Vorwahl auf den Namen des
-Datei.</li>
+   <li>Bild können Bilder im Grossformat hinterlegt sein (in einem Unterordner "Pwg_high".
+   Wie für die Datei <span class="filename">Hochzeit.jpg</span>
+im obigen Beispiel. Dem Dateinamen darf nichts vorangestellt werden.</li>
 
-   <li>Die Nicht-Bild (Videos, Sounds, Textdateien, die alles, was Sie
+   <li>Alle Elemente, die keine Bilder sind (Videos, Sounds, Textdateien, die alles, was Sie
 möchten, ...) werden standardmäßig von einem Symbol für
-die Erweiterung des Dateinamens. Optional ist eine Miniatur-und
-Vertreter können (siehe die Datei <span
+die Erweiterung des Dateinamens dargestellt. Optional kann selbst eine Miniaturansicht erstellt werden
+ (siehe die Datei <span
 class = "filename">video.avi</span> im Beispiel).</li>
 
-   <li><em>Achtung</em>: den Namen für ein Verzeichnis oder eine Datei darf
-nur noch aus Buchstaben, Zahlen, "-", "_" oder ".". Kein Platz
-oder Zeichen mit Akzent.</li>
+   <li><em>Achtung</em>: der Namen für ein Verzeichnis oder eine Datei darf
+nur noch aus Buchstaben, Zahlen, "-", "_" oder "." bestehen. Umlaute und Sonderzeichen
+dürfen nicht verwendet werden.</li>
 
-   <li><em>Rates</em>: eine Kategorie kann auch Elemente enthalten, und der
-Unterkategorien auf einmal. Dennoch ist es empfehlenswert für jeden
-Kategorie wählen zwischen enthalten <strong>oder</strong>
-Unterkategorien.</li>
+   <li><em>Empfehlung</em>: eine Kategorie kann Elemente und Unterkategorien enthalten,
+Es ist aber empfehlenswert und übersichtlicher, wenn eine Kategorie entweder Elemente 
+<strong>oder</strong>Unterkategorien enthält.</li>
 
-   <li>Sobald die Dateien, die Modelle und die Vertreter werden
-richtig in die Verzeichnisse, sich auf dem Bildschirm <span
+   <li>Wenn Sie Dateien, Bilder und Thumbnail in die richtigen Ordner hochgeladen haben, 
+loggen Sie sich ein und gehen Sie auf<span
 class = "pwgScreen">Verwaltung, Kategorien, synchronisieren</span>.</li>
 
 </ul>
 
-<h3>Miniaturen</h3>
+<h3>kleines Vorschaubild, Miniatur (Thumbnails)</h3>
 
 <ul>
   
-   <li>Wie bereits erwähnt, jedes Element des Typs Bild muss
-mit einer Miniatur.</li>
+   <li>Wie bereits erwähnt, gehört zu jedem Bild ein Thumbnail.</li>
 
-   <li>Die Miniaturen werden in das Unterverzeichnis "thumbnail" von
-Vertreter jedes Verzeichnis eine Kategorie. Eine Miniaturansicht ist eine Datei
-Typ Bild (auch Dateinamenerweiterung), deren Name der Datei
-Präfix-Einstellungen <code>prefix_thumbnail</code>
+   <li>Thumbnails werden in einem Unterverzeichnis "thumbnail" jeder
+Kategorie gespeichert. Ein zu einem Bild gehörendes Thumbnail hat den gleichen Namen wie das Bild 
+mit einem vorangestelltem Präfix (siehe TN- oben im Beispielverzeichnisbaum). Dieses Präfix ist in 
+der Konfiguration festgelegt <code>prefix_thumbnail</code>
 (siehe <span class="filename">include / config.inc.php</span >).</li>
 
-   Die Miniaturen <li> brauchen nicht einmal die Erweiterung auch, dass ihre
-Bild (ein Bild mit ". jpg" wie kann eine Erweiterung
-Miniatur. "GIF" zum Beispiel).</li>
+   <li>Die Miniaturen brauchen nicht die gleiche Dateiendung zu haben. Ein "jpg" Bild darf ein
+"GIF" als Vorschaubild haben.</li>
 
    <li> Es wird empfohlen, ein externes Programm für die Erstellung von
-Miniaturen (PhpMyVignettes oder wie ThumbClic finden Sie auf der Website der Übersicht
-von Piwigo).</li>
+Miniaturen zu verwenden. (PhpMyVignettes oder ThumbClic z.B. finden Sie auf der Website von 
+Piwigo verlinkt).</li>
 
-   <li> Sie können auch das Tool zum Erstellen von Miniatur -
-in Piwigo aber dies wird nicht empfohlen, weil die Gefahr
-werden dazu verwendet, enttäuschend und unnötig die Ressourcen des Servers (diese
-werden kann, ein ernstes Problem auf einem Server beziehen).</li>
+   <li> Sie können auch das Tool zum Erstellen von Thumbnails der Piwigo verwenden aber dies wird 
+   nicht empfohlen, da meistens die Qualität enttäuschend ist und der Server stark belastet wird.
+   Im Ernstfall kann es den Server überlasten.</li>
 
-   <li> Wenn Sie sich für den Web-Server, um die
-Miniaturen, müssen Sie die Rechte und Schreibzugriff auf alle
-Verzeichnisse, die die Kategorien für alle Benutzer
-(Eigentümer, Gruppe, andere).</li>
+   <li> Falls SIe doch den Webserver verwenden um Thumbnails generieren zu lassen, müssen Sie allen Kategorieordnern 
+   per CHMOD alle Rechte zuweisen.</li>
 
 </ul>
 
@@ -154,17 +141,18 @@ Verzeichnisse, die die Kategorien für alle Benutzer
 
 <ul>
 
-   <li>Sie können den Zugriff auf bestimmte Kategorien. Die Kategorien können
-öffentlich oder privat sein. Die Genehmigungen (für die Gruppen und
-Benutzer) beherrschbar sind nur für den privaten Gruppen.</li>
+   <li>Sie können den Zugriff auf bestimmte Kategorien beschränken. Die Kategorien können
+öffentlich oder privat sein. Die Zugriffsbeschränkungen fur bestimmte Benutzer oder Gruppen 
+können nur für private Kategorien eingerichtet werden.</li>
   
-   <li>können Sie eine private veröffentlicht (<span
-class = "pwgScreen">Verwaltung, Kategorien, Verwalten, Bearbeiten</span>) oder
-Geschäftsführer die Optionen für Ihren kompletten Baum der Kategorien (<span
+   <li>So können Sie eine einzelne öffentliche Kategorie in eine private ändern (<span
+class = "pwgScreen">Verwaltung, Kategorien, Verwalten, Bearbeiten (Icon rechts)</span>) oder
+alle Kategorien verwalten (<span
 class = "pwgScreen">Verwaltung, Kategorien, Eigenschaften, Public / Private</span>).</li>
 
-   <li>Sobald bestimmte Gruppen sind privat, können Sie die
-Berechtigungen für Benutzer und Gruppen (<span
+   <li>Sobald bestimmte Kategorien als "Privat" gekennzeichnet haben können Sie die Berechtigungen 
+   einzelner Benutzer oder Gruppen festlegenen
+   (<span
 class = "pwgScreen">Verwaltung, Identifikation</span>).</li>
 
 </ul>
@@ -173,58 +161,51 @@ class = "pwgScreen">Verwaltung, Identifikation</span>).</li>
 
 <ul>
 
-   <li>Piwigo kann von Gruppen. Sehr praktisch
-Berechtigungen für die Verwaltung der Gemeinden auf den privaten Gruppen.</li>
+   <li>Piwigo kann ganze Benutzergruppen verwalten.</li>
 
-   <li>Sie können Gruppen und Hinzufügen von Benutzern in der
-<span class="pwgScreen">Verwaltung, Identifizierung, Gruppen</span>.</li>
+   <li>Sie können Gruppen und Benutzer hinzufügen und erstellen unter:
+<span class="pwgScreen">Verwaltung, Verwaltung, Gruppen</span>.</li>
 
-   <li>Ein Benutzer kann mehreren Gruppen angehören. Die Genehmigung wird
-stärker als das: wenn der Benutzer "Stein" gehört zu den
-Gruppen "Familie" und "Freunde", und dass nur die Gruppe "Familie" kann sich der
-Kategorie "Weihnachten 2003", dann "Stein" kann sich dieser Kategorie.</li>
+   <li>Ein Benutzer kann mehreren Gruppen angehören. Die Freigaben der "stärksten Gruppe"
+sind relevant.
+Wenn der Benutzer "Stein" zu den Gruppen "Familie" und "Freunde" gehört und nur die Gruppe
+ "Familie" kann sich die Kategorie "Weihnachten 2003" ansehen, dann kann "Stein" kann sich 
+ dieser Kategorie ansehen.</li>
   
 </ul>
 
 <h3>Hinzufügen von Dateien durch die Benutzer</h3>
 
-<p>Damit Benutzer das Hinzufügen von Dateien:</p>
+<p>Damit Benutzer Dateien hinzufügen können:</p>
 
 <ol>
 
-   <li>erlauben das Hinzufügen von Bildern auf einer beliebigen Kategorie (<span
-class = "pwgScreen">administ Kategorien, Verwaltung, Bearbeitung</span> oder <span
-class = "pwgScreen">Verwaltung, Kategorien, Eigenschaften, Hinzufügen von Bildern </span>).</li>
+   <li>erlauben Sie das Hinzufügen von Bildern auf einer beliebigen Kategorie (<span
+class = "pwgScreen">Verwaltung, Kategorien, Verwalten, Bearbeiten (Icon rechts)</span> oder <span
+class = "pwgScreen">Verwaltung, Kategorien, Eigenschaften, Upload (oben rechts) </span>).</li>
 
-   <li>geben, die Rechte zum Schreiben (für alle Benutzer) auf die
-Verzeichnisse entsprechen den Kategorien, die zur Hinzufügung.</li>
+   <li>Geben Sie allen Benutzern die Berechtigung zum Upload auf freigegebene Kategorien.</li>
 </ol>
-   <p>die hinzugefügten Dateien durch die Benutzer nicht direkt
-sichtbar auf der Website, sie sind mit einem Administrator. Für
-dies, muss der Administrator sich im Bereich Verwaltung, Bilder, in
-Bis zu bestätigen oder ablehnen, die angebotenen Dateien. Es ist dann
-zu synchronisieren, das System der Datei mit der Datenbank.</p>
+   <p>Die hinzugefügten Dateien sind durch die Benutzer nicht direkt
+sichtbar sondern nur für einem Administrator. Um sie sichtbar zu machen muss der Administrator 
+sich einloggen umd im Bereich Verwaltung, Bilder, die Dateien bestätigen oder ablehnen. 
+Danach muss die Datenbank syncronisiert werden damit die Bilder eingebunden werden.</p>
 
 
 
-<h3>Verbindungen zwischen den Elementen und den Kategorien, virtuelle Klassen</h3>
+<h3>Verbindungen zwischen Elementen, Kategorien und virtuellen Kategorien</h3>
 
 <ul>
 
-   <li>Piwigo trennt die Kategorien speichern, die die Elemente und die
-Kategorien, in denen die Elemente angezeigt werden.</li>
+   <li>Piwigo trennt zwischen gespeicherten Kategorien und Kategorien in denen Elemente angezeigt werden.</li>
 
-   <li>Standardmäßig werden die Elemente nicht gezeigt werden, dass in ihren Kategorien
-tatsächlich: solchen, die in ihren Verzeichnissen auf dem Server.</li>
+   <li>Standardmäßig werden die Elemente angezeigt wie sie auf dem Server gespeichert sind.</li>
 
-   <li>So verknüpfen Sie ein Element in einer Kategorie, genügt es, eine
-Verein auf der Seite zur Bearbeitung des Elements (ein Zusammenhang besteht nach dieser
-Seite, wenn Sie sich als Administrator), auf der Seite
-mit Informationen über alle Elemente einer Klasse oder
-noch mit dem Einkaufswagen.</li>
+   <li>Um ein Element in einer Virtuellen Kategorie zu verlinken erstellen Sie eine Virtuelle Kategorie (<span
+class = "pwgScreen">Verwaltung, Kategorien, Verwalten, Virtuelle Kategorie hinzufügen :</span>
+In der Verwaltung von Kategorien oder über den Sammelkorb können Sie Elemente den Virtuellen Kategorien hinzufügen</li>
 
-   <li>Ausgehend von diesem Prinzip ist es möglich, das Erstellen von Kategorien
-Abreise: kein Verzeichnis dieser Kategorien entspricht. Sie können
+   <li>Ausgehend von diesem Prinzip ist es möglich, Kategorien zu erstellen, denen kein reales Verzeichnis zugrunde liegt.
 Erstellen von virtuellen Gruppen auf <span class="pwgScreen">Verwaltung,
 Kategorie, verwalten</span>.</li>
 
@@ -234,16 +215,20 @@ Kategorie, verwalten</span>.</li>
 
 <ul>
   
-   <li>Nachdem Sie Ihre Galerie erstellt, konfigurieren Sie die Anzeige von
-Mängel wie gewünscht in <span class="pwgScreen">administrazion
-Konfiguration, die Standardansicht</span>. Denn jeder neue
-Benutzer erben diese Eigenschaften von Anzeige.</li>
+   <li>Nachdem Sie Ihre Galerie erstellt haben, konfigurieren Sie die gewünschte Anzeige über
+<span class="pwgScreen">Verwaltung, Konfiguration, Standartanzeige</span>. Jeder neu registrierte Benutzer
+bekommt diese Einstellungen als Standart vorgegeben.</li>
 
-   <li>Bei Fragen wenden Sie sich bitte an das Forum besuchen oder für ein Oktoberfest
-Frage, ob Ihre Suche erfolglos ist. Der
+   <li>Bei Fragen besuchen Sie bitte das Forum. Wenn ihre Frage dort nicht schon beantwortet wurde, scheuen Sie sich 
+   sie dort zu stellen.
+   Das
 <a href="http://forum.phpwebgallery.net">Forum</a> ist auf der Website von Piwigo. Siehe 
 auch <a href="http://phpwebgallery.net/doc">Offizielle Dokumentation von Piwigo</a> für 
 weitere Informationen. </li>
+
+
+ <li>PS: Deutsche Übersetzung von Daniel Riedel  Bei Verbesserungen an der Übersetzung bitte Vorschläge mailen an  news_at_areasunshine_dot_de
+ Da meine Zeit zur Übersetzung begrenzt war, wird es bestimmt den einen oder anderen kleinen Fehler geben.</li>
 
 </ul>
 </div>
