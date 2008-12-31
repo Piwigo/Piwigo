@@ -57,8 +57,8 @@ background-repeat:no-repeat; color:#444; cursor:pointer; font-size:110%; overflo
  .instructionBlockHeaderCollapsed:hover span, .instructionBlockHeaderExpanded:hover span, 
  .instructionBlockHeaderCollapsed:focus span, .instructionBlockHeaderExpanded:focus span { border-bottom-color: #111; }
  
-.instructionBlockHeaderCollapsed { background-image: url(../../icon/expand.png);}
-.instructionBlockHeaderExpanded { background-image: url(../../icon/collapse.png);}
+.instructionBlockHeaderCollapsed { background-image: url(../../icon/expand.gif);}
+.instructionBlockHeaderExpanded { background-image: url(../../icon/collapse.gif);}
 .instructionBlockContent { padding:0 15px 15px;}
 SPAN.pwgScreen { font-style:italic; border-bottom:1px dotted #666}
 
