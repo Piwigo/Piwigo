@@ -14,6 +14,10 @@
       </select>
       </li>
       {/if}
+      
+      {if isset($favorite) }
+      <li><a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{$favorite.FAVORITE_HINT}"></a></li>
+      {/if}
 
       {if isset($U_CADDIE) }
       <li><a href="{$U_CADDIE}" title="{'add to caddie'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/caddie_add.png" class="button" alt="{'caddie'|@translate}"/></a></li>

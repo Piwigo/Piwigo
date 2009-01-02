@@ -373,7 +373,24 @@ SELECT DISTINCT image_id
   {
     check_user_favorites();
 
-    $query = '
+    $page = array_merge(
+      $page,
+      array(
+	'title' => l10n('favorites')
+	    )
+    );
+
+    if (!empty($_GET['action']) && ($_GET['action'] == 'remove_all_from_favorites'))
+    {
+      $query = '
+DELETE FROM '.FAVORITES_TABLE.'
+  WHERE user_id = '.$user['id'].'
+;';
+      pwg_query($query);
+    }
+    else 
+    {
+      $query = '
 SELECT image_id
   FROM '.FAVORITES_TABLE.'
     INNER JOIN '.IMAGES_TABLE.' ON image_id = id
@@ -388,14 +405,29 @@ SELECT image_id
   ).'
   '.$conf['order_by'].'
 ;';
-
-    $page = array_merge(
-      $page,
-      array(
-        'title' => l10n('favorites'),
-        'items' => array_from_query($query, 'image_id'),
-        )
+      $page = array_merge(
+	$page,
+	array(
+	  'items' => array_from_query($query, 'image_id'),
+         )
       );
+
+      if (count($page['items'])>0) 
+      {
+	$template->assign(
+	  'favorite',
+	  array(
+	    'FAVORITE_IMG'  =>
+	    get_root_url().get_themeconf('icon_dir').'/del_all_favorites.png',
+	    'FAVORITE_HINT' => l10n('del_all_favorites_hint'),
+	    'U_FAVORITE'    => add_url_params(
+	      'index.php?/favorites',
+	      array('action'=>'remove_all_from_favorites')
+	       ),
+	     )
+           );
+      }
+    }
   }
 // +-----------------------------------------------------------------------+
 // |                       recent pictures section                         |
