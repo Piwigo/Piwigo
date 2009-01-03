@@ -4,7 +4,7 @@
 {/if}
   <img src="{$SRC_IMG}" style="width:{$WIDTH_IMG}px;height:{$HEIGHT_IMG}px;" alt="{$ALT_IMG}" 
 	{if isset($COMMENT_IMG)}
-		title="{$COMMENT_IMG|replace:'"':' '}" {else} title="{$current.TITLE|replace:'"':' '} - {$ALT_IMG}"
+		title="{$COMMENT_IMG|strip_tags:false|replace:'"':' '}" {else} title="{$current.TITLE|replace:'"':' '} - {$ALT_IMG}"
 	{/if}>
 {if isset($high) }
 </a>

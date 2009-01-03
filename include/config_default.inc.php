@@ -154,6 +154,9 @@ $conf['tn_height'] = 128;
 // bottom of each page ?
 $conf['show_version'] = true;
 
+// meta_ref to reference multiple sets of incorporated pages or elements
+// Set it false to avoid referencing in google, and other search engines.
+$conf['meta_ref'] = true;
 
 // links : list of external links to add in the menu. An example is the best
 // than a long explanation :
