@@ -380,13 +380,15 @@ SELECT DISTINCT image_id
 	    )
     );
 
-    if (!empty($_GET['action']) && ($_GET['action'] == 'remove_all_from_favorites'))
+    if (!empty($_GET['action']) 
+	&& ($_GET['action'] == 'remove_all_from_favorites'))
     {
       $query = '
 DELETE FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
       pwg_query($query);
+      redirect('index.php?/favorites');
     }
     else 
     {
