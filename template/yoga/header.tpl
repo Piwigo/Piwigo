@@ -1,10 +1,23 @@
 {* $Id$ *}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={$CONTENT_ENCODING}">
 <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
+{if isset($meta_ref) } 
+{if isset($INFO_AUTHOR)}
+<meta name="author" content="{$INFO_AUTHOR|replace:'"':' '}">
+{/if}
+{if isset($related_tags)}
+<meta name="keywords" content="{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}{$tag.name}{/foreach}">
+{/if}
+{if isset($COMMENT_IMG)}
+<meta name="description" content="{$COMMENT_IMG|strip_tags:false|replace:'"':' '}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
+{else}
+<meta name="description" content="{$PAGE_TITLE}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
+{/if}
+{/if}
+
 <title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}template-common/favicon.ico">
 
@@ -49,7 +62,8 @@
 <![endif]-->
 
 {if not empty($head_elements)}
-	{foreach from=$head_elements item=elt}{$elt}{/foreach}
+	{foreach from=$head_elements item=elt}{$elt}
+	{/foreach}
 {/if}
 
 </head>

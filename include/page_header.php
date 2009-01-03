@@ -56,6 +56,13 @@ if ( !empty($header_notes) )
   $template->assign('header_notes',$header_notes);
 }
 
+// No referencing is required
+if ( !$conf['meta_ref'] ) 
+{
+  $page['meta_robots']['noindex'] = 1;
+  $page['meta_robots']['nofollow'] = 1;
+}
+
 if ( !empty($page['meta_robots']) )
 {
   $template->append('head_elements',
@@ -63,6 +70,10 @@ if ( !empty($page['meta_robots']) )
         .implode(',', array_keys($page['meta_robots']))
         .'">'
     );
+}
+if ( !isset($page['meta_robots']['noindex']) )
+{ 
+  $template->assign('meta_ref',1); 
 }
 
 // refresh
