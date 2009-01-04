@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -644,4 +644,5 @@ $lang['Delete selected photos'] = 'Cancellare le foto';
 $lang['%d photo was deleted'] = '%d foto cancellata';
 $lang['%d photos were deleted'] = '%d foto cancellate';
 $lang['Bound template'] = 'Template legato';
+// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 ?>

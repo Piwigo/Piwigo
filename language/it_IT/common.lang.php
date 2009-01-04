@@ -2,7 +2,7 @@
 // +-----------------------------------------------------------------------+
 // | Piwigo - a PHP based picture gallery                                  |
 // +-----------------------------------------------------------------------+
-// | Copyright(C) 2008      Piwigo Team                  http://piwigo.org |
+// | Copyright(C) 2008-2009 Piwigo Team                  http://piwigo.org |
 // | Copyright(C) 2003-2008 PhpWebGallery Team    http://phpwebgallery.net |
 // | Copyright(C) 2002-2003 Pierrick LE GALL   http://le-gall.net/pierrick |
 // +-----------------------------------------------------------------------+
@@ -365,4 +365,6 @@ $lang['group by letters'] = 'ragruppare per lettera';
 $lang['letters'] = 'lettere';
 $lang['show tag cloud'] = 'fare salire la nuvola di tags';
 $lang['cloud'] = 'nuvola';
+// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+/* TODO */ $lang['del_all_favorites_hint'] = 'delete all images from your favorites';
 ?>
