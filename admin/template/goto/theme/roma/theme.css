@@ -127,7 +127,9 @@ text-align:right; text-decoration:none; margin: 0; }
 background:transparent url(images/active_tab.png) no-repeat scroll left 0px; }
 .tabsheet a:hover, .tabsheet li.selected_tab  a { color: #F36;
 background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
-.tabsheet a span { background-color:#222; display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
+.tabsheet a span { display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
+.tabsheet .selected_tab a span { background:transparent url(images/active_tab3.png) repeat-x scroll left top; }
+.tabsheet .normal_tab a span { background:transparent url(images/inactive_tab3.png) repeat-x scroll left top; }
 #debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
