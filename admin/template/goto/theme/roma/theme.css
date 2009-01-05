@@ -54,8 +54,6 @@ text-transform:none; font-weight:bold; padding-left:20px; width:54%; }
 .instructionBlockHeaderCollapsed, .instructionBlockHeaderExpanded {background-color:#111; background-position:15px center;
 background-repeat:no-repeat; color:#ff3363; cursor:pointer; font-size:110%; overflow:hidden; padding:8px 41px;}
 .instructionBlockHeaderCollapsed span, .instructionBlockHeaderExpanded span {border-bottom: none; }
- .instructionBlockHeaderCollapsed:hover span, .instructionBlockHeaderExpanded:hover span, 
- .instructionBlockHeaderCollapsed:focus span, .instructionBlockHeaderExpanded:focus span { border-bottom: 1px solid #ff3363; }
  
 .instructionBlockHeaderCollapsed { background-image: url(../../icon/expand.gif);}
 .instructionBlockHeaderExpanded { background-image: url(../../icon/collapse.gif);}
