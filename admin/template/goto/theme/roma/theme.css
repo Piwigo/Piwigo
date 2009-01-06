@@ -128,6 +128,7 @@ background:transparent url(images/active_tab2.png) no-repeat scroll right 0px; }
 .tabsheet a span { display:block; font-size:10px; margin-right:2px; padding:0 3px 0 1px; }
 .tabsheet .selected_tab a span { background:transparent url(images/active_tab3.png) repeat-x scroll left top; }
 .tabsheet .normal_tab a span { background:transparent url(images/inactive_tab3.png) repeat-x scroll left top; }
+.tabsheet .normal_tab:hover a span { background:transparent url(images/active_tab3.png) repeat-x scroll left top; }
 #debug { margin-left:248px; font-size:12px; }
 /* menubar is on all admin pages => No specific css file */
 #menubar {
