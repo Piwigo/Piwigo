@@ -45,20 +45,20 @@ $lang['step1_pass_info'] = 'das von Ihrem Hosting-Provider';
 $lang['step1_database'] = 'Name der Datenbank';
 $lang['step1_database_info'] = 'Passwort für die MySQL Datenbank';
 $lang['step1_prefix'] = 'Vorwahl Tabellen';
-$lang['step1_prefix_info'] = 'die Namen der Tabellen mit diesem Pr&auml;fix (erm&ouml;glicht eine bessere Verwaltung der Datenbank)';
+$lang['step1_prefix_info'] = 'die Namen der Tabellen mit diesem Präfix (ermöglicht eine bessere Verwaltung der Datenbank)';
 $lang['step2_err_login1'] = 'gib bitte einen Benutzernamen für den Webmaster an';
 $lang['step2_err_login3'] = 'der Benutzername des Webmasters darf nicht die Zeichen \' und " enthalten';
-$lang['step2_err_pass'] = 'Bitte w&auml;hlen Sie ein Passwort';
+$lang['step2_err_pass'] = 'Bitte wählen Sie ein Passwort';
 $lang['install_end_title'] = 'Installation abgeschlossen';
 $lang['step2_pwd'] = 'Passwort';
 $lang['step2_pwd_info'] = 'Administratorpasswort';
-$lang['step2_pwd_conf'] = 'Passwort [Best&auml;tigung]';
+$lang['step2_pwd_conf'] = 'Passwort [Bestätigung]';
 $lang['step2_pwd_conf_info'] = 'Wiederholen Sie das eingegebene Passwort';
 $lang['step1_err_copy'] = 'Kopieren Sie den rosa Text ohne die Bindestriche und fügen Sie ihn in die Datei "include / mysql.inc.php" auf dem Webserver ein (Warnung: die Datei "mysql.inc.php" darf nur die rosa Zeichen enthalten, nicht mehr und nicht weniger)';
 $lang['install_help'] = 'Brauchen Sie Hilfe? Stellen Sie Ihre Frage auf der <a href="%s"> Forum Piwigo </ a>.';
-$lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der n&auml;chste Schritt<br /><br />
+$lang['install_end_message'] = 'Die Konfiguration der Piwigo abgeschlossen ist, hier ist der nächste Schritt<br /><br />
 * Gehen Sie zum Anmelden auf die Startseite: [ <a href="./identification.php">Identifizierung</a> ] und verwenden Sie die Login / Passwort für Webmaster<br />
-* diesem Login erm&ouml;glicht Ihnen den Zugang zu den Verwaltungs-Panel und der Bilder- und Benutzerverwaltung.';
+* diesem Login ermöglicht Ihnen den Zugang zu den Verwaltungs-Panel und der Bilder- und Benutzerverwaltung.';
 $lang['conf_mail_webmaster'] = 'Webmaster Mail-Adresse';
 $lang['conf_mail_webmaster_info'] = 'Kontakt E-Mailadresse (nur für angemeldete Benutzer sichtbar)';
 ?>
