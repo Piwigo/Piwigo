@@ -182,6 +182,7 @@ function ws_addDefaultMethods( $arr )
       'thumbnail_sum' => array(),
       'high_content' => array('default' => null),
       'high_sum' => array('default' => null),
+      'original_sum' => array(),
       'name' => array('default' => null),
       'author' => array('default' => null),
       'date_creation' => array('default' => null),
