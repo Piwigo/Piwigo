@@ -909,7 +909,7 @@ function ws_images_add($params, &$service)
 SELECT
     COUNT(*) AS counter
   FROM '.IMAGES_TABLE.'
-  WHERE md5sum = \''.$params['file_sum'].'\'
+  WHERE md5sum = \''.$params['original_sum'].'\'
 ;';
   list($counter) = mysql_fetch_row(pwg_query($query));
   if ($counter != 0) {
@@ -1088,7 +1088,7 @@ SELECT
     'filesize' => floor(filesize($file_path)/1024),
     'width' => $width,
     'height' => $height,
-    'md5sum' => $params['file_sum'],
+    'md5sum' => $params['original_sum'],
     );
 
   $info_columns = array(

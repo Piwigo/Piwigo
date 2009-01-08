@@ -11,7 +11,7 @@ use Encode qw/is_utf8 decode/;
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s high=s categories=s define=s%/
+    qw/action=s file=s thumbnail=s high=s original=s categories=s define=s%/
 );
 
 our $ua = LWP::UserAgent->new;
@@ -48,6 +48,8 @@ if ($opt{action} eq 'pwg.images.add') {
     use Digest::MD5::File qw/file_md5_hex/;
     use File::Slurp;
 
+    my $original_sum = file_md5_hex($opt{original});
+
     my $file_content = encode_base64(read_file($opt{file}));
     my $file_sum = file_md5_hex($opt{file});
 
@@ -56,6 +58,7 @@ if ($opt{action} eq 'pwg.images.add') {
 
     $form = {
         method => 'pwg.images.add',
+        original_sum => $original_sum,
         file_sum => $file_sum,
         file_content => $file_content,
         thumbnail_sum => $thumbnail_sum,
@@ -84,7 +87,8 @@ if ($opt{action} eq 'pwg.images.add') {
     print "\n";
 
 #     use Data::Dumper;
-#     print Dumper($response);
+#     print Dumper($response->content);
+#     print Dumper(from_json($response->content));
 
     if ($response->is_success) {
         print "upload successful\n";
