@@ -1,36 +1,58 @@
 <div class="instructions">
 <h2>Aiuto</h2>
 
+<div id="instructionPLoader" class="instructionBlock">
+  <div
+    id="pLoader_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
+  ><span>
+    Aggiungere delle foto con pLoader
+  </span></div>
+  <div
+    id="pLoader_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+    <ol>
+	  <li>Create una directory "upload" a fianco della directory "galleries" della vostra installazione di Piwigo, con dei diritti di scrittura.</li>
+      <li>Installate pLoader sul vostro PC, avviatelo e riempite i parametri di conessione : URL della vostra galleria, il vostro utente e la vostra password	.</li>
+      <li>Aggiungete delle foto con un semplice drag'n drop verso la selezione di pLoader.</li>
+      <li>Create una categoria e selezionatela.</li>
+      <li>Selezionate qualche foto.</li>
+      <li>Cliccare sulla freccia verde per trasferire le foto verso la vostra galleria</li>
+    </ol>
+	<p>Bravo! Avete appena creato la prima categoria della vosrta galleria.</p>
+  </div> <!-- pLoader_content -->
+</div> <!-- instructionPLoader -->
+
+<div id="instructionFTP" class="instructionBlock">
+  <div
+    id="FTP_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
+  ><span>
+    Aggiungere delle foto con l'FTP
+  </span></div>
+  <div
+    id="FTP_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+
 <h3>Presa in mano rapida</h3>
 
 <ol>
-
-  <li>Creare una directory locale chiamandola, ad esempio, "prova_categoria".</li>
-
-  <li>Copiare le Vostre immagini nella directory "prova_categoria".</li>
-
-  <li>Aprire una connessione FTP con la galleria remota.</li>
-
-  <li>Caricare la directory locale "prova_categoria" nella vostra directory 
-"galleries" remota. Impostare i diritti di accesso a 777 sulla nuova directory 
-caricata "galleries/prova_categoria".</li>
-
-  <li>Accedete alla vostra Piwigo come amministratore.</li>
-
-  <li>Andare su <span class="pwgScreen">Amministrazione -> Immagini
--> Miniature</span>. Piwigo troverà le miniature mancanti nella
-directory "prova_categoria" e le creerà in automatico.</li>
-
-  <li>Andare su <span class="pwgScreen">Amministrazione -> Generale
--> Sincronizza</span>. Selezionare l'opzione "directory + file", deselezionare
-"effettuare solo una simulazione" ed avviare la sincronizzazione.</li>
-
-  <li>Fatto!!! Avete creato una categoria chiamata "prova_categoria" alla base
-della Vostra galleria.</li>
-  
+  <li>Create una directory sul vostro PC.</li>  
+  <li>Copiate qualche foto in questa directory, e ridimenzionatele per la visualizzazione sul web. <em>Attenzione</em>: il nome delle directories e dei files deve contenere solo delle lettre, cifre e i caratteri "-", "_" o ".". Nessuno sazio o caratteri accentuati.</li>
+  <li>Con un cliente FTP, copiate la directory in nella directory "galleries" del vostro Piwigo.</li>
+  <li>Connettetevi alla vostra galleria e andate a <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; Miniature</span> per creare le miniature mancanti.</li>
+  <li>Andare a <span class="pwgScreen">Amministrazione</span> e cliccare sul grosso pulzante Sincronizzazione.</li>
 </ol>
 
-<h3>Aggiungere gli elementi</h3>
+<p>Bravo! Avete appena creato la prima categoria della vosrta galleria.</p>
+
+<h3>Organizzazione delle directories e dei files</h3>
 
 <ul>
 
@@ -114,7 +136,7 @@ quelle che invece contengono sottocategorie.</li>
 
   <li>Una volta che i file, le miniature e i file rappresentativi sono
 correttamente piazzati nelle directory, andare nello schermo <span
-class="pwgScreen">Amministrazione -> Generale -> Sincronizza</span>.</li>
+class="pwgScreen">Amministrazione &raquo; Generale &raquo; Sincronizza</span>.</li>
 
 </ul>
 
@@ -135,8 +157,7 @@ personalizzato dal parametro di configurazione <code>prefix_thumbnail</code>
 dell'immagine che rappresenta (per esempio, un'immagine ".JPG" può avere
 come miniatura un'immagine ".GIF").</li>
 
-  <li>È altamente consigliato di usare un software esterno (come ThumbClic
-o PhpMyVignettes, vedi il sito di presentazione di Piwigo) per la
+  <li>È altamente consigliato di usare un software esterno per la
 creazione delle miniature.</li>
 
   <li>È anche possibile usare la creazione delle miniature integrata a
@@ -144,109 +165,160 @@ Piwigo, ma ciò non è raccomandato in quanto la qualità delle miniature
 può essere scadente ed il processo potrebbe utilizzare troppe risorse del
 server (ciò può essere un problema per un servizio di web hosting gratuito.</li>
 
-  <li>Se decidete di usare il server per la creazione delle miniature
-è necessario dare i diritti di scrittura su tutte le directory e
-sottodirectory per tutte le categorie di utenti (utente, gruppo,
-altri).</li>
+  <li>Se decidete comunque di usare il server per la creazione
+delle miniature è necessario dare i diritti di scrittura su tutte
+le directory.</li>
 
 </ul>
+  </div> <!-- FTP_content -->
+</div> <!-- instructionFTP -->
 
-<h3>Autorizzazioni</h3>
+<div id="instructionPermissions" class="instructionBlock">
+  <div
+    id="permissions_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
+  ><span>
+    Permessi
+  </span></div>
+  <div
+    id="permissions_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 
 <ul>
 
-  <li>È possibile impedire l'accesso alle categorie. Le categorie
-possono essere pubbliche o private. I permessi (per i gruppi e utenti)
-possono essere configurati solo se la categoria è privata.</li>
+  <li>Potete vietare l'accesso alle categorie. Settate il tipo d'accesso a "privato" se desiderate gestire i permessi</li>
 
   <li>Potete rendere una categoria privata modificandola da <span
-class="pwgScreen">Amministrazione -> Categorie -> Gestire -> Modificare</span>
+class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire &raquo; Modificare</span>
 o selezionando l'opzione nell'albero delle categorie <span
-class="pwgScreen">Amministrazione -> Categorie -> Pubblica/Privata</span>).</li>
+class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Proprietà &raquo; Pubblica/Privata</span>).</li>
 
-  <li>Una volta che certe categorie sono impostate come private, potete
-gestire i permessi per i gruppi e utenti (<span class="pwgScreen">
-Amministrazione -> Identificazione</span>).</li>
+  <li>
+    <p>Una volta che certe categorie sono private, potete gestire i
+permessi da 3 schermi:</p>
+    <ul>
+      <li><span class="pwgScreen">Amministrazione &raquo; Identificazione &raquo; Utenti &raquo; azione Permessi</span> (un' link per utente)</li>
+      <li><span class="pwgScreen">Amministrazione &raquo; Identificazione &raquo; Gruppi &raquo; azione Permessi</span> (un' link per gruppo)</li>
+      <li><span class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire &raquo; Modificare i permessi</span> (un' link per categoria)</li>
+    </ul>
+
+  </li>
 
 </ul>
+  </div> <!-- permissions_content --> 
+</div> <!-- instructionPermissions -->
 
-<h3>Utenti e gruppi</h3>
-
+<div id="instructionGroups" class="instructionBlock">
+  <div
+    id="groups_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('groups_header', 'groups_content')"
+  ><span>
+    Utenti e gruppi
+  </span></div>
+  <div
+    id="groups_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
-  <li>Piwigo permette di gestire dei gruppi di utenti. Può essere molto
-utile per gestire permessi di accesso comune su categorie private.</li>
+  <li>I gruppi d'utenti permettono di dare dei permessi ad una lista di utenti.</li>
 
-  <li>È possibile creare gruppi in <span class="pwgScreen">Amministrazione
--> Identificazione -> Gruppi</span> e associarci degli utenti.</li>
+  <li>È possibile creare gruppi in
+<span class="pwgScreen">Amministrazione &raquo; Identificazione &raquo; Gruppi</span>.</li>
 
-  <li>Un utente può appartenere a diversi gruppi. L'autorizzazione è
-prioritaria rispetto alla proibizione. Ad esempio se l'utente "pippo"
-appartiene ai gruppi "famiglia" e "amici" e, tra questi gruppi, solo il gruppo
-"famiglia" può vedere la categoria "Natale 2006", ne consegue che l'utente
-"pippo" sarà abilitato a visionare la categoria "Natale 2006".</li>
+  <li>Un utente può appartenere a diversi gruppi. L'autorizzazione è prioritaria rispetto
+alla proibizione. Ad esempio se l'utente "pippo" appartiene ai gruppi "famiglia" e "amici"
+e, tra questi gruppi, solo il gruppo "famiglia" può vedere la categoria "Natale 2008",
+ne consegue che l'utente "pippo" sarà abilitato a visionare la categoria "Natale 2008".</li>
 
 </ul>
+  </div> <!-- groups_content --> 
+</div> <!-- instructionGroups -->
 
-<h3>Immagini caricate dagli utenti</h3>
-
-<p>Per permettere agli utenti di caricare i file occorre:</p>
+<div id="instructionUpload" class="instructionBlock">
+  <div
+    id="upload_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('upload_header', 'upload_content')"
+  ><span>
+    Immagini caricate dagli utenti
+  </span></div>
+  <div
+    id="upload_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<p>Gli utenti possono anche loro caricare le loro foto.</p>
 
 <ol>
 
-  <li>autorizzare il caricamento in ogni categoria (<span 
-class="pwgScreen"> Amministrazione -> Categorie -> Gestire -> Modificare</span> 
-oppure <span class="pwgScreen">Amministrazione -> Categorie -> Proprietà
--> Aggiungere immagine</span>).</li>
+  <li>Autorizare l'upload su una o più categorie fisiche (<span
+class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire &raquo; Modificare</span> o <span
+class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Proprietà &raquo; Caricare</span>). Le categorie virtuali non permettono l'upload.</li>
 
   <li>dare i diritti di scrittura (per tutti gli utenti) sulle directory
 delle categorie autorizzate a l'aggiunta dei file</li>
-
 </ol>
 
-  <p>Il file caricati dagli utenti non sono visibili direttamente sul sito
-in quanto devono essere convalidati da un amministratore. A questo scopo
-un amministratore deve recarsi in <span class="pwgScreen">Amministrazione
--> Immagini -> In attesa</span> per convalidare o rifiutare i file proposti.
-È poi necessario sincronizzare il filesystem con la base dati.</p>
+  <p>Le foto aggiunte dagli utenti non sono direttamente visibili
+sul sito. Devono essere convalidate da un amministratore. Per ciò,
+un'amministratore deve andare in <span class="pwgScreen">Amministrazione &raquo; Immagini &raquo; In attesa &raquo; Immagini</span> per approvare o scartare le immagini proposte</p>
 
+  </div> <!-- upload_content --> 
+</div> <!-- instructionUpload -->
 
-<h3>Collegamenti tra elementi e categorie e le categorie virtuali</h3>
+<div id="instructionCategoryLinks" class="instructionBlock">
+  <div
+    id="categoryLinks_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
+  ><span>
+    Collegamenti tra elementi e categorie e le categorie virtuali
+  </span></div>
+  <div
+    id="categoryLinks_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 
 <ul>
-
-  <li>Piwigo dissocia le categorie che contengono le immagini da quelle
-che le visualizzano.</li>
-
-  <li>Di default, gli elementi sono presenti solo nelle categorie reali
-che corrispondono alle directory sul server.</li>
-
-  <li>Per legare un elemento a una categoria, è sufficente associarlo sulla pagina
-di modifica del elemento (un link esiste verso la pagina quando siete collegati
-come amministratore), sulla pagina di gestione degli elementi della categoria
-o grazie al cestino.</li>
-
-  <li>Usando questo stesso principio è possibile creare delle categorie virtuali :
-nessuna directory fisica corrisponde a queste nuove categorie. È possibile creare
-le categorie virtuali da <span class="pwgScreen">Amministrazione -> Categorie
--> Gestire</span>.</li>
-
+  <li>Le foto sono visualizzate nella categoria corrispondente alla directory.</li>
+  <li>Potete anche visualizzare una foto in più di una categoria, senza dupplicare il file. Associate la foto a un'altra o più categorie d'allo schermo di modifica della foto (al quale acedete dalla pagina di visualizzazione della foto della vostra galleria, quando siete connessi come amministratore).</li>
+  <li>Le categorie virtuali nascono da questo principio : non sono associati a nessuna directory fisica. Create delle categorie virtuali in <span class="pwgScreen">Amministrazione &raquo; Categorie &raquo; Gestire</span>.</li>
 </ul>
+  </div> <!-- categoryLinks_content --> 
+</div> <!-- instructionCategoryLinks -->
 
-<h3>Informazioni</h3>
+<div id="instructionMisc" class="instructionBlock">
+  <div
+    id="misc_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('misc_header', 'misc_content')"
+  ><span>
+    Informazioni
+  </span></div>
+  <div
+    id="misc_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 
 <ul>
 
   <li>Dopo aver creato la Vostra galleria, modificatene le proprietà
-di visualizzazione di default da <span class="pwgScreen">Amministrazione
--> Configurazione -> Visualizzazione di default</span>. In questo modo
-ogni nuovo utente visualizzerrà la galleria con le stesse impostazioni.</li>
+di visualizzazione di default da <span class="pwgScreen">Amministrazione &raquo; Configurazione &raquo; Visualizzazione di default</span>. In questo modo
+ogni nuovo utente visualizzerrà la galleria con queste stesse impostazioni.</li>
 
-  <li>Per qualsiasi altra domanda, non esitare a visitare il
-<a href="http://forum.phpwebgallery.net">forum</a> disponibile sul sito ufficiale di
-<a href="http://www.phpwebgallery.net">Piwigo</a> sul quale troverete
-anche un'ampia <a href="http://phpwebgallery.net/doc">documentazione</a> in cui
-potrete trovare risposte ai vostri dubbi.</li>
+   <li>Se avedte delle domande, la comunità di Piwigo sarà lieta di rispondere sul'<a
+  href="http://forum.phpwebgallery.net">forum</a>.</li>
 
 </ul>
+  </div> <!-- misc_content --> 
+</div> <!-- instructionMisc -->
+
 </div>
