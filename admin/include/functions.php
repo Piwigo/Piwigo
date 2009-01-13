@@ -1598,7 +1598,7 @@ DELETE
 /**
  * Do maintenance on all PWG tables
  *
- * @return nono
+ * @return none
  */
 function do_maintenance_all_tables()
 {
@@ -1647,7 +1647,7 @@ function do_maintenance_all_tables()
   {
     array_push(
           $page['infos'],
-          l10n('Optimization completed')
+          l10n('Optimizations completed')
           );
   }
   else
