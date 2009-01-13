@@ -264,6 +264,8 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
    */
   function get_server_plugins($new=false)
   {
+    global $user;
+
     // Retrieve PEM versions
     $version = PHPWG_VERSION;
     $versions_to_check = array();
@@ -301,6 +303,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     // Retrieve PEM plugins infos
     $url = PEM_URL . '/api/get_revision_list.php?category_id=12&format=php&last_revision_only=true';
     $url .= '&version=' . implode(',', $versions_to_check);
+    $url .= '&lang=' . substr($user['language'], 0, 2);
 
     if (!empty($plugins_to_check))
     {
