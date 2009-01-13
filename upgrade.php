@@ -298,6 +298,10 @@ if (isset($_POST['submit']) and check_upgrade())
       l10n('perform a maintenance check')
       );
 
+    // Save $page['infos'] in order to restore after maintenance actions
+    $page['infos_sav'] = $page['infos'];
+    $page['infos'] = array();
+
     // c13y_upgrade plugin means "check integrity after upgrade", so it
     // becomes useful just after an upgrade
     $query = '
@@ -313,6 +317,10 @@ REPLACE INTO '.PLUGINS_TABLE.'
 
     // Tables Maintenance
     do_maintenance_all_tables();
+
+    // Restore $page['infos'] in order to hide informations messages from functions calles
+    // errors messages are not hide
+    $page['infos'] = $page['infos_sav'];
 
   }
 }
