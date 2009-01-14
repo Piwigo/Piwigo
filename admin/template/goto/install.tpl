@@ -39,6 +39,7 @@ TD {
 
 <body>
 <div id="headbranch"></div> {* Dummy block for double background management *}
+<div id="the_page">
 <div id="theHeader"></div>
 <div id="content" class="content">
 
@@ -154,5 +155,6 @@ TD {
 {/if}
 </div> {* content *}
 <div style="text-align: center">{$L_INSTALL_HELP}</div>
+</div> {* the_page *}
 </body>
 </html>
