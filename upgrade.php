@@ -316,7 +316,8 @@ REPLACE INTO '.PLUGINS_TABLE.'
     $template->delete_compiled_templates();
 
     // Tables Maintenance
-    do_maintenance_all_tables();
+    // Disabled optimization table for branch 2.0 only
+    //do_maintenance_all_tables();
 
     // Restore $page['infos'] in order to hide informations messages from functions calles
     // errors messages are not hide
