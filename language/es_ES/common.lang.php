@@ -366,5 +366,5 @@ $lang['letters'] = 'letras';
 $lang['show tag cloud'] = 'mostrar la nube de tags';
 $lang['cloud'] = 'nube';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
-/* TODO */ $lang['del_all_favorites_hint'] = 'delete all images from your favorites';
+$lang['del_all_favorites_hint'] = 'Suprimir todas las imágenes de sus favoritos';
 ?>

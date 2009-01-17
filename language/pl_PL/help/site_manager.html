@@ -1,0 +1,41 @@
+<h2>Zdalne strony</h2>
+
+<p>Piwigo oferuje możliwość wykorzystania wielu serwerów do przechowywania zawartości galerii. Może to być przydatne gdy na serwerze masz mało miejsca lub posiadasz dużo obrazów.</p>
+
+<ol>
+
+  <li>edytuj następujące parametry w pliku <span class="filename">tools/create_listing_file.php</span>,
+  <code>$conf['prefix_thumbnail']</code> lub
+  <code>$conf['use_exif']</code>.</li>
+
+  <li>umieść przy pomocy ftp zmodyfikowany plik <span class="filename">tools/create_listing_file.php</span>
+  na zdalnym serwerze, w tym samym katalogu co katalog kategorii (tak jak katalog <span class="filename">galleries</span> . Dla przykładu może to być <span
+  class="filename">http://example.com/galleries/create_listing_file.php</span>.</li>
+
+  <li>przejdź do <span class="pwgScreen">panelu administracyjnego, Kategorie, Menadżer strony</span>. Stwórz nową stronę np. <span
+  class="filename">http://example.com/galleries</span>.</li>
+
+  <li>zostanie stworzona nowa zdalna strona. Możesz na niej wykonać 4 akcje :
+
+    <ol>
+
+      <li><strong>generuj listę</strong> : uruchamia zdalnie żądanie generacji listy plików</li>
+
+      <li><strong>synchronizuj</strong> : odczytuje zdalny plik <span
+      class="filename">listing.xml</span> i synchronizuje informacje z bazą danych.</li>
+
+      <li><strong>wyczyść</strong> : usuwa dalny plik <span
+      class="filename">listing.xml</span> .</li>
+
+      <li><strong>usuń</strong> : usuwa zdalną stronę (oraz wszystkie z nią powiązane kategorie i elementy) z bazy danych.</li>
+
+    </ol>
+  </li>
+</ol>
+
+<!-- <p>You can do all this by hand by generating yourself the <span
+class="filename">listing.xml</span> file, moving it from your distant server
+to you local Piwigo root directory and opening the remote site
+management screen : Piwigo will propose you to use the found
+listing.xml file.</p>-->
+

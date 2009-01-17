@@ -1,0 +1,87 @@
+<h2>Rozszerzenie dla konfiguracji szablonów</h2>
+
+<h3>Cel</h3>
+<p>Definiuje warunki zamiany szablonu z template-extension
+(szablon zwany "zamiennikiem").</p>
+
+<p>"Oryginalny szablon" z ./template/yoga (lub inny niż yoga)
+ będzie zamieniony przez "zamiennik" jeżeli zamiennik jest podpięty do "szablonu oryginalnego"
+ (lub opcjonalnie, jeżeli żądany adres URL zawiera "opcjonalne słowo klucz dla URL").</p>
+
+<p>"Opcjonalne słowa klucze dla URL" mogą zostać odnalezione w module URLs.</p>
+
+<p>"Opcjonalne słowa klucze dla URL" może być także "linkiem permanentnym" 
+(zobacz opis linków permanentnych w naszej dokumentacji).</p>
+
+<p>Czytaj: `<a href="#warnings">Ostrzeżenie</a>` warunki użycia.</p>
+
+<h3>Czym są rozszerzenia szablonów?</h3>
+
+<p>Narzędzie konfiguracyjne zarówno dla użytkowników początkujących jak i zaawansowanych.
+Webmaster może powielić wiele dostarczanych plików (.tpl) szablonów ("szablony oryginalne") przez FTP do folderu template-extensions nadając im inne nazwy.
+ 
+ "Szablony oryginalne", aktualnie szablony oryginalne są wspierane dla:</p>
+<ul>
+  <li><span class="filename">index.tpl</span></li>
+  <li><span class="filename">mainpage_categories.tpl</span> i/lub <span class="filename">thumbnails.tpl</span></li>
+  <li><span class="filename">menubar.tpl</span></li>
+  <li><span class="filename">header.tpl</span> i/lub <span class="filename">footer.tpl</span></li>
+  <li><span class="filename">picture_content.tpl</span> i/lub <span class="filename">picture.tpl</span></li>
+  <!-- <li><span class="filename">slideshow.tpl</span></li> -->
+  <li><span class="filename">profile.tpl</span> i/lub <span class="filename">profile_content.tpl</span></li>
+  <li><span class="filename">tags.tpl</span></li>
+  <li><span class="filename">upload.tpl</span></li>
+  <li><span class="filename">about.tpl</span></li>
+  <li><span class="filename">popuphelp.tpl</span></li>
+  <li><span class="filename">search.tpl</span> i/lub <span class="filename">search_rules.tpl</span></li>
+  <li><span class="filename">nbm.tpl</span> i/lub <span class="filename">notification.tpl</span></li>
+  <li><span class="filename">identification.tpl</span> i/lub <span class="filename">register.tpl</span></li>
+  <li><span class="filename">redirect.tpl</span></li>
+</ul>
+
+<h3>Gdzie mogę znaleźć  "szablony oryginalne"?</h3>
+
+<p>Szablony oryginalne znajdują się w katalogu template/yoga/ 
+(nie należy ich edytować z powodów aktualizacji). Z "szablonów oryginalnych", 
+dowolny administrator może stworzyć ich "zamienniki (spersonalizowane szablony)".</p>
+
+<h3>Gdzie należy zapisać "zamienniki"?</h3>
+
+<p><strong>Zamienniki (szablony spersonalizowane)</strong> muszą być umieszczone w katalogu template-exension (lub jego podkatalogach).
+Nazwy plików zaminników mogą mieć dowolne nazwy oraz rozszerzenie .tpl. Na przykład: <span
+class="filename">template-extension/moje-rozszerzenia/wideo.tpl</span>.</p>
+
+
+<h3>Jak mogę aktywować "zamienniki"?</h3>
+<p>Aby aktywować powiązane zamienniki<strong>szablon oryginalny</strong> powinien być przypisany do każdego
+ <strong>zamiennika (szablonu spersonalizowanego)</strong>.
+ Do tego służy funkcja "Rozszerz szablony" w menu Konfiguracja/Administracja.</p>
+
+<p>Jezeli zostanie wybrane <strong>opcjonalne słowo klucz dla adresu URL</strong> zamienniki będą funkcjonować tylko dla stron zawierających te słowa. Na przykład: <span
+  class="pwgScreen">index.php?/<strong>najszesciej_odwiedzane</strong></span></p>
+  
+<p>Zaawansowani użytkownicy mogą używać linków permanentnych jako <strong>opcjonalnego słowa klucz dla adresu URL</strong>. </p>
+<h3>Jak mogę deaktywować "zamienniki"?</h3>
+<ul>
+<li>Odznacz powiązane "Szablony oryginalne".</li>
+<li>Usuń "zamienniki" przez FTP.</li>
+</ul>
+<a name="warnings"></a>
+<h3>Ostrzeżenia</h3>
+<ul>
+
+  <li><strong>Szablon oryginalny</strong> musi być "oryginalnym" szablonem, w przeciwnym przypadku mogą wystąpić nieprzewidziane problemy!</li>
+
+  <li>Dla wielu <strong>zamienników (szablonów spersonalizowanych)</strong> z takim samym<strong>Szablonem oryginalnym</strong> i takim samym <strong>kluczowym słowem dla adresu URL</strong> aktywny jest ylko ostatni zamiennik.</li>
+
+  <li>Odznaczenie <strong>opcjonalnego słowa klucz dla adresu URL</strong> aktywuje zamiennik dla dowolnego uzycia szablonu. Jak już wspomniano wcześniej, kolejność może nadpisać poprzednio wybrane zamienniki.</li>
+
+  <li>Podkatalogi:
+Podkatalogi są ignorowane, ale są przydatne aby zmienić kolejność.<br />
+distributed-samples: rozpowszechniane dla celów testowych! 
+<strong>Nie edytuj ich</strong>, ale stwórz własne.
+</li>
+
+  <li>Po usunięciu zamiennika natychmiastowo jest aktywowany <strong>Szablon oryginalny</strong>.</li>
+
+</ul>
