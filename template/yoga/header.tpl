@@ -18,7 +18,9 @@
 {/if}
 {/if}
 
-<title>{$GALLERY_TITLE} :: {$PAGE_TITLE}</title>
+{if (isset($REVERSE) and $REVERSE and $PAGE_TITLE == l10n('home'))}
+<title>{$GALLERY_TITLE} | {$PAGE_TITLE}</title>{else}
+<title>{$PAGE_TITLE} | {$GALLERY_TITLE}</title>{/if}
 <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}template-common/favicon.ico">
 
 <link rel="start" title="{'home'|@translate}" href="{$U_HOME}" >
