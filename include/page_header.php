@@ -43,6 +43,10 @@ $template->assign(
       isset($page['body_id']) ?
         $page['body_id'] : '',
 
+    'REVERSE' =>
+      (isset($conf['reverse_home_title']) and $conf['reverse_home_title']) ?
+        true : false,
+
     'CONTENT_ENCODING' => get_pwg_charset(),
     'PAGE_TITLE' => strip_tags($title),
 
