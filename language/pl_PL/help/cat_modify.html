@@ -1,0 +1,118 @@
+<h2>Edycja kategorii</h2>
+
+<h3>Informacje</h3>
+
+<ul>
+
+  <li><strong>nazwa</strong>: zmień nazwę kategorii (wirtualna zmiana nazwy dla fizycznie istniejącej kategorii).</li>
+
+  <li><strong>opis</strong>: daje ogólny obraz zawartości,
+  ten tekst będzie wyświetlany pod stroną miniaturami.</li>
+
+</ul>
+
+<h3>Przenieś</h3>
+
+<p>Jeżeli dana kategoria jest wirtualna, to można ją przenieść. Przeniesienie kategorii oznacza zmianę kategorii nadrzędnej.</p>
+
+<h3>Opcje</h3>
+
+<ul>
+
+  <li><strong>Typ dostępu</strong>: Zarządzanie uprawnieniami. Jeżeli ustawisz kategorię jako prywatną, to wszystkie jej podkategorie będą prywatne. Jeżeli ustawisz kategorię jako publiczną, to wszystkie jej podkategorie będą publiczne.</li>
+
+  <li><strong>Blokada</strong>: Kategoria i podkategorie są tymczasowo zablokowane na czas prac konserwacyjnych.</li>
+
+  <li><strong>Komentarze</strong>: Zautoryzowani użytkownicy mogą dodawać komentarze doelementów kategorii.</li>
+
+  <li><strong>Autoryzuj upload</strong>: Zautoryzowani użytkownicy mogą wgrywać pliki. Ta opcja jest możliwa tylko dla kategorii fizyczniej (nie wirtualnej).</li>
+
+</ul>
+
+<p>Możesz także zarządzać tymi opcjami poprzez ekran "Właściwości"
+(ekrany <span class="pwgScreen">Upload</span>, <span
+class="pwgScreen">Komentarze</span>, <span class="pwgScreen">Blokada</span>,
+<span class="pwgScreen">Publiczny/Prywatny</span>, <span
+class="pwgScreen">Reprezentacyjny</span> dostępne z <span
+class="pwgScreen">Administracja, Kategorie, Właściwości</span>).</p>
+
+<h3>Kolejnośćsortowania</h3>
+
+<p>Wybierz czy ma być sortowanie domyślne.</p>
+
+<p>Oznacza, że sortowanie będzie także dla podkategorii.</p>
+
+<p>Wybierz okreslony rodzaj sortowania dla kategorii.</p>
+<ul>
+<li><strong>Data utworzenia</strong>: Data utworzenia obrazu</li>
+<li><strong>Data wysłania</strong>: Data synchronizacji</li>
+<li><strong>Średnie oceny (*)</strong>: Średnie oceny mogą zostać zmienione przez odwiedzających</li>
+<li><strong>Najczęściej odwiedzane (*)</strong>: Aktualne odwiedziny zmieniają kolejność najczęściej odwiedzanych</li>
+<li><strong>Nazwa pliku</strong>: Nazwa nada w informacji o pliku</li>
+<li><strong>Id</strong>: Wewnętrzne Id (aktualnie wgrane elementy mają wyższe niż wgrane poprzednio).</li>
+
+</ul>
+<p><strong>(*)</strong>Przetestuj sam ponieważ opcja ma nieprzewidzialne rezultaty.</p>
+
+
+<h3>Reprezentant</h3>
+
+<p>Reprezantant kategorii to miniatura, która jest wyświetlana na stronie głównej kategorii (<span class="pwgScreen">category.php</span>) jeżeli kategoria zawiera podkategorie (w tym przypadku tylko głównej kategorii).</p>
+
+<p>Są 4 sposoby ustawienia reprezentanta kategorii :</p>
+
+<ul>
+
+  <li><span class="pwgScreen">Strona obrazy</span>: w pasku przycisków akcji,
+  jeden z nich pozwoli ustawić Ci reprezentanta danej kategorii. Przycisk ten ejst dostępny dla administratorów.</li>
+
+  <li><span class="pwgScreen">Edycja informacji o obrazie</span> w panelu administracyjnym. Ekran ten jest dostępny z poziomu <span
+  class="pwgScreen">picture.php</span> lub <span class="pwgScreen">Zarządzanie batch</span> w <em>trybie jednostkowym</em>. Aby dowiedzić się więcej zobacz pomoc dlatego ekranu.</li>
+
+  <li><span class="pwgScreen">Administracja, Kategorie, Właściwości,
+  Reprezentujący</span>. Aby dowiedzić się więcej zobacz pomoc dlatego ekranu.</li>
+
+  <li><span class="pwgScreen">Edycja kategorii</span> (ten ekran).</li>
+
+</ul>
+
+<p>Reprezentacja zależy od ustawienia parametru konfiguracyjnego
+<code>allow_random_representative</code> (zobacz <span
+class="filename">include/config_default.inc.php</span>).</p>
+
+<p>W trybie domyślnym (<code>allow_random_representative</code> jest ustawiony na false)
+każda kategoria zawiera jeden element ustawiony jako ją reprezentujący. Raz ustawiony (przy tworzeniu kategorii), reprezentant może zostać zmieniony tylko przez administratora. Jeżeli dany obrac nie odpowiada Ci jako reprezentujący kategorię,
+możesz wybrać <strong>Znajdź reprezentanta losowo</strong>.</p>
+
+<p>Jeżeli natomiast parametr konfiguracyjny <code>allow_random_representative</code> ma wartość true, kategoria zwierająca elementy nie może mieć ustawionego jednego reprezentanta. Wtedy wystarczy użyć przycisku <strong>Usuń reprezentanta</strong> .</p>
+
+<p>JEżeli kategoria nie zawiera żacnych elementów (a tylko podkategorie) może być wtedy reprezentowana dzięki ekranowi <span class="pwgScreen">Edytuj informacje o obrazie</span>. JEdyną dostepną opcją na aktualnym ekranie jest przycisk <strong>Usuń reprezentanta</strong> . P wybraniu przycisku nie ma już możliwości wybrania nowego reprezentanta.</p>
+
+<h3>Podpięcie wszystkich elementów kategorii do nowej kategorii</h3>
+
+<ul>
+
+<li><strong>Nazwa wirtualnej kategorii</strong>: Nazwa nowo tworzonej kategorii, 
+do której będą podpięte wszystkie elementy bieżącej kategorii.</li>
+
+<li><strong>Kategoria nadrzędna</strong>: Zostaw pole puste jeżeli kategoria ma być stworzona w głównej kategorii.</li>
+
+</ul>
+
+<h3>Podpięcie wszystkich elementów kategorii do którejś z istniejących kategorii</h3>
+
+<ul>
+
+<li><strong>Kategorie</strong>: Wybierz kategorię docelową.</li>
+
+</ul>
+
+<h3>Wyślij maila informacyjnego do wszystkich członków grupy</h3>
+
+<ul>
+
+<li><strong>Grupa</strong>: adresy grup</li>
+
+<li><strong>Treść wiadomości</strong>: Dowolny tekst do wpisania.</li>
+
+</ul>  
