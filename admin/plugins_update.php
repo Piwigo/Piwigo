@@ -106,10 +106,6 @@ if ($plugins->get_server_plugins())
     {
       $plugin_info = $plugins->server_plugins[$fs_plugin['extension']];
 
-      /* Need to remove this lines for final release : piwigo website will be utf8 only */
-      $plugin_info['extension_description'] = utf8_encode($plugin_info['extension_description']);
-      $plugin_info['revision_description'] = utf8_encode($plugin_info['revision_description']);
-
       list($date, ) = explode(' ', $plugin_info['revision_date']);
 
       $ver_desc = sprintf(l10n('plugins_description'),
