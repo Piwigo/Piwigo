@@ -21,24 +21,24 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-$lang['Upgrade'] = 'Upgrade';
-$lang['introduction message'] = 'This page proposes to upgrade your database corresponding to your old version of Piwigo to the current version.
-The upgrade assistant thinks you are currently running a <strong>release %s</strong> (or equivalent).';
-$lang['Upgrade from %s to %s'] = 'Upgrade from version %s to %s';
-$lang['Statistics'] = 'Statistics';
-$lang['total upgrade time'] = 'total upgrade time';
-$lang['total SQL time'] = 'total SQL time';
-$lang['SQL queries'] = 'SQL queries';
-$lang['Upgrade informations'] = 'Upgrade informations';
-$lang['perform a maintenance check'] = 'Perform a maintenance check in [Administration>Specials>Maintenance] if you encounter any problem.';
-$lang['deactivated plugins'] = 'As a precaution, following plugins have been deactivated. You must check for plugins upgrade before reactiving them:';
-$lang['upgrade login message'] = 'Only administrator can run upgrade: please sign in below.';
-$lang['You do not have access rights to run upgrade'] = 'You do not have access rights to run upgrade';
-$lang['in include/mysql.inc.php, before ?>, insert:'] = 'In <i>include/mysql.inc.php</i>, before <b>?></b>, insert:';
+$lang['Upgrade'] = 'Nadogradnja';
+$lang['introduction message'] = 'Ova stranica nudi nadogradnju vaše baze podataka sa vaše starije inačice Piwigo-a na trenutnu inačicu.
+Sustav nadogradnje smatra da trenutno koristite  <strong>izdanje %s</strong> (ili odgovarajuće).';
+$lang['Upgrade from %s to %s'] = 'Nadogradnja sa inačice %s na %s';
+$lang['Statistics'] = 'Statistika';
+$lang['total upgrade time'] = 'sveukupno vrijeme nadogradnje';
+$lang['total SQL time'] = 'sveukupno SQL vrijeme';
+$lang['SQL queries'] = 'SQL upita';
+$lang['Upgrade informations'] = 'Podaci o nadogradnji';
+$lang['perform a maintenance check'] = 'Izvršite radnu provjeru [Uprava>Posebnosti>Održavanje] u slučaju bilo kakvih problema.';
+$lang['deactivated plugins'] = 'Za svaki slučaj, slijedeći dodaci su isključeni. Morate provjeriti imaju li dodaci nadogradnje prije nego ih ponovo uključite:';
+$lang['upgrade login message'] = 'Samo upravnik može pokrenuti nadogradnju: molimo, prijavite se dolje.';
+$lang['You do not have access rights to run upgrade'] = 'Nemate pristupna prava za pokretanje nadogradnje';
+$lang['in include/mysql.inc.php, before ?>, insert:'] = 'U <i>include/mysql.inc.php</i>, prije <b>?></b>, ubacite:';
 
 // Upgrade informations from upgrade_1.3.1.php
-$lang['all sub-categories of private categories become private'] = 'All sub-categories of private categories become private';
-$lang['user permissions and group permissions have been erased'] = 'User permissions and group permissions have been erased';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Only thumbnails prefix and webmaster mail address have been saved from previous configuration';
+$lang['all sub-categories of private categories become private'] = 'Sve podskupine osobnih skupina postaju osobne';
+$lang['user permissions and group permissions have been erased'] = 'Korisničke i grupne dzvole su izbrisane';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Jedino su predznaci poveznih sličica i webmaster-ova e-mail adresa sačuvane iz prethodne postave';
 
 ?>
