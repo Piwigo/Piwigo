@@ -1,8 +1,8 @@
 {* $Id$ *}
 
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
-{known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.datepicker.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js"}
+{known_script id="jquery.ui.datepicker" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.datepicker.packed.js"}
 {known_script id="datepicker.js" src=$ROOT_URL|@cat:"template-common/datepicker.js"}
 
 {assign var="datepicker_language" value="template-common/lib/ui/i18n/ui.datepicker-"|@cat:$lang_info.code|@cat:".js"}
@@ -12,7 +12,7 @@
 {/if}
 
 {html_head}
-<link rel="stylesheet" type="text/css" href="{$ROOT_URL}template-common/lib/ui/ui.datepicker.css">
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}template-common/lib/ui/theme/ui.datepicker.css">
 {/html_head}
 
 <script type="text/javascript">

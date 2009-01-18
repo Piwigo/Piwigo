@@ -1,6 +1,6 @@
 {* $Id$ *}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js" }
-{known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.accordion.packed.js" }
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js" }
+{known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.accordion.packed.js" }
 
 <script type="text/javascript">
 jQuery().ready(function(){ldelim}

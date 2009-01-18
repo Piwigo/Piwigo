@@ -1,5 +1,5 @@
-/*
- * jQuery UI 1.5.2
+﻿/*
+ * jQuery UI 1.5.3
  *
  * Copyright (c) 2008 Paul Bakaus (ui.jquery.com)
  * Dual licensed under the MIT (MIT-LICENSE.txt)

@@ -1,7 +1,7 @@
 {* $Id$ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js"}
-{known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.resizable.packed.js"}
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js"}
+{known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.resizable.packed.js"}
 
 {* Resize possible *}
 {literal}

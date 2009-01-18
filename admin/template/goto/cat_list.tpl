@@ -1,7 +1,7 @@
 {* $Id$ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
-{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.core.packed.js" }
-{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"template-common/lib/ui/ui.sortable.packed.js" }
+{known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js" }
+{known_script id="jquery.ui.sortable" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.sortable.packed.js" }
 
 <script type="text/javascript">
   jQuery().ready(function(){ldelim}
