@@ -11,6 +11,7 @@ input.rateButton, legend, h3 { color: #666; }
 #theAdminPage h2 { color: #333; }
 .content .infos { color: #f70; border:0; background-color: transparent;
 padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; background-position:left top;}
+.content .infos .submit {margin-left:30px;}
 .content .infos li, .content .errors li { list-style-type:none; }
 .content .errors { color: #f33; border:0; background-color: transparent;
 padding:5px 60px 0pt 10pt; min-height: 48px; text-align:left; font-weight:bold; background-position:left top;  }
