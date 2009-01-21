@@ -962,6 +962,7 @@ foreach ($files as $file)
   if (is_file($file))
   {
     echo 'Delete file '.$file."\n";
+    @chmod($file, 0777);
     if (! unlink($file))
     {
       echo 'Error on delete file '.$file."\n";
@@ -970,6 +971,7 @@ foreach ($files as $file)
   elseif (is_dir($file))
   {
     echo 'Delete directory '.$file."\n";
+    @chmod($file, 0777);
     if (! rmdir($file))
     {
       echo 'Error on directory file '.$file."\n";
