@@ -27,15 +27,15 @@ $lang['Default_lang'] = 'Pretpostavljeni jezik galerije';
 $lang['step1_title'] = 'Postava baze podataka';
 $lang['step2_title'] = 'Upravna postava';
 $lang['Start_Install'] = 'Pokreni ugradbu';
-$lang['reg_err_mail_address'] = 'e-mail adresa morabiti kao xxx@yyy.eee (example : jere@stranica.org)';
+$lang['reg_err_mail_address'] = 'e-mail adresa mora biti kao xxx@yyy.eee (example : jere@stranica.org)';
 
 $lang['install_webmaster'] = 'Webmaster-ova prijava';
-$lang['install_webmaster_info'] = 'Biti æe prikazano posjetiteljima. potrebno je za upravljanje web mjestom';
+$lang['install_webmaster_info'] = 'Biti æe prikazano posjetiteljima. Potrebno je za upravljanje web mjestom';
 
-$lang['step1_confirmation'] = 'Parameters are correct';
+$lang['step1_confirmation'] = 'Postavke su ispravne';
 $lang['step1_err_db'] = 'Povezivanje sa poslužiteljem uspješno, ali je nemoguæe povezivanje sa bazom podataka';
 $lang['step1_err_server'] = 'Ne mogu se povezati sa poslužiteljem';
-$lang['step1_err_copy_2'] = 'Slijedeæi korak ugradbe je sada omoguæen';
+$lang['step1_err_copy_2'] = 'Slijedeæi korak ugradbe je omoguæen';
 $lang['step1_err_copy_next'] = 'slijedeæi korak';
 $lang['step1_err_copy'] = 'Kopirajte ružièasti tekst izmeðu crtica i prebacite ga u "include/mysql.inc.php"(Pozor : mysql.inc.php mora sadržavati samo ružièasti tekst, bez znakova novog reda ili razmaka)';
 
@@ -57,10 +57,10 @@ $lang['step2_pwd'] = 'Webmaster-ova zaporka';
 $lang['step2_pwd_info'] = 'Èuvajte je na sigurnom mjestu, ona omoguæava pristup upravnoj ploèi';
 $lang['step2_pwd_conf'] = 'Zaporka [potvrdi]';
 $lang['step2_pwd_conf_info'] = 'ovjera';
-$lang['install_help'] = 'Trebate pomoæ ? Pitajte ns <a href="%s">Piwigo message board</a>.';
+$lang['install_help'] = 'Trebate pomoæ ? Pitajte na <a href="%s">Piwigo message board</a>.';
 $lang['install_end_message'] = 'Postava Piwigo-a je završena, slijedeæi korak je<br /><br />
 * idite na prijavnicu i koristite korisnièko ime/zaporku danu za webmaster-a<br />
 * ova prijava æe vam omoguæiti pristup upravnoj ploèi i uputama za pohranu slika u mape';
 $lang['conf_mail_webmaster'] = 'Webmaster-ova e-mail adresa';
-$lang['conf_mail_webmaster_info'] = 'Posjetitelji æe moæi pistai upravitelju galerije preko ove adrese';
+$lang['conf_mail_webmaster_info'] = 'Posjetitelji æe moæi pisati upravitelju galerije preko ove adrese';
 ?>
