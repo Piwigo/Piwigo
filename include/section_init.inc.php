@@ -380,17 +380,16 @@ SELECT DISTINCT image_id
 	    )
     );
 
-    if (!empty($_GET['action']) 
-	&& ($_GET['action'] == 'remove_all_from_favorites'))
+    if (!empty($_GET['action']) && ($_GET['action'] == 'remove_all_from_favorites'))
     {
       $query = '
 DELETE FROM '.FAVORITES_TABLE.'
   WHERE user_id = '.$user['id'].'
 ;';
       pwg_query($query);
-      redirect('index.php?/favorites');
+      redirect(make_index_url( array('section'=>'favorites') ));
     }
-    else 
+    else
     {
       $query = '
 SELECT image_id
@@ -414,16 +413,15 @@ SELECT image_id
          )
       );
 
-      if (count($page['items'])>0) 
+      if (count($page['items'])>0)
       {
 	$template->assign(
 	  'favorite',
 	  array(
 	    'FAVORITE_IMG'  =>
 	    get_root_url().get_themeconf('icon_dir').'/del_all_favorites.png',
-	    'FAVORITE_HINT' => l10n('del_all_favorites_hint'),
 	    'U_FAVORITE'    => add_url_params(
-	      'index.php?/favorites',
+	      make_index_url( array('section'=>'favorites') ),
 	      array('action'=>'remove_all_from_favorites')
 	       ),
 	     )

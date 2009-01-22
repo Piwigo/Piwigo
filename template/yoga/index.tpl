@@ -16,7 +16,7 @@
       {/if}
       
       {if isset($favorite) }
-      <li><a href="{$favorite.U_FAVORITE}" title="{$favorite.FAVORITE_HINT}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{$favorite.FAVORITE_HINT}"></a></li>
+      <li><a href="{$favorite.U_FAVORITE}" title="{'del_all_favorites_hint'|@translate}"><img src="{$favorite.FAVORITE_IMG}" class="button" alt="favorite" title="{'del_all_favorites_hint'|@translate}"></a></li>
       {/if}
 
       {if isset($U_CADDIE) }
