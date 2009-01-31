@@ -578,54 +578,34 @@ function format_date($date, $type = 'us', $show_time = false)
 {
   global $lang;
 
-  list($year,$month,$day,$hour,$minute,$second) = array(0,0,0,0,0,0);
-
-  switch ( $type )
+  $ymdhms = array();
+  $tok = strtok( $date, '- :');
+  while ($tok !== false)
   {
-    case 'us' :
-    {
-      list($year,$month,$day) = explode('-', $date);
-      break;
-    }
-    case 'unix' :
-    {
-      list($year,$month,$day,$hour,$minute) =
-        explode('.', date('Y.n.j.G.i', $date));
-      break;
-    }
-    case 'mysql_datetime' :
-    {
-      preg_match('/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/',
-                 $date, $out);
-      list($year,$month,$day,$hour,$minute,$second) =
-        array($out[1],$out[2],$out[3],$out[4],$out[5],$out[6]);
-      break;
-    }
-    case 'mysql_date' :
-    {
-      preg_match('/^(\d{4})-(\d{2})-(\d{2})$/',
-                 $date, $out);
-      list($year,$month,$day) =
-        array($out[1],$out[2],$out[3]);
-      break;
-    }
+    $ymdhms[] = $tok;
+    $tok = strtok('- :');
   }
+
+  if ( count($ymdhms)<3 )
+  {
+    return false;
+  }
+
   $formated_date = '';
   // before 1970, Microsoft Windows can't mktime
-  if ($year >= 1970)
+  if ($ymdhms[0] >= 1970)
   {
     // we ask midday because Windows think it's prior to midnight with a
     // zero and refuse to work
-    $formated_date.= $lang['day'][date('w', mktime(12,0,0,$month,$day,$year))];
+    $formated_date.= $lang['day'][date('w', mktime(12,0,0,$ymdhms[1],$ymdhms[2],$ymdhms[0]))];
   }
-  $formated_date.= ' '.$day;
-  $formated_date.= ' '.$lang['month'][(int)$month];
-  $formated_date.= ' '.$year;
-  if ($show_time)
+  $formated_date.= ' '.$ymdhms[2];
+  $formated_date.= ' '.$lang['month'][(int)$ymdhms[1]];
+  $formated_date.= ' '.$ymdhms[0];
+  if ($show_time and count($ymdhms)>=5 )
   {
-    $formated_date.= ' '.$hour.':'.$minute;
+    $formated_date.= ' '.$ymdhms[3].':'.$ymdhms[4];
   }
-
   return $formated_date;
 }
 
