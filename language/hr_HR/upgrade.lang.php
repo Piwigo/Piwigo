@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 $lang['Upgrade'] = 'Nadogradnja';
-$lang['introduction message'] = 'Ova stranica nudi nadogradnju vaše baze podataka sa vaše starije inačice Piwigo-a na trenutnu inačicu.
+$lang['introduction message'] = 'Ova stranica nudi nadogradnju vaše baze podataka sa starije inačice Piwigo-a na trenutnu inačicu.
 Sustav nadogradnje smatra da trenutno koristite  <strong>izdanje %s</strong> (ili odgovarajuće).';
 $lang['Upgrade from %s to %s'] = 'Nadogradnja sa inačice %s na %s';
 $lang['Statistics'] = 'Statistika';
@@ -38,7 +38,7 @@ $lang['in include/mysql.inc.php, before ?>, insert:'] = 'U <i>include/mysql.inc.
 
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'Sve podskupine osobnih skupina postaju osobne';
-$lang['user permissions and group permissions have been erased'] = 'Korisničke i grupne dzvole su izbrisane';
+$lang['user permissions and group permissions have been erased'] = 'Korisničke i grupne dozvole su izbrisane';
 $lang['only thumbnails prefix and webmaster mail saved'] = 'Jedino su predznaci poveznih sličica i webmaster-ova e-mail adresa sačuvane iz prethodne postave';
 
 ?>

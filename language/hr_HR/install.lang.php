@@ -57,7 +57,7 @@ $lang['step2_pwd'] = 'Webmaster-ova zaporka';
 $lang['step2_pwd_info'] = 'Èuvajte je na sigurnom mjestu, ona omoguæava pristup upravnoj ploèi';
 $lang['step2_pwd_conf'] = 'Zaporka [potvrdi]';
 $lang['step2_pwd_conf_info'] = 'ovjera';
-$lang['install_help'] = 'Trebate pomoæ ? Pitajte na <a href="%s">Piwigo message board</a>.';
+$lang['install_help'] = 'Trebate pomoæ? Pitajte na <a href="%s">Piwigo message board</a>.';
 $lang['install_end_message'] = 'Postava Piwigo-a je završena, slijedeæi korak je<br /><br />
 * idite na prijavnicu i koristite korisnièko ime/zaporku danu za webmaster-a<br />
 * ova prijava æe vam omoguæiti pristup upravnoj ploèi i uputama za pohranu slika u mape';
