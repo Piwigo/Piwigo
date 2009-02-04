@@ -813,7 +813,7 @@ if (!empty($picture['current']['date_creation']))
 }
 
 // date of availability
-$val = format_date($picture['current']['date_available'], 'mysql_datetime');
+$val = format_date($picture['current']['date_available']);
 $url = make_index_url(
   array(
     'chronology_field'=>'posted',

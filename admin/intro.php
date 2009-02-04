@@ -221,7 +221,7 @@ SELECT MIN(date_available)
       'DB_DATE' =>
       sprintf(
         l10n('first element added on %s'),
-        format_date($first_date, 'mysql_datetime')
+        format_date($first_date)
         )
       )
     );

@@ -241,8 +241,7 @@ $template->assign(
 
     'FILESIZE' => @$row['filesize'].' KB',
 
-    'REGISTRATION_DATE' =>
-      format_date($row['date_available'], 'mysql_datetime', false),
+    'REGISTRATION_DATE' => format_date($row['date_available']),
 
     'AUTHOR' => isset($_POST['author']) ? $_POST['author'] : @$row['author'],
 

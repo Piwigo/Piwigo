@@ -139,7 +139,7 @@ SELECT c.id, c.image_id, c.date, c.author, c.content, i.path, i.tn_ext
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
   WHERE validated = \'false\'
-  ORDER BY c.date DESC  
+  ORDER BY c.date DESC
 ;';
 $result = pwg_query($query);
 while ($row = mysql_fetch_assoc($result))
@@ -160,7 +160,7 @@ while ($row = mysql_fetch_assoc($result))
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
       'AUTHOR' => trigger_event('render_comment_author', $row['author']),
-      'DATE' => format_date($row['date'],'mysql_datetime',true),
+      'DATE' => format_date($row['date'], true),
       'CONTENT' => trigger_event('render_comment_content',$row['content'])
       )
     );
