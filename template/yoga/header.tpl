@@ -6,13 +6,13 @@
 <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
 {if isset($meta_ref) } 
 {if isset($INFO_AUTHOR)}
-<meta name="author" content="{$INFO_AUTHOR|replace:'"':' '}">
+<meta name="author" content="{$INFO_AUTHOR|@replace:'"':' '}">
 {/if}
 {if isset($related_tags)}
 <meta name="keywords" content="{foreach from=$related_tags item=tag name=tag_loop}{if !$smarty.foreach.tag_loop.first}, {/if}{$tag.name}{/foreach}">
 {/if}
 {if isset($COMMENT_IMG)}
-<meta name="description" content="{$COMMENT_IMG|strip_tags:false|replace:'"':' '}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
+<meta name="description" content="{$COMMENT_IMG|@strip_tags:false|@replace:'"':' '}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
 {else}
 <meta name="description" content="{$PAGE_TITLE}{if isset($INFO_FILE)} - {$INFO_FILE}{/if}">
 {/if}

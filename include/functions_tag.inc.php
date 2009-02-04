@@ -189,8 +189,7 @@ SELECT image_id
       {
         $items = array_intersect($items, $images);
       }
-
-      return array_unique($items);
+      return $items;
       break;
     }
     case 'OR':
