@@ -569,12 +569,11 @@ INSERT INTO '.HISTORY_TABLE.'
 }
 
 // format_date returns a formatted date for display. The date given in
-// argument can be a unixdate (number of seconds since the 01.01.1970) or an
-// american format (2003-09-15). By option, you can show the time. The
-// output is internationalized.
+// argument must be an american format (2003-09-15). By option, you can show the time.
+// The output is internationalized.
 //
-// format_date( "2003-09-15", 'us', true ) -> "Monday 15 September 2003 21:52"
-function format_date($date, $type = 'us', $show_time = false)
+// format_date( "2003-09-15", true ) -> "Monday 15 September 2003 21:52"
+function format_date($date, $show_time = false)
 {
   global $lang;
 

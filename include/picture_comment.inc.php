@@ -130,17 +130,14 @@ SELECT id,author,date,image_id,content
 
     while ($row = mysql_fetch_array($result))
     {
-      $tpl_comment = 
+      $tpl_comment =
         array(
           'AUTHOR' => trigger_event('render_comment_author',
             empty($row['author'])
             ? l10n('guest')
             : $row['author']),
 
-          'DATE' => format_date(
-            $row['date'],
-            'mysql_datetime',
-            true),
+          'DATE' => format_date( $row['date'], true),
 
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
         );

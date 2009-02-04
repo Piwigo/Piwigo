@@ -364,7 +364,7 @@ SELECT id, name, permalink, uppercats
         'TN_SRC' => $thumbnail_src,
         'ALT' => $name,
         'AUTHOR' => trigger_event('render_comment_author', $author),
-        'DATE'=>format_date($comment['date'],'mysql_datetime',true),
+        'DATE'=>format_date($comment['date'], true),
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         );
 
