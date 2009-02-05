@@ -90,11 +90,10 @@ SELECT image_id, COUNT(*) AS nb_comments
 $template->set_filenames( array( 'index_thumbnails' => 'thumbnails.tpl',));
 
 trigger_action('loc_begin_index_thumbnails', $pictures);
+$tpl_thumbnails_var = array();
 
 foreach ($pictures as $row)
 {
-  $thumbnail_url = get_thumbnail_url($row);
-
   // link on picture.php page
   $url = duplicate_picture_url(
         array(
@@ -107,7 +106,7 @@ foreach ($pictures as $row)
   $tpl_var =
     array(
       'ID'        => $row['id'],
-      'TN_SRC'    => $thumbnail_url,
+      'TN_SRC'    => get_thumbnail_url($row),
       'TN_ALT'    => $row['file'],
       'TN_TITLE'  => get_thumbnail_title($row),
       'ICON_TS'   => get_icon($row['date_available']),
@@ -171,13 +170,12 @@ foreach ($pictures as $row)
     $tpl_var['NB_COMMENTS'] = $row['nb_comments'];
   }
 
-  //plugins need to add/modify sth in this loop ?
-  $tpl_var = trigger_event('loc_index_thumbnail', $tpl_var, $row);
-
-  $template->append('thumbnails', $tpl_var);
+  $tpl_thumbnails_var[] = $tpl_var;
 }
 
-trigger_action('loc_end_index_thumbnails', $pictures);
+$tpl_thumbnails_var = trigger_event('loc_end_index_thumbnails', $tpl_thumbnails_var, $pictures);
+$template->assign('thumbnails', $tpl_thumbnails_var);
+
 $template->assign_var_from_handle('THUMBNAILS', 'index_thumbnails');
 
 pwg_debug('end include/category_default.inc.php');
