@@ -47,7 +47,7 @@ SELECT *
   $result = pwg_query($query);
   while ($row = mysql_fetch_assoc($result))
   {
-    $row['rank'] = $page['rank_of'][ $row['id'] ];
+    $row['rank'] = $rank_of[ $row['id'] ];
 
     array_push($pictures, $row);
   }
