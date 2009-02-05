@@ -220,6 +220,8 @@ if (count($categories) > 0)
 
   trigger_action('loc_begin_index_category_thumbnails', $categories);
 
+  $tpl_thumbnails_var = array();
+
   foreach ($categories as $category)
   {
     $category['name'] = trigger_event(
@@ -237,14 +239,12 @@ if (count($categories) > 0)
       $name = $category['name'];
     }
 
-    $icon_ts = get_icon($category['max_date_last'], $category['is_child_date_last']);
-
     $tpl_var =
         array(
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
           'TN_ALT'   => strip_tags($category['name']),
-          'ICON_TS'  => $icon_ts,
+          'ICON_TS'  => get_icon($category['max_date_last'], $category['is_child_date_last']),
 
           'URL'   => make_index_url(
             array(
@@ -295,14 +295,13 @@ if (count($categories) > 0)
       }
     }//fromto
 
-    //plugins need to add/modify sth in this loop ?
-    $tpl_var = trigger_event('loc_index_category_thumbnail',
-                  $tpl_var, $category );
-
-    $template->append( 'category_thumbnails', $tpl_var);
+    $tpl_thumbnails_var[] = $tpl_var;
   }
 
-  trigger_action('loc_end_index_category_thumbnails', $categories);
+  $tpl_thumbnails_var = trigger_event('loc_end_index_category_thumbnails', $tpl_thumbnails_var, $categories);
+  $template->assign( 'category_thumbnails', $tpl_thumbnails_var);
+
   $template->assign_var_from_handle('CATEGORIES', 'index_category_thumbnails');
 }
+pwg_debug('end include/category_cats.inc.php');
 ?>
