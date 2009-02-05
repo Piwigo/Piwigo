@@ -23,32 +23,32 @@
 
 function get_icon($date, $is_child_date = false)
 {
-  global $page, $user;
+  global $cache, $user;
 
   if (empty($date))
   {
     return '';
   }
 
-  if (isset($page['get_icon_cache'][$date]))
+  if (isset($cache['get_icon'][$date]))
   {
-    if (! $page['get_icon_cache'][$date] )
+    if (! $cache['get_icon'][$date] )
       return '';
-    return $page['get_icon_cache']['_icons_'][$is_child_date];
+    return $cache['get_icon']['_icons_'][$is_child_date];
   }
 
-  if (!isset($page['get_icon_cache']['sql_recent_date']))
+  if (!isset($cache['get_icon']['sql_recent_date']))
   {
     // Use MySql date in order to standardize all recent "actions/queries"
-    list($page['get_icon_cache']['sql_recent_date']) =
+    list($cache['get_icon']['sql_recent_date']) =
       mysql_fetch_array(pwg_query('select SUBDATE(
       CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
   }
 
-  $page['get_icon_cache'][$date] = false;
-  if ( $date > $page['get_icon_cache']['sql_recent_date'] )
+  $cache['get_icon'][$date] = false;
+  if ( $date > $cache['get_icon']['sql_recent_date'] )
   {
-    if ( !isset($page['get_icon_cache']['_icons_'] ) )
+    if ( !isset($cache['get_icon']['_icons_'] ) )
     {
       $icons = array(false => 'recent', true => 'recent_by_child' );
       $title = sprintf(
@@ -62,15 +62,15 @@ function get_icon($date, $is_child_date = false)
         $icon_url = get_root_url().$icon_url;
         $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
         $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
-        $page['get_icon_cache']['_icons_'][$key] = $output;
+        $cache['get_icon']['_icons_'][$key] = $output;
       }
     }
-    $page['get_icon_cache'][$date] = true;
+    $cache['get_icon'][$date] = true;
   }
 
-  if (! $page['get_icon_cache'][$date] )
+  if (! $cache['get_icon'][$date] )
     return '';
-  return $page['get_icon_cache']['_icons_'][$is_child_date];
+  return $cache['get_icon']['_icons_'][$is_child_date];
 }
 
 function create_navigation_bar(
@@ -774,19 +774,6 @@ function set_status_header($code, $text='')
 		header( "$protocol $code $text" );
 	}
   trigger_action('set_status_header', $code, $text);
-}
-
-/** returns the category comment for rendering in html.
- * this is an event handler. don't call directly
- */
-function render_category_description($desc)
-{
-  global $conf;
-  if ( !$conf['allow_html_descriptions'] )
-  {
-    $desc = nl2br($desc);
-  }
-  return $desc;
 }
 
 /** returns the category comment for rendering in html textual mode (subcatify)

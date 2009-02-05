@@ -27,8 +27,6 @@
  *
  */
 
-$page['rank_of'] = array_flip($page['items']);
-
 $pictures = array();
 
 $selection = array_slice(
@@ -39,6 +37,8 @@ $selection = array_slice(
 
 if (count($selection) > 0)
 {
+  $rank_of = array_flip($page['items']);
+
   $query = '
 SELECT *
   FROM '.IMAGES_TABLE.'
@@ -53,6 +53,7 @@ SELECT *
   }
 
   usort($pictures, 'rank_compare');
+  unset($rank_of);
 }
 
 if (count($pictures) > 0)

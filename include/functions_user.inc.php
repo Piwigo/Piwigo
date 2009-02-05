@@ -760,28 +760,28 @@ SELECT COUNT(*)
  */
 function get_default_user_info($convert_str = true)
 {
-  global $page, $conf;
+  global $cache, $conf;
 
-  if (!isset($page['cache_default_user']))
+  if (!isset($cache['default_user']))
   {
-    $query = 'select * from '.USER_INFOS_TABLE.
-            ' where user_id = '.$conf['default_user_id'].';';
+    $query = 'SELECT * FROM '.USER_INFOS_TABLE.
+            ' WHERE user_id = '.$conf['default_user_id'].';';
 
     $result = pwg_query($query);
-    $page['cache_default_user'] = mysql_fetch_assoc($result);
+    $cache['default_user'] = mysql_fetch_assoc($result);
 
-    if ($page['cache_default_user'] !== false)
+    if ($cache['default_user'] !== false)
     {
-      unset($page['cache_default_user']['user_id']);
-      unset($page['cache_default_user']['status']);
-      unset($page['cache_default_user']['registration_date']);
+      unset($cache['default_user']['user_id']);
+      unset($cache['default_user']['status']);
+      unset($cache['default_user']['registration_date']);
     }
   }
 
-  if (is_array($page['cache_default_user']) and $convert_str)
+  if (is_array($cache['default_user']) and $convert_str)
   {
     $default_user = array();
-    foreach ($page['cache_default_user'] as $name => $value)
+    foreach ($cache['default_user'] as $name => $value)
     {
       // If the field is true or false, the variable is transformed into a
       // boolean value.
@@ -798,7 +798,7 @@ function get_default_user_info($convert_str = true)
   }
   else
   {
-    return $page['cache_default_user'];
+    return $cache['default_user'];
   }
 }
 
