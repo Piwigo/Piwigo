@@ -38,7 +38,7 @@ function get_root_url()
   {// TODO - add HERE the possibility to call PWG functions from external scripts
     $root_url = PHPWG_ROOT_PATH;
   }
-  if ( dirname($root_url)!='.' )
+  if ( strncmp($root_url, './', 2) != 0 )
   {
     return $root_url;
   }
@@ -170,21 +170,11 @@ function params_for_duplication($redefined, $removed)
 {
   global $page;
 
-  if (count($removed) > 0)
-  {
-    $params = array();
+  $params = $page;
 
-    foreach ($page as $page_item_key => $page_item_value)
-    {
-      if (!in_array($page_item_key, $removed))
-      {
-        $params[$page_item_key] = $page_item_value;
-      }
-    }
-  }
-  else
+  foreach ($removed as $param_key)
   {
-    $params = $page;
+    unset($params[$param_key]);
   }
 
   foreach ($redefined as $redefined_param => $redefined_value)
@@ -722,7 +712,18 @@ function unset_make_full_url()
  */
 function embellish_url($url)
 {
-  return str_replace('/./', '/', $url);
+  $url = str_replace('/./', '/', $url);
+  while ( ($dotdot = strpos($url, '/../', 1) ) !== false )
+  {
+    $before = strrpos($url, '/', -(strlen($url)-$dotdot+1) );
+    if ($before !== false)
+    {
+      $url = substr_replace($url, '', $before, $dotdot-$before+3);
+    }
+    else
+      break;
+  }
+  return $url;
 }
 
 ?>
