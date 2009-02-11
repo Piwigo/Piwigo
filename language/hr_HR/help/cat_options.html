@@ -1,36 +1,31 @@
-<h2>Category options</h2>
+<h2>Mogućnosti skupine</h2>
 
-<p>This screen lets the administrator manage categories option for many
-categories at once.</p>
+<p>Ovaj prozor omogućava upravniku upravljanje mogućnostima skupina za više njih odjednom.</p>
 
 <dl>
 
-  <dt>Upload</dt>
-  <dd>Make categories uploadable for gallery visitors. Only non virtual and
-  non remote categories are shown.</dd>
+  <dt>Prebačaj</dt>
+  <dd>Postavi skupine otvorene za prebačaj slika posjetiteljima galerije. Prikazane su samo stvarne i mjesne skupine.</dd>
 
-  <dt>Comments</dt>
-  <dd>Authorize users to add comments on selected categories.
-Selects the categories which are commentable. 
-An image is commentable if it belongs to at least one category that is commentable.</dd>
+  <dt>Komentari</dt>
+  <dd>Ovlasti korisnicima za dodavanje komentara u odabranim skupinama.
+Odabire skupine koje su otvorene za komentare. 
+Slika se može komentirati ako pripada najmanje jednoj skupini sa odobrenim komentiranjem.</dd>
 
-  <dt>Lock</dt>
-  <dd>Selected categories will temporary been disabled for maintenance. If
-  you lock a category, all its child categories become locked. If you unlock
-  a category, all its parent categories become unlocked.</dd>
+  <dt>Zaključaj</dt>
+  <dd>Odabrane skupine će privremeno biti nedostupne zbog održavanja. Ako
+  zaključate skupinu, sve njoj podređene skupine se također zaključavaju. Ako otključavate
+  skupinu, sve njoj nadređene skupine se također otključavaju.</dd>
 
-  <dt>Public / private</dt>
-  <dd>Manage authorizations for selected categories. Selected categories are
-  private : you will need to authorize users and/or groups to access to
-  them. If you make a category private, all its child categories becomes
-  private. If you make a category public, all its parent categories becomes
-  public</dd>
+  <dt>Javno / osobno</dt>
+  <dd>Upravljanje ovlastima za odabrane skupine. Ako su odabrane skupine osobne
+   : trebate ovlastiti korisnike i/ili grupe za pristup. Ako postavite skupinu za osobnu, sve njoj nadređene skupine postaju osobne
+ . Ako postavite skupinu kao javnu, sve njene podređene skupine postaju javne.</dd>
 
-  <dt>Representative</dt>
-  <dd>This option can be managed only if you set configuration parameter
-  <code>allow_random_representative</code> (see <span
-  class="filename">include/config_defaults.inc.php</span>) to
-  <em>true</em>. Each category can be randomly represented or singly
-  represented (by a unique picture).</dd>
+  <dt>Prestavnik</dt>
+  <dd>Ovom mogučnošću se može upravljati samo ako je postavljena stavka
+  <code>allow_random_representative</code> (vidi <span
+  class="filename">include/config_defaults.inc.php</span>) na 
+  <em>true</em>. Svaka skupina se može predstaviti slikom slučajnog odabira ili baš određenom slikom.</dd>
 
 </dl>
