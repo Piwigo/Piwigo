@@ -18,7 +18,7 @@ fi
 tag=$1
 version=$2
 
-name=phpwebgallery-$version
+name=piwigo-$version
 
 cd /tmp
 if [ -e $name ]
@@ -43,7 +43,7 @@ chmod a+w $name/include/mysql.inc.php
 #   | xargs perl -pi -e "s/branch 1.7/${version}/g"
 
 cd /tmp
-for ext in zip tar.gz tar.bz2
+for ext in zip # tar.gz tar.bz2
 do
   file=$version/$name.$ext
   if [ -f $file ]
@@ -54,8 +54,8 @@ done
 
 
 zip -r   $version/$name.zip     $name
-tar -czf $version/$name.tar.gz  $name
-tar -cjf $version/$name.tar.bz2 $name
+# tar -czf $version/$name.tar.gz  $name
+# tar -cjf $version/$name.tar.bz2 $name
 
 cd /tmp/$version
-md5sum p* >MD5SUMS
+# md5sum p* >MD5SUMS
