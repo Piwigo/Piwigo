@@ -1,47 +1,10 @@
-=============
+=======
 Piwigo
-=============
-
-http://piwigo.org
-
-
-Installation
-============
-
-1. extract files from the downloaded file (using tar or unzip command, or
-   softwares like 7-zip or winzip)
-
-2. place de source files on your website in the directory of your choice
-   ("gallery" for example)
-
-3. go to the URL http://your.domain/gallery/install.php and follow the
-   instructions of installation
-
-Upgrade
 =======
 
-1. elements to save :
-
- - file "include/mysql.inc.php"
- - file "include/config_local.inc.php"
- - file "template-common/local-layout.css"
- - file "template/yoga/local-layout.css"
- - directory "galleries"
- - any optional theme or extension you have intalled
- - your database (create a dump, using PhpMyAdmin for instance)
-
-2. delete all files and directories of your previous installation (but not
-   the previous listed elements)
-
-3. extract files from the downloaded file (using tar or unzip command, or
-   softwares like 7-zip or winzip)
-
-4. upload all the new version files to your website but the previous listed
-   elements. The only elements coming from the previous installed version
-   are the elements listed above.
-
-5. go to the URL http://your.domain/gallery/upgrade.php and follow the
-   instructions
+website:        http://piwigo.org
+Installation:   http://piwigo.org/basics/installation
+Upgrade:        http://piwigo.org/basics/upgrade
 
 How to start
 ============
@@ -49,7 +12,7 @@ How to start
 Once installed or upgraded, your gallery is ready to run. Start by
 displaying the installation directory in your browser :
 
-http://your.domain/gallery
+http://your.domain/photos
 
 Then identify as an administrator. A new link in Identification menu of main
 page will appear : Administration. Enter the administration panel.
@@ -63,14 +26,11 @@ Communication
 Newsletter
 ----------
 
-https://gna.org/mail/?group=phpwebgallery
+https://mail.gna.org/listinfo/phpwebgallery-announce/
 
 It is *highly* recommended to subscribe to Piwigo newsletter. This is
 extremely low-traffic, but will provide you with announcements of new
-Piwigo releases and serious bug notification. You will find available
-mailing lists at this URL :
-
-No spam, no commercial use.
+Piwigo releases and serious bug notification.
 
 Freshmeat
 ---------
@@ -83,23 +43,20 @@ release. Development releases notification are not send in the newsletter.
 Bugtracker
 ----------
 
-http://bugs.phpwebgallery.net
+http://piwigo.org/bugs
 
 Bugs and change requests tracking. The best way to have your bug corrected:
 it won't be forgotten (as in the forum).
 
-Wiki
-----
+Documentation
+-------------
 
-http://phpwebgallery.net/doc
+http://piwigo.org/doc
 
 Wiki documentation: everyone can participate to improve documentation
 content.
 
-Message board
--------------
+Forum
+-----
 
-http://forum.phpwebgallery.net
-
-All communications (installation help, technical discussions) that can't be
-done in other channels.
+http://piwigo.org/forum

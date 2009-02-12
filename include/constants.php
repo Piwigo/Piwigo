@@ -23,9 +23,9 @@
 
 // Default settings
 define('PHPWG_VERSION', 'Colibri');
-define('PHPWG_DOMAIN', 'phpwebgallery.net');
-define('PHPWG_URL', 'http://www.'.PHPWG_DOMAIN);
-define('PEM_URL', 'http://' . PHPWG_DOMAIN . '/ext_new'); /* need to be changed on final release */
+define('PHPWG_DOMAIN', 'piwigo.org');
+define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'yoga/Sylvia');
 

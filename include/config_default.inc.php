@@ -165,8 +165,7 @@ $conf['meta_ref'] = true;
 //  for each link is associated a label
 //  $conf['links'] = array(
 //    'http://piwigo.org' => 'PWG website',
-//    'http://forum.phpwebgallery.net' => 'PWG forum',
-//    'http://phpwebgallery.net/doc' => 'PWG wiki'
+//    'http://piwigo.org/forum' => 'PWG forum',
 //    );
 //
 // Advenced use:
@@ -174,9 +173,9 @@ $conf['meta_ref'] = true;
 //  you can pass a array with different optional parameter values
 //  $conf['links'] = array(
 //    'http://piwigo.org' => array('label' => 'PWG website', 'new_window' => false, 'eval_visible' => 'return true;'),
-//    'http://forum.phpwebgallery.net' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
-//    'http://phpwebgallery.net/doc' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return is_a_guest();'),
-//    'http://download.gna.org/phpwebgallery/' =>
+//    'http://piwigo.org/forum' => array('label' => 'For ADMIN', 'new_window' => true, 'eval_visible' => 'return is_admin();'),
+//    'http://piwigo.org/ext' => array('label' => 'For Guest', 'new_window' => true, 'eval_visible' => 'return is_a_guest();'),
+//    'http://piwigo.org/downloads' =>
 //      array('label' => 'PopUp', 'new_window' => true,
 //      'nw_name' => 'PopUp', 'nw_features' => 'width=800,height=450,location=no,status=no,toolbar=no,scrollbars=no,menubar=no'),
 //    );
