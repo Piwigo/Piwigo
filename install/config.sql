@@ -6,7 +6,7 @@ INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_validation','f
 INSERT INTO piwigo_config (param,value,comment) VALUES ('comments_forall','false','even guest not registered can post comments');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_locked','false','Lock your gallery temporary for non admin users');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_title','Piwigo demonstration site','Title at top of each page and for RSS feed');
-INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_url','http://demo.piwigo.net','URL given in RSS feed');
+INSERT INTO piwigo_config (param,value,comment) VALUES ('gallery_url','http://piwigo.org/demo','URL given in RSS feed');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('rate','true','Rating pictures feature is enabled');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('rate_anonymous','true','Rating pictures feature is also enabled for visitors');
 INSERT INTO piwigo_config (param,value,comment) VALUES ('page_banner','<h1>Piwigo demonstration site</h1><p>My photos web site</p>','html displayed on the top each page of your gallery');

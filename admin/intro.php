@@ -42,7 +42,7 @@ check_status(ACCESS_ADMINISTRATOR);
 // Check for upgrade : code inspired from punbb
 if (isset($_GET['action']) and 'check_upgrade' == $_GET['action'])
 {
-  if (!fetchRemote(PHPWG_URL.'/latest_version', $result))
+  if (!fetchRemote(PHPWG_URL.'/download/latest_version', $result))
   {
     array_push($page['errors'], l10n('Unable to check for upgrade.'));
   }

@@ -318,7 +318,7 @@ foreach ($queries as $query)
 //
 $params = array(
   'gallery_url' => array(
-    'http://demo.phpwebgallery.net',
+    'http://piwigo.org/demo',
     'URL given in RSS feed'
     ),
   'rate' => array(

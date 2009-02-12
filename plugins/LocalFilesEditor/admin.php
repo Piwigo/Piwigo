@@ -68,7 +68,7 @@ $new_file['plug'] = "<?php\n/*
 Plugin Name: " . l10n('locfiledit_onglet_plug') . "
 Version: 1.0
 Description: " . l10n('locfiledit_onglet_plug') . "
-Plugin URI: http://www.phpwebgallery.net
+Plugin URI: http://piwigo.org
 Author:
 Author URI:
 */\n\n\n\n\n?>";
