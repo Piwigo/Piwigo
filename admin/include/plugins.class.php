@@ -304,6 +304,7 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     $url = PEM_URL . '/api/get_revision_list.php?category_id=12&format=php&last_revision_only=true';
     $url .= '&version=' . implode(',', $versions_to_check);
     $url .= '&lang=' . substr($user['language'], 0, 2);
+    $url .= '&get_nb_downloads=true';
 
     if (!empty($plugins_to_check))
     {
@@ -344,6 +345,9 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
         break;
       case 'author':
         uasort($this->server_plugins, array($this, 'extension_author_compare'));
+        break;
+      case 'downloads':
+        usort($this->server_plugins, array($this, 'extension_downloads_compare'));
         break;
     }
   }
@@ -506,6 +510,12 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
     $r = strcasecmp($a['author'], $b['author']);
     if ($r == 0) return name_compare($a, $b);
     else return $r;
+  }
+
+  function extension_downloads_compare($a, $b)
+  {
+    if ($a['extension_nb_downloads'] < $b['extension_nb_downloads']) return 1;
+    else return -1;
   }
 
   function sort_plugins_by_state()

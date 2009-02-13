@@ -83,7 +83,8 @@ $template->assign('order_options',
     $link.'date' => l10n('Post date'),
     $link.'revision' => l10n('plugins_revisions'),
     $link.'name' => l10n('Name'),
-    $link.'author' => l10n('Author')));
+    $link.'author' => l10n('Author'),
+    $link.'downloads' => l10n('Number of downloads')));
 $template->assign('order_selected', $link.$order);
 
 // +-----------------------------------------------------------------------+
@@ -97,10 +98,15 @@ if ($plugins->get_server_plugins(true))
   {
     list($date, ) = explode(' ', $plugin['revision_date']);
 
-    $ver_desc = sprintf(l10n('plugins_description'),
-      $plugin['revision_name'],
-      $date,
-      $plugin['revision_description']);
+    $ext_desc = '<i>'.l10n('Downloads').':</i> '.$plugin['extension_nb_downloads']."\r\n"
+      ."\r\n"
+      .$plugin['extension_description'];
+
+    $rev_desc = '<i>'.l10n('Version').':</i> '.$plugin['revision_name']."\r\n"
+      .'<i>'.l10n('Released on').':</i> '.$date."\r\n"
+      .'<i>'.l10n('Downloads').':</i> '.$plugin['revision_nb_downloads']."\r\n"
+      ."\r\n"
+      .$plugin['revision_description'];
 
     $url_auto_install = htmlentities($base_url)
       . '&amp;revision=' . $plugin['revision_id']
@@ -109,11 +115,10 @@ if ($plugins->get_server_plugins(true))
     $template->append('plugins', array(
       'EXT_NAME' => $plugin['extension_name'],
       'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin['extension_id'],
-      'EXT_DESC' => $plugin['extension_description'],
+      'EXT_DESC' => $ext_desc,
       'VERSION' => $plugin['revision_name'],
-      'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin['revision_id'],
       'DATE' => $date,
-      'VER_DESC' => $ver_desc,
+      'VER_DESC' => $rev_desc,
       'AUTHOR' => $plugin['author_name'],
       'URL_INSTALL' => $url_auto_install,
       'URL_DOWNLOAD' => $plugin['download_url'] . '&amp;origin=piwigo_download'));

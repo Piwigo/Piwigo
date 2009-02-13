@@ -86,7 +86,7 @@ if (isset($_GET['upgradestatus']) and isset($_GET['plugin']))
 
     default:
       array_push($page['errors'],
-        sprintf(l10n('plugins_extract_error'), $_GET['installstatus']),
+        sprintf(l10n('plugins_extract_error'), $_GET['upgradestatus']),
         l10n('plugins_check_chmod'));
   }  
 }
@@ -108,19 +108,25 @@ if ($plugins->get_server_plugins())
 
       list($date, ) = explode(' ', $plugin_info['revision_date']);
 
-      $ver_desc = sprintf(l10n('plugins_description'),
-        $plugin_info['revision_name'],
-        $date,
-        $plugin_info['revision_description']);
+      $ext_desc = '<i>'.l10n('Downloads').':</i> '.$plugin_info['extension_nb_downloads']."\r\n"
+        ."\r\n"
+        .$plugin_info['extension_description'];
+
+      $rev_desc = '<i>'.l10n('Version').':</i> '.$plugin_info['revision_name']."\r\n"
+        .'<i>'.l10n('Released on').':</i> '.$date."\r\n"
+        .'<i>'.l10n('Downloads').':</i> '.$plugin_info['revision_nb_downloads']."\r\n"
+        ."\r\n"
+        .$plugin_info['revision_description'];
 
       if ($plugins->plugin_version_compare($fs_plugin['version'], $plugin_info['revision_name']))
       {
         // Plugin is up to date
         $template->append('plugins_uptodate', array(
-          'URL' => $fs_plugin['uri'],
+          'URL' => PEM_URL.'/extension_view.php?eid='.$plugin_info['extension_id'],
           'NAME' => $fs_plugin['name'],
-          'EXT_DESC' => $plugin_info['extension_description'],
-          'VERSION' => $fs_plugin['version']));
+          'EXT_DESC' => $ext_desc,
+          'VERSION' => $fs_plugin['version'],
+          'VER_DESC' => $rev_desc));
       }
       else
       {
@@ -131,12 +137,11 @@ if ($plugins->get_server_plugins())
 
         $template->append('plugins_not_uptodate', array(
           'EXT_NAME' => $fs_plugin['name'],
-          'EXT_URL' => $fs_plugin['uri'],
-          'EXT_DESC' => $plugin_info['extension_description'],
+          'EXT_URL' => PEM_URL.'/extension_view.php?eid='.$plugin_info['extension_id'],
+          'EXT_DESC' => $ext_desc,
           'VERSION' => $fs_plugin['version'],
-          'VERSION_URL' => PEM_URL.'/revision_view.php?rid='.$plugin_info['revision_id'],
           'NEW_VERSION' => $plugin_info['revision_name'],
-          'NEW_VER_DESC' => $ver_desc,
+          'NEW_VER_DESC' => $rev_desc,
           'URL_UPDATE' => $url_auto_update,
           'URL_DOWNLOAD' => $plugin_info['download_url'] . '&amp;origin=piwigo_download'));
       }

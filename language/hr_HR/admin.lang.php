@@ -570,7 +570,6 @@ $lang['plugins_new_version'] = 'Dostupna<br>inačica';
 $lang['plugins_auto_update'] = 'Samostalna nadogradnja';
 $lang['plugins_auto_install'] = 'Samostalna ugradba';
 $lang['plugins_download'] = 'Preuzmi zapis';
-$lang['plugins_description'] = '<b>Inačica:</b> %s<br><br><b>Nadnevak:</b> %s<br><br>%s';
 $lang['plugins_tab_list'] = 'Popis dodataka';
 $lang['plugins_tab_update'] = 'Provjera nadogradnji';
 $lang['plugins_tab_new'] = 'Ostali dodaci';
@@ -645,4 +644,7 @@ $lang['Delete selected photos'] = 'Briši odabrane slike';
 $lang['%d photo was deleted'] = '%d slika je izbrisana';
 $lang['%d photos were deleted'] = '%d slike su izbrisane';
 $lang['Bound template'] = 'Poveži predložak';
+/* TODO */ $lang['Downloads'] = 'Downloads';
+/* TODO */ $lang['Released on'] = 'Released on';
+/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 ?>

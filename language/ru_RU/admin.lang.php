@@ -570,7 +570,6 @@ $lang['plugins_new_version'] = 'Доступная<br>версия';
 $lang['plugins_auto_update'] = 'Автоматическое обновление';
 $lang['plugins_auto_install'] = 'Автоматическая установка';
 $lang['plugins_download'] = 'Скачать файл';
-$lang['plugins_description'] = '<b>Версия:</b> %s<br><br><b>Дата:</b> %s<br><br>%s';
 $lang['plugins_tab_list'] = 'Список плагинов';
 $lang['plugins_tab_update'] = 'Проверка обновлений';
 $lang['plugins_tab_new'] = 'Другие плагины';
@@ -644,4 +643,7 @@ $lang['Note: Only deletes photos added with pLoader'] = 'Заметьте: Уд�
 $lang['Delete selected photos'] = 'Удалить выбранные фото';
 $lang['%d photo was deleted'] = '%d фото удалено';
 $lang['%d photos were deleted'] = '%d фото удалено';
+/* TODO */ $lang['Downloads'] = 'Downloads';
+/* TODO */ $lang['Released on'] = 'Released on';
+/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 ?>

@@ -570,7 +570,6 @@ $lang['plugins_new_version'] = 'Versione<br>disponibile';
 $lang['plugins_auto_update'] = 'Aggiornamento automatico';
 $lang['plugins_auto_install'] = 'Installazione automatica';
 $lang['plugins_download'] = 'Scaricare il file';
-$lang['plugins_description'] = '<b>Versione:</b> %s<br><br><b>Data:</b> %s<br><br>%s';
 $lang['plugins_tab_list'] = 'Lista dei plugins';
 $lang['plugins_tab_update'] = 'Verificare gli aggiornamenti';
 $lang['plugins_tab_new'] = 'Altri plugins disponibili';
@@ -644,4 +643,7 @@ $lang['Delete selected photos'] = 'Cancellare le foto';
 $lang['%d photo was deleted'] = '%d foto cancellata';
 $lang['%d photos were deleted'] = '%d foto cancellate';
 $lang['Bound template'] = 'Template legato';
+/* TODO */ $lang['Downloads'] = 'Downloads';
+/* TODO */ $lang['Released on'] = 'Released on';
+/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 ?>
