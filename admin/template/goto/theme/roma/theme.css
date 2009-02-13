@@ -212,3 +212,4 @@ html>body #menubar {min-height:477px; height:477px;} /* IE 7 and modern browsers
 * html[lang="en"] body .content h2 , *+html[lang="en"] body .content h2 { text-transform:capitalize; } /* IE */
 *+html  .bigtext { left: 70px; }
 *+html  .bigbutton input, * html  .bigbutton input  { left:0px; position:relative; top:-40px; }
+* html .bigtext { margin-right: 300px; }
