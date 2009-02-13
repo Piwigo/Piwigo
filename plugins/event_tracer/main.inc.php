@@ -80,22 +80,6 @@ class EventTracer
     fclose( $file );
   }
 
-  function on_pre_trigger_event($event_info)
-  {
-    @$this->trigger_counts[$event_info['event']]++;
-    $this->dump('pre_trigger_event', $event_info);
-  }
-  function on_post_trigger_event($event_info)
-  {
-    $this->dump('post_trigger_event', $event_info);
-  }
-
-  function on_trigger_action($event_info)
-  {
-   @$this->trigger_counts[$event_info['event']]++;
-    $this->dump('trigger_action', $event_info);
-  }
-
   function on_page_tail()
   {
     if (1 || @$this->my_config['show_registered'])
@@ -129,8 +113,11 @@ class EventTracer
     }
   }
 
-  function dump($event, $event_info)
+  function on_trigger($event_info)
   {
+    if ($event_info['type']!='post_event')
+      @$this->trigger_counts[$event_info['event']]++;
+
     foreach( $this->my_config['filters'] as $filter)
     {
       if ( preg_match( '/'.$filter.'/', $event_info['event'] ) )
@@ -143,7 +130,7 @@ class EventTracer
         }
         else
           $s = '';
-        pwg_debug($event.' "'.$event_info['event'].'" '.($this->trigger_counts[$event_info['event']]).' calls '.($s) );
+        pwg_debug($event_info['type'].' "'.$event_info['event'].'" '.($this->trigger_counts[$event_info['event']]).' calls '.($s) );
         break;
       }
     }
@@ -165,9 +152,7 @@ $obj = new EventTracer();
 $obj->load_config();
 
 add_event_handler('get_admin_plugin_menu_links', array(&$obj, 'plugin_admin_menu') );
-add_event_handler('pre_trigger_event', array(&$obj, 'on_pre_trigger_event') );
-add_event_handler('post_trigger_event', array(&$obj, 'on_post_trigger_event') );
 add_event_handler('loc_begin_page_tail', array(&$obj, 'on_page_tail') );
-add_event_handler('trigger_action', array(&$obj, 'on_trigger_action') );
+add_event_handler('trigger', array(&$obj, 'on_trigger') );
 set_plugin_data($plugin['id'], $obj);
 ?>

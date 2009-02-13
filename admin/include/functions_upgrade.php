@@ -185,4 +185,52 @@ WHERE '.$conf['user_fields']['username'].'="'.$username.'"
     define('PHPWG_IN_UPGRADE', true);
   }
 }
+
+/**
+ * which upgrades are available ?
+ *
+ * @return array
+ */
+function get_available_upgrade_ids()
+{
+  $upgrades_path = PHPWG_ROOT_PATH.'install/db';
+
+  $available_upgrade_ids = array();
+
+  if ($contents = opendir($upgrades_path))
+  {
+    while (($node = readdir($contents)) !== false)
+    {
+      if (is_file($upgrades_path.'/'.$node)
+          and preg_match('/^(.*?)-database\.php$/', $node, $match))
+      {
+        array_push($available_upgrade_ids, $match[1]);
+      }
+    }
+  }
+  natcasesort($available_upgrade_ids);
+
+  return $available_upgrade_ids;
+}
+
+
+/**
+ * returns true if there are available upgrade files
+ */
+function check_upgrade_feed()
+{
+  // retrieve already applied upgrades
+  $query = '
+SELECT id
+  FROM '.UPGRADE_TABLE.'
+;';
+  $applied = array_from_query($query, 'id');
+
+  // retrieve existing upgrades
+  $existing = get_available_upgrade_ids();
+
+  // which upgrades need to be applied?
+  return (count(array_diff($existing, $applied)) > 0);
+}
+
 ?>

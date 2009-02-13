@@ -688,7 +688,6 @@ $conf['filter_pages'] = array
     'install' => array('cancel' => true),
     'password' => array('cancel' => true),
     'register' => array('cancel' => true),
-    'upgrade_feed' => array('cancel' => true),
   );
 
 // +-----------------------------------------------------------------------+

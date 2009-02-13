@@ -134,8 +134,7 @@ foreach ($pictures as $row)
   }
 
   if ($conf['show_thumbnail_caption'])
-  {
-    // name of the picture
+  {// name of the picture
     if (isset($row['name']) and $row['name'] != '')
     {
       $name = $row['name'];
@@ -166,9 +165,7 @@ foreach ($pictures as $row)
 
   if ( isset($nb_comments_of) )
   {
-    $row['nb_comments'] = isset($nb_comments_of[$row['id']])
-        ? (int)$nb_comments_of[$row['id']] : 0;
-    $tpl_var['NB_COMMENTS'] = $row['nb_comments'];
+    $tpl_var['NB_COMMENTS'] = (int)@$nb_comments_of[$row['id']];
   }
 
   $tpl_thumbnails_var[] = $tpl_var;

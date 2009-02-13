@@ -109,55 +109,50 @@ function trigger_event($event, $data=null)
 {
   global $pwg_event_handlers;
 
-  // just for debugging
-  trigger_action('pre_trigger_event',
-        array('event'=>$event, 'data'=>$data) );
+  if ( isset($pwg_event_handlers['trigger']) )
+  {// just for debugging
+    trigger_action('trigger',
+        array('type'=>'event', 'event'=>$event, 'data'=>$data) );
+  }
 
   if ( !isset($pwg_event_handlers[$event]) )
   {
-    trigger_action('post_trigger_event',
-        array('event'=>$event, 'data'=>$data) );
     return $data;
   }
   $args = array_slice(func_get_args(), 2);
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
-    if ( !is_null($handlers) )
+    foreach($handlers as $handler)
     {
-      foreach($handlers as $handler)
-      {
-        $all_args = array_merge( array($data), $args);
-        $function_name = $handler['function'];
-        $accepted_args = $handler['accepted_args'];
+      $all_args = array_merge( array($data), $args);
+      $function_name = $handler['function'];
+      $accepted_args = $handler['accepted_args'];
 
-        if ( $accepted_args == 1 )
-          $the_args = array($data);
-        elseif ( $accepted_args > 1 )
-          $the_args = array_slice($all_args, 0, $accepted_args);
-        elseif ( $accepted_args == 0 )
-          $the_args = NULL;
-        else
-          $the_args = $all_args;
+      if ( $accepted_args == 1 )
+        $the_args = array($data);
+      elseif ( $accepted_args > 1 )
+        $the_args = array_slice($all_args, 0, $accepted_args);
+      elseif ( $accepted_args == 0 )
+        $the_args = NULL;
+      else
+        $the_args = $all_args;
 
-        $data = call_user_func_array($function_name, $the_args);
-      }
+      $data = call_user_func_array($function_name, $the_args);
     }
   }
-  trigger_action('post_trigger_event',
-        array('event'=>$event, 'data'=>$data) );
+  trigger_action('trigger',
+       array('type'=>'post_event', 'event'=>$event, 'data'=>$data) );
   return $data;
 }
 
 function trigger_action($event, $data=null)
 {
   global $pwg_event_handlers;
-  if ($event!='pre_trigger_event'
-    and $event!='post_trigger_event'
-    and $event!='trigger_action')
+  if ( isset($pwg_event_handlers['trigger']) and $event!='trigger' )
   {// special case for debugging - avoid recursive calls
-    trigger_action('trigger_action',
-        array('event'=>$event, 'data'=>$data) );
+    trigger_action('trigger',
+        array('type'=>'action', 'event'=>$event, 'data'=>$data) );
   }
 
   if ( !isset($pwg_event_handlers[$event]) )
@@ -168,25 +163,22 @@ function trigger_action($event, $data=null)
 
   foreach ($pwg_event_handlers[$event] as $priority => $handlers)
   {
-    if ( !is_null($handlers) )
+    foreach($handlers as $handler)
     {
-      foreach($handlers as $handler)
-      {
-        $all_args = array_merge( array($data), $args);
-        $function_name = $handler['function'];
-        $accepted_args = $handler['accepted_args'];
+      $all_args = array_merge( array($data), $args);
+      $function_name = $handler['function'];
+      $accepted_args = $handler['accepted_args'];
 
-        if ( $accepted_args == 1 )
-          $the_args = array($data);
-        elseif ( $accepted_args > 1 )
-          $the_args = array_slice($all_args, 0, $accepted_args);
-        elseif ( $accepted_args == 0 )
-          $the_args = NULL;
-        else
-          $the_args = $all_args;
+      if ( $accepted_args == 1 )
+        $the_args = array($data);
+      elseif ( $accepted_args > 1 )
+        $the_args = array_slice($all_args, 0, $accepted_args);
+      elseif ( $accepted_args == 0 )
+        $the_args = NULL;
+      else
+        $the_args = $all_args;
 
-        call_user_func_array($function_name, $the_args);
-      }
+      call_user_func_array($function_name, $the_args);
     }
   }
 }
@@ -229,20 +221,19 @@ function get_db_plugins($state='', $id='')
 {
   $query = '
 SELECT * FROM '.PLUGINS_TABLE;
-  if (!empty($state) or !empty($id) )
+  $clauses = array();
+  if (!empty($state))
   {
-    $query .= '
-WHERE 1=1';
-    if (!empty($state))
-    {
+    $clauses[] = 'state="'.$state.'"';
+  }
+  if (!empty($id))
+  {
+    $clauses[] = 'id="'.$id.'"';
+  }
+  if (count($clauses))
+  {
       $query .= '
-  AND state="'.$state.'"';
-    }
-    if (!empty($id))
-    {
-      $query .= '
-  AND id="'.$id.'"';
-    }
+  WHERE '. implode(' AND ', $clauses);
   }
 
   $result = pwg_query($query);
