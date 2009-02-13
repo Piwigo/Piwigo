@@ -133,12 +133,11 @@ function replace_space( $string )
   $remaining = $string;
   // $start represents the position of the next '<' character
   // $end   represents the position of the next '>' character
-  $start = 0;
-  $end = 0;
-  $start = strpos ( $remaining, '<' ); // -> 0
+  ; // -> 0
   $end   = strpos ( $remaining, '>' ); // -> 16
   // as long as a '<' and his friend '>' are found, we loop
-  while ( is_numeric( $start ) and is_numeric( $end ) )
+  while ( ($start=strpos( $remaining, '<' )) !==false
+        and ($end=strpos( $remaining, '>' )) !== false )
   {
     // $treatment is the part of the string to treat
     // In the first loop of our example, this variable is empty, but in the
@@ -153,8 +152,6 @@ function replace_space( $string )
     // the remaining string is deplaced to the part after the '>' of this
     // loop
     $remaining = substr ( $remaining, $end + 1, strlen( $remaining ) );
-    $start = strpos ( $remaining, '<' );
-    $end   = strpos ( $remaining, '>' );
   }
   $treatment = str_replace( ' ', '&nbsp;', $remaining );
   $treatment = str_replace( '-', '&minus;', $treatment );
@@ -242,11 +239,8 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
   }
   if ( !is_writable($dir) )
   {
-    if ( !is_writable($dir) )
-    {
-      !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
-      return false;
-    }
+    !($flags&MKGETDIR_DIE_ON_ERROR) or fatal_error( "$dir ".l10n('no_write_access'));
+    return false;
   }
   return true;
 }
@@ -464,7 +458,7 @@ function get_languages($target_charset = null)
   while ($file = readdir($dir))
   {
     $path = PHPWG_ROOT_PATH.'language/'.$file;
-    if (is_dir($path) and !is_link($path) and file_exists($path.'/iso.txt'))
+    if (!is_link($path) and file_exists($path.'/iso.txt'))
     {
       list($language_name) = @file($path.'/iso.txt');
 
@@ -526,15 +520,9 @@ function pwg_log($image_id = null, $image_type = null)
   }
 
   $tags_string = null;
-  if (isset($page['section']) and $page['section'] == 'tags')
+  if ('tags'==@$page['section'])
   {
-    $tag_ids = array();
-    foreach ($page['tags'] as $tag)
-    {
-      array_push($tag_ids, $tag['id']);
-    }
-
-    $tags_string = implode(',', $tag_ids);
+    $tags_string = implode(',', $page['tag_ids']);
   }
 
   $query = '
@@ -911,7 +899,7 @@ function get_thumbnail_title($element_info)
 
   if (!empty($element_info['filesize']))
   {
-    $thumbnail_title .= ' : '.l10n_dec('%d Kb', '%d Kb', $element_info['filesize']);
+    $thumbnail_title .= ' : '.sprintf(l10n('%d Kb'), $element_info['filesize']);
   }
 
   return $thumbnail_title;
@@ -1139,33 +1127,6 @@ SELECT '.$conf['user_fields']['email'].'
 }
 
 /**
- * which upgrades are available ?
- *
- * @return array
- */
-function get_available_upgrade_ids()
-{
-  $upgrades_path = PHPWG_ROOT_PATH.'install/db';
-
-  $available_upgrade_ids = array();
-
-  if ($contents = opendir($upgrades_path))
-  {
-    while (($node = readdir($contents)) !== false)
-    {
-      if (is_file($upgrades_path.'/'.$node)
-          and preg_match('/^(.*?)-database\.php$/', $node, $match))
-      {
-        array_push($available_upgrade_ids, $match[1]);
-      }
-    }
-  }
-  natcasesort($available_upgrade_ids);
-
-  return $available_upgrade_ids;
-}
-
-/**
  * Add configuration parameters from database to global $conf array
  *
  * @return void
@@ -1274,29 +1235,18 @@ function script_basename()
 
   foreach (array('SCRIPT_NAME', 'SCRIPT_FILENAME', 'PHP_SELF') as $value)
   {
-    $continue = !empty($_SERVER[$value]);
-    if ($continue)
+    if (!empty($_SERVER[$value]))
     {
       $filename = strtolower($_SERVER[$value]);
-
-      if ($conf['php_extension_in_urls'])
-      {
-        $continue = get_extension($filename) ===  'php';
-      }
-
-      if ($continue)
-      {
-        $basename = basename($filename, '.php');
-        $continue = !empty($basename);
-      }
-
-      if ($continue)
+      if ($conf['php_extension_in_urls'] and get_extension($filename)!=='php')
+        continue;
+      $basename = basename($filename, '.php');
+      if (!empty($basename))
       {
         return $basename;
       }
     }
   }
-
   return '';
 }
 

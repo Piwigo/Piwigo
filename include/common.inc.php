@@ -115,18 +115,11 @@ if ( version_compare(mysql_get_server_info(), '4.1.0', '>=') )
     pwg_query('SET NAMES "'.DB_CHARSET.'"');
   }
 }
-else
+elseif ( strtolower(PWG_CHARSET)!='iso-8859-1' )
 {
-  if ( strtolower(PWG_CHARSET)!='iso-8859-1' )
-  {
-    fatal_error('PWG supports only iso-8859-1 charset on MySql version '.mysql_get_server_info());
-  }
+  fatal_error('PWG supports only iso-8859-1 charset on MySql version '.mysql_get_server_info());
 }
 
-//
-// Setup gallery wide options, if this fails then we output a CRITICAL_ERROR
-// since basic gallery information is not available
-//
 load_conf_from_db();
 load_plugins();
 
@@ -187,19 +180,8 @@ if ($conf['gallery_locked'])
 
 if ($conf['check_upgrade_feed'])
 {
-
-  // retrieve already applied upgrades
-  $query = '
-SELECT id
-  FROM '.UPGRADE_TABLE.'
-;';
-  $applied = array_from_query($query, 'id');
-
-  // retrieve existing upgrades
-  $existing = get_available_upgrade_ids();
-
-  // which upgrades need to be applied?
-  if (count(array_diff($existing, $applied)) > 0)
+  include_once(PHPWG_ROOT_PATH.'admin/include/functions_upgrade.php');
+  if (check_upgrade_feed())
   {
     $header_msgs[] = 'Some database upgrades are missing, '
       .'<a href="'.get_absolute_root_url(false).'upgrade_feed.php">upgrade now</a>';
