@@ -571,7 +571,6 @@ $lang['c13y_submit_correction'] = 'Pas geselecteerde correcties toe';
 /* TODO */ $lang['plugins_auto_update'] = 'Automatic upgrade';
 /* TODO */ $lang['plugins_auto_install'] = 'Automatic installation';
 /* TODO */ $lang['plugins_download'] = 'Download file';
-/* TODO */ $lang['plugins_description'] = '<b>Version:</b> %s<br><br><b>Date:</b> %s<br><br>%s';
 /* TODO */ $lang['plugins_tab_list'] = 'Plugin list';
 /* TODO */ $lang['plugins_tab_update'] = 'Check for updates';
 /* TODO */ $lang['plugins_tab_new'] = 'Other plugins';
@@ -640,5 +639,8 @@ $lang['edit category informations'] = 'bewerk categorie informatie';
 /* TODO */ $lang['%d photo was deleted'] = '%d photo was deleted';
 /* TODO */ $lang['%d photos were deleted'] = '%d photos were deleted';
 /* TODO */ $lang['Bound template'] = 'Bound template';
+/* TODO */ $lang['Downloads'] = 'Downloads';
+/* TODO */ $lang['Released on'] = 'Released on';
+/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 ?>

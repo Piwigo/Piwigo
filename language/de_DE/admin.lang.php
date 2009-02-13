@@ -570,7 +570,6 @@ $lang['plugins_new_version'] = 'Version<br>verfügbar';
 $lang['plugins_auto_update'] = 'Automatisches Update';
 $lang['plugins_auto_install'] = 'Automatische Installation';
 $lang['plugins_download'] = 'Laden Sie die Datei';
-$lang['plugins_description'] = '<b>Version:</b> %s<br><br><b>Datum:</b> %s<br><br>%s';
 $lang['plugins_tab_list'] = 'Liste der Plugins';
 $lang['plugins_tab_update'] = 'Plugins auf Updates überprüfen';
 $lang['plugins_tab_new'] = 'Zur verfügung stehende Plugins';
@@ -644,5 +643,8 @@ $lang['Delete selected photos'] = 'Fotos l&ouml;schen';
 $lang['%d photo was deleted'] = '%d Foto wurde gel&ouml;scht';
 $lang['%d photos were deleted'] = '%d Fotos wurden gel&ouml;scht';
 /* TODO */ $lang['Bound template'] = 'Bound template';
+/* TODO */ $lang['Downloads'] = 'Downloads';
+/* TODO */ $lang['Released on'] = 'Released on';
+/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 ?>

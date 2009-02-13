@@ -38,6 +38,7 @@ TABLE#detailedStats {
 }
 
 /* Plugins tables */
+TABLE.plugins { min-width: 400px; }
 TABLE.plugins A { border: 0; }
 TABLE.plugins TR TD { padding: 4px 10px; }
 TABLE.plugins TR TD.pluginState { padding: 4px 16px; }
