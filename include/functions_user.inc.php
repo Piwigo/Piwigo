@@ -673,34 +673,6 @@ DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
 }
 
 /**
- * returns the username corresponding to the given user identifier if exists
- *
- * @param int user_id
- * @return mixed
- */
-function get_username($user_id)
-{
-  global $conf;
-
-  $query = '
-SELECT '.$conf['user_fields']['username'].'
-  FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = '.intval($user_id).'
-;';
-  $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
-  {
-    list($username) = mysql_fetch_row($result);
-  }
-  else
-  {
-    return false;
-  }
-
-  return $username;
-}
-
-/**
  * returns user identifier thanks to his name, false if not found
  *
  * @param string username
@@ -932,34 +904,6 @@ function create_user_infos($arg_id, $override_values = null)
 
   }
 }
-
-/**
- * returns the groupname corresponding to the given group identifier if
- * exists
- *
- * @param int group_id
- * @return mixed
- */
-function get_groupname($group_id)
-{
-  $query = '
-SELECT name
-  FROM '.GROUPS_TABLE.'
-  WHERE id = '.intval($group_id).'
-;';
-  $result = pwg_query($query);
-  if (mysql_num_rows($result) > 0)
-  {
-    list($groupname) = mysql_fetch_row($result);
-  }
-  else
-  {
-    return false;
-  }
-
-  return $groupname;
-}
-
 
 /**
  * returns the auto login key or false on error

@@ -522,8 +522,6 @@ SELECT DISTINCT image_id
     return new PwgError(WS_ERR_INVALID_PARAM, "Invalid image_id");
   }
 
-  include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
-
   $comm = array(
     'author' => trim( stripslashes($params['author']) ),
     'content' => trim( stripslashes($params['content']) ),
@@ -702,7 +700,6 @@ SELECT id, date, author, content
       )
       )
   {
-    include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
     $comment_post_data['author'] = $user['username'];
     $comment_post_data['key'] = get_comment_post_key($params['image_id']);
   }
@@ -1041,15 +1038,15 @@ SELECT
     {
       // last chance to make the directory writable
       @chmod($high_dir, 0777);
-      
+
       if (!is_writable($high_dir))
       {
         return new PwgError(500, 'high directory has no write access');
       }
     }
-    
+
     secure_directory($high_dir);
-    
+
     // high resolution path, same name as web size file
     $high_path = sprintf(
       '%s/%s.%s',
@@ -1482,7 +1479,7 @@ function ws_images_setInfo($params, &$service)
   // file_sum
   // thumbnail_content
   // thumbnail_sum
-  
+
   $params['image_id'] = (int)$params['image_id'];
   if ($params['image_id'] <= 0)
   {
@@ -1536,7 +1533,7 @@ SELECT *
       array($update)
       );
   }
-  
+
   if (isset($params['categories']))
   {
     ws_add_image_category_relations(
@@ -1617,7 +1614,7 @@ SELECT
         {
           $current_rank_of[$cat_id] = 0;
         }
-        
+
         if ('auto' == $rank_on_category[$cat_id])
         {
           $rank_on_category[$cat_id] = $current_rank_of[$cat_id] + 1;

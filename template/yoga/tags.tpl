@@ -41,7 +41,7 @@
       {/foreach}
     </table>
   </fieldset>
-      {if $letter.CHANGE_COLUMN|@default:false}
+      {if isset($letter.CHANGE_COLUMN) }
       </td>
       <td valign="top">
       {/if}
