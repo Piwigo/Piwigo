@@ -88,11 +88,11 @@ elseif ( isset($_POST['content']) )
 
 if ($page['show_comments'])
 {
-  // number of comment for this picture
-  $query = 'SELECT COUNT(*) AS nb_comments';
-  $query.= ' FROM '.COMMENTS_TABLE.' WHERE image_id = '.$page['image_id'];
-  $query.= " AND validated = 'true'";
-  $query.= ';';
+  // number of comments for this picture
+  $query = '
+SELECT COUNT(*) AS nb_comments
+  FROM '.COMMENTS_TABLE.'
+  WHERE image_id='.$page['image_id']." AND validated = 'true'";
   $row = mysql_fetch_array( pwg_query( $query ) );
 
   // navigation bar creation
@@ -160,7 +160,6 @@ SELECT id,author,date,image_id,content
   if (!is_a_guest()
       or (is_a_guest() and $conf['comments_forall']))
   {
-    include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
     $key = get_comment_post_key($page['image_id']);
     $content = '';
     if ('reject'===@$comment_action)

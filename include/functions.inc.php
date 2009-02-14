@@ -493,7 +493,6 @@ function get_languages($target_charset = null)
   }
   closedir($dir);
   @asort($languages);
-  @reset($languages);
 
   return $languages;
 }
@@ -1373,17 +1372,6 @@ function load_language($filename, $dirname = '',
       $source_file = $f;
       break;
     }
-
-    if ($target_charset=='utf-8')
-    { // we accept conversion from ISO-8859-1 to UTF-8
-      $f = $dir.'.iso-8859-1/'.$filename;
-      if (file_exists($f))
-      {
-        $source_charset = 'iso-8859-1';
-        $source_file = $f;
-        break;
-      }
-    }
   }
 
   if ( !empty($source_file) )
@@ -1482,5 +1470,27 @@ function secure_directory($dir)
   {
     @file_put_contents($file, 'Not allowed!');
   }
+}
+
+/**
+ * returns a "secret key" that is to be sent back when a user enters a comment
+ *
+ * @param int image_id
+ */
+function get_comment_post_key($image_id)
+{
+  global $conf;
+
+  $time = time();
+
+  return sprintf(
+    '%s:%s',
+    $time,
+    hash_hmac(
+      'md5',
+      $time.':'.$image_id,
+      $conf['secret_key']
+      )
+    );
 }
 ?>

@@ -143,7 +143,7 @@ function delete_elements($ids, $physical_deletion=false)
   if ($physical_deletion)
   {
     include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
-    
+
     // we can currently delete physically only photo with no
     // storage_category_id (added via pLoader)
     //
@@ -1864,7 +1864,7 @@ function get_extents($start='')
     {
       $extents = array_merge($extents, get_extents($path));
     }
-    elseif ( !is_link($path) and file_exists($path) 
+    elseif ( !is_link($path) and file_exists($path)
             and get_extension($path) == 'tpl' )
     {
       $extents[] = substr($path, 21);
@@ -2009,7 +2009,7 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
   $host = $src['host'];
   $path = isset($src['path']) ? $src['path'] : '/';
   $path .= isset($src['query']) ? '?'.$src['query'] : '';
-  
+
   if (($s = @fsockopen($host,80,$errno,$errstr,5)) === false)
   {
     return false;
@@ -2066,4 +2066,59 @@ function fetchRemote($src, &$dest, $user_agent='Piwigo', $step=0)
   return true;
 }
 
+
+/**
+ * returns the groupname corresponding to the given group identifier if
+ * exists
+ *
+ * @param int group_id
+ * @return mixed
+ */
+function get_groupname($group_id)
+{
+  $query = '
+SELECT name
+  FROM '.GROUPS_TABLE.'
+  WHERE id = '.intval($group_id).'
+;';
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    list($groupname) = mysql_fetch_row($result);
+  }
+  else
+  {
+    return false;
+  }
+
+  return $groupname;
+}
+
+/**
+ * returns the username corresponding to the given user identifier if exists
+ *
+ * @param int user_id
+ * @return mixed
+ */
+function get_username($user_id)
+{
+  global $conf;
+
+  $query = '
+SELECT '.$conf['user_fields']['username'].'
+  FROM '.USERS_TABLE.'
+  WHERE '.$conf['user_fields']['id'].' = '.intval($user_id).'
+;';
+  $result = pwg_query($query);
+  if (mysql_num_rows($result) > 0)
+  {
+    list($username) = mysql_fetch_row($result);
+  }
+  else
+  {
+    return false;
+  }
+
+  return $username;
+}
 ?>

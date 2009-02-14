@@ -24,7 +24,7 @@
       {/if}
 
       {if isset($U_SEARCH_RULES) }
-      <li><a href="{$U_SEARCH_RULES}" style="border:none;" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/search_rules.png" class="button" alt="(?)"></a></li>
+      <li><a href="{$U_SEARCH_RULES}" onclick="popuphelp(this.href); return false;" title="{'Search rules'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/search_rules.png" class="button" alt="(?)" /></a></li>
       {/if}
 
       {if isset($U_SLIDESHOW) }

@@ -228,8 +228,11 @@ if ( count($page['items']) > 0
   // image order
   $order_idx = pwg_get_session_var( 'image_order', 0 );
 
-  $orders = get_category_preferred_image_orders();
-  foreach ($orders as $order_id => $order)
+  $url = add_url_params(
+          duplicate_index_url(),
+          array('image_order' => '')
+        );
+  foreach (get_category_preferred_image_orders() as $order_id => $order)
   {
     if ($order[2])
     {
@@ -237,10 +240,7 @@ if ( count($page['items']) > 0
         'image_orders',
         array(
           'DISPLAY' => $order[0],
-          'URL' => add_url_params(
-            duplicate_index_url(),
-            array('image_order' => $order_id)
-            ),
+          'URL' => $url.$order_id,
           'SELECTED' => ($order_idx == $order_id ? true:false),
           )
         );

@@ -21,26 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-/**
- * returns a "secret key" that is to be sent back when a user enters a comment
- */
-function get_comment_post_key($image_id)
-{
-  global $conf;
-
-  $time = time();
-
-  return sprintf(
-    '%s:%s',
-    $time,
-    hash_hmac(
-      'md5',
-      $time.':'.$image_id,
-      $conf['secret_key']
-      )
-    );
-}
-
 //returns string action to perform on a new comment: validate, moderate, reject
 function user_comment_check($action, $comment)
 {
@@ -189,7 +169,7 @@ INSERT INTO '.COMMENTS_TABLE.'
     if
       (
         ($comment_action=='validate' and $conf['email_admin_on_comment'])
-        or 
+        or
         ($comment_action!='validate' and $conf['email_admin_on_comment_validation'])
       )
     {
