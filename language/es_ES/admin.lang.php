@@ -641,8 +641,8 @@ $lang['Delete selected photos'] = 'Suprimir las fotos';
 $lang['%d photo was deleted'] = '%d foto ha sido suprimida';
 $lang['%d photos were deleted'] = '%d fotos han sido suprimidas';
 $lang['Bound template'] = 'Template relacionado ';
-/* TODO */ $lang['Downloads'] = 'Downloads';
-/* TODO */ $lang['Released on'] = 'Released on';
-/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
+$lang['Downloads'] = 'Descargar';
+$lang['Released on'] = 'Añadido';
+$lang['Number of downloads'] = 'Número de descargar';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 ?>
