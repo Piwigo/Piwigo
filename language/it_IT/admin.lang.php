@@ -643,7 +643,7 @@ $lang['Delete selected photos'] = 'Cancellare le foto';
 $lang['%d photo was deleted'] = '%d foto cancellata';
 $lang['%d photos were deleted'] = '%d foto cancellate';
 $lang['Bound template'] = 'Template legato';
-/* TODO */ $lang['Downloads'] = 'Downloads';
-/* TODO */ $lang['Released on'] = 'Released on';
-/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
+$lang['Downloads'] = 'Downloads';
+$lang['Released on'] = 'Aggiunto il';
+$lang['Number of downloads'] = 'Totale dei downloads';
 ?>
