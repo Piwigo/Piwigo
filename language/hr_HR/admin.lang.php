@@ -644,7 +644,7 @@ $lang['Delete selected photos'] = 'Briši odabrane slike';
 $lang['%d photo was deleted'] = '%d slika je izbrisana';
 $lang['%d photos were deleted'] = '%d slike su izbrisane';
 $lang['Bound template'] = 'Poveži predložak';
-/* TODO */ $lang['Downloads'] = 'Downloads';
-/* TODO */ $lang['Released on'] = 'Released on';
-/* TODO */ $lang['Number of downloads'] = 'Number of downloads';
+$lang['Downloads'] = 'Preuzimanja';
+$lang['Released on'] = 'Objavljeno dana';
+$lang['Number of downloads'] = 'Broj preuzimanja';
 ?>
