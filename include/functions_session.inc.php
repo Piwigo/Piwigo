@@ -93,7 +93,15 @@ function pwg_session_close()
 
 function get_remote_addr_session_hash()
 {
-	return vsprintf( "%02X%02X", explode('.',$_SERVER['REMOTE_ADDR']) );
+  $separator = (FALSE === strpos($_SERVER['REMOTE_ADDR'],'.'))
+    ? ':'
+    : '.'
+  ;
+
+  return vsprintf(
+    "%02X%02X",
+    explode($separator,$_SERVER['REMOTE_ADDR'])
+  );
 }
 
 /**
