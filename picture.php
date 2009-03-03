@@ -500,12 +500,6 @@ if (!empty($picture['current']['width']))
     );
 }
 
-$url_admin =
-  get_root_url().'admin.php?page=picture_modify'
-  .'&amp;cat_id='.(isset($page['category']) ? $page['category']['id'] : '')
-  .'&amp;image_id='.$page['image_id']
-;
-
 $slideshow_params = array();
 $slideshow_url_params = array();
 
@@ -713,6 +707,11 @@ if (is_admin())
       );
   }
 
+  $url_admin =
+    get_root_url().'admin.php?page=picture_modify'
+    .'&amp;cat_id='.(isset($page['category']) ? $page['category']['id'] : '')
+    .'&amp;image_id='.$page['image_id'];
+
   $template->assign(
     array(
       'U_CADDIE' => add_url_params($url_self,
@@ -721,6 +720,8 @@ if (is_admin())
       'U_ADMIN' => $url_admin,
       )
     );
+
+  $template->assign('available_permission_levels', $conf['available_permission_levels']);
 }
 
 // favorite manipulation
@@ -929,10 +930,7 @@ $element_content = trigger_event(
   );
 $template->assign( 'ELEMENT_CONTENT', $element_content );
 
-if (is_admin())
-{
-  $template->assign('available_permission_levels', $conf['available_permission_levels']);
-}
+
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |
 // +-----------------------------------------------------------------------+

@@ -108,6 +108,7 @@ if (script_basename() == 'picture') // basename without file extention
     }
     else
     {
+      $page['image_id'] = 0; // more work in picture.php
       if ( !empty($matches[2]) )
       {
         $page['image_file'] = $matches[2];
@@ -560,12 +561,6 @@ if (isset($page['chronology_field']))
 {
   include_once( PHPWG_ROOT_PATH.'include/functions_calendar.inc.php' );
   initialize_calendar();
-}
-
-if (script_basename() == 'picture'
-    and !isset($page['image_id']) )
-{
-  $page['image_id'] = 0; // more work in picture.php
 }
 
 // add meta robots noindex, nofollow to avoid unnecesary robot crawls
