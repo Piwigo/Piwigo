@@ -3,17 +3,25 @@
 {if !empty($chronology_navigation_bars) }
 {foreach from=$chronology_navigation_bars item=bar}
 <div class="calendarBar">
-  {if isset($bar.previous)}
-    <div style="float:left">&laquo; <a href="{$bar.previous.URL}">{$bar.previous.LABEL}</a></div>
-  {/if}
-  {if isset($bar.next)}
-    <div style="float:right"><a href="{$bar.next.URL}">{$bar.next.LABEL}</a> &raquo;</div>
-  {/if}
-  {if isset($bar.CONTENT)}
-  {$bar.CONTENT}
-  {else}
-  &nbsp;
-  {/if}
+	{if isset($bar.previous)}
+		<div style="float:left">&laquo; <a href="{$bar.previous.URL}">{$bar.previous.LABEL}</a></div>
+	{/if}
+	{if isset($bar.next)}
+		<div style="float:right"><a href="{$bar.next.URL}">{$bar.next.LABEL}</a> &raquo;</div>
+	{/if}
+	{if empty($bar.items)}
+		&nbsp;
+	{else}
+		{foreach from=$bar.items item=item}
+		<span class="calItem{if !isset($item.URL)}Empty{/if}" {if isset($item.NB_IMAGES)}title="{$pwg->l10n_dec('%d element', '%d elements', $item.NB_IMAGES)}"{/if}>
+		{if isset($item.URL)}
+		<a href="{$item.URL}">{$item.LABEL}</a>
+		{else}
+		{$item.LABEL}
+		{/if}
+		</span>
+		{/foreach}
+	{/if}
 </div>
 {/foreach}
 {/if}
@@ -21,8 +29,17 @@
 {if !empty($chronology_calendar.calendar_bars) }
 {foreach from=$chronology_calendar.calendar_bars item=bar}
 <div class="calendarCalBar">
-  <span class="calCalHead"><a href="{$bar.U_HEAD}">{$bar.HEAD_LABEL}</a>  ({$bar.NB_IMAGES})</span><br/>
-  {$bar.NAV_BAR}
+	<span class="calCalHead"><a href="{$bar.U_HEAD}">{$bar.HEAD_LABEL}</a>  ({$bar.NB_IMAGES})</span><br/>
+	{foreach from=$bar.items item=item}
+	<span class="calCal{if !isset($item.URL)}Empty{/if}">
+	{if isset($item.URL)}
+	<a href="{$item.URL}">{$item.LABEL}</a>
+	{else}
+	{$item.LABEL}
+	{/if}
+	{if isset($item.NB_IMAGES)}({$item.NB_IMAGES}){/if}
+	</span>
+	{/foreach}
 </div>
 {/foreach}
 {/if}

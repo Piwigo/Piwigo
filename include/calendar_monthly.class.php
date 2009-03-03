@@ -257,14 +257,14 @@ function build_global_calendar(&$tpl_var)
     $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
     $nav_bar = $this->get_nav_bar_from_items( $chronology_date,
-            $year_data['children'], 'calCal', false, false, $lang['month'] );
+            $year_data['children'], false, false, $lang['month'] );
 
     $tpl_var['calendar_bars'][] =
       array(
         'U_HEAD'  => $url,
         'NB_IMAGES' => $year_data['nb_images'],
         'HEAD_LABEL' => $year,
-        'NAV_BAR' => $nav_bar,
+        'items' => $nav_bar,
       );
   }
   return true;
@@ -307,14 +307,14 @@ function build_year_calendar(&$tpl_var)
     $url = duplicate_index_url( array('chronology_date'=>$chronology_date) );
 
     $nav_bar = $this->get_nav_bar_from_items( $chronology_date,
-                     $month_data['children'], 'calCal', false );
+                     $month_data['children'], false );
 
     $tpl_var['calendar_bars'][] =
       array(
         'U_HEAD'  => $url,
         'NB_IMAGES' => $month_data['nb_images'],
         'HEAD_LABEL' => $lang['month'][$month],
-        'NAV_BAR' => $nav_bar,
+        'items' => $nav_bar,
       );
   }
   return true;

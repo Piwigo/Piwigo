@@ -127,14 +127,13 @@ class CalendarBase
    *
    * @param array date_components
    * @param array items - hash of items to put in the bar (e.g. 2005,2006)
-   * @param string class_prefix - html class attribute prefix for span elements
    * @param bool show_any - adds any link to the end of the bar
    * @param bool show_empty - shows all labels even those without items
    * @param array labels - optional labels for items (e.g. Jan,Feb,...)
    * @return string the navigation bar
    */
   function get_nav_bar_from_items($date_components, $items,
-                                  $class_prefix, $show_any,
+                                  $show_any,
                                   $show_empty=false, $labels=null)
   {
     global $conf, $page, $template;
@@ -163,8 +162,7 @@ class CalendarBase
       if ($nb_images==-1)
       {
         $tmp_datas=array(
-          'classname' => $class_prefix."Empty",
-          'label'=> $label
+          'LABEL'=> $label
         );
       }
       else
@@ -174,17 +172,16 @@ class CalendarBase
           array( 'start' )
             );
         $tmp_datas=array(
-          'classname' => $class_prefix,
-          'label'=> $label,
-          'url' => $url
+          'LABEL'=> $label,
+          'URL' => $url
         );
       }
       if ($nb_images > 0)
       {
-        $tmp_datas['nb_images']=$nb_images;
+        $tmp_datas['NB_IMAGES']=$nb_images;
       }
       $nav_bar_datas[]=$tmp_datas;
-      
+
     }
 
     if ($conf['calendar_show_any'] and $show_any and count($items)>1 and
@@ -195,15 +192,12 @@ class CalendarBase
         array( 'start' )
           );
       $nav_bar_datas[]=array(
-        'label' => l10n('calendar_any'),
-        'classname' => $class_prefix,
-        'url' => $url
+        'LABEL' => l10n('calendar_any'),
+        'URL' => $url
       );
     }
 
-    $template->set_filenames( array( 'nav_bar' => 'calendar_navbar.tpl',));
-    $template->assign('datas', $nav_bar_datas);
-    return($template->parse('nav_bar', true));
+    return $nav_bar_datas;
   }
 
   /**
@@ -217,20 +211,14 @@ class CalendarBase
     global $template, $conf, $page;
 
     $query = '
-SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
-      .') as period';
-    $query.= $this->inner_sql;
-    $query.= $this->get_date_where($level);
-    $query.= '
+SELECT DISTINCT('.$this->calendar_levels[$level]['sql'].') as period,
+  COUNT(DISTINCT id) as nb_images'.
+$this->inner_sql.
+$this->get_date_where($level).'
   GROUP BY period
 ;';
 
-    $level_items = array();
-    $result = pwg_query($query);
-    while ($row = mysql_fetch_array($result))
-    {
-      $level_items[$row['period']] = 0;
-    }
+    $level_items = simple_hash_from_query($query, 'period', 'nb_images');
 
     if ( count($level_items)==1 and
          count($page['chronology_date'])<count($this->calendar_levels)-1)
@@ -257,7 +245,6 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $nav_bar = $this->get_nav_bar_from_items(
       $dates,
       $level_items,
-      'calItem',
       true,
       true,
       isset($labels) ? $labels : $this->calendar_levels[$level]['labels']
@@ -266,7 +253,7 @@ SELECT DISTINCT('.$this->calendar_levels[$level]['sql']
     $template->append(
       'chronology_navigation_bars',
       array(
-        'CONTENT' => $nav_bar,
+        'items' => $nav_bar,
         )
       );
   }
@@ -312,7 +299,7 @@ GROUP BY period';
     $current_rank = $upper_items_rank[$current];
 
     $tpl_var = array();
-    
+
     if ( $current_rank>0 )
     { // has previous
       $prev = $upper_items[$current_rank-1];
@@ -325,7 +312,7 @@ GROUP BY period';
                 )
         );
     }
-    
+
     if ( $current_rank < count($upper_items)-1 )
     { // has next
       $next = $upper_items[$current_rank+1];
@@ -338,7 +325,7 @@ GROUP BY period';
                 )
         );
     }
-    
+
     if ( !empty($tpl_var) )
     {
       $existing = & $template->get_template_vars('chronology_navigation_bars');
