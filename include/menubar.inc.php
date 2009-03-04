@@ -101,7 +101,7 @@ function initialize_menu()
   {
     $block->data = array(
       'NB_PICTURE' => $user['nb_total_images'],
-      'MENU_CATEGORIES_CONTENT' => get_categories_menu(),
+      'MENU_CATEGORIES' => get_categories_menu(),
       'U_CATEGORIES' => make_index_url(array('section' => 'categories')),
       'U_UPLOAD' => get_upload_menu_link()
     );

@@ -8,7 +8,24 @@
 	<a href="{$block->data.U_CATEGORIES}">{'Categories'|@translate}</a>
 </dt>
 <dd>
-	{$block->data.MENU_CATEGORIES_CONTENT}
+{assign var='ref_level' value=0}
+{foreach from=$block->data.MENU_CATEGORIES item=cat}
+  {if $cat.LEVEL > $ref_level}
+  <ul>
+  {else}
+    </li>
+    {'</ul></li>'|@str_repeat:$ref_level-$cat.LEVEL}
+  {/if}
+    <li {if $cat.SELECTED}class="selected"{/if}>
+      <a href="{$cat.URL}" {if $cat.IS_UPPERCAT}rel="up"{/if} title="{$cat.TITLE}">{$cat.NAME}</a>
+      {if $cat.count_images > 0}
+      <span class="{if $cat.nb_images > 0}menuInfoCat{else}menuInfoCatByChild{/if}" title="{$cat.TITLE}">[{$cat.count_images}]</span>
+      {/if}
+      {$cat.ICON_TS}
+  {assign var='ref_level' value=$cat.LEVEL}
+{/foreach}
+{'</li></ul>'|@str_repeat:$ref_level}
+
 	{if isset($block->data.U_UPLOAD)}
 	<ul>
 		<li>

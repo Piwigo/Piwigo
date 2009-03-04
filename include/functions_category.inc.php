@@ -100,8 +100,31 @@ WHERE '.$where.'
 
   $result = pwg_query($query);
   $cats = array();
+  $selected_category = isset($page['category']) ? $page['category'] : null;
   while ($row = mysql_fetch_assoc($result))
   {
+    $child_date_last = @$row['max_date_last']> @$row['date_last'];
+    $row = array_merge($row,
+      array(
+        'NAME' => trigger_event(
+          'render_category_name',
+          $row['name'],
+          'get_categories_menu'
+        ),
+        'TITLE' => get_display_images_count(
+          $row['nb_images'],
+          $row['count_images'],
+          $row['count_categories'],
+          false,
+          ' / '
+        ),
+        'URL' => make_index_url(array('category' => $row)),
+        'LEVEL' => substr_count($row['global_rank'], '.') + 1,
+        'ICON_TS' => get_icon($row['max_date_last'], $child_date_last),
+        'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
+        'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
+      )
+    );
     array_push($cats, $row);
     if ($row['id']==@$page['category']['id']) //save the number of subcats for later optim
       $page['category']['count_categories'] = $row['count_categories'];
@@ -114,7 +137,7 @@ WHERE '.$where.'
     update_cats_with_filtered_data($cats);
   }
 
-  return get_html_menu_category($cats, @$page['category'] );
+  return $cats;
 }
 
 
