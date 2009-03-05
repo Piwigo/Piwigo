@@ -24,9 +24,7 @@
 
 </fieldset>
 
-{if !empty($NAV_BAR) }
-<div class="navigationBar">{$NAV_BAR}</div>
-{/if}
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
 
 {if !empty($elements) }
 <input type="hidden" name="element_ids" value="{$ELEMENT_IDS}" />

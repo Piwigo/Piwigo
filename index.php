@@ -64,6 +64,7 @@ if (isset($page['category']))
   check_restrictions($page['category']['id']);
 }
 
+$page['navigation_bar'] = array();
 if (count($page['items']) > $user['nb_image_page'])
 {
   $page['navigation_bar'] = create_navigation_bar(
@@ -73,10 +74,6 @@ if (count($page['items']) > $user['nb_image_page'])
     $page['nb_image_page'],
     true
     );
-}
-else
-{
-  $page['navigation_bar'] = '';
 }
 
 // caddie filling :-)
@@ -219,7 +216,7 @@ if ( $page['section']=='search' and $page['start']==0 and
 }
 
 // navigation bar
-$template->assign( 'NAV_BAR', $page['navigation_bar'] );
+$template->assign( 'navbar', $page['navigation_bar'] );
 
 if ( count($page['items']) > 0
     and $page['section'] != 'most_visited'

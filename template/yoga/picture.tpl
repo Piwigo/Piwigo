@@ -255,9 +255,7 @@ y.callService(
   {if $COMMENT_COUNT > 0}
 		<h3>{$pwg->l10n_dec('%d comment', '%d comments',$COMMENT_COUNT)}</h3>
   {/if}
-	{if !empty($COMMENT_NAV_BAR)}
-	<div class="navigationBar">{$COMMENT_NAV_BAR}</div>
-	{/if}
+  {if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
 
 	{if isset($comments)}
 		{include file='comment_list.tpl' comment_separator=true}

@@ -569,7 +569,7 @@ if (isset($page['search_id']))
     $conf['nb_logs_page']
     );
 
-  $template->assign('NAV_BAR', $navbar);
+  $template->assign('navbar', $navbar);
 }
 
 // +-----------------------------------------------------------------------+

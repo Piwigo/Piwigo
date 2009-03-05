@@ -265,7 +265,7 @@ $navbar = create_navigation_bar($url,
                                 $page['items_number'],
                                 '');
 
-$template->assign('NAVBAR', $navbar);
+$template->assign('navbar', $navbar);
 
 // +-----------------------------------------------------------------------+
 // |                        last comments display                          |

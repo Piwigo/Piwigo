@@ -65,7 +65,7 @@
 
 </form>
 
-<div class="navigationBar">{$NAVBAR}</div>
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
 
 {if isset($comments)}
 <div id="comments">

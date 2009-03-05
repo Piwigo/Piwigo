@@ -467,7 +467,7 @@ if (count($page['cat_elements_id']) > 0)
     $page['start'],
     $page['nb_images']
     );
-  $template->assign('NAV_BAR', $nav_bar);
+  $template->assign('navbar', $nav_bar);
 
   $query = '
 SELECT id,path,tn_ext,file,filesize,level

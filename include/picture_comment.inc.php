@@ -112,7 +112,7 @@ SELECT COUNT(*) AS nb_comments
   $template->assign(
     array(
       'COMMENT_COUNT' => $row['nb_comments'],
-      'COMMENT_NAV_BAR' => $navigation_bar,
+      'navbar' => $navigation_bar,
       )
     );
 

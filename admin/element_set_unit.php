@@ -184,7 +184,7 @@ if (count($page['cat_elements_id']) > 0)
     $page['start'],
     $page['nb_images']
     );
-  $template->assign(array('NAV_BAR' => $nav_bar));
+  $template->assign(array('navbar' => $nav_bar));
 
   // tags
   $all_tags = get_all_tags();

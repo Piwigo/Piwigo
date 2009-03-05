@@ -115,7 +115,7 @@ $template->set_filename('rating', 'rating.tpl');
 
 $template->assign(
   array(
-    'NAVBAR' => create_navigation_bar(
+    'navbar' => create_navigation_bar(
       PHPWG_ROOT_PATH.'admin.php'.get_query_string_diff(array('start','del')),
       $nb_images,
       $start,

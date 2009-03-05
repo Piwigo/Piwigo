@@ -102,13 +102,7 @@
 </fieldset>
 {/if}
 
-
-{if !empty($NAV_BAR)}
-<div class="navigationBar">
-  {$NAV_BAR}
-</div>
-{/if}
-
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
 
 <table class="table2" id="detailedStats">
 <tr class="throw">
@@ -139,9 +133,4 @@
 {/if}
 </table>
 
-
-{if !empty($NAV_BAR)}
-<div class="navigationBar">
-  {$NAV_BAR}
-</div>
-{/if}
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}

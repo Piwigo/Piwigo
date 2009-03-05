@@ -32,7 +32,8 @@
   </fieldset>
 </form>
 
-<div class="navigationBar">{$NAVBAR}</div>
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
+
 <table width="99%">
 <tr class="throw">
   <td>{'File'|@translate}</td>
@@ -64,4 +65,4 @@
 {/foreach} {*images*}
 </table>
 
-<div class="navigationBar">{$NAVBAR}</div>
+{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
