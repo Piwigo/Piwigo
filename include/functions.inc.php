@@ -1501,6 +1501,7 @@ function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $cle
 {
   global $conf;
 
+  $navbar = array();
   $pages_around = $conf['paginate_pages_around'];
   $start_str = $clean_url ? '/start-' : (strpos($url, '?')===false ? '?':'&amp;').'start=';
 
@@ -1509,54 +1510,39 @@ function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $cle
     $start = 0;
   }
 
-  $navbar = array();
-
   // navigation bar useful only if more than one page to display !
   if ($nb_element > $nb_element_page)
   {
-    // current page and last page
     $cur_page = ceil($start / $nb_element_page) + 1;
     $maximum = ceil($nb_element / $nb_element_page);
+    $previous = $start - $nb_element_page;
+    $next = $start + $nb_element_page;
+    $last = ($maximum - 1) * $nb_element_page;
 
     $navbar['CURRENT_PAGE'] = $cur_page;
 
-    // link to first page ?
+    // link to first page and previous page?
     if ($cur_page != 1)
     {
       $navbar['URL_FIRST'] = $url;
-    }
-    // link on previous page ?
-    if ($start != 0)
-    {
-      $previous = $start - $nb_element_page;
       $navbar['URL_PREV'] = $url.($previous > 0 ? $start_str.$previous : '');
     }
-    // link on next page ?
-    if ($nb_element > $nb_element_page and $start + $nb_element_page < $nb_element)
-    {
-      $next = $start + $nb_element_page;
-      $navbar['URL_NEXT'] = $url.$start_str.$next;
-    }
-    // link to last page ?
+    // link on next page and last page?
     if ($cur_page != $maximum)
     {
-      $temp_start = ($maximum - 1) * $nb_element_page;
-      $navbar['URL_LAST'] = $url.$start_str.$temp_start;
+      $navbar['URL_NEXT'] = $url.$start_str.$next;
+      $navbar['URL_LAST'] = $url.$start_str.$last;
     }
 
     // pages to display
     $navbar['pages'] = array();
-
     $navbar['pages'][1] = $url;
-    $navbar['pages'][$maximum] = $url.$start_str. ($maximum - 1) * $nb_element_page;
+    $navbar['pages'][$maximum] = $url.$start_str.$last;
 
-    for ($i = $cur_page - $pages_around, $stop = $cur_page + $pages_around + 1; $i < $stop; $i++)
+    for ($i = max($cur_page - $pages_around , 2), $stop = min($cur_page + $pages_around + 1, $maximum);
+         $i < $stop; $i++)
     {
-      if ($i < 2 or $i > $maximum - 1)
-      {
-        continue;
-      }
-      $navbar['pages'][$i] = $url.$start_str. ($i - 1) * $nb_element_page;
+      $navbar['pages'][$i] = $url.$start_str.(($i - 1) * $nb_element_page);
     }
     ksort($navbar['pages']);
   }
