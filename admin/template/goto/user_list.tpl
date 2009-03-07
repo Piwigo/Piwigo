@@ -91,7 +91,7 @@
   {/foreach}
 </table>
 
-{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {* delete the selected users ? *}
 <fieldset>

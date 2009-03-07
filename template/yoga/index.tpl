@@ -103,7 +103,7 @@
 {if !empty($CATEGORIES) }{$CATEGORIES}{/if}
 {if !empty($THUMBNAILS) }{$THUMBNAILS}{/if}
 
-{if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
+{if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {if !empty($CONTENT_DESCRIPTION) }
 <div class="additional_info">

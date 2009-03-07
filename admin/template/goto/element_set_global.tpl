@@ -37,7 +37,7 @@
 
     <legend>{'Elements'|@translate}</legend>
 
-    {if !empty($navbar) }{include file='navigation_bar.tpl'}{/if}
+    {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
   {if !empty($thumbnails)}
     <ul class="thumbnails">
