@@ -46,7 +46,7 @@ if (isset($_POST['submit']))
   }
 
   $errors =
-      register_user($_POST['login'],
+      register_user(htmlspecialchars($_POST['login'],ENT_COMPAT,'utf-8'),
                     $_POST['password'],
                     $_POST['mail_address'],
                     true,
