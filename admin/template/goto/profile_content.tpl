@@ -3,7 +3,7 @@
 
   <fieldset>
     <legend>{'Registration'|@translate}</legend>
-    <input type="hidden" name="redirect" value="{$REDIRECT}" />
+    <input type="hidden" name="redirect" value="{$REDIRECT}">
     <ul>
       <li>
         <span class="property">{'Username'|@translate}</span>

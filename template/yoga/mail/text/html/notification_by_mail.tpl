@@ -40,11 +40,11 @@
 <p>{'nbm_content_byebye'|@translate}</p>
 <p style="text-align:center">{$SEND_AS_NAME}</p>
 <p>
-<br/><hr/>
-{'nbm_content_unsubscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br/>
-{'nbm_content_subscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br/>
-{'nbm_content_problem_contact'|@translate}<a href="mailto:{$CONTACT_EMAIL}?subject={'nbm_content_pb_contact_object'|@translate}">{$CONTACT_EMAIL}</a><br/>
-<hr/><br/>
+<br><hr>
+{'nbm_content_unsubscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$UNSUBSCRIBE_LINK}">{$UNSUBSCRIBE_LINK}</a><br>
+{'nbm_content_subscribe_link'|@translate}{'nbm_content_click_on'|@translate}<a href="{$SUBSCRIBE_LINK}">{$SUBSCRIBE_LINK}</a><br>
+{'nbm_content_problem_contact'|@translate}<a href="mailto:{$CONTACT_EMAIL}?subject={'nbm_content_pb_contact_object'|@translate}">{$CONTACT_EMAIL}</a><br>
+<hr><br>
 </p>
 {if not empty($recent_posts)}
 </div>

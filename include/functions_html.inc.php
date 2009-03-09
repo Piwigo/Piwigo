@@ -61,7 +61,7 @@ function get_icon($date, $is_child_date = false)
         $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
         $icon_url = get_root_url().$icon_url;
         $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
-        $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)" />';
+        $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)">';
         $cache['get_icon']['_icons_'][$key] = $output;
       }
     }
@@ -307,7 +307,7 @@ function get_html_tag_selection(
     }
 
     $output.=
-      ' />'
+      '>'
       .' '. $tag['name']
       .'</label>'
       .'</li>'
@@ -344,7 +344,7 @@ function access_denied()
   if ( isset($user) and !is_a_guest() )
   {
     echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">';
-    echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br />';
+    echo '<div style="text-align:center;">'.l10n('access_forbiden').'<br>';
     echo '<a href="'.get_root_url().'identification.php">'.l10n('identification').'</a>&nbsp;';
     echo '<a href="'.make_index_url().'">'.l10n('home').'</a></div>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
@@ -368,7 +368,7 @@ function page_forbidden($msg, $alternate_url=null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">Forbidden</h1><br/>'
+<h1 style="text-align:left; font-size:36px;">Forbidden</h1><br>'
 .$msg.'</div>',
     5 );
 }
@@ -385,7 +385,7 @@ function bad_request($msg, $alternate_url=null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">Bad request</h1><br/>'
+<h1 style="text-align:left; font-size:36px;">Bad request</h1><br>'
 .$msg.'</div>',
     5 );
 }
@@ -402,7 +402,7 @@ function page_not_found($msg, $alternate_url=null)
     $alternate_url = make_index_url();
   redirect_html( $alternate_url,
     '<div style="text-align:left; margin-left:5em;margin-bottom:5em;">
-<h1 style="text-align:left; font-size:36px;">Page not found</h1><br/>'
+<h1 style="text-align:left; font-size:36px;">Page not found</h1><br>'
 .$msg.'</div>',
     5 );
 }
@@ -486,7 +486,7 @@ function get_tags_content_title()
         .l10n('remove this tag')
         .'"><img src="'
         .get_root_url().get_themeconf('icon_dir').'/remove_s.png'
-        .'" alt="x" style="vertical-align:bottom;" class="button"/>'
+        .'" alt="x" style="vertical-align:bottom;" class="button">'
         .'</a>';
     }
 

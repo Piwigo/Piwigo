@@ -87,27 +87,27 @@ TD {
     </tr>
     <tr>
       <td style="width: 30%;">{'step1_host'|@translate}</td>
-      <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}" /></td>
+      <td align=center><input type="text" name="dbhost" value="{$F_DB_HOST}"></td>
       <td>{'step1_host_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step1_user'|@translate}</td>
-      <td align=center><input type="text" name="dbuser" value="{$F_DB_USER}" /></td>
+      <td align=center><input type="text" name="dbuser" value="{$F_DB_USER}"></td>
       <td>{'step1_user_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step1_pass'|@translate}</td>
-      <td align=center><input type="password" name="dbpasswd" value="" /></td>
+      <td align=center><input type="password" name="dbpasswd" value=""></td>
       <td>{'step1_pass_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step1_database'|@translate}</td>
-      <td align=center><input type="text" name="dbname" value="{$F_DB_NAME}" /></td>
+      <td align=center><input type="text" name="dbname" value="{$F_DB_NAME}"></td>
       <td>{'step1_database_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step1_prefix'|@translate}</td>
-      <td align=center><input type="text" name="prefix" value="{$F_DB_PREFIX}" /></td>
+      <td align=center><input type="text" name="prefix" value="{$F_DB_PREFIX}"></td>
       <td>{'step1_prefix_info'|@translate}</td>
     </tr>
   </table>
@@ -118,22 +118,22 @@ TD {
     </tr>
     <tr>
       <td style="width: 30%;">{'install_webmaster'|@translate}</td>
-      <td align="center"><input type="text" name="admin_name" value="{$F_ADMIN}" /></td>
+      <td align="center"><input type="text" name="admin_name" value="{$F_ADMIN}"></td>
       <td>{'install_webmaster_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step2_pwd'|@translate}</td>
-      <td align="center"><input type="password" name="admin_pass1" value="" /></td>
+      <td align="center"><input type="password" name="admin_pass1" value=""></td>
       <td>{'step2_pwd_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'step2_pwd_conf'|@translate}</td>
-      <td align="center"><input type="password" name="admin_pass2" value="" /></td>
+      <td align="center"><input type="password" name="admin_pass2" value=""></td>
       <td>{'step2_pwd_conf_info'|@translate}</td>
     </tr>
     <tr>
       <td>{'conf_mail_webmaster'|@translate}</td>
-      <td align="center"><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}" /></td>
+      <td align="center"><input type="text" name="admin_mail" value="{$F_ADMIN_EMAIL}"></td>
       <td>{'conf_mail_webmaster_info'|@translate}</td>
     </tr>
   </table>
@@ -141,16 +141,16 @@ TD {
   <table>
     <tr>
       <td style="text-align: center;">
-        <input class="submit" type="submit" name="install" value="{'Start_Install'|@translate}" />
+        <input class="submit" type="submit" name="install" value="{'Start_Install'|@translate}">
       </td>
     </tr>
   </table>
 </form>
 {else}
 <p>
-  <br />
-  <input type="button" name="index" value="{'home'|@translate}" onClick="document.location = 'index.php';"/>
-  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="document.location = 'identification.php';"/>
+  <br>
+  <input type="button" name="index" value="{'home'|@translate}" onClick="document.location = 'index.php';">
+  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="document.location = 'identification.php';">
 </p>
 {/if}
 </div> {* content *}

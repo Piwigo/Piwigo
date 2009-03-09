@@ -22,7 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 $filename = 'sample.jpg';
-echo 'Informations are read from '.$filename.'<br /><br /><br />';
+echo 'Informations are read from '.$filename.'<br><br><br>';
 
 /**
  * return a cleaned IPTC value
@@ -75,12 +75,12 @@ if (isset($imginfo['APP13']))
     }
   }
 
-  echo 'IPTC Fields in '.$filename.'<br />';
+  echo 'IPTC Fields in '.$filename.'<br>';
   $keys = array_keys($iptc_result);
   sort($keys);
   foreach ($keys as $key)
   {
-    echo '<br />'.$key.' = '.$iptc_result[$key];
+    echo '<br>'.$key.' = '.$iptc_result[$key];
   }
 }
 else
@@ -88,8 +88,8 @@ else
   echo 'no IPTC information';
 }
 
-echo '<br /><br /><br />';
-echo 'EXIF Fields in '.$filename.'<br />';
+echo '<br><br><br>';
+echo 'EXIF Fields in '.$filename.'<br>';
 $exif = read_exif_data($filename);
 echo '<pre>';
 print_r($exif);

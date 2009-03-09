@@ -180,7 +180,7 @@ foreach($dates as $date_detail)
       );
 
   $item->description .=
-    '<a href="'.make_index_url().'">'.$conf['gallery_title'].'</a><br/> ';
+    '<a href="'.make_index_url().'">'.$conf['gallery_title'].'</a><br> ';
 
   $item->description .= get_html_description_recent_post_date($date_detail);
 

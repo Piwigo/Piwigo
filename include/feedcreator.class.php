@@ -689,7 +689,7 @@ class FeedCreator extends HtmlDescribable {
 				$this->_redirect($filename);
 			}
 		} else {
-			echo "<br /><b>Error creating feed file, please check write permissions.</b><br />";
+			echo "<br><b>Error creating feed file, please check write permissions.</b><br>";
 		}
 	}
 

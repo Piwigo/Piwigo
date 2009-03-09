@@ -16,7 +16,7 @@
               <tr class="{if $smarty.foreach.c13y_loop.index is odd}row1{else}row2{/if}">
                 <td>
                   {if $c13y.can_select}
-                    <input type="checkbox" name="c13y_selection[]" value="{$c13y.id}" id="c13y_selection-{$c13y.id}" /><label for="c13y_selection-{$c13y.id}"></label>
+                    <input type="checkbox" name="c13y_selection[]" value="{$c13y.id}" id="c13y_selection-{$c13y.id}"><label for="c13y_selection-{$c13y.id}"></label>
                   {/if}
                 </td>
                 <td><label for="c13y_selection-{$c13y.id}">{$c13y.anomaly}</label></td>
@@ -24,7 +24,7 @@
                   <label for="c13y_selection-{$c13y.id}">
                     {if $c13y.show_ignore_msg}
                       {'c13y_ignore_msg1'|@translate}
-                      <br />
+                      <br>
                       {'c13y_ignore_msg2'|@translate}
                     {/if}
                     {if $c13y.show_correction_fct}
@@ -38,12 +38,12 @@
                     {/if}
                     {if !empty($c13y.correction_error_fct)}
                       {'c13y_Correction_applied_error'|@translate}
-                      <br />
+                      <br>
                       {$c13y.c13y.correction_error_fct}
                     {/if}
                     {if !empty($c13y.correction_msg)}
                       {if $c13y.show_correction_success_fct or !empty($c13y.correction_error_fct) or $c13y.show_correction_fct or $c13y.show_correction_bad_fct }
-                        <br />
+                        <br>
                       {/if}
                       {$c13y.correction_msg|@nl2br}
                     {/if}
@@ -70,12 +70,12 @@
 
         <p>
           {if $c13y_show_submit_automatic_correction}
-            <input class="submit" type="submit" value="{'c13y_submit_correction'|@translate}" name="c13y_submit_correction" {$TAG_INPUT_ENABLED} />
+            <input class="submit" type="submit" value="{'c13y_submit_correction'|@translate}" name="c13y_submit_correction" {$TAG_INPUT_ENABLED}>
           {/if}
           {if $c13y_show_submit_ignore}
-            <input class="submit" type="submit" value="{'c13y_submit_ignore'|@translate}" name="c13y_submit_ignore" {$TAG_INPUT_ENABLED} />
+            <input class="submit" type="submit" value="{'c13y_submit_ignore'|@translate}" name="c13y_submit_ignore" {$TAG_INPUT_ENABLED}>
           {/if}
-          <input class="submit" type="submit" value="{'c13y_submit_refresh'|@translate}" name="c13y_submit_refresh" />
+          <input class="submit" type="submit" value="{'c13y_submit_refresh'|@translate}" name="c13y_submit_refresh">
           </p>
 
       </fieldset>

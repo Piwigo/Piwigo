@@ -13,15 +13,15 @@
   </label>
 
   <label>{'Permalink'|@translate}:
-    <input name="permalink" />
+    <input name="permalink">
   </label>
 
   <label>{'Save to permalink history'|@translate}:
-    <input type="checkbox" name="save" checked="checked" />
+    <input type="checkbox" name="save" checked="checked">
   </label>
 
   <p>
-    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/>
+    <input type="submit" class="submit" name="set_permalink" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
   </fieldset>
 </form>

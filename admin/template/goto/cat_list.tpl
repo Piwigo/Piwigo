@@ -28,11 +28,11 @@
 
 <form id="addVirtual" action="{$F_ACTION}" method="post">
   <p>
-    {'cat_add'|@translate} : <input type="text" name="virtual_name" />
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED} />
+    {'cat_add'|@translate} : <input type="text" name="virtual_name">
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
     {if count($categories)>9 }
     <a href="#EoP" class="button" style="border:0;">
-		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" class="button" alt="page_end" style="margin-bottom:-0.6em;"/></a>
+		<img src="{$themeconf.admin_icon_dir}/page_end.png" title="{'Page end'|@translate}" class="button" alt="page_end" style="margin-bottom:-0.6em;"></a>
     {/if}
   </p>
 </form>
@@ -40,8 +40,8 @@
 {if count($categories) }
 <form id="categoryOrdering" action="{$F_ACTION}" method="post">
   <p>
-    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED} />
-    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
   <ul class="categoryUl">
 
@@ -50,33 +50,33 @@
       <!-- category {$category.ID} -->
       <ul class="categoryActions">
         {if cat_admin_access($category.ID)}
-        <li><a href="{$category.U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
+        <li><a href="{$category.U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_EDIT}" title="{'edit category informations'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"/></a></li>
+        <li><a href="{$category.U_EDIT}" title="{'edit category informations'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_edit.png" class="button" alt="{'edit'|@translate}"></a></li>
         {if isset($category.U_MANAGE_ELEMENTS) }
-        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
+        <li><a href="{$category.U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
         {/if}
-        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
+        <li><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
         {if isset($category.U_MANAGE_PERMISSIONS) }
-        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
+        <li><a href="{$category.U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}"></a></li>
         {/if}
         {if isset($category.U_DELETE) }
-        <li><a href="{$category.U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
+        <li><a href="{$category.U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:javascript}');"><img src="{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
         {/if}
       </ul>
 
       <p>
-      <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}"/>
+      <img src="{$themeconf.admin_icon_dir}/cat_move.png" class="button drag_button" style="display:none;" alt="{'Drag to re-order'|@translate}" title="{'Drag to re-order'|@translate}">
       <strong><a href="{$category.U_CHILDREN}" title="{'manage sub-categories'|@translate}">{$category.NAME}</a></strong>
       {if $category.IS_VIRTUAL}
-      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'virtual_category'|@translate}" />
+      <img src="{$themeconf.admin_icon_dir}/virt_category.png" class="button" alt="{'virtual_category'|@translate}">
       {/if}
       </p>
 
       <p class="catPos">
         <label>
           {'Position'|@translate} :
-          <input type="text" size="4" name="catOrd[{$category.ID}]" maxlength="4" value="{$category.RANK}" />
+          <input type="text" size="4" name="catOrd[{$category.ID}]" maxlength="4" value="{$category.RANK}">
         </label>
       </p>
 
@@ -84,8 +84,8 @@
     {/foreach}
   </ul>
   <p>
-    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED} />
-    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED} />
+    <input class="submit" name="submitOrder" type="submit" value="{'Save order'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" name="submitOrderAlphaNum" type="submit" value="{'Order alphanumerically'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
 
 </form>

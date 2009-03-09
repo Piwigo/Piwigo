@@ -33,8 +33,8 @@
         <a href="mailto:{$picture.UPLOAD_EMAIL}">{$picture.UPLOAD_USERNAME}</a>
       </td>
       <td style="white-space:nowrap;">
-        <label><input type="radio" name="action-{$picture.ID_IMG}" value="validate" /> {'Validate'|@translate}</label>
-        <label><input type="radio" name="action-{$picture.ID_IMG}" value="reject" /> {'Reject'|@translate}</label>
+        <label><input type="radio" name="action-{$picture.ID_IMG}" value="validate"> {'Validate'|@translate}</label>
+        <label><input type="radio" name="action-{$picture.ID_IMG}" value="reject"> {'Reject'|@translate}</label>
       </td>
     </tr>
     {/foreach}
@@ -42,11 +42,11 @@
   </table>
 
   <p class="bottomButtons">
-    <input type="hidden" name="list" value="{$LIST}" />
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="submit" name="validate-all" value="{'Validate All'|@translate}" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="submit" name="reject-all" value="{'Reject All'|@translate}" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{'Reset'|@translate}" />
+    <input type="hidden" name="list" value="{$LIST}">
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="validate-all" value="{'Validate All'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="submit" name="reject-all" value="{'Reject All'|@translate}" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" value="{'Reset'|@translate}">
   </p>
 
 </form>

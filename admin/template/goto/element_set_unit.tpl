@@ -27,30 +27,30 @@
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {if !empty($elements) }
-<input type="hidden" name="element_ids" value="{$ELEMENT_IDS}" />
+<input type="hidden" name="element_ids" value="{$ELEMENT_IDS}">
 {foreach from=$elements item=element}
 <fieldset class="elementEdit">
   <legend>{$element.LEGEND}</legend>
 
-  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit all picture informations'|@translate}" /></a>
+  <a href="{$element.U_EDIT}"><img src="{$element.TN_SRC}" alt="" title="{'Edit all picture informations'|@translate}"></a>
 
   <table>
 
     <tr>
       <td><strong>{'Name'|@translate}</strong></td>
-      <td><input type="text" class="large" name="name-{$element.ID}" value="{$element.NAME}" /></td>
+      <td><input type="text" class="large" name="name-{$element.ID}" value="{$element.NAME}"></td>
     </tr>
 
     <tr>
       <td><strong>{'Author'|@translate}</strong></td>
-      <td><input type="text" class="large" name="author-{$element.ID}" value="{$element.AUTHOR}" /></td>
+      <td><input type="text" class="large" name="author-{$element.ID}" value="{$element.AUTHOR}"></td>
     </tr>
 
     <tr>
       <td><strong>{'Creation date'|@translate}</strong></td>
       <td>
-        <label><input type="radio" name="date_creation_action-{$element.ID}" value="unset" /> {'unset'|@translate}</label>
-        <label><input type="radio" name="date_creation_action-{$element.ID}" value="set" id="date_creation_action_set-{$element.ID}" /> {'set to'|@translate}</label>
+        <label><input type="radio" name="date_creation_action-{$element.ID}" value="unset"> {'unset'|@translate}</label>
+        <label><input type="radio" name="date_creation_action-{$element.ID}" value="set" id="date_creation_action_set-{$element.ID}"> {'set to'|@translate}</label>
 
         <select id="date_creation_day-{$element.ID}" name="date_creation_day-{$element.ID}">
          	<option value="0">--</option>
@@ -66,8 +66,8 @@
                type="text"
                size="4"
                maxlength="4"
-               value="{$element.DATE_CREATION_YEAR}" />
-        <input id="date_creation_linked_date-{$element.ID}" name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled"/>
+               value="{$element.DATE_CREATION_YEAR}">
+        <input id="date_creation_linked_date-{$element.ID}" name="date_creation_linked_date-{$element.ID}" type="hidden" size="10" disabled="disabled">
         <script type="text/javascript">
           pwg_initialization_datepicker("#date_creation_day-{$element.ID}", "#date_creation_month-{$element.ID}", "#date_creation_year-{$element.ID}", "#date_creation_linked_date-{$element.ID}", "#date_creation_action_set-{$element.ID}");
         </script>
@@ -90,8 +90,8 @@
 {/foreach}
 
 <p>
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
-  <input class="submit" type="reset" value="{'Reset'|@translate}" />
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="reset" value="{'Reset'|@translate}">
 </p>
 {/if}
 

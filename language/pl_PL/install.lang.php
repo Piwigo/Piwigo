@@ -58,8 +58,8 @@ $lang['step2_pwd_info'] = 'Zachowaj hasło, umożliwia ono dostep do panelu admi
 $lang['step2_pwd_conf'] = 'Hasło [potwierdź]';
 $lang['step2_pwd_conf_info'] = 'weryfikacja';
 $lang['install_help'] = 'Potrzebujesz pomocy ? Zadaj pytanie na <a href="%s">Forum Piwigo</a>.';
-$lang['install_end_message'] = 'Konfiguracja Piwigo została zakończona, następny krok to<br /><br />
-* przejdź do strony logowania : [ <a href="identification.php">logowanie</a> ] i wprowadź użytkownika/hasło będącego webmaster\'em<br />
+$lang['install_end_message'] = 'Konfiguracja Piwigo została zakończona, następny krok to<br><br>
+* przejdź do strony logowania : [ <a href="identification.php">logowanie</a> ] i wprowadź użytkownika/hasło będącego webmaster\'em<br>
 * logowanie to umożliwi Ci dostęp do panelu administracyjnego oraz instrukcji jak umieszczaćzdjęcia w katalogach';
 $lang['conf_mail_webmaster'] = 'Adres email Webmaster\'a';
 $lang['conf_mail_webmaster_info'] = 'Z jego pomocą odwiedzający będą mogli się skontaktować z administratorem strony';

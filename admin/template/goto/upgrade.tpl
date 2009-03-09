@@ -68,17 +68,17 @@ textarea { margin-left: 20px; }
 <table>
   <tr>
     <td>{'Username'|@translate}</td>
-    <td><input type="text" name="username" id="username" size="25" maxlength="40" style="width: 150px;" /></td>
+    <td><input type="text" name="username" id="username" size="25" maxlength="40" style="width: 150px;"></td>
   </tr>
   <tr>
     <td>{'Password'|@translate}</td>
-    <td><input type="password" name="password" id="password" size="25" maxlength="25" style="width: 150px;" /></td>
+    <td><input type="password" name="password" id="password" size="25" maxlength="25" style="width: 150px;"></td>
   </tr>
 </table>
 {/if}
 
 <p style="text-align: center;">
-<input class="submit" type="submit" name="submit" value="{'Upgrade from %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}"/>
+<input class="submit" type="submit" name="submit" value="{'Upgrade from %s to %s'|@translate|@sprintf:$introduction.CURRENT_RELEASE:$RELEASE}">
 </p>
 </form>
 <!--
@@ -107,7 +107,7 @@ textarea { margin-left: 20px; }
 </ul>
 
 <form action="index.php" method="post">
-<p><input type="submit" name="submit" value="{'home'|@translate}"/></p>
+<p><input type="submit" name="submit" value="{'home'|@translate}"></p>
 </form>
 {/if}
 

@@ -23,7 +23,7 @@
   <div class="titrePage">
     <ul class="categoryActions">
       <li><a href="{$U_HELP}" onclick="popuphelp(this.href); return false;" title="{'Help'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/help.png" class="button" alt="(?)"></a></li>
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}" rel="home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}" rel="home"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
     </ul>
     <h2>{'Search'|@translate}</h2>
   </div>
@@ -42,18 +42,18 @@
 <fieldset>
   <legend>{'Filter'|@translate}</legend>
   <label>{'search_keywords'|@translate}
-    <input type="text" style="width: 300px" name="search_allwords" size="30"  />
+    <input type="text" style="width: 300px" name="search_allwords" size="30">
   </label>
   <ul>
     <li><label>
-      <input type="radio" name="mode" value="AND" checked="checked" />{'search_mode_and'|@translate}
+      <input type="radio" name="mode" value="AND" checked="checked">{'search_mode_and'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="mode" value="OR" />{'search_mode_or'|@translate}
+      <input type="radio" name="mode" value="OR">{'search_mode_or'|@translate}
     </label></li>
   </ul>
   <label>{'search_author'|@translate}
-    <input type="text" style="width: 300px" name="search_author" size="30"  />
+    <input type="text" style="width: 300px" name="search_author" size="30">
   </label>
 </fieldset>
 
@@ -61,8 +61,8 @@
 <fieldset>
   <legend>{'Search tags'|@translate}</legend>
   {$TAG_SELECTION}
-  <label><span><input type="radio" name="tag_mode" value="AND" checked="checked" /> {'All tags'|@translate}</span></label>
-  <label><span><input type="radio" name="tag_mode" value="OR" /> {'Any tag'|@translate}</span></label>
+  <label><span><input type="radio" name="tag_mode" value="AND" checked="checked"> {'All tags'|@translate}</span></label>
+  <label><span><input type="radio" name="tag_mode" value="OR"> {'Any tag'|@translate}</span></label>
 </fieldset>
 {/if}
 
@@ -71,10 +71,10 @@
   <ul>
     <li><label>{'search_date_type'|@translate}</label></li>
     <li><label>
-      <input type="radio" name="date_type" value="date_creation" checked="checked" />{'Creation date'|@translate}
+      <input type="radio" name="date_type" value="date_creation" checked="checked">{'Creation date'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="date_type" value="date_available" />{'Post date'|@translate}
+      <input type="radio" name="date_type" value="date_available">{'Post date'|@translate}
     </label></li>
   </ul>
   <ul>
@@ -90,7 +90,7 @@
         {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
       <input id="start_year" name="start_year" type="text" size="4" maxlength="4" >
-      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled">
     </li>
     <li>
       <a class="date_today" href="#" onClick="document.search.start_day.value={$smarty.now|date_format:"%d"};document.search.start_month.value={$smarty.now|date_format:"%m"};document.search.start_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
@@ -109,7 +109,7 @@
         {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
       <input id="end_year" name="end_year" type="text" size="4" maxlength="4" >
-      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled">
     </li>
     <li>
       <a class="date_today" href="#" onClick="document.search.end_day.value={$smarty.now|date_format:"%d"};document.search.end_month.value={$smarty.now|date_format:"%m"};document.search.end_year.value={$smarty.now|date_format:"%Y"};return false;">{'today'|@translate}</a>
@@ -127,16 +127,16 @@
   <ul>
     <li><label>{'search_subcats_included'|@translate}</label></li>
     <li><label>
-      <input type="radio" name="subcats-included" value="1" checked="checked" />{'Yes'|@translate}
+      <input type="radio" name="subcats-included" value="1" checked="checked">{'Yes'|@translate}
     </label></li>
     <li><label>
-      <input type="radio" name="subcats-included" value="0" />{'No'|@translate}
+      <input type="radio" name="subcats-included" value="0">{'No'|@translate}
     </label></li>
   </ul>
 </fieldset>
 <p>
-  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" />
-  <input class="submit" type="reset" value="{'Reset'|@translate}" />
+  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
+  <input class="submit" type="reset" value="{'Reset'|@translate}">
 </p>
 </form>
 

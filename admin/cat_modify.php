@@ -471,7 +471,7 @@ SELECT id, file, path, tn_ext
                           'image_file' => $element['file'],
                           'category' => $category
                         ))
-                      .'" class="thumblnk"><img src="'.get_thumbnail_url($element).'"/></a>';
+                      .'" class="thumblnk"><img src="'.get_thumbnail_url($element).'"></a>';
     }
   }
   

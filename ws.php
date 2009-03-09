@@ -69,8 +69,8 @@ function ws_addDefaultMethods( $arr )
         'f_with_thumbnail' => array( 'default'=> false ),
       ),
       'Returns elements for the corresponding categories.
-<br/><b>cat_id</b> can be empty if <b>recursive</b> is true. Can be sent as an array.
-<br/><b>order</b> comma separated fields for sorting (file,id, average_rate,...)'
+<br><b>cat_id</b> can be empty if <b>recursive</b> is true. Can be sent as an array.
+<br><b>order</b> comma separated fields for sorting (file,id, average_rate,...)'
     );
 
   $service->addMethod('pwg.categories.getList', 'ws_categories_getList',
@@ -195,7 +195,7 @@ function ws_addDefaultMethods( $arr )
         ),
       ),
     'POST method only.
-<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
+<br><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
     );
 
   $service->addMethod(
@@ -258,7 +258,7 @@ function ws_addDefaultMethods( $arr )
         ),
       ),
     'POST method only. Admin only
-<br/><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
+<br><b>categories</b> is a string list "category_id[,rank];category_id[,rank]" The rank is optional and is equivalent to "auto" if not given.'
     );
 }
 

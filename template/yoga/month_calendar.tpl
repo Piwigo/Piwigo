@@ -29,7 +29,7 @@
 {if !empty($chronology_calendar.calendar_bars) }
 {foreach from=$chronology_calendar.calendar_bars item=bar}
 <div class="calendarCalBar">
-	<span class="calCalHead"><a href="{$bar.U_HEAD}">{$bar.HEAD_LABEL}</a>  ({$bar.NB_IMAGES})</span><br/>
+	<span class="calCalHead"><a href="{$bar.U_HEAD}">{$bar.HEAD_LABEL}</a>  ({$bar.NB_IMAGES})</span><br>
 	{foreach from=$bar.items item=item}
 	<span class="calCal{if !isset($item.URL)}Empty{/if}">
 	{if isset($item.URL)}
@@ -69,7 +69,7 @@ TABLE.calMonth TBODY TD, TABLE.calMonth TBODY TD DIV.calImg {ldelim}
 	 			<div class="calBackDate">{$day.DAY}</div><div class="calForeDate">{$day.DAY}</div>
 	 			<div class="calImg">
 					<a href="{$day.U_IMG_LINK}">
-			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$pwg->l10n_dec('%d element','%d elements', $day.NB_ELEMENTS)}" />
+			  			<img style="{$day.IMAGE_STYLE}" src="{$day.IMAGE}" alt="{$day.IMAGE_ALT}" title="{$pwg->l10n_dec('%d element','%d elements', $day.NB_ELEMENTS)}">
 					</a>
 				</div>
  		{else}

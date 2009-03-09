@@ -31,12 +31,12 @@
 	<fieldset>
 	<legend>{'Quick connect'|@translate}</legend>
 	<div>
-	<label for="username">{'Username'|@translate}</label><br/>
+	<label for="username">{'Username'|@translate}</label><br>
 	<input type="text" name="username" id="username" value="" style="width:99%">
 	</div>
 
 	<div><label for="password">{'Password'|@translate}</label>
-	<br/>
+	<br>
 	<input type="password" name="password" id="password" style="width:99%">
 	</div>
 
@@ -52,7 +52,7 @@
 	<ul class="actions">
 		<li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
 		{if isset($U_REGISTER)}
-		<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"/></a></li>
+		<li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
 		{/if}
 	</ul>
 	</div>

@@ -9,7 +9,7 @@
 
   <div class="titrePage">
     <ul class="categoryActions">
-      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'return to homepage'|@translate}"><img src="{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
     </ul>
     <h2>{'upload_title'|@translate}</h2>
   </div>
@@ -41,7 +41,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-      <input class="file" name="picture" type="file" value="" />
+      <input class="file" name="picture" type="file" value="">
       </td>
     </tr>
     {if isset($SHOW_FORM_FIELDS) and $SHOW_FORM_FIELDS}
@@ -56,35 +56,35 @@
     <tr>
       <td>{'Username'|@translate} <span style="color:red;">*</span></td>
       <td>
-      <input name="username" type="text" value="{$NAME}" />
+      <input name="username" type="text" value="{$NAME}">
       </td>
     </tr>
     <!-- mail address -->
     <tr>
       <td>{'mail_address'|@translate} <span style="color:red;">*</span></td>
       <td>
-      <input name="mail_address" type="text" value="{$EMAIL}" />
+      <input name="mail_address" type="text" value="{$EMAIL}">
       </td>
     </tr>
     <!-- name of the picture -->
     <tr>
       <td>{'upload_name'|@translate}</td>
       <td>
-      <input name="name" type="text" value="{$NAME_IMG}" />
+      <input name="name" type="text" value="{$NAME_IMG}">
       </td>
     </tr>
     <!-- author -->
     <tr>
       <td>{'upload_author'|@translate}</td>
       <td>
-      <input name="author" type="text" value="{$AUTHOR_IMG}" />
+      <input name="author" type="text" value="{$AUTHOR_IMG}">
       </td>
     </tr>
     <!-- date of creation -->
     <tr>
       <td>{'Creation date'|@translate} (DD/MM/YYYY)</td>
       <td>
-      <input name="date_creation" type="text" value="{$DATE_IMG}" />
+      <input name="date_creation" type="text" value="{$DATE_IMG}">
       </td>
     </tr>
     <!-- comment -->
@@ -97,13 +97,13 @@
     {/if}
     <tr>
       <td colspan="2" align="center">
-      <input class="submit" name="submit" type="submit" value="{'Submit'|@translate}" />
+      <input class="submit" name="submit" type="submit" value="{'Submit'|@translate}">
       </td>
     </tr>
     </table>
   </form>
   {else}
-  {'upload_successful'|@translate}<br />
+  {'upload_successful'|@translate}<br>
   <div style="text-align:center;">
     <a href="{$U_RETURN}">[ {'home'|@translate} ]</a>
   </div>

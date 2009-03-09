@@ -12,14 +12,14 @@
 
 <h2>{'title_picmod'|@translate}</h2>
 
-<img src="{$TN_SRC}" alt="{'thumbnail'|@translate}" class="thumbnail" />
+<img src="{$TN_SRC}" alt="{'thumbnail'|@translate}" class="thumbnail">
 
 <ul class="categoryActions">
   {if isset($U_JUMPTO) }
-  <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}" /></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to image'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to image'|@translate}"></a></li>
   {/if}
   {if !url_is_remote($path)}
-  <li><a href="{$U_SYNC}" title="{'synchronize metadata'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}" /></a></li>
+  <li><a href="{$U_SYNC}" title="{'synchronize metadata'|@translate}" {$TAG_INPUT_ENABLED}><img src="{$themeconf.admin_icon_dir}/sync_metadata.png" class="button" alt="{'synchronize'|@translate}"></a></li>
   {/if}
 </ul>
 
@@ -86,19 +86,19 @@
 
       <tr>
         <td><strong>{'Name'|@translate}</strong></td>
-        <td><input type="text" class="large" name="name" value="{$NAME}" /></td>
+        <td><input type="text" class="large" name="name" value="{$NAME}"></td>
       </tr>
 
       <tr>
         <td><strong>{'Author'|@translate}</strong></td>
-        <td><input type="text" class="large" name="author" value="{$AUTHOR}" /></td>
+        <td><input type="text" class="large" name="author" value="{$AUTHOR}"></td>
       </tr>
 
       <tr>
         <td><strong>{'Creation date'|@translate}</strong></td>
         <td>
-          <label><input type="radio" name="date_creation_action" value="unset" /> {'unset'|@translate}</label>
-          <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {'set to'|@translate}
+          <label><input type="radio" name="date_creation_action" value="unset"> {'unset'|@translate}</label>
+          <input type="radio" name="date_creation_action" value="set" id="date_creation_action_set"> {'set to'|@translate}
           <select id="date_creation_day" name="date_creation_day">
             <option value="0">--</option>
             {section name=day start=1 loop=32}
@@ -113,8 +113,8 @@
                  type="text"
                  size="4"
                  maxlength="4"
-                 value="{$DATE_CREATION_YEAR_VALUE}" />
-          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
+                 value="{$DATE_CREATION_YEAR_VALUE}">
+          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled">
         </td>
       </tr>
 
@@ -141,8 +141,8 @@
     </table>
 
     <p style="text-align:center;">
-      <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
-      <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
+      <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+      <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
     </p>
 
   </fieldset>
@@ -160,7 +160,7 @@
           <select class="categoryList" name="cat_associated[]" multiple="multiple" size="30">
             {html_options options=$associated_options}
           </select>
-          <p><input class="submit" type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {$TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dissociate" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
         </td>
 
         <td>
@@ -168,7 +168,7 @@
           <select class="categoryList" name="cat_dissociated[]" multiple="multiple" size="30">
             {html_options options=$dissociated_options}
           </select>
-          <p><input class="submit" type="submit" value="&laquo;" name="associate" style="font-size:15px;" {$TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="associate" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
         </td>
       </tr>
     </table>
@@ -187,7 +187,7 @@
           <select class="categoryList" name="cat_elected[]" multiple="multiple" size="30">
             {html_options options=$elected_options}
           </select>
-          <p><input class="submit" type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {$TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&raquo;" name="dismiss" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
         </td>
 
         <td>
@@ -195,7 +195,7 @@
           <select class="categoryList" name="cat_dismissed[]" multiple="multiple" size="30">
             {html_options options=$dismissed_options}
           </select>
-          <p><input class="submit" type="submit" value="&laquo;" name="elect" style="font-size:15px;" {$TAG_INPUT_ENABLED}/></p>
+          <p><input class="submit" type="submit" value="&laquo;" name="elect" style="font-size:15px;" {$TAG_INPUT_ENABLED}></p>
         </td>
       </tr>
     </table>

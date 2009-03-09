@@ -47,7 +47,7 @@
     {if isset($U_SLIDESHOW_STOP) }
       <a href="{$U_SLIDESHOW_STOP}" title="{'slideshow_stop'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/stop_slideshow.png" class="button" alt="{'slideshow_stop'|@translate}"></a>
     {/if}
-      <a href="{$U_METADATA}" title="{'picture_show_metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata" /></a>
+      <a href="{$U_METADATA}" title="{'picture_show_metadata'|@translate}" rel="nofollow"><img src="{$ROOT_URL}{$themeconf.icon_dir}/metadata.png" class="button" alt="metadata"></a>
     {if isset($current.U_DOWNLOAD) }
       <a href="{$current.U_DOWNLOAD}" title="{'download_hint'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/save.png" class="button" alt="{'download'|@translate}"></a>
     {/if}
@@ -186,9 +186,9 @@ y.callService(
 			{foreach from=$rating.marks item=mark name=rate_loop}
 			{if !$smarty.foreach.rate_loop.first} | {/if}
 			{if isset($rating.USER_RATE) && $mark==$rating.USER_RATE}
-			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" title="{$mark}" />
+			  <input type="button" name="rate" value="{$mark}" class="rateButtonSelected" title="{$mark}">
 			{else}
-			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}" />
+			  <input type="submit" name="rate" value="{$mark}" class="rateButton" title="{$mark}">
 			{/if}
 			{/foreach}
 			<script type="text/javascript" src="{$ROOT_URL}template/{$themeconf.template}/rating.js"></script>
@@ -269,7 +269,7 @@ y.callService(
 		<label>{'upload_author'|@translate}<input type="text" name="author"></label>
 		{/if}
 		<label>{'comment'|@translate}<textarea name="content" id="contentid" rows="5" cols="80">{$comment_add.CONTENT}</textarea></label>
-		<input type="hidden" name="key" value="{$comment_add.KEY}" />
+		<input type="hidden" name="key" value="{$comment_add.KEY}">
 		<input class="submit" type="submit" value="{'Submit'|@translate}">
 	</fieldset>
 	</form>

@@ -11,18 +11,18 @@
 
 <ul class="categoryActions">
   {if cat_admin_access($CAT_ID)}
-  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}" /></a></li>
+  <li><a href="{$U_JUMPTO}" title="{'jump to category'|@translate}"><img src="{$themeconf.admin_icon_dir}/category_jump-to.png" class="button" alt="{'jump to category'|@translate}"></a></li>
   {/if}
   {if isset($U_MANAGE_ELEMENTS) }
-  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}" /></a></li>
-  <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_ELEMENTS}" title="{'manage category elements'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_elements.png" class="button" alt="{'elements'|@translate}"></a></li>
+  <li><a href="{$U_MANAGE_RANKS}" title="{'manage image ranks'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/ranks.png" class="button" alt="{'ranks'|@translate}"></a></li>
   {/if}
-  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}" /></a></li>
+  <li><a href="{$U_CHILDREN}" title="{'manage sub-categories'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_children.png" class="button" alt="{'sub-categories'|@translate}"></a></li>
   {if isset($U_MANAGE_PERMISSIONS) }
-  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}" ><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}" /></a></li>
+  <li><a href="{$U_MANAGE_PERMISSIONS}" title="{'edit category permissions'|@translate}"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_permissions.png" class="button" alt="{'permissions'|@translate}"></a></li>
   {/if}
   {if isset($U_DELETE) }
-  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}" /></a></li>
+  <li><a href="{$U_DELETE}" title="{'delete category'|@translate}" onclick="return confirm('{'Are you sure?'|@translate|@escape:'javascript'}');"><img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_delete.png" class="button" alt="{'delete'|@translate}"></a></li>
   {/if}
 </ul>
 
@@ -42,7 +42,7 @@
     <tr>
       <td><strong>{'Name'|@translate}</strong></td>
       <td>
-        <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60"/>
+        <input type="text" class="large" name="name" value="{$CAT_NAME}" maxlength="60">
       </td>
     </tr>
     <tr>
@@ -99,12 +99,12 @@
 
 <fieldset id="image_order">
   <legend>{'Sort order'|@translate}</legend>
-  <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT} />
+  <input type="checkbox" name="image_order_default" id="image_order_default" {$IMG_ORDER_DEFAULT}>
   <label for="image_order_default">{'Use default sort order'|@translate}</label>
-  <br/>
-  <input type="checkbox" name="image_order_subcats" id="image_order_subcats" />
+  <br>
+  <input type="checkbox" name="image_order_subcats" id="image_order_subcats">
   <label for="image_order_subcats">{'Apply to subcategories'|@translate}</label>
-  <br/>
+  <br>
   
   {foreach from=$image_orders item=order}
     <select name="order_field_{$order.ID}">
@@ -112,14 +112,14 @@
     </select>
     <select name="order_direction_{$order.ID}">
       {html_options options=$image_order_direction_options selected=$order.DIRECTION }
-    </select><br/>
+    </select><br>
   {/foreach}
   
 </fieldset>
 
 <p style="text-align:center;">
-  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/>
-  <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
+  <input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}>
+  <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
 </p>
 
 {if isset($representant) }
@@ -129,18 +129,18 @@
     <tr>
       <td align="center">
         {if isset($representant.picture) }
-        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature" /></a>
+        <a href="{$representant.picture.URL}"><img src="{$representant.picture.SRC}" alt="" class="miniature"></a>
         {else}
-        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature" />
+        <img src="{$ROOT_URL}{$themeconf.admin_icon_dir}/category_representant_random.png" class="button" alt="{'Random picture'|@translate}" class="miniature">
         {/if}
       </td>
       <td>
         {if $representant.ALLOW_SET_RANDOM }
-        <p><input class="submit" type="submit" name="set_random_representant" value="{'cat_representant'|@translate}" {$TAG_INPUT_ENABLED}/></p>
+        <p><input class="submit" type="submit" name="set_random_representant" value="{'cat_representant'|@translate}" {$TAG_INPUT_ENABLED}></p>
         {/if}
 
         {if isset($representant.ALLOW_DELETE) }
-        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}" /></p>
+        <p><input class="submit" type="submit" name="delete_representant" value="{'Delete Representant'|@translate}"></p>
         {/if}
       </td>
     </tr>
@@ -173,8 +173,8 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitAdd" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 
 </fieldset>
@@ -194,8 +194,8 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitDestinations" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 
 </fieldset>
@@ -223,8 +223,8 @@
   </table>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset" />
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="submitEmail" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="reset">
   </p>
 
 </fieldset>

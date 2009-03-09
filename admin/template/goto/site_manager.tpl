@@ -19,15 +19,15 @@
 <form action="{$F_ACTION}" method="post">
   <p>
     {'remote_site_local_create'|@translate}:
-    <input type="hidden" name="no_check" value="1"/>
-    <input type="hidden" name="galleries_url" value="{$local_listing.URL}" />
-    <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
+    <input type="hidden" name="no_check" value="1">
+    <input type="hidden" name="galleries_url" value="{$local_listing.URL}">
+    <input type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
 </form>
 {/if}
 {if isset($local_listing.U_SYNCHRONIZE)}
 &nbsp;<a href="{$local_listing.U_SYNCHRONIZE}" title="{'remote_site_local_update'|@translate}">{'site_synchronize'|@translate}</a>
-<br/><br/>
+<br><br>
 {/if}
 {/if}
 
@@ -39,7 +39,7 @@
 	</tr>
   {foreach from=$sites item=site name=site}
   <tr style="text-align:left" class="{if $smarty.foreach.site.index is odd}row1{else}row2{/if}"><td>
-    <a href="{$site.NAME}">{$site.NAME}</a><br/>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d element','%d elements',$site.IMAGES)})
+    <a href="{$site.NAME}">{$site.NAME}</a><br>({$site.TYPE}, {$site.CATEGORIES} {'Categories'|@translate}, {$pwg->l10n_dec('%d element','%d elements',$site.IMAGES)})
   </td><td>
     [<a href="{$site.U_SYNCHRONIZE}" title="{'site_synchronize_hint'|@translate}">{'site_synchronize'|@translate}</a>]
     {if isset($site.U_DELETE)}
@@ -47,7 +47,7 @@
                 title="{'site_delete_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'site_delete'|@translate}</a>]
     {/if}
     {if isset($site.remote)}
-      <br/>
+      <br>
       [<a href="{$site.remote.U_TEST}" title="{'remote_site_test_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_test'|@translate}</a>]
       [<a href="{$site.remote.U_GENERATE}" title="{'remote_site_generate_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_generate'|@translate}</a>]
       [<a href="{$site.remote.U_CLEAN}" title="{'remote_site_clean_hint'|@translate}" {$TAG_INPUT_ENABLED}>{'remote_site_clean'|@translate}</a>]
@@ -66,9 +66,9 @@
 <form action="{$F_ACTION}" method="post">
   <p>
     <label for="galleries_url" >{'site_create'|@translate}</label>
-    <input type="text" name="galleries_url" id="galleries_url" />
+    <input type="text" name="galleries_url" id="galleries_url">
   </p>
   <p>
-    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED} />
+    <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
   </p>
 </form>

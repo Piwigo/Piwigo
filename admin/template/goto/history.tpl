@@ -29,7 +29,7 @@
       {html_options options=$month_list selected=$START_MONTH_SELECTED}
       </select>
       <input id="start_year" name="start_year" value="{$START_YEAR}" type="text" size="4" maxlength="4" >
-      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="start_linked_date" name="start_linked_date" type="hidden" size="10" disabled="disabled">
     </li>
   </ul>
   <ul>
@@ -45,7 +45,7 @@
       {html_options options=$month_list selected=$END_MONTH_SELECTED}
       </select>
       <input id="end_year" name="end_year" value="{$END_YEAR}" type="text" size="4" maxlength="4" >
-      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled"/>
+      <input id="end_linked_date" name="end_linked_date" type="hidden" size="10" disabled="disabled">
     </li>
   </ul>
 
@@ -81,7 +81,7 @@
     </select>
   </label>
 
-  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" />
+  <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}">
 </fieldset>
 </form>
 

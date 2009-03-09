@@ -16,7 +16,7 @@
   {foreach from=$results.elements item=elt}
   <tr>
     <td>{$elt.PATH}</td>
-    <td><img src="{$elt.TN_FILE_IMG}" /></td>
+    <td><img src="{$elt.TN_FILE_IMG}"></td>
     <td style="text-align:right;">{$elt.GEN_TIME}</td>
     <td style="text-align:right;">{$elt.TN_FILESIZE_IMG}</td>
     <td style="text-align:right;">{$elt.TN_WIDTH_IMG} x {$elt.TN_HEIGHT_IMG}</td>
@@ -49,7 +49,7 @@
     <td style="text-align:right;">{$results.TN_AVERAGE}</td>
   </tr>
 </table>
-<br />
+<br>
 {/if}
 
 {if isset($params) }
@@ -62,10 +62,10 @@
       <li>
         <span class="property">{'tn_params_GD'|@translate}</span>
 	<label>
-          <input type="radio" name="gd" value="2" {if $params.GD_SELECTED==2}checked="checked"{/if} />2.x
+          <input type="radio" name="gd" value="2" {if $params.GD_SELECTED==2}checked="checked"{/if}>2.x
         </label>
         <label>
-          <input type="radio" name="gd" value="1" {if $params.GD_SELECTED==1}checked="checked"{/if} />1.x
+          <input type="radio" name="gd" value="1" {if $params.GD_SELECTED==1}checked="checked"{/if}>1.x
         </label>
       </li>
 
@@ -73,27 +73,27 @@
         <span class="property">
           <label for="width">{'maximum width'|@translate}</label>
         </span>
-	<input type="text" id="width" name="width" value="{$params.WIDTH_TN}" />
+	<input type="text" id="width" name="width" value="{$params.WIDTH_TN}">
       </li>
 
       <li>
         <span class="property">
           <label for="height">{'maximum height'|@translate}</label>
         </span>
-	<input type="text" id="height" name="height" value="{$params.HEIGHT_TN}" />
+	<input type="text" id="height" name="height" value="{$params.HEIGHT_TN}">
       </li>
 
       <li>
         <span class="property">{'Number of thumbnails to create'|@translate}</span>
-	<label><input type="radio" name="n" value="5"   {if $params.N_SELECTED==5}checked="checked"{/if} /> 5</label>
-	<label><input type="radio" name="n" value="10"  {if $params.N_SELECTED==10}checked="checked"{/if} /> 10</label>
-	<label><input type="radio" name="n" value="20"  {if $params.N_SELECTED==20}checked="checked"{/if} /> 20</label>
-	<label><input type="radio" name="n" value="all" {if $params.N_SELECTED=='all'}checked="checked"{/if} /> {'tn_all'|@translate}</label>
+	<label><input type="radio" name="n" value="5"   {if $params.N_SELECTED==5}checked="checked"{/if}> 5</label>
+	<label><input type="radio" name="n" value="10"  {if $params.N_SELECTED==10}checked="checked"{/if}> 10</label>
+	<label><input type="radio" name="n" value="20"  {if $params.N_SELECTED==20}checked="checked"{/if}> 20</label>
+	<label><input type="radio" name="n" value="all" {if $params.N_SELECTED=='all'}checked="checked"{/if}> {'tn_all'|@translate}</label>
       </li>
     </ul>
   </fieldset>
 
-  <p><input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}/></p>
+  <p><input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}></p>
 </form>
 {/if} {*isset params*}
 

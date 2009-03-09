@@ -5,9 +5,9 @@
     <ul class="categoryActions">
       <li><a href="{$U_LOST_PASSWORD}" title="{'Forgot your password?'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/lost_password.png" class="button" alt="{'Forgot your password?'|@translate}"></a></li>
       {if isset($U_REGISTER) }
-      <li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"/></a></li>
+      <li><a href="{$U_REGISTER}" title="{'Create a new account'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/register.png" class="button" alt="{'Register'|@translate}"></a></li>
       {/if}
-      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"/></a></li>
+      <li><a href="{$U_HOME}" title="{'Go through the gallery as a visitor'|@translate}"><img src="{$ROOT_URL}{$themeconf.icon_dir}/home.png" class="button" alt="{'home'|@translate}"></a></li>
     </ul>
     <h2>{'Identification'|@translate}</h2>
   </div>
@@ -33,14 +33,14 @@
         <span class="property">
           <label for="username">{'Username'|@translate}</label>
         </span>
-        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40" />
+        <input tabindex="1" class="login" type="text" name="username" id="username" size="25" maxlength="40">
       </li>
 
       <li>
         <span class="property">
           <label for="password">{'Password'|@translate}</label>
         </span>
-        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25" />
+        <input tabindex="2" class="login" type="password" name="password" id="password" size="25" maxlength="25">
       </li>
 
       {if $authorize_remembering }

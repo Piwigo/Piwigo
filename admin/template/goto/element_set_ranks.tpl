@@ -20,9 +20,9 @@
         <em class="levelIndicatorF" title="{$pwg->l10n($pwg->sprintf('Level %d',$thumbnail.LEVEL))}">{$thumbnail.LEVEL}</em>
         {/if}
             <span>
-              <img src="{$thumbnail.TN_SRC}" class="thumbnail" />
+              <img src="{$thumbnail.TN_SRC}" class="thumbnail">
             </span></span>
-            <input style="height:12px; width:50px;" type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}" />
+            <input style="height:12px; width:50px;" type="text" name="rank_of_image[{$thumbnail.ID}]" value="{$thumbnail.RANK}">
           </label>
           </span>
       </li>
@@ -30,7 +30,7 @@
     </ul>
   {/if}
 
-    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/></p>
+    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}></p>
 
   </fieldset>
 

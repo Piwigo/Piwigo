@@ -53,9 +53,9 @@
               <img src="{$thumbnail.TN_SRC}"
                  alt="{$thumbnail.FILE}"
                  title="{$thumbnail.TITLE}"
-                 class="thumbnail" />
+                 class="thumbnail">
             </span></span>
-            <input type="checkbox" name="selection[]" value="{$thumbnail.ID}" />
+            <input type="checkbox" name="selection[]" value="{$thumbnail.ID}">
           </label>
           </span>
       </li>
@@ -71,12 +71,12 @@
     <p style="font-style:italic">{'Note: Only deletes photos added with pLoader'|@translate}</p>
     <p>
       {'target'|@translate}
-      <label><input type="radio" name="target_deletion" value="all" /> {'all'|@translate}</label>
-      <label><input type="radio" name="target_deletion" value="selection" checked="checked" /> {'selection'|@translate}</label>
+      <label><input type="radio" name="target_deletion" value="all"> {'all'|@translate}</label>
+      <label><input type="radio" name="target_deletion" value="selection" checked="checked"> {'selection'|@translate}</label>
     </p>
     <p>
-    <label><input type="checkbox" name="confirm_deletion" value="1" /> {'confirm'|@translate}</label>
-    <input class="submit" type="submit" value="{'Delete selected photos'|@translate}" name="delete" {$TAG_INPUT_ENABLED}/>
+    <label><input type="checkbox" name="confirm_deletion" value="1"> {'confirm'|@translate}</label>
+    <input class="submit" type="submit" value="{'Delete selected photos'|@translate}" name="delete" {$TAG_INPUT_ENABLED}>
     </p>
   </fieldset>
   {/if}
@@ -122,29 +122,29 @@
       <tr>
         <td>{'Author'|@translate}</td>
         <td>
-          <label><input type="radio" name="author_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-          <label><input type="radio" name="author_action" value="unset" /> {'unset'|@translate}</label>
-          <label><input type="radio" name="author_action" value="set" id="author_action_set" /> {'set to'|@translate}</label>
-          <input onchange="document.getElementById('author_action_set').checked = true;" type="text" class="large" name="author" value="" />
+          <label><input type="radio" name="author_action" value="leave" checked="checked"> {'leave'|@translate}</label>
+          <label><input type="radio" name="author_action" value="unset"> {'unset'|@translate}</label>
+          <label><input type="radio" name="author_action" value="set" id="author_action_set"> {'set to'|@translate}</label>
+          <input onchange="document.getElementById('author_action_set').checked = true;" type="text" class="large" name="author" value="">
         </td>
       </tr>
 
       <tr>
         <td>{'title'|@translate}</td>
         <td>
-          <label><input type="radio" name="name_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-          <label><input type="radio" name="name_action" value="unset" /> {'unset'|@translate}</label>
-          <label><input type="radio" name="name_action" value="set" id="name_action_set" /> {'set to'|@translate}</label>
-          <input onchange="document.getElementById('name_action_set').checked = true;" type="text" class="large" name="name" value="" />
+          <label><input type="radio" name="name_action" value="leave" checked="checked"> {'leave'|@translate}</label>
+          <label><input type="radio" name="name_action" value="unset"> {'unset'|@translate}</label>
+          <label><input type="radio" name="name_action" value="set" id="name_action_set"> {'set to'|@translate}</label>
+          <input onchange="document.getElementById('name_action_set').checked = true;" type="text" class="large" name="name" value="">
         </td>
       </tr>
 
       <tr>
         <td>{'Creation date'|@translate}</td>
         <td>
-          <label><input type="radio" name="date_creation_action" value="leave" checked="checked" /> {'leave'|@translate}</label>
-          <label><input type="radio" name="date_creation_action" value="unset" /> {'unset'|@translate}</label>
-          <label><input type="radio" name="date_creation_action" value="set" id="date_creation_action_set" /> {'set to'|@translate}</label>
+          <label><input type="radio" name="date_creation_action" value="leave" checked="checked"> {'leave'|@translate}</label>
+          <label><input type="radio" name="date_creation_action" value="unset"> {'unset'|@translate}</label>
+          <label><input type="radio" name="date_creation_action" value="set" id="date_creation_action_set"> {'set to'|@translate}</label>
           <select id="date_creation_day" name="date_creation_day">
              <option value="0">--</option>
             {section name=day start=1 loop=32}
@@ -159,16 +159,16 @@
                  type="text"
                  size="4"
                  maxlength="4"
-                 value="{$DATE_CREATION_YEAR}" />
-          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled"/>
+                 value="{$DATE_CREATION_YEAR}">
+          <input id="date_creation_linked_date" name="date_creation_linked_date" type="hidden" size="10" disabled="disabled">
         </td>
       </tr>
 
     <tr>
       <td>{'Minimum privacy level'|@translate}</td>
       <td>
-        <label><input type="radio" name="level_action" value="leave" checked="checked" />{'leave'|@translate}</label>
-        <label><input type="radio" name="level_action" value="set" id="level_action_set" />{'set to'|@translate}</label>
+        <label><input type="radio" name="level_action" value="leave" checked="checked">{'leave'|@translate}</label>
+        <label><input type="radio" name="level_action" value="set" id="level_action_set">{'set to'|@translate}</label>
         <select onchange="document.getElementById('level_action_set').checked = true;" name="level" size="1">
           {html_options options=$level_options}
         </select>
@@ -179,12 +179,12 @@
 
     <p>
       {'target'|@translate}
-      <label><input type="radio" name="target" value="all" /> {'all'|@translate}</label>
-      <label><input type="radio" name="target" value="selection" checked="checked" /> {'selection'|@translate}</label>
+      <label><input type="radio" name="target" value="all"> {'all'|@translate}</label>
+      <label><input type="radio" name="target" value="selection" checked="checked"> {'selection'|@translate}</label>
     </p>
 
 
-    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}/></p>
+    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit" {$TAG_INPUT_ENABLED}></p>
 
   </fieldset>
 
@@ -194,14 +194,14 @@
 
     <ul style="list-style-type:none;">
       {if ($IN_CADDIE)}
-      <li><label><input type="radio" name="caddie_action" value="empty_all" /> {'Empty caddie'|@translate}</label></li>
-      <li><label><input type="radio" name="caddie_action" value="empty_selected" /> {'Take selected elements out of caddie'|@translate}</label></li>
+      <li><label><input type="radio" name="caddie_action" value="empty_all"> {'Empty caddie'|@translate}</label></li>
+      <li><label><input type="radio" name="caddie_action" value="empty_selected"> {'Take selected elements out of caddie'|@translate}</label></li>
       {else}
-      <li><label><input type="radio" name="caddie_action" value="add_selected" /> {'Add selected elements to caddie'|@translate}</label></li>
+      <li><label><input type="radio" name="caddie_action" value="add_selected"> {'Add selected elements to caddie'|@translate}</label></li>
       {/if}
     </ul>
 
-    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit_caddie" /></p>
+    <p><input class="submit" type="submit" value="{'Submit'|@translate}" name="submit_caddie"></p>
 
   </fieldset>
 

@@ -297,9 +297,9 @@ define(\'DB_COLLATE\', \'\');
       $html_content = htmlentities( $file_content, ENT_QUOTES );
       $html_content = nl2br( $html_content );
       $error_copy = l10n('step1_err_copy');
-      $error_copy .= '<br />--------------------------------------------------------------------<br />';
+      $error_copy .= '<br>--------------------------------------------------------------------<br>';
       $error_copy .= '<span class="sql_content">' . $html_content . '</span>';
-      $error_copy .= '<br />--------------------------------------------------------------------<br />';
+      $error_copy .= '<br>--------------------------------------------------------------------<br>';
     }
     @fputs($fp, $file_content, strlen($file_content));
     @fclose($fp);

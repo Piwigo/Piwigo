@@ -531,7 +531,7 @@ function get_html_description_recent_post_date($date_detail)
         .'<a href="'.make_index_url(array('section'=>'recent_pics')).'">'
           .l10n('recent_pics_cat').'</a>'
         .')'
-        .'</li><br/>';
+        .'</li><br>';
 
   foreach($date_detail['elements'] as $element)
   {
@@ -541,9 +541,9 @@ function get_html_description_recent_post_date($date_detail)
                         'image_id' => $element['id'],
                         'image_file' => $element['file'],
                       ))
-                    .'"><img src="'.$tn_src.'"/></a>';
+                    .'"><img src="'.$tn_src.'"></a>';
   }
-  $description .= '...<br/>';
+  $description .= '...<br>';
 
   $description .=
         '<li>'

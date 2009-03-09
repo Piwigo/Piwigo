@@ -268,7 +268,7 @@ function smarty_function_html_select_date($params, &$smarty)
             if (null !== $year_extra){
                 $year_result .= ' ' . $year_extra;
             }
-            $year_result .= ' />';
+            $year_result .= '>';
         } else {
             $years = range((int)$start_year, (int)$end_year);
             if ($reverse_years) {

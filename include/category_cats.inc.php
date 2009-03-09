@@ -257,7 +257,7 @@ if (count($categories) > 0)
                                     $category['count_images'],
                                     $category['count_categories'],
                                     true,
-                                    '<br />'
+                                    '<br>'
                                   ),
           'DESCRIPTION' =>
             trigger_event('render_category_literal_description',

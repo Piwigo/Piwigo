@@ -50,13 +50,13 @@
 
 <form name="QuickSynchro" action="{$U_CAT_UPDATE}" method="post" id="QuickSynchro" style="display: block; text-align:right;">
 <div>
-<input type="hidden" name="sync" value="files" checked="checked" />
-<input type="hidden" name="display_info" value="1" checked="checked" />
-<input type="hidden" name="add_to_caddie" value="1" checked="checked" />
-<input type="hidden" name="privacy_level" value="0" checked="checked" />
-<input type="hidden" name="sync_meta" checked="checked"/>
-<input type="hidden" name="simulate" value="0" />
-<input type="hidden" name="subcats-included" value="1" checked="checked"/>
+<input type="hidden" name="sync" value="files" checked="checked">
+<input type="hidden" name="display_info" value="1" checked="checked">
+<input type="hidden" name="add_to_caddie" value="1" checked="checked">
+<input type="hidden" name="privacy_level" value="0" checked="checked">
+<input type="hidden" name="sync_meta" checked="checked">
+<input type="hidden" name="simulate" value="0">
+<input type="hidden" name="subcats-included" value="1" checked="checked">
 </div>
 <div class="bigbutton">
 <span class="bigtext">{'Quick Local Synchronization'|@translate}</span>

@@ -6,7 +6,7 @@
     {if isset($comment.TN_SRC)}
     <div class="illustration">
       <a href="{$comment.U_PICTURE}">
-        <img src="{$comment.TN_SRC}" alt="{$comment.ALT}" />
+        <img src="{$comment.TN_SRC}" alt="{$comment.ALT}">
       </a>
     </div>
     {/if}
@@ -16,14 +16,14 @@
         {if isset($comment.U_DELETE)}
         <li>
           <a href="{$comment.U_DELETE}" title="{'delete this comment'|@translate}">
-            <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" alt="[delete]" />
+            <img src="{$ROOT_URL}{$themeconf.icon_dir}/delete.png" class="button" alt="[delete]">
           </a>
         </li>
         {/if}
         {if isset($comment.U_VALIDATE)}
         <li>
           <a href="{$comment.U_VALIDATE}" title="validate this comment">
-            <img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" alt="[validate]" />
+            <img src="{$ROOT_URL}{$themeconf.icon_dir}/validate_s.png" class="button" alt="[validate]">
           </a>
         </li>
         {/if}
@@ -35,7 +35,7 @@
   </div>
 </li>
 {if isset($comment_separator)}
-<hr/>
+<hr>
 {/if}
 {/foreach}
 </ul>

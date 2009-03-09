@@ -54,7 +54,7 @@ class c13y_internal
           null,
           null,
           l10n('c13y_version_correction')
-          .'<BR />'.
+          .'<br>'.
           $c13y->get_htlm_links_more_info());
       }
     }
@@ -79,7 +79,7 @@ class c13y_internal
           null,
           null,
           sprintf(l10n('c13y_exif_correction'), '$conf[\''.$value.'\']')
-          .'<BR />'.
+          .'<br>'.
           $c13y->get_htlm_links_more_info());
       }
     }

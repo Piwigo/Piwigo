@@ -10,7 +10,7 @@
   {if isset($REPOST_SUBMIT_NAME)}
   <fieldset>
     <div class="infos">
-      <input class="submit" type="submit" value="{'nbm_repost_submit'|@translate}" name="{$REPOST_SUBMIT_NAME}" {$TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" value="{'nbm_repost_submit'|@translate}" name="{$REPOST_SUBMIT_NAME}" {$TAG_INPUT_ENABLED}>
     </div>
   </fieldset>
   {/if}
@@ -22,22 +22,22 @@
       <tr>
         <td><label>{'nbm_send_html_mail'|@translate}</label></td>
         <td>
-          <label><input type="radio" name="nbm_send_html_mail" value="true"  {if $param.SEND_HTML_MAIL}checked="checked"{/if}/>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_html_mail" value="false" {if not $param.SEND_HTML_MAIL}checked="checked"{/if}/>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="true"  {if $param.SEND_HTML_MAIL}checked="checked"{/if}>{'Yes'|@translate}</label>
+          <label><input type="radio" name="nbm_send_html_mail" value="false" {if not $param.SEND_HTML_MAIL}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
       <tr>
         <td>
           <label for="send_mail_as">{'nbm_send_mail_as'|@translate}</label>
-          <br/><i><small>{'nbm_info_send_mail_as'|@translate}</small></i>
+          <br><i><small>{'nbm_info_send_mail_as'|@translate}</small></i>
         </td>
-        <td><input type="text" maxlength="35" size="35" name="nbm_send_mail_as" id="send_mail_as" value="{$param.SEND_MAIL_AS}"/></td>
+        <td><input type="text" maxlength="35" size="35" name="nbm_send_mail_as" id="send_mail_as" value="{$param.SEND_MAIL_AS}"></td>
       </tr>
       <tr>
         <td><label>{'nbm_send_detailed_content'|@translate}</label></td>
         <td>
-          <label><input type="radio" name="nbm_send_detailed_content" value="true"  {if $param.SEND_DETAILED_CONTENT}checked="checked"{/if}/>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if not $param.SEND_DETAILED_CONTENT}checked="checked"{/if}/>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="true"  {if $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'Yes'|@translate}</label>
+          <label><input type="radio" name="nbm_send_detailed_content" value="false" {if not $param.SEND_DETAILED_CONTENT}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
      <tr>
@@ -47,19 +47,19 @@
       <tr>
         <td>
           <label>{'nbm_send_recent_post_dates'|@translate}</label>
-          <br/><i><small>{'nbm_info_send_recent_post_dates'|@translate}</small></i>
+          <br><i><small>{'nbm_info_send_recent_post_dates'|@translate}</small></i>
         </td>
         <td>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="true" {if $param.SEND_RECENT_POST_DATES}checked="checked"{/if}/>{'Yes'|@translate}</label>
-          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if not $param.SEND_RECENT_POST_DATES}checked="checked"{/if}/>{'No'|@translate}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="true" {if $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'Yes'|@translate}</label>
+          <label><input type="radio" name="nbm_send_recent_post_dates" value="false" {if not $param.SEND_RECENT_POST_DATES}checked="checked"{/if}>{'No'|@translate}</label>
         </td>
       </tr>
     </table>
   </fieldset>
 
   <p>
-    <input class="submit" type="submit" value="{'Submit'|@translate}" name="param_submit" {$TAG_INPUT_ENABLED}/>
-    <input class="submit" type="reset" value="{'Reset'|@translate}" name="param_reset"/>
+    <input class="submit" type="submit" value="{'Submit'|@translate}" name="param_submit" {$TAG_INPUT_ENABLED}>
+    <input class="submit" type="reset" value="{'Reset'|@translate}" name="param_reset">
   </p>
   {/if}{* isset $param*}
 
@@ -93,7 +93,7 @@
           <td><label for="send_selection-{$u.ID}">{$u.USERNAME}</label></td>
           <td><label for="send_selection-{$u.ID}">{$u.EMAIL}</label></td>
           <td><label for="send_selection-{$u.ID}">{$u.LAST_SEND}</label></td>
-          <td><input type="checkbox" name="send_selection[]" value="{$u.ID}" {$u.CHECKED} id="send_selection-{$u.ID}"/></td>
+          <td><input type="checkbox" name="send_selection[]" value="{$u.ID}" {$u.CHECKED} id="send_selection-{$u.ID}"></td>
         </tr>
         {/foreach}
       </table>
@@ -114,7 +114,7 @@
     </fieldset>
 
     <p>
-      <input class="submit" type="submit" value="{'nbm_send_submit'|@translate}" name="send_submit" {$TAG_INPUT_ENABLED}/>
+      <input class="submit" type="submit" value="{'nbm_send_submit'|@translate}" name="send_submit" {$TAG_INPUT_ENABLED}>
     </p>
     {/if}
   {/if}{* isset $send*}

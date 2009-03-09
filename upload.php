@@ -57,7 +57,7 @@ function validate_upload( $temp_name, $my_max_file_size,
 
   $result = array();
   $result['error'] = array();
-  //echo $_FILES['picture']['name']."<br />".$temp_name;
+  //echo $_FILES['picture']['name']."<br>".$temp_name;
   $extension = get_extension( $_FILES['picture']['name'] );
   if (!in_array($extension, $conf['picture_ext']))
   {

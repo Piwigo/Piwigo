@@ -203,7 +203,7 @@ class PwgResponseEncoder
       $changed = 0;
       $changed += PwgResponseEncoder::_removeNamedArray($value);
       $changed += PwgResponseEncoder::_removeNamedStruct($value);
-  //    print_r('walk '.$key."<br/>\n");
+  //    print_r('walk '.$key."<br>\n");
     }
     while ($changed);
   }
@@ -218,7 +218,7 @@ class PwgResponseEncoder
     print_r( '_mergeAttributesAndContent is_struct='.PwgResponseEncoder::is_struct($value)
       .' count='.count($value)
       .' first_key='.$first_key
-      ."<br/>\n"
+      ."<br>\n"
       );*/
     $ret = 0;
     if (PwgResponseEncoder::is_struct($value))

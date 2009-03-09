@@ -10,7 +10,7 @@
 		{if !empty($thumbnail.NAME)}{$thumbnail.NAME}{/if}
 		</legend>
 		<a href="{$thumbnail.URL}" class="lap2">
-			<span><img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}" /></span>
+			<span><img class="thumbnail" src="{$thumbnail.TN_SRC}" alt="{$thumbnail.TN_ALT}" title="{$thumbnail.TN_TITLE}"></span>
 		</a>
   </fieldset>
 	</li>
