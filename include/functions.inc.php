@@ -1548,4 +1548,47 @@ function create_navigation_bar($url, $nb_element, $start, $nb_element_page, $cle
   }
   return $navbar;
 }
+
+/**
+ * return an array which will be sent to template to display recent icon
+ */
+function get_icon($date, $is_child_date = false)
+{
+  global $cache, $user;
+
+  if (empty($date))
+  {
+    return false;
+  }
+
+  if (!isset($cache['get_icon']['title']))
+  {
+    $cache['get_icon']['title'] = sprintf(
+      l10n('elements posted during the last %d days'),
+      $user['recent_period']
+      );
+  }
+
+  $icon = array(
+    'TITLE' => $cache['get_icon']['title'],
+    'IS_CHILD_DATE' => $is_child_date,
+    );
+
+  if (isset($cache['get_icon'][$date]))
+  {
+    return $cache['get_icon'][$date] ? $icon : array();
+  }
+
+  if (!isset($cache['get_icon']['sql_recent_date']))
+  {
+    // Use MySql date in order to standardize all recent "actions/queries"
+    list($cache['get_icon']['sql_recent_date']) =
+      mysql_fetch_array(pwg_query('select SUBDATE(
+      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
+  }
+
+  $cache['get_icon'][$date] = $date > $cache['get_icon']['sql_recent_date'];
+
+  return $cache['get_icon'][$date] ? $icon : array();
+}
 ?>

@@ -244,7 +244,7 @@ if (count($categories) > 0)
           'ID'    => $category['id'],
           'TN_SRC'   => $thumbnail_src_of[$category['representative_picture_id']],
           'TN_ALT'   => strip_tags($category['name']),
-          'ICON_TS'  => get_icon($category['max_date_last'], $category['is_child_date_last']),
+          'icon_ts'  => get_icon($category['max_date_last'], $category['is_child_date_last']),
 
           'URL'   => make_index_url(
             array(

@@ -110,7 +110,7 @@ foreach ($pictures as $row)
       'TN_SRC'    => get_thumbnail_url($row),
       'TN_ALT'    => $row['file'],
       'TN_TITLE'  => get_thumbnail_title($row),
-      'ICON_TS'   => get_icon($row['date_available']),
+      'icon_ts'   => get_icon($row['date_available']),
       'URL'       => $url,
 
    /* Fields for template-extension usage */

@@ -21,58 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-function get_icon($date, $is_child_date = false)
-{
-  global $cache, $user;
-
-  if (empty($date))
-  {
-    return '';
-  }
-
-  if (isset($cache['get_icon'][$date]))
-  {
-    if (! $cache['get_icon'][$date] )
-      return '';
-    return $cache['get_icon']['_icons_'][$is_child_date];
-  }
-
-  if (!isset($cache['get_icon']['sql_recent_date']))
-  {
-    // Use MySql date in order to standardize all recent "actions/queries"
-    list($cache['get_icon']['sql_recent_date']) =
-      mysql_fetch_array(pwg_query('select SUBDATE(
-      CURRENT_DATE,INTERVAL '.$user['recent_period'].' DAY)'));
-  }
-
-  $cache['get_icon'][$date] = false;
-  if ( $date > $cache['get_icon']['sql_recent_date'] )
-  {
-    if ( !isset($cache['get_icon']['_icons_'] ) )
-    {
-      $icons = array(false => 'recent', true => 'recent_by_child' );
-      $title = sprintf(
-        l10n('elements posted during the last %d days'),
-        $user['recent_period']
-        );
-      foreach ($icons as $key => $icon)
-      {
-        $icon_url = get_themeconf('icon_dir').'/'.$icon.'.png';
-        $size = getimagesize( PHPWG_ROOT_PATH.$icon_url );
-        $icon_url = get_root_url().$icon_url;
-        $output = '<img title="'.$title.'" src="'.$icon_url.'" class="icon" style="border:0;';
-        $output.= 'height:'.$size[1].'px;width:'.$size[0].'px" alt="(!)">';
-        $cache['get_icon']['_icons_'][$key] = $output;
-      }
-    }
-    $cache['get_icon'][$date] = true;
-  }
-
-  if (! $cache['get_icon'][$date] )
-    return '';
-  return $cache['get_icon']['_icons_'][$is_child_date];
-}
-
 /**
  * returns the list of categories as a HTML string
  *

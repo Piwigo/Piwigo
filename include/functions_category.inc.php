@@ -120,7 +120,7 @@ WHERE '.$where.'
         ),
         'URL' => make_index_url(array('category' => $row)),
         'LEVEL' => substr_count($row['global_rank'], '.') + 1,
-        'ICON_TS' => get_icon($row['max_date_last'], $child_date_last),
+        'icon_ts' => get_icon($row['max_date_last'], $child_date_last),
         'SELECTED' => $selected_category['id'] == $row['id'] ? true : false,
         'IS_UPPERCAT' => $selected_category['id_uppercat'] == $row['id'] ? true : false,
       )
