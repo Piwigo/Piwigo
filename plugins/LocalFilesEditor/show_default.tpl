@@ -1,5 +1,8 @@
 {* $Id$ *}
-{html_head}<link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">{/html_head}
+{html_head}
+<link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">
+<style type="text/css">#headbranch, #theHeader, #copyright {ldelim} display: none; }</style>
+{/html_head}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="editarea" src=$LOCALEDIT_PATH|@cat:"editarea/edit_area_full.js"}
 <script type="text/javascript">
@@ -24,6 +27,7 @@ function unloadEditarea() {ldelim}
 </script>
 
 <div id="LocalFilesEditor">
+<h1>{$TITLE}</h1>
 
 <textarea id="text" rows="30" cols="90">{$DEFAULT_CONTENT}</textarea>
 
