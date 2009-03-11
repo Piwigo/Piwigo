@@ -22,6 +22,7 @@
 // +-----------------------------------------------------------------------+
 
 define('PHPWG_ROOT_PATH', '../../');
+define('IN_ADMIN', true);
 include_once(PHPWG_ROOT_PATH . 'include/common.inc.php');
 include_once(LOCALEDIT_PATH.'functions.inc.php');
 load_language('plugin.lang', LOCALEDIT_PATH);
@@ -46,15 +47,15 @@ if (isset($_GET['file']))
     'language' => substr($user['language'], 0, 2));
 
   $file = file_get_contents(PHPWG_ROOT_PATH . $path);
-  
+  $title = str_replace('/', ' / ', $path);
+
   $template->assign(array(
+    'TITLE' => $title,
     'DEFAULT_CONTENT' => $file,
     'LOCALEDIT_PATH' => LOCALEDIT_PATH,
     'LOAD_EDITAREA' => isset($conf['LocalFilesEditor']) ? $conf['LocalFilesEditor'] : 'on',
     'EDITAREA_OPTIONS' => $editarea_options));
 
-  $title = $path;
-  $page['page_banner'] = '<h1>'.str_replace('/', ' / ', $path).'</h1>';
   $page['body_id'] = 'thePopuphelpPage';
 
   include(PHPWG_ROOT_PATH.'include/page_header.php');
