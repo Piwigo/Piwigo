@@ -13,7 +13,7 @@
 				<h3>
 					<a href="{$cat.URL}">{$cat.NAME}</a>
 					{if !empty($cat.icon_ts)}
-					<img title="{$cat.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent{if $cat.icon_ts.IS_CHILD_DATE}_by_child{/if}.png" class="icon" alt="(!)" />
+					<img title="{$cat.icon_ts.TITLE}" src="{$ROOT_URL}{$themeconf.icon_dir}/recent{if $cat.icon_ts.IS_CHILD_DATE}_by_child{/if}.png" class="icon" alt="(!)">
 					{/if}
 				</h3>
 		<div class="text">
