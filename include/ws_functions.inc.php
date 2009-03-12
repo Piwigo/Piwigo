@@ -879,6 +879,98 @@ UPDATE '.IMAGES_TABLE.'
   return $affected_rows;
 }
 
+function ws_images_add_chunk($params, &$service)
+{
+  // data
+  // original_sum
+  // type {thumb, file, high}
+  // position
+  
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
+
+  // create the upload directory tree if not exists
+  if (!is_dir($upload_dir)) {
+    umask(0000);
+    $recursive = true;
+    if (!@mkdir($upload_dir, 0777, $recursive))
+    {
+      return new PwgError(500, 'error during buffer directory creation');
+    }
+  }
+
+  if (!is_writable($upload_dir))
+  {
+    // last chance to make the directory writable
+    @chmod($upload_dir, 0777);
+
+    if (!is_writable($upload_dir))
+    {
+      return new PwgError(500, 'buffer directory has no write access');
+    }
+  }
+
+  secure_directory($upload_dir);
+
+  $filename = sprintf(
+    '%s-%s-%05u.block',
+    $params['original_sum'],
+    $params['type'],
+    $params['position']
+    );
+
+  $bytes_written = file_put_contents(
+    $upload_dir.'/'.$filename,
+    $params['data']
+    );
+
+  if (false === $bytes_written) {
+    return new PwgError(
+      500,
+      'an error has occured while writting chunk '.$params['position'].' for '.$params['type']
+      );
+  }
+}
+
+function merge_chunks($output_filepath, $original_sum, $type)
+{
+  ws_logfile('[merge_chunks] input parameter $output_filepath : '.$output_filepath);
+
+  $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
+  $pattern = '/'.$original_sum.'-'.$type.'/';
+  $chunks = array();
+  
+  if ($handle = opendir($upload_dir))
+  {
+    while (false !== ($file = readdir($handle)))
+    {
+      if (preg_match($pattern, $file))
+      {
+        ws_logfile($file);
+        array_push($chunks, $upload_dir.'/'.$file);
+      }
+    }
+    closedir($handle);
+  }
+
+  sort($chunks);
+  
+  $string = null;
+  foreach ($chunks as $chunk) {
+    $string.= file_get_contents($chunk);
+    unlink($chunk);
+  }
+  if (!file_put_contents($output_filepath, base64_decode($string)))
+  {
+    return new PwgError(500, 'error while merging chunks for '.$output_filepath);
+  }
+  
+}
+
 function ws_images_add($params, &$service)
 {
   global $conf;
@@ -956,13 +1048,8 @@ SELECT
   $filename_wo_ext = $date_string.'-'.$random_string;
   $file_path = $upload_dir.'/'.$filename_wo_ext.'.jpg';
 
-  // dump the photo file
-  $fh_file = fopen($file_path, 'w');
-  if (!fwrite($fh_file, base64_decode($params['file_content'])))
-  {
-    return new PwgError(500, 'error while writing file');
-  }
-  fclose($fh_file);
+  // merge the photo file
+  merge_chunks($file_path, $params['original_sum'], 'file');
   chmod($file_path, 0644);
 
   // check dumped file md5sum against expected md5sum
@@ -1005,13 +1092,8 @@ SELECT
     'jpg'
     );
 
-  // dump the thumbnail
-  $fh_thumbnail = fopen($thumbnail_path, 'w');
-  if (!fwrite($fh_thumbnail, base64_decode($params['thumbnail_content'])))
-  {
-    return new PwgError(500, 'error while writing thumbnail');
-  }
-  fclose($fh_thumbnail);
+  // merge the thumbnail
+  merge_chunks($thumbnail_path, $params['original_sum'], 'thumb');
   chmod($thumbnail_path, 0644);
 
   // check dumped thumbnail md5
@@ -1021,7 +1103,7 @@ SELECT
   }
 
   // high resolution
-  if (isset($params['high_content']))
+  if (isset($params['high_sum']))
   {
     // high resolution directory is a subdirectory of the photo file, hard
     // coded "pwg_high"
@@ -1055,13 +1137,8 @@ SELECT
       'jpg'
       );
 
-    // dump the high resolution file
-    $fh_high = fopen($high_path, 'w');
-    if (!fwrite($fh_high, base64_decode($params['high_content'])))
-    {
-      return new PwgError(500, 'error while writing high');
-    }
-    fclose($fh_high);
+    // merge the high resolution file
+    merge_chunks($high_path, $params['original_sum'], 'high');
     chmod($high_path, 0644);
 
     // check dumped thumbnail md5
@@ -1104,7 +1181,7 @@ SELECT
     }
   }
 
-  if (isset($params['high_content']))
+  if (isset($params['high_sum']))
   {
     $insert['has_high'] = 'true';
     $insert['high_filesize'] = $high_filesize;
@@ -1645,5 +1722,16 @@ SELECT
 
     update_category($cat_ids);
   }
+}
+
+function ws_logfile($string)
+{
+  return true;
+  
+  file_put_contents(
+    '/tmp/piwigo_ws.log',
+    '['.date('c').'] '.$string."\n",
+    FILE_APPEND
+    );
 }
 ?>
