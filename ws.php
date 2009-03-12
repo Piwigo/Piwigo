@@ -173,14 +173,24 @@ function ws_addDefaultMethods( $arr )
     );
 
   $service->addMethod(
+    'pwg.images.addChunk',
+    'ws_images_add_chunk',
+    array(
+      'data' => array(),
+      'original_sum' => array(),
+      'type' => array(),
+      'position' => array(),
+      ),
+    'POST method only. For admin only.'
+    );
+  
+
+  $service->addMethod(
     'pwg.images.add',
     'ws_images_add',
     array(
-      'file_content' => array(),
       'file_sum' => array(),
-      'thumbnail_content' => array(),
       'thumbnail_sum' => array(),
-      'high_content' => array('default' => null),
       'high_sum' => array('default' => null),
       'original_sum' => array(),
       'name' => array('default' => null),

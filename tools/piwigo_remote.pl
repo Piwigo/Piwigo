@@ -1,5 +1,17 @@
 #!/usr/bin/perl
 
+####
+# Usage examples
+#
+# time perl piwigo_remote.pl \
+#   --action=pwg.images.add \
+#   --file=erwann_rocher-web.jpg \
+#   --thumb=erwann_rocher-thumb.jpg \
+#   --high=erwann_rocher-high.jpg \
+#   --original=erwann_rocher-high.jpg \
+#   --define categories=9 \
+#   --chunk_size=200_000
+
 use strict;
 use warnings;
 
@@ -7,22 +19,24 @@ use JSON;
 use LWP::UserAgent;
 use Getopt::Long;
 use Encode qw/is_utf8 decode/;
+use POSIX qw(ceil floor);
 
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s high=s original=s categories=s define=s%/
+    qw/action=s file=s thumbnail=s high=s original=s categories=s chunk_size=i define=s%/
 );
 
 our $ua = LWP::UserAgent->new;
 $ua->cookie_jar({});
 
 my %conf;
-$conf{base_url} = 'http://localhost/~pierrick/piwigo/trunk';
+$conf{base_url} = 'http://localhost/piwigo/2.0';
 $conf{response_format} = 'json';
-$conf{username} = 'pierrick';
-$conf{password} = 'z0rglub';
+$conf{username} = 'plg';
+$conf{password} = 'plg';
 $conf{limit} = 10;
+$conf{chunk_size} = defined $opt{chunk_size} ? $opt{chunk_size} : 500_000;
 
 my $result = undef;
 my $query = undef;
@@ -48,26 +62,32 @@ if ($opt{action} eq 'pwg.images.add') {
     use Digest::MD5::File qw/file_md5_hex/;
     use File::Slurp;
 
+    $form = {};
+    $form->{method} = 'pwg.images.add';
+
     my $original_sum = file_md5_hex($opt{original});
+    $form->{original_sum} = $original_sum;
 
-    my $file_content = encode_base64(read_file($opt{file}));
-    my $file_sum = file_md5_hex($opt{file});
-
-    my $thumbnail_content = encode_base64(read_file($opt{thumbnail}));
-    my $thumbnail_sum = file_md5_hex($opt{thumbnail});
-
-    $form = {
-        method => 'pwg.images.add',
+    send_chunks(
+        filepath => $opt{file},
+        type => 'file',
         original_sum => $original_sum,
-        file_sum => $file_sum,
-        file_content => $file_content,
-        thumbnail_sum => $thumbnail_sum,
-        thumbnail_content => $thumbnail_content,
-        categories => $opt{categories},
-    };
+    );
+    $form->{file_sum} = file_md5_hex($opt{file});
+
+    send_chunks(
+        filepath => $opt{thumbnail},
+        type => 'thumb',
+        original_sum => $original_sum,
+    );
+    $form->{thumbnail_sum} = file_md5_hex($opt{thumbnail});
 
     if (defined $opt{high}) {
-        $form->{high_content} = encode_base64(read_file($opt{high}));
+        send_chunks(
+            filepath => $opt{high},
+            type => 'high',
+            original_sum => $original_sum,
+        );
         $form->{high_sum} = file_md5_hex($opt{high});
     }
 
@@ -230,4 +250,48 @@ sub pwg_ws_get_query {
     }
 
     return $query;
+}
+
+sub send_chunks {
+    my %params = @_;
+
+    my $content = encode_base64(read_file($params{filepath}));
+    my $content_length = length($content);
+    my $nb_chunks = ceil($content_length / $conf{chunk_size});
+
+    my $chunk_pos = 0;
+    my $chunk_id = 1;
+    while ($chunk_pos < $content_length) {
+        my $chunk = substr(
+            $content,
+            $chunk_pos,
+            $conf{chunk_size}
+        );
+        $chunk_pos += $conf{chunk_size};
+
+        my $response = $ua->post(
+            $conf{base_url}.'/ws.php?format=json',
+            {
+                method => 'pwg.images.addChunk',
+                data => $chunk,
+                original_sum => $params{original_sum},
+                position => $chunk_id,
+                type => $params{type},
+            }
+        );
+
+        printf(
+            'chunk %05u of %05u for %s "%s"'."\n",
+            $chunk_id,
+            $nb_chunks,
+            $params{type},
+            $params{filepath}
+        );
+        if ($response->code != 200) {
+            printf("response code    : %u\n", $response->code);
+            printf("response message : %s\n", $response->message);
+        }
+
+        $chunk_id++;
+    }
 }
