@@ -31,7 +31,7 @@ $conf['version'] = '2.0';
 
 // URL of main gallery
 // Example : http://www.my.domain/my/directory
-$conf['gallery'] = 'http://demo.piwigo.net/';
+$conf['gallery'] = 'http://piwigo.org/demo';
 
 // prefix for thumbnails in "thumbnail" sub directories
 $conf['prefix_thumbnail'] = 'TN-';
@@ -1688,7 +1688,7 @@ if ($_SESSION['scan_step'] == 'exit')
       </fieldset>
       <fieldset class="footer">
         <div class="pwg_block">
-          Powered by <a href="http://piwigo.org" class="pwg"><span class="p">Pi</span><span class="w">wi</span><span class="g">go</span></a>
+          Powered by <a href="http://piwigo.org" class="pwg">Piwigo</a>
         </div>
         <?php echo $g_footer; ?>
       </fieldset>

@@ -182,6 +182,7 @@ list($nb_comments) = mysql_fetch_row(pwg_query($query));
 
 $template->assign(
   array(
+    'PHPWG_URL' => PHPWG_URL,
     'PWG_VERSION' => PHPWG_VERSION,
     'OS' => PHP_OS,
     'PHP_VERSION' => phpversion(),

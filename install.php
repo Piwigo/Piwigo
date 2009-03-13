@@ -211,6 +211,14 @@ else
   }
 }
 
+if ('fr_FR' == $language) {
+  define('PHPWG_DOMAIN', 'fr.piwigo.org');
+}
+else {
+  define('PHPWG_DOMAIN', 'piwigo.org');
+}
+define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+
 load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
@@ -393,7 +401,7 @@ $template->assign(
     'F_DB_PREFIX' => $table_prefix,
     'F_ADMIN'=>$admin_name,
     'F_ADMIN_EMAIL'=>$admin_mail,
-    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), 'http://forum.'.PHPWG_DOMAIN.'/'),
+    'L_INSTALL_HELP'=>sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
     ));
 
 //------------------------------------------------------ errors & infos display
