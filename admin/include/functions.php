@@ -1741,21 +1741,14 @@ SELECT image_id
  */
 function pwg_URL()
 {
-  global $lang_info;
   $urls = array(
-    'WIKI'       => 'http://'.PHPWG_DOMAIN.'/doc/',
-    'HOME'       => 'http://'.PHPWG_DOMAIN.'/',
-    'DEMO'       => 'http://demo.'.PHPWG_DOMAIN.'/',
-    'FORUM'      => 'http://forum.'.PHPWG_DOMAIN.'/',
-    'BUGS'       => 'http://bugs.'.PHPWG_DOMAIN.'/',
+    'HOME'       => 'http://'.PHPWG_DOMAIN,
+    'WIKI'       => 'http://'.PHPWG_DOMAIN.'/doc',
+    'DEMO'       => 'http://'.PHPWG_DOMAIN.'/demo',
+    'FORUM'      => 'http://'.PHPWG_DOMAIN.'/forum',
+    'BUGS'       => 'http://'.PHPWG_DOMAIN.'/bugs',
     'EXTENSIONS' => 'http://'.PHPWG_DOMAIN.'/ext',
     );
-  if ( isset($lang_info['code']) and
-       in_array($lang_info['code'], array('fr','en')) )
-  { /* current wiki languages are French or English */
-    $urls['WIKI'] .= 'doku.php?id='.$lang_info['code'].':'.$lang_info['code'];
-    $urls['HOME'] .= '?lang='.$lang_info['code'];
-  }
   return $urls;
 }
 

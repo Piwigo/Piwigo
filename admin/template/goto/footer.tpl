@@ -15,7 +15,7 @@
   *}
 
   {'powered_by'|@translate}
-  <a href="http://piwigo.org" class="Piwigo">
+  <a href="{$PHPWG_URL}" class="Piwigo">
   <span class="Piwigo">Piwigo</span></a>
   {$VERSION}
   {if isset($CONTACT_MAIL)}

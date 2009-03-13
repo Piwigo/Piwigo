@@ -125,6 +125,15 @@ load_plugins();
 
 include(PHPWG_ROOT_PATH.'include/user.inc.php');
 
+if ('fr_FR' == $user['language']) {
+  define('PHPWG_DOMAIN', 'fr.piwigo.org');
+}
+else {
+  define('PHPWG_DOMAIN', 'piwigo.org');
+}
+define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
+
 
 // language files
 load_language('common.lang');

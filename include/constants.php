@@ -23,9 +23,6 @@
 
 // Default settings
 define('PHPWG_VERSION', 'Colibri');
-define('PHPWG_DOMAIN', 'piwigo.org');
-define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
-define('PEM_URL', 'http://'.PHPWG_DOMAIN.'/ext');
 define('PHPWG_DEFAULT_LANGUAGE', 'en_UK');
 define('PHPWG_DEFAULT_TEMPLATE', 'yoga/Sylvia');
 

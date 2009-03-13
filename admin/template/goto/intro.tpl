@@ -4,7 +4,7 @@
   <dt>{'Piwigo version'|@translate}</dt>
   <dd>
     <ul>
-      <li><a href="http://piwigo.org"  onclick="window.open(this.href, ''); 
+      <li><a href="{$PHPWG_URL}"  onclick="window.open(this.href, ''); 
           return false;">Piwigo</a> {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
     </ul>
