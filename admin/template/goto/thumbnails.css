@@ -1,9 +1,33 @@
-/* $Id$ */
+/* $Id: thumbnails.css 2526 2008-09-14 00:33:53Z vdigital $ */
 .content UL.thumbnails {
   margin: 0; padding: 0; list-style: none;
   text-align: center;	/* to center the whole collection in .content */
 }
 .content UL.thumbnails LI { display: inline }
+.content ul.thumbnails li.rank-of-image { 
+  float: left;
+  background-color: #111;
+  border: 1px solid #666;
+  color: #666;
+  -moz-border-radius: 4px;
+  display: block;
+  width: 104px;
+  height: 128px;
+  cursor: move;
+  margin: 10px;
+}
+.content ul.thumbnails li.rank-of-image img {
+  width: 96px;
+  height: 96px;
+  margin: 4px;
+  float: left;
+}
+.content ul.thumbnails li.rank-of-image input {
+  height: 12px; 
+  width: 50px;
+  position: relative;
+  top: 0;  
+}
 .content UL.thumbnails SPAN.wrap1 {
   margin: 0 5px 5px 5px;
   display: table-cell; display: inline-table;
