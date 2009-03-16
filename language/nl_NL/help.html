@@ -1,35 +1,64 @@
 <div class="instructions">
 <h2>Help</h2>
 
+<div id="instructionPLoader" class="instructionBlock">
+  <div
+    id="pLoader_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
+  ><span>
+    <!--TODO-->Add photos, the pLoader way
+  </span></div>
+  <div
+    id="pLoader_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<!--TODO-->    <p><a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader for Windows</a> or <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader for Linux</a> : description, download and details about new revisions.</p>
+    <ol>
+      <!--TODO--><li>Create a directory "upload" next to directory "galleries" in your Piwigo installation, with write access.</li>
+      <!--TODO--><li>Install pLoader on your computer, start it and fill the connection settings : your gallery URL, your username and password.</li>
+      <!--TODO--><li>Drag'n drop photos from your directory browser into pLoader photo selection.</li>
+      <!--TODO--><li>Create a category and select it.</li>
+      <!--TODO--><li>Select some photos.</li>
+      <!--TODO--><li>Click on the green arrow to transfer photos in your gallery</li>
+    </ol>
+<!--TODO-->Congratulations! You have successfuly created the first category of your photo gallery.
+  </div> <!-- pLoader_content -->
+</div> <!-- instructionPLoader -->
+
+<div id="instructionFTP" class="instructionBlock">
+  <div
+    id="FTP_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
+  ><span>
+    <!--TODO-->Add photos, the FTP way
+  </span></div>
+  <div
+    id="FTP_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+
+
 <h3>Snelle start</h3>
 
 <ol>
-  
-  <li>Maak een lokale map "test_categorie".</li>
+  <!--TODO--><li>Create a directory on your computer.</li>  
 
-  <li>Kopieer de afbeeldingen maar "test_categorie".</li>
+  <!--TODO--><li>Copy some photos inside this directory, resize them for web display. <em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
 
-  <li>Open an FTP verbinding naar de gallerie.</li>
+  <!--TODO--><li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
 
-  <li>Upload lokale map "test_categorie" in de galleriemap de map heet
-  "galleries". Stel de mapeigenschappen in op 777 on directory
-  "galleries/test_categorie".</li>
+  <!--TODO--><li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> to create missing thumbnails.</li>
 
-  <li>Login op de Piwigo als een beheerder.</li>
-
-  <li>Ga naar <span class="pwgScreen">Beheer, Afbeeldingen,
-  Thumbnails</span>. Piwigo vind de afbeeldingen in de map "test_category"
-  zonder thumbnails. Vraag om thumbnails te maken.</li>
-
-  <li>Ga naar <span class="pwgScreen">Beheer, Categorieën,
-  Synchronizeer</span>. vink aan "mappen + bestanden" optie, vink uit "alleen
-  een simulatie uitvoeren" en bevestig de synchronizatie.</li>
-
-  <li>Klus geklaard. Je hebt een categorie "test_categorie" in het begin van de gallerie gemaakt.</li>
-  
+  <!--TODO--><li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
 </ol>
 
-<h3>Toeveoegen elementen</h3>
+<!--TODO-->Congratulations! You have successfuly created the first category of your photo gallery.
+
+<!--TODO--><h3>Directories and files organization</h3>
 
 <ul>
 
@@ -104,8 +133,7 @@ op het zelfde moment. Desalnietemin, word je geadviseerd om te kiezen uit catego
 die sub-categorieën bevatten.</li>
 
   <li>Als bestanden, thumbnails en representativev corrct zijn geplaatst in
- mappen ga dan naar: <span class="pwgScreen">Administratie, Categorieën,
-  Synchronizeren</span></li>
+ mappen ga dan naar: <span class="pwgScreen">Administratie &raquo; Categorieën &raquo; Synchronizeren</span></li>
 
 </ul>
 
@@ -135,18 +163,31 @@ die sub-categorieën bevatten.</li>
 
 </ul>
 
-<h3>Toegangs authorizatie</h3>
+
+  </div> <!-- FTP_content -->
+</div> <!-- instructionFTP -->
+
+<div id="instructionPermissions" class="instructionBlock">
+  <div
+    id="permissions_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
+  ><span>
+    <!--TODO-->Permissions
+  </span></div>
+  <div
+    id="permissions_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 
 <ul>
 
-  <li>U kunt toegang tot categorieën verbieden. 
-  De categorieën kunnen openbaar of private zijn. De toestemming (voor groepen en gebruikers)
-   kunnen worden aangepast als de categorie private is.
-</li>
+  <!--TODO--><li>You can forbid access to categories. Switch the category access type to "private" if you want to manage permissions.</li>
 
   <li>U kunt een categorie aan private maken door het aanpassen van een enkele categorie(<span
-  class="pwgScreen">Administratie, Categorieën, Beheren, bewerken</span>) of bij het aanpassen van de opties op de hele categorie map (<span
-  class="pwgScreen">Administratie, Categorieën, Eigenschappen, Publiek / Private</span>).</li>
+  class="pwgScreen">Administratie &raquo; Categorieën &raquo; Beheren &raquo; bewerken</span>) of bij het aanpassen van de opties op de hele categorie map (<span
+  class="pwgScreen">Administratie &raquo; Categorieën &raquo; Eigenschappen &raquo; Publiek / Private</span>).</li>
 
   <li>
 
@@ -154,75 +195,126 @@ die sub-categorieën bevatten.</li>
 
     <ul>
 
-      <li><span class="pwgScreen">Administratie, Identificatie, Gebruikers, rechten aanpassen (een link per gebruiker)</span></li>
+      <li><span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Gebruikers &raquo; rechten aanpassen (een link per gebruiker)</span></li>
 
-      <li><span class="pwgScreen">Administratie, Identificatie, Groepen, rechten aanpassen (een link per groep)</span></li>
+      <li><span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Groepen &raquo; rechten aanpassen (een link per groep)</span></li>
 
-      <li><span class="pwgScreen">Administratie, Categorieën, Beheren, bewerk categorie rechten aanpassen (one link per categorie)</span></li>
+      <li><span class="pwgScreen">Administratie &raquo; Categorieën &raquo; Beheren &raquo; bewerk categorie rechten aanpassen (one link per categorie)</span></li>
 
     </ul>
 
   </li>
 
 </ul>
+  </div> <!-- permissions_content --> 
+</div> <!-- instructionPermissions -->
 
-<h3>Gebruikers en groepen</h3>
-
+<div id="instructionGroups" class="instructionBlock">
+  <div
+    id="groups_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('groups_header', 'groups_content')"
+  ><span>
+    Gebruikers en groepen
+  </span></div>
+  <div
+    id="groups_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
-  <li>Piwigo heeft de mogelijkheid tot het beheren van gebruikers en groepen. Dit kan erg handig zijn als er gemeenschappelijk rechten zijn voor toegang tot private categorieën.</li>
+    <!--TODO--><li>Groups is a convenient way to set permissions for a list of users.</li>
 
-  <li>Je kan groepen maken in <span class="pwgScreen">Administratie, Identificatie, Groepen</span> en voeg gebruikers toe aan de groep via <span class="pwgScreen">Administratie, Identicatie, Gebruikers</span>.</li>
+  <li>Je kan groepen maken in <span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Groepen</span> en voeg gebruikers toe aan de groep via <span class="pwgScreen">Administratie, Identicatie, Gebruikers</span>.</li>
 
   <li>Een gebruiker kan behoren tot verschillende groepen. De vergunning is sterker dan verbod : als gebruiker "jack" behoord tot de groep "familie" en "Vrienden", en alleen de groep "familie" kan de categorie "Christmas 2003" zien,
   "jack" zal de mogelijkheid hebben om de categorie "Christmas 2003" te zien.</li>
 
 </ul>
+  </div> <!-- groups_content --> 
+</div> <!-- instructionGroups -->
 
-<h3>Bestands upload door gebruikers</h3>
-
-<p>Piwigo geeft de mogelijkheid aan gebruikers om bestanden uploaden. Om het mogelijk te maken :</p>
+<div id="instructionUpload" class="instructionBlock">
+  <div
+    id="upload_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('upload_header', 'upload_content')"
+  ><span>
+    Bestands upload door gebruikers
+  </span></div>
+  <div
+    id="upload_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<!--TODO--><p>Users can upload their photos too.</p>
 
 <ol>
 
-  <li>authorizeer upload op een categorie (<span class="pwgScreen">Administratie, Categorieën, Beheren, bewerken</span> of <span class="pwgScreen">Administratie paneel, Categorieën, Eigenschappen, Upload</span>)</li>
+  <!--TODO--><li>Authorize upload on any physical categories (<span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Manage &raquo; edit</span> or <span
+  class="pwgScreen">Administration &raquo; Categories &raquo; Properties &raquo; Upload</span>). Virtual categories can't receive any upload.</li>
 
   <li>geef rechten op de mappen 777 (gebruiker, groepen, wereld)</li>
 
 </ol>
 
-<p>Bestanden geupload door gebruikers zijn niet direct zichtbaar op de website, ze moeten gevalideerd worden door een beheerder.
- Voor dat doel moet de beheerder gaan naar <span class="pwgScreen">Administratie, Afbeeldingen, Wachten</span>
- om de bestanden te bevestigen of te weigeren, dan worden voorgesteld om te synchroniseren met de database.</p>
+<!--TODO--><p>Photos uploaded by users are not directly visible on the website. An administrator
+must validate uploaded photos in <span class="pwgScreen">Administration &raquo; Pictures &raquo; Waiting</span>.</p>
+  </div> <!-- upload_content --> 
+</div> <!-- instructionUpload -->
 
-
-<h3>Links tussen elementen en categorieën, virtuele categorieën</h3>
-
+<div id="instructionCategoryLinks" class="instructionBlock">
+  <div
+    id="categoryLinks_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
+  ><span>
+    Links tussen elementen en categorieën, virtuele categorieën
+  </span></div>
+  <div
+    id="categoryLinks_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 <ul>
 
-  <li>Piwigo scheidt categorieën waar de elementen en categorieën worden opgeslagen waar zij worden getoond.</li>
+  <!--TODO--><li>Photos are displayed in the category corresponding to the file directory.</li>
 
-  <li>Standaard, de elementen worden getoond slechts in hun echte categorieën: de die aan mappen op de webserver beantwoorden.</li>
+  <!--TODO--><li>You can also display a picture in several categories, without duplicating the file on your web server. Associate the photo to any category from the photo editing screen (that any administrator can reach from the photo page on the gallery side).</li>
 
-  <li>Om een element met een categorie te koppelen, moet u enkel de vereniging op de pagina van elementenuitgave maken (verbinding met dit scherm 
-  picture.php ingelogt zijn als beheerder) of op informatie van alle elementen van een categorie.</li>
-
-  <li>Gebruik dit principe, is het mogelijk om virtuele categorieën tot stand te brengen: geen folder corespondeerd aan deze categorie.
-   U kunt virtuele categorieën maken in <span class="pwgScreen">Administratie, Categorieë, Beheren</span>.</li>
+  <!--TODO--><li>Virtual categories are based on this concept: they have no corresponding directory. Create virtual categories from <span class="pwgScreen">Administration &raquo; Categories &raquo; Manage</span>.</li>
 
 </ul>
+  </div> <!-- categoryLinks_content --> 
+</div> <!-- instructionCategoryLinks -->
 
-<h3>Diverse informatie</h3>
+<div id="instructionMisc" class="instructionBlock">
+  <div
+    id="misc_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('misc_header', 'misc_content')"
+  ><span>
+    Diverse informatie
+  </span></div>
+  <div
+    id="misc_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
 
 <ul>
 
   <li>Als je je gallery-installatie hebt afgerond, verander dan het uiterlijk van de standaard weergave 
-  in <span class="pwgScreen">Administratie paneel, Configuratie, 
+  in <span class="pwgScreen">Administratie paneel &raquo; Configuratie &raquo; 
   Standaard</span>. Elke nieuwe geregistreerde gebruiker zal dezelfde standaard vertoningseigenschappen hebben.</li>
 
-  <li>Als je vragen hebt, twijfel niet en bezoek het forum om naar het antwoord te zoeken of stel zelf een vraag.
- Het <a href="http://forum.phpwebgallery.net">forum</a> (Berichtenbord) is beschikbaar op de website van
-Piwigo. Bekijk de <a href="http://phpwebgallery.net/doc/" target="blank">officiele Piwigo documentatie</a> voor meer informatie.</li>
+   <!--TODO--><li>If you have any question, Piwigo community will welcome you on <a
+  href="http://piwigo.org/forum">its forum</a>.</li>
 
 </ul>
+  </div> <!-- misc_content --> 
+</div> <!-- instructionMisc -->
+
 </div>
