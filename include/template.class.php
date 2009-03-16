@@ -199,7 +199,7 @@ class Template {
         return false;
       }
 
-      if ((stripos(implode('/',array_keys($_GET)), $param) > 0 or $param == 'N/A')
+      if ((stripos(implode('',array_keys($_GET)), '/'.$param) !== false or $param == 'N/A')
         and (preg_match('/'.preg_quote($tpl,'/').'$/', $this->get_template_dir()) or $tpl == 'N/A')
         and (!isset($this->extents[$handle]) or $overwrite)
         and file_exists($dir . $filename))

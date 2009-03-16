@@ -60,7 +60,9 @@ $relevant_parameters = array(
     'posted-monthly-calendar',
     'search',
     'flat',
-    'list',); /* <=> Random */
+    'list', /* <=> Random */
+    'tags',
+    ); 
   $query = '
 SELECT permalink
   FROM '.CATEGORIES_TABLE.'
