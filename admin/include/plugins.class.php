@@ -109,7 +109,9 @@ INSERT INTO ' . PLUGINS_TABLE . ' (id,version) VALUES ("'
         if (empty($errors))
         {
           $query = '
-UPDATE ' . PLUGINS_TABLE . ' SET state="active" WHERE id="' . $plugin_id . '"';
+UPDATE ' . PLUGINS_TABLE . '
+SET state="active", version="'.$this->fs_plugins[$plugin_id]['version'].'"
+WHERE id="' . $plugin_id . '"';
           pwg_query($query);
         }
         break;
