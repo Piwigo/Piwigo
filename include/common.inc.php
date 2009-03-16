@@ -101,6 +101,7 @@ if(isset($conf['show_php_errors']) && !empty($conf['show_php_errors']))
 
 include(PHPWG_ROOT_PATH . 'include/constants.php');
 include(PHPWG_ROOT_PATH . 'include/functions.inc.php');
+include( PHPWG_ROOT_PATH .'include/template.class.php');
 
 // Database connection
 @mysql_connect( $cfgHote, $cfgUser, $cfgPassword ) or my_error( 'mysql_connect', true );

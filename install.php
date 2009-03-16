@@ -21,12 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//------------------------------------------------- check php version
-if (version_compare(PHP_VERSION, '5', '<'))
-{
-  die('Piwigo requires PHP 5 or above.');
-}
-
 //----------------------------------------------------------- include
 define('PHPWG_ROOT_PATH','./');
 
@@ -223,7 +217,14 @@ load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
 load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8') );
 
+//------------------------------------------------- check php version
+if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
+{
+  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
+}
+
 //----------------------------------------------------- template initialization
+include( PHPWG_ROOT_PATH .'include/template.class.php');
 $template=new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames( array('install'=>'install.tpl') );
 $step = 1;

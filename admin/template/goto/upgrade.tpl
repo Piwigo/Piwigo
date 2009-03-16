@@ -112,6 +112,7 @@ textarea { margin-left: 20px; }
 {/if}
 
 </div> {* content *}
+<div>{$L_UPGRADE_HELP}</div>
 </div> {* the_page *}
 </body>
 </html>

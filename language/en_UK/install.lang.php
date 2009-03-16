@@ -63,4 +63,14 @@ $lang['install_end_message'] = 'The configuration of Piwigo is finished, here is
 * this login will enable you to access to the administration panel and to the instructions in order to place pictures in your directories';
 $lang['conf_mail_webmaster'] = 'Webmaster mail address';
 $lang['conf_mail_webmaster_info'] = 'Visitors will be able to contact site administrator with this mail';
+
+$lang['PHP 5 is required'] = 'PHP 5 is required';
+$lang['It appears your webhost is currently running PHP %s.'] = 'It appears your webhost is currently running PHP %s.';
+$lang['Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.'] = 'Piwigo may try to switch your configuration to PHP 5 by creating or modifying a .htaccess file.';
+$lang['Note you can change your configuration by yourself and restart Piwigo after that.'] = 'Note you can change your configuration by yourself and restart Piwigo after that.';
+$lang['Try to configure PHP 5'] = 'Try to configure PHP 5';
+$lang['Sorry!'] = 'Sorry!';
+$lang['Piwigo was not able to configure PHP 5.'] = 'Piwigo was not able to configure PHP 5.';
+$lang["You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself."] = "You may referer to your hosting provider's support and see how you could switch to PHP 5 by yourself.";
+$lang['Hope to see you back soon.'] = 'Hope to see you back soon.';
 ?>
