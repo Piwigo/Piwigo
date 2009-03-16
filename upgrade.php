@@ -21,12 +21,6 @@
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
 
-//check php version
-if (version_compare(PHP_VERSION, '5', '<'))
-{
-  die('Piwigo requires PHP 5 or above.');
-}
-
 define('PHPWG_ROOT_PATH', './');
 
 // load config file
@@ -167,17 +161,37 @@ else
   }
 }
 
+if ('fr_FR' == $language) {
+  define('PHPWG_DOMAIN', 'fr.piwigo.org');
+}
+else {
+  define('PHPWG_DOMAIN', 'piwigo.org');
+}
+define('PHPWG_URL', 'http://'.PHPWG_DOMAIN);
+
 load_language( 'common.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'admin.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
+load_language( 'install.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
 load_language( 'upgrade.lang', '', array('language'=>$language, 'target_charset'=>'utf-8', 'no_fallback' => true) );
+
+// check php version
+if (version_compare(PHP_VERSION, REQUIRED_PHP_VERSION, '<'))
+{
+  include(PHPWG_ROOT_PATH.'install/php5_apache_configuration.php');
+}
 
 // +-----------------------------------------------------------------------+
 // |                        template initialization                        |
 // +-----------------------------------------------------------------------+
 
+include( PHPWG_ROOT_PATH .'include/template.class.php');
 $template = new Template(PHPWG_ROOT_PATH.'admin/template/goto', 'roma');
 $template->set_filenames(array('upgrade'=>'upgrade.tpl'));
-$template->assign('RELEASE', PHPWG_VERSION);
+$template->assign(array(
+  'RELEASE' => PHPWG_VERSION,
+  'L_UPGRADE_HELP' => sprintf(l10n('install_help'), PHPWG_URL.'/forum'),
+  )
+);
 
 // +-----------------------------------------------------------------------+
 // |                            upgrade choice                             |
