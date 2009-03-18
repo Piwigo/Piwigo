@@ -78,7 +78,7 @@
 
 	<fieldset id="syncMetadata">
 		<legend>{'update_sync_metadata'|@translate}</legend>
-		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}> {'synchronize metadata'|@translate} ({$METADATA_LIST})</label></li>
+		<label><input type="checkbox" name="sync_meta" {if $introduction.sync_meta}checked="checked"{/if}> {'synchronize metadata'|@translate} ({$METADATA_LIST})</label>
 		<ul style="padding-left:3em">
 	  		<li>
 	  			<label><input type="checkbox" name="meta_all" {if $introduction.meta_all}checked="checked"{/if}> {'update_sync_metadata_all'|@translate}</label>
