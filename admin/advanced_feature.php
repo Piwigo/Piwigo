@@ -92,7 +92,8 @@ $start_url = get_root_url().'admin.php?page=advanced_feature&amp;action=';
 $template->assign(
   array
   (
-    'U_HELP' => get_root_url().'popuphelp.php?page=advanced_feature'
+    'U_HELP' => get_root_url().'popuphelp.php?page=advanced_feature',
+    'U_ACTIVE_MENU' => 5
   ));
 
 // advanced_features

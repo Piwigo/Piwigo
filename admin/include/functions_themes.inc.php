@@ -33,7 +33,9 @@ function selected_admin_menu()
       case 'tags':
         return 3;
       case 'user_list':
+      case 'user_perm':
       case 'group_list':
+      case 'group_perm':
       case 'notification_by_mail':
         return 4;
       case 'stats':
