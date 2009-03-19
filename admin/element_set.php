@@ -133,6 +133,7 @@ SELECT element_id
 else if ('not_linked' == $_GET['cat'])
 {
   $page['title'] = l10n('Elements_not_linked');
+  $template->assign(array('U_ACTIVE_MENU' => 5 ));
 
   // we are searching elements not linked to any virtual category
   $query = '
@@ -163,6 +164,7 @@ SELECT DISTINCT(image_id)
 else if ('duplicates' == $_GET['cat'])
 {
   $page['title'] = l10n('Duplicates');
+  $template->assign(array('U_ACTIVE_MENU' => 5 ));
 
   // we are searching related elements twice or more to physical categories
   // 1 - Retrieve Files
