@@ -157,6 +157,10 @@ foreach ($mb_conf as $id => $pos )
       )
      );
 }
+
+$action = get_root_url().'admin.php?page=menubar';
+$template->assign(array('F_ACTION'=>$action));
+
 $template->set_filename( 'menubar_admin_content', 'menubar.tpl' );
 $template->assign_var_from_handle( 'ADMIN_CONTENT', 'menubar_admin_content');
 ?>

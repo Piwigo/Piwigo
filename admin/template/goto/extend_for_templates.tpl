@@ -14,7 +14,7 @@
     {foreach from=$extents item=tpl name=extent_loop}
     <tr class="{if $smarty.foreach.extent_loop.index is odd}row1{else}row2{/if}">
       <td>
-        <input type="hidden" name=reptpl[] value="{$tpl.replacer}">
+        <input type="hidden" name="reptpl[]" value="{$tpl.replacer}">
         {$tpl.replacer}
       </td>
       <td>

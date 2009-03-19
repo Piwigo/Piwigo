@@ -6,7 +6,9 @@
   <h2>{'title_configuration'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
 
+{if !isset($default)}
 <form method="post" action="{$F_ACTION}" class="properties">
+{/if}
 
 {if isset($main)}
 <fieldset id="mainConf">
@@ -85,6 +87,7 @@
 
 {if isset($history)}
 <fieldset id="historyConf">
+  <legend></legend>
   <ul>
       <li>
         <label><span class="property">{'conf_history_guest'|@translate}</span><input type="checkbox" name="history_guest" {if ($history.history_guest)}checked="checked"{/if}></label>
@@ -104,6 +107,7 @@
 
 {if isset($comments)}
 <fieldset id="commentsConf">
+  <legend></legend>
   <ul>
     <li>
       <label>
@@ -146,6 +150,7 @@
 
 {if isset($upload)}
 <fieldset id="uploadConf">
+  <legend></legend>
   <ul>
     <li>
       <label><span class="property">{'Show upload link every time'|@translate}</span>
@@ -154,6 +159,7 @@
     <li>
       <label><span class="property">{'User access level to upload'|@translate}</span>
       {html_options name="upload_user_access" options=$upload.upload_user_access_options selected=$upload.upload_user_access_options_selected}
+      </label>
     </li>
     <li>
       <label>
@@ -174,5 +180,5 @@
     <input class="submit" type="submit" name="submit" value="{'Submit'|@translate}" {$TAG_INPUT_ENABLED}>
     <input class="submit" type="reset" name="reset" value="{'Reset'|@translate}">
   </p>
-{/if}
 </form>
+{/if}

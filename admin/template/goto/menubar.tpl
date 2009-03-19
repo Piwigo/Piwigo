@@ -4,7 +4,7 @@
 	<h2>Menubar</h2>
 </div>
 
-<form method="post" class="properties">
+<form method="post" action="{$F_ACTION}" class="properties">
 <table class="table2">
 	<tr class="throw">
 		<td>Id</td>
@@ -18,7 +18,7 @@
 		<td>{$block.reg->get_id()}</td>
 		<td>{$block.reg->get_owner()}</td>
 		<td>{$block.reg->get_name()|@translate}</td>
-		<td><input type="input" name="pos_{$block.reg->get_id()}" value={math equation="abs(pos)" pos=$block.pos} size="2"></td>
+		<td><input type="text" name="pos_{$block.reg->get_id()}" value={math equation="abs(pos)" pos=$block.pos} size="2"></td>
 		<td><input type="checkbox" name="hide_{$block.reg->get_id()}" {if $block.pos<0}checked="checked"{/if} ></td>
 	</tr>
 	{/foreach}

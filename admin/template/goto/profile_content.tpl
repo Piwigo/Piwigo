@@ -36,8 +36,8 @@
         </span>
         <input type="password" name="passwordConf" id="passwordConf" value="">
       </li>
-    </ul>
 {/if}
+    </ul>
   </fieldset>
 
   <fieldset>

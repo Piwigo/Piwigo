@@ -27,7 +27,7 @@
 {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 {if !empty($elements) }
-<input type="hidden" name="element_ids" value="{$ELEMENT_IDS}">
+<div><input type="hidden" name="element_ids" value="{$ELEMENT_IDS}"></div>
 {foreach from=$elements item=element}
 <fieldset class="elementEdit">
   <legend>{$element.LEGEND}</legend>
@@ -81,7 +81,7 @@
 
     <tr>
       <td><strong>{'Description'|@translate}</strong></td>
-      <td><textarea name="description-{$element.ID}" id="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
+      <td><textarea cols="50" rows="5" name="description-{$element.ID}" id="description-{$element.ID}" class="description">{$element.DESCRIPTION}</textarea></td>
     </tr>
 
   </table>
