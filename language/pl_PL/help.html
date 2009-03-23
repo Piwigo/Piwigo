@@ -1,5 +1,5 @@
 <div class="instructions">
-<h2>Help</h2>
+<h2>Pomoc</h2>
 
 <div id="instructionPLoader" class="instructionBlock">
   <div
@@ -7,23 +7,23 @@
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
   ><span>
-    <!--TODO-->Add photos, the pLoader way
+    Dodaj zdjęcia z wykorzystaniem aplikacji pLoader
   </span></div>
   <div
     id="pLoader_content"
     class="instructionBlockContent"
     style="display:none"
   >
-<!--TODO-->    <p><a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader for Windows</a> or <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader for Linux</a> : description, download and details about new revisions.</p>
+			<p><a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader dla Windows</a> or <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader dla Linux</a> : opis, pobieranie oraz szczegóły o nowych wersjach.</p>
     <ol>
-      <!--TODO--><li>Create a directory "upload" next to directory "galleries" in your Piwigo installation, with write access.</li>
-      <!--TODO--><li>Install pLoader on your computer, start it and fill the connection settings : your gallery URL, your username and password.</li>
-      <!--TODO--><li>Drag'n drop photos from your directory browser into pLoader photo selection.</li>
-      <!--TODO--><li>Create a category and select it.</li>
-      <!--TODO--><li>Select some photos.</li>
-      <!--TODO--><li>Click on the green arrow to transfer photos in your gallery</li>
+      <li>W miejscu gdzie zainstalowałeś Piwigo, utwórz katalog "upload" obok katalogu "galleries", z włączonymi prawami do zapisu.</li>
+      <li>Zainstaluj na komputerze aplikację pLoader, uruchom, a następnie uzupełnij odpowiednio dane połączenia do Twojej galerii : adres URL, nazwę użytkownika i hasło.</li>
+      <li>"Przeciągnij i upuść" obrazy do aplikacji pLoader w sekcji zdjęcia.</li>
+      <li>Utwórz kategorię, a następnie ją zaznacz.</li>
+      <li>Wybierz zdjęcia.</li>
+      <li>Kliknij w przycisk z zieloną strzałką, aby wgrać zdjęcia do galerii</li>
     </ol>
-<!--TODO-->Congratulations! You have successfuly created the first category of your photo gallery.
+Gratulacje! Stworzyłeś pierwszą kategorię w swojej galerii.
   </div> <!-- pLoader_content -->
 </div> <!-- instructionPLoader -->
 
@@ -33,7 +33,7 @@
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
   ><span>
-    <!--TODO-->Add photos, the FTP way
+    Dodaj obrazy za pomocą FTP
   </span></div>
   <div
     id="FTP_content"
@@ -41,53 +41,52 @@
     style="display:none"
   >
 
-
-<h3>Snelle start</h3>
+<h3>Szybki start</h3>
 
 <ol>
-  <!--TODO--><li>Create a directory on your computer.</li>  
+  <li>Utwórz katalog lokalny na swoim komputerze.</li>
 
-  <!--TODO--><li>Copy some photos inside this directory, resize them for web display. <em>Warning</em>: the name of directories and files must contain only letters, figures, "-", "_" or ".". No blank space, no accentuated characters.</li>
+  <li>Skopiuj zdjęcia do tego katalogu (zmień ich rozmiar na potrzeby galerii). <em>Uwaga</em>: naawy katalogów oraz plików mogą zawierać tylko litery, cyfry oraz znaki "-", "_" lub ".". Ne mogą zawierać znaku spacji lub akcentowania.</li></li>
 
-  <!--TODO--><li>With a FTP client, copy your directory in the "galleries" directory of your Piwigo installation.</li>
+  <li>Za pomocą klienta FTP skopiuj katalog katalogu "galleries".</li>
 
-  <!--TODO--><li>Logon your gallery and go to <span class="pwgScreen">Administration &raquo; Pictures &raquo; Thumbnails</span> to create missing thumbnails.</li>
+ <li>Zaloguj się do galerii i przejdź do <span class="pwgScreen">Administracja &raquo; Obrazy &raquo; Miniatury</span> aby stworzyć brakujące miniatury.</li>
 
-  <!--TODO--><li>Go to <span class="pwgScreen">Administration</span> and click on the big Synchronization button.</li>
+  <li>Przejdź do <span class="pwgScreen">Administracja</span> i wybierz duży przycisk Synchronizacja.</li>
+  
 </ol>
+Gratulacje! Stworzyłeś pierwszą kategorię w swojej galerii.
 
-<!--TODO-->Congratulations! You have successfuly created the first category of your photo gallery.
-
-<!--TODO--><h3>Directories and files organization</h3>
-
+<h3>Struktura katalogów i plików</h3>
 <ul>
 
   <li>
 
-    <p>Categorie mappen zijn in de Piwigo map "galleries". Bekijk de mapstructuur van een kleine gallerie (maar met een hoop mogelijkheden) :</p>
+    <p>W Piwigo katalogi kategorii znajdują sięwewnątrz katalogu
+    "galleries". Poniżej mozna zobaczyć drzewo niewielkiej galerii (ale wykorzystującej wiele funkcji) :</p>
 
     <pre>
 .
 |-- admin
 |-- doc
 |-- galleries
-|   |-- categorie-1
-|   |   |-- categorie-1.1
-|   |   |   |-- categorie-1.1.1
-|   |   |   |   |-- categorie-1.1.1.1
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
 |   |   |   |   |   |-- pwg_high
 |   |   |   |   |   |   +-- wedding.jpg
 |   |   |   |   |   |-- thumbnail
 |   |   |   |   |   |   +-- TN-wedding.jpg
 |   |   |   |   |   +-- wedding.jpg
-|   |   |   |   +-- categorie-1.1.1.2
-|   |   |   +-- categorie-1.1.2
-|   |   |-- categorie-1.2
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
 |   |   |   |-- pookie.jpg
 |   |   |   +-- thumbnail
 |   |   |       +-- TN-pookie.jpg
-|   |   +-- categorie-1.3
-|   +-- categorie-2
+|   |   +-- category-1.3
+|   +-- category-2
 |       |-- piglet.gif
 |       |-- pwg_representative
 |       |   +-- video.jpg
@@ -102,67 +101,43 @@
 
   </li>
   
-  <li>Eigenlijk, een categorie is gepresenteerd door een map op welke level in
-  Piwigo map "galleries". Elke categorie kan zoveel submappen als jij wilt bevatten.
-  In het voorbeeld hierboven, categorie-1.1.1.1 is op nivo 4 van de trap.</li>
+  <li>Każdy podkatalog w katalogu "galleries" tworzy kategorię. Nie ma limitu na poziomy zagłębień katalogów.</li>
 
-  <li>Eigenlijk, een element is gepresenteerd door een bestand. Een bestand kan een
-  Piwigo element zijn als de extenstie is <code>file_ext</code>
-  configuration parameter mofenlijkheden (zie <span
-  class="filename">include/config_default.inc.php</span> file). Een bestand kan
-  een afbeelding zijn als de extensie gelijk is aan <code>picture_ext</code>
-  configuration parameter possibilities.</li>
+  <li>Ogólnie element jest reprezentowany przez plik. Plik może być elementem Piwigo jeżeli
+  jego rozszerzenie jest zawarte w parametrze <code>file_ext</code> (plik <span
+  class="filename">include/config_default.inc.php</span>). Plik może być obrazem jeżeli jego rozszerzenie jest zawarte w parametrze<code>picture_ext</code>
+.</li>
 
-  <li>Afbeeldings elementen moeten een link naar een thumbnail hebben.(zie sectie hieronder
-  over thumbnails)</li>
+  <li>Obrazy muszą mieć powiązane z nimi miniatury (patrze sekcja miniatury poniżej)</li>
 
-  <li>Afbeeldings elementen kunnen gekoppeld zijn aan hoge kwaliteit bestanden. Zoals 
-  in het voorbeeld wedding.jpg hierboven. Er is geen andere naamsaanpassing nodig voor de
-   hoge kwaliteit afbeelding verplicht.
-  </li>
+  <li>Obrazy mogą mieć odpowiadające im pliki wysokiej rozdzielczości. Jak np
+  dla zdjęcia wedding.jpg w przykładzie powyżej. Dla obrazów wysokiej jakości nie jest wymagany żaden prefix.</li>
 
-  <li>Niet afbeeldings elementen (video, geluid, tekstbestanden, wat je wil...) worden 
-  standaard vertegenwoordigt door een ikoontje die overeenkomt met de bestandsextensie.
-   Optioneel, je kan zelf een associatie met een thumbnail en een bestand opgeven (zie video.avi in het voorbeeld hierboven).</li>
+  <li>Elementy nie będące obrazami (video, dźwięki, pliki tekstowe, cokolwiek zechcesz...) są domyślnie reprezentowane jako ikona powiązana z danym plikiem. Opcjonalnie możesz powiązać miniaturę i plik reprezentujący (zobacz video.avi w przykładzie powyżej).</li>
 
-  <li><em>Waarshuwing</em> : de naam van de mappen en bestanden moeten bestaan uit de letters en koppeltekens "-", "_" of ".". Geen spaties en geen accenten
- op de karakters</li>
+  <li><em>Ostrzeżenie</em> : nazwy plików oraz katalogów muszą składać się wyłącznie z
+liter cyfr, znaków "-", "_" lub ".". Nie mogą zawierać spacji oraz pozostałych znaków.</li>
 
-  <li><em>Advies</em> : Een categorie kan elementen en sub-categorieën hebben
-op het zelfde moment. Desalnietemin, word je geadviseerd om te kiezen uit categorieën die elementen bevatten <strong>of</strong> categorieën
-die sub-categorieën bevatten.</li>
-
-  <li>Als bestanden, thumbnails en representativev corrct zijn geplaatst in
- mappen ga dan naar: <span class="pwgScreen">Administratie &raquo; Categorieën &raquo; Synchronizeren</span></li>
+  <li>Po umieszczeniu plików, miniatur oraz reprezentanów, przejdź do : <span class="pwgScreen">Administracja &raquo; Kategorie &raquo;
+  Synchronizacja</span></li>
 
 </ul>
 
-<h3>Thumbnails</h3>
-
+<h3>Miniatury</h3>
 <ul>
 
-  <li>Zoals eerde gemeld, elk element of afbeeldingstype moet geassociateerd worden met een thumbnail.</li>
+  <li>Tak jak wspomniano wcześniej każdy element typu obraz musi posiadać swoją miniaturę.</li>
 
-  <li>Thumbnails worden opgeslagen in een sub-directory "thumbnail" of de categorie map. De thumbnail is een afbeelding (zelfde bestandsnaam extensies mogelijk
-  als de afbeeldingbestanden) welke is prefixed met een geconfigureerde
-  "Thumbnail prefix" (zie administratie paneel, Configuratie, Algemeen).</li>
+  <li>Miniatury są zapisywane w podkatalogu "thumbnail" danej kategorii. Miniatura jest obrazem o takiej samej nazwie pliku jak jak dany obraz i posiada prefix <em>TN-</em>.</li>
 
-  <li>Thumbnails hoeven niet de zelfde extensie te hebben als het geassocieerde
-  afbeelding (een afbeelding met .jpg extensie kan een thumbnail hebben met .GIF
-  extentie als voorbeeld).</li>
+  <li><em>Rada</em>: do tworzenia miniatur używaj zewnętrznego modułu.</li>
 
-  <li>Advies: gebruik een ecterne module voor het maken van thumbnails.</li>
+  <li>Do tworzenia miniatur możesz także wykorzystać stronę do ich tworzenia <span
+  class="pwgScreen">Administracja &raquo; Obrazy &raquo; Miniatury</span> , natomiast nie jest to zalecane, ze względu na to, że jakość miniatur może być kiepska oraz jest wysokie wykorzystanie procesora.</li>
 
-  <li>Je kunt ook de pagina thumbnail maken gebruiken (<span
-  class="pwgScreen">Administratie, Afbeeldingen, Thumbnails</span>), maar dat word niet aangeraden.
-   De thumbnail kwaliteit kan slecht zijn en het gebruikt een hoge CPU kracht welke een probleem kan zijn bij gratis webhost.</li>
-
-  <li>Als je er voor kiest om de thumbnails te laten maken door de webhoster, dan dien je de rechten toe te wijzen op die mappen om de thumbnail te kunnen maken.
-  De correcte rechten op de mappen en sub-mappen zijn gebruiker/goep/wereld (ook wel 777)
-</li>
+  <li>Musisz dać prawa zapisu na katalogach i podkatalogach kategorii</li>
 
 </ul>
-
 
   </div> <!-- FTP_content -->
 </div> <!-- instructionFTP -->
@@ -173,33 +148,36 @@ die sub-categorieën bevatten.</li>
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
   ><span>
-    <!--TODO-->Permissions
+    Uprawnienia
   </span></div>
   <div
     id="permissions_content"
     class="instructionBlockContent"
     style="display:none"
   >
-
 <ul>
 
-  <!--TODO--><li>You can forbid access to categories. Switch the category access type to "private" if you want to manage permissions.</li>
+  <li>Do poszczególnych kategorii można zabronić dostępu. Kategorie mogą być "publiczne" lub
+  "prywatne". Uprawnienia (dla grup i użytkowników) mogą być ustawione tylko dla kategorii "prywatnych".</li>
 
-  <li>U kunt een categorie aan private maken door het aanpassen van een enkele categorie(<span
-  class="pwgScreen">Administratie &raquo; Categorieën &raquo; Beheren &raquo; bewerken</span>) of bij het aanpassen van de opties op de hele categorie map (<span
-  class="pwgScreen">Administratie &raquo; Categorieën &raquo; Eigenschappen &raquo; Publiek / Private</span>).</li>
+  <li>Możesz ustawić kategorię jako "prywatna" dla pojedynczej kategorii (<span
+  class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj &raquo; edycja</span>) lub przez ustawienie opcji dla całego drzewa (<span
+  class="pwgScreen">Administracja &raquo; Kategories &raquo; Właściwości &raquo; Publiczna / Prywatna</span>).</li>
 
   <li>
 
-    <p>Als de categorie private is, dan kun je de rechten aanpassen voor de groepen en gebruikers via 3 schermen :</p>
+    <p>Po ustawieniu kateogrii kako prywatna, możesz zarządzać uprawnieniami dla grup i użytkowników przy pomocy następujących 3 ekranów :</p>
 
     <ul>
 
-      <li><span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Gebruikers &raquo; rechten aanpassen (een link per gebruiker)</span></li>
+      <li><span class="pwgScreen">Administracja &raquo; Uprawnienia &raquo; Użytkownicy &raquo;
+      akcja uprawnienia</span> (jeden link per użytkownik)</li>
 
-      <li><span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Groepen &raquo; rechten aanpassen (een link per groep)</span></li>
+      <li><span class="pwgScreen">Administracja &raquo; Uprawnienia &raquo; Grupy &raquo;
+      akcja uprawnienia</span> (jeden link per grupa)</li>
 
-      <li><span class="pwgScreen">Administratie &raquo; Categorieën &raquo; Beheren &raquo; bewerk categorie rechten aanpassen (one link per categorie)</span></li>
+      <li><span class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj &raquo; akcja edycja
+      uprawnień kategorii</span> (jeden link per kategoria)</li>
 
     </ul>
 
@@ -215,7 +193,7 @@ die sub-categorieën bevatten.</li>
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('groups_header', 'groups_content')"
   ><span>
-    Gebruikers en groepen
+    Grupy
   </span></div>
   <div
     id="groups_content"
@@ -224,12 +202,14 @@ die sub-categorieën bevatten.</li>
   >
 <ul>
 
-    <!--TODO--><li>Groups is a convenient way to set permissions for a list of users.</li>
+  <li>Grupy są dobrym sposobem do zarządzania uprawnieniami dla okreslonej listy użytkowników.</li>
 
-  <li>Je kan groepen maken in <span class="pwgScreen">Administratie &raquo; Identificatie &raquo; Groepen</span> en voeg gebruikers toe aan de groep via <span class="pwgScreen">Administratie, Identicatie, Gebruikers</span>.</li>
+  <li>Możesz tworzyć grupy w <span class="pwgScreen">Administracja &raquo;
+  Uprawnienia &raquo; Grupy</span> i przypisywać użytkowników do tych grup w <span
+  class="pwgScreen">Administracja &raquo; Uprawnienia &raquo; Użytkownicy</span>.</li>
 
-  <li>Een gebruiker kan behoren tot verschillende groepen. De vergunning is sterker dan verbod : als gebruiker "jack" behoord tot de groep "familie" en "Vrienden", en alleen de groep "familie" kan de categorie "Christmas 2003" zien,
-  "jack" zal de mogelijkheid hebben om de categorie "Christmas 2003" te zien.</li>
+  <li>Użytkownik może należeć do wielu grup. Przyznanie dostępu jest ważniejsze niż zabronienie : jezeli użytkownik "jack" należy do grup "family" i "friends", i tylko grupa "family" może oglądać kategorię "Christmas 2003",
+  "jack" będzie mógł oglądać kategorię "Christmas 2003".</li>
 
 </ul>
   </div> <!-- groups_content --> 
@@ -241,27 +221,26 @@ die sub-categorieën bevatten.</li>
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('upload_header', 'upload_content')"
   ><span>
-    Bestands upload door gebruikers
+    Upload plików przez użytkowników
   </span></div>
   <div
     id="upload_content"
     class="instructionBlockContent"
     style="display:none"
   >
-<!--TODO--><p>Users can upload their photos too.</p>
+<p>Piwigo oferuje mozliwość wgrywania plików przez użytkowników..</p>
 
 <ol>
 
-  <!--TODO--><li>Authorize upload on any physical categories (<span
-  class="pwgScreen">Administration &raquo; Categories &raquo; Manage &raquo; edit</span> or <span
-  class="pwgScreen">Administration &raquo; Categories &raquo; Properties &raquo; Upload</span>). Virtual categories can't receive any upload.</li>
+  <li>Aby włączyć upload na kategorii (<span
+  class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj &raquo; edit</span> or <span
+  class="pwgScreen">Administracja &raquo; Kategorie &raquo; Properties &raquo; Upload</span>). Nie ma możliwości wgrywania plików do kategorii wirtualnych.</li>
 
-  <li>geef rechten op de mappen 777 (gebruiker, groepen, wereld)</li>
+  <li>Musisz nadać uprawnienia do zapisu na odpowiednich katalogach.</li>
 
 </ol>
 
-<!--TODO--><p>Photos uploaded by users are not directly visible on the website. An administrator
-must validate uploaded photos in <span class="pwgScreen">Administration &raquo; Pictures &raquo; Waiting</span>.</p>
+<p>Pliki wgrane przez użytkowników nie są od razu widoczne na stronie, ale oczekują na zatwierdzenie przez administratora. W tym celu, administrator musi przejść do <span class="pwgScreen">Administracja &raquo; Obrazy &raquo; Oczekujące</span>.</p>
   </div> <!-- upload_content --> 
 </div> <!-- instructionUpload -->
 
@@ -271,7 +250,7 @@ must validate uploaded photos in <span class="pwgScreen">Administration &raquo; 
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
   ><span>
-    Links tussen elementen en categorieën, virtuele categorieën
+    Linki pomiędzy elementami, kategoriami oraz wirtualnymi kategoriami
   </span></div>
   <div
     id="categoryLinks_content"
@@ -280,11 +259,11 @@ must validate uploaded photos in <span class="pwgScreen">Administration &raquo; 
   >
 <ul>
 
-  <!--TODO--><li>Photos are displayed in the category corresponding to the file directory.</li>
+  <li>Zdjęcia są wyświetlane w kategoriach odpowiadających katalogom, w których dane pliki się znajdują.</li>
 
-  <!--TODO--><li>You can also display a picture in several categories, without duplicating the file on your web server. Associate the photo to any category from the photo editing screen (that any administrator can reach from the photo page on the gallery side).</li>
+  <li>Możesz także wyświetlać zdjęcia w wielu kategoriach bez duplikowania plików na serwerze www. By podlinkowac link do kategorii, wystarczy utworzyć powiązanie na stronie edycji zdjęcia (do której ma dostęp każdy administrator ze strony danego zdjęcia w galerii).</li>
 
-  <!--TODO--><li>Virtual categories are based on this concept: they have no corresponding directory. Create virtual categories from <span class="pwgScreen">Administration &raquo; Categories &raquo; Manage</span>.</li>
+  <li>Kategorie wirtualne bazują na nastepującym założeniu : nie mają odpowiadających katalogów. Kategorię wirtualną możesz stworzyć w <span class="pwgScreen">Administracja &raquo; Kategorie &raquo; Zarządzaj</span>.</li>
 
 </ul>
   </div> <!-- categoryLinks_content --> 
@@ -296,22 +275,20 @@ must validate uploaded photos in <span class="pwgScreen">Administration &raquo; 
     class="instructionBlockHeaderCollapsed"
     onclick="blockToggleDisplay('misc_header', 'misc_content')"
   ><span>
-    Diverse informatie
+    Informacje różne
   </span></div>
   <div
     id="misc_content"
     class="instructionBlockContent"
     style="display:none"
   >
-
 <ul>
 
-  <li>Als je je gallery-installatie hebt afgerond, verander dan het uiterlijk van de standaard weergave 
-  in <span class="pwgScreen">Administratie paneel &raquo; Configuratie &raquo; 
-  Standaard</span>. Elke nieuwe geregistreerde gebruiker zal dezelfde standaard vertoningseigenschappen hebben.</li>
+  <li>ak tylko utworzysz galerię, zmień domyślne wyświetlanie w <span class="pwgScreen">Administracja &raquo; Konfigracja &raquo;
+  Domyślne</span>. Jeżeli tak zrobisz każdy nowy użytkownik będzie miał taki sam domyślny wygląd stron galerii.</li>
 
-   <!--TODO--><li>If you have any question, Piwigo community will welcome you on <a
-  href="http://piwigo.org/forum">its forum</a>.</li>
+  <li>Jeżeli masz pytania, społeczność Piwigo zaprasza Cię na forum <a
+  href="http://forum.phpwebgallery.net"></a>.</li>
 
 </ul>
   </div> <!-- misc_content --> 
