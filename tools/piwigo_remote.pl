@@ -255,7 +255,7 @@ sub pwg_ws_get_query {
 sub send_chunks {
     my %params = @_;
 
-    my $content = encode_base64(read_file($params{filepath}));
+    my $content = read_file($params{filepath});
     my $content_length = length($content);
     my $nb_chunks = ceil($content_length / $conf{chunk_size});
 
@@ -273,7 +273,7 @@ sub send_chunks {
             $conf{base_url}.'/ws.php?format=json',
             {
                 method => 'pwg.images.addChunk',
-                data => $chunk,
+                data => encode_base64($chunk),
                 original_sum => $params{original_sum},
                 position => $chunk_id,
                 type => $params{type},
