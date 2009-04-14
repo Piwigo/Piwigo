@@ -923,9 +923,11 @@ function ws_images_add_chunk($params, &$service)
     $params['position']
     );
 
+  ws_logfile('[ws_images_add_chunk] data length : '.strlen($params['data']));
+
   $bytes_written = file_put_contents(
     $upload_dir.'/'.$filename,
-    $params['data']
+    base64_decode($params['data'])
     );
 
   if (false === $bytes_written) {
@@ -958,17 +960,24 @@ function merge_chunks($output_filepath, $original_sum, $type)
   }
 
   sort($chunks);
+
+  ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
   
-  $string = null;
-  foreach ($chunks as $chunk) {
-    $string.= file_get_contents($chunk);
+  foreach ($chunks as $chunk)
+  {
+    $string = file_get_contents($chunk);
+    
+    ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
+    
+    if (!file_put_contents($output_filepath, $string, FILE_APPEND))
+    {
+      return new PwgError(500, 'error while writting chunks for '.$output_filepath);
+    }
+    
     unlink($chunk);
   }
-  if (!file_put_contents($output_filepath, base64_decode($string)))
-  {
-    return new PwgError(500, 'error while merging chunks for '.$output_filepath);
-  }
-  
+
+  ws_logfile('[merge_chunks] memory_get_usage after loading chunks: '.memory_get_usage());
 }
 
 function ws_images_add($params, &$service)
