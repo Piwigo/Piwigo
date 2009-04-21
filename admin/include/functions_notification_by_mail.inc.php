@@ -415,7 +415,15 @@ function do_subscribe_unsubscribe_notification_by_mail($is_admin_request, $is_su
 
         $section_action_by = ($is_subscribe ? 'subscribe_by_' : 'unsubscribe_by_');
         $section_action_by .= ($is_admin_request ? 'admin' : 'himself');
-        $env_nbm['mail_template']->assign( $section_action_by, true );
+        $env_nbm['mail_template']->assign
+        (
+          array
+          (
+            $section_action_by => true,
+            'GOTO_GALLERY_TITLE' => $conf['gallery_title'],
+            'GOTO_GALLERY_URL' => $conf['gallery_url'],
+          )
+        );
 
         if (pwg_mail
             (
