@@ -367,4 +367,5 @@ $lang['show tag cloud'] = 'mostrar la nube de tags';
 $lang['cloud'] = 'nube';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 $lang['del_all_favorites_hint'] = 'Suprimir todas las imágenes de sus favoritos';
+/* TODO */ $lang['Sent by'] = 'Sent by';
 ?>
