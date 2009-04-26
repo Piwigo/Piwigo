@@ -115,12 +115,12 @@ class smtp_mail
         $this->server_parse('250');
       }
 
-      $this->server_write('MAIL FROM: <'.$this->email_webmaster.'>'."\r\n");
+      $this->server_write('MAIL FROM:<'.$this->email_webmaster.'>'."\r\n");
       $this->server_parse('250');
 
       if (preg_match('/^\s*to\s*:.*/mi', $headers) === 0)
       {
-        $to_header = 'To: '.implode(',', array_map(create_function('$email','return "<".$email.">";'), $recipients));
+        $to_header = 'To:'.implode(',', array_map(create_function('$email','return "<".$email.">";'), $recipients));
       }
       else
       {
@@ -130,14 +130,14 @@ class smtp_mail
       @reset($recipients);
       while (list(, $email) = @each($recipients))
       {
-        $this->server_write('RCPT TO: <'.$email.'>'."\r\n");
+        $this->server_write('RCPT TO:<'.$email.'>'."\r\n");
         $this->server_parse('250');
       }
 
       $this->server_write('DATA'."\r\n");
       $this->server_parse('354');
 
-      $this->server_write('Subject: '.$subject."\r\n".(empty($to_header) ? "" : $to_header."\r\n").$headers."\r\n\r\n".$message."\r\n");
+      $this->server_write('Subject:'.$subject."\r\n".(empty($to_header) ? "" : $to_header."\r\n").$headers."\r\n\r\n".$message."\r\n");
       $this->server_write('.'."\r\n");
       $this->server_parse('250');
 
