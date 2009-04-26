@@ -73,12 +73,26 @@ class smtp_mail
     return $this->no_error;
   }
 
+  function add_recipients(&$recipients, $headers, $type_header)
+  {
+    if (preg_match('/^\s*'.$type_header.'\s*:.*/mi', $headers, $matches) != 0)
+    {
+      $list = explode(',', $matches[0]);
+      foreach ($list as $email)
+      {
+        if (strpos($email, '<') !== false)
+        {
+           $email = preg_replace('/.*<(.*)>.*/i', '$1', $email);
+        }
+        $recipients[] = trim($email);
+      }
+    }
+  }
+
   // Adaptation of pun_mail
   function mail($to, $subject, $message, $headers = '')
   {
     $this->no_error = true;
-
-    $recipients = explode(',', $to);
 
     // Are we using port 25 or a custom port?
     if (strpos($this->host, ':') !== false)
@@ -118,14 +132,26 @@ class smtp_mail
       $this->server_write('MAIL FROM:<'.$this->email_webmaster.'>'."\r\n");
       $this->server_parse('250');
 
-      if (preg_match('/^\s*to\s*:.*/mi', $headers) === 0)
+      if ((preg_match('/^\s*to\s*:.*/mi', $headers) === 0) and !empty($to))
       {
-        $to_header = 'To:'.implode(',', array_map(create_function('$email','return "<".$email.">";'), $recipients));
+        $to_header = 'To:'.implode(',', array_map(create_function('$email','return "<".$email.">";'), explode(',', $to)));
       }
       else
       {
         $to_header = '';
       }
+
+      if (!empty($to))
+      {
+        $recipients = explode(',', $to);
+      }
+      else
+      {
+        $recipients = array();
+      }
+
+      $this->add_recipients($recipients, $headers, 'Cc');
+      $this->add_recipients($recipients, $headers, 'Bcc');
 
       @reset($recipients);
       while (list(, $email) = @each($recipients))
