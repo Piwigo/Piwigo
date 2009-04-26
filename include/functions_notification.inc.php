@@ -522,7 +522,7 @@ function get_html_description_recent_post_date($date_detail)
 {
   global $conf;
 
-  $description = '';
+  $description = '<ul>';
 
   $description .=
         '<li>'
@@ -562,6 +562,8 @@ function get_html_description_recent_post_date($date_detail)
                    '%d new elements', $cat['img_count']).')'
           .'</li>';
   }
+  $description .= '</ul>';
+
   $description .= '</ul>';
 
   return $description;
