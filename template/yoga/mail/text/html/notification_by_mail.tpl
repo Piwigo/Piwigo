@@ -51,7 +51,7 @@
 <div id="nbm_recent_post">
   {foreach from=$recent_posts item=recent_post }
   <h2>{$recent_post.TITLE}</h2>
-  {$recent_post.HTML_DATA}
+  <ul>{$recent_post.HTML_DATA}</ul>
   {/foreach}
 {/if}
 </div>
