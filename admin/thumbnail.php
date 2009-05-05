@@ -118,7 +118,7 @@ function RatioResizeImg($path, $newWidth, $newHeight, $tn_ext)
       array_push($page['errors'], '['.$tndir.'] : '.l10n('no_write_access'));
       return false;
     }
-    imagejpeg($destImage, $dest_file);
+    imagejpeg($destImage, $dest_file, $conf['tn_compression_level']);
     // freeing memory ressources
     imagedestroy( $srcImage );
     imagedestroy( $destImage );

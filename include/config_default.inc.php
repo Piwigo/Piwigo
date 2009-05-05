@@ -150,6 +150,10 @@ $conf['tn_width'] = 128;
 // tn_height : default height for thumbnails creation
 $conf['tn_height'] = 128;
 
+// tn_compression_level: compression level for thumbnail creation. 0 is low
+// quality, 100 is high quality.
+$conf['tn_compression_level'] = 75;
+
 // show_version : shall the version of Piwigo be displayed at the
 // bottom of each page ?
 $conf['show_version'] = true;
