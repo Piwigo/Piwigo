@@ -37,7 +37,7 @@
 <!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="{$ROOT_URL}template/{$themeconf.template}/fix-ie5-ie6.css">
 <![endif]-->
-<!--[if gt IE 6]>
+<!--[if IE 7]>
 	<link rel="stylesheet" type="text/css" href="{$ROOT_URL}template/{$themeconf.template}/fix-ie7.css">
 <![endif]-->
 <!--[if !IE]> <-->
