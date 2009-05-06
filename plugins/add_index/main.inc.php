@@ -23,9 +23,9 @@
 
 /*
 Plugin Name: Add Index
-Version: 2.0
+Version: 2.0.2
 Description: Add file index.php file on all sub-directories of local galleries pictures. / Ajoute le fichier index.php sur les sous-répertoires de galeries d'images locales.
-Plugin URI: http://piwigo.org
+Plugin URI: http://piwigo.org/ext/extension_view.php?eid=284
 Author: Piwigo team
 Author URI: http://piwigo.org
 */
