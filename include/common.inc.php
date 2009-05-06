@@ -184,8 +184,8 @@ if ($conf['gallery_locked'])
   {
     set_status_header(503, 'Service Unavailable');
     @header('Retry-After: 900');
-    echo l10n('gallery_locked_message')
-      .'<a href="'.get_absolute_root_url(false).'identification.php">.</a>';
+    header('Content-Type: text/html; charset='.get_pwg_charset());
+    echo '<a href="'.get_absolute_root_url(false).'identification.php">'.l10n('gallery_locked_message').'</a>';
     echo str_repeat( ' ', 512); //IE6 doesn't error output if below a size
     exit();
   }
