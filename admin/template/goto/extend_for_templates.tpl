@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/extend_for_templates.tpl 7055 2009-03-19T19:51:54.545257Z nikrou  $ *}
 <div class="titrePage"><h2>{'extend_for_templates'|@translate}</h2>
 </div>
 {if isset($extents)}

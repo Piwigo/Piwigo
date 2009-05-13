@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/plugins/event_tracer/tracer_admin.tpl 6613 2008-10-18T01:08:58.913602Z rvelices  $ *}
 <div class="titrePage">
   <h2>Event Tracer</h2>
 </div>

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/upgrade.tpl 7043 2009-03-16T16:57:10.393052Z patdenice  $ *}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">

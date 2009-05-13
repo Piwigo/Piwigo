@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/footer.tpl 7037 2009-03-13T23:43:50.771219Z plg  $ *}
 <div id="copyright">
  <a name="EoP"></a> <!-- End of Page -->
  {if isset($debug.TIME) }

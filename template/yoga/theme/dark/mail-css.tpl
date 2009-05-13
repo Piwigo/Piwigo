@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/theme/dark/mail-css.tpl 6125 2008-03-18T23:43:38.714277Z rvelices  $ *}
 /* Theme dark mail css */
 
 body {ldelim} background-color:#444; color:#fff;}

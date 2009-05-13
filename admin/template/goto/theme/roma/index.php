@@ -25,10 +25,10 @@
 // | Copyright (C) 2002-2003 Pierrick LE GALL - pierrick@phpwebgallery.net |
 // | Copyright (C) 2003-2007 PhpWebGallery Team - http://phpwebgallery.net |
 // +-----------------------------------------------------------------------+
-// | file          : $Id$
-// | last update   : $Date$
-// | last modifier : $Author$
-// | revision      : $Revision$
+// | file          : $Id: /piwigo/trunk/admin/template/goto/theme/roma/index.php 6889 2009-01-04T23:28:36.032196Z plg  $
+// | last update   : $Date: 2009-01-04T23:28:36.032196Z $
+// | last modifier : $Author: plg $
+// | revision      : $Revision: 6889 $
 // +-----------------------------------------------------------------------+
 // | This program is free software; you can redistribute it and/or modify  |
 // | it under the terms of the GNU General Public License as published by  |

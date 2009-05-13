@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/mainpage_categories.tpl 7029 2009-03-11T19:41:21.279480Z nikrou  $ *}
 
 <ul class="thumbnailCategories">
 {foreach from=$category_thumbnails item=cat}

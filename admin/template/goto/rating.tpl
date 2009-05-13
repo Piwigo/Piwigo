@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/rating.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <h2>{'Rating'|@translate} [{$NB_ELEMENTS} {'elements'|@translate}]</h2>
 
 <form action="{$F_ACTION}" method="GET" id="update" class="filter">

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/tabsheet.tpl 6371 2008-09-14T12:25:34.485116Z vdigital  $ *}
 {if isset($tabsheet) and count($tabsheet)}
 <ul class="tabsheet">
 {foreach from=$tabsheet key=name item=sheet}

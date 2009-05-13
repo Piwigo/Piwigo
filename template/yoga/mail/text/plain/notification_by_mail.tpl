@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/mail/text/plain/notification_by_mail.tpl 6468 2008-09-30T21:14:16.664623Z rub  $ *}
 {'nbm_content_hello_1'|@translate}{$USERNAME}{'nbm_content_hello_2'|@translate}
 
 {if isset($subscribe_by_admin)}

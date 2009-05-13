@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/include/autosize.inc.tpl 6493 2008-10-04T13:54:54.894514Z patdenice  $ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="jquery.autogrow" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.autogrow-textarea.js"}
 

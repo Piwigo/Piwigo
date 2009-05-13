@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/user_perm.tpl 6371 2008-09-14T12:25:34.485116Z vdigital  $ *}
 <h2>{$TITLE}</h2>
 
 {if isset($categories_because_of_groups) }

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/include/resize.inc.tpl 6942 2009-01-18T23:27:21.785111Z rub  $ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js"}
 {known_script id="jquery.ui.resizable" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.resizable.packed.js"}

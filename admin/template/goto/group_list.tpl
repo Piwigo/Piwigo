@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/group_list.tpl 7058 2009-03-21T14:08:20.172676Z nikrou  $ *}
 <div class="titrePage">
   <h2>{'title_groups'|@translate}</h2>
 </div>

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/plugins/SwiftThemeCreator/theme_creator.tpl 6327 2008-08-26T14:18:42.525002Z vdigital  $ *}
 <div class="titrePage">
   <h2>{'Swift Theme Creator'|@translate}</h2>
 </div>

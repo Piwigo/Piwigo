@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/index.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 {$MENUBAR}
 {if !empty($PLUGIN_INDEX_CONTENT_BEFORE)}{$PLUGIN_INDEX_CONTENT_BEFORE}{/if}
 <div id="content" class="content">

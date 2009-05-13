@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/cat_move.tpl 6558 2008-10-11T20:18:49.348192Z rub  $ *}
 
 {include file='include/resize.inc.tpl'}
 

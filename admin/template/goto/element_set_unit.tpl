@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/element_set_unit.tpl 7055 2009-03-19T19:51:54.545257Z nikrou  $ *}
 
 {include file='include/autosize.inc.tpl'}
 {include file='include/datepicker.inc.tpl'}

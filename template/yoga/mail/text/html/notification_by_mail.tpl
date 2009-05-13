@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/mail/text/html/notification_by_mail.tpl 7113 2009-04-26T14:59:15.515418Z rub  $ *}
 <div id="nbm_message">
 <h2>{'Notification'|@translate}</h2>
 <p>{'nbm_content_hello_1'|@translate}{$USERNAME}{'nbm_content_hello_2'|@translate}</p>

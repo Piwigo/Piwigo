@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/month_calendar.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 
 {if !empty($chronology_navigation_bars) }
 {foreach from=$chronology_navigation_bars item=bar}

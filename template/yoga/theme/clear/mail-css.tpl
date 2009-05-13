@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/theme/clear/mail-css.tpl 6125 2008-03-18T23:43:38.714277Z rvelices  $ *}
 /* Theme clear mail css */
 
 body {ldelim} background-color:#fff; color:#696969;}

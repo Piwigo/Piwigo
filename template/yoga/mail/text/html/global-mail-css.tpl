@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/mail/text/html/global-mail-css.tpl 6125 2008-03-18T23:43:38.714277Z rvelices  $ *}
 /* Global mail css */
 
 body {ldelim} font-family: Univers, Helvetica, Optima; font-size:12px; margin:0px; padding:0px; }

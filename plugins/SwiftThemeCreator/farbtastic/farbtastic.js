@@ -1,4 +1,4 @@
-// $Id$
+// $Id: /piwigo/trunk/plugins/SwiftThemeCreator/farbtastic/farbtastic.js 6285 2008-07-21T22:20:47.317098Z vdigital  $
 // Farbtastic 1.2
 
 jQuery.fn.farbtastic = function (callback) {

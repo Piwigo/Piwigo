@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/profile_content.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <form method="post" name="profile" action="{$F_ACTION}" id="profile" class="properties">
 
   <fieldset>

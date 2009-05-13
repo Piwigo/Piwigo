@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/slideshow.tpl 6599 2008-10-16T00:53:15.414857Z rvelices  $ *}
 <div id="imageHeaderBar">
   <div class="browsePath">
     {if isset($U_SLIDESHOW_STOP) }

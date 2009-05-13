@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/site_update.tpl 7053 2009-03-18T14:31:14.817837Z nikrou  $ *}
 
 {include file='include/resize.inc.tpl'}
 

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/plugins/event_tracer/event_list.tpl 6094 2008-03-06T00:25:47.052235Z rvelices  $ *}
 There are {$NB_EVENTS} calls to triger_event or triger_action.
 
 <table width="99%" class="table2">

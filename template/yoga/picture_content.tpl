@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/picture_content.tpl 6960 2009-02-04T02:30:48.228526Z rvelices  $ *}
 {if isset($high) }
 <a href="javascript:phpWGOpenWindow('{$high.U_HIGH}','{$high.UUID}','scrollbars=yes,toolbar=no,status=no,resizable=yes')">
 {/if}

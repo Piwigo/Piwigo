@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/thumbnails.tpl 7029 2009-03-11T19:41:21.279480Z nikrou  $ *}
 
 {if !empty($thumbnails)}
 <ul class="thumbnails">

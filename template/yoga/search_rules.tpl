@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/template/yoga/search_rules.tpl 6329 2008-08-28T01:26:26.034575Z rvelices  $ *}
 <div id="content" class="content">
 <h2>{'Search rules'|@translate}</h2>
 

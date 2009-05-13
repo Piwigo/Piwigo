@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/cat_perm.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <div class="titrePage">
   <h2>{'Manage permissions for a category'|@translate}</h2>
 </div>

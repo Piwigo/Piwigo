@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/footer.tpl 7037 2009-03-13T23:43:50.771219Z plg  $ *}
 {* 
           Warning : This is the admin pages footer only 
           don't be confusing with the public page footer

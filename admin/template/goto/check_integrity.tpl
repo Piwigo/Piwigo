@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/check_integrity.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <dl>
   <dt>{'c13y_title'|@translate}</dt>
   <dd>

@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/theme/roma/mail-css.tpl 6366 2008-09-14T00:33:53.657195Z vdigital  $ *}
 /* Theme wipi mail css */
 
 body {ldelim} background-color:#111; color:#69c;}

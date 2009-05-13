@@ -1,4 +1,4 @@
-{* $Id$ *}
+{* $Id: /piwigo/trunk/admin/template/goto/comments.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <div class="titrePage">
   <h2>{'waiting'|@translate} {$TABSHEET_TITLE}</h2>
 </div>
