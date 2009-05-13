@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/admin.tpl 7056 2009-03-19T20:30:10.811489Z nikrou  $ *}
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js" }
 {known_script id="jquery.ui.accordion" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.accordion.packed.js" }
 

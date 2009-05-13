@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/picture.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 
 {* Example of resizeable *}
 {*

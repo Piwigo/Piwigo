@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/plugins/LocalFilesEditor/admin.tpl 6428 2008-09-25T17:46:27.209191Z patdenice  $ *}
 {html_head}<link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">{/html_head}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="editarea" src=$LOCALEDIT_PATH|@cat:"editarea/edit_area_full.js"}

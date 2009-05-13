@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/mail/text/html/footer.tpl 7094 2009-04-22T19:32:00.030733Z rub  $ *}
 </div> <!-- content -->
 <div id="copyright">
 <hr>

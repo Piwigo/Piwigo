@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/plugins/LocalFilesEditor/show_default.tpl 7026 2009-03-11T16:39:44.956202Z patdenice  $ *}
 {html_head}
 <link rel="stylesheet" type="text/css" href="{$LOCALEDIT_PATH}locfiledit.css">
 <style type="text/css">#headbranch, #theHeader, #copyright {ldelim} display: none; }</style>

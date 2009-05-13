@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/plugins_new.tpl 6983 2009-02-13T20:49:03.627716Z patdenice  $ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="jquery.dimensions" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.dimensions.packed.js"}
 {known_script id="jquery.cluetip" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.cluetip.packed.js"}

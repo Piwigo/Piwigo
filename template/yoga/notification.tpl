@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/notification.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 {html_head}
 <link rel="alternate" type="application/rss+xml" title="{'Image only RSS feed'|@translate}" href="{$U_FEED_IMAGE_ONLY}">
 <link rel="alternate" type="application/rss+xml" title="{'Complete RSS feed'|@translate}" href="{$U_FEED}">

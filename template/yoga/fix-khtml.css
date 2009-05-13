@@ -1,4 +1,3 @@
-/* $Id: /piwigo/trunk/template/yoga/fix-khtml.css 6488 2008-10-03T23:48:03.552613Z rvelices  $ */
 /* Issue in Safari/Konqueror only                                                 */
 /* If H2 has a 0 margin-top categoryActions doesn't float right but overwrites H2 */
 .content>DIV.titrePage>H2 {

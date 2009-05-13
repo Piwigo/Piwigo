@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/theme/Sylvia/mail-css.tpl 6835 2008-12-16T22:55:08.393682Z vdigital  $ *}
 /* Theme Sylvia mail css */
 
 body {ldelim} background-color:#111; color:#666;}

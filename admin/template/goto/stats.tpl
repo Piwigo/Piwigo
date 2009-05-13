@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/stats.tpl 6371 2008-09-14T12:25:34.485116Z vdigital  $ *}
 
 <div class="titrePage">
   <h2>{'History'|@translate} {$TABSHEET_TITLE}</h2>

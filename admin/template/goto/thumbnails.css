@@ -1,4 +1,3 @@
-/* $Id: /piwigo/trunk/admin/template/goto/thumbnails.css 7049 2009-03-17T16:48:04.081028Z nikrou  $ */
 .content UL.thumbnails {
   margin: 0; padding: 0; list-style: none;
   text-align: center;	/* to center the whole collection in .content */

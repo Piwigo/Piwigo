@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/header.tpl 6491 2008-10-04T09:50:02.198862Z rub  $ *}
 {* 
 
           Warning : This is the admin pages header only 

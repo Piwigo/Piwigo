@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/profile.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <div id="content" class="content">
 
 {if isset($errors)}

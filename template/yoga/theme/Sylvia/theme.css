@@ -1,4 +1,3 @@
-/* $Id: /piwigo/trunk/template/yoga/theme/Sylvia/theme.css 6901 2009-01-07T20:03:11.076259Z vdigital  $ */
 .content div.thumbnailCategory div.illustration { 
 	width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
 }

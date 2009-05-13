@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/thumbnail.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <div class="titrePage">
   <h2>{'title_thumbnails'|@translate}</h2>
 </div>

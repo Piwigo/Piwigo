@@ -1,4 +1,3 @@
-/* $Id: /piwigo/trunk/admin/template/goto/theme/roma/theme.css 6979 2009-02-13T13:43:04.047664Z vdigital  $ */
 /* text color */
 body, h3, dt, h2, .throw, .content, label,
 input.rateButtonSelected /* <= why IE doesn't inherit this ? */ { color:#666; }

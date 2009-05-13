@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/menubar.tpl 7059 2009-03-22T14:50:36.783457Z nikrou  $ *}
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
 {known_script id="jquery.ui" src=$ROOT_URL|@cat:"template-common/lib/ui/packed/ui.core.packed.js" }
 {known_script id="jquery-tablednd" src=$ROOT_URL|@cat:"template-common/lib/jquery.tablednd.js"}

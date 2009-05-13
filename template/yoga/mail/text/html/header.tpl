@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/mail/text/html/header.tpl 6491 2008-10-04T09:50:02.198862Z rub  $ *}
 -----={$BOUNDARY_KEY}
 Content-Type: {$CONTENT_TYPE}; charset="{$CONTENT_ENCODING}";
 Content-Transfer-Encoding: 8bit

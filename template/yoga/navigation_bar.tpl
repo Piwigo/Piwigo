@@ -1,4 +1,3 @@
-{* $Id: navigation_bar.tpl 3145 2009-02-14 02:24:10Z patdenice $ *}
 <div class="navigationBar">
   {if isset($navbar.URL_FIRST)}
   <a href="{$navbar.URL_FIRST}" rel="first">{'first_page'|@translate}</a> |

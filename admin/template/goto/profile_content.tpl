@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/profile_content.tpl 7055 2009-03-19T19:51:54.545257Z nikrou  $ *}
 <form method="post" name="profile" action="{$F_ACTION}" id="profile" class="properties">
 
   <fieldset>

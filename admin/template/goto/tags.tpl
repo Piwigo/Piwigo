@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/tags.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <div class="titrePage">
   <h2>{'Manage tags'|@translate}</h2>
 </div>

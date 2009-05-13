@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template-extension/distributed/samples/my-thumbnails2.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 <!-- This is a sample of template extensions -->
 {if !empty($thumbnails)}
 {html_head}<link rel="stylesheet" type="text/css" href="./template-extension/distributed/samples/my-thumbnails2.css">{/html_head}

@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/configuration.tpl 7055 2009-03-19T19:51:54.545257Z nikrou  $ *}
 
 {include file='include/autosize.inc.tpl'}
 

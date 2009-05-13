@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/intro.tpl 7037 2009-03-13T23:43:50.771219Z plg  $ *}
 <h2>{'title_default'|@translate}</h2>
 <dl style="padding-top: 30px;">
   <dt>{'Piwigo version'|@translate}</dt>

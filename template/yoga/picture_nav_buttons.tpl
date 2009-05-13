@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/template/yoga/picture_nav_buttons.tpl 6540 2008-10-10T13:11:31.136621Z rvelices  $ *}
   <div class="navButtons">
   
 {if isset($last)}

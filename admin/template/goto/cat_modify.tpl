@@ -1,4 +1,3 @@
-{* $Id: /piwigo/trunk/admin/template/goto/cat_modify.tpl 7025 2009-03-09T19:41:45.898712Z nikrou  $ *}
 
 {include file='include/autosize.inc.tpl'}
 {include file='include/resize.inc.tpl'}
