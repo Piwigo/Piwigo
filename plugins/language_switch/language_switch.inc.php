@@ -20,6 +20,8 @@
 // | Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, |
 // | USA.                                                                  |
 // +-----------------------------------------------------------------------+
+if (!defined('LANGUAGE_SWITCH_PATH'))
+define('LANGUAGE_SWITCH_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
 function language_switch()
 {
   global $user, $template, $conf, $lang;
@@ -66,8 +68,53 @@ function language_switch()
   }
 }
 //if ( isset( $_GET['lang']) ) { redirect( make_index_url() ); }
-
 function Lang_flags()
+{
+  global $user, $template;
+  $available_lang = get_languages();
+	$lsw = array();
+  foreach ( $available_lang as $code => $displayname )
+  {
+    $qlc_url = add_url_params( make_index_url(), array( 'lang' => $code ) );
+    $qlc_alt = ucwords( $displayname );
+    $qlc_img =  'plugins/language_switch/icons/'
+       . $code . '.jpg';
+    if ( $code !== $user['language'] and file_exists(PHPWG_ROOT_PATH.$qlc_img) )
+    {
+      $lsw['flags'][$code] = Array(
+				'url' => $qlc_url,
+				'alt' => $qlc_alt,
+				'img' => $qlc_img,
+			) ;
+    } else {
+			$lsw['Active'] = Array(
+				'url' => $qlc_url,
+				'alt' => $qlc_alt,
+				'img' => $qlc_img,
+			);
+		}
+  }
+	$template->set_filename('language_flags', dirname(__FILE__) . '/flags.tpl');
+	$lsw['side'] = ceil(sqrt(count($available_lang)));
+	$template->assign(array(
+		'lang_switch'=> $lsw,
+		'LANGUAGE_SWITCH_PATH' => LANGUAGE_SWITCH_PATH,
+	));
+	$flags = $template->parse('language_flags',true);
+	$template->clear_assign('lang_switch');
+	$template->concat( 'PLUGIN_INDEX_ACTIONS', $flags);
+	// In state of making a $flags each time TODO Caching $flags[$user['language']]
+}
+
+if (!function_exists('Componant_exists')) {
+	function Componant_exists($path, $file)
+	{
+	  return file_exists( $path . $file);
+	}
+}
+
+// Should be deleted later
+function Lang_flags_previous_function()
 {
   global $user, $template;
   $available_lang = get_languages();

@@ -1,0 +1,6 @@
+.menuf ul li a.hide, .menuf ul li a:visited.hide {display:none;}
+.menuf ul li a:hover ul li a.hide {display:none;}
+.menuf ul li a:hover ul { display:block; position:absolute; top:-15%; left:-85%; }
+.menuf ul li a:hover ul li a {display:block; }
+.menuf ul li a:hover ul li a ul {visibility:hidden;}
+.menuf ul li a:hover ul li a:hover ul {visibility:visible; position:absolute; left:105px; top:0;}
