@@ -1,0 +1,16 @@
+.flag-pan { width:132px; z-index:100; border:2px solid; background-color: #111; padding: 2px 5px 10px 5px; 
+-moz-border-radius-bottomleft:8px; -moz-border-radius-bottomright:8px; -moz-border-radius-topleft:8px; -moz-border-radius-topright:8px;}
+.content ul.categoryActions .flag-pan a img.flags { margin: 5px 2px 10px; }
+.content ul.categoryActions .flag-pan a { margin: 0; }
+.menuf { width:30px; height:24px; display: inline; } 
+.menuf ul li a, .menuf ul li a:visited {display:block; text-decoration:none; width:44px; height:27px; text-align:center; line-height:27px; overflow:hidden;}
+.menuf ul {padding:0; margin:0; list-style: none;}
+.menuf ul li {float:left; position:relative; right: 0; top: 0;}
+.menuf ul li ul {display: none;}/* specific to non IE browsers */
+.menuf li a:hover { border:0 !important;}
+.menuf .flags {border:1px solid #000 !important; }
+.menuf ul li:hover ul {display:block; position:absolute; top:0px; left:-96px; }
+.menuf ul li:hover ul li ul {display: none;}
+.menuf ul li:hover ul li {display: block;}
+.menuf ul li:hover ul li a {display:block;}
+.menuf ul li:hover ul li:hover ul {display:block; position:absolute; left:0px; top:0;}
