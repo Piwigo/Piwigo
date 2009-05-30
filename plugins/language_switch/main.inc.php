@@ -31,6 +31,6 @@ Author URI: http://piwigo.org
 */
 
 include_once(PHPWG_PLUGINS_PATH.'language_switch/language_switch.inc.php');
-add_event_handler('loading_lang', 'language_switch' );
-add_event_handler('loc_end_index', 'Lang_flags' );
+add_event_handler('loading_lang', 'language_controler::_switch', 5 );
+add_event_handler('loc_end_index', 'language_controler::_flags', 95 );
 ?>
