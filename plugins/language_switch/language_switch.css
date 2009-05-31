@@ -1,6 +1,6 @@
 @import "language_switch-default.css";
 
-.flag-pan { border:2px solid; background-color: #111; }
+.flag-pan { border:1px solid; background-color: #111; }
 .menuf .flags {border-color: #000 !important; }
 
 .flag-pan { 	border-radius: 8px; } /* round corners with CSS3 compliant browsers */
