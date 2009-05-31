@@ -149,8 +149,17 @@ TD {
 {else}
 <p>
   <br />
-  <input type="button" name="index" value="{'home'|@translate}" onClick="document.location = 'index.php';"/>
-  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="document.location = 'identification.php';"/>
+  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="window.open('identification.php');"/>
+</p>
+
+<div class="infos">
+  <ul>
+    <li>{'Subscribe to Piwigo Announcements Newsletter'|@translate}</li>
+  </ul>
+</div>
+
+<p>
+  <input type="button" name="subscribe" value="{'Subscribe %s'|@translate|@sprintf:$F_ADMIN_EMAIL}" onClick="window.open('{$SUBSCRIBE_BASE_URL}{$F_ADMIN_EMAIL}');"/>
 </p>
 {/if}
 </div> {* content *}

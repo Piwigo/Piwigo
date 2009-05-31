@@ -657,6 +657,9 @@ $conf['allow_web_services'] = true;
 // Maximum number of images to be returned foreach call to the web service
 $conf['ws_max_images_per_page'] = 500;
 
+// Display a link to subscribe to Piwigo Announcements Newsletter
+$conf['show_newsletter_subscription'] = true;
+
 // +-----------------------------------------------------------------------+
 // | Filter                                                                |
 // +-----------------------------------------------------------------------+

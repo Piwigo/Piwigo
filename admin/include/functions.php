@@ -2114,4 +2114,13 @@ SELECT '.$conf['user_fields']['username'].'
 
   return $username;
 }
+
+function get_newsletter_subscribe_base_url($language) {
+  $subscribe_domain = 'piwigo.org';
+  if ('fr_FR' == $language) {
+    $subscribe_domain = 'fr.piwigo.org';
+  }
+  
+  return 'http://'.$subscribe_domain.'/announcement/subscribe.php?email=';
+}
 ?>
