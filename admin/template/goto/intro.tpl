@@ -1,3 +1,16 @@
+{known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
+{known_script id="jquery.dimensions" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.dimensions.packed.js"}
+{known_script id="jquery.cluetip" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.cluetip.packed.js"}
+
+<script type="text/javascript">
+jQuery().ready(function(){ldelim}
+  jQuery('.cluetip').cluetip({ldelim}
+    width: 300,
+    splitTitle: '|'
+  });
+});
+</script>
+
 <h2>{'title_default'|@translate}</h2>
 <dl style="padding-top: 30px;">
   <dt>{'Piwigo version'|@translate}</dt>
@@ -6,6 +19,9 @@
       <li><a href="{$PHPWG_URL}"  onclick="window.open(this.href, ''); 
           return false;">Piwigo</a> {$PWG_VERSION}</li>
       <li><a href="{$U_CHECK_UPGRADE}">{'Check for upgrade'|@translate}</a></li>
+{if isset($SUBSCRIBE_BASE_URL)}
+      <li><a href="{$SUBSCRIBE_BASE_URL}{$EMAIL}" onclick="window.open(this.href); return false;" class="cluetip" title="{'Piwigo Announcements Newsletter'|@translate}|{'Subscribe to Piwigo Announcements Newsletter'|@translate|htmlspecialchars|nl2br}">{'Subscribe %s to Piwigo Announcements Newsletter'|@translate|@sprintf:$EMAIL}</a></li>
+{/if}
     </ul>
   </dd>
 

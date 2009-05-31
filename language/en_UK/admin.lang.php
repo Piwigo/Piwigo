@@ -648,4 +648,8 @@ $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Released on';
 $lang['Number of downloads'] = 'Number of downloads';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
+$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
+$lang['Subscribe %s'] = 'Subscribe %s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo Announcements Newsletter';
 ?>

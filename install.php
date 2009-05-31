@@ -418,6 +418,11 @@ else
   {
     array_push($errors, $error_copy);
   }
+
+  $template->assign(
+    'SUBSCRIBE_BASE_URL',
+    get_newsletter_subscribe_base_url($language)
+    );
 }
 if (count($errors) != 0)
 {

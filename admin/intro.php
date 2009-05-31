@@ -115,6 +115,15 @@ else if (isset($_GET['action']) and 'phpinfo' == $_GET['action'])
 
 $template->set_filenames(array('intro' => 'intro.tpl'));
 
+if ($conf['show_newsletter_subscription']) {
+  $template->assign(
+    array(
+      'EMAIL' => $user['email'],
+      'SUBSCRIBE_BASE_URL' => get_newsletter_subscribe_base_url($user['language']),
+      )
+    );
+}
+
 $php_current_timestamp = date("Y-m-d H:i:s");
 list($mysql_version, $db_current_timestamp) = mysql_fetch_row(pwg_query('SELECT VERSION(), CURRENT_TIMESTAMP;'));
 
