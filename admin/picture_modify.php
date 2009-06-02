@@ -412,7 +412,7 @@ $query.= '
 display_select_cat_wrapper($query, array(), 'associated_options');
 
 $result = pwg_query($query);
-$associateds = array();
+$associateds = array(-1);
 if (isset($storage_category_id))
 {
   array_push($associateds, $storage_category_id);
