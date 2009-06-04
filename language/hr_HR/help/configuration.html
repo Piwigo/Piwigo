@@ -1,136 +1,111 @@
-<h2>Configuration</h2>
+<h2>Podešavanje</h2>
 
-<p>This screen let the administrator do basic configuration. Indeed, this
-screen only shows simple configuration parameters that should be enough for
-the vast majority of administrators. If you want to see other numerous (and
-advanced) configuration parameters, read file <span
-class="filename">include/config_default.inc.php</span>.</p>
+<p>Ovaj prozor omogućava upravniku obavljanje osnovnih podešavanja. Zaista, ovaj
+prozor prikazuje samo najosnovnije postavke podešavanja koje bi trebale biti dovoljne za
+veliku većinu upravnika. Ako želite proučiti ostale brojne (i napredne) 
+postavke podešavanja, pregledajte zapis <span class="filename">include/config_default.inc.php</span>.</p>
 
-<p>This screen is divided in several sections, regrouping configuration
-parameters by theme.</p>
+<p>Ovaj prozor je podijeljen u nekoliko odjeljaka, tematski preslaguje postavke podešavanja.</p>
 
 
-<h3>Main</h3>
+<h3>Glavo</h3>
 <ul>
-  <li><strong>Gallery title</strong>: used in RSS feed and notifications by
-email.</li>
+  <li><strong>Naslov galerije</strong>: koristi se za RSS izvore i e-mail obavijesti.</li>
 
-  <li><strong>Page banner</strong>: displayed on top of each public
-page.</li>
+  <li><strong>Baner stranice</strong>: prikazan na svakoj javnoj stranici.</li>
 
-  <li><strong>Gallery URL</strong>: used for the RSS feed.</li>
+  <li><strong>URL galerije</strong>: koristi se za RSS izvore.</li>
 
-  <li><strong>Lock gallery</strong>: Lock the entire gallery for
-  maintenance. Only administrator users will be able to reach the
-  gallery.</li>
+  <li><strong>Zaključavanje galerije</strong>: Zaključavanje cjelokupne galerije zbog poslova održavanja. Jedino upravni korisnici mogu pristupiti galeriji.</li>
 
-  <li><strong>Rating</strong>: Picture rating feature is enabled.</li>
+  <li><strong>Ocjene</strong>: POcjenjivanje slika je omogućeno.</li>
 
-  <li><strong>Rating by guests</strong>: Even non registered users can rate images.</li>
+  <li><strong>Ocjenjivanje od gostiju</strong>: Čak i nepoznati posjetitelji mogu ocjenjivati slike.</li>
 
-  <li><strong>Allow user registration</strong>: Registration is free for all.</li>
+  <li><strong>Dozvoli upis korisnika</strong>: Upis je odobren za sve.</li>
 
-  <li><strong>Mail address is obligatory for all users</strong>: Mail address will checked on registration or profile update except if the action is done on administration part.</li>
+  <li><strong>E-mail adresa je obvezna za sve korisnike</strong>: E-mail adresa će se provjeravati pri upisu ili izmjeni profila osim ako se postupak vrši preko upravnog dijela.</li>
 
-  <li><strong>Email admins when a new user registers</strong>: Administrators will be received mail for each registration.</li>
+  <li><strong>E-mail poruka upravniku pri upisu novog korisnika</strong>: Upravnik će dobiti obavijesnu e-mail poruku pri svakom novom upisu.</li>
 
 </ul>
 
-<h3>History</h3>
+<h3>Povijest</h3>
 
-  <p>Visits on pages <span
-  class="pwgScreen">category.php</span> and <span
-  class="pwgScreen">picture.php</span> will be saved in the
-  <code>history</code> table.</p>
+  <p>Posjete stranicama <span
+  class="pwgScreen">category.php</span> i <span
+  class="pwgScreen">picture.php</span> će biti pohranjene u
+  <code>povijest</code> tabeli.</p>
   
-  <p>Visits will be shown in <span
-  class="pwgScreen">Administration, Specials, History</span>.</p>
+  <p>Posjete će biti vidljive u <span
+  class="pwgScreen">Uprava, Posebnosti, Povijest</span>.</p>
 
 <ul>
-  <li><strong>Save page visits by guests</strong>: page visits by guests will be saved.</li>
+  <li><strong>Pohrani posjete stranicama po gostima</strong>: posjete stranicama se vode po gostima.</li>
 
-  <li><strong>Save page visits by users</strong>: visits by registrered users will be saved.</li>
+  <li><strong>Pohrani posjete stranicama po korisnicima</strong>: posjete stranicama se vode po korisnicima.</li>
 
-  <li><strong>Save page visits by administrators</strong>: page visits by administrators will be saved.</li>
+  <li><strong>Pohrani posjete stranicama po upravnicima</strong>: posjete stranicama se vode po upravnicima.</li>
 
 </ul>
 
-<h3>Comments</h3>
+<h3>Komentari</h3>
 <ul>
 
-  <li><strong>Comments for all</strong>: Even guest not registered can post
-  comments.</li>
+  <li><strong>Komentari za sve</strong>: Čak i obični posjetitelji mogu pisati komentare.</li>
 
-  <li><strong>Number of comments per page</strong>.</li>
+  <li><strong>Broj komentara po stranici</strong>.</li>
 
-  <li><strong>Validation</strong>: an administrator validate users posted
-  comments before they become visible on the site. User comments validation
-  takes place in screen <span class="pwgScreen">Administration, Pictures,
-  Comments</span>.</li>
+  <li><strong>Ovjera</strong>: upravnik ovjerava komentare posjetitelja prije javne objave. Ovjera korisničkih kometara 
+  se vrši u <span class="pwgScreen">Uprava, Slike, Komentari</span>.</li>
 
-  <li><strong>Email admins when a valid comment is entered</strong>:
-Sends an email to the administrators when a user enters a comment and this comment is validated.</li>
+  <li><strong>Pošalji e-mail obavijest po upisu kometara</strong>:
+Šalje e-mail obavijesnu poruku upravnicima kada korisnici upišu komentare koji su već ovjereni.</li>
 
-  <li><strong>Email admins when a comment requires validation</strong>:
-Sends an email to the administrators when a user enters a comment that requires validation by the admin.
-User comments validation takes place in the screen <span class="pwgScreen">Administration, Pictures, Comments</span>.</li>
+  <li><strong>Pošalji e-mail obavijest kada komentar treba ovjeru</strong>:
+Šalje e-mail obavijesnu poruku upravnicima kada korisnici upišu komentare koji trebaju biti ovjereni.
+Ovjeri korisničkih komentara se pristupa preko <span class="pwgScreen">Uprava, Slike, Komentari</span>.</li>
 
 </ul>
 
-<!--TODO --><h3>Upload</h3>
+<!--TODO --><h3>Prebacivanje</h3>
 <ul>
-<!--TODO -->  <li><strong>Show upload link every time</strong>: If exists uploadeable categories, add link will be show for each categoy.</li>
-<!--TODO -->  <li><strong>User access level to upload</strong>: Allows to restrict upload by users</li>
-  <li><strong>Email adminis when a picture is uploaded</strong>: Administrators will be received mail for each picture uploaded by a user.</li>
+<!--TODO -->  <li><strong>Prikaži poveznicu prebacivanja svaki put</strong>: Ako postoje skupine za prebacivanje, poveznica DODAJ će biti prikazana za svaku skupinu.</li>
+<!--TODO -->  <li><strong>Korisnička razina pristupa za prebacivanje</strong>: Omogućava ograničavanje prebacivanja od korisnika</li>
+  <li><strong>E-mail poruka upraviteljima po prebacivanju zapisa</strong>: Upravitelji će dobiti e-mail poruku za svaku prebačenu korisničku sliku.</li>
 </ul>
 
-<h3>Default display</h3>
+<h3>Pretpostavljeni prikaz</h3>
 
-<p>Here you can change display options used by default, when guest is not
-connected. Once connected, these options are overloaded by user own options
-(modifiable in <span class="pwgScreen">profile</span>).</p>
+<p>Ovdje možete mijenjati postavke prikaza korištene kao zadane, kada gost nije prijavljen. Jednom kada se prijavi, ove mogućnosti će biti promijenjene korisnički izabranima (izmjenjivo u <span class="pwgScreen">profili</span>).</p>
 
-<p>It is possible to change display options for all existing users, but the
-screen to consider is <span class="pwgScreen">Administration,
-Identification, Users</span>, where you can options for a selected list of
-users.</p>
+<p>Moguće je promijeniti mogućnosti prikaza za sve korisnike, ali preko prozora is <span class="pwgScreen">Uprava, Prijavnica, Korisnici</span>, gdje prikaz možete odrediti za odabrani popis korisnika.</p>
 
 <ul>
 
-  <li><strong>Language</strong>: concerns only Piwigo
-  labels. Category names, picture names and all descriptions are not
-  localized.</li>
+  <li><strong>Jezik</strong>: zahvaća samo sučelje Piwigo galerije. Nazivi skupina, slika i svi opisi nisu obuhvaćeno prijevodom.</li>
 
-  <li><strong>Number of images per row</strong></li>
+  <li><strong>Broj slika po redu</strong></li>
 
-  <li><strong>Number of rows per page</strong></li>
+  <li><strong>Broj redova po stranici</strong></li>
 
-  <li><strong>Interface theme</strong></li>
+  <li><strong>Tema sučelja</strong></li>
 
-  <li><strong>Recent period</strong>: By days. Period within a picture is
-  shown as new. Must be superior to 1 day.</li>
+  <li><strong>Nedavno razdoblje</strong>: Po danima. Razdoblje u kojem se prikazana slika smatra novom. Mora biti veće od 1 dan.</li>
 
-  <li><strong>Expand all categories</strong>: Expand all categories by
-  default in the menu? <em>Warning</em>: this option is resources consuming
-  and may generate a huge menu if your category tree is contains many
-  categories.</li>
+  <li><strong>Razgranaj sve skupine</strong>: Pretpostavljeno razgranati sve skupine u 
+  izbornik? <em>Pozor</em>: ova mogućnost može opteretiti računalo poslužitelj i stvoriti ogromni izbornik ako vaše sustav sadrži mnogo skupina.</li>
 
-  <li><strong>Show number of comments</strong>: show the number of comments
-  for each picture on the thumbnails page. Resource consuming.</li>
+  <li><strong>Prikaži broj komentara</strong>: prikazuje broj komentara za svaku sliku na stranici poveznih sličica. Zahtjevno za poslužitelja.</li>
 
-  <li><strong>Show hits count</strong>: display hits observed on picture
-  just under its thumbnail on the thumbnails page. 
-  Only when advanced configuration parameter is: <br />
-  $conf['show_nb_hits'] = true; <br />
-  Notice: it is false by default.</li>
+  <li><strong>Prikaži broj posjeta</strong>: prikaži broj posjeta slici pravo ispod povezne sličice na stranici. 
+  Samo kada je napredna postavka : <br />  $conf['show_nb_hits'] = true; <br />
+  Obavijest: pretpostavljeno je false .</li>
 
-  <li><strong>Maximum width of the pictures</strong>: maximum displayed
-  width. If pictures are larger than this setting, they will be resized on
-  display. If you consider filling this option, you'd better consider
-  modifying the width of your pictures instead.</li>
+  <li><strong>Najveća širina slika</strong>: najveća dozvoljena širina. Ako je slika veča od ove postavke, biti će prilagođena pri prikazu. Ukoliko razmišljate o određivanju ove vrijednosti, možda bi bilo
+  bolje prilagoditi širinu vaših slika pri izradi umjesto ovog.</li>
 
-  <li><strong>Maximum height of the pictures</strong>: same remarks as for
-  previous setting.</li>
+  <li><strong>Najveća visina slika</strong>: iste primjedbe kao ikod prethodne stavke.</li>
 
 </ul>
 
