@@ -2120,7 +2120,7 @@ function get_newsletter_subscribe_base_url($language) {
   if ('fr_FR' == $language) {
     $subscribe_domain = 'fr.piwigo.org';
   }
-  
-  return 'http://'.$subscribe_domain.'/announcement/subscribe.php?email=';
+
+  return 'http://'.$subscribe_domain.'/announcement/subscribe/';
 }
 ?>
