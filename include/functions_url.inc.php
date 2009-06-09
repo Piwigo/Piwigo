@@ -58,13 +58,14 @@ function get_absolute_root_url($with_scheme=true)
   $url = '';
   if ($with_scheme)
   {
-    if (empty($_SERVER['HTTPS']))
+    if (isset($_SERVER['HTTPS']) && 
+	((strtolower($_SERVER['HTTPS']) == 'on') or ($_SERVER['HTTPS'] == 1)))
     {
-      $url .= 'http://';
+      $url .= 'https://';
     }
     else
     {
-      $url .= 'https://';
+      $url .= 'http://';
     }
     $url .= $_SERVER['HTTP_HOST'];
     if ($_SERVER['SERVER_PORT'] != 80)
