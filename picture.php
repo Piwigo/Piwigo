@@ -322,6 +322,23 @@ DELETE FROM '.COMMENTS_TABLE.'
 
       redirect($url_self);
     }
+    case 'validate_comment' :
+    {
+      if (isset($_GET['comment_to_validate'])
+          and is_numeric($_GET['comment_to_validate'])
+          and is_admin() and !is_adviser() )
+      {
+	$query = '
+UPDATE '.COMMENTS_TABLE.'
+  SET validated = \'true\'
+  , validation_date = NOW()
+  WHERE id='.$_GET['comment_to_validate'].'
+;';
+        pwg_query( $query );
+      }
+      redirect($url_self);
+    }
+
   }
 }
 

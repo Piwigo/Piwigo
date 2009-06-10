@@ -118,11 +118,20 @@ SELECT COUNT(*) AS nb_comments
 
   if ($row['nb_comments'] > 0)
   {
+    if ( !is_admin() )
+    {
+      $validated_clause = '  AND validated = \'true\'';
+    } 
+    else 
+    {
+      $validated_clause = '';
+    }
+
     $query = '
-SELECT id,author,date,image_id,content
+SELECT id,author,date,image_id,content,validated
   FROM '.COMMENTS_TABLE.'
-  WHERE image_id = '.$page['image_id'].'
-    AND validated = \'true\'
+  WHERE image_id = '.$page['image_id'].
+$validated_clause.'
   ORDER BY date ASC
   LIMIT '.$page['start'].', '.$conf['nb_comment_page'].'
 ;';
@@ -152,6 +161,15 @@ SELECT id,author,date,image_id,content
                     'comment_to_delete'=>$row['id']
                   )
               );
+	if ($row['validated'] != 'true')
+	{
+	  $tpl_comment['U_VALIDATE'] = 
+	    add_url_params($url_self,
+			   array('action' => 'validate_comment',
+				 'comment_to_validate' => $row['id']
+				 )
+			   );
+	}
       }
       $template->append('comments', $tpl_comment);
     }
