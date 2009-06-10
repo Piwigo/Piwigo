@@ -282,7 +282,6 @@ SELECT com.id AS comment_id
      , com.author
      , com.date
      , com.content
-     , com.id AS comment_id
      , com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
