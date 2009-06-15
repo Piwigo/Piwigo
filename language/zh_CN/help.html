@@ -1,0 +1,286 @@
+<div class="instructions">
+<h2>帮助</h2>
+
+<div id="instructionPLoader" class="instructionBlock">
+  <div
+    id="pLoader_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('pLoader_header', 'pLoader_content')"
+  ><span>
+   使用 pLoader 添加图片 
+  </span></div>
+  <div
+    id="pLoader_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+    <p><a href="http://piwigo.org/ext/extension_view.php?eid=270">pLoader Windows版本</a> or <a href="http://piwigo.org/ext/extension_view.php?eid=269">pLoader Linux版本</a> : 相关的说明，下载与最新版本的详细信息。</p>
+    <ol>
+      <li>  在你的　Piwigo　文件夹下创建一个 &quot;upload&quot; 文件夹，与 &quot;galleries&quot; 文件夹同级,并且需要有读写权限。</li>
+ 	  <li> 在你的电脑上安装 pLoader, 启动它并填写连接设置 : 你的相册地址, 你的登录名和密码。</li>
+	  <li>  把你本地文件夹里的图片直接拖入到　pLoader　的图片选择区域。</li>
+ 	  <li> 创建一个类别并选择它。</li>
+  	  <li> 选择某些图片。</li>
+ 	  <li> 点击绿色箭头按钮开始上传你的图片。</li>
+    </ol>
+恭喜！你已成功地为你的相册创建了第一个类别。
+  </div> <!-- pLoader_content -->
+</div> <!-- instructionPLoader -->
+
+<div id="instructionFTP" class="instructionBlock">
+  <div
+    id="FTP_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('FTP_header', 'FTP_content')"
+  ><span>
+    使用 FTP 方式添加图片
+  </span></div>
+  <div
+    id="FTP_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+
+<h3>快速开始</h3>
+
+<ol>
+  <li>在你的电脑里创建一个文件夹。</li>  
+
+  <li>复制一些图片到此文件夹，调整它们的大小以适合网上浏览。 <em>注意</em>: 文件名和文件夹必须以字母、数字、 "-"、 "_" 或者 "." 组成。没有空格，没有特别的符号。</li>
+
+  <li>使用FTP客户端，复制你的文件夹到 Piwigo 的 "galleries" 文件夹里。</li>
+
+  <li>登录你的相册，进入 <span class="pwgScreen">管理员 &raquo; 图片 &raquo; 缩略图</span> 以创建你的缩略图。</li>
+
+  <li>进入 <span class="pwgScreen">管理员</span> 然后点击“快速同步”的大按钮。</li>
+</ol>
+
+恭喜！你已成功地为你的相册创建了第一个类别。
+
+<h3>文件夹与文件结构</h3>
+<ul>
+
+  <li>
+
+    <p>类别文件夹均放在 Piwigo 的 "galleries" 文件夹里。以下的文件夹树里有一个很小的相册(但使用了很多功能) :</p>
+
+    <pre>
+.
+|-- admin
+|-- doc
+|-- galleries
+|   |-- category-1
+|   |   |-- category-1.1
+|   |   |   |-- category-1.1.1
+|   |   |   |   |-- category-1.1.1.1
+|   |   |   |   |   |-- pwg_high
+|   |   |   |   |   |   +-- wedding.jpg
+|   |   |   |   |   |-- thumbnail
+|   |   |   |   |   |   +-- TN-wedding.jpg
+|   |   |   |   |   +-- wedding.jpg
+|   |   |   |   +-- category-1.1.1.2
+|   |   |   +-- category-1.1.2
+|   |   |-- category-1.2
+|   |   |   |-- pookie.jpg
+|   |   |   +-- thumbnail
+|   |   |       +-- TN-pookie.jpg
+|   |   +-- category-1.3
+|   +-- category-2
+|       |-- piglet.gif
+|       |-- pwg_representative
+|       |   +-- video.jpg
+|       |-- thumbnail
+|       |   +-- TN-piglet.jpg
+|       +-- video.avi
+|-- include
+|-- install
+|-- language
+|-- template
++-- tool</pre>
+
+  </li>
+  
+  <li>每个在 "galleries" 下面的文件夹都是一个产品类别。没有级别限制，即可以添加无限子级别。</li>
+
+  <li>基本上，一个文件代表一个元素。如果文件的扩展名存在于 <code>file_ext</code> 参数配置里，其将可作为 Piwigo 的一个元素(参见 <span class="filename">include/config_default.inc.php</span> 文件)。如果文件的扩展名存在于 <code>picture_ext</code> 参数配置里，其将作为一个图片。</li>
+
+  <li>图片元素必须要有一张对应的缩略图 (参见以下缩略图的相关说明)</li>
+
+  <li>图片元素可以有一个高品质的文件与其关联。如以上 wedding.jpg 的例子。高品质图片不需要前缀。</li>
+
+  <li>非图片元素 (如视频，声频，文本文件，一切你想到的...) 均以文件扩展名的默认图标显示。或者，你可以用一张缩略图来代表这个文件 (参见 video.avi 的例子)。</li>
+
+  <li><em>注意</em>: 文件名和文件夹必须以字母、数字、 "-"、 "_" 或者 "." 组成。没有空格，没有特别的符号。</li>
+
+  <li>一旦文件、缩略图都放到其正确的位置后，进入 : <span class="pwgScreen">管理员 &raquo; 类 &raquo;
+  同步</span></li>
+
+</ul>
+
+<h3>缩略图</h3>
+<ul>
+
+  <li>每个图片必须要有一张缩略图。</li>
+
+  <li>缩略图保存在类别文件夹里名为 "thumbnail" 的子文件夹。缩略图文件名与图片的文件名一致，将会以 <em>TN-</em> 为前缀</li>
+
+  <li><em>建议</em>: 使用外部工具来创建缩略图。</li>
+
+  <li>你可以使用<span class="pwgScreen">管理员 &raquo; 图片 &raquo; 缩略图</span> 页面来创建缩略图。即使这是不被推荐的 (考虑到图片品质，网络服务器资源读取等问题)。</li>
+
+  <li>分配给所有类别文件夹写权限。</li>
+
+</ul>
+
+  </div> <!-- FTP_content -->
+</div> <!-- instructionFTP -->
+
+<div id="instructionPermissions" class="instructionBlock">
+  <div
+    id="permissions_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('permissions_header', 'permissions_content')"
+  ><span>
+    权限许可
+  </span></div>
+  <div
+    id="permissions_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>你可以禁止访问某类别。如果你想管理访问权限，可以将类别的访问类型改为“私有”。</li>
+
+  <li>你可以在修改某个类别的时候设置其为私有的 (<span class="pwgScreen">管理员 &raquo; 类 &raquo; 管理 &raquo; 修改</span>) 或者通过设置选项去设置你的整个类别树 (<span
+  class="pwgScreen">管理员 &raquo; 类 &raquo; 属性 &raquo; 公共 / 私有</span>).</li>
+
+  <li>
+
+    <p>当类别被设为私有时，你可以通过以下3个界面去管理组和用户的权限:</p>
+
+    <ul>
+
+      <li><span class="pwgScreen">管理员 &raquo; 身份认证 &raquo; 用户 &raquo;
+      权限操作</span> (每个用户一个链接)</li>
+
+      <li><span class="pwgScreen">管理员 &raquo; 身份认证 &raquo; 组 &raquo;
+      权限操作</span> (每个组一个链接)</li>
+
+      <li><span class="pwgScreen">管理员 &raquo; 类 &raquo; 管理 &raquo; 修改
+      类的权限操作</span> (每个类一个链接)</li>
+
+    </ul>
+
+  </li>
+
+</ul>
+  </div> <!-- permissions_content --> 
+</div> <!-- instructionPermissions -->
+
+<div id="instructionGroups" class="instructionBlock">
+  <div
+    id="groups_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('groups_header', 'groups_content')"
+  ><span>
+    组
+  </span></div>
+  <div
+    id="groups_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>组是设置一个用户列表权限的便捷方式。</li>
+
+  <li>在 <span class="pwgScreen">管理员 &raquo;
+  身份验证 &raquo; 组</span> 创建组和在 <span class="pwgScreen">管理员 &raquo; 身份验证 &raquo; 用户</span> 里创建组里的用户。</li>
+
+  <li>一个用户可同时存在于几个组里。授权的优先级大于禁止 : 如果用户 "jack" 同时属于 "family" 和 "friends" 组, 只有 "family" 组可以看到类别 "Christmas 2003" 那么 "jack" 就可以看到 "Christmas 2003".</li>
+
+</ul>
+  </div> <!-- groups_content --> 
+</div> <!-- instructionGroups -->
+
+<div id="instructionUpload" class="instructionBlock">
+  <div
+    id="upload_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('upload_header', 'upload_content')"
+  ><span>
+    用户上传
+  </span></div>
+  <div
+    id="upload_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<p>用户也可以上传他们的相片。</p>
+
+<ol>
+
+  <li>可以给予任何的物理类别上传权限 (<span
+  class="pwgScreen">管理员 &raquo; 类 &raquo; 管理 &raquo; 修改</span> 或者在 <span
+  class="pwgScreen">管理员 &raquo; 类 &raquo; 属性 &raquo; 上传</span>)。虚拟类别不能上传。</li>
+
+  <li>给予相关的文件夹写权限。</li>
+
+</ol>
+
+<p>用户不可以直接把相片上传到网站服务器。管理员必须在 <span class="pwgScreen">管理员 &raquo; 相片 &raquo; 等待</span> 验证上传照片。</p>
+  </div> <!-- upload_content --> 
+</div> <!-- instructionUpload -->
+
+<div id="instructionCategoryLinks" class="instructionBlock">
+  <div
+    id="categoryLinks_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('categoryLinks_header', 'categoryLinks_content')"
+  ><span>
+    图片和类别之间的链接，虚拟类别
+  </span></div>
+  <div
+    id="categoryLinks_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>在类别里显示的相片相当于文件夹里的文件。</li>
+
+  <li>你也可以将一张图片放在多个类别里显示，在你的网站服务器里没有重复的文件。在图片修改界面可以将图片关联到任何类别里 (任何一个管理员都可以从相册进入到图片修改页面).</li>
+
+  <li>虚拟类别就建立在这个概念上 : 他们并没有对应的文件夹。可以通过 <span class="pwgScreen">管理员 &raquo; 类 &raquo; 管理</span> 创建虚拟类别。</li>
+
+</ul>
+  </div> <!-- categoryLinks_content --> 
+</div> <!-- instructionCategoryLinks -->
+
+<div id="instructionMisc" class="instructionBlock">
+  <div
+    id="misc_header"
+    class="instructionBlockHeaderCollapsed"
+    onclick="blockToggleDisplay('misc_header', 'misc_content')"
+  ><span>
+    杂项信息
+  </span></div>
+  <div
+    id="misc_content"
+    class="instructionBlockContent"
+    style="display:none"
+  >
+<ul>
+
+  <li>当你建立了相册后，就可以通过 <span class="pwgScreen">管理员 &raquo; 设置 &raquo;
+  默认显示</span> 修改默认的显示属性。 每个新注册的用户将使用这些默认的设置。</li>
+
+  <li>如果你有其他问题，Piwigo 社区将欢迎你到 <a
+  href="http://piwigo.org/forum"> 它的论坛</a>。</li>
+
+</ul>
+  </div> <!-- misc_content --> 
+</div> <!-- instructionMisc -->
+
+</div>
