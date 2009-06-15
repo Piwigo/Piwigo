@@ -643,4 +643,13 @@ $lang['Bound template'] = 'Hraniční šablona';
 $lang['Downloads'] = 'Staženo';
 $lang['Released on'] = 'Vydáno';
 $lang['Number of downloads'] = 'Počet stažení';
+
+
+
+
+// --------- Starting below: New or revised $lang ---- from Colibri
+/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
+/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
+/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
+/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
 ?>
