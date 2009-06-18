@@ -1,0 +1,103 @@
+<h2>配置</h2>
+
+<p>这个页面可让管理员做基本的配置。确实，这个页面所显示的简单的配置参数已足够大多数的管理员使用，如果你想看到更多的(和高级的)配置参数，请查阅此文件 <span class="filename">include/config_default.inc.php</span>.</p>
+
+<p>这个页面分成几个章节，以主题来重组配置参数。</p>
+
+
+<h3>主要</h3>
+<ul>
+  <li><strong>相册标题</strong>: 用在RSS和电子邮件通知里。</li>
+
+  <li><strong>页面横幅</strong>: 在每个公共页面顶部显示。</li>
+
+  <li><strong>相册地址</strong>: 用在RSS通知里。</li>
+
+  <li><strong>锁定相册</strong>: 在维护时锁定所有相册，只有管理员能访问。</li>
+
+  <li><strong>等级</strong>: 开启图片的等级功能。</li>
+
+  <li><strong>客人可作等级投票</strong>: 即使没注册的用户也可以对图片进行等级投票。</li>
+
+  <li><strong>允许用户注册</strong>: 注册是免费的。</li>
+
+  <li><strong>用户注册时必须填写邮件地址</strong>: 在注册或者更新个人资料时将会对邮件地址进行检测，除了在管理员后台直接的操作之外。</li>
+
+  <li><strong>当前新用户注册时发邮件给管理员</strong>: 管理员将会收到每个注册通知。</li>
+
+</ul>
+
+<h3>历史</h3>
+
+  <p>在访问<span class="pwgScreen">category.php</span> 和 <span class="pwgScreen">picture.php</span> 页面时，将会保存到
+  <code>历史</code> 表。</p>
+  
+  <p>访问记录将会显示在 <span  class="pwgScreen">管理员, 特殊, 历史</span>.</p>
+
+<ul>
+  <li><strong>保存访客的页面记录</strong>: 访客访问过的页面将会被记录。</li>
+
+  <li><strong>保存用户的页面记录</strong>: 注册用户访问过的页面将会被记录。</li>
+
+  <li><strong>保存管理员的页面记录</strong>: 管理员访问过的页面将会被记录。</li>
+
+</ul>
+
+<h3>评论</h3>
+<ul>
+
+  <li><strong>全部皆能评论</strong>: 即使没注册的访客也能发表评论。</li>
+
+  <li><strong>每页显示的评论数。</strong></li>
+
+  <li><strong>审核Validation</strong>: 管理员在评论正式发布前需要先审核，审核用户评论的页面是 <span class="pwgScreen">管理员, 相片,
+  评论</span>.</li>
+
+  <li><strong>当有评论时即发邮件通知管理员</strong>:当用户发表了有效的评论后，即发送邮件通知管理员。</li>
+
+  <li><strong>当有评论需要审核时发邮件通知管理员</strong>:当用户发表了需要审核的评论后，即发送邮件通知管理员。
+
+审核用户评论的页面是 <span class="pwgScreen">管理员, 相片, 评论</span>.</li>
+
+</ul>
+
+<!--TODO --><h3>上传</h3>
+<ul>
+<!--TODO -->  <li><strong>每次都显示上传链接</strong>: 如果存在可以上传的类别，添加的链接将在每个类别里显示。</li>
+<!--TODO -->  <li><strong>用户访问级别的上传</strong>: 允许限制用户上传</li>
+  <li><strong>当相片上传时发邮件通知管理员</strong>: 每个用户上传相片后管理员将收到邮件通知。</li>
+</ul>
+
+<h3>默认显示</h3>
+
+<p>在这里你可以为未登录的客人改变默认的显示设置，一旦他们登录后，用户自己的设置将覆盖这些默认设置
+(在<span class="pwgScreen">自定义</span>里修改).</p>
+
+<p>每个用户都可以更改自己的显示设置，但需要注意这个页面<span class="pwgScreen">管理员,
+身份验证, 用户</span>, 在这里你可以更改用户列表里的用户的显示设置。</p>
+
+<ul>
+
+  <li><strong>语言</strong>: 主要考虑的只是 Piwigo 的标签。类别名称、相片名称和所有注解说明均不被本地化。</li>
+
+  <li><strong>每行相片数量</strong></li>
+
+  <li><strong>每页的行数</strong></li>
+
+  <li><strong>主题界面</strong></li>
+
+  <li><strong>最近的时间段</strong>: 以天为单位。在这个时间段内的相片将被显示，必须要大于1天。</li>
+
+  <li><strong>展开所有类别</strong>: 在菜单里以默认方式展开所有类别 <em>注意</em>: 这个操作是很消耗资源的，同时如果你的类别树下包含了很多子类别，将会产生一个巨大的菜单。</li>
+
+  <li><strong>显示评论的数量</strong>: 在缩略图页面显示每个相片的评论。很消耗资源。</li>
+
+  <li><strong>显示点击数</strong>: 只有在高级配置参数 $conf['show_nb_hits'] = true; 时，才会在缩略图页面里的相片缩略图下显示点击数。<br />
+  注意：此选项默认为 false 。</li>
+
+  <li><strong>相片的最大宽度</strong>: 最大宽度的显示。如果相片大于此设置，其将被调整大小以显示。如果你考虑这个选项，你最好考虑修改你的相片以代替之。</li>
+
+  <li><strong>相片最大高度</strong>: 与前一项说明相同</li>
+
+</ul>
+
