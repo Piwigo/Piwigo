@@ -646,5 +646,10 @@ $lang['Bound template'] = 'Template legato';
 $lang['Downloads'] = 'Downloads';
 $lang['Released on'] = 'Aggiunto il';
 $lang['Number of downloads'] = 'Totale dei downloads';
-// --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+// --------- Starting below: New or revised $lang ---- from Colibri
+$lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
+$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Rimanete in contatto con il progetto con il progetto Piwigo, abbonatevi alla newsletter. Riceverete un mail ad ogni volta che una nuova versione sarà disponibile (avvolte un bug di sicurezza è corretto, è importante esserne al corrente e d\'aggiornare il prodotto) o che un evento importante sorga sul progetto. Solo qualche mail all\'anno';
+$lang['Subscribe %s'] = 'Abbonare %s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abbonare %s alla newsletter Piwigo';
+
 ?>
