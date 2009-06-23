@@ -196,7 +196,7 @@ $validated_clause.'
 
   if (!is_a_guest()
       or (is_a_guest() and $conf['comments_forall'])
-      and (isset($edit_comment) and ($edit_comment != null)))
+      or (empty($edit_comment)))
   {
     $key = get_comment_post_key($page['image_id']);
     $content = '';
