@@ -128,8 +128,10 @@ SELECT COUNT(*) AS nb_comments
     }
 
     $query = '
-SELECT id,author,date,image_id,content,validated
-  FROM '.COMMENTS_TABLE.'
+SELECT com.id,author,author_id,username,date,image_id,content,validated
+  FROM '.COMMENTS_TABLE.' AS com
+  LEFT JOIN '.USERS_TABLE.' AS u
+    ON u.id = author_id
   WHERE image_id = '.$page['image_id'].
 $validated_clause.'
   ORDER BY date ASC
@@ -139,19 +141,29 @@ $validated_clause.'
 
     while ($row = mysql_fetch_array($result))
     {
+      if (!empty($row['author'])) 
+      {
+	$author = $row['author'];
+	if ($author == 'guest')
+	{
+	  $author = l10n('guest');
+	}
+      }
+      else
+      {
+	$author = $row['username'];
+      }
+
       $tpl_comment =
         array(
-          'AUTHOR' => trigger_event('render_comment_author',
-            empty($row['author'])
-            ? l10n('guest')
-            : $row['author']),
+          'AUTHOR' => trigger_event('render_comment_author', $author),
 
           'DATE' => format_date( $row['date'], true),
 
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
         );
 
-      if (can_manage_comment('delete', $row['author']))
+      if (can_manage_comment('delete', $row['author_id']))
       {
         $tpl_comment['U_DELETE'] =
 	  add_url_params($url_self,
@@ -161,7 +173,7 @@ $validated_clause.'
 			       )
 			 );
       }
-      if (can_manage_comment('edit', $row['author']))
+      if (can_manage_comment('edit', $row['author_id']))
       {
 	$tpl_comment['U_EDIT'] =
 	  add_url_params($url_self,

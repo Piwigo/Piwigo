@@ -1202,13 +1202,14 @@ function is_adviser()
  * @param action edit/delete
  * @return bool
  */
-function can_manage_comment($action, $comment_author) 
+function can_manage_comment($action, $comment_author_id) 
 {
   if (!in_array($action, array('delete','edit'))) {
     return false;
   }
   return (is_admin() || 
-	  (($GLOBALS['user']['username'] == $comment_author) 
+	  (($GLOBALS['user']['id'] == $comment_author_id) 
+	   && !is_a_guest()
 	   && $GLOBALS['conf'][sprintf('user_can_%s_comment', $action)]));
 }
 

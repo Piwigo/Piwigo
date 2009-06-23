@@ -134,10 +134,12 @@ $template->assign(
 $list = array();
 
 $query = '
-SELECT c.id, c.image_id, c.date, c.author, c.content, i.path, i.tn_ext
+SELECT c.id, c.image_id, c.date, c.author, u.username, c.content, i.path, i.tn_ext
   FROM '.COMMENTS_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
+    LEFT JOIN '.USERS_TABLE.' AS u
+      ON u.id = c.author_id
   WHERE validated = \'false\'
   ORDER BY c.date DESC
 ;';
@@ -151,6 +153,14 @@ while ($row = mysql_fetch_assoc($result))
         'tn_ext'=>@$row['tn_ext']
         )
      );
+  if (empty($row['author_id'])) 
+  {
+    $author_name = $row['author'];
+  }
+  else
+  {
+    $author_name = $row['username'];
+  }
   $template->append(
     'comments',
     array(
@@ -159,7 +169,7 @@ while ($row = mysql_fetch_assoc($result))
           '&amp;image_id='.$row['image_id'],
       'ID' => $row['id'],
       'TN_SRC' => $thumb,
-      'AUTHOR' => trigger_event('render_comment_author', $row['author']),
+      'AUTHOR' => trigger_event('render_comment_author', $author_name),
       'DATE' => format_date($row['date'], true),
       'CONTENT' => trigger_event('render_comment_content',$row['content'])
       )

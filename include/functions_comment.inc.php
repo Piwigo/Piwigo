@@ -91,6 +91,7 @@ function insert_user_comment( &$comm, $key, &$infos )
     {
       $comm['author'] = 'guest';
     }
+    $comm['author_id'] = $conf['guest_id'];
     // if a guest try to use the name of an already existing user, he must be
     // rejected
     if ( $comm['author'] != 'guest' )
@@ -109,8 +110,10 @@ SELECT COUNT(*) AS user_exists
   }
   else
   {
-    $comm['author'] = $user['username'];
+    $comm['author'] = '';
+    $comm['author_id'] = $user['id'];
   }
+
   if ( empty($comm['content']) )
   { // empty comment content
     $comment_action='reject';
@@ -134,7 +137,7 @@ SELECT COUNT(*) AS user_exists
     $query = '
 SELECT id FROM '.COMMENTS_TABLE.'
   WHERE date > FROM_UNIXTIME('.$reference_date.')
-    AND author = "'.addslashes($comm['author']).'"';
+    AND author_id = '.$comm['author_id'];
     if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
     {
       array_push( $infos, l10n('comment_anti-flood') );
@@ -151,9 +154,10 @@ SELECT id FROM '.COMMENTS_TABLE.'
   {
     $query = '
 INSERT INTO '.COMMENTS_TABLE.'
-  (author, content, date, validated, validation_date, image_id)
+  (author, author_id, content, date, validated, validation_date, image_id)
   VALUES (
     "'.addslashes($comm['author']).'",
+    '.$comm['author_id'].',
     "'.addslashes($comm['content']).'",
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
@@ -166,21 +170,25 @@ INSERT INTO '.COMMENTS_TABLE.'
 
     $comm['id'] = mysql_insert_id();
 
-    if
-      (
-        ($comment_action=='validate' and $conf['email_admin_on_comment'])
-        or
-        ($comment_action!='validate' and $conf['email_admin_on_comment_validation'])
-      )
+    if (($comment_action=='validate' and $conf['email_admin_on_comment']) or
+	($comment_action!='validate' 
+	 and $conf['email_admin_on_comment_validation']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
-      $del_url =
-          get_absolute_root_url().'comments.php?delete='.$comm['id'];
+      $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
+      if (empty($comm['author'])) 
+      {
+	$author_name = $user['username'];
+      }
+      else
+      {
+	$author_name = $comm['author'];
+      }
       $keyargs_content = array
       (
-        get_l10n_args('Author: %s', $comm['author']),
+        get_l10n_args('Author: %s', $author_name),
         get_l10n_args('Comment: %s', $comm['content']),
         get_l10n_args('', ''),
         get_l10n_args('Delete: %s', $del_url)
@@ -197,7 +205,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 
       pwg_mail_notification_admins
       (
-        get_l10n_args('Comment by %s', $comm['author']),
+        get_l10n_args('Comment by %s', $author_name),
         $keyargs_content
       );
     }
@@ -218,7 +226,7 @@ function delete_user_comment($comment_id) {
   $user_where_clause = '';
   if (!is_admin())
   {
-    $user_where_clause = '   AND author = \''.$GLOBALS['user']['username'].'\'';
+    $user_where_clause = '   AND author_id = \''.$GLOBALS['user']['id'].'\'';
   }
   $query = '
 DELETE FROM '.COMMENTS_TABLE.'
@@ -264,7 +272,7 @@ function update_user_comment($comment, $post_key) {
     $query = '
 SELECT id FROM '.COMMENTS_TABLE.'
   WHERE date > FROM_UNIXTIME('.$reference_date.')
-    AND author = "'.$GLOBALS['user']['username'].'"';
+    AND author_id = '.$comm['author_id'];
     if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
     {
       array_push( $infos, l10n('comment_anti-flood') );
@@ -286,8 +294,8 @@ SELECT id FROM '.COMMENTS_TABLE.'
     $user_where_clause = '';
     if (!is_admin())
     {
-      $user_where_clause = '   AND author = \''.
-	$GLOBALS['user']['username'].'\'';
+      $user_where_clause = '   AND author_id = \''.
+	$GLOBALS['user']['id'].'\'';
     }
     $query = '
 UPDATE '.COMMENTS_TABLE.'

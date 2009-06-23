@@ -100,7 +100,9 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
 // search a particular author
 if (isset($_GET['author']) and !empty($_GET['author']))
 {
-  $page['where_clauses'][] = 'com.author = \''.$_GET['author'].'\'';
+  $page['where_clauses'][] = 
+    'u.username = \''.addslashes($_GET['author']).'\'
+     OR author = \''.addslashes($_GET['author']).'\'';    
 }
 
 // search a substring among comments content
@@ -261,10 +263,12 @@ else
 }
 
 $query = '
-SELECT COUNT(DISTINCT(id))
+SELECT COUNT(DISTINCT(com.id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
+    LEFT JOIN '.USERS_TABLE.' As u
+    ON u.id = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
@@ -295,12 +299,16 @@ SELECT com.id AS comment_id
      , com.image_id
      , ic.category_id
      , com.author
+     , com.author_id
+     , username
      , com.date
      , com.content
      , com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    INNER JOIN '.COMMENTS_TABLE.' AS com
+    INNER JOIN '.COMMENTS_TABLE.' AS com    
     ON ic.image_id = com.image_id
+    LEFT JOIN '.USERS_TABLE.' AS u
+    ON u.id = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
   GROUP BY comment_id
@@ -366,10 +374,17 @@ SELECT id, name, permalink, uppercats
             )
           );
 
-    $author = $comment['author'];
-    if (empty($comment['author']))
+    if (!empty($comment['author'])) 
     {
-      $author = l10n('guest');
+      $author = $comment['author'];
+      if ($author == 'guest')
+      {
+	$author = l10n('guest');
+      }
+    }
+    else
+    {
+      $author = $comment['username'];
     }
 
     $tpl_comment =
@@ -382,7 +397,7 @@ SELECT id, name, permalink, uppercats
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         );
 
-    if (can_manage_comment('delete', $comment['author'])) 
+    if (can_manage_comment('delete', $comment['author_id'])) 
     {
       $url = get_root_url().'comments.php'
 	.get_query_string_diff(array('delete','validate','edit'));
@@ -391,7 +406,7 @@ SELECT id, name, permalink, uppercats
 		       array('delete'=>$comment['comment_id'])
 		       );
     }
-    if (can_manage_comment('edit', $comment['author']))
+    if (can_manage_comment('edit', $comment['author_id']))
     {
       $url = get_root_url().'comments.php'
 	.get_query_string_diff(array('edit', 'delete','validate'));
