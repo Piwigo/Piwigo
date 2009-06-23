@@ -205,4 +205,134 @@ INSERT INTO '.COMMENTS_TABLE.'
   return $comment_action;
 }
 
+/**
+ * Tries to delete a user comment in the database
+ * only admin can delete all comments
+ * other users can delete their own comments 
+ * so to avoid a new sql request we add author in where clause
+ *
+ * @param comment_id 
+ */
+
+function delete_user_comment($comment_id) {
+  $user_where_clause = '';
+  if (!is_admin())
+  {
+    $user_where_clause = '   AND author = \''.$GLOBALS['user']['username'].'\'';
+  }
+  $query = '
+DELETE FROM '.COMMENTS_TABLE.'
+  WHERE id = '.$comment_id.
+$user_where_clause.'
+;';
+  $result = pwg_query($query);
+  if ($result) {
+    email_admin('delete', array('author' => $GLOBALS['user']['username']));
+  }
+}
+
+/**
+ * Tries to update a user comment in the database
+ * only admin can update all comments
+ * users can edit their own comments if admin allow them
+ * so to avoid a new sql request we add author in where clause
+ *
+ * @param comment_id 
+ * @param post_key
+ * @param content
+ */
+
+function update_user_comment($comment, $post_key) {
+  global $conf;
+
+  $comment_action = 'validate';
+
+  $key = explode( ':', $post_key );
+  if ( count($key)!=2
+       or $key[0]>time()-2 // page must have been retrieved more than 2 sec ago
+       or $key[0]<time()-3600 // 60 minutes expiration
+       or hash_hmac('md5', $key[0].':'.$comment['image_id'], $conf['secret_key']
+		    ) != $key[1]
+       )
+  {
+    $comment_action='reject';
+  }
+
+  if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
+  { // anti-flood system
+    $reference_date = time() - $conf['anti-flood_time'];
+    $query = '
+SELECT id FROM '.COMMENTS_TABLE.'
+  WHERE date > FROM_UNIXTIME('.$reference_date.')
+    AND author = "'.$GLOBALS['user']['username'].'"';
+    if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
+    {
+      array_push( $infos, l10n('comment_anti-flood') );
+      $comment_action='reject';
+    }
+  }
+
+  // perform more spam check
+  $comment_action = 
+    trigger_event('user_comment_check',
+		  $comment_action, 
+		  array_merge($comment, 
+			      array('author' => $GLOBALS['user']['username'])
+			      )
+		  );
+
+  if ( $comment_action!='reject' )
+  {
+    $user_where_clause = '';
+    if (!is_admin())
+    {
+      $user_where_clause = '   AND author = \''.
+	$GLOBALS['user']['username'].'\'';
+    }
+    $query = '
+UPDATE '.COMMENTS_TABLE.'
+  SET content = \''.$comment['content'].'\',
+      validation_date = now()
+  WHERE id = '.$comment['comment_id'].
+$user_where_clause.'
+;';
+    $result = pwg_query($query);
+    if ($result) {
+      email_admin('edit', array('author' => $GLOBALS['user']['username'],
+				'content' => $comment['content']));
+    }
+  }
+}
+
+function email_admin($action, $comment) {
+  global $conf;
+
+  if (!in_array($action, array('edit', 'delete'))
+      or (($action=='edit') and !$conf['email_admin_on_comment_edition'])
+      or (($action=='delete') and !$conf['email_admin_on_comment_deletion']))
+  {
+    return;
+  }
+
+  include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
+  
+  $keyargs_content = array();
+  $keyargs_content[] = get_l10n_args('Author: %s', $comment['author']);
+  if ($action=='delete') 
+  {
+    $keyargs_content[] = get_l10n_args('This author remove comment with id %d',
+				       $comment['comment_id']
+				       );
+  }
+  else
+  {
+    $keyargs_content[] = get_l10n_args('This author modified following comment:', '');
+    $keyargs_content[] = get_l10n_args('Comment: %s', $comment['content']);
+  }
+  
+  pwg_mail_notification_admins(get_l10n_args('Comment by %s', 
+					     $comment['author']),
+			       $keyargs_content
+			       );
+}
 ?>

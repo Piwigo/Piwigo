@@ -25,6 +25,7 @@ define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
 include(PHPWG_ROOT_PATH.'include/section_init.inc.php');
 include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
 // Check Access and exit when user status is not ok
 check_status(ACCESS_GUEST);
@@ -307,19 +308,34 @@ UPDATE '.CATEGORIES_TABLE.'
         );
       redirect($url_self);
     }
+    case 'edit_comment' :
+    {
+      if (isset($_GET['comment_to_edit'])
+          and is_numeric($_GET['comment_to_edit'])
+	  and (is_admin() || $conf['user_can_edit_comment']))
+      {
+	if (!empty($_POST['content'])) 
+	{
+	  update_user_comment(array('comment_id' => $_GET['comment_to_edit'], 
+				    'image_id' => $page['image_id'],
+				    'content' => $_POST['content']),
+			      $_POST['key']
+			      ); 
+	  redirect($url_self);
+	} else {
+	  $edit_comment = $_GET['comment_to_edit'];
+	  break;
+	}
+      }
+    }
     case 'delete_comment' :
     {
       if (isset($_GET['comment_to_delete'])
           and is_numeric($_GET['comment_to_delete'])
-          and is_admin() and !is_adviser() )
+	  and (is_admin() || $conf['user_can_delete_comment']))
       {
-        $query = '
-DELETE FROM '.COMMENTS_TABLE.'
-  WHERE id = '.$_GET['comment_to_delete'].'
-;';
-        pwg_query( $query );
+	delete_user_comment($_GET['comment_to_delete']);
       }
-
       redirect($url_self);
     }
     case 'validate_comment' :
@@ -590,7 +606,6 @@ if ( $metadata_showable and pwg_get_session_var('show_metadata') )
 {
   $page['meta_robots']=array('noindex'=>1, 'nofollow'=>1);
 }
-
 
 
 $page['body_id'] = 'thePicturePage';
@@ -946,7 +961,6 @@ $element_content = trigger_event(
   $picture['current']
   );
 $template->assign( 'ELEMENT_CONTENT', $element_content );
-
 
 // +-----------------------------------------------------------------------+
 // |                               sub pages                               |

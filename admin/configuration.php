@@ -69,6 +69,10 @@ $comments_checkboxes = array(
     'comments_validation',
     'email_admin_on_comment',
     'email_admin_on_comment_validation',
+    'user_can_delete_comment',
+    'user_can_edit_comment',
+    'email_admin_on_comment_edition',
+    'email_admin_on_comment_deletion'
   );
 
 //------------------------------ verification and registration of modifications

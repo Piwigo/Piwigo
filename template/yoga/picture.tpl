@@ -257,7 +257,7 @@ y.callService(
   {if !empty($navbar) }{include file='navigation_bar.tpl'|@get_extent:'navbar'}{/if}
 
 	{if isset($comments)}
-		{include file='comment_list.tpl' comment_separator=true}
+		{include file='comment_list.tpl'}
 	{/if}
 
 	{if isset($comment_add)}

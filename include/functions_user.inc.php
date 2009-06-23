@@ -1198,6 +1198,21 @@ function is_adviser()
 }
 
 /*
+ * Return if current user can edit/delete a comment
+ * @param action edit/delete
+ * @return bool
+ */
+function can_manage_comment($action, $comment_author) 
+{
+  if (!in_array($action, array('delete','edit'))) {
+    return false;
+  }
+  return (is_admin() || 
+	  (($GLOBALS['user']['username'] == $comment_author) 
+	   && $GLOBALS['conf'][sprintf('user_can_%s_comment', $action)]));
+}
+
+/*
  * Return mail address as display text
  * @return string
 */

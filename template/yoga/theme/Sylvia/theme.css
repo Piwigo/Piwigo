@@ -1,12 +1,6 @@
 .content div.thumbnailCategory div.illustration { 
 	width:165px !important; /* Usable range 162px-360px , optimal : Thumbnail width + 40px */ 
 }
-.content div.thumbnailCategory { 
-	height: 180px !important; /* Usable range 172px-250px , optimal : Thumbnail height + 30px */ 
-}
-.content div.thumbnailCategory div.description .text { 
-	height: 130px !important; /* -42px than previous one */ 
-}
 #comments div.thumbnailCategory div.illustration { 
 	width:220px !important; /* Usable range 219px-360px , optimal : Thumbnail width + 95px */ 
 }
@@ -221,7 +215,7 @@ BODY {
 	background:transparent url(images/cat_top-right.gif) no-repeat scroll right top;
 	margin: 0; 
 	padding:15px 10px 3px 0; 
-	overflow: hidden !important; 
+	overflow-x: hidden !important; 
 }
 .content .thumbnailCategory div.description .text { 
 	display:block; 

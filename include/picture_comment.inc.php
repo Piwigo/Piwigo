@@ -151,16 +151,35 @@ $validated_clause.'
           'CONTENT' => trigger_event('render_comment_content',$row['content']),
         );
 
-      if (is_admin())
+      if (can_manage_comment('delete', $row['author']))
       {
         $tpl_comment['U_DELETE'] =
-            add_url_params(
-                  $url_self,
-                  array(
-                    'action'=>'delete_comment',
-                    'comment_to_delete'=>$row['id']
-                  )
-              );
+	  add_url_params($url_self,
+			 array(
+			   'action'=>'delete_comment',
+			   'comment_to_delete'=>$row['id']
+			       )
+			 );
+      }
+      if (can_manage_comment('edit', $row['author']))
+      {
+	$tpl_comment['U_EDIT'] =
+	  add_url_params($url_self,
+			 array(
+			   'action'=>'edit_comment',
+			   'comment_to_edit'=>$row['id']
+			       )
+			 );
+	if (isset($edit_comment) and ($row['id'] == $edit_comment))
+	{
+	  $tpl_comment['IN_EDIT'] = true;
+	  $key = get_comment_post_key($page['image_id']);
+	  $tpl_comment['KEY'] = $key;
+	  $tpl_comment['CONTENT'] = $row['content'];
+	}
+      }
+      if (is_admin())
+      {
 	if ($row['validated'] != 'true')
 	{
 	  $tpl_comment['U_VALIDATE'] = 
@@ -176,7 +195,8 @@ $validated_clause.'
   }
 
   if (!is_a_guest()
-      or (is_a_guest() and $conf['comments_forall']))
+      or (is_a_guest() and $conf['comments_forall'])
+      and (isset($edit_comment) and ($edit_comment != null)))
   {
     $key = get_comment_post_key($page['image_id']);
     $content = '';

@@ -143,6 +143,32 @@
         <input type="checkbox" name="email_admin_on_comment_validation" {if ($comments.email_admin_on_comment_validation)}checked="checked"{/if}>
       </label>
     </li>
+
+    <li>
+      <label>
+        <span class="property">{'Allow users to edit theirs owns comments'|@translate}</span>
+        <input type="checkbox" name="user_can_edit_comment" {if ($comments.user_can_edit_comment)}checked="checked"{/if}>
+      </label>
+    </li>
+    <li>
+      <label>
+        <span class="property">{'Allow users to delete theirs owns comments'|@translate}</span>
+        <input type="checkbox" name="user_can_delete_comment" {if ($comments.user_can_delete_comment)}checked="checked"{/if}>
+      </label>
+    </li>
+    <li>
+      <label>
+        <span class="property">{'Email administrators when a comment is modified'|@translate}</span>
+        <input type="checkbox" name="email_admin_on_comment_edition" {if ($comments.email_admin_on_comment_edition)}checked="checked"{/if}>
+      </label>
+    </li>
+    <li>
+      <label>
+        <span class="property">{'Email administrators when a comment is deleted'|@translate}</span>
+        <input type="checkbox" name="email_admin_on_comment_deletion" {if ($comments.email_admin_on_comment_deletion)}checked="checked"{/if}>
+      </label>
+    </li>
+
   </ul>
 </fieldset>
 {/if}

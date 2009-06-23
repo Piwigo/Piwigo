@@ -26,6 +26,7 @@
 // +-----------------------------------------------------------------------+
 define('PHPWG_ROOT_PATH','./');
 include_once(PHPWG_ROOT_PATH.'include/common.inc.php');
+include_once(PHPWG_ROOT_PATH.'include/functions_comment.inc.php');
 
 // +-----------------------------------------------------------------------+
 // | Check Access and exit when user status is not ok                      |
@@ -142,14 +143,9 @@ $page['where_clauses'][] = get_sql_condition_FandF
 // |                         comments management                           |
 // +-----------------------------------------------------------------------+
 if (isset($_GET['delete']) and is_numeric($_GET['delete'])
-      and !is_adviser() )
+    and (is_admin() || $conf['user_can_delete_comment']))
 {// comments deletion
-  check_status(ACCESS_ADMINISTRATOR);
-  $query = '
-DELETE FROM '.COMMENTS_TABLE.'
-  WHERE id='.$_GET['delete'].'
-;';
-  pwg_query($query);
+  delete_user_comment($_GET['delete']);
 }
 
 if (isset($_GET['validate']) and is_numeric($_GET['validate'])
@@ -163,6 +159,25 @@ UPDATE '.COMMENTS_TABLE.'
   WHERE id='.$_GET['validate'].'
 ;';
   pwg_query($query);
+}
+
+if (isset($_GET['edit']) and is_numeric($_GET['edit'])
+    and (is_admin() || $conf['user_can_edit_comment']))
+{
+  if (!empty($_POST['content'])) 
+  {
+    update_user_comment(array('comment_id' => $_GET['edit'], 
+			      'image_id' => $_POST['image_id'],
+			      'content' => $_POST['content']),
+			$_POST['key']
+			); 
+
+    $edit_comment = null;
+  }
+  else 
+  {
+    $edit_comment = $_GET['edit'];
+  }
 }
 
 // +-----------------------------------------------------------------------+
@@ -367,19 +382,39 @@ SELECT id, name, permalink, uppercats
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         );
 
-    if ( is_admin() )
+    if (can_manage_comment('delete', $comment['author'])) 
     {
-      $url = get_root_url().'comments.php'.get_query_string_diff(array('delete','validate'));
-      $tpl_comment['U_DELETE'] = add_url_params($url,
-                          array('delete'=>$comment['comment_id'])
-                         );
-
-      if ($comment['validated'] != 'true')
+      $url = get_root_url().'comments.php'
+	.get_query_string_diff(array('delete','validate','edit'));
+      $tpl_comment['U_DELETE'] = 
+	add_url_params($url,
+		       array('delete'=>$comment['comment_id'])
+		       );
+    }
+    if (can_manage_comment('edit', $comment['author']))
+    {
+      $url = get_root_url().'comments.php'
+	.get_query_string_diff(array('edit', 'delete','validate'));
+      $tpl_comment['U_EDIT'] = 
+	add_url_params($url,
+		       array('edit'=>$comment['comment_id'])
+		       );
+      if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment)) 
       {
-        $tpl_comment['U_VALIDATE'] = add_url_params($url,
-                            array('validate'=>$comment['comment_id'])
-                           );
+	$tpl_comment['IN_EDIT'] = true;
+	$key = get_comment_post_key($comment['image_id']);
+	$tpl_comment['KEY'] = $key;
+	$tpl_comment['IMAGE_ID'] = $comment['image_id'];
+	$tpl_comment['CONTENT'] = $comment['content'];
       }
+    }
+
+    if ( is_admin() && $comment['validated'] != 'true')
+    {
+      $tpl_comment['U_VALIDATE'] = 
+	add_url_params($url,
+		       array('validate'=>$comment['comment_id'])
+		       );
     }
     $template->append('comments', $tpl_comment);
   }
