@@ -1733,6 +1733,59 @@ SELECT
   }
 }
 
+function ws_categories_setInfo($params, &$service)
+{
+  global $conf;
+  if (!is_admin() || is_adviser() )
+  {
+    return new PwgError(401, 'Access denied');
+  }
+
+  // category_id
+  // name
+  // comment
+
+  $params['category_id'] = (int)$params['category_id'];
+  if ($params['category_id'] <= 0)
+  {
+    return new PwgError(WS_ERR_INVALID_PARAM, "Invalid category_id");
+  }
+
+  // database registration
+  $update = array(
+    'id' => $params['category_id'],
+    );
+
+  $info_columns = array(
+    'name',
+    'comment',
+    );
+
+  $perform_update = false;
+  foreach ($info_columns as $key)
+  {
+    if (isset($params[$key]))
+    {
+      $perform_update = true;
+      $update[$key] = $params[$key];
+    }
+  }
+
+  if ($perform_update)
+  {
+    include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+    mass_updates(
+      CATEGORIES_TABLE,
+      array(
+        'primary' => array('id'),
+        'update'  => array_diff(array_keys($update), array('id'))
+        ),
+      array($update)
+      );
+  }
+  
+}
+
 function ws_logfile($string)
 {
   return true;
