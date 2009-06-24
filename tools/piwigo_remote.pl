@@ -24,19 +24,37 @@ use POSIX qw(ceil floor);
 my %opt = ();
 GetOptions(
     \%opt,
-    qw/action=s file=s thumbnail=s high=s original=s categories=s chunk_size=i define=s%/
+    qw/
+          action=s
+          file=s
+          thumbnail=s
+          high=s
+          original=s
+          categories=s
+          chunk_size=i
+          base_url=s
+          username=s
+          password=s
+          define=s%
+      /
 );
 
 our $ua = LWP::UserAgent->new;
 $ua->cookie_jar({});
 
 my %conf;
-$conf{base_url} = 'http://localhost/piwigo/2.0';
 $conf{response_format} = 'json';
-$conf{username} = 'plg';
-$conf{password} = 'plg';
 $conf{limit} = 10;
-$conf{chunk_size} = defined $opt{chunk_size} ? $opt{chunk_size} : 500_000;
+
+my %conf_default = (
+    base_url => 'http://localhost/piwigo/2.0',
+    username => 'plg',
+    password => 'plg',
+    chunk_size => 500_000,
+);
+foreach my $conf_key (keys %conf_default) {
+    $conf{$conf_key} = defined $opt{$conf_key} ? $opt{$conf_key} : $conf_default{$conf_key}
+}
 
 my $result = undef;
 my $query = undef;
@@ -216,7 +234,7 @@ if ($opt{action} eq 'pwg.images.exist') {
     # print Dumper($response);
 }
 
-if ($opt{action} eq 'pwg.images.setInfo') {
+if ($opt{action} eq 'pwg.images.setInfo' or $opt{action} eq 'pwg.categories.setInfo') {
     $form = {
         method => $opt{action},
     };
