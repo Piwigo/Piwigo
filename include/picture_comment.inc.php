@@ -128,10 +128,11 @@ SELECT COUNT(*) AS nb_comments
     }
 
     $query = '
-SELECT com.id,author,author_id,username,date,image_id,content,validated
+SELECT com.id,author,author_id,'.$conf['user_fields']['username'].' AS username,
+  date,image_id,content,validated
   FROM '.COMMENTS_TABLE.' AS com
   LEFT JOIN '.USERS_TABLE.' AS u
-    ON u.id = author_id
+    ON u.'.$conf['user_fields']['id'].' = author_id
   WHERE image_id = '.$page['image_id'].
 $validated_clause.'
   ORDER BY date ASC

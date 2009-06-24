@@ -101,7 +101,7 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
 if (isset($_GET['author']) and !empty($_GET['author']))
 {
   $page['where_clauses'][] = 
-    'u.username = \''.addslashes($_GET['author']).'\'
+    'u.'.$conf['user_fields']['username'].' = \''.addslashes($_GET['author']).'\'
      OR author = \''.addslashes($_GET['author']).'\'';    
 }
 
@@ -268,7 +268,7 @@ SELECT COUNT(DISTINCT(com.id))
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
     LEFT JOIN '.USERS_TABLE.' As u
-    ON u.id = com.author_id
+    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
@@ -300,7 +300,7 @@ SELECT com.id AS comment_id
      , ic.category_id
      , com.author
      , com.author_id
-     , username
+     , '.$conf['user_fields']['username'].' AS username
      , com.date
      , com.content
      , com.validated
@@ -308,7 +308,7 @@ SELECT com.id AS comment_id
     INNER JOIN '.COMMENTS_TABLE.' AS com    
     ON ic.image_id = com.image_id
     LEFT JOIN '.USERS_TABLE.' AS u
-    ON u.id = com.author_id
+    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
   GROUP BY comment_id

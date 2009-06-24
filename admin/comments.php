@@ -134,12 +134,13 @@ $template->assign(
 $list = array();
 
 $query = '
-SELECT c.id, c.image_id, c.date, c.author, u.username, c.content, i.path, i.tn_ext
+SELECT c.id, c.image_id, c.date, c.author, '.
+$conf['user_fields']['username'].' AS username, c.content, i.path, i.tn_ext
   FROM '.COMMENTS_TABLE.' AS c
     INNER JOIN '.IMAGES_TABLE.' AS i
       ON i.id = c.image_id
     LEFT JOIN '.USERS_TABLE.' AS u
-      ON u.id = c.author_id
+      ON u.'.$conf['user_fields']['id'].' = c.author_id
   WHERE validated = \'false\'
   ORDER BY c.date DESC
 ;';
