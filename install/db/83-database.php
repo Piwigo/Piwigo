@@ -29,9 +29,16 @@ if (!defined('PHPWG_ROOT_PATH'))
 $upgrade_description = 'Update column save author_id with value.';
 
 $query = '
-UPDATE '.COMMENTS_TABLE.' AS c , '.USERS_TABLE.' AS u
+UPDATE
+  '.COMMENTS_TABLE.' AS c ,
+  '.USERS_TABLE.' AS u,
+  '.USER_INFOS_TABLE.' AS i
 SET c.author_id = u.'.$conf['user_fields']['id'].'
-WHERE c.author = u.'.$conf['user_fields']['username'].' AND c.author_id is null
+WHERE
+    c.author_id is null
+AND c.author = u.'.$conf['user_fields']['username'].' 
+AND u.'.$conf['user_fields']['id'].' = i.user_id
+AND i.registration_date <= c.date
 ;';
 
 pwg_query($query);
