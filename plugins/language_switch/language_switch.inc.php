@@ -60,21 +60,18 @@ class language_controler {
     global $user, $template, $conf;
     $available_lang = get_languages();
     if ( isset($conf['no_flag_languages']) ) 
-      $available_lang = array_diff_key($available_lang, array_flip($conf['no_flag_languages']));
-    $url_starting = $_SERVER['REQUEST_URI'];
-    if ( isset( $_GET['lang']) ) {
-      $pos = stripos  ( $url_starting  , '&lang=' );
-      if (is_numeric($pos) and $pos > 0) $url_starting = substr($url_starting, 0, $pos);
-    }
-    $pos = stripos($url_starting, script_basename());
-    if (is_numeric($pos)) $url_starting = substr($url_starting, $pos);
+      $available_lang = 
+        array_diff_key($available_lang, array_flip($conf['no_flag_languages']));
+    $url_starting = get_query_string_diff(array('lang'));
     foreach ( $available_lang as $code => $displayname ) {
       $qlc = array ( 
-        'url' => add_url_params( $url_starting, array('lang'=> $code) ),
+        'url' => str_replace(array('=&amp;','?&amp;'),array('&amp;','?'),
+                 add_url_params( $url_starting, array('lang'=> $code) )),
         'alt' => ucwords( $displayname ),
-        'img' => 'plugins/language_switch/icons/' . $code . '.jpg',
+        'img' => get_root_url().'plugins/language_switch/icons/' . $code . '.jpg',
         );
-      if ( $code !== $user['language'] and file_exists(PHPWG_ROOT_PATH.$qlc['img']) ) 
+      if ( $code !== $user['language'] and 
+          file_exists(dirname(__FILE__) . '/icons/' . $code . '.jpg') ) 
         $lsw['flags'][$code] = $qlc ;
       else $lsw['Active'] = $qlc;
     }
@@ -87,7 +84,6 @@ class language_controler {
     $flags = $template->parse('language_flags',true);
     $template->clear_assign('lang_switch');
     $template->concat( 'PLUGIN_INDEX_ACTIONS', $flags);
-    // TODO : Try to cache $flags and $user['language'] in $_SESSION for performance
   }
 }
   /* {html_head} usage function */

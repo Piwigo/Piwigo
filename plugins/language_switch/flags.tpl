@@ -17,7 +17,7 @@
 									<ul class="flag-pan">
 									{foreach from=$lang_switch.flags key=code item=flag name=f}
 										<li>
-											<a rel="nofollow" href="{$flag.url}">
+											<a rel="nofollow" href="{$SCRIPT_NAME}{$flag.url}">
 												<img class="flags" src="{$flag.img}" alt="{$flag.alt}" title="{$flag.alt}"/>
 											</a>
 										</li>
@@ -35,14 +35,14 @@
 </li>
 {html_head}
 {if $themeconf.template=='yoga' and $themeconf.theme=='Sylvia'}
-<link rel="stylesheet" type="text/css" href="{$LANGUAGE_SWITCH_PATH|@cat:'language_switch.css'}"> 
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch.css'}"> 
 {else}
-<link rel="stylesheet" type="text/css" href="{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-default.css'}"> 
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-default.css'}"> 
 {/if}
 {if Componant_exists($LANGUAGE_SWITCH_PATH, 'language_switch-local.css')}
-<link rel="stylesheet" type="text/css" href="{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-local.css'}"> 
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-local.css'}"> 
 {/if}
 <!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-ie6.css'}"> 
+<link rel="stylesheet" type="text/css" href="{$ROOT_URL}{$LANGUAGE_SWITCH_PATH|@cat:'language_switch-ie6.css'}"> 
 <![endif]-->
 {/html_head}
