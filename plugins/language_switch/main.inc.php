@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Language Switch
-Version: 2.0.2a
+Version: 2.0.2b
 Description: Switch to another language from flags on your gallery home page.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=123
 Author: Piwigo team
@@ -31,6 +31,7 @@ Author URI: http://piwigo.org
 */
 
 include_once(PHPWG_PLUGINS_PATH.'language_switch/language_switch.inc.php');
-add_event_handler('loading_lang', 'language_controler::_switch', 5 );
-add_event_handler('loc_end_index', 'language_controler::_flags', 95 );
+$language_controler = new language_controler();
+add_event_handler('loading_lang', array(&$language_controler, '_switch'), 5 );
+add_event_handler('loc_end_index', array(&$language_controler, '_flags'), 95 );
 ?>
