@@ -100,9 +100,9 @@ if (isset($_GET['cat']) and 0 != $_GET['cat'])
 // search a particular author
 if (isset($_GET['author']) and !empty($_GET['author']))
 {
-  $page['where_clauses'][] = 
-    'u.'.$conf['user_fields']['username'].' = \''.addslashes($_GET['author']).'\'
-     OR author = \''.addslashes($_GET['author']).'\'';    
+  $page['where_clauses'][] =
+    'u.'.$conf['user_fields']['username'].' = \''.$_GET['author'].'\'
+     OR author = \''.$_GET['author'].'\'';
 }
 
 // search a substring among comments content
@@ -166,17 +166,17 @@ UPDATE '.COMMENTS_TABLE.'
 if (isset($_GET['edit']) and is_numeric($_GET['edit'])
     and (is_admin() || $conf['user_can_edit_comment']))
 {
-  if (!empty($_POST['content'])) 
+  if (!empty($_POST['content']))
   {
-    update_user_comment(array('comment_id' => $_GET['edit'], 
+    update_user_comment(array('comment_id' => $_GET['edit'],
 			      'image_id' => $_POST['image_id'],
 			      'content' => $_POST['content']),
 			$_POST['key']
-			); 
+			);
 
     $edit_comment = null;
   }
-  else 
+  else
   {
     $edit_comment = $_GET['edit'];
   }
@@ -305,7 +305,7 @@ SELECT com.id AS comment_id
      , com.content
      , com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
-    INNER JOIN '.COMMENTS_TABLE.' AS com    
+    INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
     LEFT JOIN '.USERS_TABLE.' AS u
     ON u.'.$conf['user_fields']['id'].' = com.author_id
@@ -374,7 +374,7 @@ SELECT id, name, permalink, uppercats
             )
           );
 
-    if (!empty($comment['author'])) 
+    if (!empty($comment['author']))
     {
       $author = $comment['author'];
       if ($author == 'guest')
@@ -397,11 +397,11 @@ SELECT id, name, permalink, uppercats
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         );
 
-    if (can_manage_comment('delete', $comment['author_id'])) 
+    if (can_manage_comment('delete', $comment['author_id']))
     {
       $url = get_root_url().'comments.php'
 	.get_query_string_diff(array('delete','validate','edit'));
-      $tpl_comment['U_DELETE'] = 
+      $tpl_comment['U_DELETE'] =
 	add_url_params($url,
 		       array('delete'=>$comment['comment_id'])
 		       );
@@ -410,11 +410,11 @@ SELECT id, name, permalink, uppercats
     {
       $url = get_root_url().'comments.php'
 	.get_query_string_diff(array('edit', 'delete','validate'));
-      $tpl_comment['U_EDIT'] = 
+      $tpl_comment['U_EDIT'] =
 	add_url_params($url,
 		       array('edit'=>$comment['comment_id'])
 		       );
-      if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment)) 
+      if (isset($edit_comment) and ($comment['comment_id'] == $edit_comment))
       {
 	$tpl_comment['IN_EDIT'] = true;
 	$key = get_comment_post_key($comment['image_id']);
@@ -426,7 +426,7 @@ SELECT id, name, permalink, uppercats
 
     if ( is_admin() && $comment['validated'] != 'true')
     {
-      $tpl_comment['U_VALIDATE'] = 
+      $tpl_comment['U_VALIDATE'] =
 	add_url_params($url,
 		       array('validate'=>$comment['comment_id'])
 		       );
