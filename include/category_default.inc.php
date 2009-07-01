@@ -103,11 +103,12 @@ foreach ($pictures as $row)
         ),
         array('start')
       );
-
+  $tn_src = get_thumbnail_url($row);
+  list($tn_width, $tn_height, $tn_type) = @getimagesize($tn_src);
   $tpl_var =
     array(
       'ID'        => $row['id'],
-      'TN_SRC'    => get_thumbnail_url($row),
+      'TN_SRC'    => $tn_src,
       'TN_ALT'    => $row['file'],
       'TN_TITLE'  => get_thumbnail_title($row),
       'icon_ts'   => get_icon($row['date_available']),
@@ -126,6 +127,9 @@ foreach ($pictures as $row)
       'FILE_METADATE' => $row['date_metadata_update'],
       'FILE_HAS_HD' => ($row['has_high'] and $user['enabled_high']=='true') ?
                 true:false, /* lack of include/functions_picture.inc.php */
+      'FILE_TN_WIDTH'  => $tn_width, 
+      'FILE_TN_HEIGHT' => $tn_height, 
+      'FILE_TN_TYPE'   => $tn_type, 
     );
 
   if ($user['show_nb_hits'])
