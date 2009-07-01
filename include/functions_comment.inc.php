@@ -267,6 +267,7 @@ function update_user_comment($comment, $post_key)
     $comment_action='reject';
   }
 
+/* ? this is a MySql Error - author_id is not defined
   if ($comment_action!='reject' and $conf['anti-flood_time']>0 )
   { // anti-flood system
     $reference_date = time() - $conf['anti-flood_time'];
@@ -280,7 +281,7 @@ SELECT id FROM '.COMMENTS_TABLE.'
       $comment_action='reject';
     }
   }
-
+*/
   // perform more spam check
   $comment_action =
     trigger_event('user_comment_check',
