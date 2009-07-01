@@ -46,8 +46,8 @@ if ( $page['show_comments'] and isset( $_POST['content'] ) )
   }
 
   $comm = array(
-    'author' => trim( stripslashes(@$_POST['author']) ),
-    'content' => trim( stripslashes($_POST['content']) ),
+    'author' => trim(@$_POST['author']),
+    'content' => trim($_POST['content']),
     'image_id' => $page['image_id'],
    );
 
@@ -121,8 +121,8 @@ SELECT COUNT(*) AS nb_comments
     if ( !is_admin() )
     {
       $validated_clause = '  AND validated = \'true\'';
-    } 
-    else 
+    }
+    else
     {
       $validated_clause = '';
     }
@@ -142,7 +142,7 @@ $validated_clause.'
 
     while ($row = mysql_fetch_array($result))
     {
-      if (!empty($row['author'])) 
+      if (!empty($row['author']))
       {
 	$author = $row['author'];
 	if ($author == 'guest')
@@ -195,7 +195,7 @@ $validated_clause.'
       {
 	if ($row['validated'] != 'true')
 	{
-	  $tpl_comment['U_VALIDATE'] = 
+	  $tpl_comment['U_VALIDATE'] =
 	    add_url_params($url_self,
 			   array('action' => 'validate_comment',
 				 'comment_to_validate' => $row['id']

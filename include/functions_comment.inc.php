@@ -99,7 +99,7 @@ function insert_user_comment( &$comm, $key, &$infos )
       $query = '
 SELECT COUNT(*) AS user_exists
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['username']." = '".addslashes($comm['author'])."'";
+  WHERE '.$conf['user_fields']['username']." = '".$comm['author']."'";
       $row = mysql_fetch_assoc( pwg_query( $query ) );
       if ( $row['user_exists'] == 1 )
       {
@@ -156,9 +156,9 @@ SELECT id FROM '.COMMENTS_TABLE.'
 INSERT INTO '.COMMENTS_TABLE.'
   (author, author_id, content, date, validated, validation_date, image_id)
   VALUES (
-    "'.addslashes($comm['author']).'",
+    "'.$comm['author'].'",
     '.$comm['author_id'].',
-    "'.addslashes($comm['content']).'",
+    "'.$comm['content'].'",
     NOW(),
     "'.($comment_action=='validate' ? 'true':'false').'",
     '.($comment_action=='validate' ? 'NOW()':'NULL').',
@@ -171,25 +171,25 @@ INSERT INTO '.COMMENTS_TABLE.'
     $comm['id'] = mysql_insert_id();
 
     if (($comment_action=='validate' and $conf['email_admin_on_comment']) or
-	($comment_action!='validate' 
+	($comment_action!='validate'
 	 and $conf['email_admin_on_comment_validation']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
       $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
-      if (empty($comm['author'])) 
+      if (empty($comm['author']))
       {
-	$author_name = $user['username'];
+        $author_name = $user['username'];
       }
       else
       {
-	$author_name = $comm['author'];
+        $author_name = stripslashes($comm['author']);
       }
       $keyargs_content = array
       (
         get_l10n_args('Author: %s', $author_name),
-        get_l10n_args('Comment: %s', $comm['content']),
+        get_l10n_args('Comment: %s', stripslashes($comm['content']) ),
         get_l10n_args('', ''),
         get_l10n_args('Delete: %s', $del_url)
       );
@@ -216,10 +216,10 @@ INSERT INTO '.COMMENTS_TABLE.'
 /**
  * Tries to delete a user comment in the database
  * only admin can delete all comments
- * other users can delete their own comments 
+ * other users can delete their own comments
  * so to avoid a new sql request we add author in where clause
  *
- * @param comment_id 
+ * @param comment_id
  */
 
 function delete_user_comment($comment_id) {
@@ -245,12 +245,13 @@ $user_where_clause.'
  * users can edit their own comments if admin allow them
  * so to avoid a new sql request we add author in where clause
  *
- * @param comment_id 
+ * @param comment_id
  * @param post_key
  * @param content
  */
 
-function update_user_comment($comment, $post_key) {
+function update_user_comment($comment, $post_key)
+{
   global $conf;
 
   $comment_action = 'validate';
@@ -275,16 +276,16 @@ SELECT id FROM '.COMMENTS_TABLE.'
     AND author_id = '.$comm['author_id'];
     if ( mysql_num_rows( pwg_query( $query ) ) > 0 )
     {
-      array_push( $infos, l10n('comment_anti-flood') );
+      //?? array_push( $infos, l10n('comment_anti-flood') );
       $comment_action='reject';
     }
   }
 
   // perform more spam check
-  $comment_action = 
+  $comment_action =
     trigger_event('user_comment_check',
-		  $comment_action, 
-		  array_merge($comment, 
+		  $comment_action,
+		  array_merge($comment,
 			      array('author' => $GLOBALS['user']['username'])
 			      )
 		  );
@@ -307,12 +308,13 @@ $user_where_clause.'
     $result = pwg_query($query);
     if ($result) {
       email_admin('edit', array('author' => $GLOBALS['user']['username'],
-				'content' => $comment['content']));
+				'content' => stripslashes($comment['content'])) );
     }
   }
 }
 
-function email_admin($action, $comment) {
+function email_admin($action, $comment)
+{
   global $conf;
 
   if (!in_array($action, array('edit', 'delete'))
@@ -323,12 +325,12 @@ function email_admin($action, $comment) {
   }
 
   include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
-  
+
   $keyargs_content = array();
   $keyargs_content[] = get_l10n_args('Author: %s', $comment['author']);
-  if ($action=='delete') 
+  if ($action=='delete')
   {
-    $keyargs_content[] = get_l10n_args('This author remove comment with id %d',
+    $keyargs_content[] = get_l10n_args('This author removed the comment with id %d',
 				       $comment['comment_id']
 				       );
   }
@@ -337,8 +339,8 @@ function email_admin($action, $comment) {
     $keyargs_content[] = get_l10n_args('This author modified following comment:', '');
     $keyargs_content[] = get_l10n_args('Comment: %s', $comment['content']);
   }
-  
-  pwg_mail_notification_admins(get_l10n_args('Comment by %s', 
+
+  pwg_mail_notification_admins(get_l10n_args('Comment by %s',
 					     $comment['author']),
 			       $keyargs_content
 			       );

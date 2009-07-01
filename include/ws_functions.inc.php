@@ -523,8 +523,8 @@ SELECT DISTINCT image_id
   }
 
   $comm = array(
-    'author' => trim( stripslashes($params['author']) ),
-    'content' => trim( stripslashes($params['content']) ),
+    'author' => trim($params['author']),
+    'content' => trim($params['content']),
     'image_id' => $params['image_id'],
    );
 
@@ -885,7 +885,7 @@ function ws_images_add_chunk($params, &$service)
   // original_sum
   // type {thumb, file, high}
   // position
-  
+
   if (!is_admin() || is_adviser() )
   {
     return new PwgError(401, 'Access denied');
@@ -945,7 +945,7 @@ function merge_chunks($output_filepath, $original_sum, $type)
   $upload_dir = PHPWG_ROOT_PATH.'upload/buffer';
   $pattern = '/'.$original_sum.'-'.$type.'/';
   $chunks = array();
-  
+
   if ($handle = opendir($upload_dir))
   {
     while (false !== ($file = readdir($handle)))
@@ -962,18 +962,18 @@ function merge_chunks($output_filepath, $original_sum, $type)
   sort($chunks);
 
   ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
-  
+
   foreach ($chunks as $chunk)
   {
     $string = file_get_contents($chunk);
-    
+
     ws_logfile('[merge_chunks] memory_get_usage on chunk '.++$i.': '.memory_get_usage());
-    
+
     if (!file_put_contents($output_filepath, $string, FILE_APPEND))
     {
       return new PwgError(500, 'error while writting chunks for '.$output_filepath);
     }
-    
+
     unlink($chunk);
   }
 
@@ -1783,13 +1783,13 @@ function ws_categories_setInfo($params, &$service)
       array($update)
       );
   }
-  
+
 }
 
 function ws_logfile($string)
 {
   return true;
-  
+
   file_put_contents(
     '/tmp/piwigo_ws.log',
     '['.date('c').'] '.$string."\n",
