@@ -56,13 +56,15 @@
       <br /><br />
     Templates generated on {$smarty.now|date_format:"%A, %B %e, %Y - %r"} by 
     <a class="external" href="http://www.smarty.net/" onclick="window.open(this.href, ''); return false;">Smarty</a>
-    {$smarty.version}
+    {$smarty.version}<br />
+    Animations FX by <span class="jQuery"><a class="external" href="http://jquery.com/" onclick="window.open(this.href, ''); return false;">jQuery</a>&nbsp;</span>
     </ul>
   </div>
 </div>
 <script type="text/javascript">// <![CDATA[
 {literal}$(document).ready(function() {
 	$("img.thumbnail").fadeTo("slow", 0.6); // Opacity on page load
+	$(".jQuery").append($().jquery);
 	$("img.thumbnail").hover(function(){
 		$(this).fadeTo("slow", 1.0); // Opacity on hover
 	},function(){
