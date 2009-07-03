@@ -963,6 +963,8 @@ function merge_chunks($output_filepath, $original_sum, $type)
 
   ws_logfile('[merge_chunks] memory_get_usage before loading chunks: '.memory_get_usage());
 
+  $i = 0;
+  
   foreach ($chunks as $chunk)
   {
     $string = file_get_contents($chunk);
