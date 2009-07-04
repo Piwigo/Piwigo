@@ -650,4 +650,5 @@ $lang['%d photos were deleted'] = '%d 写真が削除されました。';
 /*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
 /*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
 /*TODO*/$lang['Purge search history'] = 'Purge search history';
+/*TODO*/$lang['Hide'] = 'Hide';
 ?>

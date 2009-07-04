@@ -653,4 +653,5 @@ $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwi
 $lang['Subscribe %s'] = 'Subscribe %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo Announcements Newsletter';
 $lang['Purge search history'] = 'Purge search history';
+$lang['Hide'] = 'Hide';
 ?>
