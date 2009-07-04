@@ -100,6 +100,15 @@ DELETE
     $c13y->maintenance();
     break;
   }
+  case 'search' :
+  {
+    $query = '
+DELETE
+  FROM '.SEARCH_TABLE.'
+;';
+    pwg_query($query);
+    break;
+  }
   case 'compiled-templates' :
   {
     $template->delete_compiled_templates();

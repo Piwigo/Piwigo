@@ -14,6 +14,7 @@
   <li><a href="{$U_MAINT_HISTORY_SUMMARY}" onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>{'purge history summary'|@translate}</a></li>
   <li><a href="{$U_MAINT_SESSIONS}" {$TAG_INPUT_ENABLED}>{'purge sessions'|@translate}</a></li>
   <li><a href="{$U_MAINT_FEEDS}" {$TAG_INPUT_ENABLED}>{'purge never used notification feeds'|@translate}</a></li>
+  <li><a href="{$U_MAINT_SEARCH}"onclick="return confirm('{'Are you sure?'|@translate}');" {$TAG_INPUT_ENABLED}>{'Purge search history'|@translate}</a></li>
   <li><a href="{$U_MAINT_COMPILED_TEMPLATES}" {$TAG_INPUT_ENABLED}>{'Purge compiled templates'|@translate}</a></li>
 </ul>
 

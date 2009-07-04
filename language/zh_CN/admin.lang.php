@@ -651,5 +651,6 @@ $lang['Number of downloads'] = '下载次数';
 /*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
 /*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
 /*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
+/*TODO*/$lang['Purge search history'] = 'Purge search history';
 
 ?>
