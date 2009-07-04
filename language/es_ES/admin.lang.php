@@ -645,4 +645,5 @@ $lang['Downloads'] = 'Descargar';
 $lang['Released on'] = 'Añadido';
 $lang['Number of downloads'] = 'Número de descargar';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
+/*TODO*/$lang['Purge search history'] = 'Purge search history';
 ?>
