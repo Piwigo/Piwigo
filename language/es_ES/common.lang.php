@@ -118,7 +118,7 @@ $lang['Sort by'] = 'Clasificar según';
 $lang['Sort order'] = 'Orden de Clasificación';
 $lang['Tag'] = 'Tag';
 $lang['Tags'] = 'Tags';
-$lang['Mediante RSS puede recibir notificación de los cambios que tienen lugar en la galería: nuevas imágenes, categorías, etc. Para suscribirse, haga clic en uno de los siguientes enlaces.';
+$lang['The RSS notification feed provides notification on news from this website : new pictures, updated categories, new comments. Use a RSS feed reader.'] = 'Mediante RSS puede recibir notificación de los cambios que tienen lugar en la galería: nuevas imágenes, categorías, etc. Para suscribirse, haga clic en uno de los siguientes enlaces.';
 $lang['Unknown feed identifier'] = 'Identificador de RSS desconocido';
 $lang['User comments'] = 'Comentarios del usuario';
 $lang['Username'] = 'Nombre del usuario';
