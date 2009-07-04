@@ -87,6 +87,10 @@ if (isset($_GET['items_number']))
 {
   $page['items_number'] = $_GET['items_number'];
 }
+if ( !is_numeric($page['items_number']) and $page['items_number']!='all' ) 
+{
+  $page['items_number'] = 10;
+}
 
 $page['where_clauses'] = array();
 
