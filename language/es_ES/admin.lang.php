@@ -645,9 +645,9 @@ $lang['Downloads'] = 'Descargar';
 $lang['Released on'] = 'Añadido';
 $lang['Number of downloads'] = 'Número de descargar';
 // --------- Starting below: New or revised $lang ---- from Colibri
-/*TODO*/$lang['Piwigo Announcements Newsletter'] = 'Piwigo Announcements Newsletter';
-/*TODO*/$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Keep in touch with Piwigo project, subscribe to Piwigo Announcement Newsletter. You will receive emails when a new release is available (sometimes including a security bug fix, it\'s important to know and upgrade) and when major events happen to the project. Only a few emails a year.';
-/*TODO*/$lang['Subscribe %s'] = 'Subscribe %s';
-/*TODO*/$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Subscribe %s to Piwigo English Announcements Newsletter';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
+$lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
+$lang['Subscribe to Piwigo Announcements Newsletter'] = 'Quédese en contacto con proyecto Piwigo, abónese a la newsletter. Usted recibirá un e-mail cuando una nueva versión estará disponible (a veces un bug de seguridad es corregido, es importante estar al tanto y poner al día) o que un acontecimiento superior sobrevendrá sobre el proyecto. Solamente algunos mensajes al año.';
+$lang['Subscribe %s'] = 'Abonar a la newsletter inglesa %s';
+$lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abonar %s a la newsletter Piwigo';
+$lang['Purge search history'] = 'Purgar la reseña histórica de las búsquedas';
 ?>
