@@ -31,7 +31,7 @@ for (var i=0; i<rows.length; i++) {
 	<td>{'Author'|@translate}</td>
 	<td>{'Name'|@translate}</td>
 	<td>{'Position'|@translate}</td>
-	<td>Hide</td>
+	<td>{'Hide'|@translate}</td>
       </tr>
     </thead>
     <tbody>

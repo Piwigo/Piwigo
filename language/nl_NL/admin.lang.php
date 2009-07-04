@@ -644,4 +644,5 @@ $lang['edit category informations'] = 'bewerk categorie informatie';
 /* TODO */ $lang['Number of downloads'] = 'Number of downloads';
 // --------- Starting below: New or revised $lang ---- from Colibri (2.1)
 /*TODO*/$lang['Purge search history'] = 'Purge search history';
+/*TODO*/$lang['Hide'] = 'Hide';
 ?>
