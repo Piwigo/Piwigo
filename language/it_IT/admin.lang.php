@@ -587,7 +587,7 @@ $lang['plugins_archive_error'] = 'È impossibile leggere o di eseguire l\'archiv
 $lang['plugins_extract_error'] = 'Un errore è avvenuto durante l\'esecuzione del file (%s).';
 $lang['plugins_check_chmod'] = 'Verificate i permessi della cartella "plugins" et delle sue sotto cartelle (CHMOD).';
 $lang['plugins_server_error'] = 'Non é possibile connettersi al server.';
-$lang['Purge compiled templates'] = 'Spurgare i templates compilati';
+$lang['Purge compiled templates'] = '"Ripulire" i templates compilati';
 $lang['Caddie is currently empty'] = 'Il cestino è attualente vuoto.';
 $lang['DEMO'] = 'Demo';
 $lang['HOME'] = 'Home Piwigo';
@@ -651,6 +651,6 @@ $lang['Piwigo Announcements Newsletter'] = 'Newsletter Piwigo';
 $lang['Subscribe to Piwigo Announcements Newsletter'] = 'Rimanete in contatto con il progetto con il progetto Piwigo, abbonatevi alla newsletter. Riceverete un mail ad ogni volta che una nuova versione sarà disponibile (avvolte un bug di sicurezza è corretto, è importante esserne al corrente e d\'aggiornare il prodotto) o che un evento importante sorga sul progetto. Solo qualche mail all\'anno';
 $lang['Subscribe %s'] = 'Abbonare %s';
 $lang['Subscribe %s to Piwigo Announcements Newsletter'] = 'Abbonare %s alla newsletter Piwigo';
-/*TODO*/$lang['Purge search history'] = 'Purge search history';
-/*TODO*/$lang['Hide'] = 'Hide';
+$lang['Purge search history'] = '"Ripulire" la cronologia delle ricerche';
+$lang['Hide'] = 'Nascondere';
 ?>
