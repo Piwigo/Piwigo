@@ -39,6 +39,6 @@ $lang['in include/mysql.inc.php, before ?>, insert:'] = 'Nel file <i>include/mys
 // Upgrade informations from upgrade_1.3.1.php
 $lang['all sub-categories of private categories become private'] = 'Tutte le sottocategorie delle categorie private diventono private';
 $lang['user permissions and group permissions have been erased'] = 'I permessi degli utenti e dei gruppi sono stati cancellati';
-$lang['only thumbnails prefix and webmaster mail saved'] = 'Solo il prefisso delle miniature e l\'email del webmaster sono stati salvati dalla precedente configurazione';
+$lang['only thumbnails prefix and webmaster mail saved'] = 'Solo il prefisso delle miniature e l\'email del webmaster sono stati recuperati dalla precedente configurazione';
 
 ?>
