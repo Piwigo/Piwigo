@@ -26,9 +26,9 @@ $lang['locfiledit_onglet_css'] = 'CSS';
 $lang['locfiledit_onglet_tpl'] = 'Templates';
 $lang['locfiledit_onglet_lang'] = 'Lingue';
 $lang['locfiledit_onglet_plug'] = 'Plugin Personale';
-$lang['locfiledit_cant_save'] = 'È impossibile scrivere il file. Verificare i permessi (chmod) della directory.';
+$lang['locfiledit_cant_save'] = 'Non è stato possibile scrivere il file. Verificare i permessi (chmod) della directory "include/".';
 $lang['locfiledit_newfile'] = 'Il file non esiste e sarà creato durante la fase di registrazione con LocalFiles Editor';
-$lang['locfiledit_save_config'] = 'Il file è stato salvato.';
+$lang['locfiledit_save_config'] = 'Il file è stato registrato.';
 $lang['locfiledit_show_default'] = 'Visualizzare il file ';
 $lang['locfiledit_save_bak'] = 'Una copia di backup del file sarà creata durante la fase di registrazione';
 $lang['locfiledit_saved_bak'] = 'Una copia di backup è stata creata (%s)';
@@ -52,4 +52,5 @@ $lang['locfiledit_filename_error'] = 'Caratteri vietati nel nome del file.';
 $lang['locfiledit_file_already_exists'] = 'Il file esiste già.';
 $lang['locfiledit_model_error'] = 'Selezionare un modello.';
 $lang['locfiledit_empty_filename'] = 'Indicate un nome di file.';
+
 ?>
