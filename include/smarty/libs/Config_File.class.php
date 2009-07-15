@@ -22,14 +22,14 @@
  * smarty-discussion-subscribe@googlegroups.com 
  *
  * @link http://www.smarty.net/
- * @version 2.6.22
+ * @version 2.6.26
  * @copyright Copyright: 2001-2005 New Digital Group, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
  */
 
-/* $Id: Config_File.class.php 2786 2008-09-18 21:04:38Z Uwe.Tews $ */
+/* $Id: Config_File.class.php 3149 2009-05-23 20:59:25Z monte.ohrt $ */
 
 /**
  * Config file reading class

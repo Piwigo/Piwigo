@@ -1,3 +1,22 @@
+Version 2.6.26 (June 18th, 2009)
+-------------------------------
+- revert super global access changes, and instead rely on
+  USE_SUPER_GLOBALS for security
+
+Version 2.6.25 (May 19th, 2009)
+-------------------------------
+- fix E_NOTICE when sessions are disabled (mohrt)
+
+Version 2.6.24 (May 16th, 2009)
+-------------------------------
+- fix problem introduced with super global changes (mohrt)
+
+Version 2.6.23 (May 13th, 2009)
+-------------------------------
+- strip backticks from {math} equations (mohrt)
+- make PHP super globals read-only from template (mohrt)
+- throw error when template exists but not readable (mohrt)
+
 Version 2.6.22 (Dec 17th, 2008)
 -------------------------------
 
