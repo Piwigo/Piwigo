@@ -1,6 +1,6 @@
 <?php
 // --------------------------------------------------------------------------------
-// PhpConcept Library - Zip Module 2.6
+// PhpConcept Library - Zip Module 2.8
 // --------------------------------------------------------------------------------
 // License GNU/LGPL - Vincent Blavet - March 2006
 // http://www.phpconcept.net
@@ -39,8 +39,12 @@ if (!defined('PCLZIP_TEMPORARY_DIR')) {
   define( 'PCLZIP_TEMPORARY_DIR', '' );
 }
 
+if (!defined('PCLZIP_TEMPORARY_FILE_RATIO')) {
+  define( 'PCLZIP_TEMPORARY_FILE_RATIO', 0.47 );
+}
 
-$g_pclzip_version = "2.6";
+
+$g_pclzip_version = "2.8";
 
 define( 'PCLZIP_ERR_USER_ABORTED', 2 );
 define( 'PCLZIP_ERR_NO_ERROR', 0 );
@@ -84,6 +88,9 @@ define( 'PCLZIP_OPT_EXTRACT_IN_OUTPUT', 77015 );
 define( 'PCLZIP_OPT_REPLACE_NEWER', 77016 );
 define( 'PCLZIP_OPT_STOP_ON_ERROR', 77017 );
 define( 'PCLZIP_OPT_EXTRACT_DIR_RESTRICTION', 77019 );
+define( 'PCLZIP_OPT_TEMP_FILE_THRESHOLD', 77020 );
+define( 'PCLZIP_OPT_TEMP_FILE_ON', 77021 );
+define( 'PCLZIP_OPT_TEMP_FILE_OFF', 77022 );
 
 define( 'PCLZIP_ATT_FILE_NAME', 79001 );
 define( 'PCLZIP_ATT_FILE_NEW_SHORT_NAME', 79002 );
@@ -96,7 +103,12 @@ define( 'PCLZIP_CB_PRE_EXTRACT', 78001 );
 define( 'PCLZIP_CB_POST_EXTRACT', 78002 );
 define( 'PCLZIP_CB_PRE_ADD', 78003 );
 define( 'PCLZIP_CB_POST_ADD', 78004 );
-
+/* For futur use
+define( 'PCLZIP_CB_PRE_LIST', 78005 );
+define( 'PCLZIP_CB_POST_LIST', 78006 );
+define( 'PCLZIP_CB_PRE_DELETE', 78007 );
+define( 'PCLZIP_CB_POST_DELETE', 78008 );
+*/
 
 class PclZip
 {
@@ -150,7 +162,10 @@ function create($p_filelist)
                                                  PCLZIP_CB_PRE_ADD => 'optional',
                                                  PCLZIP_CB_POST_ADD => 'optional',
                                                  PCLZIP_OPT_NO_COMPRESSION => 'optional',
-                                                 PCLZIP_OPT_COMMENT => 'optional'
+                                                 PCLZIP_OPT_COMMENT => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_ON => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_OFF => 'optional'
                                            ));
       if ($v_result != 1) {
         return 0;
@@ -171,6 +186,8 @@ function create($p_filelist)
       }
     }
   }
+  
+  $this->privOptionDefaultThreshold($v_options);
 
   $v_string_list = array();
   $v_att_list = array();
@@ -266,7 +283,10 @@ function add($p_filelist)
                                                  PCLZIP_OPT_NO_COMPRESSION => 'optional',
                                                  PCLZIP_OPT_COMMENT => 'optional',
                                                  PCLZIP_OPT_ADD_COMMENT => 'optional',
-                                                 PCLZIP_OPT_PREPEND_COMMENT => 'optional'
+                                                 PCLZIP_OPT_PREPEND_COMMENT => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_ON => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_OFF => 'optional'
                          ));
       if ($v_result != 1) {
         return 0;
@@ -287,6 +307,8 @@ function add($p_filelist)
       }
     }
   }
+
+  $this->privOptionDefaultThreshold($v_options);
 
   $v_string_list = array();
   $v_att_list = array();
@@ -410,7 +432,10 @@ function extract()
                                                  PCLZIP_OPT_EXTRACT_IN_OUTPUT => 'optional',
                                                  PCLZIP_OPT_REPLACE_NEWER => 'optional'
                                                  ,PCLZIP_OPT_STOP_ON_ERROR => 'optional'
-                                                 ,PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional'
+                                                 ,PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_ON => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_OFF => 'optional'
                           ));
       if ($v_result != 1) {
         return 0;
@@ -447,6 +472,8 @@ function extract()
       }
     }
   }
+
+  $this->privOptionDefaultThreshold($v_options);
 
 
   $p_list = array();
@@ -499,7 +526,10 @@ function extractByIndex($p_index)
                                                  PCLZIP_OPT_SET_CHMOD => 'optional',
                                                  PCLZIP_OPT_REPLACE_NEWER => 'optional'
                                                  ,PCLZIP_OPT_STOP_ON_ERROR => 'optional'
-                                                 ,PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional'
+                                                 ,PCLZIP_OPT_EXTRACT_DIR_RESTRICTION => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_THRESHOLD => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_ON => 'optional',
+                                                 PCLZIP_OPT_TEMP_FILE_OFF => 'optional'
                          ));
       if ($v_result != 1) {
         return 0;
@@ -551,6 +581,8 @@ function extractByIndex($p_index)
       return 0;
   }
   $v_options[PCLZIP_OPT_BY_INDEX] = $v_options_trick[PCLZIP_OPT_BY_INDEX];
+
+  $this->privOptionDefaultThreshold($v_options);
 
   if (($v_result = $this->privExtractByRule($p_list, $v_path, $v_remove_path, $v_remove_all_path, $v_options)) < 1) {
       return(0);
@@ -796,7 +828,7 @@ function privCheckFormat($p_level=0)
 {
   $v_result = true;
 
-    clearstatcache();
+  clearstatcache();
 
   $this->privErrorReset();
 
@@ -841,6 +873,49 @@ function privParseOptions(&$p_options_list, $p_size, &$v_result_list, $v_request
 
         $v_result_list[$p_options_list[$i]] = PclZipUtilTranslateWinPath($p_options_list[$i+1], FALSE);
         $i++;
+      break;
+
+      case PCLZIP_OPT_TEMP_FILE_THRESHOLD :
+        if (($i+1) >= $p_size) {
+          PclZip::privErrorLog(PCLZIP_ERR_MISSING_OPTION_VALUE, "Missing parameter value for option '".PclZipUtilOptionText($p_options_list[$i])."'");
+          return PclZip::errorCode();
+        }
+        
+        if (isset($v_result_list[PCLZIP_OPT_TEMP_FILE_OFF])) {
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Option '".PclZipUtilOptionText($p_options_list[$i])."' can not be used with option 'PCLZIP_OPT_TEMP_FILE_OFF'");
+          return PclZip::errorCode();
+        }
+        
+        $v_value = $p_options_list[$i+1];
+        if ((!is_integer($v_value)) || ($v_value<0)) {
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_OPTION_VALUE, "Integer expected for option '".PclZipUtilOptionText($p_options_list[$i])."'");
+          return PclZip::errorCode();
+        }
+
+        $v_result_list[$p_options_list[$i]] = $v_value*1048576;
+        $i++;
+      break;
+
+      case PCLZIP_OPT_TEMP_FILE_ON :
+        if (isset($v_result_list[PCLZIP_OPT_TEMP_FILE_OFF])) {
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Option '".PclZipUtilOptionText($p_options_list[$i])."' can not be used with option 'PCLZIP_OPT_TEMP_FILE_OFF'");
+          return PclZip::errorCode();
+        }
+        
+        $v_result_list[$p_options_list[$i]] = true;
+      break;
+
+      case PCLZIP_OPT_TEMP_FILE_OFF :
+        if (isset($v_result_list[PCLZIP_OPT_TEMP_FILE_ON])) {
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Option '".PclZipUtilOptionText($p_options_list[$i])."' can not be used with option 'PCLZIP_OPT_TEMP_FILE_ON'");
+          return PclZip::errorCode();
+        }
+        if (isset($v_result_list[PCLZIP_OPT_TEMP_FILE_THRESHOLD])) {
+          PclZip::privErrorLog(PCLZIP_ERR_INVALID_PARAMETER, "Option '".PclZipUtilOptionText($p_options_list[$i])."' can not be used with option 'PCLZIP_OPT_TEMP_FILE_THRESHOLD'");
+          return PclZip::errorCode();
+        }
+        
+        $v_result_list[$p_options_list[$i]] = true;
       break;
 
       case PCLZIP_OPT_EXTRACT_DIR_RESTRICTION :
@@ -1013,7 +1088,12 @@ function privParseOptions(&$p_options_list, $p_size, &$v_result_list, $v_request
       case PCLZIP_CB_POST_EXTRACT :
       case PCLZIP_CB_PRE_ADD :
       case PCLZIP_CB_POST_ADD :
-
+      /* for futur use
+      case PCLZIP_CB_PRE_DELETE :
+      case PCLZIP_CB_POST_DELETE :
+      case PCLZIP_CB_PRE_LIST :
+      case PCLZIP_CB_POST_LIST :
+      */
         if (($i+1) >= $p_size) {
           PclZip::privErrorLog(PCLZIP_ERR_MISSING_OPTION_VALUE, "Missing parameter value for option '".PclZipUtilOptionText($p_options_list[$i])."'");
 
@@ -1054,7 +1134,41 @@ function privParseOptions(&$p_options_list, $p_size, &$v_result_list, $v_request
       }
     }
   }
+  
+  if (!isset($v_result_list[PCLZIP_OPT_TEMP_FILE_THRESHOLD])) {
+    
+  }
 
+  return $v_result;
+}
+
+function privOptionDefaultThreshold(&$p_options)
+{
+  $v_result=1;
+  
+  if (isset($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD])
+      || isset($p_options[PCLZIP_OPT_TEMP_FILE_OFF])) {
+    return $v_result;
+  }
+  
+  $v_memory_limit = ini_get('memory_limit');
+  $v_memory_limit = trim($v_memory_limit);
+  $last = strtolower(substr($v_memory_limit, -1));
+
+  if($last == 'g')
+      $v_memory_limit = $v_memory_limit*1073741824;
+  if($last == 'm')
+      $v_memory_limit = $v_memory_limit*1048576;
+  if($last == 'k')
+      $v_memory_limit = $v_memory_limit*1024;
+          
+  $p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD] = floor($v_memory_limit*PCLZIP_TEMPORARY_FILE_RATIO);
+  
+
+  if ($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD] < 1048576) {
+    unset($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD]);
+  }
+        
   return $v_result;
 }
 
@@ -1169,7 +1283,7 @@ function privFileDescrExpand(&$p_filedescr_list, &$p_options)
     
     $v_descr = $p_filedescr_list[$i];
     
-    $v_descr['filename'] = PclZipUtilTranslateWinPath($v_descr['filename']);
+    $v_descr['filename'] = PclZipUtilTranslateWinPath($v_descr['filename'], false);
     $v_descr['filename'] = PclZipUtilPathReduction($v_descr['filename']);
     
     if (file_exists($v_descr['filename'])) {
@@ -1192,7 +1306,7 @@ function privFileDescrExpand(&$p_filedescr_list, &$p_options)
     }
     
     else {
-      PclZip::privErrorLog(PCLZIP_ERR_MISSING_FILE, "File '".$v_descr['filename']."' does not exists");
+      PclZip::privErrorLog(PCLZIP_ERR_MISSING_FILE, "File '".$v_descr['filename']."' does not exist");
 
       return PclZip::errorCode();
     }
@@ -1494,7 +1608,7 @@ function privAddFileList($p_filedescr_list, &$p_result_list, &$p_options)
 
     if (   ($p_filedescr_list[$j]['type'] != 'virtual_file')
         && (!file_exists($p_filedescr_list[$j]['filename']))) {
-      PclZip::privErrorLog(PCLZIP_ERR_MISSING_FILE, "File '".$p_filedescr_list[$j]['filename']."' does not exists");
+      PclZip::privErrorLog(PCLZIP_ERR_MISSING_FILE, "File '".$p_filedescr_list[$j]['filename']."' does not exist");
       return PclZip::errorCode();
     }
 
@@ -1530,7 +1644,14 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
     return PclZip::errorCode();
   }
 
-
+  /* TBC : Removed
+  if (isset($p_filedescr['stored_filename'])) {
+    $v_stored_filename = $p_filedescr['stored_filename'];
+  }
+  else {
+    $v_stored_filename = $p_filedescr['stored_filename'];
+  }
+  */
 
   clearstatcache();
   $p_header['version'] = 20;
@@ -1571,7 +1692,7 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
     $p_header['mtime'] = $p_filedescr['mtime'];
   }
   else if ($p_filedescr['type'] == 'virtual_file') {
-    $p_header['mtime'] = mktime();
+    $p_header['mtime'] = time();
   }
   else {
     $p_header['mtime'] = filemtime($p_filename);
@@ -1612,23 +1733,27 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
 
   if ($p_header['status'] == 'ok') {
 
-    if (   ($p_filedescr['type'] == 'file')
-        || ($p_filedescr['type'] == 'virtual_file')) {
-        
-      if ($p_filedescr['type'] == 'file') {        
-
-        if (($v_file = @fopen($p_filename, "rb")) == 0) {
-          PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, "Unable to open file '$p_filename' in binary read mode");
-          return PclZip::errorCode();
+    if ($p_filedescr['type'] == 'file') {
+      if ( (!isset($p_options[PCLZIP_OPT_TEMP_FILE_OFF])) 
+          && (isset($p_options[PCLZIP_OPT_TEMP_FILE_ON])
+              || (isset($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD])
+                  && ($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD] <= $p_header['size'])) ) ) {
+        $v_result = $this->privAddFileUsingTempFile($p_filedescr, $p_header, $p_options);
+        if ($v_result < PCLZIP_ERR_NO_ERROR) {
+          return $v_result;
         }
-
-        $v_content = @fread($v_file, $p_header['size']);
-
-        @fclose($v_file);
       }
-      else if ($p_filedescr['type'] == 'virtual_file') {        
-        $v_content = $p_filedescr['content'];
+      
+      else {
+
+      if (($v_file = @fopen($p_filename, "rb")) == 0) {
+        PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, "Unable to open file '$p_filename' in binary read mode");
+        return PclZip::errorCode();
       }
+
+      $v_content = @fread($v_file, $p_header['size']);
+
+      @fclose($v_file);
 
       $p_header['crc'] = @crc32($v_content);
       
@@ -1644,8 +1769,35 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
         $p_header['compression'] = 8;
       }
       
+      if (($v_result = $this->privWriteFileHeader($p_header)) != 1) {
+        @fclose($v_file);
+        return $v_result;
+      }
 
+      @fwrite($this->zip_fd, $v_content, $p_header['compressed_size']);
 
+      }
+
+    }
+
+    else if ($p_filedescr['type'] == 'virtual_file') {
+        
+      $v_content = $p_filedescr['content'];
+
+      $p_header['crc'] = @crc32($v_content);
+      
+      if ($p_options[PCLZIP_OPT_NO_COMPRESSION]) {
+        $p_header['compressed_size'] = $p_header['size'];
+        $p_header['compression'] = 0;
+      }
+      
+      else {
+        $v_content = @gzdeflate($v_content);
+
+        $p_header['compressed_size'] = strlen($v_content);
+        $p_header['compression'] = 8;
+      }
+      
       if (($v_result = $this->privWriteFileHeader($p_header)) != 1) {
         @fclose($v_file);
         return $v_result;
@@ -1660,7 +1812,7 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
       }
 
       $p_header['size'] = 0;
-      $p_header['external'] = 0x00000010;
+
       if (($v_result = $this->privWriteFileHeader($p_header)) != 1)
       {
         return $v_result;
@@ -1680,6 +1832,88 @@ function privAddFile($p_filedescr, &$p_header, &$p_options)
 
   }
 
+  return $v_result;
+}
+
+function privAddFileUsingTempFile($p_filedescr, &$p_header, &$p_options)
+{
+  $v_result=PCLZIP_ERR_NO_ERROR;
+  
+  $p_filename = $p_filedescr['filename'];
+
+
+  if (($v_file = @fopen($p_filename, "rb")) == 0) {
+    PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, "Unable to open file '$p_filename' in binary read mode");
+    return PclZip::errorCode();
+  }
+
+  $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR.uniqid('pclzip-').'.gz';
+  if (($v_file_compressed = @gzopen($v_gzip_temp_name, "wb")) == 0) {
+    fclose($v_file);
+    PclZip::privErrorLog(PCLZIP_ERR_WRITE_OPEN_FAIL, 'Unable to open temporary file \''.$v_gzip_temp_name.'\' in binary write mode');
+    return PclZip::errorCode();
+  }
+
+  $v_size = filesize($p_filename);
+  while ($v_size != 0) {
+    $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
+    $v_buffer = @fread($v_file, $v_read_size);
+    @gzputs($v_file_compressed, $v_buffer, $v_read_size);
+    $v_size -= $v_read_size;
+  }
+
+  @fclose($v_file);
+  @gzclose($v_file_compressed);
+
+  if (filesize($v_gzip_temp_name) < 18) {
+    PclZip::privErrorLog(PCLZIP_ERR_BAD_FORMAT, 'gzip temporary file \''.$v_gzip_temp_name.'\' has invalid filesize - should be minimum 18 bytes');
+    return PclZip::errorCode();
+  }
+
+  if (($v_file_compressed = @fopen($v_gzip_temp_name, "rb")) == 0) {
+    PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, 'Unable to open temporary file \''.$v_gzip_temp_name.'\' in binary read mode');
+    return PclZip::errorCode();
+  }
+
+  $v_binary_data = @fread($v_file_compressed, 10);
+  $v_data_header = unpack('a1id1/a1id2/a1cm/a1flag/Vmtime/a1xfl/a1os', $v_binary_data);
+
+  $v_data_header['os'] = bin2hex($v_data_header['os']);
+
+  @fseek($v_file_compressed, filesize($v_gzip_temp_name)-8);
+  $v_binary_data = @fread($v_file_compressed, 8);
+  $v_data_footer = unpack('Vcrc/Vcompressed_size', $v_binary_data);
+
+  $p_header['compression'] = ord($v_data_header['cm']);
+  $p_header['crc'] = $v_data_footer['crc'];
+  $p_header['compressed_size'] = filesize($v_gzip_temp_name)-18;
+
+  @fclose($v_file_compressed);
+
+  if (($v_result = $this->privWriteFileHeader($p_header)) != 1) {
+    return $v_result;
+  }
+
+  if (($v_file_compressed = @fopen($v_gzip_temp_name, "rb")) == 0)
+  {
+    PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, 'Unable to open temporary file \''.$v_gzip_temp_name.'\' in binary read mode');
+    return PclZip::errorCode();
+  }
+
+  fseek($v_file_compressed, 10);
+  $v_size = $p_header['compressed_size'];
+  while ($v_size != 0)
+  {
+    $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
+    $v_buffer = @fread($v_file_compressed, $v_read_size);
+    @fwrite($this->zip_fd, $v_buffer, $v_read_size);
+    $v_size -= $v_read_size;
+  }
+
+  @fclose($v_file_compressed);
+
+  @unlink($v_gzip_temp_name);
+  
   return $v_result;
 }
 
@@ -1708,7 +1942,7 @@ function privCalculateStoredFilename(&$p_filedescr, &$p_options)
   }
 
   if (isset($p_filedescr['new_full_name'])) {
-    $v_stored_filename = $p_filedescr['new_full_name'];
+    $v_stored_filename = PclZipUtilTranslateWinPath($p_filedescr['new_full_name']);
   }
   
   else {
@@ -1757,6 +1991,9 @@ function privCalculateStoredFilename(&$p_filedescr, &$p_options)
         }
       }
     }
+    
+    $v_stored_filename = PclZipUtilTranslateWinPath($v_stored_filename);
+    
     if ($p_add_dir != "") {
       if (substr($p_add_dir, -1) == "/")
         $v_stored_filename = $p_add_dir.$v_stored_filename;
@@ -1915,8 +2152,10 @@ function privConvertHeader2FileInfo($p_header, &$p_info)
 {
   $v_result=1;
 
-  $p_info['filename'] = $p_header['filename'];
-  $p_info['stored_filename'] = $p_header['stored_filename'];
+  $v_temp_path = PclZipUtilPathReduction($p_header['filename']);
+  $p_info['filename'] = $v_temp_path;
+  $v_temp_path = PclZipUtilPathReduction($p_header['stored_filename']);
+  $p_info['stored_filename'] = $v_temp_path;
   $p_info['size'] = $p_header['size'];
   $p_info['compressed_size'] = $p_header['compressed_size'];
   $p_info['mtime'] = $p_header['mtime'];
@@ -2058,7 +2297,7 @@ function privExtractByRule(&$p_file_list, $p_path, $p_remove_path, $p_remove_all
         $v_extract = true;
     }
 
-    if (   ($v_extract)
+  if (   ($v_extract)
       && (   ($v_header['compression'] != 8)
         && ($v_header['compression'] != 0))) {
         $v_header['status'] = 'unsupported_compression';
@@ -2077,7 +2316,7 @@ function privExtractByRule(&$p_file_list, $p_path, $p_remove_path, $p_remove_all
     }
   }
   
-    if (($v_extract) && (($v_header['flag'] & 1) == 1)) {
+  if (($v_extract) && (($v_header['flag'] & 1) == 1)) {
         $v_header['status'] = 'unsupported_encryption';
 
         if (   (isset($p_options[PCLZIP_OPT_STOP_ON_ERROR]))
@@ -2296,7 +2535,7 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
                ."already used by an existing directory");
 
           return PclZip::errorCode();
-  }
+      }
     }
     else if (!is_writeable($p_entry['filename']))
     {
@@ -2311,15 +2550,15 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
                ."and is write protected");
 
           return PclZip::errorCode();
-  }
+      }
     }
 
     else if (filemtime($p_entry['filename']) > $p_entry['mtime'])
     {
       if (   (isset($p_options[PCLZIP_OPT_REPLACE_NEWER]))
       && ($p_options[PCLZIP_OPT_REPLACE_NEWER]===true)) {
-  }
-  else {
+      }
+      else {
           $p_entry['status'] = "newer_exist";
 
           if (   (isset($p_options[PCLZIP_OPT_STOP_ON_ERROR]))
@@ -2330,8 +2569,8 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
             ."and option PCLZIP_OPT_REPLACE_NEWER is not selected");
 
               return PclZip::errorCode();
+        }
       }
-  }
     }
     else {
     }
@@ -2345,13 +2584,13 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
     else
       $v_dir_to_check = dirname($p_entry['filename']);
 
-    if (($v_result = $this->privDirCheck($v_dir_to_check, (($p_entry['external']&0x00000010)==0x00000010))) != 1) {
+      if (($v_result = $this->privDirCheck($v_dir_to_check, (($p_entry['external']&0x00000010)==0x00000010))) != 1) {
 
-      $p_entry['status'] = "path_creation_fail";
+        $p_entry['status'] = "path_creation_fail";
 
-      $v_result = 1;
+        $v_result = 1;
+      }
     }
-  }
   }
 
   if ($p_entry['status'] == 'ok') {
@@ -2360,7 +2599,7 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
     {
       if ($p_entry['compression'] == 0) {
 
-            if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0)
+        if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0)
         {
 
           $p_entry['status'] = "write_error";
@@ -2374,7 +2613,10 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
         {
           $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
           $v_buffer = @fread($this->zip_fd, $v_read_size);
-
+          /* Try to speed up the code
+          $v_binary_data = pack('a'.$v_read_size, $v_buffer);
+          @fwrite($v_dest_file, $v_binary_data, $v_read_size);
+          */
           @fwrite($v_dest_file, $v_buffer, $v_read_size);            
           $v_size -= $v_read_size;
         }
@@ -2387,32 +2629,48 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
       }
       else {
         if (($p_entry['flag'] & 1) == 1) {
-
+          PclZip::privErrorLog(PCLZIP_ERR_UNSUPPORTED_ENCRYPTION, 'File \''.$p_entry['filename'].'\' is encrypted. Encrypted files are not supported.');
+          return PclZip::errorCode();
         }
+
+
+        if ( (!isset($p_options[PCLZIP_OPT_TEMP_FILE_OFF])) 
+            && (isset($p_options[PCLZIP_OPT_TEMP_FILE_ON])
+                || (isset($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD])
+                    && ($p_options[PCLZIP_OPT_TEMP_FILE_THRESHOLD] <= $p_entry['size'])) ) ) {
+          $v_result = $this->privExtractFileUsingTempFile($p_entry, $p_options);
+          if ($v_result < PCLZIP_ERR_NO_ERROR) {
+            return $v_result;
+          }
+        }
+        
         else {
-            $v_buffer = @fread($this->zip_fd, $p_entry['compressed_size']);
-        }
-        
-        $v_file_content = @gzinflate($v_buffer);
-        unset($v_buffer);
-        if ($v_file_content === FALSE) {
 
-          $p_entry['status'] = "error";
+        
+          $v_buffer = @fread($this->zip_fd, $p_entry['compressed_size']);
           
-          return $v_result;
+          $v_file_content = @gzinflate($v_buffer);
+          unset($v_buffer);
+          if ($v_file_content === FALSE) {
+
+            $p_entry['status'] = "error";
+            
+            return $v_result;
+          }
+          
+          if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0) {
+
+            $p_entry['status'] = "write_error";
+
+            return $v_result;
+          }
+
+          @fwrite($v_dest_file, $v_file_content, $p_entry['size']);
+          unset($v_file_content);
+
+          @fclose($v_dest_file);
+          
         }
-        
-        if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0) {
-
-          $p_entry['status'] = "write_error";
-
-          return $v_result;
-        }
-
-        @fwrite($v_dest_file, $v_file_content, $p_entry['size']);
-        unset($v_file_content);
-
-        @fclose($v_dest_file);
 
         @touch($p_entry['filename'], $p_entry['mtime']);
       }
@@ -2425,7 +2683,7 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
     }
   }
 
-  if ($p_entry['status'] == "aborted") {
+if ($p_entry['status'] == "aborted") {
     $p_entry['status'] = "skipped";
 }
 
@@ -2441,6 +2699,63 @@ function privExtractFile(&$p_entry, $p_path, $p_remove_path, $p_remove_all_path,
     }
   }
 
+  return $v_result;
+}
+
+function privExtractFileUsingTempFile(&$p_entry, &$p_options)
+{
+  $v_result=1;
+      
+  $v_gzip_temp_name = PCLZIP_TEMPORARY_DIR.uniqid('pclzip-').'.gz';
+  if (($v_dest_file = @fopen($v_gzip_temp_name, "wb")) == 0) {
+    fclose($v_file);
+    PclZip::privErrorLog(PCLZIP_ERR_WRITE_OPEN_FAIL, 'Unable to open temporary file \''.$v_gzip_temp_name.'\' in binary write mode');
+    return PclZip::errorCode();
+  }
+
+
+  $v_binary_data = pack('va1a1Va1a1', 0x8b1f, Chr($p_entry['compression']), Chr(0x00), time(), Chr(0x00), Chr(3));
+  @fwrite($v_dest_file, $v_binary_data, 10);
+
+  $v_size = $p_entry['compressed_size'];
+  while ($v_size != 0)
+  {
+    $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
+    $v_buffer = @fread($this->zip_fd, $v_read_size);
+    @fwrite($v_dest_file, $v_buffer, $v_read_size);
+    $v_size -= $v_read_size;
+  }
+
+  $v_binary_data = pack('VV', $p_entry['crc'], $p_entry['size']);
+  @fwrite($v_dest_file, $v_binary_data, 8);
+
+  @fclose($v_dest_file);
+
+  if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0) {
+    $p_entry['status'] = "write_error";
+    return $v_result;
+  }
+
+  if (($v_src_file = @gzopen($v_gzip_temp_name, 'rb')) == 0) {
+    @fclose($v_dest_file);
+    $p_entry['status'] = "read_error";
+    PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, 'Unable to open temporary file \''.$v_gzip_temp_name.'\' in binary read mode');
+    return PclZip::errorCode();
+  }
+
+
+  $v_size = $p_entry['size'];
+  while ($v_size != 0) {
+    $v_read_size = ($v_size < PCLZIP_READ_BLOCK_SIZE ? $v_size : PCLZIP_READ_BLOCK_SIZE);
+    $v_buffer = @gzread($v_src_file, $v_read_size);
+    @fwrite($v_dest_file, $v_buffer, $v_read_size);
+    $v_size -= $v_read_size;
+  }
+  @fclose($v_dest_file);
+  @gzclose($v_src_file);
+
+  @unlink($v_gzip_temp_name);
+  
   return $v_result;
 }
 
@@ -2499,7 +2814,7 @@ function privExtractFileInOutput(&$p_entry, &$p_options)
     }
   }
 
-  if ($p_entry['status'] == "aborted") {
+if ($p_entry['status'] == "aborted") {
     $p_entry['status'] = "skipped";
 }
 
@@ -2612,7 +2927,7 @@ function privReadFileHeader(&$p_header)
     $v_month = ($p_header['mdate'] & 0x01E0) >> 5;
     $v_day = $p_header['mdate'] & 0x001F;
 
-    $p_header['mtime'] = mktime($v_hour, $v_minute, $v_seconde, $v_month, $v_day, $v_year);
+    $p_header['mtime'] = @mktime($v_hour, $v_minute, $v_seconde, $v_month, $v_day, $v_year);
 
   }
   else
@@ -2707,24 +3022,24 @@ function privCheckFileHeaders(&$p_local_header, &$p_central_header)
 {
   $v_result=1;
 
-    if ($p_local_header['filename'] != $p_central_header['filename']) {
-}
-if ($p_local_header['version_extracted'] != $p_central_header['version_extracted']) {
-}
-if ($p_local_header['flag'] != $p_central_header['flag']) {
-}
-if ($p_local_header['compression'] != $p_central_header['compression']) {
-}
-if ($p_local_header['mtime'] != $p_central_header['mtime']) {
-}
-if ($p_local_header['filename_len'] != $p_central_header['filename_len']) {
-}
+  if ($p_local_header['filename'] != $p_central_header['filename']) {
+  }
+  if ($p_local_header['version_extracted'] != $p_central_header['version_extracted']) {
+  }
+  if ($p_local_header['flag'] != $p_central_header['flag']) {
+  }
+  if ($p_local_header['compression'] != $p_central_header['compression']) {
+  }
+  if ($p_local_header['mtime'] != $p_central_header['mtime']) {
+  }
+  if ($p_local_header['filename_len'] != $p_central_header['filename_len']) {
+  }
 
   if (($p_local_header['flag'] & 8) == 8) {
-      $p_local_header['size'] = $p_central_header['size'];
-      $p_local_header['compressed_size'] = $p_central_header['compressed_size'];
-      $p_local_header['crc'] = $p_central_header['crc'];
-}
+        $p_local_header['size'] = $p_central_header['size'];
+        $p_local_header['compressed_size'] = $p_central_header['compressed_size'];
+        $p_local_header['crc'] = $p_central_header['crc'];
+  }
 
   return $v_result;
 }
@@ -2763,7 +3078,7 @@ function privReadEndCentralDir(&$p_central_dir)
   }
 
   if (!$v_found) {
-    $v_maximum_size = 65557;      if ($v_maximum_size > $v_size)
+    if ($v_maximum_size > $v_size)
       $v_maximum_size = $v_size;
     @fseek($this->zip_fd, $v_size-$v_maximum_size);
     if (@ftell($this->zip_fd) != ($v_size-$v_maximum_size))
@@ -2813,7 +3128,7 @@ function privReadEndCentralDir(&$p_central_dir)
 
   if (($v_pos + $v_data['comment_size'] + 18) != $v_size) {
 
-          if (0) {
+  if (0) {
     PclZip::privErrorLog(PCLZIP_ERR_BAD_FORMAT,
                        'The central dir is not at the end of the archive.'
              .' Some trailing bytes exists after the archive.');
@@ -2898,7 +3213,7 @@ function privDeleteByRule(&$p_result_list, &$p_options)
                     && (substr($v_header_list[$v_nb_extracted]['stored_filename'], 0, strlen($p_options[PCLZIP_OPT_BY_NAME][$j])) == $p_options[PCLZIP_OPT_BY_NAME][$j])) {
                     $v_found = true;
                 }
-                elseif (   (($v_header_list[$v_nb_extracted]['external']&0x00000010)==0x00000010)
+                elseif (   (($v_header_list[$v_nb_extracted]['external']&0x00000010)==0x00000010) /* Indicates a folder */
                         && ($v_header_list[$v_nb_extracted]['stored_filename'].'/' == $p_options[PCLZIP_OPT_BY_NAME][$j])) {
                     $v_found = true;
                 }
@@ -3310,18 +3625,6 @@ function privErrorReset()
   }
 }
 
-function privDecrypt($p_encryption_header, &$p_buffer, $p_size, $p_crc)
-{
-  $v_result=1;
-  
-  $v_pwd = "test";
-  
-  $p_buffer = PclZipUtilZipDecrypt($p_buffer, $p_size, $p_encryption_header,
-                                 $p_crc, $v_pwd);
-  
-  return $v_result;
-}
-
 function privDisableMagicQuotes()
 {
   $v_result=1;
@@ -3335,9 +3638,9 @@ function privDisableMagicQuotes()
     return $v_result;
 }
 
-  $this->magic_quotes_status = @get_magic_quotes_runtime();
+$this->magic_quotes_status = @get_magic_quotes_runtime();
 
-  if ($this->magic_quotes_status == 1) {
+if ($this->magic_quotes_status == 1) {
   @set_magic_quotes_runtime(0);
 }
 
@@ -3357,7 +3660,7 @@ function privSwapBackMagicQuotes()
     return $v_result;
 }
 
-  if ($this->magic_quotes_status == 1) {
+if ($this->magic_quotes_status == 1) {
     @set_magic_quotes_runtime($this->magic_quotes_status);
 }
 
@@ -3381,21 +3684,21 @@ function PclZipUtilPathReduction($p_dir)
     $v_skip++;
       }
       else if ($v_list[$i] == "") {
-        if ($i == 0) {
+    if ($i == 0) {
           $v_result = "/".$v_result;
       if ($v_skip > 0) {
-                  $v_result = $p_dir;
+          $v_result = $p_dir;
               $v_skip = 0;
       }
     }
-        else if ($i == (sizeof($v_list)-1)) {
+    else if ($i == (sizeof($v_list)-1)) {
           $v_result = $v_list[$i];
     }
-        else {
+    else {
     }
       }
       else {
-        if ($v_skip > 0) {
+    if ($v_skip > 0) {
       $v_skip--;
     }
     else {
@@ -3539,12 +3842,12 @@ function PclZipUtilOptionText($p_option)
   
   $v_list = get_defined_constants();
   for (reset($v_list); $v_key = key($v_list); next($v_list)) {
-  $v_prefix = substr($v_key, 0, 10);
-  if ((   ($v_prefix == 'PCLZIP_OPT')
-       || ($v_prefix == 'PCLZIP_CB_')
-       || ($v_prefix == 'PCLZIP_ATT'))
-      && ($v_list[$v_key] == $p_option)) {
-        return $v_key;
+    $v_prefix = substr($v_key, 0, 10);
+    if ((   ($v_prefix == 'PCLZIP_OPT')
+         || ($v_prefix == 'PCLZIP_CB_')
+         || ($v_prefix == 'PCLZIP_ATT'))
+        && ($v_list[$v_key] == $p_option)) {
+      return $v_key;
     }
   }
   
