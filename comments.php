@@ -87,7 +87,7 @@ if (isset($_GET['items_number']))
 {
   $page['items_number'] = $_GET['items_number'];
 }
-if ( !is_numeric($page['items_number']) and $page['items_number']!='all' ) 
+if ( !is_numeric($page['items_number']) and $page['items_number']!='all' )
 {
   $page['items_number'] = 10;
 }
@@ -271,8 +271,6 @@ SELECT COUNT(DISTINCT(com.id))
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-    LEFT JOIN '.USERS_TABLE.' As u
-    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
 ;';
@@ -304,15 +302,12 @@ SELECT com.id AS comment_id
      , ic.category_id
      , com.author
      , com.author_id
-     , '.$conf['user_fields']['username'].' AS username
      , com.date
      , com.content
      , com.validated
   FROM '.IMAGE_CATEGORY_TABLE.' AS ic
     INNER JOIN '.COMMENTS_TABLE.' AS com
     ON ic.image_id = com.image_id
-    LEFT JOIN '.USERS_TABLE.' AS u
-    ON u.'.$conf['user_fields']['id'].' = com.author_id
   WHERE '.implode('
     AND ', $page['where_clauses']).'
   GROUP BY comment_id
@@ -378,25 +373,12 @@ SELECT id, name, permalink, uppercats
             )
           );
 
-    if (!empty($comment['author']))
-    {
-      $author = $comment['author'];
-      if ($author == 'guest')
-      {
-	$author = l10n('guest');
-      }
-    }
-    else
-    {
-      $author = $comment['username'];
-    }
-
     $tpl_comment =
       array(
         'U_PICTURE' => $url,
         'TN_SRC' => $thumbnail_src,
         'ALT' => $name,
-        'AUTHOR' => trigger_event('render_comment_author', $author),
+        'AUTHOR' => trigger_event('render_comment_author', $comment['author']),
         'DATE'=>format_date($comment['date'], true),
         'CONTENT'=>trigger_event('render_comment_content',$comment['content']),
         );

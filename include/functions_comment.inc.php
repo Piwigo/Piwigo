@@ -110,7 +110,7 @@ SELECT COUNT(*) AS user_exists
   }
   else
   {
-    $comm['author'] = '';
+    $comm['author'] = addslashes($user['username']);
     $comm['author_id'] = $user['id'];
   }
 
@@ -171,24 +171,15 @@ INSERT INTO '.COMMENTS_TABLE.'
     $comm['id'] = mysql_insert_id();
 
     if (($comment_action=='validate' and $conf['email_admin_on_comment']) or
-	($comment_action!='validate'
-	 and $conf['email_admin_on_comment_validation']))
+        ($comment_action!='validate' and $conf['email_admin_on_comment_validation']))
     {
       include_once(PHPWG_ROOT_PATH.'include/functions_mail.inc.php');
 
       $del_url = get_absolute_root_url().'comments.php?delete='.$comm['id'];
 
-      if (empty($comm['author']))
-      {
-        $author_name = $user['username'];
-      }
-      else
-      {
-        $author_name = stripslashes($comm['author']);
-      }
       $keyargs_content = array
       (
-        get_l10n_args('Author: %s', $author_name),
+        get_l10n_args('Author: %s', stripslashes($comm['author']) ),
         get_l10n_args('Comment: %s', stripslashes($comm['content']) ),
         get_l10n_args('', ''),
         get_l10n_args('Delete: %s', $del_url)
@@ -205,7 +196,7 @@ INSERT INTO '.COMMENTS_TABLE.'
 
       pwg_mail_notification_admins
       (
-        get_l10n_args('Comment by %s', $author_name),
+        get_l10n_args('Comment by %s', stripslashes($comm['author']) ),
         $keyargs_content
       );
     }

@@ -10,7 +10,7 @@
       </a>
     </div>
     {/if}
-    <div class="description" style="height:{if ($comment.IN_EDIT==1)}200{/if}px">
+    <div class="description" style="height:{if isset($comment.IN_EDIT)}200{/if}px">
       {if isset($comment.U_DELETE) or isset($comment.U_VALIDATE) or isset($comment.U_EDIT) }
       <ul class="actions" style="float:right">
         {if isset($comment.U_DELETE)}
@@ -20,7 +20,7 @@
           </a>
         </li>
         {/if}
-        {if isset($comment.U_EDIT) and ($comment.IN_EDIT!=1)}
+        {if isset($comment.U_EDIT) and !isset($comment.IN_EDIT)}
         <li>
           <a class="editComment" href="{$comment.U_EDIT}#edit_comment" title="{'edit this comment'|@translate}">
             <img src="{$ROOT_URL}{$themeconf.icon_dir}/edit.png" class="button" alt="[edit]">
@@ -37,7 +37,7 @@
       </ul>
       {/if}
       <span class="author">{$comment.AUTHOR}</span> - <span class="date">{$comment.DATE}</span>
-      {if ($comment.IN_EDIT==1)}
+      {if isset($comment.IN_EDIT)}
       <a name="edit_comment"></a>
       <form  method="post" action="{$comment.U_EDIT}" class="filter" id="editComment">
 	<fieldset>
