@@ -28,6 +28,10 @@ An event will be logged if its name matches at least one expression in the list.
 	<input type="checkbox" name="eventTracer_show_registered" {$EVENT_TRACER_SHOW_REGISTERED} />
 </label>
 
+<label>Show all included php files
+	<input type="checkbox" name="eventTracer_show_included_files" {$EVENT_TRACER_SHOW_INCLUDED_FILES} />
+</label>
+
 </fieldset>
 
 <p><input class="submit" type="submit" value="Submit" /></p>
