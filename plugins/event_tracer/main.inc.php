@@ -23,7 +23,7 @@
 
 /*
 Plugin Name: Event tracer
-Version: 2.0.2
+Version: 2.0.3
 Description: For developers. Shows all calls to trigger_event.
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=288
 Author: Piwigo team
@@ -65,7 +65,6 @@ class EventTracer
         or empty($this->my_config['filters']) )
     {
       $this->my_config['filters'] = array( '.*' );
-      $this->my_config['show_args'] = false;
       $this->my_config['show_registered'] = true;
       $this->save_config();
     }
@@ -82,9 +81,10 @@ class EventTracer
 
   function on_page_tail()
   {
-    if (1 || @$this->my_config['show_registered'])
+    global $debug;
+    if (@$this->my_config['show_registered'])
     {
-      global $debug, $pwg_event_handlers;
+      global $pwg_event_handlers;
       $out = '';
       foreach ($pwg_event_handlers as $event => $prio_array)
       {
@@ -111,6 +111,10 @@ class EventTracer
       }
       $debug .= '<pre>'.$out.'</pre>';
     }
+    if (@$this->my_config['show_included_files'])
+    {
+      $debug .= "<pre><em>Included files</em>\n".var_export( get_included_files(), true ).'</pre>';
+    }
   }
 
   function on_trigger($event_info)
@@ -122,7 +126,7 @@ class EventTracer
     {
       if ( preg_match( '/'.$filter.'/', $event_info['event'] ) )
       {
-        if ($this->my_config['show_args'])
+        if (@$this->my_config['show_args'])
         {
           $s = '<pre>';
           $s .= htmlspecialchars( var_export( $event_info['data'], true ) );

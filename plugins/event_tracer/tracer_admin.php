@@ -18,14 +18,19 @@ if ( isset($_POST['eventTracer_filters']) )
     $me->my_config['filters'] = array();
   $me->my_config['show_args'] = isset($_POST['eventTracer_show_args']);
   $me->my_config['show_registered'] = isset($_POST['eventTracer_show_registered']);
+  if (isset($_POST['eventTracer_show_included_files']) )
+    $me->my_config['show_included_files'] = true;
+  else
+    unset($me->my_config['show_included_files']);
   $me->save_config();
   global $page;
   array_push($page['infos'], 'event tracer options saved');
 }
 $template->assign('EVENT_TRACER_FILTERS', implode("\n", $me->my_config['filters'] ) );
-$template->assign('EVENT_TRACER_SHOW_ARGS', $me->my_config['show_args'] ? 'checked="checked"' : '' );
+$template->assign('EVENT_TRACER_SHOW_ARGS', @$me->my_config['show_args'] ? 'checked="checked"' : '' );
 $template->assign('U_LIST_EVENTS', get_admin_plugin_menu_link(dirname(__FILE__).'/event_list.php'));
-$template->assign('EVENT_TRACER_SHOW_REGISTERED', $me->my_config['show_registered'] ? 'checked="checked"' : '' );
+$template->assign('EVENT_TRACER_SHOW_REGISTERED', @$me->my_config['show_registered'] ? 'checked="checked"' : '' );
+$template->assign('EVENT_TRACER_SHOW_INCLUDED_FILES', @$me->my_config['show_included_files'] ? 'checked="checked"' : '' );
 
 //$template->assign_var('EVENT_TRACER_F_ACTION', $my_url);
 
