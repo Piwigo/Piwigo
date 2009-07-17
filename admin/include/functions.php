@@ -2117,8 +2117,16 @@ SELECT '.$conf['user_fields']['username'].'
 
 function get_newsletter_subscribe_base_url($language) {
   $subscribe_domain = 'piwigo.org';
-  if ('fr_FR' == $language) {
-    $subscribe_domain = 'fr.piwigo.org';
+
+  $domain_of = array(
+    'fr_FR' => 'fr.piwigo.org',
+    'it_IT' => 'it.piwigo.org',
+    'de_DE' => 'de.piwigo.org',
+    'es_ES' => 'es.piwigo.org',
+    );
+
+  if (isset($domain_of[$language])) {
+    $subscribe_domain = $domain_of[$language];
   }
 
   return 'http://'.$subscribe_domain.'/announcement/subscribe/';
