@@ -247,8 +247,7 @@ SELECT ';
   }
   $query.= '
   FROM '.USERS_TABLE.'
-  WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'
-;';
+  WHERE '.$conf['user_fields']['id'].' = \''.$user_id.'\'';
 
   $row = mysql_fetch_array(pwg_query($query));
 
@@ -258,8 +257,7 @@ SELECT ';
 SELECT ui.*, uc.*
   FROM '.USER_INFOS_TABLE.' AS ui LEFT JOIN '.USER_CACHE_TABLE.' AS uc
     ON ui.user_id = uc.user_id
-  WHERE ui.user_id = \''.$user_id.'\'
-;';
+  WHERE ui.user_id = \''.$user_id.'\'';
     $result = pwg_query($query);
     if (mysql_num_rows($result) > 0)
     {
@@ -320,21 +318,64 @@ SELECT DISTINCT(id)
       $userdata['image_access_type'] = 'NOT IN'; //TODO maybe later
       $userdata['image_access_list'] = implode(',',$forbidden_ids);
 
-      update_user_cache_categories($userdata);
 
       $query = '
 SELECT COUNT(DISTINCT(image_id)) as total
   FROM '.IMAGE_CATEGORY_TABLE.'
   WHERE category_id NOT IN ('.$userdata['forbidden_categories'].')
-    AND image_id '.$userdata['image_access_type'].' ('.$userdata['image_access_list'].')
-;';
+    AND image_id '.$userdata['image_access_type'].' ('.$userdata['image_access_list'].')';
       list($userdata['nb_total_images']) = mysql_fetch_array(pwg_query($query));
+
+
+      // now we update user cache categories
+      $user_cache_cats = get_computed_categories($userdata, null);
+      if ( !is_admin($userdata['status']) )
+      { // for non admins we forbid categories with no image (feature 1053)
+        $forbidden_ids = array();
+        foreach ($user_cache_cats as $cat_id => $cat)
+        {
+          if ($cat['count_images']==0)
+          {
+            array_push($forbidden_ids, $cat_id);
+            unset( $user_cache_cats[$cat_id] );
+          }
+        }
+        if ( !empty($forbidden_ids) )
+        {
+          if ( empty($userdata['forbidden_categories']) )
+          {
+            $userdata['forbidden_categories'] = implode(',', $forbidden_ids);
+          }
+          else
+          {
+            $userdata['forbidden_categories'] .= ','.implode(',', $forbidden_ids);
+          }
+        }
+      }
+
+      // delete user cache
+      $query = '
+DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
+  WHERE user_id = '.$userdata['id'];
+      pwg_query($query);
+
+      include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
+      mass_inserts
+      (
+        USER_CACHE_CATEGORIES_TABLE,
+        array
+        (
+          'user_id', 'cat_id',
+          'date_last', 'max_date_last', 'nb_images', 'count_images', 'count_categories'
+        ),
+        $user_cache_cats
+      );
+
 
       // update user cache
       $query = '
 DELETE FROM '.USER_CACHE_TABLE.'
-  WHERE user_id = '.$userdata['id'].'
-;';
+  WHERE user_id = '.$userdata['id'];
       pwg_query($query);
 
       $query = '
@@ -345,8 +386,7 @@ INSERT INTO '.USER_CACHE_TABLE.'
   ('.$userdata['id'].',\''.boolean_to_string($userdata['need_update']).'\','
   .$userdata['cache_update_time'].',\''
   .$userdata['forbidden_categories'].'\','.$userdata['nb_total_images'].',"'
-  .$userdata['image_access_type'].'","'.$userdata['image_access_list'].'")
-;';
+  .$userdata['image_access_type'].'","'.$userdata['image_access_list'].'")';
       pwg_query($query);
     }
   }
@@ -640,36 +680,6 @@ FROM '.CATEGORIES_TABLE.' as c
     compute_categories_data($cats);
   }
   return $cats;
-}
-
-/**
- * update data of user_cache_categories
- *
- * @param array userdata
- * @return null
- */
-function update_user_cache_categories($userdata)
-{
-  // delete user cache
-  $query = '
-DELETE FROM '.USER_CACHE_CATEGORIES_TABLE.'
-  WHERE user_id = '.$userdata['id'].'
-;';
-  pwg_query($query);
-
-  $cats = get_computed_categories($userdata, null);
-
-  include_once(PHPWG_ROOT_PATH.'admin/include/functions.php');
-  mass_inserts
-  (
-    USER_CACHE_CATEGORIES_TABLE,
-    array
-    (
-      'user_id', 'cat_id',
-      'date_last', 'max_date_last', 'nb_images', 'count_images', 'count_categories'
-    ),
-    $cats
-  );
 }
 
 /**
@@ -1202,13 +1212,13 @@ function is_adviser()
  * @param action edit/delete
  * @return bool
  */
-function can_manage_comment($action, $comment_author_id) 
+function can_manage_comment($action, $comment_author_id)
 {
   if (!in_array($action, array('delete','edit'))) {
     return false;
   }
-  return (is_admin() || 
-	  (($GLOBALS['user']['id'] == $comment_author_id) 
+  return (is_admin() ||
+	  (($GLOBALS['user']['id'] == $comment_author_id)
 	   && !is_a_guest()
 	   && $GLOBALS['conf'][sprintf('user_can_%s_comment', $action)]));
 }
