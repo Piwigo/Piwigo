@@ -332,12 +332,12 @@ SELECT COUNT(DISTINCT(image_id)) as total
       if ( !is_admin($userdata['status']) )
       { // for non admins we forbid categories with no image (feature 1053)
         $forbidden_ids = array();
-        foreach ($user_cache_cats as $cat_id => $cat)
+        foreach ($user_cache_cats as $cat)
         {
           if ($cat['count_images']==0)
           {
-            array_push($forbidden_ids, $cat_id);
-            unset( $user_cache_cats[$cat_id] );
+            array_push($forbidden_ids, $cat['cat_id']);
+            unset( $user_cache_cats[$cat['cat_id']] );
           }
         }
         if ( !empty($forbidden_ids) )
