@@ -656,7 +656,7 @@ FROM '.CATEGORIES_TABLE.' as c
 
     $cats += array($row['cat_id'] => $row);
   }
-  usort($cats, 'global_rank_compare');
+  uasort($cats, 'global_rank_compare');
 
   compute_categories_data($cats);
 
