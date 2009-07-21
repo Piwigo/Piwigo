@@ -1214,7 +1214,7 @@ SELECT
   }
 
   // and now, let's create tag associations
-  if (isset($params['tag_ids']))
+  if (isset($params['tag_ids']) and !empty($params['tag_ids']))
   {
     set_tags(
       explode(',', $params['tag_ids']),
