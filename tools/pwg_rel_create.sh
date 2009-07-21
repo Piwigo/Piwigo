@@ -33,7 +33,7 @@ fi
 mkdir $version
 
 # cvs export -r $tag -d $version phpwebgallery
-svn export http://svn.gna.org/svn/phpwebgallery/tags/$tag $name
+svn export http://piwigo.org/svn/tags/$tag $name
 # creating mysql.inc.php empty and writeable
 touch $name/include/mysql.inc.php
 chmod a+w $name/include/mysql.inc.php
