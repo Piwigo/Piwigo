@@ -654,6 +654,12 @@ $conf['enable_plugins']=true;
 // Web services are allowed (true) or completely forbidden (false)
 $conf['allow_web_services'] = true;
 
+// enable log for web services
+$conf['ws_enable_log'] = false;
+
+// web services log file path
+$conf['ws_log_filepath'] = '/tmp/piwigo_ws.log';
+
 // Maximum number of images to be returned foreach call to the web service
 $conf['ws_max_images_per_page'] = 500;
 
