@@ -990,19 +990,15 @@ function ws_images_add($params, &$service)
     return new PwgError(401, 'Access denied');
   }
 
-  // name
-  // category_id
-  // file_content
-  // file_sum
-  // thumbnail_content
-  // thumbnail_sum
-  // rank
-
-  // $fh_log = fopen('/tmp/php.log', 'w');
-  // fwrite($fh_log, time()."\n");
-  // fwrite($fh_log, 'input rank :'.$params['rank']."\n");
-  // fwrite($fh_log, 'input:  '.$params['file_sum']."\n");
-  // fwrite($fh_log, 'input:  '.$params['thumbnail_sum']."\n");
+  foreach ($params as $param_key => $param_value) {
+    ws_logfile(
+      sprintf(
+        '[pwg.images.add] input param "%s" : "%s"',
+        $param_key,
+        is_null($param_value) ? 'NULL' : $param_value
+        )
+      );
+  }
 
   // does the image already exists ?
   $query = '
@@ -1027,8 +1023,6 @@ SELECT
     $month,
     $day
     );
-
-  //fwrite($fh_log, $upload_dir."\n");
 
   // create the upload directory tree if not exists
   if (!is_dir($upload_dir)) {
@@ -1223,8 +1217,6 @@ SELECT
   }
 
   invalidate_user_cache();
-
-  // fclose($fh_log);
 }
 
 /**
@@ -1790,10 +1782,14 @@ function ws_categories_setInfo($params, &$service)
 
 function ws_logfile($string)
 {
-  return true;
+  global $conf;
+
+  if (!$conf['ws_enable_log']) {
+    return true;
+  }
   
   file_put_contents(
-    '/tmp/piwigo_ws.log',
+    $conf['ws_log_filepath'],
     '['.date('c').'] '.$string."\n",
     FILE_APPEND
     );
