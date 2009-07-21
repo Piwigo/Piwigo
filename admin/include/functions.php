@@ -171,7 +171,7 @@ SELECT
 
       foreach (array($file_path, $thumbnail_path, $high_path) as $path)
       {
-        if (isset($path) and !unlink($path))
+        if (isset($path) and is_file($path) and !unlink($path))
         {
           die('"'.$path.'" cannot be removed');
         }
