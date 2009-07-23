@@ -94,6 +94,7 @@ $eligible_templates = array(
     'notification.tpl'           => 'notification',
     'picture.tpl'                => 'picture',
     'picture_content.tpl'        => 'default_content',
+    'picture_nav_buttons.tpl'    => 'picture_nav_buttons',
     'popuphelp.tpl'              => 'popuphelp',
     'profile.tpl'                => 'profile',
     'profile_content.tpl'        => 'profile_content',
