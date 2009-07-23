@@ -201,6 +201,7 @@ switch ($page['tab'])
           'notification.tpl',
           'picture.tpl',
           'picture_content.tpl',
+          'picture_nav_buttons.tpl',
           'popuphelp.tpl',
           'profile.tpl',
           'profile_content.tpl',
