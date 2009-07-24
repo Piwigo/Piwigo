@@ -54,9 +54,9 @@ $lang['Adv_case'][4] = array( /* show_iptc_mapping */
  'Gli utenti più sperimentati si occuperanno dei valori della tabella $lang e degli impatti sui templates.', );
 $lang['Adv_case'][5] = array( /* top_number */
  'Questo valore è forse troppo alto per i collegamenti a bassa velocità.',
- 'Pensate ad un valore tra 25-50 in funzione della taglia delle miniature.', );
+ 'Pensate ad un valore tra 25-50 in funzione delle dimenzioni delle miniature.', );
 $lang['Adv_case'][6] = array( /* top_number */
- 'Una sola? Almeno per le "immagini a caso", pensate ad un valore tra 5-10 circa in funzione della taglia delle miniature.',  );
+ 'Una sola? Almeno per le "immagini a caso", pensate ad un valore tra 5-10 circa in funzione delle dimenzioni delle miniature.',  );
 $lang['Adv_case'][7] = array( /* anti-flood_time */
  'Per uno scorrimento normale, il vostro valore è probabilmente troppo alto. Un buon\' valore sarebbe 60 (valore predefinito).', );
 $lang['Adv_case'][8] = array( /* calendar_datefield */
