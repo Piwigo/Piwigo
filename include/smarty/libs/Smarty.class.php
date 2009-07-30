@@ -20,7 +20,7 @@
  *
  * For questions, help, comments, discussion, etc., please join the
  * Smarty mailing list. Send a blank e-mail to
- * smarty-discussion-subscribe@googlegroups.com 
+ * smarty-discussion-subscribe@googlegroups.com
  *
  * @link http://www.smarty.net/
  * @copyright 2001-2005 New Digital Group, Inc.
@@ -1058,7 +1058,7 @@ class Smarty
         } else {
             // var non-existant, return valid reference
             $_tmp = null;
-            return $_tmp;   
+            return $_tmp;
         }
     }
 
@@ -1117,7 +1117,7 @@ class Smarty
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
         static $_cache_info = array();
-        
+
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
@@ -1304,6 +1304,11 @@ class Smarty
             error_reporting($_smarty_old_error_level);
             return;
         } else {
+            if ($this->debugging) {
+                // capture time for debugging info
+                require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
+                $this->_smarty_debug_info[$_included_tpls_idx]['exec_time'] = (smarty_core_get_microtime(array(), $this) - $_debug_start_time);
+            }
             error_reporting($_smarty_old_error_level);
             if (isset($_smarty_results)) { return $_smarty_results; }
         }
@@ -1933,10 +1938,10 @@ class Smarty
     {
         return eval($code);
     }
-    
+
     /**
      * Extracts the filter name from the given callback
-     * 
+     *
      * @param callback $function
      * @return string
      */
@@ -1951,7 +1956,7 @@ class Smarty
 			return $function;
 		}
 	}
-  
+
     /**#@-*/
 
 }
