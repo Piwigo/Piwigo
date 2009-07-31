@@ -99,6 +99,7 @@ if ( isset($_POST['submit']) and !is_adviser() )
   make_consecutive( $mb_conf );
 
   // BEGIN OPTIM - DONT ASK ABOUT THIS ALGO - but optimizes the size of the array we save in DB
+  /* !!! OPTIM DISABLED UNTIL IT HAS BEEN FIXED !!!
   $reg_keys = array_keys($reg_blocks);
   $cnf_keys = array_keys($mb_conf);
   $best_slice = array( 'len'=>0 );
@@ -121,7 +122,9 @@ if ( isset($_POST['submit']) and !is_adviser() )
       }
     }
   }
+  */
   $mb_conf_db = $mb_conf;
+  /*
   if ($best_slice['len'])
   {
     for ($j=0; $j<$best_slice['start_cnf']; $j++ )
@@ -137,7 +140,7 @@ if ( isset($_POST['submit']) and !is_adviser() )
   }
   //var_export( $best_slice ); var_export($mb_conf);  var_export($mb_conf_db);
   // END OPTIM
-
+  */
   $query = '
 UPDATE '.CONFIG_TABLE.'
   SET value="'.addslashes(serialize($mb_conf_db)).'"
