@@ -149,7 +149,8 @@ TD {
 {else}
 <p>
   <br />
-  <input type="button" name="identification" value="{'Identification'|@translate}" onClick="window.open('identification.php');"/>
+  <input type="button" name="home" value="{'home'|@translate}" onClick="window.location='index.php';"/>
+  <input type="button" name="admin" value="{'admin'|@translate}" onClick="window.location='admin.php';"/>
 </p>
 
 <div class="infos">
@@ -159,6 +160,7 @@ TD {
 </div>
 
 <p>
+  <br />
   <input type="button" name="subscribe" value="{'Subscribe %s'|@translate|@sprintf:$F_ADMIN_EMAIL}" onClick="window.open('{$SUBSCRIBE_BASE_URL}{$F_ADMIN_EMAIL}');"/>
 </p>
 {/if}
