@@ -213,7 +213,11 @@ DELETE FROM ' . PLUGINS_TABLE . ' WHERE id="' . $plugin_id . '"';
           {
             $plugin['uri'] = trim($val[1]);
           }
-          if ( preg_match("|Description: (.*)|", $plg_data, $val) )
+          if ($desc = load_language('description.txt', $path.'/', array('return' => true)))
+          {
+            $plugin['description'] = trim($desc);
+          }
+          elseif ( preg_match("|Description: (.*)|", $plg_data, $val) )
           {
             $plugin['description'] = trim($val[1]);
           }
