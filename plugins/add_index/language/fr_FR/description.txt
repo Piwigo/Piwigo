@@ -1,0 +1,1 @@
+Ajoute le fichier index.php sur les sous-répertoires de galeries d'images locales.
