@@ -418,6 +418,27 @@ else
   {
     array_push($errors, $error_copy);
   }
+  else
+  {
+    session_set_save_handler('pwg_session_open',
+      'pwg_session_close',
+      'pwg_session_read',
+      'pwg_session_write',
+      'pwg_session_destroy',
+      'pwg_session_gc'
+    );
+    if ( function_exists('ini_set') )
+    {
+      ini_set('session.use_cookies', $conf['session_use_cookies']);
+      ini_set('session.use_only_cookies', $conf['session_use_only_cookies']);
+      ini_set('session.use_trans_sid', intval($conf['session_use_trans_sid']));
+      ini_set('session.cookie_httponly', 1);
+    }
+    session_name($conf['session_name']);
+    session_set_cookie_params(0, cookie_path());
+    $user = build_user(1, true);
+    log_user($user['id'], false);
+  }
 
   $template->assign(
     'SUBSCRIBE_BASE_URL',
