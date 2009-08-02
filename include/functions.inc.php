@@ -256,7 +256,7 @@ function mkgetdir($dir, $flags=MKGETDIR_DEFAULT)
  */
 function mkget_thumbnail_dir($dirname, &$errors)
 {
-  $tndir = $dirname.'/thumbnail';
+  $tndir = $dirname.'/'.$conf['dir_thumbnail'];
   if (! mkgetdir($tndir, MKGETDIR_NONE) )
   {
     array_push($errors,
@@ -865,7 +865,7 @@ function get_thumbnail_location($element_info)
   {
     $path = substr_replace(
       get_filename_wo_extension($element_info['path']),
-      '/thumbnail/'.$conf['prefix_thumbnail'],
+      '/'.$conf['dir_thumbnail'].'/'.$conf['prefix_thumbnail'],
       strrpos($element_info['path'],'/'),
       1
       );

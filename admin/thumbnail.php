@@ -204,7 +204,7 @@ while ( $row=mysql_fetch_assoc($result) )
       // searching the element
       $filename_wo_ext = get_filename_wo_extension($filename);
       $tn_ext = '';
-      $base_test = $dirname.'/thumbnail/';
+      $base_test = $dirname.'/'.$conf['dir_thumbnail'].'/';
       $base_test.= $conf['prefix_thumbnail'].$filename_wo_ext.'.';
       foreach ($conf['picture_ext'] as $ext)
       {

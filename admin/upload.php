@@ -187,7 +187,7 @@ while ( $row = mysql_fetch_array( $result ) )
     $thumbnail.= get_filename_wo_extension( $row['file'] );
     $thumbnail.= '.'.$row['tn_ext'];
 	$url = $cat_names[$row['storage_category_id']]['dir'];
-    $url.= 'thumbnail/'.$thumbnail;
+    $url.= $conf['dir_thumbnail'].'/'.$thumbnail;
 
     $tpl_var['thumbnail'] =
       array(

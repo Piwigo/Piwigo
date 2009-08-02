@@ -264,6 +264,9 @@ $conf['allow_html_descriptions'] = true;
 // contain characters among : a to z (case insensitive), "-" or "_".
 $conf['prefix_thumbnail'] = 'TN-';
 
+// dir_thumbnail : directory where thumbnail reside.
+$conf['dir_thumbnail'] = 'thumbnail';
+
 // users_page: how many users to display in screen
 // Administration>Identification>Users?
 $conf['users_page'] = 20;

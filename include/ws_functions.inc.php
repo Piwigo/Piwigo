@@ -1065,7 +1065,7 @@ SELECT
 
   // thumbnail directory is a subdirectory of the photo file, hard coded
   // "thumbnail"
-  $thumbnail_dir = $upload_dir.'/thumbnail';
+  $thumbnail_dir = $upload_dir.'/'.$conf['dir_thumbnail'];
   if (!is_dir($thumbnail_dir)) {
     umask(0000);
     if (!@mkdir($thumbnail_dir, 0777))
