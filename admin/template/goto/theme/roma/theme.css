@@ -98,7 +98,10 @@ a.Piwigo:hover  span.Piwigo  {
   border-bottom: 1px solid #FF3363; 
 }
 
+/* RADU - I comment this because it makes FF form controls activation very slow)
 *, *:focus, *:active, input:active, a:active, input:focus, a:focus { outline: none; -moz-outline-width: 0px; }
+*/
+
 a { color:#f70; border-width: 0; }
 a:hover, a:active { color: #f33; border-bottom: 1px solid #FF3363; cursor: pointer; }
 .content .navigationBar {color:#666;}

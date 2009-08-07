@@ -1,5 +1,4 @@
 {known_script id="jquery" src=$ROOT_URL|@cat:"template-common/lib/jquery.packed.js"}
-{known_script id="jquery.dimensions" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.dimensions.packed.js"}
 {known_script id="jquery.cluetip" src=$ROOT_URL|@cat:"template-common/lib/plugins/jquery.cluetip.packed.js"}
 
 <script type="text/javascript">
