@@ -62,7 +62,7 @@ $lang['Adv_case'][7] = array( /* anti-flood_time */
 $lang['Adv_case'][8] = array( /* calendar_datefield */
  'I valori autorizzati sono ' . "'date_creation' o 'date_available'" . ', tutt\'altro valore può dare risultato inaspettato.' , );
 $lang['Adv_case'][9] = array( /* calendar_datefield */
- "'date_creation'" . ' é vuoto. Nessun campo dei metadati (use_) n\'attualizza la base.',
+ "'date_creation'" . ' è vuoto. Nessun campo dei metadati (use_) n\'attualizza la base.',
  'O attivate l\'uso dei metatati activate <strong>o</strong> cambiate a $conf[\'calendar_datefield\'] = \'date_available\'',
  'Attivate l\'uso dei metadati semplicemente con :',
  '1 - $conf[\'use_iptc\'] = true, o $conf[\'use_exif\'] = true; le due sonuzioni possono essere usate.',
@@ -70,9 +70,9 @@ $lang['Adv_case'][9] = array( /* calendar_datefield */
  '$conf[\'use_iptc_mapping\'] = array( ..., \'date_creation\' => \'2#055\', ...',
  'o/e:',
  '$conf[\'use_exif_mapping\'] = array(\'date_creation\' => \'DateTimeOriginal\', ...',
- '3 - In fine una nuova operazione é da eseguire : la sincronizzazione dei metadati synchronization.', );
+ '3 - In fine una nuova operazione è da eseguire : la sincronizzazione dei metadati synchronization.', );
 $lang['Adv_case'][10] = array( /* newcat_default_visible */
- 'E un errore, lo stato "private" é più semplice, allora scegliete $conf[\'newcat_default_visible\'] = true,', );
+ 'E un errore, lo stato "private" è più semplice, allora scegliete $conf[\'newcat_default_visible\'] = true,', );
 $lang['Adv_case'][11] = array( /* level_separator */
  'Potete sempre provare un altro separatore come : $conf[\'level_separator\'] = \'+ \',',  );
 $lang['Adv_case'][12] = array( /* paginate_pages_around */
